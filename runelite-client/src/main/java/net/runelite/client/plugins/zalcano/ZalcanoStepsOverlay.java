@@ -30,21 +30,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-public class ZalcanoStepsOverlay extends Overlay {
+public class ZalcanoStepsOverlay extends Overlay
+{
 	private final Client client;
 	private final ZalcanoPlugin plugin;
 	private final ZalcanoConfig config;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	ZalcanoStepsOverlay(final Client client, final ZalcanoPlugin plugin, final ZalcanoConfig config) {
+	ZalcanoStepsOverlay(final Client client, final ZalcanoPlugin plugin, final ZalcanoConfig config)
+	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -53,14 +54,16 @@ public class ZalcanoStepsOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (client.getLocalPlayer().getWorldLocation().getRegionID() == 12126 && config.showSteps()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (client.getLocalPlayer().getWorldLocation().getRegionID() == 12126 && config.showSteps())
+		{
 			panelComponent.getChildren().clear();
 
 			panelComponent.getChildren().add(TitleComponent.builder()
-					.text("Step: " + plugin.getStep().name())
-					.color(Color.CYAN)
-					.build());
+				.text("Step: " + plugin.getStep().name())
+				.color(Color.CYAN)
+				.build());
 
 			return panelComponent.render(graphics);
 		}

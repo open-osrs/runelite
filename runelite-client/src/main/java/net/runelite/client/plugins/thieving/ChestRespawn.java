@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.thieving;
 
 import java.time.Instant;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,8 @@ import net.runelite.api.coords.WorldPoint;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-class ChestRespawn {
+class ChestRespawn
+{
 	private final Chest chest;
 	private final WorldPoint worldPoint;
 	private final Instant endTime;
@@ -41,8 +41,10 @@ class ChestRespawn {
 
 	private long respawnTime = -1;
 
-	long getRespawnTime() {
-		if (respawnTime != -1) {
+	long getRespawnTime()
+	{
+		if (respawnTime != -1)
+		{
 			return respawnTime;
 		}
 

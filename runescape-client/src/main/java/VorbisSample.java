@@ -23,25 +23,25 @@ public class VorbisSample extends Node {
 	static int VorbisSample_blockSize1;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "[Lcl;"
+		signature = "[Lcl;"
 	)
 	@Export("VorbisSample_codebooks")
 	static VorbisCodebook[] VorbisSample_codebooks;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-			signature = "[Ldm;"
+		signature = "[Ldm;"
 	)
 	@Export("VorbisSample_floors")
 	static VorbisFloor[] VorbisSample_floors;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-			signature = "[Ldc;"
+		signature = "[Ldc;"
 	)
 	@Export("VorbisSample_residues")
 	static VorbisResidue[] VorbisSample_residues;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-			signature = "[Ldy;"
+		signature = "[Ldy;"
 	)
 	@Export("VorbisSample_mappings")
 	static VorbisMapping[] VorbisSample_mappings;
@@ -134,7 +134,7 @@ public class VorbisSample extends Node {
 			do {
 				var6 = var2.readUnsignedByte();
 				var5 += var6;
-			} while (var6 >= 255);
+			} while(var6 >= 255);
 
 			byte[] var7 = new byte[var5];
 			var2.readBytes(var7, 0, var5);
@@ -356,15 +356,15 @@ public class VorbisSample extends Node {
 
 			float[] var10000;
 			for (var47 = var8; var47 < var9; ++var47) {
-				var27 = (float) Math.sin(((double) (var47 - var8) + 0.5D) / (double) var10 * 0.5D * 3.141592653589793D);
+				var27 = (float)Math.sin(((double)(var47 - var8) + 0.5D) / (double)var10 * 0.5D * 3.141592653589793D);
 				var10000 = field1363;
-				var10000[var47] *= (float) Math.sin(1.5707963267948966D * (double) var27 * (double) var27);
+				var10000[var47] *= (float)Math.sin(1.5707963267948966D * (double)var27 * (double)var27);
 			}
 
 			for (var47 = var11; var47 < var12; ++var47) {
-				var27 = (float) Math.sin(((double) (var47 - var11) + 0.5D) / (double) var13 * 0.5D * 3.141592653589793D + 1.5707963267948966D);
+				var27 = (float)Math.sin(((double)(var47 - var11) + 0.5D) / (double)var13 * 0.5D * 3.141592653589793D + 1.5707963267948966D);
 				var10000 = field1363;
-				var10000[var47] *= (float) Math.sin(1.5707963267948966D * (double) var27 * (double) var27);
+				var10000[var47] *= (float)Math.sin(1.5707963267948966D * (double)var27 * (double)var27);
 			}
 		}
 
@@ -399,7 +399,7 @@ public class VorbisSample extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "([I)Lcv;"
+		signature = "([I)Lcv;"
 	)
 	@Export("toRawSound")
 	RawSound toRawSound(int[] var1) {
@@ -428,12 +428,12 @@ public class VorbisSample extends Node {
 					}
 
 					for (int var5 = 0; var5 < var4; ++var5) {
-						int var6 = (int) (128.0F + var2[var5] * 128.0F);
+						int var6 = (int)(128.0F + var2[var5] * 128.0F);
 						if ((var6 & -256) != 0) {
 							var6 = ~var6 >> 31;
 						}
 
-						this.samples[var3++] = (byte) (var6 - 128);
+						this.samples[var3++] = (byte)(var6 - 128);
 					}
 
 					if (var1 != null) {
@@ -461,7 +461,7 @@ public class VorbisSample extends Node {
 			var1 = -var1;
 		}
 
-		return (float) ((double) var1 * Math.pow(2.0D, (double) (var3 - 788)));
+		return (float)((double)var1 * Math.pow(2.0D, (double)(var3 - 788)));
 	}
 
 	@ObfuscatedName("t")
@@ -527,22 +527,22 @@ public class VorbisSample extends Node {
 			float[] var6 = new float[var3];
 
 			for (int var7 = 0; var7 < var4; ++var7) {
-				var6[var7 * 2] = (float) Math.cos((double) (var7 * 4) * 3.141592653589793D / (double) var2);
-				var6[var7 * 2 + 1] = -((float) Math.sin((double) (var7 * 4) * 3.141592653589793D / (double) var2));
+				var6[var7 * 2] = (float)Math.cos((double)(var7 * 4) * 3.141592653589793D / (double)var2);
+				var6[var7 * 2 + 1] = -((float)Math.sin((double)(var7 * 4) * 3.141592653589793D / (double)var2));
 			}
 
 			float[] var12 = new float[var3];
 
 			for (int var8 = 0; var8 < var4; ++var8) {
-				var12[var8 * 2] = (float) Math.cos((double) (var8 * 2 + 1) * 3.141592653589793D / (double) (var2 * 2));
-				var12[var8 * 2 + 1] = (float) Math.sin((double) (var8 * 2 + 1) * 3.141592653589793D / (double) (var2 * 2));
+				var12[var8 * 2] = (float)Math.cos((double)(var8 * 2 + 1) * 3.141592653589793D / (double)(var2 * 2));
+				var12[var8 * 2 + 1] = (float)Math.sin((double)(var8 * 2 + 1) * 3.141592653589793D / (double)(var2 * 2));
 			}
 
 			float[] var13 = new float[var4];
 
 			for (int var9 = 0; var9 < var5; ++var9) {
-				var13[var9 * 2] = (float) Math.cos((double) (var9 * 4 + 2) * 3.141592653589793D / (double) var2);
-				var13[var9 * 2 + 1] = -((float) Math.sin((double) (var9 * 4 + 2) * 3.141592653589793D / (double) var2));
+				var13[var9 * 2] = (float)Math.cos((double)(var9 * 4 + 2) * 3.141592653589793D / (double)var2);
+				var13[var9 * 2 + 1] = -((float)Math.sin((double)(var9 * 4 + 2) * 3.141592653589793D / (double)var2));
 			}
 
 			int[] var14 = new int[var5];
@@ -614,7 +614,7 @@ public class VorbisSample extends Node {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(Lii;)Z"
+		signature = "(Lii;)Z"
 	)
 	static boolean method2450(AbstractArchive var0) {
 		if (!field1362) {
@@ -632,7 +632,7 @@ public class VorbisSample extends Node {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(Lii;II)Lcj;"
+		signature = "(Lii;II)Lcj;"
 	)
 	@Export("readMusicSample")
 	static VorbisSample readMusicSample(AbstractArchive var0, int var1, int var2) {

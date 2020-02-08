@@ -9,24 +9,24 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -2006912315
+		intValue = -2006912315
 	)
 	int field3900;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 713316533
+		intValue = 713316533
 	)
 	int field3901;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 2074317301
+		intValue = 2074317301
 	)
 	int field3902;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)Llv;",
-			garbageValue = "-1317089795"
+		signature = "(I)Llv;",
+		garbageValue = "-1317089795"
 	)
 	@Export("get")
 	public PlatformInfo get() {
@@ -134,7 +134,7 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		}
 
 		this.method6331(var5);
-		int var10 = (int) (Runtime.getRuntime().maxMemory() / 1048576L) + 1;
+		int var10 = (int)(Runtime.getRuntime().maxMemory() / 1048576L) + 1;
 		int var11;
 		if (this.field3900 > 3) {
 			var11 = Runtime.getRuntime().availableProcessors();
@@ -155,8 +155,8 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;I)V",
-			garbageValue = "-1120202582"
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "-1120202582"
 	)
 	void method6331(String var1) {
 		if (var1.startsWith("1.")) {
@@ -169,8 +169,8 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;B)V",
-			garbageValue = "1"
+		signature = "(Ljava/lang/String;B)V",
+		garbageValue = "1"
 	)
 	void method6323(String var1) {
 		String[] var2 = var1.split("\\.");
@@ -187,8 +187,8 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;B)V",
-			garbageValue = "-78"
+		signature = "(Ljava/lang/String;B)V",
+		garbageValue = "-78"
 	)
 	void method6322(String var1) {
 		String[] var2 = var1.split("\\.");

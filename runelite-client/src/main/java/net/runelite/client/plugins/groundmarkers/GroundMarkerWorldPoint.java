@@ -28,7 +28,8 @@ import lombok.Value;
 import net.runelite.api.coords.WorldPoint;
 
 @Value
-class GroundMarkerWorldPoint {
+class GroundMarkerWorldPoint
+{
 	private GroundMarkerPoint groundMarkerPoint;
 	private WorldPoint worldPoint;
 }

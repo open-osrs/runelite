@@ -44,7 +44,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -53,11 +52,13 @@ import net.runelite.client.util.ImageUtil;
 
 @Slf4j
 @Singleton
-class ProfilePanel extends JPanel {
+class ProfilePanel extends JPanel
+{
 	private static final ImageIcon DELETE_ICON;
 	private static final ImageIcon DELETE_HOVER_ICON;
 
-	static {
+	static
+	{
 		final BufferedImage deleteImg = ImageUtil.getResourceStreamFromClass(ProfilesPlugin.class, "delete_icon.png");
 		DELETE_ICON = new ImageIcon(deleteImg);
 		DELETE_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(deleteImg, -100));
@@ -66,10 +67,12 @@ class ProfilePanel extends JPanel {
 	private final String loginText;
 	private String password = null;
 
-	ProfilePanel(final Client client, final String data, final ProfilesPlugin plugin, final ProfilesPanel parent) {
+	ProfilePanel(final Client client, final String data, final ProfilesPlugin plugin, final ProfilesPanel parent)
+	{
 		String[] parts = data.split(":");
 		this.loginText = parts[1];
-		if (parts.length == 3) {
+		if (parts.length == 3)
+		{
 			this.password = parts[2];
 		}
 
@@ -81,8 +84,8 @@ class ProfilePanel extends JPanel {
 		JPanel labelWrapper = new JPanel(new BorderLayout());
 		labelWrapper.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		labelWrapper.setBorder(new CompoundBorder(
-				BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
-				BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR)
+			BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.DARK_GRAY_COLOR),
+			BorderFactory.createLineBorder(ColorScheme.DARKER_GRAY_COLOR)
 		));
 
 		JPanel panelActions = new JPanel(new BorderLayout(3, 0));
@@ -92,24 +95,31 @@ class ProfilePanel extends JPanel {
 		JLabel delete = new JLabel();
 		delete.setIcon(DELETE_ICON);
 		delete.setToolTipText("Delete account profile");
-		delete.addMouseListener(new MouseAdapter() {
+		delete.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				panel.getParent().remove(panel);
-				try {
+				try
+				{
 					parent.removeProfile(data);
-				} catch (InvalidKeySpecException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchPaddingException ex) {
+				}
+				catch (InvalidKeySpecException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchPaddingException ex)
+				{
 					log.error(e.toString());
 				}
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				delete.setIcon(DELETE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				delete.setIcon(DELETE_ICON);
 			}
 		});
@@ -126,12 +136,16 @@ class ProfilePanel extends JPanel {
 
 		labelWrapper.add(label, BorderLayout.CENTER);
 		labelWrapper.add(panelActions, BorderLayout.EAST);
-		label.addMouseListener(new MouseAdapter() {
+		label.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
-				if (SwingUtilities.isLeftMouseButton(e) && client.getGameState() == GameState.LOGIN_SCREEN) {
+			public void mousePressed(MouseEvent e)
+			{
+				if (SwingUtilities.isLeftMouseButton(e) && client.getGameState() == GameState.LOGIN_SCREEN)
+				{
 					client.setUsername(loginText);
-					if (plugin.isRememberPassword() && password != null) {
+					if (plugin.isRememberPassword() && password != null)
+					{
 						client.setPassword(password);
 					}
 				}
@@ -141,19 +155,24 @@ class ProfilePanel extends JPanel {
 		JPanel bottomContainer = new JPanel(new BorderLayout());
 		bottomContainer.setBorder(new EmptyBorder(8, 0, 8, 0));
 		bottomContainer.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		bottomContainer.addMouseListener(new MouseAdapter() {
+		bottomContainer.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
-				if (SwingUtilities.isLeftMouseButton(e) && client.getGameState() == GameState.LOGIN_SCREEN) {
+			public void mousePressed(MouseEvent e)
+			{
+				if (SwingUtilities.isLeftMouseButton(e) && client.getGameState() == GameState.LOGIN_SCREEN)
+				{
 					client.setUsername(loginText);
-					if (plugin.isRememberPassword() && password != null) {
+					if (plugin.isRememberPassword() && password != null)
+					{
 						client.setPassword(password);
 					}
 				}
 			}
 		});
 
-		if (plugin.isDisplayEmailAddress()) {
+		if (plugin.isDisplayEmailAddress())
+		{
 			JLabel login = new JLabel();
 			login.setText(plugin.isStreamerMode() ? "Hidden email" : loginText);
 			login.setBorder(null);

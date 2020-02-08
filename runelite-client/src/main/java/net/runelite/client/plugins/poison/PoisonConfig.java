@@ -30,65 +30,72 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup(PoisonConfig.GROUP)
-public interface PoisonConfig extends Config {
+public interface PoisonConfig extends Config
+{
 	String GROUP = "poison";
 
 	@ConfigItem(
-			keyName = "showInfoboxes",
-			name = "Show Infoboxes",
-			description = "Configures whether to show the infoboxes"
+		keyName = "showInfoboxes",
+		name = "Show Infoboxes",
+		description = "Configures whether to show the infoboxes"
 	)
-	default boolean showInfoboxes() {
+	default boolean showInfoboxes()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "changeHealthIcon",
-			name = "Change HP Orb Icon",
-			description = "Configures whether the hp orb icon should change color to match poison/disease"
+		keyName = "changeHealthIcon",
+		name = "Change HP Orb Icon",
+		description = "Configures whether the hp orb icon should change color to match poison/disease"
 	)
-	default boolean changeHealthIcon() {
+	default boolean changeHealthIcon()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showPlayers",
-			name = "Show for players",
-			description = "Show poison timers for other players",
-			position = 1
+		keyName = "showPlayers",
+		name = "Show for players",
+		description = "Show poison timers for other players",
+		position = 1
 	)
-	default boolean showForPlayers() {
+	default boolean showForPlayers()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "showNpcs",
-			name = "Show for NPCs",
-			description = "Show poison timers for NPCs",
-			position = 2
+		keyName = "showNpcs",
+		name = "Show for NPCs",
+		description = "Show poison timers for NPCs",
+		position = 2
 	)
-	default boolean showForNpcs() {
+	default boolean showForNpcs()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "fontsize",
-			name = "Font size",
-			description = "The size the time left text for other players/npc's will be",
-			position = 3
+		keyName = "fontsize",
+		name = "Font size",
+		description = "The size the time left text for other players/npc's will be",
+		position = 3
 	)
 	@Units(Units.POINTS)
-	default int fontSize() {
+	default int fontSize()
+	{
 		return 8;
 	}
 
 	@ConfigItem(
-			keyName = "ticks",
-			name = "Gametick timers",
-			description = "Use gameticks instead of seconds for timers",
-			position = 4
+		keyName = "ticks",
+		name = "Gametick timers",
+		description = "Use gameticks instead of seconds for timers",
+		position = 4
 	)
-	default boolean ticks() {
+	default boolean ticks()
+	{
 		return false;
 	}
 }

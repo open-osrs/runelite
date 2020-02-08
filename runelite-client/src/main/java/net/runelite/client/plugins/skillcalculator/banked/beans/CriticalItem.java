@@ -26,12 +26,10 @@ package net.runelite.client.plugins.skillcalculator.banked.beans;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +39,8 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 
 @Getter(AccessLevel.PUBLIC)
-public enum CriticalItem {
+public enum CriticalItem
+{
 	/**
 	 * Construction Items
 	 */
@@ -390,8 +389,10 @@ public enum CriticalItem {
 	private static final Multimap<Skill, CriticalItem> SKILL_MAP = ArrayListMultimap.create();
 	private static final Map<Integer, CriticalItem> ITEM_ID_MAP = new HashMap<>();
 
-	static {
-		for (CriticalItem i : values()) {
+	static
+	{
+		for (CriticalItem i : values())
+		{
 			Skill s = i.getSkill();
 			SKILL_MAP.put(s, i);
 			ITEM_ID_MAP.put(i.getItemID(), i);
@@ -408,27 +409,32 @@ public enum CriticalItem {
 	@Setter
 	private Activity selectedActivity;
 
-	CriticalItem(int itemID, Skill skill, String category, boolean ignoreBonus) {
+	CriticalItem(int itemID, Skill skill, String category, boolean ignoreBonus)
+	{
 		this.itemID = itemID;
 		this.category = category;
 		this.skill = skill;
 		this.ignoreBonus = ignoreBonus;
 	}
 
-	CriticalItem(int itemID, Skill skill, String category) {
+	CriticalItem(int itemID, Skill skill, String category)
+	{
 		this(itemID, skill, category, false);
 	}
 
-	public static Collection<CriticalItem> getBySkill(Skill skill) {
+	public static Collection<CriticalItem> getBySkill(Skill skill)
+	{
 		Collection<CriticalItem> items = SKILL_MAP.get(skill);
-		if (items == null) {
+		if (items == null)
+		{
 			items = new ArrayList<>();
 		}
 
 		return items;
 	}
 
-	public static CriticalItem getByItemId(int id) {
+	public static CriticalItem getByItemId(int id)
+	{
 		return ITEM_ID_MAP.get(id);
 	}
 
@@ -437,9 +443,12 @@ public enum CriticalItem {
 	 *
 	 * @param m ItemManager
 	 */
-	public static void prepareItemDefinitions(ItemManager m) {
-		for (CriticalItem i : values()) {
-			if (i.itemInfo != null) {
+	public static void prepareItemDefinitions(ItemManager m)
+	{
+		for (CriticalItem i : values())
+		{
+			if (i.itemInfo != null)
+			{
 				return;
 			}
 

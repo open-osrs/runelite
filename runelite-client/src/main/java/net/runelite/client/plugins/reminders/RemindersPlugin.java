@@ -26,14 +26,11 @@
 package net.runelite.client.plugins.reminders;
 
 import com.google.inject.Provides;
-
 import static java.lang.Math.floor;
 import static java.time.Duration.between;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.GameState;
@@ -51,15 +48,16 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.task.Schedule;
 
 @PluginDescriptor(
-		name = "Reminders",
-		description = "various reminders",
-		tags = {"session", "reminder", "hydrate", "hydration"},
-		enabledByDefault = false,
-		type = PluginType.MISCELLANEOUS
+	name = "Reminders",
+	description = "various reminders",
+	tags = {"session", "reminder", "hydrate", "hydration"},
+	enabledByDefault = false,
+	type = PluginType.MISCELLANEOUS
 )
 
 @Slf4j
-public class RemindersPlugin extends Plugin {
+public class RemindersPlugin extends Plugin
+{
 
 	@Inject
 	private RemindersConfig config;
@@ -89,25 +87,30 @@ public class RemindersPlugin extends Plugin {
 
 
 	@Provides
-	RemindersConfig provideConfig(ConfigManager configManager) {
+	RemindersConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(RemindersConfig.class);
 	}
 
 	@Override
-	public void startUp() {
+	public void startUp()
+	{
 		updateConfig();
 	}
 
 	@Override
-	public void shutDown() {
+	public void shutDown()
+	{
 		loginTime = null;
 	}
 
 	@Subscribe
-	public void onGameStateChanged(GameStateChanged event) {
+	public void onGameStateChanged(GameStateChanged event)
+	{
 		final GameState state = event.getGameState();
 
-		switch (state) {
+		switch (state)
+		{
 			case LOGIN_SCREEN:
 			case LOGIN_SCREEN_AUTHENTICATOR:
 			case LOGGING_IN:
@@ -115,7 +118,8 @@ public class RemindersPlugin extends Plugin {
 				loginTime = null;
 				break;
 			case LOGGED_IN:
-				if (ready) {
+				if (ready)
+				{
 					loginTime = Instant.now();
 					ready = false;
 				}
@@ -124,14 +128,18 @@ public class RemindersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("Reminders")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("Reminders"))
+		{
 			updateConfig();
 		}
 	}
 
-	private void timers() {
-		if (loginTime == null) {
+	private void timers()
+	{
+		if (loginTime == null)
+		{
 			return;
 		}
 		seconds = 60;
@@ -141,114 +149,134 @@ public class RemindersPlugin extends Plugin {
 		millilitres = 120 * hours;
 	}
 
-	private String pluralizeTime(String time, int count) {
+	private String pluralizeTime(String time, int count)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb
-				.append(count)
-				.append(" ")
-				.append(time);
-		if (count != 1) {
+			.append(count)
+			.append(" ")
+			.append(time);
+		if (count != 1)
+		{
 			sb.append("s");
 		}
 		return sb.toString();
 	}
 
-	private void breakReminders() {
+	private void breakReminders()
+	{
 		timers();
-		if (!this.breakReminder) {
+		if (!this.breakReminder)
+		{
 			log.error("breakReminder - Unexpected value: " + hours);
 		}
 
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
-				new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append("You have been logged in for ")
-						.append(pluralizeTime("hour", hours))
-						.append(". You should take a 5-10 minute break.")
-						.build())
-				.build());
+			new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append("You have been logged in for ")
+				.append(pluralizeTime("hour", hours))
+				.append(". You should take a 5-10 minute break.")
+				.build())
+			.build());
 	}
 
-	private void hydrationReminders() {
+	private void hydrationReminders()
+	{
 		timers();
-		if (!this.hydrationReminder) {
+		if (!this.hydrationReminder)
+		{
 			log.error("hydrationReminder - Unexpected value: " + hours);
 		}
 
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
-				new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append("You have been logged in for ")
-						.append(pluralizeTime("hour", hours))
-						.append(". By this point, you should have consumed at least " + ounces + "oz (" + millilitres + "ml) of Water to maintain optimum hydration.")
-						.build())
-				.build());
+			new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append("You have been logged in for ")
+				.append(pluralizeTime("hour", hours))
+				.append(". By this point, you should have consumed at least " + ounces + "oz (" + millilitres + "ml) of Water to maintain optimum hydration.")
+				.build())
+			.build());
 	}
 
-	private void personalReminder1() {
-		if (!this.personalReminders && !this.personalReminder1) {
+	private void personalReminder1()
+	{
+		if (!this.personalReminders && !this.personalReminder1)
+		{
 			log.error("personalReminder1 - Unexpected value: " + this.personalReminderText1 + hours);
 		}
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
-				new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append(this.personalReminderText1)
-						.build())
-				.build());
+			new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append(this.personalReminderText1)
+				.build())
+			.build());
 	}
 
-	private void personalReminder2() {
-		if (!this.personalReminders && !this.personalReminder2) {
+	private void personalReminder2()
+	{
+		if (!this.personalReminders && !this.personalReminder2)
+		{
 			log.error("personalReminder2 - Unexpected value: " + this.personalReminderText2 + hours);
 		}
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
-				new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append(this.personalReminderText2)
-						.build())
-				.build());
+			new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append(this.personalReminderText2)
+				.build())
+			.build());
 	}
 
-	private void personalReminder3() {
-		if (!this.personalReminders && !this.personalReminder3) {
+	private void personalReminder3()
+	{
+		if (!this.personalReminders && !this.personalReminder3)
+		{
 			log.error("personalReminder3 - Unexpected value: " + this.personalReminderText3 + hours);
 		}
 		chatMessageManager.queue(QueuedMessage.builder().type(ChatMessageType.CONSOLE).runeLiteFormattedMessage(
-				new ChatMessageBuilder()
-						.append(ChatColorType.HIGHLIGHT)
-						.append(this.personalReminderText3)
-						.build())
-				.build());
+			new ChatMessageBuilder()
+				.append(ChatColorType.HIGHLIGHT)
+				.append(this.personalReminderText3)
+				.build())
+			.build());
 	}
 
 
 	@Schedule(
-			period = 1,
-			unit = ChronoUnit.MINUTES
+		period = 1,
+		unit = ChronoUnit.MINUTES
 	)
-	public void reminders() {
+	public void reminders()
+	{
 
 		timers();
-		if (minutes % seconds == 0 && minutes > 0) {
-			if (this.breakReminder) {
+		if (minutes % seconds == 0 && minutes > 0)
+		{
+			if (this.breakReminder)
+			{
 				breakReminders();
 			}
-			if (this.hydrationReminder) {
+			if (this.hydrationReminder)
+			{
 				hydrationReminders();
 			}
 		}
-		if (minutes % this.personalReminderTime1 == 0 && minutes > 0 && !this.personalReminderText1.isEmpty()) {
+		if (minutes % this.personalReminderTime1 == 0 && minutes > 0 && !this.personalReminderText1.isEmpty())
+		{
 			personalReminder1();
 		}
-		if (minutes % this.personalReminderTime2 == 0 && minutes > 0 && !this.personalReminderText2.isEmpty()) {
+		if (minutes % this.personalReminderTime2 == 0 && minutes > 0 && !this.personalReminderText2.isEmpty())
+		{
 			personalReminder2();
 		}
-		if (minutes % this.personalReminderTime3 == 0 && minutes > 0 && !this.personalReminderText3.isEmpty()) {
+		if (minutes % this.personalReminderTime3 == 0 && minutes > 0 && !this.personalReminderText3.isEmpty())
+		{
 			personalReminder3();
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.hydrationReminder = config.hydrationReminder();
 		this.breakReminder = config.breakReminder();
 		this.personalReminders = config.personalReminders();

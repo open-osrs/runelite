@@ -29,16 +29,11 @@ import java.awt.Graphics2D;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.ItemID;
-
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.Overlay;
-
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -47,14 +42,16 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
 @Singleton
-public class TeamCapesOverlay extends Overlay {
+public class TeamCapesOverlay extends Overlay
+{
 	private final PanelComponent panelComponent = new PanelComponent();
 	private final TeamCapesPlugin plugin;
 	private final TeamCapesConfig config;
 	private final ItemManager manager;
 
 	@Inject
-	private TeamCapesOverlay(final TeamCapesPlugin plugin, final TeamCapesConfig config, final ItemManager manager) {
+	private TeamCapesOverlay(final TeamCapesPlugin plugin, final TeamCapesConfig config, final ItemManager manager)
+	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		setPriority(OverlayPriority.LOW);
@@ -67,27 +64,34 @@ public class TeamCapesOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		Map<Integer, Integer> teams = plugin.getTeams();
-		if (teams.isEmpty()) {
+		if (teams.isEmpty())
+		{
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 
-		for (Map.Entry<Integer, Integer> team : teams.entrySet()) {
+		for (Map.Entry<Integer, Integer> team : teams.entrySet())
+		{
 			// Only display team capes that have a count greater than the configured minimum
-			if (team.getValue() < config.getMinimumCapeCount()) {
+			if (team.getValue() < config.getMinimumCapeCount())
+			{
 				continue;
 			}
 
 			// Make the number 0 based
 			final int teamcapeNumber = team.getKey() - 1;
 			final int itemID;
-			if (teamcapeNumber < 50) {
+			if (teamcapeNumber < 50)
+			{
 				// The team cape is every 2nd item id based on tc number
 				itemID = 2 * teamcapeNumber + ItemID.TEAM1_CAPE;
-			} else {
+			}
+			else
+			{
 				// The team cape is every 3rd item id based on tc number starting from 0
 				itemID = 3 * (teamcapeNumber - 50) + ItemID.TEAM_CAPE_ZERO;
 			}

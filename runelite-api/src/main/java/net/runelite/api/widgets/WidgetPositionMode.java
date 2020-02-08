@@ -24,7 +24,8 @@
  */
 package net.runelite.api.widgets;
 
-public final class WidgetPositionMode {
+public final class WidgetPositionMode
+{
 	public static final int ABSOLUTE_LEFT = 0;
 	public static final int ABSOLUTE_TOP = 0;
 	public static final int ABSOLUTE_CENTER = 1;

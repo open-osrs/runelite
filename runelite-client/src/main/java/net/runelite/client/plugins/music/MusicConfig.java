@@ -29,98 +29,106 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("music")
-public interface MusicConfig extends Config {
+public interface MusicConfig extends Config
+{
 	@ConfigItem(
-			keyName = "muteOwnAreaSounds",
-			name = "Mute player area sounds",
-			description = "Mute area sounds caused by yourself",
-			position = 0
+		keyName = "muteOwnAreaSounds",
+		name = "Mute player area sounds",
+		description = "Mute area sounds caused by yourself",
+		position = 0
 	)
-	default boolean muteOwnAreaSounds() {
+	default boolean muteOwnAreaSounds()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "muteOtherAreaSounds",
-			name = "Mute other players' area sounds",
-			description = "Mute area sounds caused by other players",
-			position = 1
+		keyName = "muteOtherAreaSounds",
+		name = "Mute other players' area sounds",
+		description = "Mute area sounds caused by other players",
+		position = 1
 	)
-	default boolean muteOtherAreaSounds() {
+	default boolean muteOtherAreaSounds()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "muteOtherAreaNPCSounds",
-			name = "Mute NPCs' area sounds",
-			description = "Mute area sounds caused by NPCs",
-			position = 2
+		keyName = "muteOtherAreaNPCSounds",
+		name = "Mute NPCs' area sounds",
+		description = "Mute area sounds caused by NPCs",
+		position = 2
 	)
-	default boolean muteNpcAreaSounds() {
+	default boolean muteNpcAreaSounds()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "muteOtherAreaEnvironmentSounds",
-			name = "Mute environment area sounds",
-			description = "Mute area sounds caused by neither NPCs nor players",
-			position = 3
+		keyName = "muteOtherAreaEnvironmentSounds",
+		name = "Mute environment area sounds",
+		description = "Mute area sounds caused by neither NPCs nor players",
+		position = 3
 	)
-	default boolean muteEnvironmentAreaSounds() {
+	default boolean muteEnvironmentAreaSounds()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "musicVolume",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "musicVolume",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int getMusicVolume() {
+	default int getMusicVolume()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "musicVolume",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "musicVolume",
+		name = "",
+		description = "",
+		hidden = true
 	)
 	void setMusicVolume(int vol);
 
 	@ConfigItem(
-			keyName = "soundEffectVolume",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "soundEffectVolume",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int getSoundEffectVolume() {
+	default int getSoundEffectVolume()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "soundEffectVolume",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "soundEffectVolume",
+		name = "",
+		description = "",
+		hidden = true
 	)
 	void setSoundEffectVolume(int val);
 
 	@ConfigItem(
-			keyName = "areaSoundEffectVolume",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "areaSoundEffectVolume",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int getAreaSoundEffectVolume() {
+	default int getAreaSoundEffectVolume()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "areaSoundEffectVolume",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "areaSoundEffectVolume",
+		name = "",
+		description = "",
+		hidden = true
 	)
 	void setAreaSoundEffectVolume(int vol);
 }

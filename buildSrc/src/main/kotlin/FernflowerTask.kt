@@ -10,7 +10,7 @@ import org.gradle.api.tasks.TaskAction
 import org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler
 
 @CacheableTask
-open class FernflowerTask : DefaultTask() {
+open class FernflowerTask: DefaultTask() {
 
     @Input
     @Optional

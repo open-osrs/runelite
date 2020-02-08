@@ -27,15 +27,14 @@ package net.runelite.client.game;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
 import java.io.IOException;
-
 import lombok.Builder;
 import lombok.Value;
 
 @Value
 @Builder(builderClassName = "Builder")
-public class NPCStats {
+public class NPCStats
+{
 	private final String name;
 
 	private final int hitpoints;
@@ -78,7 +77,8 @@ public class NPCStats {
 	 *
 	 * @return bonus XP modifier
 	 */
-	public double calculateXpModifier() {
+	public double calculateXpModifier()
+	{
 		final double averageLevel = Math.floor((attackLevel + strengthLevel + defenceLevel + hitpoints) / 4);
 		final double averageDefBonus = Math.floor((stabDef + slashDef + crushDef) / 3);
 
@@ -87,14 +87,17 @@ public class NPCStats {
 
 	// Because this class is here we can't add the TypeAdapter to gson (easily)
 	// doesn't mean we can't use one to do it a bit quicker
-	public static final TypeAdapter<NPCStats> NPC_STATS_TYPE_ADAPTER = new TypeAdapter<NPCStats>() {
+	public static final TypeAdapter<NPCStats> NPC_STATS_TYPE_ADAPTER = new TypeAdapter<NPCStats>()
+	{
 		@Override
-		public void write(JsonWriter out, NPCStats value) {
+		public void write(JsonWriter out, NPCStats value)
+		{
 			throw new UnsupportedOperationException("Not supported");
 		}
 
 		@Override
-		public NPCStats read(JsonReader in) throws IOException {
+		public NPCStats read(JsonReader in) throws IOException
+		{
 			in.beginObject();
 			NPCStats.Builder builder = NPCStats.builder();
 
@@ -102,8 +105,10 @@ public class NPCStats {
 			in.skipValue();
 			builder.name(in.nextString());
 
-			while (in.hasNext()) {
-				switch (in.nextName()) {
+			while (in.hasNext())
+			{
+				switch (in.nextName())
+				{
 					case "hitpoints":
 						builder.hitpoints(in.nextInt());
 						break;

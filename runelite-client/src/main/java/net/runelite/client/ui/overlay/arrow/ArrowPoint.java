@@ -28,7 +28,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.EnumSet;
 import java.util.Set;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
@@ -37,7 +36,8 @@ import net.runelite.api.coords.WorldPoint;
 
 @Data
 @Builder
-public class ArrowPoint {
+public class ArrowPoint
+{
 	/**
 	 * Can define a point to mark, or be used as a fallback when an object or an NPC is outside of the scene
 	 */

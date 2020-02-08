@@ -28,7 +28,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-public class StatsChanges {
+public class StatsChanges
+{
 	/**
 	 * How positive the entire set of stat changes is
 	 *
@@ -41,7 +42,8 @@ public class StatsChanges {
 	@Setter(AccessLevel.PUBLIC)
 	private StatChange[] statChanges;
 
-	public StatsChanges(int len) {
+	public StatsChanges(int len)
+	{
 		this.statChanges = new StatChange[len];
 		this.positivity = Positivity.NO_CHANGE;
 	}

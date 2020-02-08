@@ -25,21 +25,21 @@
 package net.runelite.client.plugins.itemskeptondeath;
 
 import com.google.common.collect.ImmutableSet;
-
 import java.util.Set;
-
 import net.runelite.api.ItemID;
 
-final class LostIfNotProtected {
+final class LostIfNotProtected
+{
 	private static final Set<Integer> ITEMS = ImmutableSet.of(
-			ItemID.AMULET_OF_THE_DAMNED,
-			ItemID.RING_OF_CHAROS, ItemID.RING_OF_CHAROSA,
-			ItemID.LUNAR_STAFF,
-			ItemID.SHADOW_SWORD,
-			ItemID.KERIS, ItemID.KERISP, ItemID.KERISP_10583, ItemID.KERISP_10584
+		ItemID.AMULET_OF_THE_DAMNED,
+		ItemID.RING_OF_CHAROS, ItemID.RING_OF_CHAROSA,
+		ItemID.LUNAR_STAFF,
+		ItemID.SHADOW_SWORD,
+		ItemID.KERIS, ItemID.KERISP, ItemID.KERISP_10583, ItemID.KERISP_10584
 	);
 
-	static boolean isLostIfNotProtected(int id) {
+	static boolean isLostIfNotProtected(int id)
+	{
 		return ITEMS.contains(id);
 	}
 }

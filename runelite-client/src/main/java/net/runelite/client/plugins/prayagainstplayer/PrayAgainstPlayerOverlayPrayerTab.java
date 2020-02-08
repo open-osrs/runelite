@@ -31,7 +31,6 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.vars.InterfaceTab;
@@ -46,16 +45,18 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-class PrayAgainstPlayerOverlayPrayerTab extends Overlay {
+class PrayAgainstPlayerOverlayPrayerTab extends Overlay
+{
 
 	private final PlayerManager playerManager;
 	private final Client client;
 
 	@Inject
 	private PrayAgainstPlayerOverlayPrayerTab(
-			final PlayerManager playerManager,
-			final Client client
-	) {
+		final PlayerManager playerManager,
+		final Client client
+	)
+	{
 		this.client = client;
 		this.playerManager = playerManager;
 		setPosition(OverlayPosition.DETACHED);
@@ -65,20 +66,25 @@ class PrayAgainstPlayerOverlayPrayerTab extends Overlay {
 
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		for (PlayerContainer player : playerManager.getAllAttackers()) {
-			if (player.getAttackStyle() == AttackStyle.UNKNOWN) {
+	public Dimension render(Graphics2D graphics)
+	{
+		for (PlayerContainer player : playerManager.getAllAttackers())
+		{
+			if (player.getAttackStyle() == AttackStyle.UNKNOWN)
+			{
 				continue;
 			}
 
 			final Widget widget = client.getWidget(player.getAttackStyle().getPrayer().getWidgetInfo());
 
-			if (widget == null) {
+			if (widget == null)
+			{
 				continue;
 			}
 
 			if (client.getVar(VarClientInt.INTERFACE_TAB) == InterfaceTab.PRAYER.getId() &&
-					!client.isPrayerActive(player.getAttackStyle().getPrayer())) {
+				!client.isPrayerActive(player.getAttackStyle().getPrayer()))
+			{
 				OverlayUtil.renderPolygon(graphics, rectangleToPolygon(widget.getBounds()), Color.RED);
 				break;
 			}
@@ -86,7 +92,8 @@ class PrayAgainstPlayerOverlayPrayerTab extends Overlay {
 		return null;
 	}
 
-	private static Polygon rectangleToPolygon(Rectangle rect) {
+	private static Polygon rectangleToPolygon(Rectangle rect)
+	{
 		int[] xpoints = {rect.x, rect.x + rect.width, rect.x + rect.width, rect.x};
 		int[] ypoints = {rect.y, rect.y, rect.y + rect.height, rect.y + rect.height};
 

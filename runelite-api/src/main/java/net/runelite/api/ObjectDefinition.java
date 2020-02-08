@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Information about a specific {@link ObjectID}
  */
-public interface ObjectDefinition {
+public interface ObjectDefinition
+{
 	/**
 	 * Gets ID for the object.
 	 *

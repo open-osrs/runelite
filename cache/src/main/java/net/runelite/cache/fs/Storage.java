@@ -26,7 +26,8 @@ package net.runelite.cache.fs;
 
 import java.io.IOException;
 
-public interface Storage extends AutoCloseable {
+public interface Storage extends AutoCloseable
+{
 	void init(Store store) throws IOException;
 
 	@Override

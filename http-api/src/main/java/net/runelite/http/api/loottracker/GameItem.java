@@ -31,7 +31,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GameItem {
+public class GameItem
+{
 	private int id;
 	private int qty;
 }

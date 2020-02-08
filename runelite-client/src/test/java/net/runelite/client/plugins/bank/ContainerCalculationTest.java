@@ -28,30 +28,25 @@ import com.google.common.collect.ImmutableList;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ContainerCalculationTest {
+public class ContainerCalculationTest
+{
 	@Mock
 	@Bind
 	private Client client;
@@ -64,28 +59,30 @@ public class ContainerCalculationTest {
 	private ContainerCalculation containerCalculation;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testCalculate() {
+	public void testCalculate()
+	{
 		Item coins = new Item(ItemID.COINS_995, Integer.MAX_VALUE);
 
 		Item whip = new Item(ItemID.ABYSSAL_WHIP, 1_000_000_000);
 
 		Item[] items = ImmutableList.of(
-				coins,
-				whip
+			coins,
+			whip
 		).toArray(new Item[0]);
 
 		ItemDefinition whipComp = mock(ItemDefinition.class);
 		when(whipComp.getPrice())
-				.thenReturn(7); // 7 * .6 = 4, 4 * 1m overflows
+			.thenReturn(7); // 7 * .6 = 4, 4 * 1m overflows
 		when(itemManager.getItemDefinition(ItemID.ABYSSAL_WHIP))
-				.thenReturn(whipComp);
+			.thenReturn(whipComp);
 		when(itemManager.getItemPrice(ItemID.ABYSSAL_WHIP))
-				.thenReturn(3); // 1b * 3 overflows
+			.thenReturn(3); // 1b * 3 overflows
 
 		final ContainerPrices prices = containerCalculation.calculate(items);
 		assertNotNull(prices);

@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.cache.definitions.OverlayDefinition;
 import net.runelite.cache.definitions.loaders.OverlayLoader;
 import net.runelite.cache.definitions.providers.OverlayProvider;
@@ -40,15 +39,18 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 
-public class OverlayManager implements OverlayProvider {
+public class OverlayManager implements OverlayProvider
+{
 	private final Store store;
 	private final Map<Integer, OverlayDefinition> overlays = new HashMap<>();
 
-	public OverlayManager(Store store) {
+	public OverlayManager(Store store)
+	{
 		this.store = store;
 	}
 
-	public void load() throws IOException {
+	public void load() throws IOException
+	{
 		Storage storage = store.getStorage();
 		Index index = store.getIndex(IndexType.CONFIGS);
 		Archive archive = index.getArchive(ConfigType.OVERLAY.getId());
@@ -56,7 +58,8 @@ public class OverlayManager implements OverlayProvider {
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile file : files.getFiles()) {
+		for (FSFile file : files.getFiles())
+		{
 			OverlayLoader loader = new OverlayLoader();
 			OverlayDefinition overlay = loader.load(file.getFileId(), file.getContents());
 
@@ -64,12 +67,14 @@ public class OverlayManager implements OverlayProvider {
 		}
 	}
 
-	public Collection<OverlayDefinition> getOverlays() {
+	public Collection<OverlayDefinition> getOverlays()
+	{
 		return Collections.unmodifiableCollection(overlays.values());
 	}
 
 	@Override
-	public OverlayDefinition provide(int overlayId) {
+	public OverlayDefinition provide(int overlayId)
+	{
 		return overlays.get(overlayId);
 	}
 }

@@ -29,17 +29,21 @@ import lombok.Getter;
 import net.runelite.api.NPC;
 
 @Getter(AccessLevel.PACKAGE)
-class Tornado {
+class Tornado
+{
 	private NPC npc;
 	private int timeLeft;
 
-	Tornado(NPC npc) {
+	Tornado(NPC npc)
+	{
 		this.npc = npc;
 		this.timeLeft = 20;
 	}
 
-	void updateTimeLeft() {
-		if (timeLeft > 0) {
+	void updateTimeLeft()
+	{
+		if (timeLeft > 0)
+		{
 			timeLeft--;
 		}
 	}

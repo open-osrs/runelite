@@ -28,25 +28,27 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
 import net.runelite.cache.fs.Store;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HeightMapDumperTest {
+public class HeightMapDumperTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(HeightMapDumperTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	//@Test
-	public void extract() throws IOException {
+	public void extract() throws IOException
+	{
 		File base = StoreLocation.LOCATION,
-				outDir = folder.newFolder();
+			outDir = folder.newFolder();
 
-		try (Store store = new Store(base)) {
+		try (Store store = new Store(base))
+		{
 			store.load();
 
 			HeightMapDumper dumper = new HeightMapDumper(store);

@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import net.runelite.api.annotations.VisibleForExternalPlugins;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
@@ -47,7 +46,8 @@ import org.slf4j.Logger;
 /**
  * Represents the RuneScape client.
  */
-public interface Client extends GameShell {
+public interface Client extends GameShell
+{
 	/**
 	 * The client invokes these callbacks to communicate to
 	 */

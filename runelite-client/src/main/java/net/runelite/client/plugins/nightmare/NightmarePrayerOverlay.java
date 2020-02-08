@@ -10,7 +10,6 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
 import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.awt.Color;
@@ -41,7 +40,8 @@ public class NightmarePrayerOverlay extends Overlay {
 	public Dimension render(Graphics2D graphics) {
 		imagePanelComponent.getChildren().clear();
 
-		if (!plugin.isPrayerHelper()) {
+		if (!plugin.isPrayerHelper())
+		{
 			return null;
 		}
 

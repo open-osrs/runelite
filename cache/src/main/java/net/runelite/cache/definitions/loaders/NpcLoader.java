@@ -25,22 +25,25 @@
 package net.runelite.cache.definitions.loaders;
 
 import java.util.HashMap;
-
 import net.runelite.cache.definitions.NpcDefinition;
 import net.runelite.cache.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NpcLoader {
+public class NpcLoader
+{
 	private static final Logger logger = LoggerFactory.getLogger(NpcLoader.class);
 
-	public NpcDefinition load(int id, byte[] b) {
+	public NpcDefinition load(int id, byte[] b)
+	{
 		NpcDefinition def = new NpcDefinition(id);
 		InputStream is = new InputStream(b);
 
-		while (true) {
+		while (true)
+		{
 			int opcode = is.readUnsignedByte();
-			if (opcode == 0) {
+			if (opcode == 0)
+			{
 				break;
 			}
 
@@ -50,159 +53,234 @@ public class NpcLoader {
 		return def;
 	}
 
-	private void decodeValues(int opcode, NpcDefinition def, InputStream stream) {
+	private void decodeValues(int opcode, NpcDefinition def, InputStream stream)
+	{
 		int length;
 		int index;
-		if (opcode == 1) {
+		if (opcode == 1)
+		{
 			length = stream.readUnsignedByte();
 			def.models = new int[length];
 
-			for (index = 0; index < length; ++index) {
+			for (index = 0; index < length; ++index)
+			{
 				def.models[index] = stream.readUnsignedShort();
 			}
-		} else if (opcode == 2) {
+		}
+		else if (opcode == 2)
+		{
 			def.name = stream.readString();
-		} else if (opcode == 12) {
+		}
+		else if (opcode == 12)
+		{
 			def.size = stream.readUnsignedByte();
-		} else if (opcode == 13) {
+		}
+		else if (opcode == 13)
+		{
 			def.standingAnimation = stream.readUnsignedShort();
-		} else if (opcode == 14) {
+		}
+		else if (opcode == 14)
+		{
 			def.walkingAnimation = stream.readUnsignedShort();
-		} else if (opcode == 15) {
+		}
+		else if (opcode == 15)
+		{
 			def.rotateLeftAnimation = stream.readUnsignedShort();
-		} else if (opcode == 16) {
+		}
+		else if (opcode == 16)
+		{
 			def.rotateRightAnimation = stream.readUnsignedShort();
-		} else if (opcode == 17) {
+		}
+		else if (opcode == 17)
+		{
 			def.walkingAnimation = stream.readUnsignedShort();
 			def.rotate180Animation = stream.readUnsignedShort();
 			def.rotate90RightAnimation = stream.readUnsignedShort();
 			def.rotate90LeftAnimation = stream.readUnsignedShort();
-		} else if (opcode >= 30 && opcode < 35) {
+		}
+		else if (opcode >= 30 && opcode < 35)
+		{
 			def.actions[opcode - 30] = stream.readString();
-			if (def.actions[opcode - 30].equalsIgnoreCase("Hidden")) {
+			if (def.actions[opcode - 30].equalsIgnoreCase("Hidden"))
+			{
 				def.actions[opcode - 30] = null;
 			}
-		} else if (opcode == 40) {
+		}
+		else if (opcode == 40)
+		{
 			length = stream.readUnsignedByte();
 			def.recolorToFind = new short[length];
 			def.recolorToReplace = new short[length];
 
-			for (index = 0; index < length; ++index) {
+			for (index = 0; index < length; ++index)
+			{
 				def.recolorToFind[index] = (short) stream.readUnsignedShort();
 				def.recolorToReplace[index] = (short) stream.readUnsignedShort();
 			}
 
-		} else if (opcode == 41) {
+		}
+		else if (opcode == 41)
+		{
 			length = stream.readUnsignedByte();
 			def.retextureToFind = new short[length];
 			def.retextureToReplace = new short[length];
 
-			for (index = 0; index < length; ++index) {
+			for (index = 0; index < length; ++index)
+			{
 				def.retextureToFind[index] = (short) stream.readUnsignedShort();
 				def.retextureToReplace[index] = (short) stream.readUnsignedShort();
 			}
 
-		} else if (opcode == 60) {
+		}
+		else if (opcode == 60)
+		{
 			length = stream.readUnsignedByte();
 			def.chatheadModels = new int[length];
 
-			for (index = 0; index < length; ++index) {
+			for (index = 0; index < length; ++index)
+			{
 				def.chatheadModels[index] = stream.readUnsignedShort();
 			}
 
-		} else if (opcode == 93) {
+		}
+		else if (opcode == 93)
+		{
 			def.isMinimapVisible = false;
-		} else if (opcode == 95) {
+		}
+		else if (opcode == 95)
+		{
 			def.combatLevel = stream.readUnsignedShort();
-		} else if (opcode == 97) {
+		}
+		else if (opcode == 97)
+		{
 			def.widthScale = stream.readUnsignedShort();
-		} else if (opcode == 98) {
+		}
+		else if (opcode == 98)
+		{
 			def.heightScale = stream.readUnsignedShort();
-		} else if (opcode == 99) {
+		}
+		else if (opcode == 99)
+		{
 			def.hasRenderPriority = true;
-		} else if (opcode == 100) {
+		}
+		else if (opcode == 100)
+		{
 			def.ambient = stream.readByte();
-		} else if (opcode == 101) {
+		}
+		else if (opcode == 101)
+		{
 			def.contrast = stream.readByte();
-		} else if (opcode == 102) {
+		}
+		else if (opcode == 102)
+		{
 			def.headIcon = stream.readUnsignedShort();
-		} else if (opcode == 103) {
+		}
+		else if (opcode == 103)
+		{
 			def.rotationSpeed = stream.readUnsignedShort();
-		} else if (opcode == 106) {
+		}
+		else if (opcode == 106)
+		{
 			def.varbitId = stream.readUnsignedShort();
-			if (def.varbitId == 65535) {
+			if (def.varbitId == 65535)
+			{
 				def.varbitId = -1;
 			}
 
 			def.varpIndex = stream.readUnsignedShort();
-			if (def.varpIndex == 65535) {
+			if (def.varpIndex == 65535)
+			{
 				def.varpIndex = -1;
 			}
 
 			length = stream.readUnsignedByte();
 			def.configs = new int[length + 2];
 
-			for (index = 0; index <= length; ++index) {
+			for (index = 0; index <= length; ++index)
+			{
 				def.configs[index] = stream.readUnsignedShort();
-				if (def.configs[index] == '\uffff') {
+				if (def.configs[index] == '\uffff')
+				{
 					def.configs[index] = -1;
 				}
 			}
 
 			def.configs[length + 1] = -1;
 
-		} else if (opcode == 107) {
+		}
+		else if (opcode == 107)
+		{
 			def.isInteractable = false;
-		} else if (opcode == 109) {
+		}
+		else if (opcode == 109)
+		{
 			def.rotationFlag = false;
-		} else if (opcode == 111) {
+		}
+		else if (opcode == 111)
+		{
 			def.isPet = true;
-		} else if (opcode == 118) {
+		}
+		else if (opcode == 118)
+		{
 			def.varbitId = stream.readUnsignedShort();
-			if (def.varbitId == 65535) {
+			if (def.varbitId == 65535)
+			{
 				def.varbitId = -1;
 			}
 
 			def.varpIndex = stream.readUnsignedShort();
-			if (def.varpIndex == 65535) {
+			if (def.varpIndex == 65535)
+			{
 				def.varpIndex = -1;
 			}
 
 			int var = stream.readUnsignedShort();
-			if (var == 0xFFFF) {
+			if (var == 0xFFFF)
+			{
 				var = -1;
 			}
 
 			length = stream.readUnsignedByte();
 			def.configs = new int[length + 2];
 
-			for (index = 0; index <= length; ++index) {
+			for (index = 0; index <= length; ++index)
+			{
 				def.configs[index] = stream.readUnsignedShort();
-				if (def.configs[index] == '\uffff') {
+				if (def.configs[index] == '\uffff')
+				{
 					def.configs[index] = -1;
 				}
 			}
 
 			def.configs[length + 1] = var;
-		} else if (opcode == 249) {
+		}
+		else if (opcode == 249)
+		{
 			length = stream.readUnsignedByte();
 
 			def.params = new HashMap<>(length);
 
-			for (int i = 0; i < length; i++) {
+			for (int i = 0; i < length; i++)
+			{
 				boolean isString = stream.readUnsignedByte() == 1;
 				int key = stream.read24BitInt();
 				Object value;
 
-				if (isString) {
+				if (isString)
+				{
 					value = stream.readString();
-				} else {
+				}
+
+				else
+				{
 					value = stream.readInt();
 				}
 
 				def.params.put(key, value);
 			}
-		} else {
+		}
+		else
+		{
 			logger.warn("Unrecognized opcode {}", opcode);
 		}
 	}

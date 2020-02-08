@@ -27,7 +27,6 @@ package net.runelite.client.plugins.grounditems;
 import java.time.Instant;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
@@ -35,7 +34,8 @@ import net.runelite.api.coords.WorldPoint;
 
 @Data
 @Builder
-public class GroundItem {
+public class GroundItem
+{
 	private int id;
 	private int itemId;
 	private String name;
@@ -59,20 +59,24 @@ public class GroundItem {
 	@Nullable
 	private Instant spawnTime;
 
-	int getHaPrice() {
+	int getHaPrice()
+	{
 		return haPrice * quantity;
 	}
 
-	int getGePrice() {
+	int getGePrice()
+	{
 		return gePrice * quantity;
 	}
 
-	boolean isMine() {
+	boolean isMine()
+	{
 		return lootType != LootType.UNKNOWN;
 	}
 
 	@Value
-	static class GroundItemKey {
+	static class GroundItemKey
+	{
 		private int itemId;
 		private WorldPoint location;
 	}

@@ -18,7 +18,7 @@ jobs:
           MERGE_FORKS: false
           LABELS: automated-pull-request
           AUTOMERGE: automated-pull-request
-
+          
   cleanup:
     name: Cleanup
     needs: automerge

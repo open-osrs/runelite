@@ -27,13 +27,15 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class MapDefinition {
+public class MapDefinition
+{
 	public static final int X = 64;
 	public static final int Y = 64;
 	public static final int Z = 4;
 
 	@Data
-	public static class Tile {
+	public static class Tile
+	{
 		public Integer height;
 		public int attrOpcode;
 		public byte settings;

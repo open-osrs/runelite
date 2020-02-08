@@ -27,7 +27,6 @@ package net.runelite.deob.deobfuscators;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.DeobTestProperties;
 import net.runelite.deob.TemporyFolderLocation;
@@ -38,7 +37,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class IllegalStateExceptionsTest {
+public class IllegalStateExceptionsTest
+{
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
 
@@ -48,17 +48,20 @@ public class IllegalStateExceptionsTest {
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException {
+	public void before() throws IOException
+	{
 		group = JarUtil.loadJar(new File(properties.getVanillaClient()));
 	}
 
 	@After
-	public void after() throws IOException {
+	public void after() throws IOException
+	{
 		JarUtil.saveJar(group, folder.newFile());
 	}
 
 	@Test
-	public void testRun() {
+	public void testRun()
+	{
 		IllegalStateExceptions ise = new IllegalStateExceptions();
 		ise.run(group);
 	}

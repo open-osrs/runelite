@@ -12,19 +12,19 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 	static short[] foundItemIds;
 	@ObfuscatedName("fm")
 	@ObfuscatedSignature(
-			signature = "Lei;"
+		signature = "Lei;"
 	)
 	@Export("urlRequester")
 	static UrlRequester urlRequester;
 	@ObfuscatedName("fg")
 	@ObfuscatedSignature(
-			signature = "Lko;"
+		signature = "Lko;"
 	)
 	@Export("fontPlain11")
 	static Font fontPlain11;
 	@ObfuscatedName("gh")
 	@ObfuscatedSignature(
-			signature = "[Llt;"
+		signature = "[Llt;"
 	)
 	@Export("crossSprites")
 	static Sprite[] crossSprites;
@@ -34,8 +34,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lkp;B)V",
-			garbageValue = "-109"
+		signature = "(Lkp;B)V",
+		garbageValue = "-109"
 	)
 	@Export("init")
 	void init(Buffer var1) {
@@ -56,8 +56,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lkp;S)V",
-			garbageValue = "-30591"
+		signature = "(Lkp;S)V",
+		garbageValue = "-30591"
 	)
 	@Export("readGeography")
 	void readGeography(Buffer var1) {
@@ -90,7 +90,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 		if (!(var1 instanceof WorldMapData_0)) {
 			return false;
 		} else {
-			WorldMapData_0 var2 = (WorldMapData_0) var1;
+			WorldMapData_0 var2 = (WorldMapData_0)var1;
 			return var2.regionX == super.regionX && var2.regionY == super.regionY;
 		}
 	}
@@ -101,8 +101,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(ILii;Ljava/lang/String;Ljava/lang/String;IZI)V",
-			garbageValue = "-1022524213"
+		signature = "(ILii;Ljava/lang/String;Ljava/lang/String;IZI)V",
+		garbageValue = "-1022524213"
 	)
 	public static void method189(int var0, AbstractArchive var1, String var2, String var3, int var4, boolean var5) {
 		int var6 = var1.getGroupId(var2);
@@ -112,8 +112,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "1"
+		signature = "(B)V",
+		garbageValue = "1"
 	)
 	public static void method181() {
 		SpotAnimationDefinition.SpotAnimationDefinition_cached.clear();
@@ -122,8 +122,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-			signature = "(III)Z",
-			garbageValue = "-1614694262"
+		signature = "(III)Z",
+		garbageValue = "-1614694262"
 	)
 	static final boolean method187(int var0, int var1) {
 		ObjectDefinition var2 = Occluder.getObjectDefinition(var0);
@@ -140,8 +140,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "-1897390403"
+		signature = "(ILce;ZI)I",
+		garbageValue = "-1897390403"
 	)
 	static int method175(int var0, Script var1, boolean var2) {
 		Widget var3 = var2 ? class186.field2331 : MidiPcmStream.field2444;

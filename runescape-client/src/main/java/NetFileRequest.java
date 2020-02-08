@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class NetFileRequest extends DualNode {
 	@ObfuscatedName("fn")
 	@ObfuscatedSignature(
-			signature = "Lfw;"
+		signature = "Lfw;"
 	)
 	@Export("socketTask")
 	static Task socketTask;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive")
 	Archive archive;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -335622229
+		intValue = -335622229
 	)
 	@Export("crc")
 	int crc;
@@ -34,8 +34,8 @@ public class NetFileRequest extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "([I[IB)V",
-			garbageValue = "100"
+		signature = "([I[IB)V",
+		garbageValue = "100"
 	)
 	public static void method4217(int[] var0, int[] var1) {
 		if (var0 != null && var1 != null) {

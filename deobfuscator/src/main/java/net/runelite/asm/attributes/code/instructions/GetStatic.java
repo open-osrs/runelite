@@ -39,37 +39,43 @@ import net.runelite.asm.pool.Class;
 import net.runelite.asm.pool.Field;
 import org.objectweb.asm.MethodVisitor;
 
-public class GetStatic extends Instruction implements GetFieldInstruction {
+public class GetStatic extends Instruction implements GetFieldInstruction
+{
 	private Field field;
 	private net.runelite.asm.Field myField;
 
-	public GetStatic(Instructions instructions, InstructionType type) {
+	public GetStatic(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
-	public GetStatic(Instructions instructions, Field field) {
+	public GetStatic(Instructions instructions, Field field)
+	{
 		super(instructions, InstructionType.GETSTATIC);
 
 		this.field = field;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		Method m = this.getInstructions().getCode().getMethod();
 		return "getstatic " + myField + " in " + m;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		visitor.visitFieldInsn(this.getType().getCode(),
-				field.getClazz().getName(),
-				field.getName(),
-				field.getType().toString()
+			field.getClazz().getName(),
+			field.getName(),
+			field.getType().toString()
 		);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
@@ -78,7 +84,8 @@ public class GetStatic extends Instruction implements GetFieldInstruction {
 
 		ins.push(ctx);
 
-		if (myField != null) {
+		if (myField != null)
+		{
 			frame.getExecution().order(frame, myField);
 		}
 
@@ -86,16 +93,19 @@ public class GetStatic extends Instruction implements GetFieldInstruction {
 	}
 
 	@Override
-	public Field getField() {
+	public Field getField()
+	{
 		return field;
 	}
 
 	@Override
-	public net.runelite.asm.Field getMyField() {
+	public net.runelite.asm.Field getMyField()
+	{
 		Class clazz = field.getClazz();
 
 		ClassFile cf = this.getInstructions().getCode().getMethod().getClassFile().getGroup().findClass(clazz.getName());
-		if (cf == null) {
+		if (cf == null)
+		{
 			return null;
 		}
 
@@ -104,21 +114,26 @@ public class GetStatic extends Instruction implements GetFieldInstruction {
 	}
 
 	@Override
-	public void lookup() {
+	public void lookup()
+	{
 		myField = this.getMyField();
 	}
 
 	@Override
-	public void regeneratePool() {
-		if (myField != null) {
-			if (getMyField() != myField) {
+	public void regeneratePool()
+	{
+		if (myField != null)
+		{
+			if (getMyField() != myField)
+			{
 				field = myField.getPoolField();
 			}
 		}
 	}
 
 	@Override
-	public void setField(Field field) {
+	public void setField(Field field)
+	{
 		this.field = field;
 	}
 }

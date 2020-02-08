@@ -27,11 +27,11 @@
 package net.runelite.client.plugins.thieving;
 
 import java.time.Instant;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 
-class ThievingSession {
+class ThievingSession
+{
 	@Getter(AccessLevel.PACKAGE)
 	private Instant lastTheivingAction;
 	@Getter(AccessLevel.PACKAGE)
@@ -39,19 +39,23 @@ class ThievingSession {
 	@Getter(AccessLevel.PACKAGE)
 	private int failed;
 
-	void updateLastThevingAction() {
+	void updateLastThevingAction()
+	{
 		this.lastTheivingAction = Instant.now();
 	}
 
-	void hasSucceeded() {
+	void hasSucceeded()
+	{
 		this.successful++;
 	}
 
-	void hasFailed() {
+	void hasFailed()
+	{
 		this.failed++;
 	}
 
-	double getSuccessRate() {
+	double getSuccessRate()
+	{
 		return ((double) getFailed() / (getSuccessful() + getFailed())) * 100;
 	}
 }

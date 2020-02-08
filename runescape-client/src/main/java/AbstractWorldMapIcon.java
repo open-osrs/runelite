@@ -1,6 +1,5 @@
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -12,36 +11,36 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class AbstractWorldMapIcon {
 	@ObfuscatedName("qk")
 	@ObfuscatedGetter(
-			intValue = -1430527955
+		intValue = -1430527955
 	)
 	static int field306;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "Lhj;"
+		signature = "Lhj;"
 	)
 	@Export("coord2")
 	public final Coord coord2;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "Lhj;"
+		signature = "Lhj;"
 	)
 	@Export("coord1")
 	public final Coord coord1;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = -503139537
+		intValue = -503139537
 	)
 	@Export("screenX")
 	int screenX;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = 1934442125
+		intValue = 1934442125
 	)
 	@Export("screenY")
 	int screenY;
 
 	@ObfuscatedSignature(
-			signature = "(Lhj;Lhj;)V"
+		signature = "(Lhj;Lhj;)V"
 	)
 	AbstractWorldMapIcon(Coord var1, Coord var2) {
 		this.coord1 = var1;
@@ -50,40 +49,40 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "1499764486"
+		signature = "(I)I",
+		garbageValue = "1499764486"
 	)
 	@Export("getElement")
 	public abstract int getElement();
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(B)Laz;",
-			garbageValue = "124"
+		signature = "(B)Laz;",
+		garbageValue = "124"
 	)
 	@Export("getLabel")
 	abstract WorldMapLabel getLabel();
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(S)I",
-			garbageValue = "-26101"
+		signature = "(S)I",
+		garbageValue = "-26101"
 	)
 	@Export("getSubWidth")
 	abstract int getSubWidth();
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "1"
+		signature = "(B)I",
+		garbageValue = "1"
 	)
 	@Export("getSubHeight")
 	abstract int getSubHeight();
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-			signature = "(III)Z",
-			garbageValue = "-671812733"
+		signature = "(III)Z",
+		garbageValue = "-671812733"
 	)
 	@Export("fitsScreen")
 	boolean fitsScreen(int var1, int var2) {
@@ -96,8 +95,8 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-			signature = "(B)Z",
-			garbageValue = "-18"
+		signature = "(B)Z",
+		garbageValue = "-18"
 	)
 	@Export("hasValidElement")
 	boolean hasValidElement() {
@@ -106,8 +105,8 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-			signature = "(III)Z",
-			garbageValue = "1514075887"
+		signature = "(III)Z",
+		garbageValue = "1514075887"
 	)
 	@Export("elementFitsScreen")
 	boolean elementFitsScreen(int var1, int var2) {
@@ -117,41 +116,41 @@ public abstract class AbstractWorldMapIcon {
 			WorldMapElement var3 = PacketBufferNode.WorldMapElement_get(this.getElement());
 			int var4 = this.getSubWidth();
 			int var5 = this.getSubHeight();
-			switch (var3.horizontalAlignment.value) {
-				case 0:
-					if (var1 <= this.screenX - var4 || var1 > this.screenX) {
-						return false;
-					}
-					break;
-				case 1:
-					if (var1 >= this.screenX - var4 / 2 && var1 <= var4 / 2 + this.screenX) {
-						break;
-					}
-
+			switch(var3.horizontalAlignment.value) {
+			case 0:
+				if (var1 <= this.screenX - var4 || var1 > this.screenX) {
 					return false;
-				case 2:
-					if (var1 < this.screenX || var1 >= var4 + this.screenX) {
-						return false;
-					}
+				}
+				break;
+			case 1:
+				if (var1 >= this.screenX - var4 / 2 && var1 <= var4 / 2 + this.screenX) {
+					break;
+				}
+
+				return false;
+			case 2:
+				if (var1 < this.screenX || var1 >= var4 + this.screenX) {
+					return false;
+				}
 			}
 
-			switch (var3.verticalAlignment.value) {
-				case 0:
-					if (var2 >= this.screenY - var5 / 2 && var2 <= var5 / 2 + this.screenY) {
-						break;
-					}
+			switch(var3.verticalAlignment.value) {
+			case 0:
+				if (var2 >= this.screenY - var5 / 2 && var2 <= var5 / 2 + this.screenY) {
+					break;
+				}
 
-					return false;
-				case 1:
-					if (var2 >= this.screenY && var2 < var5 + this.screenY) {
-						break;
-					}
+				return false;
+			case 1:
+				if (var2 >= this.screenY && var2 < var5 + this.screenY) {
+					break;
+				}
 
+				return false;
+			case 2:
+				if (var2 <= this.screenY - var5 || var2 > this.screenY) {
 					return false;
-				case 2:
-					if (var2 <= this.screenY - var5 || var2 > this.screenY) {
-						return false;
-					}
+				}
 			}
 
 			return true;
@@ -160,8 +159,8 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-			signature = "(III)Z",
-			garbageValue = "-543519402"
+		signature = "(III)Z",
+		garbageValue = "-543519402"
 	)
 	@Export("labelFitsScreen")
 	boolean labelFitsScreen(int var1, int var2) {
@@ -177,8 +176,8 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(Lks;ILba;IB)V",
-			garbageValue = "91"
+		signature = "(Lks;ILba;IB)V",
+		garbageValue = "91"
 	)
 	static final void method613(PacketBuffer var0, int var1, Player var2, int var3) {
 		byte var4 = -1;
@@ -278,7 +277,7 @@ public abstract class AbstractWorldMapIcon {
 
 		if ((var3 & 32) != 0) {
 			var5 = var0.method5614();
-			PlayerType var13 = (PlayerType) WorldMapSection0.findEnumerated(SecureRandomFuture.PlayerType_values(), var0.method5771());
+			PlayerType var13 = (PlayerType)WorldMapSection0.findEnumerated(SecureRandomFuture.PlayerType_values(), var0.method5771());
 			boolean var17 = var0.readUnsignedByte() == 1;
 			var8 = var0.method5605();
 			var9 = var0.offset;
@@ -394,8 +393,8 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-			signature = "(Lff;III)Ldw;",
-			garbageValue = "1204269673"
+		signature = "(Lff;III)Ldw;",
+		garbageValue = "1204269673"
 	)
 	public static final PcmPlayer method627(TaskHandler var0, int var1, int var2) {
 		if (PcmPlayer.field1398 == 0) {
@@ -441,8 +440,8 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("fa")
 	@ObfuscatedSignature(
-			signature = "(IIII)V",
-			garbageValue = "926175900"
+		signature = "(IIII)V",
+		garbageValue = "926175900"
 	)
 	@Export("queueSoundEffect")
 	static void queueSoundEffect(int var0, int var1, int var2) {
@@ -459,12 +458,12 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("kt")
 	@ObfuscatedSignature(
-			signature = "(IB)V",
-			garbageValue = "4"
+		signature = "(IB)V",
+		garbageValue = "4"
 	)
 	static void method628(int var0) {
-		for (IntegerNode var1 = (IntegerNode) Client.widgetClickMasks.first(); var1 != null; var1 = (IntegerNode) Client.widgetClickMasks.next()) {
-			if ((long) var0 == (var1.key >> 48 & 65535L)) {
+		for (IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.first(); var1 != null; var1 = (IntegerNode)Client.widgetClickMasks.next()) {
+			if ((long)var0 == (var1.key >> 48 & 65535L)) {
 				var1.remove();
 			}
 		}

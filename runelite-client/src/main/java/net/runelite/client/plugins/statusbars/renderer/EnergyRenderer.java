@@ -30,7 +30,6 @@ package net.runelite.client.plugins.statusbars.renderer;
 import java.awt.Color;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.SpriteID;
 import net.runelite.client.game.SpriteManager;
@@ -38,11 +37,13 @@ import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 
 @Singleton
-public class EnergyRenderer extends BarRenderer {
+public class EnergyRenderer extends BarRenderer
+{
 	private final SpriteManager spriteManager;
 
 	@Inject
-	public EnergyRenderer(final StatusBarsPlugin plugin, final SpriteManager spriteManager) {
+	public EnergyRenderer(final StatusBarsPlugin plugin, final SpriteManager spriteManager)
+	{
 		super(plugin);
 		maximumValue = 100;
 		this.spriteManager = spriteManager;
@@ -51,7 +52,8 @@ public class EnergyRenderer extends BarRenderer {
 	}
 
 	@Override
-	protected void update(Client client, StatusBarsOverlay overlay) {
+	protected void update(Client client, StatusBarsOverlay overlay)
+	{
 		icon = spriteManager.getSprite(SpriteID.MINIMAP_ORB_RUN_ICON, 0);
 		currentValue = client.getEnergy();
 		restore = overlay.getRestoreValue("Run Energy");

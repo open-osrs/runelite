@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Information about a specific {@link NpcID}
  */
-public interface NPCDefinition {
+public interface NPCDefinition
+{
 	/**
 	 * Gets the name of the NPC.
 	 */

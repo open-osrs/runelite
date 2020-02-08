@@ -27,12 +27,13 @@ package net.runelite.client.ui;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import javax.swing.JFrame;
-
 import lombok.Setter;
 import net.runelite.client.config.ExpandResizeType;
 
-public class ContainableFrame extends JFrame {
-	public enum Mode {
+public class ContainableFrame extends JFrame
+{
+	public enum Mode
+	{
 		ALWAYS,
 		RESIZING,
 		NEVER
@@ -45,19 +46,23 @@ public class ContainableFrame extends JFrame {
 	private Mode containedInScreen;
 	private boolean expandedClientOppositeDirection;
 
-	ContainableFrame() {
+	ContainableFrame()
+	{
 		addWindowStateListener(windowEvent ->
 		{
-			if (windowEvent.getNewState() == Frame.NORMAL) {
+			if (windowEvent.getNewState() == Frame.NORMAL)
+			{
 				revalidateMinimumSize();
 			}
 		});
 	}
 
-	public void setContainedInScreen(Mode value) {
+	public void setContainedInScreen(Mode value)
+	{
 		this.containedInScreen = value;
 
-		if (this.containedInScreen == Mode.ALWAYS) {
+		if (this.containedInScreen == Mode.ALWAYS)
+		{
 			// Reposition the frame if it is intersecting with the bounds
 			this.setLocation(this.getX(), this.getY());
 			this.setBounds(this.getX(), this.getY(), this.getWidth(), this.getHeight());
@@ -65,8 +70,10 @@ public class ContainableFrame extends JFrame {
 	}
 
 	@Override
-	public void setLocation(int x, int y) {
-		if (this.containedInScreen == Mode.ALWAYS) {
+	public void setLocation(int x, int y)
+	{
+		if (this.containedInScreen == Mode.ALWAYS)
+		{
 			Rectangle bounds = this.getGraphicsConfiguration().getBounds();
 			x = Math.max(x, (int) bounds.getX());
 			x = Math.min(x, (int) (bounds.getX() + bounds.getWidth() - this.getWidth()));
@@ -78,8 +85,10 @@ public class ContainableFrame extends JFrame {
 	}
 
 	@Override
-	public void setBounds(int x, int y, int width, int height) {
-		if (this.containedInScreen == Mode.ALWAYS) {
+	public void setBounds(int x, int y, int width, int height)
+	{
+		if (this.containedInScreen == Mode.ALWAYS)
+		{
 			// XXX: this is wrong if setSize/resize is called because Component::resize sets private state that is read
 			// in Window::setBounds
 			Rectangle bounds = this.getGraphicsConfiguration().getBounds();
@@ -100,35 +109,43 @@ public class ContainableFrame extends JFrame {
 	 *
 	 * @param value size to expand frame by
 	 */
-	public void expandBy(final int value) {
-		if (isFullScreen()) {
+	public void expandBy(final int value)
+	{
+		if (isFullScreen())
+		{
 			return;
 		}
 
 		int increment = value;
 		boolean forcedWidthIncrease = false;
 
-		if (expandResizeType == ExpandResizeType.KEEP_WINDOW_SIZE) {
+		if (expandResizeType == ExpandResizeType.KEEP_WINDOW_SIZE)
+		{
 			final int minimumWidth = getLayout().minimumLayoutSize(this).width;
 			final int currentWidth = getWidth();
 
-			if (minimumWidth > currentWidth) {
+			if (minimumWidth > currentWidth)
+			{
 				forcedWidthIncrease = true;
 				increment = minimumWidth - currentWidth;
 			}
 		}
 
-		if (forcedWidthIncrease || expandResizeType == ExpandResizeType.KEEP_GAME_SIZE) {
+		if (forcedWidthIncrease || expandResizeType == ExpandResizeType.KEEP_GAME_SIZE)
+		{
 			final int newWindowWidth = getWidth() + increment;
 			int newWindowX = getX();
 
-			if (this.containedInScreen != Mode.NEVER) {
+			if (this.containedInScreen != Mode.NEVER)
+			{
 				final Rectangle screenBounds = getGraphicsConfiguration().getBounds();
 				final boolean wouldExpandThroughEdge = getX() + newWindowWidth > screenBounds.getX() + screenBounds.getWidth();
 
-				if (wouldExpandThroughEdge) {
+				if (wouldExpandThroughEdge)
+				{
 
-					if (!isFrameCloseToRightEdge() || isFrameCloseToLeftEdge()) {
+					if (!isFrameCloseToRightEdge() || isFrameCloseToLeftEdge())
+					{
 						// Move the window to the edge
 						newWindowX = (int) (screenBounds.getX() + screenBounds.getWidth()) - getWidth();
 					}
@@ -153,8 +170,10 @@ public class ContainableFrame extends JFrame {
 	 *
 	 * @param value value to contract frame by
 	 */
-	public void contractBy(final int value) {
-		if (isFullScreen()) {
+	public void contractBy(final int value)
+	{
+		if (isFullScreen())
+		{
 			return;
 		}
 
@@ -164,12 +183,14 @@ public class ContainableFrame extends JFrame {
 		int newWindowX = getX();
 		int newWindowWidth = getWidth() - value;
 
-		if (isFrameCloseToRightEdge() && (expandedClientOppositeDirection || !wasCloseToLeftEdge)) {
+		if (isFrameCloseToRightEdge() && (expandedClientOppositeDirection || !wasCloseToLeftEdge))
+		{
 			// Keep the distance to the right edge
 			newWindowX += value;
 		}
 
-		if (expandResizeType == ExpandResizeType.KEEP_WINDOW_SIZE && newWindowWidth > getMinimumSize().width) {
+		if (expandResizeType == ExpandResizeType.KEEP_WINDOW_SIZE && newWindowWidth > getMinimumSize().width)
+		{
 			// The sidebar fits inside the window, do not resize and move
 			newWindowWidth = getWidth();
 			newWindowX = getX();
@@ -182,20 +203,24 @@ public class ContainableFrame extends JFrame {
 	/**
 	 * Force minimum size of frame to be it's layout manager's minimum size
 	 */
-	public void revalidateMinimumSize() {
+	public void revalidateMinimumSize()
+	{
 		setMinimumSize(getLayout().minimumLayoutSize(this));
 	}
 
-	private boolean isFullScreen() {
+	private boolean isFullScreen()
+	{
 		return (getExtendedState() & Frame.MAXIMIZED_BOTH) == Frame.MAXIMIZED_BOTH;
 	}
 
-	private boolean isFrameCloseToLeftEdge() {
+	private boolean isFrameCloseToLeftEdge()
+	{
 		Rectangle screenBounds = getGraphicsConfiguration().getBounds();
 		return Math.abs(getX() - screenBounds.getX()) <= SCREEN_EDGE_CLOSE_DISTANCE;
 	}
 
-	private boolean isFrameCloseToRightEdge() {
+	private boolean isFrameCloseToRightEdge()
+	{
 		Rectangle screenBounds = getGraphicsConfiguration().getBounds();
 		return Math.abs((getX() + getWidth()) - (screenBounds.getX() + screenBounds.getWidth())) <= SCREEN_EDGE_CLOSE_DISTANCE;
 	}

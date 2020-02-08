@@ -31,7 +31,6 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import joptsimple.internal.Strings;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -50,14 +49,15 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.util.ImageUtil;
 
 @PluginDescriptor(
-		name = "Emojis",
-		description = "Replaces common emoticons such as :) with their corresponding emoji in the chat",
-		enabledByDefault = false,
-		type = PluginType.MISCELLANEOUS
+	name = "Emojis",
+	description = "Replaces common emoticons such as :) with their corresponding emoji in the chat",
+	enabledByDefault = false,
+	type = PluginType.MISCELLANEOUS
 )
 @Slf4j
 @Singleton
-public class EmojiPlugin extends Plugin {
+public class EmojiPlugin extends Plugin
+{
 	private static final Pattern TAG_REGEXP = Pattern.compile("<[^>]*>");
 	private static final Pattern WHITESPACE_REGEXP = Pattern.compile("[\\s\\u00A0]");
 
@@ -70,20 +70,25 @@ public class EmojiPlugin extends Plugin {
 	private int modIconsStart = -1;
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		loadEmojiIcons();
 	}
 
 	@Subscribe
-	void onGameStateChanged(GameStateChanged gameStateChanged) {
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN) {
+	void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
+		{
 			loadEmojiIcons();
 		}
 	}
 
-	private void loadEmojiIcons() {
+	private void loadEmojiIcons()
+	{
 		final IndexedSprite[] modIcons = client.getModIcons();
-		if (modIconsStart != -1 || modIcons == null) {
+		if (modIconsStart != -1 || modIcons == null)
+		{
 			return;
 		}
 
@@ -91,14 +96,18 @@ public class EmojiPlugin extends Plugin {
 		final IndexedSprite[] newModIcons = Arrays.copyOf(modIcons, modIcons.length + emojis.length);
 		modIconsStart = modIcons.length;
 
-		for (int i = 0; i < emojis.length; i++) {
+		for (int i = 0; i < emojis.length; i++)
+		{
 			final Emoji emoji = emojis[i];
 
-			try {
+			try
+			{
 				final BufferedImage image = emoji.loadImage();
 				final IndexedSprite sprite = ImageUtil.getImageIndexedSprite(image, client);
 				newModIcons[modIconsStart + i] = sprite;
-			} catch (Exception ex) {
+			}
+			catch (Exception ex)
+			{
 				log.warn("Failed to load the sprite for emoji " + emoji, ex);
 			}
 		}
@@ -108,12 +117,15 @@ public class EmojiPlugin extends Plugin {
 	}
 
 	@Subscribe
-	void onChatMessage(ChatMessage chatMessage) {
-		if (client.getGameState() != GameState.LOGGED_IN || modIconsStart == -1) {
+	void onChatMessage(ChatMessage chatMessage)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN || modIconsStart == -1)
+		{
 			return;
 		}
 
-		switch (chatMessage.getType()) {
+		switch (chatMessage.getType())
+		{
 			case PUBLICCHAT:
 			case MODCHAT:
 			case FRIENDSCHAT:
@@ -129,7 +141,8 @@ public class EmojiPlugin extends Plugin {
 		final String message = messageNode.getValue();
 		final String updatedMessage = updateMessage(message);
 
-		if (updatedMessage == null) {
+		if (updatedMessage == null)
+		{
 			return;
 		}
 
@@ -139,15 +152,18 @@ public class EmojiPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onOverheadTextChanged(final OverheadTextChanged event) {
-		if (!(event.getActor() instanceof Player)) {
+	private void onOverheadTextChanged(final OverheadTextChanged event)
+	{
+		if (!(event.getActor() instanceof Player))
+		{
 			return;
 		}
 
 		final String message = event.getOverheadText();
 		final String updatedMessage = updateMessage(message);
 
-		if (updatedMessage == null) {
+		if (updatedMessage == null)
+		{
 			return;
 		}
 
@@ -155,16 +171,19 @@ public class EmojiPlugin extends Plugin {
 	}
 
 	@Nullable
-	String updateMessage(final String message) {
+	String updateMessage(final String message)
+	{
 		final String[] messageWords = WHITESPACE_REGEXP.split(message);
 
 		boolean editedMessage = false;
-		for (int i = 0; i < messageWords.length; i++) {
+		for (int i = 0; i < messageWords.length; i++)
+		{
 			// Remove tags except for <lt> and <gt>
 			final String trigger = removeTags(messageWords[i]);
 			final Emoji emoji = Emoji.getEmoji(trigger);
 
-			if (emoji == null) {
+			if (emoji == null)
+			{
 				continue;
 			}
 
@@ -175,7 +194,8 @@ public class EmojiPlugin extends Plugin {
 		}
 
 		// If we haven't edited the message any, don't update it.
-		if (!editedMessage) {
+		if (!editedMessage)
+		{
 			return null;
 		}
 
@@ -187,13 +207,16 @@ public class EmojiPlugin extends Plugin {
 	 *
 	 * @return
 	 */
-	private static String removeTags(String str) {
+	private static String removeTags(String str)
+	{
 		StringBuffer stringBuffer = new StringBuffer();
 		Matcher matcher = TAG_REGEXP.matcher(str);
-		while (matcher.find()) {
+		while (matcher.find())
+		{
 			matcher.appendReplacement(stringBuffer, "");
 			String match = matcher.group(0);
-			switch (match) {
+			switch (match)
+			{
 				case "<lt>":
 				case "<gt>":
 					stringBuffer.append(match);

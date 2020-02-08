@@ -25,50 +25,58 @@
 package net.runelite.deob.deobfuscators.menuaction;
 
 import java.util.Objects;
-
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.LVTInstruction;
 import net.runelite.asm.attributes.code.instruction.types.PushConstantInstruction;
 
-class Comparison {
+class Comparison
+{
 	LVTInstruction lvt;
 	Instruction ldc;
 	Instruction cmp;
-
+	
 	Label next;
 
-	Number getConstant() {
+	Number getConstant()
+	{
 		return (Number) ((PushConstantInstruction) ldc).getConstant();
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 3;
 		hash = 41 * hash + Objects.hashCode(this.cmp);
 		return hash;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
 			return true;
 		}
-		if (obj == null) {
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final Comparison other = (Comparison) obj;
-		if (!Objects.equals(this.cmp, other.cmp)) {
+		if (!Objects.equals(this.cmp, other.cmp))
+		{
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Comparison{" + "lvt=" + lvt + ", ldc=" + ldc + ", cmp=" + cmp + ", next=" + next + '}';
 	}
 

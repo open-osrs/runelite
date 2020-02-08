@@ -27,8 +27,8 @@ public class Strings {
 
 	@ObfuscatedName("jt")
 	@ObfuscatedSignature(
-			signature = "(Lhn;III)V",
-			garbageValue = "-1274264316"
+		signature = "(Lhn;III)V",
+		garbageValue = "-1274264316"
 	)
 	@Export("clickWidget")
 	static final void clickWidget(Widget var0, int var1, int var2) {

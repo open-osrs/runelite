@@ -27,7 +27,6 @@ package net.runelite.client.plugins.friendlist;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.events.GameTick;
@@ -39,12 +38,13 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
 @PluginDescriptor(
-		name = "Friend List",
-		description = "Add extra information to the friend and ignore lists",
-		type = PluginType.MISCELLANEOUS
+	name = "Friend List",
+	description = "Add extra information to the friend and ignore lists",
+	type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class FriendListPlugin extends Plugin {
+public class FriendListPlugin extends Plugin
+{
 	private static final int MAX_FRIENDS_P2P = 400;
 	private static final int MAX_FRIENDS_F2P = 200;
 
@@ -55,58 +55,66 @@ public class FriendListPlugin extends Plugin {
 	private Client client;
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		final int world = client.getWorld();
 		setFriendsListTitle("Friends List - World " + world);
 		setIgnoreListTitle("Ignore List - World " + world);
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick tick) {
+	private void onGameTick(GameTick tick)
+	{
 		final int world = client.getWorld();
 		final boolean isMember = client.getVar(VarPlayer.MEMBERSHIP_DAYS) > 0;
 
 		final int friendCount = client.getFriendsCount();
-		if (friendCount >= 0) {
+		if (friendCount >= 0)
+		{
 			final int limit = isMember ? MAX_FRIENDS_P2P : MAX_FRIENDS_F2P;
 
 			final String title = "Friends - W" +
-					world +
-					" (" +
-					friendCount +
-					"/" +
-					limit +
-					")";
+				world +
+				" (" +
+				friendCount +
+				"/" +
+				limit +
+				")";
 
 			setFriendsListTitle(title);
 		}
 
 		final int ignoreCount = client.getIgnoreCount();
-		if (ignoreCount >= 0) {
+		if (ignoreCount >= 0)
+		{
 			final int limit = isMember ? MAX_IGNORES_P2P : MAX_IGNORES_F2P;
 
 			final String title = "Ignores - W" +
-					world +
-					" (" +
-					ignoreCount +
-					"/" +
-					limit +
-					")";
+				world +
+				" (" +
+				ignoreCount +
+				"/" +
+				limit +
+				")";
 
 			setIgnoreListTitle(title);
 		}
 	}
 
-	private void setFriendsListTitle(final String title) {
+	private void setFriendsListTitle(final String title)
+	{
 		Widget friendListTitleWidget = client.getWidget(WidgetInfo.FRIEND_CHAT_TITLE);
-		if (friendListTitleWidget != null) {
+		if (friendListTitleWidget != null)
+		{
 			friendListTitleWidget.setText(title);
 		}
 	}
 
-	private void setIgnoreListTitle(final String title) {
+	private void setIgnoreListTitle(final String title)
+	{
 		Widget ignoreTitleWidget = client.getWidget(WidgetInfo.IGNORE_TITLE);
-		if (ignoreTitleWidget != null) {
+		if (ignoreTitleWidget != null)
+		{
 			ignoreTitleWidget.setText(title);
 		}
 	}

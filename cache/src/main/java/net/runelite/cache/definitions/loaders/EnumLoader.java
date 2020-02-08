@@ -30,11 +30,14 @@ import net.runelite.cache.util.ScriptVarType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EnumLoader {
+public class EnumLoader
+{
 	private static final Logger logger = LoggerFactory.getLogger(EnumLoader.class);
 
-	public EnumDefinition load(int id, byte[] b) {
-		if (b.length == 1 && b[0] == 0) {
+	public EnumDefinition load(int id, byte[] b)
+	{
+		if (b.length == 1 && b[0] == 0)
+		{
 			return null;
 		}
 
@@ -43,9 +46,11 @@ public class EnumLoader {
 
 		def.setId(id);
 
-		for (; ; ) {
+		for (;;)
+		{
 			int opcode = is.readUnsignedByte();
-			if (opcode == 0) {
+			if (opcode == 0)
+			{
 				break;
 			}
 
@@ -55,8 +60,10 @@ public class EnumLoader {
 		return def;
 	}
 
-	private void processOp(int opcode, EnumDefinition def, InputStream is) {
-		switch (opcode) {
+	private void processOp(int opcode, EnumDefinition def, InputStream is)
+	{
+		switch (opcode)
+		{
 			case 1:
 				def.setKeyType(ScriptVarType.forCharKey((char) is.readUnsignedByte()));
 				break;
@@ -69,11 +76,13 @@ public class EnumLoader {
 			case 4:
 				def.setDefaultInt(is.readInt());
 				break;
-			case 5: {
+			case 5:
+			{
 				int size = is.readUnsignedShort();
 				int[] keys = new int[size];
 				String[] stringVals = new String[size];
-				for (int index = 0; index < size; ++index) {
+				for (int index = 0; index < size; ++index)
+				{
 					keys[index] = is.readInt();
 					stringVals[index] = is.readString();
 				}
@@ -82,11 +91,13 @@ public class EnumLoader {
 				def.setStringVals(stringVals);
 				break;
 			}
-			case 6: {
+			case 6:
+			{
 				int size = is.readUnsignedShort();
 				int[] keys = new int[size];
 				int[] intVals = new int[size];
-				for (int index = 0; index < size; ++index) {
+				for (int index = 0; index < size; ++index)
+				{
 					keys[index] = is.readInt();
 					intVals[index] = is.readInt();
 				}

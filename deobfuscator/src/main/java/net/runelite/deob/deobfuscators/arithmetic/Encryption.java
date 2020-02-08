@@ -27,26 +27,31 @@ package net.runelite.deob.deobfuscators.arithmetic;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.asm.pool.Field;
 
-class Encryption {
+class Encryption
+{	
 	private final Map<Field, Pair> fields = new HashMap<>();
-
-	void addPair(Pair pair) {
+	
+	void addPair(Pair pair)
+	{
 		assert pair.field != null;
-
+		
 		Pair existing = fields.get(pair.field);
-		if (existing != null) {
+		if (existing != null)
+		{
 			// if this is a subsequent guess, then the new guess
 			// is multiplied into the old guess
 			fields.put(pair.field, new Pair(pair, existing));
-		} else {
+		}
+		else
+		{
 			fields.put(pair.field, pair);
 		}
 	}
-
-	Pair getField(Field field) {
+	
+	Pair getField(Field field)
+	{
 		return fields.get(field);
 	}
 }

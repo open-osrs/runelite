@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum ObeliskMode {
+public enum ObeliskMode
+{
 	ACTIVATE("Activate"),
 	SET_DESTINATION("Set destination"),
 	TELEPORT_TO_DESTINATION("Teleport to destination");
@@ -38,7 +39,8 @@ public enum ObeliskMode {
 	private final String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

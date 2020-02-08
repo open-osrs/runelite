@@ -20,7 +20,7 @@ public class Skills {
 
 		for (int var1 = 0; var1 < 99; ++var1) {
 			int var2 = var1 + 1;
-			int var3 = (int) ((double) var2 + 300.0D * Math.pow(2.0D, (double) var2 / 7.0D));
+			int var3 = (int)((double)var2 + 300.0D * Math.pow(2.0D, (double)var2 / 7.0D));
 			var0 += var3;
 			Skills_experienceTable[var1] = var0 / 4;
 		}
@@ -29,8 +29,8 @@ public class Skills {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-			signature = "(CB)Z",
-			garbageValue = "88"
+		signature = "(CB)Z",
+		garbageValue = "88"
 	)
 	@Export("isCharPrintable")
 	public static boolean isCharPrintable(char var0) {
@@ -45,14 +45,14 @@ public class Skills {
 
 	@ObfuscatedName("hw")
 	@ObfuscatedSignature(
-			signature = "(IIIIIIIIII)V",
-			garbageValue = "730200228"
+		signature = "(IIIIIIIIII)V",
+		garbageValue = "730200228"
 	)
 	@Export("updatePendingSpawn")
 	static final void updatePendingSpawn(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		PendingSpawn var9 = null;
 
-		for (PendingSpawn var10 = (PendingSpawn) Client.pendingSpawns.last(); var10 != null; var10 = (PendingSpawn) Client.pendingSpawns.previous()) {
+		for (PendingSpawn var10 = (PendingSpawn)Client.pendingSpawns.last(); var10 != null; var10 = (PendingSpawn)Client.pendingSpawns.previous()) {
 			if (var0 == var10.plane && var10.x == var1 && var2 == var10.y && var3 == var10.type) {
 				var9 = var10;
 				break;

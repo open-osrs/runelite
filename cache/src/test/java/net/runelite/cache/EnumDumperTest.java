@@ -27,11 +27,9 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-
 import net.runelite.cache.definitions.EnumDefinition;
 import net.runelite.cache.definitions.loaders.EnumLoader;
 import net.runelite.cache.fs.Archive;
@@ -46,7 +44,8 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EnumDumperTest {
+public class EnumDumperTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(EnumDumperTest.class);
 
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -55,11 +54,13 @@ public class EnumDumperTest {
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException {
+	public void test() throws IOException
+	{
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();
@@ -71,12 +72,14 @@ public class EnumDumperTest {
 
 			EnumLoader loader = new EnumLoader();
 
-			for (FSFile file : files.getFiles()) {
+			for (FSFile file : files.getFiles())
+			{
 				byte[] b = file.getContents();
 
 				EnumDefinition def = loader.load(file.getFileId(), b);
 
-				if (def != null) {
+				if (def != null)
+				{
 					Files.asCharSink(new File(dumpDir, file.getFileId() + ".json"), Charset.defaultCharset()).write(gson.toJson(def));
 					++count;
 				}

@@ -26,15 +26,15 @@
 package net.runelite.client.plugins.cluescrolls;
 
 import net.runelite.api.coords.WorldPoint;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-
 import org.junit.Test;
 
-public class ClueScrollPluginTest {
+public class ClueScrollPluginTest
+{
 	@Test
-	public void getGetMirrorPoint() {
+	public void getGetMirrorPoint()
+	{
 		WorldPoint point, converted;
 
 		// Zalcano's entrance portal

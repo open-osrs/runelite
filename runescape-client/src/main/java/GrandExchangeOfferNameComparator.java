@@ -1,5 +1,4 @@
 import java.util.Comparator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,15 +9,15 @@ import net.runelite.mapping.ObfuscatedSignature;
 final class GrandExchangeOfferNameComparator implements Comparator {
 	@ObfuscatedName("dg")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive9")
 	static Archive archive9;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ll;Ll;B)I",
-			garbageValue = "48"
+		signature = "(Ll;Ll;B)I",
+		garbageValue = "48"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -26,7 +25,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent) var1, (GrandExchangeEvent) var2);
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
 	public boolean equals(Object var1) {
@@ -35,8 +34,8 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(Lem;[Lfv;I)V",
-			garbageValue = "1041712074"
+		signature = "(Lem;[Lfv;I)V",
+		garbageValue = "1041712074"
 	)
 	static final void method152(Scene var0, CollisionMap[] var1) {
 		int var2;
@@ -60,7 +59,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 			}
 		}
 
-		Tiles.field512 += (int) (Math.random() * 5.0D) - 2;
+		Tiles.field512 += (int)(Math.random() * 5.0D) - 2;
 		if (Tiles.field512 < -8) {
 			Tiles.field512 = -8;
 		}
@@ -69,7 +68,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 			Tiles.field512 = 8;
 		}
 
-		Tiles.field519 += (int) (Math.random() * 5.0D) - 2;
+		Tiles.field519 += (int)(Math.random() * 5.0D) - 2;
 		if (Tiles.field519 < -16) {
 			Tiles.field519 = -16;
 		}
@@ -91,7 +90,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		int var18;
 		for (var2 = 0; var2 < 4; ++var2) {
 			byte[][] var42 = InterfaceParent.field565[var2];
-			var9 = (int) Math.sqrt(5100.0D);
+			var9 = (int)Math.sqrt(5100.0D);
 			var10 = var9 * 768 >> 8;
 
 			int var19;
@@ -100,7 +99,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 				for (var12 = 1; var12 < 103; ++var12) {
 					var13 = Tiles.Tiles_heights[var2][var12 + 1][var11] - Tiles.Tiles_heights[var2][var12 - 1][var11];
 					var14 = Tiles.Tiles_heights[var2][var12][var11 + 1] - Tiles.Tiles_heights[var2][var12][var11 - 1];
-					var15 = (int) Math.sqrt((double) (var14 * var14 + var13 * var13 + 65536));
+					var15 = (int)Math.sqrt((double)(var14 * var14 + var13 * var13 + 65536));
 					var16 = (var13 << 8) / var15;
 					var17 = 65536 / var15;
 					var18 = (var14 << 8) / var15;
@@ -497,8 +496,8 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 
 	@ObfuscatedName("je")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "1818346399"
+		signature = "(II)V",
+		garbageValue = "1818346399"
 	)
 	static final void method150(int var0) {
 		if (ScriptFrame.loadInterface(var0)) {

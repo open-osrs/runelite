@@ -32,7 +32,6 @@ import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.SkullIcon;
@@ -45,14 +44,16 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.util.ImageUtil;
 
 @Singleton
-public class PlayerIndicatorsMinimapOverlay extends Overlay {
+public class PlayerIndicatorsMinimapOverlay extends Overlay
+{
 	private final PlayerIndicatorsService playerIndicatorsService;
 	private final PlayerIndicatorsPlugin plugin;
 	private final BufferedImage skullIcon = ImageUtil.getResourceStreamFromClass(PlayerIndicatorsPlugin.class,
-			"skull.png");
+		"skull.png");
 
 	@Inject
-	private PlayerIndicatorsMinimapOverlay(final PlayerIndicatorsPlugin plugin, final PlayerIndicatorsService playerIndicatorsService) {
+	private PlayerIndicatorsMinimapOverlay(final PlayerIndicatorsPlugin plugin, final PlayerIndicatorsService playerIndicatorsService)
+	{
 		this.plugin = plugin;
 		this.playerIndicatorsService = playerIndicatorsService;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -60,19 +61,23 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay {
 		setPriority(OverlayPriority.HIGH);
 	}
 
-	private void renderMinimapOverlays(Graphics2D graphics, Player actor, PlayerRelation relation) {
-		if (!plugin.getLocationHashMap().containsKey(relation) || actor.getName() == null) {
+	private void renderMinimapOverlays(Graphics2D graphics, Player actor, PlayerRelation relation)
+	{
+		if (!plugin.getLocationHashMap().containsKey(relation) || actor.getName() == null)
+		{
 			return;
 		}
 
 		final List indicationLocations = Arrays.asList(plugin.getLocationHashMap().get(relation));
 		final Color color = plugin.getRelationColorHashMap().get(relation);
 
-		if (indicationLocations.contains(PlayerIndicationLocation.MINIMAP)) {
+		if (indicationLocations.contains(PlayerIndicationLocation.MINIMAP))
+		{
 			String name = actor.getName().replace('\u00A0', ' ');
 			String tag = "";
 			String prefix = "tag_";
-			if (FriendTaggingPlugin.taggedFriends.containsKey(prefix + name.trim().toLowerCase())) {
+			if (FriendTaggingPlugin.taggedFriends.containsKey(prefix + name.trim().toLowerCase()))
+			{
 				tag = " [" + FriendTaggingPlugin.taggedFriends.get(prefix + name.trim().toLowerCase()) + "] ";
 			}
 
@@ -80,21 +85,27 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay {
 
 			net.runelite.api.Point minimapLocation = actor.getMinimapLocation();
 
-			if (minimapLocation != null) {
-				if (plugin.isShowCombatLevel()) {
+			if (minimapLocation != null)
+			{
+				if (plugin.isShowCombatLevel())
+				{
 					name += "-(" + actor.getCombatLevel() + ")";
 				}
-				if (actor.getSkullIcon() != null && plugin.isPlayerSkull() && actor.getSkullIcon() == SkullIcon.SKULL) {
+				if (actor.getSkullIcon() != null && plugin.isPlayerSkull() && actor.getSkullIcon() == SkullIcon.SKULL)
+				{
 					final int width = graphics.getFontMetrics().stringWidth(name);
 					final int height = graphics.getFontMetrics().getHeight();
-					if (plugin.getSkullLocation().equals(PlayerIndicatorsPlugin.MinimapSkullLocations.AFTER_NAME)) {
+					if (plugin.getSkullLocation().equals(PlayerIndicatorsPlugin.MinimapSkullLocations.AFTER_NAME))
+					{
 						OverlayUtil.renderImageLocation(graphics, new Point(minimapLocation.getX()
-										+ width, minimapLocation.getY() - height),
-								ImageUtil.resizeImage(skullIcon, height, height));
-					} else {
+								+ width, minimapLocation.getY() - height),
+							ImageUtil.resizeImage(skullIcon, height, height));
+					}
+					else
+					{
 						OverlayUtil.renderImageLocation(graphics, new Point(minimapLocation.getX(),
-										minimapLocation.getY() - height),
-								ImageUtil.resizeImage(skullIcon, height, height));
+								minimapLocation.getY() - height),
+							ImageUtil.resizeImage(skullIcon, height, height));
 						minimapLocation = new Point(minimapLocation.getX() + skullIcon.getWidth(), minimapLocation.getY());
 					}
 				}
@@ -106,7 +117,8 @@ public class PlayerIndicatorsMinimapOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		playerIndicatorsService.forEachPlayer((player, playerRelation) -> renderMinimapOverlays(graphics, player, playerRelation));
 		return null;
 	}

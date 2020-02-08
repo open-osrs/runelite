@@ -32,7 +32,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
@@ -40,13 +39,15 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.FlatTextField;
 
 @Getter(AccessLevel.PUBLIC)
-public class UICalculatorInputArea extends JPanel {
+public class UICalculatorInputArea extends JPanel
+{
 	private final JTextField uiFieldCurrentLevel;
 	private final JTextField uiFieldCurrentXP;
 	private final JTextField uiFieldTargetLevel;
 	private final JTextField uiFieldTargetXP;
 
-	public UICalculatorInputArea() {
+	public UICalculatorInputArea()
+	{
 		setLayout(new GridLayout(2, 2, 7, 7));
 		uiFieldCurrentLevel = addComponent("Current Level");
 		uiFieldCurrentXP = addComponent("Current Experience");
@@ -54,51 +55,65 @@ public class UICalculatorInputArea extends JPanel {
 		uiFieldTargetXP = addComponent("Target Experience");
 	}
 
-	int getCurrentLevelInput() {
+	int getCurrentLevelInput()
+	{
 		return getInput(uiFieldCurrentLevel);
 	}
 
-	public void setCurrentLevelInput(int value) {
+	public void setCurrentLevelInput(int value)
+	{
 		setInput(uiFieldCurrentLevel, value);
 	}
 
-	int getCurrentXPInput() {
+	int getCurrentXPInput()
+	{
 		return getInput(uiFieldCurrentXP);
 	}
 
-	public void setCurrentXPInput(Object value) {
+	public void setCurrentXPInput(Object value)
+	{
 		setInput(uiFieldCurrentXP, value);
 	}
 
-	int getTargetLevelInput() {
+	int getTargetLevelInput()
+	{
 		return getInput(uiFieldTargetLevel);
 	}
 
-	public void setTargetLevelInput(Object value) {
+	public void setTargetLevelInput(Object value)
+	{
 		setInput(uiFieldTargetLevel, value);
 	}
 
-	int getTargetXPInput() {
+	int getTargetXPInput()
+	{
 		return getInput(uiFieldTargetXP);
 	}
 
-	public void setTargetXPInput(Object value) {
+	public void setTargetXPInput(Object value)
+	{
 		setInput(uiFieldTargetXP, value);
 	}
 
-	private int getInput(JTextField field) {
-		try {
+	private int getInput(JTextField field)
+	{
+		try
+		{
 			return Integer.parseInt(field.getText());
-		} catch (NumberFormatException e) {
+		}
+		catch (NumberFormatException e)
+		{
 			return 0;
 		}
 	}
 
-	private void setInput(JTextField field, Object value) {
+	private void setInput(JTextField field, Object value)
+	{
 		field.setText(String.valueOf(value));
 	}
 
-	private JTextField addComponent(String label) {
+	private JTextField addComponent(String label)
+	{
 		final JPanel container = new JPanel();
 		container.setLayout(new BorderLayout());
 

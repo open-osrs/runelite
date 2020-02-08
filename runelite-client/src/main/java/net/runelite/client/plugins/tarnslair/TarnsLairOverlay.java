@@ -31,7 +31,6 @@ import java.awt.Polygon;
 import java.awt.Shape;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.coords.LocalPoint;
@@ -41,14 +40,16 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Singleton
 @Slf4j
-public class TarnsLairOverlay extends Overlay {
+public class TarnsLairOverlay extends Overlay
+{
 	private static final int MAX_DISTANCE = 2350;
 
 	private final Client client;
 	private final TarnsLairPlugin plugin;
 
 	@Inject
-	public TarnsLairOverlay(final Client client, final TarnsLairPlugin plugin) {
+	public TarnsLairOverlay(final Client client, final TarnsLairPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
@@ -56,8 +57,10 @@ public class TarnsLairOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.isInLair()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isInLair())
+		{
 			return null;
 		}
 
@@ -65,9 +68,11 @@ public class TarnsLairOverlay extends Overlay {
 
 		plugin.getStaircases().forEach((obstacle, tile) ->
 		{
-			if (tile.getPlane() == client.getPlane() && obstacle.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE) {
+			if (tile.getPlane() == client.getPlane() && obstacle.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
+			{
 				Shape p = tile.getGameObjects()[0].getConvexHull();
-				if (p != null) {
+				if (p != null)
+				{
 					graphics.setColor(Color.GREEN);
 					graphics.draw(p);
 				}
@@ -76,9 +81,11 @@ public class TarnsLairOverlay extends Overlay {
 
 		plugin.getWallTraps().forEach((obstacle, tile) ->
 		{
-			if (tile.getPlane() == client.getPlane() && obstacle.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE) {
+			if (tile.getPlane() == client.getPlane() && obstacle.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
+			{
 				Shape p = tile.getGameObjects()[0].getConvexHull();
-				if (p != null) {
+				if (p != null)
+				{
 					graphics.setColor(Color.CYAN);
 					graphics.draw(p);
 				}
@@ -87,9 +94,11 @@ public class TarnsLairOverlay extends Overlay {
 
 		plugin.getFloorTraps().forEach((obstacle, tile) ->
 		{
-			if (tile.getPlane() == client.getPlane() && obstacle.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE) {
+			if (tile.getPlane() == client.getPlane() && obstacle.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
+			{
 				Polygon p = obstacle.getCanvasTilePoly();
-				if (p != null) {
+				if (p != null)
+				{
 					graphics.setColor(Color.CYAN);
 					graphics.drawPolygon(p);
 				}

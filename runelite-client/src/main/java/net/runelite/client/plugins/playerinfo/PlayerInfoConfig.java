@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.playerinfo;
 
 import java.awt.Color;
-
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -33,112 +32,123 @@ import net.runelite.client.config.ConfigTitleSection;
 import net.runelite.client.config.Title;
 
 @ConfigGroup("playerinfo")
-public interface PlayerInfoConfig extends Config {
+public interface PlayerInfoConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "overlaysTitle",
-			name = "Overlays",
-			description = "",
-			position = 0
+		keyName = "overlaysTitle",
+		name = "Overlays",
+		description = "",
+		position = 0
 	)
-	default Title overlaysTitle() {
+	default Title overlaysTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "enableHealth",
-			name = "Enable Health Display",
-			description = "Configures whether or not to display health information",
-			position = 1,
-			titleSection = "overlaysTitle"
+		keyName = "enableHealth",
+		name = "Enable Health Display",
+		description = "Configures whether or not to display health information",
+		position = 1,
+		titleSection = "overlaysTitle"
 	)
-	default boolean enableHealth() {
+	default boolean enableHealth()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "enablePrayer",
-			name = "Enable Prayer Display",
-			description = "Configures whether or not to display prayer information",
-			position = 2,
-			titleSection = "overlaysTitle"
+		keyName = "enablePrayer",
+		name = "Enable Prayer Display",
+		description = "Configures whether or not to display prayer information",
+		position = 2,
+		titleSection = "overlaysTitle"
 	)
-	default boolean enablePrayer() {
+	default boolean enablePrayer()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "enableEnergy",
-			name = "Enable Run Energy Display",
-			description = "Configures whether or not to display run energy information",
-			position = 3,
-			titleSection = "overlaysTitle"
+		keyName = "enableEnergy",
+		name = "Enable Run Energy Display",
+		description = "Configures whether or not to display run energy information",
+		position = 3,
+		titleSection = "overlaysTitle"
 	)
-	default boolean enableEnergy() {
+	default boolean enableEnergy()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "enableSpec",
-			name = "Enable Special Attack Display",
-			description = "Configures whether or not to display special attack information",
-			position = 4,
-			titleSection = "overlaysTitle"
+		keyName = "enableSpec",
+		name = "Enable Special Attack Display",
+		description = "Configures whether or not to display special attack information",
+		position = 4,
+		titleSection = "overlaysTitle"
 	)
-	default boolean enableSpec() {
+	default boolean enableSpec()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "enableWorld",
-			name = "Enable World Display",
-			description = "Configures whether or not to display world information",
-			position = 5,
-			titleSection = "overlaysTitle"
+		keyName = "enableWorld",
+		name = "Enable World Display",
+		description = "Configures whether or not to display world information",
+		position = 5,
+		titleSection = "overlaysTitle"
 	)
-	default boolean enableWorld() {
+	default boolean enableWorld()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "colorsTitle",
-			name = "Colors",
-			description = "",
-			position = 6
+		keyName = "colorsTitle",
+		name = "Colors",
+		description = "",
+		position = 6
 	)
-	default Title colorsTitle() {
+	default Title colorsTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "colorHigh",
-			name = "Color High",
-			description = "The color displayed for high values.",
-			position = 7,
-			titleSection = "colorsTitle"
+		keyName = "colorHigh",
+		name = "Color High",
+		description = "The color displayed for high values.",
+		position = 7,
+		titleSection = "colorsTitle"
 	)
-	default Color colorHigh() {
+	default Color colorHigh()
+	{
 		return Color.GREEN;
 	}
 
 	@ConfigItem(
-			keyName = "colorMed",
-			name = "Color Medium",
-			description = "The color displayed for medium values.",
-			position = 8,
-			titleSection = "colorsTitle"
+		keyName = "colorMed",
+		name = "Color Medium",
+		description = "The color displayed for medium values.",
+		position = 8,
+		titleSection = "colorsTitle"
 	)
-	default Color colorMed() {
+	default Color colorMed()
+	{
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-			keyName = "colorLow",
-			name = "Color Low",
-			description = "The color displayed for low values.",
-			position = 7,
-			titleSection = "colorsTitle"
+		keyName = "colorLow",
+		name = "Color Low",
+		description = "The color displayed for low values.",
+		position = 7,
+		titleSection = "colorsTitle"
 	)
-	default Color colorLow() {
+	default Color colorLow()
+	{
 		return Color.RED;
 	}
 }

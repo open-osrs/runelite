@@ -26,7 +26,6 @@
 package net.runelite.client.ui.components.colorpicker;
 
 import com.google.common.base.Strings;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -55,7 +54,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
-
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.config.ConfigManager;
@@ -63,7 +61,8 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.ColorUtil;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 
-public class RuneliteColorPicker extends JDialog {
+public class RuneliteColorPicker extends JDialog
+{
 	static final String CONFIG_GROUP = "colorpicker";
 
 	private final static int FRAME_WIDTH = 400;
@@ -95,7 +94,8 @@ public class RuneliteColorPicker extends JDialog {
 	private Consumer<Color> onClose;
 
 	RuneliteColorPicker(Window parent, Color previousColor, String title, boolean alphaHidden,
-						final ConfigManager configManager, final ColorPickerManager colorPickerManager) {
+						final ConfigManager configManager, final ColorPickerManager colorPickerManager)
+	{
 		super(parent, "RuneLite Color Picker - " + title, ModalityType.MODELESS);
 
 		this.selectedColor = previousColor;
@@ -160,7 +160,8 @@ public class RuneliteColorPicker extends JDialog {
 
 		JPanel recentColorsContainer = recentColors.build(c ->
 		{
-			if (!alphaHidden) {
+			if (!alphaHidden)
+			{
 				alphaSlider.update(c.getAlpha());
 			}
 
@@ -203,7 +204,8 @@ public class RuneliteColorPicker extends JDialog {
 		slidersContainer.add(blueSlider);
 		slidersContainer.add(alphaSlider);
 
-		if (alphaHidden) {
+		if (alphaHidden)
+		{
 			alphaSlider.setVisible(false);
 			setSize(FRAME_WIDTH, FRAME_HEIGHT - 40);
 		}
@@ -217,10 +219,13 @@ public class RuneliteColorPicker extends JDialog {
 		setContentPane(content);
 
 		// Reset selected color when clicking the old color
-		beforePanel.addMouseListener(new MouseAdapter() {
+		beforePanel.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
-				if (!alphaHidden) {
+			public void mousePressed(MouseEvent e)
+			{
+				if (!alphaHidden)
+				{
 					alphaSlider.update(beforePanel.getColor().getAlpha());
 				}
 				colorChange(beforePanel.getColor());
@@ -236,14 +241,17 @@ public class RuneliteColorPicker extends JDialog {
 
 		colorPanel.setOnColorChange(this::colorChange);
 
-		((AbstractDocument) hexInput.getDocument()).setDocumentFilter(new DocumentFilter() {
+		((AbstractDocument) hexInput.getDocument()).setDocumentFilter(new DocumentFilter()
+		{
 			@Override
 			public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attrs)
-					throws BadLocationException {
+				throws BadLocationException
+			{
 				str = str.replaceAll("#|0x", "");
 				String text = RuneliteColorPicker.getReplacedText(fb, offset, length, str);
 
-				if (!ColorUtil.isHex(text)) {
+				if (!ColorUtil.isHex(text))
+				{
 					Toolkit.getDefaultToolkit().beep();
 					return;
 				}
@@ -251,9 +259,11 @@ public class RuneliteColorPicker extends JDialog {
 				super.replace(fb, offset, length, str, attrs);
 			}
 		});
-		hexInput.addFocusListener(new FocusAdapter() {
+		hexInput.addFocusListener(new FocusAdapter()
+		{
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusLost(FocusEvent e)
+			{
 				updateHex();
 			}
 		});
@@ -278,39 +288,46 @@ public class RuneliteColorPicker extends JDialog {
 		});
 
 		alphaSlider.setOnValueChanged(i ->
-				colorChange(new Color(selectedColor.getRed(), selectedColor.getGreen(), selectedColor.getBlue(), i)));
+			colorChange(new Color(selectedColor.getRed(), selectedColor.getGreen(), selectedColor.getBlue(), i)));
 
 		updatePanels();
 		updateText();
 
-		addWindowListener(new WindowAdapter() {
+		addWindowListener(new WindowAdapter()
+		{
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent e)
+			{
 				//  force update hex color because focus lost events fire after window closing
 				updateHex();
 
-				if (onClose != null) {
+				if (onClose != null)
+				{
 					onClose.accept(selectedColor);
 				}
 
-				if (!Objects.equals(previousColor, selectedColor)) {
+				if (!Objects.equals(previousColor, selectedColor))
+				{
 					recentColors.add(selectedColor.getRGB() + "");
 				}
 
 				RuneliteColorPicker cp = colorPickerManager.getCurrentPicker();
-				if (Objects.equals(cp, RuneliteColorPicker.this)) {
+				if (Objects.equals(cp, RuneliteColorPicker.this))
+				{
 					colorPickerManager.setCurrentPicker(null);
 				}
 			}
 		});
 	}
 
-	private void updatePanels() {
+	private void updatePanels()
+	{
 		huePanel.select(selectedColor);
 		colorPanel.moveToClosestColor(huePanel.getSelectedY(), selectedColor);
 	}
 
-	private void updateText() {
+	private void updateText()
+	{
 		String hex = alphaHidden ? ColorUtil.colorToHexCode(this.getSelectedColor()) : ColorUtil.colorToAlphaHexCode(this.getSelectedColor());
 		hexInput.setText(hex.toUpperCase());
 		afterPanel.setColor(selectedColor);
@@ -318,13 +335,16 @@ public class RuneliteColorPicker extends JDialog {
 		redSlider.update(this.selectedColor.getRed());
 		greenSlider.update(this.selectedColor.getGreen());
 		blueSlider.update(this.selectedColor.getBlue());
-		if (!alphaHidden) {
+		if (!alphaHidden)
+		{
 			alphaSlider.update(this.selectedColor.getAlpha());
 		}
 	}
 
-	private void colorChange(Color newColor) {
-		if (newColor == this.selectedColor) {
+	private void colorChange(Color newColor)
+	{
+		if (newColor == this.selectedColor)
+		{
 			return;
 		}
 
@@ -332,17 +352,19 @@ public class RuneliteColorPicker extends JDialog {
 
 		// Finally, before firing the color changed event, apply any transparency
 		// that might have been edited by the user
-		if (this.selectedColor.getAlpha() != this.alphaSlider.getValue()) {
+		if (this.selectedColor.getAlpha() != this.alphaSlider.getValue())
+		{
 			this.selectedColor = new Color(
-					selectedColor.getRed(),
-					selectedColor.getGreen(),
-					selectedColor.getBlue(),
-					alphaSlider.getValue());
+				selectedColor.getRed(),
+				selectedColor.getGreen(),
+				selectedColor.getBlue(),
+				alphaSlider.getValue());
 		}
 
 		updateText();
 
-		if (onColorChange != null) {
+		if (onColorChange != null)
+		{
 			onColorChange.accept(this.selectedColor);
 		}
 	}
@@ -350,18 +372,22 @@ public class RuneliteColorPicker extends JDialog {
 	/**
 	 * Parses the hex input, updating the color with the new values.
 	 */
-	private void updateHex() {
+	private void updateHex()
+	{
 		String hex = hexInput.getText();
-		if (Strings.isNullOrEmpty(hex)) {
+		if (Strings.isNullOrEmpty(hex))
+		{
 			hex = BLANK_HEX;
 		}
 
 		Color color = ColorUtil.fromHex(hex);
-		if (color == null) {
+		if (color == null)
+		{
 			return;
 		}
 
-		if (!alphaHidden && ColorUtil.isAlphaHex(hex)) {
+		if (!alphaHidden && ColorUtil.isAlphaHex(hex))
+		{
 			alphaSlider.update(color.getAlpha());
 		}
 
@@ -373,7 +399,8 @@ public class RuneliteColorPicker extends JDialog {
 	 * Gets the whole string from the passed DocumentFilter replace.
 	 */
 	static String getReplacedText(DocumentFilter.FilterBypass fb, int offset, int length, String str)
-			throws BadLocationException {
+		throws BadLocationException
+	{
 		Document doc = fb.getDocument();
 		StringBuilder sb = new StringBuilder(doc.getText(0, doc.getLength()));
 		sb.replace(offset, offset + length, str);

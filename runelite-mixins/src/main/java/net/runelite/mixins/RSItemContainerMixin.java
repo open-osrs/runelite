@@ -34,7 +34,8 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSItemContainer;
 
 @Mixin(RSItemContainer.class)
-public abstract class RSItemContainerMixin implements RSItemContainer {
+public abstract class RSItemContainerMixin implements RSItemContainer
+{
 	@Shadow("client")
 	private static RSClient client;
 
@@ -43,15 +44,17 @@ public abstract class RSItemContainerMixin implements RSItemContainer {
 
 	@Inject
 	@Override
-	public Item[] getItems() {
+	public Item[] getItems()
+	{
 		int[] itemIds = getItemIds();
 		int[] stackSizes = getStackSizes();
 		Item[] items = new Item[itemIds.length];
 
-		for (int i = 0; i < itemIds.length; ++i) {
+		for (int i = 0; i < itemIds.length; ++i)
+		{
 			Item item = new Item(
-					itemIds[i],
-					stackSizes[i]
+				itemIds[i],
+				stackSizes[i]
 			);
 			items[i] = item;
 		}
@@ -61,14 +64,17 @@ public abstract class RSItemContainerMixin implements RSItemContainer {
 
 	@FieldHook("changedItemContainers")
 	@Inject
-	public static void onItemContainerUpdate(int idx) {
-		if (idx != -1) {
+	public static void onItemContainerUpdate(int idx)
+	{
+		if (idx != -1)
+		{
 			int changedId = idx - 1 & 31;
 			int containerId = changedItemContainers[changedId];
 
 			RSItemContainer changedContainer = (RSItemContainer) client.getItemContainers().get(containerId);
 
-			if (changedContainer != null) {
+			if (changedContainer != null)
+			{
 				ItemContainerChanged event = new ItemContainerChanged(containerId, changedContainer);
 				client.getCallbacks().postDeferred(ItemContainerChanged.class, event);
 			}

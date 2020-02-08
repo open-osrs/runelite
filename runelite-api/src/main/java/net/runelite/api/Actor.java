@@ -29,7 +29,6 @@ import java.awt.Polygon;
 import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import javax.annotation.Nullable;
-
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
@@ -37,7 +36,8 @@ import net.runelite.api.coords.WorldPoint;
 /**
  * Represents a RuneScape actor/entity.
  */
-public interface Actor extends Entity, Locatable {
+public interface Actor extends Entity, Locatable
+{
 	/**
 	 * Gets the combat level of the actor.
 	 *
@@ -64,11 +64,10 @@ public interface Actor extends Entity, Locatable {
 	 * </ul>
 	 *
 	 * @return the actor, null if no interaction is occurring
-	 * <p>
+	 *
 	 * (getRSInteracting returns the npc/player index, useful for menus)
 	 */
 	Actor getInteracting();
-
 	int getRSInteracting();
 
 	/**
@@ -166,8 +165,8 @@ public interface Actor extends Entity, Locatable {
 	 * current location with the given z-axis offset.
 	 *
 	 * @param graphics engine graphics
-	 * @param text     the text to draw
-	 * @param zOffset  the z-axis offset
+	 * @param text the text to draw
+	 * @param zOffset the z-axis offset
 	 * @return the text drawing location
 	 */
 	@Nullable
@@ -177,7 +176,7 @@ public interface Actor extends Entity, Locatable {
 	 * Gets the point at which an image should be drawn, relative to the
 	 * current location with the given z-axis offset.
 	 *
-	 * @param image   the image to draw
+	 * @param image the image to draw
 	 * @param zOffset the z-axis offset
 	 * @return the image drawing location
 	 */
@@ -188,7 +187,7 @@ public interface Actor extends Entity, Locatable {
 	 * Gets the point at which a sprite should be drawn, relative to the
 	 * current location with the given z-axis offset.
 	 *
-	 * @param sprite  the sprite to draw
+	 * @param sprite the sprite to draw
 	 * @param zOffset the z-axis offset
 	 * @return the sprite drawing location
 	 */
@@ -245,6 +244,5 @@ public interface Actor extends Entity, Locatable {
 	 * Used by the "Tick Counter Plugin
 	 */
 	int getActionFrame();
-
 	int getActionFrameCycle();
 }

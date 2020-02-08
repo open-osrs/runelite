@@ -32,33 +32,40 @@ import net.runelite.asm.attributes.annotation.SimpleElement;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class AnnotationElementVisitor extends AnnotationVisitor {
+public class AnnotationElementVisitor extends AnnotationVisitor
+{
 	private final Annotation annotation;
 
-	AnnotationElementVisitor(Annotation annotation) {
+	AnnotationElementVisitor(Annotation annotation)
+	{
 		super(Opcodes.ASM5);
 
 		this.annotation = annotation;
 	}
 
 	@Override
-	public void visit(String name, Object value) {
+	public void visit(String name, Object value)
+	{
 		SimpleElement element = new SimpleElement(name, value);
 		annotation.addElement(element);
 	}
 
 	@Override
-	public AnnotationVisitor visitArray(String name) {
+	public AnnotationVisitor visitArray(String name)
+	{
 		ArrayElement element = new ArrayElement(name);
 		this.annotation.addElement(element);
-		return new AnnotationVisitor(Opcodes.ASM5) {
+		return new AnnotationVisitor(Opcodes.ASM5)
+		{
 			@Override
-			public void visit(String name, Object value) {
+			public void visit(String name, Object value)
+			{
 				element.addValue(value);
 			}
 
 			@Override
-			public AnnotationVisitor visitAnnotation(String name, String descriptor) {
+			public AnnotationVisitor visitAnnotation(String name, String descriptor)
+			{
 				Annotation annotation = new Annotation(name, new Type(descriptor));
 				element.addValue(annotation);
 				return new AnnotationElementVisitor(annotation);
@@ -67,7 +74,8 @@ public class AnnotationElementVisitor extends AnnotationVisitor {
 	}
 
 	@Override
-	public AnnotationVisitor visitAnnotation(String name, String descriptor) {
+	public AnnotationVisitor visitAnnotation(String name, String descriptor)
+	{
 		Annotation annotation = new Annotation(name, new Type(descriptor));
 		this.annotation.addElement(annotation);
 		return new AnnotationElementVisitor(annotation);

@@ -27,13 +27,14 @@ package net.runelite.cache.definitions.loaders;
 import net.runelite.cache.definitions.MapDefinition;
 import net.runelite.cache.definitions.MapDefinition.Tile;
 import net.runelite.cache.io.InputStream;
-
 import static net.runelite.cache.region.Region.X;
 import static net.runelite.cache.region.Region.Y;
 import static net.runelite.cache.region.Region.Z;
 
-public class MapLoader {
-	public MapDefinition load(int regionX, int regionY, byte[] b) {
+public class MapLoader
+{
+	public MapDefinition load(int regionX, int regionY, byte[] b)
+	{
 		MapDefinition map = new MapDefinition();
 		map.setRegionX(regionX);
 		map.setRegionY(regionY);
@@ -41,31 +42,45 @@ public class MapLoader {
 		return map;
 	}
 
-	private void loadTerrain(MapDefinition map, byte[] buf) {
+	private void loadTerrain(MapDefinition map, byte[] buf)
+	{
 		Tile[][][] tiles = map.getTiles();
 
 		InputStream in = new InputStream(buf);
 
-		for (int z = 0; z < Z; z++) {
-			for (int x = 0; x < X; x++) {
-				for (int y = 0; y < Y; y++) {
+		for (int z = 0; z < Z; z++)
+		{
+			for (int x = 0; x < X; x++)
+			{
+				for (int y = 0; y < Y; y++)
+				{
 					Tile tile = tiles[z][x][y] = new Tile();
-					while (true) {
+					while (true)
+					{
 						int attribute = in.readUnsignedByte();
-						if (attribute == 0) {
+						if (attribute == 0)
+						{
 							break;
-						} else if (attribute == 1) {
+						}
+						else if (attribute == 1)
+						{
 							int height = in.readUnsignedByte();
 							tile.height = height;
 							break;
-						} else if (attribute <= 49) {
+						}
+						else if (attribute <= 49)
+						{
 							tile.attrOpcode = attribute;
 							tile.overlayId = in.readByte();
 							tile.overlayPath = (byte) ((attribute - 2) / 4);
 							tile.overlayRotation = (byte) (attribute - 2 & 3);
-						} else if (attribute <= 81) {
+						}
+						else if (attribute <= 81)
+						{
 							tile.settings = (byte) (attribute - 49);
-						} else {
+						}
+						else
+						{
 							tile.underlayId = (byte) (attribute - 81);
 						}
 					}

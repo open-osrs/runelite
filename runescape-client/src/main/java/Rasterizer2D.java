@@ -525,8 +525,8 @@ public class Rasterizer2D extends DualNode {
 
 	@ObfuscatedName("dk")
 	@ObfuscatedSignature(
-			signature = "(IIIIII[BIZ)V",
-			garbageValue = "1"
+		signature = "(IIIIII[BIZ)V",
+		garbageValue = "1"
 	)
 	@Export("Rasterizer2D_drawGradientPixels")
 	public static void Rasterizer2D_drawGradientPixels(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7) {
@@ -763,7 +763,7 @@ public class Rasterizer2D extends DualNode {
 				var1 <<= 16;
 				var1 += 32768;
 				var3 <<= 16;
-				var5 = (int) Math.floor((double) var3 / (double) var2 + 0.5D);
+				var5 = (int)Math.floor((double)var3 / (double)var2 + 0.5D);
 				var2 += var0;
 				if (var0 < Rasterizer2D_xClipStart) {
 					var1 += var5 * (Rasterizer2D_xClipStart - var0);
@@ -787,7 +787,7 @@ public class Rasterizer2D extends DualNode {
 				var0 <<= 16;
 				var0 += 32768;
 				var2 <<= 16;
-				var5 = (int) Math.floor((double) var2 / (double) var3 + 0.5D);
+				var5 = (int)Math.floor((double)var2 / (double)var3 + 0.5D);
 				var3 += var1;
 				if (var1 < Rasterizer2D_yClipStart) {
 					var0 += (Rasterizer2D_yClipStart - var1) * var5;

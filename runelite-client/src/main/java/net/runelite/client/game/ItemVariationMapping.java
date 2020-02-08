@@ -27,19 +27,18 @@ package net.runelite.client.game;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.stream.JsonReader;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * Converts variation items to it's base item counterparts
  */
 @Slf4j
-public class ItemVariationMapping {
+public class ItemVariationMapping
+{
 	private static Map<Integer, Integer> MAPPINGS;
 
 	/**
@@ -48,25 +47,30 @@ public class ItemVariationMapping {
 	 * @param itemId the item id
 	 * @return the base item id
 	 */
-	public static int map(int itemId) {
+	public static int map(int itemId)
+	{
 		return MAPPINGS.getOrDefault(itemId, itemId);
 	}
 
-	static void load() throws IOException {
-		try (JsonReader reader = new JsonReader(new InputStreamReader(ItemVariationMapping.class.getResourceAsStream("/item_variations.min.json"), StandardCharsets.UTF_8))) {
+	static void load() throws IOException
+	{
+		try (JsonReader reader = new JsonReader(new InputStreamReader(ItemVariationMapping.class.getResourceAsStream("/item_variations.min.json"), StandardCharsets.UTF_8)))
+		{
 			ImmutableMap.Builder<Integer, Integer> builder = ImmutableMap.builderWithExpectedSize(5039);
 			reader.beginObject();
 
-			while (reader.hasNext()) {
+			while (reader.hasNext())
+			{
 				// Names are useless
 				reader.skipValue();
 				reader.beginArray();
 
 				int base = reader.nextInt();
-				while (reader.hasNext()) {
+				while (reader.hasNext())
+				{
 					builder.put(
-							reader.nextInt(),
-							base
+						reader.nextInt(),
+						base
 					);
 				}
 
@@ -78,7 +82,8 @@ public class ItemVariationMapping {
 		}
 	}
 
-	static int getSize() {
+	static int getSize()
+	{
 		return MAPPINGS.size();
 	}
 }

@@ -8,10 +8,12 @@ import net.runelite.rs.api.RSWorldMap;
 import net.runelite.rs.api.RSWorldMapManager;
 
 @Mixin(RSWorldMap.class)
-public abstract class RSWorldMapMixin implements RSWorldMap {
+public abstract class RSWorldMapMixin implements RSWorldMap
+{
 	@Override
 	@Inject
-	public Point getWorldMapPosition() {
+	public Point getWorldMapPosition()
+	{
 		RSWorldMapManager worldMapManager = getWorldMapManager();
 		int worldX = getWorldMapX() + worldMapManager.getSurfaceOffsetX();
 		int worldY = getWorldMapY() + worldMapManager.getSurfaceOffsetY();
@@ -19,7 +21,8 @@ public abstract class RSWorldMapMixin implements RSWorldMap {
 	}
 
 	@Inject
-	public void setWorldMapPositionTarget(WorldPoint worldPoint) {
+	public void setWorldMapPositionTarget(WorldPoint worldPoint)
+	{
 		setWorldMapPositionTarget(worldPoint.getX(), worldPoint.getY());
 	}
 

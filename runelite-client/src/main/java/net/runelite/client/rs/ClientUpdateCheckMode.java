@@ -24,7 +24,8 @@
  */
 package net.runelite.client.rs;
 
-public enum ClientUpdateCheckMode {
+public enum ClientUpdateCheckMode
+{
 	AUTO,
 	NONE,
 	VANILLA,

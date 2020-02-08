@@ -9,58 +9,58 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FontName {
 	@ObfuscatedName("qm")
 	@ObfuscatedGetter(
-			intValue = -1887929743
+		intValue = -1887929743
 	)
 	static int field3660;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lkq;"
+		signature = "Lkq;"
 	)
 	@Export("FontName_plain11")
 	public static final FontName FontName_plain11;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lkq;"
+		signature = "Lkq;"
 	)
 	@Export("FontName_plain12")
 	public static final FontName FontName_plain12;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lkq;"
+		signature = "Lkq;"
 	)
 	@Export("FontName_bold12")
 	public static final FontName FontName_bold12;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lkq;"
+		signature = "Lkq;"
 	)
 	@Export("FontName_verdana11")
 	public static final FontName FontName_verdana11;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lkq;"
+		signature = "Lkq;"
 	)
 	@Export("FontName_verdana13")
 	public static final FontName FontName_verdana13;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lkq;"
+		signature = "Lkq;"
 	)
 	@Export("FontName_verdana15")
 	public static final FontName FontName_verdana15;
 	@ObfuscatedName("eh")
 	@ObfuscatedGetter(
-			intValue = -1770194779
+		intValue = -1770194779
 	)
 	static int field3650;
 	@ObfuscatedName("gt")
 	@ObfuscatedGetter(
-			intValue = -1472159493
+		intValue = -1472159493
 	)
 	static int field3663;
 	@ObfuscatedName("lo")
 	@ObfuscatedGetter(
-			intValue = 1238804293
+		intValue = 1238804293
 	)
 	@Export("selectedSpellWidget")
 	static int selectedSpellWidget;
@@ -83,8 +83,8 @@ public class FontName {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "2"
+		signature = "(B)I",
+		garbageValue = "2"
 	)
 	public static int method5401() {
 		return KeyHandler.KeyHandler_idleCycles;
@@ -92,8 +92,8 @@ public class FontName {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1505118855"
+		signature = "(I)V",
+		garbageValue = "-1505118855"
 	)
 	public static void method5402() {
 		KitDefinition.KitDefinition_cached.clear();

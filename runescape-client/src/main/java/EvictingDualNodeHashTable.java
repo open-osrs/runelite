@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class EvictingDualNodeHashTable {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lfa;"
+		signature = "Lfa;"
 	)
 	DualNode field1950;
 	@ObfuscatedName("t")
@@ -19,13 +19,13 @@ public final class EvictingDualNodeHashTable {
 	int remainingCapacity;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Llp;"
+		signature = "Llp;"
 	)
 	@Export("hashTable")
 	IterableNodeHashTable hashTable;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Ljb;"
+		signature = "Ljb;"
 	)
 	@Export("deque")
 	IterableDualNodeQueue deque;
@@ -45,11 +45,11 @@ public final class EvictingDualNodeHashTable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(J)Lfa;"
+		signature = "(J)Lfa;"
 	)
 	@Export("get")
 	public DualNode get(long var1) {
-		DualNode var3 = (DualNode) this.hashTable.get(var1);
+		DualNode var3 = (DualNode)this.hashTable.get(var1);
 		if (var3 != null) {
 			this.deque.add(var3);
 		}
@@ -60,7 +60,7 @@ public final class EvictingDualNodeHashTable {
 	@ObfuscatedName("t")
 	@Export("remove")
 	public void remove(long var1) {
-		DualNode var3 = (DualNode) this.hashTable.get(var1);
+		DualNode var3 = (DualNode)this.hashTable.get(var1);
 		if (var3 != null) {
 			var3.remove();
 			var3.removeDual();
@@ -71,7 +71,7 @@ public final class EvictingDualNodeHashTable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lfa;J)V"
+		signature = "(Lfa;J)V"
 	)
 	@Export("put")
 	public void put(DualNode var1, long var2) {

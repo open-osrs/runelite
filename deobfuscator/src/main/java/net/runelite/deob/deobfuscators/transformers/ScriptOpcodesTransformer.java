@@ -1,7 +1,6 @@
 package net.runelite.deob.deobfuscators.transformers;
 
 import java.util.ListIterator;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -23,7 +22,6 @@ import net.runelite.asm.signature.Signature;
 import net.runelite.deob.Transformer;
 import net.runelite.deob.deobfuscators.transformers.scriptopcodes.ScriptOpcode;
 import org.objectweb.asm.Opcodes;
-
 import static org.objectweb.asm.Opcodes.ACC_FINAL;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_STATIC;
@@ -33,20 +31,26 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 	private static final String SCRIPT_OPCODES = "net/runelite/rs/ScriptOpcodes";
 
 	@Override
-	public void transform(ClassGroup group) {
+	public void transform(ClassGroup group)
+	{
 		initializeOpcodesClassFile(group);
 
-		for (ClassFile cf : group.getClasses()) {
-			if (cf.getName().startsWith("net/runelite/rs")) {
+		for (ClassFile cf : group.getClasses())
+		{
+			if (cf.getName().startsWith("net/runelite/rs"))
+			{
 				continue;
 			}
 
-			for (Method m : cf.getMethods()) {
-				if (!m.isStatic()) {
+			for (Method m : cf.getMethods())
+			{
+				if (!m.isStatic())
+				{
 					continue;
 				}
 
-				if (!m.getDescriptor().getArguments().contains(new Type("LScript;")) && !m.getDescriptor().getArguments().contains(new Type("LScriptEvent;"))) {
+				if (!m.getDescriptor().getArguments().contains(new Type("LScript;")) && !m.getDescriptor().getArguments().contains(new Type("LScriptEvent;")))
+				{
 					continue;
 				}
 
@@ -57,17 +61,20 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 				ListIterator<Instruction> it = ins.getInstructions().listIterator();
 
 				Instruction i;
-				while (it.hasNext()) {
+				while (it.hasNext())
+				{
 					i = it.next();
 
-					if (!(i instanceof ILoad) || (varIndexIsKnownAnd0 && ((ILoad) i).getVariableIndex() != 0)) {
+					if (!(i instanceof ILoad) || (varIndexIsKnownAnd0 && ((ILoad) i).getVariableIndex() != 0))
+					{
 						continue;
 					}
 
 					i = it.next();
 
 					if (!(i instanceof PushConstantInstruction) ||
-							!(((PushConstantInstruction) i).getConstant() instanceof Number)) {
+						!(((PushConstantInstruction) i).getConstant() instanceof Number))
+					{
 						continue;
 					}
 
@@ -76,7 +83,8 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 
 					i = it.next();
 
-					if (name == null || !(i instanceof IfICmpNe || i instanceof IfICmpEq)) {
+					if (name == null || !(i instanceof IfICmpNe || i instanceof IfICmpEq))
+					{
 						continue;
 					}
 
@@ -84,9 +92,9 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 					it.previous();
 
 					net.runelite.asm.pool.Field pool = new net.runelite.asm.pool.Field(
-							new Class(SCRIPT_OPCODES),
-							name,
-							Type.INT
+						new Class(SCRIPT_OPCODES),
+						name,
+						Type.INT
 					);
 
 					GetStatic getStatic = new GetStatic(ins, pool);
@@ -96,20 +104,25 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 		}
 	}
 
-	private static void initializeOpcodesClassFile(ClassGroup group) {
+	private static void initializeOpcodesClassFile(ClassGroup group)
+	{
 		ClassFile scriptOpcodes = group.findClass(SCRIPT_OPCODES);
-		if (scriptOpcodes == null) {
+		if (scriptOpcodes == null)
+		{
 			scriptOpcodes = new ClassFile(group);
 			scriptOpcodes.setName(SCRIPT_OPCODES);
 			scriptOpcodes.setSuperName(Type.OBJECT.getInternalName());
 			scriptOpcodes.setAccess(Opcodes.ACC_PUBLIC);
 			group.addClass(scriptOpcodes);
-		} else {
+		}
+		else
+		{
 			scriptOpcodes.getFields().clear();
 		}
 
 		Method clinit = scriptOpcodes.findMethod("<clinit>");
-		if (clinit == null) {
+		if (clinit == null)
+		{
 			clinit = new Method(scriptOpcodes, "<clinit>", new Signature("()V"));
 			clinit.setStatic(true);
 			Code code = new Code(clinit);
@@ -121,7 +134,8 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 		Code code = clinit.getCode();
 		Instructions ins = code.getInstructions();
 
-		for (ScriptOpcode opcode : ScriptOpcode.values()) {
+		for (ScriptOpcode opcode : ScriptOpcode.values())
+		{
 			Field field = new Field(scriptOpcodes, opcode.name(), Type.INT);
 			field.setAccessFlags(ACC_PUBLIC | ACC_STATIC | ACC_FINAL);
 			field.setValue(opcode.opcode);

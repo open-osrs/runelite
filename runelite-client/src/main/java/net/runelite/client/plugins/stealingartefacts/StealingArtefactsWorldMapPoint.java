@@ -26,13 +26,13 @@ package net.runelite.client.plugins.stealingartefacts;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 import net.runelite.client.util.ImageUtil;
 
-class StealingArtefactsWorldMapPoint extends WorldMapPoint {
+class StealingArtefactsWorldMapPoint extends WorldMapPoint
+{
 	private static BufferedImage cachedMapArrowImage;
 
 	private final BufferedImage hairClipImage;
@@ -40,7 +40,8 @@ class StealingArtefactsWorldMapPoint extends WorldMapPoint {
 
 	private final Point artefactWorldMapPoint;
 
-	StealingArtefactsWorldMapPoint(WorldPoint worldPoint, BufferedImage bufferedImage) {
+	StealingArtefactsWorldMapPoint(WorldPoint worldPoint, BufferedImage bufferedImage)
+	{
 		super(worldPoint, null);
 
 		hairClipImage = bufferedImage;
@@ -48,7 +49,7 @@ class StealingArtefactsWorldMapPoint extends WorldMapPoint {
 		BufferedImage mapArrowImage = getCachedMapArrowImage();
 
 		artefactWorldMapImage = new BufferedImage(mapArrowImage.getWidth(), mapArrowImage.getHeight(),
-				BufferedImage.TYPE_INT_ARGB);
+			BufferedImage.TYPE_INT_ARGB);
 
 		Graphics graphics = artefactWorldMapImage.getGraphics();
 		graphics.drawImage(mapArrowImage, 0, 0, null);
@@ -63,21 +64,25 @@ class StealingArtefactsWorldMapPoint extends WorldMapPoint {
 	}
 
 	@Override
-	public void onEdgeSnap() {
+	public void onEdgeSnap()
+	{
 		this.setImage(hairClipImage);
 		this.setImagePoint(null);
 	}
 
 	@Override
-	public void onEdgeUnsnap() {
+	public void onEdgeUnsnap()
+	{
 		this.setImage(artefactWorldMapImage);
 		this.setImagePoint(artefactWorldMapPoint);
 	}
 
-	private static BufferedImage getCachedMapArrowImage() {
-		if (cachedMapArrowImage == null) {
+	private static BufferedImage getCachedMapArrowImage()
+	{
+		if (cachedMapArrowImage == null)
+		{
 			cachedMapArrowImage = ImageUtil.getResourceStreamFromClass(StealingArtefactsWorldMapPoint.class, "/util" +
-					"/clue_arrow.png");
+				"/clue_arrow.png");
 		}
 
 		return cachedMapArrowImage;

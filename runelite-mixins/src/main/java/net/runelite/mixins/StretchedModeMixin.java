@@ -2,14 +2,14 @@ package net.runelite.mixins;
 
 import java.awt.Container;
 import java.awt.Dimension;
-
 import net.runelite.api.Constants;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSClient;
 
 @Mixin(RSClient.class)
-public abstract class StretchedModeMixin implements RSClient {
+public abstract class StretchedModeMixin implements RSClient
+{
 	@Inject
 	private static boolean stretchedEnabled;
 
@@ -33,55 +33,66 @@ public abstract class StretchedModeMixin implements RSClient {
 
 	@Inject
 	@Override
-	public boolean isStretchedEnabled() {
+	public boolean isStretchedEnabled()
+	{
 		return stretchedEnabled;
 	}
 
 	@Inject
 	@Override
-	public void setStretchedEnabled(boolean state) {
+	public void setStretchedEnabled(boolean state)
+	{
 		stretchedEnabled = state;
 	}
 
 	@Inject
 	@Override
-	public boolean isStretchedFast() {
+	public boolean isStretchedFast()
+	{
 		return stretchedFast;
 	}
 
 	@Inject
 	@Override
-	public void setStretchedFast(boolean state) {
+	public void setStretchedFast(boolean state)
+	{
 		stretchedFast = state;
 	}
 
 	@Inject
 	@Override
-	public void setStretchedIntegerScaling(boolean state) {
+	public void setStretchedIntegerScaling(boolean state)
+	{
 		stretchedIntegerScaling = state;
 	}
 
 	@Inject
 	@Override
-	public void setStretchedKeepAspectRatio(boolean state) {
+	public void setStretchedKeepAspectRatio(boolean state)
+	{
 		stretchedKeepAspectRatio = state;
 	}
 
 	@Inject
 	@Override
-	public void setScalingFactor(int factor) {
+	public void setScalingFactor(int factor)
+	{
 		scalingFactor = 1 + (factor / 100D);
 	}
 
 	@Inject
 	@Override
-	public Dimension getRealDimensions() {
-		if (!isStretchedEnabled()) {
+	public Dimension getRealDimensions()
+	{
+		if (!isStretchedEnabled())
+		{
 			return getCanvas().getSize();
 		}
 
-		if (cachedRealDimensions == null) {
-			if (isResized()) {
+		if (cachedRealDimensions == null)
+		{
+			if (isResized())
+			{
 				Container canvasParent = getCanvas().getParent();
 
 				int parentWidth = canvasParent.getWidth();
@@ -90,9 +101,10 @@ public abstract class StretchedModeMixin implements RSClient {
 				int newWidth = (int) (parentWidth / scalingFactor);
 				int newHeight = (int) (parentHeight / scalingFactor);
 
-				if (newWidth < Constants.GAME_FIXED_WIDTH || newHeight < Constants.GAME_FIXED_HEIGHT) {
-					double scalingFactorW = (double) parentWidth / Constants.GAME_FIXED_WIDTH;
-					double scalingFactorH = (double) parentHeight / Constants.GAME_FIXED_HEIGHT;
+				if (newWidth < Constants.GAME_FIXED_WIDTH || newHeight < Constants.GAME_FIXED_HEIGHT)
+				{
+					double scalingFactorW = (double)parentWidth / Constants.GAME_FIXED_WIDTH;
+					double scalingFactorH = (double)parentHeight / Constants.GAME_FIXED_HEIGHT;
 					double scalingFactor = Math.min(scalingFactorW, scalingFactorH);
 
 					newWidth = (int) (parentWidth / scalingFactor);
@@ -100,7 +112,9 @@ public abstract class StretchedModeMixin implements RSClient {
 				}
 
 				cachedRealDimensions = new Dimension(newWidth, newHeight);
-			} else {
+			}
+			else
+			{
 				cachedRealDimensions = Constants.GAME_FIXED_SIZE;
 			}
 		}
@@ -110,8 +124,10 @@ public abstract class StretchedModeMixin implements RSClient {
 
 	@Inject
 	@Override
-	public Dimension getStretchedDimensions() {
-		if (cachedStretchedDimensions == null) {
+	public Dimension getStretchedDimensions()
+	{
+		if (cachedStretchedDimensions == null)
+		{
 			Container canvasParent = getCanvas().getParent();
 
 			int parentWidth = canvasParent.getWidth();
@@ -119,23 +135,30 @@ public abstract class StretchedModeMixin implements RSClient {
 
 			Dimension realDimensions = getRealDimensions();
 
-			if (stretchedKeepAspectRatio) {
+			if (stretchedKeepAspectRatio)
+			{
 				double aspectRatio = realDimensions.getWidth() / realDimensions.getHeight();
 
 				int tempNewWidth = (int) (parentHeight * aspectRatio);
 
-				if (tempNewWidth > parentWidth) {
+				if (tempNewWidth > parentWidth)
+				{
 					parentHeight = (int) (parentWidth / aspectRatio);
-				} else {
+				}
+				else
+				{
 					parentWidth = tempNewWidth;
 				}
 			}
 
-			if (stretchedIntegerScaling) {
-				if (parentWidth > realDimensions.width) {
+			if (stretchedIntegerScaling)
+			{
+				if (parentWidth > realDimensions.width)
+				{
 					parentWidth = parentWidth - (parentWidth % realDimensions.width);
 				}
-				if (parentHeight > realDimensions.height) {
+				if (parentHeight > realDimensions.height)
+				{
 					parentHeight = parentHeight - (parentHeight % realDimensions.height);
 				}
 			}
@@ -148,11 +171,13 @@ public abstract class StretchedModeMixin implements RSClient {
 
 	@Inject
 	@Override
-	public void invalidateStretching(boolean resize) {
+	public void invalidateStretching(boolean resize)
+	{
 		cachedRealDimensions = null;
 		cachedStretchedDimensions = null;
 
-		if (resize && isResized()) {
+		if (resize && isResized())
+		{
 			/*
 				Tells the game to run resizeCanvas the next frame.
 

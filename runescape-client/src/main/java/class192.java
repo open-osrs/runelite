@@ -1,6 +1,5 @@
 import java.util.HashSet;
 import java.util.Set;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,91 +9,91 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum class192 implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2380("", 0, new class191[]{class191.field2373}),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2375("", 1, new class191[]{class191.field2368, class191.field2373}),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2376("", 2, new class191[]{class191.field2368, class191.field2370, class191.field2373}),
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2382("", 3, new class191[]{class191.field2368}),
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2378("", 4),
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2379("", 5, new class191[]{class191.field2368, class191.field2373}),
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2377("", 6, new class191[]{class191.field2373}),
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2390("", 8, new class191[]{class191.field2368, class191.field2373}),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2384("", 9, new class191[]{class191.field2368, class191.field2370}),
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2383("", 10, new class191[]{class191.field2368}),
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2395("", 11, new class191[]{class191.field2368}),
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2385("", 12, new class191[]{class191.field2368, class191.field2373}),
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-			signature = "Lgp;"
+		signature = "Lgp;"
 	)
 	field2374("", 13, new class191[]{class191.field2368});
 
 	@ObfuscatedName("bi")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	@Export("loginType")
 	static LoginType loginType;
 	@ObfuscatedName("gc")
 	@ObfuscatedSignature(
-			signature = "[Lli;"
+		signature = "[Lli;"
 	)
 	@Export("scrollBarSprites")
 	static IndexedSprite[] scrollBarSprites;
 	@ObfuscatedName("jy")
 	@ObfuscatedSignature(
-			signature = "Lba;"
+		signature = "Lba;"
 	)
 	@Export("localPlayer")
 	static Player localPlayer;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-			intValue = 1568676187
+		intValue = 1568676187
 	)
 	@Export("id")
 	final int id;
@@ -106,7 +105,7 @@ public enum class192 implements Enumerated {
 	}
 
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;I[Lgx;)V"
+		signature = "(Ljava/lang/String;I[Lgx;)V"
 	)
 	class192(String var3, int var4, class191[] var5) {
 		this.field2388 = new HashSet();
@@ -127,8 +126,8 @@ public enum class192 implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "1"
+		signature = "(B)I",
+		garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
@@ -137,8 +136,8 @@ public enum class192 implements Enumerated {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(B)[Lgp;",
-			garbageValue = "39"
+		signature = "(B)[Lgp;",
+		garbageValue = "39"
 	)
 	static class192[] method3732() {
 		return new class192[]{field2376, field2390, field2378, field2395, field2382, field2383, field2377, field2375, field2385, field2380, field2379, field2384, field2374};
@@ -146,8 +145,8 @@ public enum class192 implements Enumerated {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(Lhn;II)V",
-			garbageValue = "558596528"
+		signature = "(Lhn;II)V",
+		garbageValue = "558596528"
 	)
 	@Export("Widget_setKeyIgnoreHeld")
 	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
@@ -164,8 +163,8 @@ public enum class192 implements Enumerated {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-			signature = "(IIII)I",
-			garbageValue = "-1858643445"
+		signature = "(IIII)I",
+		garbageValue = "-1858643445"
 	)
 	@Export("hslToRgb")
 	static final int hslToRgb(int var0, int var1, int var2) {

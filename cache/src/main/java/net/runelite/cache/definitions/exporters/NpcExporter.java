@@ -26,31 +26,34 @@ package net.runelite.cache.definitions.exporters;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import net.runelite.cache.definitions.NpcDefinition;
 
-public class NpcExporter {
+public class NpcExporter
+{
 	private final NpcDefinition npc;
 	private final Gson gson;
 
-	public NpcExporter(NpcDefinition npc) {
+	public NpcExporter(NpcDefinition npc)
+	{
 		this.npc = npc;
 
 		GsonBuilder builder = new GsonBuilder()
-				.setPrettyPrinting();
+			.setPrettyPrinting();
 		gson = builder.create();
 	}
 
-	public String export() {
+	public String export()
+	{
 		return gson.toJson(npc);
 	}
 
-	public void exportTo(File file) throws IOException {
-		try (FileWriter fw = new FileWriter(file)) {
+	public void exportTo(File file) throws IOException
+	{
+		try (FileWriter fw = new FileWriter(file))
+		{
 			fw.write(export());
 		}
 	}

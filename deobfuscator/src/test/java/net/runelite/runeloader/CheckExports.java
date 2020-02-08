@@ -33,7 +33,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.runeloader.inject.GetterInjectInstruction;
@@ -44,71 +43,89 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class CheckExports {
+public class CheckExports
+{
 	private static final File CLIENT = new File("/Users/adam/w/rs/07/rs-client-1.0-SNAPSHOT.jar");
 
 	private final List<Class> classes = new ArrayList<>();
 
 	@Before
-	public void before() throws MalformedURLException, ClassNotFoundException {
+	public void before() throws MalformedURLException, ClassNotFoundException
+	{
 		ClassLoader loader = new URLClassLoader(new URL[]{CLIENT.toURI().toURL()});
 
 		Class c = loader.loadClass("net.runelite.rs.client.client");
 		classes.add(c);
 
-		for (int i = 0; i < 230; ++i) {
-			try {
+		for (int i = 0; i < 230; ++i)
+		{
+			try
+			{
 				c = loader.loadClass("net.runelite.rs.client.class" + i);
 				classes.add(c);
-			} catch (ClassNotFoundException ex) {
+			}
+			catch (ClassNotFoundException ex)
+			{
 			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private Class<?> findClassWithObfuscatedName(String name) {
-		for (Class c : classes) {
-			if (c.getName().equals("net.runelite.rs.client.client") && name.equals("client")) {
+	private Class<?> findClassWithObfuscatedName(String name)
+	{
+		for (Class c : classes)
+		{
+			if (c.getName().equals("net.runelite.rs.client.client") && name.equals("client"))
+			{
 				return c;
 			}
 
 			ObfuscatedName oc = (ObfuscatedName) c.getDeclaredAnnotation(ObfuscatedName.class);
-			if (oc == null) {
+			if (oc == null)
+			{
 				continue;
 			}
 
-			if (oc.value().equals(name)) {
+			if (oc.value().equals(name))
+			{
 				return c;
 			}
 		}
 		return null;
 	}
 
-	private Field findFieldWithObfuscatedName(Class c, String name) {
-		for (Field f : c.getDeclaredFields()) {
+	private Field findFieldWithObfuscatedName(Class c, String name)
+	{
+		for (Field f : c.getDeclaredFields())
+		{
 			ObfuscatedName oc = f.getDeclaredAnnotation(ObfuscatedName.class);
-			if (oc == null) {
+			if (oc == null)
+			{
 				continue;
 			}
 
-			if (oc.value().equals(name)) {
+			if (oc.value().equals(name))
+			{
 				return f;
 			}
 		}
 		return null;
 	}
 
-	private boolean isExported(Field f) {
+	private boolean isExported(Field f)
+	{
 		Export export = f.getDeclaredAnnotation(Export.class);
 		return export != null;
 	}
 
 	@Test
 	@Ignore
-	public void checkMappings() throws IOException {
+	public void checkMappings() throws IOException
+	{
 		InjectionModscript mod = Injection.load(MappingImporter.class.getResourceAsStream(MappingImporter.RL_INJECTION));
 
-		for (int i = 0; i < mod.getGetterInjects().size(); ++i) {
+		for (int i = 0; i < mod.getGetterInjects().size(); ++i)
+		{
 			GetterInjectInstruction gii = mod.getGetterInjects().get(i);
 
 			Class c = this.findClassWithObfuscatedName(gii.getGetterClassName());

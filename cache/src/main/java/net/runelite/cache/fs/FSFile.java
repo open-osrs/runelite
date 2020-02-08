@@ -27,17 +27,20 @@ package net.runelite.cache.fs;
 
 import java.util.Arrays;
 
-public class FSFile {
+public class FSFile
+{
 	private final int fileId;
 	private int nameHash;
 	private byte[] contents;
 
-	public FSFile(int fileId) {
+	public FSFile(int fileId)
+	{
 		this.fileId = fileId;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 7;
 		hash = 97 * hash + this.fileId;
 		hash = 97 * hash + this.nameHash;
@@ -46,47 +49,59 @@ public class FSFile {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final FSFile other = (FSFile) obj;
-		if (this.fileId != other.fileId) {
+		if (this.fileId != other.fileId)
+		{
 			return false;
 		}
-		if (this.nameHash != other.nameHash) {
+		if (this.nameHash != other.nameHash)
+		{
 			return false;
 		}
-		if (!Arrays.equals(this.contents, other.contents)) {
+		if (!Arrays.equals(this.contents, other.contents))
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public int getFileId() {
+	public int getFileId()
+	{
 		return fileId;
 	}
 
-	public int getNameHash() {
+	public int getNameHash()
+	{
 		return nameHash;
 	}
 
-	public void setNameHash(int nameHash) {
+	public void setNameHash(int nameHash)
+	{
 		this.nameHash = nameHash;
 	}
 
-	public byte[] getContents() {
+	public byte[] getContents()
+	{
 		return contents;
 	}
 
-	public void setContents(byte[] contents) {
+	public void setContents(byte[] contents)
+	{
 		this.contents = contents;
 	}
-
-	public int getSize() {
+	
+	public int getSize()
+	{
 		return contents.length;
 	}
 }

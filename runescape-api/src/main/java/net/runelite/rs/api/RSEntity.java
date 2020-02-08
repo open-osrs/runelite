@@ -27,7 +27,8 @@ package net.runelite.rs.api;
 import net.runelite.api.Entity;
 import net.runelite.mapping.Import;
 
-public interface RSEntity extends RSNode, Entity {
+public interface RSEntity extends RSNode, Entity
+{
 	@Import("height")
 	int getModelHeight();
 

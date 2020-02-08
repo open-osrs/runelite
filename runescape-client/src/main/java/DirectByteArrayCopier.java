@@ -1,5 +1,4 @@
 import java.nio.ByteBuffer;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-			signature = "Lli;"
+		signature = "Lli;"
 	)
 	@Export("options_buttons_2Sprite")
 	static IndexedSprite options_buttons_2Sprite;
@@ -20,8 +19,8 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)[B",
-			garbageValue = "-571467457"
+		signature = "(I)[B",
+		garbageValue = "-571467457"
 	)
 	@Export("get")
 	public byte[] get() {
@@ -33,8 +32,8 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "([BI)V",
-			garbageValue = "1471312739"
+		signature = "([BI)V",
+		garbageValue = "1471312739"
 	)
 	@Export("set")
 	public void set(byte[] var1) {
@@ -45,11 +44,11 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IIB)V",
-			garbageValue = "19"
+		signature = "(IIB)V",
+		garbageValue = "19"
 	)
 	public static void method4006(int var0, int var1) {
-		VarbitDefinition var3 = (VarbitDefinition) VarbitDefinition.VarbitDefinition_cached.get((long) var0);
+		VarbitDefinition var3 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0);
 		VarbitDefinition var2;
 		if (var3 != null) {
 			var2 = var3;
@@ -60,7 +59,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 				var3.decode(new Buffer(var8));
 			}
 
-			VarbitDefinition.VarbitDefinition_cached.put(var3, (long) var0);
+			VarbitDefinition.VarbitDefinition_cached.put(var3, (long)var0);
 			var2 = var3;
 		}
 
@@ -78,8 +77,8 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(CI)Z",
-			garbageValue = "-186978734"
+		signature = "(CI)Z",
+		garbageValue = "-186978734"
 	)
 	static boolean method4004(char var0) {
 		for (int var1 = 0; var1 < "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".length(); ++var1) {
@@ -93,8 +92,8 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;I)I",
-			garbageValue = "-470893406"
+		signature = "(Ljava/lang/String;I)I",
+		garbageValue = "-470893406"
 	)
 	public static int method4012(String var0) {
 		return var0.length() + 2;

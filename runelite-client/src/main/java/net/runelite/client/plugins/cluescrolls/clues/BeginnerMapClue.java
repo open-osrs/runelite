@@ -31,27 +31,32 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.widgets.WidgetID;
 
 @Getter(AccessLevel.PUBLIC)
-public class BeginnerMapClue extends MapClue implements LocationClueScroll {
+public class BeginnerMapClue extends MapClue implements LocationClueScroll
+{
 	private static final ImmutableList<BeginnerMapClue> CLUES = ImmutableList.of(
-			new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_CHAMPIONS_GUILD, new WorldPoint(3166, 3361, 0), "South West of the Champion's Guild"),
-			new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_VARROCK_EAST_MINE, new WorldPoint(3290, 3374, 0), "Outside Varrock East Mine"),
-			new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_DRAYNOR, new WorldPoint(3093, 3226, 0), "South of Draynor Village Bank"),
-			new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_NORTH_OF_FALADOR, new WorldPoint(3043, 3398, 0), "In the standing stones north of Falador"),
-			new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_WIZARDS_TOWER, new WorldPoint(3110, 3152, 0), "On the south side of the Wizard's Tower")
+		new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_CHAMPIONS_GUILD, new WorldPoint(3166, 3361, 0), "South West of the Champion's Guild"),
+		new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_VARROCK_EAST_MINE, new WorldPoint(3290, 3374, 0), "Outside Varrock East Mine"),
+		new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_DRAYNOR, new WorldPoint(3093, 3226, 0), "South of Draynor Village Bank"),
+		new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_NORTH_OF_FALADOR, new WorldPoint(3043, 3398, 0), "In the standing stones north of Falador"),
+		new BeginnerMapClue(WidgetID.BEGINNER_CLUE_MAP_WIZARDS_TOWER, new WorldPoint(3110, 3152, 0), "On the south side of the Wizard's Tower")
 	);
 
 	private final int widgetGroupID;
 
-	private BeginnerMapClue(int widgetGroupID, WorldPoint location, String description) {
+	private BeginnerMapClue(int widgetGroupID, WorldPoint location, String description)
+	{
 		super(-1, location, description);
 		this.widgetGroupID = widgetGroupID;
 		setRequiresSpade(true);
 	}
 
 	// Beginner Map Clues all use the same ItemID, but the WidgetID used to display them is unique
-	public static BeginnerMapClue forWidgetID(int widgetGroupID) {
-		for (BeginnerMapClue clue : CLUES) {
-			if (clue.widgetGroupID == widgetGroupID) {
+	public static BeginnerMapClue forWidgetID(int widgetGroupID)
+	{
+		for (BeginnerMapClue clue : CLUES)
+		{
+			if (clue.widgetGroupID == widgetGroupID)
+			{
 				return clue;
 			}
 		}

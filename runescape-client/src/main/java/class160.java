@@ -7,22 +7,22 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum class160 implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lfn;"
+		signature = "Lfn;"
 	)
 	field1994(1, 0),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lfn;"
+		signature = "Lfn;"
 	)
 	field1996(0, 1),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lfn;"
+		signature = "Lfn;"
 	)
 	field1993(2, 2),
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lfn;"
+		signature = "Lfn;"
 	)
 	field1995(3, 3);
 
@@ -30,12 +30,12 @@ public enum class160 implements Enumerated {
 	public static String field1998;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 1846550889
+		intValue = 1846550889
 	)
 	public final int field1992;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -699786639
+		intValue = -699786639
 	)
 	@Export("id")
 	final int id;
@@ -47,8 +47,8 @@ public enum class160 implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "1"
+		signature = "(B)I",
+		garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
@@ -57,8 +57,8 @@ public enum class160 implements Enumerated {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "([BIILem;[Lfv;I)V",
-			garbageValue = "1777636596"
+		signature = "([BIILem;[Lfv;I)V",
+		garbageValue = "1777636596"
 	)
 	static final void method3518(byte[] var0, int var1, int var2, Scene var3, CollisionMap[] var4) {
 		Buffer var5 = new Buffer(var0);
@@ -107,8 +107,8 @@ public enum class160 implements Enumerated {
 
 	@ObfuscatedName("id")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;Ljava/lang/String;IIIIZI)V",
-			garbageValue = "-115001383"
+		signature = "(Ljava/lang/String;Ljava/lang/String;IIIIZI)V",
+		garbageValue = "-115001383"
 	)
 	@Export("insertMenuItem")
 	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {

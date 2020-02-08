@@ -8,8 +8,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface PlatformInfoProvider {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)Llv;",
-			garbageValue = "-1317089795"
+		signature = "(I)Llv;",
+		garbageValue = "-1317089795"
 	)
 	@Export("get")
 	PlatformInfo get();

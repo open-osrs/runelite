@@ -5,7 +5,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.Queue;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -33,13 +32,13 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljava/net/URL;I)Leg;",
-			garbageValue = "-838754437"
+		signature = "(Ljava/net/URL;I)Leg;",
+		garbageValue = "-838754437"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
 		UrlRequest var2 = new UrlRequest(var1);
-		synchronized (this) {
+		synchronized(this) {
 			this.requests.add(var2);
 			this.notify();
 			return var2;
@@ -48,15 +47,15 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1550899791"
+		signature = "(I)V",
+		garbageValue = "1550899791"
 	)
 	@Export("close")
 	public void close() {
 		this.isClosed = true;
 
 		try {
-			synchronized (this) {
+			synchronized(this) {
 				this.notify();
 			}
 
@@ -70,8 +69,8 @@ public class UrlRequester implements Runnable {
 		while (!this.isClosed) {
 			try {
 				UrlRequest var1;
-				synchronized (this) {
-					var1 = (UrlRequest) this.requests.poll();
+				synchronized(this) {
+					var1 = (UrlRequest)this.requests.poll();
 					if (var1 == null) {
 						try {
 							this.wait();
@@ -107,12 +106,12 @@ public class UrlRequester implements Runnable {
 					}
 
 					if (var3 != null && var3 instanceof HttpURLConnection) {
-						((HttpURLConnection) var3).disconnect();
+						((HttpURLConnection)var3).disconnect();
 					}
 
 				}
 			} catch (Exception var17) {
-				class225.RunException_sendStackTrace((String) null, var17);
+				class225.RunException_sendStackTrace((String)null, var17);
 			}
 		}
 
@@ -120,8 +119,8 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("ih")
 	@ObfuscatedSignature(
-			signature = "(Lhn;IIZI)V",
-			garbageValue = "1992355059"
+		signature = "(Lhn;IIZI)V",
+		garbageValue = "1992355059"
 	)
 	@Export("alignWidgetSize")
 	static void alignWidgetSize(Widget var0, int var1, int var2, boolean var3) {
@@ -166,8 +165,8 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("kv")
 	@ObfuscatedSignature(
-			signature = "(Lkp;II)V",
-			garbageValue = "372064004"
+		signature = "(Lkp;II)V",
+		garbageValue = "372064004"
 	)
 	static void method3373(Buffer var0, int var1) {
 		byte[] var2 = var0.array;

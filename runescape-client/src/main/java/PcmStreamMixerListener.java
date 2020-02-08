@@ -15,7 +15,7 @@ public abstract class PcmStreamMixerListener extends Node {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lch;)I"
+		signature = "(Lch;)I"
 	)
 	@Export("update")
 	abstract int update();

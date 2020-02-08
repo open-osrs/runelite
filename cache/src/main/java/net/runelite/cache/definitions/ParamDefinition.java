@@ -28,7 +28,8 @@ import lombok.Data;
 import net.runelite.cache.util.ScriptVarType;
 
 @Data
-public class ParamDefinition {
+public class ParamDefinition
+{
 	private ScriptVarType type;
 	private boolean isMembers = true;
 	private int defaultInt;

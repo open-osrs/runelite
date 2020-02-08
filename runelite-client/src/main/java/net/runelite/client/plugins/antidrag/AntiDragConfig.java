@@ -26,7 +26,6 @@ package net.runelite.client.plugins.antidrag;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-
 import net.runelite.api.Constants;
 import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
@@ -36,123 +35,134 @@ import net.runelite.client.config.Keybind;
 import net.runelite.client.config.ModifierlessKeybind;
 
 @ConfigGroup("antiDrag")
-public interface AntiDragConfig extends Config {
+public interface AntiDragConfig extends Config
+{
 	@ConfigItem(
-			position = 0,
-			keyName = "alwaysOn",
-			name = "Always On",
-			description = "Makes the anti-drag always active and disables the hotkey toggle",
-			disabledBy = "toggleKeyBind || holdKeyBind",
-			hide = "toggleKeyBind || holdKeyBind"
+		position = 0,
+		keyName = "alwaysOn",
+		name = "Always On",
+		description = "Makes the anti-drag always active and disables the hotkey toggle",
+		disabledBy = "toggleKeyBind || holdKeyBind",
+		hide = "toggleKeyBind || holdKeyBind"
 	)
-	default boolean alwaysOn() {
+	default boolean alwaysOn()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 1,
-			keyName = "toggleKeyBind",
-			name = "Toggle with Keybind",
-			description = "Toggle anti drag on and off, rather than always on.",
-			disabledBy = "alwaysOn || holdKeyBind",
-			hide = "alwaysOn || holdKeyBind"
+		position = 1,
+		keyName = "toggleKeyBind",
+		name = "Toggle with Keybind",
+		description = "Toggle anti drag on and off, rather than always on.",
+		disabledBy = "alwaysOn || holdKeyBind",
+		hide = "alwaysOn || holdKeyBind"
 	)
-	default boolean toggleKeyBind() {
+	default boolean toggleKeyBind()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "holdKeyBind",
-			name = "Hold with Keybind",
-			description = "Hold anti drag key to turn it on, rather than toggle it on or off.",
-			disabledBy = "alwaysOn || toggleKeyBind",
-			hide = "alwaysOn || toggleKeyBind"
+		position = 2,
+		keyName = "holdKeyBind",
+		name = "Hold with Keybind",
+		description = "Hold anti drag key to turn it on, rather than toggle it on or off.",
+		disabledBy = "alwaysOn || toggleKeyBind",
+		hide = "alwaysOn || toggleKeyBind"
 	)
-	default boolean holdKeyBind() {
+	default boolean holdKeyBind()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "key",
-			name = "Keybind",
-			description = "The keybind you want to use for antidrag",
-			position = 3,
-			hidden = true,
-			unhide = "toggleKeyBind || holdKeyBind"
+		keyName = "key",
+		name = "Keybind",
+		description = "The keybind you want to use for antidrag",
+		position = 3,
+		hidden = true,
+		unhide = "toggleKeyBind || holdKeyBind"
 	)
-	default Keybind key() {
+	default Keybind key()
+	{
 		return new ModifierlessKeybind(KeyEvent.VK_SHIFT, 0);
 	}
 
 	@ConfigItem(
-			keyName = "dragDelay",
-			name = "Drag Delay",
-			description = "Configures the inventory drag delay in client ticks (20ms)",
-			position = 4
+		keyName = "dragDelay",
+		name = "Drag Delay",
+		description = "Configures the inventory drag delay in client ticks (20ms)",
+		position = 4
 	)
-	default int dragDelay() {
+	default int dragDelay()
+	{
 		return Constants.GAME_TICK_LENGTH / Constants.CLIENT_TICK_LENGTH; // one game tick
 	}
 
 	@ConfigItem(
-			keyName = "reqFocus",
-			name = "Reset on focus loss",
-			description = "Disable antidrag when losing focus (like alt tabbing)",
-			position = 5,
-			hidden = true,
-			unhide = "toggleKeyBind || holdKeyBind"
+		keyName = "reqFocus",
+		name = "Reset on focus loss",
+		description = "Disable antidrag when losing focus (like alt tabbing)",
+		position = 5,
+		hidden = true,
+		unhide = "toggleKeyBind || holdKeyBind"
 	)
-	default boolean reqFocus() {
+	default boolean reqFocus()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "overlay",
-			name = "Enable overlay",
-			description = "Do you really need a description?",
-			position = 6,
-			hidden = true,
-			unhide = "toggleKeyBind || holdKeyBind"
+		keyName = "overlay",
+		name = "Enable overlay",
+		description = "Do you really need a description?",
+		position = 6,
+		hidden = true,
+		unhide = "toggleKeyBind || holdKeyBind"
 	)
-	default boolean overlay() {
+	default boolean overlay()
+	{
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "color",
-			name = "Overlay color",
-			description = "Change the overlay color, duh",
-			hidden = true,
-			unhide = "toggleKeyBind || holdKeyBind",
-			position = 7
+		keyName = "color",
+		name = "Overlay color",
+		description = "Change the overlay color, duh",
+		hidden = true,
+		unhide = "toggleKeyBind || holdKeyBind",
+		position = 7
 	)
-	default Color color() {
+	default Color color()
+	{
 		return new Color(255, 0, 0, 30);
 	}
 
 	@ConfigItem(
-			keyName = "changeCursor",
-			name = "Change Cursor",
-			description = "Change cursor when you have anti-drag enabled.",
-			position = 8,
-			hidden = true,
-			unhide = "toggleKeyBind || holdKeyBind"
+		keyName = "changeCursor",
+		name = "Change Cursor",
+		description = "Change cursor when you have anti-drag enabled.",
+		position = 8,
+		hidden = true,
+		unhide = "toggleKeyBind || holdKeyBind"
 	)
-	default boolean changeCursor() {
+	default boolean changeCursor()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "cursorStyle",
-			name = "Cursor",
-			description = "Select which cursor you wish to use",
-			hidden = true,
-			unhide = "changeCursor",
-			position = 9
+		keyName = "cursorStyle",
+		name = "Cursor",
+		description = "Select which cursor you wish to use",
+		hidden = true,
+		unhide = "changeCursor",
+		position = 9
 	)
-	default CustomCursor selectedCursor() {
+	default CustomCursor selectedCursor()
+	{
 		return CustomCursor.RS3_GOLD;
 	}
 }

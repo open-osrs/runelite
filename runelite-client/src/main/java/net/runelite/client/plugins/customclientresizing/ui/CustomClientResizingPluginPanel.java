@@ -2,7 +2,6 @@ package net.runelite.client.plugins.customclientresizing.ui;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import lombok.Getter;
 import net.runelite.client.plugins.customclientresizing.CustomClientResizingPlugin;
 import net.runelite.client.plugins.customclientresizing.CustomClientResizingProfile;
@@ -25,7 +23,8 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.util.ImageUtil;
 
 @Singleton
-public class CustomClientResizingPluginPanel extends PluginPanel {
+public class CustomClientResizingPluginPanel extends PluginPanel
+{
 	private static final ImageIcon ADD_ICON;
 	private static final ImageIcon ADD_HOVER_ICON;
 
@@ -34,7 +33,8 @@ public class CustomClientResizingPluginPanel extends PluginPanel {
 
 	private static final int DEFAULT_BORDER_THICKNESS = 3;
 
-	static {
+	static
+	{
 		final BufferedImage addIcon = ImageUtil.getResourceStreamFromClass(CustomClientResizingPlugin.class, "add_icon.png");
 		ADD_ICON = new ImageIcon(addIcon);
 		ADD_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(addIcon, 0.53f));
@@ -52,7 +52,8 @@ public class CustomClientResizingPluginPanel extends PluginPanel {
 	@Getter
 	private int selectedBorderThickness = DEFAULT_BORDER_THICKNESS;
 
-	public void init() {
+	public void init()
+	{
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -73,19 +74,23 @@ public class CustomClientResizingPluginPanel extends PluginPanel {
 		updateProfiles();
 
 		addMarker.setToolTipText("Add new screen marker");
-		addMarker.addMouseListener(new MouseAdapter() {
+		addMarker.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				plugin.addProfile();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				addMarker.setIcon(ADD_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				addMarker.setIcon(ADD_ICON);
 			}
 		});
@@ -96,14 +101,16 @@ public class CustomClientResizingPluginPanel extends PluginPanel {
 		add(centerPanel, BorderLayout.CENTER);
 	}
 
-	public void rebuild() {
+	public void rebuild()
+	{
 		removeAll();
 		repaint();
 		revalidate();
 		init();
 	}
 
-	public void updateProfiles() {
+	public void updateProfiles()
+	{
 		markerView.removeAll();
 
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -112,7 +119,8 @@ public class CustomClientResizingPluginPanel extends PluginPanel {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 
-		for (final CustomClientResizingProfile marker : plugin.getCustomclientresizingProfiles()) {
+		for (final CustomClientResizingProfile marker : plugin.getCustomclientresizingProfiles())
+		{
 			markerView.add(new CustomClientResizingProfilePanel(plugin, marker), constraints);
 			constraints.gridy++;
 

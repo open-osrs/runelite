@@ -28,23 +28,20 @@ package net.runelite.client.plugins.slayer;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
 import java.util.ArrayList;
-
 import static java.util.Arrays.asList;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nullable;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ItemID;
 import net.runelite.api.NpcID;
 
 @Getter(AccessLevel.PACKAGE)
-enum Task {
+enum Task
+{
 
 	/*
 	 * format for enum is that the name of the task is first
@@ -56,168 +53,168 @@ enum Task {
 
 	//<editor-fold desc="Enums">
 	ABERRANT_SPECTRES("Aberrant spectres", ItemID.ABERRANT_SPECTRE,
-			asList("Abhorrent spectre", "Deviant spectre", "Repugnant spectre"), Collections.emptyList()),
+		asList("Abhorrent spectre", "Deviant spectre", "Repugnant spectre"), Collections.emptyList()),
 	ABYSSAL_DEMONS("Abyssal demons", ItemID.ABYSSAL_DEMON,
-			Collections.singletonList("Abyssal Sire"), Collections.emptyList()),
+		Collections.singletonList("Abyssal Sire"), Collections.emptyList()),
 	ABYSSAL_SIRE("Abyssal Sire", ItemID.ABYSSAL_ORPHAN),
 	ADAMANT_DRAGONS("Adamant dragons", ItemID.ADAMANT_DRAGON_MASK),
 	ALCHEMICAL_HYDRA("Alchemical Hydra", ItemID.IKKLE_HYDRA),
 	ANKOU("Ankou", ItemID.ANKOU_MASK),
 	AVIANSIES("Aviansies", ItemID.ENSOULED_AVIANSIE_HEAD,
-			Collections.singletonList("Kree'arra"), Collections.emptyList()),
+		Collections.singletonList("Kree'arra"), Collections.emptyList()),
 	BANSHEES("Banshees", ItemID.BANSHEE),
 	BARROWS_BROTHERS("Barrows Brothers", ItemID.KARILS_COIF,
-			asList("Ahrim the blighted", "Dharok the wretched", "Guthan the infested", "Karil the tainted", "Torag the corrupted", "Verac the defiled"), Collections.emptyList()),
+		asList("Ahrim the blighted", "Dharok the wretched", "Guthan the infested", "Karil the tainted", "Torag the corrupted", "Verac the defiled"), Collections.emptyList()),
 	BASILISKS("Basilisks", ItemID.BASILISK),
 	BATS("Bats", ItemID.GIRAL_BAT_2),
 	BEARS("Bears", ItemID.ENSOULED_BEAR_HEAD,
-			Collections.singletonList("Callisto"), Collections.emptyList()),
+		Collections.singletonList("Callisto"), Collections.emptyList()),
 	ENTS("Ents", ItemID.ENTS_ROOTS),
 	LAVA_DRAGONS("Lava Dragons", ItemID.LAVA_SCALE),
 	BANDITS("Bandits", ItemID.BANDIT),
 	BIRDS("Birds", ItemID.FEATHER,
-			asList("Chicken", "Rooster", "Terrorbird", "Seagull", "Chompy bird", "Jubbly bird", "Oomlie bird", "Vulture"), Collections.emptyList()),
+		asList("Chicken", "Rooster", "Terrorbird", "Seagull", "Chompy bird", "Jubbly bird", "Oomlie bird", "Vulture"), Collections.emptyList()),
 	BLACK_DEMONS("Black demons", ItemID.BLACK_DEMON_MASK,
-			asList("Demonic gorilla", "Balfrug kreeyath", "Skotizo"), Collections.emptyList()),
+		asList("Demonic gorilla", "Balfrug kreeyath", "Skotizo"), Collections.emptyList()),
 	BLACK_DRAGONS("Black dragons", ItemID.BLACK_DRAGON_MASK,
-			Collections.emptyList(), asList(NpcID.BABY_BLACK_DRAGON, NpcID.BABY_BLACK_DRAGON_1872, NpcID.BABY_BLACK_DRAGON_7955)),
+		Collections.emptyList(), asList(NpcID.BABY_BLACK_DRAGON, NpcID.BABY_BLACK_DRAGON_1872 , NpcID.BABY_BLACK_DRAGON_7955)),
 	BLOODVELD("Bloodveld", ItemID.BLOODVELD),
 	BLUE_DRAGONS("Blue dragons", ItemID.BLUE_DRAGON_MASK,
-			Collections.singletonList("Vorkath"), asList(NpcID.BABY_BLUE_DRAGON, NpcID.BABY_BLUE_DRAGON_242, NpcID.BABY_BLUE_DRAGON_243)),
+		Collections.singletonList("Vorkath"), asList(NpcID.BABY_BLUE_DRAGON, NpcID.BABY_BLUE_DRAGON_242, NpcID.BABY_BLUE_DRAGON_243)),
 	BRINE_RATS("Brine rats", ItemID.BRINE_RAT),
 	BRONZE_DRAGONS("Bronze dragons", ItemID.BRONZE_DRAGON_MASK),
 	CALLISTO("Callisto", ItemID.CALLISTO_CUB),
 	CATABLEPON("Catablepon", ItemID.LEFT_SKULL_HALF),
 	CAVE_BUGS("Cave bugs", ItemID.SWAMP_CAVE_BUG),
 	CAVE_CRAWLERS("Cave crawlers", ItemID.CAVE_CRAWLER,
-			Collections.singletonList("Chasm crawler"), Collections.emptyList()),
+		Collections.singletonList("Chasm crawler"), Collections.emptyList()),
 	CAVE_HORRORS("Cave horrors", ItemID.CAVE_HORROR,
-			Collections.singletonList("Cave abomination"), Collections.emptyList()),
+		Collections.singletonList("Cave abomination"), Collections.emptyList()),
 	CAVE_KRAKEN("Cave kraken", ItemID.CAVE_KRAKEN,
-			Collections.singletonList("Kraken"), Collections.emptyList()),
+		Collections.singletonList("Kraken"), Collections.emptyList()),
 	CAVE_SLIMES("Cave slimes", ItemID.SWAMP_CAVE_SLIME),
 	CERBERUS("Cerberus", ItemID.HELLPUPPY),
 	CHAOS_DRUIDS("Chaos druids", ItemID.ELDER_CHAOS_HOOD),
 	CHAOS_ELEMENTAL("Chaos Elemental", ItemID.PET_CHAOS_ELEMENTAL),
 	CHAOS_FANATIC("Chaos Fanatic", ItemID.ANCIENT_STAFF),
 	COCKATRICE("Cockatrice", ItemID.COCKATRICE,
-			Collections.singletonList("Cockathrice"), Collections.emptyList()),
+		Collections.singletonList("Cockathrice"), Collections.emptyList()),
 	COWS("Cows", ItemID.COW_MASK),
 	CRAWLING_HANDS("Crawling hands", ItemID.CRAWLING_HAND,
-			Collections.singletonList("Crushing hand"), Collections.emptyList()),
+		Collections.singletonList("Crushing hand"), Collections.emptyList()),
 	CRAZY_ARCHAEOLOGIST("Crazy Archaeologist", ItemID.FEDORA),
 	CROCODILES("Crocodiles", ItemID.SWAMP_LIZARD),
 	DAGANNOTH("Dagannoth", ItemID.DAGANNOTH,
-			asList("Dagannoth Rex", "Dagannoth Prime", "Dagannoth Supreme"), Collections.emptyList()),
+		asList("Dagannoth Rex", "Dagannoth Prime", "Dagannoth Supreme"), Collections.emptyList()),
 	DAGANNOTH_KINGS("Dagannoth Kings", ItemID.PET_DAGANNOTH_PRIME,
-			asList("Dagannoth Rex", "Dagannoth Prime", "Dagannoth Supreme"), Collections.emptyList()),
+		asList("Dagannoth Rex", "Dagannoth Prime", "Dagannoth Supreme"), Collections.emptyList()),
 	DARK_BEASTS("Dark beasts", ItemID.DARK_BEAST,
-			Collections.singletonList("Night beast"), Collections.emptyList()),
+		Collections.singletonList("Night beast"), Collections.emptyList()),
 	DARK_WARRIORS("Dark warriors", ItemID.BLACK_MED_HELM),
 	DERANGED_ARCHAEOLOGIST("Deranged Archaeologist", ItemID.ARCHAEOLOGISTS_DIARY),
 	DOGS("Dogs", ItemID.GUARD_DOG, Collections.singletonList("Jackal"), Collections.emptyList()),
 	DRAKES("Drakes", ItemID.DRAKE),
 	DUST_DEVILS("Dust devils", ItemID.DUST_DEVIL,
-			Collections.singletonList("Choke devil"), Collections.emptyList()),
+		Collections.singletonList("Choke devil"), Collections.emptyList()),
 	DWARVES("Dwarves", ItemID.DWARVEN_HELMET,
-			asList("Dwarf", "Black guard"), Collections.emptyList()),
+		asList("Dwarf", "Black guard"), Collections.emptyList()),
 	EARTH_WARRIORS("Earth warriors", ItemID.BRONZE_FULL_HELM_T),
 	ELVES("Elves", ItemID.ELF,
-			Collections.singletonList("Elf"), Collections.emptyList()),
+		Collections.singletonList("Elf"), Collections.emptyList()),
 	FEVER_SPIDERS("Fever spiders", ItemID.FEVER_SPIDER),
 	FIRE_GIANTS("Fire giants", ItemID.FIRE_BATTLESTAFF),
 	REVENANTS("Revenants", ItemID.REVENANT_ETHER,
-			asList("Revenant imp", "Revenant goblin", "Revenant pyrefiend", "Revenant hobgoblin", "Revenant cyclops", "Revenant hellhound", "Revenant demon", "Revenant ork", "Revenant dark beast", "Revenant knight", "Revenant dragon"), Collections.emptyList()),
+		asList("Revenant imp", "Revenant goblin", "Revenant pyrefiend", "Revenant hobgoblin", "Revenant cyclops", "Revenant hellhound", "Revenant demon", "Revenant ork", "Revenant dark beast", "Revenant knight", "Revenant dragon"), Collections.emptyList()),
 	FLESH_CRAWLERS("Flesh crawlers", ItemID.ENSOULED_SCORPION_HEAD),
 	FOSSIL_ISLAND_WYVERNS("Fossil island wyverns", ItemID.FOSSIL_ISLAND_WYVERN,
-			asList("Ancient wyvern", "Long-tailed wyvern", "Spitting wyvern", "Taloned wyvern"), Collections.emptyList()),
+		asList("Ancient wyvern", "Long-tailed wyvern", "Spitting wyvern", "Taloned wyvern"), Collections.emptyList()),
 	GARGOYLES("Gargoyles", ItemID.GARGOYLE,
-			asList("Dusk", "Dawn"), Collections.emptyList(), 9, ItemID.ROCK_HAMMER),
+		asList("Dusk", "Dawn"), Collections.emptyList(), 9, ItemID.ROCK_HAMMER),
 	GENERAL_GRAARDOR("General Graardor", ItemID.PET_GENERAL_GRAARDOR),
 	GHOSTS("Ghosts", ItemID.GHOSTSPEAK_AMULET,
-			Collections.singletonList("Tortured soul"), Collections.emptyList()),
+		Collections.singletonList("Tortured soul"), Collections.emptyList()),
 	GIANT_MOLE("Giant Mole", ItemID.BABY_MOLE),
 	GHOULS("Ghouls", ItemID.ZOMBIE_HEAD),
 	GOBLINS("Goblins", ItemID.ENSOULED_GOBLIN_HEAD),
 	GREATER_DEMONS("Greater demons", ItemID.GREATER_DEMON_MASK,
-			asList("K'ril Tsutsaroth", "Tstanon Karlak", "Skotizo"), Collections.emptyList()),
+		asList("K'ril Tsutsaroth", "Tstanon Karlak", "Skotizo"), Collections.emptyList()),
 	GREEN_DRAGONS("Green dragons", ItemID.GREEN_DRAGON_MASK,
-			Collections.emptyList(), asList(NpcID.BABY_GREEN_DRAGON, NpcID.BABY_GREEN_DRAGON_5872, NpcID.BABY_GREEN_DRAGON_5873)),
+		Collections.emptyList(), asList(NpcID.BABY_GREEN_DRAGON, NpcID.BABY_GREEN_DRAGON_5872, NpcID.BABY_GREEN_DRAGON_5873)),
 	GROTESQUE_GUARDIANS("Grotesque Guardians", ItemID.MIDNIGHT,
-			asList("Dusk", "Dawn"), Collections.emptyList(), 0, ItemID.ROCK_HAMMER),
+		asList("Dusk", "Dawn"), Collections.emptyList(), 0, ItemID.ROCK_HAMMER),
 	HARPIE_BUG_SWARMS("Harpie bug swarms", ItemID.SWARM),
 	HELLHOUNDS("Hellhounds", ItemID.HELLHOUND,
-			Collections.singletonList("Cerberus"), Collections.emptyList()),
+		Collections.singletonList("Cerberus"), Collections.emptyList()),
 	HILL_GIANTS("Hill giants", ItemID.ENSOULED_GIANT_HEAD,
-			Collections.singletonList("Cyclops"), Collections.emptyList()),
+		Collections.singletonList("Cyclops"), Collections.emptyList()),
 	HOBGOBLINS("Hobgoblins", ItemID.HOBGOBLIN_GUARD),
 	HYDRAS("Hydras", ItemID.HYDRA),
 	ICEFIENDS("Icefiends", ItemID.ICE_DIAMOND),
 	ICE_GIANTS("Ice giants", ItemID.ICE_DIAMOND),
 	ICE_WARRIORS("Ice warriors", ItemID.MITHRIL_FULL_HELM_T),
 	INFERNAL_MAGES("Infernal mages", ItemID.INFERNAL_MAGE,
-			Collections.singletonList("Malevolent mage"), Collections.emptyList()),
+		Collections.singletonList("Malevolent mage"), Collections.emptyList()),
 	IRON_DRAGONS("Iron dragons", ItemID.IRON_DRAGON_MASK),
 	JAD("TzTok-Jad", ItemID.TZREKJAD, 25250),
 	JELLIES("Jellies", ItemID.JELLY,
-			Collections.singletonList("Jelly"), Collections.emptyList()),
+		Collections.singletonList("Jelly"), Collections.emptyList()),
 	JUNGLE_HORROR("Jungle horrors", ItemID.ENSOULED_HORROR_HEAD),
 	KALPHITE("Kalphite", ItemID.KALPHITE_SOLDIER),
 	KALPHITE_QUEEN("Kalphite Queen", ItemID.KALPHITE_PRINCESS),
 	KILLERWATTS("Killerwatts", ItemID.KILLERWATT),
 	KING_BLACK_DRAGON("King Black Dragon", ItemID.PRINCE_BLACK_DRAGON),
 	KRAKEN("Cave Kraken Boss", ItemID.PET_KRAKEN,
-			Collections.singletonList("Kraken"), Collections.emptyList()),
+		Collections.singletonList("Kraken"), Collections.emptyList()),
 	KREEARRA("Kree'arra", ItemID.PET_KREEARRA),
 	KRIL_TSUTSAROTH("K'ril Tsutsaroth", ItemID.PET_KRIL_TSUTSAROTH),
 	KURASK("Kurask", ItemID.KURASK),
 	ROGUES("Rogues", ItemID.ROGUE_MASK, Collections.singletonList("Rogue"), Collections.emptyList()),
 	LESSER_DEMONS("Lesser demons", ItemID.LESSER_DEMON_MASK),
 	LIZARDMEN("Lizardmen", ItemID.LIZARDMAN_FANG,
-			Collections.singletonList("Lizardman"), Collections.emptyList()),
+		Collections.singletonList("Lizardman"), Collections.emptyList()),
 	LIZARDS("Lizards", ItemID.DESERT_LIZARD,
-			asList("Desert lizard", "Sulphur lizard", "Small lizard", "Lizard"), Collections.emptyList(), 4, ItemID.ICE_COOLER),
+		asList("Desert lizard", "Sulphur lizard", "Small lizard", "Lizard"), Collections.emptyList(), 4, ItemID.ICE_COOLER),
 	MAGIC_AXES("Magic axes", ItemID.IRON_BATTLEAXE),
 	MAMMOTHS("Mammoths", ItemID.ATTACKER_HORN,
-			Collections.singletonList("Mammoth"), Collections.emptyList()),
+		Collections.singletonList("Mammoth"), Collections.emptyList()),
 	MINIONS_OF_SCABARAS("Minions of scabaras", ItemID.GOLDEN_SCARAB,
-			asList("Scarab swarm", "Locust rider", "Scarab mage"), Collections.emptyList()),
+		asList("Scarab swarm", "Locust rider", "Scarab mage"), Collections.emptyList()),
 	MINOTAURS("Minotaurs", ItemID.ENSOULED_MINOTAUR_HEAD),
 	MITHRIL_DRAGONS("Mithril dragons", ItemID.MITHRIL_DRAGON_MASK),
 	MOGRES("Mogres", ItemID.MOGRE),
 	MOLANISKS("Molanisks", ItemID.MOLANISK),
 	MONKEYS("Monkeys", ItemID.ENSOULED_MONKEY_HEAD),
 	MOSS_GIANTS("Moss giants", ItemID.HILL_GIANT_CLUB,
-			Collections.singletonList("Bryophyta"), Collections.emptyList()),
+		Collections.singletonList("Bryophyta"), Collections.emptyList()),
 	MUTATED_ZYGOMITES("Mutated zygomites", ItemID.MUTATED_ZYGOMITE,
-			Collections.singletonList("Zygomite"), Collections.emptyList(), 7, ItemID.FUNGICIDE_SPRAY_0),
+		Collections.singletonList("Zygomite"), Collections.emptyList(), 7, ItemID.FUNGICIDE_SPRAY_0),
 	NECHRYAEL("Nechryael", ItemID.NECHRYAEL,
-			Collections.singletonList("Nechryarch"), Collections.emptyList()),
+		Collections.singletonList("Nechryarch"), Collections.emptyList()),
 	OGRES("Ogres", ItemID.ENSOULED_OGRE_HEAD,
-			Collections.singletonList("Enclave guard"), Collections.emptyList()),
+		Collections.singletonList("Enclave guard"), Collections.emptyList()),
 	OTHERWORLDLY_BEING("Otherworldly beings", ItemID.GHOSTLY_HOOD),
 	PYREFIENDS("Pyrefiends", ItemID.PYREFIEND,
-			Collections.singletonList("Flaming pyrelord"), Collections.emptyList()),
+		Collections.singletonList("Flaming pyrelord"), Collections.emptyList()),
 	RATS("Rats", ItemID.RATS_TAIL),
 	RED_DRAGONS("Red dragons", ItemID.BABY_RED_DRAGON,
-			Collections.emptyList(), asList(NpcID.BABY_RED_DRAGON_244, NpcID.BABY_RED_DRAGON_245, NpcID.BABY_RED_DRAGON_246)),
+		Collections.emptyList(), asList(NpcID.BABY_RED_DRAGON_244, NpcID.BABY_RED_DRAGON_245, NpcID.BABY_RED_DRAGON_246)),
 	ROCKSLUGS("Rockslugs", ItemID.ROCKSLUG, 4, ItemID.BAG_OF_SALT),
 	RUNE_DRAGONS("Rune dragons", ItemID.RUNE_DRAGON_MASK),
 	SCORPIA("Scorpia", ItemID.SCORPIAS_OFFSPRING),
 	SCORPIONS("Scorpions", ItemID.ENSOULED_SCORPION_HEAD,
-			Collections.singletonList("Scorpia"), Collections.emptyList()),
+		Collections.singletonList("Scorpia"), Collections.emptyList()),
 	SARACHNIS("Sarachnis", ItemID.SRARACHA),
 	SEA_SNAKES("Sea snakes", ItemID.SNAKE_CORPSE),
 	SHADES("Shades", ItemID.SHADE_ROBE_TOP,
-			asList("Loar Shadow", "Loar Shade", "Phrin Shadow", "Phrin Shade", "Riyl Shadow", "Riyl Shade", "Asyn Shadow", "Asyn Shade", "Fiyr Shadow", "Fiyr Shade"), Collections.emptyList()),
+		asList("Loar Shadow", "Loar Shade", "Phrin Shadow", "Phrin Shade", "Riyl Shadow", "Riyl Shade", "Asyn Shadow", "Asyn Shade", "Fiyr Shadow", "Fiyr Shade"), Collections.emptyList()),
 	SHADOW_WARRIORS("Shadow warriors", ItemID.BLACK_FULL_HELM),
 	SKELETAL_WYVERNS("Skeletal wyverns", ItemID.SKELETAL_WYVERN),
 	SKELETONS("Skeletons", ItemID.SKELETON_GUARD),
 	SMOKE_DEVILS("Smoke devils", ItemID.SMOKE_DEVIL),
 	SPIDERS("Spiders", ItemID.HUGE_SPIDER,
-			Collections.singletonList("Venenatis"), Collections.emptyList()),
+		Collections.singletonList("Venenatis"), Collections.emptyList()),
 	SPIRITUAL_CREATURES("Spiritual creatures", ItemID.DRAGON_BOOTS,
-			asList("Spiritual ranger", "Spiritual mage", "Spiritual warrior"), Collections.emptyList()),
+		asList("Spiritual ranger", "Spiritual mage", "Spiritual warrior"), Collections.emptyList()),
 	STEEL_DRAGONS("Steel dragons", ItemID.STEEL_DRAGON),
 	SULPHUR_LIZARDS("Sulphur Lizards", ItemID.SULPHUR_LIZARD),
 	SUQAHS("Suqahs", ItemID.SUQAH_TOOTH),
@@ -227,70 +224,70 @@ enum Task {
 	TROLLS("Trolls", ItemID.TROLL_GUARD),
 	TUROTH("Turoth", ItemID.TUROTH),
 	TZHAAR("Tzhaar", ItemID.ENSOULED_TZHAAR_HEAD,
-			Collections.singletonList("Tz-"), Collections.emptyList(), false),
+		Collections.singletonList("Tz-"), Collections.emptyList(), false),
 	UNDEAD_DRUIDS("Undead Druids", ItemID.MASK_OF_RANUL),
 	VAMPIRES("Vampires", ItemID.STAKE,
-			asList("Vampyre", "Vyrewatch", "Vampire"), Collections.emptyList()),
+		asList("Vampyre", "Vyrewatch", "Vampire"), Collections.emptyList()),
 	VENENATIS("Venenatis", ItemID.VENENATIS_SPIDERLING),
 	VETION("Vet'ion", ItemID.VETION_JR),
 	VORKATH("Vorkath", ItemID.VORKI),
 	WALL_BEASTS("Wall beasts", ItemID.SWAMP_WALLBEAST),
 	WATERFIENDS("Waterfiends", ItemID.WATER_ORB),
 	WEREWOLVES("Werewolves", ItemID.WOLFBANE,
-			Collections.singletonList("Werewolf"), Collections.emptyList()),
+		Collections.singletonList("Werewolf"), Collections.emptyList()),
 	WOLVES("Wolves", ItemID.GREY_WOLF_FUR,
-			Collections.singletonList("Wolf"), Collections.emptyList()),
+		Collections.singletonList("Wolf"), Collections.emptyList()),
 	WYRMS("Wyrms", ItemID.WYRM),
 	ZILYANA("Zilyana", ItemID.PET_ZILYANA),
 	ZOMBIES("Zombies", ItemID.ZOMBIE_HEAD,
-			Collections.singletonList("Undead"), Collections.emptyList()),
+		Collections.singletonList("Undead"), Collections.emptyList()),
 	ZULRAH("Zulrah", ItemID.PET_SNAKELING),
 	ZUK("TzKal-Zuk", ItemID.TZREKZUK, 101890);
 	//</editor-fold>
 
 	private static final Map<String, Task> tasks;
 	static final List<String> LOCATIONS = ImmutableList.of(
-			"", // no location is a valid location
-			"Abyss",
-			"Ancient Cavern",
-			"Asgarnian Ice Dungeon",
-			"Brimhaven Dungeon",
-			"Brine Rat Cavern",
-			"Catacombs of Kourend",
-			"Chasm of Fire",
-			"Clan Wars",
-			"Death Plateau",
-			"Evil Chicken's Lair",
-			"Fossil Island",
-			"Forthos Dungeon",
-			"Fremennik Slayer Dungeon",
-			"God Wars Dungeon",
-			"Iorwerth Dungeon",
-			"Kalphite Lair",
-			"Karuulm Slayer Dungeon",
-			"Keldagrim",
-			"Kraken Cove",
-			"Lighthouse",
-			"Lithkren Vault",
-			"Lizardman Canyon",
-			"Lizardman Settlement",
-			"Molch",
-			"Mount Quidamortem",
-			"Mourner Tunnels",
-			"Ogre Enclave",
-			"Slayer Tower",
-			"Smoke Devil Dungeon",
-			"Smoke Dungeon",
-			"Stronghold of Security",
-			"Stronghold Slayer Dungeon",
-			"task-only Kalphite Cave",
-			"Taverley Dungeon",
-			"Troll Stronghold",
-			"Waterbirth Island",
-			"Waterfall Dungeon",
-			"Wilderness",
-			"Witchaven Dungeon",
-			"Zanaris"
+		"", // no location is a valid location
+		"Abyss",
+		"Ancient Cavern",
+		"Asgarnian Ice Dungeon",
+		"Brimhaven Dungeon",
+		"Brine Rat Cavern",
+		"Catacombs of Kourend",
+		"Chasm of Fire",
+		"Clan Wars",
+		"Death Plateau",
+		"Evil Chicken's Lair",
+		"Fossil Island",
+		"Forthos Dungeon",
+		"Fremennik Slayer Dungeon",
+		"God Wars Dungeon",
+		"Iorwerth Dungeon",
+		"Kalphite Lair",
+		"Karuulm Slayer Dungeon",
+		"Keldagrim",
+		"Kraken Cove",
+		"Lighthouse",
+		"Lithkren Vault",
+		"Lizardman Canyon",
+		"Lizardman Settlement",
+		"Molch",
+		"Mount Quidamortem",
+		"Mourner Tunnels",
+		"Ogre Enclave",
+		"Slayer Tower",
+		"Smoke Devil Dungeon",
+		"Smoke Dungeon",
+		"Stronghold of Security",
+		"Stronghold Slayer Dungeon",
+		"task-only Kalphite Cave",
+		"Taverley Dungeon",
+		"Troll Stronghold",
+		"Waterbirth Island",
+		"Waterfall Dungeon",
+		"Wilderness",
+		"Witchaven Dungeon",
+		"Zanaris"
 	);
 
 	private final String name;
@@ -303,17 +300,20 @@ enum Task {
 	private final int weaknessItem;
 	private final int expectedKillExp;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<String, Task> builder = new ImmutableMap.Builder<>();
 
-		for (Task task : values()) {
+		for (Task task : values())
+		{
 			builder.put(task.getName().toLowerCase(), task);
 		}
 
 		tasks = builder.build();
 	}
 
-	Task(String name, int itemSpriteId) {
+	Task(String name, int itemSpriteId)
+	{
 		Preconditions.checkArgument(itemSpriteId >= 0);
 		this.name = name;
 		this.itemSpriteId = itemSpriteId;
@@ -325,7 +325,8 @@ enum Task {
 		this.expectedKillExp = 0;
 	}
 
-	Task(String name, int itemSpriteId, int weaknessThreshold, int weaknessItem) {
+	Task(String name, int itemSpriteId, int weaknessThreshold, int weaknessItem)
+	{
 		Preconditions.checkArgument(itemSpriteId >= 0);
 		this.name = name;
 		this.itemSpriteId = itemSpriteId;
@@ -337,7 +338,8 @@ enum Task {
 		this.expectedKillExp = 0;
 	}
 
-	Task(String name, int itemSpriteId, boolean checkAsTokens) {
+	Task(String name, int itemSpriteId, boolean checkAsTokens)
+	{
 		Preconditions.checkArgument(itemSpriteId >= 0);
 		this.name = name;
 		this.itemSpriteId = itemSpriteId;
@@ -349,7 +351,8 @@ enum Task {
 		this.expectedKillExp = 0;
 	}
 
-	Task(String name, int itemSpriteId, int expectedKillExp) {
+	Task(String name, int itemSpriteId, int expectedKillExp)
+	{
 		Preconditions.checkArgument(itemSpriteId >= 0);
 		this.name = name;
 		this.itemSpriteId = itemSpriteId;
@@ -361,7 +364,8 @@ enum Task {
 		this.expectedKillExp = expectedKillExp;
 	}
 
-	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds) {
+	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds)
+	{
 		Preconditions.checkArgument(itemSpriteId >= 0);
 		this.name = name;
 		this.itemSpriteId = itemSpriteId;
@@ -373,7 +377,8 @@ enum Task {
 		this.expectedKillExp = 0;
 	}
 
-	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds, int weaknessThreshold, int weaknessItem) {
+	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds, int weaknessThreshold, int weaknessItem)
+	{
 		Preconditions.checkArgument(itemSpriteId >= 0);
 		this.name = name;
 		this.itemSpriteId = itemSpriteId;
@@ -385,7 +390,8 @@ enum Task {
 		this.expectedKillExp = 0;
 	}
 
-	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds, boolean checkAsTokens) {
+	Task(String name, int itemSpriteId, List<String> targetNames, List<Integer> npcIds, boolean checkAsTokens)
+	{
 		Preconditions.checkArgument(itemSpriteId >= 0);
 		this.name = name;
 		this.itemSpriteId = itemSpriteId;
@@ -398,7 +404,8 @@ enum Task {
 	}
 
 	@Nullable
-	static Task getTask(String taskName) {
+	static Task getTask(String taskName)
+	{
 		return tasks.get(taskName.toLowerCase());
 	}
 }

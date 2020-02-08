@@ -9,43 +9,43 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FloorUnderlayDefinition extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("FloorUnderlayDefinition_archive")
 	static AbstractArchive FloorUnderlayDefinition_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Leh;"
+		signature = "Leh;"
 	)
 	@Export("FloorUnderlayDefinition_cached")
 	public static EvictingDualNodeHashTable FloorUnderlayDefinition_cached;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = 324274119
+		intValue = 324274119
 	)
 	@Export("rgb")
 	int rgb;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 38778911
+		intValue = 38778911
 	)
 	@Export("hue")
 	public int hue;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -974835439
+		intValue = -974835439
 	)
 	@Export("saturation")
 	public int saturation;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 1002192481
+		intValue = 1002192481
 	)
 	@Export("lightness")
 	public int lightness;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = 1556624477
+		intValue = 1556624477
 	)
 	@Export("hueMultiplier")
 	public int hueMultiplier;
@@ -60,8 +60,8 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-667447338"
+		signature = "(I)V",
+		garbageValue = "-667447338"
 	)
 	@Export("postDecode")
 	void postDecode() {
@@ -70,8 +70,8 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lkp;IB)V",
-			garbageValue = "34"
+		signature = "(Lkp;IB)V",
+		garbageValue = "34"
 	)
 	@Export("decode")
 	void decode(Buffer var1, int var2) {
@@ -87,8 +87,8 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(Lkp;IIB)V",
-			garbageValue = "-93"
+		signature = "(Lkp;IIB)V",
+		garbageValue = "-93"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
@@ -100,14 +100,14 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(IB)V",
-			garbageValue = "15"
+		signature = "(IB)V",
+		garbageValue = "15"
 	)
 	@Export("setHsl")
 	void setHsl(int var1) {
-		double var2 = (double) (var1 >> 16 & 255) / 256.0D;
-		double var4 = (double) (var1 >> 8 & 255) / 256.0D;
-		double var6 = (double) (var1 & 255) / 256.0D;
+		double var2 = (double)(var1 >> 16 & 255) / 256.0D;
+		double var4 = (double)(var1 >> 8 & 255) / 256.0D;
+		double var6 = (double)(var1 & 255) / 256.0D;
 		double var8 = var2;
 		if (var4 < var2) {
 			var8 = var4;
@@ -148,8 +148,8 @@ public class FloorUnderlayDefinition extends DualNode {
 		}
 
 		var12 /= 6.0D;
-		this.saturation = (int) (var14 * 256.0D);
-		this.lightness = (int) (var16 * 256.0D);
+		this.saturation = (int)(var14 * 256.0D);
+		this.lightness = (int)(var16 * 256.0D);
 		if (this.saturation < 0) {
 			this.saturation = 0;
 		} else if (this.saturation > 255) {
@@ -163,22 +163,22 @@ public class FloorUnderlayDefinition extends DualNode {
 		}
 
 		if (var16 > 0.5D) {
-			this.hueMultiplier = (int) ((1.0D - var16) * var14 * 512.0D);
+			this.hueMultiplier = (int)((1.0D - var16) * var14 * 512.0D);
 		} else {
-			this.hueMultiplier = (int) (512.0D * var16 * var14);
+			this.hueMultiplier = (int)(512.0D * var16 * var14);
 		}
 
 		if (this.hueMultiplier < 1) {
 			this.hueMultiplier = 1;
 		}
 
-		this.hue = (int) (var12 * (double) this.hueMultiplier);
+		this.hue = (int)(var12 * (double)this.hueMultiplier);
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(CLgl;I)C",
-			garbageValue = "-291129938"
+		signature = "(CLgl;I)C",
+		garbageValue = "-291129938"
 	)
 	@Export("standardizeChar")
 	static char standardizeChar(char var0, Language var1) {
@@ -265,8 +265,8 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("if")
 	@ObfuscatedSignature(
-			signature = "([Lhn;IIIZB)V",
-			garbageValue = "1"
+		signature = "([Lhn;IIIZB)V",
+		garbageValue = "1"
 	)
 	@Export("resizeInterface")
 	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {

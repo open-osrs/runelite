@@ -28,14 +28,14 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Builder
-public class SplitComponent implements LayoutableRenderableEntity {
+public class SplitComponent implements LayoutableRenderableEntity
+{
 	private LayoutableRenderableEntity first;
 	private LayoutableRenderableEntity second;
 
@@ -56,16 +56,20 @@ public class SplitComponent implements LayoutableRenderableEntity {
 	private final Rectangle bounds = new Rectangle();
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		first.setPreferredLocation(preferredLocation);
 		first.setPreferredSize(preferredSize);
 
 		final Dimension firstDimension = first.render(graphics);
 		int x = 0, y = 0;
 
-		if (orientation == ComponentOrientation.VERTICAL) {
+		if (orientation == ComponentOrientation.VERTICAL)
+		{
 			y = firstDimension.height + gap.y;
-		} else {
+		}
+		else
+		{
 			x = firstDimension.width + gap.x;
 		}
 
@@ -79,10 +83,13 @@ public class SplitComponent implements LayoutableRenderableEntity {
 		final Dimension secondDimension = second.render(graphics);
 		int totalWidth, totalHeight;
 
-		if (orientation == ComponentOrientation.VERTICAL) {
+		if (orientation == ComponentOrientation.VERTICAL)
+		{
 			totalWidth = Math.max(firstDimension.width, secondDimension.width);
 			totalHeight = y + secondDimension.height;
-		} else {
+		}
+		else
+		{
 			totalHeight = Math.max(firstDimension.height, secondDimension.height);
 			totalWidth = x + secondDimension.width;
 		}

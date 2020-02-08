@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.timers;
 
-enum GameTimerImageType {
+enum GameTimerImageType
+{
 	ITEM,
 	SPRITE
 }

@@ -8,8 +8,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface Usernamed {
 	@ObfuscatedName("ky")
 	@ObfuscatedSignature(
-			signature = "(I)Ljz;",
-			garbageValue = "2135870107"
+		signature = "(I)Ljz;",
+		garbageValue = "2135870107"
 	)
 	@Export("username")
 	Username username();

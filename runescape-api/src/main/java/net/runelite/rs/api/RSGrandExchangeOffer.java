@@ -3,7 +3,8 @@ package net.runelite.rs.api;
 import net.runelite.api.GrandExchangeOffer;
 import net.runelite.mapping.Import;
 
-public interface RSGrandExchangeOffer extends GrandExchangeOffer {
+public interface RSGrandExchangeOffer extends GrandExchangeOffer
+{
 	@Import("currentQuantity")
 	@Override
 	int getQuantitySold();

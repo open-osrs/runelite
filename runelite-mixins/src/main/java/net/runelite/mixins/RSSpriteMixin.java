@@ -26,7 +26,6 @@ package net.runelite.mixins;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -36,7 +35,8 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSSprite;
 
 @Mixin(RSSprite.class)
-public abstract class RSSpriteMixin implements RSSprite {
+public abstract class RSSpriteMixin implements RSSprite
+{
 	private static final int ALPHA = 0xFF000000;
 
 	@Shadow("client")
@@ -47,7 +47,8 @@ public abstract class RSSpriteMixin implements RSSprite {
 
 	@Inject
 	@Override
-	public BufferedImage toBufferedImage() {
+	public BufferedImage toBufferedImage()
+	{
 		BufferedImage img = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 		toBufferedImage(img);
@@ -57,19 +58,23 @@ public abstract class RSSpriteMixin implements RSSprite {
 
 	@Inject
 	@Override
-	public void toBufferedImage(BufferedImage img) {
+	public void toBufferedImage(BufferedImage img)
+	{
 		int width = getWidth();
 		int height = getHeight();
 
-		if (img.getWidth() != width || img.getHeight() != height) {
+		if (img.getWidth() != width || img.getHeight() != height)
+		{
 			throw new IllegalArgumentException("Image bounds do not match Sprite");
 		}
 
 		int[] pixels = getPixels();
 		int[] transPixels = new int[pixels.length];
 
-		for (int i = 0; i < pixels.length; i++) {
-			if (pixels[i] != 0) {
+		for (int i = 0; i < pixels.length; i++)
+		{
+			if (pixels[i] != 0)
+			{
 				transPixels[i] = pixels[i] | 0xff000000;
 			}
 		}
@@ -79,7 +84,8 @@ public abstract class RSSpriteMixin implements RSSprite {
 
 	@Inject
 	@Override
-	public BufferedImage toBufferedOutline(Color color) {
+	public BufferedImage toBufferedOutline(Color color)
+	{
 		BufferedImage img = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 		toBufferedOutline(img, color.getRGB());
@@ -89,11 +95,13 @@ public abstract class RSSpriteMixin implements RSSprite {
 
 	@Inject
 	@Override
-	public void toBufferedOutline(BufferedImage img, int color) {
+	public void toBufferedOutline(BufferedImage img, int color)
+	{
 		int width = getWidth();
 		int height = getHeight();
 
-		if (img.getWidth() != width || img.getHeight() != height) {
+		if (img.getWidth() != width || img.getHeight() != height)
+		{
 			throw new IllegalArgumentException("Image bounds do not match Sprite");
 		}
 
@@ -101,24 +109,31 @@ public abstract class RSSpriteMixin implements RSSprite {
 		int[] newPixels = new int[width * height];
 		int pixelIndex = 0;
 
-		for (int y = 0; y < height; ++y) {
-			for (int x = 0; x < width; ++x) {
+		for (int y = 0; y < height; ++y)
+		{
+			for (int x = 0; x < width; ++x)
+			{
 				int pixel = pixels[pixelIndex];
-				if (pixel == 16777215 || pixel == 0) {
+				if (pixel == 16777215 || pixel == 0)
+				{
 					// W
-					if (x > 0 && pixels[pixelIndex - 1] != 0) {
+					if (x > 0 && pixels[pixelIndex - 1] != 0)
+					{
 						pixel = color;
 					}
 					// N
-					else if (y > 0 && pixels[pixelIndex - width] != 0) {
+					else if (y > 0 && pixels[pixelIndex - width] != 0)
+					{
 						pixel = color;
 					}
 					// E
-					else if (x < width - 1 && pixels[pixelIndex + 1] != 0) {
+					else if (x < width - 1 && pixels[pixelIndex + 1] != 0)
+					{
 						pixel = color;
 					}
 					// S
-					else if (y < height - 1 && pixels[pixelIndex + width] != 0) {
+					else if (y < height - 1 && pixels[pixelIndex + width] != 0)
+					{
 						pixel = color;
 					}
 					newPixels[pixelIndex] = pixel;
@@ -133,16 +148,19 @@ public abstract class RSSpriteMixin implements RSSprite {
 
 	@Copy("drawRotatedMaskedCenteredAround")
 	abstract void rs$drawAlphaMapped(int x, int y, int width, int height, int xOffset, int yOffset,
-									 int rotation, int zoom, int[] xOffsets, int[] yOffsets);
+																	int rotation, int zoom, int[] xOffsets, int[] yOffsets);
 
 	@Replace("drawRotatedMaskedCenteredAround")
 	public void rl$drawAlphaMapped(int x, int y, int width, int height, int xOffset, int yOffset, int rotation,
-								   int zoom, int[] xOffsets, int[] yOffsets) {
-		if (!hdMinimapEnabled) {
+																int zoom, int[] xOffsets, int[] yOffsets)
+	{
+		if (!hdMinimapEnabled)
+		{
 			rs$drawAlphaMapped(x, y, width, height, xOffset, yOffset, rotation, zoom, xOffsets, yOffsets);
 			return;
 		}
-		try {
+		try
+		{
 			int[] graphicsPixels = client.getGraphicsPixels();
 
 			int[] spritePixels = getPixels();
@@ -158,13 +176,15 @@ public abstract class RSSpriteMixin implements RSSprite {
 			int posY = centerY * rotCos - centerX * rotSin + (yOffset << 16);
 			int pixelIndex = x + y * client.getGraphicsPixelsWidth();
 
-			for (y = 0; y < height; ++y) {
+			for (y = 0; y < height; ++y)
+			{
 				int spriteOffsetX = xOffsets[y];
 				int graphicsPixelIndex = pixelIndex + spriteOffsetX;
 				int spriteX = posX + rotCos * spriteOffsetX;
 				int spriteY = posY - rotSin * spriteOffsetX;
 
-				for (x = -yOffsets[y]; x < 0; ++x) {
+				for (x = -yOffsets[y]; x < 0; ++x)
+				{
 					// bilinear interpolation
 					// Thanks to Bubletan
 					int x1 = spriteX >> 16;
@@ -198,7 +218,9 @@ public abstract class RSSpriteMixin implements RSSprite {
 				posY += rotCos;
 				pixelIndex += client.getGraphicsPixelsWidth();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			// ignored
 		}
 

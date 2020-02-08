@@ -30,7 +30,8 @@ import java.awt.image.BufferedImage;
 /**
  * Represents data about the pixels of a sprite image.
  */
-public interface Sprite {
+public interface Sprite
+{
 	int DEFAULT_SHADOW_COLOR = 3153952;
 
 	/**
@@ -74,7 +75,7 @@ public interface Sprite {
 	 *
 	 * @param img the passsed buffered image
 	 * @throws IllegalArgumentException if the width or height do not match
-	 */
+ 	 */
 	void toBufferedImage(BufferedImage img) throws IllegalArgumentException;
 
 	/**
@@ -87,7 +88,7 @@ public interface Sprite {
 	/**
 	 * Writes the contents of the Sprite with chosen outline to the BufferedImage
 	 *
-	 * @param img   target image
+	 * @param img target image
 	 * @param color target color
 	 */
 	void toBufferedOutline(BufferedImage img, int color);

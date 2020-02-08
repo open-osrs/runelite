@@ -25,7 +25,6 @@
 package net.runelite.cache.fs.jagex;
 
 import java.io.File;
-
 import net.runelite.cache.StoreLocation;
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Container;
@@ -33,23 +32,24 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Store;
 import net.runelite.cache.index.FileData;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 
-public class DiskStorageTest {
+public class DiskStorageTest
+{
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void testSaveArchive() throws Exception {
+	public void testSaveArchive() throws Exception
+	{
 		File file = folder.newFolder();
 		DiskStorage storage = new DiskStorage(file);
 		Archive archive;
 		Archive archive2;
-		try (Store store = new Store(storage)) {
+		try (Store store = new Store(storage))
+		{
 			Index index = store.addIndex(0);
 			archive = index.addArchive(0);
 			archive2 = index.addArchive(1);
@@ -78,7 +78,8 @@ public class DiskStorageTest {
 		}
 
 		storage = new DiskStorage(file);
-		try (Store store = new Store(storage)) {
+		try (Store store = new Store(storage))
+		{
 			store.load();
 			Index index = store.findIndex(0);
 			Archive archive2_1 = index.getArchive(0);

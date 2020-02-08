@@ -26,13 +26,15 @@
 package net.runelite.client.plugins.worldmap;
 
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 
-public class TeleportLocationDataTest {
+public class TeleportLocationDataTest
+{
 	@Test
-	public void testResources() {
-		for (TeleportLocationData data : TeleportLocationData.values()) {
+	public void testResources()
+	{
+		for (TeleportLocationData data : TeleportLocationData.values())
+		{
 			String path = data.getIconPath();
 			assertNotNull(path);
 			assertNotNull(path, getClass().getResourceAsStream(path));

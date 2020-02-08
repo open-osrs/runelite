@@ -25,13 +25,11 @@
 package net.runelite.cache.fs.jagex;
 
 import com.google.common.primitives.Ints;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Container;
 import net.runelite.cache.fs.Index;
@@ -43,7 +41,8 @@ import net.runelite.cache.util.Crc32;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DiskStorage implements Storage {
+public class DiskStorage implements Storage
+{
 	private static final Logger logger = LoggerFactory.getLogger(DiskStorage.class);
 
 	private static final String MAIN_FILE_CACHE_DAT = "main_file_cache.dat2";
@@ -55,7 +54,8 @@ public class DiskStorage implements Storage {
 	private final IndexFile index255;
 	private final List<IndexFile> indexFiles = new ArrayList<>();
 
-	public DiskStorage(File folder) throws IOException {
+	public DiskStorage(File folder) throws IOException
+	{
 		this.folder = folder;
 
 		this.data = new DataFile(new File(folder, MAIN_FILE_CACHE_DAT));
@@ -63,8 +63,10 @@ public class DiskStorage implements Storage {
 	}
 
 	@Override
-	public void init(Store store) throws IOException {
-		for (int i = 0; i < index255.getIndexCount(); ++i) {
+	public void init(Store store) throws IOException
+	{
+		for (int i = 0; i < index255.getIndexCount(); ++i)
+		{
 			store.addIndex(i);
 			getIndex(i);
 		}
@@ -73,17 +75,22 @@ public class DiskStorage implements Storage {
 	}
 
 	@Override
-	public void close() throws IOException {
+	public void close() throws IOException
+	{
 		data.close();
 		index255.close();
-		for (IndexFile indexFile : indexFiles) {
+		for (IndexFile indexFile : indexFiles)
+		{
 			indexFile.close();
 		}
 	}
 
-	private IndexFile getIndex(int i) throws FileNotFoundException {
-		for (IndexFile indexFile : indexFiles) {
-			if (indexFile.getIndexFileId() == i) {
+	private IndexFile getIndex(int i) throws FileNotFoundException
+	{
+		for (IndexFile indexFile : indexFiles)
+		{
+			if (indexFile.getIndexFileId() == i)
+			{
 				return indexFile;
 			}
 		}
@@ -94,15 +101,19 @@ public class DiskStorage implements Storage {
 	}
 
 	@Override
-	public void load(Store store) throws IOException {
-		for (Index index : store.getIndexes()) {
+	public void load(Store store) throws IOException
+	{
+		for (Index index : store.getIndexes())
+		{
 			loadIndex(index);
 		}
 	}
 
-	public byte[] readIndex(int indexId) throws IOException {
+	public byte[] readIndex(int indexId) throws IOException
+	{
 		IndexEntry entry = index255.read(indexId);
-		if (entry != null) {
+		if (entry != null)
+		{
 			byte[] indexData = data.read(index255.getIndexFileId(), entry.getId(), entry.getSector(), entry.getLength());
 			return indexData;
 		}
@@ -110,12 +121,14 @@ public class DiskStorage implements Storage {
 		return null;
 	}
 
-	private void loadIndex(Index index) throws IOException {
+	private void loadIndex(Index index) throws IOException
+	{
 		logger.trace("Loading index {}", index.getId());
 
 		byte[] indexData = readIndex(index.getId());
 
-		if (indexData == null) {
+		if (indexData == null)
+		{
 			return;
 		}
 
@@ -129,7 +142,8 @@ public class DiskStorage implements Storage {
 		index.setRevision(id.getRevision());
 		index.setNamed(id.isNamed());
 
-		for (ArchiveData ad : id.getArchives()) {
+		for (ArchiveData ad : id.getArchives())
+		{
 			Archive archive = index.addArchive(ad.getId());
 			archive.setNameHash(ad.getNameHash());
 			archive.setCrc(ad.getCrc());
@@ -145,14 +159,16 @@ public class DiskStorage implements Storage {
 	}
 
 	@Override
-	public byte[] loadArchive(Archive archive) throws IOException {
+	public byte[] loadArchive(Archive archive) throws IOException
+	{
 		Index index = archive.getIndex();
 		IndexFile indexFile = getIndex(index.getId());
 
 		assert indexFile.getIndexFileId() == index.getId();
 
 		IndexEntry entry = indexFile.read(archive.getArchiveId());
-		if (entry == null) {
+		if (entry == null)
+		{
 			logger.debug("can't read archive " + archive.getArchiveId() + " from index " + index.getId());
 			return null;
 		}
@@ -160,22 +176,25 @@ public class DiskStorage implements Storage {
 		assert entry.getId() == archive.getArchiveId();
 
 		logger.trace("Loading archive {} for index {} from sector {} length {}",
-				archive.getArchiveId(), index.getId(), entry.getSector(), entry.getLength());
+			archive.getArchiveId(), index.getId(), entry.getSector(), entry.getLength());
 
 		byte[] archiveData = data.read(index.getId(), entry.getId(), entry.getSector(), entry.getLength());
 		return archiveData;
 	}
 
 	@Override
-	public void save(Store store) throws IOException {
+	public void save(Store store) throws IOException
+	{
 		logger.debug("Saving store");
 
-		for (Index i : store.getIndexes()) {
+		for (Index i : store.getIndexes())
+		{
 			saveIndex(i);
 		}
 	}
 
-	private void saveIndex(Index index) throws IOException {
+	private void saveIndex(Index index) throws IOException
+	{
 		IndexData indexData = index.toIndexData();
 		byte[] data = indexData.writeIndexData();
 
@@ -192,7 +211,8 @@ public class DiskStorage implements Storage {
 	}
 
 	@Override
-	public void saveArchive(Archive a, byte[] archiveData) throws IOException {
+	public void saveArchive(Archive a, byte[] archiveData) throws IOException
+	{
 		Index index = a.getIndex();
 		IndexFile indexFile = getIndex(index.getId());
 		assert indexFile.getIndexFileId() == index.getId();
@@ -202,19 +222,19 @@ public class DiskStorage implements Storage {
 
 		byte compression = archiveData[0];
 		int compressedSize = Ints.fromBytes(archiveData[1], archiveData[2],
-				archiveData[3], archiveData[4]);
+			archiveData[3], archiveData[4]);
 
 		// don't crc the appended revision, if it is there
 		int length = 1 // compression type
-				+ 4 // compressed size
-				+ compressedSize
-				+ (compression != CompressionType.NONE ? 4 : 0);
+			+ 4 // compressed size
+			+ compressedSize
+			+ (compression != CompressionType.NONE ? 4 : 0);
 
 		Crc32 crc = new Crc32();
 		crc.update(archiveData, 0, length);
 		a.setCrc(crc.getHash());
 
 		logger.trace("Saved archive {}/{} at sector {}, compressed length {}",
-				index.getId(), a.getArchiveId(), res.sector, res.compressedLength);
+			index.getId(), a.getArchiveId(), res.sector, res.compressedLength);
 	}
 }

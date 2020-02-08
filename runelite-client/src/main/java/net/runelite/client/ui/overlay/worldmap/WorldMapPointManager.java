@@ -28,24 +28,27 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 
 @Singleton
-public class WorldMapPointManager {
+public class WorldMapPointManager
+{
 	@Getter(AccessLevel.PACKAGE)
 	private final List<WorldMapPoint> worldMapPoints = new CopyOnWriteArrayList<>();
 
-	public void add(WorldMapPoint worldMapPoint) {
+	public void add(WorldMapPoint worldMapPoint)
+	{
 		worldMapPoints.add(worldMapPoint);
 	}
 
-	public void remove(WorldMapPoint worldMapPoint) {
+	public void remove(WorldMapPoint worldMapPoint)
+	{
 		worldMapPoints.remove(worldMapPoint);
 	}
 
-	public void removeIf(Predicate<WorldMapPoint> filter) {
+	public void removeIf(Predicate<WorldMapPoint> filter)
+	{
 		worldMapPoints.removeIf(filter);
 	}
 }

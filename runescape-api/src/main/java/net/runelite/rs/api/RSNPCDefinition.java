@@ -3,7 +3,8 @@ package net.runelite.rs.api;
 import net.runelite.api.NPCDefinition;
 import net.runelite.mapping.Import;
 
-public interface RSNPCDefinition extends NPCDefinition {
+public interface RSNPCDefinition extends NPCDefinition
+{
 	@Import("name")
 	@Override
 	String getName();

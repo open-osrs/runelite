@@ -30,11 +30,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Objects;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IndexFile implements Closeable {
+public class IndexFile implements Closeable
+{
 	private static final Logger logger = LoggerFactory.getLogger(IndexFile.class);
 
 	private static final int INDEX_ENTRY_LEN = 6;
@@ -44,48 +44,58 @@ public class IndexFile implements Closeable {
 	private final RandomAccessFile idx;
 	private final byte[] buffer = new byte[INDEX_ENTRY_LEN];
 
-	public IndexFile(int indexFileId, File file) throws FileNotFoundException {
+	public IndexFile(int indexFileId, File file) throws FileNotFoundException
+	{
 		this.indexFileId = indexFileId;
 		this.file = file;
 		this.idx = new RandomAccessFile(file, "rw");
 	}
 
 	@Override
-	public void close() throws IOException {
+	public void close() throws IOException
+	{
 		idx.close();
 	}
 
-	public void clear() throws IOException {
+	public void clear() throws IOException
+	{
 		idx.setLength(0L);
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 3;
 		hash = 41 * hash + Objects.hashCode(this.file);
 		return hash;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final IndexFile other = (IndexFile) obj;
-		if (!Objects.equals(this.file, other.file)) {
+		if (!Objects.equals(this.file, other.file))
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public int getIndexFileId() {
+	public int getIndexFileId()
+	{
 		return indexFileId;
 	}
 
-	public synchronized void write(IndexEntry entry) throws IOException {
+	public synchronized void write(IndexEntry entry) throws IOException
+	{
 		idx.seek(entry.getId() * INDEX_ENTRY_LEN);
 
 		buffer[0] = (byte) (entry.getLength() >> 16);
@@ -99,10 +109,12 @@ public class IndexFile implements Closeable {
 		idx.write(buffer);
 	}
 
-	public synchronized IndexEntry read(int id) throws IOException {
+	public synchronized IndexEntry read(int id) throws IOException
+	{
 		idx.seek(id * INDEX_ENTRY_LEN);
 		int i = idx.read(buffer);
-		if (i != INDEX_ENTRY_LEN) {
+		if (i != INDEX_ENTRY_LEN)
+		{
 			logger.debug("short read for id {} on index {}: {}", id, indexFileId, i);
 			return null;
 		}
@@ -110,7 +122,8 @@ public class IndexFile implements Closeable {
 		int length = ((buffer[0] & 0xFF) << 16) | ((buffer[1] & 0xFF) << 8) | (buffer[2] & 0xFF);
 		int sector = ((buffer[3] & 0xFF) << 16) | ((buffer[4] & 0xFF) << 8) | (buffer[5] & 0xFF);
 
-		if (length <= 0 || sector <= 0) {
+		if (length <= 0 || sector <= 0)
+		{
 			logger.debug("invalid length or sector {}/{}", length, sector);
 			return null;
 		}
@@ -118,7 +131,8 @@ public class IndexFile implements Closeable {
 		return new IndexEntry(this, id, sector, length);
 	}
 
-	public synchronized int getIndexCount() throws IOException {
+	public synchronized int getIndexCount() throws IOException
+	{
 		return (int) (idx.length() / INDEX_ENTRY_LEN);
 	}
 }

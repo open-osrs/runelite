@@ -26,7 +26,6 @@ package net.runelite.client.plugins.hunter;
 
 import java.time.Duration;
 import java.time.Instant;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +35,8 @@ import net.runelite.api.coords.WorldPoint;
 /**
  * Wrapper class for a GameObject that represents a hunter trap.
  */
-class HunterTrap {
+class HunterTrap
+{
 	/**
 	 * A hunter trap stays up 1 minute before collapsing.
 	 */
@@ -67,7 +67,8 @@ class HunterTrap {
 	/**
 	 * The states a trap can be in.
 	 */
-	enum State {
+	enum State
+	{
 		/**
 		 * A laid out trap.
 		 */
@@ -91,7 +92,8 @@ class HunterTrap {
 	 *
 	 * @param gameObject The gameobject thats corresponds with this trap.
 	 */
-	HunterTrap(final GameObject gameObject) {
+	HunterTrap(final GameObject gameObject)
+	{
 		this.state = State.OPEN;
 		this.placedOn = Instant.now();
 		this.objectId = gameObject.getId();
@@ -104,7 +106,8 @@ class HunterTrap {
 	 * @return Value between 0 and 1. 0 means the trap was laid moments ago.
 	 * 1 is a trap that's about to collapse.
 	 */
-	double getTrapTimeRelative() {
+	double getTrapTimeRelative()
+	{
 		Duration duration = Duration.between(placedOn, Instant.now());
 		return duration.compareTo(TRAP_TIME) < 0 ? (double) duration.toMillis() / TRAP_TIME.toMillis() : 1;
 	}
@@ -112,7 +115,8 @@ class HunterTrap {
 	/**
 	 * Resets the time value when the trap was placed.
 	 */
-	void resetTimer() {
+	void resetTimer()
+	{
 		placedOn = Instant.now();
 	}
 }

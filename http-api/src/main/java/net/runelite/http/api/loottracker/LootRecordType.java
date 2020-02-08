@@ -24,7 +24,8 @@
  */
 package net.runelite.http.api.loottracker;
 
-public enum LootRecordType {
+public enum LootRecordType
+{
 	NPC,
 	PLAYER,
 	EVENT,

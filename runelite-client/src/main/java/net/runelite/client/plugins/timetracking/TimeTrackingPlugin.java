@@ -26,7 +26,6 @@
 package net.runelite.client.plugins.timetracking;
 
 import com.google.inject.Provides;
-
 import java.awt.image.BufferedImage;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -34,7 +33,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.coords.WorldPoint;
@@ -49,11 +47,9 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
-
 import static net.runelite.client.plugins.timetracking.TimeTrackingConfig.CONFIG_GROUP;
 import static net.runelite.client.plugins.timetracking.TimeTrackingConfig.STOPWATCHES;
 import static net.runelite.client.plugins.timetracking.TimeTrackingConfig.TIMERS;
-
 import net.runelite.client.plugins.timetracking.clocks.ClockManager;
 import net.runelite.client.plugins.timetracking.farming.FarmingTracker;
 import net.runelite.client.plugins.timetracking.hunter.BirdHouseTracker;
@@ -63,12 +59,13 @@ import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 
 @PluginDescriptor(
-		name = "Time Tracking",
-		description = "Enable the Time Tracking panel, which contains timers, stopwatches, and farming and bird house trackers",
-		tags = {"birdhouse", "farming", "hunter", "notifications", "skilling", "stopwatches", "timers", "panel"},
-		type = PluginType.MISCELLANEOUS
+	name = "Time Tracking",
+	description = "Enable the Time Tracking panel, which contains timers, stopwatches, and farming and bird house trackers",
+	tags = {"birdhouse", "farming", "hunter", "notifications", "skilling", "stopwatches", "timers", "panel"},
+	type = PluginType.MISCELLANEOUS
 )
-public class TimeTrackingPlugin extends Plugin {
+public class TimeTrackingPlugin extends Plugin
+{
 	@Inject
 	private ClientToolbar clientToolbar;
 
@@ -103,12 +100,14 @@ public class TimeTrackingPlugin extends Plugin {
 	private boolean lastTickPostLogin;
 
 	@Provides
-	TimeTrackingConfig provideConfig(ConfigManager configManager) {
+	TimeTrackingConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(TimeTrackingConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 
 		clockManager.loadTimers();
 		clockManager.loadStopwatches();
@@ -120,11 +119,11 @@ public class TimeTrackingPlugin extends Plugin {
 		panel = new TimeTrackingPanel(itemManager, config, farmingTracker, birdHouseTracker, clockManager);
 
 		navButton = NavigationButton.builder()
-				.tooltip("Time Tracking")
-				.icon(icon)
-				.panel(panel)
-				.priority(4)
-				.build();
+			.tooltip("Time Tracking")
+			.icon(icon)
+			.panel(panel)
+			.priority(4)
+			.build();
 
 		clientToolbar.addNavigation(navButton);
 
@@ -132,11 +131,13 @@ public class TimeTrackingPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		lastTickLocation = null;
 		lastTickPostLogin = false;
 
-		if (panelUpdateFuture != null) {
+		if (panelUpdateFuture != null)
+		{
 			panelUpdateFuture.cancel(true);
 			panelUpdateFuture = null;
 		}
@@ -145,33 +146,42 @@ public class TimeTrackingPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged e) {
-		if (!e.getGroup().equals(CONFIG_GROUP)) {
+	private void onConfigChanged(ConfigChanged e)
+	{
+		if (!e.getGroup().equals(CONFIG_GROUP))
+		{
 			return;
 		}
 
-		if (clockManager.getTimers().isEmpty() && e.getKey().equals(TIMERS)) {
+		if (clockManager.getTimers().isEmpty() && e.getKey().equals(TIMERS))
+		{
 			clockManager.loadTimers();
-		} else if (clockManager.getStopwatches().isEmpty() && e.getKey().equals(STOPWATCHES)) {
+		}
+		else if (clockManager.getStopwatches().isEmpty() && e.getKey().equals(STOPWATCHES))
+		{
 			clockManager.loadStopwatches();
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick t) {
-		if (client.getGameState() != GameState.LOGGED_IN) {
+	private void onGameTick(GameTick t)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			lastTickLocation = null;
 			return;
 		}
 
 		// bird house data is only sent after exiting the post-login screen
 		Widget motd = client.getWidget(WidgetInfo.LOGIN_CLICK_TO_PLAY_SCREEN_MESSAGE_OF_THE_DAY);
-		if (motd != null && !motd.isHidden()) {
+		if (motd != null && !motd.isHidden())
+		{
 			lastTickPostLogin = true;
 			return;
 		}
 
-		if (lastTickPostLogin) {
+		if (lastTickPostLogin)
+		{
 			lastTickPostLogin = false;
 			return;
 		}
@@ -179,46 +189,55 @@ public class TimeTrackingPlugin extends Plugin {
 		WorldPoint loc = lastTickLocation;
 		lastTickLocation = client.getLocalPlayer().getWorldLocation();
 
-		if (loc == null || loc.getRegionID() != lastTickLocation.getRegionID()) {
+		if (loc == null || loc.getRegionID() != lastTickLocation.getRegionID())
+		{
 			return;
 		}
 
 		boolean birdHouseDataChanged = birdHouseTracker.updateData(loc);
 		boolean farmingDataChanged = farmingTracker.updateData(loc);
 
-		if (birdHouseDataChanged || farmingDataChanged) {
+		if (birdHouseDataChanged || farmingDataChanged)
+		{
 			panel.update();
 		}
 	}
 
 	@Subscribe
-	private void onUsernameChanged(UsernameChanged e) {
+	private void onUsernameChanged(UsernameChanged e)
+	{
 		farmingTracker.loadCompletionTimes();
 		birdHouseTracker.loadFromConfig();
-		if (panel != null) {
+		if (panel != null)
+		{
 			panel.update();
 		}
 	}
 
 	@Schedule(period = 10, unit = ChronoUnit.SECONDS)
-	public void checkCompletion() {
+	public void checkCompletion()
+	{
 		boolean birdHouseDataChanged = birdHouseTracker.checkCompletion();
 
-		if (birdHouseDataChanged) {
+		if (birdHouseDataChanged)
+		{
 			panel.update();
 		}
 	}
 
-	private void updatePanel() {
+	private void updatePanel()
+	{
 		long unitTime = Instant.now().toEpochMilli() / 200;
 
 		boolean clockDataChanged = false;
 
-		if (unitTime % 5 == 0) {
+		if (unitTime % 5 == 0)
+		{
 			clockDataChanged = clockManager.checkCompletion();
 		}
 
-		if (unitTime % panel.getUpdateInterval() == 0 || clockDataChanged) {
+		if (unitTime % panel.getUpdateInterval() == 0 || clockDataChanged)
+		{
 			panel.update();
 		}
 	}

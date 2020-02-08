@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class UserComparator10 extends AbstractUserComparator {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("soundEffectsArchive")
 	static AbstractArchive soundEffectsArchive;
@@ -22,8 +22,8 @@ public class UserComparator10 extends AbstractUserComparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lje;Lje;I)I",
-			garbageValue = "1802952011"
+		signature = "(Lje;Lje;I)I",
+		garbageValue = "1802952011"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -35,16 +35,16 @@ public class UserComparator10 extends AbstractUserComparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy) var1, (Buddy) var2);
+		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1451340880"
+		signature = "(I)V",
+		garbageValue = "1451340880"
 	)
 	public static void method3476() {
-		synchronized (MouseHandler.MouseHandler_instance) {
+		synchronized(MouseHandler.MouseHandler_instance) {
 			MouseHandler.MouseHandler_currentButton = MouseHandler.MouseHandler_currentButtonVolatile;
 			MouseHandler.MouseHandler_x = MouseHandler.MouseHandler_xVolatile;
 			MouseHandler.MouseHandler_y = MouseHandler.MouseHandler_yVolatile;
@@ -59,8 +59,8 @@ public class UserComparator10 extends AbstractUserComparator {
 
 	@ObfuscatedName("hr")
 	@ObfuscatedSignature(
-			signature = "(IIIILjava/lang/String;Ljava/lang/String;III)V",
-			garbageValue = "-2121954499"
+		signature = "(IIIILjava/lang/String;Ljava/lang/String;III)V",
+		garbageValue = "-2121954499"
 	)
 	@Export("menuAction")
 	static final void menuAction(int var0, int var1, int var2, int var3, String var4, String var5, int var6, int var7) {
@@ -708,8 +708,7 @@ public class UserComparator10 extends AbstractUserComparator {
 										Client.packetWriter.addNode(var9);
 									}
 								} else {
-									label982:
-									{
+									label982: {
 										if (var2 != 57) {
 											if (var2 == 58) {
 												var16 = SpriteMask.getWidgetChild(var1, var0);

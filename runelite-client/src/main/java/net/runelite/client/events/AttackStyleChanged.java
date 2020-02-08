@@ -11,7 +11,8 @@ import net.runelite.client.game.AttackStyle;
  * For example, ranged str went to 0, but melee str went to 108.
  */
 @Value
-public class AttackStyleChanged implements Event {
+public class AttackStyleChanged implements Event
+{
 	/**
 	 * The player that changed styles.
 	 */

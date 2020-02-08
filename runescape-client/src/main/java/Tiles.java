@@ -15,7 +15,7 @@ public final class Tiles {
 	static byte[][][] Tiles_renderFlags;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -118774103
+		intValue = -118774103
 	)
 	@Export("Tiles_minPlane")
 	static int Tiles_minPlane;
@@ -43,12 +43,12 @@ public final class Tiles {
 	static final int[] field517;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-			intValue = -1347030255
+		intValue = -1347030255
 	)
 	static int field512;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-			intValue = 563851447
+		intValue = 563851447
 	)
 	static int field519;
 	@ObfuscatedName("gm")
@@ -65,14 +65,14 @@ public final class Tiles {
 		field516 = new int[]{0, -1, 0, 1};
 		field503 = new int[]{1, -1, -1, 1};
 		field517 = new int[]{-1, -1, 1, 1};
-		field512 = (int) (Math.random() * 17.0D) - 8;
-		field519 = (int) (Math.random() * 33.0D) - 16;
+		field512 = (int)(Math.random() * 17.0D) - 8;
+		field519 = (int)(Math.random() * 33.0D) - 16;
 	}
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/CharSequence;II[BII)I",
-			garbageValue = "-1076668980"
+		signature = "(Ljava/lang/CharSequence;II[BII)I",
+		garbageValue = "-1076668980"
 	)
 	@Export("encodeStringCp1252")
 	public static int encodeStringCp1252(CharSequence var0, int var1, int var2, byte[] var3, int var4) {
@@ -81,7 +81,7 @@ public final class Tiles {
 		for (int var6 = 0; var6 < var5; ++var6) {
 			char var7 = var0.charAt(var6 + var1);
 			if (var7 > 0 && var7 < 128 || var7 >= 160 && var7 <= 255) {
-				var3[var6 + var4] = (byte) var7;
+				var3[var6 + var4] = (byte)var7;
 			} else if (var7 == 8364) {
 				var3[var6 + var4] = -128;
 			} else if (var7 == 8218) {
@@ -146,8 +146,8 @@ public final class Tiles {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;B)V",
-			garbageValue = "96"
+		signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;B)V",
+		garbageValue = "96"
 	)
 	@Export("setLoginResponseString")
 	static void setLoginResponseString(String var0, String var1, String var2) {
@@ -158,11 +158,11 @@ public final class Tiles {
 
 	@ObfuscatedName("gg")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1651271456"
+		signature = "(I)V",
+		garbageValue = "1651271456"
 	)
 	static final void method1156() {
-		for (GraphicsObject var0 = (GraphicsObject) Client.graphicsObjects.last(); var0 != null; var0 = (GraphicsObject) Client.graphicsObjects.previous()) {
+		for (GraphicsObject var0 = (GraphicsObject)Client.graphicsObjects.last(); var0 != null; var0 = (GraphicsObject)Client.graphicsObjects.previous()) {
 			if (var0.plane == Clock.Client_plane && !var0.isFinished) {
 				if (Client.cycle >= var0.cycleStart) {
 					var0.advance(Client.field707);

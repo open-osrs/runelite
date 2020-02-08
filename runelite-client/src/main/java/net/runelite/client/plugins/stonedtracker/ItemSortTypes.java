@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PACKAGE)
 @RequiredArgsConstructor
-public enum ItemSortTypes {
+public enum ItemSortTypes
+{
 	ALPHABETICAL("Alphabetical"),
 	ITEM_ID("Item ID"),
 	VALUE("Value"),
@@ -15,7 +16,8 @@ public enum ItemSortTypes {
 	private final String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

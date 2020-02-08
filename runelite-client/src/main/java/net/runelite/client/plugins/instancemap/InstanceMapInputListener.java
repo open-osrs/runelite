@@ -30,12 +30,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
-
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseAdapter;
 import net.runelite.client.input.MouseWheelListener;
 
-class InstanceMapInputListener extends MouseAdapter implements KeyListener, MouseWheelListener {
+class InstanceMapInputListener extends MouseAdapter implements KeyListener, MouseWheelListener
+{
 	@Inject
 	private InstanceMapPlugin plugin;
 
@@ -43,38 +43,48 @@ class InstanceMapInputListener extends MouseAdapter implements KeyListener, Mous
 	private InstanceMapOverlay overlay;
 
 	@Override
-	public void keyTyped(KeyEvent event) {
+	public void keyTyped(KeyEvent event)
+	{
 
 	}
 
 	@Override
-	public void keyPressed(KeyEvent event) {
-		if (!overlay.isMapShown()) {
+	public void keyPressed(KeyEvent event)
+	{
+		if (!overlay.isMapShown())
+		{
 			return;
 		}
 
-		if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+		if (event.getKeyCode() == KeyEvent.VK_ESCAPE)
+		{
 			plugin.closeMap();
 			event.consume();
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent event) {
+	public void keyReleased(KeyEvent event)
+	{
 
 	}
 
 	@Override
-	public MouseWheelEvent mouseWheelMoved(MouseWheelEvent event) {
-		if (!overlay.isMapShown() || isNotWithinOverlay(event.getPoint())) {
+	public MouseWheelEvent mouseWheelMoved(MouseWheelEvent event)
+	{
+		if (!overlay.isMapShown() || isNotWithinOverlay(event.getPoint()))
+		{
 			return event;
 		}
 
 		int direction = event.getWheelRotation();
 
-		if (direction > 0) {
+		if (direction > 0)
+		{
 			plugin.ascendMap();
-		} else {
+		}
+		else
+		{
 			plugin.descendMap();
 		}
 
@@ -83,8 +93,10 @@ class InstanceMapInputListener extends MouseAdapter implements KeyListener, Mous
 	}
 
 	@Override
-	public MouseEvent mouseClicked(MouseEvent event) {
-		if (!overlay.isMapShown() || isNotWithinOverlay(event.getPoint())) {
+	public MouseEvent mouseClicked(MouseEvent event)
+	{
+		if (!overlay.isMapShown() || isNotWithinOverlay(event.getPoint()))
+		{
 			return event;
 		}
 
@@ -93,12 +105,15 @@ class InstanceMapInputListener extends MouseAdapter implements KeyListener, Mous
 	}
 
 	@Override
-	public MouseEvent mousePressed(MouseEvent event) {
-		if (!overlay.isMapShown() || isNotWithinOverlay(event.getPoint())) {
+	public MouseEvent mousePressed(MouseEvent event)
+	{
+		if (!overlay.isMapShown() || isNotWithinOverlay(event.getPoint()))
+		{
 			return event;
 		}
 
-		if (SwingUtilities.isLeftMouseButton(event) && isWithinCloseButton(event.getPoint())) {
+		if (SwingUtilities.isLeftMouseButton(event) && isWithinCloseButton(event.getPoint()))
+		{
 			plugin.closeMap();
 		}
 
@@ -107,23 +122,27 @@ class InstanceMapInputListener extends MouseAdapter implements KeyListener, Mous
 	}
 
 	@Override
-	public MouseEvent mouseMoved(MouseEvent event) {
-		if (overlay.isMapShown()) {
+	public MouseEvent mouseMoved(MouseEvent event)
+	{
+		if (overlay.isMapShown())
+		{
 			overlay.setCloseButtonHovered(isWithinCloseButton(event.getPoint()));
 		}
 
 		return event;
 	}
 
-	private boolean isNotWithinOverlay(final Point point) {
+	private boolean isNotWithinOverlay(final Point point)
+	{
 		return !overlay.getBounds().contains(point);
 	}
 
-	private boolean isWithinCloseButton(final Point point) {
+	private boolean isWithinCloseButton(final Point point)
+	{
 		Point overlayPoint = new Point(point.x - (int) overlay.getBounds().getX(),
-				point.y - (int) overlay.getBounds().getY());
+			point.y - (int) overlay.getBounds().getY());
 
 		return overlay.getCloseButtonBounds() != null
-				&& overlay.getCloseButtonBounds().contains(overlayPoint);
+			&& overlay.getCloseButtonBounds().contains(overlayPoint);
 	}
 }

@@ -1,6 +1,5 @@
 import java.util.Collection;
 import java.util.Iterator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,13 +10,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class IterableNodeDeque implements Iterable, Collection {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lft;"
+		signature = "Lft;"
 	)
 	@Export("sentinel")
 	Node sentinel;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lft;"
+		signature = "Lft;"
 	)
 	Node field3528;
 
@@ -38,7 +37,7 @@ public class IterableNodeDeque implements Iterable, Collection {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lft;)V"
+		signature = "(Lft;)V"
 	)
 	@Export("addFirst")
 	public void addFirst(Node var1) {
@@ -54,7 +53,7 @@ public class IterableNodeDeque implements Iterable, Collection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lft;)V"
+		signature = "(Lft;)V"
 	)
 	@Export("addLast")
 	public void addLast(Node var1) {
@@ -70,16 +69,16 @@ public class IterableNodeDeque implements Iterable, Collection {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "()Lft;"
+		signature = "()Lft;"
 	)
 	@Export("last")
 	public Node last() {
-		return this.method4884((Node) null);
+		return this.method4884((Node)null);
 	}
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(Lft;)Lft;"
+		signature = "(Lft;)Lft;"
 	)
 	Node method4884(Node var1) {
 		Node var2;
@@ -100,7 +99,7 @@ public class IterableNodeDeque implements Iterable, Collection {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "()Lft;"
+		signature = "()Lft;"
 	)
 	@Export("previous")
 	public Node previous() {
@@ -132,7 +131,7 @@ public class IterableNodeDeque implements Iterable, Collection {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "()[Lft;"
+		signature = "()[Lft;"
 	)
 	Node[] method4887() {
 		Node[] var1 = new Node[this.method4885()];
@@ -147,7 +146,7 @@ public class IterableNodeDeque implements Iterable, Collection {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(Lft;)Z"
+		signature = "(Lft;)Z"
 	)
 	boolean method4891(Node var1) {
 		this.addFirst(var1);
@@ -217,12 +216,12 @@ public class IterableNodeDeque implements Iterable, Collection {
 	}
 
 	public boolean add(Object var1) {
-		return this.method4891((Node) var1);
+		return this.method4891((Node)var1);
 	}
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lft;Lft;)V"
+		signature = "(Lft;Lft;)V"
 	)
 	@Export("IterableNodeDeque_addBefore")
 	public static void IterableNodeDeque_addBefore(Node var0, Node var1) {

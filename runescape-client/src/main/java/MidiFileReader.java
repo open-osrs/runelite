@@ -10,7 +10,7 @@ public class MidiFileReader {
 	static final byte[] field2477;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lkp;"
+		signature = "Lkp;"
 	)
 	@Export("buffer")
 	Buffer buffer;
@@ -38,12 +38,12 @@ public class MidiFileReader {
 	}
 
 	MidiFileReader(byte[] var1) {
-		this.buffer = new Buffer((byte[]) null);
+		this.buffer = new Buffer((byte[])null);
 		this.parse(var1);
 	}
 
 	MidiFileReader() {
-		this.buffer = new Buffer((byte[]) null);
+		this.buffer = new Buffer((byte[])null);
 	}
 
 	@ObfuscatedName("c")
@@ -183,7 +183,7 @@ public class MidiFileReader {
 				int var5 = this.buffer.readMedium();
 				var4 -= 3;
 				int var6 = this.trackLengths[var1];
-				this.field2476 += (long) var6 * (long) (this.field2474 - var5);
+				this.field2476 += (long)var6 * (long)(this.field2474 - var5);
 				this.field2474 = var5;
 				var10000 = this.buffer;
 				var10000.offset += var4;
@@ -210,7 +210,7 @@ public class MidiFileReader {
 
 	@ObfuscatedName("h")
 	long method3917(int var1) {
-		return this.field2476 + (long) var1 * (long) this.field2474;
+		return this.field2476 + (long)var1 * (long)this.field2474;
 	}
 
 	@ObfuscatedName("v")

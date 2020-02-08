@@ -10,20 +10,23 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSFriendSystem;
 
 @Mixin(RSFriendSystem.class)
-public abstract class RSFriendSystemMixin implements RSFriendSystem {
+public abstract class RSFriendSystemMixin implements RSFriendSystem
+{
 	@Shadow("client")
 	private static RSClient client;
 
 	@MethodHook("removeFriend")
 	@Inject
-	public void rl$removeFriend(String friendName) {
+	public void rl$removeFriend(String friendName)
+	{
 		FriendRemoved friendRemoved = new FriendRemoved(friendName);
 		client.getCallbacks().post(FriendRemoved.class, friendRemoved);
 	}
 
 	@MethodHook("addFriend")
 	@Inject
-	public void rl$addFriend(String friendName) {
+	public void rl$addFriend(String friendName)
+	{
 		FriendAdded friendAdded = new FriendAdded(friendName);
 		client.getCallbacks().post(FriendAdded.class, friendAdded);
 	}

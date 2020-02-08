@@ -26,11 +26,11 @@
 package net.runelite.cache.definitions;
 
 import java.util.Map;
-
 import lombok.Data;
 
 @Data
-public class ObjectDefinition {
+public class ObjectDefinition
+{
 	private int id;
 	private short[] retextureToFind;
 	private int decorDisplacement = 16;

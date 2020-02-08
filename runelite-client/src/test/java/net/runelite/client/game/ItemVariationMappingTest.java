@@ -27,17 +27,17 @@ package net.runelite.client.game;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import static net.runelite.api.ItemID.*;
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ItemVariationMappingTest {
-	private static final Map<Integer, Integer> ITEMS_MAP = new LinkedHashMap<Integer, Integer>() {{
+public class ItemVariationMappingTest
+{
+	private static final Map<Integer, Integer> ITEMS_MAP = new LinkedHashMap<Integer, Integer>()
+	{{
 		put(_12_ANCHOVY_PIZZA, ANCHOVY_PIZZA);
 		put(_12_MEAT_PIZZA, MEAT_PIZZA);
 		put(_12_PINEAPPLE_PIZZA, PINEAPPLE_PIZZA);
@@ -340,10 +340,11 @@ public class ItemVariationMappingTest {
 	}};
 
 	@Test
-	public void testMappedNames() throws Exception {
+	public void testMappedNames() throws Exception
+	{
 		ItemVariationMapping.load();
 
 		ITEMS_MAP.forEach((key, value) ->
-				assertEquals(value, (Integer) ItemVariationMapping.map(key)));
+			assertEquals(value, (Integer) ItemVariationMapping.map(key)));
 	}
 }

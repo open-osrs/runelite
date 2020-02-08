@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.timetracking.hunter;
 
 import javax.annotation.Nullable;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,7 +32,8 @@ import net.runelite.api.ItemID;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum BirdHouse {
+enum BirdHouse
+{
 	NORMAL("Bird House", ItemID.BIRD_HOUSE),
 	OAK("Oak Bird House", ItemID.OAK_BIRD_HOUSE),
 	WILLOW("Willow Bird House", ItemID.WILLOW_BIRD_HOUSE),
@@ -51,10 +51,12 @@ enum BirdHouse {
 	 * Gets the {@code BirdHouse} corresponding to the given {@code VarPlayer} value.
 	 */
 	@Nullable
-	static BirdHouse fromVarpValue(int varp) {
+	static BirdHouse fromVarpValue(int varp)
+	{
 		int index = (varp - 1) / 3;
 
-		if (varp <= 0 || index >= values().length) {
+		if (varp <= 0 || index >= values().length)
+		{
 			return null;
 		}
 

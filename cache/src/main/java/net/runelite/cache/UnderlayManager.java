@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.cache.definitions.UnderlayDefinition;
 import net.runelite.cache.definitions.loaders.UnderlayLoader;
 import net.runelite.cache.definitions.providers.UnderlayProvider;
@@ -40,15 +39,18 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 
-public class UnderlayManager implements UnderlayProvider {
+public class UnderlayManager implements UnderlayProvider
+{
 	private final Store store;
 	private final Map<Integer, UnderlayDefinition> underlays = new HashMap<>();
 
-	public UnderlayManager(Store store) {
+	public UnderlayManager(Store store)
+	{
 		this.store = store;
 	}
 
-	public void load() throws IOException {
+	public void load() throws IOException
+	{
 		Storage storage = store.getStorage();
 		Index index = store.getIndex(IndexType.CONFIGS);
 		Archive archive = index.getArchive(ConfigType.UNDERLAY.getId());
@@ -56,7 +58,8 @@ public class UnderlayManager implements UnderlayProvider {
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile file : files.getFiles()) {
+		for (FSFile file : files.getFiles())
+		{
 			UnderlayLoader loader = new UnderlayLoader();
 			UnderlayDefinition underlay = loader.load(file.getFileId(), file.getContents());
 
@@ -64,12 +67,14 @@ public class UnderlayManager implements UnderlayProvider {
 		}
 	}
 
-	public Collection<UnderlayDefinition> getUnderlays() {
+	public Collection<UnderlayDefinition> getUnderlays()
+	{
 		return Collections.unmodifiableCollection(underlays.values());
 	}
 
 	@Override
-	public UnderlayDefinition provide(int underlayId) {
+	public UnderlayDefinition provide(int underlayId)
+	{
 		return underlays.get(underlayId);
 	}
 }

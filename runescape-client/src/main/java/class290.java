@@ -17,15 +17,15 @@ public class class290 {
 
 		int var0;
 		for (var0 = 0; var0 < 26; ++var0) {
-			field3646[var0] = (char) (var0 + 65);
+			field3646[var0] = (char)(var0 + 65);
 		}
 
 		for (var0 = 26; var0 < 52; ++var0) {
-			field3646[var0] = (char) (var0 + 97 - 26);
+			field3646[var0] = (char)(var0 + 97 - 26);
 		}
 
 		for (var0 = 52; var0 < 62; ++var0) {
-			field3646[var0] = (char) (var0 + 48 - 52);
+			field3646[var0] = (char)(var0 + 48 - 52);
 		}
 
 		field3646[62] = '+';
@@ -33,15 +33,15 @@ public class class290 {
 		field3648 = new char[64];
 
 		for (var0 = 0; var0 < 26; ++var0) {
-			field3648[var0] = (char) (var0 + 65);
+			field3648[var0] = (char)(var0 + 65);
 		}
 
 		for (var0 = 26; var0 < 52; ++var0) {
-			field3648[var0] = (char) (var0 + 97 - 26);
+			field3648[var0] = (char)(var0 + 97 - 26);
 		}
 
 		for (var0 = 52; var0 < 62; ++var0) {
-			field3648[var0] = (char) (var0 + 48 - 52);
+			field3648[var0] = (char)(var0 + 48 - 52);
 		}
 
 		field3648[62] = '*';
@@ -49,15 +49,15 @@ public class class290 {
 		field3647 = new char[64];
 
 		for (var0 = 0; var0 < 26; ++var0) {
-			field3647[var0] = (char) (var0 + 65);
+			field3647[var0] = (char)(var0 + 65);
 		}
 
 		for (var0 = 26; var0 < 52; ++var0) {
-			field3647[var0] = (char) (var0 + 97 - 26);
+			field3647[var0] = (char)(var0 + 97 - 26);
 		}
 
 		for (var0 = 52; var0 < 62; ++var0) {
-			field3647[var0] = (char) (var0 + 48 - 52);
+			field3647[var0] = (char)(var0 + 48 - 52);
 		}
 
 		field3647[62] = '-';
@@ -90,8 +90,8 @@ public class class290 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "([Ljava/lang/CharSequence;III)Ljava/lang/String;",
-			garbageValue = "-514037609"
+		signature = "([Ljava/lang/CharSequence;III)Ljava/lang/String;",
+		garbageValue = "-514037609"
 	)
 	public static String method5360(CharSequence[] var0, int var1, int var2) {
 		if (var2 == 0) {

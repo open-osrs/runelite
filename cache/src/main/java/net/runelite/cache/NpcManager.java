@@ -30,7 +30,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.cache.definitions.NpcDefinition;
 import net.runelite.cache.definitions.exporters.NpcExporter;
 import net.runelite.cache.definitions.loaders.NpcLoader;
@@ -42,15 +41,18 @@ import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 import net.runelite.cache.util.IDClass;
 
-public class NpcManager {
+public class NpcManager
+{
 	private final Store store;
 	private final Map<Integer, NpcDefinition> npcs = new HashMap<>();
 
-	public NpcManager(Store store) {
+	public NpcManager(Store store)
+	{
 		this.store = store;
 	}
 
-	public void load() throws IOException {
+	public void load() throws IOException
+	{
 		NpcLoader loader = new NpcLoader();
 
 		Storage storage = store.getStorage();
@@ -60,24 +62,29 @@ public class NpcManager {
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile f : files.getFiles()) {
+		for (FSFile f : files.getFiles())
+		{
 			NpcDefinition npc = loader.load(f.getFileId(), f.getContents());
 			npcs.put(f.getFileId(), npc);
 		}
 	}
 
-	public Collection<NpcDefinition> getNpcs() {
+	public Collection<NpcDefinition> getNpcs()
+	{
 		return Collections.unmodifiableCollection(npcs.values());
 	}
 
-	public NpcDefinition get(int npcId) {
+	public NpcDefinition get(int npcId)
+	{
 		return npcs.get(npcId);
 	}
 
-	public void dump(File out) throws IOException {
+	public void dump(File out) throws IOException
+	{
 		out.mkdirs();
 
-		for (NpcDefinition def : npcs.values()) {
+		for (NpcDefinition def : npcs.values())
+		{
 			NpcExporter exporter = new NpcExporter(def);
 
 			File targ = new File(out, def.id + ".json");
@@ -85,11 +92,15 @@ public class NpcManager {
 		}
 	}
 
-	public void java(File java) throws IOException {
+	public void java(File java) throws IOException
+	{
 		java.mkdirs();
-		try (IDClass ids = IDClass.create(java, "NpcID")) {
-			for (NpcDefinition def : npcs.values()) {
-				if (def.name.equalsIgnoreCase("NULL")) {
+		try (IDClass ids = IDClass.create(java, "NpcID"))
+		{
+			for (NpcDefinition def : npcs.values())
+			{
+				if (def.name.equalsIgnoreCase("NULL"))
+				{
 					continue;
 				}
 

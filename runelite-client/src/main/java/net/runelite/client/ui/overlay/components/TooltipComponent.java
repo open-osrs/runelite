@@ -25,7 +25,6 @@
 package net.runelite.client.ui.overlay.components;
 
 import com.google.common.annotations.VisibleForTesting;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -33,13 +32,13 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.regex.Pattern;
-
 import lombok.Setter;
 import net.runelite.api.IndexedSprite;
 import net.runelite.client.ui.overlay.RenderableEntity;
 
 @Setter
-public class TooltipComponent implements RenderableEntity {
+public class TooltipComponent implements RenderableEntity
+{
 	private static final Pattern BR = Pattern.compile("</br>");
 	private static final int OFFSET = 4;
 	private static final int MOD_ICON_WIDTH = 13; // they are generally 13px wide
@@ -50,7 +49,8 @@ public class TooltipComponent implements RenderableEntity {
 	private IndexedSprite[] modIcons;
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		// Tooltip size
 		final FontMetrics metrics = graphics.getFontMetrics();
 		final int textDescent = metrics.getDescent();
@@ -60,10 +60,12 @@ public class TooltipComponent implements RenderableEntity {
 		String[] lines = BR.split(text);
 
 		// Calculate tooltip size
-		for (String line : lines) {
+		for (String line : lines)
+		{
 			int textWidth = calculateTextWidth(metrics, line);
 
-			if (textWidth > tooltipWidth) {
+			if (textWidth > tooltipWidth)
+			{
 				tooltipWidth = textWidth;
 			}
 
@@ -76,7 +78,7 @@ public class TooltipComponent implements RenderableEntity {
 
 		// Render tooltip - background
 		final Rectangle tooltipBackground = new Rectangle(x, y,
-				tooltipWidth + OFFSET * 2, tooltipHeight + OFFSET * 2);
+			tooltipWidth + OFFSET * 2, tooltipHeight + OFFSET * 2);
 		final BackgroundComponent backgroundComponent = new BackgroundComponent();
 		backgroundComponent.setBackgroundColor(backgroundColor);
 		backgroundComponent.setRectangle(tooltipBackground);
@@ -88,15 +90,18 @@ public class TooltipComponent implements RenderableEntity {
 		int textY = y + OFFSET;
 		int lineX;
 		Color nextColor = Color.WHITE;
-		for (int i = 0; i < lines.length; i++) {
+		for (int i = 0; i < lines.length; i++)
+		{
 			lineX = textX;
 			final String line = lines[i];
 			char[] chars = line.toCharArray();
 
 			int begin = 0;
 			boolean inTag = false;
-			for (int j = 0; j < chars.length; j++) {
-				if (chars[j] == '<') {
+			for (int j = 0; j < chars.length; j++)
+			{
+				if (chars[j] == '<')
+				{
 					TextComponent textComponent = new TextComponent();
 					textComponent.setColor(nextColor);
 					String text = line.substring(begin, j);
@@ -108,23 +113,33 @@ public class TooltipComponent implements RenderableEntity {
 
 					begin = j;
 					inTag = true;
-				} else if (chars[j] == '>' && inTag) {
+				}
+				else if (chars[j] == '>' && inTag)
+				{
 					String subLine = line.substring(begin + 1, j);
 
-					if (subLine.startsWith("col=")) {
+					if (subLine.startsWith("col="))
+					{
 						String argument = subLine.substring(4);
 						nextColor = Color.decode("#" + argument);
-					} else if (subLine.equals("/col")) {
+					}
+					else if (subLine.equals("/col"))
+					{
 						nextColor = Color.WHITE;
-					} else if (subLine.startsWith("img=")) {
-						if (modIcons != null) {
+					}
+					else if (subLine.startsWith("img="))
+					{
+						if (modIcons != null)
+						{
 							String argument = subLine.substring(4);
 							int iconId = Integer.parseInt(argument);
 							IndexedSprite modIcon = modIcons[iconId];
 							renderModIcon(graphics, lineX, textY + i * textHeight - textDescent, modIcon);
 							lineX += modIcon.getWidth();
 						}
-					} else {
+					}
+					else
+					{
 						TextComponent textComponent = new TextComponent();
 						textComponent.setColor(nextColor);
 						String text = line.substring(begin, j + 1);
@@ -152,24 +167,32 @@ public class TooltipComponent implements RenderableEntity {
 	}
 
 	@VisibleForTesting
-	static int calculateTextWidth(FontMetrics metrics, String line) {
+	static int calculateTextWidth(FontMetrics metrics, String line)
+	{
 		char[] chars = line.toCharArray();
 		int textWidth = 0;
 
 		int begin = 0;
 		boolean inTag = false;
-		for (int j = 0; j < chars.length; j++) {
-			if (chars[j] == '<') {
+		for (int j = 0; j < chars.length; j++)
+		{
+			if (chars[j] == '<')
+			{
 				textWidth += metrics.stringWidth(line.substring(begin, j));
 
 				begin = j;
 				inTag = true;
-			} else if (chars[j] == '>' && inTag) {
+			}
+			else if (chars[j] == '>' && inTag)
+			{
 				String subLine = line.substring(begin + 1, j);
 
-				if (subLine.startsWith("img=")) {
+				if (subLine.startsWith("img="))
+				{
 					textWidth += MOD_ICON_WIDTH;
-				} else if (!subLine.startsWith("col=") && !subLine.startsWith("/col")) {
+				}
+				else if (!subLine.startsWith("col=") && !subLine.startsWith("/col"))
+				{
 					textWidth += metrics.stringWidth(line.substring(begin, j + 1));
 				}
 
@@ -184,14 +207,18 @@ public class TooltipComponent implements RenderableEntity {
 		return textWidth;
 	}
 
-	private void renderModIcon(Graphics2D graphics, int x, int y, IndexedSprite modIcon) {
+	private void renderModIcon(Graphics2D graphics, int x, int y, IndexedSprite modIcon)
+	{
 		int sourceOffset = 0;
 
-		for (int y2 = 0; y2 < modIcon.getHeight(); y2++) {
-			for (int x2 = 0; x2 < modIcon.getWidth(); x2++) {
+		for (int y2 = 0; y2 < modIcon.getHeight(); y2++)
+		{
+			for (int x2 = 0; x2 < modIcon.getWidth(); x2++)
+			{
 				int index = modIcon.getPixels()[sourceOffset++] & 0xff;
 
-				if (index != 0) {
+				if (index != 0)
+				{
 					graphics.setColor(new Color(modIcon.getPalette()[index]));
 					graphics.drawLine(x + x2, y + y2, x + x2, y + y2);
 				}

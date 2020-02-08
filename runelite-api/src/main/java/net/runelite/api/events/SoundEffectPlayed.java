@@ -25,12 +25,12 @@
 package net.runelite.api.events;
 
 import javax.annotation.Nullable;
-
 import lombok.Data;
 import net.runelite.api.Actor;
 
 @Data
-public class SoundEffectPlayed implements Event {
+public class SoundEffectPlayed implements Event
+{
 	@Nullable
 	private final Actor source;
 
@@ -40,7 +40,8 @@ public class SoundEffectPlayed implements Event {
 
 	private boolean consumed;
 
-	public void consume() {
+	public void consume()
+	{
 		consumed = true;
 	}
 }

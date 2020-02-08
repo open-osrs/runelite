@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Represents tile collision data for the scene
  */
-public interface CollisionData {
+public interface CollisionData
+{
 	/**
 	 * Gets a 2D array of tile collision flags.
 	 * <p>

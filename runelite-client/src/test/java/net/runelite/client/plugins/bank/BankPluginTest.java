@@ -28,9 +28,7 @@ package net.runelite.client.plugins.bank;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -39,22 +37,19 @@ import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.game.ItemManager;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BankPluginTest {
+public class BankPluginTest
+{
 	@Mock
 	@Bind
 	private Client client;
@@ -75,12 +70,14 @@ public class BankPluginTest {
 	private BankPlugin bankPlugin;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testValueSearch() {
+	public void testValueSearch()
+	{
 		int itemId = ItemID.ABYSSAL_WHIP;
 
 		ItemContainer itemContainer = mock(ItemContainer.class);
@@ -91,13 +88,13 @@ public class BankPluginTest {
 
 		// 60k HA price * 30 = 1.8m
 		when(comp.getPrice())
-				.thenReturn(100_000);
+			.thenReturn(100_000);
 
 		// 400k GE Price * 30 = 12m
 		when(itemManager.getItemPrice(itemId))
-				.thenReturn(400_000);
+			.thenReturn(400_000);
 		when(itemManager.getItemDefinition(itemId))
-				.thenReturn(comp);
+			.thenReturn(comp);
 
 		assertTrue(bankPlugin.valueSearch(itemId, ">500k"));
 		assertTrue(bankPlugin.valueSearch(itemId, "< 5.5b"));

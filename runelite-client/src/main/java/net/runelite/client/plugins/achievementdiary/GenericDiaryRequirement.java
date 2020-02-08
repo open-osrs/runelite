@@ -27,15 +27,16 @@ package net.runelite.client.plugins.achievementdiary;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 
-public abstract class GenericDiaryRequirement {
+public abstract class GenericDiaryRequirement
+{
 	@Getter(AccessLevel.PACKAGE)
 	private Set<DiaryRequirement> requirements = new HashSet<>();
 
-	protected void add(String task, Requirement... requirements) {
+	protected void add(String task, Requirement... requirements)
+	{
 		DiaryRequirement diaryRequirement = new DiaryRequirement(task, requirements);
 		this.requirements.add(diaryRequirement);
 	}

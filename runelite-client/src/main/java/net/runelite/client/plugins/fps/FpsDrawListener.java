@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.fps;
 
 import javax.inject.Inject;
-
 import net.runelite.api.events.FocusChanged;
 
 /**
@@ -41,7 +40,8 @@ import net.runelite.api.events.FocusChanged;
  * Enforcing FPS in the draw code does not impact the client engine's ability to run including its audio,
  * even when forced to 1 FPS with this plugin.
  */
-public class FpsDrawListener implements Runnable {
+public class FpsDrawListener implements Runnable
+{
 	private static final int SAMPLE_SIZE = 4;
 
 	private final FpsConfig config;
@@ -59,41 +59,48 @@ public class FpsDrawListener implements Runnable {
 	private long sleepDelay = 0;
 
 	@Inject
-	private FpsDrawListener(final FpsConfig config, final FpsPlugin plugin) {
+	private FpsDrawListener(final FpsConfig config, final FpsPlugin plugin)
+	{
 		this.config = config;
 		this.plugin = plugin;
 		reloadConfig();
 	}
 
-	void reloadConfig() {
+	void reloadConfig()
+	{
 		lastMillis = System.currentTimeMillis();
 
 		int fps = config.limitFpsUnfocused() && !isFocused
-				? config.maxFpsUnfocused()
-				: config.maxFps();
+			? config.maxFpsUnfocused()
+			: config.maxFps();
 
 		targetDelay = 1000 / Math.max(1, fps);
-
+		
 		sleepDelay = targetDelay;
 
-		for (int i = 0; i < SAMPLE_SIZE; i++) {
+		for (int i = 0; i < SAMPLE_SIZE; i++)
+		{
 			lastDelays[i] = targetDelay;
 		}
 	}
 
-	void onFocusChanged(FocusChanged event) {
+	void onFocusChanged(FocusChanged event)
+	{
 		this.isFocused = event.isFocused();
 		reloadConfig(); // load new delay
 	}
 
-	private boolean isEnforced() {
+	private boolean isEnforced()
+	{
 		return config.limitFps()
-				|| (config.limitFpsUnfocused() && !isFocused);
+			|| (config.limitFpsUnfocused() && !isFocused);
 	}
 
 	@Override
-	public void run() {
-		if (!isEnforced()) {
+	public void run()
+	{
+		if (!isEnforced())
+		{
 			return;
 		}
 
@@ -111,7 +118,8 @@ public class FpsDrawListener implements Runnable {
 		// We take a sampling approach because sometimes the game client seems to repaint
 		// after only running 1 game cycle, and then runs repaint again after running 30 cycles
 		long averageDelay = 0;
-		for (int i = 0; i < SAMPLE_SIZE; i++) {
+		for (int i = 0; i < SAMPLE_SIZE; i++)
+		{
 			averageDelay += lastDelays[i];
 		}
 		averageDelay /= lastDelays.length;
@@ -120,16 +128,23 @@ public class FpsDrawListener implements Runnable {
 		// decides to run cycles.
 		// This will also keep us safe from time spent in plugins conditionally
 		// as some plugins and overlays are only appropriate in some game areas
-		if (averageDelay > targetDelay) {
+		if (averageDelay > targetDelay)
+		{
 			sleepDelay--;
-		} else if (averageDelay < targetDelay) {
+		}
+		else if (averageDelay < targetDelay)
+		{
 			sleepDelay++;
 		}
 
-		if (sleepDelay > 0) {
-			try {
+		if (sleepDelay > 0)
+		{
+			try
+			{
 				Thread.sleep(sleepDelay);
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e)
+			{
 				// Can happen on shutdown
 			}
 		}

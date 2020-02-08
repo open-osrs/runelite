@@ -31,7 +31,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.Client;
@@ -41,7 +40,8 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.components.TextComponent;
 
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class BarRenderer {
+public abstract class BarRenderer
+{
 	private static final TextComponent TEXT = new TextComponent();
 	private static final Color COLOR_BAR_BG = new Color(0, 0, 0, 150);
 	private static final Color COLOR_OVERHEAL = new Color(216, 255, 139, 150);
@@ -65,7 +65,8 @@ public abstract class BarRenderer {
 
 	protected abstract void update(Client client, StatusBarsOverlay overlay);
 
-	private void renderBar(Graphics2D graphics, int x, int y, int height) {
+	private void renderBar(Graphics2D graphics, int x, int y, int height)
+	{
 		graphics.setColor(COLOR_BAR_BG);
 		graphics.drawRect(x, y, BAR_WIDTH - PADDING, height - PADDING);
 		graphics.fillRect(x, y, BAR_WIDTH, height);
@@ -73,25 +74,30 @@ public abstract class BarRenderer {
 		final int filledHeight = getBarHeight(maximumValue, currentValue, height);
 		graphics.setColor(standardColor);
 		graphics.fillRect(x + PADDING,
-				y + PADDING + (height - filledHeight),
-				BAR_WIDTH - PADDING * OFFSET,
-				filledHeight - PADDING * OFFSET);
+			y + PADDING + (height - filledHeight),
+			BAR_WIDTH - PADDING * OFFSET,
+			filledHeight - PADDING * OFFSET);
 	}
 
-	private void renderIconsAndCounters(Graphics2D graphics, int x, int y) {
+	private void renderIconsAndCounters(Graphics2D graphics, int x, int y)
+	{
 		final String counterText = Integer.toString(currentValue);
 		final int widthOfCounter = graphics.getFontMetrics().stringWidth(counterText);
 		final int centerText = (BAR_WIDTH - PADDING) / 2 - (widthOfCounter / 2);
 
-		if (plugin.isEnableCounter()) {
+		if (plugin.isEnableCounter())
+		{
 			graphics.setFont(FontManager.getRunescapeSmallFont());
 			TEXT.setText(counterText);
 			TEXT.setPosition(new Point(x + centerText + 1, y + COUNTER_ICON_HEIGHT));
-		} else {
+		}
+		else
+		{
 			TEXT.setText("");
 		}
 
-		if (plugin.isEnableSkillIcon()) {
+		if (plugin.isEnableSkillIcon())
+		{
 			graphics.drawImage(icon, x + ICON_AND_COUNTER_OFFSET_X + PADDING, y + ICON_AND_COUNTER_OFFSET_Y - icon.getWidth(null), null);
 			TEXT.setPosition(new Point(x + centerText + 1, y + SKILL_ICON_HEIGHT));
 		}
@@ -99,8 +105,10 @@ public abstract class BarRenderer {
 		TEXT.render(graphics);
 	}
 
-	private void renderRestore(Graphics2D graphics, int x, int y, int height) {
-		if (restore <= 0) {
+	private void renderRestore(Graphics2D graphics, int x, int y, int height)
+	{
+		if (restore <= 0)
+		{
 			return;
 		}
 
@@ -108,39 +116,47 @@ public abstract class BarRenderer {
 		int filledHeight = getBarHeight(maximumValue, restore, height);
 		graphics.setColor(restoreColor);
 
-		if (filledHeight + filledCurrentHeight > height) {
+		if (filledHeight + filledCurrentHeight > height)
+		{
 			final int overHeal = filledHeight + filledCurrentHeight - height;
 			filledHeight = filledHeight - overHeal + OVERHEAL_OFFSET;
 			graphics.setColor(COLOR_OVERHEAL);
 			graphics.fillRect(x + PADDING,
-					y - filledCurrentHeight + (height - filledHeight) + HEAL_OFFSET,
-					BAR_WIDTH - PADDING * OVERHEAL_OFFSET,
-					filledHeight - PADDING * OVERHEAL_OFFSET);
-		} else {
+				y - filledCurrentHeight + (height - filledHeight) + HEAL_OFFSET,
+				BAR_WIDTH - PADDING * OVERHEAL_OFFSET,
+				filledHeight - PADDING * OVERHEAL_OFFSET);
+		}
+		else
+		{
 			graphics.fillRect(x + PADDING,
-					y - OVERHEAL_OFFSET - filledCurrentHeight + (height - filledHeight) + HEAL_OFFSET,
-					BAR_WIDTH - PADDING * OVERHEAL_OFFSET,
-					filledHeight + OVERHEAL_OFFSET - PADDING * OVERHEAL_OFFSET);
+				y - OVERHEAL_OFFSET - filledCurrentHeight + (height - filledHeight) + HEAL_OFFSET,
+				BAR_WIDTH - PADDING * OVERHEAL_OFFSET,
+				filledHeight + OVERHEAL_OFFSET - PADDING * OVERHEAL_OFFSET);
 		}
 	}
 
-	private static int getBarHeight(int base, int current, int size) {
+	private static int getBarHeight(int base, int current, int size)
+	{
 		final double ratio = (double) current / base;
 
-		if (ratio >= 1) {
+		if (ratio >= 1)
+		{
 			return size;
 		}
 
 		return (int) Math.round(ratio * size);
 	}
 
-	public void draw(Client client, StatusBarsOverlay overlay, Graphics2D graphics, int x, int y, int height) {
+	public void draw(Client client, StatusBarsOverlay overlay, Graphics2D graphics, int x, int y, int height)
+	{
 		update(client, overlay);
 		renderBar(graphics, x, y, height);
-		if (plugin.isEnableRestorationBars()) {
+		if (plugin.isEnableRestorationBars())
+		{
 			renderRestore(graphics, x, y, height);
 		}
-		if (plugin.isEnableSkillIcon() || plugin.isEnableCounter()) {
+		if (plugin.isEnableSkillIcon() || plugin.isEnableCounter())
+		{
 			renderIconsAndCounters(graphics, x, y);
 		}
 	}

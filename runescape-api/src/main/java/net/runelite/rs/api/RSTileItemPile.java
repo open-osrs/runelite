@@ -3,7 +3,8 @@ package net.runelite.rs.api;
 import net.runelite.api.TileItemPile;
 import net.runelite.mapping.Import;
 
-public interface RSTileItemPile extends TileItemPile {
+public interface RSTileItemPile extends TileItemPile
+{
 	@Import("x")
 	int getX();
 

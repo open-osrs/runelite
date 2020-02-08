@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.cache.IndexType;
 import net.runelite.cache.definitions.LocationsDefinition;
 import net.runelite.cache.definitions.MapDefinition;
@@ -42,7 +41,8 @@ import net.runelite.cache.util.XteaKeyManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RegionLoader {
+public class RegionLoader
+{
 	private static final Logger logger = LoggerFactory.getLogger(RegionLoader.class);
 
 	private static final int MAX_REGION = 32768;
@@ -55,23 +55,28 @@ public class RegionLoader {
 	private Region lowestX = null, lowestY = null;
 	private Region highestX = null, highestY = null;
 
-	public RegionLoader(Store store) {
+	public RegionLoader(Store store)
+	{
 		this.store = store;
 		index = store.getIndex(IndexType.MAPS);
 		keyManager = new XteaKeyManager();
 		keyManager.loadKeys();
 	}
 
-	public void loadRegions() throws IOException {
-		for (int i = 0; i < MAX_REGION; ++i) {
+	public void loadRegions() throws IOException
+	{
+		for (int i = 0; i < MAX_REGION; ++i)
+		{
 			Region region = this.loadRegionFromArchive(i);
-			if (region != null) {
+			if (region != null)
+			{
 				regions.put(i, region);
 			}
 		}
 	}
 
-	public Region loadRegionFromArchive(int i) throws IOException {
+	public Region loadRegionFromArchive(int i) throws IOException
+	{
 		int x = i >> 8;
 		int y = i & 0xFF;
 
@@ -81,7 +86,8 @@ public class RegionLoader {
 
 		assert (map == null) == (land == null);
 
-		if (map == null || land == null) {
+		if (map == null || land == null)
+		{
 			return null;
 		}
 
@@ -93,12 +99,16 @@ public class RegionLoader {
 		region.loadTerrain(mapDef);
 
 		int[] keys = keyManager.getKeys(i);
-		if (keys != null) {
-			try {
+		if (keys != null)
+		{
+			try
+			{
 				data = land.decompress(storage.loadArchive(land), keys);
 				LocationsDefinition locDef = new LocationsLoader().load(x, y, data);
 				region.loadLocations(locDef);
-			} catch (IOException ex) {
+			}
+			catch (IOException ex)
+			{
 				logger.debug("Can't decrypt region " + i, ex);
 			}
 		}
@@ -106,49 +116,61 @@ public class RegionLoader {
 		return region;
 	}
 
-	public void calculateBounds() {
-		for (Region region : regions.values()) {
-			if (lowestX == null || region.getBaseX() < lowestX.getBaseX()) {
+	public void calculateBounds()
+	{
+		for (Region region : regions.values())
+		{
+			if (lowestX == null || region.getBaseX() < lowestX.getBaseX())
+			{
 				lowestX = region;
 			}
 
-			if (highestX == null || region.getBaseX() > highestX.getBaseX()) {
+			if (highestX == null || region.getBaseX() > highestX.getBaseX())
+			{
 				highestX = region;
 			}
 
-			if (lowestY == null || region.getBaseY() < lowestY.getBaseY()) {
+			if (lowestY == null || region.getBaseY() < lowestY.getBaseY())
+			{
 				lowestY = region;
 			}
 
-			if (highestY == null || region.getBaseY() > highestY.getBaseY()) {
+			if (highestY == null || region.getBaseY() > highestY.getBaseY())
+			{
 				highestY = region;
 			}
 		}
 	}
 
-	public Collection<Region> getRegions() {
+	public Collection<Region> getRegions()
+	{
 		return regions.values();
 	}
 
-	public Region findRegionForWorldCoordinates(int x, int y) {
+	public Region findRegionForWorldCoordinates(int x, int y)
+	{
 		x >>>= 6;
 		y >>>= 6;
 		return regions.get((x << 8) | y);
 	}
 
-	public Region getLowestX() {
+	public Region getLowestX()
+	{
 		return lowestX;
 	}
 
-	public Region getLowestY() {
+	public Region getLowestY()
+	{
 		return lowestY;
 	}
 
-	public Region getHighestX() {
+	public Region getHighestX()
+	{
 		return highestX;
 	}
 
-	public Region getHighestY() {
+	public Region getHighestY()
+	{
 		return highestY;
 	}
 }

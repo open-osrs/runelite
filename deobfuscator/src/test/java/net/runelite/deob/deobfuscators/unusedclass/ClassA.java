@@ -24,8 +24,10 @@
  */
 package net.runelite.deob.deobfuscators.unusedclass;
 
-public class ClassA implements EmptyInterface {
-	public void run() {
+public class ClassA implements EmptyInterface
+{
+	public void run()
+	{
 		System.out.append("code!");
 	}
 }

@@ -25,14 +25,14 @@
 package net.runelite.client.plugins.combatlevel;
 
 import net.runelite.api.Experience;
-
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
-public class CombatLevelPluginTest {
+public class CombatLevelPluginTest
+{
 	@Test
-	public void testNewPlayer() {
+	public void testNewPlayer()
+	{
 		int attackLevel = 1;
 		int strengthLevel = 1;
 		int defenceLevel = 1;
@@ -42,17 +42,17 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 1;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int meleeNeed = Experience.getNextCombatLevelMelee(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int hpDefNeed = Experience.getNextCombatLevelHpDef(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int rangeNeed = Experience.getNextCombatLevelRange(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int magicNeed = Experience.getNextCombatLevelMagic(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(3, combatLevel);
@@ -74,7 +74,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testAll10() {
+	public void testAll10()
+	{
 		int attackLevel = 10;
 		int strengthLevel = 10;
 		int defenceLevel = 10;
@@ -84,17 +85,17 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 10;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int meleeNeed = Experience.getNextCombatLevelMelee(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int hpDefNeed = Experience.getNextCombatLevelHpDef(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int rangeNeed = Experience.getNextCombatLevelRange(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int magicNeed = Experience.getNextCombatLevelMagic(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(12, combatLevel);
@@ -116,7 +117,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testPlayerBmid() {
+	public void testPlayerBmid()
+	{
 		// snapshot of current stats 2018-10-2
 		int attackLevel = 65;
 		int strengthLevel = 70;
@@ -127,17 +129,17 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 56;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int meleeNeed = Experience.getNextCombatLevelMelee(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int hpDefNeed = Experience.getNextCombatLevelHpDef(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int rangeNeed = Experience.getNextCombatLevelRange(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int magicNeed = Experience.getNextCombatLevelMagic(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(83, combatLevel);
@@ -159,7 +161,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testPlayerRunelite() {
+	public void testPlayerRunelite()
+	{
 		// snapshot of current stats 2018-10-2
 		int attackLevel = 43;
 		int strengthLevel = 36;
@@ -170,17 +173,17 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 15;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int meleeNeed = Experience.getNextCombatLevelMelee(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int hpDefNeed = Experience.getNextCombatLevelHpDef(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int rangeNeed = Experience.getNextCombatLevelRange(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int magicNeed = Experience.getNextCombatLevelMagic(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(43, combatLevel);
@@ -202,7 +205,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testPlayerZezima() {
+	public void testPlayerZezima()
+	{
 		// snapshot of current stats 2018-10-3
 		// Zezima cannot earn a combat level from ranged/magic anymore, so it won't show as the result is too high
 		int attackLevel = 74;
@@ -214,13 +218,13 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 52;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int meleeNeed = Experience.getNextCombatLevelMelee(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int hpDefNeed = Experience.getNextCombatLevelHpDef(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(90, combatLevel);
@@ -236,7 +240,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testPrayerLevelsNeeded() {
+	public void testPrayerLevelsNeeded()
+	{
 		int attackLevel = 99;
 		int strengthLevel = 99;
 		int defenceLevel = 99;
@@ -246,9 +251,9 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 89;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(124, combatLevel);
@@ -258,7 +263,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testEvenPrayerLevelsNeededWhenNearNextCombatLevel() {
+	public void testEvenPrayerLevelsNeededWhenNearNextCombatLevel()
+	{
 		int attackLevel = 74;
 		int strengthLevel = 75;
 		int defenceLevel = 72;
@@ -268,9 +274,9 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 52;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(90, combatLevel);
@@ -280,7 +286,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testOddPrayerLevelsNeededWhenNearNextCombatLevel() {
+	public void testOddPrayerLevelsNeededWhenNearNextCombatLevel()
+	{
 		int attackLevel = 74;
 		int strengthLevel = 75;
 		int defenceLevel = 72;
@@ -290,9 +297,9 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 53;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(90, combatLevel);
@@ -302,7 +309,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testNextMagicLevelBarelyReachesNextCombatLevel() {
+	public void testNextMagicLevelBarelyReachesNextCombatLevel()
+	{
 		int attackLevel = 40;
 		int strengthLevel = 44;
 		int defenceLevel = 46;
@@ -312,17 +320,17 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 29;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int meleeNeed = Experience.getNextCombatLevelMelee(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int hpDefNeed = Experience.getNextCombatLevelHpDef(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int rangeNeed = Experience.getNextCombatLevelRange(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int magicNeed = Experience.getNextCombatLevelMagic(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(52, combatLevel);
@@ -344,7 +352,8 @@ public class CombatLevelPluginTest {
 	}
 
 	@Test
-	public void testRangeMagicLevelsNeeded() {
+	public void testRangeMagicLevelsNeeded()
+	{
 		int attackLevel = 60;
 		int strengthLevel = 69;
 		int defenceLevel = 1;
@@ -354,17 +363,17 @@ public class CombatLevelPluginTest {
 		int prayerLevel = 52;
 
 		int combatLevel = Experience.getCombatLevel(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int meleeNeed = Experience.getNextCombatLevelMelee(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int hpDefNeed = Experience.getNextCombatLevelHpDef(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int rangeNeed = Experience.getNextCombatLevelRange(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int magicNeed = Experience.getNextCombatLevelMagic(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 		int prayerNeed = Experience.getNextCombatLevelPrayer(attackLevel, strengthLevel, defenceLevel, hitpointsLevel,
-				magicLevel, rangeLevel, prayerLevel);
+			magicLevel, rangeLevel, prayerLevel);
 
 		// test combat level
 		assertEquals(68, combatLevel);

@@ -46,7 +46,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.client.ui.ColorScheme;
@@ -55,7 +54,8 @@ import net.runelite.client.ui.FontManager;
 /**
  * This component is a FlatTextField with an icon on its left side, and a clear button (×) on its right side.
  */
-public class IconTextField extends JPanel {
+public class IconTextField extends JPanel
+{
 	// To support gifs, the icon needs to be wrapped in a JLabel
 	private final JLabel iconWrapperLabel;
 
@@ -63,7 +63,8 @@ public class IconTextField extends JPanel {
 
 	private final JButton clearButton;
 
-	public IconTextField() {
+	public IconTextField()
+	{
 		setLayout(new BorderLayout());
 
 		iconWrapperLabel = new JLabel();
@@ -77,16 +78,20 @@ public class IconTextField extends JPanel {
 		final JTextField innerTxt = textField.getTextField();
 		innerTxt.removeMouseListener(innerTxt.getMouseListeners()[innerTxt.getMouseListeners().length - 1]);
 
-		final MouseListener hoverEffect = new MouseAdapter() {
+		final MouseListener hoverEffect = new MouseAdapter()
+		{
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
-				if (textField.isBlocked()) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
+				if (textField.isBlocked())
+				{
 					return;
 				}
 
 				final Color hoverColor = textField.getHoverBackgroundColor();
 
-				if (hoverColor != null) {
+				if (hoverColor != null)
+				{
 					IconTextField.super.setBackground(hoverColor);
 					textField.setBackground(hoverColor, false);
 				}
@@ -94,7 +99,8 @@ public class IconTextField extends JPanel {
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				setBackground(textField.getBackgroundColor());
 			}
 		};
@@ -115,39 +121,47 @@ public class IconTextField extends JPanel {
 		clearButton.addActionListener(evt -> setText(null));
 
 		// MouseListener for hover and click events
-		clearButton.addMouseListener(new MouseAdapter() {
+		clearButton.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
 				setText(null);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				clearButton.setForeground(Color.PINK);
 				textField.dispatchEvent(mouseEvent);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				clearButton.setForeground(ColorScheme.PROGRESS_ERROR_COLOR);
 				textField.dispatchEvent(mouseEvent);
 			}
 		});
 
 		// Show the clear button when text is present, and hide again when empty
-		textField.getTextField().getDocument().addDocumentListener(new DocumentListener() {
+		textField.getTextField().getDocument().addDocumentListener(new DocumentListener()
+		{
 			@Override
-			public void insertUpdate(DocumentEvent e) {
+			public void insertUpdate(DocumentEvent e)
+			{
 				SwingUtilities.invokeLater(() -> clearButton.setVisible(true));
 			}
 
 			@Override
-			public void removeUpdate(DocumentEvent e) {
+			public void removeUpdate(DocumentEvent e)
+			{
 				SwingUtilities.invokeLater(() -> clearButton.setVisible(!getText().isEmpty()));
 			}
 
 			@Override
-			public void changedUpdate(DocumentEvent e) {
+			public void changedUpdate(DocumentEvent e)
+			{
 			}
 		});
 
@@ -156,38 +170,47 @@ public class IconTextField extends JPanel {
 		add(clearButton, BorderLayout.EAST);
 	}
 
-	public void addActionListener(ActionListener actionListener) {
+	public void addActionListener(ActionListener actionListener)
+	{
 		textField.addActionListener(actionListener);
 	}
 
-	public void setIcon(Icon icon) {
+	public void setIcon(Icon icon)
+	{
 		final ImageIcon imageIcon = new ImageIcon(this.getClass().getResource(icon.getFile()));
 		iconWrapperLabel.setIcon(imageIcon);
 	}
 
-	public String getText() {
+	public String getText()
+	{
 		return textField.getText();
 	}
 
-	public void setText(String text) {
+	public void setText(String text)
+	{
 		textField.setText(text);
 	}
 
 	@Override
-	public void setBackground(Color color) {
-		if (color == null) {
+	public void setBackground(Color color)
+	{
+		if (color == null)
+		{
 			return;
 		}
 
 		super.setBackground(color);
 
-		if (textField != null) {
+		if (textField != null)
+		{
 			textField.setBackground(color);
 		}
 	}
 
-	public void setHoverBackgroundColor(Color hoverBackgroundColor) {
-		if (hoverBackgroundColor == null) {
+	public void setHoverBackgroundColor(Color hoverBackgroundColor)
+	{
+		if (hoverBackgroundColor == null)
+		{
 			return;
 		}
 
@@ -195,58 +218,71 @@ public class IconTextField extends JPanel {
 	}
 
 	@Override
-	public void addKeyListener(KeyListener keyListener) {
+	public void addKeyListener(KeyListener keyListener)
+	{
 		textField.addKeyListener(keyListener);
 	}
 
-	public void addClearListener(Consumer<ActionEvent> actionEventConsumer) {
+	public void addClearListener(Consumer<ActionEvent> actionEventConsumer)
+	{
 		clearButton.addActionListener(actionEventConsumer::accept);
 	}
 
-	public void addKeyListener(Consumer<KeyEvent> keyEventConsumer) {
-		addKeyListener(new net.runelite.client.input.KeyListener() {
+	public void addKeyListener(Consumer<KeyEvent> keyEventConsumer)
+	{
+		addKeyListener(new net.runelite.client.input.KeyListener()
+		{
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyTyped(KeyEvent e)
+			{
 				keyEventConsumer.accept(e);
 			}
 
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e)
+			{
 				keyEventConsumer.accept(e);
 			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent e)
+			{
 				keyEventConsumer.accept(e);
 			}
 		});
 	}
 
 	@Override
-	public void removeKeyListener(KeyListener keyListener) {
+	public void removeKeyListener(KeyListener keyListener)
+	{
 		textField.removeKeyListener(keyListener);
 	}
 
-	public void setEditable(boolean editable) {
+	public void setEditable(boolean editable)
+	{
 		textField.setEditable(editable);
-		if (!editable) {
+		if (!editable)
+		{
 			super.setBackground(textField.getBackgroundColor());
 		}
 	}
 
 	@Override
-	public boolean requestFocusInWindow() {
+	public boolean requestFocusInWindow()
+	{
 		super.requestFocusInWindow();
 		return textField.requestFocusInWindow();
 	}
 
-	public Document getDocument() {
+	public Document getDocument()
+	{
 		return textField.getDocument();
 	}
 
 	@Getter
 	@RequiredArgsConstructor
-	public enum Icon {
+	public enum Icon
+	{
 		SEARCH("search.png"),
 		LOADING("loading_spinner.gif"),
 		LOADING_DARKER("loading_spinner_darker.gif"),

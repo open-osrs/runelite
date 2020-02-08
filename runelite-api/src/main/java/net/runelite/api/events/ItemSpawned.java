@@ -34,7 +34,8 @@ import lombok.Value;
  * all item piles are implicitly reset and a new spawn event will be sent.
  */
 @Value
-public class ItemSpawned implements Event {
+public class ItemSpawned implements Event
+{
 	private final Tile tile;
 	private final TileItem item;
 }

@@ -27,13 +27,10 @@ package net.runelite.client.plugins.groundmarkers;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-
 import static java.lang.Math.floor;
-
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -46,7 +43,8 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-class GroundMarkerMinimapOverlay extends Overlay {
+class GroundMarkerMinimapOverlay extends Overlay
+{
 	private static final int TILE_WIDTH = 4;
 	private static final int TILE_HEIGHT = 4;
 
@@ -54,7 +52,8 @@ class GroundMarkerMinimapOverlay extends Overlay {
 	private final GroundMarkerPlugin plugin;
 
 	@Inject
-	private GroundMarkerMinimapOverlay(final Client client, final GroundMarkerPlugin plugin) {
+	private GroundMarkerMinimapOverlay(final Client client, final GroundMarkerPlugin plugin)
+	{
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -63,20 +62,25 @@ class GroundMarkerMinimapOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.isShowMinimap()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isShowMinimap())
+		{
 			return null;
 		}
 
 		final List<GroundMarkerWorldPoint> points = plugin.getPoints();
-		for (final GroundMarkerWorldPoint point : points) {
+		for (final GroundMarkerWorldPoint point : points)
+		{
 			WorldPoint worldPoint = point.getWorldPoint();
-			if (worldPoint.getPlane() != client.getPlane()) {
+			if (worldPoint.getPlane() != client.getPlane())
+			{
 				continue;
 			}
 
 			Color color = plugin.getMarkerColor();
-			switch (point.getGroundMarkerPoint().getGroup()) {
+			switch (point.getGroundMarkerPoint().getGroup())
+			{
 				case 2:
 					color = plugin.getMarkerColor2();
 					break;
@@ -120,15 +124,18 @@ class GroundMarkerMinimapOverlay extends Overlay {
 		return null;
 	}
 
-	private void drawOnMinimap(Graphics2D graphics, WorldPoint point, Color color) {
+	private void drawOnMinimap(Graphics2D graphics, WorldPoint point, Color color)
+	{
 
 		LocalPoint lp = LocalPoint.fromWorld(client, point);
-		if (lp == null) {
+		if (lp == null)
+		{
 			return;
 		}
 
 		Point posOnMinimap = Perspective.localToMinimap(client, lp);
-		if (posOnMinimap == null) {
+		if (posOnMinimap == null)
+		{
 			return;
 		}
 

@@ -28,7 +28,6 @@ package net.runelite.mixins;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -44,7 +43,8 @@ import net.runelite.rs.api.RSProjectile;
 import net.runelite.rs.api.RSScene;
 
 @Mixin(RSScene.class)
-public abstract class EntityHiderMixin implements RSScene {
+public abstract class EntityHiderMixin implements RSScene
+{
 	@Shadow("client")
 	private static RSClient client;
 
@@ -103,10 +103,12 @@ public abstract class EntityHiderMixin implements RSScene {
 	abstract boolean addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13);
 
 	@Replace("newGameObject")
-	boolean rl$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13) {
+	boolean rl$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13)
+	{
 		final boolean shouldDraw = shouldDraw(entity, false);
 
-		if (!shouldDraw) {
+		if (!shouldDraw)
+		{
 			final int tileX = x >> 7;
 			final int tileY = y >> 7;
 			/*
@@ -117,87 +119,111 @@ public abstract class EntityHiderMixin implements RSScene {
 		}
 
 		return shouldDraw &&
-				addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, entity, var10, var11, var12, var13);
+			addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, entity, var10, var11, var12, var13);
 	}
 
 	@Copy("drawActor2d")
-	private static void draw2DExtras(RSActor actor, int var1, int var2, int var3, int var4, int var5) {
+	private static void draw2DExtras(RSActor actor, int var1, int var2, int var3, int var4, int var5)
+	{
 		throw new RuntimeException();
 	}
 
 	@Replace("drawActor2d")
-	private static void rl$draw2DExtras(RSActor actor, int var1, int var2, int var3, int var4, int var5) {
-		if (shouldDraw(actor, true)) {
+	private static void rl$draw2DExtras(RSActor actor, int var1, int var2, int var3, int var4, int var5)
+	{
+		if (shouldDraw(actor, true))
+		{
 			draw2DExtras(actor, var1, var2, var3, var4, var5);
 		}
 	}
 
 	@Inject
-	private static boolean shouldDraw(Object entity, boolean drawingUI) {
-		if (!isHidingEntities) {
+	private static boolean shouldDraw(Object entity, boolean drawingUI)
+	{
+		if (!isHidingEntities)
+		{
 			return true;
 		}
 
-		if (entity instanceof RSPlayer) {
+		if (entity instanceof RSPlayer)
+		{
 			boolean local = drawingUI ? hideLocalPlayer2D : hideLocalPlayer;
 			boolean other = drawingUI ? hidePlayers2D : hidePlayers;
 			boolean isLocalPlayer = entity == client.getLocalPlayer();
 			RSPlayer player = (RSPlayer) entity;
 
-			for (String name : hideSpecificPlayers) {
-				if (name != null && !name.equals("")) {
-					if (player.getName() != null && player.getName().equalsIgnoreCase(name)) {
+			for (String name : hideSpecificPlayers)
+			{
+				if (name != null && !name.equals(""))
+				{
+					if (player.getName() != null && player.getName().equalsIgnoreCase(name))
+					{
 						return false;
 					}
 				}
 			}
 
-			if (isLocalPlayer ? local : other) {
-				if (!hideAttackers) {
-					if (player.getInteracting() == client.getLocalPlayer()) {
+			if (isLocalPlayer ? local : other)
+			{
+				if (!hideAttackers)
+				{
+					if (player.getInteracting() == client.getLocalPlayer())
+					{
 						return true;
 					}
 				}
 
-				if (player.getName() == null) {
+				if (player.getName() == null)
+				{
 					// player.isFriend() and player.isClanMember() npe when the player has a null name
 					return false;
 				}
 
 				return (!hideFriends && player.isFriend()) ||
-						(!isLocalPlayer && !hideClanMates && player.isClanMember());
+					(!isLocalPlayer && !hideClanMates && player.isClanMember());
 			}
-		} else if (entity instanceof RSNPC) {
+		}
+		else if (entity instanceof RSNPC)
+		{
 			RSNPC npc = (RSNPC) entity;
 
-			if (!hideAttackers) {
-				if (npc.getInteracting() == client.getLocalPlayer()) {
+			if (!hideAttackers)
+			{
+				if (npc.getInteracting() == client.getLocalPlayer())
+				{
 					return true;
 				}
 			}
 
-			if (hidePets) {
-				if (npc.getDefinition().isFollower()) {
+			if (hidePets)
+			{
+				if (npc.getDefinition().isFollower())
+				{
 					return false;
 				}
 			}
 
-			if (hideDeadNPCs && npc.getHealthRatio() == 0 && !blacklistDeadNpcs.contains(npc.getId())) {
+			if (hideDeadNPCs && npc.getHealthRatio() == 0 && !blacklistDeadNpcs.contains(npc.getId()))
+			{
 				return false;
 			}
 
 			if (npc.getName() != null &&
-					hiddenNpcsName.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0) {
+				hiddenNpcsName.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
+			{
 				return false;
 			}
 
 			if (npc.getName() != null && npc.getHealthRatio() == 0 &&
-					hiddenNpcsDeath.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0) {
+				hiddenNpcsDeath.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
+			{
 				return false;
 			}
 
 			return drawingUI ? !hideNPCs2D : !hideNPCs;
-		} else if (entity instanceof RSProjectile) {
+		}
+		else if (entity instanceof RSProjectile)
+		{
 			return !hideProjectiles;
 		}
 

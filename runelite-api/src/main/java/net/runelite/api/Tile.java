@@ -29,7 +29,8 @@ import java.util.List;
 /**
  * Represents a tile in the game.
  */
-public interface Tile extends TileObject {
+public interface Tile extends TileObject
+{
 	/**
 	 * Gets the decoration on the tile.
 	 *

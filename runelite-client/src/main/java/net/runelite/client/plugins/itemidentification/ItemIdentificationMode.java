@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.itemidentification;
 
-public enum ItemIdentificationMode {
+public enum ItemIdentificationMode
+{
 	SHORT,
 	MEDIUM
 }

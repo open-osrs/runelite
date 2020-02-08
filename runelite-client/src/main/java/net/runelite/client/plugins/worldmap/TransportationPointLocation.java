@@ -28,7 +28,6 @@
 package net.runelite.client.plugins.worldmap;
 
 import javax.annotation.Nullable;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +35,8 @@ import net.runelite.api.coords.WorldPoint;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-enum TransportationPointLocation {
+enum TransportationPointLocation
+{
 	//Ships
 	ARDOUGNE_TO_BRIMHAVEN("Ship to Brimhaven / Rimmington", new WorldPoint(2675, 3275, 0)),
 	ARDOUGNE_TO_FISHINGPLAT("Ship to Fishing Platform", new WorldPoint(2722, 3304, 0), new WorldPoint(2779, 3271, 0)),
@@ -202,7 +202,8 @@ enum TransportationPointLocation {
 	@Nullable
 	private final WorldPoint target;
 
-	TransportationPointLocation(String tooltip, WorldPoint worldPoint) {
+	TransportationPointLocation(String tooltip, WorldPoint worldPoint)
+	{
 		this(tooltip, worldPoint, null);
 	}
 }

@@ -29,16 +29,11 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
-
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-
 import net.runelite.api.Skill;
 import net.runelite.client.ui.overlay.Overlay;
-
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -48,13 +43,15 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-class BoostsOverlay extends Overlay {
+class BoostsOverlay extends Overlay
+{
 	private final Client client;
 	private final PanelComponent panelComponent = new PanelComponent();
 	private final BoostsPlugin plugin;
 
 	@Inject
-	private BoostsOverlay(final Client client, final BoostsPlugin plugin) {
+	private BoostsOverlay(final Client client, final BoostsPlugin plugin)
+	{
 		super(plugin);
 		this.plugin = plugin;
 		this.client = client;
@@ -64,8 +61,10 @@ class BoostsOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (plugin.isDisplayInfoboxes() || plugin.isDisplayIcons()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (plugin.isDisplayInfoboxes() || plugin.isDisplayIcons())
+		{
 			return null;
 		}
 
@@ -76,22 +75,27 @@ class BoostsOverlay extends Overlay {
 
 		int nextChange = plugin.getChangeDownTicks();
 
-		if (nextChange != -1) {
+		if (nextChange != -1)
+		{
 			tableComponent.addRow("Next + restore:", String.valueOf(plugin.getChangeTime(nextChange)));
 		}
 
 		nextChange = plugin.getChangeUpTicks();
 
-		if (nextChange != -1) {
+		if (nextChange != -1)
+		{
 			tableComponent.addRow("Next - restore:", String.valueOf(plugin.getChangeTime(nextChange)));
 		}
 
-		if (plugin.canShowBoosts()) {
-			for (Skill skill : plugin.getShownSkills()) {
+		if (plugin.canShowBoosts())
+		{
+			for (Skill skill : plugin.getShownSkills())
+			{
 				final int boosted = client.getBoostedSkillLevel(skill);
 				final int base = client.getRealSkillLevel(skill);
 
-				if (boosted == base) {
+				if (boosted == base)
+				{
 					continue;
 				}
 
@@ -99,14 +103,18 @@ class BoostsOverlay extends Overlay {
 				final Color strColor = getTextColor(boost);
 				String str;
 
-				if (plugin.isUseRelativeBoost()) {
+				if (plugin.isUseRelativeBoost())
+				{
 					str = String.valueOf(boost);
-					if (boost > 0) {
+					if (boost > 0)
+					{
 						str = "+" + str;
 					}
-				} else {
+				}
+				else
+				{
 					str = ColorUtil.prependColorTag(Integer.toString(boosted), strColor)
-							+ ColorUtil.prependColorTag("/" + base, Color.WHITE);
+						+ ColorUtil.prependColorTag("/" + base, Color.WHITE);
 				}
 
 				tableComponent.addRow(skill.getName() + ":", str);
@@ -118,8 +126,10 @@ class BoostsOverlay extends Overlay {
 		return panelComponent.render(graphics);
 	}
 
-	private Color getTextColor(int boost) {
-		if (boost < 0) {
+	private Color getTextColor(int boost)
+	{
+		if (boost < 0)
+		{
 			return new Color(238, 51, 51);
 		}
 

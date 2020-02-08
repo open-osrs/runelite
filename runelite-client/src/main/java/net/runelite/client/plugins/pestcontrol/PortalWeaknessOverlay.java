@@ -26,13 +26,11 @@ package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import java.awt.AlphaComposite;
 import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.ItemID;
@@ -50,7 +48,8 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Slf4j
 @Singleton
-public class PortalWeaknessOverlay extends Overlay {
+public class PortalWeaknessOverlay extends Overlay
+{
 	private final PestControlPlugin plugin;
 	private final Client client;
 
@@ -62,11 +61,12 @@ public class PortalWeaknessOverlay extends Overlay {
 
 	@Inject
 	PortalWeaknessOverlay(
-			final PestControlPlugin plugin,
-			final Client client,
-			final ItemManager itemManager,
-			final SkillIconManager skillIconManager
-	) {
+		final PestControlPlugin plugin,
+		final Client client,
+		final ItemManager itemManager,
+		final SkillIconManager skillIconManager
+	)
+	{
 		this.plugin = plugin;
 		this.client = client;
 
@@ -81,11 +81,13 @@ public class PortalWeaknessOverlay extends Overlay {
 		setLayer(OverlayLayer.UNDER_WIDGETS);
 	}
 
-	private Point getPortalPoint(Portal portal) {
+	private Point getPortalPoint(Portal portal)
+	{
 		WorldPoint portalLocation = portal.getLocation();
 		LocalPoint localLocation = LocalPoint.fromWorld(client, portalLocation);
 
-		if (localLocation == null) {
+		if (localLocation == null)
+		{
 			return null;
 		}
 
@@ -96,10 +98,12 @@ public class PortalWeaknessOverlay extends Overlay {
 
 	}
 
-	private void renderPortalWeakness(Graphics2D graphics, Portal portal, BufferedImage image) {
+	private void renderPortalWeakness(Graphics2D graphics, Portal portal, BufferedImage image)
+	{
 		Point portalPoint = getPortalPoint(portal);
 
-		if (portalPoint != null) {
+		if (portalPoint != null)
+		{
 			Composite originalComposite = graphics.getComposite();
 			Composite translucentComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
 			graphics.setComposite(translucentComposite);
@@ -111,22 +115,24 @@ public class PortalWeaknessOverlay extends Overlay {
 	}
 
 	private void renderDoublePortalWeakness(
-			Graphics2D graphics,
-			Portal portal,
-			BufferedImage imageLeft,
-			BufferedImage imageRight
-	) {
+		Graphics2D graphics,
+		Portal portal,
+		BufferedImage imageLeft,
+		BufferedImage imageRight
+	)
+	{
 		Point portalPoint = getPortalPoint(portal);
 
-		if (portalPoint != null) {
+		if (portalPoint != null)
+		{
 			Point portalLeft = new Point(
-					portalPoint.getX() - (imageLeft.getWidth() / 2) - 5,
-					portalPoint.getY()
+				portalPoint.getX() - (imageLeft.getWidth() / 2) - 5,
+				portalPoint.getY()
 			);
 
 			Point portalRight = new Point(
-					portalPoint.getX() + (imageRight.getWidth() / 2) + 5,
-					portalPoint.getY()
+				portalPoint.getX() + (imageRight.getWidth() / 2) + 5,
+				portalPoint.getY()
 			);
 
 			Composite originalComposite = graphics.getComposite();
@@ -141,29 +147,38 @@ public class PortalWeaknessOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		Game game = plugin.getGame();
 
-		if (game == null) {
+		if (game == null)
+		{
 			return null;
 		}
 
-		for (Portal portal : game.getPortals()) {
-			if (!portal.isDead()) {
-				switch (portal.getColor()) {
-					case BLUE: {
+		for (Portal portal : game.getPortals())
+		{
+			if (!portal.isDead())
+			{
+				switch (portal.getColor())
+				{
+					case BLUE:
+					{
 						renderPortalWeakness(graphics, portal, magicImage);
 						break;
 					}
-					case YELLOW: {
+					case YELLOW:
+					{
 						renderDoublePortalWeakness(graphics, portal, stabImage, slashImage);
 						break;
 					}
-					case RED: {
+					case RED:
+					{
 						renderPortalWeakness(graphics, portal, crushImage);
 						break;
 					}
-					case PURPLE: {
+					case PURPLE:
+					{
 						renderPortalWeakness(graphics, portal, rangedImage);
 						break;
 					}

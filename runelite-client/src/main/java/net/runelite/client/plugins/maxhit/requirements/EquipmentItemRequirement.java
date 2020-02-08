@@ -31,17 +31,21 @@ import net.runelite.api.ItemContainer;
 import net.runelite.client.plugins.maxhit.equipment.EquipmentHelper;
 import net.runelite.client.plugins.maxhit.equipment.EquipmentSlotItem;
 
-public class EquipmentItemRequirement implements Requirement {
+public class EquipmentItemRequirement implements Requirement
+{
 	private final EquipmentSlotItem item;
 
-	public EquipmentItemRequirement(EquipmentSlotItem item) {
+	public EquipmentItemRequirement(EquipmentSlotItem item)
+	{
 		this.item = item;
 	}
 
 	@Override
-	public boolean meetsRequirements(Client client) {
+	public boolean meetsRequirements(Client client)
+	{
 		ItemContainer equipmentContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-		if (equipmentContainer == null) {
+		if (equipmentContainer == null)
+		{
 			return false;
 		}
 		Item[] equipedItems = equipmentContainer.getItems();

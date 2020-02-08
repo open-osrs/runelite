@@ -30,13 +30,13 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.geom.Arc2D;
-
 import lombok.Setter;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.RenderableEntity;
 
 @Setter
-public class ProgressPieComponent implements RenderableEntity {
+public class ProgressPieComponent implements RenderableEntity
+{
 	private int diameter = 25;
 	private Color borderColor = Color.WHITE;
 	private Color fill = Color.WHITE;
@@ -45,7 +45,8 @@ public class ProgressPieComponent implements RenderableEntity {
 	private Point position;
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		//Construct the arc
 		Arc2D.Float arc = new Arc2D.Float(Arc2D.PIE);
 		arc.setAngleStart(90);
@@ -64,7 +65,8 @@ public class ProgressPieComponent implements RenderableEntity {
 		return new Dimension(diameter, diameter);
 	}
 
-	public void setBorder(Color border, int size) {
+	public void setBorder(Color border, int size)
+	{
 		this.borderColor = border;
 		stroke = new BasicStroke(size);
 	}

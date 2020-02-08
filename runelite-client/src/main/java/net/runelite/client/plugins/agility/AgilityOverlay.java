@@ -33,7 +33,6 @@ import java.awt.Shape;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
@@ -45,7 +44,8 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-class AgilityOverlay extends Overlay {
+class AgilityOverlay extends Overlay
+{
 	private static final int MAX_DISTANCE = 2350;
 	private static final Color SHORTCUT_HIGH_LEVEL_COLOR = Color.ORANGE;
 
@@ -53,7 +53,8 @@ class AgilityOverlay extends Overlay {
 	private final AgilityPlugin plugin;
 
 	@Inject
-	private AgilityOverlay(final Client client, final AgilityPlugin plugin) {
+	private AgilityOverlay(final Client client, final AgilityPlugin plugin)
+	{
 		super(plugin);
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
@@ -62,34 +63,41 @@ class AgilityOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		LocalPoint playerLocation = client.getLocalPlayer().getLocalLocation();
 		Point mousePosition = client.getMouseCanvasPosition();
 		final List<Tile> marksOfGrace = plugin.getMarksOfGrace();
 		plugin.getObstacles().forEach((object, obstacle) ->
 		{
 			if (Obstacles.SHORTCUT_OBSTACLE_IDS.containsKey(object.getId()) && !plugin.isHighlightShortcuts() ||
-					Obstacles.TRAP_OBSTACLE_IDS.contains(object.getId()) && !plugin.isShowTrapOverlay() ||
-					Obstacles.COURSE_OBSTACLE_IDS.contains(object.getId()) && !plugin.isShowCourseClickboxes()) {
+				Obstacles.TRAP_OBSTACLE_IDS.contains(object.getId()) && !plugin.isShowTrapOverlay() ||
+				Obstacles.COURSE_OBSTACLE_IDS.contains(object.getId()) && !plugin.isShowCourseClickboxes())
+			{
 				return;
 			}
 
 			Tile tile = obstacle.getTile();
 
-			if (tile.getPlane() == client.getPlane() && checkDistance(object.getLocalLocation(), playerLocation)) {
+			if (tile.getPlane() == client.getPlane() && checkDistance(object.getLocalLocation(), playerLocation))
+			{
 				// This assumes that the obstacle is not clickable.
-				if (Obstacles.TRAP_OBSTACLE_IDS.contains(object.getId())) {
+				if (Obstacles.TRAP_OBSTACLE_IDS.contains(object.getId()))
+				{
 					Polygon polygon = object.getCanvasTilePoly();
-					if (polygon != null) {
+					if (polygon != null)
+					{
 						OverlayUtil.renderPolygon(graphics, polygon, plugin.getTrapColor());
 					}
 					return;
 				}
 				Shape objectClickbox = object.getClickbox();
-				if (objectClickbox != null) {
+				if (objectClickbox != null)
+				{
 					AgilityShortcut agilityShortcut = obstacle.getShortcut();
 					Color configColor = agilityShortcut == null || agilityShortcut.getLevel() <= plugin.getAgilityLevel() ? plugin.getOverlayColor() : SHORTCUT_HIGH_LEVEL_COLOR;
-					if (plugin.isHighlightMarks() && !marksOfGrace.isEmpty()) {
+					if (plugin.isHighlightMarks() && !marksOfGrace.isEmpty())
+					{
 						configColor = plugin.getMarkColor();
 					}
 
@@ -99,13 +107,17 @@ class AgilityOverlay extends Overlay {
 
 		});
 
-		if (plugin.isHighlightMarks() && !marksOfGrace.isEmpty()) {
-			for (Tile markOfGraceTile : marksOfGrace) {
+		if (plugin.isHighlightMarks() && !marksOfGrace.isEmpty())
+		{
+			for (Tile markOfGraceTile : marksOfGrace)
+			{
 				if (markOfGraceTile.getPlane() == client.getPlane() && markOfGraceTile.getItemLayer() != null
-						&& checkDistance(markOfGraceTile.getLocalLocation(), playerLocation)) {
+					&& checkDistance(markOfGraceTile.getLocalLocation(), playerLocation))
+				{
 					final Polygon poly = markOfGraceTile.getItemLayer().getCanvasTilePoly();
 
-					if (poly == null) {
+					if (poly == null)
+					{
 						continue;
 					}
 
@@ -117,8 +129,10 @@ class AgilityOverlay extends Overlay {
 		return null;
 	}
 
-	private boolean checkDistance(LocalPoint localPoint, LocalPoint playerPoint) {
-		if (plugin.isRemoveDistanceCap()) {
+	private boolean checkDistance(LocalPoint localPoint, LocalPoint playerPoint)
+	{
+		if (plugin.isRemoveDistanceCap())
+		{
 			return true;
 		}
 		return localPoint.distanceTo(playerPoint) < MAX_DISTANCE;

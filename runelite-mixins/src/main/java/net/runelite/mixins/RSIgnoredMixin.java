@@ -6,16 +6,19 @@ import net.runelite.rs.api.RSIgnored;
 import net.runelite.rs.api.RSUsername;
 
 @Mixin(RSIgnored.class)
-public abstract class RSIgnoredMixin implements RSIgnored {
+public abstract class RSIgnoredMixin implements RSIgnored
+{
 	@Override
 	@Inject
-	public String getName() {
+	public String getName()
+	{
 		return getRsName().getName();
 	}
 
 	@Override
 	@Inject
-	public String getPrevName() {
+	public String getPrevName()
+	{
 		RSUsername prevName = getRsPrevName();
 		return prevName == null ? null : prevName.getName();
 	}

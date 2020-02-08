@@ -29,7 +29,8 @@ import java.io.InputStream;
 import java.util.Properties;
 import javax.annotation.Nullable;
 
-public class RuneLiteProperties {
+public class RuneLiteProperties
+{
 	private static final String RUNELITE_TITLE = "open.osrs.title";
 	private static final String RUNELITE_VERSION = "runelite.version";
 	private static final String RUNELITE_PLUS_VERSION = "open.osrs.version";
@@ -48,78 +49,98 @@ public class RuneLiteProperties {
 
 	private static final Properties properties = new Properties();
 
-	static {
-		try (InputStream in = RuneLiteProperties.class.getResourceAsStream("/open.osrs.properties")) {
+	static
+	{
+		try (InputStream in = RuneLiteProperties.class.getResourceAsStream("/open.osrs.properties"))
+		{
 			properties.load(in);
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			throw new RuntimeException(ex);
 		}
 	}
 
-	public static String getTitle() {
+	public static String getTitle()
+	{
 		final StringBuilder sb = new StringBuilder(properties.getProperty(RUNELITE_TITLE));
 		String proxy;
-		if ((proxy = System.getProperty("socksProxyHost")) != null) {
+		if ((proxy = System.getProperty("socksProxyHost")) != null)
+		{
 			sb.append(String.format(" (%s)", proxy));
 		}
 		return sb.toString();
 	}
 
-	public static String getVersion() {
+	public static String getVersion()
+	{
 		return properties.getProperty(RUNELITE_VERSION);
 	}
 
-	public static String getPlusVersion() {
+	public static String getPlusVersion()
+	{
 		return properties.getProperty(RUNELITE_PLUS_VERSION);
 	}
 
-	public static String getPlusDate() {
+	public static String getPlusDate()
+	{
 		return properties.getProperty(RUNELITE_PLUS_DATE);
 	}
 
-	public static String getRunescapeVersion() {
+	public static String getRunescapeVersion()
+	{
 		return properties.getProperty(RUNESCAPE_VERSION);
 	}
 
-	public static String getDiscordAppId() {
+	public static String getDiscordAppId()
+	{
 		return properties.getProperty(DISCORD_APP_ID);
 	}
 
-	public static String getDiscordInvite() {
+	public static String getDiscordInvite()
+	{
 		return properties.getProperty(DISCORD_INVITE);
 	}
 
-	public static String getGithubLink() {
+	public static String getGithubLink()
+	{
 		return properties.getProperty(GITHUB_LINK);
 	}
 
-	public static String getWikiLink() {
+	public static String getWikiLink()
+	{
 		return properties.getProperty(WIKI_LINK);
 	}
 
-	public static String getPatreonLink() {
+	public static String getPatreonLink()
+	{
 		return properties.getProperty(PATREON_LINK);
 	}
 
-	public static String getTroubleshootingLink() {
+	public static String getTroubleshootingLink()
+	{
 		return properties.getProperty(TROUBLESHOOTING_LINK);
 	}
 
-	public static String getBuildingLink() {
+	public static String getBuildingLink()
+	{
 		return properties.getProperty(BUILDING_LINK);
 	}
 
-	public static String getDNSChangeLink() {
+	public static String getDNSChangeLink()
+	{
 		return properties.getProperty(DNS_CHANGE_LINK);
 	}
 
 	@Nullable
-	public static String getLauncherVersion() {
+	public static String getLauncherVersion()
+	{
 		String launcherVersion = properties.getProperty(LAUNCHER_VERSION_PROPERTY);
 		return launcherVersion.equals("-1") ? null : launcherVersion;
 	}
 
-	public static String getImgurClientId() {
+	public static String getImgurClientId()
+	{
 		return properties.getProperty(IMGUR_CLIENT_ID);
 	}
 }

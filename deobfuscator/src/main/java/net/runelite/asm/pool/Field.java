@@ -26,27 +26,30 @@
 package net.runelite.asm.pool;
 
 import java.util.Objects;
-
 import net.runelite.asm.Type;
 
-public class Field {
+public class Field
+{
 	private final Class clazz;
 	private final String name;
 	private final Type type;
 
-	public Field(Class clazz, String name, Type type) {
+	public Field(Class clazz, String name, Type type)
+	{
 		this.clazz = clazz;
 		this.name = name;
 		this.type = type;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return clazz.getName() + '.' + name + " " + type;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 3;
 		hash = 97 * hash + Objects.hashCode(this.clazz);
 		hash = 97 * hash + Objects.hashCode(this.name);
@@ -55,38 +58,48 @@ public class Field {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
 			return true;
 		}
-		if (obj == null) {
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final Field other = (Field) obj;
-		if (!Objects.equals(this.name, other.name)) {
+		if (!Objects.equals(this.name, other.name))
+		{
 			return false;
 		}
-		if (!Objects.equals(this.clazz, other.clazz)) {
+		if (!Objects.equals(this.clazz, other.clazz))
+		{
 			return false;
 		}
-		if (!Objects.equals(this.type, other.type)) {
+		if (!Objects.equals(this.type, other.type))
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public Class getClazz() {
+	public Class getClazz()
+	{
 		return clazz;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public Type getType() {
+	public Type getType()
+	{
 		return type;
 	}
 }

@@ -7,13 +7,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class189 {
 	@ObfuscatedName("dz")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive14")
 	static Archive archive14;
 	@ObfuscatedName("ei")
 	@ObfuscatedGetter(
-			intValue = -1965568453
+		intValue = -1965568453
 	)
 	static int field2353;
 }

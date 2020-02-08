@@ -17,10 +17,8 @@
 package net.runelite.client.plugins.prayeralert;
 
 import com.google.inject.Provides;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -32,14 +30,15 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "Prayer Alerter",
-		description = "Alert the player when prayer is low",
-		tags = {"prayer", "overlay"},
-		type = PluginType.UTILITY,
-		enabledByDefault = false
+	name = "Prayer Alerter",
+	description = "Alert the player when prayer is low",
+	tags = {"prayer", "overlay"},
+	type = PluginType.UTILITY,
+	enabledByDefault = false
 )
 @Singleton
-public class PrayerAlertPlugin extends Plugin {
+public class PrayerAlertPlugin extends Plugin
+{
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -55,12 +54,14 @@ public class PrayerAlertPlugin extends Plugin {
 	private boolean oldRenderMode;
 
 	@Provides
-	PrayerAlertConfig provideConfig(ConfigManager configManager) {
+	PrayerAlertConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PrayerAlertConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		this.alwaysShowAlert = config.alwaysShowAlert();
 		this.oldRenderMode = config.oldRenderMode();
 
@@ -68,13 +69,16 @@ public class PrayerAlertPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("prayeralert")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("prayeralert"))
+		{
 			this.alwaysShowAlert = config.alwaysShowAlert();
 			this.oldRenderMode = config.oldRenderMode();
 		}

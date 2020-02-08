@@ -25,7 +25,8 @@
 
 package net.runelite.cache;
 
-public enum IndexType {
+public enum IndexType
+{
 	FRAMES(0),
 	FRAMEMAPS(1),
 	CONFIGS(2),
@@ -45,12 +46,14 @@ public enum IndexType {
 	WORLDMAP(16);
 
 	private int id;
-
-	IndexType(int id) {
+	
+	IndexType(int id)
+	{
 		this.id = id;
 	}
-
-	public int getNumber() {
+	
+	public int getNumber()
+	{
 		return id;
 	}
 }

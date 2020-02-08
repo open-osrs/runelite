@@ -1,5 +1,4 @@
 import java.math.BigInteger;
-
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -17,8 +16,8 @@ public class class80 {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lks;I)I",
-			garbageValue = "-1637825226"
+		signature = "(Lks;I)I",
+		garbageValue = "-1637825226"
 	)
 	static int method2094(PacketBuffer var0) {
 		int var1 = var0.readBits(2);
@@ -38,8 +37,8 @@ public class class80 {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1745616388"
+		signature = "(I)V",
+		garbageValue = "-1745616388"
 	)
 	static final void method2097() {
 		class60.method1188("You can't add yourself to your own ignore list");
@@ -47,8 +46,8 @@ public class class80 {
 
 	@ObfuscatedName("ka")
 	@ObfuscatedSignature(
-			signature = "(Lhn;II)Ljava/lang/String;",
-			garbageValue = "237205846"
+		signature = "(Lhn;II)Ljava/lang/String;",
+		garbageValue = "237205846"
 	)
 	static String method2098(Widget var0, int var1) {
 		int var3 = WorldMapIcon_0.getWidgetClickMask(var0);

@@ -24,22 +24,26 @@
  */
 package net.runelite.http.api.cache;
 
-public class CacheIndex {
+public class CacheIndex
+{
 	private final int indexId;
 	private final int revision;
 
-	public CacheIndex(int indexId, int revision) {
+	public CacheIndex(int indexId, int revision)
+	{
 		this.indexId = indexId;
 		this.revision = revision;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "CacheIndex{" + "indexId=" + indexId + ", revision=" + revision + '}';
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 5;
 		hash = 61 * hash + this.indexId;
 		hash = 61 * hash + this.revision;
@@ -47,28 +51,35 @@ public class CacheIndex {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final CacheIndex other = (CacheIndex) obj;
-		if (this.indexId != other.indexId) {
+		if (this.indexId != other.indexId)
+		{
 			return false;
 		}
-		if (this.revision != other.revision) {
+		if (this.revision != other.revision)
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public int getIndexId() {
+	public int getIndexId()
+	{
 		return indexId;
 	}
 
-	public int getRevision() {
+	public int getRevision()
+	{
 		return revision;
 	}
 }

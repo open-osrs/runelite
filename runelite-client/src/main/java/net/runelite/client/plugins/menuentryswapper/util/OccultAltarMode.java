@@ -29,7 +29,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum OccultAltarMode {
+public enum OccultAltarMode
+{
 	ANCIENT("Ancient"),
 	LUNAR("Lunar"),
 	ARCEUUS("Arceuus"),
@@ -38,7 +39,8 @@ public enum OccultAltarMode {
 	private final String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

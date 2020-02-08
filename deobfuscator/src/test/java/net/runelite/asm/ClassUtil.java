@@ -27,12 +27,13 @@ package net.runelite.asm;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import net.runelite.asm.visitors.ClassFileVisitor;
 import org.objectweb.asm.ClassReader;
 
-public class ClassUtil {
-	public static ClassFile loadClass(InputStream in) throws IOException {
+public class ClassUtil
+{
+	public static ClassFile loadClass(InputStream in) throws IOException
+	{
 		ClassReader reader = new ClassReader(in);
 		ClassFileVisitor cv = new ClassFileVisitor();
 

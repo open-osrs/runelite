@@ -30,142 +30,155 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("Reminders")
-public interface RemindersConfig extends Config {
+public interface RemindersConfig extends Config
+{
 	@ConfigItem(
-			keyName = "breakReminder",
-			name = "Break Reminder",
-			description = "Reminds you to take a 5-10 minute break every hour.",
-			position = 0
+		keyName = "breakReminder",
+		name = "Break Reminder",
+		description = "Reminds you to take a 5-10 minute break every hour.",
+		position = 0
 	)
-	default boolean breakReminder() {
+	default boolean breakReminder()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "hydrationReminder",
-			name = "Hydration Reminder",
-			description = "Reminds you to drink 4oz/120ml of water every hour",
-			position = 1
+		keyName = "hydrationReminder",
+		name = "Hydration Reminder",
+		description = "Reminds you to drink 4oz/120ml of water every hour",
+		position = 1
 	)
-	default boolean hydrationReminder() {
+	default boolean hydrationReminder()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "personalReminders",
-			name = "Personal Reminders",
-			description = "Set your own personal reminders",
-			position = 2
+		keyName = "personalReminders",
+		name = "Personal Reminders",
+		description = "Set your own personal reminders",
+		position = 2
 	)
-	default boolean personalReminders() {
+	default boolean personalReminders()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "personalReminder1",
-			name = "Personal Reminder #1",
-			description = "Set your first personal reminder",
-			position = 3,
-			hidden = true,
-			unhide = "personalReminders"
+		keyName = "personalReminder1",
+		name = "Personal Reminder #1",
+		description = "Set your first personal reminder",
+		position = 3,
+		hidden = true,
+		unhide = "personalReminders"
 	)
-	default boolean personalReminder1() {
+	default boolean personalReminder1()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "personalReminderText1",
-			name = "Personal Reminder Text #1",
-			description = "Set the text to your first personal reminder",
-			position = 4,
-			hidden = true,
-			unhide = "personalReminder1"
+		keyName = "personalReminderText1",
+		name = "Personal Reminder Text #1",
+		description = "Set the text to your first personal reminder",
+		position = 4,
+		hidden = true,
+		unhide = "personalReminder1"
 	)
-	default String personalReminderText1() {
+	default String personalReminderText1()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "personalreminderTime1",
-			name = "Personal Reminder Time #1",
-			description = "Time in minutes for your first personal reminder",
-			position = 5,
-			hidden = true,
-			unhide = "personalReminder1"
+		keyName = "personalreminderTime1",
+		name = "Personal Reminder Time #1",
+		description = "Time in minutes for your first personal reminder",
+		position = 5,
+		hidden = true,
+		unhide = "personalReminder1"
 	)
-	default int personalReminderTime1() {
+	default int personalReminderTime1()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "personalReminder2",
-			name = "Personal Reminder #2",
-			description = "Set your second personal reminder",
-			position = 6,
-			hidden = true,
-			unhide = "personalReminders"
+		keyName = "personalReminder2",
+		name = "Personal Reminder #2",
+		description = "Set your second personal reminder",
+		position = 6,
+		hidden = true,
+		unhide = "personalReminders"
 	)
-	default boolean personalReminder2() {
+	default boolean personalReminder2()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "personalReminderText2",
-			name = "Personal Reminder Text #2",
-			description = "Set the text to your second personal reminder",
-			position = 7,
-			hidden = true,
-			unhide = "personalReminder2"
+		keyName = "personalReminderText2",
+		name = "Personal Reminder Text #2",
+		description = "Set the text to your second personal reminder",
+		position = 7,
+		hidden = true,
+		unhide = "personalReminder2"
 	)
-	default String personalReminderText2() {
+	default String personalReminderText2()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "personalreminderTime2",
-			name = "Personal Reminder Time #2",
-			description = "Time in minutes for your second personal reminder",
-			position = 8,
-			hidden = true,
-			unhide = "personalReminder2"
+		keyName = "personalreminderTime2",
+		name = "Personal Reminder Time #2",
+		description = "Time in minutes for your second personal reminder",
+		position = 8,
+		hidden = true,
+		unhide = "personalReminder2"
 	)
-	default int personalReminderTime2() {
+	default int personalReminderTime2()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "personalReminder3",
-			name = "Personal Reminder #3",
-			description = "Set your third personal reminder",
-			position = 9,
-			hidden = true,
-			unhide = "personalReminders"
+		keyName = "personalReminder3",
+		name = "Personal Reminder #3",
+		description = "Set your third personal reminder",
+		position = 9,
+		hidden = true,
+		unhide = "personalReminders"
 	)
-	default boolean personalReminder3() {
+	default boolean personalReminder3()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "personalReminderText3",
-			name = "Personal Reminder Text #3",
-			description = "Set the text to your third personal reminder",
-			position = 10,
-			hidden = true,
-			unhide = "personalReminder3"
+		keyName = "personalReminderText3",
+		name = "Personal Reminder Text #3",
+		description = "Set the text to your third personal reminder",
+		position = 10,
+		hidden = true,
+		unhide = "personalReminder3"
 	)
-	default String personalReminderText3() {
+	default String personalReminderText3()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "personalreminderTime3",
-			name = "Personal Reminder Time #3",
-			description = "Time in minutes for your third personal reminder",
-			position = 11,
-			hidden = true,
-			unhide = "personalReminder3"
+		keyName = "personalreminderTime3",
+		name = "Personal Reminder Time #3",
+		description = "Time in minutes for your third personal reminder",
+		position = 11,
+		hidden = true,
+		unhide = "personalReminder3"
 	)
-	default int personalReminderTime3() {
+	default int personalReminderTime3()
+	{
 		return 0;
 	}
 }

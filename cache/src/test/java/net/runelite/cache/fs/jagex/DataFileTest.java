@@ -26,7 +26,6 @@ package net.runelite.cache.fs.jagex;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.cache.StoreLocation;
 import net.runelite.cache.fs.Container;
 import org.junit.Assert;
@@ -34,12 +33,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class DataFileTest {
+public class DataFileTest
+{
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test1() throws IOException {
+	public void test1() throws IOException
+	{
 		File file = folder.newFile();
 		DataFile df = new DataFile(file);
 
@@ -57,9 +58,11 @@ public class DataFileTest {
 	}
 
 	@Test
-	public void test2() throws IOException {
+	public void test2() throws IOException
+	{
 		byte[] b = new byte[1024];
-		for (int i = 0; i < 1024; ++i) {
+		for (int i = 0; i < 1024; ++i)
+		{
 			b[i] = (byte) i;
 		}
 
@@ -80,7 +83,8 @@ public class DataFileTest {
 	}
 
 	@Test
-	public void testGZipCompression() throws IOException {
+	public void testGZipCompression() throws IOException
+	{
 		DataFile df = new DataFile(folder.newFile());
 
 		Container container = new Container(CompressionType.GZ, 0);
@@ -97,7 +101,8 @@ public class DataFileTest {
 	}
 
 	@Test
-	public void testBZip2Compression() throws IOException {
+	public void testBZip2Compression() throws IOException
+	{
 		DataFile df = new DataFile(folder.newFile());
 
 		Container container = new Container(CompressionType.BZ2, 5);
@@ -114,12 +119,13 @@ public class DataFileTest {
 	}
 
 	@Test
-	public void testEnc() throws IOException {
+	public void testEnc() throws IOException
+	{
 		File file = folder.newFile();
 		int[] keys = new int[]
-				{
-						4, 8, 15, 16
-				};
+		{
+			4, 8, 15, 16
+		};
 
 		DataFile df = new DataFile(file);
 
@@ -138,12 +144,13 @@ public class DataFileTest {
 	}
 
 	@Test
-	public void testEncGz() throws IOException {
+	public void testEncGz() throws IOException
+	{
 		File file = folder.newFile();
 		int[] keys = new int[]
-				{
-						4, 8, 15, 16
-				};
+		{
+			4, 8, 15, 16
+		};
 
 		DataFile df = new DataFile(file);
 

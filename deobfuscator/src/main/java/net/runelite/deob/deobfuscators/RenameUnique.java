@@ -26,7 +26,6 @@
 package net.runelite.deob.deobfuscators;
 
 import java.util.List;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -37,14 +36,18 @@ import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.Deobfuscator;
 import net.runelite.deob.util.NameMappings;
 
-public class RenameUnique implements Deobfuscator {
+public class RenameUnique implements Deobfuscator
+{
 	private Renamer renamer;
 
-	private void generateClassNames(NameMappings map, ClassGroup group) {
+	private void generateClassNames(NameMappings map, ClassGroup group)
+	{
 		int i = 0;
 
-		for (ClassFile cf : group.getClasses()) {
-			if (cf.getName().length() > Deob.OBFUSCATED_NAME_MAX_LEN) {
+		for (ClassFile cf : group.getClasses())
+		{
+			if (cf.getName().length() > Deob.OBFUSCATED_NAME_MAX_LEN)
+			{
 				continue;
 			}
 
@@ -52,12 +55,15 @@ public class RenameUnique implements Deobfuscator {
 		}
 	}
 
-	private void generateFieldNames(NameMappings map, ClassGroup group) {
+	private void generateFieldNames(NameMappings map, ClassGroup group)
+	{
 		int i = 0;
 
 		for (ClassFile cf : group.getClasses())
-			for (Field field : cf.getFields()) {
-				if (!Deob.isObfuscated(field.getName()) || field.getName().equals(DeobAnnotations.getExportedName(field.getAnnotations()))) {
+			for (Field field : cf.getFields())
+			{
+				if (!Deob.isObfuscated(field.getName()) || field.getName().equals(DeobAnnotations.getExportedName(field.getAnnotations())))
+				{
 					continue;
 				}
 
@@ -65,12 +71,15 @@ public class RenameUnique implements Deobfuscator {
 			}
 	}
 
-	private void generateMethodNames(NameMappings map, ClassGroup group) {
+	private void generateMethodNames(NameMappings map, ClassGroup group)
+	{
 		int i = 0;
 
 		for (ClassFile cf : group.getClasses())
-			for (Method method : cf.getMethods()) {
-				if (!Deob.isObfuscated(method.getName()) || method.getName().equals(DeobAnnotations.getExportedName(method.getAnnotations()))) {
+			for (Method method : cf.getMethods())
+			{
+				if (!Deob.isObfuscated(method.getName()) || method.getName().equals(DeobAnnotations.getExportedName(method.getAnnotations())))
+				{
 					continue;
 				}
 
@@ -89,7 +98,8 @@ public class RenameUnique implements Deobfuscator {
 	}
 
 	@Override
-	public void run(ClassGroup group) {
+	public void run(ClassGroup group)
+	{
 		group.buildClassGraph();
 		group.lookup();
 

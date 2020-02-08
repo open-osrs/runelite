@@ -27,14 +27,12 @@ package net.runelite.client.plugins.barrows;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import com.google.inject.Provides;
-
 import java.awt.Color;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Client;
@@ -68,28 +66,29 @@ import net.runelite.client.ui.overlay.infobox.InfoBoxPriority;
 import net.runelite.client.ui.overlay.infobox.LoopTimer;
 
 @PluginDescriptor(
-		name = "Barrows Brothers",
-		description = "Show helpful information for the Barrows minigame",
-		tags = {"combat", "minigame", "minimap", "bosses", "pve", "pvm"},
-		type = PluginType.MINIGAME
+	name = "Barrows Brothers",
+	description = "Show helpful information for the Barrows minigame",
+	tags = {"combat", "minigame", "minimap", "bosses", "pve", "pvm"},
+	type = PluginType.MINIGAME
 )
 @Singleton
-public class BarrowsPlugin extends Plugin {
+public class BarrowsPlugin extends Plugin
+{
 	@Getter(AccessLevel.PACKAGE)
 	private static final Set<Integer> BARROWS_WALLS = Sets.newHashSet
-			(
-					ObjectID.DOOR_20678, NullObjectID.NULL_20681, NullObjectID.NULL_20682, NullObjectID.NULL_20683, NullObjectID.NULL_20684, NullObjectID.NULL_20685, NullObjectID.NULL_20686, NullObjectID.NULL_20687,
-					NullObjectID.NULL_20688, NullObjectID.NULL_20689, NullObjectID.NULL_20690, NullObjectID.NULL_20691, NullObjectID.NULL_20692, NullObjectID.NULL_20693, NullObjectID.NULL_20694, NullObjectID.NULL_20695,
-					NullObjectID.NULL_20696, ObjectID.DOOR_20697, NullObjectID.NULL_20700, NullObjectID.NULL_20701, NullObjectID.NULL_20702, NullObjectID.NULL_20703, NullObjectID.NULL_20704, NullObjectID.NULL_20705,
-					NullObjectID.NULL_20706, NullObjectID.NULL_20707, NullObjectID.NULL_20708, NullObjectID.NULL_20709, NullObjectID.NULL_20710, NullObjectID.NULL_20711, NullObjectID.NULL_20712, NullObjectID.NULL_20713,
-					NullObjectID.NULL_20714, NullObjectID.NULL_20715, NullObjectID.NULL_20728, NullObjectID.NULL_20730
-			);
+		(
+			ObjectID.DOOR_20678, NullObjectID.NULL_20681, NullObjectID.NULL_20682, NullObjectID.NULL_20683, NullObjectID.NULL_20684, NullObjectID.NULL_20685, NullObjectID.NULL_20686, NullObjectID.NULL_20687,
+			NullObjectID.NULL_20688, NullObjectID.NULL_20689, NullObjectID.NULL_20690, NullObjectID.NULL_20691, NullObjectID.NULL_20692, NullObjectID.NULL_20693, NullObjectID.NULL_20694, NullObjectID.NULL_20695,
+			NullObjectID.NULL_20696, ObjectID.DOOR_20697, NullObjectID.NULL_20700, NullObjectID.NULL_20701, NullObjectID.NULL_20702, NullObjectID.NULL_20703, NullObjectID.NULL_20704, NullObjectID.NULL_20705,
+			NullObjectID.NULL_20706, NullObjectID.NULL_20707, NullObjectID.NULL_20708, NullObjectID.NULL_20709, NullObjectID.NULL_20710, NullObjectID.NULL_20711, NullObjectID.NULL_20712, NullObjectID.NULL_20713,
+			NullObjectID.NULL_20714, NullObjectID.NULL_20715, NullObjectID.NULL_20728, NullObjectID.NULL_20730
+		);
 
 	private static final Set<Integer> BARROWS_LADDERS = Sets.newHashSet(NullObjectID.NULL_20675, NullObjectID.NULL_20676, NullObjectID.NULL_20677);
 	private static final ImmutableList<WidgetInfo> POSSIBLE_SOLUTIONS = ImmutableList.of(
-			WidgetInfo.BARROWS_PUZZLE_ANSWER1,
-			WidgetInfo.BARROWS_PUZZLE_ANSWER2,
-			WidgetInfo.BARROWS_PUZZLE_ANSWER3
+		WidgetInfo.BARROWS_PUZZLE_ANSWER1,
+		WidgetInfo.BARROWS_PUZZLE_ANSWER2,
+		WidgetInfo.BARROWS_PUZZLE_ANSWER3
 	);
 
 	private static final long PRAYER_DRAIN_INTERVAL_MS = 18200;
@@ -141,12 +140,14 @@ public class BarrowsPlugin extends Plugin {
 	private boolean showPrayerDrainTimer;
 
 	@Provides
-	BarrowsConfig provideConfig(ConfigManager configManager) {
+	BarrowsConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(BarrowsConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(barrowsOverlay);
@@ -154,7 +155,8 @@ public class BarrowsPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(barrowsOverlay);
 		overlayManager.remove(brotherOverlay);
 		walls.clear();
@@ -165,28 +167,34 @@ public class BarrowsPlugin extends Plugin {
 
 		// Restore widgets
 		final Widget potential = client.getWidget(WidgetInfo.BARROWS_POTENTIAL);
-		if (potential != null) {
+		if (potential != null)
+		{
 			potential.setHidden(false);
 		}
 
 		final Widget barrowsBrothers = client.getWidget(WidgetInfo.BARROWS_BROTHERS);
-		if (barrowsBrothers != null) {
+		if (barrowsBrothers != null)
+		{
 			barrowsBrothers.setHidden(false);
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("barrows")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("barrows"))
+		{
 			updateConfig();
 
-			if (!this.showPrayerDrainTimer) {
+			if (!this.showPrayerDrainTimer)
+			{
 				stopPrayerDrainTimer();
 			}
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showMinimap = config.showMinimap();
 		this.showBrotherLoc = config.showBrotherLoc();
 		this.brotherLocColor = config.brotherLocColor();
@@ -196,83 +204,104 @@ public class BarrowsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onWallObjectSpawned(WallObjectSpawned event) {
+	private void onWallObjectSpawned(WallObjectSpawned event)
+	{
 		WallObject wallObject = event.getWallObject();
-		if (BARROWS_WALLS.contains(wallObject.getId())) {
+		if (BARROWS_WALLS.contains(wallObject.getId()))
+		{
 			walls.add(wallObject);
 		}
 	}
 
 	@Subscribe
-	private void onWallObjectChanged(WallObjectChanged event) {
+	private void onWallObjectChanged(WallObjectChanged event)
+	{
 		WallObject previous = event.getPrevious();
 		WallObject wallObject = event.getWallObject();
 
 		walls.remove(previous);
-		if (BARROWS_WALLS.contains(wallObject.getId())) {
+		if (BARROWS_WALLS.contains(wallObject.getId()))
+		{
 			walls.add(wallObject);
 		}
 	}
 
 	@Subscribe
-	private void onWallObjectDespawned(WallObjectDespawned event) {
+	private void onWallObjectDespawned(WallObjectDespawned event)
+	{
 		WallObject wallObject = event.getWallObject();
 		walls.remove(wallObject);
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(GameObjectSpawned event) {
+	private void onGameObjectSpawned(GameObjectSpawned event)
+	{
 		GameObject gameObject = event.getGameObject();
-		if (BARROWS_LADDERS.contains(gameObject.getId())) {
+		if (BARROWS_LADDERS.contains(gameObject.getId()))
+		{
 			ladders.add(gameObject);
 		}
 	}
 
 	@Subscribe
-	private void onGameObjectChanged(GameObjectChanged event) {
+	private void onGameObjectChanged(GameObjectChanged event)
+	{
 		GameObject previous = event.getPrevious();
 		GameObject gameObject = event.getGameObject();
 
 		ladders.remove(previous);
-		if (BARROWS_LADDERS.contains(gameObject.getId())) {
+		if (BARROWS_LADDERS.contains(gameObject.getId()))
+		{
 			ladders.add(gameObject);
 		}
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event) {
+	private void onGameObjectDespawned(GameObjectDespawned event)
+	{
 		GameObject gameObject = event.getGameObject();
 		ladders.remove(gameObject);
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOADING) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOADING)
+		{
 			wasInCrypt = isInCrypt();
 			// on region changes the tiles get set to null
 			walls.clear();
 			ladders.clear();
 			puzzleAnswer = null;
-		} else if (event.getGameState() == GameState.LOGGED_IN && client.getLocalPlayer() != null) {
+		}
+		else if (event.getGameState() == GameState.LOGGED_IN && client.getLocalPlayer() != null)
+		{
 			boolean isInCrypt = isInCrypt();
-			if (wasInCrypt && !isInCrypt) {
+			if (wasInCrypt && !isInCrypt)
+			{
 				stopPrayerDrainTimer();
-			} else if (!wasInCrypt && isInCrypt) {
+			}
+			else if (!wasInCrypt && isInCrypt)
+			{
 				startPrayerDrainTimer();
 			}
 		}
 	}
 
 	@Subscribe
-	private void onWidgetLoaded(WidgetLoaded event) {
-		if (event.getGroupId() == WidgetID.BARROWS_PUZZLE_GROUP_ID) {
+	private void onWidgetLoaded(WidgetLoaded event)
+	{
+		if (event.getGroupId() == WidgetID.BARROWS_PUZZLE_GROUP_ID)
+		{
 			final int answer = client.getWidget(WidgetInfo.BARROWS_FIRST_PUZZLE).getModelId() - 3;
 			puzzleAnswer = null;
 
-			for (WidgetInfo puzzleNode : POSSIBLE_SOLUTIONS) {
+			for (WidgetInfo puzzleNode : POSSIBLE_SOLUTIONS)
+			{
 				final Widget widgetToCheck = client.getWidget(puzzleNode);
 
-				if (widgetToCheck != null && widgetToCheck.getModelId() == answer) {
+				if (widgetToCheck != null && widgetToCheck.getModelId() == answer)
+				{
 					puzzleAnswer = client.getWidget(puzzleNode);
 					break;
 				}
@@ -280,14 +309,16 @@ public class BarrowsPlugin extends Plugin {
 		}
 	}
 
-	private void startPrayerDrainTimer() {
-		if (this.showPrayerDrainTimer) {
+	private void startPrayerDrainTimer()
+	{
+		if (this.showPrayerDrainTimer)
+		{
 			final LoopTimer loopTimer = new LoopTimer(
-					PRAYER_DRAIN_INTERVAL_MS,
-					ChronoUnit.MILLIS,
-					null,
-					this,
-					true);
+				PRAYER_DRAIN_INTERVAL_MS,
+				ChronoUnit.MILLIS,
+				null,
+				this,
+				true);
 
 			spriteManager.getSpriteAsync(SpriteID.TAB_PRAYER, 0, loopTimer);
 
@@ -299,12 +330,14 @@ public class BarrowsPlugin extends Plugin {
 		}
 	}
 
-	private void stopPrayerDrainTimer() {
+	private void stopPrayerDrainTimer()
+	{
 		infoBoxManager.removeInfoBox(barrowsPrayerDrainTimer);
 		barrowsPrayerDrainTimer = null;
 	}
 
-	private boolean isInCrypt() {
+	private boolean isInCrypt()
+	{
 		return client.getLocalPlayer().getWorldLocation().getRegionID() == CRYPT_REGION_ID;
 	}
 }

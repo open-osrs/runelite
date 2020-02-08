@@ -27,7 +27,6 @@ package net.runelite.deob.deobfuscators;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -46,46 +45,54 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class RenameUniqueTest {
+public class RenameUniqueTest
+{
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
-
+	
 	@Rule
 	public TemporaryFolder folder = TemporyFolderLocation.getTemporaryFolder();
-
+	
 	private ClassGroup group;
-
+	
 	@Before
-	public void before() throws IOException {
+	public void before() throws IOException
+	{
 		group = JarUtil.loadJar(new File(properties.getVanillaClient()));
 	}
-
+	
 	@After
-	public void after() throws IOException {
+	public void after() throws IOException
+	{
 		JarUtil.saveJar(group, folder.newFile());
 	}
-
+	
 	@Test
-	public void testRun() {
+	public void testRun()
+	{
 		RenameUnique renameUnique = new RenameUnique();
 		renameUnique.run(group);
 
 		checkRenamed();
 	}
-
-	private void checkRenamed() {
-		for (ClassFile cf : group.getClasses()) {
+	
+	private void checkRenamed()
+	{
+		for (ClassFile cf : group.getClasses())
+		{
 			Assert.assertTrue(cf.getName().startsWith("class") || cf.getName().equals("client"));
 
-			for (Field f : cf.getFields()) {
+			for (Field f : cf.getFields())
+			{
 				// synthetic fields arent obfuscated
 				if (f.isSynthetic())
 					continue;
-
+				
 				Assert.assertTrue(f.getName().startsWith("field"));
 			}
 
-			for (Method m : cf.getMethods()) {
+			for (Method m : cf.getMethods())
+			{
 				Assert.assertTrue(m.getName().length() > 2);
 
 				checkCode(m.getCode());
@@ -93,11 +100,13 @@ public class RenameUniqueTest {
 		}
 	}
 
-	private void checkCode(Code code) {
+	private void checkCode(Code code)
+	{
 		if (code == null)
 			return;
 
-		for (Instruction i : code.getInstructions().getInstructions()) {
+		for (Instruction i : code.getInstructions().getInstructions())
+		{
 			if (!(i instanceof InvokeInstruction))
 				continue;
 

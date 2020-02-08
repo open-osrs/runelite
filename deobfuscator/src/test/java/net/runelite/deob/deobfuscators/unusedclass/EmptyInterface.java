@@ -24,5 +24,4 @@
  */
 package net.runelite.deob.deobfuscators.unusedclass;
 
-public interface EmptyInterface {
-}
+public interface EmptyInterface {}

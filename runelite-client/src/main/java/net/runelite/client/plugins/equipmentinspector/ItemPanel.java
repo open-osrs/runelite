@@ -28,7 +28,6 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.ui.ColorScheme;
@@ -36,8 +35,10 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.AsyncBufferedImage;
 import org.apache.commons.lang3.StringUtils;
 
-class ItemPanel extends JPanel {
-	ItemPanel(ItemDefinition item, KitType kitType, AsyncBufferedImage icon) {
+class ItemPanel extends JPanel
+{
+	ItemPanel(ItemDefinition item, KitType kitType, AsyncBufferedImage icon)
+	{
 
 		setBorder(new EmptyBorder(3, 3, 3, 3));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -54,20 +55,20 @@ class ItemPanel extends JPanel {
 		icon.addTo(imageLabel);
 
 		layout.setVerticalGroup(layout.createParallelGroup()
-				.addComponent(imageLabel)
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(name)
-						.addComponent(location)
-				)
+			.addComponent(imageLabel)
+			.addGroup(layout.createSequentialGroup()
+				.addComponent(name)
+				.addComponent(location)
+			)
 		);
 
 		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addComponent(imageLabel)
-				.addGap(8)
-				.addGroup(layout.createParallelGroup()
-						.addComponent(name)
-						.addComponent(location)
-				)
+			.addComponent(imageLabel)
+			.addGap(8)
+			.addGroup(layout.createParallelGroup()
+				.addComponent(name)
+				.addComponent(location)
+			)
 		);
 
 		// AWT's Z order is weird. This put image at the back of the stack

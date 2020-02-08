@@ -28,13 +28,12 @@ package net.runelite.client.plugins.puzzlesolver.solver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static net.runelite.client.plugins.puzzlesolver.solver.PuzzleSolver.BLANK_TILE_VALUE;
 import static net.runelite.client.plugins.puzzlesolver.solver.PuzzleSolver.DIMENSION;
-
 import net.runelite.client.plugins.puzzlesolver.solver.heuristics.Heuristic;
 
-public class PuzzleState {
+public class PuzzleState
+{
 	private PuzzleState parent;
 
 	private int[] pieces;
@@ -42,12 +41,15 @@ public class PuzzleState {
 
 	private int h = -1;
 
-	public PuzzleState(int[] pieces) {
-		if (pieces == null) {
+	public PuzzleState(int[] pieces)
+	{
+		if (pieces == null)
+		{
 			throw new IllegalStateException("Pieces cannot be null");
 		}
 
-		if (DIMENSION * DIMENSION != pieces.length) {
+		if (DIMENSION * DIMENSION != pieces.length)
+		{
 			throw new IllegalStateException("Piece array does not have the right dimensions");
 		}
 
@@ -55,14 +57,18 @@ public class PuzzleState {
 		findEmptyPiece();
 	}
 
-	private PuzzleState(PuzzleState state) {
+	private PuzzleState(PuzzleState state)
+	{
 		this.pieces = Arrays.copyOf(state.pieces, state.pieces.length);
 		this.emptyPiece = state.emptyPiece;
 	}
 
-	private void findEmptyPiece() {
-		for (int i = 0; i < pieces.length; i++) {
-			if (pieces[i] == BLANK_TILE_VALUE) {
+	private void findEmptyPiece()
+	{
+		for (int i = 0; i < pieces.length; i++)
+		{
+			if (pieces[i] == BLANK_TILE_VALUE)
+			{
 				this.emptyPiece = i;
 				return;
 			}
@@ -70,14 +76,16 @@ public class PuzzleState {
 		throw new IllegalStateException("Incorrect empty piece passed in!");
 	}
 
-	public List<PuzzleState> computeMoves() {
+	public List<PuzzleState> computeMoves()
+	{
 		List<PuzzleState> moves = new ArrayList<>();
 
 		int emptyPieceX = emptyPiece % DIMENSION;
 		int emptyPieceY = emptyPiece / DIMENSION;
 
 		// Move left if there is space to the left
-		if (emptyPieceX > 0 && (parent == null || parent.emptyPiece != emptyPiece - 1)) {
+		if (emptyPieceX > 0 && (parent == null || parent.emptyPiece != emptyPiece - 1))
+		{
 			PuzzleState state = new PuzzleState(this);
 			state.parent = this;
 
@@ -89,7 +97,8 @@ public class PuzzleState {
 		}
 
 		// Move right if there is space to the right
-		if (emptyPieceX < DIMENSION - 1 && (parent == null || parent.emptyPiece != emptyPiece + 1)) {
+		if (emptyPieceX < DIMENSION - 1 && (parent == null || parent.emptyPiece != emptyPiece + 1))
+		{
 			PuzzleState state = new PuzzleState(this);
 			state.parent = this;
 
@@ -101,7 +110,8 @@ public class PuzzleState {
 		}
 
 		// Move up if there is space upwards
-		if (emptyPieceY > 0 && (parent == null || parent.emptyPiece != emptyPiece - DIMENSION)) {
+		if (emptyPieceY > 0 && (parent == null || parent.emptyPiece != emptyPiece - DIMENSION))
+		{
 			PuzzleState state = new PuzzleState(this);
 			state.parent = this;
 
@@ -113,7 +123,8 @@ public class PuzzleState {
 		}
 
 		// Move down if there is space downwards
-		if (emptyPieceY < DIMENSION - 1 && (parent == null || parent.emptyPiece != emptyPiece + DIMENSION)) {
+		if (emptyPieceY < DIMENSION - 1 && (parent == null || parent.emptyPiece != emptyPiece + DIMENSION))
+		{
 			PuzzleState state = new PuzzleState(this);
 			state.parent = this;
 
@@ -127,24 +138,30 @@ public class PuzzleState {
 		return moves;
 	}
 
-	public PuzzleState getParent() {
+	public PuzzleState getParent()
+	{
 		return parent;
 	}
 
-	public boolean hasPieces(int[] pieces) {
+	public boolean hasPieces(int[] pieces)
+	{
 		return Arrays.equals(pieces, this.pieces);
 	}
 
-	public int getPiece(int x, int y) {
+	public int getPiece(int x, int y)
+	{
 		return pieces[y * DIMENSION + x];
 	}
 
-	public int getEmptyPiece() {
+	public int getEmptyPiece()
+	{
 		return emptyPiece;
 	}
 
-	public int getHeuristicValue(Heuristic heuristic) {
-		if (h == -1) {
+	public int getHeuristicValue(Heuristic heuristic)
+	{
+		if (h == -1)
+		{
 			// cache the value
 			h = heuristic.computeValue(this);
 		}
@@ -152,11 +169,13 @@ public class PuzzleState {
 		return h;
 	}
 
-	public PuzzleState swap(int x1, int y1, int x2, int y2) {
+	public PuzzleState swap(int x1, int y1, int x2, int y2)
+	{
 		int val1 = getPiece(x1, y1);
 		int val2 = getPiece(x2, y2);
 
-		if (!isValidSwap(x1, y1, x2, y2)) {
+		if (!isValidSwap(x1, y1, x2, y2))
+		{
 			throw new IllegalStateException(String.format("Invalid swap: (%1$d, %2$d), (%3$d, %4$d)", x1, y1, x2, y2));
 		}
 
@@ -169,15 +188,18 @@ public class PuzzleState {
 		return newState;
 	}
 
-	private boolean isValidSwap(int x1, int y1, int x2, int y2) {
+	private boolean isValidSwap(int x1, int y1, int x2, int y2)
+	{
 		int absX = Math.abs(x1 - x2);
 		int absY = Math.abs(y1 - y2);
 
-		if (getPiece(x1, y1) != BLANK_TILE_VALUE && getPiece(x2, y2) != BLANK_TILE_VALUE) {
+		if (getPiece(x1, y1) != BLANK_TILE_VALUE && getPiece(x2, y2) != BLANK_TILE_VALUE)
+		{
 			return false;
 		}
 
-		if (x1 == x2 && absY == 1) {
+		if (x1 == x2 && absY == 1)
+		{
 			return true;
 		}
 

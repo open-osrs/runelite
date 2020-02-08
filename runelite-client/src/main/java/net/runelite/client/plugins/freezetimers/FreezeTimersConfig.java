@@ -33,129 +33,141 @@ import net.runelite.client.config.Title;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("freezetimers")
-public interface FreezeTimersConfig extends Config {
+public interface FreezeTimersConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "timersTitle",
-			name = "Timers",
-			description = "",
-			position = 1
+		keyName = "timersTitle",
+		name = "Timers",
+		description = "",
+		position = 1
 	)
-	default Title timersTitle() {
+	default Title timersTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "showOverlay",
-			name = "Show Players",
-			description = "Configure if the player overlay should be shown",
-			position = 2,
-			titleSection = "timersTitle"
+		keyName = "showOverlay",
+		name = "Show Players",
+		description = "Configure if the player overlay should be shown",
+		position = 2,
+		titleSection = "timersTitle"
 	)
-	default boolean showPlayers() {
+	default boolean showPlayers()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showNpcs",
-			name = "Show NPCs",
-			description = "Configure if the npc overlay should be shown",
-			position = 3,
-			titleSection = "timersTitle"
+		keyName = "showNpcs",
+		name = "Show NPCs",
+		description = "Configure if the npc overlay should be shown",
+		position = 3,
+		titleSection = "timersTitle"
 	)
-	default boolean showNpcs() {
+	default boolean showNpcs()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "FreezeTimers",
-			name = "Show Freeze Timers",
-			description = "Toggle overlay for Freeze timers",
-			position = 4,
-			titleSection = "timersTitle"
+		keyName = "FreezeTimers",
+		name = "Show Freeze Timers",
+		description = "Toggle overlay for Freeze timers",
+		position = 4,
+		titleSection = "timersTitle"
 	)
-	default boolean FreezeTimers() {
+	default boolean FreezeTimers()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "TB",
-			name = "Show TB Timers",
-			description = "Toggle overlay for TB timers",
-			position = 5,
-			titleSection = "timersTitle"
+		keyName = "TB",
+		name = "Show TB Timers",
+		description = "Toggle overlay for TB timers",
+		position = 5,
+		titleSection = "timersTitle"
 	)
-	default boolean TB() {
+	default boolean TB()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "Veng",
-			name = "Show Veng Timers",
-			description = "Toggle overlay for Veng timers",
-			position = 6,
-			titleSection = "timersTitle"
+		keyName = "Veng",
+		name = "Show Veng Timers",
+		description = "Toggle overlay for Veng timers",
+		position = 6,
+		titleSection = "timersTitle"
 	)
-	default boolean Veng() {
+	default boolean Veng()
+	{
 		return true;
 	}
 
 	@ConfigTitleSection(
-			keyName = "overlayTitle",
-			name = "Overlay",
-			description = "",
-			position = 7
+		keyName = "overlayTitle",
+		name = "Overlay",
+		description = "",
+		position = 7
 	)
-	default Title overlayTitle() {
+	default Title overlayTitle()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "xoffset",
-			name = "X Offset",
-			description = "Increasing this will push further away from model. Does not apply to text timers.",
-			position = 8,
-			titleSection = "overlayTitle"
+		keyName = "xoffset",
+		name = "X Offset",
+		description = "Increasing this will push further away from model. Does not apply to text timers.",
+		position = 8,
+		titleSection = "overlayTitle"
 	)
 	@Units(Units.PIXELS)
-	default int offset() {
+	default int offset()
+	{
 		return 20;
 	}
 
 	@ConfigItem(
-			keyName = "noImage",
-			name = "Text Timers",
-			description = "Remove Images from Timers",
-			position = 9,
-			titleSection = "overlayTitle"
+		keyName = "noImage",
+		name = "Text Timers",
+		description = "Remove Images from Timers",
+		position = 9,
+		titleSection = "overlayTitle"
 	)
-	default boolean noImage() {
+	default boolean noImage()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "fontStyle",
-			name = "Font Style",
-			description = "Bold/Italics/Plain",
-			position = 10,
-			titleSection = "overlayTitle"
+		keyName = "fontStyle",
+		name = "Font Style",
+		description = "Bold/Italics/Plain",
+		position = 10,
+		titleSection = "overlayTitle"
 	)
-	default FontStyle fontStyle() {
+	default FontStyle fontStyle()
+	{
 		return FontStyle.BOLD;
 	}
 
 	@Range(
-			min = 9,
-			max = 14
+		min = 9,
+		max = 14
 	)
 	@ConfigItem(
-			keyName = "textSize",
-			name = "Text Size",
-			description = "Text Size for Timers.",
-			position = 11,
-			titleSection = "overlayTitle"
+		keyName = "textSize",
+		name = "Text Size",
+		description = "Text Size for Timers.",
+		position = 11,
+		titleSection = "overlayTitle"
 	)
 	@Units(Units.POINTS)
-	default int textSize() {
+	default int textSize()
+	{
 		return 11;
 	}
 }

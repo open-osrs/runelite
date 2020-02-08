@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class186 {
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-			signature = "Lhn;"
+		signature = "Lhn;"
 	)
 	static Widget field2331;
 }

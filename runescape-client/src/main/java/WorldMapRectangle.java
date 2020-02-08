@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -12,42 +11,42 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class WorldMapRectangle {
 	@ObfuscatedName("pb")
 	@ObfuscatedSignature(
-			signature = "Llt;"
+		signature = "Llt;"
 	)
 	@Export("sceneMinimapSprite")
 	static Sprite sceneMinimapSprite;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 1400048681
+		intValue = 1400048681
 	)
 	@Export("width")
 	int width;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -1470820319
+		intValue = -1470820319
 	)
 	@Export("height")
 	int height;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -86733365
+		intValue = -86733365
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 204657909
+		intValue = 204657909
 	)
 	@Export("y")
 	int y;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-			signature = "Lak;"
+		signature = "Lak;"
 	)
 	final WorldMapManager this$0;
 
 	@ObfuscatedSignature(
-			signature = "(Lak;)V"
+		signature = "(Lak;)V"
 	)
 	WorldMapRectangle(WorldMapManager var1) {
 		this.this$0 = var1;
@@ -55,8 +54,8 @@ public final class WorldMapRectangle {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;Ljava/lang/String;ZI)Lmx;",
-			garbageValue = "636335371"
+		signature = "(Ljava/lang/String;Ljava/lang/String;ZI)Lmx;",
+		garbageValue = "636335371"
 	)
 	@Export("getPreferencesFile")
 	public static AccessFile getPreferencesFile(String var0, String var1, boolean var2) {
@@ -96,23 +95,23 @@ public final class WorldMapRectangle {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IIS)Lbn;",
-			garbageValue = "-2264"
+		signature = "(IIS)Lbn;",
+		garbageValue = "-2264"
 	)
 	@Export("Messages_getByChannelAndID")
 	static Message Messages_getByChannelAndID(int var0, int var1) {
-		ChatChannel var2 = (ChatChannel) Messages.Messages_channels.get(var0);
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0);
 		return var2.getMessage(var1);
 	}
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "1219570731"
+		signature = "(II)V",
+		garbageValue = "1219570731"
 	)
 	@Export("clearItemContainer")
 	static void clearItemContainer(int var0) {
-		ItemContainer var1 = (ItemContainer) ItemContainer.itemContainers.get((long) var0);
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
 		if (var1 != null) {
 			for (int var2 = 0; var2 < var1.ids.length; ++var2) {
 				var1.ids[var2] = -1;
@@ -124,8 +123,8 @@ public final class WorldMapRectangle {
 
 	@ObfuscatedName("ip")
 	@ObfuscatedSignature(
-			signature = "(IIIIII)V",
-			garbageValue = "2037508438"
+		signature = "(IIIIII)V",
+		garbageValue = "2037508438"
 	)
 	@Export("drawScrollBar")
 	static final void drawScrollBar(int var0, int var1, int var2, int var3, int var4) {

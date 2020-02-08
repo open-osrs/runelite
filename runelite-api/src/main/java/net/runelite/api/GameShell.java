@@ -25,15 +25,14 @@
 package net.runelite.api;
 
 import net.runelite.api.hooks.DrawCallbacks;
-
 import java.awt.Canvas;
-
 import net.runelite.api.hooks.DrawCallbacks;
 
 /**
  * Represents the client game engine.
  */
-public interface GameShell {
+public interface GameShell
+{
 	/**
 	 * Gets the canvas that contains everything.
 	 *

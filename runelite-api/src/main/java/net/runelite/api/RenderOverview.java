@@ -29,7 +29,8 @@ import net.runelite.api.coords.WorldPoint;
 /**
  * Represents an overview of the currently rendered world map.
  */
-public interface RenderOverview {
+public interface RenderOverview
+{
 	/**
 	 * Gets the current position of the local player on the world map.
 	 *

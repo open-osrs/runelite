@@ -30,33 +30,43 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Singleton;
 
 @Singleton
-public class KeyManager {
+public class KeyManager
+{
 	private final List<KeyListener> keyListeners = new CopyOnWriteArrayList<>();
 
-	public void registerKeyListener(KeyListener keyListener) {
-		if (!keyListeners.contains(keyListener)) {
+	public void registerKeyListener(KeyListener keyListener)
+	{
+		if (!keyListeners.contains(keyListener))
+		{
 			keyListeners.add(keyListener);
 		}
 	}
 
-	public void unregisterKeyListener(KeyListener keyListener) {
+	public void unregisterKeyListener(KeyListener keyListener)
+	{
 		keyListeners.remove(keyListener);
 	}
 
-	public void processKeyPressed(KeyEvent keyEvent) {
-		for (KeyListener keyListener : keyListeners) {
+	public void processKeyPressed(KeyEvent keyEvent)
+	{
+		for (KeyListener keyListener : keyListeners)
+		{
 			keyListener.keyPressed(keyEvent);
 		}
 	}
 
-	public void processKeyReleased(KeyEvent keyEvent) {
-		for (KeyListener keyListener : keyListeners) {
+	public void processKeyReleased(KeyEvent keyEvent)
+	{
+		for (KeyListener keyListener : keyListeners)
+		{
 			keyListener.keyReleased(keyEvent);
 		}
 	}
 
-	public void processKeyTyped(KeyEvent keyEvent) {
-		for (KeyListener keyListener : keyListeners) {
+	public void processKeyTyped(KeyEvent keyEvent)
+	{
+		for (KeyListener keyListener : keyListeners)
+		{
 			keyListener.keyTyped(keyEvent);
 		}
 	}

@@ -1,5 +1,4 @@
 import java.awt.FontMetrics;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -15,52 +14,52 @@ public class class42 implements WorldMapSection {
 	static FontMetrics loginScreenFontMetrics;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -794430173
+		intValue = -794430173
 	)
 	int field371;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 1085068769
+		intValue = 1085068769
 	)
 	int field367;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -1005090491
+		intValue = -1005090491
 	)
 	int field366;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 283016431
+		intValue = 283016431
 	)
 	int field369;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -15254045
+		intValue = -15254045
 	)
 	int field372;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -865271583
+		intValue = -865271583
 	)
 	int field370;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = 1602446289
+		intValue = 1602446289
 	)
 	int field376;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = -2003918993
+		intValue = -2003918993
 	)
 	int field368;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = -500974497
+		intValue = -500974497
 	)
 	int field374;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = 1662707559
+		intValue = 1662707559
 	)
 	int field375;
 
@@ -69,8 +68,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lae;I)V",
-			garbageValue = "-1034100543"
+		signature = "(Lae;I)V",
+		garbageValue = "-1034100543"
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
@@ -94,8 +93,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IIIB)Z",
-			garbageValue = "-110"
+		signature = "(IIIB)Z",
+		garbageValue = "-110"
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
@@ -108,8 +107,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(IIB)Z",
-			garbageValue = "37"
+		signature = "(IIB)Z",
+		garbageValue = "37"
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
@@ -118,8 +117,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IIII)[I",
-			garbageValue = "-96920779"
+		signature = "(IIII)[I",
+		garbageValue = "-96920779"
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
@@ -133,8 +132,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(III)Lhj;",
-			garbageValue = "911083222"
+		signature = "(III)Lhj;",
+		garbageValue = "911083222"
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
@@ -149,8 +148,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(Lkp;B)V",
-			garbageValue = "76"
+		signature = "(Lkp;B)V",
+		garbageValue = "76"
 	)
 	@Export("read")
 	public void read(Buffer var1) {
@@ -169,16 +168,16 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "-111"
+		signature = "(B)V",
+		garbageValue = "-111"
 	)
 	void method788() {
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(CLgl;B)I",
-			garbageValue = "15"
+		signature = "(CLgl;B)I",
+		garbageValue = "15"
 	)
 	@Export("lowercaseChar")
 	static int lowercaseChar(char var0, Language var1) {
@@ -197,8 +196,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZB)I",
-			garbageValue = "1"
+		signature = "(ILce;ZB)I",
+		garbageValue = "1"
 	)
 	static int method810(int var0, Script var1, boolean var2) {
 		Widget var3;
@@ -229,8 +228,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("kf")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;ZS)Ljava/lang/String;",
-			garbageValue = "-9068"
+		signature = "(Ljava/lang/String;ZS)Ljava/lang/String;",
+		garbageValue = "-9068"
 	)
 	static String method809(String var0, boolean var1) {
 		String var2 = var1 ? "https://" : "http://";
@@ -257,8 +256,8 @@ public class class42 implements WorldMapSection {
 
 	@ObfuscatedName("kw")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;ZI)V",
-			garbageValue = "572595678"
+		signature = "(Ljava/lang/String;ZI)V",
+		garbageValue = "572595678"
 	)
 	@Export("findItemDefinitions")
 	static void findItemDefinitions(String var0, boolean var1) {
@@ -285,7 +284,7 @@ public class class42 implements WorldMapSection {
 					var2 = var6;
 				}
 
-				var2[var3++] = (short) var4;
+				var2[var3++] = (short)var4;
 			}
 		}
 

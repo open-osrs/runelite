@@ -27,12 +27,10 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
-
 import net.runelite.cache.definitions.StructDefinition;
 import net.runelite.cache.fs.Store;
 import org.junit.Rule;
@@ -41,7 +39,8 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StructManagerTest {
+public class StructManagerTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(StructManagerTest.class);
 
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -50,16 +49,19 @@ public class StructManagerTest {
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException {
+	public void test() throws IOException
+	{
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 			StructManager loader = new StructManager(store);
 			loader.load();
 
-			for (Map.Entry<Integer, StructDefinition> struct : loader.getStructs().entrySet()) {
+			for (Map.Entry<Integer, StructDefinition> struct : loader.getStructs().entrySet())
+			{
 				StructDefinition def = struct.getValue();
 
 				Files.asCharSink(new File(dumpDir, struct.getKey() + ".json"), Charset.defaultCharset()).write(gson.toJson(def));

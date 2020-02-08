@@ -32,17 +32,21 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
-public class Swap extends Instruction {
-	public Swap(Instructions instructions, InstructionType type) {
+public class Swap extends Instruction
+{
+	public Swap(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
-	public Swap(Instructions instructions) {
+	public Swap(Instructions instructions)
+	{
 		super(instructions, InstructionType.SWAP);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
@@ -65,11 +69,13 @@ public class Swap extends Instruction {
 	}
 
 	@Override
-	public boolean removeStack() {
+	public boolean removeStack()
+	{
 		throw new UnsupportedOperationException();
 	}
 
-	public StackContext getOriginal(StackContext sctx) {
+	public StackContext getOriginal(StackContext sctx)
+	{
 		// sctx = stack pushed by this instruction, return stack popped by this instruction
 		InstructionContext ctx = sctx.getPushed();
 

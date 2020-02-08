@@ -27,7 +27,6 @@ package net.runelite.cache;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
@@ -38,18 +37,21 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TitleDumper {
+public class TitleDumper
+{
 	private static final Logger logger = LoggerFactory.getLogger(TitleDumper.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void extract() throws IOException {
+	public void extract() throws IOException
+	{
 		File base = StoreLocation.LOCATION;
 		File outFile = folder.newFile();
 
-		try (Store store = new Store(base)) {
+		try (Store store = new Store(base))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();

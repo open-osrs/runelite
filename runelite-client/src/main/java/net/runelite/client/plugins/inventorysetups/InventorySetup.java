@@ -27,12 +27,12 @@ package net.runelite.client.plugins.inventorysetups;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
 @AllArgsConstructor
-public class InventorySetup {
+public class InventorySetup
+{
 	@Getter
 	private ArrayList<InventorySetupItem> inventory;
 
@@ -70,15 +70,18 @@ public class InventorySetup {
 	@Setter
 	private boolean unorderedHighlight;
 
-	public void updateInventory(final ArrayList<InventorySetupItem> inv) {
+	public void updateInventory(final ArrayList<InventorySetupItem> inv)
+	{
 		inventory = inv;
 	}
 
-	public void updateEquipment(final ArrayList<InventorySetupItem> eqp) {
+	public void updateEquipment(final ArrayList<InventorySetupItem> eqp)
+	{
 		equipment = eqp;
 	}
 
-	public void updateRunePouch(final ArrayList<InventorySetupItem> rp) {
+	public void updateRunePouch(final ArrayList<InventorySetupItem> rp)
+	{
 		rune_pouch = rp;
 	}
 

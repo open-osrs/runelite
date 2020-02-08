@@ -26,7 +26,6 @@
 package net.runelite.client.plugins.coxhelper;
 
 import java.awt.Color;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +35,8 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 
 @Getter(AccessLevel.PACKAGE)
-class NPCContainer {
+class NPCContainer
+{
 
 	private NPC npc;
 	private int npcIndex;
@@ -54,7 +54,8 @@ class NPCContainer {
 	private Attackstyle attackStyle;
 
 
-	NPCContainer(NPC npc) {
+	NPCContainer(NPC npc)
+	{
 		this.npc = npc;
 		this.npcName = npc.getName();
 		this.npcIndex = npc.getIndex();
@@ -65,14 +66,16 @@ class NPCContainer {
 		this.attackStyle = Attackstyle.UNKNOWN;
 		final NPCDefinition composition = npc.getTransformedDefinition();
 
-		if (composition != null) {
+		if (composition != null)
+		{
 			this.npcSize = composition.getSize();
 		}
 	}
 
 	@AllArgsConstructor
 	@Getter(AccessLevel.PACKAGE)
-	public enum Attackstyle {
+	public enum Attackstyle
+	{
 		MAGE("Mage", Color.CYAN),
 		RANGE("Range", Color.GREEN),
 		MELEE("Melee", Color.RED),

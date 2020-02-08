@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Represents the model of a tile in the current scene.
  */
-public interface TileModel {
+public interface TileModel
+{
 	/**
 	 * Gets the underlay color of the tile.
 	 *
@@ -77,15 +78,12 @@ public interface TileModel {
 	int[] getTriangleTextureId();
 
 	int getBufferOffset();
-
 	void setBufferOffset(int bufferOffset);
 
 	int getUvBufferOffset();
-
 	void setUvBufferOffset(int bufferOffset);
 
 	int getBufferLen();
-
 	void setBufferLen(int bufferLen);
 
 	int getUnderlaySwColor();

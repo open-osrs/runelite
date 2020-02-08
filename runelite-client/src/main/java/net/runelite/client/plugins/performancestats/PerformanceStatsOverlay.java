@@ -29,7 +29,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.MenuOpcode;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
@@ -41,10 +40,11 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 @Singleton
-public class PerformanceStatsOverlay extends Overlay {
+public class PerformanceStatsOverlay extends Overlay
+{
 	private static final String TARGET = "Performance Stats";
 	private static final String[] COLUMNS = {
-			"Player", "Dealt", "Taken", "DPS", "Elapsed"
+		"Player", "Dealt", "Taken", "DPS", "Elapsed"
 	};
 
 	private final PerformanceStatsPlugin tracker;
@@ -52,7 +52,8 @@ public class PerformanceStatsOverlay extends Overlay {
 	private final TableComponent tableComponent = new TableComponent();
 
 	@Inject
-	PerformanceStatsOverlay(final PerformanceStatsPlugin tracker) {
+	PerformanceStatsOverlay(final PerformanceStatsPlugin tracker)
+	{
 		super(tracker);
 		setPosition(OverlayPosition.TOP_RIGHT);
 		setPriority(OverlayPriority.LOW);
@@ -72,13 +73,16 @@ public class PerformanceStatsOverlay extends Overlay {
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return TARGET;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!tracker.isEnabled()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!tracker.isEnabled())
+		{
 			return null;
 		}
 
@@ -90,8 +94,10 @@ public class PerformanceStatsOverlay extends Overlay {
 		final String[] rowElements = createRowElements(performance);
 		tableComponent.addRow(rowElements);
 
-		for (Performance p : tracker.getPartyDataMap().values()) {
-			if (p.getMemberId().equals(performance.getMemberId())) {
+		for (Performance p : tracker.getPartyDataMap().values())
+		{
+			if (p.getMemberId().equals(performance.getMemberId()))
+			{
 				continue;
 			}
 
@@ -102,14 +108,15 @@ public class PerformanceStatsOverlay extends Overlay {
 		return panelComponent.render(graphics);
 	}
 
-	private String[] createRowElements(Performance performance) {
+	private String[] createRowElements(Performance performance)
+	{
 		return new String[]
-				{
-						performance.getUsername(),
-						(int) Math.round(performance.getDamageDealt()) + " | " + (int) Math.round(performance.getHighestHitDealt()),
-						(int) Math.round(performance.getDamageTaken()) + " | " + (int) Math.round(performance.getHighestHitTaken()),
-						String.valueOf(performance.getDPS()),
-						performance.getHumanReadableSecondsSpent()
-				};
+			{
+				performance.getUsername(),
+				(int) Math.round(performance.getDamageDealt()) + " | " + (int) Math.round(performance.getHighestHitDealt()),
+				(int) Math.round(performance.getDamageTaken()) + " | " + (int) Math.round(performance.getHighestHitTaken()),
+				String.valueOf(performance.getDPS()),
+				performance.getHumanReadableSecondsSpent()
+			};
 	}
 }

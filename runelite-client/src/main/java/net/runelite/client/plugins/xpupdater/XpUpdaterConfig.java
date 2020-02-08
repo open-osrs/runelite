@@ -28,24 +28,27 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("xpupdater")
-public interface XpUpdaterConfig {
+public interface XpUpdaterConfig
+{
 	@ConfigItem(
-			position = 1,
-			keyName = "cml",
-			name = "Crystal Math Labs",
-			description = "Automatically updates your stats on crystalmathlabs.com when you log out"
+		position = 1,
+		keyName = "cml",
+		name = "Crystal Math Labs",
+		description = "Automatically updates your stats on crystalmathlabs.com when you log out"
 	)
-	default boolean cml() {
+	default boolean cml()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "templeosrs",
-			name = "TempleOSRS",
-			description = "Automatically updates your stats on templeosrs.com when you log out"
+		position = 2,
+		keyName = "templeosrs",
+		name = "TempleOSRS",
+		description = "Automatically updates your stats on templeosrs.com when you log out"
 	)
-	default boolean templeosrs() {
+	default boolean templeosrs()
+	{
 		return false;
 	}
 }

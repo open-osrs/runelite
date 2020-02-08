@@ -32,7 +32,8 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Saradomin {
+public enum Saradomin
+{
 	DISABLED("Disabled"),
 	SARDOMIN_CHEAP("Melee/Eagle"),
 	SARADOMIN_EXPENSIVE("Piety/Rigour");
@@ -40,7 +41,8 @@ public enum Saradomin {
 	private String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return getName();
 	}
 }

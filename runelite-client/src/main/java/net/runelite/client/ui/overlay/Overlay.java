@@ -30,7 +30,6 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nullable;
-
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.plugins.Plugin;
@@ -38,7 +37,8 @@ import net.runelite.client.ui.overlay.components.LayoutableRenderableEntity;
 
 @Getter
 @Setter
-public abstract class Overlay implements LayoutableRenderableEntity {
+public abstract class Overlay implements LayoutableRenderableEntity
+{
 	@Nullable
 	private final Plugin plugin;
 	private Point preferredLocation;
@@ -50,11 +50,13 @@ public abstract class Overlay implements LayoutableRenderableEntity {
 	private OverlayLayer layer = OverlayLayer.UNDER_WIDGETS;
 	private final List<OverlayMenuEntry> menuEntries = new ArrayList<>();
 
-	protected Overlay() {
+	protected Overlay()
+	{
 		plugin = null;
 	}
 
-	protected Overlay(@Nullable Plugin plugin) {
+	protected Overlay(@Nullable Plugin plugin)
+	{
 		this.plugin = plugin;
 	}
 
@@ -63,7 +65,8 @@ public abstract class Overlay implements LayoutableRenderableEntity {
 	 *
 	 * @return overlay name
 	 */
-	public String getName() {
+	public String getName()
+	{
 		return this.getClass().getSimpleName();
 	}
 }

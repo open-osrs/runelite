@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.timetracking;
 
-public enum SummaryState {
+public enum SummaryState
+{
 	COMPLETED,
 	IN_PROGRESS,
 	EMPTY,

@@ -38,21 +38,25 @@ import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 import org.objectweb.asm.MethodVisitor;
 
-public class InstanceOf extends Instruction implements TypeInstruction {
+public class InstanceOf extends Instruction implements TypeInstruction
+{
 	private Type type;
 	private ClassFile myClass;
 
-	public InstanceOf(Instructions instructions, InstructionType type) {
+	public InstanceOf(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		visitor.visitTypeInsn(this.getType().getCode(), type.toAsmString());
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
@@ -68,26 +72,31 @@ public class InstanceOf extends Instruction implements TypeInstruction {
 	}
 
 	@Override
-	public void lookup() {
+	public void lookup()
+	{
 		ClassGroup group = this.getInstructions().getCode().getMethod().getClassFile().getGroup();
 		myClass = group.findClass(type.getInternalName());
 	}
 
 	@Override
-	public void regeneratePool() {
-		if (myClass != null) {
+	public void regeneratePool()
+	{
+		if (myClass != null)
+		{
 			int dimms = type.getDimensions();
 			type = Type.getType("L" + myClass.getName() + ";", dimms);
 		}
 	}
 
 	@Override
-	public Type getType_() {
+	public Type getType_()
+	{
 		return type;
 	}
 
 	@Override
-	public void setType(Type type) {
+	public void setType(Type type)
+	{
 		this.type = type;
 	}
 }

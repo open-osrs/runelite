@@ -29,7 +29,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
@@ -40,7 +39,8 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Singleton
-class ClueScrollMusicOverlay extends Overlay {
+class ClueScrollMusicOverlay extends Overlay
+{
 	private static final Rectangle PADDING = new Rectangle(2, 1, 0, 1);
 
 	private final ClueScrollPlugin plugin;
@@ -49,7 +49,8 @@ class ClueScrollMusicOverlay extends Overlay {
 	private boolean hasScrolled;
 
 	@Inject
-	private ClueScrollMusicOverlay(final ClueScrollPlugin plugin, final Client client) {
+	private ClueScrollMusicOverlay(final ClueScrollPlugin plugin, final Client client)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.plugin = plugin;
@@ -57,10 +58,12 @@ class ClueScrollMusicOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		ClueScroll clue = plugin.getClue();
 
-		if (!(clue instanceof MusicClue)) {
+		if (!(clue instanceof MusicClue))
+		{
 			hasScrolled = false;
 			return null;
 		}
@@ -69,7 +72,8 @@ class ClueScrollMusicOverlay extends Overlay {
 
 		Widget musicContainer = client.getWidget(WidgetInfo.MUSIC_WINDOW);
 
-		if (musicContainer == null || musicContainer.isHidden()) {
+		if (musicContainer == null || musicContainer.isHidden())
+		{
 			return null;
 		}
 
@@ -77,22 +81,27 @@ class ClueScrollMusicOverlay extends Overlay {
 		String trackToFind = musicClue.getSong();
 		Widget found = null;
 
-		if (trackList == null) {
+		if (trackList == null)
+		{
 			return null;
 		}
 
-		for (Widget track : trackList.getDynamicChildren()) {
-			if (track.getText().equals(trackToFind)) {
+		for (Widget track : trackList.getDynamicChildren())
+		{
+			if (track.getText().equals(trackToFind))
+			{
 				found = track;
 				break;
 			}
 		}
 
-		if (found == null) {
+		if (found == null)
+		{
 			return null;
 		}
 
-		if (!hasScrolled) {
+		if (!hasScrolled)
+		{
 			hasScrolled = true;
 			plugin.scrollToWidget(WidgetInfo.MUSIC_TRACK_LIST, WidgetInfo.MUSIC_TRACK_SCROLLBAR, found);
 		}

@@ -25,7 +25,6 @@
 package net.runelite.api.model;
 
 import java.util.List;
-
 import net.runelite.api.Point;
 import net.runelite.api.geometry.SimplePolygon;
 
@@ -37,7 +36,8 @@ import net.runelite.api.geometry.SimplePolygon;
  * time in the worst case, where n is the number of points and h the
  * number of points on the convex hull.
  */
-public class Jarvis {
+public class Jarvis
+{
 	/**
 	 * Computes and returns the convex hull of the passed points.
 	 * <p>
@@ -48,17 +48,20 @@ public class Jarvis {
 	 * @return list containing the points part of the convex hull
 	 */
 	@Deprecated
-	public static List<Point> convexHull(List<Point> points) {
+	public static List<Point> convexHull(List<Point> points)
+	{
 		int[] xs = new int[points.size()];
 		int[] ys = new int[xs.length];
-		for (int i = 0; i < xs.length; i++) {
+		for (int i = 0; i < xs.length; i++)
+		{
 			Point p = points.get(i);
 			xs[i] = p.getX();
 			ys[i] = p.getY();
 		}
 
 		SimplePolygon poly = convexHull(xs, ys);
-		if (poly == null) {
+		if (poly == null)
+		{
 			return null;
 		}
 
@@ -73,21 +76,26 @@ public class Jarvis {
 	 *
 	 * @return a shape the points part of the convex hull
 	 */
-	public static SimplePolygon convexHull(int[] xs, int[] ys) {
+	public static SimplePolygon convexHull(int[] xs, int[] ys)
+	{
 		int length = xs.length;
 
 		// remove any invalid entries
 		{
 			int i = 0, offset = 0;
-			for (; i < length; i++) {
-				if (xs[i] == Integer.MIN_VALUE) {
+			for (; i < length; i++)
+			{
+				if (xs[i] == Integer.MIN_VALUE)
+				{
 					offset++;
 					i++;
 					break;
 				}
 			}
-			for (; i < length; i++) {
-				if (xs[i] == Integer.MIN_VALUE) {
+			for (; i < length; i++)
+			{
+				if (xs[i] == Integer.MIN_VALUE)
+				{
 					offset++;
 					continue;
 				}
@@ -97,7 +105,8 @@ public class Jarvis {
 			length -= offset;
 		}
 
-		if (length < 3) {
+		if (length < 3)
+		{
 			return null;
 		}
 
@@ -109,12 +118,14 @@ public class Jarvis {
 
 		SimplePolygon out = new SimplePolygon(new int[16], new int[16], 0);
 
-		do {
+		do
+		{
 			int cx = xs[current];
 			int cy = ys[current];
 			out.pushRight(cx, cy);
 
-			if (out.size() > length) {
+			if (out.size() > length)
+			{
 				return null;
 			}
 
@@ -124,9 +135,11 @@ public class Jarvis {
 			int nx = xs[next];
 			int ny = ys[next];
 
-			for (int i = 1; i < length; i++) {
+			for (int i = 1; i < length; i++)
+			{
 				long cp = crossProduct(cx, cy, xs[i], ys[i], nx, ny);
-				if (cp > 0 || (cp == 0 && square(cx - xs[i]) + square(cy - ys[i]) > square(cx - nx) + square(cy - ny))) {
+				if (cp > 0 || (cp == 0 && square(cx - xs[i]) + square(cy - ys[i]) > square(cx - nx) + square(cy - ny)))
+				{
 					next = i;
 					nx = xs[next];
 					ny = ys[next];
@@ -140,18 +153,22 @@ public class Jarvis {
 		return out;
 	}
 
-	private static int square(int x) {
+	private static int square(int x)
+	{
 		return x * x;
 	}
 
-	private static int findLeftMost(int[] xs, int[] ys, int length) {
+	private static int findLeftMost(int[] xs, int[] ys, int length)
+	{
 		int idx = 0;
 		int x = xs[idx];
 		int y = ys[idx];
 
-		for (int i = 1; i < length; i++) {
+		for (int i = 1; i < length; i++)
+		{
 			int ix = xs[i];
-			if (ix < x || ix == x && ys[i] < y) {
+			if (ix < x || ix == x && ys[i] < y)
+			{
 				idx = i;
 				x = xs[idx];
 				y = ys[idx];
@@ -161,9 +178,10 @@ public class Jarvis {
 		return idx;
 	}
 
-	private static long crossProduct(int px, int py, int qx, int qy, int rx, int ry) {
+	private static long crossProduct(int px, int py, int qx, int qy, int rx, int ry)
+	{
 		long val = (long) (qy - py) * (rx - qx)
-				- (long) (qx - px) * (ry - qy);
+			- (long) (qx - px) * (ry - qy);
 		return val;
 	}
 }

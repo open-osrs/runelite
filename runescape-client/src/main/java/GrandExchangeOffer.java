@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class GrandExchangeOffer {
 	@ObfuscatedName("du")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive11")
 	static Archive archive11;
 	@ObfuscatedName("hd")
 	@ObfuscatedGetter(
-			intValue = -1999981463
+		intValue = -1999981463
 	)
 	@Export("cameraPitch")
 	static int cameraPitch;
@@ -24,31 +24,31 @@ public class GrandExchangeOffer {
 	byte state;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 1202522813
+		intValue = 1202522813
 	)
 	@Export("id")
 	public int id;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -286950223
+		intValue = -286950223
 	)
 	@Export("unitPrice")
 	public int unitPrice;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -191142567
+		intValue = -191142567
 	)
 	@Export("totalQuantity")
 	public int totalQuantity;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -1418175861
+		intValue = -1418175861
 	)
 	@Export("currentQuantity")
 	public int currentQuantity;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 45465727
+		intValue = 45465727
 	)
 	@Export("currentPrice")
 	public int currentPrice;
@@ -57,8 +57,8 @@ public class GrandExchangeOffer {
 	}
 
 	@ObfuscatedSignature(
-			signature = "(Lkp;Z)V",
-			garbageValue = "0"
+		signature = "(Lkp;Z)V",
+		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
 		this.state = var1.readByte();
@@ -71,8 +71,8 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "-51"
+		signature = "(B)I",
+		garbageValue = "-51"
 	)
 	@Export("status")
 	public int status() {
@@ -81,8 +81,8 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "-96"
+		signature = "(B)I",
+		garbageValue = "-96"
 	)
 	@Export("type")
 	public int type() {
@@ -91,42 +91,42 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(IB)V",
-			garbageValue = "-38"
+		signature = "(IB)V",
+		garbageValue = "-38"
 	)
 	void method120(int var1) {
 		this.state &= -8;
-		this.state = (byte) (this.state | var1 & 7);
+		this.state = (byte)(this.state | var1 & 7);
 	}
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "-59985742"
+		signature = "(II)V",
+		garbageValue = "-59985742"
 	)
 	void method112(int var1) {
 		this.state &= -9;
 		if (var1 == 1) {
-			this.state = (byte) (this.state | 8);
+			this.state = (byte)(this.state | 8);
 		}
 
 	}
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IB)I",
-			garbageValue = "-27"
+		signature = "(IB)I",
+		garbageValue = "-27"
 	)
 	public static int method128(int var0) {
 		long var2 = ViewportMouse.ViewportMouse_entityTags[var0];
-		int var1 = (int) (var2 >>> 0 & 127L);
+		int var1 = (int)(var2 >>> 0 & 127L);
 		return var1;
 	}
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "1764789679"
+		signature = "(I)Z",
+		garbageValue = "1764789679"
 	)
 	public static boolean method129() {
 		try {
@@ -167,8 +167,8 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("kn")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "1055020085"
+		signature = "(II)V",
+		garbageValue = "1055020085"
 	)
 	static void method127(int var0) {
 		Client.oculusOrbState = var0;

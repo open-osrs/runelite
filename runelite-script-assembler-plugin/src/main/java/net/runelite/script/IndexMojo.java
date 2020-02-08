@@ -28,9 +28,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import static java.lang.Integer.parseInt;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -39,23 +37,27 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 @Mojo(
-		name = "build-index",
-		defaultPhase = LifecyclePhase.GENERATE_RESOURCES
+	name = "build-index",
+	defaultPhase = LifecyclePhase.GENERATE_RESOURCES
 )
-public class IndexMojo extends AbstractMojo {
+public class IndexMojo extends AbstractMojo
+{
 	@Parameter(required = true)
 	private File archiveOverlayDirectory;
 
 	@Parameter(required = true)
 	private File indexFile;
 
-	private IndexMojo(File archiveOverlayDirectory, File indexFile) {
+	private IndexMojo(File archiveOverlayDirectory, File indexFile)
+	{
 		this.archiveOverlayDirectory = archiveOverlayDirectory;
 		this.indexFile = indexFile;
 	}
 
-	public static void main(String[] args) throws Exception {
-		if (args.length < 2) {
+	public static void main(String[] args) throws Exception
+	{
+		if (args.length < 2)
+		{
 			throw new IllegalArgumentException("Usage: overlaydir indexfile");
 		}
 
@@ -66,16 +68,24 @@ public class IndexMojo extends AbstractMojo {
 	}
 
 	@Override
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		try (DataOutputStream fout = new DataOutputStream(new FileOutputStream(indexFile))) {
-			for (File indexFolder : archiveOverlayDirectory.listFiles()) {
-				if (indexFolder.isDirectory()) {
+	public void execute() throws MojoExecutionException, MojoFailureException
+	{
+		try (DataOutputStream fout = new DataOutputStream(new FileOutputStream(indexFile)))
+		{
+			for (File indexFolder : archiveOverlayDirectory.listFiles())
+			{
+				if (indexFolder.isDirectory())
+				{
 					int indexId = parseInt(indexFolder.getName());
-					for (File archiveFile : indexFolder.listFiles()) {
+					for (File archiveFile : indexFolder.listFiles())
+					{
 						int archiveId;
-						try {
+						try
+						{
 							archiveId = parseInt(archiveFile.getName());
-						} catch (NumberFormatException ex) {
+						}
+						catch (NumberFormatException ex)
+						{
 							continue;
 						}
 
@@ -85,7 +95,9 @@ public class IndexMojo extends AbstractMojo {
 			}
 
 			fout.writeInt(-1);
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			throw new MojoExecutionException("error building index file", ex);
 		}
 	}

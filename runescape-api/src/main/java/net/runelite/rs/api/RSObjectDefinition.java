@@ -3,7 +3,8 @@ package net.runelite.rs.api;
 import net.runelite.api.ObjectDefinition;
 import net.runelite.mapping.Import;
 
-public interface RSObjectDefinition extends ObjectDefinition {
+public interface RSObjectDefinition extends ObjectDefinition
+{
 	@Import("id")
 	@Override
 	int getId();

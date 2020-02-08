@@ -31,166 +31,182 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 
 @ConfigGroup("bank")
-public interface BankConfig extends Config {
+public interface BankConfig extends Config
+{
 	@ConfigSection(
-			name = "Show Values",
-			description = "",
-			position = 0,
-			keyName = "ValueSection"
+		name = "Show Values",
+		description = "",
+		position = 0,
+		keyName = "ValueSection"
 	)
-	default boolean ValueSection() {
+	default boolean ValueSection()
+	{
 		return false;
 	}
 
 	@ConfigSection(
-			name = "Disable Left Click",
-			description = "",
-			position = 1,
-			keyName = "DisableLClickSection"
+		name = "Disable Left Click",
+		description = "",
+		position = 1,
+		keyName = "DisableLClickSection"
 	)
-	default boolean DisableLClickSection() {
+	default boolean DisableLClickSection()
+	{
 		return false;
 	}
 
 	@ConfigSection(
-			name = "Bank Pin",
-			description = "",
-			position = 2,
-			keyName = "BankPinSection"
+		name = "Bank Pin",
+		description = "",
+		position = 2,
+		keyName = "BankPinSection"
 	)
-	default boolean BankPinSection() {
+	default boolean BankPinSection()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "showGE",
-			name = "Show Grand Exchange price",
-			description = "Show grand exchange price total (GE)",
-			position = 0,
-			section = "ValueSection"
+		keyName = "showGE",
+		name = "Show Grand Exchange price",
+		description = "Show grand exchange price total (GE)",
+		position = 0,
+		section = "ValueSection"
 	)
-	default boolean showGE() {
+	default boolean showGE()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showHA",
-			name = "Show high alchemy price",
-			description = "Show high alchemy price total (HA)",
-			position = 2,
-			section = "ValueSection"
+		keyName = "showHA",
+		name = "Show high alchemy price",
+		description = "Show high alchemy price total (HA)",
+		position = 2,
+		section = "ValueSection"
 	)
-	default boolean showHA() {
+	default boolean showHA()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "showExact",
-			name = "Show exact bank value",
-			description = "Show exact bank value",
-			position = 3,
-			section = "ValueSection"
+		keyName = "showExact",
+		name = "Show exact bank value",
+		description = "Show exact bank value",
+		position = 3,
+		section = "ValueSection"
 	)
-	default boolean showExact() {
+	default boolean showExact()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "seedVaultValue",
-			name = "Show seed vault value",
-			description = "Adds the total value of all seeds inside the seed vault to the title",
-			position = 4,
-			section = "ValueSection"
+		keyName = "seedVaultValue",
+		name = "Show seed vault value",
+		description = "Adds the total value of all seeds inside the seed vault to the title",
+		position = 4,
+		section = "ValueSection"
 	)
-	default boolean seedVaultValue() {
+	default boolean seedVaultValue()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickBankInventory",
-			name = "Disable left click bank inventory",
-			description = "Configures whether the bank inventory button will bank your inventory on left click",
-			position = 0,
-			section = "DisableLClickSection"
+		keyName = "rightClickBankInventory",
+		name = "Disable left click bank inventory",
+		description = "Configures whether the bank inventory button will bank your inventory on left click",
+		position = 0,
+		section = "DisableLClickSection"
 	)
-	default boolean rightClickBankInventory() {
+	default boolean rightClickBankInventory()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickBankEquip",
-			name = "Disable left click bank equipment",
-			description = "Configures whether the bank equipment button will bank your equipment on left click",
-			position = 1,
-			section = "DisableLClickSection"
+		keyName = "rightClickBankEquip",
+		name = "Disable left click bank equipment",
+		description = "Configures whether the bank equipment button will bank your equipment on left click",
+		position = 1,
+		section = "DisableLClickSection"
 	)
-	default boolean rightClickBankEquip() {
+	default boolean rightClickBankEquip()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickBankLoot",
-			name = "Disable left click bank looting bag",
-			description = "Configures whether the bank looting bag button will bank your looting bag contents on left click",
-			position = 2,
-			section = "DisableLClickSection"
+		keyName = "rightClickBankLoot",
+		name = "Disable left click bank looting bag",
+		description = "Configures whether the bank looting bag button will bank your looting bag contents on left click",
+		position = 2,
+		section = "DisableLClickSection"
 	)
-	default boolean rightClickBankLoot() {
+	default boolean rightClickBankLoot()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickSetPlaceholders",
-			name = "Disable left click set placeholders",
-			description = "Configures whether the set bank placeholder button will be on left click",
-			position = 3,
-			section = "DisableLClickSection"
+		keyName = "rightClickSetPlaceholders",
+		name = "Disable left click set placeholders",
+		description = "Configures whether the set bank placeholder button will be on left click",
+		position = 3,
+		section = "DisableLClickSection"
 	)
-	default boolean rightClickSetPlaceholders() {
+	default boolean rightClickSetPlaceholders()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickReleasePlaceholders",
-			name = "Disable left click release placeholder",
-			description = "Configures whether the release bank placeholder button will be on left click",
-			position = 4,
-			section = "DisableLClickSection"
+		keyName = "rightClickReleasePlaceholders",
+		name = "Disable left click release placeholder",
+		description = "Configures whether the release bank placeholder button will be on left click",
+		position = 4,
+		section = "DisableLClickSection"
 	)
-	default boolean rightClickReleasePlaceholders() {
+	default boolean rightClickReleasePlaceholders()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickFillBankFiller",
-			name = "Disable left click fill bank fillers",
-			description = "Configures whether the fill bank fillers button will be on left click",
-			position = 5,
-			section = "DisableLClickSection"
+		keyName = "rightClickFillBankFiller",
+		name = "Disable left click fill bank fillers",
+		description = "Configures whether the fill bank fillers button will be on left click",
+		position = 5,
+		section = "DisableLClickSection"
 	)
-	default boolean rightClickFillBankFiller() {
+	default boolean rightClickFillBankFiller()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "rightClickSearch",
-			name = "Disable left click search",
-			description = "Configures whether the search button will search on left click",
-			position = 6,
-			section = "DisableLClickSection"
+		keyName = "rightClickSearch",
+		name = "Disable left click search",
+		description = "Configures whether the search button will search on left click",
+		position = 6,
+		section = "DisableLClickSection"
 	)
-	default boolean rightClickSearch() {
+	default boolean rightClickSearch()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "largePinNumbers",
-			name = "Large bank pin numbers",
-			description = "Enlarges and centers the numbers inside the bank pin buttons",
-			position = 0,
-			section = "BankPinSection"
+		keyName = "largePinNumbers",
+		name = "Large bank pin numbers",
+		description = "Enlarges and centers the numbers inside the bank pin buttons",
+		position = 0,
+		section = "BankPinSection"
 	)
-	default boolean largePinNumbers() {
+	default boolean largePinNumbers()
+	{
 		return false;
 	}
 }

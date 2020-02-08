@@ -33,7 +33,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Documented
 @Target(ElementType.FIELD)
-@interface ScriptArguments {
+@interface ScriptArguments
+{
 	/**
 	 * The number of int arguments the script takes
 	 */

@@ -31,7 +31,8 @@ package net.runelite.rs.api;
 import net.runelite.api.BufferProvider;
 import net.runelite.mapping.Import;
 
-public interface RSAbstractRasterProvider extends BufferProvider {
+public interface RSAbstractRasterProvider extends BufferProvider
+{
 	@Import("pixels")
 	@Override
 	int[] getPixels();

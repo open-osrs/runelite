@@ -8,25 +8,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class MusicPatchPcmStream extends PcmStream {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lgw;"
+		signature = "Lgw;"
 	)
 	@Export("superStream")
 	MidiPcmStream superStream;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Ljw;"
+		signature = "Ljw;"
 	)
 	@Export("queue")
 	NodeDeque queue;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lch;"
+		signature = "Lch;"
 	)
 	@Export("mixer")
 	PcmStreamMixer mixer;
 
 	@ObfuscatedSignature(
-			signature = "(Lgw;)V"
+		signature = "(Lgw;)V"
 	)
 	MusicPatchPcmStream(MidiPcmStream var1) {
 		this.queue = new NodeDeque();
@@ -36,8 +36,8 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lgu;[IIIII)V",
-			garbageValue = "-1926827063"
+		signature = "(Lgu;[IIIII)V",
+		garbageValue = "-1926827063"
 	)
 	void method3968(MusicPatchNode var1, int[] var2, int var3, int var4, int var5) {
 		if ((this.superStream.field2429[var1.field2447] & 4) != 0 && var1.field2459 < 0) {
@@ -86,8 +86,8 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lgu;II)V",
-			garbageValue = "1369494496"
+		signature = "(Lgu;II)V",
+		garbageValue = "1369494496"
 	)
 	void method3972(MusicPatchNode var1, int var2) {
 		if ((this.superStream.field2429[var1.field2447] & 4) != 0 && var1.field2459 < 0) {
@@ -115,31 +115,31 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "()Ldn;"
+		signature = "()Ldn;"
 	)
 	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
-		MusicPatchNode var1 = (MusicPatchNode) this.queue.last();
+		MusicPatchNode var1 = (MusicPatchNode)this.queue.last();
 		if (var1 == null) {
 			return null;
 		} else {
-			return (PcmStream) (var1.stream != null ? var1.stream : this.nextSubStream());
+			return (PcmStream)(var1.stream != null ? var1.stream : this.nextSubStream());
 		}
 	}
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "()Ldn;"
+		signature = "()Ldn;"
 	)
 	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
 		MusicPatchNode var1;
 		do {
-			var1 = (MusicPatchNode) this.queue.previous();
+			var1 = (MusicPatchNode)this.queue.previous();
 			if (var1 == null) {
 				return null;
 			}
-		} while (var1.stream == null);
+		} while(var1.stream == null);
 
 		return var1.stream;
 	}
@@ -154,7 +154,7 @@ public class MusicPatchPcmStream extends PcmStream {
 	protected void fill(int[] var1, int var2, int var3) {
 		this.mixer.fill(var1, var2, var3);
 
-		for (MusicPatchNode var6 = (MusicPatchNode) this.queue.last(); var6 != null; var6 = (MusicPatchNode) this.queue.previous()) {
+		for (MusicPatchNode var6 = (MusicPatchNode)this.queue.last(); var6 != null; var6 = (MusicPatchNode)this.queue.previous()) {
 			if (!this.superStream.method3822(var6)) {
 				int var4 = var2;
 				int var5 = var3;
@@ -169,7 +169,7 @@ public class MusicPatchPcmStream extends PcmStream {
 					this.method3968(var6, var1, var4, var6.field2464, var4 + var5);
 					var4 += var6.field2464;
 					var5 -= var6.field2464;
-				} while (!this.superStream.method3848(var6, var1, var4, var5));
+				} while(!this.superStream.method3848(var6, var1, var4, var5));
 			}
 		}
 
@@ -180,7 +180,7 @@ public class MusicPatchPcmStream extends PcmStream {
 	protected void skip(int var1) {
 		this.mixer.skip(var1);
 
-		for (MusicPatchNode var3 = (MusicPatchNode) this.queue.last(); var3 != null; var3 = (MusicPatchNode) this.queue.previous()) {
+		for (MusicPatchNode var3 = (MusicPatchNode)this.queue.last(); var3 != null; var3 = (MusicPatchNode)this.queue.previous()) {
 			if (!this.superStream.method3822(var3)) {
 				int var2 = var1;
 
@@ -193,7 +193,7 @@ public class MusicPatchPcmStream extends PcmStream {
 
 					this.method3972(var3, var3.field2464);
 					var2 -= var3.field2464;
-				} while (!this.superStream.method3848(var3, (int[]) null, 0, var2));
+				} while(!this.superStream.method3848(var3, (int[])null, 0, var2));
 			}
 		}
 

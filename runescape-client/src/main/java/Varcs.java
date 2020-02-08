@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -27,7 +26,7 @@ public class Varcs {
 	boolean unwrittenChanges;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			longValue = -8646841017490334521L
+		longValue = -8646841017490334521L
 	)
 	long field1249;
 
@@ -39,7 +38,7 @@ public class Varcs {
 
 		int var2;
 		for (var2 = 0; var2 < var1; ++var2) {
-			VarcInt var4 = (VarcInt) VarcInt.VarcInt_cached.get((long) var2);
+			VarcInt var4 = (VarcInt)VarcInt.VarcInt_cached.get((long)var2);
 			VarcInt var3;
 			if (var4 != null) {
 				var3 = var4;
@@ -50,7 +49,7 @@ public class Varcs {
 					var4.method4478(new Buffer(var5));
 				}
 
-				VarcInt.VarcInt_cached.put(var4, (long) var2);
+				VarcInt.VarcInt_cached.put(var4, (long)var2);
 				var3 = var4;
 			}
 
@@ -68,8 +67,8 @@ public class Varcs {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(III)V",
-			garbageValue = "1547810829"
+		signature = "(III)V",
+		garbageValue = "1547810829"
 	)
 	@Export("setInt")
 	void setInt(int var1, int var2) {
@@ -82,19 +81,19 @@ public class Varcs {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IB)I",
-			garbageValue = "-66"
+		signature = "(IB)I",
+		garbageValue = "-66"
 	)
 	@Export("getInt")
 	int getInt(int var1) {
 		Object var2 = this.map.get(var1);
-		return var2 instanceof Integer ? (Integer) var2 : -1;
+		return var2 instanceof Integer ? (Integer)var2 : -1;
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(ILjava/lang/String;I)V",
-			garbageValue = "1774400510"
+		signature = "(ILjava/lang/String;I)V",
+		garbageValue = "1774400510"
 	)
 	@Export("setString")
 	void setString(int var1, String var2) {
@@ -103,19 +102,19 @@ public class Varcs {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IB)Ljava/lang/String;",
-			garbageValue = "104"
+		signature = "(IB)Ljava/lang/String;",
+		garbageValue = "104"
 	)
 	@Export("getString")
 	String getString(int var1) {
 		Object var2 = this.map.get(var1);
-		return var2 instanceof String ? (String) var2 : "";
+		return var2 instanceof String ? (String)var2 : "";
 	}
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(ILjava/lang/String;B)V",
-			garbageValue = "-92"
+		signature = "(ILjava/lang/String;B)V",
+		garbageValue = "-92"
 	)
 	@Export("setStringOld")
 	void setStringOld(int var1, String var2) {
@@ -124,8 +123,8 @@ public class Varcs {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(II)Ljava/lang/String;",
-			garbageValue = "-1676642086"
+		signature = "(II)Ljava/lang/String;",
+		garbageValue = "-1676642086"
 	)
 	@Export("getStringOld")
 	String getStringOld(int var1) {
@@ -134,8 +133,8 @@ public class Varcs {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1665078788"
+		signature = "(I)V",
+		garbageValue = "-1665078788"
 	)
 	@Export("clearTransient")
 	void clearTransient() {
@@ -154,8 +153,8 @@ public class Varcs {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(ZI)Lmx;",
-			garbageValue = "-6839896"
+		signature = "(ZI)Lmx;",
+		garbageValue = "-6839896"
 	)
 	@Export("getPreferencesFile")
 	AccessFile getPreferencesFile(boolean var1) {
@@ -164,8 +163,8 @@ public class Varcs {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-2046783551"
+		signature = "(I)V",
+		garbageValue = "-2046783551"
 	)
 	@Export("write")
 	void write() {
@@ -177,15 +176,15 @@ public class Varcs {
 			Iterator var4 = this.map.entrySet().iterator();
 
 			while (var4.hasNext()) {
-				Entry var5 = (Entry) var4.next();
-				int var6 = (Integer) var5.getKey();
+				Entry var5 = (Entry)var4.next();
+				int var6 = (Integer)var5.getKey();
 				if (this.intsPersistence[var6]) {
 					Object var7 = var5.getValue();
 					var2 += 3;
 					if (var7 instanceof Integer) {
 						var2 += 4;
 					} else if (var7 instanceof String) {
-						var2 += Buddy.stringCp1252NullTerminatedByteSize((String) var7);
+						var2 += Buddy.stringCp1252NullTerminatedByteSize((String)var7);
 					}
 
 					++var3;
@@ -198,8 +197,8 @@ public class Varcs {
 			Iterator var24 = this.map.entrySet().iterator();
 
 			while (var24.hasNext()) {
-				Entry var12 = (Entry) var24.next();
-				int var13 = (Integer) var12.getKey();
+				Entry var12 = (Entry)var24.next();
+				int var13 = (Integer)var12.getKey();
 				if (this.intsPersistence[var13]) {
 					var23.writeShort(var13);
 					Object var8 = var12.getValue();
@@ -225,17 +224,16 @@ public class Varcs {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1384592680"
+		signature = "(I)V",
+		garbageValue = "1384592680"
 	)
 	@Export("read")
 	void read() {
 		AccessFile var1 = this.getPreferencesFile(false);
 
-		label231:
-		{
+		label231: {
 			try {
-				byte[] var2 = new byte[(int) var1.length()];
+				byte[] var2 = new byte[(int)var1.length()];
 
 				int var4;
 				for (int var3 = 0; var3 < var2.length; var3 += var4) {
@@ -265,7 +263,7 @@ public class Varcs {
 								var8 = var15.readUnsignedShort();
 								var9 = var15.readUnsignedByte();
 								class3[] var10 = new class3[]{class3.field15, class3.field22, class3.field16};
-								class3 var11 = (class3) WorldMapSection0.findEnumerated(var10, var9);
+								class3 var11 = (class3)WorldMapSection0.findEnumerated(var10, var9);
 								Object var12 = var11.method38(var15);
 								if (this.intsPersistence[var8]) {
 									this.map.put(var8, var12);
@@ -319,8 +317,8 @@ public class Varcs {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-2106283374"
+		signature = "(I)V",
+		garbageValue = "-2106283374"
 	)
 	@Export("tryWrite")
 	void tryWrite() {
@@ -332,8 +330,8 @@ public class Varcs {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "129228614"
+		signature = "(I)Z",
+		garbageValue = "129228614"
 	)
 	@Export("hasUnwrittenChanges")
 	boolean hasUnwrittenChanges() {
@@ -342,8 +340,8 @@ public class Varcs {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lii;Lii;I)Z",
-			garbageValue = "-141032975"
+		signature = "(Lii;Lii;I)Z",
+		garbageValue = "-141032975"
 	)
 	public static boolean method2212(AbstractArchive var0, AbstractArchive var1) {
 		WorldMapElement.WorldMapElement_archive = var1;

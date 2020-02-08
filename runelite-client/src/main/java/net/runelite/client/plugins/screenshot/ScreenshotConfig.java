@@ -31,164 +31,181 @@ import net.runelite.client.config.Keybind;
 import net.runelite.client.util.ImageUploadStyle;
 
 @ConfigGroup("screenshot")
-public interface ScreenshotConfig extends Config {
+public interface ScreenshotConfig extends Config
+{
 	@ConfigItem(
-			keyName = "includeFrame",
-			name = "Include Client Frame",
-			description = "Configures whether or not the client frame is included in screenshots",
-			position = 0
+		keyName = "includeFrame",
+		name = "Include Client Frame",
+		description = "Configures whether or not the client frame is included in screenshots",
+		position = 0
 	)
-	default boolean includeFrame() {
+	default boolean includeFrame()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "displayDate",
-			name = "Display Date",
-			description = "Configures whether or not the report button shows the date the screenshot was taken",
-			position = 1
+		keyName = "displayDate",
+		name = "Display Date",
+		description = "Configures whether or not the report button shows the date the screenshot was taken",
+		position = 1
 	)
-	default boolean displayDate() {
+	default boolean displayDate()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "notifyWhenTaken",
-			name = "Notify When Taken",
-			description = "Configures whether or not you are notified when a screenshot has been taken",
-			position = 2
+		keyName = "notifyWhenTaken",
+		name = "Notify When Taken",
+		description = "Configures whether or not you are notified when a screenshot has been taken",
+		position = 2
 	)
-	default boolean notifyWhenTaken() {
+	default boolean notifyWhenTaken()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "rewards",
-			name = "Screenshot Rewards",
-			description = "Configures whether screenshots are taken of clues, barrows, and quest completion",
-			position = 3
+		keyName = "rewards",
+		name = "Screenshot Rewards",
+		description = "Configures whether screenshots are taken of clues, barrows, and quest completion",
+		position = 3
 	)
-	default boolean screenshotRewards() {
+	default boolean screenshotRewards()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "levels",
-			name = "Screenshot Levels",
-			description = "Configures whether screenshots are taken of level ups",
-			position = 4
+		keyName = "levels",
+		name = "Screenshot Levels",
+		description = "Configures whether screenshots are taken of level ups",
+		position = 4
 	)
-	default boolean screenshotLevels() {
+	default boolean screenshotLevels()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "kingdom",
-			name = "Screenshot Kingdom Reward",
-			description = "Configures whether screenshots are taken of Kingdom Reward",
-			position = 5
+		keyName = "kingdom",
+		name = "Screenshot Kingdom Reward",
+		description = "Configures whether screenshots are taken of Kingdom Reward",
+		position = 5
 	)
-	default boolean screenshotKingdom() {
+	default boolean screenshotKingdom()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "pets",
-			name = "Screenshot Pet",
-			description = "Configures whether screenshots are taken of receiving pets",
-			position = 6
+		keyName = "pets",
+		name = "Screenshot Pet",
+		description = "Configures whether screenshots are taken of receiving pets",
+		position = 6
 	)
-	default boolean screenshotPet() {
+	default boolean screenshotPet()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "uploadScreenshot",
-			name = "Upload",
-			description = "Configures whether or not screenshots are uploaded to Imgur, or placed on your clipboard",
-			position = 7
+		keyName = "uploadScreenshot",
+		name = "Upload",
+		description = "Configures whether or not screenshots are uploaded to Imgur, or placed on your clipboard",
+		position = 7
 	)
-	default ImageUploadStyle uploadScreenshot() {
+	default ImageUploadStyle uploadScreenshot()
+	{
 		return ImageUploadStyle.NEITHER;
 	}
 
 	@ConfigItem(
-			keyName = "kills",
-			name = "Screenshot PvP Kills",
-			description = "Configures whether or not screenshots are automatically taken of PvP kills",
-			position = 8
+		keyName = "kills",
+		name = "Screenshot PvP Kills",
+		description = "Configures whether or not screenshots are automatically taken of PvP kills",
+		position = 8
 	)
-	default boolean screenshotKills() {
+	default boolean screenshotKills()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "boss",
-			name = "Screenshot Boss Kills",
-			description = "Configures whether or not screenshots are automatically taken of boss kills",
-			position = 9
+		keyName = "boss",
+		name = "Screenshot Boss Kills",
+		description = "Configures whether or not screenshots are automatically taken of boss kills",
+		position = 9
 	)
-	default boolean screenshotBossKills() {
+	default boolean screenshotBossKills()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "friendDeath",
-			name = "Friend Deaths",
-			description = "Configures whether or not screenshots are automatically taken when a clanmate or a friend near you dies.",
-			position = 10
+		keyName = "friendDeath",
+		name = "Friend Deaths",
+		description = "Configures whether or not screenshots are automatically taken when a clanmate or a friend near you dies.",
+		position = 10
 	)
-	default boolean screenshotFriendDeath() {
+	default boolean screenshotFriendDeath()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "playerDeath",
-			name = "Screenshot Deaths",
-			description = "Configures whether or not screenshots are automatically taken when you die.",
-			position = 11
+		keyName = "playerDeath",
+		name = "Screenshot Deaths",
+		description = "Configures whether or not screenshots are automatically taken when you die.",
+		position = 11
 	)
-	default boolean screenshotPlayerDeath() {
+	default boolean screenshotPlayerDeath()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "duels",
-			name = "Screenshot Duels",
-			description = "Configures whether or not screenshots are automatically taken of the duel end screen.",
-			position = 12
+		keyName = "duels",
+		name = "Screenshot Duels",
+		description = "Configures whether or not screenshots are automatically taken of the duel end screen.",
+		position = 12
 	)
-	default boolean screenshotDuels() {
+	default boolean screenshotDuels()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "valuableDrop",
-			name = "Screenshot Valuable drops",
-			description = "Configures whether or not screenshots are automatically taken when you receive a valuable drop.",
-			position = 13
+		keyName = "valuableDrop",
+		name = "Screenshot Valuable drops",
+		description = "Configures whether or not screenshots are automatically taken when you receive a valuable drop.",
+		position = 13
 	)
-	default boolean screenshotValuableDrop() {
+	default boolean screenshotValuableDrop()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "untradeableDrop",
-			name = "Screenshot Untradeable drops",
-			description = "Configures whether or not screenshots are automatically taken when you receive an untradeable drop.",
-			position = 14
+		keyName = "untradeableDrop",
+		name = "Screenshot Untradeable drops",
+		description = "Configures whether or not screenshots are automatically taken when you receive an untradeable drop.",
+		position = 14
 	)
-	default boolean screenshotUntradeableDrop() {
+	default boolean screenshotUntradeableDrop()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "hotkey",
-			name = "Screenshot hotkey",
-			description = "When you press this key a screenshot will be taken",
-			position = 15
+		keyName = "hotkey",
+		name = "Screenshot hotkey",
+		description = "When you press this key a screenshot will be taken",
+		position = 15
 	)
-	default Keybind hotkey() {
+	default Keybind hotkey()
+	{
 		return Keybind.NOT_SET;
 	}
 }

@@ -29,60 +29,65 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Method;
 import net.runelite.asm.signature.Signature;
 
-public class VirtualMethods {
+public class VirtualMethods
+{
 	// find the base methods for a method. search goes up from there to see if two
 	// different methods can be invoked with the same instruction.
-	private static List<Method> findBaseMethods(List<Method> methods, ClassFile cf, String name, Signature type) {
+	private static List<Method> findBaseMethods(List<Method> methods, ClassFile cf, String name, Signature type)
+	{
 		if (cf == null)
 			return methods;
-
+		
 		Method m = cf.findMethod(name, type);
 		if (m != null && !m.isStatic())
 			methods.add(m);
-
+		
 		List<Method> parentMethods = findBaseMethods(new ArrayList<>(), cf.getParent(), name, type);
-
+		
 		for (ClassFile inter : cf.getInterfaces().getMyInterfaces())
 			parentMethods.addAll(findBaseMethods(new ArrayList<>(), inter, name, type));
-
+		
 		// parentMethods take precedence over our methods
 		return parentMethods.isEmpty() ? methods : parentMethods;
 	}
-
-	private static List<Method> findBaseMethods(Method method) {
+	
+	private static List<Method> findBaseMethods(Method method)
+	{
 		return findBaseMethods(new ArrayList<>(), method.getClassFile(), method.getName(), method.getDescriptor());
 	}
-
-	private static void findMethodUp(List<Method> methods, Set<ClassFile> visited, ClassFile cf, String name, Signature type) {
+	
+	private static void findMethodUp(List<Method> methods, Set<ClassFile> visited, ClassFile cf, String name, Signature type)
+	{
 		if (cf == null || visited.contains(cf))
 			return;
-
+		
 		visited.add(cf); // can do diamond inheritance with interfaces
-
+		
 		Method m = cf.findMethod(name, type);
 		if (m != null && !m.isStatic())
 			methods.add(m);
-
+		
 		for (ClassFile child : cf.getChildren())
 			findMethodUp(methods, visited, child, name, type);
 	}
-
-	public static List<Method> getVirtualMethods(Method method) {
+	
+	public static List<Method> getVirtualMethods(Method method)
+	{
 		List<Method> list = new ArrayList<>();
-
-		if (method.isStatic()) {
+		
+		if (method.isStatic())
+		{
 			list.add(method);
 			return list;
 		}
-
+		
 		List<Method> bases = findBaseMethods(method); // base methods method overrides
 		assert !bases.isEmpty(); // must contain at least a method
-
+		
 		// now search up from bases, appending to list.
 		for (Method m : bases)
 			findMethodUp(list, new HashSet<>(), m.getClassFile(), m.getName(), m.getDescriptor());

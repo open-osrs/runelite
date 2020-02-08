@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.io.OutputStream;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -18,7 +17,7 @@ public class BufferedSink implements Runnable {
 	OutputStream outputStream;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -2050676869
+		intValue = -2050676869
 	)
 	@Export("capacity")
 	int capacity;
@@ -27,13 +26,13 @@ public class BufferedSink implements Runnable {
 	byte[] buffer;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -1109896429
+		intValue = -1109896429
 	)
 	@Export("position")
 	int position;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -1699191965
+		intValue = -1699191965
 	)
 	@Export("limit")
 	int limit;
@@ -57,8 +56,8 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(B)Z",
-			garbageValue = "-96"
+		signature = "(B)Z",
+		garbageValue = "-96"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -82,13 +81,13 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "([BIIB)V",
-			garbageValue = "0"
+		signature = "([BIIB)V",
+		garbageValue = "0"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
 		if (var3 >= 0 && var2 >= 0 && var3 + var2 <= var1.length) {
-			synchronized (this) {
+			synchronized(this) {
 				if (this.exception != null) {
 					throw new IOException(this.exception.toString());
 				} else {
@@ -122,12 +121,12 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1954153796"
+		signature = "(I)V",
+		garbageValue = "1954153796"
 	)
 	@Export("close")
 	void close() {
-		synchronized (this) {
+		synchronized(this) {
 			this.closed = true;
 			this.notifyAll();
 		}
@@ -142,7 +141,7 @@ public class BufferedSink implements Runnable {
 	public void run() {
 		do {
 			int var1;
-			synchronized (this) {
+			synchronized(this) {
 				while (true) {
 					if (this.exception != null) {
 						return;
@@ -186,23 +185,23 @@ public class BufferedSink implements Runnable {
 				}
 			} catch (IOException var10) {
 				IOException var2 = var10;
-				synchronized (this) {
+				synchronized(this) {
 					this.exception = var2;
 					return;
 				}
 			}
 
-			synchronized (this) {
+			synchronized(this) {
 				this.position = (var1 + this.position) % this.capacity;
 			}
-		} while (!this.isClosed());
+		} while(!this.isClosed());
 
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(DDIB)[D",
-			garbageValue = "80"
+		signature = "(DDIB)[D",
+		garbageValue = "80"
 	)
 	public static double[] method5902(double var0, double var2, int var4) {
 		int var5 = var4 * 2 + 1;
@@ -210,7 +209,7 @@ public class BufferedSink implements Runnable {
 		int var7 = -var4;
 
 		for (int var8 = 0; var7 <= var4; ++var8) {
-			var6[var8] = ViewportMouse.method3061((double) var7, var0, var2);
+			var6[var8] = ViewportMouse.method3061((double)var7, var0, var2);
 			++var7;
 		}
 
@@ -219,8 +218,8 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "([BIIB)Z",
-			garbageValue = "0"
+		signature = "([BIIB)Z",
+		garbageValue = "0"
 	)
 	static final boolean method5913(byte[] var0, int var1, int var2) {
 		boolean var3 = true;
@@ -277,8 +276,8 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("fy")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "-529911776"
+		signature = "(II)V",
+		garbageValue = "-529911776"
 	)
 	@Export("playSong")
 	static void playSong(int var0) {
@@ -295,8 +294,8 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("km")
 	@ObfuscatedSignature(
-			signature = "(Lhn;I)Z",
-			garbageValue = "-2086851217"
+		signature = "(Lhn;I)Z",
+		garbageValue = "-2086851217"
 	)
 	static final boolean method5915(Widget var0) {
 		int var1 = var0.contentType;

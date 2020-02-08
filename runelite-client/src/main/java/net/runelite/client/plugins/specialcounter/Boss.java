@@ -25,9 +25,7 @@
 package net.runelite.client.plugins.specialcounter;
 
 import com.google.common.collect.Sets;
-
 import java.util.Set;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
@@ -35,7 +33,8 @@ import net.runelite.api.NpcID;
 
 @Getter(AccessLevel.PACKAGE)
 @ToString
-enum Boss {
+enum Boss
+{
 	ABYSSAL_SIRE(1.25d, NpcID.ABYSSAL_SIRE, NpcID.ABYSSAL_SIRE_5887, NpcID.ABYSSAL_SIRE_5888, NpcID.ABYSSAL_SIRE_5889, NpcID.ABYSSAL_SIRE_5890, NpcID.ABYSSAL_SIRE_5891, NpcID.ABYSSAL_SIRE_5908),
 	CALLISTO(1.225d, NpcID.CALLISTO, NpcID.CALLISTO_6609),
 	CERBERUS(1.15d, NpcID.CERBERUS, NpcID.CERBERUS_5863, NpcID.CERBERUS_5866),
@@ -61,14 +60,18 @@ enum Boss {
 	private final Set<Integer> ids;
 	private final double modifier; // Some NPCs have a modifier to the experience a player receives.
 
-	Boss(double modifier, Integer... ids) {
+	Boss(double modifier, Integer... ids)
+	{
 		this.modifier = modifier;
 		this.ids = Sets.newHashSet(ids);
 	}
 
-	static Boss getBoss(int id) {
-		for (Boss boss : values()) {
-			if (boss.ids.contains(id)) {
+	static Boss getBoss(int id)
+	{
+		for (Boss boss : values())
+		{
+			if (boss.ids.contains(id))
+			{
 				return boss;
 			}
 		}

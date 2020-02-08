@@ -33,7 +33,8 @@ import lombok.Data;
  * has been modified.
  */
 @Data
-public class DecorativeObjectChanged implements Event {
+public class DecorativeObjectChanged implements Event
+{
 	/**
 	 * The affected tile.
 	 */

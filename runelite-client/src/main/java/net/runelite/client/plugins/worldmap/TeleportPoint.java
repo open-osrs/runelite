@@ -27,8 +27,10 @@ package net.runelite.client.plugins.worldmap;
 
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 
-class TeleportPoint extends WorldMapPoint {
-	TeleportPoint(TeleportLocationData data) {
+class TeleportPoint extends WorldMapPoint
+{
+	TeleportPoint(TeleportLocationData data)
+	{
 		super(data.getLocation(), data.getImage());
 		setTooltip(data.getTooltip());
 	}

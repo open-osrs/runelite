@@ -34,8 +34,8 @@ public class IntHashTable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(IB)I",
-			garbageValue = "-113"
+		signature = "(IB)I",
+		garbageValue = "-113"
 	)
 	@Export("get")
 	public int get(int var1) {

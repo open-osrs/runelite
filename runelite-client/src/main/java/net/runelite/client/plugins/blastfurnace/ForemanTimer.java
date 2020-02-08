@@ -25,15 +25,16 @@
 package net.runelite.client.plugins.blastfurnace;
 
 import java.time.temporal.ChronoUnit;
-
 import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.infobox.Timer;
 
-class ForemanTimer extends Timer {
+class ForemanTimer extends Timer
+{
 	private static final String TOOLTIP_TEXT = "Foreman Fee";
 
-	ForemanTimer(BlastFurnacePlugin plugin, ItemManager itemManager) {
+	ForemanTimer(BlastFurnacePlugin plugin, ItemManager itemManager)
+	{
 		super(10, ChronoUnit.MINUTES, itemManager.getImage(ItemID.COAL_BAG), plugin);
 
 		setTooltip(TOOLTIP_TEXT);

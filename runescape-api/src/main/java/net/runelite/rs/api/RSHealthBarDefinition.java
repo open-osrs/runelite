@@ -3,7 +3,8 @@ package net.runelite.rs.api;
 import net.runelite.api.HealthBar;
 import net.runelite.mapping.Import;
 
-public interface RSHealthBarDefinition extends RSDualNode, HealthBar {
+public interface RSHealthBarDefinition extends RSDualNode, HealthBar
+{
 	@Import("width")
 	int getHealthScale();
 

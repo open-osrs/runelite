@@ -2,7 +2,6 @@ package net.runelite.client.plugins.spawntimer;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Provides;
-
 import java.awt.Color;
 import java.util.Collections;
 import java.util.HashSet;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.GameState;
@@ -29,14 +27,15 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "Spawn Timer",
-		description = "Shows NPC'S time since spawned",
-		tags = {"highlight", "minimap", "npcs", "overlay", "spawn", "tags", "lyzrd"},
-		type = PluginType.PVM,
-		enabledByDefault = false
+	name = "Spawn Timer",
+	description = "Shows NPC'S time since spawned",
+	tags = {"highlight", "minimap", "npcs", "overlay", "spawn", "tags", "lyzrd"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Singleton
-public class SpawnTimerPlugin extends Plugin {
+public class SpawnTimerPlugin extends Plugin
+{
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -53,7 +52,8 @@ public class SpawnTimerPlugin extends Plugin {
 	private SpawnTimerConfig config;
 
 	@Provides
-	SpawnTimerConfig getConfig(ConfigManager configManager) {
+	SpawnTimerConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(SpawnTimerConfig.class);
 	}
 
@@ -65,7 +65,8 @@ public class SpawnTimerPlugin extends Plugin {
 	private Color getHighlightColor;
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 
 		this.getNpcToHighlight = config.getNpcToHighlight();
 		this.getHighlightColor = config.getHighlightColor();
@@ -76,29 +77,35 @@ public class SpawnTimerPlugin extends Plugin {
 
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		ticks.clear();
 		highlightedNpcs.clear();
 		overlayManager.remove(SpawnTimerOverlay);
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick g) {
+	private void onGameTick(GameTick g)
+	{
 		currentTick++;
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
 		if (event.getGameState() == GameState.LOGIN_SCREEN ||
-				event.getGameState() == GameState.HOPPING) {
+			event.getGameState() == GameState.HOPPING)
+		{
 			highlightedNpcs.clear();
 			ticks.clear();
 		}
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned n) {
-		if (n.getNpc() != null) {
+	private void onNpcSpawned(NpcSpawned n)
+	{
+		if (n.getNpc() != null)
+		{
 			final NPC npc = n.getNpc();
 			highlightedNpcs.add(npc);
 			thing temp = new thing();
@@ -109,9 +116,11 @@ public class SpawnTimerPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned n) {
+	private void onNpcDespawned(NpcDespawned n)
+	{
 		final NPC npc = n.getNpc();
-		if (highlightedNpcs.contains(npc)) {
+		if (highlightedNpcs.contains(npc))
+		{
 			highlightedNpcs.remove(npc);
 			//currentTick = 0;
 			ticks.removeIf(t -> t.getNpc() == npc);
@@ -119,10 +128,12 @@ public class SpawnTimerPlugin extends Plugin {
 	}
 
 	@VisibleForTesting
-	public List<String> getHighlights() {
+	public List<String> getHighlights()
+	{
 		final String configNpcs = this.getNpcToHighlight.toLowerCase();
 
-		if (configNpcs.isEmpty()) {
+		if (configNpcs.isEmpty())
+		{
 			return Collections.emptyList();
 		}
 
@@ -130,8 +141,10 @@ public class SpawnTimerPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("spawntimer")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("spawntimer"))
+		{
 			return;
 		}
 

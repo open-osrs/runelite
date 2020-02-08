@@ -48,36 +48,43 @@ import javax.swing.JPanel;
  *
  * @author Psikoi
  */
-public class MaterialTabGroup extends JPanel {
+public class MaterialTabGroup extends JPanel
+{
 	/* The panel on which the content tab's content will be displayed on. */
 	private final JPanel display;
 	/* A list of all the tabs contained in this group. */
 	private final List<MaterialTab> tabs = new ArrayList<>();
 
-	public MaterialTabGroup(JPanel display) {
+	public MaterialTabGroup(JPanel display)
+	{
 		this.display = display;
-		if (display != null) {
+		if (display != null)
+		{
 			this.display.setLayout(new BorderLayout());
 		}
 		setLayout(new FlowLayout(FlowLayout.CENTER, 8, 0));
 		setOpaque(false);
 	}
 
-	public MaterialTabGroup() {
+	public MaterialTabGroup()
+	{
 		this(null);
 	}
 
 	/* Returns the tab on a certain index. */
-	public MaterialTab getTab(int index) {
+	public MaterialTab getTab(int index)
+	{
 
-		if (tabs.isEmpty()) {
+		if (tabs.isEmpty())
+		{
 			return null;
 		}
 
 		return tabs.get(index);
 	}
 
-	public void addTab(MaterialTab tab) {
+	public void addTab(MaterialTab tab)
+	{
 		tabs.add(tab);
 		add(tab, BorderLayout.NORTH);
 
@@ -85,7 +92,8 @@ public class MaterialTabGroup extends JPanel {
 		repaint();
 	}
 
-	public void removeTab(MaterialTab tab) {
+	public void removeTab(MaterialTab tab)
+	{
 		tabs.remove(tab);
 		remove(tab);
 
@@ -98,18 +106,22 @@ public class MaterialTabGroup extends JPanel {
 	 * tab's associated content.
 	 * @param selectedTab - The tab to select
 	 */
-	public boolean select(MaterialTab selectedTab) {
-		if (!tabs.contains(selectedTab)) {
+	public boolean select(MaterialTab selectedTab)
+	{
+		if (!tabs.contains(selectedTab))
+		{
 			return false;
 		}
 
 		// If the OnTabSelected returned false, exit the method to prevent tab switching
-		if (!selectedTab.select()) {
+		if (!selectedTab.select())
+		{
 			return false;
 		}
 
 		// If the display is available, switch from the old to the new display
-		if (display != null) {
+		if (display != null)
+		{
 			display.removeAll();
 			display.add(selectedTab.getContent());
 			display.revalidate();
@@ -117,8 +129,10 @@ public class MaterialTabGroup extends JPanel {
 		}
 
 		// Unselected all other tabs
-		for (MaterialTab tab : tabs) {
-			if (!tab.equals(selectedTab)) {
+		for (MaterialTab tab : tabs)
+		{
+			if (!tab.equals(selectedTab))
+			{
 				tab.unselect();
 			}
 		}
@@ -127,7 +141,8 @@ public class MaterialTabGroup extends JPanel {
 	}
 
 	@Override
-	public void removeAll() {
+	public void removeAll()
+	{
 		super.removeAll();
 		tabs.clear();
 	}

@@ -26,9 +26,11 @@ package net.runelite.client.plugins.itemstats;
 
 import org.junit.Test;
 
-public class ItemStatChangesTest {
+public class ItemStatChangesTest
+{
 	@Test
-	public void testInit() {
+	public void testInit()
+	{
 		new ItemStatChanges();
 	}
 

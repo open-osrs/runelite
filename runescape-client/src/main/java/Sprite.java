@@ -45,7 +45,7 @@ public final class Sprite extends Rasterizer2D {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "()Llt;"
+		signature = "()Llt;"
 	)
 	@Export("mirrorHorizontally")
 	public Sprite mirrorHorizontally() {
@@ -66,7 +66,7 @@ public final class Sprite extends Rasterizer2D {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "()Llt;"
+		signature = "()Llt;"
 	)
 	@Export("copyNormalized")
 	public Sprite copyNormalized() {
@@ -715,8 +715,8 @@ public final class Sprite extends Rasterizer2D {
 		try {
 			int var11 = -var3 / 2;
 			int var12 = -var4 / 2;
-			int var13 = (int) (Math.sin((double) var7 / 326.11D) * 65536.0D);
-			int var14 = (int) (Math.cos((double) var7 / 326.11D) * 65536.0D);
+			int var13 = (int)(Math.sin((double)var7 / 326.11D) * 65536.0D);
+			int var14 = (int)(Math.cos((double)var7 / 326.11D) * 65536.0D);
 			var13 = var13 * var8 >> 8;
 			var14 = var14 * var8 >> 8;
 			int var15 = var12 * var13 + var11 * var14 + (var5 << 16);
@@ -749,8 +749,8 @@ public final class Sprite extends Rasterizer2D {
 		try {
 			int var10 = -var3 / 2;
 			int var11 = -var4 / 2;
-			int var12 = (int) (Math.sin(var7) * 65536.0D);
-			int var13 = (int) (Math.cos(var7) * 65536.0D);
+			int var12 = (int)(Math.sin(var7) * 65536.0D);
+			int var13 = (int)(Math.cos(var7) * 65536.0D);
 			var12 = var12 * var9 >> 8;
 			var13 = var13 * var9 >> 8;
 			int var14 = var11 * var12 + var10 * var13 + (var5 << 16);
@@ -793,9 +793,9 @@ public final class Sprite extends Rasterizer2D {
 		if (var6 != 0) {
 			var1 -= this.xOffset << 4;
 			var2 -= this.yOffset << 4;
-			double var7 = (double) (var5 & 65535) * 9.587379924285257E-5D;
-			int var9 = (int) Math.floor(Math.sin(var7) * (double) var6 + 0.5D);
-			int var10 = (int) Math.floor(Math.cos(var7) * (double) var6 + 0.5D);
+			double var7 = (double)(var5 & 65535) * 9.587379924285257E-5D;
+			int var9 = (int)Math.floor(Math.sin(var7) * (double)var6 + 0.5D);
+			int var10 = (int)Math.floor(Math.cos(var7) * (double)var6 + 0.5D);
 			int var11 = var10 * -var1 + -var2 * var9;
 			int var12 = -var2 * var10 + var9 * -(-var1);
 			int var13 = var10 * ((this.subWidth << 4) - var1) + -var2 * var9;
@@ -889,9 +889,9 @@ public final class Sprite extends Rasterizer2D {
 				var22 = var21 - var22;
 				if (var22 < 0) {
 					int var23 = var19 + var21 * Rasterizer2D.Rasterizer2D_width;
-					double var24 = 1.6777216E7D / (double) var6;
-					int var26 = (int) Math.floor(Math.sin(var7) * var24 + 0.5D);
-					int var27 = (int) Math.floor(Math.cos(var7) * var24 + 0.5D);
+					double var24 = 1.6777216E7D / (double)var6;
+					int var26 = (int)Math.floor(Math.sin(var7) * var24 + 0.5D);
+					int var27 = (int)Math.floor(Math.cos(var7) * var24 + 0.5D);
 					int var28 = (var19 << 4) + 8 - var3;
 					int var29 = (var21 << 4) + 8 - var4;
 					int var30 = (var1 << 8) - (var29 * var26 >> 4);

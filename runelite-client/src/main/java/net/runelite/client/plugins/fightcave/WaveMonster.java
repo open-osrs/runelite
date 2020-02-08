@@ -27,7 +27,8 @@ package net.runelite.client.plugins.fightcave;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-enum WaveMonster {
+enum WaveMonster
+{
 	TZ_KIH("Drainer", 22),
 	TZ_KEK("Blob", 45),
 	TOK_XIL("Range", 90),
@@ -39,7 +40,8 @@ enum WaveMonster {
 	private final int level;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return String.format("%s - Level %s", name, level);
 	}
 }

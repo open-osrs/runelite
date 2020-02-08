@@ -32,7 +32,6 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-
 import net.runelite.api.Client;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SkillIconManager;
@@ -42,12 +41,14 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.materialtabs.MaterialTab;
 import net.runelite.client.ui.components.materialtabs.MaterialTabGroup;
 
-class SkillCalculatorPanel extends PluginPanel {
+class SkillCalculatorPanel extends PluginPanel
+{
 	private final SkillCalculator uiCalculator;
 	private final SkillIconManager iconManager;
 	private final MaterialTabGroup tabGroup;
 
-	SkillCalculatorPanel(SkillIconManager iconManager, Client client, SpriteManager spriteManager, ItemManager itemManager) {
+	SkillCalculatorPanel(SkillIconManager iconManager, Client client, SpriteManager spriteManager, ItemManager itemManager)
+	{
 		super();
 		getScrollPane().setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -82,8 +83,10 @@ class SkillCalculatorPanel extends PluginPanel {
 		c.gridy++;
 	}
 
-	private void addCalculatorButtons() {
-		for (CalculatorType calculatorType : CalculatorType.values()) {
+	private void addCalculatorButtons()
+	{
+		for (CalculatorType calculatorType : CalculatorType.values())
+		{
 			ImageIcon icon = new ImageIcon(iconManager.getSkillImage(calculatorType.getSkill(), true));
 			MaterialTab tab = new MaterialTab(icon, tabGroup, null);
 			tab.setOnSelectEvent(() ->

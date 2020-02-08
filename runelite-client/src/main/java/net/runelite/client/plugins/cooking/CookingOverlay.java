@@ -33,21 +33,15 @@ import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import static net.runelite.api.AnimationID.COOKING_FIRE;
 import static net.runelite.api.AnimationID.COOKING_RANGE;
-
 import net.runelite.api.Client;
-
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY;
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-
 import net.runelite.api.Skill;
 import net.runelite.client.plugins.xptracker.XpTrackerService;
 import net.runelite.client.ui.overlay.Overlay;
-
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -56,7 +50,8 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 @Singleton
-class CookingOverlay extends Overlay {
+class CookingOverlay extends Overlay
+{
 	private static final int COOK_TIMEOUT = 3;
 	private static final DecimalFormat FORMAT = new DecimalFormat("#.#");
 	static final String COOKING_RESET = "Reset";
@@ -67,7 +62,8 @@ class CookingOverlay extends Overlay {
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private CookingOverlay(final Client client, final CookingPlugin plugin, final XpTrackerService xpTrackerService) {
+	private CookingOverlay(final Client client, final CookingPlugin plugin, final XpTrackerService xpTrackerService)
+	{
 		super(plugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.client = client;
@@ -78,24 +74,29 @@ class CookingOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		CookingSession session = plugin.getSession();
-		if (session == null) {
+		if (session == null)
+		{
 			return null;
 		}
 
 		panelComponent.getChildren().clear();
 
-		if (isCooking() || Duration.between(session.getLastCookingAction(), Instant.now()).getSeconds() < COOK_TIMEOUT) {
+		if (isCooking() || Duration.between(session.getLastCookingAction(), Instant.now()).getSeconds() < COOK_TIMEOUT)
+		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-					.text("Cooking")
-					.color(Color.GREEN)
-					.build());
-		} else {
+				.text("Cooking")
+				.color(Color.GREEN)
+				.build());
+		}
+		else
+		{
 			panelComponent.getChildren().add(TitleComponent.builder()
-					.text("NOT cooking")
-					.color(Color.RED)
-					.build());
+				.text("NOT cooking")
+				.color(Color.RED)
+				.build());
 		}
 
 		TableComponent tableComponent = new TableComponent();
@@ -108,8 +109,10 @@ class CookingOverlay extends Overlay {
 		return panelComponent.render(graphics);
 	}
 
-	private boolean isCooking() {
-		switch (client.getLocalPlayer().getAnimation()) {
+	private boolean isCooking()
+	{
+		switch (client.getLocalPlayer().getAnimation())
+		{
 			case COOKING_FIRE:
 			case COOKING_RANGE:
 				return true;

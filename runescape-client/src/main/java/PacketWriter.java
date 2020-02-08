@@ -1,5 +1,4 @@
 import java.io.IOException;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -11,55 +10,55 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PacketWriter {
 	@ObfuscatedName("or")
 	@ObfuscatedSignature(
-			signature = "Lfi;"
+		signature = "Lfi;"
 	)
 	@Export("mouseWheel")
 	static MouseWheel mouseWheel;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lkr;"
+		signature = "Lkr;"
 	)
 	@Export("socket")
 	AbstractSocket socket;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Ljj;"
+		signature = "Ljj;"
 	)
 	@Export("packetBufferNodes")
 	IterableNodeDeque packetBufferNodes;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -1477926037
+		intValue = -1477926037
 	)
 	@Export("bufferSize")
 	int bufferSize;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lkp;"
+		signature = "Lkp;"
 	)
 	@Export("buffer")
 	Buffer buffer;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Llw;"
+		signature = "Llw;"
 	)
 	@Export("isaacCipher")
 	public IsaacCipher isaacCipher;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lks;"
+		signature = "Lks;"
 	)
 	@Export("packetBuffer")
 	PacketBuffer packetBuffer;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "Lgb;"
+		signature = "Lgb;"
 	)
 	@Export("serverPacket")
 	ServerPacket serverPacket;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = -184650797
+		intValue = -184650797
 	)
 	@Export("serverPacketLength")
 	int serverPacketLength;
@@ -67,28 +66,28 @@ public class PacketWriter {
 	boolean field1301;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = 1725214527
+		intValue = 1725214527
 	)
 	int field1299;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-			intValue = 1544276091
+		intValue = 1544276091
 	)
 	@Export("pendingWrites")
 	int pendingWrites;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "Lgb;"
+		signature = "Lgb;"
 	)
 	ServerPacket field1309;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-			signature = "Lgb;"
+		signature = "Lgb;"
 	)
 	ServerPacket field1305;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-			signature = "Lgb;"
+		signature = "Lgb;"
 	)
 	ServerPacket field1307;
 
@@ -106,8 +105,8 @@ public class PacketWriter {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "-10"
+		signature = "(B)V",
+		garbageValue = "-10"
 	)
 	@Export("clearBuffer")
 	final void clearBuffer() {
@@ -117,8 +116,8 @@ public class PacketWriter {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1781270612"
+		signature = "(I)V",
+		garbageValue = "-1781270612"
 	)
 	@Export("flush")
 	final void flush() throws IOException {
@@ -126,7 +125,7 @@ public class PacketWriter {
 			this.buffer.offset = 0;
 
 			while (true) {
-				PacketBufferNode var1 = (PacketBufferNode) this.packetBufferNodes.last();
+				PacketBufferNode var1 = (PacketBufferNode)this.packetBufferNodes.last();
 				if (var1 == null || var1.index > this.buffer.array.length - this.buffer.offset) {
 					this.socket.write(this.buffer.array, 0, this.buffer.offset);
 					this.pendingWrites = 0;
@@ -145,8 +144,8 @@ public class PacketWriter {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lgs;I)V",
-			garbageValue = "1684104708"
+		signature = "(Lgs;I)V",
+		garbageValue = "1684104708"
 	)
 	@Export("addNode")
 	public final void addNode(PacketBufferNode var1) {
@@ -158,8 +157,8 @@ public class PacketWriter {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lkr;I)V",
-			garbageValue = "1771129210"
+		signature = "(Lkr;I)V",
+		garbageValue = "1771129210"
 	)
 	@Export("setSocket")
 	void setSocket(AbstractSocket var1) {
@@ -168,8 +167,8 @@ public class PacketWriter {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "711577469"
+		signature = "(I)V",
+		garbageValue = "711577469"
 	)
 	@Export("close")
 	void close() {
@@ -182,8 +181,8 @@ public class PacketWriter {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "-91"
+		signature = "(B)V",
+		garbageValue = "-91"
 	)
 	@Export("removeSocket")
 	void removeSocket() {
@@ -192,8 +191,8 @@ public class PacketWriter {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(B)Lkr;",
-			garbageValue = "106"
+		signature = "(B)Lkr;",
+		garbageValue = "106"
 	)
 	@Export("getSocket")
 	AbstractSocket getSocket() {
@@ -202,11 +201,11 @@ public class PacketWriter {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(IS)Liy;",
-			garbageValue = "-7105"
+		signature = "(IS)Liy;",
+		garbageValue = "-7105"
 	)
 	public static HealthBarDefinition method2329(int var0) {
-		HealthBarDefinition var1 = (HealthBarDefinition) HealthBarDefinition.HealthBarDefinition_cached.get((long) var0);
+		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -216,15 +215,15 @@ public class PacketWriter {
 				var1.decode(new Buffer(var2));
 			}
 
-			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long) var0);
+			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long)var0);
 			return var1;
 		}
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IB)Ljava/lang/String;",
-			garbageValue = "16"
+		signature = "(IB)Ljava/lang/String;",
+		garbageValue = "16"
 	)
 	@Export("colorStartTag")
 	static String colorStartTag(int var0) {

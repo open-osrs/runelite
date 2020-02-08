@@ -28,30 +28,25 @@ package net.runelite.client.plugins.chatfilter;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.Player;
 import net.runelite.client.config.OpenOSRSConfig;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ChatFilterPluginTest {
+public class ChatFilterPluginTest
+{
 	@Mock
 	@Bind
 	private Client client;
@@ -71,7 +66,8 @@ public class ChatFilterPluginTest {
 	private ChatFilterPlugin chatFilterPlugin;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 
 		chatFilterPlugin.setFilterType(ChatFilterType.CENSOR_WORDS);
@@ -82,7 +78,8 @@ public class ChatFilterPluginTest {
 	}
 
 	@Test
-	public void testCensorWords() {
+	public void testCensorWords()
+	{
 		chatFilterPlugin.setFilteredWords("hat");
 
 		chatFilterPlugin.updateFilteredPatterns();
@@ -90,7 +87,8 @@ public class ChatFilterPluginTest {
 	}
 
 	@Test
-	public void testCensorRegex() {
+	public void testCensorRegex()
+	{
 		chatFilterPlugin.setFilterType(ChatFilterType.REMOVE_MESSAGE);
 		chatFilterPlugin.setFilteredRegex("5[0-9]x2\n(");
 
@@ -99,7 +97,8 @@ public class ChatFilterPluginTest {
 	}
 
 	@Test
-	public void testBrokenRegex() {
+	public void testBrokenRegex()
+	{
 		chatFilterPlugin.setFilteredRegex("Test\n)\n73");
 
 		chatFilterPlugin.updateFilteredPatterns();
@@ -107,17 +106,19 @@ public class ChatFilterPluginTest {
 	}
 
 	@Test
-	public void testCaseSensitivity() {
+	public void testCaseSensitivity()
+	{
 		chatFilterPlugin.setFilterType(ChatFilterType.CENSOR_MESSAGE);
 		chatFilterPlugin.setFilteredWords("ReGeX!!!");
 
 		chatFilterPlugin.updateFilteredPatterns();
 		assertEquals("Hey, everyone, I just tried to say something very silly!",
-				chatFilterPlugin.censorMessage("I love regex!!!!!!!!"));
+			chatFilterPlugin.censorMessage("I love regex!!!!!!!!"));
 	}
 
 	@Test
-	public void testNonPrintableCharacters() {
+	public void testNonPrintableCharacters()
+	{
 		chatFilterPlugin.setFilterType(ChatFilterType.REMOVE_MESSAGE);
 		chatFilterPlugin.setFilteredWords("test");
 
@@ -126,7 +127,8 @@ public class ChatFilterPluginTest {
 	}
 
 	@Test
-	public void testReplayedMessage() {
+	public void testReplayedMessage()
+	{
 		chatFilterPlugin.setFilterType(ChatFilterType.REMOVE_MESSAGE);
 		chatFilterPlugin.setFilteredWords("hello osrs");
 
@@ -135,40 +137,46 @@ public class ChatFilterPluginTest {
 	}
 
 	@Test
-	public void testMessageFromFriendIsFiltered() {
+	public void testMessageFromFriendIsFiltered()
+	{
 		chatFilterPlugin.setFilterFriends(true);
 		when(client.isClanMember("Iron Mammal")).thenReturn(false);
 		assertTrue(chatFilterPlugin.shouldFilterPlayerMessage("Iron Mammal"));
 	}
 
 	@Test
-	public void testMessageFromFriendIsNotFiltered() {
+	public void testMessageFromFriendIsNotFiltered()
+	{
 		when(client.isFriended("Iron Mammal", false)).thenReturn(true);
 		chatFilterPlugin.setFilterFriends(false);
 		assertFalse(chatFilterPlugin.shouldFilterPlayerMessage("Iron Mammal"));
 	}
 
 	@Test
-	public void testMessageFromClanIsFiltered() {
+	public void testMessageFromClanIsFiltered()
+	{
 		when(client.isFriended("B0aty", false)).thenReturn(false);
 		assertTrue(chatFilterPlugin.shouldFilterPlayerMessage("B0aty"));
 	}
 
 	@Test
-	public void testMessageFromClanIsNotFiltered() {
+	public void testMessageFromClanIsNotFiltered()
+	{
 		lenient().when(client.isClanMember("B0aty")).thenReturn(true);
 		chatFilterPlugin.setFilterClan(false);
 		assertFalse(chatFilterPlugin.shouldFilterPlayerMessage("B0aty"));
 	}
 
 	@Test
-	public void testMessageFromSelfIsNotFiltered() {
+	public void testMessageFromSelfIsNotFiltered()
+	{
 		lenient().when(localPlayer.getName()).thenReturn("Swampletics");
 		assertFalse(chatFilterPlugin.shouldFilterPlayerMessage("Swampletics"));
 	}
 
 	@Test
-	public void testMessageFromNonFriendNonClanIsFiltered() {
+	public void testMessageFromNonFriendNonClanIsFiltered()
+	{
 		lenient().when(client.isFriended("Woox", false)).thenReturn(false);
 		lenient().when(client.isClanMember("Woox")).thenReturn(false);
 		assertTrue(chatFilterPlugin.shouldFilterPlayerMessage("Woox"));

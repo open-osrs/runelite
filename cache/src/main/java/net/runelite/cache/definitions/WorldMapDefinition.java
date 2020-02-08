@@ -25,12 +25,12 @@
 package net.runelite.cache.definitions;
 
 import java.util.List;
-
 import lombok.Data;
 import net.runelite.cache.region.Position;
 
 @Data
-public class WorldMapDefinition {
+public class WorldMapDefinition
+{
 	public String name;
 	public int field450;
 	public int defaultZoom;

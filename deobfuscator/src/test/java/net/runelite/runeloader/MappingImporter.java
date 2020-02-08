@@ -26,7 +26,6 @@ package net.runelite.runeloader;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -47,7 +46,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MappingImporter {
+public class MappingImporter
+{
 	private static final Logger logger = LoggerFactory.getLogger(MappingImporter.class);
 
 	private static final File IN = new File("d:/rs/07/adamin.jar");
@@ -62,25 +62,33 @@ public class MappingImporter {
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException {
+	public void before() throws IOException
+	{
 		group = JarUtil.loadJar(IN);
 	}
 
 	@After
-	public void after() throws IOException {
+	public void after() throws IOException
+	{
 		JarUtil.saveJar(group, OUT);
 	}
 
-	private boolean hasObfuscatedName(Annotations an, String name) {
-		if (an == null) {
+	private boolean hasObfuscatedName(Annotations an, String name)
+	{
+		if (an == null)
+		{
 			return false;
 		}
 
-		for (Annotation a : an.getAnnotations()) {
-			if (a.getType().equals(OBFUSCATED_NAME)) {
-				for (Element e : a.getElements()) {
+		for (Annotation a : an.getAnnotations())
+		{
+			if (a.getType().equals(OBFUSCATED_NAME))
+			{
+				for (Element e : a.getElements())
+				{
 					String str = (String) e.getValue();
-					if (str.equals(name)) {
+					if (str.equals(name))
+					{
 						return true;
 					}
 				}
@@ -90,24 +98,31 @@ public class MappingImporter {
 		return false;
 	}
 
-	private ClassFile findClassWithObfuscatedName(String name) {
-		for (ClassFile c : group.getClasses()) {
-			if (c.getName().equals(name)) {
+	private ClassFile findClassWithObfuscatedName(String name)
+	{
+		for (ClassFile c : group.getClasses())
+		{
+			if (c.getName().equals(name))
+			{
 				return c;
 			}
 
 			Annotations an = c.getAnnotations();
-			if (this.hasObfuscatedName(an, name)) {
+			if (this.hasObfuscatedName(an, name))
+			{
 				return c;
 			}
 		}
 		return null;
 	}
 
-	private Field findFieldWithObfuscatedName(ClassFile c, String name) {
-		for (Field f : c.getFields()) {
+	private Field findFieldWithObfuscatedName(ClassFile c, String name)
+	{
+		for (Field f : c.getFields())
+		{
 			Annotations an = f.getAnnotations();
-			if (this.hasObfuscatedName(an, name)) {
+			if (this.hasObfuscatedName(an, name))
+			{
 				return f;
 			}
 		}
@@ -116,18 +131,21 @@ public class MappingImporter {
 
 	@Test
 	@Ignore
-	public void makeMappings() throws IOException {
+	public void makeMappings() throws IOException
+	{
 		InjectionModscript mod = Injection.load(MappingImporter.class.getResourceAsStream(RL_INJECTION));
 		int fields = 0, classes = 0;
 
-		for (int i = 0; i < mod.getGetterInjects().size(); ++i) {
+		for (int i = 0; i < mod.getGetterInjects().size(); ++i)
+		{
 			GetterInjectInstruction gii = mod.getGetterInjects().get(i);
 
 			ClassFile cf = this.findClassWithObfuscatedName(gii.getGetterClassName());
 			Assert.assertNotNull(cf);
 
 			Field f = this.findFieldWithObfuscatedName(cf, gii.getGetterFieldName());
-			if (f == null) {
+			if (f == null)
+			{
 				// some of their fields they inject getters for they also inject,
 				// so they don't all exist
 				continue;
@@ -139,13 +157,17 @@ public class MappingImporter {
 			Annotations an = f.getAnnotations();
 
 			Annotation a = an.find(EXPORT);
-			if (a != null) {
+			if (a != null)
+			{
 				String exportedName = a.getElement().getString();
 
-				if (!attrName.equals(exportedName)) {
+				if (!attrName.equals(exportedName))
+				{
 					logger.info("Exported field " + f + " with mismatched name. Theirs: " + attrName + ", mine: " + exportedName);
 				}
-			} else {
+			}
+			else
+			{
 				an.addAnnotation(EXPORT, "value", attrName);
 
 				logger.info("Exporting field " + f + " with name " + attrName);
@@ -153,7 +175,8 @@ public class MappingImporter {
 			}
 		}
 
-		for (AddInterfaceInstruction aii : mod.getAddInterfaceInjects()) {
+		for (AddInterfaceInstruction aii : mod.getAddInterfaceInjects())
+		{
 			ClassFile cf = this.findClassWithObfuscatedName(aii.getClientClass());
 			Assert.assertNotNull(cf);
 
@@ -164,13 +187,17 @@ public class MappingImporter {
 			Annotations an = cf.getAnnotations();
 
 			Annotation a = an.find(IMPLEMENTS);
-			if (a != null) {
+			if (a != null)
+			{
 				String implementsName = a.getElement().getString();
 
-				if (!iface.equals(implementsName)) {
+				if (!iface.equals(implementsName))
+				{
 					logger.info("Implements class " + cf + " with mismatched name. Theirs: " + iface + ", mine: " + implementsName);
 				}
-			} else {
+			}
+			else
+			{
 				an.addAnnotation(IMPLEMENTS, "value", iface);
 
 				logger.info("Exporting class " + cf.getName() + " with name " + iface);

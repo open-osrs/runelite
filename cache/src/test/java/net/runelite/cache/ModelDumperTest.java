@@ -26,10 +26,8 @@
 package net.runelite.cache;
 
 import com.google.common.io.Files;
-
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.cache.definitions.loaders.ModelLoader;
 import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Index;
@@ -41,24 +39,28 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ModelDumperTest {
+public class ModelDumperTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(ModelDumperTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException {
+	public void test() throws IOException
+	{
 		File modelDir = folder.newFolder("models");
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.MODELS);
 
-			for (Archive archive : index.getArchives()) {
+			for (Archive archive : index.getArchives())
+			{
 				byte[] contents = archive.decompress(storage.loadArchive(archive));
 
 				ModelLoader loader = new ModelLoader();

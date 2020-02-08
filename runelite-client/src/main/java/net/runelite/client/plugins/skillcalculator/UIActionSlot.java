@@ -39,7 +39,6 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,18 +47,19 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 
-class UIActionSlot extends JPanel {
+class UIActionSlot extends JPanel
+{
 	private static final Border GREEN_BORDER = new CompoundBorder(
-			BorderFactory.createMatteBorder(0, 4, 0, 0, (ColorScheme.PROGRESS_COMPLETE_COLOR).darker()),
-			BorderFactory.createEmptyBorder(7, 12, 7, 7));
+		BorderFactory.createMatteBorder(0, 4, 0, 0, (ColorScheme.PROGRESS_COMPLETE_COLOR).darker()),
+		BorderFactory.createEmptyBorder(7, 12, 7, 7));
 
 	private static final Border RED_BORDER = new CompoundBorder(
-			BorderFactory.createMatteBorder(0, 4, 0, 0, (ColorScheme.PROGRESS_ERROR_COLOR).darker()),
-			BorderFactory.createEmptyBorder(7, 12, 7, 7));
+		BorderFactory.createMatteBorder(0, 4, 0, 0, (ColorScheme.PROGRESS_ERROR_COLOR).darker()),
+		BorderFactory.createEmptyBorder(7, 12, 7, 7));
 
 	private static final Border ORANGE_BORDER = new CompoundBorder(
-			BorderFactory.createMatteBorder(0, 4, 0, 0, (ColorScheme.PROGRESS_INPROGRESS_COLOR).darker()),
-			BorderFactory.createEmptyBorder(7, 12, 7, 7));
+		BorderFactory.createMatteBorder(0, 4, 0, 0, (ColorScheme.PROGRESS_INPROGRESS_COLOR).darker()),
+		BorderFactory.createEmptyBorder(7, 12, 7, 7));
 
 	private static final Dimension ICON_SIZE = new Dimension(32, 32);
 
@@ -82,24 +82,30 @@ class UIActionSlot extends JPanel {
 	@Setter(AccessLevel.PACKAGE)
 	private double value = 0;
 
-	UIActionSlot(SkillDataEntry action, JLabel uiIcon) {
+	UIActionSlot(SkillDataEntry action, JLabel uiIcon)
+	{
 		this.action = action;
 
 		setLayout(new BorderLayout());
 		setBorder(RED_BORDER);
 		setBackground(ColorScheme.DARKER_GRAY_COLOR);
 
-		MouseListener hoverListener = new MouseAdapter() {
+		MouseListener hoverListener = new MouseAdapter()
+		{
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
-				if (!isSelected) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
+				if (!isSelected)
+				{
 					setBackground(ColorScheme.DARKER_GRAY_HOVER_COLOR);
 				}
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
-				if (!isSelected) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
+				if (!isSelected)
+				{
 					updateBackground();
 				}
 			}
@@ -129,31 +135,41 @@ class UIActionSlot extends JPanel {
 		add(uiInfo, BorderLayout.CENTER);
 	}
 
-	void setSelected(boolean selected) {
+	void setSelected(boolean selected)
+	{
 		isSelected = selected;
 		this.updateBackground();
 	}
 
-	void setAvailable(boolean available) {
+	void setAvailable(boolean available)
+	{
 		isAvailable = available;
 		this.updateBackground();
 	}
 
-	void setOverlapping(boolean overlapping) {
+	void setOverlapping(boolean overlapping)
+	{
 		isOverlapping = overlapping;
 		this.updateBackground();
 	}
 
-	void setText(String text) {
+	void setText(String text)
+	{
 		uiLabelActions.setText(text);
 	}
 
-	private void updateBackground() {
-		if (isAvailable) {
+	private void updateBackground()
+	{
+		if (isAvailable)
+		{
 			this.setBorder(GREEN_BORDER);
-		} else if (isOverlapping) {
+		}
+		else if (isOverlapping)
+		{
 			this.setBorder(ORANGE_BORDER);
-		} else {
+		}
+		else
+		{
 			this.setBorder(RED_BORDER);
 		}
 
@@ -161,9 +177,11 @@ class UIActionSlot extends JPanel {
 	}
 
 	@Override
-	public void setBackground(Color color) {
+	public void setBackground(Color color)
+	{
 		super.setBackground(color);
-		if (uiInfo != null) {
+		if (uiInfo != null)
+		{
 			uiInfo.setBackground(color);
 		}
 	}

@@ -27,7 +27,8 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class FrameDefinition {
+public class FrameDefinition
+{
 	public int id; // file id
 	public FramemapDefinition framemap;
 	public int[] translator_x;

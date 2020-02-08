@@ -30,13 +30,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
-
 import lombok.Value;
 import net.runelite.api.Client;
-
 import static net.runelite.api.Constants.CHUNK_SIZE;
 import static net.runelite.api.Constants.REGION_SIZE;
-
 import net.runelite.api.Perspective;
 
 /**
@@ -46,7 +43,8 @@ import net.runelite.api.Perspective;
  * instance.
  */
 @Value
-public class WorldPoint {
+public class WorldPoint
+{
 	/**
 	 * X-axis coordinate.
 	 */
@@ -70,7 +68,8 @@ public class WorldPoint {
 	 * @param dx the offset
 	 * @return new instance
 	 */
-	public WorldPoint dx(int dx) {
+	public WorldPoint dx(int dx)
+	{
 		return new WorldPoint(x + dx, y, plane);
 	}
 
@@ -80,7 +79,8 @@ public class WorldPoint {
 	 * @param dy the offset
 	 * @return new instance
 	 */
-	public WorldPoint dy(int dy) {
+	public WorldPoint dy(int dy)
+	{
 		return new WorldPoint(x, y + dy, plane);
 	}
 
@@ -90,7 +90,8 @@ public class WorldPoint {
 	 * @param dz the offset
 	 * @return new instance
 	 */
-	public WorldPoint dz(int dz) {
+	public WorldPoint dz(int dz)
+	{
 		return new WorldPoint(x, y, plane + dz);
 	}
 
@@ -102,7 +103,8 @@ public class WorldPoint {
 	 * @param y      the tiles y coordinate
 	 * @return true if the tile is in the scene, false otherwise
 	 */
-	public static boolean isInScene(Client client, int x, int y) {
+	public static boolean isInScene(Client client, int x, int y)
+	{
 		int baseX = client.getBaseX();
 		int baseY = client.getBaseY();
 
@@ -118,7 +120,8 @@ public class WorldPoint {
 	 * @param client the client
 	 * @return true if this tile is in the scene, false otherwise
 	 */
-	public boolean isInScene(Client client) {
+	public boolean isInScene(Client client)
+	{
 		return client.getPlane() == plane && isInScene(client, x, y);
 	}
 
@@ -129,7 +132,8 @@ public class WorldPoint {
 	 * @param local  the local coordinate
 	 * @return the tile coordinate containing the local point
 	 */
-	public static WorldPoint fromLocal(Client client, LocalPoint local) {
+	public static WorldPoint fromLocal(Client client, LocalPoint local)
+	{
 		return fromLocal(client, local.getX(), local.getY(), client.getPlane());
 	}
 
@@ -142,11 +146,12 @@ public class WorldPoint {
 	 * @param plane  the plane
 	 * @return the tile coordinate containing the local point
 	 */
-	public static WorldPoint fromLocal(Client client, int x, int y, int plane) {
+	public static WorldPoint fromLocal(Client client, int x, int y, int plane)
+	{
 		return new WorldPoint(
-				(x >>> Perspective.LOCAL_COORD_BITS) + client.getBaseX(),
-				(y >>> Perspective.LOCAL_COORD_BITS) + client.getBaseY(),
-				plane
+			(x >>> Perspective.LOCAL_COORD_BITS) + client.getBaseX(),
+			(y >>> Perspective.LOCAL_COORD_BITS) + client.getBaseY(),
+			plane
 		);
 	}
 
@@ -159,8 +164,10 @@ public class WorldPoint {
 	 * @return the tile coordinate containing the local point
 	 */
 	@Nullable
-	public static WorldPoint fromLocalInstance(Client client, LocalPoint localPoint) {
-		if (client.isInInstancedRegion()) {
+	public static WorldPoint fromLocalInstance(Client client, LocalPoint localPoint)
+	{
+		if (client.isInInstancedRegion())
+		{
 			// get position in the scene
 			int sceneX = localPoint.getSceneX();
 			int sceneY = localPoint.getSceneY();
@@ -169,7 +176,8 @@ public class WorldPoint {
 			int chunkX = sceneX / CHUNK_SIZE;
 			int chunkY = sceneY / CHUNK_SIZE;
 
-			if (chunkX >= 13 || chunkY >= 13) {
+			if (chunkX >= 13 || chunkY >= 13)
+			{
 				return null;
 			}
 
@@ -188,7 +196,9 @@ public class WorldPoint {
 
 			// create and rotate point back to 0, to match with template
 			return rotate(new WorldPoint(x, y, plane), 4 - rotation);
-		} else {
+		}
+		else
+		{
 			return fromLocal(client, localPoint);
 		}
 	}
@@ -201,8 +211,10 @@ public class WorldPoint {
 	 * @param worldPoint
 	 * @return
 	 */
-	public static Collection<WorldPoint> toLocalInstance(Client client, WorldPoint worldPoint) {
-		if (!client.isInInstancedRegion()) {
+	public static Collection<WorldPoint> toLocalInstance(Client client, WorldPoint worldPoint)
+	{
+		if (!client.isInInstancedRegion())
+		{
 			return Collections.singleton(worldPoint);
 		}
 
@@ -210,17 +222,20 @@ public class WorldPoint {
 		List<WorldPoint> worldPoints = new ArrayList<>();
 		final int z = worldPoint.getPlane();
 		int[][][] instanceTemplateChunks = client.getInstanceTemplateChunks();
-		for (int x = 0; x < instanceTemplateChunks[z].length; ++x) {
-			for (int y = 0; y < instanceTemplateChunks[z][x].length; ++y) {
+		for (int x = 0; x < instanceTemplateChunks[z].length; ++x)
+		{
+			for (int y = 0; y < instanceTemplateChunks[z][x].length; ++y)
+			{
 				int chunkData = instanceTemplateChunks[z][x][y];
 				int rotation = chunkData >> 1 & 0x3;
 				int templateChunkY = (chunkData >> 3 & 0x7FF) * CHUNK_SIZE;
 				int templateChunkX = (chunkData >> 14 & 0x3FF) * CHUNK_SIZE;
 				if (worldPoint.getX() >= templateChunkX && worldPoint.getX() < templateChunkX + CHUNK_SIZE
-						&& worldPoint.getY() >= templateChunkY && worldPoint.getY() < templateChunkY + CHUNK_SIZE) {
+					&& worldPoint.getY() >= templateChunkY && worldPoint.getY() < templateChunkY + CHUNK_SIZE)
+				{
 					WorldPoint p = new WorldPoint(client.getBaseX() + x * CHUNK_SIZE + (worldPoint.getX() & (CHUNK_SIZE - 1)),
-							client.getBaseY() + y * CHUNK_SIZE + (worldPoint.getY() & (CHUNK_SIZE - 1)),
-							worldPoint.getPlane());
+						client.getBaseY() + y * CHUNK_SIZE + (worldPoint.getY() & (CHUNK_SIZE - 1)),
+						worldPoint.getPlane());
 					p = rotate(p, rotation);
 					worldPoints.add(p);
 				}
@@ -236,12 +251,14 @@ public class WorldPoint {
 	 * @param rotation rotation
 	 * @return world point
 	 */
-	private static WorldPoint rotate(WorldPoint point, int rotation) {
+	private static WorldPoint rotate(WorldPoint point, int rotation)
+	{
 		int chunkX = point.getX() & ~(CHUNK_SIZE - 1);
 		int chunkY = point.getY() & ~(CHUNK_SIZE - 1);
 		int x = point.getX() & (CHUNK_SIZE - 1);
 		int y = point.getY() & (CHUNK_SIZE - 1);
-		switch (rotation) {
+		switch (rotation)
+		{
 			case 1:
 				return new WorldPoint(chunkX + y, chunkY + (CHUNK_SIZE - 1 - x), point.getPlane());
 			case 2:
@@ -258,7 +275,8 @@ public class WorldPoint {
 	 * @param other the world area
 	 * @return the shortest distance
 	 */
-	public int distanceTo(WorldArea other) {
+	public int distanceTo(WorldArea other)
+	{
 		return new WorldArea(this, 1, 1).distanceTo(other);
 	}
 
@@ -272,8 +290,10 @@ public class WorldPoint {
 	 * @param other other point
 	 * @return the distance
 	 */
-	public int distanceTo(WorldPoint other) {
-		if (other.plane != plane) {
+	public int distanceTo(WorldPoint other)
+	{
+		if (other.plane != plane)
+		{
 			return Integer.MAX_VALUE;
 		}
 
@@ -289,7 +309,8 @@ public class WorldPoint {
 	 * @param other other point
 	 * @return the distance
 	 */
-	public int distanceTo2D(WorldPoint other) {
+	public int distanceTo2D(WorldPoint other)
+	{
 		return Math.max(Math.abs(getX() - other.getX()), Math.abs(getY() - other.getY()));
 	}
 
@@ -303,8 +324,10 @@ public class WorldPoint {
 	 * @param other other point
 	 * @return the straight-line distance
 	 */
-	public float distanceToHypotenuse(WorldPoint other) {
-		if (other.plane != plane) {
+	public float distanceToHypotenuse(WorldPoint other)
+	{
+		if (other.plane != plane)
+		{
 			return Float.MAX_VALUE;
 		}
 
@@ -320,18 +343,20 @@ public class WorldPoint {
 	 * @param other other point
 	 * @return the straight-line distance
 	 */
-	public float distanceTo2DHypotenuse(WorldPoint other) {
+	public float distanceTo2DHypotenuse(WorldPoint other)
+	{
 		return (float) Math.hypot(getX() - other.getX(), getY() - other.getY());
 	}
 
 	/**
 	 * Converts the passed scene coordinates to a world space
 	 */
-	public static WorldPoint fromScene(Client client, int x, int y, int plane) {
+	public static WorldPoint fromScene(Client client, int x, int y, int plane)
+	{
 		return new WorldPoint(
-				x + client.getBaseX(),
-				y + client.getBaseY(),
-				plane
+			x + client.getBaseX(),
+			y + client.getBaseY(),
+			plane
 		);
 	}
 
@@ -340,7 +365,8 @@ public class WorldPoint {
 	 *
 	 * @return the region ID
 	 */
-	public int getRegionID() {
+	public int getRegionID()
+	{
 		return ((x >> 6) << 8) | (y >> 6);
 	}
 
@@ -352,40 +378,45 @@ public class WorldPoint {
 	 * @param userLocation
 	 * @return
 	 */
-	public static boolean isInZone(WorldPoint lowerBound, WorldPoint upperBound, WorldPoint userLocation) {
+	public static boolean isInZone(WorldPoint lowerBound, WorldPoint upperBound, WorldPoint userLocation)
+	{
 		return userLocation.getX() >= lowerBound.getX()
-				&& userLocation.getX() <= upperBound.getX()
-				&& userLocation.getY() >= lowerBound.getY()
-				&& userLocation.getY() <= upperBound.getY()
-				&& userLocation.getPlane() >= lowerBound.getPlane()
-				&& userLocation.getPlane() <= upperBound.getPlane();
+			&& userLocation.getX() <= upperBound.getX()
+			&& userLocation.getY() >= lowerBound.getY()
+			&& userLocation.getY() <= upperBound.getY()
+			&& userLocation.getPlane() >= lowerBound.getPlane()
+			&& userLocation.getPlane() <= upperBound.getPlane();
 	}
 
 	/**
 	 * Converts the passed region ID and coordinates to a world coordinate
 	 */
-	public static WorldPoint fromRegion(int regionId, int regionX, int regionY, int plane) {
+	public static WorldPoint fromRegion(int regionId, int regionX, int regionY, int plane)
+	{
 		return new WorldPoint(
-				((regionId >>> 8) << 6) + regionX,
-				((regionId & 0xff) << 6) + regionY,
-				plane);
+			((regionId >>> 8) << 6) + regionX,
+			((regionId & 0xff) << 6) + regionY,
+			plane);
 	}
 
 	/**
 	 * Gets the X-axis coordinate of the region coordinate
 	 */
-	public int getRegionX() {
+	public int getRegionX()
+	{
 		return getRegionOffset(x);
 	}
 
 	/**
 	 * Gets the Y-axis coordinate of the region coordinate
 	 */
-	public int getRegionY() {
+	public int getRegionY()
+	{
 		return getRegionOffset(y);
 	}
 
-	private static int getRegionOffset(final int position) {
+	private static int getRegionOffset(final int position)
+	{
 		return position & (REGION_SIZE - 1);
 	}
 }

@@ -31,7 +31,6 @@ import java.awt.Polygon;
 import java.awt.Shape;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.Perspective;
@@ -42,7 +41,8 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Singleton
-public class RoguesDenOverlay extends Overlay {
+public class RoguesDenOverlay extends Overlay
+{
 	private static final Color OBJECT_BORDER_COLOR = Color.RED;
 	private static final Color OBJECT_COLOR = new Color(OBJECT_BORDER_COLOR.getRed(), OBJECT_BORDER_COLOR.getGreen(), OBJECT_BORDER_COLOR.getBlue(), 50);
 	private static final Color OBJECT_BORDER_HOVER_COLOR = OBJECT_BORDER_COLOR.darker();
@@ -51,7 +51,8 @@ public class RoguesDenOverlay extends Overlay {
 	private final RoguesDenPlugin plugin;
 
 	@Inject
-	public RoguesDenOverlay(final Client client, final RoguesDenPlugin plugin) {
+	public RoguesDenOverlay(final Client client, final RoguesDenPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.client = client;
@@ -59,35 +60,48 @@ public class RoguesDenOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.isHasGem()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isHasGem())
+		{
 			return null;
 		}
 
 		plugin.getObstaclesHull().forEach((obstacle, tile) ->
 		{
-			if (tile.getPlane() == client.getPlane()) {
+			if (tile.getPlane() == client.getPlane())
+			{
 				final Shape clickBox = obstacle.getClickbox();
-				if (clickBox != null) {
+				if (clickBox != null)
+				{
 					final Point mouse = client.getMouseCanvasPosition();
-					if (clickBox.contains(mouse.getX(), mouse.getY())) {
+					if (clickBox.contains(mouse.getX(), mouse.getY()))
+					{
 						graphics.setColor(OBJECT_BORDER_HOVER_COLOR);
-					} else {
+					}
+					else
+					{
 						graphics.setColor(OBJECT_BORDER_COLOR);
 					}
 
 					graphics.draw(clickBox);
 					graphics.setColor(OBJECT_COLOR);
 					graphics.fill(clickBox);
-				} else {
+				}
+				else
+				{
 					Shape p;
-					if (obstacle instanceof GameObject) {
+					if (obstacle instanceof GameObject)
+					{
 						p = ((GameObject) obstacle).getConvexHull();
-					} else {
+					}
+					else
+					{
 						p = obstacle.getCanvasTilePoly();
 					}
 
-					if (p != null) {
+					if (p != null)
+					{
 						graphics.setColor(OBJECT_COLOR);
 						graphics.draw(p);
 					}
@@ -95,23 +109,28 @@ public class RoguesDenOverlay extends Overlay {
 			}
 		});
 
-		for (Obstacles.Obstacle obstacle : Obstacles.OBSTACLES) {
+		for (Obstacles.Obstacle obstacle : Obstacles.OBSTACLES)
+		{
 			final LocalPoint localPoint = LocalPoint.fromWorld(client, obstacle.getTile());
 
-			if (localPoint == null || obstacle.getTile().getPlane() != client.getPlane()) {
+			if (localPoint == null || obstacle.getTile().getPlane() != client.getPlane())
+			{
 				continue;
 			}
 
-			if (!obstacle.getHint().isEmpty()) {
+			if (!obstacle.getHint().isEmpty())
+			{
 				final Polygon polygon = Perspective.getCanvasTilePoly(client, localPoint);
-				if (polygon != null) {
+				if (polygon != null)
+				{
 					graphics.setColor(obstacle.getTileColor());
 					graphics.drawPolygon(polygon);
 				}
 			}
 
 			final Point textLocation = Perspective.getCanvasTextLocation(client, graphics, localPoint, obstacle.getHint(), 0);
-			if (textLocation != null) {
+			if (textLocation != null)
+			{
 				graphics.setColor(Color.LIGHT_GRAY);
 				graphics.drawString(obstacle.getHint(), textLocation.getX(), textLocation.getY());
 			}

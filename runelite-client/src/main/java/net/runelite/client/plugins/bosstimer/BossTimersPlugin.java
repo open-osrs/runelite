@@ -27,7 +27,6 @@ package net.runelite.client.plugins.bosstimer;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.NPC;
 import net.runelite.api.events.NpcDespawned;
@@ -39,14 +38,15 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 
 @PluginDescriptor(
-		name = "Boss Timers",
-		description = "Show boss spawn timer overlays",
-		tags = {"combat", "pve", "overlay", "spawn"},
-		type = PluginType.PVM
+	name = "Boss Timers",
+	description = "Show boss spawn timer overlays",
+	tags = {"combat", "pve", "overlay", "spawn"},
+	type = PluginType.PVM
 )
 @Singleton
 @Slf4j
-public class BossTimersPlugin extends Plugin {
+public class BossTimersPlugin extends Plugin
+{
 	@Inject
 	private InfoBoxManager infoBoxManager;
 
@@ -54,15 +54,18 @@ public class BossTimersPlugin extends Plugin {
 	private ItemManager itemManager;
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		infoBoxManager.removeIf(t -> t instanceof RespawnTimer);
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned npcDespawned) {
+	private void onNpcDespawned(NpcDespawned npcDespawned)
+	{
 		NPC npc = npcDespawned.getNpc();
 
-		if (!npc.isDead()) {
+		if (!npc.isDead())
+		{
 			return;
 		}
 
@@ -70,7 +73,8 @@ public class BossTimersPlugin extends Plugin {
 
 		Boss boss = Boss.find(npcId);
 
-		if (boss == null) {
+		if (boss == null)
+		{
 			return;
 		}
 

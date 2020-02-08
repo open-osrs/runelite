@@ -26,14 +26,12 @@ package net.runelite.client.ws;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.eventbus.EventBus;
@@ -50,7 +48,8 @@ import org.jetbrains.annotations.NotNull;
 
 @Slf4j
 @Singleton
-public class WSClient extends WebSocketListener implements AutoCloseable {
+public class WSClient extends WebSocketListener implements AutoCloseable
+{
 	private final EventBus eventBus;
 	private final Collection<Class<? extends WebsocketMessage>> messages = new HashSet<>();
 
@@ -60,40 +59,48 @@ public class WSClient extends WebSocketListener implements AutoCloseable {
 	private WebSocket webSocket;
 
 	@Inject
-	private WSClient(EventBus eventBus) {
+	private WSClient(EventBus eventBus)
+	{
 		this.eventBus = eventBus;
 		this.gson = WebsocketGsonFactory.build(WebsocketGsonFactory.factory(messages));
 	}
 
-	public boolean sessionExists() {
+	public boolean sessionExists()
+	{
 		return sessionId != null;
 	}
 
-	public void changeSession(UUID sessionId) {
-		if (Objects.equals(sessionId, this.sessionId)) {
+	public void changeSession(UUID sessionId)
+	{
+		if (Objects.equals(sessionId, this.sessionId))
+		{
 			return;
 		}
 
-		if (webSocket != null) {
+		if (webSocket != null)
+		{
 			close();
 			webSocket = null;
 		}
 
 		this.sessionId = sessionId;
 
-		if (sessionId != null) {
+		if (sessionId != null)
+		{
 			connect();
 		}
 	}
 
-	private void connect() {
-		if (sessionId == null) {
+	private void connect()
+	{
+		if (sessionId == null)
+		{
 			throw new IllegalStateException("Cannot connect with no session id");
 		}
 
 		Request request = new Request.Builder()
-				.url(RuneLiteAPI.getWsEndpoint())
-				.build();
+			.url(RuneLiteAPI.getWsEndpoint())
+			.build();
 
 		webSocket = RuneLiteAPI.CLIENT.newWebSocket(request, this);
 
@@ -102,20 +109,26 @@ public class WSClient extends WebSocketListener implements AutoCloseable {
 		send(handshake);
 	}
 
-	public void registerMessage(final Class<? extends WebsocketMessage> message) {
-		if (messages.add(message)) {
+	public void registerMessage(final Class<? extends WebsocketMessage> message)
+	{
+		if (messages.add(message))
+		{
 			gson = WebsocketGsonFactory.build(WebsocketGsonFactory.factory(messages));
 		}
 	}
 
-	public void unregisterMessage(final Class<? extends WebsocketMessage> message) {
-		if (messages.remove(message)) {
+	public void unregisterMessage(final Class<? extends WebsocketMessage> message)
+	{
+		if (messages.remove(message))
+		{
 			gson = WebsocketGsonFactory.build(WebsocketGsonFactory.factory(messages));
 		}
 	}
 
-	public void send(WebsocketMessage message) {
-		if (webSocket == null) {
+	public void send(WebsocketMessage message)
+	{
+		if (webSocket == null)
+		{
 			log.debug("Reconnecting to server");
 			connect();
 		}
@@ -126,45 +139,57 @@ public class WSClient extends WebSocketListener implements AutoCloseable {
 	}
 
 	@Override
-	public void close() {
-		if (webSocket != null) {
+	public void close()
+	{
+		if (webSocket != null)
+		{
 			webSocket.close(1000, null);
 		}
 	}
 
 	@Override
-	public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
+	public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason)
+	{
 		log.info("Websocket {} closed: {}/{}", webSocket, code, reason);
 		this.webSocket = null;
 	}
 
 	@Override
-	public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, Response response) {
+	public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, Response response)
+	{
 		log.warn("Error in websocket {}:{}", response, t);
 		this.webSocket = null;
 	}
 
 	@Override
-	public void onMessage(@NotNull WebSocket webSocket, @NotNull String text) {
+	public void onMessage(@NotNull WebSocket webSocket, @NotNull String text)
+	{
 		final WebsocketMessage message;
 
-		try {
+		try
+		{
 			message = gson.fromJson(text, WebsocketMessage.class);
-		} catch (JsonParseException e) {
+		}
+		catch (JsonParseException e)
+		{
 			log.debug("Failed to deserialize message", e);
 			return;
 		}
 		message.text = text;
 
-		if (message instanceof PartyMemberMessage) {
+		if (message instanceof PartyMemberMessage)
+		{
 			eventBus.post(PartyMemberMessage.class, message);
-		} else {
+		}
+		else
+		{
 			eventBus.post(WebsocketMessage.class, message);
 		}
 	}
 
 	@Override
-	public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
+	public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response)
+	{
 		log.info("Websocket {} opened", webSocket);
 	}
 }

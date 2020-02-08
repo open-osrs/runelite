@@ -6,12 +6,15 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSPlayerAppearance;
 
 @Mixin(RSPlayerAppearance.class)
-public abstract class RSPlayerAppearanceMixin implements RSPlayerAppearance {
+public abstract class RSPlayerAppearanceMixin implements RSPlayerAppearance
+{
 	@Inject
 	@Override
-	public int getEquipmentId(KitType type) {
+	public int getEquipmentId(KitType type)
+	{
 		int id = getEquipmentIds()[type.getIndex()];
-		if (id < 512) {
+		if (id < 512)
+		{
 			return -1; // not an item
 		}
 		return id - 512;
@@ -19,9 +22,11 @@ public abstract class RSPlayerAppearanceMixin implements RSPlayerAppearance {
 
 	@Inject
 	@Override
-	public int getKitId(KitType type) {
+	public int getKitId(KitType type)
+	{
 		int id = getEquipmentIds()[type.getIndex()];
-		if (id < 256 || id >= 512) {
+		if (id < 256 || id >= 512)
+		{
 			return -1; // not a kit
 		}
 		return id - 256;

@@ -3,11 +3,9 @@ package net.runelite.mixins;
 import com.google.common.hash.Hashing;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -20,7 +18,8 @@ import net.runelite.rs.api.RSClient;
 import org.slf4j.Logger;
 
 @Mixin(RSAbstractArchive.class)
-public abstract class RSAbstractArchiveMixin implements RSAbstractArchive {
+public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
+{
 	@Shadow("client")
 	private static RSClient client;
 
@@ -29,7 +28,8 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive {
 
 	@Inject
 	@Override
-	public boolean isOverlayOutdated() {
+	public boolean isOverlayOutdated()
+	{
 		return overlayOutdated;
 	}
 
@@ -37,11 +37,13 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive {
 	abstract byte[] rs$getConfigData(int archiveId, int fileId);
 
 	@Replace("takeFile")
-	public byte[] rl$getConfigData(int groupId, int fileId) {
+	public byte[] rl$getConfigData(int groupId, int fileId)
+	{
 		final byte[] rsData = rs$getConfigData(groupId, fileId);
 		final int archiveId = ((RSArchive) this).getIndex();
 
-		if (!OverlayIndex.hasOverlay(archiveId, groupId)) {
+		if (!OverlayIndex.hasOverlay(archiveId, groupId))
+		{
 			return rsData;
 		}
 
@@ -49,29 +51,37 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive {
 		final String path = String.format("/runelite/%s/%s", archiveId, groupId);
 
 		// rsData will be null if this script didn't exist at first
-		if (rsData != null) {
+		if (rsData != null)
+		{
 			String overlayHash, originalHash;
 
-			try (final InputStream hashIn = getClass().getResourceAsStream(path + ".hash")) {
+			try (final InputStream hashIn = getClass().getResourceAsStream(path + ".hash"))
+			{
 				overlayHash = CharStreams.toString(new InputStreamReader(hashIn));
 				originalHash = Hashing.sha256().hashBytes(rsData).toString();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				log.warn("Missing overlay hash for {}/{}", archiveId, groupId);
 				return rsData;
 			}
 
 			// Check if hash is correct first, so we don't have to load the overlay file if it doesn't match
-			if (!overlayHash.equalsIgnoreCase(originalHash)) {
+			if (!overlayHash.equalsIgnoreCase(originalHash))
+			{
 				log.warn("Mismatch in overlaid cache archive hash for {}/{}: {} != {}",
-						archiveId, groupId, overlayHash, originalHash);
+					archiveId, groupId, overlayHash, originalHash);
 				overlayOutdated = true;
 				return rsData;
 			}
 		}
 
-		try (final InputStream ovlIn = getClass().getResourceAsStream(path)) {
+		try (final InputStream ovlIn = getClass().getResourceAsStream(path))
+		{
 			return ByteStreams.toByteArray(ovlIn);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			log.warn("Missing overlay data for {}/{}", archiveId, groupId);
 			return rsData;
 		}

@@ -26,12 +26,13 @@ package net.runelite.client.plugins.config;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
-
 import net.runelite.client.ui.PluginPanel;
 
-class FixedWidthPanel extends JPanel {
+class FixedWidthPanel extends JPanel
+{
 	@Override
-	public Dimension getPreferredSize() {
+	public Dimension getPreferredSize()
+	{
 		return new Dimension(PluginPanel.PANEL_WIDTH, super.getPreferredSize().height);
 	}
 

@@ -25,7 +25,6 @@
 package net.runelite.client.ui.overlay;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -33,41 +32,42 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import lombok.Getter;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 
-public class WidgetOverlay extends Overlay {
+public class WidgetOverlay extends Overlay
+{
 	private static final Map<WidgetInfo, OverlayPosition> WIDGETS = ImmutableMap
-			.<WidgetInfo, OverlayPosition>builder()
-			.put(WidgetInfo.RESIZABLE_MINIMAP_WIDGET, OverlayPosition.CANVAS_TOP_RIGHT)
-			.put(WidgetInfo.RESIZABLE_MINIMAP_STONES_WIDGET, OverlayPosition.CANVAS_TOP_RIGHT)
-			.put(WidgetInfo.FOSSIL_ISLAND_OXYGENBAR, OverlayPosition.TOP_LEFT)
-			.put(WidgetInfo.EXPERIENCE_TRACKER_WIDGET, OverlayPosition.TOP_RIGHT)
-			.put(WidgetInfo.RAIDS_POINTS_INFOBOX, OverlayPosition.TOP_RIGHT)
-			.put(WidgetInfo.GWD_KC, OverlayPosition.TOP_RIGHT)
-			.put(WidgetInfo.TITHE_FARM, OverlayPosition.TOP_RIGHT)
-			.put(WidgetInfo.PEST_CONTROL_BOAT_INFO, OverlayPosition.TOP_LEFT)
-			.put(WidgetInfo.PEST_CONTROL_INFO, OverlayPosition.TOP_LEFT)
-			.put(WidgetInfo.ZEAH_MESS_HALL_COOKING_DISPLAY, OverlayPosition.TOP_LEFT)
-			.put(WidgetInfo.PVP_BOUNTY_HUNTER_INFO, OverlayPosition.TOP_RIGHT)
-			.put(WidgetInfo.PVP_KILLDEATH_COUNTER, OverlayPosition.TOP_LEFT)
-			.put(WidgetInfo.SKOTIZO_CONTAINER, OverlayPosition.TOP_LEFT)
-			.put(WidgetInfo.KOUREND_FAVOUR_OVERLAY, OverlayPosition.TOP_CENTER)
-			.put(WidgetInfo.MULTICOMBAT_FIXED, OverlayPosition.BOTTOM_RIGHT)
-			.put(WidgetInfo.MULTICOMBAT_RESIZEABLE, OverlayPosition.CANVAS_TOP_RIGHT)
-			.put(WidgetInfo.PYRAMID_PLUNDER_DATA, OverlayPosition.TOP_CENTER)
-			.put(WidgetInfo.LMS_INFO, OverlayPosition.TOP_CENTER)
-			.put(WidgetInfo.LMS_KDA, OverlayPosition.TOP_CENTER)
-			.put(WidgetInfo.THEATRE_OF_BLOOD_HEALTH_ORBS, OverlayPosition.TOP_LEFT)
-			.build();
+		.<WidgetInfo, OverlayPosition>builder()
+		.put(WidgetInfo.RESIZABLE_MINIMAP_WIDGET, OverlayPosition.CANVAS_TOP_RIGHT)
+		.put(WidgetInfo.RESIZABLE_MINIMAP_STONES_WIDGET, OverlayPosition.CANVAS_TOP_RIGHT)
+		.put(WidgetInfo.FOSSIL_ISLAND_OXYGENBAR, OverlayPosition.TOP_LEFT)
+		.put(WidgetInfo.EXPERIENCE_TRACKER_WIDGET, OverlayPosition.TOP_RIGHT)
+		.put(WidgetInfo.RAIDS_POINTS_INFOBOX, OverlayPosition.TOP_RIGHT)
+		.put(WidgetInfo.GWD_KC, OverlayPosition.TOP_RIGHT)
+		.put(WidgetInfo.TITHE_FARM, OverlayPosition.TOP_RIGHT)
+		.put(WidgetInfo.PEST_CONTROL_BOAT_INFO, OverlayPosition.TOP_LEFT)
+		.put(WidgetInfo.PEST_CONTROL_INFO, OverlayPosition.TOP_LEFT)
+		.put(WidgetInfo.ZEAH_MESS_HALL_COOKING_DISPLAY, OverlayPosition.TOP_LEFT)
+		.put(WidgetInfo.PVP_BOUNTY_HUNTER_INFO, OverlayPosition.TOP_RIGHT)
+		.put(WidgetInfo.PVP_KILLDEATH_COUNTER, OverlayPosition.TOP_LEFT)
+		.put(WidgetInfo.SKOTIZO_CONTAINER, OverlayPosition.TOP_LEFT)
+		.put(WidgetInfo.KOUREND_FAVOUR_OVERLAY, OverlayPosition.TOP_CENTER)
+		.put(WidgetInfo.MULTICOMBAT_FIXED, OverlayPosition.BOTTOM_RIGHT)
+		.put(WidgetInfo.MULTICOMBAT_RESIZEABLE, OverlayPosition.CANVAS_TOP_RIGHT)
+		.put(WidgetInfo.PYRAMID_PLUNDER_DATA, OverlayPosition.TOP_CENTER)
+		.put(WidgetInfo.LMS_INFO, OverlayPosition.TOP_CENTER)
+		.put(WidgetInfo.LMS_KDA, OverlayPosition.TOP_CENTER)
+		.put(WidgetInfo.THEATRE_OF_BLOOD_HEALTH_ORBS, OverlayPosition.TOP_LEFT)
+		.build();
 
-	public static Collection<WidgetOverlay> createOverlays(final Client client) {
+	public static Collection<WidgetOverlay> createOverlays(final Client client)
+	{
 		return WIDGETS.entrySet().stream()
-				.map(w -> new WidgetOverlay(client, w.getKey(), w.getValue()))
-				.collect(Collectors.toList());
+			.map(w -> new WidgetOverlay(client, w.getKey(), w.getValue()))
+			.collect(Collectors.toList());
 	}
 
 	private final Client client;
@@ -75,7 +75,8 @@ public class WidgetOverlay extends Overlay {
 	private final WidgetInfo widgetInfo;
 	private final Rectangle parentBounds = new Rectangle();
 
-	private WidgetOverlay(final Client client, final WidgetInfo widgetInfo, final OverlayPosition overlayPosition) {
+	private WidgetOverlay(final Client client, final WidgetInfo widgetInfo, final OverlayPosition overlayPosition)
+	{
 		this.client = client;
 		this.widgetInfo = widgetInfo;
 		setPriority(OverlayPriority.HIGHEST);
@@ -84,16 +85,19 @@ public class WidgetOverlay extends Overlay {
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return Objects.toString(widgetInfo);
 	}
 
 	@Override
-	public Rectangle getBounds() {
+	public Rectangle getBounds()
+	{
 		final Rectangle bounds = super.getBounds();
 		final Rectangle parent = getParentBounds(client.getWidget(widgetInfo));
 
-		if (parent.isEmpty()) {
+		if (parent.isEmpty())
+		{
 			return bounds;
 		}
 
@@ -108,12 +112,14 @@ public class WidgetOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		final Widget widget = client.getWidget(widgetInfo);
 		final Rectangle bounds = super.getBounds();
 		final Rectangle parent = getParentBounds(widget);
 
-		if (parent.isEmpty()) {
+		if (parent.isEmpty())
+		{
 			return null;
 		}
 
@@ -131,12 +137,15 @@ public class WidgetOverlay extends Overlay {
 		return new Dimension(widget.getWidth(), widget.getHeight());
 	}
 
-	private Rectangle getParentBounds(final Widget widget) {
-		if (!client.isClientThread()) {
+	private Rectangle getParentBounds(final Widget widget)
+	{
+		if (!client.isClientThread())
+		{
 			return parentBounds;
 		}
 
-		if (widget == null || widget.isHidden()) {
+		if (widget == null || widget.isHidden())
+		{
 			parentBounds.setBounds(new Rectangle());
 			return parentBounds;
 		}
@@ -144,9 +153,12 @@ public class WidgetOverlay extends Overlay {
 		final Widget parent = widget.getParent();
 		final Rectangle bounds;
 
-		if (parent == null) {
+		if (parent == null)
+		{
 			bounds = new Rectangle(client.getRealDimensions());
-		} else {
+		}
+		else
+		{
 			bounds = new Rectangle(parent.getCanvasLocation().getX(), parent.getCanvasLocation().getY(), parent.getWidth(), parent.getHeight());
 		}
 

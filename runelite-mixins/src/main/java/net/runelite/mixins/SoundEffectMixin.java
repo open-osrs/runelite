@@ -42,7 +42,8 @@ import net.runelite.rs.api.RSRawSound;
 import net.runelite.rs.api.RSSoundEffect;
 
 @Mixin(RSClient.class)
-public abstract class SoundEffectMixin implements RSClient {
+public abstract class SoundEffectMixin implements RSClient
+{
 	@Shadow("client")
 	private static RSClient client;
 
@@ -56,13 +57,16 @@ public abstract class SoundEffectMixin implements RSClient {
 	private static int lastSoundEffectSourceNPCid;
 
 	@Copy("updateActorSequence")
-	public static void rs$updateActorSequence(RSActor actor, int size) {
+	public static void rs$updateActorSequence(RSActor actor, int size)
+	{
 		throw new RuntimeException();
 	}
 
 	@Replace("updateActorSequence")
-	public static void rl$updateActorSequence(RSActor actor, int size) {
-		if (actor instanceof RSNPC) {
+	public static void rl$updateActorSequence(RSActor actor, int size)
+	{
+		if (actor instanceof RSNPC)
+		{
 			lastSoundEffectSourceNPCid = ((RSNPC) actor).getId();
 		}
 		lastSoundEffectSourceActor = actor;
@@ -74,14 +78,17 @@ public abstract class SoundEffectMixin implements RSClient {
 
 	@FieldHook("soundEffectCount")
 	@Inject
-	public static void queuedSoundEffectCountChanged(int idx) {
+	public static void queuedSoundEffectCountChanged(int idx)
+	{
 		int soundCount = client.getQueuedSoundEffectCount();
-		if (soundCount == lastSoundEffectCount + 1) {
+		if (soundCount == lastSoundEffectCount + 1)
+		{
 			int soundIndex = soundCount - 1;
 			int packedLocation = client.getSoundLocations()[soundIndex];
 			boolean consumed;
 
-			if (packedLocation == 0) {
+			if (packedLocation == 0)
+			{
 				// Regular sound effect
 				SoundEffectPlayed event = new SoundEffectPlayed(lastSoundEffectSourceActor);
 				event.setNpcid(lastSoundEffectSourceNPCid);
@@ -90,7 +97,9 @@ public abstract class SoundEffectMixin implements RSClient {
 				event.setDelay(client.getQueuedSoundEffectDelays()[soundIndex]);
 				client.getCallbacks().post(SoundEffectPlayed.class, event);
 				consumed = event.isConsumed();
-			} else {
+			}
+			else
+			{
 				// Area sound effect
 
 				int x = (packedLocation >> 16) & 0xFF;
@@ -107,7 +116,8 @@ public abstract class SoundEffectMixin implements RSClient {
 				consumed = event.isConsumed();
 			}
 
-			if (consumed) {
+			if (consumed)
+			{
 				soundCount--;
 				client.setQueuedSoundEffectCount(soundCount);
 			}
@@ -119,19 +129,22 @@ public abstract class SoundEffectMixin implements RSClient {
 
 	@Inject
 	@Override
-	public void playSoundEffect(int id) {
+	public void playSoundEffect(int id)
+	{
 		playSoundEffect(id, 0, 0, 0, 0);
 	}
 
 	@Inject
 	@Override
-	public void playSoundEffect(int id, int x, int y, int range) {
+	public void playSoundEffect(int id, int x, int y, int range)
+	{
 		playSoundEffect(id, x, y, range, 0);
 	}
 
 	@Inject
 	@Override
-	public void playSoundEffect(int id, int x, int y, int range, int delay) {
+	public void playSoundEffect(int id, int x, int y, int range, int delay)
+	{
 		int position = ((x & 255) << 16) + ((y & 255) << 8) + (range & 255);
 
 		int[] queuedSoundEffectIDs = getQueuedSoundEffectIDs();
@@ -152,15 +165,18 @@ public abstract class SoundEffectMixin implements RSClient {
 
 	@Inject
 	@Override
-	public void playSoundEffect(int id, int volume) {
+	public void playSoundEffect(int id, int volume)
+	{
 		RSSoundEffect soundEffect = getTrack(getIndexCache4(), id, 0);
-		if (soundEffect == null) {
+		if (soundEffect == null)
+		{
 			return;
 		}
 
 		// If the current volume is not muted, use it instead
 		final int soundEffectVolume = getSoundEffectVolume();
-		if (soundEffectVolume != SoundEffectVolume.MUTED) {
+		if (soundEffectVolume != SoundEffectVolume.MUTED)
+		{
 			volume = soundEffectVolume;
 		}
 

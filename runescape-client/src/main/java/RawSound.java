@@ -38,7 +38,7 @@ public class RawSound extends AbstractSound {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ldj;)Lcv;"
+		signature = "(Ldj;)Lcv;"
 	)
 	@Export("resample")
 	public RawSound resample(Decimator var1) {

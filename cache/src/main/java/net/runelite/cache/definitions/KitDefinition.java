@@ -27,7 +27,8 @@ package net.runelite.cache.definitions;
 import lombok.Data;
 
 @Data
-public class KitDefinition {
+public class KitDefinition
+{
 	private final int id;
 	public short[] recolorToReplace;
 	public short[] recolorToFind;
@@ -36,8 +37,8 @@ public class KitDefinition {
 	public int bodyPartId = -1;
 	public int[] modelIds;
 	public int[] models = new int[]
-			{
-					-1, -1, -1, -1, -1
-			};
+	{
+		-1, -1, -1, -1, -1
+	};
 	public boolean nonSelectable = false;
 }

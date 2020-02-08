@@ -26,7 +26,6 @@ package net.runelite.deob.deobfuscators.mapping;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,7 +34,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -44,7 +42,8 @@ import net.runelite.asm.attributes.code.Instruction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ParallelExecutorMapping {
+public class ParallelExecutorMapping
+{
 	private static final Logger logger = LoggerFactory.getLogger(ParallelExecutorMapping.class);
 
 	private ClassGroup group, group2;
@@ -53,20 +52,25 @@ public class ParallelExecutorMapping {
 	public boolean crashed;
 	public int same;
 
-	public ParallelExecutorMapping(ClassGroup group, ClassGroup group2) {
+	public ParallelExecutorMapping(ClassGroup group, ClassGroup group2)
+	{
 		this.group = group;
 		this.group2 = group2;
 		assert group != group2;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "ParallelExecutorMapping{size = " + map.keySet().size() + ", crashed = " + crashed + ", same = " + same + ", m1 = " + m1 + ", m2 = " + m2 + "}";
 	}
 
-	private Mapping getMapping(Object from, Object to) {
-		for (Mapping m : map.get(from)) {
-			if (m.getObject() == to) {
+	private Mapping getMapping(Object from, Object to)
+	{
+		for (Mapping m : map.get(from))
+		{
+			if (m.getObject() == to)
+			{
 				return m;
 			}
 		}
@@ -76,22 +80,29 @@ public class ParallelExecutorMapping {
 		return m;
 	}
 
-	private Object highest(Object from) {
+	private Object highest(Object from)
+	{
 		Mapping highest = null;
-		for (Mapping m : map.get(from)) {
-			if (highest == null || m.getCount() > highest.getCount()) {
+		for (Mapping m : map.get(from))
+		{
+			if (highest == null || m.getCount() > highest.getCount())
+			{
 				highest = m;
-			} else if (m.getCount() == highest.getCount() && getName(from).compareTo(getName(highest.getObject())) > 0) {
+			}
+			else if (m.getCount() == highest.getCount() && getName(from).compareTo(getName(highest.getObject())) > 0)
+			{
 				highest = m;
 			}
 		}
 		return highest != null ? highest.getObject() : null;
 	}
 
-	public void merge(ParallelExecutorMapping other) {
+	public void merge(ParallelExecutorMapping other)
+	{
 		assert this != other;
 
-		for (Entry<Object, Mapping> e : other.map.entries()) {
+		for (Entry<Object, Mapping> e : other.map.entries())
+		{
 			Object o = e.getKey();
 			Mapping v = e.getValue();
 
@@ -100,10 +111,12 @@ public class ParallelExecutorMapping {
 		}
 	}
 
-	public Mapping map(Instruction mapper, Object one, Object two) {
+	public Mapping map(Instruction mapper, Object one, Object two)
+	{
 		Mapping m = getMapping(one, two);
 
-		if (mapper != null) {
+		if (mapper != null)
+		{
 			m.addInstruction(mapper);
 		}
 
@@ -117,8 +130,10 @@ public class ParallelExecutorMapping {
 		return m;
 	}
 
-	private void sanityCheck(Object one, Object two) {
-		if (one instanceof Field && two instanceof Field) {
+	private void sanityCheck(Object one, Object two)
+	{
+		if (one instanceof Field && two instanceof Field)
+		{
 			Field f1 = (Field) one;
 			Field f2 = (Field) two;
 
@@ -126,10 +141,12 @@ public class ParallelExecutorMapping {
 		}
 	}
 
-	private void mapClass(StaticInitializerIndexer staticIndexer1, StaticInitializerIndexer staticIndexer2, Object one, Object two) {
+	private void mapClass(StaticInitializerIndexer staticIndexer1, StaticInitializerIndexer staticIndexer2, Object one, Object two)
+	{
 		ClassFile cf1, cf2;
 
-		if (one instanceof Field || two instanceof Field) {
+		if (one instanceof Field || two instanceof Field)
+		{
 			assert one instanceof Field;
 			assert two instanceof Field;
 
@@ -138,15 +155,20 @@ public class ParallelExecutorMapping {
 
 			assert f1.isStatic() == f2.isStatic();
 
-			if (staticIndexer1.isStatic(f1) && staticIndexer2.isStatic(f2)) {
+			if (staticIndexer1.isStatic(f1) && staticIndexer2.isStatic(f2))
+			{
 				logger.debug("Mapping class of {} -> {} due to static initializer", f1, f2);
-			} else if (f1.isStatic() || f2.isStatic()) {
+			}
+			else if (f1.isStatic() || f2.isStatic())
+			{
 				return;
 			}
 
 			cf1 = f1.getClassFile();
 			cf2 = f2.getClassFile();
-		} else if (one instanceof Method || two instanceof Method) {
+		}
+		else if (one instanceof Method || two instanceof Method)
+		{
 			assert one instanceof Method;
 			assert two instanceof Method;
 
@@ -155,13 +177,16 @@ public class ParallelExecutorMapping {
 
 			assert m1.isStatic() == m1.isStatic();
 
-			if (m1.isStatic() || m2.isStatic()) {
+			if (m1.isStatic() || m2.isStatic())
+			{
 				return;
 			}
 
 			cf1 = m1.getClassFile();
 			cf2 = m2.getClassFile();
-		} else {
+		}
+		else
+		{
 			assert false;
 			return;
 		}
@@ -180,7 +205,8 @@ public class ParallelExecutorMapping {
 	 * is used, and the other mappings are not considered when deducing the
 	 * mappings of the other objects.
 	 */
-	public void reduce() {
+	public void reduce()
+	{
 		List<Mapping> sorted = new ArrayList<>(map.values());
 
 		// Sort indepdent of the map's order, which is undefined
@@ -189,11 +215,13 @@ public class ParallelExecutorMapping {
 
 			// Number of times mapped
 			int i = Integer.compare(m1.getCount(), m2.getCount());
-			if (i != 0) {
+			if (i != 0)
+			{
 				return i;
 			}
 
-			if (m1.weight != m2.weight) {
+			if (m1.weight != m2.weight)
+			{
 				// If equal, number of ins equal in the mapping
 				return Integer.compare(m1.weight, m2.weight);
 			}
@@ -209,13 +237,16 @@ public class ParallelExecutorMapping {
 		Multimap<Object, Mapping> reducedMap = HashMultimap.create();
 		Map<Object, Object> reverse = new HashMap<>();
 
-		for (Mapping m : sorted) {
-			if (reducedMap.containsKey(m.getFrom())) {
+		for (Mapping m : sorted)
+		{
+			if (reducedMap.containsKey(m.getFrom()))
+			{
 				logger.debug("Reduced out mapping {} because of {}", m, reducedMap.get(m.getFrom()).iterator().next());
 				continue;
 			}
 
-			if (reverse.containsKey(m.getObject())) {
+			if (reverse.containsKey(m.getObject()))
+			{
 				logger.debug("Redudced out mapping {} because of {}", m, reducedMap.get(reverse.get(m.getObject())).iterator().next());
 				continue;
 			}
@@ -228,9 +259,12 @@ public class ParallelExecutorMapping {
 		// map is now one to one
 	}
 
-	public void buildClasses() {
-		for (Object o : new HashSet<>(map.keySet())) {
-			if (o instanceof ClassFile) {
+	public void buildClasses()
+	{
+		for (Object o : new HashSet<>(map.keySet()))
+		{
+			if (o instanceof ClassFile)
+			{
 				map.removeAll(o);
 			}
 		}
@@ -242,7 +276,8 @@ public class ParallelExecutorMapping {
 		staticIndexer2.index();
 
 		Map<Object, Object> map = getMap();
-		for (Object key : map.keySet()) {
+		for (Object key : map.keySet())
+		{
 			Object value = map.get(key);
 
 			mapClass(staticIndexer1, staticIndexer2, key, value);
@@ -257,18 +292,23 @@ public class ParallelExecutorMapping {
 		ClassGroupMapper m = new ClassGroupMapper(group, group2);
 		m.map();
 
-		for (ClassFile cf : group.getClasses()) {
-			if (!map.containsKey(cf)) {
+		for (ClassFile cf : group.getClasses())
+		{
+			if (!map.containsKey(cf))
+			{
 				ClassFile other = m.get(cf);
-				if (other == null) {
+				if (other == null)
+				{
 					logger.info("Unable to map class {}", cf);
-				} else {
+				}
+				else
+				{
 					// these are both probably very small
 					long nonStaticFields = cf.getFields().stream().filter(f -> !f.isStatic()).count(),
-							nonStaticMethods = cf.getMethods().stream().filter(m2 -> !m2.isStatic()).count();
+						nonStaticMethods = cf.getMethods().stream().filter(m2 -> !m2.isStatic()).count();
 
 					logger.info("Build classes fallback {} -> {}, non static fields: {}, non static methods: {}",
-							cf, other, nonStaticFields, nonStaticMethods);
+						cf, other, nonStaticFields, nonStaticMethods);
 
 					Mapping ma = getMapping(cf, other);
 					ma.inc();
@@ -277,49 +317,64 @@ public class ParallelExecutorMapping {
 		}
 	}
 
-	public Object get(Object o) {
+	public Object get(Object o)
+	{
 		return highest(o);
 	}
 
-	public Collection<Mapping> getMappings(Object o) {
+	public Collection<Mapping> getMappings(Object o)
+	{
 		return map.get(o);
 	}
 
-	public Map<Object, Object> getMap() {
+	public Map<Object, Object> getMap()
+	{
 		Map<Object, Object> m = new HashMap<>();
 
-		for (Object o : map.keySet()) {
+		for (Object o : map.keySet())
+		{
 			m.put(o, highest(o));
 		}
 
 		return m;
 	}
 
-	private void belongs(Object o, ClassGroup to) {
-		if (o instanceof Field) {
+	private void belongs(Object o, ClassGroup to)
+	{
+		if (o instanceof Field)
+		{
 			Field f = (Field) o;
 			assert f.getClassFile().getGroup() == to;
-		} else if (o instanceof Method) {
+		}
+		else if (o instanceof Method)
+		{
 			Method m = (Method) o;
 			assert m.getClassFile().getGroup() == to;
-		} else if (o instanceof ClassFile) {
+		}
+		else if (o instanceof ClassFile)
+		{
 			ClassFile c = (ClassFile) o;
 			assert c.getGroup() == to;
-		} else {
+		}
+		else
+		{
 			assert false;
 		}
 	}
 
-	public int contradicts(ParallelExecutorMapping other) {
+	public int contradicts(ParallelExecutorMapping other)
+	{
 		int count = 0;
 
-		for (Entry<Object, Mapping> e : other.map.entries()) {
+		for (Entry<Object, Mapping> e : other.map.entries())
+		{
 			Object key = e.getKey();
 			Mapping value = e.getValue();
 
 			Object highest = highest(key);
 
-			if (highest != null && highest != value.getObject()) {
+			if (highest != null && highest != value.getObject())
+			{
 				++count;
 			}
 		}
@@ -327,26 +382,37 @@ public class ParallelExecutorMapping {
 		return count;
 	}
 
-	public boolean hasAnyMultiples() {
-		for (Object o : map.keySet()) {
-			if (map.get(o).size() > 1) {
+	public boolean hasAnyMultiples()
+	{
+		for (Object o : map.keySet())
+		{
+			if (map.get(o).size() > 1)
+			{
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private String getName(Object o) {
-		if (o instanceof Field) {
+	private String getName(Object o)
+	{
+		if (o instanceof Field)
+		{
 			Field f = (Field) o;
 			return f.getClassFile().getClassName() + "." + f.getName();
-		} else if (o instanceof Method) {
+		}
+		else if (o instanceof Method)
+		{
 			Method m = (Method) o;
 			return m.getClassFile().getClassName() + "." + m.getName();
-		} else if (o instanceof ClassFile) {
+		}
+		else if (o instanceof ClassFile)
+		{
 			ClassFile c = (ClassFile) o;
 			return c.getName();
-		} else {
+		}
+		else
+		{
 			assert false;
 			return null;
 		}

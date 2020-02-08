@@ -6,21 +6,21 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class287 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("VarbitDefinition_archive")
 	public static AbstractArchive VarbitDefinition_archive;
 
 	@ObfuscatedName("jy")
 	@ObfuscatedSignature(
-			signature = "(IIIB)Lbe;",
-			garbageValue = "27"
+		signature = "(IIIB)Lbe;",
+		garbageValue = "27"
 	)
 	static final InterfaceParent method5327(int var0, int var1, int var2) {
 		InterfaceParent var3 = new InterfaceParent();
 		var3.group = var1;
 		var3.type = var2;
-		Client.interfaceParents.put(var3, (long) var0);
+		Client.interfaceParents.put(var3, (long)var0);
 		class51.Widget_resetModelFrames(var1);
 		Widget var4 = Varps.getWidget(var0);
 		NPCDefinition.invalidateWidget(var4);

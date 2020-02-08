@@ -39,7 +39,8 @@ import lombok.Value;
  * </ul>
  */
 @Value
-public class ItemContainerChanged implements Event {
+public class ItemContainerChanged implements Event
+{
 	/**
 	 * The modified container's ID.
 	 */

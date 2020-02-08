@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Comparator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -14,12 +13,12 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 	@ObfuscatedName("qo")
 	@ObfuscatedGetter(
-			intValue = -1780442240
+		intValue = -1780442240
 	)
 	static int field640;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-			intValue = -153755923
+		intValue = -153755923
 	)
 	@Export("cacheGamebuild")
 	public static int cacheGamebuild;
@@ -32,8 +31,8 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ll;Ll;I)I",
-			garbageValue = "231872829"
+		signature = "(Ll;Ll;I)I",
+		garbageValue = "231872829"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -55,7 +54,7 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent) var1, (GrandExchangeEvent) var2);
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
 	public boolean equals(Object var1) {
@@ -64,8 +63,8 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;Ljava/lang/String;II)Ljava/io/File;",
-			garbageValue = "295022584"
+		signature = "(Ljava/lang/String;Ljava/lang/String;II)Ljava/io/File;",
+		garbageValue = "295022584"
 	)
 	public static File method1311(String var0, String var1, int var2) {
 		String var3 = var2 == 0 ? "" : "" + var2;
@@ -81,7 +80,7 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 				AccessFile var7 = new AccessFile(JagexCache.JagexCache_locationFile, "rw", 10000L);
 
 				int var9;
-				for (var8 = new Buffer((int) var7.length()); var8.offset < var8.array.length; var8.offset += var9) {
+				for (var8 = new Buffer((int)var7.length()); var8.offset < var8.array.length; var8.offset += var9) {
 					var9 = var7.read(var8.array, var8.offset, var8.array.length - var8.offset);
 					if (var9 == -1) {
 						throw new IOException();
@@ -233,8 +232,8 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "110"
+		signature = "(B)V",
+		garbageValue = "110"
 	)
 	static void method1308() {
 		Players.Players_count = 0;

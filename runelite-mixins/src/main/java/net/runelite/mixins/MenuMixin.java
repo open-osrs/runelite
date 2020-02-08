@@ -35,7 +35,8 @@ import net.runelite.rs.api.RSFont;
 import net.runelite.rs.api.RSMenuAction;
 
 @Mixin(RSClient.class)
-public abstract class MenuMixin implements RSClient {
+public abstract class MenuMixin implements RSClient
+{
 	private static final int MENU_BORDER_OUTER_2010 = 0x6D6A5B;
 	private static final int MENU_BORDER_INNER_2010 = 0x524A3D;
 	private static final int MENU_PADDING_2010 = 0x2B2622;
@@ -52,7 +53,8 @@ public abstract class MenuMixin implements RSClient {
 
 	@Inject
 	@Override
-	public void draw2010Menu() {
+	public void draw2010Menu()
+	{
 		int x = getMenuX();
 		int y = getMenuY();
 		int w = getMenuWidth();
@@ -99,18 +101,21 @@ public abstract class MenuMixin implements RSClient {
 		int count = getMenuOptionCount();
 		String[] targets = getMenuTargets();
 		String[] options = getMenuOptions();
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < count; i++)
+		{
 			int rowY = y + (count - 1 - i) * 15 + 31;
 
 			String s = options[i];
-			if (!targets[i].isEmpty()) {
+			if (!targets[i].isEmpty())
+			{
 				s += " " + targets[i];
 			}
 
 			font.drawTextLeftAligned(s, x + 3, rowY, MENU_TEXT_2010, -1);
 
 			// Highlight current option
-			if (mouseX > x && mouseX < w + x && mouseY > rowY - 13 && mouseY < rowY + 3) {
+			if (mouseX > x && mouseX < w + x && mouseY > rowY - 13 && mouseY < rowY + 3)
+			{
 				rasterizerFillRectangleAlpha(x + 3, rowY - 12, w - 6, 15, 0xffffff, 80);
 			}
 		}
@@ -118,22 +123,24 @@ public abstract class MenuMixin implements RSClient {
 
 	@Inject
 	@Override
-	public MenuEntry getLeftClickMenuEntry() {
+	public MenuEntry getLeftClickMenuEntry()
+	{
 		final int i = getMenuOptionCount() - 1;
 		return new MenuEntry(
-				getMenuOptions()[i],
-				getMenuTargets()[i],
-				getMenuIdentifiers()[i],
-				getMenuOpcodes()[i],
-				getMenuArguments1()[i],
-				getMenuArguments2()[i],
-				getMenuForceLeftClick()[i]
+			getMenuOptions()[i],
+			getMenuTargets()[i],
+			getMenuIdentifiers()[i],
+			getMenuOpcodes()[i],
+			getMenuArguments1()[i],
+			getMenuArguments2()[i],
+			getMenuForceLeftClick()[i]
 		);
 	}
 
 	@Inject
 	@Override
-	public void setLeftClickMenuEntry(final MenuEntry entry) {
+	public void setLeftClickMenuEntry(final MenuEntry entry)
+	{
 		final int i = getMenuOptionCount() - 1;
 		getMenuOptions()[i] = entry.getOption();
 		getMenuTargets()[i] = entry.getTarget();
@@ -146,15 +153,18 @@ public abstract class MenuMixin implements RSClient {
 
 	@Inject
 	@FieldHook("tempMenuAction")
-	public static void onTempMenuActionChanged(int idx) {
-		if (tempMenuAction != null) {
+	public static void onTempMenuActionChanged(int idx)
+	{
+		if (tempMenuAction != null)
+		{
 			client.getCallbacks().post(WidgetPressed.class, WidgetPressed.INSTANCE);
 		}
 	}
 
 	@Inject
 	@Override
-	public void setTempMenuEntry(MenuEntry entry) {
+	public void setTempMenuEntry(MenuEntry entry)
+	{
 		if (entry == null || tempMenuAction == null)
 			return;
 

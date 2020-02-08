@@ -27,7 +27,8 @@ package net.runelite.client.plugins.cluescrolls.clues.item;
 import net.runelite.api.Client;
 import net.runelite.api.Item;
 
-public interface ItemRequirement {
+public interface ItemRequirement
+{
 	boolean fulfilledBy(int itemId);
 
 	boolean fulfilledBy(Item[] items);

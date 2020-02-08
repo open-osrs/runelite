@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Represents an item inside an {@link TileItemPile}.
  */
-public interface TileItem extends Entity {
+public interface TileItem extends Entity
+{
 	/**
 	 * @return the ID of the item
 	 * @see ItemID

@@ -26,29 +26,36 @@ package net.runelite.client.plugins.itemstats;
 
 import net.runelite.api.Client;
 
-public class Combo implements Effect {
+public class Combo implements Effect
+{
 	private final SingleEffect[] calcs;
 	private final int numPrimaries;
 
-	public Combo(SingleEffect[] calcs) {
+	public Combo(SingleEffect[] calcs)
+	{
 		this(1, calcs);
 	}
 
-	public Combo(int numPrimaries, SingleEffect[] calcs) {
+	public Combo(int numPrimaries, SingleEffect[] calcs)
+	{
 		this.numPrimaries = numPrimaries;
 		this.calcs = calcs;
 	}
 
 	@Override
-	public StatsChanges calculate(Client client) {
+	public StatsChanges calculate(Client client)
+	{
 		StatsChanges out = new StatsChanges(calcs.length);
 		StatChange[] statChanges = out.getStatChanges();
-		for (int i = 0; i < calcs.length; i++) {
+		for (int i = 0; i < calcs.length; i++)
+		{
 			statChanges[i] = calcs[i].effect(client);
 		}
 		Positivity positivity = Positivity.NO_CHANGE;
-		for (int i = 0; i < numPrimaries; i++) {
-			if (positivity.ordinal() < statChanges[i].getPositivity().ordinal()) {
+		for (int i = 0; i < numPrimaries; i++)
+		{
+			if (positivity.ordinal() < statChanges[i].getPositivity().ordinal())
+			{
 				positivity = statChanges[i].getPositivity();
 			}
 		}

@@ -27,9 +27,7 @@ package net.runelite.client.plugins.xptracker;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.Player;
@@ -42,21 +40,18 @@ import net.runelite.client.game.NPCManager;
 import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.overlay.OverlayManager;
-
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class XpTrackerPluginTest {
+public class XpTrackerPluginTest
+{
 	@Inject
 	private XpTrackerPlugin xpTrackerPlugin;
 
@@ -89,7 +84,8 @@ public class XpTrackerPluginTest {
 	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 
 		when(client.getLocalPlayer()).thenReturn(mock(Player.class));
@@ -98,7 +94,8 @@ public class XpTrackerPluginTest {
 	}
 
 	@Test
-	public void testOfflineXp() {
+	public void testOfflineXp()
+	{
 		GameStateChanged gameStateChanged = new GameStateChanged();
 		gameStateChanged.setGameState(GameState.LOGGING_IN);
 
@@ -110,10 +107,10 @@ public class XpTrackerPluginTest {
 
 		// Gain attack xp
 		StatChanged statChanged = new StatChanged(
-				Skill.ATTACK,
-				100,
-				2,
-				2
+			Skill.ATTACK,
+			100,
+			2,
+			2
 		);
 		xpTrackerPlugin.onStatChanged(statChanged);
 

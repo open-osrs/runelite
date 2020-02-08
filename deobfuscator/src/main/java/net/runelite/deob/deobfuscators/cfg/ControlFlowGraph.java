@@ -29,55 +29,65 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.JumpingInstruction;
 
-public class ControlFlowGraph {
+public class ControlFlowGraph
+{
 	private Map<Label, Block> blocks = new HashMap<>();
 	private List<Block> allBlocks = new ArrayList<>();
 	private final Block head;
 
-	public ControlFlowGraph(Block head) {
+	public ControlFlowGraph(Block head)
+	{
 		this.head = head;
 	}
 
-	public Block getBlock(Label label) {
+	public Block getBlock(Label label)
+	{
 		return blocks.get(label);
 	}
 
-	public Collection<Block> getBlocks() {
+	public Collection<Block> getBlocks()
+	{
 		return allBlocks;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		StringBuilder sb = new StringBuilder();
-		for (Block b : allBlocks) {
+		for (Block b : allBlocks)
+		{
 			sb.append(b.toString());
 		}
 		return sb.toString();
 	}
 
-	public Block getHead() {
+	public Block getHead()
+	{
 		return head;
 	}
 
-	public static class Builder {
+	public static class Builder
+	{
 		private final Map<Label, Block> blocks = new HashMap<>();
 		private final List<Block> allBlocks = new ArrayList<>();
 
-		public ControlFlowGraph build(Code code) {
+		public ControlFlowGraph build(Code code)
+		{
 			int id = 0;
 
 			Block head = new Block(),
-					cur = head;
+				cur = head;
 			allBlocks.add(head);
 
-			for (Instruction i : code.getInstructions().getInstructions()) {
-				if (i instanceof Label) {
+			for (Instruction i : code.getInstructions().getInstructions())
+			{
+				if (i instanceof Label)
+				{
 					// blocks always begin at labels, so create initial blocks
 					Block block = new Block();
 					blocks.put((Label) i, block);
@@ -85,21 +95,26 @@ public class ControlFlowGraph {
 				}
 			}
 
-			for (Instruction i : code.getInstructions().getInstructions()) {
-				if (i instanceof Label) {
+			for (Instruction i : code.getInstructions().getInstructions())
+			{
+				if (i instanceof Label)
+				{
 					Block next = blocks.get((Label) i);
 					assert next != null;
 
-					if (next.getId() == -1) {
+					if (next.getId() == -1)
+					{
 						next.setId(id++);
 					}
 
-					if (next != cur) {
+					if (next != cur)
+					{
 						Instruction last = cur.getInstructions().isEmpty()
-								? null
-								: cur.getInstructions().get(cur.getInstructions().size() - 1);
+							? null
+							: cur.getInstructions().get(cur.getInstructions().size() - 1);
 
-						if (last == null || !last.isTerminal()) {
+						if (last == null || !last.isTerminal())
+						{
 							assert next.getFlowsFrom() == null;
 							assert cur.getFlowsInto() == null;
 
@@ -114,13 +129,16 @@ public class ControlFlowGraph {
 
 				cur.addInstruction(i);
 
-				if (i instanceof JumpingInstruction) {
+				if (i instanceof JumpingInstruction)
+				{
 					JumpingInstruction ji = (JumpingInstruction) i;
 
-					for (Label l : ji.getJumps()) {
+					for (Label l : ji.getJumps())
+					{
 						Block next = blocks.get(l);
 
-						if (next.getId() == -1) {
+						if (next.getId() == -1)
+						{
 							next.setId(id++);
 						}
 

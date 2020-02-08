@@ -24,31 +24,37 @@
  */
 package net.runelite.http.api.hiscore;
 
-public class Skill {
+public class Skill
+{
 	private final int rank;
 	private final int level;
 	private final long experience;
 
-	public Skill(int rank, int level, long experience) {
+	public Skill(int rank, int level, long experience)
+	{
 		this.rank = rank;
 		this.level = level;
 		this.experience = experience;
 	}
 
-	public int getRank() {
+	public int getRank()
+	{
 		return rank;
 	}
 
-	public int getLevel() {
+	public int getLevel()
+	{
 		return level;
 	}
 
-	public long getExperience() {
+	public long getExperience()
+	{
 		return experience;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 3;
 		hash = 59 * hash + this.rank;
 		hash = 59 * hash + this.level;
@@ -57,31 +63,39 @@ public class Skill {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
 			return true;
 		}
-		if (obj == null) {
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final Skill other = (Skill) obj;
-		if (this.rank != other.rank) {
+		if (this.rank != other.rank)
+		{
 			return false;
 		}
-		if (this.level != other.level) {
+		if (this.level != other.level)
+		{
 			return false;
 		}
-		if (this.experience != other.experience) {
+		if (this.experience != other.experience)
+		{
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Skill{" + "rank=" + rank + ", level=" + level + ", experience=" + experience + '}';
 	}
 }

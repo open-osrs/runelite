@@ -27,30 +27,33 @@ package net.runelite.deob.updater;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.util.JarUtil;
 import org.junit.After;
 import org.junit.Before;
 
-public class AnnotationRenamerTest {
+public class AnnotationRenamerTest
+{
 	private static final String JAR = "C:\\Users\\Adam\\.m2\\repository\\net\\runelite\\rs\\rs-client\\120.2-SNAPSHOT\\rs-client-120.2-SNAPSHOT.jar",
-			OUT = "d:/rs/07/adamout.jar";
+		OUT = "d:/rs/07/adamout.jar";
 
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException {
+	public void before() throws IOException
+	{
 		group = JarUtil.loadJar(new File(JAR));
 	}
 
 	@After
-	public void after() throws IOException {
+	public void after() throws IOException
+	{
 		JarUtil.saveJar(group, new File(OUT));
 	}
 
 	//@Test
-	public void testRename() {
+	public void testRename()
+	{
 		AnnotationRenamer ar = new AnnotationRenamer(group);
 		ar.run();
 	}

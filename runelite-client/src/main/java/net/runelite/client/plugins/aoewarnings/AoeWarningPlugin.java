@@ -27,7 +27,6 @@
 package net.runelite.client.plugins.aoewarnings;
 
 import com.google.inject.Provides;
-
 import java.awt.Color;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -64,15 +62,16 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "AoE Warnings",
-		description = "Shows the final destination for AoE Attack projectiles",
-		tags = {"bosses", "combat", "pve", "overlay"},
-		type = PluginType.PVM,
-		enabledByDefault = false
+	name = "AoE Warnings",
+	description = "Shows the final destination for AoE Attack projectiles",
+	tags = {"bosses", "combat", "pve", "overlay"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 @Singleton
 @Slf4j
-public class AoeWarningPlugin extends Plugin {
+public class AoeWarningPlugin extends Plugin
+{
 	@Getter(AccessLevel.PACKAGE)
 	private final Set<CrystalBomb> bombs = new HashSet<>();
 
@@ -169,12 +168,14 @@ public class AoeWarningPlugin extends Plugin {
 	private boolean configDemonicGorillaNotifyEnabled;
 
 	@Provides
-	AoeWarningConfig getConfig(ConfigManager configManager) {
+	AoeWarningConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(AoeWarningConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 		overlayManager.add(coreOverlay);
 		overlayManager.add(bombOverlay);
@@ -182,15 +183,18 @@ public class AoeWarningPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(coreOverlay);
 		overlayManager.remove(bombOverlay);
 		reset();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("aoe")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("aoe"))
+		{
 			return;
 		}
 
@@ -198,32 +202,39 @@ public class AoeWarningPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onProjectileSpawned(ProjectileSpawned event) {
+	private void onProjectileSpawned(ProjectileSpawned event)
+	{
 		final Projectile projectile = event.getProjectile();
 
-		if (AoeProjectileInfo.getById(projectile.getId()) == null) {
+		if (AoeProjectileInfo.getById(projectile.getId()) == null)
+		{
 			return;
 		}
 
 		final int id = projectile.getId();
 		final int lifetime = this.delay + (projectile.getRemainingCycles() * 20);
 		int ticksRemaining = projectile.getRemainingCycles() / 30;
-		if (!isTickTimersEnabledForProjectileID(id)) {
+		if (!isTickTimersEnabledForProjectileID(id))
+		{
 			ticksRemaining = 0;
 		}
 		final int tickCycle = client.getTickCount() + ticksRemaining;
-		if (isConfigEnabledForProjectileId(id, false)) {
+		if (isConfigEnabledForProjectileId(id, false))
+		{
 			projectiles.add(new ProjectileContainer(projectile, Instant.now(), lifetime, tickCycle));
 
-			if (this.aoeNotifyAll || isConfigEnabledForProjectileId(id, true)) {
+			if (this.aoeNotifyAll || isConfigEnabledForProjectileId(id, true))
+			{
 				notifier.notify("AoE attack detected!");
 			}
 		}
 	}
 
 	@Subscribe
-	private void onProjectileMoved(ProjectileMoved event) {
-		if (projectiles.isEmpty()) {
+	private void onProjectileMoved(ProjectileMoved event)
+	{
+		if (projectiles.isEmpty())
+		{
 			return;
 		}
 
@@ -231,21 +242,25 @@ public class AoeWarningPlugin extends Plugin {
 
 		projectiles.forEach(proj ->
 		{
-			if (proj.getProjectile() == projectile) {
+			if (proj.getProjectile() == projectile)
+			{
 				proj.setTargetPoint(event.getPosition());
 			}
 		});
 	}
 
 	@Subscribe
-	private void onGameObjectSpawned(GameObjectSpawned event) {
+	private void onGameObjectSpawned(GameObjectSpawned event)
+	{
 		final GameObject gameObject = event.getGameObject();
 
-		switch (gameObject.getId()) {
+		switch (gameObject.getId())
+		{
 			case ObjectID.CRYSTAL_BOMB:
 				bombs.add(new CrystalBomb(gameObject, client.getTickCount()));
 
-				if (this.aoeNotifyAll || this.configbombDisplayNotifyEnabled) {
+				if (this.aoeNotifyAll || this.configbombDisplayNotifyEnabled)
+				{
 					notifier.notify("Bomb!");
 				}
 				break;
@@ -256,10 +271,12 @@ public class AoeWarningPlugin extends Plugin {
 				crystalSpike.add(gameObject);
 				break;
 			case NullObjectID.NULL_26690:
-				if (this.configWintertodtEnabled) {
+				if (this.configWintertodtEnabled)
+				{
 					wintertodtSnowFall.add(gameObject);
 
-					if (this.aoeNotifyAll || this.configWintertodtNotifyEnabled) {
+					if (this.aoeNotifyAll || this.configWintertodtNotifyEnabled)
+					{
 						notifier.notify("Snow Fall!");
 					}
 				}
@@ -268,10 +285,12 @@ public class AoeWarningPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameObjectDespawned(GameObjectDespawned event) {
+	private void onGameObjectDespawned(GameObjectDespawned event)
+	{
 		final GameObject gameObject = event.getGameObject();
 
-		switch (gameObject.getId()) {
+		switch (gameObject.getId())
+		{
 			case ObjectID.CRYSTAL_BOMB:
 				bombs.removeIf(o -> o.getGameObject() == gameObject);
 				break;
@@ -288,24 +307,30 @@ public class AoeWarningPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOGGED_IN) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGGED_IN)
+		{
 			return;
 		}
 		reset();
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
+	private void onGameTick(GameTick event)
+	{
 		lightningTrail.clear();
 
-		if (this.configLightningTrail) {
+		if (this.configLightningTrail)
+		{
 			client.getGraphicsObjects().forEach(o ->
 			{
-				if (o.getId() == GraphicID.OLM_LIGHTNING) {
+				if (o.getId() == GraphicID.OLM_LIGHTNING)
+				{
 					lightningTrail.add(WorldPoint.fromLocal(client, o.getLocation()));
 
-					if (this.aoeNotifyAll || this.configLightningTrailNotifyEnabled) {
+					if (this.aoeNotifyAll || this.configLightningTrailNotifyEnabled)
+					{
 						notifier.notify("Lightning!");
 					}
 				}
@@ -315,14 +340,17 @@ public class AoeWarningPlugin extends Plugin {
 		bombs.forEach(CrystalBomb::bombClockUpdate);
 	}
 
-	private boolean isTickTimersEnabledForProjectileID(int projectileId) {
+	private boolean isTickTimersEnabledForProjectileID(int projectileId)
+	{
 		AoeProjectileInfo projectileInfo = AoeProjectileInfo.getById(projectileId);
 
-		if (projectileInfo == null) {
+		if (projectileInfo == null)
+		{
 			return false;
 		}
 
-		switch (projectileInfo) {
+		switch (projectileInfo)
+		{
 			case VASA_RANGED_AOE:
 			case VORKATH_POISON_POOL:
 			case VORKATH_SPAWN:
@@ -337,17 +365,21 @@ public class AoeWarningPlugin extends Plugin {
 		return true;
 	}
 
-	private boolean isConfigEnabledForProjectileId(int projectileId, boolean notify) {
+	private boolean isConfigEnabledForProjectileId(int projectileId, boolean notify)
+	{
 		AoeProjectileInfo projectileInfo = AoeProjectileInfo.getById(projectileId);
-		if (projectileInfo == null) {
+		if (projectileInfo == null)
+		{
 			return false;
 		}
 
-		if (notify && this.aoeNotifyAll) {
+		if (notify && this.aoeNotifyAll)
+		{
 			return true;
 		}
 
-		switch (projectileInfo) {
+		switch (projectileInfo)
+		{
 			case LIZARDMAN_SHAMAN_AOE:
 				return notify ? this.configShamansNotifyEnabled : this.configShamansEnabled;
 			case CRAZY_ARCHAEOLOGIST_AOE:
@@ -399,7 +431,8 @@ public class AoeWarningPlugin extends Plugin {
 		return false;
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.aoeNotifyAll = config.aoeNotifyAll();
 		this.overlayColor = config.overlayColor();
 		this.configOutlineEnabled = config.isOutlineEnabled();
@@ -451,7 +484,8 @@ public class AoeWarningPlugin extends Plugin {
 		this.configDemonicGorillaNotifyEnabled = config.isDemonicGorillaNotifyEnabled();
 	}
 
-	private void reset() {
+	private void reset()
+	{
 		lightningTrail.clear();
 		acidTrail.clear();
 		crystalSpike.clear();

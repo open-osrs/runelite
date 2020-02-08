@@ -26,21 +26,23 @@
 package net.runelite.deob;
 
 import java.io.File;
-
 import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TemporyFolderLocation {
+public class TemporyFolderLocation
+{
 	private static final Logger logger = LoggerFactory.getLogger(TemporyFolderLocation.class);
 
-	static {
+	static
+	{
 		File tmp = new File("d:/temp");
 		if (tmp.exists() || tmp.mkdir())
 			System.setProperty("java.io.tmpdir", "d:/temp");
 	}
 
-	public static TemporaryFolder getTemporaryFolder() {
+	public static TemporaryFolder getTemporaryFolder()
+	{
 		return new TemporaryFolder();
 	}
 }

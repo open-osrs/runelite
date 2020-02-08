@@ -25,17 +25,16 @@
 package net.runelite.cache;
 
 import com.google.common.base.Strings;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-
 import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class StoreLocation {
+public class StoreLocation
+{
 	private static final Logger logger = LoggerFactory.getLogger(StoreLocation.class);
 
 	private static final int NUM_INDEXES = 16;
@@ -43,24 +42,31 @@ public class StoreLocation {
 	public static File LOCATION;
 	private static File TMP;
 
-	static {
+	static
+	{
 		String cacheTmpDir = System.getProperty("cache.tmpdir");
-		if (!Strings.isNullOrEmpty(cacheTmpDir)) {
+		if (!Strings.isNullOrEmpty(cacheTmpDir))
+		{
 			System.setProperty("java.io.tmpdir", cacheTmpDir);
 			TMP = new File(cacheTmpDir);
 		}
 
-		try {
+		try
+		{
 			LOCATION = setupCacheDir();
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			logger.warn("unable to initialize cache tmp area", ex);
 		}
 	}
 
-	private static File setupCacheDir() throws IOException {
+	private static File setupCacheDir() throws IOException
+	{
 		File file = new File(System.getProperty("java.io.tmpdir"), "cache-" + CacheProperties.getCacheVersion());
 
-		if (file.exists()) {
+		if (file.exists())
+		{
 			logger.info("Using preexisting cache working directory {}", file);
 			return file;
 		}
@@ -74,7 +80,8 @@ public class StoreLocation {
 		in = StoreLocation.class.getResourceAsStream("/main_file_cache.idx255");
 		Files.copy(in, new File(file, "main_file_cache.idx255").toPath());
 
-		for (int i = 0; i <= NUM_INDEXES; ++i) {
+		for (int i = 0; i <= NUM_INDEXES; ++i)
+		{
 			in = StoreLocation.class.getResourceAsStream("/main_file_cache.idx" + i);
 			Files.copy(in, new File(file, "main_file_cache.idx" + i).toPath());
 		}
@@ -84,12 +91,16 @@ public class StoreLocation {
 		return file;
 	}
 
-	public static TemporaryFolder getTemporaryFolder() {
-		return new TemporaryFolder() {
+	public static TemporaryFolder getTemporaryFolder()
+	{
+		return new TemporaryFolder()
+		{
 			@Override
-			public void after() {
+			public void after()
+			{
 				// don't cleanup if using cache tmpdir
-				if (TMP == null) {
+				if (TMP == null)
+				{
 					super.after();
 				}
 			}

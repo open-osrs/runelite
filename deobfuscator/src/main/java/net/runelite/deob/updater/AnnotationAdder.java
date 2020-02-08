@@ -14,8 +14,10 @@ import net.runelite.deob.DeobAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnnotationAdder {
-	AnnotationAdder(ClassGroup group) {
+public class AnnotationAdder
+{
+	AnnotationAdder(ClassGroup group)
+	{
 		this.group = group;
 	}
 
@@ -23,24 +25,31 @@ public class AnnotationAdder {
 	private final Logger log = LoggerFactory.getLogger(AnnotationAdder.class);
 
 	@SuppressWarnings("unchecked")
-	public void run() {
+	public void run()
+	{
 		int impl = 0;
 		int meth = 0;
 		int field = 0;
 
-		for (ClassFile c : group.getClasses()) {
-			if (c.getName().contains("runelite")) {
+		for (ClassFile c : group.getClasses())
+		{
+			if (c.getName().contains("runelite"))
+			{
 				continue;
 			}
 
 			log.debug("Checking {}", c.toString());
 
 			String implementingName = DeobAnnotations.getImplements(c);
-			if (!Strings.isNullOrEmpty(implementingName)) {
+			if (!Strings.isNullOrEmpty(implementingName))
+			{
 				// Still error here cause I don't wanna call classes dumb shit
 				assert implementingName.equals(c.getClassName()) : c + " implements " + implementingName + " but is called " + c.getClassName();
-			} else {
-				if (!Deob.isObfuscated(c.getClassName())) {
+			}
+			else
+			{
+				if (!Deob.isObfuscated(c.getClassName()))
+				{
 					Annotations an = c.getAnnotations();
 
 					Annotation implAn = new Annotation(DeobAnnotations.IMPLEMENTS);
@@ -53,20 +62,24 @@ public class AnnotationAdder {
 				}
 			}
 
-			for (Field f : c.getFields()) {
+			for (Field f : c.getFields())
+			{
 				Annotations an = f.getAnnotations();
 
 				String fieldName = f.getName();
 				String exportedName = DeobAnnotations.getExportedName(an);
 
-				if (exportedName == null && Deob.isObfuscated(fieldName) || fieldName.equals(DeobAnnotations.getObfuscatedName(an)) || DeobAnnotations.getObfuscatedName(an) == null) {
+				if (exportedName == null && Deob.isObfuscated(fieldName) || fieldName.equals(DeobAnnotations.getObfuscatedName(an)) || DeobAnnotations.getObfuscatedName(an) == null)
+				{
 					continue;
 				}
 
-				if (!fieldName.equals(exportedName)) {
+				if (!fieldName.equals(exportedName))
+				{
 					log.info("Changed export from {} to {}", exportedName, fieldName);
 					Annotation a = an.find(DeobAnnotations.EXPORT);
-					if (a == null) {
+					if (a == null)
+					{
 						a = new Annotation(DeobAnnotations.EXPORT);
 
 						Element value = new SimpleElement(fieldName);
@@ -79,20 +92,24 @@ public class AnnotationAdder {
 				}
 			}
 
-			for (Method m : c.getMethods()) {
+			for (Method m : c.getMethods())
+			{
 				Annotations an = m.getAnnotations();
 
 				String methodName = m.getName();
 				String exportedName = DeobAnnotations.getExportedName(an);
 
-				if (exportedName == null && Deob.isObfuscated(methodName) || methodName.equals(DeobAnnotations.getObfuscatedName(an)) || DeobAnnotations.getObfuscatedName(an) == null) {
+				if (exportedName == null && Deob.isObfuscated(methodName) || methodName.equals(DeobAnnotations.getObfuscatedName(an)) || DeobAnnotations.getObfuscatedName(an) == null)
+				{
 					continue;
 				}
 
-				if (!methodName.equals(exportedName)) {
+				if (!methodName.equals(exportedName))
+				{
 					log.info("Changed export from {} to {}", exportedName, methodName);
 					Annotation a = an.find(DeobAnnotations.EXPORT);
-					if (a == null) {
+					if (a == null)
+					{
 						a = new Annotation(DeobAnnotations.EXPORT);
 
 						Element value = new SimpleElement(methodName);

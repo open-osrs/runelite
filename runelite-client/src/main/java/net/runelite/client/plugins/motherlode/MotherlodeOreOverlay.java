@@ -28,7 +28,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -37,21 +36,25 @@ import net.runelite.client.ui.overlay.components.table.TableAlignment;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
 
 @Singleton
-public class MotherlodeOreOverlay extends Overlay {
+public class MotherlodeOreOverlay extends Overlay
+{
 	private final MotherlodePlugin plugin;
 	private final MotherlodeSession motherlodeSession;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	MotherlodeOreOverlay(final MotherlodePlugin plugin, final MotherlodeSession motherlodeSession) {
+	MotherlodeOreOverlay(final MotherlodePlugin plugin, final MotherlodeSession motherlodeSession)
+	{
 		setPosition(OverlayPosition.TOP_LEFT);
 		this.plugin = plugin;
 		this.motherlodeSession = motherlodeSession;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!plugin.isInMlm() || !plugin.isShowOresFound()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isInMlm() || !plugin.isShowOresFound())
+		{
 			return null;
 		}
 
@@ -66,7 +69,8 @@ public class MotherlodeOreOverlay extends Overlay {
 
 		// If no ores have even been collected, don't bother showing anything
 		if (nuggetsFound == 0 && coalFound == 0 && goldFound == 0 && mithrilFound == 0
-				&& adamantiteFound == 0 && runiteFound == 0) {
+			&& adamantiteFound == 0 && runiteFound == 0)
+		{
 			return null;
 		}
 
@@ -76,27 +80,33 @@ public class MotherlodeOreOverlay extends Overlay {
 		TableComponent tableComponent = new TableComponent();
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-		if (nuggetsFound > 0) {
+		if (nuggetsFound > 0)
+		{
 			tableComponent.addRow("Nuggets:", Integer.toString(nuggetsFound));
 		}
 
-		if (coalFound > 0) {
+		if (coalFound > 0)
+		{
 			tableComponent.addRow("Coal:", Integer.toString(coalFound));
 		}
 
-		if (goldFound > 0) {
+		if (goldFound > 0)
+		{
 			tableComponent.addRow("Gold:", Integer.toString(goldFound));
 		}
 
-		if (mithrilFound > 0) {
+		if (mithrilFound > 0)
+		{
 			tableComponent.addRow("Mithril:", Integer.toString(mithrilFound));
 		}
 
-		if (adamantiteFound > 0) {
+		if (adamantiteFound > 0)
+		{
 			tableComponent.addRow("Adamantite:", Integer.toString(adamantiteFound));
 		}
 
-		if (runiteFound > 0) {
+		if (runiteFound > 0)
+		{
 			tableComponent.addRow("Runite:", Integer.toString(runiteFound));
 		}
 

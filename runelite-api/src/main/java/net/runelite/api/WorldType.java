@@ -30,7 +30,8 @@ import java.util.EnumSet;
 /**
  * An enumeration of possible world types.
  */
-public enum WorldType {
+public enum WorldType
+{
 	/**
 	 * Members world type.
 	 */
@@ -70,39 +71,40 @@ public enum WorldType {
 
 	private final int mask;
 
-	WorldType(int mask) {
+	WorldType(int mask)
+	{
 		this.mask = mask;
 	}
 
 	private static final EnumSet<WorldType> PVP_WORLD_TYPES = EnumSet.of(
-			DEADMAN,
-			PVP
+		DEADMAN,
+		PVP
 	);
 
 	private static final EnumSet<WorldType> DEADMAN_WORLD_TYPES = EnumSet.of(
-			DEADMAN
+		DEADMAN
 	);
 
 	private static final EnumSet<WorldType> HIGHRISK_WORLD_TYPES = EnumSet.of(
-			HIGH_RISK
+		HIGH_RISK
 	);
 
 	private static final EnumSet<WorldType> ALL_HIGHRISK_WORLD_TYPES = EnumSet.of(
-			HIGH_RISK,
-			DEADMAN
+		HIGH_RISK,
+		DEADMAN
 	);
 
 	private static final EnumSet<WorldType> ALL_PVP_WORLD_TYPES = EnumSet.of(
-			HIGH_RISK,
-			DEADMAN,
-			PVP
+		HIGH_RISK,
+		DEADMAN,
+		PVP
 	);
 
 	private static final EnumSet<WorldType> ALL_PK_WORLD_TYPES = EnumSet.of(
-			HIGH_RISK,
-			DEADMAN,
-			PVP,
-			BOUNTY
+		HIGH_RISK,
+		DEADMAN,
+		PVP,
+		BOUNTY
 	);
 
 	/**
@@ -111,11 +113,14 @@ public enum WorldType {
 	 * @param mask the mask
 	 * @return the enum set
 	 */
-	public static EnumSet<WorldType> fromMask(final int mask) {
+	public static EnumSet<WorldType> fromMask(final int mask)
+	{
 		final EnumSet<WorldType> types = EnumSet.noneOf(WorldType.class);
 
-		for (WorldType type : WorldType.values()) {
-			if ((mask & type.mask) != 0) {
+		for (WorldType type : WorldType.values())
+		{
+			if ((mask & type.mask) != 0)
+			{
 				types.add(type);
 			}
 		}
@@ -129,10 +134,12 @@ public enum WorldType {
 	 * @param types the types
 	 * @return the int containing all mask
 	 */
-	public static int toMask(final EnumSet<WorldType> types) {
+	public static int toMask(final EnumSet<WorldType> types)
+	{
 		int mask = 0;
 
-		for (WorldType type : types) {
+		for (WorldType type : types)
+		{
 			mask |= type.mask;
 		}
 
@@ -143,30 +150,36 @@ public enum WorldType {
 	 * Checks whether a world having a {@link Collection} of {@link WorldType}s is a PVP world.
 	 *
 	 * @param worldTypes A {@link Collection} of {@link WorldType}s describing the given world.
-	 * @return True if the given worldtypes of the world are a PVP world, false otherwise.
+	 * @return           True if the given worldtypes of the world are a PVP world, false otherwise.
 	 * @see Client#getWorldType()
 	 */
-	public static boolean isPvpWorld(final Collection<WorldType> worldTypes) {
+	public static boolean isPvpWorld(final Collection<WorldType> worldTypes)
+	{
 		return worldTypes.stream().anyMatch(PVP_WORLD_TYPES::contains);
 	}
 
-	public static boolean isDeadmanWorld(final Collection<WorldType> worldTypes) {
+	public static boolean isDeadmanWorld(final Collection<WorldType> worldTypes)
+	{
 		return worldTypes.stream().anyMatch(DEADMAN_WORLD_TYPES::contains);
 	}
 
-	public static boolean isHighRiskWorld(final Collection<WorldType> worldTypes) {
+	public static boolean isHighRiskWorld(final Collection<WorldType> worldTypes)
+	{
 		return worldTypes.stream().anyMatch(HIGHRISK_WORLD_TYPES::contains);
 	}
 
-	public static boolean isAllHighRiskWorld(final Collection<WorldType> worldTypes) {
+	public static boolean isAllHighRiskWorld(final Collection<WorldType> worldTypes)
+	{
 		return worldTypes.stream().anyMatch(ALL_HIGHRISK_WORLD_TYPES::contains);
 	}
 
-	public static boolean isAllPvpWorld(final Collection<WorldType> worldTypes) {
+	public static boolean isAllPvpWorld(final Collection<WorldType> worldTypes)
+	{
 		return worldTypes.stream().anyMatch(ALL_PVP_WORLD_TYPES::contains);
 	}
 
-	public static boolean isAllPKWorld(final Collection<WorldType> worldTypes) {
+	public static boolean isAllPKWorld(final Collection<WorldType> worldTypes)
+	{
 		return worldTypes.stream().anyMatch(ALL_PK_WORLD_TYPES::contains);
 	}
 }

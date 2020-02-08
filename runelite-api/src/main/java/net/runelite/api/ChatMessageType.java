@@ -26,7 +26,6 @@ package net.runelite.api;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -35,14 +34,15 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum ChatMessageType {
+public enum ChatMessageType
+{
 	/**
 	 * A normal game message.
 	 */
 	GAMEMESSAGE(0),
 	/**
-	 * A message in the public chat from a moderator
-	 */
+ 	* A message in the public chat from a moderator
+ 	*/
 	MODCHAT(1),
 	/**
 	 * A message in the public chat.
@@ -161,8 +161,10 @@ public enum ChatMessageType {
 
 	private static final Map<Integer, ChatMessageType> CHAT_MESSAGE_TYPES = new HashMap<>();
 
-	static {
-		for (ChatMessageType chatMessageType : values()) {
+	static
+	{
+		for (ChatMessageType chatMessageType : values())
+		{
 			CHAT_MESSAGE_TYPES.put(chatMessageType.type, chatMessageType);
 		}
 	}
@@ -174,7 +176,8 @@ public enum ChatMessageType {
 	 * @param type the raw type
 	 * @return appropriate message type, or {@link #UNKNOWN}
 	 */
-	public static ChatMessageType of(int type) {
+	public static ChatMessageType of(int type)
+	{
 		return CHAT_MESSAGE_TYPES.getOrDefault(type, UNKNOWN);
 	}
 }

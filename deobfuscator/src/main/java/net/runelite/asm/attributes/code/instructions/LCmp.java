@@ -26,7 +26,6 @@ package net.runelite.asm.attributes.code.instructions;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.asm.Field;
 import net.runelite.asm.Type;
 import net.runelite.asm.attributes.code.Instruction;
@@ -42,13 +41,16 @@ import net.runelite.asm.execution.Value;
 import net.runelite.deob.deobfuscators.mapping.MappingExecutorUtil;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public class LCmp extends Instruction implements MappableInstruction {
-	public LCmp(Instructions instructions, InstructionType type) {
+public class LCmp extends Instruction implements MappableInstruction
+{
+	public LCmp(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
@@ -58,15 +60,21 @@ public class LCmp extends Instruction implements MappableInstruction {
 		ins.pop(two, one);
 
 		Value result = Value.UNKNOWN;
-		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull()) {
+		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull())
+		{
 			long l2 = (long) two.getValue().getValue(),
-					l1 = (long) one.getValue().getValue();
+				l1 = (long) one.getValue().getValue();
 
-			if (l1 > l2) {
+			if (l1 > l2)
+			{
 				result = new Value(1);
-			} else if (l1 == l2) {
+			}
+			else if (l1 == l2)
+			{
 				result = new Value(0);
-			} else if (l1 < l2) {
+			}
+			else if (l1 < l2)
+			{
 				result = new Value(-1);
 			}
 		}
@@ -80,30 +88,37 @@ public class LCmp extends Instruction implements MappableInstruction {
 	}
 
 	@Override
-	public void map(ParallelExecutorMapping mappings, InstructionContext ctx, InstructionContext other) {
+	public void map(ParallelExecutorMapping mappings, InstructionContext ctx, InstructionContext other)
+	{
 		List<Field> f1s = getComparedFields(ctx), f2s = getComparedFields(other);
 
-		if (f1s == null || f2s == null || f1s.size() != f2s.size()) {
+		if (f1s == null || f2s == null || f1s.size() != f2s.size())
+		{
 			return;
 		}
 
-		for (int i = 0; i < f1s.size(); ++i) {
+		for (int i = 0; i < f1s.size(); ++i)
+		{
 			Field f1 = f1s.get(i), f2 = f2s.get(i);
 
 			mappings.map(this, f1, f2);
 		}
 	}
 
-	private List<Field> getComparedFields(InstructionContext ctx) {
+	private List<Field> getComparedFields(InstructionContext ctx)
+	{
 		List<Field> fields = new ArrayList<>();
 
-		for (StackContext sctx : ctx.getPops()) {
+		for (StackContext sctx : ctx.getPops())
+		{
 			InstructionContext base = MappingExecutorUtil.resolve(sctx.getPushed(), sctx);
 
-			if (base.getInstruction() instanceof GetFieldInstruction) {
+			if (base.getInstruction() instanceof GetFieldInstruction)
+			{
 				GetFieldInstruction gfi = (GetFieldInstruction) base.getInstruction();
 
-				if (gfi.getMyField() != null) {
+				if (gfi.getMyField() != null)
+				{
 					fields.add(gfi.getMyField());
 				}
 			}
@@ -113,32 +128,39 @@ public class LCmp extends Instruction implements MappableInstruction {
 	}
 
 	@Override
-	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
-		if (thisIc.getInstruction().getType() != otherIc.getInstruction().getType()) {
+	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
+	{
+		if (thisIc.getInstruction().getType() != otherIc.getInstruction().getType())
+		{
 			return false;
 		}
 
 		List<Field> f1s = getComparedFields(thisIc),
-				f2s = getComparedFields(otherIc);
+			f2s = getComparedFields(otherIc);
 
-		if ((f1s == null) != (f2s == null)) {
+		if ((f1s == null) != (f2s == null))
+		{
 			return false;
 		}
 
-		if (f1s == null || f2s == null) {
+		if (f1s == null || f2s == null)
+		{
 			return true;
 		}
 
-		if (f1s.size() != f2s.size()) {
+		if (f1s.size() != f2s.size())
+		{
 			return false;
 		}
 
-		for (int i = 0; i < f1s.size(); ++i) {
+		for (int i = 0; i < f1s.size(); ++i)
+		{
 			Field f1 = f1s.get(i), f2 = f2s.get(i);
 
 			if (!MappingExecutorUtil.isMaybeEqual(f1.getClassFile(), f2.getClassFile())
-					|| !MappingExecutorUtil.isMaybeEqual(f1.getType(), f2.getType())
-					|| f1.isStatic() != f2.isStatic()) {
+				|| !MappingExecutorUtil.isMaybeEqual(f1.getType(), f2.getType())
+				|| f1.isStatic() != f2.isStatic())
+			{
 				return false;
 			}
 		}
@@ -147,7 +169,8 @@ public class LCmp extends Instruction implements MappableInstruction {
 	}
 
 	@Override
-	public boolean canMap(InstructionContext thisIc) {
+	public boolean canMap(InstructionContext thisIc)
+	{
 		return true;
 	}
 }

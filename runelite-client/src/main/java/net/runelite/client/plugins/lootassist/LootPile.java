@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.coords.WorldPoint;
 
-class LootPile {
+class LootPile
+{
 	private static final long TIME_UNTIL_VISIBLE = 62400;
 
 	@Getter(AccessLevel.PACKAGE)
@@ -21,7 +22,8 @@ class LootPile {
 	@Setter(AccessLevel.PACKAGE)
 	private boolean beingRendered = false;
 
-	LootPile(WorldPoint location, String playerName) {
+	LootPile(WorldPoint location, String playerName)
+	{
 		long timeCreated = System.currentTimeMillis();
 		this.location = location;
 		this.playerName = playerName;

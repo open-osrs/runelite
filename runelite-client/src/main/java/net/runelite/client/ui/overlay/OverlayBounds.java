@@ -27,10 +27,8 @@ package net.runelite.client.ui.overlay;
 import java.awt.Rectangle;
 import java.util.Arrays;
 import java.util.Collection;
-
 import lombok.AllArgsConstructor;
 import lombok.Value;
-
 import static net.runelite.client.ui.overlay.OverlayPosition.ABOVE_CHATBOX_RIGHT;
 import static net.runelite.client.ui.overlay.OverlayPosition.BOTTOM_LEFT;
 import static net.runelite.client.ui.overlay.OverlayPosition.BOTTOM_RIGHT;
@@ -41,10 +39,12 @@ import static net.runelite.client.ui.overlay.OverlayPosition.TOP_RIGHT;
 
 @AllArgsConstructor
 @Value
-class OverlayBounds {
+class OverlayBounds
+{
 	private final Rectangle topLeft, topCenter, topRight, bottomLeft, bottomRight, aboveChatboxRight, canvasTopRight;
 
-	OverlayBounds(OverlayBounds other) {
+	OverlayBounds(OverlayBounds other)
+	{
 		topLeft = new Rectangle(other.topLeft);
 		topCenter = new Rectangle(other.topCenter);
 		topRight = new Rectangle(other.topRight);
@@ -54,7 +54,8 @@ class OverlayBounds {
 		canvasTopRight = new Rectangle(other.canvasTopRight);
 	}
 
-	OverlayBounds translated(final int x, final int y) {
+	OverlayBounds translated(final int x, final int y)
+	{
 		final OverlayBounds translated = new OverlayBounds(this);
 		translated.getTopRight().translate(x, 0);
 		translated.getTopCenter().translate(x / 2, 0);
@@ -65,8 +66,10 @@ class OverlayBounds {
 		return translated;
 	}
 
-	Rectangle forPosition(OverlayPosition overlayPosition) {
-		switch (overlayPosition) {
+	Rectangle forPosition(OverlayPosition overlayPosition)
+	{
+		switch (overlayPosition)
+		{
 			case TOP_LEFT:
 				return topLeft;
 			case TOP_CENTER:
@@ -86,27 +89,44 @@ class OverlayBounds {
 		}
 	}
 
-	OverlayPosition fromBounds(Rectangle bounds) {
-		if (bounds == topLeft) {
+	OverlayPosition fromBounds(Rectangle bounds)
+	{
+		if (bounds == topLeft)
+		{
 			return TOP_LEFT;
-		} else if (bounds == topCenter) {
+		}
+		else if (bounds == topCenter)
+		{
 			return TOP_CENTER;
-		} else if (bounds == topRight) {
+		}
+		else if (bounds == topRight)
+		{
 			return TOP_RIGHT;
-		} else if (bounds == bottomLeft) {
+		}
+		else if (bounds == bottomLeft)
+		{
 			return BOTTOM_LEFT;
-		} else if (bounds == bottomRight) {
+		}
+		else if (bounds == bottomRight)
+		{
 			return BOTTOM_RIGHT;
-		} else if (bounds == aboveChatboxRight) {
+		}
+		else if (bounds == aboveChatboxRight)
+		{
 			return ABOVE_CHATBOX_RIGHT;
-		} else if (bounds == canvasTopRight) {
+		}
+		else if (bounds == canvasTopRight)
+		{
 			return CANVAS_TOP_RIGHT;
-		} else {
+		}
+		else
+		{
 			throw new IllegalArgumentException();
 		}
 	}
 
-	Collection<Rectangle> getBounds() {
+	Collection<Rectangle> getBounds()
+	{
 		return Arrays.asList(topLeft, topCenter, topRight, bottomLeft, bottomRight, aboveChatboxRight, canvasTopRight);
 	}
 }

@@ -2,7 +2,8 @@ package net.runelite.rs.api;
 
 import net.runelite.mapping.Import;
 
-public interface RSVarbitDefinition extends RSDualNode {
+public interface RSVarbitDefinition extends RSDualNode
+{
 	@Import("baseVar")
 	int getIndex();
 

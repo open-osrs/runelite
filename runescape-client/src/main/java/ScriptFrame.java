@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ScriptFrame {
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lli;"
+		signature = "Lli;"
 	)
 	@Export("titleboxSprite")
 	static IndexedSprite titleboxSprite;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lce;"
+		signature = "Lce;"
 	)
 	@Export("script")
 	Script script;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -424456735
+		intValue = -424456735
 	)
 	@Export("pc")
 	int pc;
@@ -38,8 +38,8 @@ public class ScriptFrame {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(II)Z",
-			garbageValue = "1752318627"
+		signature = "(II)Z",
+		garbageValue = "1752318627"
 	)
 	@Export("loadInterface")
 	public static boolean loadInterface(int var0) {
@@ -80,8 +80,8 @@ public class ScriptFrame {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "([BIII)Ljava/lang/String;",
-			garbageValue = "-1282364496"
+		signature = "([BIII)Ljava/lang/String;",
+		garbageValue = "-1282364496"
 	)
 	@Export("decodeStringCp1252")
 	public static String decodeStringCp1252(byte[] var0, int var1, int var2) {
@@ -100,7 +100,7 @@ public class ScriptFrame {
 					var6 = var7;
 				}
 
-				var3[var4++] = (char) var6;
+				var3[var4++] = (char)var6;
 			}
 		}
 
@@ -109,8 +109,8 @@ public class ScriptFrame {
 
 	@ObfuscatedName("gi")
 	@ObfuscatedSignature(
-			signature = "(Lbx;II)V",
-			garbageValue = "1584696624"
+		signature = "(Lbx;II)V",
+		garbageValue = "1584696624"
 	)
 	@Export("updateActorSequence")
 	static final void updateActorSequence(Actor var0, int var1) {
@@ -153,10 +153,10 @@ public class ScriptFrame {
 				}
 
 				if (var2 != null) {
-					int var6 = var0.x - ((Actor) var2).x;
-					int var4 = var0.y - ((Actor) var2).y;
+					int var6 = var0.x - ((Actor)var2).x;
+					int var4 = var0.y - ((Actor)var2).y;
 					if (var6 != 0 || var4 != 0) {
-						var0.orientation = (int) (Math.atan2((double) var6, (double) var4) * 325.949D) & 2047;
+						var0.orientation = (int)(Math.atan2((double)var6, (double)var4) * 325.949D) & 2047;
 					}
 				} else if (var0.false0) {
 					var0.targetIndex = -1;
@@ -309,8 +309,8 @@ public class ScriptFrame {
 
 	@ObfuscatedName("jj")
 	@ObfuscatedSignature(
-			signature = "(Lhn;B)Z",
-			garbageValue = "-53"
+		signature = "(Lhn;B)Z",
+		garbageValue = "-53"
 	)
 	@Export("runCs1")
 	static final boolean runCs1(Widget var0) {

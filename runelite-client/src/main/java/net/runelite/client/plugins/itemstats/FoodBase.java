@@ -26,8 +26,10 @@ package net.runelite.client.plugins.itemstats;
 
 import net.runelite.client.plugins.itemstats.stats.Stats;
 
-public abstract class FoodBase extends StatBoost {
-	protected FoodBase() {
+public abstract class FoodBase extends StatBoost
+{
+	protected FoodBase()
+	{
 		super(Stats.HITPOINTS, false);
 	}
 }

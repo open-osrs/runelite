@@ -6,8 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface class99 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)Ldw;",
-			garbageValue = "-1842325799"
+		signature = "(I)Ldw;",
+		garbageValue = "-1842325799"
 	)
 	@Export("player")
 	PcmPlayer player();

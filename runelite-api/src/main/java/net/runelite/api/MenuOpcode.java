@@ -30,7 +30,8 @@ import java.util.Map;
 /**
  * An enumeration of right-click menu actions.
  */
-public enum MenuOpcode {
+public enum MenuOpcode
+{
 	/**
 	 * Menu action for using an item in your inventory on a tile object (GameObject or GroundObject).
 	 */
@@ -154,7 +155,7 @@ public enum MenuOpcode {
 	WIDGET_TYPE_5(29),
 	/**
 	 * Interaction with widget (type 6).
-	 * <p>
+	 *
 	 * This is the continue button on message boxes
 	 */
 	WIDGET_TYPE_6(30),
@@ -291,23 +292,28 @@ public enum MenuOpcode {
 
 	private static final Map<Integer, MenuOpcode> map = new HashMap<>();
 
-	static {
-		for (MenuOpcode menuOpcode : values()) {
+	static
+	{
+		for (MenuOpcode menuOpcode : values())
+		{
 			map.put(menuOpcode.getId(), menuOpcode);
 		}
 	}
 
 	private final int id;
 
-	MenuOpcode(int id) {
+	MenuOpcode(int id)
+	{
 		this.id = id;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public static MenuOpcode of(int id) {
+	public static MenuOpcode of(int id)
+	{
 		return map.getOrDefault(id, UNKNOWN);
 	}
 }

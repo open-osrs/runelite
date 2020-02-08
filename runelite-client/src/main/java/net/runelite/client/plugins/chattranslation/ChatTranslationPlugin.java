@@ -2,23 +2,19 @@ package net.runelite.client.plugins.chattranslation;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Provides;
-
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
 import net.runelite.api.MessageNode;
-
 import static net.runelite.api.ScriptID.CHATBOX_INPUT;
-
 import net.runelite.api.VarClientStr;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.MenuOpened;
@@ -40,14 +36,15 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
 @PluginDescriptor(
-		name = "Chat Translator",
-		description = "Translates messages from one Language to another.",
-		tags = {"translate", "language", "english", "spanish", "dutch", "french", "welsh", "german"},
-		type = PluginType.MISCELLANEOUS
+	name = "Chat Translator",
+	description = "Translates messages from one Language to another.",
+	tags = {"translate", "language", "english", "spanish", "dutch", "french", "welsh", "german"},
+	type = PluginType.MISCELLANEOUS
 )
 @Singleton
 @Slf4j
-public class ChatTranslationPlugin extends Plugin implements KeyListener {
+public class ChatTranslationPlugin extends Plugin implements KeyListener
+{
 	private static final Object PUBLIC = new Object();
 	private static final Object OPTION = new Object();
 	private static final String TRANSLATE = "Translate";
@@ -80,36 +77,43 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 	private EventBus eventBus;
 
 	@Provides
-	ChatTranslationConfig provideConfig(ConfigManager configManager) {
+	ChatTranslationConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(ChatTranslationConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		translator.setInLang(config.publicTargetLanguage());
 		translator.setOutLang(config.playerTargetLanguage());
 
-		if (config.playerChat()) {
+		if (config.playerChat())
+		{
 			keyManager.registerKeyListener(this);
 		}
 
-		if (config.publicChat()) {
+		if (config.publicChat())
+		{
 			eventBus.subscribe(ChatMessage.class, PUBLIC, this::onChatMessage);
 		}
 
-		if (config.translateOptionVisible()) {
+		if (config.translateOptionVisible())
+		{
 			menuManager.addPlayerMenuItem(TRANSLATE);
 			eventBus.subscribe(MenuOpened.class, OPTION, this::onMenuOpened);
 			eventBus.subscribe(MenuOptionClicked.class, OPTION, this::onMenuOptionClicked);
 		}
 
-		for (String name : Text.fromCSV(config.playerNames().toLowerCase())) {
+		for (String name : Text.fromCSV(config.playerNames().toLowerCase()))
+		{
 			playerNames.add(Text.toJagexName(name));
 		}
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		eventBus.unregister(OPTION);
 		eventBus.unregister(PUBLIC);
 		menuManager.removePlayerMenuItem(TRANSLATE);
@@ -118,32 +122,42 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("chattranslation")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("chattranslation"))
+		{
 			return;
 		}
 
-		switch (event.getKey()) {
+		switch (event.getKey())
+		{
 			case "translateOptionVisible":
-				if (config.translateOptionVisible()) {
+				if (config.translateOptionVisible())
+				{
 					menuManager.addPlayerMenuItem(TRANSLATE);
 					eventBus.subscribe(MenuOpened.class, TRANSLATE, this::onMenuOpened);
 					eventBus.subscribe(MenuOptionClicked.class, TRANSLATE, this::onMenuOptionClicked);
-				} else {
+				}
+				else
+				{
 					menuManager.removePlayerMenuItem(TRANSLATE);
 					eventBus.unregister(TRANSLATE);
 				}
 				break;
 			case "publicChat":
-				if (config.publicChat()) {
+				if (config.publicChat())
+				{
 					eventBus.subscribe(ChatMessage.class, PUBLIC, this::onChatMessage);
-				} else {
+				}
+				else
+				{
 					eventBus.unregister(PUBLIC);
 				}
 				break;
 			case "playerNames":
 				playerNames.clear();
-				for (String names : Text.fromCSV(config.playerNames().toLowerCase())) {
+				for (String names : Text.fromCSV(config.playerNames().toLowerCase()))
+				{
 					playerNames.add(Text.toJagexName(names));
 				}
 				break;
@@ -151,9 +165,12 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 				translator.setInLang(config.publicTargetLanguage());
 				break;
 			case "playerChat":
-				if (config.playerChat()) {
+				if (config.playerChat())
+				{
 					keyManager.registerKeyListener(this);
-				} else {
+				}
+				else
+				{
 					keyManager.unregisterKeyListener(this);
 				}
 				break;
@@ -163,11 +180,14 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 		}
 	}
 
-	private void onMenuOpened(MenuOpened event) {
+	private void onMenuOpened(MenuOpened event)
+	{
 		MenuEntry[] entries = event.getMenuEntries();
 
-		for (int i = 0; i < event.getMenuEntries().length; i++) {
-			if (!AFTER_OPTIONS.contains(entries[i].getOption())) {
+		for (int i = 0; i < event.getMenuEntries().length; i++)
+		{
+			if (!AFTER_OPTIONS.contains(entries[i].getOption()))
+			{
 				continue;
 			}
 
@@ -187,17 +207,19 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 		}
 	}
 
-	private void onMenuOptionClicked(MenuOptionClicked event) {
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
 		if (event.getOpcode() != MenuOpcode.RUNELITE.getId() ||
-				!event.getOption().equals(TRANSLATE)) {
+			!event.getOption().equals(TRANSLATE))
+		{
 			return;
 		}
 
 		String name =
-				Text.toJagexName(
-						Text.removeTags(event.getTarget(), true)
-								.toLowerCase()
-				);
+			Text.toJagexName(
+				Text.removeTags(event.getTarget(), true)
+					.toLowerCase()
+			);
 
 		playerNames.add(name);
 
@@ -205,11 +227,14 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage chatMessage) {
-		if (client.getGameState() != GameState.LOADING && client.getGameState() != GameState.LOGGED_IN) {
+	private void onChatMessage(ChatMessage chatMessage)
+	{
+		if (client.getGameState() != GameState.LOADING && client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
-		switch (chatMessage.getType()) {
+		switch (chatMessage.getType())
+		{
 			case PUBLICCHAT:
 			case MODCHAT:
 			case FRIENDSCHAT:
@@ -218,18 +243,22 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 				return;
 		}
 
-		if (!playerNames.contains(Text.toJagexName(Text.removeTags(chatMessage.getName().toLowerCase())))) {
+		if (!playerNames.contains(Text.toJagexName(Text.removeTags(chatMessage.getName().toLowerCase()))))
+		{
 			return;
 		}
 
 		final String message = chatMessage.getMessage();
 
-		try {
+		try
+		{
 			final String translation = translator.translateIncoming(message);
 			final MessageNode messageNode = chatMessage.getMessageNode();
 			messageNode.setRuneLiteFormatMessage(translation);
 			chatMessageManager.update(messageNode);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			log.warn("Error translating message", e);
 		}
 
@@ -237,33 +266,41 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e)
+	{
 		// Nothing.
 	}
 
 	@Override
-	public void keyPressed(KeyEvent event) {
-		if (client.getGameState() != GameState.LOADING && client.getGameState() != GameState.LOGGED_IN) {
+	public void keyPressed(KeyEvent event)
+	{
+		if (client.getGameState() != GameState.LOADING && client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
 		final Widget chatboxParent = client.getWidget(WidgetInfo.CHATBOX_PARENT);
 
-		if (chatboxParent == null || chatboxParent.getOnKeyListener() == null || event.getKeyCode() != 0xA) {
+		if (chatboxParent == null || chatboxParent.getOnKeyListener() == null || event.getKeyCode() != 0xA)
+		{
 			return;
 		}
 
 		final String message = client.getVar(VarClientStr.CHATBOX_TYPED_TEXT);
 		final String translated;
 
-		try {
+		try
+		{
 			translated = translator.translateOutgoing(message);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			log.warn("Error translating message", e);
 			return;
 		}
 
-		if (message.startsWith("/")) {
+		if (message.startsWith("/"))
+		{
 			client.setVar(VarClientStr.CHATBOX_TYPED_TEXT, translated.startsWith("/") ? translated : "/" + translated);
 			return;
 		}
@@ -278,7 +315,8 @@ public class ChatTranslationPlugin extends Plugin implements KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e)
+	{
 		// Nothing.
 	}
 }

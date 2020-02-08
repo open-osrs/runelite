@@ -26,11 +26,11 @@
 package net.runelite.cache.definitions;
 
 import java.util.Map;
-
 import lombok.Data;
 
 @Data
-public class NpcDefinition {
+public class NpcDefinition
+{
 	public final int id;
 	public String name = "null";
 	public int size = 1;

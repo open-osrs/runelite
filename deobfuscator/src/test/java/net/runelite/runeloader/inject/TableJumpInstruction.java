@@ -2,7 +2,8 @@ package net.runelite.runeloader.inject;
 
 import org.objectweb.asm.tree.AbstractInsnNode;
 
-public class TableJumpInstruction {
+public class TableJumpInstruction
+{
 	private final TableJumpInstruction$TableJump[] tableJumps;
 	private final int[] labels;
 	private final int start;
@@ -11,7 +12,8 @@ public class TableJumpInstruction {
 	private final String name;
 	private final String desc;
 
-	public TableJumpInstruction(TableJumpInstruction$TableJump[] var1, AbstractInsnNode[] var2, int[] var3, int var4, String var5, String var6, String var7) {
+	public TableJumpInstruction(TableJumpInstruction$TableJump[] var1, AbstractInsnNode[] var2, int[] var3, int var4, String var5, String var6, String var7)
+	{
 		this.tableJumps = var1;
 		this.instructions = var2;
 		this.labels = var3;

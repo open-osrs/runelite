@@ -28,7 +28,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public enum Quest {
+public enum Quest
+{
 	//Free Quests
 	BLACK_KNIGHTS_FORTRESS(299, "Black Knights' Fortress"),
 	COOKS_ASSISTANT(300, "Cook's Assistant"),
@@ -198,9 +199,11 @@ public enum Quest {
 	@Getter
 	private final String name;
 
-	public QuestState getState(Client client) {
+	public QuestState getState(Client client)
+	{
 		client.runScript(ScriptID.QUESTLIST_PROGRESS, id);
-		switch (client.getIntStack()[0]) {
+		switch (client.getIntStack()[0])
+		{
 			case 2:
 				return QuestState.FINISHED;
 			case 1:

@@ -30,22 +30,25 @@ import net.runelite.api.MenuEntry;
 /**
  * An event when a new entry is added to a right-click menu.
  */
-public class MenuEntryAdded extends MenuEntry implements Event {
-	public MenuEntryAdded(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick) {
+public class MenuEntryAdded extends MenuEntry implements Event
+{
+	public MenuEntryAdded(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
+	{
 		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
 	}
 
 	/**
 	 * If this is set to true client mixin will update
 	 * the menu entry with the modified values.
-	 * <p>
+	 *
 	 * Checks if count is the same, but doesn't check if there's
 	 * been multiple changes
 	 */
 	@Getter
 	private boolean modified;
 
-	public void setModified() {
+	public void setModified()
+	{
 		this.modified = true;
 	}
 }

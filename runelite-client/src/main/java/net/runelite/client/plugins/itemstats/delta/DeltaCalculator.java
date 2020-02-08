@@ -25,6 +25,7 @@
 package net.runelite.client.plugins.itemstats.delta;
 
 @FunctionalInterface
-public interface DeltaCalculator {
+public interface DeltaCalculator
+{
 	int calculateDelta(int max);
 }

@@ -31,7 +31,8 @@ import net.runelite.client.plugins.itemstats.stats.Stat;
  * A single stat change
  */
 @Data
-public class StatChange {
+public class StatChange
+{
 	/**
 	 * The stat which will be boosted (or damaged).
 	 */
@@ -63,7 +64,8 @@ public class StatChange {
 	 *
 	 * @return The formatted relative boost amount
 	 */
-	public String getFormattedRelative() {
+	public String getFormattedRelative()
+	{
 		return formatBoost(relative);
 	}
 
@@ -73,11 +75,13 @@ public class StatChange {
 	 *
 	 * @return The formatted theoretical boost amount
 	 */
-	public String getFormattedTheoretical() {
+	public String getFormattedTheoretical()
+	{
 		return formatBoost(theoretical);
 	}
 
-	static String formatBoost(int boost) {
+	static String formatBoost(int boost)
+	{
 		return String.format("%+d", boost);
 	}
 }

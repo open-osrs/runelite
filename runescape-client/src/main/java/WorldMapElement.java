@@ -9,42 +9,42 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapElement extends DualNode {
 	@ObfuscatedName("qr")
 	@ObfuscatedGetter(
-			intValue = -137008991
+		intValue = -137008991
 	)
 	static int field3230;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("WorldMapElement_archive")
 	static AbstractArchive WorldMapElement_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "[Lim;"
+		signature = "[Lim;"
 	)
 	@Export("WorldMapElement_cached")
 	static WorldMapElement[] WorldMapElement_cached;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Leh;"
+		signature = "Leh;"
 	)
 	@Export("WorldMapElement_cachedSprites")
 	static EvictingDualNodeHashTable WorldMapElement_cachedSprites;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 1867958927
+		intValue = 1867958927
 	)
 	@Export("objectId")
 	public final int objectId;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -1771257793
+		intValue = -1771257793
 	)
 	@Export("sprite1")
 	public int sprite1;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = 2048947883
+		intValue = 2048947883
 	)
 	@Export("sprite2")
 	int sprite2;
@@ -53,12 +53,12 @@ public class WorldMapElement extends DualNode {
 	public String name;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = 1188038203
+		intValue = 1188038203
 	)
 	public int field3215;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = 1641997247
+		intValue = 1641997247
 	)
 	@Export("textSize")
 	public int textSize;
@@ -72,33 +72,33 @@ public class WorldMapElement extends DualNode {
 	int[] field3220;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-			intValue = 1973467605
+		intValue = 1973467605
 	)
 	int field3217;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-			intValue = 1618776483
+		intValue = 1618776483
 	)
 	int field3222;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-			intValue = 249158163
+		intValue = 249158163
 	)
 	int field3223;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-			intValue = 1378552349
+		intValue = 1378552349
 	)
 	int field3224;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-			signature = "Lih;"
+		signature = "Lih;"
 	)
 	@Export("horizontalAlignment")
 	public HorizontalAlignment horizontalAlignment;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-			signature = "Lic;"
+		signature = "Lic;"
 	)
 	@Export("verticalAlignment")
 	public VerticalAlignment verticalAlignment;
@@ -108,7 +108,7 @@ public class WorldMapElement extends DualNode {
 	byte[] field3228;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-			intValue = 689795533
+		intValue = 689795533
 	)
 	@Export("category")
 	public int category;
@@ -134,8 +134,8 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lkp;I)V",
-			garbageValue = "1991794864"
+		signature = "(Lkp;I)V",
+		garbageValue = "1991794864"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -151,8 +151,8 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lkp;IS)V",
-			garbageValue = "32767"
+		signature = "(Lkp;IS)V",
+		garbageValue = "32767"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -227,9 +227,9 @@ public class WorldMapElement extends DualNode {
 				} else if (var2 == 28) {
 					var1.readUnsignedByte();
 				} else if (var2 == 29) {
-					this.horizontalAlignment = (HorizontalAlignment) WorldMapSection0.findEnumerated(GraphicsObject.method2064(), var1.readUnsignedByte());
+					this.horizontalAlignment = (HorizontalAlignment)WorldMapSection0.findEnumerated(GraphicsObject.method2064(), var1.readUnsignedByte());
 				} else if (var2 == 30) {
-					this.verticalAlignment = (VerticalAlignment) WorldMapSection0.findEnumerated(Message.method1229(), var1.readUnsignedByte());
+					this.verticalAlignment = (VerticalAlignment)WorldMapSection0.findEnumerated(Message.method1229(), var1.readUnsignedByte());
 				}
 			}
 		}
@@ -238,8 +238,8 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1639524352"
+		signature = "(I)V",
+		garbageValue = "1639524352"
 	)
 	void method4449() {
 		if (this.field3220 != null) {
@@ -262,8 +262,8 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(ZB)Llt;",
-			garbageValue = "33"
+		signature = "(ZB)Llt;",
+		garbageValue = "33"
 	)
 	@Export("getSpriteBool")
 	public Sprite getSpriteBool(boolean var1) {
@@ -273,21 +273,21 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(II)Llt;",
-			garbageValue = "-1731622138"
+		signature = "(II)Llt;",
+		garbageValue = "-1731622138"
 	)
 	@Export("getSprite")
 	Sprite getSprite(int var1) {
 		if (var1 < 0) {
 			return null;
 		} else {
-			Sprite var2 = (Sprite) WorldMapElement_cachedSprites.get((long) var1);
+			Sprite var2 = (Sprite)WorldMapElement_cachedSprites.get((long)var1);
 			if (var2 != null) {
 				return var2;
 			} else {
 				var2 = WorldMapSection1.SpriteBuffer_getSprite(WorldMapElement_archive, var1, 0);
 				if (var2 != null) {
-					WorldMapElement_cachedSprites.put(var2, (long) var1);
+					WorldMapElement_cachedSprites.put(var2, (long)var1);
 				}
 
 				return var2;
@@ -297,8 +297,8 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "-1106641241"
+		signature = "(I)I",
+		garbageValue = "-1106641241"
 	)
 	@Export("getObjectId")
 	public int getObjectId() {
@@ -307,8 +307,8 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "1"
+		signature = "(B)V",
+		garbageValue = "1"
 	)
 	public static void method4470() {
 		if (NetCache.NetCache_socket != null) {

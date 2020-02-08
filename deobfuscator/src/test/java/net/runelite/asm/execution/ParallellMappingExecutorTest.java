@@ -33,9 +33,11 @@ import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ParallellMappingExecutorTest {
+public class ParallellMappingExecutorTest
+{
 	@Test
-	public void testStaticStep() throws Exception {
+	public void testStaticStep() throws Exception
+	{
 		ClassFile cf1 = ClassUtil.loadClass(getClass().getResourceAsStream("mapper/StaticStepTest.class"));
 		ClassFile cf2 = ClassUtil.loadClass(getClass().getResourceAsStream("mapper/StaticStepTest.class"));
 
@@ -55,7 +57,7 @@ public class ParallellMappingExecutorTest {
 		Method m2 = cf2.findMethod("entry");
 
 		Method map1 = cf1.findMethod("map"),
-				map2 = cf2.findMethod("map");
+			map2 = cf2.findMethod("map");
 
 		Assert.assertNotNull(map1);
 		Assert.assertNotNull(map2);

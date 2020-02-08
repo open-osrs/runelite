@@ -26,24 +26,27 @@ package net.runelite.cache.definitions.loaders;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.cache.definitions.ObjectDefinition;
 import net.runelite.cache.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ObjectLoader {
+public class ObjectLoader
+{
 	private static final Logger logger = LoggerFactory.getLogger(ObjectLoader.class);
 
-	public ObjectDefinition load(int id, byte[] b) {
+	public ObjectDefinition load(int id, byte[] b)
+	{
 		ObjectDefinition def = new ObjectDefinition();
 		InputStream is = new InputStream(b);
 
 		def.setId(id);
 
-		for (; ; ) {
+		for (;;)
+		{
 			int opcode = is.readUnsignedByte();
-			if (opcode == 0) {
+			if (opcode == 0)
+			{
 				break;
 			}
 
@@ -55,14 +58,18 @@ public class ObjectLoader {
 		return def;
 	}
 
-	private void processOp(int opcode, ObjectDefinition def, InputStream is) {
-		if (opcode == 1) {
+	private void processOp(int opcode, ObjectDefinition def, InputStream is)
+	{
+		if (opcode == 1)
+		{
 			int length = is.readUnsignedByte();
-			if (length > 0) {
+			if (length > 0)
+			{
 				int[] objectTypes = new int[length];
 				int[] objectModels = new int[length];
 
-				for (int index = 0; index < length; ++index) {
+				for (int index = 0; index < length; ++index)
+				{
 					objectModels[index] = is.readUnsignedShort();
 					objectTypes[index] = is.readUnsignedByte();
 				}
@@ -70,115 +77,187 @@ public class ObjectLoader {
 				def.setObjectTypes(objectTypes);
 				def.setObjectModels(objectModels);
 			}
-		} else if (opcode == 2) {
+		}
+		else if (opcode == 2)
+		{
 			def.setName(is.readString());
-		} else if (opcode == 5) {
+		}
+		else if (opcode == 5)
+		{
 			int length = is.readUnsignedByte();
-			if (length > 0) {
+			if (length > 0)
+			{
 				def.setObjectTypes(null);
 				int[] objectModels = new int[length];
 
-				for (int index = 0; index < length; ++index) {
+				for (int index = 0; index < length; ++index)
+				{
 					objectModels[index] = is.readUnsignedShort();
 				}
 
 				def.setObjectModels(objectModels);
 			}
-		} else if (opcode == 14) {
+		}
+		else if (opcode == 14)
+		{
 			def.setSizeX(is.readUnsignedByte());
-		} else if (opcode == 15) {
+		}
+		else if (opcode == 15)
+		{
 			def.setSizeY(is.readUnsignedByte());
-		} else if (opcode == 17) {
+		}
+		else if (opcode == 17)
+		{
 			def.setInteractType(0);
 			def.setBlocksProjectile(false);
-		} else if (opcode == 18) {
+		}
+		else if (opcode == 18)
+		{
 			def.setBlocksProjectile(false);
-		} else if (opcode == 19) {
+		}
+		else if (opcode == 19)
+		{
 			def.setWallOrDoor(is.readUnsignedByte());
-		} else if (opcode == 21) {
+		}
+		else if (opcode == 21)
+		{
 			def.setContouredGround(0);
-		} else if (opcode == 22) {
+		}
+		else if (opcode == 22)
+		{
 			def.setMergeNormals(true);
-		} else if (opcode == 23) {
+		}
+		else if (opcode == 23)
+		{
 			def.setABool2111(true);
-		} else if (opcode == 24) {
+		}
+		else if (opcode == 24)
+		{
 			def.setAnimationID(is.readUnsignedShort());
-			if (def.getAnimationID() == 0xFFFF) {
+			if (def.getAnimationID() == 0xFFFF)
+			{
 				def.setAnimationID(-1);
 			}
-		} else if (opcode == 27) {
+		}
+		else if (opcode == 27)
+		{
 			def.setInteractType(1);
-		} else if (opcode == 28) {
+		}
+		else if (opcode == 28)
+		{
 			def.setDecorDisplacement(is.readUnsignedByte());
-		} else if (opcode == 29) {
+		}
+		else if (opcode == 29)
+		{
 			def.setAmbient(is.readByte());
-		} else if (opcode == 39) {
+		}
+		else if (opcode == 39)
+		{
 			def.setContrast(is.readByte() * 25);
-		} else if (opcode >= 30 && opcode < 35) {
+		}
+		else if (opcode >= 30 && opcode < 35)
+		{
 			String[] actions = def.getActions();
 			actions[opcode - 30] = is.readString();
-			if (actions[opcode - 30].equalsIgnoreCase("Hidden")) {
+			if (actions[opcode - 30].equalsIgnoreCase("Hidden"))
+			{
 				actions[opcode - 30] = null;
 			}
-		} else if (opcode == 40) {
+		}
+		else if (opcode == 40)
+		{
 			int length = is.readUnsignedByte();
 			short[] recolorToFind = new short[length];
 			short[] recolorToReplace = new short[length];
 
-			for (int index = 0; index < length; ++index) {
+			for (int index = 0; index < length; ++index)
+			{
 				recolorToFind[index] = is.readShort();
 				recolorToReplace[index] = is.readShort();
 			}
 
 			def.setRecolorToFind(recolorToFind);
 			def.setRecolorToReplace(recolorToReplace);
-		} else if (opcode == 41) {
+		}
+		else if (opcode == 41)
+		{
 			int length = is.readUnsignedByte();
 			short[] retextureToFind = new short[length];
 			short[] textureToReplace = new short[length];
 
-			for (int index = 0; index < length; ++index) {
+			for (int index = 0; index < length; ++index)
+			{
 				retextureToFind[index] = is.readShort();
 				textureToReplace[index] = is.readShort();
 			}
 
 			def.setRetextureToFind(retextureToFind);
 			def.setTextureToReplace(textureToReplace);
-		} else if (opcode == 62) {
+		}
+		else if (opcode == 62)
+		{
 			def.setRotated(true);
-		} else if (opcode == 64) {
+		}
+		else if (opcode == 64)
+		{
 			def.setShadow(false);
-		} else if (opcode == 65) {
+		}
+		else if (opcode == 65)
+		{
 			def.setModelSizeX(is.readUnsignedShort());
-		} else if (opcode == 66) {
+		}
+		else if (opcode == 66)
+		{
 			def.setModelSizeHeight(is.readUnsignedShort());
-		} else if (opcode == 67) {
+		}
+		else if (opcode == 67)
+		{
 			def.setModelSizeY(is.readUnsignedShort());
-		} else if (opcode == 68) {
+		}
+		else if (opcode == 68)
+		{
 			def.setMapSceneID(is.readUnsignedShort());
-		} else if (opcode == 69) {
+		}
+		else if (opcode == 69)
+		{
 			is.readByte();
-		} else if (opcode == 70) {
+		}
+		else if (opcode == 70)
+		{
 			def.setOffsetX(is.readUnsignedShort());
-		} else if (opcode == 71) {
+		}
+		else if (opcode == 71)
+		{
 			def.setOffsetHeight(is.readUnsignedShort());
-		} else if (opcode == 72) {
+		}
+		else if (opcode == 72)
+		{
 			def.setOffsetY(is.readUnsignedShort());
-		} else if (opcode == 73) {
+		}
+		else if (opcode == 73)
+		{
 			def.setObstructsGround(true);
-		} else if (opcode == 74) {
+		}
+		else if (opcode == 74)
+		{
 			def.setHollow(true);
-		} else if (opcode == 75) {
+		}
+		else if (opcode == 75)
+		{
 			def.setSupportsItems(is.readUnsignedByte());
-		} else if (opcode == 77) {
+		}
+		else if (opcode == 77)
+		{
 			int varpID = is.readUnsignedShort();
-			if (varpID == 0xFFFF) {
+			if (varpID == 0xFFFF)
+			{
 				varpID = -1;
 			}
 			def.setVarbitID(varpID);
 
 			int configId = is.readUnsignedShort();
-			if (configId == 0xFFFF) {
+			if (configId == 0xFFFF)
+			{
 				configId = -1;
 			}
 			def.setVarpID(configId);
@@ -186,9 +265,11 @@ public class ObjectLoader {
 			int length = is.readUnsignedByte();
 			int[] configChangeDest = new int[length + 2];
 
-			for (int index = 0; index <= length; ++index) {
+			for (int index = 0; index <= length; ++index)
+			{
 				configChangeDest[index] = is.readUnsignedShort();
-				if (0xFFFF == configChangeDest[index]) {
+				if (0xFFFF == configChangeDest[index])
+				{
 					configChangeDest[index] = -1;
 				}
 			}
@@ -196,50 +277,66 @@ public class ObjectLoader {
 			configChangeDest[length + 1] = -1;
 
 			def.setConfigChangeDest(configChangeDest);
-		} else if (opcode == 78) {
+		}
+		else if (opcode == 78)
+		{
 			def.setAmbientSoundId(is.readUnsignedShort());
 			def.setAnInt2083(is.readUnsignedByte());
-		} else if (opcode == 79) {
+		}
+		else if (opcode == 79)
+		{
 			def.setAnInt2112(is.readUnsignedShort());
 			def.setAnInt2113(is.readUnsignedShort());
 			def.setAnInt2083(is.readUnsignedByte());
 			int length = is.readUnsignedByte();
 			int[] anIntArray2084 = new int[length];
 
-			for (int index = 0; index < length; ++index) {
+			for (int index = 0; index < length; ++index)
+			{
 				anIntArray2084[index] = is.readUnsignedShort();
 			}
 
 			def.setAnIntArray2084(anIntArray2084);
-		} else if (opcode == 81) {
+		}
+		else if (opcode == 81)
+		{
 			def.setContouredGround(is.readUnsignedByte() * 256);
-		} else if (opcode == 82) {
+		}
+		else if (opcode == 82)
+		{
 			def.setMapAreaId(is.readUnsignedShort());
-		} else if (opcode == 92) {
+		}
+		else if (opcode == 92)
+		{
 			int varpID = is.readUnsignedShort();
-			if (varpID == 0xFFFF) {
+			if (varpID == 0xFFFF)
+			{
 				varpID = -1;
 			}
 			def.setVarbitID(varpID);
 
 			int configId = is.readUnsignedShort();
-			if (configId == 0xFFFF) {
+			if (configId == 0xFFFF)
+			{
 				configId = -1;
 			}
 			def.setVarpID(configId);
 
 
 			int var = is.readUnsignedShort();
-			if (var == 0xFFFF) {
+			if (var == 0xFFFF)
+			{
 				var = -1;
 			}
 
 			int length = is.readUnsignedByte();
 			int[] configChangeDest = new int[length + 2];
 
-			for (int index = 0; index <= length; ++index) {
+			for (int index = 0; index <= length; ++index)
+			{
 				configChangeDest[index] = is.readUnsignedShort();
-				if (0xFFFF == configChangeDest[index]) {
+				if (0xFFFF == configChangeDest[index])
+				{
 					configChangeDest[index] = -1;
 				}
 			}
@@ -247,18 +344,25 @@ public class ObjectLoader {
 			configChangeDest[length + 1] = var;
 
 			def.setConfigChangeDest(configChangeDest);
-		} else if (opcode == 249) {
+		}
+		else if (opcode == 249)
+		{
 			int length = is.readUnsignedByte();
 
 			Map<Integer, Object> params = new HashMap<>(length);
-			for (int i = 0; i < length; i++) {
+			for (int i = 0; i < length; i++)
+			{
 				boolean isString = is.readUnsignedByte() == 1;
 				int key = is.read24BitInt();
 				Object value;
 
-				if (isString) {
+				if (isString)
+				{
 					value = is.readString();
-				} else {
+				}
+
+				else
+				{
 					value = is.readInt();
 				}
 
@@ -266,27 +370,35 @@ public class ObjectLoader {
 			}
 
 			def.setParams(params);
-		} else {
+		}
+		else
+		{
 			logger.warn("Unrecognized opcode {}", opcode);
 		}
 	}
 
 
-	private void post(ObjectDefinition def) {
-		if (def.getWallOrDoor() == -1) {
+	private void post(ObjectDefinition def)
+	{
+		if (def.getWallOrDoor() == -1)
+		{
 			def.setWallOrDoor(0);
-			if (def.getObjectModels() != null && (def.getObjectTypes() == null || def.getObjectTypes()[0] == 10)) {
+			if (def.getObjectModels() != null && (def.getObjectTypes() == null || def.getObjectTypes()[0] == 10))
+			{
 				def.setWallOrDoor(1);
 			}
 
-			for (int var1 = 0; var1 < 5; ++var1) {
-				if (def.getActions()[var1] != null) {
+			for (int var1 = 0; var1 < 5; ++var1)
+			{
+				if (def.getActions()[var1] != null)
+				{
 					def.setWallOrDoor(1);
 				}
 			}
 		}
 
-		if (def.getSupportsItems() == -1) {
+		if (def.getSupportsItems() == -1)
+		{
 			def.setSupportsItems(def.getInteractType() != 0 ? 1 : 0);
 		}
 	}

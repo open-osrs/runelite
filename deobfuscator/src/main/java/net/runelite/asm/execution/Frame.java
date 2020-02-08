@@ -27,10 +27,8 @@ package net.runelite.asm.execution;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.asm.Method;
 import net.runelite.asm.Type;
 import net.runelite.asm.attributes.Code;
@@ -46,7 +44,8 @@ import net.runelite.asm.signature.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Frame {
+public class Frame
+{
 	private static final Logger logger = LoggerFactory.getLogger(Frame.class);
 
 	private final Execution execution;
@@ -64,7 +63,8 @@ public class Frame {
 	public Frame otherStatic;
 	private int order;
 
-	public Frame(Execution execution, Method method) {
+	public Frame(Execution execution, Method method)
+	{
 		this.execution = execution;
 		this.method = method;
 
@@ -77,26 +77,31 @@ public class Frame {
 
 		exceptions = HashMultimap.create();
 		Exceptions codeExceptions = code.getExceptions();
-		for (Exception ex : codeExceptions.getExceptions()) {
+		for (Exception ex : codeExceptions.getExceptions())
+		{
 			Instruction i = ex.getStart().next();
 			exceptions.put(i, ex);
 		}
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Frame{" + "cur=" + cur + ", last=" + this.lastInstruction() + "}";
 	}
 
-	public void initialize() {
+	public void initialize()
+	{
 		// initialize LVT
 		int pos = 0;
-		if (!method.isStatic()) {
+		if (!method.isStatic())
+		{
 			variables.set(pos++, new VariableContext(Type.getType(method.getClassFile().getPoolClass())).markParameter());
 		}
 
 		Signature descriptor = method.getDescriptor();
-		for (int i = 0; i < descriptor.size(); ++i) {
+		for (int i = 0; i < descriptor.size(); ++i)
+		{
 			Type argumentType = descriptor.getTypeOfArg(i);
 			variables.set(pos, new VariableContext(argumentType).markParameter());
 			pos += argumentType.getSize();
@@ -106,13 +111,15 @@ public class Frame {
 		cur = code.getInstructions().getInstructions().get(0);
 	}
 
-	public void initialize(InstructionContext ctx) {
+	public void initialize(InstructionContext ctx)
+	{
 		// initialize frame from invoking context
 		assert ctx.getInstruction() instanceof InvokeInstruction;
 
 		// this assert fails. evidently it's possible to invokevirtual a static method.
 		//assert ctx.getInstruction() instanceof InvokeStatic == this.method.isStatic();
-		if (this.getMethod().isStatic()) {
+		if (this.getMethod().isStatic())
+		{
 			this.nonStatic = ctx.getFrame().nonStatic;
 		}
 
@@ -121,12 +128,14 @@ public class Frame {
 		pops = Lists.reverse(new ArrayList<>(pops)); // reverse the list so first argument is at index 0
 
 		int lvtOffset = 0;
-		if (!(ctx.getInstruction() instanceof InvokeStatic)) {
+		if (!(ctx.getInstruction() instanceof InvokeStatic))
+		{
 			StackContext s = pops.remove(0); // object
 
 			// sometimes there are invokevirtuals on static methods. still must pop the object from the stack,
 			// but don't set as a parameter
-			if (!method.isStatic()) {
+			if (!method.isStatic())
+			{
 				VariableContext vctx = new VariableContext(ctx, s);
 				vctx.markParameter();
 
@@ -134,7 +143,8 @@ public class Frame {
 			}
 		}
 
-		for (int i = 0; i < method.getDescriptor().size(); ++i) {
+		for (int i = 0; i < method.getDescriptor().size(); ++i)
+		{
 			StackContext argument = pops.remove(0);
 
 			// Set variable type to the methods,  not the objects on the stack.
@@ -151,7 +161,8 @@ public class Frame {
 		cur = code.getInstructions().getInstructions().get(0);
 	}
 
-	protected Frame(Frame other) {
+	protected Frame(Frame other)
+	{
 		this.execution = other.execution;
 		this.method = other.method;
 		this.executing = other.executing;
@@ -161,7 +172,8 @@ public class Frame {
 		this.variables = new Variables(other.variables);
 		this.ctx = other.ctx;
 		this.nonStatic = other.nonStatic;
-		if (other.returnTo != null) {
+		if (other.returnTo != null)
+		{
 			this.returnTo = new Frame(other.returnTo);
 			this.returnTo.instructions.addAll(other.returnTo.instructions);
 		}
@@ -169,66 +181,82 @@ public class Frame {
 		this.order = other.order;
 	}
 
-	public Frame dup() {
+	public Frame dup()
+	{
 		Frame other = new Frame(this);
 		execution.addFrame(other);
 		return other;
 	}
 
-	public void stop() {
+	public void stop()
+	{
 		executing = false;
 	}
 
-	public Execution getExecution() {
+	public Execution getExecution()
+	{
 		return execution;
 	}
 
-	public boolean isExecuting() {
+	public boolean isExecuting()
+	{
 		return executing;
 	}
 
-	public Method getMethod() {
+	public Method getMethod()
+	{
 		return method;
 	}
 
-	public Stack getStack() {
+	public Stack getStack()
+	{
 		return stack;
 	}
 
-	public Variables getVariables() {
+	public Variables getVariables()
+	{
 		return variables;
 	}
 
-	public MethodContext getMethodCtx() {
+	public MethodContext getMethodCtx()
+	{
 		return ctx;
 	}
 
-	public void addInstructionContext(InstructionContext i) {
+	public void addInstructionContext(InstructionContext i)
+	{
 		instructions.add(i);
 	}
 
-	public List<InstructionContext> getInstructions() {
+	public List<InstructionContext> getInstructions()
+	{
 		return instructions;
 	}
 
-	public void execute() {
+	public void execute()
+	{
 		Instructions ins = method.getCode().getInstructions();
 		List<Instruction> instructions = ins.getInstructions();
 
 		assert !execution.paused;
 
-		while (executing) {
+		while (executing)
+		{
 			Instruction oldCur = cur;
 			InstructionContext ictx;
 
-			try {
+			try
+			{
 				logger.trace("executing {}", cur);
 				ictx = cur.execute(this);
 				this.addInstructionContext(ictx);
-			} catch (Throwable ex) {
+			}
+			catch (Throwable ex)
+			{
 				System.err.println("Error executing instruction " + cur);
 				System.err.println("Frame stack (grows downward):");
-				while (stack.getSize() > 0) {
+				while (stack.getSize() > 0)
+				{
 					StackContext stacki = stack.pop();
 					InstructionContext pushed = stacki.getPushed();
 					Frame frame = pushed.getFrame();
@@ -249,32 +277,40 @@ public class Frame {
 
 			processExceptions(ictx);
 
-			if (!executing) {
+			if (!executing)
+			{
 				// this can be mappable, too, but we stop executing anyway
 				checkMappable(ictx); // to set paused
 				incrementOrder(ictx);
 				break;
 			}
 
-			if (oldCur == cur) {
+			if (oldCur == cur)
+			{
 				this.nextInstruction();
-			} else {
+			}
+			else
+			{
 				/* jump */
 			}
 
 			// it is important we move cur first as when the step executor
 			// resumes it will start there
 			incrementOrder(ictx);
-			if (checkMappable(ictx)) {
+			if (checkMappable(ictx))
+			{
 				return;
 			}
 		}
 	}
 
-	private boolean checkMappable(InstructionContext ictx) {
-		if (execution.step && ictx.getInstruction() instanceof MappableInstruction) {
+	private boolean checkMappable(InstructionContext ictx)
+	{
+		if (execution.step && ictx.getInstruction() instanceof MappableInstruction)
+		{
 			MappableInstruction mi = (MappableInstruction) ictx.getInstruction();
-			if (mi.canMap(ictx)) {
+			if (mi.canMap(ictx))
+			{
 				execution.paused = true;
 				return true;
 			}
@@ -283,18 +319,22 @@ public class Frame {
 		return false;
 	}
 
-	private void incrementOrder(InstructionContext ictx) {
-		if (execution.staticStep && ictx.getInstruction() instanceof MappableInstruction) {
+	private void incrementOrder(InstructionContext ictx)
+	{
+		if (execution.staticStep && ictx.getInstruction() instanceof MappableInstruction)
+		{
 			++order;
 
 			// branches of the instruction haven't been incremented either
-			for (Frame f : ictx.getBranches()) {
+			for (Frame f : ictx.getBranches())
+			{
 				++f.order;
 			}
 		}
 	}
 
-	public void nextInstruction() {
+	public void nextInstruction()
+	{
 		Instructions ins = method.getCode().getInstructions();
 		List<Instruction> instructions = ins.getInstructions();
 
@@ -303,23 +343,29 @@ public class Frame {
 		cur = instructions.get(idx + 1);
 	}
 
-	private InstructionContext lastInstruction() {
+	private InstructionContext lastInstruction()
+	{
 		return instructions.isEmpty() ? null : instructions.get(instructions.size() - 1);
 	}
 
-	private void processExceptions(InstructionContext ictx) {
-		if (this.execution.step) {
+	private void processExceptions(InstructionContext ictx)
+	{
+		if (this.execution.step)
+		{
 			return; // no frame.other
 		}
-		if (this.execution.noExceptions) {
+		if (this.execution.noExceptions)
+		{
 			return;
 		}
 
-		for (Exception e : exceptions.get(ictx.getInstruction())) {
+		for (Exception e : exceptions.get(ictx.getInstruction()))
+		{
 			Frame f = dup();
 			Stack stack = f.getStack();
 
-			while (stack.getSize() > 0) {
+			while (stack.getSize() > 0)
+			{
 				stack.pop();
 			}
 
@@ -333,12 +379,14 @@ public class Frame {
 		}
 	}
 
-	public void jump(InstructionContext from, Label to) {
+	public void jump(InstructionContext from, Label to)
+	{
 		assert to != null;
 		assert to.getInstructions() == method.getCode().getInstructions();
 		assert method.getCode().getInstructions().getInstructions().contains(to);
 
-		if (ctx.hasJumped(from, to)) {
+		if (ctx.hasJumped(from, to))
+		{
 			logger.trace("Stopping frame {} due to previous jump to {}", this, to);
 			executing = false;
 			return;
@@ -347,31 +395,38 @@ public class Frame {
 		cur = to.next();
 	}
 
-	public Instruction getCur() {
+	public Instruction getCur()
+	{
 		return cur;
 	}
 
-	public void setCur(Instruction cur) {
+	public void setCur(Instruction cur)
+	{
 		this.cur = cur;
 	}
 
-	public int getOrder() {
+	public int getOrder()
+	{
 		return order;
 	}
 
-	public void setOrder(int order) {
+	public void setOrder(int order)
+	{
 		this.order = order;
 	}
 
-	public int getNextOrder() {
+	public int getNextOrder()
+	{
 		return order++;
 	}
 
-	public Frame getOther() {
+	public Frame getOther()
+	{
 		return other;
 	}
 
-	public void setOther(Frame other) {
+	public void setOther(Frame other)
+	{
 		this.other = other;
 	}
 }

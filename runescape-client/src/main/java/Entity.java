@@ -9,18 +9,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class Entity extends DualNode {
 	@ObfuscatedName("nj")
 	@ObfuscatedSignature(
-			signature = "[Lhn;"
+		signature = "[Lhn;"
 	)
 	static Widget[] field1866;
 	@ObfuscatedName("gj")
 	@ObfuscatedSignature(
-			signature = "Llt;"
+		signature = "Llt;"
 	)
 	@Export("compass")
 	static Sprite compass;
 	@ObfuscatedName("cy")
 	@ObfuscatedGetter(
-			intValue = -384609857
+		intValue = -384609857
 	)
 	@Export("height")
 	public int height;
@@ -31,8 +31,8 @@ public abstract class Entity extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(I)Ldx;",
-			garbageValue = "-2133076860"
+		signature = "(I)Ldx;",
+		garbageValue = "-2133076860"
 	)
 	@Export("getModel")
 	protected Model getModel() {
@@ -52,8 +52,8 @@ public abstract class Entity extends DualNode {
 
 	@ObfuscatedName("fr")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-553494705"
+		signature = "(I)V",
+		garbageValue = "-553494705"
 	)
 	static final void method3332() {
 		int var0 = Players.Players_count;

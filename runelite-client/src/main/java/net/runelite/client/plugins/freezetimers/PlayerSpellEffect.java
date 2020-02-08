@@ -29,7 +29,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public enum PlayerSpellEffect {
+public enum PlayerSpellEffect
+{
 	BIND("Bind", 181, 4800, false, 0, TimerType.FREEZE),
 	SNARE("Snare", 180, 9600, false, 1, TimerType.FREEZE),
 	ENTANGLE("Entangle", 179, 14400, false, 2, TimerType.FREEZE),
@@ -55,9 +56,12 @@ public enum PlayerSpellEffect {
 	@Getter(AccessLevel.PACKAGE)
 	private final TimerType type;
 
-	static PlayerSpellEffect getFromSpotAnim(int spotAnim) {
-		for (PlayerSpellEffect effect : values()) {
-			if (effect.getSpotAnimId() == spotAnim) {
+	static PlayerSpellEffect getFromSpotAnim(int spotAnim)
+	{
+		for (PlayerSpellEffect effect : values())
+		{
+			if (effect.getSpotAnimId() == spotAnim)
+			{
 				return effect;
 			}
 		}

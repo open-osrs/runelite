@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapSection1 implements WorldMapSection {
 	@ObfuscatedName("qx")
 	@ObfuscatedSignature(
-			signature = "Ldj;"
+		signature = "Ldj;"
 	)
 	@Export("decimator")
 	static Decimator decimator;
 	@ObfuscatedName("dx")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive15")
 	static Archive archive15;
@@ -23,37 +23,37 @@ public class WorldMapSection1 implements WorldMapSection {
 	static int[] field295;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -1032814753
+		intValue = -1032814753
 	)
 	@Export("minPlane")
 	int minPlane;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 161851669
+		intValue = 161851669
 	)
 	@Export("planes")
 	int planes;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -1056408349
+		intValue = -1056408349
 	)
 	@Export("regionStartX")
 	int regionStartX;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 1194427309
+		intValue = 1194427309
 	)
 	@Export("regionStartY")
 	int regionStartY;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -27645919
+		intValue = -27645919
 	)
 	@Export("regionEndX")
 	int regionEndX;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -290110331
+		intValue = -290110331
 	)
 	@Export("regionEndY")
 	int regionEndY;
@@ -63,8 +63,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lae;I)V",
-			garbageValue = "-1034100543"
+		signature = "(Lae;I)V",
+		garbageValue = "-1034100543"
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
@@ -88,8 +88,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IIIB)Z",
-			garbageValue = "-110"
+		signature = "(IIIB)Z",
+		garbageValue = "-110"
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
@@ -102,8 +102,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(IIB)Z",
-			garbageValue = "37"
+		signature = "(IIB)Z",
+		garbageValue = "37"
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
@@ -112,8 +112,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IIII)[I",
-			garbageValue = "-96920779"
+		signature = "(IIII)[I",
+		garbageValue = "-96920779"
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
@@ -127,8 +127,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(III)Lhj;",
-			garbageValue = "911083222"
+		signature = "(III)Lhj;",
+		garbageValue = "911083222"
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
@@ -143,8 +143,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(Lkp;B)V",
-			garbageValue = "76"
+		signature = "(Lkp;B)V",
+		garbageValue = "76"
 	)
 	@Export("read")
 	public void read(Buffer var1) {
@@ -159,8 +159,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1927273541"
+		signature = "(I)V",
+		garbageValue = "-1927273541"
 	)
 	@Export("postRead")
 	void postRead() {
@@ -168,8 +168,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lii;IIB)Llt;",
-			garbageValue = "-81"
+		signature = "(Lii;IIB)Llt;",
+		garbageValue = "-81"
 	)
 	@Export("SpriteBuffer_getSprite")
 	public static Sprite SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
@@ -178,8 +178,8 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("gq")
 	@ObfuscatedSignature(
-			signature = "(IIIII)V",
-			garbageValue = "-301044323"
+		signature = "(IIIII)V",
+		garbageValue = "-301044323"
 	)
 	@Export("drawEntities")
 	static final void drawEntities(int var0, int var1, int var2, int var3) {
@@ -198,7 +198,7 @@ public class WorldMapSection1 implements WorldMapSection {
 		ItemContainer.addNpcsToScene(false);
 
 		int var6;
-		for (Projectile var4 = (Projectile) Client.projectiles.last(); var4 != null; var4 = (Projectile) Client.projectiles.previous()) {
+		for (Projectile var4 = (Projectile)Client.projectiles.last(); var4 != null; var4 = (Projectile)Client.projectiles.previous()) {
 			if (var4.plane == Clock.Client_plane && Client.cycle <= var4.cycleEnd) {
 				if (Client.cycle >= var4.cycleStart) {
 					if (var4.targetIndex > 0) {
@@ -223,7 +223,7 @@ public class WorldMapSection1 implements WorldMapSection {
 					}
 
 					var4.advance(Client.field707);
-					ServerBuild.scene.drawEntity(Clock.Client_plane, (int) var4.x, (int) var4.y, (int) var4.z, 60, var4, var4.yaw, -1L, false);
+					ServerBuild.scene.drawEntity(Clock.Client_plane, (int)var4.x, (int)var4.y, (int)var4.z, 60, var4, var4.yaw, -1L, false);
 				}
 			} else {
 				var4.remove();
@@ -325,7 +325,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 		for (var10 = 0; var10 < 5; ++var10) {
 			if (Client.field775[var10]) {
-				var11 = (int) (Math.random() * (double) (Client.field892[var10] * 2 + 1) - (double) Client.field892[var10] + Math.sin((double) Client.field895[var10] * ((double) Client.field894[var10] / 100.0D)) * (double) Client.field699[var10]);
+				var11 = (int)(Math.random() * (double)(Client.field892[var10] * 2 + 1) - (double)Client.field892[var10] + Math.sin((double)Client.field895[var10] * ((double)Client.field894[var10] / 100.0D)) * (double)Client.field699[var10]);
 				if (var10 == 0) {
 					HitSplatDefinition.cameraX += var11;
 				}
@@ -386,7 +386,7 @@ public class WorldMapSection1 implements WorldMapSection {
 			}
 		}
 
-		((TextureProvider) Rasterizer3D.Rasterizer3D_textureLoader).animate(Client.field707);
+		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).animate(Client.field707);
 		RouteStrategy.method3662(var0, var1, var2, var3);
 		HitSplatDefinition.cameraX = var5;
 		class51.cameraY = var6;

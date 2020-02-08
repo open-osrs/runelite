@@ -26,31 +26,34 @@ package net.runelite.client.ui.overlay.arrow;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.plugins.Plugin;
 
 @Singleton
-public class ArrowPointManager {
+public class ArrowPointManager
+{
 	@Getter(AccessLevel.PACKAGE)
 	private final Multimap<Plugin, ArrowPoint> arrowPoints = HashMultimap.create();
 
-	public void add(Plugin plugin, ArrowPoint arrowPoint) {
+	public void add(Plugin plugin, ArrowPoint arrowPoint)
+	{
 		arrowPoints.put(plugin, arrowPoint);
 	}
 
-	public void remove(Plugin plugin, ArrowPoint arrowPoint) {
+	public void remove(Plugin plugin, ArrowPoint arrowPoint)
+	{
 		arrowPoints.remove(plugin, arrowPoint);
 	}
 
-	public void clear(Plugin plugin) {
+	public void clear(Plugin plugin)
+	{
 		arrowPoints.removeAll(plugin);
 	}
 
-	public void clear() {
+	public void clear()
+	{
 		arrowPoints.clear();
 	}
 }

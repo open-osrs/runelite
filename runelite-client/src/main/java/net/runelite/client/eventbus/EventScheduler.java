@@ -3,13 +3,12 @@ package net.runelite.client.eventbus;
 import io.reactivex.Scheduler;
 import io.reactivex.annotations.Nullable;
 import io.reactivex.schedulers.Schedulers;
-
 import java.util.function.Supplier;
-
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum EventScheduler {
+public enum EventScheduler
+{
 	DEFAULT(() -> null),
 	COMPUTATION(Schedulers::computation),
 	IO(Schedulers::io),
@@ -21,7 +20,8 @@ public enum EventScheduler {
 	private Supplier<Scheduler> scheduler;
 
 	@Nullable
-	public Scheduler get() {
+	public Scheduler get()
+	{
 		return scheduler.get();
 	}
 }

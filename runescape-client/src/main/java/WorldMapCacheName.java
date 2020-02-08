@@ -9,32 +9,32 @@ import net.runelite.rs.ScriptOpcodes;
 public class WorldMapCacheName {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Las;"
+		signature = "Las;"
 	)
 	public static final WorldMapCacheName field313;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Las;"
+		signature = "Las;"
 	)
 	public static final WorldMapCacheName field309;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Las;"
+		signature = "Las;"
 	)
 	public static final WorldMapCacheName field310;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Las;"
+		signature = "Las;"
 	)
 	static final WorldMapCacheName field311;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Las;"
+		signature = "Las;"
 	)
 	public static final WorldMapCacheName field312;
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-			signature = "Lll;"
+		signature = "Lll;"
 	)
 	static Bounds field315;
 	@ObfuscatedName("g")
@@ -55,8 +55,8 @@ public class WorldMapCacheName {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1252673540"
+		signature = "(I)V",
+		garbageValue = "1252673540"
 	)
 	public static void method635() {
 		VarpDefinition.VarpDefinition_cached.clear();
@@ -64,8 +64,8 @@ public class WorldMapCacheName {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(I)Lbg;",
-			garbageValue = "-1273347213"
+		signature = "(I)Lbg;",
+		garbageValue = "-1273347213"
 	)
 	@Export("worldListStart")
 	static World worldListStart() {
@@ -75,8 +75,8 @@ public class WorldMapCacheName {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1459366503"
+		signature = "(I)V",
+		garbageValue = "-1459366503"
 	)
 	static void method634() {
 		Login.loginIndex = 24;
@@ -85,8 +85,8 @@ public class WorldMapCacheName {
 
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZB)I",
-			garbageValue = "8"
+		signature = "(ILce;ZB)I",
+		garbageValue = "8"
 	)
 	static int method633(int var0, Script var1, boolean var2) {
 		if (var0 == ScriptOpcodes.WORLDLIST_FETCH) {
@@ -285,8 +285,8 @@ public class WorldMapCacheName {
 
 	@ObfuscatedName("is")
 	@ObfuscatedSignature(
-			signature = "(II)Ljava/lang/String;",
-			garbageValue = "1758289835"
+		signature = "(II)Ljava/lang/String;",
+		garbageValue = "1758289835"
 	)
 	@Export("formatItemStacks")
 	static final String formatItemStacks(int var0) {
@@ -305,8 +305,8 @@ public class WorldMapCacheName {
 
 	@ObfuscatedName("lj")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1011989365"
+		signature = "(I)V",
+		garbageValue = "1011989365"
 	)
 	static void method636() {
 		if (Client.oculusOrbState == 1) {

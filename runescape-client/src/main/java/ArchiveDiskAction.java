@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ArchiveDiskAction extends Node {
 	@ObfuscatedName("ky")
 	@ObfuscatedGetter(
-			intValue = 1465828327
+		intValue = 1465828327
 	)
 	@Export("menuX")
 	static int menuX;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 529558381
+		intValue = 529558381
 	)
 	@Export("type")
 	int type;
@@ -24,13 +24,13 @@ public class ArchiveDiskAction extends Node {
 	byte[] data;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lky;"
+		signature = "Lky;"
 	)
 	@Export("archiveDisk")
 	ArchiveDisk archiveDisk;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive")
 	Archive archive;
@@ -40,8 +40,8 @@ public class ArchiveDiskAction extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
-			garbageValue = "-2068094459"
+		signature = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
+		garbageValue = "-2068094459"
 	)
 	public static String method4216(CharSequence var0) {
 		int var1 = var0.length();
@@ -57,16 +57,16 @@ public class ArchiveDiskAction extends Node {
 					var2.append('%');
 					int var6 = var5 >> 4 & 15;
 					if (var6 >= 10) {
-						var2.append((char) (var6 + 55));
+						var2.append((char)(var6 + 55));
 					} else {
-						var2.append((char) (var6 + 48));
+						var2.append((char)(var6 + 48));
 					}
 
 					var6 = var5 & 15;
 					if (var6 >= 10) {
-						var2.append((char) (var6 + 55));
+						var2.append((char)(var6 + 55));
 					} else {
-						var2.append((char) (var6 + 48));
+						var2.append((char)(var6 + 48));
 					}
 				}
 			} else {
@@ -79,8 +79,8 @@ public class ArchiveDiskAction extends Node {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-			signature = "(CB)Z",
-			garbageValue = "57"
+		signature = "(CB)Z",
+		garbageValue = "57"
 	)
 	@Export("isAlphaNumeric")
 	public static boolean isAlphaNumeric(char var0) {

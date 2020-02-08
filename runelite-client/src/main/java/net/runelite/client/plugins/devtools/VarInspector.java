@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.devtools;
 
 import com.google.inject.Inject;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -46,7 +45,6 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -65,9 +63,11 @@ import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.ui.FontManager;
 
 @Slf4j
-class VarInspector extends JFrame {
+class VarInspector extends JFrame
+{
 	@Getter(AccessLevel.PACKAGE)
-	private enum VarType {
+	private enum VarType
+	{
 		VARBIT("Varbit"),
 		VARP("VarPlayer"),
 		VARCINT("VarClientInt"),
@@ -76,7 +76,8 @@ class VarInspector extends JFrame {
 		private final String name;
 		private final JCheckBox checkBox;
 
-		VarType(String name) {
+		VarType(String name)
+		{
 			this.name = name;
 			checkBox = new JCheckBox(name, true);
 		}
@@ -98,7 +99,8 @@ class VarInspector extends JFrame {
 	private Map<Integer, Object> varcs = null;
 
 	@Inject
-	VarInspector(Client client, EventBus eventBus, DevToolsPlugin plugin) {
+	VarInspector(Client client, EventBus eventBus, DevToolsPlugin plugin)
+	{
 		this.eventBus = eventBus;
 		this.client = client;
 
@@ -108,9 +110,11 @@ class VarInspector extends JFrame {
 		setLayout(new BorderLayout());
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		addWindowListener(new WindowAdapter() {
+		addWindowListener(new WindowAdapter()
+		{
 			@Override
-			public void windowClosing(WindowEvent e) {
+			public void windowClosing(WindowEvent e)
+			{
 				eventBus.unregister(this);
 				close();
 				plugin.getVarInspector().setActive(false);
@@ -127,16 +131,20 @@ class VarInspector extends JFrame {
 		trackerScroller.setPreferredSize(new Dimension(400, 400));
 
 		final JScrollBar vertical = trackerScroller.getVerticalScrollBar();
-		vertical.addAdjustmentListener(new AdjustmentListener() {
+		vertical.addAdjustmentListener(new AdjustmentListener()
+		{
 			int lastMaximum = actualMax();
 
-			private int actualMax() {
+			private int actualMax()
+			{
 				return vertical.getMaximum() - vertical.getModel().getExtent();
 			}
 
 			@Override
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				if (vertical.getValue() >= lastMaximum) {
+			public void adjustmentValueChanged(AdjustmentEvent e)
+			{
+				if (vertical.getValue() >= lastMaximum)
+				{
 					vertical.setValue(actualMax());
 				}
 				lastMaximum = actualMax();
@@ -147,7 +155,8 @@ class VarInspector extends JFrame {
 
 		final JPanel trackerOpts = new JPanel();
 		trackerOpts.setLayout(new FlowLayout());
-		for (VarType cb : VarType.values()) {
+		for (VarType cb : VarType.values())
+		{
 			trackerOpts.add(cb.getCheckBox());
 		}
 
@@ -165,32 +174,37 @@ class VarInspector extends JFrame {
 
 	}
 
-	private void addVarLog(VarType type, String name, int old, int neew) {
+	private void addVarLog(VarType type, String name, int old, int neew)
+	{
 		addVarLog(type, name, Integer.toString(old), Integer.toString(neew));
 	}
 
-	private void addVarLog(VarType type, String name, String old, String neew) {
-		if (!type.getCheckBox().isSelected()) {
+	private void addVarLog(VarType type, String name, String old, String neew)
+	{
+		if (!type.getCheckBox().isSelected())
+		{
 			return;
 		}
 
 		int tick = client.getTickCount();
 		SwingUtilities.invokeLater(() ->
 		{
-			if (tick != lastTick) {
+			if (tick != lastTick)
+			{
 				lastTick = tick;
 				JLabel header = new JLabel("Tick " + tick);
 				header.setFont(FontManager.getRunescapeSmallFont());
 				header.setBorder(new CompoundBorder(
-						BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.LIGHT_GRAY_COLOR),
-						BorderFactory.createEmptyBorder(3, 6, 0, 0)
+					BorderFactory.createMatteBorder(0, 0, 1, 0, ColorScheme.LIGHT_GRAY_COLOR),
+					BorderFactory.createEmptyBorder(3, 6, 0, 0)
 				));
 				tracker.add(header);
 			}
 			tracker.add(new JLabel(String.format("%s %s changed: %s -> %s", type.getName(), name, old, neew)));
 
 			// Cull very old stuff
-			for (; tracker.getComponentCount() > MAX_LOG_ENTRIES; ) {
+			for (; tracker.getComponentCount() > MAX_LOG_ENTRIES; )
+			{
 				tracker.remove(0);
 			}
 
@@ -198,30 +212,38 @@ class VarInspector extends JFrame {
 		});
 	}
 
-	private void onVarbitChanged(VarbitChanged ev) {
+	private void onVarbitChanged(VarbitChanged ev)
+	{
 		int[] varps = client.getVarps();
 
 		// Check varbits
-		for (int i = 0; i < numVarbits; i++) {
-			try {
+		for (int i = 0; i < numVarbits; i++)
+		{
+			try
+			{
 				int old = client.getVarbitValue(oldVarps, i);
 				int neew = client.getVarbitValue(varps, i);
-				if (old != neew) {
+				if (old != neew)
+				{
 					// Set the varbit so it doesn't show in the varp changes
 					// However, some varbits share common bits, so we only do it in oldVarps2
 					// Example: 4101 collides with 4104-4129
 					client.setVarbitValue(oldVarps2, i, neew);
 
 					String name = String.format("%d", i);
-					for (Varbits varbit : Varbits.values()) {
-						if (varbit.getId() == i) {
+					for (Varbits varbit : Varbits.values())
+					{
+						if (varbit.getId() == i)
+						{
 							name = String.format("%s(%d)", varbit.name(), i);
 							break;
 						}
 					}
 					addVarLog(VarType.VARBIT, name, old, neew);
 				}
-			} catch (IndexOutOfBoundsException e) {
+			}
+			catch (IndexOutOfBoundsException e)
+			{
 				// We don't know what the last varbit is, so we just hit the end, then set it for future iterations
 				log.debug("Hit OOB at varbit {}", i);
 				numVarbits = i;
@@ -230,13 +252,17 @@ class VarInspector extends JFrame {
 		}
 
 		// Check varps
-		for (int i = 0; i < varps.length; i++) {
+		for (int i = 0; i < varps.length; i++)
+		{
 			int old = oldVarps2[i];
 			int neew = varps[i];
-			if (old != neew) {
+			if (old != neew)
+			{
 				String name = String.format("%d", i);
-				for (VarPlayer varp : VarPlayer.values()) {
-					if (varp.getId() == i) {
+				for (VarPlayer varp : VarPlayer.values())
+				{
+					if (varp.getId() == i)
+					{
 						name = String.format("%s(%d)", varp.name(), i);
 						break;
 					}
@@ -249,16 +275,20 @@ class VarInspector extends JFrame {
 		System.arraycopy(client.getVarps(), 0, oldVarps2, 0, oldVarps2.length);
 	}
 
-	private void onVarClientIntChanged(VarClientIntChanged e) {
+	private void onVarClientIntChanged(VarClientIntChanged e)
+	{
 		int idx = e.getIndex();
 		int neew = (Integer) client.getVarcMap().getOrDefault(idx, 0);
 		int old = (Integer) varcs.getOrDefault(idx, 0);
 		varcs.put(idx, neew);
 
-		if (old != neew) {
+		if (old != neew)
+		{
 			String name = String.format("%d", idx);
-			for (VarClientInt varc : VarClientInt.values()) {
-				if (varc.getIndex() == idx) {
+			for (VarClientInt varc : VarClientInt.values())
+			{
+				if (varc.getIndex() == idx)
+				{
 					name = String.format("%s(%d)", varc.name(), idx);
 					break;
 				}
@@ -267,36 +297,48 @@ class VarInspector extends JFrame {
 		}
 	}
 
-	private void onVarClientStrChanged(VarClientStrChanged e) {
+	private void onVarClientStrChanged(VarClientStrChanged e)
+	{
 		int idx = e.getIndex();
 		String neew = (String) client.getVarcMap().getOrDefault(idx, "");
 		String old = (String) varcs.getOrDefault(idx, "");
 		varcs.put(idx, neew);
 
-		if (!Objects.equals(old, neew)) {
+		if (!Objects.equals(old, neew))
+		{
 			String name = String.format("%d", idx);
-			for (VarClientStr varc : VarClientStr.values()) {
-				if (varc.getIndex() == idx) {
+			for (VarClientStr varc : VarClientStr.values())
+			{
+				if (varc.getIndex() == idx)
+				{
 					name = String.format("%s(%d)", varc.name(), idx);
 					break;
 				}
 			}
-			if (old != null) {
+			if (old != null)
+			{
 				old = "\"" + old + "\"";
-			} else {
+			}
+			else
+			{
 				old = "null";
 			}
-			if (neew != null) {
+			if (neew != null)
+			{
 				neew = "\"" + neew + "\"";
-			} else {
+			}
+			else
+			{
 				neew = "null";
 			}
 			addVarLog(VarType.VARCSTR, name, old, neew);
 		}
 	}
 
-	public void open() {
-		if (oldVarps == null) {
+	public void open()
+	{
+		if (oldVarps == null)
+		{
 			oldVarps = new int[client.getVarps().length];
 			oldVarps2 = new int[client.getVarps().length];
 		}
@@ -315,7 +357,8 @@ class VarInspector extends JFrame {
 		repaint();
 	}
 
-	public void close() {
+	public void close()
+	{
 		tracker.removeAll();
 		eventBus.unregister(this);
 		setVisible(false);

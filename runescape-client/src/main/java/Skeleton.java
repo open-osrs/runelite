@@ -1,5 +1,4 @@
 import java.util.Iterator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -11,24 +10,24 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Skeleton extends Node {
 	@ObfuscatedName("hx")
 	@ObfuscatedGetter(
-			intValue = 1721561941
+		intValue = 1721561941
 	)
 	@Export("oculusOrbFocalPointY")
 	static int oculusOrbFocalPointY;
 	@ObfuscatedName("jv")
 	@ObfuscatedSignature(
-			signature = "Lhn;"
+		signature = "Lhn;"
 	)
 	static Widget field1793;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -1632248683
+		intValue = -1632248683
 	)
 	@Export("id")
 	int id;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 705396631
+		intValue = 705396631
 	)
 	@Export("count")
 	int count;
@@ -65,8 +64,8 @@ public class Skeleton extends Node {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "483242164"
+		signature = "(I)V",
+		garbageValue = "483242164"
 	)
 	public static void method3152() {
 		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear();
@@ -74,15 +73,15 @@ public class Skeleton extends Node {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(B)Ljava/lang/String;",
-			garbageValue = "91"
+		signature = "(B)Ljava/lang/String;",
+		garbageValue = "91"
 	)
 	static String method3153() {
 		String var0 = "";
 
 		Message var2;
 		for (Iterator var1 = Messages.Messages_hashTable.iterator(); var1.hasNext(); var0 = var0 + var2.sender + ':' + var2.text + '\n') {
-			var2 = (Message) var1.next();
+			var2 = (Message)var1.next();
 		}
 
 		return var0;

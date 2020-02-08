@@ -2,7 +2,8 @@ package net.runelite.rs.api;
 
 import net.runelite.mapping.Import;
 
-public interface RSNodeDeque {
+public interface RSNodeDeque
+{
 	@Import("current")
 	RSNode getCurrent();
 

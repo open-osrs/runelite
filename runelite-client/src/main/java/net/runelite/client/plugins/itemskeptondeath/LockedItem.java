@@ -25,10 +25,8 @@
 package net.runelite.client.plugins.itemskeptondeath;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
 import javax.annotation.Nullable;
-
 import lombok.AllArgsConstructor;
 import net.runelite.api.ItemID;
 
@@ -39,7 +37,8 @@ import net.runelite.api.ItemID;
  * View the Trouver parchment wiki page for more information: https://oldschool.runescape.wiki/w/Trouver_parchment
  */
 @AllArgsConstructor
-public enum LockedItem {
+public enum LockedItem
+{
 	LOCKED_INFERNAL_CAPE(ItemID.INFERNAL_CAPE_L, ItemID.INFERNAL_CAPE),
 	LOCKED_INFERNAL_MAX_CAPE(ItemID.INFERNAL_MAX_CAPE_L, ItemID.INFERNAL_MAX_CAPE),
 	LOCKED_FIRE_CAPE(ItemID.FIRE_CAPE_L, ItemID.FIRE_CAPE),
@@ -103,10 +102,12 @@ public enum LockedItem {
 
 	private final static Map<Integer, Integer> ITEMS;
 
-	static {
+	static
+	{
 		final ImmutableMap.Builder<Integer, Integer> builder = new ImmutableMap.Builder<>();
 
-		for (final LockedItem item : values()) {
+		for (final LockedItem item : values())
+		{
 			builder.put(item.lockedID, item.baseID);
 		}
 
@@ -114,7 +115,8 @@ public enum LockedItem {
 	}
 
 	@Nullable
-	public static Integer getBaseIdFromLockedId(final int itemID) {
+	public static Integer getBaseIdFromLockedId(final int itemID)
+	{
 		return ITEMS.get(itemID);
 	}
 }

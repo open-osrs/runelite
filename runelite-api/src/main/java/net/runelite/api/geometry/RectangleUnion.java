@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import javax.annotation.Nullable;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -36,14 +35,17 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class RectangleUnion {
-	private RectangleUnion() {
+public class RectangleUnion
+{
+	private RectangleUnion()
+	{
 	}
 
 	@RequiredArgsConstructor
 	@Getter
 	@ToString
-	public static class Rectangle {
+	public static class Rectangle
+	{
 		private final int x1, y1, x2, y2;
 	}
 
@@ -52,9 +54,11 @@ public class RectangleUnion {
 	 * the passed List will be modified
 	 */
 	@Nullable
-	public static Shapes<SimplePolygon> union(List<Rectangle> lefts) {
+	public static Shapes<SimplePolygon> union(List<Rectangle> lefts)
+	{
 		// https://stackoverflow.com/a/35362615/2977136
-		if (lefts.size() == 0) {
+		if (lefts.size() == 0)
+		{
 			return null;
 		}
 
@@ -75,33 +79,41 @@ public class RectangleUnion {
 		ChangingState cs = new ChangingState(out);
 
 		// Walk a beam left to right, colliding with any vertical edges of rectangles
-		for (int l = 0, r = 0; ; ) {
+		for (int l = 0, r = 0; ; )
+		{
 			Rectangle lr = null, rr = null;
-			if (l < lefts.size()) {
+			if (l < lefts.size())
+			{
 				lr = lefts.get(l);
 			}
-			if (r < rights.size()) {
+			if (r < rights.size())
+			{
 				rr = rights.get(r);
 			}
-			if (lr == null && rr == null) {
+			if (lr == null && rr == null)
+			{
 				break;
 			}
 
 			// get the next edge, preferring + edges
 			Rectangle rect;
 			boolean remove = lr == null || (rr != null && rr.x2 < lr.x1);
-			if (remove) {
+			if (remove)
+			{
 				cs.delta = -1;
 				cs.x = rr.x2;
 				r++;
 				rect = rr;
-			} else {
+			}
+			else
+			{
 				cs.delta = 1;
 				cs.x = lr.x1;
 				l++;
 				rect = lr;
 			}
-			if (trace) {
+			if (trace)
+			{
 				log.trace("{}{}", remove ? "-" : "+", rect);
 			}
 
@@ -110,28 +122,36 @@ public class RectangleUnion {
 
 			// Find or create the y1 edge
 			Segment n = segments.findLE(y1);
-			if (n == null) {
+			if (n == null)
+			{
 				n = segments.insertAfter(null, y1);
 			}
-			if (n.y != y1) {
+			if (n.y != y1)
+			{
 				n = segments.insertAfter(n, y1);
 				n.value = n.previous.value;
 			}
 
-			for (; ; ) {
+			for (; ; )
+			{
 				// create the y2 edge if the next edge is past
-				if (n.next == null || n.next.y > y2) {
+				if (n.next == null || n.next.y > y2)
+				{
 					segments.insertAfter(n, y2);
 				}
 				cs.touch(n);
 				n = n.next;
-				if (n.y == y2) {
+				if (n.y == y2)
+				{
 					cs.finish(n);
 
-					if (trace) {
-						for (Segment s = segments.first; s != null; s = s.next) {
+					if (trace)
+					{
+						for (Segment s = segments.first; s != null; s = s.next)
+						{
 							String chunk = "";
-							if (s.chunk != null) {
+							if (s.chunk != null)
+							{
 								chunk = (s.left ? ">" : "[") + System.identityHashCode(s.chunk) + (s.left ? "]" : "<");
 							}
 							log.trace("{} = {} {}", s.y, s.value, chunk);
@@ -149,7 +169,8 @@ public class RectangleUnion {
 	}
 
 	@RequiredArgsConstructor
-	private static class ChangingState {
+	private static class ChangingState
+	{
 		final Shapes<SimplePolygon> out;
 
 		int x;
@@ -157,50 +178,68 @@ public class RectangleUnion {
 
 		Segment first;
 
-		void touch(Segment s) {
+		void touch(Segment s)
+		{
 			int oldValue = s.value;
 			s.value += delta;
-			if (oldValue <= 0 ^ s.value <= 0) {
-				if (first == null) {
+			if (oldValue <= 0 ^ s.value <= 0)
+			{
+				if (first == null)
+				{
 					first = s;
 				}
-			} else {
+			}
+			else
+			{
 				finish(s);
 			}
 		}
 
-		void finish(Segment s) {
-			if (first == null) {
+		void finish(Segment s)
+		{
+			if (first == null)
+			{
 				return;
 			}
 
-			if (first.chunk != null && s.chunk != null) {
+			if (first.chunk != null && s.chunk != null)
+			{
 				push(first);
 				push(s);
 
-				if (first.chunk == s.chunk) {
+				if (first.chunk == s.chunk)
+				{
 					Chunk c = first.chunk;
 					first.chunk = null;
 					s.chunk = null;
 					c.left = null;
 					c.right = null;
 					out.getShapes().add(c);
-				} else {
+				}
+				else
+				{
 					Chunk leftChunk, rightChunk;
-					if (!s.left) {
+					if (!s.left)
+					{
 						leftChunk = s.chunk;
 						rightChunk = first.chunk;
-					} else {
+					}
+					else
+					{
 						leftChunk = first.chunk;
 						rightChunk = s.chunk;
 					}
 
 					log.trace("Joining {} onto {}", System.identityHashCode(rightChunk), System.identityHashCode(leftChunk));
-					if (first.left == s.left) {
+					if (first.left == s.left)
+					{
 						log.trace("reverse");
-						if (first.left) {
+						if (first.left)
+						{
 							leftChunk.reverse();
-						} else {
+						}
+						else
+						{
 							rightChunk.reverse();
 						}
 					}
@@ -215,7 +254,9 @@ public class RectangleUnion {
 					leftChunk.left.chunk = leftChunk;
 					leftChunk.right.chunk = leftChunk;
 				}
-			} else if (first.chunk == null && s.chunk == null) {
+			}
+			else if (first.chunk == null && s.chunk == null)
+			{
 				first.chunk = new Chunk();
 				first.chunk.right = first;
 				first.left = false;
@@ -225,11 +266,15 @@ public class RectangleUnion {
 
 				push(first);
 				push(s);
-			} else if (first.chunk == null) {
+			}
+			else if (first.chunk == null)
+			{
 				push(s);
 				move(first, s);
 				push(first);
-			} else {
+			}
+			else
+			{
 				push(first);
 				move(s, first);
 				push(s);
@@ -238,24 +283,32 @@ public class RectangleUnion {
 			first = null;
 		}
 
-		private void move(Segment dst, Segment src) {
+		private void move(Segment dst, Segment src)
+		{
 			dst.chunk = src.chunk;
 			dst.left = src.left;
 			src.chunk = null;
-			if (dst.left) {
+			if (dst.left)
+			{
 				assert dst.chunk.left == src;
 				dst.chunk.left = dst;
-			} else {
+			}
+			else
+			{
 				assert dst.chunk.right == src;
 				dst.chunk.right = dst;
 			}
 		}
 
-		private void push(Segment s) {
-			if (s.left) {
+		private void push(Segment s)
+		{
+			if (s.left)
+			{
 				s.chunk.pushLeft(x, s.y);
 				assert s.chunk.left == s;
-			} else {
+			}
+			else
+			{
 				s.chunk.pushRight(x, s.y);
 				assert s.chunk.right == s;
 			}
@@ -263,7 +316,8 @@ public class RectangleUnion {
 	}
 
 	@NoArgsConstructor
-	private static class Segment {
+	private static class Segment
+	{
 		Segment next, previous;
 
 		Chunk chunk;
@@ -273,21 +327,27 @@ public class RectangleUnion {
 	}
 
 	@NoArgsConstructor
-	private static class Segments {
+	private static class Segments
+	{
 		Segment first;
 
-		Segment findLE(int y) {
+		Segment findLE(int y)
+		{
 			Segment s = first;
-			if (s == null || s.y > y) {
+			if (s == null || s.y > y)
+			{
 				return null;
 			}
-			for (; ; ) {
-				if (s.y == y) {
+			for (; ; )
+			{
+				if (s.y == y)
+				{
 					return s;
 				}
 
 				Segment n = s.next;
-				if (n == null || n.y > y) {
+				if (n == null || n.y > y)
+				{
 					return s;
 				}
 
@@ -295,19 +355,25 @@ public class RectangleUnion {
 			}
 		}
 
-		Segment insertAfter(Segment before, int y) {
+		Segment insertAfter(Segment before, int y)
+		{
 			Segment n = new Segment();
 			n.y = y;
-			if (before != null) {
-				if (before.next != null) {
+			if (before != null)
+			{
+				if (before.next != null)
+				{
 					n.next = before.next;
 					n.next.previous = n;
 				}
 				n.value = before.value;
 				before.next = n;
 				n.previous = before;
-			} else {
-				if (first != null) {
+			}
+			else
+			{
+				if (first != null)
+				{
 					n.next = first;
 					first.previous = n;
 				}
@@ -316,9 +382,12 @@ public class RectangleUnion {
 			return n;
 		}
 
-		boolean allZero() {
-			for (Segment s = first; s != null; s = s.next) {
-				if (s.value != 0 || s.chunk != null) {
+		boolean allZero()
+		{
+			for (Segment s = first; s != null; s = s.next)
+			{
+				if (s.value != 0 || s.chunk != null)
+				{
 					return false;
 				}
 			}
@@ -326,11 +395,13 @@ public class RectangleUnion {
 		}
 	}
 
-	private static class Chunk extends SimplePolygon {
+	private static class Chunk extends SimplePolygon
+	{
 		Segment left, right;
 
 		@Override
-		public void reverse() {
+		public void reverse()
+		{
 			super.reverse();
 			assert right.left == false;
 			assert left.left == true;

@@ -7,43 +7,43 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum class313 implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lld;"
+		signature = "Lld;"
 	)
 	field3815(5, 0),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lld;"
+		signature = "Lld;"
 	)
 	field3812(4, 2),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lld;"
+		signature = "Lld;"
 	)
 	field3809(1, 5),
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lld;"
+		signature = "Lld;"
 	)
 	field3808(3, 6),
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lld;"
+		signature = "Lld;"
 	)
 	field3811(2, 7),
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lld;"
+		signature = "Lld;"
 	)
 	field3810(0, 8);
 
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = -2058457901
+		intValue = -2058457901
 	)
 	final int field3813;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = -695700033
+		intValue = -695700033
 	)
 	@Export("id")
 	final int id;
@@ -55,8 +55,8 @@ public enum class313 implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "1"
+		signature = "(B)I",
+		garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
@@ -65,8 +65,8 @@ public enum class313 implements Enumerated {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(I)Lli;",
-			garbageValue = "-432973503"
+		signature = "(I)Lli;",
+		garbageValue = "-432973503"
 	)
 	public static IndexedSprite method5962() {
 		IndexedSprite var0 = new IndexedSprite();

@@ -25,12 +25,12 @@
 package net.runelite.cache.fs;
 
 import java.io.IOException;
-
 import net.runelite.cache.index.FileData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Archive {
+public class Archive
+{
 	private static final Logger logger = LoggerFactory.getLogger(Archive.class);
 
 	private final Index index; // member of this index
@@ -43,13 +43,15 @@ public class Archive {
 	private FileData[] fileData;
 	private byte[] hash; // used by webservice, sha256 hash of content
 
-	public Archive(Index index, int id) {
+	public Archive(Index index, int id)
+	{
 		this.index = index;
 		this.archiveId = id;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 7;
 		hash = 47 * hash + this.archiveId;
 		hash = 47 * hash + this.nameHash;
@@ -58,59 +60,72 @@ public class Archive {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final Archive other = (Archive) obj;
-		if (this.archiveId != other.archiveId) {
+		if (this.archiveId != other.archiveId)
+		{
 			return false;
 		}
-		if (this.nameHash != other.nameHash) {
+		if (this.nameHash != other.nameHash)
+		{
 			return false;
 		}
-		if (this.revision != other.revision) {
+		if (this.revision != other.revision)
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public Index getIndex() {
+	public Index getIndex()
+	{
 		return index;
 	}
 
-	public byte[] decompress(byte[] data) throws IOException {
+	public byte[] decompress(byte[] data) throws IOException
+	{
 		return decompress(data, null);
 	}
 
-	public byte[] decompress(byte[] data, int[] keys) throws IOException {
-		if (data == null) {
+	public byte[] decompress(byte[] data, int[] keys) throws IOException
+	{
+		if (data == null)
+		{
 			return null;
 		}
 
 		byte[] encryptedData = data;
 
 		Container container = Container.decompress(encryptedData, keys);
-		if (container == null) {
+		if (container == null)
+		{
 			logger.warn("Unable to decrypt archive {}", this);
 			return null;
 		}
 
 		byte[] decompressedData = container.data;
 
-		if (this.crc != container.crc) {
+		if (this.crc != container.crc)
+		{
 			logger.warn("crc mismatch for archive {}/{}", index.getId(), this.getArchiveId());
 			throw new IOException("CRC mismatch for " + index.getId() + "/" + this.getArchiveId());
 		}
 
-		if (container.revision != -1 && this.getRevision() != container.revision) {
+		if (container.revision != -1 && this.getRevision() != container.revision)
+		{
 			// compressed data doesn't always include a revision, but check it if it does
 			logger.warn("revision mismatch for archive {}/{}, expected {} was {}",
-					index.getId(), this.getArchiveId(),
-					this.getRevision(), container.revision);
+				index.getId(), this.getArchiveId(),
+				this.getRevision(), container.revision);
 			// I've seen this happen with vanilla caches where the
 			// revision in the index data differs from the revision
 			// stored for the archive data on disk... I assume this
@@ -122,15 +137,18 @@ public class Archive {
 		return decompressedData;
 	}
 
-	public ArchiveFiles getFiles(byte[] data) throws IOException {
+	public ArchiveFiles getFiles(byte[] data) throws IOException
+	{
 		return getFiles(data, null);
 	}
 
-	public ArchiveFiles getFiles(byte[] data, int[] keys) throws IOException {
+	public ArchiveFiles getFiles(byte[] data, int[] keys) throws IOException
+	{
 		byte[] decompressedData = decompress(data, keys);
 
 		ArchiveFiles files = new ArchiveFiles();
-		for (FileData fileEntry : fileData) {
+		for (FileData fileEntry : fileData)
+		{
 			FSFile file = new FSFile(fileEntry.getId());
 			file.setNameHash(fileEntry.getNameHash());
 			files.addFile(file);
@@ -139,55 +157,68 @@ public class Archive {
 		return files;
 	}
 
-	public int getArchiveId() {
+	public int getArchiveId()
+	{
 		return archiveId;
 	}
 
-	public int getNameHash() {
+	public int getNameHash()
+	{
 		return nameHash;
 	}
 
-	public void setNameHash(int nameHash) {
+	public void setNameHash(int nameHash)
+	{
 		this.nameHash = nameHash;
 	}
 
-	public int getCrc() {
+	public int getCrc()
+	{
 		return crc;
 	}
 
-	public void setCrc(int crc) {
+	public void setCrc(int crc)
+	{
 		this.crc = crc;
 	}
 
-	public int getRevision() {
+	public int getRevision()
+	{
 		return revision;
 	}
 
-	public void setRevision(int revision) {
+	public void setRevision(int revision)
+	{
 		this.revision = revision;
 	}
 
-	public int getCompression() {
+	public int getCompression()
+	{
 		return compression;
 	}
 
-	public void setCompression(int compression) {
+	public void setCompression(int compression)
+	{
 		this.compression = compression;
 	}
 
-	public FileData[] getFileData() {
+	public FileData[] getFileData()
+	{
 		return fileData;
 	}
 
-	public void setFileData(FileData[] fileData) {
+	public void setFileData(FileData[] fileData)
+	{
 		this.fileData = fileData;
 	}
 
-	public byte[] getHash() {
+	public byte[] getHash()
+	{
 		return hash;
 	}
 
-	public void setHash(byte[] hash) {
+	public void setHash(byte[] hash)
+	{
 		this.hash = hash;
 	}
 }

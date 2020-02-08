@@ -25,14 +25,14 @@
 package net.runelite.api.events;
 
 import javax.annotation.Nullable;
-
 import lombok.Value;
 
 /**
  * an event posted when a cannonball is fired
  */
 @Value
-public class CannonChanged implements Event {
+public class CannonChanged implements Event
+{
 	/**
 	 * The projectile id.
 	 */

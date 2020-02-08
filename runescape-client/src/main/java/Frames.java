@@ -1,5 +1,4 @@
 import java.util.concurrent.ScheduledExecutorService;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -14,19 +13,19 @@ public class Frames extends DualNode {
 	static ScheduledExecutorService soundSystemExecutor;
 	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-			intValue = -1849974283
+		intValue = -1849974283
 	)
 	static int field1885;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "[Ldh;"
+		signature = "[Ldh;"
 	)
 	@Export("frames")
 	Animation[] frames;
 
 	@ObfuscatedSignature(
-			signature = "(Lii;Lii;IZ)V",
-			garbageValue = "0"
+		signature = "(Lii;Lii;IZ)V",
+		garbageValue = "0"
 	)
 	public Frames(AbstractArchive var1, AbstractArchive var2, int var3, boolean var4) {
 		NodeDeque var5 = new NodeDeque();
@@ -39,7 +38,7 @@ public class Frames extends DualNode {
 			Skeleton var10 = null;
 			int var11 = (var9[0] & 255) << 8 | var9[1] & 255;
 
-			for (Skeleton var12 = (Skeleton) var5.last(); var12 != null; var12 = (Skeleton) var5.previous()) {
+			for (Skeleton var12 = (Skeleton)var5.last(); var12 != null; var12 = (Skeleton)var5.previous()) {
 				if (var11 == var12.id) {
 					var10 = var12;
 					break;
@@ -59,8 +58,8 @@ public class Frames extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(II)Z",
-			garbageValue = "-1402532864"
+		signature = "(II)Z",
+		garbageValue = "-1402532864"
 	)
 	@Export("hasAlphaTransform")
 	public boolean hasAlphaTransform(int var1) {
@@ -69,8 +68,8 @@ public class Frames extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "([BS)Ljava/lang/String;",
-			garbageValue = "255"
+		signature = "([BS)Ljava/lang/String;",
+		garbageValue = "255"
 	)
 	public static String method3340(byte[] var0) {
 		int var2 = var0.length;

@@ -8,41 +8,50 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-class DeferredDocumentChangedListener implements DocumentListener {
+class DeferredDocumentChangedListener implements DocumentListener
+{
 	private final Timer timer;
 	private final List<ChangeListener> listeners;
 
-	DeferredDocumentChangedListener() {
+	DeferredDocumentChangedListener()
+	{
 		listeners = new ArrayList<>(25);
 		timer = new Timer(350, e -> fireStateChanged());
 		timer.setRepeats(false);
 	}
 
-	void addChangeListener(ChangeListener listener) {
+	void addChangeListener(ChangeListener listener)
+	{
 		listeners.add(listener);
 	}
 
-	private void fireStateChanged() {
-		if (!listeners.isEmpty()) {
+	private void fireStateChanged()
+	{
+		if (!listeners.isEmpty())
+		{
 			ChangeEvent evt = new ChangeEvent(this);
-			for (ChangeListener listener : listeners) {
+			for (ChangeListener listener : listeners)
+			{
 				listener.stateChanged(evt);
 			}
 		}
 	}
 
 	@Override
-	public void insertUpdate(DocumentEvent e) {
+	public void insertUpdate(DocumentEvent e)
+	{
 		timer.restart();
 	}
 
 	@Override
-	public void removeUpdate(DocumentEvent e) {
+	public void removeUpdate(DocumentEvent e)
+	{
 		timer.restart();
 	}
 
 	@Override
-	public void changedUpdate(DocumentEvent e) {
+	public void changedUpdate(DocumentEvent e)
+	{
 		timer.restart();
 	}
 

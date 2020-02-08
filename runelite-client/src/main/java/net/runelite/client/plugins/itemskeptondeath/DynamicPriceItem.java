@@ -25,10 +25,8 @@
 package net.runelite.client.plugins.itemskeptondeath;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
 import javax.annotation.Nullable;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,7 +40,8 @@ import net.runelite.api.ItemID;
  */
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum DynamicPriceItem {
+enum DynamicPriceItem
+{
 	GAMES_NECKLACE1(ItemID.GAMES_NECKLACE1, 1, 8, ItemID.GAMES_NECKLACE8),
 	GAMES_NECKLACE2(ItemID.GAMES_NECKLACE2, 2, 8, ItemID.GAMES_NECKLACE8),
 	GAMES_NECKLACE3(ItemID.GAMES_NECKLACE3, 3, 8, ItemID.GAMES_NECKLACE8),
@@ -81,9 +80,11 @@ enum DynamicPriceItem {
 
 	private static final Map<Integer, DynamicPriceItem> DYNAMIC_ITEMS;
 
-	static {
+	static
+	{
 		final ImmutableMap.Builder<Integer, DynamicPriceItem> map = ImmutableMap.builder();
-		for (final DynamicPriceItem p : values()) {
+		for (final DynamicPriceItem p : values())
+		{
 			map.put(p.itemId, p);
 		}
 		DYNAMIC_ITEMS = map.build();
@@ -95,12 +96,14 @@ enum DynamicPriceItem {
 	 * @param basePrice price of the base item, usually the trade-able variant
 	 * @return death price of the current DynamicPriceItem
 	 */
-	int calculateDeathPrice(final int basePrice) {
+	int calculateDeathPrice(final int basePrice)
+	{
 		return (basePrice / maxCharges) * currentCharges;
 	}
 
 	@Nullable
-	static DynamicPriceItem find(int itemId) {
+	static DynamicPriceItem find(int itemId)
+	{
 		return DYNAMIC_ITEMS.get(itemId);
 	}
 }

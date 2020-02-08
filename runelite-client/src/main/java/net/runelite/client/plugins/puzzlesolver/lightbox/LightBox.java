@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.puzzlesolver.lightbox;
 
-public class LightBox {
+public class LightBox
+{
 	public static final int WIDTH = 5;
 	public static final int HEIGHT = 5;
 	public static final int COMBINATIONS_POWER = 8;

@@ -35,18 +35,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.SwingUtil;
 
-class StopwatchPanel extends ClockPanel {
+class StopwatchPanel extends ClockPanel
+{
 	private static final Color LAP_DATA_COLOR = ColorScheme.LIGHT_GRAY_COLOR.darker();
 
 	private final JPanel lapsContainer;
 	private final Stopwatch stopwatch;
 
-	StopwatchPanel(ClockManager clockManager, Stopwatch stopwatch) {
+	StopwatchPanel(ClockManager clockManager, Stopwatch stopwatch)
+	{
 		super(clockManager, stopwatch, "stopwatch", false);
 
 		this.stopwatch = stopwatch;
@@ -82,19 +83,24 @@ class StopwatchPanel extends ClockPanel {
 	}
 
 	@Override
-	void reset() {
+	void reset()
+	{
 		super.reset();
 		rebuildLapList();
 	}
 
-	private void rebuildLapList() {
+	private void rebuildLapList()
+	{
 		lapsContainer.removeAll();
 
 		List<Long> laps = stopwatch.getLaps();
 
-		if (laps.isEmpty()) {
+		if (laps.isEmpty())
+		{
 			lapsContainer.setBorder(null);
-		} else {
+		}
+		else
+		{
 			lapsContainer.setBorder(new EmptyBorder(5, 0, 0, 0));
 
 			GridBagConstraints c = new GridBagConstraints();
@@ -105,7 +111,8 @@ class StopwatchPanel extends ClockPanel {
 			c.gridy = 0;
 
 			long previousLap = 0;
-			for (long lap : stopwatch.getLaps()) {
+			for (long lap : stopwatch.getLaps())
+			{
 				c.gridx = 0;
 				lapsContainer.add(createSmallLabel("" + (c.gridy + 1)), c);
 
@@ -124,7 +131,8 @@ class StopwatchPanel extends ClockPanel {
 		lapsContainer.repaint();
 	}
 
-	private JLabel createSmallLabel(String text) {
+	private JLabel createSmallLabel(String text)
+	{
 		JLabel label = new JLabel(text, SwingConstants.CENTER);
 		label.setFont(FontManager.getRunescapeSmallFont());
 		label.setForeground(LAP_DATA_COLOR);

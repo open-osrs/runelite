@@ -26,23 +26,25 @@ package net.runelite.cache.script.assembler;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LabelVisitor extends rs2asmBaseListener {
+public class LabelVisitor extends rs2asmBaseListener
+{
 	private static final Logger logger = LoggerFactory.getLogger(LabelVisitor.class);
 
 	private int pos;
 	private final Map<String, Integer> map = new HashMap<>();
 
 	@Override
-	public void exitInstruction(rs2asmParser.InstructionContext ctx) {
+	public void exitInstruction(rs2asmParser.InstructionContext ctx)
+	{
 		++pos;
 	}
 
 	@Override
-	public void enterLabel(rs2asmParser.LabelContext ctx) {
+	public void enterLabel(rs2asmParser.LabelContext ctx)
+	{
 		String text = ctx.getText();
 		text = text.substring(0, text.length() - 1); // remove trailing :
 
@@ -51,7 +53,8 @@ public class LabelVisitor extends rs2asmBaseListener {
 		map.put(text, pos);
 	}
 
-	public Integer getInstructionForLabel(String label) {
+	public Integer getInstructionForLabel(String label)
+	{
 		return map.get(label);
 	}
 }

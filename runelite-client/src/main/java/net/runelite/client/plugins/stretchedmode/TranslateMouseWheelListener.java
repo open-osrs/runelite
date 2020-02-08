@@ -30,25 +30,28 @@ import java.awt.Dimension;
 import java.awt.event.MouseWheelEvent;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.client.input.MouseWheelListener;
 
 @Singleton
-public class TranslateMouseWheelListener implements MouseWheelListener {
+public class TranslateMouseWheelListener implements MouseWheelListener
+{
 	private final Client client;
 
 	@Inject
-	public TranslateMouseWheelListener(final Client client) {
+	public TranslateMouseWheelListener(final Client client)
+	{
 		this.client = client;
 	}
 
 	@Override
-	public MouseWheelEvent mouseWheelMoved(MouseWheelEvent event) {
+	public MouseWheelEvent mouseWheelMoved(MouseWheelEvent event)
+	{
 		return translateEvent(event);
 	}
 
-	private MouseWheelEvent translateEvent(MouseWheelEvent e) {
+	private MouseWheelEvent translateEvent(MouseWheelEvent e)
+	{
 		Dimension stretchedDimensions = client.getStretchedDimensions();
 		Dimension realDimensions = client.getRealDimensions();
 
@@ -56,6 +59,6 @@ public class TranslateMouseWheelListener implements MouseWheelListener {
 		int newY = (int) (e.getY() / (stretchedDimensions.height / realDimensions.getHeight()));
 
 		return new MouseWheelEvent((Component) e.getSource(), e.getID(), e.getWhen(), e.getModifiers(), newX, newY,
-				e.getClickCount(), e.isPopupTrigger(), e.getScrollType(), e.getScrollAmount(), e.getWheelRotation());
+			e.getClickCount(), e.isPopupTrigger(), e.getScrollType(), e.getScrollAmount(), e.getWheelRotation());
 	}
 }

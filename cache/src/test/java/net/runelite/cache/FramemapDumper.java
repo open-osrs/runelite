@@ -27,11 +27,9 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-
 import net.runelite.cache.definitions.FramemapDefinition;
 import net.runelite.cache.definitions.loaders.FramemapLoader;
 import net.runelite.cache.fs.Archive;
@@ -44,7 +42,8 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FramemapDumper {
+public class FramemapDumper
+{
 	private static final Logger logger = LoggerFactory.getLogger(FramemapDumper.class);
 
 	@Rule
@@ -53,19 +52,22 @@ public class FramemapDumper {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
-	public void extract() throws IOException {
+	public void extract() throws IOException
+	{
 		File base = StoreLocation.LOCATION,
-				outDir = folder.newFolder();
+			outDir = folder.newFolder();
 
 		int count = 0;
 
-		try (Store store = new Store(base)) {
+		try (Store store = new Store(base))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.FRAMEMAPS);
 
-			for (Archive archive : index.getArchives()) {
+			for (Archive archive : index.getArchives())
+			{
 				byte[] archiveData = storage.loadArchive(archive);
 				byte[] contents = archive.decompress(archiveData);
 

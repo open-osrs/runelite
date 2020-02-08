@@ -25,7 +25,6 @@
 package net.runelite.client.ui;
 
 import io.sentry.Sentry;
-
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,39 +32,47 @@ import javax.annotation.Nullable;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.client.RuneLite;
 import net.runelite.client.util.StringFileUtils;
 
-final class ClientPanel extends JPanel {
-	ClientPanel(@Nullable Applet client) {
+final class ClientPanel extends JPanel
+{
+	ClientPanel(@Nullable Applet client)
+	{
 		setSize(Constants.GAME_FIXED_SIZE);
 		setMinimumSize(Constants.GAME_FIXED_SIZE);
 		setPreferredSize(Constants.GAME_FIXED_SIZE);
 		setLayout(new BorderLayout());
 		setBackground(Color.black);
 
-		if (client == null) {
+		if (client == null)
+		{
 			return;
 		}
 
 		client.setLayout(null);
 		client.setSize(Constants.GAME_FIXED_SIZE);
 
-		try {
+		try
+		{
 			client.init();
-		} catch (Exception e) {
-			if (RuneLite.allowPrivateServer) {
+		}
+		catch (Exception e)
+		{
+			if (RuneLite.allowPrivateServer)
+			{
 				String message = "Detected a bad codebase. Resetting...\n"
-						+ "Please restart client.\n";
+					+ "Please restart client.\n";
 				JOptionPane.showMessageDialog(new JFrame(), message, "Bad Codebase",
-						JOptionPane.ERROR_MESSAGE);
+					JOptionPane.ERROR_MESSAGE);
 				StringFileUtils.writeStringToFile(RuneLite.RUNELITE_DIR + "/codebase", "http://127.0.0.1/");
-			} else {
+			}
+			else
+			{
 				JOptionPane.showMessageDialog(new JFrame(), "Error loading Oldschool RuneScape!", "Error",
-						JOptionPane.ERROR_MESSAGE);
+					JOptionPane.ERROR_MESSAGE);
 				Sentry.capture(e);
 			}
 
@@ -79,7 +86,8 @@ final class ClientPanel extends JPanel {
 		// This causes the whole game frame to be redrawn each frame instead
 		// of only the viewport, so we can hook to MainBufferProvider#draw
 		// and draw anywhere without it leaving artifacts
-		if (client instanceof Client) {
+		if (client instanceof Client)
+		{
 			((Client) client).setGameDrawingMode(2);
 		}
 	}

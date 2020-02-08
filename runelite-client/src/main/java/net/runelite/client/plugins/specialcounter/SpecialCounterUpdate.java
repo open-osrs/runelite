@@ -31,7 +31,8 @@ import net.runelite.http.api.ws.messages.party.PartyMemberMessage;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-class SpecialCounterUpdate extends PartyMemberMessage implements Event {
+class SpecialCounterUpdate extends PartyMemberMessage implements Event
+{
 	private final int npcId;
 	private final SpecialWeapon weapon;
 	private final int hit;

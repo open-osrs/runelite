@@ -7,7 +7,8 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * This interface defines a complete listener for a parse tree produced by
  * {@link rs2asmParser}.
  */
-public interface rs2asmListener extends ParseTreeListener {
+public interface rs2asmListener extends ParseTreeListener
+{
 	/**
 	 * Enter a parse tree produced by {@link rs2asmParser#prog}.
 	 *

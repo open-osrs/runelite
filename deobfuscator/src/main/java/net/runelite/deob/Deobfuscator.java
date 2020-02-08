@@ -27,6 +27,7 @@ package net.runelite.deob;
 
 import net.runelite.asm.ClassGroup;
 
-public interface Deobfuscator {
+public interface Deobfuscator
+{
 	void run(ClassGroup group);
 }

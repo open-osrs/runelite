@@ -30,65 +30,72 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Units;
 
 @ConfigGroup("woodcutting")
-public interface WoodcuttingConfig extends Config {
+public interface WoodcuttingConfig extends Config
+{
 	@ConfigItem(
-			position = 1,
-			keyName = "statTimeout",
-			name = "Reset stats",
-			description = "Configures the time until statistic is reset. Also configures when tree indicator is hidden"
+		position = 1,
+		keyName = "statTimeout",
+		name = "Reset stats",
+		description = "Configures the time until statistic is reset. Also configures when tree indicator is hidden"
 	)
 	@Units(Units.MINUTES)
-	default int statTimeout() {
+	default int statTimeout()
+	{
 		return 5;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "showNestNotification",
-			name = "Bird nest notification",
-			description = "Configures whether to notify you of a bird nest spawn"
+		position = 2,
+		keyName = "showNestNotification",
+		name = "Bird nest notification",
+		description = "Configures whether to notify you of a bird nest spawn"
 	)
-	default boolean showNestNotification() {
+	default boolean showNestNotification()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "showWoodcuttingStats",
-			name = "Show session stats",
-			description = "Configures whether to display woodcutting session stats"
+		position = 3,
+		keyName = "showWoodcuttingStats",
+		name = "Show session stats",
+		description = "Configures whether to display woodcutting session stats"
 	)
-	default boolean showWoodcuttingStats() {
+	default boolean showWoodcuttingStats()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 4,
-			keyName = "showRedwoods",
-			name = "Show Redwood trees",
-			description = "Configures whether to show a indicator for redwood trees"
+		position = 4,
+		keyName = "showRedwoods",
+		name = "Show Redwood trees",
+		description = "Configures whether to show a indicator for redwood trees"
 	)
-	default boolean showRedwoodTrees() {
+	default boolean showRedwoodTrees()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 5,
-			keyName = "showGPEarned",
-			name = "Show GP earned",
-			description = "Configures whether to show amount of gp earned by chopping trees"
+		position = 5,
+		keyName = "showGPEarned",
+		name = "Show GP earned",
+		description = "Configures whether to show amount of gp earned by chopping trees"
 	)
-	default boolean showGPEarned() {
+	default boolean showGPEarned()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			position = 6,
-			keyName = "showRespawnTimers",
-			name = "Show respawn timers",
-			description = "Configures whether to display the respawn timer overlay"
+		position = 6,
+		keyName = "showRespawnTimers",
+		name = "Show respawn timers",
+		description = "Configures whether to display the respawn timer overlay"
 	)
-	default boolean showRespawnTimers() {
+	default boolean showRespawnTimers()
+	{
 		return true;
 	}
 }

@@ -28,7 +28,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,7 +36,8 @@ import net.runelite.client.ui.overlay.RenderableEntity;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-public class BackgroundComponent implements RenderableEntity {
+public class BackgroundComponent implements RenderableEntity
+{
 	private static final int BORDER_OFFSET = 2;
 
 	private static final int OUTSIDE_STROKE_RED_OFFSET = 14;
@@ -55,23 +55,25 @@ public class BackgroundComponent implements RenderableEntity {
 	private boolean fill = true;
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		Color outsideStrokeColor = new Color(
-				Math.max(0, backgroundColor.getRed() - OUTSIDE_STROKE_RED_OFFSET),
-				Math.max(0, backgroundColor.getGreen() - OUTSIDE_STROKE_GREEN_OFFSET),
-				Math.max(0, backgroundColor.getBlue() - OUTSIDE_STROKE_BLUE_OFFSET),
-				OUTSIDE_STROKE_ALPHA
+			Math.max(0, backgroundColor.getRed() - OUTSIDE_STROKE_RED_OFFSET),
+			Math.max(0, backgroundColor.getGreen() - OUTSIDE_STROKE_GREEN_OFFSET),
+			Math.max(0, backgroundColor.getBlue() - OUTSIDE_STROKE_BLUE_OFFSET),
+			OUTSIDE_STROKE_ALPHA
 		);
 
 		Color insideStrokeColor = new Color(
-				Math.min(255, backgroundColor.getRed() + INSIDE_STROKE_RED_OFFSET),
-				Math.min(255, backgroundColor.getGreen() + INSIDE_STROKE_GREEN_OFFSET),
-				Math.min(255, backgroundColor.getBlue() + INSIDE_STROKE_BLUE_OFFSET),
-				INSIDE_STROKE_ALPHA
+			Math.min(255, backgroundColor.getRed() + INSIDE_STROKE_RED_OFFSET),
+			Math.min(255, backgroundColor.getGreen() + INSIDE_STROKE_GREEN_OFFSET),
+			Math.min(255, backgroundColor.getBlue() + INSIDE_STROKE_BLUE_OFFSET),
+			INSIDE_STROKE_ALPHA
 		);
 
 		// Render background
-		if (fill) {
+		if (fill)
+		{
 			graphics.setColor(backgroundColor);
 			graphics.fill(rectangle);
 		}
@@ -87,7 +89,7 @@ public class BackgroundComponent implements RenderableEntity {
 		final Rectangle insideStroke = new Rectangle();
 		insideStroke.setLocation(rectangle.x + BORDER_OFFSET / 2, rectangle.y + BORDER_OFFSET / 2);
 		insideStroke.setSize(rectangle.width - BORDER_OFFSET - BORDER_OFFSET / 2,
-				rectangle.height - BORDER_OFFSET - BORDER_OFFSET / 2);
+			rectangle.height - BORDER_OFFSET - BORDER_OFFSET / 2);
 		graphics.setColor(insideStrokeColor);
 		graphics.draw(insideStroke);
 

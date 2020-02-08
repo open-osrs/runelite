@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Represents a projectile entity (ie. cannonball, arrow).
  */
-public interface Projectile extends Entity {
+public interface Projectile extends Entity
+{
 	/**
 	 * Gets the ID of the projectile.
 	 *

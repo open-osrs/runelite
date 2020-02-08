@@ -9,38 +9,38 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class LoginPacket implements class181 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lge;"
+		signature = "Lge;"
 	)
 	public static final LoginPacket field2310;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lge;"
+		signature = "Lge;"
 	)
 	static final LoginPacket field2307;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lge;"
+		signature = "Lge;"
 	)
 	public static final LoginPacket field2308;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lge;"
+		signature = "Lge;"
 	)
 	public static final LoginPacket field2313;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lge;"
+		signature = "Lge;"
 	)
 	static final LoginPacket field2306;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "[Lge;"
+		signature = "[Lge;"
 	)
 	@Export("LoginPacket_indexedValues")
 	static final LoginPacket[] LoginPacket_indexedValues;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 707604483
+		intValue = 707604483
 	)
 	@Export("id")
 	public final int id;
@@ -62,8 +62,8 @@ public class LoginPacket implements class181 {
 	}
 
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "0"
+		signature = "(II)V",
+		garbageValue = "0"
 	)
 	LoginPacket(int var1, int var2) {
 		this.id = var1;

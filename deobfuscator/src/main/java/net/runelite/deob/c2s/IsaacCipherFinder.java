@@ -34,7 +34,8 @@ import net.runelite.asm.attributes.code.instruction.types.PushConstantInstructio
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IsaacCipherFinder {
+public class IsaacCipherFinder
+{
 	private static final Logger logger = LoggerFactory.getLogger(IsaacCipherFinder.class);
 
 	private static final int GOLDEN_RATIO = 0x9E3779B9; // 2^32 / phi
@@ -43,28 +44,35 @@ public class IsaacCipherFinder {
 	private ClassFile isaacCipher;
 	private Method getNext;
 
-	public IsaacCipherFinder(ClassGroup group) {
+	public IsaacCipherFinder(ClassGroup group)
+	{
 		this.group = group;
 	}
 
-	public ClassFile getIsaacCipher() {
+	public ClassFile getIsaacCipher()
+	{
 		return isaacCipher;
 	}
 
-	public Method getGetNext() {
+	public Method getGetNext()
+	{
 		return getNext;
 	}
 
-	public void find() {
+	public void find()
+	{
 		Method highest = null;
 		int count = 0;
 
-		for (ClassFile cf : group.getClasses()) {
-			for (Method m : cf.getMethods()) {
+		for (ClassFile cf : group.getClasses())
+		{
+			for (Method m : cf.getMethods())
+			{
 				Code code = m.getCode();
 
 				int i = find(m, code);
-				if (i > count) {
+				if (i > count)
+				{
 					count = i;
 					highest = m;
 				}
@@ -75,8 +83,10 @@ public class IsaacCipherFinder {
 		isaacCipher = highest.getClassFile();
 
 		// find nextInt
-		for (Method method : isaacCipher.getMethods()) {
-			if (method.getDescriptor().size() == 0 && method.getDescriptor().getReturnValue().equals(Type.INT)) {
+		for (Method method : isaacCipher.getMethods())
+		{
+			if (method.getDescriptor().size() == 0 && method.getDescriptor().getReturnValue().equals(Type.INT))
+			{
 				getNext = method;
 			}
 		}
@@ -84,18 +94,23 @@ public class IsaacCipherFinder {
 		logger.debug("Found cipher {}, getNext {}", isaacCipher, getNext);
 	}
 
-	private int find(Method method, Code code) {
-		if (code == null) {
+	private int find(Method method, Code code)
+	{
+		if (code == null)
+		{
 			return 0;
 		}
 
 		int gr = 0;
 
-		for (Instruction i : code.getInstructions().getInstructions()) {
-			if (i instanceof PushConstantInstruction) {
+		for (Instruction i : code.getInstructions().getInstructions())
+		{
+			if (i instanceof PushConstantInstruction)
+			{
 				PushConstantInstruction pci = (PushConstantInstruction) i;
 
-				if (pci.getConstant().equals(GOLDEN_RATIO)) {
+				if (pci.getConstant().equals(GOLDEN_RATIO))
+				{
 					++gr;
 				}
 			}

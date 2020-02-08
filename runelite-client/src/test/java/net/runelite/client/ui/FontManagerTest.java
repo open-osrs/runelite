@@ -25,17 +25,19 @@
 package net.runelite.client.ui;
 
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 
-public class FontManagerTest {
+public class FontManagerTest
+{
 	@Test
-	public void getRunescapeFont() {
+	public void getRunescapeFont()
+	{
 		assertNotNull(FontManager.getRunescapeFont());
 	}
 
 	@Test
-	public void getRunescapeSmallFont() {
+	public void getRunescapeSmallFont()
+	{
 		assertNotNull(FontManager.getRunescapeSmallFont());
 	}
 

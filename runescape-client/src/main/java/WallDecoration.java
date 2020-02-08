@@ -10,67 +10,67 @@ import net.runelite.rs.ScriptOpcodes;
 public final class WallDecoration {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 1358140077
+		intValue = 1358140077
 	)
 	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 915149021
+		intValue = 915149021
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = 1541741189
+		intValue = 1541741189
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -696517801
+		intValue = -696517801
 	)
 	@Export("orientation")
 	int orientation;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 748186775
+		intValue = 748186775
 	)
 	@Export("orientation2")
 	int orientation2;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 1886905411
+		intValue = 1886905411
 	)
 	@Export("xOffset")
 	int xOffset;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = -275876635
+		intValue = -275876635
 	)
 	@Export("yOffset")
 	int yOffset;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "Leq;"
+		signature = "Leq;"
 	)
 	@Export("entity1")
 	public Entity entity1;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "Leq;"
+		signature = "Leq;"
 	)
 	@Export("entity2")
 	public Entity entity2;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			longValue = 1621741553403153851L
+		longValue = 1621741553403153851L
 	)
 	@Export("tag")
 	public long tag;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-			intValue = -183294239
+		intValue = -183294239
 	)
 	@Export("flags")
 	int flags;
@@ -82,8 +82,8 @@ public final class WallDecoration {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lkp;I)Ljava/lang/String;",
-			garbageValue = "267409657"
+		signature = "(Lkp;I)Ljava/lang/String;",
+		garbageValue = "267409657"
 	)
 	public static String method3356(Buffer var0) {
 		return method3358(var0, 32767);
@@ -91,8 +91,8 @@ public final class WallDecoration {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lkp;II)Ljava/lang/String;",
-			garbageValue = "149938652"
+		signature = "(Lkp;II)Ljava/lang/String;",
+		garbageValue = "149938652"
 	)
 	static String method3358(Buffer var0, int var1) {
 		try {
@@ -112,8 +112,8 @@ public final class WallDecoration {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "777331787"
+		signature = "(I)V",
+		garbageValue = "777331787"
 	)
 	public static void method3359() {
 		WorldMapElement.WorldMapElement_cachedSprites.clear();
@@ -121,8 +121,8 @@ public final class WallDecoration {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "2015482933"
+		signature = "(ILce;ZI)I",
+		garbageValue = "2015482933"
 	)
 	static int method3357(int var0, Script var1, boolean var2) {
 		if (var0 == ScriptOpcodes.SOUND_SYNTH) {

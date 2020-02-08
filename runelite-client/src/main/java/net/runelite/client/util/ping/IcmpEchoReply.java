@@ -28,11 +28,11 @@ import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 import com.sun.jna.platform.win32.WinDef;
-
 import java.util.Arrays;
 import java.util.List;
 
-public class IcmpEchoReply extends Structure {
+public class IcmpEchoReply extends Structure
+{
 	private static final int IP_OPTION_INFO_SIZE = 1 + 1 + 1 + 1 + (Native.POINTER_SIZE == 8 ? 12 : 4); // on 64bit vms add 4 byte padding
 	public static final int SIZE = 4 + 4 + 4 + 2 + 2 + Native.POINTER_SIZE + IP_OPTION_INFO_SIZE;
 
@@ -48,12 +48,14 @@ public class IcmpEchoReply extends Structure {
 	public WinDef.UCHAR optionsSize;
 	public WinDef.PVOID optionsData;
 
-	IcmpEchoReply(Pointer p) {
+	IcmpEchoReply(Pointer p)
+	{
 		super(p);
 	}
 
 	@Override
-	protected List<String> getFieldOrder() {
+	protected List<String> getFieldOrder()
+	{
 		return Arrays.asList("address", "status", "roundTripTime", "dataSize", "reserved", "data", "ttl", "tos", "flags", "optionsSize", "optionsData");
 	}
 }

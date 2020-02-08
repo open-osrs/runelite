@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PlayerAppearance {
 	@ObfuscatedName("rb")
 	@ObfuscatedGetter(
-			intValue = 68473183
+		intValue = 68473183
 	)
 	static int field2549;
 	@ObfuscatedName("l")
@@ -21,7 +21,7 @@ public class PlayerAppearance {
 	static final int[] equipmentIndices;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "Leh;"
+		signature = "Leh;"
 	)
 	@Export("PlayerAppearance_cachedModels")
 	public static EvictingDualNodeHashTable PlayerAppearance_cachedModels;
@@ -36,19 +36,19 @@ public class PlayerAppearance {
 	public boolean isFemale;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 925869529
+		intValue = 925869529
 	)
 	@Export("npcTransformId")
 	public int npcTransformId;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			longValue = -8371390842284104293L
+		longValue = -8371390842284104293L
 	)
 	@Export("hash")
 	long hash;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			longValue = 5198838895924808709L
+		longValue = 5198838895924808709L
 	)
 	long field2544;
 
@@ -59,8 +59,8 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "([I[IZII)V",
-			garbageValue = "-1314477676"
+		signature = "([I[IZII)V",
+		garbageValue = "-1314477676"
 	)
 	@Export("update")
 	public void update(int[] var1, int[] var2, boolean var3, int var4) {
@@ -87,8 +87,8 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IZI)V",
-			garbageValue = "1565149766"
+		signature = "(IZI)V",
+		garbageValue = "1565149766"
 	)
 	@Export("changeAppearance")
 	public void changeAppearance(int var1, boolean var2) {
@@ -112,7 +112,7 @@ public class PlayerAppearance {
 					}
 
 					var4 = WorldMapSection2.KitDefinition_get(var3);
-				} while (var4 == null || var4.nonSelectable || var4.bodypartID != (this.isFemale ? 7 : 0) + var1);
+				} while(var4 == null || var4.nonSelectable || var4.bodypartID != (this.isFemale ? 7 : 0) + var1);
 
 				this.equipment[equipmentIndices[var1]] = var3 + 256;
 				this.setHash();
@@ -122,8 +122,8 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(IZI)V",
-			garbageValue = "1120894554"
+		signature = "(IZI)V",
+		garbageValue = "1120894554"
 	)
 	public void method4066(int var1, boolean var2) {
 		int var3 = this.bodyColors[var1];
@@ -133,14 +133,14 @@ public class PlayerAppearance {
 				if (var3 < 0) {
 					var3 = field2545[var1].length - 1;
 				}
-			} while (!FileSystem.method3572(var1, var3));
+			} while(!FileSystem.method3572(var1, var3));
 		} else {
 			do {
 				++var3;
 				if (var3 >= field2545[var1].length) {
 					var3 = 0;
 				}
-			} while (!FileSystem.method3572(var1, var3));
+			} while(!FileSystem.method3572(var1, var3));
 		}
 
 		this.bodyColors[var1] = var3;
@@ -149,20 +149,20 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(ZI)V",
-			garbageValue = "-1200198186"
+		signature = "(ZI)V",
+		garbageValue = "-1200198186"
 	)
 	@Export("changeSex")
 	public void changeSex(boolean var1) {
 		if (this.isFemale != var1) {
-			this.update((int[]) null, this.bodyColors, var1, -1);
+			this.update((int[])null, this.bodyColors, var1, -1);
 		}
 	}
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(Lkp;I)V",
-			garbageValue = "2032757019"
+		signature = "(Lkp;I)V",
+		garbageValue = "2032757019"
 	)
 	@Export("write")
 	public void write(Buffer var1) {
@@ -186,8 +186,8 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "-104"
+		signature = "(B)V",
+		garbageValue = "-104"
 	)
 	@Export("setHash")
 	void setHash() {
@@ -202,25 +202,25 @@ public class PlayerAppearance {
 		for (var5 = 0; var5 < 12; ++var5) {
 			this.hash <<= 4;
 			if (this.equipment[var5] >= 256) {
-				this.hash += (long) (this.equipment[var5] - 256);
+				this.hash += (long)(this.equipment[var5] - 256);
 			}
 		}
 
 		if (this.equipment[0] >= 256) {
-			this.hash += (long) (this.equipment[0] - 256 >> 4);
+			this.hash += (long)(this.equipment[0] - 256 >> 4);
 		}
 
 		if (this.equipment[1] >= 256) {
-			this.hash += (long) (this.equipment[1] - 256 >> 8);
+			this.hash += (long)(this.equipment[1] - 256 >> 8);
 		}
 
 		for (var5 = 0; var5 < 5; ++var5) {
 			this.hash <<= 3;
-			this.hash += (long) this.bodyColors[var5];
+			this.hash += (long)this.bodyColors[var5];
 		}
 
 		this.hash <<= 1;
-		this.hash += (long) (this.isFemale ? 1 : 0);
+		this.hash += (long)(this.isFemale ? 1 : 0);
 		this.equipment[5] = var3;
 		this.equipment[9] = var4;
 		if (var1 != 0L && this.hash != var1) {
@@ -231,8 +231,8 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(Lip;ILip;IB)Ldx;",
-			garbageValue = "66"
+		signature = "(Lip;ILip;IB)Ldx;",
+		garbageValue = "66"
 	)
 	@Export("getModel")
 	public Model getModel(SequenceDefinition var1, int var2, SequenceDefinition var3, int var4) {
@@ -249,17 +249,17 @@ public class PlayerAppearance {
 				}
 
 				if (var1.shield >= 0) {
-					var5 += (long) (var1.shield - this.equipment[5] << 40);
+					var5 += (long)(var1.shield - this.equipment[5] << 40);
 					var7[5] = var1.shield;
 				}
 
 				if (var1.weapon >= 0) {
-					var5 += (long) (var1.weapon - this.equipment[3] << 48);
+					var5 += (long)(var1.weapon - this.equipment[3] << 48);
 					var7[3] = var1.weapon;
 				}
 			}
 
-			Model var8 = (Model) PlayerAppearance_cachedModels.get(var5);
+			Model var8 = (Model)PlayerAppearance_cachedModels.get(var5);
 			if (var8 == null) {
 				boolean var9 = false;
 
@@ -277,7 +277,7 @@ public class PlayerAppearance {
 
 				if (var9) {
 					if (this.field2544 != -1L) {
-						var8 = (Model) PlayerAppearance_cachedModels.get(this.field2544);
+						var8 = (Model)PlayerAppearance_cachedModels.get(this.field2544);
 					}
 
 					if (var8 == null) {
@@ -345,8 +345,8 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(I)Ldg;",
-			garbageValue = "1124292416"
+		signature = "(I)Ldg;",
+		garbageValue = "1124292416"
 	)
 	@Export("getModelData")
 	ModelData getModelData() {
@@ -411,8 +411,8 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "34382709"
+		signature = "(I)I",
+		garbageValue = "34382709"
 	)
 	@Export("getChatHeadId")
 	public int getChatHeadId() {
@@ -421,15 +421,15 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IIIII)V",
-			garbageValue = "-905088016"
+		signature = "(IIIII)V",
+		garbageValue = "-905088016"
 	)
 	@Export("itemContainerSetItem")
 	static void itemContainerSetItem(int var0, int var1, int var2, int var3) {
-		ItemContainer var4 = (ItemContainer) ItemContainer.itemContainers.get((long) var0);
+		ItemContainer var4 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
 		if (var4 == null) {
 			var4 = new ItemContainer();
-			ItemContainer.itemContainers.put(var4, (long) var0);
+			ItemContainer.itemContainers.put(var4, (long)var0);
 		}
 
 		if (var4.ids.length <= var1) {

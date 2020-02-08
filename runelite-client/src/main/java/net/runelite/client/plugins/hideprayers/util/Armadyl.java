@@ -32,7 +32,8 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Armadyl {
+public enum Armadyl
+{
 	DISABLED("Disabled"),
 	ARMADYL_CHEAP("Eagle eye"),
 	ARMADYL_EXPENSIVE("Rigour");
@@ -40,7 +41,8 @@ public enum Armadyl {
 	private String name;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return getName();
 	}
 }

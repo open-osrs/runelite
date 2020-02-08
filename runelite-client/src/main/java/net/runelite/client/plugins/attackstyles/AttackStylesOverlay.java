@@ -29,25 +29,23 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-
 import net.runelite.client.ui.overlay.Overlay;
-
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
 @Singleton
-class AttackStylesOverlay extends Overlay {
+class AttackStylesOverlay extends Overlay
+{
 	private final AttackStylesPlugin plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private AttackStylesOverlay(final AttackStylesPlugin plugin) {
+	private AttackStylesOverlay(final AttackStylesPlugin plugin)
+	{
 		super(plugin);
 		setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
 		this.plugin = plugin;
@@ -55,27 +53,30 @@ class AttackStylesOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		panelComponent.getChildren().clear();
 		boolean warnedSkillSelected = plugin.isWarnedSkillSelected();
 
-		if (warnedSkillSelected || plugin.isAlwaysShowStyle()) {
+		if (warnedSkillSelected || plugin.isAlwaysShowStyle())
+		{
 			final AttackStyle attackStyle = plugin.getAttackStyle();
 
-			if (attackStyle == null) {
+			if (attackStyle == null)
+			{
 				return null;
 			}
 
 			final String attackStyleString = attackStyle.getName();
 
 			panelComponent.getChildren().add(TitleComponent.builder()
-					.text(attackStyleString)
-					.color(warnedSkillSelected ? Color.RED : Color.WHITE)
-					.build());
+				.text(attackStyleString)
+				.color(warnedSkillSelected ? Color.RED : Color.WHITE)
+				.build());
 
 			panelComponent.setPreferredSize(new Dimension(
-					graphics.getFontMetrics().stringWidth(attackStyleString) + 10,
-					0));
+				graphics.getFontMetrics().stringWidth(attackStyleString) + 10,
+				0));
 
 			return panelComponent.render(graphics);
 		}

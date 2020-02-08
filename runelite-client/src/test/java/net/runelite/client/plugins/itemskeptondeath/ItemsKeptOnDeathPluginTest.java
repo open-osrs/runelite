@@ -28,11 +28,9 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import net.runelite.api.Client;
 import net.runelite.api.Item;
 import net.runelite.api.ItemDefinition;
@@ -40,24 +38,21 @@ import net.runelite.api.ItemID;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemReclaimCost;
-
 import static net.runelite.client.plugins.itemskeptondeath.ItemsKeptOnDeathPlugin.DeathItems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ItemsKeptOnDeathPluginTest {
+public class ItemsKeptOnDeathPluginTest
+{
 	@Mock
 	@Bind
 	private Client client;
@@ -74,31 +69,35 @@ public class ItemsKeptOnDeathPluginTest {
 	private ItemsKeptOnDeathPlugin plugin;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 		resetBuffs();
 	}
 
-	private void resetBuffs() {
+	private void resetBuffs()
+	{
 		plugin.isSkulled = false;
 		plugin.protectingItem = false;
 		plugin.wildyLevel = -1;
 	}
 
 	// Mocks an item and the necessary itemManager functions for it
-	private Item mItem(final int id, final int qty, final String name, final boolean tradeable, final int price) {
+	private Item mItem(final int id, final int qty, final String name, final boolean tradeable, final int price)
+	{
 		// Mock Item Composition and necessary ItemManager methods for this item
 		ItemDefinition c = mock(ItemDefinition.class);
 		when(c.getId())
-				.thenReturn(id);
+			.thenReturn(id);
 		when(c.getName())
-				.thenReturn(name);
+			.thenReturn(name);
 		when(c.isTradeable())
-				.thenReturn(tradeable);
+			.thenReturn(tradeable);
 		when(c.getPrice())
-				.thenReturn(price);
+			.thenReturn(price);
 
-		if (!tradeable) {
+		if (!tradeable)
+		{
 			when(c.getNote()).thenReturn(-1);
 			when(c.getLinkedNoteId()).thenReturn(-1);
 		}
@@ -111,12 +110,14 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	// Creates a new item
-	private static Item item(final int id, final int qty) {
+	private static Item item(final int id, final int qty)
+	{
 		return new Item(id, qty);
 	}
 
 	@Test
-	public void deathPriceTestRegularItems() {
+	public void deathPriceTestRegularItems()
+	{
 		final Item acs = mItem(ItemID.ARMADYL_CHAINSKIRT, 1, "Armadyl chainskirt", true, 27837495);
 		assertEquals(27837495, plugin.getDeathPrice(acs));
 
@@ -128,7 +129,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void deathPriceTestItemMapping() {
+	public void deathPriceTestItemMapping()
+	{
 		mItem(ItemID.OCCULT_NECKLACE, 1, "Occult necklace", true, 1000000);
 		mItem(ItemID.OCCULT_ORNAMENT_KIT, 1, "Occult ornament kit", true, 3000000);
 		final Item occult = mItem(ItemID.OCCULT_NECKLACE_OR, 1, "Occult necklace (or)", false, 0);
@@ -142,7 +144,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void deathPriceTestFixedPriceItems() {
+	public void deathPriceTestFixedPriceItems()
+	{
 		mItem(ItemID.KARILS_COIF_0, 1, "Karil's coif 0", true, 35000);
 		final Item coif = mItem(ItemID.KARILS_COIF_100, 1, "Karil's coif 100", false, 0);
 		final int coifOffset = FixedPriceItem.KARILS_COIF_100.getOffset();
@@ -168,7 +171,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void deathPriceTestDynamicPriceItems() {
+	public void deathPriceTestDynamicPriceItems()
+	{
 		final Item rod8 = mItem(ItemID.RING_OF_DUELING8, 1, "Ring of dueling(8)", true, 725);
 		final Item rod3 = mItem(ItemID.RING_OF_DUELING3, 1, "Ring of dueling(3)", true, 0);
 		final Item rod1 = mItem(ItemID.RING_OF_DUELING1, 1, "Ring of dueling(1)", true, 0);
@@ -188,35 +192,38 @@ public class ItemsKeptOnDeathPluginTest {
 		assertEquals(1250, plugin.getDeathPrice(nop5));
 	}
 
-	private Item[] getFourExpensiveItems() {
+	private Item[] getFourExpensiveItems()
+	{
 		return new Item[]
-				{
-						mItem(ItemID.TWISTED_BOW, 1, "Twister bow", true, Integer.MAX_VALUE),
-						mItem(ItemID.SCYTHE_OF_VITUR, 1, "Scythe of vitur", true, Integer.MAX_VALUE),
-						mItem(ItemID.ELYSIAN_SPIRIT_SHIELD, 1, "Elysian spirit shield", true, 800000000),
-						mItem(ItemID.ARCANE_SPIRIT_SHIELD, 1, "Arcane spirit shield", true, 250000000)
-				};
+			{
+				mItem(ItemID.TWISTED_BOW, 1, "Twister bow", true, Integer.MAX_VALUE),
+				mItem(ItemID.SCYTHE_OF_VITUR, 1, "Scythe of vitur", true, Integer.MAX_VALUE),
+				mItem(ItemID.ELYSIAN_SPIRIT_SHIELD, 1, "Elysian spirit shield", true, 800000000),
+				mItem(ItemID.ARCANE_SPIRIT_SHIELD, 1, "Arcane spirit shield", true, 250000000)
+			};
 	}
 
 	@Test
-	public void alwaysLostTestRunePouch() {
+	public void alwaysLostTestRunePouch()
+	{
 		final Item[] inv = getFourExpensiveItems();
 		final Item[] equip = new Item[]
-				{
-						mItem(ItemID.RUNE_POUCH, 1, "Rune pouch", false, 1)
-				};
+			{
+				mItem(ItemID.RUNE_POUCH, 1, "Rune pouch", false, 1)
+			};
 
 		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, equip);
 		assertFalse(deathItems.isHasAlwaysLost());
 	}
 
 	@Test
-	public void alwaysLostTestRunePouchWildy() {
+	public void alwaysLostTestRunePouchWildy()
+	{
 		final Item[] inv = getFourExpensiveItems();
 		final Item[] equip = new Item[]
-				{
-						mItem(ItemID.RUNE_POUCH, 1, "Rune pouch", false, 1)
-				};
+			{
+				mItem(ItemID.RUNE_POUCH, 1, "Rune pouch", false, 1)
+			};
 
 		plugin.wildyLevel = 1;
 		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, equip);
@@ -224,12 +231,13 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void alwaysLostTestLootBag() {
+	public void alwaysLostTestLootBag()
+	{
 		final Item[] inv = getFourExpensiveItems();
 		final Item[] equip = new Item[]
-				{
-						mItem(ItemID.LOOTING_BAG, 1, "Looting bag", false, 1)
-				};
+			{
+				mItem(ItemID.LOOTING_BAG, 1, "Looting bag", false, 1)
+			};
 
 		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, equip);
 		assertTrue(deathItems.isHasAlwaysLost());
@@ -237,48 +245,51 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void alwaysLostTestLootBagWildy() {
+	public void alwaysLostTestLootBagWildy()
+	{
 		final Item[] inv = getFourExpensiveItems();
 		final Item[] equip = new Item[]
-				{
-						mItem(ItemID.LOOTING_BAG, 1, "Looting bag", false, 1)
-				};
+			{
+				mItem(ItemID.LOOTING_BAG, 1, "Looting bag", false, 1)
+			};
 
 		plugin.wildyLevel = 1;
 		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, equip);
 		assertTrue(deathItems.isHasAlwaysLost());
 	}
 
-	private Item[] getClueBoxTestInventory() {
+	private Item[] getClueBoxTestInventory()
+	{
 		return new Item[]
-				{
-						mItem(ItemID.BLACK_DHIDE_BODY, 1, "Black d'hide body", true, 7552),
-						mItem(ItemID.ARMADYL_CHAINSKIRT, 1, "Armadyl chainskirt", true, 27837495),
-						mItem(ItemID.PEGASIAN_BOOTS, 1, "Pegasian boots", true, 30542187),
-						mItem(ItemID.DRAGON_SCIMITAR, 1, "Dragon scimitar", true, 63123),
+			{
+				mItem(ItemID.BLACK_DHIDE_BODY, 1, "Black d'hide body", true, 7552),
+				mItem(ItemID.ARMADYL_CHAINSKIRT, 1, "Armadyl chainskirt", true, 27837495),
+				mItem(ItemID.PEGASIAN_BOOTS, 1, "Pegasian boots", true, 30542187),
+				mItem(ItemID.DRAGON_SCIMITAR, 1, "Dragon scimitar", true, 63123),
 
-						mItem(ItemID.HELM_OF_NEITIZNOT, 1, "Helm of neitiznot", true, 45519),
-						mItem(ItemID.RUNE_DEFENDER, 1, "Rune defender", false, 35000),
-						mItem(ItemID.SPADE, 1, "Spade", true, 104),
-						mItem(ItemID.CLUE_SCROLL_EASY, 1, "Clue scroll (easy)", false, 50),
+				mItem(ItemID.HELM_OF_NEITIZNOT, 1, "Helm of neitiznot", true, 45519),
+				mItem(ItemID.RUNE_DEFENDER, 1, "Rune defender", false, 35000),
+				mItem(ItemID.SPADE, 1, "Spade", true, 104),
+				mItem(ItemID.CLUE_SCROLL_EASY, 1, "Clue scroll (easy)", false, 50),
 
-						mItem(ItemID.CLUE_BOX, 1, "Clue box", false, 50),
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.CLUE_BOX, 1, "Clue box", false, 50),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
 
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
-						mItem(ItemID.LAW_RUNE, 200, "Law rune", true, 212),
-						mItem(ItemID.DUST_RUNE, 200, "Dust rune", true, 3),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.LAW_RUNE, 200, "Law rune", true, 212),
+				mItem(ItemID.DUST_RUNE, 200, "Dust rune", true, 3),
 
-						mItem(ItemID.CLUE_SCROLL_MASTER, 1, "Clue scroll (master)", false, 50),
-						mItem(ItemID.CLUELESS_SCROLL, 1, "Clueless scroll", false, 50),
-				};
+				mItem(ItemID.CLUE_SCROLL_MASTER, 1, "Clue scroll (master)", false, 50),
+				mItem(ItemID.CLUELESS_SCROLL, 1, "Clueless scroll", false, 50),
+			};
 	}
 
 	@Test
-	public void isClueBoxableTest() {
+	public void isClueBoxableTest()
+	{
 		getClueBoxTestInventory();
 		mItem(ItemID.REWARD_CASKET_EASY, 1, "Reward casket (easy)", false, 50);
 
@@ -292,7 +303,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void clueBoxTestDefault() {
+	public void clueBoxTestDefault()
+	{
 		final Item[] inv = getClueBoxTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -300,13 +312,13 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
-				new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
-				new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
-				new ItemStack(ItemID.RUNE_DEFENDER, 1),
-				new ItemStack(ItemID.CLUE_SCROLL_EASY, 1),
-				new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1),
-				new ItemStack(ItemID.CLUELESS_SCROLL, 1)
+			new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
+			new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
+			new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
+			new ItemStack(ItemID.RUNE_DEFENDER, 1),
+			new ItemStack(ItemID.CLUE_SCROLL_EASY, 1),
+			new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1),
+			new ItemStack(ItemID.CLUELESS_SCROLL, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -315,7 +327,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void clueBoxTestDeepWildy() {
+	public void clueBoxTestDeepWildy()
+	{
 		final Item[] inv = getClueBoxTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -325,10 +338,10 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
-				new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
-				new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
-				new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
+			new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
+			new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
+			new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
+			new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -338,7 +351,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void clueBoxTestDeepWildyProtectItem() {
+	public void clueBoxTestDeepWildyProtectItem()
+	{
 		final Item[] inv = getClueBoxTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -349,11 +363,11 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
-				new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
-				new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
-				new ItemStack(ItemID.HELM_OF_NEITIZNOT, 1),
-				new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1) // Clue box
+			new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
+			new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
+			new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
+			new ItemStack(ItemID.HELM_OF_NEITIZNOT, 1),
+			new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1) // Clue box
 		);
 		assertEquals(expectedKept, kept);
 
@@ -363,7 +377,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void clueBoxTestDeepWildySkulled() {
+	public void clueBoxTestDeepWildySkulled()
+	{
 		final Item[] inv = getClueBoxTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -374,7 +389,7 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Collections.singletonList(
-				new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
+			new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -384,7 +399,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void clueBoxTestLowWildy() {
+	public void clueBoxTestLowWildy()
+	{
 		final Item[] inv = getClueBoxTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -394,11 +410,11 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
-				new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
-				new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
-				new ItemStack(ItemID.RUNE_DEFENDER, 1), // Rune defender protected because of broken variant
-				new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
+			new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
+			new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
+			new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
+			new ItemStack(ItemID.RUNE_DEFENDER, 1), // Rune defender protected because of broken variant
+			new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -408,7 +424,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void clueBoxTestLowWildyProtectItem() {
+	public void clueBoxTestLowWildyProtectItem()
+	{
 		final Item[] inv = getClueBoxTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -419,12 +436,12 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
-				new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
-				new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
-				new ItemStack(ItemID.HELM_OF_NEITIZNOT, 1),
-				new ItemStack(ItemID.RUNE_DEFENDER, 1), // Rune defender protected because of broken variant
-				new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
+			new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
+			new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
+			new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
+			new ItemStack(ItemID.HELM_OF_NEITIZNOT, 1),
+			new ItemStack(ItemID.RUNE_DEFENDER, 1), // Rune defender protected because of broken variant
+			new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -434,7 +451,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void clueBoxTestLowWildySkulled() {
+	public void clueBoxTestLowWildySkulled()
+	{
 		final Item[] inv = getClueBoxTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -445,8 +463,8 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.RUNE_DEFENDER, 1), // Rune defender protected because of broken variant
-				new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
+			new ItemStack(ItemID.RUNE_DEFENDER, 1), // Rune defender protected because of broken variant
+			new ItemStack(ItemID.CLUE_SCROLL_MASTER, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -455,32 +473,34 @@ public class ItemsKeptOnDeathPluginTest {
 		assertEquals((inv.length + equip.length) - keptOffset, lost.size());
 	}
 
-	private Item[] getClueBoxCasketTestInventory() {
+	private Item[] getClueBoxCasketTestInventory()
+	{
 		// Reward caskets can stack but the clue box should only protect one
 		return new Item[]
-				{
-						mItem(ItemID.BLACK_DHIDE_BODY, 1, "Black d'hide body", true, 7552),
-						mItem(ItemID.ARMADYL_CHAINSKIRT, 1, "Armadyl chainskirt", true, 27837495),
-						mItem(ItemID.PEGASIAN_BOOTS, 1, "Pegasian boots", true, 30542187),
-						mItem(ItemID.DRAGON_SCIMITAR, 1, "Dragon scimitar", true, 63123),
+			{
+				mItem(ItemID.BLACK_DHIDE_BODY, 1, "Black d'hide body", true, 7552),
+				mItem(ItemID.ARMADYL_CHAINSKIRT, 1, "Armadyl chainskirt", true, 27837495),
+				mItem(ItemID.PEGASIAN_BOOTS, 1, "Pegasian boots", true, 30542187),
+				mItem(ItemID.DRAGON_SCIMITAR, 1, "Dragon scimitar", true, 63123),
 
-						mItem(ItemID.SPADE, 1, "Spade", true, 104),
-						mItem(ItemID.CLUE_SCROLL_EASY, 1, "Clue scroll (easy)", false, 50),
-						mItem(ItemID.REWARD_CASKET_EASY, 20, "Reward casket (easy)", false, 50),
-						mItem(ItemID.CLUE_BOX, 1, "Clue box", false, 50),
+				mItem(ItemID.SPADE, 1, "Spade", true, 104),
+				mItem(ItemID.CLUE_SCROLL_EASY, 1, "Clue scroll (easy)", false, 50),
+				mItem(ItemID.REWARD_CASKET_EASY, 20, "Reward casket (easy)", false, 50),
+				mItem(ItemID.CLUE_BOX, 1, "Clue box", false, 50),
 
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
-						mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
+				mItem(ItemID.COOKED_KARAMBWAN, 1, "Cooked karambwan", true, 608),
 
-						mItem(ItemID.LAW_RUNE, 200, "Law rune", true, 212),
-						mItem(ItemID.DUST_RUNE, 200, "Dust rune", true, 3),
-				};
+				mItem(ItemID.LAW_RUNE, 200, "Law rune", true, 212),
+				mItem(ItemID.DUST_RUNE, 200, "Dust rune", true, 3),
+			};
 	}
 
 	@Test
-	public void clueBoxTestCasketProtect() {
+	public void clueBoxTestCasketProtect()
+	{
 		final Item[] inv = getClueBoxCasketTestInventory();
 		final Item[] equip = new Item[0];
 
@@ -490,10 +510,10 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
-				new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
-				new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
-				new ItemStack(ItemID.REWARD_CASKET_EASY, 1) // Clue box
+			new ItemStack(ItemID.PEGASIAN_BOOTS, 1),
+			new ItemStack(ItemID.ARMADYL_CHAINSKIRT, 1),
+			new ItemStack(ItemID.DRAGON_SCIMITAR, 1),
+			new ItemStack(ItemID.REWARD_CASKET_EASY, 1) // Clue box
 		);
 		assertEquals(expectedKept, kept);
 
@@ -502,38 +522,40 @@ public class ItemsKeptOnDeathPluginTest {
 		assertEquals((inv.length + equip.length) - keptOffset, lost.size());
 	}
 
-	private Item[] getFullGracefulItems() {
+	private Item[] getFullGracefulItems()
+	{
 		return new Item[]
-				{
-						mItem(ItemID.GRACEFUL_HOOD, 1, "Graceful hood", false, 35),
-						mItem(ItemID.GRACEFUL_CAPE, 1, "Graceful cape", false, 40),
-						mItem(ItemID.GRACEFUL_TOP, 1, "Graceful top", false, 55),
-						mItem(ItemID.GRACEFUL_LEGS, 1, "Graceful legs", false, 60),
-						mItem(ItemID.GRACEFUL_BOOTS, 1, "Graceful boots", false, 40),
-						mItem(ItemID.GRACEFUL_GLOVES, 1, "Graceful gloves", false, 30),
-				};
+			{
+				mItem(ItemID.GRACEFUL_HOOD, 1, "Graceful hood", false, 35),
+				mItem(ItemID.GRACEFUL_CAPE, 1, "Graceful cape", false, 40),
+				mItem(ItemID.GRACEFUL_TOP, 1, "Graceful top", false, 55),
+				mItem(ItemID.GRACEFUL_LEGS, 1, "Graceful legs", false, 60),
+				mItem(ItemID.GRACEFUL_BOOTS, 1, "Graceful boots", false, 40),
+				mItem(ItemID.GRACEFUL_GLOVES, 1, "Graceful gloves", false, 30),
+			};
 	}
 
 	@Test
-	public void gracefulValueTest() {
+	public void gracefulValueTest()
+	{
 		final Item[] inv = getFullGracefulItems();
 		final Item[] equip = new Item[]
-				{
-						mItem(ItemID.AMULET_OF_GLORY6, 1, "Amulet of glory (6)", true, 20000)
-				};
+			{
+				mItem(ItemID.AMULET_OF_GLORY6, 1, "Amulet of glory (6)", true, 20000)
+			};
 
 
 		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, equip);
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.AMULET_OF_GLORY6, 1),
-				new ItemStack(ItemID.GRACEFUL_CAPE, 1),
-				new ItemStack(ItemID.GRACEFUL_TOP, 1),
-				new ItemStack(ItemID.GRACEFUL_LEGS, 1),
-				new ItemStack(ItemID.GRACEFUL_BOOTS, 1),
-				new ItemStack(ItemID.GRACEFUL_HOOD, 1),
-				new ItemStack(ItemID.GRACEFUL_GLOVES, 1)
+			new ItemStack(ItemID.AMULET_OF_GLORY6, 1),
+			new ItemStack(ItemID.GRACEFUL_CAPE, 1),
+			new ItemStack(ItemID.GRACEFUL_TOP, 1),
+			new ItemStack(ItemID.GRACEFUL_LEGS, 1),
+			new ItemStack(ItemID.GRACEFUL_BOOTS, 1),
+			new ItemStack(ItemID.GRACEFUL_HOOD, 1),
+			new ItemStack(ItemID.GRACEFUL_GLOVES, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -542,12 +564,13 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void gracefulValueTestWildy() {
+	public void gracefulValueTestWildy()
+	{
 		final Item[] inv = getFullGracefulItems();
 		final Item[] equip = new Item[]
-				{
-						mItem(ItemID.AMULET_OF_GLORY6, 1, "Amulet of glory (6)", true, 20000)
-				};
+			{
+				mItem(ItemID.AMULET_OF_GLORY6, 1, "Amulet of glory (6)", true, 20000)
+			};
 
 		plugin.wildyLevel = 1;
 
@@ -555,9 +578,9 @@ public class ItemsKeptOnDeathPluginTest {
 
 		final List<ItemStack> kept = deathItems.getKeptItems();
 		final List<ItemStack> expectedKept = Arrays.asList(
-				new ItemStack(ItemID.AMULET_OF_GLORY6, 1),
-				new ItemStack(ItemID.GRACEFUL_CAPE, 1),
-				new ItemStack(ItemID.GRACEFUL_TOP, 1)
+			new ItemStack(ItemID.AMULET_OF_GLORY6, 1),
+			new ItemStack(ItemID.GRACEFUL_CAPE, 1),
+			new ItemStack(ItemID.GRACEFUL_TOP, 1)
 		);
 		assertEquals(expectedKept, kept);
 
@@ -566,12 +589,13 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void lostIfNotProtectedTestLost() {
+	public void lostIfNotProtectedTestLost()
+	{
 		final Item[] inv = getFourExpensiveItems();
 		final Item[] equip = new Item[]
-				{
-						mItem(ItemID.SHADOW_SWORD, 1, "Shadow sword", false, 1)
-				};
+			{
+				mItem(ItemID.SHADOW_SWORD, 1, "Shadow sword", false, 1)
+			};
 
 		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, equip);
 
@@ -580,11 +604,12 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void lostIfNotProtectedTestKept() {
+	public void lostIfNotProtectedTestKept()
+	{
 		final Item[] inv = new Item[]
-				{
-						mItem(ItemID.SHADOW_SWORD, 1, "Shadow sword", false, 1)
-				};
+			{
+				mItem(ItemID.SHADOW_SWORD, 1, "Shadow sword", false, 1)
+			};
 		final Item[] equip = new Item[0];
 
 		final DeathItems deathItems = plugin.calculateKeptLostItems(inv, equip);
@@ -594,15 +619,16 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void brokenOnDeathTestRepairPrice() {
+	public void brokenOnDeathTestRepairPrice()
+	{
 		// Dragon defender price should actually be pulled from BrokenOnDeathItem, and be lost on death
 		final Item[] inv = new Item[]
-				{
-						mItem(ItemID.BARROWS_GLOVES, 1, "Barrows gloves", false, 130000),
-						mItem(ItemID.DRAGON_DEFENDER, 1, "Dragon defender", false, 68007),
-						mItem(ItemID.DRAGON_SCIMITAR, 1, "Dragon scimitar", true, 63123),
-						mItem(ItemID.HELM_OF_NEITIZNOT, 1, "Helm of neitiznot", true, 45519),
-				};
+			{
+				mItem(ItemID.BARROWS_GLOVES, 1, "Barrows gloves", false, 130000),
+				mItem(ItemID.DRAGON_DEFENDER, 1, "Dragon defender", false, 68007),
+				mItem(ItemID.DRAGON_SCIMITAR, 1, "Dragon scimitar", true, 63123),
+				mItem(ItemID.HELM_OF_NEITIZNOT, 1, "Helm of neitiznot", true, 45519),
+			};
 
 		plugin.wildyLevel = 21;
 
@@ -613,7 +639,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void avernicDefenderPriceTest() {
+	public void avernicDefenderPriceTest()
+	{
 		final Item defender = mItem(ItemID.AVERNIC_DEFENDER, 1, "Avernic defender", false, 0);
 		final int defenderOffset = FixedPriceItem.AVERNIC_DEFENDER.getOffset();
 		final ItemReclaimCost defenderBrokenPrice = ItemReclaimCost.of(ItemID.AVERNIC_DEFENDER);
@@ -621,10 +648,10 @@ public class ItemsKeptOnDeathPluginTest {
 		assertEquals(defenderExpectedPrice, plugin.getDeathPrice(defender));
 
 		final Item[] inv = new Item[]
-				{
-						defender,
-						mItem(ItemID.BERSERKER_RING_I, 1, "Berserker Ring (i)", false, 3042579)
-				};
+			{
+				defender,
+				mItem(ItemID.BERSERKER_RING_I, 1, "Berserker Ring (i)", false, 3042579)
+			};
 
 		plugin.isSkulled = true;
 		plugin.protectingItem = true;
@@ -637,7 +664,8 @@ public class ItemsKeptOnDeathPluginTest {
 	}
 
 	@Test
-	public void lockedItemTest() {
+	public void lockedItemTest()
+	{
 		// Base item data needs to exist for each locked item tested as the death price is pulled from the base item.
 		final Item defenderBase = mItem(ItemID.AVERNIC_DEFENDER, 1, "Avernic defender", false, 0);
 		final Item defenderLocked = mItem(ItemID.AVERNIC_DEFENDER_L, 1, "Avernic defender (l)", false, 0);
@@ -645,10 +673,10 @@ public class ItemsKeptOnDeathPluginTest {
 		assertEquals(plugin.getDeathPrice(defenderBase), plugin.getDeathPrice(defenderLocked));
 
 		final Item[] inv = new Item[]
-				{
-						defenderLocked,
-						mItem(ItemID.DRAGON_CLAWS, 1, "Dragon Claws", true, 30042579)
-				};
+			{
+				defenderLocked,
+				mItem(ItemID.DRAGON_CLAWS, 1, "Dragon Claws", true, 30042579)
+			};
 
 		plugin.isSkulled = true;
 		plugin.protectingItem = true;

@@ -9,20 +9,20 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Username implements Comparable {
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("Widget_spritesArchive")
 	static AbstractArchive Widget_spritesArchive;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-			intValue = -624446357
+		intValue = -624446357
 	)
 	@Export("canvasWidth")
 	public static int canvasWidth;
 	@ObfuscatedName("ap")
 	@Export("client")
 	@ObfuscatedSignature(
-			signature = "Lclient;"
+		signature = "Lclient;"
 	)
 	static Client client;
 	@ObfuscatedName("c")
@@ -33,7 +33,7 @@ public class Username implements Comparable {
 	String cleanName;
 
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;Lmv;)V"
+		signature = "(Ljava/lang/String;Lmv;)V"
 	)
 	public Username(String var1, LoginType var2) {
 		this.name = var1;
@@ -93,8 +93,8 @@ public class Username implements Comparable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(B)Ljava/lang/String;",
-			garbageValue = "-49"
+		signature = "(B)Ljava/lang/String;",
+		garbageValue = "-49"
 	)
 	@Export("getName")
 	public String getName() {
@@ -103,8 +103,8 @@ public class Username implements Comparable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "750587090"
+		signature = "(I)Z",
+		garbageValue = "750587090"
 	)
 	@Export("hasCleanName")
 	public boolean hasCleanName() {
@@ -113,8 +113,8 @@ public class Username implements Comparable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Ljz;B)I",
-			garbageValue = "-33"
+		signature = "(Ljz;B)I",
+		garbageValue = "-33"
 	)
 	@Export("compareToTyped")
 	public int compareToTyped(Username var1) {
@@ -127,7 +127,7 @@ public class Username implements Comparable {
 
 	public boolean equals(Object var1) {
 		if (var1 instanceof Username) {
-			Username var2 = (Username) var1;
+			Username var2 = (Username)var1;
 			if (this.cleanName == null) {
 				return var2.cleanName == null;
 			} else if (var2.cleanName == null) {
@@ -149,13 +149,13 @@ public class Username implements Comparable {
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareToTyped((Username) var1);
+		return this.compareToTyped((Username)var1);
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(IB)Z",
-			garbageValue = "-22"
+		signature = "(IB)Z",
+		garbageValue = "-22"
 	)
 	@Export("isWorldMapEvent")
 	public static boolean isWorldMapEvent(int var0) {

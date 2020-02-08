@@ -28,7 +28,6 @@ import static net.runelite.api.coords.Direction.EAST;
 import static net.runelite.api.coords.Direction.NORTH;
 import static net.runelite.api.coords.Direction.SOUTH;
 import static net.runelite.api.coords.Direction.WEST;
-
 import lombok.Value;
 
 /**
@@ -44,7 +43,8 @@ import lombok.Value;
  * </ul>
  */
 @Value
-public class Angle {
+public class Angle
+{
 	/**
 	 * The raw angle value.
 	 */
@@ -59,14 +59,17 @@ public class Angle {
 	 *
 	 * @return Nearest cardinal direction to the angle
 	 */
-	public Direction getNearestDirection() {
+	public Direction getNearestDirection()
+	{
 		int round = angle >>> 9;
 		int up = angle & 256;
-		if (up != 0) {
+		if (up != 0)
+		{
 			// round up
 			++round;
 		}
-		switch (round & 3) {
+		switch (round & 3)
+		{
 			case 0:
 				return SOUTH;
 			case 1:

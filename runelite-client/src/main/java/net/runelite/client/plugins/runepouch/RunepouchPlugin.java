@@ -25,11 +25,9 @@
 package net.runelite.client.plugins.runepouch;
 
 import com.google.inject.Provides;
-
 import java.awt.Color;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -42,13 +40,14 @@ import net.runelite.client.plugins.runepouch.config.RunePouchOverlayMode;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "Rune Pouch",
-		description = "Show the contents of your rune pouch",
-		tags = {"combat", "magic", "overlay"},
-		type = PluginType.UTILITY
+	name = "Rune Pouch",
+	description = "Show the contents of your rune pouch",
+	tags = {"combat", "magic", "overlay"},
+	type = PluginType.UTILITY
 )
 @Singleton
-public class RunepouchPlugin extends Plugin {
+public class RunepouchPlugin extends Plugin
+{
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -66,33 +65,39 @@ public class RunepouchPlugin extends Plugin {
 	private RunePouchOverlayMode runePouchOverlayMode;
 
 	@Provides
-	RunepouchConfig getConfig(ConfigManager configManager) {
+	RunepouchConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(RunepouchConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 	}
 
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("runepouch")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("runepouch"))
+		{
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.fontColor = config.fontColor();
 		this.showIcons = config.showIcons();
 		this.runePouchOverlayMode = config.runePouchOverlayMode();

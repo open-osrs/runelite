@@ -29,7 +29,6 @@ import com.google.common.base.Strings;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
-
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,7 +39,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.ChatLineBuffer;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
@@ -59,7 +57,8 @@ import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-public class ChatMessageManager {
+public class ChatMessageManager
+{
 	private static final Set<Integer> TUTORIAL_ISLAND_REGIONS = ImmutableSet.of(12336, 12335, 12592, 12080, 12079, 12436);
 
 	private final Multimap<ChatMessageType, ChatColor> colorCache = HashMultimap.create();
@@ -71,10 +70,11 @@ public class ChatMessageManager {
 
 	@Inject
 	private ChatMessageManager(
-			final Client client,
-			final ChatColorConfig chatColorConfig,
-			final ClientThread clientThread,
-			final EventBus eventbus) {
+		final Client client,
+		final ChatColorConfig chatColorConfig,
+		final ClientThread clientThread,
+		final EventBus eventbus)
+	{
 		this.client = client;
 		this.chatColorConfig = chatColorConfig;
 		this.clientThread = clientThread;
@@ -86,27 +86,33 @@ public class ChatMessageManager {
 		eventbus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
 	}
 
-	private void onVarbitChanged(VarbitChanged event) {
+	private void onVarbitChanged(VarbitChanged event)
+	{
 		int setting = client.getVar(Varbits.TRANSPARENT_CHATBOX);
 
-		if (transparencyVarbit != setting) {
+		if (transparencyVarbit != setting)
+		{
 			transparencyVarbit = setting;
 			refreshAll();
 		}
 	}
 
-	private void onResizeableChanged(ResizeableChanged event) {
+	private void onResizeableChanged(ResizeableChanged event)
+	{
 		refreshAll();
 	}
 
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("textrecolor")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("textrecolor"))
+		{
 			loadColors();
 			clientThread.invokeLater(this::refreshAll);
 		}
 	}
 
-	void onChatMessage(ChatMessage chatMessage) {
+	void onChatMessage(ChatMessage chatMessage)
+	{
 		MessageNode messageNode = chatMessage.getMessageNode();
 		ChatMessageType chatMessageType = chatMessage.getType();
 
@@ -114,19 +120,23 @@ public class ChatMessageManager {
 		Color usernameColor = null;
 		Color senderColor;
 
-		switch (chatMessageType) {
+		switch (chatMessageType)
+		{
 			// username recoloring for MODPRIVATECHAT, PRIVATECHAT and PRIVATECHATOUT
 			// ChatMessageTypes is handled in the script callback event
 			case TRADEREQ:
 			case AUTOTYPER:
 			case PUBLICCHAT:
-			case MODCHAT: {
+			case MODCHAT:
+			{
 				boolean isFriend = client.isFriended(chatMessage.getName(), true) && !client.getLocalPlayer().getName().equals(chatMessage.getName());
 
-				if (isFriend) {
+				if (isFriend)
+				{
 					usernameColor = isChatboxTransparent ? chatColorConfig.transparentPublicFriendUsernames() : chatColorConfig.opaquePublicFriendUsernames();
 				}
-				if (usernameColor == null) {
+				if (usernameColor == null)
+				{
 					usernameColor = isChatboxTransparent ? chatColorConfig.transparentUsername() : chatColorConfig.opaqueUsername();
 				}
 				break;
@@ -138,34 +148,40 @@ public class ChatMessageManager {
 
 		senderColor = isChatboxTransparent ? chatColorConfig.transparentClanChannelName() : chatColorConfig.opaqueClanChannelName();
 
-		if (usernameColor != null) {
+		if (usernameColor != null)
+		{
 			messageNode.setName(ColorUtil.wrapWithColorTag(messageNode.getName(), usernameColor));
 		}
 
 		String sender = messageNode.getSender();
-		if (senderColor != null && !Strings.isNullOrEmpty(sender)) {
+		if (senderColor != null && !Strings.isNullOrEmpty(sender))
+		{
 			messageNode.setSender(ColorUtil.wrapWithColorTag(sender, senderColor));
 		}
 
 		final Collection<ChatColor> chatColors = colorCache.get(chatMessageType);
-		for (ChatColor chatColor : chatColors) {
-			if (chatColor.isTransparent() != isChatboxTransparent || chatColor.getType() != ChatColorType.NORMAL || chatColor.isDefault()) {
+		for (ChatColor chatColor : chatColors)
+		{
+			if (chatColor.isTransparent() != isChatboxTransparent || chatColor.getType() != ChatColorType.NORMAL || chatColor.isDefault())
+			{
 				continue;
 			}
 
 			// Replace </col> tags in the message with the new color so embedded </col> won't reset the color
 			final Color color = chatColor.getColor();
 			messageNode.setValue(ColorUtil.wrapWithColorTag(
-					messageNode.getValue().replace(ColorUtil.CLOSING_COLOR_TAG, ColorUtil.colorTag(color)),
-					color));
+				messageNode.getValue().replace(ColorUtil.CLOSING_COLOR_TAG, ColorUtil.colorTag(color)),
+				color));
 			break;
 		}
 	}
 
-	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent) {
+	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
+	{
 		final String eventName = scriptCallbackEvent.getEventName();
 
-		switch (eventName) {
+		switch (eventName)
+		{
 			case "privateChatFrom":
 			case "privateChatTo":
 			case "privateChatSplitFrom":
@@ -177,7 +193,8 @@ public class ChatMessageManager {
 
 		boolean isChatboxTransparent = client.isResized() && client.getVar(Varbits.TRANSPARENT_CHATBOX) == 1;
 		Color usernameColor = isChatboxTransparent ? chatColorConfig.transparentPrivateUsernames() : chatColorConfig.opaquePrivateUsernames();
-		if (usernameColor == null) {
+		if (usernameColor == null)
+		{
 			return;
 		}
 
@@ -189,9 +206,12 @@ public class ChatMessageManager {
 		stringStack[stringStackSize - 3] = ColorUtil.prependColorTag(toFrom, usernameColor);
 	}
 
-	private static Color getDefaultColor(ChatMessageType type, boolean transparent) {
-		if (!transparent) {
-			switch (type) {
+	private static Color getDefaultColor(ChatMessageType type, boolean transparent)
+	{
+		if (!transparent)
+		{
+			switch (type)
+			{
 				case PUBLICCHAT:
 				case MODCHAT:
 					return JagexColors.CHAT_PUBLIC_TEXT_OPAQUE_BACKGROUND;
@@ -207,8 +227,11 @@ public class ChatMessageManager {
 				case CONSOLE:
 					return JagexColors.CHAT_GAME_EXAMINE_TEXT_OPAQUE_BACKGROUND;
 			}
-		} else {
-			switch (type) {
+		}
+		else
+		{
+			switch (type)
+			{
 				case PUBLICCHAT:
 				case MODCHAT:
 					return JagexColors.CHAT_PUBLIC_TEXT_TRANSPARENT_BACKGROUND;
@@ -232,278 +255,336 @@ public class ChatMessageManager {
 	/**
 	 * Load all configured colors
 	 */
-	public void loadColors() {
+	public void loadColors()
+	{
 		colorCache.clear();
 
 		// Apply defaults
-		for (ChatMessageType chatMessageType : ChatMessageType.values()) {
+		for (ChatMessageType chatMessageType : ChatMessageType.values())
+		{
 			Color defaultTransparent = getDefaultColor(chatMessageType, true);
-			if (defaultTransparent != null) {
+			if (defaultTransparent != null)
+			{
 				cacheColor(new ChatColor(ChatColorType.NORMAL, defaultTransparent, true, true), chatMessageType);
 			}
 
 			Color defaultOpaque = getDefaultColor(chatMessageType, false);
-			if (defaultOpaque != null) {
+			if (defaultOpaque != null)
+			{
 				cacheColor(new ChatColor(ChatColorType.NORMAL, defaultOpaque, false, true), chatMessageType);
 			}
 		}
 
-		if (chatColorConfig.opaquePublicChat() != null) {
+		if (chatColorConfig.opaquePublicChat() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaquePublicChat(), false),
-					ChatMessageType.PUBLICCHAT);
+				ChatMessageType.PUBLICCHAT);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaquePublicChat(), false),
-					ChatMessageType.MODCHAT);
+				ChatMessageType.MODCHAT);
 		}
-		if (chatColorConfig.opaquePublicChatHighlight() != null) {
+		if (chatColorConfig.opaquePublicChatHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaquePublicChatHighlight(), false),
-					ChatMessageType.PUBLICCHAT);
+				ChatMessageType.PUBLICCHAT);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaquePublicChatHighlight(), false),
-					ChatMessageType.MODCHAT);
+				ChatMessageType.MODCHAT);
 		}
-		if (chatColorConfig.opaquePrivateMessageSent() != null) {
+		if (chatColorConfig.opaquePrivateMessageSent() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaquePrivateMessageSent(), false),
-					ChatMessageType.PRIVATECHATOUT);
+				ChatMessageType.PRIVATECHATOUT);
 		}
-		if (chatColorConfig.opaquePrivateMessageSentHighlight() != null) {
+		if (chatColorConfig.opaquePrivateMessageSentHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaquePrivateMessageSentHighlight(), false),
-					ChatMessageType.PRIVATECHATOUT);
+				ChatMessageType.PRIVATECHATOUT);
 		}
-		if (chatColorConfig.opaquePrivateMessageReceived() != null) {
+		if (chatColorConfig.opaquePrivateMessageReceived() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaquePrivateMessageReceived(), false),
-					ChatMessageType.PRIVATECHAT);
+				ChatMessageType.PRIVATECHAT);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaquePrivateMessageReceived(), false),
-					ChatMessageType.MODPRIVATECHAT);
+				ChatMessageType.MODPRIVATECHAT);
 		}
-		if (chatColorConfig.opaquePrivateMessageReceivedHighlight() != null) {
+		if (chatColorConfig.opaquePrivateMessageReceivedHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaquePrivateMessageReceivedHighlight(), false),
-					ChatMessageType.PRIVATECHAT);
+				ChatMessageType.PRIVATECHAT);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaquePrivateMessageReceivedHighlight(), false),
-					ChatMessageType.MODPRIVATECHAT);
+				ChatMessageType.MODPRIVATECHAT);
 		}
-		if (chatColorConfig.opaqueClanChatInfo() != null) {
+		if (chatColorConfig.opaqueClanChatInfo() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueClanChatInfo(), false),
-					ChatMessageType.FRIENDSCHATNOTIFICATION);
+				ChatMessageType.FRIENDSCHATNOTIFICATION);
 		}
-		if (chatColorConfig.opaqueClanChatInfoHighlight() != null) {
+		if (chatColorConfig.opaqueClanChatInfoHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueClanChatInfoHighlight(), false),
-					ChatMessageType.FRIENDSCHATNOTIFICATION);
+				ChatMessageType.FRIENDSCHATNOTIFICATION);
 		}
-		if (chatColorConfig.opaqueClanChatMessage() != null) {
+		if (chatColorConfig.opaqueClanChatMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueClanChatMessage(), false),
-					ChatMessageType.FRIENDSCHAT);
+				ChatMessageType.FRIENDSCHAT);
 		}
-		if (chatColorConfig.opaqueClanChatMessageHighlight() != null) {
+		if (chatColorConfig.opaqueClanChatMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueClanChatMessageHighlight(), false),
-					ChatMessageType.FRIENDSCHAT);
+				ChatMessageType.FRIENDSCHAT);
 		}
-		if (chatColorConfig.opaqueAutochatMessage() != null) {
+		if (chatColorConfig.opaqueAutochatMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueAutochatMessage(), false),
-					ChatMessageType.AUTOTYPER);
+				ChatMessageType.AUTOTYPER);
 		}
-		if (chatColorConfig.opaqueAutochatMessageHighlight() != null) {
+		if (chatColorConfig.opaqueAutochatMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueAutochatMessageHighlight(), false),
-					ChatMessageType.AUTOTYPER);
+				ChatMessageType.AUTOTYPER);
 		}
-		if (chatColorConfig.opaqueTradeChatMessage() != null) {
+		if (chatColorConfig.opaqueTradeChatMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueTradeChatMessage(), false),
-					ChatMessageType.TRADEREQ);
+				ChatMessageType.TRADEREQ);
 		}
-		if (chatColorConfig.opaqueTradeChatMessageHighlight() != null) {
+		if (chatColorConfig.opaqueTradeChatMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueTradeChatMessageHighlight(), false),
-					ChatMessageType.TRADEREQ);
+				ChatMessageType.TRADEREQ);
 		}
-		if (chatColorConfig.opaqueServerMessage() != null) {
+		if (chatColorConfig.opaqueServerMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueServerMessage(), false),
-					ChatMessageType.GAMEMESSAGE);
+				ChatMessageType.GAMEMESSAGE);
 		}
-		if (chatColorConfig.opaqueServerMessageHighlight() != null) {
+		if (chatColorConfig.opaqueServerMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueServerMessageHighlight(), false),
-					ChatMessageType.GAMEMESSAGE);
+				ChatMessageType.GAMEMESSAGE);
 		}
-		if (chatColorConfig.opaqueGameMessage() != null) {
+		if (chatColorConfig.opaqueGameMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueGameMessage(), false),
-					ChatMessageType.CONSOLE);
+				ChatMessageType.CONSOLE);
 		}
-		if (chatColorConfig.opaqueGameMessageHighlight() != null) {
+		if (chatColorConfig.opaqueGameMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueGameMessageHighlight(), false),
-					ChatMessageType.CONSOLE);
+				ChatMessageType.CONSOLE);
 		}
-		if (chatColorConfig.opaqueExamine() != null) {
+		if (chatColorConfig.opaqueExamine() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueExamine(), false),
-					ChatMessageType.OBJECT_EXAMINE);
+				ChatMessageType.OBJECT_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueExamine(), false),
-					ChatMessageType.NPC_EXAMINE);
+				ChatMessageType.NPC_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueExamine(), false),
-					ChatMessageType.ITEM_EXAMINE);
+				ChatMessageType.ITEM_EXAMINE);
 		}
-		if (chatColorConfig.opaqueExamineHighlight() != null) {
+		if (chatColorConfig.opaqueExamineHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueExamineHighlight(), false),
-					ChatMessageType.OBJECT_EXAMINE);
+				ChatMessageType.OBJECT_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueExamineHighlight(), false),
-					ChatMessageType.NPC_EXAMINE);
+				ChatMessageType.NPC_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueExamineHighlight(), false),
-					ChatMessageType.ITEM_EXAMINE);
+				ChatMessageType.ITEM_EXAMINE);
 		}
-		if (chatColorConfig.opaqueFiltered() != null) {
+		if (chatColorConfig.opaqueFiltered() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaqueFiltered(), false),
-					ChatMessageType.SPAM);
+				ChatMessageType.SPAM);
 		}
-		if (chatColorConfig.opaqueFilteredHighlight() != null) {
+		if (chatColorConfig.opaqueFilteredHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.opaqueFilteredHighlight(), false),
-					ChatMessageType.SPAM);
+				ChatMessageType.SPAM);
 		}
-		if (chatColorConfig.opaquePrivateUsernames() != null) {
+		if (chatColorConfig.opaquePrivateUsernames() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.opaquePrivateUsernames(), false),
-					ChatMessageType.LOGINLOGOUTNOTIFICATION);
+				ChatMessageType.LOGINLOGOUTNOTIFICATION);
 		}
 
 		//Transparent Chat Colours
-		if (chatColorConfig.transparentPublicChat() != null) {
+		if (chatColorConfig.transparentPublicChat() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentPublicChat(), true),
-					ChatMessageType.PUBLICCHAT);
+				ChatMessageType.PUBLICCHAT);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentPublicChat(), true),
-					ChatMessageType.MODCHAT);
+				ChatMessageType.MODCHAT);
 		}
-		if (chatColorConfig.transparentPublicChatHighlight() != null) {
+		if (chatColorConfig.transparentPublicChatHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentPublicChatHighlight(), true),
-					ChatMessageType.PUBLICCHAT);
+				ChatMessageType.PUBLICCHAT);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentPublicChatHighlight(), true),
-					ChatMessageType.MODCHAT);
+				ChatMessageType.MODCHAT);
 		}
-		if (chatColorConfig.transparentPrivateMessageSent() != null) {
+		if (chatColorConfig.transparentPrivateMessageSent() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentPrivateMessageSent(), true),
-					ChatMessageType.PRIVATECHATOUT);
+				ChatMessageType.PRIVATECHATOUT);
 		}
-		if (chatColorConfig.transparentPrivateMessageSentHighlight() != null) {
+		if (chatColorConfig.transparentPrivateMessageSentHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentPrivateMessageSentHighlight(), true),
-					ChatMessageType.PRIVATECHATOUT);
+				ChatMessageType.PRIVATECHATOUT);
 		}
-		if (chatColorConfig.transparentPrivateMessageReceived() != null) {
+		if (chatColorConfig.transparentPrivateMessageReceived() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentPrivateMessageReceived(), true),
-					ChatMessageType.PRIVATECHAT);
+				ChatMessageType.PRIVATECHAT);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentPrivateMessageReceived(), true),
-					ChatMessageType.MODPRIVATECHAT);
+				ChatMessageType.MODPRIVATECHAT);
 		}
-		if (chatColorConfig.transparentPrivateMessageReceivedHighlight() != null) {
+		if (chatColorConfig.transparentPrivateMessageReceivedHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentPrivateMessageReceivedHighlight(), true),
-					ChatMessageType.PRIVATECHAT);
+				ChatMessageType.PRIVATECHAT);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentPrivateMessageReceivedHighlight(), true),
-					ChatMessageType.MODPRIVATECHAT);
+				ChatMessageType.MODPRIVATECHAT);
 		}
-		if (chatColorConfig.transparentClanChatInfo() != null) {
+		if (chatColorConfig.transparentClanChatInfo() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentClanChatInfo(), true),
-					ChatMessageType.FRIENDSCHATNOTIFICATION);
+				ChatMessageType.FRIENDSCHATNOTIFICATION);
 		}
-		if (chatColorConfig.transparentClanChatInfoHighlight() != null) {
+		if (chatColorConfig.transparentClanChatInfoHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentClanChatInfoHighlight(), true),
-					ChatMessageType.FRIENDSCHATNOTIFICATION);
+				ChatMessageType.FRIENDSCHATNOTIFICATION);
 		}
-		if (chatColorConfig.transparentClanChatMessage() != null) {
+		if (chatColorConfig.transparentClanChatMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentClanChatMessage(), true),
-					ChatMessageType.FRIENDSCHAT);
+				ChatMessageType.FRIENDSCHAT);
 		}
-		if (chatColorConfig.transparentClanChatMessageHighlight() != null) {
+		if (chatColorConfig.transparentClanChatMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentClanChatMessageHighlight(), true),
-					ChatMessageType.FRIENDSCHAT);
+				ChatMessageType.FRIENDSCHAT);
 		}
-		if (chatColorConfig.transparentAutochatMessage() != null) {
+		if (chatColorConfig.transparentAutochatMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentAutochatMessage(), true),
-					ChatMessageType.AUTOTYPER);
+				ChatMessageType.AUTOTYPER);
 		}
-		if (chatColorConfig.transparentAutochatMessageHighlight() != null) {
+		if (chatColorConfig.transparentAutochatMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentAutochatMessageHighlight(), true),
-					ChatMessageType.AUTOTYPER);
+				ChatMessageType.AUTOTYPER);
 		}
-		if (chatColorConfig.transparentTradeChatMessage() != null) {
+		if (chatColorConfig.transparentTradeChatMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentTradeChatMessage(), true),
-					ChatMessageType.TRADEREQ);
+				ChatMessageType.TRADEREQ);
 		}
-		if (chatColorConfig.transparentTradeChatMessageHighlight() != null) {
+		if (chatColorConfig.transparentTradeChatMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentTradeChatMessageHighlight(), true),
-					ChatMessageType.TRADEREQ);
+				ChatMessageType.TRADEREQ);
 		}
-		if (chatColorConfig.transparentServerMessage() != null) {
+		if (chatColorConfig.transparentServerMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentServerMessage(), true),
-					ChatMessageType.GAMEMESSAGE);
+				ChatMessageType.GAMEMESSAGE);
 		}
-		if (chatColorConfig.transparentServerMessageHighlight() != null) {
+		if (chatColorConfig.transparentServerMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentServerMessageHighlight(), true),
-					ChatMessageType.GAMEMESSAGE);
+				ChatMessageType.GAMEMESSAGE);
 		}
-		if (chatColorConfig.transparentGameMessage() != null) {
+		if (chatColorConfig.transparentGameMessage() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentGameMessage(), true),
-					ChatMessageType.CONSOLE);
+				ChatMessageType.CONSOLE);
 		}
-		if (chatColorConfig.transparentGameMessageHighlight() != null) {
+		if (chatColorConfig.transparentGameMessageHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentGameMessageHighlight(), true),
-					ChatMessageType.CONSOLE);
+				ChatMessageType.CONSOLE);
 		}
-		if (chatColorConfig.transparentExamine() != null) {
+		if (chatColorConfig.transparentExamine() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentExamine(), true),
-					ChatMessageType.OBJECT_EXAMINE);
+				ChatMessageType.OBJECT_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentExamine(), true),
-					ChatMessageType.NPC_EXAMINE);
+				ChatMessageType.NPC_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentExamine(), true),
-					ChatMessageType.ITEM_EXAMINE);
+				ChatMessageType.ITEM_EXAMINE);
 		}
-		if (chatColorConfig.transparentExamineHighlight() != null) {
+		if (chatColorConfig.transparentExamineHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentExamineHighlight(), true),
-					ChatMessageType.OBJECT_EXAMINE);
+				ChatMessageType.OBJECT_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentExamineHighlight(), true),
-					ChatMessageType.NPC_EXAMINE);
+				ChatMessageType.NPC_EXAMINE);
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentExamineHighlight(), true),
-					ChatMessageType.ITEM_EXAMINE);
+				ChatMessageType.ITEM_EXAMINE);
 		}
-		if (chatColorConfig.transparentFiltered() != null) {
+		if (chatColorConfig.transparentFiltered() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentFiltered(), true),
-					ChatMessageType.SPAM);
+				ChatMessageType.SPAM);
 		}
-		if (chatColorConfig.transparentFilteredHighlight() != null) {
+		if (chatColorConfig.transparentFilteredHighlight() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.HIGHLIGHT, chatColorConfig.transparentFilteredHighlight(), true),
-					ChatMessageType.SPAM);
+				ChatMessageType.SPAM);
 		}
-		if (chatColorConfig.transparentPrivateUsernames() != null) {
+		if (chatColorConfig.transparentPrivateUsernames() != null)
+		{
 			cacheColor(new ChatColor(ChatColorType.NORMAL, chatColorConfig.transparentPrivateUsernames(), true),
-					ChatMessageType.LOGINLOGOUTNOTIFICATION);
+				ChatMessageType.LOGINLOGOUTNOTIFICATION);
 		}
 	}
 
-	private void cacheColor(final ChatColor chatColor, final ChatMessageType... types) {
-		for (ChatMessageType chatMessageType : types) {
+	private void cacheColor(final ChatColor chatColor, final ChatMessageType... types)
+	{
+		for (ChatMessageType chatMessageType : types)
+		{
 			// color is excluded from equals/hashCode on ChatColor
 			colorCache.remove(chatMessageType, chatColor);
 			colorCache.put(chatMessageType, chatColor);
 		}
 	}
 
-	public void queue(QueuedMessage message) {
+	public void queue(QueuedMessage message)
+	{
 		queuedMessages.add(message);
 	}
 
-	public void process() {
-		for (QueuedMessage msg; (msg = queuedMessages.poll()) != null; ) {
+	public void process()
+	{
+		for (QueuedMessage msg; (msg = queuedMessages.poll()) != null; )
+		{
 			add(msg);
 		}
 	}
 
-	private void add(QueuedMessage message) {
+	private void add(QueuedMessage message)
+	{
 		// Do not send message if the player is on tutorial island
 		final Player player = client.getLocalPlayer();
-		if (player != null && TUTORIAL_ISLAND_REGIONS.contains(player.getWorldLocation().getRegionID())) {
+		if (player != null && TUTORIAL_ISLAND_REGIONS.contains(player.getWorldLocation().getRegionID()))
+		{
 			return;
 		}
 
 		//guard case for google MoreObjects#firstNonNull
-		if (message.getValue() == null && message.getRuneLiteFormattedMessage() == null) {
+		if (message.getValue() == null && message.getRuneLiteFormattedMessage() == null)
+		{
 			return;
 		}
 
 		// this updates chat cycle
 		client.addChatMessage(
-				message.getType(),
-				MoreObjects.firstNonNull(message.getName(), ""),
-				MoreObjects.firstNonNull(message.getValue(), message.getRuneLiteFormattedMessage()),
-				message.getSender());
+			message.getType(),
+			MoreObjects.firstNonNull(message.getName(), ""),
+			MoreObjects.firstNonNull(message.getValue(), message.getRuneLiteFormattedMessage()),
+			message.getSender());
 
 		// Get last message from line buffer (the one we just added)
 		final ChatLineBuffer chatLineBuffer = client.getChatLineMap().get(message.getType().getType());
@@ -517,8 +598,10 @@ public class ChatMessageManager {
 		update(line);
 	}
 
-	public void update(final MessageNode target) {
-		if (Strings.isNullOrEmpty(target.getRuneLiteFormatMessage())) {
+	public void update(final MessageNode target)
+	{
+		if (Strings.isNullOrEmpty(target.getRuneLiteFormatMessage()))
+		{
 			return;
 		}
 
@@ -526,7 +609,8 @@ public class ChatMessageManager {
 		final Collection<ChatColor> chatColors = colorCache.get(target.getType());
 
 		// If we do not have any colors cached, simply set clean message
-		if (chatColors == null || chatColors.isEmpty()) {
+		if (chatColors == null || chatColors.isEmpty())
+		{
 			target.setValue(target.getRuneLiteFormatMessage());
 			return;
 		}
@@ -534,27 +618,29 @@ public class ChatMessageManager {
 		target.setValue(recolorMessage(transparent, target.getRuneLiteFormatMessage(), target.getType()));
 	}
 
-	private String recolorMessage(boolean transparent, String message, ChatMessageType messageType) {
+	private String recolorMessage(boolean transparent, String message, ChatMessageType messageType)
+	{
 		final Collection<ChatColor> chatColors = colorCache.get(messageType);
 		final AtomicReference<String> resultMessage = new AtomicReference<>(message);
 
 		// Replace custom formatting with actual colors
 		chatColors.stream()
-				.filter(chatColor -> chatColor.isTransparent() == transparent)
-				.forEach(chatColor ->
-						resultMessage.getAndUpdate(oldMessage -> oldMessage.replaceAll(
-								"<col" + chatColor.getType().name() + ">",
-								ColorUtil.colorTag(chatColor.getColor()))));
+			.filter(chatColor -> chatColor.isTransparent() == transparent)
+			.forEach(chatColor ->
+				resultMessage.getAndUpdate(oldMessage -> oldMessage.replaceAll(
+					"<col" + chatColor.getType().name() + ">",
+					ColorUtil.colorTag(chatColor.getColor()))));
 
 		return resultMessage.get();
 	}
 
-	private void refreshAll() {
+	private void refreshAll()
+	{
 		client.getChatLineMap().values().stream()
-				.filter(Objects::nonNull)
-				.flatMap(clb -> Arrays.stream(clb.getLines()))
-				.filter(Objects::nonNull)
-				.forEach(this::update);
+			.filter(Objects::nonNull)
+			.flatMap(clb -> Arrays.stream(clb.getLines()))
+			.filter(Objects::nonNull)
+			.forEach(this::update);
 
 		client.refreshChat();
 	}

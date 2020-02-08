@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FaceNormal {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 1677646269
+		intValue = 1677646269
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 531566341
+		intValue = 531566341
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = 1439819501
+		intValue = 1439819501
 	)
 	@Export("z")
 	int z;
@@ -31,8 +31,8 @@ public class FaceNormal {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lii;Lii;III)Lko;",
-			garbageValue = "1973799897"
+		signature = "(Lii;Lii;III)Lko;",
+		garbageValue = "1973799897"
 	)
 	public static Font method3335(AbstractArchive var0, AbstractArchive var1, int var2, int var3) {
 		if (!class228.method4199(var0, var2, var3)) {
@@ -54,18 +54,18 @@ public class FaceNormal {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "2042389443"
+		signature = "(I)Z",
+		garbageValue = "2042389443"
 	)
 	public static boolean method3334() {
-		ReflectionCheck var0 = (ReflectionCheck) class96.reflectionChecks.last();
+		ReflectionCheck var0 = (ReflectionCheck)class96.reflectionChecks.last();
 		return var0 != null;
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lii;Ljava/lang/String;Ljava/lang/String;I)[Lli;",
-			garbageValue = "326479912"
+		signature = "(Lii;Ljava/lang/String;Ljava/lang/String;I)[Lli;",
+		garbageValue = "326479912"
 	)
 	public static IndexedSprite[] method3336(AbstractArchive var0, String var1, String var2) {
 		int var3 = var0.getGroupId(var1);

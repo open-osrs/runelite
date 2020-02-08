@@ -9,82 +9,82 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class PendingSpawn extends Node {
 	@ObfuscatedName("sx")
 	@ObfuscatedSignature(
-			signature = "Ld;"
+		signature = "Ld;"
 	)
 	@Export("grandExchangeEvents")
 	static GrandExchangeEvents grandExchangeEvents;
 	@ObfuscatedName("hu")
 	@ObfuscatedGetter(
-			intValue = -1923954935
+		intValue = -1923954935
 	)
 	@Export("oculusOrbFocalPointX")
 	static int oculusOrbFocalPointX;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -1349370787
+		intValue = -1349370787
 	)
 	@Export("plane")
 	int plane;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 304063961
+		intValue = 304063961
 	)
 	@Export("type")
 	int type;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -340804777
+		intValue = -340804777
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 1612075495
+		intValue = 1612075495
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 1762819513
+		intValue = 1762819513
 	)
 	@Export("objectId")
 	int objectId;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 51558137
+		intValue = 51558137
 	)
 	int field935;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = 1078181875
+		intValue = 1078181875
 	)
 	int field924;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = 869281397
+		intValue = 869281397
 	)
 	@Export("id")
 	int id;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = -186510347
+		intValue = -186510347
 	)
 	@Export("orientation")
 	int orientation;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = 1858623199
+		intValue = 1858623199
 	)
 	int field933;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-			intValue = -260343907
+		intValue = -260343907
 	)
 	@Export("delay")
 	int delay;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-			intValue = 1816335395
+		intValue = 1816335395
 	)
 	@Export("hitpoints")
 	int hitpoints;
@@ -96,8 +96,8 @@ public final class PendingSpawn extends Node {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(I)Llt;",
-			garbageValue = "-728987489"
+		signature = "(I)Llt;",
+		garbageValue = "-728987489"
 	)
 	static Sprite method1738() {
 		Sprite var0 = new Sprite();

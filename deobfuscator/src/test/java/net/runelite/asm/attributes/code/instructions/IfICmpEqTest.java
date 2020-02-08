@@ -25,7 +25,6 @@
 package net.runelite.asm.attributes.code.instructions;
 
 import static net.runelite.asm.Type.INT;
-
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.execution.Frame;
@@ -34,18 +33,17 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 import net.runelite.asm.execution.Variables;
-
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class IfICmpEqTest {
+public class IfICmpEqTest
+{
 
 	@Test
-	public void testIsSame() {
+	public void testIsSame()
+	{
 		Instructions ins = mock(Instructions.class);
 		Frame frame = mock(Frame.class);
 		Stack stack = new Stack(42);
@@ -66,7 +64,8 @@ public class IfICmpEqTest {
 		assertTrue(ifeq.isSame(ifeqCtx, ifneCtx));
 	}
 
-	private InstructionContext getConstantCtx(Instructions ins, int constant) {
+	private InstructionContext getConstantCtx(Instructions ins, int constant)
+	{
 		LDC ldc = new LDC(ins, constant);
 		InstructionContext pushConstantCtx = mock(InstructionContext.class);
 		when(pushConstantCtx.getInstruction()).thenReturn(ldc);

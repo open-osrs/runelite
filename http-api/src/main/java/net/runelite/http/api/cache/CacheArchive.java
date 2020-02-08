@@ -24,24 +24,28 @@
  */
 package net.runelite.http.api.cache;
 
-public class CacheArchive {
+public class CacheArchive
+{
 	private final int archiveId;
 	private final int nameHash;
 	private final int revision;
 
-	public CacheArchive(int archiveId, int nameHash, int revision) {
+	public CacheArchive(int archiveId, int nameHash, int revision)
+	{
 		this.archiveId = archiveId;
 		this.nameHash = nameHash;
 		this.revision = revision;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "CacheArchive{" + "archiveId=" + archiveId + ", nameHash=" + nameHash + ", revision=" + revision + '}';
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 5;
 		hash = 71 * hash + this.archiveId;
 		hash = 71 * hash + this.nameHash;
@@ -50,35 +54,44 @@ public class CacheArchive {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final CacheArchive other = (CacheArchive) obj;
-		if (this.archiveId != other.archiveId) {
+		if (this.archiveId != other.archiveId)
+		{
 			return false;
 		}
-		if (this.nameHash != other.nameHash) {
+		if (this.nameHash != other.nameHash)
+		{
 			return false;
 		}
-		if (this.revision != other.revision) {
+		if (this.revision != other.revision)
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public int getArchiveId() {
+	public int getArchiveId()
+	{
 		return archiveId;
 	}
 
-	public int getNameHash() {
+	public int getNameHash()
+	{
 		return nameHash;
 	}
 
-	public int getRevision() {
+	public int getRevision()
+	{
 		return revision;
 	}
 }

@@ -28,35 +28,43 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.inject.Singleton;
 import javax.swing.JButton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.ModifierlessKeybind;
 
 @Singleton
-class HotkeyButton extends JButton {
+class HotkeyButton extends JButton
+{
 	@Getter(AccessLevel.PACKAGE)
 	private Keybind value;
 
-	HotkeyButton(Keybind value, boolean modifierless) {
+	HotkeyButton(Keybind value, boolean modifierless)
+	{
 		setValue(value);
 		addActionListener(e ->
-				setValue(Keybind.NOT_SET));
-		addKeyListener(new KeyAdapter() {
+			setValue(Keybind.NOT_SET));
+		addKeyListener(new KeyAdapter()
+		{
 			@Override
-			public void keyPressed(KeyEvent e) {
-				if (modifierless) {
+			public void keyPressed(KeyEvent e)
+			{
+				if (modifierless)
+				{
 					setValue(new ModifierlessKeybind(e));
-				} else {
+				}
+				else
+				{
 					setValue(new Keybind(e));
 				}
 			}
 		});
 	}
 
-	private void setValue(Keybind value) {
-		if (value == null) {
+	private void setValue(Keybind value)
+	{
+		if (value == null)
+		{
 			value = Keybind.NOT_SET;
 		}
 

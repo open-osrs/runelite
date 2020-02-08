@@ -30,7 +30,6 @@ package net.runelite.client.plugins.statusbars.renderer;
 import java.awt.Color;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.SpriteID;
 import net.runelite.api.VarPlayer;
@@ -39,11 +38,13 @@ import net.runelite.client.plugins.statusbars.StatusBarsOverlay;
 import net.runelite.client.plugins.statusbars.StatusBarsPlugin;
 
 @Singleton
-public class SpecialAttackRenderer extends BarRenderer {
+public class SpecialAttackRenderer extends BarRenderer
+{
 	private final SpriteManager spriteManager;
 
 	@Inject
-	public SpecialAttackRenderer(final StatusBarsPlugin plugin, final SpriteManager spriteManager) {
+	public SpecialAttackRenderer(final StatusBarsPlugin plugin, final SpriteManager spriteManager)
+	{
 		super(plugin);
 		maximumValue = 100;
 		this.spriteManager = spriteManager;
@@ -51,7 +52,8 @@ public class SpecialAttackRenderer extends BarRenderer {
 	}
 
 	@Override
-	protected void update(Client client, StatusBarsOverlay overlay) {
+	protected void update(Client client, StatusBarsOverlay overlay)
+	{
 		icon = spriteManager.getSprite(SpriteID.MINIMAP_ORB_SPECIAL_ICON, 0);
 		currentValue = client.getVar(VarPlayer.SPECIAL_ATTACK_PERCENT) / 10;
 		restore = 0;

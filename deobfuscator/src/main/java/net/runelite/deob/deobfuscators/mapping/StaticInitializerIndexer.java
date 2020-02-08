@@ -26,7 +26,6 @@ package net.runelite.deob.deobfuscators.mapping;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -43,31 +42,39 @@ import org.slf4j.LoggerFactory;
  *
  * @author Adam
  */
-public class StaticInitializerIndexer {
+public class StaticInitializerIndexer
+{
 	private static final Logger logger = LoggerFactory.getLogger(StaticInitializerIndexer.class);
 
 	private final ClassGroup group;
 	private final Set<Field> fields = new HashSet<>();
 
-	public StaticInitializerIndexer(ClassGroup group) {
+	public StaticInitializerIndexer(ClassGroup group)
+	{
 		this.group = group;
 	}
 
-	public void index() {
-		for (ClassFile cf : group.getClasses()) {
+	public void index()
+	{
+		for (ClassFile cf : group.getClasses())
+		{
 			Method method = cf.findMethod("<clinit>");
-			if (method == null) {
+			if (method == null)
+			{
 				continue;
 			}
 
 			Instructions instructions = method.getCode().getInstructions();
-			for (Instruction i : instructions.getInstructions()) {
-				if (i.getType() != InstructionType.PUTSTATIC) {
+			for (Instruction i : instructions.getInstructions())
+			{
+				if (i.getType() != InstructionType.PUTSTATIC)
+				{
 					continue;
 				}
 
 				PutStatic putstatic = (PutStatic) i;
-				if (!putstatic.getField().getClazz().equals(cf.getPoolClass()) || putstatic.getMyField() == null) {
+				if (!putstatic.getField().getClazz().equals(cf.getPoolClass()) || putstatic.getMyField() == null)
+				{
 					continue;
 				}
 
@@ -78,7 +85,8 @@ public class StaticInitializerIndexer {
 		logger.debug("Indexed {} statically initialized fields", fields.size());
 	}
 
-	public boolean isStatic(Field field) {
+	public boolean isStatic(Field field)
+	{
 		return fields.contains(field);
 	}
 }

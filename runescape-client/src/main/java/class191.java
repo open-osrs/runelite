@@ -6,17 +6,17 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class191 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lgx;"
+		signature = "Lgx;"
 	)
 	static final class191 field2370;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lgx;"
+		signature = "Lgx;"
 	)
 	static final class191 field2368;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lgx;"
+		signature = "Lgx;"
 	)
 	static final class191 field2373;
 
@@ -31,8 +31,8 @@ public class class191 {
 
 	@ObfuscatedName("ix")
 	@ObfuscatedSignature(
-			signature = "(Lba;IIII)V",
-			garbageValue = "-390194357"
+		signature = "(Lba;IIII)V",
+		garbageValue = "-390194357"
 	)
 	@Export("addPlayerToMenu")
 	static final void addPlayerToMenu(Player var0, int var1, int var2, int var3) {

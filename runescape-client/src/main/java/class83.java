@@ -1,5 +1,4 @@
 import java.math.BigInteger;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,7 +12,7 @@ public class class83 {
 	static final BigInteger field1150;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = -1334117913
+		intValue = -1334117913
 	)
 	@Export("musicTrackFileId")
 	public static int musicTrackFileId;
@@ -25,8 +24,8 @@ public class class83 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lii;I)V",
-			garbageValue = "590815960"
+		signature = "(Lii;I)V",
+		garbageValue = "590815960"
 	)
 	public static void method2109(AbstractArchive var0) {
 		FloorUnderlayDefinition.FloorUnderlayDefinition_archive = var0;
@@ -34,8 +33,8 @@ public class class83 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(B)[Lgy;",
-			garbageValue = "1"
+		signature = "(B)[Lgy;",
+		garbageValue = "1"
 	)
 	public static class185[] method2107() {
 		return new class185[]{class185.field2327, class185.field2315, class185.field2322, class185.field2317, class185.field2318, class185.field2320, class185.field2319, class185.field2314, class185.field2316, class185.field2323};
@@ -43,8 +42,8 @@ public class class83 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(II)I",
-			garbageValue = "17386837"
+		signature = "(II)I",
+		garbageValue = "17386837"
 	)
 	public static int method2108(int var0) {
 		return var0 >> 11 & 63;
@@ -52,8 +51,8 @@ public class class83 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lia;II)V",
-			garbageValue = "319200175"
+		signature = "(Lia;II)V",
+		garbageValue = "319200175"
 	)
 	static void method2110(Archive var0, int var1) {
 		if (class4.NetCache_reference != null) {
@@ -62,7 +61,7 @@ public class class83 {
 			int var3 = class4.NetCache_reference.readInt();
 			var0.loadIndex(var2, var3);
 		} else {
-			BuddyRankComparator.requestNetFile((Archive) null, 255, 255, 0, (byte) 0, true);
+			BuddyRankComparator.requestNetFile((Archive)null, 255, 255, 0, (byte)0, true);
 			NetCache.NetCache_archives[var1] = var0;
 		}
 	}

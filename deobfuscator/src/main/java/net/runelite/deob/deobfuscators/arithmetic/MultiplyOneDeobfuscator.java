@@ -25,7 +25,6 @@
 package net.runelite.deob.deobfuscators.arithmetic;
 
 import java.util.List;
-
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
@@ -40,32 +39,39 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MultiplyOneDeobfuscator implements Deobfuscator {
+public class MultiplyOneDeobfuscator implements Deobfuscator
+{
 	private static final Logger logger = LoggerFactory.getLogger(MultiplyOneDeobfuscator.class);
 
 	private final boolean onlyConstants;
 	private int count;
 
-	public MultiplyOneDeobfuscator(boolean onlyConstants) {
+	public MultiplyOneDeobfuscator(boolean onlyConstants)
+	{
 		this.onlyConstants = onlyConstants;
 	}
 
-	private void visit(MethodContext mctx) {
-		for (InstructionContext ictx : mctx.getInstructionContexts()) {
+	private void visit(MethodContext mctx)
+	{
+		for (InstructionContext ictx : mctx.getInstructionContexts())
+		{
 			Instruction instruction = ictx.getInstruction();
 
-			if (!(instruction instanceof IMul) && !(instruction instanceof LMul)) {
+			if (!(instruction instanceof IMul) && !(instruction instanceof LMul))
+			{
 				continue;
 			}
 
 			Instructions ins = ictx.getInstruction().getInstructions();
-			if (ins == null) {
+			if (ins == null)
+			{
 				continue;
 			}
 
 			List<Instruction> ilist = ins.getInstructions();
 
-			if (!ilist.contains(ictx.getInstruction())) {
+			if (!ilist.contains(ictx.getInstruction()))
+			{
 				continue; // already done
 			}
 
@@ -75,24 +81,30 @@ public class MultiplyOneDeobfuscator implements Deobfuscator {
 			StackContext other = null;
 			int removeIdx = -1;
 			if (one.getPushed().getInstruction() instanceof PushConstantInstruction
-					&& DMath.equals((Number) ((PushConstantInstruction) one.getPushed().getInstruction()).getConstant(), 1)) {
+				&& DMath.equals((Number) ((PushConstantInstruction) one.getPushed().getInstruction()).getConstant(), 1))
+			{
 				removeIdx = 0;
 				other = two;
-			} else if (two.getPushed().getInstruction() instanceof PushConstantInstruction
-					&& DMath.equals((Number) ((PushConstantInstruction) two.getPushed().getInstruction()).getConstant(), 1)) {
+			}
+			else if (two.getPushed().getInstruction() instanceof PushConstantInstruction
+				&& DMath.equals((Number) ((PushConstantInstruction) two.getPushed().getInstruction()).getConstant(), 1))
+			{
 				removeIdx = 1;
 				other = one;
 			}
 
-			if (removeIdx == -1) {
+			if (removeIdx == -1)
+			{
 				continue;
 			}
 
-			if (onlyConstants && !(other.getPushed().getInstruction() instanceof PushConstantInstruction)) {
+			if (onlyConstants && !(other.getPushed().getInstruction() instanceof PushConstantInstruction))
+			{
 				continue;
 			}
 
-			if (!MultiplicationDeobfuscator.isOnlyPath(ictx, removeIdx == 0 ? one : two)) {
+			if (!MultiplicationDeobfuscator.isOnlyPath(ictx, removeIdx == 0 ? one : two))
+			{
 				continue;
 			}
 
@@ -104,7 +116,8 @@ public class MultiplyOneDeobfuscator implements Deobfuscator {
 	}
 
 	@Override
-	public void run(ClassGroup group) {
+	public void run(ClassGroup group)
+	{
 		Execution e = new Execution(group);
 		e.addMethodContextVisitor(i -> visit(i));
 		e.populateInitialMethods();

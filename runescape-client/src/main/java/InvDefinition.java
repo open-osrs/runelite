@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class InvDefinition extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("InvDefinition_archive")
 	public static AbstractArchive InvDefinition_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Leh;"
+		signature = "Leh;"
 	)
 	@Export("InvDefinition_cached")
 	static EvictingDualNodeHashTable InvDefinition_cached;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -1229670201
+		intValue = -1229670201
 	)
 	@Export("size")
 	public int size;
@@ -36,8 +36,8 @@ public class InvDefinition extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lkp;I)V",
-			garbageValue = "1060242106"
+		signature = "(Lkp;I)V",
+		garbageValue = "1060242106"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -53,8 +53,8 @@ public class InvDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lkp;II)V",
-			garbageValue = "774565733"
+		signature = "(Lkp;II)V",
+		garbageValue = "774565733"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {

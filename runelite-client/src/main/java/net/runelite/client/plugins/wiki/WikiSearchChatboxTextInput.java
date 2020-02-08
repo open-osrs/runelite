@@ -31,7 +31,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
-
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
@@ -39,7 +38,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
@@ -60,7 +58,8 @@ import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 
 @Slf4j
-public class WikiSearchChatboxTextInput extends ChatboxTextInput {
+public class WikiSearchChatboxTextInput extends ChatboxTextInput
+{
 	private static final int LINE_HEIGHT = 20;
 	private static final int CHATBOX_HEIGHT = 120;
 	private static final int MAX_NUM_PREDICTIONS = (CHATBOX_HEIGHT / LINE_HEIGHT) - 2; // 1 title, 1 edit
@@ -77,7 +76,8 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 	private String offPrediction = null;
 
 	@Inject
-	public WikiSearchChatboxTextInput(final ChatboxPanelManager chatboxPanelManager, final ClientThread clientThread, final ScheduledExecutorService scheduledExecutorService, @Named("developerMode") final boolean developerMode) {
+	public WikiSearchChatboxTextInput(final ChatboxPanelManager chatboxPanelManager, final ClientThread clientThread, final ScheduledExecutorService scheduledExecutorService, @Named("developerMode") final boolean developerMode)
+	{
 		super(chatboxPanelManager, clientThread);
 		this.chatboxPanelManager = chatboxPanelManager;
 
@@ -85,7 +85,8 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 		prompt("OSRS Wiki Search");
 		onDone(string ->
 		{
-			if (string != null && string.length() > 0) {
+			if (string != null && string.length() > 0)
+			{
 				search(string);
 			}
 		});
@@ -93,10 +94,12 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 		{
 			selectedPrediction = -1;
 			Future<?> rr = runningRequest;
-			if (rr != null) {
+			if (rr != null)
+			{
 				rr.cancel(false);
 			}
-			if (searchString.length() <= 1) {
+			if (searchString.length() <= 1)
+			{
 				runningRequest = null;
 				clientThread.invokeLater(() ->
 				{
@@ -108,32 +111,36 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 			runningRequest = scheduledExecutorService.schedule(() ->
 			{
 				HttpUrl url = WikiPlugin.WIKI_API.newBuilder()
-						.addQueryParameter("action", "opensearch")
-						.addQueryParameter("search", searchString)
-						.addQueryParameter("redirects", "resolve")
-						.addQueryParameter("format", "json")
-						.addQueryParameter("warningsaserror", Boolean.toString(developerMode))
-						.build();
+					.addQueryParameter("action", "opensearch")
+					.addQueryParameter("search", searchString)
+					.addQueryParameter("redirects", "resolve")
+					.addQueryParameter("format", "json")
+					.addQueryParameter("warningsaserror", Boolean.toString(developerMode))
+					.build();
 
 				Request req = new Request.Builder()
-						.url(url)
-						.build();
+					.url(url)
+					.build();
 
-				RuneLiteAPI.CLIENT.newCall(req).enqueue(new Callback() {
+				RuneLiteAPI.CLIENT.newCall(req).enqueue(new Callback()
+				{
 					@Override
-					public void onFailure(@NotNull Call call, @NotNull IOException e) {
+					public void onFailure(@NotNull Call call, @NotNull IOException e)
+					{
 						log.warn("error searching wiki", e);
 					}
 
 					@Override
-					public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+					public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException
+					{
 						String body = response.body().string();
-						try {
+						try
+						{
 							JsonArray jar = new JsonParser().parse(body).getAsJsonArray();
-							List<String> apredictions = gson.fromJson(jar.get(1), new TypeToken<List<String>>() {
-							}.getType());
+							List<String> apredictions = gson.fromJson(jar.get(1), new TypeToken<List<String>>() {}.getType());
 
-							if (apredictions.size() > MAX_NUM_PREDICTIONS) {
+							if (apredictions.size() > MAX_NUM_PREDICTIONS)
+							{
 								apredictions = apredictions.subList(0, MAX_NUM_PREDICTIONS);
 							}
 
@@ -144,9 +151,13 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 								predictions = bpredictions;
 								update();
 							});
-						} catch (JsonParseException | IllegalStateException | IndexOutOfBoundsException e) {
+						}
+						catch (JsonParseException | IllegalStateException | IndexOutOfBoundsException e)
+						{
 							log.warn("error parsing wiki response {}", body, e);
-						} finally {
+						}
+						finally
+						{
 							response.close();
 						}
 					}
@@ -158,7 +169,8 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 	}
 
 	@Override
-	protected void update() {
+	protected void update()
+	{
 		Widget container = chatboxPanelManager.getContainerWidget();
 		container.deleteAllChildren();
 
@@ -188,7 +200,8 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 		separator.setWidthMode(WidgetSizeMode.MINUS);
 		separator.revalidate();
 
-		for (int i = 0; i < predictions.size(); i++) {
+		for (int i = 0; i < predictions.size(); i++)
+		{
 			String pred = predictions.get(i);
 			int y = 6 + (LINE_HEIGHT * (2 + i));
 
@@ -221,9 +234,12 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 			text.setWidthMode(WidgetSizeMode.MINUS);
 			text.revalidate();
 
-			if (i == selectedPrediction) {
+			if (i == selectedPrediction)
+			{
 				text.setTextColor(0xFFFFFF);
-			} else {
+			}
+			else
+			{
 				bg.setOpacity(255);
 				text.setTextColor(0x000000);
 				bg.setOnMouseRepeatListener((JavaScriptCallback) ev -> text.setTextColor(0xFFFFFF));
@@ -233,15 +249,21 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent ev) {
-		switch (ev.getKeyCode()) {
+	public void keyPressed(KeyEvent ev)
+	{
+		switch (ev.getKeyCode())
+		{
 			case KeyEvent.VK_UP:
 				ev.consume();
-				if (selectedPrediction > -1) {
+				if (selectedPrediction > -1)
+				{
 					selectedPrediction--;
-					if (selectedPrediction == -1) {
+					if (selectedPrediction == -1)
+					{
 						value(offPrediction);
-					} else {
+					}
+					else
+					{
 						value(predictions.get(selectedPrediction));
 					}
 				}
@@ -249,16 +271,19 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 			case KeyEvent.VK_DOWN:
 				ev.consume();
 
-				if (selectedPrediction == -1) {
+				if (selectedPrediction == -1)
+				{
 					offPrediction = getValue();
 				}
 
 				selectedPrediction++;
-				if (selectedPrediction >= predictions.size()) {
+				if (selectedPrediction >= predictions.size())
+				{
 					selectedPrediction = predictions.size() - 1;
 				}
 
-				if (selectedPrediction != -1) {
+				if (selectedPrediction != -1)
+				{
 					value(predictions.get(selectedPrediction));
 				}
 				break;
@@ -267,12 +292,13 @@ public class WikiSearchChatboxTextInput extends ChatboxTextInput {
 		}
 	}
 
-	private void search(String search) {
+	private void search(String search)
+	{
 		LinkBrowser.browse(WikiPlugin.WIKI_BASE.newBuilder()
-				.addQueryParameter("search", search)
-				.addQueryParameter(WikiPlugin.UTM_SOURCE_KEY, WikiPlugin.UTM_SOURCE_VALUE)
-				.build()
-				.toString());
+			.addQueryParameter("search", search)
+			.addQueryParameter(WikiPlugin.UTM_SOURCE_KEY, WikiPlugin.UTM_SOURCE_VALUE)
+			.build()
+			.toString());
 		chatboxPanelManager.close();
 	}
 }

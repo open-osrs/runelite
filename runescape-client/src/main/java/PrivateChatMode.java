@@ -8,22 +8,22 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PrivateChatMode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lkx;"
+		signature = "Lkx;"
 	)
 	static final PrivateChatMode field3788;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lkx;"
+		signature = "Lkx;"
 	)
 	public static final PrivateChatMode field3790;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lkx;"
+		signature = "Lkx;"
 	)
 	static final PrivateChatMode field3789;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 1866307707
+		intValue = 1866307707
 	)
 	public final int field3787;
 
@@ -39,8 +39,8 @@ public class PrivateChatMode {
 
 	@ObfuscatedName("ld")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "-78"
+		signature = "(B)V",
+		garbageValue = "-78"
 	)
 	static void method5952() {
 		if (Client.field728 && class192.localPlayer != null) {

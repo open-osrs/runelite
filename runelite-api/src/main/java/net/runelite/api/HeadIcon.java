@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * An enumeration of prayer icons above the head.
  */
-public enum HeadIcon {
+public enum HeadIcon
+{
 	/**
 	 * Protect from melee.
 	 */

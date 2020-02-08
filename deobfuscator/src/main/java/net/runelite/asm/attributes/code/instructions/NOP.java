@@ -31,21 +31,26 @@ import net.runelite.asm.execution.Frame;
 import net.runelite.asm.execution.InstructionContext;
 import org.objectweb.asm.MethodVisitor;
 
-public class NOP extends Instruction {
-	public NOP(Instructions instructions, InstructionType type) {
+public class NOP extends Instruction
+{
+	public NOP(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
-	public NOP(Instructions instructions) {
+	public NOP(Instructions instructions)
+	{
 		super(instructions, InstructionType.NOP);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		return new InstructionContext(this, frame);
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 	}
 }

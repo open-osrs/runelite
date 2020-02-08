@@ -31,7 +31,8 @@ import lombok.Data;
  * An event where the clients game state has changed.
  */
 @Data
-public class GameStateChanged implements Event {
+public class GameStateChanged implements Event
+{
 	/**
 	 * The new game state.
 	 */

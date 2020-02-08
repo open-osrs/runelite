@@ -59,7 +59,7 @@ tasks {
     }
 
     compileJava {
-        outputs.upToDateWhen { false }
+        outputs.upToDateWhen {false}
 
         finalizedBy("indexMojo")
     }

@@ -26,27 +26,29 @@ package net.runelite.client.game;
 
 import java.awt.image.BufferedImage;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Skill;
 import net.runelite.client.util.ImageUtil;
 
 @Singleton
 @Slf4j
-public class SkillIconManager {
+public class SkillIconManager
+{
 	// * 2 to account for the small version of each icon
 	private final BufferedImage[] imgCache = new BufferedImage[Skill.values().length * 2];
 
-	public BufferedImage getSkillImage(Skill skill, boolean small) {
+	public BufferedImage getSkillImage(Skill skill, boolean small)
+	{
 		int skillIdx = skill.ordinal() + (small ? Skill.values().length : 0);
 		BufferedImage skillImage;
 
-		if (imgCache[skillIdx] != null) {
+		if (imgCache[skillIdx] != null)
+		{
 			return imgCache[skillIdx];
 		}
 
 		String skillIconPath = (small ? "/skill_icons_small/" : "/skill_icons/")
-				+ skill.getName().toLowerCase() + ".png";
+			+ skill.getName().toLowerCase() + ".png";
 		log.debug("Loading skill icon from {}", skillIconPath);
 		skillImage = ImageUtil.getResourceStreamFromClass(getClass(), skillIconPath);
 		imgCache[skillIdx] = skillImage;
@@ -54,7 +56,8 @@ public class SkillIconManager {
 		return skillImage;
 	}
 
-	public BufferedImage getSkillImage(Skill skill) {
+	public BufferedImage getSkillImage(Skill skill)
+	{
 		return getSkillImage(skill, false);
 	}
 

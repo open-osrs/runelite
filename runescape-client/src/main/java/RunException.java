@@ -1,5 +1,4 @@
 import java.applet.Applet;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -16,7 +15,7 @@ public class RunException extends RuntimeException {
 	public static String localPlayerName;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 83275543
+		intValue = 83275543
 	)
 	@Export("clientType")
 	public static int clientType;

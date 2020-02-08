@@ -25,11 +25,9 @@
 package net.runelite.client.plugins.info;
 
 import com.google.inject.Provides;
-
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.ConfigManager;
@@ -43,14 +41,15 @@ import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 
 @PluginDescriptor(
-		name = "Info Panel",
-		description = "Enable the Info panel",
-		tags = {"info", "github", "patreon", "dir", "discord"},
-		loadWhenOutdated = true,
-		type = PluginType.MISCELLANEOUS
+	name = "Info Panel",
+	description = "Enable the Info panel",
+	tags = {"info", "github", "patreon", "dir", "discord"},
+	loadWhenOutdated = true,
+	type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class InfoPlugin extends Plugin {
+public class InfoPlugin extends Plugin
+{
 	@Getter(AccessLevel.PACKAGE)
 	private boolean showLogDir;
 	@Getter(AccessLevel.PACKAGE)
@@ -75,13 +74,16 @@ public class InfoPlugin extends Plugin {
 	private NavigationButton navButton;
 
 	@Provides
-	InfoConfig provideConfig(ConfigManager configManager) {
+	InfoConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(InfoConfig.class);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("info")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("info"))
+		{
 			return;
 		}
 
@@ -89,7 +91,8 @@ public class InfoPlugin extends Plugin {
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		InfoPanel panel = injector.getInstance(InfoPanel.class);
@@ -97,21 +100,23 @@ public class InfoPlugin extends Plugin {
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "info_icon.png");
 
 		navButton = NavigationButton.builder()
-				.tooltip("Info")
-				.icon(icon)
-				.priority(9)
-				.panel(panel)
-				.build();
+			.tooltip("Info")
+			.icon(icon)
+			.priority(9)
+			.panel(panel)
+			.build();
 
 		clientToolbar.addNavigation(navButton);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		clientToolbar.removeNavigation(navButton);
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showGithub = config.showGithub();
 		this.showLauncher = config.showLauncher();
 		this.showLogDir = config.showLogDir();

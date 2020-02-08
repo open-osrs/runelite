@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.FontTypeFace;
@@ -65,13 +64,14 @@ import net.runelite.client.plugins.achievementdiary.diaries.WildernessDiaryRequi
 
 @Slf4j
 @PluginDescriptor(
-		name = "Diary Requirements",
-		description = "Display level requirements in Achievement Diary interface",
-		tags = {"achievements", "tasks"},
-		type = PluginType.UTILITY
+	name = "Diary Requirements",
+	description = "Display level requirements in Achievement Diary interface",
+	tags = {"achievements", "tasks"},
+	type = PluginType.UTILITY
 )
 @Singleton
-public class DiaryRequirementsPlugin extends Plugin {
+public class DiaryRequirementsPlugin extends Plugin
+{
 	private static final String AND_JOINER = ", ";
 	private static final Pattern AND_JOINER_PATTERN = Pattern.compile("(?<=, )");
 
@@ -82,26 +82,31 @@ public class DiaryRequirementsPlugin extends Plugin {
 	private ClientThread clientThread;
 
 	@Subscribe
-	private void onWidgetLoaded(final WidgetLoaded event) {
-		if (event.getGroupId() == WidgetID.DIARY_QUEST_GROUP_ID) {
+	private void onWidgetLoaded(final WidgetLoaded event)
+	{
+		if (event.getGroupId() == WidgetID.DIARY_QUEST_GROUP_ID)
+		{
 			String widgetTitle = Text.removeTags(
-					client.getWidget(
-							WidgetInfo.DIARY_QUEST_WIDGET_TITLE)
-							.getText())
-					.replace(' ', '_')
-					.toUpperCase();
-			if (widgetTitle.startsWith("ACHIEVEMENT_DIARY")) {
+				client.getWidget(
+					WidgetInfo.DIARY_QUEST_WIDGET_TITLE)
+					.getText())
+				.replace(' ', '_')
+				.toUpperCase();
+			if (widgetTitle.startsWith("ACHIEVEMENT_DIARY"))
+			{
 				showDiaryRequirements();
 			}
 		}
 	}
 
-	private void showDiaryRequirements() {
+	private void showDiaryRequirements()
+	{
 		Widget widget = client.getWidget(WidgetInfo.DIARY_QUEST_WIDGET_TEXT);
 		Widget[] children = widget.getStaticChildren();
 
 		Widget titleWidget = children[0];
-		if (titleWidget == null) {
+		if (titleWidget == null)
+		{
 			return;
 		}
 
@@ -114,7 +119,8 @@ public class DiaryRequirementsPlugin extends Plugin {
 		List<String> newRequirements = new ArrayList<>(originalAchievements);
 
 		GenericDiaryRequirement requirements = getRequirementsForTitle(titleWidget.getText());
-		if (requirements == null) {
+		if (requirements == null)
+		{
 			log.debug("Unknown achievement diary {}", titleWidget.getText());
 			return;
 		}
@@ -123,15 +129,20 @@ public class DiaryRequirementsPlugin extends Plugin {
 
 		int offset = 0;
 		String taskBuffer = "";
-		for (int i = 0; i < originalAchievements.size(); i++) {
+		for (int i = 0; i < originalAchievements.size(); i++)
+		{
 			String rowText = Text.removeTags(originalAchievements.get(i));
-			if (skillRequirements.get(taskBuffer + " " + rowText) != null) {
+			if (skillRequirements.get(taskBuffer + " " + rowText) != null)
+			{
 				taskBuffer = taskBuffer + " " + rowText;
-			} else {
+			}
+			else
+			{
 				taskBuffer = rowText;
 			}
 
-			if (skillRequirements.get(taskBuffer) != null) {
+			if (skillRequirements.get(taskBuffer) != null)
+			{
 				String levelRequirement = skillRequirements.get(taskBuffer);
 				String task = originalAchievements.get(i);
 
@@ -139,23 +150,32 @@ public class DiaryRequirementsPlugin extends Plugin {
 				int ourWidth = font.getTextWidth(levelRequirement);
 				String strike = task.startsWith("<str>") ? "<str>" : "";
 
-				if (ourWidth + taskWidth < maxWidth) {
+				if (ourWidth + taskWidth < maxWidth)
+				{
 					// Merge onto 1 line
 					newRequirements.set(i + offset, task + levelRequirement);
-				} else if (ourWidth < maxWidth) {
+				}
+				else if (ourWidth < maxWidth)
+				{
 					// 2 line split
 					newRequirements.add(i + (++offset), strike + levelRequirement);
-				} else {
+				}
+				else
+				{
 					// Full text layout
 					StringBuilder b = new StringBuilder();
 					b.append(task);
 					int runningWidth = font.getTextWidth(b.toString());
-					for (String word : AND_JOINER_PATTERN.split(levelRequirement)) {
+					for (String word : AND_JOINER_PATTERN.split(levelRequirement))
+					{
 						int wordWidth = font.getTextWidth(word);
-						if (runningWidth == 0 || wordWidth + runningWidth < maxWidth) {
+						if (runningWidth == 0 || wordWidth + runningWidth < maxWidth)
+						{
 							runningWidth += wordWidth;
 							b.append(word);
-						} else {
+						}
+						else
+						{
 							newRequirements.add(i + (offset++), b.toString());
 							b.delete(0, b.length());
 							runningWidth = wordWidth;
@@ -169,11 +189,13 @@ public class DiaryRequirementsPlugin extends Plugin {
 		}
 
 		int lastLine = 0;
-		for (int i = 0; i < newRequirements.size() && i < children.length; i++) {
+		for (int i = 0; i < newRequirements.size() && i < children.length; i++)
+		{
 			Widget achievementWidget = children[i];
 			String text = newRequirements.get(i);
 			achievementWidget.setText(text);
-			if (text != null && !text.isEmpty()) {
+			if (text != null && !text.isEmpty())
+			{
 				lastLine = i;
 			}
 		}
@@ -182,21 +204,25 @@ public class DiaryRequirementsPlugin extends Plugin {
 		clientThread.invokeLater(() -> client.runScript(ScriptID.DIARY_QUEST_UPDATE_LINECOUNT, 1, numLines));
 	}
 
-	private List<String> getOriginalAchievements(Widget[] children) {
+	private List<String> getOriginalAchievements(Widget[] children)
+	{
 		List<String> preloadedRequirements = new ArrayList<>(children.length);
-		for (Widget requirementWidget : children) {
+		for (Widget requirementWidget : children)
+		{
 			preloadedRequirements.add(requirementWidget.getText());
 		}
 		return preloadedRequirements;
 	}
 
-	private GenericDiaryRequirement getRequirementsForTitle(String title) {
+	private GenericDiaryRequirement getRequirementsForTitle(String title)
+	{
 		String diaryName = Text.removeTags(title
-				.replaceAll(" ", "_")
-				.toUpperCase());
+			.replaceAll(" ", "_")
+			.toUpperCase());
 
 		GenericDiaryRequirement diaryRequirementContainer;
-		switch (diaryName) {
+		switch (diaryName)
+		{
 			case "ARDOUGNE_AREA_TASKS":
 				diaryRequirementContainer = new ArdougneDiaryRequirement();
 				break;
@@ -240,14 +266,17 @@ public class DiaryRequirementsPlugin extends Plugin {
 	}
 
 	// returns a map of task -> level requirements
-	private Map<String, String> buildRequirements(Collection<DiaryRequirement> requirements) {
+	private Map<String, String> buildRequirements(Collection<DiaryRequirement> requirements)
+	{
 		Map<String, String> reqs = new HashMap<>();
-		for (DiaryRequirement req : requirements) {
+		for (DiaryRequirement req : requirements)
+		{
 			StringBuilder b = new StringBuilder();
 			b.append("<col=ffffff>(");
 
 			assert !req.getRequirements().isEmpty();
-			for (Requirement ireq : req.getRequirements()) {
+			for (Requirement ireq : req.getRequirements())
+			{
 				boolean satifisfied = satisfiesRequirement(ireq);
 				b.append(satifisfied ? "<col=000080><str>" : "<col=800000>");
 				b.append(ireq.toString());
@@ -264,31 +293,39 @@ public class DiaryRequirementsPlugin extends Plugin {
 		return reqs;
 	}
 
-	private boolean satisfiesRequirement(Requirement r) {
-		if (r instanceof OrRequirement) {
+	private boolean satisfiesRequirement(Requirement r)
+	{
+		if (r instanceof OrRequirement)
+		{
 			return ((OrRequirement) r).getRequirements()
-					.stream()
-					.anyMatch(this::satisfiesRequirement);
+				.stream()
+				.anyMatch(this::satisfiesRequirement);
 		}
-		if (r instanceof SkillRequirement) {
+		if (r instanceof SkillRequirement)
+		{
 			SkillRequirement s = (SkillRequirement) r;
 			return client.getRealSkillLevel(s.getSkill()) >= s.getLevel();
 		}
-		if (r instanceof CombatLevelRequirement) {
+		if (r instanceof CombatLevelRequirement)
+		{
 			return client.getLocalPlayer().getCombatLevel() >= ((CombatLevelRequirement) r).getLevel();
 		}
-		if (r instanceof QuestRequirement) {
+		if (r instanceof QuestRequirement)
+		{
 			QuestRequirement q = (QuestRequirement) r;
 			QuestState state = q.getQuest().getState(client);
-			if (q.isStarted()) {
+			if (q.isStarted())
+			{
 				return state != QuestState.NOT_STARTED;
 			}
 			return state == QuestState.FINISHED;
 		}
-		if (r instanceof QuestPointRequirement) {
+		if (r instanceof QuestPointRequirement)
+		{
 			return client.getVar(VarPlayer.QUEST_POINTS) >= ((QuestPointRequirement) r).getQp();
 		}
-		if (r instanceof FavourRequirement) {
+		if (r instanceof FavourRequirement)
+		{
 			FavourRequirement f = (FavourRequirement) r;
 			int realFavour = client.getVar(f.getHouse().getVarbit());
 			return (realFavour / 10) >= f.getPercent();

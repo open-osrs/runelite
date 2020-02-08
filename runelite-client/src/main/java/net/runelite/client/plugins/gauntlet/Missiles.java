@@ -26,7 +26,6 @@ package net.runelite.client.plugins.gauntlet;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Projectile;
@@ -35,21 +34,25 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.SkillIconManager;
 
 @Getter(AccessLevel.PACKAGE)
-class Missiles {
+class Missiles
+{
 	private Projectile projectile;
 	private int id;
 	private BufferedImage image;
 	private Color color;
 
-	Missiles(Projectile projectile, SkillIconManager skillIconManager) {
+	Missiles(Projectile projectile, SkillIconManager skillIconManager)
+	{
 		this.projectile = projectile;
 		this.id = projectile.getId();
 		this.image = assignedImage(skillIconManager, id);
 		this.color = assignedColor(id);
 	}
 
-	private Color assignedColor(int id) {
-		switch (id) {
+	private Color assignedColor(int id)
+	{
+		switch (id)
+		{
 			case ProjectileID.HUNLLEF_MAGE_ATTACK:
 			case ProjectileID.HUNLLEF_CORRUPTED_MAGE_ATTACK:
 				return Color.CYAN;
@@ -64,8 +67,10 @@ class Missiles {
 		}
 	}
 
-	private BufferedImage assignedImage(SkillIconManager SkillIconManager, int id) {
-		switch (id) {
+	private BufferedImage assignedImage(SkillIconManager SkillIconManager, int id)
+	{
+		switch (id)
+		{
 			case ProjectileID.HUNLLEF_MAGE_ATTACK:
 			case ProjectileID.HUNLLEF_CORRUPTED_MAGE_ATTACK:
 				return SkillIconManager.getSkillImage(Skill.MAGIC);

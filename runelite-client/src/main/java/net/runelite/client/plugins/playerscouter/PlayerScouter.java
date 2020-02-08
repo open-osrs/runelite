@@ -24,7 +24,6 @@
 package net.runelite.client.plugins.playerscouter;
 
 import com.google.inject.Provides;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +35,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -66,13 +64,14 @@ import net.runelite.http.api.item.ItemStats;
 import okhttp3.HttpUrl;
 
 @PluginDescriptor(
-		name = "Player Scouter",
-		description = "Scout players and output them to your discord channel!",
-		type = PluginType.PVP,
-		enabledByDefault = false
+	name = "Player Scouter",
+	description = "Scout players and output them to your discord channel!",
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 @Slf4j
-public class PlayerScouter extends Plugin {
+public class PlayerScouter extends Plugin
+{
 	private static final DiscordClient DISCORD_CLIENT = new DiscordClient();
 	private static final SimpleDateFormat SDF = new SimpleDateFormat("MMM dd h:mm a z");
 	private static final String ICON_URL = "https://www.osrsbox.com/osrsbox-db/items-icons/"; // Add item id + ".png"
@@ -99,24 +98,29 @@ public class PlayerScouter extends Plugin {
 	private boolean scoutClan;
 
 	@Provides
-	PlayerScouterConfig provideConfig(ConfigManager configManager) {
+	PlayerScouterConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PlayerScouterConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		blacklist.clear();
 		updateConfig();
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		blacklist.clear();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("playerscouter")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("playerscouter"))
+		{
 			return;
 		}
 
@@ -124,8 +128,10 @@ public class PlayerScouter extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOGGED_IN) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGGED_IN)
+		{
 			return;
 		}
 
@@ -133,40 +139,50 @@ public class PlayerScouter extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
+	private void onGameTick(GameTick event)
+	{
 		resetBlacklist();
 
-		if (!checkWildy() || this.webhook == null) {
+		if (!checkWildy() || this.webhook == null)
+		{
 			return;
 		}
 
 		final List<PlayerContainer> players = new ArrayList<>();
 
-		for (PlayerContainer player : playerManager.getPlayerContainers()) {
-			if (player.isScouted()) {
+		for (PlayerContainer player : playerManager.getPlayerContainers())
+		{
+			if (player.isScouted())
+			{
 				player.setScoutTimer(player.getScoutTimer() - 1);
-				if (player.getScoutTimer() <= 0) {
+				if (player.getScoutTimer() <= 0)
+				{
 					player.setScouted(false);
 					player.setScoutTimer(500);
 				}
 				continue;
 			}
 
-			if (player.getPlayer().getCombatLevel() < this.minimumCombat || player.getPlayer().getCombatLevel() > this.maximumCombat) {
+			if (player.getPlayer().getCombatLevel() < this.minimumCombat || player.getPlayer().getCombatLevel() > this.maximumCombat)
+			{
 				continue;
 			}
 
 			if ((player.getPlayer().getCombatLevel() >= this.minimumCombat &&
-					player.getPlayer().getCombatLevel() <= this.maximumCombat) &&
-					player.getRisk() > this.minimumRisk) {
-				if (player.getSkills() == null) {
-					if (player.isHttpRetry()) {
+				player.getPlayer().getCombatLevel() <= this.maximumCombat) &&
+				player.getRisk() > this.minimumRisk)
+			{
+				if (player.getSkills() == null)
+				{
+					if (player.isHttpRetry())
+					{
 						continue;
 					}
 					playerManager.updateStats(player.getPlayer());
 					continue;
 				}
-				if (config.mini()) {
+				if (config.mini())
+				{
 					players.add(player);
 					continue;
 				}
@@ -174,17 +190,20 @@ public class PlayerScouter extends Plugin {
 			}
 		}
 
-		if (config.mini()) {
+		if (config.mini())
+		{
 			players.sort(Comparator.comparingInt(PlayerContainer::getRisk).reversed());
 			scoutMini(players);
 		}
 	}
 
-	private void addPlayer(PlayerContainer player) {
+	private void addPlayer(PlayerContainer player)
+	{
 		if (player.getPlayer() == client.getLocalPlayer()
-				|| (!blacklist.isEmpty() && blacklist.containsKey(player.getName()))
-				|| (!this.scoutFriends && client.isFriended(player.getName(), false)
-				|| (!this.scoutClan && client.isClanMember(player.getName())))) {
+			|| (!blacklist.isEmpty() && blacklist.containsKey(player.getName()))
+			|| (!this.scoutFriends && client.isFriended(player.getName(), false)
+			|| (!this.scoutClan && client.isClanMember(player.getName()))))
+		{
 			log.debug("Player Rejected: {}", player.getName());
 			return;
 		}
@@ -193,8 +212,10 @@ public class PlayerScouter extends Plugin {
 		scoutPlayer(player);
 	}
 
-	private void resetBlacklist() {
-		if (blacklist.isEmpty()) {
+	private void resetBlacklist()
+	{
+		if (blacklist.isEmpty())
+		{
 			return;
 		}
 
@@ -202,21 +223,25 @@ public class PlayerScouter extends Plugin {
 
 		iter.forEachRemaining(entry ->
 		{
-			if (entry.getValue() == client.getTickCount()) {
+			if (entry.getValue() == client.getTickCount())
+			{
 				iter.remove();
 			}
 		});
 	}
 
-	private boolean checkWildy() {
-		if (!this.onlyWildy) {
+	private boolean checkWildy()
+	{
+		if (!this.onlyWildy)
+		{
 			return true;
 		}
 
 		return client.getVar(Varbits.IN_WILDERNESS) == 1 || WorldType.isPvpWorld(client.getWorldType());
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.webhook = HttpUrl.parse(config.webhook());
 		this.minimumRisk = config.minimumRisk();
 		this.minimumValue = config.minimumValue();
@@ -229,8 +254,10 @@ public class PlayerScouter extends Plugin {
 		this.maximumCombat = config.maximumCombat();
 	}
 
-	private void scoutMini(List<PlayerContainer> players) {
-		if (client.getLocalPlayer() == null) {
+	private void scoutMini(List<PlayerContainer> players)
+	{
+		if (client.getLocalPlayer() == null)
+		{
 			return;
 		}
 
@@ -241,15 +268,18 @@ public class PlayerScouter extends Plugin {
 		int highestValue = 0;
 		int id = 0;
 		int risk = 0;
-		for (int i = 0; i < cap; i++) {
+		for (int i = 0; i < cap; i++)
+		{
 			final PlayerContainer player = players.get(i);
 			final Map.Entry entry = getEntry(player.getGear());
 			risk += player.getRisk();
-			if (entry != null) {
+			if (entry != null)
+			{
 				final int mostValued = (int) entry.getValue();
 				final int mostValuedId = (int) entry.getKey();
 
-				if (mostValued > highestValue) {
+				if (mostValued > highestValue)
+				{
 					highestValue = mostValued;
 					id = mostValuedId;
 				}
@@ -257,15 +287,16 @@ public class PlayerScouter extends Plugin {
 
 			String name = "☠️ " + player.getName() + " ☠️";
 
-			if (player.getPlayer().getSkullIcon() == null) {
+			if (player.getPlayer().getSkullIcon() == null)
+			{
 				name = player.getName();
 			}
 
 			fieldList.add(FieldEmbed.builder()
-					.name(name)
-					.value(QuantityFormatter.quantityToRSDecimalStack(player.getRisk()))
-					.inline(true)
-					.build());
+				.name(name)
+				.value(QuantityFormatter.quantityToRSDecimalStack(player.getRisk()))
+				.inline(true)
+				.build());
 
 			player.setScouted(true);
 		}
@@ -274,15 +305,18 @@ public class PlayerScouter extends Plugin {
 		String icon = ICON_URL + iconId + ".png";
 
 		ThumbnailEmbed image = ThumbnailEmbed.builder()
-				.url(ICON_URL + iconId + ".png")
-				.build();
+			.url(ICON_URL + iconId + ".png")
+			.build();
 
 		String color = "8388352";
 
-		if (risk < 1000000 && risk > 150000) {
+		if (risk < 1000000 && risk > 150000)
+		{
 			//blue
 			color = "32767";
-		} else if (risk > 1000000) {
+		}
+		else if (risk > 1000000)
+		{
 			//orange
 			color = "16744448";
 		}
@@ -290,8 +324,10 @@ public class PlayerScouter extends Plugin {
 		message(location, icon, image, fieldList, color);
 	}
 
-	private void scoutPlayer(PlayerContainer player) {
-		if (player.isScouted()) {
+	private void scoutPlayer(PlayerContainer player)
+	{
+		if (player.isScouted())
+		{
 			return;
 		}
 
@@ -299,68 +335,75 @@ public class PlayerScouter extends Plugin {
 		//green
 		String color = "8388352";
 
-		if (player.getRisk() < 1000000 && player.getRisk() > 150000) {
+		if (player.getRisk() < 1000000 && player.getRisk() > 150000)
+		{
 			//blue
 			color = "32767";
-		} else if (player.getRisk() > 1000000) {
+		}
+		else if (player.getRisk() > 1000000)
+		{
 			//orange
 			color = "16744448";
 		}
 
 		ThumbnailEmbed image = ThumbnailEmbed.builder()
-				.url(ICON_URL + player.getWeapon() + ".png")
-				.build();
+			.url(ICON_URL + player.getWeapon() + ".png")
+			.build();
 
 		fieldList.add(FieldEmbed.builder()
-				.name("Risk")
-				.value(QuantityFormatter.quantityToRSDecimalStack(player.getRisk()))
-				.inline(true)
-				.build());
+			.name("Risk")
+			.value(QuantityFormatter.quantityToRSDecimalStack(player.getRisk()))
+			.inline(true)
+			.build());
 
 		fieldList.add(FieldEmbed.builder()
-				.name("World")
-				.value(Integer.toString(client.getWorld()))
-				.inline(true)
-				.build());
+			.name("World")
+			.value(Integer.toString(client.getWorld()))
+			.inline(true)
+			.build());
 
 		fieldList.add(FieldEmbed.builder()
-				.name("Combat Level")
-				.value(Integer.toString(player.getPlayer().getCombatLevel()))
-				.inline(true)
-				.build());
+			.name("Combat Level")
+			.value(Integer.toString(player.getPlayer().getCombatLevel()))
+			.inline(true)
+			.build());
 
-		if (client.getVar(Varbits.IN_WILDERNESS) == 1) {
+		if (client.getVar(Varbits.IN_WILDERNESS) == 1)
+		{
 			fieldList.add(FieldEmbed.builder()
-					.name("Wildy Level")
-					.value(Integer.toString(player.getWildyLevel()))
-					.inline(true)
-					.build());
+				.name("Wildy Level")
+				.value(Integer.toString(player.getWildyLevel()))
+				.inline(true)
+				.build());
 
 			fieldList.add(FieldEmbed.builder()
-					.name("Location")
-					.value(player.getLocation())
-					.inline(true)
-					.build());
+				.name("Location")
+				.value(player.getLocation())
+				.inline(true)
+				.build());
 		}
 
 		fieldList.add(FieldEmbed.builder()
-				.name("Target")
-				.value(player.getTargetString())
-				.inline(true)
-				.build());
+			.name("Target")
+			.value(player.getTargetString())
+			.inline(true)
+			.build());
 
-		if (this.outputItems) {
+		if (this.outputItems)
+		{
 			fieldList.add(FieldEmbed.builder()
-					.name("Risked Items Sorted by Value")
-					.value("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-					.build());
+				.name("Risked Items Sorted by Value")
+				.value("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+				.build());
 
 			int items = 0;
 
-			for (Map.Entry<Integer, Integer> entry : player.getRiskedGear().entrySet()) {
+			for (Map.Entry<Integer, Integer> entry : player.getRiskedGear().entrySet())
+			{
 				Integer gear = entry.getKey();
 				Integer value = entry.getValue();
-				if (value <= 0 || value <= this.minimumValue) {
+				if (value <= 0 || value <= this.minimumValue)
+				{
 					items++;
 					continue;
 				}
@@ -368,24 +411,26 @@ public class PlayerScouter extends Plugin {
 				ItemStats item = itemManager.getItemStats(gear, false);
 				String name = itemManager.getItemDefinition(gear).getName();
 
-				if (item == null) {
+				if (item == null)
+				{
 					log.error("Item is Null: {}", gear);
 					continue;
 				}
 
 				fieldList.add(FieldEmbed.builder()
-						.name(name)
-						.value("Value: " + QuantityFormatter.quantityToRSDecimalStack(value))
-						.inline(true)
-						.build());
+					.name(name)
+					.value("Value: " + QuantityFormatter.quantityToRSDecimalStack(value))
+					.inline(true)
+					.build());
 			}
 
-			if (items > 0) {
+			if (items > 0)
+			{
 				fieldList.add(FieldEmbed.builder()
-						.name("Items below value: " + this.minimumValue)
-						.value(Integer.toString(items))
-						.inline(true)
-						.build());
+					.name("Items below value: " + this.minimumValue)
+					.value(Integer.toString(items))
+					.inline(true)
+					.build());
 			}
 		}
 
@@ -395,7 +440,8 @@ public class PlayerScouter extends Plugin {
 		String icon = ICON_URL + iconId + ".png";
 		String name = "☠️ " + player.getName() + " ☠️";
 
-		if (player.getPlayer().getSkullIcon() == null) {
+		if (player.getPlayer().getSkullIcon() == null)
+		{
 			name = player.getName();
 		}
 
@@ -403,11 +449,13 @@ public class PlayerScouter extends Plugin {
 		player.setScouted(true);
 	}
 
-	private void message(String name, String iconUrl, ThumbnailEmbed thumbnail, List<FieldEmbed> fields, String color) {
+	private void message(String name, String iconUrl, ThumbnailEmbed thumbnail, List<FieldEmbed> fields, String color)
+	{
 		log.debug("Message Contents: {}, {}, {}, {}, {}", name, " ", thumbnail, Arrays.toString(fields.toArray()), this.webhook);
 		log.debug("Fields: {}", fields);
 
-		if (name.isEmpty() || fields.isEmpty()) {
+		if (name.isEmpty() || fields.isEmpty())
+		{
 			log.debug("Discord message will fail with a missing name/description/field");
 			return;
 		}
@@ -415,18 +463,18 @@ public class PlayerScouter extends Plugin {
 		final Date currentTime = new Date(System.currentTimeMillis());
 
 		DiscordEmbed discordEmbed = new DiscordEmbed(
-				AuthorEmbed.builder()
-						.icon_url(iconUrl)
-						.name(name)
-						.build(),
-				thumbnail,
-				" ",
-				FooterEmbed.builder()
-						.icon_url("https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/net/runelite/client/plugins/hiscore/ultimate_ironman.png")
-						.text("Gabon Scouter | Time: " + SDF.format(currentTime))
-						.build(),
-				color,
-				fields
+			AuthorEmbed.builder()
+				.icon_url(iconUrl)
+				.name(name)
+				.build(),
+			thumbnail,
+			" ",
+			FooterEmbed.builder()
+				.icon_url("https://raw.githubusercontent.com/runelite/runelite/master/runelite-client/src/main/resources/net/runelite/client/plugins/hiscore/ultimate_ironman.png")
+				.text("Gabon Scouter | Time: " + SDF.format(currentTime))
+				.build(),
+			color,
+			fields
 		);
 
 		DiscordMessage discordMessage = discordEmbed.toDiscordMessage("Gabon Scouter", " ", "https://i.imgur.com/2A6dr7q.png");
@@ -434,8 +482,10 @@ public class PlayerScouter extends Plugin {
 		DISCORD_CLIENT.message(this.webhook, discordMessage);
 	}
 
-	private static Map.Entry getEntry(LinkedHashMap<Integer, Integer> map) {
-		if (!map.isEmpty()) {
+	private static Map.Entry getEntry(LinkedHashMap<Integer, Integer> map)
+	{
+		if (!map.isEmpty())
+		{
 			return map.entrySet().iterator().next();
 		}
 		return null;

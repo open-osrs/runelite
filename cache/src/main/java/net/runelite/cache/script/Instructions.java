@@ -28,14 +28,15 @@ package net.runelite.cache.script;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import static net.runelite.cache.script.Opcodes.*;
 
-public class Instructions {
+public class Instructions
+{
 	private final Map<Integer, Instruction> instructions = new HashMap<>();
 	private final Map<String, Instruction> instructionsByName = new HashMap<>();
 
-	public void init() {
+	public void init()
+	{
 		add(ICONST, "iconst");
 		add(GET_VARP, "get_varp");
 		add(SET_VARP, "set_varp");
@@ -529,24 +530,28 @@ public class Instructions {
 		add(WORLDMAP_ELEMENTCOORD, "worldmap_elementcoord");
 	}
 
-	protected void add(int opcode, String name) {
+	protected void add(int opcode, String name)
+	{
 		Instruction i = new Instruction(opcode);
 		i.setName(name);
 
 		assert instructions.containsKey(opcode) == false;
 		instructions.put(opcode, i);
 
-		if (name != null) {
+		if (name != null)
+		{
 			assert instructionsByName.containsKey(name) == false;
 			instructionsByName.put(name, i);
 		}
 	}
 
-	public Instruction find(int opcode) {
+	public Instruction find(int opcode)
+	{
 		return instructions.get(opcode);
 	}
 
-	public Instruction find(String name) {
+	public Instruction find(String name)
+	{
 		return instructionsByName.get(name);
 	}
 }

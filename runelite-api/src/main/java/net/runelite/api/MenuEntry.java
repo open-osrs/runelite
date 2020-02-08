@@ -32,7 +32,8 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class MenuEntry implements Cloneable {
+public class MenuEntry implements Cloneable
+{
 	/**
 	 * The option text added to the menu (ie. "Walk here", "Use").
 	 */
@@ -64,12 +65,13 @@ public class MenuEntry implements Cloneable {
 	/**
 	 * If this field is true and you have single mouse button on and this entry is
 	 * the top entry the right click menu will not be opened when you left click
-	 * <p>
+	 *
 	 * This is used  for shift click
 	 */
 	private boolean forceLeftClick;
 
-	public MenuEntry(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick) {
+	public MenuEntry(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
+	{
 		this.option = option;
 		this.target = target;
 		this.identifier = identifier;
@@ -80,10 +82,14 @@ public class MenuEntry implements Cloneable {
 	}
 
 	@Override
-	public MenuEntry clone() {
-		try {
+	public MenuEntry clone()
+	{
+		try
+		{
 			return (MenuEntry) super.clone();
-		} catch (CloneNotSupportedException ex) {
+		}
+		catch (CloneNotSupportedException ex)
+		{
 			throw new RuntimeException(ex);
 		}
 	}
@@ -91,7 +97,8 @@ public class MenuEntry implements Cloneable {
 	/**
 	 * Get opcode, but as it's enum counterpart
 	 */
-	public MenuOpcode getMenuOpcode() {
+	public MenuOpcode getMenuOpcode()
+	{
 		return MenuOpcode.of(getOpcode());
 	}
 }

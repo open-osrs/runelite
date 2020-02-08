@@ -30,11 +30,8 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
-
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-
 import net.runelite.api.NPC;
 import net.runelite.api.Varbits;
 import net.runelite.api.coords.WorldPoint;
@@ -42,9 +39,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
-
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
@@ -55,14 +50,16 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-class CorpDamageOverlay extends Overlay {
+class CorpDamageOverlay extends Overlay
+{
 	private final Client client;
 	private final CorpPlugin corpPlugin;
 
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	private CorpDamageOverlay(final Client client, final CorpPlugin corpPlugin) {
+	private CorpDamageOverlay(final Client client, final CorpPlugin corpPlugin)
+	{
 		super(corpPlugin);
 		setPosition(OverlayPosition.TOP_LEFT);
 		setLayer(OverlayLayer.UNDER_WIDGETS);
@@ -73,14 +70,17 @@ class CorpDamageOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		Widget damageWidget = client.getWidget(WidgetID.CORP_DAMAGE, 0);
-		if (damageWidget != null) {
+		if (damageWidget != null)
+		{
 			damageWidget.setHidden(true);
 		}
 
 		NPC corp = corpPlugin.getCorp();
-		if (corp == null) {
+		if (corp == null)
+		{
 			return null;
 		}
 
@@ -96,19 +96,24 @@ class CorpDamageOverlay extends Overlay {
 		tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
 		NPC core = corpPlugin.getCore();
-		if (core != null) {
+		if (core != null)
+		{
 			WorldPoint corePoint = core.getWorldLocation();
 			WorldPoint myPoint = client.getLocalPlayer().getWorldLocation();
 
 			String text = null;
 
-			if (core.getInteracting() == client.getLocalPlayer()) {
+			if (core.getInteracting() == client.getLocalPlayer())
+			{
 				text = "The core is targeting you!";
-			} else if (corePoint.distanceTo(myPoint) <= 1) {
+			}
+			else if (corePoint.distanceTo(myPoint) <= 1)
+			{
 				text = "Stay away from the core!";
 			}
 
-			if (text != null) {
+			if (text != null)
+			{
 				final FontMetrics fontMetrics = graphics.getFontMetrics();
 				int textWidth = Math.max(ComponentConstants.STANDARD_WIDTH, fontMetrics.stringWidth(text));
 
@@ -117,7 +122,8 @@ class CorpDamageOverlay extends Overlay {
 			}
 		}
 
-		if (corpPlugin.isShowDamage()) {
+		if (corpPlugin.isShowDamage())
+		{
 			tableComponent.addRow("Your damage", ColorUtil.prependColorTag(Integer.toString(myDamage), damageForKill > 0 && myDamage >= damageForKill ? Color.GREEN : Color.RED));
 			tableComponent.addRow("Total damage:", Integer.toString(totalDamage));
 		}

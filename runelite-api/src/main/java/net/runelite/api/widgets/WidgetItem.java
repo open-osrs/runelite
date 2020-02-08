@@ -25,9 +25,7 @@
 package net.runelite.api.widgets;
 
 import net.runelite.api.Point;
-
 import java.awt.Rectangle;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -38,7 +36,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Getter
-public class WidgetItem {
+public class WidgetItem
+{
 	/**
 	 * The ID of the item represented.
 	 *
@@ -75,7 +74,8 @@ public class WidgetItem {
 	 *
 	 * @return the upper-left coordinate of where this widget is drawn
 	 */
-	public Point getCanvasLocation() {
+	public Point getCanvasLocation()
+	{
 		return new Point((int) canvasBounds.getX(), (int) canvasBounds.getY());
 	}
 

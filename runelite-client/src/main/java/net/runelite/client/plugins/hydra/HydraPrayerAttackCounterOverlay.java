@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.NPC;
@@ -42,7 +41,8 @@ import net.runelite.client.ui.overlay.components.LineComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
 @Singleton
-public class HydraPrayerAttackCounterOverlay extends Overlay {
+public class HydraPrayerAttackCounterOverlay extends Overlay
+{
 	private final HydraPlugin hydraPlugin;
 
 	private final PanelComponent panelComponent;
@@ -51,7 +51,8 @@ public class HydraPrayerAttackCounterOverlay extends Overlay {
 	private Map<Integer, Hydra> hydras;
 
 	@Inject
-	private HydraPrayerAttackCounterOverlay(final HydraPlugin hydraPlugin) {
+	private HydraPrayerAttackCounterOverlay(final HydraPlugin hydraPlugin)
+	{
 		this.hydraPlugin = hydraPlugin;
 		this.panelComponent = new PanelComponent();
 		this.panelComponent.setPreferredSize(new Dimension(14, 0));
@@ -61,16 +62,19 @@ public class HydraPrayerAttackCounterOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(final Graphics2D graphics) {
+	public Dimension render(final Graphics2D graphics)
+	{
 		final NPC npc = hydraPlugin.getInteractingNpc();
 
-		if (npc == null) {
+		if (npc == null)
+		{
 			return null;
 		}
 
 		final Hydra hydra = hydras.get(npc.getIndex());
 
-		if (hydra == null) {
+		if (hydra == null)
+		{
 			return null;
 		}
 

@@ -26,7 +26,6 @@ package net.runelite.api;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -35,7 +34,8 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum ClanMemberRank {
+public enum ClanMemberRank
+{
 	/**
 	 * Not in a clan.
 	 */
@@ -79,8 +79,10 @@ public enum ClanMemberRank {
 
 	private static final Map<Integer, ClanMemberRank> RANKS = new HashMap<>();
 
-	static {
-		for (final ClanMemberRank clanMemberRank : ClanMemberRank.values()) {
+	static
+	{
+		for (final ClanMemberRank clanMemberRank : ClanMemberRank.values())
+		{
 			RANKS.put(clanMemberRank.value, clanMemberRank);
 		}
 	}
@@ -92,7 +94,8 @@ public enum ClanMemberRank {
 	 * @param rank the rank value
 	 * @return rank type
 	 */
-	public static ClanMemberRank valueOf(int rank) {
+	public static ClanMemberRank valueOf(int rank)
+	{
 		return RANKS.get(rank);
 	}
 

@@ -9,38 +9,38 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum AttackOption implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lcd;"
+		signature = "Lcd;"
 	)
 	@Export("AttackOption_dependsOnCombatLevels")
 	AttackOption_dependsOnCombatLevels(0),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lcd;"
+		signature = "Lcd;"
 	)
 	@Export("AttackOption_alwaysRightClick")
 	AttackOption_alwaysRightClick(1),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lcd;"
+		signature = "Lcd;"
 	)
 	@Export("AttackOption_leftClickWhereAvailable")
 	AttackOption_leftClickWhereAvailable(2),
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lcd;"
+		signature = "Lcd;"
 	)
 	@Export("AttackOption_hidden")
 	AttackOption_hidden(3);
 
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = -324037883
+		intValue = -324037883
 	)
 	@Export("musicTrackVolume")
 	public static int musicTrackVolume;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 1398359293
+		intValue = 1398359293
 	)
 	@Export("id")
 	final int id;
@@ -51,8 +51,8 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "1"
+		signature = "(B)I",
+		garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
@@ -61,8 +61,8 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(II)Z",
-			garbageValue = "-458989272"
+		signature = "(II)Z",
+		garbageValue = "-458989272"
 	)
 	public static boolean method2117(int var0) {
 		return (var0 & 1) != 0;
@@ -70,8 +70,8 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lks;IB)V",
-			garbageValue = "100"
+		signature = "(Lks;IB)V",
+		garbageValue = "100"
 	)
 	@Export("updatePlayers")
 	static final void updatePlayers(PacketBuffer var0, int var1) {
@@ -86,8 +86,8 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)Ljava/lang/String;",
-			garbageValue = "546448401"
+		signature = "(I)Ljava/lang/String;",
+		garbageValue = "546448401"
 	)
 	static String method2115() {
 		return WorldMapSection2.clientPreferences.hideUsername ? WorldMapSection2.method321(Login.Login_username) : Login.Login_username;
@@ -95,8 +95,8 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(IIIIIZI)Llt;",
-			garbageValue = "603666538"
+		signature = "(IIIIIZI)Llt;",
+		garbageValue = "603666538"
 	)
 	@Export("getItemSprite")
 	public static final Sprite getItemSprite(int var0, int var1, int var2, int var3, int var4, boolean var5) {
@@ -106,10 +106,10 @@ public enum AttackOption implements Enumerated {
 			var4 = 1;
 		}
 
-		long var6 = ((long) var4 << 40) + ((long) var1 << 16) + (long) var0 + ((long) var2 << 38) + ((long) var3 << 42);
+		long var6 = ((long)var4 << 40) + ((long)var1 << 16) + (long)var0 + ((long)var2 << 38) + ((long)var3 << 42);
 		Sprite var8;
 		if (!var5) {
-			var8 = (Sprite) ItemDefinition.ItemDefinition_cachedSprites.get(var6);
+			var8 = (Sprite)ItemDefinition.ItemDefinition_cachedSprites.get(var6);
 			if (var8 != null) {
 				return var8;
 			}
@@ -169,9 +169,9 @@ public enum AttackOption implements Enumerated {
 
 			int var16 = var9.zoom2d;
 			if (var5) {
-				var16 = (int) (1.5D * (double) var16);
+				var16 = (int)(1.5D * (double)var16);
 			} else if (var2 == 2) {
-				var16 = (int) (1.04D * (double) var16);
+				var16 = (int)(1.04D * (double)var16);
 			}
 
 			int var17 = var16 * Rasterizer3D.Rasterizer3D_sine[var9.xan2d] >> 16;

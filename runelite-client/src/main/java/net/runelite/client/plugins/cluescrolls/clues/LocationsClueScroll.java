@@ -26,7 +26,8 @@ package net.runelite.client.plugins.cluescrolls.clues;
 
 import net.runelite.api.coords.WorldPoint;
 
-public interface LocationsClueScroll {
+public interface LocationsClueScroll
+{
 	void reset();
 
 	WorldPoint[] getLocations();

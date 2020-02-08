@@ -25,7 +25,6 @@
 package net.runelite.cache.script.assembler;
 
 import java.io.InputStream;
-
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.script.Instructions;
 import net.runelite.cache.script.disassembler.Disassembler;
@@ -40,24 +39,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RunWith(Parameterized.class)
-public class AssemblerTest {
+public class AssemblerTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(AssemblerTest.class);
 
 	@Parameter
 	public String script;
 
 	@Parameters
-	public static String[] scripts() {
+	public static String[] scripts()
+	{
 		return new String[]
-				{
-						"91.rs2asm",
-						"681.rs2asm",
-						"Unicode.rs2asm"
-				};
+		{
+			"91.rs2asm",
+			"681.rs2asm",
+			"Unicode.rs2asm"
+		};
 	}
 
 	@Test
-	public void testAssemble() throws Exception {
+	public void testAssemble() throws Exception
+	{
 		InputStream in = AssemblerTest.class.getResourceAsStream(script);
 		Assert.assertNotNull(in);
 

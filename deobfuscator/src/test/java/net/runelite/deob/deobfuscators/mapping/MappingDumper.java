@@ -27,7 +27,6 @@ package net.runelite.deob.deobfuscators.mapping;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -46,7 +45,8 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class MappingDumper {
+public class MappingDumper
+{
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
 
@@ -55,18 +55,21 @@ public class MappingDumper {
 	private final File OUTFILE = new File(OUTDIR, "rlplushooks.json");
 
 	@Before
-	public void before() throws IOException {
+	public void before() throws IOException
+	{
 		group = JarUtil.loadJar(new File(properties.getRsClient()));
 	}
 
 	@Test
 	@Ignore
-	public void newDump() {
+	public void newDump()
+	{
 		new net.runelite.deob.updater.MappingDumper(group).dump(OUTFILE);
 	}
 
 	@Test
-	public void dump() throws IOException {
+	public void dump() throws IOException
+	{
 		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));
 
 		final String GAP = "%-40s";
@@ -76,19 +79,23 @@ public class MappingDumper {
 		StringBuilder sBuilder = new StringBuilder();
 		StringBuilder tmp;
 
-		for (ClassFile cf : group.getClasses()) {
+		for (ClassFile cf : group.getClasses())
+		{
 			String implName = DeobAnnotations.getImplements(cf);
 			String className = DeobAnnotations.getObfuscatedName(cf.getAnnotations());
 
-			if (implName != null) {
+			if (implName != null)
+			{
 				mBuilder.append("\n").append(implName).append(" -> ").append(className).append("\n");
 				++classes;
 			}
 
-			for (Field f : cf.getFields()) {
+			for (Field f : cf.getFields())
+			{
 				String exportName = DeobAnnotations.getExportedName(f.getAnnotations());
 
-				if (exportName == null) {
+				if (exportName == null)
+				{
 					continue;
 				}
 
@@ -100,26 +107,36 @@ public class MappingDumper {
 
 				String fieldType = typeToString(type);
 
-				if (f.isStatic()) {
+				if (f.isStatic())
+				{
 					tmp = sBuilder;
-				} else {
+				}
+
+				else
+				{
 					tmp = mBuilder;
 				}
 
 				tmp.append("\t").append(String.format(GAP, fieldType)).append(String.format(GAP, exportName))
 						.append(className).append(".").append(fieldName);
 
-				if (getter != null) {
+				if (getter != null)
+				{
 					tmp.append(" * ").append(getter).append("\n");
-				} else {
+				}
+
+				else
+				{
 					tmp.append("\n");
 				}
 			}
 
-			for (Method m : cf.getMethods()) {
+			for (Method m : cf.getMethods())
+			{
 				String exportName = DeobAnnotations.getExportedName(m.getAnnotations());
 
-				if (exportName == null) {
+				if (exportName == null)
+				{
 					continue;
 				}
 
@@ -129,19 +146,25 @@ public class MappingDumper {
 				Signature signature = DeobAnnotations.getObfuscatedSignature(m);
 				String garbageValue = DeobAnnotations.getDecoder(m);
 
-				if (signature == null) {
+				if (signature == null)
+				{
 					signature = m.getDescriptor();
 				}
 
 				String returnType = typeToString(m.getDescriptor().getReturnValue());
 				String[] paramTypes = new String[signature.size()];
-				for (int i = 0; i < paramTypes.length; i++) {
+				for (int i = 0; i < paramTypes.length; i++)
+				{
 					paramTypes[i] = typeToString(signature.getTypeOfArg(i));
 				}
 
-				if (m.isStatic()) {
+				if (m.isStatic())
+				{
 					tmp = sBuilder;
-				} else {
+				}
+
+				else
+				{
 					tmp = mBuilder;
 				}
 
@@ -149,14 +172,20 @@ public class MappingDumper {
 						.append(className).append(".").append(methodName);
 
 				tmp.append("(");
-				for (int i = 0; i < paramTypes.length; i++) {
+				for (int i = 0; i < paramTypes.length; i++)
+				{
 					tmp.append(paramTypes[i]);
 
-					if (i == paramTypes.length - 1) {
-						if (garbageValue != null) {
+					if (i == paramTypes.length - 1)
+					{
+						if (garbageValue != null)
+						{
 							tmp.append(" = ").append(garbageValue);
 						}
-					} else {
+					}
+
+					else
+					{
 						tmp.append(", ");
 					}
 				}
@@ -174,7 +203,8 @@ public class MappingDumper {
 	}
 
 	@Test
-	public void dumpJson() throws IOException {
+	public void dumpJson() throws IOException
+	{
 		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -182,14 +212,17 @@ public class MappingDumper {
 		JsonArray jFields = new JsonArray();
 		JsonArray jMethods = new JsonArray();
 
-		for (ClassFile cf : group.getClasses()) {
+		for (ClassFile cf : group.getClasses())
+		{
 			String implName = DeobAnnotations.getImplements(cf);
 			String className = DeobAnnotations.getObfuscatedName(cf.getAnnotations());
 
-			for (Field f : cf.getFields()) {
+			for (Field f : cf.getFields())
+			{
 				String exportName = DeobAnnotations.getExportedName(f.getAnnotations());
 
-				if (exportName == null) {
+				if (exportName == null)
+				{
 					continue;
 				}
 
@@ -211,11 +244,13 @@ public class MappingDumper {
 				jFields.add(jField);
 			}
 
-			for (Method m : cf.getMethods()) {
+			for (Method m : cf.getMethods())
+			{
 
 				String exportName = DeobAnnotations.getExportedName(m.getAnnotations());
 
-				if (exportName == null) {
+				if (exportName == null)
+				{
 					continue;
 				}
 
@@ -248,9 +283,11 @@ public class MappingDumper {
 		System.out.println(gson.toJson(jObject));
 	}
 
-	private static String typeToString(Type type) {
+	private static String typeToString(Type type)
+	{
 		String subType;
-		switch (type.toString()) {
+		switch (type.toString())
+		{
 			case "B":
 				subType = byte.class.getCanonicalName();
 				break;
@@ -283,8 +320,10 @@ public class MappingDumper {
 				break;
 		}
 
-		if (type.isArray()) {
-			for (int i = 0; i < type.getDimensions(); ++i) {
+		if (type.isArray())
+		{
+			for (int i = 0; i < type.getDimensions(); ++i)
+			{
 				subType += "[]";
 			}
 		}

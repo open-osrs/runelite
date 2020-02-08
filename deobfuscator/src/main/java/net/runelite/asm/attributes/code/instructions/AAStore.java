@@ -32,24 +32,27 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 
-public class AAStore extends ArrayStore {
-	public AAStore(Instructions instructions, InstructionType type) {
+public class AAStore extends ArrayStore
+{
+	public AAStore(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-
+		
 		StackContext value = stack.pop();
 		StackContext index = stack.pop();
 		StackContext array = stack.pop();
-
+		
 		ins.pop(value, index, array);
-
+		
 		array.getValue().arraySet(index.getValue(), value.getValue());
-
+		
 		return ins;
 	}
 

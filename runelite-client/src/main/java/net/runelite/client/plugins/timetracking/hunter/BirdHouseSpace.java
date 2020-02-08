@@ -31,7 +31,8 @@ import net.runelite.api.VarPlayer;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum BirdHouseSpace {
+enum BirdHouseSpace
+{
 	MEADOW_NORTH("Mushroom Meadow (North)", VarPlayer.BIRD_HOUSE_MEADOW_NORTH),
 	MEADOW_SOUTH("Mushroom Meadow (South)", VarPlayer.BIRD_HOUSE_MEADOW_SOUTH),
 	VALLEY_NORTH("Verdant Valley (Northeast)", VarPlayer.BIRD_HOUSE_VALLEY_NORTH),

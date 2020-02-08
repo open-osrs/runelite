@@ -1,6 +1,7 @@
 package net.runelite.client.plugins.theatre;
 
-public class TheatreConstant {
+public class TheatreConstant
+{
 	public static final int MAIDEN_BLOOD_THROW = 1579;
 
 	public static final int NPC_ID_NYLOCAS_PILLAR = 8358;

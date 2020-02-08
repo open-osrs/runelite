@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
@@ -49,7 +48,8 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IllegalStateExceptions implements Deobfuscator {
+public class IllegalStateExceptions implements Deobfuscator
+{
 	private static final Logger logger = LoggerFactory.getLogger(IllegalStateExceptions.class);
 
 	private int count;
@@ -57,26 +57,30 @@ public class IllegalStateExceptions implements Deobfuscator {
 	private List<InstructionContext> toRemove = new ArrayList<>();
 
 	/* find if, new, ..., athrow, replace with goto */
-	private void findInteresting(ClassGroup group) {
-		for (ClassFile cf : group.getClasses()) {
-			for (Method m : cf.getMethods()) {
+	private void findInteresting(ClassGroup group)
+	{
+		for (ClassFile cf : group.getClasses())
+		{
+			for (Method m : cf.getMethods())
+			{
 				Code c = m.getCode();
 				if (c == null)
 					continue;
-
+				
 				Instructions instructions = c.getInstructions();
-
+				
 				List<Instruction> ilist = instructions.getInstructions();
-				for (int i = 0; i < ilist.size(); ++i) {
+				for (int i = 0; i < ilist.size(); ++i)
+				{
 					Instruction ins = ilist.get(i);
-
+					
 					if (!(ins instanceof ComparisonInstruction)) // the if
 						continue;
-
+					
 					Instruction ins2 = ilist.get(i + 1);
 					if (!(ins2 instanceof New))
 						continue;
-
+					
 					New new2 = (New) ins2;
 					net.runelite.asm.pool.Class clazz = new2.getNewClass();
 					if (!clazz.getName().contains("java/lang/IllegalStateException"))
@@ -88,25 +92,29 @@ public class IllegalStateExceptions implements Deobfuscator {
 		}
 	}
 
-	private void visit(InstructionContext ic) {
-		if (interesting.contains(ic.getInstruction())) {
+	private void visit(InstructionContext ic)
+	{
+		if (interesting.contains(ic.getInstruction()))
+		{
 			toRemove.add(ic);
 		}
 	}
 
-	private void visit(MethodContext ctx) {
+	private void visit(MethodContext ctx)
+	{
 		for (InstructionContext ictx : toRemove)
 			processOne(ictx);
 		toRemove.clear();
 	}
 
-	private void processOne(InstructionContext ic) {
+	private void processOne(InstructionContext ic)
+	{
 		Instruction ins = ic.getInstruction();
 		Instructions instructions = ins.getInstructions();
 
 		if (instructions == null)
 			return;
-
+		
 		List<Instruction> ilist = instructions.getInstructions();
 
 		JumpingInstruction jumpIns = (JumpingInstruction) ins;
@@ -114,7 +122,8 @@ public class IllegalStateExceptions implements Deobfuscator {
 		Instruction to = jumpIns.getJumps().get(0);
 
 		// remove stack of if.
-		if (ins instanceof If) {
+		if (ins instanceof If)
+		{
 			ic.removeStack(1);
 		}
 		ic.removeStack(0);
@@ -123,7 +132,8 @@ public class IllegalStateExceptions implements Deobfuscator {
 		assert i != -1;
 
 		// remove up to athrow
-		while (!(ins instanceof AThrow)) {
+		while (!(ins instanceof AThrow))
+		{
 			instructions.remove(ins);
 			ins = ilist.get(i); // don't need to ++i because
 		}
@@ -138,17 +148,18 @@ public class IllegalStateExceptions implements Deobfuscator {
 
 		++count;
 	}
-
+	
 	@Override
-	public void run(ClassGroup group) {
+	public void run(ClassGroup group)
+	{	
 		findInteresting(group);
-
+		
 		Execution execution = new Execution(group);
 		execution.addExecutionVisitor(i -> visit(i));
 		execution.addMethodContextVisitor(i -> visit(i));
 		execution.populateInitialMethods();
 		execution.run();
-
+		
 		logger.info("Removed " + count + " illegal state exceptions");
 	}
 }

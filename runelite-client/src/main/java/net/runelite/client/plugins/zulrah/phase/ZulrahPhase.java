@@ -26,12 +26,12 @@
 package net.runelite.client.plugins.zulrah.phase;
 
 import java.awt.Color;
-
 import net.runelite.api.NPC;
 import net.runelite.api.Prayer;
 import net.runelite.api.coords.LocalPoint;
 
-public class ZulrahPhase {
+public class ZulrahPhase
+{
 	private static final Color RANGE_COLOR = new Color(150, 255, 0, 100);
 	private static final Color MAGIC_COLOR = new Color(20, 170, 200, 100);
 	private static final Color MELEE_COLOR = new Color(180, 50, 20, 100);
@@ -43,7 +43,8 @@ public class ZulrahPhase {
 	private final StandLocation standLocation;
 	private final Prayer prayer;
 
-	public ZulrahPhase(ZulrahLocation zulrahLocation, ZulrahType type, boolean jad, StandLocation standLocation, Prayer prayer) {
+	public ZulrahPhase(ZulrahLocation zulrahLocation, ZulrahType type, boolean jad, StandLocation standLocation, Prayer prayer)
+	{
 		this.zulrahLocation = zulrahLocation;
 		this.type = type;
 		this.jad = jad;
@@ -51,10 +52,12 @@ public class ZulrahPhase {
 		this.prayer = prayer;
 	}
 
-	public static ZulrahPhase valueOf(NPC zulrah, LocalPoint start) {
+	public static ZulrahPhase valueOf(NPC zulrah, LocalPoint start)
+	{
 		ZulrahLocation zulrahLocation = ZulrahLocation.valueOf(start, zulrah.getLocalLocation());
 		ZulrahType zulrahType = ZulrahType.valueOf(zulrah.getId());
-		if (zulrahLocation == null || zulrahType == null) {
+		if (zulrahLocation == null || zulrahType == null)
+		{
 			return null;
 		}
 		StandLocation standLocation = zulrahType == ZulrahType.MAGIC ? StandLocation.PILLAR_WEST_OUTSIDE : StandLocation.TOP_EAST;
@@ -63,20 +66,23 @@ public class ZulrahPhase {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "ZulrahPhase{" +
-				"zulrahLocation=" + zulrahLocation +
-				", type=" + type +
-				", jad=" + jad +
-				", standLocation=" + standLocation +
-				", prayer=" + prayer +
-				'}';
+			"zulrahLocation=" + zulrahLocation +
+			", type=" + type +
+			", jad=" + jad +
+			", standLocation=" + standLocation +
+			", prayer=" + prayer +
+			'}';
 	}
 
 	// world location
-	public LocalPoint getZulrahTile(LocalPoint startTile) {
+	public LocalPoint getZulrahTile(LocalPoint startTile)
+	{
 		// NORTH doesn't need changing because it is the start
-		switch (zulrahLocation) {
+		switch (zulrahLocation)
+		{
 			case SOUTH:
 				return new LocalPoint(startTile.getX(), startTile.getY() - (11 * 128));
 			case EAST:
@@ -88,8 +94,10 @@ public class ZulrahPhase {
 	}
 
 	// world location
-	public LocalPoint getStandTile(LocalPoint startTile) {
-		switch (standLocation) {
+	public LocalPoint getStandTile(LocalPoint startTile)
+	{
+		switch (standLocation)
+		{
 			case WEST:
 				return new LocalPoint(startTile.getX() - (5 * 128), startTile.getY());
 			case EAST:
@@ -116,39 +124,51 @@ public class ZulrahPhase {
 		return startTile;
 	}
 
-	public ZulrahType getType() {
+	public ZulrahType getType()
+	{
 		return type;
 	}
 
-	public boolean isJad() {
+	public boolean isJad()
+	{
 		return jad;
 	}
 
-	public StandLocation getStandLocation() {
+	public StandLocation getStandLocation()
+	{
 		return standLocation;
 	}
 
-	public Prayer getPrayer() {
+	public Prayer getPrayer()
+	{
 		return prayer;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
 			return true;
 		}
-		if (obj == null || getClass() != obj.getClass()) {
+		if (obj == null || getClass() != obj.getClass())
+		{
 			return false;
 		}
 		ZulrahPhase other = (ZulrahPhase) obj;
 		return this.jad == other.jad && this.zulrahLocation == other.zulrahLocation && this.type == other.type;
 	}
 
-	public Color getColor() {
-		if (jad) {
+	public Color getColor()
+	{
+		if (jad)
+		{
 			return JAD_COLOR;
-		} else {
-			switch (type) {
+		}
+		else
+		{
+			switch (type)
+			{
 				case RANGE:
 					return RANGE_COLOR;
 				case MAGIC:

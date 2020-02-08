@@ -27,15 +27,18 @@ package net.runelite.client.plugins.itemstats;
 import net.runelite.api.Client;
 import net.runelite.client.plugins.itemstats.delta.DeltaCalculator;
 
-public class Food extends FoodBase {
+public class Food extends FoodBase
+{
 	private final DeltaCalculator p;
 
-	public Food(DeltaCalculator p) {
+	public Food(DeltaCalculator p)
+	{
 		this.p = p;
 	}
 
 	@Override
-	public int heals(Client client) {
+	public int heals(Client client)
+	{
 		return p.calculateDelta(getStat().getMaximum(client));
 	}
 

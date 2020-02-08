@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Ignored extends User {
 	@ObfuscatedName("gg")
 	@ObfuscatedSignature(
-			signature = "[Llt;"
+		signature = "[Llt;"
 	)
 	@Export("headIconPkSprites")
 	static Sprite[] headIconPkSprites;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -1391988611
+		intValue = -1391988611
 	)
 	@Export("id")
 	int id;
@@ -25,8 +25,8 @@ public class Ignored extends User {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljp;I)I",
-			garbageValue = "-2090061914"
+		signature = "(Ljp;I)I",
+		garbageValue = "-2090061914"
 	)
 	@Export("compareTo_ignored")
 	int compareTo_ignored(Ignored var1) {
@@ -35,22 +35,22 @@ public class Ignored extends User {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-			signature = "(Ljk;I)I",
-			garbageValue = "-746331144"
+		signature = "(Ljk;I)I",
+		garbageValue = "-746331144"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.compareTo_ignored((Ignored) var1);
+		return this.compareTo_ignored((Ignored)var1);
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_ignored((Ignored) var1);
+		return this.compareTo_ignored((Ignored)var1);
 	}
 
 	@ObfuscatedName("ho")
 	@ObfuscatedSignature(
-			signature = "(IIB)V",
-			garbageValue = "5"
+		signature = "(IIB)V",
+		garbageValue = "5"
 	)
 	static final void method5213(int var0, int var1) {
 		if (Client.menuOptionsCount >= 2 || Client.isItemSelected != 0 || Client.isSpellSelected) {

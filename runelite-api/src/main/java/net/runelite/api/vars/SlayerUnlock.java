@@ -31,7 +31,8 @@ import net.runelite.api.Varbits;
 /**
  * Unlockables in the slayer interface
  */
-public enum SlayerUnlock {
+public enum SlayerUnlock
+{
 	// Copied from enum 834 in the cache
 	// enum 854 contains if you can disable the unlock
 	GARGOYLE_SMASHER(0),
@@ -82,11 +83,13 @@ public enum SlayerUnlock {
 
 	private Varbits toggleVarbit;
 
-	SlayerUnlock(int index) {
+	SlayerUnlock(int index)
+	{
 		this(index, null);
 	}
 
-	SlayerUnlock(int index, Varbits toggleVarbit) {
+	SlayerUnlock(int index, Varbits toggleVarbit)
+	{
 		assert index == ordinal();
 		this.toggleVarbit = toggleVarbit;
 	}
@@ -94,7 +97,8 @@ public enum SlayerUnlock {
 	/**
 	 * @return true if this unlock is bought
 	 */
-	public boolean isOwned(Client client) {
+	public boolean isOwned(Client client)
+	{
 		VarPlayer varp = ordinal() > 32 ? VarPlayer.SLAYER_UNLOCK_2 : VarPlayer.SLAYER_UNLOCK_1;
 		return (client.getVar(varp) & (1 << (ordinal() % 32))) != 0;
 	}
@@ -102,9 +106,12 @@ public enum SlayerUnlock {
 	/**
 	 * @return true if this unlock is bought and enabled
 	 */
-	public boolean isEnabled(Client client) {
-		if (isOwned(client)) {
-			if (toggleVarbit == null) {
+	public boolean isEnabled(Client client)
+	{
+		if (isOwned(client))
+		{
+			if (toggleVarbit == null)
+			{
 				return true;
 			}
 			return client.getVar(toggleVarbit) == 0;

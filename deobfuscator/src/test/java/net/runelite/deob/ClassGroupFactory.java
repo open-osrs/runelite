@@ -34,8 +34,10 @@ import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.instructions.VReturn;
 import net.runelite.asm.signature.Signature;
 
-public class ClassGroupFactory {
-	private static void addVoidMethod(ClassFile cf, String name) {
+public class ClassGroupFactory
+{
+	private static void addVoidMethod(ClassFile cf, String name)
+	{
 		Method method = new Method(cf, name, new Signature("()V"));
 		method.setStatic(true);
 		cf.addMethod(method);
@@ -47,7 +49,8 @@ public class ClassGroupFactory {
 		ins.addInstruction(new VReturn(ins));
 	}
 
-	public static ClassGroup generateGroup() {
+	public static ClassGroup generateGroup()
+	{
 		ClassGroup group = new ClassGroup();
 
 		ClassFile cf = new ClassFile(group);

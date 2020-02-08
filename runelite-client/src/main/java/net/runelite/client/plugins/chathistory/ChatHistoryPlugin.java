@@ -26,7 +26,6 @@ package net.runelite.client.plugins.chathistory;
 
 import com.google.common.collect.EvictingQueue;
 import com.google.inject.Provides;
-
 import java.awt.event.KeyEvent;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -34,7 +33,6 @@ import java.util.Iterator;
 import java.util.Queue;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
@@ -58,13 +56,14 @@ import net.runelite.client.plugins.PluginType;
 import org.apache.commons.lang3.StringUtils;
 
 @PluginDescriptor(
-		name = "Chat History",
-		description = "Retain your chat history when logging in/out or world hopping",
-		tags = {"chat", "history", "retain", "cycle", "pm"},
-		type = PluginType.MISCELLANEOUS
+	name = "Chat History",
+	description = "Retain your chat history when logging in/out or world hopping",
+	tags = {"chat", "history", "retain", "cycle", "pm"},
+	type = PluginType.MISCELLANEOUS
 )
 @Singleton
-public class ChatHistoryPlugin extends Plugin implements KeyListener {
+public class ChatHistoryPlugin extends Plugin implements KeyListener
+{
 	private static final String WELCOME_MESSAGE = "Welcome to Old School RuneScape";
 	private static final String CLEAR_HISTORY = "Clear history";
 	private static final String CLEAR_PRIVATE = "<col=ffff00>Private:";
@@ -99,8 +98,10 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener {
 	 * @param message message
 	 * @return message with invisible character before every space
 	 */
-	private static String tweakSpaces(final String message) {
-		if (message != null) {
+	private static String tweakSpaces(final String message)
+	{
+		if (message != null)
+		{
 			// First replacement cleans up prior applications of this so as not to keep extending the message
 			return message.replace("— ", " ").replace(" ", "— ");
 		}
@@ -109,12 +110,14 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener {
 	}
 
 	@Provides
-	ChatHistoryConfig getConfig(ConfigManager configManager) {
+	ChatHistoryConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(ChatHistoryConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		messageQueue = EvictingQueue.create(100);
@@ -123,7 +126,8 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		messageQueue.clear();
 		messageQueue = null;
 		friends.clear();
@@ -132,33 +136,39 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage chatMessage) {
+	private void onChatMessage(ChatMessage chatMessage)
+	{
 		// Start sending old messages right after the welcome message, as that is most reliable source
 		// of information that chat history was reset
 		ChatMessageType chatMessageType = chatMessage.getType();
-		if (chatMessageType == ChatMessageType.WELCOME && StringUtils.startsWithIgnoreCase(chatMessage.getMessage(), WELCOME_MESSAGE)) {
-			if (!this.retainChatHistory) {
+		if (chatMessageType == ChatMessageType.WELCOME && StringUtils.startsWithIgnoreCase(chatMessage.getMessage(), WELCOME_MESSAGE))
+		{
+			if (!this.retainChatHistory)
+			{
 				return;
 			}
 
 			QueuedMessage queuedMessage;
 
-			while ((queuedMessage = messageQueue.poll()) != null) {
+			while ((queuedMessage = messageQueue.poll()) != null)
+			{
 				chatMessageManager.queue(queuedMessage);
 			}
 
 			return;
 		}
 
-		switch (chatMessageType) {
+		switch (chatMessageType)
+		{
 			case PRIVATECHATOUT:
 			case PRIVATECHAT:
 			case MODPRIVATECHAT:
 				final String name = Text.removeTags(chatMessage.getName());
 				// Remove to ensure uniqueness & its place in history
 				if (!friends.remove(name) &&
-						// If the friend didn't previously exist ensure deque capacity doesn't increase by adding them
-						friends.size() >= FRIENDS_MAX_SIZE) {
+					// If the friend didn't previously exist ensure deque capacity doesn't increase by adding them
+					friends.size() >= FRIENDS_MAX_SIZE)
+				{
 					friends.remove();
 				}
 				friends.add(name);
@@ -168,53 +178,64 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener {
 			case FRIENDSCHAT:
 			case CONSOLE:
 				final QueuedMessage queuedMessage = QueuedMessage.builder()
-						.type(chatMessageType)
-						.name(chatMessage.getName())
-						.sender(chatMessage.getSender())
-						.value(tweakSpaces(chatMessage.getMessage()))
-						.runeLiteFormattedMessage(tweakSpaces(chatMessage.getMessageNode().getRuneLiteFormatMessage()))
-						.timestamp(chatMessage.getTimestamp())
-						.build();
+					.type(chatMessageType)
+					.name(chatMessage.getName())
+					.sender(chatMessage.getSender())
+					.value(tweakSpaces(chatMessage.getMessage()))
+					.runeLiteFormattedMessage(tweakSpaces(chatMessage.getMessageNode().getRuneLiteFormatMessage()))
+					.timestamp(chatMessage.getTimestamp())
+					.build();
 
-				if (!messageQueue.contains(queuedMessage)) {
+				if (!messageQueue.contains(queuedMessage))
+				{
 					messageQueue.offer(queuedMessage);
 				}
 		}
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked event) {
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
 		String menuOption = event.getOption();
 
-		if (menuOption.contains(CLEAR_HISTORY)) {
-			if (menuOption.startsWith(CLEAR_PRIVATE)) {
+		if (menuOption.contains(CLEAR_HISTORY))
+		{
+			if (menuOption.startsWith(CLEAR_PRIVATE))
+			{
 				messageQueue.removeIf(e -> e.getType() == ChatMessageType.PRIVATECHAT ||
-						e.getType() == ChatMessageType.PRIVATECHATOUT || e.getType() == ChatMessageType.MODPRIVATECHAT);
+					e.getType() == ChatMessageType.PRIVATECHATOUT || e.getType() == ChatMessageType.MODPRIVATECHAT);
 				friends.clear();
-			} else {
+			}
+			else
+			{
 				messageQueue.removeIf(e -> e.getType() == ChatMessageType.PUBLICCHAT || e.getType() == ChatMessageType.MODCHAT);
 			}
 		}
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e)
+	{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() != CYCLE_HOTKEY || !this.pmTargetCycling) {
+	public void keyPressed(KeyEvent e)
+	{
+		if (e.getKeyCode() != CYCLE_HOTKEY || !this.pmTargetCycling)
+		{
 			return;
 		}
 
-		if (client.getVar(VarClientInt.INPUT_TYPE) != InputType.PRIVATE_MESSAGE.getType()) {
+		if (client.getVar(VarClientInt.INPUT_TYPE) != InputType.PRIVATE_MESSAGE.getType())
+		{
 			return;
 		}
 
 		clientThread.invoke(() ->
 		{
 			final String target = findPreviousFriend();
-			if (target == null) {
+			if (target == null)
+			{
 				return;
 			}
 
@@ -228,18 +249,23 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e)
+	{
 	}
 
-	private String findPreviousFriend() {
+	private String findPreviousFriend()
+	{
 		final String currentTarget = client.getVar(VarClientStr.PRIVATE_MESSAGE_TARGET);
-		if (currentTarget == null || friends.isEmpty()) {
+		if (currentTarget == null || friends.isEmpty())
+		{
 			return null;
 		}
 
-		for (Iterator<String> it = friends.descendingIterator(); it.hasNext(); ) {
+		for (Iterator<String> it = friends.descendingIterator(); it.hasNext(); )
+		{
 			String friend = it.next();
-			if (friend.equals(currentTarget)) {
+			if (friend.equals(currentTarget))
+			{
 				return it.hasNext() ? it.next() : friends.getLast();
 			}
 		}
@@ -248,15 +274,18 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!"chathistory".equals(event.getGroup())) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!"chathistory".equals(event.getGroup()))
+		{
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.retainChatHistory = config.retainChatHistory();
 		this.pmTargetCycling = config.pmTargetCycling();
 	}

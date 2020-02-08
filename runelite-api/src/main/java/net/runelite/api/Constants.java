@@ -30,7 +30,8 @@ import java.awt.Dimension;
 /**
  * A utility class containing constant values.
  */
-public class Constants {
+public class Constants
+{
 	/**
 	 * The original width of the game when running in fixed mode.
 	 */

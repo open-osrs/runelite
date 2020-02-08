@@ -26,12 +26,12 @@ package net.runelite.client.plugins.raids.solver;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Layout {
+public class Layout
+{
 	@Getter(AccessLevel.PUBLIC)
 	private final List<Room> rooms = new ArrayList<>();
 
@@ -39,13 +39,17 @@ public class Layout {
 	@Setter(AccessLevel.PACKAGE)
 	private String code;
 
-	public void add(Room room) {
+	public void add(Room room)
+	{
 		rooms.add(room);
 	}
 
-	public Room getRoomAt(int position) {
-		for (Room room : rooms) {
-			if (room.getPosition() == position) {
+	public Room getRoomAt(int position)
+	{
+		for (Room room : rooms)
+		{
+			if (room.getPosition() == position)
+			{
 				return room;
 			}
 		}
@@ -53,17 +57,20 @@ public class Layout {
 		return null;
 	}
 
-	public String toCode() {
+	public String toCode()
+	{
 		StringBuilder builder = new StringBuilder();
 
-		for (Room room : rooms) {
+		for (Room room : rooms)
+		{
 			builder.append(room.getSymbol());
 		}
 
 		return builder.toString();
 	}
 
-	public String toCodeString() {
+	public String toCodeString()
+	{
 		return toCode().replaceAll("#", "").replaceAll("¤", "");
 	}
 }

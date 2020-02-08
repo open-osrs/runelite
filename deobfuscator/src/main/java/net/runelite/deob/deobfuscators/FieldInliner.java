@@ -27,11 +27,9 @@ package net.runelite.deob.deobfuscators;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -49,27 +47,32 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FieldInliner implements Deobfuscator {
+public class FieldInliner implements Deobfuscator
+{
 	private static final Logger logger = LoggerFactory.getLogger(FieldInliner.class);
 
 	private ClassGroup group;
 	private Multimap<Field, FieldInstruction> fieldInstructions = HashMultimap.create();
 	private List<Field> fields = new ArrayList<>();
-
-	private void findFieldIns() {
-		for (ClassFile cf : group.getClasses()) {
-			for (Method m : cf.getMethods()) {
+	
+	private void findFieldIns()
+	{
+		for (ClassFile cf : group.getClasses())
+		{
+			for (Method m : cf.getMethods())
+			{
 				Code code = m.getCode();
-
+				
 				if (code == null)
 					continue;
-
-				for (Instruction i : code.getInstructions().getInstructions()) {
+				
+				for (Instruction i : code.getInstructions().getInstructions())
+				{
 					if (!(i instanceof FieldInstruction))
 						continue;
-
+					
 					FieldInstruction sf = (FieldInstruction) i;
-
+					
 					if (sf.getMyField() == null)
 						continue;
 
@@ -78,13 +81,16 @@ public class FieldInliner implements Deobfuscator {
 			}
 		}
 	}
-
-	private void makeConstantValues() {
-		for (ClassFile cf : group.getClasses()) {
-			for (Field f : cf.getFields()) {
+	
+	private void makeConstantValues()
+	{
+		for (ClassFile cf : group.getClasses())
+		{
+			for (Field f : cf.getFields())
+			{
 				if (!f.isStatic() || !f.getType().equals(Type.STRING))
 					continue;
-
+				
 				Object constantValue = f.getValue();
 				if (constantValue != null)
 					continue;
@@ -92,30 +98,30 @@ public class FieldInliner implements Deobfuscator {
 				List<FieldInstruction> sfis = fieldInstructions.get(f).stream().filter(f2 -> f2 instanceof SetFieldInstruction).collect(Collectors.toList());
 				if (sfis.size() != 1)
 					continue;
-
+				
 				SetFieldInstruction sfi = (SetFieldInstruction) sfis.get(0);
 				Instruction ins = (Instruction) sfi;
-
+				
 				Method mOfSet = ins.getInstructions().getCode().getMethod();
 				if (!mOfSet.getName().equals("<clinit>"))
 					continue;
-
+				
 				// get prev instruction and change to a constant value
 				Instructions instructions = mOfSet.getCode().getInstructions();
 				int idx = instructions.getInstructions().indexOf(ins);
 				assert idx != -1;
-
+				
 				Instruction prev = instructions.getInstructions().get(idx - 1);
 				if (!(prev instanceof PushConstantInstruction))
 					continue;
-
+				
 				PushConstantInstruction pci = (PushConstantInstruction) prev;
-
+				
 				constantValue = pci.getConstant();
 				f.setValue(constantValue);
-
+				
 				fields.add(f);
-
+				
 				boolean b = instructions.getInstructions().remove(prev);
 				assert b;
 				b = instructions.getInstructions().remove(ins);
@@ -123,46 +129,50 @@ public class FieldInliner implements Deobfuscator {
 			}
 		}
 	}
-
-	public int inlineUse() {
+	
+	public int inlineUse()
+	{
 		int count = 0;
-
-		for (Field f : fields) {
+		
+		for (Field f : fields)
+		{
 			// replace getfield with constant push
 			List<FieldInstruction> fins = fieldInstructions.get(f).stream().filter(f2 -> f2 instanceof GetFieldInstruction).collect(Collectors.toList());
 			Object value = f.getValue();
-
-			for (FieldInstruction fin : fins) {
+			
+			for (FieldInstruction fin : fins)
+			{
 				// remove fin, add push constant
 				Instruction i = (Instruction) fin;
-
+				
 				Instruction pushIns = new LDC(i.getInstructions(), value);
-
+				
 				List<Instruction> instructions = i.getInstructions().getInstructions();
-
+				
 				int idx = instructions.indexOf(i);
 				assert idx != -1;
-
+				
 				i.getInstructions().remove(i);
 				instructions.add(idx, pushIns);
-
+				
 				++count;
 			}
 
 			f.getClassFile().removeField(f);
 		}
-
+		
 		return count;
 	}
-
+	
 	@Override
-	public void run(ClassGroup group) {
+	public void run(ClassGroup group)
+	{
 		this.group = group;
 		findFieldIns();
 		makeConstantValues();
 		int count = inlineUse();
-
+		
 		logger.info("Inlined " + count + " fields");
 	}
-
+	
 }

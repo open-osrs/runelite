@@ -28,9 +28,11 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Data
-public class ClientScript1Instruction {
+public class ClientScript1Instruction
+{
 	@RequiredArgsConstructor
-	public enum Opcode {
+	public enum Opcode
+	{
 		RETURN(0),
 		BOOSTED_SKILL_LEVELS(1),
 		REAL_SKILL_LEVELS(1),

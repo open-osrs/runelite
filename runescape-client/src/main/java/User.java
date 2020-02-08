@@ -10,13 +10,13 @@ public class User implements Comparable {
 	static boolean field3583;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Ljz;"
+		signature = "Ljz;"
 	)
 	@Export("username")
 	Username username;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Ljz;"
+		signature = "Ljz;"
 	)
 	@Export("previousUsername")
 	Username previousUsername;
@@ -26,8 +26,8 @@ public class User implements Comparable {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-			signature = "(B)Ljz;",
-			garbageValue = "-7"
+		signature = "(B)Ljz;",
+		garbageValue = "-7"
 	)
 	@Export("getUsername")
 	public Username getUsername() {
@@ -36,8 +36,8 @@ public class User implements Comparable {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-			signature = "(I)Ljava/lang/String;",
-			garbageValue = "1147653243"
+		signature = "(I)Ljava/lang/String;",
+		garbageValue = "1147653243"
 	)
 	@Export("getName")
 	public String getName() {
@@ -46,8 +46,8 @@ public class User implements Comparable {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-			signature = "(I)Ljava/lang/String;",
-			garbageValue = "403246047"
+		signature = "(I)Ljava/lang/String;",
+		garbageValue = "403246047"
 	)
 	@Export("getPreviousName")
 	public String getPreviousName() {
@@ -56,8 +56,8 @@ public class User implements Comparable {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-			signature = "(Ljz;Ljz;I)V",
-			garbageValue = "1456948401"
+		signature = "(Ljz;Ljz;I)V",
+		garbageValue = "1456948401"
 	)
 	@Export("set")
 	void set(Username var1, Username var2) {
@@ -71,8 +71,8 @@ public class User implements Comparable {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-			signature = "(Ljk;I)I",
-			garbageValue = "-746331144"
+		signature = "(Ljk;I)I",
+		garbageValue = "-746331144"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
@@ -80,6 +80,6 @@ public class User implements Comparable {
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_user((User) var1);
+		return this.compareTo_user((User)var1);
 	}
 }

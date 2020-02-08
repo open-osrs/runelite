@@ -13,7 +13,7 @@ public class LoginScreenAnimation {
 	static String otp;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "[Lli;"
+		signature = "[Lli;"
 	)
 	@Export("sprites")
 	IndexedSprite[] sprites;
@@ -21,7 +21,7 @@ public class LoginScreenAnimation {
 	int[] field1025;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = -630386699
+		intValue = -630386699
 	)
 	int field1031;
 	@ObfuscatedName("j")
@@ -34,12 +34,12 @@ public class LoginScreenAnimation {
 	int[] field1029;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-			intValue = -598170965
+		intValue = -598170965
 	)
 	int field1021;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-			intValue = -1894077161
+		intValue = -1894077161
 	)
 	int field1032;
 	@ObfuscatedName("x")
@@ -52,22 +52,22 @@ public class LoginScreenAnimation {
 	int[] field1030;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-			intValue = 1981807145
+		intValue = 1981807145
 	)
 	int field1037;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-			intValue = 1837953616
+		intValue = 1837953616
 	)
 	int field1038;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-			intValue = -1636512933
+		intValue = -1636512933
 	)
 	int field1039;
 
 	@ObfuscatedSignature(
-			signature = "([Lli;)V"
+		signature = "([Lli;)V"
 	)
 	LoginScreenAnimation(IndexedSprite[] var1) {
 		this.field1025 = new int[256];
@@ -83,8 +83,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "956561052"
+		signature = "(I)V",
+		garbageValue = "956561052"
 	)
 	@Export("initColors")
 	void initColors() {
@@ -147,15 +147,15 @@ public class LoginScreenAnimation {
 		this.field1037 = 0;
 		this.field1035 = new int[32768];
 		this.field1030 = new int[32768];
-		this.method1811((IndexedSprite) null);
+		this.method1811((IndexedSprite)null);
 		this.field1040 = new int[32768];
 		this.field1034 = new int[32768];
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1696836035"
+		signature = "(I)V",
+		garbageValue = "-1696836035"
 	)
 	void method1834() {
 		this.field1028 = null;
@@ -172,8 +172,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(III)V",
-			garbageValue = "-321629645"
+		signature = "(III)V",
+		garbageValue = "-321629645"
 	)
 	@Export("draw")
 	void draw(int var1, int var2) {
@@ -200,15 +200,15 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IB)V",
-			garbageValue = "1"
+		signature = "(IB)V",
+		garbageValue = "1"
 	)
 	final void method1806(int var1) {
 		this.field1037 += var1 * 128;
 		int var2;
 		if (this.field1037 > this.field1035.length) {
 			this.field1037 -= this.field1035.length;
-			var2 = (int) (Math.random() * 12.0D);
+			var2 = (int)(Math.random() * 12.0D);
 			this.method1811(this.sprites[var2]);
 		}
 
@@ -235,7 +235,7 @@ public class LoginScreenAnimation {
 			int var8 = var7 * 128;
 
 			for (int var9 = 0; var9 < 128; ++var9) {
-				var10 = (int) (Math.random() * 100.0D);
+				var10 = (int)(Math.random() * 100.0D);
 				if (var10 < 50 && var9 > var15 && var9 < var6) {
 					this.field1040[var8 + var9] = 255;
 				} else {
@@ -253,7 +253,7 @@ public class LoginScreenAnimation {
 		}
 
 		if (this.field1021 * 16 == 0 && this.field1032 * 16 == 0) {
-			var7 = (int) (Math.random() * (double) (2000 / var1));
+			var7 = (int)(Math.random() * (double)(2000 / var1));
 			if (var7 == 0) {
 				this.field1021 = 1024;
 			}
@@ -268,7 +268,7 @@ public class LoginScreenAnimation {
 		}
 
 		for (var7 = 256 - var1; var7 < 256; ++var7) {
-			this.field1025[var7] = (int) (Math.sin((double) this.field1031 / 14.0D) * 16.0D + Math.sin((double) this.field1031 / 15.0D) * 14.0D + Math.sin((double) this.field1031 / 16.0D) * 12.0D);
+			this.field1025[var7] = (int)(Math.sin((double)this.field1031 / 14.0D) * 16.0D + Math.sin((double)this.field1031 / 15.0D) * 14.0D + Math.sin((double)this.field1031 / 16.0D) * 12.0D);
 			++this.field1031;
 		}
 
@@ -283,8 +283,8 @@ public class LoginScreenAnimation {
 			int var12;
 			int var13;
 			for (var11 = 0; var11 < this.field1038 * 100; ++var11) {
-				var12 = (int) (Math.random() * (double) var10) + var17;
-				var13 = (int) (Math.random() * (double) var16) + var16;
+				var12 = (int)(Math.random() * (double)var10) + var17;
+				var13 = (int)(Math.random() * (double)var16) + var16;
 				this.field1040[var12 + (var13 << 7)] = 192;
 			}
 
@@ -334,8 +334,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(IIII)I",
-			garbageValue = "-2098157242"
+		signature = "(IIII)I",
+		garbageValue = "-2098157242"
 	)
 	final int method1807(int var1, int var2, int var3) {
 		int var4 = 256 - var3;
@@ -344,8 +344,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(IB)V",
-			garbageValue = "124"
+		signature = "(IB)V",
+		garbageValue = "124"
 	)
 	final void method1838(int var1) {
 		int var2 = this.field1027.length;
@@ -364,8 +364,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(I[II)V",
-			garbageValue = "1172962335"
+		signature = "(I[II)V",
+		garbageValue = "1172962335"
 	)
 	final void method1809(int var1, int[] var2) {
 		int var3 = this.field1027.length;
@@ -384,8 +384,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "910695492"
+		signature = "(II)V",
+		garbageValue = "910695492"
 	)
 	final void method1816(int var1) {
 		int var2 = 0;
@@ -428,8 +428,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(Lli;I)V",
-			garbageValue = "16711935"
+		signature = "(Lli;I)V",
+		garbageValue = "16711935"
 	)
 	final void method1811(IndexedSprite var1) {
 		int var2;
@@ -439,8 +439,8 @@ public class LoginScreenAnimation {
 
 		int var3;
 		for (var2 = 0; var2 < 5000; ++var2) {
-			var3 = (int) (Math.random() * 128.0D * 256.0D);
-			this.field1035[var3] = (int) (Math.random() * 256.0D);
+			var3 = (int)(Math.random() * 128.0D * 256.0D);
+			this.field1035[var3] = (int)(Math.random() * 256.0D);
 		}
 
 		int var4;
@@ -477,8 +477,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "1539324178"
+		signature = "(ILce;ZI)I",
+		garbageValue = "1539324178"
 	)
 	static int method1835(int var0, Script var1, boolean var2) {
 		if (var0 < 1000) {
@@ -560,8 +560,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;I)V",
-			garbageValue = "-2014430142"
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "-2014430142"
 	)
 	static final void method1837(String var0) {
 		class60.method1188(var0 + " is already on your friend list");
@@ -569,8 +569,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "580848394"
+		signature = "(ILce;ZI)I",
+		garbageValue = "580848394"
 	)
 	static int method1808(int var0, Script var1, boolean var2) {
 		if (var0 == ScriptOpcodes.CHAT_GETFILTER_PUBLIC) {
@@ -846,8 +846,8 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("gk")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "115582492"
+		signature = "(I)Z",
+		garbageValue = "115582492"
 	)
 	static boolean method1819() {
 		return (Client.drawPlayerNames & 1) != 0;

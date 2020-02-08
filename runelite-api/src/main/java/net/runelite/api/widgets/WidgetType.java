@@ -24,7 +24,8 @@
  */
 package net.runelite.api.widgets;
 
-public final class WidgetType {
+public final class WidgetType
+{
 	public static final int LAYER = 0;
 	public static final int INVENTORY = 2;
 	public static final int RECTANGLE = 3;

@@ -22,19 +22,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
-
-;
+package net.runelite.api;;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-public class ExperienceTest {
+public class ExperienceTest
+{
 	private static final int XP_FOR_99 = 13_034_431;
 	private static final int XP_FOR_126 = 188_884_740;
 
 	@Test
-	public void testGetXpForLevel() {
+	public void testGetXpForLevel()
+	{
 		int xp = Experience.getXpForLevel(99);
 		Assert.assertEquals(XP_FOR_99, xp);
 
@@ -46,17 +46,20 @@ public class ExperienceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetXpForHighLevel() {
+	public void testGetXpForHighLevel()
+	{
 		int xp = Experience.getXpForLevel(Integer.MAX_VALUE);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetXpForLowLevel() {
+	public void testGetXpForLowLevel()
+	{
 		int xp = Experience.getXpForLevel(0);
 	}
 
 	@Test
-	public void testGetLevelForXp() {
+	public void testGetLevelForXp()
+	{
 		int level = Experience.getLevelForXp(XP_FOR_99);
 		Assert.assertEquals(99, level);
 
@@ -77,12 +80,14 @@ public class ExperienceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetLevelForNegativeXP() {
+	public void testGetLevelForNegativeXP()
+	{
 		Experience.getLevelForXp(-1);
 	}
 
 	@Test
-	public void testGetCombatLevel() {
+	public void testGetCombatLevel()
+	{
 		Assert.assertEquals(126, Experience.getCombatLevel(99, 99, 99, 99, 70, 42, 98));
 		Assert.assertEquals(40, Experience.getCombatLevel(27, 22, 1, 36, 64, 45, 1));
 	}

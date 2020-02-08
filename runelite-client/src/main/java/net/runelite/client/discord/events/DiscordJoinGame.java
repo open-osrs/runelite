@@ -31,7 +31,8 @@ import net.runelite.api.events.Event;
  * Called when the logged in user joined a game
  */
 @Value
-public class DiscordJoinGame implements Event {
+public class DiscordJoinGame implements Event
+{
 	/**
 	 * Obfuscated data of your choosing used as join secret
 	 */

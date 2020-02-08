@@ -25,6 +25,7 @@
 
 package net.runelite.cache.fs.jagex;
 
-public class DataFileWriteResult {
+public class DataFileWriteResult
+{
 	public int sector, compressedLength;
 }

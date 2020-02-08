@@ -15,15 +15,15 @@ public final class class289 {
 		field3642 = new long[12];
 
 		for (int var0 = 0; var0 < field3642.length; ++var0) {
-			field3642[var0] = (long) Math.pow(37.0D, (double) var0);
+			field3642[var0] = (long)Math.pow(37.0D, (double)var0);
 		}
 
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)[Lkx;",
-			garbageValue = "822610735"
+		signature = "(I)[Lkx;",
+		garbageValue = "822610735"
 	)
 	static PrivateChatMode[] method5359() {
 		return new PrivateChatMode[]{PrivateChatMode.field3789, PrivateChatMode.field3790, PrivateChatMode.field3788};
@@ -31,8 +31,8 @@ public final class class289 {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(III)I",
-			garbageValue = "-1942089973"
+		signature = "(III)I",
+		garbageValue = "-1942089973"
 	)
 	static final int method5358(int var0, int var1) {
 		int var2 = var0 + var1 * 57;

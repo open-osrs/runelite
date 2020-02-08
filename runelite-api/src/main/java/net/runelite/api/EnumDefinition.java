@@ -24,7 +24,8 @@
  */
 package net.runelite.api;
 
-public interface EnumDefinition {
+public interface EnumDefinition
+{
 	int[] getKeys();
 
 	int[] getIntVals();

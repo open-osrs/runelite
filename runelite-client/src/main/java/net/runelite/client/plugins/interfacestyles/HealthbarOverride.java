@@ -25,19 +25,16 @@
 package net.runelite.client.plugins.interfacestyles;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
 import static net.runelite.api.SpriteID.*;
-
 import net.runelite.client.game.SpriteOverride;
 
 @RequiredArgsConstructor
-enum HealthbarOverride implements SpriteOverride {
+enum HealthbarOverride implements SpriteOverride
+{
 	BACK_30PX(HEALTHBAR_DEFAULT_BACK_30PX, "back_30px.png"),
 	BACK_50PX(HEALTHBAR_DEFAULT_BACK_50PX, "back_30px.png"),
 	BACK_60PX(HEALTHBAR_DEFAULT_BACK_60PX, "back_30px.png"),
@@ -58,10 +55,12 @@ enum HealthbarOverride implements SpriteOverride {
 
 	private static final Map<Integer, HealthbarOverride> MAP;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, HealthbarOverride> builder = new ImmutableMap.Builder<>();
 
-		for (HealthbarOverride override : values()) {
+		for (HealthbarOverride override : values())
+		{
 			builder.put(override.spriteId, override);
 		}
 
@@ -74,12 +73,14 @@ enum HealthbarOverride implements SpriteOverride {
 	@Getter(AccessLevel.PACKAGE)
 	private int padding = 1;
 
-	static HealthbarOverride get(int spriteID) {
+	static HealthbarOverride get(int spriteID)
+	{
 		return MAP.get(spriteID);
 	}
 
 	@Override
-	public String getFileName() {
+	public String getFileName()
+	{
 		return Skin.AROUND_2010.toString() + "/healthbar/" + this.fileName;
 	}
 }

@@ -8,7 +8,8 @@ import net.runelite.rs.api.RSUserList;
 import net.runelite.rs.api.RSUsername;
 
 @Mixin(RSUserList.class)
-public abstract class RSUserListMixin implements RSUserList {
+public abstract class RSUserListMixin implements RSUserList
+{
 	/**
 	 * Default implementation of rl$add
 	 *
@@ -17,7 +18,8 @@ public abstract class RSUserListMixin implements RSUserList {
 	 */
 	@Inject
 	@Override
-	public void rl$add(RSUsername name, RSUsername prevName) {
+	public void rl$add(RSUsername name, RSUsername prevName)
+	{
 	}
 
 	/**
@@ -27,18 +29,21 @@ public abstract class RSUserListMixin implements RSUserList {
 	 */
 	@Inject
 	@Override
-	public void rl$remove(RSUser nameable) {
+	public void rl$remove(RSUser nameable)
+	{
 	}
 
 	@Inject
 	@MethodHook(value = "addLast", end = true)
-	public void add(RSUsername name, RSUsername prevName) {
+	public void add(RSUsername name, RSUsername prevName)
+	{
 		rl$add(name, prevName);
 	}
 
 	@Inject
 	@MethodHook("remove")
-	public void remove(RSUser nameable) {
+	public void remove(RSUser nameable)
+	{
 		rl$remove(nameable);
 	}
 }

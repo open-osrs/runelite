@@ -24,7 +24,8 @@
  */
 package net.runelite.api;
 
-public interface HealthBar {
+public interface HealthBar
+{
 	Sprite getHealthBarFrontSprite();
 
 	Sprite getHealthBarBackSprite();

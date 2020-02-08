@@ -27,7 +27,6 @@ package net.runelite.deob.updater;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -47,18 +46,20 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UpdateMappingsTest {
+public class UpdateMappingsTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(UpdateMappingsTest.class);
 
 	private static final String JAR = "d:/rs/07/gamepack_139_deobfuscated.jar",
-			OUT = "d:/rs/07/adamout.jar";
+		OUT = "d:/rs/07/adamout.jar";
 
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
 
 	@Test
 	@Ignore
-	public void testManual() throws IOException {
+	public void testManual() throws IOException
+	{
 		File client = new File(properties.getRsClient());
 
 		ClassGroup group1 = JarUtil.loadJar(client);
@@ -71,7 +72,8 @@ public class UpdateMappingsTest {
 
 	@Test
 	@Ignore
-	public void testRun() throws IOException {
+	public void testRun() throws IOException
+	{
 		File client = new File(properties.getRsClient());
 
 		ClassGroup group1 = JarUtil.loadJar(client);
@@ -88,7 +90,8 @@ public class UpdateMappingsTest {
 
 	@Test
 	@Ignore
-	public void testScriptopcodes() throws Exception {
+	public void testScriptopcodes() throws Exception
+	{
 		File client = new File("C:\\Users\\Lucas\\IdeaProjects\\runelitexxx\\client.jar");
 
 		ClassGroup group = JarUtil.loadJar(client);
@@ -98,22 +101,28 @@ public class UpdateMappingsTest {
 		JarUtil.saveJar(group, new File("C:/Users/Lucas/Desktop/Apapapapapap.jar"));
 	}
 
-	private void unannotate(ClassGroup group) {
-		for (ClassFile cf : group.getClasses()) {
+	private void unannotate(ClassGroup group)
+	{
+		for (ClassFile cf : group.getClasses())
+		{
 			cf.getAnnotations().clearAnnotations();
 
-			for (Field f : cf.getFields()) {
+			for (Field f : cf.getFields())
+			{
 				f.getAnnotations().clearAnnotations();
 			}
 
-			for (Method m : cf.getMethods()) {
+			for (Method m : cf.getMethods())
+			{
 				m.getAnnotations().clearAnnotations();
 			}
 		}
 	}
 
-	private void check(ClassGroup group1, ClassGroup group2) {
-		for (ClassFile cf : group1.getClasses()) {
+	private void check(ClassGroup group1, ClassGroup group2)
+	{
+		for (ClassFile cf : group1.getClasses())
+		{
 			ClassFile other = group2.findClass(cf.getName());
 
 			String implname = DeobAnnotations.getImplements(cf);
@@ -121,7 +130,8 @@ public class UpdateMappingsTest {
 
 			Assert.assertEquals(implname, otherimplname);
 
-			for (Field f : cf.getFields()) {
+			for (Field f : cf.getFields())
+			{
 				Field otherf = other.findField(f.getName(), f.getType());
 
 				assert otherf != null : "unable to find " + f;
@@ -132,7 +142,8 @@ public class UpdateMappingsTest {
 				Assert.assertEquals(name + " <-> " + otherName, name, otherName);
 			}
 
-			for (Method m : cf.getMethods()) {
+			for (Method m : cf.getMethods())
+			{
 				Method otherm = other.findMethod(m.getName(), m.getDescriptor());
 
 				assert otherm != null : "unable to find " + m;
@@ -145,7 +156,8 @@ public class UpdateMappingsTest {
 		}
 	}
 
-	private void map(ClassGroup group1, ClassGroup group2) {
+	private void map(ClassGroup group1, ClassGroup group2)
+	{
 		logger.info("Mapping group1 ({}) vs group2 ({})", desc(group1), desc(group2));
 
 		Mapper mapper = new Mapper(group1, group2);
@@ -160,7 +172,8 @@ public class UpdateMappingsTest {
 		AnnotationIntegrityChecker aic = new AnnotationIntegrityChecker(group1, group2, mapping);
 		aic.run();
 
-		if (aic.getErrors() > 0) {
+		if (aic.getErrors() > 0)
+		{
 			Assert.fail("Errors in annotation integrity checker");
 		}
 
@@ -168,9 +181,11 @@ public class UpdateMappingsTest {
 		an.run();
 	}
 
-	private static String desc(ClassGroup cg) {
+	private static String desc(ClassGroup cg)
+	{
 		int methods = 0, fields = 0, classes = 0;
-		for (ClassFile cf : cg.getClasses()) {
+		for (ClassFile cf : cg.getClasses())
+		{
 			++classes;
 			methods += cf.getMethods().size();
 			fields += cf.getFields().size();
@@ -179,25 +194,35 @@ public class UpdateMappingsTest {
 		return "total: " + total + ", " + methods + " methods, " + fields + " fields, " + classes + " classes";
 	}
 
-	public static void summary(ParallelExecutorMapping finalm, ClassGroup in) {
+	public static void summary(ParallelExecutorMapping finalm, ClassGroup in)
+	{
 		int fields = 0, staticMethod = 0, method = 0, total = 0, classes = 0;
-		for (Map.Entry<Object, Object> e : finalm.getMap().entrySet()) {
+		for (Map.Entry<Object, Object> e : finalm.getMap().entrySet())
+		{
 			Object o = e.getKey();
-			if (o instanceof Field) {
+			if (o instanceof Field)
+			{
 				++fields;
 
 				Field f = (Field) o;
 				assert f.getClassFile().getGroup() == in;
-			} else if (o instanceof Method) {
+			}
+			else if (o instanceof Method)
+			{
 				Method m = (Method) o;
 				assert m.getClassFile().getGroup() == in;
 
-				if (m.isStatic()) {
+				if (m.isStatic())
+				{
 					++staticMethod;
-				} else {
+				}
+				else
+				{
 					++method;
 				}
-			} else if (o instanceof ClassFile) {
+			}
+			else if (o instanceof ClassFile)
+			{
 				++classes;
 			}
 
@@ -205,7 +230,7 @@ public class UpdateMappingsTest {
 		}
 
 		logger.info("Total mapped: {}. {} fields, {} static methods, {} member methods, {} classes",
-				total, fields, staticMethod, method, classes);
+			total, fields, staticMethod, method, classes);
 	}
 
 }

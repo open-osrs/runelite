@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Stores the clients persisting preferences.
  */
-public interface Preferences {
+public interface Preferences
+{
 	/**
 	 * Gets the remembered login username.
 	 *

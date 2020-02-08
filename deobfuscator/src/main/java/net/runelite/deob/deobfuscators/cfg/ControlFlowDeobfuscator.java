@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
@@ -43,7 +42,8 @@ import net.runelite.deob.Deobfuscator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ControlFlowDeobfuscator implements Deobfuscator {
+public class ControlFlowDeobfuscator implements Deobfuscator
+{
 	private static final Logger logger = LoggerFactory.getLogger(ControlFlowDeobfuscator.class);
 
 	private int insertedJump;
@@ -51,12 +51,16 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 	private int removedJumps;
 
 	@Override
-	public void run(ClassGroup group) {
-		for (ClassFile cf : group.getClasses()) {
-			for (Method m : cf.getMethods()) {
+	public void run(ClassGroup group)
+	{
+		for (ClassFile cf : group.getClasses())
+		{
+			for (Method m : cf.getMethods())
+			{
 				Code code = m.getCode();
 
-				if (code == null || !code.getExceptions().getExceptions().isEmpty()) {
+				if (code == null || !code.getExceptions().getExceptions().isEmpty())
+				{
 					continue;
 				}
 
@@ -67,7 +71,7 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 		}
 
 		logger.info("Inserted {} jumps, reordered {} blocks, and removed {} jumps. jump delta {}",
-				insertedJump, placedBlocks, removedJumps, insertedJump - removedJumps);
+			insertedJump, placedBlocks, removedJumps, insertedJump - removedJumps);
 	}
 
 	/**
@@ -75,7 +79,8 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 	 *
 	 * @param code
 	 */
-	private void split(Code code) {
+	private void split(Code code)
+	{
 		Instructions ins = code.getInstructions();
 		Exceptions exceptions = code.getExceptions();
 
@@ -87,8 +92,10 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 		ins.clear();
 
 		// insert jumps where blocks flow into others
-		for (Block block : graph.getBlocks()) {
-			if (block.getFlowsInto() == null) {
+		for (Block block : graph.getBlocks())
+		{
+			if (block.getFlowsInto() == null)
+			{
 				continue;
 			}
 
@@ -97,10 +104,13 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 
 			Instruction first = into.getInstructions().get(0);
 			Label label;
-			if (!(first instanceof Label)) {
+			if (!(first instanceof Label))
+			{
 				label = new Label(null);
 				into.addInstruction(0, label);
-			} else {
+			}
+			else
+			{
 				label = (Label) first;
 			}
 
@@ -114,8 +124,10 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 		}
 
 		// Readd instructions from modified blocks
-		for (Block block : graph.getBlocks()) {
-			for (Instruction i : block.getInstructions()) {
+		for (Block block : graph.getBlocks())
+		{
+			for (Instruction i : block.getInstructions())
+			{
 				assert i.getInstructions() == null;
 				i.setInstructions(ins); // I shouldn't have to do this here
 				ins.addInstruction(i);
@@ -123,30 +135,36 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 		}
 
 		// Readd exceptions
-		for (Exception ex : exc) {
+		for (Exception ex : exc)
+		{
 			exceptions.add(ex);
 		}
 	}
 
-	private int compareBlock(Block o1, Block o2) {
+	private int compareBlock(Block o1, Block o2)
+	{
 		// higher numbers have the lowest priority
-		if (o1.isJumptarget() && !o2.isJumptarget()) {
+		if (o1.isJumptarget() && !o2.isJumptarget())
+		{
 			return -1;
 		}
-		if (o2.isJumptarget() && !o1.isJumptarget()) {
+		if (o2.isJumptarget() && !o1.isJumptarget())
+		{
 			return 1;
 		}
 
 		return 0;
 	}
 
-	private void run(Code code) {
+	private void run(Code code)
+	{
 		Instructions ins = code.getInstructions();
 		Exceptions exceptions = code.getExceptions();
 
 		ControlFlowGraph graph = new ControlFlowGraph.Builder().build(code);
 
-		for (Block block : graph.getBlocks()) {
+		for (Block block : graph.getBlocks())
+		{
 			assert block.getFlowsFrom() == null;
 			assert block.getFlowsInto() == null;
 		}
@@ -169,10 +187,12 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 		// add initial code block
 		queue.add(graph.getHead());
 
-		while (!queue.isEmpty()) {
+		while (!queue.isEmpty())
+		{
 			Block block = queue.remove();
 
-			if (done.contains(block)) {
+			if (done.contains(block))
+			{
 				continue;
 			}
 
@@ -183,7 +203,8 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 
 			List<Block> next = block.getNext();
 
-			if (next.isEmpty() == false) {
+			if (next.isEmpty() == false)
+			{
 				// jumps are added in order their instructions are reached by ControlFlowGraph,
 				// so the last jump is the goto.
 				//
@@ -196,11 +217,13 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 			}
 
 			// add next reachable blocks
-			for (Block bl : next) {
+			for (Block bl : next)
+			{
 				queue.add(bl);
 			}
 
-			for (Instruction i : block.getInstructions()) {
+			for (Instruction i : block.getInstructions())
+			{
 				assert i.getInstructions() == null;
 				i.setInstructions(ins); // I shouldn't have to do this here
 				ins.addInstruction(i);
@@ -213,21 +236,25 @@ public class ControlFlowDeobfuscator implements Deobfuscator {
 	 *
 	 * @param code
 	 */
-	private void runJumpLabel(Code code) {
+	private void runJumpLabel(Code code)
+	{
 		Instructions ins = code.getInstructions();
 		List<Instruction> instructions = ins.getInstructions();
 
-		for (int i = 0; i < instructions.size() - 1; ++i) {
+		for (int i = 0; i < instructions.size() - 1; ++i)
+		{
 			Instruction i1 = instructions.get(i),
-					i2 = instructions.get(i + 1);
+				i2 = instructions.get(i + 1);
 
-			if (!(i1 instanceof Goto)) {
+			if (!(i1 instanceof Goto))
+			{
 				continue;
 			}
 
 			Goto g = (Goto) i1;
 			assert g.getJumps().size() == 1;
-			if (g.getJumps().get(0) != i2) {
+			if (g.getJumps().get(0) != i2)
+			{
 				continue;
 			}
 

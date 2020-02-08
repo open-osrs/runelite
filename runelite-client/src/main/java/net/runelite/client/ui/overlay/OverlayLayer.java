@@ -24,7 +24,8 @@
  */
 package net.runelite.client.ui.overlay;
 
-public enum OverlayLayer {
+public enum OverlayLayer
+{
 	/**
 	 * Render right above the scene (that contains actors and the surface)
 	 */

@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ClanMate extends Buddy {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lju;"
+		signature = "Lju;"
 	)
 	@Export("friend")
 	TriBool friend;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lju;"
+		signature = "Lju;"
 	)
 	@Export("ignored")
 	TriBool ignored;
@@ -26,8 +26,8 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-526388551"
+		signature = "(I)V",
+		garbageValue = "-526388551"
 	)
 	@Export("clearIsFriend")
 	void clearIsFriend() {
@@ -36,8 +36,8 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "2130139941"
+		signature = "(I)Z",
+		garbageValue = "2130139941"
 	)
 	@Export("isFriend")
 	public final boolean isFriend() {
@@ -50,8 +50,8 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-2012869833"
+		signature = "(I)V",
+		garbageValue = "-2012869833"
 	)
 	@Export("fillIsFriend")
 	void fillIsFriend() {
@@ -60,8 +60,8 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1620040890"
+		signature = "(I)V",
+		garbageValue = "1620040890"
 	)
 	@Export("clearIsIgnored")
 	void clearIsIgnored() {
@@ -70,8 +70,8 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(B)Z",
-			garbageValue = "-84"
+		signature = "(B)Z",
+		garbageValue = "-84"
 	)
 	@Export("isIgnored")
 	public final boolean isIgnored() {
@@ -84,8 +84,8 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-749177789"
+		signature = "(I)V",
+		garbageValue = "-749177789"
 	)
 	@Export("fillIsIgnored")
 	void fillIsIgnored() {
@@ -94,8 +94,8 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/CharSequence;IZI)Z",
-			garbageValue = "-1733263063"
+		signature = "(Ljava/lang/CharSequence;IZI)Z",
+		garbageValue = "-1733263063"
 	)
 	static boolean method5073(CharSequence var0, int var1, boolean var2) {
 		if (var1 >= 2 && var1 <= 36) {

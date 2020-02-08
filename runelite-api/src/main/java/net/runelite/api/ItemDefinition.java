@@ -3,7 +3,8 @@ package net.runelite.api;
 /**
  * Represents the template of a specific item type.
  */
-public interface ItemDefinition {
+public interface ItemDefinition
+{
 	/**
 	 * Gets the items name.
 	 *
@@ -67,6 +68,7 @@ public interface ItemDefinition {
 	 * alchemy values, respectively.
 	 *
 	 * @return the general store value of the item
+	 *
 	 * @see Constants#HIGH_ALCHEMY_MULTIPLIER
 	 */
 	int getPrice();
@@ -89,7 +91,6 @@ public interface ItemDefinition {
 	 * Returns whether or not the item can be sold on the grand exchange.
 	 */
 	boolean isTradeable();
-
 	void setTradeable(boolean yes);
 
 	/**

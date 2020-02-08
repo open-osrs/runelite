@@ -1,11 +1,11 @@
 package net.runelite.api;
-
 import java.util.EnumSet;
 
 /**
  * Holds data of a RuneScape world.
  */
-public interface World {
+public interface World
+{
 	/**
 	 * Gets all applicable world types for this world.
 	 *
@@ -56,7 +56,7 @@ public interface World {
 	int getIndex();
 
 	/**
-	 * Sets the worlds index.
+	 *  Sets the worlds index.
 	 *
 	 * @param index the index
 	 */

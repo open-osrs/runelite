@@ -29,7 +29,8 @@ import lombok.Value;
 
 @Builder
 @Value
-class XpSnapshotSingle {
+class XpSnapshotSingle
+{
 	private XpActionType actionType;
 	private int startLevel;
 	private int endLevel;

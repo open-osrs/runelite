@@ -28,7 +28,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.widgets.Widget;
@@ -39,7 +38,8 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
-class WorldHopperPingOverlay extends Overlay {
+class WorldHopperPingOverlay extends Overlay
+{
 	private static final int Y_OFFSET = 11;
 	private static final int X_OFFSET = 1;
 
@@ -47,7 +47,8 @@ class WorldHopperPingOverlay extends Overlay {
 	private final WorldHopperPlugin worldHopperPlugin;
 
 	@Inject
-	private WorldHopperPingOverlay(Client client, WorldHopperPlugin worldHopperPlugin) {
+	private WorldHopperPingOverlay(Client client, WorldHopperPlugin worldHopperPlugin)
+	{
 		this.client = client;
 		this.worldHopperPlugin = worldHopperPlugin;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -56,13 +57,16 @@ class WorldHopperPingOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!worldHopperPlugin.isDisplayPing()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!worldHopperPlugin.isDisplayPing())
+		{
 			return null;
 		}
 
 		final int ping = worldHopperPlugin.getCurrentPing();
-		if (ping < 0) {
+		if (ping < 0)
+		{
 			return null;
 		}
 
@@ -73,7 +77,8 @@ class WorldHopperPingOverlay extends Overlay {
 		// Adjust ping offset for logout button
 		Widget logoutButton = client.getWidget(WidgetInfo.RESIZABLE_MINIMAP_LOGOUT_BUTTON);
 		int xOffset = X_OFFSET;
-		if (logoutButton != null && !logoutButton.isHidden()) {
+		if (logoutButton != null && !logoutButton.isHidden())
+		{
 			xOffset += logoutButton.getWidth();
 		}
 

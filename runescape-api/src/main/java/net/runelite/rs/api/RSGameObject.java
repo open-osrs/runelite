@@ -3,7 +3,8 @@ package net.runelite.rs.api;
 import net.runelite.api.GameObject;
 import net.runelite.mapping.Import;
 
-public interface RSGameObject extends GameObject {
+public interface RSGameObject extends GameObject
+{
 	@Import("entity")
 	RSEntity getEntity();
 

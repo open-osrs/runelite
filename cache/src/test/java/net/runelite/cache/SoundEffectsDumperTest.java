@@ -27,7 +27,6 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,7 +37,6 @@ import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-
 import net.runelite.cache.definitions.loaders.sound.SoundEffectTrackLoader;
 import net.runelite.cache.definitions.sound.SoundEffectTrackDefinition;
 import net.runelite.cache.fs.Archive;
@@ -51,7 +49,8 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SoundEffectsDumperTest {
+public class SoundEffectsDumperTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(SoundEffectsDumperTest.class);
 
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -60,17 +59,20 @@ public class SoundEffectsDumperTest {
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException {
+	public void test() throws IOException
+	{
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.SOUNDEFFECTS);
 
-			for (Archive archive : index.getArchives()) {
+			for (Archive archive : index.getArchives())
+			{
 				byte[] contents = archive.decompress(storage.loadArchive(archive));
 
 				SoundEffectTrackLoader setLoader = new SoundEffectTrackLoader();
@@ -85,22 +87,26 @@ public class SoundEffectsDumperTest {
 	}
 
 	@Test
-	public void extractWavTest() throws IOException {
+	public void extractWavTest() throws IOException
+	{
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();
 			Index index = store.getIndex(IndexType.SOUNDEFFECTS);
 
-			for (Archive archive : index.getArchives()) {
+			for (Archive archive : index.getArchives())
+			{
 				byte[] contents = archive.decompress(storage.loadArchive(archive));
 
 				SoundEffectTrackLoader setLoader = new SoundEffectTrackLoader();
 				SoundEffectTrackDefinition soundEffect = setLoader.load(contents);
-				try {
+				try
+				{
 					Object audioStream;
 					byte[] data = soundEffect.mix();
 
@@ -113,14 +119,19 @@ public class SoundEffectsDumperTest {
 
 					FileOutputStream fos = new FileOutputStream(new File(dumpDir, archive.getArchiveId() + ".wav"));
 
-					try {
+					try
+					{
 						fos.write(data);
-					} finally {
+					}
+					finally
+					{
 						fos.close();
 					}
 
 					++count;
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					continue;
 				}
 			}

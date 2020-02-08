@@ -35,24 +35,30 @@ import net.runelite.asm.signature.Signature;
 import net.runelite.deob.Transformer;
 import org.objectweb.asm.Opcodes;
 
-public class OpcodesTransformer implements Transformer {
+public class OpcodesTransformer implements Transformer
+{
 	public static final String RUNELITE_OPCODES = "net/runelite/rs/Opcodes";
 
 	@Override
-	public void transform(ClassGroup group) {
+	public void transform(ClassGroup group)
+	{
 		ClassFile runeliteOpcodes = group.findClass(RUNELITE_OPCODES);
-		if (runeliteOpcodes == null) {
+		if (runeliteOpcodes == null)
+		{
 			runeliteOpcodes = new ClassFile(group);
 			runeliteOpcodes.setName(RUNELITE_OPCODES);
 			runeliteOpcodes.setSuperName(Type.OBJECT.getInternalName());
 			runeliteOpcodes.setAccess(Opcodes.ACC_PUBLIC);
 			group.addClass(runeliteOpcodes);
-		} else {
+		}
+		else
+		{
 			runeliteOpcodes.getFields().clear();
 		}
 
 		Method clinit = runeliteOpcodes.findMethod("<clinit>");
-		if (clinit == null) {
+		if (clinit == null)
+		{
 			clinit = new Method(runeliteOpcodes, "<clinit>", new Signature("()V"));
 			clinit.setStatic(true);
 			Code code = new Code(clinit);

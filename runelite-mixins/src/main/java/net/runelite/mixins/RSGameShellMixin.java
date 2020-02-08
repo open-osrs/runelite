@@ -26,9 +26,7 @@ package net.runelite.mixins;
 
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.hooks.DrawCallbacks;
-
 import java.awt.event.FocusEvent;
-
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.MethodHook;
@@ -39,7 +37,8 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSGameShell;
 
 @Mixin(RSGameShell.class)
-public abstract class RSGameShellMixin implements RSGameShell {
+public abstract class RSGameShellMixin implements RSGameShell
+{
 	@Shadow("client")
 	private static RSClient client;
 
@@ -48,26 +47,30 @@ public abstract class RSGameShellMixin implements RSGameShell {
 
 	@Inject
 	@Override
-	public Thread getClientThread() {
+	public Thread getClientThread()
+	{
 		return thread;
 	}
 
 	@Inject
 	@Override
-	public boolean isClientThread() {
+	public boolean isClientThread()
+	{
 		return thread == Thread.currentThread();
 	}
 
 	@Inject
 	@MethodHook("run")
-	public void onRun() {
+	public void onRun()
+	{
 		thread = Thread.currentThread();
 		thread.setName("Client");
 	}
 
 	@Inject
 	@MethodHook("focusGained")
-	public void onFocusGained(FocusEvent focusEvent) {
+	public void onFocusGained(FocusEvent focusEvent)
+	{
 		final FocusChanged focusChanged = new FocusChanged();
 		focusChanged.setFocused(true);
 		client.getCallbacks().post(FocusChanged.class, focusChanged);
@@ -75,25 +78,30 @@ public abstract class RSGameShellMixin implements RSGameShell {
 
 	@Inject
 	@MethodHook("post")
-	public void onPost(Object canvas) {
+	public void onPost(Object canvas)
+	{
 		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
-		if (drawCallbacks != null) {
+		if (drawCallbacks != null)
+		{
 			drawCallbacks.draw();
 		}
 	}
 
 	@FieldHook("isCanvasInvalid")
 	@Inject
-	public void onReplaceCanvasNextFrameChanged(int idx) {
+	public void onReplaceCanvasNextFrameChanged(int idx)
+	{
 		// when this is initially called the client instance doesn't exist yet
-		if (client != null && client.isGpu() && isReplaceCanvasNextFrame()) {
+		if (client != null && client.isGpu() && isReplaceCanvasNextFrame())
+		{
 			setReplaceCanvasNextFrame(false);
 			setResizeCanvasNextFrame(true);
 		}
 	}
 
 	@Replace("checkHost")
-	protected final boolean checkHost() {
+	protected final boolean checkHost()
+	{
 		//Always allow host.
 		return true;
 	}

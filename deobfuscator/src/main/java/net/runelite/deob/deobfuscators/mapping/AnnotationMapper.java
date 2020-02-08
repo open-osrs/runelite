@@ -37,22 +37,26 @@ import net.runelite.deob.DeobAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AnnotationMapper {
+public class AnnotationMapper
+{
 	private static final Logger logger = LoggerFactory.getLogger(AnnotationMapper.class);
 
 	private final ClassGroup source, target;
 	private final ParallelExecutorMapping mapping;
 
-	public AnnotationMapper(ClassGroup source, ClassGroup target, ParallelExecutorMapping mapping) {
+	public AnnotationMapper(ClassGroup source, ClassGroup target, ParallelExecutorMapping mapping)
+	{
 		this.source = source;
 		this.target = target;
 		this.mapping = mapping;
 	}
 
-	public void run() {
+	public void run()
+	{
 		int count = 0;
 
-		for (ClassFile c : source.getClasses()) {
+		for (ClassFile c : source.getClasses())
+		{
 			ClassFile other = (ClassFile) mapping.get(c);
 
 			count += run(c, other);
@@ -61,23 +65,30 @@ public class AnnotationMapper {
 		logger.info("Copied {} annotations", count);
 	}
 
-	private int run(ClassFile from, ClassFile to) {
+	private int run(ClassFile from, ClassFile to)
+	{
 		int count = 0;
 
-		if (hasCopyableAnnotation(from.getAnnotations())) {
-			if (to != null) {
+		if (hasCopyableAnnotation(from.getAnnotations()))
+		{
+			if (to != null)
+			{
 				count += copyAnnotations(from.getAnnotations(), to.getAnnotations());
-			} else {
+			}
+			else
+			{
 				logger.warn("Class {} has copyable annotations but there is no mapped class", from);
 			}
 		}
 
-		for (Field f : from.getFields()) {
+		for (Field f : from.getFields())
+		{
 			if (!hasCopyableAnnotation(f.getAnnotations()))
 				continue;
 
 			Field other = (Field) mapping.get(f);
-			if (other == null) {
+			if (other == null)
+			{
 				logger.warn("Unable to map annotated field {} named {}", f, DeobAnnotations.getExportedName(f.getAnnotations()));
 				continue;
 			}
@@ -85,12 +96,14 @@ public class AnnotationMapper {
 			count += copyAnnotations(f.getAnnotations(), other.getAnnotations());
 		}
 
-		for (Method m : from.getMethods()) {
+		for (Method m : from.getMethods())
+		{
 			if (!hasCopyableAnnotation(m.getAnnotations()))
 				continue;
 
 			Method other = (Method) mapping.get(m);
-			if (other == null) {
+			if (other == null)
+			{
 				logger.warn("Unable to map annotated method {} named {}", m, DeobAnnotations.getExportedName(m.getAnnotations()));
 				continue;
 			}
@@ -101,18 +114,22 @@ public class AnnotationMapper {
 		return count;
 	}
 
-	private int copyAnnotations(Annotations from, Annotations to) {
+	private int copyAnnotations(Annotations from, Annotations to)
+	{
 		int count = 0;
 
 		if (from.getAnnotations() == null)
 			return count;
 
-		for (Annotation a : from.getAnnotations()) {
-			if (isCopyable(a)) {
+		for (Annotation a : from.getAnnotations())
+		{
+			if (isCopyable(a))
+			{
 				Annotation annotation = new Annotation(a.getType());
 				to.addAnnotation(annotation);
 
-				for (Element e : a.getElements()) {
+				for (Element e : a.getElements())
+				{
 					Element element = new SimpleElement(e.getName(), e.getValue());
 					annotation.addElement(element);
 				}
@@ -124,7 +141,8 @@ public class AnnotationMapper {
 		return count;
 	}
 
-	private boolean hasCopyableAnnotation(Annotations a) {
+	private boolean hasCopyableAnnotation(Annotations a)
+	{
 		for (Annotation an : a.getAnnotations())
 			if (isCopyable(an))
 				return true;
@@ -132,8 +150,9 @@ public class AnnotationMapper {
 		return false;
 	}
 
-	private boolean isCopyable(Annotation a) {
+	private boolean isCopyable(Annotation a)
+	{
 		return a.getType().equals(DeobAnnotations.EXPORT)
-				|| a.getType().equals(DeobAnnotations.IMPLEMENTS);
+			|| a.getType().equals(DeobAnnotations.IMPLEMENTS);
 	}
 }

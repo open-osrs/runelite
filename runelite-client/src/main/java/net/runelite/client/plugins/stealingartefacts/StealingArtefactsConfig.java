@@ -29,25 +29,28 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("stealingartefacts")
-public interface StealingArtefactsConfig extends Config {
+public interface StealingArtefactsConfig extends Config
+{
 	@ConfigItem(
-			keyName = "houseInfoBox",
-			name = "Display InfoBox",
-			description = "Shows the artefact house cardinal location.<br>See RuneLite plugin for generic InfoBox " +
-					"settings.",
-			position = 0
+		keyName = "houseInfoBox",
+		name = "Display InfoBox",
+		description = "Shows the artefact house cardinal location.<br>See RuneLite plugin for generic InfoBox " +
+			"settings.",
+		position = 0
 	)
-	default boolean displayHouseInfoBox() {
+	default boolean displayHouseInfoBox()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "displayHintArrow",
-			name = "Display Hint Arrow",
-			description = "Hint arrow pointing to the artefact house.",
-			position = 1
+		keyName = "displayHintArrow",
+		name = "Display Hint Arrow",
+		description = "Hint arrow pointing to the artefact house.",
+		position = 1
 	)
-	default boolean displayHintArrow() {
+	default boolean displayHintArrow()
+	{
 		return true;
 	}
 }

@@ -29,7 +29,8 @@ import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-enum Spells {
+enum Spells
+{
 	FIRE_BLAST(16),
 	FIRE_WAVE(20),
 	FIRE_SURGE(24),

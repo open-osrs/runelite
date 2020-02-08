@@ -27,15 +27,19 @@ package net.runelite.cache.definitions.loaders;
 import net.runelite.cache.definitions.HitSplatDefinition;
 import net.runelite.cache.io.InputStream;
 
-public class HitSplatLoader {
-	public HitSplatDefinition load(byte[] data) {
+public class HitSplatLoader
+{
+	public HitSplatDefinition load(byte[] data)
+	{
 		HitSplatDefinition def = new HitSplatDefinition();
 		InputStream stream = new InputStream(data);
 
-		for (; ; ) {
+		for (; ; )
+		{
 			int opcode = stream.readUnsignedByte();
 
-			switch (opcode) {
+			switch (opcode)
+			{
 				case 0:
 					return def;
 				case 1:
@@ -84,21 +88,25 @@ public class HitSplatLoader {
 				case 18:
 					int varbitId = stream.readUnsignedShort();
 
-					if (varbitId == 0xFFFF) {
+					if (varbitId == 0xFFFF)
+					{
 						varbitId = -1;
 					}
 					def.setVarbitID(varbitId);
 
 					int varp = stream.readUnsignedShort();
-					if (varp == 0xFFFF) {
+					if (varp == 0xFFFF)
+					{
 						varp = -1;
 					}
 					def.setVarpID(varp);
 
 					int id = -1;
-					if (opcode == 18) {
+					if (opcode == 18)
+					{
 						id = stream.readUnsignedShort();
-						if (id == 0xFFFF) {
+						if (id == 0xFFFF)
+						{
 							id = -1;
 						}
 					}
@@ -106,9 +114,11 @@ public class HitSplatLoader {
 					int length = stream.readUnsignedByte();
 					int[] multihitsplats = new int[length + 2];
 
-					for (int i = 0; i <= length; i++) {
+					for (int i = 0; i <= length; i++)
+					{
 						multihitsplats[i] = stream.readUnsignedShort();
-						if (multihitsplats[i] == 0xFFFF) {
+						if (multihitsplats[i] == 0xFFFF)
+						{
 							multihitsplats[i] = -1;
 						}
 					}

@@ -27,7 +27,8 @@ package net.runelite.http.api.chat;
 import lombok.Data;
 
 @Data
-public class Duels {
+public class Duels
+{
 	private int wins;
 	private int losses;
 	private int winningStreak;

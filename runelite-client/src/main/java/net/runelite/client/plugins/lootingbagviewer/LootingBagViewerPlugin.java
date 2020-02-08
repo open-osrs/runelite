@@ -28,10 +28,8 @@ package net.runelite.client.plugins.lootingbagviewer;
 
 import com.google.common.base.Strings;
 import com.google.inject.Provides;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,11 +47,11 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "PvP Looting Bag Viewer",
-		description = "Add an overlay showing the contents of your looting bag",
-		tags = {"alternate", "items", "overlay", "second"},
-		type = PluginType.PVP,
-		enabledByDefault = false
+	name = "PvP Looting Bag Viewer",
+	description = "Add an overlay showing the contents of your looting bag",
+	tags = {"alternate", "items", "overlay", "second"},
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 /**
  * TODO: Remember current looting bag value when client restarts
@@ -62,7 +60,8 @@ import net.runelite.client.ui.overlay.OverlayManager;
  */
 @Slf4j
 @Singleton // WHY IS THIS PLUGIN EVEN MERGED IT'S AGES FROM BEING DONE!?!?!?!?
-public class LootingBagViewerPlugin extends Plugin {
+public class LootingBagViewerPlugin extends Plugin
+{
 	@Inject
 	private Client client;
 
@@ -86,41 +85,55 @@ public class LootingBagViewerPlugin extends Plugin {
 	private int valueToShow = -1;
 
 	@Provides
-	LootingBagViewerConfig getConfig(ConfigManager configManager) {
+	LootingBagViewerConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(LootingBagViewerConfig.class);
 	}
 
 	@Override
-	public void startUp() {
+	public void startUp()
+	{
 
-		if (config.renderViewer()) {
+		if (config.renderViewer())
+		{
 			overlayManager.add(overlay);
 		}
 
-		if (config.renderLootingBag()) {
+		if (config.renderLootingBag())
+		{
 			overlayManager.add(widgetOverlay);
 		}
 	}
 
 	@Override
-	public void shutDown() {
+	public void shutDown()
+	{
 		overlayManager.remove(overlay);
 		overlayManager.remove(widgetOverlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged configChanged) {
-		if (configChanged.getKey().equals("renderViewer")) {
-			if (Boolean.parseBoolean(configChanged.getNewValue())) {
+	private void onConfigChanged(ConfigChanged configChanged)
+	{
+		if (configChanged.getKey().equals("renderViewer"))
+		{
+			if (Boolean.parseBoolean(configChanged.getNewValue()))
+			{
 				overlayManager.add(overlay);
-			} else {
+			}
+			else
+			{
 				overlayManager.remove(overlay);
 			}
 		}
-		if (configChanged.getKey().equals("renderLootingBag")) {
-			if (Boolean.parseBoolean(configChanged.getNewValue())) {
+		if (configChanged.getKey().equals("renderLootingBag"))
+		{
+			if (Boolean.parseBoolean(configChanged.getNewValue()))
+			{
 				overlayManager.add(widgetOverlay);
-			} else {
+			}
+			else
+			{
 				overlayManager.remove(widgetOverlay);
 			}
 		}
@@ -131,23 +144,29 @@ public class LootingBagViewerPlugin extends Plugin {
 	 * @param widgetHiddenChanged
 	 */
 	@Subscribe
-	private void onWidgetHiddenChanged(WidgetHiddenChanged widgetHiddenChanged) {
+	private void onWidgetHiddenChanged(WidgetHiddenChanged widgetHiddenChanged)
+	{
 		Widget widget = widgetHiddenChanged.getWidget();
-		if (widget.getParentId() == 5308416 && !widget.isHidden()) {
+		if (widget.getParentId() == 5308416 && !widget.isHidden())
+		{
 			clientThread.invokeLater(() ->
 			{
 				Widget value = client.getWidget(81, 6);
 				log.debug("val: {}", value.getText());
 
-				if (!Strings.isNullOrEmpty(value.getText())) {
-					if (value.getText().equals("Value: -")) {
+				if (!Strings.isNullOrEmpty(value.getText()))
+				{
+					if (value.getText().equals("Value: -"))
+					{
 						setValueToShow(-1);
-					} else {
+					}
+					else
+					{
 						String str = value.getText();
 						str = str.replace("Bag value: ", "")
-								.replace("Value: ", "")
-								.replace(" coins", "")
-								.replace(",", "");
+							.replace("Value: ", "")
+							.replace(" coins", "")
+							.replace(",", "");
 
 						int val = Integer.parseInt(str);
 						setValueToShow(Math.round(val) / 1000);

@@ -10,8 +10,8 @@ public class class268 {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(II)Z",
-			garbageValue = "1645671847"
+		signature = "(II)Z",
+		garbageValue = "1645671847"
 	)
 	public static boolean method5042(int var0) {
 		return (var0 >> 31 & 1) != 0;

@@ -9,12 +9,12 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class WorldMapSprite {
 	@ObfuscatedName("rc")
 	@ObfuscatedGetter(
-			intValue = -936631043
+		intValue = -936631043
 	)
 	static int field240;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "Lli;"
+		signature = "Lli;"
 	)
 	@Export("options_buttons_0Sprite")
 	static IndexedSprite options_buttons_0Sprite;
@@ -32,8 +32,8 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IIB)I",
-			garbageValue = "35"
+		signature = "(IIB)I",
+		garbageValue = "35"
 	)
 	@Export("getTileColor")
 	final int getTileColor(int var1, int var2) {
@@ -42,8 +42,8 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lkp;IS)V",
-			garbageValue = "-20256"
+		signature = "(Lkp;IS)V",
+		garbageValue = "-20256"
 	)
 	public static void method427(Buffer var0, int var1) {
 		if (JagexCache.JagexCache_randomDat != null) {
@@ -58,8 +58,8 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("gb")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "96"
+		signature = "(B)V",
+		garbageValue = "96"
 	)
 	static final void method434() {
 		for (int var0 = 0; var0 < Client.npcCount; ++var0) {

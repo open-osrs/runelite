@@ -25,12 +25,12 @@
 package net.runelite.http.api.feed;
 
 import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class FeedResult {
+public class FeedResult
+{
 	private List<FeedItem> items;
 }

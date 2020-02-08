@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapEvent {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 937006651
+		intValue = 937006651
 	)
 	@Export("mapElement")
 	public int mapElement;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lhj;"
+		signature = "Lhj;"
 	)
 	@Export("coord1")
 	public Coord coord1;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lhj;"
+		signature = "Lhj;"
 	)
 	@Export("coord2")
 	public Coord coord2;
 
 	@ObfuscatedSignature(
-			signature = "(ILhj;Lhj;)V"
+		signature = "(ILhj;Lhj;)V"
 	)
 	public WorldMapEvent(int var1, Coord var2, Coord var3) {
 		this.mapElement = var1;
@@ -37,8 +37,8 @@ public class WorldMapEvent {
 
 	@ObfuscatedName("hm")
 	@ObfuscatedSignature(
-			signature = "(III)V",
-			garbageValue = "560855047"
+		signature = "(III)V",
+		garbageValue = "560855047"
 	)
 	@Export("updateItemPile")
 	static final void updateItemPile(int var0, int var1) {
@@ -50,11 +50,11 @@ public class WorldMapEvent {
 			TileItem var5 = null;
 
 			TileItem var6;
-			for (var6 = (TileItem) var2.last(); var6 != null; var6 = (TileItem) var2.previous()) {
+			for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) {
 				ItemDefinition var7 = HealthBarDefinition.ItemDefinition_get(var6.id);
-				long var8 = (long) var7.price;
+				long var8 = (long)var7.price;
 				if (var7.isStackable == 1) {
-					var8 *= (long) (var6.quantity + 1);
+					var8 *= (long)(var6.quantity + 1);
 				}
 
 				if (var8 > var3) {
@@ -70,7 +70,7 @@ public class WorldMapEvent {
 				TileItem var12 = null;
 				TileItem var11 = null;
 
-				for (var6 = (TileItem) var2.last(); var6 != null; var6 = (TileItem) var2.previous()) {
+				for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) {
 					if (var5.id != var6.id) {
 						if (var12 == null) {
 							var12 = var6;
@@ -90,8 +90,8 @@ public class WorldMapEvent {
 
 	@ObfuscatedName("jh")
 	@ObfuscatedSignature(
-			signature = "([Lhn;IB)V",
-			garbageValue = "-29"
+		signature = "([Lhn;IB)V",
+		garbageValue = "-29"
 	)
 	@Export("drawModelComponents")
 	static final void drawModelComponents(Widget[] var0, int var1) {
@@ -108,7 +108,7 @@ public class WorldMapEvent {
 						drawModelComponents(var3.children, var3.id);
 					}
 
-					InterfaceParent var4 = (InterfaceParent) Client.interfaceParents.get((long) var3.id);
+					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
 					if (var4 != null) {
 						GrandExchangeOfferNameComparator.method150(var4.group);
 					}

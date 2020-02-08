@@ -1,10 +1,10 @@
 package net.runelite.deob.deobfuscators.transformers.scriptopcodes;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
 
-public enum ScriptOpcode {
+public enum ScriptOpcode
+{
 	// This class is pretty much the same as net.runelite.cache.script.Opcodes, and should be updated alongside that
 
 	ICONST(0),
@@ -507,26 +507,31 @@ public enum ScriptOpcode {
 
 	public final int opcode;
 
-	ScriptOpcode(int opcode) {
+	ScriptOpcode(int opcode)
+	{
 		this.opcode = opcode;
 	}
 
 	private static final Map<Integer, ScriptOpcode> map;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, ScriptOpcode> builder = ImmutableMap.builder();
 
-		for (ScriptOpcode value : values()) {
+		for (ScriptOpcode value : values())
+		{
 			builder.put(value.opcode, value);
 		}
 
 		map = builder.build();
 	}
 
-	public static String nameFromID(int opcode) {
+	public static String nameFromID(int opcode)
+	{
 		ScriptOpcode op = map.get(opcode);
 
-		if (op == null) {
+		if (op == null)
+		{
 			return null;
 		}
 

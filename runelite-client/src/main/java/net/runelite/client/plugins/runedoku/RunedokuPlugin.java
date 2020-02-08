@@ -25,11 +25,9 @@
 package net.runelite.client.plugins.runedoku;
 
 import com.google.inject.Provides;
-
 import java.awt.Color;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -42,16 +40,17 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "Runedoku Solver",
-		description = "Show solutions for current Runedoku puzzle.",
-		tags = {"overlay", "runedoku", "sudoku", "puzzle", "solving"},
-		type = PluginType.MINIGAME,
-		enabledByDefault = false
+	name = "Runedoku Solver",
+	description = "Show solutions for current Runedoku puzzle.",
+	tags = {"overlay", "runedoku", "sudoku", "puzzle", "solving"},
+	type = PluginType.MINIGAME,
+	enabledByDefault = false
 )
 
 @Slf4j
 @Singleton
-public class RunedokuPlugin extends Plugin {
+public class RunedokuPlugin extends Plugin
+{
 	@Inject
 	private OverlayManager overlayManager;
 
@@ -83,32 +82,38 @@ public class RunedokuPlugin extends Plugin {
 	private boolean onlyHighlightSelectedPiece;
 
 	@Provides
-	RunedokuConfig provideConfig(ConfigManager configManager) {
+	RunedokuConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(RunedokuConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(runedokuOverlay);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(runedokuOverlay);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("runedoku")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("runedoku"))
+		{
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.mindRuneColor = config.mindRuneColor();
 		this.fireRuneColor = config.fireRuneColor();
 		this.bodyRuneColor = config.bodyRuneColor();

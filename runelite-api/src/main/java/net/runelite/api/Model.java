@@ -26,13 +26,13 @@ package net.runelite.api;
 
 import net.runelite.api.model.Triangle;
 import net.runelite.api.model.Vertex;
-
 import java.util.List;
 
 /**
  * Represents the model of an object.
  */
-public interface Model extends Entity {
+public interface Model extends Entity
+{
 	/**
 	 * Gets a list of all vertices of the model.
 	 *
@@ -72,15 +72,12 @@ public interface Model extends Entity {
 	byte[] getTriangleTransparencies();
 
 	int getSceneId();
-
 	void setSceneId(int sceneId);
 
 	int getBufferOffset();
-
 	void setBufferOffset(int bufferOffset);
 
 	int getUvBufferOffset();
-
 	void setUvBufferOffset(int bufferOffset);
 
 	int getModelHeight();
@@ -94,24 +91,17 @@ public interface Model extends Entity {
 	short[] getFaceTextures();
 
 	float[][] getFaceTextureUCoordinates();
-
 	float[][] getFaceTextureVCoordinates();
 
 	void calculateExtreme(int orientation);
 
 	int getCenterX();
-
 	int getCenterY();
-
 	int getCenterZ();
-
 	int getExtremeX();
-
 	int getExtremeY();
-
 	int getExtremeZ();
 
 	int getXYZMag();
-
 	boolean isClickable();
 }

@@ -31,7 +31,6 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
@@ -44,7 +43,8 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
 @Singleton
-public class LootingBagViewerOverlay extends Overlay {
+public class LootingBagViewerOverlay extends Overlay
+{
 	private static final int INVENTORY_SIZE = 28;
 	public static final int PLACEHOLDER_WIDTH = 36;
 	private static final int PLACEHOLDER_HEIGHT = 32;
@@ -59,7 +59,8 @@ public class LootingBagViewerOverlay extends Overlay {
 	private Item[] items;
 
 	@Inject
-	private LootingBagViewerOverlay(final Client client, final ItemManager itemManager) {
+	private LootingBagViewerOverlay(final Client client, final ItemManager itemManager)
+	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 		panelComponent.setWrapping(4);
 		panelComponent.setGap(new Point(6, 4));
@@ -70,22 +71,31 @@ public class LootingBagViewerOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (itemContainer == null) {
-			if (client.getItemContainer(InventoryID.LOOTING_BAG) != null) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (itemContainer == null)
+		{
+			if (client.getItemContainer(InventoryID.LOOTING_BAG) != null)
+			{
 				itemContainer = client.getItemContainer(InventoryID.LOOTING_BAG);
-				if (itemContainer != null) {
+				if (itemContainer != null)
+				{
 					items = itemContainer.getItems();
 				}
 			}
 			return null;
-		} else if (items != null && client.getItemContainer(InventoryID.LOOTING_BAG) != null) {
+		}
+		else if (items != null && client.getItemContainer(InventoryID.LOOTING_BAG) != null)
+		{
 			itemContainer = client.getItemContainer(InventoryID.LOOTING_BAG);
-			if (itemContainer != null) {
+			if (itemContainer != null)
+			{
 				Item[] tempItems = itemContainer.getItems();
 
-				for (int i = 0; i < items.length; i++) {
-					if (!items[i].equals(tempItems[i])) {
+				for (int i = 0; i < items.length; i++)
+				{
+					if (!items[i].equals(tempItems[i]))
+					{
 						items = tempItems;
 						break;
 					}
@@ -95,12 +105,16 @@ public class LootingBagViewerOverlay extends Overlay {
 
 		panelComponent.getChildren().clear();
 
-		for (int i = 0; i < INVENTORY_SIZE; i++) {
-			if (i < items.length) {
+		for (int i = 0; i < INVENTORY_SIZE; i++)
+		{
+			if (i < items.length)
+			{
 				final Item item = items[i];
-				if (item.getQuantity() > 0) {
+				if (item.getQuantity() > 0)
+				{
 					final BufferedImage image = getImage(item);
-					if (image != null) {
+					if (image != null)
+					{
 						panelComponent.getChildren().add(new ImageComponent(image));
 						continue;
 					}
@@ -114,7 +128,8 @@ public class LootingBagViewerOverlay extends Overlay {
 		return panelComponent.render(graphics);
 	}
 
-	private BufferedImage getImage(Item item) {
+	private BufferedImage getImage(Item item)
+	{
 		return itemManager.getImage(item.getId(), item.getQuantity(), item.getQuantity() > 1);
 	}
 }

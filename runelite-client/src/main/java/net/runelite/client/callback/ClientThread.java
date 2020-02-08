@@ -27,21 +27,20 @@ package net.runelite.client.callback;
 import com.google.inject.Inject;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
-
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executor;
 import java.util.function.BooleanSupplier;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import org.jetbrains.annotations.NotNull;
 
 @Singleton
 @Slf4j
-public class ClientThread implements Executor {
+public class ClientThread implements Executor
+{
 	private final ConcurrentLinkedQueue<BooleanSupplier> invokes = new ConcurrentLinkedQueue<>();
 
 	@Inject
@@ -49,11 +48,13 @@ public class ClientThread implements Executor {
 	private Client client;
 
 	@Inject
-	private ClientThread() {
+	private ClientThread()
+	{
 		RxJavaPlugins.setSingleSchedulerHandler(old -> Schedulers.from(this));
 	}
 
-	public void invoke(Runnable r) {
+	public void invoke(Runnable r)
+	{
 		invoke(() ->
 		{
 			r.run();
@@ -65,9 +66,12 @@ public class ClientThread implements Executor {
 	 * Will run r on the game thread, at a unspecified point in the future.
 	 * If r returns false, r will be ran again, at a later point
 	 */
-	public void invoke(BooleanSupplier r) {
-		if (client.isClientThread()) {
-			if (!r.getAsBoolean()) {
+	public void invoke(BooleanSupplier r)
+	{
+		if (client.isClientThread())
+		{
+			if (!r.getAsBoolean())
+			{
 				invokes.add(r);
 			}
 			return;
@@ -80,7 +84,8 @@ public class ClientThread implements Executor {
 	 * Will run r on the game thread after this method returns
 	 * If r returns false, r will be ran again, at a later point
 	 */
-	public void invokeLater(Runnable r) {
+	public void invokeLater(Runnable r)
+	{
 		invokeLater(() ->
 		{
 			r.run();
@@ -88,31 +93,41 @@ public class ClientThread implements Executor {
 		});
 	}
 
-	public void invokeLater(BooleanSupplier r) {
+	public void invokeLater(BooleanSupplier r)
+	{
 		invokes.add(r);
 	}
 
-	void invoke() {
+	void invoke()
+	{
 		assert client.isClientThread();
 		Iterator<BooleanSupplier> ir = invokes.iterator();
-		for (; ir.hasNext(); ) {
+		for (; ir.hasNext(); )
+		{
 			BooleanSupplier r = ir.next();
 			boolean remove = true;
-			try {
+			try
+			{
 				remove = r.getAsBoolean();
-			} catch (ThreadDeath d) {
+			}
+			catch (ThreadDeath d)
+			{
 				throw d;
-			} catch (Throwable e) {
+			}
+			catch (Throwable e)
+			{
 				log.warn("Exception in invoke", e);
 			}
-			if (remove) {
+			if (remove)
+			{
 				ir.remove();
 			}
 		}
 	}
 
 	@Override
-	public void execute(@NotNull Runnable r) {
+	public void execute(@NotNull Runnable r)
+	{
 		invoke(() ->
 		{
 			r.run();

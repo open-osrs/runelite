@@ -24,7 +24,8 @@
  */
 package net.runelite.api;
 
-public final class ModelID {
+public final class ModelID
+{
 	public static final int ANVIL = 1251;
 	public static final int WILLOW_TREE = 1570;
 	public static final int SLAYER_SKILL_MODEL = 1733;

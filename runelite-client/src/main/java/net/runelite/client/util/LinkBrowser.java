@@ -25,7 +25,6 @@
 package net.runelite.client.util;
 
 import com.google.common.base.Strings;
-
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +33,6 @@ import java.net.URISyntaxException;
 import javax.inject.Singleton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -42,7 +40,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Singleton
 @Slf4j
-public class LinkBrowser {
+public class LinkBrowser
+{
 	private static boolean shouldAttemptXdg = OSType.getOSType() == OSType.Linux;
 
 	/**
@@ -52,17 +51,21 @@ public class LinkBrowser {
 	 * @param url url to open
 	 * @return true if operation was successful
 	 */
-	public static boolean browse(final String url) {
-		if (Strings.isNullOrEmpty(url)) {
+	public static boolean browse(final String url)
+	{
+		if (Strings.isNullOrEmpty(url))
+		{
 			return false;
 		}
 
-		if (attemptDesktopBrowse(url)) {
+		if (attemptDesktopBrowse(url))
+		{
 			log.debug("Opened browser through Desktop#browse to {}", url);
 			return true;
 		}
 
-		if (shouldAttemptXdg && attemptXdgOpen(url)) {
+		if (shouldAttemptXdg && attemptXdgOpen(url))
+		{
 			log.debug("Opened browser through xdg-open to {}", url);
 			return true;
 		}
@@ -71,43 +74,56 @@ public class LinkBrowser {
 		return false;
 	}
 
-	private static boolean attemptXdgOpen(String url) {
-		try {
+	private static boolean attemptXdgOpen(String url)
+	{
+		try
+		{
 			final Process exec = Runtime.getRuntime().exec(new String[]{"xdg-open", url});
 			exec.waitFor();
 
 			final int ret = exec.exitValue();
-			if (ret == 0) {
+			if (ret == 0)
+			{
 				return true;
 			}
 
 			log.warn("xdg-open {} returned with error code {}", url, ret);
 			return false;
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			// xdg-open not found
 			shouldAttemptXdg = false;
 			return false;
-		} catch (InterruptedException ex) {
+		}
+		catch (InterruptedException ex)
+		{
 			log.warn("Interrupted while waiting for xdg-open {} to execute", url);
 			return false;
 		}
 	}
 
-	private static boolean attemptDesktopBrowse(String url) {
-		if (!Desktop.isDesktopSupported()) {
+	private static boolean attemptDesktopBrowse(String url)
+	{
+		if (!Desktop.isDesktopSupported())
+		{
 			return false;
 		}
 
 		final Desktop desktop = Desktop.getDesktop();
 
-		if (!desktop.isSupported(Desktop.Action.BROWSE)) {
+		if (!desktop.isSupported(Desktop.Action.BROWSE))
+		{
 			return false;
 		}
 
-		try {
+		try
+		{
 			desktop.browse(new URI(url));
 			return true;
-		} catch (IOException | URISyntaxException ex) {
+		}
+		catch (IOException | URISyntaxException ex)
+		{
 			log.warn("Failed to open Desktop#browser {}", url, ex);
 			return false;
 		}
@@ -120,12 +136,15 @@ public class LinkBrowser {
 	 * @param file the File instance of the log file
 	 * @return did the file open successfully?
 	 */
-	public static boolean openLocalFile(final File file) {
-		if (file == null || !file.exists()) {
+	public static boolean openLocalFile(final File file)
+	{
+		if (file == null || !file.exists())
+		{
 			return false;
 		}
 
-		if (attemptOpenLocalFile(file)) {
+		if (attemptOpenLocalFile(file))
+		{
 			log.debug("Opened log file through Desktop#edit to {}", file);
 			return true;
 		}
@@ -134,21 +153,27 @@ public class LinkBrowser {
 		return false;
 	}
 
-	private static boolean attemptOpenLocalFile(final File file) {
-		if (!Desktop.isDesktopSupported()) {
+	private static boolean attemptOpenLocalFile(final File file)
+	{
+		if (!Desktop.isDesktopSupported())
+		{
 			return false;
 		}
 
 		final Desktop desktop = Desktop.getDesktop();
 
-		if (!desktop.isSupported(Desktop.Action.OPEN)) {
+		if (!desktop.isSupported(Desktop.Action.OPEN))
+		{
 			return false;
 		}
 
-		try {
+		try
+		{
 			desktop.open(file);
 			return true;
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			log.warn("Failed to open Desktop#edit {}", file, ex);
 			return false;
 		}
@@ -159,13 +184,15 @@ public class LinkBrowser {
 	 *
 	 * @param message message to show
 	 */
-	private static void showMessageBox(final String message, final String data) {
+	private static void showMessageBox(final String message, final String data)
+	{
 		SwingUtilities.invokeLater(() ->
 		{
 			final int result = JOptionPane.showConfirmDialog(null, message, "Message",
-					JOptionPane.OK_CANCEL_OPTION);
+				JOptionPane.OK_CANCEL_OPTION);
 
-			if (result == JOptionPane.OK_OPTION) {
+			if (result == JOptionPane.OK_OPTION)
+			{
 				Clipboard.store(data);
 			}
 		});

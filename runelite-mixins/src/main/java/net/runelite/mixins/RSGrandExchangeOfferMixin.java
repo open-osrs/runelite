@@ -26,7 +26,6 @@
 package net.runelite.mixins;
 
 import net.runelite.api.GrandExchangeOfferState;
-
 import static net.runelite.api.GrandExchangeOfferState.BOUGHT;
 import static net.runelite.api.GrandExchangeOfferState.BUYING;
 import static net.runelite.api.GrandExchangeOfferState.CANCELLED_BUY;
@@ -34,13 +33,13 @@ import static net.runelite.api.GrandExchangeOfferState.CANCELLED_SELL;
 import static net.runelite.api.GrandExchangeOfferState.EMPTY;
 import static net.runelite.api.GrandExchangeOfferState.SELLING;
 import static net.runelite.api.GrandExchangeOfferState.SOLD;
-
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSGrandExchangeOffer;
 
 @Mixin(RSGrandExchangeOffer.class)
-public abstract class RSGrandExchangeOfferMixin implements RSGrandExchangeOffer {
+public abstract class RSGrandExchangeOfferMixin implements RSGrandExchangeOffer
+{
 
 	/*
 		 Internally a GrandExchangeOffer's state is represented as 4 flags
@@ -68,28 +67,39 @@ public abstract class RSGrandExchangeOfferMixin implements RSGrandExchangeOffer 
 
 	@Inject
 	@Override
-	public GrandExchangeOfferState getState() {
+	public GrandExchangeOfferState getState()
+	{
 		byte code = getRSState();
 		boolean isSelling = (code & IS_SELLING) == IS_SELLING;
 		boolean isFinished = (code & COMPLETED) == COMPLETED;
 
 
-		if (code == 0) {
+		if (code == 0)
+		{
 			return EMPTY;
-		} else if (isFinished && getQuantitySold() < getTotalQuantity()) {
+		}
+		else if (isFinished && getQuantitySold() < getTotalQuantity())
+		{
 			return isSelling ? CANCELLED_SELL : CANCELLED_BUY;
-		} else if (isSelling) {
-			if (isFinished) {
+		}
+		else if (isSelling)
+		{
+			if (isFinished)
+			{
 				return SOLD;
-			} else // if isUnfinished
+			}
+			else // if isUnfinished
 			{
 				return SELLING;
 			}
-		} else // if isBuying
+		}
+		else // if isBuying
 		{
-			if (isFinished) {
+			if (isFinished)
+			{
 				return BOUGHT;
-			} else // if isUnfinished
+			}
+			else // if isUnfinished
 			{
 				return BUYING;
 			}

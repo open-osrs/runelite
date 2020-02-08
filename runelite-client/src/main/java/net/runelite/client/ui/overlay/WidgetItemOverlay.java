@@ -31,19 +31,17 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.widgets.Widget;
-
 import static net.runelite.api.widgets.WidgetID.*;
 import static net.runelite.api.widgets.WidgetInfo.BANK_CONTENT_CONTAINER;
 import static net.runelite.api.widgets.WidgetInfo.BANK_TAB_CONTAINER;
 import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
-
 import net.runelite.api.widgets.WidgetItem;
 
-public abstract class WidgetItemOverlay extends Overlay {
+public abstract class WidgetItemOverlay extends Overlay
+{
 	@Setter(AccessLevel.PACKAGE)
 	private OverlayManager overlayManager;
 	/**
@@ -51,7 +49,8 @@ public abstract class WidgetItemOverlay extends Overlay {
 	 */
 	private final Set<Integer> interfaceGroups = new HashSet<>();
 
-	protected WidgetItemOverlay() {
+	protected WidgetItemOverlay()
+	{
 		super.setPosition(OverlayPosition.DYNAMIC);
 		super.setPriority(OverlayPriority.LOW);
 		super.setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -60,18 +59,21 @@ public abstract class WidgetItemOverlay extends Overlay {
 	protected abstract void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget);
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		final List<WidgetItem> itemWidgets = overlayManager.getItemWidgets();
 		final Rectangle originalClipBounds = graphics.getClipBounds();
 		Widget curClipParent = null;
-		for (WidgetItem widgetItem : itemWidgets) {
+		for (WidgetItem widgetItem : itemWidgets)
+		{
 			Widget widget = widgetItem.getWidget();
 			int interfaceGroup = TO_GROUP(widget.getId());
 
 			// Don't draw if this widget isn't one of the allowed nor in tag tab/item tab
 			if (!interfaceGroups.contains(interfaceGroup) ||
-					(interfaceGroup == BANK_GROUP_ID
-							&& (widget.getParentId() == BANK_CONTENT_CONTAINER.getId() || widget.getParentId() == BANK_TAB_CONTAINER.getId()))) {
+				(interfaceGroup == BANK_GROUP_ID
+					&& (widget.getParentId() == BANK_CONTENT_CONTAINER.getId() || widget.getParentId() == BANK_TAB_CONTAINER.getId())))
+			{
 				continue;
 			}
 
@@ -84,12 +86,16 @@ public abstract class WidgetItemOverlay extends Overlay {
 			shouldClip |= itemCanvasBounds.y < parentBounds.y + parentBounds.height && itemCanvasBounds.y + itemCanvasBounds.height >= parentBounds.y + parentBounds.height;
 			shouldClip |= itemCanvasBounds.x < parentBounds.x && (itemCanvasBounds.x + itemCanvasBounds.width) >= parentBounds.x;
 			shouldClip |= itemCanvasBounds.x < parentBounds.x + parentBounds.width && itemCanvasBounds.x + itemCanvasBounds.width >= parentBounds.x + parentBounds.width;
-			if (shouldClip) {
-				if (curClipParent != parent) {
+			if (shouldClip)
+			{
+				if (curClipParent != parent)
+				{
 					graphics.setClip(parentBounds);
 					curClipParent = parent;
 				}
-			} else if (curClipParent != null && curClipParent != parent) {
+			}
+			else if (curClipParent != null && curClipParent != parent)
+			{
 				graphics.setClip(originalClipBounds);
 				curClipParent = null;
 			}
@@ -99,44 +105,51 @@ public abstract class WidgetItemOverlay extends Overlay {
 		return null;
 	}
 
-	protected void showOnInventory() {
+	protected void showOnInventory()
+	{
 		showOnInterfaces(
-				DEPOSIT_BOX_GROUP_ID,
-				BANK_INVENTORY_GROUP_ID,
-				SHOP_INVENTORY_GROUP_ID,
-				GRAND_EXCHANGE_INVENTORY_GROUP_ID,
-				GUIDE_PRICES_INVENTORY_GROUP_ID,
-				EQUIPMENT_INVENTORY_GROUP_ID,
-				INVENTORY_GROUP_ID,
-				SEED_VAULT_INVENTORY_GROUP_ID);
+			DEPOSIT_BOX_GROUP_ID,
+			BANK_INVENTORY_GROUP_ID,
+			SHOP_INVENTORY_GROUP_ID,
+			GRAND_EXCHANGE_INVENTORY_GROUP_ID,
+			GUIDE_PRICES_INVENTORY_GROUP_ID,
+			EQUIPMENT_INVENTORY_GROUP_ID,
+			INVENTORY_GROUP_ID,
+			SEED_VAULT_INVENTORY_GROUP_ID);
 	}
 
-	protected void showOnBank() {
+	protected void showOnBank()
+	{
 		showOnInterfaces(BANK_GROUP_ID);
 	}
 
-	protected void showOnEquipment() {
+	protected void showOnEquipment()
+	{
 		showOnInterfaces(EQUIPMENT_GROUP_ID);
 	}
 
-	protected void showOnInterfaces(int... ids) {
+	protected void showOnInterfaces(int... ids)
+	{
 		Arrays.stream(ids).forEach(interfaceGroups::add);
 	}
 
 	// Don't allow setting position, priority, or layer
 
 	@Override
-	public void setPosition(OverlayPosition position) {
+	public void setPosition(OverlayPosition position)
+	{
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public void setPriority(OverlayPriority priority) {
+	public void setPriority(OverlayPriority priority)
+	{
 		throw new IllegalStateException();
 	}
 
 	@Override
-	public void setLayer(OverlayLayer layer) {
+	public void setLayer(OverlayLayer layer)
+	{
 		throw new IllegalStateException();
 	}
 }

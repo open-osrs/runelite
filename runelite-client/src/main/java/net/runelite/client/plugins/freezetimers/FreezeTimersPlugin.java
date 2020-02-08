@@ -25,12 +25,10 @@
 package net.runelite.client.plugins.freezetimers;
 
 import com.google.inject.Provides;
-
 import java.util.EnumSet;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
@@ -57,14 +55,15 @@ import net.runelite.client.util.PvPUtil;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-		name = "Freeze Timers",
-		description = "Shows a freeze timer overlay on players",
-		tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
-		type = PluginType.PVP,
-		enabledByDefault = false
+	name = "Freeze Timers",
+	description = "Shows a freeze timer overlay on players",
+	tags = {"freeze", "timers", "barrage", "teleblock", "pklite"},
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 @Singleton
-public class FreezeTimersPlugin extends Plugin {
+public class FreezeTimersPlugin extends Plugin
+{
 	private static final int VORKATH_REGION = 9023;
 
 	@Inject
@@ -104,58 +103,69 @@ public class FreezeTimersPlugin extends Plugin {
 	@Getter(AccessLevel.PACKAGE)
 	private int textSize;
 
-	public void startUp() {
+	public void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(overlay);
 	}
 
-	public void shutDown() {
+	public void shutDown()
+	{
 		overlayManager.remove(overlay);
 	}
 
 	@Provides
-	public FreezeTimersConfig getConfig(ConfigManager configManager) {
+	public FreezeTimersConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(FreezeTimersConfig.class);
 	}
 
 	@Subscribe
-	public void onSpotAnimationChanged(SpotAnimationChanged graphicChanged) {
+	public void onSpotAnimationChanged(SpotAnimationChanged graphicChanged)
+	{
 		final int oldGraphic = prayerTracker.getSpotanimLastTick(graphicChanged.getActor());
 		final int newGraphic = graphicChanged.getActor().getSpotAnimation();
 
-		if (oldGraphic == newGraphic) {
+		if (oldGraphic == newGraphic)
+		{
 			return;
 		}
 
 		final PlayerSpellEffect effect = PlayerSpellEffect.getFromSpotAnim(newGraphic);
 
-		if (effect == PlayerSpellEffect.NONE) {
+		if (effect == PlayerSpellEffect.NONE)
+		{
 			return;
 		}
 
 		final long currentTime = System.currentTimeMillis();
 
-		if (timers.getTimerReApply(graphicChanged.getActor(), effect.getType()) > currentTime) {
+		if (timers.getTimerReApply(graphicChanged.getActor(), effect.getType()) > currentTime)
+		{
 			return;
 		}
 
 		long length = effect.getTimerLengthTicks();
 
-		if (effect.isHalvable() && prayerTracker.getPrayerIconLastTick(graphicChanged.getActor()) == 2) {
+		if (effect.isHalvable() && prayerTracker.getPrayerIconLastTick(graphicChanged.getActor()) == 2)
+		{
 			length /= 2;
 		}
 
 		timers.setTimerEnd(graphicChanged.getActor(), effect.getType(),
-				currentTime + length);
+			currentTime + length);
 	}
 
 	@Subscribe
-	public void onGameTick(GameTick tickEvent) {
+	public void onGameTick(GameTick tickEvent)
+	{
 		prayerTracker.gameTick();
 
-		for (Actor actor : client.getPlayers()) {
-			if (prayerTracker.getSpotanimLastTick(actor) != actor.getSpotAnimation()) {
+		for (Actor actor : client.getPlayers())
+		{
+			if (prayerTracker.getSpotanimLastTick(actor) != actor.getSpotAnimation())
+			{
 				SpotAnimationChanged callback = new SpotAnimationChanged();
 				callback.setActor(actor);
 				client.getCallbacks().post(SpotAnimationChanged.class, callback);
@@ -164,19 +174,26 @@ public class FreezeTimersPlugin extends Plugin {
 
 		List<Actor> teleblocked = timers.getAllActorsOnTimer(TimerType.TELEBLOCK);
 
-		if (!teleblocked.isEmpty()) {
+		if (!teleblocked.isEmpty())
+		{
 			final EnumSet<WorldType> worldTypes = client.getWorldType();
 
-			for (Actor actor : teleblocked) {
+			for (Actor actor : teleblocked)
+			{
 				final WorldPoint actorLoc = actor.getWorldLocation();
 
-				if (!WorldType.isAllPvpWorld(worldTypes) && (actorLoc.getY() < 3525 || PvPUtil.getWildernessLevelFrom(actorLoc) <= 0)) {
+				if (!WorldType.isAllPvpWorld(worldTypes) && (actorLoc.getY() < 3525 || PvPUtil.getWildernessLevelFrom(actorLoc) <= 0))
+				{
 					timers.setTimerReApply(actor, TimerType.TELEBLOCK, System.currentTimeMillis());
-				} else if (WorldType.isPvpWorld(worldTypes) &&
-						MapLocations.getPvpSafeZones(actorLoc.getPlane()).contains(actorLoc.getX(), actorLoc.getY())) {
+				}
+				else if (WorldType.isPvpWorld(worldTypes) &&
+					MapLocations.getPvpSafeZones(actorLoc.getPlane()).contains(actorLoc.getX(), actorLoc.getY()))
+				{
 					timers.setTimerReApply(actor, TimerType.TELEBLOCK, System.currentTimeMillis());
-				} else if (WorldType.isDeadmanWorld(worldTypes) &&
-						MapLocations.getDeadmanSafeZones(actorLoc.getPlane()).contains(actorLoc.getX(), actorLoc.getY())) {
+				}
+				else if (WorldType.isDeadmanWorld(worldTypes) &&
+					MapLocations.getDeadmanSafeZones(actorLoc.getPlane()).contains(actorLoc.getX(), actorLoc.getY()))
+				{
 					timers.setTimerReApply(actor, TimerType.TELEBLOCK, System.currentTimeMillis());
 				}
 			}
@@ -184,12 +201,15 @@ public class FreezeTimersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onPlayerDeath(PlayerDeath event) {
+	private void onPlayerDeath(PlayerDeath event)
+	{
 		final Player localPlayer = client.getLocalPlayer();
 		final long currentTime = System.currentTimeMillis();
 
-		for (TimerType type : TimerType.values()) {
-			if (timers.getTimerReApply(localPlayer, type) <= currentTime) {
+		for (TimerType type : TimerType.values())
+		{
+			if (timers.getTimerReApply(localPlayer, type) <= currentTime)
+			{
 				continue;
 			}
 
@@ -198,45 +218,55 @@ public class FreezeTimersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	public void onNpcDespawned(NpcDespawned event) {
-		if (!isAtVorkath()) {
+	public void onNpcDespawned(NpcDespawned event)
+	{
+		if (!isAtVorkath())
+		{
 			return;
 		}
 
 		final NPC npc = event.getNpc();
 
-		if (npc.getName() == null) {
+		if (npc.getName() == null)
+		{
 			return;
 		}
 
-		if (npc.getName().equals("Zombified Spawn")) {
+		if (npc.getName().equals("Zombified Spawn"))
+		{
 			timers.setTimerReApply(client.getLocalPlayer(), TimerType.FREEZE,
-					System.currentTimeMillis());
+				System.currentTimeMillis());
 		}
 	}
 
 	@Subscribe
-	public void onChatMessage(ChatMessage event) {
+	public void onChatMessage(ChatMessage event)
+	{
 		if (event.getType() != ChatMessageType.GAMEMESSAGE
-				|| !event.getMessage().contains("Your Tele Block has been removed")) {
+			|| !event.getMessage().contains("Your Tele Block has been removed"))
+		{
 			return;
 		}
 
 		timers.setTimerReApply(client.getLocalPlayer(), TimerType.TELEBLOCK, System.currentTimeMillis());
 	}
 
-	private boolean isAtVorkath() {
+	private boolean isAtVorkath()
+	{
 		return ArrayUtils.contains(client.getMapRegions(), VORKATH_REGION);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("freezetimers")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("freezetimers"))
+		{
 			updateConfig();
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showPlayers = config.showPlayers();
 		this.showNpcs = config.showNpcs();
 		this.FreezeTimers = config.FreezeTimers();

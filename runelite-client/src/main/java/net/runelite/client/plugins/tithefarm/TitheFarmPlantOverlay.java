@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
@@ -43,14 +42,16 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
 @Singleton
-public class TitheFarmPlantOverlay extends Overlay {
+public class TitheFarmPlantOverlay extends Overlay
+{
 	private final Client client;
 	private final TitheFarmPlugin plugin;
 	private final Map<TitheFarmPlantState, Color> borders = new HashMap<>();
 	private final Map<TitheFarmPlantState, Color> fills = new HashMap<>();
 
 	@Inject
-	TitheFarmPlantOverlay(final Client client, final TitheFarmPlugin plugin) {
+	TitheFarmPlantOverlay(final Client client, final TitheFarmPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		this.plugin = plugin;
@@ -60,7 +61,8 @@ public class TitheFarmPlantOverlay extends Overlay {
 	/**
 	 * Updates the timer colors.
 	 */
-	public void updateConfig() {
+	public void updateConfig()
+	{
 		borders.clear();
 		fills.clear();
 
@@ -81,23 +83,28 @@ public class TitheFarmPlantOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		final Widget viewport = client.getViewportWidget();
 
-		for (TitheFarmPlant plant : plugin.getPlants()) {
-			if (plant.getState() == TitheFarmPlantState.DEAD) {
+		for (TitheFarmPlant plant : plugin.getPlants())
+		{
+			if (plant.getState() == TitheFarmPlantState.DEAD)
+			{
 				continue;
 			}
 
 			final LocalPoint localLocation = LocalPoint.fromWorld(client, plant.getWorldLocation());
 
-			if (localLocation == null) {
+			if (localLocation == null)
+			{
 				continue;
 			}
 
 			final Point canvasLocation = Perspective.localToCanvas(client, localLocation, client.getPlane());
 
-			if (viewport != null && canvasLocation != null) {
+			if (viewport != null && canvasLocation != null)
+			{
 				final ProgressPieComponent progressPieComponent = new ProgressPieComponent();
 				progressPieComponent.setPosition(canvasLocation);
 				progressPieComponent.setProgress(1 - plant.getPlantTimeRelative());

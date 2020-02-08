@@ -6,21 +6,21 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class16 {
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "[Lli;"
+		signature = "[Lli;"
 	)
 	@Export("runesSprite")
 	static IndexedSprite[] runesSprite;
 	@ObfuscatedName("cf")
 	@ObfuscatedSignature(
-			signature = "Lbt;"
+		signature = "Lbt;"
 	)
 	@Export("mouseRecorder")
 	static MouseRecorder mouseRecorder;
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lii;Ljava/lang/String;Ljava/lang/String;I)Lli;",
-			garbageValue = "1833648793"
+		signature = "(Lii;Ljava/lang/String;Ljava/lang/String;I)Lli;",
+		garbageValue = "1833648793"
 	)
 	@Export("SpriteBuffer_getIndexedSpriteByName")
 	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {

@@ -26,17 +26,18 @@ package net.runelite.api.queries;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
 import net.runelite.api.Client;
 import net.runelite.api.LocatableQueryResults;
 import net.runelite.api.Player;
 
-public class PlayerQuery extends ActorQuery<Player, PlayerQuery> {
+public class PlayerQuery extends ActorQuery<Player, PlayerQuery>
+{
 	@Override
-	public LocatableQueryResults<Player> result(Client client) {
+	public LocatableQueryResults<Player> result(Client client)
+	{
 		Collection<Player> players = client.getPlayers();
 		return new LocatableQueryResults<>(players.stream()
-				.filter(predicate)
-				.collect(Collectors.toList()));
+			.filter(predicate)
+			.collect(Collectors.toList()));
 	}
 }

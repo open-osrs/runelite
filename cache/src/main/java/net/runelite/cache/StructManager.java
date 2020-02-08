@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.cache.definitions.StructDefinition;
 import net.runelite.cache.definitions.loaders.StructLoader;
 import net.runelite.cache.definitions.providers.StructProvider;
@@ -39,15 +38,18 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 
-public class StructManager implements StructProvider {
+public class StructManager implements StructProvider
+{
 	private final Store store;
 	private final Map<Integer, StructDefinition> structs = new HashMap<>();
 
-	public StructManager(Store store) {
+	public StructManager(Store store)
+	{
 		this.store = store;
 	}
 
-	public void load() throws IOException {
+	public void load() throws IOException
+	{
 		StructLoader loader = new StructLoader();
 
 		Storage storage = store.getStorage();
@@ -57,22 +59,26 @@ public class StructManager implements StructProvider {
 		byte[] archiveData = storage.loadArchive(archive);
 		ArchiveFiles files = archive.getFiles(archiveData);
 
-		for (FSFile f : files.getFiles()) {
+		for (FSFile f : files.getFiles())
+		{
 			StructDefinition def = loader.load(f.getFileId(), f.getContents());
 			structs.put(f.getFileId(), def);
 		}
 	}
 
-	public Map<Integer, StructDefinition> getStructs() {
+	public Map<Integer, StructDefinition> getStructs()
+	{
 		return Collections.unmodifiableMap(structs);
 	}
 
-	public StructDefinition getStruct(int structId) {
+	public StructDefinition getStruct(int structId)
+	{
 		return structs.get(structId);
 	}
 
 	@Override
-	public StructDefinition provide(int structId) {
+	public StructDefinition provide(int structId)
+	{
 		return getStruct(structId);
 	}
 }

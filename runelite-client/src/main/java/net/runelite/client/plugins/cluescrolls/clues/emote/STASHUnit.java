@@ -30,7 +30,8 @@ import net.runelite.api.NullObjectID;
 import net.runelite.api.coords.WorldPoint;
 
 @Getter(AccessLevel.PUBLIC)
-public enum STASHUnit {
+public enum STASHUnit
+{
 	NEAR_A_SHED_IN_LUMBRIDGE_SWAMP(NullObjectID.NULL_28958, new WorldPoint(3201, 3171, 0)),
 	ON_THE_BRIDGE_TO_THE_MISTHALIN_WIZARDS_TOWER(NullObjectID.NULL_28959, new WorldPoint(3115, 3194, 0)),
 	DRAYNOR_VILLAGE_MARKET(NullObjectID.NULL_28960, new WorldPoint(3083, 3254, 0)),
@@ -143,7 +144,8 @@ public enum STASHUnit {
 	private final int objectId;
 	private final WorldPoint[] worldPoints;
 
-	STASHUnit(int objectId, WorldPoint... worldPoints) {
+	STASHUnit(int objectId, WorldPoint... worldPoints)
+	{
 		this.objectId = objectId;
 		this.worldPoints = worldPoints;
 	}

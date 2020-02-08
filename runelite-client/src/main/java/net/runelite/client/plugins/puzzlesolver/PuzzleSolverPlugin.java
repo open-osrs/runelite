@@ -26,12 +26,10 @@
 package net.runelite.client.plugins.puzzlesolver;
 
 import com.google.inject.Provides;
-
 import java.awt.Color;
 import java.util.Arrays;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +41,6 @@ import net.runelite.api.util.Text;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
-
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_A;
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_B;
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_C;
@@ -53,7 +50,6 @@ import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_F;
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_G;
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_H;
 import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
-
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
@@ -69,14 +65,15 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.util.ColorUtil;
 
 @PluginDescriptor(
-		name = "Puzzle Solver",
-		description = "Show you where to click to solve puzzle boxes",
-		tags = {"clues", "scrolls", "overlay"},
-		type = PluginType.UTILITY
+	name = "Puzzle Solver",
+	description = "Show you where to click to solve puzzle boxes",
+	tags = {"clues", "scrolls", "overlay"},
+	type = PluginType.UTILITY
 )
 @Slf4j
 @Singleton
-public class PuzzleSolverPlugin extends Plugin {
+public class PuzzleSolverPlugin extends Plugin
+{
 	private static final Color CORRECT_MUSEUM_PUZZLE_ANSWER_COLOR = new Color(0, 248, 128);
 
 	@Inject
@@ -104,91 +101,124 @@ public class PuzzleSolverPlugin extends Plugin {
 	private boolean drawDots;
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(overlay);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 	}
 
 	@Provides
-	PuzzleSolverConfig provideConfig(ConfigManager configManager) {
+	PuzzleSolverConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PuzzleSolverConfig.class);
 	}
 
 	@Subscribe
-	private void onWidgetLoaded(WidgetLoaded widget) {
-		if (widget.getGroupId() != WidgetID.VARROCK_MUSEUM_QUIZ_GROUP_ID) {
+	private void onWidgetLoaded(WidgetLoaded widget)
+	{
+		if (widget.getGroupId() != WidgetID.VARROCK_MUSEUM_QUIZ_GROUP_ID)
+		{
 			return;
 		}
 
 		final Widget questionWidget = client.getWidget(WidgetInfo.VARROCK_MUSEUM_QUESTION);
 
-		if (questionWidget == null) {
+		if (questionWidget == null)
+		{
 			return;
 		}
 
 		final Widget answerWidget = VarrockMuseumAnswer.findCorrect(
-				client,
-				questionWidget.getText(),
-				WidgetInfo.VARROCK_MUSEUM_FIRST_ANSWER,
-				WidgetInfo.VARROCK_MUSEUM_SECOND_ANSWER,
-				WidgetInfo.VARROCK_MUSEUM_THIRD_ANSWER);
+			client,
+			questionWidget.getText(),
+			WidgetInfo.VARROCK_MUSEUM_FIRST_ANSWER,
+			WidgetInfo.VARROCK_MUSEUM_SECOND_ANSWER,
+			WidgetInfo.VARROCK_MUSEUM_THIRD_ANSWER);
 
-		if (answerWidget == null) {
+		if (answerWidget == null)
+		{
 			return;
 		}
 
 		final String answerText = answerWidget.getText();
-		if (answerText.equals(Text.removeTags(answerText))) {
+		if (answerText.equals(Text.removeTags(answerText)))
+		{
 			answerWidget.setText(ColorUtil.wrapWithColorTag(answerText, CORRECT_MUSEUM_PUZZLE_ANSWER_COLOR));
 		}
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked) {
+	private void onMenuOptionClicked(MenuOptionClicked menuOptionClicked)
+	{
 		int widgetId = menuOptionClicked.getParam1();
-		if (TO_GROUP(widgetId) != WidgetID.LIGHT_BOX_GROUP_ID) {
+		if (TO_GROUP(widgetId) != WidgetID.LIGHT_BOX_GROUP_ID)
+		{
 			return;
 		}
 
 		Combination combination;
-		if (widgetId == LIGHT_BOX_BUTTON_A.getId()) {
+		if (widgetId == LIGHT_BOX_BUTTON_A.getId())
+		{
 			combination = Combination.A;
-		} else if (widgetId == LIGHT_BOX_BUTTON_B.getId()) {
+		}
+		else if (widgetId == LIGHT_BOX_BUTTON_B.getId())
+		{
 			combination = Combination.B;
-		} else if (widgetId == LIGHT_BOX_BUTTON_C.getId()) {
+		}
+		else if (widgetId == LIGHT_BOX_BUTTON_C.getId())
+		{
 			combination = Combination.C;
-		} else if (widgetId == LIGHT_BOX_BUTTON_D.getId()) {
+		}
+		else if (widgetId == LIGHT_BOX_BUTTON_D.getId())
+		{
 			combination = Combination.D;
-		} else if (widgetId == LIGHT_BOX_BUTTON_E.getId()) {
+		}
+		else if (widgetId == LIGHT_BOX_BUTTON_E.getId())
+		{
 			combination = Combination.E;
-		} else if (widgetId == LIGHT_BOX_BUTTON_F.getId()) {
+		}
+		else if (widgetId == LIGHT_BOX_BUTTON_F.getId())
+		{
 			combination = Combination.F;
-		} else if (widgetId == LIGHT_BOX_BUTTON_G.getId()) {
+		}
+		else if (widgetId == LIGHT_BOX_BUTTON_G.getId())
+		{
 			combination = Combination.G;
-		} else if (widgetId == LIGHT_BOX_BUTTON_H.getId()) {
+		}
+		else if (widgetId == LIGHT_BOX_BUTTON_H.getId())
+		{
 			combination = Combination.H;
-		} else {
+		}
+		else
+		{
 			return;
 		}
 
-		if (lastClick != null) {
+		if (lastClick != null)
+		{
 			lastClickInvalid = true;
-		} else {
+		}
+		else
+		{
 			lastClick = combination;
 		}
 	}
 
 	@Subscribe
-	public void onGameTick(GameTick event) {
+	public void onGameTick(GameTick event)
+	{
 		Widget lightboxWidget = client.getWidget(WidgetInfo.LIGHT_BOX_CONTENTS);
-		if (lightboxWidget == null) {
-			if (lightbox != null) {
+		if (lightboxWidget == null)
+		{
+			if (lightbox != null)
+			{
 				lastClick = null;
 				lastClickInvalid = false;
 				lightbox = null;
@@ -200,13 +230,15 @@ public class PuzzleSolverPlugin extends Plugin {
 		// get current state from widget
 		LightboxState lightboxState = new LightboxState();
 		int index = 0;
-		for (Widget light : lightboxWidget.getDynamicChildren()) {
+		for (Widget light : lightboxWidget.getDynamicChildren())
+		{
 			boolean lit = light.getItemId() == LightBox.LIGHT_BULB_ON;
 			lightboxState.setState(index / LightBox.WIDTH, index % LightBox.HEIGHT, lit);
 			index++;
 		}
 
-		if (lightboxState.equals(lightbox)) {
+		if (lightboxState.equals(lightbox))
+		{
 			return; // no change
 		}
 
@@ -215,7 +247,8 @@ public class PuzzleSolverPlugin extends Plugin {
 		LightboxState prev = lightbox;
 		lightbox = lightboxState;
 
-		if (lastClick == null || lastClickInvalid) {
+		if (lastClick == null || lastClickInvalid)
+		{
 			lastClick = null;
 			lastClickInvalid = false;
 			return;
@@ -231,8 +264,10 @@ public class PuzzleSolverPlugin extends Plugin {
 		LightboxSolver solver = new LightboxSolver();
 		solver.setInitial(lightbox);
 		int idx = 0;
-		for (LightboxState state : changes) {
-			if (state != null) {
+		for (LightboxState state : changes)
+		{
+			if (state != null)
+			{
 				Combination combination = Combination.values()[idx];
 				solver.setSwitchChange(combination, state);
 			}
@@ -240,32 +275,42 @@ public class PuzzleSolverPlugin extends Plugin {
 		}
 
 		LightboxSolution solution = solver.solve();
-		if (solution != null) {
+		if (solution != null)
+		{
 			log.debug("Got solution: {}", solution);
 		}
 
 		// Set solution to title
 		Widget lightbox = client.getWidget(WidgetInfo.LIGHT_BOX);
-		if (lightbox != null) {
+		if (lightbox != null)
+		{
 			Widget title = lightbox.getChild(1);
-			if (solution != null && solution.numMoves() > 0) {
+			if (solution != null && solution.numMoves() > 0)
+			{
 				title.setText("Light box - Solution: " + solution);
-			} else if (solution != null) {
+			}
+			else if (solution != null)
+			{
 				title.setText("Light box - Solution: solved!");
-			} else {
+			}
+			else
+			{
 				title.setText("Light box - Solution: unknown");
 			}
 		}
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("puzzlesolver")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("puzzlesolver"))
+		{
 			updateConfig();
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.displaySolution = config.displaySolution();
 		this.displayRemainingMoves = config.displayRemainingMoves();
 		this.drawDots = config.drawDots();

@@ -27,39 +27,46 @@ package net.runelite.asm.attributes.code;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.attributes.Code;
 
-public class Exceptions {
+public class Exceptions
+{
 	private Code code;
 	private List<Exception> exceptions = new ArrayList<Exception>();
 
-	public Exceptions(Code code) {
+	public Exceptions(Code code)
+	{
 		this.code = code;
 	}
 
-	public void add(Exception e) {
+	public void add(Exception e)
+	{
 		exceptions.add(e);
 	}
-
-	public void remove(Exception e) {
+	
+	public void remove(Exception e)
+	{
 		exceptions.remove(e);
 	}
 
-	public void clear() {
+	public void clear()
+	{
 		exceptions.clear();
 	}
-
-	public Code getCode() {
+	
+	public Code getCode()
+	{
 		return code;
 	}
-
-	public List<Exception> getExceptions() {
+	
+	public List<Exception> getExceptions()
+	{
 		return exceptions;
 	}
-
-	public void renameClass(ClassFile cf, String name) {
+	
+	public void renameClass(ClassFile cf, String name)
+	{
 		for (Exception e : exceptions)
 			e.renameClass(cf, name);
 	}

@@ -7,21 +7,21 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class162 implements class161 {
 	@ObfuscatedName("sy")
 	@ObfuscatedGetter(
-			intValue = -1885571545
+		intValue = -1885571545
 	)
 	@Export("foundItemIdCount")
 	static int foundItemIdCount;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("Widget_fontsArchive")
 	static AbstractArchive Widget_fontsArchive;
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lii;Ljava/lang/String;Ljava/lang/String;IZI)V",
-			garbageValue = "-1967656766"
+		signature = "(Lii;Ljava/lang/String;Ljava/lang/String;IZI)V",
+		garbageValue = "-1967656766"
 	)
 	public static void method3523(AbstractArchive var0, String var1, String var2, int var3, boolean var4) {
 		int var5 = var0.getGroupId(var1);

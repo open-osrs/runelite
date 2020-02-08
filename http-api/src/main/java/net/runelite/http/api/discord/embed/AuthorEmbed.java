@@ -39,7 +39,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AuthorEmbed {
+public class AuthorEmbed
+{
 	String name;
 	String url;
 	String icon_url;

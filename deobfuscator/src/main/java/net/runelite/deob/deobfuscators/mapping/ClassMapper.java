@@ -26,52 +26,57 @@ package net.runelite.deob.deobfuscators.mapping;
 
 import com.google.common.collect.ImmutableMultiset;
 import com.google.common.collect.Multiset;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Type;
 import net.runelite.asm.signature.Signature;
 
-public class ClassMapper {
+public class ClassMapper
+{
 	private final ClassFile one, two;
 
-	public ClassMapper(ClassFile one, ClassFile two) {
+	public ClassMapper(ClassFile one, ClassFile two)
+	{
 		this.one = one;
 		this.two = two;
 	}
 
-	private Multiset<Type> fieldCardinalities(ClassFile cf) {
+	private Multiset<Type> fieldCardinalities(ClassFile cf)
+	{
 		List<Type> t = cf.getFields().stream()
-				.filter(f -> !f.isStatic())
-				.map(f -> f.getType())
-				.collect(Collectors.toList());
+			.filter(f -> !f.isStatic())
+			.map(f -> f.getType())
+			.collect(Collectors.toList());
 
 		return ImmutableMultiset.copyOf(t);
 	}
 
-	private Multiset<Signature> methodCardinalities(ClassFile cf) {
+	private Multiset<Signature> methodCardinalities(ClassFile cf)
+	{
 		List<Signature> t = cf.getMethods().stream()
-				.filter(m -> !m.isStatic())
-				.filter(m -> !m.getName().startsWith("<"))
-				.map(m -> m.getDescriptor())
-				.collect(Collectors.toList());
+			.filter(m -> !m.isStatic())
+			.filter(m -> !m.getName().startsWith("<"))
+			.map(m -> m.getDescriptor())
+			.collect(Collectors.toList());
 
 		return ImmutableMultiset.copyOf(t);
 	}
 
-	public boolean same() {
+	public boolean same()
+	{
 		Multiset<Type> c1 = fieldCardinalities(one), c2 = fieldCardinalities(two);
 
-		if (!c1.equals(c2)) {
+		if (!c1.equals(c2))
+		{
 			return false;
 		}
 
 		Multiset<Signature> s1 = methodCardinalities(one);
 		Multiset<Signature> s2 = methodCardinalities(two);
 
-		if (!s1.equals(s2)) {
+		if (!s1.equals(s2))
+		{
 			return false;
 		}
 

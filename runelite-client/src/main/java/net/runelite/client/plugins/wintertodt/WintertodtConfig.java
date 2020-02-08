@@ -26,7 +26,6 @@
 package net.runelite.client.plugins.wintertodt;
 
 import java.awt.Color;
-
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -35,38 +34,42 @@ import net.runelite.client.config.Units;
 import net.runelite.client.plugins.wintertodt.config.WintertodtNotifyMode;
 
 @ConfigGroup("wintertodt")
-public interface WintertodtConfig extends Config {
+public interface WintertodtConfig extends Config
+{
 	@ConfigItem(
-			position = 1,
-			keyName = "notifyCondition",
-			name = "Notify When",
-			description = "Configures when to send notifications"
+		position = 1,
+		keyName = "notifyCondition",
+		name = "Notify When",
+		description = "Configures when to send notifications"
 	)
-	default WintertodtNotifyMode notifyCondition() {
+	default WintertodtNotifyMode notifyCondition()
+	{
 		return WintertodtNotifyMode.ONLY_WHEN_INTERRUPTED;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "damageNotificationColor",
-			name = "Damage Notification Color",
-			description = "Color of damage notification text in chat"
+		position = 2,
+		keyName = "damageNotificationColor",
+		name = "Damage Notification Color",
+		description = "Color of damage notification text in chat"
 	)
-	default Color damageNotificationColor() {
+	default Color damageNotificationColor()
+	{
 		return Color.CYAN;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "roundNotification",
-			name = "Wintertodt round notification",
-			description = "Notifies you before the round starts (in seconds)"
+		position = 3,
+		keyName = "roundNotification",
+		name = "Wintertodt round notification",
+		description = "Notifies you before the round starts (in seconds)"
 	)
 	@Range(
-			max = 60
+		max = 60
 	)
 	@Units(Units.SECONDS)
-	default int roundNotification() {
+	default int roundNotification()
+	{
 		return 5;
 	}
 }

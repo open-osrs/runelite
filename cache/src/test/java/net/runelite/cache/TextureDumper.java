@@ -27,11 +27,9 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-
 import net.runelite.cache.definitions.TextureDefinition;
 import net.runelite.cache.fs.Store;
 import org.junit.Rule;
@@ -40,7 +38,8 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TextureDumper {
+public class TextureDumper
+{
 	private static final Logger logger = LoggerFactory.getLogger(TextureDumper.class);
 
 	@Rule
@@ -49,19 +48,22 @@ public class TextureDumper {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
-	public void extract() throws IOException {
+	public void extract() throws IOException
+	{
 		File base = StoreLocation.LOCATION,
-				outDir = folder.newFolder();
+			outDir = folder.newFolder();
 
 		int count = 0;
 
-		try (Store store = new Store(base)) {
+		try (Store store = new Store(base))
+		{
 			store.load();
 
 			TextureManager tm = new TextureManager(store);
 			tm.load();
 
-			for (TextureDefinition texture : tm.getTextures()) {
+			for (TextureDefinition texture : tm.getTextures())
+			{
 				Files.asCharSink(new File(outDir, texture.getId() + ".json"), Charset.defaultCharset()).write(gson.toJson(texture));
 				++count;
 			}

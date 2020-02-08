@@ -31,7 +31,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.ChatMessage;
@@ -42,13 +41,15 @@ import net.runelite.client.events.ChatboxInput;
 import net.runelite.client.events.PrivateMessageInput;
 
 @Singleton
-public class ChatCommandManager {
+public class ChatCommandManager
+{
 	private final Map<String, ChatCommand> commands = new ConcurrentHashMap<>();
 	private final Client client;
 	private final ScheduledExecutorService scheduledExecutorService;
 
 	@Inject
-	private ChatCommandManager(EventBus eventBus, Client client, ScheduledExecutorService scheduledExecutorService) {
+	private ChatCommandManager(EventBus eventBus, Client client, ScheduledExecutorService scheduledExecutorService)
+	{
 		this.client = client;
 		this.scheduledExecutorService = scheduledExecutorService;
 
@@ -57,32 +58,40 @@ public class ChatCommandManager {
 		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
 	}
 
-	public void registerCommand(String command, BiConsumer<ChatMessage, String> execute) {
+	public void registerCommand(String command, BiConsumer<ChatMessage, String> execute)
+	{
 		registerCommand(command, execute, null);
 	}
 
-	public void registerCommand(String command, BiConsumer<ChatMessage, String> execute, BiPredicate<ChatInput, String> input) {
+	public void registerCommand(String command, BiConsumer<ChatMessage, String> execute, BiPredicate<ChatInput, String> input)
+	{
 		commands.put(command.toLowerCase(), new ChatCommand(command, false, execute, input));
 	}
 
-	public void registerCommandAsync(String command, BiConsumer<ChatMessage, String> execute) {
+	public void registerCommandAsync(String command, BiConsumer<ChatMessage, String> execute)
+	{
 		registerCommandAsync(command, execute, null);
 	}
 
-	public void registerCommandAsync(String command, BiConsumer<ChatMessage, String> execute, BiPredicate<ChatInput, String> input) {
+	public void registerCommandAsync(String command, BiConsumer<ChatMessage, String> execute, BiPredicate<ChatInput, String> input)
+	{
 		commands.put(command.toLowerCase(), new ChatCommand(command, true, execute, input));
 	}
 
-	public void unregisterCommand(String command) {
+	public void unregisterCommand(String command)
+	{
 		commands.remove(command.toLowerCase());
 	}
 
-	private void onChatMessage(ChatMessage chatMessage) {
-		if (client.getGameState() != GameState.LOGGED_IN) {
+	private void onChatMessage(ChatMessage chatMessage)
+	{
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
-		switch (chatMessage.getType()) {
+		switch (chatMessage.getType())
+		{
 			case PUBLICCHAT:
 			case MODCHAT:
 			case FRIENDSCHAT:
@@ -98,21 +107,27 @@ public class ChatCommandManager {
 
 		String command = extractCommand(message);
 		ChatCommand chatCommand = commands.get(command.toLowerCase());
-		if (chatCommand == null) {
+		if (chatCommand == null)
+		{
 			return;
 		}
 
-		if (chatCommand.isAsync()) {
+		if (chatCommand.isAsync())
+		{
 			scheduledExecutorService.execute(() -> chatCommand.getExecute().accept(chatMessage, message));
-		} else {
+		}
+		else
+		{
 			chatCommand.getExecute().accept(chatMessage, message);
 		}
 	}
 
 	@Subscribe // just for show
-	private void onChatboxInput(ChatboxInput chatboxInput) {
+	private void onChatboxInput(ChatboxInput chatboxInput)
+	{
 		String message = chatboxInput.getValue();
-		if (message.startsWith("/")) {
+		if (message.startsWith("/"))
+		{
 			message = message.substring(1); // clan chat input
 		}
 
@@ -120,27 +135,33 @@ public class ChatCommandManager {
 	}
 
 	@Subscribe // just for show
-	private void onPrivateMessageInput(PrivateMessageInput input) {
+	private void onPrivateMessageInput(PrivateMessageInput input)
+	{
 		onInput(input, input.getMessage());
 	}
 
-	private void onInput(ChatInput chatInput, String message) {
+	private void onInput(ChatInput chatInput, String message)
+	{
 		String command = extractCommand(message);
 
 		ChatCommand chatCommand = commands.get(command.toLowerCase());
-		if (chatCommand == null) {
+		if (chatCommand == null)
+		{
 			return;
 		}
 
 		BiPredicate<ChatInput, String> input = chatCommand.getInput();
-		if (input != null && input.test(chatInput, message)) {
+		if (input != null && input.test(chatInput, message))
+		{
 			chatInput.setStop();
 		}
 	}
 
-	private static String extractCommand(String message) {
+	private static String extractCommand(String message)
+	{
 		int idx = message.indexOf(' ');
-		if (idx == -1) {
+		if (idx == -1)
+		{
 			return message;
 		}
 

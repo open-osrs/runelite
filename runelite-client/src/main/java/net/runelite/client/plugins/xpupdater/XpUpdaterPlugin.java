@@ -28,7 +28,6 @@ package net.runelite.client.plugins.xpupdater;
 import java.io.IOException;
 import java.util.Objects;
 import javax.inject.Inject;
-
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -51,14 +50,15 @@ import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 
 @PluginDescriptor(
-		name = "XP Updater",
-		description = "Automatically updates your stats on external xptrackers when you log out",
-		tags = {"cml", "templeosrs", "temple", "external", "integration"},
-		enabledByDefault = false,
-		type = PluginType.MISCELLANEOUS
+	name = "XP Updater",
+	description = "Automatically updates your stats on external xptrackers when you log out",
+	tags = {"cml", "templeosrs", "temple", "external", "integration"},
+	enabledByDefault = false,
+	type = PluginType.MISCELLANEOUS
 )
 @Slf4j
-public class XpUpdaterPlugin extends Plugin {
+public class XpUpdaterPlugin extends Plugin
+{
 	/**
 	 * Amount of EXP that must be gained for an update to be submitted.
 	 */
@@ -66,7 +66,7 @@ public class XpUpdaterPlugin extends Plugin {
 
 	@Inject
 	private Client client;
-
+	
 	@Inject
 	private EventBus eventBus;
 
@@ -78,39 +78,49 @@ public class XpUpdaterPlugin extends Plugin {
 	private XpUpdaterConfig config;
 
 	@Provides
-	XpUpdaterConfig getConfig(ConfigManager configManager) {
+	XpUpdaterConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(XpUpdaterConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		fetchXp = true;
-
+		
 		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
 	}
-
+	
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		eventBus.unregister(this);
 	}
 
-	public void onGameStateChanged(GameStateChanged gameStateChanged) {
+	public void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
 		GameState state = gameStateChanged.getGameState();
-		if (state == GameState.LOGGED_IN) {
-			if (!Objects.equals(client.getUsername(), lastUsername)) {
+		if (state == GameState.LOGGED_IN)
+		{
+			if (!Objects.equals(client.getUsername(), lastUsername))
+			{
 				lastUsername = client.getUsername();
 				fetchXp = true;
 			}
-		} else if (state == GameState.LOGIN_SCREEN) {
+		}
+		else if (state == GameState.LOGIN_SCREEN)
+		{
 			Player local = client.getLocalPlayer();
-			if (local == null) {
+			if (local == null)
+			{
 				return;
 			}
 
 			long totalXp = client.getOverallExperience();
 			// Don't submit update unless xp threshold is reached
-			if (Math.abs(totalXp - lastXp) > XP_THRESHOLD) {
+			if (Math.abs(totalXp - lastXp) > XP_THRESHOLD)
+			{
 				log.debug("Submitting update for {}", local.getName());
 				sendUpdateRequest(local.getName());
 				lastXp = totalXp;
@@ -118,18 +128,22 @@ public class XpUpdaterPlugin extends Plugin {
 		}
 	}
 
-	public void onGameTick(GameTick gameTick) {
-		if (fetchXp) {
+	public void onGameTick(GameTick gameTick)
+	{
+		if (fetchXp)
+		{
 			lastXp = client.getOverallExperience();
 			fetchXp = false;
 		}
 	}
 
-	private void sendUpdateRequest(String username) {
+	private void sendUpdateRequest(String username)
+	{
 		String reformedUsername = username.replace(" ", "_");
 		OkHttpClient httpClient = RuneLiteAPI.CLIENT;
 
-		if (config.cml()) {
+		if (config.cml())
+		{
 			HttpUrl url = new HttpUrl.Builder()
 					.scheme("https")
 					.host("crystalmathlabs.com")
@@ -144,20 +158,24 @@ public class XpUpdaterPlugin extends Plugin {
 					.url(url)
 					.build();
 
-			httpClient.newCall(request).enqueue(new Callback() {
+			httpClient.newCall(request).enqueue(new Callback()
+			{
 				@Override
-				public void onFailure(@NotNull Call call, @NotNull IOException e) {
+				public void onFailure(@NotNull Call call, @NotNull IOException e)
+				{
 					log.warn("Error submitting CML update, caused by {}.", e.getMessage());
 				}
 
 				@Override
-				public void onResponse(@NotNull Call call, @NotNull Response response) {
+				public void onResponse(@NotNull Call call, @NotNull Response response)
+				{
 					response.close();
 				}
 			});
 		}
 
-		if (config.templeosrs()) {
+		if (config.templeosrs())
+		{
 			HttpUrl url = new HttpUrl.Builder()
 					.scheme("https")
 					.host("templeosrs.com")
@@ -171,14 +189,17 @@ public class XpUpdaterPlugin extends Plugin {
 					.url(url)
 					.build();
 
-			httpClient.newCall(request).enqueue(new Callback() {
+			httpClient.newCall(request).enqueue(new Callback()
+			{
 				@Override
-				public void onFailure(@NotNull Call call, @NotNull IOException e) {
+				public void onFailure(@NotNull Call call, @NotNull IOException e)
+				{
 					log.warn("Error submitting TempleOSRS update, caused by {}.", e.getMessage());
 				}
 
 				@Override
-				public void onResponse(@NotNull Call call, @NotNull Response response) {
+				public void onResponse(@NotNull Call call, @NotNull Response response)
+				{
 					response.close();
 				}
 			});

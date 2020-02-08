@@ -26,7 +26,6 @@ package net.runelite.client.plugins.discord;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ComparisonChain;
-
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -34,21 +33,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.inject.Inject;
-
 import lombok.Data;
 import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.discord.DiscordPresence;
 import net.runelite.client.discord.DiscordService;
 import net.runelite.client.ws.PartyService;
-
 import static net.runelite.client.ws.PartyService.PARTY_MAX;
 
 /**
  * This class contains data about currently active discord state.
  */
-class DiscordState {
+class DiscordState
+{
 	@Data
-	private static class EventWithTime {
+	private static class EventWithTime
+	{
 		private final DiscordGameEventType type;
 		private final Instant start;
 		private Instant updated;
@@ -62,7 +61,8 @@ class DiscordState {
 	private DiscordPresence lastPresence;
 
 	@Inject
-	private DiscordState(final DiscordService discordService, final DiscordPlugin plugin, final PartyService party) {
+	private DiscordState(final DiscordService discordService, final DiscordPlugin plugin, final PartyService party)
+	{
 		this.discordService = discordService;
 		this.plugin = plugin;
 		this.party = party;
@@ -71,7 +71,8 @@ class DiscordState {
 	/**
 	 * Reset state.
 	 */
-	void reset() {
+	void reset()
+	{
 		discordService.clearPresence();
 		events.clear();
 		lastPresence = null;
@@ -80,21 +81,24 @@ class DiscordState {
 	/**
 	 * Force refresh discord presence
 	 */
-	void refresh() {
-		if (lastPresence == null) {
+	void refresh()
+	{
+		if (lastPresence == null)
+		{
 			return;
 		}
 
 		final DiscordPresence.DiscordPresenceBuilder presenceBuilder = DiscordPresence.builder()
-				.state(lastPresence.getState())
-				.details(lastPresence.getDetails())
-				.largeImageText(lastPresence.getLargeImageText())
-				.startTimestamp(lastPresence.getStartTimestamp())
-				.smallImageKey(lastPresence.getSmallImageKey())
-				.partyMax(lastPresence.getPartyMax())
-				.partySize(Math.max(plugin.isAlwaysShowParty() ? 1 : 0, party.getMembers().size()));
+			.state(lastPresence.getState())
+			.details(lastPresence.getDetails())
+			.largeImageText(lastPresence.getLargeImageText())
+			.startTimestamp(lastPresence.getStartTimestamp())
+			.smallImageKey(lastPresence.getSmallImageKey())
+			.partyMax(lastPresence.getPartyMax())
+			.partySize(Math.max(plugin.isAlwaysShowParty() ? 1 : 0, party.getMembers().size()));
 
-		if (party.isOwner()) {
+		if (party.isOwner())
+		{
 			presenceBuilder.partyId(partyId.toString());
 			presenceBuilder.joinSecret(party.getPartyId().toString());
 		}
@@ -107,13 +111,17 @@ class DiscordState {
 	 *
 	 * @param eventType discord event type
 	 */
-	void triggerEvent(final DiscordGameEventType eventType) {
+	void triggerEvent(final DiscordGameEventType eventType)
+	{
 		final Optional<EventWithTime> foundEvent = events.stream().filter(e -> e.type == eventType).findFirst();
 		EventWithTime event;
 
-		if (foundEvent.isPresent()) {
+		if (foundEvent.isPresent())
+		{
 			event = foundEvent.get();
-		} else {
+		}
+		else
+		{
 			// If we aren't showing the elapsed time within Discord then
 			// We null out the event start property
 			event = new EventWithTime(eventType, plugin.isHideElapsedTime() ? null : Instant.now());
@@ -123,14 +131,15 @@ class DiscordState {
 
 		event.setUpdated(Instant.now());
 
-		if (event.getType().isShouldClear()) {
+		if (event.getType().isShouldClear())
+		{
 			events.removeIf(e -> e.getType() != eventType && e.getType().isShouldClear());
 		}
 
 		events.sort((a, b) -> ComparisonChain.start()
-				.compare(b.getType().getPriority(), a.getType().getPriority())
-				.compare(b.getUpdated(), a.getUpdated())
-				.result());
+			.compare(b.getType().getPriority(), a.getType().getPriority())
+			.compare(b.getUpdated(), a.getUpdated())
+			.result());
 
 		event = events.get(0);
 
@@ -138,20 +147,25 @@ class DiscordState {
 		String state = null;
 		String details = null;
 
-		for (EventWithTime eventWithTime : events) {
-			if (imageKey == null) {
+		for (EventWithTime eventWithTime : events)
+		{
+			if (imageKey == null)
+			{
 				imageKey = eventWithTime.getType().getImageKey();
 			}
 
-			if (details == null) {
+			if (details == null)
+			{
 				details = eventWithTime.getType().getDetails();
 			}
 
-			if (state == null) {
+			if (state == null)
+			{
 				state = eventWithTime.getType().getState();
 			}
 
-			if (imageKey != null && details != null && state != null) {
+			if (imageKey != null && details != null && state != null)
+			{
 				break;
 			}
 		}
@@ -160,15 +174,16 @@ class DiscordState {
 		final String versionShortHand = RuneLiteProperties.getVersion().replace("-SNAPSHOT", "+");
 
 		final DiscordPresence.DiscordPresenceBuilder presenceBuilder = DiscordPresence.builder()
-				.state(MoreObjects.firstNonNull(state, ""))
-				.details(MoreObjects.firstNonNull(details, ""))
-				.largeImageText(RuneLiteProperties.getTitle() + " v" + versionShortHand)
-				.startTimestamp(event.getStart())
-				.smallImageKey(imageKey)
-				.partyMax(PARTY_MAX)
-				.partySize(party.getMembers().size());
+			.state(MoreObjects.firstNonNull(state, ""))
+			.details(MoreObjects.firstNonNull(details, ""))
+			.largeImageText(RuneLiteProperties.getTitle() + " v" + versionShortHand)
+			.startTimestamp(event.getStart())
+			.smallImageKey(imageKey)
+			.partyMax(PARTY_MAX)
+			.partySize(party.getMembers().size());
 
-		if (party.isOwner()) {
+		if (party.isOwner())
+		{
 			presenceBuilder.partyId(partyId.toString());
 			presenceBuilder.joinSecret(party.getPartyId().toString());
 		}
@@ -176,7 +191,8 @@ class DiscordState {
 		final DiscordPresence presence = presenceBuilder.build();
 
 		// This is to reduce amount of RPC calls
-		if (!presence.equals(lastPresence)) {
+		if (!presence.equals(lastPresence))
+		{
 			lastPresence = presence;
 			discordService.updatePresence(presence);
 		}
@@ -185,7 +201,8 @@ class DiscordState {
 	/**
 	 * Check for current state timeout and act upon it.
 	 */
-	void checkForTimeout() {
+	void checkForTimeout()
+	{
 		final Duration actionTimeout = Duration.ofMinutes(plugin.getActionTimeout());
 		final Instant now = Instant.now();
 		events.removeIf(event -> event.getType().isShouldTimeout() && now.isAfter(event.getUpdated().plus(actionTimeout)));

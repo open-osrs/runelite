@@ -27,24 +27,28 @@ package net.runelite.http.api.cache;
 import java.time.Instant;
 import java.util.Objects;
 
-public class Cache {
+public class Cache
+{
 	private final int id;
 	private final int revision;
 	private final Instant date;
 
-	public Cache(int id, int revision, Instant date) {
+	public Cache(int id, int revision, Instant date)
+	{
 		this.id = id;
 		this.revision = revision;
 		this.date = date;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Cache{" + "id=" + id + ", revision=" + revision + ", date=" + date + '}';
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 5;
 		hash = 29 * hash + this.id;
 		hash = 29 * hash + this.revision;
@@ -53,38 +57,48 @@ public class Cache {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
 			return true;
 		}
-		if (obj == null) {
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final Cache other = (Cache) obj;
-		if (this.id != other.id) {
+		if (this.id != other.id)
+		{
 			return false;
 		}
-		if (this.revision != other.revision) {
+		if (this.revision != other.revision)
+		{
 			return false;
 		}
-		if (!Objects.equals(this.date, other.date)) {
+		if (!Objects.equals(this.date, other.date))
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public int getRevision() {
+	public int getRevision()
+	{
 		return revision;
 	}
 
-	public Instant getDate() {
+	public Instant getDate()
+	{
 		return date;
 	}
 }

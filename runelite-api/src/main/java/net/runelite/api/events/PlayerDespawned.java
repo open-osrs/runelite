@@ -34,13 +34,15 @@ import lombok.Value;
  * Note: This event does not get called for the local player.
  */
 @Value
-public class PlayerDespawned implements Event {
+public class PlayerDespawned implements Event
+{
 	/**
 	 * The despawned player.
 	 */
 	private final Player player;
 
-	public Actor getActor() {
+	public Actor getActor()
+	{
 		return player;
 	}
 }

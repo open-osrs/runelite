@@ -27,12 +27,13 @@ package net.runelite.client.util;
 import static junit.framework.TestCase.assertTrue;
 import static net.runelite.client.util.WildcardMatcher.matches;
 import static org.junit.Assert.assertFalse;
-
 import org.junit.Test;
 
-public class WildcardMatcherTest {
+public class WildcardMatcherTest
+{
 	@Test
-	public void testMatches() {
+	public void testMatches()
+	{
 		assertTrue(matches("rune*", "rune pouch"));
 		assertTrue(matches("rune*", "Rune pouch"));
 		assertFalse(matches("Abyssal whip", "Adamant dagger"));

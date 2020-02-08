@@ -25,9 +25,7 @@
 package net.runelite.deob.deobfuscators.arithmetic;
 
 import com.google.common.collect.Lists;
-
 import java.util.List;
-
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
@@ -54,13 +52,16 @@ import org.slf4j.LoggerFactory;
  *
  * @author Adam
  */
-public class DupDeobfuscator implements Deobfuscator {
+public class DupDeobfuscator implements Deobfuscator
+{
 	private static final Logger logger = LoggerFactory.getLogger(DupDeobfuscator.class);
 
 	private int count;
 
-	private void visit(InstructionContext i) {
-		if (!(i.getInstruction() instanceof DupInstruction)) {
+	private void visit(InstructionContext i)
+	{
+		if (!(i.getInstruction() instanceof DupInstruction))
+		{
 			return;
 		}
 
@@ -68,18 +69,22 @@ public class DupDeobfuscator implements Deobfuscator {
 
 		List<StackContext> sctxs = di.getDuplicated(i); // stack values being duplicated
 
-		for (StackContext sctx : sctxs) {
+		for (StackContext sctx : sctxs)
+		{
 			InstructionContext ic = sctx.getPushed();
 
-			if (ic.getInstruction() instanceof IMul) {
-				if (i.getInstruction() instanceof Dup) {
+			if (ic.getInstruction() instanceof IMul)
+			{
+				if (i.getInstruction() instanceof Dup)
+				{
 					logger.debug("Dup instruction {} duplicates multiplication result {}", i, ic);
 
 					undup(i);
 					++count;
 					return;
 				}
-				if (i.getInstruction() instanceof Dup_X1) {
+				if (i.getInstruction() instanceof Dup_X1)
+				{
 					logger.debug("Dup_X1 instruction {} duplicates multiplication result {}", i, ic);
 
 					undup_x1(i);
@@ -88,15 +93,18 @@ public class DupDeobfuscator implements Deobfuscator {
 				}
 
 				logger.warn("Dup instruction {} pops imul", i);
-			} else if (ic.getInstruction() instanceof LMul) {
-				if (i.getInstruction() instanceof Dup2_X1) {
+			}
+			else if (ic.getInstruction() instanceof LMul)
+			{
+				if (i.getInstruction() instanceof Dup2_X1)
+				{
 					logger.debug("Dup_X2 instruction {} duplicates multiplication result {}", i, ic);
 
 					undup2_x1(i);
 					++count;
 					return;
 				}
-
+				
 				logger.warn("Dup instruction {} pops lmul", i);
 			}
 		}
@@ -104,17 +112,22 @@ public class DupDeobfuscator implements Deobfuscator {
 		// find if mul pops anything duplicated
 		sctxs = di.getCopies(i);
 
-		for (StackContext sctx : sctxs) {
-			for (InstructionContext ic : sctx.getPopped()) {
-				if (ic.getInstruction() instanceof IMul) {
-					if (i.getInstruction() instanceof Dup) {
+		for (StackContext sctx : sctxs)
+		{
+			for (InstructionContext ic : sctx.getPopped())
+			{
+				if (ic.getInstruction() instanceof IMul)
+				{
+					if (i.getInstruction() instanceof Dup)
+					{
 						logger.debug("imul {} pops dup instruction {}", ic, i);
 
 						undup(i);
 						++count;
 						return;
 					}
-					if (i.getInstruction() instanceof Dup_X1) {
+					if (i.getInstruction() instanceof Dup_X1)
+					{
 						logger.debug("imul {} pops dup x1 instruction {}", ic, i);
 
 						undup_x1(i);
@@ -123,8 +136,11 @@ public class DupDeobfuscator implements Deobfuscator {
 					}
 
 					logger.warn("imul pops dup instruction {}", i);
-				} else if (ic.getInstruction() instanceof LMul) {
-					if (i.getInstruction() instanceof Dup2_X1) {
+				}
+				else if (ic.getInstruction() instanceof LMul)
+				{
+					if (i.getInstruction() instanceof Dup2_X1)
+					{
 						logger.debug("imul {} pops dup2 x1 instruction {}", ic, i);
 
 						undup2_x1(i);
@@ -138,7 +154,8 @@ public class DupDeobfuscator implements Deobfuscator {
 		}
 	}
 
-	private void undup(InstructionContext ictx) {
+	private void undup(InstructionContext ictx)
+	{
 		assert ictx.getInstruction() instanceof Dup;
 
 		Instructions instructions = ictx.getInstruction().getInstructions();
@@ -155,7 +172,8 @@ public class DupDeobfuscator implements Deobfuscator {
 		copy(duplicated, instructions, idx);
 	}
 
-	private void undup_x1(InstructionContext ictx) {
+	private void undup_x1(InstructionContext ictx)
+	{
 		assert ictx.getInstruction() instanceof Dup_X1;
 
 		Instructions instructions = ictx.getInstruction().getInstructions();
@@ -169,7 +187,8 @@ public class DupDeobfuscator implements Deobfuscator {
 		copy(duplicated, instructions, idx + 1);
 	}
 
-	private void undup2_x1(InstructionContext ictx) {
+	private void undup2_x1(InstructionContext ictx)
+	{
 		assert ictx.getInstruction() instanceof Dup2_X1;
 		assert ictx.getPops().size() == 2; // only support this form
 
@@ -191,18 +210,19 @@ public class DupDeobfuscator implements Deobfuscator {
 		// insert copy of int
 		idx = copy(ictx.getPops().get(1), instructions, idx);
 		// insert copy of long
-		/* idx = */
-		copy(ictx.getPops().get(0), instructions, idx);
+		/* idx = */ copy(ictx.getPops().get(0), instructions, idx);
 	}
 
 	/**
 	 * copy the instruction which pushed sctx and insert into instructions
 	 * starting at index idx
 	 */
-	private int copy(StackContext sctx, Instructions instructions, int idx) {
+	private int copy(StackContext sctx, Instructions instructions, int idx)
+	{
 		InstructionContext ictx = sctx.getPushed();
 
-		if (ictx.getInstruction() instanceof DupInstruction) {
+		if (ictx.getInstruction() instanceof DupInstruction)
+		{
 			// we only care about one path
 			DupInstruction di = (DupInstruction) ictx.getInstruction();
 			sctx = di.getOriginal(sctx);
@@ -211,7 +231,8 @@ public class DupDeobfuscator implements Deobfuscator {
 
 		// copy required instructions
 		// the first thing popped was pushed last, so reverse
-		for (StackContext s : Lists.reverse(ictx.getPops())) {
+		for (StackContext s : Lists.reverse(ictx.getPops()))
+		{
 			idx = copy(s, instructions, idx);
 		}
 
@@ -226,9 +247,12 @@ public class DupDeobfuscator implements Deobfuscator {
 		return idx + 1; // move on to next instruction
 	}
 
-	private void visit(MethodContext mctx) {
-		for (InstructionContext ictx : mctx.getInstructionContexts()) {
-			if (ictx.getInstruction().getInstructions() == null) {
+	private void visit(MethodContext mctx)
+	{
+		for (InstructionContext ictx : mctx.getInstructionContexts())
+		{
+			if (ictx.getInstruction().getInstructions() == null)
+			{
 				// already removed?
 				continue;
 			}
@@ -238,7 +262,8 @@ public class DupDeobfuscator implements Deobfuscator {
 	}
 
 	@Override
-	public void run(ClassGroup group) {
+	public void run(ClassGroup group)
+	{
 		Execution e = new Execution(group);
 		e.addMethodContextVisitor(m -> visit(m));
 		e.populateInitialMethods();

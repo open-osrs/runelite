@@ -35,26 +35,30 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 
-public class FCmpG extends Instruction {
-	public FCmpG(Instructions instructions, InstructionType type) {
+public class FCmpG extends Instruction
+{
+	public FCmpG(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-
+		
 		StackContext two = stack.pop();
 		StackContext one = stack.pop();
-
+		
 		ins.pop(two, one);
-
+		
 		Value result = Value.UNKNOWN;
-		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull()) {
+		if (!two.getValue().isUnknownOrNull() && !one.getValue().isUnknownOrNull())
+		{
 			float f2 = (float) two.getValue().getValue(),
-					f1 = (float) one.getValue().getValue();
-
+				f1 = (float) one.getValue().getValue();
+			
 			if (f1 > f2)
 				result = new Value(1);
 			else if (f1 == f2)
@@ -62,12 +66,12 @@ public class FCmpG extends Instruction {
 			else if (f1 < f2)
 				result = new Value(-1);
 		}
-
+		
 		StackContext ctx = new StackContext(ins, Type.INT, result);
 		stack.push(ctx);
-
+		
 		ins.push(ctx);
-
+		
 		return ins;
 	}
 }

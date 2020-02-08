@@ -26,12 +26,12 @@ package net.runelite.client.plugins.kourendlibrary;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.NpcID;
 
-enum LibraryCustomer {
+enum LibraryCustomer
+{
 	VILLIA(NpcID.VILLIA, "Villia"),
 	PROFESSOR_GRACKLEBONE(NpcID.PROFESSOR_GRACKLEBONE, "Prof. Gracklebone"),
 	SAM(NpcID.SAM_7049, "Sam");
@@ -44,18 +44,22 @@ enum LibraryCustomer {
 
 	private static final Map<Integer, LibraryCustomer> byId = buildIdMap();
 
-	LibraryCustomer(int id, String name) {
+	LibraryCustomer(int id, String name)
+	{
 		this.id = id;
 		this.name = name;
 	}
 
-	static LibraryCustomer getById(int id) {
+	static LibraryCustomer getById(int id)
+	{
 		return byId.get(id);
 	}
 
-	private static Map<Integer, LibraryCustomer> buildIdMap() {
+	private static Map<Integer, LibraryCustomer> buildIdMap()
+	{
 		Map<Integer, LibraryCustomer> byId = new HashMap<>();
-		for (LibraryCustomer c : values()) {
+		for (LibraryCustomer c : values())
+		{
 			byId.put(c.id, c);
 		}
 		return byId;

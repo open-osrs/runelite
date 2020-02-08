@@ -28,11 +28,13 @@ import net.runelite.cache.definitions.sound.InstrumentDefinition;
 import net.runelite.cache.definitions.sound.AudioEnvelopeDefinition;
 import net.runelite.cache.io.InputStream;
 
-public class InstrumentLoader {
+public class InstrumentLoader
+{
 	private final AudioEnvelopeLoader aeLoader = new AudioEnvelopeLoader();
 	private final SoundEffectLoader seLoader = new SoundEffectLoader();
 
-	public InstrumentDefinition load(InputStream in) {
+	public InstrumentDefinition load(InputStream in)
+	{
 		InstrumentDefinition instrument = new InstrumentDefinition();
 
 		load(instrument, in);
@@ -40,33 +42,39 @@ public class InstrumentLoader {
 		return instrument;
 	}
 
-	private void load(InstrumentDefinition instrument, InputStream in) {
+	private void load(InstrumentDefinition instrument, InputStream in)
+	{
 		instrument.pitch = aeLoader.load(in);
 		instrument.volume = aeLoader.load(in);
 		int volume = in.readUnsignedByte();
-		if (volume != 0) {
+		if (volume != 0)
+		{
 			in.setOffset(in.getOffset() - 1);
 			instrument.pitchModifier = aeLoader.load(in);
 			instrument.pitchModifierAmplitude = aeLoader.load(in);
 		}
 
 		volume = in.readUnsignedByte();
-		if (volume != 0) {
+		if (volume != 0)
+		{
 			in.setOffset(in.getOffset() - 1);
 			instrument.volumeMultiplier = aeLoader.load(in);
 			instrument.volumeMultiplierAmplitude = aeLoader.load(in);
 		}
 
 		volume = in.readUnsignedByte();
-		if (volume != 0) {
+		if (volume != 0)
+		{
 			in.setOffset(in.getOffset() - 1);
 			instrument.release = aeLoader.load(in);
 			instrument.field1175 = aeLoader.load(in);
 		}
 
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 10; ++i)
+		{
 			int vol = in.readUnsignedShortSmart();
-			if (vol == 0) {
+			if (vol == 0)
+			{
 				break;
 			}
 

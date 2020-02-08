@@ -29,14 +29,16 @@ import lombok.Getter;
 
 @Getter
 @RequiredArgsConstructor
-public enum TooltipPositionType {
+public enum TooltipPositionType
+{
 	ABOVE_CURSOR("Above cursor"),
 	UNDER_CURSOR("Under cursor");
 
 	private final String type;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return type;
 	}
 }

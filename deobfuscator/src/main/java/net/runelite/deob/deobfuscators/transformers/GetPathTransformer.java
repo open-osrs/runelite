@@ -36,15 +36,19 @@ import net.runelite.deob.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GetPathTransformer implements Transformer {
+public class GetPathTransformer implements Transformer
+{
 	private static final Logger logger = LoggerFactory.getLogger(GetPathTransformer.class);
 
 	private boolean done = false;
 
 	@Override
-	public void transform(ClassGroup group) {
-		for (ClassFile cf : group.getClasses()) {
-			for (Method m : cf.getMethods()) {
+	public void transform(ClassGroup group)
+	{
+		for (ClassFile cf : group.getClasses())
+		{
+			for (Method m : cf.getMethods())
+			{
 				transform(m);
 			}
 		}
@@ -52,19 +56,25 @@ public class GetPathTransformer implements Transformer {
 		logger.info("Transformed: " + done);
 	}
 
-	private void transform(Method m) {
+	private void transform(Method m)
+	{
 		int count = 0;
 
-		if (m.getCode() == null) {
+		if (m.getCode() == null)
+		{
 			return;
 		}
 
-		for (Instruction i : m.getCode().getInstructions().getInstructions()) {
-			if (i instanceof InvokeInstruction) {
+		for (Instruction i : m.getCode().getInstructions().getInstructions())
+		{
+			if (i instanceof InvokeInstruction)
+			{
 				InvokeInstruction ii = (InvokeInstruction) i;
 
-				if (ii.getMethod().getName().equals("getPath")) {
-					if (++count == 2) {
+				if (ii.getMethod().getName().equals("getPath"))
+				{
+					if (++count == 2)
+					{
 						removeInvoke(i);
 						done = true;
 						break;
@@ -74,7 +84,8 @@ public class GetPathTransformer implements Transformer {
 		}
 	}
 
-	private void removeInvoke(Instruction i) {
+	private void removeInvoke(Instruction i)
+	{
 		Instructions ins = i.getInstructions();
 
 		int idx = ins.getInstructions().indexOf(i);

@@ -27,31 +27,26 @@ package net.runelite.client.plugins.cerberus;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
-
 import net.runelite.api.NPC;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.GameTick;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.ui.overlay.OverlayManager;
-
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CerberusPluginTest {
+public class CerberusPluginTest
+{
 	@Mock
 	@Bind
 	OverlayManager overlayManager;
@@ -64,20 +59,22 @@ public class CerberusPluginTest {
 	CerberusPlugin cerberusPlugin;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testOnGameTick() {
+	public void testOnGameTick()
+	{
 		List<NPC> ghosts = cerberusPlugin.getGhosts();
 		ghosts.addAll(Arrays.asList(
-				mockNpc(new LocalPoint(0, 0)),
-				mockNpc(new LocalPoint(1, 0)),
-				mockNpc(new LocalPoint(0, 5)),
-				mockNpc(new LocalPoint(2, 0)),
-				mockNpc(new LocalPoint(2, 5)),
-				mockNpc(new LocalPoint(1, 5))
+			mockNpc(new LocalPoint(0, 0)),
+			mockNpc(new LocalPoint(1, 0)),
+			mockNpc(new LocalPoint(0, 5)),
+			mockNpc(new LocalPoint(2, 0)),
+			mockNpc(new LocalPoint(2, 5)),
+			mockNpc(new LocalPoint(1, 5))
 		));
 		cerberusPlugin.onGameTick(GameTick.INSTANCE);
 
@@ -91,7 +88,8 @@ public class CerberusPluginTest {
 		assertEquals(ghosts.get(5).getLocalLocation(), new LocalPoint(2, 5));
 	}
 
-	private static NPC mockNpc(LocalPoint localPoint) {
+	private static NPC mockNpc(LocalPoint localPoint)
+	{
 		NPC npc = mock(NPC.class);
 		when(npc.getLocalLocation()).thenReturn(localPoint);
 		return npc;

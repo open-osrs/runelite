@@ -7,33 +7,46 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class StringFileUtils {
+public class StringFileUtils
+{
 	//Read file content into string with - Files.readAllBytes(Path path)
 
-	public static String readStringFromFile(String filePath) {
+	public static String readStringFromFile(String filePath)
+	{
 		String content = "";
 
-		try {
+		try
+		{
 			content = new String(Files.readAllBytes(Paths.get(filePath)));
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
 		return content;
 	}
 
-	public static void writeStringToFile(String file, String string) {
+	public static void writeStringToFile(String file, String string)
+	{
 		File f = new File(file);
-		if (!f.exists()) {
-			try {
+		if (!f.exists())
+		{
+			try
+			{
 				f.createNewFile();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 		}
-		try (PrintWriter out = new PrintWriter(file)) {
+		try (PrintWriter out = new PrintWriter(file))
+		{
 			out.println(string);
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e)
+		{
 			e.printStackTrace();
 		}
 	}

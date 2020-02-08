@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -48,7 +47,8 @@ import net.runelite.client.ui.overlay.components.ImageComponent;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 
 @Singleton
-public class HydraPrayerOverlay extends Overlay {
+public class HydraPrayerOverlay extends Overlay
+{
 	private static final Color ACTIVATED_BACKGROUND_COLOR = new Color(0, 150, 0, 150);
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 
@@ -67,7 +67,8 @@ public class HydraPrayerOverlay extends Overlay {
 	private BufferedImage bufferedImageMagic;
 
 	@Inject
-	private HydraPrayerOverlay(final HydraPlugin hydraPlugin, final Client client, final SpriteManager spriteManager) {
+	private HydraPrayerOverlay(final HydraPlugin hydraPlugin, final Client client, final SpriteManager spriteManager)
+	{
 		this.hydraPlugin = hydraPlugin;
 		this.client = client;
 		this.spriteManager = spriteManager;
@@ -80,46 +81,59 @@ public class HydraPrayerOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(final Graphics2D graphics) {
+	public Dimension render(final Graphics2D graphics)
+	{
 		final NPC npc = hydraPlugin.getInteractingNpc();
 
-		if (npc == null) {
+		if (npc == null)
+		{
 			return null;
 		}
 
 		final Hydra hydra = hydras.get(npc.getIndex());
 
-		if (hydra == null) {
+		if (hydra == null)
+		{
 			return null;
 		}
 
 		final HydraAnimation hydraAnimation = hydra.getHydraAnimation();
 
-		if (hydraAnimation == null || !HydraPlugin.VALID_HYDRA_ANIMATIONS.contains(hydraAnimation)) {
+		if (hydraAnimation == null || !HydraPlugin.VALID_HYDRA_ANIMATIONS.contains(hydraAnimation))
+		{
 			return null;
 		}
 
-		if (bufferedImageMagic == null) {
+		if (bufferedImageMagic == null)
+		{
 			bufferedImageMagic = spriteManager.getSprite(SpriteID.PRAYER_PROTECT_FROM_MAGIC, 0);
 		}
 
-		if (bufferedImageRange == null) {
+		if (bufferedImageRange == null)
+		{
 			bufferedImageRange = spriteManager.getSprite(SpriteID.PRAYER_PROTECT_FROM_MISSILES, 0);
 		}
 
 		final boolean attackCountIsMax = hydra.getAttackCount() == Hydra.MAX_ATTACK_COUNT;
 
-		switch (hydraAnimation) {
+		switch (hydraAnimation)
+		{
 			case RANGE:
-				if (attackCountIsMax) {
+				if (attackCountIsMax)
+				{
 					return renderPanelMagic(graphics);
-				} else {
+				}
+				else
+				{
 					return renderPanelRange(graphics);
 				}
 			case MAGIC:
-				if (attackCountIsMax) {
+				if (attackCountIsMax)
+				{
 					return renderPanelRange(graphics);
-				} else {
+				}
+				else
+				{
 					return renderPanelMagic(graphics);
 				}
 			default:
@@ -129,22 +143,24 @@ public class HydraPrayerOverlay extends Overlay {
 		return null;
 	}
 
-	private Dimension renderPanelMagic(final Graphics2D graphics) {
+	private Dimension renderPanelMagic(final Graphics2D graphics)
+	{
 		panelComponent.getChildren().clear();
 		panelComponent.getChildren().add(new ImageComponent(bufferedImageMagic));
 		panelComponent.setBackgroundColor(client.isPrayerActive(Prayer.PROTECT_FROM_MAGIC)
-				? ACTIVATED_BACKGROUND_COLOR
-				: NOT_ACTIVATED_BACKGROUND_COLOR);
+			? ACTIVATED_BACKGROUND_COLOR
+			: NOT_ACTIVATED_BACKGROUND_COLOR);
 
 		return panelComponent.render(graphics);
 	}
 
-	private Dimension renderPanelRange(final Graphics2D graphics) {
+	private Dimension renderPanelRange(final Graphics2D graphics)
+	{
 		panelComponent.getChildren().clear();
 		panelComponent.getChildren().add(new ImageComponent(bufferedImageRange));
 		panelComponent.setBackgroundColor(client.isPrayerActive(Prayer.PROTECT_FROM_MISSILES)
-				? ACTIVATED_BACKGROUND_COLOR
-				: NOT_ACTIVATED_BACKGROUND_COLOR);
+			? ACTIVATED_BACKGROUND_COLOR
+			: NOT_ACTIVATED_BACKGROUND_COLOR);
 
 		return panelComponent.render(graphics);
 	}

@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.config;
 
 import javax.annotation.Nullable;
-
 import lombok.Value;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigDescriptor;
@@ -33,7 +32,8 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginType;
 
 @Value
-public class PluginConfigurationDescriptor {
+public class PluginConfigurationDescriptor
+{
 	private final String name;
 	private final String description;
 	private final PluginType pluginType;
@@ -50,7 +50,8 @@ public class PluginConfigurationDescriptor {
 	@Nullable
 	private final ConfigDescriptor configDescriptor;
 
-	boolean hasConfigurables() {
+	boolean hasConfigurables()
+	{
 		return configDescriptor != null && !configDescriptor.getItems().stream().allMatch(item -> item.getItem().hidden());
 	}
 }

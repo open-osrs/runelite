@@ -26,7 +26,8 @@
  */
 package net.runelite.cache.script;
 
-public class Opcodes {
+public class Opcodes
+{
 	public static final int ICONST = 0;
 	public static final int GET_VARP = 1;
 	public static final int SET_VARP = 2;

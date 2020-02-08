@@ -27,11 +27,9 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.cache.definitions.ParamDefinition;
 import net.runelite.cache.definitions.loaders.ParamLoader;
@@ -47,7 +45,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 @Slf4j
-public class ParamDumper {
+public class ParamDumper
+{
 	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Rule
@@ -55,11 +54,13 @@ public class ParamDumper {
 
 	@Test
 	@Ignore
-	public void test() throws IOException {
+	public void test() throws IOException
+	{
 		File dumpDir = folder.newFolder();
 		int count = 0;
 
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();
@@ -71,7 +72,8 @@ public class ParamDumper {
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
-			for (FSFile file : files.getFiles()) {
+			for (FSFile file : files.getFiles())
+			{
 				byte[] b = file.getContents();
 
 				ParamDefinition def = loader.load(b);

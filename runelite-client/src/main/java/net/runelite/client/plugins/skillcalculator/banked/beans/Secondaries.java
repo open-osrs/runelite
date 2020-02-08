@@ -29,7 +29,8 @@ import lombok.Getter;
 import net.runelite.api.ItemID;
 
 @Getter(AccessLevel.PACKAGE)
-public enum Secondaries {
+public enum Secondaries
+{
 	/**
 	 * Herblore
 	 */
@@ -128,7 +129,8 @@ public enum Secondaries {
 	;
 	private final ItemStack[] items;
 
-	Secondaries(ItemStack... items) {
+	Secondaries(ItemStack... items)
+	{
 		this.items = items;
 	}
 }

@@ -25,43 +25,44 @@
 package net.runelite.client.plugins.timestamp;
 
 import java.awt.Color;
-
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("timestamp")
-public interface TimestampConfig extends Config {
+public interface TimestampConfig extends Config
+{
 	@ConfigItem(
-			keyName = "opaqueTimestamp",
-			name = "Timestamps (opaque)",
-			position = 1,
-			description = "Colour of Timestamps from the Timestamps plugin (opaque)"
+		keyName = "opaqueTimestamp",
+		name = "Timestamps (opaque)",
+		position = 1,
+		description = "Colour of Timestamps from the Timestamps plugin (opaque)"
 	)
 	Color opaqueTimestamp();
 
 	@ConfigItem(
-			keyName = "transparentTimestamp",
-			name = "Timestamps (transparent)",
-			position = 2,
-			description = "Colour of Timestamps from the Timestamps plugin (transparent)"
+		keyName = "transparentTimestamp",
+		name = "Timestamps (transparent)",
+		position = 2,
+		description = "Colour of Timestamps from the Timestamps plugin (transparent)"
 	)
 	Color transparentTimestamp();
 
 	@ConfigItem(
-			keyName = "format",
-			name = "Timestamp Format",
-			position = 3,
-			description = "Customize your timestamp format by using the following characters<br>" +
-					"'yyyy' : year<br>" +
-					"'MM' : month<br>" +
-					"'dd' : day<br>" +
-					"'HH' : hour in 24 hour format<br>" +
-					"'hh' : hour in 12 hour format<br>" +
-					"'mm' : minute<br>" +
-					"'ss' : second"
+		keyName = "format",
+		name = "Timestamp Format",
+		position = 3,
+		description = "Customize your timestamp format by using the following characters<br>" +
+			"'yyyy' : year<br>" +
+			"'MM' : month<br>" +
+			"'dd' : day<br>" +
+			"'HH' : hour in 24 hour format<br>" +
+			"'hh' : hour in 12 hour format<br>" +
+			"'mm' : minute<br>" +
+			"'ss' : second"
 	)
-	default String timestampFormat() {
+	default String timestampFormat()
+	{
 		return "[HH:mm]";
 	}
 }

@@ -31,89 +31,114 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Singleton;
 
 @Singleton
-public class MouseManager {
+public class MouseManager
+{
 	private final List<MouseListener> mouseListeners = new CopyOnWriteArrayList<>();
 	private final List<MouseWheelListener> mouseWheelListeners = new CopyOnWriteArrayList<>();
 
-	public void registerMouseListener(MouseListener mouseListener) {
-		if (!mouseListeners.contains(mouseListener)) {
+	public void registerMouseListener(MouseListener mouseListener)
+	{
+		if (!mouseListeners.contains(mouseListener))
+		{
 			mouseListeners.add(mouseListener);
 		}
 	}
 
-	public void registerMouseListener(int position, MouseListener mouseListener) {
+	public void registerMouseListener(int position, MouseListener mouseListener)
+	{
 		mouseListeners.add(position, mouseListener);
 	}
 
-	public void unregisterMouseListener(MouseListener mouseListener) {
+	public void unregisterMouseListener(MouseListener mouseListener)
+	{
 		mouseListeners.remove(mouseListener);
 	}
 
-	public void registerMouseWheelListener(MouseWheelListener mouseWheelListener) {
-		if (!mouseWheelListeners.contains(mouseWheelListener)) {
+	public void registerMouseWheelListener(MouseWheelListener mouseWheelListener)
+	{
+		if (!mouseWheelListeners.contains(mouseWheelListener))
+		{
 			mouseWheelListeners.add(mouseWheelListener);
 		}
 	}
 
-	public void registerMouseWheelListener(int position, MouseWheelListener mouseWheelListener) {
+	public void registerMouseWheelListener(int position, MouseWheelListener mouseWheelListener)
+	{
 		mouseWheelListeners.add(position, mouseWheelListener);
 	}
 
-	public void unregisterMouseWheelListener(MouseWheelListener mouseWheelListener) {
+	public void unregisterMouseWheelListener(MouseWheelListener mouseWheelListener)
+	{
 		mouseWheelListeners.remove(mouseWheelListener);
 	}
 
-	public MouseEvent processMousePressed(MouseEvent mouseEvent) {
-		for (MouseListener mouseListener : mouseListeners) {
+	public MouseEvent processMousePressed(MouseEvent mouseEvent)
+	{
+		for (MouseListener mouseListener : mouseListeners)
+		{
 			mouseEvent = mouseListener.mousePressed(mouseEvent);
 		}
 		return mouseEvent;
 	}
 
-	public MouseEvent processMouseReleased(MouseEvent mouseEvent) {
-		for (MouseListener mouseListener : mouseListeners) {
+	public MouseEvent processMouseReleased(MouseEvent mouseEvent)
+	{
+		for (MouseListener mouseListener : mouseListeners)
+		{
 			mouseEvent = mouseListener.mouseReleased(mouseEvent);
 		}
 		return mouseEvent;
 	}
 
-	public MouseEvent processMouseClicked(MouseEvent mouseEvent) {
-		for (MouseListener mouseListener : mouseListeners) {
+	public MouseEvent processMouseClicked(MouseEvent mouseEvent)
+	{
+		for (MouseListener mouseListener : mouseListeners)
+		{
 			mouseEvent = mouseListener.mouseClicked(mouseEvent);
 		}
 		return mouseEvent;
 	}
 
-	public MouseEvent processMouseEntered(MouseEvent mouseEvent) {
-		for (MouseListener mouseListener : mouseListeners) {
+	public MouseEvent processMouseEntered(MouseEvent mouseEvent)
+	{
+		for (MouseListener mouseListener : mouseListeners)
+		{
 			mouseEvent = mouseListener.mouseEntered(mouseEvent);
 		}
 		return mouseEvent;
 	}
 
-	public MouseEvent processMouseExited(MouseEvent mouseEvent) {
-		for (MouseListener mouseListener : mouseListeners) {
+	public MouseEvent processMouseExited(MouseEvent mouseEvent)
+	{
+		for (MouseListener mouseListener : mouseListeners)
+		{
 			mouseEvent = mouseListener.mouseExited(mouseEvent);
 		}
 		return mouseEvent;
 	}
 
-	public MouseEvent processMouseDragged(MouseEvent mouseEvent) {
-		for (MouseListener mouseListener : mouseListeners) {
+	public MouseEvent processMouseDragged(MouseEvent mouseEvent)
+	{
+		for (MouseListener mouseListener : mouseListeners)
+		{
 			mouseEvent = mouseListener.mouseDragged(mouseEvent);
 		}
 		return mouseEvent;
 	}
 
-	public MouseEvent processMouseMoved(MouseEvent mouseEvent) {
-		for (MouseListener mouseListener : mouseListeners) {
+	public MouseEvent processMouseMoved(MouseEvent mouseEvent)
+	{
+		for (MouseListener mouseListener : mouseListeners)
+		{
 			mouseEvent = mouseListener.mouseMoved(mouseEvent);
 		}
 		return mouseEvent;
 	}
 
-	public MouseWheelEvent processMouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-		for (MouseWheelListener mouseWheelListener : mouseWheelListeners) {
+	public MouseWheelEvent processMouseWheelMoved(MouseWheelEvent mouseWheelEvent)
+	{
+		for (MouseWheelListener mouseWheelListener : mouseWheelListeners)
+		{
 			mouseWheelEvent = mouseWheelListener.mouseWheelMoved(mouseWheelEvent);
 		}
 		return mouseWheelEvent;

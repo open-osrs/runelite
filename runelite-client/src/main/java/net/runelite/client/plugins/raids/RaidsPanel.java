@@ -33,7 +33,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.client.ui.ColorScheme;
@@ -41,7 +40,8 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 
 @Singleton
-class RaidsPanel extends PluginPanel {
+class RaidsPanel extends PluginPanel
+{
 	@Inject
 	private Client client;
 	@Inject
@@ -50,7 +50,8 @@ class RaidsPanel extends PluginPanel {
 	private final JButton reloadButton = new JButton("Reload Instance");
 	private final JButton reloadScouter = new JButton("Reload Raid Overlay");
 
-	void init() {
+	void init()
+	{
 		setLayout(new GridLayout(2, 1));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -76,14 +77,16 @@ class RaidsPanel extends PluginPanel {
 
 		reloadButton.addActionListener((ActionEvent e) ->
 		{
-			if ((client.getGameState() == GameState.LOGGED_IN)) {
+			if ((client.getGameState() == GameState.LOGGED_IN))
+			{
 				client.setGameState(GameState.CONNECTION_LOST);
 			}
 		});
 
 		reloadScouter.addActionListener((ActionEvent e) ->
 		{
-			if ((client.getGameState() == GameState.LOGGED_IN)) {
+			if ((client.getGameState() == GameState.LOGGED_IN))
+			{
 				raidsPlugin.checkRaidPresence(true);
 			}
 		});
@@ -95,7 +98,8 @@ class RaidsPanel extends PluginPanel {
 		add(buttonPanel);
 	}
 
-	private static String htmlLabel(String text) {
+	private static String htmlLabel(String text)
+	{
 		return "<html><body><span style = 'color:white'>" + text + "</span></body></html>";
 	}
 }

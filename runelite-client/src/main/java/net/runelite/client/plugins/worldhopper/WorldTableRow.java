@@ -39,7 +39,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.ui.FontManager;
@@ -48,7 +47,8 @@ import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldType;
 
 @Singleton
-class WorldTableRow extends JPanel {
+class WorldTableRow extends JPanel
+{
 	private static final ImageIcon FLAG_AUS;
 	private static final ImageIcon FLAG_UK;
 	private static final ImageIcon FLAG_US;
@@ -66,7 +66,8 @@ class WorldTableRow extends JPanel {
 	private static final Color FREE_WORLD = new Color(200, 200, 200);
 	private static final Color LEAGUE_WORLD = new Color(157, 237, 1);
 
-	static {
+	static
+	{
 		FLAG_AUS = new ImageIcon(ImageUtil.getResourceStreamFromClass(WorldHopperPlugin.class, "flag_aus.png"));
 		FLAG_UK = new ImageIcon(ImageUtil.getResourceStreamFromClass(WorldHopperPlugin.class, "flag_uk.png"));
 		FLAG_US = new ImageIcon(ImageUtil.getResourceStreamFromClass(WorldHopperPlugin.class, "flag_us.png"));
@@ -91,7 +92,8 @@ class WorldTableRow extends JPanel {
 
 	private Color lastBackground;
 
-	WorldTableRow(World world, boolean current, boolean favorite, Integer ping, Consumer<World> onSelect, BiConsumer<World, Boolean> onFavorite) {
+	WorldTableRow(World world, boolean current, boolean favorite, Integer ping, Consumer<World> onSelect, BiConsumer<World, Boolean> onFavorite)
+	{
 		this.world = world;
 		this.onFavorite = onFavorite;
 		this.updatedPlayerCount = world.getPlayers();
@@ -99,38 +101,48 @@ class WorldTableRow extends JPanel {
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(2, 0, 2, 0));
 
-		addMouseListener(new MouseAdapter() {
+		addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mouseClicked(MouseEvent mouseEvent) {
-				if (mouseEvent.getClickCount() == 2) {
-					if (onSelect != null) {
+			public void mouseClicked(MouseEvent mouseEvent)
+			{
+				if (mouseEvent.getClickCount() == 2)
+				{
+					if (onSelect != null)
+					{
 						onSelect.accept(world);
 					}
 				}
 			}
 
 			@Override
-			public void mousePressed(MouseEvent mouseEvent) {
-				if (mouseEvent.getClickCount() == 2) {
+			public void mousePressed(MouseEvent mouseEvent)
+			{
+				if (mouseEvent.getClickCount() == 2)
+				{
 					setBackground(getBackground().brighter());
 				}
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent mouseEvent) {
-				if (mouseEvent.getClickCount() == 2) {
+			public void mouseReleased(MouseEvent mouseEvent)
+			{
+				if (mouseEvent.getClickCount() == 2)
+				{
 					setBackground(getBackground().darker());
 				}
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent mouseEvent) {
+			public void mouseEntered(MouseEvent mouseEvent)
+			{
 				WorldTableRow.this.lastBackground = getBackground();
 				setBackground(getBackground().brighter());
 			}
 
 			@Override
-			public void mouseExited(MouseEvent mouseEvent) {
+			public void mouseExited(MouseEvent mouseEvent)
+			{
 				setBackground(lastBackground);
 			}
 		});
@@ -175,60 +187,77 @@ class WorldTableRow extends JPanel {
 		add(rightSide, BorderLayout.CENTER);
 	}
 
-	void setFavoriteMenu(boolean favorite) {
+	void setFavoriteMenu(boolean favorite)
+	{
 		String favoriteAction = favorite ?
-				"Remove " + world.getId() + " from favorites" :
-				"Add " + world.getId() + " to favorites";
+			"Remove " + world.getId() + " from favorites" :
+			"Add " + world.getId() + " to favorites";
 
 		favoriteMenuOption.setText(favoriteAction);
 
-		for (ActionListener listener : favoriteMenuOption.getActionListeners()) {
+		for (ActionListener listener : favoriteMenuOption.getActionListeners())
+		{
 			favoriteMenuOption.removeActionListener(listener);
 		}
 
 		favoriteMenuOption.addActionListener(e ->
-				onFavorite.accept(world, !favorite));
+			onFavorite.accept(world, !favorite));
 	}
 
-	void updatePlayerCount(int playerCount) {
+	void updatePlayerCount(int playerCount)
+	{
 		this.updatedPlayerCount = playerCount;
 		playerCountField.setText(String.valueOf(playerCount));
 	}
 
-	void setPing(int ping) {
+	void setPing(int ping)
+	{
 		this.ping = ping;
 		pingField.setText(ping <= 0 ? "-" : Integer.toString(ping));
 	}
 
-	void hidePing() {
+	void hidePing()
+	{
 		pingField.setText("-");
 	}
 
-	void showPing() {
+	void showPing()
+	{
 		setPing(ping); // to update pingField
 	}
 
-	int getPing() {
+	int getPing()
+	{
 		return ping;
 	}
 
-	public void recolour(boolean current) {
+	public void recolour(boolean current)
+	{
 		playerCountField.setForeground(current ? CURRENT_WORLD : Color.WHITE);
 		pingField.setForeground(current ? CURRENT_WORLD : Color.WHITE);
 
-		if (current) {
+		if (current)
+		{
 			activityField.setForeground(CURRENT_WORLD);
 			worldField.setForeground(CURRENT_WORLD);
 			return;
-		} else if (world.getTypes().contains(WorldType.PVP)
-				|| world.getTypes().contains(WorldType.HIGH_RISK)
-				|| world.getTypes().contains(WorldType.DEADMAN)) {
+		}
+		else if (world.getTypes().contains(WorldType.PVP)
+			|| world.getTypes().contains(WorldType.HIGH_RISK)
+			|| world.getTypes().contains(WorldType.DEADMAN))
+		{
 			activityField.setForeground(DANGEROUS_WORLD);
-		} else if (world.getTypes().contains(WorldType.LEAGUE)) {
+		}
+		else if (world.getTypes().contains(WorldType.LEAGUE))
+		{
 			activityField.setForeground(LEAGUE_WORLD);
-		} else if (world.getTypes().contains(WorldType.TOURNAMENT)) {
+		}
+		else if (world.getTypes().contains(WorldType.TOURNAMENT))
+		{
 			activityField.setForeground(TOURNAMENT_WORLD);
-		} else {
+		}
+		else
+		{
 			activityField.setForeground(Color.WHITE);
 		}
 
@@ -238,7 +267,8 @@ class WorldTableRow extends JPanel {
 	/**
 	 * Builds the players list field (containing the amount of players logged in that world).
 	 */
-	private JPanel buildPlayersField() {
+	private JPanel buildPlayersField()
+	{
 		JPanel column = new JPanel(new BorderLayout());
 		column.setBorder(new EmptyBorder(0, 5, 0, 5));
 
@@ -250,7 +280,8 @@ class WorldTableRow extends JPanel {
 		return column;
 	}
 
-	private JPanel buildPingField(Integer ping) {
+	private JPanel buildPingField(Integer ping)
+	{
 		JPanel column = new JPanel(new BorderLayout());
 		column.setBorder(new EmptyBorder(0, 5, 0, 5));
 
@@ -259,17 +290,19 @@ class WorldTableRow extends JPanel {
 
 		column.add(pingField, BorderLayout.EAST);
 
-		if (ping != null) {
+		if (ping != null)
+		{
 			setPing(ping);
 		}
-
+		
 		return column;
 	}
 
 	/**
 	 * Builds the activity list field (containing that world's activity/theme).
 	 */
-	private JPanel buildActivityField() {
+	private JPanel buildActivityField()
+	{
 		JPanel column = new JPanel(new BorderLayout());
 		column.setBorder(new EmptyBorder(0, 5, 0, 5));
 
@@ -284,7 +317,8 @@ class WorldTableRow extends JPanel {
 	/**
 	 * Builds the world list field (containing the country's flag and the world index).
 	 */
-	private JPanel buildWorldField() {
+	private JPanel buildWorldField()
+	{
 		JPanel column = new JPanel(new BorderLayout(7, 0));
 		column.setBorder(new EmptyBorder(0, 5, 0, 5));
 
@@ -298,8 +332,10 @@ class WorldTableRow extends JPanel {
 		return column;
 	}
 
-	private ImageIcon getFlag(int locationId) {
-		switch (locationId) {
+	private ImageIcon getFlag(int locationId)
+	{
+		switch (locationId)
+		{
 			case 0:
 				return FLAG_US;
 			case 1:

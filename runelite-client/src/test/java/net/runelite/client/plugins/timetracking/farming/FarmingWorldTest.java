@@ -26,9 +26,11 @@ package net.runelite.client.plugins.timetracking.farming;
 
 import org.junit.Test;
 
-public class FarmingWorldTest {
+public class FarmingWorldTest
+{
 	@Test
-	public void testInit() {
+	public void testInit()
+	{
 		new FarmingWorld();
 	}
 }

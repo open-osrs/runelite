@@ -28,10 +28,8 @@ package net.runelite.client.plugins.woodcutting;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
-
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.events.ChatMessage;
@@ -39,22 +37,19 @@ import net.runelite.client.Notifier;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.overlay.OverlayManager;
-
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class WoodcuttingPluginTest {
+public class WoodcuttingPluginTest
+{
 	private static final String BIRDS_NEST_MESSAGE = "A bird's nest falls out of the tree.";
 
 	@Inject
@@ -97,40 +92,46 @@ public class WoodcuttingPluginTest {
 	private ItemManager itemManager;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testLogs() {
+	public void testLogs()
+	{
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", "You get some logs.", "", 0);
 		woodcuttingPlugin.onChatMessage(chatMessage);
 		assertNotNull(woodcuttingPlugin.getSession());
 	}
 
 	@Test
-	public void testOakLogs() {
+	public void testOakLogs()
+	{
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", "You get some oak logs.", "", 0);
 		woodcuttingPlugin.onChatMessage(chatMessage);
 		assertNotNull(woodcuttingPlugin.getSession());
 	}
 
 	@Test
-	public void testArcticLogs() {
+	public void testArcticLogs()
+	{
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", "You get an arctic log.", "", 0);
 		woodcuttingPlugin.onChatMessage(chatMessage);
 		assertNotNull(woodcuttingPlugin.getSession());
 	}
 
 	@Test
-	public void testMushrooms() {
+	public void testMushrooms()
+	{
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.SPAM, "", "You get some mushrooms.", "", 0);
 		woodcuttingPlugin.onChatMessage(chatMessage);
 		assertNotNull(woodcuttingPlugin.getSession());
 	}
 
 	@Test
-	public void testBirdsNest() {
+	public void testBirdsNest()
+	{
 		ChatMessage chatMessage = new ChatMessage(null, ChatMessageType.GAMEMESSAGE, "", BIRDS_NEST_MESSAGE, "", 0);
 
 		when(woodcuttingConfig.showNestNotification()).thenReturn(true);

@@ -30,7 +30,8 @@ import net.runelite.asm.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BufferPayloadFinder {
+public class BufferPayloadFinder
+{
 	private static final Logger logger = LoggerFactory.getLogger(BufferPayloadFinder.class);
 
 	private final ClassFile bufferClass;
@@ -38,15 +39,21 @@ public class BufferPayloadFinder {
 	private Field offset;
 	private Field buffer;
 
-	public BufferPayloadFinder(ClassFile bufferClass) {
+	public BufferPayloadFinder(ClassFile bufferClass)
+	{
 		this.bufferClass = bufferClass;
 	}
 
-	public void find() {
-		for (Field field : bufferClass.getFields()) {
-			if (field.getType().equals(Type.INT)) {
+	public void find()
+	{
+		for (Field field : bufferClass.getFields())
+		{
+			if (field.getType().equals(Type.INT))
+			{
 				offset = field;
-			} else if (field.getType().equals(new Type("[B"))) {
+			}
+			else if (field.getType().equals(new Type("[B")))
+			{
 				buffer = field;
 			}
 		}
@@ -54,11 +61,13 @@ public class BufferPayloadFinder {
 		logger.info("Found offset {} buffer {}", offset, buffer);
 	}
 
-	public Field getOffset() {
+	public Field getOffset()
+	{
 		return offset;
 	}
 
-	public Field getBuffer() {
+	public Field getBuffer()
+	{
 		return buffer;
 	}
 }

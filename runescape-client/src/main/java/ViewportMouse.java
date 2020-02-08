@@ -13,13 +13,13 @@ public class ViewportMouse {
 	public static boolean ViewportMouse_isInViewport;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 1731432655
+		intValue = 1731432655
 	)
 	@Export("ViewportMouse_x")
 	static int ViewportMouse_x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = 2096475085
+		intValue = 2096475085
 	)
 	@Export("ViewportMouse_y")
 	static int ViewportMouse_y;
@@ -28,32 +28,32 @@ public class ViewportMouse {
 	static boolean ViewportMouse_false0;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 1611746101
+		intValue = 1611746101
 	)
 	static int field1729;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -684242185
+		intValue = -684242185
 	)
 	static int field1731;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = -658996083
+		intValue = -658996083
 	)
 	static int field1736;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = 1011039225
+		intValue = 1011039225
 	)
 	static int field1733;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = -1153902533
+		intValue = -1153902533
 	)
 	static int field1742;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-			intValue = -1095575825
+		intValue = -1095575825
 	)
 	@Export("ViewportMouse_entityCount")
 	public static int ViewportMouse_entityCount;
@@ -77,8 +77,8 @@ public class ViewportMouse {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IIII)I",
-			garbageValue = "-1872781717"
+		signature = "(IIII)I",
+		garbageValue = "-1872781717"
 	)
 	public static int method3059(int var0, int var1, int var2) {
 		var2 &= 3;
@@ -93,8 +93,8 @@ public class ViewportMouse {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(ZI)V",
-			garbageValue = "-1104105387"
+		signature = "(ZI)V",
+		garbageValue = "-1104105387"
 	)
 	@Export("Login_promptCredentials")
 	static void Login_promptCredentials(boolean var0) {
@@ -120,8 +120,8 @@ public class ViewportMouse {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "1906637930"
+		signature = "(ILce;ZI)I",
+		garbageValue = "1906637930"
 	)
 	static int method3037(int var0, Script var1, boolean var2) {
 		Widget var3 = Varps.getWidget(Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize]);
@@ -177,8 +177,8 @@ public class ViewportMouse {
 
 	@ObfuscatedName("jg")
 	@ObfuscatedSignature(
-			signature = "(Lhn;IIS)V",
-			garbageValue = "-7160"
+		signature = "(Lhn;IIS)V",
+		garbageValue = "-7160"
 	)
 	static final void method3060(Widget var0, int var1, int var2) {
 		if (var0.buttonType == 1) {

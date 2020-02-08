@@ -31,10 +31,11 @@ import lombok.Setter;
 import net.runelite.api.Varbits;
 
 @RequiredArgsConstructor(
-		access = AccessLevel.PACKAGE
+	access = AccessLevel.PACKAGE
 )
 @Getter(AccessLevel.PACKAGE)
-class FarmingPatch {
+class FarmingPatch
+{
 	@Setter(AccessLevel.PACKAGE)
 	private FarmingRegion region;
 	private final String name;

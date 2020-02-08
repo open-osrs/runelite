@@ -31,7 +31,8 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 
 @Mixin(RSClient.class)
-public abstract class CameraMixin implements RSClient {
+public abstract class CameraMixin implements RSClient
+{
 	private static final int STANDARD_PITCH_MAX = 383;
 	private static final int NEW_PITCH_MAX = 512;
 
@@ -48,14 +49,18 @@ public abstract class CameraMixin implements RSClient {
 	static int lastPitchTarget = 128;
 
 	@Inject
-	public void setCameraPitchRelaxerEnabled(boolean enabled) {
-		if (pitchRelaxEnabled == enabled) {
+	public void setCameraPitchRelaxerEnabled(boolean enabled)
+	{
+		if (pitchRelaxEnabled == enabled)
+		{
 			return;
 		}
 		pitchRelaxEnabled = enabled;
-		if (!enabled) {
+		if (!enabled)
+		{
 			int pitch = client.getCameraPitchTarget();
-			if (pitch > STANDARD_PITCH_MAX) {
+			if (pitch > STANDARD_PITCH_MAX)
+			{
 				client.setCameraPitchTarget(STANDARD_PITCH_MAX);
 			}
 		}
@@ -63,14 +68,18 @@ public abstract class CameraMixin implements RSClient {
 
 	@FieldHook("camAngleX")
 	@Inject
-	static void onCameraPitchTargetChanged(int idx) {
+	static void onCameraPitchTargetChanged(int idx)
+	{
 		int newPitch = client.getCameraPitchTarget();
 		int pitch = newPitch;
-		if (pitchRelaxEnabled) {
+		if (pitchRelaxEnabled)
+		{
 			// This works because the vanilla camera movement code only moves %2
-			if (lastPitchTarget > STANDARD_PITCH_MAX && newPitch == STANDARD_PITCH_MAX) {
+			if (lastPitchTarget > STANDARD_PITCH_MAX && newPitch == STANDARD_PITCH_MAX)
+			{
 				pitch = lastPitchTarget;
-				if (pitch > NEW_PITCH_MAX) {
+				if (pitch > NEW_PITCH_MAX)
+				{
 					pitch = NEW_PITCH_MAX;
 				}
 				client.setCameraPitchTarget(pitch);
@@ -81,14 +90,18 @@ public abstract class CameraMixin implements RSClient {
 
 	@FieldHook("cameraPitch")
 	@Inject
-	static void onCameraPitchChanged(int idx) {
+	static void onCameraPitchChanged(int idx)
+	{
 		int newPitch = client.getCameraPitch();
 		int pitch = newPitch;
-		if (pitchRelaxEnabled) {
+		if (pitchRelaxEnabled)
+		{
 			// This works because the vanilla camera movement code only moves %2
-			if (lastPitch > STANDARD_PITCH_MAX && newPitch == STANDARD_PITCH_MAX) {
+			if (lastPitch > STANDARD_PITCH_MAX && newPitch == STANDARD_PITCH_MAX)
+			{
 				pitch = lastPitch;
-				if (pitch > NEW_PITCH_MAX) {
+				if (pitch > NEW_PITCH_MAX)
+				{
 					pitch = NEW_PITCH_MAX;
 				}
 				client.setCameraPitch(pitch);

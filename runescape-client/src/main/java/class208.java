@@ -1,5 +1,4 @@
 import java.io.File;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -11,8 +10,8 @@ public class class208 {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljava/io/File;B)V",
-			garbageValue = "16"
+		signature = "(Ljava/io/File;B)V",
+		garbageValue = "16"
 	)
 	public static void method4016(File var0) {
 		FileSystem.FileSystem_cacheDir = var0;
@@ -25,8 +24,8 @@ public class class208 {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(Lks;II)V",
-			garbageValue = "-1608605247"
+		signature = "(Lks;II)V",
+		garbageValue = "-1608605247"
 	)
 	@Export("readPlayerUpdate")
 	static void readPlayerUpdate(PacketBuffer var0, int var1) {
@@ -194,7 +193,7 @@ public class class208 {
 						var4.method1266(var10, var11, Players.field1237[var1]);
 					}
 
-					var4.plane = (byte) (var7 + var4.plane & 3);
+					var4.plane = (byte)(var7 + var4.plane & 3);
 					if (Client.localPlayerIndex == var1) {
 						Clock.Client_plane = var4.plane;
 					}
@@ -218,7 +217,7 @@ public class class208 {
 						var4.method1266(var10, var11, Players.field1237[var1]);
 					}
 
-					var4.plane = (byte) (var7 + var4.plane & 3);
+					var4.plane = (byte)(var7 + var4.plane & 3);
 					if (Client.localPlayerIndex == var1) {
 						Clock.Client_plane = var4.plane;
 					}
@@ -230,8 +229,8 @@ public class class208 {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "(Lbf;B)V",
-			garbageValue = "1"
+		signature = "(Lbf;B)V",
+		garbageValue = "1"
 	)
 	static void method4019(GameShell var0) {
 		while (SoundSystem.isKeyDown()) {
@@ -328,8 +327,8 @@ public class class208 {
 
 	@ObfuscatedName("gc")
 	@ObfuscatedSignature(
-			signature = "(IIIII)V",
-			garbageValue = "168083732"
+		signature = "(IIIII)V",
+		garbageValue = "168083732"
 	)
 	static final void method4017(int var0, int var1, int var2, int var3) {
 		Client.overheadTextCount = 0;
@@ -358,7 +357,7 @@ public class class208 {
 				var10 = Client.npcs[Client.npcIndices[var9 - var7]];
 			}
 
-			class288.drawActor2d((Actor) var10, var9, var0, var1, var2, var3);
+			class288.drawActor2d((Actor)var10, var9, var0, var1, var2, var3);
 		}
 
 		if (Client.renderSelf && var6 != -1) {

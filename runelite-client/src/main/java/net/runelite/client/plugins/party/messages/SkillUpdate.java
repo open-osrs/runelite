@@ -33,7 +33,8 @@ import net.runelite.http.api.ws.messages.party.PartyMemberMessage;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PUBLIC)
-public class SkillUpdate extends PartyMemberMessage implements Event {
+public class SkillUpdate extends PartyMemberMessage implements Event
+{
 	private final Skill skill;
 	private final int value;
 	private final int max;

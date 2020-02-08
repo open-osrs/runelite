@@ -30,13 +30,13 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Stroke;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.ui.overlay.components.LayoutableRenderableEntity;
 
-public class ScreenMarkerRenderable implements LayoutableRenderableEntity {
+public class ScreenMarkerRenderable implements LayoutableRenderableEntity
+{
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PUBLIC)
 	private Point preferredLocation;
@@ -60,7 +60,8 @@ public class ScreenMarkerRenderable implements LayoutableRenderableEntity {
 	private final Rectangle bounds = new Rectangle();
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		int thickness = borderThickness;
 		int width = preferredSize.width;
 		int height = preferredSize.height;

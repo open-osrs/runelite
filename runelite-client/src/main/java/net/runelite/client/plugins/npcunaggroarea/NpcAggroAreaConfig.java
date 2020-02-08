@@ -25,13 +25,13 @@
 package net.runelite.client.plugins.npcunaggroarea;
 
 import java.awt.Color;
-
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("npcUnaggroArea")
-public interface NpcAggroAreaConfig extends Config {
+public interface NpcAggroAreaConfig extends Config
+{
 	String CONFIG_GROUP = "npcUnaggroArea";
 	String CONFIG_CENTER1 = "center1";
 	String CONFIG_CENTER2 = "center2";
@@ -40,82 +40,90 @@ public interface NpcAggroAreaConfig extends Config {
 	String CONFIG_NOT_WORKING_OVERLAY = "overlay";
 
 	@ConfigItem(
-			keyName = "npcUnaggroAlwaysActive",
-			name = "Always active",
-			description = "Always show this plugins overlays<br>Otherwise, they will only be shown when any NPC name matches the list",
-			position = 1
+		keyName = "npcUnaggroAlwaysActive",
+		name = "Always active",
+		description = "Always show this plugins overlays<br>Otherwise, they will only be shown when any NPC name matches the list",
+		position = 1
 	)
-	default boolean alwaysActive() {
+	default boolean alwaysActive()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "npcUnaggroNames",
-			name = "NPC names",
-			description = "Enter names of NPCs where you wish to use this plugin",
-			position = 2
+		keyName = "npcUnaggroNames",
+		name = "NPC names",
+		description = "Enter names of NPCs where you wish to use this plugin",
+		position = 2
 	)
-	default String npcNamePatterns() {
+	default String npcNamePatterns()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "npcUnaggroShowTimer",
-			name = "Show timer",
-			description = "Display a timer until NPCs become unaggressive",
-			position = 3
+		keyName = "npcUnaggroShowTimer",
+		name = "Show timer",
+		description = "Display a timer until NPCs become unaggressive",
+		position = 3
 	)
-	default boolean showTimer() {
+	default boolean showTimer()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "npcUnaggroShowAreaLines",
-			name = "Show area lines",
-			description = "Display lines, when walked past, the unaggressive timer resets",
-			position = 4
+		keyName = "npcUnaggroShowAreaLines",
+		name = "Show area lines",
+		description = "Display lines, when walked past, the unaggressive timer resets",
+		position = 4
 	)
-	default boolean showAreaLines() {
+	default boolean showAreaLines()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "npcUnaggroAreaColor",
-			name = "Area lines colour",
-			description = "Choose colour to use for marking NPC unaggressive area",
-			position = 5
+		keyName = "npcUnaggroAreaColor",
+		name = "Area lines colour",
+		description = "Choose colour to use for marking NPC unaggressive area",
+		position = 5
 	)
-	default Color aggroAreaColor() {
+	default Color aggroAreaColor()
+	{
 		return Color.YELLOW;
 	}
 
 	@ConfigItem(
-			keyName = "npcUnaggroShowNotWorkingOverlay",
-			name = "Show not working hint",
-			description = "Show hint if plugin is enabled in unsupported area",
-			position = 6
+		keyName = "npcUnaggroShowNotWorkingOverlay",
+		name = "Show not working hint",
+		description = "Show hint if plugin is enabled in unsupported area",
+		position = 6
 	)
-	default boolean showNotWorkingOverlay() {
+	default boolean showNotWorkingOverlay()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "hideOverlayHint",
-			name = "Hide overlay hint",
-			description = "Hide overlay hint if plugin is enabled in unsupported area",
-			position = 6
+		keyName = "hideOverlayHint",
+		name = "Hide overlay hint",
+		description = "Hide overlay hint if plugin is enabled in unsupported area",
+		position = 6
 	)
-	default boolean hideOverlayHint() {
+	default boolean hideOverlayHint()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "sendNotification",
-			name = "Send notification",
-			description = "Send a notification when the timer runs out",
-			position = 7
+		keyName = "sendNotification",
+		name = "Send notification",
+		description = "Send a notification when the timer runs out",
+		position = 7
 	)
-	default boolean sendNotification() {
+	default boolean sendNotification()
+	{
 		return false;
 	}
 }

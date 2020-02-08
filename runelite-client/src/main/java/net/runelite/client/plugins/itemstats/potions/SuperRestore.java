@@ -26,48 +26,46 @@ package net.runelite.client.plugins.itemstats.potions;
 
 import java.util.Comparator;
 import java.util.stream.Stream;
-
 import lombok.RequiredArgsConstructor;
 import net.runelite.api.Client;
-
 import static net.runelite.client.plugins.itemstats.Builders.perc;
-
 import net.runelite.client.plugins.itemstats.Effect;
 import net.runelite.client.plugins.itemstats.SimpleStatBoost;
 import net.runelite.client.plugins.itemstats.StatChange;
 import net.runelite.client.plugins.itemstats.StatsChanges;
 import net.runelite.client.plugins.itemstats.stats.Stat;
-
 import static net.runelite.client.plugins.itemstats.stats.Stats.*;
 
 @RequiredArgsConstructor
-public class SuperRestore implements Effect {
+public class SuperRestore implements Effect
+{
 	private static final Stat[] superRestoreStats = new Stat[]
-			{
-					ATTACK, DEFENCE, STRENGTH, RANGED, MAGIC, COOKING,
-					WOODCUTTING, FLETCHING, FISHING, FIREMAKING, CRAFTING, SMITHING, MINING,
-					HERBLORE, AGILITY, THIEVING, SLAYER, FARMING, RUNECRAFT, HUNTER,
-					CONSTRUCTION
-			};
+		{
+			ATTACK, DEFENCE, STRENGTH, RANGED, MAGIC, COOKING,
+			WOODCUTTING, FLETCHING, FISHING, FIREMAKING, CRAFTING, SMITHING, MINING,
+			HERBLORE, AGILITY, THIEVING, SLAYER, FARMING, RUNECRAFT, HUNTER,
+			CONSTRUCTION
+		};
 
 	private final double percR; //percentage restored
 	private final int delta;
 
 	@Override
-	public StatsChanges calculate(Client client) {
+	public StatsChanges calculate(Client client)
+	{
 		StatsChanges changes = new StatsChanges(0);
 
 		SimpleStatBoost calc = new SimpleStatBoost(null, false, perc(percR, delta));
 		PrayerPotion prayer = new PrayerPotion(delta);
 		changes.setStatChanges(Stream.concat(
-				Stream.of(prayer.effect(client)),
-				Stream.of(superRestoreStats)
-						.filter(stat -> stat.getValue(client) < stat.getMaximum(client))
-						.map(stat ->
-						{
-							calc.setStat(stat);
-							return calc.effect(client);
-						})
+			Stream.of(prayer.effect(client)),
+			Stream.of(superRestoreStats)
+				.filter(stat -> stat.getValue(client) < stat.getMaximum(client))
+				.map(stat ->
+				{
+					calc.setStat(stat);
+					return calc.effect(client);
+				})
 		).toArray(StatChange[]::new));
 		changes.setPositivity(Stream.of(changes.getStatChanges()).map(StatChange::getPositivity).max(Comparator.comparing(Enum::ordinal)).get());
 		return changes;

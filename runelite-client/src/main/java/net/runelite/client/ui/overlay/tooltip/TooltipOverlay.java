@@ -31,7 +31,6 @@ import java.awt.Rectangle;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.config.TooltipPositionType;
@@ -42,7 +41,8 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.components.TooltipComponent;
 
 @Singleton
-public class TooltipOverlay extends Overlay {
+public class TooltipOverlay extends Overlay
+{
 	private static final int UNDER_OFFSET = 24;
 	private static final int ABOVE_OFFSET = -20;
 	private static final int PADDING = 2;
@@ -51,7 +51,8 @@ public class TooltipOverlay extends Overlay {
 	private final RuneLiteConfig runeLiteConfig;
 
 	@Inject
-	private TooltipOverlay(Client client, TooltipManager tooltipManager, final RuneLiteConfig runeLiteConfig) {
+	private TooltipOverlay(Client client, TooltipManager tooltipManager, final RuneLiteConfig runeLiteConfig)
+	{
 		this.client = client;
 		this.tooltipManager = tooltipManager;
 		this.runeLiteConfig = runeLiteConfig;
@@ -61,22 +62,28 @@ public class TooltipOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		final List<Tooltip> tooltips = tooltipManager.getTooltips();
 
-		if (tooltips.isEmpty()) {
+		if (tooltips.isEmpty())
+		{
 			return null;
 		}
 
-		try {
+		try
+		{
 			return renderTooltips(graphics, tooltips);
-		} finally {
+		}
+		finally
+		{
 			// Tooltips must always be cleared each frame
 			tooltipManager.clear();
 		}
 	}
 
-	private Dimension renderTooltips(Graphics2D graphics, List<Tooltip> tooltips) {
+	private Dimension renderTooltips(Graphics2D graphics, List<Tooltip> tooltips)
+	{
 		final Rectangle clientCanvasBounds = new Rectangle(client.getRealDimensions());
 		final net.runelite.api.Point mouseCanvasPosition = client.getMouseCanvasPosition();
 		final int offset = runeLiteConfig.tooltipPosition() == TooltipPositionType.UNDER_CURSOR ? UNDER_OFFSET : ABOVE_OFFSET;
@@ -84,29 +91,34 @@ public class TooltipOverlay extends Overlay {
 		final Rectangle bounds = new Rectangle(getBounds());
 		bounds.setLocation(mousePosition);
 
-		if (!clientCanvasBounds.contains(bounds)) {
+		if (!clientCanvasBounds.contains(bounds))
+		{
 			final int clientX = (int) clientCanvasBounds.getMaxX();
 			final int clientY = (int) clientCanvasBounds.getMaxY();
 			final int boundsX = (int) bounds.getMaxX();
 			final int boundsY = (int) bounds.getMaxY();
 
-			if (boundsY > clientY) {
+			if (boundsY > clientY)
+			{
 				graphics.translate(0, -bounds.height - offset);
 			}
 
-			if (boundsX > clientX) {
+			if (boundsX > clientX)
+			{
 				graphics.translate(-bounds.width + clientCanvasBounds.width - bounds.x, 0);
 			}
 		}
 
 		final Rectangle newBounds = new Rectangle(-1, -1, 0, 0);
 
-		for (Tooltip tooltip : tooltips) {
+		for (Tooltip tooltip : tooltips)
+		{
 			final TooltipComponent tooltipComponent = new TooltipComponent();
 			tooltipComponent.setModIcons(client.getModIcons());
 			tooltipComponent.setText(tooltip.getText());
 
-			if (newBounds.contains(mousePosition)) {
+			if (newBounds.contains(mousePosition))
+			{
 				mousePosition.move(mouseCanvasPosition.getX(), mouseCanvasPosition.getY() + offset + newBounds.height);
 			}
 

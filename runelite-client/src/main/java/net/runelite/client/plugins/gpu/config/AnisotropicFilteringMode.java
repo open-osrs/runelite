@@ -30,7 +30,8 @@ import lombok.RequiredArgsConstructor;
 
 @Getter(AccessLevel.PUBLIC)
 @RequiredArgsConstructor
-public enum AnisotropicFilteringMode {
+public enum AnisotropicFilteringMode
+{
 	DISABLED("Disabled", 0f),
 	BILINEAR("Bilinear", 0.5f),
 	TRILINEAR("Trilinear", 1f),
@@ -43,7 +44,8 @@ public enum AnisotropicFilteringMode {
 	private final float samples;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

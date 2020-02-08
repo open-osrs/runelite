@@ -7,24 +7,24 @@ import net.runelite.rs.ScriptOpcodes;
 final class class2 implements class0 {
 	@ObfuscatedName("ql")
 	@ObfuscatedSignature(
-			signature = "Lch;"
+		signature = "Lch;"
 	)
 	@Export("pcmStreamMixer")
 	static PcmStreamMixer pcmStreamMixer;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/Object;Lkp;B)V",
-			garbageValue = "95"
+		signature = "(Ljava/lang/Object;Lkp;B)V",
+		garbageValue = "95"
 	)
 	public void vmethod55(Object var1, Buffer var2) {
-		this.method21((Long) var1, var2);
+		this.method21((Long)var1, var2);
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lkp;I)Ljava/lang/Object;",
-			garbageValue = "1665636232"
+		signature = "(Lkp;I)Ljava/lang/Object;",
+		garbageValue = "1665636232"
 	)
 	public Object vmethod53(Buffer var1) {
 		return var1.readLong();
@@ -32,8 +32,8 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/Long;Lkp;I)V",
-			garbageValue = "-301024958"
+		signature = "(Ljava/lang/Long;Lkp;I)V",
+		garbageValue = "-301024958"
 	)
 	void method21(Long var1, Buffer var2) {
 		var2.writeLong(var1);
@@ -41,8 +41,8 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(II)Lhq;",
-			garbageValue = "-1693813120"
+		signature = "(II)Lhq;",
+		garbageValue = "-1693813120"
 	)
 	public static ServerBuild method31(int var0) {
 		ServerBuild[] var1 = WorldMapID.method572();
@@ -59,8 +59,8 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZB)I",
-			garbageValue = "-115"
+		signature = "(ILce;ZB)I",
+		garbageValue = "-115"
 	)
 	static int method34(int var0, Script var1, boolean var2) {
 		int var4 = -1;
@@ -222,7 +222,7 @@ final class class2 implements class0 {
 				return 1;
 			} else if (var0 == ScriptOpcodes.CC_SETFILLMODE) {
 				var8 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-				FillMode var6 = (FillMode) WorldMapSection0.findEnumerated(ClientPreferences.FillMode_values(), var8);
+				FillMode var6 = (FillMode)WorldMapSection0.findEnumerated(ClientPreferences.FillMode_values(), var8);
 				if (var6 != null) {
 					var3.fillMode = var6;
 					NPCDefinition.invalidateWidget(var3);
@@ -248,8 +248,8 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-			signature = "([BB)[B",
-			garbageValue = "-84"
+		signature = "([BB)[B",
+		garbageValue = "-84"
 	)
 	@Export("decompressBytes")
 	static final byte[] decompressBytes(byte[] var0) {
@@ -281,8 +281,8 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "26"
+		signature = "(B)V",
+		garbageValue = "26"
 	)
 	protected static final void method24() {
 		GameShell.clock.mark();
@@ -301,8 +301,8 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("fj")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-917024322"
+		signature = "(I)V",
+		garbageValue = "-917024322"
 	)
 	static void method32() {
 		Client.mouseLastLastPressedTimeMillis = -1L;
@@ -379,7 +379,7 @@ final class class2 implements class0 {
 			ObjectSound.method1933(Client.rootInterface);
 		}
 
-		for (InterfaceParent var4 = (InterfaceParent) Client.interfaceParents.first(); var4 != null; var4 = (InterfaceParent) Client.interfaceParents.next()) {
+		for (InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.first(); var4 != null; var4 = (InterfaceParent)Client.interfaceParents.next()) {
 			class185.closeInterface(var4, true);
 		}
 
@@ -388,7 +388,7 @@ final class class2 implements class0 {
 		Client.meslayerContinueWidget = null;
 		Client.menuOptionsCount = 0;
 		Client.isMenuOpen = false;
-		Client.playerAppearance.update((int[]) null, new int[]{0, 0, 0, 0, 0}, false, -1);
+		Client.playerAppearance.update((int[])null, new int[]{0, 0, 0, 0, 0}, false, -1);
 
 		for (var0 = 0; var0 < 8; ++var0) {
 			Client.playerMenuActions[var0] = null;

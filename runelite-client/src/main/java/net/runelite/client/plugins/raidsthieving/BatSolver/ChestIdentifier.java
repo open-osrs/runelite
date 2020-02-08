@@ -26,14 +26,16 @@ package net.runelite.client.plugins.raidsthieving.BatSolver;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.api.Point;
 import net.runelite.client.plugins.raidsthieving.ThievingChest;
 
-public class ChestIdentifier {
-	public ChestIdentifier(final ThievingRoomType roomType) {
+public class ChestIdentifier
+{
+	public ChestIdentifier(final ThievingRoomType roomType)
+	{
 		chestIds = new HashMap<>();
-		switch (roomType) {
+		switch (roomType)
+		{
 			case LEFT_TURN:
 				chestIds.put(new Point(3283, 5379), 1);
 				chestIds.put(new Point(3285, 5380), 2);
@@ -247,7 +249,8 @@ public class ChestIdentifier {
 		}
 	}
 
-	public void indentifyChest(ThievingChest chest) {
+	public void indentifyChest(ThievingChest chest)
+	{
 		int id = chestIds.getOrDefault(chest.getInstancePoint(), -1);
 		chest.setChestId(id);
 	}

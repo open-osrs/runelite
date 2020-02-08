@@ -3,7 +3,8 @@ package net.runelite.rs.api;
 import net.runelite.api.Texture;
 import net.runelite.mapping.Import;
 
-public interface RSTexture extends Texture, RSNode {
+public interface RSTexture extends Texture, RSNode
+{
 	@Import("pixels")
 	@Override
 	int[] getPixels();

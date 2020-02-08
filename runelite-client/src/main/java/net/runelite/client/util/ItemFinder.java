@@ -29,17 +29,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
 
-public class ItemFinder {
+public class ItemFinder
+{
 	@Inject
 	private Client client;
 
-	public List<Item> find(Container container, Match match, Integer... itemIDs) {
+	public List<Item> find(Container container, Match match, Integer... itemIDs)
+	{
 		ItemContainer inventory = client.getItemContainer(InventoryID.INVENTORY);
 		ItemContainer equipment = client.getItemContainer(InventoryID.EQUIPMENT);
 		List<Integer> inputIDs = new ArrayList<>(Arrays.asList(itemIDs));
@@ -47,24 +48,30 @@ public class ItemFinder {
 		List<Item> foundItems = new ArrayList<>();
 		List<Item> items = new ArrayList<>();
 
-		if (inventory != null && equipment != null) {
-			if (container == Container.INVENTORY || container == Container.INVENTORY_AND_EQUIPMENT) {
+		if (inventory != null && equipment != null)
+		{
+			if (container == Container.INVENTORY || container == Container.INVENTORY_AND_EQUIPMENT)
+			{
 				items.addAll(Arrays.asList(inventory.getItems()));
 			}
 
-			if (container == Container.EQUIPMENT || container == Container.INVENTORY_AND_EQUIPMENT) {
+			if (container == Container.EQUIPMENT || container == Container.INVENTORY_AND_EQUIPMENT)
+			{
 				items.addAll(Arrays.asList(equipment.getItems()));
 			}
 
-			for (Item item : items) {
-				if (inputIDs.contains(item.getId())) {
+			for (Item item : items)
+			{
+				if (inputIDs.contains(item.getId()))
+				{
 					foundIDs.add(item.getId());
 					foundItems.add(item);
 				}
 			}
 
 			//todo: make this work with multiples of the same item in inputIDs
-			if (match == Match.ALL_ITEMS && !foundIDs.containsAll(inputIDs)) {
+			if (match == Match.ALL_ITEMS && !foundIDs.containsAll(inputIDs))
+			{
 				foundItems = Collections.emptyList();
 			}
 		}
@@ -72,13 +79,15 @@ public class ItemFinder {
 		return foundItems;
 	}
 
-	public enum Container {
+	public enum Container
+	{
 		INVENTORY,
 		EQUIPMENT,
 		INVENTORY_AND_EQUIPMENT
 	}
 
-	public enum Match {
+	public enum Match
+	{
 		ALL_ITEMS,
 		ANY_ITEM
 	}

@@ -24,13 +24,11 @@
 package net.runelite.client.plugins.ticktimers;
 
 import com.google.inject.Provides;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -52,15 +50,16 @@ import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 @PluginDescriptor(
-		name = "Boss Tick Timers",
-		description = "Tick timers for bosses",
-		tags = {"pvm", "bossing"},
-		enabledByDefault = false,
-		type = PluginType.PVM
+	name = "Boss Tick Timers",
+	description = "Tick timers for bosses",
+	tags = {"pvm", "bossing"},
+	enabledByDefault = false,
+	type = PluginType.PVM
 )
 @Singleton
 @Slf4j
-public class TickTimersPlugin extends Plugin {
+public class TickTimersPlugin extends Plugin
+{
 	private static final int GENERAL_REGION = 11347;
 	private static final int ARMA_REGION = 11346;
 	private static final int SARA_REGION = 11601;
@@ -102,33 +101,41 @@ public class TickTimersPlugin extends Plugin {
 	private boolean shadows;
 
 	@Provides
-	TickTimersConfig getConfig(ConfigManager configManager) {
+	TickTimersConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(TickTimersConfig.class);
 	}
 
 	@Override
-	public void startUp() {
+	public void startUp()
+	{
 		updateConfig();
 		npcContainer.clear();
 	}
 
 	@Override
-	public void shutDown() {
+	public void shutDown()
+	{
 		npcContainer.clear();
 		overlayManager.remove(timersOverlay);
 		validRegion = false;
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged gameStateChanged) {
-		if (gameStateChanged.getGameState() != GameState.LOGGED_IN) {
+	private void onGameStateChanged(GameStateChanged gameStateChanged)
+	{
+		if (gameStateChanged.getGameState() != GameState.LOGGED_IN)
+		{
 			return;
 		}
 
-		if (regionCheck()) {
+		if (regionCheck())
+		{
 			validRegion = true;
 			overlayManager.add(timersOverlay);
-		} else {
+		}
+		else
+		{
 			validRegion = false;
 			overlayManager.remove(timersOverlay);
 		}
@@ -136,14 +143,17 @@ public class TickTimersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onNpcSpawned(NpcSpawned event) {
-		if (!validRegion) {
+	private void onNpcSpawned(NpcSpawned event)
+	{
+		if (!validRegion)
+		{
 			return;
 		}
 
 		NPC npc = event.getNpc();
 
-		switch (npc.getId()) {
+		switch (npc.getId())
+		{
 			case NpcID.SERGEANT_STRONGSTACK:
 			case NpcID.SERGEANT_STEELWILL:
 			case NpcID.SERGEANT_GRIMSPIKE:
@@ -160,14 +170,16 @@ public class TickTimersPlugin extends Plugin {
 			case NpcID.FLOCKLEADER_GEERIN:
 			case NpcID.WINGMAN_SKREE:
 			case NpcID.KREEARRA:
-				if (this.gwd) {
+				if (this.gwd)
+				{
 					npcContainer.add(new NPCContainer(npc, npcManager.getAttackSpeed(npc.getId())));
 				}
 				break;
 			case NpcID.DAGANNOTH_REX:
 			case NpcID.DAGANNOTH_SUPREME:
 			case NpcID.DAGANNOTH_PRIME:
-				if (this.dks) {
+				if (this.dks)
+				{
 					npcContainer.add(new NPCContainer(npc, npcManager.getAttackSpeed(npc.getId())));
 				}
 				break;
@@ -175,14 +187,17 @@ public class TickTimersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onNpcDespawned(NpcDespawned event) {
-		if (!validRegion) {
+	private void onNpcDespawned(NpcDespawned event)
+	{
+		if (!validRegion)
+		{
 			return;
 		}
 
 		NPC npc = event.getNpc();
 
-		switch (npc.getId()) {
+		switch (npc.getId())
+		{
 			case NpcID.SERGEANT_STRONGSTACK:
 			case NpcID.SERGEANT_STEELWILL:
 			case NpcID.SERGEANT_GRIMSPIKE:
@@ -208,44 +223,55 @@ public class TickTimersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	public void onGameTick(GameTick Event) {
-		if (!validRegion) {
+	public void onGameTick(GameTick Event)
+	{
+		if (!validRegion)
+		{
 			return;
 		}
 
 		handleBosses();
 	}
 
-	private void handleBosses() {
-		for (NPCContainer npcs : getNpcContainer()) {
-			if (npcs.getTicksUntilAttack() >= 0) {
+	private void handleBosses()
+	{
+		for (NPCContainer npcs : getNpcContainer())
+		{
+			if (npcs.getTicksUntilAttack() >= 0)
+			{
 				npcs.setTicksUntilAttack(npcs.getTicksUntilAttack() - 1);
 			}
 
-			for (int anims : npcs.getAnimations()) {
-				if (anims == npcs.getNpc().getAnimation() && npcs.getTicksUntilAttack() < 1) {
+			for (int anims : npcs.getAnimations())
+			{
+				if (anims == npcs.getNpc().getAnimation() && npcs.getTicksUntilAttack() < 1)
+				{
 					npcs.setTicksUntilAttack(npcs.getAttackSpeed());
 				}
 			}
 		}
 	}
 
-	private boolean regionCheck() {
+	private boolean regionCheck()
+	{
 		return Arrays.stream(client.getMapRegions()).anyMatch(
-				x -> x == ARMA_REGION || x == GENERAL_REGION || x == ZAMMY_REGION || x == SARA_REGION || x == WATERBITH_REGION
+			x -> x == ARMA_REGION || x == GENERAL_REGION || x == ZAMMY_REGION || x == SARA_REGION || x == WATERBITH_REGION
 		);
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!"TickTimers".equals(event.getGroup())) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!"TickTimers".equals(event.getGroup()))
+		{
 			return;
 		}
 
 		updateConfig();
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showPrayerWidgetHelper = config.showPrayerWidgetHelper();
 		this.showHitSquares = config.showHitSquares();
 		this.changeTickColor = config.changeTickColor();

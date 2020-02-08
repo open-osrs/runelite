@@ -25,7 +25,6 @@
 package net.runelite.http.api.hiscore;
 
 import java.io.IOException;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
@@ -36,29 +35,36 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 @Slf4j
-public class HiscoreClient {
-	public HiscoreResult lookup(String username, HiscoreEndpoint endpoint) throws IOException {
+public class HiscoreClient
+{
+	public HiscoreResult lookup(String username, HiscoreEndpoint endpoint) throws IOException
+	{
 		return lookup(username, endpoint.getHiscoreURL());
 	}
 
-	public HiscoreResult lookup(String username, HttpUrl endpoint) throws IOException {
+	public HiscoreResult lookup(String username, HttpUrl endpoint) throws IOException
+	{
 		HiscoreResultBuilder resultBuilder = lookupUsername(username, endpoint);
 
-		if (resultBuilder == null) {
+		if (resultBuilder == null)
+		{
 			return null;
 		}
 
 		return resultBuilder.build();
 	}
 
-	public HiscoreResult lookup(String username) throws IOException {
+	public HiscoreResult lookup(String username) throws IOException
+	{
 		return lookup(username, HiscoreEndpoint.NORMAL);
 	}
 
-	public SingleHiscoreSkillResult lookup(String username, HiscoreSkill skill, HiscoreEndpoint endpoint) throws IOException {
+	public SingleHiscoreSkillResult lookup(String username, HiscoreSkill skill, HiscoreEndpoint endpoint) throws IOException
+	{
 		HiscoreResultBuilder resultBuilder = lookupUsername(username, endpoint.getHiscoreURL());
 
-		if (resultBuilder == null) {
+		if (resultBuilder == null)
+		{
 			return null;
 		}
 
@@ -72,26 +78,31 @@ public class HiscoreClient {
 		return skillResult;
 	}
 
-	public SingleHiscoreSkillResult lookup(String username, HiscoreSkill skill) throws IOException {
+	public SingleHiscoreSkillResult lookup(String username, HiscoreSkill skill) throws IOException
+	{
 		return lookup(username, skill, HiscoreEndpoint.NORMAL);
 	}
 
-	private HiscoreResultBuilder lookupUsername(String username, HttpUrl hiscoreUrl) throws IOException {
+	private HiscoreResultBuilder lookupUsername(String username, HttpUrl hiscoreUrl) throws IOException
+	{
 		HttpUrl url = hiscoreUrl.newBuilder()
-				.addQueryParameter("player", username)
-				.build();
+			.addQueryParameter("player", username)
+			.build();
 
 		log.debug("Built URL {}", url);
 
 		Request okrequest = new Request.Builder()
-				.url(url)
-				.build();
+			.url(url)
+			.build();
 
 		String responseStr;
 
-		try (Response okresponse = RuneLiteAPI.CLIENT.newCall(okrequest).execute()) {
-			if (!okresponse.isSuccessful()) {
-				switch (okresponse.code()) {
+		try (Response okresponse = RuneLiteAPI.CLIENT.newCall(okrequest).execute())
+		{
+			if (!okresponse.isSuccessful())
+			{
+				switch (okresponse.code())
+				{
 					case 404:
 						return null;
 					default:
@@ -109,8 +120,10 @@ public class HiscoreClient {
 
 		int count = 0;
 
-		for (CSVRecord record : parser.getRecords()) {
-			if (count++ >= HiscoreSkill.values().length) {
+		for (CSVRecord record : parser.getRecords())
+		{
+			if (count++ >= HiscoreSkill.values().length)
+			{
 				log.warn("Jagex Hiscore API returned unexpected data");
 				break; // rest is other things?
 			}
@@ -121,7 +134,8 @@ public class HiscoreClient {
 
 			// items that are not skills do not have an experience parameter
 			long experience = -1;
-			if (record.size() == 3) {
+			if (record.size() == 3)
+			{
 				experience = Long.parseLong(record.get(2));
 			}
 

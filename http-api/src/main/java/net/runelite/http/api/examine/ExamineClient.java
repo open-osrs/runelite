@@ -25,7 +25,6 @@
 package net.runelite.http.api.examine;
 
 import java.io.IOException;
-
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,46 +36,54 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExamineClient {
+public class ExamineClient
+{
 	private static final Logger logger = LoggerFactory.getLogger(ExamineClient.class);
 
 	private static final MediaType TEXT = MediaType.parse("text");
 
-	public void submitObject(int id, String text) {
+	public void submitObject(int id, String text)
+	{
 		submit("object", id, text);
 	}
 
-	public void submitNpc(int id, String text) {
+	public void submitNpc(int id, String text)
+	{
 		submit("npc", id, text);
 	}
 
-	public void submitItem(int id, String text) {
+	public void submitItem(int id, String text)
+	{
 		submit("item", id, text);
 	}
 
-	private void submit(String type, int id, String text) {
+	private void submit(String type, int id, String text)
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("examine")
-				.addPathSegment(type)
-				.addPathSegment(Integer.toString(id))
-				.build();
+			.addPathSegment("examine")
+			.addPathSegment(type)
+			.addPathSegment(Integer.toString(id))
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		RequestBody body = RequestBody.Companion.create(text, TEXT);
 		Request request = new Request.Builder()
-				.url(url)
-				.post(body)
-				.build();
+			.url(url)
+			.post(body)
+			.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		{
 			@Override
-			public void onFailure(Call call, IOException e) {
+			public void onFailure(Call call, IOException e)
+			{
 				logger.warn("Error submitting examine", e);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) {
+			public void onResponse(Call call, Response response)
+			{
 				response.close();
 				logger.debug("Submitted examine info for {} {}: {}", type, id, text);
 			}

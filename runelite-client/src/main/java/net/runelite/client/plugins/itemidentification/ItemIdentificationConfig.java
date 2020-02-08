@@ -25,84 +25,92 @@
 package net.runelite.client.plugins.itemidentification;
 
 import java.awt.Color;
-
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("itemidentification")
-public interface ItemIdentificationConfig extends Config {
+public interface ItemIdentificationConfig extends Config
+{
 	@ConfigItem(
-			keyName = "identificationType",
-			name = "Identification Type",
-			position = -4,
-			description = "How much to show of the item name"
+		keyName = "identificationType",
+		name = "Identification Type",
+		position = -4,
+		description = "How much to show of the item name"
 	)
-	default ItemIdentificationMode identificationType() {
+	default ItemIdentificationMode identificationType()
+	{
 		return ItemIdentificationMode.SHORT;
 	}
 
 	@ConfigItem(
-			keyName = "textColor",
-			name = "Color",
-			position = -3,
-			description = "The colour of the identification text"
+		keyName = "textColor",
+		name = "Color",
+		position = -3,
+		description = "The colour of the identification text"
 	)
-	default Color textColor() {
+	default Color textColor()
+	{
 		return Color.WHITE;
 	}
 
 	@ConfigItem(
-			keyName = "showSeeds",
-			name = "Seeds",
-			description = "Show identification on Seeds"
+		keyName = "showSeeds",
+		name = "Seeds",
+		description = "Show identification on Seeds"
 	)
-	default boolean showSeeds() {
+	default boolean showSeeds()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showHerbs",
-			name = "Herbs",
-			description = "Show identification on Herbs"
+		keyName = "showHerbs",
+		name = "Herbs",
+		description = "Show identification on Herbs"
 	)
-	default boolean showHerbs() {
+	default boolean showHerbs()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "showSaplings",
-			name = "Saplings",
-			description = "Show identification on Saplings and Seedlings"
+		keyName = "showSaplings",
+		name = "Saplings",
+		description = "Show identification on Saplings and Seedlings"
 	)
-	default boolean showSaplings() {
+	default boolean showSaplings()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showOres",
-			name = "Ores",
-			description = "Show identification on Ores"
+		keyName = "showOres",
+		name = "Ores",
+		description = "Show identification on Ores"
 	)
-	default boolean showOres() {
+	default boolean showOres()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "showGems",
-			name = "Gems",
-			description = "Show identification on Gems"
+		keyName = "showGems",
+		name = "Gems",
+		description = "Show identification on Gems"
 	)
-	default boolean showGems() {
+	default boolean showGems()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "showPotions",
-			name = "Potions",
-			description = "Show identification on Potions"
+		keyName = "showPotions",
+		name = "Potions",
+		description = "Show identification on Potions"
 	)
-	default boolean showPotions() {
+	default boolean showPotions()
+	{
 		return false;
 	}
 }

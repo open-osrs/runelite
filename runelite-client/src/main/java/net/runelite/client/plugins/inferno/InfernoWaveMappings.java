@@ -27,17 +27,16 @@
 package net.runelite.client.plugins.inferno;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.awt.Color;
 import java.util.Map;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.plugins.inferno.displaymodes.InfernoNamingDisplayMode;
 import net.runelite.client.ui.overlay.components.PanelComponent;
 import net.runelite.client.ui.overlay.components.TitleComponent;
 
-class InfernoWaveMappings {
+class InfernoWaveMappings
+{
 	@Getter(AccessLevel.PACKAGE)
 	private static final Map<Integer, int[]> waveMapping;
 	@Getter(AccessLevel.PACKAGE)
@@ -45,7 +44,8 @@ class InfernoWaveMappings {
 	@Getter(AccessLevel.PACKAGE)
 	private static final Map<Integer, String> npcNameMappingSimple;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, int[]> waveMapBuilder = new ImmutableMap.Builder<>();
 
 		waveMapBuilder.put(1, new int[]{32, 32, 32, 85});
@@ -147,26 +147,30 @@ class InfernoWaveMappings {
 		npcNameMappingComplex = nameMapBuilderComplex.build();
 	}
 
-	static void addWaveComponent(InfernoPlugin plugin, PanelComponent panelComponent, String header, int wave, Color titleColor, Color color) {
+	static void addWaveComponent(InfernoPlugin plugin, PanelComponent panelComponent, String header, int wave, Color titleColor, Color color)
+	{
 		int[] monsters = waveMapping.get(wave);
 
-		if (monsters == null) {
+		if (monsters == null)
+		{
 			return;
 		}
 
 		panelComponent.getChildren()
-				.add(TitleComponent.builder()
-						.text(header)
-						.color(titleColor)
-						.build()
-				);
+			.add(TitleComponent.builder()
+				.text(header)
+				.color(titleColor)
+				.build()
+			);
 
 
-		for (int i = 0; i < monsters.length; i++) {
+		for (int i = 0; i < monsters.length; i++)
+		{
 			int monsterType = monsters[i];
 			int count = 1;
 
-			for (; i < monsters.length - 1 && monsters[i + 1] == monsterType; i++) {
+			for (; i < monsters.length - 1 && monsters[i + 1] == monsterType; i++)
+			{
 				count++;
 			}
 
@@ -174,13 +178,17 @@ class InfernoWaveMappings {
 
 			String npcNameText = "";
 
-			if (plugin.getNpcNaming() == InfernoNamingDisplayMode.SIMPLE) {
+			if (plugin.getNpcNaming() == InfernoNamingDisplayMode.SIMPLE)
+			{
 				npcNameText += npcNameMappingSimple.get(monsterType);
-			} else {
+			}
+			else
+			{
 				npcNameText += npcNameMappingComplex.get(monsterType);
 			}
 
-			if (plugin.isNpcLevels()) {
+			if (plugin.isNpcLevels())
+			{
 				npcNameText += " (" + monsterType + ")";
 			}
 

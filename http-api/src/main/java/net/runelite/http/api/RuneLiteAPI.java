@@ -37,7 +37,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -50,7 +49,8 @@ import java.net.URLConnection;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class RuneLiteAPI {
+public class RuneLiteAPI
+{
 	private static final Logger logger = LoggerFactory.getLogger(RuneLiteAPI.class);
 
 	public static final String RUNELITE_AUTH = "RUNELITE-AUTH";
@@ -76,8 +76,10 @@ public class RuneLiteAPI {
 	private static String upstreamVersion;
 	private static int rsVersion;
 
-	static {
-		try (InputStream in = RuneLiteAPI.class.getResourceAsStream("/runelite.properties")) {
+	static
+	{
+		try (InputStream in = RuneLiteAPI.class.getResourceAsStream("/runelite.properties"))
+		{
 			properties.load(in);
 
 			version = properties.getProperty("runelite.version");
@@ -89,105 +91,130 @@ public class RuneLiteAPI {
 			rsVersion = Integer.parseInt(properties.getProperty("rs.version"));
 
 			parseMavenVersion();
-		} catch (NumberFormatException e) {
+		}
+		catch (NumberFormatException e)
+		{
 			e.printStackTrace();
 			throw new RuntimeException("Version string has not been substituted; Re-run Gradle");
-		} catch (IOException ex) {
+		}
+		catch (IOException ex)
+		{
 			logger.error(null, ex);
 		}
 
 		CLIENT = new OkHttpClient.Builder()
-				.pingInterval(30, TimeUnit.SECONDS)
-				.addNetworkInterceptor(new Interceptor() {
-					@Override
-					public Response intercept(Chain chain) throws IOException {
-						Request userAgentRequest = chain.request()
-								.newBuilder()
-								.header("User-Agent", userAgent)
-								.build();
-						return chain.proceed(userAgentRequest);
-					}
-				})
-				.build();
+			.pingInterval(30, TimeUnit.SECONDS)
+			.addNetworkInterceptor(new Interceptor()
+			{
+				@Override
+				public Response intercept(Chain chain) throws IOException
+				{
+					Request userAgentRequest = chain.request()
+						.newBuilder()
+						.header("User-Agent", userAgent)
+						.build();
+					return chain.proceed(userAgentRequest);
+				}
+			})
+			.build();
 	}
 
-	public static HttpUrl getSessionBase() {
+	public static HttpUrl getSessionBase()
+	{
 		return HttpUrl.parse(OPENOSRS_SESSION);
 	}
 
-	public static HttpUrl getXteaBase() {
+	public static HttpUrl getXteaBase()
+	{
 		return HttpUrl.parse(OPENOSRS_XTEA);
 	}
 
-	public static HttpUrl getAnimationsBase() {
+	public static HttpUrl getAnimationsBase()
+	{
 		return HttpUrl.parse(OPENOSRS_ANIMATIONS);
 	}
 
-	public static HttpUrl getSoundsBase() {
+	public static HttpUrl getSoundsBase()
+	{
 		return HttpUrl.parse(OPENOSRS_SOUNDS);
 	}
 
-	public static HttpUrl getApiBase() {
+	public static HttpUrl getApiBase()
+	{
 		final String prop = System.getProperty("runelite.http-service.url");
 
-		if (prop != null && !prop.isEmpty()) {
+		if (prop != null && !prop.isEmpty())
+		{
 			return HttpUrl.parse(prop);
 		}
 
 		return HttpUrl.parse(BASE + "/runelite-" + getVersion());
 	}
 
-	public static HttpUrl getOpenOSRSApiBase() {
+	public static HttpUrl getOpenOSRSApiBase()
+	{
 		return HttpUrl.parse(OPENOSRS_BASE + "/http-service-" + getRlpVersion());
 	}
 
-	public static HttpUrl getStaticBase() {
+	public static HttpUrl getStaticBase()
+	{
 		final String prop = System.getProperty("runelite.static.url");
 
-		if (prop != null && !prop.isEmpty()) {
+		if (prop != null && !prop.isEmpty())
+		{
 			return HttpUrl.parse(prop);
 		}
 
 		return HttpUrl.parse(STATICBASE);
 	}
 
-	public static HttpUrl getWsEndpoint() {
+	public static HttpUrl getWsEndpoint()
+	{
 		final String prop = System.getProperty("runelite.ws.url");
 
-		if (prop != null && !prop.isEmpty()) {
+		if (prop != null && !prop.isEmpty())
+		{
 			return HttpUrl.parse(prop);
 		}
 
 		return HttpUrl.parse(WSBASE);
 	}
 
-	public static String getVersion() {
+	public static String getVersion()
+	{
 		return upstreamVersion;
 	}
 
-	public static int getRsVersion() {
+	public static int getRsVersion()
+	{
 		return rsVersion;
 	}
 
-	public static String getRlpVersion() {
+	public static String getRlpVersion()
+	{
 		return version;
 	}
 
-	private static byte[] downloadUrl(URL toDownload) {
+	private static byte[] downloadUrl(URL toDownload)
+	{
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		InputStream stream;
-		try {
+		try
+		{
 			byte[] chunk = new byte[4096];
 			int bytesRead;
 			URLConnection conn = toDownload.openConnection();
 			conn.setRequestProperty("User-Agent", userAgent);
 			stream = conn.getInputStream();
 
-			while ((bytesRead = stream.read(chunk)) > 0) {
+			while ((bytesRead = stream.read(chunk)) > 0)
+			{
 				outputStream.write(chunk, 0, bytesRead);
 			}
 			stream.close();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 			return null;
 		}
@@ -195,21 +222,27 @@ public class RuneLiteAPI {
 		return outputStream.toByteArray();
 	}
 
-	private static void parseMavenVersion() {
-		try (ByteArrayInputStream fis = new ByteArrayInputStream(downloadUrl(new URL(MAVEN_METADATA)))) {
+	private static void parseMavenVersion()
+	{
+		try (ByteArrayInputStream fis = new ByteArrayInputStream(downloadUrl(new URL(MAVEN_METADATA))))
+		{
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setValidating(false);
 			factory.setIgnoringElementContentWhitespace(true);
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(fis);
 			NodeList versionList = doc.getElementsByTagName("version");
-			for (int i = 0; i != versionList.getLength(); i++) {
+			for (int i = 0; i != versionList.getLength(); i++)
+			{
 				Node node = versionList.item(i);
-				if (node.getTextContent() != null) {
+				if (node.getTextContent() != null)
+				{
 					upstreamVersion = node.getTextContent();
 				}
 			}
-		} catch (ParserConfigurationException | IOException | SAXException ex) {
+		}
+		catch (ParserConfigurationException | IOException | SAXException ex)
+		{
 			logger.error(null, ex);
 		}
 	}

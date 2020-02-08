@@ -26,20 +26,18 @@ package net.runelite.asm;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.asm.attributes.Annotations;
 import net.runelite.asm.attributes.annotation.Annotation;
 import net.runelite.asm.pool.Class;
 import net.runelite.asm.signature.Signature;
-
 import static net.runelite.deob.DeobAnnotations.*;
-
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-public class ClassFile implements Annotated, Named {
+public class ClassFile implements Annotated, Named
+{
 	private ClassGroup group;
 
 	private ClassFile parent; // super class
@@ -55,56 +53,68 @@ public class ClassFile implements Annotated, Named {
 	private final List<Method> methods = new ArrayList<>();
 	private final Annotations annotations;
 
-	public ClassFile(ClassGroup group) {
+	public ClassFile(ClassGroup group)
+	{
 		this.group = group;
 
 		interfaces = new Interfaces(this);
 		annotations = new Annotations();
 	}
 
-	public ClassFile() {
+	public ClassFile()
+	{
 		this(null);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "ClassFile{" + "name=" + name + '}';
 	}
 
-	public int getVersion() {
+	public int getVersion()
+	{
 		return version;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(int version)
+	{
 		this.version = version;
 	}
 
-	public int getAccess() {
+	public int getAccess()
+	{
 		return access;
 	}
 
-	public void setAccess(int access) {
+	public void setAccess(int access)
+	{
 		this.access = access;
 	}
 
-	public void accept(ClassVisitor visitor) {
+	public void accept(ClassVisitor visitor)
+	{
 		String[] ints = interfaces.getInterfaces().stream().map(Class::getName).toArray(String[]::new);
 
 		visitor.visit(version, access, name.getName(), null, super_class.getName(), ints);
 		visitor.visitSource(source, null);
 
-		for (Annotation annotation : annotations) {
+		for (Annotation annotation : annotations)
+		{
 			annotation.accept(visitor.visitAnnotation(annotation.getType().toString(), true));
 		}
 
-		for (Field field : fields) {
+		for (Field field : fields)
+		{
 			FieldVisitor fv = visitor.visitField(field.getAccessFlags(), field.getName(), field.getType().toString(), null, field.getValue());
 			field.accept(fv);
 		}
 
-		for (Method method : methods) {
+		for (Method method : methods)
+		{
 			String[] exceptions = method.getExceptions().getExceptions().stream().map(Class::getName).toArray(String[]::new);
-			if (exceptions.length == 0) {
+			if (exceptions.length == 0)
+			{
 				exceptions = null;
 			}
 
@@ -115,268 +125,335 @@ public class ClassFile implements Annotated, Named {
 		visitor.visitEnd();
 	}
 
-	public ClassGroup getGroup() {
+	public ClassGroup getGroup()
+	{
 		return group;
 	}
 
-	public void setGroup(ClassGroup group) {
+	public void setGroup(ClassGroup group)
+	{
 		this.group = group;
 	}
 
-	public Interfaces getInterfaces() {
+	public Interfaces getInterfaces()
+	{
 		return interfaces;
 	}
 
-	public List<Field> getFields() {
+	public List<Field> getFields()
+	{
 		return fields;
 	}
 
-	public void addField(Field field) {
+	public void addField(Field field)
+	{
 		fields.add(field);
 	}
 
-	public void removeField(Field field) {
+	public void removeField(Field field)
+	{
 		fields.remove(field);
 	}
 
-	public List<Method> getMethods() {
+	public List<Method> getMethods()
+	{
 		return methods;
 	}
 
-	public void addMethod(Method method) {
+	public void addMethod(Method method)
+	{
 		methods.add(method);
 	}
 
-	public void removeMethod(Method method) {
+	public void removeMethod(Method method)
+	{
 		methods.remove(method);
 	}
 
-	public Annotations getAnnotations() {
+	public Annotations getAnnotations()
+	{
 		return annotations;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name.getName();
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		// Must be removed from the class group map first
 		assert group == null || this.name == null || group.findClass(this.name.getName()) == null;
 
 		this.name = new Class(name);
 	}
 
-	public String getClassName() {
+	public String getClassName()
+	{
 		String n = getName();
 		int i = n.lastIndexOf('/');
 		return n.substring(i + 1);
 	}
 
-	public String getSuperName() {
+	public String getSuperName()
+	{
 		return super_class.getName();
 	}
 
-	public void setSuperName(String name) {
+	public void setSuperName(String name)
+	{
 		super_class = new Class(name);
 	}
 
-	public String getSource() {
+	public String getSource()
+	{
 		return source;
 	}
 
-	public void setSource(String source) {
+	public void setSource(String source)
+	{
 		this.source = source;
 	}
 
-	public Class getParentClass() {
+	public Class getParentClass()
+	{
 		return this.super_class;
 	}
 
-	public void setParentClass(Class c) {
+	public void setParentClass(Class c)
+	{
 		super_class = c;
 	}
 
-	public ClassFile getParent() {
+	public ClassFile getParent()
+	{
 		return parent;
 	}
 
-	public List<ClassFile> getChildren() {
+	public List<ClassFile> getChildren()
+	{
 		return children;
 	}
 
-	public Field findField(String name, Type type) {
-		for (Field f : fields) {
-			if (f.getName().equals(name) && f.getType().equals(type)) {
+	public Field findField(String name, Type type)
+	{
+		for (Field f : fields)
+		{
+			if (f.getName().equals(name) && f.getType().equals(type))
+			{
 				return f;
 			}
 		}
 		return null;
 	}
 
-	public Field findField(String name) {
-		for (Field f : fields) {
-			if (f.getName().equals(name)) {
+	public Field findField(String name)
+	{
+		for (Field f : fields)
+		{
+			if (f.getName().equals(name))
+			{
 				return f;
 			}
 		}
 		return null;
 	}
 
-	public Class getPoolClass() {
+	public Class getPoolClass()
+	{
 		return name;
 	}
 
-	public Field findFieldDeep(String name, Type type) {
+	public Field findFieldDeep(String name, Type type)
+	{
 		Field f = findField(name, type);
-		if (f != null) {
+		if (f != null)
+		{
 			return f;
 		}
 
 		ClassFile parent = getParent();
-		if (parent != null) {
+		if (parent != null)
+		{
 			return parent.findFieldDeep(name, type);
 		}
 
 		return null;
 	}
 
-	public Method findMethod(String name, Signature type) {
-		for (Method m : methods) {
-			if (m.getName().equals(name) && m.getDescriptor().equals(type)) {
+	public Method findMethod(String name, Signature type)
+	{
+		for (Method m : methods)
+		{
+			if (m.getName().equals(name) && m.getDescriptor().equals(type))
+			{
 				return m;
 			}
 		}
 		return null;
 	}
 
-	public Method findStaticMethod(String name, Signature type) {
-		for (Method m : methods) {
+	public Method findStaticMethod(String name, Signature type)
+	{
+		for (Method m : methods)
+		{
 			if (m.isStatic() &&
-					m.getName().equals(name) &&
-					m.getDescriptor().equals(type)) {
+				m.getName().equals(name) &&
+				m.getDescriptor().equals(type))
+			{
 				return m;
 			}
 		}
 		return null;
 	}
 
-	public Method findObfStaticMethod(String name, Signature type) {
-		for (Method m : methods) {
+	public Method findObfStaticMethod(String name, Signature type)
+	{
+		for (Method m : methods)
+		{
 			if (m.isStatic() &&
-					name.equals(getObfuscatedName(m.getAnnotations())) &&
-					type.equals(getObfuscatedSignature(m))) {
+				name.equals(getObfuscatedName(m.getAnnotations())) &&
+				type.equals(getObfuscatedSignature(m)))
+			{
 				return m;
 			}
 		}
 		return findMethodDeepStatic(name, type);
 	}
 
-	public Method findMethod(String name) {
-		for (Method m : methods) {
-			if (m.getName().equals(name)) {
+	public Method findMethod(String name)
+	{
+		for (Method m : methods)
+		{
+			if (m.getName().equals(name))
+			{
 				return m;
 			}
 		}
 		return null;
 	}
 
-	public Method findStaticMethod(String name) {
-		for (Method m : methods) {
-			if (m.isStatic() && m.getName().equals(name)) {
+	public Method findStaticMethod(String name)
+	{
+		for (Method m : methods)
+		{
+			if (m.isStatic() && m.getName().equals(name))
+			{
 				return m;
 			}
 		}
 		return null;
 	}
 
-	public Method findMethodDeep(String name, Signature type) {
+	public Method findMethodDeep(String name, Signature type)
+	{
 		Method m = findMethod(name, type);
-		if (m != null) {
+		if (m != null)
+		{
 			return m;
 		}
 
 		ClassFile parent = getParent();
-		if (parent != null) {
+		if (parent != null)
+		{
 			return parent.findMethodDeep(name, type);
 		}
 
 		return null;
 	}
 
-	public Method findMethodDeepStatic(String name, Signature type) {
+	public Method findMethodDeepStatic(String name, Signature type)
+	{
 		Method m = findStaticMethod(name, type);
-		if (m != null) {
+		if (m != null)
+		{
 			return m;
 		}
 
 		ClassFile parent = getParent();
-		if (parent != null) {
+		if (parent != null)
+		{
 			return parent.findMethodDeepStatic(name, type);
 		}
 
 		return null;
 	}
 
-	public Method findMethodDeep(String name) {
+	public Method findMethodDeep(String name)
+	{
 		Method m = findMethod(name);
-		if (m != null) {
+		if (m != null)
+		{
 			return m;
 		}
 
 		ClassFile parent = getParent();
-		if (parent != null) {
+		if (parent != null)
+		{
 			return parent.findMethodDeep(name);
 		}
 
 		return null;
 	}
 
-	public void clearClassGraph() {
+	public void clearClassGraph()
+	{
 		parent = null;
 		children.clear();
 	}
 
-	public void buildClassGraph() {
+	public void buildClassGraph()
+	{
 		ClassFile other = group.findClass(super_class.getName());
-		if (other != null) {
+		if (other != null)
+		{
 			this.parent = other;
 			parent.children.add(this);
 		}
 
-		for (ClassFile i : interfaces.getMyInterfaces()) {
+		for (ClassFile i : interfaces.getMyInterfaces())
+		{
 			i.children.add(this);
 		}
 	}
 
-	public boolean instanceOf(ClassFile other) {
+	public boolean instanceOf(ClassFile other)
+	{
 		return this == other || interfaces.instanceOf(other) || (getParent() != null && getParent().instanceOf(other));
 	}
 
-	public boolean isAbstract() {
+	public boolean isAbstract()
+	{
 		return (this.access & Opcodes.ACC_ABSTRACT) != 0;
 	}
 
-	public boolean isFinal() {
+	public boolean isFinal()
+	{
 		return (this.access & Opcodes.ACC_FINAL) != 0;
 	}
 
-	public boolean isInterface() {
+	public boolean isInterface()
+	{
 		return (this.access & Opcodes.ACC_INTERFACE) != 0;
 	}
 
-	public boolean isEnum() {
+	public boolean isEnum()
+	{
 		return (this.access & Opcodes.ACC_ENUM) != 0;
 	}
 
-	public void setEnum() {
+	public void setEnum()
+	{
 		this.access |= Opcodes.ACC_ENUM;
 	}
 
-	public void clearFinal() {
+	public void clearFinal()
+	{
 		this.access &= ~Opcodes.ACC_FINAL;
 	}
 
-	public void clearAbstract() {
+	public void clearAbstract()
+	{
 		this.access &= ~Opcodes.ACC_ABSTRACT;
 	}
 }

@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class TileItem extends Entity {
 	@ObfuscatedName("sf")
 	@ObfuscatedSignature(
-			signature = "Lky;"
+		signature = "Lky;"
 	)
 	@Export("masterDisk")
 	static ArchiveDisk masterDisk;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -1909413627
+		intValue = -1909413627
 	)
 	@Export("id")
 	int id;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -1504274747
+		intValue = -1504274747
 	)
 	@Export("quantity")
 	int quantity;
@@ -31,8 +31,8 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(I)Ldx;",
-			garbageValue = "-2133076860"
+		signature = "(I)Ldx;",
+		garbageValue = "-2133076860"
 	)
 	@Export("getModel")
 	protected final Model getModel() {

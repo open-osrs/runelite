@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapDecoration {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 2038989741
+		intValue = 2038989741
 	)
 	@Export("objectDefinitionId")
 	final int objectDefinitionId;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 1678601373
+		intValue = 1678601373
 	)
 	@Export("decoration")
 	final int decoration;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -1725461175
+		intValue = -1725461175
 	)
 	@Export("rotation")
 	final int rotation;
@@ -34,8 +34,8 @@ public class WorldMapDecoration {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(IIILfk;Lfv;I)Z",
-			garbageValue = "-802024285"
+		signature = "(IIILfk;Lfv;I)Z",
+		garbageValue = "-802024285"
 	)
 	public static final boolean method346(int var0, int var1, int var2, RouteStrategy var3, CollisionMap var4) {
 		int var5 = var0;
@@ -226,10 +226,10 @@ public class WorldMapDecoration {
 									class173.directions[var18 - 1][var19 + 1] = 6;
 									class173.distances[var18 - 1][var19 + 1] = var16;
 								}
-							} while (var18 >= 128 - var2);
-						} while (var19 >= 128 - var2);
-					} while (class173.directions[var18 + 1][var19 + 1] != 0);
-				} while ((var13[var14 + var2][var15 + var2] & 19136992) != 0);
+							} while(var18 >= 128 - var2);
+						} while(var19 >= 128 - var2);
+					} while(class173.directions[var18 + 1][var19 + 1] != 0);
+				} while((var13[var14 + var2][var15 + var2] & 19136992) != 0);
 
 				for (var17 = 1; var17 < var2; ++var17) {
 					if ((var13[var14 + var17][var15 + var2] & 19137016) != 0 || (var13[var14 + var2][var17 + var15] & 19136995) != 0) {
@@ -248,8 +248,8 @@ public class WorldMapDecoration {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(IZIZB)V",
-			garbageValue = "58"
+		signature = "(IZIZB)V",
+		garbageValue = "58"
 	)
 	@Export("sortWorldList")
 	static void sortWorldList(int var0, boolean var1, int var2, boolean var3) {
@@ -261,8 +261,8 @@ public class WorldMapDecoration {
 
 	@ObfuscatedName("hd")
 	@ObfuscatedSignature(
-			signature = "(Lbs;I)V",
-			garbageValue = "447315853"
+		signature = "(Lbs;I)V",
+		garbageValue = "447315853"
 	)
 	static final void method347(PendingSpawn var0) {
 		long var1 = 0L;
@@ -299,8 +299,8 @@ public class WorldMapDecoration {
 
 	@ObfuscatedName("js")
 	@ObfuscatedSignature(
-			signature = "(IIIIIIIB)V",
-			garbageValue = "-22"
+		signature = "(IIIIIIIB)V",
+		garbageValue = "-22"
 	)
 	@Export("updateRootInterface")
 	static final void updateRootInterface(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {

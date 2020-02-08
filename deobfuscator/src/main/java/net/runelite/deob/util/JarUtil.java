@@ -35,7 +35,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.objectwebasm.NonloadingClassWriter;
@@ -47,17 +46,22 @@ import org.objectweb.asm.util.CheckClassAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JarUtil {
+public class JarUtil
+{
 	private static final Logger logger = LoggerFactory.getLogger(JarUtil.class);
 
-	public static ClassGroup loadJar(File jarfile) throws IOException {
+	public static ClassGroup loadJar(File jarfile) throws IOException
+	{
 		ClassGroup group = new ClassGroup();
 
-		try (JarFile jar = new JarFile(jarfile)) {
-			for (Enumeration<JarEntry> it = jar.entries(); it.hasMoreElements(); ) {
+		try (JarFile jar = new JarFile(jarfile))
+		{
+			for (Enumeration<JarEntry> it = jar.entries(); it.hasMoreElements();)
+			{
 				JarEntry entry = it.nextElement();
 
-				if (!entry.getName().endsWith(".class")) {
+				if (!entry.getName().endsWith(".class"))
+				{
 					continue;
 				}
 
@@ -77,22 +81,27 @@ public class JarUtil {
 		return group;
 	}
 
-	public static ClassFile loadClass(byte[] bytes) {
+	public static ClassFile loadClass(byte[] bytes)
+	{
 		ClassReader reader = new ClassReader(bytes);
 		ClassFileVisitor cv = new ClassFileVisitor();
 		reader.accept(cv, ClassReader.SKIP_FRAMES);
 		return cv.getClassFile();
 	}
 
-	public static ClassGroup loadClasses(Collection<File> files) throws IOException {
+	public static ClassGroup loadClasses(Collection<File> files) throws IOException
+	{
 		final ClassGroup group = new ClassGroup();
 
-		for (File file : files) {
-			if (!file.getName().endsWith(".class")) {
+		for (File file : files)
+		{
+			if (!file.getName().endsWith(".class"))
+			{
 				continue;
 			}
 
-			try (InputStream is = new FileInputStream(file)) {
+			try (InputStream is = new FileInputStream(file))
+			{
 				ClassReader reader = new ClassReader(is);
 				ClassFileVisitor cv = new ClassFileVisitor();
 
@@ -107,9 +116,12 @@ public class JarUtil {
 		return group;
 	}
 
-	public static void saveJar(ClassGroup group, File jarfile) throws IOException {
-		try (JarOutputStream jout = new JarOutputStream(new FileOutputStream(jarfile), new Manifest())) {
-			for (ClassFile cf : group.getClasses()) {
+	public static void saveJar(ClassGroup group, File jarfile) throws IOException
+	{
+		try (JarOutputStream jout = new JarOutputStream(new FileOutputStream(jarfile), new Manifest()))
+		{
+			for (ClassFile cf : group.getClasses())
+			{
 				JarEntry entry = new JarEntry(cf.getName() + ".class");
 				jout.putNextEntry(entry);
 
@@ -121,7 +133,8 @@ public class JarUtil {
 		}
 	}
 
-	public static byte[] writeClass(ClassGroup group, ClassFile cf) {
+	public static byte[] writeClass(ClassGroup group, ClassFile cf)
+	{
 		ClassWriter writer = new NonloadingClassWriter(group, ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 		CheckClassAdapter cca = new CheckClassAdapter(writer, false);
 
@@ -134,13 +147,17 @@ public class JarUtil {
 		return data;
 	}
 
-	private static void validateDataFlow(String name, byte[] data) {
-		try {
+	private static void validateDataFlow(String name, byte[] data)
+	{
+		try
+		{
 			ClassReader cr = new ClassReader(data);
 			ClassWriter cw = new ClassWriter(cr, 0);
 			ClassVisitor cv = new CheckClassAdapter(cw, true);
 			cr.accept(cv, 0);
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			logger.warn("Class {} failed validation", name, ex);
 		}
 	}

@@ -24,50 +24,61 @@
  */
 package net.runelite.cache.index;
 
-public class ArchiveData {
+public class ArchiveData
+{
 	int id;
 	int nameHash;
 	int crc;
 	int revision;
 	FileData[] files;
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		this.id = id;
 	}
 
-	public int getNameHash() {
+	public int getNameHash()
+	{
 		return nameHash;
 	}
 
-	public void setNameHash(int nameHash) {
+	public void setNameHash(int nameHash)
+	{
 		this.nameHash = nameHash;
 	}
 
-	public int getCrc() {
+	public int getCrc()
+	{
 		return crc;
 	}
 
-	public void setCrc(int crc) {
+	public void setCrc(int crc)
+	{
 		this.crc = crc;
 	}
 
-	public int getRevision() {
+	public int getRevision()
+	{
 		return revision;
 	}
 
-	public void setRevision(int revision) {
+	public void setRevision(int revision)
+	{
 		this.revision = revision;
 	}
 
-	public FileData[] getFiles() {
+	public FileData[] getFiles()
+	{
 		return files;
 	}
 
-	public void setFiles(FileData[] files) {
+	public void setFiles(FileData[] files)
+	{
 		this.files = files;
 	}
 }

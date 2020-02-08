@@ -38,23 +38,18 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemContainer;
-
 import static net.runelite.api.SpriteID.MINIMAP_DESTINATION_FLAG;
-
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.plugins.puzzlesolver.solver.PuzzleSolver;
-
 import static net.runelite.client.plugins.puzzlesolver.solver.PuzzleSolver.BLANK_TILE_VALUE;
 import static net.runelite.client.plugins.puzzlesolver.solver.PuzzleSolver.DIMENSION;
-
 import net.runelite.client.plugins.puzzlesolver.solver.PuzzleState;
 import net.runelite.client.plugins.puzzlesolver.solver.heuristics.ManhattanDistance;
 import net.runelite.client.plugins.puzzlesolver.solver.pathfinding.IDAStar;
@@ -69,7 +64,8 @@ import net.runelite.client.ui.overlay.components.TextComponent;
 import net.runelite.client.util.ImageUtil;
 
 @Singleton
-public class PuzzleSolverOverlay extends Overlay {
+public class PuzzleSolverOverlay extends Overlay
+{
 	private static final int INFO_BOX_WIDTH = 100;
 	private static final int INFO_BOX_OFFSET_Y = 50;
 	private static final int INFO_BOX_TOP_BORDER = 2;
@@ -92,7 +88,8 @@ public class PuzzleSolverOverlay extends Overlay {
 	private BufferedImage rightArrow;
 
 	@Inject
-	public PuzzleSolverOverlay(final Client client, final PuzzleSolverPlugin plugin, final ScheduledExecutorService executorService, final SpriteManager spriteManager) {
+	public PuzzleSolverOverlay(final Client client, final PuzzleSolverPlugin plugin, final ScheduledExecutorService executorService, final SpriteManager spriteManager)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGH);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -103,27 +100,32 @@ public class PuzzleSolverOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		if ((!plugin.isDisplaySolution() && !plugin.isDisplayRemainingMoves())
-				|| client.getGameState() != GameState.LOGGED_IN) {
+			|| client.getGameState() != GameState.LOGGED_IN)
+		{
 			return null;
 		}
 
 		boolean useNormalSolver = true;
 		ItemContainer container = client.getItemContainer(InventoryID.PUZZLE_BOX);
 
-		if (container == null) {
+		if (container == null)
+		{
 			useNormalSolver = false;
 			container = client.getItemContainer(InventoryID.MONKEY_MADNESS_PUZZLE_BOX);
 
-			if (container == null) {
+			if (container == null)
+			{
 				return null;
 			}
 		}
 
 		Widget puzzleBox = client.getWidget(WidgetInfo.PUZZLE_BOX);
 
-		if (puzzleBox == null) {
+		if (puzzleBox == null)
+		{
 			return null;
 		}
 
@@ -134,28 +136,37 @@ public class PuzzleSolverOverlay extends Overlay {
 		int[] itemIds = getItemIds(container, useNormalSolver);
 		boolean shouldCache = false;
 
-		if (solver != null) {
-			if (solver.hasFailed()) {
+		if (solver != null)
+		{
+			if (solver.hasFailed())
+			{
 				infoString = "The puzzle could not be solved";
-			} else {
-				if (solver.hasSolution()) {
+			}
+			else
+			{
+				if (solver.hasSolution())
+				{
 					boolean foundPosition = false;
 
 					// Find the current state by looking at the current step and then the next 5 steps
-					for (int i = 0; i < 6; i++) {
+					for (int i = 0; i < 6; i++)
+					{
 						int j = solver.getPosition() + i;
 
-						if (j == solver.getStepCount()) {
+						if (j == solver.getStepCount())
+						{
 							break;
 						}
 
 						PuzzleState currentState = solver.getStep(j);
 
 						// If this is false, player has moved the empty tile
-						if (currentState != null && currentState.hasPieces(itemIds)) {
+						if (currentState != null && currentState.hasPieces(itemIds))
+						{
 							foundPosition = true;
 							solver.setPosition(j);
-							if (i > 0) {
+							if (i > 0)
+							{
 								shouldCache = true;
 							}
 							break;
@@ -164,17 +175,21 @@ public class PuzzleSolverOverlay extends Overlay {
 
 					// If looking at the next steps didn't find the current state,
 					// see if we can find the current state in the 5 previous steps
-					if (!foundPosition) {
-						for (int i = 1; i < 6; i++) {
+					if (!foundPosition)
+					{
+						for (int i = 1; i < 6; i++)
+						{
 							int j = solver.getPosition() - i;
 
-							if (j < 0) {
+							if (j < 0)
+							{
 								break;
 							}
 
 							PuzzleState currentState = solver.getStep(j);
 
-							if (currentState != null && currentState.hasPieces(itemIds)) {
+							if (currentState != null && currentState.hasPieces(itemIds))
+							{
 								foundPosition = true;
 								shouldCache = true;
 								solver.setPosition(j);
@@ -183,32 +198,43 @@ public class PuzzleSolverOverlay extends Overlay {
 						}
 					}
 
-					if (foundPosition) {
+					if (foundPosition)
+					{
 						int stepsLeft = solver.getStepCount() - solver.getPosition() - 1;
 
-						if (stepsLeft == 0) {
+						if (stepsLeft == 0)
+						{
 							infoString = "Solved!";
-						} else if (plugin.isDisplayRemainingMoves()) {
+						}
+						else if (plugin.isDisplayRemainingMoves())
+						{
 							infoString = "Moves left: " + stepsLeft;
-						} else {
+						}
+						else
+						{
 							infoString = null;
 						}
 
-						if (plugin.isDisplaySolution()) {
-							if (plugin.isDrawDots()) {
+						if (plugin.isDisplaySolution())
+						{
+							if (plugin.isDrawDots())
+							{
 								graphics.setColor(Color.YELLOW);
 
 								// Display the next 4 steps
-								for (int i = 1; i < 5; i++) {
+								for (int i = 1; i < 5; i++)
+								{
 									int j = solver.getPosition() + i;
 
-									if (j >= solver.getStepCount()) {
+									if (j >= solver.getStepCount())
+									{
 										break;
 									}
 
 									PuzzleState futureMove = solver.getStep(j);
 
-									if (futureMove == null) {
+									if (futureMove == null)
+									{
 										break;
 									}
 
@@ -218,14 +244,16 @@ public class PuzzleSolverOverlay extends Overlay {
 									int markerSize = DOT_MARKER_SIZE - i * 3;
 
 									int x = puzzleBoxLocation.getX() + blankX * PUZZLE_TILE_SIZE
-											+ PUZZLE_TILE_SIZE / 2 - markerSize / 2;
+										+ PUZZLE_TILE_SIZE / 2 - markerSize / 2;
 
 									int y = puzzleBoxLocation.getY() + blankY * PUZZLE_TILE_SIZE
-											+ PUZZLE_TILE_SIZE / 2 - markerSize / 2;
+										+ PUZZLE_TILE_SIZE / 2 - markerSize / 2;
 
 									graphics.fillOval(x, y, markerSize, markerSize);
 								}
-							} else {
+							}
+							else
+							{
 								// Find the current blank tile position
 								PuzzleState currentMove = solver.getStep(solver.getPosition());
 
@@ -233,16 +261,19 @@ public class PuzzleSolverOverlay extends Overlay {
 								int lastBlankY = currentMove.getEmptyPiece() / DIMENSION;
 
 								// Display the next 3 steps
-								for (int i = 1; i < 4; i++) {
+								for (int i = 1; i < 4; i++)
+								{
 									int j = solver.getPosition() + i;
 
-									if (j >= solver.getStepCount()) {
+									if (j >= solver.getStepCount())
+									{
 										break;
 									}
 
 									PuzzleState futureMove = solver.getStep(j);
 
-									if (futureMove == null) {
+									if (futureMove == null)
+									{
 										break;
 									}
 
@@ -253,25 +284,33 @@ public class PuzzleSolverOverlay extends Overlay {
 									int yDelta = blankY - lastBlankY;
 
 									BufferedImage arrow;
-									if (xDelta > 0) {
+									if (xDelta > 0)
+									{
 										arrow = getRightArrow();
-									} else if (xDelta < 0) {
+									}
+									else if (xDelta < 0)
+									{
 										arrow = getLeftArrow();
-									} else if (yDelta > 0) {
+									}
+									else if (yDelta > 0)
+									{
 										arrow = getDownArrow();
-									} else {
+									}
+									else
+									{
 										arrow = getUpArrow();
 									}
 
-									if (arrow == null) {
+									if (arrow == null)
+									{
 										continue;
 									}
 
 									int x = puzzleBoxLocation.getX() + blankX * PUZZLE_TILE_SIZE
-											+ PUZZLE_TILE_SIZE / 2 - arrow.getWidth() / 2;
+										+ PUZZLE_TILE_SIZE / 2 - arrow.getWidth() / 2;
 
 									int y = puzzleBoxLocation.getY() + blankY * PUZZLE_TILE_SIZE
-											+ PUZZLE_TILE_SIZE / 2 - arrow.getHeight() / 2;
+										+ PUZZLE_TILE_SIZE / 2 - arrow.getHeight() / 2;
 
 									OverlayUtil.renderImageLocation(graphics, new net.runelite.api.Point(x, y), arrow);
 
@@ -286,7 +325,8 @@ public class PuzzleSolverOverlay extends Overlay {
 		}
 
 		// Draw info box
-		if (infoString != null) {
+		if (infoString != null)
+		{
 			int x = puzzleBoxLocation.getX() + puzzleBox.getWidth() / 2 - INFO_BOX_WIDTH / 2;
 			int y = puzzleBoxLocation.getY() - INFO_BOX_OFFSET_Y;
 
@@ -308,61 +348,75 @@ public class PuzzleSolverOverlay extends Overlay {
 
 		// Solve the puzzle if we don't have an up to date solution
 		if (solver == null || cachedItems == null
-				|| (!shouldCache && solver.hasExceededWaitDuration() && !Arrays.equals(cachedItems, itemIds))) {
+			|| (!shouldCache && solver.hasExceededWaitDuration() && !Arrays.equals(cachedItems, itemIds)))
+		{
 			solve(itemIds, useNormalSolver);
 			shouldCache = true;
 		}
 
-		if (shouldCache) {
+		if (shouldCache)
+		{
 			cacheItems(itemIds);
 		}
 
 		return null;
 	}
 
-	private int[] getItemIds(ItemContainer container, boolean useNormalSolver) {
+	private int[] getItemIds(ItemContainer container, boolean useNormalSolver)
+	{
 		int[] itemIds = new int[DIMENSION * DIMENSION];
 
 		Item[] items = container.getItems();
 
-		for (int i = 0; i < items.length; i++) {
+		for (int i = 0; i < items.length; i++)
+		{
 			itemIds[i] = items[i].getId();
 		}
 
 		// If blank is in the last position, items doesn't contain it, so let's add it manually
-		if (itemIds.length > items.length) {
+		if (itemIds.length > items.length)
+		{
 			itemIds[items.length] = BLANK_TILE_VALUE;
 		}
 
 		return convertToSolverFormat(itemIds, useNormalSolver);
 	}
 
-	private int[] convertToSolverFormat(int[] items, boolean useNormalSolver) {
+	private int[] convertToSolverFormat(int[] items, boolean useNormalSolver)
+	{
 		int lowestId = Integer.MAX_VALUE;
 
 		int[] convertedItems = new int[items.length];
 
-		for (int id : items) {
-			if (id == BLANK_TILE_VALUE) {
+		for (int id : items)
+		{
+			if (id == BLANK_TILE_VALUE)
+			{
 				continue;
 			}
 
-			if (lowestId > id) {
+			if (lowestId > id)
+			{
 				lowestId = id;
 			}
 		}
 
-		for (int i = 0; i < items.length; i++) {
-			if (items[i] != BLANK_TILE_VALUE) {
+		for (int i = 0; i < items.length; i++)
+		{
+			if (items[i] != BLANK_TILE_VALUE)
+			{
 				int value = items[i] - lowestId;
 
 				// The MM puzzle has gaps
-				if (!useNormalSolver) {
+				if (!useNormalSolver)
+				{
 					value /= 2;
 				}
 
 				convertedItems[i] = value;
-			} else {
+			}
+			else
+			{
 				convertedItems[i] = BLANK_TILE_VALUE;
 			}
 		}
@@ -370,47 +424,60 @@ public class PuzzleSolverOverlay extends Overlay {
 		return convertedItems;
 	}
 
-	private void cacheItems(int[] items) {
+	private void cacheItems(int[] items)
+	{
 		cachedItems = new int[items.length];
 		System.arraycopy(items, 0, cachedItems, 0, cachedItems.length);
 	}
 
-	private void solve(int[] items, boolean useNormalSolver) {
-		if (solverFuture != null) {
+	private void solve(int[] items, boolean useNormalSolver)
+	{
+		if (solverFuture != null)
+		{
 			solverFuture.cancel(true);
 		}
 
 		PuzzleState puzzleState = new PuzzleState(items);
 
-		if (useNormalSolver) {
+		if (useNormalSolver)
+		{
 			solver = new PuzzleSolver(new IDAStar(new ManhattanDistance()), puzzleState);
-		} else {
+		}
+		else
+		{
 			solver = new PuzzleSolver(new IDAStarMM(new ManhattanDistance()), puzzleState);
 		}
 
 		solverFuture = executorService.submit(solver);
 	}
 
-	private BufferedImage getDownArrow() {
+	private BufferedImage getDownArrow()
+	{
 		return spriteManager.getSprite(MINIMAP_DESTINATION_FLAG, 1);
 	}
 
-	private BufferedImage getUpArrow() {
-		if (upArrow == null) {
+	private BufferedImage getUpArrow()
+	{
+		if (upArrow == null)
+		{
 			upArrow = ImageUtil.rotateImage(getDownArrow(), Math.PI);
 		}
 		return upArrow;
 	}
 
-	private BufferedImage getLeftArrow() {
-		if (leftArrow == null) {
+	private BufferedImage getLeftArrow()
+	{
+		if (leftArrow == null)
+		{
 			leftArrow = ImageUtil.rotateImage(getDownArrow(), Math.PI / 2);
 		}
 		return leftArrow;
 	}
 
-	private BufferedImage getRightArrow() {
-		if (rightArrow == null) {
+	private BufferedImage getRightArrow()
+	{
+		if (rightArrow == null)
+		{
 			rightArrow = ImageUtil.rotateImage(getDownArrow(), 3 * Math.PI / 2);
 		}
 		return rightArrow;

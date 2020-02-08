@@ -35,7 +35,6 @@ import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.IconTextField;
 import net.runelite.client.ui.components.PluginErrorPanel;
 import net.runelite.client.util.ImageUtil;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -57,7 +56,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventorySetupPluginPanel extends PluginPanel {
+public class InventorySetupPluginPanel extends PluginPanel
+{
 
 	private static ImageIcon ADD_ICON;
 	private static ImageIcon ADD_HOVER_ICON;
@@ -70,7 +70,8 @@ public class InventorySetupPluginPanel extends PluginPanel {
 
 	private static String MAIN_TITLE;
 
-	static {
+	static
+	{
 		final BufferedImage addIcon = ImageUtil.getResourceStreamFromClass(InventorySetupPlugin.class, "add_icon.png");
 		ADD_ICON = new ImageIcon(addIcon);
 		ADD_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(addIcon, 0.53f));
@@ -109,7 +110,8 @@ public class InventorySetupPluginPanel extends PluginPanel {
 	@Getter
 	private InventorySetup currentSelectedSetup;
 
-	public InventorySetupPluginPanel(final InventorySetupPlugin plugin, final ItemManager itemManager) {
+	public InventorySetupPluginPanel(final InventorySetupPlugin plugin, final ItemManager itemManager)
+	{
 		super(false);
 		this.currentSelectedSetup = null;
 		this.plugin = plugin;
@@ -126,20 +128,24 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		title.setForeground(Color.WHITE);
 
 		this.addImportMarker = new JLabel(IMPORT_ICON);
-		addImportMarker.setToolTipText("Import a new inventory setup");
-		addImportMarker.addMouseListener(new MouseAdapter() {
+		addImportMarker.setToolTipText ("Import a new inventory setup");
+		addImportMarker.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				plugin.importSetup();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				addImportMarker.setIcon(IMPORT_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				addImportMarker.setIcon(IMPORT_ICON);
 			}
 		});
@@ -147,57 +153,69 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		// setup the add marker (+ sign in the top right)
 		this.addMarker = new JLabel(ADD_ICON);
 		addMarker.setToolTipText("Add a new inventory setup");
-		addMarker.addMouseListener(new MouseAdapter() {
+		addMarker.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				plugin.addInventorySetup();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				addMarker.setIcon(ADD_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				addMarker.setIcon(ADD_ICON);
 			}
 		});
 
 		this.updateMarker = new JLabel(UPDATE_ICON);
 		updateMarker.setToolTipText("Update setup with current inventory and equipment");
-		updateMarker.addMouseListener(new MouseAdapter() {
+		updateMarker.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				plugin.updateCurrentSetup(currentSelectedSetup);
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				updateMarker.setIcon(UPDATE_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				updateMarker.setIcon(UPDATE_ICON);
 			}
 		});
 
 		this.backMarker = new JLabel(BACK_ICON);
 		backMarker.setToolTipText("Return to setups");
-		backMarker.addMouseListener(new MouseAdapter() {
+		backMarker.addMouseListener(new MouseAdapter()
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				returnToOverviewPanel();
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 				backMarker.setIcon(BACK_HOVER_ICON);
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 				backMarker.setIcon(BACK_ICON);
 			}
 		});
@@ -231,17 +249,21 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		searchBar.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		searchBar.setHoverBackgroundColor(ColorScheme.DARK_GRAY_HOVER_COLOR);
 		searchBar.setMinimumSize(new Dimension(0, 30));
-		searchBar.addKeyListener(new KeyListener() {
+		searchBar.addKeyListener(new KeyListener()
+		{
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyTyped(KeyEvent e)
+			{
 			}
 
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e)
+			{
 			}
 
 			@Override
-			public void keyReleased(KeyEvent e) {
+			public void keyReleased(KeyEvent e)
+			{
 				rebuild();
 			}
 		});
@@ -296,7 +318,8 @@ public class InventorySetupPluginPanel extends PluginPanel {
 
 	}
 
-	public void init(List<InventorySetup> setups) {
+	public void init(List<InventorySetup> setups)
+	{
 		overviewPanel.setLayout(new GridBagLayout());
 		overviewPanel.setBackground(ColorScheme.DARK_GRAY_COLOR);
 
@@ -306,7 +329,8 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 
-		for (final InventorySetup setup : setups) {
+		for (final InventorySetup setup : setups)
+		{
 			InventorySetupPanel newPanel = new InventorySetupPanel(plugin, this, setup);
 			overviewPanel.add(newPanel, constraints);
 			constraints.gridy++;
@@ -322,7 +346,8 @@ public class InventorySetupPluginPanel extends PluginPanel {
 
 	}
 
-	public void rebuild() {
+	public void rebuild()
+	{
 		overviewPanel.removeAll();
 		final String text = searchBar.getText();
 		List<InventorySetup> setupsToAdd = searchBar.getText().isEmpty() ? plugin.getInventorySetups() : plugin.filterSetups(searchBar.getText());
@@ -331,13 +356,16 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		repaint();
 	}
 
-	public void refreshCurrentSetup() {
-		if (currentSelectedSetup != null) {
+	public void refreshCurrentSetup()
+	{
+		if (currentSelectedSetup != null)
+		{
 			setCurrentInventorySetup(currentSelectedSetup, false);
 		}
 	}
 
-	public void setCurrentInventorySetup(final InventorySetup inventorySetup, boolean resetScrollBar) {
+	public void setCurrentInventorySetup(final InventorySetup inventorySetup, boolean resetScrollBar)
+	{
 		currentSelectedSetup = inventorySetup;
 		invPanel.setSlots(inventorySetup);
 		rpPanel.setSlots(inventorySetup);
@@ -359,7 +387,8 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		highlightInventory();
 		highlightEquipment();
 
-		if (resetScrollBar) {
+		if (resetScrollBar)
+		{
 			// reset scrollbar back to top
 			this.contentWrapperPane.getVerticalScrollBar().setValue(0);
 		}
@@ -371,15 +400,18 @@ public class InventorySetupPluginPanel extends PluginPanel {
 
 	}
 
-	public void highlightInventory() {
+	public void highlightInventory()
+	{
 		// if the panel itself isn't visible, don't waste time doing any highlighting logic
-		if (!invEqPanel.isVisible()) {
+		if (!invEqPanel.isVisible())
+		{
 			return;
 		}
 
 		// if the panel is visible, check if highlighting is enabled on the setup and globally
 		// if any of the two, reset the slots so they aren't highlighted
-		if (!currentSelectedSetup.isHighlightDifference() || !plugin.isHighlightingAllowed()) {
+		if (!currentSelectedSetup.isHighlightDifference() || !plugin.isHighlightingAllowed())
+		{
 			invPanel.resetSlotColors();
 			return;
 		}
@@ -388,15 +420,18 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		invPanel.highlightSlotDifferences(inv, currentSelectedSetup);
 	}
 
-	public void highlightEquipment() {
+	public void highlightEquipment()
+	{
 		// if the panel itself isn't visible, don't waste time doing any highlighting logic
-		if (!invEqPanel.isVisible()) {
+		if (!invEqPanel.isVisible())
+		{
 			return;
 		}
 
 		// if the panel is visible, check if highlighting is enabled on the setup and globally
 		// if any of the two, reset the slots so they aren't highlighted
-		if (!currentSelectedSetup.isHighlightDifference() || !plugin.isHighlightingAllowed()) {
+		if (!currentSelectedSetup.isHighlightDifference() || !plugin.isHighlightingAllowed())
+		{
 			eqpPanel.resetSlotColors();
 			return;
 		}
@@ -404,8 +439,9 @@ public class InventorySetupPluginPanel extends PluginPanel {
 		final ArrayList<InventorySetupItem> eqp = plugin.getNormalizedContainer(InventoryID.EQUIPMENT);
 		eqpPanel.highlightSlotDifferences(eqp, currentSelectedSetup);
 	}
-
-	public void returnToOverviewPanel() {
+	
+	public void returnToOverviewPanel()
+	{
 		noSetupsPanel.setVisible(false);
 		invEqPanel.setVisible(false);
 		overviewPanel.setVisible(true);

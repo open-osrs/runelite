@@ -29,16 +29,11 @@ import java.awt.Graphics2D;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
-
 import static net.runelite.api.MenuOpcode.RUNELITE_OVERLAY_CONFIG;
-
 import net.runelite.api.Player;
 import net.runelite.client.ui.overlay.Overlay;
-
 import static net.runelite.client.ui.overlay.OverlayManager.OPTION_CONFIGURE;
-
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.PanelComponent;
@@ -48,14 +43,16 @@ import net.runelite.client.ui.overlay.components.table.TableComponent;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
-class CombatOverlay extends Overlay {
+class CombatOverlay extends Overlay
+{
 
 	private final Client client;
 	private final CombatCounter plugin;
 	private final PanelComponent panelComponent = new PanelComponent();
 
 	@Inject
-	public CombatOverlay(final Client client, final CombatCounter plugin) {
+	public CombatOverlay(final Client client, final CombatCounter plugin)
+	{
 		super(plugin);
 
 		setPosition(OverlayPosition.DYNAMIC);
@@ -69,12 +66,15 @@ class CombatOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (plugin.isShowTickCounter()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (plugin.isShowTickCounter())
+		{
 			panelComponent.getChildren().clear();
 
 			Player local = client.getLocalPlayer();
-			if (local == null || local.getName() == null) {
+			if (local == null || local.getName() == null)
+			{
 				return null;
 			}
 			panelComponent.setBackgroundColor(plugin.getBgColor());
@@ -84,37 +84,49 @@ class CombatOverlay extends Overlay {
 			TableComponent tableComponent = new TableComponent();
 			tableComponent.setColumnAlignments(TableAlignment.LEFT, TableAlignment.RIGHT);
 
-			if (plugin.getCounter().isEmpty()) {
+			if (plugin.getCounter().isEmpty())
+			{
 				tableComponent.addRow(local.getName(), "0");
-			} else {
+			}
+			else
+			{
 				Map<String, Long> map = this.plugin.getCounter();
-				if (map == null) {
+				if (map == null)
+				{
 					return null;
 				}
 
-				for (Map.Entry<String, Long> counter : map.entrySet()) {
+				for (Map.Entry<String, Long> counter : map.entrySet())
+				{
 					String name = counter.getKey();
-					if (client.getLocalPlayer().getName().contains(name)) {
+					if (client.getLocalPlayer().getName().contains(name))
+					{
 						tableComponent.addRow(ColorUtil.prependColorTag(name, plugin.getSelfColor()), ColorUtil.prependColorTag(Long.toString(counter.getValue()), plugin.getSelfColor()));
-					} else {
+					}
+					else
+					{
 						tableComponent.addRow(ColorUtil.prependColorTag(name, plugin.getOtherColor()), ColorUtil.prependColorTag(Long.toString(counter.getValue()), plugin.getOtherColor()));
 					}
 					total += counter.getValue();
 				}
 
-				if (!map.containsKey(local.getName())) {
+				if (!map.containsKey(local.getName()))
+				{
 					tableComponent.addRow(ColorUtil.prependColorTag(local.getName(), plugin.getSelfColor()), ColorUtil.prependColorTag("0", plugin.getSelfColor()));
 				}
 			}
 
 			tableComponent.addRow(ColorUtil.prependColorTag("Total:", plugin.getTotalColor()), ColorUtil.prependColorTag(String.valueOf(total), plugin.getTotalColor()));
 
-			if (!tableComponent.isEmpty()) {
+			if (!tableComponent.isEmpty())
+			{
 				panelComponent.getChildren().add(tableComponent);
 			}
 
 			return panelComponent.render(graphics);
-		} else {
+		}
+		else
+		{
 			return null;
 		}
 	}

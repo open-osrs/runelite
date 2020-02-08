@@ -26,10 +26,10 @@ package net.runelite.deob.deobfuscators.mapping;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.runelite.asm.attributes.code.Instruction;
 
-public class Mapping {
+public class Mapping
+{
 	private Object from;
 	private Object object;
 	private int count;
@@ -37,50 +37,62 @@ public class Mapping {
 	public boolean wasExecuted;
 	public int weight; // weight of mapping, based on same instruction count
 
-	public Mapping(Object from, Object object) {
+	public Mapping(Object from, Object object)
+	{
 		this.from = from;
 		this.object = object;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Mapping{" + "from=" + from + ", object=" + object + ", count=" + count + '}';
 	}
 
-	public Object getFrom() {
+	public Object getFrom()
+	{
 		return from;
 	}
 
-	public Object getObject() {
+	public Object getObject()
+	{
 		return object;
 	}
 
-	public int getCount() {
+	public int getCount()
+	{
 		return count;
 	}
 
-	public void inc() {
+	public void inc()
+	{
 		++count;
 	}
 
-	public void merge(Mapping other) {
+	public void merge(Mapping other)
+	{
 		assert object == other.object;
 		count += other.count;
-		for (Instruction i : other.ins) {
+		for (Instruction i : other.ins)
+		{
 			addInstruction(i);
 		}
 		wasExecuted |= other.wasExecuted;
 		weight = Math.max(weight, other.weight);
 	}
 
-	public void addInstruction(Instruction i) {
-		if (!ins.contains(i)) {
+	public void addInstruction(Instruction i)
+	{
+		if (!ins.contains(i))
+		{
 			ins.add(i);
 		}
 	}
 
-	public void setWeight(int w) {
-		if (w > weight) {
+	public void setWeight(int w)
+	{
+		if (w > weight)
+		{
 			weight = w;
 		}
 	}

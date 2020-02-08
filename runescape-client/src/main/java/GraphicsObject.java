@@ -5,7 +5,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Random;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -17,55 +16,55 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class GraphicsObject extends Entity {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 1800757053
+		intValue = 1800757053
 	)
 	@Export("id")
 	int id;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 815583153
+		intValue = 815583153
 	)
 	@Export("cycleStart")
 	int cycleStart;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = 497499711
+		intValue = 497499711
 	)
 	@Export("plane")
 	int plane;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -1418605465
+		intValue = -1418605465
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -744262401
+		intValue = -744262401
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -1599899605
+		intValue = -1599899605
 	)
 	@Export("height")
 	int height;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "Lip;"
+		signature = "Lip;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = 715957131
+		intValue = 715957131
 	)
 	@Export("frame")
 	int frame;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = 1558881033
+		intValue = 1558881033
 	)
 	@Export("frameCycle")
 	int frameCycle;
@@ -95,8 +94,8 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "65536"
+		signature = "(II)V",
+		garbageValue = "65536"
 	)
 	@Export("advance")
 	final void advance(int var1) {
@@ -117,8 +116,8 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(I)Ldx;",
-			garbageValue = "-2133076860"
+		signature = "(I)Ldx;",
+		garbageValue = "-2133076860"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
@@ -135,8 +134,8 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(B)[Lih;",
-			garbageValue = "-51"
+		signature = "(B)[Lih;",
+		garbageValue = "-51"
 	)
 	static HorizontalAlignment[] method2064() {
 		return new HorizontalAlignment[]{HorizontalAlignment.field3454, HorizontalAlignment.HorizontalAlignment_centered, HorizontalAlignment.field3451};
@@ -144,8 +143,8 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lii;B)V",
-			garbageValue = "66"
+		signature = "(Lii;B)V",
+		garbageValue = "66"
 	)
 	public static void method2063(AbstractArchive var0) {
 		StructDefinition.StructDefinition_archive = var0;
@@ -153,14 +152,14 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(JLjava/lang/String;I)I",
-			garbageValue = "-2060202992"
+		signature = "(JLjava/lang/String;I)I",
+		garbageValue = "-2060202992"
 	)
 	static final int method2060(long var0, String var2) {
 		Random var3 = new Random();
 		Buffer var4 = new Buffer(128);
 		Buffer var5 = new Buffer(128);
-		int[] var6 = new int[]{var3.nextInt(), var3.nextInt(), (int) (var0 >> 32), (int) var0};
+		int[] var6 = new int[]{var3.nextInt(), var3.nextInt(), (int)(var0 >> 32), (int)var0};
 		var4.writeByte(10);
 
 		int var7;
@@ -270,8 +269,7 @@ public final class GraphicsObject extends Entity {
 						if (var21 == null) {
 							var16 = false;
 						} else {
-							label107:
-							{
+							label107: {
 								try {
 									new URL(var21);
 								} catch (MalformedURLException var22) {
@@ -293,7 +291,7 @@ public final class GraphicsObject extends Entity {
 				}
 
 				var18.offset += var15;
-			} while (var18.offset < 1000);
+			} while(var18.offset < 1000);
 
 			return 5;
 		} catch (Throwable var23) {
@@ -304,11 +302,11 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IB)Lix;",
-			garbageValue = "52"
+		signature = "(IB)Lix;",
+		garbageValue = "52"
 	)
 	public static FloorUnderlayDefinition method2055(int var0) {
-		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition) FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long) var0);
+		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition)FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -319,15 +317,15 @@ public final class GraphicsObject extends Entity {
 			}
 
 			var1.postDecode();
-			FloorUnderlayDefinition.FloorUnderlayDefinition_cached.put(var1, (long) var0);
+			FloorUnderlayDefinition.FloorUnderlayDefinition_cached.put(var1, (long)var0);
 			return var1;
 		}
 	}
 
 	@ObfuscatedName("ic")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;Ljava/lang/String;IIIIS)V",
-			garbageValue = "3604"
+		signature = "(Ljava/lang/String;Ljava/lang/String;IIIIS)V",
+		garbageValue = "3604"
 	)
 	@Export("insertMenuItemNoShift")
 	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {

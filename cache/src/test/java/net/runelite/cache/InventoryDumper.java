@@ -27,11 +27,9 @@ package net.runelite.cache;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-
 import net.runelite.cache.definitions.InventoryDefinition;
 import net.runelite.cache.definitions.loaders.InventoryLoader;
 import net.runelite.cache.fs.Archive;
@@ -46,7 +44,8 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InventoryDumper {
+public class InventoryDumper
+{
 	private static final Logger logger = LoggerFactory.getLogger(InventoryDumper.class);
 
 	@Rule
@@ -55,13 +54,15 @@ public class InventoryDumper {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Test
-	public void extract() throws IOException {
+	public void extract() throws IOException
+	{
 		File base = StoreLocation.LOCATION,
-				outDir = folder.newFolder();
+			outDir = folder.newFolder();
 
 		int count = 0;
 
-		try (Store store = new Store(base)) {
+		try (Store store = new Store(base))
+		{
 			store.load();
 
 			Storage storage = store.getStorage();
@@ -71,7 +72,8 @@ public class InventoryDumper {
 			byte[] archiveData = storage.loadArchive(archive);
 			ArchiveFiles files = archive.getFiles(archiveData);
 
-			for (FSFile file : files.getFiles()) {
+			for (FSFile file : files.getFiles())
+			{
 				InventoryLoader loader = new InventoryLoader();
 				InventoryDefinition inv = loader.load(file.getFileId(), file.getContents());
 

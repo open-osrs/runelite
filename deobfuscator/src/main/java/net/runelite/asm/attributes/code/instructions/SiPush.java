@@ -38,59 +38,69 @@ import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 import org.objectweb.asm.MethodVisitor;
 
-public class SiPush extends Instruction implements PushConstantInstruction, IntInstruction {
+public class SiPush extends Instruction implements PushConstantInstruction, IntInstruction
+{
 	private short s;
 
-	public SiPush(Instructions instructions, InstructionType type) {
+	public SiPush(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
-
-	public SiPush(Instructions instructions, short value) {
+	
+	public SiPush(Instructions instructions, short value)
+	{
 		super(instructions, InstructionType.SIPUSH);
 
 		s = value;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "sipush " + s;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		visitor.visitIntInsn(this.getType().getCode(), s);
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
-
+		
 		StackContext ctx = new StackContext(ins, Type.INT, new Value((int) s)); // sign extend
 		stack.push(ctx);
-
+		
 		ins.push(ctx);
-
+		
 		return ins;
 	}
 
 	@Override
-	public Object getConstant() {
+	public Object getConstant()
+	{
 		return s;
 	}
 
 	@Override
-	public Instruction setConstant(Object entry) {
+	public Instruction setConstant(Object entry)
+	{
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public int getOperand() {
+	public int getOperand()
+	{
 		return s & 0xFFFF;
 	}
 
 	@Override
-	public void setOperand(int operand) {
+	public void setOperand(int operand)
+	{
 		s = (short) operand;
 	}
 }

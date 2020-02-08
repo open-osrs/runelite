@@ -9,30 +9,30 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapLabelSize {
 	@ObfuscatedName("qw")
 	@ObfuscatedSignature(
-			signature = "Ldw;"
+		signature = "Ldw;"
 	)
 	@Export("pcmPlayer0")
 	static PcmPlayer pcmPlayer0;
 	@ObfuscatedName("rn")
 	@ObfuscatedGetter(
-			intValue = 1439744000
+		intValue = 1439744000
 	)
 	static int field139;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lq;"
+		signature = "Lq;"
 	)
 	@Export("WorldMapLabelSize_small")
 	public static final WorldMapLabelSize WorldMapLabelSize_small;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lq;"
+		signature = "Lq;"
 	)
 	@Export("WorldMapLabelSize_medium")
 	public static final WorldMapLabelSize WorldMapLabelSize_medium;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lq;"
+		signature = "Lq;"
 	)
 	@Export("WorldMapLabelSize_large")
 	public static final WorldMapLabelSize WorldMapLabelSize_large;
@@ -40,35 +40,35 @@ public class WorldMapLabelSize {
 	public static short[] field128;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-			signature = "Lbz;"
+		signature = "Lbz;"
 	)
 	@Export("loginScreenRunesAnimation")
 	static LoginScreenAnimation loginScreenRunesAnimation;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-			signature = "Lal;"
+		signature = "Lal;"
 	)
 	@Export("worldMapEvent")
 	static WorldMapEvent worldMapEvent;
 	@ObfuscatedName("er")
 	@ObfuscatedGetter(
-			intValue = 1639032335
+		intValue = 1639032335
 	)
 	@Export("port1")
 	static int port1;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -147452209
+		intValue = -147452209
 	)
 	final int field127;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -10868609
+		intValue = -10868609
 	)
 	final int field132;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 984617173
+		intValue = 984617173
 	)
 	final int field131;
 
@@ -86,17 +86,17 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(FI)Z",
-			garbageValue = "-680427426"
+		signature = "(FI)Z",
+		garbageValue = "-680427426"
 	)
 	boolean method192(float var1) {
-		return var1 >= (float) this.field131;
+		return var1 >= (float)this.field131;
 	}
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1845192428"
+		signature = "(I)V",
+		garbageValue = "-1845192428"
 	)
 	static void method198() {
 		ItemContainer.itemContainers = new NodeHashTable(32);
@@ -104,8 +104,8 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-			signature = "(ZI)V",
-			garbageValue = "-1220899418"
+		signature = "(ZI)V",
+		garbageValue = "-1220899418"
 	)
 	public static void method197(boolean var0) {
 		if (var0 != class298.ItemDefinition_inMembersWorld) {
@@ -119,8 +119,8 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-			signature = "(II)V",
-			garbageValue = "2070539914"
+		signature = "(II)V",
+		garbageValue = "2070539914"
 	)
 	@Export("runWidgetOnLoadListener")
 	static void runWidgetOnLoadListener(int var0) {

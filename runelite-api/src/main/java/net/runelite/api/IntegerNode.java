@@ -27,7 +27,8 @@ package net.runelite.api;
 /**
  * Represents an integer typically in a {@link HashTable}.
  */
-public interface IntegerNode extends Node {
+public interface IntegerNode extends Node
+{
 	/**
 	 * Gets the value of the node.
 	 *

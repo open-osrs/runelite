@@ -25,12 +25,10 @@
 package net.runelite.http.api.feed;
 
 import com.google.gson.JsonParseException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.inject.Inject;
-
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -39,36 +37,43 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FeedClient {
+public class FeedClient
+{
 	private static final Logger logger = LoggerFactory.getLogger(FeedClient.class);
 
 	private final OkHttpClient client;
 
 	@Inject
-	public FeedClient(OkHttpClient client) {
+	public FeedClient(OkHttpClient client)
+	{
 		this.client = client;
 	}
 
-	public FeedResult lookupFeed() throws IOException {
+	public FeedResult lookupFeed() throws IOException
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("feed.js")
-				.build();
+			.addPathSegment("feed.js")
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-				.url(url)
-				.build();
+			.url(url)
+			.build();
 
-		try (Response response = client.newCall(request).execute()) {
-			if (!response.isSuccessful()) {
+		try (Response response = client.newCall(request).execute())
+		{
+			if (!response.isSuccessful())
+			{
 				logger.debug("Error looking up feed: {}", response);
 				return null;
 			}
 
 			InputStream in = response.body().byteStream();
 			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), FeedResult.class);
-		} catch (JsonParseException ex) {
+		}
+		catch (JsonParseException ex)
+		{
 			throw new IOException(ex);
 		}
 	}

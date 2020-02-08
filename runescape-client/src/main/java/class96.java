@@ -1,5 +1,4 @@
 import java.util.Iterator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -9,19 +8,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class96 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Ljj;"
+		signature = "Ljj;"
 	)
 	@Export("reflectionChecks")
 	static IterableNodeDeque reflectionChecks;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "[Lbg;"
+		signature = "[Lbg;"
 	)
 	@Export("World_worlds")
 	static World[] World_worlds;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-			intValue = -44296149
+		intValue = -44296149
 	)
 	@Export("loginBoxCenter")
 	static int loginBoxCenter;
@@ -32,8 +31,8 @@ public class class96 {
 
 	@ObfuscatedName("gr")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "512388995"
+		signature = "(I)I",
+		garbageValue = "512388995"
 	)
 	static final int method2346() {
 		if (WorldMapSection2.clientPreferences.roofsHidden) {
@@ -156,8 +155,8 @@ public class class96 {
 
 	@ObfuscatedName("hv")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-2092655823"
+		signature = "(I)V",
+		garbageValue = "-2092655823"
 	)
 	@Export("addCancelMenuEntry")
 	static void addCancelMenuEntry() {
@@ -172,15 +171,15 @@ public class class96 {
 
 	@ObfuscatedName("kq")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1882557485"
+		signature = "(I)V",
+		garbageValue = "-1882557485"
 	)
 	@Export("FriendSystem_invalidateIgnoreds")
 	static final void FriendSystem_invalidateIgnoreds() {
 		Iterator var0 = Messages.Messages_hashTable.iterator();
 
 		while (var0.hasNext()) {
-			Message var1 = (Message) var0.next();
+			Message var1 = (Message)var0.next();
 			var1.clearIsFromIgnored();
 		}
 

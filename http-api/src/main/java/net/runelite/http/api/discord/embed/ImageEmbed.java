@@ -39,7 +39,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ImageEmbed {
+public class ImageEmbed
+{
 	String url;
 	String proxy_url;
 	int height;

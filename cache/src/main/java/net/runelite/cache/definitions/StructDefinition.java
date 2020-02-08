@@ -25,11 +25,11 @@
 package net.runelite.cache.definitions;
 
 import java.util.Map;
-
 import lombok.Data;
 
 @Data
-public class StructDefinition {
+public class StructDefinition
+{
 	public final int id;
 	public Map<Integer, Object> params = null;
 }

@@ -31,19 +31,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.signature.Signature;
-
 import static net.runelite.deob.DeobAnnotations.*;
-
 import org.jetbrains.annotations.NotNull;
 
-public class ClassGroup implements Iterable<ClassFile> {
+public class ClassGroup implements Iterable<ClassFile>
+{
 	private final List<ClassFile> classes = new ArrayList<>(); // to keep order
 	private final Map<String, ClassFile> classMap = new HashMap<>();
 
-	public void addClass(ClassFile cf) {
+	public void addClass(ClassFile cf)
+	{
 		assert cf.getGroup() == this || cf.getGroup() == null;
 		cf.setGroup(this);
 
@@ -51,12 +50,14 @@ public class ClassGroup implements Iterable<ClassFile> {
 		classMap.put(cf.getName(), cf);
 	}
 
-	public void removeClass(ClassFile cf) {
+	public void removeClass(ClassFile cf)
+	{
 		classes.remove(cf);
 		classMap.remove(cf.getName());
 	}
 
-	public void renameClass(ClassFile cf, String newName) {
+	public void renameClass(ClassFile cf, String newName)
+	{
 		assert classes.contains(cf);
 		assert classMap.get(cf.getName()) == cf;
 
@@ -65,35 +66,45 @@ public class ClassGroup implements Iterable<ClassFile> {
 		classMap.put(cf.getName(), cf);
 	}
 
-	public List<ClassFile> getClasses() {
+	public List<ClassFile> getClasses()
+	{
 		return Collections.unmodifiableList(classes);
 	}
 
-	public ClassFile findClass(String name) {
+	public ClassFile findClass(String name)
+	{
 		return classMap.get(name);
 	}
 
-	public void initialize() {
+	public void initialize()
+	{
 		buildClassGraph();
 		lookup();
 	}
 
-	public void buildClassGraph() {
-		for (ClassFile c : classes) {
+	public void buildClassGraph()
+	{
+		for (ClassFile c : classes)
+		{
 			c.clearClassGraph();
 		}
 
-		for (ClassFile c : classes) {
+		for (ClassFile c : classes)
+		{
 			c.buildClassGraph();
 		}
 	}
 
-	public void lookup() {
-		for (ClassFile cf : this.getClasses()) {
-			for (Method m : cf.getMethods()) {
+	public void lookup()
+	{
+		for (ClassFile cf : this.getClasses())
+		{
+			for (Method m : cf.getMethods())
+			{
 				Code code = m.getCode();
 
-				if (code == null) {
+				if (code == null)
+				{
 					continue;
 				}
 
@@ -102,13 +113,16 @@ public class ClassGroup implements Iterable<ClassFile> {
 		}
 	}
 
-	public Method findStaticMethod(String name, Signature type) {
+	public Method findStaticMethod(String name, Signature type)
+	{
 		Method m = null;
 
-		for (ClassFile cf : classes) {
+		for (ClassFile cf : classes)
+		{
 			m = cf.findStaticMethod(name, type);
 
-			if (m != null) {
+			if (m != null)
+			{
 				break;
 			}
 		}
@@ -116,13 +130,16 @@ public class ClassGroup implements Iterable<ClassFile> {
 		return m;
 	}
 
-	public Method findStaticMethod(String name) {
+	public Method findStaticMethod(String name)
+	{
 		Method m = null;
 
-		for (ClassFile cf : classes) {
+		for (ClassFile cf : classes)
+		{
 			m = cf.findStaticMethod(name);
 
-			if (m != null) {
+			if (m != null)
+			{
 				break;
 			}
 		}
@@ -130,9 +147,12 @@ public class ClassGroup implements Iterable<ClassFile> {
 		return m;
 	}
 
-	public ClassFile findObfuscatedName(String name) {
-		for (ClassFile cf : classes) {
-			if (name.equals(getObfuscatedName(cf.getAnnotations()))) {
+	public ClassFile findObfuscatedName(String name)
+	{
+		for (ClassFile cf : classes)
+		{
+			if (name.equals(getObfuscatedName(cf.getAnnotations())))
+			{
 				return cf;
 			}
 		}
@@ -142,12 +162,14 @@ public class ClassGroup implements Iterable<ClassFile> {
 
 	@NotNull
 	@Override
-	public Iterator<ClassFile> iterator() {
+	public Iterator<ClassFile> iterator()
+	{
 		return this.classes.iterator();
 	}
 
 	@Override
-	public void forEach(Consumer<? super ClassFile> action) {
+	public void forEach(Consumer<? super ClassFile> action)
+	{
 		this.classes.forEach(action);
 	}
 }

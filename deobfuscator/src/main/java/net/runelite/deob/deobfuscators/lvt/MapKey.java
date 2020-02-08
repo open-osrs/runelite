@@ -26,17 +26,20 @@ package net.runelite.deob.deobfuscators.lvt;
 
 import java.util.Objects;
 
-public class MapKey {
+public class MapKey
+{
 	private final int idx;
 	private final LVTType type;
 
-	public MapKey(int idx, LVTType type) {
+	public MapKey(int idx, LVTType type)
+	{
 		this.idx = idx;
 		this.type = type;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 7;
 		hash = 89 * hash + this.idx;
 		hash = 89 * hash + Objects.hashCode(this.type);
@@ -44,21 +47,27 @@ public class MapKey {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
 			return true;
 		}
-		if (obj == null) {
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final MapKey other = (MapKey) obj;
-		if (this.idx != other.idx) {
+		if (this.idx != other.idx)
+		{
 			return false;
 		}
-		if (this.type != other.type) {
+		if (this.type != other.type)
+		{
 			return false;
 		}
 		return true;

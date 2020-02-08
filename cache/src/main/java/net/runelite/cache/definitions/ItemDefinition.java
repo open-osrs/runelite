@@ -25,11 +25,11 @@
 package net.runelite.cache.definitions;
 
 import java.util.Map;
-
 import lombok.Data;
 
 @Data
-public class ItemDefinition {
+public class ItemDefinition
+{
 	public final int id;
 
 	public String name = "null";
@@ -59,19 +59,19 @@ public class ItemDefinition {
 
 	public int ambient;
 	public int contrast;
-
+	
 	public int[] countCo;
 	public int[] countObj;
 
 	public String[] options = new String[]
-			{
-					null, null, "Take", null, null
-			};
-
+	{
+		null, null, "Take", null, null
+	};
+	
 	public String[] interfaceOptions = new String[]
-			{
-					null, null, null, null, "Drop"
-			};
+	{
+		null, null, null, null, "Drop"
+	};
 
 	public int maleModel0 = -1;
 	public int maleModel1 = -1;
@@ -96,13 +96,14 @@ public class ItemDefinition {
 
 	public int boughtId = -1;
 	public int boughtTemplateId = -1;
-
+	
 	public int placeholderId = -1;
 	public int placeholderTemplateId = -1;
 
 	public Map<Integer, Object> params = null;
 
-	public void updateNote(ItemDefinition notedItem, ItemDefinition unnotedItem) {
+	public void updateNote(ItemDefinition notedItem, ItemDefinition unnotedItem)
+	{
 		this.inventoryModel = notedItem.inventoryModel;
 		this.zoom2d = notedItem.zoom2d;
 		this.xan2d = notedItem.xan2d;

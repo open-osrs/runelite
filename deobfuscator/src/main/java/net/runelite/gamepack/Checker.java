@@ -8,31 +8,40 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class Checker {
+public class Checker
+{
 	private static final String GAME_URL = "http://oldschool1.runescape.com/";
 	private static final Split[] splits = {
-			new Split("document.write('archive=", 1),
-			new Split(" ');", 0)
+		new Split("document.write('archive=", 1),
+		new Split(" ');", 0)
 	};
 
-	static String getGamePack() {
+	static String getGamePack()
+	{
 		URL url;
-		try {
+		try
+		{
 			url = new URL(GAME_URL);
-		} catch (MalformedURLException e) {
+		}
+		catch (MalformedURLException e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 
 		String content;
-		try {
+		try
+		{
 			content = getContent(url);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 			return null;
 		}
 
-		for (Split split : splits) {
+		for (Split split : splits)
+		{
 			String[] str = splitAtFirst(content, split.splitAt);
 			content = str[split.index];
 		}
@@ -40,12 +49,15 @@ public class Checker {
 		return content;
 	}
 
-	private static String[] splitAtFirst(String subject, String splitAt) {
-		if (subject == null || subject.length() == 0) {
+	private static String[] splitAtFirst(String subject, String splitAt)
+	{
+		if (subject == null || subject.length() == 0)
+		{
 			return new String[]{"", ""};
 		}
 
-		if (splitAt == null || splitAt.length() == 0) {
+		if (splitAt == null || splitAt.length() == 0)
+		{
 			return new String[]{subject, ""};
 		}
 
@@ -53,21 +65,28 @@ public class Checker {
 		char[] split = splitAt.toCharArray();
 
 		StringBuilder builder = null;
-		for (int i = 0; i < subjectArray.length; i++) {
+		for (int i = 0; i < subjectArray.length; i++)
+		{
 			char c = subjectArray[i];
 
-			if (builder == null && c == split[0]) {
+			if (builder == null && c == split[0])
+			{
 				builder = new StringBuilder();
 			}
 
-			if (builder != null) {
+			if (builder != null)
+			{
 				builder.append(c);
 
-				if (startsWith(splitAt, builder.toString())) {
-					if (builder.length() == splitAt.length()) {
+				if (startsWith(splitAt, builder.toString()))
+				{
+					if (builder.length() == splitAt.length())
+					{
 						return new String[]{subject.substring(0, i - builder.length() + 1), subject.substring(i + 1)};
 					}
-				} else {
+				}
+				else
+				{
 					builder = null;
 				}
 			}
@@ -76,15 +95,19 @@ public class Checker {
 		return new String[]{subject, ""};
 	}
 
-	private static boolean startsWith(String subject, String start) {
-		if (subject == null || subject.length() == 0 || start == null || start.length() == 0 || start.length() > subject.length()) {
+	private static boolean startsWith(String subject, String start)
+	{
+		if (subject == null || subject.length() == 0 || start == null || start.length() == 0 || start.length() > subject.length())
+		{
 			return false;
 		}
 
 		char[] c1 = subject.toCharArray();
 		char[] c2 = start.toCharArray();
-		for (int i = 0; i < c2.length; i++) {
-			if (c1[i] != c2[i]) {
+		for (int i = 0; i < c2.length; i++)
+		{
+			if (c1[i] != c2[i])
+			{
 				return false;
 			}
 		}
@@ -92,13 +115,16 @@ public class Checker {
 		return true;
 	}
 
-	private static String getContent(URL url) throws IOException {
+	private static String getContent(URL url) throws IOException
+	{
 		BufferedReader rd = null;
 
-		try {
+		try
+		{
 			URLConnection conn = url.openConnection();
 
-			if (conn instanceof HttpURLConnection) {
+			if (conn instanceof HttpURLConnection)
+			{
 				((HttpURLConnection) conn).setInstanceFollowRedirects(false);
 			}
 
@@ -108,25 +134,31 @@ public class Checker {
 			StringBuilder sb = new StringBuilder();
 
 			String line;
-			while ((line = rd.readLine()) != null) {
+			while ((line = rd.readLine()) != null)
+			{
 				sb.append(line);
 				sb.append('\n');
 			}
 
 			return sb.toString();
 
-		} finally {
-			if (rd != null) {
+		}
+		finally
+		{
+			if (rd != null)
+			{
 				rd.close();
 			}
 		}
 	}
 
-	public static class Split {
+	public static class Split
+	{
 		public int index;
 		String splitAt;
 
-		Split(String splitAt, int index) {
+		Split(String splitAt, int index)
+		{
 			this.splitAt = splitAt;
 			this.index = index;
 		}

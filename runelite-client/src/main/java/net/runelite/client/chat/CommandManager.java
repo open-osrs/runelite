@@ -28,7 +28,6 @@ package net.runelite.client.chat;
 import java.util.Arrays;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.ScriptID;
@@ -42,7 +41,8 @@ import net.runelite.client.events.PrivateMessageInput;
 
 @Slf4j
 @Singleton
-public class CommandManager {
+public class CommandManager
+{
 	private static final String RUNELITE_COMMAND = "runeliteCommand";
 	private static final String CHATBOX_INPUT = "chatboxInput";
 	private static final String PRIVATE_MESSAGE = "privateMessage";
@@ -54,10 +54,11 @@ public class CommandManager {
 
 	@Inject
 	private CommandManager(
-			final Client client,
-			final EventBus eventBus,
-			final ClientThread clientThread
-	) {
+		final Client client,
+		final EventBus eventBus,
+		final ClientThread clientThread
+	)
+	{
 		this.client = client;
 		this.eventBus = eventBus;
 		this.clientThread = clientThread;
@@ -65,12 +66,15 @@ public class CommandManager {
 		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
 	}
 
-	private void onScriptCallbackEvent(ScriptCallbackEvent event) {
-		if (sending) {
+	private void onScriptCallbackEvent(ScriptCallbackEvent event)
+	{
+		if (sending)
+		{
 			return;
 		}
 
-		switch (event.getEventName()) {
+		switch (event.getEventName())
+		{
 			case RUNELITE_COMMAND:
 				runCommand();
 				break;
@@ -83,7 +87,8 @@ public class CommandManager {
 		}
 	}
 
-	private void runCommand() {
+	private void runCommand()
+	{
 		String typedText = client.getVar(VarClientStr.CHATBOX_TYPED_TEXT).substring(2); // strip ::
 
 		log.debug("Command: {}", typedText);
@@ -91,7 +96,8 @@ public class CommandManager {
 		String[] split = typedText.split(" ");
 
 		// Fixes ArrayIndexOutOfBounds when typing ":: "
-		if (split.length == 0) {
+		if (split.length == 0)
+		{
 			return;
 		}
 
@@ -102,7 +108,8 @@ public class CommandManager {
 		eventBus.post(CommandExecuted.class, commandExecuted);
 	}
 
-	private void handleInput(ScriptCallbackEvent event) {
+	private void handleInput(ScriptCallbackEvent event)
+	{
 		final String[] stringStack = client.getStringStack();
 		final int[] intStack = client.getIntStack();
 		int stringStackCount = client.getStringStackSize();
@@ -111,12 +118,15 @@ public class CommandManager {
 		final String typedText = stringStack[stringStackCount - 1];
 		final int chatType = intStack[intStackCount - 1];
 
-		ChatboxInput chatboxInput = new ChatboxInput(typedText, chatType) {
+		ChatboxInput chatboxInput = new ChatboxInput(typedText, chatType)
+		{
 			private boolean resumed;
 
 			@Override
-			public void resume() {
-				if (resumed) {
+			public void resume()
+			{
+				if (resumed)
+				{
 					return;
 				}
 				resumed = true;
@@ -127,13 +137,15 @@ public class CommandManager {
 
 		eventBus.post(ChatboxInput.class, chatboxInput);
 
-		if (chatboxInput.isStop()) {
+		if (chatboxInput.isStop())
+		{
 			// input was blocked.
 			stringStack[stringStackCount - 1] = ""; // prevent script from sending
 		}
 	}
 
-	private void handlePrivateMessage(ScriptCallbackEvent event) {
+	private void handlePrivateMessage(ScriptCallbackEvent event)
+	{
 		final String[] stringStack = client.getStringStack();
 		final int[] intStack = client.getIntStack();
 		int stringStackCount = client.getStringStackSize();
@@ -142,12 +154,15 @@ public class CommandManager {
 		final String target = stringStack[stringStackCount - 2];
 		final String message = stringStack[stringStackCount - 1];
 
-		PrivateMessageInput privateMessageInput = new PrivateMessageInput(target, message) {
+		PrivateMessageInput privateMessageInput = new PrivateMessageInput(target, message)
+		{
 			private boolean resumed;
 
 			@Override
-			public void resume() {
-				if (resumed) {
+			public void resume()
+			{
+				if (resumed)
+				{
 					return;
 				}
 				resumed = true;
@@ -158,22 +173,28 @@ public class CommandManager {
 
 		eventBus.post(PrivateMessageInput.class, privateMessageInput);
 
-		if (privateMessageInput.isStop()) {
+		if (privateMessageInput.isStop())
+		{
 			intStack[intStackCount - 1] = 1;
 			client.setStringStackSize(stringStackCount - 2); // remove both target and message
 		}
 	}
 
-	private void sendChatboxInput(int chatType, String input) {
+	private void sendChatboxInput(int chatType, String input)
+	{
 		sending = true;
-		try {
+		try
+		{
 			client.runScript(ScriptID.CHATBOX_INPUT, chatType, input);
-		} finally {
+		}
+		finally
+		{
 			sending = false;
 		}
 	}
 
-	private void sendPrivmsg(String target, String message) {
+	private void sendPrivmsg(String target, String message)
+	{
 		client.runScript(ScriptID.PRIVMSG, target, message);
 	}
 }

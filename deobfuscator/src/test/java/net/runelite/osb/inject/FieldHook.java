@@ -25,15 +25,18 @@
 
 package net.runelite.osb.inject;
 
-public class FieldHook {
+public class FieldHook
+{
 	private String field; // obfuscated name
 	private Number multiplier;
 
-	public String getField() {
+	public String getField()
+	{
 		return field;
 	}
 
-	public Number getMultiplier() {
+	public Number getMultiplier()
+	{
 		return multiplier;
 	}
 }

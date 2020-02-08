@@ -27,9 +27,7 @@
 package net.runelite.http.api.discord;
 
 import com.google.gson.Gson;
-
 import java.io.IOException;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
@@ -41,46 +39,58 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 @Slf4j
-public class DiscordClient {
+public class DiscordClient
+{
 	public static final Gson gson = new Gson();
 	private static final MediaType JSON = MediaType.parse("application/json");
 
-	public void message(HttpUrl url, DiscordMessage discordMessage) {
+	public void message(HttpUrl url, DiscordMessage discordMessage)
+	{
 		log.debug("Message being sent");
 		message(url, discordMessage, 0, 5);
 	}
 
-	private void message(HttpUrl url, DiscordMessage discordMessage, int retryAttempt, int maxAttempts) {
+	private void message(HttpUrl url, DiscordMessage discordMessage, int retryAttempt, int maxAttempts)
+	{
 		RequestBody body = RequestBody.Companion.create(gson.toJson(discordMessage), JSON);
 		Request request = new Request.Builder()
-				.post(body)
-				.url(url)
-				.build();
+			.post(body)
+			.url(url)
+			.build();
 
 		log.debug("Attempting to message with {}", discordMessage);
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		{
 
 			@Override
-			public void onFailure(Call call, IOException e) {
+			public void onFailure(Call call, IOException e)
+			{
 				log.warn("Unable to submit discord post.", e);
-				if (retryAttempt < maxAttempts) {
+				if (retryAttempt < maxAttempts)
+				{
 					message(url, discordMessage, retryAttempt + 1, maxAttempts);
 				}
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) throws IOException {
-				try {
-					if (response.body() == null) {
+			public void onResponse(Call call, Response response) throws IOException
+			{
+				try
+				{
+					if (response.body() == null)
+					{
 						log.debug("API Call - Reponse was null.");
 						return;
 					}
-					if (response.body().string().contains("You are being rate limited") && retryAttempt < maxAttempts) {
+					if (response.body().string().contains("You are being rate limited") && retryAttempt < maxAttempts)
+					{
 						log.debug("You are being rate limited, retrying...");
 						message(url, discordMessage, retryAttempt + 1, maxAttempts);
 					}
-				} finally {
+				}
+				finally
+				{
 					response.close();
 					log.debug("Submitted discord log record");
 				}

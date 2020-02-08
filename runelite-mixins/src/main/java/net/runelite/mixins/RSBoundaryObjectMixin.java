@@ -1,7 +1,6 @@
 package net.runelite.mixins;
 
 import java.awt.Shape;
-
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -15,7 +14,8 @@ import net.runelite.rs.api.RSEntity;
 import net.runelite.rs.api.RSModel;
 
 @Mixin(RSBoundaryObject.class)
-public abstract class RSBoundaryObjectMixin implements RSBoundaryObject {
+public abstract class RSBoundaryObjectMixin implements RSBoundaryObject
+{
 	@Shadow("client")
 	private static RSClient client;
 
@@ -24,59 +24,75 @@ public abstract class RSBoundaryObjectMixin implements RSBoundaryObject {
 
 	@Inject
 	@Override
-	public int getPlane() {
+	public int getPlane()
+	{
 		return wallPlane;
 	}
 
 	@Inject
 	@Override
-	public void setPlane(int plane) {
+	public void setPlane(int plane)
+	{
 		this.wallPlane = plane;
 	}
 
 	@Inject
-	public RSModel getModelA() {
+	public RSModel getModelA()
+	{
 		RSEntity entity = getEntity1();
-		if (entity == null) {
+		if (entity == null)
+		{
 			return null;
 		}
 
-		if (entity instanceof Model) {
+		if (entity instanceof Model)
+		{
 			return (RSModel) entity;
-		} else {
+		}
+		else
+		{
 			return entity.getModel();
 		}
 	}
 
 	@Inject
-	public RSModel getModelB() {
+	public RSModel getModelB()
+	{
 		RSEntity entity = getEntity2();
-		if (entity == null) {
+		if (entity == null)
+		{
 			return null;
 		}
 
-		if (entity instanceof Model) {
+		if (entity instanceof Model)
+		{
 			return (RSModel) entity;
-		} else {
+		}
+		else
+		{
 			return entity.getModel();
 		}
 	}
 
 	@Inject
 	@Override
-	public Shape getClickbox() {
+	public Shape getClickbox()
+	{
 		Shape clickboxA = Perspective.getClickbox(client, getModelA(), 0, getLocalLocation());
 		Shape clickboxB = Perspective.getClickbox(client, getModelB(), 0, getLocalLocation());
 
-		if (clickboxA == null && clickboxB == null) {
+		if (clickboxA == null && clickboxB == null)
+		{
 			return null;
 		}
 
-		if (clickboxA != null && clickboxB != null) {
+		if (clickboxA != null && clickboxB != null)
+		{
 			return new Shapes(new Shape[]{clickboxA, clickboxB});
 		}
 
-		if (clickboxA != null) {
+		if (clickboxA != null)
+		{
 			return clickboxA;
 		}
 
@@ -85,10 +101,12 @@ public abstract class RSBoundaryObjectMixin implements RSBoundaryObject {
 
 	@Inject
 	@Override
-	public Shape getConvexHull() {
+	public Shape getConvexHull()
+	{
 		RSModel model = getModelA();
 
-		if (model == null) {
+		if (model == null)
+		{
 			return null;
 		}
 
@@ -99,10 +117,12 @@ public abstract class RSBoundaryObjectMixin implements RSBoundaryObject {
 
 	@Inject
 	@Override
-	public Shape getConvexHull2() {
+	public Shape getConvexHull2()
+	{
 		RSModel model = getModelB();
 
-		if (model == null) {
+		if (model == null)
+		{
 			return null;
 		}
 

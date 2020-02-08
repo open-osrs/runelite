@@ -15,7 +15,6 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 import net.runelite.client.ui.overlay.OverlayManager;
-
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,11 +22,11 @@ import java.awt.Color;
 //import static net.runelite.api.NpcID.nightmarewhenitsupdated;                     //TODO: this here is the thing to change
 
 @PluginDescriptor(
-		name = "Nightmare of Ashihama",
-		description = "Show what prayer to use and which tiles to avoid",
-		tags = {"bosses", "combat", "nm", "overlay", "nightmare", "pve", "pvm", "ashihama"},
-		type = PluginType.PVM,
-		enabledByDefault = false
+	name = "Nightmare of Ashihama",
+	description = "Show what prayer to use and which tiles to avoid",
+	tags = {"bosses", "combat", "nm", "overlay", "nightmare", "pve", "pvm", "ashihama"},
+	type = PluginType.PVM,
+	enabledByDefault = false
 )
 
 @Singleton
@@ -95,7 +94,8 @@ public class NightmarePlugin extends Plugin {
 	}
 
 	@Provides
-	NightmareConfig provideConfig(ConfigManager configManager) {
+	NightmareConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(NightmareConfig.class);
 	}
 
@@ -111,7 +111,7 @@ public class NightmarePlugin extends Plugin {
 		prayAgainst = null;
 		cursed = false;
 		attackCount = 0;
-		curseStartID = -1;        //not best solution im sure
+		curseStartID = -1;		//not best solution im sure
 		ticksUntilNextAttack = 0;
 	}
 
@@ -127,15 +127,18 @@ public class NightmarePlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("betterNightmare")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("betterNightmare"))
+		{
 			return;
 		}
 		this.updateConfig();
 	}
 
 	@Subscribe
-	public void onAnimationChanged(AnimationChanged event) {
+	public void onAnimationChanged(AnimationChanged event)
+	{
 		if (!inFight || nm == null) {
 			return;
 		}
@@ -149,17 +152,18 @@ public class NightmarePlugin extends Plugin {
 		int id = npc.getId();
 		int animationId = npc.getAnimation();
 
-		if (animationId == NIGHTMARE_MAGIC_ATTACK) {
+		if(animationId == NIGHTMARE_MAGIC_ATTACK){
 			ticksUntilNextAttack = 7;
 			tickColor = Color.CYAN;
-		} else if (animationId == NIGHTMARE_MELEE_ATTACK) {
+		}else if(animationId == NIGHTMARE_MELEE_ATTACK){
 			ticksUntilNextAttack = 7;
 			tickColor = Color.RED;
-		} else if (animationId == NIGHTMARE_RANGE_ATTACK) {
+		}else if(animationId == NIGHTMARE_RANGE_ATTACK){
 			ticksUntilNextAttack = 7;
 			tickColor = Color.GREEN;
 		}
-		if (animationId == NIGHTMARE_MAGIC_ATTACK || animationId == NIGHTMARE_MELEE_ATTACK || animationId == NIGHTMARE_RANGE_ATTACK) {
+		if (animationId == NIGHTMARE_MAGIC_ATTACK || animationId == NIGHTMARE_MELEE_ATTACK || animationId == NIGHTMARE_RANGE_ATTACK)
+		{
 			ticksUntilNextAttack = 7;
 		}
 	}
@@ -169,7 +173,7 @@ public class NightmarePlugin extends Plugin {
 		nm = null;
 		inFight = true;
 		for (final NPC npc : client.getNpcs()) {
-			if (npc.getId() >= 9425 && npc.getId() <= 9433) {
+			if(npc.getId() >= 9425 && npc.getId() <= 9433){
 				nm = npc;
 			}
 		}
@@ -177,17 +181,17 @@ public class NightmarePlugin extends Plugin {
 		if (inFight && nm != null) {
 //                if (nm.getId() >= 9425 && nm.getId() <= 9433)        //TODO: change to THE_NIGHTMARE_#### once in client
 //                {
-			if (nm.getAnimation() == NIGHTMARE_CURSE) {
+			if(nm.getAnimation() == NIGHTMARE_CURSE){
 				cursed = true;
 				attackCount = 0;
 				curseStartID = nm.getId();
 			}
-			if (cursed && (curseStartID != nm.getId() || attackCount == 5)) {    //curse is removed when she phases, or does 5 attacks
+			if(cursed && (curseStartID != nm.getId() || attackCount == 5)){	//curse is removed when she phases, or does 5 attacks
 				cursed = false;
-				curseStartID = -1;    //can probably remove these two since will be reset from above if, if she curses again
+				curseStartID = -1;	//can probably remove these two since will be reset from above if, if she curses again
 				attackCount = 0;
 			}
-			if (cursed) {
+			if(cursed){
 				if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
 					prayAgainst = NightmareAttack.CURSE_MELEE;
 				} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
@@ -196,7 +200,7 @@ public class NightmarePlugin extends Plugin {
 					prayAgainst = NightmareAttack.CURSE_MAGIC;
 				}
 				attackCount++;
-			} else {
+			}else {
 				if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
 					prayAgainst = NightmareAttack.MELEE;
 				} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
@@ -206,11 +210,12 @@ public class NightmarePlugin extends Plugin {
 				}
 			}
 
-		}
+        }
 		ticksUntilNextAttack--;
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.prayerHelper = config.prayerHelper();
 
 		this.tickCounter = config.ticksCounter();

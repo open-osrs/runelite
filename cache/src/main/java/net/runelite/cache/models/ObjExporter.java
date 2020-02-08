@@ -26,21 +26,23 @@ package net.runelite.cache.models;
 
 import java.awt.Color;
 import java.io.PrintWriter;
-
 import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.ModelDefinition;
 import net.runelite.cache.definitions.TextureDefinition;
 
-public class ObjExporter {
+public class ObjExporter
+{
 	private final TextureManager textureManager;
 	private final ModelDefinition model;
 
-	public ObjExporter(TextureManager textureManager, ModelDefinition model) {
+	public ObjExporter(TextureManager textureManager, ModelDefinition model)
+	{
 		this.textureManager = textureManager;
 		this.model = model;
 	}
 
-	public void export(PrintWriter objWriter, PrintWriter mtlWriter) {
+	public void export(PrintWriter objWriter, PrintWriter mtlWriter)
+	{
 		model.computeNormals();
 		model.computeTextureUVCoordinates();
 
@@ -48,56 +50,67 @@ public class ObjExporter {
 
 		objWriter.println("o runescapemodel");
 
-		for (int i = 0; i < model.vertexCount; ++i) {
+		for (int i = 0; i < model.vertexCount; ++i)
+		{
 			objWriter.println("v " + model.vertexPositionsX[i] + " "
-					+ model.vertexPositionsY[i] * -1 + " "
-					+ model.vertexPositionsZ[i] * -1);
+				+ model.vertexPositionsY[i] * -1 + " "
+				+ model.vertexPositionsZ[i] * -1);
 		}
 
-		if (model.faceTextures != null) {
+		if (model.faceTextures != null)
+		{
 			float[][] u = model.faceTextureUCoordinates;
 			float[][] v = model.faceTextureVCoordinates;
 
-			for (int i = 0; i < model.faceCount; ++i) {
+			for (int i = 0; i < model.faceCount; ++i)
+			{
 				objWriter.println("vt " + u[i][0] + " " + v[i][0]);
 				objWriter.println("vt " + u[i][1] + " " + v[i][1]);
 				objWriter.println("vt " + u[i][2] + " " + v[i][2]);
 			}
 		}
 
-		for (VertexNormal normal : model.vertexNormals) {
+		for (VertexNormal normal : model.vertexNormals)
+		{
 			objWriter.println("vn " + normal.x + " " + normal.y + " " + normal.z);
 		}
 
-		for (int i = 0; i < model.faceCount; ++i) {
+		for (int i = 0; i < model.faceCount; ++i)
+		{
 			int x = model.faceVertexIndices1[i] + 1;
 			int y = model.faceVertexIndices2[i] + 1;
 			int z = model.faceVertexIndices3[i] + 1;
 
 			objWriter.println("usemtl m" + i);
-			if (model.faceTextures != null) {
+			if (model.faceTextures != null)
+			{
 				objWriter.println("f "
-						+ x + "/" + (i * 3 + 1) + " "
-						+ y + "/" + (i * 3 + 2) + " "
-						+ z + "/" + (i * 3 + 3));
+					+ x + "/" + (i * 3 + 1) + " "
+					+ y + "/" + (i * 3 + 2) + " "
+					+ z + "/" + (i * 3 + 3));
 
-			} else {
+			}
+			else
+			{
 				objWriter.println("f " + x + " " + y + " " + z);
 			}
 			objWriter.println("");
 		}
 
 		// Write material
-		for (int i = 0; i < model.faceCount; ++i) {
+		for (int i = 0; i < model.faceCount; ++i)
+		{
 			short textureId = -1;
 
-			if (model.faceTextures != null) {
+			if (model.faceTextures != null)
+			{
 				textureId = model.faceTextures[i];
 			}
 
 			mtlWriter.println("newmtl m" + i);
 
-			if (textureId == -1) {
+			if (textureId == -1)
+			{
 				Color color = rs2hsbToColor(model.faceColors[i]);
 
 				double r = color.getRed() / 255.0;
@@ -105,7 +118,9 @@ public class ObjExporter {
 				double b = color.getBlue() / 255.0;
 
 				mtlWriter.println("Kd " + r + " " + g + " " + b);
-			} else {
+			}
+			else
+			{
 				TextureDefinition texture = textureManager.findTexture(textureId);
 				assert texture != null;
 
@@ -114,17 +129,20 @@ public class ObjExporter {
 
 			int alpha = 0;
 
-			if (model.faceAlphas != null) {
+			if (model.faceAlphas != null)
+			{
 				alpha = model.faceAlphas[i] & 0xFF;
 			}
 
-			if (alpha != 0) {
+			if (alpha != 0)
+			{
 				mtlWriter.println("d " + (alpha / 255.0));
 			}
 		}
 	}
 
-	private static Color rs2hsbToColor(int hsb) {
+	private static Color rs2hsbToColor(int hsb)
+	{
 		int decode_hue = (hsb >> 10) & 0x3f;
 		int decode_saturation = (hsb >> 7) & 0x07;
 		int decode_brightness = (hsb & 0x7f);

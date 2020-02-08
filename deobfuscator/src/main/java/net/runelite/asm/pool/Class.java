@@ -24,19 +24,23 @@
  */
 package net.runelite.asm.pool;
 
-public class Class {
+public class Class
+{
 	private final String name;
 
-	public Class(String name) {
+	public Class(String name)
+	{
 		assert !name.startsWith("L") || !name.endsWith(";");
 		this.name = name.replace('.', '/');
 	}
 
-	public Class(String name, int dimms) {
+	public Class(String name, int dimms)
+	{
 		assert !name.startsWith("L") && !name.endsWith(";");
 		name = name.replace('.', '/');
 
-		while (dimms-- > 0) {
+		while (dimms-- > 0)
+		{
 			name = "[" + name;
 		}
 
@@ -44,13 +48,16 @@ public class Class {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 
 	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof Class)) {
+	public boolean equals(Object other)
+	{
+		if (!(other instanceof Class))
+		{
 			return false;
 		}
 
@@ -59,11 +66,13 @@ public class Class {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return name.hashCode();
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 }

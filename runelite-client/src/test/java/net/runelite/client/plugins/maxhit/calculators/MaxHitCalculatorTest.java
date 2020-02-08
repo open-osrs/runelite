@@ -39,25 +39,30 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MaxHitCalculatorTest {
+public class MaxHitCalculatorTest
+{
 	@Mock
 	@Bind
 	protected Client client;
 
 	@Before
-	public void setUp() {
+	public void setUp()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void calculate() {
+	public void calculate()
+	{
 		testMaxHitConfig(MeleeMaxHitConfig.values());
 		testMaxHitConfig(RangeMaxHitConfig.values());
 		testMaxHitConfig(MagicMaxHitConfig.values());
 	}
 
-	private void testMaxHitConfig(MaxHitConfig[] maxHitConfigs) {
-		for (MaxHitConfig maxHitConfig : maxHitConfigs) {
+	private void testMaxHitConfig(MaxHitConfig[] maxHitConfigs)
+	{
+		for (MaxHitConfig maxHitConfig : maxHitConfigs)
+		{
 			maxHitConfig.test(client);
 		}
 	}

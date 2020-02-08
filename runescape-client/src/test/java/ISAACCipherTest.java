@@ -27,23 +27,27 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ *
  * @author Adam
  */
-public class ISAACCipherTest {
+public class ISAACCipherTest
+{
 	private static final int TEST_SIZE = 100;
 
 	@Test
-	public void testNextInt() {
+	public void testNextInt()
+	{
 		int[] keyInts = new int[]
-				{
-						4, 8, 15, 16, 23, 42
-				};
+		{
+			4, 8, 15, 16, 23, 42
+		};
 
 		IsaacCipher is = new IsaacCipher(keyInts);
 
 		RLISAACCipher cipher = new RLISAACCipher(keyInts);
 
-		for (int i = 0; i < TEST_SIZE; ++i) {
+		for (int i = 0; i < TEST_SIZE; ++i)
+		{
 			Assert.assertEquals(is.nextInt(), cipher.nextInt());
 		}
 	}

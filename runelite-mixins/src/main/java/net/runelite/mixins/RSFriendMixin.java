@@ -30,16 +30,19 @@ import net.runelite.rs.api.RSFriend;
 import net.runelite.rs.api.RSUsername;
 
 @Mixin(RSFriend.class)
-public abstract class RSFriendMixin implements RSFriend {
+public abstract class RSFriendMixin implements RSFriend
+{
 	@Override
 	@Inject
-	public String getName() {
+	public String getName()
+	{
 		return getRsName().getName();
 	}
 
 	@Override
 	@Inject
-	public String getPrevName() {
+	public String getPrevName()
+	{
 		RSUsername prevName = getRsPrevName();
 		return prevName == null ? null : prevName.getName();
 	}

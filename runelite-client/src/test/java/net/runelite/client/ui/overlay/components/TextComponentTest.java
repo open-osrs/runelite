@@ -27,23 +27,25 @@ package net.runelite.client.ui.overlay.components;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TextComponentTest {
+public class TextComponentTest
+{
 	private Graphics2D graphics;
 	private BufferedImage dest;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		dest = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		graphics = (Graphics2D) dest.getGraphics();
 	}
 
 	@Test
-	public void testRender() {
+	public void testRender()
+	{
 		TextComponent textComponent = new TextComponent();
 		textComponent.setText("test");
 		textComponent.setColor(Color.RED);
@@ -51,21 +53,24 @@ public class TextComponentTest {
 	}
 
 	@Test
-	public void testRender2() {
+	public void testRender2()
+	{
 		TextComponent textComponent = new TextComponent();
 		textComponent.setText("<col=0000ff>test");
 		textComponent.render(graphics);
 	}
 
 	@Test
-	public void testRender3() {
+	public void testRender3()
+	{
 		TextComponent textComponent = new TextComponent();
 		textComponent.setText("<col=0000ff>test<col=00ff00> test");
 		textComponent.render(graphics);
 	}
 
 	@After
-	public void after() {
+	public void after()
+	{
 		graphics.dispose();
 		dest.flush();
 	}

@@ -31,7 +31,7 @@ import lombok.Getter;
  * Server controlled "content-developer" integers.
  *
  * @see VarPlayer
- * <p>
+ *
  * These differ from a {@link VarPlayer} in that VarBits can be
  * less than 32 bits. One or more VarBits can be assigned to a
  * backing VarPlayer, each with a static range of bits that it is
@@ -40,7 +40,8 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum Varbits {
+public enum Varbits
+{
 	/*
 	 * Kharedst's Memoirs Teleport Item
 	 */

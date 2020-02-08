@@ -38,7 +38,8 @@ import net.runelite.api.widgets.WidgetInfo;
  */
 @Getter
 @AllArgsConstructor
-public enum KitType {
+public enum KitType
+{
 	HELMET("Helmet", 0, WidgetInfo.EQUIPMENT_HELMET),
 	CAPE("Cape", 1, WidgetInfo.EQUIPMENT_CAPE),
 	AMULET("Amulet", 2, WidgetInfo.EQUIPMENT_AMULET),

@@ -26,50 +26,58 @@ package net.runelite.client.plugins.timetracking.farming;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.notNullValue;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 
-public class PatchImplementationTest {
+public class PatchImplementationTest
+{
 	@Rule
 	public ErrorCollector collector = new ErrorCollector();
 
 	@Test
-	public void testRange() {
-		for (PatchImplementation impl : PatchImplementation.values()) {
+	public void testRange()
+	{
+		for (PatchImplementation impl : PatchImplementation.values())
+		{
 			Map<Produce, boolean[]> harvestStages = new HashMap<>();
-			for (int i = 0; i < 256; i++) {
+			for (int i = 0; i < 256; i++)
+			{
 				PatchState s = impl.forVarbitValue(i);
-				if (s != null) {
+				if (s != null)
+				{
 					String pfx = impl.name() + "[" + i + "]";
 					collector.checkThat(pfx + ": cropState", s.getCropState(), notNullValue());
 					collector.checkThat(pfx + ": produce", s.getProduce(), notNullValue());
 					collector.checkThat(pfx + ": negative stage", s.getStage(), greaterThanOrEqualTo(0));
 					int stages = s.getProduce().getStages();
-					if (s.getCropState() == CropState.HARVESTABLE) {
+					if (s.getCropState() == CropState.HARVESTABLE)
+					{
 						stages = s.getProduce().getHarvestStages();
 					}
 					collector.checkThat(pfx + ": out of bounds stage", s.getStage(), lessThan(stages));
-					if (s.getCropState() == CropState.DEAD || s.getCropState() == CropState.DISEASED) {
+					if (s.getCropState() == CropState.DEAD || s.getCropState() == CropState.DISEASED)
+					{
 						collector.checkThat(pfx + ": dead seed", s.getStage(), greaterThan(0));
 					}
-					if (s.getCropState() == CropState.GROWING && s.getProduce() != Produce.WEEDS && s.getStage() < stages) {
+					if (s.getCropState() == CropState.GROWING && s.getProduce() != Produce.WEEDS && s.getStage() < stages)
+					{
 						harvestStages.computeIfAbsent(s.getProduce(), k -> new boolean[s.getProduce().getStages()])[s.getStage()] = true;
 					}
 				}
 			}
 
-			for (Map.Entry<Produce, boolean[]> produce : harvestStages.entrySet()) {
+			for (Map.Entry<Produce, boolean[]> produce : harvestStages.entrySet())
+			{
 				boolean[] states = produce.getValue();
 				// Alot of time the final stage is not hit, because some plants do not have a "Check-health" stage
-				for (int i = 0; i < states.length - 1; i++) {
+				for (int i = 0; i < states.length - 1; i++)
+				{
 					collector.checkThat(produce.getKey().getName() + " stage " + i + " never found by varbit", states[i], is(true));
 				}
 			}

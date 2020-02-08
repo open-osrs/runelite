@@ -28,49 +28,56 @@ package net.runelite.asm.attributes.code.instructions;
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
-
 import static net.runelite.asm.attributes.code.instructions.IfICmpEq.isOne;
 import static net.runelite.asm.attributes.code.instructions.IfICmpEq.isZero;
-
 import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public class IfEq extends If0 {
-	public IfEq(Instructions instructions, InstructionType type) {
+public class IfEq extends If0
+{
+	public IfEq(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
-
-	public IfEq(Instructions instructions, Label to) {
+	
+	public IfEq(Instructions instructions, Label to)
+	{
 		super(instructions, InstructionType.IFEQ, to);
 	}
 
 	@Override
-	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc) {
+	public boolean isSame(InstructionContext thisIc, InstructionContext otherIc)
+	{
 		if (!this.isSameField(thisIc, otherIc))
 			return false;
-
+		
 		if (thisIc.getInstruction().getClass() == otherIc.getInstruction().getClass())
 			return true;
-
-		if (otherIc.getInstruction() instanceof IfNe) {
+		
+		if (otherIc.getInstruction() instanceof IfNe)
+		{
 			return true;
-		} else if (otherIc.getInstruction() instanceof IfICmpEq || otherIc.getInstruction() instanceof IfICmpNe) {
+		}
+		else if (otherIc.getInstruction() instanceof IfICmpEq || otherIc.getInstruction() instanceof IfICmpNe)
+		{
 			StackContext s1 = otherIc.getPops().get(0),
-					s2 = otherIc.getPops().get(1);
-
+				s2 = otherIc.getPops().get(1);
+			
 			if (isZero(s1) || isZero(s2) || isOne(s1) || isOne(s2))
 				return true;
 		}
-
+	
 		return false;
 	}
-
+	
 	@Override
-	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other) {
-		if (other.getInstruction() instanceof IfICmpEq) {
+	public void map(ParallelExecutorMapping mapping, InstructionContext ctx, InstructionContext other)
+	{
+		if (other.getInstruction() instanceof IfICmpEq)
+		{
 			StackContext s1 = other.getPops().get(0),
-					s2 = other.getPops().get(1);
+				s2 = other.getPops().get(1);
 
 			if (isZero(s1) || isZero(s2)) // iseq vs ificmpeq 0
 				super.map(mapping, ctx, other);
@@ -78,19 +85,25 @@ public class IfEq extends If0 {
 				super.mapOtherBranch(mapping, ctx, other);
 			else
 				assert false;
-		} else if (other.getInstruction() instanceof IfICmpNe) {
+		}
+		else if (other.getInstruction() instanceof IfICmpNe)
+		{
 			StackContext s1 = other.getPops().get(0),
-					s2 = other.getPops().get(1);
-
+				s2 = other.getPops().get(1);
+			
 			if (isZero(s1) || isZero(s2))
 				super.mapOtherBranch(mapping, ctx, other); // ifeq 0 vs ificmpne 0
 			else if (isOne(s1) || isOne(s2))
 				super.map(mapping, ctx, other); // ifeq 0 vs ificmpeq 1
 			else
 				assert false;
-		} else if (other.getInstruction() instanceof IfNe) {
+		}
+		else if (other.getInstruction() instanceof IfNe)
+		{
 			super.mapOtherBranch(mapping, ctx, other);
-		} else {
+		}
+		else
+		{
 			super.map(mapping, ctx, other);
 		}
 	}

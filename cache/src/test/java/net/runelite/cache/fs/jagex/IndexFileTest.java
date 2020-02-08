@@ -26,19 +26,20 @@ package net.runelite.cache.fs.jagex;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.cache.StoreLocation;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class IndexFileTest {
+public class IndexFileTest
+{
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException {
+	public void test() throws IOException
+	{
 		File file = folder.newFile();
 		IndexFile index = new IndexFile(5, file);
 		IndexEntry entry = new IndexEntry(index, 7, 8, 9);

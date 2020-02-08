@@ -28,12 +28,14 @@ package net.runelite.client.plugins.runecraft;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-class ClickOperation {
+class ClickOperation
+{
 	Pouch pouch;
 	int tick; // timeout for operation
 	int delta;
 
-	ClickOperation(Pouch pouch, int tick) {
+	ClickOperation(Pouch pouch, int tick)
+	{
 		this(pouch, tick, 0);
 	}
 }

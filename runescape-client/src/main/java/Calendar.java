@@ -1,5 +1,4 @@
 import java.util.TimeZone;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -19,7 +18,7 @@ public class Calendar {
 	static java.util.Calendar Calendar_calendar;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("Widget_modelsArchive")
 	static AbstractArchive Widget_modelsArchive;
@@ -33,8 +32,8 @@ public class Calendar {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;I)V",
-			garbageValue = "-1040616662"
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "-1040616662"
 	)
 	static final void method4014(String var0) {
 		class60.method1188("Please remove " + var0 + " from your ignore list first");

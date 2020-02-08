@@ -9,19 +9,22 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSGraphicsObject;
 
 @Mixin(RSGraphicsObject.class)
-public abstract class RSGraphicsObjectMixin implements RSGraphicsObject {
+public abstract class RSGraphicsObjectMixin implements RSGraphicsObject
+{
 	@Shadow("client")
 	private static RSClient client;
 
 	@Inject
-	RSGraphicsObjectMixin() {
+	RSGraphicsObjectMixin()
+	{
 		final GraphicsObjectCreated event = new GraphicsObjectCreated(this);
 		client.getCallbacks().post(GraphicsObjectCreated.class, event);
 	}
 
 	@Override
 	@Inject
-	public LocalPoint getLocation() {
+	public LocalPoint getLocation()
+	{
 		return new LocalPoint(this.getX(), this.getY());
 	}
 }

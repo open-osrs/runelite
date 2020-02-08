@@ -26,28 +26,32 @@ package net.runelite.deob.injection;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.util.JarUtil;
 
-public class TestingClassLoader extends ClassLoader {
+public class TestingClassLoader extends ClassLoader
+{
 	private ClassGroup group;
 	private Map<String, Class<?>> classes = new HashMap<>();
 
-	public TestingClassLoader(ClassGroup group) {
+	public TestingClassLoader(ClassGroup group)
+	{
 		this.group = group;
 	}
 
 	@Override
-	public Class<?> findClass(String name) throws ClassNotFoundException {
+	public Class<?> findClass(String name) throws ClassNotFoundException
+	{
 		ClassFile cf = group.findClass(name);
-		if (cf == null) {
+		if (cf == null)
+		{
 			return super.findClass(name);
 		}
 
 		Class<?> c = classes.get(name);
-		if (c != null) {
+		if (c != null)
+		{
 			return c;
 		}
 
@@ -55,7 +59,8 @@ public class TestingClassLoader extends ClassLoader {
 		return defineClass(name, clazz);
 	}
 
-	private Class<?> defineClass(String name, byte[] b) {
+	private Class<?> defineClass(String name, byte[] b)
+	{
 		Class<?> c = super.defineClass(name.replace('/', '.'), b, 0, b.length);
 		classes.put(name, c);
 		return c;

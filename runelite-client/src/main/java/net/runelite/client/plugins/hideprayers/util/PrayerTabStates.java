@@ -27,7 +27,8 @@
 
 package net.runelite.client.plugins.hideprayers.util;
 
-public enum PrayerTabStates {
+public enum PrayerTabStates
+{
 	NONE,
 	PRAYERS,
 	QUICK_PRAYERS

@@ -25,26 +25,28 @@
 package net.runelite.deob.deobfuscators.arithmetic;
 
 import static java.lang.Math.abs;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import static net.runelite.deob.deobfuscators.arithmetic.DMath.multiply;
 
-class FieldInfo {
+class FieldInfo
+{
 	public final Set<Number> getters = new HashSet<>();
 	public final Set<Number> setters = new HashSet<>();
 	public final Set<AssociatedConstant> constants = new HashSet<>();
 
-	boolean guessDecreasesConstants(Pair guess) {
-		if (getters.isEmpty() && setters.isEmpty()) {
+	boolean guessDecreasesConstants(Pair guess)
+	{
+		if (getters.isEmpty() && setters.isEmpty())
+		{
 			return false;
 		}
 
-		if (guess.getter.longValue() == -1 && guess.setter.longValue() == -1) {
+		if (guess.getter.longValue() == -1 && guess.setter.longValue() == -1)
+		{
 			// special case - when guess is -1/-1, checking the abs(total)
 			// is not helpful. instead look for both:
 			// associated non-constant of value -1
@@ -67,15 +69,15 @@ class FieldInfo {
 			// only change if there is a -1 in the non constant
 			// and also there is a non constant non other too
 			List<Number> value2 = constants.stream()
-					.filter(i -> !i.constant)
-					.map(i -> i.value)
-					.collect(Collectors.toList());
+				.filter(i -> !i.constant)
+				.map(i -> i.value)
+				.collect(Collectors.toList());
 
 			List<Number> value = constants.stream()
-					.filter(i -> !i.other)
-					.filter(i -> !i.constant)
-					.map(i -> i.value)
-					.collect(Collectors.toList());
+				.filter(i -> !i.other)
+				.filter(i -> !i.constant)
+				.map(i -> i.value)
+				.collect(Collectors.toList());
 			return value.isEmpty() && value2.contains(-1);
 		}
 
@@ -84,20 +86,21 @@ class FieldInfo {
 		// - are multiplied into another field
 		// - are both a getter and setter
 		Collection<Number> gettersFiltered = getters.stream()
-				.filter(number -> isOkay(number))
-				.collect(Collectors.toSet());
+			.filter(number -> isOkay(number))
+			.collect(Collectors.toSet());
 
 		Collection<Number> settersFiltered = setters.stream()
-				.filter(number -> isOkay(number))
-				.collect(Collectors.toSet());
+			.filter(number -> isOkay(number))
+			.collect(Collectors.toSet());
 
-		if (!gettersFiltered.isEmpty()) {
+		if (!gettersFiltered.isEmpty())
+		{
 			long before = gettersFiltered.stream()
-					.mapToLong(number -> abs(downsample(number).longValue()))
-					.sum();
+				.mapToLong(number -> abs(downsample(number).longValue()))
+				.sum();
 			long after = gettersFiltered.stream()
-					.mapToLong(number -> abs(downsample(multiply(number, guess.setter)).longValue()))
-					.sum();
+				.mapToLong(number -> abs(downsample(multiply(number, guess.setter)).longValue()))
+				.sum();
 
 			assert before >= 0;
 			assert after >= 0;
@@ -105,24 +108,27 @@ class FieldInfo {
 			// If the total value of the getters is more, assume
 			// the guess is bad. Ideally the values go to 1, so
 			// 'after' will be small.
-			if (after > before) {
+			if (after > before)
+			{
 				return false;
 			}
 		}
 
-		if (!settersFiltered.isEmpty()) {
+		if (!settersFiltered.isEmpty())
+		{
 			long beforeSetter = settersFiltered.stream()
-					.mapToLong(number -> abs(downsample(number).longValue()))
-					.sum();
+				.mapToLong(number -> abs(downsample(number).longValue()))
+				.sum();
 
 			long afterSetter = settersFiltered.stream()
-					.mapToLong(number -> abs(downsample(multiply(number, guess.getter)).longValue()))
-					.sum();
+				.mapToLong(number -> abs(downsample(multiply(number, guess.getter)).longValue()))
+				.sum();
 
 			assert beforeSetter >= 0;
 			assert afterSetter >= 0;
 
-			if (afterSetter > beforeSetter) {
+			if (afterSetter > beforeSetter)
+			{
 				return false;
 			}
 		}
@@ -130,12 +136,15 @@ class FieldInfo {
 		return true;
 	}
 
-	private boolean isOkay(Number number) {
-		for (AssociatedConstant c : constants) {
+	private boolean isOkay(Number number)
+	{
+		for (AssociatedConstant c : constants)
+		{
 			if (c.value.equals(number)
-					&& !c.constant
-					&& !c.other
-					&& !(c.setter && c.getter)) {
+				&& !c.constant
+				&& !c.other
+				&& !(c.setter && c.getter))
+			{
 				return true;
 			}
 		}
@@ -144,8 +153,10 @@ class FieldInfo {
 
 	// summation of longs probably overflows,
 	// so only use the most significant 32 bits
-	private Number downsample(Number number) {
-		if (number instanceof Long) {
+	private Number downsample(Number number)
+	{
+		if (number instanceof Long)
+		{
 			long l = (Long) number;
 			return l >>> 32;
 		}

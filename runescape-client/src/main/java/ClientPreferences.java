@@ -1,7 +1,6 @@
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -13,13 +12,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ClientPreferences {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 1562806739
+		intValue = 1562806739
 	)
 	@Export("ClientPreferences_optionCount")
 	static int ClientPreferences_optionCount;
 	@ObfuscatedName("fb")
 	@ObfuscatedSignature(
-			signature = "Lkr;"
+		signature = "Lkr;"
 	)
 	static AbstractSocket field1052;
 	@ObfuscatedName("o")
@@ -30,7 +29,7 @@ public class ClientPreferences {
 	boolean titleMusicDisabled;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -122570971
+		intValue = -122570971
 	)
 	@Export("windowMode")
 	int windowMode;
@@ -57,7 +56,7 @@ public class ClientPreferences {
 	}
 
 	@ObfuscatedSignature(
-			signature = "(Lkp;)V"
+		signature = "(Lkp;)V"
 	)
 	ClientPreferences(Buffer var1) {
 		this.windowMode = 1;
@@ -107,16 +106,16 @@ public class ClientPreferences {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(ZI)V",
-			garbageValue = "1265192708"
+		signature = "(ZI)V",
+		garbageValue = "1265192708"
 	)
 	void method1849(boolean var1) {
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)Lkp;",
-			garbageValue = "-1961223036"
+		signature = "(I)Lkp;",
+		garbageValue = "-1961223036"
 	)
 	@Export("toBuffer")
 	Buffer toBuffer() {
@@ -129,9 +128,9 @@ public class ClientPreferences {
 		Iterator var2 = this.parameters.entrySet().iterator();
 
 		while (var2.hasNext()) {
-			Entry var3 = (Entry) var2.next();
-			var1.writeInt((Integer) var3.getKey());
-			var1.writeInt((Integer) var3.getValue());
+			Entry var3 = (Entry)var2.next();
+			var1.writeInt((Integer)var3.getKey());
+			var1.writeInt((Integer)var3.getValue());
 		}
 
 		var1.writeStringCp1252NullTerminated(this.rememberedUsername != null ? this.rememberedUsername : "");
@@ -141,8 +140,8 @@ public class ClientPreferences {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)[Llf;",
-			garbageValue = "-1068264717"
+		signature = "(I)[Llf;",
+		garbageValue = "-1068264717"
 	)
 	@Export("FillMode_values")
 	public static FillMode[] FillMode_values() {
@@ -151,38 +150,38 @@ public class ClientPreferences {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(ILjava/lang/String;Ljava/lang/String;I)V",
-			garbageValue = "-756119302"
+		signature = "(ILjava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "-756119302"
 	)
 	@Export("addGameMessage")
 	static void addGameMessage(int var0, String var1, String var2) {
-		class173.addChatMessage(var0, var1, var2, (String) null);
+		class173.addChatMessage(var0, var1, var2, (String)null);
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1958479056"
+		signature = "(I)V",
+		garbageValue = "-1958479056"
 	)
 	public static void method1854() {
 		while (true) {
 			ArchiveDiskAction var0;
-			synchronized (ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
-				var0 = (ArchiveDiskAction) ArchiveDiskActionHandler.ArchiveDiskActionHandler_responseQueue.removeLast();
+			synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
+				var0 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_responseQueue.removeLast();
 			}
 
 			if (var0 == null) {
 				return;
 			}
 
-			var0.archive.load(var0.archiveDisk, (int) var0.key, var0.data, false);
+			var0.archive.load(var0.archiveDisk, (int)var0.key, var0.data, false);
 		}
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "([BIIIIIII[Lfv;I)V",
-			garbageValue = "-1733201175"
+		signature = "([BIIIIIII[Lfv;I)V",
+		garbageValue = "-1733201175"
 	)
 	static final void method1853(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, CollisionMap[] var8) {
 		int var10;
@@ -213,8 +212,8 @@ public class ClientPreferences {
 
 	@ObfuscatedName("gh")
 	@ObfuscatedSignature(
-			signature = "(Lba;I)Z",
-			garbageValue = "-1602315616"
+		signature = "(Lba;I)Z",
+		garbageValue = "-1602315616"
 	)
 	static boolean method1840(Player var0) {
 		if (Client.drawPlayerNames == 0) {
@@ -238,8 +237,8 @@ public class ClientPreferences {
 
 	@ObfuscatedName("hy")
 	@ObfuscatedSignature(
-			signature = "(S)V",
-			garbageValue = "14321"
+		signature = "(S)V",
+		garbageValue = "14321"
 	)
 	static final void method1852() {
 		PacketBuffer var0 = Client.packetWriter.packetBuffer;
@@ -277,7 +276,7 @@ public class ClientPreferences {
 							Client.npcIndices[++Client.npcCount - 1] = var3;
 							var4.npcCycle = Client.cycle;
 							var7 = var0.readBits(3);
-							var4.method2083(var7, (byte) 1);
+							var4.method2083(var7, (byte)1);
 							var8 = var0.readBits(1);
 							if (var8 == 1) {
 								Client.field867[++Client.field690 - 1] = var3;
@@ -286,9 +285,9 @@ public class ClientPreferences {
 							Client.npcIndices[++Client.npcCount - 1] = var3;
 							var4.npcCycle = Client.cycle;
 							var7 = var0.readBits(3);
-							var4.method2083(var7, (byte) 2);
+							var4.method2083(var7, (byte)2);
 							var8 = var0.readBits(3);
-							var4.method2083(var8, (byte) 2);
+							var4.method2083(var8, (byte)2);
 							int var9 = var0.readBits(1);
 							if (var9 == 1) {
 								Client.field867[++Client.field690 - 1] = var3;

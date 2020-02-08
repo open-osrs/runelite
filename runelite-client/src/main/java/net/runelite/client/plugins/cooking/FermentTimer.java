@@ -29,44 +29,50 @@ import java.awt.image.BufferedImage;
 import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Singleton;
-
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 
 @Singleton
-final class FermentTimer extends InfoBox {
+final class FermentTimer extends InfoBox
+{
 	private static final Duration FERMENT_TIME = Duration.ofMillis(13_800);
 
 	private Instant fermentTime;
 
-	FermentTimer(BufferedImage image, Plugin plugin) {
+	FermentTimer(BufferedImage image, Plugin plugin)
+	{
 		super(image, plugin);
 		reset();
 	}
 
 	@Override
-	public String getText() {
+	public String getText()
+	{
 		int seconds = timeUntilFerment();
 		return Integer.toString(seconds);
 	}
 
 	@Override
-	public Color getTextColor() {
+	public Color getTextColor()
+	{
 		int seconds = timeUntilFerment();
 		return seconds <= 3 ? Color.RED : Color.WHITE;
 	}
 
 	@Override
-	public boolean cull() {
+	public boolean cull()
+	{
 		int seconds = timeUntilFerment();
 		return seconds <= 0;
 	}
 
-	void reset() {
+	void reset()
+	{
 		fermentTime = Instant.now().plus(FERMENT_TIME);
 	}
 
-	private int timeUntilFerment() {
+	private int timeUntilFerment()
+	{
 		return (int) Duration.between(Instant.now(), fermentTime).getSeconds();
 	}
 }

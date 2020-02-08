@@ -25,11 +25,11 @@
 package net.runelite.cache.definitions;
 
 import java.util.Map;
-
 import lombok.Data;
 
 @Data
-public class ScriptDefinition {
+public class ScriptDefinition
+{
 	private int id;
 	private int[] instructions;
 	private int[] intOperands;

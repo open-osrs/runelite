@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,7 +15,7 @@ import netscape.javascript.JSObject;
 public class class14 {
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-			intValue = 1417647521
+		intValue = 1417647521
 	)
 	@Export("clientTickTimeIdx")
 	static int clientTickTimeIdx;
@@ -24,14 +23,14 @@ public class class14 {
 	static String field101;
 	@ObfuscatedName("bb")
 	@ObfuscatedSignature(
-			signature = "Lhx;"
+		signature = "Lhx;"
 	)
 	static StudioGame field102;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "([BB)Llt;",
-			garbageValue = "-30"
+		signature = "([BB)Llt;",
+		garbageValue = "-30"
 	)
 	@Export("convertJpgToSprite")
 	public static final Sprite convertJpgToSprite(byte[] var0) {
@@ -54,8 +53,8 @@ public class class14 {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;ILjava/lang/String;I)Z",
-			garbageValue = "-1466465553"
+		signature = "(Ljava/lang/String;ILjava/lang/String;I)Z",
+		garbageValue = "-1466465553"
 	)
 	static boolean method174(String var0, int var1, String var2) {
 		if (var1 == 0) {
@@ -114,13 +113,13 @@ public class class14 {
 
 	@ObfuscatedName("d")
 	public static int method169(long var0) {
-		return (int) (var0 >>> 7 & 127L);
+		return (int)(var0 >>> 7 & 127L);
 	}
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "(CB)Z",
-			garbageValue = "1"
+		signature = "(CB)Z",
+		garbageValue = "1"
 	)
 	@Export("isDigit")
 	public static boolean isDigit(char var0) {
@@ -129,8 +128,8 @@ public class class14 {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-			signature = "(IZIB)V",
-			garbageValue = "14"
+		signature = "(IZIB)V",
+		garbageValue = "14"
 	)
 	public static final void method173(int var0, boolean var1, int var2) {
 		if (var0 >= 8000 && var0 <= 48000) {
@@ -144,15 +143,15 @@ public class class14 {
 
 	@ObfuscatedName("fs")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "970365805"
+		signature = "(I)I",
+		garbageValue = "970365805"
 	)
 	static int method170() {
 		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
 			int var0 = 0;
 
 			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) {
-				var0 += ((ArchiveLoader) Client.archiveLoaders.get(var1)).loadedCount;
+				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount;
 			}
 
 			return var0 * 10000 / Client.field813;

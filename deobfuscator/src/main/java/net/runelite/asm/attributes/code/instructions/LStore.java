@@ -39,57 +39,66 @@ import net.runelite.asm.execution.VariableContext;
 import net.runelite.asm.execution.Variables;
 import org.objectweb.asm.MethodVisitor;
 
-public class LStore extends Instruction implements LVTInstruction {
+public class LStore extends Instruction implements LVTInstruction
+{
 	private int index;
 
-	public LStore(Instructions instructions, int index) {
+	public LStore(Instructions instructions, int index)
+	{
 		super(instructions, InstructionType.LSTORE);
 
 		this.index = index;
 	}
-
-	public LStore(Instructions instructions, InstructionType type) {
+	
+	public LStore(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		visitor.visitVarInsn(this.getType().getCode(), this.getVariableIndex());
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 		Variables variables = frame.getVariables();
-
+		
 		StackContext value = stack.pop();
 		assert value.getType().equals(Type.LONG);
 		ins.pop(value);
-
+		
 		variables.set(index, new VariableContext(ins, value));
-
+		
 		return ins;
 	}
-
+	
 	@Override
-	public int getVariableIndex() {
+	public int getVariableIndex()
+	{
 		return index;
 	}
 
 	@Override
-	public boolean store() {
+	public boolean store()
+	{
 		return true;
 	}
 
 	@Override
-	public Instruction setVariableIndex(int idx) {
+	public Instruction setVariableIndex(int idx)
+	{
 		index = idx;
 		return this;
 	}
 
 	@Override
-	public LVTInstructionType type() {
+	public LVTInstructionType type()
+	{
 		return LVTInstructionType.LONG;
 	}
 }

@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.npcstatus;
 
 import java.awt.Color;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,7 +34,8 @@ import net.runelite.api.NPC;
 import net.runelite.api.coords.WorldArea;
 
 @Getter(AccessLevel.PACKAGE)
-class MemorizedNPC {
+class MemorizedNPC
+{
 	private NPC npc;
 	private int npcIndex;
 	private String npcName;
@@ -53,7 +53,8 @@ class MemorizedNPC {
 	@Setter(AccessLevel.PACKAGE)
 	private Actor lastinteracted;
 
-	MemorizedNPC(final NPC npc, final int attackSpeed, final WorldArea worldArea) {
+	MemorizedNPC(final NPC npc, final int attackSpeed, final WorldArea worldArea)
+	{
 		this.npc = npc;
 		this.npcIndex = npc.getIndex();
 		this.npcName = npc.getName();
@@ -68,7 +69,8 @@ class MemorizedNPC {
 
 	@Getter(AccessLevel.PACKAGE)
 	@AllArgsConstructor
-	enum Status {
+	enum Status
+	{
 		FLINCHING("Flinching", Color.GREEN),
 		IN_COMBAT_DELAY("In Combat Delay", Color.ORANGE),
 		IN_COMBAT("In Combat", Color.RED),

@@ -27,12 +27,12 @@ package net.runelite.client.plugins.menuentryswapper.util;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.runelite.client.menus.AbstractComparableEntry;
-
 import static net.runelite.client.menus.ComparableEntries.newBaseComparableEntry;
 
 @Getter
 @RequiredArgsConstructor
-public enum HouseAdvertisementMode {
+public enum HouseAdvertisementMode
+{
 	VIEW("View", newBaseComparableEntry("View", "House Advertisement")),
 	ADD_HOUSE("Add-House", newBaseComparableEntry("Add-House", "House Advertisement")),
 	VISIT_LAST("Visit-Last", newBaseComparableEntry("Visit-Last", "House Advertisement"));
@@ -41,7 +41,8 @@ public enum HouseAdvertisementMode {
 	private final AbstractComparableEntry entry;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

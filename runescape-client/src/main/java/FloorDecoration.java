@@ -9,48 +9,48 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class FloorDecoration {
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "Lli;"
+		signature = "Lli;"
 	)
 	@Export("logoSprite")
 	static IndexedSprite logoSprite;
 	@ObfuscatedName("ja")
 	@ObfuscatedSignature(
-			signature = "Lhn;"
+		signature = "Lhn;"
 	)
 	static Widget field1604;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -340818917
+		intValue = -340818917
 	)
 	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 2029727385
+		intValue = 2029727385
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -588436191
+		intValue = -588436191
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Leq;"
+		signature = "Leq;"
 	)
 	@Export("entity")
 	public Entity entity;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			longValue = -1449564120774695343L
+		longValue = -1449564120774695343L
 	)
 	@Export("tag")
 	public long tag;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -1732648277
+		intValue = -1732648277
 	)
 	@Export("flags")
 	int flags;
@@ -60,22 +60,22 @@ public final class FloorDecoration {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Llp;ILjava/lang/String;I)Ljava/lang/String;",
-			garbageValue = "1267809906"
+		signature = "(Llp;ILjava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "1267809906"
 	)
 	static String method2914(IterableNodeHashTable var0, int var1, String var2) {
 		if (var0 == null) {
 			return var2;
 		} else {
-			ObjectNode var3 = (ObjectNode) var0.get((long) var1);
-			return var3 == null ? var2 : (String) var3.obj;
+			ObjectNode var3 = (ObjectNode)var0.get((long)var1);
+			return var3 == null ? var2 : (String)var3.obj;
 		}
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(IIIIIIB)I",
-			garbageValue = "94"
+		signature = "(IIIIIIB)I",
+		garbageValue = "94"
 	)
 	public static int method2913(int var0, int var1, int var2, int var3, int var4, int var5) {
 		if ((var5 & 1) == 1) {
@@ -96,8 +96,8 @@ public final class FloorDecoration {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;I)V",
-			garbageValue = "-2102248580"
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "-2102248580"
 	)
 	static final void method2912(String var0) {
 		class60.method1188("Please remove " + var0 + " from your friend list first");

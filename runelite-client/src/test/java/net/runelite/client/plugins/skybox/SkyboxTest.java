@@ -26,20 +26,20 @@ package net.runelite.client.plugins.skybox;
 
 import com.google.common.base.Strings;
 import com.google.common.io.CharSource;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 
 @Slf4j
-public class SkyboxTest {
+public class SkyboxTest
+{
 	@Test
-	public void testLoadSimple() throws IOException {
+	public void testLoadSimple() throws IOException
+	{
 		Skybox skybox = new Skybox(CharSource.wrap("bounds 0 0 100 100 #00F // R 0 0 100 100\r\nr 99 99").openStream(), "simple");
 		Assert.assertEquals(0, skybox.getColorForPoint(0, 0, 0, 0, 0, 1, null));
 		int x = (99 * 64) + 32;
@@ -48,13 +48,15 @@ public class SkyboxTest {
 	}
 
 	@Test
-	public void testLoadActual() throws IOException {
+	public void testLoadActual() throws IOException
+	{
 		long start = System.nanoTime();
 		Skybox skybox = new Skybox(SkyboxPlugin.class.getResourceAsStream("skybox.txt"), "skybox.txt");
 		log.info("Parse took {}ms", (System.nanoTime() - start) / 1_000_000);
 
 		String skyboxFile = System.getProperty("skyboxExport");
-		if (!Strings.isNullOrEmpty(skyboxFile)) {
+		if (!Strings.isNullOrEmpty(skyboxFile))
+		{
 			start = System.nanoTime();
 			BufferedImage img = skybox.render(1f, 0, 0, null);
 			long time = System.nanoTime() - start;

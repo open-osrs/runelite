@@ -25,11 +25,11 @@
 package net.runelite.http.api.osbuddy;
 
 import java.time.Instant;
-
 import lombok.Data;
 
 @Data
-public class OSBGrandExchangeResult {
+public class OSBGrandExchangeResult
+{
 	private int item_id;
 	private int buy_average;
 	private int sell_average;

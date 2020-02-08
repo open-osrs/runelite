@@ -37,19 +37,20 @@ import net.runelite.api.widgets.WidgetInfo;
 
 
 @AllArgsConstructor
-enum Role {
+enum Role
+{
 	ATTACKER(WidgetInfo.BA_ATK_WAVE_TEXT, WidgetInfo.BA_ATK_LISTEN_TOP_TEXT, WidgetInfo.BA_ATK_HORN_LISTEN_TEXT,
-			WidgetInfo.BA_ATK_CALL_TEXT, WidgetInfo.BA_COLL_HORN_LISTEN_TEXT, WidgetInfo.BA_ATK_ROLE_TEXT,
-			WidgetInfo.BA_ATK_ROLE_SPRITE),
+		WidgetInfo.BA_ATK_CALL_TEXT, WidgetInfo.BA_COLL_HORN_LISTEN_TEXT, WidgetInfo.BA_ATK_ROLE_TEXT,
+		WidgetInfo.BA_ATK_ROLE_SPRITE),
 	DEFENDER(WidgetInfo.BA_DEF_WAVE_TEXT, WidgetInfo.BA_DEF_LISTEN_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT,
-			WidgetInfo.BA_DEF_CALL_TEXT, WidgetInfo.BA_HEAL_HORN_LISTEN_TEXT, WidgetInfo.BA_DEF_ROLE_TEXT,
-			WidgetInfo.BA_DEF_ROLE_SPRITE),
+		WidgetInfo.BA_DEF_CALL_TEXT, WidgetInfo.BA_HEAL_HORN_LISTEN_TEXT, WidgetInfo.BA_DEF_ROLE_TEXT,
+		WidgetInfo.BA_DEF_ROLE_SPRITE),
 	COLLECTOR(WidgetInfo.BA_COLL_WAVE_TEXT, WidgetInfo.BA_COLL_LISTEN_TEXT, WidgetInfo.BA_COLL_HORN_LISTEN_TEXT,
-			WidgetInfo.BA_COLL_CALL_TEXT, WidgetInfo.BA_ATK_HORN_LISTEN_TEXT, WidgetInfo.BA_COLL_ROLE_TEXT,
-			WidgetInfo.BA_COLL_ROLE_SPRITE),
+		WidgetInfo.BA_COLL_CALL_TEXT, WidgetInfo.BA_ATK_HORN_LISTEN_TEXT, WidgetInfo.BA_COLL_ROLE_TEXT,
+		WidgetInfo.BA_COLL_ROLE_SPRITE),
 	HEALER(WidgetInfo.BA_HEAL_WAVE_TEXT, WidgetInfo.BA_HEAL_LISTEN_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT,
-			WidgetInfo.BA_HEAL_CALL_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT, WidgetInfo.BA_HEAL_ROLE_TEXT,
-			WidgetInfo.BA_HEAL_ROLE_SPRITE);
+		WidgetInfo.BA_HEAL_CALL_TEXT, WidgetInfo.BA_DEF_HORN_LISTEN_TEXT, WidgetInfo.BA_HEAL_ROLE_TEXT,
+		WidgetInfo.BA_HEAL_ROLE_SPRITE);
 
 	@Getter(AccessLevel.PACKAGE)
 	private final WidgetInfo wave;
@@ -69,112 +70,124 @@ enum Role {
 	// Duplicate* entries are to catch instances where the horn of glory has
 	// text different than the normal horn
 	private static final ImmutableMap<String, String> TELLS = ImmutableMap.<String, String>builder()
-			.put("Red egg", "Tell-red")
-			.put("Green egg", "Tell-green")
-			.put("Blue egg", "Tell-blue")
-			.put("Controlled/Bullet/Wind", "Tell-controlled")
-			.put("Accurate/Field/Water", "Tell-accurate")
-			.put("Aggressive/Blunt/Earth", "Tell-aggressive")
-			.put("Defensive/Barbed/Fire", "Tell-defensive")
-			.put("Tofu", "Tell-tofu")
-			.put("Crackers", "Tell-crackers")
-			.put("Worms", "Tell-worms")
-			.put("Poison Worms", "Tell-worms")
-			.put("Pois. Worms", "Tell-worms")
-			.put("Poison Tofu", "Tell-tofu")
-			.put("Pois. Tofu", "Tell-tofu")
-			.put("Poison Meat", "Tell-meat")
-			.put("Pois. Meat", "Tell-meat")
-			.build();
+		.put("Red egg", "Tell-red")
+		.put("Green egg", "Tell-green")
+		.put("Blue egg", "Tell-blue")
+		.put("Controlled/Bullet/Wind", "Tell-controlled")
+		.put("Accurate/Field/Water", "Tell-accurate")
+		.put("Aggressive/Blunt/Earth", "Tell-aggressive")
+		.put("Defensive/Barbed/Fire", "Tell-defensive")
+		.put("Tofu", "Tell-tofu")
+		.put("Crackers", "Tell-crackers")
+		.put("Worms", "Tell-worms")
+		.put("Poison Worms", "Tell-worms")
+		.put("Pois. Worms", "Tell-worms")
+		.put("Poison Tofu", "Tell-tofu")
+		.put("Pois. Tofu", "Tell-tofu")
+		.put("Poison Meat", "Tell-meat")
+		.put("Pois. Meat", "Tell-meat")
+		.build();
 	private static final ImmutableMap<String, String> GLORY_CALLS = ImmutableMap.<String, String>builder()
-			.put("Controlled/Bullet/Wind", "Controlled/")
-			.put("Accurate/Field/Water", "Accurate/")
-			.put("Aggressive/Blunt/Earth", "Aggressive/")
-			.put("Defensive/Barbed/Fire", "Defensive/")
-			.put("Tofu", "Tofu")
-			.put("Crackers", "Crackers")
-			.put("Worms", "Worms")
-			.put("Poison worms", "Pois. Worms")
-			.put("Poison tofu", "Pois. Tofu")
-			.put("Poison meat", "Pois. Meat")
-			.put("Red egg", "Red egg")
-			.put("Green egg", "Green egg")
-			.put("Blue egg", "Blue egg")
-			.build();
+		.put("Controlled/Bullet/Wind", "Controlled/")
+		.put("Accurate/Field/Water", "Accurate/")
+		.put("Aggressive/Blunt/Earth", "Aggressive/")
+		.put("Defensive/Barbed/Fire", "Defensive/")
+		.put("Tofu", "Tofu")
+		.put("Crackers", "Crackers")
+		.put("Worms", "Worms")
+		.put("Poison worms", "Pois. Worms")
+		.put("Poison tofu", "Pois. Tofu")
+		.put("Poison meat", "Pois. Meat")
+		.put("Red egg", "Red egg")
+		.put("Green egg", "Green egg")
+		.put("Blue egg", "Blue egg")
+		.build();
 	private static final ImmutableMap<String, Integer> ITEMS = ImmutableMap.<String, Integer>builder()
-			.put("Tofu", ItemID.TOFU)
-			.put("Crackers", ItemID.CRACKERS)
-			.put("Worms", ItemID.WORMS)
-			.put("Pois. Worms", ItemID.POISONED_WORMS)
-			.put("Pois. Tofu", ItemID.POISONED_TOFU)
-			.put("Pois. Meat", ItemID.POISONED_MEAT)
-			.put("Defensive/", ItemID.BARBED_ARROW)
-			.put("Aggressive/", ItemID.BLUNT_ARROW)
-			.put("Accurate/", ItemID.FIELD_ARROW)
-			.put("Controlled/", ItemID.BULLET_ARROW)
-			.build();
+		.put("Tofu", ItemID.TOFU)
+		.put("Crackers", ItemID.CRACKERS)
+		.put("Worms", ItemID.WORMS)
+		.put("Pois. Worms", ItemID.POISONED_WORMS)
+		.put("Pois. Tofu", ItemID.POISONED_TOFU)
+		.put("Pois. Meat", ItemID.POISONED_MEAT)
+		.put("Defensive/", ItemID.BARBED_ARROW)
+		.put("Aggressive/", ItemID.BLUNT_ARROW)
+		.put("Accurate/", ItemID.FIELD_ARROW)
+		.put("Controlled/", ItemID.BULLET_ARROW)
+		.build();
 	private static final ImmutableMap<String, String> SPLIT_LISTENS = ImmutableMap.<String, String>builder()
-			.put("Controlled/", "Bullet/Wind")
-			.put("Bullet/Wind", "Controlled/")
-			.put("Accurate/", "Field/Water")
-			.put("Field/Water", "Accurate/")
-			.put("Aggressive/", "Blunt/Earth")
-			.put("Blunt/Earth", "Aggressive/")
-			.put("Defensive/", "Barbed/Fire")
-			.put("Barbed/Fire", "Defensive/")
-			.build();
+		.put("Controlled/", "Bullet/Wind")
+		.put("Bullet/Wind", "Controlled/")
+		.put("Accurate/", "Field/Water")
+		.put("Field/Water", "Accurate/")
+		.put("Aggressive/", "Blunt/Earth")
+		.put("Blunt/Earth", "Aggressive/")
+		.put("Defensive/", "Barbed/Fire")
+		.put("Barbed/Fire", "Defensive/")
+		.build();
 
 
-	int getListenItem(String listen) {
+	int getListenItem(String listen)
+	{
 		return ITEMS.getOrDefault(listen, -1);
 	}
 
-	String getTell(String call) {
+	String getTell(String call)
+	{
 		return TELLS.getOrDefault(call, "");
 	}
 
-	String getCall(Client client) {
+	String getCall(Client client)
+	{
 		// Do not reverse these if statements to be more efficient
 		// The normal widgets are no longer null/hidden after you
 		// click one time in the horn, and the values are incorrect
 		Widget callWidget = client.getWidget(getGloryCall());
-		if (callWidget != null) {
+		if (callWidget != null)
+		{
 			return GLORY_CALLS.get(callWidget.getText());
 		}
 
 		callWidget = client.getWidget(getCall());
-		if (callWidget != null) {
+		if (callWidget != null)
+		{
 			return callWidget.getText();
 		}
 
 		return null;
 	}
 
-	String getListen(Client client) {
+	String getListen(Client client)
+	{
 		// See the comment in getCall(Client client), before editing
 		Widget listenWidget = client.getWidget(getGloryListen());
-		if (listenWidget != null) {
+		if (listenWidget != null)
+		{
 			return GLORY_CALLS.get(listenWidget.getText());
 		}
 
 		listenWidget = client.getWidget(getListen());
-		if (listenWidget != null) {
+		if (listenWidget != null)
+		{
 			return listenWidget.getText();
 		}
 
 		return null;
 	}
 
-	static String getMissingListen(String listen) {
+	static String getMissingListen(String listen)
+	{
 		return SPLIT_LISTENS.getOrDefault(listen, "- - -");
 	}
 
 	// I call it "Switchception" :wutwedoin:
 	// Should probably switch to using an interface instead of an enum at this point
-	String getCallFromTell(String listen) {
-		switch (this) {
+	String getCallFromTell(String listen)
+	{
+		switch (this)
+		{
 			case COLLECTOR:
-				switch (listen) {
+				switch (listen)
+				{
 					case "Tell-controlled":
 						return "Controlled/";
 					case "Tell-accurate":
@@ -186,7 +199,8 @@ enum Role {
 				}
 				break;
 			case ATTACKER:
-				switch (listen) {
+				switch (listen)
+				{
 					case "Tell-red":
 						return "Red egg";
 					case "Tell-green":
@@ -196,7 +210,8 @@ enum Role {
 				}
 				break;
 			case HEALER:
-				switch (listen) {
+				switch (listen)
+				{
 					case "Tell-tofu":
 						return "Tofu";
 					case "Tell-crackers":
@@ -206,7 +221,8 @@ enum Role {
 				}
 				break;
 			case DEFENDER:
-				switch (listen) {
+				switch (listen)
+				{
 					case "Tell-meat":
 						return "Pois. Meat";
 					case "Tell-tofu":

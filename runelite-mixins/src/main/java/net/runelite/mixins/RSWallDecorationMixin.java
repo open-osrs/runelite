@@ -1,7 +1,6 @@
 package net.runelite.mixins;
 
 import java.awt.Shape;
-
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
@@ -15,7 +14,8 @@ import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSWallDecoration;
 
 @Mixin(RSWallDecoration.class)
-public abstract class RSWallDecorationMixin implements RSWallDecoration {
+public abstract class RSWallDecorationMixin implements RSWallDecoration
+{
 	@Shadow("client")
 	private static RSClient client;
 
@@ -24,29 +24,36 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration {
 
 	@Inject
 	@Override
-	public int getPlane() {
+	public int getPlane()
+	{
 		return decorativeObjectPlane;
 	}
 
 	@Inject
 	@Override
-	public void setPlane(int plane) {
+	public void setPlane(int plane)
+	{
 		this.decorativeObjectPlane = plane;
 	}
 
 	@Inject
 	@Override
-	public RSModel getModel1() {
+	public RSModel getModel1()
+	{
 		RSEntity renderable = getEntity1();
-		if (renderable == null) {
+		if (renderable == null)
+		{
 			return null;
 		}
 
 		RSModel model;
 
-		if (renderable instanceof Model) {
+		if (renderable instanceof Model)
+		{
 			model = (RSModel) renderable;
-		} else {
+		}
+		else
+		{
 			model = renderable.getModel();
 		}
 
@@ -55,17 +62,22 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration {
 
 	@Inject
 	@Override
-	public RSModel getModel2() {
+	public RSModel getModel2()
+	{
 		RSEntity renderable = getEntity2();
-		if (renderable == null) {
+		if (renderable == null)
+		{
 			return null;
 		}
 
 		RSModel model;
 
-		if (renderable instanceof Model) {
+		if (renderable instanceof Model)
+		{
 			model = (RSModel) renderable;
-		} else {
+		}
+		else
+		{
 			model = renderable.getModel();
 		}
 
@@ -74,22 +86,26 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration {
 
 	@Inject
 	@Override
-	public Shape getClickbox() {
+	public Shape getClickbox()
+	{
 		LocalPoint lp = getLocalLocation();
 
 		Shape clickboxA = Perspective.getClickbox(client, getModel1(), 0,
-				new LocalPoint(lp.getX() + getXOffset(), lp.getY() + getYOffset()));
+			new LocalPoint(lp.getX() + getXOffset(), lp.getY() + getYOffset()));
 		Shape clickboxB = Perspective.getClickbox(client, getModel2(), 0, lp);
 
-		if (clickboxA == null && clickboxB == null) {
+		if (clickboxA == null && clickboxB == null)
+		{
 			return null;
 		}
 
-		if (clickboxA != null && clickboxB != null) {
+		if (clickboxA != null && clickboxB != null)
+		{
 			return new Shapes(new Shape[]{clickboxA, clickboxB});
 		}
 
-		if (clickboxA != null) {
+		if (clickboxA != null)
+		{
 			return clickboxA;
 		}
 
@@ -98,10 +114,12 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration {
 
 	@Inject
 	@Override
-	public Shape getConvexHull() {
+	public Shape getConvexHull()
+	{
 		RSModel model = getModel1();
 
-		if (model == null) {
+		if (model == null)
+		{
 			return null;
 		}
 
@@ -112,10 +130,12 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration {
 
 	@Inject
 	@Override
-	public Shape getConvexHull2() {
+	public Shape getConvexHull2()
+	{
 		RSModel model = getModel2();
 
-		if (model == null) {
+		if (model == null)
+		{
 			return null;
 		}
 

@@ -7,12 +7,12 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class218 {
 	@ObfuscatedName("su")
 	@ObfuscatedSignature(
-			signature = "Lin;"
+		signature = "Lin;"
 	)
 	public static class238 field2716;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -851382349
+		intValue = -851382349
 	)
 	@Export("WorldMapElement_count")
 	public static int WorldMapElement_count;
@@ -24,13 +24,13 @@ public class class218 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/Throwable;Ljava/lang/String;)Lmo;"
+		signature = "(Ljava/lang/Throwable;Ljava/lang/String;)Lmo;"
 	)
 	@Export("newRunException")
 	public static RunException newRunException(Throwable var0, String var1) {
 		RunException var2;
 		if (var0 instanceof RunException) {
-			var2 = (RunException) var0;
+			var2 = (RunException)var0;
 			var2.message = var2.message + ' ' + var1;
 		} else {
 			var2 = new RunException(var0, var1);
@@ -41,8 +41,8 @@ public class class218 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(IIB)I",
-			garbageValue = "-77"
+		signature = "(IIB)I",
+		garbageValue = "-77"
 	)
 	static int method4178(int var0, int var1) {
 		if (var0 == -2) {

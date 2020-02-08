@@ -25,133 +25,141 @@
 package net.runelite.client.plugins.deathindicator;
 
 import java.time.Instant;
-
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("deathIndicator")
-public interface DeathIndicatorConfig extends Config {
+public interface DeathIndicatorConfig extends Config
+{
 	@ConfigItem(
-			position = 1,
-			keyName = "deathHintArrow",
-			name = "Death Hint Arrow",
-			description = "Configures whether or not to show a hint arrow to death location"
+		position = 1,
+		keyName = "deathHintArrow",
+		name = "Death Hint Arrow",
+		description = "Configures whether or not to show a hint arrow to death location"
 	)
-	default boolean showDeathHintArrow() {
+	default boolean showDeathHintArrow()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 2,
-			keyName = "deathInfoBox",
-			name = "Death InfoBox",
-			description = "Configures whether or not to show item reclaim timer and death world infobox"
+		position = 2,
+		keyName = "deathInfoBox",
+		name = "Death InfoBox",
+		description = "Configures whether or not to show item reclaim timer and death world infobox"
 	)
-	default boolean showDeathInfoBox() {
+	default boolean showDeathInfoBox()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			position = 3,
-			keyName = "deathOnWorldMap",
-			name = "Mark on World Map",
-			description = "Configures whether or not to show death location on the world map"
+		position = 3,
+		keyName = "deathOnWorldMap",
+		name = "Mark on World Map",
+		description = "Configures whether or not to show death location on the world map"
 	)
-	default boolean showDeathOnWorldMap() {
+	default boolean showDeathOnWorldMap()
+	{
 		return true;
 	}
 
 	// Stored Data
 	@ConfigItem(
-			keyName = "deathWorld",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "deathWorld",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int deathWorld() {
+	default int deathWorld()
+	{
 		return -1;
 	}
 
 	@ConfigItem(
-			keyName = "deathWorld",
-			name = "",
-			description = ""
+		keyName = "deathWorld",
+		name = "",
+		description = ""
 	)
 	void deathWorld(int deathWorld);
 
 	@ConfigItem(
-			keyName = "deathLocationX",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "deathLocationX",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int deathLocationX() {
+	default int deathLocationX()
+	{
 		return -1;
 	}
 
 	@ConfigItem(
-			keyName = "deathLocationX",
-			name = "",
-			description = ""
+		keyName = "deathLocationX",
+		name = "",
+		description = ""
 	)
 	void deathLocationX(int deathLocationX);
 
 	@ConfigItem(
-			keyName = "deathLocationY",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "deathLocationY",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int deathLocationY() {
+	default int deathLocationY()
+	{
 		return -1;
 	}
 
 	@ConfigItem(
-			keyName = "deathLocationY",
-			name = "",
-			description = ""
+		keyName = "deathLocationY",
+		name = "",
+		description = ""
 	)
 	void deathLocationY(int deathLocationY);
 
 	@ConfigItem(
-			keyName = "deathLocationPlane",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "deathLocationPlane",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int deathLocationPlane() {
+	default int deathLocationPlane()
+	{
 		return -1;
 	}
 
 	@ConfigItem(
-			keyName = "deathLocationPlane",
-			name = "",
-			description = ""
+		keyName = "deathLocationPlane",
+		name = "",
+		description = ""
 	)
 	void deathLocationPlane(int deathLocationPlane);
 
 	@ConfigItem(
-			keyName = "timeOfDeath",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "timeOfDeath",
+		name = "",
+		description = "",
+		hidden = true
 	)
 	Instant timeOfDeath();
 
 	@ConfigItem(
-			keyName = "timeOfDeath",
-			name = "",
-			description = ""
+		keyName = "timeOfDeath",
+		name = "",
+		description = ""
 	)
 	void timeOfDeath(Instant timeOfDeath);
 
 	@ConfigItem(
-			keyName = "permaBones",
-			name = "Permanent bones",
-			description = "Show right clickable bones with the name of who died permanently, after seeing someone die"
+		keyName = "permaBones",
+		name = "Permanent bones",
+		description = "Show right clickable bones with the name of who died permanently, after seeing someone die"
 	)
-	default boolean permaBones() {
+	default boolean permaBones()
+	{
 		return false;
 	}
 }

@@ -49,8 +49,10 @@ import net.runelite.asm.execution.VariableContext;
 import net.runelite.asm.execution.Variables;
 import net.runelite.asm.signature.Signature;
 
-public class MappingExecutorUtil {
-	public static ParallelExecutorMapping map(Method m1, Method m2) {
+public class MappingExecutorUtil
+{	
+	public static ParallelExecutorMapping map(Method m1, Method m2)
+	{
 		ClassGroup group1 = m1.getClassFile().getGroup();
 		ClassGroup group2 = m2.getClassFile().getGroup();
 
@@ -65,35 +67,37 @@ public class MappingExecutorUtil {
 		Frame frame2 = new Frame(e2, m2);
 		frame2.initialize();
 		e2.frames.add(frame2);
-
+		
 		frame.other = frame2;
 		frame2.other = frame;
-
+		
 		ParallellMappingExecutor parallel = new ParallellMappingExecutor(e, e2);
 		ParallelExecutorMapping mappings = new ParallelExecutorMapping(m1.getClassFile().getGroup(),
-				m2.getClassFile().getGroup());
-
+			m2.getClassFile().getGroup());
+		
 		mappings.m1 = m1;
 		mappings.m2 = m2;
-
+		
 		parallel.mappings = mappings;
 
 		int same = 0;
-		while (parallel.step()) {
+		while (parallel.step())
+		{
 			// get what each frame is paused/exited on
 			InstructionContext p1 = parallel.getP1(), p2 = parallel.getP2();
 
 			assert p1.getInstruction() instanceof MappableInstruction;
 			assert p2.getInstruction() instanceof MappableInstruction;
-
+			
 			MappableInstruction mi1 = (MappableInstruction) p1.getInstruction(),
-					mi2 = (MappableInstruction) p2.getInstruction();
+				mi2 = (MappableInstruction) p2.getInstruction();
 
 			boolean isSame = mi1.isSame(p1, p2);
 			assert isSame == mi2.isSame(p2, p1)
-					: "isSame fail " + p1.getInstruction() + " <> " + p2.getInstruction();
-
-			if (!isSame) {
+				: "isSame fail " + p1.getInstruction() + " <> " + p2.getInstruction();
+			
+			if (!isSame)
+			{
 				mappings.crashed = true;
 				p1.getFrame().stop();
 				p2.getFrame().stop();
@@ -105,26 +109,28 @@ public class MappingExecutorUtil {
 		}
 
 		mappings.same = same;
-
+		
 		return mappings;
 	}
-
-	public static boolean isMappable(InvokeInstruction ii) {
+	
+	public static boolean isMappable(InvokeInstruction ii)
+	{
 		String className;
-
+		
 		net.runelite.asm.pool.Method m = ii.getMethod();
 		className = m.getClazz().getName();
 
 		if (className.startsWith("java/lang/reflect/") || className.startsWith("java/io/") || className.startsWith("java/util/"))
 			return true;
-
+		
 		if (className.startsWith("java/") || className.startsWith("netscape/") || className.startsWith("javax/"))
 			return false;
-
+		
 		return true;
 	}
-
-	public static boolean isInlineable(Instruction i) {
+	
+	public static boolean isInlineable(Instruction i)
+	{
 		if (!(i instanceof InvokeStatic))
 			return false;
 
@@ -134,63 +140,73 @@ public class MappingExecutorUtil {
 
 		return group.findClass(m.getClazz().getName()) != null;
 	}
-
+	
 	public static InstructionContext resolve(
-			InstructionContext ctx,
-			StackContext from // pushed from ctx
-	) {
-		if (ctx.getInstruction() instanceof SetFieldInstruction) {
+		InstructionContext ctx,
+		StackContext from // pushed from ctx
+	)
+	{
+		if (ctx.getInstruction() instanceof SetFieldInstruction)
+		{
 			StackContext s = ctx.getPops().get(0);
 			return resolve(s.getPushed(), s);
 		}
 
-		if (ctx.getInstruction() instanceof ConversionInstruction) {
+		if (ctx.getInstruction() instanceof ConversionInstruction)
+		{
 			// assume it pops one and pushes one
 			StackContext s = ctx.getPops().get(0);
 			return resolve(s.getPushed(), s);
 		}
-
-		if (ctx.getInstruction() instanceof DupInstruction) {
+		
+		if (ctx.getInstruction() instanceof DupInstruction)
+		{
 			DupInstruction d = (DupInstruction) ctx.getInstruction();
 			StackContext s = d.getOriginal(from);
 			return resolve(s.getPushed(), s);
 		}
-
-		if (ctx.getInstruction() instanceof ArrayLoad) {
+		
+		if (ctx.getInstruction() instanceof ArrayLoad)
+		{
 			// might be multidimensional array
 			StackContext s = ctx.getPops().get(1); // the array
 			return resolve(s.getPushed(), s);
 		}
-
-		if (ctx.getInstruction() instanceof LVTInstruction) {
+		
+		if (ctx.getInstruction() instanceof LVTInstruction)
+		{
 			LVTInstruction lvt = (LVTInstruction) ctx.getInstruction();
 			Variables variables = ctx.getVariables();
-
-			if (lvt.store()) {
+			
+			if (lvt.store())
+			{
 				StackContext s = ctx.getPops().get(0); // is this right?
 				return resolve(s.getPushed(), s);
-			} else {
+			}
+			else
+			{
 				VariableContext vctx = variables.get(lvt.getVariableIndex()); // variable being loaded
 				assert vctx != null;
 
 				InstructionContext storedCtx = vctx.getInstructionWhichStored();
 				if (storedCtx == null)
 					return ctx; // initial parameter
-
-				if (vctx.isIsParameter()) {
+				
+				if (vctx.isIsParameter())
+				{
 					// Normally storedCtx being an InvokeInstruction means that this resolves to the
 					// return value of an invoke instruction, but if the variable is a parameter, it means
 					// this storedCtx is the invoke instruction which called this method.
 					assert storedCtx.getInstruction() instanceof InvokeInstruction;
 					// In PME non static functions are never stepped into/aren't inline obfuscated
 					assert storedCtx.getInstruction() instanceof InvokeStatic;
-
+					
 					// Figure out parameter index from variable index.
 					Signature sig = ctx.getFrame().getMethod().getDescriptor(); // signature of current method
 					int paramIndex = 0;
 					for (int lvtIndex = 0 /* static */;
-						 paramIndex < sig.size();
-						 lvtIndex += sig.getTypeOfArg(paramIndex++).getSize())
+						paramIndex < sig.size();
+						lvtIndex += sig.getTypeOfArg(paramIndex++).getSize())
 						if (lvtIndex == lvt.getVariableIndex())
 							break;
 					assert paramIndex < sig.size();
@@ -200,25 +216,29 @@ public class MappingExecutorUtil {
 					StackContext sctx = storedCtx.getPops().get(sig.size() - 1 - paramIndex);
 					return resolve(sctx.getPushed(), sctx);
 				}
-
+				
 				return resolve(storedCtx, null);
 			}
 		}
 
-		if (ctx.getInstruction() instanceof InvokeStatic) {
-			if (from.returnSource != null) {
+		if (ctx.getInstruction() instanceof InvokeStatic)
+		{
+			if (from.returnSource != null)
+			{
 				return resolve(from.returnSource.getPushed(), from.returnSource);
 			}
 		}
-
+		
 		return ctx;
 	}
 
-	public static boolean isMaybeEqual(Type t1, Type t2) {
+	public static boolean isMaybeEqual(Type t1, Type t2)
+	{
 		if (t1.getDimensions() != t2.getDimensions())
 			return false;
 
-		while (t1.getDimensions() > 0) {
+		while (t1.getDimensions() > 0)
+		{
 			t1 = t1.getSubtype();
 			t2 = t2.getSubtype();
 		}
@@ -229,14 +249,16 @@ public class MappingExecutorUtil {
 		return true;
 	}
 
-	public static boolean isMaybeEqual(Signature s1, Signature s2) {
+	public static boolean isMaybeEqual(Signature s1, Signature s2)
+	{
 		if (s1.size() != s2.size())
 			return false;
 
 		if (!isMaybeEqual(s1.getReturnValue(), s2.getReturnValue()))
 			return false;
 
-		for (int i = 0; i < s1.size(); ++i) {
+		for (int i = 0; i < s1.size(); ++i)
+		{
 			Type t1 = s1.getTypeOfArg(i), t2 = s2.getTypeOfArg(i);
 
 			if (!isMaybeEqual(t1, t2))
@@ -246,39 +268,44 @@ public class MappingExecutorUtil {
 		return true;
 	}
 
-	public static boolean isMaybeEqual(ClassFile cf1, ClassFile cf2) {
+	public static boolean isMaybeEqual(ClassFile cf1, ClassFile cf2)
+	{
 		if (cf1 == null && cf2 == null)
 			return true;
-
+		
 		if (cf1 == null || cf2 == null)
 			return false;
-
-		if (cf1.getParent() != null || cf2.getParent() != null) {
+		
+		if (cf1.getParent() != null || cf2.getParent() != null)
+		{
 			if (!isMaybeEqual(cf1.getParent(), cf2.getParent()))
 				return false;
-		} else {
+		}
+		else
+		{
 			// otherwise parents are not our classes
 			if (!cf1.getParentClass().equals(cf2.getParentClass()))
 				return false;
 		}
-
+		
 		Interfaces i1 = cf1.getInterfaces(), i2 = cf2.getInterfaces();
 		if (i1.getInterfaces().size() != i2.getInterfaces().size())
 			return false;
-
+		
 		return true;
 	}
-
-	public static boolean isMaybeEqual(Field f1, Field f2) {
+	
+	public static boolean isMaybeEqual(Field f1, Field f2)
+	{
 		if (f1 == null && f2 == null)
 			return true;
-
+		
 		if (f1 == null || f2 == null)
 			return false;
-
+		
 		if (f1.isStatic() != f2.isStatic())
 			return false;
-
+		
 		return isMaybeEqual(f1.getType(), f2.getType());
 	}
 }

@@ -27,12 +27,12 @@ package net.runelite.client.plugins.cannon;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.coords.WorldPoint;
 
-public enum CannonSpots {
+public enum CannonSpots
+{
 
 	BLOODVELDS(new WorldPoint(2439, 9821, 0), new WorldPoint(2448, 9821, 0), new WorldPoint(2472, 9833, 0), new WorldPoint(2453, 9817, 0)),
 	FIRE_GIANTS(new WorldPoint(2393, 9782, 0), new WorldPoint(2412, 9776, 0), new WorldPoint(2401, 9780, 0)),
@@ -71,15 +71,18 @@ public enum CannonSpots {
 	@Getter(AccessLevel.PACKAGE)
 	private static final List<WorldPoint> cannonSpots = new ArrayList<>();
 
-	static {
-		for (CannonSpots cannonSpot : values()) {
+	static
+	{
+		for (CannonSpots cannonSpot : values())
+		{
 			cannonSpots.addAll(Arrays.asList(cannonSpot.spots));
 		}
 	}
 
 	private final WorldPoint[] spots;
 
-	CannonSpots(WorldPoint... spots) {
+	CannonSpots(WorldPoint... spots)
+	{
 		this.spots = spots;
 	}
 }

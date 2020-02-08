@@ -25,11 +25,11 @@
 package net.runelite.rs.api;
 
 import java.awt.Shape;
-
 import net.runelite.api.Model;
 import net.runelite.mapping.Import;
 
-public interface RSModel extends RSEntity, Model {
+public interface RSModel extends RSEntity, Model
+{
 	@Import("verticesCount")
 	@Override
 	int getVerticesCount();
@@ -166,10 +166,8 @@ public interface RSModel extends RSEntity, Model {
 	Shape getConvexHull(int localX, int localY, int orientation, int tileHeight);
 
 	float[][] getFaceTextureUCoordinates();
-
 	void setFaceTextureUCoordinates(float[][] rl$faceTextureUCoordinates);
 
 	float[][] getFaceTextureVCoordinates();
-
 	void setFaceTextureVCoordinates(float[][] rl$faceTextureVCoordinates);
 }

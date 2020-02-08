@@ -26,7 +26,6 @@ package net.runelite.client.plugins.playerinfo;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,10 +35,12 @@ import net.runelite.api.VarPlayer;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 import net.runelite.client.util.ColorUtil;
 
-public class PlayerInfoCustomIndicator extends InfoBox {
+public class PlayerInfoCustomIndicator extends InfoBox
+{
 	@AllArgsConstructor
 	@Getter(AccessLevel.PACKAGE)
-	enum IndicatorType {
+	enum IndicatorType
+	{
 		HEALTH("Current Hitpoints"),
 		PRAYER("Current Prayer Points"),
 		ENERGY("Current Run Energy"),
@@ -53,7 +54,8 @@ public class PlayerInfoCustomIndicator extends InfoBox {
 	private final Client client;
 	private final IndicatorType type;
 
-	PlayerInfoCustomIndicator(final BufferedImage image, final PlayerInfoPlugin plugin, final Client client, final IndicatorType type) {
+	PlayerInfoCustomIndicator(final BufferedImage image, final PlayerInfoPlugin plugin, final Client client, final IndicatorType type)
+	{
 		super(image, plugin);
 		this.plugin = plugin;
 		this.client = client;
@@ -63,8 +65,10 @@ public class PlayerInfoCustomIndicator extends InfoBox {
 	}
 
 	@Override
-	public String getText() {
-		switch (type) {
+	public String getText()
+	{
+		switch (type)
+		{
 			case HEALTH:
 				return String.valueOf(client.getBoostedSkillLevel(Skill.HITPOINTS));
 			case PRAYER:
@@ -81,9 +85,11 @@ public class PlayerInfoCustomIndicator extends InfoBox {
 	}
 
 	@Override
-	public Color getTextColor() {
+	public Color getTextColor()
+	{
 		float currLvl = 0;
-		switch (type) {
+		switch (type)
+		{
 			case HEALTH:
 				currLvl = client.getBoostedSkillLevel(Skill.HITPOINTS) / (float) client.getRealSkillLevel(Skill.HITPOINTS);
 				break;
@@ -100,18 +106,25 @@ public class PlayerInfoCustomIndicator extends InfoBox {
 				currLvl = 1000; // hacky
 		}
 
-		if (currLvl > 1.0) {
+		if (currLvl > 1.0)
+		{
 			return plugin.getColorHigh();
-		} else if (currLvl > 0.5) {
+		}
+		else if (currLvl > 0.5)
+		{
 			return ColorUtil.colorLerp(plugin.getColorMed(), plugin.getColorHigh(), (currLvl * 2) - 1.0F);
-		} else {
+		}
+		else
+		{
 			return ColorUtil.colorLerp(plugin.getColorLow(), plugin.getColorMed(), (currLvl * 2));
 		}
 	}
 
 	@Override
-	public boolean render() {
-		switch (type) {
+	public boolean render()
+	{
+		switch (type)
+		{
 			case HEALTH:
 				return plugin.isEnableHealth();
 			case PRAYER:

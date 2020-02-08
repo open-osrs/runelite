@@ -26,6 +26,7 @@ package net.runelite.cache.definitions.providers;
 
 import net.runelite.cache.definitions.StructDefinition;
 
-public interface StructProvider {
+public interface StructProvider
+{
 	StructDefinition provide(int structId);
 }

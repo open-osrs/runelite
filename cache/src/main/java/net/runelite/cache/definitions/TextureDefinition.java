@@ -29,7 +29,8 @@ import lombok.Data;
 import net.runelite.cache.definitions.providers.SpriteProvider;
 
 @Data
-public class TextureDefinition {
+public class TextureDefinition
+{
 	public int field1777;
 	public boolean field1778;
 	private int id;
@@ -42,11 +43,13 @@ public class TextureDefinition {
 
 	public transient int[] pixels;
 
-	public boolean method2680(double var1, int var3, SpriteProvider spriteProvider) {
+	public boolean method2680(double var1, int var3, SpriteProvider spriteProvider)
+	{
 		int var5 = var3 * var3;
 		this.pixels = new int[var5];
 
-		for (int var6 = 0; var6 < this.fileIds.length; ++var6) {
+		for (int var6 = 0; var6 < this.fileIds.length; ++var6)
+		{
 			SpriteDefinition var7 = spriteProvider.provide(fileIds[var6], 0);
 			var7.normalize();
 			byte[] var8 = var7.pixelIdx;
@@ -57,51 +60,70 @@ public class TextureDefinition {
 			int var12;
 			int var13;
 			int var14;
-			if ((var10 & -16777216) == 50331648) {
+			if ((var10 & -16777216) == 50331648)
+			{
 				var11 = var10 & 16711935;
 				var12 = var10 >> 8 & 255;
 
-				for (var13 = 0; var13 < var9.length; ++var13) {
+				for (var13 = 0; var13 < var9.length; ++var13)
+				{
 					var14 = var9[var13];
-					if (var14 >> 8 == (var14 & 65535)) {
+					if (var14 >> 8 == (var14 & 65535))
+					{
 						var14 &= 255;
 						var9[var13] = var11 * var14 >> 8 & 16711935 | var12 * var14 & 65280;
 					}
 				}
 			}
 
-			for (var11 = 0; var11 < var9.length; ++var11) {
+			for (var11 = 0; var11 < var9.length; ++var11)
+			{
 				var9[var11] = adjustRGB(var9[var11], var1);
 			}
 
-			if (var6 == 0) {
+			if (var6 == 0)
+			{
 				var11 = 0;
-			} else {
+			}
+			else
+			{
 				var11 = this.field1780[var6 - 1];
 			}
 
-			if (var11 == 0) {
-				if (var3 == var7.getMaxWidth()) {
-					for (var12 = 0; var12 < var5; ++var12) {
+			if (var11 == 0)
+			{
+				if (var3 == var7.getMaxWidth())
+				{
+					for (var12 = 0; var12 < var5; ++var12)
+					{
 						this.pixels[var12] = var9[var8[var12] & 255];
 					}
-				} else if (var7.getMaxWidth() == 64 && var3 == 128) {
+				}
+				else if (var7.getMaxWidth() == 64 && var3 == 128)
+				{
 					var12 = 0;
 
-					for (var13 = 0; var13 < var3; ++var13) {
-						for (var14 = 0; var14 < var3; ++var14) {
+					for (var13 = 0; var13 < var3; ++var13)
+					{
+						for (var14 = 0; var14 < var3; ++var14)
+						{
 							this.pixels[var12++] = var9[var8[(var13 >> 1 << 6) + (var14 >> 1)] & 255];
 						}
 					}
-				} else {
-					if (var7.getMaxWidth() != 128 || var3 != 64) {
+				}
+				else
+				{
+					if (var7.getMaxWidth() != 128 || var3 != 64)
+					{
 						throw new RuntimeException();
 					}
 
 					var12 = 0;
 
-					for (var13 = 0; var13 < var3; ++var13) {
-						for (var14 = 0; var14 < var3; ++var14) {
+					for (var13 = 0; var13 < var3; ++var13)
+					{
+						for (var14 = 0; var14 < var3; ++var14)
+						{
 							this.pixels[var12++] = var9[var8[(var14 << 1) + (var13 << 1 << 7)] & 255];
 						}
 					}
@@ -112,7 +134,8 @@ public class TextureDefinition {
 		return true;
 	}
 
-	static int adjustRGB(int var0, double var1) {
+	static int adjustRGB(int var0, double var1)
+	{
 		double var3 = (double) (var0 >> 16) / 256.0D;
 		double var5 = (double) (var0 >> 8 & 255) / 256.0D;
 		double var7 = (double) (var0 & 255) / 256.0D;

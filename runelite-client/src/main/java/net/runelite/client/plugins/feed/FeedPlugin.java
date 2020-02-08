@@ -26,7 +26,6 @@ package net.runelite.client.plugins.feed;
 
 import com.google.common.base.Suppliers;
 import com.google.inject.Provides;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.temporal.ChronoUnit;
@@ -35,7 +34,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -51,15 +49,16 @@ import net.runelite.http.api.feed.FeedClient;
 import net.runelite.http.api.feed.FeedResult;
 
 @PluginDescriptor(
-		name = "News Feed",
-		description = "Show the latest RuneLite blog posts, OSRS news, and JMod Twitter posts",
-		tags = {"external", "integration", "panel", "twitter"},
-		loadWhenOutdated = true,
-		type = PluginType.MISCELLANEOUS
+	name = "News Feed",
+	description = "Show the latest RuneLite blog posts, OSRS news, and JMod Twitter posts",
+	tags = {"external", "integration", "panel", "twitter"},
+	loadWhenOutdated = true,
+	type = PluginType.MISCELLANEOUS
 )
 @Slf4j
 @Singleton
-public class FeedPlugin extends Plugin {
+public class FeedPlugin extends Plugin
+{
 	@Inject
 	private ClientToolbar clientToolbar;
 
@@ -77,58 +76,68 @@ public class FeedPlugin extends Plugin {
 
 	private final Supplier<FeedResult> feedSupplier = Suppliers.memoizeWithExpiration(() ->
 	{
-		try {
+		try
+		{
 			return feedClient.lookupFeed();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			log.warn(null, e);
 		}
 		return null;
 	}, 10, TimeUnit.MINUTES);
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		feedPanel = new FeedPanel(config, feedSupplier);
 
 		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "icon.png");
 
 		navButton = NavigationButton.builder()
-				.tooltip("News Feed")
-				.icon(icon)
-				.priority(8)
-				.panel(feedPanel)
-				.build();
+			.tooltip("News Feed")
+			.icon(icon)
+			.priority(8)
+			.panel(feedPanel)
+			.build();
 
 		clientToolbar.addNavigation(navButton);
 		executorService.submit(this::updateFeed);
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		clientToolbar.removeNavigation(navButton);
 	}
 
-	private void updateFeed() {
+	private void updateFeed()
+	{
 		feedPanel.rebuildFeed();
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals("feed")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (event.getGroup().equals("feed"))
+		{
 			executorService.submit(this::updateFeed);
 		}
 	}
 
 	@Schedule(
-			period = 10,
-			unit = ChronoUnit.MINUTES,
-			asynchronous = true
+		period = 10,
+		unit = ChronoUnit.MINUTES,
+		asynchronous = true
 	)
-	public void updateFeedTask() {
+	public void updateFeedTask()
+	{
 		updateFeed();
 	}
 
 	@Provides
-	FeedConfig provideConfig(ConfigManager configManager) {
+	FeedConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(FeedConfig.class);
 	}
 }

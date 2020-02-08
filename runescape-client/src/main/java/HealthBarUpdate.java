@@ -1,5 +1,4 @@
 import java.util.Date;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -12,25 +11,25 @@ import net.runelite.rs.ScriptOpcodes;
 public class HealthBarUpdate extends Node {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 2058375931
+		intValue = 2058375931
 	)
 	@Export("cycle")
 	int cycle;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -309904715
+		intValue = -309904715
 	)
 	@Export("health")
 	int health;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = 362852511
+		intValue = 362852511
 	)
 	@Export("health2")
 	int health2;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 1829739139
+		intValue = 1829739139
 	)
 	@Export("cycleOffset")
 	int cycleOffset;
@@ -44,8 +43,8 @@ public class HealthBarUpdate extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(IIIIB)V",
-			garbageValue = "-75"
+		signature = "(IIIIB)V",
+		garbageValue = "-75"
 	)
 	@Export("set")
 	void set(int var1, int var2, int var3, int var4) {
@@ -75,8 +74,8 @@ public class HealthBarUpdate extends Node {
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "-601302979"
+		signature = "(ILce;ZI)I",
+		garbageValue = "-601302979"
 	)
 	static int method1759(int var0, Script var1, boolean var2) {
 		if (var0 == ScriptOpcodes.GETWINDOWMODE) {

@@ -25,47 +25,47 @@
 package net.runelite.client.plugins.reorderprayers;
 
 import net.runelite.api.Prayer;
-
 import static net.runelite.api.Prayer.*;
 import static org.junit.Assert.assertArrayEquals;
-
 import org.junit.Test;
 
-public class ReorderPrayersPluginTest {
+public class ReorderPrayersPluginTest
+{
 	private static final Prayer[] PRAYER_ORDER = new Prayer[]{
-			THICK_SKIN,
-			BURST_OF_STRENGTH,
-			CLARITY_OF_THOUGHT,
-			SHARP_EYE,
-			MYSTIC_WILL,
-			ROCK_SKIN,
-			SUPERHUMAN_STRENGTH,
-			IMPROVED_REFLEXES,
-			RAPID_RESTORE,
-			RAPID_HEAL,
-			PROTECT_ITEM,
-			HAWK_EYE,
-			MYSTIC_LORE,
-			STEEL_SKIN,
-			ULTIMATE_STRENGTH,
-			INCREDIBLE_REFLEXES,
-			PROTECT_FROM_MAGIC,
-			PROTECT_FROM_MISSILES,
-			PROTECT_FROM_MELEE,
-			EAGLE_EYE,
-			MYSTIC_MIGHT,
-			RETRIBUTION,
-			REDEMPTION,
-			SMITE,
-			CHIVALRY,
-			PIETY,
-			PRESERVE,
-			RIGOUR,
-			AUGURY
+		THICK_SKIN,
+		BURST_OF_STRENGTH,
+		CLARITY_OF_THOUGHT,
+		SHARP_EYE,
+		MYSTIC_WILL,
+		ROCK_SKIN,
+		SUPERHUMAN_STRENGTH,
+		IMPROVED_REFLEXES,
+		RAPID_RESTORE,
+		RAPID_HEAL,
+		PROTECT_ITEM,
+		HAWK_EYE,
+		MYSTIC_LORE,
+		STEEL_SKIN,
+		ULTIMATE_STRENGTH,
+		INCREDIBLE_REFLEXES,
+		PROTECT_FROM_MAGIC,
+		PROTECT_FROM_MISSILES,
+		PROTECT_FROM_MELEE,
+		EAGLE_EYE,
+		MYSTIC_MIGHT,
+		RETRIBUTION,
+		REDEMPTION,
+		SMITE,
+		CHIVALRY,
+		PIETY,
+		PRESERVE,
+		RIGOUR,
+		AUGURY
 	};
 
 	@Test
-	public void testPrayerOrder() {
+	public void testPrayerOrder()
+	{
 		// the reorder prayers plugin depends on the Prayer enum order
 		assertArrayEquals(Prayer.values(), PRAYER_ORDER);
 	}

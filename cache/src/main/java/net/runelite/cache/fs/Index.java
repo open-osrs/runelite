@@ -27,7 +27,6 @@ package net.runelite.cache.fs;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import net.runelite.cache.index.ArchiveData;
 import net.runelite.cache.index.FileData;
 import net.runelite.cache.index.IndexData;
@@ -35,7 +34,8 @@ import net.runelite.cache.util.Djb2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Index {
+public class Index
+{
 	private static final Logger logger = LoggerFactory.getLogger(Index.class);
 
 	private final int id;
@@ -48,12 +48,14 @@ public class Index {
 
 	private final List<Archive> archives = new ArrayList<>();
 
-	public Index(int id) {
+	public Index(int id)
+	{
 		this.id = id;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 3;
 		hash = 97 * hash + this.id;
 		hash = 97 * hash + this.revision;
@@ -62,100 +64,126 @@ public class Index {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final Index other = (Index) obj;
-		if (this.id != other.id) {
+		if (this.id != other.id)
+		{
 			return false;
 		}
-		if (this.revision != other.revision) {
+		if (this.revision != other.revision)
+		{
 			return false;
 		}
-		if (!Objects.equals(this.archives, other.archives)) {
+		if (!Objects.equals(this.archives, other.archives))
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public int getProtocol() {
+	public int getProtocol()
+	{
 		return protocol;
 	}
 
-	public void setProtocol(int protocol) {
+	public void setProtocol(int protocol)
+	{
 		this.protocol = protocol;
 	}
 
-	public boolean isNamed() {
+	public boolean isNamed()
+	{
 		return named;
 	}
 
-	public void setNamed(boolean named) {
+	public void setNamed(boolean named)
+	{
 		this.named = named;
 	}
 
-	public int getRevision() {
+	public int getRevision()
+	{
 		return revision;
 	}
 
-	public void setRevision(int revision) {
+	public void setRevision(int revision)
+	{
 		this.revision = revision;
 	}
 
-	public int getCrc() {
+	public int getCrc()
+	{
 		return crc;
 	}
 
-	public void setCrc(int crc) {
+	public void setCrc(int crc)
+	{
 		this.crc = crc;
 	}
 
-	public int getCompression() {
+	public int getCompression()
+	{
 		return compression;
 	}
 
-	public void setCompression(int compression) {
+	public void setCompression(int compression)
+	{
 		this.compression = compression;
 	}
 
-	public List<Archive> getArchives() {
+	public List<Archive> getArchives()
+	{
 		return archives;
 	}
 
-	public Archive addArchive(int id) {
+	public Archive addArchive(int id)
+	{
 		Archive archive = new Archive(this, id);
 		this.archives.add(archive);
 		return archive;
 	}
 
-	public Archive getArchive(int id) {
-		for (Archive a : archives) {
-			if (a.getArchiveId() == id) {
+	public Archive getArchive(int id)
+	{
+		for (Archive a : archives)
+		{
+			if (a.getArchiveId() == id)
+			{
 				return a;
 			}
 		}
 		return null;
 	}
 
-	public Archive findArchiveByName(String name) {
+	public Archive findArchiveByName(String name)
+	{
 		int hash = Djb2.hash(name);
-		for (Archive a : archives) {
-			if (a.getNameHash() == hash) {
+		for (Archive a : archives)
+		{
+			if (a.getNameHash() == hash)
+			{
 				return a;
 			}
 		}
 		return null;
 	}
 
-	public IndexData toIndexData() {
+	public IndexData toIndexData()
+	{
 		IndexData data = new IndexData();
 		data.setProtocol(protocol);
 		data.setRevision(revision);
@@ -165,7 +193,8 @@ public class Index {
 		data.setArchives(archiveDatas);
 
 		int idx = 0;
-		for (Archive archive : archives) {
+		for (Archive archive : archives)
+		{
 			ArchiveData ad = archiveDatas[idx++] = new ArchiveData();
 			ad.setId(archive.getArchiveId());
 			ad.setNameHash(archive.getNameHash());

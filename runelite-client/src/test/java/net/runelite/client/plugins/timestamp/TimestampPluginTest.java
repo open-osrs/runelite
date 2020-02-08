@@ -27,27 +27,22 @@ package net.runelite.client.plugins.timestamp;
 import com.google.inject.Guice;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import java.util.TimeZone;
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.events.ConfigChanged;
-
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TimestampPluginTest {
+public class TimestampPluginTest
+{
 	@Mock
 	@Bind
 	Client client;
@@ -64,12 +59,14 @@ public class TimestampPluginTest {
 	TimestampPlugin plugin;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 	}
 
 	@Test
-	public void testGenerateTimestamp() {
+	public void testGenerateTimestamp()
+	{
 		when(config.timestampFormat()).thenReturn("[yyyy:MM:dd:HH:hh:mm:ss]");
 
 		ConfigChanged configChanged = new ConfigChanged();

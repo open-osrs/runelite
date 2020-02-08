@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.timetracking.clocks;
 
 import java.time.Instant;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,22 +33,26 @@ import lombok.Setter;
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-class Timer extends Clock {
+class Timer extends Clock
+{
 	// the total number of seconds that the timer should run for
 	private long duration;
 
 	// the number of seconds remaining on the timer, as of last updated time
 	private long remaining;
 
-	Timer(String name, long duration) {
+	Timer(String name, long duration)
+	{
 		super(name);
 		this.duration = duration;
 		this.remaining = duration;
 	}
 
 	@Override
-	long getDisplayTime() {
-		if (!active) {
+	long getDisplayTime()
+	{
+		if (!active)
+		{
 			return remaining;
 		}
 
@@ -57,9 +60,12 @@ class Timer extends Clock {
 	}
 
 	@Override
-	boolean start() {
-		if (!active && duration > 0) {
-			if (remaining <= 0) {
+	boolean start()
+	{
+		if (!active && duration > 0)
+		{
+			if (remaining <= 0)
+			{
 				remaining = duration;
 			}
 			lastUpdate = Instant.now().getEpochSecond();
@@ -71,8 +77,10 @@ class Timer extends Clock {
 	}
 
 	@Override
-	boolean pause() {
-		if (active) {
+	boolean pause()
+	{
+		if (active)
+		{
 			active = false;
 			remaining = Math.max(0, remaining - (Instant.now().getEpochSecond() - lastUpdate));
 			lastUpdate = Instant.now().getEpochSecond();
@@ -83,7 +91,8 @@ class Timer extends Clock {
 	}
 
 	@Override
-	void reset() {
+	void reset()
+	{
 		active = false;
 		remaining = duration;
 		lastUpdate = Instant.now().getEpochSecond();

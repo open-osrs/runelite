@@ -38,12 +38,14 @@ import net.runelite.rs.api.RSPlayer;
 import net.runelite.rs.api.RSProjectile;
 
 @Mixin(RSProjectile.class)
-public abstract class RSProjectileMixin implements RSProjectile {
+public abstract class RSProjectileMixin implements RSProjectile
+{
 	@Shadow("client")
 	private static RSClient client;
 
 	@Inject
-	RSProjectileMixin() {
+	RSProjectileMixin()
+	{
 		final ProjectileSpawned projectileSpawned = new ProjectileSpawned();
 		projectileSpawned.setProjectile(this);
 		client.getCallbacks().post(ProjectileSpawned.class, projectileSpawned);
@@ -51,7 +53,8 @@ public abstract class RSProjectileMixin implements RSProjectile {
 
 	@Inject
 	@Override
-	public int getRemainingCycles() {
+	public int getRemainingCycles()
+	{
 		int currentGameCycle = client.getGameCycle();
 
 		return getEndCycle() - currentGameCycle;
@@ -59,20 +62,26 @@ public abstract class RSProjectileMixin implements RSProjectile {
 
 	@Inject
 	@Override
-	public Actor getInteracting() {
+	public Actor getInteracting()
+	{
 		int interactingIndex = getRsInteracting();
-		if (interactingIndex == 0) {
+		if (interactingIndex == 0)
+		{
 			return null;
 		}
 
-		if (interactingIndex > 0) {
+		if (interactingIndex > 0)
+		{
 			int idx = interactingIndex - 1;
 			RSNPC[] npcs = client.getCachedNPCs();
 			return npcs[idx];
-		} else {
+		}
+		else
+		{
 			int idx = -interactingIndex - 1;
 
-			if (idx == client.getLocalInteractingIndex()) {
+			if (idx == client.getLocalInteractingIndex())
+			{
 				return client.getLocalPlayer();
 			}
 
@@ -93,7 +102,8 @@ public abstract class RSProjectileMixin implements RSProjectile {
 	 */
 	@Inject
 	@MethodHook("setDestination")
-	public void projectileMoved(int targetX, int targetY, int targetZ, int cycle) {
+	public void projectileMoved(int targetX, int targetY, int targetZ, int cycle)
+	{
 		final LocalPoint position = new LocalPoint(targetX, targetY);
 		final ProjectileMoved projectileMoved = new ProjectileMoved();
 		projectileMoved.setProjectile(this);

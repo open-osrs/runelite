@@ -25,7 +25,6 @@
 package net.runelite.api.events;
 
 import javax.annotation.Nullable;
-
 import lombok.Value;
 import net.runelite.api.GameObject;
 import net.runelite.api.coords.WorldPoint;
@@ -34,7 +33,8 @@ import net.runelite.api.coords.WorldPoint;
  * an event posted when a cannonball is fired
  */
 @Value
-public class CannonPlaced implements Event {
+public class CannonPlaced implements Event
+{
 	/**
 	 * Cannon placed or picked up.
 	 */

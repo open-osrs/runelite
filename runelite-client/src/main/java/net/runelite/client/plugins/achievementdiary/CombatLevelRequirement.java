@@ -30,11 +30,13 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public class CombatLevelRequirement implements Requirement {
+public class CombatLevelRequirement implements Requirement
+{
 	private final int level;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return level + " " + "Combat";
 	}
 }

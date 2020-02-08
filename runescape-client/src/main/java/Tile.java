@@ -1,7 +1,6 @@
 import java.awt.Desktop;
 import java.awt.Desktop.Action;
 import java.net.URI;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -13,73 +12,73 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class Tile extends Node {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -477020471
+		intValue = -477020471
 	)
 	@Export("plane")
 	int plane;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -1716517237
+		intValue = -1716517237
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = 1137721201
+		intValue = 1137721201
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -2077595523
+		intValue = -2077595523
 	)
 	@Export("originalPlane")
 	int originalPlane;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lee;"
+		signature = "Lee;"
 	)
 	@Export("paint")
 	TilePaint paint;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Ldt;"
+		signature = "Ldt;"
 	)
 	@Export("model")
 	TileModel model;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "Leu;"
+		signature = "Leu;"
 	)
 	@Export("boundaryObject")
 	BoundaryObject boundaryObject;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "Len;"
+		signature = "Len;"
 	)
 	@Export("wallDecoration")
 	WallDecoration wallDecoration;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "Ldu;"
+		signature = "Ldu;"
 	)
 	@Export("floorDecoration")
 	FloorDecoration floorDecoration;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "Ldk;"
+		signature = "Ldk;"
 	)
 	@Export("tileItemPile")
 	TileItemPile tileItemPile;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-			intValue = -1422843585
+		intValue = -1422843585
 	)
 	@Export("gameObjectsCount")
 	int gameObjectsCount;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "[Lea;"
+		signature = "[Lea;"
 	)
 	@Export("gameObjects")
 	GameObject[] gameObjects;
@@ -88,13 +87,13 @@ public final class Tile extends Node {
 	int[] gameObjectEdgeMasks;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-			intValue = 848654297
+		intValue = 848654297
 	)
 	@Export("gameObjectsEdgeMask")
 	int gameObjectsEdgeMask;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-			intValue = -2052178019
+		intValue = -2052178019
 	)
 	@Export("minPlane")
 	int minPlane;
@@ -109,28 +108,28 @@ public final class Tile extends Node {
 	boolean drawGameObjects;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-			intValue = 902411349
+		intValue = 902411349
 	)
 	@Export("drawGameObjectEdges")
 	int drawGameObjectEdges;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-			intValue = -381817665
+		intValue = -381817665
 	)
 	int field1650;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-			intValue = 1422099387
+		intValue = 1422099387
 	)
 	int field1640;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-			intValue = -1581215505
+		intValue = -1581215505
 	)
 	int field1652;
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-			signature = "Ldz;"
+		signature = "Ldz;"
 	)
 	@Export("linkedBelowTile")
 	Tile linkedBelowTile;
@@ -146,8 +145,8 @@ public final class Tile extends Node {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;ZLjava/lang/String;ZB)V",
-			garbageValue = "20"
+		signature = "(Ljava/lang/String;ZLjava/lang/String;ZB)V",
+		garbageValue = "20"
 	)
 	static void method2927(String var0, boolean var1, String var2, boolean var3) {
 		if (var1) {
@@ -178,6 +177,6 @@ public final class Tile extends Node {
 
 	@ObfuscatedName("l")
 	public static int method2926(long var0) {
-		return (int) (var0 >>> 14 & 3L);
+		return (int)(var0 >>> 14 & 3L);
 	}
 }

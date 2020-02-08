@@ -5,10 +5,8 @@ import net.runelite.api.Point;
 import net.runelite.api.TileObject;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Mixins;
@@ -21,62 +19,71 @@ import net.runelite.rs.api.RSTileItemPile;
 import net.runelite.rs.api.RSWallDecoration;
 
 @Mixins({
-		@Mixin(RSWallDecoration.class),
-		@Mixin(RSGameObject.class),
-		@Mixin(RSFloorDecoration.class),
-		@Mixin(RSTileItemPile.class),
-		@Mixin(RSBoundaryObject.class)
+	@Mixin(RSWallDecoration.class),
+	@Mixin(RSGameObject.class),
+	@Mixin(RSFloorDecoration.class),
+	@Mixin(RSTileItemPile.class),
+	@Mixin(RSBoundaryObject.class)
 })
-public abstract class RSTileObjectMixin implements TileObject {
+public abstract class RSTileObjectMixin implements TileObject
+{
 	@Shadow("client")
 	private static RSClient client;
 
 	@Override
 	@Inject
-	public int getId() {
+	public int getId()
+	{
 		long hash = getHash();
 		return (int) (hash >>> 17 & 4294967295L);
 	}
 
 	@Override
 	@Inject
-	public WorldPoint getWorldLocation() {
+	public WorldPoint getWorldLocation()
+	{
 		return WorldPoint.fromLocal(client, getX(), getY(), getPlane());
 	}
 
 	@Override
 	@Inject
-	public LocalPoint getLocalLocation() {
+	public LocalPoint getLocalLocation()
+	{
 		return new LocalPoint(getX(), getY());
 	}
 
 	@Override
 	@Inject
-	public Point getCanvasLocation() {
+	public Point getCanvasLocation()
+	{
 		return getCanvasLocation(0);
 	}
 
 	@Override
 	@Inject
-	public Point getCanvasLocation(int zOffset) {
+	public Point getCanvasLocation(int zOffset)
+	{
 		return Perspective.localToCanvas(client, getLocalLocation(), getPlane(), zOffset);
 	}
 
 	@Override
 	@Inject
-	public Polygon getCanvasTilePoly() {
+	public Polygon getCanvasTilePoly()
+	{
 		return Perspective.getCanvasTilePoly(client, getLocalLocation());
 	}
 
 	@Override
 	@Inject
-	public Point getCanvasTextLocation(Graphics2D graphics, String text, int zOffset) {
+	public Point getCanvasTextLocation(Graphics2D graphics, String text, int zOffset)
+	{
 		return Perspective.getCanvasTextLocation(client, graphics, getLocalLocation(), text, zOffset);
 	}
 
 	@Override
 	@Inject
-	public Point getMinimapLocation() {
+	public Point getMinimapLocation()
+	{
 		return Perspective.localToMinimap(client, getLocalLocation());
 	}
 }

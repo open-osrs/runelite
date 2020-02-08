@@ -13,12 +13,10 @@
 package net.runelite.client.plugins.whalewatchers;
 
 import com.google.inject.Provides;
-
 import java.util.EnumSet;
 import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ChatMessageType;
@@ -31,9 +29,7 @@ import net.runelite.api.SkullIcon;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
-
 import static net.runelite.api.WorldType.isPvpWorld;
-
 import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.HitsplatApplied;
@@ -54,15 +50,16 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import org.apache.commons.lang3.ObjectUtils;
 
 @PluginDescriptor(
-		name = "Whale Watchers",
-		description = "A Plugin to save help whales in the wild",
-		tags = {"whale watchers", "whale", "protect item", "warning", "pklite", "pneck"},
-		type = PluginType.PVP,
-		enabledByDefault = false
+	name = "Whale Watchers",
+	description = "A Plugin to save help whales in the wild",
+	tags = {"whale watchers", "whale", "protect item", "warning", "pklite", "pneck"},
+	type = PluginType.PVP,
+	enabledByDefault = false
 )
 
 @Singleton
-public class WhaleWatchersPlugin extends Plugin {
+public class WhaleWatchersPlugin extends Plugin
+{
 	private static final String BROKEN_PNECK_MESSAGE = "<col=ef1020>Your phoenix necklace heals you, but is destroyed in the process.</col>";
 	boolean protectItemOverlay = false;
 	int damageDone = 0;
@@ -109,19 +106,23 @@ public class WhaleWatchersPlugin extends Plugin {
 	private boolean pneckBreak;
 
 	@Provides
-	WhaleWatchersConfig getConfig(ConfigManager configManager) {
+	WhaleWatchersConfig getConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(WhaleWatchersConfig.class);
 	}
 
 	@Subscribe
-	private void onOverlayMenuClicked(OverlayMenuClicked event) {
-		if (event.getOverlay().equals(overlay) && event.getEntry().getOption().equals("Reset")) {
+	private void onOverlayMenuClicked(OverlayMenuClicked event)
+	{
+		if (event.getOverlay().equals(overlay) && event.getEntry().getOption().equals("Reset"))
+		{
 			resetDamageCounter();
 		}
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 
 		overlayManager.add(overlay);
@@ -131,7 +132,8 @@ public class WhaleWatchersPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		overlayManager.remove(whaleWatchersProtOverlay);
 		overlayManager.remove(whaleWatchersSmiteableOverlay);
@@ -140,44 +142,57 @@ public class WhaleWatchersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("WhaleWatchers")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("WhaleWatchers"))
+		{
 			return;
 		}
 
 		updateConfig();
 
-		if (!this.protectItemWarning) {
+		if (!this.protectItemWarning)
+		{
 			protectItemOverlay = false;
 		}
-		if (!this.gloryWarning) {
+		if (!this.gloryWarning)
+		{
 			displayGloryOverlay = false;
 		}
-		if (!this.smiteableWarning) {
+		if (!this.smiteableWarning)
+		{
 			displaySmiteOverlay = false;
 		}
 	}
 
 	@Subscribe
-	private void onChatMessage(ChatMessage event) {
-		if (this.pneckBreak && event.getType() == ChatMessageType.GAMEMESSAGE && event.getMessage().equals(BROKEN_PNECK_MESSAGE)) {
+	private void onChatMessage(ChatMessage event)
+	{
+		if (this.pneckBreak && event.getType() == ChatMessageType.GAMEMESSAGE && event.getMessage().equals(BROKEN_PNECK_MESSAGE))
+		{
 			soundManager.playSound(Sound.BREAK);
 		}
 	}
 
 	@Subscribe
-	private void onHitsplatApplied(HitsplatApplied event) {
-		if (this.showDamageCounter) {
+	private void onHitsplatApplied(HitsplatApplied event)
+	{
+		if (this.showDamageCounter)
+		{
 			if (!(event.getActor() == client.getLocalPlayer() ||
-					event.getActor() == client.getLocalPlayer().getInteracting())) {
+				event.getActor() == client.getLocalPlayer().getInteracting()))
+			{
 				return;
 			}
-			if (isAttackingPlayer() || inCombat) {
+			if (isAttackingPlayer() || inCombat)
+			{
 				inCombat = true;
-				if (event.getActor() == client.getLocalPlayer()) {
+				if (event.getActor() == client.getLocalPlayer())
+				{
 					damageTaken += event.getHitsplat().getAmount();
 				}
-				if (event.getActor() == client.getLocalPlayer().getInteracting()) {
+				if (event.getActor() == client.getLocalPlayer().getInteracting())
+				{
 					damageDone += event.getHitsplat().getAmount();
 				}
 			}
@@ -185,47 +200,64 @@ public class WhaleWatchersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onItemContainerChanged(ItemContainerChanged event) {
-		if (this.gloryWarning && event.getItemContainer() == client.getItemContainer(InventoryID.EQUIPMENT)) {
+	private void onItemContainerChanged(ItemContainerChanged event)
+	{
+		if (this.gloryWarning && event.getItemContainer() == client.getItemContainer(InventoryID.EQUIPMENT))
+		{
 			final int amuletID = ObjectUtils.defaultIfNull(client.getLocalPlayer()
-					.getPlayerAppearance().getEquipmentId(KitType.AMULET), 0);
+				.getPlayerAppearance().getEquipmentId(KitType.AMULET), 0);
 			displayGloryOverlay = amuletID == ItemID.AMULET_OF_GLORY;
-		} else {
+		}
+		else
+		{
 			displayGloryOverlay = false;
 		}
 	}
 
 	@Subscribe
-	private void onMenuOptionClicked(MenuOptionClicked event) {
-		if (this.showDamageCounter && event.getMenuOpcode().equals(MenuOpcode.SPELL_CAST_ON_PLAYER)) {
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		if (this.showDamageCounter && event.getMenuOpcode().equals(MenuOpcode.SPELL_CAST_ON_PLAYER))
+		{
 			inCombat = true;
 		}
 	}
 
 	@Subscribe
-	private void onVarbitChanged(VarbitChanged event) {
-		if (this.showDamageCounter && client.getVar(VarPlayer.ATTACKING_PLAYER) == -1 && inCombat) {
+	private void onVarbitChanged(VarbitChanged event)
+	{
+		if (this.showDamageCounter && client.getVar(VarPlayer.ATTACKING_PLAYER) == -1 && inCombat)
+		{
 			tickCountdown = 10;
 		}
 
-		if (this.protectItemWarning) {
-			try {
+		if (this.protectItemWarning)
+		{
+			try
+			{
 				final SkullIcon skullIcon = Objects.requireNonNull(client.getLocalPlayer().getSkullIcon());
 				final EnumSet<WorldType> worldTypes = client.getWorldType();
-				if (WorldType.isHighRiskWorld(worldTypes)) {
+				if (WorldType.isHighRiskWorld(worldTypes))
+				{
 					protectItemOverlay = false;
 					return;
 				}
-				if (skullIcon.equals(SkullIcon.SKULL)) {
+				if (skullIcon.equals(SkullIcon.SKULL))
+				{
 					if (WorldType.isPvpWorld(worldTypes) || WorldType.isDeadmanWorld(worldTypes) ||
-							client.getVar(Varbits.IN_WILDERNESS) == 1) {
+						client.getVar(Varbits.IN_WILDERNESS) == 1)
+					{
 						protectItemOverlay = client.getRealSkillLevel(Skill.PRAYER) > 25 &&
-								client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 0;
-					} else {
+							client.getVar(Varbits.PRAYER_PROTECT_ITEM) == 0;
+					}
+					else
+					{
 						protectItemOverlay = false;
 					}
 				}
-			} catch (NullPointerException e) {
+			}
+			catch (NullPointerException e)
+			{
 				// local player isn't skulled
 			}
 
@@ -233,24 +265,33 @@ public class WhaleWatchersPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
-		if (this.showDamageCounter && tickCountdown > 0 && tickCountdown < 11) {
+	private void onGameTick(GameTick event)
+	{
+		if (this.showDamageCounter && tickCountdown > 0 && tickCountdown < 11)
+		{
 			tickCountdown--;
-			if (tickCountdown == 1) {
+			if (tickCountdown == 1)
+			{
 				inCombat = false;
 				resetDamageCounter();
 				return;
 			}
 		}
-		if (this.smiteableWarning && (client.getVar(Varbits.IN_WILDERNESS) == 1 || isPvpWorld(client.getWorldType()))) {
-			if (client.getLocalPlayer().getSkullIcon() != null && client.getLocalPlayer().getSkullIcon().equals(SkullIcon.SKULL)) {
+		if (this.smiteableWarning && (client.getVar(Varbits.IN_WILDERNESS) == 1 || isPvpWorld(client.getWorldType())))
+		{
+			if (client.getLocalPlayer().getSkullIcon() != null && client.getLocalPlayer().getSkullIcon().equals(SkullIcon.SKULL))
+			{
 				final int currentHealth = client.getLocalPlayer().getHealth();
 				final int currentPrayer = client.getBoostedSkillLevel(Skill.PRAYER);
 				displaySmiteOverlay = currentPrayer <= (Math.ceil(currentHealth / 4));
-			} else {
+			}
+			else
+			{
 				displaySmiteOverlay = false;
 			}
-		} else {
+		}
+		else
+		{
 			displaySmiteOverlay = false;
 		}
 	}
@@ -260,20 +301,24 @@ public class WhaleWatchersPlugin extends Plugin {
 	 *
 	 * @return returns true if they are, false otherwise
 	 */
-	private boolean isAttackingPlayer() {
-		if (client.getVar(Varbits.IN_WILDERNESS) == 1 && client.getLocalPlayer().getInteracting() != null) {
+	private boolean isAttackingPlayer()
+	{
+		if (client.getVar(Varbits.IN_WILDERNESS) == 1 && client.getLocalPlayer().getInteracting() != null)
+		{
 			return true;
 		}
 		int varp = client.getVar(VarPlayer.ATTACKING_PLAYER);
 		return varp != -1;
 	}
 
-	private void resetDamageCounter() {
+	private void resetDamageCounter()
+	{
 		damageTaken = 0;
 		damageDone = 0;
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.protectItemWarning = config.protectItemWarning();
 		this.lessObnoxiousProtWarning = config.lessObnoxiousProtWarning();
 		this.showDamageCounter = config.showDamageCounter();

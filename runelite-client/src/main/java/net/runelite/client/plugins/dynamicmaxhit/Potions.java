@@ -30,7 +30,8 @@ import net.runelite.http.api.hiscore.HiscoreSkill;
 
 @Getter(AccessLevel.PACKAGE)
 @AllArgsConstructor
-public enum Potions {
+public enum Potions
+{
 	SUPER_COMBAT("Super Combat", 5, 0.15, HiscoreSkill.STRENGTH),
 	RANGING_POTION("Ranging Potion", 4, 0.10, HiscoreSkill.RANGED);
 

@@ -10,37 +10,37 @@ import net.runelite.rs.ScriptOpcodes;
 public class PacketBufferNode extends Node {
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "[Lgs;"
+		signature = "[Lgs;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -1322970171
+		intValue = -1322970171
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
 	static int PacketBufferNode_packetBufferNodeCount;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lgi;"
+		signature = "Lgi;"
 	)
 	@Export("clientPacket")
 	public ClientPacket clientPacket;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 631809601
+		intValue = 631809601
 	)
 	@Export("clientPacketLength")
 	public int clientPacketLength;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lks;"
+		signature = "Lks;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -1165954463
+		intValue = -1165954463
 	)
 	@Export("index")
 	public int index;
@@ -55,8 +55,8 @@ public class PacketBufferNode extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "660241360"
+		signature = "(I)V",
+		garbageValue = "660241360"
 	)
 	@Export("release")
 	public void release() {
@@ -67,12 +67,12 @@ public class PacketBufferNode extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(II)Lis;",
-			garbageValue = "-694311044"
+		signature = "(II)Lis;",
+		garbageValue = "-694311044"
 	)
 	@Export("getParamDefinition")
 	public static ParamDefinition getParamDefinition(int var0) {
-		ParamDefinition var1 = (ParamDefinition) ParamDefinition.ParamDefinition_cached.get((long) var0);
+		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -83,15 +83,15 @@ public class PacketBufferNode extends Node {
 			}
 
 			var1.postDecode();
-			ParamDefinition.ParamDefinition_cached.put(var1, (long) var0);
+			ParamDefinition.ParamDefinition_cached.put(var1, (long)var0);
 			return var1;
 		}
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(II)Lim;",
-			garbageValue = "1232972358"
+		signature = "(II)Lim;",
+		garbageValue = "1232972358"
 	)
 	@Export("WorldMapElement_get")
 	public static WorldMapElement WorldMapElement_get(int var0) {
@@ -100,8 +100,8 @@ public class PacketBufferNode extends Node {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "1259067102"
+		signature = "(ILce;ZI)I",
+		garbageValue = "1259067102"
 	)
 	static int method3697(int var0, Script var1, boolean var2) {
 		Widget var3 = var2 ? class186.field2331 : MidiPcmStream.field2444;

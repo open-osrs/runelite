@@ -26,12 +26,10 @@ package net.runelite.http.api.account;
 
 import com.google.gson.JsonParseException;
 import io.reactivex.Observable;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.UUID;
-
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
 import okhttp3.Request;
@@ -39,75 +37,88 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AccountClient {
+public class AccountClient
+{
 	private static final Logger logger = LoggerFactory.getLogger(AccountClient.class);
 
 	private UUID uuid;
 
-	public AccountClient() {
+	public AccountClient()
+	{
 	}
 
-	public AccountClient(UUID uuid) {
+	public AccountClient(UUID uuid)
+	{
 		this.uuid = uuid;
 	}
 
-	public OAuthResponse login() throws IOException {
+	public OAuthResponse login() throws IOException
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("account")
-				.addPathSegment("login")
-				.addQueryParameter("uuid", uuid.toString())
-				.build();
+			.addPathSegment("account")
+			.addPathSegment("login")
+			.addQueryParameter("uuid", uuid.toString())
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-				.url(url)
-				.build();
+			.url(url)
+			.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
+		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+		{
 			InputStream in = response.body().byteStream();
 			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), OAuthResponse.class);
-		} catch (JsonParseException ex) {
+		}
+		catch (JsonParseException ex)
+		{
 			throw new IOException(ex);
 		}
 	}
 
-	public void logout() throws IOException {
+	public void logout() throws IOException
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("account")
-				.addPathSegment("logout")
-				.build();
+			.addPathSegment("account")
+			.addPathSegment("logout")
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-				.url(url)
-				.build();
+			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+			.url(url)
+			.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
+		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+		{
 			logger.debug("Sent logout request");
 		}
 	}
 
-	public Observable<Boolean> sessionCheck() {
+	public Observable<Boolean> sessionCheck()
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("account")
-				.addPathSegment("session-check")
-				.build();
+			.addPathSegment("account")
+			.addPathSegment("session-check")
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		return Observable.fromCallable(() ->
 		{
 			Request request = new Request.Builder()
-					.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-					.url(url)
-					.build();
+				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+				.url(url)
+				.build();
 
-			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
+			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+			{
 				return response.isSuccessful();
-			} catch (IOException ex) {
+			}
+			catch (IOException ex)
+			{
 				logger.debug("Unable to verify session", ex);
 				return true; // assume it is still valid if the server is unreachable
 			}

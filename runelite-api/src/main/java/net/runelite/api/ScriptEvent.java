@@ -26,7 +26,8 @@ package net.runelite.api;
 
 import net.runelite.api.widgets.Widget;
 
-public interface ScriptEvent {
+public interface ScriptEvent
+{
 	int MOUSE_X = -2147483647;
 	int MOUSE_Y = -2147483646;
 	int MENU_OP = -2147483644;

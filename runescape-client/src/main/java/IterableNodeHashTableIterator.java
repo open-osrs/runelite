@@ -1,5 +1,4 @@
 import java.util.Iterator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class IterableNodeHashTableIterator implements Iterator {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Llp;"
+		signature = "Llp;"
 	)
 	@Export("hashTable")
 	IterableNodeHashTable hashTable;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lft;"
+		signature = "Lft;"
 	)
 	@Export("head")
 	Node head;
@@ -25,13 +24,13 @@ public class IterableNodeHashTableIterator implements Iterator {
 	int index;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lft;"
+		signature = "Lft;"
 	)
 	@Export("last")
 	Node last;
 
 	@ObfuscatedSignature(
-			signature = "(Llp;)V"
+		signature = "(Llp;)V"
 	)
 	IterableNodeHashTableIterator(IterableNodeHashTable var1) {
 		this.last = null;
@@ -61,7 +60,7 @@ public class IterableNodeHashTableIterator implements Iterator {
 				}
 
 				var1 = this.hashTable.buckets[this.index++].previous;
-			} while (var1 == this.hashTable.buckets[this.index - 1]);
+			} while(var1 == this.hashTable.buckets[this.index - 1]);
 
 			this.head = var1.previous;
 			this.last = var1;

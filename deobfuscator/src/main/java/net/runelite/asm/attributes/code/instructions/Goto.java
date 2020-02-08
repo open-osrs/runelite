@@ -26,7 +26,6 @@ package net.runelite.asm.attributes.code.instructions;
 
 import java.util.Collections;
 import java.util.List;
-
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
@@ -36,15 +35,18 @@ import net.runelite.asm.execution.Frame;
 import net.runelite.asm.execution.InstructionContext;
 import org.objectweb.asm.MethodVisitor;
 
-public class Goto extends Instruction implements JumpingInstruction {
+public class Goto extends Instruction implements JumpingInstruction
+{
 	private org.objectweb.asm.Label asmlabel;
 	private Label to;
 
-	public Goto(Instructions instructions, InstructionType type) {
+	public Goto(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
-	public Goto(Instructions instructions, Label to) {
+	public Goto(Instructions instructions, Label to)
+	{
 		super(instructions, InstructionType.GOTO);
 
 		assert to != null;
@@ -52,19 +54,22 @@ public class Goto extends Instruction implements JumpingInstruction {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "goto " + to;// + " (at pc " + (this.getPc() + offset) + ")";
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		assert getJumps().size() == 1;
 
 		visitor.visitJumpInsn(this.getType().getCode(), getJumps().get(0).getLabel());
 	}
 
 	@Override
-	public void resolve() {
+	public void resolve()
+	{
 		Instructions ins = this.getInstructions();
 
 		to = ins.findLabel(asmlabel);
@@ -72,7 +77,8 @@ public class Goto extends Instruction implements JumpingInstruction {
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ctx = new InstructionContext(this, frame);
 
 		frame.jump(ctx, to);
@@ -81,32 +87,38 @@ public class Goto extends Instruction implements JumpingInstruction {
 	}
 
 	@Override
-	public boolean isTerminal() {
+	public boolean isTerminal()
+	{
 		return true;
 	}
 
 	@Override
-	public List<Label> getJumps() {
+	public List<Label> getJumps()
+	{
 		return Collections.singletonList(to);
 	}
 
 	@Override
-	public void setJumps(List<Label> labels) {
+	public void setJumps(List<Label> labels)
+	{
 		assert labels.size() == 1;
 		to = labels.get(0);
 	}
 
 	@Override
-	public void setLabel(org.objectweb.asm.Label label) {
+	public void setLabel(org.objectweb.asm.Label label)
+	{
 		assert label != null;
 		asmlabel = label;
 	}
 
-	public Label getTo() {
+	public Label getTo()
+	{
 		return to;
 	}
 
-	public void setTo(Label to) {
+	public void setTo(Label to)
+	{
 		this.to = to;
 	}
 }

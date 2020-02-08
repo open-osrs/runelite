@@ -25,12 +25,10 @@
 package net.runelite.http.api.config;
 
 import com.google.gson.JsonParseException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.UUID;
-
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -42,87 +40,101 @@ import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConfigClient {
+public class ConfigClient
+{
 	private static final Logger logger = LoggerFactory.getLogger(ConfigClient.class);
 
 	private static final MediaType TEXT_PLAIN = MediaType.parse("text/plain");
 
 	private final UUID uuid;
 
-	public ConfigClient(UUID uuid) {
+	public ConfigClient(UUID uuid)
+	{
 		this.uuid = uuid;
 	}
 
-	public Configuration get() throws IOException {
+	public Configuration get() throws IOException
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("config")
-				.build();
+			.addPathSegment("config")
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-				.url(url)
-				.build();
+			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+			.url(url)
+			.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute()) {
+		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+		{
 			InputStream in = response.body().byteStream();
 			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), Configuration.class);
-		} catch (JsonParseException ex) {
+		}
+		catch (JsonParseException ex)
+		{
 			throw new IOException(ex);
 		}
 	}
 
-	public void set(String key, String value) {
+	public void set(String key, String value)
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("config")
-				.addPathSegment(key)
-				.build();
+			.addPathSegment("config")
+			.addPathSegment(key)
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-				.put(RequestBody.create(TEXT_PLAIN, value))
-				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-				.url(url)
-				.build();
+			.put(RequestBody.create(TEXT_PLAIN, value))
+			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+			.url(url)
+			.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		{
 			@Override
-			public void onFailure(Call call, IOException e) {
+			public void onFailure(Call call, IOException e)
+			{
 				logger.warn("Unable to synchronize configuration item", e);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) {
+			public void onResponse(Call call, Response response)
+			{
 				response.close();
 				logger.debug("Synchronized configuration value '{}' to '{}'", key, value);
 			}
 		});
 	}
 
-	public void unset(String key) {
+	public void unset(String key)
+	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("config")
-				.addPathSegment(key)
-				.build();
+			.addPathSegment("config")
+			.addPathSegment(key)
+			.build();
 
 		logger.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-				.delete()
-				.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-				.url(url)
-				.build();
+			.delete()
+			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
+			.url(url)
+			.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback() {
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		{
 			@Override
-			public void onFailure(Call call, IOException e) {
+			public void onFailure(Call call, IOException e)
+			{
 				logger.warn("Unable to unset configuration item", e);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) {
+			public void onResponse(Call call, Response response)
+			{
 				response.close();
 				logger.debug("Unset configuration value '{}'", key);
 			}

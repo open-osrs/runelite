@@ -31,16 +31,18 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.Map;
 import javax.swing.JLabel;
-
 import lombok.Getter;
 
-public class JShadowedLabel extends JLabel {
-	public JShadowedLabel() {
+public class JShadowedLabel extends JLabel
+{
+	public JShadowedLabel()
+	{
 		super();
 		setUI(new JShadowedLabelUI());
 	}
 
-	public JShadowedLabel(String str) {
+	public JShadowedLabel(String str)
+	{
 		super(str);
 		setUI(new JShadowedLabelUI());
 	}
@@ -48,7 +50,8 @@ public class JShadowedLabel extends JLabel {
 	@Getter
 	private Color shadow = Color.BLACK;
 
-	public void setShadow(Color shadow) {
+	public void setShadow(Color shadow)
+	{
 		this.shadow = shadow;
 		repaint();
 	}
@@ -56,18 +59,21 @@ public class JShadowedLabel extends JLabel {
 	@Getter
 	private Point shadowSize = new Point(1, 1);
 
-	public void setShadowSize(Point newSize) {
+	public void setShadowSize(Point newSize)
+	{
 		this.shadowSize = newSize;
 		revalidate();
 		repaint();
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g)
+	{
 		// Set font rendering properties like the OS's font rendering
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Map desktopHints = (Map) (tk.getDesktopProperty("awt.font.desktophints"));
-		if (desktopHints != null) {
+		if (desktopHints != null)
+		{
 			((Graphics2D) g).addRenderingHints(desktopHints);
 		}
 		super.paint(g);

@@ -28,7 +28,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
@@ -37,12 +36,14 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class NpcStatusOverlay extends Overlay {
+public class NpcStatusOverlay extends Overlay
+{
 	private final Client client;
 	private final NpcStatusPlugin plugin;
 
 	@Inject
-	NpcStatusOverlay(final Client client, final NpcStatusPlugin plugin) {
+	NpcStatusOverlay(final Client client, final NpcStatusPlugin plugin)
+	{
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -50,10 +51,14 @@ public class NpcStatusOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		for (MemorizedNPC npc : plugin.getMemorizedNPCs()) {
-			if (npc.getNpc().getInteracting() == client.getLocalPlayer() || client.getLocalPlayer().getInteracting() == npc.getNpc()) {
-				switch (npc.getStatus()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		for (MemorizedNPC npc : plugin.getMemorizedNPCs())
+		{
+			if (npc.getNpc().getInteracting() == client.getLocalPlayer() || client.getLocalPlayer().getInteracting() == npc.getNpc())
+			{
+				switch (npc.getStatus())
+				{
 					case FLINCHING:
 						npc.setTimeLeft(Math.max(0, npc.getFlinchTimerEnd() - client.getTickCount()));
 						break;
@@ -71,7 +76,8 @@ public class NpcStatusOverlay extends Overlay {
 
 				Point textLocation = npc.getNpc().getCanvasTextLocation(graphics, Integer.toString(npc.getTimeLeft()), npc.getNpc().getLogicalHeight() + 40);
 
-				if (textLocation != null) {
+				if (textLocation != null)
+				{
 					OverlayUtil.renderTextLocation(graphics, textLocation, Integer.toString(npc.getTimeLeft()), npc.getStatus().getColor());
 				}
 			}

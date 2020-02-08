@@ -25,7 +25,6 @@
 package net.runelite.client.ui.overlay;
 
 import com.google.common.annotations.VisibleForTesting;
-
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.MenuOpcode;
@@ -56,7 +54,8 @@ import net.runelite.client.events.PluginChanged;
  * Manages state of all game overlays
  */
 @Singleton
-public class OverlayManager {
+public class OverlayManager
+{
 	public static final String OPTION_CONFIGURE = "Configure";
 
 	private static final String OVERLAY_CONFIG_PREFERRED_LOCATION = "_preferredLocation";
@@ -68,14 +67,15 @@ public class OverlayManager {
 	static final Comparator<Overlay> OVERLAY_COMPARATOR = (a, b) ->
 	{
 		final OverlayPosition aPos = a.getPreferredPosition() != null
-				? a.getPreferredPosition()
-				: a.getPosition();
+			? a.getPreferredPosition()
+			: a.getPosition();
 
 		final OverlayPosition bPos = b.getPreferredPosition() != null
-				? b.getPreferredPosition()
-				: b.getPosition();
+			? b.getPreferredPosition()
+			: b.getPosition();
 
-		if (aPos != bPos) {
+		if (aPos != bPos)
+		{
 			// This is so non-dynamic overlays render after dynamic
 			// overlays, which are generally in the scene
 			return aPos.compareTo(bPos);
@@ -87,8 +87,8 @@ public class OverlayManager {
 		// draw *first* so that they are closer to their
 		// defined position.
 		return aPos == OverlayPosition.DYNAMIC
-				? a.getPriority().compareTo(b.getPriority())
-				: b.getPriority().compareTo(a.getPriority());
+			? a.getPriority().compareTo(b.getPriority())
+			: b.getPriority().compareTo(a.getPriority());
 	};
 
 	/**
@@ -106,7 +106,8 @@ public class OverlayManager {
 	private final EventBus eventBus;
 
 	@Inject
-	private OverlayManager(final ConfigManager configManager, final EventBus eventBus) {
+	private OverlayManager(final ConfigManager configManager, final EventBus eventBus)
+	{
 		this.configManager = configManager;
 		this.eventBus = eventBus;
 
@@ -114,25 +115,29 @@ public class OverlayManager {
 		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
 	}
 
-	private void onPluginChanged(final PluginChanged event) {
+	private void onPluginChanged(final PluginChanged event)
+	{
 		overlays.forEach(this::loadOverlay);
 		rebuildOverlayLayers();
 	}
 
-	private void onMenuOptionClicked(MenuOptionClicked event) {
-		if (event.getMenuOpcode() != MenuOpcode.RUNELITE_OVERLAY) {
+	private void onMenuOptionClicked(MenuOptionClicked event)
+	{
+		if (event.getMenuOpcode() != MenuOpcode.RUNELITE_OVERLAY)
+		{
 			return;
 		}
 
 		event.consume();
 
 		Optional<Overlay> optionalOverlay = overlays.stream().filter(o -> overlays.indexOf(o) == event.getIdentifier()).findAny();
-		if (optionalOverlay.isPresent()) {
+		if (optionalOverlay.isPresent())
+		{
 			Overlay overlay = optionalOverlay.get();
 			List<OverlayMenuEntry> menuEntries = overlay.getMenuEntries();
 			Optional<OverlayMenuEntry> optionalOverlayMenuEntry = menuEntries.stream()
-					.filter(me -> me.getOption().equals(event.getOption()))
-					.findAny();
+				.filter(me -> me.getOption().equals(event.getOption()))
+				.findAny();
 			optionalOverlayMenuEntry.ifPresent(overlayMenuEntry -> eventBus.post(OverlayMenuClicked.class, new OverlayMenuClicked(overlayMenuEntry, overlay)));
 		}
 	}
@@ -143,7 +148,8 @@ public class OverlayManager {
 	 * @param layer the layer
 	 * @return An immutable list of all of the overlays on that layer
 	 */
-	synchronized List<Overlay> getLayer(OverlayLayer layer) {
+	synchronized List<Overlay> getLayer(OverlayLayer layer)
+	{
 		return overlayLayers.get(layer);
 	}
 
@@ -153,8 +159,10 @@ public class OverlayManager {
 	 * @param overlay the overlay
 	 * @return true if overlay was added
 	 */
-	public synchronized boolean add(final Overlay overlay) {
-		if (overlays.contains(overlay)) {
+	public synchronized boolean add(final Overlay overlay)
+	{
+		if (overlays.contains(overlay))
+		{
 			return false;
 		}
 
@@ -163,7 +171,8 @@ public class OverlayManager {
 		loadOverlay(overlay);
 		// WidgetItemOverlays have a reference to the overlay manager in order to get the WidgetItems
 		// for each frame.
-		if (overlay instanceof WidgetItemOverlay) {
+		if (overlay instanceof WidgetItemOverlay)
+		{
 			((WidgetItemOverlay) overlay).setOverlayManager(this);
 		}
 		rebuildOverlayLayers();
@@ -176,10 +185,12 @@ public class OverlayManager {
 	 * @param overlay the overlay
 	 * @return true if overlay was removed
 	 */
-	public synchronized boolean remove(final Overlay overlay) {
+	public synchronized boolean remove(final Overlay overlay)
+	{
 		final boolean remove = overlays.remove(overlay);
 
-		if (remove) {
+		if (remove)
+		{
 			rebuildOverlayLayers();
 		}
 
@@ -192,10 +203,12 @@ public class OverlayManager {
 	 * @param filter the filter
 	 * @return true if any overlay was removed
 	 */
-	public synchronized boolean removeIf(Predicate<Overlay> filter) {
+	public synchronized boolean removeIf(Predicate<Overlay> filter)
+	{
 		final boolean removeIf = overlays.removeIf(filter);
 
-		if (removeIf) {
+		if (removeIf)
+		{
 			rebuildOverlayLayers();
 		}
 
@@ -208,14 +221,16 @@ public class OverlayManager {
 	 * @param filter Filter predicate function
 	 * @return {@code true} if any overlays match the given filter, {@code false} otherwise
 	 */
-	public synchronized boolean anyMatch(Predicate<Overlay> filter) {
+	public synchronized boolean anyMatch(Predicate<Overlay> filter)
+	{
 		return overlays.stream().anyMatch(filter);
 	}
 
 	/**
 	 * Clear all overlays
 	 */
-	public synchronized void clear() {
+	public synchronized void clear()
+	{
 		overlays.clear();
 		rebuildOverlayLayers();
 	}
@@ -225,7 +240,8 @@ public class OverlayManager {
 	 *
 	 * @param overlay overlay to save
 	 */
-	public synchronized void saveOverlay(final Overlay overlay) {
+	public synchronized void saveOverlay(final Overlay overlay)
+	{
 		saveOverlayPosition(overlay);
 		saveOverlaySize(overlay);
 		saveOverlayLocation(overlay);
@@ -237,25 +253,31 @@ public class OverlayManager {
 	 *
 	 * @param overlay overlay to reset
 	 */
-	public synchronized void resetOverlay(final Overlay overlay) {
+	public synchronized void resetOverlay(final Overlay overlay)
+	{
 		overlay.setPreferredPosition(null);
 		overlay.setPreferredSize(null);
 		overlay.setPreferredLocation(null);
 		saveOverlay(overlay);
 	}
 
-	private synchronized void rebuildOverlayLayers() {
-		for (OverlayLayer l : OverlayLayer.values()) {
+	private synchronized void rebuildOverlayLayers()
+	{
+		for (OverlayLayer l : OverlayLayer.values())
+		{
 			overlayLayers.put(l, new ArrayList<>());
 		}
 
-		for (final Overlay overlay : overlays) {
+		for (final Overlay overlay : overlays)
+		{
 			OverlayLayer layer = overlay.getLayer();
 
-			if (overlay.getPreferredLocation() != null && overlay.getPreferredPosition() == null) {
+			if (overlay.getPreferredLocation() != null && overlay.getPreferredPosition() == null)
+			{
 				// When UNDER_WIDGET overlays are in preferred locations, move to
 				// ABOVE_WIDGETS so that it can draw over interfaces
-				if (layer == OverlayLayer.UNDER_WIDGETS && !(overlay instanceof WidgetOverlay)) {
+				if (layer == OverlayLayer.UNDER_WIDGETS && !(overlay instanceof WidgetOverlay))
+				{
 					layer = OverlayLayer.ABOVE_WIDGETS;
 				}
 			}
@@ -270,7 +292,8 @@ public class OverlayManager {
 		});
 	}
 
-	private void loadOverlay(final Overlay overlay) {
+	private void loadOverlay(final Overlay overlay)
+	{
 		final Point location = loadOverlayLocation(overlay);
 		overlay.setPreferredLocation(location);
 		final Dimension size = loadOverlaySize(overlay);
@@ -279,68 +302,87 @@ public class OverlayManager {
 		overlay.setPreferredPosition(position);
 	}
 
-	private void saveOverlayLocation(final Overlay overlay) {
+	private void saveOverlayLocation(final Overlay overlay)
+	{
 		final String key = overlay.getName() + OVERLAY_CONFIG_PREFERRED_LOCATION;
-		if (overlay.getPreferredLocation() != null) {
+		if (overlay.getPreferredLocation() != null)
+		{
 			configManager.setConfiguration(
-					RUNELITE_CONFIG_GROUP_NAME,
-					key,
-					overlay.getPreferredLocation());
-		} else {
+				RUNELITE_CONFIG_GROUP_NAME,
+				key,
+				overlay.getPreferredLocation());
+		}
+		else
+		{
 			configManager.unsetConfiguration(
-					RUNELITE_CONFIG_GROUP_NAME,
-					key);
+				RUNELITE_CONFIG_GROUP_NAME,
+				key);
 		}
 	}
 
-	private void saveOverlaySize(final Overlay overlay) {
+	private void saveOverlaySize(final Overlay overlay)
+	{
 		final String key = overlay.getName() + OVERLAY_CONFIG_PREFERRED_SIZE;
-		if (overlay.getPreferredSize() != null) {
+		if (overlay.getPreferredSize() != null)
+		{
 			configManager.setConfiguration(
-					RUNELITE_CONFIG_GROUP_NAME,
-					key,
-					overlay.getPreferredSize());
-		} else {
+				RUNELITE_CONFIG_GROUP_NAME,
+				key,
+				overlay.getPreferredSize());
+		}
+		else
+		{
 			configManager.unsetConfiguration(
-					RUNELITE_CONFIG_GROUP_NAME,
-					key);
+				RUNELITE_CONFIG_GROUP_NAME,
+				key);
 		}
 	}
 
-	private void saveOverlayPosition(final Overlay overlay) {
+	private void saveOverlayPosition(final Overlay overlay)
+	{
 		final String key = overlay.getName() + OVERLAY_CONFIG_PREFERRED_POSITION;
-		if (overlay.getPreferredPosition() != null) {
+		if (overlay.getPreferredPosition() != null)
+		{
 			configManager.setConfiguration(
-					RUNELITE_CONFIG_GROUP_NAME,
-					key,
-					overlay.getPreferredPosition());
-		} else {
+				RUNELITE_CONFIG_GROUP_NAME,
+				key,
+				overlay.getPreferredPosition());
+		}
+		else
+		{
 			configManager.unsetConfiguration(
-					RUNELITE_CONFIG_GROUP_NAME,
-					key);
+				RUNELITE_CONFIG_GROUP_NAME,
+				key);
 		}
 	}
 
-	private Point loadOverlayLocation(final Overlay overlay) {
+	private Point loadOverlayLocation(final Overlay overlay)
+	{
 		final String key = overlay.getName() + OVERLAY_CONFIG_PREFERRED_LOCATION;
 		return configManager.getConfiguration(RUNELITE_CONFIG_GROUP_NAME, key, Point.class);
 	}
 
-	private Dimension loadOverlaySize(final Overlay overlay) {
+	private Dimension loadOverlaySize(final Overlay overlay)
+	{
 		final String key = overlay.getName() + OVERLAY_CONFIG_PREFERRED_SIZE;
 		return configManager.getConfiguration(RUNELITE_CONFIG_GROUP_NAME, key, Dimension.class);
 	}
 
-	private OverlayPosition loadOverlayPosition(final Overlay overlay) {
+	private OverlayPosition loadOverlayPosition(final Overlay overlay)
+	{
 		final String locationKey = overlay.getName() + OVERLAY_CONFIG_PREFERRED_POSITION;
 		return configManager.getConfiguration(RUNELITE_CONFIG_GROUP_NAME, locationKey, OverlayPosition.class);
 	}
 
-	public WidgetOverlay getWidgetOverlay(final WidgetInfo info) {
-		for (Overlay o : overlays) {
-			if (o instanceof WidgetOverlay) {
+	public WidgetOverlay getWidgetOverlay(final WidgetInfo info)
+	{
+		for (Overlay o : overlays)
+		{
+			if (o instanceof WidgetOverlay)
+			{
 				WidgetOverlay overlay = (WidgetOverlay) o;
-				if (overlay.getWidgetInfo().equals(info)) {
+				if (overlay.getWidgetInfo().equals(info))
+				{
 					return overlay;
 				}
 			}

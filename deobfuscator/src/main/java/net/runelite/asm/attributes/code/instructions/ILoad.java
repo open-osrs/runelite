@@ -38,32 +38,38 @@ import net.runelite.asm.execution.VariableContext;
 import net.runelite.asm.execution.Variables;
 import org.objectweb.asm.MethodVisitor;
 
-public class ILoad extends Instruction implements LVTInstruction {
+public class ILoad extends Instruction implements LVTInstruction
+{
 	private int index;
 
-	public ILoad(Instructions instructions, int index) {
+	public ILoad(Instructions instructions, int index)
+	{
 		super(instructions, InstructionType.ILOAD);
 
 		this.index = index;
 	}
 
-	public ILoad(Instructions instructions, InstructionType type) {
+	public ILoad(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		Method m = this.getInstructions().getCode().getMethod();
 		return "iload " + index + " in " + m;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		visitor.visitVarInsn(this.getType().getCode(), this.getVariableIndex());
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 		Variables variables = frame.getVariables();
@@ -81,23 +87,27 @@ public class ILoad extends Instruction implements LVTInstruction {
 	}
 
 	@Override
-	public int getVariableIndex() {
+	public int getVariableIndex()
+	{
 		return index;
 	}
 
 	@Override
-	public boolean store() {
+	public boolean store()
+	{
 		return false;
 	}
 
 	@Override
-	public Instruction setVariableIndex(int idx) {
+	public Instruction setVariableIndex(int idx)
+	{
 		index = idx;
 		return this;
 	}
 
 	@Override
-	public LVTInstructionType type() {
+	public LVTInstructionType type()
+	{
 		return LVTInstructionType.INT;
 	}
 }

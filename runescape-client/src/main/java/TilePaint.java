@@ -9,31 +9,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class TilePaint {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 1255983765
+		intValue = 1255983765
 	)
 	@Export("swColor")
 	int swColor;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -1109558685
+		intValue = -1109558685
 	)
 	@Export("seColor")
 	int seColor;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -1229444571
+		intValue = -1229444571
 	)
 	@Export("neColor")
 	int neColor;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -906668191
+		intValue = -906668191
 	)
 	@Export("nwColor")
 	int nwColor;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = -2043941121
+		intValue = -2043941121
 	)
 	@Export("texture")
 	int texture;
@@ -42,7 +42,7 @@ public final class TilePaint {
 	boolean isFlat;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = -860591445
+		intValue = -860591445
 	)
 	@Export("rgb")
 	int rgb;
@@ -60,8 +60,8 @@ public final class TilePaint {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lhc;I)V",
-			garbageValue = "-1948306061"
+		signature = "(Lhc;I)V",
+		garbageValue = "-1948306061"
 	)
 	public static void method3150(Huffman var0) {
 		class210.huffman = var0;
@@ -69,8 +69,8 @@ public final class TilePaint {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lii;Lii;Lii;I)V",
-			garbageValue = "811407537"
+		signature = "(Lii;Lii;Lii;I)V",
+		garbageValue = "811407537"
 	)
 	public static void method3149(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2) {
 		SequenceDefinition.SequenceDefinition_archive = var0;
@@ -80,8 +80,8 @@ public final class TilePaint {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lgi;Llw;I)Lgs;",
-			garbageValue = "-1858964465"
+		signature = "(Lgi;Llw;I)Lgs;",
+		garbageValue = "-1858964465"
 	)
 	@Export("getPacketBufferNode")
 	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {

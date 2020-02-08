@@ -9,31 +9,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class SequenceDefinition extends DualNode {
 	@ObfuscatedName("no")
 	@ObfuscatedGetter(
-			intValue = -1648433233
+		intValue = -1648433233
 	)
 	@Export("widgetDragDuration")
 	static int widgetDragDuration;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("SequenceDefinition_archive")
 	static AbstractArchive SequenceDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("SequenceDefinition_skeletonsArchive")
 	static AbstractArchive SequenceDefinition_skeletonsArchive;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Leh;"
+		signature = "Leh;"
 	)
 	@Export("SequenceDefinition_cached")
 	public static EvictingDualNodeHashTable SequenceDefinition_cached;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Leh;"
+		signature = "Leh;"
 	)
 	@Export("SequenceDefinition_cachedFrames")
 	public static EvictingDualNodeHashTable SequenceDefinition_cachedFrames;
@@ -51,7 +51,7 @@ public class SequenceDefinition extends DualNode {
 	public int[] soundEffects;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = 767757023
+		intValue = 767757023
 	)
 	@Export("frameCount")
 	public int frameCount;
@@ -61,39 +61,39 @@ public class SequenceDefinition extends DualNode {
 	public boolean field3518;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-			intValue = 180698695
+		intValue = 180698695
 	)
 	public int field3508;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-			intValue = 1537834299
+		intValue = 1537834299
 	)
 	@Export("shield")
 	public int shield;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-			intValue = -698068841
+		intValue = -698068841
 	)
 	@Export("weapon")
 	public int weapon;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-			intValue = -796705451
+		intValue = -796705451
 	)
 	public int field3522;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-			intValue = -2012869833
+		intValue = -2012869833
 	)
 	public int field3523;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-			intValue = 1328326195
+		intValue = 1328326195
 	)
 	public int field3524;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-			intValue = 738331183
+		intValue = 738331183
 	)
 	public int field3516;
 
@@ -116,8 +116,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Lkp;B)V",
-			garbageValue = "-76"
+		signature = "(Lkp;B)V",
+		garbageValue = "-76"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -133,8 +133,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(Lkp;II)V",
-			garbageValue = "-683003303"
+		signature = "(Lkp;II)V",
+		garbageValue = "-683003303"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -208,8 +208,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "145169378"
+		signature = "(I)V",
+		garbageValue = "145169378"
 	)
 	@Export("postDecode")
 	void postDecode() {
@@ -233,8 +233,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(Ldx;IB)Ldx;",
-			garbageValue = "4"
+		signature = "(Ldx;IB)Ldx;",
+		garbageValue = "4"
 	)
 	@Export("transformActorModel")
 	public Model transformActorModel(Model var1, int var2) {
@@ -252,8 +252,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(Ldx;III)Ldx;",
-			garbageValue = "2024082639"
+		signature = "(Ldx;III)Ldx;",
+		garbageValue = "2024082639"
 	)
 	@Export("transformObjectModel")
 	Model transformObjectModel(Model var1, int var2, int var3) {
@@ -288,8 +288,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "(Ldx;II)Ldx;",
-			garbageValue = "-1856197357"
+		signature = "(Ldx;II)Ldx;",
+		garbageValue = "-1856197357"
 	)
 	@Export("transformSpotAnimationModel")
 	Model transformSpotAnimationModel(Model var1, int var2) {
@@ -307,8 +307,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "(Ldx;ILip;IB)Ldx;",
-			garbageValue = "29"
+		signature = "(Ldx;ILip;IB)Ldx;",
+		garbageValue = "29"
 	)
 	@Export("applyTransformations")
 	public Model applyTransformations(Model var1, int var2, SequenceDefinition var3, int var4) {
@@ -336,8 +336,8 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "(Ldx;II)Ldx;",
-			garbageValue = "221538890"
+		signature = "(Ldx;II)Ldx;",
+		garbageValue = "221538890"
 	)
 	@Export("transformWidgetModel")
 	public Model transformWidgetModel(Model var1, int var2) {

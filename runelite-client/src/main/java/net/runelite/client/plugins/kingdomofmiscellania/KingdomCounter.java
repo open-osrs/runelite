@@ -27,31 +27,34 @@ package net.runelite.client.plugins.kingdomofmiscellania;
 
 import java.awt.image.BufferedImage;
 import javax.inject.Singleton;
-
 import net.runelite.client.ui.overlay.infobox.Counter;
 import net.runelite.client.util.QuantityFormatter;
 
 @Singleton
-class KingdomCounter extends Counter {
+class KingdomCounter extends Counter
+{
 	private final KingdomPlugin plugin;
 
-	KingdomCounter(final BufferedImage image, final KingdomPlugin plugin) {
+	KingdomCounter(final BufferedImage image, final KingdomPlugin plugin)
+	{
 		super(image, plugin, plugin.getFavor());
 		this.plugin = plugin;
 	}
 
 	@Override
-	public String getText() {
+	public String getText()
+	{
 		return KingdomPlugin.getFavorPercent(plugin.getFavor()) + "%";
 	}
 
 	@Override
-	public String getTooltip() {
+	public String getTooltip()
+	{
 		return "Favor: " +
-				plugin.getFavor() +
-				"/127" +
-				"</br>" +
-				"Coffer: " +
-				QuantityFormatter.quantityToStackSize(plugin.getCoffer());
+			plugin.getFavor() +
+			"/127" +
+			"</br>" +
+			"Coffer: " +
+			QuantityFormatter.quantityToStackSize(plugin.getCoffer());
 	}
 }

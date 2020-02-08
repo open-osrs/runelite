@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -16,13 +15,13 @@ import net.runelite.rs.ScriptOpcodes;
 public final class NetSocket extends AbstractSocket implements Runnable {
 	@ObfuscatedName("sd")
 	@ObfuscatedSignature(
-			signature = "Llv;"
+		signature = "Llv;"
 	)
 	@Export("platformInfo")
 	static PlatformInfo platformInfo;
 	@ObfuscatedName("dq")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive5")
 	static Archive archive5;
@@ -31,13 +30,13 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 	static String worldHost;
 	@ObfuscatedName("fi")
 	@ObfuscatedSignature(
-			signature = "Lkz;"
+		signature = "Lkz;"
 	)
 	@Export("WorldMapElement_fonts")
 	static Fonts WorldMapElement_fonts;
 	@ObfuscatedName("mj")
 	@ObfuscatedGetter(
-			intValue = -1177586883
+		intValue = -1177586883
 	)
 	@Export("selectedSpellFlags")
 	static int selectedSpellFlags;
@@ -55,13 +54,13 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 	boolean isClosed;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lff;"
+		signature = "Lff;"
 	)
 	@Export("taskHandler")
 	TaskHandler taskHandler;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lfw;"
+		signature = "Lfw;"
 	)
 	@Export("task")
 	Task task;
@@ -70,13 +69,13 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 	byte[] outBuffer;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = -602302945
+		intValue = -602302945
 	)
 	@Export("outLength")
 	int outLength;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = -578221925
+		intValue = -578221925
 	)
 	@Export("outOffset")
 	int outOffset;
@@ -85,19 +84,19 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 	boolean exceptionWriting;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-			intValue = 1215285735
+		intValue = 1215285735
 	)
 	@Export("bufferLength")
 	final int bufferLength;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-			intValue = 639451829
+		intValue = 639451829
 	)
 	@Export("maxPacketLength")
 	final int maxPacketLength;
 
 	@ObfuscatedSignature(
-			signature = "(Ljava/net/Socket;Lff;I)V"
+		signature = "(Ljava/net/Socket;Lff;I)V"
 	)
 	public NetSocket(Socket var1, TaskHandler var2, int var3) throws IOException {
 		this.isClosed = false;
@@ -118,13 +117,13 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-259367480"
+		signature = "(I)V",
+		garbageValue = "-259367480"
 	)
 	@Export("close")
 	public void close() {
 		if (!this.isClosed) {
-			synchronized (this) {
+			synchronized(this) {
 				this.isClosed = true;
 				this.notifyAll();
 			}
@@ -136,7 +135,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 				if (this.task.status == 1) {
 					try {
-						((Thread) this.task.result).join();
+						((Thread)this.task.result).join();
 					} catch (InterruptedException var3) {
 					}
 				}
@@ -148,8 +147,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "-108"
+		signature = "(B)I",
+		garbageValue = "-108"
 	)
 	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
@@ -158,8 +157,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "2004103994"
+		signature = "(I)I",
+		garbageValue = "2004103994"
 	)
 	@Export("available")
 	public int available() throws IOException {
@@ -168,8 +167,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(II)Z",
-			garbageValue = "-624446357"
+		signature = "(II)Z",
+		garbageValue = "-624446357"
 	)
 	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
@@ -182,8 +181,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "([BIII)I",
-			garbageValue = "1847434030"
+		signature = "([BIII)I",
+		garbageValue = "1847434030"
 	)
 	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
@@ -207,8 +206,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "([BIII)V",
-			garbageValue = "1797414909"
+		signature = "([BIII)V",
+		garbageValue = "1797414909"
 	)
 	@Export("write0")
 	void write0(byte[] var1, int var2, int var3) throws IOException {
@@ -221,7 +220,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 					this.outBuffer = new byte[this.bufferLength];
 				}
 
-				synchronized (this) {
+				synchronized(this) {
 					for (int var5 = 0; var5 < var3; ++var5) {
 						this.outBuffer[this.outOffset] = var1[var5 + var2];
 						this.outOffset = (this.outOffset + 1) % this.bufferLength;
@@ -242,8 +241,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "([BIII)V",
-			garbageValue = "977025272"
+		signature = "([BIII)V",
+		garbageValue = "977025272"
 	)
 	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
@@ -257,11 +256,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 	public void run() {
 		try {
 			while (true) {
-				label84:
-				{
+				label84: {
 					int var1;
 					int var2;
-					synchronized (this) {
+					synchronized(this) {
 						if (this.outLength == this.outOffset) {
 							if (this.isClosed) {
 								break label84;
@@ -322,21 +320,21 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 				break;
 			}
 		} catch (Exception var12) {
-			class225.RunException_sendStackTrace((String) null, var12);
+			class225.RunException_sendStackTrace((String)null, var12);
 		}
 
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(ILky;Lia;I)V",
-			garbageValue = "595015097"
+		signature = "(ILky;Lia;I)V",
+		garbageValue = "595015097"
 	)
 	static void method3613(int var0, ArchiveDisk var1, Archive var2) {
 		byte[] var3 = null;
-		synchronized (ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
-			for (ArchiveDiskAction var5 = (ArchiveDiskAction) ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.last(); var5 != null; var5 = (ArchiveDiskAction) ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.previous()) {
-				if (var5.key == (long) var0 && var1 == var5.archiveDisk && var5.type == 0) {
+		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
+			for (ArchiveDiskAction var5 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.last(); var5 != null; var5 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.previous()) {
+				if (var5.key == (long)var0 && var1 == var5.archiveDisk && var5.type == 0) {
 					var3 = var5.data;
 					break;
 				}
@@ -353,11 +351,11 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1753470455"
+		signature = "(I)V",
+		garbageValue = "-1753470455"
 	)
 	static void method3595() {
-		synchronized (ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) {
+		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) {
 			if (ArchiveDiskActionHandler.field3150 == 0) {
 				class218.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler());
 				class218.ArchiveDiskActionHandler_thread.setDaemon(true);
@@ -371,8 +369,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "(Lko;Lko;Lko;B)V",
-			garbageValue = "-120"
+		signature = "(Lko;Lko;Lko;B)V",
+		garbageValue = "-120"
 	)
 	@Export("drawTitle")
 	static void drawTitle(Font var0, Font var1, Font var2) {
@@ -542,7 +540,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 					if (var33 * (var6 - 1) >= World.World_count) {
 						--var6;
 					}
-				} while (var6 != var26 || var37 != var33);
+				} while(var6 != var26 || var37 != var33);
 
 				var26 = (765 - var23 * var33) / (var33 + 1);
 				if (var26 > 5) {
@@ -777,12 +775,12 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 					Login.titlebuttonSprite.drawAt(var9 - 73, var10 - 20);
 					var0.drawCentered("Cancel", var9, var10 + 5, 16777215, 0);
 					var40 = 357;
-					switch (Login.field1193) {
-						case 2:
-							class14.field101 = "Having trouble logging in?";
-							break;
-						default:
-							class14.field101 = "Can't login? Click here.";
+					switch(Login.field1193) {
+					case 2:
+						class14.field101 = "Having trouble logging in?";
+						break;
+					default:
+						class14.field101 = "Can't login? Click here.";
 					}
 
 					Login.field1175 = new Bounds(class96.loginBoxCenter, var40, var1.stringWidth(class14.field101), 11);
@@ -913,19 +911,19 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 						String var4 = "";
 						var25 = "";
 						var27 = "";
-						switch (Login.field1165) {
-							case 0:
-								var4 = "Your account has been disabled.";
-								var25 = Strings.field3045;
-								var27 = "";
-								break;
-							case 1:
-								var4 = "Account locked as we suspect it has been stolen.";
-								var25 = Strings.field2808;
-								var27 = "";
-								break;
-							default:
-								ViewportMouse.Login_promptCredentials(false);
+						switch(Login.field1165) {
+						case 0:
+							var4 = "Your account has been disabled.";
+							var25 = Strings.field3045;
+							var27 = "";
+							break;
+						case 1:
+							var4 = "Account locked as we suspect it has been stolen.";
+							var25 = Strings.field2808;
+							var27 = "";
+							break;
+						default:
+							ViewportMouse.Login_promptCredentials(false);
 						}
 
 						var0.drawCentered(var4, Login.loginBoxX + 180, var40, 16776960, 0);
@@ -991,8 +989,8 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "1157828358"
+		signature = "(ILce;ZI)I",
+		garbageValue = "1157828358"
 	)
 	static int method3608(int var0, Script var1, boolean var2) {
 		Widget var3 = Varps.getWidget(Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize]);

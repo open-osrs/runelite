@@ -28,7 +28,8 @@ package net.runelite.cache.region;
 import lombok.Value;
 
 @Value
-public class Location {
+public class Location
+{
 	private final int id;
 	private final int type;
 	private final int orientation;

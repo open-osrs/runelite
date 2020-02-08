@@ -33,7 +33,8 @@ import net.runelite.api.widgets.WidgetInfo;
  */
 @Getter
 @AllArgsConstructor
-public enum Prayer {
+public enum Prayer
+{
 	/**
 	 * Thick Skin (Level 1, Defence).
 	 */

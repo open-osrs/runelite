@@ -32,7 +32,6 @@ import java.awt.Graphics2D;
 import java.time.Instant;
 import java.util.List;
 import javax.inject.Inject;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.Perspective;
@@ -45,14 +44,16 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
-class WoodcuttingTreesOverlay extends Overlay {
+class WoodcuttingTreesOverlay extends Overlay
+{
 	private final Client client;
 	private final WoodcuttingConfig config;
 	private final ItemManager itemManager;
 	private final WoodcuttingPlugin plugin;
 
 	@Inject
-	private WoodcuttingTreesOverlay(final Client client, final WoodcuttingConfig config, final ItemManager itemManager, final WoodcuttingPlugin plugin) {
+	private WoodcuttingTreesOverlay(final Client client, final WoodcuttingConfig config, final ItemManager itemManager, final WoodcuttingPlugin plugin)
+	{
 		this.client = client;
 		this.config = config;
 		this.itemManager = itemManager;
@@ -62,39 +63,49 @@ class WoodcuttingTreesOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		renderAxes(graphics);
 		renderTimers(graphics);
 		return null;
 	}
 
-	private void renderAxes(Graphics2D graphics) {
-		if (plugin.getSession() == null || !config.showRedwoodTrees()) {
+	private void renderAxes(Graphics2D graphics)
+	{
+		if (plugin.getSession() == null || !config.showRedwoodTrees())
+		{
 			return;
 		}
 
 		Axe axe = plugin.getAxe();
-		if (axe == null) {
+		if (axe == null)
+		{
 			return;
 		}
 
-		for (GameObject treeObject : plugin.getTreeObjects()) {
-			if (treeObject.getWorldLocation().distanceTo(client.getLocalPlayer().getWorldLocation()) <= 12) {
+		for (GameObject treeObject : plugin.getTreeObjects())
+		{
+			if (treeObject.getWorldLocation().distanceTo(client.getLocalPlayer().getWorldLocation()) <= 12)
+			{
 				OverlayUtil.renderImageLocation(client, graphics, treeObject.getLocalLocation(), itemManager.getImage(axe.getItemId()), 120);
 			}
 		}
 	}
 
-	private void renderTimers(Graphics2D graphics) {
+	private void renderTimers(Graphics2D graphics)
+	{
 		List<TreeRespawn> respawns = plugin.getRespawns();
-		if (respawns.isEmpty() || !config.showRespawnTimers()) {
+		if (respawns.isEmpty() || !config.showRespawnTimers())
+		{
 			return;
 		}
 
 		Instant now = Instant.now();
-		for (TreeRespawn treeRespawn : respawns) {
+		for (TreeRespawn treeRespawn : respawns)
+		{
 			LocalPoint minLocation = LocalPoint.fromWorld(client, treeRespawn.getWorldLocation());
-			if (minLocation == null) {
+			if (minLocation == null)
+			{
 				continue;
 			}
 
@@ -103,7 +114,8 @@ class WoodcuttingTreesOverlay extends Overlay {
 					minLocation.getY() + treeRespawn.getLenY() * Perspective.LOCAL_HALF_TILE_SIZE);
 			float percent = (now.toEpochMilli() - treeRespawn.getStartTime().toEpochMilli()) / (float) treeRespawn.getRespawnTime();
 			Point point = Perspective.localToCanvas(client, centeredLocation, client.getPlane());
-			if (point == null || percent > 1.0f) {
+			if (point == null || percent > 1.0f)
+			{
 				continue;
 			}
 

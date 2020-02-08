@@ -25,14 +25,13 @@
 package net.runelite.client.plugins.blastmine;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ObjectID;
 
-public enum BlastMineRockType {
+public enum BlastMineRockType
+{
 	NORMAL(ObjectID.HARD_ROCK, ObjectID.HARD_ROCK_28580),
 	CHISELED(ObjectID.CAVITY, ObjectID.CAVITY_28582),
 	LOADED(ObjectID.POT_OF_DYNAMITE, ObjectID.POT_OF_DYNAMITE_28584),
@@ -41,11 +40,14 @@ public enum BlastMineRockType {
 
 	private static final Map<Integer, BlastMineRockType> rockTypes;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, BlastMineRockType> builder = new ImmutableMap.Builder<>();
 
-		for (BlastMineRockType type : values()) {
-			for (int spotId : type.getObjectIds()) {
+		for (BlastMineRockType type : values())
+		{
+			for (int spotId : type.getObjectIds())
+			{
 				builder.put(spotId, type);
 			}
 		}
@@ -56,11 +58,13 @@ public enum BlastMineRockType {
 	@Getter(AccessLevel.PACKAGE)
 	private final int[] objectIds;
 
-	BlastMineRockType(int... objectIds) {
+	BlastMineRockType(int... objectIds)
+	{
 		this.objectIds = objectIds;
 	}
 
-	public static BlastMineRockType getRockType(int objectId) {
+	public static BlastMineRockType getRockType(int objectId)
+	{
 		return rockTypes.get(objectId);
 	}
 }

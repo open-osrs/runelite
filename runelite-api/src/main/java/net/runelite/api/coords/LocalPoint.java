@@ -27,9 +27,7 @@ package net.runelite.api.coords;
 
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
-
 import javax.annotation.Nullable;
-
 import lombok.Value;
 
 /**
@@ -41,7 +39,8 @@ import lombok.Value;
  * The unit of a LocalPoint is 1/128th of a tile.
  */
 @Value
-public class LocalPoint {
+public class LocalPoint
+{
 	/**
 	 * X and Y axis coordinates.
 	 */
@@ -55,8 +54,10 @@ public class LocalPoint {
 	 * @return coordinate if the tile is in the current scene, otherwise null
 	 */
 	@Nullable
-	public static LocalPoint fromWorld(Client client, WorldPoint world) {
-		if (client.getPlane() != world.getPlane()) {
+	public static LocalPoint fromWorld(Client client, WorldPoint world)
+	{
+		if (client.getPlane() != world.getPlane())
+		{
 			return null;
 		}
 		return fromWorld(client, world.getX(), world.getY());
@@ -70,8 +71,10 @@ public class LocalPoint {
 	 * @param y      y-axis coordinate of the tile
 	 * @return coordinate if the tile is in the current scene, otherwise null
 	 */
-	public static LocalPoint fromWorld(Client client, int x, int y) {
-		if (!WorldPoint.isInScene(client, x, y)) {
+	public static LocalPoint fromWorld(Client client, int x, int y)
+	{
+		if (!WorldPoint.isInScene(client, x, y))
+		{
 			return null;
 		}
 
@@ -87,21 +90,23 @@ public class LocalPoint {
 	 * @param other other point
 	 * @return the distance
 	 */
-	public int distanceTo(LocalPoint other) {
+	public int distanceTo(LocalPoint other)
+	{
 		return (int) Math.hypot(getX() - other.getX(), getY() - other.getY());
 	}
 
 	/**
 	 * Gets the coordinate at the center of the passed tile.
 	 *
-	 * @param x x-axis coordinate of the tile in Scene coords
-	 * @param y y-axis coordinate of the tile in Scene coords
+	 * @param x      x-axis coordinate of the tile in Scene coords
+	 * @param y      y-axis coordinate of the tile in Scene coords
 	 * @return true coordinate of the tile
 	 */
-	public static LocalPoint fromScene(int x, int y) {
+	public static LocalPoint fromScene(int x, int y)
+	{
 		return new LocalPoint(
-				(x << Perspective.LOCAL_COORD_BITS) + (1 << Perspective.LOCAL_COORD_BITS - 1) - 1,
-				(y << Perspective.LOCAL_COORD_BITS) + (1 << Perspective.LOCAL_COORD_BITS - 1) - 1
+			(x << Perspective.LOCAL_COORD_BITS) + (1 << Perspective.LOCAL_COORD_BITS - 1) - 1,
+			(y << Perspective.LOCAL_COORD_BITS) + (1 << Perspective.LOCAL_COORD_BITS - 1) - 1
 		);
 	}
 
@@ -110,7 +115,8 @@ public class LocalPoint {
 	 *
 	 * @return x-axis coordinate
 	 */
-	public int getSceneX() {
+	public int getSceneX()
+	{
 		return x >>> Perspective.LOCAL_COORD_BITS;
 	}
 
@@ -119,7 +125,8 @@ public class LocalPoint {
 	 *
 	 * @return y-axis coordinate
 	 */
-	public int getSceneY() {
+	public int getSceneY()
+	{
 		return y >>> Perspective.LOCAL_COORD_BITS;
 	}
 }

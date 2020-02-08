@@ -28,7 +28,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-
 import net.runelite.cache.StoreLocation;
 import net.runelite.cache.TextureManager;
 import net.runelite.cache.definitions.ModelDefinition;
@@ -37,11 +36,14 @@ import net.runelite.cache.fs.Store;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class ObjExporterTest {
+public class ObjExporterTest
+{
 	@Test
 	@Ignore
-	public void testExport() throws Exception {
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+	public void testExport() throws Exception
+	{
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			TextureManager tm = new TextureManager(store);
@@ -52,7 +54,8 @@ public class ObjExporterTest {
 
 			ObjExporter exporter = new ObjExporter(tm, model);
 			try (PrintWriter objWriter = new PrintWriter(new FileWriter(new File("D:\\rs\\07\\temp\\9638.obj")));
-				 PrintWriter mtlWriter = new PrintWriter(new FileWriter(new File("D:\\rs\\07\\temp\\9638.mtl")))) {
+				PrintWriter mtlWriter = new PrintWriter(new FileWriter(new File("D:\\rs\\07\\temp\\9638.mtl"))))
+			{
 				exporter.export(objWriter, mtlWriter);
 			}
 		}

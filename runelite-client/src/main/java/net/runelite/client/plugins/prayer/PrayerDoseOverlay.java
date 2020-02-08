@@ -33,7 +33,6 @@ import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
@@ -52,7 +51,8 @@ import net.runelite.client.util.ColorUtil;
 import org.apache.commons.lang3.StringUtils;
 
 @Singleton
-class PrayerDoseOverlay extends Overlay {
+class PrayerDoseOverlay extends Overlay
+{
 	private static final float PULSE_TIME = 2f * Constants.GAME_TICK_LENGTH;
 
 	private static final Color START_COLOR = new Color(0, 255, 255);
@@ -74,7 +74,8 @@ class PrayerDoseOverlay extends Overlay {
 	private boolean hasHolyWrench;
 
 	@Inject
-	private PrayerDoseOverlay(final Client client, final TooltipManager tooltipManager, final PrayerPlugin plugin) {
+	private PrayerDoseOverlay(final Client client, final TooltipManager tooltipManager, final PrayerPlugin plugin)
+	{
 		this.client = client;
 		this.tooltipManager = tooltipManager;
 		this.plugin = plugin;
@@ -82,39 +83,48 @@ class PrayerDoseOverlay extends Overlay {
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
 
-	void onTick() {
+	void onTick()
+	{
 		// Only track the time on every other tick
-		if (trackTick) {
+		if (trackTick)
+		{
 			startOfLastTick = Instant.now(); //Reset the tick timer
 			trackTick = false;
-		} else {
+		}
+		else
+		{
 			trackTick = true;
 		}
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		final Widget xpOrb = client.getWidget(WidgetInfo.MINIMAP_QUICK_PRAYER_ORB);
-		if (xpOrb == null || xpOrb.isHidden()) {
+		if (xpOrb == null || xpOrb.isHidden())
+		{
 			return null;
 		}
 
 		final Rectangle bounds = xpOrb.getBounds();
-		if (bounds.getX() <= 0) {
+		if (bounds.getX() <= 0)
+		{
 			return null;
 		}
 
 		final Point mousePosition = client.getMouseCanvasPosition();
 
-		if (plugin.isShowPrayerStatistics() && bounds.contains(mousePosition.getX(), mousePosition.getY())) {
+		if (plugin.isShowPrayerStatistics() && bounds.contains(mousePosition.getX(), mousePosition.getY()))
+		{
 			final String tooltip = "Time Remaining: " + getEstimatedTimeRemaining() +
-					"</br>" +
-					"Prayer Bonus: " + prayerBonus;
+				"</br>" +
+				"Prayer Bonus: " + prayerBonus;
 
 			tooltipManager.add(new Tooltip(tooltip));
 		}
 
-		if (!plugin.isShowPrayerDoseIndicator() || !hasPrayerRestore) {
+		if (!plugin.isShowPrayerDoseIndicator() || !hasPrayerRestore)
+		{
 			return null;
 		}
 
@@ -122,7 +132,8 @@ class PrayerDoseOverlay extends Overlay {
 		final int maxPrayer = client.getRealSkillLevel(Skill.PRAYER);
 
 		final int prayerPointsMissing = maxPrayer - currentPrayer;
-		if (prayerPointsMissing <= 0) {
+		if (prayerPointsMissing <= 0)
+		{
 			return null;
 		}
 
@@ -131,7 +142,8 @@ class PrayerDoseOverlay extends Overlay {
 
 		final int pointsRestored = basePointsRestored + 7 + bonusPrayer;
 
-		if (prayerPointsMissing < pointsRestored) {
+		if (prayerPointsMissing < pointsRestored)
+		{
 			return null;
 		}
 
@@ -153,11 +165,14 @@ class PrayerDoseOverlay extends Overlay {
 		return new Dimension((int) bounds.getWidth(), (int) bounds.getHeight());
 	}
 
-	private double getPrayerDrainRate(Client client) {
+	private double getPrayerDrainRate(Client client)
+	{
 		double drainRate = 0.0;
 
-		for (Prayer prayer : Prayer.values()) {
-			if (client.isPrayerActive(prayer)) {
+		for (Prayer prayer : Prayer.values())
+		{
+			if (client.isPrayerActive(prayer))
+			{
 				drainRate += prayer.getDrainRate();
 			}
 		}
@@ -165,11 +180,13 @@ class PrayerDoseOverlay extends Overlay {
 		return drainRate;
 	}
 
-	private String getEstimatedTimeRemaining() {
+	private String getEstimatedTimeRemaining()
+	{
 		// Base data
 		final double drainRate = getPrayerDrainRate(client);
 
-		if (drainRate == 0) {
+		if (drainRate == 0)
+		{
 			return "N/A";
 		}
 

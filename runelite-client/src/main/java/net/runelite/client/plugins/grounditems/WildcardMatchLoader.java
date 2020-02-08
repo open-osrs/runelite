@@ -26,29 +26,33 @@ package net.runelite.client.plugins.grounditems;
 
 import com.google.common.base.Strings;
 import com.google.common.cache.CacheLoader;
-
 import java.util.List;
 import javax.annotation.Nonnull;
-
 import net.runelite.client.util.WildcardMatcher;
 
-class WildcardMatchLoader extends CacheLoader<String, Boolean> {
+class WildcardMatchLoader extends CacheLoader<String, Boolean>
+{
 	private final List<String> nameFilters;
 
-	WildcardMatchLoader(final List<String> nameFilters) {
+	WildcardMatchLoader(final List<String> nameFilters)
+	{
 		this.nameFilters = nameFilters;
 	}
 
 	@Override
-	public Boolean load(@Nonnull final String key) {
-		if (Strings.isNullOrEmpty(key)) {
+	public Boolean load(@Nonnull final String key)
+	{
+		if (Strings.isNullOrEmpty(key))
+		{
 			return false;
 		}
 
 		final String filteredName = key.trim();
 
-		for (final String filter : nameFilters) {
-			if (WildcardMatcher.matches(filter, filteredName)) {
+		for (final String filter : nameFilters)
+		{
+			if (WildcardMatcher.matches(filter, filteredName))
+			{
 				return true;
 			}
 		}

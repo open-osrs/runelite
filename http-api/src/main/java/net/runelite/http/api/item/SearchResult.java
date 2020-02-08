@@ -26,14 +26,17 @@ package net.runelite.http.api.item;
 
 import java.util.List;
 
-public class SearchResult {
+public class SearchResult
+{
 	private List<Item> items;
 
-	public List<Item> getItems() {
+	public List<Item> getItems()
+	{
 		return items;
 	}
 
-	public void setItems(List<Item> items) {
+	public void setItems(List<Item> items)
+	{
 		this.items = items;
 	}
 }

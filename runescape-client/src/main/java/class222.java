@@ -6,15 +6,15 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class222 {
 	@ObfuscatedName("em")
 	@ObfuscatedSignature(
-			signature = "Llj;"
+		signature = "Llj;"
 	)
 	@Export("spriteIds")
 	static GraphicsDefaults spriteIds;
 
 	@ObfuscatedName("fo")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1128427150"
+		signature = "(I)V",
+		garbageValue = "-1128427150"
 	)
 	static final void method4192() {
 		int var2;

@@ -25,7 +25,6 @@
 package net.runelite.api;
 
 import net.runelite.api.coords.LocalPoint;
-
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
@@ -34,7 +33,8 @@ import javax.annotation.Nullable;
 /**
  * Represents an object on a Tile
  */
-public interface TileObject extends Locatable {
+public interface TileObject extends Locatable
+{
 	long getHash();
 
 	/**
@@ -85,7 +85,7 @@ public interface TileObject extends Locatable {
 	 * Calculates the canvas point to center {@code text} above the tile this object is on.
 	 *
 	 * @param graphics the graphics to use for font size calculation
-	 * @param zOffset  Vertical offset to apply before projection
+	 * @param zOffset Vertical offset to apply before projection
 	 * @return the canvas point to draw the text at
 	 */
 	Point getCanvasTextLocation(Graphics2D graphics, String text, int zOffset);

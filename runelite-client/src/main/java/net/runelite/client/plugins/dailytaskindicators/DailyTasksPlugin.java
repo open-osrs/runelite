@@ -27,10 +27,8 @@
 package net.runelite.client.plugins.dailytaskindicators;
 
 import com.google.inject.Provides;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -52,12 +50,13 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
 
 @PluginDescriptor(
-		name = "Daily Task Indicator",
-		description = "Show chat notifications for daily tasks upon login",
-		type = PluginType.UTILITY
+	name = "Daily Task Indicator",
+	description = "Show chat notifications for daily tasks upon login",
+	type = PluginType.UTILITY
 )
 @Singleton
-public class DailyTasksPlugin extends Plugin {
+public class DailyTasksPlugin extends Plugin
+{
 	private static final int ONE_DAY = 86400000;
 
 	private static final String HERB_BOX_MESSAGE = "You have herb boxes waiting to be collected at NMZ.";
@@ -97,180 +96,221 @@ public class DailyTasksPlugin extends Plugin {
 	private boolean showDynamite;
 
 	@Provides
-	DailyTasksConfig provideConfig(ConfigManager configManager) {
+	DailyTasksConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(DailyTasksConfig.class);
 	}
 
 	@Override
-	public void startUp() {
+	public void startUp()
+	{
 		updateConfig();
 
 		loggingIn = true;
 	}
 
 	@Override
-	public void shutDown() {
+	public void shutDown()
+	{
 		lastReset = 0L;
 	}
 
 	@Subscribe
-	private void onGameStateChanged(GameStateChanged event) {
-		if (event.getGameState() == GameState.LOGGING_IN) {
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGGING_IN)
+		{
 			loggingIn = true;
 		}
 	}
 
 	@Subscribe
-	private void onGameTick(GameTick event) {
+	private void onGameTick(GameTick event)
+	{
 		long currentTime = System.currentTimeMillis();
 		boolean dailyReset = !loggingIn && currentTime - lastReset > ONE_DAY;
 
 		if ((dailyReset || loggingIn)
-				&& client.getVar(VarClientInt.MEMBERSHIP_STATUS) == 1) {
+			&& client.getVar(VarClientInt.MEMBERSHIP_STATUS) == 1)
+		{
 			// Round down to the nearest day
 			lastReset = (long) Math.floor(currentTime / ONE_DAY) * ONE_DAY;
 			loggingIn = false;
 
-			if (this.showHerbBoxes) {
+			if (this.showHerbBoxes)
+			{
 				checkHerbBoxes(dailyReset);
 			}
 
-			if (this.showStaves) {
+			if (this.showStaves)
+			{
 				checkStaves(dailyReset);
 			}
 
-			if (this.showEssence) {
+			if (this.showEssence)
+			{
 				checkEssence(dailyReset);
 			}
 
-			if (this.showRunes) {
+			if (this.showRunes)
+			{
 				checkRunes(dailyReset);
 			}
 
-			if (this.showSand) {
+			if (this.showSand)
+			{
 				checkSand(dailyReset);
 			}
 
-			if (this.showFlax) {
+			if (this.showFlax)
+			{
 				checkFlax(dailyReset);
 			}
 
-			if (this.showBonemeal) {
+			if (this.showBonemeal)
+			{
 				checkBonemeal(dailyReset);
 			}
 
-			if (this.showArrows) {
+			if (this.showArrows)
+			{
 				checkArrows(dailyReset);
 			}
 
-			if (this.showDynamite) {
+			if (this.showDynamite)
+			{
 				checkDynamite(dailyReset);
 			}
 		}
 	}
 
-	private void checkHerbBoxes(boolean dailyReset) {
+	private void checkHerbBoxes(boolean dailyReset)
+	{
 
 		if (client.getAccountType() == AccountType.NORMAL
-				&& client.getVar(VarPlayer.NMZ_REWARD_POINTS) >= HERB_BOX_COST
-				&& (client.getVar(Varbits.DAILY_HERB_BOXES_COLLECTED) < HERB_BOX_MAX
-				|| dailyReset)) {
+			&& client.getVar(VarPlayer.NMZ_REWARD_POINTS) >= HERB_BOX_COST
+			&& (client.getVar(Varbits.DAILY_HERB_BOXES_COLLECTED) < HERB_BOX_MAX
+			|| dailyReset))
+		{
 			sendChatMessage(HERB_BOX_MESSAGE);
 		}
 	}
 
-	private void checkStaves(boolean dailyReset) {
+	private void checkStaves(boolean dailyReset)
+	{
 		if (client.getVar(Varbits.DIARY_VARROCK_EASY) == 1
-				&& (client.getVar(Varbits.DAILY_STAVES_COLLECTED) == 0
-				|| dailyReset)) {
+			&& (client.getVar(Varbits.DAILY_STAVES_COLLECTED) == 0
+			|| dailyReset))
+		{
 			sendChatMessage(STAVES_MESSAGE);
 		}
 	}
 
-	private void checkEssence(boolean dailyReset) {
+	private void checkEssence(boolean dailyReset)
+	{
 		if (client.getVar(Varbits.DIARY_ARDOUGNE_MEDIUM) == 1
-				&& (client.getVar(Varbits.DAILY_ESSENCE_COLLECTED) == 0
-				|| dailyReset)) {
+			&& (client.getVar(Varbits.DAILY_ESSENCE_COLLECTED) == 0
+			|| dailyReset))
+		{
 			sendChatMessage(ESSENCE_MESSAGE);
 		}
 	}
 
-	private void checkRunes(boolean dailyReset) {
+	private void checkRunes(boolean dailyReset)
+	{
 		if (client.getVar(Varbits.DIARY_WILDERNESS_EASY) == 1
-				&& (client.getVar(Varbits.DAILY_RUNES_COLLECTED) == 0
-				|| dailyReset)) {
+			&& (client.getVar(Varbits.DAILY_RUNES_COLLECTED) == 0
+			|| dailyReset))
+		{
 			sendChatMessage(RUNES_MESSAGE);
 		}
 	}
 
-	private void checkSand(boolean dailyReset) {
+	private void checkSand(boolean dailyReset)
+	{
 		if (client.getVar(Varbits.QUEST_THE_HAND_IN_THE_SAND) >= SAND_QUEST_COMPLETE
-				&& (client.getVar(Varbits.DAILY_SAND_COLLECTED) == 0
-				|| dailyReset)) {
+			&& (client.getVar(Varbits.DAILY_SAND_COLLECTED) == 0
+			|| dailyReset))
+		{
 			sendChatMessage(SAND_MESSAGE);
 		}
 	}
 
-	private void checkFlax(boolean dailyReset) {
+	private void checkFlax(boolean dailyReset)
+	{
 		if ((client.getVar(Varbits.DIARY_KANDARIN_EASY) == 1)
-				&& (dailyReset || client.getVar(Varbits.DAILY_FLAX_STATE) == 0)) {
+			&& (dailyReset || client.getVar(Varbits.DAILY_FLAX_STATE) == 0))
+		{
 			sendChatMessage(FLAX_MESSAGE);
 		}
 	}
 
-	private void checkArrows(boolean dailyReset) {
+	private void checkArrows(boolean dailyReset)
+	{
 		if (client.getVar(Varbits.DIARY_WESTERN_EASY) == 1
-				&& (client.getVar(Varbits.DAILY_ARROWS_STATE) == 0
-				|| dailyReset)) {
+			&& (client.getVar(Varbits.DAILY_ARROWS_STATE) == 0
+			|| dailyReset))
+		{
 			sendChatMessage(ARROWS_MESSAGE);
 		}
 	}
 
-	private void checkBonemeal(boolean dailyReset) {
-		if (client.getVar(Varbits.DIARY_MORYTANIA_MEDIUM) == 1) {
+	private void checkBonemeal(boolean dailyReset)
+	{
+		if (client.getVar(Varbits.DIARY_MORYTANIA_MEDIUM) == 1)
+		{
 			int collected = client.getVar(Varbits.DAILY_BONEMEAL_STATE);
 			int max = BONEMEAL_PER_DIARY;
-			if (client.getVar(Varbits.DIARY_MORYTANIA_HARD) == 1) {
+			if (client.getVar(Varbits.DIARY_MORYTANIA_HARD) == 1)
+			{
 				max += BONEMEAL_PER_DIARY;
-				if (client.getVar(Varbits.DIARY_MORYTANIA_ELITE) == 1) {
+				if (client.getVar(Varbits.DIARY_MORYTANIA_ELITE) == 1)
+				{
 					max += BONEMEAL_PER_DIARY;
 				}
 			}
-			if (dailyReset || collected < max) {
+			if (dailyReset || collected < max)
+			{
 				sendChatMessage(BONEMEAL_MESSAGE);
 			}
 		}
 	}
 
-	private void checkDynamite(boolean dailyReset) {
+	private void checkDynamite(boolean dailyReset)
+	{
 		if (client.getVar(Varbits.DIARY_KOUREND_MEDIUM) == 1
-				&& (client.getVar(Varbits.DAILY_DYNAMITE_COLLECTED) == 0
-				|| dailyReset)) {
+			&& (client.getVar(Varbits.DAILY_DYNAMITE_COLLECTED) == 0
+			|| dailyReset))
+		{
 			sendChatMessage(DYNAMITE_MESSAGE);
 		}
 	}
 
-	private void sendChatMessage(String chatMessage) {
+	private void sendChatMessage(String chatMessage)
+	{
 		final String message = new ChatMessageBuilder()
-				.append(ChatColorType.HIGHLIGHT)
-				.append(chatMessage)
-				.build();
+			.append(ChatColorType.HIGHLIGHT)
+			.append(chatMessage)
+			.build();
 
 		chatMessageManager.queue(
-				QueuedMessage.builder()
-						.type(ChatMessageType.CONSOLE)
-						.runeLiteFormattedMessage(message)
-						.build());
+			QueuedMessage.builder()
+				.type(ChatMessageType.CONSOLE)
+				.runeLiteFormattedMessage(message)
+				.build());
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged configChanged) {
-		if (configChanged.getGroup().equals("dailytaskindicators")) {
+	private void onConfigChanged(ConfigChanged configChanged)
+	{
+		if (configChanged.getGroup().equals("dailytaskindicators"))
+		{
 			updateConfig();
 		}
 	}
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		this.showHerbBoxes = config.showHerbBoxes();
 		this.showStaves = config.showStaves();
 		this.showEssence = config.showEssence();

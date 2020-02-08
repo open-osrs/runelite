@@ -25,7 +25,6 @@
 package net.runelite.api.events;
 
 import java.util.Iterator;
-
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.MenuEntry;
@@ -35,7 +34,8 @@ import lombok.Data;
  * An event where a menu has been opened.
  */
 @Data
-public class MenuOpened implements Event, Iterable<MenuEntry> {
+public class MenuOpened implements Event, Iterable<MenuEntry>
+{
 	/**
 	 * This should be set to true if anything about the menu
 	 * in menuEntries is changed, so the changes can be
@@ -57,30 +57,37 @@ public class MenuOpened implements Event, Iterable<MenuEntry> {
 	 *
 	 * @return the first entry
 	 */
-	public MenuEntry getFirstEntry() {
-		if (menuEntries.length > 0) {
+	public MenuEntry getFirstEntry()
+	{
+		if (menuEntries.length > 0)
+		{
 			return menuEntries[menuEntries.length - 1];
 		}
 
 		return null;
 	}
 
-	public void setModified() {
+	public void setModified()
+	{
 		this.modified = true;
 	}
 
 	@Override
-	public Iterator<MenuEntry> iterator() {
-		return new Iterator<MenuEntry>() {
+	public Iterator<MenuEntry> iterator()
+	{
+		return new Iterator<MenuEntry>()
+		{
 			int index = 0;
 
 			@Override
-			public boolean hasNext() {
+			public boolean hasNext()
+			{
 				return index < menuEntries.length;
 			}
 
 			@Override
-			public MenuEntry next() {
+			public MenuEntry next()
+			{
 				return menuEntries[index++];
 			}
 		};

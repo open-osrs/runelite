@@ -32,7 +32,8 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
-public enum InputType {
+public enum InputType
+{
 	RUNELITE_CHATBOX_PANEL(-3),
 	RUNELITE(-2),
 	NONE(0),

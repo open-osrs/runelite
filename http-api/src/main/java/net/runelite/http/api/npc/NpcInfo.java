@@ -27,7 +27,8 @@ package net.runelite.http.api.npc;
 import lombok.Data;
 
 @Data
-public class NpcInfo {
+public class NpcInfo
+{
 	private String name;
 	private int combat;
 	private int hitpoints;

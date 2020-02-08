@@ -29,13 +29,13 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 
-public class RaidsTimer extends InfoBox {
+public class RaidsTimer extends InfoBox
+{
 	private final Instant startTime;
 	private Instant floorTime;
 	private LocalTime time;
@@ -47,54 +47,67 @@ public class RaidsTimer extends InfoBox {
 	@Setter(AccessLevel.PACKAGE)
 	private boolean stopped;
 
-	public RaidsTimer(Plugin plugin, Instant startTime) {
+	public RaidsTimer(Plugin plugin, Instant startTime)
+	{
 		super(null, plugin);
 		this.startTime = startTime;
 		floorTime = startTime;
 		stopped = false;
 	}
 
-	void timeFloor() {
+	void timeFloor()
+	{
 		Duration elapsed = Duration.between(floorTime, Instant.now());
 
-		if (firstFloorTime == null) {
+		if (firstFloorTime == null)
+		{
 			firstFloorTime = LocalTime.ofSecondOfDay(elapsed.getSeconds());
-		} else if (secondFloorTime == null) {
+		}
+		else if (secondFloorTime == null)
+		{
 			secondFloorTime = LocalTime.ofSecondOfDay(elapsed.getSeconds());
-		} else if (thirdFloorTime == null) {
+		}
+		else if (thirdFloorTime == null)
+		{
 			thirdFloorTime = LocalTime.ofSecondOfDay(elapsed.getSeconds());
 		}
 
 		floorTime = Instant.now();
 	}
 
-	void timeOlm() {
+	void timeOlm()
+	{
 		Duration elapsed = Duration.between(floorTime, Instant.now());
 		olmTime = LocalTime.ofSecondOfDay(elapsed.getSeconds());
 	}
 
 	@Override
-	public String getTooltip() {
+	public String getTooltip()
+	{
 		StringBuilder builder = new StringBuilder();
 		builder.append("Elapsed raid time: ");
 		builder.append(time.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
 
-		if (firstFloorTime != null) {
+		if (firstFloorTime != null)
+		{
 			builder.append("</br>First floor: ");
 			builder.append(firstFloorTime.format(DateTimeFormatter.ofPattern("mm:ss")));
 		}
 
-		if (secondFloorTime != null) {
+		if (secondFloorTime != null)
+		{
 			builder.append("</br>Second floor: ");
 			builder.append(secondFloorTime.format(DateTimeFormatter.ofPattern("mm:ss")));
 		}
 
-		if (thirdFloorTime != null) {
+		if (thirdFloorTime != null)
+		{
 			builder.append("</br>Third floor: ");
 			builder.append(thirdFloorTime.format(DateTimeFormatter.ofPattern("mm:ss")));
 		}
 
-		if (olmTime != null) {
+		if (olmTime != null)
+		{
 			builder.append("</br>Olm: ");
 			builder.append(olmTime.format(DateTimeFormatter.ofPattern("mm:ss")));
 		}
@@ -103,17 +116,21 @@ public class RaidsTimer extends InfoBox {
 	}
 
 	@Override
-	public String getText() {
-		if (startTime == null) {
+	public String getText()
+	{
+		if (startTime == null)
+		{
 			return "";
 		}
 
-		if (!stopped) {
+		if (!stopped)
+		{
 			Duration elapsed = Duration.between(startTime, Instant.now());
 			time = LocalTime.ofSecondOfDay(elapsed.getSeconds());
 		}
 
-		if (time.getHour() > 0) {
+		if (time.getHour() > 0)
+		{
 			return time.format(DateTimeFormatter.ofPattern("HH:mm"));
 		}
 
@@ -121,8 +138,10 @@ public class RaidsTimer extends InfoBox {
 	}
 
 	@Override
-	public Color getTextColor() {
-		if (stopped) {
+	public Color getTextColor()
+	{
+		if (stopped)
+		{
 			return Color.GREEN;
 		}
 

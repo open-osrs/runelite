@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class SpriteMask extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -1040001761
+		intValue = -1040001761
 	)
 	@Export("width")
 	public final int width;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = -1175946867
+		intValue = -1175946867
 	)
 	@Export("height")
 	public final int height;
@@ -35,8 +35,8 @@ public class SpriteMask extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(III)Z",
-			garbageValue = "2110686779"
+		signature = "(III)Z",
+		garbageValue = "2110686779"
 	)
 	@Export("contains")
 	public boolean contains(int var1, int var2) {
@@ -52,8 +52,8 @@ public class SpriteMask extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(IIB)Lhn;",
-			garbageValue = "-27"
+		signature = "(IIB)Lhn;",
+		garbageValue = "-27"
 	)
 	@Export("getWidgetChild")
 	public static Widget getWidgetChild(int var0, int var1) {
@@ -67,8 +67,8 @@ public class SpriteMask extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "398303875"
+		signature = "(I)I",
+		garbageValue = "398303875"
 	)
 	public static int method4038() {
 		return ++MouseHandler.MouseHandler_idleCycles - 1;
@@ -76,8 +76,8 @@ public class SpriteMask extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "([BI)V",
-			garbageValue = "-1864431963"
+		signature = "([BI)V",
+		garbageValue = "-1864431963"
 	)
 	@Export("SpriteBuffer_decode")
 	public static void SpriteBuffer_decode(byte[] var0) {

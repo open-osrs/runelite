@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Model extends Entity {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Ldx;"
+		signature = "Ldx;"
 	)
 	@Export("Model_sharedSequenceModel")
 	static Model Model_sharedSequenceModel;
@@ -17,7 +17,7 @@ public class Model extends Entity {
 	static byte[] Model_sharedSequenceModelFaceAlphas;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Ldx;"
+		signature = "Ldx;"
 	)
 	@Export("Model_sharedSpotAnimationModel")
 	static Model Model_sharedSpotAnimationModel;
@@ -222,7 +222,7 @@ public class Model extends Entity {
 	}
 
 	@ObfuscatedSignature(
-			signature = "([Ldx;I)V"
+		signature = "([Ldx;I)V"
 	)
 	public Model(Model[] var1, int var2) {
 		this.verticesCount = 0;
@@ -336,7 +336,7 @@ public class Model extends Entity {
 
 					if (var6) {
 						if (var8.field1686 != null && var8.field1686[var9] != -1) {
-							this.field1686[this.indicesCount] = (byte) (this.field1676 + var8.field1686[var9]);
+							this.field1686[this.indicesCount] = (byte)(this.field1676 + var8.field1686[var9]);
 						} else {
 							this.field1686[this.indicesCount] = -1;
 						}
@@ -365,7 +365,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "([[IIIIZI)Ldx;"
+		signature = "([[IIIIZI)Ldx;"
 	)
 	@Export("contourGround")
 	public Model contourGround(int[][] var1, int var2, int var3, int var4, boolean var5, int var6) {
@@ -463,7 +463,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Z)Ldx;"
+		signature = "(Z)Ldx;"
 	)
 	@Export("toSharedSequenceModel")
 	public Model toSharedSequenceModel(boolean var1) {
@@ -476,7 +476,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(Z)Ldx;"
+		signature = "(Z)Ldx;"
 	)
 	@Export("toSharedSpotAnimationModel")
 	public Model toSharedSpotAnimationModel(boolean var1) {
@@ -489,7 +489,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(ZLdx;[B)Ldx;"
+		signature = "(ZLdx;[B)Ldx;"
 	)
 	@Export("buildSharedModel")
 	Model buildSharedModel(boolean var1, Model var2, byte[] var3) {
@@ -635,9 +635,9 @@ public class Model extends Entity {
 				}
 			}
 
-			this.xzRadius = (int) (Math.sqrt((double) this.xzRadius) + 0.99D);
-			this.radius = (int) (Math.sqrt((double) (this.xzRadius * this.xzRadius + super.height * super.height)) + 0.99D);
-			this.diameter = this.radius + (int) (Math.sqrt((double) (this.xzRadius * this.xzRadius + this.bottomY * this.bottomY)) + 0.99D);
+			this.xzRadius = (int)(Math.sqrt((double)this.xzRadius) + 0.99D);
+			this.radius = (int)(Math.sqrt((double)(this.xzRadius * this.xzRadius + super.height * super.height)) + 0.99D);
+			this.diameter = this.radius + (int)(Math.sqrt((double)(this.xzRadius * this.xzRadius + this.bottomY * this.bottomY)) + 0.99D);
 		}
 	}
 
@@ -657,7 +657,7 @@ public class Model extends Entity {
 				}
 			}
 
-			this.xzRadius = (int) (Math.sqrt((double) this.xzRadius) + 0.99D);
+			this.xzRadius = (int)(Math.sqrt((double)this.xzRadius) + 0.99D);
 			this.radius = this.xzRadius;
 			this.diameter = this.xzRadius + this.xzRadius;
 		}
@@ -678,7 +678,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-			signature = "(Les;I)V"
+		signature = "(Les;I)V"
 	)
 	@Export("animate")
 	public void animate(Frames var1, int var2) {
@@ -702,7 +702,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "(Les;ILes;I[I)V"
+		signature = "(Les;ILes;I[I)V"
 	)
 	@Export("animate2")
 	public void animate2(Frames var1, int var2, Frames var3, int var4, int[] var5) {
@@ -910,7 +910,7 @@ public class Model extends Entity {
 									var12 = 255;
 								}
 
-								this.faceAlphas[var11] = (byte) var12;
+								this.faceAlphas[var11] = (byte)var12;
 							}
 						}
 					}

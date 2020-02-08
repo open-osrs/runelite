@@ -25,7 +25,6 @@
 package net.runelite.deob.deobfuscators;
 
 import java.util.Optional;
-
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Type;
 import net.runelite.asm.attributes.Code;
@@ -41,9 +40,11 @@ import net.runelite.deob.ClassGroupFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CastNullTest {
+public class CastNullTest
+{
 	@Test
-	public void testRun() {
+	public void testRun()
+	{
 		ClassGroup group = ClassGroupFactory.generateGroup();
 
 		Code code = group.findClass("test").findMethod("func").getCode();
@@ -55,16 +56,17 @@ public class CastNullTest {
 		checkCast.setType(new Type("test"));
 
 		Instruction[] instructions =
-				{
-						new LDC(ins, 2),
-						new AConstNull(ins),
-						checkCast,
-						new LDC(ins, 2),
-						new IAdd(ins),
-						new Return(ins, InstructionType.IRETURN)
-				};
+		{
+			new LDC(ins, 2),
+			new AConstNull(ins),
+			checkCast,
+			new LDC(ins, 2),
+			new IAdd(ins),
+			new Return(ins, InstructionType.IRETURN)
+		};
 
-		for (Instruction i : instructions) {
+		for (Instruction i : instructions)
+		{
 			ins.addInstruction(i);
 		}
 

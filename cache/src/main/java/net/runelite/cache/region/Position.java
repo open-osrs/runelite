@@ -25,24 +25,28 @@
 
 package net.runelite.cache.region;
 
-public class Position {
+public class Position
+{
 	private final int x;
 	private final int y;
 	private final int z;
 
-	public Position(int x, int y, int z) {
+	public Position(int x, int y, int z)
+	{
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "Position{" + "x=" + x + ", y=" + y + ", z=" + z + '}';
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hash = 7;
 		hash = 67 * hash + this.x;
 		hash = 67 * hash + this.y;
@@ -51,38 +55,48 @@ public class Position {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
 			return true;
 		}
-		if (obj == null) {
+		if (obj == null)
+		{
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
+		{
 			return false;
 		}
 		final Position other = (Position) obj;
-		if (this.x != other.x) {
+		if (this.x != other.x)
+		{
 			return false;
 		}
-		if (this.y != other.y) {
+		if (this.y != other.y)
+		{
 			return false;
 		}
-		if (this.z != other.z) {
+		if (this.z != other.z)
+		{
 			return false;
 		}
 		return true;
 	}
 
-	public int getX() {
+	public int getX()
+	{
 		return x;
 	}
 
-	public int getY() {
+	public int getY()
+	{
 		return y;
 	}
 
-	public int getZ() {
+	public int getZ()
+	{
 		return z;
 	}
 }

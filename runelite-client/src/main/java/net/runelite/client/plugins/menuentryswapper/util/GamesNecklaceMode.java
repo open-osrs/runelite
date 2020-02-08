@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.menuentryswapper.util;
 
-public enum GamesNecklaceMode {
+public enum GamesNecklaceMode
+{
 	BURTHORPE("Burthorpe"),
 	BARBARIAN_OUTPOST("Barbarian Outpost"),
 	CORPOREAL_BEAST("Corporeal Beast"),
@@ -33,12 +34,14 @@ public enum GamesNecklaceMode {
 
 	private final String name;
 
-	GamesNecklaceMode(String name) {
+	GamesNecklaceMode(String name)
+	{
 		this.name = name;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 }

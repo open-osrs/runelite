@@ -29,49 +29,67 @@ import net.runelite.cache.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class KitLoader {
+public class KitLoader
+{
 	private static final Logger logger = LoggerFactory.getLogger(KitLoader.class);
 
-	public KitDefinition load(int id, byte[] b) {
+	public KitDefinition load(int id, byte[] b)
+	{
 		KitDefinition def = new KitDefinition(id);
 		InputStream is = new InputStream(b);
 
-		for (; ; ) {
+		for (;;)
+		{
 			int opcode = is.readUnsignedByte();
-			if (opcode == 0) {
+			if (opcode == 0)
+			{
 				break;
 			}
 
-			if (opcode == 1) {
+			if (opcode == 1)
+			{
 				def.bodyPartId = is.readUnsignedByte();
-			} else if (opcode == 2) {
+			}
+			else if (opcode == 2)
+			{
 				int length = is.readUnsignedByte();
 				def.modelIds = new int[length];
 
-				for (int index = 0; index < length; ++index) {
+				for (int index = 0; index < length; ++index)
+				{
 					def.modelIds[index] = is.readUnsignedShort();
 				}
-			} else if (opcode == 3) {
+			}
+			else if (opcode == 3)
+			{
 				def.nonSelectable = true;
-			} else if (opcode == 40) {
+			}
+			else if (opcode == 40)
+			{
 				int length = is.readUnsignedByte();
 				def.recolorToFind = new short[length];
 				def.recolorToReplace = new short[length];
 
-				for (int index = 0; index < length; ++index) {
+				for (int index = 0; index < length; ++index)
+				{
 					def.recolorToFind[index] = is.readShort();
 					def.recolorToReplace[index] = is.readShort();
 				}
-			} else if (opcode == 41) {
+			}
+			else if (opcode == 41)
+			{
 				int length = is.readUnsignedByte();
 				def.retextureToFind = new short[length];
 				def.retextureToReplace = new short[length];
 
-				for (int index = 0; index < length; ++index) {
+				for (int index = 0; index < length; ++index)
+				{
 					def.retextureToFind[index] = is.readShort();
 					def.retextureToReplace[index] = is.readShort();
 				}
-			} else if (opcode >= 60 && opcode < 70) {
+			}
+			else if (opcode >= 60 && opcode < 70)
+			{
 				def.models[opcode - 60] = is.readShort();
 			}
 		}

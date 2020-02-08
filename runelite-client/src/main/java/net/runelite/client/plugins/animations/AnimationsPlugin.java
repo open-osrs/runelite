@@ -27,7 +27,6 @@ package net.runelite.client.plugins.animations;
 import java.io.IOException;
 import java.util.HashMap;
 import javax.inject.Inject;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -39,11 +38,12 @@ import net.runelite.http.api.animation.AnimationsClient;
 import org.apache.commons.lang3.ArrayUtils;
 
 @PluginDescriptor(
-		name = "Animations",
-		hidden = true
+	name = "Animations",
+	hidden = true
 )
 @Slf4j
-public class AnimationsPlugin extends Plugin {
+public class AnimationsPlugin extends Plugin
+{
 	private final AnimationsClient animationsClient = new AnimationsClient();
 
 	private HashMap<Integer, int[]> animations;
@@ -51,18 +51,25 @@ public class AnimationsPlugin extends Plugin {
 	private Client client;
 
 	{
-		try {
+		try
+		{
 			animations = animationsClient.get();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
 	@Subscribe
-	private void onAnimationChanged(AnimationChanged event) {
-		if (event.getActor() instanceof NPC) {
-			if (event.getActor().getAnimation() != -1) {
-				if (ArrayUtils.contains(animations.get(((NPC) event.getActor()).getId()), event.getActor().getAnimation())) {
+	private void onAnimationChanged(AnimationChanged event)
+	{
+		if (event.getActor() instanceof NPC)
+		{
+			if (event.getActor().getAnimation() != -1)
+			{
+				if (ArrayUtils.contains(animations.get(((NPC) event.getActor()).getId()), event.getActor().getAnimation()))
+				{
 					return;
 				}
 				int[] newAnimations = ArrayUtils.add(animations.get(((NPC) event.getActor()).getId()), event.getActor().getAnimation());

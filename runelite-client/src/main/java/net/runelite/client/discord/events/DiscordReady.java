@@ -31,7 +31,8 @@ import net.runelite.api.events.Event;
  * Called when the RPC connection has been established
  */
 @Value
-public class DiscordReady implements Event {
+public class DiscordReady implements Event
+{
 	/**
 	 * The userId for the active user
 	 */

@@ -5,11 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
-
 import static net.runelite.client.RuneLite.RUNELITE_DIR;
-
 import org.h2.jdbcx.JdbcDataSource;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -18,7 +15,8 @@ import org.jooq.impl.DSL;
 
 @Singleton
 @Slf4j
-public class DatabaseManager {
+public class DatabaseManager
+{
 	private static final String DB_URL = "jdbc:h2:" + RUNELITE_DIR + File.separator + "RunelitePlus;AUTO_SERVER=TRUE";
 
 	//  Database credentials
@@ -27,12 +25,15 @@ public class DatabaseManager {
 
 	private Connection connection;
 
-	DatabaseManager() {
+	DatabaseManager()
+	{
 		System.getProperties().setProperty("org.jooq.no-logo", "true");
 	}
 
-	private void connect() {
-		if (connection != null) {
+	private void connect()
+	{
+		if (connection != null)
+		{
 			return;
 		}
 
@@ -41,37 +42,47 @@ public class DatabaseManager {
 		ds.setUser(DatabaseManager.USER);
 		ds.setPassword(DatabaseManager.PASS);
 
-		try {
+		try
+		{
 			connection = ds.getConnection();
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	Connection getConnection() {
+	Connection getConnection()
+	{
 		connect();
 
 		return connection;
 	}
 
-	public DSLContext getDsl() {
+	public DSLContext getDsl()
+	{
 		Settings settings = new Settings();
 		settings.setExecuteLogging(false);
 
 		return DSL.using(connection, SQLDialect.H2, settings);
 	}
 
-	public boolean checkTableExists(String table) {
+	public boolean checkTableExists(String table)
+	{
 		boolean tableExists = false;
 
 		connect();
 
-		try {
+		try
+		{
 			ResultSet rset = connection.getMetaData().getTables(null, null, table.toUpperCase(), null);
-			if (rset.next()) {
+			if (rset.next())
+			{
 				tableExists = true;
 			}
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 		}
 

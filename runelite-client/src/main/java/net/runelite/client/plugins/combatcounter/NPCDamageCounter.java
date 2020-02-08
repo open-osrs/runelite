@@ -7,13 +7,15 @@ import java.util.TreeMap;
 import javax.inject.Singleton;
 
 @Singleton
-class NPCDamageCounter {
+class NPCDamageCounter
+{
 
 	final Map<Integer, List<String>> attackers;
 
 	final List<Integer> damage;
 
-	NPCDamageCounter() {
+	NPCDamageCounter()
+	{
 		this.attackers = new TreeMap<>();
 		this.damage = new ArrayList<>();
 	}

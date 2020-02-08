@@ -1,5 +1,4 @@
 import java.util.Comparator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -18,8 +17,8 @@ public class UserComparator1 implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljk;Ljk;I)I",
-			garbageValue = "-1803472234"
+		signature = "(Ljk;Ljk;I)I",
+		garbageValue = "-1803472234"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(User var1, User var2) {
@@ -27,7 +26,7 @@ public class UserComparator1 implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((User) var1, (User) var2);
+		return this.compare_bridged((User)var1, (User)var2);
 	}
 
 	public boolean equals(Object var1) {

@@ -31,7 +31,8 @@ import net.runelite.api.events.Event;
  * Called when the logged in user joined to spectate a game
  */
 @Value
-public class DiscordSpectateGame implements Event {
+public class DiscordSpectateGame implements Event
+{
 	/**
 	 * Obfuscated data of your choosing used as spectate secret
 	 */

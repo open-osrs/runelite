@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.runepouch.config;
 
-public enum RunePouchOverlayMode {
+public enum RunePouchOverlayMode
+{
 	INVENTORY,
 	MOUSE_HOVER,
 	BOTH

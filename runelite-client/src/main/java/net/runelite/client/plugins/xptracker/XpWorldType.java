@@ -26,14 +26,17 @@ package net.runelite.client.plugins.xptracker;
 
 import net.runelite.api.WorldType;
 
-enum XpWorldType {
+enum XpWorldType
+{
 	NORMAL,
 	TOURNEY,
 	DMM,
 	LEAGUE;
 
-	static XpWorldType of(WorldType type) {
-		switch (type) {
+	static XpWorldType of(WorldType type)
+	{
+		switch (type)
+		{
 			case TOURNAMENT:
 				return TOURNEY;
 			case DEADMAN:

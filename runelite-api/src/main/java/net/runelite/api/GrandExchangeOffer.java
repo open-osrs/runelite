@@ -3,7 +3,8 @@ package net.runelite.api;
 /**
  * Represents an offer in a grand exchange slot.
  */
-public interface GrandExchangeOffer {
+public interface GrandExchangeOffer
+{
 	/**
 	 * Gets the quantity of bought or sold items.
 	 *

@@ -32,7 +32,8 @@ import net.runelite.api.NPC;
 
 @Data
 @Slf4j
-public class Vorkath {
+public class Vorkath
+{
 	static final int ATTACKS_PER_SWITCH = 6;
 	static final int FIRE_BALL_ATTACKS = 25;
 
@@ -43,7 +44,8 @@ public class Vorkath {
 	private Phase lastPhase;
 	private int attacksLeft;
 
-	public Vorkath(NPC vorkath) {
+	public Vorkath(NPC vorkath)
+	{
 		this.vorkath = vorkath;
 		this.attacksLeft = ATTACKS_PER_SWITCH;
 		this.currentPhase = Phase.UNKNOWN;
@@ -57,7 +59,8 @@ public class Vorkath {
 	 *
 	 * @param newPhase the new phase Vorkath is current on
 	 */
-	void updatePhase(Phase newPhase) {
+	void updatePhase(Phase newPhase)
+	{
 		Phase oldLastPhase = this.lastPhase;
 		Phase oldCurrentPhase = this.currentPhase;
 		Phase oldNextPhase = this.currentPhase;
@@ -65,7 +68,8 @@ public class Vorkath {
 
 		this.lastPhase = this.currentPhase;
 		this.currentPhase = newPhase;
-		switch (newPhase) {
+		switch (newPhase)
+		{
 			case ACID:
 				this.nextPhase = Phase.FIRE_BALL;
 				break;
@@ -80,17 +84,21 @@ public class Vorkath {
 				break;
 		}
 
-		if (this.currentPhase == Phase.FIRE_BALL) {
+		if (this.currentPhase == Phase.FIRE_BALL)
+		{
 			this.attacksLeft = FIRE_BALL_ATTACKS;
-		} else {
+		}
+		else
+		{
 			this.attacksLeft = ATTACKS_PER_SWITCH;
 		}
 
 		log.debug("[Vorkath] Update! Last Phase: {}->{}, Current Phase: {}->{}, Next Phase: {}->{}, Attacks: {}->{}",
-				oldLastPhase, this.lastPhase, oldCurrentPhase, this.currentPhase, oldNextPhase, this.nextPhase, oldAttacksLeft, this.attacksLeft);
+			oldLastPhase, this.lastPhase, oldCurrentPhase, this.currentPhase, oldNextPhase, this.nextPhase, oldAttacksLeft, this.attacksLeft);
 	}
 
-	enum Phase {
+	enum Phase
+	{
 		UNKNOWN,
 		ACID,
 		FIRE_BALL,

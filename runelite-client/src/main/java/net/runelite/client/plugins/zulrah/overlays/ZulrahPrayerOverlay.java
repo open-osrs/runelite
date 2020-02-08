@@ -32,7 +32,6 @@ import java.awt.image.BufferedImage;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Prayer;
@@ -46,12 +45,14 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 
 @Singleton
 @Slf4j
-public class ZulrahPrayerOverlay extends Overlay {
+public class ZulrahPrayerOverlay extends Overlay
+{
 	private final Client client;
 	private final ZulrahPlugin plugin;
 
 	@Inject
-	ZulrahPrayerOverlay(final @Nullable Client client, final ZulrahPlugin plugin) {
+	ZulrahPrayerOverlay(final @Nullable Client client, final ZulrahPlugin plugin)
+	{
 		setPosition(OverlayPosition.BOTTOM_RIGHT);
 		setPriority(OverlayPriority.MED);
 		this.client = client;
@@ -59,20 +60,24 @@ public class ZulrahPrayerOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		ZulrahInstance instance = plugin.getInstance();
 
-		if (instance == null) {
+		if (instance == null)
+		{
 			return null;
 		}
 
 		ZulrahPhase currentPhase = instance.getPhase();
-		if (currentPhase == null) {
+		if (currentPhase == null)
+		{
 			return null;
 		}
 
 		Prayer prayer = currentPhase.isJad() ? null : currentPhase.getPrayer();
-		if (prayer == null) {
+		if (prayer == null)
+		{
 			return null;
 		}
 

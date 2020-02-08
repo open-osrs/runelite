@@ -26,20 +26,19 @@
 package net.runelite.client.plugins.barbarianassault;
 
 import com.google.common.collect.Sets;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.menus.AbstractComparableEntry;
 import net.runelite.client.menus.MenuManager;
 
-class BarbarianAssaultMenu {
+class BarbarianAssaultMenu
+{
 	private final MenuManager menuManager;
 	private final BarbarianAssaultPlugin game;
 	private final List<AbstractComparableEntry> tracker = new ArrayList<>();
@@ -51,16 +50,20 @@ class BarbarianAssaultMenu {
 	private boolean rebuildForced = false;
 
 	@Inject
-	BarbarianAssaultMenu(final MenuManager menuManager, final BarbarianAssaultPlugin game) {
+	BarbarianAssaultMenu(final MenuManager menuManager, final BarbarianAssaultPlugin game)
+	{
 		this.menuManager = menuManager;
 		this.game = game;
 	}
 
-	private boolean isHornOptionHidden(String option) {
-		if (game.isInGame() && game.getRole() != null && game.getRole().getTell(game.getLastCallText()).equalsIgnoreCase(option)) {
+	private boolean isHornOptionHidden(String option)
+	{
+		if (game.isInGame() && game.getRole() != null && game.getRole().getTell(game.getLastCallText()).equalsIgnoreCase(option))
+		{
 			// This will force the menu to be rebuilt after the correct tell is found
 			// medic will be added to the menu if it wasn't there before
-			if (!hornUpdated) {
+			if (!hornUpdated)
+			{
 				rebuildForced = true;
 			}
 			hornUpdated = true;
@@ -69,16 +72,19 @@ class BarbarianAssaultMenu {
 		return true;
 	}
 
-	void clearHiddenMenus() {
+	void clearHiddenMenus()
+	{
 		// Clears menus from MenuManager and tracker
-		for (Iterator<AbstractComparableEntry> iterator = tracker.iterator(); iterator.hasNext(); ) {
+		for (Iterator<AbstractComparableEntry> iterator = tracker.iterator(); iterator.hasNext(); )
+		{
 			menuManager.removeHiddenEntry(iterator.next());
 			iterator.remove();
 		}
 	}
 
 	//TODO add omega egg use on?
-	void validateHiddenMenus(Role role) {
+	void validateHiddenMenus(Role role)
+	{
 		clearHiddenMenus();
 
 		HashSet<Menus> hiddenMenus = Sets.newHashSet(Menus.getMenus());
@@ -89,7 +95,8 @@ class BarbarianAssaultMenu {
 		// iterating over off role menu entry options that are not possible
 		conditionalMenus.removeIf(entry ->
 		{
-			switch (entry) {
+			switch (entry)
+			{
 				// Attacker role options
 				case TELL_BLUE_ATTACKER_HORN:
 				case TELL_GREEN_ATTACKER_HORN:
@@ -111,7 +118,7 @@ class BarbarianAssaultMenu {
 
 				case BLOCK_PENANCE_CAVE:
 					return ((role != Role.DEFENDER && role != null) && game.isRemoveUnusedMenus())
-							|| (role == Role.DEFENDER && game.isRemovePenanceCave());
+						|| (role == Role.DEFENDER && game.isRemovePenanceCave());
 
 				case DUNK_LAVA_CRATER:
 				case FIX:
@@ -174,36 +181,45 @@ class BarbarianAssaultMenu {
 
 		hiddenMenus.removeAll(conditionalMenus);
 
-		for (Menus entry : hiddenMenus) {
+		for (Menus entry : hiddenMenus)
+		{
 			menuManager.addHiddenEntry(entry.getEntry());
 			tracker.add(entry.getEntry());
 		}
 	}
 
-	void enableSwaps() {
-		if (game.isSwapLadder()) {
+	void enableSwaps()
+	{
+		if (game.isSwapLadder())
+		{
 			menuManager.addSwap("climb-down", "ladder", "quick-start", "ladder");
 		}
-		if (game.isSwapCollectorBag()) {
+		if (game.isSwapCollectorBag())
+		{
 			menuManager.addSwap("look-in", "collection bag", "empty", "collection bag");
 		}
-		if (game.isSwapDestroyEggs()) {
+		if (game.isSwapDestroyEggs())
+		{
 			menuManager.addSwap("use", "blue egg", "destroy", "blue egg");
 			menuManager.addSwap("use", "green egg", "destroy", "green egg");
 			menuManager.addSwap("use", "red egg", "destroy", "red egg");
 		}
 	}
 
-	void disableSwaps(boolean force) {
-		if (!game.isSwapLadder() || force) {
+	void disableSwaps(boolean force)
+	{
+		if (!game.isSwapLadder() || force)
+		{
 			menuManager.removeSwap("climb-down", "ladder", "quick-start", "ladder");
 		}
 
-		if (!game.isSwapCollectorBag() || force) {
+		if (!game.isSwapCollectorBag() || force)
+		{
 			menuManager.removeSwap("look-in", "collection bag", "empty", "collection bag");
 		}
 
-		if (!game.isSwapDestroyEggs() || force) {
+		if (!game.isSwapDestroyEggs() || force)
+		{
 			menuManager.removeSwap("use", "blue egg", "destroy", "blue egg");
 			menuManager.removeSwap("use", "green egg", "destroy", "green egg");
 			menuManager.removeSwap("use", "red egg", "destroy", "red egg");

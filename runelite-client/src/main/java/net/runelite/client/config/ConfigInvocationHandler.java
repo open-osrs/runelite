@@ -26,34 +26,37 @@ package net.runelite.client.config;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Objects;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class ConfigInvocationHandler implements InvocationHandler {
+class ConfigInvocationHandler implements InvocationHandler
+{
 	// Special object to represent null values in the cache
 	private static final Object NULL = new Object();
 
 	private final ConfigManager manager;
 	private final Cache<Method, Object> cache = CacheBuilder.newBuilder()
-			.maximumSize(128)
-			.build();
+		.maximumSize(128)
+		.build();
 
-	ConfigInvocationHandler(ConfigManager manager) {
+	ConfigInvocationHandler(ConfigManager manager)
+	{
 		this.manager = manager;
 	}
 
 	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable
+	{
 		// Use cached configuration value if available
-		if (args == null) {
+		if (args == null)
+		{
 			Object cachedValue = cache.getIfPresent(method);
-			if (cachedValue != null) {
+			if (cachedValue != null)
+			{
 				return cachedValue == NULL ? null : cachedValue;
 			}
 		}
@@ -63,24 +66,29 @@ class ConfigInvocationHandler implements InvocationHandler {
 		ConfigGroup group = iface.getAnnotation(ConfigGroup.class);
 		ConfigItem item = method.getAnnotation(ConfigItem.class);
 
-		if (group == null) {
+		if (group == null)
+		{
 			log.warn("Configuration proxy class {} has no @ConfigGroup!", proxy.getClass());
 			return null;
 		}
 
-		if (item == null) {
+		if (item == null)
+		{
 			log.warn("Configuration method {} has no @ConfigItem!", method);
 			return null;
 		}
 
-		if (args == null) {
+		if (args == null)
+		{
 			log.trace("cache miss (size: {}, group: {}, key: {})", cache.size(), group.value(), item.keyName());
 
 			// Getting configuration item
 			String value = manager.getConfiguration(group.value(), item.keyName());
 
-			if (value == null) {
-				if (method.isDefault()) {
+			if (value == null)
+			{
+				if (method.isDefault())
+				{
 					Object defaultValue = callDefaultMethod(proxy, method, null);
 					cache.put(method, defaultValue == null ? NULL : defaultValue);
 					return defaultValue;
@@ -93,13 +101,17 @@ class ConfigInvocationHandler implements InvocationHandler {
 			// Convert value to return type
 			Class<?> returnType = method.getReturnType();
 
-			try {
+			try
+			{
 				Object objectValue = ConfigManager.stringToObject(value, returnType);
 				cache.put(method, objectValue == null ? NULL : objectValue);
 				return objectValue;
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 				log.warn("Unable to unmarshal {}.{} ", group.value(), item.keyName(), e);
-				if (method.isDefault()) {
+				if (method.isDefault())
+				{
 					Object defaultValue = callDefaultMethod(proxy, method, null);
 
 					manager.setConfiguration(group.value(), item.keyName(), defaultValue);
@@ -108,10 +120,13 @@ class ConfigInvocationHandler implements InvocationHandler {
 				}
 				return null;
 			}
-		} else {
+		}
+		else
+		{
 			// Setting a configuration value
 
-			if (args.length != 1) {
+			if (args.length != 1)
+			{
 				throw new RuntimeException("Invalid number of arguents to configuration method");
 			}
 
@@ -120,24 +135,30 @@ class ConfigInvocationHandler implements InvocationHandler {
 			Class<?> type = method.getParameterTypes()[0];
 			Object oldValue = manager.getConfiguration(group.value(), item.keyName(), type);
 
-			if (Objects.equals(oldValue, newValue)) {
+			if (Objects.equals(oldValue, newValue))
+			{
 				// nothing to do
 				return null;
 			}
 
-			if (method.isDefault()) {
+			if (method.isDefault())
+			{
 				Object defaultValue = callDefaultMethod(proxy, method, args);
 
-				if (Objects.equals(newValue, defaultValue)) {
+				if (Objects.equals(newValue, defaultValue))
+				{
 					// Just unset if it goes back to the default
 					manager.unsetConfiguration(group.value(), item.keyName());
 					return null;
 				}
 			}
 
-			if (newValue == null) {
+			if (newValue == null)
+			{
 				manager.unsetConfiguration(group.value(), item.keyName());
-			} else {
+			}
+			else
+			{
 				String newValueStr = ConfigManager.objectToString(newValue);
 				manager.setConfiguration(group.value(), item.keyName(), newValueStr);
 			}
@@ -145,15 +166,17 @@ class ConfigInvocationHandler implements InvocationHandler {
 		}
 	}
 
-	static Object callDefaultMethod(Object proxy, Method method, Object[] args) throws Throwable {
+	static Object callDefaultMethod(Object proxy, Method method, Object[] args) throws Throwable
+	{
 		Class<?> declaringClass = method.getDeclaringClass();
 		return MethodHandles.privateLookupIn(declaringClass, MethodHandles.lookup())
-				.unreflectSpecial(method, declaringClass)
-				.bindTo(proxy)
-				.invokeWithArguments(args);
+			.unreflectSpecial(method, declaringClass)
+			.bindTo(proxy)
+			.invokeWithArguments(args);
 	}
 
-	void invalidate() {
+	void invalidate()
+	{
 		log.trace("cache invalidate");
 		cache.invalidateAll();
 	}

@@ -35,7 +35,6 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
 import org.objectweb.asm.MethodVisitor;
-
 import static org.objectweb.asm.Opcodes.DCONST_0;
 import static org.objectweb.asm.Opcodes.DCONST_1;
 import static org.objectweb.asm.Opcodes.FCONST_0;
@@ -51,57 +50,92 @@ import static org.objectweb.asm.Opcodes.ICONST_M1;
 import static org.objectweb.asm.Opcodes.LCONST_0;
 import static org.objectweb.asm.Opcodes.LCONST_1;
 
-public class LDC extends Instruction implements PushConstantInstruction {
+public class LDC extends Instruction implements PushConstantInstruction
+{
 	private Object value;
 
-	public LDC(Instructions instructions, Object value) {
+	public LDC(Instructions instructions, Object value)
+	{
 		super(instructions, InstructionType.LDC);
 
 		this.value = value;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		Object object = getConstant();
-		if (object instanceof net.runelite.asm.pool.Class) {
+		if (object instanceof net.runelite.asm.pool.Class)
+		{
 			net.runelite.asm.pool.Class cl = (net.runelite.asm.pool.Class) object;
 			org.objectweb.asm.Type type = org.objectweb.asm.Type.getType("L" + cl.getName() + ";");
 			visitor.visitLdcInsn(type);
-		} else if (object.equals(0d)) {
+		}
+		else if (object.equals(0d))
+		{
 			visitor.visitInsn(DCONST_0);
-		} else if (object.equals(1d)) {
+		}
+		else if (object.equals(1d))
+		{
 			visitor.visitInsn(DCONST_1);
-		} else if (object.equals(0f)) {
+		}
+		else if (object.equals(0f))
+		{
 			visitor.visitInsn(FCONST_0);
-		} else if (object.equals(1f)) {
+		}
+		else if (object.equals(1f))
+		{
 			visitor.visitInsn(FCONST_1);
-		} else if (object.equals(2f)) {
+		}
+		else if (object.equals(2f))
+		{
 			visitor.visitInsn(FCONST_2);
-		} else if (object.equals(-1)) {
+		}
+		else if (object.equals(-1))
+		{
 			visitor.visitInsn(ICONST_M1);
-		} else if (object.equals(0)) {
+		}
+		else if (object.equals(0))
+		{
 			visitor.visitInsn(ICONST_0);
-		} else if (object.equals(1)) {
+		}
+		else if (object.equals(1))
+		{
 			visitor.visitInsn(ICONST_1);
-		} else if (object.equals(2)) {
+		}
+		else if (object.equals(2))
+		{
 			visitor.visitInsn(ICONST_2);
-		} else if (object.equals(3)) {
+		}
+		else if (object.equals(3))
+		{
 			visitor.visitInsn(ICONST_3);
-		} else if (object.equals(4)) {
+		}
+		else if (object.equals(4))
+		{
 			visitor.visitInsn(ICONST_4);
-		} else if (object.equals(5)) {
+		}
+		else if (object.equals(5))
+		{
 			visitor.visitInsn(ICONST_5);
-		} else if (object.equals(0L)) {
+		}
+		else if (object.equals(0L))
+		{
 			visitor.visitInsn(LCONST_0);
-		} else if (object.equals(1L)) {
+		}
+		else if (object.equals(1L))
+		{
 			visitor.visitInsn(LCONST_1);
-		} else {
+		}
+		else
+		{
 			visitor.visitLdcInsn(object);
 		}
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
@@ -114,31 +148,37 @@ public class LDC extends Instruction implements PushConstantInstruction {
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "ldc " + value;
 	}
 
 	@Override
-	public Object getConstant() {
+	public Object getConstant()
+	{
 		return value;
 	}
 
 	@Override
-	public Instruction setConstant(Object entry) {
+	public Instruction setConstant(Object entry)
+	{
 		value = entry;
 
 		return this;
 	}
 
-	public int getConstantAsInt() {
+	public int getConstantAsInt()
+	{
 		return (int) value;
 	}
 
-	public long getConstantAsLong() {
+	public long getConstantAsLong()
+	{
 		return (long) value;
 	}
 
-	public Number getNumber() {
+	public Number getNumber()
+	{
 		return (Number) value;
 	}
 }

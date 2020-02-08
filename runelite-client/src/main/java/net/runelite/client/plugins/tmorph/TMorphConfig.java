@@ -31,176 +31,190 @@ import net.runelite.client.config.ConfigTitleSection;
 import net.runelite.client.config.Title;
 
 @ConfigGroup("TMorph")
-public interface TMorphConfig extends Config {
+public interface TMorphConfig extends Config
+{
 	@ConfigTitleSection(
-			keyName = "swaps",
-			name = "Morphers",
-			description = "",
-			position = 1
+		keyName = "swaps",
+		name = "Morphers",
+		description = "",
+		position = 1
 	)
-	default Title swaps() {
+	default Title swaps()
+	{
 		return new Title();
 	}
 
 	@ConfigItem(
-			keyName = "mageSwap",
-			name = "Swap Set 1",
-			description = "<html><center>Proper Format is id,id:Slot" +
-					"<br>For example: 6570,21295:Cape" +
-					"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
-			titleSection = "swaps",
-			position = 1,
-			parse = true,
-			clazz = Parse.class,
-			method = "parse"
+		keyName = "mageSwap",
+		name = "Swap Set 1",
+		description = "<html><center>Proper Format is id,id:Slot" +
+			"<br>For example: 6570,21295:Cape" +
+			"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
+		titleSection = "swaps",
+		position = 1,
+		parse = true,
+		clazz = Parse.class,
+		method = "parse"
 	)
-	default String set1() {
+	default String set1()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "rangeSwap",
-			name = "Swap Set 2",
-			description = "<html><center>Proper Format is id,id:Slot" +
-					"<br>For example: 6570,21295:Cape" +
-					"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
-			titleSection = "swaps",
-			position = 2,
-			parse = true,
-			clazz = Parse.class,
-			method = "parse"
+		keyName = "rangeSwap",
+		name = "Swap Set 2",
+		description = "<html><center>Proper Format is id,id:Slot" +
+			"<br>For example: 6570,21295:Cape" +
+			"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
+		titleSection = "swaps",
+		position = 2,
+		parse = true,
+		clazz = Parse.class,
+		method = "parse"
 	)
-	default String set2() {
+	default String set2()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "meleeSwap",
-			name = "Swap Set 3",
-			description = "<html><center>Proper Format is id,id:Slot" +
-					"<br>For example: 6570,21295:Cape" +
-					"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
-			titleSection = "swaps",
-			position = 3,
-			parse = true,
-			clazz = Parse.class,
-			method = "parse"
+		keyName = "meleeSwap",
+		name = "Swap Set 3",
+		description = "<html><center>Proper Format is id,id:Slot" +
+			"<br>For example: 6570,21295:Cape" +
+			"<br>Valid Slots: Helmet, Cape, Amulet, Weapon, Torso, Shield, Legs, Head, Hands, Boots, Jaw, Ring, Ammo</center></html>",
+		titleSection = "swaps",
+		position = 3,
+		parse = true,
+		clazz = Parse.class,
+		method = "parse"
 	)
-	default String set3() {
+	default String set3()
+	{
 		return "";
 	}
 
 	//////////////////Experimental Functions
 
 	@ConfigSection(
-			position = 4,
-			keyName = "experimentalSection",
-			name = "Experimental Functions",
-			description = ""
+		position = 4,
+		keyName = "experimentalSection",
+		name = "Experimental Functions",
+		description = ""
 	)
-	default boolean experimentalSection() {
+	default boolean experimentalSection()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "experimentalFunctions",
-			name = "Experimental Functions",
-			description = "May bug out in unintended ways.",
-			section = "experimentalSection",
-			position = 0
+		keyName = "experimentalFunctions",
+		name = "Experimental Functions",
+		description = "May bug out in unintended ways.",
+		section = "experimentalSection",
+		position = 0
 	)
-	default boolean experimentalFunctions() {
+	default boolean experimentalFunctions()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "globalAnimSwap",
-			name = "Global Animation Swap",
-			description = "DO NOT USE WITH ANIMATION SWAP BELOW",
-			section = "experimentalSection",
-			hidden = true,
-			unhide = "experimentalFunctions",
-			position = 1
+		keyName = "globalAnimSwap",
+		name = "Global Animation Swap",
+		description = "DO NOT USE WITH ANIMATION SWAP BELOW",
+		section = "experimentalSection",
+		hidden = true,
+		unhide = "experimentalFunctions",
+		position = 1
 	)
-	default int globalAnimSwap() {
+	default int globalAnimSwap()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "animationSwap",
-			name = "Animation Swap",
-			description = "ID",
-			section = "experimentalSection",
-			hidden = true,
-			unhide = "experimentalFunctions",
-			position = 2
+		keyName = "animationSwap",
+		name = "Animation Swap",
+		description = "ID",
+		section = "experimentalSection",
+		hidden = true,
+		unhide = "experimentalFunctions",
+		position = 2
 	)
-	default int animationSwap() {
+	default int animationSwap()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "animationTarget",
-			name = "Animation Target",
-			description = "ID",
-			section = "experimentalSection",
-			hidden = true,
-			unhide = "experimentalFunctions",
-			position = 3
+		keyName = "animationTarget",
+		name = "Animation Target",
+		description = "ID",
+		section = "experimentalSection",
+		hidden = true,
+		unhide = "experimentalFunctions",
+		position = 3
 	)
-	default int animationTarget() {
+	default int animationTarget()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "globalGraphicSwap",
-			name = "Global Graphic Swap",
-			description = "DO NOT USE WITH GRAPHIC SWAP BELOW",
-			section = "experimentalSection",
-			hidden = true,
-			unhide = "experimentalFunctions",
-			position = 4
+		keyName = "globalGraphicSwap",
+		name = "Global Graphic Swap",
+		description = "DO NOT USE WITH GRAPHIC SWAP BELOW",
+		section = "experimentalSection",
+		hidden = true,
+		unhide = "experimentalFunctions",
+		position = 4
 	)
-	default int globalGraphicSwap() {
+	default int globalGraphicSwap()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "graphicSwap",
-			name = "Graphic Swap",
-			description = "ID",
-			section = "experimentalSection",
-			hidden = true,
-			unhide = "experimentalFunctions",
-			position = 5
+		keyName = "graphicSwap",
+		name = "Graphic Swap",
+		description = "ID",
+		section = "experimentalSection",
+		hidden = true,
+		unhide = "experimentalFunctions",
+		position = 5
 	)
-	default int graphicSwap() {
+	default int graphicSwap()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "graphicTarget",
-			name = "Graphic Target",
-			description = "ID",
-			section = "experimentalSection",
-			hidden = true,
-			unhide = "experimentalFunctions",
-			position = 6
+		keyName = "graphicTarget",
+		name = "Graphic Target",
+		description = "ID",
+		section = "experimentalSection",
+		hidden = true,
+		unhide = "experimentalFunctions",
+		position = 6
 	)
-	default int graphicTarget() {
+	default int graphicTarget()
+	{
 		return 0;
 	}
 
 	@ConfigTitleSection(
-			keyName = "copy",
-			name = "<html><center>If you would like to copy your equipped" +
-					"<br>gear, type \"::tmorph copy\" in chat." +
-					"<br>This will copy your gear to your" +
-					"<br>clipboard for easy copy paste.</center></html>",
-			description = "",
-			position = 50
+		keyName = "copy",
+		name = "<html><center>If you would like to copy your equipped" +
+			"<br>gear, type \"::tmorph copy\" in chat." +
+			"<br>This will copy your gear to your" +
+			"<br>clipboard for easy copy paste.</center></html>",
+		description = "",
+		position = 50
 	)
-	default Title copy() {
+	default Title copy()
+	{
 		return new Title();
 	}
 }

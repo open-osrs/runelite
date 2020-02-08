@@ -27,13 +27,13 @@ public class Interpreter {
 	static String[] Interpreter_stringStack;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-			intValue = 918473247
+		intValue = 918473247
 	)
 	@Export("Interpreter_frameDepth")
 	static int Interpreter_frameDepth;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-			signature = "[Lbb;"
+		signature = "[Lbb;"
 	)
 	@Export("Interpreter_frames")
 	static ScriptFrame[] Interpreter_frames;
@@ -49,7 +49,7 @@ public class Interpreter {
 	static boolean field1095;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-			intValue = 1093173165
+		intValue = 1093173165
 	)
 	static int field1088;
 	@ObfuscatedName("s")
@@ -72,8 +72,8 @@ public class Interpreter {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "([Lbg;II[I[IB)V",
-			garbageValue = "-20"
+		signature = "([Lbg;II[I[IB)V",
+		garbageValue = "-20"
 	)
 	@Export("sortWorlds")
 	static void sortWorlds(World[] var0, int var1, int var2, int[] var3, int[] var4) {
@@ -127,7 +127,7 @@ public class Interpreter {
 							var9 = false;
 						}
 					}
-				} while (var9);
+				} while(var9);
 
 				var9 = true;
 
@@ -167,7 +167,7 @@ public class Interpreter {
 							var9 = false;
 						}
 					}
-				} while (var9);
+				} while(var9);
 
 				if (var5 < var6) {
 					World var13 = var0[var5];

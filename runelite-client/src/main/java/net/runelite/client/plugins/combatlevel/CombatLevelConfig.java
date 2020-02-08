@@ -29,22 +29,25 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("combatlevel")
-public interface CombatLevelConfig extends Config {
+public interface CombatLevelConfig extends Config
+{
 	@ConfigItem(
-			keyName = "showLevelsUntil",
-			name = "Calculate next level",
-			description = "Mouse over the combat level to calculate what skill levels will increase combat."
+		keyName = "showLevelsUntil",
+		name = "Calculate next level",
+		description = "Mouse over the combat level to calculate what skill levels will increase combat."
 	)
-	default boolean showLevelsUntil() {
+	default boolean showLevelsUntil()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "wildernessAttackLevelRange",
-			name = "Show level range in wilderness",
-			description = "Displays a PVP-world-like attack level range in the wilderness"
+		keyName = "wildernessAttackLevelRange",
+		name = "Show level range in wilderness",
+		description = "Displays a PVP-world-like attack level range in the wilderness"
 	)
-	default boolean wildernessAttackLevelRange() {
+	default boolean wildernessAttackLevelRange()
+	{
 		return true;
 	}
 }

@@ -29,7 +29,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.Point;
 import net.runelite.api.events.FocusChanged;
@@ -50,7 +49,8 @@ import net.runelite.client.ui.overlay.OverlayUtil;
  * along with a locked position for the FPS value.
  */
 @Singleton
-public class FpsOverlay extends Overlay {
+public class FpsOverlay extends Overlay
+{
 	private static final int Y_OFFSET = 1;
 	private static final int X_OFFSET = 1;
 	private static final String FPS_STRING = " FPS";
@@ -63,7 +63,8 @@ public class FpsOverlay extends Overlay {
 	private boolean isFocused = true;
 
 	@Inject
-	private FpsOverlay(final FpsConfig config, final Client client) {
+	private FpsOverlay(final FpsConfig config, final Client client)
+	{
 		this.client = client;
 		this.config = config;
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
@@ -71,22 +72,27 @@ public class FpsOverlay extends Overlay {
 		setPosition(OverlayPosition.DYNAMIC);
 	}
 
-	void onFocusChanged(FocusChanged event) {
+	void onFocusChanged(FocusChanged event)
+	{
 		isFocused = event.isFocused();
 	}
 
-	private boolean isEnforced() {
+	private boolean isEnforced()
+	{
 		return config.limitFps()
-				|| (config.limitFpsUnfocused() && !isFocused);
+			|| (config.limitFpsUnfocused() && !isFocused);
 	}
 
-	private Color getFpsValueColor() {
+	private Color getFpsValueColor()
+	{
 		return isEnforced() ? Color.red : Color.yellow;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!config.drawFps()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!config.drawFps())
+		{
 			return null;
 		}
 
@@ -94,7 +100,8 @@ public class FpsOverlay extends Overlay {
 		// to account for it
 		Widget logoutButton = client.getWidget(WidgetInfo.RESIZABLE_MINIMAP_LOGOUT_BUTTON);
 		int xOffset = X_OFFSET;
-		if (logoutButton != null && !logoutButton.isHidden()) {
+		if (logoutButton != null && !logoutButton.isHidden())
+		{
 			xOffset += logoutButton.getWidth();
 		}
 

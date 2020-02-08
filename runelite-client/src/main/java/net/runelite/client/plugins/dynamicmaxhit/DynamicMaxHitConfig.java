@@ -28,22 +28,25 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("dynamicMaxHit")
-public interface DynamicMaxHitConfig extends Config {
+public interface DynamicMaxHitConfig extends Config
+{
 	@ConfigItem(
-			keyName = "enablePrayer",
-			name = "Enable Prayer in Calculations",
-			description = ""
+		keyName = "enablePrayer",
+		name = "Enable Prayer in Calculations",
+		description = ""
 	)
-	default boolean enablePrayer() {
+	default boolean enablePrayer()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "enablePotions",
-			name = "Enable Potions in Calculations",
-			description = ""
+		keyName = "enablePotions",
+		name = "Enable Potions in Calculations",
+		description = ""
 	)
-	default boolean enablePotions() {
+	default boolean enablePotions()
+	{
 		return true;
 	}
 }

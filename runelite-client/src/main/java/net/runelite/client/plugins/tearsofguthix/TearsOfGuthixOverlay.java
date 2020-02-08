@@ -31,7 +31,6 @@ import java.time.Duration;
 import java.time.Instant;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -39,25 +38,29 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 
 @Singleton
-class TearsOfGuthixOverlay extends Overlay {
+class TearsOfGuthixOverlay extends Overlay
+{
 	private static final Color CYAN_ALPHA = new Color(Color.CYAN.getRed(), Color.CYAN.getGreen(), Color.CYAN.getBlue(), 100);
 	private static final Duration MAX_TIME = Duration.ofSeconds(9);
 	private final TearsOfGuthixPlugin plugin;
 
 	@Inject
-	private TearsOfGuthixOverlay(final TearsOfGuthixPlugin plugin) {
+	private TearsOfGuthixOverlay(final TearsOfGuthixPlugin plugin)
+	{
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		plugin.getStreams().forEach((object, timer) ->
 		{
 			final Point position = object.getCanvasLocation(100);
 
-			if (position == null) {
+			if (position == null)
+			{
 				return;
 			}
 
@@ -69,8 +72,8 @@ class TearsOfGuthixOverlay extends Overlay {
 
 			final Duration duration = Duration.between(timer, Instant.now());
 			progressPie.setProgress(1 - (duration.compareTo(MAX_TIME) < 0
-					? (double) duration.toMillis() / MAX_TIME.toMillis()
-					: 1));
+				? (double) duration.toMillis() / MAX_TIME.toMillis()
+				: 1));
 
 			progressPie.render(graphics);
 		});

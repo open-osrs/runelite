@@ -31,7 +31,6 @@ import java.awt.Rectangle;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import net.runelite.api.Client;
 import net.runelite.api.GameObject;
 import net.runelite.api.NPC;
@@ -47,14 +46,16 @@ import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Singleton
-class BarrowsOverlay extends Overlay {
+class BarrowsOverlay extends Overlay
+{
 	private static final int MAX_DISTANCE = 2350;
 
 	private final Client client;
 	private final BarrowsPlugin plugin;
 
 	@Inject
-	private BarrowsOverlay(final Client client, final BarrowsPlugin plugin) {
+	private BarrowsOverlay(final Client client, final BarrowsPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		setLayer(OverlayLayer.ABOVE_WIDGETS);
 		this.client = client;
@@ -62,26 +63,31 @@ class BarrowsOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		Player local = client.getLocalPlayer();
 		final Color npcColor = getMinimapDotColor(1);
 		final Color playerColor = getMinimapDotColor(2);
 		Widget puzzleAnswer = plugin.getPuzzleAnswer();
 
 		// tunnels are only on z=0
-		if (!plugin.getWalls().isEmpty() && client.getPlane() == 0 && plugin.isShowMinimap()) {
+		if (!plugin.getWalls().isEmpty() && client.getPlane() == 0 && plugin.isShowMinimap())
+		{
 			// NPC dots
 			graphics.setColor(npcColor);
 			final List<NPC> npcs = client.getNpcs();
-			for (NPC npc : npcs) {
+			for (NPC npc : npcs)
+			{
 				final NPCDefinition composition = npc.getDefinition();
 
-				if (composition != null && !composition.isMinimapVisible()) {
+				if (composition != null && !composition.isMinimapVisible())
+				{
 					continue;
 				}
 
 				net.runelite.api.Point minimapLocation = npc.getMinimapLocation();
-				if (minimapLocation != null) {
+				if (minimapLocation != null)
+				{
 					graphics.fillOval(minimapLocation.getX(), minimapLocation.getY(), 4, 4);
 				}
 			}
@@ -89,14 +95,17 @@ class BarrowsOverlay extends Overlay {
 			// Player dots
 			graphics.setColor(playerColor);
 			final List<Player> players = client.getPlayers();
-			for (Player player : players) {
-				if (player == local) {
+			for (Player player : players)
+			{
+				if (player == local)
+				{
 					// Skip local player as we draw square for it later
 					continue;
 				}
 
 				net.runelite.api.Point minimapLocation = player.getMinimapLocation();
-				if (minimapLocation != null) {
+				if (minimapLocation != null)
+				{
 					graphics.fillOval(minimapLocation.getX(), minimapLocation.getY(), 4, 4);
 				}
 			}
@@ -107,11 +116,14 @@ class BarrowsOverlay extends Overlay {
 			// Local player square
 			graphics.setColor(playerColor);
 			graphics.fillRect(local.getMinimapLocation().getX(), local.getMinimapLocation().getY(), 3, 3);
-		} else if (plugin.isShowBrotherLoc()) {
+		}
+		else if (plugin.isShowBrotherLoc())
+		{
 			renderBarrowsBrothers(graphics);
 		}
 
-		if (puzzleAnswer != null && plugin.isShowPuzzleAnswer() && !puzzleAnswer.isHidden()) {
+		if (puzzleAnswer != null && plugin.isShowPuzzleAnswer() && !puzzleAnswer.isHidden())
+		{
 			Rectangle answerRect = puzzleAnswer.getBounds();
 			graphics.setColor(Color.GREEN);
 			graphics.draw(answerRect);
@@ -120,36 +132,46 @@ class BarrowsOverlay extends Overlay {
 		return null;
 	}
 
-	private void renderObjects(Graphics2D graphics, Player localPlayer) {
+	private void renderObjects(Graphics2D graphics, Player localPlayer)
+	{
 		LocalPoint localLocation = localPlayer.getLocalLocation();
-		for (WallObject wall : plugin.getWalls()) {
+		for (WallObject wall : plugin.getWalls())
+		{
 			LocalPoint location = wall.getLocalLocation();
-			if (localLocation.distanceTo(location) <= MAX_DISTANCE) {
+			if (localLocation.distanceTo(location) <= MAX_DISTANCE)
+			{
 				renderWalls(graphics, wall);
 			}
 		}
 
-		for (GameObject ladder : plugin.getLadders()) {
+		for (GameObject ladder : plugin.getLadders())
+		{
 			LocalPoint location = ladder.getLocalLocation();
-			if (localLocation.distanceTo(location) <= MAX_DISTANCE) {
+			if (localLocation.distanceTo(location) <= MAX_DISTANCE)
+			{
 				renderLadders(graphics, ladder);
 			}
 		}
 	}
 
-	private void renderWalls(Graphics2D graphics, WallObject wall) {
+	private void renderWalls(Graphics2D graphics, WallObject wall)
+	{
 		net.runelite.api.Point minimapLocation = wall.getMinimapLocation();
 
-		if (minimapLocation == null) {
+		if (minimapLocation == null)
+		{
 			return;
 		}
 
 		ObjectDefinition objectComp = client.getObjectDefinition(wall.getId());
 		ObjectDefinition impostor = objectComp.getImpostorIds() != null ? objectComp.getImpostor() : null;
 
-		if (impostor != null && impostor.getActions()[0] != null) {
+		if (impostor != null && impostor.getActions()[0] != null)
+		{
 			graphics.setColor(Color.green);
-		} else {
+		}
+		else
+		{
 			graphics.setColor(Color.gray);
 		}
 
@@ -162,45 +184,56 @@ class BarrowsOverlay extends Overlay {
 	 * @param typeIndex index of minimap dot type (1 npcs, 2 players)
 	 * @return color
 	 */
-	private Color getMinimapDotColor(int typeIndex) {
+	private Color getMinimapDotColor(int typeIndex)
+	{
 		final int pixel = client.getMapDots()[typeIndex].getPixels()[1];
 		return new Color(pixel);
 	}
 
-	private void renderLadders(Graphics2D graphics, GameObject ladder) {
+	private void renderLadders(Graphics2D graphics, GameObject ladder)
+	{
 		net.runelite.api.Point minimapLocation = ladder.getMinimapLocation();
 
-		if (minimapLocation == null) {
+		if (minimapLocation == null)
+		{
 			return;
 		}
 
 		ObjectDefinition objectComp = client.getObjectDefinition(ladder.getId());
 
-		if (objectComp.getImpostorIds() != null && objectComp.getImpostor() != null) {
+		if (objectComp.getImpostorIds() != null && objectComp.getImpostor() != null)
+		{
 			graphics.setColor(Color.orange);
 			graphics.fillRect(minimapLocation.getX(), minimapLocation.getY(), 6, 6);
 		}
 	}
 
-	private void renderBarrowsBrothers(Graphics2D graphics) {
-		for (BarrowsBrothers brother : BarrowsBrothers.values()) {
+	private void renderBarrowsBrothers(Graphics2D graphics)
+	{
+		for (BarrowsBrothers brother : BarrowsBrothers.values())
+		{
 			LocalPoint localLocation = LocalPoint.fromWorld(client, brother.getLocation());
 
-			if (localLocation == null) {
+			if (localLocation == null)
+			{
 				continue;
 			}
 
 			String brotherLetter = Character.toString(brother.getName().charAt(0));
 			net.runelite.api.Point minimapText = Perspective.getCanvasTextMiniMapLocation(client, graphics,
-					localLocation, brotherLetter);
+				localLocation, brotherLetter);
 
-			if (minimapText != null) {
+			if (minimapText != null)
+			{
 				graphics.setColor(Color.black);
 				graphics.drawString(brotherLetter, minimapText.getX() + 1, minimapText.getY() + 1);
 
-				if (client.getVar(brother.getKilledVarbit()) > 0) {
+				if (client.getVar(brother.getKilledVarbit()) > 0)
+				{
 					graphics.setColor(plugin.getDeadBrotherLocColor());
-				} else {
+				}
+				else
+				{
 					graphics.setColor(plugin.getBrotherLocColor());
 				}
 

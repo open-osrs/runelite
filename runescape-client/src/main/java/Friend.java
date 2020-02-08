@@ -16,8 +16,8 @@ public class Friend extends Buddy {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ljy;S)I",
-			garbageValue = "30306"
+		signature = "(Ljy;S)I",
+		garbageValue = "30306"
 	)
 	@Export("compareToFriend")
 	int compareToFriend(Friend var1) {
@@ -44,22 +44,22 @@ public class Friend extends Buddy {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-			signature = "(Ljk;I)I",
-			garbageValue = "-746331144"
+		signature = "(Ljk;I)I",
+		garbageValue = "-746331144"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.compareToFriend((Friend) var1);
+		return this.compareToFriend((Friend)var1);
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareToFriend((Friend) var1);
+		return this.compareToFriend((Friend)var1);
 	}
 
 	@ObfuscatedName("gm")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "-1214522869"
+		signature = "(I)I",
+		garbageValue = "-1214522869"
 	)
 	@Export("getWindowedMode")
 	static int getWindowedMode() {

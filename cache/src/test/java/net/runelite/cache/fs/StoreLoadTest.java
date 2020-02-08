@@ -25,38 +25,43 @@
 package net.runelite.cache.fs;
 
 import com.google.common.io.Files;
-
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.cache.StoreLocation;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class StoreLoadTest {
+public class StoreLoadTest
+{
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void testLoad() throws IOException {
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+	public void testLoad() throws IOException
+	{
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 		}
 	}
 
 	@Test
-	public void testSave() throws IOException {
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+	public void testSave() throws IOException
+	{
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			File testStoreFile = folder.newFolder();
-			for (File f : StoreLocation.LOCATION.listFiles()) {
+			for (File f : StoreLocation.LOCATION.listFiles())
+			{
 				Files.copy(f, new File(testStoreFile, f.getName()));
 			}
 
-			try (Store testStore = new Store(testStoreFile)) {
+			try (Store testStore = new Store(testStoreFile))
+			{
 				testStore.load();
 
 				Assert.assertTrue(store.equals(testStore));
@@ -64,7 +69,8 @@ public class StoreLoadTest {
 				testStore.save();
 			}
 
-			try (Store testStore = new Store(testStoreFile)) {
+			try (Store testStore = new Store(testStoreFile))
+			{
 				testStore.load();
 
 				Assert.assertTrue(store.equals(testStore));

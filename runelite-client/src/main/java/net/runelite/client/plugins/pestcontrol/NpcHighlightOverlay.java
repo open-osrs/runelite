@@ -26,7 +26,6 @@ package net.runelite.client.plugins.pestcontrol;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,7 +33,6 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Shape;
 import java.util.HashMap;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -48,12 +46,14 @@ import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Slf4j
 @Singleton
-public class NpcHighlightOverlay extends Overlay {
+public class NpcHighlightOverlay extends Overlay
+{
 	private final PestControlPlugin plugin;
 	private final Client client;
 
 	@Inject
-	NpcHighlightOverlay(final PestControlPlugin plugin, final Client client) {
+	NpcHighlightOverlay(final PestControlPlugin plugin, final Client client)
+	{
 		this.plugin = plugin;
 		this.client = client;
 
@@ -62,15 +62,19 @@ public class NpcHighlightOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (plugin.getGame() == null) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (plugin.getGame() == null)
+		{
 			return null;
 		}
 
 		HashMap highlightedNpcList = plugin.getHighlightedNpcList();
 
-		for (NPC npc : client.getNpcs()) {
-			if (!highlightedNpcList.containsKey(npc.getId())) {
+		for (NPC npc : client.getNpcs())
+		{
+			if (!highlightedNpcList.containsKey(npc.getId()))
+			{
 				continue;
 			}
 
@@ -80,23 +84,28 @@ public class NpcHighlightOverlay extends Overlay {
 			Color color = npcHighlightContext.getColor();
 			NpcHighlightStyle highlightStyle = npcHighlightContext.getNpcRenderStyle();
 
-			switch (highlightStyle) {
-				case HULL: {
+			switch (highlightStyle)
+			{
+				case HULL:
+				{
 					renderHullOverlay(graphics, npc, color);
 					break;
 				}
-				case TILE: {
+				case TILE:
+				{
 					renderTileOverlay(graphics, npc, color);
 					break;
 				}
-				case BOTH: {
+				case BOTH:
+				{
 					renderHullOverlay(graphics, npc, color);
 					renderTileOverlay(graphics, npc, color);
 					break;
 				}
 			}
 
-			if (name != null) {
+			if (name != null)
+			{
 				renderTextOverlay(graphics, npc, name, color);
 			}
 		}
@@ -104,20 +113,25 @@ public class NpcHighlightOverlay extends Overlay {
 		return null;
 	}
 
-	private void renderTileOverlay(Graphics2D graphics, NPC npc, Color color) {
+	private void renderTileOverlay(Graphics2D graphics, NPC npc, Color color)
+	{
 		Polygon polygon;
 		Color fillColor;
 
 		// Double the polygon size if it's a Brawler
-		if (PestControlNpc.isBrawlerId(npc.getId())) {
+		if (PestControlNpc.isBrawlerId(npc.getId()))
+		{
 			polygon = Perspective.getCanvasTileAreaPoly(client, npc.getLocalLocation(), 2);
 			fillColor = new Color(color.getRed(), color.getGreen(), color.getBlue(), 35);
-		} else {
+		}
+		else
+		{
 			polygon = npc.getCanvasTilePoly();
 			fillColor = new Color(0, 0, 0, 50);
 		}
 
-		if (polygon != null) {
+		if (polygon != null)
+		{
 			graphics.setColor(color);
 			graphics.setStroke(new BasicStroke(2));
 			graphics.drawPolygon(polygon);
@@ -126,9 +140,11 @@ public class NpcHighlightOverlay extends Overlay {
 		}
 	}
 
-	private void renderHullOverlay(Graphics2D graphics, NPC npc, Color color) {
+	private void renderHullOverlay(Graphics2D graphics, NPC npc, Color color)
+	{
 		Shape objectClickbox = npc.getConvexHull();
-		if (objectClickbox != null) {
+		if (objectClickbox != null)
+		{
 			graphics.setColor(color);
 			graphics.setStroke(new BasicStroke(2));
 			graphics.draw(objectClickbox);
@@ -137,9 +153,11 @@ public class NpcHighlightOverlay extends Overlay {
 		}
 	}
 
-	private void renderTextOverlay(Graphics2D graphics, NPC npc, String text, Color color) {
+	private void renderTextOverlay(Graphics2D graphics, NPC npc, String text, Color color)
+	{
 		Point textLocation = npc.getCanvasTextLocation(graphics, text, npc.getLogicalHeight() + 40);
-		if (textLocation != null) {
+		if (textLocation != null)
+		{
 			OverlayUtil.renderTextLocation(graphics, textLocation, text, color);
 		}
 	}

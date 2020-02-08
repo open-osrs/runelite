@@ -25,9 +25,7 @@
 package net.runelite.client.plugins.attackstyles;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
-
 import static net.runelite.client.plugins.attackstyles.AttackStyle.ACCURATE;
 import static net.runelite.client.plugins.attackstyles.AttackStyle.AGGRESSIVE;
 import static net.runelite.client.plugins.attackstyles.AttackStyle.CASTING;
@@ -38,7 +36,8 @@ import static net.runelite.client.plugins.attackstyles.AttackStyle.LONGRANGE;
 import static net.runelite.client.plugins.attackstyles.AttackStyle.OTHER;
 import static net.runelite.client.plugins.attackstyles.AttackStyle.RANGING;
 
-public enum WeaponType {
+public enum WeaponType
+{
 	TYPE_0(ACCURATE, AGGRESSIVE, null, DEFENSIVE),
 	TYPE_1(ACCURATE, AGGRESSIVE, AGGRESSIVE, DEFENSIVE),
 	TYPE_2(ACCURATE, AGGRESSIVE, null, DEFENSIVE),
@@ -72,25 +71,30 @@ public enum WeaponType {
 
 	private static final Map<Integer, WeaponType> weaponTypes;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, WeaponType> builder = new ImmutableMap.Builder<>();
 
-		for (WeaponType weaponType : values()) {
+		for (WeaponType weaponType : values())
+		{
 			builder.put(weaponType.ordinal(), weaponType);
 		}
 
 		weaponTypes = builder.build();
 	}
 
-	WeaponType(AttackStyle... attackStyles) {
+	WeaponType(AttackStyle... attackStyles)
+	{
 		this.attackStyles = attackStyles;
 	}
 
-	public AttackStyle[] getAttackStyles() {
+	public AttackStyle[] getAttackStyles()
+	{
 		return attackStyles;
 	}
 
-	public static WeaponType getWeaponType(int id) {
+	public static WeaponType getWeaponType(int id)
+	{
 		return weaponTypes.get(id);
 	}
 }

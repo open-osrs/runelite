@@ -26,7 +26,6 @@ package net.runelite.deob.deobfuscators.transformers.buffer;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
@@ -36,14 +35,17 @@ import net.runelite.asm.attributes.code.instruction.types.FieldInstruction;
 import net.runelite.asm.visitors.ClassFileVisitor;
 import org.objectweb.asm.ClassReader;
 
-public class BufferMethodInjector {
+public class BufferMethodInjector
+{
 	private final BufferPayloadFinder bp;
 
-	public BufferMethodInjector(BufferPayloadFinder bp) {
+	public BufferMethodInjector(BufferPayloadFinder bp)
+	{
 		this.bp = bp;
 	}
 
-	public void inject() throws IOException {
+	public void inject() throws IOException
+	{
 		Field buffer = bp.getBuffer();
 		Field offset = bp.getOffset();
 
@@ -55,16 +57,20 @@ public class BufferMethodInjector {
 
 		ClassFile bufferClass = buffer.getClassFile();
 
-		for (Field f : runeliteBuffer.getFields()) {
-			if (!f.getName().startsWith("runelite")) {
+		for (Field f : runeliteBuffer.getFields())
+		{
+			if (!f.getName().startsWith("runelite"))
+			{
 				continue;
 			}
 
 			inject(bufferClass, f);
 		}
 
-		for (Method m : runeliteBuffer.getMethods()) {
-			if (!m.getName().startsWith("runelite")) {
+		for (Method m : runeliteBuffer.getMethods())
+		{
+			if (!m.getName().startsWith("runelite"))
+			{
 				continue;
 			}
 
@@ -72,7 +78,8 @@ public class BufferMethodInjector {
 		}
 	}
 
-	private void inject(ClassFile bufferClass, Method method) {
+	private void inject(ClassFile bufferClass, Method method)
+	{
 		assert method.getExceptions().getExceptions().isEmpty();
 
 		Method newMethod = new Method(bufferClass, method.getName(), method.getDescriptor());
@@ -80,40 +87,49 @@ public class BufferMethodInjector {
 		newMethod.setCode(code);
 
 		method.getCode().getInstructions().getInstructions().stream()
-				.forEach(i ->
+			.forEach(i ->
+			{
+				if (!(i instanceof Label))
 				{
-					if (!(i instanceof Label)) {
-						i = i.clone();
-					}
+					i = i.clone();
+				}
 
-					if (i instanceof FieldInstruction) {
-						FieldInstruction fi = (FieldInstruction) i;
-						if (fi.getField().getName().equals("offset")) {
-							fi.setField(bp.getOffset().getPoolField());
-						} else if (fi.getField().getName().equals("payload")) {
-							fi.setField(bp.getBuffer().getPoolField());
-						} else if (fi.getField().getName().equals("runeliteLengthOffset")) {
-							fi.setField(bufferClass.findField("runeliteLengthOffset").getPoolField());
-						}
+				if (i instanceof FieldInstruction)
+				{
+					FieldInstruction fi = (FieldInstruction) i;
+					if (fi.getField().getName().equals("offset"))
+					{
+						fi.setField(bp.getOffset().getPoolField());
 					}
+					else if (fi.getField().getName().equals("payload"))
+					{
+						fi.setField(bp.getBuffer().getPoolField());
+					}
+					else if (fi.getField().getName().equals("runeliteLengthOffset"))
+					{
+						fi.setField(bufferClass.findField("runeliteLengthOffset").getPoolField());
+					}
+				}
 
-					i.setInstructions(code.getInstructions());
-					code.getInstructions().addInstruction(i);
-				});
+				i.setInstructions(code.getInstructions());
+				code.getInstructions().addInstruction(i);
+			});
 
 		code.getExceptions().getExceptions().addAll(method.getCode().getExceptions().getExceptions());
 
 		bufferClass.addMethod(newMethod);
 	}
 
-	private void inject(ClassFile bufferClass, Field field) {
+	private void inject(ClassFile bufferClass, Field field)
+	{
 		Field newField = new Field(bufferClass, field.getName(), field.getType());
 		newField.setAccessFlags(field.getAccessFlags());
 		newField.setValue(field.getValue());
 		bufferClass.addField(newField);
 	}
 
-	static ClassFile loadClass(InputStream in) throws IOException {
+	static ClassFile loadClass(InputStream in) throws IOException
+	{
 		ClassReader reader = new ClassReader(in);
 		ClassFileVisitor cv = new ClassFileVisitor();
 

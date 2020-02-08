@@ -53,7 +53,7 @@ public class Rasterizer3D extends Rasterizer2D {
 	public static int[] Rasterizer3D_colorPalette;
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-			signature = "Lep;"
+		signature = "Lep;"
 	)
 	@Export("Rasterizer3D_textureLoader")
 	public static TextureLoader Rasterizer3D_textureLoader;
@@ -92,8 +92,8 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 
 		for (var0 = 0; var0 < 2048; ++var0) {
-			Rasterizer3D_sine[var0] = (int) (65536.0D * Math.sin((double) var0 * 0.0030679615D));
-			Rasterizer3D_cosine[var0] = (int) (65536.0D * Math.cos((double) var0 * 0.0030679615D));
+			Rasterizer3D_sine[var0] = (int)(65536.0D * Math.sin((double)var0 * 0.0030679615D));
+			Rasterizer3D_cosine[var0] = (int)(65536.0D * Math.cos((double)var0 * 0.0030679615D));
 		}
 
 	}
@@ -149,7 +149,7 @@ public class Rasterizer3D extends Rasterizer2D {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(Lep;)V"
+		signature = "(Lep;)V"
 	)
 	@Export("Rasterizer3D_setTextureLoader")
 	public static final void Rasterizer3D_setTextureLoader(TextureLoader var0) {
@@ -168,11 +168,11 @@ public class Rasterizer3D extends Rasterizer2D {
 		int var4 = var2 * 128;
 
 		for (int var5 = var2; var5 < var3; ++var5) {
-			double var6 = (double) (var5 >> 3) / 64.0D + 0.0078125D;
-			double var8 = (double) (var5 & 7) / 8.0D + 0.0625D;
+			double var6 = (double)(var5 >> 3) / 64.0D + 0.0078125D;
+			double var8 = (double)(var5 & 7) / 8.0D + 0.0625D;
 
 			for (int var10 = 0; var10 < 128; ++var10) {
-				double var11 = (double) var10 / 128.0D;
+				double var11 = (double)var10 / 128.0D;
 				double var13 = var11;
 				double var15 = var11;
 				double var17 = var11;
@@ -226,9 +226,9 @@ public class Rasterizer3D extends Rasterizer2D {
 					}
 				}
 
-				int var29 = (int) (var13 * 256.0D);
-				int var20 = (int) (var15 * 256.0D);
-				int var30 = (int) (var17 * 256.0D);
+				int var29 = (int)(var13 * 256.0D);
+				int var20 = (int)(var15 * 256.0D);
+				int var30 = (int)(var17 * 256.0D);
 				int var22 = var30 + (var20 << 8) + (var29 << 16);
 				var22 = Rasterizer3D_brighten(var22, var0);
 				if (var22 == 0) {
@@ -244,15 +244,15 @@ public class Rasterizer3D extends Rasterizer2D {
 	@ObfuscatedName("l")
 	@Export("Rasterizer3D_brighten")
 	static int Rasterizer3D_brighten(int var0, double var1) {
-		double var3 = (double) (var0 >> 16) / 256.0D;
-		double var5 = (double) (var0 >> 8 & 255) / 256.0D;
-		double var7 = (double) (var0 & 255) / 256.0D;
+		double var3 = (double)(var0 >> 16) / 256.0D;
+		double var5 = (double)(var0 >> 8 & 255) / 256.0D;
+		double var7 = (double)(var0 & 255) / 256.0D;
 		var3 = Math.pow(var3, var1);
 		var5 = Math.pow(var5, var1);
 		var7 = Math.pow(var7, var1);
-		int var9 = (int) (var3 * 256.0D);
-		int var10 = (int) (var5 * 256.0D);
-		int var11 = (int) (var7 * 256.0D);
+		int var9 = (int)(var3 * 256.0D);
+		int var10 = (int)(var5 * 256.0D);
+		int var11 = (int)(var7 * 256.0D);
 		return var11 + (var10 << 8) + (var9 << 16);
 	}
 
@@ -799,7 +799,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var0[var1++] = var2;
 							var0[var1++] = var2;
 							--var3;
-						} while (var3 > 0);
+						} while(var3 > 0);
 					}
 
 					var3 = var5 - var4 & 3;
@@ -809,7 +809,7 @@ public class Rasterizer3D extends Rasterizer2D {
 						do {
 							var0[var1++] = var2;
 							--var3;
-						} while (var3 > 0);
+						} while(var3 > 0);
 					}
 				} else {
 					var8 = Rasterizer3D_alpha;
@@ -828,7 +828,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var10 = var0[var1];
 							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280);
 							--var3;
-						} while (var3 > 0);
+						} while(var3 > 0);
 					}
 
 					var3 = var5 - var4 & 3;
@@ -840,7 +840,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var10 = var0[var1];
 							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280);
 							--var3;
-						} while (var3 > 0);
+						} while(var3 > 0);
 					}
 				}
 
@@ -851,7 +851,7 @@ public class Rasterizer3D extends Rasterizer2D {
 						var0[var1++] = Rasterizer3D_colorPalette[var6 >> 8];
 						var6 += var7;
 						--var3;
-					} while (var3 > 0);
+					} while(var3 > 0);
 				} else {
 					var8 = Rasterizer3D_alpha;
 					var9 = 256 - Rasterizer3D_alpha;
@@ -863,7 +863,7 @@ public class Rasterizer3D extends Rasterizer2D {
 						var10 = var0[var1];
 						var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280);
 						--var3;
-					} while (var3 > 0);
+					} while(var3 > 0);
 				}
 
 			}
@@ -1463,14 +1463,14 @@ public class Rasterizer3D extends Rasterizer2D {
 				var14 -= var12;
 				var17 -= var15;
 				int var32 = var11 * var12 - var9 * var14 << 14;
-				int var33 = (int) (((long) (var15 * var14 - var17 * var12) << 3 << 14) / (long) Rasterizer3D_zoom);
-				int var34 = (int) (((long) (var17 * var9 - var11 * var15) << 14) / (long) Rasterizer3D_zoom);
+				int var33 = (int)(((long)(var15 * var14 - var17 * var12) << 3 << 14) / (long)Rasterizer3D_zoom);
+				int var34 = (int)(((long)(var17 * var9 - var11 * var15) << 14) / (long)Rasterizer3D_zoom);
 				int var35 = var10 * var12 - var13 * var9 << 14;
-				int var36 = (int) (((long) (var13 * var15 - var16 * var12) << 3 << 14) / (long) Rasterizer3D_zoom);
-				int var37 = (int) (((long) (var16 * var9 - var10 * var15) << 14) / (long) Rasterizer3D_zoom);
+				int var36 = (int)(((long)(var13 * var15 - var16 * var12) << 3 << 14) / (long)Rasterizer3D_zoom);
+				int var37 = (int)(((long)(var16 * var9 - var10 * var15) << 14) / (long)Rasterizer3D_zoom);
 				int var38 = var13 * var11 - var10 * var14 << 14;
-				int var39 = (int) (((long) (var16 * var14 - var13 * var17) << 3 << 14) / (long) Rasterizer3D_zoom);
-				int var40 = (int) (((long) (var17 * var10 - var11 * var16) << 14) / (long) Rasterizer3D_zoom);
+				int var39 = (int)(((long)(var16 * var14 - var13 * var17) << 3 << 14) / (long)Rasterizer3D_zoom);
+				int var40 = (int)(((long)(var17 * var10 - var11 * var16) << 14) / (long)Rasterizer3D_zoom);
 				int var41;
 				if (var0 <= var1 && var0 <= var2) {
 					if (var0 < Rasterizer3D_clipHeight) {
@@ -2160,7 +2160,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -2170,7 +2170,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				} else {
 					if (var17 > 0) {
@@ -2247,7 +2247,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -2260,7 +2260,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							++var4;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				}
 			} else {
@@ -2355,7 +2355,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -2365,7 +2365,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				} else {
 					if (var17 > 0) {
@@ -2442,7 +2442,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -2455,7 +2455,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							++var4;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				}
 			}
@@ -2506,14 +2506,14 @@ public class Rasterizer3D extends Rasterizer2D {
 				var14 -= var12;
 				var17 -= var15;
 				int var32 = var11 * var12 - var9 * var14 << 14;
-				int var33 = (int) (((long) (var15 * var14 - var17 * var12) << 14) / (long) Rasterizer3D_zoom);
-				int var34 = (int) (((long) (var17 * var9 - var11 * var15) << 14) / (long) Rasterizer3D_zoom);
+				int var33 = (int)(((long)(var15 * var14 - var17 * var12) << 14) / (long)Rasterizer3D_zoom);
+				int var34 = (int)(((long)(var17 * var9 - var11 * var15) << 14) / (long)Rasterizer3D_zoom);
 				int var35 = var10 * var12 - var13 * var9 << 14;
-				int var36 = (int) (((long) (var13 * var15 - var16 * var12) << 14) / (long) Rasterizer3D_zoom);
-				int var37 = (int) (((long) (var16 * var9 - var10 * var15) << 14) / (long) Rasterizer3D_zoom);
+				int var36 = (int)(((long)(var13 * var15 - var16 * var12) << 14) / (long)Rasterizer3D_zoom);
+				int var37 = (int)(((long)(var16 * var9 - var10 * var15) << 14) / (long)Rasterizer3D_zoom);
 				int var38 = var13 * var11 - var10 * var14 << 14;
-				int var39 = (int) (((long) (var16 * var14 - var13 * var17) << 14) / (long) Rasterizer3D_zoom);
-				int var40 = (int) (((long) (var17 * var10 - var11 * var16) << 14) / (long) Rasterizer3D_zoom);
+				int var39 = (int)(((long)(var16 * var14 - var13 * var17) << 14) / (long)Rasterizer3D_zoom);
+				int var40 = (int)(((long)(var17 * var10 - var11 * var16) << 14) / (long)Rasterizer3D_zoom);
 				int var41;
 				if (var0 <= var1 && var0 <= var2) {
 					if (var0 < Rasterizer3D_clipHeight) {
@@ -3171,7 +3171,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -3181,7 +3181,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				} else {
 					if (var17 > 0) {
@@ -3237,7 +3237,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -3250,7 +3250,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							++var4;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				}
 			} else {
@@ -3314,7 +3314,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -3324,7 +3324,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				} else {
 					if (var17 > 0) {
@@ -3380,7 +3380,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var7 += var8;
 							var15 = var7 >> 8;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 
 					var17 = var6 - var5 & 7;
@@ -3393,7 +3393,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							++var4;
 							var2 += var16;
 							--var17;
-						} while (var17 > 0);
+						} while(var17 > 0);
 					}
 				}
 			}

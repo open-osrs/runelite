@@ -34,26 +34,32 @@ import java.net.URLClassLoader;
  *
  * @author Adam
  */
-public class PluginClassLoader extends URLClassLoader {
+public class PluginClassLoader extends URLClassLoader
+{
 	private final ClassLoader parent;
 
-	public PluginClassLoader(File plugin, ClassLoader parent) throws MalformedURLException {
+	public PluginClassLoader(File plugin, ClassLoader parent) throws MalformedURLException
+	{
 		super(
-				new URL[]
-						{
-								plugin.toURI().toURL()
-						},
-				null // null or else class path scanning includes everything from the main class loader
+			new URL[]
+				{
+					plugin.toURI().toURL()
+				},
+			null // null or else class path scanning includes everything from the main class loader
 		);
 
 		this.parent = parent;
 	}
 
 	@Override
-	public Class<?> loadClass(String name) throws ClassNotFoundException {
-		try {
+	public Class<?> loadClass(String name) throws ClassNotFoundException
+	{
+		try
+		{
 			return super.loadClass(name);
-		} catch (ClassNotFoundException ex) {
+		}
+		catch (ClassNotFoundException ex)
+		{
 			// fall back to main class loader
 			return parent.loadClass(name);
 		}

@@ -25,19 +25,17 @@
 package net.runelite.client.plugins.woodcutting;
 
 import com.google.common.collect.ImmutableMap;
-
 import java.util.Map;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import static net.runelite.api.AnimationID.*;
 import static net.runelite.api.ItemID.*;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum Axe {
+enum Axe
+{
 	BRONZE(WOODCUTTING_BRONZE, BRONZE_AXE),
 	IRON(WOODCUTTING_IRON, IRON_AXE),
 	STEEL(WOODCUTTING_STEEL, STEEL_AXE),
@@ -55,17 +53,20 @@ enum Axe {
 
 	private static final Map<Integer, Axe> AXE_ANIM_IDS;
 
-	static {
+	static
+	{
 		ImmutableMap.Builder<Integer, Axe> builder = new ImmutableMap.Builder<>();
 
-		for (Axe axe : values()) {
+		for (Axe axe : values())
+		{
 			builder.put(axe.animId, axe);
 		}
 
 		AXE_ANIM_IDS = builder.build();
 	}
 
-	static Axe findAxeByAnimId(int animId) {
+	static Axe findAxeByAnimId(int animId)
+	{
 		return AXE_ANIM_IDS.get(animId);
 	}
 }

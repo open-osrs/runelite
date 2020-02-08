@@ -6,57 +6,57 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class185 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2327;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2315;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2322;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2317;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2318;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2320;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2319;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2314;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2316;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-			signature = "Lgy;"
+		signature = "Lgy;"
 	)
 	public static final class185 field2323;
 	@ObfuscatedName("js")
 	@ObfuscatedSignature(
-			signature = "Lhn;"
+		signature = "Lhn;"
 	)
 	@Export("dragInventoryWidget")
 	static Widget dragInventoryWidget;
@@ -75,30 +75,30 @@ public class class185 {
 	}
 
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "5"
+		signature = "(I)V",
+		garbageValue = "5"
 	)
 	class185(int var1) {
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Llp;IIB)I",
-			garbageValue = "-67"
+		signature = "(Llp;IIB)I",
+		garbageValue = "-67"
 	)
 	static int method3686(IterableNodeHashTable var0, int var1, int var2) {
 		if (var0 == null) {
 			return var2;
 		} else {
-			IntegerNode var3 = (IntegerNode) var0.get((long) var1);
+			IntegerNode var3 = (IntegerNode)var0.get((long)var1);
 			return var3 == null ? var2 : var3.integer;
 		}
 	}
 
 	@ObfuscatedName("ge")
 	@ObfuscatedSignature(
-			signature = "(Lbx;I)V",
-			garbageValue = "-46568974"
+		signature = "(Lbx;I)V",
+		garbageValue = "-46568974"
 	)
 	static final void method3685(Actor var0) {
 		int var1 = Math.max(1, var0.field985 - Client.cycle);
@@ -112,13 +112,13 @@ public class class185 {
 
 	@ObfuscatedName("jl")
 	@ObfuscatedSignature(
-			signature = "(Lbe;ZI)V",
-			garbageValue = "1102320238"
+		signature = "(Lbe;ZI)V",
+		garbageValue = "1102320238"
 	)
 	@Export("closeInterface")
 	static final void closeInterface(InterfaceParent var0, boolean var1) {
 		int var2 = var0.group;
-		int var3 = (int) var0.key;
+		int var3 = (int)var0.key;
 		var0.remove();
 		if (var1) {
 			ObjectSound.method1933(var2);

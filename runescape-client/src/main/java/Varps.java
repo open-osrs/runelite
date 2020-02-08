@@ -31,11 +31,11 @@ public class Varps {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(III)I",
-			garbageValue = "1638867489"
+		signature = "(III)I",
+		garbageValue = "1638867489"
 	)
 	static int method4043(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer) ItemContainer.itemContainers.get((long) var0);
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
 		if (var2 == null) {
 			return -1;
 		} else {
@@ -45,8 +45,8 @@ public class Varps {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(II)Lhn;",
-			garbageValue = "1215015650"
+		signature = "(II)Lhn;",
+		garbageValue = "1215015650"
 	)
 	@Export("getWidget")
 	public static Widget getWidget(int var0) {

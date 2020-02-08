@@ -25,104 +25,113 @@
 package net.runelite.client.plugins.tileindicators;
 
 import java.awt.Color;
-
 import net.runelite.client.config.Alpha;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("tileindicators")
-public interface TileIndicatorsConfig extends Config {
+public interface TileIndicatorsConfig extends Config
+{
 	@Alpha
 	@ConfigItem(
-			keyName = "highlightDestinationColor",
-			name = "Color of current destination highlighting",
-			description = "Configures the highlight color of current destination",
-			position = 0
+		keyName = "highlightDestinationColor",
+		name = "Color of current destination highlighting",
+		description = "Configures the highlight color of current destination",
+		position = 0
 	)
-	default Color highlightDestinationColor() {
+	default Color highlightDestinationColor()
+	{
 		return Color.GRAY;
 	}
 
 	@ConfigItem(
-			keyName = "highlightDestinationTile",
-			name = "Highlight destination tile",
-			description = "Highlights tile player is walking to",
-			position = 1
+		keyName = "highlightDestinationTile",
+		name = "Highlight destination tile",
+		description = "Highlights tile player is walking to",
+		position = 1
 	)
-	default boolean highlightDestinationTile() {
+	default boolean highlightDestinationTile()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "thinDestinationTile",
-			name = "Thin destination tile",
-			description = "Renders the tile border as 1 pixel wide instead of 2",
-			position = 2
+		keyName = "thinDestinationTile",
+		name = "Thin destination tile",
+		description = "Renders the tile border as 1 pixel wide instead of 2",
+		position = 2
 	)
-	default boolean thinDestinationTile() {
+	default boolean thinDestinationTile()
+	{
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "highlightCurrentColor",
-			name = "Color of current tile highlighting",
-			description = "Configures the highlight color of current tile position",
-			position = 3
+		keyName = "highlightCurrentColor",
+		name = "Color of current tile highlighting",
+		description = "Configures the highlight color of current tile position",
+		position = 3
 	)
-	default Color highlightCurrentColor() {
+	default Color highlightCurrentColor()
+	{
 		return Color.CYAN;
 	}
 
 	@ConfigItem(
-			keyName = "highlightCurrentTile",
-			name = "Highlight current tile",
-			description = "Highlights tile player is on",
-			position = 4
+		keyName = "highlightCurrentTile",
+		name = "Highlight current tile",
+		description = "Highlights tile player is on",
+		position = 4
 	)
-	default boolean highlightCurrentTile() {
+	default boolean highlightCurrentTile()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "thinCurrentTile",
-			name = "Thin current tile",
-			description = "Renders the tile border as 1 pixel wide instead of 2",
-			position = 5
+		keyName = "thinCurrentTile",
+		name = "Thin current tile",
+		description = "Renders the tile border as 1 pixel wide instead of 2",
+		position = 5
 	)
-	default boolean thinCurrentTile() {
+	default boolean thinCurrentTile()
+	{
 		return false;
 	}
 
 	@Alpha
 	@ConfigItem(
-			keyName = "highlightHoveredColor",
-			name = "Color of current hovered highlighting",
-			description = "Configures the highlight color of hovered tile",
-			position = 6
+		keyName = "highlightHoveredColor",
+		name = "Color of current hovered highlighting",
+		description = "Configures the highlight color of hovered tile",
+		position = 6
 	)
-	default Color highlightHoveredColor() {
+	default Color highlightHoveredColor()
+	{
 		return new Color(0, 0, 0, 0);
 	}
 
 	@ConfigItem(
-			keyName = "highlightHoveredTile",
-			name = "Highlight hovered tile",
-			description = "Highlights tile player is hovering with mouse",
-			position = 7
+		keyName = "highlightHoveredTile",
+		name = "Highlight hovered tile",
+		description = "Highlights tile player is hovering with mouse",
+		position = 7
 	)
-	default boolean highlightHoveredTile() {
+	default boolean highlightHoveredTile()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "thinHoveredTile",
-			name = "Thin hovered tile",
-			description = "Renders the tile border as 1 pixel wide instead of 2",
-			position = 8
+		keyName = "thinHoveredTile",
+		name = "Thin hovered tile",
+		description = "Renders the tile border as 1 pixel wide instead of 2",
+		position = 8
 	)
-	default boolean thinHoveredTile() {
+	default boolean thinHoveredTile()
+	{
 		return false;
 	}
 }

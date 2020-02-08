@@ -30,7 +30,8 @@ package net.runelite.api;
  * Note: This class is not complete and may not contain a specific animation
  * required.
  */
-public final class AnimationID {
+public final class AnimationID
+{
 	public static final int IDLE = -1;
 	public static final int HERBLORE_PESTLE_AND_MORTAR = 364;
 	public static final int WOODCUTTING_BRONZE = 879;

@@ -25,14 +25,14 @@
 package net.runelite.client.plugins.twitch.irc;
 
 import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
-public class MessageTest {
+public class MessageTest
+{
 	@Test
-	public void testParse() {
+	public void testParse()
+	{
 		Message message = Message.parse("@badges=subscriber/0;color=;display-name=kappa_kid_;emotes=;id=6539b42a-e945-4a83-a5b7-018149ca9fa7;mod=0;room-id=27107346;subscriber=1;tmi-sent-ts=1535926830652;turbo=0;user-id=33390095;user-type= :kappa_kid_!kappa_kid_@kappa_kid_.tmi.twitch.tv PRIVMSG #b0aty :how do u add charges to that zeah book?");
 		Map<String, String> messageTags = message.getTags();
 		assertEquals("subscriber/0", messageTags.get("badges"));

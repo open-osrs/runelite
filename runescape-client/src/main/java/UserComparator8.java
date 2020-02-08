@@ -1,5 +1,4 @@
 import java.net.URL;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class UserComparator8 extends AbstractUserComparator {
 	@ObfuscatedName("dk")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive8")
 	static Archive archive8;
@@ -24,8 +23,8 @@ public class UserComparator8 extends AbstractUserComparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lje;Lje;I)I",
-			garbageValue = "-1753489227"
+		signature = "(Lje;Lje;I)I",
+		garbageValue = "-1753489227"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -41,13 +40,13 @@ public class UserComparator8 extends AbstractUserComparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy) var1, (Buddy) var2);
+		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "-257658019"
+		signature = "(I)Z",
+		garbageValue = "-257658019"
 	)
 	@Export("loadWorlds")
 	static boolean loadWorlds() {
@@ -86,8 +85,8 @@ public class UserComparator8 extends AbstractUserComparator {
 
 	@ObfuscatedName("ke")
 	@ObfuscatedSignature(
-			signature = "(Lhn;IIIB)V",
-			garbageValue = "58"
+		signature = "(Lhn;IIIB)V",
+		garbageValue = "58"
 	)
 	@Export("drawCompass")
 	static final void drawCompass(Widget var0, int var1, int var2, int var3) {

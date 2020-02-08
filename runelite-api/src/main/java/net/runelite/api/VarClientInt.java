@@ -29,25 +29,25 @@ import lombok.Getter;
 
 /**
  * Client side only, content-developer integers
- * <p>
+ *
  * VarCInts are stored entirely in memory, or locally on a user's
  * machine in the preferences2.dat file depending on how Jagex
  * configured the variable
  */
 @AllArgsConstructor
 @Getter
-public enum VarClientInt {
+public enum VarClientInt
+{
 	TOOLTIP_TIMEOUT(1),
 
-	/**
-	 * 0 = no tooltip displayed
-	 * 1 = tooltip displaying
-	 */
+/**
+ * 0 = no tooltip displayed
+ * 1 = tooltip displaying
+*/
 	TOOLTIP_VISIBLE(2),
 
 	/**
 	 * Current message layer mode
-	 *
 	 * @see net.runelite.api.vars.InputType
 	 */
 	INPUT_TYPE(5),
@@ -56,7 +56,6 @@ public enum VarClientInt {
 
 	/**
 	 * The currently open interface tab
-	 *
 	 * @see net.runelite.api.vars.InterfaceTab
 	 */
 	INTERFACE_TAB(171),

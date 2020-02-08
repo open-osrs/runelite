@@ -27,95 +27,111 @@ import java.io.UnsupportedEncodingException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
-
 import net.runelite.data.App;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
-public class MediaWiki {
-	private static final class WikiInnerResponse {
+public class MediaWiki
+{
+	private static final class WikiInnerResponse
+	{
 		Map<String, String> wikitext;
 	}
 
-	private static final class WikiResponse {
+	private static final class WikiResponse
+	{
 		WikiInnerResponse parse;
 	}
 
 	private final OkHttpClient client = new OkHttpClient();
 	private final OkHttpClient clientNoRedirect = client.newBuilder()
-			.followRedirects(false)
-			.followSslRedirects(false)
-			.build();
+		.followRedirects(false)
+		.followSslRedirects(false)
+		.build();
 
 	private final HttpUrl base;
 
-	public MediaWiki(final String base) {
+	public MediaWiki(final String base)
+	{
 		this.base = HttpUrl.parse(base);
 	}
 
-	public String getSpecialLookupData(final String type, final int id, final int section) {
+	public String getSpecialLookupData(final String type, final int id, final int section)
+	{
 		final HttpUrl url = base.newBuilder()
-				.addPathSegment("w")
-				.addPathSegment("Special:Lookup")
-				.addQueryParameter("type", type)
-				.addQueryParameter("id", String.valueOf(id))
-				.build();
+			.addPathSegment("w")
+			.addPathSegment("Special:Lookup")
+			.addQueryParameter("type", type)
+			.addQueryParameter("id", String.valueOf(id))
+			.build();
 
 		final Request request = new Request.Builder()
-				.url(url)
-				.build();
+			.url(url)
+			.build();
 
-		try (final Response response = clientNoRedirect.newCall(request).execute()) {
-			if (response.isRedirect()) {
+		try (final Response response = clientNoRedirect.newCall(request).execute())
+		{
+			if (response.isRedirect())
+			{
 				final String page = response.header("Location")
-						.replace(base.newBuilder().addPathSegment("w").build().toString() + "/", "");
+					.replace(base.newBuilder().addPathSegment("w").build().toString() + "/", "");
 				return getPageData(page, section);
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			return "";
 		}
 
 		return "";
 	}
 
-	public String getPageData(String page, int section) {
+	public String getPageData(String page, int section)
+	{
 		// decode html encoded page name
 		// ex: Mage%27s book -> Mage's_book
-		try {
+		try
+		{
 			page = URLDecoder.decode(page, StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
+		}
+		catch (UnsupportedEncodingException e)
+		{
 			// do nothing, keep page the same
 		}
 
 		final HttpUrl.Builder urlBuilder = base.newBuilder()
-				.addPathSegment("api.php")
-				.addQueryParameter("action", "parse")
-				.addQueryParameter("format", "json")
-				.addQueryParameter("prop", "wikitext")
-				.addQueryParameter("redirects", "true")
-				.addQueryParameter("page", page.replaceAll(" ", "_"));
+			.addPathSegment("api.php")
+			.addQueryParameter("action", "parse")
+			.addQueryParameter("format", "json")
+			.addQueryParameter("prop", "wikitext")
+			.addQueryParameter("redirects", "true")
+			.addQueryParameter("page", page.replaceAll(" ", "_"));
 
-		if (section != -1) {
+		if (section != -1)
+		{
 			urlBuilder.addQueryParameter("section", String.valueOf(section));
 		}
 
 		final HttpUrl url = urlBuilder.build();
 
 		final Request request = new Request.Builder()
-				.url(url)
-				.build();
+			.url(url)
+			.build();
 
-		try (final Response response = client.newCall(request).execute()) {
-			if (response.isSuccessful()) {
+		try (final Response response = client.newCall(request).execute())
+		{
+			if (response.isSuccessful())
+			{
 				final InputStream in = response.body().byteStream();
 				return App.GSON.fromJson(new InputStreamReader(in), WikiResponse.class).parse.wikitext.get("*");
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			return "";
 		}
 

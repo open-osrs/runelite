@@ -27,7 +27,6 @@ package net.runelite.asm.attributes.code.instructions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
@@ -39,31 +38,36 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import org.objectweb.asm.MethodVisitor;
 
-public class LookupSwitch extends Instruction implements JumpingInstruction {
+public class LookupSwitch extends Instruction implements JumpingInstruction
+{
 	private List<Label> branchi = new ArrayList<>();
 	private Label defi;
 
 	private int[] match;
 
-	public LookupSwitch(Instructions instructions, InstructionType type) {
+	public LookupSwitch(Instructions instructions, InstructionType type)
+	{
 		super(instructions, type);
 	}
 
 	@Override
-	public Instruction clone() {
+	public Instruction clone()
+	{
 		LookupSwitch i = (LookupSwitch) super.clone();
 		i.branchi = new ArrayList<>(branchi);
 		return i;
 	}
 
 	@Override
-	public void accept(MethodVisitor visitor) {
+	public void accept(MethodVisitor visitor)
+	{
 		visitor.visitLookupSwitchInsn(defi.getLabel(), match,
-				branchi.stream().map(l -> l.getLabel()).toArray(org.objectweb.asm.Label[]::new));
+			branchi.stream().map(l -> l.getLabel()).toArray(org.objectweb.asm.Label[]::new));
 	}
 
 	@Override
-	public InstructionContext execute(Frame frame) {
+	public InstructionContext execute(Frame frame)
+	{
 		InstructionContext ins = new InstructionContext(this, frame);
 		Stack stack = frame.getStack();
 
@@ -74,7 +78,8 @@ public class LookupSwitch extends Instruction implements JumpingInstruction {
 		// (the frames it creates are dropped from the pending execution list
 		// for other == null) - so the step executor won't map instructions
 		// from the non-default branch
-		for (Label i : branchi) {
+		for (Label i : branchi)
+		{
 			Frame other = frame.dup();
 			other.jump(ins, i);
 
@@ -87,14 +92,17 @@ public class LookupSwitch extends Instruction implements JumpingInstruction {
 	}
 
 	@Override
-	public boolean isTerminal() {
+	public boolean isTerminal()
+	{
 		return true;
 	}
 
 	@Override
-	public List<Label> getJumps() {
+	public List<Label> getJumps()
+	{
 		List<Label> list = new ArrayList<>();
-		for (Label i : branchi) {
+		for (Label i : branchi)
+		{
 			list.add(i);
 		}
 		list.add(defi);
@@ -102,36 +110,44 @@ public class LookupSwitch extends Instruction implements JumpingInstruction {
 	}
 
 	@Override
-	public void setJumps(List<Label> labels) {
+	public void setJumps(List<Label> labels)
+	{
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
 	@Override
-	public void setLabel(org.objectweb.asm.Label label) {
+	public void setLabel(org.objectweb.asm.Label label)
+	{
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 
-	public List<Label> getBranchi() {
+	public List<Label> getBranchi()
+	{
 		return branchi;
 	}
 
-	public void setBranchi(List<Label> branchi) {
+	public void setBranchi(List<Label> branchi)
+	{
 		this.branchi = branchi;
 	}
 
-	public Label getDefi() {
+	public Label getDefi()
+	{
 		return defi;
 	}
 
-	public void setDefi(Label defi) {
+	public void setDefi(Label defi)
+	{
 		this.defi = defi;
 	}
 
-	public int[] getMatch() {
+	public int[] getMatch()
+	{
 		return match;
 	}
 
-	public void setMatch(int[] match) {
+	public void setMatch(int[] match)
+	{
 		this.match = match;
 	}
 }

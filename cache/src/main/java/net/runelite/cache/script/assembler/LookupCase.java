@@ -24,23 +24,28 @@
  */
 package net.runelite.cache.script.assembler;
 
-public class LookupCase {
+public class LookupCase
+{
 	private int value;
 	private int offset;
 
-	public int getValue() {
+	public int getValue()
+	{
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(int value)
+	{
 		this.value = value;
 	}
 
-	public int getOffset() {
+	public int getOffset()
+	{
 		return offset;
 	}
 
-	public void setOffset(int offset) {
+	public void setOffset(int offset)
+	{
 		this.offset = offset;
 	}
 }

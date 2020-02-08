@@ -33,12 +33,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.coords.WorldPoint;
-
 import static net.runelite.client.plugins.kourendlibrary.Book.*;
 
 /**
@@ -59,7 +57,8 @@ import static net.runelite.client.plugins.kourendlibrary.Book.*;
  */
 @Singleton
 @Slf4j
-class Library {
+class Library
+{
 	private final Map<WorldPoint, Bookcase> byPoint = new HashMap<>();
 	private final Map<Integer, ArrayList<Bookcase>> byLevel = new HashMap<>();
 	private final List<Bookcase> byIndex = new ArrayList<>();
@@ -77,76 +76,96 @@ class Library {
 	@Getter(AccessLevel.PACKAGE)
 	private int customerId;
 
-	Library() {
+	Library()
+	{
 		populateBooks();
 		step = byIndex.size() / Book.values().length;
 		reset();
 	}
 
-	synchronized List<Bookcase> getBookcasesOnLevel(int z) {
+	synchronized List<Bookcase> getBookcasesOnLevel(int z)
+	{
 		return Collections.unmodifiableList(byLevel.get(z));
 	}
 
-	synchronized List<Bookcase> getBookcases() {
+	synchronized List<Bookcase> getBookcases()
+	{
 		return Collections.unmodifiableList(byIndex);
 	}
 
-	void setCustomer(int customerId, Book book) {
+	void setCustomer(int customerId, Book book)
+	{
 		this.customerId = customerId;
 		this.customerBook = book;
 	}
 
-	synchronized void reset() {
+	synchronized void reset()
+	{
 		state = SolvedState.NO_DATA;
-		for (Bookcase b : byIndex) {
+		for (Bookcase b : byIndex)
+		{
 			b.clearBook();
 			b.getPossibleBooks().clear();
 		}
 		log.debug("Library is now reset");
 	}
 
-	synchronized void mark(WorldPoint loc, Book book) {
+	synchronized void mark(WorldPoint loc, Book book)
+	{
 		Bookcase bookcase = byPoint.get(loc);
-		if (bookcase == null) {
+		if (bookcase == null)
+		{
 			log.debug("Requested non-existent bookcase at {}", loc);
 			return;
 		}
 
-		if (bookcase.isBookSet()) {
+		if (bookcase.isBookSet())
+		{
 			// Bookcase is set from a previous mark
 			// Check for a mismatch, unless it is now null and had a dark manuscript
-			if (book != bookcase.getBook() && !(book == null && bookcase.getBook().isDarkManuscript())) {
+			if (book != bookcase.getBook() && !(book == null && bookcase.getBook().isDarkManuscript()))
+			{
 				reset();
 			}
-		} else if (state != SolvedState.NO_DATA) {
+		}
+		else if (state != SolvedState.NO_DATA)
+		{
 			// Reset if the book we found isn't what we expected
 
-			if (book != null && !bookcase.getPossibleBooks().contains(book)) {
+			if (book != null && !bookcase.getPossibleBooks().contains(book))
+			{
 				reset();
 			}
 		}
 
-		if (state == SolvedState.COMPLETE) {
+		if (state == SolvedState.COMPLETE)
+		{
 			// Reset if we found nothing when we expected something that wasn't a Dark Manuscript, since the layout has changed
-			if (book == null && !bookcase.getPossibleBooks().isEmpty() && bookcase.getPossibleBooks().stream().noneMatch(Book::isDarkManuscript)) {
+			if (book == null && !bookcase.getPossibleBooks().isEmpty() && bookcase.getPossibleBooks().stream().noneMatch(Book::isDarkManuscript))
+			{
 				reset();
-			} else {
+			}
+			else
+			{
 				// Everything is known, nothing to do
 				return;
 			}
 		}
 
 		log.debug("Setting bookcase {} to {}", bookcase.getIndex(), book);
-		for (; ; ) {
+		for (; ; )
+		{
 			bookcase.setBook(book);
 
 			// Basing the sequences on null is not supported, though possible
-			if (book == null) {
+			if (book == null)
+			{
 				return;
 			}
 
 			// This is one of the 6 bookcases with 2 ids. Not fully supported.
-			if (bookcase.getIndex().size() != 1) {
+			if (bookcase.getIndex().size() != 1)
+			{
 				return;
 			}
 
@@ -162,24 +181,31 @@ class Library {
 				int zero = getBookcaseZeroIndexForSequenceWithBook(sequence, bookcaseIndex, book);
 
 				int found = 0;
-				for (int i = 0; i < byIndex.size(); i++) {
+				for (int i = 0; i < byIndex.size(); i++)
+				{
 					int ai = (i + zero) % byIndex.size();
 					Bookcase iBookcase = byIndex.get(ai);
-					if (i % step == 0) {
+					if (i % step == 0)
+					{
 						int seqI = i / step;
-						if (iBookcase.isBookSet() && seqI < sequence.size()) {
+						if (iBookcase.isBookSet() && seqI < sequence.size())
+						{
 							Book seqBook = sequence.get(seqI);
 							boolean isSeqManuscript = seqBook == null || seqBook.isDarkManuscript();
-							if (!((isSeqManuscript && iBookcase.getBook() == null) || (iBookcase.getBook() == seqBook))) {
+							if (!((isSeqManuscript && iBookcase.getBook() == null) || (iBookcase.getBook() == seqBook)))
+							{
 								log.debug("Bailing @ i={} ai={} {}; {} != {}", i, ai, iBookcase.getIndex(), iBookcase.getBook(), seqBook);
 								found = 0;
 								break;
 							}
 							found++;
 						}
-					} else {
+					}
+					else
+					{
 						// Only bail if this isn't a double bookcase
-						if (iBookcase.isBookSet() && iBookcase.getBook() != null && iBookcase.getIndex().size() == 1) {
+						if (iBookcase.isBookSet() && iBookcase.getBook() != null && iBookcase.getIndex().size() == 1)
+						{
 							log.debug("Bailing @ i={} ai={} {}; {} is set", i, ai, iBookcase.getIndex(), iBookcase.getBook());
 							found = 0;
 							break;
@@ -190,7 +216,8 @@ class Library {
 			}).toArray();
 			log.debug("Certainty is now {}", certainty);
 
-			for (Bookcase b : byIndex) {
+			for (Bookcase b : byIndex)
+			{
 				b.getPossibleBooks().clear();
 			}
 
@@ -198,31 +225,36 @@ class Library {
 			int max = IntStream.of(certainty).max().getAsInt();
 
 			// We have books set, but 0 sequences match, Something is wrong, reset.
-			if (max == 0) {
+			if (max == 0)
+			{
 				reset();
 				continue;
 			}
 
 			IntStream.range(0, sequences.size())
-					.filter(i -> certainty[i] == max)
-					.forEach(isequence ->
-					{
-						List<Book> sequence = sequences.get(isequence);
-						int zero = getBookcaseZeroIndexForSequenceWithBook(sequence, bookcaseIndex, book);
+				.filter(i -> certainty[i] == max)
+				.forEach(isequence ->
+				{
+					List<Book> sequence = sequences.get(isequence);
+					int zero = getBookcaseZeroIndexForSequenceWithBook(sequence, bookcaseIndex, book);
 
-						for (int i = 0; i < byIndex.size(); i++) {
-							int ai = (i + zero) % byIndex.size();
-							Bookcase iBookcase = byIndex.get(ai);
-							if (iBookcase.getBook() == null) {
-								int iseq = i / step;
-								if (i % step == 0 && iseq < sequence.size()) {
-									Book seqBook = sequence.get(iseq);
-									iBookcase.getPossibleBooks().add(seqBook);
-								}
+					for (int i = 0; i < byIndex.size(); i++)
+					{
+						int ai = (i + zero) % byIndex.size();
+						Bookcase iBookcase = byIndex.get(ai);
+						if (iBookcase.getBook() == null)
+						{
+							int iseq = i / step;
+							if (i % step == 0 && iseq < sequence.size())
+							{
+								Book seqBook = sequence.get(iseq);
+								iBookcase.getPossibleBooks().add(seqBook);
 							}
 						}
-					});
-			if (IntStream.range(0, certainty.length).filter(i -> certainty[i] == max).count() == 1) {
+					}
+				});
+			if (IntStream.range(0, certainty.length).filter(i -> certainty[i] == max).count() == 1)
+			{
 				state = SolvedState.COMPLETE;
 			}
 			return;
@@ -232,173 +264,179 @@ class Library {
 	/**
 	 * Find the bookcase index that is index zero in the sequence, identifying by the book in bookcase
 	 */
-	private int getBookcaseZeroIndexForSequenceWithBook(List<Book> sequences, int bookcaseIndex, Book book) {
+	private int getBookcaseZeroIndexForSequenceWithBook(List<Book> sequences, int bookcaseIndex, Book book)
+	{
 		int bookSequence = sequences.indexOf(book);
 		assert bookSequence >= 0;
 
 		bookcaseIndex -= step * bookSequence;
-		for (; bookcaseIndex < 0; ) {
+		for (; bookcaseIndex < 0; )
+		{
 			bookcaseIndex += byIndex.size();
 		}
 		return bookcaseIndex;
 	}
 
-	private List<List<Book>> populateSequences() {
+	private List<List<Book>> populateSequences()
+	{
 		List<List<Book>> books = Arrays.asList(
-				Arrays.asList(
-						DARK_MANUSCRIPT_13516,
-						KILLING_OF_A_KING,
-						DARK_MANUSCRIPT_13520,
-						IDEOLOGY_OF_DARKNESS,
-						RADAS_JOURNEY,
-						TRANSVERGENCE_THEORY,
-						TRISTESSAS_TRAGEDY,
-						DARK_MANUSCRIPT_13523,
-						DARK_MANUSCRIPT_13521,
-						RADAS_CENSUS,
-						TREACHERY_OF_ROYALTY,
-						HOSIDIUS_LETTER,
-						DARK_MANUSCRIPT_13519,
-						RICKTORS_DIARY_7,
-						DARK_MANUSCRIPT_13514,
-						EATHRAM_RADA_EXTRACT,
-						DARK_MANUSCRIPT_13522,
-						VARLAMORE_ENVOY,
-						WINTERTODT_PARABLE,
-						TWILL_ACCORD,
-						DARK_MANUSCRIPT_13515,
-						BYRNES_CORONATION_SPEECH,
-						DARK_MANUSCRIPT_13517,
-						SOUL_JOURNEY,
-						DARK_MANUSCRIPT_13518,
-						TRANSPORTATION_INCANTATIONS
-				),
-				Arrays.asList(
-						DARK_MANUSCRIPT_13516,
-						KILLING_OF_A_KING,
-						DARK_MANUSCRIPT_13520,
-						IDEOLOGY_OF_DARKNESS,
-						RADAS_JOURNEY,
-						TRANSVERGENCE_THEORY,
-						TRISTESSAS_TRAGEDY,
-						DARK_MANUSCRIPT_13523,
-						DARK_MANUSCRIPT_13521,
-						RADAS_CENSUS,
-						TREACHERY_OF_ROYALTY,
-						HOSIDIUS_LETTER,
-						VARLAMORE_ENVOY,
-						DARK_MANUSCRIPT_13519,
-						RICKTORS_DIARY_7,
-						DARK_MANUSCRIPT_13514,
-						EATHRAM_RADA_EXTRACT,
-						DARK_MANUSCRIPT_13522,
-						SOUL_JOURNEY,
-						WINTERTODT_PARABLE,
-						TWILL_ACCORD,
-						DARK_MANUSCRIPT_13515,
-						BYRNES_CORONATION_SPEECH,
-						DARK_MANUSCRIPT_13517,
-						DARK_MANUSCRIPT_13518,
-						TRANSPORTATION_INCANTATIONS
-				),
-				Arrays.asList(
-						RICKTORS_DIARY_7,
-						VARLAMORE_ENVOY,
-						DARK_MANUSCRIPT_13514,
-						EATHRAM_RADA_EXTRACT,
-						IDEOLOGY_OF_DARKNESS,
-						DARK_MANUSCRIPT_13516,
-						DARK_MANUSCRIPT_13521,
-						RADAS_CENSUS,
-						DARK_MANUSCRIPT_13515,
-						KILLING_OF_A_KING,
-						DARK_MANUSCRIPT_13520,
-						TREACHERY_OF_ROYALTY,
-						HOSIDIUS_LETTER,
-						DARK_MANUSCRIPT_13519,
-						BYRNES_CORONATION_SPEECH,
-						DARK_MANUSCRIPT_13517,
-						SOUL_JOURNEY,
-						DARK_MANUSCRIPT_13522,
-						WINTERTODT_PARABLE,
-						TWILL_ACCORD,
-						RADAS_JOURNEY,
-						TRANSVERGENCE_THEORY,
-						TRISTESSAS_TRAGEDY,
-						DARK_MANUSCRIPT_13523,
-						DARK_MANUSCRIPT_13518,
-						TRANSPORTATION_INCANTATIONS
-				),
-				Arrays.asList(
-						RADAS_CENSUS,
-						DARK_MANUSCRIPT_13522,
-						RICKTORS_DIARY_7,
-						DARK_MANUSCRIPT_13514,
-						EATHRAM_RADA_EXTRACT,
-						DARK_MANUSCRIPT_13516,
-						KILLING_OF_A_KING,
-						DARK_MANUSCRIPT_13520,
-						HOSIDIUS_LETTER,
-						DARK_MANUSCRIPT_13519,
-						DARK_MANUSCRIPT_13521,
-						WINTERTODT_PARABLE,
-						TWILL_ACCORD,
-						DARK_MANUSCRIPT_13515,
-						BYRNES_CORONATION_SPEECH,
-						DARK_MANUSCRIPT_13517,
-						IDEOLOGY_OF_DARKNESS,
-						RADAS_JOURNEY,
-						TRANSVERGENCE_THEORY,
-						TRISTESSAS_TRAGEDY,
-						DARK_MANUSCRIPT_13523,
-						TREACHERY_OF_ROYALTY,
-						DARK_MANUSCRIPT_13518,
-						TRANSPORTATION_INCANTATIONS,
-						SOUL_JOURNEY,
-						VARLAMORE_ENVOY
-				),
-				Arrays.asList(
-						RADAS_CENSUS,
-						TRANSVERGENCE_THEORY,
-						TREACHERY_OF_ROYALTY,
-						RADAS_JOURNEY,
-						KILLING_OF_A_KING,
-						DARK_MANUSCRIPT_13520,
-						VARLAMORE_ENVOY,
-						DARK_MANUSCRIPT_13522,
-						BYRNES_CORONATION_SPEECH,
-						DARK_MANUSCRIPT_13517,
-						HOSIDIUS_LETTER,
-						DARK_MANUSCRIPT_13516,
-						DARK_MANUSCRIPT_13519,
-						TRISTESSAS_TRAGEDY,
-						DARK_MANUSCRIPT_13523,
-						DARK_MANUSCRIPT_13521,
-						RICKTORS_DIARY_7,
-						DARK_MANUSCRIPT_13514,
-						IDEOLOGY_OF_DARKNESS,
-						WINTERTODT_PARABLE,
-						TWILL_ACCORD,
-						SOUL_JOURNEY,
-						DARK_MANUSCRIPT_13515,
-						EATHRAM_RADA_EXTRACT,
-						DARK_MANUSCRIPT_13518,
-						TRANSPORTATION_INCANTATIONS
-				)
+			Arrays.asList(
+				DARK_MANUSCRIPT_13516,
+				KILLING_OF_A_KING,
+				DARK_MANUSCRIPT_13520,
+				IDEOLOGY_OF_DARKNESS,
+				RADAS_JOURNEY,
+				TRANSVERGENCE_THEORY,
+				TRISTESSAS_TRAGEDY,
+				DARK_MANUSCRIPT_13523,
+				DARK_MANUSCRIPT_13521,
+				RADAS_CENSUS,
+				TREACHERY_OF_ROYALTY,
+				HOSIDIUS_LETTER,
+				DARK_MANUSCRIPT_13519,
+				RICKTORS_DIARY_7,
+				DARK_MANUSCRIPT_13514,
+				EATHRAM_RADA_EXTRACT,
+				DARK_MANUSCRIPT_13522,
+				VARLAMORE_ENVOY,
+				WINTERTODT_PARABLE,
+				TWILL_ACCORD,
+				DARK_MANUSCRIPT_13515,
+				BYRNES_CORONATION_SPEECH,
+				DARK_MANUSCRIPT_13517,
+				SOUL_JOURNEY,
+				DARK_MANUSCRIPT_13518,
+				TRANSPORTATION_INCANTATIONS
+			),
+			Arrays.asList(
+				DARK_MANUSCRIPT_13516,
+				KILLING_OF_A_KING,
+				DARK_MANUSCRIPT_13520,
+				IDEOLOGY_OF_DARKNESS,
+				RADAS_JOURNEY,
+				TRANSVERGENCE_THEORY,
+				TRISTESSAS_TRAGEDY,
+				DARK_MANUSCRIPT_13523,
+				DARK_MANUSCRIPT_13521,
+				RADAS_CENSUS,
+				TREACHERY_OF_ROYALTY,
+				HOSIDIUS_LETTER,
+				VARLAMORE_ENVOY,
+				DARK_MANUSCRIPT_13519,
+				RICKTORS_DIARY_7,
+				DARK_MANUSCRIPT_13514,
+				EATHRAM_RADA_EXTRACT,
+				DARK_MANUSCRIPT_13522,
+				SOUL_JOURNEY,
+				WINTERTODT_PARABLE,
+				TWILL_ACCORD,
+				DARK_MANUSCRIPT_13515,
+				BYRNES_CORONATION_SPEECH,
+				DARK_MANUSCRIPT_13517,
+				DARK_MANUSCRIPT_13518,
+				TRANSPORTATION_INCANTATIONS
+			),
+			Arrays.asList(
+				RICKTORS_DIARY_7,
+				VARLAMORE_ENVOY,
+				DARK_MANUSCRIPT_13514,
+				EATHRAM_RADA_EXTRACT,
+				IDEOLOGY_OF_DARKNESS,
+				DARK_MANUSCRIPT_13516,
+				DARK_MANUSCRIPT_13521,
+				RADAS_CENSUS,
+				DARK_MANUSCRIPT_13515,
+				KILLING_OF_A_KING,
+				DARK_MANUSCRIPT_13520,
+				TREACHERY_OF_ROYALTY,
+				HOSIDIUS_LETTER,
+				DARK_MANUSCRIPT_13519,
+				BYRNES_CORONATION_SPEECH,
+				DARK_MANUSCRIPT_13517,
+				SOUL_JOURNEY,
+				DARK_MANUSCRIPT_13522,
+				WINTERTODT_PARABLE,
+				TWILL_ACCORD,
+				RADAS_JOURNEY,
+				TRANSVERGENCE_THEORY,
+				TRISTESSAS_TRAGEDY,
+				DARK_MANUSCRIPT_13523,
+				DARK_MANUSCRIPT_13518,
+				TRANSPORTATION_INCANTATIONS
+			),
+			Arrays.asList(
+				RADAS_CENSUS,
+				DARK_MANUSCRIPT_13522,
+				RICKTORS_DIARY_7,
+				DARK_MANUSCRIPT_13514,
+				EATHRAM_RADA_EXTRACT,
+				DARK_MANUSCRIPT_13516,
+				KILLING_OF_A_KING,
+				DARK_MANUSCRIPT_13520,
+				HOSIDIUS_LETTER,
+				DARK_MANUSCRIPT_13519,
+				DARK_MANUSCRIPT_13521,
+				WINTERTODT_PARABLE,
+				TWILL_ACCORD,
+				DARK_MANUSCRIPT_13515,
+				BYRNES_CORONATION_SPEECH,
+				DARK_MANUSCRIPT_13517,
+				IDEOLOGY_OF_DARKNESS,
+				RADAS_JOURNEY,
+				TRANSVERGENCE_THEORY,
+				TRISTESSAS_TRAGEDY,
+				DARK_MANUSCRIPT_13523,
+				TREACHERY_OF_ROYALTY,
+				DARK_MANUSCRIPT_13518,
+				TRANSPORTATION_INCANTATIONS,
+				SOUL_JOURNEY,
+				VARLAMORE_ENVOY
+			),
+			Arrays.asList(
+				RADAS_CENSUS,
+				TRANSVERGENCE_THEORY,
+				TREACHERY_OF_ROYALTY,
+				RADAS_JOURNEY,
+				KILLING_OF_A_KING,
+				DARK_MANUSCRIPT_13520,
+				VARLAMORE_ENVOY,
+				DARK_MANUSCRIPT_13522,
+				BYRNES_CORONATION_SPEECH,
+				DARK_MANUSCRIPT_13517,
+				HOSIDIUS_LETTER,
+				DARK_MANUSCRIPT_13516,
+				DARK_MANUSCRIPT_13519,
+				TRISTESSAS_TRAGEDY,
+				DARK_MANUSCRIPT_13523,
+				DARK_MANUSCRIPT_13521,
+				RICKTORS_DIARY_7,
+				DARK_MANUSCRIPT_13514,
+				IDEOLOGY_OF_DARKNESS,
+				WINTERTODT_PARABLE,
+				TWILL_ACCORD,
+				SOUL_JOURNEY,
+				DARK_MANUSCRIPT_13515,
+				EATHRAM_RADA_EXTRACT,
+				DARK_MANUSCRIPT_13518,
+				TRANSPORTATION_INCANTATIONS
+			)
 		);
 
-		for (int i = 0; i < books.size(); i++) {
+		for (int i = 0; i < books.size(); i++)
+		{
 			assert new HashSet<>(books.get(i)).size() == books.get(i).size();
 			books.set(i, Collections.unmodifiableList(books.get(i)));
 		}
 		return Collections.unmodifiableList(books);
 	}
 
-	private void add(int x, int y, int z, int i) {
+	private void add(int x, int y, int z, int i)
+	{
 		// 'i' is added as a parameter for readability
 		WorldPoint p = new WorldPoint(x, y, z);
 		Bookcase b = byPoint.get(p);
-		if (b == null) {
+		if (b == null)
+		{
 			b = new Bookcase(p);
 			byPoint.put(p, b);
 			byLevel.computeIfAbsent(z, a -> new ArrayList<>()).add(b);
@@ -408,7 +446,8 @@ class Library {
 		byIndex.add(b);
 	}
 
-	private void populateBooks() {
+	private void populateBooks()
+	{
 		add(1626, 3795, 0, 0);
 		add(1625, 3793, 0, 1);
 		add(1623, 3793, 0, 2);

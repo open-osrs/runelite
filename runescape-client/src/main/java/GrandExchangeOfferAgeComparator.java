@@ -1,5 +1,4 @@
 import java.util.Comparator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,15 +9,15 @@ import net.runelite.mapping.ObfuscatedSignature;
 final class GrandExchangeOfferAgeComparator implements Comparator {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("EnumDefinition_archive")
 	public static AbstractArchive EnumDefinition_archive;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Ll;Ll;I)I",
-			garbageValue = "1533624032"
+		signature = "(Ll;Ll;I)I",
+		garbageValue = "1533624032"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -26,7 +25,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent) var1, (GrandExchangeEvent) var2);
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
 	public boolean equals(Object var1) {
@@ -35,8 +34,8 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-370455307"
+		signature = "(I)V",
+		garbageValue = "-370455307"
 	)
 	public static void method162() {
 		class96.reflectionChecks = new IterableNodeDeque();
@@ -44,8 +43,8 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 
 	@ObfuscatedName("ja")
 	@ObfuscatedSignature(
-			signature = "([Lhn;IIIIIIII)V",
-			garbageValue = "-442172669"
+		signature = "([Lhn;IIIIIIII)V",
+		garbageValue = "-442172669"
 	)
 	@Export("updateInterface")
 	static final void updateInterface(Widget[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
@@ -114,21 +113,21 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 
 				boolean var32 = false;
 				if (var9.field2646) {
-					switch (Client.field808) {
-						case 0:
+					switch(Client.field808) {
+					case 0:
+						var32 = true;
+					case 1:
+					default:
+						break;
+					case 2:
+						if (Client.field664 == var9.id >>> 16) {
 							var32 = true;
-						case 1:
-						default:
-							break;
-						case 2:
-							if (Client.field664 == var9.id >>> 16) {
-								var32 = true;
-							}
-							break;
-						case 3:
-							if (var9.id == Client.field664) {
-								var32 = true;
-							}
+						}
+						break;
+					case 3:
+						if (var9.id == Client.field664) {
+							var32 = true;
+						}
 					}
 				}
 
@@ -137,7 +136,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 						ScriptEvent var26;
 						if (var9.noClickThrough) {
 							if (MouseHandler.MouseHandler_x >= var12 && MouseHandler.MouseHandler_y >= var13 && MouseHandler.MouseHandler_x < var14 && MouseHandler.MouseHandler_y < var15) {
-								for (var26 = (ScriptEvent) Client.scriptEvents.last(); var26 != null; var26 = (ScriptEvent) Client.scriptEvents.previous()) {
+								for (var26 = (ScriptEvent)Client.scriptEvents.last(); var26 != null; var26 = (ScriptEvent)Client.scriptEvents.previous()) {
 									if (var26.isMouseInputEvent) {
 										var26.remove();
 										var26.widget.containsMouse = false;
@@ -154,7 +153,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 								}
 							}
 						} else if (var9.noScrollThrough && MouseHandler.MouseHandler_x >= var12 && MouseHandler.MouseHandler_y >= var13 && MouseHandler.MouseHandler_x < var14 && MouseHandler.MouseHandler_y < var15) {
-							for (var26 = (ScriptEvent) Client.scriptEvents.last(); var26 != null; var26 = (ScriptEvent) Client.scriptEvents.previous()) {
+							for (var26 = (ScriptEvent)Client.scriptEvents.last(); var26 != null; var26 = (ScriptEvent)Client.scriptEvents.previous()) {
 								if (var26.isMouseInputEvent && var26.widget.onScroll == var26.args) {
 									var26.remove();
 								}
@@ -563,10 +562,10 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 								updateInterface(var9.children, var9.id, var12, var13, var14, var15, var10 - var9.scrollX, var11 - var9.scrollY);
 							}
 
-							InterfaceParent var30 = (InterfaceParent) Client.interfaceParents.get((long) var9.id);
+							InterfaceParent var30 = (InterfaceParent)Client.interfaceParents.get((long)var9.id);
 							if (var30 != null) {
 								if (var30.type == 0 && MouseHandler.MouseHandler_x >= var12 && MouseHandler.MouseHandler_y >= var13 && MouseHandler.MouseHandler_x < var14 && MouseHandler.MouseHandler_y < var15 && !Client.isMenuOpen) {
-									for (ScriptEvent var31 = (ScriptEvent) Client.scriptEvents.last(); var31 != null; var31 = (ScriptEvent) Client.scriptEvents.previous()) {
+									for (ScriptEvent var31 = (ScriptEvent)Client.scriptEvents.last(); var31 != null; var31 = (ScriptEvent)Client.scriptEvents.previous()) {
 										if (var31.isMouseInputEvent) {
 											var31.remove();
 											var31.widget.containsMouse = false;
@@ -595,8 +594,8 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 
 	@ObfuscatedName("kc")
 	@ObfuscatedSignature(
-			signature = "(Ljava/lang/String;I)V",
-			garbageValue = "-1093482480"
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "-1093482480"
 	)
 	@Export("Clan_joinChat")
 	static final void Clan_joinChat(String var0) {

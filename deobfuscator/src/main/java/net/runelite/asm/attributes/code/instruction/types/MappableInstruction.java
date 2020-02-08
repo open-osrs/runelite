@@ -28,10 +28,11 @@ package net.runelite.asm.attributes.code.instruction.types;
 import net.runelite.asm.execution.InstructionContext;
 import net.runelite.deob.deobfuscators.mapping.ParallelExecutorMapping;
 
-public interface MappableInstruction {
+public interface MappableInstruction
+{
 	void map(ParallelExecutorMapping mappings, InstructionContext ctx, InstructionContext other);
-
+	
 	boolean isSame(InstructionContext thisIc, InstructionContext otherIc);
-
+	
 	boolean canMap(InstructionContext thisIc);
 }

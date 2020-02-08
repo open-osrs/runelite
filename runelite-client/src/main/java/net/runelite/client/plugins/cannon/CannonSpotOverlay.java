@@ -31,13 +31,10 @@ import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.Client;
-
 import static net.runelite.api.ItemID.CANNONBALL;
-
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
@@ -48,7 +45,8 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
-public class CannonSpotOverlay extends Overlay {
+public class CannonSpotOverlay extends Overlay
+{
 	private static final int MAX_DISTANCE = 2350;
 
 	private final Client client;
@@ -61,27 +59,33 @@ public class CannonSpotOverlay extends Overlay {
 	private boolean hidden;
 
 	@Inject
-	CannonSpotOverlay(final Client client, final CannonPlugin plugin) {
+	CannonSpotOverlay(final Client client, final CannonPlugin plugin)
+	{
 		setPosition(OverlayPosition.DYNAMIC);
 		this.client = client;
 		this.plugin = plugin;
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (hidden || !plugin.isShowCannonSpots() || plugin.isCannonPlaced()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (hidden || !plugin.isShowCannonSpots() || plugin.isCannonPlaced())
+		{
 			return null;
 		}
 
-		for (WorldPoint spot : plugin.getSpotPoints()) {
-			if (spot.getPlane() != client.getPlane()) {
+		for (WorldPoint spot : plugin.getSpotPoints())
+		{
+			if (spot.getPlane() != client.getPlane())
+			{
 				continue;
 			}
 
 			LocalPoint spotPoint = LocalPoint.fromWorld(client, spot);
 			LocalPoint localLocation = client.getLocalPlayer().getLocalLocation();
 
-			if (spotPoint != null && localLocation.distanceTo(spotPoint) <= MAX_DISTANCE) {
+			if (spotPoint != null && localLocation.distanceTo(spotPoint) <= MAX_DISTANCE)
+			{
 				renderCannonSpot(graphics, client, spotPoint, itemManager.getImage(CANNONBALL), Color.RED);
 			}
 		}
@@ -89,18 +93,21 @@ public class CannonSpotOverlay extends Overlay {
 		return null;
 	}
 
-	private void renderCannonSpot(Graphics2D graphics, Client client, LocalPoint point, BufferedImage image, Color color) {
+	private void renderCannonSpot(Graphics2D graphics, Client client, LocalPoint point, BufferedImage image, Color color)
+	{
 		//Render tile
 		Polygon poly = Perspective.getCanvasTilePoly(client, point);
 
-		if (poly != null) {
+		if (poly != null)
+		{
 			OverlayUtil.renderPolygon(graphics, poly, color);
 		}
 
 		//Render icon
 		Point imageLoc = Perspective.getCanvasImageLocation(client, point, image, 0);
 
-		if (imageLoc != null) {
+		if (imageLoc != null)
+		{
 			OverlayUtil.renderImageLocation(graphics, imageLoc, image);
 		}
 	}

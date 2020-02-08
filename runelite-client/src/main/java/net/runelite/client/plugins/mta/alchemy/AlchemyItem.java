@@ -28,7 +28,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.ItemID;
 
-public enum AlchemyItem {
+public enum AlchemyItem
+{
 	LEATHER_BOOTS("Leather Boots", ItemID.LEATHER_BOOTS_6893),
 	ADAMANT_KITESHIELD("Adamant Kiteshield", ItemID.ADAMANT_KITESHIELD_6894),
 	ADAMANT_MED_HELM("Helm", ItemID.ADAMANT_MED_HELM_6895),
@@ -43,14 +44,18 @@ public enum AlchemyItem {
 	@Getter(AccessLevel.PACKAGE)
 	private final String name;
 
-	AlchemyItem(final String name, final int id) {
+	AlchemyItem(final String name, final int id)
+	{
 		this.id = id;
 		this.name = name;
 	}
 
-	public static AlchemyItem find(String item) {
-		for (AlchemyItem alchemyItem : values()) {
-			if (item.toLowerCase().contains(alchemyItem.name.toLowerCase())) {
+	public static AlchemyItem find(String item)
+	{
+		for (AlchemyItem alchemyItem : values())
+		{
+			if (item.toLowerCase().contains(alchemyItem.name.toLowerCase()))
+			{
 				return alchemyItem;
 			}
 		}

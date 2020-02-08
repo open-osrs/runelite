@@ -11,13 +11,13 @@ public class DualNode extends Node {
 	public long keyDual;
 	@ObfuscatedName("cw")
 	@ObfuscatedSignature(
-			signature = "Lfa;"
+		signature = "Lfa;"
 	)
 	@Export("previousDual")
 	public DualNode previousDual;
 	@ObfuscatedName("cq")
 	@ObfuscatedSignature(
-			signature = "Lfa;"
+		signature = "Lfa;"
 	)
 	@Export("nextDual")
 	public DualNode nextDual;

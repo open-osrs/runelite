@@ -24,7 +24,6 @@
 package net.runelite.data.dump.wiki;
 
 import com.google.common.base.Strings;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,7 +37,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -51,10 +49,12 @@ import net.runelite.data.dump.MediaWiki;
 import net.runelite.data.dump.MediaWikiTemplate;
 
 @Slf4j
-public class NpcStatsDumper {
+public class NpcStatsDumper
+{
 	@Data
 	@Builder
-	private static final class NpcStats {
+	private static final class NpcStats
+	{
 		private String name;
 		private final Integer hitpoints;
 		private final Integer hitpoints1;
@@ -99,18 +99,21 @@ public class NpcStatsDumper {
 	 * Looks for and parses the `Switch infobox` into a {@link MediaWikiTemplate} and then iterates over the `item#` values.
 	 * Attempts to parse each `item#` value via `parseWikiText`, matching the `name` attribute. null values are ignored
 	 *
-	 * @param name         only parses MediaWikiTemplates from `Switch infobox` if matches this value. (case insensitive)
+	 * @param name only parses MediaWikiTemplates from `Switch infobox` if matches this value. (case insensitive)
 	 * @param baseTemplate the {@link MediaWikiTemplate} representation of the `Switch infobox` to parse from
 	 * @return List of all valid {@link MediaWikiTemplate}s matching `name` from `baseTemplate`s `item#` values
 	 */
-	static List<MediaWikiTemplate> parseSwitchInfoboxItems(final String name, final MediaWikiTemplate baseTemplate) {
+	static List<MediaWikiTemplate> parseSwitchInfoboxItems(final String name, final MediaWikiTemplate baseTemplate)
+	{
 		final List<MediaWikiTemplate> templates = new ArrayList<>();
 
 		String value;
 		int suffix = 1;
-		while ((value = baseTemplate.getValue("item" + suffix)) != null) {
+		while ((value = baseTemplate.getValue("item" + suffix)) != null)
+		{
 			final MediaWikiTemplate subTemplate = MediaWikiTemplate.parseWikitext(name, value);
-			if (subTemplate != null) {
+			if (subTemplate != null)
+			{
 				templates.add(subTemplate);
 			}
 
@@ -120,7 +123,8 @@ public class NpcStatsDumper {
 		return templates;
 	}
 
-	public static void dump(final Store store, final MediaWiki wiki, final File path) throws IOException {
+	public static void dump(final Store store, final MediaWiki wiki, final File path) throws IOException
+	{
 
 		log.info("Dumping npc stats to {}", path);
 
@@ -133,17 +137,20 @@ public class NpcStatsDumper {
 
 		// Ensure variant names match cache as wiki isn't always correct
 		final Map<Integer, String> nameMap = new HashMap<>();
-		for (NpcDefinition n : definitions) {
-			if (n.getName().equalsIgnoreCase("NULL")) {
+		for (NpcDefinition n : definitions)
+		{
+			if (n.getName().equalsIgnoreCase("NULL"))
+			{
 				continue;
 			}
 
 			final String name = Namer
-					.removeTags(n.getName())
-					.replace('\u00A0', ' ')
-					.trim();
+				.removeTags(n.getName())
+				.replace('\u00A0', ' ')
+				.trim();
 
-			if (name.isEmpty()) {
+			if (name.isEmpty())
+			{
 				continue;
 			}
 
@@ -152,60 +159,74 @@ public class NpcStatsDumper {
 
 		npcDefinitionStream.forEach(n ->
 		{
-			if (npcStats.containsKey(n.getId())) {
+			if (npcStats.containsKey(n.getId()))
+			{
 				return;
 			}
 
 			final String name = nameMap.get(n.getId());
-			if (name == null) {
+			if (name == null)
+			{
 				return;
 			}
 
-			if (!isAttackableNpc(n)) {
+			if (!isAttackableNpc(n))
+			{
 				return;
 			}
 
 			final String data = wiki.getSpecialLookupData("npc", n.getId(), 0);
-			if (Strings.isNullOrEmpty(data)) {
+			if (Strings.isNullOrEmpty(data))
+			{
 				return;
 			}
 
 			List<MediaWikiTemplate> bases = new ArrayList<>();
 
 			final MediaWikiTemplate switchBase = MediaWikiTemplate.parseWikitext("Switch infobox", data);
-			if (switchBase != null) {
+			if (switchBase != null)
+			{
 				bases = parseSwitchInfoboxItems("Infobox Monster", switchBase);
-			} else {
+			}
+			else
+			{
 				final MediaWikiTemplate base = MediaWikiTemplate.parseWikitext("Infobox Monster", data);
-				if (base == null) {
+				if (base == null)
+				{
 					return;
 				}
 
 				bases.add(base);
 			}
 
-			for (final MediaWikiTemplate base : bases) {
+			for (final MediaWikiTemplate base : bases)
+			{
 				int variantKey = 0;
 				String wikiIdString = getWikiIdString(base, variantKey);
-				if (wikiIdString == null) {
+				if (wikiIdString == null)
+				{
 					// Try again as `id` will be null if there are variants and `id1` is the starting key
 					variantKey++;
 					wikiIdString = getWikiIdString(base, variantKey);
 				}
 
-				while (wikiIdString != null) {
-					if (wikiIdString.isEmpty()) {
+				while (wikiIdString != null)
+				{
+					if (wikiIdString.isEmpty())
+					{
 						continue;
 					}
 
 					final Set<Integer> ids = Arrays.stream(wikiIdString.split(","))
-							.map(s -> Integer.parseInt(s.replaceAll("[^0-9]", "").trim()))
-							.collect(Collectors.toSet());
+						.map(s -> Integer.parseInt(s.replaceAll("[^0-9]", "").trim()))
+						.collect(Collectors.toSet());
 
 					final NpcStats stats = buildNpcStats(base, variantKey);
-					if (!stats.equals(DEFAULT)) {
+					if (!stats.equals(DEFAULT))
+					{
 						stats.setName(name);
-						for (final int curID : ids) {
+						for (final int curID : ids)
+						{
 							// Update variant name or fall back to current name
 							final String curName = nameMap.get(curID);
 							stats.setName(curName == null ? stats.getName() : curName);
@@ -224,7 +245,8 @@ public class NpcStatsDumper {
 		// Cast to TreeMap so sort output JSON in numerical order (npc id)
 		final Map<Integer, NpcStats> sorted = new TreeMap<>(npcStats);
 
-		try (FileWriter fw = new FileWriter(new File(path, "npc_stats.json"))) {
+		try (FileWriter fw = new FileWriter(new File(path, "npc_stats.json")))
+		{
 			fw.write(App.GSON.toJson(sorted));
 		}
 
@@ -236,9 +258,12 @@ public class NpcStatsDumper {
 		log.info("Dumped {} npc stats", sorted.size());
 	}
 
-	private static boolean isAttackableNpc(final NpcDefinition n) {
-		for (final String s : n.getActions()) {
-			if ("attack".equalsIgnoreCase(s)) {
+	private static boolean isAttackableNpc(final NpcDefinition n)
+	{
+		for (final String s : n.getActions())
+		{
+			if ("attack".equalsIgnoreCase(s))
+			{
 				return true;
 			}
 		}
@@ -246,19 +271,23 @@ public class NpcStatsDumper {
 		return false;
 	}
 
-	private static String getKeySuffix(final int variantKey) {
+	private static String getKeySuffix(final int variantKey)
+	{
 		return variantKey > 0 ? String.valueOf(variantKey) : "";
 	}
 
-	private static String getWikiIdString(final MediaWikiTemplate template, final int variantKey) {
+	private static String getWikiIdString(final MediaWikiTemplate template, final int variantKey)
+	{
 		return template.getValue("id" + getKeySuffix(variantKey));
 	}
 
-	private static NpcStats buildNpcStats(final MediaWikiTemplate template, int variantKey) {
+	private static NpcStats buildNpcStats(final MediaWikiTemplate template, int variantKey)
+	{
 		final NpcStats.NpcStatsBuilder stats = NpcStats.builder();
 
 		stats.hitpoints(getInt("hitpoints", variantKey, template));
-		if (stats.hitpoints == null) {
+		if (stats.hitpoints == null)
+		{
 			stats.hitpoints(getInt("hitpoints1", variantKey, template));
 		}
 		stats.combatLevel(getInt("combat", variantKey, template));
@@ -296,19 +325,24 @@ public class NpcStatsDumper {
 		stats.venomImmune(!vImmune ? null : true);
 
 		final String weaknessValue = template.getValue("weakness");
-		if (weaknessValue != null) {
+		if (weaknessValue != null)
+		{
 			final String[] values = weaknessValue.split(",");
-			for (String value : values) {
+			for (String value : values)
+			{
 				value = value.toLowerCase();
-				if (stats.dragon == null && (value.contains("dragonbane weapons"))) {
+				if (stats.dragon == null && (value.contains("dragonbane weapons")))
+				{
 					stats.dragon(true);
 				}
 
-				if (stats.demon == null && (value.contains("demonbane weapons") || value.contains("silverlight") || value.contains("arclight"))) {
+				if (stats.demon == null && (value.contains("demonbane weapons") || value.contains("silverlight") || value.contains("arclight")))
+				{
 					stats.demon(true);
 				}
 
-				if (stats.undead == null && (value.contains("salve amulet") || value.contains("crumble undead"))) {
+				if (stats.undead == null && (value.contains("salve amulet") || value.contains("crumble undead")))
+				{
 					stats.undead(true);
 				}
 			}
@@ -317,10 +351,13 @@ public class NpcStatsDumper {
 		return stats.build();
 	}
 
-	static Integer getInt(final String mainKey, final Integer variation, final MediaWikiTemplate template) {
+	static Integer getInt(final String mainKey, final Integer variation, final MediaWikiTemplate template)
+	{
 		final String key = mainKey + getKeySuffix(variation);
-		if (!template.containsKey(key)) {
-			if (variation >= 1) {
+		if (!template.containsKey(key))
+		{
+			if (variation >= 1)
+			{
 				// Use variation fallback via recursion
 				return getInt(mainKey, variation - 1, template);
 			}
@@ -329,20 +366,25 @@ public class NpcStatsDumper {
 		}
 
 		final String val = template.getValue(key);
-		if (Strings.isNullOrEmpty(val)) {
+		if (Strings.isNullOrEmpty(val))
+		{
 			return null;
 		}
 
-		try {
+		try
+		{
 			// Remove everything after the first non-number character to account for any comments
 			final String fixedVal = val.trim().replaceAll("\\D+.*", "");
-			if (fixedVal.isEmpty()) {
+			if (fixedVal.isEmpty())
+			{
 				return null;
 			}
 
 			int v = Integer.parseInt(fixedVal);
 			return v != 0 ? v : null;
-		} catch (NumberFormatException e) {
+		}
+		catch (NumberFormatException e)
+		{
 			e.printStackTrace();
 			return null;
 		}

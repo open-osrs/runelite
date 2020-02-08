@@ -58,7 +58,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.client.ui.ColorScheme;
@@ -68,15 +67,16 @@ import net.runelite.client.ui.PluginPanel;
 
 @Slf4j
 @Singleton
-class ProfilesPanel extends PluginPanel {
+class ProfilesPanel extends PluginPanel
+{
 	private static final int iterations = 100000;
 	private static final String UNLOCK_PASSWORD = "Encryption Password";
 	private static final String ACCOUNT_USERNAME = "Account Username";
 	private static final String ACCOUNT_LABEL = "Account Label";
 	private static final String PASSWORD_LABEL = "Account Password";
 	private static final String HELP = "To add and load accounts, first enter a password into the Encryption Password " +
-			"field then press %s. <br /><br /> You can now add as many accounts as you would like. <br /><br /> The next time you restart " +
-			"openosrs, enter your encryption password and click load accounts to see the accounts you entered.";
+		"field then press %s. <br /><br /> You can now add as many accounts as you would like. <br /><br /> The next time you restart " +
+		"openosrs, enter your encryption password and click load accounts to see the accounts you entered.";
 
 	@Inject
 	@Nullable
@@ -85,8 +85,7 @@ class ProfilesPanel extends PluginPanel {
 	@Inject
 	private ProfilesConfig profilesConfig;
 
-	@Inject
-	ProfilesPlugin profilesPlugin;
+	@Inject ProfilesPlugin profilesPlugin;
 
 	private final JPasswordField txtDecryptPassword = new JPasswordField(UNLOCK_PASSWORD);
 	private final JTextField txtAccountLabel = new JTextField(ACCOUNT_LABEL);
@@ -96,7 +95,8 @@ class ProfilesPanel extends PluginPanel {
 	private final JPanel accountPanel = new JPanel();
 	private final JPanel loginPanel = new JPanel();
 
-	void init() {
+	void init()
+	{
 		final String LOAD_ACCOUNTS = profilesConfig.salt().length() == 0 ? "Save" : "Unlock";
 
 		setLayout(new BorderLayout(0, 10));
@@ -125,18 +125,23 @@ class ProfilesPanel extends PluginPanel {
 
 		txtDecryptPassword.addActionListener(e -> decryptAccounts());
 
-		txtDecryptPassword.addFocusListener(new FocusListener() {
+		txtDecryptPassword.addFocusListener(new FocusListener()
+		{
 			@Override
-			public void focusGained(FocusEvent e) {
-				if (String.valueOf(txtDecryptPassword.getPassword()).equals(UNLOCK_PASSWORD)) {
+			public void focusGained(FocusEvent e)
+			{
+				if (String.valueOf(txtDecryptPassword.getPassword()).equals(UNLOCK_PASSWORD))
+				{
 					txtDecryptPassword.setText("");
 					txtDecryptPassword.setEchoChar('*');
 				}
 			}
 
 			@Override
-			public void focusLost(FocusEvent e) {
-				if (txtDecryptPassword.getPassword().length == 0) {
+			public void focusLost(FocusEvent e)
+			{
+				if (txtDecryptPassword.getPassword().length == 0)
+				{
 					txtDecryptPassword.setText(UNLOCK_PASSWORD);
 					txtDecryptPassword.setEchoChar((char) 0);
 				}
@@ -145,29 +150,35 @@ class ProfilesPanel extends PluginPanel {
 
 		JButton btnLoadAccounts = new JButton(LOAD_ACCOUNTS);
 		btnLoadAccounts.setToolTipText(LOAD_ACCOUNTS);
-		btnLoadAccounts.addMouseListener(new MouseListener() {
+		btnLoadAccounts.addMouseListener(new MouseListener()
+		{
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e)
+			{
 
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 				decryptAccounts();
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e)
+			{
 
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 
 			}
 		});
@@ -180,17 +191,22 @@ class ProfilesPanel extends PluginPanel {
 		accountPanel.setLayout(new DynamicGridLayout(0, 1, 0, 5));
 
 		txtAccountLabel.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
-		txtAccountLabel.addFocusListener(new FocusListener() {
+		txtAccountLabel.addFocusListener(new FocusListener()
+		{
 			@Override
-			public void focusGained(FocusEvent e) {
-				if (txtAccountLabel.getText().equals(ACCOUNT_LABEL)) {
+			public void focusGained(FocusEvent e)
+			{
+				if (txtAccountLabel.getText().equals(ACCOUNT_LABEL))
+				{
 					txtAccountLabel.setText("");
 				}
 			}
 
 			@Override
-			public void focusLost(FocusEvent e) {
-				if (txtAccountLabel.getText().isEmpty()) {
+			public void focusLost(FocusEvent e)
+			{
+				if (txtAccountLabel.getText().isEmpty())
+				{
 					txtAccountLabel.setText(ACCOUNT_LABEL);
 				}
 			}
@@ -199,20 +215,26 @@ class ProfilesPanel extends PluginPanel {
 		// Do not hide username characters until they focus or if in streamer mode
 		txtAccountLogin.setEchoChar((char) 0);
 		txtAccountLogin.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
-		txtAccountLogin.addFocusListener(new FocusListener() {
+		txtAccountLogin.addFocusListener(new FocusListener()
+		{
 			@Override
-			public void focusGained(FocusEvent e) {
-				if (ACCOUNT_USERNAME.equals(String.valueOf(txtAccountLogin.getPassword()))) {
+			public void focusGained(FocusEvent e)
+			{
+				if (ACCOUNT_USERNAME.equals(String.valueOf(txtAccountLogin.getPassword())))
+				{
 					txtAccountLogin.setText("");
-					if (profilesPlugin.isStreamerMode()) {
+					if (profilesPlugin.isStreamerMode())
+					{
 						txtAccountLogin.setEchoChar('*');
 					}
 				}
 			}
 
 			@Override
-			public void focusLost(FocusEvent e) {
-				if (txtAccountLogin.getPassword().length == 0) {
+			public void focusLost(FocusEvent e)
+			{
+				if (txtAccountLogin.getPassword().length == 0)
+				{
 					txtAccountLogin.setText(ACCOUNT_USERNAME);
 					txtAccountLogin.setEchoChar((char) 0);
 				}
@@ -222,18 +244,23 @@ class ProfilesPanel extends PluginPanel {
 		txtPasswordLogin.setEchoChar((char) 0);
 		txtPasswordLogin.setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		txtPasswordLogin.setToolTipText(PASSWORD_LABEL);
-		txtPasswordLogin.addFocusListener(new FocusListener() {
+		txtPasswordLogin.addFocusListener(new FocusListener()
+		{
 			@Override
-			public void focusGained(FocusEvent e) {
-				if (PASSWORD_LABEL.equals(String.valueOf(txtPasswordLogin.getPassword()))) {
+			public void focusGained(FocusEvent e)
+			{
+				if (PASSWORD_LABEL.equals(String.valueOf(txtPasswordLogin.getPassword())))
+				{
 					txtPasswordLogin.setText("");
 					txtPasswordLogin.setEchoChar('*');
 				}
 			}
 
 			@Override
-			public void focusLost(FocusEvent e) {
-				if (txtPasswordLogin.getPassword().length == 0) {
+			public void focusLost(FocusEvent e)
+			{
+				if (txtPasswordLogin.getPassword().length == 0)
+				{
 					txtPasswordLogin.setText(PASSWORD_LABEL);
 					txtPasswordLogin.setEchoChar((char) 0);
 				}
@@ -248,23 +275,31 @@ class ProfilesPanel extends PluginPanel {
 			String loginText = String.valueOf(txtAccountLogin.getPassword());
 			String passwordText = String.valueOf(txtPasswordLogin.getPassword());
 
-			if (labelText.equals(ACCOUNT_LABEL) || loginText.equals(ACCOUNT_USERNAME)) {
+			if (labelText.equals(ACCOUNT_LABEL) || loginText.equals(ACCOUNT_USERNAME))
+			{
 				return;
 			}
 			String data;
-			if (profilesPlugin.isRememberPassword() && txtPasswordLogin.getPassword() != null) {
+			if (profilesPlugin.isRememberPassword() && txtPasswordLogin.getPassword() != null)
+			{
 				data = labelText + ":" + loginText + ":" + passwordText;
-			} else {
+			}
+			else
+			{
 				data = labelText + ":" + loginText;
 			}
 
-			try {
-				if (!addProfile(data)) {
+			try
+			{
+				if (!addProfile(data))
+				{
 					return;
 				}
 
 				redrawProfiles();
-			} catch (InvalidKeySpecException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchPaddingException ex) {
+			}
+			catch (InvalidKeySpecException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchPaddingException ex)
+			{
 				log.error(e.toString());
 			}
 
@@ -277,45 +312,55 @@ class ProfilesPanel extends PluginPanel {
 			txtPasswordLogin.setEchoChar((char) 0);
 		});
 
-		txtAccountLogin.addKeyListener(new KeyAdapter() {
+		txtAccountLogin.addKeyListener(new KeyAdapter()
+		{
 			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			public void keyPressed(KeyEvent e)
+			{
+				if (e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
 					btnAddAccount.doClick();
 					btnAddAccount.requestFocus();
 				}
 			}
 		});
-		txtAccountLogin.addMouseListener(new MouseListener() {
+		txtAccountLogin.addMouseListener(new MouseListener()
+		{
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e)
+			{
 
 
 			}
 
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e)
+			{
 
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e)
+			{
 
 			}
 
 			@Override
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e)
+			{
 			}
 
 			@Override
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e)
+			{
 
 			}
 		});
 
 		accountPanel.add(txtAccountLabel);
 		accountPanel.add(txtAccountLogin);
-		if (profilesPlugin.isRememberPassword()) {
+		if (profilesPlugin.isRememberPassword())
+		{
 			accountPanel.add(txtPasswordLogin);
 		}
 		accountPanel.add(btnAddAccount);
@@ -326,22 +371,28 @@ class ProfilesPanel extends PluginPanel {
 		// addAccounts(config.profilesData());
 	}
 
-	private void decryptAccounts() {
-		if (txtDecryptPassword.getPassword().length == 0 || String.valueOf(txtDecryptPassword.getPassword()).equals(UNLOCK_PASSWORD)) {
+	private void decryptAccounts()
+	{
+		if (txtDecryptPassword.getPassword().length == 0 || String.valueOf(txtDecryptPassword.getPassword()).equals(UNLOCK_PASSWORD))
+		{
 			showErrorMessage("Unable to load data", "Please enter a password!");
 			return;
 		}
 
 		boolean error = false;
-		try {
+		try
+		{
 			redrawProfiles();
-		} catch (InvalidKeySpecException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchPaddingException ex) {
+		}
+		catch (InvalidKeySpecException | NoSuchAlgorithmException | IllegalBlockSizeException | InvalidKeyException | BadPaddingException | NoSuchPaddingException ex)
+		{
 			error = true;
 			showErrorMessage("Unable to load data", "Incorrect password!");
 			txtDecryptPassword.setText("");
 		}
 
-		if (error) {
+		if (error)
+		{
 			return;
 		}
 
@@ -352,7 +403,8 @@ class ProfilesPanel extends PluginPanel {
 		add(profilesPanel, BorderLayout.SOUTH);
 	}
 
-	void redrawProfiles() throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+	void redrawProfiles() throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException
+	{
 		profilesPanel.removeAll();
 		addAccounts(getProfileData());
 
@@ -360,7 +412,8 @@ class ProfilesPanel extends PluginPanel {
 		repaint();
 	}
 
-	private void addAccount(String data) {
+	private void addAccount(String data)
+	{
 		ProfilePanel profile = new ProfilePanel(client, data, profilesPlugin, this);
 		profilesPanel.add(profile);
 
@@ -368,41 +421,50 @@ class ProfilesPanel extends PluginPanel {
 		repaint();
 	}
 
-	private void addAccounts(String data) {
+	private void addAccounts(String data)
+	{
 		// log.info("Data: " + data);
 		data = data.trim();
-		if (!data.contains(":")) {
+		if (!data.contains(":"))
+		{
 			return;
 		}
 		Arrays.stream(data.split("\\n")).forEach(this::addAccount);
 	}
 
-	private boolean addProfile(String data) throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+	private boolean addProfile(String data) throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException
+	{
 		return setProfileData(
-				getProfileData() + data + "\n");
+			getProfileData() + data + "\n");
 	}
 
-	void removeProfile(String data) throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+	void removeProfile(String data) throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException
+	{
 		setProfileData(
-				getProfileData().replaceAll(data + "\\n", ""));
+			getProfileData().replaceAll(data + "\\n", ""));
 		revalidate();
 		repaint();
 
 	}
 
-	private void setSalt(byte[] bytes) {
+	private void setSalt(byte[] bytes)
+	{
 		profilesConfig.salt(base64Encode(bytes));
 	}
 
-	private byte[] getSalt() {
-		if (profilesConfig.salt().length() == 0) {
+	private byte[] getSalt()
+	{
+		if (profilesConfig.salt().length() == 0)
+		{
 			return new byte[0];
 		}
 		return base64Decode(profilesConfig.salt());
 	}
 
-	private SecretKey getAesKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
-		if (getSalt().length == 0) {
+	private SecretKey getAesKey() throws NoSuchAlgorithmException, InvalidKeySpecException
+	{
+		if (getSalt().length == 0)
+		{
 			byte[] b = new byte[16];
 			SecureRandom.getInstanceStrong().nextBytes(b);
 			setSalt(b);
@@ -412,22 +474,27 @@ class ProfilesPanel extends PluginPanel {
 		return factory.generateSecret(spec);
 	}
 
-	private String getProfileData() throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+	private String getProfileData() throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException
+	{
 		String tmp = profilesConfig.profilesData();
-		if (tmp.startsWith("¬")) {
+		if (tmp.startsWith("¬"))
+		{
 			tmp = tmp.substring(1);
 			return decryptText(base64Decode(tmp), getAesKey());
 		}
 		return tmp;
 	}
 
-	private boolean setProfileData(String data) throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
-		if (txtDecryptPassword.getPassword().length == 0 || String.valueOf(txtDecryptPassword.getPassword()).equals(UNLOCK_PASSWORD)) {
+	private boolean setProfileData(String data) throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException
+	{
+		if (txtDecryptPassword.getPassword().length == 0 || String.valueOf(txtDecryptPassword.getPassword()).equals(UNLOCK_PASSWORD))
+		{
 			showErrorMessage("Unable to save data", "Please enter a password!");
 			return false;
 		}
 		byte[] enc = encryptText(data, getAesKey());
-		if (enc.length == 0) {
+		if (enc.length == 0)
+		{
 			return false;
 		}
 		String s = "¬" + base64Encode(enc);
@@ -435,11 +502,13 @@ class ProfilesPanel extends PluginPanel {
 		return true;
 	}
 
-	private byte[] base64Decode(String data) {
+	private byte[] base64Decode(String data)
+	{
 		return Base64.getDecoder().decode(data);
 	}
 
-	private String base64Encode(byte[] data) {
+	private String base64Encode(byte[] data)
+	{
 		return Base64.getEncoder().encodeToString(data);
 	}
 
@@ -449,28 +518,32 @@ class ProfilesPanel extends PluginPanel {
 	 * @param text text to encrypt
 	 * @return encrypted string
 	 */
-	private static byte[] encryptText(String text, SecretKey aesKey) throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+	private static byte[] encryptText(String text, SecretKey aesKey) throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException
+	{
 		Cipher cipher = Cipher.getInstance("AES");
 		SecretKeySpec newKey = new SecretKeySpec(aesKey.getEncoded(), "AES");
 		cipher.init(Cipher.ENCRYPT_MODE, newKey);
 		return cipher.doFinal(text.getBytes());
 	}
 
-	private static String decryptText(byte[] enc, SecretKey aesKey) throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException {
+	private static String decryptText(byte[] enc, SecretKey aesKey) throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchPaddingException
+	{
 		Cipher cipher = Cipher.getInstance("AES");
 		SecretKeySpec newKey = new SecretKeySpec(aesKey.getEncoded(), "AES");
 		cipher.init(Cipher.DECRYPT_MODE, newKey);
 		return new String(cipher.doFinal(enc));
 	}
 
-	private static void showErrorMessage(String title, String text) {
+	private static void showErrorMessage(String title, String text)
+	{
 		SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null,
-				text,
-				title,
-				JOptionPane.ERROR_MESSAGE));
+			text,
+			title,
+			JOptionPane.ERROR_MESSAGE));
 	}
 
-	private static String htmlLabel(String text) {
+	private static String htmlLabel(String text)
+	{
 		return "<html><body><span style = 'color:white'>" + text + "</span></body></html>";
 	}
 }

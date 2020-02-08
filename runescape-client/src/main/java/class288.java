@@ -14,14 +14,14 @@ public class class288 {
 
 	@ObfuscatedName("gv")
 	@ObfuscatedSignature(
-			signature = "(Lbx;IIIIIB)V",
-			garbageValue = "1"
+		signature = "(Lbx;IIIIIB)V",
+		garbageValue = "1"
 	)
 	@Export("drawActor2d")
 	static final void drawActor2d(Actor var0, int var1, int var2, int var3, int var4, int var5) {
 		if (var0 != null && var0.isVisible()) {
 			if (var0 instanceof NPC) {
-				NPCDefinition var6 = ((NPC) var0).definition;
+				NPCDefinition var6 = ((NPC)var0).definition;
 				if (var6.transforms != null) {
 					var6 = var6.transform();
 				}
@@ -35,12 +35,12 @@ public class class288 {
 			int[] var7 = Players.Players_indices;
 			byte var8 = 0;
 			int var10;
-			if (var1 < var76 && var0.playerCycle == Client.cycle && ClientPreferences.method1840((Player) var0)) {
-				Player var9 = (Player) var0;
+			if (var1 < var76 && var0.playerCycle == Client.cycle && ClientPreferences.method1840((Player)var0)) {
+				Player var9 = (Player)var0;
 				if (var1 < var76) {
 					var10 = var0.defaultHeight + 15;
 					MouseRecorder.worldToScreen(var0.x, var0.y, var10);
-					AbstractFont var11 = (AbstractFont) Client.fontsMap.get(FontName.FontName_plain12);
+					AbstractFont var11 = (AbstractFont)Client.fontsMap.get(FontName.FontName_plain12);
 					byte var12 = 9;
 					var11.drawCentered(var9.username.getName(), var2 + Client.viewportTempX, var3 + Client.viewportTempY - var12, 16777215, 0);
 					var8 = 18;
@@ -56,7 +56,7 @@ public class class288 {
 				var10 = var0.defaultHeight + 15;
 				MouseRecorder.worldToScreen(var0.x, var0.y, var10);
 
-				for (HealthBar var91 = (HealthBar) var0.healthBars.last(); var91 != null; var91 = (HealthBar) var0.healthBars.previous()) {
+				for (HealthBar var91 = (HealthBar)var0.healthBars.last(); var91 != null; var91 = (HealthBar)var0.healthBars.previous()) {
 					HealthBarUpdate var78 = var91.get(Client.cycle);
 					if (var78 == null) {
 						if (var91.isEmpty()) {
@@ -145,7 +145,7 @@ public class class288 {
 			var77 += var8;
 			int var80;
 			if (var1 < var76) {
-				Player var79 = (Player) var0;
+				Player var79 = (Player)var0;
 				if (var79.isHidden) {
 					return;
 				}
@@ -175,7 +175,7 @@ public class class288 {
 					}
 				}
 			} else {
-				NPCDefinition var97 = ((NPC) var0).definition;
+				NPCDefinition var97 = ((NPC)var0).definition;
 				if (var97.transforms != null) {
 					var97 = var97.transform();
 				}
@@ -197,7 +197,7 @@ public class class288 {
 				}
 			}
 
-			if (var0.overheadText != null && (var1 >= var76 || !var0.field954 && (Client.publicChatMode == 4 || !var0.isAutoChatting && (Client.publicChatMode == 0 || Client.publicChatMode == 3 || Client.publicChatMode == 1 && ((Player) var0).isFriend())))) {
+			if (var0.overheadText != null && (var1 >= var76 || !var0.field954 && (Client.publicChatMode == 4 || !var0.isAutoChatting && (Client.publicChatMode == 0 || Client.publicChatMode == 3 || Client.publicChatMode == 1 && ((Player)var0).isFriend())))) {
 				var10 = var0.defaultHeight;
 				MouseRecorder.worldToScreen(var0.x, var0.y, var10);
 				if (Client.viewportTempX > -1 && Client.overheadTextCount < Client.overheadTextLimit) {
@@ -225,7 +225,7 @@ public class class288 {
 					}
 
 					var16 = var0.hitSplatTypes[var10];
-					var84 = (HitSplatDefinition) HitSplatDefinition.HitSplatDefinition_cached.get((long) var16);
+					var84 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var16);
 					HitSplatDefinition var94;
 					if (var84 != null) {
 						var94 = var84;
@@ -236,7 +236,7 @@ public class class288 {
 							var84.decode(new Buffer(var85));
 						}
 
-						HitSplatDefinition.HitSplatDefinition_cached.put(var84, (long) var16);
+						HitSplatDefinition.HitSplatDefinition_cached.put(var84, (long)var16);
 						var94 = var84;
 					}
 
@@ -256,7 +256,7 @@ public class class288 {
 				int var82 = var0.hitSplatTypes2[var10];
 				HitSplatDefinition var83 = null;
 				if (var82 >= 0) {
-					HitSplatDefinition var98 = (HitSplatDefinition) HitSplatDefinition.HitSplatDefinition_cached.get((long) var82);
+					HitSplatDefinition var98 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var82);
 					if (var98 != null) {
 						var84 = var98;
 					} else {
@@ -266,7 +266,7 @@ public class class288 {
 							var98.decode(new Buffer(var86));
 						}
 
-						HitSplatDefinition.HitSplatDefinition_cached.put(var98, (long) var82);
+						HitSplatDefinition.HitSplatDefinition_cached.put(var98, (long)var82);
 						var84 = var98;
 					}
 

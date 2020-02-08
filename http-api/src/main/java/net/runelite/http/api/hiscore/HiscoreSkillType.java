@@ -24,7 +24,8 @@
  */
 package net.runelite.http.api.hiscore;
 
-public enum HiscoreSkillType {
+public enum HiscoreSkillType
+{
 	OVERALL,
 	SKILL,
 	ACTIVITY,

@@ -30,7 +30,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PUBLIC)
-public enum HotColdArea {
+public enum HotColdArea
+{
 	ASGARNIA("Asgarnia"),
 	DESERT("Desert"),
 	FELDIP_HILLS("Feldip Hills"),

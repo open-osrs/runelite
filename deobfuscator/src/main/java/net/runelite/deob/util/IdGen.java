@@ -25,10 +25,12 @@
 
 package net.runelite.deob.util;
 
-public class IdGen {
+public class IdGen
+{
 	private int cur = 1;
-
-	public synchronized int get() {
+	
+	public synchronized int get()
+	{
 		return cur++;
 	}
 }

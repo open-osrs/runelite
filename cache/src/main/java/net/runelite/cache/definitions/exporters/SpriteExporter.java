@@ -28,23 +28,26 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
 import net.runelite.cache.definitions.SpriteDefinition;
 
-public class SpriteExporter {
+public class SpriteExporter
+{
 	private final SpriteDefinition sprite;
 
-	public SpriteExporter(SpriteDefinition sprite) {
+	public SpriteExporter(SpriteDefinition sprite)
+	{
 		this.sprite = sprite;
 	}
 
-	public BufferedImage export() {
+	public BufferedImage export()
+	{
 		BufferedImage bi = new BufferedImage(sprite.getWidth(), sprite.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		bi.setRGB(0, 0, sprite.getWidth(), sprite.getHeight(), sprite.getPixels(), 0, sprite.getWidth());
 		return bi;
 	}
 
-	public void exportTo(File file) throws IOException {
+	public void exportTo(File file) throws IOException
+	{
 		BufferedImage image = export();
 		ImageIO.write(image, "png", file);
 	}

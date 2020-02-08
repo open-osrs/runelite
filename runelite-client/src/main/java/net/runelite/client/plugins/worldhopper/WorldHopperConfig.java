@@ -27,123 +27,134 @@ package net.runelite.client.plugins.worldhopper;
 
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Keybind;
 
 @ConfigGroup(WorldHopperConfig.GROUP)
-public interface WorldHopperConfig extends Config {
+public interface WorldHopperConfig extends Config
+{
 	String GROUP = "worldhopper";
 
 	@ConfigItem(
-			keyName = "previousKey",
-			name = "Quick-hop previous",
-			description = "When you press this key you'll hop to the previous world",
-			position = 0
+		keyName = "previousKey",
+		name = "Quick-hop previous",
+		description = "When you press this key you'll hop to the previous world",
+		position = 0
 	)
-	default Keybind previousKey() {
+	default Keybind previousKey()
+	{
 		return new Keybind(KeyEvent.VK_LEFT, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK);
 	}
 
 	@ConfigItem(
-			keyName = "nextKey",
-			name = "Quick-hop next",
-			description = "When you press this key you'll hop to the next world",
-			position = 1
+		keyName = "nextKey",
+		name = "Quick-hop next",
+		description = "When you press this key you'll hop to the next world",
+		position = 1
 	)
-	default Keybind nextKey() {
+	default Keybind nextKey()
+	{
 		return new Keybind(KeyEvent.VK_RIGHT, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK);
 	}
 
 	@ConfigItem(
-			keyName = "quickhopOutOfDanger",
-			name = "Quick-hop out of dangerous worlds",
-			description = "Don't hop to a PVP/high risk world when quick-hopping",
-			position = 2
+		keyName = "quickhopOutOfDanger",
+		name = "Quick-hop out of dangerous worlds",
+		description = "Don't hop to a PVP/high risk world when quick-hopping",
+		position = 2
 	)
-	default boolean quickhopOutOfDanger() {
+	default boolean quickhopOutOfDanger()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showSidebar",
-			name = "Show world hopper sidebar",
-			description = "Show sidebar containing all worlds that mimics in-game interface",
-			position = 3
+		keyName = "showSidebar",
+		name = "Show world hopper sidebar",
+		description = "Show sidebar containing all worlds that mimics in-game interface",
+		position = 3
 	)
-	default boolean showSidebar() {
+	default boolean showSidebar()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "ping",
-			name = "Show world ping",
-			description = "Shows ping to each game world",
-			position = 4
+		keyName = "ping",
+		name = "Show world ping",
+		description = "Shows ping to each game world",
+		position = 4
 	)
-	default boolean ping() {
+	default boolean ping()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "showMessage",
-			name = "Show world hop message in chat",
-			description = "Shows what world is being hopped to in the chat",
-			position = 5
+		keyName = "showMessage",
+		name = "Show world hop message in chat",
+		description = "Shows what world is being hopped to in the chat",
+		position = 5
 	)
-	default boolean showWorldHopMessage() {
+	default boolean showWorldHopMessage()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "menuOption",
-			name = "Show Hop-to menu option",
-			description = "Adds Hop-to menu option to the friends list and clan members list",
-			position = 6
+		keyName = "menuOption",
+		name = "Show Hop-to menu option",
+		description = "Adds Hop-to menu option to the friends list and clan members list",
+		position = 6
 	)
-	default boolean menuOption() {
+	default boolean menuOption()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "removePVPWorld",
-			name = "Remove Hop-to menu option (PVP)",
-			description = "Removes Hop-to menu option for PVP worlds",
-			position = 7
+		keyName = "removePVPWorld",
+		name = "Remove Hop-to menu option (PVP)",
+		description = "Removes Hop-to menu option for PVP worlds",
+		position = 7
 	)
-	default boolean removePVPWorld() {
+	default boolean removePVPWorld()
+	{
+		return false;
+	}
+	
+	@ConfigItem(
+		keyName = "removeBHWorld",
+		name = "Remove Hop-to menu option (BH)",
+		description = "Removes Hop-to menu option for Bounty Hunter worlds",
+		position = 8
+	)
+	default boolean removeBHWorld()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "removeBHWorld",
-			name = "Remove Hop-to menu option (BH)",
-			description = "Removes Hop-to menu option for Bounty Hunter worlds",
-			position = 8
+		keyName = "subscriptionFilter",
+		name = "Show subscription types",
+		description = "Only show free worlds, member worlds, or both types of worlds in sidebar",
+		position = 9
 	)
-	default boolean removeBHWorld() {
-		return false;
-	}
-
-	@ConfigItem(
-			keyName = "subscriptionFilter",
-			name = "Show subscription types",
-			description = "Only show free worlds, member worlds, or both types of worlds in sidebar",
-			position = 9
-	)
-	default SubscriptionFilterMode subscriptionFilter() {
+	default SubscriptionFilterMode subscriptionFilter()
+	{
 		return SubscriptionFilterMode.BOTH;
 	}
 
 	@ConfigItem(
-			keyName = "displayPing",
-			name = "Display current ping",
-			description = "Displays ping to current game world",
-			position = 10
+		keyName = "displayPing",
+		name = "Display current ping",
+		description = "Displays ping to current game world",
+		position = 10
 	)
-	default boolean displayPing() {
+	default boolean displayPing()
+	{
 		return false;
 	}
 }

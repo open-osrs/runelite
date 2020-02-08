@@ -9,84 +9,84 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class GameObject {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = -940773831
+		intValue = -940773831
 	)
 	@Export("plane")
 	int plane;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			intValue = 2132625949
+		intValue = 2132625949
 	)
 	@Export("height")
 	int height;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-			intValue = -2072532473
+		intValue = -2072532473
 	)
 	@Export("centerX")
 	int centerX;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = 1479439291
+		intValue = 1479439291
 	)
 	@Export("centerY")
 	int centerY;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Leq;"
+		signature = "Leq;"
 	)
 	@Export("entity")
 	public Entity entity;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = -638708115
+		intValue = -638708115
 	)
 	@Export("orientation")
 	int orientation;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-			intValue = -1848719161
+		intValue = -1848719161
 	)
 	@Export("startX")
 	int startX;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = 1367330545
+		intValue = 1367330545
 	)
 	@Export("endX")
 	int endX;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = 170965517
+		intValue = 170965517
 	)
 	@Export("startY")
 	int startY;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = -281386629
+		intValue = -281386629
 	)
 	@Export("endY")
 	int endY;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-			intValue = 459315211
+		intValue = 459315211
 	)
 	int field1931;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-			intValue = 1057625291
+		intValue = 1057625291
 	)
 	@Export("lastDrawn")
 	int lastDrawn;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-			longValue = 3023307687483633369L
+		longValue = 3023307687483633369L
 	)
 	@Export("tag")
 	public long tag;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-			intValue = -1037464563
+		intValue = -1037464563
 	)
 	@Export("flags")
 	int flags;
@@ -98,12 +98,12 @@ public final class GameObject {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(II)Liw;",
-			garbageValue = "-1799291125"
+		signature = "(II)Liw;",
+		garbageValue = "-1799291125"
 	)
 	@Export("getEnum")
 	public static EnumDefinition getEnum(int var0) {
-		EnumDefinition var1 = (EnumDefinition) EnumDefinition.EnumDefinition_cached.get((long) var0);
+		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -113,15 +113,15 @@ public final class GameObject {
 				var1.decode(new Buffer(var2));
 			}
 
-			EnumDefinition.EnumDefinition_cached.put(var1, (long) var0);
+			EnumDefinition.EnumDefinition_cached.put(var1, (long)var0);
 			return var1;
 		}
 	}
 
 	@ObfuscatedName("fk")
 	@ObfuscatedSignature(
-			signature = "(Lip;IIII)V",
-			garbageValue = "-1299121306"
+		signature = "(Lip;IIII)V",
+		garbageValue = "-1299121306"
 	)
 	@Export("addSequenceSoundEffect")
 	static void addSequenceSoundEffect(SequenceDefinition var0, int var1, int var2, int var3) {
@@ -147,8 +147,8 @@ public final class GameObject {
 
 	@ObfuscatedName("ij")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "101"
+		signature = "(B)V",
+		garbageValue = "101"
 	)
 	static void method3360() {
 		int var0;

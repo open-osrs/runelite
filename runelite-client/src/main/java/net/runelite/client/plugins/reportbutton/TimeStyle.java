@@ -24,7 +24,8 @@
  */
 package net.runelite.client.plugins.reportbutton;
 
-public enum TimeStyle {
+public enum TimeStyle
+{
 	OFF("Off"),
 	DATE("Date"),
 	LOGIN_TIME("Login Timer"),
@@ -34,12 +35,14 @@ public enum TimeStyle {
 
 	private final String name;
 
-	TimeStyle(final String name) {
+	TimeStyle(final String name)
+	{
 		this.name = name;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return name;
 	}
 

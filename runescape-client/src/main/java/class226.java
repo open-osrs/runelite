@@ -10,8 +10,8 @@ public class class226 {
 
 	@ObfuscatedName("jc")
 	@ObfuscatedSignature(
-			signature = "(III)V",
-			garbageValue = "-1597824761"
+		signature = "(III)V",
+		garbageValue = "-1597824761"
 	)
 	@Export("runIntfCloseListeners")
 	static final void runIntfCloseListeners(int var0, int var1) {

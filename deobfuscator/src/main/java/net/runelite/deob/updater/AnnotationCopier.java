@@ -26,7 +26,6 @@
 package net.runelite.deob.updater;
 
 import java.util.Arrays;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -37,25 +36,30 @@ import net.runelite.asm.attributes.annotation.Annotation;
 import net.runelite.asm.attributes.annotation.Element;
 import net.runelite.asm.attributes.annotation.SimpleElement;
 
-public class AnnotationCopier {
+public class AnnotationCopier
+{
 	private final ClassGroup group1, group2;
 	private final Type[] types;
 
-	public AnnotationCopier(ClassGroup group1, ClassGroup group2, Type... types) {
+	public AnnotationCopier(ClassGroup group1, ClassGroup group2, Type... types)
+	{
 		this.group1 = group1;
 		this.group2 = group2;
 		this.types = types;
 	}
 
-	public void copy() {
-		for (ClassFile cf1 : group1.getClasses()) {
+	public void copy()
+	{
+		for (ClassFile cf1 : group1.getClasses())
+		{
 			ClassFile cf2 = group2.findClass(cf1.getName());
 
 			assert cf2 != null;
 
 			copy(cf1.getAnnotations(), cf2.getAnnotations());
 
-			for (Field f : cf1.getFields()) {
+			for (Field f : cf1.getFields())
+			{
 				Field f2 = cf2.findField(f.getName(), f.getType());
 
 				assert f2 != null || f.getAnnotations() == null;
@@ -66,7 +70,8 @@ public class AnnotationCopier {
 				copy(f.getAnnotations(), f2.getAnnotations());
 			}
 
-			for (Method m : cf1.getMethods()) {
+			for (Method m : cf1.getMethods())
+			{
 				Method m2 = cf2.findMethod(m.getName(), m.getDescriptor());
 
 				assert m2 != null || m.getAnnotations() == null;
@@ -79,20 +84,25 @@ public class AnnotationCopier {
 		}
 	}
 
-	private void copy(Annotations an, Annotations an2) {
-		for (Annotation a : an2.getAnnotations()) {
-			if (isType(a.getType())) {
+	private void copy(Annotations an, Annotations an2)
+	{
+		for (Annotation a : an2.getAnnotations())
+		{
+			if (isType(a.getType()))
+			{
 				an2.removeAnnotation(a);
 			}
 		}
 
-		for (Annotation a : an.getAnnotations()) {
+		for (Annotation a : an.getAnnotations())
+		{
 			if (!isType(a.getType()))
 				continue;
 
 			Annotation a2 = new Annotation(a.getType());
 
-			for (Element element : a.getElements()) {
+			for (Element element : a.getElements())
+			{
 				Element element2 = new SimpleElement(element.getName(), element.getValue());
 				a2.addElement(element2);
 			}
@@ -101,7 +111,8 @@ public class AnnotationCopier {
 		}
 	}
 
-	private boolean isType(Type type) {
+	private boolean isType(Type type)
+	{
 		return Arrays.asList(types).contains(type);
 	}
 }

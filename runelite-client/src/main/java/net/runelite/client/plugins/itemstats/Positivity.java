@@ -30,7 +30,8 @@ import java.awt.Color;
  * Positivity represents how positive or negative a stat change is. This is
  * turned into the color shown to the user in the toolip.
  */
-public enum Positivity {
+public enum Positivity
+{
 	/**
 	 * The stat is lower than it was before.
 	 */
@@ -55,8 +56,10 @@ public enum Positivity {
 	 */
 	BETTER_UNCAPPED;
 
-	public static Color getColor(ItemStatPlugin plugin, Positivity positivity) {
-		switch (positivity) {
+	public static Color getColor(ItemStatPlugin plugin, Positivity positivity)
+	{
+		switch (positivity)
+		{
 			case BETTER_UNCAPPED:
 				return plugin.getColorBetterUncapped();
 			case BETTER_SOMECAPPED:

@@ -32,7 +32,8 @@ import lombok.Data;
  * An event where a {@link DecorativeObject} is attached to a {@link Tile}.
  */
 @Data
-public class DecorativeObjectSpawned implements Event {
+public class DecorativeObjectSpawned implements Event
+{
 	/**
 	 * The affected tile.
 	 */

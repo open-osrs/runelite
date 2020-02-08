@@ -25,7 +25,8 @@
 
 package net.runelite.cache;
 
-public enum ConfigType {
+public enum ConfigType
+{
 	// types from https://github.com/im-frizzy/OpenRS/blob/master/source/net/openrs/cache/type/ConfigArchive.java
 	UNDERLAY(1),
 	IDENTKIT(3),
@@ -48,11 +49,13 @@ public enum ConfigType {
 
 	private final int id;
 
-	ConfigType(int id) {
+	ConfigType(int id)
+	{
 		this.id = id;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 }

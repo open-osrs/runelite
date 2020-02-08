@@ -31,7 +31,8 @@ import net.runelite.api.Skill;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum CalculatorType {
+enum CalculatorType
+{
 	MINING(Skill.MINING, "skill_mining.json"),
 	AGILITY(Skill.AGILITY, "skill_agility.json"),
 	SMITHING(Skill.SMITHING, "skill_smithing.json"),

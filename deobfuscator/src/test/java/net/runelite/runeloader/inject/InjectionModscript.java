@@ -3,7 +3,8 @@ package net.runelite.runeloader.inject;
 import java.util.LinkedList;
 import java.util.List;
 
-public class InjectionModscript {
+public class InjectionModscript
+{
 	private int revision;
 	private List<GetterInjectInstruction> getterInjects = new LinkedList<>();
 	private List superChangeInjects = new LinkedList();
@@ -14,39 +15,48 @@ public class InjectionModscript {
 	private List newMethodMods = new LinkedList();
 	private List newFields = new LinkedList();
 
-	public int getRevision() {
+	public int getRevision()
+	{
 		return revision;
 	}
 
-	public List<GetterInjectInstruction> getGetterInjects() {
+	public List<GetterInjectInstruction> getGetterInjects()
+	{
 		return this.getterInjects;
 	}
 
-	public List getSuperChangeInjects() {
+	public List getSuperChangeInjects()
+	{
 		return this.superChangeInjects;
 	}
 
-	public List<AddInterfaceInstruction> getAddInterfaceInjects() {
+	public List<AddInterfaceInstruction> getAddInterfaceInjects()
+	{
 		return this.addInterfaceInjects;
 	}
 
-	public List getMethodMods() {
+	public List getMethodMods()
+	{
 		return this.methodMods;
 	}
 
-	public List getAddMethods() {
+	public List getAddMethods()
+	{
 		return this.addMethods;
 	}
 
-	public List getNewMethodMods() {
+	public List getNewMethodMods()
+	{
 		return this.newMethodMods;
 	}
 
-	public List getInstructionReplacements() {
+	public List getInstructionReplacements()
+	{
 		return this.instructionReplacements;
 	}
 
-	public List getNewFields() {
+	public List getNewFields()
+	{
 		return this.newFields;
 	}
 }

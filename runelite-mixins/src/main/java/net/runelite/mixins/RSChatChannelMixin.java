@@ -32,28 +32,34 @@ import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSDualNode;
 
 @Mixin(RSChatChannel.class)
-public abstract class RSChatChannelMixin implements RSChatChannel {
+public abstract class RSChatChannelMixin implements RSChatChannel
+{
 	@Inject
 	@Override
-	public void removeMessageNode(MessageNode node) {
+	public void removeMessageNode(MessageNode node)
+	{
 		MessageNode[] lines = getLines();
 		final int length = getLength();
 		int found = -1;
 
 		// Find the index of the node
-		for (int idx = 0; idx < length; idx++) {
-			if (lines[idx] == node) {
+		for (int idx = 0; idx < length; idx++)
+		{
+			if (lines[idx] == node)
+			{
 				found = idx;
 				break;
 			}
 		}
 
-		if (found == -1) {
+		if (found == -1)
+		{
 			return;
 		}
 
 		// Shift down all other messages
-		for (int i = found; i < length - 1; i++) {
+		for (int i = found; i < length - 1; i++)
+		{
 			lines[i] = lines[i + 1];
 		}
 		lines[length - 1] = null;

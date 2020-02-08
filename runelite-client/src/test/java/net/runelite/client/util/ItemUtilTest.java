@@ -25,33 +25,29 @@
 package net.runelite.client.util;
 
 import com.google.common.collect.ImmutableSet;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import net.runelite.api.Item;
 import net.runelite.api.ItemID;
 import net.runelite.http.api.loottracker.GameItem;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ItemUtilTest {
+public class ItemUtilTest
+{
 	private static final Set<Integer> SOME_IDS = ImmutableSet.of(ItemID.MITHRIL_BAR, ItemID.DRAGON_BONES);
 	private static final Set<Integer> WRONG_IDS = ImmutableSet.of(ItemID.SCYTHE_OF_VITUR, ItemID.TWISTED_BOW);
 	private static final Set<Integer> MIX_IDS = ImmutableSet.of(
-			ItemID.MITHRIL_BAR, ItemID.DRAGON_BONES,
-			ItemID.SCYTHE_OF_VITUR, ItemID.TWISTED_BOW
+		ItemID.MITHRIL_BAR, ItemID.DRAGON_BONES,
+		ItemID.SCYTHE_OF_VITUR, ItemID.TWISTED_BOW
 	);
 
 	private static final Map<Integer, GameItem> SOME_MAP = new HashMap<>();
@@ -59,7 +55,8 @@ public class ItemUtilTest {
 
 	private static final Item[] items = new Item[6];
 
-	static {
+	static
+	{
 		SOME_MAP.put(ItemID.MITHRIL_BAR, new GameItem(ItemID.MITHRIL_BAR, 6));
 		SOME_MAP.put(ItemID.DRAGON_BONES, new GameItem(ItemID.DRAGON_BONES, 2));
 
@@ -76,18 +73,20 @@ public class ItemUtilTest {
 		items[5] = createItem(ItemID.CHEWED_BONES, 1);
 	}
 
-	private static Item createItem(int id, int qty) {
+	private static Item createItem(int id, int qty)
+	{
 		Item i = mock(Item.class);
 		when(i.getId())
-				.thenReturn(id);
+			.thenReturn(id);
 		when(i.getQuantity())
-				.thenReturn(qty);
+			.thenReturn(qty);
 
 		return i;
 	}
 
 	@Test
-	public void toGameItemMap() {
+	public void toGameItemMap()
+	{
 		Map<Integer, GameItem> itemMap = ItemUtil.toGameItemMap(items, SOME_IDS);
 		assertEquals(SOME_MAP, itemMap);
 		assertNotEquals(ALL_MAP, itemMap);
@@ -98,27 +97,31 @@ public class ItemUtilTest {
 	}
 
 	@Test
-	public void containsAllItemIds() {
+	public void containsAllItemIds()
+	{
 		assertTrue(ItemUtil.containsAllItemIds(items, SOME_IDS));
 		assertFalse(ItemUtil.containsAllItemIds(items, WRONG_IDS));
 		assertFalse(ItemUtil.containsAllItemIds(items, MIX_IDS));
 	}
 
 	@Test
-	public void containsAnyItemId() {
+	public void containsAnyItemId()
+	{
 		assertTrue(ItemUtil.containsAnyItemId(items, SOME_IDS));
 		assertFalse(ItemUtil.containsAnyItemId(items, WRONG_IDS));
 		assertTrue(ItemUtil.containsAnyItemId(items, MIX_IDS));
 	}
 
 	@Test
-	public void containsItemId() {
+	public void containsItemId()
+	{
 		assertTrue(ItemUtil.containsItemId(items, ItemID.COINS_995));
 		assertFalse(ItemUtil.containsItemId(items, ItemID.TWISTED_BOW));
 	}
 
 	@Test
-	public void containsAllGameItems() {
+	public void containsAllGameItems()
+	{
 		assertTrue(ItemUtil.containsAllGameItems(items, SOME_MAP.values()));
 		assertTrue(ItemUtil.containsAllGameItems(items, ALL_MAP.values()));
 

@@ -28,9 +28,11 @@ import net.runelite.asm.Type;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class SignatureTest {
+public class SignatureTest
+{
 	@Test
-	public void test() {
+	public void test()
+	{
 		Signature signature = new Signature("f(Ljava/lang/String;II[Lch;[ILce;IIB)V");
 		Type type = signature.getTypeOfArg(3);
 		Assert.assertTrue(type.isArray());

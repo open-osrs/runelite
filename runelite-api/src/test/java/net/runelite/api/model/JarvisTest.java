@@ -26,25 +26,26 @@ package net.runelite.api.model;
 
 import java.util.Arrays;
 import java.util.List;
-
 import net.runelite.api.Point;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class JarvisTest {
+public class JarvisTest
+{
 	@Test
-	public void test() {
+	public void test()
+	{
 		Point[] points =
-				{
-						new Point(0, 3),
-						new Point(1, 1),
-						new Point(2, 2),
-						new Point(4, 4),
-						new Point(0, 0),
-						new Point(1, 2),
-						new Point(3, 1),
-						new Point(3, 3)
-				};
+		{
+			new Point(0, 3),
+			new Point(1, 1),
+			new Point(2, 2),
+			new Point(4, 4),
+			new Point(0, 0),
+			new Point(1, 2),
+			new Point(3, 1),
+			new Point(3, 3)
+		};
 
 		List<Point> result = Jarvis.convexHull(Arrays.asList(points));
 		Assert.assertEquals(4, result.size());
@@ -55,18 +56,19 @@ public class JarvisTest {
 	}
 
 	@Test
-	public void test2() {
+	public void test2()
+	{
 		Point[] points =
-				{
-						new Point(0, 3),
-						new Point(4, 2),
-						new Point(3, 5),
-						new Point(5, 3),
-						new Point(3, 0),
-						new Point(1, 1),
-						new Point(1, 2),
-						new Point(2, 2)
-				};
+		{
+			new Point(0, 3),
+			new Point(4, 2),
+			new Point(3, 5),
+			new Point(5, 3),
+			new Point(3, 0),
+			new Point(1, 1),
+			new Point(1, 2),
+			new Point(2, 2)
+		};
 
 		List<Point> result = Jarvis.convexHull(Arrays.asList(points));
 		Assert.assertEquals(5, result.size());
@@ -78,30 +80,31 @@ public class JarvisTest {
 	}
 
 	@Test
-	public void testCollinear() {
+	public void testCollinear()
+	{
 		Point[] points = new Point[]
-				{
-						new Point(604, 76),
-						new Point(609, 81),
-						new Point(606, 78),
-						new Point(602, 74),
-						new Point(610, 74),
-						new Point(609, 77),
-						new Point(602, 72),
-						new Point(606, 77),
-						new Point(611, 77),
-						new Point(607, 72),
-						new Point(616, 74),
-						new Point(611, 70),
-						new Point(611, 71),
-						new Point(610, 73),
-						new Point(614, 82),
-						new Point(615, 79),
-						new Point(615, 77),
-						new Point(615, 76),
-						new Point(634, 71),
-						new Point(604, 76)
-				};
+		{
+			new Point(604, 76),
+			new Point(609, 81),
+			new Point(606, 78),
+			new Point(602, 74),
+			new Point(610, 74),
+			new Point(609, 77),
+			new Point(602, 72),
+			new Point(606, 77),
+			new Point(611, 77),
+			new Point(607, 72),
+			new Point(616, 74),
+			new Point(611, 70),
+			new Point(611, 71),
+			new Point(610, 73),
+			new Point(614, 82),
+			new Point(615, 79),
+			new Point(615, 77),
+			new Point(615, 76),
+			new Point(634, 71),
+			new Point(604, 76)
+		};
 		Jarvis.convexHull(Arrays.asList(points));
 	}
 }

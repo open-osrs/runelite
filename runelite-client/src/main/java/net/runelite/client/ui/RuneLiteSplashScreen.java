@@ -30,21 +30,22 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
-
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.components.InfoPanel;
 import net.runelite.client.ui.components.MessagePanel;
 
 @Slf4j
-public class RuneLiteSplashScreen extends JFrame {
+public class RuneLiteSplashScreen extends JFrame
+{
 	private static RuneLiteSplashScreen INSTANCE;
 	public static final Dimension FRAME_SIZE = new Dimension(600, 350);
 
 	@Getter
 	private final MessagePanel messagePanel = new MessagePanel();
 
-	private RuneLiteSplashScreen() {
+	private RuneLiteSplashScreen()
+	{
 		this.setTitle("OpenOSRS");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(FRAME_SIZE);
@@ -66,13 +67,16 @@ public class RuneLiteSplashScreen extends JFrame {
 		this.setVisible(true);
 	}
 
-	public static void setError(String title, String content) {
-		if (INSTANCE != null) {
+	public static void setError(String title, String content)
+	{
+		if (INSTANCE != null)
+		{
 			INSTANCE.setErrorInstance(title, content);
 		}
 	}
 
-	private void setErrorInstance(String title, String content) {
+	private void setErrorInstance(String title, String content)
+	{
 		messagePanel.setMessageContent(content);
 		messagePanel.setMessageTitle("Error!");
 
@@ -84,7 +88,8 @@ public class RuneLiteSplashScreen extends JFrame {
 		this.getContentPane().repaint();
 	}
 
-	private void setBarText(final String text) {
+	private void setBarText(final String text)
+	{
 		final JProgressBar bar = messagePanel.getBar();
 		bar.setString(text);
 		bar.setStringPainted(text != null);
@@ -92,7 +97,8 @@ public class RuneLiteSplashScreen extends JFrame {
 		bar.repaint();
 	}
 
-	private void setMessage(final String msg, final double value) {
+	private void setMessage(final String msg, final double value)
+	{
 		messagePanel.getBarLabel().setText(msg);
 		messagePanel.getBar().setMaximum(1000);
 		messagePanel.getBar().setValue((int) (value * 1000));
@@ -102,21 +108,27 @@ public class RuneLiteSplashScreen extends JFrame {
 		this.getContentPane().repaint();
 	}
 
-	public static void init() {
+	public static void init()
+	{
 		SwingUtilities.invokeLater(() ->
 		{
-			try {
+			try
+			{
 				INSTANCE = new RuneLiteSplashScreen();
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 				log.warn("Unable to start splash screen", e);
 			}
 		});
 	}
 
-	public static void close() {
+	public static void close()
+	{
 		SwingUtilities.invokeLater(() ->
 		{
-			if (INSTANCE == null) {
+			if (INSTANCE == null)
+			{
 				return;
 			}
 
@@ -126,13 +138,16 @@ public class RuneLiteSplashScreen extends JFrame {
 		});
 	}
 
-	public static void stage(double startProgress, double endProgress, String progressText, int done, int total) {
+	public static void stage(double startProgress, double endProgress, String progressText, int done, int total)
+	{
 		String progress = done + " / " + total;
 		stage(startProgress + ((endProgress - startProgress) * done / total), progressText + " " + progress);
 	}
 
-	public static void stage(double overallProgress, String progressText) {
-		if (INSTANCE != null) {
+	public static void stage(double overallProgress, String progressText)
+	{
+		if (INSTANCE != null)
+		{
 			INSTANCE.setMessage(progressText, overallProgress);
 		}
 	}

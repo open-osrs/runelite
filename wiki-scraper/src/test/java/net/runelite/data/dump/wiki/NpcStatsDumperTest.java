@@ -24,24 +24,23 @@
 package net.runelite.data.dump.wiki;
 
 import java.util.List;
-
 import net.runelite.data.dump.MediaWikiTemplate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.Test;
 
-class NpcStatsDumperTest {
+class NpcStatsDumperTest
+{
 	@Test
-	void npcVariantFallThrough() {
+	void npcVariantFallThrough()
+	{
 		final String data =
-				"{{Infobox Monster\n" +
-						"|combat = 2\n" +
-						"|combat8 = \n" +
-						"|combat10 = 4\n" +
-						"}}";
+			"{{Infobox Monster\n" +
+				"|combat = 2\n" +
+				"|combat8 = \n" +
+				"|combat10 = 4\n" +
+				"}}";
 
 
 		final MediaWikiTemplate template = MediaWikiTemplate.parseWikitext("Infobox Monster", data);
@@ -55,52 +54,53 @@ class NpcStatsDumperTest {
 	}
 
 	@Test
-	void parseSwitchInfoboxItems() {
+	void parseSwitchInfoboxItems()
+	{
 		final String data =
-				"{{Switch infobox\n" +
-						"|item1= \n" +
-						"{{Infobox Monster\n" +
-						"|name = Ghast\n" +
-						"|combat = 30\n" +
-						"|id = 946\n" +
-						"}}\n" +
-						"|text1 = Level 30\n" +
-						"|item2= \n" +
-						"{{Infobox Monster\n" +
-						"|name = Ghast\n" +
-						"|combat = 79\n" +
-						"|id = 5625\n" +
-						"}}\n" +
-						"|text2 = Level 79\n" +
-						"|item3= \n" +
-						"{{Infobox Monster\n" +
-						"|name = Ghast\n" +
-						"|combat = 109\n" +
-						"|id = 5626\n" +
-						"}}\n" +
-						"|text3 = Level 109\n" +
-						"|item4= \n" +
-						"{{Infobox Monster\n" +
-						"|name = Ghast\n" +
-						"|combat = 139\n" +
-						"|id = 5627\n" +
-						"}}\n" +
-						"|text4 = Level 139\n" +
-						"|item5 =\n" +
-						"{{Infobox non-player character\n" +
-						"|name = \n" +
-						"|update = Nature Spirit Quest\n" +
-						"|race = Undead\n" +
-						"|members = Yes\n" +
-						"|quest = [[Nature Spirit]]\n" +
-						"|location = [[Morytania]]\n" +
-						"|shop = No\n" +
-						"|gender = N/A\n" +
-						"|examine = \n" +
-						"|id = 945, 5622, 5623, 5624\n" +
-						"}}\n" +
-						"|text5 = Invisible\n" +
-						"}}";
+			"{{Switch infobox\n" +
+				"|item1= \n" +
+				"{{Infobox Monster\n" +
+				"|name = Ghast\n" +
+				"|combat = 30\n" +
+				"|id = 946\n" +
+				"}}\n" +
+				"|text1 = Level 30\n" +
+				"|item2= \n" +
+				"{{Infobox Monster\n" +
+				"|name = Ghast\n" +
+				"|combat = 79\n" +
+				"|id = 5625\n" +
+				"}}\n" +
+				"|text2 = Level 79\n" +
+				"|item3= \n" +
+				"{{Infobox Monster\n" +
+				"|name = Ghast\n" +
+				"|combat = 109\n" +
+				"|id = 5626\n" +
+				"}}\n" +
+				"|text3 = Level 109\n" +
+				"|item4= \n" +
+				"{{Infobox Monster\n" +
+				"|name = Ghast\n" +
+				"|combat = 139\n" +
+				"|id = 5627\n" +
+				"}}\n" +
+				"|text4 = Level 139\n" +
+				"|item5 =\n" +
+				"{{Infobox non-player character\n" +
+				"|name = \n" +
+				"|update = Nature Spirit Quest\n" +
+				"|race = Undead\n" +
+				"|members = Yes\n" +
+				"|quest = [[Nature Spirit]]\n" +
+				"|location = [[Morytania]]\n" +
+				"|shop = No\n" +
+				"|gender = N/A\n" +
+				"|examine = \n" +
+				"|id = 945, 5622, 5623, 5624\n" +
+				"}}\n" +
+				"|text5 = Invisible\n" +
+				"}}";
 
 		final MediaWikiTemplate switchInfobox = MediaWikiTemplate.parseWikitext("Switch infobox", data);
 		assertNotNull(switchInfobox);

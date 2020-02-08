@@ -27,11 +27,13 @@ package net.runelite.client.events;
 import lombok.Getter;
 import net.runelite.api.events.Event;
 
-public abstract class ChatInput implements Event {
+public abstract class ChatInput implements Event
+{
 	@Getter
 	private boolean stop = false;
 
-	public void setStop() {
+	public void setStop()
+	{
 		this.stop = true;
 	}
 

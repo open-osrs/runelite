@@ -35,7 +35,8 @@ import lombok.Data;
  * once (ie. AoE from Lizardman Shaman).
  */
 @Data
-public class ProjectileMoved implements Event {
+public class ProjectileMoved implements Event
+{
 	/**
 	 * The projectile being moved.
 	 */

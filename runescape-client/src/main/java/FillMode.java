@@ -9,30 +9,30 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum FillMode implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Llf;"
+		signature = "Llf;"
 	)
 	@Export("SOLID")
 	SOLID(0, 0),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Llf;"
+		signature = "Llf;"
 	)
 	field3858(1, 1),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Llf;"
+		signature = "Llf;"
 	)
 	field3854(2, 2);
 
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-			intValue = -999027833
+		intValue = -999027833
 	)
 	@Export("value")
 	public final int value;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-			intValue = 2109460743
+		intValue = 2109460743
 	)
 	@Export("id")
 	final int id;
@@ -44,8 +44,8 @@ public enum FillMode implements Enumerated {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "1"
+		signature = "(B)I",
+		garbageValue = "1"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {

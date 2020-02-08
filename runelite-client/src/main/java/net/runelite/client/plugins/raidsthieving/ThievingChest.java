@@ -34,7 +34,8 @@ import net.runelite.api.coords.WorldPoint;
  * Wrapper class for a GameObject that represents a chest in the thieving room of Chambers of Xeric.
  */
 @Getter(AccessLevel.PACKAGE)
-public class ThievingChest {
+public class ThievingChest
+{
 	/**
 	 * If the chest has never been opened, it could have bats.
 	 */
@@ -67,7 +68,8 @@ public class ThievingChest {
 	 * @param worldPoint    The world location of the gameobject that corresponds with this trap.
 	 * @param instancePoint The world location accounting for instances of the gameobject that corresponds with this trap.
 	 */
-	ThievingChest(final WorldPoint worldPoint, final Point instancePoint) {
+	ThievingChest(final WorldPoint worldPoint, final Point instancePoint)
+	{
 		this.everOpened = false;
 		this.poison = false;
 		this.empty = false;

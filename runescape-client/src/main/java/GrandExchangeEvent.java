@@ -1,7 +1,6 @@
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.util.Iterator;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -13,42 +12,42 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class GrandExchangeEvent {
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-			intValue = -1568217923
+		intValue = -1568217923
 	)
 	static int field45;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-			signature = "Lhe;"
+		signature = "Lhe;"
 	)
 	@Export("NetCache_currentResponse")
 	public static NetFileRequest NetCache_currentResponse;
 	@ObfuscatedName("bn")
 	@ObfuscatedSignature(
-			signature = "Lli;"
+		signature = "Lli;"
 	)
 	@Export("worldSelectLeftSprite")
 	static IndexedSprite worldSelectLeftSprite;
 	@ObfuscatedName("dj")
 	@ObfuscatedSignature(
-			signature = "Lia;"
+		signature = "Lia;"
 	)
 	@Export("archive0")
 	static Archive archive0;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-			intValue = 1956147033
+		intValue = 1956147033
 	)
 	@Export("world")
 	public final int world;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-			longValue = 7213176078958271683L
+		longValue = 7213176078958271683L
 	)
 	@Export("age")
 	public final long age;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lm;"
+		signature = "Lm;"
 	)
 	@Export("grandExchangeOffer")
 	public final GrandExchangeOffer grandExchangeOffer;
@@ -60,7 +59,7 @@ public class GrandExchangeEvent {
 	String previousOfferName;
 
 	@ObfuscatedSignature(
-			signature = "(Lkp;BI)V"
+		signature = "(Lkp;BI)V"
 	)
 	GrandExchangeEvent(Buffer var1, byte var2, int var3) {
 		this.offerName = var1.readStringCp1252NullTerminated();
@@ -81,8 +80,8 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)Ljava/lang/String;",
-			garbageValue = "1646612919"
+		signature = "(I)Ljava/lang/String;",
+		garbageValue = "1646612919"
 	)
 	@Export("getOfferName")
 	public String getOfferName() {
@@ -91,8 +90,8 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(I)Ljava/lang/String;",
-			garbageValue = "-81405509"
+		signature = "(I)Ljava/lang/String;",
+		garbageValue = "-81405509"
 	)
 	@Export("getPreviousOfferName")
 	public String getPreviousOfferName() {
@@ -101,22 +100,22 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("i")
 	public static int method96(long var0) {
-		return (int) (var0 >>> 0 & 127L);
+		return (int)(var0 >>> 0 & 127L);
 	}
 
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-			signature = "(II)I",
-			garbageValue = "193251724"
+		signature = "(II)I",
+		garbageValue = "193251724"
 	)
 	static int method97(int var0) {
-		return (int) Math.pow(2.0D, (double) ((float) var0 / 256.0F + 7.0F));
+		return (int)Math.pow(2.0D, (double)((float)var0 / 256.0F + 7.0F));
 	}
 
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "550527389"
+		signature = "(I)I",
+		garbageValue = "550527389"
 	)
 	@Export("getGcDuration")
 	protected static int getGcDuration() {
@@ -126,7 +125,7 @@ public class GrandExchangeEvent {
 				Iterator var1 = ManagementFactory.getGarbageCollectorMXBeans().iterator();
 
 				while (var1.hasNext()) {
-					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean) var1.next();
+					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next();
 					if (var2.isValid()) {
 						SecureRandomFuture.garbageCollector = var2;
 						GameShell.garbageCollectorLastCheckTimeMs = -1L;
@@ -144,7 +143,7 @@ public class GrandExchangeEvent {
 				long var5 = var3 - GameShell.garbageCollectorLastCollectionTime;
 				long var7 = var9 - GameShell.garbageCollectorLastCheckTimeMs;
 				if (var7 != 0L) {
-					var0 = (int) (var5 * 100L / var7);
+					var0 = (int)(var5 * 100L / var7);
 				}
 			}
 
@@ -157,8 +156,8 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("gy")
 	@ObfuscatedSignature(
-			signature = "(Lbx;I)V",
-			garbageValue = "2089906351"
+		signature = "(Lbx;I)V",
+		garbageValue = "2089906351"
 	)
 	static final void method88(Actor var0) {
 		if (var0.field986 == Client.cycle || var0.sequence == -1 || var0.sequenceDelay != 0 || var0.sequenceFrameCycle + 1 > GraphicsDefaults.SequenceDefinition_get(var0.sequence).frameLengths[var0.sequenceFrame]) {
@@ -179,8 +178,8 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("jd")
 	@ObfuscatedSignature(
-			signature = "(Lhn;I)V",
-			garbageValue = "948929027"
+		signature = "(Lhn;I)V",
+		garbageValue = "948929027"
 	)
 	static final void method93(Widget var0) {
 		int var1 = var0.contentType;
@@ -210,12 +209,12 @@ public class GrandExchangeEvent {
 
 		} else if (var1 == 327) {
 			var0.modelAngleX = 150;
-			var0.modelAngleY = (int) (Math.sin((double) Client.cycle / 40.0D) * 256.0D) & 2047;
+			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
 			var0.modelType = 5;
 			var0.modelId = 0;
 		} else if (var1 == 328) {
 			var0.modelAngleX = 150;
-			var0.modelAngleY = (int) (Math.sin((double) Client.cycle / 40.0D) * 256.0D) & 2047;
+			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
 			var0.modelType = 5;
 			var0.modelId = 1;
 		}

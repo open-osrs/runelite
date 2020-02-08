@@ -9,7 +9,7 @@ import net.runelite.rs.ScriptOpcodes;
 public class UserComparator5 extends AbstractUserComparator {
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("musicTrackArchive")
 	public static AbstractArchive musicTrackArchive;
@@ -23,8 +23,8 @@ public class UserComparator5 extends AbstractUserComparator {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lje;Lje;I)I",
-			garbageValue = "-1009483697"
+		signature = "(Lje;Lje;I)I",
+		garbageValue = "-1009483697"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -40,13 +40,13 @@ public class UserComparator5 extends AbstractUserComparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy) var1, (Buddy) var2);
+		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(I)Lgs;",
-			garbageValue = "-2093549834"
+		signature = "(I)Lgs;",
+		garbageValue = "-2093549834"
 	)
 	public static PacketBufferNode method3488() {
 		return PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0 ? new PacketBufferNode() : PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount];
@@ -54,8 +54,8 @@ public class UserComparator5 extends AbstractUserComparator {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZB)I",
-			garbageValue = "0"
+		signature = "(ILce;ZB)I",
+		garbageValue = "0"
 	)
 	static int method3491(int var0, Script var1, boolean var2) {
 		String var3;

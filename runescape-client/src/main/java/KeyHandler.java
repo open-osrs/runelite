@@ -2,7 +2,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -14,13 +13,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class KeyHandler implements KeyListener, FocusListener {
 	@ObfuscatedName("rm")
 	@ObfuscatedSignature(
-			signature = "Lbu;"
+		signature = "Lbu;"
 	)
 	@Export("friendSystem")
 	public static FriendSystem friendSystem;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lat;"
+		signature = "Lat;"
 	)
 	@Export("KeyHandler_instance")
 	static KeyHandler KeyHandler_instance;
@@ -34,12 +33,12 @@ public final class KeyHandler implements KeyListener, FocusListener {
 	static int[] field399;
 	@ObfuscatedName("cy")
 	@ObfuscatedGetter(
-			intValue = 703429313
+		intValue = 703429313
 	)
 	static int field400;
 	@ObfuscatedName("ce")
 	@ObfuscatedGetter(
-			intValue = -1486976357
+		intValue = -1486976357
 	)
 	static int field387;
 	@ObfuscatedName("cw")
@@ -50,27 +49,27 @@ public final class KeyHandler implements KeyListener, FocusListener {
 	public static int[] field404;
 	@ObfuscatedName("ca")
 	@ObfuscatedGetter(
-			intValue = -617516983
+		intValue = -617516983
 	)
 	public static int field405;
 	@ObfuscatedName("cc")
 	@ObfuscatedGetter(
-			intValue = 1714214597
+		intValue = 1714214597
 	)
 	static int field406;
 	@ObfuscatedName("ch")
 	@ObfuscatedGetter(
-			intValue = -168140991
+		intValue = -168140991
 	)
 	static int field407;
 	@ObfuscatedName("cx")
 	@ObfuscatedGetter(
-			intValue = 1711084141
+		intValue = 1711084141
 	)
 	static int field408;
 	@ObfuscatedName("cl")
 	@ObfuscatedGetter(
-			intValue = -1956753403
+		intValue = -1956753403
 	)
 	@Export("KeyHandler_idleCycles")
 	static volatile int KeyHandler_idleCycles;
@@ -144,8 +143,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
 				if (var2 > 0 && var2 < 128 || var2 >= 160 && var2 <= 255) {
 					var3 = true;
 				} else {
-					label59:
-					{
+					label59: {
 						if (var2 != 0) {
 							char[] var7 = class288.cp1252AsciiExtension;
 
@@ -214,8 +212,8 @@ public final class KeyHandler implements KeyListener, FocusListener {
 
 	@ObfuscatedName("hg")
 	@ObfuscatedSignature(
-			signature = "(ZLks;B)V",
-			garbageValue = "77"
+		signature = "(ZLks;B)V",
+		garbageValue = "77"
 	)
 	@Export("updateNpcs")
 	static final void updateNpcs(boolean var0, PacketBuffer var1) {
@@ -318,14 +316,14 @@ public final class KeyHandler implements KeyListener, FocusListener {
 
 	@ObfuscatedName("jz")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "1886684971"
+		signature = "(I)V",
+		garbageValue = "1886684971"
 	)
 	static final void method848() {
 		PacketBufferNode var0 = TilePaint.getPacketBufferNode(ClientPacket.field2298, Client.packetWriter.isaacCipher);
 		Client.packetWriter.addNode(var0);
 
-		for (InterfaceParent var1 = (InterfaceParent) Client.interfaceParents.first(); var1 != null; var1 = (InterfaceParent) Client.interfaceParents.next()) {
+		for (InterfaceParent var1 = (InterfaceParent)Client.interfaceParents.first(); var1 != null; var1 = (InterfaceParent)Client.interfaceParents.next()) {
 			if (var1.type == 0 || var1.type == 3) {
 				class185.closeInterface(var1, true);
 			}
@@ -340,8 +338,8 @@ public final class KeyHandler implements KeyListener, FocusListener {
 
 	@ObfuscatedName("kl")
 	@ObfuscatedSignature(
-			signature = "(IIIILlt;Lhf;S)V",
-			garbageValue = "19802"
+		signature = "(IIIILlt;Lhf;S)V",
+		garbageValue = "19802"
 	)
 	@Export("worldToMinimap")
 	static final void worldToMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
@@ -352,10 +350,10 @@ public final class KeyHandler implements KeyListener, FocusListener {
 			int var9 = Rasterizer3D.Rasterizer3D_cosine[var7];
 			int var10 = var9 * var2 + var3 * var8 >> 16;
 			int var11 = var3 * var9 - var8 * var2 >> 16;
-			double var12 = Math.atan2((double) var10, (double) var11);
+			double var12 = Math.atan2((double)var10, (double)var11);
 			int var14 = var5.width / 2 - 25;
-			int var15 = (int) (Math.sin(var12) * (double) var14);
-			int var16 = (int) (Math.cos(var12) * (double) var14);
+			int var15 = (int)(Math.sin(var12) * (double)var14);
+			int var16 = (int)(Math.cos(var12) * (double)var14);
 			byte var17 = 20;
 			ArchiveLoader.redHintArrowSprite.method6242(var15 + (var0 + var5.width / 2 - var17 / 2), var5.height / 2 + var1 - var17 / 2 - var16 - 10, var17, var17, 15, 15, var12, 256);
 		} else {

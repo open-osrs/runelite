@@ -29,80 +29,87 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("profiles")
-public interface ProfilesConfig extends Config {
+public interface ProfilesConfig extends Config
+{
 	@ConfigItem(
-			keyName = "profilesData",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "profilesData",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default String profilesData() {
+	default String profilesData()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "profilesData",
-			name = "",
-			description = ""
+		keyName = "profilesData",
+		name = "",
+		description = ""
 	)
 	void profilesData(String str);
 
 	@ConfigItem(
-			keyName = "salt",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "salt",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default String salt() {
+	default String salt()
+	{
 		return "";
 	}
 
 	@ConfigItem(
-			keyName = "salt",
-			name = "",
-			description = ""
+		keyName = "salt",
+		name = "",
+		description = ""
 	)
 	void salt(String key);
 
 	@ConfigItem(
-			keyName = "rememberPassword",
-			name = "Remember Password",
-			description = "Remembers passwords for accounts",
-			position = 0
+		keyName = "rememberPassword",
+		name = "Remember Password",
+		description = "Remembers passwords for accounts",
+		position = 0
 	)
-	default boolean rememberPassword() {
+	default boolean rememberPassword()
+	{
 		return true;
 	}
 
 	@ConfigItem(
-			keyName = "displayEmailAddress",
-			name = "Display email field",
-			description = "Displays the email address field",
-			position = 1
+		keyName = "displayEmailAddress",
+		name = "Display email field",
+		description = "Displays the email address field",
+		position = 1
 	)
-	default boolean displayEmailAddress() {
+	default boolean displayEmailAddress()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "streamerMode",
-			name = "Hide email addresses",
-			description = "Hides your account emails",
-			position = 2,
-			hidden = true,
-			unhide = "displayEmailAddress"
+		keyName = "streamerMode",
+		name = "Hide email addresses",
+		description = "Hides your account emails",
+		position = 2,
+		hidden = true,
+		unhide = "displayEmailAddress"
 	)
-	default boolean streamerMode() {
+	default boolean streamerMode()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "switchPanel",
-			name = "Auto-open Panel",
-			description = "Automatically switch to the account switcher panel on the login screen",
-			position = 3
+		keyName = "switchPanel",
+		name = "Auto-open Panel",
+		description = "Automatically switch to the account switcher panel on the login screen",
+		position = 3
 	)
-	default boolean switchPanel() {
+	default boolean switchPanel()
+	{
 		return false;
 	}
 }

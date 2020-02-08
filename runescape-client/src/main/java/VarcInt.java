@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class VarcInt extends DualNode {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lii;"
+		signature = "Lii;"
 	)
 	@Export("VarcInt_archive")
 	public static AbstractArchive VarcInt_archive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Leh;"
+		signature = "Leh;"
 	)
 	@Export("VarcInt_cached")
 	public static EvictingDualNodeHashTable VarcInt_cached;
@@ -32,8 +32,8 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lkp;I)V",
-			garbageValue = "-1301624128"
+		signature = "(Lkp;I)V",
+		garbageValue = "-1301624128"
 	)
 	public void method4478(Buffer var1) {
 		while (true) {
@@ -48,8 +48,8 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lkp;IB)V",
-			garbageValue = "7"
+		signature = "(Lkp;IB)V",
+		garbageValue = "7"
 	)
 	void method4477(Buffer var1, int var2) {
 		if (var2 == 2) {
@@ -60,8 +60,8 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("ig")
 	@ObfuscatedSignature(
-			signature = "(Lhn;IIIIIIB)V",
-			garbageValue = "-50"
+		signature = "(Lhn;IIIIIIB)V",
+		garbageValue = "-50"
 	)
 	static final void method4485(Widget var0, int var1, int var2, int var3, int var4, int var5, int var6) {
 		if (Client.field712) {
@@ -105,8 +105,8 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("kd")
 	@ObfuscatedSignature(
-			signature = "(Lhn;I)Z",
-			garbageValue = "-1381346816"
+		signature = "(Lhn;I)Z",
+		garbageValue = "-1381346816"
 	)
 	@Export("isComponentHidden")
 	static boolean isComponentHidden(Widget var0) {

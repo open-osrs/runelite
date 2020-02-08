@@ -25,7 +25,6 @@
 package net.runelite.client.plugins.playerindicators;
 
 import com.google.inject.Provides;
-
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,20 +38,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.ClanMember;
 import net.runelite.api.ClanMemberRank;
-
 import static net.runelite.api.ClanMemberRank.UNRANKED;
-
 import net.runelite.api.Client;
 import net.runelite.api.MenuEntry;
-
 import static net.runelite.api.MenuOpcode.*;
-
 import net.runelite.api.Player;
 import net.runelite.api.events.ClanMemberJoined;
 import net.runelite.api.events.ClanMemberLeft;
@@ -75,14 +69,15 @@ import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreResult;
 
 @PluginDescriptor(
-		name = "Player Indicators",
-		description = "Highlight players on-screen and/or on the minimap",
-		tags = {"highlight", "minimap", "overlay", "players", "pklite"},
-		type = PluginType.UTILITY
+	name = "Player Indicators",
+	description = "Highlight players on-screen and/or on the minimap",
+	tags = {"highlight", "minimap", "overlay", "players", "pklite"},
+	type = PluginType.UTILITY
 )
 @Singleton
 @Getter(AccessLevel.PACKAGE)
-public class PlayerIndicatorsPlugin extends Plugin {
+public class PlayerIndicatorsPlugin extends Plugin
+{
 	private static final HiscoreClient HISCORE_CLIENT = new HiscoreClient();
 	private final List<String> callers = new ArrayList<>();
 	private final Map<Player, PlayerRelation> colorizedMenus = new ConcurrentHashMap<>();
@@ -144,12 +139,14 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	private int agilitySecondThreshold;
 
 	@Provides
-	PlayerIndicatorsConfig provideConfig(ConfigManager configManager) {
+	PlayerIndicatorsConfig provideConfig(ConfigManager configManager)
+	{
 		return configManager.getConfig(PlayerIndicatorsConfig.class);
 	}
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 		resultCache.clear();
 		overlayManager.add(playerIndicatorsOverlay);
@@ -158,22 +155,27 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(playerIndicatorsOverlay);
 		overlayManager.remove(playerIndicatorsMinimapOverlay);
 		resultCache.clear();
 	}
 
 	@Subscribe
-	private void onInteractingChanged(InteractingChanged event) {
-		if (!this.highlightCallerTargets || event.getSource() == null || callers.isEmpty() || !isCaller(event.getSource())) {
+	private void onInteractingChanged(InteractingChanged event)
+	{
+		if (!this.highlightCallerTargets || event.getSource() == null || callers.isEmpty() || !isCaller(event.getSource()))
+		{
 			return;
 		}
 
 		final Actor caller = event.getSource();
 
-		if (this.callerPiles.containsKey(caller.getName())) {
-			if (event.getTarget() == null) {
+		if (this.callerPiles.containsKey(caller.getName()))
+		{
+			if (event.getTarget() == null)
+			{
 				callerPiles.remove(caller.getName());
 				return;
 			}
@@ -182,7 +184,8 @@ public class PlayerIndicatorsPlugin extends Plugin {
 			return;
 		}
 
-		if (event.getTarget() == null) {
+		if (event.getTarget() == null)
+		{
 			return;
 		}
 
@@ -190,8 +193,10 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event) {
-		if (!event.getGroup().equals("playerindicators")) {
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals("playerindicators"))
+		{
 			return;
 		}
 
@@ -199,34 +204,45 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onClanMemberJoined(ClanMemberJoined event) {
+	private void onClanMemberJoined(ClanMemberJoined event)
+	{
 		getCallerList();
 	}
 
 	@Subscribe
-	private void onClanMemberLeft(ClanMemberLeft event) {
+	private void onClanMemberLeft(ClanMemberLeft event)
+	{
 		getCallerList();
 	}
 
 	@Subscribe
-	private void onPlayerSpawned(PlayerSpawned event) {
+	private void onPlayerSpawned(PlayerSpawned event)
+	{
 		final Player player = event.getPlayer();
 
-		if (!this.showAgilityLevel || resultCache.containsKey(player.getName())) {
+		if (!this.showAgilityLevel || resultCache.containsKey(player.getName()))
+		{
 			return;
 		}
 
 		executorService.submit(() ->
 		{
 			HiscoreResult result;
-			do {
-				try {
+			do
+			{
+				try
+				{
 					result = HISCORE_CLIENT.lookup(player.getName());
-				} catch (IOException ex) {
+				}
+				catch (IOException ex)
+				{
 					result = null;
-					try {
+					try
+					{
 						Thread.sleep(250);
-					} catch (InterruptedException e) {
+					}
+					catch (InterruptedException e)
+					{
 						e.printStackTrace();
 					}
 				}
@@ -238,34 +254,39 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onMenuEntryAdded(MenuEntryAdded menuEntryAdded) {
+	private void onMenuEntryAdded(MenuEntryAdded menuEntryAdded)
+	{
 		int type = menuEntryAdded.getOpcode();
 
-		if (type >= 2000) {
+		if (type >= 2000)
+		{
 			type -= 2000;
 		}
 
 		int identifier = menuEntryAdded.getIdentifier();
 		if (type == FOLLOW.getId() || type == TRADE.getId()
-				|| type == SPELL_CAST_ON_PLAYER.getId() || type == ITEM_USE_ON_PLAYER.getId()
-				|| type == PLAYER_FIRST_OPTION.getId()
-				|| type == PLAYER_SECOND_OPTION.getId()
-				|| type == PLAYER_THIRD_OPTION.getId()
-				|| type == PLAYER_FOURTH_OPTION.getId()
-				|| type == PLAYER_FIFTH_OPTION.getId()
-				|| type == PLAYER_SIXTH_OPTION.getId()
-				|| type == PLAYER_SEVENTH_OPTION.getId()
-				|| type == PLAYER_EIGTH_OPTION.getId()
-				|| type == RUNELITE.getId()) {
+			|| type == SPELL_CAST_ON_PLAYER.getId() || type == ITEM_USE_ON_PLAYER.getId()
+			|| type == PLAYER_FIRST_OPTION.getId()
+			|| type == PLAYER_SECOND_OPTION.getId()
+			|| type == PLAYER_THIRD_OPTION.getId()
+			|| type == PLAYER_FOURTH_OPTION.getId()
+			|| type == PLAYER_FIFTH_OPTION.getId()
+			|| type == PLAYER_SIXTH_OPTION.getId()
+			|| type == PLAYER_SEVENTH_OPTION.getId()
+			|| type == PLAYER_EIGTH_OPTION.getId()
+			|| type == RUNELITE.getId())
+		{
 			final Player localPlayer = client.getLocalPlayer();
 			final Player[] players = client.getCachedPlayers();
 			Player player = null;
 
-			if (identifier >= 0 && identifier < players.length) {
+			if (identifier >= 0 && identifier < players.length)
+			{
 				player = players[identifier];
 			}
 
-			if (player == null) {
+			if (player == null)
+			{
 				return;
 			}
 
@@ -273,67 +294,94 @@ public class PlayerIndicatorsPlugin extends Plugin {
 			int image2 = -1;
 			Color color = null;
 
-			if (this.highlightCallers && isCaller(player)) {
-				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CALLER)).contains(PlayerIndicationLocation.MENU)) {
+			if (this.highlightCallers && isCaller(player))
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CALLER)).contains(PlayerIndicationLocation.MENU))
+				{
 					color = relationColorHashMap.get(PlayerRelation.CALLER);
 				}
-			} else if (this.highlightCallerTargets && isPile(player)) {
-				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CALLER_TARGET)).contains(PlayerIndicationLocation.MENU)) {
+			}
+			else if (this.highlightCallerTargets && isPile(player))
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CALLER_TARGET)).contains(PlayerIndicationLocation.MENU))
+				{
 					color = relationColorHashMap.get(PlayerRelation.CALLER_TARGET);
 				}
-			} else if (this.highlightFriends && client.isFriended(player.getName(), false)) {
-				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.FRIEND)).contains(PlayerIndicationLocation.MENU)) {
+			}
+			else if (this.highlightFriends && client.isFriended(player.getName(), false))
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.FRIEND)).contains(PlayerIndicationLocation.MENU))
+				{
 					color = relationColorHashMap.get(PlayerRelation.FRIEND);
 				}
-			} else if (this.highlightClan && player.isClanMember()) {
-				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CLAN)).contains(PlayerIndicationLocation.MENU)) {
+			}
+			else if (this.highlightClan && player.isClanMember())
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.CLAN)).contains(PlayerIndicationLocation.MENU))
+				{
 					color = relationColorHashMap.get(PlayerRelation.CLAN);
 				}
 
 				ClanMemberRank rank = clanManager.getRank(player.getName());
-				if (rank != UNRANKED) {
+				if (rank != UNRANKED)
+				{
 					image = clanManager.getIconNumber(rank);
 				}
-			} else if (this.highlightTeam && player.getTeam() > 0 && (localPlayer != null ? localPlayer.getTeam() : -1) == player.getTeam()) {
-				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.TEAM)).contains(PlayerIndicationLocation.MENU)) {
+			}
+			else if (this.highlightTeam && player.getTeam() > 0 && (localPlayer != null ? localPlayer.getTeam() : -1) == player.getTeam())
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.TEAM)).contains(PlayerIndicationLocation.MENU))
+				{
 					color = relationColorHashMap.get(PlayerRelation.TEAM);
 				}
-			} else if (this.highlightOther && !player.isClanMember() && !player.isFriend() && !PvPUtil.isAttackable(client, player)) {
-				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.OTHER)).contains(PlayerIndicationLocation.MENU)) {
+			}
+			else if (this.highlightOther && !player.isClanMember() && !player.isFriend() && !PvPUtil.isAttackable(client, player))
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.OTHER)).contains(PlayerIndicationLocation.MENU))
+				{
 					color = relationColorHashMap.get(PlayerRelation.OTHER);
 				}
-			} else if (this.highlightTargets && !player.isClanMember() && !client.isFriended(player.getName(),
-					false) && PvPUtil.isAttackable(client, player)) {
-				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.TARGET)).contains(PlayerIndicationLocation.MENU)) {
+			}
+			else if (this.highlightTargets && !player.isClanMember() && !client.isFriended(player.getName(),
+				false) && PvPUtil.isAttackable(client, player))
+			{
+				if (Arrays.asList(this.locationHashMap.get(PlayerRelation.TARGET)).contains(PlayerIndicationLocation.MENU))
+				{
 					color = relationColorHashMap.get(PlayerRelation.TARGET);
 				}
 			}
 
 
-			if (this.playerSkull && !player.isClanMember() && player.getSkullIcon() != null) {
+			if (this.playerSkull && !player.isClanMember() && player.getSkullIcon() != null)
+			{
 				image2 = 35;
 			}
 
-			if (image != -1 || color != null) {
+			if (image != -1 || color != null)
+			{
 				final MenuEntry[] menuEntries = client.getMenuEntries();
 				final MenuEntry lastEntry = menuEntries[menuEntries.length - 1];
 
 
-				if (color != null) {
+				if (color != null)
+				{
 					// strip out existing <col...
 					String target = lastEntry.getTarget();
 					final int idx = target.indexOf('>');
-					if (idx != -1) {
+					if (idx != -1)
+					{
 						target = target.substring(idx + 1);
 					}
 
 					lastEntry.setTarget(ColorUtil.prependColorTag(target, color));
 				}
-				if (image != -1) {
+				if (image != -1)
+				{
 					lastEntry.setTarget("<img=" + image + ">" + lastEntry.getTarget());
 				}
 
-				if (image2 != -1 && this.playerSkull) {
+				if (image2 != -1 && this.playerSkull)
+				{
 					lastEntry.setTarget("<img=" + image2 + ">" + lastEntry.getTarget());
 				}
 
@@ -343,27 +391,34 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	}
 
 
-	private void getCallerList() {
-		if (!this.highlightCallers) {
+	private void getCallerList()
+	{
+		if (!this.highlightCallers)
+		{
 			return;
 		}
 
 		callers.clear();
 
-		if (this.useClanchatRanks && client.getClanMembers() != null) {
-			for (ClanMember clanMember : client.getClanMembers()) {
-				if (clanMember.getRank().getValue() > this.callerRank.getValue()) {
+		if (this.useClanchatRanks && client.getClanMembers() != null)
+		{
+			for (ClanMember clanMember : client.getClanMembers())
+			{
+				if (clanMember.getRank().getValue() > this.callerRank.getValue())
+				{
 					callers.add(Text.standardize(clanMember.getUsername()));
 				}
 			}
 		}
 
-		if (this.configCallers.contains(",")) {
+		if (this.configCallers.contains(","))
+		{
 			callers.addAll(Arrays.asList(this.configCallers.split(",")));
 			return;
 		}
 
-		if (!this.configCallers.equals("")) {
+		if (!this.configCallers.equals(""))
+		{
 			callers.add(this.configCallers);
 		}
 	}
@@ -374,15 +429,20 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	 * @param player The player to check
 	 * @return true if they are, false otherwise
 	 */
-	boolean isCaller(Actor player) {
-		if (player == null || player.getName() == null) {
+	boolean isCaller(Actor player)
+	{
+		if (player == null || player.getName() == null)
+		{
 			return false;
 		}
 
-		if (callers.size() > 0) {
-			for (String name : callers) {
+		if (callers.size() > 0)
+		{
+			for (String name : callers)
+			{
 				String finalName = Text.standardize(name.trim());
-				if (Text.standardize(player.getName()).equals(finalName)) {
+				if (Text.standardize(player.getName()).equals(finalName))
+				{
 					return true;
 				}
 			}
@@ -397,14 +457,16 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	 * @param actor The player to check
 	 * @return true if they are a target, false otherwise
 	 */
-	public boolean isPile(Actor actor) {
+	public boolean isPile(Actor actor)
+	{
 		/**
 		 if (!(actor instanceof Player))
 		 {
 		 return false;
 		 }
 		 **/
-		if (actor == null) {
+		if (actor == null)
+		{
 			return false;
 		}
 
@@ -412,73 +474,90 @@ public class PlayerIndicatorsPlugin extends Plugin {
 	}
 
 
-	private void updateConfig() {
+	private void updateConfig()
+	{
 		locationHashMap.clear();
 		relationColorHashMap.clear();
 		this.highlightOwnPlayer = config.highlightOwnPlayer();
-		if (this.highlightOwnPlayer) {
+		if (this.highlightOwnPlayer)
+		{
 			relationColorHashMap.put(PlayerRelation.SELF, config.getOwnPlayerColor());
-			if (config.selfIndicatorModes() != null) {
+			if (config.selfIndicatorModes() != null)
+			{
 				locationHashMap.put(PlayerRelation.SELF, EnumSet.copyOf(config.selfIndicatorModes()).toArray());
 			}
 		}
 
 		this.highlightFriends = config.highlightFriends();
-		if (this.highlightFriends) {
+		if (this.highlightFriends)
+		{
 			relationColorHashMap.put(PlayerRelation.FRIEND, config.getFriendColor());
-			if (config.friendIndicatorMode() != null) {
+			if (config.friendIndicatorMode() != null)
+			{
 				locationHashMap.put(PlayerRelation.FRIEND, config.friendIndicatorMode().toArray());
 			}
 		}
 
 		this.highlightClan = config.highlightClan();
-		if (this.highlightClan) {
+		if (this.highlightClan)
+		{
 			relationColorHashMap.put(PlayerRelation.CLAN, config.getClanColor());
-			if (config.clanIndicatorModes() != null) {
+			if (config.clanIndicatorModes() != null)
+			{
 				locationHashMap.put(PlayerRelation.CLAN, config.clanIndicatorModes().toArray());
 			}
 		}
 
 		this.highlightTeam = config.highlightTeamMembers();
-		if (this.highlightTeam) {
+		if (this.highlightTeam)
+		{
 			relationColorHashMap.put(PlayerRelation.TEAM, config.getTeamcolor());
-			if (config.teamIndicatorModes() != null) {
+			if (config.teamIndicatorModes() != null)
+			{
 				locationHashMap.put(PlayerRelation.TEAM, config.teamIndicatorModes().toArray());
 			}
 		}
 
 		this.highlightOther = config.highlightOtherPlayers();
-		if (this.highlightOther) {
+		if (this.highlightOther)
+		{
 			relationColorHashMap.put(PlayerRelation.OTHER, config.getOtherColor());
-			if (config.otherIndicatorModes() != null) {
+			if (config.otherIndicatorModes() != null)
+			{
 				locationHashMap.put(PlayerRelation.OTHER, EnumSet.copyOf(config.otherIndicatorModes()).toArray());
 			}
 		}
 
 		this.highlightTargets = config.highlightTargets();
-		if (this.highlightTargets) {
+		if (this.highlightTargets)
+		{
 			relationColorHashMap.put(PlayerRelation.TARGET, config.getTargetsColor());
-			if (config.targetsIndicatorModes() != null) {
+			if (config.targetsIndicatorModes() != null)
+			{
 				locationHashMap.put(PlayerRelation.TARGET, config.targetsIndicatorModes().toArray());
 			}
 		}
 
 		this.highlightCallers = config.highlightCallers();
-		if (this.highlightCallers) {
+		if (this.highlightCallers)
+		{
 			this.callerRank = config.callerRank();
 
 			this.configCallers = config.callers();
 			relationColorHashMap.put(PlayerRelation.CALLER, config.callerColor());
-			if (config.callerHighlightOptions() != null) {
+			if (config.callerHighlightOptions() != null)
+			{
 				locationHashMap.put(PlayerRelation.CALLER, config.callerHighlightOptions().toArray());
 			}
 			getCallerList();
 		}
 
 		this.highlightCallerTargets = config.callersTargets();
-		if (this.highlightCallerTargets) {
+		if (this.highlightCallerTargets)
+		{
 			relationColorHashMap.put(PlayerRelation.CALLER_TARGET, config.callerTargetColor());
-			if (config.callerTargetHighlightOptions() != null) {
+			if (config.callerTargetHighlightOptions() != null)
+			{
 				locationHashMap.put(PlayerRelation.CALLER_TARGET, config.callerTargetHighlightOptions().toArray());
 			}
 		}
@@ -496,12 +575,14 @@ public class PlayerIndicatorsPlugin extends Plugin {
 		this.unchargedGlory = config.unchargedGlory();
 	}
 
-	public enum MinimapSkullLocations {
+	public enum MinimapSkullLocations
+	{
 		BEFORE_NAME,
 		AFTER_NAME
 	}
 
-	public enum AgilityFormats {
+	public enum AgilityFormats
+	{
 		TEXT,
 		ICONS
 	}

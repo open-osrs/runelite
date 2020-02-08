@@ -14,12 +14,12 @@ public class Players {
 	static byte[] field1237;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "[Lkp;"
+		signature = "[Lkp;"
 	)
 	static Buffer[] field1235;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-			intValue = 896237733
+		intValue = 896237733
 	)
 	@Export("Players_count")
 	static int Players_count;
@@ -28,7 +28,7 @@ public class Players {
 	static int[] Players_indices;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-			intValue = 1595990081
+		intValue = 1595990081
 	)
 	@Export("Players_emptyIdxCount")
 	static int Players_emptyIdxCount;
@@ -46,7 +46,7 @@ public class Players {
 	static int[] Players_targetIndices;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-			intValue = -564068269
+		intValue = -564068269
 	)
 	@Export("Players_pendingUpdateCount")
 	static int Players_pendingUpdateCount;
@@ -55,7 +55,7 @@ public class Players {
 	static int[] Players_pendingUpdateIndices;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-			signature = "Lkp;"
+		signature = "Lkp;"
 	)
 	static Buffer field1248;
 
@@ -77,8 +77,8 @@ public class Players {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(B)V",
-			garbageValue = "1"
+		signature = "(B)V",
+		garbageValue = "1"
 	)
 	static void method2179() {
 		Tiles.field502 = null;
@@ -97,8 +97,8 @@ public class Players {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZB)I",
-			garbageValue = "41"
+		signature = "(ILce;ZB)I",
+		garbageValue = "41"
 	)
 	static int method2203(int var0, Script var1, boolean var2) {
 		Widget var3;
@@ -155,8 +155,8 @@ public class Players {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-			signature = "(ILce;ZI)I",
-			garbageValue = "-603173589"
+		signature = "(ILce;ZI)I",
+		garbageValue = "-603173589"
 	)
 	static int method2200(int var0, Script var1, boolean var2) {
 		Widget var3 = Varps.getWidget(Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize]);
@@ -190,8 +190,8 @@ public class Players {
 
 	@ObfuscatedName("jo")
 	@ObfuscatedSignature(
-			signature = "(I)Z",
-			garbageValue = "1574244944"
+		signature = "(I)Z",
+		garbageValue = "1574244944"
 	)
 	static boolean method2201() {
 		return Client.tapToDrop || KeyHandler.KeyHandler_pressedKeys[81];
@@ -199,8 +199,8 @@ public class Players {
 
 	@ObfuscatedName("kb")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1351198777"
+		signature = "(I)V",
+		garbageValue = "-1351198777"
 	)
 	static final void method2189() {
 		Client.field823 = Client.cycleCntr;

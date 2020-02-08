@@ -28,11 +28,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConfigLoader {
+public class ConfigLoader
+{
 	private static final Logger logger = LoggerFactory.getLogger(ConfigLoader.class);
 
 	private static final String CONFIG_RESOURCE = "/jav_config.ws";
@@ -44,13 +44,16 @@ public class ConfigLoader {
 	public static final String APP_MINHEIGHT = "applet_minheight";
 
 	private final Map<String, String> properties = new HashMap<>(),
-			appletProperties = new HashMap<>();
+		appletProperties = new HashMap<>();
 
-	public void fetch() throws IOException {
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(CONFIG_RESOURCE)))) {
+	public void fetch() throws IOException
+	{
+		try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(CONFIG_RESOURCE))))
+		{
 			String str;
 
-			while ((str = in.readLine()) != null) {
+			while ((str = in.readLine()) != null)
+			{
 				int idx = str.indexOf('=');
 
 				if (idx == -1)
@@ -58,7 +61,8 @@ public class ConfigLoader {
 
 				String s = str.substring(0, idx);
 
-				if (s.equals("param")) {
+				if (s.equals("param"))
+				{
 					str = str.substring(idx + 1);
 					idx = str.indexOf('=');
 					s = str.substring(0, idx);
@@ -68,9 +72,13 @@ public class ConfigLoader {
 					appletProperties.put(s, value);
 
 					logger.info("Param: {} -> {}", s, value);
-				} else if (s.equals("msg")) {
+				}
+				else if (s.equals("msg"))
+				{
 					// ignore
-				} else {
+				}
+				else
+				{
 					String value = str.substring(idx + 1);
 
 					properties.put(s, value);
@@ -81,19 +89,23 @@ public class ConfigLoader {
 		}
 	}
 
-	public String getProperty(String name) {
+	public String getProperty(String name)
+	{
 		return properties.get(name);
 	}
 
-	public Map<String, String> getProperties() {
+	public Map<String, String> getProperties()
+	{
 		return properties;
 	}
 
-	public String getAppletProperty(String name) {
+	public String getAppletProperty(String name)
+	{
 		return appletProperties.get(name);
 	}
 
-	public Map<String, String> getAppletProperties() {
+	public Map<String, String> getAppletProperties()
+	{
 		return appletProperties;
 	}
 }

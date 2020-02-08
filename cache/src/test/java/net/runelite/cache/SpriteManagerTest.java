@@ -26,7 +26,6 @@ package net.runelite.cache;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.cache.fs.Store;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,21 +33,24 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SpriteManagerTest {
+public class SpriteManagerTest
+{
 	private static final Logger logger = LoggerFactory.getLogger(SpriteManagerTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
-	public void test() throws IOException {
+	public void test() throws IOException
+	{
 		File dumpDir = folder.newFolder();
 
-		try (Store store = new Store(StoreLocation.LOCATION)) {
+		try (Store store = new Store(StoreLocation.LOCATION))
+		{
 			store.load();
 
 			SpriteManager dumper = new SpriteManager(
-					store
+				store
 			);
 			dumper.load();
 			dumper.export(dumpDir);

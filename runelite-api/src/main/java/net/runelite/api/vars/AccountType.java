@@ -27,7 +27,8 @@ package net.runelite.api.vars;
 /**
  * An enumeration of possible account types.
  */
-public enum AccountType {
+public enum AccountType
+{
 	/**
 	 * Normal account type.
 	 */
@@ -50,7 +51,8 @@ public enum AccountType {
 	 *
 	 * @return {@code true} if the type is any of the ironman types.
 	 */
-	public boolean isIronman() {
+	public boolean isIronman()
+	{
 		return this.ordinal() >= IRONMAN.ordinal() && this.ordinal() <= HARDCORE_IRONMAN.ordinal();
 	}
 

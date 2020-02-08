@@ -29,7 +29,8 @@ import net.runelite.api.TileModel;
 import net.runelite.api.TilePaint;
 import net.runelite.api.Texture;
 
-public interface DrawCallbacks {
+public interface DrawCallbacks
+{
 	void draw(Entity entity, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash);
 
 	void drawScenePaint(int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z,

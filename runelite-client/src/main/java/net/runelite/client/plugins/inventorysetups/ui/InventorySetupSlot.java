@@ -29,14 +29,14 @@ import net.runelite.client.plugins.inventorysetups.InventorySetupSlotID;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.util.AsyncBufferedImage;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class InventorySetupSlot extends JPanel {
+public class InventorySetupSlot extends JPanel
+{
 	@Getter
 	private final JLabel imageLabel;
 
@@ -50,7 +50,8 @@ public class InventorySetupSlot extends JPanel {
 	@Getter
 	private int indexInSlot;
 
-	public InventorySetupSlot(Color color, InventorySetupSlotID id, int indexInSlot) {
+	public InventorySetupSlot(Color color, InventorySetupSlotID id, int indexInSlot)
+	{
 		this.slotID = id;
 		this.imageLabel = new JLabel();
 		this.parentSetup = null;
@@ -61,8 +62,10 @@ public class InventorySetupSlot extends JPanel {
 		add(imageLabel);
 	}
 
-	public void setImageLabel(String toolTip, AsyncBufferedImage itemImage) {
-		if (itemImage == null || toolTip == null) {
+	public void setImageLabel(String toolTip, AsyncBufferedImage itemImage)
+	{
+		if (itemImage == null || toolTip == null)
+		{
 			imageLabel.setToolTipText("");
 			imageLabel.setIcon(null);
 			imageLabel.revalidate();

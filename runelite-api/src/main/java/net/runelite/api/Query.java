@@ -32,10 +32,12 @@ import java.util.function.Predicate;
  * @param <EntityType> the returned object type
  * @param <QueryType>  the query type
  */
-public abstract class Query<EntityType, QueryType, QR extends QueryResults> {
+public abstract class Query<EntityType, QueryType, QR extends QueryResults>
+{
 	protected Predicate<EntityType> predicate = x -> true;
 
-	protected Query() {
+	protected Query()
+	{
 	}
 
 	/**
@@ -54,8 +56,10 @@ public abstract class Query<EntityType, QueryType, QR extends QueryResults> {
 	 * @param other the passed predicate
 	 * @return the combined predicate
 	 */
-	protected Predicate<EntityType> and(Predicate<EntityType> other) {
-		if (predicate == null) {
+	protected Predicate<EntityType> and(Predicate<EntityType> other)
+	{
+		if (predicate == null)
+		{
 			return other;
 		}
 		return predicate.and(other);

@@ -28,7 +28,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-
 import net.runelite.api.MainBufferProvider;
 import net.runelite.api.events.Event;
 import net.runelite.api.widgets.WidgetItem;
@@ -36,7 +35,8 @@ import net.runelite.api.widgets.WidgetItem;
 /**
  * Interface of callbacks the injected client uses to send events
  */
-public interface Callbacks {
+public interface Callbacks
+{
 	/**
 	 * Post an event. See the events in api.events.
 	 *

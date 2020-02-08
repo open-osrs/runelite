@@ -31,19 +31,23 @@ import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
 import org.objectweb.asm.ClassReader;
 
-public class ClientVersion {
+public class ClientVersion
+{
 	private final File jar;
 
-	public ClientVersion(File jar) {
+	public ClientVersion(File jar)
+	{
 		this.jar = jar;
 	}
 
-	public int getVersion() throws IOException {
-		try (JarFile jar = new JarFile(this.jar)) {
-			for (Enumeration<JarEntry> it = jar.entries(); it.hasMoreElements(); ) {
+	public int getVersion() throws IOException
+	{
+		try (JarFile jar = new JarFile(this.jar))
+		{
+			for (Enumeration<JarEntry> it = jar.entries(); it.hasMoreElements();)
+			{
 				JarEntry entry = it.nextElement();
 
 				if (!entry.getName().equals("client.class"))

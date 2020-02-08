@@ -4,7 +4,8 @@ import net.runelite.api.Scene;
 import net.runelite.api.Tile;
 import net.runelite.mapping.Import;
 
-public interface RSScene extends Scene {
+public interface RSScene extends Scene
+{
 	@Import("tempGameObjects")
 	RSGameObject[] getObjects();
 

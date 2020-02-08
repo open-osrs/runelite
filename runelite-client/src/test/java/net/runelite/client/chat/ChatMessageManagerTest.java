@@ -28,9 +28,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.testing.fieldbinder.Bind;
 import com.google.inject.testing.fieldbinder.BoundFieldModule;
-
 import java.awt.Color;
-
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.MessageNode;
@@ -40,19 +38,16 @@ import net.runelite.client.config.OpenOSRSConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import static org.mockito.ArgumentMatchers.eq;
-
 import org.mockito.Mock;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ChatMessageManagerTest {
+public class ChatMessageManagerTest
+{
 	@Mock
 	@Bind
 	private Client client;
@@ -69,14 +64,16 @@ public class ChatMessageManagerTest {
 	private ChatMessageManager chatMessageManager;
 
 	@Before
-	public void before() {
+	public void before()
+	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
 
 		chatMessageManager.loadColors();
 	}
 
 	@Test
-	public void onChatMessage() {
+	public void onChatMessage()
+	{
 		when(chatColorConfig.opaquePublicChat()).thenReturn(Color.decode("#b20000"));
 
 		chatMessageManager.loadColors();

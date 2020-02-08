@@ -31,16 +31,19 @@ import net.runelite.client.plugins.itemstats.stats.Stat;
 /**
  * A stat boost using the real stat level. Eg, non-boosted.
  */
-public class SimpleStatBoost extends StatBoost {
+public class SimpleStatBoost extends StatBoost
+{
 	private final DeltaCalculator deltaCalculator;
 
-	public SimpleStatBoost(Stat stat, boolean boost, DeltaCalculator deltaCalculator) {
+	public SimpleStatBoost(Stat stat, boolean boost, DeltaCalculator deltaCalculator)
+	{
 		super(stat, boost);
 		this.deltaCalculator = deltaCalculator;
 	}
 
 	@Override
-	public int heals(Client client) {
+	public int heals(Client client)
+	{
 		int max = getStat().getMaximum(client);
 		return deltaCalculator.calculateDelta(max);
 	}

@@ -28,32 +28,38 @@ package net.runelite.client.plugins.loottracker.localstorage;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class LTItemEntry {
+public class LTItemEntry
+{
 	private final String name;
 	private final int id;
 	private int quantity;
 	private long price;
 
-	public long getTotal() {
+	public long getTotal()
+	{
 		return this.quantity * this.price;
 	}
 
-	public static Map<Integer, LTItemEntry> consolidateItemEntires(final Collection<LTItemEntry> drops) {
+	public static Map<Integer, LTItemEntry> consolidateItemEntires(final Collection<LTItemEntry> drops)
+	{
 		// Store LootTrackerItemEntry by ItemID
 		final Map<Integer, LTItemEntry> itemMap = new HashMap<>();
-		for (final LTItemEntry e : drops) {
+		for (final LTItemEntry e : drops)
+		{
 			final LTItemEntry oldEntry = itemMap.get(e.getId());
-			if (oldEntry != null) {
+			if (oldEntry != null)
+			{
 				// Use the most recent price
 				oldEntry.setPrice(e.getPrice());
 				oldEntry.setQuantity(oldEntry.getQuantity() + e.getQuantity());
-			} else {
+			}
+			else
+			{
 				// Create a new instance for consolidated records
 				itemMap.put(e.getId(), new LTItemEntry(e.getName(), e.getId(), e.getQuantity(), e.getPrice()));
 			}

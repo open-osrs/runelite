@@ -31,7 +31,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-enum WintertodtActivity {
+enum WintertodtActivity
+{
 	IDLE("IDLE"),
 	WOODCUTTING("Woodcutting"),
 	FLETCHING("Fletching"),

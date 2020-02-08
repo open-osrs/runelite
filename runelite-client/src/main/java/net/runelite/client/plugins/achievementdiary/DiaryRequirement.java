@@ -26,18 +26,18 @@
 package net.runelite.client.plugins.achievementdiary;
 
 import com.google.common.collect.ImmutableList;
-
 import java.util.List;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter(AccessLevel.PACKAGE)
-class DiaryRequirement {
+class DiaryRequirement
+{
 	private final String task;
 	private final List<Requirement> requirements;
 
-	DiaryRequirement(String task, Requirement[] requirements) {
+	DiaryRequirement(String task, Requirement[] requirements)
+	{
 		this.task = task;
 		this.requirements = ImmutableList.copyOf(requirements);
 	}

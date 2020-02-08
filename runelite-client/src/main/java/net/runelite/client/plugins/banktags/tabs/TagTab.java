@@ -31,23 +31,28 @@ import net.runelite.api.widgets.Widget;
 
 @Data
 @EqualsAndHashCode(of = "tag")
-class TagTab {
+class TagTab
+{
 	private String tag;
 	private int iconItemId;
 	private Widget background;
 	private Widget icon;
 
-	TagTab(int iconItemId, String tag) {
+	TagTab(int iconItemId, String tag)
+	{
 		this.iconItemId = iconItemId;
 		this.tag = tag;
 	}
 
-	void setHidden(boolean hide) {
-		if (background != null) {
+	void setHidden(boolean hide)
+	{
+		if (background != null)
+		{
 			background.setHidden(hide);
 		}
 
-		if (icon != null) {
+		if (icon != null)
+		{
 			icon.setHidden(hide);
 		}
 	}

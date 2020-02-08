@@ -24,23 +24,28 @@
  */
 package net.runelite.cache.index;
 
-public class FileData {
+public class FileData
+{
 	int id;
 	int nameHash;
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		this.id = id;
 	}
 
-	public int getNameHash() {
+	public int getNameHash()
+	{
 		return nameHash;
 	}
 
-	public void setNameHash(int nameHash) {
+	public void setNameHash(int nameHash)
+	{
 		this.nameHash = nameHash;
 	}
 }

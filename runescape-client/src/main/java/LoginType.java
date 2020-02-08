@@ -9,53 +9,53 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class LoginType {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	@Export("oldscape")
 	public static final LoginType oldscape;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	static final LoginType field4034;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	static final LoginType field4030;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	static final LoginType field4031;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	static final LoginType field4032;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	static final LoginType field4033;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	static final LoginType field4028;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	static final LoginType field4035;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-			signature = "Lmv;"
+		signature = "Lmv;"
 	)
 	public static final LoginType field4029;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-			intValue = -1632113899
+		intValue = -1632113899
 	)
 	final int field4037;
 	@ObfuscatedName("p")
@@ -79,7 +79,7 @@ public class LoginType {
 	}
 
 	@ObfuscatedSignature(
-			signature = "(IILjava/lang/String;Ljava/lang/String;Z[Lmv;)V"
+		signature = "(IILjava/lang/String;Ljava/lang/String;Z[Lmv;)V"
 	)
 	LoginType(int var1, int var2, String var3, String var4, boolean var5, LoginType[] var6) {
 		this.field4037 = var1;

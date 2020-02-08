@@ -26,7 +26,6 @@ package net.runelite.deob.deobfuscators.transformers.buffer;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.runelite.asm.ClassGroup;
 import net.runelite.deob.DeobTestProperties;
 import net.runelite.deob.TemporyFolderLocation;
@@ -37,7 +36,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-public class BufferFinderTest {
+public class BufferFinderTest
+{
 	@Rule
 	public DeobTestProperties properties = new DeobTestProperties();
 
@@ -47,13 +47,15 @@ public class BufferFinderTest {
 	private ClassGroup group;
 
 	@Before
-	public void before() throws IOException {
+	public void before() throws IOException
+	{
 		group = JarUtil.loadJar(new File(properties.getRsClient()));
 	}
 
 	@Test
 	@Ignore
-	public void testRun() throws IOException {
+	public void testRun() throws IOException
+	{
 		BufferFinder bf = new BufferFinder(group);
 		bf.find();
 	}

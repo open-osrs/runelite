@@ -26,13 +26,11 @@ package net.runelite.cache;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
-
 import net.runelite.cache.definitions.SpriteDefinition;
 import net.runelite.cache.definitions.exporters.SpriteExporter;
 import net.runelite.cache.definitions.loaders.SpriteLoader;
@@ -42,53 +40,66 @@ import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
 
-public class SpriteManager implements SpriteProvider {
+public class SpriteManager implements SpriteProvider
+{
 	private final Store store;
 	private final Multimap<Integer, SpriteDefinition> sprites = LinkedListMultimap.create();
 
-	public SpriteManager(Store store) {
+	public SpriteManager(Store store)
+	{
 		this.store = store;
 	}
 
-	public void load() throws IOException {
+	public void load() throws IOException
+	{
 		Storage storage = store.getStorage();
 		Index index = store.getIndex(IndexType.SPRITES);
 
-		for (Archive a : index.getArchives()) {
+		for (Archive a : index.getArchives())
+		{
 			byte[] contents = a.decompress(storage.loadArchive(a));
 
 			SpriteLoader loader = new SpriteLoader();
 			SpriteDefinition[] defs = loader.load(a.getArchiveId(), contents);
 
-			for (SpriteDefinition sprite : defs) {
+			for (SpriteDefinition sprite : defs)
+			{
 				sprites.put(sprite.getId(), sprite);
 			}
 		}
 	}
 
-	public Collection<SpriteDefinition> getSprites() {
+	public Collection<SpriteDefinition> getSprites()
+	{
 		return Collections.unmodifiableCollection(sprites.values());
 	}
 
-	public SpriteDefinition findSprite(int spriteId, int frameId) {
-		for (SpriteDefinition sprite : sprites.get(spriteId)) {
-			if (sprite.getFrame() == frameId) {
+	public SpriteDefinition findSprite(int spriteId, int frameId)
+	{
+		for (SpriteDefinition sprite : sprites.get(spriteId))
+		{
+			if (sprite.getFrame() == frameId)
+			{
 				return sprite;
 			}
 		}
 		return null;
 	}
 
-	public BufferedImage getSpriteImage(SpriteDefinition sprite) {
+	public BufferedImage getSpriteImage(SpriteDefinition sprite)
+	{
 		BufferedImage image = new BufferedImage(sprite.getWidth(), sprite.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		image.setRGB(0, 0, sprite.getWidth(), sprite.getHeight(), sprite.getPixels(), 0, sprite.getWidth());
 		return image;
 	}
 
-	public void export(File outDir) throws IOException {
-		for (SpriteDefinition sprite : sprites.values()) {
+	public void export(File outDir) throws IOException
+	{
+		for (SpriteDefinition sprite : sprites.values())
+		{
 			// I don't know why this happens
-			if (sprite.getHeight() <= 0 || sprite.getWidth() <= 0) {
+			if (sprite.getHeight() <= 0 || sprite.getWidth() <= 0)
+			{
 				continue;
 			}
 
@@ -100,7 +111,8 @@ public class SpriteManager implements SpriteProvider {
 	}
 
 	@Override
-	public SpriteDefinition provide(int spriteId, int frameId) {
+	public SpriteDefinition provide(int spriteId, int frameId)
+	{
 		return findSprite(spriteId, frameId);
 	}
 }

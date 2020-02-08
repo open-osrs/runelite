@@ -29,11 +29,13 @@ import lombok.Getter;
 /**
  * A hitsplat that has been applied to an {@link Actor}.
  */
-public class Hitsplat {
+public class Hitsplat
+{
 	/**
 	 * An enumeration of hitsplat types.
 	 */
-	public enum HitsplatType {
+	public enum HitsplatType
+	{
 		/**
 		 * Blocking damage (blue).
 		 */
@@ -66,20 +68,16 @@ public class Hitsplat {
 		 * @param type the type value
 		 * @return hitsplat type
 		 */
-		public static HitsplatType fromInteger(int type) {
-			switch (type) {
-				case 0:
-					return BLOCK;
-				case 1:
-					return DAMAGE;
-				case 2:
-					return POISON;
-				case 4:
-					return DISEASE;
-				case 5:
-					return VENOM;
-				case 6:
-					return HEAL;
+		public static HitsplatType fromInteger(int type)
+		{
+			switch (type)
+			{
+				case 0: return BLOCK;
+				case 1: return DAMAGE;
+				case 2: return POISON;
+				case 4: return DISEASE;
+				case 5: return VENOM;
+				case 6: return HEAL;
 			}
 			return null;
 		}
@@ -103,7 +101,8 @@ public class Hitsplat {
 	@Getter
 	private int disappearsOnGameCycle;
 
-	public Hitsplat(HitsplatType hitsplatType, int amount, int disappearsOnGameCycle) {
+	public Hitsplat(HitsplatType hitsplatType, int amount, int disappearsOnGameCycle)
+	{
 		this.hitsplatType = hitsplatType;
 		this.amount = amount;
 		this.disappearsOnGameCycle = disappearsOnGameCycle;

@@ -29,13 +29,15 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup("customcursor")
-public interface CustomCursorConfig extends Config {
+public interface CustomCursorConfig extends Config
+{
 	@ConfigItem(
-			keyName = "cursorStyle",
-			name = "Cursor",
-			description = "Select which cursor you wish to use"
+		keyName = "cursorStyle",
+		name = "Cursor",
+		description = "Select which cursor you wish to use"
 	)
-	default CustomCursor selectedCursor() {
+	default CustomCursor selectedCursor()
+	{
 		return CustomCursor.RS3_GOLD;
 	}
 }

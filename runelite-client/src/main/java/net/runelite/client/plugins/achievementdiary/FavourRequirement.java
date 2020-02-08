@@ -31,12 +31,14 @@ import net.runelite.api.Favour;
 
 @RequiredArgsConstructor
 @Getter(AccessLevel.PACKAGE)
-public class FavourRequirement implements Requirement {
+public class FavourRequirement implements Requirement
+{
 	private final Favour house;
 	private final int percent;
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return percent + "% " + house.getName() + " favour";
 	}
 }

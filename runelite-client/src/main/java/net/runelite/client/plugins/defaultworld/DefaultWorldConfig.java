@@ -29,41 +29,45 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
 @ConfigGroup(DefaultWorldConfig.GROUP)
-public interface DefaultWorldConfig extends Config {
+public interface DefaultWorldConfig extends Config
+{
 	String GROUP = "defaultworld";
 
 	@ConfigItem(
-			keyName = "defaultWorld",
-			name = "Default world",
-			description = "World to use as default one"
+		keyName = "defaultWorld",
+		name = "Default world",
+		description = "World to use as default one"
 	)
-	default int getWorld() {
+	default int getWorld()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "useLastWorld",
-			name = "Use Last World",
-			description = "Use the last world you used as the default"
+		keyName = "useLastWorld",
+		name = "Use Last World",
+		description = "Use the last world you used as the default"
 	)
-	default boolean useLastWorld() {
+	default boolean useLastWorld()
+	{
 		return false;
 	}
 
 	@ConfigItem(
-			keyName = "lastWorld",
-			name = "",
-			description = "",
-			hidden = true
+		keyName = "lastWorld",
+		name = "",
+		description = "",
+		hidden = true
 	)
-	default int lastWorld() {
+	default int lastWorld()
+	{
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = "lastWorld",
-			name = "",
-			description = ""
+		keyName = "lastWorld",
+		name = "",
+		description = ""
 	)
 	void lastWorld(int lastWorld);
 }

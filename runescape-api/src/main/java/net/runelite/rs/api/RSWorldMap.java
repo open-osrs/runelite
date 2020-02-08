@@ -4,7 +4,8 @@ import net.runelite.api.RenderOverview;
 import net.runelite.api.WorldMapData;
 import net.runelite.mapping.Import;
 
-public interface RSWorldMap extends RenderOverview {
+public interface RSWorldMap extends RenderOverview
+{
 	@Import("centerTileX")
 	int getWorldMapX();
 

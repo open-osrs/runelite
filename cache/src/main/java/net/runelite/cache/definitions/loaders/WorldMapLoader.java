@@ -25,7 +25,6 @@
 package net.runelite.cache.definitions.loaders;
 
 import java.util.LinkedList;
-
 import net.runelite.cache.definitions.WorldMapDefinition;
 import net.runelite.cache.definitions.WorldMapType0;
 import net.runelite.cache.definitions.WorldMapType1;
@@ -35,9 +34,11 @@ import net.runelite.cache.definitions.WorldMapTypeBase;
 import net.runelite.cache.io.InputStream;
 import net.runelite.cache.region.Position;
 
-public class WorldMapLoader {
+public class WorldMapLoader
+{
 	@SuppressWarnings("unchecked")
-	public WorldMapDefinition load(byte[] b, int fileId) {
+	public WorldMapDefinition load(byte[] b, int fileId)
+	{
 		WorldMapDefinition def = new WorldMapDefinition();
 		InputStream in = new InputStream(b);
 
@@ -46,9 +47,12 @@ public class WorldMapLoader {
 		def.name = in.readString();
 
 		int packedPos = in.readInt();
-		if (packedPos == -1) {
+		if (packedPos == -1)
+		{
 			def.position = new Position(-1, -1, -1);
-		} else {
+		}
+		else
+		{
 			int y = packedPos >> 28 & 3;
 			int x = packedPos >> 14 & 16383;
 			int z = packedPos & 16383;
@@ -62,21 +66,24 @@ public class WorldMapLoader {
 		int var3 = in.readUnsignedByte();
 		def.regionList = new LinkedList();
 
-		for (int var4 = 0; var4 < var3; ++var4) {
+		for (int var4 = 0; var4 < var3; ++var4)
+		{
 			def.regionList.add(this.loadType(in));
 		}
 
 		return def;
 	}
 
-	private WorldMapTypeBase loadType(InputStream var1) {
+	private WorldMapTypeBase loadType(InputStream var1)
+	{
 		int var2 = var1.readUnsignedByte();
 		//      field397 = new class27(1, (byte)0);
 		//      field390 = new class27(2, (byte)1);
 		//      field399 = new class27(3, (byte)2);
 		//      field393 = new class27(0, (byte)3);
 		WorldMapTypeBase base;
-		switch (var2) {
+		switch (var2)
+		{
 			case 0:
 				// type 1
 				base = load1(var1);
@@ -99,7 +106,8 @@ public class WorldMapLoader {
 		return base;
 	}
 
-	private WorldMapTypeBase load0(InputStream in) {
+	private WorldMapTypeBase load0(InputStream in)
+	{
 		WorldMapType0 wm = new WorldMapType0();
 
 		wm.plane = in.readUnsignedByte();
@@ -116,7 +124,8 @@ public class WorldMapLoader {
 		return wm;
 	}
 
-	private WorldMapTypeBase load1(InputStream in) {
+	private WorldMapTypeBase load1(InputStream in)
+	{
 		WorldMapType1 wm = new WorldMapType1();
 
 		wm.plane = in.readUnsignedByte();
@@ -133,7 +142,8 @@ public class WorldMapLoader {
 		return wm;
 	}
 
-	private WorldMapTypeBase load2(InputStream in) {
+	private WorldMapTypeBase load2(InputStream in)
+	{
 		WorldMapType2 wm = new WorldMapType2();
 
 		wm.plane = in.readUnsignedByte();
@@ -146,7 +156,8 @@ public class WorldMapLoader {
 		return wm;
 	}
 
-	private WorldMapTypeBase load3(InputStream in) {
+	private WorldMapTypeBase load3(InputStream in)
+	{
 		WorldMapType3 wm = new WorldMapType3();
 
 		wm.oldPlane = in.readUnsignedByte();

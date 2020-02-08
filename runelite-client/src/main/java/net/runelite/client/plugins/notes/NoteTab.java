@@ -37,19 +37,20 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.ColorScheme;
 
 @Slf4j
-class NoteTab extends JPanel {
+class NoteTab extends JPanel
+{
 	private final NotesManager manager;
 	private final JTextArea notesEditor = new JTextArea();
 	private final UndoManager undoRedo = new UndoManager();
 
 	private final int index;
 
-	NoteTab(NotesManager mManager, int mIndex) {
+	NoteTab(NotesManager mManager, int mIndex)
+	{
 		manager = mManager;
 		index = mIndex;
 
@@ -73,49 +74,68 @@ class NoteTab extends JPanel {
 		notesEditor.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "Undo");
 		notesEditor.getInputMap().put(KeyStroke.getKeyStroke("control Y"), "Redo");
 
-		notesEditor.getActionMap().put("Undo", new AbstractAction("Undo") {
+		notesEditor.getActionMap().put("Undo", new AbstractAction("Undo")
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (undoRedo.canUndo()) {
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					if (undoRedo.canUndo())
+					{
 						undoRedo.undo();
 					}
-				} catch (CannotUndoException ex) {
+				}
+				catch (CannotUndoException ex)
+				{
 					log.warn("Notes Document Unable To Undo: " + ex);
 				}
 			}
 		});
 
-		notesEditor.getActionMap().put("Redo", new AbstractAction("Redo") {
+		notesEditor.getActionMap().put("Redo", new AbstractAction("Redo")
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					if (undoRedo.canRedo()) {
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					if (undoRedo.canRedo())
+					{
 						undoRedo.redo();
 					}
-				} catch (CannotUndoException ex) {
+				}
+				catch (CannotUndoException ex)
+				{
 					log.warn("Notes Document Unable To Redo: " + ex);
 				}
 			}
 		});
 
-		notesEditor.addFocusListener(new FocusListener() {
+		notesEditor.addFocusListener(new FocusListener()
+		{
 			@Override
-			public void focusGained(FocusEvent e) {
+			public void focusGained(FocusEvent e)
+			{
 
 			}
 
 			@Override
-			public void focusLost(FocusEvent e) {
+			public void focusLost(FocusEvent e)
+			{
 				notesChanged(notesEditor.getDocument());
 			}
 
-			private void notesChanged(Document doc) {
-				try {
+			private void notesChanged(Document doc)
+			{
+				try
+				{
 					// get document text and save to config whenever editor is changed
 					String data = doc.getText(0, doc.getLength());
 					manager.updateNote(index, data);
-				} catch (BadLocationException ex) {
+				}
+				catch (BadLocationException ex)
+				{
 					log.warn("Notes Document Bad Location: " + ex);
 				}
 			}

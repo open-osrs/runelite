@@ -24,23 +24,28 @@
  */
 package net.runelite.http.api.xtea;
 
-public class XteaKey {
+public class XteaKey
+{
 	private int region;
 	private int[] keys;
 
-	public int getRegion() {
+	public int getRegion()
+	{
 		return region;
 	}
 
-	public void setRegion(int region) {
+	public void setRegion(int region)
+	{
 		this.region = region;
 	}
 
-	public int[] getKeys() {
+	public int[] getKeys()
+	{
 		return keys;
 	}
 
-	public void setKeys(int[] keys) {
+	public void setKeys(int[] keys)
+	{
 		this.keys = keys;
 	}
 }

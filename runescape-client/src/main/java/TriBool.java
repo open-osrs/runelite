@@ -8,19 +8,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class TriBool {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "Lju;"
+		signature = "Lju;"
 	)
 	@Export("TriBool_unknown")
 	public static final TriBool TriBool_unknown;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "Lju;"
+		signature = "Lju;"
 	)
 	@Export("TriBool_true")
 	public static final TriBool TriBool_true;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "Lju;"
+		signature = "Lju;"
 	)
 	@Export("TriBool_false")
 	public static final TriBool TriBool_false;

@@ -26,12 +26,13 @@
 package net.runelite.client.plugins.worldmap;
 
 import java.awt.image.BufferedImage;
-
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.ui.overlay.worldmap.WorldMapPoint;
 
-class FarmingPatchPoint extends WorldMapPoint {
-	FarmingPatchPoint(WorldPoint point, String tooltip, BufferedImage icon) {
+class FarmingPatchPoint extends WorldMapPoint
+{
+	FarmingPatchPoint(WorldPoint point, String tooltip, BufferedImage icon)
+	{
 		super(point, icon);
 		setTooltip(tooltip);
 	}

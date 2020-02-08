@@ -28,7 +28,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -46,7 +45,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author Adam
  */
-public class Order implements Deobfuscator {
+public class Order implements Deobfuscator
+{
 	private static final Logger logger = LoggerFactory.getLogger(Order.class);
 
 	private Execution execution;
@@ -54,13 +54,15 @@ public class Order implements Deobfuscator {
 	private final Map<String, Integer> nameIndices = new HashMap<>();
 
 	@Override
-	public void run(ClassGroup group) {
+	public void run(ClassGroup group)
+	{
 		execution = new Execution(group);
 		execution.staticStep = true;
 		execution.populateInitialMethods();
 		execution.run();
 
-		for (int i = 0; i < group.getClasses().size(); i++) {
+		for (int i = 0; i < group.getClasses().size(); i++)
+		{
 			ClassFile cf = group.getClasses().get(i);
 			String className = DeobAnnotations.getObfuscatedName(cf.getAnnotations());
 			nameIndices.put(className, i);
@@ -68,14 +70,16 @@ public class Order implements Deobfuscator {
 
 		int sortedMethods = 0, sortedFields = 0;
 
-		for (ClassFile cf : group.getClasses()) {
+		for (ClassFile cf : group.getClasses())
+		{
 			List<Method> m = cf.getMethods();
 			Collections.sort(m, this::compareMethod);
 
 			sortedMethods += m.size();
 
 			// field order of enums is mostly handled in EnumDeobfuscator
-			if (!cf.isEnum()) {
+			if (!cf.isEnum())
+			{
 				List<Field> f = cf.getFields();
 				Collections.sort(f, this::compareFields);
 
@@ -87,41 +91,48 @@ public class Order implements Deobfuscator {
 	}
 
 	// static fields, member fields, clinit, init, methods, static methods
-	private int compareMethod(Method m1, Method m2) {
+	private int compareMethod(Method m1, Method m2)
+	{
 		int i1 = getType(m1), i2 = getType(m2);
 
-		if (i1 != i2) {
+		if (i1 != i2)
+		{
 			return Integer.compare(i1, i2);
 		}
 
 		int nameIdx1 = getNameIdx(m1.getAnnotations());
 		int nameIdx2 = getNameIdx(m2.getAnnotations());
 
-		if (nameIdx1 != nameIdx2) {
+		if (nameIdx1 != nameIdx2)
+		{
 			return Integer.compare(nameIdx1, nameIdx2);
 		}
 
 		return compareOrder(m1, m2);
 	}
 
-	private int compareFields(Field f1, Field f2) {
+	private int compareFields(Field f1, Field f2)
+	{
 		int i1 = getType(f1), i2 = getType(f2);
 
-		if (i1 != i2) {
+		if (i1 != i2)
+		{
 			return Integer.compare(i1, i2);
 		}
 
 		int nameIdx1 = getNameIdx(f1.getAnnotations());
 		int nameIdx2 = getNameIdx(f2.getAnnotations());
 
-		if (nameIdx1 != nameIdx2) {
+		if (nameIdx1 != nameIdx2)
+		{
 			return Integer.compare(nameIdx1, nameIdx2);
 		}
 
 		return compareOrder(f1, f2);
 	}
 
-	private int getNameIdx(Annotations annotations) {
+	private int getNameIdx(Annotations annotations)
+	{
 		String name = DeobAnnotations.getObfuscatedName(annotations);
 
 		Integer nameIdx = nameIndices.get(name);
@@ -129,40 +140,50 @@ public class Order implements Deobfuscator {
 		return nameIdx != null ? nameIdx : -1;
 	}
 
-	private int getType(Method m) {
-		if (m.getName().equals("<clinit>")) {
+	private int getType(Method m)
+	{
+		if (m.getName().equals("<clinit>"))
+		{
 			return 1;
 		}
-		if (m.getName().equals("<init>")) {
+		if (m.getName().equals("<init>"))
+		{
 			return 2;
 		}
-		if (!m.isStatic()) {
+		if (!m.isStatic())
+		{
 			return 3;
 		}
 		return 4;
 	}
 
-	private int getType(Field f) {
-		if (f.isStatic()) {
+	private int getType(Field f)
+	{
+		if (f.isStatic())
+		{
 			return 1;
 		}
 		return 2;
 	}
 
-	private int compareOrder(Object o1, Object o2) {
+	private int compareOrder(Object o1, Object o2)
+	{
 		Integer i1, i2;
 
 		i1 = execution.getOrder(o1);
 		i2 = execution.getOrder(o2);
 
-		if (i1 == null) {
+		if (i1 == null)
+		{
 			i1 = Integer.MAX_VALUE;
 		}
-		if (i2 == null) {
+		if (i2 == null)
+		{
 			i2 = Integer.MAX_VALUE;
 		}
 
-		if (!i1.equals(i2)) {
+		if (!i1.equals(i2))
+		{
 			return Integer.compare(i1, i2);
 		}
 
@@ -170,10 +191,12 @@ public class Order implements Deobfuscator {
 		i1 = execution.getAccesses(o1);
 		i2 = execution.getAccesses(o2);
 
-		if (i1 == null) {
+		if (i1 == null)
+		{
 			i1 = Integer.MAX_VALUE;
 		}
-		if (i2 == null) {
+		if (i2 == null)
+		{
 			i2 = Integer.MAX_VALUE;
 		}
 

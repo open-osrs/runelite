@@ -32,17 +32,19 @@ import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.Variables;
 import org.junit.Assert;
 import org.junit.Test;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
+ *
  * @author Adam
  */
-public class LCmpTest {
+public class LCmpTest
+{
 
 	@Test
-	public void testIsSame() {
+	public void testIsSame()
+	{
 		LCmp cmp = new LCmp(mock(Instructions.class), InstructionType.LCMP);
 		LCmp cmp2 = new LCmp(mock(Instructions.class), InstructionType.LCMP);
 

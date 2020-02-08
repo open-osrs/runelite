@@ -26,13 +26,13 @@ package net.runelite.client.ui.overlay.infobox;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.plugins.Plugin;
 
-public abstract class InfoBox {
+public abstract class InfoBox
+{
 	@Getter(AccessLevel.PACKAGE)
 	private final Plugin plugin;
 
@@ -52,7 +52,8 @@ public abstract class InfoBox {
 	@Setter
 	private String tooltip;
 
-	public InfoBox(BufferedImage image, Plugin plugin) {
+	public InfoBox(BufferedImage image, Plugin plugin)
+	{
 		this.plugin = plugin;
 		setImage(image);
 		setPriority(InfoBoxPriority.NONE);
@@ -62,11 +63,13 @@ public abstract class InfoBox {
 
 	public abstract Color getTextColor();
 
-	public boolean render() {
+	public boolean render()
+	{
 		return true;
 	}
 
-	public boolean cull() {
+	public boolean cull()
+	{
 		return false;
 	}
 }

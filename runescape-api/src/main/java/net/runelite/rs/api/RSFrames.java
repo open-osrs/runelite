@@ -26,7 +26,8 @@ package net.runelite.rs.api;
 
 import net.runelite.mapping.Import;
 
-public interface RSFrames extends RSDualNode {
+public interface RSFrames extends RSDualNode
+{
 	@Import("frames")
 	RSAnimation[] getFrames();
 }

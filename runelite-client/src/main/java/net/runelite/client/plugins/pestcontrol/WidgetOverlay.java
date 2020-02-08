@@ -33,7 +33,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.widgets.Widget;
@@ -44,13 +43,15 @@ import net.runelite.client.ui.overlay.OverlayPosition;
 
 @Slf4j
 @Singleton
-public class WidgetOverlay extends Overlay {
+public class WidgetOverlay extends Overlay
+{
 	private final Client client;
 
 	private final PestControlPlugin plugin;
 
 	@Inject
-	public WidgetOverlay(final Client client, final PestControlPlugin plugin) {
+	public WidgetOverlay(final Client client, final PestControlPlugin plugin)
+	{
 		this.plugin = plugin;
 		this.client = client;
 
@@ -58,39 +59,48 @@ public class WidgetOverlay extends Overlay {
 		setLayer(OverlayLayer.ABOVE_SCENE);
 	}
 
-	Integer getPortalHitpoints(PortalColor color) {
-		if (plugin.getGame() == null) {
+	Integer getPortalHitpoints(PortalColor color)
+	{
+		if (plugin.getGame() == null)
+		{
 			return null;
 		}
 
 		WidgetInfo healthWidgetInfo = null;
 
-		switch (color) {
-			case RED: {
+		switch (color)
+		{
+			case RED:
+			{
 				healthWidgetInfo = WidgetPortal.RED.getHitpoints();
 				break;
 			}
-			case BLUE: {
+			case BLUE:
+			{
 				healthWidgetInfo = WidgetPortal.BLUE.getHitpoints();
 				break;
 			}
-			case PURPLE: {
+			case PURPLE:
+			{
 				healthWidgetInfo = WidgetPortal.PURPLE.getHitpoints();
 				break;
 			}
-			case YELLOW: {
+			case YELLOW:
+			{
 				healthWidgetInfo = WidgetPortal.YELLOW.getHitpoints();
 				break;
 			}
 		}
 
-		if (healthWidgetInfo == null) {
+		if (healthWidgetInfo == null)
+		{
 			return null;
 		}
 
 		Widget healthWidget = client.getWidget(healthWidgetInfo);
 
-		if (healthWidget == null) {
+		if (healthWidget == null)
+		{
 			return null;
 		}
 
@@ -98,16 +108,20 @@ public class WidgetOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (plugin.getGame() == null) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (plugin.getGame() == null)
+		{
 			return null;
 		}
 
-		for (Portal portal : plugin.getGame().getNextPortals()) {
+		for (Portal portal : plugin.getGame().getNextPortals())
+		{
 			renderWidgetOverlay(graphics, portal, "NEXT", Color.ORANGE);
 		}
 
-		for (Portal portal : plugin.getGame().getActivePortals()) {
+		for (Portal portal : plugin.getGame().getActivePortals())
+		{
 			renderWidgetOverlay(graphics, portal, "ATT", Color.RED);
 		}
 
@@ -116,7 +130,8 @@ public class WidgetOverlay extends Overlay {
 		return null;
 	}
 
-	private void renderWidgetOverlay(Graphics2D graphics, Portal portal, String text, Color color) {
+	private void renderWidgetOverlay(Graphics2D graphics, Portal portal, String text, Color color)
+	{
 		Widget shield = client.getWidget(portal.getWidget().getShield());
 		Widget icon = client.getWidget(portal.getWidget().getIcon());
 		Widget hp = client.getWidget(portal.getWidget().getHitpoints());
@@ -143,7 +158,8 @@ public class WidgetOverlay extends Overlay {
 		graphics.drawString(text, x, y + 4);
 	}
 
-	private void renderProgressWidget(Graphics2D graphics) {
+	private void renderProgressWidget(Graphics2D graphics)
+	{
 		String text;
 		int percentage;
 
@@ -153,16 +169,20 @@ public class WidgetOverlay extends Overlay {
 		Widget prgs = client.getWidget(WidgetInfo.PEST_CONTROL_ACTIVITY_PROGRESS).getChild(0);
 
 		// At 0% the inner widget changes and your progress will not increase anymore
-		if ((int) (prgs.getBounds().getX()) - bounds.getX() != 2) {
+		if ((int) (prgs.getBounds().getX()) - bounds.getX() != 2)
+		{
 			percentage = 0;
 			text = "FAILED";
-		} else {
+		}
+		else
+		{
 			percentage = (int) ((prgs.getBounds().getWidth() / bounds.getWidth()) * 100);
 			text = percentage + "%";
 		}
 
 		Color color = Color.GREEN;
-		if (percentage < 25) {
+		if (percentage < 25)
+		{
 			color = Color.RED;
 		}
 
@@ -177,7 +197,8 @@ public class WidgetOverlay extends Overlay {
 		graphics.drawString(text, x, y);
 	}
 
-	private static Rectangle2D union(Rectangle2D src1, Rectangle2D src2) {
+	private static Rectangle2D union(Rectangle2D src1, Rectangle2D src2)
+	{
 		double x1 = Math.min(src1.getMinX(), src2.getMinX());
 		double y1 = Math.min(src1.getMinY(), src2.getMinY());
 		double x2 = Math.max(src1.getMaxX(), src2.getMaxX());

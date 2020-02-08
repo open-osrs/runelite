@@ -29,12 +29,12 @@ import net.runelite.asm.attributes.annotation.Annotation;
 import net.runelite.deob.DeobAnnotations;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
-
 import static org.objectweb.asm.Opcodes.ACC_PRIVATE;
 import static org.objectweb.asm.Opcodes.ACC_PROTECTED;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 
-public class Field implements Annotated, Named {
+public class Field implements Annotated, Named
+{
 	public static final int ACCESS_MODIFIERS = ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED;
 
 	private final ClassFile classFile;
@@ -45,7 +45,8 @@ public class Field implements Annotated, Named {
 	private Object value; // ConstantValue
 	private final Annotations annotations;
 
-	public Field(ClassFile classFile, String name, Type type) {
+	public Field(ClassFile classFile, String name, Type type)
+	{
 		this.classFile = classFile;
 		this.name = name;
 		this.type = type;
@@ -53,97 +54,119 @@ public class Field implements Annotated, Named {
 		this.annotations = new Annotations();
 	}
 
-	public void accept(FieldVisitor visitor) {
-		for (Annotation annotation : annotations.getAnnotations()) {
+	public void accept(FieldVisitor visitor)
+	{
+		for (Annotation annotation : annotations.getAnnotations())
+		{
 			annotation.accept(visitor.visitAnnotation(annotation.getType().toString(), true));
 		}
 
 		visitor.visitEnd();
 	}
 
-	public ClassFile getClassFile() {
+	public ClassFile getClassFile()
+	{
 		return classFile;
 	}
 
-	public int getAccessFlags() {
+	public int getAccessFlags()
+	{
 		return accessFlags;
 	}
 
-	public void setAccessFlags(int accessFlags) {
+	public void setAccessFlags(int accessFlags)
+	{
 		this.accessFlags = accessFlags;
 	}
 
-	public boolean isPublic() {
+	public boolean isPublic()
+	{
 		return (accessFlags & Opcodes.ACC_PUBLIC) != 0;
 	}
 
-	public void setPublic() {
+	public void setPublic()
+	{
 		accessFlags = (short) ((accessFlags & ~ACCESS_MODIFIERS) | ACC_PUBLIC);
 	}
 
-	public boolean isStatic() {
+	public boolean isStatic()
+	{
 		return (accessFlags & Opcodes.ACC_STATIC) != 0;
 	}
 
-	public void setStatic() {
+	public void setStatic()
+	{
 		accessFlags |= Opcodes.ACC_STATIC;
 	}
 
-	public boolean isSynthetic() {
+	public boolean isSynthetic()
+	{
 		return (accessFlags & Opcodes.ACC_SYNTHETIC) != 0;
 	}
 
-	public void setEnum() {
+	public void setEnum()
+	{
 		accessFlags |= Opcodes.ACC_ENUM;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public Type getType() {
+	public Type getType()
+	{
 		return type;
 	}
 
-	public void setType(Type type) {
+	public void setType(Type type)
+	{
 		this.type = type;
 	}
 
-	public Type getObfuscatedType() {
+	public Type getObfuscatedType()
+	{
 		Type type = DeobAnnotations.getObfuscatedType(this);
-		if (type == null) {
+		if (type == null)
+		{
 			type = getType();
 		}
 
 		return type;
 	}
 
-	public Object getValue() {
+	public Object getValue()
+	{
 		return value;
 	}
 
-	public void setValue(Object value) {
+	public void setValue(Object value)
+	{
 		this.value = value;
 	}
 
-	public Annotations getAnnotations() {
+	public Annotations getAnnotations()
+	{
 		return annotations;
 	}
 
-	public net.runelite.asm.pool.Field getPoolField() {
+	public net.runelite.asm.pool.Field getPoolField()
+	{
 		return new net.runelite.asm.pool.Field(
-				new net.runelite.asm.pool.Class(classFile.getName()),
-				this.getName(),
-				this.getType()
+			new net.runelite.asm.pool.Class(classFile.getName()),
+			this.getName(),
+			this.getType()
 		);
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return (this.isStatic() ? "static " : "") + this.type + " " + classFile.getName() + "." + this.getName();
 	}
 }

@@ -9,31 +9,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapData_1 extends AbstractWorldMapData {
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-			intValue = -352069921
+		intValue = -352069921
 	)
 	@Export("canvasHeight")
 	public static int canvasHeight;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-			intValue = 650382493
+		intValue = 650382493
 	)
 	@Export("chunkXLow")
 	int chunkXLow;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-			intValue = 214088681
+		intValue = 214088681
 	)
 	@Export("chunkYLow")
 	int chunkYLow;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-			intValue = -1958393799
+		intValue = -1958393799
 	)
 	@Export("chunkX")
 	int chunkX;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-			intValue = -1560494711
+		intValue = -1560494711
 	)
 	@Export("chunkY")
 	int chunkY;
@@ -43,8 +43,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-			signature = "(Lkp;I)V",
-			garbageValue = "-431510829"
+		signature = "(Lkp;I)V",
+		garbageValue = "-431510829"
 	)
 	@Export("init")
 	void init(Buffer var1) {
@@ -69,8 +69,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-			signature = "(Lkp;S)V",
-			garbageValue = "-30591"
+		signature = "(Lkp;S)V",
+		garbageValue = "-30591"
 	)
 	@Export("readGeography")
 	void readGeography(Buffer var1) {
@@ -103,8 +103,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "35"
+		signature = "(B)I",
+		garbageValue = "35"
 	)
 	@Export("getChunkXLow")
 	int getChunkXLow() {
@@ -113,8 +113,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-			signature = "(B)I",
-			garbageValue = "105"
+		signature = "(B)I",
+		garbageValue = "105"
 	)
 	@Export("getChunkYLow")
 	int getChunkYLow() {
@@ -123,8 +123,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "-1796035286"
+		signature = "(I)I",
+		garbageValue = "-1796035286"
 	)
 	@Export("getChunkX")
 	int getChunkX() {
@@ -133,8 +133,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-			signature = "(I)I",
-			garbageValue = "1186864483"
+		signature = "(I)I",
+		garbageValue = "1186864483"
 	)
 	@Export("getChunkY")
 	int getChunkY() {
@@ -145,7 +145,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		if (!(var1 instanceof WorldMapData_1)) {
 			return false;
 		} else {
-			WorldMapData_1 var2 = (WorldMapData_1) var1;
+			WorldMapData_1 var2 = (WorldMapData_1)var1;
 			if (var2.regionX == super.regionX && var2.regionY == super.regionY) {
 				return this.chunkX == var2.chunkX && this.chunkY == var2.chunkY;
 			} else {
@@ -160,8 +160,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1587846163"
+		signature = "(I)V",
+		garbageValue = "-1587846163"
 	)
 	@Export("savePreferences")
 	static void savePreferences() {
@@ -185,13 +185,13 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("j")
 	static boolean method732(long var0) {
-		return (int) (var0 >>> 16 & 1L) == 1;
+		return (int)(var0 >>> 16 & 1L) == 1;
 	}
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-			signature = "(II)I",
-			garbageValue = "1876587331"
+		signature = "(II)I",
+		garbageValue = "1876587331"
 	)
 	public static int method712(int var0) {
 		if (var0 > 0) {
@@ -203,8 +203,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-			signature = "(ILhj;ZB)V",
-			garbageValue = "89"
+		signature = "(ILhj;ZB)V",
+		garbageValue = "89"
 	)
 	static void method731(int var0, Coord var1, boolean var2) {
 		WorldMapArea var3 = GrandExchangeOfferUnitPriceComparator.getWorldMap().getMapArea(var0);
@@ -217,8 +217,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("gj")
 	@ObfuscatedSignature(
-			signature = "(I)V",
-			garbageValue = "-1054316430"
+		signature = "(I)V",
+		garbageValue = "-1054316430"
 	)
 	static void method733() {
 		int var0 = Players.Players_count;
