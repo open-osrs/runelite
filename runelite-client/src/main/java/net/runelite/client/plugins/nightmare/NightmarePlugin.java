@@ -1,6 +1,8 @@
 package net.runelite.client.plugins.nightmare;
 
 import com.google.inject.Provides;
+import lombok.AccessLevel;
+import lombok.Getter;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
@@ -16,10 +18,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import lombok.Getter;
-import lombok.AccessLevel;
-
-import java.awt.*;
+import java.awt.Color;
 //import static net.runelite.api.NpcID.nightmarewhenitsupdated;                     //TODO: this here is the thing to change
 
 @PluginDescriptor(
