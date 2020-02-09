@@ -45,12 +45,11 @@ public class NightmarePrayerOverlay extends Overlay {
 			return null;
 		}
 
-		if ((plugin.isInFight()) && (plugin.getPrayAgainst() != null) && (plugin.getNm() != null)) {
-			NightmareAttack attack = plugin.getPrayAgainst();
+		if (plugin.isInFight() && plugin.getPendingNightmareAttack() != null && plugin.getNm() != null) {
+			NightmareAttack attack = plugin.getPendingNightmareAttack();
 			BufferedImage prayerImage;
 			prayerImage = getPrayerImage(attack);
-			imagePanelComponent.setBackgroundColor(client
-					.isPrayerActive(attack.getPrayer()) ? ComponentConstants.STANDARD_BACKGROUND_COLOR : NOT_ACTIVATED_BACKGROUND_COLOR);
+			imagePanelComponent.setBackgroundColor(client.isPrayerActive(attack.getPrayer()) ? ComponentConstants.STANDARD_BACKGROUND_COLOR : NOT_ACTIVATED_BACKGROUND_COLOR);
 
 			NPC nm = plugin.getNm();
 			imagePanelComponent.getChildren().add(new ImageComponent(prayerImage));
@@ -61,10 +60,6 @@ public class NightmarePrayerOverlay extends Overlay {
 	}
 
 	private BufferedImage getPrayerImage(NightmareAttack attack) {
-		int prayerSpriteID = 127;
-		if (attack == NightmareAttack.MELEE) prayerSpriteID = 129;
-		else if (attack == NightmareAttack.RANGE) prayerSpriteID = 128;
-		else prayerSpriteID = 127;
-		return spriteManager.getSprite(prayerSpriteID, 0);
+		return spriteManager.getSprite(attack.getPrayerSpriteId(), 0);
 	}
 }
