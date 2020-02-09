@@ -29,39 +29,52 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.ConfigSection;
 
 @ConfigGroup("betterNightmare")
-public interface NightmareConfig extends Config {
-    @ConfigSection(
-        keyName = "features",
-        name = "Features",
-        description = "Features",
-        position = 0
-    )
-    default boolean features() { return true; }
+public interface NightmareConfig extends Config
+{
+	@ConfigSection(
+		keyName = "features",
+		name = "Features",
+		description = "Features",
+		position = 0
+	)
+	default boolean features()
+	{
+		return true;
+	}
 
-    @ConfigItem(
-        keyName = "prayerHelper",
-        name = "Prayer helper",
-        description = "Displays the correct prayer to use at various points in the fight.",
-        position = 1,
-        section = "features"
-    )
-    default boolean prayerHelper() { return true; }
+	@ConfigItem(
+		keyName = "prayerHelper",
+		name = "Prayer helper",
+		description = "Displays the correct prayer to use at various points in the fight.",
+		position = 1,
+		section = "features"
+	)
+	default boolean prayerHelper()
+	{
+		return true;
+	}
 
-    @ConfigItem(
-        keyName = "tickCounter",
-        name = "Show Ticks",
-        description = "Displays the number of ticks until next attack",
-        position = 2,
-        section = "features"
-    )
-    default boolean ticksCounter() { return true; }
+	@ConfigItem(
+		keyName = "tickCounter",
+		name = "Show Ticks",
+		description = "Displays the number of ticks until next attack",
+		position = 2,
+		section = "features"
+	)
+	default boolean ticksCounter()
+	{
+		return true;
+	}
 
-    @ConfigItem(
-            keyName = "highlightTotems",
-            name = "Highlight Totems",
-            description = "Highlights Totems based on their status",
-            position = 3,
-            section = "features"
-    )
-    default boolean highlightTotems() { return true; }
+	@ConfigItem(
+		keyName = "highlightTotems",
+		name = "Highlight Totems",
+		description = "Highlights Totems based on their status",
+		position = 3,
+		section = "features"
+	)
+	default boolean highlightTotems()
+	{
+		return true;
+	}
 }

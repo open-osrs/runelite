@@ -13,10 +13,16 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 import net.runelite.client.ui.overlay.OverlayUtil;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.Shape;
 
 @Singleton
-class NightmareOverlay extends Overlay {
+class NightmareOverlay extends Overlay
+{
 	private static final int NIGHTMARE_REGION_ID = 15256;
 	private final Client client;
 	private final NightmarePlugin plugin;
@@ -47,7 +53,8 @@ class NightmareOverlay extends Overlay {
 
 
 	@Inject
-	private NightmareOverlay(final Client client, final NightmarePlugin plugin) {
+	private NightmareOverlay(final Client client, final NightmarePlugin plugin)
+	{
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -56,12 +63,15 @@ class NightmareOverlay extends Overlay {
 	}
 
 	@Override
-	public Dimension render(Graphics2D graphics) {
-		if (!client.isInInstancedRegion() || !plugin.isInFight()) {
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!client.isInInstancedRegion() || !plugin.isInFight())
+		{
 			return null;
 		}
 
-		for (GraphicsObject graphicsObject : client.getGraphicsObjects()) {
+		for (GraphicsObject graphicsObject : client.getGraphicsObjects())
+		{
 			Color color;
 
 			if (graphicsObject.getId() == NIGHTMARE_SHADOW)
@@ -76,7 +86,8 @@ class NightmareOverlay extends Overlay {
 			LocalPoint lp = graphicsObject.getLocation();
 			Polygon poly = Perspective.getCanvasTilePoly(client, lp);
 
-			if (poly != null) {
+			if (poly != null)
+			{
 				OverlayUtil.renderPolygon(graphics, poly, color);
 			}
 		}
@@ -92,7 +103,8 @@ class NightmareOverlay extends Overlay {
 			Color tickColor = Color.WHITE;
 
 			NightmareAttack nextAttack = plugin.getPendingNightmareAttack();
-			if(ticksUntilNext >= 4 && nextAttack != null) {
+			if (ticksUntilNext >= 4 && nextAttack != null)
+			{
 				tickColor = nextAttack.getTickColor();
 			}
 
@@ -101,7 +113,8 @@ class NightmareOverlay extends Overlay {
 
 		if (plugin.isHighlightTotems())
 		{
-			for (MemorizedTotem totem : plugin.getTotems().values()) {
+			for (MemorizedTotem totem : plugin.getTotems().values())
+			{
 				if (totem.getCurrentPhase().isActive())
 				{
 					renderNpcOverlay(graphics, totem.getNpc(), totem.getCurrentPhase().getColor());
@@ -125,7 +138,8 @@ class NightmareOverlay extends Overlay {
 		}
 	}
 
-	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color) {
+	private void renderNpcOverlay(Graphics2D graphics, NPC actor, Color color)
+	{
 		final Shape objectClickbox = actor.getConvexHull();
 		graphics.setColor(color);
 		graphics.draw(objectClickbox);

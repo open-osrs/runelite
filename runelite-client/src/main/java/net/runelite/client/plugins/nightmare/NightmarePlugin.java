@@ -5,9 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.client.config.ConfigManager;
@@ -20,7 +22,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.awt.Color;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +38,8 @@ import java.util.Map;
 
 @Slf4j
 @Singleton
-public class NightmarePlugin extends Plugin {
+public class NightmarePlugin extends Plugin
+{
 	// Nightmare's attack animations
 	private static final int NIGHTMARE_HUSK_SPAWN = 8565;
 	private static final int NIGHTMARE_CHARGE_1 = 8597;
@@ -100,7 +102,8 @@ public class NightmarePlugin extends Plugin {
 	@Getter(AccessLevel.PACKAGE)
 	private int ticksUntilNextAttack = 0;
 
-	public NightmarePlugin() {
+	public NightmarePlugin()
+	{
 		inFight = false;
 	}
 
@@ -114,7 +117,8 @@ public class NightmarePlugin extends Plugin {
 	private NightmareOverlay overlay;
 
 	@Override
-	protected void startUp() {
+	protected void startUp()
+	{
 		updateConfig();
 		overlayManager.add(overlay);
 		overlayManager.add(prayerOverlay);
@@ -122,7 +126,8 @@ public class NightmarePlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() {
+	protected void shutDown()
+	{
 		overlayManager.remove(overlay);
 		overlayManager.remove(prayerOverlay);
 		reset();
@@ -140,6 +145,26 @@ public class NightmarePlugin extends Plugin {
 	}
 
 	@Subscribe
+	private void onChatMessage(ChatMessage chatMessage)
+	{
+		if (chatMessage.getType() != ChatMessageType.GAMEMESSAGE)
+		{
+			return;
+		}
+
+		final String message = chatMessage.getMessage();
+		if (message.contains("The Nightmare has cursed you, shuffling your prayers!"))
+		{
+			cursed = true;
+		}
+		else if (message.contains("You feel the effects of the Nightmare's curse wear off."))
+		{
+			cursed = false;
+		}
+
+	}
+
+	@Subscribe
 	private void onConfigChanged(ConfigChanged event)
 	{
 		if (!event.getGroup().equals("betterNightmare"))
@@ -152,12 +177,14 @@ public class NightmarePlugin extends Plugin {
 	@Subscribe
 	public void onAnimationChanged(AnimationChanged event)
 	{
-		if (!inFight || nm == null) {
+		if (!inFight || nm == null)
+		{
 			return;
 		}
 
 		Actor actor = event.getActor();
-		if (!(actor instanceof NPC)) {
+		if (!(actor instanceof NPC))
+		{
 			return;
 		}
 
@@ -202,7 +229,7 @@ public class NightmarePlugin extends Plugin {
 	{
 		final NPC npc = event.getNpc();
 
-		if(npc == null)
+		if (npc == null)
 		{
 			return;
 		}
@@ -234,7 +261,8 @@ public class NightmarePlugin extends Plugin {
 	}
 
 	@Subscribe
-	private void onGameTick(final GameTick event) {
+	private void onGameTick(final GameTick event)
+	{
 		if (!inFight || nm == null)
 		{
 			return;

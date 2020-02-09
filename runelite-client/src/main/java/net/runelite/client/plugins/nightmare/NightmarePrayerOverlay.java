@@ -18,7 +18,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 @Singleton
-public class NightmarePrayerOverlay extends Overlay {
+public class NightmarePrayerOverlay extends Overlay
+{
 	private static final Color NOT_ACTIVATED_BACKGROUND_COLOR = new Color(150, 0, 0, 150);
 	private final Client client;
 	private final NightmarePlugin plugin;
@@ -27,7 +28,8 @@ public class NightmarePrayerOverlay extends Overlay {
 	private static final int NM_PRE_REGION = 15256;
 
 	@Inject
-	private NightmarePrayerOverlay(final Client client, final NightmarePlugin plugin, final SpriteManager spriteManager) {
+	private NightmarePrayerOverlay(final Client client, final NightmarePlugin plugin, final SpriteManager spriteManager)
+	{
 		setLayer(OverlayLayer.ABOVE_SCENE);
 		setPriority(OverlayPriority.HIGH);
 		setPosition(OverlayPosition.DYNAMIC);
@@ -37,7 +39,8 @@ public class NightmarePrayerOverlay extends Overlay {
 		this.spriteManager = spriteManager;
 	}
 
-	public Dimension render(Graphics2D graphics) {
+	public Dimension render(Graphics2D graphics)
+	{
 		imagePanelComponent.getChildren().clear();
 
 		if (!plugin.isPrayerHelper())
@@ -45,7 +48,8 @@ public class NightmarePrayerOverlay extends Overlay {
 			return null;
 		}
 
-		if (plugin.isInFight() && plugin.getPendingNightmareAttack() != null && plugin.getNm() != null) {
+		if (plugin.isInFight() && plugin.getPendingNightmareAttack() != null && plugin.getNm() != null)
+		{
 			NightmareAttack attack = plugin.getPendingNightmareAttack();
 			BufferedImage prayerImage;
 			prayerImage = getPrayerImage(attack);
@@ -59,7 +63,8 @@ public class NightmarePrayerOverlay extends Overlay {
 		return null;
 	}
 
-	private BufferedImage getPrayerImage(NightmareAttack attack) {
+	private BufferedImage getPrayerImage(NightmareAttack attack)
+	{
 		return spriteManager.getSprite(attack.getPrayerSpriteId(), 0);
 	}
 }
