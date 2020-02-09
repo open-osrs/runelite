@@ -51,8 +51,17 @@ public interface NightmareConfig extends Config {
         keyName = "tickCounter",
         name = "Show Ticks",
         description = "Displays the number of ticks until next attack",
-        position = 1,
+        position = 2,
         section = "features"
     )
     default boolean ticksCounter() { return true; }
+
+    @ConfigItem(
+            keyName = "highlightTotems",
+            name = "Highlight Totems",
+            description = "Highlights Totems based on their status",
+            position = 3,
+            section = "features"
+    )
+    default boolean highlightTotems() { return true; }
 }

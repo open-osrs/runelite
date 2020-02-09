@@ -21,6 +21,10 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.awt.Color;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 //import static net.runelite.api.NpcID.nightmarewhenitsupdated;                     //TODO: this here is the thing to change
 
 @PluginDescriptor(
@@ -53,6 +57,8 @@ public class NightmarePlugin extends Plugin {
 	private static final int NIGHTMARE_RANGE_ATTACK = 8596;
 	private static final int NIGHTMARE_MAGIC_ATTACK = 8595;
 
+	private static final List<Integer> INACTIVE_TOTEMS = Arrays.asList(9434, 9437, 9440, 9443);
+
 	@Inject
 	private Client client;
 
@@ -67,27 +73,29 @@ public class NightmarePlugin extends Plugin {
 
 	@Nullable
 	@Getter(AccessLevel.PACKAGE)
-	private NightmareAttack prayAgainst;
+	private NightmareAttack pendingNightmareAttack;
 
 	@Nullable
 	@Getter(AccessLevel.PACKAGE)
 	private NPC nm;
 
 	@Getter(AccessLevel.PACKAGE)
+	private final Map<Integer, MemorizedTotem> totems = new HashMap<>();
+
+	@Getter(AccessLevel.PACKAGE)
 	private boolean inFight;
 
 	private boolean cursed;
-	private int attackCount;
-	private int curseStartID;
-
-	@Getter(AccessLevel.PACKAGE)
-	private Color tickColor;
+	private int attacksSinceCurse;
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean prayerHelper;
 
 	@Getter(AccessLevel.PACKAGE)
 	private boolean tickCounter;
+
+	@Getter(AccessLevel.PACKAGE)
+	private boolean highlightTotems;
 
 	@Getter(AccessLevel.PACKAGE)
 	private int ticksUntilNextAttack = 0;
@@ -124,11 +132,11 @@ public class NightmarePlugin extends Plugin {
 	{
 		inFight = false;
 		nm = null;
-		prayAgainst = null;
+		pendingNightmareAttack = null;
 		cursed = false;
-		attackCount = 0;
-		curseStartID = -1;
+		attacksSinceCurse = 0;
 		ticksUntilNextAttack = 0;
+		totems.clear();
 	}
 
 	@Subscribe
@@ -157,22 +165,36 @@ public class NightmarePlugin extends Plugin {
 		int id = npc.getId();
 		int animationId = npc.getAnimation();
 
-		if(animationId == NIGHTMARE_MAGIC_ATTACK){
-			ticksUntilNextAttack = 7;
-			tickColor = Color.CYAN;
-		}else if(animationId == NIGHTMARE_MELEE_ATTACK){
-			ticksUntilNextAttack = 7;
-			tickColor = Color.RED;
-		}else if(animationId == NIGHTMARE_RANGE_ATTACK){
-			ticksUntilNextAttack = 7;
-			tickColor = Color.GREEN;
-		}
-		/*
-		if (animationId == NIGHTMARE_MAGIC_ATTACK || animationId == NIGHTMARE_MELEE_ATTACK || animationId == NIGHTMARE_RANGE_ATTACK)
+		if (animationId == NIGHTMARE_MAGIC_ATTACK)
 		{
 			ticksUntilNextAttack = 7;
+			attacksSinceCurse++;
+			pendingNightmareAttack = cursed ? NightmareAttack.CURSE_MAGIC : NightmareAttack.MAGIC;
 		}
-		 */
+		else if (animationId == NIGHTMARE_MELEE_ATTACK)
+		{
+			ticksUntilNextAttack = 7;
+			attacksSinceCurse++;
+			pendingNightmareAttack = cursed ? NightmareAttack.CURSE_MELEE : NightmareAttack.MELEE;
+		}
+		else if (animationId == NIGHTMARE_RANGE_ATTACK)
+		{
+			ticksUntilNextAttack = 7;
+			attacksSinceCurse++;
+			pendingNightmareAttack = cursed ? NightmareAttack.CURSE_RANGE : NightmareAttack.RANGE;
+		}
+		else if (animationId == NIGHTMARE_CURSE)
+		{
+			cursed = true;
+			attacksSinceCurse = 0;
+		}
+
+		if (cursed && attacksSinceCurse == 5)
+		{
+			//curse is removed when she phases, or does 5 attacks
+			cursed = false;
+			attacksSinceCurse = -1;
+		}
 	}
 
 	@Subscribe
@@ -185,11 +207,29 @@ public class NightmarePlugin extends Plugin {
 			return;
 		}
 
-		//this will trigger when the fight begins
+		//this will trigger once when the fight begins
 		if (npc.getId() == 9432)
 		{
 			nm = npc;
 			inFight = true;
+		}
+
+		//if ID changes to 9431 (3rd phase) and is cursed, remove the curse
+		if (cursed && npc.getId() == 9431)
+		{
+			cursed = false;
+			attacksSinceCurse = -1;
+		}
+
+		//if npc is in the totems map, update its phase
+		if (totems.containsKey(npc.getIndex()))
+		{
+			totems.get(npc.getIndex()).updateCurrentPhase(npc.getId());
+		}
+		else if (INACTIVE_TOTEMS.contains(npc.getId()))
+		{
+			//else if the totem is not in the totem array and it is an inactive totem, add it to the totem map.
+			totems.putIfAbsent(npc.getIndex(), new MemorizedTotem(npc));
 		}
 	}
 
@@ -201,43 +241,17 @@ public class NightmarePlugin extends Plugin {
 		}
 
 		//if nightmare's is 9433, the fight has ended and everything should be reset
-		if(nm.getId() == 9433)
+		if (nm.getId() == 9433)
 		{
 			reset();
 		}
 
-		if (nm.getAnimation() == NIGHTMARE_CURSE)
-		{
-			cursed = true;
-			attackCount = 0;
-			curseStartID = nm.getId();
-		}
-
-		if (cursed && (curseStartID != nm.getId() || attackCount == 5))
-		{	//curse is removed when she phases, or does 5 attacks
-			cursed = false;
-			curseStartID = -1;	//can probably remove these two since will be reset from above if, if she curses again
-			attackCount = 0;
-		}
-		if(cursed){
-			if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
-				prayAgainst = NightmareAttack.CURSE_MELEE;
-			} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
-				prayAgainst = NightmareAttack.CURSE_RANGE;
-			} else if (nm.getAnimation() == NightmareAttack.MAGIC.getAnimation()) {
-				prayAgainst = NightmareAttack.CURSE_MAGIC;
-			}
-			attackCount++;
-		}else {
-			if (nm.getAnimation() == NightmareAttack.MELEE.getAnimation()) {
-				prayAgainst = NightmareAttack.MELEE;
-			} else if (nm.getAnimation() == NightmareAttack.RANGE.getAnimation()) {
-				prayAgainst = NightmareAttack.RANGE;
-			} else if (nm.getAnimation() == NightmareAttack.MAGIC.getAnimation()) {
-				prayAgainst = NightmareAttack.MAGIC;
-			}
-		}
 		ticksUntilNextAttack--;
+
+		if (pendingNightmareAttack != null && ticksUntilNextAttack == 0)
+		{
+			pendingNightmareAttack = null;
+		}
 	}
 
 	private boolean isNightmareNpc(int id)
@@ -249,5 +263,6 @@ public class NightmarePlugin extends Plugin {
 	{
 		this.prayerHelper = config.prayerHelper();
 		this.tickCounter = config.ticksCounter();
+		this.highlightTotems = config.highlightTotems();
 	}
 }
