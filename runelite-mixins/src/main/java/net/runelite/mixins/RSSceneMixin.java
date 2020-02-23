@@ -303,7 +303,7 @@ public abstract class RSSceneMixin implements RSScene
 
 						if (client.getTileUpdateCount() == 0)
 						{
-							if (!isGpu && client.getOculusOrbState() != 0)
+							if (!isGpu && !client.getComplianceValue("orbInteraction"))
 							{
 								client.setEntitiesAtMouseCount(0);
 							}
@@ -378,7 +378,7 @@ public abstract class RSSceneMixin implements RSScene
 
 						if (client.getTileUpdateCount() == 0)
 						{
-							if (!isGpu && client.getOculusOrbState() != 0)
+							if (!isGpu && !client.getComplianceValue("orbInteraction"))
 							{
 								client.setEntitiesAtMouseCount(0);
 							}
@@ -395,7 +395,7 @@ public abstract class RSSceneMixin implements RSScene
 			}
 		}
 
-		if (!isGpu && client.getOculusOrbState() != 0)
+		if (!isGpu && !client.getComplianceValue("orbInteraction"))
 		{
 			client.setEntitiesAtMouseCount(0);
 		}
