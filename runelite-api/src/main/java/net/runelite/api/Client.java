@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.runelite.api.annotations.VisibleForExternalPlugins;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.Callbacks;
@@ -704,6 +705,42 @@ public interface Client extends GameShell
 	String getVar(VarClientStr varClientStr);
 
 	/**
+	 * Gets the value of a given VarPlayer.
+	 *
+	 * @param varpId the VarPlayer id
+	 * @return the value
+	 */
+	@VisibleForExternalPlugins
+	int getVarpValue(int varpId);
+
+	/**
+	 * Gets the value of a given Varbit.
+	 *
+	 * @param varbitId the varbit id
+	 * @return the value
+	 */
+	@VisibleForExternalPlugins
+	int getVarbitValue(int varbitId);
+
+	/**
+	 * Gets the value of a given VarClientInt
+	 *
+	 * @param varcIntId the VarClientInt id
+	 * @return the value
+	 */
+	@VisibleForExternalPlugins
+	int getVarcIntValue(int varcIntId);
+
+	/**
+	 * Gets the value of a given VarClientStr
+	 *
+	 * @param varcStrId the VarClientStr id
+	 * @return the value
+	 */
+	@VisibleForExternalPlugins
+	String getVarcStrValue(int varcStrId);
+
+	/**
 	 * Sets a VarClientString to the passed value
 	 */
 	void setVar(VarClientStr varClientStr, String value);
@@ -1259,6 +1296,12 @@ public interface Client extends GameShell
 	 * @param factor new scaling factor
 	 */
 	void setScalingFactor(int factor);
+
+
+	/**
+	 * @return Scaling factor that was set for stretched mode.
+	 */
+	double getScalingFactor();
 
 	/**
 	 * Invalidates cached dimensions that are
@@ -1942,4 +1985,29 @@ public interface Client extends GameShell
 	void setMouseIdleTicks(int cycles);
 
 	void setKeyboardIdleTicks(int cycles);
+
+	/**
+	 * Sets the result count for GE search
+	 */
+	void setGeSearchResultCount(int count);
+
+	/**
+	 * Sets the array of item ids for GE search
+	 */
+	void setGeSearchResultIds(short[] ids);
+
+	/**
+	 * Sets the starting index in the item id array for GE search
+	 */
+	void setGeSearchResultIndex(int index);
+
+	/**
+	 * Sets values related to jagex compliance
+	 */
+	void setComplianceValue(@Nonnull String key, boolean value);
+
+	/**
+	 * Gets values related to jagex compliance
+	 */
+	boolean getComplianceValue(@Nonnull String key);
 }

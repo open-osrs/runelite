@@ -64,10 +64,10 @@ public class RuneLiteAPI
 	private static final String WSBASE = "https://api.runelite.net/ws";
 	private static final String STATICBASE = "https://static.runelite.net";
 
-	private static final String OPENOSRS_BASE = /*"https://api.openosrs.com*/ "https://api.runelitepl.us";
 	private static final String OPENOSRS_SESSION = "http://session.openosrs.dev";
 	private static final String OPENOSRS_XTEA = "http://xtea.openosrs.dev";
 	private static final String OPENOSRS_ANIMATIONS = "http://animations.openosrs.dev";
+	private static final String OPENOSRS_SOUNDS = "http://sounds.openosrs.dev";
 	private static final String MAVEN_METADATA = "http://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
 
 	private static final Properties properties = new Properties();
@@ -133,6 +133,11 @@ public class RuneLiteAPI
 		return HttpUrl.parse(OPENOSRS_ANIMATIONS);
 	}
 
+	public static HttpUrl getSoundsBase()
+	{
+		return HttpUrl.parse(OPENOSRS_SOUNDS);
+	}
+
 	public static HttpUrl getApiBase()
 	{
 		final String prop = System.getProperty("runelite.http-service.url");
@@ -143,11 +148,6 @@ public class RuneLiteAPI
 		}
 
 		return HttpUrl.parse(BASE + "/runelite-" + getVersion());
-	}
-
-	public static HttpUrl getOpenOSRSApiBase()
-	{
-		return HttpUrl.parse(OPENOSRS_BASE + "/http-service-" + getRlpVersion());
 	}
 
 	public static HttpUrl getStaticBase()

@@ -48,8 +48,6 @@ public @interface PluginDescriptor
 	 */
 	String[] tags() default {};
 
-	boolean enabledByDefault() default true;
-
 	/**
 	 * Whether or not plugin is hidden from configuration panel
 	 */
@@ -60,4 +58,6 @@ public @interface PluginDescriptor
 	boolean loadWhenOutdated() default false;
 
 	PluginType type() default PluginType.UNCATEGORIZED;
+
+	boolean enabledByDefault() default true;
 }

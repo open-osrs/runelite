@@ -43,8 +43,6 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.Window;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
@@ -79,7 +77,6 @@ import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.ExpandResizeType;
-import net.runelite.client.config.Keybind;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.config.WarningOnExit;
 import net.runelite.client.eventbus.EventBus;
@@ -366,8 +363,7 @@ public class ClientUI
 			frame.add(container);
 
 			// Add key listener
-			final HotkeyListener sidebarListener = new HotkeyListener(() ->
-				new Keybind(KeyEvent.VK_F11, InputEvent.CTRL_DOWN_MASK))
+			final HotkeyListener sidebarListener = new HotkeyListener(config::sidebarToggleKey)
 			{
 				@Override
 				public void hotkeyPressed()
@@ -377,6 +373,17 @@ public class ClientUI
 			};
 
 			keyManager.registerKeyListener(sidebarListener);
+
+			final HotkeyListener pluginPanelListener = new HotkeyListener(config::panelToggleKey)
+			{
+				@Override
+				public void hotkeyPressed()
+				{
+					togglePluginPanel();
+				}
+			};
+
+			keyManager.registerKeyListener(pluginPanelListener);
 
 			// Add mouse listener
 			final MouseListener mouseListener = new MouseAdapter()
@@ -612,21 +619,20 @@ public class ClientUI
 		{
 			OSXUtil.requestFocus();
 		}
+
 		// The workaround for Windows is to minimise and then un-minimise the client to bring
 		// it to the front because java.awt.Window#toFront doesn't work reliably.
+		// See https://stackoverflow.com/questions/309023/how-to-bring-a-window-to-the-front/7435722#7435722
 		else if (OSType.getOSType() == OSType.Windows && !frame.isFocused())
 		{
-			if ((frame.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH)
+			SwingUtilities.invokeLater(() ->
 			{
-				SwingUtilities.invokeLater(() ->
+				if ((frame.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH)
 				{
 					frame.setExtendedState(JFrame.ICONIFIED);
 					frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				});
-			}
-			else
-			{
-				SwingUtilities.invokeLater(() ->
+				}
+				else
 				{
 					// If the client is snapped to the top and bottom edges of the screen, setExtendedState will
 					// will reset it so setSize and setLocation ensure that the client doesn't move or resize.
@@ -639,8 +645,8 @@ public class ClientUI
 					frame.setExtendedState(JFrame.NORMAL);
 					frame.setLocation(x, y);
 					frame.setSize(width, height);
-				});
-			}
+				}
+			});
 		}
 
 		frame.requestFocus();
@@ -796,6 +802,30 @@ public class ClientUI
 		}
 	}
 
+	private void togglePluginPanel()
+	{
+		// Toggle sidebar open
+		boolean isPanelOpen = sidebarOpen;
+		sidebarOpen = !sidebarOpen;
+
+		if (isPanelOpen)
+		{
+			contract();
+		}
+		else
+		{
+			// Try to restore last panel
+			expand(currentNavButton);
+
+			//Checks if the toolbar was previously closed by toggleSidebar
+			if (!container.isAncestorOf(pluginToolbar))
+			{
+				container.add(pluginToolbar);
+				frame.expandBy(pluginToolbar.getWidth());
+			}
+		}
+	}
+
 	private void expand(@Nullable NavigationButton button)
 	{
 		if (button == null)
@@ -922,7 +952,9 @@ public class ClientUI
 			configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_CLIENT_BOUNDS);
 		}
 
-		if (configManager.getConfiguration(PLUS_CONFIG_GROUP, CONFIG_OPACITY, boolean.class))
+		Boolean opacity = configManager.getConfiguration(PLUS_CONFIG_GROUP, CONFIG_OPACITY, boolean.class);
+
+		if (opacity != null && opacity)
 		{
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			GraphicsDevice gd = ge.getDefaultScreenDevice();

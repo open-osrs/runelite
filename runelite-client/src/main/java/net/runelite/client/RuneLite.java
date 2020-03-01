@@ -40,6 +40,7 @@ import java.lang.management.RuntimeMXBean;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.util.Locale;
+import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -59,14 +60,17 @@ import net.runelite.client.chat.CommandManager;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.discord.DiscordService;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.events.ExternalPluginsLoaded;
 import net.runelite.client.game.ClanManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.LootManager;
 import net.runelite.client.game.PlayerManager;
+import net.runelite.client.game.WorldService;
 import net.runelite.client.game.XpDropManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.graphics.ModelOutlineRenderer;
 import net.runelite.client.menus.MenuManager;
+import net.runelite.client.plugins.ExternalPluginManager;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.ClientUpdateCheckMode;
@@ -81,17 +85,23 @@ import net.runelite.client.ui.overlay.arrow.ArrowWorldOverlay;
 import net.runelite.client.ui.overlay.infobox.InfoBoxOverlay;
 import net.runelite.client.ui.overlay.tooltip.TooltipOverlay;
 import net.runelite.client.ui.overlay.worldmap.WorldMapOverlay;
+import net.runelite.client.util.WorldUtil;
 import net.runelite.client.ws.PartyService;
+import net.runelite.http.api.worlds.World;
+import net.runelite.http.api.worlds.WorldResult;
 import org.slf4j.LoggerFactory;
 
 @Singleton
 @Slf4j
 public class RuneLite
 {
+	public static final String SYSTEM_VERSION = "0.0.1";
+
 	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".runelite");
 	public static final File CACHE_DIR = new File(RUNELITE_DIR, "cache");
 	public static final File PROFILES_DIR = new File(RUNELITE_DIR, "profiles");
 	public static final File PLUGIN_DIR = new File(RUNELITE_DIR, "plugins");
+	public static final File EXTERNALPLUGIN_DIR = new File(RUNELITE_DIR, "externalmanager");
 	public static final File SCREENSHOT_DIR = new File(RUNELITE_DIR, "screenshots");
 	public static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
 	public static final File PLUGINS_DIR = new File(RUNELITE_DIR, "plugins");
@@ -100,14 +110,24 @@ public class RuneLite
 
 	@Getter
 	private static Injector injector;
+
 	@Inject
 	public DiscordService discordService;
+
+	@Inject
+	private WorldService worldService;
 	@Inject
 	private PluginManager pluginManager;
+
+	@Inject
+	private ExternalPluginManager externalPluginManager;
+
 	@Inject
 	private ConfigManager configManager;
+
 	@Inject
 	private SessionManager sessionManager;
+
 	@Inject
 	private ClientSessionManager clientSessionManager;
 
@@ -192,7 +212,9 @@ public class RuneLite
 		final ArgumentAcceptingOptionSpec<String> proxyInfo = parser
 			.accepts("proxy")
 			.withRequiredArg().ofType(String.class);
-
+		final ArgumentAcceptingOptionSpec<Integer> worldInfo = parser
+			.accepts("world")
+			.withRequiredArg().ofType(Integer.class);
 		final ArgumentAcceptingOptionSpec<ClientUpdateCheckMode> updateMode = parser
 			.accepts("rs", "Select client type")
 			.withRequiredArg()
@@ -250,6 +272,12 @@ public class RuneLite
 					}
 				});
 			}
+		}
+
+		if (options.has("world"))
+		{
+			int world = options.valueOf(worldInfo);
+			System.setProperty("cli.world", String.valueOf(world));
 		}
 
 		SentryClient client = Sentry.init("https://fa31d674e44247fa93966c69a903770f@sentry.io/1811856");
@@ -337,23 +365,37 @@ public class RuneLite
 		pluginManager.setOutdated(isOutdated);
 
 		// Load external plugins
-		pluginManager.loadExternalPlugins();
+		externalPluginManager.startExternalUpdateManager();
+		externalPluginManager.startExternalPluginManager();
+
+
+		RuneLiteSplashScreen.stage(.59, "Updating external plugins");
+		externalPluginManager.update();
 
 		// Load the plugins, but does not start them yet.
 		// This will initialize configuration
 		pluginManager.loadCorePlugins();
-		RuneLiteSplashScreen.stage(.70, "Finalizing configuration");
+		externalPluginManager.loadPlugins();
+
+		// Load external plugins
+		pluginManager.loadExternalPlugins();
+
+		RuneLiteSplashScreen.stage(.76, "Finalizing configuration");
 
 		// Plugins have provided their config, so set default config
 		// to main settings
 		pluginManager.loadDefaultPluginConfiguration();
 
 		// Start client session
-		RuneLiteSplashScreen.stage(.75, "Starting core interface");
+		RuneLiteSplashScreen.stage(.80, "Starting core interface");
 		clientSessionManager.start();
 
+		//Set the world if specified via CLI args - will not work until clientUI.init is called
+		Optional<Integer> worldArg = Optional.ofNullable(System.getProperty("cli.world")).map(Integer::parseInt);
+		worldArg.ifPresent(this::setWorld);
+
 		// Initialize UI
-		RuneLiteSplashScreen.stage(.80, "Initialize UI");
+		RuneLiteSplashScreen.stage(.77, "Initialize UI");
 		clientUI.init(this);
 
 		// Initialize Discord service
@@ -389,7 +431,8 @@ public class RuneLite
 		}
 
 		// Start plugins
-		pluginManager.startCorePlugins();
+		pluginManager.startPlugins();
+		eventBus.post(ExternalPluginsLoaded.class, new ExternalPluginsLoaded());
 
 		// Register additional schedulers
 		if (this.client != null)
@@ -402,6 +445,44 @@ public class RuneLite
 		RuneLiteSplashScreen.close();
 
 		clientUI.show();
+	}
+
+	private void setWorld(int cliWorld)
+	{
+		int correctedWorld = cliWorld < 300 ? cliWorld + 300 : cliWorld;
+
+		if (correctedWorld <= 300 || client.getWorld() == correctedWorld)
+		{
+			return;
+		}
+
+		final WorldResult worldResult = worldService.getWorlds();
+
+		if (worldResult == null)
+		{
+			log.warn("Failed to lookup worlds.");
+			return;
+		}
+
+		final World world = worldResult.findWorld(correctedWorld);
+
+		if (world != null)
+		{
+			final net.runelite.api.World rsWorld = client.createWorld();
+			rsWorld.setActivity(world.getActivity());
+			rsWorld.setAddress(world.getAddress());
+			rsWorld.setId(world.getId());
+			rsWorld.setPlayerCount(world.getPlayers());
+			rsWorld.setLocation(world.getLocation());
+			rsWorld.setTypes(WorldUtil.toWorldTypes(world.getTypes()));
+
+			client.changeWorld(rsWorld);
+			log.debug("Applied new world {}", correctedWorld);
+		}
+		else
+		{
+			log.warn("World {} not found.", correctedWorld);
+		}
 	}
 
 	public void shutdown()

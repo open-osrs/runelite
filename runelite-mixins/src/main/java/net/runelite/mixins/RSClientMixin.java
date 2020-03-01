@@ -76,6 +76,7 @@ import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.DraggingWidgetChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GrandExchangeOfferChanged;
+import net.runelite.api.events.GrandExchangeSearched;
 import net.runelite.api.events.Menu;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
@@ -589,6 +590,13 @@ public abstract class RSClientMixin implements RSClient
 	public int getVarpValue(int[] varps, int varpId)
 	{
 		return varps[varpId];
+	}
+
+	@Inject
+	@Override
+	public int getVarpValue(int varpId)
+	{
+		return getVarpValue(getVarps(), varpId);
 	}
 
 	@Inject
@@ -1165,6 +1173,23 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
+	@Copy("findItemDefinitions")
+	public static void rs$findItemDefinitions(String var0, boolean var1)
+	{
+		throw new RuntimeException();
+	}
+
+	@Replace("findItemDefinitions")
+	public static void rl$findItemDefinitions(String var0, boolean var1)
+	{
+		GrandExchangeSearched event = new GrandExchangeSearched();
+		client.getCallbacks().post(GrandExchangeSearched.class, event);
+		if (!event.isConsumed())
+		{
+			rs$findItemDefinitions(var0, var1);
+		}
+	}
+
 	@Inject
 	@FieldHook("grandExchangeOffers")
 	public static void onGrandExchangeOffersChanged(int idx)
@@ -1522,7 +1547,7 @@ public abstract class RSClientMixin implements RSClient
 			{
 				if (renderX >= minX && renderX <= maxX && renderY >= minY && renderY <= maxY)
 				{
-					WidgetItem widgetItem = new WidgetItem(widget.getItemId(), widget.getItemQuantity(), -1, widget.getBounds(), widget);
+					WidgetItem widgetItem = new WidgetItem(widget.getItemId(), widget.getItemQuantity(), -1, widget.getBounds(), widget, null);
 					callbacks.drawItem(widget.getItemId(), widgetItem);
 				}
 			}
@@ -1804,7 +1829,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		if (volume > 0 && client.getMusicVolume() <= 0 && client.getCurrentTrackGroupId() != -1)
 		{
-			client.playMusicTrack(client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
+			client.playMusicTrack(1000, client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
 		}
 
 		client.setClientMusicVolume(volume);

@@ -41,7 +41,6 @@ import com.google.inject.Key;
 import com.google.inject.Module;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -54,7 +53,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
@@ -62,6 +60,7 @@ import javax.inject.Named;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
@@ -73,7 +72,7 @@ import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
-import net.runelite.client.task.Schedule;
+import net.runelite.client.plugins.config.PluginConfigurationDescriptor;
 import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.RuneLiteSplashScreen;
@@ -92,10 +91,11 @@ public class PluginManager
 	private final EventBus eventBus;
 	private final Scheduler scheduler;
 	private final ConfigManager configManager;
-	private final ScheduledExecutorService executor;
 	private final Provider<GameEventManager> sceneTileManager;
 	private final List<Plugin> plugins = new CopyOnWriteArrayList<>();
 	private final List<Plugin> activePlugins = new CopyOnWriteArrayList<>();
+	@Getter
+	private final List<PluginConfigurationDescriptor> fakePlugins = new ArrayList<>();
 	private final String runeliteGroupName = RuneLiteConfig.class
 		.getAnnotation(ConfigGroup.class).value();
 
@@ -112,14 +112,12 @@ public class PluginManager
 		final EventBus eventBus,
 		final Scheduler scheduler,
 		final ConfigManager configManager,
-		final ScheduledExecutorService executor,
 		final Provider<GameEventManager> sceneTileManager)
 	{
 		this.developerMode = developerMode;
 		this.eventBus = eventBus;
 		this.scheduler = scheduler;
 		this.configManager = configManager;
-		this.executor = executor;
 		this.sceneTileManager = sceneTileManager;
 
 		if (eventBus != null)
@@ -142,45 +140,67 @@ public class PluginManager
 	private void refreshPlugins()
 	{
 		loadDefaultPluginConfiguration();
-		getPlugins()
-			.forEach(plugin -> executor.submit(() ->
+		SwingUtilities.invokeLater(() ->
+		{
+			for (Plugin plugin : getPlugins())
 			{
 				try
 				{
-					if (!startPlugin(plugin))
+					if (isPluginEnabled(plugin) != activePlugins.contains(plugin))
 					{
-						stopPlugin(plugin);
+						if (activePlugins.contains(plugin))
+						{
+							stopPlugin(plugin);
+						}
+						else
+						{
+							startPlugin(plugin);
+						}
 					}
 				}
 				catch (PluginInstantiationException e)
 				{
 					log.warn("Error during starting/stopping plugin {}", plugin.getClass().getSimpleName(), e);
 				}
-			}));
+			}
+		});
 	}
 
 	public Config getPluginConfigProxy(Plugin plugin)
 	{
-		final Injector injector = plugin.getInjector();
-
-		for (Key<?> key : injector.getAllBindings().keySet())
+		try
 		{
-			Class<?> type = key.getTypeLiteral().getRawType();
-			if (Config.class.isAssignableFrom(type))
+			final Injector injector = plugin.getInjector();
+
+			for (Key<?> key : injector.getAllBindings().keySet())
 			{
-				return (Config) injector.getInstance(key);
+				Class<?> type = key.getTypeLiteral().getRawType();
+				if (Config.class.isAssignableFrom(type))
+				{
+					return (Config) injector.getInstance(key);
+				}
 			}
 		}
-
+		catch (ThreadDeath e)
+		{
+			throw e;
+		}
+		catch (Throwable e)
+		{
+			log.warn("Unable to get plugin config", e);
+		}
 		return null;
 	}
 
-	private List<Config> getPluginConfigProxies()
+	public List<Config> getPluginConfigProxies(Collection<Plugin> plugins)
 	{
 		List<Injector> injectors = new ArrayList<>();
-		injectors.add(RuneLite.getInjector());
-		getPlugins().forEach(pl -> injectors.add(pl.getInjector()));
-
+		if (plugins == null)
+		{
+			injectors.add(RuneLite.getInjector());
+			plugins = getPlugins();
+		}
+		plugins.forEach(pl -> injectors.add(pl.getInjector()));
 		List<Config> list = new ArrayList<>();
 		for (Injector injector : injectors)
 		{
@@ -194,15 +214,49 @@ public class PluginManager
 				}
 			}
 		}
-
 		return list;
 	}
 
 	public void loadDefaultPluginConfiguration()
 	{
-		for (Object config : getPluginConfigProxies())
+		try
 		{
-			configManager.setDefaultConfiguration(config, false);
+			for (Object config : getPluginConfigProxies(plugins))
+			{
+				configManager.setDefaultConfiguration(config, false);
+			}
+		}
+		catch (ThreadDeath e)
+		{
+			throw e;
+		}
+		catch (Throwable ex)
+		{
+			log.warn("Unable to reset plugin configuration", ex);
+		}
+	}
+
+	public void loadFakePluginConfiguration()
+	{
+		try
+		{
+			for (Object config : fakePlugins.stream().map(PluginConfigurationDescriptor::getConfig).toArray())
+			{
+				if (config == null)
+				{
+					continue;
+				}
+
+				configManager.setDefaultConfiguration(config, false);
+			}
+		}
+		catch (ThreadDeath e)
+		{
+			throw e;
+		}
+		catch (Throwable ex)
+		{
+			log.warn("Unable to reset plugin configuration", ex);
 		}
 	}
 
@@ -216,25 +270,36 @@ public class PluginManager
 		plugins.addAll(scanAndInstantiate(getClass().getClassLoader(), PLUGIN_PACKAGE, false));
 	}
 
-	public void startCorePlugins()
+	public void startPlugins()
 	{
 		List<Plugin> scannedPlugins = new ArrayList<>(plugins);
-		int loaded = 0, started = 0;
+		int loaded = 0;
+		AtomicInteger started = new AtomicInteger();
 
 		final Stopwatch timer = Stopwatch.createStarted();
 		for (Plugin plugin : scannedPlugins)
 		{
 			try
 			{
-				if (startPlugin(plugin))
+				SwingUtilities.invokeAndWait(() ->
 				{
-					++started;
-				}
+					try
+					{
+						if (startPlugin(plugin))
+						{
+							started.incrementAndGet();
+						}
+					}
+					catch (PluginInstantiationException ex)
+					{
+						log.warn("Unable to start plugin {}", plugin.getClass().getSimpleName(), ex);
+						plugins.remove(plugin);
+					}
+				});
 			}
-			catch (PluginInstantiationException ex)
+			catch (InterruptedException | InvocationTargetException e)
 			{
-				log.warn("Unable to start plugin {}", plugin.getClass().getSimpleName(), ex);
-				plugins.remove(plugin);
+				throw new RuntimeException(e);
 			}
 
 			loaded++;
@@ -248,7 +313,7 @@ public class PluginManager
 	@SuppressWarnings("unchecked")
 	List<Plugin> scanAndInstantiate(ClassLoader classLoader, String packageName, boolean external) throws IOException
 	{
-		RuneLiteSplashScreen.stage(.59, "Loading plugins");
+		RuneLiteSplashScreen.stage(.60, "Loading plugins");
 		MutableGraph<Class<? extends Plugin>> graph = GraphBuilder
 			.directed()
 			.build();
@@ -345,7 +410,7 @@ public class PluginManager
 
 					loaded.getAndIncrement();
 
-					RuneLiteSplashScreen.stage(.60, .70, "Loading plugins", loaded.get(), scannedPlugins.size());
+					RuneLiteSplashScreen.stage(.60, .65, "Loading plugins", loaded.get(), scannedPlugins.size());
 				})));
 			curGroup.forEach(future ->
 			{
@@ -365,8 +430,11 @@ public class PluginManager
 		return scannedPlugins;
 	}
 
-	public synchronized boolean startPlugin(Plugin plugin) throws PluginInstantiationException
+	public boolean startPlugin(Plugin plugin) throws PluginInstantiationException
 	{
+		// plugins always start in the EDT
+		assert SwingUtilities.isEventDispatchThread();
+
 		if (activePlugins.contains(plugin) || !isPluginEnabled(plugin))
 		{
 			return false;
@@ -376,19 +444,7 @@ public class PluginManager
 
 		try
 		{
-			// plugins always start in the event thread
-			SwingUtilities.invokeAndWait(() ->
-			{
-				try
-				{
-					plugin.startUp();
-				}
-				catch (Exception ex)
-				{
-					throw new RuntimeException(ex);
-				}
-			});
-
+			plugin.startUp();
 			plugin.addAnnotatedSubscriptions(eventBus);
 
 			log.debug("Plugin {} is now running", plugin.getClass().getSimpleName());
@@ -404,7 +460,11 @@ public class PluginManager
 			schedule(plugin);
 			eventBus.post(PluginChanged.class, new PluginChanged(plugin, true));
 		}
-		catch (InterruptedException | InvocationTargetException | IllegalArgumentException ex)
+		catch (ThreadDeath e)
+		{
+			throw e;
+		}
+		catch (Throwable ex)
 		{
 			throw new PluginInstantiationException(ex);
 		}
@@ -412,39 +472,28 @@ public class PluginManager
 		return true;
 	}
 
-	public synchronized boolean stopPlugin(Plugin plugin) throws PluginInstantiationException
+	public boolean stopPlugin(Plugin plugin) throws PluginInstantiationException
 	{
-		if (!activePlugins.contains(plugin) || isPluginEnabled(plugin))
+		// plugins always stop in the EDT
+		assert SwingUtilities.isEventDispatchThread();
+
+		if (!activePlugins.remove(plugin))
 		{
 			return false;
 		}
 
-		activePlugins.remove(plugin);
+		unschedule(plugin);
 
 		try
 		{
-			unschedule(plugin);
-
-			// plugins always stop in the event thread
-			SwingUtilities.invokeAndWait(() ->
-			{
-				try
-				{
-					plugin.shutDown();
-				}
-				catch (Exception ex)
-				{
-					throw new RuntimeException(ex);
-				}
-			});
-
+			plugin.shutDown();
 			plugin.removeAnnotatedSubscriptions(eventBus);
 
 			log.debug("Plugin {} is now stopped", plugin.getClass().getSimpleName());
 			eventBus.post(PluginChanged.class, new PluginChanged(plugin, false));
 
 		}
-		catch (InterruptedException | InvocationTargetException ex)
+		catch (Exception ex)
 		{
 			throw new PluginInstantiationException(ex);
 		}
@@ -490,9 +539,13 @@ public class PluginManager
 		Plugin plugin;
 		try
 		{
-			plugin = clazz.newInstance();
+			plugin = clazz.getDeclaredConstructor().newInstance();
 		}
-		catch (InstantiationException | IllegalAccessException ex)
+		catch (ThreadDeath e)
+		{
+			throw e;
+		}
+		catch (Throwable ex)
 		{
 			throw new PluginInstantiationException(ex);
 		}
@@ -541,22 +594,10 @@ public class PluginManager
 		return plugins;
 	}
 
-	private void schedule(Plugin plugin)
+	public void schedule(Object plugin)
 	{
-		for (Method method : plugin.getClass().getMethods())
-		{
-			Schedule schedule = method.getAnnotation(Schedule.class);
-
-			if (schedule == null)
-			{
-				continue;
-			}
-
-			ScheduledMethod scheduledMethod = new ScheduledMethod(schedule, method, plugin);
-			log.debug("Scheduled task {}", scheduledMethod);
-
-			scheduler.addScheduledMethod(scheduledMethod);
-		}
+		// note to devs: this method will almost certainly merge conflict in the future, just apply the changes in the scheduler instead
+		scheduler.registerObject(plugin);
 	}
 
 	private void unschedule(Plugin plugin)
