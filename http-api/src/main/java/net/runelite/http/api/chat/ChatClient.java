@@ -27,8 +27,6 @@ package net.runelite.http.api.chat;
 import com.google.gson.JsonParseException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.function.Predicate;
-import java.util.regex.Pattern;
 import java.io.InputStreamReader;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
