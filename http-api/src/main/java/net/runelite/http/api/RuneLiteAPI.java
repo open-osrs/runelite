@@ -150,11 +150,6 @@ public class RuneLiteAPI
 		return HttpUrl.parse(BASE + "/runelite-" + getVersion());
 	}
 
-	public static HttpUrl getOpenOSRSApiBase()
-	{
-		return HttpUrl.parse(OPENOSRS_BASE + "/http-service-" + getRlpVersion());
-	}
-
 	public static HttpUrl getStaticBase()
 	{
 		final String prop = System.getProperty("runelite.static.url");
