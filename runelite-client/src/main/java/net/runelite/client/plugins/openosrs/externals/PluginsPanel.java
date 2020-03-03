@@ -30,7 +30,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
-import static net.runelite.client.util.Text.DISTANCE;
+import static net.runelite.api.util.Text.DISTANCE;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ExternalPluginChanged;
 import net.runelite.client.events.ExternalRepositoryChanged;
