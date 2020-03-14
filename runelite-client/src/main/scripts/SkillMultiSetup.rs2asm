@@ -645,12 +645,12 @@ LABEL584:
    iload                  22
    invoke                 2048
 LABEL593:
-   iload                  13                   ; this is how many buttons there are
+   iload                  13                   ; push this twice so we can check if it was changed during the callback
+   iload                  13                   ; this is how many buttons there are (change this one to process an option)
    sconst                 "SkillMulti_End"     ; 13 will have the value of the selected button stored into it.
    runelite_callback                           ; it's still on the stack here
-   istore                 13                   ; Store the value we transformed it into
-   iload                  13
-   iconst                 0
+   istore                 13                   ; Store the value we transformed it into because we need it again later in two places
+   iload                  13                   ; Both the comparison and the HACK
    if_icmpeq              RETURN
 HACK:
    iload                  13
