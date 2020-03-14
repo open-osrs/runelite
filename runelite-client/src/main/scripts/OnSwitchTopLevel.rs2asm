@@ -31,7 +31,5 @@ LABEL19:
 LABEL21:
    iload                  0
    iload                  1
-   sconst                 "OnSwitchTopLevel"; Called when the client tries to switch top level interface. For instance when casting the alch spell, the client will reopen the magic tab automatically
-   runelite_callback
    invoke                 916
    return
