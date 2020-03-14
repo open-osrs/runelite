@@ -16,23 +16,4 @@
    iload                  4
    sconst                 "4"
    invoke                 2160
-   iconst                 0 ;change this to the id of the option to process
-   iload                  1 ;push onto stack component 1
-   iload                  2 ;push onto stack component 2
-   iload                  3 ;push onto stack component 3
-   iload                  4 ;push onto stack component 4
-   sconst                 "OnMushroomTeleportWidgetBuilt"
-   runelite_callback
-   pop_int
-   pop_int
-   pop_int
-   pop_int
-   istore                 0
-   iload                  0
-   iconst                 0
-   if_icmpeq              RETURN
-HACK:
-   iload                  0
-   if_resume_pausebutton
-RETURN:
    return
