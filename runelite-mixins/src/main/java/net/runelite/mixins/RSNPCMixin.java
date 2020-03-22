@@ -106,16 +106,20 @@ public abstract class RSNPCMixin implements RSNPC
 
 	@FieldHook(value = "definition", before = true)
 	@Inject
-	public void onDefinitionChanged(RSNPCDefinition composition)
+	public void onDefinitionChanged(RSNPCDefinition newDef)
 	{
-		if (composition == null)
+		if (newDef == null)
 		{
 			client.getCallbacks().post(NpcDespawned.class, new NpcDespawned(this));
+			return;
 		}
-		else if (this.getId() != -1)
+		RSNPCDefinition oldDef = getDefinition();
+		if (oldDef == null || oldDef.getId() == newDef.getId())
 		{
-			client.getCallbacks().post(NpcDefinitionChanged.class, new NpcDefinitionChanged(this));
+			return;
 		}
+
+		client.getCallbacks().postDeferred(NpcDefinitionChanged.class, new NpcDefinitionChanged(this));
 	}
 
 	@Copy("getModel")
