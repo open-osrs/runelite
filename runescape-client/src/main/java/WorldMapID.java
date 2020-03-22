@@ -94,7 +94,7 @@ public class WorldMapID {
 							}
 
 							if (var11 == -2147483645) {
-								var11 = var0.widget != null ? var0.widget.id : -1;
+								var11 = var0.widget != null ? var0.widget.id * 528372133 * 966798893 : -1;
 							}
 
 							if (var11 == -2147483644) {
@@ -102,15 +102,15 @@ public class WorldMapID {
 							}
 
 							if (var11 == -2147483643) {
-								var11 = var0.widget != null ? var0.widget.childIndex : -1;
+								var11 = var0.widget != null ? var0.widget.childIndex * -637939151 * 238175953 : -1;
 							}
 
 							if (var11 == -2147483642) {
-								var11 = var0.dragTarget != null ? var0.dragTarget.id : -1;
+								var11 = var0.dragTarget != null ? var0.dragTarget.id * 528372133 * 966798893 : -1;
 							}
 
 							if (var11 == -2147483641) {
-								var11 = var0.dragTarget != null ? var0.dragTarget.childIndex : -1;
+								var11 = var0.dragTarget != null ? var0.dragTarget.childIndex * -637939151 * 238175953 : -1;
 							}
 
 							if (var11 == -2147483640) {

@@ -275,7 +275,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
 				}
 			}
 
-			var4.field942 = var4.definition.size * 64;
+			var4.field942 = var4.definition.size;
 			var4.field975 = var4.definition.rotation;
 			if (var4.field975 == 0) {
 				var4.rotation = 0;
@@ -288,7 +288,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
 			var4.readySequence = var4.definition.readySequence;
 			var4.turnLeftSequence = var4.definition.turnLeftSequence;
 			var4.turnRightSequence = var4.definition.turnRightSequence;
-			var4.method2077(class192.localPlayer.pathX[0] + var9, class192.localPlayer.pathY[0] + var5, var7 == 1);
+			var4.method2077(LocationSet.localPlayer.pathX[0] + var9, LocationSet.localPlayer.pathY[0] + var5, var7 == 1);
 		}
 
 		var1.exportIndex();

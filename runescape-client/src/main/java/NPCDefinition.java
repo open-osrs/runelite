@@ -141,7 +141,7 @@ public class NPCDefinition extends DualNode {
 	int ambient;
 	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = 56751531
+		intValue = 283757655
 	)
 	@Export("contrast")
 	int contrast;
@@ -322,7 +322,7 @@ public class NPCDefinition extends DualNode {
 		} else if (var2 == 100) {
 			this.ambient = var1.readByte();
 		} else if (var2 == 101) {
-			this.contrast = var1.readByte();
+			this.contrast = var1.readByte() * 5;
 		} else if (var2 == 102) {
 			this.headIconPrayer = var1.readUnsignedShort();
 		} else if (var2 == 103) {
@@ -422,7 +422,7 @@ public class NPCDefinition extends DualNode {
 					}
 				}
 
-				var5 = var11.toModel(this.ambient + 64, this.contrast * 5 + 850, -30, -50, -30);
+				var5 = var11.toModel(this.ambient + 64, this.contrast + 850, -30, -50, -30);
 				NpcDefinition_cachedModels.put(var5, (long)this.id);
 			}
 

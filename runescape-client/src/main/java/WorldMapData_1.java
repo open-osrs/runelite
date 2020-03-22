@@ -54,8 +54,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		} else {
 			super.minPlane = var1.readUnsignedByte();
 			super.planes = var1.readUnsignedByte();
-			super.regionXLow = var1.readUnsignedShort() * 4096;
-			super.regionYLow = var1.readUnsignedShort() * 64;
+			super.regionXLow = var1.readUnsignedShort();
+			super.regionYLow = var1.readUnsignedShort();
 			this.chunkXLow = var1.readUnsignedByte();
 			this.chunkYLow = var1.readUnsignedByte();
 			super.regionX = var1.readUnsignedShort();
@@ -208,9 +208,9 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 	)
 	static void method731(int var0, Coord var1, boolean var2) {
 		WorldMapArea var3 = GrandExchangeOfferUnitPriceComparator.getWorldMap().getMapArea(var0);
-		int var4 = class192.localPlayer.plane;
-		int var5 = Messages.baseX * 64 + (class192.localPlayer.x >> 7);
-		int var6 = Language.baseY * 64 + (class192.localPlayer.y >> 7);
+		int var4 = LocationSet.localPlayer.plane;
+		int var5 = (LocationSet.localPlayer.x >> 7) + Messages.baseX;
+		int var6 = (LocationSet.localPlayer.y >> 7) + Language.baseY;
 		Coord var7 = new Coord(var4, var5, var6);
 		GrandExchangeOfferUnitPriceComparator.getWorldMap().method6377(var3, var7, var1, var2);
 	}

@@ -45,8 +45,8 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 		} else {
 			super.minPlane = var1.readUnsignedByte();
 			super.planes = var1.readUnsignedByte();
-			super.regionXLow = var1.readUnsignedShort() * 4096;
-			super.regionYLow = var1.readUnsignedShort() * 64;
+			super.regionXLow = var1.readUnsignedShort();
+			super.regionYLow = var1.readUnsignedShort();
 			super.regionX = var1.readUnsignedShort();
 			super.regionY = var1.readUnsignedShort();
 			super.groupId = var1.method5593();

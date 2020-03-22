@@ -166,7 +166,7 @@ public class Message extends DualNode {
 	@Export("fillSenderUsername")
 	final void fillSenderUsername() {
 		if (this.sender != null) {
-			this.senderUsername = new Username(MouseRecorder.method1207(this.sender), class192.loginType);
+			this.senderUsername = new Username(MouseRecorder.method1207(this.sender), LocationSet.loginType);
 		} else {
 			this.senderUsername = null;
 		}

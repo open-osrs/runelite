@@ -104,7 +104,7 @@ public enum HorizontalAlignment implements Enumerated {
 						int var8;
 						if (var0.combatLevel != 0) {
 							var7 = var0.combatLevel;
-							var8 = class192.localPlayer.combatLevel;
+							var8 = LocationSet.localPlayer.combatLevel;
 							int var9 = var8 - var7;
 							String var6;
 							if (var9 < -9) {
@@ -177,7 +177,7 @@ public enum HorizontalAlignment implements Enumerated {
 									if (var11[var7] != null && var11[var7].equalsIgnoreCase("Attack")) {
 										short var12 = 0;
 										if (AttackOption.AttackOption_hidden != Client.npcAttackOption) {
-											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || Client.npcAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && var0.combatLevel > class192.localPlayer.combatLevel) {
+											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || Client.npcAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && var0.combatLevel > LocationSet.localPlayer.combatLevel) {
 												var12 = 2000;
 											}
 

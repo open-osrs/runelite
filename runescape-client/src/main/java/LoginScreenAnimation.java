@@ -57,7 +57,7 @@ public class LoginScreenAnimation {
 	int field1037;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1837953616
+		intValue = -234321419
 	)
 	int field1038;
 	@ObfuscatedName("f")
@@ -244,15 +244,15 @@ public class LoginScreenAnimation {
 			}
 		}
 
-		if (this.field1021 * 16 > 0) {
-			this.field1021 = this.field1021 * 16 - var1 * 4;
+		if (this.field1021 > 0) {
+			this.field1021 -= var1 * 4;
 		}
 
-		if (this.field1032 * 16 > 0) {
-			this.field1032 = this.field1032 * 16 - var1 * 4;
+		if (this.field1032 > 0) {
+			this.field1032 -= var1 * 4;
 		}
 
-		if (this.field1021 * 16 == 0 && this.field1032 * 16 == 0) {
+		if (this.field1021 == 0 && this.field1032 == 0) {
 			var7 = (int)(Math.random() * (double)(2000 / var1));
 			if (var7 == 0) {
 				this.field1021 = 1024;
@@ -272,7 +272,7 @@ public class LoginScreenAnimation {
 			++this.field1031;
 		}
 
-		this.field1038 = this.field1038 * 10000 + 10000 * var1;
+		this.field1038 += var1;
 		var7 = ((Client.cycle & 1) + var1) / 2;
 		if (var7 > 0) {
 			short var16 = 128;
@@ -349,10 +349,10 @@ public class LoginScreenAnimation {
 	)
 	final void method1838(int var1) {
 		int var2 = this.field1027.length;
-		if (this.field1021 * 16 > 0) {
-			this.method1809(this.field1021 * 16, this.field1033);
-		} else if (this.field1032 * 16 > 0) {
-			this.method1809(this.field1032 * 16, this.field1029);
+		if (this.field1021 > 0) {
+			this.method1809(this.field1021, this.field1033);
+		} else if (this.field1032 > 0) {
+			this.method1809(this.field1032, this.field1029);
 		} else {
 			for (int var3 = 0; var3 < var2; ++var3) {
 				this.field1027[var3] = this.field1028[var3];
@@ -831,8 +831,8 @@ public class LoginScreenAnimation {
 						return 2;
 					}
 				} else {
-					if (class192.localPlayer != null && class192.localPlayer.username != null) {
-						var3 = class192.localPlayer.username.getName();
+					if (LocationSet.localPlayer != null && LocationSet.localPlayer.username != null) {
+						var3 = LocationSet.localPlayer.username.getName();
 					} else {
 						var3 = "";
 					}

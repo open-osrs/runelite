@@ -27,7 +27,7 @@ public final class ObjectSound extends Node {
 	int x;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1295537280
+		intValue = 379220137
 	)
 	@Export("y")
 	int y;
@@ -38,7 +38,7 @@ public final class ObjectSound extends Node {
 	int field1069;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -840891776
+		intValue = -711212539
 	)
 	int field1080;
 	@ObfuscatedName("d")
@@ -135,7 +135,7 @@ public final class ObjectSound extends Node {
 		ObjectSound var5 = new ObjectSound();
 		var5.plane = var0;
 		var5.x = var1 * 128;
-		var5.y = var2 * 16384;
+		var5.y = var2 * 128;
 		int var6 = var3.sizeX;
 		int var7 = var3.sizeY;
 		if (var4 == 1 || var4 == 3) {
@@ -144,7 +144,7 @@ public final class ObjectSound extends Node {
 		}
 
 		var5.field1069 = (var6 + var1) * 128;
-		var5.field1080 = (var7 + var2) * 16384;
+		var5.field1080 = (var7 + var2) * 128;
 		var5.soundEffectId = var3.ambientSoundId;
 		var5.field1070 = var3.int4 * 128;
 		var5.field1074 = var3.int5;
@@ -216,7 +216,7 @@ public final class ObjectSound extends Node {
 
 			for (int var0 = 0; var0 < Client.players.length; ++var0) {
 				if (Client.players[var0] != null) {
-					class218.field2716.method4408(Messages.baseX * 64 + (Client.players[var0].x >> 7), Language.baseY * 64 + (Client.players[var0].y >> 7));
+					class218.field2716.method4408((Client.players[var0].x >> 7) + Messages.baseX, (Client.players[var0].y >> 7) + Language.baseY);
 				}
 			}
 		}

@@ -140,14 +140,14 @@ public class JagexCache {
 						--class320.Interpreter_intStackSize;
 						var11 = Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize] - 1;
 						if (var11 >= 0 && var11 <= 9) {
-							class192.Widget_setKeyIgnoreHeld(var4, var11);
+							LocationSet.Widget_setKeyIgnoreHeld(var4, var11);
 							return 1;
 						} else {
 							throw new RuntimeException();
 						}
 					} else if (var0 == ScriptOpcodes.CC_SETOPTKEYIGNOREHELD) {
 						var5 = 10;
-						class192.Widget_setKeyIgnoreHeld(var4, var5);
+						LocationSet.Widget_setKeyIgnoreHeld(var4, var5);
 						return 1;
 					} else {
 						return 2;

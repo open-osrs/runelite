@@ -116,7 +116,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 					}
 
 					if (var6 == 8) {
-						var7 = class192.localPlayer.combatLevel;
+						var7 = LocationSet.localPlayer.combatLevel;
 					}
 
 					if (var6 == 9) {
@@ -174,11 +174,11 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 					}
 
 					if (var6 == 18) {
-						var7 = Messages.baseX * 64 + (class192.localPlayer.x >> 7);
+						var7 = (LocationSet.localPlayer.x >> 7) + Messages.baseX;
 					}
 
 					if (var6 == 19) {
-						var7 = Language.baseY * 64 + (class192.localPlayer.y >> 7);
+						var7 = (LocationSet.localPlayer.y >> 7) + Language.baseY;
 					}
 
 					if (var6 == 20) {

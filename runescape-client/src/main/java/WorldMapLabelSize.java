@@ -15,7 +15,7 @@ public class WorldMapLabelSize {
 	static PcmPlayer pcmPlayer0;
 	@ObfuscatedName("rn")
 	@ObfuscatedGetter(
-		intValue = 1439744000
+		intValue = 1558533955
 	)
 	static int field139;
 	@ObfuscatedName("c")

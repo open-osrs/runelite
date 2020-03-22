@@ -39,13 +39,13 @@ public class class222 {
 					if (Client.soundLocations[var0] != 0) {
 						var3 = (Client.soundLocations[var0] & 255) * 128;
 						int var4 = Client.soundLocations[var0] >> 16 & 255;
-						int var5 = var4 * 128 + 64 - class192.localPlayer.x;
+						int var5 = var4 * 128 + 64 - LocationSet.localPlayer.x;
 						if (var5 < 0) {
 							var5 = -var5;
 						}
 
 						int var6 = Client.soundLocations[var0] >> 8 & 255;
-						int var7 = var6 * 128 + 64 - class192.localPlayer.y;
+						int var7 = var6 * 128 + 64 - LocationSet.localPlayer.y;
 						if (var7 < 0) {
 							var7 = -var7;
 						}

@@ -116,11 +116,11 @@ public class ScriptEvent extends Node {
 		int var2 = Players.Players_count;
 		int[] var3 = Players.Players_indices;
 		boolean var4 = false;
-		Username var5 = new Username(var1, class192.loginType);
+		Username var5 = new Username(var1, LocationSet.loginType);
 
 		for (int var6 = 0; var6 < var2; ++var6) {
 			Player var7 = Client.players[var3[var6]];
-			if (var7 != null && var7 != class192.localPlayer && var7.username != null && var7.username.equals(var5)) {
+			if (var7 != null && var7 != LocationSet.localPlayer && var7.username != null && var7.username.equals(var5)) {
 				PacketBufferNode var8;
 				if (var0 == 1) {
 					var8 = TilePaint.getPacketBufferNode(ClientPacket.field2282, Client.packetWriter.isaacCipher);

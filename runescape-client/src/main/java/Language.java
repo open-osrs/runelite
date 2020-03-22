@@ -86,13 +86,13 @@ public class Language implements Enumerated {
 	final int id;
 
 	static {
-		Language_EN = new Language("EN", "en", "English", class192.field2380, 0, "GB");
-		Language_DE = new Language("DE", "de", "German", class192.field2380, 1, "DE");
-		Language_FR = new Language("FR", "fr", "French", class192.field2380, 2, "FR");
-		Language_PT = new Language("PT", "pt", "Portuguese", class192.field2380, 3, "BR");
-		Language_NL = new Language("NL", "nl", "Dutch", class192.field2382, 4, "NL");
-		Language_ES = new Language("ES", "es", "Spanish", class192.field2382, 5, "ES");
-		Language_ES_MX = new Language("ES_MX", "es-mx", "Spanish (Latin American)", class192.field2380, 6, "MX");
+		Language_EN = new Language("EN", "en", "English", LocationSet.field2380, 0, "GB");
+		Language_DE = new Language("DE", "de", "German", LocationSet.field2380, 1, "DE");
+		Language_FR = new Language("FR", "fr", "French", LocationSet.field2380, 2, "FR");
+		Language_PT = new Language("PT", "pt", "Portuguese", LocationSet.field2380, 3, "BR");
+		Language_NL = new Language("NL", "nl", "Dutch", LocationSet.field2382, 4, "NL");
+		Language_ES = new Language("ES", "es", "Spanish", LocationSet.field2382, 5, "ES");
+		Language_ES_MX = new Language("ES_MX", "es-mx", "Spanish (Latin American)", LocationSet.field2380, 6, "MX");
 		Language[] var0 = method3716();
 		Language_valuesOrdered = new Language[var0.length];
 		Language[] var1 = var0;
@@ -111,7 +111,7 @@ public class Language implements Enumerated {
 	@ObfuscatedSignature(
 		signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lgp;ILjava/lang/String;)V"
 	)
-	Language(String var1, String var2, String var3, class192 var4, int var5, String var6) {
+	Language(String var1, String var2, String var3, LocationSet var4, int var5, String var6) {
 		this.field2361 = var1;
 		this.language = var2;
 		this.id = var5;

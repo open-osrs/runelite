@@ -125,7 +125,7 @@ public class class42 implements WorldMapSection {
 		if (!this.containsCoord(var1, var2, var3)) {
 			return null;
 		} else {
-			int[] var4 = new int[]{this.field372 * 64 - this.field366 * 64 + var2 + (this.field374 * 8 - this.field376 * 8), var3 + (this.field370 * 64 - this.field369 * 64) + (this.field375 * 8 - this.field368 * 8)};
+			int[] var4 = new int[]{var2 + (this.field372 * 64 - this.field366 * 64) + (this.field374 * 8 - this.field376 * 8), var3 + (this.field370 * 64 - this.field369 * 64) + (this.field375 * 8 - this.field368 * 8)};
 			return var4;
 		}
 	}
@@ -141,7 +141,7 @@ public class class42 implements WorldMapSection {
 			return null;
 		} else {
 			int var3 = this.field366 * 64 - this.field372 * 64 + (this.field376 * 8 - this.field374 * 8) + var1;
-			int var4 = this.field369 * 64 - this.field370 * 64 + var2 + (this.field368 * 8 - this.field375 * 8);
+			int var4 = var2 + (this.field369 * 64 - this.field370 * 64) + (this.field368 * 8 - this.field375 * 8);
 			return new Coord(this.field371, var3, var4);
 		}
 	}

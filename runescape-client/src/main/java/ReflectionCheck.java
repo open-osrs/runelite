@@ -12,7 +12,7 @@ import net.runelite.rs.ScriptOpcodes;
 public class ReflectionCheck extends Node {
 	@ObfuscatedName("qz")
 	@ObfuscatedGetter(
-		intValue = -799338112
+		intValue = 1604367907
 	)
 	static int field1319;
 	@ObfuscatedName("by")

@@ -240,7 +240,8 @@ public class Reflection
 		return i;
 	}
 
-	public static void setInt(Field field, Object obj, int value) throws IllegalArgumentException, IllegalAccessException
+	public static void setInt(Field field, Object obj, int value)
+	throws IllegalArgumentException, IllegalAccessException
 	{
 		if (PRINT_DEBUG_MESSAGES)
 		{
@@ -289,7 +290,8 @@ public class Reflection
 		return modInverse(BigInteger.valueOf(val), 32).intValue();
 	}
 
-	public static Object invoke(Method method, Object object, Object[] args) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
+	public static Object invoke(Method method, Object object, Object[] args)
+	throws IllegalAccessException, IllegalArgumentException, InvocationTargetException
 	{
 		if (PRINT_DEBUG_MESSAGES)
 		{

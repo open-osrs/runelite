@@ -25,7 +25,7 @@ public class MidiPcmStream extends PcmStream {
 	int field2434;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1685666624
+		intValue = -483640773
 	)
 	int field2419;
 	@ObfuscatedName("e")
@@ -107,7 +107,7 @@ public class MidiPcmStream extends PcmStream {
 
 	public MidiPcmStream() {
 		this.field2434 = 256;
-		this.field2419 = -727379968;
+		this.field2419 = 1000000;
 		this.field2417 = new int[16];
 		this.field2421 = new int[16];
 		this.field2440 = new int[16];
@@ -242,7 +242,7 @@ public class MidiPcmStream extends PcmStream {
 	@Export("fill")
 	protected synchronized void fill(int[] var1, int var2, int var3) {
 		if (this.midiFile.isReady()) {
-			int var4 = this.midiFile.division * this.field2419 * 1000000 / PcmPlayer.field1398;
+			int var4 = this.midiFile.division * this.field2419 / PcmPlayer.field1398;
 
 			do {
 				long var5 = this.field2441 + (long)var3 * (long)var4;
@@ -291,7 +291,7 @@ public class MidiPcmStream extends PcmStream {
 	@Export("skip")
 	protected synchronized void skip(int var1) {
 		if (this.midiFile.isReady()) {
-			int var2 = this.midiFile.division * this.field2419 * 1000000 / PcmPlayer.field1398;
+			int var2 = this.midiFile.division * this.field2419 / PcmPlayer.field1398;
 
 			do {
 				long var3 = this.field2441 + (long)var1 * (long)var2;
@@ -871,7 +871,7 @@ public class MidiPcmStream extends PcmStream {
 		var3 = var3 * var1.field2451 + 16384 >> 15;
 		var3 = var3 * this.field2434 + 128 >> 8;
 		if (var2.field2404 > 0) {
-			var3 = (int)((double)var3 * Math.pow(0.5D, (double)var2.field2404 * (double)(var1.field2456 * 128) * 1.953125E-5D) + 0.5D);
+			var3 = (int)((double)var3 * Math.pow(0.5D, (double)var2.field2404 * (double)var1.field2456 * 1.953125E-5D) + 0.5D);
 		}
 
 		int var4;
@@ -880,11 +880,11 @@ public class MidiPcmStream extends PcmStream {
 		int var7;
 		if (var2.field2402 != null) {
 			var4 = var1.field2448;
-			var5 = var2.field2402[var1.field2458 * 4 + 1];
-			if (var1.field2458 * 4 < var2.field2402.length - 2) {
-				var6 = (var2.field2402[var1.field2458 * 4] & 255) << 8;
-				var7 = (var2.field2402[var1.field2458 * 4 + 2] & 255) << 8;
-				var5 += (var2.field2402[var1.field2458 * 4 + 3] - var5) * (var4 - var6) / (var7 - var6);
+			var5 = var2.field2402[var1.field2458 + 1];
+			if (var1.field2458 < var2.field2402.length - 2) {
+				var6 = (var2.field2402[var1.field2458] & 255) << 8;
+				var7 = (var2.field2402[var1.field2458 + 2] & 255) << 8;
+				var5 += (var4 - var6) * (var2.field2402[var1.field2458 + 3] - var5) / (var7 - var6);
 			}
 
 			var3 = var5 * var3 + 32 >> 6;
@@ -892,11 +892,11 @@ public class MidiPcmStream extends PcmStream {
 
 		if (var1.field2459 > 0 && var2.field2399 != null) {
 			var4 = var1.field2459;
-			var5 = var2.field2399[var1.field2460 * 2 + 1];
-			if (var1.field2460 * 2 < var2.field2399.length - 2) {
-				var6 = (var2.field2399[var1.field2460 * 2] & 255) << 8;
-				var7 = (var2.field2399[var1.field2460 * 2 + 2] & 255) << 8;
-				var5 += (var2.field2399[var1.field2460 * 2 + 3] - var5) * (var4 - var6) / (var7 - var6);
+			var5 = var2.field2399[var1.field2460 + 1];
+			if (var1.field2460 < var2.field2399.length - 2) {
+				var6 = (var2.field2399[var1.field2460] & 255) << 8;
+				var7 = (var2.field2399[var1.field2460 + 2] & 255) << 8;
+				var5 += (var2.field2399[var1.field2460 + 3] - var5) * (var4 - var6) / (var7 - var6);
 			}
 
 			var3 = var5 * var3 + 32 >> 6;
@@ -1007,9 +1007,9 @@ public class MidiPcmStream extends PcmStream {
 			double var8 = (double)((var1.field2450 - 60 << 8) + (var1.field2455 * var1.field2454 >> 12)) * 5.086263020833333E-6D;
 			if (var6.field2404 > 0) {
 				if (var6.field2403 > 0) {
-					var1.field2456 = var1.field2456 * -1540341760 + (int)(128.0D * Math.pow(2.0D, var8 * (double)var6.field2403) + 0.5D) * 457728128;
+					var1.field2456 += (int)(128.0D * Math.pow(2.0D, var8 * (double)var6.field2403) + 0.5D);
 				} else {
-					var1.field2456 = var1.field2456 * -1540341760 + -1540341760;
+					var1.field2456 += 128;
 				}
 			}
 
@@ -1020,11 +1020,11 @@ public class MidiPcmStream extends PcmStream {
 					var1.field2448 += 128;
 				}
 
-				while (var1.field2458 * 4 < var6.field2402.length - 2 && var1.field2448 > (var6.field2402[var1.field2458 * 4 + 2] & 255) << 8) {
-					var1.field2458 = var1.field2458 * 4 + 2;
+				while (var1.field2458 < var6.field2402.length - 2 && var1.field2448 > (var6.field2402[var1.field2458 + 2] & 255) << 8) {
+					var1.field2458 += 2;
 				}
 
-				if (var1.field2458 * 4 == var6.field2402.length - 2 && var6.field2402[var1.field2458 * 4 + 1] == 0) {
+				if (var6.field2402.length - 2 == var1.field2458 && var6.field2402[var1.field2458 + 1] == 0) {
 					var7 = true;
 				}
 			}
@@ -1036,11 +1036,11 @@ public class MidiPcmStream extends PcmStream {
 					var1.field2459 += 128;
 				}
 
-				while (var1.field2460 * 2 < var6.field2399.length - 2 && var1.field2459 > (var6.field2399[var1.field2460 * 2 + 2] & 255) << 8) {
-					var1.field2460 = var1.field2460 * 4 + 4;
+				while (var1.field2460 < var6.field2399.length - 2 && var1.field2459 > (var6.field2399[var1.field2460 + 2] & 255) << 8) {
+					var1.field2460 += 2;
 				}
 
-				if (var1.field2460 * 2 == var6.field2399.length - 2) {
+				if (var6.field2399.length - 2 == var1.field2460) {
 					var7 = true;
 				}
 			}

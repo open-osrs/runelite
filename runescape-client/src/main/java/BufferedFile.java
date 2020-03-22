@@ -353,7 +353,7 @@ public class BufferedFile {
 			}
 
 			this.accessFile.write(this.writeBuffer, 0, this.writeBufferLength);
-			this.fileOffset += (long)(this.writeBufferLength * -2104387715) * -477832747L;
+			this.fileOffset += (long)this.writeBufferLength * 1005545362611503105L;
 			if (this.fileOffset > this.fileLength) {
 				this.fileLength = this.fileOffset;
 			}

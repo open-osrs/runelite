@@ -27,7 +27,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *
  * @author Adam
  */
 public class ISAACCipherTest
@@ -38,9 +37,9 @@ public class ISAACCipherTest
 	public void testNextInt()
 	{
 		int[] keyInts = new int[]
-		{
-			4, 8, 15, 16, 23, 42
-		};
+			{
+				4, 8, 15, 16, 23, 42
+			};
 
 		IsaacCipher is = new IsaacCipher(keyInts);
 

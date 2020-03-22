@@ -13,7 +13,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 	@ObfuscatedName("qo")
 	@ObfuscatedGetter(
-		intValue = -1780442240
+		intValue = 1227604279
 	)
 	static int field640;
 	@ObfuscatedName("w")

@@ -138,7 +138,7 @@ public class WorldMapSection2 implements WorldMapSection {
 		if (!this.containsCoord(var1, var2, var3)) {
 			return null;
 		} else {
-			int[] var4 = new int[]{this.field214 * 64 - this.regionStartX * 64 + var2, var3 + (this.field216 * 64 - this.regionStartY * 64)};
+			int[] var4 = new int[]{var2 + (this.field214 * 64 - this.regionStartX * 64), var3 + (this.field216 * 64 - this.regionStartY * 64)};
 			return var4;
 		}
 	}
@@ -154,7 +154,7 @@ public class WorldMapSection2 implements WorldMapSection {
 			return null;
 		} else {
 			int var3 = this.regionStartX * 64 - this.field214 * 64 + var1;
-			int var4 = this.regionStartY * 64 - this.field216 * 64 + var2;
+			int var4 = var2 + (this.regionStartY * 64 - this.field216 * 64);
 			return new Coord(this.minPlane, var3, var4);
 		}
 	}

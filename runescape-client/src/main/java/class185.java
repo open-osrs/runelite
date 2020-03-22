@@ -102,8 +102,8 @@ public class class185 {
 	)
 	static final void method3685(Actor var0) {
 		int var1 = Math.max(1, var0.field985 - Client.cycle);
-		int var2 = var0.field981 * 128 + var0.field942 * 2013925376;
-		int var3 = var0.field957 * 128 + var0.field942 * 2013925376;
+		int var2 = var0.field942 * 64 + var0.field981 * 128;
+		int var3 = var0.field942 * 64 + var0.field957 * 128;
 		var0.x += (var2 - var0.x) / var1;
 		var0.y += (var3 - var0.y) / var1;
 		var0.field997 = 0;

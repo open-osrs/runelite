@@ -131,8 +131,8 @@ public class SecureRandomFuture {
 				int var5;
 				if (var0 == ScriptOpcodes.COORD) {
 					var3 = Clock.Client_plane;
-					var4 = Messages.baseX * 64 + (class192.localPlayer.x >> 7);
-					var5 = Language.baseY * 64 + (class192.localPlayer.y >> 7);
+					var4 = (LocationSet.localPlayer.x >> 7) + Messages.baseX;
+					var5 = (LocationSet.localPlayer.y >> 7) + Language.baseY;
 					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = (var4 << 14) + var5 + (var3 << 28);
 					return 1;
 				} else if (var0 == ScriptOpcodes.COORDX) {

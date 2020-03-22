@@ -42,7 +42,7 @@ public class class208 {
 			} else if (Client.localPlayerIndex == var1) {
 				throw new RuntimeException();
 			} else {
-				Players.Players_regions[var1] = (var4.plane << 28) + (Language.baseY * 64 + var4.pathY[0] >> 13) + (Messages.baseX * 64 + var4.pathX[0] >> 13 << 14);
+				Players.Players_regions[var1] = (var4.plane << 28) + (Language.baseY + var4.pathY[0] >> 13) + (Messages.baseX + var4.pathX[0] >> 13 << 14);
 				if (var4.field967 != -1) {
 					Players.Players_orientations[var1] = var4.field967;
 				} else {
@@ -203,8 +203,8 @@ public class class208 {
 					var7 = var6 >> 28;
 					var8 = var6 >> 14 & 16383;
 					var9 = var6 & 16383;
-					var10 = (Messages.baseX * 64 + var8 + var4.pathX[0] & 16383) - Messages.baseX * 64;
-					var11 = (Language.baseY * 64 + var9 + var4.pathY[0] & 16383) - Language.baseY * 64;
+					var10 = (var8 + Messages.baseX + var4.pathX[0] & 16383) - Messages.baseX;
+					var11 = (var9 + Language.baseY + var4.pathY[0] & 16383) - Language.baseY;
 					if (Client.localPlayerIndex == var1 && (var4.x < 1536 || var4.y < 1536 || var4.x >= 11776 || var4.y >= 11776)) {
 						var4.resetPath(var10, var11);
 						var4.field621 = false;
@@ -349,7 +349,7 @@ public class class208 {
 					continue;
 				}
 
-				if (var10 == class192.localPlayer) {
+				if (var10 == LocationSet.localPlayer) {
 					var6 = var9;
 					continue;
 				}
@@ -361,7 +361,7 @@ public class class208 {
 		}
 
 		if (Client.renderSelf && var6 != -1) {
-			class288.drawActor2d(class192.localPlayer, var6, var0, var1, var2, var3);
+			class288.drawActor2d(LocationSet.localPlayer, var6, var0, var1, var2, var3);
 		}
 
 		if (var4) {

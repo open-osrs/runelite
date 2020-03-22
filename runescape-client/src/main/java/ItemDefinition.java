@@ -920,7 +920,7 @@ public class ItemDefinition extends DualNode {
 	public int getShiftClickIndex() {
 		if (this.shiftClickIndex != -1 && this.inventoryActions != null) {
 			if (this.shiftClickIndex >= 0) {
-				return this.inventoryActions[this.shiftClickIndex] != null ? this.shiftClickIndex : -1;
+				return this.inventoryActions[this.shiftClickIndex] != null ? this.shiftClickIndex * 1996888449 * -2010896767 : -1;
 			} else {
 				return "Drop".equalsIgnoreCase(this.inventoryActions[4]) ? 4 : -1;
 			}

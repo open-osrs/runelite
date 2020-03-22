@@ -422,7 +422,7 @@ public class Scene {
 			var12.tag = var9;
 			var12.flags = var11;
 			var12.x = var2 * 128 + 64;
-			var12.y = var3 * 134217728 + 67108864;
+			var12.y = var3 * 128 + 64;
 			var12.tileHeight = var4;
 			var12.entity1 = var5;
 			var12.entity2 = var6;
@@ -450,7 +450,7 @@ public class Scene {
 			var14.tag = var11;
 			var14.flags = var13;
 			var14.x = var2 * 128 + 64;
-			var14.y = var3 * -2013265920 + 1140850688;
+			var14.y = var3 * 128 + 64;
 			var14.tileHeight = var4;
 			var14.entity1 = var5;
 			var14.entity2 = var6;
@@ -1355,7 +1355,7 @@ public class Scene {
 
 												var10 = var9.boundaryObject;
 												if (var10 != null) {
-													var10.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var10.x * 4096 - Scene_cameraX, var10.tileHeight - Scene_cameraY, var10.y * 64 - Scene_cameraZ, var10.tag);
+													var10.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var10.x - Scene_cameraX, var10.tileHeight - Scene_cameraY, var10.y - Scene_cameraZ, var10.tag);
 												}
 
 												for (var11 = 0; var11 < var9.gameObjectsCount; ++var11) {
@@ -1424,21 +1424,21 @@ public class Scene {
 												}
 
 												if ((var31.orientationA & var11) != 0 && !this.method3204(var7, var4, var5, var31.orientationA)) {
-													var31.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var31.x * 4096 - Scene_cameraX, var31.tileHeight - Scene_cameraY, var31.y * 64 - Scene_cameraZ, var31.tag);
+													var31.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var31.x - Scene_cameraX, var31.tileHeight - Scene_cameraY, var31.y - Scene_cameraZ, var31.tag);
 												}
 
 												if ((var31.orientationB & var11) != 0 && !this.method3204(var7, var4, var5, var31.orientationB)) {
-													var31.entity2.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var31.x * 4096 - Scene_cameraX, var31.tileHeight - Scene_cameraY, var31.y * 64 - Scene_cameraZ, var31.tag);
+													var31.entity2.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var31.x - Scene_cameraX, var31.tileHeight - Scene_cameraY, var31.y - Scene_cameraZ, var31.tag);
 												}
 											}
 
 											if (var13 != null && !this.method3205(var7, var4, var5, var13.entity1.height)) {
 												if ((var13.orientation & var11) != 0) {
-													var13.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var13.xOffset + (var13.x * 4096 - Scene_cameraX), var13.tileHeight - Scene_cameraY, var13.y * 64 - Scene_cameraZ + var13.yOffset, var13.tag);
+													var13.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var13.x - Scene_cameraX + var13.xOffset, var13.tileHeight - Scene_cameraY, var13.y - Scene_cameraZ + var13.yOffset, var13.tag);
 												} else if (var13.orientation == 256) {
-													var14 = var13.x * 4096 - Scene_cameraX;
+													var14 = var13.x - Scene_cameraX;
 													var15 = var13.tileHeight - Scene_cameraY;
-													var16 = var13.y * 64 - Scene_cameraZ;
+													var16 = var13.y - Scene_cameraZ;
 													var17 = var13.orientation2;
 													if (var17 != 1 && var17 != 2) {
 														var18 = var14;
@@ -1464,21 +1464,21 @@ public class Scene {
 											if (var20) {
 												FloorDecoration var22 = var3.floorDecoration;
 												if (var22 != null) {
-													var22.entity.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var22.x * 4096 - Scene_cameraX, var22.tileHeight - Scene_cameraY, var22.y * 4096 - Scene_cameraZ, var22.tag);
+													var22.entity.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var22.x - Scene_cameraX, var22.tileHeight - Scene_cameraY, var22.y - Scene_cameraZ, var22.tag);
 												}
 
 												TileItemPile var23 = var3.tileItemPile;
 												if (var23 != null && var23.height == 0) {
 													if (var23.second != null) {
-														var23.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x * 4096 - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y * 4096 - Scene_cameraZ, var23.tag);
+														var23.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
 													}
 
 													if (var23.third != null) {
-														var23.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x * 4096 - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y * 4096 - Scene_cameraZ, var23.tag);
+														var23.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
 													}
 
 													if (var23.first != null) {
-														var23.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x * 4096 - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y * 4096 - Scene_cameraZ, var23.tag);
+														var23.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
 													}
 												}
 											}
@@ -1529,7 +1529,7 @@ public class Scene {
 											if (var20) {
 												var10 = var3.boundaryObject;
 												if (!this.method3204(var7, var4, var5, var10.orientationA)) {
-													var10.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var10.x * 4096 - Scene_cameraX, var10.tileHeight - Scene_cameraY, var10.y * 64 - Scene_cameraZ, var10.tag);
+													var10.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var10.x - Scene_cameraX, var10.tileHeight - Scene_cameraY, var10.y - Scene_cameraZ, var10.tag);
 												}
 
 												var3.drawGameObjectEdges = 0;
@@ -1688,15 +1688,15 @@ public class Scene {
 			TileItemPile var32 = var3.tileItemPile;
 			if (var32 != null && var32.height != 0) {
 				if (var32.second != null) {
-					var32.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x * 4096 - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y * 4096 - Scene_cameraZ, var32.tag);
+					var32.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
 				}
 
 				if (var32.third != null) {
-					var32.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x * 4096 - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y * 4096 - Scene_cameraZ, var32.tag);
+					var32.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
 				}
 
 				if (var32.first != null) {
-					var32.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x * 4096 - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y * 4096 - Scene_cameraZ, var32.tag);
+					var32.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
 				}
 			}
 
@@ -1704,11 +1704,11 @@ public class Scene {
 				WallDecoration var29 = var3.wallDecoration;
 				if (var29 != null && !this.method3205(var7, var4, var5, var29.entity1.height)) {
 					if ((var29.orientation & var3.field1652) != 0) {
-						var29.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var29.xOffset + (var29.x * 4096 - Scene_cameraX), var29.tileHeight - Scene_cameraY, var29.y * 64 - Scene_cameraZ + var29.yOffset, var29.tag);
+						var29.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var29.x - Scene_cameraX + var29.xOffset, var29.tileHeight - Scene_cameraY, var29.y - Scene_cameraZ + var29.yOffset, var29.tag);
 					} else if (var29.orientation == 256) {
-						var11 = var29.x * 4096 - Scene_cameraX;
+						var11 = var29.x - Scene_cameraX;
 						var25 = var29.tileHeight - Scene_cameraY;
-						var24 = var29.y * 64 - Scene_cameraZ;
+						var24 = var29.y - Scene_cameraZ;
 						var14 = var29.orientation2;
 						if (var14 != 1 && var14 != 2) {
 							var15 = var11;
@@ -1733,11 +1733,11 @@ public class Scene {
 				BoundaryObject var27 = var3.boundaryObject;
 				if (var27 != null) {
 					if ((var27.orientationB & var3.field1652) != 0 && !this.method3204(var7, var4, var5, var27.orientationB)) {
-						var27.entity2.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var27.x * 4096 - Scene_cameraX, var27.tileHeight - Scene_cameraY, var27.y * 64 - Scene_cameraZ, var27.tag);
+						var27.entity2.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var27.x - Scene_cameraX, var27.tileHeight - Scene_cameraY, var27.y - Scene_cameraZ, var27.tag);
 					}
 
 					if ((var27.orientationA & var3.field1652) != 0 && !this.method3204(var7, var4, var5, var27.orientationA)) {
-						var27.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var27.x * 4096 - Scene_cameraX, var27.tileHeight - Scene_cameraY, var27.y * 64 - Scene_cameraZ, var27.tag);
+						var27.entity1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var27.x - Scene_cameraX, var27.tileHeight - Scene_cameraY, var27.y - Scene_cameraZ, var27.tag);
 					}
 				}
 			}

@@ -231,7 +231,7 @@ public class Varcs {
 	void read() {
 		AccessFile var1 = this.getPreferencesFile(false);
 
-		label231: {
+		label215: {
 			try {
 				byte[] var2 = new byte[(int)var1.length()];
 
@@ -244,63 +244,63 @@ public class Varcs {
 				}
 
 				Buffer var15 = new Buffer(var2);
-				if (var15.array.length - var15.offset >= 1) {
-					int var16 = var15.readUnsignedByte();
-					if (var16 >= 0 && var16 <= 2) {
-						int var7;
-						int var8;
-						int var9;
-						int var17;
-						if (var16 >= 2) {
-							var17 = var15.readUnsignedShort();
-							var7 = 0;
-
-							while (true) {
-								if (var7 >= var17) {
-									break label231;
-								}
-
-								var8 = var15.readUnsignedShort();
-								var9 = var15.readUnsignedByte();
-								class3[] var10 = new class3[]{class3.field15, class3.field22, class3.field16};
-								class3 var11 = (class3)WorldMapSection0.findEnumerated(var10, var9);
-								Object var12 = var11.method38(var15);
-								if (this.intsPersistence[var8]) {
-									this.map.put(var8, var12);
-								}
-
-								++var7;
-							}
-						} else {
-							var17 = var15.readUnsignedShort();
-
-							for (var7 = 0; var7 < var17; ++var7) {
-								var8 = var15.readUnsignedShort();
-								var9 = var15.readInt();
-								if (this.intsPersistence[var8]) {
-									this.map.put(var8, var9);
-								}
-							}
-
-							var7 = var15.readUnsignedShort();
-							var8 = 0;
-
-							while (true) {
-								if (var8 >= var7) {
-									break label231;
-								}
-
-								var15.readUnsignedShort();
-								var15.readStringCp1252NullTerminated();
-								++var8;
-							}
-						}
-					}
-
+				if (var15.array.length - var15.offset < 1) {
 					return;
 				}
+
+				int var16 = var15.readUnsignedByte();
+				if (var16 >= 0 && var16 <= 2) {
+					int var7;
+					int var8;
+					int var9;
+					int var17;
+					if (var16 >= 2) {
+						var17 = var15.readUnsignedShort();
+						var7 = 0;
+
+						while (true) {
+							if (var7 >= var17) {
+								break label215;
+							}
+
+							var8 = var15.readUnsignedShort();
+							var9 = var15.readUnsignedByte();
+							class3[] var10 = new class3[]{class3.field15, class3.field22, class3.field16};
+							class3 var11 = (class3)WorldMapSection0.findEnumerated(var10, var9);
+							Object var12 = var11.method38(var15);
+							if (this.intsPersistence[var8]) {
+								this.map.put(var8, var12);
+							}
+
+							++var7;
+						}
+					} else {
+						var17 = var15.readUnsignedShort();
+
+						for (var7 = 0; var7 < var17; ++var7) {
+							var8 = var15.readUnsignedShort();
+							var9 = var15.readInt();
+							if (this.intsPersistence[var8]) {
+								this.map.put(var8, var9);
+							}
+						}
+
+						var7 = var15.readUnsignedShort();
+						var8 = 0;
+
+						while (true) {
+							if (var8 >= var7) {
+								break label215;
+							}
+
+							var15.readUnsignedShort();
+							var15.readStringCp1252NullTerminated();
+							++var8;
+						}
+					}
+				}
 			} catch (Exception var26) {
-				break label231;
+				break label215;
 			} finally {
 				try {
 					var1.close();

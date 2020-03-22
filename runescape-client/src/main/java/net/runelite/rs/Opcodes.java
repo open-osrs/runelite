@@ -1,3 +1,5 @@
 package net.runelite.rs;
 
-public class Opcodes {}
+public class Opcodes
+{
+}

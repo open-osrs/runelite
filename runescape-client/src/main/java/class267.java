@@ -61,12 +61,12 @@ public class class267 {
 					int var8 = Rasterizer3D.Rasterizer3D_cosine[var6];
 					int var9 = var7 * var5 + var4 * var8 >> 11;
 					int var10 = var8 * var5 - var7 * var4 >> 11;
-					int var11 = var9 + class192.localPlayer.x >> 7;
-					int var12 = class192.localPlayer.y - var10 >> 7;
+					int var11 = var9 + LocationSet.localPlayer.x >> 7;
+					int var12 = LocationSet.localPlayer.y - var10 >> 7;
 					PacketBufferNode var13 = TilePaint.getPacketBufferNode(ClientPacket.field2276, Client.packetWriter.isaacCipher);
 					var13.packetBuffer.writeByte(18);
-					var13.packetBuffer.writeShort(Language.baseY * 64 + var12);
-					var13.packetBuffer.method5787(Messages.baseX * 64 + var11);
+					var13.packetBuffer.writeShort(var12 + Language.baseY);
+					var13.packetBuffer.method5787(var11 + Messages.baseX);
 					var13.packetBuffer.method5604(KeyHandler.KeyHandler_pressedKeys[82] ? (KeyHandler.KeyHandler_pressedKeys[81] ? 2 : 1) : 0);
 					var13.packetBuffer.writeByte(var4);
 					var13.packetBuffer.writeByte(var5);
@@ -75,8 +75,8 @@ public class class267 {
 					var13.packetBuffer.writeByte(0);
 					var13.packetBuffer.writeByte(0);
 					var13.packetBuffer.writeByte(89);
-					var13.packetBuffer.writeShort(class192.localPlayer.x);
-					var13.packetBuffer.writeShort(class192.localPlayer.y);
+					var13.packetBuffer.writeShort(LocationSet.localPlayer.x);
+					var13.packetBuffer.writeShort(LocationSet.localPlayer.y);
 					var13.packetBuffer.writeByte(63);
 					Client.packetWriter.addNode(var13);
 					Client.destinationX = var11;

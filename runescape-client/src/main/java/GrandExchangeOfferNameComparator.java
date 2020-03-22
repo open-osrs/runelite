@@ -205,7 +205,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 									var32 = var12 * 256 / var15;
 									var33 = var13 / var16;
 									int var34 = var14 / var16;
-									var30 = class192.hslToRgb(var32, var33, var34);
+									var30 = LocationSet.hslToRgb(var32, var33, var34);
 									var32 = var32 + Tiles.field512 & 255;
 									var34 += Tiles.field519;
 									if (var34 < 0) {
@@ -214,7 +214,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 										var34 = 255;
 									}
 
-									var31 = class192.hslToRgb(var32, var33, var34);
+									var31 = LocationSet.hslToRgb(var32, var33, var34);
 								}
 
 								if (var2 > 0) {
@@ -257,7 +257,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 										var36 = -1;
 										var38 = -2;
 									} else {
-										var37 = class192.hslToRgb(var35.hue, var35.saturation, var35.lightness);
+										var37 = LocationSet.hslToRgb(var35.hue, var35.saturation, var35.lightness);
 										var39 = var35.hue + Tiles.field512 & 255;
 										var40 = var35.lightness + Tiles.field519;
 										if (var40 < 0) {
@@ -266,7 +266,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 											var40 = 255;
 										}
 
-										var38 = class192.hslToRgb(var39, var35.saturation, var40);
+										var38 = LocationSet.hslToRgb(var39, var35.saturation, var40);
 									}
 
 									var39 = 0;
@@ -283,7 +283,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 											var41 = 255;
 										}
 
-										var38 = class192.hslToRgb(var40, var35.secondarySaturation, var41);
+										var38 = LocationSet.hslToRgb(var40, var35.secondarySaturation, var41);
 										var39 = Rasterizer3D.Rasterizer3D_colorPalette[WorldMapRegion.method564(var38, 96)];
 									}
 

@@ -607,7 +607,7 @@ public class MusicPatch extends Node {
 				} else if (var0 == ScriptOpcodes.FRIEND_TEST) {
 					var5 = Interpreter.Interpreter_stringStack[--Message.Interpreter_stringStackSize];
 					var5 = MouseRecorder.method1207(var5);
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = KeyHandler.friendSystem.isFriended(new Username(var5, class192.loginType), false) ? 1 : 0;
+					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = KeyHandler.friendSystem.isFriended(new Username(var5, LocationSet.loginType), false) ? 1 : 0;
 					return 1;
 				} else if (var0 == ScriptOpcodes.CLAN_GETCHATDISPLAYNAME) {
 					if (InterfaceParent.clanChat != null) {
@@ -660,7 +660,7 @@ public class MusicPatch extends Node {
 					WorldMapID.clanKickUser(var5);
 					return 1;
 				} else if (var0 == ScriptOpcodes.CLAN_GETCHATRANK) {
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = InterfaceParent.clanChat != null ? InterfaceParent.clanChat.rank : 0;
+					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = InterfaceParent.clanChat != null ? InterfaceParent.clanChat.rank * 1887951893 * -723578051 : 0;
 					return 1;
 				} else if (var0 == ScriptOpcodes.CLAN_JOINCHAT) {
 					var5 = Interpreter.Interpreter_stringStack[--Message.Interpreter_stringStackSize];
@@ -692,11 +692,12 @@ public class MusicPatch extends Node {
 				} else if (var0 == ScriptOpcodes.IGNORE_TEST) {
 					var5 = Interpreter.Interpreter_stringStack[--Message.Interpreter_stringStackSize];
 					var5 = MouseRecorder.method1207(var5);
-					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = KeyHandler.friendSystem.isIgnored(new Username(var5, class192.loginType)) ? 1 : 0;
+					Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = KeyHandler.friendSystem.isIgnored(new Username(var5, LocationSet.loginType)) ? 1 : 0;
 					return 1;
 				} else if (var0 == ScriptOpcodes.CLAN_ISSELF) {
 					var3 = Interpreter.Interpreter_intStack[--class320.Interpreter_intStackSize];
-					if (InterfaceParent.clanChat != null && var3 < InterfaceParent.clanChat.getSize() && InterfaceParent.clanChat.get(var3).getUsername().equals(class192.localPlayer.username)) {
+					if (InterfaceParent.clanChat != null && var3 < InterfaceParent.clanChat.getSize() && InterfaceParent.clanChat.get(var3).getUsername().equals(
+						LocationSet.localPlayer.username)) {
 						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = 1;
 					} else {
 						Interpreter.Interpreter_intStack[++class320.Interpreter_intStackSize - 1] = 0;

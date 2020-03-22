@@ -163,10 +163,10 @@ public class GrandExchangeEvent {
 		if (var0.field986 == Client.cycle || var0.sequence == -1 || var0.sequenceDelay != 0 || var0.sequenceFrameCycle + 1 > GraphicsDefaults.SequenceDefinition_get(var0.sequence).frameLengths[var0.sequenceFrame]) {
 			int var1 = var0.field986 - var0.field985;
 			int var2 = Client.cycle - var0.field985;
-			int var3 = var0.field981 * 128 + var0.field942 * 2013925376;
-			int var4 = var0.field957 * 128 + var0.field942 * 2013925376;
-			int var5 = var0.field961 * 128 + var0.field942 * 2013925376;
-			int var6 = var0.field991 * 128 + var0.field942 * 2013925376;
+			int var3 = var0.field942 * 64 + var0.field981 * 128;
+			int var4 = var0.field942 * 64 + var0.field957 * 128;
+			int var5 = var0.field942 * 64 + var0.field961 * 128;
+			int var6 = var0.field942 * 64 + var0.field991 * 128;
 			var0.x = (var2 * var5 + var3 * (var1 - var2)) / var1;
 			var0.y = (var6 * var2 + var4 * (var1 - var2)) / var1;
 		}

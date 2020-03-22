@@ -171,7 +171,7 @@ public class class49 {
 
 			if ((var4 & 16) != 0) {
 				var3.definition = NetCache.getNpcDefinition(var0.method5762());
-				var3.field942 = var3.definition.size * 64;
+				var3.field942 = var3.definition.size;
 				var3.field975 = var3.definition.rotation;
 				var3.walkSequence = var3.definition.walkSequence;
 				var3.walkBackSequence = var3.definition.walkBackSequence;
@@ -185,8 +185,8 @@ public class class49 {
 			if ((var4 & 128) != 0) {
 				var5 = var0.method5762();
 				var6 = var0.method5614();
-				var7 = var3.x - (var5 - Messages.baseX * 64 - Messages.baseX * 64) * 64;
-				var8 = var3.y - (var6 - Language.baseY * 64 - Language.baseY * 64) * 64;
+				var7 = var3.x - (var5 - Messages.baseX - Messages.baseX) * 64;
+				var8 = var3.y - (var6 - Language.baseY - Language.baseY) * 64;
 				if (var7 != 0 || var8 != 0) {
 					var3.field967 = (int)(Math.atan2((double)var7, (double)var8) * 325.949D) & 2047;
 				}

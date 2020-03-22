@@ -1449,7 +1449,7 @@ public class Widget extends Node {
 			var1 = false;
 		}
 
-		int var2 = var1 ? this.spriteId : this.spriteId2;
+		int var2 = var1 ? this.spriteId * 1993820815 * -1682664337 : this.spriteId2 * 1818205057 * -1909152639;
 		if (var2 == -1) {
 			return null;
 		} else {

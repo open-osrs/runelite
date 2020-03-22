@@ -65,7 +65,7 @@ public class UserComparator5 extends AbstractUserComparator {
 			return 1;
 		} else if (var0 == ScriptOpcodes.ANIM) {
 			class320.Interpreter_intStackSize -= 2;
-			InterfaceParent.performPlayerAnimation(class192.localPlayer, Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize], Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1]);
+			InterfaceParent.performPlayerAnimation(LocationSet.localPlayer, Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize], Interpreter.Interpreter_intStack[class320.Interpreter_intStackSize + 1]);
 			return 1;
 		} else if (var0 == ScriptOpcodes.IF_CLOSE) {
 			if (!Interpreter.field1095) {
@@ -259,7 +259,7 @@ public class UserComparator5 extends AbstractUserComparator {
 						return 1;
 					} else if (var0 == 3140) {
 						Client.field808 = 3;
-						Client.field664 = var2 ? class186.field2331.id : MidiPcmStream.field2444.id;
+						Client.field664 = var2 ? class186.field2331.id * 528372133 * 966798893 : MidiPcmStream.field2444.id * 528372133 * 966798893;
 						return 1;
 					} else {
 						boolean var8;

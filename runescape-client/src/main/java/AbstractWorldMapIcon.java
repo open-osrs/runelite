@@ -297,7 +297,7 @@ public abstract class AbstractWorldMapIcon {
 					var2.overheadTextEffect = var5 & 255;
 					var2.overheadTextCyclesRemaining = 150;
 					var2.isAutoChatting = var17;
-					var2.field954 = var2 != class192.localPlayer && var13.isUser && "" != Client.field780 && var14.toLowerCase().indexOf(Client.field780) == -1;
+					var2.field954 = var2 != LocationSet.localPlayer && var13.isUser && "" != Client.field780 && var14.toLowerCase().indexOf(Client.field780) == -1;
 					if (var13.isPrivileged) {
 						var12 = var17 ? 91 : 1;
 					} else {
@@ -356,7 +356,7 @@ public abstract class AbstractWorldMapIcon {
 			if (var2.overheadText.charAt(0) == '~') {
 				var2.overheadText = var2.overheadText.substring(1);
 				ClientPreferences.addGameMessage(2, var2.username.getName(), var2.overheadText);
-			} else if (var2 == class192.localPlayer) {
+			} else if (var2 == LocationSet.localPlayer) {
 				ClientPreferences.addGameMessage(2, var2.username.getName(), var2.overheadText);
 			}
 

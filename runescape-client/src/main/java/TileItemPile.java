@@ -224,8 +224,8 @@ public final class TileItemPile {
 	)
 	static final void method2835() {
 		Client.field759 = 0;
-		int var0 = Messages.baseX * 64 + (class192.localPlayer.x >> 7);
-		int var1 = Language.baseY * 64 + (class192.localPlayer.y >> 7);
+		int var0 = (LocationSet.localPlayer.x >> 7) + Messages.baseX;
+		int var1 = (LocationSet.localPlayer.y >> 7) + Language.baseY;
 		if (var0 >= 3053 && var0 <= 3156 && var1 >= 3056 && var1 <= 3136) {
 			Client.field759 = 1;
 		}

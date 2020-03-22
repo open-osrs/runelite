@@ -264,10 +264,10 @@ public final class Player extends Actor {
 			super.runSequence = -1;
 		}
 
-		this.username = new Username(var1.readStringCp1252NullTerminated(), class192.loginType);
+		this.username = new Username(var1.readStringCp1252NullTerminated(), LocationSet.loginType);
 		this.clearIsFriend();
 		this.clearIsInClanChat();
-		if (this == class192.localPlayer) {
+		if (this == LocationSet.localPlayer) {
 			RunException.localPlayerName = this.username.getName();
 		}
 
@@ -399,7 +399,7 @@ public final class Player extends Actor {
 
 					if (Client.cycle >= this.animationCycleStart && Client.cycle < this.animationCycleEnd) {
 						var4 = this.model0;
-						var4.offsetBy(this.field622 * 4096 - super.x, this.tileHeight2 - this.tileHeight, this.field620 * 4096 - super.y);
+						var4.offsetBy(this.field622 - super.x, this.tileHeight2 - this.tileHeight, this.field620 - super.y);
 						if (super.orientation == 512) {
 							var4.rotateY90Ccw();
 							var4.rotateY90Ccw();
@@ -424,7 +424,7 @@ public final class Player extends Actor {
 							var4.rotateY90Ccw();
 						}
 
-						var4.offsetBy(super.x - this.field622 * 4096, this.tileHeight - this.tileHeight2, super.y - this.field620 * 4096);
+						var4.offsetBy(super.x - this.field622, this.tileHeight - this.tileHeight2, super.y - this.field620);
 					}
 				}
 
@@ -624,7 +624,7 @@ public final class Player extends Actor {
 		super.pathX[0] = var1;
 		super.pathY[0] = var2;
 		int var3 = this.transformedSize();
-		super.x = super.pathX[0] * 128 + var3 * 64;
+		super.x = var3 * 64 + super.pathX[0] * 128;
 		super.y = var3 * 64 + super.pathY[0] * 128;
 	}
 

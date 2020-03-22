@@ -48,7 +48,8 @@ public class ConfigLoader
 
 	public void fetch() throws IOException
 	{
-		try (BufferedReader in = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(CONFIG_RESOURCE))))
+		try (BufferedReader in = new BufferedReader(
+			new InputStreamReader(getClass().getResourceAsStream(CONFIG_RESOURCE))))
 		{
 			String str;
 
@@ -57,7 +58,9 @@ public class ConfigLoader
 				int idx = str.indexOf('=');
 
 				if (idx == -1)
+				{
 					continue;
+				}
 
 				String s = str.substring(0, idx);
 

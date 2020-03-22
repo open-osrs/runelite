@@ -48,15 +48,15 @@ public class MenuAction {
 	static final void updatePlayer(PacketBuffer var0) {
 		var0.importIndex();
 		int var1 = Client.localPlayerIndex;
-		Player var2 = class192.localPlayer = Client.players[var1] = new Player();
+		Player var2 = LocationSet.localPlayer = Client.players[var1] = new Player();
 		var2.index = var1;
 		int var3 = var0.readBits(30);
 		byte var4 = (byte)(var3 >> 28);
 		int var5 = var3 >> 14 & 16383;
 		int var6 = var3 & 16383;
-		var2.pathX[0] = var5 - Messages.baseX * 64;
+		var2.pathX[0] = var5 - Messages.baseX;
 		var2.x = (var2.pathX[0] << 7) + (var2.transformedSize() << 6);
-		var2.pathY[0] = var6 - Language.baseY * 64;
+		var2.pathY[0] = var6 - Language.baseY;
 		var2.y = (var2.pathY[0] << 7) + (var2.transformedSize() << 6);
 		Clock.Client_plane = var2.plane = var4;
 		if (Players.field1235[var1] != null) {

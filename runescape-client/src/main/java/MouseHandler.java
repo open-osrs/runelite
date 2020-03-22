@@ -342,7 +342,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 			Client.players[var0] = null;
 		}
 
-		class192.localPlayer = null;
+		LocationSet.localPlayer = null;
 
 		for (var0 = 0; var0 < Client.npcs.length; ++var0) {
 			NPC var1 = Client.npcs[var0];

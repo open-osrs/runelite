@@ -120,7 +120,7 @@ public class WorldMapSection1 implements WorldMapSection {
 		if (!this.containsCoord(var1, var2, var3)) {
 			return null;
 		} else {
-			int[] var4 = new int[]{this.regionEndX * 64 - this.regionStartX * 64 + var2, var3 + (this.regionEndY * 64 - this.regionStartY * 64)};
+			int[] var4 = new int[]{var2 + (this.regionEndX * 64 - this.regionStartX * 64), var3 + (this.regionEndY * 64 - this.regionStartY * 64)};
 			return var4;
 		}
 	}
@@ -136,7 +136,7 @@ public class WorldMapSection1 implements WorldMapSection {
 			return null;
 		} else {
 			int var3 = this.regionStartX * 64 - this.regionEndX * 64 + var1;
-			int var4 = this.regionStartY * 64 - this.regionEndY * 64 + var2;
+			int var4 = var2 + (this.regionStartY * 64 - this.regionEndY * 64);
 			return new Coord(this.minPlane, var3, var4);
 		}
 	}
@@ -186,7 +186,7 @@ public class WorldMapSection1 implements WorldMapSection {
 		++Client.viewportDrawCount;
 		GrandExchangeOfferUnitPriceComparator.method141();
 		if (Client.renderSelf) {
-			class51.addPlayerToScene(class192.localPlayer, false);
+			class51.addPlayerToScene(LocationSet.localPlayer, false);
 		}
 
 		if (Client.combatTargetPlayerIndex >= 0 && Client.players[Client.combatTargetPlayerIndex] != null) {
@@ -212,7 +212,7 @@ public class WorldMapSection1 implements WorldMapSection {
 						var6 = -var4.targetIndex - 1;
 						Player var22;
 						if (var6 == Client.localPlayerIndex) {
-							var22 = class192.localPlayer;
+							var22 = LocationSet.localPlayer;
 						} else {
 							var22 = Client.players[var6];
 						}
@@ -292,10 +292,10 @@ public class WorldMapSection1 implements WorldMapSection {
 			Actor.cameraZ = var8 - var15;
 			GrandExchangeOffer.cameraPitch = var19;
 			FriendSystem.cameraYaw = var5;
-			if (Client.oculusOrbState == 1 && Client.staffModLevel >= 2 && Client.cycle % 50 == 0 && (PendingSpawn.oculusOrbFocalPointX >> 7 != class192.localPlayer.x >> 7 || Skeleton.oculusOrbFocalPointY >> 7 != class192.localPlayer.y >> 7)) {
-				var16 = class192.localPlayer.plane;
-				var17 = Messages.baseX * 64 + (PendingSpawn.oculusOrbFocalPointX >> 7);
-				var18 = Language.baseY * 64 + (Skeleton.oculusOrbFocalPointY >> 7);
+			if (Client.oculusOrbState == 1 && Client.staffModLevel >= 2 && Client.cycle % 50 == 0 && (PendingSpawn.oculusOrbFocalPointX >> 7 != LocationSet.localPlayer.x >> 7 || Skeleton.oculusOrbFocalPointY >> 7 != LocationSet.localPlayer.y >> 7)) {
+				var16 = LocationSet.localPlayer.plane;
+				var17 = (PendingSpawn.oculusOrbFocalPointX >> 7) + Messages.baseX;
+				var18 = (Skeleton.oculusOrbFocalPointY >> 7) + Language.baseY;
 				WorldMapRegion.method563(var17, var18, var16, true);
 			}
 		}
@@ -380,7 +380,7 @@ public class WorldMapSection1 implements WorldMapSection {
 		ServerBuild.scene.clearTempGameObjects();
 		class208.method4017(var0, var1, var2, var3);
 		if (Client.hintArrowType == 2) {
-			MouseRecorder.worldToScreen(Client.hintArrowSubX * 64 + (Client.hintArrowX - Messages.baseX * 64 << 7), (Client.hintArrowY - Language.baseY * 64 << 7) + Client.hintArrowSubY * 4096, Client.hintArrowHeight * 2);
+			MouseRecorder.worldToScreen((Client.hintArrowX - Messages.baseX << 7) + Client.hintArrowSubX, (Client.hintArrowY - Language.baseY << 7) + Client.hintArrowSubY, Client.hintArrowHeight * 2);
 			if (Client.viewportTempX > -1 && Client.cycle % 20 < 10) {
 				SecureRandomCallable.headIconHintSprites[0].drawTransBgAt(var0 + Client.viewportTempX - 12, Client.viewportTempY + var1 - 28);
 			}

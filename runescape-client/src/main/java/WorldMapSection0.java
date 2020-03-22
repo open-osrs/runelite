@@ -154,7 +154,7 @@ public class WorldMapSection0 implements WorldMapSection {
 		if (!this.containsCoord(var1, var2, var3)) {
 			return null;
 		} else {
-			int[] var4 = new int[]{this.newX * 64 - this.oldX * 64 + var2 + (this.newChunkXLow * 8 - this.oldChunkXLow * 8), var3 + (this.newY * 64 - this.oldY * 64) + (this.newChunkYLow * 8 - this.oldChunkYLow * 8)};
+			int[] var4 = new int[]{var2 + (this.newX * 64 - this.oldX * 64) + (this.newChunkXLow * 8 - this.oldChunkXLow * 8), var3 + (this.newY * 64 - this.oldY * 64) + (this.newChunkYLow * 8 - this.oldChunkYLow * 8)};
 			return var4;
 		}
 	}
@@ -170,7 +170,7 @@ public class WorldMapSection0 implements WorldMapSection {
 			return null;
 		} else {
 			int var3 = this.oldX * 64 - this.newX * 64 + (this.oldChunkXLow * 8 - this.newChunkXLow * 8) + var1;
-			int var4 = this.oldY * 64 - this.newY * 64 + var2 + (this.oldChunkYLow * 8 - this.newChunkYLow * 8);
+			int var4 = var2 + (this.oldY * 64 - this.newY * 64) + (this.oldChunkYLow * 8 - this.newChunkYLow * 8);
 			return new Coord(this.oldZ, var3, var4);
 		}
 	}
@@ -333,7 +333,7 @@ public class WorldMapSection0 implements WorldMapSection {
 					var8 = GrandExchangeEvent.method96(var4);
 					int var9 = class14.method169(var4);
 					Player var25 = Client.players[Client.combatTargetPlayerIndex];
-					class191.addPlayerToMenu(var25, Client.combatTargetPlayerIndex, var8, var9);
+					Location.addPlayerToMenu(var25, Client.combatTargetPlayerIndex, var8, var9);
 				}
 
 				return;
@@ -424,7 +424,7 @@ public class WorldMapSection0 implements WorldMapSection {
 							for (var34 = 0; var34 < var27; ++var34) {
 								var23 = Client.players[var35[var34]];
 								if (var23 != null && var23.x == var30.x && var23.y == var30.y) {
-									class191.addPlayerToMenu(var23, var35[var34], var13, var14);
+									Location.addPlayerToMenu(var23, var35[var34], var13, var14);
 								}
 							}
 						}
@@ -452,13 +452,13 @@ public class WorldMapSection0 implements WorldMapSection {
 							for (var34 = 0; var34 < var27; ++var34) {
 								var23 = Client.players[var35[var34]];
 								if (var23 != null && var31 != var23 && var23.x == var31.x && var31.y == var23.y) {
-									class191.addPlayerToMenu(var23, var35[var34], var13, var14);
+									Location.addPlayerToMenu(var23, var35[var34], var13, var14);
 								}
 							}
 						}
 
 						if (var18 != Client.combatTargetPlayerIndex) {
-							class191.addPlayerToMenu(var31, var18, var13, var14);
+							Location.addPlayerToMenu(var31, var18, var13, var14);
 						} else {
 							var4 = var11;
 						}

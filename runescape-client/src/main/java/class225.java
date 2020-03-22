@@ -450,7 +450,7 @@ public class class225 {
 						++var0;
 					}
 
-					if (class192.scrollBarSprites == null) {
+					if (LocationSet.scrollBarSprites == null) {
 						var2 = UserComparator8.archive8;
 						var27 = class222.spriteIds.field3804;
 						if (!class228.method4199(var2, var27, 0)) {
@@ -474,7 +474,7 @@ public class class225 {
 							var26 = var29;
 						}
 
-						class192.scrollBarSprites = var26;
+						LocationSet.scrollBarSprites = var26;
 					} else {
 						++var0;
 					}

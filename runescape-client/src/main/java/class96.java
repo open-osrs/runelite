@@ -46,8 +46,8 @@ public class class96 {
 					var1 = PendingSpawn.oculusOrbFocalPointX >> 7;
 					var2 = Skeleton.oculusOrbFocalPointY >> 7;
 				} else {
-					var1 = class192.localPlayer.x >> 7;
-					var2 = class192.localPlayer.y >> 7;
+					var1 = LocationSet.localPlayer.x >> 7;
+					var2 = LocationSet.localPlayer.y >> 7;
 				}
 
 				int var3 = HitSplatDefinition.cameraX >> 7;
@@ -141,8 +141,8 @@ public class class96 {
 				}
 			}
 
-			if (class192.localPlayer.x >= 0 && class192.localPlayer.y >= 0 && class192.localPlayer.x < 13312 && class192.localPlayer.y < 13312) {
-				if ((Tiles.Tiles_renderFlags[Clock.Client_plane][class192.localPlayer.x >> 7][class192.localPlayer.y >> 7] & 4) != 0) {
+			if (LocationSet.localPlayer.x >= 0 && LocationSet.localPlayer.y >= 0 && LocationSet.localPlayer.x < 13312 && LocationSet.localPlayer.y < 13312) {
+				if ((Tiles.Tiles_renderFlags[Clock.Client_plane][LocationSet.localPlayer.x >> 7][LocationSet.localPlayer.y >> 7] & 4) != 0) {
 					var0 = Clock.Client_plane;
 				}
 

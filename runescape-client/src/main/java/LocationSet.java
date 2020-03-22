@@ -1,32 +1,34 @@
 import java.util.HashSet;
 import java.util.Set;
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gp")
-public enum class192 implements Enumerated {
+@Implements("LocationSet")
+public enum LocationSet implements Enumerated {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2380("", 0, new class191[]{class191.field2373}),
+	field2380("", 0, new Location[]{Location.field2373}),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2375("", 1, new class191[]{class191.field2368, class191.field2373}),
+	field2375("", 1, new Location[]{Location.field2368, Location.field2373}),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2376("", 2, new class191[]{class191.field2368, class191.field2370, class191.field2373}),
+	field2376("", 2, new Location[]{Location.field2368, Location.field2370, Location.field2373}),
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2382("", 3, new class191[]{class191.field2368}),
+	field2382("", 3, new Location[]{Location.field2368}),
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
@@ -36,42 +38,42 @@ public enum class192 implements Enumerated {
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2379("", 5, new class191[]{class191.field2368, class191.field2373}),
+	field2379("", 5, new Location[]{Location.field2368, Location.field2373}),
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2377("", 6, new class191[]{class191.field2373}),
+	field2377("", 6, new Location[]{Location.field2373}),
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2390("", 8, new class191[]{class191.field2368, class191.field2373}),
+	field2390("", 8, new Location[]{Location.field2368, Location.field2373}),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2384("", 9, new class191[]{class191.field2368, class191.field2370}),
+	field2384("", 9, new Location[]{Location.field2368, Location.field2370}),
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2383("", 10, new class191[]{class191.field2368}),
+	field2383("", 10, new Location[]{Location.field2368}),
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2395("", 11, new class191[]{class191.field2368}),
+	field2395("", 11, new Location[]{Location.field2368}),
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2385("", 12, new class191[]{class191.field2368, class191.field2373}),
+	field2385("", 12, new Location[]{Location.field2368, Location.field2373}),
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		signature = "Lgp;"
 	)
-	field2374("", 13, new class191[]{class191.field2368});
+	field2374("", 13, new Location[]{Location.field2368});
 
 	@ObfuscatedName("bi")
 	@ObfuscatedSignature(
@@ -107,19 +109,19 @@ public enum class192 implements Enumerated {
 	@ObfuscatedSignature(
 		signature = "(Ljava/lang/String;I[Lgx;)V"
 	)
-	class192(String var3, int var4, class191[] var5) {
+	LocationSet(String var3, int var4, Location[] var5) {
 		this.field2388 = new HashSet();
 		this.id = var4;
-		class191[] var6 = var5;
+		Location[] var6 = var5;
 
 		for (int var7 = 0; var7 < var6.length; ++var7) {
-			class191 var8 = var6[var7];
+			Location var8 = var6[var7];
 			this.field2388.add(var8);
 		}
 
 	}
 
-	class192(String var3, int var4) {
+	LocationSet(String var3, int var4) {
 		this.field2388 = new HashSet();
 		this.id = var4;
 	}
@@ -139,8 +141,8 @@ public enum class192 implements Enumerated {
 		signature = "(B)[Lgp;",
 		garbageValue = "39"
 	)
-	static class192[] method3732() {
-		return new class192[]{field2376, field2390, field2378, field2395, field2382, field2383, field2377, field2375, field2385, field2380, field2379, field2384, field2374};
+	static LocationSet[] method3732() {
+		return new LocationSet[]{field2376, field2390, field2378, field2395, field2382, field2383, field2377, field2375, field2385, field2380, field2379, field2384, field2374};
 	}
 
 	@ObfuscatedName("p")

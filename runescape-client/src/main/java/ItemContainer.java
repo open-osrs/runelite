@@ -62,7 +62,7 @@ public class ItemContainer extends Node {
 				int var3 = var2.x >> 7;
 				int var4 = var2.y >> 7;
 				if (var3 >= 0 && var3 < 104 && var4 >= 0 && var4 < 104) {
-					if (var2.field942 * 367011904 == 1 && (var2.x & 127) == 64 && (var2.y & 127) == 64) {
+					if (var2.field942 == 1 && (var2.x & 127) == 64 && (var2.y & 127) == 64) {
 						if (Client.tileLastDrawnActor[var3][var4] == Client.viewportDrawCount) {
 							continue;
 						}
@@ -72,7 +72,7 @@ public class ItemContainer extends Node {
 
 					long var5 = GameShell.calculateTag(0, 0, 1, !var2.definition.isInteractable, Client.npcIndices[var1]);
 					var2.playerCycle = Client.cycle;
-					ServerBuild.scene.drawEntity(Clock.Client_plane, var2.x, var2.y, WorldMapSectionType.getTileHeight(var2.field942 * 2013925376 - 64 + var2.x, var2.field942 * 2013925376 - 64 + var2.y, Clock.Client_plane), var2.field942 * 2013925376 - 64 + 60, var2, var2.rotation, var5, var2.isWalking);
+					ServerBuild.scene.drawEntity(Clock.Client_plane, var2.x, var2.y, WorldMapSectionType.getTileHeight(var2.field942 * 64 - 64 + var2.x, var2.field942 * 64 - 64 + var2.y, Clock.Client_plane), var2.field942 * 64 - 64 + 60, var2, var2.rotation, var5, var2.isWalking);
 				}
 			}
 		}

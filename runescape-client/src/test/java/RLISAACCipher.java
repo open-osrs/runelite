@@ -113,7 +113,7 @@ public class RLISAACCipher
 		}
 		aa = bb = cc = 0;
 		int[] initState = new int[8];
-		Arrays.fill(initState, 0x9e3779b9);	// the golden ratio
+		Arrays.fill(initState, 0x9e3779b9);    // the golden ratio
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -155,7 +155,7 @@ public class RLISAACCipher
 			}
 		}
 
-		valuesLeft = 0;	// Make sure generateMoreResults() will be called by the next nextInt() call.
+		valuesLeft = 0;    // Make sure generateMoreResults() will be called by the next nextInt() call.
 	}
 
 	public int nextInt()

@@ -174,10 +174,10 @@ public class WorldMapRegion {
 		Coord var6 = new Coord(var2, var3 + this.regionX * 64, this.regionY * 64 + var4);
 		Coord var7 = null;
 		if (this.worldMapData_0 != null) {
-			var7 = new Coord(this.worldMapData_0.minPlane + var2, var3 + this.worldMapData_0.regionXLow * 64, this.worldMapData_0.regionYLow * 4096 + var4);
+			var7 = new Coord(this.worldMapData_0.minPlane + var2, var3 + this.worldMapData_0.regionXLow * 64, var4 + this.worldMapData_0.regionYLow * 64);
 		} else {
 			WorldMapData_1 var8 = (WorldMapData_1)var5;
-			var7 = new Coord(var2 + var8.minPlane, var8.regionXLow * 64 + var3 + var8.getChunkXLow() * 8, var8.regionYLow * 4096 + var4 + var8.getChunkYLow() * 8);
+			var7 = new Coord(var2 + var8.minPlane, var8.regionXLow * 64 + var3 + var8.getChunkXLow() * 8, var8.regionYLow * 64 + var4 + var8.getChunkYLow() * 8);
 		}
 
 		Object var10;
@@ -956,8 +956,8 @@ public class WorldMapRegion {
 
 			int var10 = var0.x;
 			int var2 = var0.y;
-			int var3 = var0.pathX[var0.pathLength - 1] * 128 + var0.field942 * 2013925376;
-			int var4 = var0.pathY[var0.pathLength - 1] * 128 + var0.field942 * 2013925376;
+			int var3 = var0.field942 * 64 + var0.pathX[var0.pathLength - 1] * 128;
+			int var4 = var0.field942 * 64 + var0.pathY[var0.pathLength - 1] * 128;
 			if (var10 < var3) {
 				if (var2 < var4) {
 					var0.orientation = 1280;
@@ -1105,16 +1105,16 @@ public class WorldMapRegion {
 			Rasterizer2D.Rasterizer2D_setClip(var1, var2, var4.width + var1, var2 + var4.height);
 			if (Client.minimapState != 2 && Client.minimapState != 5) {
 				int var5 = Client.camAngleY & 2047;
-				int var6 = class192.localPlayer.x / 32 + 48;
-				int var7 = 464 - class192.localPlayer.y / 32;
+				int var6 = LocationSet.localPlayer.x / 32 + 48;
+				int var7 = 464 - LocationSet.localPlayer.y / 32;
 				WorldMapRectangle.sceneMinimapSprite.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, var6, var7, var5, 256, var4.xStarts, var4.xWidths);
 
 				int var8;
 				int var9;
 				int var10;
 				for (var8 = 0; var8 < Client.mapIconCount; ++var8) {
-					var9 = Client.mapIconXs[var8] * 4 + 2 - class192.localPlayer.x / 32;
-					var10 = Client.mapIconYs[var8] * 4 + 2 - class192.localPlayer.y / 32;
+					var9 = Client.mapIconXs[var8] * 4 + 2 - LocationSet.localPlayer.x / 32;
+					var10 = Client.mapIconYs[var8] * 4 + 2 - LocationSet.localPlayer.y / 32;
 					Script.drawSpriteOnMinimap(var1, var2, var9, var10, Client.mapIcons[var8], var4);
 				}
 
@@ -1124,8 +1124,8 @@ public class WorldMapRegion {
 					for (var9 = 0; var9 < 104; ++var9) {
 						NodeDeque var15 = Client.groundItems[Clock.Client_plane][var8][var9];
 						if (var15 != null) {
-							var11 = var8 * 4 + 2 - class192.localPlayer.x / 32;
-							var12 = var9 * 4 + 2 - class192.localPlayer.y / 32;
+							var11 = var8 * 4 + 2 - LocationSet.localPlayer.x / 32;
+							var12 = var9 * 4 + 2 - LocationSet.localPlayer.y / 32;
 							Script.drawSpriteOnMinimap(var1, var2, var11, var12, AbstractWorldMapData.mapDotSprites[0], var4);
 						}
 					}
@@ -1140,8 +1140,8 @@ public class WorldMapRegion {
 						}
 
 						if (var18 != null && var18.drawMapDot && var18.isInteractable) {
-							var11 = var16.x / 32 - class192.localPlayer.x / 32;
-							var12 = var16.y / 32 - class192.localPlayer.y / 32;
+							var11 = var16.x / 32 - LocationSet.localPlayer.x / 32;
+							var12 = var16.y / 32 - LocationSet.localPlayer.y / 32;
 							Script.drawSpriteOnMinimap(var1, var2, var11, var12, AbstractWorldMapData.mapDotSprites[1], var4);
 						}
 					}
@@ -1152,11 +1152,11 @@ public class WorldMapRegion {
 
 				for (var10 = 0; var10 < var8; ++var10) {
 					Player var17 = Client.players[var19[var10]];
-					if (var17 != null && var17.isVisible() && !var17.isHidden && var17 != class192.localPlayer) {
-						var12 = var17.x / 32 - class192.localPlayer.x / 32;
-						int var13 = var17.y / 32 - class192.localPlayer.y / 32;
+					if (var17 != null && var17.isVisible() && !var17.isHidden && var17 != LocationSet.localPlayer) {
+						var12 = var17.x / 32 - LocationSet.localPlayer.x / 32;
+						int var13 = var17.y / 32 - LocationSet.localPlayer.y / 32;
 						boolean var14 = false;
-						if (class192.localPlayer.team != 0 && var17.team != 0 && var17.team == class192.localPlayer.team) {
+						if (LocationSet.localPlayer.team != 0 && var17.team != 0 && var17.team == LocationSet.localPlayer.team) {
 							var14 = true;
 						}
 
@@ -1176,35 +1176,35 @@ public class WorldMapRegion {
 					if (Client.hintArrowType == 1 && Client.hintArrowNpcIndex >= 0 && Client.hintArrowNpcIndex < Client.npcs.length) {
 						NPC var20 = Client.npcs[Client.hintArrowNpcIndex];
 						if (var20 != null) {
-							var11 = var20.x / 32 - class192.localPlayer.x / 32;
-							var12 = var20.y / 32 - class192.localPlayer.y / 32;
+							var11 = var20.x / 32 - LocationSet.localPlayer.x / 32;
+							var12 = var20.y / 32 - LocationSet.localPlayer.y / 32;
 							KeyHandler.worldToMinimap(var1, var2, var11, var12, StructDefinition.mapMarkerSprites[1], var4);
 						}
 					}
 
 					if (Client.hintArrowType == 2) {
-						var10 = Client.hintArrowX * 4 - Messages.baseX * 256 + 2 - class192.localPlayer.x / 32;
-						var11 = Client.hintArrowY * 4 - Language.baseY * 256 + 2 - class192.localPlayer.y / 32;
+						var10 = Client.hintArrowX * 4 - Messages.baseX * 4 + 2 - LocationSet.localPlayer.x / 32;
+						var11 = Client.hintArrowY * 4 - Language.baseY * 4 + 2 - LocationSet.localPlayer.y / 32;
 						KeyHandler.worldToMinimap(var1, var2, var10, var11, StructDefinition.mapMarkerSprites[1], var4);
 					}
 
 					if (Client.hintArrowType == 10 && Client.hintArrowPlayerIndex >= 0 && Client.hintArrowPlayerIndex < Client.players.length) {
 						Player var21 = Client.players[Client.hintArrowPlayerIndex];
 						if (var21 != null) {
-							var11 = var21.x / 32 - class192.localPlayer.x / 32;
-							var12 = var21.y / 32 - class192.localPlayer.y / 32;
+							var11 = var21.x / 32 - LocationSet.localPlayer.x / 32;
+							var12 = var21.y / 32 - LocationSet.localPlayer.y / 32;
 							KeyHandler.worldToMinimap(var1, var2, var11, var12, StructDefinition.mapMarkerSprites[1], var4);
 						}
 					}
 				}
 
 				if (Client.destinationX != 0) {
-					var10 = Client.destinationX * 4 + 2 - class192.localPlayer.x / 32;
-					var11 = Client.destinationY * 4 + 2 - class192.localPlayer.y / 32;
+					var10 = Client.destinationX * 4 + 2 - LocationSet.localPlayer.x / 32;
+					var11 = Client.destinationY * 4 + 2 - LocationSet.localPlayer.y / 32;
 					Script.drawSpriteOnMinimap(var1, var2, var10, var11, StructDefinition.mapMarkerSprites[0], var4);
 				}
 
-				if (!class192.localPlayer.isHidden) {
+				if (!LocationSet.localPlayer.isHidden) {
 					Rasterizer2D.Rasterizer2D_fillRectangle(var4.width / 2 + var1 - 1, var4.height / 2 + var2 - 1, 3, 3, 16777215);
 				}
 			} else {
@@ -1222,7 +1222,7 @@ public class WorldMapRegion {
 	)
 	public static void method563(int var0, int var1, int var2, boolean var3) {
 		PacketBufferNode var4 = TilePaint.getPacketBufferNode(ClientPacket.field2255, Client.packetWriter.isaacCipher);
-		var4.packetBuffer.writeInt(var3 ? Client.field727 : 0);
+		var4.packetBuffer.writeInt(var3 ? Client.field727 * 631186879 * -1691104705 : 0);
 		var4.packetBuffer.writeShortLE(var0);
 		var4.packetBuffer.writeShort(var1);
 		var4.packetBuffer.writeByte(var2);

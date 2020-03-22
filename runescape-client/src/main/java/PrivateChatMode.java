@@ -43,20 +43,20 @@ public class PrivateChatMode {
 		garbageValue = "-78"
 	)
 	static void method5952() {
-		if (Client.field728 && class192.localPlayer != null) {
-			int var0 = class192.localPlayer.pathX[0];
-			int var1 = class192.localPlayer.pathY[0];
+		if (Client.field728 && LocationSet.localPlayer != null) {
+			int var0 = LocationSet.localPlayer.pathX[0];
+			int var1 = LocationSet.localPlayer.pathY[0];
 			if (var0 < 0 || var1 < 0 || var0 >= 104 || var1 >= 104) {
 				return;
 			}
 
-			PendingSpawn.oculusOrbFocalPointX = class192.localPlayer.x;
-			int var2 = WorldMapSectionType.getTileHeight(class192.localPlayer.x, class192.localPlayer.y, Clock.Client_plane) - Client.camFollowHeight;
+			PendingSpawn.oculusOrbFocalPointX = LocationSet.localPlayer.x;
+			int var2 = WorldMapSectionType.getTileHeight(LocationSet.localPlayer.x, LocationSet.localPlayer.y, Clock.Client_plane) - Client.camFollowHeight;
 			if (var2 < WorldMapSectionType.field166) {
 				WorldMapSectionType.field166 = var2;
 			}
 
-			Skeleton.oculusOrbFocalPointY = class192.localPlayer.y;
+			Skeleton.oculusOrbFocalPointY = LocationSet.localPlayer.y;
 			Client.field728 = false;
 		}
 

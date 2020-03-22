@@ -107,7 +107,7 @@ public class ObjectDefinition extends DualNode {
 	public int int1;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 488634624
+		intValue = 1562189817
 	)
 	@Export("clipType")
 	int clipType;
@@ -275,7 +275,7 @@ public class ObjectDefinition extends DualNode {
 		this.interactType = 2;
 		this.boolean1 = true;
 		this.int1 = -1;
-		this.clipType = -256;
+		this.clipType = -1;
 		this.nonFlatShading = false;
 		this.modelClipped = false;
 		this.animationId = -1;
@@ -481,7 +481,7 @@ public class ObjectDefinition extends DualNode {
 					this.soundEffectIds[var4] = var1.readUnsignedShort();
 				}
 			} else if (var2 == 81) {
-				this.clipType = var1.readUnsignedByte() * 65536;
+				this.clipType = var1.readUnsignedByte() * 256;
 			} else if (var2 == 82) {
 				this.mapIconId = var1.readUnsignedShort();
 			} else if (var2 == 249) {
@@ -607,11 +607,11 @@ public class ObjectDefinition extends DualNode {
 			var9 = ((ModelData)var9).method2845();
 		}
 
-		if (this.clipType * 256 >= 0) {
+		if (this.clipType >= 0) {
 			if (var9 instanceof Model) {
-				var9 = ((Model)var9).contourGround(var3, var4, var5, var6, true, this.clipType * 256);
+				var9 = ((Model)var9).contourGround(var3, var4, var5, var6, true, this.clipType);
 			} else if (var9 instanceof ModelData) {
-				var9 = ((ModelData)var9).method2838(var3, var4, var5, var6, true, this.clipType * 256);
+				var9 = ((ModelData)var9).method2838(var3, var4, var5, var6, true, this.clipType);
 			}
 		}
 
@@ -643,8 +643,8 @@ public class ObjectDefinition extends DualNode {
 			ObjectDefinition_cachedModels.put(var9, var7);
 		}
 
-		if (this.clipType * 256 >= 0) {
-			var9 = var9.contourGround(var3, var4, var5, var6, true, this.clipType * 256);
+		if (this.clipType >= 0) {
+			var9 = var9.contourGround(var3, var4, var5, var6, true, this.clipType);
 		}
 
 		return var9;
@@ -675,7 +675,7 @@ public class ObjectDefinition extends DualNode {
 			ObjectDefinition_cachedModels.put(var11, var9);
 		}
 
-		if (var7 == null && this.clipType * 256 == -1) {
+		if (var7 == null && this.clipType == -1) {
 			return var11;
 		} else {
 			if (var7 != null) {
@@ -684,8 +684,8 @@ public class ObjectDefinition extends DualNode {
 				var11 = var11.toSharedSequenceModel(true);
 			}
 
-			if (this.clipType * 256 >= 0) {
-				var11 = var11.contourGround(var3, var4, var5, var6, false, this.clipType * 256);
+			if (this.clipType >= 0) {
+				var11 = var11.contourGround(var3, var4, var5, var6, false, this.clipType);
 			}
 
 			return var11;

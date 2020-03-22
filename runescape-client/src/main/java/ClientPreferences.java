@@ -220,7 +220,7 @@ public class ClientPreferences {
 			return false;
 		} else {
 			boolean var1;
-			if (class192.localPlayer == var0) {
+			if (LocationSet.localPlayer == var0) {
 				var1 = (Client.drawPlayerNames & 8) != 0;
 				return var1;
 			} else {

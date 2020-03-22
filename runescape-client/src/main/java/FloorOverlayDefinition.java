@@ -680,16 +680,16 @@ public class FloorOverlayDefinition extends DualNode {
 												if (var10.modelId == 0) {
 													var41 = Client.playerAppearance.getModel((SequenceDefinition)null, -1, (SequenceDefinition)null, -1);
 												} else {
-													var41 = class192.localPlayer.getModel();
+													var41 = LocationSet.localPlayer.getModel();
 												}
 											} else if (var20 == -1) {
-												var41 = var10.getModel((SequenceDefinition)null, -1, var44, class192.localPlayer.appearance);
+												var41 = var10.getModel((SequenceDefinition)null, -1, var44, LocationSet.localPlayer.appearance);
 												if (var41 == null && Widget.field2697) {
 													NPCDefinition.invalidateWidget(var10);
 												}
 											} else {
 												SequenceDefinition var45 = GraphicsDefaults.SequenceDefinition_get(var20);
-												var41 = var10.getModel(var45, var10.modelFrame, var44, class192.localPlayer.appearance);
+												var41 = var10.getModel(var45, var10.modelFrame, var44, LocationSet.localPlayer.appearance);
 												if (var41 == null && Widget.field2697) {
 													NPCDefinition.invalidateWidget(var10);
 												}

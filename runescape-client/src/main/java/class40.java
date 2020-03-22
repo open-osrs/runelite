@@ -684,7 +684,7 @@ public class class40 {
 				var10 = var7 & 255;
 				var6.pathTraversed[0] = Players.field1237[var1];
 				var6.plane = (byte)var8;
-				var6.resetPath((var9 << 13) + var3 - Messages.baseX * 64, (var10 << 13) + var4 - Language.baseY * 64);
+				var6.resetPath((var9 << 13) + var3 - Messages.baseX, (var10 << 13) + var4 - Language.baseY);
 				var6.field621 = false;
 				return true;
 			}

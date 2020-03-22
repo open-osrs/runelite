@@ -74,8 +74,8 @@ public class UrlRequest {
 		int var3;
 		if (var0 == 6600) {
 			var3 = Clock.Client_plane;
-			int var9 = Messages.baseX * 64 + (class192.localPlayer.x >> 7);
-			int var5 = Language.baseY * 64 + (class192.localPlayer.y >> 7);
+			int var9 = (LocationSet.localPlayer.x >> 7) + Messages.baseX;
+			int var5 = (LocationSet.localPlayer.y >> 7) + Language.baseY;
 			GrandExchangeOfferUnitPriceComparator.getWorldMap().method6371(var3, var9, var5, true);
 			return 1;
 		} else {

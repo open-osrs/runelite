@@ -93,14 +93,14 @@ public class ChatChannel {
 			Language.field2359 = var1;
 			Projectile.updateGameState(25);
 			class197.drawLoadingMessage("Loading - please wait.", true);
-			int var3 = Messages.baseX * 64;
-			int var4 = Language.baseY * 64;
+			int var3 = Messages.baseX;
+			int var4 = Language.baseY;
 			Messages.baseX = (var0 - 6) * 8;
 			Language.baseY = (var1 - 6) * 8;
-			int var5 = Messages.baseX * 64 - var3;
-			int var6 = Language.baseY * 64 - var4;
-			var3 = Messages.baseX * 64;
-			var4 = Language.baseY * 64;
+			int var5 = Messages.baseX - var3;
+			int var6 = Language.baseY - var4;
+			var3 = Messages.baseX;
+			var4 = Language.baseY;
 
 			int var7;
 			int var9;

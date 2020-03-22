@@ -96,7 +96,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 				var9 = var7 & 7;
 				if (var5 >= 0 && var6 >= 0 && var5 < 104 && var6 < 104) {
 					var10 = var8 + 1;
-					if (class192.localPlayer.pathX[0] >= var5 - var10 && class192.localPlayer.pathX[0] <= var5 + var10 && class192.localPlayer.pathY[0] >= var6 - var10 && class192.localPlayer.pathY[0] <= var6 + var10 && Client.areaSoundEffectVolume != 0 && var9 > 0 && Client.soundEffectCount < 50) {
+					if (LocationSet.localPlayer.pathX[0] >= var5 - var10 && LocationSet.localPlayer.pathX[0] <= var5 + var10 && LocationSet.localPlayer.pathY[0] >= var6 - var10 && LocationSet.localPlayer.pathY[0] <= var6 + var10 && Client.areaSoundEffectVolume != 0 && var9 > 0 && Client.soundEffectCount < 50) {
 						Client.soundEffectIds[Client.soundEffectCount] = var2;
 						Client.queuedSoundEffectLoops[Client.soundEffectCount] = var9;
 						Client.queuedSoundEffectDelays[Client.soundEffectCount] = var3;
@@ -247,7 +247,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 						int var16 = var1.method5740();
 						Player var17;
 						if (var14 == Client.localPlayerIndex) {
-							var17 = class192.localPlayer;
+							var17 = LocationSet.localPlayer;
 						} else {
 							var17 = Client.players[var14];
 						}
@@ -278,8 +278,8 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 								var17.animationCycleStart = var6 + Client.cycle;
 								var17.animationCycleEnd = var13 + Client.cycle;
 								var17.model0 = var29;
-								var17.field622 = var3 * 128 + var19 * 64;
-								var17.field620 = var4 * 128 + var20 * 64;
+								var17.field622 = var19 * 64 + var3 * 128;
+								var17.field620 = var20 * 64 + var4 * 128;
 								var17.tileHeight2 = var26;
 								byte var30;
 								if (var37 > var39) {

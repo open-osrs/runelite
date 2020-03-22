@@ -117,7 +117,7 @@ public class Players {
 				return 1;
 			} else if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) {
 				var3.modelType = 3;
-				var3.modelId = class192.localPlayer.appearance.getChatHeadId();
+				var3.modelId = LocationSet.localPlayer.appearance.getChatHeadId();
 				return 1;
 			} else {
 				return 2;

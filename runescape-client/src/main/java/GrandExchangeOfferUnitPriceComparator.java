@@ -154,7 +154,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 		garbageValue = "-1156773916"
 	)
 	static void method141() {
-		if (class192.localPlayer.x >> 7 == Client.destinationX && class192.localPlayer.y >> 7 == Client.destinationY) {
+		if (LocationSet.localPlayer.x >> 7 == Client.destinationX && LocationSet.localPlayer.y >> 7 == Client.destinationY) {
 			Client.destinationX = 0;
 		}
 

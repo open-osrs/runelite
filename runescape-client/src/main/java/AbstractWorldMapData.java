@@ -21,13 +21,13 @@ public abstract class AbstractWorldMapData {
 	static Sprite[] mapDotSprites;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -894906368
+		intValue = 1538042509
 	)
 	@Export("regionXLow")
 	int regionXLow;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1390111808
+		intValue = 716477007
 	)
 	@Export("regionYLow")
 	int regionYLow;

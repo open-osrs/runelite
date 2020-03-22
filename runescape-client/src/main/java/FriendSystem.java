@@ -128,7 +128,7 @@ public class FriendSystem {
 	final boolean isFriended(Username var1, boolean var2) {
 		if (var1 == null) {
 			return false;
-		} else if (var1.equals(class192.localPlayer.username)) {
+		} else if (var1.equals(LocationSet.localPlayer.username)) {
 			return true;
 		} else {
 			return this.friendsList.isFriended(var1, var2);
@@ -161,7 +161,7 @@ public class FriendSystem {
 			if (var2.hasCleanName()) {
 				if (this.friendsListIsFull()) {
 					WorldMapArea.method425();
-				} else if (class192.localPlayer.username.equals(var2)) {
+				} else if (LocationSet.localPlayer.username.equals(var2)) {
 					WorldMapLabel.method439();
 				} else if (this.isFriended(var2, false)) {
 					LoginScreenAnimation.method1837(var1);
@@ -199,7 +199,7 @@ public class FriendSystem {
 			if (var2.hasCleanName()) {
 				if (this.canAddIgnore()) {
 					class60.method1188("Your ignore list is full. Max of 100 for free users, and 400 for members");
-				} else if (class192.localPlayer.username.equals(var2)) {
+				} else if (LocationSet.localPlayer.username.equals(var2)) {
 					class80.method2097();
 				} else if (this.isIgnored(var2)) {
 					ModelData0.method3323(var1);

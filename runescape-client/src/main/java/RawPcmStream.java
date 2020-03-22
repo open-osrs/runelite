@@ -416,39 +416,35 @@ public class RawPcmStream extends PcmStream {
 						} while(--this.numLoops != 0);
 					}
 				} else {
-					label157: {
-						int var7;
-						if (this.field1463 < 0) {
-							if (this.field1462 >= var3) {
-								return;
-							}
-
-							var7 = (var4 - 1 - this.field1462) / var6;
-							if (var7 >= this.numLoops) {
-								this.field1462 += var6 * this.numLoops;
-								this.numLoops = 0;
-								break label157;
-							}
-
-							this.field1462 += var6 * var7;
-							this.numLoops -= var7;
-						} else {
-							if (this.field1462 < var4) {
-								return;
-							}
-
-							var7 = (this.field1462 - var3) / var6;
-							if (var7 >= this.numLoops) {
-								this.field1462 -= var6 * this.numLoops;
-								this.numLoops = 0;
-								break label157;
-							}
-
-							this.field1462 -= var6 * var7;
-							this.numLoops -= var7;
+					int var7;
+					if (this.field1463 < 0) {
+						if (this.field1462 >= var3) {
+							return;
 						}
 
-						return;
+						var7 = (var4 - 1 - this.field1462) / var6;
+						if (var7 < this.numLoops) {
+							this.field1462 += var6 * var7;
+							this.numLoops -= var7;
+							return;
+						}
+
+						this.field1462 += var6 * this.numLoops;
+						this.numLoops = 0;
+					} else {
+						if (this.field1462 < var4) {
+							return;
+						}
+
+						var7 = (this.field1462 - var3) / var6;
+						if (var7 < this.numLoops) {
+							this.field1462 -= var6 * var7;
+							this.numLoops -= var7;
+							return;
+						}
+
+						this.field1462 -= var6 * this.numLoops;
+						this.numLoops = 0;
 					}
 				}
 			}

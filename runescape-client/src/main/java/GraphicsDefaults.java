@@ -308,7 +308,7 @@ public class GraphicsDefaults {
 					Message.Interpreter_stringStackSize -= 2;
 					var3 = Interpreter.Interpreter_stringStack[Message.Interpreter_stringStackSize];
 					var9 = Interpreter.Interpreter_stringStack[Message.Interpreter_stringStackSize + 1];
-					if (class192.localPlayer.appearance != null && class192.localPlayer.appearance.isFemale) {
+					if (LocationSet.localPlayer.appearance != null && LocationSet.localPlayer.appearance.isFemale) {
 						Interpreter.Interpreter_stringStack[++Message.Interpreter_stringStackSize - 1] = var9;
 					} else {
 						Interpreter.Interpreter_stringStack[++Message.Interpreter_stringStackSize - 1] = var3;

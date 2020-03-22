@@ -127,18 +127,18 @@ public class ScriptFrame {
 			var0.spotAnimation = -1;
 			var0.field985 = 0;
 			var0.field986 = 0;
-			var0.x = var0.pathX[0] * 128 + var0.field942 * 2013925376;
-			var0.y = var0.pathY[0] * 128 + var0.field942 * 2013925376;
+			var0.x = var0.field942 * 64 + var0.pathX[0] * 128;
+			var0.y = var0.field942 * 64 + var0.pathY[0] * 128;
 			var0.method1740();
 		}
 
-		if (class192.localPlayer == var0 && (var0.x < 1536 || var0.y < 1536 || var0.x >= 11776 || var0.y >= 11776)) {
+		if (LocationSet.localPlayer == var0 && (var0.x < 1536 || var0.y < 1536 || var0.x >= 11776 || var0.y >= 11776)) {
 			var0.sequence = -1;
 			var0.spotAnimation = -1;
 			var0.field985 = 0;
 			var0.field986 = 0;
-			var0.x = var0.pathX[0] * 128 + var0.field942 * 2013925376;
-			var0.y = var0.pathY[0] * 128 + var0.field942 * 2013925376;
+			var0.x = var0.field942 * 64 + var0.pathX[0] * 128;
+			var0.y = var0.field942 * 64 + var0.pathY[0] * 128;
 			var0.method1740();
 		}
 
