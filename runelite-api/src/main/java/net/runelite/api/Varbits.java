@@ -563,6 +563,14 @@ public enum Varbits
 	SPELLBOOK(4070),
 
 	/**
+
+	 * Bank settings/flags
+	 **/
+	BANK_NOTE_FLAG(3958),
+
+
+	/**
+
 	 * Amount of items in each bank tab
 	 */
 	BANK_TAB_ONE_COUNT(4171),
