@@ -16,4 +16,22 @@
    iload                  4
    sconst                 "4"
    invoke                 2160
-   return                
+   iconst                 0                             ; This will indicate if the callback changed anything
+   iload                  1                             ; push onto stack component 1 (just to reference)
+   iload                  2                             ; push onto stack component 2
+   iload                  3                             ; push onto stack component 3
+   iload                  4                             ; push onto stack component 4
+   sconst                 "MushroomTeleportWidgetBuilt" ;
+   runelite_callback
+   pop_int                                              ; pop off the ints we loaded for the callback to reference
+   pop_int                                              ;
+   pop_int                                              ;
+   pop_int                                              ; dont contaminate stack
+   istore                 0
+   iload                  0
+   iconst                 0
+   if_icmpeq              RETURN
+   iload                  0
+   if_resume_pausebutton
+RETURN:
+   return
