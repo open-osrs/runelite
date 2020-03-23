@@ -1,0 +1,407 @@
+.id                 1478
+.int_stack_count    6
+.string_stack_count 0
+.int_var_count      19
+.string_var_count   2
+   iload                  0
+   cc_deleteall          
+   iconst                 0
+   istore                 6
+   iconst                 -1
+   istore                 7
+   iconst                 0
+   istore                 8
+   iconst                 0
+   istore                 9
+   iconst                 0
+   istore                 10
+   sconst                 ""
+   sstore                 0
+   sconst                 ""
+   sstore                 1
+   iconst                 0
+   istore                 11
+   iconst                 0
+   istore                 12
+   iconst                 0
+   istore                 13
+   iconst                 0
+   istore                 14
+   iconst                 0
+   istore                 15
+   iconst                 0
+   istore                 16
+   iconst                 0
+   istore                 17
+   iconst                 105
+   iconst                 108
+   iload                  2
+   iload                  16
+   enum                  
+   istore                 18
+LABEL36:
+   iload                  18
+   iconst                 -1
+   if_icmpne              LABEL40
+   jump                   LABEL345
+LABEL40:
+   iload                  16
+   iconst                 4
+   mod                   
+   iconst                 0
+   if_icmpeq              LABEL46
+   jump                   LABEL68
+LABEL46:
+   iload                  0
+   iconst                 3
+   iload                  6
+   cc_create             
+   iload                  6
+   istore                 7
+   iload                  6
+   iconst                 1
+   add                   
+   istore                 6
+   iconst                 16777215
+   cc_setcolour          
+   iconst                 1
+   cc_setfill            
+   iconst                 245
+   cc_settrans           
+   iconst                 0
+   iload                  15
+   iconst                 1
+   iconst                 0
+   cc_setposition        
+   jump                   LABEL70
+LABEL68:
+   iconst                 -1
+   istore                 7
+LABEL70:
+   iconst                 108
+   iconst                 115
+   iconst                 1531
+   iload                  18
+   enum                  
+   sstore                 0
+   sload                  0
+   iconst                 143
+   iconst                 495
+   paraheight            
+   iconst                 12
+   multiply              
+   iconst                 9
+   add                   
+   istore                 8
+   iload                  8
+   iconst                 20
+   if_icmplt              LABEL89
+   jump                   LABEL91
+LABEL89:
+   iconst                 20
+   istore                 8
+LABEL91:
+   iload                  18
+   iload                  3
+   iload                  4
+   iload                  5
+   invoke                 1479
+   istore                 13
+   istore                 11
+   iload                  16
+   iconst                 1
+   add                   
+   istore                 17
+   iconst                 105
+   iconst                 108
+   iload                  2
+   iload                  17
+   enum                  
+   istore                 18
+   iload                  18
+   iconst                 -1
+   if_icmpne              LABEL112
+   jump                   LABEL237
+LABEL112:
+   iconst                 108
+   iconst                 115
+   iconst                 1531
+   iload                  18
+   enum                  
+   sstore                 1
+   sload                  1
+   iconst                 143
+   iconst                 495
+   paraheight            
+   iconst                 12
+   multiply              
+   iconst                 9
+   add                   
+   istore                 9
+   iload                  18
+   iload                  3
+   iload                  4
+   iload                  5
+   invoke                 1479
+   istore                 14
+   istore                 12
+   iload                  8
+   iload                  9
+   if_icmplt              LABEL138
+   jump                   LABEL140
+LABEL138:
+   iload                  9
+   istore                 8
+LABEL140:
+   iload                  15
+   iload                  8
+   iconst                 17
+   sub                   
+   iconst                 2
+   div                   
+   add                   
+   istore                 10
+   iload                  0
+   iconst                 4
+   iload                  6
+   cc_create             
+   iload                  6
+   iconst                 1
+   add                   
+   istore                 6
+   iconst                 143
+   iload                  8
+   iconst                 0
+   iconst                 0
+   cc_setsize            
+   iconst                 317
+   iload                  15
+   iconst                 0
+   iconst                 0
+   cc_setposition        
+   iconst                 16750623
+   cc_setcolour          
+   iconst                 1
+   cc_settextshadow      
+   iconst                 495
+   cc_settextfont        
+   iconst                 0
+   iconst                 1
+   iconst                 0
+   cc_settextalign       
+   sload                  1
+   cc_settext            
+   iload                  12
+   iconst                 1
+   if_icmpeq              LABEL182
+   jump                   LABEL202
+LABEL182:
+   iload                  0
+   iconst                 5
+   iload                  6
+   cc_create             
+   iload                  6
+   iconst                 1
+   add                   
+   istore                 6
+   iconst                 17
+   iconst                 17
+   iconst                 0
+   iconst                 0
+   cc_setsize            
+   iconst                 244
+   iload                  10
+   iconst                 0
+   iconst                 0
+   cc_setposition        
+   iconst                 1210
+   cc_setgraphic         
+LABEL202:
+   iload                  14
+   iconst                 1
+   if_icmpeq              LABEL206
+   jump                   LABEL226
+LABEL206:
+   iload                  0
+   iconst                 5
+   iload                  6
+   cc_create             
+   iload                  6
+   iconst                 1
+   add                   
+   istore                 6
+   iconst                 17
+   iconst                 17
+   iconst                 0
+   iconst                 0
+   cc_setsize            
+   iconst                 286
+   iload                  10
+   iconst                 0
+   iconst                 0
+   cc_setposition        
+   iconst                 1210
+   cc_setgraphic         
+LABEL226:
+   iload                  17
+   iconst                 1
+   add                   
+   istore                 16
+   iconst                 105
+   iconst                 108
+   iload                  2
+   iload                  16
+   enum                  
+   istore                 18
+   jump                   LABEL247
+LABEL237:
+   iconst                 -1
+   istore                 18
+   iload                  15
+   iload                  8
+   iconst                 17
+   sub                   
+   iconst                 2
+   div                   
+   add                   
+   istore                 10
+LABEL247:
+   iload                  0
+   iconst                 4
+   iload                  6
+   cc_create             
+   iload                  6
+   iconst                 1
+   add                   
+   istore                 6
+   iconst                 143
+   iload                  8
+   iconst                 0
+   iconst                 0
+   cc_setsize            
+   iconst                 85
+   iload                  15
+   iconst                 0
+   iconst                 0
+   cc_setposition        
+   iconst                 16750623
+   cc_setcolour          
+   iconst                 1
+   cc_settextshadow      
+   iconst                 495
+   cc_settextfont        
+   iconst                 0
+   iconst                 1
+   iconst                 0
+   cc_settextalign       
+   sload                  0
+   cc_settext            
+   iload                  11
+   iconst                 1
+   if_icmpeq              LABEL281
+   jump                   LABEL301
+LABEL281:
+   iload                  0
+   iconst                 5
+   iload                  6
+   cc_create             
+   iload                  6
+   iconst                 1
+   add                   
+   istore                 6
+   iconst                 17
+   iconst                 17
+   iconst                 0
+   iconst                 0
+   cc_setsize            
+   iconst                 12
+   iload                  10
+   iconst                 0
+   iconst                 0
+   cc_setposition        
+   iconst                 1210
+   cc_setgraphic         
+LABEL301:
+   iload                  13
+   iconst                 1
+   if_icmpeq              LABEL305
+   jump                   LABEL325
+LABEL305:
+   iload                  0
+   iconst                 5
+   iload                  6
+   cc_create             
+   iload                  6
+   iconst                 1
+   add                   
+   istore                 6
+   iconst                 17
+   iconst                 17
+   iconst                 0
+   iconst                 0
+   cc_setsize            
+   iconst                 54
+   iload                  10
+   iconst                 0
+   iconst                 0
+   cc_setposition        
+   iconst                 1210
+   cc_setgraphic         
+LABEL325:
+   iload                  7
+   iconst                 -1
+   if_icmpne              LABEL329
+   jump                   LABEL340
+LABEL329:
+   iload                  0
+   iload                  7
+   cc_find               
+   iconst                 1
+   if_icmpeq              LABEL335
+   jump                   LABEL340
+LABEL335:
+   iconst                 0
+   iload                  8
+   iconst                 1
+   iconst                 0
+   cc_setsize            
+LABEL340:
+   iload                  15
+   iload                  8
+   add                   
+   istore                 15
+   jump                   LABEL36
+LABEL345:
+   iload                  15
+   iload                  0
+   if_getheight          
+   if_icmpgt              LABEL350
+   jump                   LABEL355
+LABEL350:
+   iconst                 0
+   iload                  15
+   iload                  0
+   if_setscrollsize      
+   jump                   LABEL359
+LABEL355:
+   iconst                 0
+   iconst                 0
+   iload                  0
+   if_setscrollsize      
+LABEL359:
+   iconst                 0
+   iconst                 0
+   iload                  0
+   if_setscrollpos       
+   iload                  1
+   cc_deleteall          
+   iload                  1
+   iload                  0
+   iconst                 792
+   iconst                 789
+   iconst                 790
+   iconst                 791
+   iconst                 773
+   iconst                 788
+   invoke                 31
+   return                
