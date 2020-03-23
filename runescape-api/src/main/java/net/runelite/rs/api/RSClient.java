@@ -973,6 +973,9 @@ public interface RSClient extends RSGameShell, Client
 	int getIf1DraggedItemIndex();
 
 	@Import("isSpellSelected")
+	boolean getSpellSelected();
+
+	@Import("isSpellSelected")
 	@Override
 	void setSpellSelected(boolean selected);
 
