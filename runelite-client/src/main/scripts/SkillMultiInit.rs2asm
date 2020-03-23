@@ -44,20 +44,20 @@
 LABEL38:
    sconst                 "You can't think of any options."
    iconst                 17694725
-   if_settext            
+   if_settext
    iconst                 0
    iconst                 0
    iconst                 0
    iconst                 1
    iconst                 17694726
-   if_setsize            
+   if_setsize
    iconst                 0
    iconst                 0
    iconst                 1
    iconst                 1
    iconst                 17694723
-   if_setsize            
-   return                
+   if_setsize
+   return
 LABEL54:
    sconst                 ""
    sstore                 1
@@ -67,7 +67,7 @@ LABEL54:
    sstore                 1
    sload                  1
    iconst                 17694725
-   if_settext            
+   if_settext
    sconst                 "Choose a quantity, then "
    sconst                 "click"
    sconst                 "tap"
@@ -75,12 +75,12 @@ LABEL54:
    sconst                 " an item to begin."
    join_string            3
    iconst                 17694724
-   if_settext            
+   if_settext
    iconst                 105
    iconst                 49
    iconst                 1810
    iload                  0
-   enum                  
+   enum
    iconst                 1
    if_icmpeq              LABEL79
    jump                   LABEL92
@@ -245,9 +245,9 @@ LABEL204:
    istore                 13
 LABEL206:
    iconst                 17694720
-   if_getwidth           
+   if_getwidth
    iconst                 20
-   sub                   
+   sub
    istore                 14
    iconst                 100
    istore                 15
@@ -255,7 +255,7 @@ LABEL206:
    istore                 16
    iload                  13
    iconst                 1
-   sub                   
+   sub
    istore                 17
    iconst                 4
    istore                 18
@@ -268,7 +268,7 @@ LABEL206:
    iconst                 75
    istore                 22
    iconst                 17694733
-   cc_deleteall          
+   cc_deleteall
    iconst                 0
    istore                 23
    iload                  13
@@ -278,11 +278,11 @@ LABEL206:
 LABEL237:
    iload                  15
    iload                  13
-   multiply              
+   multiply
    iload                  16
    iload                  17
-   multiply              
-   add                   
+   multiply
+   add
    iload                  14
    if_icmpgt              LABEL247
    jump                   LABEL279
@@ -290,20 +290,20 @@ LABEL247:
    iload                  14
    iload                  15
    iload                  13
-   multiply              
-   sub                   
+   multiply
+   sub
    iload                  17
-   div                   
+   div
    istore                 16
    iload                  18
    iconst                 2
    iconst                 0
    iconst                 7
    iload                  13
-   sub                   
+   sub
    invoke                 1045
-   multiply              
-   add                   
+   multiply
+   add
    istore                 18
    iload                  16
    iload                  18
@@ -313,23 +313,23 @@ LABEL269:
    iload                  14
    iload                  18
    iload                  17
-   multiply              
-   sub                   
+   multiply
+   sub
    iload                  13
-   div                   
+   div
    iload                  18
    istore                 16
    istore                 15
 LABEL279:
    iload                  15
    iload                  16
-   add                   
+   add
    istore                 19
    iconst                 14
    iconst                 2
    iconst                 75
    iconst                 3
-   sub                   
+   sub
    istore                 22
    istore                 21
    istore                 20
@@ -342,38 +342,38 @@ LABEL295:
    iconst                 17694733
    iconst                 4
    iload                  23
-   cc_create             
+   cc_create
    iload                  23
    iload                  19
-   multiply              
+   multiply
    iconst                 0
    iconst                 0
    iconst                 2
-   cc_setposition        
+   cc_setposition
    iload                  15
    iconst                 14
    iconst                 0
    iconst                 0
-   cc_setsize            
+   cc_setsize
    iconst                 4206624
-   cc_setcolour          
+   cc_setcolour
    iconst                 494
-   cc_settextfont        
+   cc_settextfont
    iconst                 1
    iconst                 1
    iconst                 0
-   cc_settextalign       
+   cc_settextalign
    iconst                 0
-   cc_settextshadow      
+   cc_settextshadow
    iconst                 105
    iconst                 115
    iconst                 1812
    iload                  23
-   enum                  
-   cc_settext            
+   enum
+   cc_settext
    iload                  23
    iconst                 1
-   add                   
+   add
    istore                 23
    jump                   LABEL291
 LABEL332:
@@ -384,102 +384,104 @@ LABEL333:
 LABEL335:
    iconst                 0
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694734
-   if_setposition        
+   if_setposition
    iconst                 1
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694735
-   if_setposition        
+   if_setposition
    iconst                 2
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694736
-   if_setposition        
+   if_setposition
    iconst                 3
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694737
-   if_setposition        
+   if_setposition
    iconst                 4
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694738
-   if_setposition        
+   if_setposition
    iconst                 5
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694739
-   if_setposition        
+   if_setposition
    iconst                 6
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694740
-   if_setposition        
+   if_setposition
    iconst                 7
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694741
-   if_setposition        
+   if_setposition
    iconst                 8
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694742
-   if_setposition        
+   if_setposition
    iconst                 9
    iload                  19
-   multiply              
+   multiply
    iload                  20
    iconst                 0
    iload                  21
    iconst                 17694743
-   if_setposition        
+   if_setposition
    iload                  13
    iload                  15
-   multiply              
+   multiply
    iload                  17
    iload                  16
-   multiply              
-   add                   
+   multiply
+   add
    iconst                 50
    iconst                 0
    iconst                 1
    iconst                 17694733
-   if_setsize            
+   if_setsize
    iload                  13
    iconst                 1
    if_icmpge              LABEL431
    jump                   LABEL593
 LABEL431:
    sload                  0
+   sconst                 "SkillMulti_Start" ; Should be able to see the input string used to generate the multi button widget
+   runelite_callback                         ;
    invoke                 632
    sstore                 0
    sstore                 1
@@ -651,4 +653,20 @@ LABEL584:
    iload                  22
    invoke                 2048
 LABEL593:
-   return                
+   iload                  13               ; this is how many buttons there are
+   iconst                 0                ; this is a value that the callback could change if it wished
+   sconst                 "SkillMulti_End" ;
+   runelite_callback                       ; it's still on the stack here
+   istore                 13               ; Is 0 if the callback did not change it. Otherwise something else
+   pop_int                                 ; this was the number of buttons we pushed for the callback to look at
+   iload                  13
+   iconst                 0
+   if_icmpeq              RETURN           ; if the callback did not change the value pushed on line 657
+   iload                  13
+   get_varc_int           200
+   cc_find
+   iconst                 1
+   if_icmpne              RETURN
+   cc_resume_pausebutton
+RETURN:
+   return

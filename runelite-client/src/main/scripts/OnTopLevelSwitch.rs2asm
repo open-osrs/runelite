@@ -10,7 +10,7 @@
    if_icmpeq              LABEL6
    jump                   LABEL7
 LABEL6:
-   return                
+   return
 LABEL7:
    iload                  0
    iconst                 -1
@@ -21,7 +21,7 @@ LABEL11:
    iconst                 49
    iconst                 1134
    iload                  1
-   enum                  
+   enum
    iconst                 0
    if_icmpeq              LABEL19
    jump                   LABEL21
@@ -31,5 +31,7 @@ LABEL19:
 LABEL21:
    iload                  0
    iload                  1
+   sconst                 "OnTopLevelSwitch" ; Will let you see what tab that the game intends to switch too. (and change what tab it will open if you so choose)
+   runelite_callback
    invoke                 916
-   return                
+   return
