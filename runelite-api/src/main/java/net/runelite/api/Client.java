@@ -1819,12 +1819,6 @@ public interface Client extends GameShell
 	int getIf1DraggedItemIndex();
 
 	/**
-	 * Is a widget is in target mode?
-	 */
-
-	boolean getSpellSelected();
-
-	/**
 	 * Sets if a widget is in target mode
 	 */
 	void setSpellSelected(boolean selected);
