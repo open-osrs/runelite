@@ -1,3 +1,6 @@
+branches:
+  - master
+  - actions-b0rked
 exclude-labels:
   - 'skip-changelog'
   - 'automated-pull-request'
