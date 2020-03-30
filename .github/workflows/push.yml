@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - actions-b0rked
 
 jobs:
   build:
@@ -103,6 +104,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: toolmantim/release-drafter@v5.2.0
+      - uses: release-drafter/release-drafter@v5.7.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
