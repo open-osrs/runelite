@@ -462,9 +462,12 @@ class ConfigPanel extends PluginPanel
 			providerLabel.setFont(smallFont);
 			infoPanel.add(providerLabel);
 
-			JButton button = new JButton("Support");
-			button.addActionListener(e -> LinkBrowser.browse(pluginInfo.get("support")));
-			buttons.add(button);
+			if (!pluginInfo.get("support").equals(""))
+			{
+				JButton button = new JButton("Support");
+				button.addActionListener(e -> LinkBrowser.browse(pluginInfo.get("support")));
+				buttons.add(button);
+			}
 
 			mainPanel.add(infoPanel);
 		}
