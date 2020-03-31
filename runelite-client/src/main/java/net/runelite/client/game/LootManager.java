@@ -244,7 +244,10 @@ public class LootManager
 			if (id == NpcID.CAVE_KRAKEN)
 			{
 				// Big Kraken drops loot wherever player is standing when animation starts.
-				krakenPlayerLocation = client.getLocalPlayer().getWorldLocation();
+				if (client.getLocalPlayer() != null)
+				{
+					krakenPlayerLocation = client.getLocalPlayer().getWorldLocation();
+				}
 			}
 			else
 			{
@@ -271,7 +274,10 @@ public class LootManager
 			processDelayedLoot();
 		}
 
-		playerLocationLastTick = client.getLocalPlayer().getWorldLocation();
+		if (client.getLocalPlayer() != null)
+		{
+			playerLocationLastTick = client.getLocalPlayer().getWorldLocation();
+		}
 		itemSpawns.clear();
 		killPoints.clear();
 	}

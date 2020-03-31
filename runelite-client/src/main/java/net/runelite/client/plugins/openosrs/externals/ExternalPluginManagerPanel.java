@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -45,16 +44,14 @@ public class ExternalPluginManagerPanel extends PluginPanel
 	}
 
 	private final ExternalPluginManager externalPluginManager;
-	private final ScheduledExecutorService executor;
 	private final EventBus eventBus;
 
 	@Inject
-	private ExternalPluginManagerPanel(ExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
+	private ExternalPluginManagerPanel(ExternalPluginManager externalPluginManager, EventBus eventBus)
 	{
 		super(false);
 
 		this.externalPluginManager = externalPluginManager;
-		this.executor = executor;
 		this.eventBus = eventBus;
 
 		buildPanel();
@@ -224,7 +221,7 @@ public class ExternalPluginManagerPanel extends PluginPanel
 	{
 		JTabbedPane mainTabPane = new JTabbedPane();
 
-		PluginsPanel pluginPanel = new PluginsPanel(this.externalPluginManager, this.executor, this.eventBus);
+		PluginsPanel pluginPanel = new PluginsPanel(this.externalPluginManager, this.eventBus);
 		JScrollPane repositoryPanel = wrapContainer(new RepositoryPanel(this.externalPluginManager, this.eventBus));
 
 		mainTabPane.add("Plugins", pluginPanel);

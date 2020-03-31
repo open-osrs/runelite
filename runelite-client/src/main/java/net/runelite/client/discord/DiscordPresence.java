@@ -41,7 +41,7 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String state;
+	String state;
 
 	/**
 	 * What the player is currently doing.
@@ -49,17 +49,17 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String details;
+	String details;
 
 	/**
 	 * Unix timestamp (seconds) for the start of the game.
 	 */
-	private Instant startTimestamp;
+	Instant startTimestamp;
 
 	/**
 	 * Unix timestamp (seconds) for the end of the game.
 	 */
-	private Instant endTimestamp;
+	Instant endTimestamp;
 
 	/**
 	 * Name of the uploaded image for the large profile artwork.
@@ -67,7 +67,7 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 32 characters</b>
 	 */
-	private String largeImageKey;
+	String largeImageKey;
 
 	/**
 	 * Tooltip for the largeImageKey.
@@ -75,7 +75,7 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String largeImageText;
+	String largeImageText;
 
 	/**
 	 * Name of the uploaded image for the small profile artwork.
@@ -83,7 +83,7 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 32 characters</b>
 	 */
-	private String smallImageKey;
+	String smallImageKey;
 
 	/**
 	 * Tooltip for the smallImageKey.
@@ -91,7 +91,7 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String smallImageText;
+	String smallImageText;
 
 	/**
 	 * ID of the player's party, lobby, or group.
@@ -99,19 +99,19 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String partyId;
+	String partyId;
 
 	/**
 	 * Current size of the player's party, lobby, or group.
 	 * Example: 1
 	 */
-	private int partySize;
+	int partySize;
 
 	/**
 	 * Maximum size of the player's party, lobby, or group.
 	 * Example: 5
 	 */
-	private int partyMax;
+	int partyMax;
 
 	/**
 	 * Unique hashed string for Spectate and Join.
@@ -120,7 +120,7 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String matchSecret;
+	String matchSecret;
 
 	/**
 	 * Unique hashed string for Spectate button.
@@ -129,7 +129,7 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String joinSecret;
+	String joinSecret;
 
 	/**
 	 * Unique hashed string for chat invitations and Ask to Join.
@@ -138,10 +138,10 @@ public class DiscordPresence
 	 *
 	 * <b>Maximum: 128 characters</b>
 	 */
-	private String spectateSecret;
+	String spectateSecret;
 
 	/**
 	 * Marks the matchSecret as a game session with a specific beginning and end.
 	 */
-	private boolean instance;
+	boolean instance;
 }

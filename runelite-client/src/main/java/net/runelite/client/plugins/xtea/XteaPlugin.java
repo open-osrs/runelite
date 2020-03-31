@@ -25,7 +25,7 @@
 package net.runelite.client.plugins.xtea;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -45,7 +45,8 @@ public class XteaPlugin extends Plugin
 {
 	private final XteaClient xteaClient = new XteaClient();
 
-	private HashMap<Integer, int[]> xteas;
+	private Map<Integer, int[]> xteas;
+
 	{
 		try
 		{

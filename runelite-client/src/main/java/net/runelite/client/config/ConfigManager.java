@@ -47,7 +47,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -190,7 +189,7 @@ public class ConfigManager
 		{
 			try
 			{
-				String substring = str.substring(str.indexOf("{") + 1, str.length() - 1);
+				String substring = str.substring(str.indexOf('{') + 1, str.length() - 1);
 				String[] splitStr = substring.split(", ");
 				Class<? extends Enum> enumClass = null;
 				if (!str.contains("{"))
@@ -316,14 +315,14 @@ public class ConfigManager
 		return enumSet.iterator().next().getDeclaringClass();
 	}
 
-	public static Class<? extends Enum> findEnumClass(String clasz, ArrayList<ClassLoader> classLoaders)
+	public static Class<? extends Enum> findEnumClass(String clasz, List<ClassLoader> classLoaders)
 	{
 		StringBuilder transformedString = new StringBuilder();
 		for (ClassLoader cl : classLoaders)
 		{
 			try
 			{
-				String[] strings = clasz.substring(0, clasz.indexOf("{")).split("\\.");
+				String[] strings = clasz.substring(0, clasz.indexOf('{')).split("\\.");
 				int i = 0;
 				while (i != strings.length)
 				{
@@ -349,7 +348,7 @@ public class ConfigManager
 			}
 			try
 			{
-				return (Class<? extends Enum>) cl.loadClass(clasz.substring(0, clasz.indexOf("{")));
+				return (Class<? extends Enum>) cl.loadClass(clasz.substring(0, clasz.indexOf('{')));
 			}
 			catch (Exception e)
 			{
@@ -357,7 +356,7 @@ public class ConfigManager
 			}
 			transformedString = new StringBuilder();
 		}
-		throw new RuntimeException("Failed to find Enum for " + clasz.substring(0, clasz.indexOf("{")));
+		throw new RuntimeException("Failed to find Enum for " + clasz.substring(0, clasz.indexOf('{')));
 	}
 
 	public final void switchSession()

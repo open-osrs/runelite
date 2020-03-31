@@ -62,7 +62,7 @@ public class TextComponent implements RenderableEntity
 			for (String textSplitOnCol : parts)
 			{
 				final String textWithoutCol = Text.removeTags(textSplitOnCol);
-				final String colColor = textSplitOnCol.substring(textSplitOnCol.indexOf("=") + 1, textSplitOnCol.indexOf(">"));
+				final String colColor = textSplitOnCol.substring(textSplitOnCol.indexOf('=') + 1, textSplitOnCol.indexOf('>'));
 
 				renderText(graphics, x, position.y, textWithoutCol, Color.decode("#" + colColor), borderColor);
 

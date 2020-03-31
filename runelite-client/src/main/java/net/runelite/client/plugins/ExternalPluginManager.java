@@ -105,7 +105,7 @@ import org.pf4j.update.VerifyException;
 @Singleton
 public class ExternalPluginManager
 {
-	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
+	public static final List<ClassLoader> pluginClassLoaders = new ArrayList<>();
 	private final PluginManager runelitePluginManager;
 	private org.pf4j.PluginManager externalPluginManager;
 	@Getter(AccessLevel.PUBLIC)
@@ -119,7 +119,7 @@ public class ExternalPluginManager
 	private final Groups groups;
 	@Getter(AccessLevel.PUBLIC)
 	private UpdateManager updateManager;
-	private Map<String, PluginInfo.PluginRelease> lastPluginRelease = new HashMap<>();
+	private final Map<String, PluginInfo.PluginRelease> lastPluginRelease = new HashMap<>();
 
 	@Inject
 	public ExternalPluginManager(
@@ -539,7 +539,7 @@ public class ExternalPluginManager
 
 					if (id.endsWith("/"))
 					{
-						id = id.substring(0, id.lastIndexOf("/"));
+						id = id.substring(0, id.lastIndexOf('/'));
 					}
 				}
 

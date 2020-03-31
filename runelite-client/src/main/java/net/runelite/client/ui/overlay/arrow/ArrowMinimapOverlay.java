@@ -70,7 +70,7 @@ public class ArrowMinimapOverlay extends Overlay
 
 		final Collection<ArrowPoint> points = arrowPointManager.getArrowPoints().values();
 
-		if (points.isEmpty())
+		if (points.isEmpty() || client.getLocalPlayer() == null)
 		{
 			return null;
 		}
@@ -190,24 +190,5 @@ public class ArrowMinimapOverlay extends Overlay
 
 			graphics.drawImage(minimapImage, at, null);
 		}
-	}
-
-	private void renderMinimapArrowNPC(Graphics2D graphics, ArrowPoint arrowPoint, NPC npc, LocalPoint localPlayerPos, WorldPoint worldPlayerPos)
-	{
-		final BufferedImage minimapImage = arrowPoint.getMinimapImage();
-		final WorldPoint worldPoint = arrowPoint.getWorldPoint();
-		LocalPoint localPoint;
-		if (npc != null)
-		{
-			localPoint = LocalPoint.fromWorld(client, worldPoint);
-			if (localPoint != null)
-			{
-				//For whatever reason, LocalPoint.fromWorld returns a point (-1, -1) from the actual point
-				localPoint = new LocalPoint(localPoint.getX() + 1, localPoint.getY() + 1);
-			}
-		}
-		localPoint = null;
-
-		renderMinimapArrow(graphics, arrowPoint, localPoint, localPlayerPos, worldPlayerPos);
 	}
 }

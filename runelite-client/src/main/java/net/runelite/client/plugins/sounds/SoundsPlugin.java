@@ -25,10 +25,8 @@
 package net.runelite.client.plugins.sounds;
 
 import java.io.IOException;
-import java.util.HashMap;
-import javax.inject.Inject;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
 import net.runelite.api.events.SoundEffectPlayed;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -45,9 +43,7 @@ public class SoundsPlugin extends Plugin
 {
 	private final SoundsClient soundsClient = new SoundsClient();
 
-	private HashMap<Integer, int[]> sounds;
-	@Inject
-	private Client client;
+	private Map<Integer, int[]> sounds;
 
 	{
 		try

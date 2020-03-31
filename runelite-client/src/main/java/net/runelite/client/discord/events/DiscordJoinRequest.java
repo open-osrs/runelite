@@ -36,20 +36,20 @@ public class DiscordJoinRequest implements Event
 	/**
 	 * The userId for the user that requests to join
 	 */
-	private String userId;
+	String userId;
 
 	/**
 	 * The username of the user that requests to join
 	 */
-	private String username;
+	String username;
 
 	/**
 	 * The discriminator of the user that requests to join
 	 */
-	private String discriminator;
+	String discriminator;
 
 	/**
 	 * The avatar of the user that requests to join
 	 */
-	private String avatar;
+	String avatar;
 }

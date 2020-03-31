@@ -34,21 +34,21 @@ import net.runelite.client.plugins.PluginType;
 @Value
 public class PluginConfigurationDescriptor
 {
-	private final String name;
-	private final String description;
-	private final PluginType pluginType;
-	private final String[] tags;
+	String name;
+	String description;
+	PluginType pluginType;
+	String[] tags;
 
 	// Can be null if its not an actual plugin (RuneLite / ChatColors)
 	@Nullable
-	private final Plugin plugin;
+	Plugin plugin;
 
 	// Can be null if it has no more configuration than the on/off toggle
 	@Nullable
-	private final Config config;
+	Config config;
 
 	@Nullable
-	private final ConfigDescriptor configDescriptor;
+	ConfigDescriptor configDescriptor;
 
 	boolean hasConfigurables()
 	{

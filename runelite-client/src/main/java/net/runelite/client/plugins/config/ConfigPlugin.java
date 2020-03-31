@@ -80,7 +80,7 @@ public class ConfigPlugin extends Plugin
 	private NavigationButton navButton;
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		pluginListPanel = pluginListPanelProvider.get();
 		pluginListPanel.addFakePlugin(
@@ -125,7 +125,7 @@ public class ConfigPlugin extends Plugin
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		clientToolbar.removeNavigation(navButton);
 	}

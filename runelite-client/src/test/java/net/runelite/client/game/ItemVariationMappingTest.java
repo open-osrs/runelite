@@ -36,7 +36,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ItemVariationMappingTest
 {
-	private static final Map<Integer, Integer> ITEMS_MAP = new LinkedHashMap<Integer, Integer>()
+	private static final Map<Integer, Integer> ITEMS_MAP = new LinkedHashMap<>()
 	{{
 		put(_12_ANCHOVY_PIZZA, ANCHOVY_PIZZA);
 		put(_12_MEAT_PIZZA, MEAT_PIZZA);

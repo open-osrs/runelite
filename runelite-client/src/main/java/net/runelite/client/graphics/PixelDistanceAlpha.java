@@ -31,6 +31,6 @@ import lombok.Value;
 @RequiredArgsConstructor
 class PixelDistanceAlpha
 {
-	private final int outerAlpha;
-	private final int distArrayPos;
+	int outerAlpha;
+	int distArrayPos;
 }

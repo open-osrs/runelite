@@ -72,9 +72,9 @@ public class ChatboxItemSearch extends ChatboxTextInput
 	@Value
 	private static class ItemIcon
 	{
-		private final int modelId;
-		private final short[] colorsToReplace;
-		private final short[] texturesToReplace;
+		int modelId;
+		short[] colorsToReplace;
+		short[] texturesToReplace;
 	}
 
 	@Inject

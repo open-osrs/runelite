@@ -36,5 +36,5 @@ public class DiscordSpectateGame implements Event
 	/**
 	 * Obfuscated data of your choosing used as spectate secret
 	 */
-	private String spectateSecret;
+	String spectateSecret;
 }

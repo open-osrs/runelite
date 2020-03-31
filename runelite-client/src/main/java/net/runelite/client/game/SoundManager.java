@@ -2,6 +2,7 @@ package net.runelite.client.game;
 
 import com.google.inject.Inject;
 import java.io.IOException;
+import java.util.Objects;
 import javax.inject.Singleton;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -38,32 +39,36 @@ public class SoundManager
 			{
 				try
 				{
-					AudioInputStream in = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(sound.getFilePath()));
-					AudioFormat outFormat = SoundManager.this.getOutFormat(in.getFormat());
-					DataLine.Info info = new DataLine.Info(SourceDataLine.class, outFormat);
-					SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
-					if (line != null)
+					try (AudioInputStream in = AudioSystem.getAudioInputStream(Objects.requireNonNull(this.getClass().getClassLoader().getResource(sound.getFilePath()))))
 					{
-						line.open(outFormat, 2200);
-						if (line.isControlSupported(FloatControl.Type.MASTER_GAIN))
+						AudioFormat outFormat = SoundManager.this.getOutFormat(in.getFormat());
+						DataLine.Info info = new DataLine.Info(SourceDataLine.class, outFormat);
+						try (SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info))
 						{
-							int volume = SoundManager.this.runeliteConfig.volume();
-							FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-							BooleanControl muteControl = (BooleanControl) line.getControl(BooleanControl.Type.MUTE);
-							if (volume == 0)
+							if (line != null)
 							{
-								muteControl.setValue(true);
-							}
-							else
-							{
-								muteControl.setValue(false);
-								gainControl.setValue((float) (Math.log((double) volume / 100.0) / Math.log(10.0) * 20.0));
+								line.open(outFormat, 2200);
+								if (line.isControlSupported(FloatControl.Type.MASTER_GAIN))
+								{
+									int volume = SoundManager.this.runeliteConfig.volume();
+									FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+									BooleanControl muteControl = (BooleanControl) line.getControl(BooleanControl.Type.MUTE);
+									if (volume == 0)
+									{
+										muteControl.setValue(true);
+									}
+									else
+									{
+										muteControl.setValue(false);
+										gainControl.setValue((float) (Math.log((double) volume / 100.0) / Math.log(10.0) * 20.0));
+									}
+								}
+								line.start();
+								SoundManager.this.stream(AudioSystem.getAudioInputStream(outFormat, in), line);
+								line.drain();
+								line.stop();
 							}
 						}
-						line.start();
-						SoundManager.this.stream(AudioSystem.getAudioInputStream(outFormat, in), line);
-						line.drain();
-						line.stop();
 					}
 				}
 				catch (IOException | LineUnavailableException | UnsupportedAudioFileException e)

@@ -28,6 +28,7 @@ package net.runelite.client.rs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -60,33 +61,35 @@ class ClientConfigLoader
 			}
 
 			String str;
-			final BufferedReader in = new BufferedReader(new InputStreamReader(response.body().byteStream()));
-			while ((str = in.readLine()) != null)
+			try (BufferedReader in = new BufferedReader(new InputStreamReader(Objects.requireNonNull(response.body()).byteStream())))
 			{
-				int idx = str.indexOf('=');
-
-				if (idx == -1)
+				while ((str = in.readLine()) != null)
 				{
-					continue;
-				}
+					int idx = str.indexOf('=');
 
-				String s = str.substring(0, idx);
+					if (idx == -1)
+					{
+						continue;
+					}
 
-				switch (s)
-				{
-					case "param":
-						str = str.substring(idx + 1);
-						idx = str.indexOf('=');
-						s = str.substring(0, idx);
+					String s = str.substring(0, idx);
 
-						config.getAppletProperties().put(s, str.substring(idx + 1));
-						break;
-					case "msg":
-						// ignore
-						break;
-					default:
-						config.getClassLoaderProperties().put(s, str.substring(idx + 1));
-						break;
+					switch (s)
+					{
+						case "param":
+							str = str.substring(idx + 1);
+							idx = str.indexOf('=');
+							s = str.substring(0, idx);
+
+							config.getAppletProperties().put(s, str.substring(idx + 1));
+							break;
+						case "msg":
+							// ignore
+							break;
+						default:
+							config.getClassLoaderProperties().put(s, str.substring(idx + 1));
+							break;
+					}
 				}
 			}
 		}

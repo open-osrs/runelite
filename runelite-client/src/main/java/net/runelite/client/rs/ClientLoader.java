@@ -51,7 +51,7 @@ public class ClientLoader implements Supplier<Applet>
 	private final ClientUpdateCheckMode updateCheckMode;
 	private Object client = null;
 
-	private WorldSupplier worldSupplier = new WorldSupplier();
+	private final WorldSupplier worldSupplier = new WorldSupplier();
 	private RSConfig config;
 
 	public ClientLoader(ClientUpdateCheckMode updateCheckMode)
@@ -59,7 +59,7 @@ public class ClientLoader implements Supplier<Applet>
 		this.updateCheckMode = updateCheckMode;
 	}
 
-	private static Applet loadRLPlus(final RSConfig config)
+	private static Applet loadOpenOSRS(final RSConfig config)
 		throws ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		RuneLiteSplashScreen.stage(.465, "Starting Open Old School RuneScape");
@@ -70,23 +70,33 @@ public class ClientLoader implements Supplier<Applet>
 			protected Class<?> findClass(String name) throws ClassNotFoundException
 			{
 				String path = name.replace('.', '/').concat(".class");
-				InputStream inputStream = ClientLoader.class.getResourceAsStream(path);
-				if (inputStream == null)
-				{
-					throw new ClassNotFoundException(name + " " + path);
-				}
-				byte[] data;
 				try
 				{
-					data = ByteStreams.toByteArray(inputStream);
+					try (InputStream inputStream = ClientLoader.class.getResourceAsStream(path))
+					{
+						if (inputStream == null)
+						{
+							throw new ClassNotFoundException(name + " " + path);
+						}
+						byte[] data;
+						try
+						{
+							data = ByteStreams.toByteArray(inputStream);
+						}
+						catch (IOException e)
+						{
+							e.printStackTrace();
+							RuneLiteSplashScreen.setError("Failed to load!", "Failed to load class: " + name + " " + path);
+							throw new RuntimeException("Failed to load class: " + name + " " + path);
+						}
+						return defineClass(name, data, 0, data.length);
+					}
 				}
 				catch (IOException e)
 				{
 					e.printStackTrace();
-					RuneLiteSplashScreen.setError("Failed to load!", "Failed to load class: " + name + " " + path);
-					throw new RuntimeException("Failed to load class: " + name + " " + path);
 				}
-				return defineClass(name, data, 0, data.length);
+				return null;
 			}
 		};
 		Class<?> clientClass = rsClassLoader.loadClass("client");
@@ -143,14 +153,14 @@ public class ClientLoader implements Supplier<Applet>
 			{
 				case AUTO:
 				default:
-					return loadRLPlus(config);
+					return loadOpenOSRS(config);
 				case VANILLA:
 					return loadVanilla(config);
 				case NONE:
 					return null;
 				case RSPS:
 					RuneLite.allowPrivateServer = true;
-					return loadRLPlus(config);
+					return loadOpenOSRS(config);
 			}
 		}
 		catch (IOException | InstantiationException | IllegalAccessException e)

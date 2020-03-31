@@ -29,9 +29,9 @@ import lombok.Value;
 @Value
 public class ConfigItemDescriptor
 {
-	private final ConfigItem item;
-	private final Class<?> type;
-	private final Range range;
-	private final Alpha alpha;
-	private final Units units;
+	ConfigItem item;
+	Class<?> type;
+	Range range;
+	Alpha alpha;
+	Units units;
 }

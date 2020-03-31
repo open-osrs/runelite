@@ -447,5 +447,6 @@ public class Notifier
 			}
 		}
 		clip.start();
+		clip.close();
 	}
 }

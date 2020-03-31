@@ -113,7 +113,7 @@ public class RuneLite
 	public static final File DEFAULT_CONFIG_FILE = new File(RUNELITE_DIR, "runeliteplus.properties");
 	public static final Locale SYSTEM_LOCALE = Locale.getDefault();
 	public static boolean allowPrivateServer = false;
-	public static String uuid = UUID.randomUUID().toString();
+	public static final String uuid = UUID.randomUUID().toString();
 
 	@Getter
 	private static Injector injector;
@@ -239,7 +239,7 @@ public class RuneLite
 			.withRequiredArg()
 			.ofType(ClientUpdateCheckMode.class)
 			.defaultsTo(ClientUpdateCheckMode.AUTO)
-			.withValuesConvertedBy(new EnumConverter<ClientUpdateCheckMode>(ClientUpdateCheckMode.class)
+			.withValuesConvertedBy(new EnumConverter<>(ClientUpdateCheckMode.class)
 			{
 				@Override
 				public ClientUpdateCheckMode convert(String v)
@@ -471,6 +471,7 @@ public class RuneLite
 	{
 		int correctedWorld = cliWorld < 300 ? cliWorld + 300 : cliWorld;
 
+		assert client != null;
 		if (correctedWorld <= 300 || client.getWorld() == correctedWorld)
 		{
 			return;

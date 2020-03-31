@@ -551,7 +551,7 @@ public class PluginManager
 		for (PluginDependency pluginDependency : pluginDependencies)
 		{
 			Optional<Plugin> dependency = scannedPlugins.stream().filter(p -> p.getClass() == pluginDependency.value()).findFirst();
-			if (!dependency.isPresent())
+			if (dependency.isEmpty())
 			{
 				throw new PluginInstantiationException("Unmet dependency for " + clazz.getSimpleName() + ": " + pluginDependency.value().getSimpleName());
 			}

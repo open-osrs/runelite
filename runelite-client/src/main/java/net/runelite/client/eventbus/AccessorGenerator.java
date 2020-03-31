@@ -29,8 +29,8 @@ public class AccessorGenerator
 			Subscribe sub = method.getAnnotation(Subscribe.class);
 			if (sub != null)
 			{
-				final Consumer accessor;
-				final Class paramType = method.getParameterTypes()[0];
+				final Consumer<Event> accessor;
+				final Class<?> paramType = method.getParameterTypes()[0];
 
 				try
 				{

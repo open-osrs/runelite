@@ -372,7 +372,7 @@ public class ImageUtil
 	 * @param path The path, relative to the given class.
 	 * @return     A {@link BufferedImage} of the loaded image resource from the given path.
 	 */
-	public static BufferedImage getResourceStreamFromClass(final Class c, final String path)
+	public static BufferedImage getResourceStreamFromClass(final Class<?> c, final String path)
 	{
 		try
 		{

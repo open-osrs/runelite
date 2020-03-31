@@ -24,6 +24,7 @@
 package net.runelite.client.game;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,8 +40,8 @@ public class PlayerContainer
 	private AttackStyle attackStyle;
 	private AttackStyle weakness;
 	private HiscoreResult skills;
-	private LinkedHashMap<Integer, Integer> gear;
-	private LinkedHashMap<Integer, Integer> riskedGear;
+	private Map<Integer, Integer> gear;
+	private Map<Integer, Integer> riskedGear;
 	private MeleeStyle meleeStyle;
 	private Player player;
 	private String location;

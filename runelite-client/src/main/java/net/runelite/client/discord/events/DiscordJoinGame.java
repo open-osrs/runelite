@@ -36,5 +36,5 @@ public class DiscordJoinGame implements Event
 	/**
 	 * Obfuscated data of your choosing used as join secret
 	 */
-	private String joinSecret;
+	String joinSecret;
 }

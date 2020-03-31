@@ -68,6 +68,7 @@ public class ClientThread implements Executor
 	 */
 	public void invoke(BooleanSupplier r)
 	{
+		assert client != null;
 		if (client.isClientThread())
 		{
 			if (!r.getAsBoolean())
@@ -100,6 +101,7 @@ public class ClientThread implements Executor
 
 	void invoke()
 	{
+		assert client != null;
 		assert client.isClientThread();
 		Iterator<BooleanSupplier> ir = invokes.iterator();
 		for (; ir.hasNext(); )

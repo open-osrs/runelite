@@ -41,7 +41,7 @@ import static net.runelite.client.ui.overlay.OverlayPosition.TOP_RIGHT;
 @Value
 class OverlayBounds
 {
-	private final Rectangle topLeft, topCenter, topRight, bottomLeft, bottomRight, aboveChatboxRight, canvasTopRight;
+	Rectangle topLeft, topCenter, topRight, bottomLeft, bottomRight, aboveChatboxRight, canvasTopRight;
 
 	OverlayBounds(OverlayBounds other)
 	{

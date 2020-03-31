@@ -129,7 +129,7 @@ public class ChatMessageManager
 			case PUBLICCHAT:
 			case MODCHAT:
 			{
-				boolean isFriend = client.isFriended(chatMessage.getName(), true) && !client.getLocalPlayer().getName().equals(chatMessage.getName());
+				boolean isFriend = client.isFriended(chatMessage.getName(), true) && (client.getLocalPlayer() != null && client.getLocalPlayer().getName() != null && !client.getLocalPlayer().getName().equals(chatMessage.getName()));
 
 				if (isFriend)
 				{

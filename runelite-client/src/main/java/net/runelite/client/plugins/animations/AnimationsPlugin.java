@@ -25,10 +25,8 @@
 package net.runelite.client.plugins.animations;
 
 import java.io.IOException;
-import java.util.HashMap;
-import javax.inject.Inject;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
 import net.runelite.api.NPC;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.client.eventbus.Subscribe;
@@ -46,9 +44,7 @@ public class AnimationsPlugin extends Plugin
 {
 	private final AnimationsClient animationsClient = new AnimationsClient();
 
-	private HashMap<Integer, int[]> animations;
-	@Inject
-	private Client client;
+	private Map<Integer, int[]> animations;
 
 	{
 		try

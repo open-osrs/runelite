@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.Objects;
 import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
@@ -61,6 +62,7 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 @Slf4j
 @Singleton
@@ -192,7 +194,7 @@ public class ImageCapture
 		String json = RuneLiteAPI.GSON.toJson(new ImageUploadRequest(screenshotFile));
 
 		Request request = new Request.Builder()
-			.url(IMGUR_IMAGE_UPLOAD_URL)
+			.url(Objects.requireNonNull(IMGUR_IMAGE_UPLOAD_URL))
 			.addHeader("Authorization", "Client-ID " + RuneLiteProperties.getImgurClientId())
 			.post(RequestBody.create(JSON, json))
 			.build();
@@ -200,15 +202,15 @@ public class ImageCapture
 		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
 		{
 			@Override
-			public void onFailure(Call call, IOException ex)
+			public void onFailure(@NotNull Call call, @NotNull IOException ex)
 			{
 				log.warn("error uploading screenshot", ex);
 			}
 
 			@Override
-			public void onResponse(Call call, Response response) throws IOException
+			public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException
 			{
-				try (InputStream in = response.body().byteStream())
+				try (InputStream in = Objects.requireNonNull(response.body()).byteStream())
 				{
 					ImageUploadResponse imageUploadResponse = RuneLiteAPI.GSON
 						.fromJson(new InputStreamReader(in), ImageUploadResponse.class);

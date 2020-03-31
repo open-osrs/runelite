@@ -74,7 +74,7 @@ public class ClanManager
 	private final LoadingCache<String, ClanMemberRank> clanRanksCache = CacheBuilder.newBuilder()
 		.maximumSize(100)
 		.expireAfterWrite(1, TimeUnit.MINUTES)
-		.build(new CacheLoader<String, ClanMemberRank>()
+		.build(new CacheLoader<>()
 		{
 			@Override
 			public ClanMemberRank load(@Nonnull String key)

@@ -35,42 +35,42 @@ import lombok.Value;
 @Builder(builderClassName = "Builder")
 public class NPCStats
 {
-	private final String name;
+	String name;
 
-	private final int hitpoints;
-	private final int combatLevel;
-	private final int slayerLevel;
-	private final int attackSpeed;
+	int hitpoints;
+	int combatLevel;
+	int slayerLevel;
+	int attackSpeed;
 
-	private final int attackLevel;
-	private final int strengthLevel;
-	private final int defenceLevel;
-	private final int rangeLevel;
-	private final int magicLevel;
+	int attackLevel;
+	int strengthLevel;
+	int defenceLevel;
+	int rangeLevel;
+	int magicLevel;
 
-	private final int stab;
-	private final int slash;
-	private final int crush;
-	private final int range;
-	private final int magic;
+	int stab;
+	int slash;
+	int crush;
+	int range;
+	int magic;
 
-	private final int stabDef;
-	private final int slashDef;
-	private final int crushDef;
-	private final int rangeDef;
-	private final int magicDef;
+	int stabDef;
+	int slashDef;
+	int crushDef;
+	int rangeDef;
+	int magicDef;
 
-	private final int bonusAttack;
-	private final int bonusStrength;
-	private final int bonusRangeStrength;
-	private final int bonusMagicDamage;
+	int bonusAttack;
+	int bonusStrength;
+	int bonusRangeStrength;
+	int bonusMagicDamage;
 
-	private final boolean poisonImmune;
-	private final boolean venomImmune;
+	boolean poisonImmune;
+	boolean venomImmune;
 
-	private final boolean dragon;
-	private final boolean demon;
-	private final boolean undead;
+	boolean dragon;
+	boolean demon;
+	boolean undead;
 
 	/**
 	 * Based off the formula found here: http://services.runescape.com/m=forum/c=PLuJ4cy6gtA/forums.ws?317,318,712,65587452,209,337584542#209
@@ -87,7 +87,7 @@ public class NPCStats
 
 	// Because this class is here we can't add the TypeAdapter to gson (easily)
 	// doesn't mean we can't use one to do it a bit quicker
-	public static final TypeAdapter<NPCStats> NPC_STATS_TYPE_ADAPTER = new TypeAdapter<NPCStats>()
+	public static final TypeAdapter<NPCStats> NPC_STATS_TYPE_ADAPTER = new TypeAdapter<>()
 	{
 		@Override
 		public void write(JsonWriter out, NPCStats value)

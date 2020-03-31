@@ -53,11 +53,11 @@ public abstract class Plugin implements Module, ExtensionPoint
 	{
 	}
 
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 	}
 
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 	}
 
@@ -104,11 +104,11 @@ public abstract class Plugin implements Module, ExtensionPoint
 	@Value
 	private static class Subscription
 	{
-		private final Class type;
-		private final Consumer method;
-		private final int takeUntil;
-		private final EventScheduler subscribe;
-		private final EventScheduler observe;
+		Class type;
+		Consumer method;
+		int takeUntil;
+		EventScheduler subscribe;
+		EventScheduler observe;
 	}
 
 	public void resetConfiguration()

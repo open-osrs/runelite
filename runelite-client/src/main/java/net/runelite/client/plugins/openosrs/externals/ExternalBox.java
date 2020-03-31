@@ -22,8 +22,8 @@ public class ExternalBox extends JPanel
 	private static final Font smallFont = FontManager.getRunescapeSmallFont();
 
 	PluginInfo pluginInfo;
-	JLabel install = new JLabel();
-	JMultilineLabel description = new JMultilineLabel();
+	final JLabel install = new JLabel();
+	final JMultilineLabel description = new JMultilineLabel();
 
 	ExternalBox(String name, URL url)
 	{

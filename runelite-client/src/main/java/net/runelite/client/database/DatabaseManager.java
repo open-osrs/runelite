@@ -75,10 +75,12 @@ public class DatabaseManager
 
 		try
 		{
-			ResultSet rset = connection.getMetaData().getTables(null, null, table.toUpperCase(), null);
-			if (rset.next())
+			try (ResultSet rset = connection.getMetaData().getTables(null, null, table.toUpperCase(), null))
 			{
-				tableExists = true;
+				if (rset.next())
+				{
+					tableExists = true;
+				}
 			}
 		}
 		catch (SQLException e)

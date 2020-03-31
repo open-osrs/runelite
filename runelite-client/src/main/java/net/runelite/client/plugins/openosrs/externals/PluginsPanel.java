@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -84,8 +83,6 @@ public class PluginsPanel extends JPanel
 
 	private final ExternalPluginManager externalPluginManager;
 	private final UpdateManager updateManager;
-	private final ScheduledExecutorService executor;
-	private final EventBus eventBus;
 
 	private final IconTextField searchBar = new IconTextField();
 	private final JPanel filterwrapper = new JPanel(new BorderLayout(0, 10));
@@ -97,12 +94,10 @@ public class PluginsPanel extends JPanel
 	private JComboBox<String> filterComboBox;
 	private Set<String> deps;
 
-	PluginsPanel(ExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
+	PluginsPanel(ExternalPluginManager externalPluginManager, EventBus eventBus)
 	{
 		this.externalPluginManager = externalPluginManager;
 		this.updateManager = externalPluginManager.getUpdateManager();
-		this.executor = executor;
-		this.eventBus = eventBus;
 
 		setLayout(new BorderLayout(0, 10));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -495,6 +490,7 @@ public class PluginsPanel extends JPanel
 
 								if (!status)
 								{
+									install.setText(null);
 									pluginInstallButton(install, pluginInfo, installed, hideAction);
 								}
 							}
@@ -530,6 +526,7 @@ public class PluginsPanel extends JPanel
 
 							if (!status)
 							{
+								install.setText(null);
 								pluginInstallButton(install, pluginInfo, installed, hideAction);
 							}
 						}

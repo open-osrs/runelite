@@ -169,7 +169,7 @@ public interface RuneLiteConfig extends Config
 		return WarningOnExit.LOGGED_IN;
 	}
 
-	@Range(max = 100, min = 0)
+	@Range(max = 100)
 	@ConfigItem(
 		keyName = "volume",
 		name = "Runelite Volume",

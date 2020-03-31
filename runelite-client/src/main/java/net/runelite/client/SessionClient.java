@@ -27,6 +27,7 @@ package net.runelite.client;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.UUID;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
@@ -49,7 +50,7 @@ class SessionClient
 
 			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
 			{
-				return RuneLiteAPI.GSON.fromJson(response.body().string(), UUID.class);
+				return RuneLiteAPI.GSON.fromJson(Objects.requireNonNull(response.body()).string(), UUID.class);
 			}
 		});
 	}

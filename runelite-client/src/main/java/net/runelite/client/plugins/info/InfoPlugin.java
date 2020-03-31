@@ -27,8 +27,6 @@ package net.runelite.client.plugins.info;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginType;
@@ -50,15 +48,6 @@ public class InfoPlugin extends Plugin
 	private ClientToolbar clientToolbar;
 
 	private NavigationButton navButton;
-
-	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("info"))
-		{
-			return;
-		}
-	}
 
 	@Override
 	protected void startUp()

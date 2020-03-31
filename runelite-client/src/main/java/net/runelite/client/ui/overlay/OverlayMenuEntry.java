@@ -32,7 +32,7 @@ import net.runelite.api.MenuOpcode;
 @NonFinal
 public class OverlayMenuEntry
 {
-	private MenuOpcode menuOpcode;
-	private String option;
-	private String target;
+	MenuOpcode menuOpcode;
+	String option;
+	String target;
 }

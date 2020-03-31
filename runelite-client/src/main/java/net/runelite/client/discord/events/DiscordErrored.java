@@ -36,10 +36,10 @@ public class DiscordErrored implements Event
 	/**
 	 * Discord error code.
 	 */
-	private int errorCode;
+	int errorCode;
 
 	/**
 	 * Error message
 	 */
-	private String message;
+	String message;
 }

@@ -70,7 +70,7 @@ public class ArrowWorldOverlay extends Overlay
 	{
 		final Collection<ArrowPoint> points = arrowPointManager.getArrowPoints().values();
 
-		if (points.isEmpty())
+		if (points.isEmpty() || client.getLocalPlayer() == null)
 		{
 			return null;
 		}

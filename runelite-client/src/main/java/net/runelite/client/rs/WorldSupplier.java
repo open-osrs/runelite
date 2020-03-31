@@ -43,7 +43,7 @@ import net.runelite.http.api.worlds.WorldType;
 class WorldSupplier implements Supplier<World>
 {
 	private final Random random = new Random(System.nanoTime());
-	private Queue<World> worlds = new ArrayDeque<>();
+	private final Queue<World> worlds = new ArrayDeque<>();
 
 	@Override
 	public World get()

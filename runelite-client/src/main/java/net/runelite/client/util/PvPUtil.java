@@ -80,6 +80,11 @@ public class PvPUtil
 	 */
 	public static boolean isAttackable(Client client, Player player)
 	{
+		if (client.getLocalPlayer() == null)
+		{
+			return false;
+		}
+
 		int wildernessLevel = 0;
 		
 		if (!(client.getVar(Varbits.IN_WILDERNESS) == 1

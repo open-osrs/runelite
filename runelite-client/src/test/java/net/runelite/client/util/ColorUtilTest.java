@@ -34,7 +34,7 @@ import org.junit.Test;
 
 public class ColorUtilTest
 {
-	private static final Map<Color, String> COLOR_HEXSTRING_MAP = new HashMap<Color, String>()
+	private static final Map<Color, String> COLOR_HEXSTRING_MAP = new HashMap<>()
 	{{
 		put(Color.BLACK, "000000");
 		put(new Color(0x1), "000001");

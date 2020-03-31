@@ -519,7 +519,7 @@ public class PlayerManager
 		}
 	}
 
-	private static void removeEntries(LinkedHashMap<Integer, Integer> map, int quantity)
+	private static void removeEntries(Map<Integer, Integer> map, int quantity)
 	{
 		for (int i = 0; i < quantity; i++)
 		{

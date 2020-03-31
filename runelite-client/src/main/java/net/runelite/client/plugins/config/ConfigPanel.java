@@ -47,6 +47,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -440,7 +441,6 @@ class ConfigPanel extends PluginPanel
 
 		if (pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName()))
 		{
-
 			JPanel infoPanel = new JPanel();
 			infoPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 			infoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -903,7 +903,7 @@ class ConfigPanel extends PluginPanel
 					if (e.getStateChange() == ItemEvent.SELECTED)
 					{
 						changeConfiguration(box, cd, cid);
-						box.setToolTipText(Text.titleCase((Enum) box.getSelectedItem()));
+						box.setToolTipText(Text.titleCase((Enum) Objects.requireNonNull(box.getSelectedItem())));
 					}
 				});
 				item.add(box, BorderLayout.EAST);
@@ -966,13 +966,9 @@ class ConfigPanel extends PluginPanel
 			{
 				titleSection.add(item);
 			}
-			else if (section != null)
-			{
-				section.add(item);
-			}
 			else
 			{
-				mainPanel.add(item);
+				Objects.requireNonNullElse(section, mainPanel).add(item);
 			}
 		}
 
@@ -985,7 +981,7 @@ class ConfigPanel extends PluginPanel
 				"Are you sure?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
 				null, new String[]{"Yes", "No"}, "No");
 
-			if (result == JOptionPane.YES_OPTION)
+			if (result == JOptionPane.YES_OPTION && pluginConfig.getConfig() != null)
 			{
 				configManager.setDefaultConfiguration(pluginConfig.getConfig(), true);
 
@@ -1024,7 +1020,6 @@ class ConfigPanel extends PluginPanel
 
 		EnumSet finalEnumSet = enumSet;
 
-		//noinspection unchecked
 		components.forEach(value ->
 		{
 			if (value.isSelected())
@@ -1081,7 +1076,7 @@ class ConfigPanel extends PluginPanel
 		else if (component instanceof JComboBox)
 		{
 			JComboBox jComboBox = (JComboBox) component;
-			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), ((Enum) jComboBox.getSelectedItem()).name());
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), ((Enum) Objects.requireNonNull(jComboBox.getSelectedItem())).name());
 		}
 		else if (component instanceof HotkeyButton)
 		{
@@ -1148,7 +1143,7 @@ class ConfigPanel extends PluginPanel
 						rebuild(true);
 					}
 
-					String changedVal = ((Enum) jComboBox.getSelectedItem()).name();
+					String changedVal = ((Enum) Objects.requireNonNull(jComboBox.getSelectedItem())).name();
 
 					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
 					{

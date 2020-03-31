@@ -158,7 +158,7 @@ public class ItemManager
 		itemImages = CacheBuilder.newBuilder()
 			.maximumSize(128L)
 			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<ImageKey, AsyncBufferedImage>()
+			.build(new CacheLoader<>()
 			{
 				@Override
 				public AsyncBufferedImage load(@NotNull ImageKey key)
@@ -170,7 +170,7 @@ public class ItemManager
 		itemDefinitions = CacheBuilder.newBuilder()
 			.maximumSize(1024L)
 			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<Integer, ItemDefinition>()
+			.build(new CacheLoader<>()
 			{
 				@Override
 				public ItemDefinition load(@NotNull Integer key)
@@ -182,7 +182,7 @@ public class ItemManager
 		itemOutlines = CacheBuilder.newBuilder()
 			.maximumSize(128L)
 			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<OutlineKey, BufferedImage>()
+			.build(new CacheLoader<>()
 			{
 				@Override
 				public BufferedImage load(@NotNull OutlineKey key)
@@ -498,6 +498,12 @@ public class ItemManager
 	private BufferedImage loadItemOutline(final int itemId, final int itemQuantity, final Color outlineColor)
 	{
 		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, true, 710);
+
+		if (itemSprite == null)
+		{
+			return null;
+		}
+
 		return itemSprite.toBufferedOutline(outlineColor);
 	}
 
@@ -524,16 +530,16 @@ public class ItemManager
 	@Value
 	private static class ImageKey
 	{
-		private final int itemId;
-		private final int itemQuantity;
-		private final boolean stackable;
+		int itemId;
+		int itemQuantity;
+		boolean stackable;
 	}
 
 	@Value
 	private static class OutlineKey
 	{
-		private final int itemId;
-		private final int itemQuantity;
-		private final Color outlineColor;
+		int itemId;
+		int itemQuantity;
+		Color outlineColor;
 	}
 }

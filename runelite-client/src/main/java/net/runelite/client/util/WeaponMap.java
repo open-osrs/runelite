@@ -1,11 +1,12 @@
 package net.runelite.client.util;
 
 import java.util.HashMap;
+import java.util.Map;
 import net.runelite.api.ItemID;
 
 public class WeaponMap
 {
-	public static HashMap<Integer, WeaponStyle> StyleMap = new HashMap<>();
+	public static final Map<Integer, WeaponStyle> StyleMap = new HashMap<>();
 
 	static
 	{

@@ -36,20 +36,20 @@ public class DiscordReady implements Event
 	/**
 	 * The userId for the active user
 	 */
-	private String userId;
+	String userId;
 
 	/**
 	 * The username of the active user
 	 */
-	private String username;
+	String username;
 
 	/**
 	 * The discriminator of the active user
 	 */
-	private String discriminator;
+	String discriminator;
 
 	/**
 	 * The avatar of the active user
 	 */
-	private String avatar;
+	String avatar;
 }
