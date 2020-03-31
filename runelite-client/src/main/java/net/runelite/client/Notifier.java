@@ -48,6 +48,7 @@ import javax.inject.Singleton;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import lombok.Getter;
@@ -446,7 +447,13 @@ public class Notifier
 				return;
 			}
 		}
+
 		clip.start();
-		clip.close();
+		clip.addLineListener(event -> {
+			if (event.getType() == LineEvent.Type.STOP)
+			{
+				event.getLine().close();
+			}
+		});
 	}
 }
