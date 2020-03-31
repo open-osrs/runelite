@@ -482,8 +482,8 @@ class ConfigPanel extends PluginPanel
 				continue; // Ignore main 'parent'
 			}
 
-			Boolean unhide = cid.getItem().hidden();
-			Boolean hide = !cid.getItem().hide().isEmpty();
+			boolean unhide = cid.getItem().hidden();
+			boolean hide = !cid.getItem().hide().isEmpty();
 
 			if (unhide || hide)
 			{
