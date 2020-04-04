@@ -1164,4 +1164,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("draggedWidgetY")
 	int getDraggedWidgetY();
+
+	@Construct
+	RSMenuAction newMenuAction();
 }

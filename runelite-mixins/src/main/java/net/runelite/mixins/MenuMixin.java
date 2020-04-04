@@ -165,8 +165,10 @@ public abstract class MenuMixin implements RSClient
 	@Override
 	public void setTempMenuEntry(MenuEntry entry)
 	{
-		if (entry == null || tempMenuAction == null)
+		if (entry == null)
 			return;
+
+		tempMenuAction = newMenuAction();
 
 		tempMenuAction.setOption(entry.getOption());
 		tempMenuAction.setOpcode(entry.getOpcode());
