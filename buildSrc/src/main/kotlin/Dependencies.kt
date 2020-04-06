@@ -54,7 +54,7 @@ object Libraries {
         const val apacheCommonsText = "1.8"
         const val asm = "8.0.1"
         const val commonsCli = "1.4"
-        const val discord = "1.0"
+        const val discord = "1.1"
         const val fernflower = "07082019"
         const val findbugs = "3.0.2"
         const val gson = "2.8.6"
