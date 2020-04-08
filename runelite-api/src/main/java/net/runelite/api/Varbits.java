@@ -42,6 +42,8 @@ import lombok.Getter;
 @Getter
 public enum Varbits
 {
+
+
 	/*
 	 * Kharedst's Memoirs Teleport Item
 	 */
@@ -632,6 +634,12 @@ public enum Varbits
 	QUEST_MISTHALIN_MYSTERY(3468),
 	QUEST_THE_CORSAIR_CURSE(6071),
 	QUEST_X_MARKS_THE_SPOT(8063),
+	QUEST_ERNEST_LEVER_A(1788),
+	QUEST_ERNEST_LEVER_B(1789),
+	QUEST_ERNEST_LEVER_C(1790),
+	QUEST_ERNEST_LEVER_D(1791),
+	QUEST_ERNEST_LEVER_E(1792),
+	QUEST_ERNEST_LEVER_F(1793),
 
 	/**
 	 * member Quest varbits, these don't hold the completion value.
