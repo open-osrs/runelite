@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins;
 
-import com.google.common.collect.ImmutableList;
 import com.google.inject.Binder;
 import com.google.inject.CreationException;
 import com.google.inject.Injector;
@@ -755,8 +754,11 @@ public class ExternalPluginManager
 					Class<?> type = key.getTypeLiteral().getRawType();
 					if (Config.class.isAssignableFrom(type))
 					{
-						Config config = (Config) pluginInjector.getInstance(key);
-						configManager.setDefaultConfiguration(config, false);
+						if (type.getPackageName().startsWith(plugin.getClass().getPackageName()))
+						{
+							Config config = (Config) pluginInjector.getInstance(key);
+							configManager.setDefaultConfiguration(config, false);
+						}
 					}
 				}
 			}
@@ -910,7 +912,7 @@ public class ExternalPluginManager
 
 	private Path stopPlugin(String pluginId)
 	{
-		List<PluginWrapper> startedPlugins = ImmutableList.copyOf(getStartedPlugins());
+		List<PluginWrapper> startedPlugins = List.copyOf(getStartedPlugins());
 
 		for (PluginWrapper pluginWrapper : startedPlugins)
 		{
@@ -1074,6 +1076,8 @@ public class ExternalPluginManager
 				String lastVersion = lastRelease.version;
 				try
 				{
+					
+					RuneLiteSplashScreen.stage(.59, "Updating " + plugin.id + " to version " + lastVersion);
 					boolean updated = updateManager.updatePlugin(plugin.id, lastVersion);
 
 					if (!updated)
@@ -1135,7 +1139,7 @@ public class ExternalPluginManager
 		externalPluginManager.loadPlugins();
 		externalPluginManager.startPlugin(pluginId);
 
-		List<PluginWrapper> startedPlugins = ImmutableList.copyOf(getStartedPlugins());
+		List<PluginWrapper> startedPlugins = List.copyOf(getStartedPlugins());
 		List<Plugin> scannedPlugins = new ArrayList<>();
 
 		for (PluginWrapper pluginWrapper : startedPlugins)
@@ -1178,7 +1182,7 @@ public class ExternalPluginManager
 				externalPluginManager.loadPlugins();
 				externalPluginManager.startPlugin(pluginId);
 
-				List<PluginWrapper> startedPlugins = ImmutableList.copyOf(getStartedPlugins());
+				List<PluginWrapper> startedPlugins = List.copyOf(getStartedPlugins());
 				List<Plugin> scannedPlugins = new ArrayList<>();
 
 				for (PluginWrapper pluginWrapper : startedPlugins)
