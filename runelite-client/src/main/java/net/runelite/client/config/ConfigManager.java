@@ -26,7 +26,6 @@ package net.runelite.client.config;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.ImmutableMap;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -70,7 +69,10 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.ExternalPluginManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.util.ColorUtil;
+import net.runelite.client.util.Groups;
 import org.apache.commons.lang3.StringUtils;
+import org.jgroups.Message;
+import org.jgroups.util.Util;
 
 @Singleton
 @Slf4j
@@ -82,15 +84,24 @@ public class ConfigManager
 	private final Properties properties = new Properties();
 	private final Map<String, String> pendingChanges = new HashMap<>();
 	private final File settingsFileInput;
+	private final Groups groups;
 
 	@Inject
 	EventBus eventBus;
 
 	@Inject
-	public ConfigManager(@Named("config") File config, ScheduledExecutorService scheduledExecutorService)
+	public ConfigManager(
+		@Named("config") File config,
+		ScheduledExecutorService scheduledExecutorService,
+		Groups groups)
 	{
 		this.settingsFileInput = config;
+		this.groups = groups;
+
 		scheduledExecutorService.scheduleWithFixedDelay(this::sendConfig, 30, 30, TimeUnit.SECONDS);
+
+		groups.getMessageObjectSubject()
+			.subscribe(this::receive);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -372,7 +383,7 @@ public class ConfigManager
 			return;
 		}
 
-		@SuppressWarnings("unchecked") final Map<String, String> copy = (Map) ImmutableMap.copyOf(this.properties);
+		@SuppressWarnings("unchecked") final Map<String, String> copy = (Map) Map.copyOf(this.properties);
 		copy.forEach((groupAndKey, value) ->
 		{
 			if (!properties.containsKey(groupAndKey))
@@ -431,7 +442,7 @@ public class ConfigManager
 
 		try
 		{
-			@SuppressWarnings("unchecked") Map<String, String> copy = (Map) ImmutableMap.copyOf(properties);
+			@SuppressWarnings("unchecked") Map<String, String> copy = (Map) Map.copyOf(properties);
 			copy.forEach((groupAndKey, value) ->
 			{
 				final String[] split = groupAndKey.split("\\.", 2);
@@ -450,6 +461,7 @@ public class ConfigManager
 				configChanged.setKey(key);
 				configChanged.setOldValue(null);
 				configChanged.setNewValue(value);
+
 				eventBus.post(ConfigChanged.class, configChanged);
 			});
 		}
@@ -525,7 +537,17 @@ public class ConfigManager
 		return null;
 	}
 
+	public void setConfiguration(String groupName, String key, Object value)
+	{
+		setConfiguration(groupName, key, objectToString(value));
+	}
+
 	public void setConfiguration(String groupName, String key, String value)
+	{
+		setConfiguration(groupName, key, value, null);
+	}
+
+	public void setConfiguration(String groupName, String key, String value, String origin)
 	{
 		String oldValue = (String) properties.setProperty(groupName + "." + key, value);
 
@@ -547,16 +569,23 @@ public class ConfigManager
 		configChanged.setKey(key);
 		configChanged.setOldValue(oldValue);
 		configChanged.setNewValue(value);
+		configChanged.setOrigin(origin == null ? RuneLite.uuid : origin);
+		configChanged.setPath(settingsFileInput.getAbsolutePath());
 
 		eventBus.post(ConfigChanged.class, configChanged);
-	}
 
-	public void setConfiguration(String groupName, String key, Object value)
-	{
-		setConfiguration(groupName, key, objectToString(value));
+		if (origin == null)
+		{
+			broadcast(configChanged);
+		}
 	}
 
 	public void unsetConfiguration(String groupName, String key)
+	{
+		unsetConfiguration(groupName, key, null);
+	}
+
+	public void unsetConfiguration(String groupName, String key, String origin)
 	{
 		String oldValue = (String) properties.remove(groupName + "." + key);
 
@@ -577,8 +606,15 @@ public class ConfigManager
 		configChanged.setGroup(groupName);
 		configChanged.setKey(key);
 		configChanged.setOldValue(oldValue);
+		configChanged.setOrigin(origin == null ? RuneLite.uuid : origin);
+		configChanged.setPath(settingsFileInput.getAbsolutePath());
 
 		eventBus.post(ConfigChanged.class, configChanged);
+
+		if (origin == null)
+		{
+			broadcast(configChanged);
+		}
 	}
 
 	public ConfigDescriptor getConfigDescriptor(Object configurationProxy)
@@ -841,5 +877,41 @@ public class ConfigManager
 		}
 
 		syncPropertiesFromFile(newestFile);
+	}
+
+	private void broadcast(ConfigChanged configChanged)
+	{
+		groups.sendConfig(null, configChanged);
+	}
+
+	public void receive(Message message)
+	{
+		if (message.getObject() instanceof String)
+		{
+			return;
+		}
+
+		try
+		{
+			ConfigChanged configChanged = Util.objectFromByteBuffer(message.getBuffer());
+
+			if (!configChanged.getPath().equals(settingsFileInput.getAbsolutePath()))
+			{
+				return;
+			}
+
+			if (configChanged.getNewValue() == null)
+			{
+				unsetConfiguration(configChanged.getGroup(), configChanged.getKey(), configChanged.getOrigin());
+			}
+			else
+			{
+				setConfiguration(configChanged.getGroup(), configChanged.getKey(), configChanged.getNewValue(), configChanged.getOrigin());
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

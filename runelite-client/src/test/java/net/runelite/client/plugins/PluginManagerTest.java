@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -116,7 +117,7 @@ public class PluginManagerTest
 	@Test
 	public void testLoadPlugins() throws Exception
 	{
-		PluginManager pluginManager = new PluginManager(null, null, null, null);
+		PluginManager pluginManager = new PluginManager(null, null, null, null, null, null);
 		pluginManager.setOutdated(true);
 		pluginManager.loadCorePlugins();
 		Collection<Plugin> plugins = pluginManager.getPlugins();
@@ -127,7 +128,7 @@ public class PluginManagerTest
 			.count();
 		assertEquals(expected, plugins.size());
 
-		pluginManager = new PluginManager(null, null, null, null);
+		pluginManager = new PluginManager(null, null, null, null, null, null);
 		pluginManager.loadCorePlugins();
 		plugins = pluginManager.getPlugins();
 
@@ -145,12 +146,12 @@ public class PluginManagerTest
 		modules.add(new GraphvizModule());
 		modules.add(new RuneLiteModule(() -> null, RuneLite.DEFAULT_CONFIG_FILE));
 
-		PluginManager pluginManager = new PluginManager(null, null, null, null);
+		PluginManager pluginManager = new PluginManager(null, null, null, null, null, null);
 		pluginManager.loadCorePlugins();
 		modules.addAll(pluginManager.getPlugins());
 
 		File file = folder.newFile();
-		try (PrintWriter out = new PrintWriter(file, "UTF-8"))
+		try (PrintWriter out = new PrintWriter(file, StandardCharsets.UTF_8))
 		{
 			Injector injector = Guice.createInjector(modules);
 			GraphvizGrapher grapher = injector.getInstance(GraphvizGrapher.class);
@@ -194,10 +195,10 @@ public class PluginManagerTest
 	}
 
 	@Test
-	public void testEventbusAnnotations() throws PluginInstantiationException
+	public void testEventbusAnnotations() throws Exception
 	{
 		EventBus eventbus = new EventBus();
-		PluginManager pluginManager = new PluginManager(eventbus, null, null, null)
+		PluginManager pluginManager = new PluginManager(eventbus, null, null, null, null, null)
 		{
 			@Override
 			public boolean isPluginEnabled(Plugin plugin)

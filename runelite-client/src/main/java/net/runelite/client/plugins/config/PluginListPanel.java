@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.config;
 
-import com.google.common.collect.ImmutableList;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -62,6 +61,7 @@ import javax.swing.event.DocumentListener;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.util.Text;
+import net.runelite.client.RuneLite;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigDescriptor;
 import net.runelite.client.config.ConfigGroup;
@@ -73,6 +73,7 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.ExternalPluginChanged;
 import net.runelite.client.events.ExternalPluginsLoaded;
 import net.runelite.client.events.PluginChanged;
+import net.runelite.client.plugins.ExternalPluginManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
@@ -103,13 +104,14 @@ public class PluginListPanel extends PluginPanel
 	private static final String PINNED_PLUGINS_CONFIG_KEY = "pinnedPlugins";
 
 	private static final List<String> colorOptions = Arrays.asList("enabledColors", "pvmColor", "pvpColor", "skillingColor", "utilityColor", "minigameColor", "miscellaneousColor", "gamemodeColor");
-	private static final ImmutableList<PluginType> definedOrder = ImmutableList.of(PluginType.IMPORTANT, PluginType.PVM, PluginType.SKILLING, PluginType.PVP, PluginType.UTILITY, PluginType.MINIGAME, PluginType.MISCELLANEOUS, PluginType.GAMEMODE, PluginType.EXTERNAL, PluginType.UNCATEGORIZED);
+	private static final List<PluginType> definedOrder = List.of(PluginType.IMPORTANT, PluginType.PVM, PluginType.SKILLING, PluginType.PVP, PluginType.UTILITY, PluginType.MINIGAME, PluginType.MISCELLANEOUS, PluginType.GAMEMODE, PluginType.EXTERNAL, PluginType.UNCATEGORIZED);
 	private static final Comparator<PluginListItem> categoryComparator = Comparator.comparing(plugin -> definedOrder.indexOf(plugin.getPluginType()));
 
 	private final ConfigManager configManager;
 	private final PluginManager pluginManager;
 	private final Provider<ConfigPanel> configPanelProvider;
 	private final OpenOSRSConfig openOSRSConfig;
+	private final ExternalPluginManager externalPluginManager;
 
 	@Getter
 	private final MultiplexingPluginPanel muxer;
@@ -140,6 +142,7 @@ public class PluginListPanel extends PluginPanel
 		PluginManager pluginManager,
 		Provider<ConfigPanel> configPanelProvider,
 		OpenOSRSConfig openOSRSConfig,
+		ExternalPluginManager externalPluginManager,
 		EventBus eventBus)
 	{
 		super(false);
@@ -148,8 +151,14 @@ public class PluginListPanel extends PluginPanel
 		this.pluginManager = pluginManager;
 		this.configPanelProvider = configPanelProvider;
 		this.openOSRSConfig = openOSRSConfig;
+		this.externalPluginManager = externalPluginManager;
 
 		eventBus.subscribe(ConfigChanged.class, this, ev -> {
+			if (ev.getGroup().equals("runelite") && ev.getKey().equals("pinnedPlugins") && !ev.getOrigin().equals(RuneLite.uuid))
+			{
+				SwingUtilities.invokeLater(this::rebuildPluginList);
+			}
+
 			if (!ev.getGroup().equals("openosrs"))
 			{
 				return;
@@ -157,7 +166,7 @@ public class PluginListPanel extends PluginPanel
 
 			if (ev.getKey().equals("enableCategories") || ev.getKey().equals("pluginSortMode"))
 			{
-				rebuildPluginList();
+				SwingUtilities.invokeLater(this::rebuildPluginList);
 			}
 
 			if (ev.getKey().equals("pluginSortMode"))
@@ -264,7 +273,7 @@ public class PluginListPanel extends PluginPanel
 				})
 		).map(desc ->
 		{
-			PluginListItem listItem = new PluginListItem(this, desc);
+			PluginListItem listItem = new PluginListItem(this, desc, externalPluginManager);
 			listItem.setPinned(pinnedPlugins.contains(desc.getName()));
 			listItem.setColor(getColorByCategory(listItem.getPluginType()));
 
