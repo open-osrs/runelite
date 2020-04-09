@@ -42,8 +42,6 @@ import lombok.Getter;
 @Getter
 public enum Varbits
 {
-
-
 	/*
 	 * Kharedst's Memoirs Teleport Item
 	 */
