@@ -44,6 +44,8 @@ public interface DrawCallbacks
 
 	void draw();
 
+	boolean drawFace(Model model, int face);
+
 	void drawScene(int cameraX, int cameraY, int cameraZ, int cameraPitch, int cameraYaw, int plane);
 
 	void animate(Texture texture, int diff);

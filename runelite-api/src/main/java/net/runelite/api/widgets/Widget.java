@@ -300,7 +300,7 @@ public interface Widget
 	 * @param modelId the new model ID
 	 */
 	void setModelId(int modelId);
-	
+
 	/**
 	 * Gets the model type of the widget.
 	 *
@@ -367,7 +367,7 @@ public interface Widget
 
 	/**
 	 * Sets the amount zoomed in on the model displayed in the widget
-	 * 
+	 *
 	 * @param modelZoom the new zoom amount
 	 */
 	void setModelZoom(int modelZoom);
@@ -692,15 +692,32 @@ public interface Widget
 	void revalidateScroll();
 
 	/**
-	 * Array of widget key listeners
+	 * Gets the script and arguments to be ran when a menu action is clicked.
+	 *
+	 * @return
+	 */
+	Object[] getOnOpListener();
+
+	/**
+	 * Gets the script and arguments to be ran when a key is pressed.
+	 *
+	 * @return
 	 */
 	Object[] getOnKeyListener();
 
 	/**
-	 * Array of widget load listeners
+	 * Gets the script and arguments to be ran when a interface is loaded.
+	 *
+	 * @return
 	 */
 	Object[] getOnLoadListener();
 
+	/**
+	 * Gets the script and arguments to be ran when one of the listened for inventories changes.
+	 *
+	 * @return
+	 */
+	Object[] getOnInvTransmitListener();
 	Object[] getOnInvTransmit();
 
 	Object[] getOnOp();
