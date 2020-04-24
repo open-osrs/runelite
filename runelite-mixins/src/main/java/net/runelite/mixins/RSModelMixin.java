@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
+import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.MethodHook;
@@ -173,6 +174,17 @@ public abstract class RSModelMixin implements RSModel
 			rsModel.setFaceTextureVCoordinates(rl$faceTextureVCoordinates);
 		}
 		return model;
+	}
+
+	@Copy("drawFace")
+	public abstract void rs$drawFace(int face);
+
+	@Replace("drawFace")
+	public void rl$drawFace(int face) {
+		DrawCallbacks callbacks = client.getDrawCallbacks();
+		if(callbacks == null || !callbacks.drawFace(this, face)) {
+			rs$drawFace(face);
+		}
 	}
 
 	@MethodHook("buildSharedModel")
