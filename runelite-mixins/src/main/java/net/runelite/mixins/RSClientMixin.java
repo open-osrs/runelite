@@ -1937,5 +1937,12 @@ public abstract class RSClientMixin implements RSClient
 	{
 		setStopTimeMs(1);
 	}
+
+	@Inject
+	@Override
+	public int itemQuantity(InventoryID container, int itemID)
+	{
+		return getItemQuantity(container.getId(), itemID);
+	}
 }
 

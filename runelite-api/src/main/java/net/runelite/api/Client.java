@@ -2035,4 +2035,24 @@ public interface Client extends GameShell
 	 * Gets values related to jagex compliance
 	 */
 	boolean getComplianceValue(@Nonnull String key);
+
+	/**
+	 * Returns the amount of an item that the specified Item Container contains,
+	 * or 0 if it doesn't contain the item.
+	 * @param inventoryID - the ID of the item container to search
+	 * @param itemID - The ItemID of the item to search the container for.
+	 * @return The amount of the item that the container has.
+	 */
+	int getItemQuantity(int inventoryID, int itemID);
+
+	/**
+	 * Returns the amount of an item that the specified Item Container contains,
+	 * or 0 if it doesn't contain the item.
+	 * @param container - The InventoryID of the ItemContainer to search in
+	 * @param itemID - The ItemID of the item to search the container for.
+	 * @return The amount of the item that the container has.
+	 */
+	int itemQuantity(InventoryID container, int itemID);
+
+
 }

@@ -1248,4 +1248,8 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("stopTimeMs")
 	void setStopTimeMs(long time);
+
+	@Import("getItemQuantity")
+	@Override
+	int getItemQuantity(int itemContainerID, int itemID);
 }
