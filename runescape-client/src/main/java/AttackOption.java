@@ -68,7 +68,8 @@ public enum AttackOption implements Enumerated {
 		signature = "(III)I",
 		garbageValue = "2128537982"
 	)
-	static int method2157(int var0, int var1) {
+	@Export("getItemQuantity")
+	static int getItemQuantity(int var0, int var1) {
 		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
 		if (var2 == null) {
 			return 0;

@@ -76,7 +76,7 @@ public abstract class AbstractUserComparator implements Comparator {
 				Interpreter.Interpreter_intStackSize -= 2;
 				var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
 				var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = AttackOption.method2157(var3, var4);
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = AttackOption.getItemQuantity(var3, var4);
 				return 1;
 			} else if (var0 == ScriptOpcodes.INV_SIZE) {
 				var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
@@ -134,7 +134,7 @@ public abstract class AbstractUserComparator implements Comparator {
 					Interpreter.Interpreter_intStackSize -= 2;
 					var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] + 32768;
 					var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = AttackOption.method2157(var3, var4);
+					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = AttackOption.getItemQuantity(var3, var4);
 					return 1;
 				} else if (var0 == ScriptOpcodes.STAFFMODLEVEL) {
 					if (Client.staffModLevel >= 2) {
