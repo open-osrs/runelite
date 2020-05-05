@@ -63,11 +63,11 @@ public class LoginPacket implements class190 {
 		field2313 = new LoginPacket(18, -2);
 		field2314 = new LoginPacket(19, -2);
 		field2319 = new LoginPacket(27, 0);
-		LoginPacked_indexedValues = new LoginPacket[32];
+		LoginPacket_indexedValues = new LoginPacket[32];
 		LoginPacket[] var0 = WorldMapSection3.method895();
 
 		for (int var1 = 0; var1 < var0.length; ++var1) {
-			LoginPacked_indexedValues[var0[var1].id] = var0[var1];
+			LoginPacket_indexedValues[var0[var1].id] = var0[var1];
 		}
 
 	}
