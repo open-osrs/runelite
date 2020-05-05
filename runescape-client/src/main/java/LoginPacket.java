@@ -41,7 +41,8 @@ public class LoginPacket implements class190 {
 	@ObfuscatedSignature(
 		signature = "[Lgb;"
 	)
-	static final LoginPacket[] LoginPacked_indexedValues;
+	@Export("LoginPacket_indexedValues")
+	static final LoginPacket[] LoginPacket_indexedValues;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		signature = "Lew;"
