@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,6 +57,7 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -83,6 +85,7 @@ public class ConfigManager
 	private final ConfigInvocationHandler handler = new ConfigInvocationHandler(this);
 	private final Properties properties = new Properties();
 	private final Map<String, String> pendingChanges = new HashMap<>();
+	private final Map<String, Consumer<? super Plugin>> consumers = new HashMap<>();
 	private final File settingsFileInput;
 	private final Groups groups;
 
@@ -425,6 +428,7 @@ public class ConfigManager
 	{
 		handler.invalidate();
 		properties.clear();
+		consumers.clear();
 
 		try (FileInputStream in = new FileInputStream(settingsFileInput))
 		{
@@ -539,6 +543,12 @@ public class ConfigManager
 
 	public void setConfiguration(String groupName, String key, Object value)
 	{
+		// do not save consumers for buttons, they cannot be changed anyway
+		if (value instanceof Consumer)
+		{
+			return;
+		}
+
 		setConfiguration(groupName, key, objectToString(value));
 	}
 
@@ -688,55 +698,74 @@ public class ConfigManager
 				continue;
 			}
 
-			if (!method.isDefault())
+			if (method.getReturnType().isAssignableFrom(Consumer.class))
 			{
-				if (override)
+				Object defaultValue;
+				try
 				{
-					String current = getConfiguration(group.value(), item.keyName());
-					// only unset if already set
+					defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
+				}
+				catch (Throwable ex)
+				{
+					log.warn(null, ex);
+					continue;
+				}
+
+				log.debug("Registered consumer: {}.{}", group.value(), item.keyName());
+				consumers.put(group.value() + "." + item.keyName(), (Consumer) defaultValue);
+			}
+			else
+			{
+				if (!method.isDefault())
+				{
+					if (override)
+					{
+						String current = getConfiguration(group.value(), item.keyName());
+						// only unset if already set
+						if (current != null)
+						{
+							unsetConfiguration(group.value(), item.keyName());
+						}
+					}
+					continue;
+				}
+
+				if (!override)
+				{
+					// This checks if it is set and is also unmarshallable to the correct type; so
+					// we will overwrite invalid config values with the default
+					Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
 					if (current != null)
 					{
-						unsetConfiguration(group.value(), item.keyName());
+						continue; // something else is already set
 					}
 				}
-				continue;
-			}
 
-			if (!override)
-			{
-				// This checks if it is set and is also unmarshallable to the correct type; so
-				// we will overwrite invalid config values with the default
-				Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
-				if (current != null)
+				Object defaultValue;
+				try
 				{
-					continue; // something else is already set
+					defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
 				}
-			}
+				catch (Throwable ex)
+				{
+					log.warn(null, ex);
+					continue;
+				}
 
-			Object defaultValue;
-			try
-			{
-				defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
-			}
-			catch (Throwable ex)
-			{
-				log.warn(null, ex);
-				continue;
-			}
+				String current = getConfiguration(group.value(), item.keyName());
+				String valueString = objectToString(defaultValue);
+				// null and the empty string are treated identically in sendConfig and treated as an unset
+				// If a config value defaults to "" and the current value is null, it will cause an extra
+				// unset to be sent, so treat them as equal
+				if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
+				{
+					continue; // already set to the default value
+				}
 
-			String current = getConfiguration(group.value(), item.keyName());
-			String valueString = objectToString(defaultValue);
-			// null and the empty string are treated identically in sendConfig and treated as an unset
-			// If a config value defaults to "" and the current value is null, it will cause an extra
-			// unset to be sent, so treat them as equal
-			if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
-			{
-				continue; // already set to the default value
+				log.debug("Setting default configuration value for {}.{} to {}", group.value(), item.keyName(), defaultValue);
+
+				setConfiguration(group.value(), item.keyName(), valueString);
 			}
-
-			log.debug("Setting default configuration value for {}.{} to {}", group.value(), item.keyName(), defaultValue);
-
-			setConfiguration(group.value(), item.keyName(), valueString);
 		}
 	}
 
@@ -747,74 +776,7 @@ public class ConfigManager
 	 */
 	public void setDefaultConfiguration(Object proxy, boolean override, Plugin plugin)
 	{
-		Class<?> clazz = proxy.getClass().getInterfaces()[0];
-		ConfigGroup group = clazz.getAnnotation(ConfigGroup.class);
-
-		if (group == null)
-		{
-			return;
-		}
-
-		for (Method method : clazz.getDeclaredMethods())
-		{
-			ConfigItem item = method.getAnnotation(ConfigItem.class);
-
-			// only apply default configuration for methods which read configuration (0 args)
-			if (item == null || method.getParameterCount() != 0)
-			{
-				continue;
-			}
-
-			if (!method.isDefault())
-			{
-				if (override)
-				{
-					String current = getConfiguration(group.value(), item.keyName());
-					// only unset if already set
-					if (current != null)
-					{
-						unsetConfiguration(group.value(), item.keyName());
-					}
-				}
-				continue;
-			}
-
-			if (!override)
-			{
-				// This checks if it is set and is also unmarshallable to the correct type; so
-				// we will overwrite invalid config values with the default
-				Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
-				if (current != null)
-				{
-					continue; // something else is already set
-				}
-			}
-
-			Object defaultValue;
-			try
-			{
-				defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
-			}
-			catch (Throwable ex)
-			{
-				log.warn(null, ex);
-				continue;
-			}
-
-			String current = getConfiguration(group.value(), item.keyName());
-			String valueString = objectToString(defaultValue);
-			// null and the empty string are treated identically in sendConfig and treated as an unset
-			// If a config value defaults to "" and the current value is null, it will cause an extra
-			// unset to be sent, so treat them as equal
-			if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
-			{
-				continue; // already set to the default value
-			}
-
-			log.debug("Setting default configuration value for {}.{} to {}", group.value(), item.keyName(), defaultValue);
-
-			setConfiguration(group.value(), item.keyName(), valueString);
-		}
+		setDefaultConfiguration(proxy, override);
 	}
 
 	public void sendConfig()
@@ -913,5 +875,13 @@ public class ConfigManager
 		{
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Retrieves a consumer from config group and key name
+	 */
+	public Consumer<? super Plugin> getConsumer(final String configGroup, final String keyName)
+	{
+		return consumers.getOrDefault(configGroup + "." + keyName, (p) -> log.error("Failed to retrieve consumer with name {}.{}", configGroup, keyName));
 	}
 }

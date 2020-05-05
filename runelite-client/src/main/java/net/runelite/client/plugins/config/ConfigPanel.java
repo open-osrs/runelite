@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,6 +47,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -585,6 +587,19 @@ class ConfigPanel extends PluginPanel
 				checkbox.addActionListener(ae -> changeConfiguration(checkbox, cd, cid));
 
 				item.add(checkbox, BorderLayout.EAST);
+			}
+
+			if (cid.getType().isAssignableFrom(Consumer.class))
+			{
+				item.remove(configEntryName);
+
+				JButton button = new JButton(cid.getItem().name());
+				button.addActionListener((e) -> {
+					log.debug("Running consumer: {}.{}", cd.getGroup().value(), cid.getItem().keyName());
+					configManager.getConsumer(cd.getGroup().value(), cid.getItem().keyName()).accept(pluginConfig.getPlugin());
+				});
+
+				item.add(button, BorderLayout.CENTER);
 			}
 
 			if (cid.getType() == int.class)
