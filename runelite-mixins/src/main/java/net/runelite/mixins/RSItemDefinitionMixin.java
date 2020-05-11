@@ -87,6 +87,6 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 			return rs$getModel(quantity);
 		}
 
-		return client.getItemDefinition(modelOverride).getModel(quantity);
+		return client.getRSItemDefinition(modelOverride).getModel(quantity);
 	}
 }
