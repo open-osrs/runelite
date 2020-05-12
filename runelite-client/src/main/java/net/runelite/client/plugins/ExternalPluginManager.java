@@ -118,7 +118,6 @@ public class ExternalPluginManager
 	private final Groups groups;
 	@Getter(AccessLevel.PUBLIC)
 	private UpdateManager updateManager;
-	private Map<String, PluginInfo.PluginRelease> lastPluginRelease = new HashMap<>();
 	private Set<PluginType> pluginTypes = Set.of(PluginType.values());
 
 	@Inject
@@ -423,11 +422,6 @@ public class ExternalPluginManager
 			}
 		};
 		externalPluginManager.setSystemVersion(SYSTEM_VERSION);
-	}
-
-	public boolean developmentMode()
-	{
-		return externalPluginManager.isDevelopment();
 	}
 
 	public boolean doesGhRepoExist(String owner, String name)
@@ -933,7 +927,6 @@ public class ExternalPluginManager
 			pluginsInfoMap.remove(plugin.getClass().getSimpleName());
 
 			AtomicReference<String> support = new AtomicReference<>("");
-			AtomicReference<String> version = new AtomicReference<>("");
 
 			updateManager.getRepositories().forEach(repository ->
 				repository.getPlugins().forEach((key, value) ->
@@ -941,23 +934,6 @@ public class ExternalPluginManager
 					if (key.equals(pluginId))
 					{
 						support.set(value.projectUrl);
-
-						for (PluginInfo.PluginRelease release : value.releases)
-						{
-							if (externalPluginManager.getSystemVersion().equals("0.0.0") || externalPluginManager.getVersionManager().checkVersionConstraint(externalPluginManager.getSystemVersion(), release.requires))
-							{
-								if (lastPluginRelease.get(pluginId) == null)
-								{
-									lastPluginRelease.put(pluginId, release);
-								}
-								else if (externalPluginManager.getVersionManager().compareVersions(release.version, lastPluginRelease.get(pluginId).version) > 0)
-								{
-									lastPluginRelease.put(pluginId, release);
-								}
-							}
-						}
-
-						version.set(lastPluginRelease.get(pluginId).version);
 					}
 				}));
 
@@ -965,7 +941,7 @@ public class ExternalPluginManager
 				plugin.getClass().getSimpleName(),
 				new HashMap<>()
 				{{
-					put("version", version.get());
+					put("version", externalPluginManager.getPlugin(pluginId).getDescriptor().getVersion());
 					put("id", externalPluginManager.getPlugin(pluginId).getDescriptor().getPluginId());
 					put("provider", externalPluginManager.getPlugin(pluginId).getDescriptor().getProvider());
 					put("support", support.get());
