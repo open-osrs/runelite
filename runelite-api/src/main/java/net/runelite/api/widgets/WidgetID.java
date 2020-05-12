@@ -1249,11 +1249,15 @@ public class WidgetID
 	public static class TradeScreen
 	{
 		public static final int FIRST_TRADING_WITH = 31;
-		public static final int SECOND_TRADING_WITH = 30;
+		public static final int SECOND_ACCEPT_FUNC = 13;
+		public static final int SECOND_DECLINE_FUNC = 14;
 		public static final int SECOND_MY_OFFER = 23;
 		public static final int SECOND_THEIR_OFFER = 24;
-		public static final int SECOND_ACCEPT_FUNC = 13;
 		public static final int SECOND_ACCEPT_TEXT = 25;
+		public static final int SECOND_DECLINE_TEXT = 26;
+		public static final int SECOND_THEIR_ITEMS = 28;
+		public static final int SECOND_MY_ITEMS = 29;
+		public static final int SECOND_TRADING_WITH = 30;
 	}
 
 	public static class DuelConfig
