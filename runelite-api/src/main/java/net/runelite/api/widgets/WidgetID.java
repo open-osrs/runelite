@@ -1255,8 +1255,8 @@ public class WidgetID
 		public static final int SECOND_THEIR_OFFER = 24;
 		public static final int SECOND_ACCEPT_TEXT = 25;
 		public static final int SECOND_DECLINE_TEXT = 26;
-		public static final int SECOND_THEIR_ITEMS = 28;
-		public static final int SECOND_MY_ITEMS = 29;
+		public static final int SECOND_MY_ITEMS = 28;
+		public static final int SECOND_THEIR_ITEMS = 29;
 		public static final int SECOND_TRADING_WITH = 30;
 	}
 
