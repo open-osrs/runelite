@@ -66,6 +66,7 @@ import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.DrawFinished;
 import net.runelite.client.input.KeyManager;
+import net.runelite.client.input.MouseListener;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.ClientUI;
@@ -75,6 +76,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.DeferredEventBus;
+import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.RSTimeUnit;
 
 /**
@@ -96,6 +98,11 @@ public class Hooks implements Callbacks
 	private static final GameTick GAME_TICK = GameTick.INSTANCE;
 	private static final BeforeRender BEFORE_RENDER = BeforeRender.INSTANCE;
 	private static final DrawFinished drawFinishedEvent = new DrawFinished();
+
+	private int mouseX = 0;
+	private int mouseY = 0;
+	private final Image cursor = ImageUtil.getResourceStreamFromClass(Hooks.class, "cursor.png");
+
 
 	@Inject
 	private EventBus eventBus;
@@ -287,12 +294,16 @@ public class Hooks implements Callbacks
 	@Override
 	public MouseEvent mouseDragged(MouseEvent mouseEvent)
 	{
+		mouseX = mouseEvent.getX();
+		mouseY = mouseEvent.getY();
 		return mouseManager.processMouseDragged(mouseEvent);
 	}
 
 	@Override
 	public MouseEvent mouseMoved(MouseEvent mouseEvent)
 	{
+		mouseX = mouseEvent.getX();
+		mouseY = mouseEvent.getY();
 		return mouseManager.processMouseMoved(mouseEvent);
 	}
 
@@ -397,7 +408,8 @@ public class Hooks implements Callbacks
 
 		if (client.isMirrored())
 		{
-			drawFinishedEvent.image = finalImage;
+			drawFinishedEvent.image = copy(finalImage);
+			drawFinishedEvent.image.getGraphics().drawImage(cursor, mouseX, mouseY, null);
 			eventBus.post(DrawFinished.class, drawFinishedEvent);
 		}
 
