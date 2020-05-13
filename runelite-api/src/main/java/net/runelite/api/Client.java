@@ -2035,4 +2035,14 @@ public interface Client extends GameShell
 	 * Gets values related to jagex compliance
 	 */
 	boolean getComplianceValue(@Nonnull String key);
+
+	/**
+	 * Gets the status of client mirror
+	 */
+	boolean isMirrored();
+
+	/**
+	 * Sets the status of client mirror
+	 */
+	void setMirrored(boolean isMirrored);
 }

@@ -223,6 +223,9 @@ public abstract class RSClientMixin implements RSClient
 	private static Set<String> unhiddenCasts = new HashSet<String>();
 
 	@Inject
+	private boolean isMirrored = false;
+
+	@Inject
 	@Override
 	public void setPrintMenuActions(boolean yes)
 	{
@@ -1937,5 +1940,19 @@ public abstract class RSClientMixin implements RSClient
 	{
 		setStopTimeMs(1);
 	}
+
+	@Inject
+	@Override
+	public boolean isMirrored()
+	{
+		return isMirrored;
+	};
+
+	@Inject
+	@Override
+	public void setMirrored(boolean isMirrored)
+	{
+		this.isMirrored = isMirrored;
+	};
 }
 

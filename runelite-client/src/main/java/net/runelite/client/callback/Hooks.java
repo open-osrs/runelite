@@ -395,8 +395,11 @@ public class Hooks implements Callbacks
 			finalImage = image;
 		}
 
-		drawFinishedEvent.image = finalImage;
-		eventBus.post(DrawFinished.class, drawFinishedEvent);
+		if (client.isMirrored())
+		{
+			drawFinishedEvent.image = finalImage;
+			eventBus.post(DrawFinished.class, drawFinishedEvent);
+		}
 
 		try
 		{
