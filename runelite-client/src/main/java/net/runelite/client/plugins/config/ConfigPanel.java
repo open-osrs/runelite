@@ -27,11 +27,14 @@ package net.runelite.client.plugins.config;
 
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
@@ -62,6 +65,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -466,9 +470,23 @@ class ConfigPanel extends PluginPanel
 
 			JButton button = new JButton("Support");
 			button.addActionListener(e -> LinkBrowser.browse(pluginInfo.get("support")));
-			buttons.add(button);
+
+			JSeparator separator = new JSeparator()
+			{
+				@Override
+				protected void paintComponent(Graphics g)
+				{
+					int width = this.getSize().width;
+					Graphics2D g2 = (Graphics2D) g;
+					g2.setStroke(new BasicStroke(2));
+					g2.setColor(ColorScheme.BRAND_BLUE);
+					g2.drawLine(0, 0, width, 0);
+				}
+			};
 
 			mainPanel.add(infoPanel);
+			mainPanel.add(button);
+			mainPanel.add(separator);
 		}
 
 		getSections(cd);
