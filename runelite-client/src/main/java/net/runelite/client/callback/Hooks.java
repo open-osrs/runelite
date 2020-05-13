@@ -145,7 +145,7 @@ public class Hooks implements Callbacks
 	private boolean shouldProcessGameTick;
 
 	private static MainBufferProvider lastMainBufferProvider;
-	private static Graphics2D lastGraphics;
+	public static Graphics2D lastGraphics;
 
 	/**
 	 * Get the Graphics2D for the MainBufferProvider image
