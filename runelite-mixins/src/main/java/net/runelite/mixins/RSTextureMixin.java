@@ -58,6 +58,7 @@ public abstract class RSTextureMixin implements RSTexture
 			rs$animate(diff);
 			return;
 		}
+		assert client.getDrawCallbacks() != null;
 
 		client.getDrawCallbacks().animate(this, diff);
 	}

@@ -141,7 +141,7 @@ public interface RSClient extends RSGameShell, Client
 	int getRSGameState();
 
 	@Import("updateGameState")
-	void setGameState(int gameState);
+	void setRSGameState(int gameState);
 
 	@Import("checkClick")
 	void setCheckClick(boolean checkClick);
@@ -331,15 +331,13 @@ public interface RSClient extends RSGameShell, Client
 	RSWorld[] getWorldList();
 
 	@Import("addChatMessage")
-	void addChatMessage(int type, String name, String message, String sender);
+	void addRSChatMessage(int type, String name, String message, String sender);
 
-	@Override
 	@Import("getObjectDefinition")
-	RSObjectDefinition getObjectDefinition(int objectId);
+	RSObjectDefinition getRSObjectDefinition(int objectId);
 
-	@Override
 	@Import("getNpcDefinition")
-	RSNPCDefinition getNpcDefinition(int npcId);
+	RSNPCDefinition getRSNpcDefinition(int npcId);
 
 	@Import("viewportZoom")
 	@Override
@@ -400,11 +398,10 @@ public interface RSClient extends RSGameShell, Client
 	RSNodeHashTable getItemContainers();
 
 	@Import("ItemDefinition_get")
-	@Override
-	RSItemDefinition getItemDefinition(int itemId);
+	RSItemDefinition getRSItemDefinition(int itemId);
 
 	@Import("getItemSprite")
-	RSSprite createItemSprite(int itemId, int quantity, int thickness, int borderColor, int stackable, boolean noted);
+	RSSprite createRSItemSprite(int itemId, int quantity, int thickness, int borderColor, int stackable, boolean noted);
 
 	@Import("menuAction")
 	void sendMenuAction(int n2, int n3, int n4, int n5, String string, String string2, int n6, int n7);
