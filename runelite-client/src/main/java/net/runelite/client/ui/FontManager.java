@@ -73,12 +73,12 @@ public class FontManager
 			{
 				font = Font.createFont(Font.TRUETYPE_FONT,
 					boldIn)
-					.deriveFont(Font.PLAIN, 16);
+					.deriveFont(Font.BOLD, 16);
 				ge.registerFont(font);
 			}
 
 			runescapeBoldFont = StyleContext.getDefaultStyleContext()
-				.getFont(font.getName(), Font.PLAIN, 16);
+				.getFont(font.getName(), Font.BOLD, 16);
 			ge.registerFont(runescapeBoldFont);
 		}
 		catch (FontFormatException ex)
