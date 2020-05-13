@@ -531,6 +531,10 @@ public abstract class RSClientMixin implements RSClient
 	public Widget[] getWidgetRoots()
 	{
 		int topGroup = getWidgetRoot();
+		if (topGroup == -1)
+		{
+			return new Widget[]{};
+		}
 		List<Widget> widgets = new ArrayList<Widget>();
 		for (RSWidget widget : getWidgets()[topGroup])
 		{
