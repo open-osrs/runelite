@@ -91,6 +91,7 @@ dependencies {
     testImplementation(group = "org.mockito", name = "mockito-inline", version = "3.3.3")
     testImplementation(group = "com.squareup.okhttp3", name = "mockwebserver", version = "4.6.0")
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
+    testImplementation(group = "com.openosrs.rxrelay3", name = "rxrelay", version = "3.0.1-SNAPSHOT")
 }
 
 fun formatDate(date: Date?) = with(date ?: Date()) {

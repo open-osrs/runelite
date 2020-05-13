@@ -901,25 +901,21 @@ public class ClientUI
 
 	private void togglePluginPanel()
 	{
-		// Toggle sidebar open
-		boolean isPanelOpen = sidebarOpen;
-		sidebarOpen = !sidebarOpen;
+		// Toggle plugin panel open
+		final boolean pluginPanelOpen = pluginPanel != null;
 
-		if (isPanelOpen)
+		if (currentButton != null)
+		{
+			currentButton.setSelected(!pluginPanelOpen);
+		}
+
+		if (pluginPanelOpen)
 		{
 			contract();
 		}
 		else
 		{
-			// Try to restore last panel
 			expand(currentNavButton);
-
-			//Checks if the toolbar was previously closed by toggleSidebar
-			if (!container.isAncestorOf(pluginToolbar))
-			{
-				container.add(pluginToolbar);
-				frame.expandBy(pluginToolbar.getWidth());
-			}
 		}
 	}
 
