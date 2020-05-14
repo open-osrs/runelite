@@ -157,9 +157,14 @@ public class Notifier
 			return;
 		}
 
-		if (runeLiteConfig.requestFocusOnNotification())
+		switch (runeLiteConfig.notificationRequestFocus())
 		{
-			clientUI.requestFocus();
+			case REQUEST:
+				clientUI.requestFocus();
+				break;
+			case FORCE:
+				clientUI.forceFocus();
+				break;
 		}
 
 		if (runeLiteConfig.enableTrayNotifications())
