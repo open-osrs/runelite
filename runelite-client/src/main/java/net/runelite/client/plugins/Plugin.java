@@ -29,17 +29,20 @@ import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import io.reactivex.rxjava3.functions.Consumer;
+import io.sentry.Sentry;
 import java.lang.reflect.Method;
 import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.events.Event;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.EventScheduler;
 import net.runelite.client.eventbus.Subscribe;
 import org.pf4j.ExtensionPoint;
 
+@Slf4j
 public abstract class Plugin implements Module, ExtensionPoint
 {
 	private final Set<Subscription> annotatedSubscriptions = findSubscriptions();
@@ -90,6 +93,11 @@ public abstract class Plugin implements Module, ExtensionPoint
 
 			assert Event.class.isAssignableFrom(type) : "Parameters of methods annotated with @Subscribe should implement net.runelite.api.events.Event";
 			assert method.getReturnType() == void.class : "Methods annotated with @Subscribe should have a void return type";
+			if (method.getExceptionTypes().length != 0)
+			{
+				log.warn("Event handlers should handle all checked exceptions themselves " + method.toString());
+				Sentry.capture("EventHandler " + method.toString()); // Spam Owain's inbox with this :)
+			}
 
 			method.setAccessible(true);
 
@@ -102,13 +110,14 @@ public abstract class Plugin implements Module, ExtensionPoint
 	}
 
 	@Value
+	@SuppressWarnings("rawtypes")
 	private static class Subscription
 	{
-		private final Class type;
-		private final Consumer method;
-		private final int takeUntil;
-		private final EventScheduler subscribe;
-		private final EventScheduler observe;
+		Class type;
+		Consumer method;
+		int takeUntil;
+		EventScheduler subscribe;
+		EventScheduler observe;
 	}
 
 	public void resetConfiguration()
