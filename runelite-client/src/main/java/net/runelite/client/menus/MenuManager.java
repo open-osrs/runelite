@@ -431,7 +431,7 @@ public class MenuManager
 		client.setTempMenuEntry(leftClickEntry);
 	}
 
-	private void onMenuOptionClicked(MenuOptionClicked event)
+	void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		// option and target will be the same if this one came from "tempMenuAction"
 		if (!client.isMenuOpen() && !event.getOption().equals(event.getTarget()) && event.isAuthentic())

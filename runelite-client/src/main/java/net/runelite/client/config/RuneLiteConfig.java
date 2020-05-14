@@ -221,13 +221,13 @@ public interface RuneLiteConfig extends Config
 	@ConfigItem(
 		keyName = "notificationRequestFocus",
 		name = "Request focus on notification",
-		description = "Toggles window focus request",
+		description = "Configures the window focus request type on notification",
 		position = 16,
 		titleSection = "notificationsTitle"
 	)
-	default boolean requestFocusOnNotification()
+	default RequestFocusType notificationRequestFocus()
 	{
-		return true;
+		return RequestFocusType.OFF;
 	}
 
 	@ConfigItem(
