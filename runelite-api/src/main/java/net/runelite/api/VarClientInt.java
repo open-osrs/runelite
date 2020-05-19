@@ -57,6 +57,12 @@ public enum VarClientInt
 	 */
 	CAMERA_ZOOM_FIXED_VIEWPORT(73),
 	CAMERA_ZOOM_RESIZABLE_VIEWPORT(74),
+	
+	/**
+	 * 0 = deadman/attackable
+	 * 1 = guarded/safe
+	 */
+	DMM_SAFEZONE(78),
 
 	MEMBERSHIP_STATUS(103),
 
