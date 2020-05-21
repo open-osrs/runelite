@@ -32,15 +32,31 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Set;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.NpcID;
 
 @Slf4j
 @Singleton
 public class NPCManager
 {
+	private static final Set<Integer> blacklistXpMultiplier = Set.of(
+		// Vorkath
+		NpcID.VORKATH, NpcID.VORKATH_8058, NpcID.VORKATH_8059, NpcID.VORKATH_8060, NpcID.VORKATH_8061,
+
+		// Grotesque Guardians
+		NpcID.DAWN, NpcID.DAWN_7852, NpcID.DAWN_7853, NpcID.DAWN_7884, NpcID.DAWN_7885,
+		NpcID.DUSK, NpcID.DUSK_7851, NpcID.DUSK_7854, NpcID.DUSK_7855, NpcID.DUSK_7882, NpcID.DUSK_7883, NpcID.DUSK_7886, NpcID.DUSK_7887, NpcID.DUSK_7888, NpcID.DUSK_7889,
+
+		// Kraken
+		NpcID.KRAKEN, NpcID.KRAKEN_6640, NpcID.KRAKEN_6656,
+
+		// Zulrah
+		NpcID.ZULRAH, NpcID.ZULRAH_2043, NpcID.ZULRAH_2044
+		);
 	private ImmutableMap<Integer, NPCStats> statsMap;
 
 	@Inject
@@ -128,6 +144,11 @@ public class NPCManager
 	 */
 	public double getXpModifier(final int npcId)
 	{
+		if (blacklistXpMultiplier.contains(npcId))
+		{
+			return 1;
+		}
+
 		final NPCStats s = statsMap.get(npcId);
 		if (s == null)
 		{
