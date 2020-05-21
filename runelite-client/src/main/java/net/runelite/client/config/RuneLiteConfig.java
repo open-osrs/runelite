@@ -24,12 +24,14 @@
  */
 package net.runelite.client.config;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import net.runelite.api.Constants;
 import net.runelite.client.Notifier;
 import net.runelite.client.ui.ContainableFrame;
+import net.runelite.client.ui.overlay.components.ComponentConstants;
 
 @ConfigGroup(RuneLiteConfig.GROUP_NAME)
 public interface RuneLiteConfig extends Config
@@ -348,11 +350,24 @@ public interface RuneLiteConfig extends Config
 		return true;
 	}
 
+	@ConfigItem(
+		keyName = "overlayBackgroundColor",
+		name = "Overlay Color",
+		description = "Configures the background color of infoboxes and overlays",
+		position = 27,
+		titleSection = "overlayTitle"
+	)
+	@Alpha
+	default Color overlayBackgroundColor()
+	{
+		return ComponentConstants.STANDARD_BACKGROUND_COLOR;
+	}
+
 	@ConfigTitleSection(
 		keyName = "infoboxTitle",
 		name = "Infoboxes",
 		description = "",
-		position = 27
+		position = 28
 	)
 	default Title infoboxTitle()
 	{
@@ -363,7 +378,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "infoBoxVertical",
 		name = "Display infoboxes vertically",
 		description = "Toggles the infoboxes to display vertically",
-		position = 28,
+		position = 29,
 		titleSection = "infoboxTitle"
 	)
 	default boolean infoBoxVertical()

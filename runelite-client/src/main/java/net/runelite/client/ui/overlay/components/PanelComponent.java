@@ -31,7 +31,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.ui.overlay.components.table.TableComponent;
@@ -49,7 +48,7 @@ public class PanelComponent implements LayoutableRenderableEntity
 	private Dimension preferredSize = new Dimension(ComponentConstants.STANDARD_WIDTH, 0);
 
 	@Setter
-	@Nullable
+	@Getter
 	private Color backgroundColor = ComponentConstants.STANDARD_BACKGROUND_COLOR;
 
 	@Getter
