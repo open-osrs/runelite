@@ -47,6 +47,7 @@ import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.events.PluginChanged;
 
@@ -104,15 +105,28 @@ public class OverlayManager
 
 	private final ConfigManager configManager;
 	private final EventBus eventBus;
+	private final RuneLiteConfig runeLiteConfig;
 
 	@Inject
-	private OverlayManager(final ConfigManager configManager, final EventBus eventBus)
+	private OverlayManager(final ConfigManager configManager, final EventBus eventBus, final RuneLiteConfig runeLiteConfig)
 	{
 		this.configManager = configManager;
 		this.eventBus = eventBus;
+		this.runeLiteConfig = runeLiteConfig;
 
 		eventBus.subscribe(PluginChanged.class, this, this::onPluginChanged);
 		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
+		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
+	}
+
+	public void onConfigChanged(final ConfigChanged event)
+	{
+		if (!RuneLiteConfig.GROUP_NAME.equals(event.getGroup()) || !"overlayBackgroundColor".equals(event.getKey()))
+		{
+			return;
+		}
+
+		overlays.forEach(this::updateOverlayConfig);
 	}
 
 	private void onPluginChanged(final PluginChanged event)
@@ -169,12 +183,15 @@ public class OverlayManager
 		// Add is always true
 		overlays.add(overlay);
 		loadOverlay(overlay);
+		updateOverlayConfig(overlay);
+
 		// WidgetItemOverlays have a reference to the overlay manager in order to get the WidgetItems
 		// for each frame.
 		if (overlay instanceof WidgetItemOverlay)
 		{
 			((WidgetItemOverlay) overlay).setOverlayManager(this);
 		}
+
 		rebuildOverlayLayers();
 		return true;
 	}
@@ -300,6 +317,15 @@ public class OverlayManager
 		overlay.setPreferredSize(size);
 		final OverlayPosition position = loadOverlayPosition(overlay);
 		overlay.setPreferredPosition(position);
+	}
+
+	private void updateOverlayConfig(final Overlay overlay)
+	{
+		if (overlay instanceof OverlayPanel)
+		{
+			// Update preferred color for overlay panels based on configuration
+			((OverlayPanel) overlay).setPreferredColor(runeLiteConfig.overlayBackgroundColor());
+		}
 	}
 
 	private void saveOverlayLocation(final Overlay overlay)
