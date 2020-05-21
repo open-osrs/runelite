@@ -88,6 +88,15 @@ public class WorldArea
 		this.height = height;
 	}
 
+	public WorldArea(WorldPoint swLocation, WorldPoint neLocation)
+	{
+		this.x = swLocation.getX();
+		this.y = swLocation.getY();
+		this.plane = swLocation.getPlane();
+		this.width = neLocation.getX() - swLocation.getX();
+		this.height = neLocation.getY() - swLocation.getY();
+	}
+
 	/**
 	 * Computes the shortest distance to another area.
 	 *
