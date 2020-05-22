@@ -452,6 +452,8 @@ public class PluginsPanel extends JPanel
 	private void pluginInstallButton(JLabel install, PluginInfo pluginInfo, boolean installed, boolean hideAction)
 	{
 		install.setIcon(installed ? hideAction ? DELETE_ICON_GRAY : DELETE_ICON : ADD_ICON);
+		install.setText("");
+
 		if (!hideAction)
 		{
 			install.setToolTipText(installed ? "Uninstall" : "Install");
