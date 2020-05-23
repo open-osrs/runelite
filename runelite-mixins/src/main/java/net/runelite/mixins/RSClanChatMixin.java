@@ -1,12 +1,12 @@
 package net.runelite.mixins;
 
+import net.runelite.api.ClanMember;
 import net.runelite.api.events.ClanMemberJoined;
 import net.runelite.api.events.ClanMemberLeft;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClanChat;
-import net.runelite.rs.api.RSClanMate;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSUser;
 import net.runelite.rs.api.RSUsername;
@@ -21,7 +21,7 @@ public abstract class RSClanChatMixin implements RSClanChat
 	@Override
 	public void rl$add(RSUsername name, RSUsername prevName)
 	{
-		RSClanMate member = findByName(name);
+		ClanMember member = findByName(name);
 		if (member == null)
 		{
 			return;
@@ -35,7 +35,7 @@ public abstract class RSClanChatMixin implements RSClanChat
 	@Override
 	public void rl$remove(RSUser nameable)
 	{
-		RSClanMate member = findByName(nameable.getRsName());
+		ClanMember member = findByName(nameable.getRsName());
 		if (member == null)
 		{
 			return;

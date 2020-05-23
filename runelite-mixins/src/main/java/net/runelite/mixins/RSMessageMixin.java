@@ -78,6 +78,6 @@ public abstract class RSMessageMixin implements RSMessage
 	{
 		RSClanChat cc = client.getClanMemberManager();
 
-		return cc != null && cc.isMember(this.getSenderUsername());
+		return cc != null && cc.findByName(this.getSenderUsername()) != null;
 	}
 }

@@ -28,7 +28,6 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -39,7 +38,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Named;
 import net.runelite.api.ChatMessageType;
-import net.runelite.api.ClanMember;
 import net.runelite.api.EnumDefinition;
 import net.runelite.api.Friend;
 import net.runelite.api.GameState;
@@ -58,6 +56,7 @@ import net.runelite.api.MenuOpcode;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
+import net.runelite.api.NameableContainer;
 import net.runelite.api.Node;
 import net.runelite.api.ObjectDefinition;
 import net.runelite.api.Player;
@@ -113,12 +112,9 @@ import net.runelite.api.widgets.WidgetItem;
 import net.runelite.api.widgets.WidgetType;
 import net.runelite.rs.api.RSAbstractArchive;
 import net.runelite.rs.api.RSChatChannel;
-import net.runelite.rs.api.RSClanChat;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEnumDefinition;
 import net.runelite.rs.api.RSFriendSystem;
-import net.runelite.rs.api.RSFriendsList;
-import net.runelite.rs.api.RSIgnoreList;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSItemContainer;
 import net.runelite.rs.api.RSNPC;
@@ -905,124 +901,16 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public int getClanChatCount()
+	public NameableContainer<Friend> getFriendContainer()
 	{
-		final RSClanChat clanMemberManager = getClanMemberManager();
-		return clanMemberManager != null ? clanMemberManager.getCount() : 0;
+		return getFriendManager().getFriendContainer();
 	}
 
 	@Inject
 	@Override
-	public ClanMember[] getClanMembers()
+	public NameableContainer<Ignore> getIgnoreContainer()
 	{
-		final RSClanChat clanMemberManager = getClanMemberManager();
-		if (clanMemberManager == null)
-		{
-			return null;
-		}
-
-		final int count = clanMemberManager.getCount();
-		return Arrays.copyOf(clanMemberManager.getNameables(), count);
-	}
-
-	@Inject
-	@Override
-	public String getClanOwner()
-	{
-		return getClanMemberManager().getClanOwner();
-	}
-
-	@Inject
-	@Override
-	public String getClanChatName()
-	{
-		return getClanMemberManager().getClanChatName();
-	}
-
-	@Inject
-	@Override
-	public Friend[] getFriends()
-	{
-		final RSFriendSystem friendManager = getFriendManager();
-		if (friendManager == null)
-		{
-			return null;
-		}
-
-		final RSFriendsList friendContainer = friendManager.getFriendContainer();
-		if (friendContainer == null)
-		{
-			return null;
-		}
-
-		final int count = friendContainer.getCount();
-		return Arrays.copyOf(friendContainer.getNameables(), count);
-	}
-
-	@Inject
-	@Override
-	public int getFriendsCount()
-	{
-		final RSFriendSystem friendManager = getFriendManager();
-		if (friendManager == null)
-		{
-			return -1;
-		}
-
-		final RSFriendsList friendContainer = friendManager.getFriendContainer();
-		if (friendContainer == null)
-		{
-			return -1;
-		}
-
-		return friendContainer.getCount();
-	}
-
-	@Inject
-	@Override
-	public Ignore[] getIgnores()
-	{
-		final RSFriendSystem friendManager = getFriendManager();
-		if (friendManager == null)
-		{
-			return null;
-		}
-
-		final RSIgnoreList ignoreContainer = friendManager.getIgnoreContainer();
-		if (ignoreContainer == null)
-		{
-			return null;
-		}
-
-		final int count = ignoreContainer.getCount();
-		return Arrays.copyOf(ignoreContainer.getNameables(), count);
-	}
-
-	@Inject
-	@Override
-	public int getIgnoreCount()
-	{
-		final RSFriendSystem friendManager = getFriendManager();
-		if (friendManager == null)
-		{
-			return -1;
-		}
-
-		final RSIgnoreList ignoreContainer = friendManager.getIgnoreContainer();
-		if (ignoreContainer == null)
-		{
-			return -1;
-		}
-
-		return ignoreContainer.getCount();
-	}
-
-	@Inject
-	@Override
-	public boolean isClanMember(String name)
-	{
-		final RSClanChat clanMemberManager = getClanMemberManager();
-		return clanMemberManager != null && clanMemberManager.isMember(createName(name, getLoginType()));
+		return getFriendManager().getIgnoreContainer();
 	}
 
 	@FieldHook("isDraggingWidget")

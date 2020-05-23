@@ -1195,58 +1195,20 @@ public interface Client extends GameShell
 	boolean isFriended(String name, boolean mustBeLoggedIn);
 
 	/**
-	 * Gets the number of players in the clan chat.
-	 *
-	 * @return the number of clan chat members
+	 * Retrieve the clan member manager
 	 */
-	int getClanChatCount();
+	@Nullable
+	ClanMemberManager getClanMemberManager();
 
 	/**
-	 * Gets an array of players in the clan chat.
-	 *
-	 * @return the clan chat members, null if not in a clan
+	 * Retrieve the nameable container containing friends
 	 */
-	ClanMember[] getClanMembers();
+	NameableContainer<Friend> getFriendContainer();
 
 	/**
-	 * Gets the clan owner of the currently joined clan chat
+	 * Retrieve the nameable container containing ignores
 	 */
-	String getClanOwner();
-
-	/**
-	 * Gets the clan chat name of the currently joined clan chat
-	 */
-	String getClanChatName();
-
-	/**
-	 * Gets an array of players in the friends list.
-	 *
-	 * @return the friends list
-	 */
-	Friend[] getFriends();
-
-	/**
-	 * Gets the number of friends on the friends list.
-	 */
-	int getFriendsCount();
-
-	/**
-	 * Gets an array of players on the ignore list.
-	 */
-	Ignore[] getIgnores();
-
-	/**
-	 * Gets the number of ignored players on the ignore list.
-	 */
-	int getIgnoreCount();
-
-	/**
-	 * Checks whether a player is in the same clan chat.
-	 *
-	 * @param name the name of the player
-	 * @return true if the player is in clan chat
-	 */
-	boolean isClanMember(String name);
+	NameableContainer<Ignore> getIgnoreContainer();
 
 	/**
 	 * Gets the clients saved preferences.

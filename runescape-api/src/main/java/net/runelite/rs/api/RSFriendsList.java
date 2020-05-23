@@ -1,3 +1,6 @@
 package net.runelite.rs.api;
 
-public interface RSFriendsList extends RSUserList<RSFriend> {}
+import net.runelite.api.Friend;
+import net.runelite.api.NameableContainer;
+
+public interface RSFriendsList extends NameableContainer<Friend> {}

@@ -10,13 +10,6 @@ public abstract class RSClanMateMixin implements RSClanMate
 {
 	@Override
 	@Inject
-	public String getUsername()
-	{
-		return getRsName().getName();
-	}
-
-	@Override
-	@Inject
 	public ClanMemberRank getRank()
 	{
 		return ClanMemberRank.valueOf(getRSRank());

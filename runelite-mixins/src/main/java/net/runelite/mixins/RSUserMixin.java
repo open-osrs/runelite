@@ -2,11 +2,11 @@ package net.runelite.mixins;
 
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
-import net.runelite.rs.api.RSIgnored;
+import net.runelite.rs.api.RSUser;
 import net.runelite.rs.api.RSUsername;
 
-@Mixin(RSIgnored.class)
-public abstract class RSIgnoredMixin implements RSIgnored
+@Mixin(RSUser.class)
+public abstract class RSUserMixin implements RSUser
 {
 	@Override
 	@Inject
