@@ -32,6 +32,7 @@ import com.google.inject.Key;
 import com.google.inject.Module;
 import java.io.Closeable;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
@@ -40,6 +41,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -80,8 +82,13 @@ import net.runelite.client.util.Groups;
 import net.runelite.client.util.MiscUtils;
 import net.runelite.client.util.SwingUtil;
 import org.jgroups.Message;
+import org.pf4j.BasePluginLoader;
+import org.pf4j.CompoundPluginLoader;
+import org.pf4j.CompoundPluginRepository;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.DependencyResolver;
+import org.pf4j.DevelopmentPluginClasspath;
+import org.pf4j.DevelopmentPluginRepository;
 import org.pf4j.JarPluginLoader;
 import org.pf4j.JarPluginRepository;
 import org.pf4j.ManifestPluginDescriptorFinder;
@@ -114,6 +121,8 @@ public class ExternalPluginManager
 	private final EventBus eventBus;
 	private final ConfigManager configManager;
 	private final Map<String, String> pluginsMap = new HashMap<>();
+	@Getter
+	private final boolean developmentMode = RuneLiteProperties.getPluginDevelopmentPath().length > 0;
 	@Getter(AccessLevel.PUBLIC)
 	private final Map<String, Map<String, String>> pluginsInfoMap = new HashMap<>();
 	private final Groups groups;
@@ -153,45 +162,182 @@ public class ExternalPluginManager
 			@Override
 			protected PluginDescriptorFinder createPluginDescriptorFinder()
 			{
-				return new ManifestPluginDescriptorFinder();
-			}
-
-			@Override
-			protected PluginRepository createPluginRepository()
-			{
-				return new JarPluginRepository(getPluginsRoot())
+				return new ManifestPluginDescriptorFinder()
 				{
-					@Override
-					public List<Path> getPluginPaths()
+					protected Path getManifestPath(Path pluginPath)
 					{
-						File[] files = pluginsRoot.toFile().listFiles(filter);
-
-						if ((files == null) || files.length == 0)
+						if (isDevelopment())
 						{
-							return Collections.emptyList();
+							// The superclass performs a find, which is slow in development mode since we're pointing
+							// at a sources directory, which can have a lot of files. The external plugin template
+							// will always output the manifest at the following location, so we can hardcode this path.
+							return pluginPath.resolve("build/tmp/jar/MANIFEST.MF");
 						}
 
-						List<Path> paths = new ArrayList<>(files.length);
-						for (File file : files)
-						{
-							paths.add(file.toPath());
-						}
-
-						return paths;
+						return super.getManifestPath(pluginPath);
 					}
 				};
 			}
 
 			@Override
-			protected PluginLoader createPluginLoader()
+			protected PluginRepository createPluginRepository()
 			{
-				return new JarPluginLoader(this);
+				CompoundPluginRepository compoundPluginRepository = new CompoundPluginRepository();
+
+				if (isNotDevelopment())
+				{
+					JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot())
+					{
+						@Override
+						public List<Path> getPluginPaths()
+						{
+							File[] files = pluginsRoot.toFile().listFiles(filter);
+
+							if ((files == null) || files.length == 0)
+							{
+								return Collections.emptyList();
+							}
+
+							List<Path> paths = new ArrayList<>(files.length);
+							for (File file : files)
+							{
+								paths.add(file.toPath());
+							}
+
+							return paths;
+						}
+					};
+
+					compoundPluginRepository.add(jarPluginRepository);
+				}
+
+				if (isDevelopment())
+				{
+					FileFilter pluginsFilter = new FileFilter()
+					{
+						private final List<String> blacklist = Arrays.asList(
+							".git",
+							"build",
+							"target"
+						);
+
+						private final List<String> buildFiles = Arrays.asList(
+							"%s.gradle.kts",
+							"%s.gradle"
+						);
+
+						@Override
+						public boolean accept(File pathName)
+						{
+							// Check if this path looks like a plugin development directory
+							if (!pathName.isDirectory())
+							{
+								return false;
+							}
+
+							String dirName = pathName.getName();
+							if (blacklist.contains(dirName))
+							{
+								return false;
+							}
+
+							boolean isPlugin = false;
+
+							// By convention plugins their directory is $name and they have a $name.gradle.kts or $name.gradle file in their root
+							for (String buildFile : buildFiles)
+							{
+								if (new File(pathName, String.format(buildFile, dirName)).exists())
+								{
+									isPlugin = true;
+									break;
+								}
+							}
+
+							// It is a plugin directory, but we should also check if it can actually be loaded
+							if (!new File(pathName, "build/tmp/jar/MANIFEST.MF").exists())
+							{
+								return false;
+							}
+
+							return isPlugin;
+						}
+					};
+
+					for (String developmentPluginPath : RuneLiteProperties.getPluginDevelopmentPath())
+					{
+						DevelopmentPluginRepository developmentPluginRepository = new DevelopmentPluginRepository(Paths.get(developmentPluginPath))
+						{
+							@Override
+							public boolean deletePluginPath(Path pluginPath)
+							{
+								// Do nothing, because we'd be deleting our sources!
+								return filter.accept(pluginPath.toFile());
+							}
+						};
+
+						developmentPluginRepository.setFilter(pluginsFilter);
+						compoundPluginRepository.add(developmentPluginRepository);
+					}
+				}
+
+				return compoundPluginRepository;
 			}
 
 			@Override
-			public RuntimeMode getRuntimeMode()
+			protected PluginLoader createPluginLoader()
 			{
-				return RuneLiteProperties.getLauncherVersion() == null ? RuntimeMode.DEVELOPMENT : RuntimeMode.DEPLOYMENT;
+				return new CompoundPluginLoader()
+					.add(new BasePluginLoader(this, new DevelopmentPluginClasspath().addJarsDirectories("build/deps")), this::isDevelopment)
+					.add(new JarPluginLoader(this), this::isNotDevelopment);
+			}
+
+			@Override
+			public void loadPlugins()
+			{
+				if (Files.notExists(pluginsRoot) || !Files.isDirectory(pluginsRoot))
+				{
+					log.warn("No '{}' root", pluginsRoot);
+					return;
+				}
+
+				List<Path> pluginPaths = pluginRepository.getPluginPaths();
+
+				if (pluginPaths.isEmpty())
+				{
+					log.warn("No plugins");
+					return;
+				}
+
+				log.debug("Found {} possible plugins: {}", pluginPaths.size(), pluginPaths);
+
+				for (Path pluginPath : pluginPaths)
+				{
+					try
+					{
+						loadPluginFromPath(pluginPath);
+					}
+					catch (PluginRuntimeException e)
+					{
+						if (!(e instanceof PluginAlreadyLoadedException))
+						{
+							log.error("Could not load plugin {}", pluginPath, e);
+						}
+					}
+				}
+
+				try
+				{
+					resolvePlugins();
+				}
+				catch (PluginRuntimeException e)
+				{
+					if (e instanceof DependencyResolver.DependenciesNotFoundException)
+					{
+						throw e;
+					}
+
+					log.error(e.getMessage(), e);
+				}
 			}
 
 			@Override
@@ -258,52 +404,9 @@ public class ExternalPluginManager
 			}
 
 			@Override
-			public void loadPlugins()
+			public RuntimeMode getRuntimeMode()
 			{
-				if (Files.notExists(pluginsRoot) || !Files.isDirectory(pluginsRoot))
-				{
-					log.warn("No '{}' root", pluginsRoot);
-					return;
-				}
-
-				List<Path> pluginPaths = pluginRepository.getPluginPaths();
-
-				if (pluginPaths.isEmpty())
-				{
-					log.warn("No plugins");
-					return;
-				}
-
-				log.debug("Found {} possible plugins: {}", pluginPaths.size(), pluginPaths);
-
-				for (Path pluginPath : pluginPaths)
-				{
-					try
-					{
-						loadPluginFromPath(pluginPath);
-					}
-					catch (PluginRuntimeException e)
-					{
-						if (!(e instanceof PluginAlreadyLoadedException))
-						{
-							log.error(e.getMessage(), e);
-						}
-					}
-				}
-
-				try
-				{
-					resolvePlugins();
-				}
-				catch (PluginRuntimeException e)
-				{
-					if (e instanceof DependencyResolver.DependenciesNotFoundException)
-					{
-						throw e;
-					}
-
-					log.error(e.getMessage(), e);
-				}
+				return developmentMode ? RuntimeMode.DEVELOPMENT : RuntimeMode.DEPLOYMENT;
 			}
 
 			@Override
@@ -1038,30 +1141,39 @@ public class ExternalPluginManager
 			return true;
 		}
 
-		// Null version returns the last release version of this plugin for given system version
 		try
 		{
-			PluginInfo.PluginRelease latest = updateManager.getLastPluginRelease(pluginId);
-
-			if (latest == null)
+			if (!developmentMode)
 			{
-				try
+				PluginInfo.PluginRelease latest = updateManager.getLastPluginRelease(pluginId);
+
+				// Null version returns the last release version of this plugin for given system version
+				if (latest == null)
 				{
-					SwingUtil.syncExec(() ->
-						JOptionPane.showMessageDialog(ClientUI.getFrame(),
-							pluginId + " is outdated and cannot be installed",
-							"Installation error",
-							JOptionPane.ERROR_MESSAGE));
-				}
-				catch (InvocationTargetException | InterruptedException ignored)
-				{
-					return false;
+					try
+					{
+						SwingUtil.syncExec(() ->
+							JOptionPane.showMessageDialog(ClientUI.getFrame(),
+								pluginId + " is outdated and cannot be installed",
+								"Installation error",
+								JOptionPane.ERROR_MESSAGE));
+					}
+					catch (InvocationTargetException | InterruptedException ignored)
+					{
+						return false;
+					}
+
+					return true;
 				}
 
-				return true;
+				updateManager.installPlugin(pluginId, null);
 			}
-
-			updateManager.installPlugin(pluginId, null);
+			else
+			{
+				// In development mode our plugin will already be present in a repository, so we can just load it
+				externalPluginManager.loadPlugins();
+				externalPluginManager.startPlugin(pluginId);
+			}
 
 			scanAndInstantiate(loadPlugin(pluginId), true, true);
 
