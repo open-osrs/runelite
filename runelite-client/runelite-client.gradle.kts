@@ -52,7 +52,7 @@ dependencies {
     implementation(group = "com.google.guava", name = "guava", version = "29.0-jre")
     implementation(group = "com.google.inject", name = "guice", version = "4.2.3", classifier = "no_aop")
     implementation(group = "com.h2database", name = "h2", version = "1.4.200")
-    implementation(group = "com.openosrs.rxrelay3", name = "rxrelay", version = "3.0.1-SNAPSHOT")
+    implementation(group = "com.jakewharton.rxrelay3", name = "rxrelay", version = "3.0.0")
     implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.7.2")
     implementation(group = "io.reactivex.rxjava3", name = "rxjava", version = "3.0.4")
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.5.0")
