@@ -688,7 +688,7 @@ public class ExternalPluginManager
 		// some plugins get stuck on IO, so add some extra threads
 		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2,
 			new ThreadFactoryBuilder()
-				.setNameFormat("plugin-manager-%d")
+				.setNameFormat("external-plugin-manager-%d")
 				.build());
 
 		try
