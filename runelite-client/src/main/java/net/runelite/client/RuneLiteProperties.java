@@ -24,6 +24,7 @@
  */
 package net.runelite.client;
 
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -43,6 +44,7 @@ public class RuneLiteProperties
 	private static final String PATREON_LINK = "runelite.patreon.link";
 	private static final String LAUNCHER_VERSION_PROPERTY = "launcher.version";
 	private static final String PLUGIN_PATH = "plugin.path";
+	private static final String PLUGIN_DEVELOPMENT_PATH = "plugin.development.path";
 	private static final String TROUBLESHOOTING_LINK = "runelite.wiki.troubleshooting.link";
 	private static final String BUILDING_LINK = "runelite.wiki.building.link";
 	private static final String DNS_CHANGE_LINK = "runelite.dnschange.link";
@@ -144,6 +146,20 @@ public class RuneLiteProperties
 	{
 		String pluginPath = properties.getProperty(PLUGIN_PATH);
 		return pluginPath.equals("") ? null : pluginPath;
+	}
+
+	public static String[] getPluginDevelopmentPath()
+	{
+		// First check if property supplied as environment variable PLUGIN_DEVELOPMENT_PATHS
+		String developmentPluginPaths = System.getenv(PLUGIN_DEVELOPMENT_PATH.replace('.', '_').toUpperCase());
+
+		if (Strings.isNullOrEmpty(developmentPluginPaths))
+		{
+			// Otherwise check the property file
+			developmentPluginPaths = properties.getProperty(PLUGIN_DEVELOPMENT_PATH);
+		}
+
+		return Strings.isNullOrEmpty(developmentPluginPaths) ? new String[0] : developmentPluginPaths.split(";");
 	}
 
 	public static String getImgurClientId()

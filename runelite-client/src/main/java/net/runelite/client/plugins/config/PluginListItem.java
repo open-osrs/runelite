@@ -147,32 +147,37 @@ public class PluginListItem extends JPanel
 				String pluginId = pluginInfo.get("id");
 
 				hotSwapButton.setIcon(REFRESH_ICON);
-				externalPluginManager.uninstall(pluginId);
 
-				SwingWorker<Boolean, Void> worker = new SwingWorker<>()
+				new SwingWorker<>()
 				{
 					@Override
 					protected Boolean doInBackground()
 					{
 						return externalPluginManager.uninstall(pluginId);
 					}
-				};
-				worker.execute();
 
-				JOptionPane.showMessageDialog(ClientUI.getFrame(),
-					pluginId + " is unloaded, put the new jar file in the externalmanager folder and click `ok`",
-					"Hotswap " + pluginId,
-					JOptionPane.INFORMATION_MESSAGE);
-
-				worker = new SwingWorker<>()
-				{
 					@Override
-					protected Boolean doInBackground()
+					protected void done()
 					{
-						return externalPluginManager.reloadStart(pluginId);
+						// In development mode our plugins will be loaded directly from sources, so we don't need to prompt
+						if (!externalPluginManager.isDevelopmentMode())
+						{
+							JOptionPane.showMessageDialog(ClientUI.getFrame(),
+								pluginId + " is unloaded, put the new jar file in the externalmanager folder and click `ok`",
+								"Hotswap " + pluginId,
+								JOptionPane.INFORMATION_MESSAGE);
+						}
+
+						new SwingWorker<>()
+						{
+							@Override
+							protected Boolean doInBackground()
+							{
+								return externalPluginManager.reloadStart(pluginId);
+							}
+						}.execute();
 					}
-				};
-				worker.execute();
+				}.execute();
 			});
 
 			hotSwapButton.setVisible(true);
