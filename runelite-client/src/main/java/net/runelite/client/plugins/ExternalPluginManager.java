@@ -238,7 +238,8 @@ public class ExternalPluginManager
 				String[] split = keyval.split("\\|");
 				if (split.length != 2)
 				{
-					log.debug("Split length invalid.");
+					log.debug("Split length invalid: {}", keyval);
+					repositories.clear();
 					return false;
 				}
 				String id = split[0];
