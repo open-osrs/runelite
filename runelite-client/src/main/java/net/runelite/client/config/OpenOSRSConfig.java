@@ -347,7 +347,7 @@ public interface OpenOSRSConfig extends Config
 	)
 	default String getExternalRepositories()
 	{
-		return "OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugin-hosting/master/";
+		return "OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugin-hosting/master/;Plugin-Hub:https://raw.githubusercontent.com/owain94/OpenOSRS-RL-hub-hosting/master/";
 	}
 
 	@ConfigItem(
