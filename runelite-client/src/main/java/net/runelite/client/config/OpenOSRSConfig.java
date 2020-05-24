@@ -30,6 +30,7 @@ import java.awt.Color;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.runelite.client.plugins.ExternalPluginManager;
 
 @ConfigGroup("openosrs")
 public interface OpenOSRSConfig extends Config
@@ -347,7 +348,7 @@ public interface OpenOSRSConfig extends Config
 	)
 	default String getExternalRepositories()
 	{
-		return "OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugin-hosting/master/";
+		return ExternalPluginManager.DEFAULT_PLUGIN_REPO;
 	}
 
 	@ConfigItem(
