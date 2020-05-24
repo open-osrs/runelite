@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.Binder;
 import com.google.inject.CreationException;
 import com.google.inject.Injector;
@@ -685,72 +686,86 @@ public class ExternalPluginManager
 		List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
 
 		// some plugins get stuck on IO, so add some extra threads
-		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2,
+			new ThreadFactoryBuilder()
+				.setNameFormat("plugin-manager-%d")
+				.build());
 
-		for (Plugin plugin : plugins)
+		try
 		{
-			Class<? extends Plugin> clazz = plugin.getClass();
-			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
-
-			try
+			for (Plugin plugin : plugins)
 			{
-				if (pluginDescriptor == null)
+				Class<? extends Plugin> clazz = plugin.getClass();
+				PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
+
+				try
 				{
-					if (Plugin.class.isAssignableFrom(clazz))
+					if (pluginDescriptor == null)
 					{
-						log.warn("Class {} is a plugin, but has no plugin descriptor", clazz);
+						if (Plugin.class.isAssignableFrom(clazz))
+						{
+							log.warn("Class {} is a plugin, but has no plugin descriptor", clazz);
+						}
+						continue;
 					}
-					continue;
+					else if (!Plugin.class.isAssignableFrom(clazz))
+					{
+						log.warn("Class {} has plugin descriptor, but is not a plugin", clazz);
+						continue;
+					}
+					else if (!pluginTypes.contains(pluginDescriptor.type()))
+					{
+						continue;
+					}
 				}
-				else if (!Plugin.class.isAssignableFrom(clazz))
+				catch (EnumConstantNotPresentException e)
 				{
-					log.warn("Class {} has plugin descriptor, but is not a plugin", clazz);
+					log.warn("{} has an invalid plugin type of {}", clazz, e.getMessage());
 					continue;
 				}
-				else if (!pluginTypes.contains(pluginDescriptor.type()))
+
+				List<Future<?>> curGroup = new ArrayList<>();
+				curGroup.add(exec.submit(() ->
 				{
-					continue;
-				}
+					Plugin plugininst;
+					try
+					{
+						//noinspection unchecked
+						plugininst = instantiate(scannedPlugins, (Class<Plugin>) plugin.getClass(), init, initConfig);
+						scannedPlugins.add(plugininst);
+					}
+					catch (PluginInstantiationException e)
+					{
+						log.warn("Error instantiating plugin!", e);
+						return;
+					}
+
+					loaded.getAndIncrement();
+
+					RuneLiteSplashScreen.stage(.67, .75, "Loading external plugins", loaded.get(), scannedPlugins.size());
+				}));
+				curGroup.forEach(future ->
+				{
+					try
+					{
+						future.get();
+					}
+					catch (InterruptedException | ExecutionException e)
+					{
+						e.printStackTrace();
+					}
+				});
 			}
-			catch (EnumConstantNotPresentException e)
-			{
-				log.warn("{} has an invalid plugin type of {}", clazz, e.getMessage());
-				continue;
-			}
-
-			List<Future<?>> curGroup = new ArrayList<>();
-			curGroup.add(exec.submit(() ->
-			{
-				Plugin plugininst;
-				try
-				{
-					//noinspection unchecked
-					plugininst = instantiate(scannedPlugins, (Class<Plugin>) plugin.getClass(), init, initConfig);
-					scannedPlugins.add(plugininst);
-				}
-				catch (PluginInstantiationException e)
-				{
-					log.warn("Error instantiating plugin!", e);
-					return;
-				}
-
-				loaded.getAndIncrement();
-
-				RuneLiteSplashScreen.stage(.67, .75, "Loading external plugins", loaded.get(), scannedPlugins.size());
-			}));
-			curGroup.forEach(future ->
-			{
-				try
-				{
-					future.get();
-				}
-				catch (InterruptedException | ExecutionException e)
-				{
-					e.printStackTrace();
-				}
-			});
 		}
-
+		finally
+		{
+			List<Runnable> unfinishedTasks = exec.shutdownNow();
+			if (!unfinishedTasks.isEmpty())
+			{
+				// This shouldn't happen since we Future#get all tasks submitted to the executor
+				log.warn("Did not complete all update tasks: {}", unfinishedTasks);
+			}
+		}
 	}
 
 	@SuppressWarnings("unchecked")
