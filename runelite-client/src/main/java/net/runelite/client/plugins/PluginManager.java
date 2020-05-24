@@ -34,6 +34,7 @@ import com.google.common.graph.Graphs;
 import com.google.common.graph.MutableGraph;
 import com.google.common.reflect.ClassPath;
 import com.google.common.reflect.ClassPath.ClassInfo;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.Binder;
 import com.google.inject.CreationException;
 import com.google.inject.Injector;
@@ -401,47 +402,61 @@ public class PluginManager
 		final long start = System.currentTimeMillis();
 
 		// some plugins get stuck on IO, so add some extra threads
-		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2,
+			new ThreadFactoryBuilder()
+				.setNameFormat("plugin-manager-%d")
+				.build());
 
-		List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
-		sortedPlugins.forEach(group ->
+		try
 		{
-			List<Future<?>> curGroup = new ArrayList<>();
-			group.forEach(pluginClazz ->
-				curGroup.add(exec.submit(() ->
+			List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
+			sortedPlugins.forEach(group ->
+			{
+				List<Future<?>> curGroup = new ArrayList<>();
+				group.forEach(pluginClazz ->
+					curGroup.add(exec.submit(() ->
+					{
+						Plugin plugin;
+						try
+						{
+							plugin = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz);
+							scannedPlugins.add(plugin);
+						}
+						catch (PluginInstantiationException e)
+						{
+							log.warn("Error instantiating plugin!", e);
+							return;
+						}
+
+						loaded.getAndIncrement();
+
+						RuneLiteSplashScreen.stage(.60, .65, "Loading internal plugins", loaded.get(), scannedPlugins.size());
+					})));
+				curGroup.forEach(future ->
 				{
-					Plugin plugin;
 					try
 					{
-						plugin = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz);
-						scannedPlugins.add(plugin);
+						future.get();
 					}
-					catch (PluginInstantiationException e)
+					catch (InterruptedException | ExecutionException e)
 					{
-						log.warn("Error instantiating plugin!", e);
-						return;
+						e.printStackTrace();
 					}
-
-					loaded.getAndIncrement();
-
-					RuneLiteSplashScreen.stage(.60, .65, "Loading internal plugins", loaded.get(), scannedPlugins.size());
-				})));
-			curGroup.forEach(future ->
-			{
-				try
-				{
-					future.get();
-				}
-				catch (InterruptedException | ExecutionException e)
-				{
-					e.printStackTrace();
-				}
+				});
 			});
-		});
 
-		log.info("Plugin instantiation took {}ms", System.currentTimeMillis() - start);
-
-		return scannedPlugins;
+			log.info("Plugin instantiation took {}ms", System.currentTimeMillis() - start);
+			return scannedPlugins;
+		}
+		finally
+		{
+			List<Runnable> unfinishedTasks = exec.shutdownNow();
+			if (!unfinishedTasks.isEmpty())
+			{
+				// This shouldn't happen since we Future#get all tasks submitted to the executor
+				log.warn("Did not complete all update tasks: {}", unfinishedTasks);
+			}
+		}
 	}
 
 	public boolean startPlugin(Plugin plugin) throws PluginInstantiationException
