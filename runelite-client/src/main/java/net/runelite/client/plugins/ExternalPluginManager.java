@@ -24,6 +24,10 @@
  */
 package net.runelite.client.plugins;
 
+import com.google.common.collect.Lists;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.Graphs;
+import com.google.common.graph.MutableGraph;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.Binder;
 import com.google.inject.CreationException;
@@ -400,9 +404,66 @@ public class ExternalPluginManager
 	private void scanAndInstantiate(List<Plugin> plugins, boolean init, boolean initConfig)
 	{
 		RuneLiteSplashScreen.stage(.66, "Loading external plugins");
+		MutableGraph<Class<? extends Plugin>> graph = GraphBuilder
+			.directed()
+			.build();
 
+		for (Plugin plugin : plugins)
+		{
+			Class<? extends Plugin> clazz = plugin.getClass();
+			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
+
+			try
+			{
+				if (pluginDescriptor == null)
+				{
+					if (Plugin.class.isAssignableFrom(clazz))
+					{
+						log.warn("Class {} is a plugin, but has no plugin descriptor", clazz);
+					}
+					continue;
+				}
+				else if (!Plugin.class.isAssignableFrom(clazz))
+				{
+					log.warn("Class {} has plugin descriptor, but is not a plugin", clazz);
+					continue;
+				}
+				else if (!pluginTypes.contains(pluginDescriptor.type()))
+				{
+					continue;
+				}
+			}
+			catch (EnumConstantNotPresentException e)
+			{
+				log.warn("{} has an invalid plugin type of {}", clazz, e.getMessage());
+				continue;
+			}
+
+			@SuppressWarnings("unchecked") Class<Plugin> pluginClass = (Class<Plugin>) clazz;
+			graph.addNode(pluginClass);
+		}
+
+		// Build plugin graph
+		for (Class<? extends Plugin> pluginClazz : graph.nodes())
+		{
+			net.runelite.client.plugins.PluginDependency[] pluginDependencies = pluginClazz.getAnnotationsByType(net.runelite.client.plugins.PluginDependency.class);
+
+			for (net.runelite.client.plugins.PluginDependency pluginDependency : pluginDependencies)
+			{
+				graph.putEdge(pluginClazz, pluginDependency.value());
+			}
+		}
+
+		if (Graphs.hasCycle(graph))
+		{
+			throw new RuntimeException("Plugin dependency graph contains a cycle!");
+		}
+
+		List<List<Class<? extends Plugin>>> sortedPlugins = PluginManager.topologicalGroupSort(graph);
+		sortedPlugins = Lists.reverse(sortedPlugins);
 		AtomicInteger loaded = new AtomicInteger();
-		List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
+
+		final long start = System.currentTimeMillis();
 
 		// some plugins get stuck on IO, so add some extra threads
 		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2,
@@ -412,57 +473,30 @@ public class ExternalPluginManager
 
 		try
 		{
-			for (Plugin plugin : plugins)
+			List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
+			sortedPlugins.forEach(group ->
 			{
-				Class<? extends Plugin> clazz = plugin.getClass();
-				PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
-
-				try
-				{
-					if (pluginDescriptor == null)
-					{
-						if (Plugin.class.isAssignableFrom(clazz))
-						{
-							log.warn("Class {} is a plugin, but has no plugin descriptor", clazz);
-						}
-						continue;
-					}
-					else if (!Plugin.class.isAssignableFrom(clazz))
-					{
-						log.warn("Class {} has plugin descriptor, but is not a plugin", clazz);
-						continue;
-					}
-					else if (!pluginTypes.contains(pluginDescriptor.type()))
-					{
-						continue;
-					}
-				}
-				catch (EnumConstantNotPresentException e)
-				{
-					log.warn("{} has an invalid plugin type of {}", clazz, e.getMessage());
-					continue;
-				}
-
 				List<Future<?>> curGroup = new ArrayList<>();
-				curGroup.add(exec.submit(() ->
-				{
-					Plugin plugininst;
-					try
+				group.forEach(pluginClazz ->
+					curGroup.add(exec.submit(() ->
 					{
-						//noinspection unchecked
-						plugininst = instantiate(scannedPlugins, (Class<Plugin>) plugin.getClass(), init, initConfig);
-						scannedPlugins.add(plugininst);
-					}
-					catch (PluginInstantiationException e)
-					{
-						log.warn("Error instantiating plugin!", e);
-						return;
-					}
+						Plugin plugininst;
+						try
+						{
+							//noinspection unchecked
+							plugininst = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz, init, initConfig);
+							scannedPlugins.add(plugininst);
+						}
+						catch (PluginInstantiationException e)
+						{
+							log.warn("Error instantiating plugin!", e);
+							return;
+						}
 
-					loaded.getAndIncrement();
+						loaded.getAndIncrement();
 
-					RuneLiteSplashScreen.stage(.67, .75, "Loading external plugins", loaded.get(), scannedPlugins.size());
-				}));
+						RuneLiteSplashScreen.stage(.67, .75, "Loading external plugins", loaded.get(), scannedPlugins.size());
+					})));
 				curGroup.forEach(future ->
 				{
 					try
@@ -474,7 +508,9 @@ public class ExternalPluginManager
 						log.warn("Could not instantiate external plugin", e);
 					}
 				});
-			}
+			});
+
+			log.info("External plugin instantiation took {}ms", System.currentTimeMillis() - start);
 		}
 		finally
 		{

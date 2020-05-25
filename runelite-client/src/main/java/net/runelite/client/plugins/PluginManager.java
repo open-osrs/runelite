@@ -666,7 +666,7 @@ public class PluginManager
 	 * @param <T>
 	 * @return
 	 */
-	private <T> List<List<T>> topologicalGroupSort(Graph<T> graph)
+	static <T> List<List<T>> topologicalGroupSort(Graph<T> graph)
 	{
 		final Set<T> root = graph.nodes().stream()
 			.filter(node -> graph.inDegree(node) == 0)
@@ -696,7 +696,7 @@ public class PluginManager
 		return dependencyGroups;
 	}
 
-	private <T> void incrementChildren(Graph<T> graph, Map<T, Integer> dependencyCount, T n, int val)
+	private static <T> void incrementChildren(Graph<T> graph, Map<T, Integer> dependencyCount, T n, int val)
 	{
 		if (!dependencyCount.containsKey(n) || dependencyCount.get(n) < val)
 		{
