@@ -30,19 +30,11 @@ import com.google.inject.CreationException;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -82,26 +74,11 @@ import net.runelite.client.util.Groups;
 import net.runelite.client.util.MiscUtils;
 import net.runelite.client.util.SwingUtil;
 import org.jgroups.Message;
-import org.pf4j.BasePluginLoader;
-import org.pf4j.CompoundPluginLoader;
-import org.pf4j.CompoundPluginRepository;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.DependencyResolver;
-import org.pf4j.DevelopmentPluginClasspath;
-import org.pf4j.DevelopmentPluginRepository;
-import org.pf4j.JarPluginLoader;
-import org.pf4j.JarPluginRepository;
-import org.pf4j.ManifestPluginDescriptorFinder;
-import org.pf4j.PluginAlreadyLoadedException;
 import org.pf4j.PluginDependency;
-import org.pf4j.PluginDescriptorFinder;
-import org.pf4j.PluginLoader;
-import org.pf4j.PluginRepository;
 import org.pf4j.PluginRuntimeException;
-import org.pf4j.PluginState;
-import org.pf4j.PluginStateEvent;
 import org.pf4j.PluginWrapper;
-import org.pf4j.RuntimeMode;
 import org.pf4j.update.DefaultUpdateRepository;
 import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateManager;
@@ -112,6 +89,9 @@ import org.pf4j.update.VerifyException;
 @Singleton
 public class ExternalPluginManager
 {
+	public static final String DEFAULT_PLUGIN_REPOS = "OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugin-hosting/master/;Plugin-Hub:https://raw.githubusercontent.com/owain94/OpenOSRS-RL-hub-hosting/master/";
+	static final String DEVELOPMENT_MANIFEST_PATH = "build/tmp/jar/MANIFEST.MF";
+
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
 	private final PluginManager runelitePluginManager;
 	private org.pf4j.PluginManager externalPluginManager;
@@ -121,14 +101,14 @@ public class ExternalPluginManager
 	private final EventBus eventBus;
 	private final ConfigManager configManager;
 	private final Map<String, String> pluginsMap = new HashMap<>();
-	@Getter
-	private final boolean developmentMode = RuneLiteProperties.getPluginDevelopmentPath().length > 0;
+	@Getter(AccessLevel.PUBLIC)
+	private static final boolean developmentMode = RuneLiteProperties.getPluginDevelopmentPath().length > 0;
 	@Getter(AccessLevel.PUBLIC)
 	private final Map<String, Map<String, String>> pluginsInfoMap = new HashMap<>();
 	private final Groups groups;
 	@Getter(AccessLevel.PUBLIC)
 	private UpdateManager updateManager;
-	private Set<PluginType> pluginTypes = Set.of(PluginType.values());
+	private final Set<PluginType> pluginTypes = Set.of(PluginType.values());
 
 	@Inject
 	public ExternalPluginManager(
@@ -155,376 +135,7 @@ public class ExternalPluginManager
 
 	private void initPluginManager()
 	{
-		externalPluginManager = new DefaultPluginManager(
-			RuneLiteProperties.getPluginPath() != null ? Paths.get(RuneLiteProperties.getPluginPath())
-				: EXTERNALPLUGIN_DIR.toPath())
-		{
-			@Override
-			protected PluginDescriptorFinder createPluginDescriptorFinder()
-			{
-				return new ManifestPluginDescriptorFinder()
-				{
-					protected Path getManifestPath(Path pluginPath)
-					{
-						if (isDevelopment())
-						{
-							// The superclass performs a find, which is slow in development mode since we're pointing
-							// at a sources directory, which can have a lot of files. The external plugin template
-							// will always output the manifest at the following location, so we can hardcode this path.
-							return pluginPath.resolve("build/tmp/jar/MANIFEST.MF");
-						}
-
-						return super.getManifestPath(pluginPath);
-					}
-				};
-			}
-
-			@Override
-			protected PluginRepository createPluginRepository()
-			{
-				CompoundPluginRepository compoundPluginRepository = new CompoundPluginRepository();
-
-				if (isNotDevelopment())
-				{
-					JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot())
-					{
-						@Override
-						public List<Path> getPluginPaths()
-						{
-							File[] files = pluginsRoot.toFile().listFiles(filter);
-
-							if ((files == null) || files.length == 0)
-							{
-								return Collections.emptyList();
-							}
-
-							List<Path> paths = new ArrayList<>(files.length);
-							for (File file : files)
-							{
-								paths.add(file.toPath());
-							}
-
-							return paths;
-						}
-					};
-
-					compoundPluginRepository.add(jarPluginRepository);
-				}
-
-				if (isDevelopment())
-				{
-					FileFilter pluginsFilter = new FileFilter()
-					{
-						private final List<String> blacklist = Arrays.asList(
-							".git",
-							"build",
-							"target"
-						);
-
-						private final List<String> buildFiles = Arrays.asList(
-							"%s.gradle.kts",
-							"%s.gradle"
-						);
-
-						@Override
-						public boolean accept(File pathName)
-						{
-							// Check if this path looks like a plugin development directory
-							if (!pathName.isDirectory())
-							{
-								return false;
-							}
-
-							String dirName = pathName.getName();
-							if (blacklist.contains(dirName))
-							{
-								return false;
-							}
-
-							boolean isPlugin = false;
-
-							// By convention plugins their directory is $name and they have a $name.gradle.kts or $name.gradle file in their root
-							for (String buildFile : buildFiles)
-							{
-								if (new File(pathName, String.format(buildFile, dirName)).exists())
-								{
-									isPlugin = true;
-									break;
-								}
-							}
-
-							// It is a plugin directory, but we should also check if it can actually be loaded
-							if (!new File(pathName, "build/tmp/jar/MANIFEST.MF").exists())
-							{
-								return false;
-							}
-
-							return isPlugin;
-						}
-					};
-
-					for (String developmentPluginPath : RuneLiteProperties.getPluginDevelopmentPath())
-					{
-						DevelopmentPluginRepository developmentPluginRepository = new DevelopmentPluginRepository(Paths.get(developmentPluginPath))
-						{
-							@Override
-							public boolean deletePluginPath(Path pluginPath)
-							{
-								// Do nothing, because we'd be deleting our sources!
-								return filter.accept(pluginPath.toFile());
-							}
-						};
-
-						developmentPluginRepository.setFilter(pluginsFilter);
-						compoundPluginRepository.add(developmentPluginRepository);
-					}
-				}
-
-				return compoundPluginRepository;
-			}
-
-			@Override
-			protected PluginLoader createPluginLoader()
-			{
-				return new CompoundPluginLoader()
-					.add(new BasePluginLoader(this, new DevelopmentPluginClasspath().addJarsDirectories("build/deps")), this::isDevelopment)
-					.add(new JarPluginLoader(this), this::isNotDevelopment);
-			}
-
-			@Override
-			public void loadPlugins()
-			{
-				if (Files.notExists(pluginsRoot) || !Files.isDirectory(pluginsRoot))
-				{
-					log.warn("No '{}' root", pluginsRoot);
-					return;
-				}
-
-				List<Path> pluginPaths = pluginRepository.getPluginPaths();
-
-				if (pluginPaths.isEmpty())
-				{
-					log.warn("No plugins");
-					return;
-				}
-
-				log.debug("Found {} possible plugins: {}", pluginPaths.size(), pluginPaths);
-
-				for (Path pluginPath : pluginPaths)
-				{
-					try
-					{
-						loadPluginFromPath(pluginPath);
-					}
-					catch (PluginRuntimeException e)
-					{
-						if (!(e instanceof PluginAlreadyLoadedException))
-						{
-							log.error("Could not load plugin {}", pluginPath, e);
-						}
-					}
-				}
-
-				try
-				{
-					resolvePlugins();
-				}
-				catch (PluginRuntimeException e)
-				{
-					if (e instanceof DependencyResolver.DependenciesNotFoundException)
-					{
-						throw e;
-					}
-
-					log.error(e.getMessage(), e);
-				}
-			}
-
-			@Override
-			protected void resolvePlugins()
-			{
-				// retrieves the plugins descriptors
-				List<org.pf4j.PluginDescriptor> descriptors = new ArrayList<>();
-				for (PluginWrapper plugin : plugins.values())
-				{
-					descriptors.add(plugin.getDescriptor());
-				}
-
-				// retrieves the plugins descriptors from the resolvedPlugins list. This allows to load plugins that have already loaded dependencies.
-				for (PluginWrapper plugin : resolvedPlugins)
-				{
-					descriptors.add(plugin.getDescriptor());
-				}
-
-				DependencyResolver.Result result = dependencyResolver.resolve(descriptors);
-
-				if (result.hasCyclicDependency())
-				{
-					throw new DependencyResolver.CyclicDependencyException();
-				}
-
-				List<String> notFoundDependencies = result.getNotFoundDependencies();
-				if (!notFoundDependencies.isEmpty())
-				{
-					throw new DependencyResolver.DependenciesNotFoundException(notFoundDependencies);
-				}
-
-				List<DependencyResolver.WrongDependencyVersion> wrongVersionDependencies = result.getWrongVersionDependencies();
-				if (!wrongVersionDependencies.isEmpty())
-				{
-					throw new DependencyResolver.DependenciesWrongVersionException(wrongVersionDependencies);
-				}
-
-				List<String> sortedPlugins = result.getSortedPlugins();
-
-				// move plugins from "unresolved" to "resolved"
-				for (String pluginId : sortedPlugins)
-				{
-					PluginWrapper pluginWrapper = plugins.get(pluginId);
-
-					//The plugin is already resolved. Don't put a copy in the resolvedPlugins.
-					if (resolvedPlugins.contains(pluginWrapper))
-					{
-						continue;
-					}
-
-					if (unresolvedPlugins.remove(pluginWrapper))
-					{
-						PluginState pluginState = pluginWrapper.getPluginState();
-						if (pluginState != PluginState.DISABLED)
-						{
-							pluginWrapper.setPluginState(PluginState.RESOLVED);
-						}
-
-						resolvedPlugins.add(pluginWrapper);
-
-						firePluginStateEvent(new PluginStateEvent(this, pluginWrapper, pluginState));
-					}
-				}
-			}
-
-			@Override
-			public RuntimeMode getRuntimeMode()
-			{
-				return developmentMode ? RuntimeMode.DEVELOPMENT : RuntimeMode.DEPLOYMENT;
-			}
-
-			@Override
-			public PluginState stopPlugin(String pluginId)
-			{
-				if (!plugins.containsKey(pluginId))
-				{
-					throw new IllegalArgumentException(String.format("Unknown pluginId %s", pluginId));
-				}
-
-				PluginWrapper pluginWrapper = getPlugin(pluginId);
-				org.pf4j.PluginDescriptor pluginDescriptor = pluginWrapper.getDescriptor();
-				PluginState pluginState = pluginWrapper.getPluginState();
-				if (PluginState.STOPPED == pluginState)
-				{
-					log.debug("Already stopped plugin '{}'", getPluginLabel(pluginDescriptor));
-					return PluginState.STOPPED;
-				}
-
-				// test for disabled plugin
-				if (PluginState.DISABLED == pluginState)
-				{
-					// do nothing
-					return pluginState;
-				}
-
-				pluginWrapper.getPlugin().stop();
-				pluginWrapper.setPluginState(PluginState.STOPPED);
-				startedPlugins.remove(pluginWrapper);
-
-				firePluginStateEvent(new PluginStateEvent(this, pluginWrapper, pluginState));
-
-				return pluginWrapper.getPluginState();
-			}
-
-			@Override
-			public boolean unloadPlugin(String pluginId)
-			{
-				try
-				{
-					PluginState pluginState = stopPlugin(pluginId);
-					if (PluginState.STARTED == pluginState)
-					{
-						return false;
-					}
-
-					PluginWrapper pluginWrapper = getPlugin(pluginId);
-
-					// remove the plugin
-					plugins.remove(pluginId);
-					getResolvedPlugins().remove(pluginWrapper);
-
-					firePluginStateEvent(new PluginStateEvent(this, pluginWrapper, pluginState));
-
-					// remove the classloader
-					Map<String, ClassLoader> pluginClassLoaders = getPluginClassLoaders();
-					if (pluginClassLoaders.containsKey(pluginId))
-					{
-						ClassLoader classLoader = pluginClassLoaders.remove(pluginId);
-						if (classLoader instanceof Closeable)
-						{
-							try
-							{
-								((Closeable) classLoader).close();
-							}
-							catch (IOException e)
-							{
-								throw new PluginRuntimeException(e, "Cannot close classloader");
-							}
-						}
-					}
-
-					return true;
-				}
-				catch (IllegalArgumentException e)
-				{
-					// ignore not found exceptions because this method is recursive
-				}
-
-				return false;
-			}
-
-			@Override
-			public boolean deletePlugin(String pluginId)
-			{
-				if (!plugins.containsKey(pluginId))
-				{
-					throw new IllegalArgumentException(String.format("Unknown pluginId %s", pluginId));
-				}
-
-				PluginWrapper pluginWrapper = getPlugin(pluginId);
-				// stop the plugin if it's started
-				PluginState pluginState = stopPlugin(pluginId);
-				if (PluginState.STARTED == pluginState)
-				{
-					log.error("Failed to stop plugin '{}' on delete", pluginId);
-					return false;
-				}
-
-				// get an instance of plugin before the plugin is unloaded
-				// for reason see https://github.com/pf4j/pf4j/issues/309
-
-				org.pf4j.Plugin plugin = pluginWrapper.getPlugin();
-
-				if (!unloadPlugin(pluginId))
-				{
-					log.error("Failed to unload plugin '{}' on delete", pluginId);
-					return false;
-				}
-
-				// notify the plugin as it's deleted
-				plugin.delete();
-
-				Path pluginPath = pluginWrapper.getPluginPath();
-
-				return pluginRepository.deletePluginPath(pluginPath);
-			}
-		};
+		externalPluginManager = new ExternalPf4jPluginManager(this);
 		externalPluginManager.setSystemVersion(SYSTEM_VERSION);
 	}
 
@@ -595,8 +206,10 @@ public class ExternalPluginManager
 
 				startExternalPluginManager();
 			}
-
-			log.error("{}", ex.getMessage());
+			else
+			{
+				log.error("Could not load plugins", ex);
+			}
 		}
 	}
 
@@ -618,12 +231,14 @@ public class ExternalPluginManager
 		{
 			duplicateCheck();
 			log.debug("Trying to load new format: {}", openOSRSConfig.getExternalRepositories());
+			repositories.clear();
+
 			for (String keyval : openOSRSConfig.getExternalRepositories().split(";"))
 			{
 				String[] split = keyval.split("\\|");
 				if (split.length != 2)
 				{
-					log.debug("Split length invalid.");
+					log.debug("Split length invalid: {}", keyval);
 					repositories.clear();
 					return false;
 				}
@@ -677,12 +292,12 @@ public class ExternalPluginManager
 		}
 		catch (MalformedURLException e)
 		{
-			e.printStackTrace();
+			log.error("Old repository format contained malformed url", e);
 		}
 		catch (StringIndexOutOfBoundsException e)
 		{
 			log.error("Error loading external repositories. They have been reset.");
-			openOSRSConfig.setExternalRepositories("OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugin-hosting/master/;Plugin-Hub:https://raw.githubusercontent.com/owain94/OpenOSRS-RL-hub-hosting/master/");
+			openOSRSConfig.setExternalRepositories(DEFAULT_PLUGIN_REPOS);
 		}
 
 		updateManager = new UpdateManager(externalPluginManager, repositories);
@@ -696,7 +311,7 @@ public class ExternalPluginManager
 		}
 		catch (MalformedURLException e)
 		{
-			log.error("Repostitory could not be added");
+			log.error("GitHub repostitory could not be added (owner={}, name={})", owner, name, e);
 		}
 	}
 
@@ -761,24 +376,25 @@ public class ExternalPluginManager
 			strings.add(s);
 		}
 
-		if (duplicates)
+		if (!duplicates)
 		{
-			StringBuilder sb = new StringBuilder();
-
-			for (String string : strings)
-			{
-				sb.append(string);
-				sb.append(";");
-			}
-
-			sb.deleteCharAt(sb.lastIndexOf(";"));
-			String duplicateFix = sb.toString();
-
-			log.info("Duplicate Repos detected, setting them to: {}", duplicateFix);
-			openOSRSConfig.setExternalRepositories(duplicateFix);
+			log.info("No duplicates found.");
 			return;
 		}
-		log.info("No duplicates found.");
+
+		StringBuilder sb = new StringBuilder();
+
+		for (String string : strings)
+		{
+			sb.append(string);
+			sb.append(";");
+		}
+
+		sb.deleteCharAt(sb.lastIndexOf(";"));
+		String duplicateFix = sb.toString();
+
+		log.info("Duplicate Repos detected, setting them to: {}", duplicateFix);
+		openOSRSConfig.setExternalRepositories(duplicateFix);
 	}
 
 	private void scanAndInstantiate(List<Plugin> plugins, boolean init, boolean initConfig)
@@ -855,7 +471,7 @@ public class ExternalPluginManager
 					}
 					catch (InterruptedException | ExecutionException e)
 					{
-						e.printStackTrace();
+						log.warn("Could not instantiate external plugin", e);
 					}
 				});
 			}
@@ -1388,4 +1004,5 @@ public class ExternalPluginManager
 				break;
 		}
 	}
+
 }
