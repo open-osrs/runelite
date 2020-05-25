@@ -132,7 +132,8 @@ public class PluginListItem extends JPanel
 
 		Map<String, Map<String, String>> pluginsInfoMap = externalPluginManager.getPluginsInfoMap();
 
-		if (RuneLiteProperties.getLauncherVersion() == null && pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName()))
+		if (ExternalPluginManager.isDevelopmentMode() ||
+			(RuneLiteProperties.getLauncherVersion() == null && pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName())))
 		{
 			JButton hotSwapButton = new JButton(REFRESH_ICON);
 			hotSwapButton.setRolloverIcon(REFRESH_ICON_HOVER);
@@ -160,7 +161,7 @@ public class PluginListItem extends JPanel
 					protected void done()
 					{
 						// In development mode our plugins will be loaded directly from sources, so we don't need to prompt
-						if (!externalPluginManager.isDevelopmentMode())
+						if (!ExternalPluginManager.isDevelopmentMode())
 						{
 							JOptionPane.showMessageDialog(ClientUI.getFrame(),
 								pluginId + " is unloaded, put the new jar file in the externalmanager folder and click `ok`",
