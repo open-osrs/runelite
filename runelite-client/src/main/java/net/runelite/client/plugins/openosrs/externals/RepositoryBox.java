@@ -116,7 +116,7 @@ public class RepositoryBox extends JPanel
 			titleActions.add(support, BorderLayout.WEST);
 		}
 
-		if (!name.equals("OpenOSRS"))
+		if (!name.equals("OpenOSRS") && !name.equals("Plugin-Hub"))
 		{
 			JLabel install = new JLabel();
 			install.setIcon(DELETE_ICON);
