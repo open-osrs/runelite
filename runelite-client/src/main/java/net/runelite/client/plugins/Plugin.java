@@ -123,4 +123,9 @@ public abstract class Plugin implements Module, ExtensionPoint
 	public void resetConfiguration()
 	{
 	}
+
+	public String getName()
+	{
+		return getClass().getAnnotation(PluginDescriptor.class).name();
+	}
 }
