@@ -74,6 +74,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 		if (isNotDevelopment())
 		{
 			JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot());
+			jarPluginRepository.setComparator(Comparator.comparingLong(File::lastModified));
 			compoundPluginRepository.add(jarPluginRepository);
 		}
 
