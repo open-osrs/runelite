@@ -43,6 +43,7 @@ import net.runelite.cache.fs.Archive;
 import net.runelite.cache.fs.Index;
 import net.runelite.cache.fs.Storage;
 import net.runelite.cache.fs.Store;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -59,6 +60,7 @@ public class SoundEffectsDumperTest
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();
 
 	@Test
+	@Ignore
 	public void test() throws IOException
 	{
 		File dumpDir = folder.newFolder();
