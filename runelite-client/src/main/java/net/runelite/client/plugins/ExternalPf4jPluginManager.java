@@ -1,13 +1,11 @@
 package net.runelite.client.plugins;
 
 import java.io.Closeable;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -75,32 +73,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 
 		if (isNotDevelopment())
 		{
-			JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot())
-			{
-				/**
-				 * Identical to {@link JarPluginRepository#getPluginPaths()} but does not sort by modtime
-				 * @return the list of plugin paths
-				 */
-				@Override
-				public List<Path> getPluginPaths()
-				{
-					File[] files = pluginsRoot.toFile().listFiles(filter);
-
-					if ((files == null) || files.length == 0)
-					{
-						return Collections.emptyList();
-					}
-
-					List<Path> paths = new ArrayList<>(files.length);
-					for (File file : files)
-					{
-						paths.add(file.toPath());
-					}
-
-					return paths;
-				}
-			};
-
+			JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot());
 			compoundPluginRepository.add(jarPluginRepository);
 		}
 
