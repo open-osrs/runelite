@@ -1,9 +1,8 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.FriendManager;
 import net.runelite.mapping.Import;
 
-public interface RSFriendSystem extends FriendManager
+public interface RSFriendSystem
 {
 	@Import("friendsList")
 	RSFriendsList getFriendContainer();

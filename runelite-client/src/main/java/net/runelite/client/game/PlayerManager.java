@@ -43,6 +43,7 @@ public class PlayerManager
 	private final Client client;
 	private final ItemManager itemManager;
 	private final EventBus eventBus;
+	private final ClanManager clanManager;
 	private final Map<String, PlayerContainer> playerMap = new ConcurrentHashMap<>();
 	private final Map<String, HiscoreResult> resultCache = new ConcurrentHashMap<>();
 	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
@@ -51,12 +52,14 @@ public class PlayerManager
 	PlayerManager(
 		final Client client,
 		final EventBus eventBus,
-		final ItemManager itemManager
+		final ItemManager itemManager,
+		final ClanManager clanManager
 	)
 	{
 		this.client = client;
 		this.itemManager = itemManager;
 		this.eventBus = eventBus;
+		this.clanManager = clanManager;
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
 		eventBus.subscribe(PlayerAppearanceChanged.class, this, this::onAppearenceChanged);
@@ -206,7 +209,7 @@ public class PlayerManager
 
 		update(player);
 		player.setFriend(client.isFriended(player.getName(), false));
-		player.setClan(client.isClanMember(player.getName()));
+		player.setClan(clanManager.isClanMember(player.getName()));
 	}
 
 	private void onPlayerDespawned(PlayerDespawned event)

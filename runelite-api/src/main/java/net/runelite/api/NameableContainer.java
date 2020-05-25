@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,28 +22,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.mixins;
+package net.runelite.api;
 
-import net.runelite.api.mixins.Inject;
-import net.runelite.api.mixins.Mixin;
-import net.runelite.rs.api.RSFriend;
-import net.runelite.rs.api.RSUsername;
-
-@Mixin(RSFriend.class)
-public abstract class RSFriendMixin implements RSFriend
+public interface NameableContainer<T extends Nameable>
 {
-	@Override
-	@Inject
-	public String getName()
-	{
-		return getRsName().getName();
-	}
+	/**
+	 * Get the number of members in this container
+	 *
+	 * @return
+	 */
+	int getCount();
 
-	@Override
-	@Inject
-	public String getPrevName()
-	{
-		RSUsername prevName = getRsPrevName();
-		return prevName == null ? null : prevName.getName();
-	}
+	/**
+	 * Get the members in this container
+	 *
+	 * @return
+	 */
+	T[] getMembers();
+
+	/**
+	 * Find a nameable by name
+	 *
+	 * @param name the name
+	 * @return
+	 */
+	T findByName(String name);
 }

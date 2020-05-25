@@ -1,17 +1,16 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.Nameable;
+import net.runelite.api.NameableContainer;
 import net.runelite.mapping.Import;
 
-public interface RSUserList<T extends RSUser>
+public interface RSUserList<T extends Nameable> extends NameableContainer<T>
 {
+	@Import("array")
+	Nameable[] getNameables();
+
 	@Import("getSize")
 	int getCount();
-
-	@Import("array")
-	T[] getNameables();
-
-	@Import("contains")
-	boolean isMember(RSUsername var1);
 
 	@Import("getByUsername")
 	T findByName(RSUsername name);

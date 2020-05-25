@@ -27,4 +27,19 @@ package net.runelite.api;
 /**
  * Represents the friend and ignore list manager.
  */
-public interface FriendManager {}
+public interface ClanMemberManager extends NameableContainer<ClanMember>
+{
+	/**
+	 * Gets the clan owner of the currently joined clan chat
+	 *
+	 * @return
+	 */
+	String getClanOwner();
+
+	/**
+	 * Gets the clan chat name of the currently joined clan chat
+	 *
+	 * @return
+	 */
+	String getClanChatName();
+}
