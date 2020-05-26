@@ -68,7 +68,7 @@ public class RuneLiteAPI
 	private static final String OPENOSRS_XTEA = "http://xtea.openosrs.dev";
 	private static final String OPENOSRS_ANIMATIONS = "http://animations.openosrs.dev";
 	private static final String OPENOSRS_SOUNDS = "http://sounds.openosrs.dev";
-	private static final String MAVEN_METADATA = "http://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
+	private static final String MAVEN_METADATA = "https://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
 
 	private static final Properties properties = new Properties();
 	private static String version;
