@@ -65,7 +65,6 @@ public class RuneLiteAPI
 	private static final String STATICBASE = "https://static.runelite.net";
 
 	private static final String OPENOSRS_SESSION = "http://session.openosrs.dev";
-	private static final String OPENOSRS_ANIMATIONS = "http://animations.openosrs.dev";
 	private static final String OPENOSRS_SOUNDS = "http://sounds.openosrs.dev";
 	private static final String MAVEN_METADATA = "https://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
 
@@ -120,11 +119,6 @@ public class RuneLiteAPI
 	public static HttpUrl getSessionBase()
 	{
 		return HttpUrl.parse(OPENOSRS_SESSION);
-	}
-
-	public static HttpUrl getAnimationsBase()
-	{
-		return HttpUrl.parse(OPENOSRS_ANIMATIONS);
 	}
 
 	public static HttpUrl getSoundsBase()
