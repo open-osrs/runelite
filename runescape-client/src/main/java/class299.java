@@ -102,7 +102,7 @@ public class class299 {
 		garbageValue = "53757689"
 	)
 	static void method5349(AbstractArchive var0, AbstractArchive var1, boolean var2, int var3) {
-		if (Login.field1205) {
+		if (Login.clearLoginScreen) {
 			if (var3 == 4) {
 				Login.loginIndex = 4;
 			}
@@ -179,7 +179,7 @@ public class class299 {
 				}
 			}
 
-			Login.field1205 = true;
+			Login.clearLoginScreen = true;
 			Login.xPadding = (WorldMapLabel.canvasWidth - 765) / 2;
 			Login.loginBoxX = Login.xPadding + 202;
 			PacketWriter.loginBoxCenter = Login.loginBoxX + 180;
