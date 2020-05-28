@@ -460,7 +460,7 @@ public class MenuManager
 		for (WidgetMenuOption curMenuOption : options)
 		{
 			if (curMenuOption.getMenuTarget().equals(event.getTarget())
-				&& curMenuOption.getMenuOption().equals(event.getMenuOpcode()))
+				&& curMenuOption.getMenuOption().equals(event.getOption()))
 			{
 				WidgetMenuOptionClicked customMenu = new WidgetMenuOptionClicked();
 				customMenu.setMenuOption(event.getOption());
