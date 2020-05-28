@@ -27,11 +27,10 @@ package net.runelite.client.ui.overlay.infobox;
 import com.google.common.collect.ComparisonChain;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -45,7 +44,7 @@ import net.runelite.client.util.AsyncBufferedImage;
 @Slf4j
 public class InfoBoxManager
 {
-	private final List<InfoBox> infoBoxes = new ArrayList<>();
+	private final List<InfoBox> infoBoxes = new CopyOnWriteArrayList<>();
 	private final RuneLiteConfig runeLiteConfig;
 
 	@Inject
@@ -90,21 +89,19 @@ public class InfoBoxManager
 		}
 	}
 
-	public void removeInfoBox(InfoBox infoBox)
+	public synchronized void removeInfoBox(InfoBox infoBox)
 	{
 		if (infoBoxes.remove(infoBox))
 		{
 			log.debug("Removed InfoBox {}", infoBox);
-			refreshInfoBoxes();
 		}
 	}
 
-	public void removeIf(Predicate<InfoBox> filter)
+	public synchronized void removeIf(Predicate<InfoBox> filter)
 	{
 		if (infoBoxes.removeIf(filter))
 		{
 			log.debug("Removed InfoBoxes for filter {}", filter);
-			refreshInfoBoxes();
 		}
 	}
 
@@ -113,25 +110,9 @@ public class InfoBoxManager
 		return Collections.unmodifiableList(infoBoxes);
 	}
 
-	public void cull()
+	public synchronized void cull()
 	{
-		boolean culled = false;
-		for (Iterator<InfoBox> it = infoBoxes.iterator(); it.hasNext();)
-		{
-			InfoBox box = it.next();
-
-			if (box.cull())
-			{
-				log.debug("Culling InfoBox {}", box);
-				it.remove();
-				culled = true;
-			}
-		}
-
-		if (culled)
-		{
-			refreshInfoBoxes();
-		}
+		infoBoxes.removeIf(InfoBox::cull);
 	}
 
 	public void updateInfoBoxImage(final InfoBox infoBox)
@@ -169,14 +150,5 @@ public class InfoBoxManager
 		}
 
 		infoBox.setScaledImage(resultImage);
-	}
-
-	private void refreshInfoBoxes()
-	{
-		infoBoxes.sort((b1, b2) -> ComparisonChain
-			.start()
-			.compare(b1.getPriority(), b2.getPriority())
-			.compare(b1.getPlugin().getName(), b2.getPlugin().getName())
-			.result());
 	}
 }
