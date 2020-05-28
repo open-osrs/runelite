@@ -2030,7 +2030,7 @@ public interface Client extends GameShell
 	 * If the image is larger than half the width of fixed mode,
 	 * it won't get mirrored to the other side of the screen
 	 */
-	void setLoginScreen(SpritePixels pixels);
+	void setLoginScreen(Sprite pixels);
 
 	/**
 	 * Sets whether the flames on the login screen should be rendered
