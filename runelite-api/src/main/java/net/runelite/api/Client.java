@@ -49,10 +49,14 @@ import org.slf4j.Logger;
 public interface Client extends GameShell
 {
 	/**
-	 * The client invokes these callbacks to communicate to
+	 * The injected client invokes these callbacks to send events to us
 	 */
 	Callbacks getCallbacks();
 
+	/**
+	 * The injected client invokes these callbacks for scene drawing, which is
+	 * used by the gpu plugin to override the client's normal scene drawing code
+	 */
 	DrawCallbacks getDrawCallbacks();
 
 	void setDrawCallbacks(DrawCallbacks drawCallbacks);
@@ -2019,4 +2023,16 @@ public interface Client extends GameShell
 	 * Sets the status of client mirror
 	 */
 	void setMirrored(boolean isMirrored);
+	
+	/**
+	 * Sets the image to be used for the login screen, provided as SpritePixels
+	 * If the image is larger than half the width of fixed mode,
+	 * it won't get mirrored to the other side of the screen
+	 */
+	void setLoginScreen(Sprite pixels);
+
+	/**
+	 * Sets whether the flames on the login screen should be rendered
+	 */
+	void setShouldRenderLoginScreenFire(boolean val);
 }
