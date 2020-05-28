@@ -2035,4 +2035,9 @@ public interface Client extends GameShell
 	 * Sets whether the flames on the login screen should be rendered
 	 */
 	void setShouldRenderLoginScreenFire(boolean val);
+
+	/**
+	 * Gets whether the flames on the login screen should be rendered
+	 */
+	boolean shouldRenderLoginScreenFire();
 }

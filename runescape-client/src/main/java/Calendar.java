@@ -46,7 +46,7 @@ public class Calendar {
 		garbageValue = "-1281352540"
 	)
 	static void method4032() {
-		if (Login.field1205) {
+		if (Login.clearLoginScreen) {
 			ModelData0.titleboxSprite = null;
 			GrandExchangeOfferOwnWorldComparator.titlebuttonSprite = null;
 			Login.runesSprite = null;
@@ -86,7 +86,7 @@ public class Calendar {
 				}
 			}
 
-			Login.field1205 = false;
+			Login.clearLoginScreen = false;
 		}
 	}
 }
