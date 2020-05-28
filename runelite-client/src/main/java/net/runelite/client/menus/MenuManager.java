@@ -448,9 +448,10 @@ public class MenuManager
 			}
 		}
 
-		if (event.getMenuOpcode() != MenuOpcode.RUNELITE)
+		if (event.getMenuAction() != MenuAction.RUNELITE
+			&& event.getMenuAction() != MenuAction.RUNELITE_PLAYER)
 		{
-			return; // not a player menu
+			return; // not a managed widget option or custom player option
 		}
 
 		int widgetId = event.getParam1();
@@ -483,7 +484,7 @@ public class MenuManager
 	{
 		client.getPlayerOptions()[playerOptionIndex] = menuText;
 		client.getPlayerOptionsPriorities()[playerOptionIndex] = true;
-		client.getPlayerMenuTypes()[playerOptionIndex] = MenuOpcode.RUNELITE.getId();
+		client.getPlayerMenuTypes()[playerOptionIndex] = MenuAction.RUNELITE_PLAYER.getId();
 
 		playerMenuIndexMap.put(playerOptionIndex, menuText);
 	}

@@ -70,8 +70,16 @@ public class InfoBoxManager
 		log.debug("Adding InfoBox {}", infoBox);
 
 		updateInfoBoxImage(infoBox);
-		infoBoxes.add(infoBox);
-		refreshInfoBoxes();
+
+		synchronized (this)
+		{
+			int idx = Collections.binarySearch(infoBoxes, infoBox, (b1, b2) -> ComparisonChain
+				.start()
+				.compare(b1.getPriority(), b2.getPriority())
+				.compare(b1.getPlugin().getName(), b2.getPlugin().getName())
+				.result());
+			infoBoxes.add(idx < 0 ? -idx - 1 : idx, infoBox);
+		}
 
 		BufferedImage image = infoBox.getImage();
 
