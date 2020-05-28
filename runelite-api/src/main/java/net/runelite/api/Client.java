@@ -2005,7 +2005,6 @@ public interface Client extends GameShell
 	void setGeSearchResultIndex(int index);
 
 	/**
-<<<<<<< HEAD
 	 * Sets values related to jagex compliance
 	 */
 	void setComplianceValue(@Nonnull String key, boolean value);
