@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.plugins.Plugin;
 import static org.junit.Assert.assertEquals;
@@ -51,6 +52,10 @@ public class InfoBoxManagerTest
 	@Mock
 	@Bind
 	private RuneLiteConfig runeLiteConfig;
+
+	@Mock
+	@Bind
+	private OpenOSRSConfig openOSRSConfig;
 
 	@Before
 	public void before()
@@ -89,4 +94,4 @@ public class InfoBoxManagerTest
 		List<InfoBoxPriority> order = infoBoxManager.getInfoBoxes().stream().map(InfoBox::getPriority).collect(Collectors.toList());
 		assertEquals(Arrays.asList(InfoBoxPriority.HIGH, InfoBoxPriority.MED, InfoBoxPriority.LOW), order);
 	}
-} 
+}
