@@ -41,14 +41,20 @@ public interface NPCDefinition
 
 	/**
 	 * The 5 menuops this NPC has when in world. Index 0 corresponds to
-	 * {@link MenuAction#NPC_FIRST_OPTION}, Index 2 to
-	 * {@link MenuAction#NPC_SECOND_OPTION} and so on.
+	 * {@link MenuOpcode#NPC_FIRST_OPTION}, Index 2 to
+	 * {@link MenuOpcode#NPC_SECOND_OPTION} and so on.
 	 */
 	String[] getActions();
 
 	boolean isClickable();
 
 	boolean isFollower();
+
+	/**
+	 * NPC can be interacting with via menu options
+	 * @return
+	 */
+	boolean isInteractible();
 
 	/**
 	 * Gets whether the NPC is visible on the mini-map.

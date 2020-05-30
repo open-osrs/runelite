@@ -25,6 +25,10 @@ public interface RSNPCDefinition extends NPCDefinition
 	@Override
 	boolean isFollower();
 
+	@Import("isInteractable")
+	@Override
+	boolean isInteractible();
+
 	@Import("drawMapDot")
 	@Override
 	boolean isMinimapVisible();
