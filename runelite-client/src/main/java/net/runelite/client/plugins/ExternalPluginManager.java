@@ -598,7 +598,7 @@ public class ExternalPluginManager
 
 			if (initConfig)
 			{
-				for (Key<?> key : pluginInjector.getAllBindings().keySet())
+				for (Key<?> key : pluginInjector.getBindings().keySet())
 				{
 					Class<?> type = key.getTypeLiteral().getRawType();
 					if (Config.class.isAssignableFrom(type))
