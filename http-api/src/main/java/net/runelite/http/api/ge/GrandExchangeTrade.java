@@ -24,15 +24,18 @@
  */
 package net.runelite.http.api.ge;
 
-import java.time.Instant;
 import lombok.Data;
+import net.runelite.http.api.worlds.WorldType;
 
 @Data
 public class GrandExchangeTrade
 {
 	private boolean buy;
+	private boolean cancel;
 	private int itemId;
 	private int quantity;
+	private int total;
 	private int price;
-	private Instant time;
+	private int offer;
+	private WorldType worldType;
 }
