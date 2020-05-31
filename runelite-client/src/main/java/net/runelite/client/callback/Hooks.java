@@ -24,6 +24,7 @@
  */
 package net.runelite.client.callback;
 
+import com.google.inject.Injector;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -39,12 +40,15 @@ import java.awt.image.VolatileImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.BufferProvider;
 import net.runelite.api.Client;
+import net.runelite.api.Entity;
 import net.runelite.api.MainBufferProvider;
 import net.runelite.api.NullItemID;
 import net.runelite.api.RenderOverview;
 import net.runelite.api.Skill;
 import net.runelite.api.WorldMapManager;
+import net.runelite.api.events.BeforeMenuRender;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.Event;
 import net.runelite.api.events.FakeXpDrop;
@@ -52,10 +56,12 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.hooks.Callbacks;
+import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetInfo.WORLD_MAP_VIEW;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.Notifier;
+import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.DrawFinished;
@@ -83,6 +89,11 @@ public class Hooks implements Callbacks
 {
 	private static final long CHECK = RSTimeUnit.GAME_TICKS.getDuration().toNanos(); // ns - how often to run checks
 
+	private static final Injector injector = RuneLite.getInjector();
+	private static final Client client = injector.getInstance(Client.class);
+	public static final OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
+	private static final OverlayManager overlayManager = injector.getInstance(OverlayManager.class);
+
 	private static final GameTick GAME_TICK = GameTick.INSTANCE;
 	private static final BeforeRender BEFORE_RENDER = BeforeRender.INSTANCE;
 	private static final DrawFinished drawFinishedEvent = new DrawFinished();
@@ -91,14 +102,6 @@ public class Hooks implements Callbacks
 	private int mouseY = 0;
 	private final Image cursor = ImageUtil.getResourceStreamFromClass(Hooks.class, "cursor.png");
 
-	@Inject
-	private Client client;
-
-	@Inject
-	private OverlayRenderer renderer;
-
-	@Inject
-	private OverlayManager overlayManager;
 
 	@Inject
 	private EventBus eventBus;
@@ -147,7 +150,6 @@ public class Hooks implements Callbacks
 	/**
 	 * Get the Graphics2D for the MainBufferProvider image
 	 * This caches the Graphics2D instance so it can be reused
-	 *
 	 * @param mainBufferProvider
 	 * @return
 	 */
@@ -412,7 +414,7 @@ public class Hooks implements Callbacks
 
 		try
 		{
-			renderer.render((Graphics2D) finalImage.getGraphics(), OverlayLayer.AFTER_MIRROR);
+			renderer.render((Graphics2D)finalImage.getGraphics(), OverlayLayer.AFTER_MIRROR);
 		}
 		catch (Exception ex)
 		{
@@ -473,8 +475,7 @@ public class Hooks implements Callbacks
 		}
 	}
 
-	@Override
-	public void drawAfterWidgets()
+	public static void drawAfterWidgets()
 	{
 		MainBufferProvider bufferProvider = (MainBufferProvider) client.getBufferProvider();
 		Graphics2D graphics2d = getGraphics(bufferProvider);
@@ -529,6 +530,38 @@ public class Hooks implements Callbacks
 		deferredEventBus.replay();
 	}
 
+	public static void renderDraw(Entity entity, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash)
+	{
+		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
+		if (drawCallbacks != null)
+		{
+			drawCallbacks.draw(entity, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash);
+		}
+		else
+		{
+			entity.draw(orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash);
+		}
+	}
+
+	public static void clearColorBuffer(int x, int y, int width, int height, int color)
+	{
+		BufferProvider bp = client.getBufferProvider();
+		int canvasWidth = bp.getWidth();
+		int[] pixels = bp.getPixels();
+
+		int pixelPos = y * canvasWidth + x;
+		int pixelJump = canvasWidth - width;
+
+		for (int cy = y; cy < y + height; cy++)
+		{
+			for (int cx = x; cx < x + width; cx++)
+			{
+				pixels[pixelPos++] = 0;
+			}
+			pixelPos += pixelJump;
+		}
+	}
+
 	@Override
 	public void drawItem(int itemId, WidgetItem widgetItem)
 	{
@@ -537,6 +570,13 @@ public class Hooks implements Callbacks
 		{
 			overlayManager.getItemWidgets().add(widgetItem);
 		}
+	}
+
+	public static boolean drawMenu()
+	{
+		BeforeMenuRender event = new BeforeMenuRender();
+		client.getCallbacks().post(BeforeMenuRender.class, event);
+		return event.isConsumed();
 	}
 
 	public void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
