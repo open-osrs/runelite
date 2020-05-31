@@ -35,6 +35,8 @@ public class Groups extends ReceiverAdapter
 	@Getter(AccessLevel.PUBLIC)
 	private int instanceCount;
 	@Getter(AccessLevel.PUBLIC)
+	private List<Address> members;
+	@Getter(AccessLevel.PUBLIC)
 	private Map<String, List<Address>> messageMap = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
 	private final PublishSubject<Message> messageStringSubject = PublishSubject.create();
@@ -124,7 +126,8 @@ public class Groups extends ReceiverAdapter
 	@Override
 	public void viewAccepted(View view)
 	{
-		instanceCount = view.getMembers().size();
+		members = view.getMembers();
+		instanceCount = members.size();
 	}
 
 	@Override
