@@ -881,6 +881,10 @@ public abstract class RSClientMixin implements RSClient
 		setSceneLowMemory(lowMemory);
 		setAudioHighMemory(true);
 		setObjectDefinitionLowDetail(lowMemory);
+		if (getGameState() == GameState.LOGGED_IN)
+		{
+			setGameState(GameState.LOADING);
+		}
 	}
 
 	@Inject
