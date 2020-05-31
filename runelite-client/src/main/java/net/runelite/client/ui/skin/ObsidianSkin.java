@@ -59,7 +59,7 @@ class ObsidianSkin extends SubstanceSkin
 	ObsidianSkin()
 	{
 		final SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-			.getColorSchemes(getClass().getResourceAsStream(NAME + ".colorschemes"));
+			.getColorSchemes(getClass().getResource(NAME + ".colorschemes"));
 		final SubstanceColorScheme activeScheme = schemes.get("RuneLite Active");
 		final SubstanceColorScheme enabledScheme = schemes.get("RuneLite Enabled");
 
