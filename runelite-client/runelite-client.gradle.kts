@@ -59,7 +59,7 @@ dependencies {
     implementation(group = "org.jgroups", name = "jgroups", version = "4.2.4.Final")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.5.0")
     implementation(group = "net.runelite", name = "discord", version = "1.1")
-    implementation(group = "org.pushing-pixels", name = "radiance-substance", version = "2.5.1")
+    implementation(group = "org.pushing-pixels", name = "radiance-substance", version = "3.0.0")
     implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.8")
     implementation(group = "org.jetbrains", name = "annotations", version = "19.0.0")
@@ -75,7 +75,7 @@ dependencies {
     implementation(group = "org.pf4j", name = "pf4j-update", version = "2.3.0")
     implementation(project(":http-api"))
 
-    runtimeOnly(group = "org.pushing-pixels", name = "radiance-trident", version = "2.5.1")
+    runtimeOnly(group = "org.pushing-pixels", name = "radiance-trident", version = "3.0.0")
     runtimeOnly(project(":injected-client"))
     runtimeOnly(project(":runescape-api"))
 
