@@ -382,7 +382,8 @@ public class PluginListPanel extends PluginPanel
 				Map<String, String> pluginInfoMap = externalPluginManager.getPluginsInfoMap().get(plugin.getClass().getSimpleName());
 				sectionName = pluginInfoMap.get("provider");
 			}
-			catch (NullPointerException e) {
+			catch (NullPointerException e)
+			{
 				sectionName = "Default";
 			}
 
