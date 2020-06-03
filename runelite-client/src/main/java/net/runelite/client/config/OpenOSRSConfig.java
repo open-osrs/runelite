@@ -40,7 +40,8 @@ public interface OpenOSRSConfig extends Config
 	enum SortStyle
 	{
 		CATEGORY("Category"),
-		ALPHABETICALLY("Alphabetically");
+		ALPHABETICALLY("Alphabetically"),
+		REPOSITORY("Repository");
 
 		private String name;
 

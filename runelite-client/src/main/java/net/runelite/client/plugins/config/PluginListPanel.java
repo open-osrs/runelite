@@ -364,6 +364,52 @@ public class PluginListPanel extends PluginPanel
 			sections.get(sectionName).add(pluginListItem);
 		}
 
+		populateSections(sections);
+	}
+
+	private void generatePluginListByRepo(List<PluginListItem> pluginListItems)
+	{
+		final Map<String, JPanel> sections = new HashMap<>();
+
+		for (PluginListItem pluginListItem : pluginListItems)
+		{
+			if (pluginListItem.isPinned())
+			{
+				if (!sections.containsKey("Pinned"))
+				{
+					sections.put("Pinned", addSection("Pinned"));
+				}
+
+				sections.get("Pinned").add(pluginListItem);
+				continue;
+			}
+
+			Plugin plugin = pluginListItem.getPluginConfig().getPlugin();
+			String sectionName;
+
+			try
+			{
+				Map<String, String> pluginInfoMap = externalPluginManager.getPluginsInfoMap().get(plugin.getClass().getSimpleName());
+				sectionName = pluginInfoMap.get("provider");
+			}
+			catch (NullPointerException e)
+			{
+				sectionName = "System";
+			}
+
+			if (!sections.containsKey(sectionName))
+			{
+				sections.put(sectionName, addSection(sectionName));
+			}
+
+			sections.get(sectionName).add(pluginListItem);
+		}
+
+		populateSections(sections);
+	}
+
+	private void populateSections(Map<String, JPanel> sections)
+	{
 		sections.forEach((key, value) ->
 		{
 			Container parent = value.getParent();
@@ -386,7 +432,7 @@ public class PluginListPanel extends PluginPanel
 
 		if (text.isEmpty())
 		{
-			if (openOSRSConfig.pluginSortMode() == OpenOSRSConfig.SortStyle.ALPHABETICALLY || !openOSRSConfig.enableCategories())
+			if (openOSRSConfig.pluginSortMode() == OpenOSRSConfig.SortStyle.ALPHABETICALLY || (!openOSRSConfig.enableCategories() && (openOSRSConfig.pluginSortMode() != OpenOSRSConfig.SortStyle.REPOSITORY)))
 			{
 				pluginList.stream().filter(item -> pinned == item.isPinned()).forEach(mainPanel::add);
 			}
@@ -402,7 +448,7 @@ public class PluginListPanel extends PluginPanel
 			{
 				if (pinned == listItem.isPinned() && Text.matchesSearchTerms(searchTerms, listItem.getKeywords()))
 				{
-					if (openOSRSConfig.pluginSortMode() == OpenOSRSConfig.SortStyle.ALPHABETICALLY || !openOSRSConfig.enableCategories())
+					if (openOSRSConfig.pluginSortMode() == OpenOSRSConfig.SortStyle.ALPHABETICALLY || (!openOSRSConfig.enableCategories() && (openOSRSConfig.pluginSortMode() != OpenOSRSConfig.SortStyle.REPOSITORY)))
 					{
 						mainPanel.add(listItem);
 					}
@@ -417,6 +463,11 @@ public class PluginListPanel extends PluginPanel
 		if (openOSRSConfig.pluginSortMode() == OpenOSRSConfig.SortStyle.CATEGORY && openOSRSConfig.enableCategories())
 		{
 			generatePluginList(plugins);
+		}
+
+		if (openOSRSConfig.pluginSortMode() == OpenOSRSConfig.SortStyle.REPOSITORY)
+		{
+			generatePluginListByRepo(plugins);
 		}
 	}
 
