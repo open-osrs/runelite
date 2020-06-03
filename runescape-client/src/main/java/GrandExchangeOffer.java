@@ -256,7 +256,7 @@ public class GrandExchangeOffer {
 			var4.walkBackSequence = var4.definition.walkBackSequence;
 			var4.walkLeftSequence = var4.definition.walkLeftSequence;
 			var4.walkRightSequence = var4.definition.walkRightSequence;
-			var4.readySequence = var4.definition.readySequence;
+			var4.idleSequence = var4.definition.idleSequence;
 			var4.turnLeftSequence = var4.definition.turnLeftSequence;
 			var4.turnRightSequence = var4.definition.turnRightSequence;
 			var4.method2136(ByteArrayPool.localPlayer.pathX[0] + var9, ByteArrayPool.localPlayer.pathY[0] + var5, var7 == 1);

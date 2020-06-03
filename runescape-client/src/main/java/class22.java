@@ -364,7 +364,7 @@ public class class22 {
 	static void addPlayerToScene(Player var0, boolean var1) {
 		if (var0 != null && var0.isVisible() && !var0.isHidden) {
 			var0.isUnanimated = false;
-			if ((Client.isLowDetail && Players.Players_count > 50 || Players.Players_count > 200) && var1 && var0.movementSequence == var0.readySequence) {
+			if ((Client.isLowDetail && Players.Players_count > 50 || Players.Players_count > 200) && var1 && var0.movementSequence == var0.idleSequence) {
 				var0.isUnanimated = true;
 			}
 

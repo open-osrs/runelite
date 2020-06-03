@@ -227,9 +227,9 @@ public final class Player extends Actor {
 			var9[var6] = var7;
 		}
 
-		super.readySequence = var1.readUnsignedShort();
-		if (super.readySequence == 65535) {
-			super.readySequence = -1;
+		super.idleSequence = var1.readUnsignedShort();
+		if (super.idleSequence == 65535) {
+			super.idleSequence = -1;
 		}
 
 		super.turnLeftSequence = var1.readUnsignedShort();
@@ -373,7 +373,7 @@ public final class Player extends Actor {
 			return null;
 		} else {
 			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? SpotAnimationDefinition.SequenceDefinition_get(super.sequence) : null;
-			SequenceDefinition var2 = super.movementSequence == -1 || this.isUnanimated || super.readySequence == super.movementSequence && var1 != null ? null : SpotAnimationDefinition.SequenceDefinition_get(super.movementSequence);
+			SequenceDefinition var2 = super.movementSequence == -1 || this.isUnanimated || super.idleSequence == super.movementSequence && var1 != null ? null : SpotAnimationDefinition.SequenceDefinition_get(super.movementSequence);
 			Model var3 = this.appearance.getModel(var1, super.sequenceFrame, var2, super.movementFrame);
 			if (var3 == null) {
 				return null;

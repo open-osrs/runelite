@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -101,7 +102,7 @@ public interface RSActor extends RSEntity, Actor
 
 	// Idle animation
 
-	@Import("readySequence")
+	@Import("idleSequence")
 	@Override
 	void setIdlePoseAnimation(int animation);
 

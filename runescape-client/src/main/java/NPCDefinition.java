@@ -55,8 +55,8 @@ public class NPCDefinition extends DualNode {
 	@ObfuscatedGetter(
 		intValue = -1727903795
 	)
-	@Export("readySequence")
-	public int readySequence;
+	@Export("idleSequence")
+	public int idleSequence;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1188737805
@@ -195,7 +195,7 @@ public class NPCDefinition extends DualNode {
 	NPCDefinition() {
 		this.name = "null";
 		this.size = 1;
-		this.readySequence = -1;
+		this.idleSequence = -1;
 		this.turnLeftSequence = -1;
 		this.turnRightSequence = -1;
 		this.walkSequence = -1;
@@ -266,7 +266,7 @@ public class NPCDefinition extends DualNode {
 		} else if (var2 == 12) {
 			this.size = var1.readUnsignedByte();
 		} else if (var2 == 13) {
-			this.readySequence = var1.readUnsignedShort();
+			this.idleSequence = var1.readUnsignedShort();
 		} else if (var2 == 14) {
 			this.walkSequence = var1.readUnsignedShort();
 		} else if (var2 == 15) {
