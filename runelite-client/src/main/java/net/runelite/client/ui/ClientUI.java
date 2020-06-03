@@ -36,7 +36,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
-import static java.awt.GraphicsDevice.WindowTranslucency.TRANSLUCENT;
 import java.awt.GraphicsEnvironment;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
@@ -61,7 +60,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
@@ -99,6 +97,8 @@ import net.runelite.client.util.WinUtil;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceTitlePaneUtilities;
+import static java.awt.GraphicsDevice.WindowTranslucency.TRANSLUCENT;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 /**
  * Client UI.
@@ -432,7 +432,8 @@ public class ClientUI
 
 			// Decorate window with custom chrome and titlebar if needed
 			withTitleBar = config.enableCustomChrome();
-			frame.setUndecorated(withTitleBar);
+			final boolean borderless = config.borderless();
+			frame.setUndecorated(withTitleBar | borderless);
 
 			if (withTitleBar)
 			{
@@ -479,6 +480,10 @@ public class ClientUI
 						titleToolbar.setBounds(titleBar.getWidth() - 75 - width, 0, width, titleBar.getHeight());
 					}
 				});
+			}
+			else if (borderless)
+			{
+				frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 			}
 
 			// Update config

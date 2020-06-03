@@ -113,6 +113,19 @@ public interface RuneLiteConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "borderless",
+		name = "Windowed borderless",
+		description = "Use windowed borderless mode",
+		warning = "Please restart your client after changing this setting",
+		position = 6, // I don't want to change all numbers and this moves it below the other 6, fight me
+		titleSection = "uiTitle"
+	)
+	default boolean borderless()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "usernameInTitle",
 		name = "Show display name in title",
 		description = "Toggles displaying of local player's display name in client title",
