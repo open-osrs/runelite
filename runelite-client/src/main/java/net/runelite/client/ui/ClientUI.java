@@ -1047,17 +1047,27 @@ public class ClientUI
 
 		if (opacity != null && opacity)
 		{
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			GraphicsDevice gd = ge.getDefaultScreenDevice();
-
-			if (gd.isWindowTranslucencySupported(TRANSLUCENT))
+			// Update window opacity if the frame is undecorated, translucency capable and not fullscreen
+			if (frame.isUndecorated() &&
+				frame.getGraphicsConfiguration().isTranslucencyCapable() &&
+				frame.getGraphicsConfiguration().getDevice().getFullScreenWindow() == null)
 			{
-				setOpacity();
+				frame.setOpacity(Float.parseFloat(configManager.getConfiguration(PLUS_CONFIG_GROUP, CONFIG_OPACITY_AMOUNT)) / 100F);
 			}
 			else
 			{
-				log.warn("Opacity isn't supported on your system!");
-				configManager.setConfiguration(PLUS_CONFIG_GROUP, CONFIG_OPACITY, false);
+				GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+				GraphicsDevice gd = ge.getDefaultScreenDevice();
+
+				if (gd.isWindowTranslucencySupported(TRANSLUCENT))
+				{
+					setOpacity();
+				}
+				else
+				{
+					log.warn("Opacity isn't supported on your system!");
+					configManager.setConfiguration(PLUS_CONFIG_GROUP, CONFIG_OPACITY, false);
+				}
 			}
 		}
 		else if (frame.getOpacity() != 1F)
