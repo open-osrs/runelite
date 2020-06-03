@@ -146,4 +146,40 @@ public interface RSActor extends RSEntity, Actor
 
 	@Import("hitSplatCycles")
 	int[] getHitsplatCycles();
+
+	@Import("idleSequence")
+	@Override
+	int getIdleAnimation();
+
+	@Import("turnLeftSequence")
+	@Override
+	int getTurnLeftAnimation();
+
+	@Import("turnRightSequence")
+	@Override
+	int getTurnRightAnimation();
+
+	@Import("walkSequence")
+	@Override
+	int getWalkAnimation();
+
+	@Import("walkBackSequence")
+	@Override
+	int getWalkBackAnimation();
+
+	@Import("walkLeftSequence")
+	@Override
+	int getWalkLeftAnimation();
+
+	@Import("walkRightSequence")
+	@Override
+	int getWalkRightAnimation();
+
+	@Import("runSequence")
+	@Override
+	int getRunAnimation();
+
+	@Import("movementSequence")
+	@Override
+	int getMovementAnimation();
 }
