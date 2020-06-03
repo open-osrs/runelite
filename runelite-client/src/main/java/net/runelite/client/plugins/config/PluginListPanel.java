@@ -384,7 +384,7 @@ public class PluginListPanel extends PluginPanel
 			}
 			catch (NullPointerException e)
 			{
-				sectionName = "Default";
+				sectionName = "System";
 			}
 
 			if (!sections.containsKey(sectionName))
