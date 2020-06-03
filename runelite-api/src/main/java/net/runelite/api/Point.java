@@ -45,4 +45,16 @@ public class Point
 	{
 		return (int) Math.hypot(getX() - other.getX(), getY() - other.getY());
 	}
+
+	/**
+	 * Returns a new point offset by xOff and yOff
+	 *
+	 * @param xOff X offset to apply
+	 * @param yOff Y offset to apply
+	 * @return A new instance of Point, offset by x + xOff and y + yOff
+	 */
+	public Point offset(int xOff, int yOff)
+	{
+		return new Point(x + xOff, y + yOff);
+	}
 }
