@@ -753,6 +753,11 @@ public class ConfigManager
 				}
 
 				String current = getConfiguration(group.value(), item.keyName());
+				if (defaultValue == null)
+				{
+					log.error("Plugin with bad default configuration, see config group {}, keyName {}", group.value(), item.keyName());
+					continue;
+				}
 				String valueString = objectToString(defaultValue);
 				// null and the empty string are treated identically in sendConfig and treated as an unset
 				// If a config value defaults to "" and the current value is null, it will cause an extra
