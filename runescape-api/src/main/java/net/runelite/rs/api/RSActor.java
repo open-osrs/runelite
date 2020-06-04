@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -101,7 +102,7 @@ public interface RSActor extends RSEntity, Actor
 
 	// Idle animation
 
-	@Import("readySequence")
+	@Import("idleSequence")
 	@Override
 	void setIdlePoseAnimation(int animation);
 
@@ -145,4 +146,40 @@ public interface RSActor extends RSEntity, Actor
 
 	@Import("hitSplatCycles")
 	int[] getHitsplatCycles();
+
+	@Import("idleSequence")
+	@Override
+	int getIdleAnimation();
+
+	@Import("turnLeftSequence")
+	@Override
+	int getTurnLeftAnimation();
+
+	@Import("turnRightSequence")
+	@Override
+	int getTurnRightAnimation();
+
+	@Import("walkSequence")
+	@Override
+	int getWalkAnimation();
+
+	@Import("walkBackSequence")
+	@Override
+	int getWalkBackAnimation();
+
+	@Import("walkLeftSequence")
+	@Override
+	int getWalkLeftAnimation();
+
+	@Import("walkRightSequence")
+	@Override
+	int getWalkRightAnimation();
+
+	@Import("runSequence")
+	@Override
+	int getRunAnimation();
+
+	@Import("movementSequence")
+	@Override
+	int getMovementAnimation();
 }

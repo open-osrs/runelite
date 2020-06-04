@@ -43,8 +43,8 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = 399800473
 	)
-	@Export("readySequence")
-	int readySequence;
+	@Export("idleSequence")
+	int idleSequence;
 	@ObfuscatedName("am")
 	@ObfuscatedGetter(
 		intValue = -684262003
@@ -318,7 +318,7 @@ public abstract class Actor extends Entity {
 	Actor() {
 		this.isWalking = false;
 		this.field976 = 1;
-		this.readySequence = -1;
+		this.idleSequence = -1;
 		this.turnLeftSequence = -1;
 		this.turnRightSequence = -1;
 		this.walkSequence = -1;

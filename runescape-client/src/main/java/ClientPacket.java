@@ -658,7 +658,7 @@ public class ClientPacket implements class190 {
 		garbageValue = "135896742"
 	)
 	static final void method3686(Actor var0) {
-		var0.movementSequence = var0.readySequence;
+		var0.movementSequence = var0.idleSequence;
 		if (var0.pathLength == 0) {
 			var0.field1031 = 0;
 		} else {

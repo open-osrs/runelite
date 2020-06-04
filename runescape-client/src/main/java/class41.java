@@ -122,7 +122,7 @@ public class class41 {
 						var10 = false;
 					}
 
-					if (var0.movementSequence == var0.readySequence && (var0.field1025 > 25 || var10)) {
+					if (var0.movementSequence == var0.idleSequence && (var0.field1025 > 25 || var10)) {
 						if (var0.turnLeftSequence != -1) {
 							var0.movementSequence = var0.turnLeftSequence;
 						} else {
@@ -137,7 +137,7 @@ public class class41 {
 						var10 = false;
 					}
 
-					if (var0.movementSequence == var0.readySequence && (var0.field1025 > 25 || var10)) {
+					if (var0.movementSequence == var0.idleSequence && (var0.field1025 > 25 || var10)) {
 						if (var0.turnRightSequence != -1) {
 							var0.movementSequence = var0.turnRightSequence;
 						} else {

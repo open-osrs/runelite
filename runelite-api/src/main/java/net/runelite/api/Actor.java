@@ -246,4 +246,33 @@ public interface Actor extends Entity, Locatable
 	 */
 	int getActionFrame();
 	int getActionFrameCycle();
+
+	/*
+	 This collection of methods gets extended debug information about the actor
+
+	 Used by dev tools
+	 */
+
+	int getIdleAnimation();
+
+	int getTurnLeftAnimation();
+
+	int getTurnRightAnimation();
+
+	int getWalkAnimation();
+
+	int getWalkBackAnimation();
+
+	int getWalkLeftAnimation();
+
+	int getWalkRightAnimation();
+
+	int getRunAnimation();
+
+	/**
+	 * This gets used for drawing the correct animation.
+	 *
+	 * The client moves one of the other animation fields into this field based off the actor's state
+	 */
+	int getMovementAnimation();
 }
