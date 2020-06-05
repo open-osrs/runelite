@@ -86,6 +86,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.BLADE_OF_SAELDOR_C, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.BLADE_OF_SAELDOR_INACTIVE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.BLESSED_AXE, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.BLISTERWOOD_SICKLE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.BLUE_FLOWERS, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.BLUE_FLOWERS_8936, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.BLURITE_SWORD, WeaponStyle.MELEE);
@@ -366,6 +367,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_22664, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_UNCHARGED, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SEVERED_LEG_24792, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SHADOW_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SHAYZIEN_BANNER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SILVERLIGHT, WeaponStyle.MELEE);
@@ -638,6 +640,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.BANDOS_CROZIER, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.BATTLESTAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.BEGINNER_WAND, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.BLISTERWOOD_FLAIL, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.BROKEN_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.BRYOPHYTAS_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.BRYOPHYTAS_STAFF_UNCHARGED, WeaponStyle.MAGIC);
