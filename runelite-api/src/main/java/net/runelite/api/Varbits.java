@@ -377,6 +377,7 @@ public enum Varbits
 	/**
 	 * Pyramid plunder
 	 */
+	PYRAMID_PLUNDER_CHEST_OPEN(2363),
 	PYRAMID_PLUNDER_TIMER(2375),
 	PYRAMID_PLUNDER_ROOM(2377),
 
