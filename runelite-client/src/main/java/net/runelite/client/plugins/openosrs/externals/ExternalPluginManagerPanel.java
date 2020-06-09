@@ -1,8 +1,6 @@
 package net.runelite.client.plugins.openosrs.externals;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -10,13 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.plugins.ExternalPluginManager;
@@ -95,6 +87,22 @@ public class ExternalPluginManagerPanel extends PluginPanel
 			@Override
 			public void mousePressed(MouseEvent mouseEvent)
 			{
+				if(externalPluginManager.getWarning()) {
+					JCheckBox checkbox = new JCheckBox("Don't show again.");
+					Object[] options = {"Okay, I accept the risk", "Never mind, turn back", checkbox};
+					int answer = JOptionPane.showOptionDialog(new JFrame(),
+							"Adding plugins from unverified sources may put your account, or personal information at risk!   \n",
+							"Account security warning",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.WARNING_MESSAGE,
+							null,
+							options,
+							options[0]);
+
+					if(answer == 1) return;
+					if(checkbox.isSelected()) externalPluginManager.setWarning(false);
+				}
+
 				JTextField owner = new JTextField();
 				JTextField name = new JTextField();
 				Object[] message = {
@@ -146,6 +154,23 @@ public class ExternalPluginManagerPanel extends PluginPanel
 			@Override
 			public void mousePressed(MouseEvent mouseEvent)
 			{
+				if(externalPluginManager.getWarning()) {
+					JCheckBox checkbox = new JCheckBox("Don't show again.");
+					Object[] options = {"Okay, I accept the risk", "Never mind, turn back", checkbox};
+					int answer = JOptionPane.showOptionDialog(new JFrame(),
+							"Adding plugins from unverified sources may put your account, or personal information at risk!   \n",
+							"Account security warning",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.WARNING_MESSAGE,
+							null,
+							options,
+							options[0]);
+
+					if(answer == 1) return;
+					if(checkbox.isSelected()) externalPluginManager.setWarning(false);
+				}
+
+
 				JTextField id = new JTextField();
 				JTextField url = new JTextField();
 				Object[] message = {

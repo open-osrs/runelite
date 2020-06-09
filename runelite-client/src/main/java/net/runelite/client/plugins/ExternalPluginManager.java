@@ -349,6 +349,17 @@ public class ExternalPluginManager
 		openOSRSConfig.setExternalRepositories(config.toString());
 	}
 
+	public void setWarning(boolean val)
+	{
+		configManager.setConfiguration("openosrs", "warning", val);
+	}
+
+	public boolean getWarning()
+	{
+		return openOSRSConfig.warning();
+	}
+
+
 
 	/**
 	 * This method is a fail safe to ensure that no duplicate

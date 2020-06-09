@@ -359,4 +359,12 @@ public interface OpenOSRSConfig extends Config
 		hidden = true
 	)
 	void setExternalRepositories(String val);
+
+	@ConfigItem(
+			keyName = "warning",
+			name = "",
+			description = "",
+			hidden = true
+	)
+	default boolean warning(){return true;}
 }
