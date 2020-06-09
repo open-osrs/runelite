@@ -359,8 +359,6 @@ public class ExternalPluginManager
 		return openOSRSConfig.warning();
 	}
 
-
-
 	/**
 	 * This method is a fail safe to ensure that no duplicate
 	 * repositories end up getting saved to the config.
