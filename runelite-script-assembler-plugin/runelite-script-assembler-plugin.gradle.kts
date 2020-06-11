@@ -39,28 +39,34 @@ dependencies {
 
 tasks {
     register<JavaExec>("assembleMojo") {
+        inputs.files(
+                fileTree("${project.extra["rootPath"]}/runelite-client/src/main/scripts")
+        )
+
+        outputs.dir("${project.extra["rootPath"]}/runelite-client/build/scripts/runelite");
+
         classpath = project.sourceSets.main.get().runtimeClasspath
         main = "net.runelite.script.AssembleMojo"
         args(listOf(
                 "${project.extra["rootPath"]}/runelite-client/src/main/scripts",
-                "${project.extra["rootPath"]}/runelite-client/src/main/resources/runelite"
+                "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite"
         ))
     }
 
     register<JavaExec>("indexMojo") {
+        inputs.files(
+            fileTree("${project.extra["rootPath"]}/runelite-client/build/scripts/runelite")
+        )
+
+        outputs.file("${project.extra["rootPath"]}/runelite-client/build/scripts/runelite/index");
+
         dependsOn("assembleMojo")
 
         classpath = project.sourceSets.main.get().runtimeClasspath
         main = "net.runelite.script.IndexMojo"
         args(listOf(
-                "${project.extra["rootPath"]}/runelite-client/src/main/resources/runelite",
-                "${project.extra["rootPath"]}/runelite-client/src/main/resources/runelite/index"
+                "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite",
+                "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite/index"
         ))
-    }
-
-    compileJava {
-        outputs.upToDateWhen {false}
-
-        finalizedBy("indexMojo")
     }
 }
