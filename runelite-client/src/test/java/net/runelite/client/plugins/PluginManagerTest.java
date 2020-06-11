@@ -47,6 +47,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import net.runelite.api.Client;
 import net.runelite.api.events.Event;
 import net.runelite.client.RuneLite;
@@ -56,6 +58,7 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.eventbus.AccessorGenerator;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Rule;
@@ -81,12 +84,16 @@ public class PluginManagerTest
 	@Bind
 	public Client client;
 
+	private ExecutorService executorService;
+
 	private Set<Class> pluginClasses;
 	private Set<Class> configClasses;
 
 	@Before
 	public void before() throws IOException
 	{
+		executorService = Executors.newSingleThreadScheduledExecutor();
+
 		Injector injector = Guice.createInjector(Modules
 			.override(new RuneLiteModule(() -> null, RuneLite.DEFAULT_CONFIG_FILE))
 			.with(BoundFieldModule.of(this)));
@@ -114,10 +121,16 @@ public class PluginManagerTest
 		}
 	}
 
+	@After
+	public void after()
+	{
+		executorService.shutdownNow();
+	}
+
 	@Test
 	public void testLoadPlugins() throws Exception
 	{
-		PluginManager pluginManager = new PluginManager(null, null, null, null, null, null);
+		PluginManager pluginManager = new PluginManager(null, null, executorService, null, null, null, null);
 		pluginManager.setOutdated(true);
 		pluginManager.loadCorePlugins();
 		Collection<Plugin> plugins = pluginManager.getPlugins();
@@ -128,7 +141,7 @@ public class PluginManagerTest
 			.count();
 		assertEquals(expected, plugins.size());
 
-		pluginManager = new PluginManager(null, null, null, null, null, null);
+		pluginManager = new PluginManager(null, null, executorService, null, null, null, null);
 		pluginManager.loadCorePlugins();
 		plugins = pluginManager.getPlugins();
 
@@ -146,7 +159,7 @@ public class PluginManagerTest
 		modules.add(new GraphvizModule());
 		modules.add(new RuneLiteModule(() -> null, RuneLite.DEFAULT_CONFIG_FILE));
 
-		PluginManager pluginManager = new PluginManager(null, null, null, null, null, null);
+		PluginManager pluginManager = new PluginManager(null, null, executorService, null, null, null, null);
 		pluginManager.loadCorePlugins();
 		modules.addAll(pluginManager.getPlugins());
 
@@ -198,7 +211,7 @@ public class PluginManagerTest
 	public void testEventbusAnnotations() throws Exception
 	{
 		EventBus eventbus = new EventBus();
-		PluginManager pluginManager = new PluginManager(eventbus, null, null, null, null, null)
+		PluginManager pluginManager = new PluginManager(eventbus, null, executorService, null, null, null, null)
 		{
 			@Override
 			public boolean isPluginEnabled(Plugin plugin)
@@ -207,7 +220,9 @@ public class PluginManagerTest
 			}
 		};
 
-		class TestEvent implements Event {}
+		class TestEvent implements Event
+		{
+		}
 		class TestPlugin extends Plugin
 		{
 			private boolean thisShouldBeTrue = false;

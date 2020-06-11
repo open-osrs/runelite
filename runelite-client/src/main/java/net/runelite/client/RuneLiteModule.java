@@ -24,13 +24,18 @@
  */
 package net.runelite.client;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
 import java.applet.Applet;
 import java.io.File;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
@@ -51,6 +56,7 @@ import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.util.DeferredEventBus;
 import net.runelite.client.util.ExecutorServiceExceptionLogger;
+import net.runelite.client.util.NonScheduledExecutorServiceExceptionLogger;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -74,7 +80,6 @@ public class RuneLiteModule extends AbstractModule
 	protected void configure()
 	{
 		bind(File.class).annotatedWith(Names.named("config")).toInstance(config);
-		bind(ScheduledExecutorService.class).toInstance(new ExecutorServiceExceptionLogger(Executors.newSingleThreadScheduledExecutor()));
 		bind(OkHttpClient.class).toInstance(RuneLiteAPI.CLIENT.newBuilder()
 			.cache(new Cache(new File(RuneLite.CACHE_DIR, "okhttp"), MAX_OKHTTP_CACHE_SIZE))
 			.build());
@@ -139,5 +144,31 @@ public class RuneLiteModule extends AbstractModule
 	LauncherConfig provideLauncherConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(LauncherConfig.class);
+	}
+
+	@Provides
+	@Singleton
+	ScheduledExecutorService provideScheduledExecutorService()
+	{
+		return new ExecutorServiceExceptionLogger(Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder()
+			.setNameFormat("scheduled-%d")
+			.build()));
+	}
+
+	@Provides
+	@Singleton
+	ExecutorService provideExecutorService()
+	{
+		int poolSize = 2 * Runtime.getRuntime().availableProcessors();
+
+		// Will start up to poolSize threads (because of allowCoreThreadTimeOut) as necessary, and times out
+		// unused threads after 1 minute
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(poolSize, poolSize,
+			60L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<>(),
+			new ThreadFactoryBuilder().setNameFormat("worker-%d").build());
+		executor.allowCoreThreadTimeOut(true);
+
+		return new NonScheduledExecutorServiceExceptionLogger(executor);
 	}
 }
