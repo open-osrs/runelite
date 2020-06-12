@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Shingyx <https://github.com/Shingyx>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,24 +22,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.ge;
+package net.runelite.client.ui.components;
 
-import lombok.Data;
-import net.runelite.http.api.worlds.WorldType;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.SwingUtilities;
 
-@Data
-public class GrandExchangeTrade
+/**
+ * Forwards left mouse button drag events to the target Component.
+ */
+public class MouseDragEventForwarder extends MouseAdapter
 {
-	private boolean buy;
-	private boolean cancel;
-	private boolean login;
-	private int itemId;
-	private int qty;
-	private int dqty;
-	private int total;
-	private int spent;
-	private int dspent;
-	private int offer;
-	private int slot;
-	private WorldType worldType;
+	private final Component target;
+
+	public MouseDragEventForwarder(Component target)
+	{
+		this.target = target;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		processEvent(e);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e)
+	{
+		processEvent(e);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+		processEvent(e);
+	}
+
+	private void processEvent(MouseEvent e)
+	{
+		if (SwingUtilities.isLeftMouseButton(e))
+		{
+			MouseEvent eventForTarget = SwingUtilities.convertMouseEvent((Component) e.getSource(), e, target);
+			target.dispatchEvent(eventForTarget);
+		}
+	}
 }

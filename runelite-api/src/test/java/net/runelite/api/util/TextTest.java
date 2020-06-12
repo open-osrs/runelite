@@ -49,4 +49,18 @@ public class TextTest
 	{
 		assertEquals("Whoever This Is Lmao", Text.toJagexName("-__- - \u00A0\u00A0 Whoever\uABCD\uABCD\u00A0T\uABBBhis  Is-Lmao"));
 	}
+
+	@Test
+	public void removeFormattingTags()
+	{
+		assertEquals("Test", Text.removeFormattingTags("<col=FFFFFF>Test</col>"));
+		assertEquals("Test", Text.removeFormattingTags("<img=1><s>Test</s>"));
+		assertEquals("Zezima  (level-126)", Text.removeFormattingTags("<col=ffffff><img=2>Zezima<col=00ffff>  (level-126)"));
+		assertEquals("", Text.removeFormattingTags("<colrandomtext test>"));
+		assertEquals("Not so much.", Text.removeFormattingTags("<col=FFFFFF This is a very special message.</col>Not so much."));
+		assertEquals("Use Item -> Man", Text.removeFormattingTags("Use Item -> Man"));
+		assertEquals("a < b", Text.removeFormattingTags("a < b"));
+		assertEquals("a <lt> b", Text.removeFormattingTags("a <lt> b"));
+		assertEquals("Remove no tags", Text.removeFormattingTags("Remove no tags"));
+	}
 }

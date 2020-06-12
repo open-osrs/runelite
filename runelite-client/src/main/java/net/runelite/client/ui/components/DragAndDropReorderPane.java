@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Shingyx <https://github.com/Shingyx>
+ * Copyright (c) 2020, Shingyx <https://github.com/Shingyx>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,23 +31,19 @@ import java.awt.Point;
 import java.awt.dnd.DragSource;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JLayeredPane;
+import javax.swing.SwingUtilities;
 
 /**
  * Pane which allows reordering its components via drag and drop.
- * <p>
- * For child components' popup menus, implement the PopupMenuOwner interface in the child components.
  */
 public class DragAndDropReorderPane extends JLayeredPane
 {
 	private Point dragStartPoint;
 	private Component draggingComponent;
+	private int dragYOffset = 0;
 	private int dragIndex = -1;
-
-	private final Map<Integer, PopupMenuOwner> popupMenuCandidates = new HashMap<>();  // keyed by mouse button
 
 	public DragAndDropReorderPane()
 	{
@@ -76,6 +72,7 @@ public class DragAndDropReorderPane extends JLayeredPane
 			dragStartPoint = null;
 			return;
 		}
+		dragYOffset = SwingUtilities.convertPoint(this, dragStartPoint, draggingComponent).y;
 		dragIndex = getPosition(draggingComponent);
 		setLayer(draggingComponent, DRAG_LAYER);
 		moveDraggingComponent(point);
@@ -85,7 +82,13 @@ public class DragAndDropReorderPane extends JLayeredPane
 	{
 		moveDraggingComponent(point);
 
-		Component component = getDefaultLayerComponentAt(point);
+		// reorder components overlapping with the dragging components mid-point
+		Point draggingComponentMidPoint = SwingUtilities.convertPoint(
+			draggingComponent,
+			new Point(draggingComponent.getWidth() / 2, draggingComponent.getHeight() / 2),
+			this
+		);
+		Component component = getDefaultLayerComponentAt(draggingComponentMidPoint);
 		if (component != null)
 		{
 			int index = getPosition(component);
@@ -99,17 +102,18 @@ public class DragAndDropReorderPane extends JLayeredPane
 		if (draggingComponent != null)
 		{
 			setLayer(draggingComponent, DEFAULT_LAYER, dragIndex);
+			draggingComponent = null;
+			dragYOffset = 0;
+			dragIndex = -1;
 			revalidate();
 		}
 		dragStartPoint = null;
-		draggingComponent = null;
-		dragIndex = -1;
 	}
 
 	private void moveDraggingComponent(Point point)
 	{
-		// place the center of the dragging component onto the mouse cursor
-		int y = point.y - draggingComponent.getHeight() / 2;
+		// shift the dragging component to match it's earlier y offset with the mouse
+		int y = point.y - dragYOffset;
 		// clamp the height to stay within the pane
 		y = Math.max(y, 0);
 		y = Math.min(y, getHeight() - draggingComponent.getHeight());
@@ -160,87 +164,35 @@ public class DragAndDropReorderPane extends JLayeredPane
 		@Override
 		public void mousePressed(MouseEvent e)
 		{
-			Point point = e.getPoint();
-			int mouseButton = e.getButton();
-
-			if (mouseButton == MouseEvent.BUTTON1)
+			if (SwingUtilities.isLeftMouseButton(e) && getComponentCount() > 1)
 			{
-				// candidate for dragging
-				if (popupMenuCandidates.isEmpty() && getComponentCount() > 1)
-				{
-					dragStartPoint = point;
-				}
-			}
-			else
-			{
-				if (dragStartPoint != null)
-				{
-					finishDragging();
-				}
-				else
-				{
-					// candidate for child popup menu
-					Component component = getDefaultLayerComponentAt(point);
-					if (component instanceof PopupMenuOwner)
-					{
-						PopupMenuOwner popupMenuCandidate = (PopupMenuOwner) component;
-						if (e.isPopupTrigger())
-						{
-							popupMenuCandidate.getPopupMenu().show(DragAndDropReorderPane.this, point.x, point.y);
-						}
-						else
-						{
-							popupMenuCandidates.put(mouseButton, popupMenuCandidate);
-						}
-					}
-				}
+				dragStartPoint = e.getPoint();
 			}
 		}
 
 		@Override
 		public void mouseDragged(MouseEvent e)
 		{
-			if (dragStartPoint == null)
+			if (SwingUtilities.isLeftMouseButton(e) && dragStartPoint != null)
 			{
-				return;
-			}
-			Point point = e.getPoint();
-			if (contains(point))
-			{
-				if (draggingComponent == null)
-				{
-					if (point.distance(dragStartPoint) > DragSource.getDragThreshold())
-					{
-						startDragging(point);
-					}
-				}
-				else
+				Point point = e.getPoint();
+				if (draggingComponent != null)
 				{
 					drag(point);
 				}
-			}
-			else
-			{
-				finishDragging();
+				else if (point.distance(dragStartPoint) > DragSource.getDragThreshold())
+				{
+					startDragging(point);
+				}
 			}
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e)
 		{
-			Point point = e.getPoint();
-			int mouseButton = e.getButton();
-			if (mouseButton == MouseEvent.BUTTON1)
+			if (SwingUtilities.isLeftMouseButton(e))
 			{
 				finishDragging();
-			}
-			else
-			{
-				PopupMenuOwner popupMenuCandidate = popupMenuCandidates.remove(mouseButton);
-				if (popupMenuCandidate != null && e.isPopupTrigger())
-				{
-					popupMenuCandidate.getPopupMenu().show(DragAndDropReorderPane.this, point.x, point.y);
-				}
 			}
 		}
 	}
