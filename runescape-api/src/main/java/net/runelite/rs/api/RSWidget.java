@@ -89,6 +89,12 @@ public interface RSWidget extends Widget
 	@Import("modelType")
 	void setModelType(int modelType);
 
+	@Import("sequenceId")
+	int getAnimationId();
+
+	@Import("sequenceId")
+	void setAnimationId(int animationId);
+
 	@Import("actions")
 	@Override
 	String[] getActions();
@@ -254,6 +260,14 @@ public interface RSWidget extends Widget
 	@Import("spriteId2")
 	@Override
 	void setSpriteId(int spriteId);
+
+	@Import("spriteTiling")
+	@Override
+	boolean getSpriteTiling();
+
+	@Import("spriteTiling")
+	@Override
+	void setSpriteTiling(boolean tiling);
 
 	@Import("outline")
 	@Override
