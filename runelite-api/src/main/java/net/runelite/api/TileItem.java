@@ -36,4 +36,10 @@ public interface TileItem extends Entity
 	int getId();
 
 	int getQuantity();
+
+	/**
+	 * Time in game ticks when the item spawned (relative to us)
+	 * @return
+	 */
+	int getSpawnTime();
 }

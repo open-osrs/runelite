@@ -24,7 +24,6 @@
  */
 package net.runelite.client.chat;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -581,8 +580,8 @@ public class ChatMessageManager
 		// this updates chat cycle
 		client.addChatMessage(
 			message.getType(),
-			MoreObjects.firstNonNull(message.getName(), ""),
-			MoreObjects.firstNonNull(message.getValue(), message.getRuneLiteFormattedMessage()),
+			Objects.requireNonNullElse(message.getName(), ""),
+			Objects.requireNonNullElse(message.getValue(), message.getRuneLiteFormattedMessage()),
 			message.getSender());
 
 		// Get last message from line buffer (the one we just added)

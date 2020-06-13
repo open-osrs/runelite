@@ -24,7 +24,6 @@
  */
 package net.runelite.client.ui.overlay.components;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,6 +31,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,8 +64,8 @@ public class LineComponent implements LayoutableRenderableEntity
 	public Dimension render(Graphics2D graphics)
 	{
 		// Prevent NPEs
-		final String left = MoreObjects.firstNonNull(this.left, "");
-		final String right = MoreObjects.firstNonNull(this.right, "");
+		final String left = Objects.requireNonNullElse(this.left, "");
+		final String right = Objects.requireNonNullElse(this.right, "");
 
 		final FontMetrics metrics = graphics.getFontMetrics();
 		final int baseX = preferredLocation.x;
