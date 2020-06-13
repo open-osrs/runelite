@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.UUID;
 import javax.inject.Inject;
@@ -121,7 +122,7 @@ public class SessionManager
 			return;
 		}
 
-		try (FileWriter fw = new FileWriter(SESSION_FILE))
+		try (FileWriter fw = new FileWriter(SESSION_FILE, StandardCharsets.UTF_8))
 		{
 			new Gson().toJson(accountSession, fw);
 

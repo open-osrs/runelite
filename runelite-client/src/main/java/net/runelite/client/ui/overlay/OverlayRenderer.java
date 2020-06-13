@@ -24,7 +24,6 @@
  */
 package net.runelite.client.ui.overlay;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.primitives.Ints;
 import java.awt.Color;
 import java.awt.Composite;
@@ -42,6 +41,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
@@ -679,7 +679,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			return;
 		}
 
-		final Dimension dimension = MoreObjects.firstNonNull(overlayDimension, new Dimension());
+		final Dimension dimension = Objects.requireNonNullElse(overlayDimension, new Dimension());
 		overlay.getBounds().setSize(dimension);
 	}
 
