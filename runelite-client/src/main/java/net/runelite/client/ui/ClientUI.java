@@ -50,6 +50,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -134,6 +136,7 @@ public class ClientUI
 	private final MouseManager mouseManager;
 	private final Applet client;
 	private final ConfigManager configManager;
+	private final ExecutorService executorService;
 	private final Provider<ClientThread> clientThreadProvider;
 	private final EventBus eventBus;
 	private final CardLayout cardLayout = new CardLayout();
@@ -161,6 +164,7 @@ public class ClientUI
 		MouseManager mouseManager,
 		@Nullable Applet client,
 		ConfigManager configManager,
+		ExecutorService executorService,
 		Provider<ClientThread> clientThreadProvider,
 		EventBus eventbus)
 	{
@@ -169,6 +173,7 @@ public class ClientUI
 		this.mouseManager = mouseManager;
 		this.client = client;
 		this.configManager = configManager;
+		this.executorService = executorService;
 		this.clientThreadProvider = clientThreadProvider;
 		this.eventBus = eventbus;
 
@@ -606,9 +611,21 @@ public class ClientUI
 		saveClientBoundsConfig();
 		ClientShutdown csev = new ClientShutdown();
 		eventBus.post(ClientShutdown.class, csev);
+		executorService.shutdown();
+
 		new Thread(() ->
 		{
 			csev.waitForAllConsumers(Duration.ofSeconds(10));
+			try
+			{
+				if (!executorService.awaitTermination(5, TimeUnit.SECONDS))
+				{
+					executorService.shutdownNow();
+				}
+			}
+			catch (InterruptedException ignored)
+			{
+			}
 
 			if (client != null)
 			{

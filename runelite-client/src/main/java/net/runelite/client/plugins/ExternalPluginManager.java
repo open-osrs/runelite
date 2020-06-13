@@ -28,7 +28,6 @@ import com.google.common.collect.Lists;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.Graphs;
 import com.google.common.graph.MutableGraph;
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.Binder;
 import com.google.inject.CreationException;
 import com.google.inject.Injector;
@@ -48,7 +47,6 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -103,6 +101,7 @@ public class ExternalPluginManager
 	private final List<UpdateRepository> repositories = new ArrayList<>();
 	private final OpenOSRSConfig openOSRSConfig;
 	private final EventBus eventBus;
+	private final ExecutorService executorService;
 	private final ConfigManager configManager;
 	private final Map<String, String> pluginsMap = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
@@ -119,12 +118,14 @@ public class ExternalPluginManager
 		PluginManager pluginManager,
 		OpenOSRSConfig openOSRSConfig,
 		EventBus eventBus,
+		ExecutorService executorService,
 		ConfigManager configManager,
 		Groups groups)
 	{
 		this.runelitePluginManager = pluginManager;
 		this.openOSRSConfig = openOSRSConfig;
 		this.eventBus = eventBus;
+		this.executorService = executorService;
 		this.configManager = configManager;
 		this.groups = groups;
 
@@ -477,62 +478,44 @@ public class ExternalPluginManager
 
 		final long start = System.currentTimeMillis();
 
-		// some plugins get stuck on IO, so add some extra threads
-		ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2,
-			new ThreadFactoryBuilder()
-				.setNameFormat("external-plugin-manager-%d")
-				.build());
-
-		try
+		List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
+		sortedPlugins.forEach(group ->
 		{
-			List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
-			sortedPlugins.forEach(group ->
-			{
-				List<Future<?>> curGroup = new ArrayList<>();
-				group.forEach(pluginClazz ->
-					curGroup.add(exec.submit(() ->
-					{
-						Plugin plugininst;
-						try
-						{
-							//noinspection unchecked
-							plugininst = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz, init, initConfig);
-							scannedPlugins.add(plugininst);
-						}
-						catch (PluginInstantiationException e)
-						{
-							log.warn("Error instantiating plugin!", e);
-							return;
-						}
-
-						loaded.getAndIncrement();
-
-						RuneLiteSplashScreen.stage(.67, .75, "Loading external plugins", loaded.get(), scannedPlugins.size());
-					})));
-				curGroup.forEach(future ->
+			List<Future<?>> curGroup = new ArrayList<>();
+			group.forEach(pluginClazz ->
+				curGroup.add(executorService.submit(() ->
 				{
+					Plugin plugininst;
 					try
 					{
-						future.get();
+						//noinspection unchecked
+						plugininst = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz, init, initConfig);
+						scannedPlugins.add(plugininst);
 					}
-					catch (InterruptedException | ExecutionException e)
+					catch (PluginInstantiationException e)
 					{
-						log.warn("Could not instantiate external plugin", e);
+						log.warn("Error instantiating plugin!", e);
+						return;
 					}
-				});
-			});
 
-			log.info("External plugin instantiation took {}ms", System.currentTimeMillis() - start);
-		}
-		finally
-		{
-			List<Runnable> unfinishedTasks = exec.shutdownNow();
-			if (!unfinishedTasks.isEmpty())
+					loaded.getAndIncrement();
+
+					RuneLiteSplashScreen.stage(.67, .75, "Loading external plugins", loaded.get(), scannedPlugins.size());
+				})));
+			curGroup.forEach(future ->
 			{
-				// This shouldn't happen since we Future#get all tasks submitted to the executor
-				log.warn("Did not complete all update tasks: {}", unfinishedTasks);
-			}
-		}
+				try
+				{
+					future.get();
+				}
+				catch (InterruptedException | ExecutionException e)
+				{
+					log.warn("Could not instantiate external plugin", e);
+				}
+			});
+		});
+
+		log.info("External plugin instantiation took {}ms", System.currentTimeMillis() - start);
 	}
 
 	@SuppressWarnings("unchecked")
