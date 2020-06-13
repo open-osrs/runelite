@@ -148,6 +148,12 @@ tasks {
         archiveClassifier.set("shaded")
     }
 
+    processResources {
+        dependsOn(":runelite-script-assembler-plugin:indexMojo")
+
+        from("${buildDir}/scripts")
+    }
+
     withType<BootstrapTask> {
         group = "openosrs"
     }
