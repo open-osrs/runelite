@@ -55,6 +55,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -65,8 +67,8 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.client.RuneLite;
-import static net.runelite.client.RuneLite.PROFILES_DIR;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.events.ClientShutdown;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.ExternalPluginManager;
 import net.runelite.client.plugins.Plugin;
@@ -75,6 +77,7 @@ import net.runelite.client.util.Groups;
 import org.apache.commons.lang3.StringUtils;
 import org.jgroups.Message;
 import org.jgroups.util.Util;
+import static net.runelite.client.RuneLite.PROFILES_DIR;
 
 @Singleton
 @Slf4j
@@ -88,20 +91,21 @@ public class ConfigManager
 	private final Map<String, Consumer<? super Plugin>> consumers = new HashMap<>();
 	private final File settingsFileInput;
 	private final Groups groups;
-
-	@Inject
-	EventBus eventBus;
+	private final EventBus eventBus;
 
 	@Inject
 	public ConfigManager(
 		@Named("config") File config,
 		ScheduledExecutorService scheduledExecutorService,
-		Groups groups)
+		Groups groups,
+		EventBus eventBus)
 	{
 		this.settingsFileInput = config;
 		this.groups = groups;
+		this.eventBus = eventBus;
 
 		scheduledExecutorService.scheduleWithFixedDelay(this::sendConfig, 30, 30, TimeUnit.SECONDS);
+		eventBus.subscribe(ClientShutdown.class, this, ev -> ev.waitFor(shutdown()));
 
 		groups.getMessageObjectSubject()
 			.subscribe(this::receive);
@@ -888,5 +892,21 @@ public class ConfigManager
 	public Consumer<? super Plugin> getConsumer(final String configGroup, final String keyName)
 	{
 		return consumers.getOrDefault(configGroup + "." + keyName, (p) -> log.error("Failed to retrieve consumer with name {}.{}", configGroup, keyName));
+	}
+
+	private Future<?> shutdown()
+	{
+		CompletableFuture<?> fut = new CompletableFuture<>();
+		try
+		{
+			this.sendConfig();
+			fut.complete(null);
+		}
+		catch (Exception ex)
+		{
+			fut.completeExceptionally(ex);
+		}
+
+		return fut;
 	}
 }
