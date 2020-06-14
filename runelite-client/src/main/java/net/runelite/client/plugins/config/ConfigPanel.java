@@ -83,6 +83,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.events.ConfigButtonClicked;
 import net.runelite.api.util.Text;
 import net.runelite.client.RuneLite;
 import net.runelite.client.config.Button;
@@ -97,7 +98,6 @@ import net.runelite.client.config.ModifierlessKeybind;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Units;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.api.events.ConfigButtonClicked;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.plugins.ExternalPluginManager;
@@ -162,13 +162,13 @@ class ConfigPanel extends PluginPanel
 		BACK_ICON = new ImageIcon(backIcon);
 		BACK_ICON_HOVER = new ImageIcon(ImageUtil.alphaOffset(backIcon, -100));
 
-		final BufferedImage orangeBackIcon = ImageUtil.fillImage(backIcon, ColorScheme.BRAND_BLUE);
+		final BufferedImage blueBackIcon = ImageUtil.fillImage(backIcon, ColorScheme.BRAND_BLUE);
 
-		final BufferedImage sectionRetractIcon = ImageUtil.rotateImage(orangeBackIcon, Math.PI * 1.5);
+		final BufferedImage sectionRetractIcon = ImageUtil.rotateImage(blueBackIcon, Math.PI * 1.5);
 		SECTION_RETRACT_ICON = new ImageIcon(sectionRetractIcon);
 		SECTION_RETRACT_ICON_HOVER = new ImageIcon(ImageUtil.alphaOffset(sectionRetractIcon, -100));
 
-		final BufferedImage sectionExpandIcon = ImageUtil.rotateImage(orangeBackIcon, Math.PI);
+		final BufferedImage sectionExpandIcon = ImageUtil.rotateImage(blueBackIcon, Math.PI);
 		SECTION_EXPAND_ICON = new ImageIcon(sectionExpandIcon);
 		SECTION_EXPAND_ICON_HOVER = new ImageIcon(ImageUtil.alphaOffset(sectionExpandIcon, -100));
 	}
@@ -648,21 +648,21 @@ class ConfigPanel extends PluginPanel
 				{
 					JLabel sliderValueLabel = new JLabel();
 					JSlider slider = new JSlider(min, max, value);
+					slider.setBackground(ColorScheme.DARK_GRAY_COLOR);
 					if (units != null)
 					{
-						sliderValueLabel.setText(slider.getValue() + " " + units.value());
+						sliderValueLabel.setText(slider.getValue() + units.value());
 					}
 					else
 					{
 						sliderValueLabel.setText(String.valueOf(slider.getValue()));
 					}
 					slider.setPreferredSize(new Dimension(80, 25));
-					slider.setBackground(Color.WHITE);
 					slider.addChangeListener((l) ->
 						{
 							if (units != null)
 							{
-								sliderValueLabel.setText(slider.getValue() + " " + units.value());
+								sliderValueLabel.setText(slider.getValue() + units.value());
 							}
 							else
 							{
@@ -704,7 +704,7 @@ class ConfigPanel extends PluginPanel
 
 						if (units != null)
 						{
-							sliderValueLabel.setText(spinner.getValue() + " " + units.value());
+							sliderValueLabel.setText(spinner.getValue() + units.value());
 						}
 						else
 						{

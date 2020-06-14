@@ -74,6 +74,7 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.components.CustomScrollBarUI;
+import net.runelite.client.ui.components.SliderUI;
 import net.runelite.client.ui.skin.SubstanceRuneLiteLookAndFeel;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 
@@ -115,6 +116,7 @@ public class SwingUtil
 		UIManager.put("ProgressBar.verticalSize", new Dimension(12, 10));
 		UIManager.put("ProgressBar.horizontalSize", new Dimension(10, 12));
 		UIManager.put("ProgressBarUI", BasicProgressBarUI.class.getName());
+		UIManager.put("SliderUI", SliderUI.class.getName());
 
 		// Do not render shadows under popups/tooltips.
 		// Fixes black boxes under popups that are above the game applet.
