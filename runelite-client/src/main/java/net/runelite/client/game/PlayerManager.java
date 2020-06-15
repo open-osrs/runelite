@@ -158,9 +158,15 @@ public class PlayerManager
 			return;
 		}
 
+		if (player.isHiscoresRequested() && !player.isHttpRetry())
+		{
+			return;
+		}
+
+		player.setHiscoresRequested(true);
+
 		executorService.submit(() ->
 		{
-			player.setHttpRetry(true);
 			int timeout = 0;
 			HiscoreResult result;
 			do
@@ -174,6 +180,7 @@ public class PlayerManager
 					if (timeout == 10)
 					{
 						log.error("HiScore Lookup timed out on: {}", player.getName());
+						player.setHttpRetry(true);
 						return;
 					}
 					result = null;
@@ -194,6 +201,7 @@ public class PlayerManager
 			player.setPrayerLevel(player.getSkills().getPrayer().getLevel());
 			player.setHpLevel(player.getSkills().getHitpoints().getLevel());
 			player.setHttpRetry(false);
+			player.setHiscoresRequested(false);
 		});
 	}
 
