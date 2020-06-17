@@ -48,6 +48,7 @@ public class PlayerContainer
 	private String targetString;
 	private CombatStats combatStats;
 	private boolean httpRetry;
+	private boolean hiscoresRequested;
 	private boolean scouted;
 	private boolean attacking;
 	private boolean friend;

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -70,15 +71,15 @@ public class PlayerManager
 	 */
 	public Set<PlayerContainer> getAllAttackers()
 	{
-		final Set<PlayerContainer> set = new HashSet<>();
-		for (PlayerContainer p : playerMap.values())
+		Set<PlayerContainer> result = new HashSet<>();
+		for (PlayerContainer playerContainer : playerMap.values())
 		{
-			if (p.isAttacking())
+			if (playerContainer.isAttacking())
 			{
-				set.add(p);
+				result.add(playerContainer);
 			}
 		}
-		return set;
+		return Collections.unmodifiableSet(result);
 	}
 
 	/**
@@ -158,9 +159,15 @@ public class PlayerManager
 			return;
 		}
 
+		if (player.isHiscoresRequested() && !player.isHttpRetry())
+		{
+			return;
+		}
+
+		player.setHiscoresRequested(true);
+
 		executorService.submit(() ->
 		{
-			player.setHttpRetry(true);
 			int timeout = 0;
 			HiscoreResult result;
 			do
@@ -174,6 +181,7 @@ public class PlayerManager
 					if (timeout == 10)
 					{
 						log.error("HiScore Lookup timed out on: {}", player.getName());
+						player.setHttpRetry(true);
 						return;
 					}
 					result = null;
@@ -194,19 +202,13 @@ public class PlayerManager
 			player.setPrayerLevel(player.getSkills().getPrayer().getLevel());
 			player.setHpLevel(player.getSkills().getHitpoints().getLevel());
 			player.setHttpRetry(false);
+			player.setHiscoresRequested(false);
 		});
 	}
 
 	private void onAppearenceChanged(PlayerAppearanceChanged event)
 	{
-		PlayerContainer player = playerMap.get(event.getPlayer().getName());
-
-		if (player == null)
-		{
-			player = new PlayerContainer(event.getPlayer());
-			playerMap.put(event.getPlayer().getName(), player);
-		}
-
+		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
 		update(player);
 		player.setFriend(client.isFriended(player.getName(), false));
 		player.setClan(clanManager.isClanMember(player.getName()));
@@ -214,8 +216,7 @@ public class PlayerManager
 
 	private void onPlayerDespawned(PlayerDespawned event)
 	{
-		final Player player = event.getPlayer();
-		playerMap.remove(player.getName());
+		playerMap.remove(event.getPlayer().getName());
 	}
 
 	private void onAnimationChanged(AnimationChanged event)
@@ -227,24 +228,22 @@ public class PlayerManager
 			return;
 		}
 
-		final PlayerContainer player = playerMap.getOrDefault(actor.getName(), null);
+		final PlayerContainer player = playerMap.get(actor.getName());
 
 		if (player == null)
 		{
 			return;
 		}
 
-		if (player.getPlayer().getInteracting() != null &&
-			player.getPlayer().getInteracting() == client.getLocalPlayer())
-		{
-			if (player.getSkills() == null)
-			{
-				updateStats(player.getPlayer());
-			}
+		assert player.getPlayer() == actor;
 
-			player.setAttacking(true);
-			player.setTimer(8);
+		if (player.getSkills() == null)
+		{
+			updateStats(player.getPlayer());
 		}
+
+		player.setAttacking(true);
+		player.setTimer(8);
 	}
 
 	private void update(PlayerContainer player)
@@ -424,8 +423,10 @@ public class PlayerManager
 			removeEntries(player.getRiskedGear(), player.getPrayerLevel() <= 25 ? 0 : 1);
 		}
 
-		player.getRiskedGear().values().forEach(price -> player.setRisk(player.getRisk() + price));
-		prices.clear();
+		int risk = 0;
+		for (int val : player.getRiskedGear().values())
+			risk += val;
+		player.setRisk(risk);
 	}
 
 	private void updateMeleeStyle(PlayerContainer player)
@@ -457,20 +458,14 @@ public class PlayerManager
 			if (def.getName().toLowerCase().contains("staff"))
 			{
 				player.setAttackStyle(AttackStyle.MAGE);
-				staff = true;
-				break;
+				if (oldStyle != player.getAttackStyle())
+				{
+					eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
+						player.getPlayer(), oldStyle, player.getAttackStyle())
+					);
+				}
+				return;
 			}
-		}
-
-		if (staff)
-		{
-			if (oldStyle != player.getAttackStyle())
-			{
-				eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
-					player.getPlayer(), oldStyle, player.getAttackStyle())
-				);
-			}
-			return;
 		}
 
 		final CombatStats stats = player.getCombatStats();
@@ -516,13 +511,11 @@ public class PlayerManager
 
 	private static void removeEntries(LinkedHashMap<Integer, Integer> map, int quantity)
 	{
-		for (int i = 0; i < quantity; i++)
+		final Iterator<Map.Entry<Integer, Integer>> it = map.entrySet().iterator();
+		for (int i = 0; it.hasNext() && i < quantity; i++)
 		{
-			if (!map.entrySet().iterator().hasNext())
-			{
-				return;
-			}
-			map.entrySet().remove(map.entrySet().iterator().next());
+			it.next();
+			it.remove(); // LinkedHashMap iterator supports this
 		}
 	}
 
