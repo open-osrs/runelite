@@ -35,8 +35,8 @@ import lombok.Value;
 @Value
 public class ItemQuantityChanged implements Event
 {
-	private final TileItem item;
-	private final Tile tile;
-	private final int oldQuantity;
-	private final int newQuantity;
+	TileItem item;
+	Tile tile;
+	int oldQuantity;
+	int newQuantity;
 }

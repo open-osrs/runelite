@@ -37,7 +37,7 @@ public class NpcDespawned implements Event
 	/**
 	 * The despawned NPC.
 	 */
-	private final NPC npc;
+	NPC npc;
 
 	public Actor getActor()
 	{

@@ -58,4 +58,6 @@ public @interface PluginDescriptor
 	PluginType type() default PluginType.UNCATEGORIZED;
 
 	boolean enabledByDefault() default true;
+
+	boolean loadInSafeMode() default true;
 }

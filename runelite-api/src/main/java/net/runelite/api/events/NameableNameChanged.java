@@ -36,5 +36,5 @@ public class NameableNameChanged implements Event
 	/**
 	 * The nameable that changed names.
 	 */
-	private final Nameable nameable;
+	Nameable nameable;
 }

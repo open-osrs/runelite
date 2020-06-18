@@ -30,6 +30,6 @@ import net.runelite.api.Skill;
 @Value
 public class FakeXpDrop implements Event
 {
-	private final Skill skill;
-	private final int xp;
+	Skill skill;
+	int xp;
 }

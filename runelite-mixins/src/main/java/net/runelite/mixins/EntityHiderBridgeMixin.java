@@ -118,7 +118,7 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
-	public void setClanMatesHidden(boolean state)
+	public void setFriendsChatMembersHidden(boolean state)
 	{
 		hideClanMates = state;
 	}

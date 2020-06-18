@@ -16,19 +16,19 @@ public class AttackStyleChanged implements Event
 	/**
 	 * The player that changed styles.
 	 */
-	private final Player player;
+	Player player;
 
 	/**
 	 * Can be Unknown(nullable)
 	 *
 	 * @see net.runelite.client.game.AttackStyle
 	 */
-	private final AttackStyle oldStyle;
+	AttackStyle oldStyle;
 
 	/**
 	 * Can be Unknown(nullable)
 	 *
 	 * @see net.runelite.client.game.AttackStyle
 	 */
-	private final AttackStyle newStyle;
+	AttackStyle newStyle;
 }

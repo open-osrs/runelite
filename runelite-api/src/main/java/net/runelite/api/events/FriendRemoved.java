@@ -35,5 +35,5 @@ public class FriendRemoved implements Event
 	/**
 	 * The name of the removed friend.
 	 */
-	private final String name;
+	String name;
 }

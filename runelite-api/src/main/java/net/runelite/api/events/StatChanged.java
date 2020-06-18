@@ -33,8 +33,8 @@ import net.runelite.api.Skill;
 @Value
 public class StatChanged implements Event
 {
-	private final Skill skill;
-	private final int xp;
-	private final int level;
-	private final int boostedLevel;
+	Skill skill;
+	int xp;
+	int level;
+	int boostedLevel;
 }

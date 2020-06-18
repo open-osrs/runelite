@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,83 +24,22 @@
  */
 package net.runelite.api;
 
-import java.util.HashMap;
-import java.util.Map;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
- * An enumeration of ranks of clan members.
+ * Represents a friends chat member.
  */
-@AllArgsConstructor
-@Getter
-public enum ClanMemberRank
+public interface FriendsChatMember extends ChatPlayer
 {
 	/**
-	 * Not in a clan.
-	 */
-	UNRANKED(-1),
-	/**
-	 * Friend rank.
-	 */
-	FRIEND(0),
-	/**
-	 * Recruit rank.
-	 */
-	RECRUIT(1),
-	/**
-	 * Corporal rank.
-	 */
-	CORPORAL(2),
-	/**
-	 * Sergeant rank.
-	 */
-	SERGEANT(3),
-	/**
-	 * Lieutenant rank.
-	 */
-	LIEUTENANT(4),
-	/**
-	 * Captain rank.
-	 */
-	CAPTAIN(5),
-	/**
-	 * General rank.
-	 */
-	GENERAL(6),
-	/**
-	 * Channel owner rank.
-	 */
-	OWNER(7),
-	/**
-	 * JMod rank.
-	 */
-	JMOD(127);
-
-	private static final Map<Integer, ClanMemberRank> RANKS = new HashMap<>();
-
-	static
-	{
-		for (final ClanMemberRank clanMemberRank : ClanMemberRank.values())
-		{
-			RANKS.put(clanMemberRank.value, clanMemberRank);
-		}
-	}
-
-	/**
-	 * Utility method that maps the rank value to its respective
-	 * {@link ClanMemberRank} value.
+	 * Gets the world the member is in.
 	 *
-	 * @param rank the rank value
-	 * @return rank type
+	 * @return the world
 	 */
-	public static ClanMemberRank valueOf(int rank)
-	{
-		return RANKS.get(rank);
-	}
+	int getWorld();
 
 	/**
-	 * The value of the clan rank.
+	 * Gets the rank of the friends chat member.
+	 *
+	 * @return the rank
 	 */
-	private final int value;
+	FriendsChatRank getRank();
 }

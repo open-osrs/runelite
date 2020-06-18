@@ -36,6 +36,6 @@ import lombok.Value;
 @Value
 public class ItemDespawned implements Event
 {
-	private final Tile tile;
-	private final TileItem item;
+	Tile tile;
+	TileItem item;
 }

@@ -36,5 +36,5 @@ public class NpcDefinitionChanged implements Event
 	/**
 	 * The NPC of which the composition changed.
 	 */
-	private final NPC npc;
+	NPC npc;
 }

@@ -1,8 +1,8 @@
 package net.runelite.mixins;
 
-import net.runelite.api.ClanMember;
-import net.runelite.api.events.ClanMemberJoined;
-import net.runelite.api.events.ClanMemberLeft;
+import net.runelite.api.FriendsChatMember;
+import net.runelite.api.events.FriendsChatMemberJoined;
+import net.runelite.api.events.FriendsChatMemberLeft;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
@@ -21,27 +21,27 @@ public abstract class RSClanChatMixin implements RSClanChat
 	@Override
 	public void rl$add(RSUsername name, RSUsername prevName)
 	{
-		ClanMember member = findByName(name);
+		FriendsChatMember member = findByName(name);
 		if (member == null)
 		{
 			return;
 		}
 
-		ClanMemberJoined event = new ClanMemberJoined(member);
-		client.getCallbacks().postDeferred(ClanMemberJoined.class, event);
+		FriendsChatMemberJoined event = new FriendsChatMemberJoined(member);
+		client.getCallbacks().postDeferred(FriendsChatMemberJoined.class, event);
 	}
 
 	@Inject
 	@Override
 	public void rl$remove(RSUser nameable)
 	{
-		ClanMember member = findByName(nameable.getRsName());
+		FriendsChatMember member = findByName(nameable.getRsName());
 		if (member == null)
 		{
 			return;
 		}
 
-		ClanMemberLeft event = new ClanMemberLeft(member);
-		client.getCallbacks().postDeferred(ClanMemberLeft.class, event);
+		FriendsChatMemberLeft event = new FriendsChatMemberLeft(member);
+		client.getCallbacks().postDeferred(FriendsChatMemberLeft.class, event);
 	}
 }

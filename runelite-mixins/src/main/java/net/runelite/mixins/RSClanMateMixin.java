@@ -1,6 +1,6 @@
 package net.runelite.mixins;
 
-import net.runelite.api.ClanMemberRank;
+import net.runelite.api.FriendsChatRank;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSClanMate;
@@ -10,8 +10,8 @@ public abstract class RSClanMateMixin implements RSClanMate
 {
 	@Override
 	@Inject
-	public ClanMemberRank getRank()
+	public FriendsChatRank getRank()
 	{
-		return ClanMemberRank.valueOf(getRSRank());
+		return FriendsChatRank.valueOf(getRSRank());
 	}
 }

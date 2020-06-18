@@ -33,5 +33,5 @@ import lombok.Value;
 @Value
 public class WorldListLoad implements Event
 {
-	private final World[] worlds;
+	World[] worlds;
 }

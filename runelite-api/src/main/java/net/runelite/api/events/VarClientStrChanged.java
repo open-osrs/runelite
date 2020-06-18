@@ -34,5 +34,5 @@ import lombok.Value;
 @Value
 public class VarClientStrChanged implements Event
 {
-	private int index;
+	int index;
 }

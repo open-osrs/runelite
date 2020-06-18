@@ -35,5 +35,5 @@ public class ScriptPostFired implements Event
 	/**
 	 * The script id of the invoked script
 	 */
-	private final int scriptId;
+	int scriptId;
 }

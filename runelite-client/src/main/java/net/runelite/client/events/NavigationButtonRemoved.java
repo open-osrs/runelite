@@ -31,5 +31,5 @@ import net.runelite.client.ui.NavigationButton;
 @Value
 public class NavigationButtonRemoved implements Event
 {
-	private NavigationButton button;
+	NavigationButton button;
 }

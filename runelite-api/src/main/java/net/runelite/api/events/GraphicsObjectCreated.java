@@ -36,5 +36,5 @@ public class GraphicsObjectCreated implements Event
 	/**
 	 * The newly created graphics object.
 	 */
-	private final GraphicsObject graphicsObject;
+	GraphicsObject graphicsObject;
 }

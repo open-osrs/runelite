@@ -9,10 +9,10 @@ import lombok.Value;
 @Value
 public class InteractingChanged implements Event
 {
-	private final Actor source;
+	Actor source;
 
 	/**
 	 * Target actor, may be null
 	 */
-	private final Actor target;
+	Actor target;
 }

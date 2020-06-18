@@ -180,7 +180,7 @@ public abstract class EntityHiderMixin implements RSScene
 				}
 
 				return (!hideFriends && player.isFriend()) ||
-					(!isLocalPlayer && !hideClanMates && player.isClanMember());
+					(!isLocalPlayer && !hideClanMates && player.isFriendsChatMember());
 			}
 		}
 		else if (entity instanceof RSNPC)

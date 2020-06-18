@@ -92,6 +92,7 @@ public class PluginManager
 	 */
 	private static final String PLUGIN_PACKAGE = "net.runelite.client.plugins";
 
+	private final boolean safeMode;
 	private final EventBus eventBus;
 	private final Scheduler scheduler;
 	private final ExecutorService executorService;
@@ -112,6 +113,7 @@ public class PluginManager
 	@Inject
 	@VisibleForTesting
 	PluginManager(
+		@Named("safeMode") final boolean safeMode,
 		final EventBus eventBus,
 		final Scheduler scheduler,
 		final ExecutorService executorService,
@@ -120,6 +122,7 @@ public class PluginManager
 		final Groups groups,
 		final @Named("config") File config)
 	{
+		this.safeMode = safeMode;
 		this.eventBus = eventBus;
 		this.scheduler = scheduler;
 		this.executorService = executorService;
@@ -373,6 +376,14 @@ public class PluginManager
 
 			if (!pluginDescriptor.loadWhenOutdated() && isOutdated)
 			{
+				continue;
+			}
+
+			if (safeMode && !pluginDescriptor.loadInSafeMode())
+			{
+				log.debug("Disabling {} due to safe mode", clazz);
+				// also disable the plugin from autostarting later
+				configManager.unsetConfiguration(RuneLiteConfig.GROUP_NAME, clazz.getSimpleName().toLowerCase());
 				continue;
 			}
 

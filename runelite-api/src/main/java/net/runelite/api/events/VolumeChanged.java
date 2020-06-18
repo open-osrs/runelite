@@ -37,5 +37,5 @@ public class VolumeChanged implements Event
 		AREA
 	}
 
-	private final Type type;
+	Type type;
 }

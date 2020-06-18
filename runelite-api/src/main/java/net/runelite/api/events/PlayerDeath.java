@@ -33,5 +33,5 @@ import net.runelite.api.Player;
 @Value
 public class PlayerDeath implements Event
 {
-	private final Player player;
+	Player player;
 }

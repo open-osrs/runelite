@@ -39,6 +39,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
+import lombok.AllArgsConstructor;
 import net.runelite.api.Client;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.client.account.SessionManager;
@@ -63,22 +64,19 @@ import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@AllArgsConstructor
 public class RuneLiteModule extends AbstractModule
 {
 	private static final int MAX_OKHTTP_CACHE_SIZE = 20 * 1024 * 1024; // 20mb
 
 	private final Supplier<Applet> clientLoader;
+	private final boolean safeMode;
 	private final File config;
-
-	public RuneLiteModule(final Supplier<Applet> clientLoader, File config)
-	{
-		this.clientLoader = clientLoader;
-		this.config = config;
-	}
 
 	@Override
 	protected void configure()
 	{
+		bindConstant().annotatedWith(Names.named("safeMode")).to(safeMode);
 		bind(File.class).annotatedWith(Names.named("config")).toInstance(config);
 		bind(OkHttpClient.class).toInstance(RuneLiteAPI.CLIENT.newBuilder()
 			.cache(new Cache(new File(RuneLite.CACHE_DIR, "okhttp"), MAX_OKHTTP_CACHE_SIZE))

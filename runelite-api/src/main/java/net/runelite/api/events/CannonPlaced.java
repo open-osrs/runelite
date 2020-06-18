@@ -38,17 +38,17 @@ public class CannonPlaced implements Event
 	/**
 	 * Cannon placed or picked up.
 	 */
-	private final boolean placed;
+	boolean placed;
 
 	/**
 	 * The location of the cannon.
 	 */
 	@Nullable
-	private final WorldPoint cannonLocation;
+	WorldPoint cannonLocation;
 
 	/**
 	 * The cannon object.
 	 */
 	@Nullable
-	private final GameObject cannon;
+	GameObject cannon;
 }
