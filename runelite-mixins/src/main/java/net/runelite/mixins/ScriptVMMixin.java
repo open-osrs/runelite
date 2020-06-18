@@ -28,8 +28,9 @@ package net.runelite.mixins;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.runelite.api.Client;
-import static net.runelite.api.Opcodes.RUNELITE_EXECUTE;
 import net.runelite.api.events.ScriptCallbackEvent;
+import net.runelite.api.events.ScriptPostFired;
+import net.runelite.api.events.ScriptPreFired;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -39,6 +40,7 @@ import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSScript;
 import net.runelite.rs.api.RSScriptEvent;
+import static net.runelite.api.Opcodes.*;
 
 @Mixin(RSClient.class)
 public abstract class ScriptVMMixin implements RSClient
@@ -46,7 +48,6 @@ public abstract class ScriptVMMixin implements RSClient
 	@Shadow("client")
 	private static Client client;
 
-	// This field is set by the ScriptVM raw injector
 	@Inject
 	private static RSScript currentScript;
 
@@ -54,55 +55,70 @@ public abstract class ScriptVMMixin implements RSClient
 	@Inject
 	private static int currentScriptPC;
 
+	// Call is injected by the raw injector
+	@Inject
+	static void setCurrentScript(RSScript script)
+	{
+		currentScript = script;
+	}
+
 	// Call is injected into runScript by the ScriptVM raw injector
 	@Inject
 	static boolean vmExecuteOpcode(int opcode)
 	{
-		if (opcode == RUNELITE_EXECUTE)
+		switch (opcode)
 		{
-			assert currentScript.getInstructions()[currentScriptPC] == RUNELITE_EXECUTE;
+			case RUNELITE_EXECUTE:
+				assert currentScript.getInstructions()[currentScriptPC] == RUNELITE_EXECUTE;
 
-			int stringStackSize = client.getStringStackSize();
-			String stringOp = client.getStringStack()[--stringStackSize];
-			client.setStringStackSize(stringStackSize);
-
-			if ("debug".equals(stringOp))
-			{
-				int intStackSize = client.getIntStackSize();
-
-				String fmt = client.getStringStack()[--stringStackSize];
-				StringBuffer out = new StringBuffer();
-				Matcher m = Pattern.compile("%(.)").matcher(fmt);
-				for (; m.find(); )
-				{
-					m.appendReplacement(out, "");
-					switch (m.group(1).charAt(0))
-					{
-						case 'i':
-						case 'd':
-							out.append(client.getIntStack()[--intStackSize]);
-							break;
-						case 's':
-							out.append(client.getStringStack()[--stringStackSize]);
-							break;
-						default:
-							out.append(m.group(0)).append("=unknown");
-					}
-				}
-				m.appendTail(out);
-
-				client.getLogger().debug(out.toString());
-
+				int stringStackSize = client.getStringStackSize();
+				String stringOp = client.getStringStack()[--stringStackSize];
 				client.setStringStackSize(stringStackSize);
-				client.setIntStackSize(intStackSize);
-				return true;
-			}
 
-			ScriptCallbackEvent event = new ScriptCallbackEvent();
-			event.setScript(currentScript);
-			event.setEventName(stringOp);
-			client.getCallbacks().post(ScriptCallbackEvent.class, event);
-			return true;
+				if ("debug".equals(stringOp))
+				{
+					int intStackSize = client.getIntStackSize();
+
+					String fmt = client.getStringStack()[--stringStackSize];
+					StringBuffer out = new StringBuffer();
+					Matcher m = Pattern.compile("%(.)").matcher(fmt);
+					while (m.find())
+					{
+						m.appendReplacement(out, "");
+						switch (m.group(1).charAt(0))
+						{
+							case 'i':
+							case 'd':
+								out.append(client.getIntStack()[--intStackSize]);
+								break;
+							case 's':
+								out.append(client.getStringStack()[--stringStackSize]);
+								break;
+							default:
+								out.append(m.group(0)).append("=unknown");
+						}
+					}
+					m.appendTail(out);
+
+					client.getLogger().debug(out.toString());
+
+					client.setStringStackSize(stringStackSize);
+					client.setIntStackSize(intStackSize);
+					return true;
+				}
+
+				ScriptCallbackEvent event = new ScriptCallbackEvent();
+				event.setScript(currentScript);
+				event.setEventName(stringOp);
+				client.getCallbacks().post(ScriptCallbackEvent.class, event);
+				return true;
+			case INVOKE:
+				int scriptId = currentScript.getIntOperands()[currentScriptPC];
+				client.getCallbacks().post(ScriptPreFired.class, new ScriptPreFired(scriptId, null));
+				return false;
+			case RETURN:
+				client.getCallbacks().post(ScriptPostFired.class, new ScriptPostFired((int) currentScript.getHash()));
+				return false;
 		}
 		return false;
 	}
@@ -117,7 +133,8 @@ public abstract class ScriptVMMixin implements RSClient
 	static void rl$runScript(RSScriptEvent event, int maxExecutionTime)
 	{
 		Object[] arguments = event.getArguments();
-		if (arguments != null && arguments.length > 0 && arguments[0] instanceof JavaScriptCallback)
+		assert arguments != null && arguments.length > 0;
+		if (arguments[0] instanceof JavaScriptCallback)
 		{
 			try
 			{
@@ -132,6 +149,8 @@ public abstract class ScriptVMMixin implements RSClient
 		{
 			try
 			{
+				final ScriptPreFired pre = new ScriptPreFired((int) arguments[0], event);
+				client.getCallbacks().post(ScriptPreFired.class, pre);
 				rs$runScript(event, maxExecutionTime);
 			}
 			finally
