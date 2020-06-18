@@ -76,7 +76,7 @@ public abstract class RSMessageMixin implements RSMessage
 	@Override
 	public boolean isFromClanMate()
 	{
-		RSClanChat cc = client.getClanMemberManager();
+		RSClanChat cc = client.getFriendsChatManager();
 
 		return cc != null && cc.findByName(this.getSenderUsername()) != null;
 	}

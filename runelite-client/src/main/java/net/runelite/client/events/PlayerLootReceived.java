@@ -33,6 +33,6 @@ import net.runelite.client.game.ItemStack;
 @Value
 public class PlayerLootReceived implements Event
 {
-	private final Player player;
-	private final Collection<ItemStack> items;
+	Player player;
+	Collection<ItemStack> items;
 }

@@ -669,7 +669,7 @@ public interface RSClient extends RSGameShell, Client
 	RSFriendSystem getFriendManager();
 
 	@Import("clanChat")
-	RSClanChat getClanMemberManager();
+	RSClanChat getFriendsChatManager();
 
 	@Import("loginType")
 	RSLoginType getLoginType();

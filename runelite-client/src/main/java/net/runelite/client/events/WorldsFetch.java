@@ -34,5 +34,5 @@ import net.runelite.http.api.worlds.WorldResult;
 @Value
 public class WorldsFetch implements Event
 {
-	private final WorldResult worldResult;
+	WorldResult worldResult;
 }

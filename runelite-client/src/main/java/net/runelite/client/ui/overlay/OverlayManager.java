@@ -137,17 +137,17 @@ public class OverlayManager
 
 	private void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getMenuOpcode() != MenuOpcode.RUNELITE_OVERLAY)
+		MenuOpcode menuOpcode = event.getMenuOpcode();
+		if (menuOpcode != MenuOpcode.RUNELITE_OVERLAY && menuOpcode != MenuOpcode.RUNELITE_OVERLAY_CONFIG)
 		{
 			return;
 		}
 
 		event.consume();
 
-		Optional<Overlay> optionalOverlay = overlays.stream().filter(o -> overlays.indexOf(o) == event.getIdentifier()).findAny();
-		if (optionalOverlay.isPresent())
+		Overlay overlay = overlays.get(event.getIdentifier());
+		if (overlay != null)
 		{
-			Overlay overlay = optionalOverlay.get();
 			List<OverlayMenuEntry> menuEntries = overlay.getMenuEntries();
 			Optional<OverlayMenuEntry> optionalOverlayMenuEntry = menuEntries.stream()
 				.filter(me -> me.getOption().equals(event.getOption()))

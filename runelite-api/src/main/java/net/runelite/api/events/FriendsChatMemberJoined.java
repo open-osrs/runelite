@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, trimbe <github.com/trimbe>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,25 +24,14 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.Actor;
-import net.runelite.api.Player;
 import lombok.Value;
+import net.runelite.api.FriendsChatMember;
 
-/**
- * An event where a {@link Player} has despawned.
- * <p>
- * Note: This event does not get called for the local player.
- */
 @Value
-public class PlayerDespawned implements Event
+public class FriendsChatMemberJoined implements Event
 {
 	/**
-	 * The despawned player.
+	 * The member that joined
 	 */
-	Player player;
-
-	public Actor getActor()
-	{
-		return player;
-	}
+	FriendsChatMember member;
 }

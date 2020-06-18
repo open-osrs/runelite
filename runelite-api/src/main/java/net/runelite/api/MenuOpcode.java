@@ -284,6 +284,10 @@ public enum MenuOpcode
 	 * a player and have its identifier set to a player index.
 	 */
 	RUNELITE_PLAYER(1503),
+	/**
+	 * Menu action for InfoBox menu entries
+	 */
+	RUNELITE_INFOBOX(1504),
 
 	FOLLOW(2046),
 	TRADE(2047),

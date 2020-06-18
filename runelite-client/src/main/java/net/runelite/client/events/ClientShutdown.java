@@ -37,7 +37,7 @@ import net.runelite.api.events.Event;
 @Slf4j
 public class ClientShutdown implements Event
 {
-	private Queue<Future<?>> tasks = new ConcurrentLinkedQueue<>();
+	Queue<Future<?>> tasks = new ConcurrentLinkedQueue<>();
 
 	public void waitFor(Future<?> future)
 	{

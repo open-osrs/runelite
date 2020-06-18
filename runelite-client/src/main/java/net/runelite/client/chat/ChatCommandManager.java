@@ -128,7 +128,7 @@ public class ChatCommandManager
 		String message = chatboxInput.getValue();
 		if (message.startsWith("/"))
 		{
-			message = message.substring(1); // clan chat input
+			message = message.substring(1); // friends chat input
 		}
 
 		onInput(chatboxInput, message);

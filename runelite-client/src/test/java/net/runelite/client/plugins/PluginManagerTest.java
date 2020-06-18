@@ -95,7 +95,7 @@ public class PluginManagerTest
 		executorService = Executors.newSingleThreadScheduledExecutor();
 
 		Injector injector = Guice.createInjector(Modules
-			.override(new RuneLiteModule(() -> null, RuneLite.DEFAULT_CONFIG_FILE))
+			.override(new RuneLiteModule(() -> null, false, RuneLite.DEFAULT_CONFIG_FILE))
 			.with(BoundFieldModule.of(this)));
 
 		RuneLite.setInjector(injector);
@@ -130,7 +130,7 @@ public class PluginManagerTest
 	@Test
 	public void testLoadPlugins() throws Exception
 	{
-		PluginManager pluginManager = new PluginManager(null, null, executorService, null, null, null, null);
+		PluginManager pluginManager = new PluginManager(false, null, null, executorService, null, null, null, null);
 		pluginManager.setOutdated(true);
 		pluginManager.loadCorePlugins();
 		Collection<Plugin> plugins = pluginManager.getPlugins();
@@ -141,7 +141,7 @@ public class PluginManagerTest
 			.count();
 		assertEquals(expected, plugins.size());
 
-		pluginManager = new PluginManager(null, null, executorService, null, null, null, null);
+		pluginManager = new PluginManager(false, null, null, executorService, null, null, null, null);
 		pluginManager.loadCorePlugins();
 		plugins = pluginManager.getPlugins();
 
@@ -157,9 +157,9 @@ public class PluginManagerTest
 	{
 		List<Module> modules = new ArrayList<>();
 		modules.add(new GraphvizModule());
-		modules.add(new RuneLiteModule(() -> null, RuneLite.DEFAULT_CONFIG_FILE));
+		modules.add(new RuneLiteModule(() -> null, false, RuneLite.DEFAULT_CONFIG_FILE));
 
-		PluginManager pluginManager = new PluginManager(null, null, executorService, null, null, null, null);
+		PluginManager pluginManager = new PluginManager(false, null, null, executorService, null, null, null, null);
 		pluginManager.loadCorePlugins();
 		modules.addAll(pluginManager.getPlugins());
 
@@ -211,7 +211,7 @@ public class PluginManagerTest
 	public void testEventbusAnnotations() throws Exception
 	{
 		EventBus eventbus = new EventBus();
-		PluginManager pluginManager = new PluginManager(eventbus, null, executorService, null, null, null, null)
+		PluginManager pluginManager = new PluginManager(false, eventbus, null, executorService, null, null, null, null)
 		{
 			@Override
 			public boolean isPluginEnabled(Plugin plugin)

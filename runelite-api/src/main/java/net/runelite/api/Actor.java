@@ -128,6 +128,23 @@ public interface Actor extends Entity, Locatable
 	int getAnimation();
 
 	/**
+	 * Gets the secondary animation the actor is performing.
+	 *
+	 * @return the animation ID
+	 * @see AnimationID
+	 */
+	int getPoseAnimation();
+
+	/**
+	 * If this is equal to the pose animation, the pose animation is ignored when
+	 * you are doing another action.
+	 *
+	 * @return the animation ID
+	 * @see AnimationID
+	 */
+	int getIdlePoseAnimation();
+
+	/**
 	 * Sets an animation for the actor to perform.
 	 *
 	 * @param animation the animation ID
@@ -253,8 +270,6 @@ public interface Actor extends Entity, Locatable
 	 Used by dev tools
 	 */
 
-	int getIdleAnimation();
-
 	int getTurnLeftAnimation();
 
 	int getTurnRightAnimation();
@@ -268,11 +283,4 @@ public interface Actor extends Entity, Locatable
 	int getWalkRightAnimation();
 
 	int getRunAnimation();
-
-	/**
-	 * This gets used for drawing the correct animation.
-	 *
-	 * The client moves one of the other animation fields into this field based off the actor's state
-	 */
-	int getMovementAnimation();
 }

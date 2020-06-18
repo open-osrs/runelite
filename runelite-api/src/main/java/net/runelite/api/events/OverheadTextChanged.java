@@ -6,7 +6,7 @@ import lombok.Value;
 @Value
 public class OverheadTextChanged implements Event
 {
-	private final Actor actor;
+	Actor actor;
 
-	private final String overheadText;
+	String overheadText;
 }

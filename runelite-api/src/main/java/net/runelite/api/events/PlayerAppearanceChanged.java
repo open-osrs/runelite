@@ -9,5 +9,5 @@ import net.runelite.api.Player;
 @Value
 public class PlayerAppearanceChanged implements Event
 {
-	private Player player;
+	Player player;
 }

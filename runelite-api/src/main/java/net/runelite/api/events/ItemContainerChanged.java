@@ -44,10 +44,10 @@ public class ItemContainerChanged implements Event
 	/**
 	 * The modified container's ID.
 	 */
-	private final int containerId;
+	int containerId;
 
 	/**
 	 * The modified item container.
 	 */
-	private final ItemContainer itemContainer;
+	ItemContainer itemContainer;
 }

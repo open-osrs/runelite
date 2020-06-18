@@ -76,9 +76,9 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.CanvasSizeChanged;
 import net.runelite.api.events.ChatMessage;
-import net.runelite.api.events.ClanChanged;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.DraggingWidgetChanged;
+import net.runelite.api.events.FriendsChatChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GrandExchangeOfferChanged;
 import net.runelite.api.events.GrandExchangeSearched;
@@ -1179,7 +1179,7 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public static void clanMemberManagerChanged(int idx)
 	{
-		client.getCallbacks().post(ClanChanged.class, new ClanChanged(client.getClanMemberManager() != null));
+		client.getCallbacks().post(FriendsChatChanged.class, new FriendsChatChanged(client.getFriendsChatManager() != null));
 	}
 
 	@FieldHook("canvasWidth")
@@ -1713,11 +1713,11 @@ public abstract class RSClientMixin implements RSClient
 	{
 		if (client.isSpellSelected())
 		{
-			return ((hideFriendCastOptions && p.isFriended()) || (hideClanmateCastOptions && p.isClanMember()))
+			return ((hideFriendCastOptions && p.isFriended()) || (hideClanmateCastOptions && p.isFriendsChatMember()))
 				&& !unhiddenCasts.contains(client.getSelectedSpellName().replaceAll("<[^>]*>", "").toLowerCase());
 		}
 
-		return ((hideFriendAttackOptions && p.isFriended()) || (hideClanmateAttackOptions && p.isClanMember()));
+		return ((hideFriendAttackOptions && p.isFriended()) || (hideClanmateAttackOptions && p.isFriendsChatMember()));
 	}
 
 	@Inject

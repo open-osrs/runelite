@@ -31,5 +31,5 @@ import net.runelite.api.events.Event;
 @Value
 public class PartyChanged implements Event
 {
-	private final UUID partyId;
+	UUID partyId;
 }

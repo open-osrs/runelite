@@ -61,7 +61,7 @@ public class WidgetID
 	public static final int PEST_CONTROL_GROUP_ID = 408;
 	public static final int PEST_CONTROL_EXCHANGE_WINDOW_GROUP_ID = 243;
 	public static final int DIALOG_MINIGAME_GROUP_ID = 229;
-	public static final int CLAN_CHAT_GROUP_ID = 7;
+	public static final int FRIENDS_CHAT_GROUP_ID = 7;
 	public static final int MINIMAP_GROUP_ID = 160;
 	public static final int LOGIN_CLICK_TO_PLAY_GROUP_ID = 378;
 	public static final int CLUE_SCROLL_GROUP_ID = 203;
@@ -300,7 +300,7 @@ public class WidgetID
 		static final int PREVIOUS_NAME_HOLDER = 16;
 	}
 
-	static class ClanChat
+	static class FriendsChat
 	{
 		static final int TITLE = 1;
 		static final int NAME = 4;
@@ -469,14 +469,14 @@ public class WidgetID
 		static final int MINIMAP_DRAW_AREA = 8;
 		static final int MULTICOMBAT_INDICATOR = 21;
 		static final int BANK_PIN = 22;
-		static final int CLAN_CHAT_TAB = 33;
+		static final int FRIENDS_CHAT_TAB = 33;
 		static final int FRIENDS_TAB = 35;
 		static final int IGNORES_TAB = 34;
 		static final int LOGOUT_TAB = 36;
 		static final int OPTIONS_TAB = 37;
 		static final int EMOTES_TAB = 38;
 		static final int MUSIC_TAB = 39;
-		static final int CLAN_CHAT_ICON = 40;
+		static final int FRIENDS_CHAT_ICON = 40;
 		static final int FRIENDS_ICON = 42;
 		static final int IGNORES_ICON = 41;
 		static final int LOGOUT_ICON = 43;
@@ -508,14 +508,14 @@ public class WidgetID
 		static final int ITEMS_KEPT_ON_DEATH = 13;
 		static final int BANK_PIN = 13;
 		static final int MULTICOMBAT_INDICATOR = 17;
-		static final int CLAN_CHAT_TAB = 37;
+		static final int FRIENDS_CHAT_TAB = 37;
 		static final int FRIENDS_TAB = 39;
 		static final int IGNORES_TAB = 38;
 		static final int LOGOUT_TAB = 40;
 		static final int OPTIONS_TAB = 41;
 		static final int EMOTES_TAB = 42;
 		static final int MUSIC_TAB = 43;
-		static final int CLAN_CHAT_ICON = 44;
+		static final int FRIENDS_CHAT_ICON = 44;
 		static final int FRIENDS_ICON = 46;
 		static final int IGNORES_ICON = 45;
 		static final int LOGOUT_ICON = 47;

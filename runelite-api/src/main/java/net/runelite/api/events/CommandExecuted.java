@@ -47,9 +47,9 @@ public class CommandExecuted implements Event
 	/**
 	 * The name of the command entered.
 	 */
-	private String command;
+	String command;
 	/**
 	 * The command arguments that have been entered.
 	 */
-	private String[] arguments;
+	String[] arguments;
 }

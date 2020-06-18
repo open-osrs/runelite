@@ -74,7 +74,7 @@ import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.discord.DiscordService;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ExternalPluginsLoaded;
-import net.runelite.client.game.ClanManager;
+import net.runelite.client.game.FriendChatManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.LootManager;
 import net.runelite.client.game.PlayerManager;
@@ -167,7 +167,7 @@ public class RuneLite
 	private Provider<OverlayRenderer> overlayRenderer;
 
 	@Inject
-	private Provider<ClanManager> clanManager;
+	private Provider<FriendChatManager> friendChatManager;
 
 	@Inject
 	private Provider<ChatMessageManager> chatMessageManager;
@@ -237,6 +237,7 @@ public class RuneLite
 		final OptionParser parser = new OptionParser();
 		parser.accepts("developer-mode", "Enable developer tools");
 		parser.accepts("debug", "Show extra debugging output");
+		parser.accepts("safe-mode", "Disables external plugins and the GPU plugin");
 		parser.accepts("no-splash", "Do not show the splash screen");
 		final ArgumentAcceptingOptionSpec<String> proxyInfo = parser
 			.accepts("proxy")
@@ -392,10 +393,15 @@ public class RuneLite
 
 		PROFILES_DIR.mkdirs();
 
+		log.info("OpenOSRS {} Runelite {} (launcher version {}) starting up, args: {}",
+			RuneLiteProperties.getPlusVersion(), RuneLiteProperties.getVersion(), RuneLiteProperties.getLauncherVersion() == null ? "unknown" : RuneLiteProperties.getLauncherVersion(),
+			args.length == 0 ? "none" : String.join(" ", args));
+
 		final long start = System.currentTimeMillis();
 
 		injector = Guice.createInjector(new RuneLiteModule(
 			clientLoader,
+			options.has("safe-mode"),
 			options.valueOf(configfile)));
 
 		injector.getInstance(RuneLite.class).start();
@@ -480,7 +486,7 @@ public class RuneLite
 			chatMessageManager.get().loadColors();
 
 			overlayRenderer.get();
-			clanManager.get();
+			friendChatManager.get();
 			itemManager.get();
 			menuManager.get();
 			chatMessageManager.get();
@@ -490,6 +496,7 @@ public class RuneLite
 			playerManager.get();
 			chatboxPanelManager.get();
 			partyService.get();
+			infoBoxOverlay.get();
 
 			eventBus.subscribe(GameStateChanged.class, this, hooks::onGameStateChanged);
 			eventBus.subscribe(ScriptCallbackEvent.class, this, hooks::onScriptCallbackEvent);

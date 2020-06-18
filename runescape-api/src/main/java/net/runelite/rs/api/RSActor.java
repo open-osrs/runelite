@@ -104,9 +104,17 @@ public interface RSActor extends RSEntity, Actor
 
 	@Import("idleSequence")
 	@Override
+	int getIdlePoseAnimation();
+
+	@Import("idleSequence")
+	@Override
 	void setIdlePoseAnimation(int animation);
 
 	// Movement animation (aka poseAnimation)
+
+	@Import("movementSequence")
+	@Override
+	int getPoseAnimation();
 
 	@Import("movementSequence")
 	@Override
@@ -147,10 +155,6 @@ public interface RSActor extends RSEntity, Actor
 	@Import("hitSplatCycles")
 	int[] getHitsplatCycles();
 
-	@Import("idleSequence")
-	@Override
-	int getIdleAnimation();
-
 	@Import("turnLeftSequence")
 	@Override
 	int getTurnLeftAnimation();
@@ -178,8 +182,4 @@ public interface RSActor extends RSEntity, Actor
 	@Import("runSequence")
 	@Override
 	int getRunAnimation();
-
-	@Import("movementSequence")
-	@Override
-	int getMovementAnimation();
 }

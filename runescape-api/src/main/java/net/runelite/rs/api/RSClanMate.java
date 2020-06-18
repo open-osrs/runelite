@@ -1,5 +1,5 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.ClanMember;
+import net.runelite.api.FriendsChatMember;
 
-public interface RSClanMate extends RSBuddy, ClanMember {}
+public interface RSClanMate extends RSBuddy, FriendsChatMember {}

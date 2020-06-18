@@ -37,10 +37,10 @@ public class CannonChanged implements Event
 	 * The projectile id.
 	 */
 	@Nullable
-	private final Integer cannonballId;
+	Integer cannonballId;
 
 	/**
 	 * The amount of cannonballs left.
 	 */
-	private final int cannonballs;
+	int cannonballs;
 }

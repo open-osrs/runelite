@@ -11,5 +11,5 @@ public class FriendAdded implements Event
 	/**
 	 * The name of the added friend.
 	 */
-	private final String name;
+	String name;
 }

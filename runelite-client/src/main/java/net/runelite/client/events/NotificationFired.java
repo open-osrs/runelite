@@ -31,6 +31,6 @@ import net.runelite.api.events.Event;
 @Value
 public class NotificationFired implements Event
 {
-	final String message;
-	final TrayIcon.MessageType type;
+	String message;
+	TrayIcon.MessageType type;
 }

@@ -50,7 +50,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.MenuEntry;
-import net.runelite.api.MenuOpcode;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.FocusChanged;
@@ -818,6 +817,11 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private MenuEntry[] createRightClickMenuEntries(Overlay overlay)
 	{
 		List<OverlayMenuEntry> menuEntries = overlay.getMenuEntries();
+		if (menuEntries.isEmpty())
+		{
+			return null;
+		}
+
 		final MenuEntry[] entries = new MenuEntry[menuEntries.size()];
 
 		// Add in reverse order so they display correctly in the right-click menu
@@ -828,7 +832,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			final MenuEntry entry = new MenuEntry();
 			entry.setOption(overlayMenuEntry.getOption());
 			entry.setTarget(ColorUtil.wrapWithColorTag(overlayMenuEntry.getTarget(), JagexColors.MENU_TARGET));
-			entry.setOpcode(MenuOpcode.RUNELITE_OVERLAY.getId());
+			entry.setOpcode(overlayMenuEntry.getMenuOpcode().getId());
 			entry.setIdentifier(overlayManager.getOverlays().indexOf(overlay)); // overlay id
 
 			entries[i] = entry;

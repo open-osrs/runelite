@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,24 +22,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.api.events;
+
+import lombok.Value;
 
 /**
- * Represents a clan member.
+ * An event where the client has joined or left a friends chat.
  */
-public interface ClanMember extends ChatPlayer
+@Value
+public class FriendsChatChanged implements Event
 {
 	/**
-	 * Gets the world the member is in.
-	 *
-	 * @return the world
+	 * Whether or not the client is now in a friends chat.
 	 */
-	int getWorld();
-
-	/**
-	 * Gets the rank of the clan member.
-	 *
-	 * @return the rank
-	 */
-	ClanMemberRank getRank();
+	boolean joined;
 }

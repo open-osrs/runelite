@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,18 +22,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.api;
 
-import lombok.Value;
 
-/**
- * An event where the client has joined or left a clan chat.
- */
-@Value
-public class ClanChanged implements Event
+public interface FriendsChatManager extends NameableContainer<FriendsChatMember>
 {
 	/**
-	 * Whether or not the client is now in a clan chat.
+	 * Gets the owner of the currently joined friends chat
+	 *
+	 * @return
 	 */
-	private boolean joined;
+	String getOwner();
+
+	/**
+	 * Gets the name of the currently joined friends chat
+	 *
+	 * @return
+	 */
+	String getName();
 }

@@ -54,6 +54,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.swing.JOptionPane;
 import lombok.AccessLevel;
@@ -66,6 +67,7 @@ import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.OpenOSRSConfig;
+import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.ExternalPluginChanged;
@@ -112,9 +114,11 @@ public class ExternalPluginManager
 	@Getter(AccessLevel.PUBLIC)
 	private UpdateManager updateManager;
 	private final Set<PluginType> pluginTypes = Set.of(PluginType.values());
+	private final boolean safeMode;
 
 	@Inject
 	public ExternalPluginManager(
+		@Named("safeMode") final boolean safeMode,
 		PluginManager pluginManager,
 		OpenOSRSConfig openOSRSConfig,
 		EventBus eventBus,
@@ -122,6 +126,7 @@ public class ExternalPluginManager
 		ConfigManager configManager,
 		Groups groups)
 	{
+		this.safeMode = safeMode;
 		this.runelitePluginManager = pluginManager;
 		this.openOSRSConfig = openOSRSConfig;
 		this.eventBus = eventBus;
@@ -446,6 +451,14 @@ public class ExternalPluginManager
 			catch (EnumConstantNotPresentException e)
 			{
 				log.warn("{} has an invalid plugin type of {}", clazz, e.getMessage());
+				continue;
+			}
+
+			if (safeMode && !pluginDescriptor.loadInSafeMode())
+			{
+				log.debug("Disabling {} due to safe mode", clazz);
+				// also disable the plugin from autostarting later
+				configManager.unsetConfiguration(RuneLiteConfig.GROUP_NAME, clazz.getSimpleName().toLowerCase());
 				continue;
 			}
 

@@ -37,7 +37,7 @@ public class PlayerSpawned implements Event
 	/**
 	 * The spawned player.
 	 */
-	private final Player player;
+	Player player;
 
 	public Actor getActor()
 	{
