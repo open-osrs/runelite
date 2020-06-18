@@ -503,6 +503,12 @@ public class ExternalPluginManager
 					{
 						//noinspection unchecked
 						plugininst = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz, init, initConfig);
+
+						if (plugininst == null)
+						{
+							return;
+						}
+
 						scannedPlugins.add(plugininst);
 					}
 					catch (PluginInstantiationException e)
@@ -654,6 +660,11 @@ public class ExternalPluginManager
 		{
 			throw new PluginInstantiationException(ex);
 		}
+		catch (NoClassDefFoundError ex)
+		{
+			log.error("Plugin {} is outdated", clazz.getSimpleName());
+			return null;
+		}
 
 		log.debug("Loaded plugin {}", clazz.getSimpleName());
 		return plugin;
@@ -712,39 +723,46 @@ public class ExternalPluginManager
 	private List<Plugin> loadPlugin(String pluginId)
 	{
 		List<Plugin> scannedPlugins = new ArrayList<>();
-		List<Plugin> extensions = externalPluginManager.getExtensions(Plugin.class, pluginId);
-		for (Plugin plugin : extensions)
+		try
 		{
-			pluginClassLoaders.add(plugin.getClass().getClassLoader());
+			List<Plugin> extensions = externalPluginManager.getExtensions(Plugin.class, pluginId);
+			for (Plugin plugin : extensions)
+			{
+				pluginClassLoaders.add(plugin.getClass().getClassLoader());
 
-			pluginsMap.remove(plugin.getClass().getSimpleName());
-			pluginsMap.put(plugin.getClass().getSimpleName(), pluginId);
+				pluginsMap.remove(plugin.getClass().getSimpleName());
+				pluginsMap.put(plugin.getClass().getSimpleName(), pluginId);
 
-			pluginsInfoMap.remove(plugin.getClass().getSimpleName());
+				pluginsInfoMap.remove(plugin.getClass().getSimpleName());
 
-			AtomicReference<String> support = new AtomicReference<>("");
+				AtomicReference<String> support = new AtomicReference<>("");
 
-			updateManager.getRepositories().forEach(repository ->
-				repository.getPlugins().forEach((key, value) ->
-				{
-					if (key.equals(pluginId))
+				updateManager.getRepositories().forEach(repository ->
+					repository.getPlugins().forEach((key, value) ->
 					{
-						support.set(value.projectUrl);
-					}
-				}));
+						if (key.equals(pluginId))
+						{
+							support.set(value.projectUrl);
+						}
+					}));
 
-			pluginsInfoMap.put(
-				plugin.getClass().getSimpleName(),
-				new HashMap<>()
-				{{
-					put("version", externalPluginManager.getPlugin(pluginId).getDescriptor().getVersion());
-					put("id", externalPluginManager.getPlugin(pluginId).getDescriptor().getPluginId());
-					put("provider", externalPluginManager.getPlugin(pluginId).getDescriptor().getProvider());
-					put("support", support.get());
-				}}
-			);
+				pluginsInfoMap.put(
+					plugin.getClass().getSimpleName(),
+					new HashMap<>()
+					{{
+						put("version", externalPluginManager.getPlugin(pluginId).getDescriptor().getVersion());
+						put("id", externalPluginManager.getPlugin(pluginId).getDescriptor().getPluginId());
+						put("provider", externalPluginManager.getPlugin(pluginId).getDescriptor().getProvider());
+						put("support", support.get());
+					}}
+				);
 
-			scannedPlugins.add(plugin);
+				scannedPlugins.add(plugin);
+			}
+		}
+		catch (NoClassDefFoundError ex)
+		{
+			log.error("plugin {} is outdated", pluginId);
 		}
 
 		return scannedPlugins;
