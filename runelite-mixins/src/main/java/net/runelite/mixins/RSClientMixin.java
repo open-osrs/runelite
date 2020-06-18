@@ -1179,7 +1179,7 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public static void clanMemberManagerChanged(int idx)
 	{
-		client.getCallbacks().post(FriendsChatChanged.class, new FriendsChatChanged(client.getClanMemberManager() != null));
+		client.getCallbacks().post(FriendsChatChanged.class, new FriendsChatChanged(client.getFriendsChatManager() != null));
 	}
 
 	@FieldHook("canvasWidth")
