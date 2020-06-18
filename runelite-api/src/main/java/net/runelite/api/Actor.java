@@ -270,8 +270,6 @@ public interface Actor extends Entity, Locatable
 	 Used by dev tools
 	 */
 
-	int getIdleAnimation();
-
 	int getTurnLeftAnimation();
 
 	int getTurnRightAnimation();
