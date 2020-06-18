@@ -1,3 +1,4 @@
+import java.applet.Applet;
 import java.io.DataInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -7,37 +8,36 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fs")
+@ObfuscatedName("fm")
 @Implements("TaskHandler")
 public class TaskHandler implements Runnable {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@Export("javaVendor")
 	public static String javaVendor;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("javaVersion")
 	public static String javaVersion;
-	@ObfuscatedName("fq")
+	@ObfuscatedName("jq")
 	@ObfuscatedSignature(
-		signature = "Lkx;"
+		signature = "Lhd;"
 	)
-	@Export("fontBold12")
-	static Font fontBold12;
-	@ObfuscatedName("k")
+	static Widget field2066;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lfr;"
+		signature = "Lfa;"
 	)
 	@Export("current")
 	Task current;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lfr;"
+		signature = "Lfa;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@Export("isClosed")
 	boolean isClosed;
 
@@ -61,10 +61,10 @@ public class TaskHandler implements Runnable {
 		this.thread.start();
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-64"
+		signature = "(I)V",
+		garbageValue = "622783218"
 	)
 	@Export("close")
 	public final void close() {
@@ -80,10 +80,10 @@ public class TaskHandler implements Runnable {
 
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIILjava/lang/Object;I)Lfr;",
-		garbageValue = "-957641141"
+		signature = "(IIILjava/lang/Object;I)Lfa;",
+		garbageValue = "962190485"
 	)
 	@Export("newTask")
 	final Task newTask(int var1, int var2, int var3, Object var4) {
@@ -104,20 +104,20 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;IB)Lfr;",
-		garbageValue = "-83"
+		signature = "(Ljava/lang/String;II)Lfa;",
+		garbageValue = "746026781"
 	)
 	@Export("newSocketTask")
 	public final Task newSocketTask(String var1, int var2) {
 		return this.newTask(1, var2, 0, var1);
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Runnable;IB)Lfr;",
-		garbageValue = "-108"
+		signature = "(Ljava/lang/Runnable;II)Lfa;",
+		garbageValue = "2089571271"
 	)
 	@Export("newThreadTask")
 	public final Task newThreadTask(Runnable var1, int var2) {
@@ -172,74 +172,393 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(CB)B",
-		garbageValue = "108"
+		signature = "(Ljava/applet/Applet;Ljava/lang/String;I)V",
+		garbageValue = "-1144544095"
 	)
-	@Export("charToByteCp1252")
-	public static byte charToByteCp1252(char var0) {
-		byte var1;
-		if (var0 > 0 && var0 < 128 || var0 >= 160 && var0 <= 255) {
-			var1 = (byte)var0;
-		} else if (var0 == 8364) {
-			var1 = -128;
-		} else if (var0 == 8218) {
-			var1 = -126;
-		} else if (var0 == 402) {
-			var1 = -125;
-		} else if (var0 == 8222) {
-			var1 = -124;
-		} else if (var0 == 8230) {
-			var1 = -123;
-		} else if (var0 == 8224) {
-			var1 = -122;
-		} else if (var0 == 8225) {
-			var1 = -121;
-		} else if (var0 == 710) {
-			var1 = -120;
-		} else if (var0 == 8240) {
-			var1 = -119;
-		} else if (var0 == 352) {
-			var1 = -118;
-		} else if (var0 == 8249) {
-			var1 = -117;
-		} else if (var0 == 338) {
-			var1 = -116;
-		} else if (var0 == 381) {
-			var1 = -114;
-		} else if (var0 == 8216) {
-			var1 = -111;
-		} else if (var0 == 8217) {
-			var1 = -110;
-		} else if (var0 == 8220) {
-			var1 = -109;
-		} else if (var0 == 8221) {
-			var1 = -108;
-		} else if (var0 == 8226) {
-			var1 = -107;
-		} else if (var0 == 8211) {
-			var1 = -106;
-		} else if (var0 == 8212) {
-			var1 = -105;
-		} else if (var0 == 732) {
-			var1 = -104;
-		} else if (var0 == 8482) {
-			var1 = -103;
-		} else if (var0 == 353) {
-			var1 = -102;
-		} else if (var0 == 8250) {
-			var1 = -101;
-		} else if (var0 == 339) {
-			var1 = -100;
-		} else if (var0 == 382) {
-			var1 = -98;
-		} else if (var0 == 376) {
-			var1 = -97;
-		} else {
-			var1 = 63;
+	public static void method3606(Applet var0, String var1) {
+		class60.applet = var0;
+		if (var1 != null) {
+			class60.field450 = var1;
 		}
 
-		return var1;
+	}
+
+	@ObfuscatedName("fa")
+	@ObfuscatedSignature(
+		signature = "(Lcc;IB)V",
+		garbageValue = "-73"
+	)
+	@Export("updateActorSequence")
+	static final void updateActorSequence(Actor var0, int var1) {
+		int var2;
+		int var3;
+		int var4;
+		SequenceDefinition var11;
+		if (var0.field966 >= Client.cycle) {
+			var2 = Math.max(1, var0.field966 - Client.cycle);
+			var3 = var0.field967 * 64 + var0.field995 * 128;
+			var4 = var0.field967 * 64 + var0.field1008 * 128;
+			var0.x += (var3 - var0.x) / var2;
+			var0.y += (var4 - var0.y) / var2;
+			var0.field1022 = 0;
+			var0.orientation = var0.field1006;
+		} else {
+			int var5;
+			int var7;
+			if (var0.field1011 >= Client.cycle) {
+				if (var0.field1011 == Client.cycle || var0.sequence == -1 || var0.sequenceDelay != 0 || var0.sequenceFrameCycle + 1 > NetSocket.SequenceDefinition_get(var0.sequence).frameLengths[var0.sequenceFrame]) {
+					var2 = var0.field1011 - var0.field966;
+					var3 = Client.cycle - var0.field966;
+					var4 = var0.field967 * 64 + var0.field995 * 128;
+					var5 = var0.field967 * 64 + var0.field1008 * 128;
+					int var6 = var0.field967 * 64 + var0.field1007 * 128;
+					var7 = var0.field967 * 64 + var0.field1009 * 128;
+					var0.x = (var6 * var3 + var4 * (var2 - var3)) / var2;
+					var0.y = (var7 * var3 + var5 * (var2 - var3)) / var2;
+				}
+
+				var0.field1022 = 0;
+				var0.orientation = var0.field1006;
+				var0.rotation = var0.orientation;
+			} else {
+				var0.movementSequence = var0.idleSequence;
+				if (var0.pathLength == 0) {
+					var0.field1022 = 0;
+				} else {
+					label550: {
+						if (var0.sequence != -1 && var0.sequenceDelay == 0) {
+							var11 = NetSocket.SequenceDefinition_get(var0.sequence);
+							if (var0.field1023 > 0 && var11.field3559 == 0) {
+								++var0.field1022;
+								break label550;
+							}
+
+							if (var0.field1023 <= 0 && var11.field3560 == 0) {
+								++var0.field1022;
+								break label550;
+							}
+						}
+
+						var2 = var0.x;
+						var3 = var0.y;
+						var4 = var0.field967 * 64 + var0.pathX[var0.pathLength - 1] * 128;
+						var5 = var0.field967 * 64 + var0.pathY[var0.pathLength - 1] * 128;
+						if (var2 < var4) {
+							if (var3 < var5) {
+								var0.orientation = 1280;
+							} else if (var3 > var5) {
+								var0.orientation = 1792;
+							} else {
+								var0.orientation = 1536;
+							}
+						} else if (var2 > var4) {
+							if (var3 < var5) {
+								var0.orientation = 768;
+							} else if (var3 > var5) {
+								var0.orientation = 256;
+							} else {
+								var0.orientation = 512;
+							}
+						} else if (var3 < var5) {
+							var0.orientation = 1024;
+						} else if (var3 > var5) {
+							var0.orientation = 0;
+						}
+
+						byte var14 = var0.pathTraversed[var0.pathLength - 1];
+						if (var4 - var2 <= 256 && var4 - var2 >= -256 && var5 - var3 <= 256 && var5 - var3 >= -256) {
+							var7 = var0.orientation - var0.rotation & 2047;
+							if (var7 > 1024) {
+								var7 -= 2048;
+							}
+
+							int var8 = var0.walkBackSequence;
+							if (var7 >= -256 && var7 <= 256) {
+								var8 = var0.walkSequence;
+							} else if (var7 >= 256 && var7 < 768) {
+								var8 = var0.walkRightSequence;
+							} else if (var7 >= -768 && var7 <= -256) {
+								var8 = var0.walkLeftSequence;
+							}
+
+							if (var8 == -1) {
+								var8 = var0.walkSequence;
+							}
+
+							var0.movementSequence = var8;
+							int var9 = 4;
+							boolean var10 = true;
+							if (var0 instanceof NPC) {
+								var10 = ((NPC)var0).definition.isClickable;
+							}
+
+							if (var10) {
+								if (var0.orientation != var0.rotation && var0.targetIndex == -1 && var0.field1017 != 0) {
+									var9 = 2;
+								}
+
+								if (var0.pathLength > 2) {
+									var9 = 6;
+								}
+
+								if (var0.pathLength > 3) {
+									var9 = 8;
+								}
+
+								if (var0.field1022 > 0 && var0.pathLength > 1) {
+									var9 = 8;
+									--var0.field1022;
+								}
+							} else {
+								if (var0.pathLength > 1) {
+									var9 = 6;
+								}
+
+								if (var0.pathLength > 2) {
+									var9 = 8;
+								}
+
+								if (var0.field1022 > 0 && var0.pathLength > 1) {
+									var9 = 8;
+									--var0.field1022;
+								}
+							}
+
+							if (var14 == 2) {
+								var9 <<= 1;
+							}
+
+							if (var9 >= 8 && var0.walkSequence == var0.movementSequence && var0.runSequence != -1) {
+								var0.movementSequence = var0.runSequence;
+							}
+
+							if (var4 != var2 || var3 != var5) {
+								if (var2 < var4) {
+									var0.x += var9;
+									if (var0.x > var4) {
+										var0.x = var4;
+									}
+								} else if (var2 > var4) {
+									var0.x -= var9;
+									if (var0.x < var4) {
+										var0.x = var4;
+									}
+								}
+
+								if (var3 < var5) {
+									var0.y += var9;
+									if (var0.y > var5) {
+										var0.y = var5;
+									}
+								} else if (var3 > var5) {
+									var0.y -= var9;
+									if (var0.y < var5) {
+										var0.y = var5;
+									}
+								}
+							}
+
+							if (var4 == var0.x && var5 == var0.y) {
+								--var0.pathLength;
+								if (var0.field1023 > 0) {
+									--var0.field1023;
+								}
+							}
+						} else {
+							var0.x = var4;
+							var0.y = var5;
+							--var0.pathLength;
+							if (var0.field1023 > 0) {
+								--var0.field1023;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (var0.x < 128 || var0.y < 128 || var0.x >= 13184 || var0.y >= 13184) {
+			var0.sequence = -1;
+			var0.spotAnimation = -1;
+			var0.field966 = 0;
+			var0.field1011 = 0;
+			var0.x = var0.pathX[0] * 128 + var0.field967 * 64;
+			var0.y = var0.pathY[0] * 128 + var0.field967 * 64;
+			var0.method1810();
+		}
+
+		if (class60.localPlayer == var0 && (var0.x < 1536 || var0.y < 1536 || var0.x >= 11776 || var0.y >= 11776)) {
+			var0.sequence = -1;
+			var0.spotAnimation = -1;
+			var0.field966 = 0;
+			var0.field1011 = 0;
+			var0.x = var0.pathX[0] * 128 + var0.field967 * 64;
+			var0.y = var0.field967 * 64 + var0.pathY[0] * 128;
+			var0.method1810();
+		}
+
+		if (var0.field1017 != 0) {
+			if (var0.targetIndex != -1) {
+				Object var15 = null;
+				if (var0.targetIndex < 32768) {
+					var15 = Client.npcs[var0.targetIndex];
+				} else if (var0.targetIndex >= 32768) {
+					var15 = Client.players[var0.targetIndex - 32768];
+				}
+
+				if (var15 != null) {
+					var3 = var0.x - ((Actor)var15).x;
+					var4 = var0.y - ((Actor)var15).y;
+					if (var3 != 0 || var4 != 0) {
+						var0.orientation = (int)(Math.atan2((double)var3, (double)var4) * 325.949D) & 2047;
+					}
+				} else if (var0.false0) {
+					var0.targetIndex = -1;
+					var0.false0 = false;
+				}
+			}
+
+			if (var0.field992 != -1 && (var0.pathLength == 0 || var0.field1022 > 0)) {
+				var0.orientation = var0.field992;
+				var0.field992 = -1;
+			}
+
+			var2 = var0.orientation - var0.rotation & 2047;
+			if (var2 == 0 && var0.false0) {
+				var0.targetIndex = -1;
+				var0.false0 = false;
+			}
+
+			if (var2 != 0) {
+				++var0.field1016;
+				boolean var13;
+				if (var2 > 1024) {
+					var0.rotation -= var0.field1017;
+					var13 = true;
+					if (var2 < var0.field1017 || var2 > 2048 - var0.field1017) {
+						var0.rotation = var0.orientation;
+						var13 = false;
+					}
+
+					if (var0.movementSequence == var0.idleSequence && (var0.field1016 > 25 || var13)) {
+						if (var0.turnLeftSequence != -1) {
+							var0.movementSequence = var0.turnLeftSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence;
+						}
+					}
+				} else {
+					var0.rotation += var0.field1017;
+					var13 = true;
+					if (var2 < var0.field1017 || var2 > 2048 - var0.field1017) {
+						var0.rotation = var0.orientation;
+						var13 = false;
+					}
+
+					if (var0.movementSequence == var0.idleSequence && (var0.field1016 > 25 || var13)) {
+						if (var0.turnRightSequence != -1) {
+							var0.movementSequence = var0.turnRightSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence;
+						}
+					}
+				}
+
+				var0.rotation &= 2047;
+			} else {
+				var0.field1016 = 0;
+			}
+		}
+
+		var0.isWalking = false;
+		if (var0.movementSequence != -1) {
+			var11 = NetSocket.SequenceDefinition_get(var0.movementSequence);
+			if (var11 != null && var11.frameIds != null) {
+				++var0.movementFrameCycle;
+				if (var0.movementFrame < var11.frameIds.length && var0.movementFrameCycle > var11.frameLengths[var0.movementFrame]) {
+					var0.movementFrameCycle = 1;
+					++var0.movementFrame;
+					GrandExchangeOfferOwnWorldComparator.addSequenceSoundEffect(var11, var0.movementFrame, var0.x, var0.y);
+				}
+
+				if (var0.movementFrame >= var11.frameIds.length) {
+					var0.movementFrameCycle = 0;
+					var0.movementFrame = 0;
+					GrandExchangeOfferOwnWorldComparator.addSequenceSoundEffect(var11, var0.movementFrame, var0.x, var0.y);
+				}
+			} else {
+				var0.movementSequence = -1;
+			}
+		}
+
+		if (var0.spotAnimation != -1 && Client.cycle >= var0.field987) {
+			if (var0.spotAnimationFrame < 0) {
+				var0.spotAnimationFrame = 0;
+			}
+
+			var2 = class4.SpotAnimationDefinition_get(var0.spotAnimation).sequence;
+			if (var2 != -1) {
+				SequenceDefinition var12 = NetSocket.SequenceDefinition_get(var2);
+				if (var12 != null && var12.frameIds != null) {
+					++var0.spotAnimationFrameCycle;
+					if (var0.spotAnimationFrame < var12.frameIds.length && var0.spotAnimationFrameCycle > var12.frameLengths[var0.spotAnimationFrame]) {
+						var0.spotAnimationFrameCycle = 1;
+						++var0.spotAnimationFrame;
+						GrandExchangeOfferOwnWorldComparator.addSequenceSoundEffect(var12, var0.spotAnimationFrame, var0.x, var0.y);
+					}
+
+					if (var0.spotAnimationFrame >= var12.frameIds.length && (var0.spotAnimationFrame < 0 || var0.spotAnimationFrame >= var12.frameIds.length)) {
+						var0.spotAnimation = -1;
+					}
+				} else {
+					var0.spotAnimation = -1;
+				}
+			} else {
+				var0.spotAnimation = -1;
+			}
+		}
+
+		if (var0.sequence != -1 && var0.sequenceDelay <= 1) {
+			var11 = NetSocket.SequenceDefinition_get(var0.sequence);
+			if (var11.field3559 == 1 && var0.field1023 > 0 && var0.field966 <= Client.cycle && var0.field1011 < Client.cycle) {
+				var0.sequenceDelay = 1;
+				return;
+			}
+		}
+
+		if (var0.sequence != -1 && var0.sequenceDelay == 0) {
+			var11 = NetSocket.SequenceDefinition_get(var0.sequence);
+			if (var11 != null && var11.frameIds != null) {
+				++var0.sequenceFrameCycle;
+				if (var0.sequenceFrame < var11.frameIds.length && var0.sequenceFrameCycle > var11.frameLengths[var0.sequenceFrame]) {
+					var0.sequenceFrameCycle = 1;
+					++var0.sequenceFrame;
+					GrandExchangeOfferOwnWorldComparator.addSequenceSoundEffect(var11, var0.sequenceFrame, var0.x, var0.y);
+				}
+
+				if (var0.sequenceFrame >= var11.frameIds.length) {
+					var0.sequenceFrame -= var11.frameCount;
+					++var0.field1000;
+					if (var0.field1000 >= var11.field3562) {
+						var0.sequence = -1;
+					} else if (var0.sequenceFrame >= 0 && var0.sequenceFrame < var11.frameIds.length) {
+						GrandExchangeOfferOwnWorldComparator.addSequenceSoundEffect(var11, var0.sequenceFrame, var0.x, var0.y);
+					} else {
+						var0.sequence = -1;
+					}
+				}
+
+				var0.isWalking = var11.field3558;
+			} else {
+				var0.sequence = -1;
+			}
+		}
+
+		if (var0.sequenceDelay > 0) {
+			--var0.sequenceDelay;
+		}
+
 	}
 }

@@ -4,88 +4,57 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lt")
+@ObfuscatedName("lj")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
 	protected AbstractSocket() {
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "7"
+		signature = "(I)V",
+		garbageValue = "-768493590"
 	)
 	@Export("close")
 	public abstract void close();
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "1436175029"
+		signature = "(B)I",
+		garbageValue = "-8"
 	)
 	@Export("readUnsignedByte")
 	public abstract int readUnsignedByte() throws IOException;
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		signature = "(I)I",
-		garbageValue = "195119972"
+		garbageValue = "-1942767880"
 	)
 	@Export("available")
 	public abstract int available() throws IOException;
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
-		garbageValue = "0"
+		signature = "(II)Z",
+		garbageValue = "1355091335"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "([BIIB)I",
-		garbageValue = "33"
+		garbageValue = "37"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
-		garbageValue = "-2040746201"
+		signature = "([BIIB)V",
+		garbageValue = "-105"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-842833143"
-	)
-	public static final void method5886(int var0, int var1) {
-		ViewportMouse.ViewportMouse_x = var0;
-		ViewportMouse.ViewportMouse_y = var1;
-		ViewportMouse.ViewportMouse_isInViewport = true;
-		ViewportMouse.ViewportMouse_entityCount = 0;
-		ViewportMouse.ViewportMouse_false0 = false;
-	}
-
-	@ObfuscatedName("ke")
-	@ObfuscatedSignature(
-		signature = "(Lhe;IIIB)V",
-		garbageValue = "7"
-	)
-	@Export("drawCompass")
-	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
-		SpriteMask var4 = var0.getSpriteMask(false);
-		if (var4 != null) {
-			if (Client.minimapState < 3) {
-				ChatChannel.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
-			} else {
-				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths);
-			}
-
-		}
-	}
 }

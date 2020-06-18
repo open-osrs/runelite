@@ -4,87 +4,93 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cm")
+@ObfuscatedName("cn")
 @Implements("ObjectSound")
 public final class ObjectSound extends Node {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljh;"
+		signature = "Ljp;"
 	)
 	@Export("objectSounds")
 	static NodeDeque objectSounds;
-	@ObfuscatedName("x")
+	@ObfuscatedName("hx")
 	@ObfuscatedGetter(
-		intValue = 1413400591
+		intValue = -1274287771
 	)
-	@Export("y")
-	int y;
-	@ObfuscatedName("k")
+	@Export("cameraZ")
+	static int cameraZ;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1795590701
+		intValue = 979067629
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("d")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -877292205
+		intValue = -107293807
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("w")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1466364365
+		intValue = -1886851705
 	)
-	int field1110;
-	@ObfuscatedName("v")
+	@Export("y")
+	int y;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -878503687
+		intValue = -1922393949
 	)
-	int field1100;
-	@ObfuscatedName("q")
+	int field1103;
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 2082519321
+		intValue = 371547415
 	)
-	int field1106;
-	@ObfuscatedName("z")
+	int field1104;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1984124175
+		intValue = 1292781509
+	)
+	int field1105;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = -1063635793
 	)
 	@Export("soundEffectId")
 	int soundEffectId;
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Ldy;"
+		signature = "Ldk;"
 	)
 	@Export("stream1")
 	RawPcmStream stream1;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -240636841
+		intValue = -654816811
 	)
-	int field1104;
-	@ObfuscatedName("s")
+	int field1108;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -901475347
+		intValue = 648336705
 	)
-	int field1105;
-	@ObfuscatedName("p")
+	int field1115;
+	@ObfuscatedName("y")
 	@Export("soundEffectIds")
 	int[] soundEffectIds;
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1043802301
+		intValue = -1339220777
 	)
-	int field1107;
-	@ObfuscatedName("u")
+	int field1111;
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Ldy;"
+		signature = "Ldk;"
 	)
 	@Export("stream2")
 	RawPcmStream stream2;
-	@ObfuscatedName("h")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+		signature = "Ljg;"
 	)
 	@Export("obj")
 	ObjectDefinition obj;
@@ -96,10 +102,10 @@ public final class ObjectSound extends Node {
 	ObjectSound() {
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "29"
+		signature = "(I)V",
+		garbageValue = "2014471583"
 	)
 	@Export("set")
 	void set() {
@@ -107,37 +113,67 @@ public final class ObjectSound extends Node {
 		ObjectDefinition var2 = this.obj.transform();
 		if (var2 != null) {
 			this.soundEffectId = var2.ambientSoundId;
-			this.field1106 = var2.int4 * 128;
-			this.field1104 = var2.int5;
-			this.field1105 = var2.int6;
+			this.field1105 = var2.int4 * 128;
+			this.field1108 = var2.int5;
+			this.field1115 = var2.int6;
 			this.soundEffectIds = var2.soundEffectIds;
 		} else {
 			this.soundEffectId = -1;
-			this.field1106 = 0;
-			this.field1104 = 0;
 			this.field1105 = 0;
+			this.field1108 = 0;
+			this.field1115 = 0;
 			this.soundEffectIds = null;
 		}
 
 		if (var1 != this.soundEffectId && this.stream1 != null) {
-			Tiles.pcmStreamMixer.removeSubStream(this.stream1);
+			class60.pcmStreamMixer.removeSubStream(this.stream1);
 			this.stream1 = null;
 		}
 
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-1791981608"
+		signature = "(ILjava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "-997797111"
 	)
-	@Export("Messages_getNextChatID")
-	static int Messages_getNextChatID(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
-		if (var1 == null) {
-			return -1;
-		} else {
-			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.previousDual).count;
-		}
+	@Export("addGameMessage")
+	static void addGameMessage(int var0, String var1, String var2) {
+		WorldMapID.addChatMessage(var0, var1, var2, (String)null);
+	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(Lic;I)V",
+		garbageValue = "1163495687"
+	)
+	public static void method1999(AbstractArchive var0) {
+		FloorUnderlayDefinition.FloorUnderlayDefinition_archive = var0;
+	}
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		signature = "(S)V",
+		garbageValue = "23035"
+	)
+	public static void method2007() {
+		PlayerAppearance.PlayerAppearance_cachedModels.clear();
+	}
+
+	@ObfuscatedName("w")
+	static final void method2010(long var0) {
+		ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var0;
+	}
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		signature = "(I)V",
+		garbageValue = "1381107864"
+	)
+	public static void method2008() {
+		Widget.Widget_cachedSprites.clear();
+		Widget.Widget_cachedModels.clear();
+		Widget.Widget_cachedFonts.clear();
+		Widget.Widget_cachedSpriteMasks.clear();
 	}
 }

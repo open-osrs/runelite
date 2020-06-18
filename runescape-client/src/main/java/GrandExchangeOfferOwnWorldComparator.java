@@ -1,37 +1,30 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bl")
+@ObfuscatedName("bj")
 @Implements("GrandExchangeOfferOwnWorldComparator")
 public class GrandExchangeOfferOwnWorldComparator implements Comparator {
-	@ObfuscatedName("sb")
-	@ObfuscatedSignature(
-		signature = "Lcq;"
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -1758275927
 	)
-	@Export("clientPreferences")
-	static ClientPreferences clientPreferences;
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "Lle;"
-	)
-	@Export("titlebuttonSprite")
-	static IndexedSprite titlebuttonSprite;
-	@ObfuscatedName("n")
-	public static boolean field677;
-	@ObfuscatedName("x")
+	static int field666;
+	@ObfuscatedName("m")
 	@Export("filterWorlds")
 	boolean filterWorlds;
 
 	GrandExchangeOfferOwnWorldComparator() {
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Li;Li;B)I",
-		garbageValue = "-63"
+		signature = "(Ls;Ls;I)I",
+		garbageValue = "646157510"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -52,70 +45,99 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 		}
 	}
 
-	public boolean equals(Object var1) {
-		return super.equals(var1);
-	}
-
 	public int compare(Object var1, Object var2) {
 		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "(Lbb;I)V",
-		garbageValue = "295215952"
-	)
-	@Export("runScriptEvent")
-	public static void runScriptEvent(ScriptEvent var0) {
-		PlayerAppearance.runScript(var0, 500000);
-	}
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-459151232"
-	)
-	@Export("clearItemContainer")
-	static void clearItemContainer(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var1 != null) {
-			for (int var2 = 0; var2 < var1.ids.length; ++var2) {
-				var1.ids[var2] = -1;
-				var1.quantities[var2] = 0;
-			}
-
-		}
+	public boolean equals(Object var1) {
+		return super.equals(var1);
 	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IB)Ljava/lang/String;",
-		garbageValue = "120"
+		signature = "(ILcs;ZI)I",
+		garbageValue = "987190791"
 	)
-	static final String method1385(int var0) {
-		if (var0 < 100000) {
-			return "<col=ffff00>" + var0 + "</col>";
+	static int method1342(int var0, Script var1, boolean var2) {
+		int var3 = -1;
+		Widget var4;
+		if (var0 >= 2000) {
+			var0 -= 1000;
+			var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			var4 = WorldMapSprite.getWidget(var3);
 		} else {
-			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>";
+			var4 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
+		}
+
+		if (var0 == ScriptOpcodes.CC_SETPOSITION) {
+			UrlRequester.Interpreter_intStackSize -= 4;
+			var4.rawX = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize];
+			var4.rawY = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 1];
+			var4.xAlignment = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 2];
+			var4.yAlignment = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 3];
+			class234.invalidateWidget(var4);
+			WorldMapSectionType.client.alignWidget(var4);
+			if (var3 != -1 && var4.type == 0) {
+				WorldMapIcon_0.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
+			}
+
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_SETSIZE) {
+			UrlRequester.Interpreter_intStackSize -= 4;
+			var4.rawWidth = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize];
+			var4.rawHeight = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 1];
+			var4.widthAlignment = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 2];
+			var4.heightAlignment = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 3];
+			class234.invalidateWidget(var4);
+			WorldMapSectionType.client.alignWidget(var4);
+			if (var3 != -1 && var4.type == 0) {
+				WorldMapIcon_0.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
+			}
+
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_SETHIDE) {
+			boolean var5 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+			if (var5 != var4.isHidden) {
+				var4.isHidden = var5;
+				class234.invalidateWidget(var4);
+			}
+
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_SETNOCLICKTHROUGH) {
+			var4.noClickThrough = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_SETNOSCROLLTHROUGH) {
+			var4.noScrollThrough = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+			return 1;
+		} else {
+			return 2;
 		}
 	}
 
-	@ObfuscatedName("ff")
+	@ObfuscatedName("fq")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "-90506590"
+		signature = "(Ljm;IIII)V",
+		garbageValue = "1251688899"
 	)
-	static void method1396(int var0, int var1) {
-		int[] var2 = new int[9];
-
-		for (int var3 = 0; var3 < var2.length; ++var3) {
-			int var4 = var3 * 32 + 15 + 128;
-			int var5 = UserComparator4.method3482(var4);
-			int var6 = Rasterizer3D.Rasterizer3D_sine[var4];
-			var5 = Varcs.method2295(var5, var1);
-			var2[var3] = var6 * var5 >> 16;
+	@Export("addSequenceSoundEffect")
+	static void addSequenceSoundEffect(SequenceDefinition var0, int var1, int var2, int var3) {
+		if (Client.soundEffectCount < 50 && Client.areaSoundEffectVolume != 0) {
+			if (var0.soundEffects != null && var1 < var0.soundEffects.length) {
+				int var4 = var0.soundEffects[var1];
+				if (var4 != 0) {
+					int var5 = var4 >> 8;
+					int var6 = var4 >> 4 & 7;
+					int var7 = var4 & 15;
+					Client.soundEffectIds[Client.soundEffectCount] = var5;
+					Client.queuedSoundEffectLoops[Client.soundEffectCount] = var6;
+					Client.queuedSoundEffectDelays[Client.soundEffectCount] = 0;
+					Client.soundEffects[Client.soundEffectCount] = null;
+					int var8 = (var2 - 64) / 128;
+					int var9 = (var3 - 64) / 128;
+					Client.soundLocations[Client.soundEffectCount] = var7 + (var9 << 8) + (var8 << 16);
+					++Client.soundEffectCount;
+				}
+			}
 		}
-
-		Scene.Scene_buildVisiblityMap(var2, 500, 800, var0 * 334 / var1, 334);
 	}
 }

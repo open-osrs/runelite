@@ -1,57 +1,67 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hd")
+@ObfuscatedName("hr")
 public class class219 {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lhb;"
+		signature = "Lhe;"
 	)
 	@Export("huffman")
 	public static Huffman huffman;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = -2118207893
-	)
-	@Export("musicTrackVolume")
-	public static int musicTrackVolume;
-	@ObfuscatedName("ac")
-	@ObfuscatedGetter(
-		intValue = 1086176429
-	)
-	static int field2515;
-
-	@ObfuscatedName("m")
+	@ObfuscatedName("ci")
 	@ObfuscatedSignature(
-		signature = "(II)Llg;",
-		garbageValue = "1957450330"
+		signature = "Lbx;"
 	)
-	public static PrivateChatMode method4052(int var0) {
-		PrivateChatMode[] var1 = class300.method5368();
+	@Export("mouseRecorder")
+	static MouseRecorder mouseRecorder;
 
-		for (int var2 = 0; var2 < var1.length; ++var2) {
-			PrivateChatMode var3 = var1[var2];
-			if (var0 == var3.field3804) {
-				return var3;
-			}
-		}
-
-		return null;
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "(B)[Lif;",
+		garbageValue = "0"
+	)
+	static VerticalAlignment[] method4106() {
+		return new VerticalAlignment[]{VerticalAlignment.field3230, VerticalAlignment.VerticalAlignment_centered, VerticalAlignment.field3226};
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "1658769285"
+		signature = "(II)Liy;",
+		garbageValue = "1818836653"
 	)
-	public static void method4057(int var0) {
-		if (class206.field2406 != 0) {
-			musicTrackVolume = var0;
+	@Export("VarpDefinition_get")
+	public static VarpDefinition VarpDefinition_get(int var0) {
+		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
 		} else {
-			class206.midiPcmStream.setPcmStreamVolume(var0);
+			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0);
+			var1 = new VarpDefinition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
+			}
+
+			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
+	}
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/CharSequence;I)I",
+		garbageValue = "527461459"
+	)
+	@Export("hashString")
+	public static int hashString(CharSequence var0) {
+		int var1 = var0.length();
+		int var2 = 0;
+
+		for (int var3 = 0; var3 < var1; ++var3) {
+			var2 = (var2 << 5) - var2 + UserComparator3.charToByteCp1252(var0.charAt(var3));
 		}
 
+		return var2;
 	}
 }

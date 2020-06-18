@@ -1,22 +1,26 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jp")
+@ObfuscatedName("jj")
 public class class278 {
-	@ObfuscatedName("ex")
+	@ObfuscatedName("sb")
 	@ObfuscatedSignature(
-		signature = "Lih;"
+		signature = "Lix;"
 	)
-	@Export("archive19")
-	static Archive archive19;
+	public static class247 field3585;
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-2135141314"
+		signature = "(ILcs;ZB)I",
+		garbageValue = "73"
 	)
-	static int method5039(int var0) {
-		return (int)Math.pow(2.0D, (double)(7.0F + (float)var0 / 256.0F));
+	static int method5158(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.LOGOUT) {
+			Client.logoutTimer = 250;
+			return 1;
+		} else {
+			return 2;
+		}
 	}
 }

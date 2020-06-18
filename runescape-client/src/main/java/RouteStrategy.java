@@ -1,41 +1,39 @@
-import java.lang.management.GarbageCollectorMXBean;
-import java.lang.management.ManagementFactory;
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gx")
+@ObfuscatedName("ga")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("jz")
-	@ObfuscatedSignature(
-		signature = "Lhe;"
-	)
-	static Widget field2106;
-	@ObfuscatedName("x")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 326663409
+		intValue = 193339833
+	)
+	@Export("cacheGamebuild")
+	static int cacheGamebuild;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -508607035
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1533837037
+		intValue = 1154057799
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 50701303
+		intValue = -1924382877
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 695146693
+		intValue = 399050389
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -43,53 +41,11 @@ public abstract class RouteStrategy {
 	protected RouteStrategy() {
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIILfm;B)Z",
-		garbageValue = "-112"
+		signature = "(IIILfz;I)Z",
+		garbageValue = "-1966963917"
 	)
 	@Export("hasArrived")
-	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
-
-	@ObfuscatedName("ay")
-	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "42"
-	)
-	@Export("getGcDuration")
-	protected static int getGcDuration() {
-		int var0 = 0;
-		if (GameShell.garbageCollector == null || !GameShell.garbageCollector.isValid()) {
-			try {
-				Iterator var1 = ManagementFactory.getGarbageCollectorMXBeans().iterator();
-
-				while (var1.hasNext()) {
-					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next();
-					if (var2.isValid()) {
-						GameShell.garbageCollector = var2;
-						GameShell.garbageCollectorLastCheckTimeMs = -1L;
-						GameShell.garbageCollectorLastCollectionTime = -1L;
-					}
-				}
-			} catch (Throwable var11) {
-			}
-		}
-
-		if (GameShell.garbageCollector != null) {
-			long var9 = class217.currentTimeMillis();
-			long var3 = GameShell.garbageCollector.getCollectionTime();
-			if (-1L != GameShell.garbageCollectorLastCollectionTime) {
-				long var5 = var3 - GameShell.garbageCollectorLastCollectionTime;
-				long var7 = var9 - GameShell.garbageCollectorLastCheckTimeMs;
-				if (var7 != 0L) {
-					var0 = (int)(100L * var5 / var7);
-				}
-			}
-
-			GameShell.garbageCollectorLastCollectionTime = var3;
-			GameShell.garbageCollectorLastCheckTimeMs = var9;
-		}
-
-		return var0;
-	}
+	protected abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 }

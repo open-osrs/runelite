@@ -1,59 +1,39 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lg")
+@ObfuscatedName("ls")
 @Implements("PrivateChatMode")
 public class PrivateChatMode {
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Llg;"
-	)
-	static final PrivateChatMode field3801;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llg;"
+		signature = "Lls;"
 	)
-	public static final PrivateChatMode field3806;
-	@ObfuscatedName("k")
+	static final PrivateChatMode field3819;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Llg;"
+		signature = "Lls;"
 	)
-	static final PrivateChatMode field3803;
-	@ObfuscatedName("v")
+	public static final PrivateChatMode field3818;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Liy;"
+		signature = "Lls;"
 	)
-	@Export("ItemDefinition_archive")
-	public static AbstractArchive ItemDefinition_archive;
-	@ObfuscatedName("d")
+	static final PrivateChatMode field3820;
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1679462339
+		intValue = 530188217
 	)
-	public final int field3804;
+	public final int field3817;
 
 	static {
-		field3801 = new PrivateChatMode(0);
-		field3806 = new PrivateChatMode(1);
-		field3803 = new PrivateChatMode(2);
+		field3819 = new PrivateChatMode(0);
+		field3818 = new PrivateChatMode(1);
+		field3820 = new PrivateChatMode(2);
 	}
 
 	PrivateChatMode(int var1) {
-		this.field3804 = var1;
-	}
-
-	@ObfuscatedName("kx")
-	@ObfuscatedSignature(
-		signature = "(Lhe;B)Ljava/lang/String;",
-		garbageValue = "70"
-	)
-	static String method5965(Widget var0) {
-		if (WorldMapRectangle.method388(ScriptEvent.getWidgetClickMask(var0)) == 0) {
-			return null;
-		} else {
-			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null;
-		}
+		this.field3817 = var1;
 	}
 }

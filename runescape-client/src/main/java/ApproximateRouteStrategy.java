@@ -1,107 +1,189 @@
-import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import netscape.javascript.JSObject;
 
-@ObfuscatedName("bj")
+@ObfuscatedName("bs")
 @Implements("ApproximateRouteStrategy")
 public class ApproximateRouteStrategy extends RouteStrategy {
-	@ObfuscatedName("hp")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 363395723
+		intValue = 955958433
 	)
-	@Export("cameraPitch")
-	static int cameraPitch;
+	static int field630;
+	@ObfuscatedName("lp")
+	@ObfuscatedGetter(
+		intValue = -2033733379
+	)
+	@Export("menuHeight")
+	static int menuHeight;
 
 	ApproximateRouteStrategy() {
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIILfm;B)Z",
-		garbageValue = "-112"
+		signature = "(IIILfz;I)Z",
+		garbageValue = "-1966963917"
 	)
 	@Export("hasArrived")
-	public boolean hasArrived(int var1, int var2, int var3, CollisionMap var4) {
+	protected boolean hasArrived(int var1, int var2, int var3, CollisionMap var4) {
 		return var2 == super.approxDestinationX && var3 == super.approxDestinationY;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("ha")
 	@ObfuscatedSignature(
-		signature = "(Liy;IIIZI)V",
-		garbageValue = "-1342711563"
+		signature = "(Lby;IIBI)V",
+		garbageValue = "-549376931"
 	)
-	public static void method1321(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
-		class206.field2406 = 1;
-		class206.musicTrackArchive = var0;
-		class206.musicTrackGroupId = var1;
-		class206.musicTrackFileId = var2;
-		class219.musicTrackVolume = var3;
-		GrandExchangeOfferUnitPriceComparator.musicTrackBoolean = var4;
-		AttackOption.field1187 = 10000;
-	}
+	static final void method1284(Player var0, int var1, int var2, byte var3) {
+		int var4 = var0.pathX[0];
+		int var5 = var0.pathY[0];
+		int var6 = var0.transformedSize();
+		if (var4 >= var6 && var4 < 104 - var6 && var5 >= var6 && var5 < 104 - var6) {
+			if (var1 >= var6 && var1 < 104 - var6 && var2 >= var6 && var2 < 104 - var6) {
+				int var7 = Login.method2235(var4, var5, var0.transformedSize(), class52.method877(var1, var2), Client.collisionMaps[var0.plane], true, Client.field947, Client.field948);
+				if (var7 >= 1) {
+					for (int var8 = 0; var8 < var7 - 1; ++var8) {
+						var0.method1302(Client.field947[var8], Client.field948[var8], var3);
+					}
 
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "(I)Lfb;",
-		garbageValue = "1735702864"
-	)
-	public static Clock method1326() {
-		try {
-			return new NanoClock();
-		} catch (Throwable var1) {
-			return new MilliClock();
+				}
+			}
 		}
 	}
 
-	@ObfuscatedName("gt")
+	@ObfuscatedName("hc")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "2095073196"
+		signature = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
+		garbageValue = "-63"
 	)
-	@Export("getWindowedMode")
-	static int getWindowedMode() {
-		return Client.isResizable ? 2 : 1;
-	}
-
-	@ObfuscatedName("kp")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "-1966698976"
-	)
-	static void method1328(String var0) {
-		WorldMapData_0.field137 = var0;
-
-		try {
-			String var1 = WorldMapSection1.client.getParameter(Integer.toString(18));
-			String var2 = WorldMapSection1.client.getParameter(Integer.toString(13));
-			String var3 = var1 + "settings=" + var0 + "; version=1; path=/; domain=" + var2;
-			String var5;
-			if (var0.length() == 0) {
-				var3 = var3 + "; Expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0";
-			} else {
-				String var4 = var3 + "; Expires=";
-				long var6 = class217.currentTimeMillis() + 94608000000L;
-				Calendar.Calendar_calendar.setTime(new Date(var6));
-				int var8 = Calendar.Calendar_calendar.get(7);
-				int var9 = Calendar.Calendar_calendar.get(5);
-				int var10 = Calendar.Calendar_calendar.get(2);
-				int var11 = Calendar.Calendar_calendar.get(1);
-				int var12 = Calendar.Calendar_calendar.get(11);
-				int var13 = Calendar.Calendar_calendar.get(12);
-				int var14 = Calendar.Calendar_calendar.get(13);
-				var5 = Calendar.DAYS_OF_THE_WEEK[var8 - 1] + ", " + var9 / 10 + var9 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var10] + "-" + var11 + " " + var12 / 10 + var12 % 10 + ":" + var13 / 10 + var13 % 10 + ":" + var14 / 10 + var14 % 10 + " GMT";
-				var3 = var4 + var5 + "; Max-Age=" + 94608000L;
+	@Export("insertMenuItem")
+	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
+		if (!Client.isMenuOpen) {
+			if (Client.menuOptionsCount < 500) {
+				Client.menuActions[Client.menuOptionsCount] = var0;
+				Client.menuTargets[Client.menuOptionsCount] = var1;
+				Client.menuOpcodes[Client.menuOptionsCount] = var2;
+				Client.menuIdentifiers[Client.menuOptionsCount] = var3;
+				Client.menuArguments1[Client.menuOptionsCount] = var4;
+				Client.menuArguments2[Client.menuOptionsCount] = var5;
+				Client.menuShiftClick[Client.menuOptionsCount] = var6;
+				++Client.menuOptionsCount;
 			}
 
-			Client var16 = WorldMapSection1.client;
-			var5 = "document.cookie=\"" + var3 + "\"";
-			JSObject.getWindow(var16).eval(var5);
-		} catch (Throwable var15) {
 		}
+	}
 
+	@ObfuscatedName("id")
+	@ObfuscatedSignature(
+		signature = "(Ljz;IIII)V",
+		garbageValue = "1974138271"
+	)
+	@Export("addNpcToMenu")
+	static final void addNpcToMenu(NPCDefinition var0, int var1, int var2, int var3) {
+		if (Client.menuOptionsCount < 400) {
+			if (var0.transforms != null) {
+				var0 = var0.transform();
+			}
+
+			if (var0 != null) {
+				if (var0.isInteractable) {
+					if (!var0.isFollower || Client.followerIndex == var1) {
+						String var4 = var0.name;
+						if (var0.combatLevel != 0) {
+							var4 = var4 + Canvas.method924(var0.combatLevel, class60.localPlayer.combatLevel) + " " + " (" + "level-" + var0.combatLevel + ")";
+						}
+
+						if (var0.isFollower && Client.followerOpsLowPriority) {
+							ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16776960) + var4, 1003, var1, var2, var3);
+						}
+
+						if (Client.isItemSelected == 1) {
+							ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(16776960) + var4, 7, var1, var2, var3);
+						} else if (Client.isSpellSelected) {
+							if ((WorldMapSprite.selectedSpellFlags & 2) == 2) {
+								ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(16776960) + var4, 8, var1, var2, var3);
+							}
+						} else {
+							int var5 = var0.isFollower && Client.followerOpsLowPriority ? 2000 : 0;
+							String[] var6 = var0.actions;
+							int var7;
+							int var8;
+							if (var6 != null) {
+								for (var7 = 4; var7 >= 0; --var7) {
+									if (var6[var7] != null && !var6[var7].equalsIgnoreCase("Attack")) {
+										var8 = 0;
+										if (var7 == 0) {
+											var8 = var5 + 9;
+										}
+
+										if (var7 == 1) {
+											var8 = var5 + 10;
+										}
+
+										if (var7 == 2) {
+											var8 = var5 + 11;
+										}
+
+										if (var7 == 3) {
+											var8 = var5 + 12;
+										}
+
+										if (var7 == 4) {
+											var8 = var5 + 13;
+										}
+
+										ScriptEvent.insertMenuItemNoShift(var6[var7], ItemContainer.colorStartTag(16776960) + var4, var8, var1, var2, var3);
+									}
+								}
+							}
+
+							if (var6 != null) {
+								for (var7 = 4; var7 >= 0; --var7) {
+									if (var6[var7] != null && var6[var7].equalsIgnoreCase("Attack")) {
+										short var9 = 0;
+										if (AttackOption.AttackOption_hidden != Client.npcAttackOption) {
+											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || Client.npcAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && var0.combatLevel > class60.localPlayer.combatLevel) {
+												var9 = 2000;
+											}
+
+											var8 = 0;
+											if (var7 == 0) {
+												var8 = var9 + 9;
+											}
+
+											if (var7 == 1) {
+												var8 = var9 + 10;
+											}
+
+											if (var7 == 2) {
+												var8 = var9 + 11;
+											}
+
+											if (var7 == 3) {
+												var8 = var9 + 12;
+											}
+
+											if (var7 == 4) {
+												var8 = var9 + 13;
+											}
+
+											ScriptEvent.insertMenuItemNoShift(var6[var7], ItemContainer.colorStartTag(16776960) + var4, var8, var1, var2, var3);
+										}
+									}
+								}
+							}
+
+							if (!var0.isFollower || !Client.followerOpsLowPriority) {
+								ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16776960) + var4, 1003, var1, var2, var3);
+							}
+						}
+
+					}
+				}
+			}
+		}
 	}
 }

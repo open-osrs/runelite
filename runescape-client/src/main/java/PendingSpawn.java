@@ -3,76 +3,77 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bw")
+@ObfuscatedName("bt")
 @Implements("PendingSpawn")
 public final class PendingSpawn extends Node {
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -1216764751
-	)
-	@Export("y")
-	int y;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1571459421
+		intValue = 1985828823
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1864356937
+		intValue = -1983032759
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("d")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1344797441
+		intValue = -1818060675
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("w")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1245486001
+		intValue = 1999145911
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		intValue = 386133029
 	)
 	@Export("objectId")
 	int objectId;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -547933481
+		intValue = 1588520035
 	)
-	int field968;
-	@ObfuscatedName("q")
+	int field956;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1800022501
+		intValue = 1476403807
 	)
-	int field963;
-	@ObfuscatedName("z")
+	int field957;
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 1336190783
+		intValue = -1658497211
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1244443099
+		intValue = -1422873381
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -668527737
+		intValue = 1345962763
 	)
-	int field967;
-	@ObfuscatedName("s")
+	int field962;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -297028933
+		intValue = -577159519
 	)
 	@Export("delay")
 	int delay;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 718779675
+		intValue = 790870073
 	)
 	@Export("hitpoints")
 	int hitpoints;
@@ -82,34 +83,75 @@ public final class PendingSpawn extends Node {
 		this.hitpoints = -1;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-42"
+		signature = "(Lic;Ljava/lang/String;Ljava/lang/String;I)[Llh;",
+		garbageValue = "574747014"
 	)
-	static void method1840() {
-		WorldMapRegion.WorldMapRegion_cachedSprites.clear();
+	public static IndexedSprite[] method1806(AbstractArchive var0, String var1, String var2) {
+		int var3 = var0.getGroupId(var1);
+		int var4 = var0.getFileId(var3, var2);
+		return HealthBar.method2125(var0, var3, var4);
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(II)Lby;",
-		garbageValue = "755627010"
+		signature = "(Lhd;I[B[BI)V",
+		garbageValue = "-1571904788"
 	)
-	@Export("Messages_getMessage")
-	static Message Messages_getMessage(int var0) {
-		return (Message)Messages.Messages_hashTable.get((long)var0);
+	@Export("Widget_setKey")
+	static final void Widget_setKey(Widget var0, int var1, byte[] var2, byte[] var3) {
+		if (var0.field2647 == null) {
+			if (var2 == null) {
+				return;
+			}
+
+			var0.field2647 = new byte[11][];
+			var0.field2678 = new byte[11][];
+			var0.field2679 = new int[11];
+			var0.field2680 = new int[11];
+		}
+
+		var0.field2647[var1] = var2;
+		if (var2 != null) {
+			var0.field2709 = true;
+		} else {
+			var0.field2709 = false;
+
+			for (int var4 = 0; var4 < var0.field2647.length; ++var4) {
+				if (var0.field2647[var4] != null) {
+					var0.field2709 = true;
+					break;
+				}
+			}
+		}
+
+		var0.field2678[var1] = var3;
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "287596023"
+		signature = "(ILcs;ZI)I",
+		garbageValue = "556274205"
 	)
-	public static void method1838() {
-		ObjectDefinition.ObjectDefinition_cached.clear();
-		ObjectDefinition.ObjectDefinition_cachedModelData.clear();
-		ObjectDefinition.ObjectDefinition_cachedEntities.clear();
-		ObjectDefinition.ObjectDefinition_cachedModels.clear();
+	static int method1808(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
+		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) {
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.itemId;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) {
+			if (var3.itemId != -1) {
+				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.itemQuantity;
+			} else {
+				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 0;
+			}
+
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETID) {
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.childIndex;
+			return 1;
+		} else {
+			return 2;
+		}
 	}
 }

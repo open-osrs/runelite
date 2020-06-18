@@ -4,25 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eb")
+@ObfuscatedName("er")
 @Implements("Skeleton")
 public class Skeleton extends Node {
-	@ObfuscatedName("x")
+	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
-		intValue = -1117986987
+		intValue = -47286483
+	)
+	static int field1826;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -747457743
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1228230163
+		intValue = 386205487
 	)
 	@Export("count")
 	int count;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@Export("transformTypes")
 	int[] transformTypes;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@Export("labels")
 	int[][] labels;
 
@@ -50,46 +55,60 @@ public class Skeleton extends Node {
 
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("iz")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "172468289"
+		signature = "(ZB)V",
+		garbageValue = "38"
 	)
-	@Export("addGameMessage")
-	static void addGameMessage(int var0, String var1, String var2) {
-		ChatChannel.addChatMessage(var0, var1, var2, (String)null);
+	@Export("setTapToDrop")
+	static void setTapToDrop(boolean var0) {
+		Client.tapToDrop = var0;
 	}
 
-	@ObfuscatedName("hw")
+	@ObfuscatedName("jo")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIIII)V",
-		garbageValue = "-903187990"
+		signature = "([Lhd;IB)V",
+		garbageValue = "34"
 	)
-	@Export("updatePendingSpawn")
-	static final void updatePendingSpawn(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-		PendingSpawn var9 = null;
+	@Export("runComponentCloseListeners")
+	static final void runComponentCloseListeners(Widget[] var0, int var1) {
+		for (int var2 = 0; var2 < var0.length; ++var2) {
+			Widget var3 = var0[var2];
+			if (var3 != null) {
+				if (var3.type == 0) {
+					if (var3.children != null) {
+						runComponentCloseListeners(var3.children, var1);
+					}
 
-		for (PendingSpawn var10 = (PendingSpawn)Client.pendingSpawns.last(); var10 != null; var10 = (PendingSpawn)Client.pendingSpawns.previous()) {
-			if (var0 == var10.plane && var10.x == var1 && var2 == var10.y && var3 == var10.type) {
-				var9 = var10;
-				break;
+					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
+					if (var4 != null) {
+						Language.runIntfCloseListeners(var4.group, var1);
+					}
+				}
+
+				ScriptEvent var5;
+				if (var1 == 0 && var3.onDialogAbort != null) {
+					var5 = new ScriptEvent();
+					var5.widget = var3;
+					var5.args = var3.onDialogAbort;
+					InterfaceParent.runScriptEvent(var5);
+				}
+
+				if (var1 == 1 && var3.onSubChange != null) {
+					if (var3.childIndex >= 0) {
+						Widget var6 = WorldMapSprite.getWidget(var3.id);
+						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) {
+							continue;
+						}
+					}
+
+					var5 = new ScriptEvent();
+					var5.widget = var3;
+					var5.args = var3.onSubChange;
+					InterfaceParent.runScriptEvent(var5);
+				}
 			}
 		}
 
-		if (var9 == null) {
-			var9 = new PendingSpawn();
-			var9.plane = var0;
-			var9.type = var3;
-			var9.x = var1;
-			var9.y = var2;
-			WorldMapSectionType.method348(var9);
-			Client.pendingSpawns.addFirst(var9);
-		}
-
-		var9.id = var4;
-		var9.field967 = var5;
-		var9.orientation = var6;
-		var9.delay = var7;
-		var9.hitpoints = var8;
 	}
 }

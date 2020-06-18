@@ -4,60 +4,51 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cs")
 @Implements("Script")
 public class Script extends DualNode {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Leg;"
+		signature = "Lec;"
 	)
 	@Export("Script_cached")
 	static EvictingDualNodeHashTable Script_cached;
-	@ObfuscatedName("ej")
-	@Export("worldHost")
-	static String worldHost;
-	@ObfuscatedName("fs")
-	@ObfuscatedSignature(
-		signature = "Lkx;"
-	)
-	@Export("fontPlain11")
-	static Font fontPlain11;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("opcodes")
 	int[] opcodes;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@Export("intOperands")
 	int[] intOperands;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@Export("stringOperands")
 	String[] stringOperands;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1902344849
+		intValue = 701670427
 	)
 	@Export("localIntCount")
 	int localIntCount;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1904164233
+		intValue = 12358867
 	)
 	@Export("localStringCount")
 	int localStringCount;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -335811903
+		intValue = 2127952993
 	)
 	@Export("intArgumentCount")
 	int intArgumentCount;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 931655197
+		intValue = -983920549
 	)
 	@Export("stringArgumentCount")
 	int stringArgumentCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "[Lln;"
+		signature = "[Llf;"
 	)
 	@Export("switches")
 	IterableNodeHashTable[] switches;
@@ -69,23 +60,13 @@ public class Script extends DualNode {
 	Script() {
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)[Lln;",
-		garbageValue = "-1946257941"
+		signature = "(II)[Llf;",
+		garbageValue = "-978861309"
 	)
 	@Export("newIterableNodeHashTable")
 	IterableNodeHashTable[] newIterableNodeHashTable(int var1) {
 		return new IterableNodeHashTable[var1];
-	}
-
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZZI)V",
-		garbageValue = "1255823265"
-	)
-	@Export("openURL")
-	public static void openURL(String var0, boolean var1, boolean var2) {
-		class224.method4125(var0, var1, "openjs", var2);
 	}
 }

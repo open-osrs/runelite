@@ -1,35 +1,39 @@
-import java.applet.Applet;
-import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import netscape.javascript.JSObject;
 
-@ObfuscatedName("bs")
+@ObfuscatedName("bv")
 @Implements("ItemContainer")
 public class ItemContainer extends Node {
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Llv;"
-	)
-	@Export("itemContainers")
-	static NodeHashTable itemContainers;
-	@ObfuscatedName("bq")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "Lle;"
 	)
-	static IndexedSprite field572;
-	@ObfuscatedName("fr")
+	@Export("itemContainers")
+	static NodeHashTable itemContainers;
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		signature = "Llz;"
 	)
-	@Export("WorldMapElement_fonts")
-	static Fonts WorldMapElement_fonts;
-	@ObfuscatedName("m")
+	@Export("rightTitleSprite")
+	static Sprite rightTitleSprite;
+	@ObfuscatedName("ak")
+	@ObfuscatedSignature(
+		signature = "Llv;"
+	)
+	static Bounds field567;
+	@ObfuscatedName("ma")
+	@ObfuscatedGetter(
+		intValue = -1890638997
+	)
+	@Export("selectedSpellWidget")
+	static int selectedSpellWidget;
+	@ObfuscatedName("o")
 	@Export("ids")
 	int[] ids;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@Export("quantities")
 	int[] quantities;
 
@@ -42,111 +46,71 @@ public class ItemContainer extends Node {
 		this.quantities = new int[]{0};
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ILjava/lang/String;B)Z",
-		garbageValue = "17"
+		signature = "(II)Lls;",
+		garbageValue = "-1724420240"
 	)
-	static boolean method1274(String var0, int var1, String var2) {
-		if (var1 == 0) {
-			try {
-				if (!class60.field462.startsWith("win")) {
-					throw new Exception();
-				} else if (!var0.startsWith("http://") && !var0.startsWith("https://")) {
-					throw new Exception();
-				} else {
-					String var13 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?&=,.%+-_#:/*";
+	public static PrivateChatMode method1232(int var0) {
+		PrivateChatMode[] var1 = new PrivateChatMode[]{PrivateChatMode.field3818, PrivateChatMode.field3820, PrivateChatMode.field3819};
+		PrivateChatMode[] var2 = var1;
 
-					for (int var4 = 0; var4 < var0.length(); ++var4) {
-						if (var13.indexOf(var0.charAt(var4)) == -1) {
-							throw new Exception();
-						}
-					}
+		for (int var3 = 0; var3 < var2.length; ++var3) {
+			PrivateChatMode var4 = var2[var3];
+			if (var0 == var4.field3817) {
+				return var4;
+			}
+		}
 
-					Runtime.getRuntime().exec("cmd /c start \"j\" \"" + var0 + "\"");
-					return true;
-				}
-			} catch (Throwable var8) {
-				return false;
-			}
-		} else if (var1 == 1) {
-			try {
-				Applet var7 = class60.applet;
-				Object[] var5 = new Object[]{(new URL(class60.applet.getCodeBase(), var0)).toString()};
-				Object var3 = JSObject.getWindow(var7).call(var2, var5);
-				return var3 != null;
-			} catch (Throwable var9) {
-				return false;
-			}
-		} else if (var1 == 2) {
-			try {
-				class60.applet.getAppletContext().showDocument(new URL(class60.applet.getCodeBase(), var0), "_blank");
-				return true;
-			} catch (Exception var10) {
-				return false;
-			}
-		} else if (var1 == 3) {
-			try {
-				class56.method950(class60.applet, "loggedout");
-			} catch (Throwable var12) {
-			}
+		return null;
+	}
 
-			try {
-				class60.applet.getAppletContext().showDocument(new URL(class60.applet.getCodeBase(), var0), "_top");
-				return true;
-			} catch (Exception var11) {
-				return false;
-			}
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "(II)Ljava/lang/String;",
+		garbageValue = "1507611056"
+	)
+	@Export("colorStartTag")
+	static String colorStartTag(int var0) {
+		return "<col=" + Integer.toHexString(var0) + ">";
+	}
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "(II)Ljr;",
+		garbageValue = "2131303603"
+	)
+	@Export("getEnum")
+	public static EnumDefinition getEnum(int var0) {
+		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
 		} else {
-			throw new IllegalArgumentException();
-		}
-	}
-
-	@ObfuscatedName("je")
-	@ObfuscatedSignature(
-		signature = "(Lhe;Ljx;IIZI)V",
-		garbageValue = "1190936651"
-	)
-	@Export("addWidgetItemMenuItem")
-	static final void addWidgetItemMenuItem(Widget var0, ItemDefinition var1, int var2, int var3, boolean var4) {
-		String[] var5 = var1.inventoryActions;
-		byte var6 = -1;
-		String var7 = null;
-		if (var5 != null && var5[var3] != null) {
-			if (var3 == 0) {
-				var6 = 33;
-			} else if (var3 == 1) {
-				var6 = 34;
-			} else if (var3 == 2) {
-				var6 = 35;
-			} else if (var3 == 3) {
-				var6 = 36;
-			} else {
-				var6 = 37;
+			byte[] var2 = class349.EnumDefinition_archive.takeFile(8, var0);
+			var1 = new EnumDefinition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
 			}
 
-			var7 = var5[var3];
-		} else if (var3 == 4) {
-			var6 = 37;
-			var7 = "Drop";
+			EnumDefinition.EnumDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
-
-		if (var6 != -1 && var7 != null) {
-			ScriptFrame.insertMenuItem(var7, class297.colorStartTag(16748608) + var1.name, var6, var1.id, var2, var0.id, var4);
-		}
-
 	}
 
-	@ObfuscatedName("jo")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lhe;I)V",
-		garbageValue = "514293783"
+		signature = "(Lch;Lch;IZIZI)I",
+		garbageValue = "-1532099004"
 	)
-	@Export("invalidateWidget")
-	static void invalidateWidget(Widget var0) {
-		if (var0.cycle == Client.field884) {
-			Client.field679[var0.rootIndex] = true;
+	static int method1225(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
+		int var6 = Actor.compareWorlds(var0, var1, var2, var3);
+		if (var6 != 0) {
+			return var3 ? -var6 : var6;
+		} else if (var4 == -1) {
+			return 0;
+		} else {
+			int var7 = Actor.compareWorlds(var0, var1, var4, var5);
+			return var5 ? -var7 : var7;
 		}
-
 	}
 }

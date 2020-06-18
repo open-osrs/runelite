@@ -6,36 +6,35 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("kw")
+@ObfuscatedName("ku")
 @Implements("UserList")
 public abstract class UserList {
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 359260523
+		intValue = -233955523
 	)
 	@Export("capacity")
 	final int capacity;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1553317273
+		intValue = 2126526035
 	)
 	@Export("size")
 	int size;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "[Ljd;"
+		signature = "[Ljf;"
 	)
 	@Export("array")
 	User[] array;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@Export("usernamesMap")
 	HashMap usernamesMap;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@Export("previousUsernamesMap")
 	HashMap previousUsernamesMap;
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@Export("comparator")
 	Comparator comparator;
 
@@ -48,26 +47,26 @@ public abstract class UserList {
 		this.previousUsernamesMap = new HashMap(var1 / 8);
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ljd;",
-		garbageValue = "-1332552421"
+		signature = "(I)Ljf;",
+		garbageValue = "551595115"
 	)
 	@Export("newInstance")
 	abstract User newInstance();
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)[Ljd;",
-		garbageValue = "-667029686"
+		signature = "(II)[Ljf;",
+		garbageValue = "1959965595"
 	)
 	@Export("newTypedArray")
 	abstract User[] newTypedArray(int var1);
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "1068929306"
+		garbageValue = "-830188441"
 	)
 	@Export("clear")
 	public void clear() {
@@ -77,30 +76,30 @@ public abstract class UserList {
 		this.previousUsernamesMap.clear();
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "4"
+		signature = "(I)I",
+		garbageValue = "-729089769"
 	)
 	@Export("getSize")
 	public int getSize() {
 		return this.size;
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1500565158"
+		signature = "(B)Z",
+		garbageValue = "-38"
 	)
 	@Export("isFull")
 	public boolean isFull() {
-		return this.capacity == this.size;
+		return this.size == this.capacity;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(Lku;I)Z",
-		garbageValue = "330121019"
+		signature = "(Lkq;I)Z",
+		garbageValue = "-1632091525"
 	)
 	@Export("contains")
 	public boolean contains(Username var1) {
@@ -111,10 +110,10 @@ public abstract class UserList {
 		}
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(Lku;I)Ljd;",
-		garbageValue = "2044020824"
+		signature = "(Lkq;I)Ljf;",
+		garbageValue = "-1715419579"
 	)
 	@Export("getByUsername")
 	public User getByUsername(Username var1) {
@@ -122,30 +121,30 @@ public abstract class UserList {
 		return var2 != null ? var2 : this.getByPreviousUsername(var1);
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(Lku;I)Ljd;",
-		garbageValue = "-678771148"
+		signature = "(Lkq;I)Ljf;",
+		garbageValue = "181197805"
 	)
 	@Export("getByCurrentUsername")
 	User getByCurrentUsername(Username var1) {
 		return !var1.hasCleanName() ? null : (User)this.usernamesMap.get(var1);
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(Lku;I)Ljd;",
-		garbageValue = "1317746514"
+		signature = "(Lkq;I)Ljf;",
+		garbageValue = "-1953560186"
 	)
 	@Export("getByPreviousUsername")
 	User getByPreviousUsername(Username var1) {
 		return !var1.hasCleanName() ? null : (User)this.previousUsernamesMap.get(var1);
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lku;I)Z",
-		garbageValue = "-734937712"
+		signature = "(Lkq;I)Z",
+		garbageValue = "-1728392725"
 	)
 	@Export("removeByUsername")
 	public final boolean removeByUsername(Username var1) {
@@ -158,10 +157,10 @@ public abstract class UserList {
 		}
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Ljd;I)V",
-		garbageValue = "-941355814"
+		signature = "(Ljf;I)V",
+		garbageValue = "1431327027"
 	)
 	@Export("remove")
 	final void remove(User var1) {
@@ -172,20 +171,20 @@ public abstract class UserList {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lku;I)Ljd;",
-		garbageValue = "-2093018234"
+		signature = "(Lkq;I)Ljf;",
+		garbageValue = "1944275129"
 	)
 	@Export("addLastNoPreviousUsername")
 	User addLastNoPreviousUsername(Username var1) {
 		return this.addLast(var1, (Username)null);
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Lku;Lku;B)Ljd;",
-		garbageValue = "50"
+		signature = "(Lkq;Lkq;B)Ljf;",
+		garbageValue = "-18"
 	)
 	@Export("addLast")
 	User addLast(Username var1, Username var2) {
@@ -200,10 +199,10 @@ public abstract class UserList {
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(IS)Ljd;",
-		garbageValue = "-13330"
+		signature = "(II)Ljf;",
+		garbageValue = "421321691"
 	)
 	@Export("get")
 	public final User get(int var1) {
@@ -214,10 +213,10 @@ public abstract class UserList {
 		}
 	}
 
-	@ObfuscatedName("ae")
+	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(S)V",
-		garbageValue = "5757"
+		signature = "(I)V",
+		garbageValue = "-1382907285"
 	)
 	@Export("sort")
 	public final void sort() {
@@ -229,10 +228,10 @@ public abstract class UserList {
 
 	}
 
-	@ObfuscatedName("an")
+	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(Ljd;Lku;Lku;I)V",
-		garbageValue = "577990406"
+		signature = "(Ljf;Lkq;Lkq;B)V",
+		garbageValue = "30"
 	)
 	@Export("changeName")
 	final void changeName(User var1, Username var2, Username var3) {
@@ -241,10 +240,10 @@ public abstract class UserList {
 		this.mapPut(var1);
 	}
 
-	@ObfuscatedName("ai")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(Ljd;I)I",
-		garbageValue = "-1683425809"
+		signature = "(Ljf;I)I",
+		garbageValue = "-473551805"
 	)
 	@Export("indexOf")
 	final int indexOf(User var1) {
@@ -257,10 +256,10 @@ public abstract class UserList {
 		return -1;
 	}
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(Ljd;B)V",
-		garbageValue = "28"
+		signature = "(Ljf;S)V",
+		garbageValue = "28740"
 	)
 	@Export("mapRemove")
 	final void mapRemove(User var1) {
@@ -274,20 +273,20 @@ public abstract class UserList {
 		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(Ljd;I)V",
-		garbageValue = "1612214268"
+		signature = "(Ljf;B)V",
+		garbageValue = "-110"
 	)
 	@Export("arrayAddLast")
 	final void arrayAddLast(User var1) {
 		this.array[++this.size - 1] = var1;
 	}
 
-	@ObfuscatedName("ar")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(Ljd;I)V",
-		garbageValue = "1080849523"
+		signature = "(Ljf;I)V",
+		garbageValue = "-810709212"
 	)
 	@Export("mapPut")
 	final void mapPut(User var1) {
@@ -301,10 +300,10 @@ public abstract class UserList {
 
 	}
 
-	@ObfuscatedName("af")
+	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
-		garbageValue = "-23"
+		signature = "(II)V",
+		garbageValue = "-1444172767"
 	)
 	@Export("arrayRemove")
 	final void arrayRemove(int var1) {
@@ -315,20 +314,20 @@ public abstract class UserList {
 
 	}
 
-	@ObfuscatedName("at")
+	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-18"
+		signature = "(I)V",
+		garbageValue = "594179920"
 	)
 	@Export("removeComparator")
 	public final void removeComparator() {
 		this.comparator = null;
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/Comparator;I)V",
-		garbageValue = "-1901322261"
+		signature = "(Ljava/util/Comparator;B)V",
+		garbageValue = "-90"
 	)
 	@Export("addComparator")
 	public final void addComparator(Comparator var1) {
@@ -340,201 +339,70 @@ public abstract class UserList {
 
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
-		signature = "(Liy;S)V",
-		garbageValue = "32619"
+		signature = "(I)V",
+		garbageValue = "-1614220910"
 	)
-	public static void method5179(AbstractArchive var0) {
-		InvDefinition.InvDefinition_archive = var0;
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "(ILce;ZB)I",
-		garbageValue = "43"
-	)
-	static int method5225(int var0, Script var1, boolean var2) {
-		int var4 = -1;
-		Widget var3;
-		if (var0 >= 2000) {
-			var0 -= 1000;
-			var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			var3 = MusicPatchNode.getWidget(var4);
-		} else {
-			var3 = var2 ? GrandExchangeOfferNameComparator.field115 : Interpreter.field1130;
+	static final void method5333() {
+		PacketBuffer var0 = Client.packetWriter.packetBuffer;
+		var0.importIndex();
+		int var1 = var0.readBits(8);
+		int var2;
+		if (var1 < Client.npcCount) {
+			for (var2 = var1; var2 < Client.npcCount; ++var2) {
+				Client.field907[++Client.field687 - 1] = Client.npcIndices[var2];
+			}
 		}
 
-		if (var0 == ScriptOpcodes.CC_SETSCROLLPOS) {
-			Interpreter.Interpreter_intStackSize -= 2;
-			var3.scrollX = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
-			if (var3.scrollX > var3.scrollWidth - var3.width) {
-				var3.scrollX = var3.scrollWidth - var3.width;
-			}
-
-			if (var3.scrollX < 0) {
-				var3.scrollX = 0;
-			}
-
-			var3.scrollY = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-			if (var3.scrollY > var3.scrollHeight - var3.height) {
-				var3.scrollY = var3.scrollHeight - var3.height;
-			}
-
-			if (var3.scrollY < 0) {
-				var3.scrollY = 0;
-			}
-
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETCOLOUR) {
-			var3.color = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETFILL) {
-			var3.fill = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETTRANS) {
-			var3.transparencyTop = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETLINEWID) {
-			var3.lineWid = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETGRAPHIC) {
-			var3.spriteId2 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SET2DANGLE) {
-			var3.spriteAngle = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETTILING) {
-			var3.spriteTiling = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETMODEL) {
-			var3.modelType = 1;
-			var3.modelId = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			ItemContainer.invalidateWidget(var3);
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETMODELANGLE) {
-			Interpreter.Interpreter_intStackSize -= 6;
-			var3.modelOffsetX = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
-			var3.modelOffsetY = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-			var3.modelAngleX = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 2];
-			var3.modelAngleY = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 3];
-			var3.modelAngleZ = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 4];
-			var3.modelZoom = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 5];
-			ItemContainer.invalidateWidget(var3);
-			return 1;
+		if (var1 > Client.npcCount) {
+			throw new RuntimeException("");
 		} else {
-			int var8;
-			if (var0 == ScriptOpcodes.CC_SETMODELANIM) {
-				var8 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				if (var8 != var3.sequenceId) {
-					var3.sequenceId = var8;
-					var3.modelFrame = 0;
-					var3.modelFrameCycle = 0;
-					ItemContainer.invalidateWidget(var3);
-				}
+			Client.npcCount = 0;
 
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETMODELORTHOG) {
-				var3.modelOrthog = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETTEXT) {
-				String var7 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize];
-				if (!var7.equals(var3.text)) {
-					var3.text = var7;
-					ItemContainer.invalidateWidget(var3);
-				}
-
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETTEXTFONT) {
-				var3.fontId = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETTEXTALIGN) {
-				Interpreter.Interpreter_intStackSize -= 3;
-				var3.textXAlignment = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
-				var3.textYAlignment = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-				var3.textLineHeight = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 2];
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETTEXTSHADOW) {
-				var3.textShadowed = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETOUTLINE) {
-				var3.outline = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETGRAPHICSHADOW) {
-				var3.spriteShadow = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETVFLIP) {
-				var3.spriteFlipV = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETHFLIP) {
-				var3.spriteFlipH = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETSCROLLSIZE) {
-				Interpreter.Interpreter_intStackSize -= 2;
-				var3.scrollWidth = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
-				var3.scrollHeight = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-				ItemContainer.invalidateWidget(var3);
-				if (var4 != -1 && var3.type == 0) {
-					MouseHandler.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var4 >> 16], var3, false);
-				}
-
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_RESUME_PAUSEBUTTON) {
-				class58.resumePauseWidget(var3.id, var3.childIndex);
-				Client.meslayerContinueWidget = var3;
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == 1122) {
-				var3.spriteId = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETFILLCOLOUR) {
-				var3.color2 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == 1124) {
-				var3.transparencyBot = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				ItemContainer.invalidateWidget(var3);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_SETFILLMODE) {
-				var8 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				class332 var6 = (class332)GrandExchangeEvent.findEnumerated(MusicPatchNode.FillMode_values(), var8);
-				if (var6 != null) {
-					var3.fillMode = var6;
-					ItemContainer.invalidateWidget(var3);
-				}
-
-				return 1;
-			} else {
-				boolean var5;
-				if (var0 == ScriptOpcodes.CC_SETLINEDIRECTION) {
-					var5 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-					var3.field2601 = var5;
-					return 1;
-				} else if (var0 == ScriptOpcodes.CC_SETMODELTRANSPARENT) {
-					var5 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1;
-					var3.modelTransparency = var5;
-					return 1;
+			for (var2 = 0; var2 < var1; ++var2) {
+				int var3 = Client.npcIndices[var2];
+				NPC var4 = Client.npcs[var3];
+				int var5 = var0.readBits(1);
+				if (var5 == 0) {
+					Client.npcIndices[++Client.npcCount - 1] = var3;
+					var4.npcCycle = Client.cycle;
 				} else {
-					return 2;
+					int var6 = var0.readBits(2);
+					if (var6 == 0) {
+						Client.npcIndices[++Client.npcCount - 1] = var3;
+						var4.npcCycle = Client.cycle;
+						Client.field719[++Client.field718 - 1] = var3;
+					} else {
+						int var7;
+						int var8;
+						if (var6 == 1) {
+							Client.npcIndices[++Client.npcCount - 1] = var3;
+							var4.npcCycle = Client.cycle;
+							var7 = var0.readBits(3);
+							var4.method2150(var7, (byte)1);
+							var8 = var0.readBits(1);
+							if (var8 == 1) {
+								Client.field719[++Client.field718 - 1] = var3;
+							}
+						} else if (var6 == 2) {
+							Client.npcIndices[++Client.npcCount - 1] = var3;
+							var4.npcCycle = Client.cycle;
+							var7 = var0.readBits(3);
+							var4.method2150(var7, (byte)2);
+							var8 = var0.readBits(3);
+							var4.method2150(var8, (byte)2);
+							int var9 = var0.readBits(1);
+							if (var9 == 1) {
+								Client.field719[++Client.field718 - 1] = var3;
+							}
+						} else if (var6 == 3) {
+							Client.field907[++Client.field687 - 1] = var3;
+						}
+					}
 				}
 			}
+
 		}
 	}
 }

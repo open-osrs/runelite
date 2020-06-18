@@ -4,49 +4,43 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ji")
+@ObfuscatedName("jr")
 @Implements("EnumDefinition")
 public class EnumDefinition extends DualNode {
-	@ObfuscatedName("x")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Liy;"
-	)
-	@Export("EnumDefinition_archive")
-	static AbstractArchive EnumDefinition_archive;
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "Leg;"
+		signature = "Lec;"
 	)
 	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@Export("inputType")
 	public char inputType;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@Export("outputType")
 	public char outputType;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1168542031
+		intValue = 296936223
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 744835807
+		intValue = -306934909
 	)
 	@Export("outputCount")
 	public int outputCount;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@Export("keys")
 	public int[] keys;
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@Export("intVals")
 	public int[] intVals;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@Export("strVals")
 	public String[] strVals;
 
@@ -59,10 +53,10 @@ public class EnumDefinition extends DualNode {
 		this.outputCount = 0;
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkb;I)V",
-		garbageValue = "1803562371"
+		signature = "(Lkn;I)V",
+		garbageValue = "1372956041"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -76,10 +70,10 @@ public class EnumDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)V",
-		garbageValue = "-1795608149"
+		signature = "(Lkn;IB)V",
+		garbageValue = "63"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -116,45 +110,13 @@ public class EnumDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "1493924915"
+		signature = "(S)I",
+		garbageValue = "-24655"
 	)
 	@Export("size")
 	public int size() {
 		return this.outputCount;
-	}
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-530273467"
-	)
-	public static void method4614(int var0) {
-		if (var0 != -1) {
-			if (Widget.Widget_loadedInterfaces[var0]) {
-				Widget.Widget_archive.clearFilesGroup(var0);
-				if (Widget.Widget_interfaceComponents[var0] != null) {
-					boolean var1 = true;
-
-					for (int var2 = 0; var2 < Widget.Widget_interfaceComponents[var0].length; ++var2) {
-						if (Widget.Widget_interfaceComponents[var0][var2] != null) {
-							if (Widget.Widget_interfaceComponents[var0][var2].type != 2) {
-								Widget.Widget_interfaceComponents[var0][var2] = null;
-							} else {
-								var1 = false;
-							}
-						}
-					}
-
-					if (var1) {
-						Widget.Widget_interfaceComponents[var0] = null;
-					}
-
-					Widget.Widget_loadedInterfaces[var0] = false;
-				}
-			}
-		}
 	}
 }

@@ -1,13 +1,15 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lr")
+@ObfuscatedName("ll")
 public class class336 {
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = -1356543079
+	@ObfuscatedName("w")
+	@Export("musicTrackBoolean")
+	public static boolean musicTrackBoolean;
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		signature = "Llh;"
 	)
-	@Export("ItemDefinition_fileCount")
-	public static int ItemDefinition_fileCount;
+	static IndexedSprite field3912;
 }
