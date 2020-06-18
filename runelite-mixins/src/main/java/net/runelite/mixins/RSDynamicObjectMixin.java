@@ -24,6 +24,7 @@
  */
 package net.runelite.mixins;
 
+import net.runelite.api.SequenceDefinition;
 import net.runelite.api.events.DynamicObjectAnimationChanged;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
@@ -36,6 +37,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSDynamicObject;
 import net.runelite.rs.api.RSEntity;
 import net.runelite.rs.api.RSModel;
+import net.runelite.rs.api.RSSequenceDefinition;
 
 @Mixin(RSDynamicObject.class)
 public abstract class RSDynamicObjectMixin implements RSDynamicObject
@@ -105,5 +107,32 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	public int getAnimationID()
 	{
 		return animationID;
+	}
+
+	@Inject
+	@Override
+	public int getAnimationCycleCount()
+	{
+		return getAnimCycleCount();
+	}
+
+	@Inject
+	@Override
+	public int getAnimationFrame()
+	{
+		return getAnimFrame();
+	}
+
+	@Inject
+	@Override
+	public SequenceDefinition getSequenceDefinition()
+	{
+		RSSequenceDefinition definition = getRSSequenceDefinition();
+		return new SequenceDefinition(
+			definition.getFrameIDs(),
+			definition.getFrameLenths(),
+			definition.getChatFrameIds(),
+			definition.getFrameCount()
+		);
 	}
 }

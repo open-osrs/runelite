@@ -27,4 +27,7 @@ public interface RSSequenceDefinition
 
 	@Import("chatFrameIds")
 	int[] getChatFrameIds();
+
+	@Import("frameCount")
+	int getFrameCount();
 }

@@ -7,4 +7,6 @@ public interface DynamicObject extends Entity
 	int getAnimationCycleCount();
 
 	int getAnimationID();
+
+	SequenceDefinition getSequenceDefinition();
 }
