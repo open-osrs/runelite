@@ -4,36 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ik")
+@ObfuscatedName("iy")
 @Implements("VarpDefinition")
 public class VarpDefinition extends DualNode {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Liy;"
+		signature = "Lic;"
 	)
 	@Export("VarpDefinition_archive")
-	public static AbstractArchive VarpDefinition_archive;
-	@ObfuscatedName("m")
+	static AbstractArchive VarpDefinition_archive;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 701979543
+		intValue = 359147415
 	)
 	@Export("VarpDefinition_fileCount")
 	public static int VarpDefinition_fileCount;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Leg;"
+		signature = "Lec;"
 	)
 	@Export("VarpDefinition_cached")
-	public static EvictingDualNodeHashTable VarpDefinition_cached;
-	@ObfuscatedName("hs")
-	@ObfuscatedSignature(
-		signature = "[Lla;"
-	)
-	@Export("mapDotSprites")
-	static Sprite[] mapDotSprites;
-	@ObfuscatedName("d")
+	static EvictingDualNodeHashTable VarpDefinition_cached;
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -2041406857
+		intValue = 1217664323
 	)
 	@Export("type")
 	public int type;
@@ -46,10 +40,10 @@ public class VarpDefinition extends DualNode {
 		this.type = 0;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkb;I)V",
-		garbageValue = "888817873"
+		signature = "(Lkn;I)V",
+		garbageValue = "319289372"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -63,10 +57,10 @@ public class VarpDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)V",
-		garbageValue = "-478549548"
+		signature = "(Lkn;II)V",
+		garbageValue = "1792997667"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -74,20 +68,5 @@ public class VarpDefinition extends DualNode {
 			this.type = var1.readUnsignedShort();
 		}
 
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "(IIB)I",
-		garbageValue = "42"
-	)
-	public static int method4453(int var0, int var1) {
-		int var2;
-		for (var2 = 0; var1 > 0; --var1) {
-			var2 = var2 << 1 | var0 & 1;
-			var0 >>>= 1;
-		}
-
-		return var2;
 	}
 }

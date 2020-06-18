@@ -1,26 +1,22 @@
+import java.awt.Desktop;
+import java.awt.Desktop.Action;
+import java.net.URI;
 import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ew")
+@ObfuscatedName("eb")
 @Implements("UrlRequest")
 public class UrlRequest {
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		signature = "Ldk;"
-	)
-	@Export("soundCache")
-	public static SoundCache soundCache;
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@Export("url")
 	final URL url;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("isDone0")
 	volatile boolean isDone0;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@Export("response0")
 	volatile byte[] response0;
 
@@ -28,61 +24,64 @@ public class UrlRequest {
 		this.url = var1;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "(I)Z",
-		garbageValue = "-1424081834"
+		garbageValue = "-1247069155"
 	)
 	@Export("isDone")
 	public boolean isDone() {
 		return this.isDone0;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		signature = "(I)[B",
-		garbageValue = "484192233"
+		garbageValue = "1076365281"
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {
 		return this.response0;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "65535"
+		signature = "(Ljava/lang/String;ZLjava/lang/String;ZI)V",
+		garbageValue = "-2122321724"
 	)
-	static int method3423(int var0, Script var1, boolean var2) {
-		Widget var3;
-		if (var0 == ScriptOpcodes.IF_GETINVOBJECT) {
-			var3 = MusicPatchNode.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.itemId;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETINVCOUNT) {
-			var3 = MusicPatchNode.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-			if (var3.itemId != -1) {
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.itemQuantity;
-			} else {
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
+	static void method3426(String var0, boolean var1, String var2, boolean var3) {
+		if (var1) {
+			if (!var3 && Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Action.BROWSE)) {
+				try {
+					Desktop.getDesktop().browse(new URI(var0));
+					return;
+				} catch (Exception var5) {
+				}
 			}
 
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_HASSUB) {
-			int var5 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var5);
-			if (var4 != null) {
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 1;
-			} else {
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
+			if (class60.field450.startsWith("win") && !var3) {
+				FloorUnderlayDefinition.method4608(var0, 0);
+				return;
 			}
 
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETTOP) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.rootInterface;
-			return 1;
+			if (class60.field450.startsWith("mac")) {
+				GrandExchangeOfferTotalQuantityComparator.method165(var0, 1, var2);
+				return;
+			}
+
+			FloorUnderlayDefinition.method4608(var0, 2);
 		} else {
-			return 2;
+			FloorUnderlayDefinition.method4608(var0, 3);
 		}
+
+	}
+
+	@ObfuscatedName("gx")
+	@ObfuscatedSignature(
+		signature = "(IIIIB)V",
+		garbageValue = "60"
+	)
+	static final void method3432(int var0, int var1, int var2, int var3) {
+		TileItemPile.method2901();
 	}
 }

@@ -6,40 +6,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lo")
+@ObfuscatedName("lu")
 @Implements("BufferedSink")
 public class BufferedSink implements Runnable {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -63285245
+		intValue = -870723035
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 238793019
+		intValue = 136248619
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1710004877
+		intValue = 961072211
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@Export("exception")
 	IOException exception;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@Export("closed")
 	boolean closed;
 
@@ -54,10 +54,10 @@ public class BufferedSink implements Runnable {
 		this.thread.start();
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "(B)Z",
-		garbageValue = "86"
+		garbageValue = "49"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -79,10 +79,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "([BIIS)V",
-		garbageValue = "-5417"
+		signature = "([BIII)V",
+		garbageValue = "2083374722"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
@@ -119,10 +119,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1845686279"
+		signature = "(S)V",
+		garbageValue = "7072"
 	)
 	@Export("close")
 	void close() {

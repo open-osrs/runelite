@@ -1,33 +1,44 @@
+import java.awt.Image;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cc")
+@ObfuscatedName("cb")
 @Implements("HealthBarUpdate")
 public class HealthBarUpdate extends Node {
-	@ObfuscatedName("x")
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		signature = "Ldh;"
+	)
+	@Export("pcmPlayerProvider")
+	static PlayerProvider pcmPlayerProvider;
+	@ObfuscatedName("k")
+	static int[][][] field1031;
+	@ObfuscatedName("ak")
+	static Image field1033;
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -186864867
+		intValue = -166528229
 	)
 	@Export("cycle")
 	int cycle;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 134168981
+		intValue = 1062047839
 	)
 	@Export("health")
 	int health;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1066019297
+		intValue = -374720445
 	)
 	@Export("health2")
 	int health2;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 442713571
+		intValue = 257618229
 	)
 	@Export("cycleOffset")
 	int cycleOffset;
@@ -39,10 +50,10 @@ public class HealthBarUpdate extends Node {
 		this.cycleOffset = var4;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "(IIIII)V",
-		garbageValue = "-2054467883"
+		garbageValue = "880697270"
 	)
 	@Export("set")
 	void set(int var1, int var2, int var3, int var4) {
@@ -50,17 +61,5 @@ public class HealthBarUpdate extends Node {
 		this.health = var2;
 		this.health2 = var3;
 		this.cycleOffset = var4;
-	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;B)V",
-		garbageValue = "87"
-	)
-	@Export("setLoginResponseString")
-	static void setLoginResponseString(String var0, String var1, String var2) {
-		Login.Login_response1 = var0;
-		Login.Login_response2 = var1;
-		Login.Login_response3 = var2;
 	}
 }

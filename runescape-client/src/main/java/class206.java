@@ -3,63 +3,70 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gr")
+@ObfuscatedName("gs")
 public class class206 {
+	@ObfuscatedName("rz")
+	@ObfuscatedGetter(
+		intValue = 271631865
+	)
+	static int field2446;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Liy;"
+		signature = "Lic;"
+	)
+	@Export("musicPatchesArchive")
+	public static AbstractArchive musicPatchesArchive;
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "Lic;"
 	)
 	@Export("musicSamplesArchive")
 	public static AbstractArchive musicSamplesArchive;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Liy;"
+		signature = "Lic;"
 	)
 	@Export("soundEffectsArchive")
 	public static AbstractArchive soundEffectsArchive;
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "Lgi;"
-	)
-	@Export("midiPcmStream")
-	public static MidiPcmStream midiPcmStream;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -972786961
+		intValue = -164621127
 	)
-	public static int field2406;
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "Liy;"
-	)
-	@Export("musicTrackArchive")
-	public static AbstractArchive musicTrackArchive;
-	@ObfuscatedName("q")
+	public static int field2439;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 11413497
+		intValue = -897953079
 	)
 	@Export("musicTrackGroupId")
 	public static int musicTrackGroupId;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = 1138068073
+	)
+	@Export("musicTrackVolume")
+	public static int musicTrackVolume;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1578862753
+		intValue = 2058854379
 	)
-	@Export("musicTrackFileId")
-	public static int musicTrackFileId;
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		signature = "Lhh;"
-	)
-	@Export("musicTrack")
-	public static MusicTrack musicTrack;
-	@ObfuscatedName("av")
-	@ObfuscatedSignature(
-		signature = "Llj;"
-	)
-	@Export("rasterProvider")
-	public static AbstractRasterProvider rasterProvider;
+	public static int field2442;
 
 	static {
-		field2406 = 0;
+		field2439 = 0;
+	}
+
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		signature = "(IIIZIB)J",
+		garbageValue = "1"
+	)
+	@Export("calculateTag")
+	public static long calculateTag(int var0, int var1, int var2, boolean var3, int var4) {
+		long var5 = (long)((var0 & 127) << 0 | (var1 & 127) << 7 | (var2 & 3) << 14) | ((long)var4 & 4294967295L) << 17;
+		if (var3) {
+			var5 |= 65536L;
+		}
+
+		return var5;
 	}
 }

@@ -3,186 +3,187 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jj")
+@ObfuscatedName("jz")
 @Implements("NPCDefinition")
 public class NPCDefinition extends DualNode {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Liy;"
+		signature = "Lic;"
 	)
 	@Export("NpcDefinition_archive")
 	public static AbstractArchive NpcDefinition_archive;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Liy;"
+		signature = "Lic;"
 	)
 	@Export("NpcDefinition_modelArchive")
 	public static AbstractArchive NpcDefinition_modelArchive;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Leg;"
+		signature = "Lec;"
 	)
 	@Export("NpcDefinition_cached")
-	static EvictingDualNodeHashTable NpcDefinition_cached;
-	@ObfuscatedName("d")
+	public static EvictingDualNodeHashTable NpcDefinition_cached;
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Leg;"
+		signature = "Lec;"
 	)
 	@Export("NpcDefinition_cachedModels")
-	static EvictingDualNodeHashTable NpcDefinition_cachedModels;
-	@ObfuscatedName("w")
+	public static EvictingDualNodeHashTable NpcDefinition_cachedModels;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -389469873
+		intValue = 1039013971
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@Export("name")
 	public String name;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1343476403
+		intValue = 784542157
 	)
 	@Export("size")
 	public int size;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@Export("models")
 	int[] models;
-	@ObfuscatedName("t")
-	int[] field3483;
-	@ObfuscatedName("e")
+	@ObfuscatedName("a")
+	int[] field3497;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1727903795
+		intValue = -1307303139
 	)
 	@Export("idleSequence")
 	public int idleSequence;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1188737805
+		intValue = -677524767
 	)
 	@Export("turnLeftSequence")
 	public int turnLeftSequence;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1064545751
+		intValue = 1895421903
 	)
 	@Export("turnRightSequence")
 	public int turnRightSequence;
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1167118343
+		intValue = -1701932667
 	)
 	@Export("walkSequence")
 	public int walkSequence;
-	@ObfuscatedName("u")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -899359333
+		intValue = -456399597
 	)
 	@Export("walkBackSequence")
 	public int walkBackSequence;
-	@ObfuscatedName("h")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1764143325
+		intValue = -1996665451
 	)
 	@Export("walkLeftSequence")
 	public int walkLeftSequence;
-	@ObfuscatedName("g")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 594616055
+		intValue = 49834029
 	)
 	@Export("walkRightSequence")
 	public int walkRightSequence;
-	@ObfuscatedName("i")
+	@ObfuscatedName("s")
 	@Export("recolorFrom")
 	short[] recolorFrom;
-	@ObfuscatedName("a")
+	@ObfuscatedName("v")
 	@Export("recolorTo")
 	short[] recolorTo;
-	@ObfuscatedName("b")
+	@ObfuscatedName("d")
 	@Export("retextureFrom")
 	short[] retextureFrom;
-	@ObfuscatedName("l")
+	@ObfuscatedName("e")
 	@Export("retextureTo")
 	short[] retextureTo;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@Export("actions")
 	public String[] actions;
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@Export("drawMapDot")
 	public boolean drawMapDot;
-	@ObfuscatedName("c")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1913171313
+		intValue = 1641745369
 	)
 	@Export("combatLevel")
 	public int combatLevel;
-	@ObfuscatedName("j")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -628781453
+		intValue = 610196697
 	)
 	@Export("widthScale")
 	int widthScale;
-	@ObfuscatedName("y")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 831579505
+		intValue = -689457805
 	)
 	@Export("heightScale")
 	int heightScale;
 	@ObfuscatedName("f")
 	@Export("isVisible")
 	public boolean isVisible;
-	@ObfuscatedName("ae")
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = -2049591517
+		intValue = -1624183581
 	)
 	@Export("ambient")
 	int ambient;
-	@ObfuscatedName("an")
+	@ObfuscatedName("ai")
 	@ObfuscatedGetter(
-		intValue = 1268595579
+		intValue = -2126781909
 	)
 	@Export("contrast")
 	int contrast;
-	@ObfuscatedName("ai")
+	@ObfuscatedName("ao")
 	@ObfuscatedGetter(
-		intValue = -1614239771
+		intValue = 155267533
 	)
 	@Export("headIconPrayer")
 	public int headIconPrayer;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 1421039835
+		intValue = -125141041
 	)
 	@Export("rotation")
 	public int rotation;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("ax")
 	@Export("transforms")
 	public int[] transforms;
-	@ObfuscatedName("ar")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = -1643554833
+		intValue = 618925133
 	)
 	@Export("transformVarbit")
 	int transformVarbit;
-	@ObfuscatedName("af")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = 1966128939
+		intValue = -1800109047
 	)
 	@Export("transformVarp")
 	int transformVarp;
-	@ObfuscatedName("at")
+	@ObfuscatedName("am")
 	@Export("isInteractable")
 	public boolean isInteractable;
-	@ObfuscatedName("al")
+	@ObfuscatedName("ak")
 	@Export("isClickable")
 	public boolean isClickable;
-	@ObfuscatedName("as")
+	@ObfuscatedName("ad")
 	@Export("isFollower")
 	public boolean isFollower;
-	@ObfuscatedName("am")
+	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "Lln;"
+		signature = "Llf;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -219,19 +220,19 @@ public class NPCDefinition extends DualNode {
 		this.isFollower = false;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "33"
+		signature = "(I)V",
+		garbageValue = "-515379309"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkb;B)V",
-		garbageValue = "-24"
+		signature = "(Lkn;I)V",
+		garbageValue = "-1111522508"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -245,10 +246,10 @@ public class NPCDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)V",
-		garbageValue = "269088844"
+		signature = "(Lkn;II)V",
+		garbageValue = "-1876580246"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -303,10 +304,10 @@ public class NPCDefinition extends DualNode {
 			}
 		} else if (var2 == 60) {
 			var3 = var1.readUnsignedByte();
-			this.field3483 = new int[var3];
+			this.field3497 = new int[var3];
 
 			for (var4 = 0; var4 < var3; ++var4) {
-				this.field3483[var4] = var1.readUnsignedShort();
+				this.field3497[var4] = var1.readUnsignedShort();
 			}
 		} else if (var2 == 93) {
 			this.drawMapDot = false;
@@ -334,7 +335,7 @@ public class NPCDefinition extends DualNode {
 			} else if (var2 == 111) {
 				this.isFollower = true;
 			} else if (var2 == 249) {
-				this.params = NetCache.readStringIntParameters(var1, this.params);
+				this.params = WorldMapElement.readStringIntParameters(var1, this.params);
 			}
 		} else {
 			this.transformVarbit = var1.readUnsignedShort();
@@ -370,10 +371,10 @@ public class NPCDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljc;ILjc;II)Lel;",
-		garbageValue = "-1957935091"
+		signature = "(Ljm;ILjm;II)Lef;",
+		garbageValue = "645123474"
 	)
 	@Export("getModel")
 	public final Model getModel(SequenceDefinition var1, int var2, SequenceDefinition var3, int var4) {
@@ -444,23 +445,23 @@ public class NPCDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)Lea;",
-		garbageValue = "4"
+		signature = "(I)Lek;",
+		garbageValue = "1862538614"
 	)
 	@Export("getModelData")
 	public final ModelData getModelData() {
 		if (this.transforms != null) {
 			NPCDefinition var1 = this.transform();
 			return var1 == null ? null : var1.getModelData();
-		} else if (this.field3483 == null) {
+		} else if (this.field3497 == null) {
 			return null;
 		} else {
 			boolean var5 = false;
 
-			for (int var2 = 0; var2 < this.field3483.length; ++var2) {
-				if (!NpcDefinition_modelArchive.tryLoadFile(this.field3483[var2], 0)) {
+			for (int var2 = 0; var2 < this.field3497.length; ++var2) {
+				if (!NpcDefinition_modelArchive.tryLoadFile(this.field3497[var2], 0)) {
 					var5 = true;
 				}
 			}
@@ -468,10 +469,10 @@ public class NPCDefinition extends DualNode {
 			if (var5) {
 				return null;
 			} else {
-				ModelData[] var6 = new ModelData[this.field3483.length];
+				ModelData[] var6 = new ModelData[this.field3497.length];
 
-				for (int var3 = 0; var3 < this.field3483.length; ++var3) {
-					var6[var3] = ModelData.ModelData_get(NpcDefinition_modelArchive, this.field3483[var3], 0);
+				for (int var3 = 0; var3 < this.field3497.length; ++var3) {
+					var6[var3] = ModelData.ModelData_get(NpcDefinition_modelArchive, this.field3497[var3], 0);
 				}
 
 				ModelData var7;
@@ -499,16 +500,16 @@ public class NPCDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)Ljj;",
-		garbageValue = "-2051225078"
+		signature = "(I)Ljz;",
+		garbageValue = "478343419"
 	)
 	@Export("transform")
 	public final NPCDefinition transform() {
 		int var1 = -1;
 		if (this.transformVarbit != -1) {
-			var1 = Projectile.getVarbit(this.transformVarbit);
+			var1 = Widget.getVarbit(this.transformVarbit);
 		} else if (this.transformVarp != -1) {
 			var1 = Varps.Varps_main[this.transformVarp];
 		}
@@ -520,13 +521,13 @@ public class NPCDefinition extends DualNode {
 			var2 = this.transforms[this.transforms.length - 1];
 		}
 
-		return var2 != -1 ? class237.getNpcDefinition(var2) : null;
+		return var2 != -1 ? StudioGame.getNpcDefinition(var2) : null;
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1945900441"
+		signature = "(B)Z",
+		garbageValue = "1"
 	)
 	@Export("transformIsVisible")
 	public boolean transformIsVisible() {
@@ -535,7 +536,7 @@ public class NPCDefinition extends DualNode {
 		} else {
 			int var1 = -1;
 			if (this.transformVarbit != -1) {
-				var1 = Projectile.getVarbit(this.transformVarbit);
+				var1 = Widget.getVarbit(this.transformVarbit);
 			} else if (this.transformVarp != -1) {
 				var1 = Varps.Varps_main[this.transformVarp];
 			}
@@ -548,36 +549,169 @@ public class NPCDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(IIS)I",
-		garbageValue = "-11262"
+		signature = "(IIB)I",
+		garbageValue = "-3"
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
-		IterableNodeHashTable var4 = this.params;
-		int var3;
-		if (var4 == null) {
-			var3 = var2;
-		} else {
-			IntegerNode var5 = (IntegerNode)var4.get((long)var1);
-			if (var5 == null) {
-				var3 = var2;
-			} else {
-				var3 = var5.integer;
-			}
-		}
-
-		return var3;
+		return Language.method3801(this.params, var1, var2);
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "-61"
+		signature = "(ILjava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "-1927040360"
 	)
 	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
-		return class9.method122(this.params, var1, var2);
+		return FloorUnderlayDefinition.method4612(this.params, var1, var2);
+	}
+
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		signature = "(ILcs;ZI)I",
+		garbageValue = "1804514310"
+	)
+	static int method4922(int var0, Script var1, boolean var2) {
+		int var3;
+		if (var0 == ScriptOpcodes.STOCKMARKET_GETOFFERTYPE) {
+			var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = Client.grandExchangeOffers[var3].type();
+			return 1;
+		} else if (var0 == ScriptOpcodes.STOCKMARKET_GETOFFERITEM) {
+			var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = Client.grandExchangeOffers[var3].id;
+			return 1;
+		} else if (var0 == ScriptOpcodes.STOCKMARKET_GETOFFERPRICE) {
+			var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = Client.grandExchangeOffers[var3].unitPrice;
+			return 1;
+		} else if (var0 == ScriptOpcodes.STOCKMARKET_GETOFFERCOUNT) {
+			var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = Client.grandExchangeOffers[var3].totalQuantity;
+			return 1;
+		} else if (var0 == ScriptOpcodes.STOCKMARKET_GETOFFERCOMPLETEDCOUNT) {
+			var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = Client.grandExchangeOffers[var3].currentQuantity;
+			return 1;
+		} else if (var0 == ScriptOpcodes.STOCKMARKET_GETOFFERCOMPLETEDGOLD) {
+			var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = Client.grandExchangeOffers[var3].currentPrice;
+			return 1;
+		} else {
+			int var12;
+			if (var0 == ScriptOpcodes.STOCKMARKET_ISOFFEREMPTY) {
+				var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+				var12 = Client.grandExchangeOffers[var3].status();
+				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var12 == 0 ? 1 : 0;
+				return 1;
+			} else if (var0 == ScriptOpcodes.STOCKMARKET_ISOFFERSTABLE) {
+				var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+				var12 = Client.grandExchangeOffers[var3].status();
+				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var12 == 2 ? 1 : 0;
+				return 1;
+			} else if (var0 == ScriptOpcodes.STOCKMARKET_ISOFFERFINISHED) {
+				var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+				var12 = Client.grandExchangeOffers[var3].status();
+				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var12 == 5 ? 1 : 0;
+				return 1;
+			} else if (var0 == ScriptOpcodes.STOCKMARKET_ISOFFERADDING) {
+				var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+				var12 = Client.grandExchangeOffers[var3].status();
+				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var12 == 1 ? 1 : 0;
+				return 1;
+			} else {
+				boolean var13;
+				if (var0 == ScriptOpcodes.TRADINGPOST_SORTBY_NAME) {
+					var13 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+					if (WorldMapIcon_0.grandExchangeEvents != null) {
+						WorldMapIcon_0.grandExchangeEvents.sort(GrandExchangeEvents.GrandExchangeEvents_nameComparator, var13);
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.TRADINGPOST_SORTBY_PRICE) {
+					var13 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+					if (WorldMapIcon_0.grandExchangeEvents != null) {
+						WorldMapIcon_0.grandExchangeEvents.sort(GrandExchangeEvents.GrandExchangeEvents_priceComparator, var13);
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.TRADINGPOST_SORTFILTERBY_WORLD) {
+					UrlRequester.Interpreter_intStackSize -= 2;
+					var13 = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize] == 1;
+					boolean var4 = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 1] == 1;
+					if (WorldMapIcon_0.grandExchangeEvents != null) {
+						Client.GrandExchangeEvents_worldComparator.filterWorlds = var4;
+						WorldMapIcon_0.grandExchangeEvents.sort(Client.GrandExchangeEvents_worldComparator, var13);
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.TRADINGPOST_SORTBY_AGE) {
+					var13 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+					if (WorldMapIcon_0.grandExchangeEvents != null) {
+						WorldMapIcon_0.grandExchangeEvents.sort(GrandExchangeEvents.GrandExchangeEvents_ageComparator, var13);
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.TRADINGPOST_SORTBY_COUNT) {
+					var13 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+					if (WorldMapIcon_0.grandExchangeEvents != null) {
+						WorldMapIcon_0.grandExchangeEvents.sort(GrandExchangeEvents.GrandExchangeEvents_quantityComparator, var13);
+					}
+
+					return 1;
+				} else if (var0 == ScriptOpcodes.TRADINGPOST_GETTOTALOFFERS) {
+					Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = WorldMapIcon_0.grandExchangeEvents == null ? 0 : WorldMapIcon_0.grandExchangeEvents.events.size();
+					return 1;
+				} else {
+					GrandExchangeEvent var11;
+					if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERWORLD) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+						var11 = (GrandExchangeEvent)WorldMapIcon_0.grandExchangeEvents.events.get(var3);
+						Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var11.world;
+						return 1;
+					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERNAME) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+						var11 = (GrandExchangeEvent)WorldMapIcon_0.grandExchangeEvents.events.get(var3);
+						Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = var11.getOfferName();
+						return 1;
+					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERPREVIOUSNAME) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+						var11 = (GrandExchangeEvent)WorldMapIcon_0.grandExchangeEvents.events.get(var3);
+						Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = var11.getPreviousOfferName();
+						return 1;
+					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERAGE) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+						var11 = (GrandExchangeEvent)WorldMapIcon_0.grandExchangeEvents.events.get(var3);
+						long var5 = MilliClock.currentTimeMillis() - GraphicsObject.field1139 - var11.age;
+						int var7 = (int)(var5 / 3600000L);
+						int var8 = (int)((var5 - (long)(var7 * 3600000)) / 60000L);
+						int var9 = (int)((var5 - (long)(var7 * 3600000) - (long)(var8 * 60000)) / 1000L);
+						String var10 = var7 + ":" + var8 / 10 + var8 % 10 + ":" + var9 / 10 + var9 % 10;
+						Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = var10;
+						return 1;
+					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERCOUNT) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+						var11 = (GrandExchangeEvent)WorldMapIcon_0.grandExchangeEvents.events.get(var3);
+						Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var11.grandExchangeOffer.totalQuantity;
+						return 1;
+					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERPRICE) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+						var11 = (GrandExchangeEvent)WorldMapIcon_0.grandExchangeEvents.events.get(var3);
+						Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var11.grandExchangeOffer.unitPrice;
+						return 1;
+					} else if (var0 == ScriptOpcodes.TRADINGPOST_GETOFFERITEM) {
+						var3 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+						var11 = (GrandExchangeEvent)WorldMapIcon_0.grandExchangeEvents.events.get(var3);
+						Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var11.grandExchangeOffer.id;
+						return 1;
+					} else {
+						return 2;
+					}
+				}
+			}
+		}
 	}
 }

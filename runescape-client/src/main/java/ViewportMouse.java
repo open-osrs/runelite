@@ -1,5 +1,3 @@
-import java.io.File;
-import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -9,48 +7,53 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ei")
 @Implements("ViewportMouse")
 public class ViewportMouse {
-	@ObfuscatedName("x")
-	@Export("ViewportMouse_isInViewport")
-	static boolean ViewportMouse_isInViewport;
 	@ObfuscatedName("m")
+	@Export("ViewportMouse_isInViewport")
+	public static boolean ViewportMouse_isInViewport;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -3434347
+		intValue = 1395390715
 	)
 	@Export("ViewportMouse_x")
-	static int ViewportMouse_x;
-	@ObfuscatedName("k")
+	public static int ViewportMouse_x;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1088872185
+		intValue = 70898143
 	)
 	@Export("ViewportMouse_y")
-	static int ViewportMouse_y;
-	@ObfuscatedName("d")
+	public static int ViewportMouse_y;
+	@ObfuscatedName("j")
 	@Export("ViewportMouse_false0")
-	static boolean ViewportMouse_false0;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = 1287512303
-	)
-	static int field1756;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = -128272745
-	)
-	static int field1753;
+	public static boolean ViewportMouse_false0;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 2142328087
+		intValue = 1666776935
 	)
-	static int field1758;
+	static int field1770;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 148493353
+		intValue = -94383227
+	)
+	static int field1771;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = -272779311
+	)
+	static int field1775;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = 1341524287
+	)
+	static int field1773;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = 2037239641
 	)
 	@Export("ViewportMouse_entityCount")
-	static int ViewportMouse_entityCount;
-	@ObfuscatedName("h")
+	public static int ViewportMouse_entityCount;
+	@ObfuscatedName("k")
 	@Export("ViewportMouse_entityTags")
-	static long[] ViewportMouse_entityTags;
+	public static long[] ViewportMouse_entityTags;
 
 	static {
 		ViewportMouse_isInViewport = false;
@@ -61,117 +64,36 @@ public class ViewportMouse {
 		ViewportMouse_entityTags = new long[1000];
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)Ljava/io/File;",
-		garbageValue = "-880025172"
+		signature = "(IIB)I",
+		garbageValue = "-104"
 	)
-	@Export("getFile")
-	public static File getFile(String var0) {
-		if (!FileSystem.FileSystem_hasPermissions) {
-			throw new RuntimeException("");
-		} else {
-			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0);
-			if (var1 != null) {
-				return var1;
-			} else {
-				File var2 = new File(FileSystem.FileSystem_cacheDir, var0);
-				RandomAccessFile var3 = null;
-
-				try {
-					File var4 = new File(var2.getParent());
-					if (!var4.exists()) {
-						throw new RuntimeException("");
-					} else {
-						var3 = new RandomAccessFile(var2, "rw");
-						int var5 = var3.read();
-						var3.seek(0L);
-						var3.write(var5);
-						var3.seek(0L);
-						var3.close();
-						FileSystem.FileSystem_cacheFiles.put(var0, var2);
-						return var2;
-					}
-				} catch (Exception var8) {
-					try {
-						if (var3 != null) {
-							var3.close();
-							var3 = null;
-						}
-					} catch (Exception var7) {
-					}
-
-					throw new RuntimeException();
-				}
-			}
-		}
+	public static int method3091(int var0, int var1) {
+		return (var0 << 8) + var1;
 	}
 
-	@ObfuscatedName("gp")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(S)V",
-		garbageValue = "-3489"
+		signature = "(CI)Z",
+		garbageValue = "998588366"
 	)
-	static final void method3091() {
-		Client.field794 = 0;
-		int var0 = (ByteArrayPool.localPlayer.x >> 7) + class69.baseX;
-		int var1 = (ByteArrayPool.localPlayer.y >> 7) + class89.baseY;
-		if (var0 >= 3053 && var0 <= 3156 && var1 >= 3056 && var1 <= 3136) {
-			Client.field794 = 1;
-		}
-
-		if (var0 >= 3072 && var0 <= 3118 && var1 >= 9492 && var1 <= 9535) {
-			Client.field794 = 1;
-		}
-
-		if (Client.field794 == 1 && var0 >= 3139 && var0 <= 3199 && var1 >= 3008 && var1 <= 3062) {
-			Client.field794 = 0;
-		}
-
-	}
-
-	@ObfuscatedName("ji")
-	@ObfuscatedSignature(
-		signature = "(Lhe;IIIIIII)V",
-		garbageValue = "-1829231425"
-	)
-	static final void method3092(Widget var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		if (Client.field746) {
-			Client.alternativeScrollbarWidth = 32;
+	public static boolean method3071(char var0) {
+		if (var0 >= ' ' && var0 < 127 || var0 > 127 && var0 < 160 || var0 > 160 && var0 <= 255) {
+			return true;
 		} else {
-			Client.alternativeScrollbarWidth = 0;
-		}
+			if (var0 != 0) {
+				char[] var1 = class297.cp1252AsciiExtension;
 
-		Client.field746 = false;
-		int var7;
-		if (MouseHandler.MouseHandler_currentButton == 1 || !class217.mouseCam && MouseHandler.MouseHandler_currentButton == 4) {
-			if (var5 >= var1 && var5 < var1 + 16 && var6 >= var2 && var6 < var2 + 16) {
-				var0.scrollY -= 4;
-				ItemContainer.invalidateWidget(var0);
-			} else if (var5 >= var1 && var5 < var1 + 16 && var6 >= var3 + var2 - 16 && var6 < var3 + var2) {
-				var0.scrollY += 4;
-				ItemContainer.invalidateWidget(var0);
-			} else if (var5 >= var1 - Client.alternativeScrollbarWidth && var5 < Client.alternativeScrollbarWidth + var1 + 16 && var6 >= var2 + 16 && var6 < var3 + var2 - 16) {
-				var7 = var3 * (var3 - 32) / var4;
-				if (var7 < 8) {
-					var7 = 8;
+				for (int var2 = 0; var2 < var1.length; ++var2) {
+					char var3 = var1[var2];
+					if (var0 == var3) {
+						return true;
+					}
 				}
-
-				int var8 = var6 - var2 - 16 - var7 / 2;
-				int var9 = var3 - 32 - var7;
-				var0.scrollY = var8 * (var4 - var3) / var9;
-				ItemContainer.invalidateWidget(var0);
-				Client.field746 = true;
 			}
-		}
 
-		if (Client.mouseWheelRotation != 0) {
-			var7 = var0.width;
-			if (var5 >= var1 - var7 && var6 >= var2 && var5 < var1 + 16 && var6 <= var3 + var2) {
-				var0.scrollY += Client.mouseWheelRotation * 45;
-				ItemContainer.invalidateWidget(var0);
-			}
+			return false;
 		}
-
 	}
 }

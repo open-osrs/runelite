@@ -4,54 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gq")
+@ObfuscatedName("gj")
 @Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "[Lgq;"
+		signature = "[Lgj;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1377216057
+		intValue = -477845615
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
 	static int PacketBufferNode_packetBufferNodeCount;
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		signature = "[Lms;"
-	)
-	@Export("JagexCache_idxFiles")
-	public static BufferedFile[] JagexCache_idxFiles;
-	@ObfuscatedName("lc")
-	@ObfuscatedGetter(
-		intValue = 1185326295
-	)
-	@Export("menuY")
-	static int menuY;
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "Lgn;"
 	)
 	@Export("clientPacket")
-	public ClientPacket clientPacket;
-	@ObfuscatedName("m")
+	ClientPacket clientPacket;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1271614463
+		intValue = 1266543353
 	)
 	@Export("clientPacketLength")
-	public int clientPacketLength;
-	@ObfuscatedName("k")
+	int clientPacketLength;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkj;"
+		signature = "Lkb;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1670678783
+		intValue = -1411425987
 	)
 	@Export("index")
 	public int index;
@@ -64,10 +52,10 @@ public class PacketBufferNode extends Node {
 	PacketBufferNode() {
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1494953808"
+		signature = "(B)V",
+		garbageValue = "-42"
 	)
 	@Export("release")
 	public void release() {
@@ -76,54 +64,20 @@ public class PacketBufferNode extends Node {
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		signature = "(III)I",
-		garbageValue = "1872697875"
+		garbageValue = "1965042826"
 	)
-	@Export("ItemContainer_getCount")
-	static int ItemContainer_getCount(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var2 == null) {
-			return 0;
-		} else {
-			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0;
-		}
-	}
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-1384794944"
-	)
-	@Export("iLog")
-	public static int iLog(int var0) {
-		int var1 = 0;
-		if (var0 < 0 || var0 >= 65536) {
-			var0 >>>= 16;
-			var1 += 16;
+	static final int method3750(int var0, int var1) {
+		int var2 = VarbitDefinition.method4696(45365 + var0, var1 + 91923, 4) - 128 + (VarbitDefinition.method4696(var0 + 10294, 37821 + var1, 2) - 128 >> 1) + (VarbitDefinition.method4696(var0, var1, 1) - 128 >> 2);
+		var2 = (int)(0.3D * (double)var2) + 35;
+		if (var2 < 10) {
+			var2 = 10;
+		} else if (var2 > 60) {
+			var2 = 60;
 		}
 
-		if (var0 >= 256) {
-			var0 >>>= 8;
-			var1 += 8;
-		}
-
-		if (var0 >= 16) {
-			var0 >>>= 4;
-			var1 += 4;
-		}
-
-		if (var0 >= 4) {
-			var0 >>>= 2;
-			var1 += 2;
-		}
-
-		if (var0 >= 1) {
-			var0 >>>= 1;
-			++var1;
-		}
-
-		return var0 + var1;
+		return var2;
 	}
 }

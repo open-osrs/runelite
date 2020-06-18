@@ -4,72 +4,72 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ez")
+@ObfuscatedName("ep")
 @Implements("WallDecoration")
 public final class WallDecoration {
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -1214014955
-	)
-	@Export("y")
-	int y;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -166681381
+		intValue = 1099689565
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1454515853
+		intValue = 1128423733
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("d")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -985506123
+		intValue = -242275183
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = 255410517
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 817578233
+		intValue = -1472318581
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1515780955
+		intValue = 96520519
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -102361683
+		intValue = -752151105
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lee;"
+		signature = "Lel;"
 	)
 	@Export("entity1")
 	public Entity entity1;
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lee;"
+		signature = "Lel;"
 	)
 	@Export("entity2")
 	public Entity entity2;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		longValue = -7258048285485333861L
+		longValue = 7567781693564802897L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1418566089
+		intValue = 1087358253
 	)
 	@Export("flags")
 	int flags;
@@ -79,61 +79,99 @@ public final class WallDecoration {
 		this.flags = 0;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("fu")
 	@ObfuscatedSignature(
-		signature = "(I[BLlq;S)V",
-		garbageValue = "4729"
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "764201281"
 	)
-	static void method3402(int var0, byte[] var1, ArchiveDisk var2) {
-		ArchiveDiskAction var3 = new ArchiveDiskAction();
-		var3.type = 0;
-		var3.key = (long)var0;
-		var3.data = var1;
-		var3.archiveDisk = var2;
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
-			ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.addFirst(var3);
+	@Export("doCheat")
+	static final void doCheat(String var0) {
+		if (var0.equalsIgnoreCase("toggleroof")) {
+			NetSocket.clientPreferences.roofsHidden = !NetSocket.clientPreferences.roofsHidden;
+			SpriteMask.savePreferences();
+			if (NetSocket.clientPreferences.roofsHidden) {
+				ObjectSound.addGameMessage(99, "", "Roofs are now all hidden");
+			} else {
+				ObjectSound.addGameMessage(99, "", "Roofs will only be removed selectively");
+			}
 		}
 
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) {
-			if (ArchiveDiskActionHandler.field3151 == 0) {
-				class197.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler());
-				class197.ArchiveDiskActionHandler_thread.setDaemon(true);
-				class197.ArchiveDiskActionHandler_thread.start();
-				class197.ArchiveDiskActionHandler_thread.setPriority(5);
+		if (var0.equalsIgnoreCase("displayfps")) {
+			Client.displayFps = !Client.displayFps;
+		}
+
+		if (var0.equalsIgnoreCase("renderself")) {
+			Client.renderSelf = !Client.renderSelf;
+		}
+
+		if (var0.equalsIgnoreCase("mouseovertext")) {
+			Client.showMouseOverText = !Client.showMouseOverText;
+		}
+
+		if (Client.staffModLevel >= 2) {
+			if (var0.equalsIgnoreCase("errortest")) {
+				throw new RuntimeException();
 			}
 
-			ArchiveDiskActionHandler.field3151 = 600;
+			if (var0.equalsIgnoreCase("showcoord")) {
+				class228.worldMap.showCoord = !class228.worldMap.showCoord;
+			}
+
+			if (var0.equalsIgnoreCase("fpson")) {
+				Client.displayFps = true;
+			}
+
+			if (var0.equalsIgnoreCase("fpsoff")) {
+				Client.displayFps = false;
+			}
+
+			if (var0.equalsIgnoreCase("gc")) {
+				System.gc();
+			}
+
+			if (var0.equalsIgnoreCase("clientdrop")) {
+				CollisionMap.method3707();
+			}
 		}
+
+		PacketBufferNode var1 = UserComparator4.getPacketBufferNode(ClientPacket.field2268, Client.packetWriter.isaacCipher);
+		var1.packetBuffer.writeByte(var0.length() + 1);
+		var1.packetBuffer.writeStringCp1252NullTerminated(var0);
+		Client.packetWriter.addNode(var1);
 	}
 
-	@ObfuscatedName("iw")
+	@ObfuscatedName("ir")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Lhe;I)Ljava/lang/String;",
-		garbageValue = "-748115662"
+		signature = "(Lhd;Ljo;IIZI)V",
+		garbageValue = "-771039466"
 	)
-	static String method3403(String var0, Widget var1) {
-		if (var0.indexOf("%") != -1) {
-			for (int var2 = 1; var2 <= 5; ++var2) {
-				while (true) {
-					int var3 = var0.indexOf("%" + var2);
-					if (var3 == -1) {
-						break;
-					}
-
-					String var4 = var0.substring(0, var3);
-					int var6 = Tiles.method1227(var1, var2 - 1);
-					String var5;
-					if (var6 < 999999999) {
-						var5 = Integer.toString(var6);
-					} else {
-						var5 = "*";
-					}
-
-					var0 = var4 + var5 + var0.substring(var3 + 2);
-				}
+	@Export("addWidgetItemMenuItem")
+	static final void addWidgetItemMenuItem(Widget var0, ItemDefinition var1, int var2, int var3, boolean var4) {
+		String[] var5 = var1.inventoryActions;
+		byte var6 = -1;
+		String var7 = null;
+		if (var5 != null && var5[var3] != null) {
+			if (var3 == 0) {
+				var6 = 33;
+			} else if (var3 == 1) {
+				var6 = 34;
+			} else if (var3 == 2) {
+				var6 = 35;
+			} else if (var3 == 3) {
+				var6 = 36;
+			} else {
+				var6 = 37;
 			}
+
+			var7 = var5[var3];
+		} else if (var3 == 4) {
+			var6 = 37;
+			var7 = "Drop";
 		}
 
-		return var0;
+		if (var6 != -1 && var7 != null) {
+			ApproximateRouteStrategy.insertMenuItem(var7, ItemContainer.colorStartTag(16748608) + var1.name, var6, var1.id, var2, var0.id, var4);
+		}
+
 	}
 }

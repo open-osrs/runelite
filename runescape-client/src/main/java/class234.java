@@ -2,24 +2,27 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("im")
+@ObfuscatedName("ia")
 public class class234 {
-	@ObfuscatedName("x")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/String;[SB)V",
-		garbageValue = "-127"
+		signature = "Lko;"
 	)
-	public static void method4221(String[] var0, short[] var1) {
-		GrandExchangeOffer.sortItemsByName(var0, var1, 0, var0.length - 1);
-	}
+	@Export("ItemDefinition_fontPlain11")
+	static Font ItemDefinition_fontPlain11;
+	@ObfuscatedName("s")
+	static String[] field3096;
 
-	@ObfuscatedName("bo")
+	@ObfuscatedName("jd")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)I",
-		garbageValue = "-31"
+		signature = "(Lhd;I)V",
+		garbageValue = "-750902552"
 	)
-	@Export("stringCp1252NullTerminatedByteSize")
-	public static int stringCp1252NullTerminatedByteSize(String var0) {
-		return var0.length() + 1;
+	@Export("invalidateWidget")
+	static void invalidateWidget(Widget var0) {
+		if (var0.cycle == Client.field877) {
+			Client.field813[var0.rootIndex] = true;
+		}
+
 	}
 }

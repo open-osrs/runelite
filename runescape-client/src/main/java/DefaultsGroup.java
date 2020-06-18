@@ -4,26 +4,23 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lf")
+@ObfuscatedName("lm")
 @Implements("DefaultsGroup")
 public class DefaultsGroup {
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Llf;"
-	)
-	static final DefaultsGroup field3811;
-	@ObfuscatedName("z")
-	@Export("SpriteBuffer_spritePalette")
-	static int[] SpriteBuffer_spritePalette;
 	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "Llm;"
+	)
+	static final DefaultsGroup field3822;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1057296275
+		intValue = -1462614597
 	)
 	@Export("group")
 	final int group;
 
 	static {
-		field3811 = new DefaultsGroup(3);
+		field3822 = new DefaultsGroup(3);
 	}
 
 	DefaultsGroup(int var1) {

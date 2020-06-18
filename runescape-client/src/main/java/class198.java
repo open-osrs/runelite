@@ -2,23 +2,21 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gk")
+@ObfuscatedName("gh")
 public class class198 {
-	@ObfuscatedName("bo")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lii;"
+		signature = "Lic;"
 	)
-	static GameBuild field2353;
+	@Export("ParamDefinition_archive")
+	static AbstractArchive ParamDefinition_archive;
 
-	@ObfuscatedName("jk")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
-		garbageValue = "1"
+		signature = "(IB)Z",
+		garbageValue = "-100"
 	)
-	@Export("runIntfCloseListeners")
-	static final void runIntfCloseListeners(int var0, int var1) {
-		if (LoginScreenAnimation.loadInterface(var0)) {
-			SecureRandomCallable.runComponentCloseListeners(Widget.Widget_interfaceComponents[var0], var1);
-		}
+	public static boolean method3774(int var0) {
+		return (var0 >> 31 & 1) != 0;
 	}
 }

@@ -1,18 +1,40 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("am")
+@ObfuscatedName("as")
 @Implements("WorldMapSprite")
 public final class WorldMapSprite {
-	@ObfuscatedName("da")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lih;"
+		signature = "Lgw;"
 	)
-	@Export("archive3")
-	static Archive archive3;
-	@ObfuscatedName("m")
+	@Export("midiPcmStream")
+	public static MidiPcmStream midiPcmStream;
+	@ObfuscatedName("aj")
+	@ObfuscatedGetter(
+		intValue = -1383908263
+	)
+	static int field264;
+	@ObfuscatedName("dt")
+	@ObfuscatedGetter(
+		longValue = -1209502997974573813L
+	)
+	static long field261;
+	@ObfuscatedName("ed")
+	@ObfuscatedGetter(
+		intValue = -1316808169
+	)
+	static int field254;
+	@ObfuscatedName("mb")
+	@ObfuscatedGetter(
+		intValue = 2099345905
+	)
+	@Export("selectedSpellFlags")
+	static int selectedSpellFlags;
+	@ObfuscatedName("o")
 	@Export("tileColors")
 	final int[] tileColors;
 
@@ -24,116 +46,93 @@ public final class WorldMapSprite {
 		this.tileColors = var1;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "(III)I",
-		garbageValue = "1469556779"
+		garbageValue = "2081761027"
 	)
 	@Export("getTileColor")
 	final int getTileColor(int var1, int var2) {
-		return this.tileColors[var1 + var2 * 64];
+		return this.tileColors[var2 * 64 + var1];
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Lce;",
-		garbageValue = "1891668899"
+		signature = "(IB)Lhd;",
+		garbageValue = "115"
 	)
-	@Export("getScript")
-	static Script getScript(int var0) {
-		Script var1 = (Script)Script.Script_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = class41.archive12.takeFile(var0, 0);
-			if (var2 == null) {
+	@Export("getWidget")
+	public static Widget getWidget(int var0) {
+		int var1 = var0 >> 16;
+		int var2 = var0 & 65535;
+		if (Widget.Widget_interfaceComponents[var1] == null || Widget.Widget_interfaceComponents[var1][var2] == null) {
+			boolean var3 = UserComparator4.loadInterface(var1);
+			if (!var3) {
 				return null;
-			} else {
-				var1 = SecureRandomCallable.newScript(var2);
-				Script.Script_cached.put(var1, (long)var0);
-				return var1;
 			}
 		}
+
+		return Widget.Widget_interfaceComponents[var1][var2];
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		signature = "(IIIII)V",
-		garbageValue = "-173221436"
+		garbageValue = "2146534283"
 	)
-	static final void method514(int var0, int var1, int var2, int var3) {
-		for (int var4 = var1; var4 <= var3 + var1; ++var4) {
-			for (int var5 = var0; var5 <= var0 + var2; ++var5) {
-				if (var5 >= 0 && var5 < 104 && var4 >= 0 && var4 < 104) {
-					SoundCache.field1462[0][var5][var4] = 127;
-					if (var0 == var5 && var5 > 0) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 - 1][var4];
-					}
-
-					if (var0 + var2 == var5 && var5 < 103) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 + 1][var4];
-					}
-
-					if (var4 == var1 && var4 > 0) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 - 1];
-					}
-
-					if (var3 + var1 == var4 && var4 < 103) {
-						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 + 1];
-					}
-				}
-			}
+	@Export("itemContainerSetItem")
+	static void itemContainerSetItem(int var0, int var1, int var2, int var3) {
+		ItemContainer var4 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var4 == null) {
+			var4 = new ItemContainer();
+			ItemContainer.itemContainers.put(var4, (long)var0);
 		}
 
+		if (var4.ids.length <= var1) {
+			int[] var5 = new int[var1 + 1];
+			int[] var6 = new int[var1 + 1];
+
+			int var7;
+			for (var7 = 0; var7 < var4.ids.length; ++var7) {
+				var5[var7] = var4.ids[var7];
+				var6[var7] = var4.quantities[var7];
+			}
+
+			for (var7 = var4.ids.length; var7 < var1; ++var7) {
+				var5[var7] = -1;
+				var6[var7] = 0;
+			}
+
+			var4.ids = var5;
+			var4.quantities = var6;
+		}
+
+		var4.ids[var1] = var2;
+		var4.quantities[var1] = var3;
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("ep")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)V",
-		garbageValue = "-1583850141"
+		signature = "(Lig;Ljava/lang/String;I)V",
+		garbageValue = "2099603799"
 	)
-	public static void method510(Buffer var0, int var1) {
-		if (JagexCache.JagexCache_randomDat != null) {
-			try {
-				JagexCache.JagexCache_randomDat.seek(0L);
-				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24);
-			} catch (Exception var3) {
-			}
-		}
-
+	static void method481(Archive var0, String var1) {
+		ArchiveLoader var2 = new ArchiveLoader(var0, var1);
+		Client.archiveLoaders.add(var2);
+		Client.field945 += var2.groupCount;
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("jk")
 	@ObfuscatedSignature(
-		signature = "(B)[Lla;",
-		garbageValue = "10"
+		signature = "(I)V",
+		garbageValue = "1835863543"
 	)
-	static Sprite[] method516() {
-		Sprite[] var0 = new Sprite[class335.SpriteBuffer_spriteCount];
-
-		for (int var1 = 0; var1 < class335.SpriteBuffer_spriteCount; ++var1) {
-			Sprite var2 = var0[var1] = new Sprite();
-			var2.width = class335.SpriteBuffer_spriteWidth;
-			var2.height = class335.SpriteBuffer_spriteHeight;
-			var2.xOffset = class335.SpriteBuffer_xOffsets[var1];
-			var2.yOffset = StructDefinition.SpriteBuffer_yOffsets[var1];
-			var2.subWidth = class335.SpriteBuffer_spriteWidths[var1];
-			var2.subHeight = class335.SpriteBuffer_spriteHeights[var1];
-			int var3 = var2.subHeight * var2.subWidth;
-			byte[] var4 = class4.SpriteBuffer_pixels[var1];
-			var2.pixels = new int[var3];
-
-			for (int var5 = 0; var5 < var3; ++var5) {
-				var2.pixels[var5] = DefaultsGroup.SpriteBuffer_spritePalette[var4[var5] & 255];
-			}
+	@Export("FriendSystem_invalidateIgnoreds")
+	static final void FriendSystem_invalidateIgnoreds() {
+		TilePaint.method3188();
+		if (ClientPreferences.clanChat != null) {
+			ClientPreferences.clanChat.invalidateIgnoreds();
 		}
 
-		class335.SpriteBuffer_xOffsets = null;
-		StructDefinition.SpriteBuffer_yOffsets = null;
-		class335.SpriteBuffer_spriteWidths = null;
-		class335.SpriteBuffer_spriteHeights = null;
-		DefaultsGroup.SpriteBuffer_spritePalette = null;
-		class4.SpriteBuffer_pixels = null;
-		return var0;
 	}
 }

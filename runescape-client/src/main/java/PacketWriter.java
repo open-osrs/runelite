@@ -5,91 +5,85 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dv")
+@ObfuscatedName("dx")
 @Implements("PacketWriter")
 public class PacketWriter {
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = 2038642023
-	)
-	@Export("loginBoxCenter")
-	static int loginBoxCenter;
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llt;"
+		signature = "Llj;"
 	)
 	@Export("socket")
 	AbstractSocket socket;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljm;"
+		signature = "Ljx;"
 	)
 	@Export("packetBufferNodes")
 	IterableNodeDeque packetBufferNodes;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1977656589
+		intValue = -315328335
 	)
 	@Export("bufferSize")
 	int bufferSize;
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lkb;"
+		signature = "Lkn;"
 	)
 	@Export("buffer")
 	Buffer buffer;
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Llp;"
+		signature = "Llb;"
 	)
 	@Export("isaacCipher")
 	public IsaacCipher isaacCipher;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lkj;"
+		signature = "Lkb;"
 	)
 	@Export("packetBuffer")
 	PacketBuffer packetBuffer;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lgv;"
+		signature = "Lgu;"
 	)
 	@Export("serverPacket")
 	ServerPacket serverPacket;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1499666993
+		intValue = -1069759871
 	)
 	@Export("serverPacketLength")
 	int serverPacketLength;
-	@ObfuscatedName("t")
-	boolean field1335;
-	@ObfuscatedName("e")
+	@ObfuscatedName("a")
+	boolean field1347;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1899399217
+		intValue = 1004833869
 	)
-	int field1338;
-	@ObfuscatedName("s")
+	int field1348;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1748299909
+		intValue = -126397603
 	)
 	@Export("pendingWrites")
 	int pendingWrites;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lgv;"
+		signature = "Lgu;"
 	)
-	ServerPacket field1334;
-	@ObfuscatedName("n")
+	ServerPacket field1350;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lgv;"
+		signature = "Lgu;"
 	)
-	ServerPacket field1329;
-	@ObfuscatedName("u")
+	ServerPacket field1351;
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lgv;"
+		signature = "Lgu;"
 	)
-	ServerPacket field1339;
+	ServerPacket field1342;
 
 	PacketWriter() {
 		this.packetBufferNodes = new IterableNodeDeque();
@@ -98,15 +92,15 @@ public class PacketWriter {
 		this.packetBuffer = new PacketBuffer(40000);
 		this.serverPacket = null;
 		this.serverPacketLength = 0;
-		this.field1335 = true;
-		this.field1338 = 0;
+		this.field1347 = true;
+		this.field1348 = 0;
 		this.pendingWrites = 0;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1731012634"
+		signature = "(B)V",
+		garbageValue = "65"
 	)
 	@Export("clearBuffer")
 	final void clearBuffer() {
@@ -114,10 +108,10 @@ public class PacketWriter {
 		this.bufferSize = 0;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "-2069512411"
+		garbageValue = "1917984042"
 	)
 	@Export("flush")
 	final void flush() throws IOException {
@@ -142,10 +136,10 @@ public class PacketWriter {
 
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lgq;I)V",
-		garbageValue = "348040455"
+		signature = "(Lgj;I)V",
+		garbageValue = "-251135286"
 	)
 	@Export("addNode")
 	public final void addNode(PacketBufferNode var1) {
@@ -155,20 +149,20 @@ public class PacketWriter {
 		this.bufferSize += var1.index;
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Llt;B)V",
-		garbageValue = "-28"
+		signature = "(Llj;I)V",
+		garbageValue = "-1410560856"
 	)
 	@Export("setSocket")
 	void setSocket(AbstractSocket var1) {
 		this.socket = var1;
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "955020520"
+		garbageValue = "446694129"
 	)
 	@Export("close")
 	void close() {
@@ -179,72 +173,23 @@ public class PacketWriter {
 
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-17"
+		signature = "(I)V",
+		garbageValue = "-2011501008"
 	)
 	@Export("removeSocket")
 	void removeSocket() {
 		this.socket = null;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)Llt;",
-		garbageValue = "1352632931"
+		signature = "(I)Llj;",
+		garbageValue = "2137567404"
 	)
 	@Export("getSocket")
 	AbstractSocket getSocket() {
 		return this.socket;
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-816734320"
-	)
-	public static int method2376(int var0) {
-		long var2 = ViewportMouse.ViewportMouse_entityTags[var0];
-		int var1 = (int)(var2 >>> 0 & 127L);
-		return var1;
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "1838015298"
-	)
-	@Export("Messages_getHistorySize")
-	static int Messages_getHistorySize(int var0) {
-		ChatChannel var1 = (ChatChannel)Messages.Messages_channels.get(var0);
-		return var1 == null ? 0 : var1.size();
-	}
-
-	@ObfuscatedName("fr")
-	@ObfuscatedSignature(
-		signature = "(Ljc;IIIB)V",
-		garbageValue = "29"
-	)
-	@Export("addSequenceSoundEffect")
-	static void addSequenceSoundEffect(SequenceDefinition var0, int var1, int var2, int var3) {
-		if (Client.soundEffectCount < 50 && Client.areaSoundEffectVolume != 0) {
-			if (var0.soundEffects != null && var1 < var0.soundEffects.length) {
-				int var4 = var0.soundEffects[var1];
-				if (var4 != 0) {
-					int var5 = var4 >> 8;
-					int var6 = var4 >> 4 & 7;
-					int var7 = var4 & 15;
-					Client.soundEffectIds[Client.soundEffectCount] = var5;
-					Client.queuedSoundEffectLoops[Client.soundEffectCount] = var6;
-					Client.queuedSoundEffectDelays[Client.soundEffectCount] = 0;
-					Client.soundEffects[Client.soundEffectCount] = null;
-					int var8 = (var2 - 64) / 128;
-					int var9 = (var3 - 64) / 128;
-					Client.soundLocations[Client.soundEffectCount] = var7 + (var9 << 8) + (var8 << 16);
-					++Client.soundEffectCount;
-				}
-			}
-		}
 	}
 }

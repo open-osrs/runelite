@@ -3,22 +3,34 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("it")
+@ObfuscatedName("iu")
 @Implements("VarcInt")
 public class VarcInt extends DualNode {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Liy;"
+		signature = "Lic;"
 	)
 	@Export("VarcInt_archive")
 	public static AbstractArchive VarcInt_archive;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Leg;"
+		signature = "Lec;"
 	)
 	@Export("VarcInt_cached")
 	public static EvictingDualNodeHashTable VarcInt_cached;
-	@ObfuscatedName("k")
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		signature = "Lic;"
+	)
+	@Export("ItemDefinition_archive")
+	static AbstractArchive ItemDefinition_archive;
+	@ObfuscatedName("eu")
+	@ObfuscatedSignature(
+		signature = "Lig;"
+	)
+	@Export("archive18")
+	static Archive archive18;
+	@ObfuscatedName("q")
 	@Export("persist")
 	public boolean persist;
 
@@ -32,28 +44,46 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkb;B)V",
-		garbageValue = "-75"
+		signature = "(Lkn;B)V",
+		garbageValue = "121"
 	)
-	public void method4487(Buffer var1) {
+	public void method4573(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte();
 			if (var2 == 0) {
 				return;
 			}
 
-			this.method4488(var1, var2);
+			this.method4569(var1, var2);
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)V",
-		garbageValue = "-1942328984"
+		signature = "(Lkn;II)V",
+		garbageValue = "1038318542"
 	)
-	void method4488(Buffer var1, int var2) {
+	void method4569(Buffer var1, int var2) {
 		if (var2 == 2) {
 			this.persist = true;
+		}
+
+	}
+
+	@ObfuscatedName("ar")
+	@ObfuscatedSignature(
+		signature = "(Ldf;I)V",
+		garbageValue = "1745274917"
+	)
+	@Export("PcmStream_disable")
+	static final void PcmStream_disable(PcmStream var0) {
+		var0.active = false;
+		if (var0.sound != null) {
+			var0.sound.position = 0;
+		}
+
+		for (PcmStream var1 = var0.firstSubStream(); var1 != null; var1 = var0.nextSubStream()) {
+			PcmStream_disable(var1);
 		}
 
 	}

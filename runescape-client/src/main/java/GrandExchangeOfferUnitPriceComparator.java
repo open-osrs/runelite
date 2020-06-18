@@ -1,21 +1,18 @@
-import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("l")
+@ObfuscatedName("e")
 @Implements("GrandExchangeOfferUnitPriceComparator")
 final class GrandExchangeOfferUnitPriceComparator implements Comparator {
-	@ObfuscatedName("s")
-	@Export("musicTrackBoolean")
-	public static boolean musicTrackBoolean;
-
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Li;Li;B)I",
-		garbageValue = "-48"
+		signature = "(Ls;Ls;B)I",
+		garbageValue = "0"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -30,145 +27,91 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 		return super.equals(var1);
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Ljv;",
-		garbageValue = "-600154853"
+		signature = "(Lic;Lic;B)V",
+		garbageValue = "15"
 	)
-	public static HitSplatDefinition method213(int var0) {
-		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = HitSplatDefinition.HitSplatDefinition_archive.takeFile(32, var0);
-			var1 = new HitSplatDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
+	public static void method195(AbstractArchive var0, AbstractArchive var1) {
+		KitDefinition.KitDefinition_archive = var0;
+		KitDefinition.KitDefinition_modelsArchive = var1;
+		KitDefinition.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3);
+	}
 
-			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0);
-			return var1;
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/String;I)Z",
+		garbageValue = "-1062830390"
+	)
+	static boolean method204(String var0) {
+		if (var0 == null) {
+			return false;
+		} else {
+			try {
+				new URL(var0);
+				return true;
+			} catch (MalformedURLException var2) {
+				return false;
+			}
 		}
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(Llt;ZB)V",
-		garbageValue = "1"
+		signature = "(Ljg;S)Z",
+		garbageValue = "255"
 	)
-	public static void method222(AbstractSocket var0, boolean var1) {
-		if (NetCache.NetCache_socket != null) {
-			try {
-				NetCache.NetCache_socket.close();
-			} catch (Exception var8) {
-			}
+	static boolean method202(ObjectDefinition var0) {
+		if (var0.transforms != null) {
+			int[] var1 = var0.transforms;
 
-			NetCache.NetCache_socket = null;
-		}
-
-		NetCache.NetCache_socket = var0;
-		Buffer var2;
-		if (NetCache.NetCache_socket != null) {
-			try {
-				var2 = new Buffer(4);
-				var2.writeByte(var1 ? 2 : 3);
-				var2.writeMedium(0);
-				NetCache.NetCache_socket.write(var2.array, 0, 4);
-			} catch (IOException var7) {
-				try {
-					NetCache.NetCache_socket.close();
-				} catch (Exception var6) {
-				}
-
-				++NetCache.NetCache_ioExceptions;
-				NetCache.NetCache_socket = null;
-			}
-		}
-
-		NetCache.NetCache_responseHeaderBuffer.offset = 0;
-		NetCache.NetCache_currentResponse = null;
-		NetCache.NetCache_responseArchiveBuffer = null;
-		NetCache.field3178 = 0;
-
-		while (true) {
-			NetFileRequest var9 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.first();
-			if (var9 == null) {
-				while (true) {
-					var9 = (NetFileRequest)NetCache.NetCache_pendingResponses.first();
-					if (var9 == null) {
-						if (NetCache.field3163 != 0) {
-							try {
-								var2 = new Buffer(4);
-								var2.writeByte(4);
-								var2.writeByte(NetCache.field3163);
-								var2.writeShort(0);
-								NetCache.NetCache_socket.write(var2.array, 0, 4);
-							} catch (IOException var5) {
-								try {
-									NetCache.NetCache_socket.close();
-								} catch (Exception var4) {
-								}
-
-								++NetCache.NetCache_ioExceptions;
-								NetCache.NetCache_socket = null;
-							}
-						}
-
-						NetCache.NetCache_loadTime = 0;
-						NetCache.field3165 = class217.currentTimeMillis();
-						return;
-					}
-
-					NetCache.NetCache_pendingWritesQueue.addLast(var9);
-					NetCache.NetCache_pendingWrites.put(var9, var9.key);
-					++NetCache.NetCache_pendingWritesCount;
-					--NetCache.NetCache_pendingResponsesCount;
+			for (int var2 = 0; var2 < var1.length; ++var2) {
+				int var3 = var1[var2];
+				ObjectDefinition var4 = Canvas.getObjectDefinition(var3);
+				if (var4.mapIconId != -1) {
+					return true;
 				}
 			}
-
-			NetCache.NetCache_pendingPriorityWrites.put(var9, var9.key);
-			++NetCache.NetCache_pendingPriorityWritesCount;
-			--NetCache.NetCache_pendingPriorityResponsesCount;
-		}
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		signature = "(III)Lhe;",
-		garbageValue = "166208311"
-	)
-	@Export("getWidgetChild")
-	public static Widget getWidgetChild(int var0, int var1) {
-		Widget var2 = MusicPatchNode.getWidget(var0);
-		if (var1 == -1) {
-			return var2;
-		} else {
-			return var2 != null && var2.children != null && var1 < var2.children.length ? var2.children[var1] : null;
-		}
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "-1968739504"
-	)
-	public static boolean method218(int var0) {
-		return (var0 >> 20 & 1) != 0;
-	}
-
-	@ObfuscatedName("aj")
-	@ObfuscatedSignature(
-		signature = "([BII)I",
-		garbageValue = "-1953007669"
-	)
-	public static int method225(byte[] var0, int var1) {
-		int var3 = -1;
-
-		for (int var4 = 0; var4 < var1; ++var4) {
-			var3 = var3 >>> 8 ^ Buffer.crc32Table[(var3 ^ var0[var4]) & 255];
+		} else if (var0.mapIconId != -1) {
+			return true;
 		}
 
-		var3 = ~var3;
-		return var3;
+		return false;
+	}
+
+	@ObfuscatedName("ix")
+	@ObfuscatedSignature(
+		signature = "([Lhd;IIIZB)V",
+		garbageValue = "0"
+	)
+	@Export("resizeInterface")
+	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
+		for (int var5 = 0; var5 < var0.length; ++var5) {
+			Widget var6 = var0[var5];
+			if (var6 != null && var6.parentId == var1) {
+				UserComparator3.alignWidgetSize(var6, var2, var3, var4);
+				WorldMapLabel.alignWidgetPosition(var6, var2, var3);
+				if (var6.scrollX > var6.scrollWidth - var6.width) {
+					var6.scrollX = var6.scrollWidth - var6.width;
+				}
+
+				if (var6.scrollX < 0) {
+					var6.scrollX = 0;
+				}
+
+				if (var6.scrollY > var6.scrollHeight - var6.height) {
+					var6.scrollY = var6.scrollHeight - var6.height;
+				}
+
+				if (var6.scrollY < 0) {
+					var6.scrollY = 0;
+				}
+
+				if (var6.type == 0) {
+					WorldMapIcon_0.revalidateWidgetScroll(var0, var6, var4);
+				}
+			}
+		}
+
 	}
 }

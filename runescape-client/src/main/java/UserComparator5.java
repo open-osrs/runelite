@@ -3,10 +3,10 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fc")
+@ObfuscatedName("fx")
 @Implements("UserComparator5")
 public class UserComparator5 extends AbstractUserComparator {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -14,10 +14,10 @@ public class UserComparator5 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lke;Lke;I)I",
-		garbageValue = "261090852"
+		signature = "(Lkx;Lkx;B)I",
+		garbageValue = "0"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -36,85 +36,69 @@ public class UserComparator5 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1985272675"
+		signature = "(Lkn;IB)Ljava/lang/String;",
+		garbageValue = "2"
 	)
-	public static void method3520() {
-		KitDefinition.KitDefinition_cached.clear();
-	}
+	static String method3534(Buffer var0, int var1) {
+		try {
+			int var2 = var0.readUShortSmart();
+			if (var2 > var1) {
+				var2 = var1;
+			}
 
-	@ObfuscatedName("gf")
-	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "-447176134"
-	)
-	static final void method3523(int var0, int var1, int var2, int var3) {
-		ViewportMouse.method3091();
-	}
-
-	@ObfuscatedName("if")
-	@ObfuscatedSignature(
-		signature = "(IB)Ljava/lang/String;",
-		garbageValue = "0"
-	)
-	@Export("formatItemStacks")
-	static final String formatItemStacks(int var0) {
-		String var1 = Integer.toString(var0);
-
-		for (int var2 = var1.length() - 3; var2 > 0; var2 -= 3) {
-			var1 = var1.substring(0, var2) + "," + var1.substring(var2);
-		}
-
-		if (var1.length() > 9) {
-			return " " + class297.colorStartTag(65408) + var1.substring(0, var1.length() - 8) + "M" + " " + " (" + var1 + ")" + "</col>";
-		} else {
-			return var1.length() > 6 ? " " + class297.colorStartTag(16777215) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + class297.colorStartTag(16776960) + var1 + "</col>";
+			byte[] var3 = new byte[var2];
+			var0.offset += class219.huffman.decompress(var0.array, var0.offset, var3, 0, var2);
+			String var4 = MouseRecorder.decodeStringCp1252(var3, 0, var2);
+			return var4;
+		} catch (Exception var6) {
+			return "Cabbage";
 		}
 	}
 
-	@ObfuscatedName("jt")
+	@ObfuscatedName("in")
 	@ObfuscatedSignature(
-		signature = "(Lhe;I)V",
-		garbageValue = "-1600087023"
+		signature = "(IIIIIIS)V",
+		garbageValue = "-4011"
 	)
-	static final void method3521(Widget var0) {
-		int var1 = var0.contentType;
-		if (var1 == 324) {
-			if (Client.field945 == -1) {
-				Client.field945 = var0.spriteId2;
-				Client.field946 = var0.spriteId;
-			}
+	static final void method3540(int var0, int var1, int var2, int var3, int var4, int var5) {
+		int var6 = var2 - var0;
+		int var7 = var3 - var1;
+		int var8 = var6 >= 0 ? var6 : -var6;
+		int var9 = var7 >= 0 ? var7 : -var7;
+		int var10 = var8;
+		if (var8 < var9) {
+			var10 = var9;
+		}
 
-			if (Client.playerAppearance.isFemale) {
-				var0.spriteId2 = Client.field945;
+		if (var10 != 0) {
+			int var11 = (var6 << 16) / var10;
+			int var12 = (var7 << 16) / var10;
+			if (var12 <= var11) {
+				var11 = -var11;
 			} else {
-				var0.spriteId2 = Client.field946;
+				var12 = -var12;
 			}
 
-		} else if (var1 == 325) {
-			if (Client.field945 == -1) {
-				Client.field945 = var0.spriteId2;
-				Client.field946 = var0.spriteId;
-			}
-
-			if (Client.playerAppearance.isFemale) {
-				var0.spriteId2 = Client.field946;
-			} else {
-				var0.spriteId2 = Client.field945;
-			}
-
-		} else if (var1 == 327) {
-			var0.modelAngleX = 150;
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
-			var0.modelType = 5;
-			var0.modelId = 0;
-		} else if (var1 == 328) {
-			var0.modelAngleX = 150;
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
-			var0.modelType = 5;
-			var0.modelId = 1;
+			int var13 = var5 * var12 >> 17;
+			int var14 = var5 * var12 + 1 >> 17;
+			int var15 = var5 * var11 >> 17;
+			int var16 = var5 * var11 + 1 >> 17;
+			var0 -= Rasterizer2D.Rasterizer2D_xClipStart;
+			var1 -= Rasterizer2D.Rasterizer2D_yClipStart;
+			int var17 = var0 + var13;
+			int var18 = var0 - var14;
+			int var19 = var0 + var6 - var14;
+			int var20 = var0 + var13 + var6;
+			int var21 = var15 + var1;
+			int var22 = var1 - var16;
+			int var23 = var7 + var1 - var16;
+			int var24 = var7 + var15 + var1;
+			Rasterizer3D.method3144(var17, var18, var19);
+			Rasterizer3D.method3124(var21, var22, var23, var17, var18, var19, var4);
+			Rasterizer3D.method3144(var17, var19, var20);
+			Rasterizer3D.method3124(var21, var23, var24, var17, var19, var20, var4);
 		}
 	}
 }

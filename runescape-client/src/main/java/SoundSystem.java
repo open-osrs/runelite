@@ -3,25 +3,25 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("dh")
+@ObfuscatedName("dg")
 @Implements("SoundSystem")
 public class SoundSystem implements Runnable {
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		signature = "Liy;"
-	)
-	@Export("Widget_modelsArchive")
-	static AbstractArchive Widget_modelsArchive;
-	@ObfuscatedName("ij")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1992828169
+		intValue = 140612879
 	)
-	@Export("oculusOrbFocalPointX")
-	static int oculusOrbFocalPointX;
-	@ObfuscatedName("x")
+	static int field1466;
+	@ObfuscatedName("hm")
 	@ObfuscatedSignature(
-		signature = "[Ldw;"
+		signature = "[Llz;"
+	)
+	@Export("headIconHintSprites")
+	static Sprite[] headIconHintSprites;
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "[Ldt;"
 	)
 	@Export("players")
 	volatile PcmPlayer[] players;
@@ -39,8 +39,69 @@ public class SoundSystem implements Runnable {
 				}
 			}
 		} catch (Exception var4) {
-			WorldMapDecorationType.RunException_sendStackTrace((String)null, var4);
+			class197.RunException_sendStackTrace((String)null, var4);
 		}
 
+	}
+
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		signature = "(IB)I",
+		garbageValue = "101"
+	)
+	public static int method2628(int var0) {
+		return class279.method5159(ViewportMouse.ViewportMouse_entityTags[var0]);
+	}
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		signature = "(B)V",
+		garbageValue = "-123"
+	)
+	public static void method2629() {
+		try {
+			JagexCache.JagexCache_dat2File.close();
+
+			for (int var0 = 0; var0 < WorldMapDecoration.idxCount; ++var0) {
+				JagexCache.JagexCache_idxFiles[var0].close();
+			}
+
+			JagexCache.JagexCache_idx255File.close();
+			JagexCache.JagexCache_randomDat.close();
+		} catch (Exception var2) {
+		}
+
+	}
+
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		signature = "(ILcs;ZI)I",
+		garbageValue = "1398391910"
+	)
+	static int method2630(int var0, Script var1, boolean var2) {
+		Widget var3;
+		if (var0 >= 2000) {
+			var0 -= 1000;
+			var3 = WorldMapSprite.getWidget(Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize]);
+		} else {
+			var3 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
+		}
+
+		if (var0 == ScriptOpcodes.CC_CALLONRESIZE) {
+			if (Interpreter.field1132 >= 10) {
+				throw new RuntimeException();
+			} else if (var3.onResize == null) {
+				return 0;
+			} else {
+				ScriptEvent var4 = new ScriptEvent();
+				var4.widget = var3;
+				var4.args = var3.onResize;
+				var4.field600 = Interpreter.field1132 + 1;
+				Client.scriptEvents.addFirst(var4);
+				return 1;
+			}
+		} else {
+			return 2;
+		}
 	}
 }
