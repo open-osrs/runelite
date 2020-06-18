@@ -4,152 +4,153 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("z")
+@ObfuscatedName("u")
 public enum class7 implements Enumerated {
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Lz;"
-	)
-	field34(0, 0);
-
-	@ObfuscatedName("el")
-	@ObfuscatedSignature(
-		signature = "Llx;"
-	)
-	@Export("spriteIds")
-	static GraphicsDefaults spriteIds;
-	@ObfuscatedName("eu")
-	@ObfuscatedGetter(
-		intValue = 1683303309
-	)
-	static int field33;
-	@ObfuscatedName("ml")
-	@ObfuscatedGetter(
-		intValue = 1709634405
-	)
-	@Export("selectedSpellWidget")
-	static int selectedSpellWidget;
 	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = -1301024931
+	@ObfuscatedSignature(
+		signature = "Lu;"
 	)
-	public final int field30;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = -32487403
+	field30(0, 0);
+
+	@ObfuscatedName("ox")
+	@ObfuscatedSignature(
+		signature = "Lfv;"
 	)
-	@Export("index")
-	final int index;
+	@Export("mouseWheel")
+	static MouseWheel mouseWheel;
+	@ObfuscatedName("eb")
+	static int[] field28;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = -372916347
+	)
+	public final int field26;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 546495013
+	)
+	final int field27;
 
 	class7(int var3, int var4) {
-		this.field30 = var3;
-		this.index = var4;
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "56"
-	)
-	@Export("rsOrdinal")
-	public int rsOrdinal() {
-		return this.index;
+		this.field26 = var3;
+		this.field27 = var4;
 	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "(I)I",
-		garbageValue = "-185431723"
+		garbageValue = "-995092303"
 	)
-	static int method98() {
-		return 12;
+	@Export("rsOrdinal")
+	public int rsOrdinal() {
+		return this.field27;
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Liy;Ljava/lang/String;Ljava/lang/String;B)Lle;",
-		garbageValue = "1"
+		signature = "(Ljava/lang/String;B)V",
+		garbageValue = "-89"
 	)
-	@Export("SpriteBuffer_getIndexedSpriteByName")
-	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
-		int var3 = var0.getGroupId(var1);
-		int var4 = var0.getFileId(var3, var2);
-		IndexedSprite var5;
-		if (!UserComparator7.method3516(var0, var3, var4)) {
-			var5 = null;
+	static final void method95(String var0) {
+		StringBuilder var10000 = new StringBuilder();
+		Object var10001 = null;
+		var10000 = var10000.append("Please remove ").append(var0);
+		var10001 = null;
+		String var1 = var10000.append(" from your ignore list first").toString();
+		ObjectSound.addGameMessage(30, "", var1);
+	}
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		signature = "(IIS)Z",
+		garbageValue = "17445"
+	)
+	static final boolean method97(int var0, int var1) {
+		ObjectDefinition var2 = Canvas.getObjectDefinition(var0);
+		if (var1 == 11) {
+			var1 = 10;
+		}
+
+		if (var1 >= 5 && var1 <= 8) {
+			var1 = 4;
+		}
+
+		return var2.method4786(var1);
+	}
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		signature = "(ILcs;ZI)I",
+		garbageValue = "669918470"
+	)
+	static int method100(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
+		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) {
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = WorldMapID.method617(KeyHandler.getWidgetClickMask(var3));
+			return 1;
+		} else if (var0 != ScriptOpcodes.CC_GETOP) {
+			if (var0 == ScriptOpcodes.CC_GETOPBASE) {
+				if (var3.dataText == null) {
+					Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = "";
+				} else {
+					Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = var3.dataText;
+				}
+
+				return 1;
+			} else {
+				return 2;
+			}
 		} else {
-			var5 = AttackOption.method2165();
-		}
+			int var4 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
+			--var4;
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) {
+				Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = var3.actions[var4];
+			} else {
+				Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = "";
+			}
 
-		return var5;
+			return 1;
+		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("gm")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1823376013"
+		signature = "(S)Z",
+		garbageValue = "255"
 	)
-	public static void method104() {
-		if (NetCache.NetCache_socket != null) {
-			NetCache.NetCache_socket.close();
-		}
-
+	static boolean method98() {
+		return (Client.drawPlayerNames & 4) != 0;
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("hv")
 	@ObfuscatedSignature(
-		signature = "(ILce;ZI)I",
-		garbageValue = "1393352524"
+		signature = "(II)Z",
+		garbageValue = "-1244259463"
 	)
-	static int method101(int var0, Script var1, boolean var2) {
-		Widget var3 = MusicPatchNode.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
-		if (var0 == ScriptOpcodes.IF_GETSCROLLX) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollX;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLY) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollY;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETTEXT) {
-			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.text;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLWIDTH) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollWidth;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLHEIGHT) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollHeight;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETMODELZOOM) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelZoom;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_X) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelAngleX;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Z) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelAngleZ;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Y) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelAngleY;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETTRANSTOP) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.transparencyTop;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETTRANSBOT) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.transparencyBot;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETCOLOUR) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.color;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETFILLCOLOUR) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.color2;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETFILLMODE) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal();
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETMODELTRANSPARENT) {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0;
-			return 1;
+	static final boolean method94(int var0) {
+		if (var0 < 0) {
+			return false;
 		} else {
-			return 2;
+			int var1 = Client.menuOpcodes[var0];
+			if (var1 >= 2000) {
+				var1 -= 2000;
+			}
+
+			return var1 == 1007;
 		}
+	}
+
+	@ObfuscatedName("jw")
+	@ObfuscatedSignature(
+		signature = "(B)V",
+		garbageValue = "9"
+	)
+	@Export("FriendSystem_invalidateFriends")
+	static final void FriendSystem_invalidateFriends() {
+		for (int var0 = 0; var0 < Players.Players_count; ++var0) {
+			Player var1 = Client.players[Players.Players_indices[var0]];
+			var1.clearIsInClanChat();
+		}
+
 	}
 }

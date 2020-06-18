@@ -3,13 +3,13 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ho")
+@ObfuscatedName("hf")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
 
@@ -27,27 +27,21 @@ public class Skills {
 
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[Lle;",
-		garbageValue = "1897656979"
+		signature = "(B)[Lib;",
+		garbageValue = "0"
 	)
-	public static IndexedSprite[] method4214() {
-		IndexedSprite[] var0 = new IndexedSprite[class335.SpriteBuffer_spriteCount];
+	public static StudioGame[] method4272() {
+		return new StudioGame[]{StudioGame.stellardawn, StudioGame.game5, StudioGame.game3, StudioGame.runescape, StudioGame.game4, StudioGame.oldscape};
+	}
 
-		for (int var1 = 0; var1 < class335.SpriteBuffer_spriteCount; ++var1) {
-			IndexedSprite var2 = var0[var1] = new IndexedSprite();
-			var2.width = class335.SpriteBuffer_spriteWidth;
-			var2.height = class335.SpriteBuffer_spriteHeight;
-			var2.xOffset = class335.SpriteBuffer_xOffsets[var1];
-			var2.yOffset = StructDefinition.SpriteBuffer_yOffsets[var1];
-			var2.subWidth = class335.SpriteBuffer_spriteWidths[var1];
-			var2.subHeight = class335.SpriteBuffer_spriteHeights[var1];
-			var2.palette = DefaultsGroup.SpriteBuffer_spritePalette;
-			var2.pixels = class4.SpriteBuffer_pixels[var1];
-		}
-
-		Ignored.method5235();
-		return var0;
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		signature = "(I)I",
+		garbageValue = "-891910442"
+	)
+	public static int method4271() {
+		return ++MouseHandler.MouseHandler_idleCycles - 1;
 	}
 }

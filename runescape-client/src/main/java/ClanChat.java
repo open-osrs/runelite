@@ -1,107 +1,165 @@
+import java.io.IOException;
+import java.net.Socket;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ko")
+@ObfuscatedName("kk")
 @Implements("ClanChat")
 public class ClanChat extends UserList {
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lmx;"
+		signature = "Lmo;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkt;"
+		signature = "Lkp;"
 	)
 	@Export("localUser")
 	final Usernamed localUser;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@Export("name")
 	public String name;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@Export("owner")
 	public String owner;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@Export("minKick")
 	public byte minKick;
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1347537209
+		intValue = -1947222095
 	)
 	@Export("rank")
 	public int rank;
-	@ObfuscatedName("u")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 2146085943
+		intValue = -1869619471
 	)
-	int field3634;
+	int field3663;
 
 	@ObfuscatedSignature(
-		signature = "(Lmx;Lkt;)V"
+		signature = "(Lmo;Lkp;)V"
 	)
 	public ClanChat(LoginType var1, Usernamed var2) {
 		super(100);
 		this.name = null;
 		this.owner = null;
-		this.field3634 = 1;
+		this.field3663 = 1;
 		this.loginType = var1;
 		this.localUser = var2;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ljd;",
-		garbageValue = "-1332552421"
+		signature = "(I)Ljf;",
+		garbageValue = "551595115"
 	)
 	@Export("newInstance")
 	User newInstance() {
 		return new ClanMate();
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)[Ljd;",
-		garbageValue = "-667029686"
+		signature = "(II)[Ljf;",
+		garbageValue = "1959965595"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
 		return new ClanMate[var1];
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		signature = "(Ljava/lang/String;B)V",
-		garbageValue = "105"
+		garbageValue = "-85"
 	)
 	@Export("readName")
 	final void readName(String var1) {
-		this.name = DevicePcmPlayerProvider.method948(var1);
+		long var5 = 0L;
+		int var7 = var1.length();
+
+		for (int var8 = 0; var8 < var7; ++var8) {
+			var5 *= 37L;
+			char var9 = var1.charAt(var8);
+			if (var9 >= 'A' && var9 <= 'Z') {
+				var5 += (long)(var9 + 1 - 65);
+			} else if (var9 >= 'a' && var9 <= 'z') {
+				var5 += (long)(var9 + 1 - 97);
+			} else if (var9 >= '0' && var9 <= '9') {
+				var5 += (long)(var9 + 27 - 48);
+			}
+
+			if (var5 >= 177917621779460413L) {
+				break;
+			}
+		}
+
+		while (0L == var5 % 37L && var5 != 0L) {
+			var5 /= 37L;
+		}
+
+		String var10 = WorldMapData_0.base37DecodeLong(var5);
+		if (var10 == null) {
+			var10 = "";
+		}
+
+		this.name = var10;
+	}
+
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/String;I)V",
+		garbageValue = "-1810188467"
+	)
+	@Export("setOwner")
+	final void setOwner(String var1) {
+		long var5 = 0L;
+		int var7 = var1.length();
+
+		for (int var8 = 0; var8 < var7; ++var8) {
+			var5 *= 37L;
+			char var9 = var1.charAt(var8);
+			if (var9 >= 'A' && var9 <= 'Z') {
+				var5 += (long)(var9 + 1 - 65);
+			} else if (var9 >= 'a' && var9 <= 'z') {
+				var5 += (long)(var9 + 1 - 97);
+			} else if (var9 >= '0' && var9 <= '9') {
+				var5 += (long)(var9 + 27 - 48);
+			}
+
+			if (var5 >= 177917621779460413L) {
+				break;
+			}
+		}
+
+		while (0L == var5 % 37L && var5 != 0L) {
+			var5 /= 37L;
+		}
+
+		String var10 = WorldMapData_0.base37DecodeLong(var5);
+		if (var10 == null) {
+			var10 = "";
+		}
+
+		this.owner = var10;
 	}
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "2103961051"
-	)
-	@Export("setOwner")
-	final void setOwner(String var1) {
-		this.owner = DevicePcmPlayerProvider.method948(var1);
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		signature = "(Lkb;I)V",
-		garbageValue = "1675969989"
+		signature = "(Lkn;I)V",
+		garbageValue = "585042716"
 	)
 	@Export("readUpdate")
 	public final void readUpdate(Buffer var1) {
 		this.setOwner(var1.readStringCp1252NullTerminated());
 		long var2 = var1.readLong();
-		this.readName(GameObject.method3405(var2));
+		this.readName(Frames.method3398(var2));
 		this.minKick = var1.readByte();
 		int var4 = var1.readUnsignedByte();
 		if (var4 != 255) {
@@ -110,7 +168,7 @@ public class ClanChat extends UserList {
 			for (int var5 = 0; var5 < var4; ++var5) {
 				ClanMate var6 = (ClanMate)this.addLastNoPreviousUsername(new Username(var1.readStringCp1252NullTerminated(), this.loginType));
 				int var7 = var1.readUnsignedShort();
-				var6.set(var7, ++this.field3634 - 1);
+				var6.set(var7, ++this.field3663 - 1);
 				var6.rank = var1.readByte();
 				var1.readStringCp1252NullTerminated();
 				this.isLocalPlayer(var6);
@@ -119,12 +177,12 @@ public class ClanChat extends UserList {
 		}
 	}
 
-	@ObfuscatedName("ca")
+	@ObfuscatedName("ci")
 	@ObfuscatedSignature(
-		signature = "(Lkb;I)V",
-		garbageValue = "-1155305071"
+		signature = "(Lkn;B)V",
+		garbageValue = "-100"
 	)
-	public final void method5301(Buffer var1) {
+	public final void method5421(Buffer var1) {
 		Username var2 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
 		int var3 = var1.readUnsignedShort();
 		byte var4 = var1.readByte();
@@ -154,17 +212,17 @@ public class ClanChat extends UserList {
 				var6 = (ClanMate)this.addLastNoPreviousUsername(var2);
 			}
 
-			var6.set(var3, ++this.field3634 - 1);
+			var6.set(var3, ++this.field3663 - 1);
 			var6.rank = var4;
 			this.isLocalPlayer(var6);
 		}
 
 	}
 
-	@ObfuscatedName("cj")
+	@ObfuscatedName("cu")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1797514283"
+		signature = "(B)V",
+		garbageValue = "-117"
 	)
 	@Export("clearFriends")
 	public final void clearFriends() {
@@ -174,10 +232,10 @@ public class ClanChat extends UserList {
 
 	}
 
-	@ObfuscatedName("cp")
+	@ObfuscatedName("cq")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1089464789"
+		signature = "(B)V",
+		garbageValue = "-23"
 	)
 	@Export("invalidateIgnoreds")
 	public final void invalidateIgnoreds() {
@@ -187,10 +245,10 @@ public class ClanChat extends UserList {
 
 	}
 
-	@ObfuscatedName("ck")
+	@ObfuscatedName("co")
 	@ObfuscatedSignature(
-		signature = "(Ljt;I)V",
-		garbageValue = "-66701208"
+		signature = "(Lji;I)V",
+		garbageValue = "244481619"
 	)
 	@Export("isLocalPlayer")
 	final void isLocalPlayer(ClanMate var1) {
@@ -200,28 +258,22 @@ public class ClanChat extends UserList {
 
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
-		garbageValue = "1033875086"
+		signature = "(Ljava/net/Socket;III)Llj;",
+		garbageValue = "-1116942702"
 	)
-	static String method5318() {
-		String var0;
-		if (GrandExchangeOfferOwnWorldComparator.clientPreferences.hideUsername) {
-			String var2 = Login.Login_username;
-			int var4 = var2.length();
-			char[] var5 = new char[var4];
+	public static AbstractSocket method5441(Socket var0, int var1, int var2) throws IOException {
+		return new BufferedNetSocket(var0, var1, var2);
+	}
 
-			for (int var6 = 0; var6 < var4; ++var6) {
-				var5[var6] = '*';
-			}
-
-			String var3 = new String(var5);
-			var0 = var3;
-		} else {
-			var0 = Login.Login_username;
-		}
-
-		return var0;
+	@ObfuscatedName("el")
+	@ObfuscatedSignature(
+		signature = "(B)Lma;",
+		garbageValue = "-90"
+	)
+	@Export("getWorldMap")
+	static WorldMap getWorldMap() {
+		return class228.worldMap;
 	}
 }

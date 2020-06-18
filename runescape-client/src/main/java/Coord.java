@@ -4,37 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hj")
+@ObfuscatedName("hg")
 @Implements("Coord")
 public class Coord {
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = 301187265
-	)
-	public static int field2530;
-	@ObfuscatedName("cd")
-	public static char field2531;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = 762647407
-	)
-	@Export("y")
-	public int y;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 660497933
+		intValue = -1064559233
 	)
 	@Export("plane")
 	public int plane;
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1808182037
+		intValue = 381144149
 	)
 	@Export("x")
 	public int x;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = -63925861
+	)
+	@Export("y")
+	public int y;
 
 	@ObfuscatedSignature(
-		signature = "(Lhj;)V"
+		signature = "(Lhg;)V"
 	)
 	public Coord(Coord var1) {
 		this.plane = var1.plane;
@@ -59,20 +52,20 @@ public class Coord {
 
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1927907066"
+		signature = "(B)I",
+		garbageValue = "57"
 	)
 	@Export("packed")
 	public int packed() {
 		return this.plane << 28 | this.x << 14 | this.y;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lhj;I)Z",
-		garbageValue = "-2112462573"
+		signature = "(Lhg;I)Z",
+		garbageValue = "1413568323"
 	)
 	@Export("equalsCoord")
 	boolean equalsCoord(Coord var1) {
@@ -85,14 +78,22 @@ public class Coord {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "404618696"
+		signature = "(Ljava/lang/String;S)Ljava/lang/String;",
+		garbageValue = "-17265"
 	)
 	@Export("toString")
 	String toString(String var1) {
 		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63);
+	}
+
+	public int hashCode() {
+		return this.packed();
+	}
+
+	public String toString() {
+		return this.toString(",");
 	}
 
 	public boolean equals(Object var1) {
@@ -103,235 +104,80 @@ public class Coord {
 		}
 	}
 
-	public String toString() {
-		return this.toString(",");
-	}
-
-	public int hashCode() {
-		return this.packed();
-	}
-
-	@ObfuscatedName("x")
+	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(B)[Lie;",
-		garbageValue = "112"
+		signature = "([BB)[B",
+		garbageValue = "113"
 	)
-	static VerticalAlignment[] method4084() {
-		return new VerticalAlignment[]{VerticalAlignment.field3193, VerticalAlignment.VerticalAlignment_centered, VerticalAlignment.field3196};
-	}
-
-	@ObfuscatedName("gn")
-	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "1911582516"
-	)
-	@Export("drawEntities")
-	static final void drawEntities(int var0, int var1, int var2, int var3) {
-		++Client.viewportDrawCount;
-		if (ByteArrayPool.localPlayer.x >> 7 == Client.destinationX && ByteArrayPool.localPlayer.y >> 7 == Client.destinationY) {
-			Client.destinationX = 0;
-		}
-
-		if (Client.renderSelf) {
-			class22.addPlayerToScene(ByteArrayPool.localPlayer, false);
-		}
-
-		WorldMapCacheName.method716();
-		Messages.addNpcsToScene(true);
-		int var4 = Players.Players_count;
-		int[] var5 = Players.Players_indices;
-
-		int var6;
-		for (var6 = 0; var6 < var4; ++var6) {
-			if (var5[var6] != Client.combatTargetPlayerIndex && var5[var6] != Client.localPlayerIndex) {
-				class22.addPlayerToScene(Client.players[var5[var6]], true);
-			}
-		}
-
-		Messages.addNpcsToScene(false);
-
-		for (Projectile var19 = (Projectile)Client.projectiles.last(); var19 != null; var19 = (Projectile)Client.projectiles.previous()) {
-			if (var19.plane == ScriptEvent.Client_plane && Client.cycle <= var19.cycleEnd) {
-				if (Client.cycle >= var19.cycleStart) {
-					if (var19.targetIndex > 0) {
-						NPC var21 = Client.npcs[var19.targetIndex - 1];
-						if (var21 != null && var21.x >= 0 && var21.x < 13312 && var21.y >= 0 && var21.y < 13312) {
-							var19.setDestination(var21.x, var21.y, class277.getTileHeight(var21.x, var21.y, var19.plane) - var19.endHeight, Client.cycle);
-						}
-					}
-
-					if (var19.targetIndex < 0) {
-						var6 = -var19.targetIndex - 1;
-						Player var22;
-						if (var6 == Client.localPlayerIndex) {
-							var22 = ByteArrayPool.localPlayer;
-						} else {
-							var22 = Client.players[var6];
-						}
-
-						if (var22 != null && var22.x >= 0 && var22.x < 13312 && var22.y >= 0 && var22.y < 13312) {
-							var19.setDestination(var22.x, var22.y, class277.getTileHeight(var22.x, var22.y, var19.plane) - var19.endHeight, Client.cycle);
-						}
-					}
-
-					var19.advance(Client.field741);
-					GrandExchangeOfferWorldComparator.scene.drawEntity(ScriptEvent.Client_plane, (int)var19.x, (int)var19.y, (int)var19.z, 60, var19, var19.yaw, -1L, false);
+	@Export("decompressBytes")
+	static final byte[] decompressBytes(byte[] var0) {
+		Buffer var1 = new Buffer(var0);
+		int var2 = var1.readUnsignedByte();
+		int var3 = var1.readInt();
+		if (var3 < 0 || AbstractArchive.field3177 != 0 && var3 > AbstractArchive.field3177) {
+			throw new RuntimeException();
+		} else if (var2 == 0) {
+			byte[] var4 = new byte[var3];
+			var1.readBytes(var4, 0, var3);
+			return var4;
+		} else {
+			int var6 = var1.readInt();
+			if (var6 >= 0 && (AbstractArchive.field3177 == 0 || var6 <= AbstractArchive.field3177)) {
+				byte[] var5 = new byte[var6];
+				if (var2 == 1) {
+					BZip2Decompressor.BZip2Decompressor_decompress(var5, var6, var0, var3, 9);
+				} else {
+					AbstractArchive.gzipDecompressor.decompress(var1, var5);
 				}
+
+				return var5;
 			} else {
-				var19.remove();
+				throw new RuntimeException();
 			}
 		}
+	}
 
-		GrandExchangeOfferAgeComparator.method249();
-		class204.setViewportShape(var0, var1, var2, var3, true);
-		var0 = Client.viewportOffsetX;
-		var1 = Client.viewportOffsetY;
-		var2 = Client.viewportWidth;
-		var3 = Client.viewportHeight;
-		Rasterizer2D.Rasterizer2D_setClip(var0, var1, var0 + var2, var3 + var1);
-		Rasterizer3D.Rasterizer3D_setClipFromRasterizer2D();
+	@ObfuscatedName("iy")
+	@ObfuscatedSignature(
+		signature = "(Lhd;IIIIIIB)V",
+		garbageValue = "-69"
+	)
+	static final void method4135(Widget var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		if (Client.field740) {
+			Client.alternativeScrollbarWidth = 32;
+		} else {
+			Client.alternativeScrollbarWidth = 0;
+		}
+
+		Client.field740 = false;
 		int var7;
-		int var8;
-		int var9;
-		int var10;
-		int var11;
-		int var12;
-		int var20;
-		if (!Client.isCameraLocked) {
-			var4 = Client.camAngleX;
-			if (Client.field941 / 256 > var4) {
-				var4 = Client.field941 / 256;
-			}
-
-			if (Client.field926[4] && Client.field730[4] + 128 > var4) {
-				var4 = Client.field730[4] + 128;
-			}
-
-			var20 = Client.camAngleY & 2047;
-			var6 = SoundSystem.oculusOrbFocalPointX;
-			var7 = Client.field756;
-			var8 = ServerPacket.oculusOrbFocalPointY;
-			var9 = var4 * 3 + 600;
-			var10 = Varcs.method2295(var9, var3);
-			var11 = 2048 - var4 & 2047;
-			var12 = 2048 - var20 & 2047;
-			int var13 = 0;
-			int var14 = 0;
-			int var15 = var10;
-			int var16;
-			int var17;
-			int var18;
-			if (var11 != 0) {
-				var16 = Rasterizer3D.Rasterizer3D_sine[var11];
-				var17 = Rasterizer3D.Rasterizer3D_cosine[var11];
-				var18 = var14 * var17 - var16 * var10 >> 16;
-				var15 = var16 * var14 + var10 * var17 >> 16;
-				var14 = var18;
-			}
-
-			if (var12 != 0) {
-				var16 = Rasterizer3D.Rasterizer3D_sine[var12];
-				var17 = Rasterizer3D.Rasterizer3D_cosine[var12];
-				var18 = var17 * var13 + var16 * var15 >> 16;
-				var15 = var17 * var15 - var16 * var13 >> 16;
-				var13 = var18;
-			}
-
-			WorldMapRectangle.cameraX = var6 - var13;
-			GrandExchangeOfferWorldComparator.cameraY = var7 - var14;
-			class200.cameraZ = var8 - var15;
-			ApproximateRouteStrategy.cameraPitch = var4;
-			WorldMapIcon_1.cameraYaw = var20;
-			if (Client.oculusOrbState == 1 && Client.staffModLevel >= 2 && Client.cycle % 50 == 0 && (SoundSystem.oculusOrbFocalPointX >> 7 != ByteArrayPool.localPlayer.x >> 7 || ServerPacket.oculusOrbFocalPointY >> 7 != ByteArrayPool.localPlayer.y >> 7)) {
-				var16 = ByteArrayPool.localPlayer.plane;
-				var17 = (SoundSystem.oculusOrbFocalPointX >> 7) + class69.baseX;
-				var18 = (ServerPacket.oculusOrbFocalPointY >> 7) + class89.baseY;
-				GrandExchangeOfferWorldComparator.method148(var17, var18, var16, true);
-			}
-		}
-
-		if (!Client.isCameraLocked) {
-			var4 = UserComparator8.method3503();
-		} else {
-			var4 = Tiles.method1238();
-		}
-
-		var20 = WorldMapRectangle.cameraX;
-		var6 = GrandExchangeOfferWorldComparator.cameraY;
-		var7 = class200.cameraZ;
-		var8 = ApproximateRouteStrategy.cameraPitch;
-		var9 = WorldMapIcon_1.cameraYaw;
-
-		for (var10 = 0; var10 < 5; ++var10) {
-			if (Client.field926[var10]) {
-				var11 = (int)(Math.random() * (double)(Client.field788[var10] * 2 + 1) - (double)Client.field788[var10] + Math.sin((double)Client.field929[var10] / 100.0D * (double)Client.field930[var10]) * (double)Client.field730[var10]);
-				if (var10 == 0) {
-					WorldMapRectangle.cameraX += var11;
+		if (MouseHandler.MouseHandler_currentButton == 1 || !ArchiveLoader.mouseCam && MouseHandler.MouseHandler_currentButton == 4) {
+			if (var5 >= var1 && var5 < var1 + 16 && var6 >= var2 && var6 < var2 + 16) {
+				var0.scrollY -= 4;
+				class234.invalidateWidget(var0);
+			} else if (var5 >= var1 && var5 < var1 + 16 && var6 >= var3 + var2 - 16 && var6 < var3 + var2) {
+				var0.scrollY += 4;
+				class234.invalidateWidget(var0);
+			} else if (var5 >= var1 - Client.alternativeScrollbarWidth && var5 < Client.alternativeScrollbarWidth + var1 + 16 && var6 >= var2 + 16 && var6 < var3 + var2 - 16) {
+				var7 = var3 * (var3 - 32) / var4;
+				if (var7 < 8) {
+					var7 = 8;
 				}
 
-				if (var10 == 1) {
-					GrandExchangeOfferWorldComparator.cameraY += var11;
-				}
-
-				if (var10 == 2) {
-					class200.cameraZ += var11;
-				}
-
-				if (var10 == 3) {
-					WorldMapIcon_1.cameraYaw = var11 + WorldMapIcon_1.cameraYaw & 2047;
-				}
-
-				if (var10 == 4) {
-					ApproximateRouteStrategy.cameraPitch += var11;
-					if (ApproximateRouteStrategy.cameraPitch < 128) {
-						ApproximateRouteStrategy.cameraPitch = 128;
-					}
-
-					if (ApproximateRouteStrategy.cameraPitch > 383) {
-						ApproximateRouteStrategy.cameraPitch = 383;
-					}
-				}
+				int var8 = var6 - var2 - 16 - var7 / 2;
+				int var9 = var3 - 32 - var7;
+				var0.scrollY = var8 * (var4 - var3) / var9;
+				class234.invalidateWidget(var0);
+				Client.field740 = true;
 			}
 		}
 
-		var10 = MouseHandler.MouseHandler_x;
-		var11 = MouseHandler.MouseHandler_y;
-		if (MouseHandler.MouseHandler_lastButton != 0) {
-			var10 = MouseHandler.MouseHandler_lastPressedX;
-			var11 = MouseHandler.MouseHandler_lastPressedY;
-		}
-
-		if (var10 >= var0 && var10 < var0 + var2 && var11 >= var1 && var11 < var3 + var1) {
-			AbstractSocket.method5886(var10 - var0, var11 - var1);
-		} else {
-			GameShell.method1155();
-		}
-
-		ChatChannel.playPcmPlayers();
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var3, 0);
-		ChatChannel.playPcmPlayers();
-		var12 = Rasterizer3D.Rasterizer3D_zoom;
-		Rasterizer3D.Rasterizer3D_zoom = Client.viewportZoom;
-		GrandExchangeOfferWorldComparator.scene.draw(WorldMapRectangle.cameraX, GrandExchangeOfferWorldComparator.cameraY, class200.cameraZ, ApproximateRouteStrategy.cameraPitch, WorldMapIcon_1.cameraYaw, var4);
-		Rasterizer3D.Rasterizer3D_zoom = var12;
-		ChatChannel.playPcmPlayers();
-		GrandExchangeOfferWorldComparator.scene.clearTempGameObjects();
-		MouseHandler.method1202(var0, var1, var2, var3);
-		UserComparator4.method3490(var0, var1);
-		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).animate(Client.field741);
-		UserComparator5.method3523(var0, var1, var2, var3);
-		WorldMapRectangle.cameraX = var20;
-		GrandExchangeOfferWorldComparator.cameraY = var6;
-		class200.cameraZ = var7;
-		ApproximateRouteStrategy.cameraPitch = var8;
-		WorldMapIcon_1.cameraYaw = var9;
-		if (Client.isLoading && WorldMapLabelSize.method292(true, false) == 0) {
-			Client.isLoading = false;
-		}
-
-		if (Client.isLoading) {
-			Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var3, 0);
-			AbstractByteArrayCopier.drawLoadingMessage("Loading - please wait.", false);
+		if (Client.mouseWheelRotation != 0) {
+			var7 = var0.width;
+			if (var5 >= var1 - var7 && var6 >= var2 && var5 < var1 + 16 && var6 <= var3 + var2) {
+				var0.scrollY += Client.mouseWheelRotation * 45;
+				class234.invalidateWidget(var0);
+			}
 		}
 
 	}

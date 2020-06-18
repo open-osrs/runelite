@@ -1,13 +1,50 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cn")
+@ObfuscatedName("ci")
 public class class90 {
-	@ObfuscatedName("w")
+	@ObfuscatedName("bb")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;II[BII)I",
-		garbageValue = "-879105119"
+		signature = "[Llz;"
+	)
+	@Export("worldSelectBackSprites")
+	static Sprite[] worldSelectBackSprites;
+	@ObfuscatedName("en")
+	@ObfuscatedGetter(
+		intValue = -664685957
+	)
+	@Export("port1")
+	static int port1;
+	@ObfuscatedName("gl")
+	@Export("regionLandArchives")
+	static byte[][] regionLandArchives;
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		signature = "(I)V",
+		garbageValue = "1343662154"
+	)
+	public static void method2164() {
+		class105.reflectionChecks = new IterableNodeDeque();
+	}
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "(Llz;IIII)V",
+		garbageValue = "-1824687226"
+	)
+	static void method2166(Sprite var0, int var1, int var2, int var3) {
+		DemotingHashTable var4 = WorldMapRegion.WorldMapRegion_cachedSprites;
+		long var6 = (long)(var3 << 16 | var1 << 8 | var2);
+		var4.put(var0, var6, var0.pixels.length * 4);
+	}
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/CharSequence;II[BIB)I",
+		garbageValue = "-25"
 	)
 	@Export("encodeStringCp1252")
 	public static int encodeStringCp1252(CharSequence var0, int var1, int var2, byte[] var3, int var4) {
@@ -77,5 +114,20 @@ public class class90 {
 		}
 
 		return var5;
+	}
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		signature = "([BI)Lko;",
+		garbageValue = "166705545"
+	)
+	static Font method2168(byte[] var0) {
+		if (var0 == null) {
+			return null;
+		} else {
+			Font var1 = new Font(var0, class335.SpriteBuffer_xOffsets, NPC.SpriteBuffer_yOffsets, class335.SpriteBuffer_spriteWidths, class335.SpriteBuffer_spriteHeights, class335.SpriteBuffer_spritePalette, ItemDefinition.SpriteBuffer_pixels);
+			GrandExchangeEvent.method158();
+			return var1;
+		}
 	}
 }

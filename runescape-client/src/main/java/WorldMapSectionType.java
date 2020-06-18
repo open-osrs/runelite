@@ -4,41 +4,58 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ap")
+@ObfuscatedName("ae")
 @Implements("WorldMapSectionType")
 public enum WorldMapSectionType implements Enumerated {
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lap;"
+		signature = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE0")
 	WORLDMAPSECTIONTYPE0(3, (byte)0),
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lap;"
+		signature = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE1")
-	WORLDMAPSECTIONTYPE1(2, (byte)1),
-	@ObfuscatedName("k")
+	WORLDMAPSECTIONTYPE1(0, (byte)1),
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lap;"
+		signature = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE2")
-	WORLDMAPSECTIONTYPE2(0, (byte)2),
-	@ObfuscatedName("d")
+	WORLDMAPSECTIONTYPE2(2, (byte)2),
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lap;"
+		signature = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE3")
 	WORLDMAPSECTIONTYPE3(1, (byte)3);
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("au")
+	@Export("client")
+	@ObfuscatedSignature(
+		signature = "Lclient;"
+	)
+	static Client client;
+	@ObfuscatedName("ew")
 	@ObfuscatedGetter(
-		intValue = -27254411
+		intValue = 2013764495
+	)
+	static int field174;
+	@ObfuscatedName("iz")
+	@ObfuscatedGetter(
+		intValue = -870801305
+	)
+	@Export("selectedItemId")
+	static int selectedItemId;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		intValue = -159728419
 	)
 	@Export("type")
 	final int type;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@Export("id")
 	final byte id;
 
@@ -47,164 +64,46 @@ public enum WorldMapSectionType implements Enumerated {
 		this.id = var4;
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "56"
+		signature = "(I)I",
+		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[Lap;",
-		garbageValue = "-1086432793"
+		signature = "(Ljava/lang/String;ZZI)V",
+		garbageValue = "267980652"
 	)
-	static WorldMapSectionType[] method345() {
-		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE3};
+	@Export("openURL")
+	public static void openURL(String var0, boolean var1, boolean var2) {
+		UrlRequest.method3426(var0, var1, "openjs", var2);
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(III)V",
-		garbageValue = "1841927686"
+		signature = "(ILic;Ljava/lang/String;Ljava/lang/String;IZI)V",
+		garbageValue = "-2120164920"
 	)
-	@Export("changeWorldSelectSorting")
-	static void changeWorldSelectSorting(int var0, int var1) {
-		int[] var2 = new int[4];
-		int[] var3 = new int[4];
-		var2[0] = var0;
-		var3[0] = var1;
-		int var4 = 1;
-
-		for (int var5 = 0; var5 < 4; ++var5) {
-			if (World.World_sortOption1[var5] != var0) {
-				var2[var4] = World.World_sortOption1[var5];
-				var3[var4] = World.World_sortOption2[var5];
-				++var4;
-			}
-		}
-
-		World.World_sortOption1 = var2;
-		World.World_sortOption2 = var3;
-		UserComparator9.sortWorlds(UserComparator2.World_worlds, 0, UserComparator2.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2);
+	public static void method306(int var0, AbstractArchive var1, String var2, String var3, int var4, boolean var5) {
+		int var6 = var1.getGroupId(var2);
+		int var7 = var1.getFileId(var6, var3);
+		MenuAction.playMusicTrack(var0, var1, var6, var7, var4, var5);
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "-1148353199"
+		signature = "(I)V",
+		garbageValue = "-230874976"
 	)
-	public static int method347(int var0) {
-		return UserComparator9.method3500(ViewportMouse.ViewportMouse_entityTags[var0]);
-	}
-
-	@ObfuscatedName("aj")
-	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "-1668286639"
-	)
-	@Export("runWidgetOnLoadListener")
-	static void runWidgetOnLoadListener(int var0) {
-		if (var0 != -1) {
-			if (LoginScreenAnimation.loadInterface(var0)) {
-				Widget[] var1 = Widget.Widget_interfaceComponents[var0];
-
-				for (int var2 = 0; var2 < var1.length; ++var2) {
-					Widget var3 = var1[var2];
-					if (var3.onLoad != null) {
-						ScriptEvent var4 = new ScriptEvent();
-						var4.widget = var3;
-						var4.args = var3.onLoad;
-						PlayerAppearance.runScript(var4, 5000000);
-					}
-				}
-
-			}
-		}
-	}
-
-	@ObfuscatedName("hd")
-	@ObfuscatedSignature(
-		signature = "(Lbw;B)V",
-		garbageValue = "80"
-	)
-	static final void method348(PendingSpawn var0) {
-		long var1 = 0L;
-		int var3 = -1;
-		int var4 = 0;
-		int var5 = 0;
-		if (var0.type == 0) {
-			var1 = GrandExchangeOfferWorldComparator.scene.getBoundaryObjectTag(var0.plane, var0.x, var0.y);
+	public static void method312() {
+		if (NetCache.NetCache_socket != null) {
+			NetCache.NetCache_socket.close();
 		}
 
-		if (var0.type == 1) {
-			var1 = GrandExchangeOfferWorldComparator.scene.getWallDecorationTag(var0.plane, var0.x, var0.y);
-		}
-
-		if (var0.type == 2) {
-			var1 = GrandExchangeOfferWorldComparator.scene.getGameObjectTag(var0.plane, var0.x, var0.y);
-		}
-
-		if (var0.type == 3) {
-			var1 = GrandExchangeOfferWorldComparator.scene.getFloorDecorationTag(var0.plane, var0.x, var0.y);
-		}
-
-		if (var1 != 0L) {
-			int var6 = GrandExchangeOfferWorldComparator.scene.getObjectFlags(var0.plane, var0.x, var0.y, var1);
-			var3 = WorldMapRectangle.Entity_unpackID(var1);
-			var4 = var6 & 31;
-			var5 = var6 >> 6 & 3;
-		}
-
-		var0.objectId = var3;
-		var0.field963 = var4;
-		var0.field968 = var5;
-	}
-
-	@ObfuscatedName("kw")
-	@ObfuscatedSignature(
-		signature = "(Lhe;B)Z",
-		garbageValue = "47"
-	)
-	static final boolean method344(Widget var0) {
-		int var1 = var0.contentType;
-		if (var1 == 205) {
-			Client.logoutTimer = 250;
-			return true;
-		} else {
-			int var2;
-			int var3;
-			if (var1 >= 300 && var1 <= 313) {
-				var2 = (var1 - 300) / 2;
-				var3 = var1 & 1;
-				Client.playerAppearance.changeAppearance(var2, var3 == 1);
-			}
-
-			if (var1 >= 314 && var1 <= 323) {
-				var2 = (var1 - 314) / 2;
-				var3 = var1 & 1;
-				Client.playerAppearance.method4089(var2, var3 == 1);
-			}
-
-			if (var1 == 324) {
-				Client.playerAppearance.changeSex(false);
-			}
-
-			if (var1 == 325) {
-				Client.playerAppearance.changeSex(true);
-			}
-
-			if (var1 == 326) {
-				PacketBufferNode var4 = FaceNormal.getPacketBufferNode(ClientPacket.field2239, Client.packetWriter.isaacCipher);
-				Client.playerAppearance.write(var4.packetBuffer);
-				Client.packetWriter.addNode(var4);
-				return true;
-			} else {
-				return false;
-			}
-		}
 	}
 }

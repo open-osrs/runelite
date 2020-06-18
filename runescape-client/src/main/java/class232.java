@@ -1,25 +1,29 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hv")
+@ObfuscatedName("hs")
 public class class232 {
-	@ObfuscatedName("hh")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "[Lle;"
+		signature = "(I)[Llh;",
+		garbageValue = "-1121273391"
 	)
-	@Export("scrollBarSprites")
-	static IndexedSprite[] scrollBarSprites;
+	static IndexedSprite[] method4279() {
+		IndexedSprite[] var0 = new IndexedSprite[class335.SpriteBuffer_spriteCount];
 
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "1236815068"
-	)
-	static final int method4218(int var0, int var1) {
-		int var2 = class4.method63(var0 - 1, var1 - 1) + class4.method63(1 + var0, var1 - 1) + class4.method63(var0 - 1, var1 + 1) + class4.method63(var0 + 1, var1 + 1);
-		int var3 = class4.method63(var0 - 1, var1) + class4.method63(1 + var0, var1) + class4.method63(var0, var1 - 1) + class4.method63(var0, 1 + var1);
-		int var4 = class4.method63(var0, var1);
-		return var2 / 16 + var3 / 8 + var4 / 4;
+		for (int var1 = 0; var1 < class335.SpriteBuffer_spriteCount; ++var1) {
+			IndexedSprite var2 = var0[var1] = new IndexedSprite();
+			var2.width = class335.SpriteBuffer_spriteWidth;
+			var2.height = UserComparator8.SpriteBuffer_spriteHeight;
+			var2.xOffset = class335.SpriteBuffer_xOffsets[var1];
+			var2.yOffset = NPC.SpriteBuffer_yOffsets[var1];
+			var2.subWidth = class335.SpriteBuffer_spriteWidths[var1];
+			var2.subHeight = class335.SpriteBuffer_spriteHeights[var1];
+			var2.palette = class335.SpriteBuffer_spritePalette;
+			var2.pixels = ItemDefinition.SpriteBuffer_pixels[var1];
+		}
+
+		GrandExchangeEvent.method158();
+		return var0;
 	}
 }

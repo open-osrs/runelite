@@ -4,216 +4,202 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fz")
+@ObfuscatedName("fw")
 @Implements("MilliClock")
 public class MilliClock extends Clock {
-	@ObfuscatedName("nw")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1060623823
+		intValue = -41163463
 	)
-	@Export("widgetDragDuration")
-	static int widgetDragDuration;
-	@ObfuscatedName("h")
+	@Export("musicTrackFileId")
+	public static int musicTrackFileId;
+	@ObfuscatedName("ds")
 	@ObfuscatedSignature(
-		signature = "Lcr;"
+		signature = "Lig;"
 	)
-	@Export("loginScreenRunesAnimation")
-	static LoginScreenAnimation loginScreenRunesAnimation;
-	@ObfuscatedName("bf")
-	@Export("otp")
-	static String otp;
-	@ObfuscatedName("em")
+	@Export("archive0")
+	static Archive archive0;
+	@ObfuscatedName("fx")
 	@ObfuscatedGetter(
-		intValue = 119222289
+		longValue = -6195405350753601003L
 	)
-	static int field2026;
-	@ObfuscatedName("x")
-	long[] field2028;
+	static long field2046;
 	@ObfuscatedName("m")
+	long[] field2041;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 370183015
+		intValue = -1698832719
 	)
-	int field2020;
-	@ObfuscatedName("k")
+	int field2044;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -542018665
+		intValue = 402474679
 	)
-	int field2021;
-	@ObfuscatedName("d")
+	int field2040;
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		longValue = 8140433523785303581L
+		longValue = -6603351747931687267L
 	)
-	long field2019;
-	@ObfuscatedName("w")
+	long field2042;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1658910693
+		intValue = 830495451
 	)
-	int field2023;
-	@ObfuscatedName("v")
+	int field2038;
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -371780323
+		intValue = -819539781
 	)
-	int field2024;
+	int field2043;
 
-	MilliClock() {
-		this.field2028 = new long[10];
-		this.field2020 = 256;
-		this.field2021 = 1;
-		this.field2023 = 0;
-		this.field2019 = class217.currentTimeMillis();
+	public MilliClock() {
+		this.field2041 = new long[10];
+		this.field2044 = 256;
+		this.field2040 = 1;
+		this.field2038 = 0;
+		this.field2042 = currentTimeMillis();
 
 		for (int var1 = 0; var1 < 10; ++var1) {
-			this.field2028[var1] = this.field2019;
+			this.field2041[var1] = this.field2042;
 		}
 
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "-1351231250"
+		garbageValue = "-1017447827"
 	)
 	@Export("mark")
 	public void mark() {
 		for (int var1 = 0; var1 < 10; ++var1) {
-			this.field2028[var1] = 0L;
+			this.field2041[var1] = 0L;
 		}
 
+	}
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		signature = "(III)I",
+		garbageValue = "-1786752641"
+	)
+	@Export("wait")
+	public int wait(int var1, int var2) {
+		int var3 = this.field2044;
+		int var4 = this.field2040;
+		this.field2044 = 300;
+		this.field2040 = 1;
+		this.field2042 = currentTimeMillis();
+		if (this.field2041[this.field2043] == 0L) {
+			this.field2044 = var3;
+			this.field2040 = var4;
+		} else if (this.field2042 > this.field2041[this.field2043]) {
+			this.field2044 = (int)((long)(var1 * 2560) / (this.field2042 - this.field2041[this.field2043]));
+		}
+
+		if (this.field2044 < 25) {
+			this.field2044 = 25;
+		}
+
+		if (this.field2044 > 256) {
+			this.field2044 = 256;
+			this.field2040 = (int)((long)var1 - (this.field2042 - this.field2041[this.field2043]) / 10L);
+		}
+
+		if (this.field2040 > var1) {
+			this.field2040 = var1;
+		}
+
+		this.field2041[this.field2043] = this.field2042;
+		this.field2043 = (this.field2043 + 1) % 10;
+		if (this.field2040 > 1) {
+			for (int var5 = 0; var5 < 10; ++var5) {
+				if (0L != this.field2041[var5]) {
+					this.field2041[var5] += (long)this.field2040;
+				}
+			}
+		}
+
+		if (this.field2040 < var2) {
+			this.field2040 = var2;
+		}
+
+		long var8 = (long)this.field2040;
+		if (var8 > 0L) {
+			if (var8 % 10L == 0L) {
+				SpriteMask.sleepExact(var8 - 1L);
+				SpriteMask.sleepExact(1L);
+			} else {
+				SpriteMask.sleepExact(var8);
+			}
+		}
+
+		int var7;
+		for (var7 = 0; this.field2038 < 256; this.field2038 += this.field2044) {
+			++var7;
+		}
+
+		this.field2038 &= 255;
+		return var7;
 	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "-1723558008"
+		signature = "(I)J",
+		garbageValue = "301883572"
 	)
-	@Export("wait")
-	public int wait(int var1, int var2) {
-		int var3 = this.field2020;
-		int var4 = this.field2021;
-		this.field2020 = 300;
-		this.field2021 = 1;
-		this.field2019 = class217.currentTimeMillis();
-		if (this.field2028[this.field2024] == 0L) {
-			this.field2020 = var3;
-			this.field2021 = var4;
-		} else if (this.field2019 > this.field2028[this.field2024]) {
-			this.field2020 = (int)((long)(var1 * 2560) / (this.field2019 - this.field2028[this.field2024]));
+	@Export("currentTimeMillis")
+	public static final synchronized long currentTimeMillis() {
+		long var0 = System.currentTimeMillis();
+		if (var0 < class306.field3723) {
+			class306.field3726 += class306.field3723 - var0;
 		}
 
-		if (this.field2020 < 25) {
-			this.field2020 = 25;
-		}
-
-		if (this.field2020 > 256) {
-			this.field2020 = 256;
-			this.field2021 = (int)((long)var1 - (this.field2019 - this.field2028[this.field2024]) / 10L);
-		}
-
-		if (this.field2021 > var1) {
-			this.field2021 = var1;
-		}
-
-		this.field2028[this.field2024] = this.field2019;
-		this.field2024 = (this.field2024 + 1) % 10;
-		int var5;
-		if (this.field2021 > 1) {
-			for (var5 = 0; var5 < 10; ++var5) {
-				if (this.field2028[var5] != 0L) {
-					this.field2028[var5] += (long)this.field2021;
-				}
-			}
-		}
-
-		if (this.field2021 < var2) {
-			this.field2021 = var2;
-		}
-
-		class169.sleepExact((long)this.field2021);
-
-		for (var5 = 0; this.field2023 < 256; this.field2023 += this.field2020) {
-			++var5;
-		}
-
-		this.field2023 &= 255;
-		return var5;
+		class306.field3723 = var0;
+		return var0 + class306.field3726;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("jh")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "-985572869"
+		signature = "(Lhd;S)Z",
+		garbageValue = "442"
 	)
-	public static boolean method3560(int var0) {
-		return (var0 >> 29 & 1) != 0;
-	}
+	static final boolean method3586(Widget var0) {
+		int var1 = var0.contentType;
+		if (var1 == 205) {
+			Client.logoutTimer = 250;
+			return true;
+		} else {
+			int var2;
+			int var3;
+			if (var1 >= 300 && var1 <= 313) {
+				var2 = (var1 - 300) / 2;
+				var3 = var1 & 1;
+				Client.playerAppearance.changeAppearance(var2, var3 == 1);
+			}
 
-	@ObfuscatedName("jf")
-	@ObfuscatedSignature(
-		signature = "([Lhe;II)V",
-		garbageValue = "1317800526"
-	)
-	@Export("drawModelComponents")
-	static final void drawModelComponents(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) {
-			Widget var3 = var0[var2];
-			if (var3 != null && var3.parentId == var1 && (!var3.isIf3 || !AbstractWorldMapData.isComponentHidden(var3))) {
-				int var5;
-				if (var3.type == 0) {
-					if (!var3.isIf3 && AbstractWorldMapData.isComponentHidden(var3) && var3 != class9.mousedOverWidgetIf1) {
-						continue;
-					}
+			if (var1 >= 314 && var1 <= 323) {
+				var2 = (var1 - 314) / 2;
+				var3 = var1 & 1;
+				Client.playerAppearance.method4139(var2, var3 == 1);
+			}
 
-					drawModelComponents(var0, var3.id);
-					if (var3.children != null) {
-						drawModelComponents(var3.children, var3.id);
-					}
+			if (var1 == 324) {
+				Client.playerAppearance.changeSex(false);
+			}
 
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
-					if (var4 != null) {
-						var5 = var4.group;
-						if (LoginScreenAnimation.loadInterface(var5)) {
-							drawModelComponents(Widget.Widget_interfaceComponents[var5], -1);
-						}
-					}
-				}
+			if (var1 == 325) {
+				Client.playerAppearance.changeSex(true);
+			}
 
-				if (var3.type == 6) {
-					if (var3.sequenceId != -1 || var3.sequenceId2 != -1) {
-						boolean var7 = GrandExchangeOfferAgeComparator.runCs1(var3);
-						if (var7) {
-							var5 = var3.sequenceId2;
-						} else {
-							var5 = var3.sequenceId;
-						}
-
-						if (var5 != -1) {
-							SequenceDefinition var6 = SpotAnimationDefinition.SequenceDefinition_get(var5);
-
-							for (var3.modelFrameCycle += Client.field741; var3.modelFrameCycle > var6.frameLengths[var3.modelFrame]; ItemContainer.invalidateWidget(var3)) {
-								var3.modelFrameCycle -= var6.frameLengths[var3.modelFrame];
-								++var3.modelFrame;
-								if (var3.modelFrame >= var6.frameIds.length) {
-									var3.modelFrame -= var6.frameCount;
-									if (var3.modelFrame < 0 || var3.modelFrame >= var6.frameIds.length) {
-										var3.modelFrame = 0;
-									}
-								}
-							}
-						}
-					}
-
-					if (var3.field2623 != 0 && !var3.isIf3) {
-						int var8 = var3.field2623 >> 16;
-						var5 = var3.field2623 << 16 >> 16;
-						var8 *= Client.field741;
-						var5 *= Client.field741;
-						var3.modelAngleX = var8 + var3.modelAngleX & 2047;
-						var3.modelAngleY = var5 + var3.modelAngleY & 2047;
-						ItemContainer.invalidateWidget(var3);
-					}
-				}
+			if (var1 == 326) {
+				PacketBufferNode var4 = UserComparator4.getPacketBufferNode(ClientPacket.field2283, Client.packetWriter.isaacCipher);
+				Client.playerAppearance.write(var4.packetBuffer);
+				Client.packetWriter.addNode(var4);
+				return true;
+			} else {
+				return false;
 			}
 		}
-
 	}
 }

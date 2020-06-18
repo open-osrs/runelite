@@ -1,67 +1,45 @@
-import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gy")
+@ObfuscatedName("gi")
 public class class200 {
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Lgy;"
-	)
-	static final class200 field2369;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgy;"
+		signature = "Lgi;"
 	)
-	static final class200 field2371;
-	@ObfuscatedName("k")
+	static final class200 field2400;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgy;"
+		signature = "Lgi;"
 	)
-	static final class200 field2370;
-	@ObfuscatedName("hm")
-	@ObfuscatedGetter(
-		intValue = 319009619
+	static final class200 field2398;
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		signature = "Lgi;"
 	)
-	@Export("cameraZ")
-	static int cameraZ;
+	static final class200 field2399;
 
 	static {
-		field2369 = new class200();
-		field2371 = new class200();
-		field2370 = new class200();
+		field2400 = new class200();
+		field2398 = new class200();
+		field2399 = new class200();
 	}
 
 	class200() {
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "([BI)Lla;",
-		garbageValue = "1925772237"
+		signature = "(IZII)V",
+		garbageValue = "405257362"
 	)
-	@Export("convertJpgToSprite")
-	public static final Sprite convertJpgToSprite(byte[] var0) {
-		BufferedImage var1 = null;
-
-		try {
-			var1 = ImageIO.read(new ByteArrayInputStream(var0));
-			int var2 = var1.getWidth();
-			int var3 = var1.getHeight();
-			int[] var4 = new int[var3 * var2];
-			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2);
-			var5.grabPixels();
-			return new Sprite(var4, var2, var3);
-		} catch (IOException var7) {
-		} catch (InterruptedException var8) {
+	public static final void method3803(int var0, boolean var1, int var2) {
+		if (var0 >= 8000 && var0 <= 48000) {
+			class237.field3113 = var0;
+			Messages.PcmPlayer_stereo = var1;
+			UserComparator3.field2009 = var2;
+		} else {
+			throw new IllegalArgumentException();
 		}
-
-		return new Sprite(0, 0);
 	}
 }

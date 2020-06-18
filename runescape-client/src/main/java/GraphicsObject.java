@@ -1,74 +1,78 @@
-import java.io.IOException;
-import java.util.LinkedHashMap;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cs")
+@ObfuscatedName("cj")
 @Implements("GraphicsObject")
 public final class GraphicsObject extends Entity {
-	@ObfuscatedName("aw")
+	@ObfuscatedName("si")
 	@ObfuscatedGetter(
-		intValue = 2069035029
+		longValue = 4282492011964986707L
 	)
-	static int field1141;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -1892453991
+	static long field1139;
+	@ObfuscatedName("dz")
+	@ObfuscatedSignature(
+		signature = "Lig;"
 	)
-	@Export("y")
-	int y;
+	@Export("archive10")
+	static Archive archive10;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -760249917
+		intValue = 555151267
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1800328217
+		intValue = 953571075
 	)
 	@Export("cycleStart")
 	int cycleStart;
-	@ObfuscatedName("d")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1899634503
+		intValue = 35157473
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("w")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1416163877
+		intValue = 1616692737
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("v")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1568421589
+		intValue = -2135993151
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -1585173771
 	)
 	@Export("height")
 	int height;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Ljc;"
+		signature = "Ljm;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 137908093
+		intValue = 1643713967
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1659950887
+		intValue = 1415873335
 	)
 	@Export("frameCycle")
 	int frameCycle;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@Export("isFinished")
 	boolean isFinished;
 
@@ -82,20 +86,20 @@ public final class GraphicsObject extends Entity {
 		this.y = var4;
 		this.height = var5;
 		this.cycleStart = var7 + var6;
-		int var8 = MouseHandler.SpotAnimationDefinition_get(this.id).sequence;
+		int var8 = class4.SpotAnimationDefinition_get(this.id).sequence;
 		if (var8 != -1) {
 			this.isFinished = false;
-			this.sequenceDefinition = SpotAnimationDefinition.SequenceDefinition_get(var8);
+			this.sequenceDefinition = NetSocket.SequenceDefinition_get(var8);
 		} else {
 			this.isFinished = true;
 		}
 
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		signature = "(II)V",
-		garbageValue = "-937691597"
+		garbageValue = "-1084299452"
 	)
 	@Export("advance")
 	final void advance(int var1) {
@@ -114,14 +118,14 @@ public final class GraphicsObject extends Entity {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lel;",
-		garbageValue = "480835067"
+		signature = "(I)Lef;",
+		garbageValue = "1832696685"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		SpotAnimationDefinition var1 = MouseHandler.SpotAnimationDefinition_get(this.id);
+		SpotAnimationDefinition var1 = class4.SpotAnimationDefinition_get(this.id);
 		Model var2;
 		if (!this.isFinished) {
 			var2 = var1.getModel(this.frame);
@@ -130,70 +134,5 @@ public final class GraphicsObject extends Entity {
 		}
 
 		return var2 == null ? null : var2;
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "-22"
-	)
-	public static void method2121() {
-		if (MouseHandler.MouseHandler_instance != null) {
-			synchronized(MouseHandler.MouseHandler_instance) {
-				MouseHandler.MouseHandler_instance = null;
-			}
-		}
-
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "(I)[B",
-		garbageValue = "1774574647"
-	)
-	public static byte[] method2120() {
-		byte[] var0 = new byte[24];
-
-		try {
-			JagexCache.JagexCache_randomDat.seek(0L);
-			JagexCache.JagexCache_randomDat.readFully(var0);
-
-			int var1;
-			for (var1 = 0; var1 < 24 && var0[var1] == 0; ++var1) {
-			}
-
-			if (var1 >= 24) {
-				throw new IOException();
-			}
-		} catch (Exception var4) {
-			for (int var2 = 0; var2 < 24; ++var2) {
-				var0[var2] = -1;
-			}
-		}
-
-		return var0;
-	}
-
-	@ObfuscatedName("ft")
-	@ObfuscatedSignature(
-		signature = "(ZI)V",
-		garbageValue = "1004007010"
-	)
-	static final void method2122(boolean var0) {
-		if (var0) {
-			Client.field715 = Login.field1214 ? class169.field2007 : class169.field2006;
-		} else {
-			LinkedHashMap var1 = GrandExchangeOfferOwnWorldComparator.clientPreferences.parameters;
-			String var3 = Login.Login_username;
-			int var4 = var3.length();
-			int var5 = 0;
-
-			for (int var6 = 0; var6 < var4; ++var6) {
-				var5 = (var5 << 5) - var5 + var3.charAt(var6);
-			}
-
-			Client.field715 = var1.containsKey(var5) ? class169.field2012 : class169.field2008;
-		}
-
 	}
 }

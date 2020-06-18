@@ -6,32 +6,26 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ad")
+@ObfuscatedName("az")
 @Implements("WorldMapAreaData")
 public class WorldMapAreaData extends WorldMapArea {
-	@ObfuscatedName("hc")
-	@ObfuscatedSignature(
-		signature = "[Lla;"
-	)
-	@Export("mapMarkerSprites")
-	static Sprite[] mapMarkerSprites;
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
 	@Export("worldMapData0Set")
 	HashSet worldMapData0Set;
-	@ObfuscatedName("u")
+	@ObfuscatedName("h")
 	@Export("worldMapData1Set")
 	HashSet worldMapData1Set;
-	@ObfuscatedName("h")
+	@ObfuscatedName("k")
 	@Export("iconList")
 	List iconList;
 
 	WorldMapAreaData() {
 	}
 
-	@ObfuscatedName("by")
+	@ObfuscatedName("bs")
 	@ObfuscatedSignature(
-		signature = "(Lkb;Lkb;IZI)V",
-		garbageValue = "-661163942"
+		signature = "(Lkn;Lkn;IZI)V",
+		garbageValue = "442767924"
 	)
 	@Export("init")
 	void init(Buffer var1, Buffer var2, int var3, boolean var4) {
@@ -70,10 +64,10 @@ public class WorldMapAreaData extends WorldMapArea {
 		this.initIconsList(var2, var4);
 	}
 
-	@ObfuscatedName("bj")
+	@ObfuscatedName("by")
 	@ObfuscatedSignature(
-		signature = "(Lkb;ZI)V",
-		garbageValue = "1078269638"
+		signature = "(Lkn;ZI)V",
+		garbageValue = "-380421071"
 	)
 	@Export("initIconsList")
 	void initIconsList(Buffer var1, boolean var2) {
@@ -81,7 +75,7 @@ public class WorldMapAreaData extends WorldMapArea {
 		int var3 = var1.readUnsignedShort();
 
 		for (int var4 = 0; var4 < var3; ++var4) {
-			int var5 = var1.method5591();
+			int var5 = var1.method5843();
 			Coord var6 = new Coord(var1.readInt());
 			boolean var7 = var1.readUnsignedByte() == 1;
 			if (var2 || !var7) {
@@ -91,49 +85,124 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	}
 
-	@ObfuscatedName("is")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lhe;IIZS)V",
-		garbageValue = "11869"
+		signature = "([BI)Lcs;",
+		garbageValue = "1792640289"
 	)
-	@Export("alignWidgetSize")
-	static void alignWidgetSize(Widget var0, int var1, int var2, boolean var3) {
-		int var4 = var0.width;
-		int var5 = var0.height;
-		if (var0.widthAlignment == 0) {
-			var0.width = var0.rawWidth;
-		} else if (var0.widthAlignment == 1) {
-			var0.width = var1 - var0.rawWidth;
-		} else if (var0.widthAlignment == 2) {
-			var0.width = var0.rawWidth * var1 >> 14;
+	@Export("newScript")
+	static Script newScript(byte[] var0) {
+		Script var1 = new Script();
+		Buffer var2 = new Buffer(var0);
+		var2.offset = var2.array.length - 2;
+		int var3 = var2.readUnsignedShort();
+		int var4 = var2.array.length - 2 - var3 - 12;
+		var2.offset = var4;
+		int var5 = var2.readInt();
+		var1.localIntCount = var2.readUnsignedShort();
+		var1.localStringCount = var2.readUnsignedShort();
+		var1.intArgumentCount = var2.readUnsignedShort();
+		var1.stringArgumentCount = var2.readUnsignedShort();
+		int var6 = var2.readUnsignedByte();
+		int var7;
+		int var8;
+		if (var6 > 0) {
+			var1.switches = var1.newIterableNodeHashTable(var6);
+
+			for (var7 = 0; var7 < var6; ++var7) {
+				var8 = var2.readUnsignedShort();
+				int var9;
+				int var11;
+				if (var8 > 0) {
+					var11 = var8 - 1;
+					var11 |= var11 >>> 1;
+					var11 |= var11 >>> 2;
+					var11 |= var11 >>> 4;
+					var11 |= var11 >>> 8;
+					var11 |= var11 >>> 16;
+					int var10 = var11 + 1;
+					var9 = var10;
+				} else {
+					var9 = 1;
+				}
+
+				IterableNodeHashTable var13 = new IterableNodeHashTable(var9);
+				var1.switches[var7] = var13;
+
+				while (var8-- > 0) {
+					var11 = var2.readInt();
+					int var12 = var2.readInt();
+					var13.put(new IntegerNode(var12), (long)var11);
+				}
+			}
 		}
 
-		if (var0.heightAlignment == 0) {
-			var0.height = var0.rawHeight;
-		} else if (var0.heightAlignment == 1) {
-			var0.height = var2 - var0.rawHeight;
-		} else if (var0.heightAlignment == 2) {
-			var0.height = var2 * var0.rawHeight >> 14;
+		var2.offset = 0;
+		var2.readStringCp1252NullTerminatedOrNull();
+		var1.opcodes = new int[var5];
+		var1.intOperands = new int[var5];
+		var1.stringOperands = new String[var5];
+
+		for (var7 = 0; var2.offset < var4; var1.opcodes[var7++] = var8) {
+			var8 = var2.readUnsignedShort();
+			if (var8 == 3) {
+				var1.stringOperands[var7] = var2.readStringCp1252NullTerminated();
+			} else if (var8 < 100 && var8 != 21 && var8 != 38 && var8 != 39) {
+				var1.intOperands[var7] = var2.readInt();
+			} else {
+				var1.intOperands[var7] = var2.readUnsignedByte();
+			}
 		}
 
-		if (var0.widthAlignment == 4) {
-			var0.width = var0.field2584 * var0.height / var0.field2585;
+		return var1;
+	}
+
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		signature = "(Ljava/lang/CharSequence;B)I",
+		garbageValue = "47"
+	)
+	public static int method759(CharSequence var0) {
+		int var1 = var0.length();
+		int var2 = 0;
+
+		for (int var3 = 0; var3 < var1; ++var3) {
+			var2 = (var2 << 5) - var2 + var0.charAt(var3);
 		}
 
-		if (var0.heightAlignment == 4) {
-			var0.height = var0.field2585 * var0.width / var0.field2584;
+		return var2;
+	}
+
+	@ObfuscatedName("ic")
+	@ObfuscatedSignature(
+		signature = "(II)Ljava/lang/String;",
+		garbageValue = "803969817"
+	)
+	@Export("formatItemStacks")
+	static final String formatItemStacks(int var0) {
+		String var1 = Integer.toString(var0);
+
+		for (int var2 = var1.length() - 3; var2 > 0; var2 -= 3) {
+			var1 = var1.substring(0, var2) + "," + var1.substring(var2);
 		}
 
-		if (var0.contentType == 1337) {
-			Client.viewportWidget = var0;
+		if (var1.length() > 9) {
+			return " " + ItemContainer.colorStartTag(65408) + var1.substring(0, var1.length() - 8) + "M" + " " + " (" + var1 + ")" + "</col>";
+		} else {
+			return var1.length() > 6 ? " " + ItemContainer.colorStartTag(16777215) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + ItemContainer.colorStartTag(16776960) + var1 + "</col>";
 		}
+	}
 
-		if (var3 && var0.onResize != null && (var4 != var0.width || var5 != var0.height)) {
-			ScriptEvent var6 = new ScriptEvent();
-			var6.widget = var0;
-			var6.args = var0.onResize;
-			Client.scriptEvents.addFirst(var6);
+	@ObfuscatedName("kk")
+	@ObfuscatedSignature(
+		signature = "(Lhd;B)Ljava/lang/String;",
+		garbageValue = "-51"
+	)
+	static String method762(Widget var0) {
+		if (WorldMapID.method617(KeyHandler.getWidgetClickMask(var0)) == 0) {
+			return null;
+		} else {
+			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null;
 		}
-
 	}
 }

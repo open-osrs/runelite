@@ -4,67 +4,61 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gb")
+@ObfuscatedName("gx")
 @Implements("LoginPacket")
 public class LoginPacket implements class190 {
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Lgb;"
-	)
-	public static final LoginPacket field2315;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgb;"
+		signature = "Lgx;"
 	)
-	static final LoginPacket field2311;
-	@ObfuscatedName("k")
+	public static final LoginPacket field2352;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgb;"
+		signature = "Lgx;"
 	)
-	public static final LoginPacket field2317;
-	@ObfuscatedName("d")
+	static final LoginPacket field2350;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgb;"
+		signature = "Lgx;"
 	)
-	public static final LoginPacket field2313;
-	@ObfuscatedName("w")
+	public static final LoginPacket field2347;
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgb;"
+		signature = "Lgx;"
 	)
-	public static final LoginPacket field2314;
-	@ObfuscatedName("v")
+	public static final LoginPacket field2348;
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lgb;"
+		signature = "Lgx;"
 	)
-	static final LoginPacket field2319;
-	@ObfuscatedName("z")
+	public static final LoginPacket field2345;
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "[Lgb;"
+		signature = "Lgx;"
+	)
+	static final LoginPacket field2346;
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		signature = "[Lgx;"
 	)
 	@Export("LoginPacket_indexedValues")
 	static final LoginPacket[] LoginPacket_indexedValues;
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		signature = "Lew;"
-	)
-	@Export("World_request")
-	static UrlRequest World_request;
-	@ObfuscatedName("q")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 774244909
+		intValue = -444496991
 	)
 	@Export("id")
 	public final int id;
 
 	static {
-		field2315 = new LoginPacket(14, 0);
-		field2311 = new LoginPacket(15, 4);
-		field2317 = new LoginPacket(16, -2);
-		field2313 = new LoginPacket(18, -2);
-		field2314 = new LoginPacket(19, -2);
-		field2319 = new LoginPacket(27, 0);
+		field2352 = new LoginPacket(14, 0);
+		field2350 = new LoginPacket(15, 4);
+		field2347 = new LoginPacket(16, -2);
+		field2348 = new LoginPacket(18, -2);
+		field2345 = new LoginPacket(19, -2);
+		field2346 = new LoginPacket(27, 0);
 		LoginPacket_indexedValues = new LoginPacket[32];
-		LoginPacket[] var0 = WorldMapSection3.method895();
+		LoginPacket[] var0 = UserComparator9.method3512();
 
 		for (int var1 = 0; var1 < var0.length; ++var1) {
 			LoginPacket_indexedValues[var0[var1].id] = var0[var1];
@@ -80,12 +74,24 @@ public class LoginPacket implements class190 {
 		this.id = var1;
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "1902674476"
+		signature = "(II)Lik;",
+		garbageValue = "-729077438"
 	)
-	static final void method3692() {
-		GrandExchangeEvent.method165("Your friend list is full. Max of 200 for free users, and 400 for members");
+	public static HealthBarDefinition method3745(int var0) {
+		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = HealthBarDefinition.HealthBarDefinition_archive.takeFile(33, var0);
+			var1 = new HealthBarDefinition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
+			}
+
+			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
 	}
 }

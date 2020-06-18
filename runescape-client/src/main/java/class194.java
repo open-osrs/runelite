@@ -1,85 +1,81 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gh")
+@ObfuscatedName("gl")
 public class class194 {
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		signature = "Lgh;"
-	)
-	public static final class194 field2324;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgh;"
+		signature = "Lgl;"
 	)
-	public static final class194 field2325;
-	@ObfuscatedName("k")
+	public static final class194 field2357;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgh;"
+		signature = "Lgl;"
 	)
-	public static final class194 field2327;
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		signature = "Lgh;"
-	)
-	public static final class194 field2326;
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		signature = "Lgh;"
-	)
-	public static final class194 field2332;
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		signature = "Lgh;"
-	)
-	public static final class194 field2328;
+	public static final class194 field2354;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgh;"
+		signature = "Lgl;"
 	)
-	public static final class194 field2329;
+	public static final class194 field2355;
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		signature = "Lgl;"
+	)
+	public static final class194 field2358;
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		signature = "Lgl;"
+	)
+	public static final class194 field2353;
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		signature = "Lgl;"
+	)
+	public static final class194 field2360;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		signature = "Lgl;"
+	)
+	public static final class194 field2359;
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		signature = "Lgl;"
+	)
+	public static final class194 field2363;
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		signature = "Lgl;"
+	)
+	public static final class194 field2361;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lgh;"
+		signature = "Lgl;"
 	)
-	public static final class194 field2330;
-	@ObfuscatedName("t")
+	public static final class194 field2362;
+	@ObfuscatedName("jp")
 	@ObfuscatedSignature(
-		signature = "Lgh;"
+		signature = "Lhd;"
 	)
-	public static final class194 field2331;
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		signature = "Lgh;"
-	)
-	public static final class194 field2323;
+	static Widget field2356;
 
 	static {
-		field2324 = new class194(14);
-		field2325 = new class194(5);
-		field2327 = new class194(2);
-		field2326 = new class194(6);
-		field2332 = new class194(15);
-		field2328 = new class194(4);
-		field2329 = new class194(7);
-		field2330 = new class194(4);
-		field2331 = new class194(3);
-		field2323 = new class194(5);
+		field2357 = new class194(6);
+		field2354 = new class194(7);
+		field2355 = new class194(4);
+		field2358 = new class194(14);
+		field2353 = new class194(2);
+		field2360 = new class194(15);
+		field2359 = new class194(5);
+		field2363 = new class194(3);
+		field2361 = new class194(4);
+		field2362 = new class194(5);
 	}
 
 	@ObfuscatedSignature(
 		signature = "(I)V",
-		garbageValue = "14"
+		garbageValue = "6"
 	)
 	class194(int var1) {
-	}
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		signature = "(IB)Z",
-		garbageValue = "-67"
-	)
-	public static boolean method3694(int var0) {
-		return (var0 >> 21 & 1) != 0;
 	}
 }

@@ -1,56 +1,101 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jf")
+@ObfuscatedName("jb")
 public class class280 {
-	@ObfuscatedName("ep")
-	@ObfuscatedGetter(
-		intValue = 739756993
-	)
-	@Export("port3")
-	static int port3;
-
-	@ObfuscatedName("w")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IZI)Ljava/lang/String;",
-		garbageValue = "-627751714"
+		signature = "(Ljava/lang/CharSequence;Lmo;I)Ljava/lang/String;",
+		garbageValue = "-1896450279"
 	)
-	@Export("intToString")
-	public static String intToString(int var0, boolean var1) {
-		if (var1 && var0 >= 0) {
-			int var3 = var0;
-			String var2;
-			if (var1 && var0 >= 0) {
-				int var4 = 2;
+	public static String method5160(CharSequence var0, LoginType var1) {
+		if (var0 == null) {
+			return null;
+		} else {
+			int var2 = 0;
 
-				for (int var5 = var0 / 10; var5 != 0; ++var4) {
-					var5 /= 10;
-				}
+			int var3;
+			for (var3 = var0.length(); var2 < var3 && DesktopPlatformInfoProvider.method6481(var0.charAt(var2)); ++var2) {
+			}
 
-				char[] var6 = new char[var4];
-				var6[0] = '+';
+			while (var3 > var2 && DesktopPlatformInfoProvider.method6481(var0.charAt(var3 - 1))) {
+				--var3;
+			}
 
-				for (int var7 = var4 - 1; var7 > 0; --var7) {
-					int var8 = var3;
-					var3 /= 10;
-					int var9 = var8 - var3 * 10;
-					if (var9 >= 10) {
-						var6[var7] = (char)(var9 + 87);
-					} else {
-						var6[var7] = (char)(var9 + 48);
+			int var4 = var3 - var2;
+			if (var4 >= 1) {
+				byte var6;
+				if (var1 == null) {
+					var6 = 12;
+				} else {
+					switch(var1.field4060) {
+					case 4:
+						var6 = 20;
+						break;
+					default:
+						var6 = 12;
 					}
 				}
 
-				var2 = new String(var6);
-			} else {
-				var2 = Integer.toString(var0, 10);
+				if (var4 <= var6) {
+					StringBuilder var12 = new StringBuilder(var4);
+
+					for (int var14 = var2; var14 < var3; ++var14) {
+						char var7 = var0.charAt(var14);
+						boolean var8;
+						if (Character.isISOControl(var7)) {
+							var8 = false;
+						} else if (Varps.isAlphaNumeric(var7)) {
+							var8 = true;
+						} else {
+							char[] var9 = class348.field4065;
+							int var10 = 0;
+
+							label79:
+							while (true) {
+								char var11;
+								if (var10 >= var9.length) {
+									var9 = class348.field4064;
+
+									for (var10 = 0; var10 < var9.length; ++var10) {
+										var11 = var9[var10];
+										if (var7 == var11) {
+											var8 = true;
+											break label79;
+										}
+									}
+
+									var8 = false;
+									break;
+								}
+
+								var11 = var9[var10];
+								if (var11 == var7) {
+									var8 = true;
+									break;
+								}
+
+								++var10;
+							}
+						}
+
+						if (var8) {
+							char var13 = KitDefinition.method4650(var7);
+							if (var13 != 0) {
+								var12.append(var13);
+							}
+						}
+					}
+
+					if (var12.length() == 0) {
+						return null;
+					}
+
+					return var12.toString();
+				}
 			}
 
-			return var2;
-		} else {
-			return Integer.toString(var0);
+			return null;
 		}
 	}
 }

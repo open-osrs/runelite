@@ -1,35 +1,35 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("s")
+@ObfuscatedName("w")
 public class class10 {
-	@ObfuscatedName("x")
-	final int field53;
 	@ObfuscatedName("m")
-	final int field54;
-	@ObfuscatedName("k")
-	final String field55;
+	final int field48;
+	@ObfuscatedName("o")
+	final int field47;
+	@ObfuscatedName("q")
+	final String field46;
 
 	@ObfuscatedSignature(
-		signature = "(Lkb;)V"
+		signature = "(Lkn;)V"
 	)
 	class10(Buffer var1) {
 		this(var1.readUnsignedByte(), var1.readUnsignedByte(), var1.readStringCp1252NullTerminated());
 	}
 
 	class10(int var1, int var2, String var3) {
-		this.field53 = var1;
-		this.field54 = var2;
-		this.field55 = var3;
-	}
-
-	@ObfuscatedName("x")
-	String method125() {
-		return Integer.toHexString(this.field53) + Integer.toHexString(this.field54) + this.field55;
+		this.field48 = var1;
+		this.field47 = var2;
+		this.field46 = var3;
 	}
 
 	@ObfuscatedName("m")
-	int method127() {
-		return this.field54;
+	String method126() {
+		return Integer.toHexString(this.field48) + Integer.toHexString(this.field47) + this.field46;
+	}
+
+	@ObfuscatedName("o")
+	int method123() {
+		return this.field47;
 	}
 }
