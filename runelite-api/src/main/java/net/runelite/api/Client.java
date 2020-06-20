@@ -1858,6 +1858,8 @@ public interface Client extends GameShell
 
 	void setRenderSelf(boolean enabled);
 
+	void invokeMenuAction(int identifier, int opcode, int param0, int param1);
+
 	void invokeMenuAction(String option, String target, int identifier, int opcode, int param0, int param1);
 
 	MouseRecorder getMouseRecorder();

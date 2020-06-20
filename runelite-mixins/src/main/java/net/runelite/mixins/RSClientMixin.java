@@ -1373,7 +1373,16 @@ public abstract class RSClientMixin implements RSClient
 	{
 		assert isClientThread();
 
-		client.sendMenuAction(param0, param1, opcode, identifier, option, "!AUTHENTIC" + target, 658, 384);
+		client.sendMenuAction(param0, param1, opcode, identifier, option, "!AUTHENTIC" + target, 0, 0);
+	}
+
+	@Override
+	@Inject
+	public void invokeMenuAction(int identifier, int opcode, int param0, int param1)
+	{
+		assert isClientThread();
+
+		client.sendMenuAction(param0, param1, opcode, identifier, "", "!AUTHENTIC", 0, 0);
 	}
 
 	@FieldHook("Login_username")
