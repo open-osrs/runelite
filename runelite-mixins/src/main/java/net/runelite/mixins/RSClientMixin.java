@@ -1331,13 +1331,10 @@ public abstract class RSClientMixin implements RSClient
 			target = target.substring(10);
 		}
 
-		if (printMenuActions && client.getLogger().isDebugEnabled())
-		{
-			client.getLogger().debug(
+		client.getLogger().debug(
 				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={} Authentic={}",
 				option, target, id, opcode, param0, param1, canvasX, canvasY, authentic
-			);
-		}
+		);
 
 		/* Along the way, the RuneScape client may change a menuAction by incrementing it with 2000.
 		 * I have no idea why, but it does. Their code contains the same conditional statement.
