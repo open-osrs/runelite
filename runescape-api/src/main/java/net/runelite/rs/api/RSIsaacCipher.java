@@ -1,3 +1,8 @@
 package net.runelite.rs.api;
 
-public interface RSIsaacCipher {}
+import net.runelite.api.IsaacCipher;
+
+public interface RSIsaacCipher extends IsaacCipher
+{
+
+}

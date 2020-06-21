@@ -112,22 +112,7 @@ import net.runelite.api.widgets.WidgetConfig;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.api.widgets.WidgetType;
-import net.runelite.rs.api.RSAbstractArchive;
-import net.runelite.rs.api.RSChatChannel;
-import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSEnumDefinition;
-import net.runelite.rs.api.RSFriendSystem;
-import net.runelite.rs.api.RSIndexedSprite;
-import net.runelite.rs.api.RSItemContainer;
-import net.runelite.rs.api.RSNPC;
-import net.runelite.rs.api.RSNodeDeque;
-import net.runelite.rs.api.RSNodeHashTable;
-import net.runelite.rs.api.RSPacketBuffer;
-import net.runelite.rs.api.RSPlayer;
-import net.runelite.rs.api.RSSprite;
-import net.runelite.rs.api.RSTileItem;
-import net.runelite.rs.api.RSUsername;
-import net.runelite.rs.api.RSWidget;
+import net.runelite.rs.api.*;
 import org.slf4j.Logger;
 
 @Mixin(RSClient.class)
@@ -1383,6 +1368,37 @@ public abstract class RSClientMixin implements RSClient
 		assert isClientThread();
 
 		client.sendMenuAction(param0, param1, opcode, identifier, "", "!AUTHENTIC", 0, 0);
+	}
+
+	@Copy("getPacketBufferNode")
+	static RSPacketBufferNode rs$getPacketBufferNode(RSClientPacket var0, RSIsaacCipher var1)
+	{
+		throw new RuntimeException();
+	}
+
+	@Replace("getPacketBufferNode")
+	static RSPacketBufferNode rl$getPacketBufferNode(RSClientPacket var0, RSIsaacCipher var1)
+	{
+		client.getLogger().debug("getPacketBufferNode called");
+		return rs$getPacketBufferNode(var0, var1);
+	}
+
+	@Override
+	@Inject
+	public void invokePacketAction(final int packetCode, final byte[] payload)
+	{
+		final RSPacketBufferNode node = client.createPacketBufferNode(new RSClientPacket() {
+
+			@Override
+			public int getId() {
+				return packetCode;
+			}
+
+			@Override
+			public int getLength() {
+				return payload.length;
+			}
+		}, client.getPacketWriter().getIsaacCipher());
 	}
 
 	@FieldHook("Login_username")

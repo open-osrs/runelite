@@ -406,6 +406,12 @@ public interface RSClient extends RSGameShell, Client
 	@Import("menuAction")
 	void sendMenuAction(int n2, int n3, int n4, int n5, String string, String string2, int n6, int n7);
 
+	@Import("getPacketBufferNode")
+	RSPacketBufferNode createPacketBufferNode(RSClientPacket var0, RSIsaacCipher var1);
+
+	@Import("packetWriter")
+	RSPacketWriter getPacketWriter();
+
 	@Import("SpriteBuffer_decode")
 	void decodeSprite(byte[] data);
 
