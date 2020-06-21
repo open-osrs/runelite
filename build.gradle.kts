@@ -206,6 +206,7 @@ tasks {
         group = "openosrs"
 
         classpath = project(":runelite-client").sourceSets.main.get().runtimeClasspath
+        enableAssertions = true
     }
 
     named<DependencyUpdatesTask>("dependencyUpdates") {
