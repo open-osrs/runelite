@@ -162,6 +162,7 @@ tasks {
         group = "openosrs"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
+        enableAssertions = true
         main = "net.runelite.client.RuneLite"
     }
 }
