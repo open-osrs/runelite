@@ -255,7 +255,7 @@ public class RuneLite
 			.withRequiredArg()
 			.ofType(ClientUpdateCheckMode.class)
 			.defaultsTo(ClientUpdateCheckMode.AUTO)
-			.withValuesConvertedBy(new EnumConverter<ClientUpdateCheckMode>(ClientUpdateCheckMode.class)
+			.withValuesConvertedBy(new EnumConverter<>(ClientUpdateCheckMode.class)
 			{
 				@Override
 				public ClientUpdateCheckMode convert(String v)
@@ -326,8 +326,9 @@ public class RuneLite
 			System.setProperty("cli.world", String.valueOf(world));
 		}
 
+		final File configFile = resolveLinks(options.valueOf(configfile));
 		Properties properties = new Properties();
-		try (FileInputStream in = new FileInputStream(RuneLite.RUNELITE_DIR + "\\runeliteplus.properties"))
+		try (FileInputStream in = new FileInputStream(configFile))
 		{
 			properties.load(new InputStreamReader(in, StandardCharsets.UTF_8));
 			try
@@ -402,7 +403,7 @@ public class RuneLite
 		injector = Guice.createInjector(new RuneLiteModule(
 			clientLoader,
 			options.has("safe-mode"),
-			options.valueOf(configfile)));
+			configFile));
 
 		injector.getInstance(RuneLite.class).start();
 		final long end = System.currentTimeMillis();
@@ -642,6 +643,18 @@ public class RuneLite
 		public String valuePattern()
 		{
 			return null;
+		}
+	}
+
+	private static File resolveLinks(File f)
+	{
+		try
+		{
+			return f.toPath().toRealPath().toFile();
+		}
+		catch (IOException e)
+		{
+			return f;
 		}
 	}
 }
