@@ -37,41 +37,12 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Named;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.EnumDefinition;
-import net.runelite.api.Friend;
-import net.runelite.api.GameState;
-import net.runelite.api.GrandExchangeOffer;
-import net.runelite.api.GraphicsObject;
-import net.runelite.api.HashTable;
-import net.runelite.api.HintArrowType;
-import net.runelite.api.Ignore;
-import net.runelite.api.IndexDataBase;
-import net.runelite.api.IndexedSprite;
-import net.runelite.api.IntegerNode;
-import net.runelite.api.InventoryID;
-import net.runelite.api.ItemDefinition;
-import net.runelite.api.MenuEntry;
-import net.runelite.api.MenuOpcode;
+
+import net.runelite.api.*;
+
 import static net.runelite.api.MenuOpcode.*;
-import net.runelite.api.MessageNode;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCDefinition;
-import net.runelite.api.NameableContainer;
-import net.runelite.api.Node;
-import net.runelite.api.ObjectDefinition;
 import static net.runelite.api.Perspective.LOCAL_TILE_SIZE;
-import net.runelite.api.Player;
-import net.runelite.api.Point;
-import net.runelite.api.Prayer;
-import net.runelite.api.Projectile;
-import net.runelite.api.Skill;
-import net.runelite.api.Sprite;
-import net.runelite.api.Tile;
-import net.runelite.api.VarPlayer;
-import net.runelite.api.Varbits;
-import net.runelite.api.WidgetNode;
-import net.runelite.api.WorldType;
+
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.CanvasSizeChanged;
@@ -1379,26 +1350,16 @@ public abstract class RSClientMixin implements RSClient
 	@Replace("getPacketBufferNode")
 	static RSPacketBufferNode rl$getPacketBufferNode(RSClientPacket var0, RSIsaacCipher var1)
 	{
-		client.getLogger().debug("getPacketBufferNode called");
+		client.getLogger().debug("Sent packet, opcode: {}, length: {}", var0.getId(), var0.getLength());
 		return rs$getPacketBufferNode(var0, var1);
 	}
 
 	@Override
 	@Inject
-	public void invokePacketAction(final int packetCode, final byte[] payload)
+	public void invokePacketAction(int opcode, int length, byte[] payload)
 	{
-		final RSPacketBufferNode node = client.createPacketBufferNode(new RSClientPacket() {
-
-			@Override
-			public int getId() {
-				return packetCode;
-			}
-
-			@Override
-			public int getLength() {
-				return payload.length;
-			}
-		}, client.getPacketWriter().getIsaacCipher());
+		final RSPacketBufferNode node = client.createPacketBufferNode(client.createClientPacket(opcode, length),
+				client.getPacketWriter().getIsaacCipher());
 	}
 
 	@FieldHook("Login_username")

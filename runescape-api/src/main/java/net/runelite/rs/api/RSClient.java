@@ -409,6 +409,10 @@ public interface RSClient extends RSGameShell, Client
 	@Import("getPacketBufferNode")
 	RSPacketBufferNode createPacketBufferNode(RSClientPacket var0, RSIsaacCipher var1);
 
+	@Construct
+	@Override
+	RSClientPacket createClientPacket(int id, int length);
+
 	@Import("packetWriter")
 	RSPacketWriter getPacketWriter();
 

@@ -1862,7 +1862,9 @@ public interface Client extends GameShell
 
 	void invokeMenuAction(String option, String target, int identifier, int opcode, int param0, int param1);
 
-	void invokePacketAction(final int packetCode, final byte[] data);
+	void invokePacketAction(int opcode, int length, byte[] data);
+
+	ClientPacket createClientPacket(int id, int length);
 
 	MouseRecorder getMouseRecorder();
 
