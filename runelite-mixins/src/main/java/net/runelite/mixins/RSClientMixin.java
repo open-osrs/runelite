@@ -1356,10 +1356,27 @@ public abstract class RSClientMixin implements RSClient
 
 	@Override
 	@Inject
-	public void invokePacketAction(int opcode, int length, byte[] payload)
+	public void invokePacketAction(int opcode, int length, String payloadHex)
 	{
 		final RSPacketBufferNode node = client.createPacketBufferNode(client.createClientPacket(opcode, length),
 				client.getPacketWriter().getIsaacCipher());
+
+		if (payloadHex.startsWith("0x")) {
+			payloadHex = payloadHex.substring(2);
+		}
+		final byte[] payload = new byte[payloadHex.length() / 2];
+		for (int i = 0; i < payloadHex.length(); i += 2) {
+			payload[i / 2] = (byte) ((Character.digit(payloadHex.charAt(i), 16) << 4)
+					+ Character.digit(payloadHex.charAt(i+1), 16));
+		}
+
+		byte[] payloadContainer = node.getPacketBuffer().getPayload();
+		System.arraycopy(payload, 0, payloadContainer, 1, length);
+
+		node.getPacketBuffer().setPayload(payloadContainer);
+		node.getPacketBuffer().setOffset(length + 1);
+
+		client.getPacketWriter().addNode(node);
 	}
 
 	@FieldHook("Login_username")

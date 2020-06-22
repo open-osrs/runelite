@@ -1862,7 +1862,7 @@ public interface Client extends GameShell
 
 	void invokeMenuAction(String option, String target, int identifier, int opcode, int param0, int param1);
 
-	void invokePacketAction(int opcode, int length, byte[] data);
+	void invokePacketAction(int opcode, int length, String payloadHex);
 
 	ClientPacket createClientPacket(int id, int length);
 
