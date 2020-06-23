@@ -1,6 +1,7 @@
 package net.runelite.client.util;
 
 import io.reactivex.rxjava3.subjects.PublishSubject;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,11 +49,14 @@ public class Groups extends ReceiverAdapter
 	{
 		this.openOSRSConfig = openOSRSConfig;
 
-		this.channel = new JChannel(RuneLite.class.getResourceAsStream("/udp.xml"))
-			.setName(RuneLite.uuid)
-			.setReceiver(this)
-			.setDiscardOwnMessages(true)
-			.connect("openosrs");
+		try (final InputStream is = RuneLite.class.getResourceAsStream("/udp-openosrs.xml"))
+		{
+			this.channel = new JChannel(is)
+				.setName(RuneLite.uuid)
+				.setReceiver(this)
+				.setDiscardOwnMessages(true)
+				.connect("openosrs");
+		}
 
 		eventBus.subscribe(ClientShutdown.class, this, (e) -> {
 			Future<Void> f = close();

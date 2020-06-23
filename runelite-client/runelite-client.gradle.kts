@@ -124,15 +124,9 @@ tasks {
 
         inputs.properties(tokens)
 
-        from("src/main/resources") {
-            include("sentry.properties")
-        }
+        from("src/main/resources/")
+        include("**/*.properties")
         into("${buildDir}/resources/main")
-
-        from("src/main/resources/net/runelite/client") {
-            include("open.osrs.properties")
-        }
-        into("${buildDir}/resources/main/net/runelite/client")
 
         filter(ReplaceTokens::class, "tokens" to tokens)
         filteringCharset = "UTF-8"
