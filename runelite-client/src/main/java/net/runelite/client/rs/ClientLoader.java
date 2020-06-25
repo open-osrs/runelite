@@ -44,7 +44,7 @@ import okhttp3.HttpUrl;
 @Slf4j
 public class ClientLoader implements Supplier<Applet>
 {
-	private static final String CONFIG_URL = "http://oldschool.runescape.com/jav_config.ws";
+	private static final String CONFIG_URL = "https://oldschool.runescape.com/jav_config.ws";
 	private static final String BACKUP_CONFIG_URL = "https://raw.githubusercontent.com/open-osrs/hosting/master/jav_config.ws";
 
 	private static final int NUM_ATTEMPTS = 10;
