@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: PR title lint
         if: github.event_name == 'pull_request'
-        uses: seferov/pr-lint-action@v1.0.3
+        uses: seferov/pr-lint-action@v1.1.1
         with:
           title-regex: '^([\w-/ ]+): [\w ]+'
 
