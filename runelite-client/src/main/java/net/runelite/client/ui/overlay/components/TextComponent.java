@@ -47,7 +47,8 @@ public class TextComponent implements RenderableEntity
 	private String text;
 	private Point position = new Point();
 	private Color color = Color.WHITE;
-	private Color borderColor = Color.BLACK;
+	private boolean outline;
+	private boolean alpha; // Generates a lot of garbage!
 
 	@Override
 	public Dimension render(Graphics2D graphics)
@@ -71,8 +72,20 @@ public class TextComponent implements RenderableEntity
 		}
 		else
 		{
-			renderText(graphics, position.x, position.y, text, color, borderColor);
+			if (alpha)
+			{
+				drawAlpha(graphics, position.x, position.y, text, color);
+			}
+			else
+			{
+				drawOutline(graphics, text);
+
+				// actual text
+				graphics.setColor(color);
+				graphics.drawString(text, position.x, position.y);
+			}
 		}
+
 		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
 	}
 
