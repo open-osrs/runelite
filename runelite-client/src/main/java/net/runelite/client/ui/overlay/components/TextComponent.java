@@ -60,12 +60,23 @@ public class TextComponent implements RenderableEntity
 			final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
 			int x = position.x;
 
-			for (String textSplitOnCol : parts)
+			for (String part : parts)
 			{
-				final String textWithoutCol = Text.removeTags(textSplitOnCol);
-				final String colColor = textSplitOnCol.substring(textSplitOnCol.indexOf("=") + 1, textSplitOnCol.indexOf(">"));
+				final String textWithoutCol = Text.removeTags(part);
+				final String colColor = part.substring(part.indexOf('=') + 1, part.indexOf('>'));
+				final Color col = Color.decode("#" + colColor);
+				if (alpha)
+				{
+					drawAlpha(graphics, x, position.y, part, col);
+				}
+				else
+				{
+					drawOutline(graphics, textWithoutCol);
 
-				renderText(graphics, x, position.y, textWithoutCol, Color.decode("#" + colColor), borderColor);
+					// actual text
+					graphics.setColor(col);
+					graphics.drawString(textWithoutCol, x, position.y);
+				}
 
 				x += fontMetrics.stringWidth(textWithoutCol);
 			}
@@ -89,7 +100,25 @@ public class TextComponent implements RenderableEntity
 		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
 	}
 
-	private void renderText(Graphics2D graphics, int x, int y, String text, Color color, Color border)
+	private void drawOutline(Graphics2D graphics, String str)
+	{
+		graphics.setColor(Color.BLACK);
+
+		if (outline)
+		{
+			graphics.drawString(str, position.x, position.y + 1);
+			graphics.drawString(str, position.x, position.y - 1);
+			graphics.drawString(str, position.x + 1, position.y);
+			graphics.drawString(str, position.x - 1, position.y);
+		}
+		else
+		{
+			// shadow
+			graphics.drawString(str, position.x + 1, position.y + 1);
+		}
+	}
+
+	private void drawAlpha(Graphics2D graphics, int x, int y, String text, Color color)
 	{
 		// remember previous composite
 		Composite originalComposite = graphics.getComposite();
@@ -102,7 +131,7 @@ public class TextComponent implements RenderableEntity
 		Shape shape = vector.getOutline(x, y);
 
 		// draw text border
-		graphics.setColor(border);
+		graphics.setColor(Color.BLACK);
 		graphics.fill(stroke);
 
 		// replace the pixels instead of overlaying
