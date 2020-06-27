@@ -55,67 +55,50 @@ public class TextComponent implements RenderableEntity
 	{
 		final FontMetrics fontMetrics = graphics.getFontMetrics();
 
-		if (COL_TAG_PATTERN_W_LOOKAHEAD.matcher(text).find())
+		final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
+		int x = position.x;
+
+		for (String part : parts)
 		{
-			final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
-			int x = position.x;
+			final String notags = Text.removeTags(part);
+			final Color col = part.equals(notags) ? color : getColor(part);
 
-			for (String part : parts)
-			{
-				final String textWithoutCol = Text.removeTags(part);
-				final String colColor = part.substring(part.indexOf('=') + 1, part.indexOf('>'));
-				final Color col = Color.decode("#" + colColor);
-				if (alpha)
-				{
-					drawAlpha(graphics, x, position.y, part, col);
-				}
-				else
-				{
-					drawOutline(graphics, textWithoutCol);
-
-					// actual text
-					graphics.setColor(col);
-					graphics.drawString(textWithoutCol, x, position.y);
-				}
-
-				x += fontMetrics.stringWidth(textWithoutCol);
-			}
-		}
-		else
-		{
 			if (alpha)
 			{
-				drawAlpha(graphics, position.x, position.y, text, color);
+				drawAlpha(graphics, x, position.y, notags, col);
 			}
 			else
 			{
-				drawOutline(graphics, text);
-
-				// actual text
-				graphics.setColor(color);
-				graphics.drawString(text, position.x, position.y);
+				drawString(graphics, x, position.y, notags, col);
 			}
+
+			x += fontMetrics.stringWidth(notags);
 		}
 
-		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
+		return new Dimension(fontMetrics.stringWidth(Text.removeTags(text)), fontMetrics.getHeight());
 	}
 
-	private void drawOutline(Graphics2D graphics, String str)
+	private void drawString(Graphics2D graphics, int x, int y, String text, Color color)
 	{
 		graphics.setColor(Color.BLACK);
 
 		if (outline)
 		{
-			graphics.drawString(str, position.x, position.y + 1);
-			graphics.drawString(str, position.x, position.y - 1);
-			graphics.drawString(str, position.x + 1, position.y);
-			graphics.drawString(str, position.x - 1, position.y);
+			graphics.drawString(text, x, y + 1);
+			graphics.drawString(text, x, y - 1);
+			graphics.drawString(text, x + 1, y);
+			graphics.drawString(text, x - 1, y);
 		}
 		else
 		{
 			// shadow
-			graphics.drawString(str, position.x + 1, position.y + 1);
+			graphics.drawString(text, x + 1, y + 1);
 		}
+
+
+		// actual text
+		graphics.setColor(color);
+		graphics.drawString(text, x, y);
 	}
 
 	private void drawAlpha(Graphics2D graphics, int x, int y, String text, Color color)
@@ -145,4 +128,9 @@ public class TextComponent implements RenderableEntity
 		graphics.setComposite(originalComposite);
 	}
 
+	private static Color getColor(String from)
+	{
+		final String colColor = from.substring(from.indexOf('=') + 1, from.indexOf('>'));
+		return Color.decode("#" + colColor);
+	}
 }
