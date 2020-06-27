@@ -4,20 +4,13 @@ import org.gradle.kotlin.dsl.*
 
 class BootstrapPlugin : Plugin<Project> {
     override fun apply(project: Project): Unit = with(project) {
-        val clientJar by configurations.creating {
-            isCanBeConsumed = false
-            isCanBeResolved = true
-            isTransitive = false
-        }
         val bootstrapDependencies by configurations.creating {
-            extendsFrom(clientJar)
             isCanBeConsumed = false
             isCanBeResolved = true
             isTransitive = false
         }
 
         dependencies {
-            clientJar(tasks["jar"].outputs.files)
             bootstrapDependencies(project(":runelite-api"))
             bootstrapDependencies(project(":runescape-api"))
             bootstrapDependencies(project(":http-api"))
@@ -29,14 +22,15 @@ class BootstrapPlugin : Plugin<Project> {
         tasks.register<BootstrapTask>("bootstrapStable", "stable")
 
         tasks.withType<BootstrapTask> {
+            this.group = "openosrs"
+            this.clientJar.fileProvider(provider { tasks["jar"].outputs.files.singleFile })
+
             dependsOn(bootstrapDependencies)
             dependsOn("publish")
             dependsOn(project(":runelite-api").tasks["publish"])
             dependsOn(project(":runescape-api").tasks["publish"])
             dependsOn(project(":http-api").tasks["publish"])
             dependsOn(project(":injected-client").tasks["publish"])
-
-            this.clientJar = clientJar.singleFile
 
             doLast {
                 copy {
