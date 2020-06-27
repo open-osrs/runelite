@@ -2042,4 +2042,12 @@ public interface Client extends GameShell
 	 * Gets whether the flames on the login screen should be rendered
 	 */
 	boolean shouldRenderLoginScreenFire();
+
+	/**
+	 * Test if a key is pressed
+	 * @param keycode the keycode
+	 * @return
+	 * @see KeyCode
+	 */
+	boolean isKeyPressed(int keycode);
 }
