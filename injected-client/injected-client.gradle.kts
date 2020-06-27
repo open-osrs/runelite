@@ -45,7 +45,6 @@ val combined by configurations.creating {
 configurations {
     all {
         isTransitive = false
-        outgoing.artifact(tasks.inject.get().output)
     }
 }
 
@@ -63,10 +62,8 @@ injector {
     vanilla.set(vanillaDep.singleFile)
 }
 
-sourceSets {
-    main {
-        output.dir(tasks.inject.get().output.get().asFile.parentFile, "builtBy" to tasks.inject)
-    }
+artifacts {
+    runtimeElements(tasks.inject.get().output)
 }
 
 // keep the sourcesets etc but remove useless tasks
@@ -83,7 +80,13 @@ tasks {
     jar {
         enabled = false
     }
+    sourcesJar {
+        enabled = false
+    }
     processResources {
         enabled = false
+    }
+    assemble {
+        finalizedBy("inject")
     }
 }
