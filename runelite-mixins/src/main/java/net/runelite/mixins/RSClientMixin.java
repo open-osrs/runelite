@@ -1208,6 +1208,20 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
+	@FieldHook("combatTargetPlayerIndex")
+	@Inject
+	public static void combatPlayerTargetChanged(int ignored)
+	{
+		if (client.getLocalInteractingIndex() == -1)
+		{
+			final Player p = client.getHintArrowPlayer();
+			if (p != null)
+			{
+				client.setLocalInteractingIndex(p.getPlayerId() & 2047);
+			}
+		}
+	}
+
 	@Inject
 	@Override
 	public boolean hasHintArrow()
