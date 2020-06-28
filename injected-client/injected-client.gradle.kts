@@ -65,7 +65,7 @@ injector {
 // keep the sourcesets etc but remove useless tasks
 tasks {
     inject {
-        dependsOn(configurations["combined"])
+        dependsOn(combined)
     }
     classes {
         enabled = false

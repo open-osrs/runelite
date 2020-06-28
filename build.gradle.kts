@@ -169,6 +169,13 @@ subprojects {
             withSourcesJar()
         }
 
+        withType<AbstractArchiveTask> {
+            isPreserveFileTimestamps = false
+            isReproducibleFileOrder = true
+            dirMode = 493
+            fileMode = 420
+        }
+
         withType<JavaCompile> {
             options.encoding = "UTF-8"
         }
