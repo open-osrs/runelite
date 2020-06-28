@@ -35,7 +35,7 @@ buildscript {
     dependencies {
         classpath("org.ajoberstar.grgit:grgit-core:4.0.2")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.28.0")
-        classpath("com.openosrs:injector-plugin:1.1.2")
+        classpath("com.openosrs:injector-plugin:1.1.3")
     }
 }
 
@@ -167,6 +167,13 @@ subprojects {
             targetCompatibility = JavaVersion.VERSION_11
 
             withSourcesJar()
+        }
+
+        withType<AbstractArchiveTask> {
+            isPreserveFileTimestamps = false
+            isReproducibleFileOrder = true
+            dirMode = 493
+            fileMode = 420
         }
 
         withType<JavaCompile> {
