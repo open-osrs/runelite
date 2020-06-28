@@ -358,7 +358,7 @@ public class OverlayUtil
 				canvasPoint.getY() + yOffset);
 			final Point canvasCenterPoint_shadow = new Point(
 				canvasPoint.getX() + 1,
-				canvasPoint.getY() + 1);
+				canvasPoint.getY() + 1 + yOffset);
 			if (shadows)
 			{
 				renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
