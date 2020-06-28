@@ -432,9 +432,7 @@ public abstract class RSTileMixin implements RSTile
 
 			logger.trace("Game object spawn: {}", current.getId());
 
-			GameObjectSpawned gameObjectSpawned = new GameObjectSpawned();
-			gameObjectSpawned.setTile(this);
-			gameObjectSpawned.setGameObject(current);
+			GameObjectSpawned gameObjectSpawned = new GameObjectSpawned(this, current);
 			client.getCallbacks().post(GameObjectSpawned.class, gameObjectSpawned);
 		}
 		else

@@ -170,9 +170,7 @@ public class GameEventManager
 					.filter(Objects::nonNull)
 					.forEach(object ->
 					{
-						final GameObjectSpawned objectSpawned = new GameObjectSpawned();
-						objectSpawned.setTile(tile);
-						objectSpawned.setGameObject(object);
+						final GameObjectSpawned objectSpawned = new GameObjectSpawned(tile, object);
 						eventBus.post(GameObjectSpawned.class, objectSpawned);
 					});
 
