@@ -62,10 +62,6 @@ injector {
     vanilla.set(vanillaDep.singleFile)
 }
 
-artifacts {
-    runtimeElements(tasks.inject.get().output)
-}
-
 // keep the sourcesets etc but remove useless tasks
 tasks {
     inject {
@@ -85,8 +81,5 @@ tasks {
     }
     processResources {
         enabled = false
-    }
-    assemble {
-        finalizedBy("inject")
     }
 }
