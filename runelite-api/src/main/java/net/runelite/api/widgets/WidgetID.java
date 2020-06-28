@@ -170,6 +170,7 @@ public class WidgetID
 	public static final int ADVENTURE_LOG_ID = 187;
 	public static final int GENERIC_SCROLL_GROUP_ID = 625;
 	public static final int GAUNTLET_TIMER_GROUP_ID = 637;
+	public static final int GAUNTLET_MAP_GROUP_ID = 638;
 
 	static class WorldMap
 	{
@@ -1356,5 +1357,10 @@ public class WidgetID
 	static class GauntletTimer
 	{
 		static final int CONTAINER = 2;
+	}
+
+	static class GauntletMap
+	{
+		static final int CONTAINER = 4;
 	}
 }
