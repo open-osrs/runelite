@@ -143,7 +143,7 @@ tasks {
     }
 
     processResources {
-        dependsOn(":runelite-script-assembler-plugin:indexMojo")
+        dependsOn(":runelite-script-assembler-plugin:assembleMojo")
 
         from("${buildDir}/scripts")
     }
