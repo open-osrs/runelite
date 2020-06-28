@@ -234,6 +234,9 @@ public interface RSClient extends RSGameShell, Client
 	@Import("combatTargetPlayerIndex")
 	int getLocalInteractingIndex();
 
+	@Import("combatTargetPlayerIndex")
+	void setLocalInteractingIndex(int idx);
+
 	@Import("groundItems")
 	RSNodeDeque[][][] getGroundItemDeque();
 

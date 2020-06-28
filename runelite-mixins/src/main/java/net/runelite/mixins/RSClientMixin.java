@@ -1196,6 +1196,32 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().post(CanvasSizeChanged.class, CanvasSizeChanged.INSTANCE);
 	}
 
+	@FieldHook("hintArrowPlayerIndex")
+	@Inject
+	public static void hintPlayerChanged(int ignored)
+	{
+		// Setting the localInteractingIndex (aka player target index, it only applies to players)
+		// causes that player to get priority over others when rendering/menus are added
+		if (client.getVar(VarPlayer.ATTACKING_PLAYER) == -1)
+		{
+			client.setLocalInteractingIndex(client.getHintArrowPlayerTargetIdx() & 2047);
+		}
+	}
+
+	@FieldHook("combatTargetPlayerIndex")
+	@Inject
+	public static void combatPlayerTargetChanged(int ignored)
+	{
+		if (client.getLocalInteractingIndex() == -1)
+		{
+			final Player p = client.getHintArrowPlayer();
+			if (p != null)
+			{
+				client.setLocalInteractingIndex(p.getPlayerId() & 2047);
+			}
+		}
+	}
+
 	@Inject
 	@Override
 	public boolean hasHintArrow()
@@ -1247,6 +1273,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		client.setHintArrowTargetType(HintArrowType.PLAYER.getValue());
 		client.setHintArrowPlayerTargetIdx(((RSPlayer) player).getPlayerId());
+		hintPlayerChanged(-1);
 	}
 
 	@Inject
