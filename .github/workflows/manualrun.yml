@@ -1,0 +1,12 @@
+name: Release Drafter
+
+on: repository_dispatch
+
+jobs:
+  update_draft_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ThatGamerBlue/release-drafter@v5.7.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
