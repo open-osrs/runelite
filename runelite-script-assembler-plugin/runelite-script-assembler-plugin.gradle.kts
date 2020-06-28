@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2020 Lucas <https://github.com/Lucwousin>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,6 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+import java.io.DataOutputStream as DOS
 
 description = "Script Assembler Plugin"
 
@@ -39,34 +41,28 @@ dependencies {
 
 tasks {
     register<JavaExec>("assembleMojo") {
-        inputs.files(
-                fileTree("${project.extra["rootPath"]}/runelite-client/src/main/scripts")
-        )
-
-        outputs.dir("${project.extra["rootPath"]}/runelite-client/build/scripts/runelite");
+        outputs.cacheIf { true }
+        val inp = "${project.extra["rootPath"]}/runelite-client/src/main/scripts"
+        val out = "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite"
+        inputs.dir(inp)
+        outputs.dir(out)
 
         classpath = project.sourceSets.main.get().runtimeClasspath
         main = "net.runelite.script.AssembleMojo"
-        args(listOf(
-                "${project.extra["rootPath"]}/runelite-client/src/main/scripts",
-                "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite"
-        ))
-    }
+        args(listOf(inp, out))
 
-    register<JavaExec>("indexMojo") {
-        inputs.files(
-            fileTree("${project.extra["rootPath"]}/runelite-client/build/scripts/runelite")
-        )
-
-        outputs.file("${project.extra["rootPath"]}/runelite-client/build/scripts/runelite/index");
-
-        dependsOn("assembleMojo")
-
-        classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.script.IndexMojo"
-        args(listOf(
-                "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite",
-                "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite/index"
-        ))
+        doLast {
+            DOS(project.file("$out/index").outputStream().buffered(256)).use {
+                project.fileTree(out) {
+                    exclude { it.path.endsWith(".hash") || it.name.equals("index") }
+                    var lastDir = Int.MAX_VALUE
+                    visit {
+                        if (this.isDirectory) lastDir = this.name.toInt().shl(16)
+                        else it.writeInt(lastDir.or(this.name.toInt()))
+                    }
+                }
+                it.writeInt(-1)
+            }
+        }
     }
 }

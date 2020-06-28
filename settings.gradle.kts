@@ -29,6 +29,13 @@ plugins {
     id("com.gradle.enterprise").version("3.0")
 }
 
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
+    }
+}
+
 include(":http-api")
 include(":cache")
 include(":runelite-api")
