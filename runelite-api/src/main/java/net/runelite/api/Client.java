@@ -408,6 +408,11 @@ public interface Client extends GameShell
 	IndexDataBase getIndexScripts();
 
 	/**
+	 * Gets the config archive, containing Varplayer and Varbit definitions
+	 */
+	IndexDataBase getConfigArchive();
+
+	/**
 	 * Gets the config index.
 	 */
 	IndexDataBase getIndexConfig();
@@ -775,16 +780,6 @@ public interface Client extends GameShell
 	void setVarbit(Varbits varbit, int value);
 
 	/**
-	 * Gets the varbit composition for a given varbit id
-	 *
-	 * @param id
-	 * @return
-	 */
-	@VisibleForDevtools
-	@Nullable
-	VarbitComposition getVarbit(int id);
-
-	/**
 	 * Gets the value of a given variable.
 	 *
 	 * @param varps    passed varbits
@@ -825,9 +820,10 @@ public interface Client extends GameShell
 	void setVarbitValue(int[] varps, int varbit, int value);
 
 	/**
-	 * @return the total number of VarbitDefinition
+	 * Gets the varbit composition for a given varbit id
 	 */
-	int getVarbitCount();
+	@Nullable
+	VarbitDefinition getVarbitDefinition(int id);
 
 	/**
 	 * Gets the widget flags table.

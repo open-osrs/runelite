@@ -10,7 +10,6 @@ import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSEvictingDualNodeHashTable;
 import net.runelite.rs.api.RSVarbitDefinition;
 
 @Mixin(RSClient.class)
@@ -56,23 +55,42 @@ public abstract class VarbitMixin implements RSClient
 
 	@Inject
 	@Override
+	public RSVarbitDefinition getVarbitDefinition(int id)
+	{
+		assert isClientThread();
+
+		RSVarbitDefinition varbit;
+		varbit = varbitCache.getIfPresent(id);
+		if (varbit != null)
+		{
+			return varbit;
+		}
+		varbit = (RSVarbitDefinition) getVarbitCache().get(id);
+		if (varbit != null && !(varbit.getIndex() == 0 && varbit.getMostSignificantBit() == 0 && varbit.getLeastSignificantBit() == 0))
+		{
+			return varbit;
+		}
+
+		byte[] fileData = getConfigArchive().getConfigData(VARBITS_GROUP, id);
+		if (fileData == null)
+		{
+			return null;
+		}
+		varbit = newVarbitDefinition();
+		varbit.decode(newBuffer(fileData));
+		return varbit;
+	}
+
+	@Inject
+	@Override
 	public int getVarbitValue(int[] varps, int varbitId)
 	{
 		assert client.isClientThread();
 
-		RSVarbitDefinition v = varbitCache.getIfPresent(varbitId);
+		RSVarbitDefinition v = getVarbitDefinition(varbitId);
 		if (v == null)
 		{
-			client.getVarbit(varbitId); // load varbit into cache
-			RSEvictingDualNodeHashTable varbits = client.getVarbitCache();
-			v = (RSVarbitDefinition) varbits.get(varbitId); // get from cache
-			varbitCache.put(varbitId, v);
-		}
-
-		if (v.getIndex() == 0 && v.getLeastSignificantBit() == 0 && v.getMostSignificantBit() == 0)
-		{
-			getLogger().debug("Varbit {} doesn't exist!", varbitId);
-			return 0;
+			throw new IndexOutOfBoundsException(String.format("Varbit %d does not exist!", varbitId)); // oob for "backwards compatibility lol"
 		}
 
 		int value = varps[v.getIndex()];
@@ -86,13 +104,10 @@ public abstract class VarbitMixin implements RSClient
 	@Override
 	public void setVarbitValue(int[] varps, int varbitId, int value)
 	{
-		RSVarbitDefinition v = varbitCache.getIfPresent(varbitId);
+		RSVarbitDefinition v = getVarbitDefinition(varbitId);
 		if (v == null)
 		{
-			client.getVarbit(varbitId); // load varbit into cache
-			RSEvictingDualNodeHashTable varbits = client.getVarbitCache();
-			v = (RSVarbitDefinition) varbits.get(varbitId); // get from cache
-			varbitCache.put(varbitId, v);
+			throw new IndexOutOfBoundsException(String.format("Varbit %d does not exist!", varbitId)); // oob for "backwards compatibility lol"
 		}
 
 		int lsb = v.getLeastSignificantBit();
@@ -154,12 +169,5 @@ public abstract class VarbitMixin implements RSClient
 	public Map<Integer, Object> getVarcMap()
 	{
 		return getVarcs().getVarcMap();
-	}
-
-	@Inject
-	@Override
-	public int getVarbitCount()
-	{
-		return getConfigArchive().getGroupFileCount(VARBITS_GROUP);
 	}
 }

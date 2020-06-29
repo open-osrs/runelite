@@ -458,6 +458,7 @@ public interface RSClient extends RSGameShell, Client
 	void setIndexedSpritePalette(int[] indexedSpritePalette);
 
 	@Import("archive2")
+	@Override
 	RSArchive getConfigArchive();
 
 	@Import("archive6")
@@ -1275,4 +1276,10 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("rightTitleSprite")
 	void setRightTitleSprite(Sprite background);
+
+	@Construct
+	RSBuffer newBuffer(byte[] bytes);
+
+	@Construct
+	RSVarbitDefinition newVarbitDefinition();
 }

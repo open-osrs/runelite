@@ -11,9 +11,7 @@ public interface IndexDataBase
 	boolean isOverlayOutdated();
 
 	/**
-	 * Get the child file ids for a given archive
-	 * @param archiveId
-	 * @return
+	 * Get the child file ids for a given group
 	 */
-	int[] getFileIds(int archiveId);
+	int[] getFileIds(int group);
 }
