@@ -145,7 +145,7 @@ public abstract class ScriptVMMixin implements RSClient
 				client.getLogger().error("Error in JavaScriptCallback", e);
 			}
 		}
-		else
+		else if (arguments[0] instanceof Integer)
 		{
 			try
 			{
