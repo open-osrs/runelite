@@ -16,6 +16,8 @@ import net.runelite.rs.api.RSVarbitDefinition;
 @Mixin(RSClient.class)
 public abstract class VarbitMixin implements RSClient
 {
+	private static final int VARBITS_GROUP = 14;
+
 	@Shadow("client")
 	private static RSClient client;
 
@@ -69,7 +71,8 @@ public abstract class VarbitMixin implements RSClient
 
 		if (v.getIndex() == 0 && v.getLeastSignificantBit() == 0 && v.getMostSignificantBit() == 0)
 		{
-			throw new IndexOutOfBoundsException("Varbit " + varbitId + " does not exist");
+			getLogger().debug("Varbit {} doesn't exist!", varbitId);
+			return 0;
 		}
 
 		int value = varps[v.getIndex()];
@@ -151,5 +154,12 @@ public abstract class VarbitMixin implements RSClient
 	public Map<Integer, Object> getVarcMap()
 	{
 		return getVarcs().getVarcMap();
+	}
+
+	@Inject
+	@Override
+	public int getVarbitCount()
+	{
+		return getConfigArchive().getGroupFileCount(VARBITS_GROUP);
 	}
 }
