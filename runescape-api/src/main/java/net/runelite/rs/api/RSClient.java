@@ -457,6 +457,9 @@ public interface RSClient extends RSGameShell, Client
 	@Import("SpriteBuffer_spritePalette")
 	void setIndexedSpritePalette(int[] indexedSpritePalette);
 
+	@Import("archive2")
+	RSArchive getConfigArchive();
+
 	@Import("archive6")
 	RSArchive getMusicTracks();
 

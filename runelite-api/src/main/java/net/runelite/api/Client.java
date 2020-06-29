@@ -810,6 +810,11 @@ public interface Client extends GameShell
 	void setVarbitValue(int[] varps, int varbit, int value);
 
 	/**
+	 * @return the total number of VarbitDefinition
+	 */
+	int getVarbitCount();
+
+	/**
 	 * Gets the widget flags table.
 	 *
 	 * @return the widget flags table
