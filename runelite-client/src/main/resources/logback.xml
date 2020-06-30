@@ -68,6 +68,6 @@
 		<appender-ref ref="Sentry" />
 	</root>
 
-	<logger name="org.pf4j.AbstractPluginManager" level="WARN"/>
+	<logger name="org.pf4j" level="WARN"/>
 	<logger name="org.jgroups" level="WARN"/>
 </configuration>
