@@ -408,6 +408,16 @@ public interface Client extends GameShell
 	IndexDataBase getIndexScripts();
 
 	/**
+	 * Gets the config archive, containing Varplayer and Varbit definitions
+	 */
+	IndexDataBase getConfigArchive();
+
+	/**
+	 * Gets the config index.
+	 */
+	IndexDataBase getIndexConfig();
+
+	/**
 	 * Returns the x-axis base coordinate.
 	 * <p>
 	 * This value is the x-axis world coordinate of tile (0, 0) in
@@ -810,9 +820,10 @@ public interface Client extends GameShell
 	void setVarbitValue(int[] varps, int varbit, int value);
 
 	/**
-	 * @return the total number of VarbitDefinition
+	 * Gets the varbit composition for a given varbit id
 	 */
-	int getVarbitCount();
+	@Nullable
+	VarbitDefinition getVarbitDefinition(int id);
 
 	/**
 	 * Gets the widget flags table.

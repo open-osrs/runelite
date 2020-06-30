@@ -8,6 +8,7 @@ public interface RSAbstractArchive extends IndexDataBase
 	@Import("takeFile")
 	byte[] getConfigData(int archiveId, int fileId);
 
-	@Import("getGroupFileCount")
-	int getGroupFileCount(int group);
+	@Import("getGroupFileIds")
+	@Override
+	int[] getFileIds(int group);
 }
