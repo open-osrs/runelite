@@ -49,8 +49,7 @@ plugins {
     application
 }
 
-val grgit = Grgit.open(mapOf("dir" to rootProject.projectDir.absolutePath))
-val localGitCommit = grgit.head().id
+val localGitCommit: String = Grgit.open(mapOf("dir" to projectDir)).use { it.head().id }
 
 fun isNonStable(version: String): Boolean {
     return listOf("ALPHA", "BETA", "RC").any {
@@ -122,8 +121,8 @@ subprojects {
     apply(plugin = "com.github.ben-manes.versions")
     apply(plugin = "se.patrikerdes.use-latest-versions")
 
-    project.extra["gitCommit"] = localGitCommit
-    project.extra["rootPath"] = rootDir.toString().replace("\\", "/")
+    extra["gitCommit"] = localGitCommit
+    extra["rootPath"] = rootDir.toString().replace("\\", "/")
 
     if (this.name != "runescape-client") {
         apply<CheckstylePlugin>()
