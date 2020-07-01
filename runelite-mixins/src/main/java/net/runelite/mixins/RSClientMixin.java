@@ -54,14 +54,12 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
-import static net.runelite.api.MenuOpcode.*;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
 import net.runelite.api.NameableContainer;
 import net.runelite.api.Node;
 import net.runelite.api.ObjectDefinition;
-import static net.runelite.api.Perspective.LOCAL_TILE_SIZE;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.Prayer;
@@ -134,6 +132,8 @@ import net.runelite.rs.api.RSTileItem;
 import net.runelite.rs.api.RSUsername;
 import net.runelite.rs.api.RSWidget;
 import org.slf4j.Logger;
+import static net.runelite.api.MenuOpcode.*;
+import static net.runelite.api.Perspective.LOCAL_TILE_SIZE;
 
 @Mixin(RSClient.class)
 public abstract class RSClientMixin implements RSClient
@@ -578,16 +578,9 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public RSWidget[] getGroup(int groupId)
+	public Widget getWidget(int packedId)
 	{
-		RSWidget[][] widgets = getWidgets();
-
-		if (widgets == null || groupId < 0 || groupId >= widgets.length || widgets[groupId] == null)
-		{
-			return null;
-		}
-
-		return widgets[groupId];
+		return getWidget(packedId >>> 16, packedId & 0xFFFF);
 	}
 
 	@Inject
@@ -608,6 +601,20 @@ public abstract class RSClientMixin implements RSClient
 		}
 
 		return childWidgets[childId];
+	}
+
+	@Inject
+	@Override
+	public RSWidget[] getGroup(int groupId)
+	{
+		RSWidget[][] widgets = getWidgets();
+
+		if (widgets == null || groupId < 0 || groupId >= widgets.length || widgets[groupId] == null)
+		{
+			return null;
+		}
+
+		return widgets[groupId];
 	}
 
 	@Inject
@@ -1424,13 +1431,24 @@ public abstract class RSClientMixin implements RSClient
 
 		client.getCallbacks().post(MenuOptionClicked.class, menuOptionClicked);
 
-		if (menuOptionClicked.isConsumed())
+		if (!menuOptionClicked.isConsumed())
 		{
-			return;
+			int menuOpcode = menuOptionClicked.getOpcode();
+			if (menuOpcode != PRIO_RUNELITE.getId() &&
+				menuOpcode != RUNELITE.getId() &&
+				menuOpcode != RUNELITE_OVERLAY.getId() &&
+				menuOpcode != RUNELITE_OVERLAY_CONFIG.getId() &&
+				menuOpcode != RUNELITE_PLAYER.getId() &&
+				menuOpcode != RUNELITE_INFOBOX.getId())
+			{
+				rs$menuAction(
+					menuOptionClicked.getParam0(), menuOptionClicked.getParam1(),
+					menuOptionClicked.getOpcode(), menuOptionClicked.getIdentifier(),
+					menuOptionClicked.getOption(), menuOptionClicked.getTarget(),
+					canvasX, canvasY
+				);
+			}
 		}
-
-		rs$menuAction(menuOptionClicked.getParam0(), menuOptionClicked.getParam1(), menuOptionClicked.getOpcode(),
-			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
 	}
 
 	@Override
@@ -1964,6 +1982,27 @@ public abstract class RSClientMixin implements RSClient
 	{
 		assert this.isClientThread() : "getNpcDefinition must be called on client thread";
 		return getRSNpcDefinition(id);
+	}
+
+	@Copy("doCheat")
+	public static void doCheat(String command)
+	{
+	}
+
+	@Replace("doCheat")
+	public static void rl$doCheat(String command)
+	{
+		switch (command.toLowerCase())
+		{
+			case "toggleroof":
+			case "displayfps":
+			case "renderself":
+			case "mouseovertext":
+				doCheat(command);
+				break;
+			default:
+				break;
+		}
 	}
 }
 
