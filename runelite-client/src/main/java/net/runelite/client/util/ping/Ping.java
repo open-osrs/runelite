@@ -52,15 +52,11 @@ public class Ping
 	{
 		try
 		{
-			if (OSType.getOSType() == OSType.Windows)
-			{
-				return windowsPing(address);
-			}
-			return tcpPing(address);
+			return OSType.getOSType() == OSType.Windows ? windowsPing(address) : tcpPing(address);
 		}
 		catch (IOException ex)
 		{
-			log.warn("error pinging", ex);
+			log.warn("Failed ping: ", ex);
 			return -1;
 		}
 	}

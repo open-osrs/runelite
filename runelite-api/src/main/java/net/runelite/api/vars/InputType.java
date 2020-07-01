@@ -38,6 +38,7 @@ public enum InputType
 	RUNELITE(-2),
 	NONE(0),
 	PRIVATE_MESSAGE(6),
+	CLUE(7),
 	SEARCH(11);
 
 	private final int type;

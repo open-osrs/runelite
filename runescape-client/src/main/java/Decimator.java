@@ -31,7 +31,7 @@ public class Decimator {
 
 	public Decimator(int var1, int var2) {
 		if (var2 != var1) {
-			int var3 = class204.method3818(var1, var2);
+			int var3 = class204.gcd(var1, var2);
 			var1 /= var3;
 			var2 /= var3;
 			this.inputRate = var1;

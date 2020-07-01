@@ -65,7 +65,17 @@ public enum Varbits
 	/**
 	 * Grand Exchange
 	 */
+	GRAND_EXCHANGE_ITEM_QUANTITY(4396),
+
+	/**
+	 * Type of GE offer currently being created
+	 * 0 = buy
+	 * 1 = sell
+	 */
+	GE_OFFER_CREATION_TYPE(4397),
+
 	GRAND_EXCHANGE_PRICE_PER_ITEM(4398),
+	GRAND_EXCHANGE_SELECTED_SLOT(4439),
 
 	/**
 	 * Runepouch
@@ -595,13 +605,6 @@ public enum Varbits
 	BANK_TAB_EIGHT_COUNT(4178),
 	BANK_TAB_NINE_COUNT(4179),
 
-	/**
-	 * Type of GE offer currently being created
-	 * 0 = buy
-	 * 1 = sell
-	 */
-	GE_OFFER_CREATION_TYPE(4397),
-
 
 	/**
 	 * Spells being auto-casted
@@ -782,6 +785,27 @@ public enum Varbits
 	 */
 	LMS_SAFE_Y(5320),
 
+	GAUNTLET_0_0(9240),
+	GAUNTLET_6_6(9288),
+
+	/**
+	 * How many rows away from the bottom one the player is. Updates when map is opened
+	 */
+	GAUNTLET_PLAYER_ROW(9289),
+
+	/**
+	 * How many columns away from the left one the player is. Updates when map is opened
+	 */
+	GAUNTLET_PLAYER_COL(9290),
+
+	/**
+	 * Going west -> east, south -> north. Starting at 0
+	 */
+	GAUNTLET_START_ROOM_IDX(9291),
+
+
+	GAUNTLET_IS_CORRUPT(9292),
+
 	/**
 	 * 1 is true, 0 is false.
 	 */
@@ -833,7 +857,8 @@ public enum Varbits
 	BOSS_KILL_COUNT_UPDATES(4930),
 	DROP_ITEM_WARNINGS(5411),
 	DROP_ITEM_WARNINGS_VALUE(5412),
-	;
+
+	JAGEX_TIME_MINUTES(8354);
 
 	/**
 	 * The raw varbit ID.

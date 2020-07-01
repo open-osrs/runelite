@@ -215,13 +215,12 @@ public abstract class RSSceneMixin implements RSScene
 
 		for (int z = minLevel; z < maxY; ++z)
 		{
-			RSTile[][] planeTiles = tiles[z];
 
 			for (int x = minTileX; x < maxTileX; ++x)
 			{
 				for (int y = minTileZ; y < maxTileZ; ++y)
 				{
-					RSTile tile = planeTiles[x][y];
+					RSTile tile = tiles[z][x][y];
 					if (tile != null)
 					{
 						if (tile.getPhysicalLevel() <= plane
@@ -247,7 +246,6 @@ public abstract class RSSceneMixin implements RSScene
 
 		for (int z = minLevel; z < maxY; ++z)
 		{
-			RSTile[][] planeTiles = tiles[z];
 
 			for (int x = -distance; x <= 0; ++x)
 			{
@@ -263,7 +261,7 @@ public abstract class RSSceneMixin implements RSScene
 						{
 							if (var13 >= minTileZ)
 							{
-								RSTile tile = planeTiles[var10][var13];
+								RSTile tile = tiles[z][var10][var13];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, true);
@@ -272,7 +270,7 @@ public abstract class RSSceneMixin implements RSScene
 
 							if (var14 < maxTileZ)
 							{
-								RSTile tile = planeTiles[var10][var14];
+								RSTile tile = tiles[z][var10][var14];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, true);
@@ -284,7 +282,7 @@ public abstract class RSSceneMixin implements RSScene
 						{
 							if (var13 >= minTileZ)
 							{
-								RSTile tile = planeTiles[var16][var13];
+								RSTile tile = tiles[z][var16][var13];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, true);
@@ -293,7 +291,7 @@ public abstract class RSSceneMixin implements RSScene
 
 							if (var14 < maxTileZ)
 							{
-								RSTile tile = planeTiles[var16][var14];
+								RSTile tile = tiles[z][var16][var14];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, true);
@@ -322,7 +320,6 @@ public abstract class RSSceneMixin implements RSScene
 
 		for (int z = minLevel; z < maxY; ++z)
 		{
-			RSTile[][] planeTiles = tiles[z];
 
 			for (int x = -distance; x <= 0; ++x)
 			{
@@ -338,7 +335,7 @@ public abstract class RSSceneMixin implements RSScene
 						{
 							if (var13 >= minTileZ)
 							{
-								RSTile tile = planeTiles[var10][var13];
+								RSTile tile = tiles[z][var10][var13];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, false);
@@ -347,7 +344,7 @@ public abstract class RSSceneMixin implements RSScene
 
 							if (var14 < maxTileZ)
 							{
-								RSTile tile = planeTiles[var10][var14];
+								RSTile tile = tiles[z][var10][var14];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, false);
@@ -359,7 +356,7 @@ public abstract class RSSceneMixin implements RSScene
 						{
 							if (var13 >= minTileZ)
 							{
-								RSTile tile = planeTiles[var16][var13];
+								RSTile tile = tiles[z][var16][var13];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, false);
@@ -368,7 +365,7 @@ public abstract class RSSceneMixin implements RSScene
 
 							if (var14 < maxTileZ)
 							{
-								RSTile tile = planeTiles[var16][var14];
+								RSTile tile = tiles[z][var16][var14];
 								if (tile != null && tile.isDraw())
 								{
 									draw(tile, false);

@@ -329,4 +329,22 @@ public final class ScriptID
 	 */
 	@ScriptArguments(integer = 2)
 	public static final int TOPLEVEL_REDRAW = 907;
+
+	/**
+	 * Called to switch to a certain side panel
+	 */
+	@ScriptArguments(integer = 1)
+	public static final int TOPLEVEL_SIDEBUTTON_SWITCH = 915;
+
+	/**
+	 * Sets up the skill selection interface
+	 */
+	@ScriptArguments(integer = 13, string = 1)
+	public static final int SKILLMULTI_SETUP = 2046;
+
+	/**
+	 * Construction build menu builder
+	 */
+	@ScriptArguments(integer = 2)
+	public static final int CONSTRUCTION_BUILD_MENU = 1406;
 }

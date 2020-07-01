@@ -35,6 +35,11 @@ public final class EnumID
 	public static final int MUSIC_TRACK_IDS = 819;
 
 	/**
+	 * Index in build menu translated to widget
+	 */
+	public static final int CONSTR_BUILD_WIDGETS = 1461;
+
+	/**
 	 * Translates spellbook varbit into enum ID
 	 */
 	public static final int SPELLBOOKS = 1981;

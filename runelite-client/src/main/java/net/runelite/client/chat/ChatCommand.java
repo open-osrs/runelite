@@ -26,17 +26,15 @@ package net.runelite.client.chat;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Value;
 import net.runelite.api.events.ChatMessage;
 import net.runelite.client.events.ChatInput;
 
-@AllArgsConstructor
-@Getter
+@Value
 class ChatCommand
 {
-	private final String name;
-	private boolean async;
-	private final BiConsumer<ChatMessage, String> execute;
-	private final BiPredicate<ChatInput, String> input;
+	String name;
+	boolean async;
+	BiConsumer<ChatMessage, String> execute;
+	BiPredicate<ChatInput, String> input;
 }

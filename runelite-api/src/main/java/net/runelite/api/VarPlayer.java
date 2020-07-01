@@ -292,7 +292,12 @@ public enum VarPlayer
 	/**
 	 * 0 = 2 buttons, 1 = 1 button
 	 */
-	MOUSE_BUTTONS(170);
+	MOUSE_BUTTONS(170),
+
+	/**
+	 * Index of skill interface options that's activated by pressing space
+	 */
+	SKILLMULTI_SPACE_INDEX(2673);
 
 	public final int id;
 }
