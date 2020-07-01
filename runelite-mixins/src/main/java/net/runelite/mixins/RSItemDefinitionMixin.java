@@ -10,6 +10,7 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSItemDefinition;
 import net.runelite.rs.api.RSModel;
+import net.runelite.rs.api.RSParamDefinition;
 
 @Mixin(RSItemDefinition.class)
 public abstract class RSItemDefinitionMixin implements RSItemDefinition
@@ -88,5 +89,14 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 		}
 
 		return client.getRSItemDefinition(modelOverride).getModel(quantity);
+	}
+
+	@Inject
+	@Override
+	public Object getParam(int id)
+	{
+		assert client.isClientThread() : "getParam can only be called on the client thread";
+		final RSParamDefinition def = client.getParamDefinition(id);
+		return def.isString() ? getStringParam(id, def.getDefaultStr()) : getIntParam(id, def.getDefaultInt());
 	}
 }

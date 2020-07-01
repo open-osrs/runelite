@@ -1282,4 +1282,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Construct
 	RSVarbitDefinition newVarbitDefinition();
+
+	@Import("getParamDefinition")
+	RSParamDefinition getParamDefinition(int id);
 }

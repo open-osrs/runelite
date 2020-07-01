@@ -154,4 +154,11 @@ public interface ItemDefinition
 	 */
 	@Nullable
 	short[] getTextureToReplaceWith();
+
+	/**
+	 * Gets a oc_param value for this itemdefinition
+	 * @param id the param id
+	 * @return either a String, or an Integer object
+	 */
+	Object getParam(int id);
 }

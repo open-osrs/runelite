@@ -80,4 +80,10 @@ public interface RSItemDefinition extends ItemDefinition
 
 	@Import("retextureTo")
 	short[] getTextureToReplaceWith();
+
+	@Import("getStringParam")
+	String getStringParam(int id, String orDefault);
+
+	@Import("getIntParam")
+	int getIntParam(int id, int orDefault);
 }
