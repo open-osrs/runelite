@@ -27,6 +27,7 @@ package net.runelite.deob.deobfuscators.cfg;
 import java.util.ArrayList;
 import java.util.List;
 import net.runelite.asm.attributes.code.Instruction;
+import net.runelite.asm.attributes.code.Label;
 
 public class Block
 {
@@ -36,22 +37,22 @@ public class Block
 	/**
 	 * blocks which jump here
 	 */
-	private final List<Block> prev = new ArrayList<>();
+	private final List<Block> pred = new ArrayList<>();
 
 	/**
 	 * blocks which this jumps to
 	 */
-	private final List<Block> next = new ArrayList<>();
+	private final List<Block> succ = new ArrayList<>();
 
 	/**
 	 * block which flows directly into this block
 	 */
-	private Block flowsFrom;
+	private Block from;
 
 	/**
 	 * block which this directly flows into
 	 */
-	private Block flowsInto;
+	private Block into;
 
 	/**
 	 * instructions in this block
@@ -83,17 +84,17 @@ public class Block
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("Block ID ").append(id).append("\n");
-		if (flowsFrom != null)
+		if (from != null)
 		{
-			sb.append(" flows from ").append(flowsFrom.id).append("\n");
+			sb.append(" flows from ").append(from.id).append("\n");
 		}
 		for (Instruction i : instructions)
 		{
 			sb.append("  ").append(i.toString()).append("\n");
 		}
-		if (flowsInto != null)
+		if (into != null)
 		{
-			sb.append(" flows into ").append(flowsInto.id).append("\n");
+			sb.append(" flows into ").append(into.id).append("\n");
 		}
 		sb.append("\n");
 		return sb.toString();
@@ -118,47 +119,65 @@ public class Block
 
 	public void addPrev(Block block)
 	{
-		if (!prev.contains(block))
+		if (!pred.contains(block))
 		{
-			prev.add(block);
+			pred.add(block);
 		}
 	}
 
-	public List<Block> getPrev()
+	public List<Block> getPred()
 	{
-		return prev;
+		return pred;
 	}
 
 	public void addNext(Block block)
 	{
-		if (!next.contains(block))
+		if (!succ.contains(block))
 		{
-			next.add(block);
+			succ.add(block);
 		}
 	}
 
-	public List<Block> getNext()
+	public List<Block> getSucc()
 	{
-		return next;
+		return succ;
 	}
 
-	public Block getFlowsFrom()
+	public Block getFrom()
 	{
-		return flowsFrom;
+		return from;
 	}
 
-	public void setFlowsFrom(Block flowsFrom)
+	public void setFrom(Block from)
 	{
-		this.flowsFrom = flowsFrom;
+		this.from = from;
 	}
 
-	public Block getFlowsInto()
+	public Block getInto()
 	{
-		return flowsInto;
+		return into;
 	}
 
-	public void setFlowsInto(Block flowsInto)
+	public void setInto(Block into)
 	{
-		this.flowsInto = flowsInto;
+		this.into = into;
+	}
+
+	static int compare(Block a, Block b)
+	{
+		final int l1 = a.getLineNumber();
+		final int l2 = b.getLineNumber();
+		if (l1 == l2 || l1 == -1 || l2 == -1)
+			return 0;
+		return Integer.compare(l1, l2);
+	}
+
+	private int getLineNumber()
+	{
+		for (Instruction i : instructions)
+			if (i instanceof Label)
+				if (((Label) i).getLineNumber() != null)
+					return ((Label) i).getLineNumber();
+		return -1;
 	}
 }

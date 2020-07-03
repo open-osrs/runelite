@@ -26,9 +26,12 @@ package net.runelite.deob.deobfuscators.cfg;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Label;
@@ -36,9 +39,89 @@ import net.runelite.asm.attributes.code.instruction.types.JumpingInstruction;
 
 public class ControlFlowGraph
 {
-	private Map<Label, Block> blocks = new HashMap<>();
-	private List<Block> allBlocks = new ArrayList<>();
+	private final Map<Label, Block> blocks = new HashMap<>();
+	private final List<Block> allBlocks = new ArrayList<>();
 	private final Block head;
+
+	public ControlFlowGraph(Code code)
+	{
+		int id = 0;
+		this.head = new Block();
+		for (Instruction i : code.getInstructions())
+			if (i instanceof Label)
+				blocks.computeIfAbsent((Label) i, lbl -> {
+					var b = new Block();
+					allBlocks.add(b);
+					return b;
+				});
+
+		allBlocks.add(0, head);
+		Block cur = head;
+		for (Instruction i : code.getInstructions())
+		{
+			if (i instanceof Label)
+			{
+				Block next = blocks.get(i);
+				if (next.getId() == -1)
+				{
+					next.setId(id++);
+				}
+				if (next != cur)
+				{
+					Instruction last = cur.getInstructions().isEmpty()
+						? null
+						: cur.getInstructions().get(cur.getInstructions().size() - 1);
+					if (last == null || !last.isTerminal())
+					{
+						assert next.getFrom() == null;
+						assert cur.getInto() == null;
+						// previous block flows directly into next
+						next.setFrom(cur);
+						cur.setInto(next);
+					}
+					cur = next;
+				}
+			}
+			cur.addInstruction(i);
+			if (i instanceof JumpingInstruction)
+			{
+				JumpingInstruction ji = (JumpingInstruction) i;
+				for (Label l : ji.getJumps())
+				{
+					Block next = blocks.get(l);
+					if (next.getId() == -1)
+					{
+						next.setId(id++);
+					}
+					cur.addNext(next);
+					next.addPrev(cur);
+				}
+			}
+		}
+
+		assert head.getFrom() == null;
+	}
+
+	List<Block> topologicalSort()
+	{
+		final List<Block> ret = new ArrayList<>();
+		walk(head, ret, new HashSet<>());
+		Collections.reverse(ret);
+		return ret;
+	}
+
+	private static void walk(Block cur, List<Block> order, Set<Block> done)
+	{
+		Block dirsucc = cur.getInto();
+		if (dirsucc != null && done.add(dirsucc))
+			walk(cur.getInto(), order, done);
+		List<Block> succs = cur.getSucc();
+		succs.sort(Block::compare);
+		for (Block succ : succs)
+			if (done.add(succ))
+				walk(succ, order, done);
+		order.add(cur);
+	}
 
 	public ControlFlowGraph(Block head)
 	{
@@ -69,92 +152,5 @@ public class ControlFlowGraph
 	public Block getHead()
 	{
 		return head;
-	}
-
-	public static class Builder
-	{
-		private final Map<Label, Block> blocks = new HashMap<>();
-		private final List<Block> allBlocks = new ArrayList<>();
-
-		public ControlFlowGraph build(Code code)
-		{
-			int id = 0;
-
-			Block head = new Block(),
-				cur = head;
-			allBlocks.add(head);
-
-			for (Instruction i : code.getInstructions().getInstructions())
-			{
-				if (i instanceof Label)
-				{
-					// blocks always begin at labels, so create initial blocks
-					Block block = new Block();
-					blocks.put((Label) i, block);
-					allBlocks.add(block);
-				}
-			}
-
-			for (Instruction i : code.getInstructions().getInstructions())
-			{
-				if (i instanceof Label)
-				{
-					Block next = blocks.get((Label) i);
-					assert next != null;
-
-					if (next.getId() == -1)
-					{
-						next.setId(id++);
-					}
-
-					if (next != cur)
-					{
-						Instruction last = cur.getInstructions().isEmpty()
-							? null
-							: cur.getInstructions().get(cur.getInstructions().size() - 1);
-
-						if (last == null || !last.isTerminal())
-						{
-							assert next.getFlowsFrom() == null;
-							assert cur.getFlowsInto() == null;
-
-							// previous block flows directly into next
-							next.setFlowsFrom(cur);
-							cur.setFlowsInto(next);
-						}
-
-						cur = next;
-					}
-				}
-
-				cur.addInstruction(i);
-
-				if (i instanceof JumpingInstruction)
-				{
-					JumpingInstruction ji = (JumpingInstruction) i;
-
-					for (Label l : ji.getJumps())
-					{
-						Block next = blocks.get(l);
-
-						if (next.getId() == -1)
-						{
-							next.setId(id++);
-						}
-
-						cur.addNext(next);
-						next.addPrev(cur);
-					}
-				}
-			}
-
-			assert head != null : "no instructions in code";
-			assert head.getFlowsFrom() == null;
-
-			ControlFlowGraph cfg = new ControlFlowGraph(head);
-			cfg.blocks = blocks;
-			cfg.allBlocks = allBlocks;
-			return cfg;
-		}
 	}
 }

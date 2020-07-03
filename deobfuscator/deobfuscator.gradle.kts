@@ -103,6 +103,7 @@ tasks {
 
         classpath = project.sourceSets.main.get().runtimeClasspath
         main = "net.runelite.deob.Deob"
+        args = listOf(tokens["vanilla.jar"], "$buildDir/libs/deobfuscated-$version.jar")
     }
 
     register<JavaExec>("UpdateMappings.main()") {
