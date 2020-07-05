@@ -73,6 +73,7 @@ import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
 import net.runelite.api.WidgetNode;
 import net.runelite.api.WorldType;
+import net.runelite.api.WrongThreadException;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.CanvasSizeChanged;
@@ -506,7 +507,10 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public void addChatMessage(int type, String name, String message, String sender)
 	{
-		assert this.isClientThread() : "addChatMessage must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("addChatMessage must be called on client thread");
+		}
 		addRSChatMessage(type, name, message, sender);
 	}
 
@@ -527,7 +531,10 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public void setGameState(int state)
 	{
-		assert this.isClientThread() : "setGameState must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("setGameState must be called on client thread");
+		}
 		client.setRSGameState(state);
 	}
 
@@ -535,7 +542,10 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public void setGameState(GameState gameState)
 	{
-		assert this.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("setGameState must be called on client thread");
+		}
 		setGameState(gameState.getState());
 	}
 
@@ -934,7 +944,10 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public RSSprite createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted)
 	{
-		assert isClientThread() : "createItemSprite must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("createItemSprite must be called on client thread");
+		}
 		return createRSItemSprite(itemId, quantity, border, shadowColor, stackable, noted);
 	}
 
@@ -943,7 +956,10 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public Sprite createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale)
 	{
-		assert isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("createItemSprite must be called on client thread");
+		}
 		int zoom = get3dZoom();
 		set3dZoom(scale);
 		try
@@ -1437,7 +1453,10 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public void invokeMenuAction(String option, String target, int identifier, int opcode, int param0, int param1)
 	{
-		assert isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("invokeMenuAction must be called on client thread");
+		}
 
 		client.sendMenuAction(param0, param1, opcode, identifier, option, "!AUTHENTIC" + target, 658, 384);
 	}
@@ -1750,7 +1769,10 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public EnumDefinition getEnum(int id)
 	{
-		assert isClientThread() : "getEnum must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getEnum must be called on client thread");
+		}
 
 		RSEnumDefinition rsEnumDefinition = enumCache.getIfPresent(id);
 		if (rsEnumDefinition != null)
@@ -1945,7 +1967,10 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public ObjectDefinition getObjectDefinition(int objectId)
 	{
-		assert this.isClientThread() : "getObjectDefinition must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getObjectDefinition must be called on client thread");
+		}
 		return getRSObjectDefinition(objectId);
 	}
 
@@ -1954,7 +1979,10 @@ public abstract class RSClientMixin implements RSClient
 	@Nonnull
 	public ItemDefinition getItemDefinition(int id)
 	{
-		assert this.isClientThread() : "getItemDefinition must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getItemDefinition must be called on client thread");
+		}
 		return getRSItemDefinition(id);
 	}
 
@@ -1962,7 +1990,10 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public NPCDefinition getNpcDefinition(int id)
 	{
-		assert this.isClientThread() : "getNpcDefinition must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getNpcDefinition must be called on client thread");
+		}
 		return getRSNpcDefinition(id);
 	}
 }

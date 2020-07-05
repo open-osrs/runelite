@@ -28,6 +28,7 @@ import net.runelite.api.HashTable;
 import net.runelite.api.Node;
 import net.runelite.api.Point;
 import net.runelite.api.WidgetNode;
+import net.runelite.api.WrongThreadException;
 import net.runelite.api.events.WidgetHiddenChanged;
 import net.runelite.api.events.WidgetPositioned;
 import net.runelite.api.mixins.Copy;
@@ -114,7 +115,10 @@ public abstract class RSWidgetMixin implements RSWidget
 	@Override
 	public int getParentId()
 	{
-		assert client.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getParentId must be called on client thread");
+		}
 
 		int rsParentId = getRSParentId();
 		if (rsParentId != -1)
@@ -201,7 +205,10 @@ public abstract class RSWidgetMixin implements RSWidget
 	@Override
 	public boolean isHidden()
 	{
-		assert client.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("isHidden must be called on client thread");
+		}
 
 		if (isSelfHidden())
 		{
@@ -367,7 +374,10 @@ public abstract class RSWidgetMixin implements RSWidget
 	@Override
 	public Widget[] getNestedChildren()
 	{
-		assert client.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getNestedChildren must be called on client thread");
+		}
 
 		if (getRSParentId() == getId())
 		{
@@ -504,7 +514,10 @@ public abstract class RSWidgetMixin implements RSWidget
 	@Override
 	public Widget createChild(int index, int type)
 	{
-		assert client.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("createChild must be called on client thread");
+		}
 
 		RSWidget w = client.createWidget();
 		w.setType(type);
@@ -557,7 +570,10 @@ public abstract class RSWidgetMixin implements RSWidget
 	@Override
 	public void revalidate()
 	{
-		assert client.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("revalidate must be called on client thread");
+		}
 
 		client.revalidateWidget(this);
 	}
@@ -566,7 +582,10 @@ public abstract class RSWidgetMixin implements RSWidget
 	@Override
 	public void revalidateScroll()
 	{
-		assert client.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("revalidateScroll must be called on client thread");
+		}
 
 		client.revalidateWidget(this);
 		client.revalidateWidgetScroll(client.getWidgets()[TO_GROUP(this.getId())], this, false);

@@ -26,6 +26,7 @@ package net.runelite.mixins;
 
 import net.runelite.api.GameState;
 import net.runelite.api.Sprite;
+import net.runelite.api.WrongThreadException;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -59,7 +60,10 @@ public abstract class LoginScreenMixin implements RSClient
 	@Inject
 	public void setLoginScreen(Sprite background)
 	{
-		assert client.isClientThread() : "setLoginScreen must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("setLoginScreen must be called on client thread");
+		}
 
 		loginScreenBackground = background;
 		client.clearLoginScreen(false);

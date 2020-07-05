@@ -25,6 +25,7 @@
 package net.runelite.mixins;
 
 import net.runelite.api.SoundEffectVolume;
+import net.runelite.api.WrongThreadException;
 import net.runelite.api.events.AreaSoundEffectPlayed;
 import net.runelite.api.events.SoundEffectPlayed;
 import net.runelite.api.mixins.Copy;
@@ -123,7 +124,6 @@ public abstract class SoundEffectMixin implements RSClient
 			}
 		}
 
-
 		lastSoundEffectCount = soundCount;
 	}
 
@@ -145,7 +145,10 @@ public abstract class SoundEffectMixin implements RSClient
 	@Override
 	public void playSoundEffect(int id, int x, int y, int range, int delay)
 	{
-		assert this.isClientThread() : "playSoundEffect must be called on client thread!";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("playSoundEffect must be called on client thread");
+		}
 		int position = ((x & 255) << 16) + ((y & 255) << 8) + (range & 255);
 
 		int[] queuedSoundEffectIDs = getQueuedSoundEffectIDs();
@@ -168,7 +171,10 @@ public abstract class SoundEffectMixin implements RSClient
 	@Override
 	public void playSoundEffect(int id, int volume)
 	{
-		assert client.isClientThread() : "playSoundEffect must be called on client thread";
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("playSoundEffect must be called on client thread");
+		}
 		RSSoundEffect soundEffect = getTrack(getIndexCache4(), id, 0);
 		if (soundEffect == null)
 		{

@@ -28,6 +28,7 @@ package net.runelite.mixins;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.runelite.api.Client;
+import net.runelite.api.WrongThreadException;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.ScriptPostFired;
 import net.runelite.api.events.ScriptPreFired;
@@ -164,7 +165,10 @@ public abstract class ScriptVMMixin implements RSClient
 	@Override
 	public void runScript(Object... args)
 	{
-		assert isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("runScript must be called on client thread");
+		}
 		assert currentScript == null;
 		assert args[0] instanceof Integer || args[0] instanceof JavaScriptCallback : "The first argument should always be a ScriptID!";
 		RSScriptEvent se = createScriptEvent();

@@ -6,6 +6,7 @@ import net.runelite.api.Varbits;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import java.util.Map;
+import net.runelite.api.WrongThreadException;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
@@ -57,7 +58,10 @@ public abstract class VarbitMixin implements RSClient
 	@Override
 	public RSVarbitDefinition getVarbitDefinition(int id)
 	{
-		assert isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getVarbitDefinition must be called on client thread");
+		}
 
 		RSVarbitDefinition varbit;
 		varbit = varbitCache.getIfPresent(id);
@@ -85,7 +89,10 @@ public abstract class VarbitMixin implements RSClient
 	@Override
 	public int getVarbitValue(int[] varps, int varbitId)
 	{
-		assert client.isClientThread();
+		if (!client.isClientThread())
+		{
+			throw new WrongThreadException("getVarbitValue must be called on client thread");
+		}
 
 		RSVarbitDefinition v = getVarbitDefinition(varbitId);
 		if (v == null)
