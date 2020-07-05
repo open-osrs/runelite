@@ -162,6 +162,7 @@ public abstract class SoundEffectMixin implements RSClient
 		soundLocations[queuedSoundEffectCount] = position;
 
 		setQueuedSoundEffectCount(queuedSoundEffectCount + 1);
+		lastSoundEffectCount = queuedSoundEffectCount + 1;
 	}
 
 	@Inject
