@@ -30,7 +30,6 @@ description = "Web API"
 dependencies {
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
 
-    compileOnly(group = "javax.inject", name = "javax.inject", version = "1")
     compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.12")
 
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.6")

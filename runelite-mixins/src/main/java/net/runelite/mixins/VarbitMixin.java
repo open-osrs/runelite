@@ -71,7 +71,7 @@ public abstract class VarbitMixin implements RSClient
 			return varbit;
 		}
 
-		byte[] fileData = getConfigArchive().getConfigData(VARBITS_GROUP, id);
+		byte[] fileData = getIndexConfig().getConfigData(VARBITS_GROUP, id);
 		if (fileData == null)
 		{
 			return null;

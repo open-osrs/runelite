@@ -98,9 +98,10 @@ public class RegionLoader
 		Region region = new Region(i);
 		region.loadTerrain(mapDef);
 
-		int[] keys = keyManager.getKeys(i);
-		if (keys != null)
+		Integer[] keysTmp = keyManager.getKeys(i);
+		if (keysTmp != null)
 		{
+			int[] keys = {keysTmp[0], keysTmp[1], keysTmp[2], keysTmp[3]};
 			try
 			{
 				data = land.decompress(storage.loadArchive(land), keys);

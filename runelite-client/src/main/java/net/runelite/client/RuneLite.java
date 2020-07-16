@@ -102,8 +102,11 @@ import net.runelite.client.ui.overlay.worldmap.WorldMapOverlay;
 import net.runelite.client.util.Groups;
 import net.runelite.client.util.WorldUtil;
 import net.runelite.client.ws.PartyService;
+import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldResult;
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
 import org.slf4j.LoggerFactory;
 
 @Singleton
@@ -118,11 +121,12 @@ public class RuneLite
 	public static final File EXTERNALPLUGIN_DIR = new File(RUNELITE_DIR, "externalmanager");
 	public static final File SCREENSHOT_DIR = new File(RUNELITE_DIR, "screenshots");
 	public static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
-	public static final File PLUGINS_DIR = new File(RUNELITE_DIR, "plugins");
 	public static final File DEFAULT_CONFIG_FILE = new File(RUNELITE_DIR, "runeliteplus.properties");
 	public static final Locale SYSTEM_LOCALE = Locale.getDefault();
 	public static boolean allowPrivateServer = false;
 	public static String uuid = UUID.randomUUID().toString();
+
+	private static final int MAX_OKHTTP_CACHE_SIZE = 20 * 1024 * 1024; // 20mb
 
 	@Getter
 	private static Injector injector;
@@ -239,6 +243,8 @@ public class RuneLite
 		parser.accepts("debug", "Show extra debugging output");
 		parser.accepts("safe-mode", "Disables external plugins and the GPU plugin");
 		parser.accepts("no-splash", "Do not show the splash screen");
+		parser.accepts("insecure-skip-tls-verification", "Disables TLS verification");
+
 		final ArgumentAcceptingOptionSpec<String> proxyInfo = parser
 			.accepts("proxy")
 			.withRequiredArg().ofType(String.class);
@@ -366,7 +372,11 @@ public class RuneLite
 			log.error("Unable to load settings", ex);
 		}
 
-		final ClientLoader clientLoader = new ClientLoader(options.valueOf(updateMode));
+		final OkHttpClient okHttpClient = RuneLiteAPI.CLIENT.newBuilder()
+			.cache(new Cache(new File(CACHE_DIR, "okhttp"), MAX_OKHTTP_CACHE_SIZE))
+			.build();
+
+		final ClientLoader clientLoader = new ClientLoader(okHttpClient, options.valueOf(updateMode));
 		Completable.fromAction(clientLoader::get)
 			.subscribeOn(Schedulers.computation())
 			.subscribe();
@@ -401,6 +411,7 @@ public class RuneLite
 		final long start = System.currentTimeMillis();
 
 		injector = Guice.createInjector(new RuneLiteModule(
+			okHttpClient,
 			clientLoader,
 			options.has("safe-mode"),
 			configFile));

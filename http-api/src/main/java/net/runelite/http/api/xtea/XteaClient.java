@@ -30,18 +30,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
+@AllArgsConstructor
 public class XteaClient
 {
-	private static final Logger logger = LoggerFactory.getLogger(XteaClient.class);
+	private final OkHttpClient client;
 
 	public void submit(int region, int[] keys)
 	{
@@ -55,16 +58,18 @@ public class XteaClient
 			.addQueryParameter("key4", String.valueOf(keys[3]))
 			.build();
 
+		log.debug("Built URI: {}", url);
+
 		Request request = new Request.Builder()
 			.url(url)
 			.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		client.newCall(request).enqueue(new Callback()
 		{
 			@Override
 			public void onFailure(Call call, IOException e)
 			{
-				logger.warn("unable to submit xtea keys", e);
+				log.warn("unable to submit xtea keys", e);
 			}
 
 			@Override
@@ -74,7 +79,7 @@ public class XteaClient
 				{
 					if (!response.isSuccessful())
 					{
-						logger.debug("unsuccessful xtea response");
+						log.debug("unsuccessful xtea response");
 					}
 				}
 				finally
@@ -95,7 +100,7 @@ public class XteaClient
 			.url(url)
 			.build();
 
-		try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+		try (Response response = client.newCall(request).execute())
 		{
 			InputStream in = response.body().byteStream();
 			// CHECKSTYLE:OFF

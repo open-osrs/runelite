@@ -63,11 +63,38 @@ import net.runelite.http.api.item.ItemClient;
 import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.item.ItemStats;
 import org.jetbrains.annotations.NotNull;
+import okhttp3.OkHttpClient;
 
 @Singleton
 @Slf4j
 public class ItemManager
 {
+	@Value
+	private static class ImageKey
+	{
+		private final int itemId;
+		private final int itemQuantity;
+		private final boolean stackable;
+	}
+
+	@Value
+	private static class OutlineKey
+	{
+		private final int itemId;
+		private final int itemQuantity;
+		private final Color outlineColor;
+	}
+
+	private final Client client;
+	private final ClientThread clientThread;
+	private final ItemClient itemClient;
+
+	private Map<Integer, ItemPrice> itemPrices = Collections.emptyMap();
+	private Map<Integer, ItemStats> itemStats = Collections.emptyMap();
+	private final LoadingCache<ImageKey, AsyncBufferedImage> itemImages;
+	private final LoadingCache<Integer, ItemDefinition> itemDefinitions;
+	private final LoadingCache<OutlineKey, BufferedImage> itemOutlines;
+
 	// Worn items with weight reducing property have a different worn and inventory ItemID
 	private static final ImmutableMap<Integer, Integer> WORN_ITEMS = ImmutableMap.<Integer, Integer>builder().
 		put(BOOTS_OF_LIGHTNESS_89, BOOTS_OF_LIGHTNESS).
@@ -136,14 +163,6 @@ public class ItemManager
 		put(AGILITY_CAPET_13341, AGILITY_CAPET).
 		put(AGILITY_CAPE_13340, AGILITY_CAPE).
 		build();
-	private final Client client;
-	private final ClientThread clientThread;
-	private final ItemClient itemClient;
-	private final LoadingCache<ImageKey, AsyncBufferedImage> itemImages;
-	private final LoadingCache<Integer, ItemDefinition> itemDefinitions;
-	private final LoadingCache<OutlineKey, BufferedImage> itemOutlines;
-	private Map<Integer, ItemPrice> itemPrices = Collections.emptyMap();
-	private Map<Integer, ItemStats> itemStats = Map.of();
 
 	@Inject
 	public ItemManager(
@@ -151,12 +170,11 @@ public class ItemManager
 		ScheduledExecutorService executor,
 		ClientThread clientThread,
 		EventBus eventbus,
-		ItemClient itemClient
-	)
+		OkHttpClient okHttpClient)
 	{
 		this.client = client;
 		this.clientThread = clientThread;
-		this.itemClient = itemClient;
+		this.itemClient = new ItemClient(okHttpClient);
 
 		executor.scheduleWithFixedDelay(this::loadPrices, 0, 30, TimeUnit.MINUTES);
 		executor.submit(this::loadStats);
@@ -532,21 +550,5 @@ public class ItemManager
 		{
 			return null;
 		}
-	}
-
-	@Value
-	private static class ImageKey
-	{
-		private final int itemId;
-		private final int itemQuantity;
-		private final boolean stackable;
-	}
-
-	@Value
-	private static class OutlineKey
-	{
-		private final int itemId;
-		private final int itemQuantity;
-		private final Color outlineColor;
 	}
 }
