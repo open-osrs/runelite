@@ -69,7 +69,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lad;I)V",
+		descriptor = "(Lad;I)V",
 		garbageValue = "411670415"
 	)
 	@Export("expandBounds")
@@ -94,7 +94,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIB)Z",
+		descriptor = "(IIIB)Z",
 		garbageValue = "2"
 	)
 	@Export("containsCoord")
@@ -108,7 +108,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIB)Z",
+		descriptor = "(IIB)Z",
 		garbageValue = "48"
 	)
 	@Export("containsPosition")
@@ -118,7 +118,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIII)[I",
+		descriptor = "(IIII)[I",
 		garbageValue = "459340529"
 	)
 	@Export("getBorderTileLengths")
@@ -133,7 +133,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)Lhg;",
+		descriptor = "(III)Lhg;",
 		garbageValue = "1240901536"
 	)
 	@Export("coord")
@@ -149,7 +149,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "0"
 	)
 	@Export("read")
@@ -169,7 +169,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(S)V",
+		descriptor = "(S)V",
 		garbageValue = "4206"
 	)
 	@Export("postRead")
@@ -178,7 +178,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-2012901203"
 	)
 	public static int method372() {
@@ -187,7 +187,7 @@ public class WorldMapSection2 implements WorldMapSection {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "926990190"
 	)
 	static void method398() {

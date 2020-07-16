@@ -12,43 +12,43 @@ public class ObjectDefinition extends DualNode {
 	public static boolean ObjectDefinition_isLowDetail;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("ObjectDefinition_archive")
 	public static AbstractArchive ObjectDefinition_archive;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("ObjectDefinition_modelsArchive")
 	public static AbstractArchive ObjectDefinition_modelsArchive;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ObjectDefinition_cached")
 	public static EvictingDualNodeHashTable ObjectDefinition_cached;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ObjectDefinition_cachedModelData")
 	public static EvictingDualNodeHashTable ObjectDefinition_cachedModelData;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ObjectDefinition_cachedEntities")
 	public static EvictingDualNodeHashTable ObjectDefinition_cachedEntities;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ObjectDefinition_cachedModels")
 	public static EvictingDualNodeHashTable ObjectDefinition_cachedModels;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "[Lek;"
+		descriptor = "[Lek;"
 	)
 	static ModelData[] field3387;
 	@ObfuscatedName("a")
@@ -254,7 +254,7 @@ public class ObjectDefinition extends DualNode {
 	public int[] soundEffectIds;
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -306,7 +306,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2073183413"
 	)
 	@Export("postDecode")
@@ -332,7 +332,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1769897725"
 	)
 	@Export("decode")
@@ -349,7 +349,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "1890862568"
 	)
 	@Export("decodeNext")
@@ -523,7 +523,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "-582355792"
 	)
 	public final boolean method4786(int var1) {
@@ -552,7 +552,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "285356335"
 	)
 	@Export("needsModelFiles")
@@ -572,7 +572,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(II[[IIIIS)Lel;",
+		descriptor = "(II[[IIIIS)Lel;",
 		garbageValue = "20314"
 	)
 	@Export("getEntity")
@@ -620,7 +620,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(II[[IIIII)Lef;",
+		descriptor = "(II[[IIIII)Lef;",
 		garbageValue = "-1099346237"
 	)
 	@Export("getModel")
@@ -652,7 +652,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(II[[IIIILjm;II)Lef;",
+		descriptor = "(II[[IIIILjm;II)Lef;",
 		garbageValue = "132862520"
 	)
 	@Export("getModelDynamic")
@@ -694,7 +694,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(IIB)Lek;",
+		descriptor = "(IIB)Lek;",
 		garbageValue = "0"
 	)
 	@Export("getModelData")
@@ -835,7 +835,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)Ljg;",
+		descriptor = "(I)Ljg;",
 		garbageValue = "-511896021"
 	)
 	@Export("transform")
@@ -859,7 +859,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "1846557749"
 	)
 	@Export("getIntParam")
@@ -869,7 +869,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)Ljava/lang/String;",
+		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
 		garbageValue = "494622179"
 	)
 	@Export("getStringParam")
@@ -879,7 +879,7 @@ public class ObjectDefinition extends DualNode {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "389489469"
 	)
 	@Export("hasSound")

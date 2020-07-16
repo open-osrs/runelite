@@ -7,27 +7,27 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class8 implements Callable {
 	@ObfuscatedName("fo")
 	@ObfuscatedSignature(
-		signature = "Llj;"
+		descriptor = "Llj;"
 	)
 	static AbstractSocket field35;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	final Buffer field33;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lc;"
+		descriptor = "Lc;"
 	)
 	final class12 field31;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		signature = "Lz;"
+		descriptor = "Lz;"
 	)
 	final class9 this$0;
 
 	@ObfuscatedSignature(
-		signature = "(Lz;Lkn;Lc;)V"
+		descriptor = "(Lz;Lkn;Lc;)V"
 	)
 	class8(class9 var1, Buffer var2, class12 var3) {
 		this.this$0 = var1;
@@ -41,7 +41,7 @@ public class class8 implements Callable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;I)V",
+		descriptor = "(Lic;I)V",
 		garbageValue = "2132474559"
 	)
 	public static void method103(AbstractArchive var0) {
@@ -50,7 +50,7 @@ public class class8 implements Callable {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "1765213617"
 	)
 	public static int method104(int var0, int var1) {
@@ -65,7 +65,7 @@ public class class8 implements Callable {
 
 	@ObfuscatedName("gh")
 	@ObfuscatedSignature(
-		signature = "(ZLkb;I)V",
+		descriptor = "(ZLkb;I)V",
 		garbageValue = "-826788637"
 	)
 	@Export("loadRegions")

@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface class12 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;)Lkn;"
+		descriptor = "(Lkn;)Lkn;"
 	)
 	Buffer vmethod133(Buffer var1);
 }

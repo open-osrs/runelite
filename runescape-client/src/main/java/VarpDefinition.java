@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class VarpDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("VarpDefinition_archive")
 	static AbstractArchive VarpDefinition_archive;
@@ -21,7 +21,7 @@ public class VarpDefinition extends DualNode {
 	public static int VarpDefinition_fileCount;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("VarpDefinition_cached")
 	static EvictingDualNodeHashTable VarpDefinition_cached;
@@ -42,7 +42,7 @@ public class VarpDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "319289372"
 	)
 	@Export("decode")
@@ -59,7 +59,7 @@ public class VarpDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "1792997667"
 	)
 	@Export("decodeNext")

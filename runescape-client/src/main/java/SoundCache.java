@@ -11,31 +11,31 @@ public class SoundCache {
 	static boolean ItemDefinition_inMembersWorld;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("soundEffectIndex")
 	AbstractArchive soundEffectIndex;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("musicSampleIndex")
 	AbstractArchive musicSampleIndex;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("musicSamples")
 	NodeHashTable musicSamples;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("rawSounds")
 	NodeHashTable rawSounds;
 
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;)V"
+		descriptor = "(Lic;Lic;)V"
 	)
 	public SoundCache(AbstractArchive var1, AbstractArchive var2) {
 		this.musicSamples = new NodeHashTable(256);
@@ -46,7 +46,7 @@ public class SoundCache {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II[II)Ldp;",
+		descriptor = "(II[II)Ldp;",
 		garbageValue = "-1808254786"
 	)
 	@Export("getSoundEffect0")
@@ -77,7 +77,7 @@ public class SoundCache {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II[II)Ldp;",
+		descriptor = "(II[II)Ldp;",
 		garbageValue = "1029980223"
 	)
 	@Export("getMusicSample0")
@@ -114,7 +114,7 @@ public class SoundCache {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I[IB)Ldp;",
+		descriptor = "(I[IB)Ldp;",
 		garbageValue = "-87"
 	)
 	@Export("getSoundEffect")
@@ -130,7 +130,7 @@ public class SoundCache {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I[II)Ldp;",
+		descriptor = "(I[II)Ldp;",
 		garbageValue = "2095732620"
 	)
 	@Export("getMusicSample")
@@ -146,7 +146,7 @@ public class SoundCache {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "104"
 	)
 	@Export("clearItemContainer")
@@ -163,7 +163,7 @@ public class SoundCache {
 
 	@ObfuscatedName("hu")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;I)V",
 		garbageValue = "-717528882"
 	)
 	static void method2647(int var0, String var1) {

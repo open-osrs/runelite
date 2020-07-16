@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapData_0 extends AbstractWorldMapData {
 	@ObfuscatedName("dq")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive11")
 	static Archive archive11;
 	@ObfuscatedName("ej")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive19")
 	static Archive archive19;
@@ -24,7 +24,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1154990112"
 	)
 	@Export("init")
@@ -46,7 +46,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1774414997"
 	)
 	@Export("readGeography")
@@ -126,7 +126,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 	@ObfuscatedName("he")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "-992239935"
 	)
 	static final void method243(int var0, int var1, int var2, int var3) {

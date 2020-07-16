@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class IterableDualNodeQueueIterator implements Iterator {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljq;"
+		descriptor = "Ljq;"
 	)
 	@Export("queue")
 	IterableDualNodeQueue queue;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgf;"
+		descriptor = "Lgf;"
 	)
 	@Export("head")
 	DualNode head;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgf;"
+		descriptor = "Lgf;"
 	)
 	@Export("last")
 	DualNode last;
 
 	@ObfuscatedSignature(
-		signature = "(Ljq;)V"
+		descriptor = "(Ljq;)V"
 	)
 	IterableDualNodeQueueIterator(IterableDualNodeQueue var1) {
 		this.last = null;

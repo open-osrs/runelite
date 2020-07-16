@@ -351,7 +351,7 @@ public class MappingDumper
 				jField.addProperty("class", className);
 				jField.addProperty("field", fieldName);
 				jField.addProperty("obfSignature", (obfType != null ? obfType.toString() : ""));
-				jField.addProperty("signature", f.getType().toString());
+				jField.addProperty("descriptor", f.getType().toString());
 				jField.addProperty("multiplier", (getter != null ? getter : 0));
 				jField.addProperty("static", f.isStatic());
 
@@ -379,7 +379,7 @@ public class MappingDumper
 				jMethod.addProperty("class", className);
 				jMethod.addProperty("field", methodName);
 				jMethod.addProperty("obfSignature", (obfSignature != null ? obfSignature.toString() : ""));
-				jMethod.addProperty("signature", m.getDescriptor().toString());
+				jMethod.addProperty("descriptor", m.getDescriptor().toString());
 				jMethod.addProperty("predicate", (predicate != null ? predicate : ""));
 				jMethod.addProperty("static", m.isStatic());
 

@@ -10,7 +10,7 @@ public class class6 implements class11 {
 	final MessageDigest field24;
 
 	@ObfuscatedSignature(
-		signature = "(Lw;)V"
+		descriptor = "(Lw;)V"
 	)
 	class6(class10 var1) {
 		this.field24 = this.method77();

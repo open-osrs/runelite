@@ -6,14 +6,14 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class257 {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "[Lih;"
+		descriptor = "[Lih;"
 	)
 	@Export("WorldMapElement_cached")
 	public static WorldMapElement[] WorldMapElement_cached;
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-540216390"
 	)
 	public static void method4679(int var0, int var1) {

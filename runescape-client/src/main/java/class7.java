@@ -8,13 +8,13 @@ import net.runelite.rs.ScriptOpcodes;
 public enum class7 implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lu;"
+		descriptor = "Lu;"
 	)
 	field30(0, 0);
 
 	@ObfuscatedName("ox")
 	@ObfuscatedSignature(
-		signature = "Lfv;"
+		descriptor = "Lfv;"
 	)
 	@Export("mouseWheel")
 	static MouseWheel mouseWheel;
@@ -38,7 +38,7 @@ public enum class7 implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -48,7 +48,7 @@ public enum class7 implements Enumerated {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
+		descriptor = "(Ljava/lang/String;B)V",
 		garbageValue = "-89"
 	)
 	static final void method95(String var0) {
@@ -62,7 +62,7 @@ public enum class7 implements Enumerated {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(IIS)Z",
+		descriptor = "(IIS)Z",
 		garbageValue = "17445"
 	)
 	static final boolean method97(int var0, int var1) {
@@ -80,7 +80,7 @@ public enum class7 implements Enumerated {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "669918470"
 	)
 	static int method100(int var0, Script var1, boolean var2) {
@@ -115,7 +115,7 @@ public enum class7 implements Enumerated {
 
 	@ObfuscatedName("gm")
 	@ObfuscatedSignature(
-		signature = "(S)Z",
+		descriptor = "(S)Z",
 		garbageValue = "255"
 	)
 	static boolean method98() {
@@ -124,7 +124,7 @@ public enum class7 implements Enumerated {
 
 	@ObfuscatedName("hv")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "-1244259463"
 	)
 	static final boolean method94(int var0) {
@@ -142,7 +142,7 @@ public enum class7 implements Enumerated {
 
 	@ObfuscatedName("jw")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "9"
 	)
 	@Export("FriendSystem_invalidateFriends")

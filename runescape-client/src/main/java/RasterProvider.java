@@ -38,7 +38,7 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Component;B)V",
+		descriptor = "(Ljava/awt/Component;B)V",
 		garbageValue = "-55"
 	)
 	@Export("setComponent")
@@ -48,7 +48,7 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "-5"
 	)
 	@Export("drawFull")
@@ -58,7 +58,7 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "-1334771637"
 	)
 	@Export("draw")
@@ -68,7 +68,7 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Graphics;III)V",
+		descriptor = "(Ljava/awt/Graphics;III)V",
 		garbageValue = "2097062254"
 	)
 	@Export("drawFull0")
@@ -83,7 +83,7 @@ public final class RasterProvider extends AbstractRasterProvider {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Graphics;IIIII)V",
+		descriptor = "(Ljava/awt/Graphics;IIIII)V",
 		garbageValue = "-199223642"
 	)
 	@Export("draw0")

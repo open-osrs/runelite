@@ -11,73 +11,73 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum ModeWhere implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2412("", 0, new class200[]{class200.field2399}),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2414("", 1, new class200[]{class200.field2398, class200.field2399}),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2404("", 2, new class200[]{class200.field2398, class200.field2400, class200.field2399}),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2405("", 3, new class200[]{class200.field2398}),
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2403("", 4),
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2406("", 5, new class200[]{class200.field2398, class200.field2399}),
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2408("", 6, new class200[]{class200.field2399}),
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2409("", 8, new class200[]{class200.field2398, class200.field2399}),
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2402("", 9, new class200[]{class200.field2398, class200.field2400}),
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2411("", 10, new class200[]{class200.field2398}),
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2410("", 11, new class200[]{class200.field2398}),
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2413("", 12, new class200[]{class200.field2398, class200.field2399}),
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lge;"
 	)
 	field2418("", 13, new class200[]{class200.field2398});
 
 	@ObfuscatedName("sw")
 	@ObfuscatedSignature(
-		signature = "Lcg;"
+		descriptor = "Lcg;"
 	)
 	@Export("friendSystem")
 	public static FriendSystem friendSystem;
@@ -91,7 +91,7 @@ public enum ModeWhere implements Enumerated {
 	final Set field2416;
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I[Lgi;)V"
+		descriptor = "(Ljava/lang/String;I[Lgi;)V"
 	)
 	ModeWhere(String var3, int var4, class200[] var5) {
 		this.field2416 = new HashSet();
@@ -112,7 +112,7 @@ public enum ModeWhere implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -122,7 +122,7 @@ public enum ModeWhere implements Enumerated {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(ZZI)I",
+		descriptor = "(ZZI)I",
 		garbageValue = "57776207"
 	)
 	public static int method3809(boolean var0, boolean var1) {
@@ -133,7 +133,7 @@ public enum ModeWhere implements Enumerated {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(CB)Z",
+		descriptor = "(CB)Z",
 		garbageValue = "51"
 	)
 	static boolean method3810(char var0) {

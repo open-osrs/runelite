@@ -14,7 +14,7 @@ public class Username implements Comparable {
 	String cleanName;
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Lmo;)V"
+		descriptor = "(Ljava/lang/String;Lmo;)V"
 	)
 	public Username(String var1, LoginType var2) {
 		this.name = var1;
@@ -23,7 +23,7 @@ public class Username implements Comparable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-633298311"
 	)
 	@Export("getName")
@@ -33,7 +33,7 @@ public class Username implements Comparable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "0"
 	)
 	@Export("hasCleanName")
@@ -43,7 +43,7 @@ public class Username implements Comparable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)I",
+		descriptor = "(Lkq;I)I",
 		garbageValue = "820506062"
 	)
 	@Export("compareToTyped")
@@ -84,7 +84,7 @@ public class Username implements Comparable {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;II)I",
+		descriptor = "(Ljava/lang/CharSequence;II)I",
 		garbageValue = "-794040320"
 	)
 	public static int method5398(CharSequence var0, int var1) {

@@ -7,7 +7,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class60 {
 	@ObfuscatedName("qh")
 	@ObfuscatedSignature(
-		signature = "Ldd;"
+		descriptor = "Ldd;"
 	)
 	@Export("pcmStreamMixer")
 	static PcmStreamMixer pcmStreamMixer;
@@ -18,7 +18,7 @@ public class class60 {
 	static String field450;
 	@ObfuscatedName("kf")
 	@ObfuscatedSignature(
-		signature = "Lby;"
+		descriptor = "Lby;"
 	)
 	@Export("localPlayer")
 	static Player localPlayer;
@@ -30,7 +30,7 @@ public class class60 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)V",
+		descriptor = "(Lkb;II)V",
 		garbageValue = "-220827004"
 	)
 	@Export("updatePlayers")
@@ -264,7 +264,7 @@ public class class60 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "76630753"
 	)
 	public static void method972() {
@@ -274,7 +274,7 @@ public class class60 {
 
 	@ObfuscatedName("jc")
 	@ObfuscatedSignature(
-		signature = "(Lhd;IIS)V",
+		descriptor = "(Lhd;IIS)V",
 		garbageValue = "-5579"
 	)
 	@Export("clickWidget")

@@ -20,7 +20,7 @@ public class NanoClock extends Clock {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1017447827"
 	)
 	@Export("mark")
@@ -30,7 +30,7 @@ public class NanoClock extends Clock {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "-1786752641"
 	)
 	@Export("wait")

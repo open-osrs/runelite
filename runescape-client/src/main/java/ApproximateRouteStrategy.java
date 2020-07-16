@@ -24,7 +24,7 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIILfz;I)Z",
+		descriptor = "(IIILfz;I)Z",
 		garbageValue = "-1966963917"
 	)
 	@Export("hasArrived")
@@ -34,7 +34,7 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 
 	@ObfuscatedName("ha")
 	@ObfuscatedSignature(
-		signature = "(Lby;IIBI)V",
+		descriptor = "(Lby;IIBI)V",
 		garbageValue = "-549376931"
 	)
 	static final void method1284(Player var0, int var1, int var2, byte var3) {
@@ -56,7 +56,7 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 
 	@ObfuscatedName("hc")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
 		garbageValue = "-63"
 	)
 	@Export("insertMenuItem")
@@ -78,7 +78,7 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 
 	@ObfuscatedName("id")
 	@ObfuscatedSignature(
-		signature = "(Ljz;IIII)V",
+		descriptor = "(Ljz;IIII)V",
 		garbageValue = "1974138271"
 	)
 	@Export("addNpcToMenu")

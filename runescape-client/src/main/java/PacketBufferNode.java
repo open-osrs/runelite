@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PacketBufferNode extends Node {
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "[Lgj;"
+		descriptor = "[Lgj;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
@@ -21,7 +21,7 @@ public class PacketBufferNode extends Node {
 	static int PacketBufferNode_packetBufferNodeCount;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgn;"
+		descriptor = "Lgn;"
 	)
 	@Export("clientPacket")
 	ClientPacket clientPacket;
@@ -33,7 +33,7 @@ public class PacketBufferNode extends Node {
 	int clientPacketLength;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkb;"
+		descriptor = "Lkb;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
@@ -54,7 +54,7 @@ public class PacketBufferNode extends Node {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-42"
 	)
 	@Export("release")
@@ -66,7 +66,7 @@ public class PacketBufferNode extends Node {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "1965042826"
 	)
 	static final int method3750(int var0, int var1) {

@@ -8,25 +8,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class VarcInt extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("VarcInt_archive")
 	public static AbstractArchive VarcInt_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("VarcInt_cached")
 	public static EvictingDualNodeHashTable VarcInt_cached;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("ItemDefinition_archive")
 	static AbstractArchive ItemDefinition_archive;
 	@ObfuscatedName("eu")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive18")
 	static Archive archive18;
@@ -44,7 +44,7 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "121"
 	)
 	public void method4573(Buffer var1) {
@@ -60,7 +60,7 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "1038318542"
 	)
 	void method4569(Buffer var1, int var2) {
@@ -72,7 +72,7 @@ public class VarcInt extends DualNode {
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(Ldf;I)V",
+		descriptor = "(Ldf;I)V",
 		garbageValue = "1745274917"
 	)
 	@Export("PcmStream_disable")

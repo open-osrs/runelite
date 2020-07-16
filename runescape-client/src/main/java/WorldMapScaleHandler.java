@@ -26,7 +26,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIII)V",
+		descriptor = "(IIIIIIIII)V",
 		garbageValue = "1923645128"
 	)
 	void method798(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
@@ -39,7 +39,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "-1887787405"
 	)
 	int method794(int var1, int var2) {
@@ -60,7 +60,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-1636996123"
 	)
 	int method795(int var1) {
@@ -73,7 +73,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1385757357"
 	)
 	@Export("init")
@@ -93,7 +93,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1289637080"
 	)
 	@Export("init0")
@@ -160,7 +160,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-112"
 	)
 	@Export("init1")
@@ -231,7 +231,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1821713225"
 	)
 	@Export("init2")
@@ -298,7 +298,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-294529084"
 	)
 	@Export("init3")
@@ -365,7 +365,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1871993011"
 	)
 	@Export("init4")
@@ -432,7 +432,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "13"
 	)
 	@Export("init5")
@@ -501,7 +501,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-437355569"
 	)
 	@Export("init6")
@@ -570,7 +570,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "959686276"
 	)
 	@Export("init7")
@@ -639,7 +639,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IS)Z",
+		descriptor = "(IS)Z",
 		garbageValue = "180"
 	)
 	public static boolean method819(int var0) {
@@ -648,7 +648,7 @@ public class WorldMapScaleHandler {
 
 	@ObfuscatedName("gq")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1963467605"
 	)
 	static void method812() {

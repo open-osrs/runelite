@@ -17,7 +17,7 @@ public class class92 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)V",
+		descriptor = "(Lkb;II)V",
 		garbageValue = "213550097"
 	)
 	@Export("readPlayerUpdate")

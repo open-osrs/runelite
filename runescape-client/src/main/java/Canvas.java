@@ -33,7 +33,7 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Ljg;",
+		descriptor = "(II)Ljg;",
 		garbageValue = "83996779"
 	)
 	@Export("getObjectDefinition")
@@ -62,7 +62,7 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "1398023724"
 	)
 	static final void method927(String var0) {
@@ -74,7 +74,7 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("ga")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "411559133"
 	)
 	static void method925() {
@@ -86,7 +86,7 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("is")
 	@ObfuscatedSignature(
-		signature = "(III)Ljava/lang/String;",
+		descriptor = "(III)Ljava/lang/String;",
 		garbageValue = "-266618010"
 	)
 	static final String method924(int var0, int var1) {
@@ -112,7 +112,7 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("iw")
 	@ObfuscatedSignature(
-		signature = "(Lhd;II)I",
+		descriptor = "(Lhd;II)I",
 		garbageValue = "623604092"
 	)
 	static final int method923(Widget var0, int var1) {
@@ -275,7 +275,7 @@ public final class Canvas extends java.awt.Canvas {
 
 	@ObfuscatedName("kx")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
+		descriptor = "(Ljava/lang/String;B)V",
 		garbageValue = "-83"
 	)
 	@Export("Clan_joinChat")

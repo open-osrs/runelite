@@ -10,50 +10,50 @@ import net.runelite.rs.ScriptOpcodes;
 public enum PlayerType implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lis;"
+		descriptor = "Lis;"
 	)
 	@Export("PlayerType_normal")
 	PlayerType_normal(0, -1, true, false, true),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lis;"
+		descriptor = "Lis;"
 	)
 	@Export("PlayerType_playerModerator")
 	PlayerType_playerModerator(1, 0, true, true, true),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lis;"
+		descriptor = "Lis;"
 	)
 	@Export("PlayerType_jagexModerator")
 	PlayerType_jagexModerator(2, 1, true, true, false),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lis;"
+		descriptor = "Lis;"
 	)
 	@Export("PlayerType_ironman")
 	PlayerType_ironman(3, 2, false, false, true),
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lis;"
+		descriptor = "Lis;"
 	)
 	@Export("PlayerType_ultimateIronman")
 	PlayerType_ultimateIronman(4, 3, false, false, true),
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lis;"
+		descriptor = "Lis;"
 	)
 	@Export("PlayerType_hardcoreIronman")
 	PlayerType_hardcoreIronman(5, 10, false, false, true);
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Liq;"
+		descriptor = "Liq;"
 	)
 	@Export("NetCache_currentResponse")
 	public static NetFileRequest NetCache_currentResponse;
 	@ObfuscatedName("bg")
 	@ObfuscatedSignature(
-		signature = "Lij;"
+		descriptor = "Lij;"
 	)
 	static GameBuild field3130;
 	@ObfuscatedName("n")
@@ -84,7 +84,7 @@ public enum PlayerType implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -94,7 +94,7 @@ public enum PlayerType implements Enumerated {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1286217427"
 	)
 	static int method4289(int var0, Script var1, boolean var2) {

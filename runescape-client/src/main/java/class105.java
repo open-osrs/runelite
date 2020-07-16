@@ -6,13 +6,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class105 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljx;"
+		descriptor = "Ljx;"
 	)
 	@Export("reflectionChecks")
 	static IterableNodeDeque reflectionChecks;
 	@ObfuscatedName("dn")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive3")
 	static Archive archive3;
@@ -23,7 +23,7 @@ public class class105 {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "1577025565"
 	)
 	static final int method2414(int var0, int var1) {

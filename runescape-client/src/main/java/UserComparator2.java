@@ -20,7 +20,7 @@ public class UserComparator2 implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljf;Ljf;I)I",
+		descriptor = "(Ljf;Ljf;I)I",
 		garbageValue = "1905433483"
 	)
 	@Export("compare_bridged")
@@ -38,7 +38,7 @@ public class UserComparator2 implements Comparator {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "1240194067"
 	)
 	@Export("readReflectionCheck")

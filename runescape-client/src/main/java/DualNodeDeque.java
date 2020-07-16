@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class DualNodeDeque {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgf;"
+		descriptor = "Lgf;"
 	)
 	@Export("sentinel")
 	DualNode sentinel;
@@ -21,7 +21,7 @@ public final class DualNodeDeque {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lgf;)V"
+		descriptor = "(Lgf;)V"
 	)
 	@Export("addFirst")
 	public void addFirst(DualNode var1) {
@@ -37,7 +37,7 @@ public final class DualNodeDeque {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lgf;)V"
+		descriptor = "(Lgf;)V"
 	)
 	@Export("addLast")
 	public void addLast(DualNode var1) {
@@ -53,7 +53,7 @@ public final class DualNodeDeque {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "()Lgf;"
+		descriptor = "()Lgf;"
 	)
 	@Export("removeLast")
 	public DualNode removeLast() {

@@ -23,25 +23,25 @@ public class VorbisSample extends Node {
 	static int VorbisSample_blockSize1;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "[Ldl;"
+		descriptor = "[Ldl;"
 	)
 	@Export("VorbisSample_codebooks")
 	static VorbisCodebook[] VorbisSample_codebooks;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "[Ldc;"
+		descriptor = "[Ldc;"
 	)
 	@Export("VorbisSample_floors")
 	static VorbisFloor[] VorbisSample_floors;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "[Lde;"
+		descriptor = "[Lde;"
 	)
 	@Export("VorbisSample_residues")
 	static VorbisResidue[] VorbisSample_residues;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "[Ldz;"
+		descriptor = "[Ldz;"
 	)
 	@Export("VorbisSample_mappings")
 	static VorbisMapping[] VorbisSample_mappings;
@@ -399,7 +399,7 @@ public class VorbisSample extends Node {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "([I)Ldp;"
+		descriptor = "([I)Ldp;"
 	)
 	@Export("toRawSound")
 	RawSound toRawSound(int[] var1) {
@@ -614,7 +614,7 @@ public class VorbisSample extends Node {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Lic;)Z"
+		descriptor = "(Lic;)Z"
 	)
 	static boolean method2500(AbstractArchive var0) {
 		if (!field1416) {
@@ -632,7 +632,7 @@ public class VorbisSample extends Node {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lic;II)Ldi;"
+		descriptor = "(Lic;II)Ldi;"
 	)
 	@Export("readMusicSample")
 	static VorbisSample readMusicSample(AbstractArchive var0, int var1, int var2) {

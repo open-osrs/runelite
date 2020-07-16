@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class232 {
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)[Llh;",
+		descriptor = "(I)[Llh;",
 		garbageValue = "-1121273391"
 	)
 	static IndexedSprite[] method4279() {

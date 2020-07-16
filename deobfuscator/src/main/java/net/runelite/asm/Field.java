@@ -24,9 +24,8 @@
  */
 package net.runelite.asm;
 
-import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import lombok.Getter;
 import net.runelite.asm.attributes.Annotated;
 import net.runelite.deob.DeobAnnotations;
@@ -47,7 +46,7 @@ public class Field implements Annotated, Named
 	private Type type;
 	private Object value; // ConstantValue
 	@Getter
-	private final Map<Type, Annotation> annotations = new TreeMap<>(Comparator.comparing(Type::toString));
+	private final Map<Type, Annotation> annotations = new LinkedHashMap<>();
 
 	public Field(ClassFile classFile, String name, Type type)
 	{

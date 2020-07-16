@@ -30,7 +30,7 @@ public class InterfaceParent extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIIB)Llz;",
+		descriptor = "(IIIB)Llz;",
 		garbageValue = "-72"
 	)
 	static Sprite method1233(int var0, int var1, int var2) {
@@ -41,7 +41,7 @@ public class InterfaceParent extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lbu;I)V",
+		descriptor = "(Lbu;I)V",
 		garbageValue = "-764301386"
 	)
 	@Export("runScriptEvent")

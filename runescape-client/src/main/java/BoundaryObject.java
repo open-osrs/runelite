@@ -39,13 +39,13 @@ public final class BoundaryObject {
 	int orientationB;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity1")
 	public Entity entity1;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity2")
 	public Entity entity2;
@@ -69,7 +69,7 @@ public final class BoundaryObject {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1351583068"
 	)
 	static void method3390() {
@@ -89,7 +89,7 @@ public final class BoundaryObject {
 
 	@ObfuscatedName("hz")
 	@ObfuscatedSignature(
-		signature = "(Lkb;I)V",
+		descriptor = "(Lkb;I)V",
 		garbageValue = "-1547224129"
 	)
 	static final void method3389(PacketBuffer var0) {

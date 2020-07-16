@@ -19,7 +19,7 @@ public class Ignored extends User {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkc;I)I",
+		descriptor = "(Lkc;I)I",
 		garbageValue = "-857572865"
 	)
 	@Export("compareTo_ignored")
@@ -29,7 +29,7 @@ public class Ignored extends User {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(Ljf;I)I",
+		descriptor = "(Ljf;I)I",
 		garbageValue = "334051838"
 	)
 	@Export("compareTo_user")

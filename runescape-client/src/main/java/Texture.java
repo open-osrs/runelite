@@ -37,7 +37,7 @@ public class Texture extends Node {
 	boolean isLoaded;
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;)V"
+		descriptor = "(Lkn;)V"
 	)
 	Texture(Buffer var1) {
 		this.isLoaded = false;
@@ -84,7 +84,7 @@ public class Texture extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(DILic;)Z"
+		descriptor = "(DILic;)Z"
 	)
 	@Export("load")
 	boolean load(double var1, int var3, AbstractArchive var4) {

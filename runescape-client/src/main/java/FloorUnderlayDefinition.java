@@ -14,19 +14,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FloorUnderlayDefinition extends DualNode {
 	@ObfuscatedName("sh")
 	@ObfuscatedSignature(
-		signature = "Llp;"
+		descriptor = "Llp;"
 	)
 	@Export("masterDisk")
 	static ArchiveDisk masterDisk;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("FloorUnderlayDefinition_archive")
 	public static AbstractArchive FloorUnderlayDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("FloorUnderlayDefinition_cached")
 	public static EvictingDualNodeHashTable FloorUnderlayDefinition_cached;
@@ -71,7 +71,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-33176492"
 	)
 	@Export("postDecode")
@@ -81,7 +81,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IB)V",
+		descriptor = "(Lkn;IB)V",
 		garbageValue = "17"
 	)
 	@Export("decode")
@@ -98,7 +98,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IIB)V",
+		descriptor = "(Lkn;IIB)V",
 		garbageValue = "-93"
 	)
 	@Export("decodeNext")
@@ -111,7 +111,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "-14"
 	)
 	@Export("setHsl")
@@ -188,7 +188,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([BI)Llz;",
+		descriptor = "([BI)Llz;",
 		garbageValue = "619951505"
 	)
 	@Export("convertJpgToSprite")
@@ -212,7 +212,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;ZB)[B",
+		descriptor = "(Ljava/lang/Object;ZB)[B",
 		garbageValue = "101"
 	)
 	public static byte[] method4613(Object var0, boolean var1) {
@@ -231,7 +231,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Llf;ILjava/lang/String;I)Ljava/lang/String;",
+		descriptor = "(Llf;ILjava/lang/String;I)Ljava/lang/String;",
 		garbageValue = "-1916318659"
 	)
 	static String method4612(IterableNodeHashTable var0, int var1, String var2) {
@@ -245,7 +245,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;IB)Z",
+		descriptor = "(Ljava/lang/String;IB)Z",
 		garbageValue = "3"
 	)
 	static boolean method4608(String var0, int var1) {
@@ -254,7 +254,7 @@ public class FloorUnderlayDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "7"
 	)
 	public static boolean method4615(int var0) {

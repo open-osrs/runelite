@@ -33,7 +33,7 @@ public class DevicePcmPlayer extends PcmPlayer {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2128910021"
 	)
 	@Export("init")
@@ -44,7 +44,7 @@ public class DevicePcmPlayer extends PcmPlayer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "-14"
 	)
 	@Export("open")
@@ -74,7 +74,7 @@ public class DevicePcmPlayer extends PcmPlayer {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1868944096"
 	)
 	@Export("position")
@@ -105,7 +105,7 @@ public class DevicePcmPlayer extends PcmPlayer {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1900446281"
 	)
 	@Export("close")
@@ -119,7 +119,7 @@ public class DevicePcmPlayer extends PcmPlayer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "630637593"
 	)
 	@Export("discard")

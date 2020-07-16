@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class SpotAnimationDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("SpotAnimationDefinition_archive")
 	static AbstractArchive SpotAnimationDefinition_archive;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("SpotAnimationDefinition_cached")
 	static EvictingDualNodeHashTable SpotAnimationDefinition_cached;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("SpotAnimationDefinition_cachedModels")
 	static EvictingDualNodeHashTable SpotAnimationDefinition_cachedModels;
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("worldSelectFlagSprites")
 	static IndexedSprite[] worldSelectFlagSprites;
@@ -108,7 +108,7 @@ public class SpotAnimationDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1363953407"
 	)
 	@Export("decode")
@@ -125,7 +125,7 @@ public class SpotAnimationDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-809461171"
 	)
 	@Export("decodeNext")
@@ -172,7 +172,7 @@ public class SpotAnimationDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IB)Lef;",
+		descriptor = "(IB)Lef;",
 		garbageValue = "-31"
 	)
 	@Export("getModel")

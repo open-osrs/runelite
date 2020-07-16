@@ -45,7 +45,7 @@ public class DynamicObject extends Entity {
 	int y;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Ljm;"
+		descriptor = "Ljm;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
@@ -63,7 +63,7 @@ public class DynamicObject extends Entity {
 	int cycleStart;
 
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIZLel;)V"
+		descriptor = "(IIIIIIIZLel;)V"
 	)
 	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Entity var9) {
 		this.id = var1;
@@ -95,7 +95,7 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
+		descriptor = "(I)Lef;",
 		garbageValue = "1832696685"
 	)
 	@Export("getModel")
@@ -158,7 +158,7 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "1062154046"
 	)
 	public static int method2375(int var0) {
@@ -172,7 +172,7 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkb;I)V",
+		descriptor = "(Lkb;I)V",
 		garbageValue = "1312322364"
 	)
 	static final void method2373(PacketBuffer var0) {
@@ -355,7 +355,7 @@ public class DynamicObject extends Entity {
 
 	@ObfuscatedName("bq")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)I",
+		descriptor = "(Ljava/lang/String;I)I",
 		garbageValue = "-627685416"
 	)
 	@Export("stringCp1252NullTerminatedByteSize")

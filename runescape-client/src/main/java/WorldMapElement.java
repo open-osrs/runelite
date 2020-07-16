@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapElement extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("WorldMapElement_archive")
 	public static AbstractArchive WorldMapElement_archive;
@@ -21,13 +21,13 @@ public class WorldMapElement extends DualNode {
 	public static int WorldMapElement_count;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("WorldMapElement_cachedSprites")
 	public static EvictingDualNodeHashTable WorldMapElement_cachedSprites;
 	@ObfuscatedName("hz")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("scrollBarSprites")
 	static IndexedSprite[] scrollBarSprites;
@@ -93,13 +93,13 @@ public class WorldMapElement extends DualNode {
 	int field3255;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Ljc;"
+		descriptor = "Ljc;"
 	)
 	@Export("horizontalAlignment")
 	public HorizontalAlignment horizontalAlignment;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lif;"
+		descriptor = "Lif;"
 	)
 	@Export("verticalAlignment")
 	public VerticalAlignment verticalAlignment;
@@ -135,7 +135,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "106"
 	)
 	@Export("decode")
@@ -152,7 +152,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "1696894212"
 	)
 	@Export("decodeNext")
@@ -239,7 +239,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "116"
 	)
 	public void method4548() {
@@ -263,7 +263,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(ZI)Llz;",
+		descriptor = "(ZI)Llz;",
 		garbageValue = "-314713437"
 	)
 	@Export("getSpriteBool")
@@ -274,7 +274,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(II)Llz;",
+		descriptor = "(II)Llz;",
 		garbageValue = "1760825025"
 	)
 	@Export("getSprite")
@@ -298,7 +298,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1240109519"
 	)
 	@Export("getObjectId")
@@ -308,7 +308,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;Llf;I)Llf;",
+		descriptor = "(Lkn;Llf;I)Llf;",
 		garbageValue = "1394866461"
 	)
 	@Export("readStringIntParameters")
@@ -344,7 +344,7 @@ public class WorldMapElement extends DualNode {
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "(ILhg;ZI)V",
+		descriptor = "(ILhg;ZI)V",
 		garbageValue = "284772848"
 	)
 	static void method4566(int var0, Coord var1, boolean var2) {

@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class AbstractFont extends Rasterizer2D {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("AbstractFont_modIconSprites")
 	public static IndexedSprite[] AbstractFont_modIconSprites;

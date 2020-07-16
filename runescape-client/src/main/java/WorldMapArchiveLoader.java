@@ -12,7 +12,7 @@ public class WorldMapArchiveLoader {
 	String cacheName;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("archive")
 	AbstractArchive archive;
@@ -27,7 +27,7 @@ public class WorldMapArchiveLoader {
 	boolean loaded;
 
 	@ObfuscatedSignature(
-		signature = "(Lic;)V"
+		descriptor = "(Lic;)V"
 	)
 	WorldMapArchiveLoader(AbstractArchive var1) {
 		this.percentLoaded = 0;
@@ -37,7 +37,7 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "796588704"
 	)
 	@Export("reset")
@@ -54,7 +54,7 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1901724660"
 	)
 	@Export("load")
@@ -89,7 +89,7 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1377768408"
 	)
 	@Export("isLoaded")
@@ -99,7 +99,7 @@ public class WorldMapArchiveLoader {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1099667221"
 	)
 	@Export("getPercentLoaded")

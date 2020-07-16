@@ -13,7 +13,7 @@ public class ChatChannel {
 	static SecureRandom secureRandom;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "[Lbr;"
+		descriptor = "[Lbr;"
 	)
 	@Export("messages")
 	Message[] messages;
@@ -30,7 +30,7 @@ public class ChatChannel {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;B)Lbr;",
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;B)Lbr;",
 		garbageValue = "-1"
 	)
 	@Export("addMessage")
@@ -61,7 +61,7 @@ public class ChatChannel {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Lbr;",
+		descriptor = "(II)Lbr;",
 		garbageValue = "-317582349"
 	)
 	@Export("getMessage")
@@ -71,7 +71,7 @@ public class ChatChannel {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1472365930"
 	)
 	@Export("size")

@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class197 {
 	@ObfuscatedName("qy")
 	@ObfuscatedSignature(
-		signature = "Ldv;"
+		descriptor = "Ldv;"
 	)
 	@Export("decimator")
 	static Decimator decimator;
@@ -30,7 +30,7 @@ public class class197 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/Throwable;I)V",
+		descriptor = "(Ljava/lang/String;Ljava/lang/Throwable;I)V",
 		garbageValue = "-1357689499"
 	)
 	@Export("RunException_sendStackTrace")
@@ -73,7 +73,7 @@ public class class197 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;I)V",
+		descriptor = "(Lic;I)V",
 		garbageValue = "-1399485116"
 	)
 	public static void method3771(AbstractArchive var0) {

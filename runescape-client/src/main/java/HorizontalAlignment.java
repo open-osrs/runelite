@@ -9,18 +9,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum HorizontalAlignment implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljc;"
+		descriptor = "Ljc;"
 	)
 	field3488(2, 0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljc;"
+		descriptor = "Ljc;"
 	)
 	@Export("HorizontalAlignment_centered")
 	HorizontalAlignment_centered(1, 1),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Ljc;"
+		descriptor = "Ljc;"
 	)
 	field3492(0, 2);
 
@@ -47,7 +47,7 @@ public enum HorizontalAlignment implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")

@@ -69,7 +69,7 @@ public abstract class AbstractWorldMapData {
 	byte[][][] field175;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "[[[[Lak;"
+		descriptor = "[[[[Lak;"
 	)
 	@Export("decorations")
 	WorldMapDecoration[][][][] decorations;
@@ -88,7 +88,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1774414997"
 	)
 	@Export("readGeography")
@@ -96,7 +96,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "923610125"
 	)
 	@Export("isFullyLoaded")
@@ -106,7 +106,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lic;S)V",
+		descriptor = "(Lic;S)V",
 		garbageValue = "19318"
 	)
 	@Export("loadGeography")
@@ -124,7 +124,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1097959131"
 	)
 	@Export("reset")
@@ -140,7 +140,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(IILkn;I)V",
+		descriptor = "(IILkn;I)V",
 		garbageValue = "929230318"
 	)
 	@Export("readTile")
@@ -158,7 +158,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(IILkn;II)V",
+		descriptor = "(IILkn;II)V",
 		garbageValue = "1830113999"
 	)
 	void method319(int var1, int var2, Buffer var3, int var4) {
@@ -172,7 +172,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IILkn;IB)V",
+		descriptor = "(IILkn;IB)V",
 		garbageValue = "73"
 	)
 	void method320(int var1, int var2, Buffer var3, int var4) {
@@ -216,7 +216,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "3"
 	)
 	@Export("getRegionX")
@@ -226,7 +226,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "-4"
 	)
 	@Export("getRegionY")
@@ -236,7 +236,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Component;I)V",
+		descriptor = "(Ljava/awt/Component;I)V",
 		garbageValue = "-1541126292"
 	)
 	static void method342(Component var0) {
@@ -247,7 +247,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2015859206"
 	)
 	public static void method343() {
@@ -257,7 +257,7 @@ public abstract class AbstractWorldMapData {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "324919704"
 	)
 	static final void method328() {

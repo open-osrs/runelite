@@ -11,7 +11,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class BufferedFile {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lmy;"
+		descriptor = "Lmy;"
 	)
 	@Export("accessFile")
 	AccessFile accessFile;
@@ -71,7 +71,7 @@ public class BufferedFile {
 	long fileOffset;
 
 	@ObfuscatedSignature(
-		signature = "(Lmy;II)V"
+		descriptor = "(Lmy;II)V"
 	)
 	public BufferedFile(AccessFile var1, int var2, int var3) throws IOException {
 		this.readBufferOffset = -1L;
@@ -86,7 +86,7 @@ public class BufferedFile {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "159388731"
 	)
 	@Export("close")
@@ -107,7 +107,7 @@ public class BufferedFile {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)J",
+		descriptor = "(I)J",
 		garbageValue = "243378114"
 	)
 	@Export("length")
@@ -117,7 +117,7 @@ public class BufferedFile {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "([BI)V",
+		descriptor = "([BI)V",
 		garbageValue = "1810550632"
 	)
 	@Export("readFully")
@@ -127,7 +127,7 @@ public class BufferedFile {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([BIIB)V",
+		descriptor = "([BIIB)V",
 		garbageValue = "-4"
 	)
 	@Export("read")
@@ -233,7 +233,7 @@ public class BufferedFile {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1659142795"
 	)
 	@Export("load")
@@ -263,7 +263,7 @@ public class BufferedFile {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
+		descriptor = "([BIII)V",
 		garbageValue = "1917244707"
 	)
 	@Export("write")
@@ -341,7 +341,7 @@ public class BufferedFile {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1996252506"
 	)
 	@Export("flush")

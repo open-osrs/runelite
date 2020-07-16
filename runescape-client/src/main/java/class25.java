@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class25 {
 	@ObfuscatedName("ns")
 	@ObfuscatedSignature(
-		signature = "[Lhd;"
+		descriptor = "[Lhd;"
 	)
 	static Widget[] field124;
 	@ObfuscatedName("rs")
@@ -17,7 +17,7 @@ public class class25 {
 
 	@ObfuscatedName("ke")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-777100102"
 	)
 	static void method245(int var0) {

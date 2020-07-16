@@ -46,7 +46,7 @@ public class ReflectionCheck extends Node {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1841893741"
 	)
 	static int method2418(int var0, Script var1, boolean var2) {

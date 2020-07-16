@@ -11,7 +11,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ls;Ls;B)I",
+		descriptor = "(Ls;Ls;B)I",
 		garbageValue = "0"
 	)
 	@Export("compare_bridged")
@@ -29,7 +29,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;B)V",
+		descriptor = "(Lic;Lic;B)V",
 		garbageValue = "15"
 	)
 	public static void method195(AbstractArchive var0, AbstractArchive var1) {
@@ -40,7 +40,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)Z",
+		descriptor = "(Ljava/lang/String;I)Z",
 		garbageValue = "-1062830390"
 	)
 	static boolean method204(String var0) {
@@ -58,7 +58,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(Ljg;S)Z",
+		descriptor = "(Ljg;S)Z",
 		garbageValue = "255"
 	)
 	static boolean method202(ObjectDefinition var0) {
@@ -81,7 +81,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 
 	@ObfuscatedName("ix")
 	@ObfuscatedSignature(
-		signature = "([Lhd;IIIZB)V",
+		descriptor = "([Lhd;IIIZB)V",
 		garbageValue = "0"
 	)
 	@Export("resizeInterface")

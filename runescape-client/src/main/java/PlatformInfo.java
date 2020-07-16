@@ -134,7 +134,7 @@ public class PlatformInfo extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "972520847"
 	)
 	@Export("write")
@@ -173,7 +173,7 @@ public class PlatformInfo extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1553987970"
 	)
 	@Export("size")

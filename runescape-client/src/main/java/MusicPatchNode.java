@@ -18,19 +18,19 @@ public class MusicPatchNode extends Node {
 	int field2479;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lhi;"
+		descriptor = "Lhi;"
 	)
 	@Export("patch")
 	MusicPatch patch;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Ldp;"
+		descriptor = "Ldp;"
 	)
 	@Export("rawSound")
 	RawSound rawSound;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgp;"
+		descriptor = "Lgp;"
 	)
 	MusicPatchNode2 field2477;
 	@ObfuscatedName("p")
@@ -105,7 +105,7 @@ public class MusicPatchNode extends Node {
 	int field2476;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Ldk;"
+		descriptor = "Ldk;"
 	)
 	@Export("stream")
 	RawPcmStream stream;
@@ -125,7 +125,7 @@ public class MusicPatchNode extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "1"
 	)
 	void method3963() {
@@ -137,7 +137,7 @@ public class MusicPatchNode extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lig;II)V",
+		descriptor = "(Lig;II)V",
 		garbageValue = "2117396915"
 	)
 	static void method3968(Archive var0, int var1) {
@@ -154,7 +154,7 @@ public class MusicPatchNode extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "2076016155"
 	)
 	public static boolean method3966() {
@@ -164,7 +164,7 @@ public class MusicPatchNode extends Node {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-6"
 	)
 	static void method3970() {
@@ -202,7 +202,7 @@ public class MusicPatchNode extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "158312448"
 	)
 	static int method3964(int var0, Script var1, boolean var2) {
@@ -232,7 +232,7 @@ public class MusicPatchNode extends Node {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "-1086642561"
 	)
 	static int method3969(int var0, Script var1, boolean var2) {
@@ -254,7 +254,7 @@ public class MusicPatchNode extends Node {
 
 	@ObfuscatedName("je")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIII)V",
+		descriptor = "(IIIIIIII)V",
 		garbageValue = "-1185349902"
 	)
 	@Export("updateRootInterface")

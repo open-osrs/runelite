@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PcmPlayer {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Ldg;"
+		descriptor = "Ldg;"
 	)
 	@Export("soundSystem")
 	static SoundSystem soundSystem;
@@ -18,7 +18,7 @@ public class PcmPlayer {
 	protected int[] samples;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Ldf;"
+		descriptor = "Ldf;"
 	)
 	@Export("stream")
 	PcmStream stream;
@@ -83,12 +83,12 @@ public class PcmPlayer {
 	int field1448;
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "[Ldf;"
+		descriptor = "[Ldf;"
 	)
 	PcmStream[] field1449;
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "[Ldf;"
+		descriptor = "[Ldf;"
 	)
 	PcmStream[] field1453;
 
@@ -108,7 +108,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2128910021"
 	)
 	@Export("init")
@@ -117,7 +117,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "-14"
 	)
 	@Export("open")
@@ -126,7 +126,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1868944096"
 	)
 	@Export("position")
@@ -141,7 +141,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1900446281"
 	)
 	@Export("close")
@@ -150,7 +150,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "630637593"
 	)
 	@Export("discard")
@@ -159,7 +159,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(Ldf;I)V",
+		descriptor = "(Ldf;I)V",
 		garbageValue = "204760061"
 	)
 	@Export("setStream")
@@ -169,7 +169,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "277207832"
 	)
 	@Export("run")
@@ -262,7 +262,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-537221049"
 	)
 	public final void method2560() {
@@ -271,7 +271,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-209566182"
 	)
 	@Export("tryDiscard")
@@ -289,7 +289,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "733916097"
 	)
 	@Export("shutdown")
@@ -320,7 +320,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1841493566"
 	)
 	@Export("skip")
@@ -452,7 +452,7 @@ public class PcmPlayer {
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(Ldf;IB)V",
+		descriptor = "(Ldf;IB)V",
 		garbageValue = "45"
 	)
 	final void method2565(PcmStream var1, int var2) {

@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Fonts {
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	@Export("titlebuttonSprite")
 	static IndexedSprite titlebuttonSprite;
@@ -18,13 +18,13 @@ public class Fonts {
 	static byte[][][] ByteArrayPool_arrays;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("spritesArchive")
 	AbstractArchive spritesArchive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("fontsArchive")
 	AbstractArchive fontsArchive;
@@ -33,7 +33,7 @@ public class Fonts {
 	HashMap map;
 
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;)V"
+		descriptor = "(Lic;Lic;)V"
 	)
 	public Fonts(AbstractArchive var1, AbstractArchive var2) {
 		this.spritesArchive = var1;
@@ -43,7 +43,7 @@ public class Fonts {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([Lke;B)Ljava/util/HashMap;",
+		descriptor = "([Lke;B)Ljava/util/HashMap;",
 		garbageValue = "-100"
 	)
 	@Export("createMap")

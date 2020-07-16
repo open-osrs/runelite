@@ -15,7 +15,7 @@ public class class9 {
 	static int field42;
 	@ObfuscatedName("hl")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("mapMarkerSprites")
 	static Sprite[] mapMarkerSprites;
@@ -25,17 +25,17 @@ public class class9 {
 	Future field44;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	final Buffer field40;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lc;"
+		descriptor = "Lc;"
 	)
 	final class12 field41;
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;Lc;)V"
+		descriptor = "(Lkn;Lc;)V"
 	)
 	public class9(Buffer var1, class12 var2) {
 		this.field45 = Executors.newSingleThreadExecutor();
@@ -46,7 +46,7 @@ public class class9 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1196678116"
 	)
 	public boolean method106() {
@@ -55,7 +55,7 @@ public class class9 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1944585860"
 	)
 	public void method107() {
@@ -65,7 +65,7 @@ public class class9 {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)Lkn;",
+		descriptor = "(I)Lkn;",
 		garbageValue = "1647170417"
 	)
 	public Buffer method108() {
@@ -78,7 +78,7 @@ public class class9 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2093000238"
 	)
 	void method109() {
@@ -87,7 +87,7 @@ public class class9 {
 
 	@ObfuscatedName("gd")
 	@ObfuscatedSignature(
-		signature = "(Lby;ZI)V",
+		descriptor = "(Lby;ZI)V",
 		garbageValue = "928487649"
 	)
 	@Export("addPlayerToScene")
@@ -127,7 +127,7 @@ public class class9 {
 
 	@ObfuscatedName("jr")
 	@ObfuscatedSignature(
-		signature = "([Lhd;IIIIIIII)V",
+		descriptor = "([Lhd;IIIIIIII)V",
 		garbageValue = "-1819097133"
 	)
 	@Export("updateInterface")
@@ -678,7 +678,7 @@ public class class9 {
 
 	@ObfuscatedName("kc")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "1962834261"
 	)
 	@Export("clanKickUser")

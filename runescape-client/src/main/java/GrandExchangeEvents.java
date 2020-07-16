@@ -35,7 +35,7 @@ public class GrandExchangeEvents {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;Z)V",
+		descriptor = "(Lkn;Z)V",
 		garbageValue = "1"
 	)
 	public GrandExchangeEvents(Buffer var1, boolean var2) {
@@ -59,7 +59,7 @@ public class GrandExchangeEvents {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/Comparator;ZI)V",
+		descriptor = "(Ljava/util/Comparator;ZI)V",
 		garbageValue = "372755845"
 	)
 	@Export("sort")
@@ -74,7 +74,7 @@ public class GrandExchangeEvents {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(CI)Z",
+		descriptor = "(CI)Z",
 		garbageValue = "819758583"
 	)
 	public static boolean method148(char var0) {

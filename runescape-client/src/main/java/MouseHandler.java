@@ -14,7 +14,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class MouseHandler implements MouseListener, MouseMotionListener, FocusListener {
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lbc;"
+		descriptor = "Lbc;"
 	)
 	@Export("MouseHandler_instance")
 	public static MouseHandler MouseHandler_instance;
@@ -153,7 +153,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/event/MouseEvent;I)I",
+		descriptor = "(Ljava/awt/event/MouseEvent;I)I",
 		garbageValue = "-750750909"
 	)
 	@Export("getButton")
@@ -243,7 +243,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-121589904"
 	)
 	static void method1154() {

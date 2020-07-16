@@ -29,7 +29,7 @@ public class Skills {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)[Lib;",
+		descriptor = "(B)[Lib;",
 		garbageValue = "0"
 	)
 	public static StudioGame[] method4272() {
@@ -38,7 +38,7 @@ public class Skills {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-891910442"
 	)
 	public static int method4271() {

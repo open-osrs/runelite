@@ -10,7 +10,7 @@ public class MidiFileReader {
 	static final byte[] field2509;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	@Export("buffer")
 	Buffer buffer;

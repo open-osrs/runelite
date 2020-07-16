@@ -15,7 +15,7 @@ public abstract class Clock {
 	static int field2092;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Ldo;"
+		descriptor = "Ldo;"
 	)
 	@Export("soundCache")
 	public static SoundCache soundCache;
@@ -27,7 +27,7 @@ public abstract class Clock {
 	static int clientTickTimeIdx;
 	@ObfuscatedName("do")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive2")
 	static Archive archive2;
@@ -37,7 +37,7 @@ public abstract class Clock {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1017447827"
 	)
 	@Export("mark")
@@ -45,7 +45,7 @@ public abstract class Clock {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "-1786752641"
 	)
 	@Export("wait")
@@ -53,7 +53,7 @@ public abstract class Clock {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1957582234"
 	)
 	static int method3641(int var0, Script var1, boolean var2) {

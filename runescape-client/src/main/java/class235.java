@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class235 {
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([BIII)Z",
+		descriptor = "([BIII)Z",
 		garbageValue = "493872009"
 	)
 	static final boolean method4281(byte[] var0, int var1, int var2) {

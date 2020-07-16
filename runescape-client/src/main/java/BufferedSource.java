@@ -54,7 +54,7 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "733897471"
 	)
 	@Export("isAvailable")
@@ -88,7 +88,7 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "122"
 	)
 	@Export("available")
@@ -112,7 +112,7 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "400008412"
 	)
 	@Export("readUnsignedByte")
@@ -135,7 +135,7 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "([BIIB)I",
+		descriptor = "([BIIB)I",
 		garbageValue = "24"
 	)
 	@Export("read")
@@ -176,7 +176,7 @@ public class BufferedSource implements Runnable {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-1"
 	)
 	@Export("close")

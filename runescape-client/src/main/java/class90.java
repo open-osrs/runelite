@@ -7,7 +7,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class90 {
 	@ObfuscatedName("bb")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("worldSelectBackSprites")
 	static Sprite[] worldSelectBackSprites;
@@ -23,7 +23,7 @@ public class class90 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1343662154"
 	)
 	public static void method2164() {
@@ -32,7 +32,7 @@ public class class90 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Llz;IIII)V",
+		descriptor = "(Llz;IIII)V",
 		garbageValue = "-1824687226"
 	)
 	static void method2166(Sprite var0, int var1, int var2, int var3) {
@@ -43,7 +43,7 @@ public class class90 {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;II[BIB)I",
+		descriptor = "(Ljava/lang/CharSequence;II[BIB)I",
 		garbageValue = "-25"
 	)
 	@Export("encodeStringCp1252")
@@ -118,7 +118,7 @@ public class class90 {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "([BI)Lko;",
+		descriptor = "([BI)Lko;",
 		garbageValue = "166705545"
 	)
 	static Font method2168(byte[] var0) {

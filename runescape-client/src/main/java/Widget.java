@@ -9,37 +9,37 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Widget extends Node {
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "[[Lhd;"
+		descriptor = "[[Lhd;"
 	)
 	@Export("Widget_interfaceComponents")
 	public static Widget[][] Widget_interfaceComponents;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("Widget_archive")
 	static AbstractArchive Widget_archive;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedSprites")
 	static EvictingDualNodeHashTable Widget_cachedSprites;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedModels")
 	static EvictingDualNodeHashTable Widget_cachedModels;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedFonts")
 	static EvictingDualNodeHashTable Widget_cachedFonts;
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedSpriteMasks")
 	static EvictingDualNodeHashTable Widget_cachedSpriteMasks;
@@ -222,7 +222,7 @@ public class Widget extends Node {
 	public boolean fill;
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "Llw;"
+		descriptor = "Llw;"
 	)
 	@Export("fillMode")
 	public class332 fillMode;
@@ -460,7 +460,7 @@ public class Widget extends Node {
 	public String[] actions;
 	@ObfuscatedName("dm")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("parent")
 	public Widget parent;
@@ -630,7 +630,7 @@ public class Widget extends Node {
 	public int modelFrameCycle;
 	@ObfuscatedName("ee")
 	@ObfuscatedSignature(
-		signature = "[Lhd;"
+		descriptor = "[Lhd;"
 	)
 	@Export("children")
 	public Widget[] children;
@@ -790,7 +790,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkn;S)V",
+		descriptor = "(Lkn;S)V",
 		garbageValue = "27305"
 	)
 	@Export("decodeLegacy")
@@ -1047,7 +1047,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "0"
 	)
 	@Export("decode")
@@ -1189,7 +1189,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)[Ljava/lang/Object;",
+		descriptor = "(Lkn;I)[Ljava/lang/Object;",
 		garbageValue = "2034218421"
 	)
 	@Export("readListener")
@@ -1216,7 +1216,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lkn;S)[I",
+		descriptor = "(Lkn;S)[I",
 		garbageValue = "-3542"
 	)
 	@Export("readListenerTriggers")
@@ -1237,7 +1237,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "429586427"
 	)
 	@Export("swapItems")
@@ -1252,7 +1252,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(ZB)Llz;",
+		descriptor = "(ZB)Llz;",
 		garbageValue = "1"
 	)
 	@Export("getSprite")
@@ -1311,7 +1311,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)Lko;",
+		descriptor = "(B)Lko;",
 		garbageValue = "24"
 	)
 	@Export("getFont")
@@ -1338,7 +1338,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)Llz;",
+		descriptor = "(II)Llz;",
 		garbageValue = "2132771251"
 	)
 	@Export("getInventorySprite")
@@ -1370,7 +1370,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(Ljm;IZLhv;I)Lef;",
+		descriptor = "(Ljm;IZLhv;I)Lef;",
 		garbageValue = "-893461893"
 	)
 	@Export("getModel")
@@ -1452,7 +1452,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(ZI)Lhh;",
+		descriptor = "(ZI)Lhh;",
 		garbageValue = "-1801496414"
 	)
 	@Export("getSpriteMask")
@@ -1511,7 +1511,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;I)V",
 		garbageValue = "1766154663"
 	)
 	@Export("setAction")
@@ -1532,7 +1532,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "863764794"
 	)
 	@Export("getVarbit")

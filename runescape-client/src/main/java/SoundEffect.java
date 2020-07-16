@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class SoundEffect {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "[Ldq;"
+		descriptor = "[Ldq;"
 	)
 	@Export("instruments")
 	Instrument[] instruments;
@@ -20,7 +20,7 @@ public class SoundEffect {
 	int end;
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;)V"
+		descriptor = "(Lkn;)V"
 	)
 	SoundEffect(Buffer var1) {
 		this.instruments = new Instrument[10];
@@ -40,7 +40,7 @@ public class SoundEffect {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "()Ldp;"
+		descriptor = "()Ldp;"
 	)
 	@Export("toRawSound")
 	public RawSound toRawSound() {
@@ -124,7 +124,7 @@ public class SoundEffect {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;II)Ldr;"
+		descriptor = "(Lic;II)Ldr;"
 	)
 	@Export("readSoundEffect")
 	public static SoundEffect readSoundEffect(AbstractArchive var0, int var1, int var2) {

@@ -6,14 +6,14 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class195 {
 	@ObfuscatedName("ba")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	@Export("loginType")
 	static LoginType loginType;
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "([BI)[B",
+		descriptor = "([BI)[B",
 		garbageValue = "-92628097"
 	)
 	static byte[] method3748(byte[] var0) {
@@ -25,7 +25,7 @@ public class class195 {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIILjg;IB)V",
+		descriptor = "(IIILjg;IB)V",
 		garbageValue = "-24"
 	)
 	static void method3747(int var0, int var1, int var2, ObjectDefinition var3, int var4) {
@@ -61,7 +61,7 @@ public class class195 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1529350789"
 	)
 	public static void method3749() {

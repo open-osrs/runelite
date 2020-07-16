@@ -15,7 +15,7 @@ public class MilliClock extends Clock {
 	public static int musicTrackFileId;
 	@ObfuscatedName("ds")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive0")
 	static Archive archive0;
@@ -67,7 +67,7 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1017447827"
 	)
 	@Export("mark")
@@ -80,7 +80,7 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "-1786752641"
 	)
 	@Export("wait")
@@ -145,7 +145,7 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)J",
+		descriptor = "(I)J",
 		garbageValue = "301883572"
 	)
 	@Export("currentTimeMillis")
@@ -161,7 +161,7 @@ public class MilliClock extends Clock {
 
 	@ObfuscatedName("jh")
 	@ObfuscatedSignature(
-		signature = "(Lhd;S)Z",
+		descriptor = "(Lhd;S)Z",
 		garbageValue = "442"
 	)
 	static final boolean method3586(Widget var0) {

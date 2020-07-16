@@ -48,7 +48,7 @@ public class Signature
 	{
 		final int rvStart = str.indexOf(')');
 		if (rvStart == -1)
-			throw new IllegalArgumentException("Signature has no return value!");
+			throw new IllegalArgumentException("Descriptor has no return value!");
 
 		rv = new Type(str.substring(rvStart + 1));
 		arguments = findArgs(str, new ArrayList<>(), str.indexOf('(') + 1, rvStart);

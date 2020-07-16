@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class HealthBarDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("HealthBarDefinition_archive")
 	public static AbstractArchive HealthBarDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("HitSplatDefinition_spritesArchive")
 	public static AbstractArchive HitSplatDefinition_spritesArchive;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("HealthBarDefinition_cached")
 	public static EvictingDualNodeHashTable HealthBarDefinition_cached;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("HealthBarDefinition_cachedSprites")
 	static EvictingDualNodeHashTable HealthBarDefinition_cachedSprites;
@@ -115,7 +115,7 @@ public class HealthBarDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-2036090908"
 	)
 	@Export("decode")
@@ -132,7 +132,7 @@ public class HealthBarDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-2145351852"
 	)
 	@Export("decodeNext")
@@ -165,7 +165,7 @@ public class HealthBarDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)Llz;",
+		descriptor = "(I)Llz;",
 		garbageValue = "65535"
 	)
 	@Export("getFrontSprite")
@@ -189,7 +189,7 @@ public class HealthBarDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)Llz;",
+		descriptor = "(I)Llz;",
 		garbageValue = "1675324789"
 	)
 	@Export("getBackSprite")
@@ -213,7 +213,7 @@ public class HealthBarDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
+		descriptor = "(IIB)I",
 		garbageValue = "-32"
 	)
 	static int method4673(int var0, int var1) {
@@ -227,7 +227,7 @@ public class HealthBarDefinition extends DualNode {
 
 	@ObfuscatedName("kd")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZI)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/String;ZI)Ljava/lang/String;",
 		garbageValue = "-1975463268"
 	)
 	static String method4669(String var0, boolean var1) {

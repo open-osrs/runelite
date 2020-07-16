@@ -13,13 +13,13 @@ public class Archive extends AbstractArchive {
 	static CRC32 Archive_crc;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Llp;"
+		descriptor = "Llp;"
 	)
 	@Export("archiveDisk")
 	ArchiveDisk archiveDisk;
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		signature = "Llp;"
+		descriptor = "Llp;"
 	)
 	@Export("masterDisk")
 	ArchiveDisk masterDisk;
@@ -59,7 +59,7 @@ public class Archive extends AbstractArchive {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Llp;Llp;IZZZ)V"
+		descriptor = "(Llp;Llp;IZZZ)V"
 	)
 	public Archive(ArchiveDisk var1, ArchiveDisk var2, int var3, boolean var4, boolean var5, boolean var6) {
 		super(var4, var5);
@@ -75,7 +75,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "479482423"
 	)
 	@Export("loadRegionFromGroup")
@@ -91,7 +91,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-1350822089"
 	)
 	@Export("groupLoadPercent")
@@ -116,7 +116,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1560066319"
 	)
 	@Export("loadGroup")
@@ -131,7 +131,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("dr")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "6460755"
 	)
 	public boolean method4456() {
@@ -140,7 +140,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("di")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1538719165"
 	)
 	@Export("percentage")
@@ -170,7 +170,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("dp")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1870441691"
 	)
 	@Export("loadIndex")
@@ -187,7 +187,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("dc")
 	@ObfuscatedSignature(
-		signature = "(I[BZZI)V",
+		descriptor = "(I[BZZI)V",
 		garbageValue = "-1362503762"
 	)
 	@Export("write")
@@ -220,7 +220,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("dt")
 	@ObfuscatedSignature(
-		signature = "(Llp;I[BZI)V",
+		descriptor = "(Llp;I[BZI)V",
 		garbageValue = "416222280"
 	)
 	@Export("load")
@@ -311,7 +311,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("ds")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1106038504"
 	)
 	@Export("loadAllLocal")
@@ -344,7 +344,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("dg")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "1634778176"
 	)
 	public boolean method4460(int var1) {
@@ -353,7 +353,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("do")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "-587516749"
 	)
 	public boolean method4452(int var1) {
@@ -362,7 +362,7 @@ public class Archive extends AbstractArchive {
 
 	@ObfuscatedName("dn")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1037828577"
 	)
 	@Export("loadPercent")

@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class WorldMapSprite {
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgw;"
+		descriptor = "Lgw;"
 	)
 	@Export("midiPcmStream")
 	public static MidiPcmStream midiPcmStream;
@@ -48,7 +48,7 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "2081761027"
 	)
 	@Export("getTileColor")
@@ -58,7 +58,7 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)Lhd;",
+		descriptor = "(IB)Lhd;",
 		garbageValue = "115"
 	)
 	@Export("getWidget")
@@ -77,7 +77,7 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "2146534283"
 	)
 	@Export("itemContainerSetItem")
@@ -113,7 +113,7 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("ep")
 	@ObfuscatedSignature(
-		signature = "(Lig;Ljava/lang/String;I)V",
+		descriptor = "(Lig;Ljava/lang/String;I)V",
 		garbageValue = "2099603799"
 	)
 	static void method481(Archive var0, String var1) {
@@ -124,7 +124,7 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("jk")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1835863543"
 	)
 	@Export("FriendSystem_invalidateIgnoreds")

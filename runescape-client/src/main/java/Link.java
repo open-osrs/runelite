@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Link {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgd;"
+		descriptor = "Lgd;"
 	)
 	@Export("previous")
 	public Link previous;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgd;"
+		descriptor = "Lgd;"
 	)
 	@Export("next")
 	public Link next;

@@ -439,8 +439,12 @@ public class ConstantParameter implements Deobfuscator
 				// already annotated
 				continue;
 			}
-			obfuscatedSignature.setElement("signature", m.getDescriptor().toString());
-			obfuscatedSignature.setElement("garbageValue", value);
+			else if (obfuscatedSignature.size() == 0)
+			{
+				obfuscatedSignature.setElement("descriptor", m.getDescriptor().toString());
+			}
+
+			obfuscatedSignature.setElement("garbageValue", String.valueOf(value));
 		}
 	}
 

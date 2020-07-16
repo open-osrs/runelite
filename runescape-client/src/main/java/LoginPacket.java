@@ -9,37 +9,37 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class LoginPacket implements class190 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgx;"
+		descriptor = "Lgx;"
 	)
 	public static final LoginPacket field2352;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgx;"
+		descriptor = "Lgx;"
 	)
 	static final LoginPacket field2350;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgx;"
+		descriptor = "Lgx;"
 	)
 	public static final LoginPacket field2347;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgx;"
+		descriptor = "Lgx;"
 	)
 	public static final LoginPacket field2348;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lgx;"
+		descriptor = "Lgx;"
 	)
 	public static final LoginPacket field2345;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lgx;"
+		descriptor = "Lgx;"
 	)
 	static final LoginPacket field2346;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "[Lgx;"
+		descriptor = "[Lgx;"
 	)
 	@Export("LoginPacket_indexedValues")
 	static final LoginPacket[] LoginPacket_indexedValues;
@@ -67,7 +67,7 @@ public class LoginPacket implements class190 {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "0"
 	)
 	LoginPacket(int var1, int var2) {
@@ -76,7 +76,7 @@ public class LoginPacket implements class190 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Lik;",
+		descriptor = "(II)Lik;",
 		garbageValue = "-729077438"
 	)
 	public static HealthBarDefinition method3745(int var0) {

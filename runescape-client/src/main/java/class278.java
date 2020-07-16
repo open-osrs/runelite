@@ -6,13 +6,13 @@ import net.runelite.rs.ScriptOpcodes;
 public class class278 {
 	@ObfuscatedName("sb")
 	@ObfuscatedSignature(
-		signature = "Lix;"
+		descriptor = "Lix;"
 	)
 	public static class247 field3585;
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZB)I",
+		descriptor = "(ILcs;ZB)I",
 		garbageValue = "73"
 	)
 	static int method5158(int var0, Script var1, boolean var2) {

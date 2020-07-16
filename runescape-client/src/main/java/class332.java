@@ -12,18 +12,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum class332 implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llw;"
+		descriptor = "Llw;"
 	)
 	@Export("SOLID")
 	SOLID(0, 0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Llw;"
+		descriptor = "Llw;"
 	)
 	field3880(1, 1),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Llw;"
+		descriptor = "Llw;"
 	)
 	field3881(2, 2);
 
@@ -46,7 +46,7 @@ public enum class332 implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -56,7 +56,7 @@ public enum class332 implements Enumerated {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Throwable;I)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/Throwable;I)Ljava/lang/String;",
 		garbageValue = "-353829952"
 	)
 	static String method6316(Throwable var0) throws IOException {

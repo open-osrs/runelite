@@ -58,7 +58,7 @@ public final class AccessFile {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
+		descriptor = "([BIII)V",
 		garbageValue = "239881906"
 	)
 	@Export("write")
@@ -75,7 +75,7 @@ public final class AccessFile {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1767391731"
 	)
 	@Export("close")
@@ -85,7 +85,7 @@ public final class AccessFile {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(ZB)V",
+		descriptor = "(ZB)V",
 		garbageValue = "-19"
 	)
 	@Export("closeSync")
@@ -106,7 +106,7 @@ public final class AccessFile {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)J",
+		descriptor = "(I)J",
 		garbageValue = "997596889"
 	)
 	@Export("length")
@@ -116,7 +116,7 @@ public final class AccessFile {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "([BIII)I",
+		descriptor = "([BIII)I",
 		garbageValue = "-1991806699"
 	)
 	@Export("read")

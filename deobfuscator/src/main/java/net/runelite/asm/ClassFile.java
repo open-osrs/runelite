@@ -25,10 +25,9 @@
 package net.runelite.asm;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import lombok.Getter;
 import net.runelite.asm.attributes.Annotated;
 import net.runelite.asm.pool.Class;
@@ -55,7 +54,7 @@ public class ClassFile implements Annotated, Named
 	private final List<Field> fields = new ArrayList<>();
 	private final List<Method> methods = new ArrayList<>();
 	@Getter
-	private final Map<Type, Annotation> annotations = new TreeMap<>(Comparator.comparing(Type::toString));
+	private final Map<Type, Annotation> annotations = new LinkedHashMap<>();
 
 	public ClassFile(ClassGroup group)
 	{

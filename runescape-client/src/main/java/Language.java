@@ -10,49 +10,49 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Language implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("Language_EN")
 	public static final Language Language_EN;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("Language_DE")
 	static final Language Language_DE;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("Language_FR")
 	public static final Language Language_FR;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("Language_PT")
 	static final Language Language_PT;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("Language_NL")
 	static final Language Language_NL;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("Language_ES")
 	public static final Language Language_ES;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("Language_ES_MX")
 	static final Language Language_ES_MX;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "[Lgz;"
+		descriptor = "[Lgz;"
 	)
 	@Export("Language_valuesOrdered")
 	static final Language[] Language_valuesOrdered;
@@ -92,7 +92,7 @@ public class Language implements Enumerated {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lge;ILjava/lang/String;)V"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lge;ILjava/lang/String;)V"
 	)
 	Language(String var1, String var2, String var3, ModeWhere var4, int var5, String var6) {
 		this.field2396 = var1;
@@ -108,7 +108,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -118,7 +118,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)Ljava/lang/String;",
+		descriptor = "(B)Ljava/lang/String;",
 		garbageValue = "-15"
 	)
 	@Export("getLanguage")
@@ -132,7 +132,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Llf;III)I",
+		descriptor = "(Llf;III)I",
 		garbageValue = "924911925"
 	)
 	static int method3801(IterableNodeHashTable var0, int var1, int var2) {
@@ -146,7 +146,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[Lgz;",
+		descriptor = "(I)[Lgz;",
 		garbageValue = "1898345943"
 	)
 	static Language[] method3783() {
@@ -155,7 +155,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IB)Lbr;",
+		descriptor = "(IB)Lbr;",
 		garbageValue = "-87"
 	)
 	@Export("Messages_getMessage")
@@ -165,7 +165,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(IB)Lgz;",
+		descriptor = "(IB)Lgz;",
 		garbageValue = "-67"
 	)
 	@Export("Language_get")
@@ -181,7 +181,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Lko;Lko;I)V",
+		descriptor = "(Lko;Lko;I)V",
 		garbageValue = "916076858"
 	)
 	static void method3786(Font var0, Font var1) {
@@ -429,7 +429,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("gj")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
+		descriptor = "(IIII)I",
 		garbageValue = "179125696"
 	)
 	@Export("getTileHeight")
@@ -454,7 +454,7 @@ public class Language implements Enumerated {
 
 	@ObfuscatedName("jg")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1826045916"
 	)
 	@Export("runIntfCloseListeners")

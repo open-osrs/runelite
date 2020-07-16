@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")

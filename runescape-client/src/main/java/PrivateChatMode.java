@@ -8,17 +8,17 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PrivateChatMode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lls;"
+		descriptor = "Lls;"
 	)
 	static final PrivateChatMode field3819;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lls;"
+		descriptor = "Lls;"
 	)
 	public static final PrivateChatMode field3818;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lls;"
+		descriptor = "Lls;"
 	)
 	static final PrivateChatMode field3820;
 	@ObfuscatedName("j")

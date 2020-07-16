@@ -67,7 +67,7 @@ public final class Tiles {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)I",
+		descriptor = "(Ljava/lang/CharSequence;I)I",
 		garbageValue = "492291254"
 	)
 	@Export("parseInt")
@@ -77,7 +77,7 @@ public final class Tiles {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1908314929"
 	)
 	public static void method1200(int var0) {
@@ -109,7 +109,7 @@ public final class Tiles {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IIIZIZI)V",
+		descriptor = "(IIIZIZI)V",
 		garbageValue = "2067665025"
 	)
 	@Export("doWorldSorting")
@@ -139,7 +139,7 @@ public final class Tiles {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1760711343"
 	)
 	static int method1199(int var0, Script var1, boolean var2) {
@@ -250,7 +250,7 @@ public final class Tiles {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1187650171"
 	)
 	static final int method1180() {
@@ -259,7 +259,7 @@ public final class Tiles {
 
 	@ObfuscatedName("ib")
 	@ObfuscatedSignature(
-		signature = "([Lhd;IIIIIIIII)V",
+		descriptor = "([Lhd;IIIIIIIII)V",
 		garbageValue = "-2136045116"
 	)
 	@Export("drawInterface")

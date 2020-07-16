@@ -22,7 +22,7 @@ public class class89 {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "735302127"
 	)
 	public static void method2161() {
@@ -33,7 +33,7 @@ public class class89 {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-963420797"
 	)
 	static void method2159() {

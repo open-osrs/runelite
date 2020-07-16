@@ -16,7 +16,7 @@ public class UserComparator5 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;B)I",
+		descriptor = "(Lkx;Lkx;B)I",
 		garbageValue = "0"
 	)
 	@Export("compareBuddy")
@@ -38,7 +38,7 @@ public class UserComparator5 extends AbstractUserComparator {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IB)Ljava/lang/String;",
+		descriptor = "(Lkn;IB)Ljava/lang/String;",
 		garbageValue = "2"
 	)
 	static String method3534(Buffer var0, int var1) {
@@ -59,7 +59,7 @@ public class UserComparator5 extends AbstractUserComparator {
 
 	@ObfuscatedName("in")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIS)V",
+		descriptor = "(IIIIIIS)V",
 		garbageValue = "-4011"
 	)
 	static final void method3540(int var0, int var1, int var2, int var3, int var4, int var5) {

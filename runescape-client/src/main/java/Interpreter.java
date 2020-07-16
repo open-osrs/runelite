@@ -33,7 +33,7 @@ public class Interpreter {
 	static int Interpreter_frameDepth;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "[Lbp;"
+		descriptor = "[Lbp;"
 	)
 	@Export("Interpreter_frames")
 	static ScriptFrame[] Interpreter_frames;
@@ -72,7 +72,7 @@ public class Interpreter {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IILga;Lfz;S)Z",
+		descriptor = "(IILga;Lfz;S)Z",
 		garbageValue = "-8766"
 	)
 	static final boolean method2112(int var0, int var1, RouteStrategy var2, CollisionMap var3) {

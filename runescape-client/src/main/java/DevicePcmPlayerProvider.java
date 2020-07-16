@@ -14,7 +14,7 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 	static int field435;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lhz;"
+		descriptor = "Lhz;"
 	)
 	@Export("musicTrack")
 	public static MusicTrack musicTrack;
@@ -24,7 +24,7 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ldt;",
+		descriptor = "(I)Ldt;",
 		garbageValue = "-1371983171"
 	)
 	@Export("player")
@@ -34,7 +34,7 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;Ljava/lang/String;I)I",
+		descriptor = "(Lkn;Ljava/lang/String;I)I",
 		garbageValue = "-420633495"
 	)
 	public static int method917(Buffer var0, String var1) {
@@ -112,7 +112,7 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IB)V",
+		descriptor = "(Lkn;IB)V",
 		garbageValue = "-128"
 	)
 	public static void method914(Buffer var0, int var1) {
@@ -128,7 +128,7 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
+		descriptor = "(IIII)I",
 		garbageValue = "-422462480"
 	)
 	@Export("hslToRgb")
@@ -155,7 +155,7 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 
 	@ObfuscatedName("ie")
 	@ObfuscatedSignature(
-		signature = "(Lhd;B)Z",
+		descriptor = "(Lhd;B)Z",
 		garbageValue = "-86"
 	)
 	@Export("runCs1")

@@ -57,7 +57,7 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(DDII)[D",
+		descriptor = "(DDII)[D",
 		garbageValue = "-2077426308"
 	)
 	public static double[] method1248(double var0, double var2, int var4) {
@@ -78,7 +78,7 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "([BIII)Ljava/lang/String;",
+		descriptor = "([BIII)Ljava/lang/String;",
 		garbageValue = "-2086998807"
 	)
 	@Export("decodeStringCp1252")
@@ -107,7 +107,7 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-150787474"
 	)
 	public static void method1251() {
@@ -116,7 +116,7 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("fi")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1161280240"
 	)
 	@Export("logOut")
@@ -196,7 +196,7 @@ public class MouseRecorder implements Runnable {
 
 	@ObfuscatedName("fy")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "-126"
 	)
 	@Export("playSoundJingle")

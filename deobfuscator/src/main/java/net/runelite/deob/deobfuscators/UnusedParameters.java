@@ -100,7 +100,7 @@ public class UnusedParameters implements Deobfuscator
 		final var a = m.findAnnotation(DeobAnnotations.OBFUSCATED_SIGNATURE);
 		if (a == null)
 			return false;
-		final var str = a.get("signature");
+		final var str = a.get("descriptor");
 
 		return parameter + 1 == new Signature((String) str).size();
 	}

@@ -26,7 +26,7 @@ public class UrlRequest {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1247069155"
 	)
 	@Export("isDone")
@@ -36,7 +36,7 @@ public class UrlRequest {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[B",
+		descriptor = "(I)[B",
 		garbageValue = "1076365281"
 	)
 	@Export("getResponse")
@@ -46,7 +46,7 @@ public class UrlRequest {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZLjava/lang/String;ZI)V",
+		descriptor = "(Ljava/lang/String;ZLjava/lang/String;ZI)V",
 		garbageValue = "-2122321724"
 	)
 	static void method3426(String var0, boolean var1, String var2, boolean var3) {
@@ -78,7 +78,7 @@ public class UrlRequest {
 
 	@ObfuscatedName("gx")
 	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
+		descriptor = "(IIIIB)V",
 		garbageValue = "60"
 	)
 	static final void method3432(int var0, int var1, int var2, int var3) {

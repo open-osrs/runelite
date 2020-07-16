@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class UserComparator10 extends AbstractUserComparator {
 	@ObfuscatedName("ef")
 	@ObfuscatedSignature(
-		signature = "Llq;"
+		descriptor = "Llq;"
 	)
 	@Export("spriteIds")
 	static GraphicsDefaults spriteIds;
@@ -23,7 +23,7 @@ public class UserComparator10 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;I)I",
+		descriptor = "(Lkx;Lkx;I)I",
 		garbageValue = "-227570330"
 	)
 	@Export("compareBuddy")
@@ -41,7 +41,7 @@ public class UserComparator10 extends AbstractUserComparator {
 
 	@ObfuscatedName("ks")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-856816613"
 	)
 	static void method3522(String var0) {

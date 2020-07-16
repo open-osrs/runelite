@@ -10,7 +10,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class NetCache {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llj;"
+		descriptor = "Llj;"
 	)
 	@Export("NetCache_socket")
 	public static AbstractSocket NetCache_socket;
@@ -22,7 +22,7 @@ public class NetCache {
 	public static int NetCache_loadTime;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("NetCache_pendingPriorityWrites")
 	public static NodeHashTable NetCache_pendingPriorityWrites;
@@ -34,7 +34,7 @@ public class NetCache {
 	public static int NetCache_pendingPriorityWritesCount;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("NetCache_pendingPriorityResponses")
 	public static NodeHashTable NetCache_pendingPriorityResponses;
@@ -46,13 +46,13 @@ public class NetCache {
 	public static int NetCache_pendingPriorityResponsesCount;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Ljd;"
+		descriptor = "Ljd;"
 	)
 	@Export("NetCache_pendingWritesQueue")
 	public static DualNodeDeque NetCache_pendingWritesQueue;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("NetCache_pendingWrites")
 	public static NodeHashTable NetCache_pendingWrites;
@@ -64,7 +64,7 @@ public class NetCache {
 	public static int NetCache_pendingWritesCount;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("NetCache_pendingResponses")
 	public static NodeHashTable NetCache_pendingResponses;
@@ -78,7 +78,7 @@ public class NetCache {
 	public static boolean field3208;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	@Export("NetCache_responseHeaderBuffer")
 	public static Buffer NetCache_responseHeaderBuffer;
@@ -92,7 +92,7 @@ public class NetCache {
 	public static CRC32 NetCache_crc;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "[Lig;"
+		descriptor = "[Lig;"
 	)
 	@Export("NetCache_archives")
 	public static Archive[] NetCache_archives;

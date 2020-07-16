@@ -32,7 +32,7 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1768039353"
 	)
 	@Export("shutdown")
@@ -43,7 +43,7 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-657646100"
 	)
 	@Export("isDone")
@@ -53,7 +53,7 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(B)Ljava/security/SecureRandom;",
+		descriptor = "(B)Ljava/security/SecureRandom;",
 		garbageValue = "0"
 	)
 	@Export("get")
@@ -67,7 +67,7 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I[BLlp;B)V",
+		descriptor = "(I[BLlp;B)V",
 		garbageValue = "0"
 	)
 	static void method2270(int var0, byte[] var1, ArchiveDisk var2) {
@@ -94,7 +94,7 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;IZB)I",
+		descriptor = "(Ljava/lang/CharSequence;IZB)I",
 		garbageValue = "45"
 	)
 	@Export("parseIntCustomRadix")
@@ -160,7 +160,7 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(IIIIIZI)Llz;",
+		descriptor = "(IIIIIZI)Llz;",
 		garbageValue = "-650607476"
 	)
 	@Export("getItemSprite")
@@ -292,7 +292,7 @@ public class SecureRandomFuture {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZB)I",
+		descriptor = "(ILcs;ZB)I",
 		garbageValue = "75"
 	)
 	static int method2272(int var0, Script var1, boolean var2) {

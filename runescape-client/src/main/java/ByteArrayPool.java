@@ -47,7 +47,7 @@ public class ByteArrayPool {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IZI)[B",
+		descriptor = "(IZI)[B",
 		garbageValue = "1801183295"
 	)
 	@Export("ByteArrayPool_getArrayBool")
@@ -98,7 +98,7 @@ public class ByteArrayPool {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)Ljava/lang/Class;",
+		descriptor = "(Ljava/lang/String;B)Ljava/lang/Class;",
 		garbageValue = "28"
 	)
 	@Export("loadClassFromDescriptor")
