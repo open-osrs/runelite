@@ -34,10 +34,7 @@ import java.util.List;
 import java.util.Map;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
-import net.runelite.asm.attributes.annotation.Element;
-import net.runelite.asm.attributes.annotation.SimpleElement;
+import net.runelite.asm.Annotation;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
@@ -62,8 +59,8 @@ public class ConstantParameter implements Deobfuscator
 {
 	private static final Logger logger = LoggerFactory.getLogger(ConstantParameter.class);
 
-	private Map<ConstantMethodParameter, ConstantMethodParameter> parameters = new HashMap<>();
-	private Multimap<Method, ConstantMethodParameter> mparams = HashMultimap.create();
+	private final Map<ConstantMethodParameter, ConstantMethodParameter> parameters = new HashMap<>();
+	private final Multimap<Method, ConstantMethodParameter> mparams = HashMultimap.create();
 
 	private void checkMethodsAreConsistent(List<Method> methods)
 	{
@@ -436,23 +433,14 @@ public class ConstantParameter implements Deobfuscator
 		{
 			Object value = parameter.values.get(0);
 
-			Annotations annotations = m.getAnnotations();
-
-			Annotation obfuscatedSignature = annotations.find(DeobAnnotations.OBFUSCATED_SIGNATURE);
-			if (obfuscatedSignature != null && obfuscatedSignature.getElements().size() == 2)
+			Annotation obfuscatedSignature = m.findAnnotation(DeobAnnotations.OBFUSCATED_SIGNATURE, true);
+			if (obfuscatedSignature.size() == 2)
 			{
 				// already annotated
 				continue;
 			}
-
-			if (obfuscatedSignature == null)
-			{
-				obfuscatedSignature = annotations.addAnnotation(DeobAnnotations.OBFUSCATED_SIGNATURE, "signature", m.getDescriptor().toString());
-			}
-
-			// Add garbage value
-			Element element = new SimpleElement("garbageValue", value.toString());
-			obfuscatedSignature.addElement(element);
+			obfuscatedSignature.setElement("signature", m.getDescriptor().toString());
+			obfuscatedSignature.setElement("garbageValue", value);
 		}
 	}
 

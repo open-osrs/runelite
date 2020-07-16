@@ -82,7 +82,7 @@ public class MappingDumper
 		for (ClassFile cf : group.getClasses())
 		{
 			String implName = cf.getName();
-			String className = DeobAnnotations.getObfuscatedName(cf.getAnnotations());
+			String className = DeobAnnotations.getObfuscatedName(cf);
 
 			if (implName != null)
 			{
@@ -92,7 +92,7 @@ public class MappingDumper
 
 			for (Field f : cf.getFields())
 			{
-				String exportName = DeobAnnotations.getExportedName(f.getAnnotations());
+				String exportName = DeobAnnotations.getExportedName(f);
 
 				if (exportName == null)
 				{
@@ -101,7 +101,7 @@ public class MappingDumper
 
 				++fields;
 
-				String fieldName = DeobAnnotations.getObfuscatedName(f.getAnnotations());
+				String fieldName = DeobAnnotations.getObfuscatedName(f);
 				Type type = f.getType();
 				Number getter = DeobAnnotations.getObfuscatedGetter(f);
 
@@ -171,7 +171,7 @@ public class MappingDumper
 
 			for (Method m : cf.getMethods())
 			{
-				String exportName = DeobAnnotations.getExportedName(m.getAnnotations());
+				String exportName = DeobAnnotations.getExportedName(m);
 
 				if (exportName == null)
 				{
@@ -180,7 +180,7 @@ public class MappingDumper
 
 				methods++;
 
-				String methodName = DeobAnnotations.getObfuscatedName(m.getAnnotations());
+				String methodName = DeobAnnotations.getObfuscatedName(m);
 				Signature signature = DeobAnnotations.getObfuscatedSignature(m);
 				String garbageValue = DeobAnnotations.getDecoder(m);
 
@@ -329,18 +329,18 @@ public class MappingDumper
 		for (ClassFile cf : group.getClasses())
 		{
 			String implName = DeobAnnotations.getImplements(cf);
-			String className = DeobAnnotations.getObfuscatedName(cf.getAnnotations());
+			String className = DeobAnnotations.getObfuscatedName(cf);
 
 			for (Field f : cf.getFields())
 			{
-				String exportName = DeobAnnotations.getExportedName(f.getAnnotations());
+				String exportName = DeobAnnotations.getExportedName(f);
 
 				if (exportName == null)
 				{
 					continue;
 				}
 
-				String fieldName = DeobAnnotations.getObfuscatedName(f.getAnnotations());
+				String fieldName = DeobAnnotations.getObfuscatedName(f);
 				Type obfType = DeobAnnotations.getObfuscatedType(f);
 				Number getter = DeobAnnotations.getObfuscatedGetter(f);
 
@@ -361,14 +361,14 @@ public class MappingDumper
 			for (Method m : cf.getMethods())
 			{
 
-				String exportName = DeobAnnotations.getExportedName(m.getAnnotations());
+				String exportName = DeobAnnotations.getExportedName(m);
 
 				if (exportName == null)
 				{
 					continue;
 				}
 
-				String methodName = DeobAnnotations.getObfuscatedName(m.getAnnotations());
+				String methodName = DeobAnnotations.getObfuscatedName(m);
 				Signature obfSignature = DeobAnnotations.getObfuscatedSignature(m);
 				String predicate = DeobAnnotations.getDecoder(m);
 

@@ -37,7 +37,6 @@ import net.runelite.deob.deobfuscators.Lvt;
 import net.runelite.deob.deobfuscators.Order;
 import net.runelite.deob.deobfuscators.RenameUnique;
 import net.runelite.deob.deobfuscators.RuntimeExceptions;
-import net.runelite.deob.deobfuscators.StaticShouldBeInstance;
 import net.runelite.deob.deobfuscators.UnreachedCode;
 import net.runelite.deob.deobfuscators.UnusedClass;
 import net.runelite.deob.deobfuscators.UnusedFields;
@@ -79,8 +78,6 @@ public class Deob
 		Stopwatch stopwatch = Stopwatch.createStarted();
 
 		ClassGroup group = JarUtil.loadJar(new File(args[0]));
-
-		run(group, new StaticShouldBeInstance());
 
 		if (args.length <= 2 || !args[2].equals("rl"))
 		{

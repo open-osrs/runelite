@@ -202,6 +202,8 @@ subprojects {
             }
         }
     }
+
+    configurations["compileOnly"].extendsFrom(configurations["annotationProcessor"])
 }
 
 application {

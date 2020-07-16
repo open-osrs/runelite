@@ -27,6 +27,8 @@ package net.runelite.deob.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import lombok.Getter;
+import lombok.Setter;
 import net.runelite.asm.pool.Class;
 import net.runelite.asm.pool.Field;
 import net.runelite.asm.pool.Method;
@@ -36,7 +38,11 @@ public class NameMappings
 	private final Map<Object, String> map = new HashMap<>();
 
 	private final Map<Object, String[]> paramMap = new HashMap<>();
-	
+
+	@Getter
+	@Setter
+	private int fields, methods, classes;
+
 	public void map(Class cf, String name)
 	{
 		map.put(cf, name);

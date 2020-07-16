@@ -97,22 +97,22 @@ public class UnusedParameters implements Deobfuscator
 
 	private boolean shouldRemove(Method m, int parameter)
 	{
-		Signature obSig = DeobAnnotations.getObfuscatedSignature(m);
-		if (obSig == null)
-		{
+		final var a = m.findAnnotation(DeobAnnotations.OBFUSCATED_SIGNATURE);
+		if (a == null)
 			return false;
-		}
+		final var str = a.get("signature");
 
-		return parameter + 1 == obSig.size();
+		return parameter + 1 == new Signature((String) str).size();
 	}
 
 	private int processUnused(Execution execution, ClassGroup group)
 	{
 		int count = 0;
 
-		for (List<Method> m : unused.keySet())
+		for (Map.Entry<List<Method>, Collection<Integer>> entry : unused.entrySet())
 		{
-			Collection<Integer> u = unused.get(m);
+			List<Method> m = entry.getKey();
+			Collection<Integer> u = entry.getValue();
 
 			int offset = m.size() == 1 && m.get(0).isStatic() ? 0 : 1;
 
@@ -188,7 +188,7 @@ public class UnusedParameters implements Deobfuscator
 			}
 		}
 
-		List<Integer> l = new ArrayList<>(list);
+		List<Integer> l = new ArrayList<>(list != null ? list : new ArrayList<>()); // i know
 		Collections.sort(l);
 		Collections.reverse(l);
 		return l;
@@ -218,7 +218,7 @@ public class UnusedParameters implements Deobfuscator
 
 					InvokeInstruction ii = (InvokeInstruction) i;
 
-					if (!ii.getMethods().stream().anyMatch(me -> methods.contains(me)))
+					if (ii.getMethods().stream().noneMatch(methods::contains))
 					{
 						continue;
 					}
@@ -227,20 +227,17 @@ public class UnusedParameters implements Deobfuscator
 
 					Collection<InstructionContext> ics = invokes.get(i);
 					assert ics != null;
-					if (ics != null)
+					for (InstructionContext ins : ics)
 					{
-						for (InstructionContext ins : ics)
+						int pops = signature.size() - paramIndex - 1; // index from top of stack of parameter. 0 is the last parameter
+
+						StackContext sctx = ins.getPops().get(pops);
+						if (sctx.getPushed().getInstruction().getInstructions() == null)
 						{
-							int pops = signature.size() - paramIndex - 1; // index from top of stack of parameter. 0 is the last parameter
-
-							StackContext sctx = ins.getPops().get(pops);
-							if (sctx.getPushed().getInstruction().getInstructions() == null)
-							{
-								continue;
-							}
-
-							ins.removeStack(pops); // remove parameter from stack
+							continue;
 						}
+
+						ins.removeStack(pops); // remove parameter from stack
 					}
 				}
 			}
@@ -286,25 +283,20 @@ public class UnusedParameters implements Deobfuscator
 	public void run(ClassGroup group)
 	{
 		int i;
-		int pnum = 1;
-		do
-		{
-			group.buildClassGraph();
 
-			invokes.clear();
-			this.buildUnused(group);
+		group.buildClassGraph();
 
-			Execution execution = new Execution(group);
-			execution.addExecutionVisitor(ictx -> visit(ictx));
-			execution.populateInitialMethods();
-			execution.run();
+		invokes.clear();
+		this.buildUnused(group);
 
-			i = this.processUnused(execution, group);
+		Execution execution = new Execution(group);
+		execution.addExecutionVisitor(this::visit);
+		execution.populateInitialMethods();
+		execution.run();
 
-			count += i;
-			break;
-		}
-		while (i > 0);
+		i = this.processUnused(execution, group);
+
+		count += i;
 
 		logger.info("Removed {} unused parameters", count);
 	}

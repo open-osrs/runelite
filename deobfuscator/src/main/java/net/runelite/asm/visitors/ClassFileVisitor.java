@@ -27,7 +27,7 @@ package net.runelite.asm.visitors;
 
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Type;
-import net.runelite.asm.attributes.annotation.Annotation;
+import net.runelite.asm.Annotation;
 import net.runelite.asm.signature.Signature;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassVisitor;
@@ -71,9 +71,8 @@ public class ClassFileVisitor extends ClassVisitor
 	public AnnotationVisitor visitAnnotation(String desc, boolean visible)
 	{
 		Annotation annotation = new Annotation(new Type(desc));
-		classFile.getAnnotations().addAnnotation(annotation);
-
-		return new AnnotationElementVisitor(annotation);
+		classFile.addAnnotation(annotation);
+		return annotation;
 	}
 
 	@Override

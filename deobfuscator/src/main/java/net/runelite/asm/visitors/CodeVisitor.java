@@ -32,7 +32,7 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.Method;
 import net.runelite.asm.Type;
 import net.runelite.asm.attributes.Code;
-import net.runelite.asm.attributes.annotation.Annotation;
+import net.runelite.asm.Annotation;
 import net.runelite.asm.attributes.code.Exceptions;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
@@ -108,9 +108,9 @@ public class CodeVisitor extends MethodVisitor
 	@Override
 	public AnnotationVisitor visitAnnotation(String desc, boolean visible)
 	{
-		Annotation element = new Annotation(new Type(desc));
-		this.method.getAnnotations().addAnnotation(element);
-		return new AnnotationElementVisitor(element);
+		Annotation annotation = new Annotation(new Type(desc), visible);
+		this.method.addAnnotation(annotation);
+		return annotation;
 	}
 
 	@Override

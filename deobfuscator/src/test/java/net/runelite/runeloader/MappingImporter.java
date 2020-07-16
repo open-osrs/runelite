@@ -30,9 +30,9 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Type;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
-import net.runelite.asm.attributes.annotation.Element;
+import net.runelite.asm.Annotation;
+import net.runelite.asm.attributes.Annotated;
+import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.util.JarUtil;
 import net.runelite.runeloader.inject.AddInterfaceInstruction;
 import net.runelite.runeloader.inject.GetterInjectInstruction;
@@ -73,29 +73,13 @@ public class MappingImporter
 		JarUtil.saveJar(group, OUT);
 	}
 
-	private boolean hasObfuscatedName(Annotations an, String name)
+	private boolean hasObfuscatedName(Annotated an, String name)
 	{
 		if (an == null)
 		{
 			return false;
 		}
-
-		for (Annotation a : an.getAnnotations())
-		{
-			if (a.getType().equals(OBFUSCATED_NAME))
-			{
-				for (Element e : a.getElements())
-				{
-					String str = (String) e.getValue();
-					if (str.equals(name))
-					{
-						return true;
-					}
-				}
-			}
-		}
-
-		return false;
+		return name.equals(DeobAnnotations.getStringValue(an, OBFUSCATED_NAME));
 	}
 
 	private ClassFile findClassWithObfuscatedName(String name)
@@ -107,8 +91,7 @@ public class MappingImporter
 				return c;
 			}
 
-			Annotations an = c.getAnnotations();
-			if (this.hasObfuscatedName(an, name))
+			if (this.hasObfuscatedName(c, name))
 			{
 				return c;
 			}
@@ -120,8 +103,7 @@ public class MappingImporter
 	{
 		for (Field f : c.getFields())
 		{
-			Annotations an = f.getAnnotations();
-			if (this.hasObfuscatedName(an, name))
+			if (this.hasObfuscatedName(f, name))
 			{
 				return f;
 			}
@@ -131,7 +113,7 @@ public class MappingImporter
 
 	@Test
 	@Ignore
-	public void makeMappings() throws IOException
+	public void makeMappings()
 	{
 		InjectionModscript mod = Injection.load(MappingImporter.class.getResourceAsStream(RL_INJECTION));
 		int fields = 0, classes = 0;
@@ -154,12 +136,10 @@ public class MappingImporter
 			String attrName = gii.getGetterName();
 			attrName = Utils.toExportedName(attrName);
 
-			Annotations an = f.getAnnotations();
-
-			Annotation a = an.find(EXPORT);
+			Annotation a = f.findAnnotation(EXPORT);
 			if (a != null)
 			{
-				String exportedName = a.getElement().getString();
+				String exportedName = a.getValueString();
 
 				if (!attrName.equals(exportedName))
 				{
@@ -168,7 +148,7 @@ public class MappingImporter
 			}
 			else
 			{
-				an.addAnnotation(EXPORT, "value", attrName);
+				f.addAnnotation(EXPORT, attrName);
 
 				logger.info("Exporting field " + f + " with name " + attrName);
 				++fields;
@@ -184,12 +164,10 @@ public class MappingImporter
 
 			iface = iface.replace("com/runeloader/api/bridge/os/accessor/", "");
 
-			Annotations an = cf.getAnnotations();
-
-			Annotation a = an.find(IMPLEMENTS);
+			Annotation a = cf.findAnnotation(IMPLEMENTS);
 			if (a != null)
 			{
-				String implementsName = a.getElement().getString();
+				String implementsName = a.getValueString();
 
 				if (!iface.equals(implementsName))
 				{
@@ -198,7 +176,7 @@ public class MappingImporter
 			}
 			else
 			{
-				an.addAnnotation(IMPLEMENTS, "value", iface);
+				cf.addAnnotation(IMPLEMENTS, iface);
 
 				logger.info("Exporting class " + cf.getName() + " with name " + iface);
 				++classes;

@@ -35,6 +35,8 @@ dependencies {
     deobjars(group = "net.runelite.rs", name = "vanilla", version = ProjectVersions.rsversion.toString())
     deobjars(project(":runescape-client"))
 
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+
     implementation(group = "org.jetbrains", name = "annotations", version = "19.0.0")
     implementation(group = "org.ow2.asm", name = "asm", version = "8.0.1")
     implementation(group = "org.ow2.asm", name = "asm-util", version = "8.0.1")
@@ -90,7 +92,7 @@ tasks {
         filter(ReplaceTokens::class, "tokens" to tokens)
         filteringCharset = "UTF-8"
     }
-
+    // TODO: Enable assertions on all 3
     register<JavaExec>("Downloader.main()") {
         group = "gamepack"
 

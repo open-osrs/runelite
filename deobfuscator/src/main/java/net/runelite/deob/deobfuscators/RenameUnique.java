@@ -38,50 +38,33 @@ import net.runelite.deob.util.NameMappings;
 
 public class RenameUnique implements Deobfuscator
 {
-	private Renamer renamer;
-
 	private void generateClassNames(NameMappings map, ClassGroup group)
 	{
 		int i = 0;
-
 		for (ClassFile cf : group.getClasses())
-		{
-			if (cf.getName().length() > Deob.OBFUSCATED_NAME_MAX_LEN)
-			{
-				continue;
-			}
-
-			map.map(cf.getPoolClass(), "class" + i++);
-		}
+			if (cf.getName().length() <= Deob.OBFUSCATED_NAME_MAX_LEN)
+				map.map(cf.getPoolClass(), "class" + i++);
+		map.setClasses(i);
 	}
 
 	private void generateFieldNames(NameMappings map, ClassGroup group)
 	{
 		int i = 0;
-
 		for (ClassFile cf : group.getClasses())
 			for (Field field : cf.getFields())
-			{
-				if (!Deob.isObfuscated(field.getName()) || field.getName().equals(DeobAnnotations.getExportedName(field.getAnnotations())))
-				{
-					continue;
-				}
-
-				map.map(field.getPoolField(), "field" + i++);
-			}
+				if (Deob.isObfuscated(field.getName()) && !field.getName().equals(DeobAnnotations.getExportedName(field)))
+					map.map(field.getPoolField(), "field" + i++);
+		map.setFields(i);
 	}
 
 	private void generateMethodNames(NameMappings map, ClassGroup group)
 	{
 		int i = 0;
-
 		for (ClassFile cf : group.getClasses())
 			for (Method method : cf.getMethods())
 			{
-				if (!Deob.isObfuscated(method.getName()) || method.getName().equals(DeobAnnotations.getExportedName(method.getAnnotations())))
-				{
+				if (!Deob.isObfuscated(method.getName()) || method.getName().equals(DeobAnnotations.getExportedName(method)))
 					continue;
-				}
 
 				List<Method> virtualMethods = VirtualMethods.getVirtualMethods(method);
 				assert !virtualMethods.isEmpty();
@@ -95,6 +78,7 @@ public class RenameUnique implements Deobfuscator
 				for (Method m : virtualMethods)
 					map.map(m.getPoolMethod(), name);
 			}
+		map.setMethods(i);
 	}
 
 	@Override
@@ -109,7 +93,7 @@ public class RenameUnique implements Deobfuscator
 		this.generateFieldNames(mappings, group);
 		this.generateMethodNames(mappings, group);
 
-		renamer = new Renamer(mappings);
+		Renamer renamer = new Renamer(mappings);
 		renamer.run(group);
 	}
 }
