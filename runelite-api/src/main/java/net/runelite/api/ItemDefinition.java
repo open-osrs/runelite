@@ -76,6 +76,14 @@ public interface ItemDefinition
 	int getPrice();
 
 	/**
+	 * Get the high alchemy price for this item. All items have a high alchemy price,
+	 * but not all items can be alched.
+	 *
+	 * @return the high alch price
+	 */
+	int getHaPrice();
+
+	/**
 	 * Checks whether the item is members only.
 	 *
 	 * @return true if members only, false otherwise.
