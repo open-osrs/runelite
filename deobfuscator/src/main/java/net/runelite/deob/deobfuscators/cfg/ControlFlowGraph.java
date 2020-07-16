@@ -73,11 +73,11 @@ public class ControlFlowGraph
 						: cur.getInstructions().get(cur.getInstructions().size() - 1);
 					if (last == null || !last.isTerminal())
 					{
-						assert next.getFrom() == null;
-						assert cur.getInto() == null;
+						assert next.getPred() == null;
+						assert cur.getSucc() == null;
 						// previous block flows directly into next
-						next.setFrom(cur);
-						cur.setInto(next);
+						next.setPred(cur);
+						cur.setSucc(next);
 					}
 					cur = next;
 				}
@@ -99,7 +99,7 @@ public class ControlFlowGraph
 			}
 		}
 
-		assert head.getFrom() == null;
+		assert head.getPred() == null;
 	}
 
 	List<Block> topologicalSort()
@@ -112,10 +112,10 @@ public class ControlFlowGraph
 
 	private static void walk(Block cur, List<Block> order, Set<Block> done)
 	{
-		Block dirsucc = cur.getInto();
+		Block dirsucc = cur.getSucc();
 		if (dirsucc != null && done.add(dirsucc))
-			walk(cur.getInto(), order, done);
-		List<Block> succs = cur.getSucc();
+			walk(cur.getSucc(), order, done);
+		List<Block> succs = cur.getSuccs();
 		succs.sort(Block::compare);
 		for (Block succ : succs)
 			if (done.add(succ))

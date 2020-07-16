@@ -26,9 +26,13 @@ package net.runelite.deob.deobfuscators.cfg;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Label;
 
+@Getter
+@Setter
 public class Block
 {
 	private int id = -1;
@@ -37,64 +41,44 @@ public class Block
 	/**
 	 * blocks which jump here
 	 */
-	private final List<Block> pred = new ArrayList<>();
+	private final List<Block> preds = new ArrayList<>();
 
 	/**
 	 * blocks which this jumps to
 	 */
-	private final List<Block> succ = new ArrayList<>();
+	private final List<Block> succs = new ArrayList<>();
 
 	/**
 	 * block which flows directly into this block
 	 */
-	private Block from;
+	private Block pred;
 
 	/**
 	 * block which this directly flows into
 	 */
-	private Block into;
+	private Block succ;
 
 	/**
 	 * instructions in this block
 	 */
 	private final List<Instruction> instructions = new ArrayList<>();
 
-	public int getId()
-	{
-		return id;
-	}
-
-	public void setId(int id)
-	{
-		this.id = id;
-	}
-
-	public boolean isJumptarget()
-	{
-		return jumptarget;
-	}
-
-	public void setJumptarget(boolean jumptarget)
-	{
-		this.jumptarget = jumptarget;
-	}
-
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("Block ID ").append(id).append("\n");
-		if (from != null)
+		if (pred != null)
 		{
-			sb.append(" flows from ").append(from.id).append("\n");
+			sb.append(" flows from ").append(pred.id).append("\n");
 		}
 		for (Instruction i : instructions)
 		{
 			sb.append("  ").append(i.toString()).append("\n");
 		}
-		if (into != null)
+		if (succ != null)
 		{
-			sb.append(" flows into ").append(into.id).append("\n");
+			sb.append(" flows into ").append(succ.id).append("\n");
 		}
 		sb.append("\n");
 		return sb.toString();
@@ -112,55 +96,20 @@ public class Block
 		instructions.add(i);
 	}
 
-	public List<Instruction> getInstructions()
-	{
-		return instructions;
-	}
-
 	public void addPrev(Block block)
 	{
-		if (!pred.contains(block))
+		if (!preds.contains(block))
 		{
-			pred.add(block);
+			preds.add(block);
 		}
-	}
-
-	public List<Block> getPred()
-	{
-		return pred;
 	}
 
 	public void addNext(Block block)
 	{
-		if (!succ.contains(block))
+		if (!succs.contains(block))
 		{
-			succ.add(block);
+			succs.add(block);
 		}
-	}
-
-	public List<Block> getSucc()
-	{
-		return succ;
-	}
-
-	public Block getFrom()
-	{
-		return from;
-	}
-
-	public void setFrom(Block from)
-	{
-		this.from = from;
-	}
-
-	public Block getInto()
-	{
-		return into;
-	}
-
-	public void setInto(Block into)
-	{
-		this.into = into;
 	}
 
 	static int compare(Block a, Block b)

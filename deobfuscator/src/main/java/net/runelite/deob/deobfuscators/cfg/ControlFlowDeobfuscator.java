@@ -90,12 +90,12 @@ public class ControlFlowDeobfuscator implements Deobfuscator
 				ins.addInstruction(i);
 				i.setInstructions(ins);
 			}
-			if (b.getInto() != null && b.getInstructions().size() > 0)
+			if (b.getSucc() != null && b.getInstructions().size() > 0)
 			{
 				final var i = b.getInstructions().get(b.getInstructions().size() - 1);
 				if (!i.isTerminal())
 				{
-					final var next = b.getInto();
+					final var next = b.getSucc();
 					var maybeLabel = next.getInstructions().get(0);
 					if (!(maybeLabel instanceof Label))
 					{

@@ -99,7 +99,7 @@ public class Annotation extends AnnotationVisitor implements Comparable<Annotati
 
 	public Object getValue()
 	{
-		return data.get("value");
+		return get("value");
 	}
 
 	public String getValueString()
