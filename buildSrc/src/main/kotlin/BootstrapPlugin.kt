@@ -15,6 +15,7 @@ class BootstrapPlugin : Plugin<Project> {
             bootstrapDependencies(project(":runescape-api"))
             bootstrapDependencies(project(":http-api"))
             bootstrapDependencies(project(":injected-client"))
+            bootstrapDependencies(project(":runelite-client"))
         }
 
         tasks.register<BootstrapTask>("bootstrapStaging", "staging")
