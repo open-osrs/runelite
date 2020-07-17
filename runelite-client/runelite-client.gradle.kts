@@ -53,7 +53,7 @@ dependencies {
     implementation(group = "com.google.inject", name = "guice", version = "4.2.3", classifier = "no_aop")
     implementation(group = "com.h2database", name = "h2", version = "1.4.200")
     implementation(group = "com.jakewharton.rxrelay3", name = "rxrelay", version = "3.0.0")
-    implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.7.2")
+    implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.8.0")
     implementation(group = "io.reactivex.rxjava3", name = "rxjava", version = "3.0.4")
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.5.0")
     implementation(group = "org.jgroups", name = "jgroups", version = "4.2.4.Final")
@@ -87,9 +87,9 @@ dependencies {
     testImplementation(group = "com.google.inject.extensions", name = "guice-testlib", version = "4.2.3")
     testImplementation(group = "org.hamcrest", name = "hamcrest-library", version = "2.2")
     testImplementation(group = "junit", name = "junit", version = "4.13")
-    testImplementation(group = "org.mockito", name = "mockito-core", version = "3.3.3")
-    testImplementation(group = "org.mockito", name = "mockito-inline", version = "3.3.3")
-    testImplementation(group = "com.squareup.okhttp3", name = "mockwebserver", version = "4.7.2")
+    testImplementation(group = "org.mockito", name = "mockito-core", version = "3.4.2")
+    testImplementation(group = "org.mockito", name = "mockito-inline", version = "3.4.2")
+    testImplementation(group = "com.squareup.okhttp3", name = "mockwebserver", version = "4.8.0")
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
 }
 
