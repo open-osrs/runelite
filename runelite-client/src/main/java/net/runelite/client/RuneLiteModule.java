@@ -58,8 +58,7 @@ import net.runelite.client.task.Scheduler;
 import net.runelite.client.util.DeferredEventBus;
 import net.runelite.client.util.ExecutorServiceExceptionLogger;
 import net.runelite.client.util.NonScheduledExecutorServiceExceptionLogger;
-import net.runelite.http.api.RuneLiteAPI;
-import okhttp3.Cache;
+import net.runelite.http.api.chat.ChatClient;
 import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +66,7 @@ import org.slf4j.LoggerFactory;
 @AllArgsConstructor
 public class RuneLiteModule extends AbstractModule
 {
-	private static final int MAX_OKHTTP_CACHE_SIZE = 20 * 1024 * 1024; // 20mb
-
+	private final OkHttpClient okHttpClient;
 	private final Supplier<Applet> clientLoader;
 	private final boolean safeMode;
 	private final File config;
@@ -78,9 +76,7 @@ public class RuneLiteModule extends AbstractModule
 	{
 		bindConstant().annotatedWith(Names.named("safeMode")).to(safeMode);
 		bind(File.class).annotatedWith(Names.named("config")).toInstance(config);
-		bind(OkHttpClient.class).toInstance(RuneLiteAPI.CLIENT.newBuilder()
-			.cache(new Cache(new File(RuneLite.CACHE_DIR, "okhttp"), MAX_OKHTTP_CACHE_SIZE))
-			.build());
+		bind(OkHttpClient.class).toInstance(okHttpClient);
 		bind(MenuManager.class);
 		bind(ChatMessageManager.class);
 		bind(ItemManager.class);
@@ -168,5 +164,12 @@ public class RuneLiteModule extends AbstractModule
 		executor.allowCoreThreadTimeOut(true);
 
 		return new NonScheduledExecutorServiceExceptionLogger(executor);
+	}
+
+	@Provides
+	@Singleton
+	ChatClient provideChatClient(OkHttpClient okHttpClient)
+	{
+		return new ChatClient(okHttpClient);
 	}
 }

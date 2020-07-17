@@ -25,13 +25,13 @@
 package net.runelite.api.events;
 
 import lombok.Value;
-import net.runelite.api.Player;
+import net.runelite.api.Actor;
 
 /**
- * An event when a player dies.
+ * An event fired when an actor dies.
  */
 @Value
-public class PlayerDeath implements Event
+public class ActorDeath implements Event
 {
-	Player player;
+	Actor actor;
 }

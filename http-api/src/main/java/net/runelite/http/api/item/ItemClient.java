@@ -34,27 +34,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import javax.imageio.ImageIO;
-import javax.inject.Inject;
 import javax.naming.directory.SearchResult;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
+@AllArgsConstructor
 public class ItemClient
 {
-	private static final Logger logger = LoggerFactory.getLogger(ItemClient.class);
-
 	private final OkHttpClient client;
-
-	@Inject
-	public ItemClient(OkHttpClient client)
-	{
-		this.client = client;
-	}
 
 	public ItemPrice lookupItemPrice(int itemId) throws IOException
 	{
@@ -64,7 +57,7 @@ public class ItemClient
 			.addPathSegment("price")
 			.build();
 
-		logger.debug("Built URI: {}", url);
+		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
 			.url(url)
@@ -74,7 +67,7 @@ public class ItemClient
 		{
 			if (!response.isSuccessful())
 			{
-				logger.debug("Error looking up item {}: {}", itemId, response);
+				log.debug("Error looking up item {}: {}", itemId, response);
 				return null;
 			}
 
@@ -100,7 +93,7 @@ public class ItemClient
 
 		HttpUrl url = urlBuilder.build();
 
-		logger.debug("Built URI: {}", url);
+		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
 				.url(url)
@@ -110,7 +103,7 @@ public class ItemClient
 		{
 			if (!response.isSuccessful())
 			{
-				logger.debug("Error looking up items {}: {}", Arrays.toString(itemIds), response);
+				log.debug("Error looking up items {}: {}", Arrays.toString(itemIds), response);
 				return null;
 			}
 
@@ -131,7 +124,7 @@ public class ItemClient
 			.addPathSegment("icon")
 			.build();
 
-		logger.debug("Built URI: {}", url);
+		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
 			.url(url)
@@ -143,7 +136,7 @@ public class ItemClient
 			{
 				if (!response.isSuccessful())
 				{
-					logger.debug("Error grabbing icon {}: {}", itemId, response);
+					log.debug("Error grabbing icon {}: {}", itemId, response);
 					return Observable.just(null);
 				}
 
@@ -164,7 +157,7 @@ public class ItemClient
 			.addQueryParameter("query", itemName)
 			.build();
 
-		logger.debug("Built URI: {}", url);
+		log.debug("Built URI: {}", url);
 
 		return Observable.defer(() ->
 		{
@@ -176,7 +169,7 @@ public class ItemClient
 			{
 				if (!response.isSuccessful())
 				{
-					logger.debug("Error looking up item {}: {}", itemName, response);
+					log.debug("Error looking up item {}: {}", itemName, response);
 					return Observable.just(null);
 				}
 
@@ -198,7 +191,7 @@ public class ItemClient
 
 		HttpUrl url = urlBuilder.build();
 
-		logger.debug("Built URI: {}", url);
+		log.debug("Built URI: {}", url);
 
 		return Observable.fromCallable(() ->
 		{
@@ -235,7 +228,7 @@ public class ItemClient
 			.addPathSegment("stats.ids.min.json")
 			.build();
 
-		logger.debug("Built URI {}", url);
+		log.debug("Built URI {}", url);
 		return Observable.fromCallable(() ->
 		{
 			Request request = new Request.Builder()

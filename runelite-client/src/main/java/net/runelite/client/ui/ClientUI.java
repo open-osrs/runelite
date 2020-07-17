@@ -402,7 +402,7 @@ public class ClientUI
 					toggleSidebar();
 				}
 			};
-			sidebarListener.setEnabledOnLogin(true);
+			sidebarListener.setEnabledOnLoginScreen(true);
 			keyManager.registerKeyListener(sidebarListener);
 
 			final HotkeyListener pluginPanelListener = new HotkeyListener(config::panelToggleKey)
@@ -413,7 +413,7 @@ public class ClientUI
 					togglePluginPanel();
 				}
 			};
-			pluginPanelListener.setEnabledOnLogin(true);
+			pluginPanelListener.setEnabledOnLoginScreen(true);
 			keyManager.registerKeyListener(pluginPanelListener);
 
 			// Add mouse listener

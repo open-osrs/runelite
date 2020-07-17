@@ -76,7 +76,7 @@ public class MapDumperTest
 
 			for (int i = 0; i < MAX_REGIONS; i++)
 			{
-				int[] keys = keyManager.getKeys(i);
+				Integer[] keysTmp = keyManager.getKeys(i);
 
 				int x = i >> 8;
 				int y = i & 0xFF;
@@ -95,8 +95,9 @@ public class MapDumperTest
 
 				Files.write(data, new File(outDir, "m" + x + "_" + y + ".dat"));
 
-				if (keys != null)
+				if (keysTmp != null)
 				{
+					int[] keys = {keysTmp[0], keysTmp[1], keysTmp[2], keysTmp[3]};
 					try
 					{
 						data = land.decompress(storage.loadArchive(land), keys);
@@ -142,9 +143,10 @@ public class MapDumperTest
 			MapDefinition mapDef = new MapLoader().load(x, y, data);
 			LocationsDefinition locDef = null;
 
-			int[] keys = keyManager.getKeys(i);
-			if (keys != null)
+			Integer[] keysTmp = keyManager.getKeys(i);
+			if (keysTmp != null)
 			{
+				int[] keys = {keysTmp[0], keysTmp[1], keysTmp[2], keysTmp[3]};
 				try
 				{
 					data = land.decompress(storage.loadArchive(land), keys);
