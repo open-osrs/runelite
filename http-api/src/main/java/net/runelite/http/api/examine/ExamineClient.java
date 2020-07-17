@@ -25,22 +25,25 @@
 package net.runelite.http.api.examine;
 
 import java.io.IOException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+@Slf4j
+@RequiredArgsConstructor
 public class ExamineClient
 {
-	private static final Logger logger = LoggerFactory.getLogger(ExamineClient.class);
-
 	private static final MediaType TEXT = MediaType.parse("text");
+
+	private final OkHttpClient client;
 
 	public void submitObject(int id, String text)
 	{
@@ -65,7 +68,7 @@ public class ExamineClient
 			.addPathSegment(Integer.toString(id))
 			.build();
 
-		logger.debug("Built URI: {}", url);
+		log.debug("Built URI: {}", url);
 
 		RequestBody body = RequestBody.Companion.create(text, TEXT);
 		Request request = new Request.Builder()
@@ -73,19 +76,19 @@ public class ExamineClient
 			.post(body)
 			.build();
 
-		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		client.newCall(request).enqueue(new Callback()
 		{
 			@Override
 			public void onFailure(Call call, IOException e)
 			{
-				logger.warn("Error submitting examine", e);
+				log.warn("Error submitting examine", e);
 			}
 
 			@Override
 			public void onResponse(Call call, Response response)
 			{
 				response.close();
-				logger.debug("Submitted examine info for {} {}: {}", type, id, text);
+				log.debug("Submitted examine info for {} {}: {}", type, id, text);
 			}
 		});
 	}

@@ -459,7 +459,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("archive2")
 	@Override
-	RSArchive getConfigArchive();
+	RSArchive getIndexConfig();
 
 	@Import("archive6")
 	RSArchive getMusicTracks();

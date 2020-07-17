@@ -408,11 +408,6 @@ public interface Client extends GameShell
 	IndexDataBase getIndexScripts();
 
 	/**
-	 * Gets the config archive, containing Varplayer and Varbit definitions
-	 */
-	IndexDataBase getConfigArchive();
-
-	/**
 	 * Gets the config index.
 	 */
 	IndexDataBase getIndexConfig();
@@ -498,6 +493,7 @@ public interface Client extends GameShell
 	 * @param widget the widget info
 	 * @return the widget
 	 */
+	@Nullable
 	Widget getWidget(WidgetInfo widget);
 
 	/**
@@ -510,6 +506,7 @@ public interface Client extends GameShell
 	 * @param childId the child widget ID
 	 * @return the widget corresponding to the group and child pair
 	 */
+	@Nullable
 	Widget getWidget(int groupId, int childId);
 
 	/**

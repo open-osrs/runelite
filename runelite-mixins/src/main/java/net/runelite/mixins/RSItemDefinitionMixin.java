@@ -89,4 +89,12 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 
 		return client.getRSItemDefinition(modelOverride).getModel(quantity);
 	}
+
+	@Inject
+	@Override
+	public int getHaPrice()
+	{
+		int price = getPrice();
+		return (int) ((float) price * 0.6f);
+	}
 }

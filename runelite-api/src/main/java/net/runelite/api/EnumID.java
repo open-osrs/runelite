@@ -33,6 +33,7 @@ public final class EnumID
 {
 	public static final int MUSIC_TRACK_NAMES = 812;
 	public static final int MUSIC_TRACK_IDS = 819;
+	public static final int XPDROP_COLORS = 1169;
 
 	/**
 	 * Translates spellbook varbit into enum ID

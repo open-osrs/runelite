@@ -28,13 +28,18 @@ import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import java.io.IOException;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+@AllArgsConstructor
 class SessionClient
 {
+	private final OkHttpClient okHttpClient;
+
 	Observable<UUID> openSession()
 	{
 		final HttpUrl url = RuneLiteAPI.getSessionBase().newBuilder()
@@ -47,7 +52,7 @@ class SessionClient
 				.url(url)
 				.build();
 
-			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+			try (Response response = okHttpClient.newCall(request).execute())
 			{
 				return RuneLiteAPI.GSON.fromJson(response.body().string(), UUID.class);
 			}
@@ -67,11 +72,11 @@ class SessionClient
 				.url(url)
 				.build();
 
-			try (Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+			try (Response response = okHttpClient.newCall(request).execute())
 			{
 				if (!response.isSuccessful())
 				{
-					throw new IOException("Unsuccesful ping");
+					throw new IOException("Unsuccessful ping");
 				}
 			}
 		});
@@ -90,7 +95,7 @@ class SessionClient
 				.url(url)
 				.build();
 
-			RuneLiteAPI.CLIENT.newCall(request).execute().close();
+			okHttpClient.newCall(request).execute().close();
 		});
 	}
 }

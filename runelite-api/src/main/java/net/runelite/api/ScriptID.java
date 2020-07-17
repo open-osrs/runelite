@@ -167,8 +167,8 @@ public final class ScriptID
 	 *
 	 * Updates the VarClientInts (73, 74) to this same value
 	 * <ul>
-	 * <li> int  Reset zoom position </li>
-	 * <li> int  Reset zoom position </li>
+	 * <li> int  Reset zoom position for fixed viewport mode</li>
+	 * <li> int  Reset zoom position for resizable viewport mode</li>
 	 * </ul>
 	 */
 	@ScriptArguments(integer = 2)
@@ -240,12 +240,6 @@ public final class ScriptID
 	 */
 	@ScriptArguments(integer = 18)
 	public static final int BANKMAIN_SEARCH_TOGGLE = 281;
-
-	/**
-	 * Builds the items kept on death widget
-	 */
-	@ScriptArguments(integer = 4, string = 2)
-	public static final int DEATH_KEEP_BUILD = 1601;
 
 	/**
 	 * Builds the widget that holds all of the players inside a friends chat
@@ -329,4 +323,13 @@ public final class ScriptID
 	 */
 	@ScriptArguments(integer = 2)
 	public static final int TOPLEVEL_REDRAW = 907;
+
+	/**
+	 * Called to set position of an xpdrop text and sprite(s)
+	 * <ul>
+	 * <li> XP drop parent component </li>
+	 * </ul>
+	 */
+	@ScriptArguments(integer = 4, string = 1)
+	public static final int XPDROPS_SETDROPSIZE = 996;
 }
