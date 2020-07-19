@@ -789,7 +789,7 @@ public class Scene {
 			for (int var5 = 0; var5 < var4.gameObjectsCount; ++var5) {
 				GameObject var6 = var4.gameObjects[var5];
 				long var8 = var6.tag;
-				boolean var7 = class171.method3571(var8) == 2;
+				boolean var7 = class171.Entity_unpackType(var8) == 2;
 				if (var7 && var2 == var6.startX && var3 == var6.startY) {
 					return var6.tag;
 				}

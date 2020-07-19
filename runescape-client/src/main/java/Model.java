@@ -1162,30 +1162,30 @@ public class Model extends Entity {
 							var16 = modelViewportYs[var27];
 							var17 = modelViewportYs[var10];
 							var18 = var6 + ViewportMouse.ViewportMouse_y;
-							boolean var32;
+							boolean isHovered;
 							if (var18 < var15 && var18 < var16 && var18 < var17) {
-								var32 = false;
+								isHovered = false;
 							} else {
 								var18 = ViewportMouse.ViewportMouse_y - var6;
 								if (var18 > var15 && var18 > var16 && var18 > var17) {
-									var32 = false;
+									isHovered = false;
 								} else {
 									var18 = var6 + ViewportMouse.ViewportMouse_x;
 									if (var18 < var11 && var18 < var12 && var18 < var13) {
-										var32 = false;
+										isHovered = false;
 									} else {
 										var18 = ViewportMouse.ViewportMouse_x - var6;
 										if (var18 > var11 && var18 > var12 && var18 > var13) {
-											var32 = false;
+											isHovered = false;
 										} else {
-											var32 = true;
+											isHovered = true;
 										}
 									}
 								}
 							}
 
-							if (var32) {
-								ObjectSound.method2010(var4);
+							if (isHovered) {
+								ObjectSound.addEntityUnderMouse(var4);
 								var2 = false;
 							}
 						}
@@ -1674,7 +1674,7 @@ public class Model extends Entity {
 
 								if (var34) {
 									if (this.isSingleTile) {
-										ObjectSound.method2010(var9);
+										ObjectSound.addEntityUnderMouse(var9);
 									} else {
 										var33 = true;
 									}

@@ -43,7 +43,8 @@ final class class2 implements class0 {
 		signature = "(IS)I",
 		garbageValue = "-12961"
 	)
-	public static int method32(int var0) {
+	@Export("getEntityIdUnderMouse")
+	public static int getEntityIdUnderMouse(int var0) {
 		return Language.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]);
 	}
 

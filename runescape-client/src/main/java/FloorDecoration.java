@@ -49,6 +49,6 @@ public final class FloorDecoration {
 
 	@ObfuscatedName("o")
 	static boolean method2977(long var0) {
-		return class171.method3571(var0) == 2;
+		return class171.Entity_unpackType(var0) == 2;
 	}
 }

@@ -2063,4 +2063,8 @@ public interface Client extends GameShell
 	 * @see KeyCode
 	 */
 	boolean isKeyPressed(int keycode);
+
+	int getFollowerIndex();
+
+	int isItemSelected();
 }

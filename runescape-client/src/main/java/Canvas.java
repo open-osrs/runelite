@@ -89,7 +89,8 @@ public final class Canvas extends java.awt.Canvas {
 		signature = "(III)Ljava/lang/String;",
 		garbageValue = "-266618010"
 	)
-	static final String method924(int var0, int var1) {
+	@Export("getColorForCombatDifference")
+	static final String getColorForCombatDifference(int var0, int var1) {
 		int var2 = var1 - var0;
 		if (var2 < -9) {
 			return ItemContainer.colorStartTag(16711680);
