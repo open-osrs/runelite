@@ -18,45 +18,39 @@ public abstract class RSKeyHandlerMixin implements RSKeyHandler
 	@Shadow("client")
 	private static RSClient client;
 
-	@Copy("keyPressed")
-	abstract void rs$keyPressed(KeyEvent keyEvent);
-
-	@Copy("keyReleased")
-	abstract void rs$keyReleased(KeyEvent keyEvent);
-
-	@Copy("keyTyped")
-	abstract void rs$keyTyped(KeyEvent keyEvent);
-
 	@Override
+	@Copy("keyPressed")
 	@Replace("keyPressed")
 	public final synchronized void keyPressed(KeyEvent keyEvent)
 	{
 		client.getCallbacks().keyPressed(keyEvent);
 		if (!keyEvent.isConsumed())
 		{
-			rs$keyPressed(keyEvent);
+			keyPressed(keyEvent);
 		}
 	}
 
 	@Override
+	@Copy("keyReleased")
 	@Replace("keyReleased")
 	public final synchronized void keyReleased(KeyEvent keyEvent)
 	{
 		client.getCallbacks().keyReleased(keyEvent);
 		if (!keyEvent.isConsumed())
 		{
-			rs$keyReleased(keyEvent);
+			keyReleased(keyEvent);
 		}
 	}
 
 	@Override
+	@Copy("keyTyped")
 	@Replace("keyTyped")
 	public final void keyTyped(KeyEvent keyEvent)
 	{
 		client.getCallbacks().keyTyped(keyEvent);
 		if (!keyEvent.isConsumed())
 		{
-			rs$keyTyped(keyEvent);
+			keyTyped(keyEvent);
 		}
 	}
 

@@ -119,15 +119,14 @@ public abstract class RSNPCMixin implements RSNPC
 	}
 
 	@Copy("getModel")
-	public abstract RSModel rs$getModel();
-
 	@Replace("getModel")
-	public RSModel rl$getModel()
+	@SuppressWarnings("InfiniteRecursion")
+	public RSModel copy$getModel()
 	{
 		if (!client.isInterpolateNpcAnimations()
 			|| getAnimation() == AnimationID.HELLHOUND_DEFENCE)
 		{
-			return rs$getModel();
+			return copy$getModel();
 		}
 		int actionFrame = getActionFrame();
 		int poseFrame = getPoseFrame();
@@ -139,7 +138,7 @@ public abstract class RSNPCMixin implements RSNPC
 			setActionFrame(Integer.MIN_VALUE | getActionFrameCycle() << 16 | actionFrame);
 			setPoseFrame(Integer.MIN_VALUE | getPoseFrameCycle() << 16 | poseFrame);
 			setSpotAnimationFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
-			return rs$getModel();
+			return copy$getModel();
 		}
 		finally
 		{

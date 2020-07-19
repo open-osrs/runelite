@@ -160,13 +160,12 @@ public abstract class RSModelMixin implements RSModel
 	}
 
 	@Copy("contourGround")
-	public abstract Model rs$contourGround(int[][] tileHeights, int packedX, int height, int packedY, boolean copy, int contouredGround);
-
 	@Replace("contourGround")
-	public Model rl$contourGround(int[][] tileHeights, int packedX, int height, int packedY, boolean copy, int contouredGround)
+	@SuppressWarnings("InfiniteRecursion")
+	public Model copy$contourGround(int[][] tileHeights, int packedX, int height, int packedY, boolean copy, int contouredGround)
 	{
 		// With contouredGround >= 0 lighted models are countoured, so we need to copy uvs
-		Model model = rs$contourGround(tileHeights, packedX, height, packedY, copy, contouredGround);
+		Model model = copy$contourGround(tileHeights, packedX, height, packedY, copy, contouredGround);
 		if (model != null && model != this)
 		{
 			RSModel rsModel = (RSModel) model;
@@ -177,15 +176,13 @@ public abstract class RSModelMixin implements RSModel
 	}
 
 	@Copy("drawFace")
-	public abstract void rs$drawFace(int face);
-
 	@Replace("drawFace")
-	public void rl$drawFace(int face)
+	public void copy$drawFace(int face)
 	{
 		DrawCallbacks callbacks = client.getDrawCallbacks();
 		if (callbacks == null || !callbacks.drawFace(this, face))
 		{
-			rs$drawFace(face);
+			copy$drawFace(face);
 		}
 	}
 

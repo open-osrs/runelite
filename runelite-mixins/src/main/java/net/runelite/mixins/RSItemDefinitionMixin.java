@@ -52,12 +52,10 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 	}
 
 	@Copy("getShiftClickIndex")
-	abstract int rs$getShiftClickActionIndex();
-
 	@Replace("getShiftClickIndex")
-	public int getShiftClickActionIndex()
+	public int copy$getShiftClickActionIndex()
 	{
-		return shiftClickActionIndex == DEFAULT_CUSTOM_SHIFT_CLICK_INDEX ? rs$getShiftClickActionIndex() : shiftClickActionIndex;
+		return shiftClickActionIndex == DEFAULT_CUSTOM_SHIFT_CLICK_INDEX ? copy$getShiftClickActionIndex() : shiftClickActionIndex;
 	}
 
 	@Inject
@@ -77,14 +75,12 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 	}
 
 	@Copy("getModel")
-	public abstract RSModel rs$getModel(int quantity);
-
 	@Replace("getModel")
-	public RSModel getModel(int quantity)
+	public RSModel copy$getModel(int quantity)
 	{
 		if (modelOverride == -1)
 		{
-			return rs$getModel(quantity);
+			return copy$getModel(quantity);
 		}
 
 		return client.getRSItemDefinition(modelOverride).getModel(quantity);

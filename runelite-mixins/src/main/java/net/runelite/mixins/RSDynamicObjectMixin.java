@@ -46,11 +46,10 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	@Inject
 	public int animationID;
 
+	@SuppressWarnings("InfiniteRecursion")
 	@Copy("getModel")
-	public abstract RSModel rs$getModel();
-
 	@Replace("getModel")
-	public RSModel rl$getModel()
+	public RSModel copy$getModel()
 	{
 		try
 		{
@@ -61,7 +60,7 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 			{
 				setAnimFrame((animFrame ^ Integer.MIN_VALUE) & 0xFFFF);
 			}
-			return rs$getModel();
+			return copy$getModel();
 		}
 		finally
 		{
