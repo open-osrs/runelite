@@ -38,7 +38,7 @@ public interface Annotated
 
 	default void addAnnotation(Type type, Object val)
 	{
-		addAnnotation(type, val);
+		getAnnotations().put(type, new Annotation(type, val));
 	}
 
 	default void addAnnotation(Type type, String key, Object val)

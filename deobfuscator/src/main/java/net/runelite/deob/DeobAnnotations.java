@@ -41,26 +41,25 @@ public class DeobAnnotations
 	public static final Type IMPLEMENTS = new Type("Lnet/runelite/mapping/Implements;");
 	public static final Type OBFUSCATED_GETTER = new Type("Lnet/runelite/mapping/ObfuscatedGetter;");
 	public static final Type OBFUSCATED_SIGNATURE = new Type("Lnet/runelite/mapping/ObfuscatedSignature;");
-	public static final Type HOOK = new Type("Lnet/runelite/mapping/Hook;");
 
 	public static Signature getObfuscatedSignature(Method m)
 	{
-		String str = getStringValue(m, OBFUSCATED_SIGNATURE);
+		Object val = get(m, OBFUSCATED_SIGNATURE, "descriptor");
 
-		if (str == null)
+		if (val == null)
 			return null;
 
-		return new Signature(str);
+		return new Signature((String) val);
 	}
 
 	public static Type getObfuscatedType(Field f)
 	{
-		String str = getStringValue(f, OBFUSCATED_SIGNATURE);
+		Object val = get(f, OBFUSCATED_SIGNATURE, "descriptor");
 
-		if (str == null)
+		if (val == null)
 			return null;
 
-		return new Type(str);
+		return new Type((String) val);
 	}
 
 	@Nullable
@@ -88,14 +87,10 @@ public class DeobAnnotations
 		if (a == null)
 			return null;
 
-		Object v = a.getValue();
-		if (v == null)
-			return null;
-
 		if (field.getType().equals(Type.INT))
-			return (Integer) v;
-		else if (field.getType().equals(Type.LONG))
-			return (Long) v; // very long v
+			return (Integer) a.get("intValue");
+		if (field.getType().equals(Type.LONG))
+			return (Long) a.get("longValue"); // very long v
 		throw new IllegalArgumentException("Field with getter but not a long or an int?");
 	}
 
@@ -104,6 +99,13 @@ public class DeobAnnotations
 	{
 		Annotation a = method.findAnnotation(OBFUSCATED_SIGNATURE);
 		return a == null ? null : (String) a.get("garbageValue");
+	}
+
+	@Nullable
+	public static Object get(Annotated an, Type type, String name)
+	{
+		final var a = an.findAnnotation(type);
+		return a == null ? null : a.get(name);
 	}
 
 	@Nullable

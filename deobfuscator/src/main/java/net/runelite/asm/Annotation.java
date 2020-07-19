@@ -26,6 +26,7 @@ package net.runelite.asm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.AnnotationVisitor;
@@ -59,6 +60,12 @@ public class Annotation extends AnnotationVisitor implements Comparable<Annotati
 		this(type, true);
 	}
 
+	public Annotation(Type type, Object val)
+	{
+		this(type);
+		this.setElement(val);
+	}
+
 	public Annotation(Type type, boolean visible)
 	{
 		super(Opcodes.ASM5);
@@ -90,6 +97,11 @@ public class Annotation extends AnnotationVisitor implements Comparable<Annotati
 	public void setElement(Object value)
 	{
 		setElement("value", value);
+	}
+
+	public Object remove(String name)
+	{
+		return data.remove(name);
 	}
 
 	public Object get(String name)
@@ -191,5 +203,15 @@ public class Annotation extends AnnotationVisitor implements Comparable<Annotati
 	public int compareTo(@NotNull Annotation that)
 	{
 		return this.type.toString().compareTo(that.type.toString());
+	}
+
+	@Override
+	public String toString()
+	{
+		StringBuilder str = new StringBuilder('@' + type.toAsmString().replace('/', '.') + '(');
+		for (Map.Entry<String, Object> e : data.entrySet())
+			str.append(e.getKey()).append('=').append(e.getValue().toString());
+		str.append(')');
+		return str.toString();
 	}
 }
