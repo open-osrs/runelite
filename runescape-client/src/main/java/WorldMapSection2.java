@@ -181,7 +181,8 @@ public class WorldMapSection2 implements WorldMapSection {
 		signature = "(I)I",
 		garbageValue = "-2012901203"
 	)
-	public static int method372() {
+	@Export("getEntityCountUnderMouse")
+	public static int getEntityCountUnderMouse() {
 		return ViewportMouse.ViewportMouse_entityCount;
 	}
 

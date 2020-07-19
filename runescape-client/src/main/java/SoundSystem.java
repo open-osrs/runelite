@@ -49,8 +49,9 @@ public class SoundSystem implements Runnable {
 		signature = "(IB)I",
 		garbageValue = "101"
 	)
-	public static int method2628(int var0) {
-		return class279.method5159(ViewportMouse.ViewportMouse_entityTags[var0]);
+	@Export("getSceneXForObjectUnderMouse")
+	public static int getSceneXForObjectUnderMouse(int var0) {
+		return class279.Entity_unpackSceneX(ViewportMouse.ViewportMouse_entityTags[var0]);
 	}
 
 	@ObfuscatedName("n")

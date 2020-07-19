@@ -506,9 +506,7 @@ public abstract class RSTileMixin implements RSTile
 			return;
 		}
 
-		RSNodeDeque itemDeque = newQueue;
-
-		if (itemDeque == null)
+		if (newQueue == null)
 		{
 			if (lastUnlink != null)
 			{
@@ -519,7 +517,7 @@ public abstract class RSTileMixin implements RSTile
 		}
 
 		// The new item gets added to either the head, or the tail, depending on its price
-		RSNode head = itemDeque.getSentinel();
+		RSNode head = newQueue.getSentinel();
 		RSTileItem current = null;
 		RSNode next = head.getPrevious();
 		//boolean forward = false;

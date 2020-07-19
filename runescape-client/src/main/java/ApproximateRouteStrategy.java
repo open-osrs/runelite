@@ -82,102 +82,102 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 		garbageValue = "1974138271"
 	)
 	@Export("addNpcToMenu")
-	static final void addNpcToMenu(NPCDefinition var0, int var1, int var2, int var3) {
+	static final void addNpcToMenu(NPCDefinition npcDef, int npcIdx, int sceneX, int sceneY) {
 		if (Client.menuOptionsCount < 400) {
-			if (var0.transforms != null) {
-				var0 = var0.transform();
+			if (npcDef.transforms != null) {
+				npcDef = npcDef.transform();
 			}
 
-			if (var0 != null) {
-				if (var0.isInteractable) {
-					if (!var0.isFollower || Client.followerIndex == var1) {
-						String var4 = var0.name;
-						if (var0.combatLevel != 0) {
-							var4 = var4 + Canvas.method924(var0.combatLevel, class60.localPlayer.combatLevel) + " " + " (" + "level-" + var0.combatLevel + ")";
+			if (npcDef != null) {
+				if (npcDef.isInteractable) {
+					if (!npcDef.isFollower || Client.followerIndex == npcIdx) {
+						String npcName = npcDef.name;
+						if (npcDef.combatLevel != 0) {
+							npcName = npcName + Canvas.getColorForCombatDifference(npcDef.combatLevel, class60.localPlayer.combatLevel) + " " + " (" + "level-" + npcDef.combatLevel + ")";
 						}
 
-						if (var0.isFollower && Client.followerOpsLowPriority) {
-							ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16776960) + var4, 1003, var1, var2, var3);
+						if (npcDef.isFollower && Client.followerOpsLowPriority) {
+							ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16776960) + npcName, 1003, npcIdx, sceneX, sceneY);
 						}
 
 						if (Client.isItemSelected == 1) {
-							ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(16776960) + var4, 7, var1, var2, var3);
+							ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(16776960) + npcName, 7, npcIdx, sceneX, sceneY);
 						} else if (Client.isSpellSelected) {
 							if ((WorldMapSprite.selectedSpellFlags & 2) == 2) {
-								ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(16776960) + var4, 8, var1, var2, var3);
+								ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(16776960) + npcName, 8, npcIdx, sceneX, sceneY);
 							}
 						} else {
-							int var5 = var0.isFollower && Client.followerOpsLowPriority ? 2000 : 0;
-							String[] var6 = var0.actions;
-							int var7;
-							int var8;
-							if (var6 != null) {
-								for (var7 = 4; var7 >= 0; --var7) {
-									if (var6[var7] != null && !var6[var7].equalsIgnoreCase("Attack")) {
-										var8 = 0;
-										if (var7 == 0) {
-											var8 = var5 + 9;
+							int flwrOffset = npcDef.isFollower && Client.followerOpsLowPriority ? 2000 : 0;
+							String[] actions = npcDef.actions;
+							int i;
+							int opcode;
+							if (actions != null) {
+								for (i = 4; i >= 0; --i) {
+									if (actions[i] != null && !actions[i].equalsIgnoreCase("Attack")) {
+										opcode = 0;
+										if (i == 0) {
+											opcode = flwrOffset + 9;
 										}
 
-										if (var7 == 1) {
-											var8 = var5 + 10;
+										if (i == 1) {
+											opcode = flwrOffset + 10;
 										}
 
-										if (var7 == 2) {
-											var8 = var5 + 11;
+										if (i == 2) {
+											opcode = flwrOffset + 11;
 										}
 
-										if (var7 == 3) {
-											var8 = var5 + 12;
+										if (i == 3) {
+											opcode = flwrOffset + 12;
 										}
 
-										if (var7 == 4) {
-											var8 = var5 + 13;
+										if (i == 4) {
+											opcode = flwrOffset + 13;
 										}
 
-										ScriptEvent.insertMenuItemNoShift(var6[var7], ItemContainer.colorStartTag(16776960) + var4, var8, var1, var2, var3);
+										ScriptEvent.insertMenuItemNoShift(actions[i], ItemContainer.colorStartTag(16776960) + npcName, opcode, npcIdx, sceneX, sceneY);
 									}
 								}
 							}
 
-							if (var6 != null) {
-								for (var7 = 4; var7 >= 0; --var7) {
-									if (var6[var7] != null && var6[var7].equalsIgnoreCase("Attack")) {
-										short var9 = 0;
+							if (actions != null) {
+								for (i = 4; i >= 0; --i) {
+									if (actions[i] != null && actions[i].equalsIgnoreCase("Attack")) {
+										short atkOffset = 0;
 										if (AttackOption.AttackOption_hidden != Client.npcAttackOption) {
-											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || Client.npcAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && var0.combatLevel > class60.localPlayer.combatLevel) {
-												var9 = 2000;
+											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || Client.npcAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && npcDef.combatLevel > class60.localPlayer.combatLevel) {
+												atkOffset = 2000;
 											}
 
-											var8 = 0;
-											if (var7 == 0) {
-												var8 = var9 + 9;
+											opcode = 0;
+											if (i == 0) {
+												opcode = atkOffset + 9;
 											}
 
-											if (var7 == 1) {
-												var8 = var9 + 10;
+											if (i == 1) {
+												opcode = atkOffset + 10;
 											}
 
-											if (var7 == 2) {
-												var8 = var9 + 11;
+											if (i == 2) {
+												opcode = atkOffset + 11;
 											}
 
-											if (var7 == 3) {
-												var8 = var9 + 12;
+											if (i == 3) {
+												opcode = atkOffset + 12;
 											}
 
-											if (var7 == 4) {
-												var8 = var9 + 13;
+											if (i == 4) {
+												opcode = atkOffset + 13;
 											}
 
-											ScriptEvent.insertMenuItemNoShift(var6[var7], ItemContainer.colorStartTag(16776960) + var4, var8, var1, var2, var3);
+											ScriptEvent.insertMenuItemNoShift(actions[i], ItemContainer.colorStartTag(16776960) + npcName, opcode, npcIdx, sceneX, sceneY);
 										}
 									}
 								}
 							}
 
-							if (!var0.isFollower || !Client.followerOpsLowPriority) {
-								ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16776960) + var4, 1003, var1, var2, var3);
+							if (!npcDef.isFollower || !Client.followerOpsLowPriority) {
+								ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16776960) + npcName, 1003, npcIdx, sceneX, sceneY);
 							}
 						}
 

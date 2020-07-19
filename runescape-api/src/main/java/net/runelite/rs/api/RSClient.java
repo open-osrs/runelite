@@ -1282,4 +1282,12 @@ public interface RSClient extends RSGameShell, Client
 
 	@Construct
 	RSVarbitDefinition newVarbitDefinition();
+
+	@Override
+	@Import("followerIndex")
+	int getFollowerIndex();
+
+	@Override
+	@Import("isItemSelected")
+	int isItemSelected();
 }

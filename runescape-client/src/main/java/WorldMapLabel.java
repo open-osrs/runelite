@@ -402,7 +402,8 @@ public class WorldMapLabel {
 		signature = "(IB)J",
 		garbageValue = "88"
 	)
-	public static long method482(int var0) {
+	@Export("getEntityUnderMouse")
+	public static long getEntityUnderMouse(int var0) {
 		return ViewportMouse.ViewportMouse_entityTags[var0];
 	}
 
