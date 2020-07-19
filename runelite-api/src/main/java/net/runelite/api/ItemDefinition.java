@@ -111,6 +111,8 @@ public interface ItemDefinition
 	 */
 	String[] getInventoryActions();
 
+	String[] getGroundActions();
+
 	/**
 	 * Gets the menu action index of the shift-click action.
 	 *

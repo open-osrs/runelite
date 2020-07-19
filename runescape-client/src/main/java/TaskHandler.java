@@ -21,7 +21,8 @@ public class TaskHandler implements Runnable {
 	@ObfuscatedSignature(
 		signature = "Lhd;"
 	)
-	static Widget field2066;
+	@Export("hoveredItemContainer")
+	static Widget hoveredItemContainer;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		signature = "Lfa;"

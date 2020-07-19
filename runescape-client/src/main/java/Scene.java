@@ -1037,13 +1037,13 @@ public class Scene {
 
 	@ObfuscatedName("av")
 	@Export("menuOpen")
-	public void menuOpen(int var1, int var2, int var3, boolean var4) {
-		if (!method3230() || var4) {
+	public void menuOpen(int plane, int mouseX, int mouseY, boolean walking) {
+		if (!shouldSendWalk() || walking) {
 			checkClick = true;
-			viewportWalking = var4;
-			Scene_selectedPlane = var1;
-			Scene_selectedScreenX = var2;
-			Scene_selectedScreenY = var3;
+			viewportWalking = walking;
+			Scene_selectedPlane = plane;
+			Scene_selectedScreenX = mouseX;
+			Scene_selectedScreenY = mouseY;
 			Scene_selectedX = -1;
 			Scene_selectedY = -1;
 		}
@@ -2541,12 +2541,14 @@ public class Scene {
 	}
 
 	@ObfuscatedName("at")
-	public static boolean method3230() {
+	@Export("shouldSendWalk")
+	public static boolean shouldSendWalk() {
 		return viewportWalking && Scene_selectedX != -1;
 	}
 
 	@ObfuscatedName("aa")
-	public static void method3346() {
+	@Export("resetWalking")
+	public static void resetWalking() {
 		Scene_selectedX = -1;
 		viewportWalking = false;
 	}

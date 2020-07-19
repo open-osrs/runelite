@@ -243,7 +243,7 @@ public class class247 {
 			}
 
 			if (var11) {
-				int var8 = KeyHandler.getWidgetClickMask(var5);
+				int var8 = KeyHandler.getWidgetFlags(var5);
 				int var9 = var0 - 1;
 				boolean var7 = (var8 >> var9 + 1 & 1) != 0;
 				if (var7) {

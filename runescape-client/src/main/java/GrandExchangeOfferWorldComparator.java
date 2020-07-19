@@ -85,7 +85,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 				var4.actions = null;
 				return 1;
 			} else if (var0 == 1308) {
-				var4.field2744 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
+				var4.prioritizeMenuEntry = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize] == 1;
 				return 1;
 			} else if (var0 == 1309) {
 				--UrlRequester.Interpreter_intStackSize;

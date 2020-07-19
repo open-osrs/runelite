@@ -134,7 +134,7 @@ public class class9 {
 	static final void updateInterface(Widget[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		for (int var8 = 0; var8 < var0.length; ++var8) {
 			Widget var9 = var0[var8];
-			if (var9 != null && var9.parentId == var1 && (!var9.isIf3 || var9.type == 0 || var9.hasListener || KeyHandler.getWidgetClickMask(var9) != 0 || var9 == Client.clickedWidgetParent || var9.contentType == 1338)) {
+			if (var9 != null && var9.parentId == var1 && (!var9.isIf3 || var9.type == 0 || var9.hasListener || KeyHandler.getWidgetFlags(var9) != 0 || var9 == Client.clickedWidgetParent || var9.contentType == 1338)) {
 				if (var9.isIf3) {
 					if (Entity.isComponentHidden(var9)) {
 						continue;
@@ -268,7 +268,7 @@ public class class9 {
 							if (var9.contentType == 1400) {
 								class228.worldMap.addElementMenuOptions(var10, var11, var9.width, var9.height, var26, var18);
 							} else {
-								Message.method1283(var9, var26 - var10, var18 - var11);
+								Message.Widget_addToMenu(var9, var26 - var10, var18 - var11);
 							}
 						}
 
@@ -305,8 +305,8 @@ public class class9 {
 										class247.widgetDefaultMenuAction(var20 + 1, var9.id, var9.childIndex, var9.itemId, "");
 									} else if (var20 == 10) {
 										GrandExchangeOffer.Widget_runOnTargetLeave();
-										AttackOption.selectSpell(var9.id, var9.childIndex, WorldMapID.method617(KeyHandler.getWidgetClickMask(var9)), var9.itemId);
-										Client.selectedSpellActionName = WorldMapAreaData.method762(var9);
+										AttackOption.selectSpell(var9.id, var9.childIndex, WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var9)), var9.itemId);
+										Client.selectedSpellActionName = WorldMapAreaData.Widget_getSpellActionName(var9);
 										if (Client.selectedSpellActionName == null) {
 											Client.selectedSpellActionName = "null";
 										}
@@ -365,7 +365,7 @@ public class class9 {
 								class228.worldMap.method6693(var26, var18, var33 & var34, var33 & var21);
 							}
 
-							if (Client.clickedWidget != null && var9 != Client.clickedWidget && var33 && WorldMapScaleHandler.method819(KeyHandler.getWidgetClickMask(var9))) {
+							if (Client.clickedWidget != null && var9 != Client.clickedWidget && var33 && WorldMapScaleHandler.method819(KeyHandler.getWidgetFlags(var9))) {
 								Client.draggedOnWidget = var9;
 							}
 

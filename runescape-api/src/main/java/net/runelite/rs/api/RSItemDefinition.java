@@ -65,6 +65,10 @@ public interface RSItemDefinition extends ItemDefinition
 	@Override
 	String[] getInventoryActions();
 
+	@Import("groundActions")
+	@Override
+	String[] getGroundActions();
+
 	@Import("getShiftClickIndex")
 	@Override
 	int getShiftClickActionIndex();

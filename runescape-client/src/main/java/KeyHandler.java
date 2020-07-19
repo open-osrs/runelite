@@ -656,9 +656,9 @@ public final class KeyHandler implements KeyListener, FocusListener {
 		signature = "(Lhd;I)I",
 		garbageValue = "-1756984804"
 	)
-	@Export("getWidgetClickMask")
-	static int getWidgetClickMask(Widget var0) {
-		IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.get(((long)var0.id << 32) + (long)var0.childIndex);
-		return var1 != null ? var1.integer : var0.clickMask;
+	@Export("getWidgetFlags")
+	static int getWidgetFlags(Widget var0) {
+		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get(((long)var0.id << 32) + (long)var0.childIndex);
+		return var1 != null ? var1.integer : var0.flags;
 	}
 }

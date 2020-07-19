@@ -494,7 +494,7 @@ public final class WorldMapManager {
 	static int method717(int var0, Script var1, boolean var2) {
 		Widget var3 = WorldMapSprite.getWidget(Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize]);
 		if (var0 == ScriptOpcodes.IF_GETTARGETMASK) {
-			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = WorldMapID.method617(KeyHandler.getWidgetClickMask(var3));
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var3));
 			return 1;
 		} else if (var0 != ScriptOpcodes.IF_GETOP) {
 			if (var0 == ScriptOpcodes.IF_GETOPBASE) {
