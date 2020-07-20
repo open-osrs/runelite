@@ -232,6 +232,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.GUTHANS_WARSPEAR_50, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GUTHANS_WARSPEAR_75, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HALBERD, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.HAM_JOINT, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HAND_FAN, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HILL_GIANT_CLUB, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HOLY_HANDEGG, WeaponStyle.MELEE);
@@ -406,6 +407,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.STEEL_WARHAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.STONE_BOWL, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SWAMP_LIZARD, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SWIFT_BLADE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TOKTZXILAK, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TOKTZXILAK_20554, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TOKTZXILEK, WeaponStyle.MELEE);
@@ -726,6 +728,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.SMOKE_BATTLESTAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_AIR, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.STAFF_OF_BALANCE, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.STAFF_OF_BOB_THE_CAT, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_EARTH, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_FIRE, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_LIGHT, WeaponStyle.MAGIC);
