@@ -87,8 +87,8 @@ dependencies {
     testImplementation(group = "com.google.inject.extensions", name = "guice-testlib", version = "4.2.3")
     testImplementation(group = "org.hamcrest", name = "hamcrest-library", version = "2.2")
     testImplementation(group = "junit", name = "junit", version = "4.13")
-    testImplementation(group = "org.mockito", name = "mockito-core", version = "3.4.2")
-    testImplementation(group = "org.mockito", name = "mockito-inline", version = "3.4.2")
+    testImplementation(group = "org.mockito", name = "mockito-core", version = "3.4.4")
+    testImplementation(group = "org.mockito", name = "mockito-inline", version = "3.4.4")
     testImplementation(group = "com.squareup.okhttp3", name = "mockwebserver", version = "4.8.0")
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
 }
