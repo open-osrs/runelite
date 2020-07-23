@@ -148,4 +148,10 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 			}
 		}
 	}
+
+	@Inject
+	public int size()
+	{
+		return getItemIds().length;
+	}
 }

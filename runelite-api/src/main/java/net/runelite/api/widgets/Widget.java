@@ -760,15 +760,6 @@ public interface Widget
 
 	Object[] getOnInvTransmit();
 
-	Object[] getOnOp();
-
-	/**
-	 * Gets the script and arguments to be ran when one of the listened for inventories changes.
-	 *
-	 * @return
-	 */
-	Object[] getOnInvTransmitListener();
-
 	/**
 	 * Returns the archive id of the font used
 	 *
