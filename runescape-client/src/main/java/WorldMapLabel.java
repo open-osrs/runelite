@@ -76,7 +76,8 @@ public class WorldMapLabel {
 		signature = "(II)Z",
 		garbageValue = "578317705"
 	)
-	public static boolean method487(int var0) {
+	@Export("Widget_hasContinueOption")
+	public static boolean Widget_hasContinueOption(int var0) {
 		return (var0 & 1) != 0;
 	}
 

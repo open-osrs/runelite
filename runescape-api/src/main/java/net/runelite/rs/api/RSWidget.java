@@ -60,10 +60,10 @@ public interface RSWidget extends Widget
 	@Import("parentId")
 	void setParentId(int id);
 
-	@Import("clickMask")
+	@Import("flags")
 	int getClickMask();
 
-	@Import("clickMask")
+	@Import("flags")
 	void setClickMask(int mask);
 
 	//@Import("boundsIndex") -- unused for now
@@ -98,6 +98,16 @@ public interface RSWidget extends Widget
 	@Import("actions")
 	@Override
 	String[] getActions();
+
+	@Import("itemActions")
+	@Override
+	String[] getItemActions();
+
+	@Import("spellName")
+	String getSpellName();
+
+	@Import("buttonText")
+	String getRSButtonText();
 
 	@Import("text")
 	String getRSText();
@@ -220,6 +230,10 @@ public interface RSWidget extends Widget
 	@Import("type")
 	@Override
 	void setType(int type);
+
+	@Import("buttonType")
+	@Override
+	int getButtonType();
 
 	@Import("scrollX")
 	@Override

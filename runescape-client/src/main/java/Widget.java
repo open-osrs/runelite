@@ -440,8 +440,8 @@ public class Widget extends Node {
 	@ObfuscatedGetter(
 		intValue = 1451565177
 	)
-	@Export("clickMask")
-	public int clickMask;
+	@Export("flags")
+	public int flags;
 	@ObfuscatedName("cq")
 	public boolean field2709;
 	@ObfuscatedName("co")
@@ -681,7 +681,8 @@ public class Widget extends Node {
 	@Export("noScrollThrough")
 	public boolean noScrollThrough;
 	@ObfuscatedName("fn")
-	public boolean field2744;
+	@Export("prioritizeMenuEntry")
+	public boolean prioritizeMenuEntry;
 
 	static {
 		Widget_cachedSprites = new EvictingDualNodeHashTable(200);
@@ -759,7 +760,7 @@ public class Widget extends Node {
 		this.textShadowed = false;
 		this.paddingX = 0;
 		this.paddingY = 0;
-		this.clickMask = 0;
+		this.flags = 0;
 		this.field2709 = false;
 		this.dataText = "";
 		this.parent = null;
@@ -785,7 +786,7 @@ public class Widget extends Node {
 		this.cycle = -1;
 		this.noClickThrough = false;
 		this.noScrollThrough = false;
-		this.field2744 = false;
+		this.prioritizeMenuEntry = false;
 	}
 
 	@ObfuscatedName("g")
@@ -863,22 +864,22 @@ public class Widget extends Node {
 			this.itemQuantities = new int[this.rawWidth * this.rawHeight];
 			var4 = var1.readUnsignedByte();
 			if (var4 == 1) {
-				this.clickMask |= 268435456;
+				this.flags |= 268435456;
 			}
 
 			var5 = var1.readUnsignedByte();
 			if (var5 == 1) {
-				this.clickMask |= 1073741824;
+				this.flags |= 1073741824;
 			}
 
 			var6 = var1.readUnsignedByte();
 			if (var6 == 1) {
-				this.clickMask |= Integer.MIN_VALUE;
+				this.flags |= Integer.MIN_VALUE;
 			}
 
 			int var7 = var1.readUnsignedByte();
 			if (var7 == 1) {
-				this.clickMask |= 536870912;
+				this.flags |= 536870912;
 			}
 
 			this.paddingX = var1.readUnsignedByte();
@@ -905,7 +906,7 @@ public class Widget extends Node {
 				String var10 = var1.readStringCp1252NullTerminated();
 				if (var10.length() > 0) {
 					this.itemActions[var8] = var10;
-					this.clickMask |= 1 << var8 + 23;
+					this.flags |= 1 << var8 + 23;
 				}
 			}
 		}
@@ -989,7 +990,7 @@ public class Widget extends Node {
 			this.paddingY = var1.readShort();
 			var4 = var1.readUnsignedByte();
 			if (var4 == 1) {
-				this.clickMask |= 1073741824;
+				this.flags |= 1073741824;
 			}
 
 			this.itemActions = new String[5];
@@ -998,7 +999,7 @@ public class Widget extends Node {
 				String var11 = var1.readStringCp1252NullTerminated();
 				if (var11.length() > 0) {
 					this.itemActions[var5] = var11;
-					this.clickMask |= 1 << var5 + 23;
+					this.flags |= 1 << var5 + 23;
 				}
 			}
 		}
@@ -1011,7 +1012,7 @@ public class Widget extends Node {
 			this.spellActionName = var1.readStringCp1252NullTerminated();
 			this.spellName = var1.readStringCp1252NullTerminated();
 			var4 = var1.readUnsignedShort() & 63;
-			this.clickMask |= var4 << 11;
+			this.flags |= var4 << 11;
 		}
 
 		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5 || this.buttonType == 6) {
@@ -1036,11 +1037,11 @@ public class Widget extends Node {
 		}
 
 		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5) {
-			this.clickMask |= 4194304;
+			this.flags |= 4194304;
 		}
 
 		if (this.buttonType == 6) {
-			this.clickMask |= 1;
+			this.flags |= 1;
 		}
 
 	}
@@ -1149,7 +1150,7 @@ public class Widget extends Node {
 			this.field2633 = var1.readUnsignedByte() == 1;
 		}
 
-		this.clickMask = var1.readMedium();
+		this.flags = var1.readMedium();
 		this.dataText = var1.readStringCp1252NullTerminated();
 		int var2 = var1.readUnsignedByte();
 		if (var2 > 0) {

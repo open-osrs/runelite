@@ -1862,8 +1862,8 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
-	@Replace("getWidgetClickMask")
-	public static int getWidgetClickMask(Widget widget)
+	@Replace("getWidgetFlags")
+	public static int getWidgetFlags(Widget widget)
 	{
 		IntegerNode integerNode = (IntegerNode) client.getWidgetFlags().get(((long) widget.getId() << 32) + (long) widget.getIndex());
 

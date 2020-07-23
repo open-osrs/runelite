@@ -178,6 +178,13 @@ public abstract class RSWidgetMixin implements RSWidget
 
 	@Inject
 	@Override
+	public String getButtonText()
+	{
+		return getRSButtonText().replace('\u00A0', ' ');
+	}
+
+	@Inject
+	@Override
 	public String getText()
 	{
 		return getRSText().replace('\u00A0', ' ');

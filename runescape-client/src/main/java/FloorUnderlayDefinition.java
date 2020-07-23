@@ -257,7 +257,8 @@ public class FloorUnderlayDefinition extends DualNode {
 		signature = "(IB)Z",
 		garbageValue = "7"
 	)
-	public static boolean method4615(int var0) {
+	@Export("Widget_isItemContainer")
+	public static boolean Widget_isItemContainer(int var0) {
 		return (var0 >> 30 & 1) != 0;
 	}
 }

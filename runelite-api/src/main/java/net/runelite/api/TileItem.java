@@ -42,4 +42,9 @@ public interface TileItem extends Entity
 	 * @return
 	 */
 	int getSpawnTime();
+
+	/**
+	 * @return the tile this item is on
+	 */
+	Tile getTile();
 }

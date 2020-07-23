@@ -59,7 +59,8 @@ public class WorldMapID {
 		signature = "(II)I",
 		garbageValue = "-211582550"
 	)
-	public static int method617(int var0) {
+	@Export("Widget_unpackTargetMask")
+	public static int Widget_unpackTargetMask(int var0) {
 		return var0 >> 11 & 63;
 	}
 

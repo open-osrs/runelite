@@ -1883,6 +1883,10 @@ public interface Client extends GameShell
 
 	boolean isSpellSelected();
 
+	String getSelectedSpellActionName();
+
+	int getSelectedSpellFlags();
+
 	/**
 	 * Set whether or not player attack options will be hidden for friends
 	 */
@@ -1937,7 +1941,11 @@ public interface Client extends GameShell
 
 	void setSelectedItemID(int id);
 
+	int getSelectedItemWidget();
+
 	void setSelectedItemWidget(int widgetID);
+
+	int getSelectedItemSlot();
 
 	void setSelectedItemSlot(int idx);
 
@@ -2067,4 +2075,8 @@ public interface Client extends GameShell
 	int getFollowerIndex();
 
 	int isItemSelected();
+
+	String getSelectedItemName();
+
+	Widget getMessageContinueWidget();
 }

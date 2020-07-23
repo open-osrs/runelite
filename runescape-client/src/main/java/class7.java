@@ -86,7 +86,7 @@ public enum class7 implements Enumerated {
 	static int method100(int var0, Script var1, boolean var2) {
 		Widget var3 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
 		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) {
-			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = WorldMapID.method617(KeyHandler.getWidgetClickMask(var3));
+			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var3));
 			return 1;
 		} else if (var0 != ScriptOpcodes.CC_GETOP) {
 			if (var0 == ScriptOpcodes.CC_GETOPBASE) {

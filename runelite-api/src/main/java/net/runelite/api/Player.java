@@ -89,4 +89,12 @@ public interface Player extends Actor
 	 */
 	@Nullable
 	SkullIcon getSkullIcon();
+
+	/**
+	 * This is almost always not what you want
+	 * @return literal 0
+	 */
+	int getRSSkillLevel();
+
+	String[] getActions();
 }
