@@ -422,7 +422,7 @@ public class PlayerAppearance {
 		garbageValue = "1446127367"
 	)
 	static void method4177(int var0) {
-		for (IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.first(); var1 != null; var1 = (IntegerNode)Client.widgetClickMasks.next()) {
+		for (IntegerNode var1 = (IntegerNode)Client.widgetFlags.first(); var1 != null; var1 = (IntegerNode)Client.widgetFlags.next()) {
 			if ((long)var0 == (var1.key >> 48 & 65535L)) {
 				var1.remove();
 			}

@@ -318,7 +318,7 @@ public class FriendSystem {
 		garbageValue = "74"
 	)
 	static Widget method1994(Widget var0) {
-		int var1 = WorldMapDecoration.method402(KeyHandler.getWidgetClickMask(var0));
+		int var1 = WorldMapDecoration.method402(KeyHandler.getWidgetFlags(var0));
 		if (var1 == 0) {
 			return null;
 		} else {

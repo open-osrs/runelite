@@ -28,29 +28,24 @@ package net.runelite.client.rs;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
+import lombok.AllArgsConstructor;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+@AllArgsConstructor
 class ClientConfigLoader
 {
-	private ClientConfigLoader()
-	{
-	}
+	private final OkHttpClient okHttpClient;
 
-	static RSConfig fetch(HttpUrl url) throws IOException
+	RSConfig fetch(HttpUrl url) throws IOException
 	{
 		final Request request = new Request.Builder()
 			.url(url)
 			.build();
 
 		final RSConfig config = new RSConfig();
-
-		OkHttpClient okHttpClient = new OkHttpClient.Builder()
-			.connectTimeout(2000, TimeUnit.MILLISECONDS)
-			.build();
 
 		try (final Response response = okHttpClient.newCall(request).execute())
 		{

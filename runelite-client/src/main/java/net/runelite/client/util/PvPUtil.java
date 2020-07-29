@@ -24,9 +24,6 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.TreeMap;
 
-/**
- *
- */
 public class PvPUtil
 {
 	private static final Polygon NOT_WILDERNESS_BLACK_KNIGHTS = new Polygon( // this is black knights castle
@@ -81,29 +78,20 @@ public class PvPUtil
 	public static boolean isAttackable(Client client, Player player)
 	{
 		int wildernessLevel = 0;
-		
-		if (!(client.getVar(Varbits.IN_WILDERNESS) == 1
-			|| WorldType.isPvpWorld(client.getWorldType())
-			|| WorldType.isDeadmanWorld(client.getWorldType())))
-		{
-			return false;
-		}
-		
+
 		if (WorldType.isDeadmanWorld(client.getWorldType()))
 		{
 			return true;
 		}
-		
 		if (WorldType.isPvpWorld(client.getWorldType()))
 		{
-			if (client.getVar(Varbits.IN_WILDERNESS) != 1)
-			{
-				return Math.abs(client.getLocalPlayer().getCombatLevel() - player.getCombatLevel()) <= 15;
-			}
-			wildernessLevel = 15;
+			wildernessLevel += 15;
 		}
-		return Math.abs(client.getLocalPlayer().getCombatLevel() - player.getCombatLevel())
-			< (getWildernessLevelFrom(client.getLocalPlayer().getWorldLocation()) + wildernessLevel);
+		if (client.getVar(Varbits.IN_WILDERNESS) == 1)
+		{
+			wildernessLevel += getWildernessLevelFrom(client.getLocalPlayer().getWorldLocation());
+		}
+		return wildernessLevel != 0 && Math.abs(client.getLocalPlayer().getCombatLevel() - player.getCombatLevel()) <= wildernessLevel;
 	}
 
 	public static int calculateRisk(Client client, ItemManager itemManager)

@@ -1,9 +1,6 @@
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.get
 import java.io.File
@@ -14,7 +11,7 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
 
     @InputFile
     @PathSensitive(PathSensitivity.ABSOLUTE)
-    var clientJar: File? = null
+    val clientJar: RegularFileProperty = project.objects.fileProperty()
 
     @Input
     val launcherJvm11Arguments = arrayOf("-XX:+DisableAttachMechanism", "-Drunelite.launcher.nojvm=true", "-Xmx1G", "-Xss2m", "-XX:CompileThreshold=1500", "-Djna.nosys=true")
@@ -81,11 +78,12 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             }
         }
 
+        val cjar = clientJar.get().asFile
         artifacts.add(JsonBuilder(
-                "name" to clientJar!!.name,
-                "path" to "https://github.com/open-osrs/hosting/raw/master/${type}/${clientJar!!.name}",
-                "size" to clientJar!!.length(),
-                "hash" to hash(clientJar!!.readBytes())
+                "name" to cjar.name,
+                "path" to "https://github.com/open-osrs/hosting/raw/master/${type}/${cjar.name}",
+                "size" to cjar.length(),
+                "hash" to hash(cjar.readBytes())
         ))
 
         return artifacts.toTypedArray()

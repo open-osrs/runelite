@@ -198,8 +198,9 @@ public class WorldMapAreaData extends WorldMapArea {
 		signature = "(Lhd;B)Ljava/lang/String;",
 		garbageValue = "-51"
 	)
-	static String method762(Widget var0) {
-		if (WorldMapID.method617(KeyHandler.getWidgetClickMask(var0)) == 0) {
+	@Export("Widget_getSpellActionName")
+	static String Widget_getSpellActionName(Widget var0) {
+		if (WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var0)) == 0) {
 			return null;
 		} else {
 			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null;

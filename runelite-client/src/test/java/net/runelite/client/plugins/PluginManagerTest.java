@@ -58,6 +58,7 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.eventbus.AccessorGenerator;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import okhttp3.OkHttpClient;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -66,6 +67,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import static org.mockito.Mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -92,10 +94,12 @@ public class PluginManagerTest
 	@Before
 	public void before() throws IOException
 	{
+		OkHttpClient okHttpClient = mock(OkHttpClient.class);
+
 		executorService = Executors.newSingleThreadScheduledExecutor();
 
 		Injector injector = Guice.createInjector(Modules
-			.override(new RuneLiteModule(() -> null, false, RuneLite.DEFAULT_CONFIG_FILE))
+			.override(new RuneLiteModule(okHttpClient, () -> null, false, RuneLite.DEFAULT_CONFIG_FILE))
 			.with(BoundFieldModule.of(this)));
 
 		RuneLite.setInjector(injector);
@@ -157,7 +161,7 @@ public class PluginManagerTest
 	{
 		List<Module> modules = new ArrayList<>();
 		modules.add(new GraphvizModule());
-		modules.add(new RuneLiteModule(() -> null, false, RuneLite.DEFAULT_CONFIG_FILE));
+		modules.add(new RuneLiteModule(mock(OkHttpClient.class), () -> null, false, RuneLite.DEFAULT_CONFIG_FILE));
 
 		PluginManager pluginManager = new PluginManager(false, null, null, executorService, null, null, null, null);
 		pluginManager.loadCorePlugins();

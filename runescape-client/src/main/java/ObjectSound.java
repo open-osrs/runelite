@@ -161,7 +161,8 @@ public final class ObjectSound extends Node {
 	}
 
 	@ObfuscatedName("w")
-	static final void method2010(long var0) {
+	@Export("addEntityUnderMouse")
+	static final void addEntityUnderMouse(long var0) {
 		ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var0;
 	}
 

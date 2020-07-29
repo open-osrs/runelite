@@ -16,7 +16,8 @@ public class class198 {
 		signature = "(IB)Z",
 		garbageValue = "-100"
 	)
-	public static boolean method3774(int var0) {
+	@Export("Widget_containerHasUseOption")
+	public static boolean Widget_containerHasUseOption(int var0) {
 		return (var0 >> 31 & 1) != 0;
 	}
 }

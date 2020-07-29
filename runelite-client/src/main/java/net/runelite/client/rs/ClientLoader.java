@@ -40,23 +40,27 @@ import net.runelite.client.RuneLite;
 import net.runelite.client.ui.RuneLiteSplashScreen;
 import net.runelite.http.api.worlds.World;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 
 @Slf4j
 public class ClientLoader implements Supplier<Applet>
 {
-	private static final String CONFIG_URL = "http://oldschool.runescape.com/jav_config.ws";
+	private static final String CONFIG_URL = "https://oldschool.runescape.com/jav_config.ws";
 	private static final String BACKUP_CONFIG_URL = "https://raw.githubusercontent.com/open-osrs/hosting/master/jav_config.ws";
-
 	private static final int NUM_ATTEMPTS = 10;
-	private final ClientUpdateCheckMode updateCheckMode;
-	private Object client = null;
 
-	private WorldSupplier worldSupplier = new WorldSupplier();
+	private final ClientConfigLoader clientConfigLoader;
+	private final ClientUpdateCheckMode updateCheckMode;
+	private final WorldSupplier worldSupplier;
+
+	private Object client;
 	private RSConfig config;
 
-	public ClientLoader(ClientUpdateCheckMode updateCheckMode)
+	public ClientLoader(OkHttpClient okHttpClient, ClientUpdateCheckMode updateCheckMode)
 	{
+		this.clientConfigLoader = new ClientConfigLoader(okHttpClient);
 		this.updateCheckMode = updateCheckMode;
+		this.worldSupplier = new WorldSupplier(okHttpClient);
 	}
 
 	private static Applet loadRLPlus(final RSConfig config)
@@ -178,7 +182,7 @@ public class ClientLoader implements Supplier<Applet>
 			RuneLiteSplashScreen.stage(.0, "Connecting with gameserver (try " + (attempt + 1) + "/" + NUM_ATTEMPTS + ")");
 			try
 			{
-				config = ClientConfigLoader.fetch(url);
+				config = clientConfigLoader.fetch(url);
 
 				if (Strings.isNullOrEmpty(config.getCodeBase()) || Strings.isNullOrEmpty(config.getInitialJar()) || Strings.isNullOrEmpty(config.getInitialClass()))
 				{
@@ -200,7 +204,7 @@ public class ClientLoader implements Supplier<Applet>
 
 		try
 		{
-			RSConfig backupConfig = ClientConfigLoader.fetch(HttpUrl.parse(BACKUP_CONFIG_URL));
+			RSConfig backupConfig = clientConfigLoader.fetch(HttpUrl.parse(BACKUP_CONFIG_URL));
 
 			if (Strings.isNullOrEmpty(backupConfig.getCodeBase()) || Strings.isNullOrEmpty(backupConfig.getInitialJar())
 				|| Strings.isNullOrEmpty(backupConfig.getInitialClass()) || Strings.isNullOrEmpty(backupConfig.getRuneLiteWorldParam()))

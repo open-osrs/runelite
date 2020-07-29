@@ -760,9 +760,9 @@ public class ExternalPluginManager
 				scannedPlugins.add(plugin);
 			}
 		}
-		catch (NoClassDefFoundError ex)
+		catch (Throwable ex)
 		{
-			log.error("plugin {} is outdated", pluginId);
+			log.error("plugin {} could not be loaded. {} {}", pluginId, ex.toString(), ex.getMessage());
 		}
 
 		return scannedPlugins;

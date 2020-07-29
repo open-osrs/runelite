@@ -550,7 +550,7 @@ public final class Player extends Actor {
 			if (Client.menuOptionsCount < 400) {
 				String var4;
 				if (var0.skillLevel == 0) {
-					var4 = var0.actions[0] + var0.username + var0.actions[1] + Canvas.method924(var0.combatLevel, class60.localPlayer.combatLevel) + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
+					var4 = var0.actions[0] + var0.username + var0.actions[1] + Canvas.getColorForCombatDifference(var0.combatLevel, class60.localPlayer.combatLevel) + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
 				} else {
 					var4 = var0.actions[0] + var0.username + var0.actions[1] + " " + " (" + "skill-" + var0.skillLevel + ")" + var0.actions[2];
 				}

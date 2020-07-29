@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, HSJ <https://github.com/HSJ-OSRS>
+ * Copyright (c) 2020, Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,16 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.mixins;
 
-import lombok.Value;
-import net.runelite.api.Player;
+import net.runelite.api.mixins.Inject;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.api.mixins.Shadow;
+import net.runelite.rs.api.RSClient;
 
-/**
- * An event when a player dies.
- */
-@Value
-public class PlayerDeath implements Event
+@Mixin(RSClient.class)
+public abstract class KeyHandlerMixin implements RSClient
 {
-	Player player;
+	@Shadow("client")
+	private static RSClient client;
+
+	@Inject
+	public boolean isKeyPressed(int keycode)
+	{
+		boolean[] pressedKeys = client.getPressedKeys();
+		return pressedKeys[keycode];
+	}
 }

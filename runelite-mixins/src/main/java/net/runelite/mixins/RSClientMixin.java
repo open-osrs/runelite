@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -82,6 +83,7 @@ import net.runelite.api.events.FriendsChatChanged;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GrandExchangeOfferChanged;
 import net.runelite.api.events.GrandExchangeSearched;
+import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.Menu;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
@@ -120,11 +122,14 @@ import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSItemContainer;
 import net.runelite.rs.api.RSNPC;
+import net.runelite.rs.api.RSNode;
 import net.runelite.rs.api.RSNodeDeque;
 import net.runelite.rs.api.RSNodeHashTable;
 import net.runelite.rs.api.RSPacketBuffer;
 import net.runelite.rs.api.RSPlayer;
+import net.runelite.rs.api.RSScene;
 import net.runelite.rs.api.RSSprite;
+import net.runelite.rs.api.RSTile;
 import net.runelite.rs.api.RSTileItem;
 import net.runelite.rs.api.RSUsername;
 import net.runelite.rs.api.RSWidget;
@@ -826,7 +831,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		List<Projectile> projectiles = new ArrayList<Projectile>();
 		RSNodeDeque projectileDeque = this.getProjectilesDeque();
-		Node head = projectileDeque.getHead();
+		Node head = projectileDeque.getSentinel();
 
 		for (Node node = head.getNext(); node != head; node = node.getNext())
 		{
@@ -842,7 +847,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		List<GraphicsObject> graphicsObjects = new ArrayList<GraphicsObject>();
 		RSNodeDeque graphicsObjectDeque = this.getGraphicsObjectDeque();
-		Node head = graphicsObjectDeque.getHead();
+		Node head = graphicsObjectDeque.getSentinel();
 
 		for (Node node = head.getNext(); node != head; node = node.getNext())
 		{
@@ -1062,8 +1067,39 @@ public abstract class RSClientMixin implements RSClient
 	public static void gameStateChanged(int idx)
 	{
 		GameStateChanged gameStateChange = new GameStateChanged();
-		gameStateChange.setGameState(client.getGameState());
+		GameState gameState = client.getGameState();
+		gameStateChange.setGameState(gameState);
 		client.getCallbacks().post(GameStateChanged.class, gameStateChange);
+		if (gameState == GameState.LOGGED_IN)
+		{
+			int plane = client.getPlane();
+			RSScene scene = client.getScene();
+			RSTile[][][] tiles = scene.getTiles();
+			RSNodeDeque[][][] allItemDeque = client.getGroundItemDeque();
+			RSNodeDeque[][] planeItems = allItemDeque[plane];
+
+			for (int x = 0; x < 104; x++)
+			{
+				for (int y = 0; y < 104; y++)
+				{
+					RSNodeDeque itemDeque = planeItems[x][y];
+					if (itemDeque != null)
+					{
+						RSTile tile = tiles[plane][x][y];
+						RSNode head = itemDeque.getSentinel();
+
+						for (RSNode current = head.getNext(); current != head; current = current.getNext())
+						{
+							RSTileItem item = (RSTileItem) current;
+							item.setX(x);
+							item.setY(y);
+							ItemSpawned event = new ItemSpawned(tile, item);
+							client.getCallbacks().post(ItemSpawned.class, event);
+						}
+					}
+				}
+			}
+		}
 	}
 
 
@@ -1196,6 +1232,32 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().post(CanvasSizeChanged.class, CanvasSizeChanged.INSTANCE);
 	}
 
+	@FieldHook("hintArrowPlayerIndex")
+	@Inject
+	public static void hintPlayerChanged(int ignored)
+	{
+		// Setting the localInteractingIndex (aka player target index, it only applies to players)
+		// causes that player to get priority over others when rendering/menus are added
+		if (client.getVar(VarPlayer.ATTACKING_PLAYER) == -1)
+		{
+			client.setLocalInteractingIndex(client.getHintArrowPlayerTargetIdx() & 2047);
+		}
+	}
+
+	@FieldHook("combatTargetPlayerIndex")
+	@Inject
+	public static void combatPlayerTargetChanged(int ignored)
+	{
+		if (client.getLocalInteractingIndex() == -1)
+		{
+			final Player p = client.getHintArrowPlayer();
+			if (p != null)
+			{
+				client.setLocalInteractingIndex(p.getPlayerId() & 2047);
+			}
+		}
+	}
+
 	@Inject
 	@Override
 	public boolean hasHintArrow()
@@ -1247,6 +1309,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		client.setHintArrowTargetType(HintArrowType.PLAYER.getValue());
 		client.setHintArrowPlayerTargetIdx(((RSPlayer) player).getPlayerId());
+		hintPlayerChanged(-1);
 	}
 
 	@Inject
@@ -1799,8 +1862,8 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
-	@Replace("getWidgetClickMask")
-	public static int getWidgetClickMask(Widget widget)
+	@Replace("getWidgetFlags")
+	public static int getWidgetFlags(Widget widget)
 	{
 		IntegerNode integerNode = (IntegerNode) client.getWidgetFlags().get(((long) widget.getId() << 32) + (long) widget.getIndex());
 

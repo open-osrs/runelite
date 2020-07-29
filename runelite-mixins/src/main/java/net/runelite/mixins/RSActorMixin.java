@@ -35,10 +35,9 @@ import net.runelite.api.Sprite;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.ActorDeath;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.HitsplatApplied;
-import net.runelite.api.events.PlayerDeath;
-import net.runelite.api.events.PlayerDeath;
 import net.runelite.api.events.SpotAnimationChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.OverheadTextChanged;
@@ -248,12 +247,10 @@ public abstract class RSActorMixin implements RSActor
 	{
 		if (healthRatio == 0)
 		{
-			if (this instanceof Player)
-			{
-				final PlayerDeath event = new PlayerDeath((Player) this);
-				client.getCallbacks().post(PlayerDeath.class, event);
-			}
-			else if (this instanceof RSNPC)
+			final ActorDeath event = new ActorDeath(this);
+			client.getCallbacks().post(ActorDeath.class, event);
+
+			if (this instanceof RSNPC)
 			{
 				((RSNPC) this).setDead(true);
 			}

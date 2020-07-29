@@ -8,7 +8,8 @@ public class class171 implements class170 {
 	static byte[][][] field2036;
 
 	@ObfuscatedName("g")
-	public static int method3571(long var0) {
+	@Export("Entity_unpackType")
+	public static int Entity_unpackType(long var0) {
 		return (int)(var0 >>> 14 & 3L);
 	}
 

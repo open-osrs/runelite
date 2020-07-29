@@ -613,9 +613,9 @@ public class WorldMapSection0 implements WorldMapSection {
 							var16 = WorldMapLabelSize.getWidgetChild(var1, var0);
 							if (var16 != null) {
 								GrandExchangeOffer.Widget_runOnTargetLeave();
-								AttackOption.selectSpell(var1, var0, WorldMapID.method617(KeyHandler.getWidgetClickMask(var16)), var16.itemId);
+								AttackOption.selectSpell(var1, var0, WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var16)), var16.itemId);
 								Client.isItemSelected = 0;
-								Client.selectedSpellActionName = WorldMapAreaData.method762(var16);
+								Client.selectedSpellActionName = WorldMapAreaData.Widget_getSpellActionName(var16);
 								if (Client.selectedSpellActionName == null) {
 									Client.selectedSpellActionName = "null";
 								}

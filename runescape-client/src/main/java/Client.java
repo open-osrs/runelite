@@ -94,8 +94,8 @@ public final class Client extends GameShell implements Usernamed {
 	@ObfuscatedSignature(
 		signature = "Lle;"
 	)
-	@Export("widgetClickMasks")
-	static NodeHashTable widgetClickMasks;
+	@Export("widgetFlags")
+	static NodeHashTable widgetFlags;
 	@ObfuscatedName("np")
 	@ObfuscatedGetter(
 		intValue = 152745331
@@ -1492,7 +1492,7 @@ public final class Client extends GameShell implements Usernamed {
 		scriptEvents = new NodeDeque();
 		field891 = new NodeDeque();
 		field691 = new NodeDeque();
-		widgetClickMasks = new NodeHashTable(512);
+		widgetFlags = new NodeHashTable(512);
 		rootWidgetCount = 0;
 		field877 = -2;
 		field813 = new boolean[100];
@@ -3503,7 +3503,7 @@ public final class Client extends GameShell implements Usernamed {
 																++itemDragDuration;
 																if (MouseHandler.MouseHandler_currentButton == 0) {
 																	if (field785) {
-																		if (KeyHandler.dragInventoryWidget == TaskHandler.field2066 && dragItemSlotSource != dragItemSlotDestination) {
+																		if (KeyHandler.dragInventoryWidget == TaskHandler.hoveredItemContainer && dragItemSlotSource != dragItemSlotDestination) {
 																			Widget var43 = KeyHandler.dragInventoryWidget;
 																			byte var31 = 0;
 																			if (field838 == 1 && var43.contentType == 206) {
@@ -3514,7 +3514,7 @@ public final class Client extends GameShell implements Usernamed {
 																				var31 = 0;
 																			}
 
-																			if (Projectile.method2249(KeyHandler.getWidgetClickMask(var43))) {
+																			if (Projectile.method2249(KeyHandler.getWidgetFlags(var43))) {
 																				var6 = dragItemSlotSource;
 																				var7 = dragItemSlotDestination;
 																				var43.itemIds[var7] = var43.itemIds[var6];
@@ -3559,7 +3559,7 @@ public final class Client extends GameShell implements Usernamed {
 																}
 															}
 
-															if (Scene.method3230()) {
+															if (Scene.shouldSendWalk()) {
 																var4 = Scene.Scene_selectedX;
 																var5 = Scene.Scene_selectedY;
 																var18 = UserComparator4.getPacketBufferNode(ClientPacket.field2311, packetWriter.isaacCipher);
@@ -3568,7 +3568,7 @@ public final class Client extends GameShell implements Usernamed {
 																var18.packetBuffer.writeShort(var4 + class182.baseX);
 																var18.packetBuffer.method5744(KeyHandler.KeyHandler_pressedKeys[82] ? (KeyHandler.KeyHandler_pressedKeys[81] ? 2 : 1) : 0);
 																packetWriter.addNode(var18);
-																Scene.method3346();
+																Scene.resetWalking();
 																mouseCrossX = MouseHandler.MouseHandler_lastPressedX;
 																mouseCrossY = MouseHandler.MouseHandler_lastPressedY;
 																mouseCrossColor = 1;
@@ -3905,7 +3905,7 @@ public final class Client extends GameShell implements Usernamed {
 		field877 = cycle;
 		viewportX = -1;
 		viewportY = -1;
-		TaskHandler.field2066 = null;
+		TaskHandler.hoveredItemContainer = null;
 		if (rootInterface != -1) {
 			rootWidgetCount = 0;
 			NetFileRequest.drawWidgets(rootInterface, 0, 0, Varcs.canvasWidth, class52.canvasHeight, 0, 0, -1);
@@ -4509,12 +4509,12 @@ public final class Client extends GameShell implements Usernamed {
 
 					for (var29 = var5; var29 <= var21; ++var29) {
 						var23 = (long)var29 + ((long)var16 << 32);
-						Node var11 = widgetClickMasks.get(var23);
+						Node var11 = widgetFlags.get(var23);
 						if (var11 != null) {
 							var11.remove();
 						}
 
-						widgetClickMasks.put(new IntegerNode(var22), var23);
+						widgetFlags.put(new IntegerNode(var22), var23);
 					}
 
 					var1.serverPacket = null;
@@ -4677,7 +4677,7 @@ public final class Client extends GameShell implements Usernamed {
 						}
 					}
 
-					widgetClickMasks = new NodeHashTable(512);
+					widgetFlags = new NodeHashTable(512);
 
 					while (var3.offset < var16) {
 						var22 = var3.readInt();
@@ -4687,7 +4687,7 @@ public final class Client extends GameShell implements Usernamed {
 
 						for (int var33 = var29; var33 <= var30; ++var33) {
 							var25 = (long)var33 + ((long)var22 << 32);
-							widgetClickMasks.put(new IntegerNode(var31), var25);
+							widgetFlags.put(new IntegerNode(var31), var25);
 						}
 					}
 
@@ -5435,14 +5435,14 @@ public final class Client extends GameShell implements Usernamed {
 								var12 = menuArguments1[var2];
 								var5 = menuArguments2[var2];
 								Widget var13 = WorldMapSprite.getWidget(var5);
-								var8 = KeyHandler.getWidgetClickMask(var13);
+								var8 = KeyHandler.getWidgetFlags(var13);
 								boolean var7 = (var8 >> 28 & 1) != 0;
 								if (var7) {
 									break label281;
 								}
 
 								Object var10000 = null;
-								if (Projectile.method2249(KeyHandler.getWidgetClickMask(var13))) {
+								if (Projectile.method2249(KeyHandler.getWidgetFlags(var13))) {
 									break label281;
 								}
 							}

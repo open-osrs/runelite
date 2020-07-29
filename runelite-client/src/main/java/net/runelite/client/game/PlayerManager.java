@@ -34,13 +34,14 @@ import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreResult;
 import net.runelite.http.api.item.ItemEquipmentStats;
 import net.runelite.http.api.item.ItemStats;
+import okhttp3.OkHttpClient;
 
 @Singleton
 @Slf4j
 @SuppressWarnings("unused")
 public class PlayerManager
 {
-	private static final HiscoreClient HISCORE_CLIENT = new HiscoreClient();
+	private final HiscoreClient hiscoreClient;
 	private final Client client;
 	private final ItemManager itemManager;
 	private final EventBus eventBus;
@@ -54,13 +55,16 @@ public class PlayerManager
 		final Client client,
 		final EventBus eventBus,
 		final ItemManager itemManager,
-		final FriendChatManager friendChatManager
+		final FriendChatManager friendChatManager,
+		final OkHttpClient okHttpClient
 	)
 	{
 		this.client = client;
 		this.itemManager = itemManager;
 		this.eventBus = eventBus;
 		this.friendChatManager = friendChatManager;
+		this.hiscoreClient = new HiscoreClient(okHttpClient);
+
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
 		eventBus.subscribe(PlayerAppearanceChanged.class, this, this::onAppearenceChanged);
@@ -174,7 +178,7 @@ public class PlayerManager
 			{
 				try
 				{
-					result = HISCORE_CLIENT.lookup(player.getName());
+					result = hiscoreClient.lookup(player.getName());
 				}
 				catch (IOException ex)
 				{

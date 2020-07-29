@@ -417,4 +417,13 @@ public final class AnimationID
 	public static final int PRAY_AT_ALTAR = 645;
 	public static final int ENSOULED_HEADS_ANIMATION = 7198;
 
+	// Weapon attack animations
+	public static final int ONEHAND_SLASH_AXE_ANIMATION = 395;
+	public static final int ONEHAND_CRUSH_PICKAXE_ANIMATION = 400;
+	public static final int ONEHAND_CRUSH_AXE_ANIMATION = 401;
+	public static final int UNARMED_PUNCH_ANIMATION = 422;
+	public static final int UNARMED_KICK_ANIMATION = 423;
+	public static final int BOW_ATTACK_ANIMATION = 426;
+	public static final int ONEHAND_STAB_HALBERD_ANIMATION = 428;
+	public static final int ONEHAND_SLASH_HALBERD_ANIMATION = 440;
 }

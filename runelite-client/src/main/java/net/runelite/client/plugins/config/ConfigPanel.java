@@ -945,7 +945,7 @@ class ConfigPanel extends PluginPanel
 						box.setToolTipText(Text.titleCase((Enum) box.getSelectedItem()));
 					}
 				});
-				item.add(box, BorderLayout.EAST);
+				item.add(box, BorderLayout.CENTER);
 			}
 
 			if (cid.getType() == Keybind.class || cid.getType() == ModifierlessKeybind.class)

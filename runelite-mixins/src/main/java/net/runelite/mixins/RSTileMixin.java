@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,6 +31,7 @@ import net.runelite.api.CollisionData;
 import net.runelite.api.CollisionDataFlag;
 import net.runelite.api.Constants;
 import net.runelite.api.DecorativeObject;
+import net.runelite.api.GameState;
 import net.runelite.api.GroundObject;
 import net.runelite.api.TileItemPile;
 import net.runelite.api.Node;
@@ -243,9 +245,12 @@ public abstract class RSTileMixin implements RSTile
 
 		List<TileItem> result = new ArrayList<TileItem>();
 		Node node = layer.getBottom();
-		while (node instanceof TileItem)
+		while (node instanceof RSTileItem)
 		{
-			result.add((TileItem) node);
+			RSTileItem item = (RSTileItem) node;
+			item.setX(getX());
+			item.setY(getY());
+			result.add(item);
 			node = node.getNext();
 		}
 		return result;
@@ -432,9 +437,7 @@ public abstract class RSTileMixin implements RSTile
 
 			logger.trace("Game object spawn: {}", current.getId());
 
-			GameObjectSpawned gameObjectSpawned = new GameObjectSpawned();
-			gameObjectSpawned.setTile(this);
-			gameObjectSpawned.setGameObject(current);
+			GameObjectSpawned gameObjectSpawned = new GameObjectSpawned(this, current);
 			client.getCallbacks().post(GameObjectSpawned.class, gameObjectSpawned);
 		}
 		else
@@ -466,12 +469,19 @@ public abstract class RSTileMixin implements RSTile
 		RSNodeDeque oldQueue = lastGroundItems[z][x][y];
 		RSNodeDeque newQueue = groundItemDeque[z][x][y];
 
+		if (client.getGameState() != GameState.LOGGED_IN)
+		{
+			lastGroundItems[z][x][y] = newQueue;
+			client.setLastItemDespawn(null);
+			return;
+		}
+
 		if (oldQueue != newQueue)
 		{
 			if (oldQueue != null)
 			{
 				// despawn everything in old ..
-				RSNode head = oldQueue.getHead();
+				RSNode head = oldQueue.getSentinel();
 				for (RSNode cur = head.getNext(); cur != head; cur = cur.getNext())
 				{
 					RSTileItem item = (RSTileItem) cur;
@@ -499,9 +509,7 @@ public abstract class RSTileMixin implements RSTile
 			return;
 		}
 
-		RSNodeDeque itemDeque = newQueue;
-
-		if (itemDeque == null)
+		if (newQueue == null)
 		{
 			if (lastUnlink != null)
 			{
@@ -512,54 +520,42 @@ public abstract class RSTileMixin implements RSTile
 		}
 
 		// The new item gets added to either the head, or the tail, depending on its price
-		RSNode head = itemDeque.getHead();
-		RSNode current = null;
-		RSNode previous = head.getPrevious();
-		boolean forward = false;
-		if (head != previous)
+		RSNode head = newQueue.getSentinel();
+		RSTileItem current = null;
+		RSNode next = head.getPrevious();
+		//boolean forward = false;
+		if (head != next)
 		{
-			RSTileItem prev = (RSTileItem) previous;
+			RSTileItem prev = (RSTileItem) next;
 			if (x != prev.getX() || y != prev.getY())
 			{
 				current = prev;
 			}
 		}
 
-		RSNode next = head.getNext();
-		if (current == null && head != next)
+		RSNode previous = head.getNext();
+		if (current == null && head != previous)
 		{
-			RSTileItem n = (RSTileItem) next;
+			RSTileItem n = (RSTileItem) previous;
 			if (x != n.getX() || y != n.getY())
 			{
 				current = n;
-				forward = true;
+				//forward = true;
 			}
 		}
 
-		if (lastUnlink != null && lastUnlink != previous && lastUnlink != next)
+		if (lastUnlink != null && lastUnlink != next && lastUnlink != previous)
 		{
 			ItemDespawned itemDespawned = new ItemDespawned(this, lastUnlink);
 			client.getCallbacks().post(ItemDespawned.class, itemDespawned);
 		}
 
-		if (current == null)
+		if (current != null)
 		{
-			return; // already seen this spawn, or no new item
+			current.setX(x);
+			current.setY(y);
+			ItemSpawned event = new ItemSpawned(this, current);
+			client.getCallbacks().post(ItemSpawned.class, event);
 		}
-
-		do
-		{
-			RSTileItem item = (RSTileItem) current;
-			item.setX(x);
-			item.setY(y);
-
-			ItemSpawned itemSpawned = new ItemSpawned(this, item);
-			client.getCallbacks().post(ItemSpawned.class, itemSpawned);
-
-			current = forward ? current.getNext() : current.getPrevious();
-
-			// Send spawn events for anything on this tile which is at the wrong location, which happens
-			// when the scene base changes
-		} while (current != head && (((RSTileItem) current).getX() != x || ((RSTileItem) current).getY() != y));
 	}
 }

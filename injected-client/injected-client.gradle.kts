@@ -45,7 +45,6 @@ val combined by configurations.creating {
 configurations {
     all {
         isTransitive = false
-        outgoing.artifact(tasks.inject.get().output)
     }
 }
 
@@ -63,16 +62,10 @@ injector {
     vanilla.set(vanillaDep.singleFile)
 }
 
-sourceSets {
-    main {
-        output.dir(tasks.inject.get().output.get().asFile.parentFile, "builtBy" to tasks.inject)
-    }
-}
-
 // keep the sourcesets etc but remove useless tasks
 tasks {
     inject {
-        dependsOn(configurations["combined"])
+        dependsOn(combined)
     }
     classes {
         enabled = false
@@ -81,6 +74,9 @@ tasks {
         enabled = false
     }
     jar {
+        enabled = false
+    }
+    sourcesJar {
         enabled = false
     }
     processResources {

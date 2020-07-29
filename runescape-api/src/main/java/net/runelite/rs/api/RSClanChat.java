@@ -7,8 +7,8 @@ import net.runelite.mapping.Import;
 public interface RSClanChat extends RSUserList<FriendsChatMember>, FriendsChatManager
 {
 	@Import("owner")
-	String getClanOwner();
+	String getOwner();
 
 	@Import("name")
-	String getClanChatName();
+	String getName();
 }

@@ -115,6 +115,7 @@ public class ClientUI
 	private static final String CONFIG_CLIENT_MAXIMIZED = "clientMaximized";
 	private static final String CONFIG_OPACITY = "enableOpacity";
 	private static final String CONFIG_OPACITY_AMOUNT = "opacityPercentage";
+	private static final String CONFIG_CLIENT_SIDEBAR_CLOSED = "clientSidebarClosed";
 	private static final int CLIENT_WELL_HIDDEN_MARGIN = 160;
 	private static final int CLIENT_WELL_HIDDEN_MARGIN_TOP = 10;
 	public static final BufferedImage ICON = ImageUtil.getResourceStreamFromClass(ClientUI.class, "/openosrs.png");
@@ -229,7 +230,6 @@ public class ClientUI
 					currentButton.setSelected(false);
 					currentNavButton.setSelected(false);
 					currentButton = null;
-					currentNavButton = null;
 				}
 				else
 				{
@@ -402,8 +402,7 @@ public class ClientUI
 					toggleSidebar();
 				}
 			};
-
-			sidebarListener.setEnabledOnLogin(true);
+			sidebarListener.setEnabledOnLoginScreen(true);
 			keyManager.registerKeyListener(sidebarListener);
 
 			final HotkeyListener pluginPanelListener = new HotkeyListener(config::panelToggleKey)
@@ -414,7 +413,7 @@ public class ClientUI
 					togglePluginPanel();
 				}
 			};
-
+			pluginPanelListener.setEnabledOnLoginScreen(true);
 			keyManager.registerKeyListener(pluginPanelListener);
 
 			// Add mouse listener
@@ -432,7 +431,6 @@ public class ClientUI
 					return mouseEvent;
 				}
 			};
-
 			mouseManager.registerMouseListener(mouseListener);
 
 			// Decorate window with custom chrome and titlebar if needed
@@ -502,7 +500,8 @@ public class ClientUI
 			sidebarNavigationButton = NavigationButton
 				.builder()
 				.priority(100)
-				.icon(sidebarClosedIcon)
+				.icon(sidebarOpenIcon)
+				.tooltip("Open SideBar")
 				.onClick(this::toggleSidebar)
 				.build();
 
@@ -512,7 +511,12 @@ public class ClientUI
 				null);
 
 			titleToolbar.addComponent(sidebarNavigationButton, sidebarNavigationJButton);
-			toggleSidebar();
+
+			// Open sidebar if the config closed state is unset
+			if (configManager.getConfiguration(CONFIG_GROUP, CONFIG_CLIENT_SIDEBAR_CLOSED) == null)
+			{
+				toggleSidebar();
+			}
 		});
 	}
 
@@ -918,6 +922,7 @@ public class ClientUI
 		{
 			sidebarNavigationJButton.setIcon(new ImageIcon(sidebarOpenIcon));
 			sidebarNavigationJButton.setToolTipText("Open SideBar");
+			configManager.setConfiguration(CONFIG_GROUP, CONFIG_CLIENT_SIDEBAR_CLOSED, true);
 
 			contract();
 
@@ -928,6 +933,7 @@ public class ClientUI
 		{
 			sidebarNavigationJButton.setIcon(new ImageIcon(sidebarClosedIcon));
 			sidebarNavigationJButton.setToolTipText("Close SideBar");
+			configManager.unsetConfiguration(CONFIG_GROUP, CONFIG_CLIENT_SIDEBAR_CLOSED);
 
 			// Try to restore last panel
 			expand(currentNavButton);
@@ -1164,15 +1170,8 @@ public class ClientUI
 		}
 		else
 		{
-			// Try to expand sidebar
-			if (!sidebarOpen)
-			{
-				bounds.width += pluginToolbar.getWidth();
-			}
-
 			if (config.automaticResizeType() == ExpandResizeType.KEEP_GAME_SIZE)
 			{
-
 				// Try to contract plugin panel
 				if (pluginPanel != null)
 				{

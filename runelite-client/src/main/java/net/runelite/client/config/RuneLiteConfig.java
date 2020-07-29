@@ -293,11 +293,24 @@ public interface RuneLiteConfig extends Config
 		return false;
 	}
 
+	@Alpha
+	@ConfigItem(
+		keyName = "notificationFlashColor",
+		name = "Notification Flash Color",
+		description = "Sets the color of the notification flashes.",
+		position = 21,
+		titleSection = "notificationsTitle"
+	)
+	default Color notificationFlashColor()
+	{
+		return new Color(255, 0, 0, 70);
+	}
+
 	@ConfigTitleSection(
 		keyName = "fontTitle",
 		name = "Font",
 		description = "",
-		position = 21
+		position = 22
 	)
 	default Title fontTitle()
 	{
@@ -308,7 +321,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "fontType",
 		name = "Dynamic Overlay Font",
 		description = "Configures what font type is used for in-game overlays such as player name, ground items, etc.",
-		position = 22,
+		position = 23,
 		titleSection = "fontTitle"
 	)
 	default FontType fontType()
@@ -320,7 +333,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "tooltipFontType",
 		name = "Tooltip Font",
 		description = "Configures what font type is used for in-game tooltips such as food stats, NPC names, etc.",
-		position = 23,
+		position = 24,
 		titleSection = "fontTitle"
 	)
 	default FontType tooltipFontType()
@@ -332,7 +345,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "interfaceFontType",
 		name = "Interface Overlay Font",
 		description = "Configures what font type is used for in-game interface overlays such as panels, opponent info, clue scrolls etc.",
-		position = 24,
+		position = 25,
 		titleSection = "fontTitle"
 	)
 	default FontType interfaceFontType()
@@ -344,7 +357,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "overlayTitle",
 		name = "Overlays",
 		description = "",
-		position = 25
+		position = 26
 	)
 	default Title overlayTitle()
 	{
@@ -355,7 +368,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "menuEntryShift",
 		name = "Require Shift for overlay menu",
 		description = "Overlay right-click menu will require shift to be added",
-		position = 26,
+		position = 27,
 		titleSection = "overlayTitle"
 	)
 	default boolean menuEntryShift()
@@ -367,7 +380,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "overlayBackgroundColor",
 		name = "Overlay Color",
 		description = "Configures the background color of infoboxes and overlays",
-		position = 27,
+		position = 28,
 		titleSection = "overlayTitle"
 	)
 	@Alpha
@@ -380,7 +393,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "infoboxTitle",
 		name = "Infoboxes",
 		description = "",
-		position = 28
+		position = 29
 	)
 	default Title infoboxTitle()
 	{
@@ -391,7 +404,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "infoBoxVertical",
 		name = "Display infoboxes vertically",
 		description = "Toggles the infoboxes to display vertically",
-		position = 29,
+		position = 30,
 		titleSection = "infoboxTitle"
 	)
 	default boolean infoBoxVertical()
@@ -403,7 +416,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "infoBoxSize",
 		name = "Infobox size",
 		description = "Configures the size of each infobox in pixels",
-		position = 30,
+		position = 31,
 		titleSection = "infoboxTitle"
 	)
 	@Units(Units.PIXELS)
@@ -416,7 +429,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "keybindsTitle",
 		name = "Key binds",
 		description = "",
-		position = 31
+		position = 32
 	)
 	default Title keybindsTitle()
 	{
@@ -427,7 +440,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "sidebarToggleKey",
 		name = "Sidebar Toggle Key",
 		description = "The key that will toggle the sidebar (accepts modifiers)",
-		position = 32,
+		position = 33,
 		titleSection = "keybindsTitle"
 	)
 	default Keybind sidebarToggleKey()
@@ -439,7 +452,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "panelToggleKey",
 		name = "Plugin Panel Toggle Key",
 		description = "The key that will toggle the current or last opened plugin panel (accepts modifiers)",
-		position = 33,
+		position = 34,
 		titleSection = "keybindsTitle"
 	)
 	default Keybind panelToggleKey()
@@ -451,7 +464,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "blockExtraMouseButtons",
 		name = "Block Extra Mouse Buttons",
 		description = "Blocks extra mouse buttons (4 and above)",
-		position = 34,
+		position = 35,
 		titleSection = "keybindsTitle"
 	)
 	default boolean blockExtraMouseButtons()

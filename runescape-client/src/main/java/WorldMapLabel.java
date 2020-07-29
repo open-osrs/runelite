@@ -76,7 +76,8 @@ public class WorldMapLabel {
 		signature = "(II)Z",
 		garbageValue = "578317705"
 	)
-	public static boolean method487(int var0) {
+	@Export("Widget_hasContinueOption")
+	public static boolean Widget_hasContinueOption(int var0) {
 		return (var0 & 1) != 0;
 	}
 
@@ -402,7 +403,8 @@ public class WorldMapLabel {
 		signature = "(IB)J",
 		garbageValue = "88"
 	)
-	public static long method482(int var0) {
+	@Export("getEntityUnderMouse")
+	public static long getEntityUnderMouse(int var0) {
 		return ViewportMouse.ViewportMouse_entityTags[var0];
 	}
 

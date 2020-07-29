@@ -1,3 +1,4 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -32,7 +33,8 @@ public class ModelData0 {
 		signature = "(I)Z",
 		garbageValue = "1532544056"
 	)
-	static boolean method3375() {
+	@Export("shouldPrioritizeDrop")
+	static boolean shouldPrioritizeDrop() {
 		return Client.tapToDrop || KeyHandler.KeyHandler_pressedKeys[81];
 	}
 }

@@ -47,36 +47,61 @@ public class TextComponent implements RenderableEntity
 	private String text;
 	private Point position = new Point();
 	private Color color = Color.WHITE;
-	private Color borderColor = Color.BLACK;
+	private boolean outline;
+	private boolean alpha; // Generates a lot of garbage!
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
 		final FontMetrics fontMetrics = graphics.getFontMetrics();
 
-		if (COL_TAG_PATTERN_W_LOOKAHEAD.matcher(text).find())
+		final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
+		int x = position.x;
+
+		for (String part : parts)
 		{
-			final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
-			int x = position.x;
+			final String notags = Text.removeTags(part);
+			final Color col = part.equals(notags) ? color : getColor(part);
 
-			for (String textSplitOnCol : parts)
+			if (alpha)
 			{
-				final String textWithoutCol = Text.removeTags(textSplitOnCol);
-				final String colColor = textSplitOnCol.substring(textSplitOnCol.indexOf("=") + 1, textSplitOnCol.indexOf(">"));
-
-				renderText(graphics, x, position.y, textWithoutCol, Color.decode("#" + colColor), borderColor);
-
-				x += fontMetrics.stringWidth(textWithoutCol);
+				drawAlpha(graphics, x, position.y, notags, col);
 			}
+			else
+			{
+				drawString(graphics, x, position.y, notags, col);
+			}
+
+			x += fontMetrics.stringWidth(notags);
+		}
+
+		return new Dimension(fontMetrics.stringWidth(Text.removeTags(text)), fontMetrics.getHeight());
+	}
+
+	private void drawString(Graphics2D graphics, int x, int y, String text, Color color)
+	{
+		graphics.setColor(Color.BLACK);
+
+		if (outline)
+		{
+			graphics.drawString(text, x, y + 1);
+			graphics.drawString(text, x, y - 1);
+			graphics.drawString(text, x + 1, y);
+			graphics.drawString(text, x - 1, y);
 		}
 		else
 		{
-			renderText(graphics, position.x, position.y, text, color, borderColor);
+			// shadow
+			graphics.drawString(text, x + 1, y + 1);
 		}
-		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
+
+
+		// actual text
+		graphics.setColor(color);
+		graphics.drawString(text, x, y);
 	}
 
-	private void renderText(Graphics2D graphics, int x, int y, String text, Color color, Color border)
+	private void drawAlpha(Graphics2D graphics, int x, int y, String text, Color color)
 	{
 		// remember previous composite
 		Composite originalComposite = graphics.getComposite();
@@ -89,7 +114,7 @@ public class TextComponent implements RenderableEntity
 		Shape shape = vector.getOutline(x, y);
 
 		// draw text border
-		graphics.setColor(border);
+		graphics.setColor(Color.BLACK);
 		graphics.fill(stroke);
 
 		// replace the pixels instead of overlaying
@@ -103,4 +128,9 @@ public class TextComponent implements RenderableEntity
 		graphics.setComposite(originalComposite);
 	}
 
+	private static Color getColor(String from)
+	{
+		final String colColor = from.substring(from.indexOf('=') + 1, from.indexOf('>'));
+		return Color.decode("#" + colColor);
+	}
 }

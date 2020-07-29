@@ -34,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ClientShutdown;
 import net.runelite.client.task.Schedule;
+import okhttp3.OkHttpClient;
 
 @Singleton
 @Slf4j
@@ -44,9 +45,10 @@ public class ClientSessionManager
 
 
 	@Inject
-	ClientSessionManager(EventBus eventBus)
+	ClientSessionManager(EventBus eventBus,
+		OkHttpClient okHttpClient)
 	{
-		this.sessionClient = new SessionClient();
+		this.sessionClient = new SessionClient(okHttpClient);
 
 		eventBus.subscribe(ClientShutdown.class, this, (e) ->
 		{
