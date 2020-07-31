@@ -84,6 +84,8 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GrandExchangeOfferChanged;
 import net.runelite.api.events.GrandExchangeSearched;
 import net.runelite.api.events.ItemSpawned;
+import net.runelite.api.events.KeyPressed;
+import net.runelite.api.events.KeyReleased;
 import net.runelite.api.events.Menu;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
@@ -229,6 +231,9 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	private boolean isMirrored = false;
+
+	@Inject
+	private static boolean[] lastPressedKeys = new boolean[112];
 
 	@Inject
 	@Override
@@ -1964,6 +1969,27 @@ public abstract class RSClientMixin implements RSClient
 	{
 		assert this.isClientThread() : "getNpcDefinition must be called on client thread";
 		return getRSNpcDefinition(id);
+	}
+
+	@Inject
+	@FieldHook("KeyHandler_pressedKeys")
+	public static void onKeyHandlerPressedKeysChanged(int idx)
+	{
+		for (int i = 0; i < lastPressedKeys.length; i++)
+		{
+			if (lastPressedKeys[i] != client.getPressedKeys()[i])
+			{
+				lastPressedKeys[i] = client.isKeyPressed(i);
+				if (lastPressedKeys[i])
+				{
+					client.getCallbacks().post(KeyPressed.class, new KeyPressed(i));
+				}
+				else
+				{
+					client.getCallbacks().post(KeyReleased.class, new KeyReleased(i));
+				}
+			}
+		}
 	}
 }
 
