@@ -95,6 +95,7 @@ import net.runelite.api.events.PlayerMenuOptionsChanged;
 import net.runelite.api.events.PlayerSpawned;
 import net.runelite.api.events.ResizeableChanged;
 import net.runelite.api.events.StatChanged;
+import net.runelite.api.events.TerrainLoaded;
 import net.runelite.api.events.UsernameChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.VolumeChanged;
@@ -115,6 +116,7 @@ import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.api.widgets.WidgetType;
 import net.runelite.rs.api.RSAbstractArchive;
+import net.runelite.rs.api.RSBuffer;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEnumDefinition;
@@ -1964,6 +1966,19 @@ public abstract class RSClientMixin implements RSClient
 	{
 		assert this.isClientThread() : "getNpcDefinition must be called on client thread";
 		return getRSNpcDefinition(id);
+	}
+
+	@Copy("loadTerrain")
+	public static void rs$loadTerrain(RSBuffer var0, int var1, int var2, int var3, int var4, int var5, int var6)
+	{
+		throw new RuntimeException();
+	}
+
+	@Replace("loadTerrain")
+	public static void loadTerrain(RSBuffer var0, int var1, int var2, int var3, int var4, int var5, int var6)
+	{
+		client.getCallbacks().post(TerrainLoaded.class, TerrainLoaded.INSTANCE);
+		rs$loadTerrain(var0, var1, var2, var3, var4, var5, var6);
 	}
 }
 
