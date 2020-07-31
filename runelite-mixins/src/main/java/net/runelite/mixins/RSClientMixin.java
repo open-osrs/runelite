@@ -1024,7 +1024,7 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public static void boostedSkillLevelsChanged(int idx)
 	{
-		if (idx == 0)
+		if (idx == -1)
 		{
 			return;
 		}
