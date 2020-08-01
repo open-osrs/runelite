@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class KitDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("KitDefinition_archive")
 	static AbstractArchive KitDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("KitDefinition_modelsArchive")
 	static AbstractArchive KitDefinition_modelsArchive;
@@ -27,7 +27,7 @@ public class KitDefinition extends DualNode {
 	public static int KitDefinition_fileCount;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("KitDefinition_cached")
 	static EvictingDualNodeHashTable KitDefinition_cached;
@@ -74,7 +74,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "856121726"
 	)
 	@Export("decode")
@@ -91,7 +91,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IB)V",
+		descriptor = "(Lkn;IB)V",
 		garbageValue = "-72"
 	)
 	@Export("decodeNext")
@@ -137,7 +137,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1376663595"
 	)
 	@Export("ready")
@@ -159,7 +159,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Lek;",
+		descriptor = "(I)Lek;",
 		garbageValue = "-730489630"
 	)
 	@Export("getModelData")
@@ -199,7 +199,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1413999109"
 	)
 	public boolean method4636() {
@@ -216,7 +216,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(B)Lek;",
+		descriptor = "(B)Lek;",
 		garbageValue = "-127"
 	)
 	@Export("getKitDefinitionModels")
@@ -249,7 +249,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Ljo;",
+		descriptor = "(II)Ljo;",
 		garbageValue = "1649830223"
 	)
 	@Export("ItemDefinition_get")
@@ -310,7 +310,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(CB)C",
+		descriptor = "(CB)C",
 		garbageValue = "0"
 	)
 	static char method4650(char var0) {
@@ -389,7 +389,7 @@ public class KitDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1137606481"
 	)
 	public static void method4624() {

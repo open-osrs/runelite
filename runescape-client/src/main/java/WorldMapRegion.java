@@ -15,7 +15,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapRegion {
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lfr;"
+		descriptor = "Lfr;"
 	)
 	@Export("WorldMapRegion_cachedSprites")
 	static DemotingHashTable WorldMapRegion_cachedSprites;
@@ -33,7 +33,7 @@ public class WorldMapRegion {
 	int regionY;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Li;"
+		descriptor = "Li;"
 	)
 	@Export("worldMapData_0")
 	WorldMapData_0 worldMapData_0;
@@ -78,7 +78,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIII)V",
+		descriptor = "(IIII)V",
 		garbageValue = "-323473463"
 	)
 	void method490(int var1, int var2, int var3) {
@@ -95,7 +95,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Li;Ljava/util/List;I)V",
+		descriptor = "(Li;Ljava/util/List;I)V",
 		garbageValue = "-1392873276"
 	)
 	@Export("initWorldMapData0")
@@ -107,7 +107,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/HashSet;Ljava/util/List;B)V",
+		descriptor = "(Ljava/util/HashSet;Ljava/util/List;B)V",
 		garbageValue = "114"
 	)
 	@Export("initWorldMapData1")
@@ -127,7 +127,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IIIILax;I)V",
+		descriptor = "(IIIILax;I)V",
 		garbageValue = "513799457"
 	)
 	@Export("getIconsForTiles")
@@ -157,7 +157,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljg;IIILax;I)V",
+		descriptor = "(Ljg;IIILax;I)V",
 		garbageValue = "1752488167"
 	)
 	@Export("getIcon")
@@ -184,7 +184,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1939037740"
 	)
 	@Export("initWorldMapIcon1s")
@@ -202,7 +202,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/List;I)V",
+		descriptor = "(Ljava/util/List;I)V",
 		garbageValue = "-1366696532"
 	)
 	@Export("addAllToIconList")
@@ -221,7 +221,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1391400259"
 	)
 	void method580() {
@@ -240,7 +240,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Lic;I)Z",
+		descriptor = "(Lic;I)Z",
 		garbageValue = "-1165934913"
 	)
 	@Export("loadGeography")
@@ -279,7 +279,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(ILay;[Llh;Lic;Lic;I)V",
+		descriptor = "(ILay;[Llh;Lic;Lic;I)V",
 		garbageValue = "-799383237"
 	)
 	@Export("drawTile")
@@ -323,7 +323,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IIILjava/util/HashSet;I)V",
+		descriptor = "(IIILjava/util/HashSet;I)V",
 		garbageValue = "830003997"
 	)
 	void method514(int var1, int var2, int var3, HashSet var4) {
@@ -337,7 +337,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/HashSet;III)V",
+		descriptor = "(Ljava/util/HashSet;III)V",
 		garbageValue = "-850649722"
 	)
 	@Export("flashElements")
@@ -360,7 +360,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(Lay;[Llh;Las;B)V",
+		descriptor = "(Lay;[Llh;Las;B)V",
 		garbageValue = "-41"
 	)
 	void method501(WorldMapScaleHandler var1, IndexedSprite[] var2, WorldMapSprite var3) {
@@ -383,7 +383,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(Lay;[Llh;Las;B)V",
+		descriptor = "(Lay;[Llh;Las;B)V",
 		garbageValue = "-26"
 	)
 	void method502(WorldMapScaleHandler var1, IndexedSprite[] var2, WorldMapSprite var3) {
@@ -419,7 +419,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(IILax;Lay;[Llh;I)V",
+		descriptor = "(IILax;Lay;[Llh;I)V",
 		garbageValue = "-248826960"
 	)
 	void method503(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4, IndexedSprite[] var5) {
@@ -429,7 +429,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(IILax;Lay;Las;I)V",
+		descriptor = "(IILax;Lay;Las;I)V",
 		garbageValue = "1979978658"
 	)
 	@Export("drawTileGround")
@@ -459,7 +459,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IILax;Lay;I)V",
+		descriptor = "(IILax;Lay;I)V",
 		garbageValue = "-946989025"
 	)
 	void method511(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4) {
@@ -479,7 +479,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(IILax;Las;B)I",
+		descriptor = "(IILax;Las;B)I",
 		garbageValue = "76"
 	)
 	int method506(int var1, int var2, AbstractWorldMapData var3, WorldMapSprite var4) {
@@ -488,7 +488,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(IILax;[Llh;I)V",
+		descriptor = "(IILax;[Llh;I)V",
 		garbageValue = "-388606552"
 	)
 	void method507(int var1, int var2, AbstractWorldMapData var3, IndexedSprite[] var4) {
@@ -523,7 +523,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(IILax;B)V",
+		descriptor = "(IILax;B)V",
 		garbageValue = "101"
 	)
 	void method527(int var1, int var2, AbstractWorldMapData var3) {
@@ -588,7 +588,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(IILjava/util/HashSet;II)V",
+		descriptor = "(IILjava/util/HashSet;II)V",
 		garbageValue = "-1066971556"
 	)
 	@Export("drawNonLinkMapIcons")
@@ -617,7 +617,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/HashSet;III)V",
+		descriptor = "(Ljava/util/HashSet;III)V",
 		garbageValue = "-545046717"
 	)
 	void method497(HashSet var1, int var2, int var3) {
@@ -637,7 +637,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(Lih;IIIII)V",
+		descriptor = "(Lih;IIIII)V",
 		garbageValue = "1074456567"
 	)
 	@Export("drawBackgroundCircle")
@@ -655,7 +655,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(Laf;IIFI)V",
+		descriptor = "(Laf;IIFI)V",
 		garbageValue = "-591534558"
 	)
 	void method512(AbstractWorldMapIcon var1, int var2, int var3, float var4) {
@@ -666,7 +666,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(Lih;IIB)V",
+		descriptor = "(Lih;IIB)V",
 		garbageValue = "34"
 	)
 	void method494(WorldMapElement var1, int var2, int var3) {
@@ -681,7 +681,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(Laf;Lih;IIFB)V",
+		descriptor = "(Laf;Lih;IIFB)V",
 		garbageValue = "81"
 	)
 	void method604(AbstractWorldMapIcon var1, WorldMapElement var2, int var3, int var4, float var5) {
@@ -696,7 +696,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(IILjava/util/HashSet;II)V",
+		descriptor = "(IILjava/util/HashSet;II)V",
 		garbageValue = "-109418068"
 	)
 	@Export("drawMapLinks")
@@ -721,7 +721,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(Llz;Ljc;I)I",
+		descriptor = "(Llz;Ljc;I)I",
 		garbageValue = "-1624159662"
 	)
 	int method516(Sprite var1, HorizontalAlignment var2) {
@@ -737,7 +737,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(Llz;Lif;I)I",
+		descriptor = "(Llz;Lif;I)I",
 		garbageValue = "1330408949"
 	)
 	int method517(Sprite var1, VerticalAlignment var2) {
@@ -753,7 +753,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(IB)Lar;",
+		descriptor = "(IB)Lar;",
 		garbageValue = "15"
 	)
 	WorldMapLabel method518(int var1) {
@@ -763,7 +763,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		signature = "(Lih;I)Lar;",
+		descriptor = "(Lih;I)Lar;",
 		garbageValue = "-1165001445"
 	)
 	@Export("createMapLabel")
@@ -822,7 +822,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(IIIIII)Ljava/util/List;",
+		descriptor = "(IIIIII)Ljava/util/List;",
 		garbageValue = "1872285307"
 	)
 	List method544(int var1, int var2, int var3, int var4, int var5) {
@@ -859,7 +859,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/util/List;",
+		descriptor = "(I)Ljava/util/List;",
 		garbageValue = "-2023703181"
 	)
 	@Export("icons")
@@ -872,7 +872,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "-637196231"
 	)
 	void method522(int var1, int var2, int var3, int var4) {
@@ -897,7 +897,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IB)Ljava/lang/String;",
+		descriptor = "(IB)Ljava/lang/String;",
 		garbageValue = "0"
 	)
 	static String method611(int var0) {
@@ -906,7 +906,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;ZIB)V",
+		descriptor = "(Lic;Lic;ZIB)V",
 		garbageValue = "73"
 	)
 	static void method541(AbstractArchive var0, AbstractArchive var1, boolean var2, int var3) {
@@ -974,7 +974,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "([BIILem;[Lfz;I)V",
+		descriptor = "([BIILem;[Lfz;I)V",
 		garbageValue = "2110608618"
 	)
 	static final void method520(byte[] var0, int var1, int var2, Scene var3, CollisionMap[] var4) {
@@ -1024,7 +1024,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
 		garbageValue = "1188982051"
 	)
 	public static String method613(CharSequence var0) {
@@ -1041,7 +1041,7 @@ public class WorldMapRegion {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1729353044"
 	)
 	static void method591() {

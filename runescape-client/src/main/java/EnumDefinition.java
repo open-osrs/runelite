@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class EnumDefinition extends DualNode {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
@@ -55,7 +55,7 @@ public class EnumDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "1372956041"
 	)
 	@Export("decode")
@@ -72,7 +72,7 @@ public class EnumDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IB)V",
+		descriptor = "(Lkn;IB)V",
 		garbageValue = "63"
 	)
 	@Export("decodeNext")
@@ -112,7 +112,7 @@ public class EnumDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(S)I",
+		descriptor = "(S)I",
 		garbageValue = "-24655"
 	)
 	@Export("size")

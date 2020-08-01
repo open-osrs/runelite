@@ -13,7 +13,7 @@ public class Players {
 	static byte[] field1278;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "[Lkn;"
+		descriptor = "[Lkn;"
 	)
 	static Buffer[] field1279;
 	@ObfuscatedName("g")
@@ -54,7 +54,7 @@ public class Players {
 	static int[] Players_pendingUpdateIndices;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	static Buffer field1289;
 
@@ -76,7 +76,7 @@ public class Players {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
+		descriptor = "(IIII)I",
 		garbageValue = "-1312297159"
 	)
 	static int method2285(int var0, int var1, int var2) {
@@ -102,7 +102,7 @@ public class Players {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "910052167"
 	)
 	public static void method2274() {

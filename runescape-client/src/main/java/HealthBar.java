@@ -11,25 +11,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class HealthBar extends Node {
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	@Export("titleboxSprite")
 	static IndexedSprite titleboxSprite;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lik;"
+		descriptor = "Lik;"
 	)
 	@Export("definition")
 	HealthBarDefinition definition;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Ljx;"
+		descriptor = "Ljx;"
 	)
 	@Export("updates")
 	IterableNodeDeque updates;
 
 	@ObfuscatedSignature(
-		signature = "(Lik;)V"
+		descriptor = "(Lik;)V"
 	)
 	HealthBar(HealthBarDefinition var1) {
 		this.updates = new IterableNodeDeque();
@@ -38,7 +38,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
+		descriptor = "(IIIIB)V",
 		garbageValue = "-61"
 	)
 	@Export("put")
@@ -74,7 +74,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Lcb;",
+		descriptor = "(II)Lcb;",
 		garbageValue = "-200581175"
 	)
 	@Export("get")
@@ -99,7 +99,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1424696628"
 	)
 	@Export("isEmpty")
@@ -109,7 +109,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;III)V",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;III)V",
 		garbageValue = "1011181344"
 	)
 	public static void method2137(String var0, String var1, int var2, int var3) throws IOException {
@@ -330,7 +330,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;IIB)[Llh;",
+		descriptor = "(Lic;IIB)[Llh;",
 		garbageValue = "-91"
 	)
 	public static IndexedSprite[] method2125(AbstractArchive var0, int var1, int var2) {
@@ -348,7 +348,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-631398790"
 	)
 	public static void method2133() {
@@ -357,7 +357,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("eb")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-57"
 	)
 	@Export("load")
@@ -733,7 +733,7 @@ public class HealthBar extends Node {
 
 	@ObfuscatedName("go")
 	@ObfuscatedSignature(
-		signature = "(IIIS)V",
+		descriptor = "(IIIS)V",
 		garbageValue = "3305"
 	)
 	@Export("worldToScreen")

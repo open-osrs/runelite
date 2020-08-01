@@ -14,13 +14,13 @@ public final class ArchiveDisk {
 	static byte[] ArchiveDisk_buffer;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lmn;"
+		descriptor = "Lmn;"
 	)
 	@Export("datFile")
 	BufferedFile datFile;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lmn;"
+		descriptor = "Lmn;"
 	)
 	@Export("idxFile")
 	BufferedFile idxFile;
@@ -42,7 +42,7 @@ public final class ArchiveDisk {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(ILmn;Lmn;I)V"
+		descriptor = "(ILmn;Lmn;I)V"
 	)
 	public ArchiveDisk(int var1, BufferedFile var2, BufferedFile var3, int var4) {
 		this.datFile = null;
@@ -56,7 +56,7 @@ public final class ArchiveDisk {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)[B",
+		descriptor = "(II)[B",
 		garbageValue = "475820078"
 	)
 	@Export("read")
@@ -153,7 +153,7 @@ public final class ArchiveDisk {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I[BIB)Z",
+		descriptor = "(I[BIB)Z",
 		garbageValue = "3"
 	)
 	@Export("write")
@@ -174,7 +174,7 @@ public final class ArchiveDisk {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I[BIZS)Z",
+		descriptor = "(I[BIZS)Z",
 		garbageValue = "21116"
 	)
 	@Export("write0")

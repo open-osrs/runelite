@@ -16,10 +16,9 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 	private static RSClient client;
 
 	@Copy("applyTransformations")
-	public abstract RSModel rs$applyTransformations(RSModel model, int actionFrame, RSSequenceDefinition poseSeq, int poseFrame);
-
 	@Replace("applyTransformations")
-	public RSModel rl$applyTransformations(RSModel model, int actionFrame, RSSequenceDefinition poseSeq, int poseFrame)
+	@SuppressWarnings("InfiniteRecursion")
+	public RSModel copy$applyTransformations(RSModel model, int actionFrame, RSSequenceDefinition poseSeq, int poseFrame)
 	{
 		// reset frame ids because we're not interpolating this
 		if (actionFrame < 0)
@@ -32,19 +31,17 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 			int packed = poseFrame ^ Integer.MIN_VALUE;
 			poseFrame = packed & 0xFFFF;
 		}
-		return rs$applyTransformations(model, actionFrame, poseSeq, poseFrame);
+		return copy$applyTransformations(model, actionFrame, poseSeq, poseFrame);
 	}
 
 	@Copy("transformActorModel")
-	public abstract RSModel rs$transformActorModel(RSModel model, int frameIdx);
-
 	@Replace("transformActorModel")
-	public RSModel rl$transformActorModel(RSModel model, int frame)
+	public RSModel copy$transformActorModel(RSModel model, int frame)
 	{
 		// check if the frame has not been modified
 		if (frame >= 0)
 		{
-			return rs$transformActorModel(model, frame);
+			return copy$transformActorModel(model, frame);
 		}
 
 		// remove flag to check if the frame has been modified
@@ -84,15 +81,13 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 	}
 
 	@Copy("transformObjectModel")
-	public abstract RSModel rs$transformObjectModel(RSModel model, int frame, int rotation);
-
 	@Replace("transformObjectModel")
-	public RSModel rl$transformObjectModel(RSModel model, int frame, int rotation)
+	public RSModel copy$transformObjectModel(RSModel model, int frame, int rotation)
 	{
 		// check if the frame has not been modified
 		if (frame >= 0)
 		{
-			return rs$transformObjectModel(model, frame, rotation);
+			return copy$transformObjectModel(model, frame, rotation);
 		}
 
 		// remove flag to check if the frame has been modified
@@ -159,15 +154,13 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 	}
 
 	@Copy("transformSpotAnimationModel")
-	public abstract RSModel rs$transformSpotAnimationModel(RSModel model, int frame);
-
 	@Replace("transformSpotAnimationModel")
-	public RSModel rl$transformSpotAnimationModel(RSModel model, int frame)
+	public RSModel copy$transformSpotAnimationModel(RSModel model, int frame)
 	{
 		// check if the frame has not been modified
 		if (frame >= 0)
 		{
-			return rs$transformSpotAnimationModel(model, frame);
+			return copy$transformSpotAnimationModel(model, frame);
 		}
 
 		// remove flag to check if the frame has been modified
@@ -206,15 +199,13 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 	}
 
 	@Copy("transformWidgetModel")
-	public abstract RSModel rs$transformWidgetModel(RSModel model, int frame);
-
 	@Replace("transformWidgetModel")
-	public RSModel rl$transformWidgetModel(RSModel model, int frame)
+	public RSModel copy$transformWidgetModel(RSModel model, int frame)
 	{
 		// check if the frame has not been modified
 		if (frame >= 0)
 		{
-			return rs$transformWidgetModel(model, frame);
+			return copy$transformWidgetModel(model, frame);
 		}
 
 		// remove flag to check if the frame has been modified

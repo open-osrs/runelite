@@ -45,7 +45,7 @@ public final class Sprite extends Rasterizer2D {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "()Llz;"
+		descriptor = "()Llz;"
 	)
 	@Export("mirrorHorizontally")
 	public Sprite mirrorHorizontally() {
@@ -66,7 +66,7 @@ public final class Sprite extends Rasterizer2D {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "()Llz;"
+		descriptor = "()Llz;"
 	)
 	@Export("copyNormalized")
 	public Sprite copyNormalized() {

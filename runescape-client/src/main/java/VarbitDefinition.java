@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class VarbitDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("VarbitDefinition_archive")
 	public static AbstractArchive VarbitDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("VarbitDefinition_cached")
 	public static EvictingDualNodeHashTable VarbitDefinition_cached;
@@ -47,7 +47,7 @@ public class VarbitDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1405036764"
 	)
 	@Export("decode")
@@ -64,7 +64,7 @@ public class VarbitDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "692433347"
 	)
 	@Export("decodeNext")
@@ -79,7 +79,7 @@ public class VarbitDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[Lis;",
+		descriptor = "(I)[Lis;",
 		garbageValue = "-2057939908"
 	)
 	@Export("PlayerType_values")
@@ -89,7 +89,7 @@ public class VarbitDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Lii;",
+		descriptor = "(II)Lii;",
 		garbageValue = "-266354668"
 	)
 	@Export("getParamDefinition")
@@ -112,7 +112,7 @@ public class VarbitDefinition extends DualNode {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
+		descriptor = "(IIII)I",
 		garbageValue = "828959828"
 	)
 	static final int method4696(int var0, int var1, int var2) {

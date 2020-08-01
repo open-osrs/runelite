@@ -16,7 +16,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 	static int widgetDragDuration;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lfm;"
+		descriptor = "Lfm;"
 	)
 	@Export("taskHandler")
 	protected static TaskHandler taskHandler;
@@ -29,7 +29,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ls;Ls;I)I",
+		descriptor = "(Ls;Ls;I)I",
 		garbageValue = "-2089427647"
 	)
 	@Export("compare_bridged")
@@ -47,7 +47,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 
 	@ObfuscatedName("gg")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIII)V",
+		descriptor = "(IIIIIIII)V",
 		garbageValue = "1928902850"
 	)
 	static final void method224(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {

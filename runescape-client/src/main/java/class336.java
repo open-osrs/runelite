@@ -9,7 +9,7 @@ public class class336 {
 	public static boolean musicTrackBoolean;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	static IndexedSprite field3912;
 }

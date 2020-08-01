@@ -34,7 +34,6 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
-import java.util.jar.Manifest;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.objectwebasm.NonloadingClassWriter;
@@ -118,11 +117,12 @@ public class JarUtil
 
 	public static void saveJar(ClassGroup group, File jarfile) throws IOException
 	{
-		try (JarOutputStream jout = new JarOutputStream(new FileOutputStream(jarfile), new Manifest()))
+		try (JarOutputStream jout = new JarOutputStream(new FileOutputStream(jarfile)))
 		{
 			for (ClassFile cf : group.getClasses())
 			{
 				JarEntry entry = new JarEntry(cf.getName() + ".class");
+				entry.setTime(-1);
 				jout.putNextEntry(entry);
 
 				byte[] data = writeClass(group, cf);

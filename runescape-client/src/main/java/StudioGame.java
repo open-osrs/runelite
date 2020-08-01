@@ -9,37 +9,37 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum StudioGame implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lib;"
+		descriptor = "Lib;"
 	)
 	@Export("runescape")
 	runescape("runescape", "RuneScape", 0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lib;"
+		descriptor = "Lib;"
 	)
 	@Export("stellardawn")
 	stellardawn("stellardawn", "Stellar Dawn", 1),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lib;"
+		descriptor = "Lib;"
 	)
 	@Export("game3")
 	game3("game3", "Game 3", 2),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lib;"
+		descriptor = "Lib;"
 	)
 	@Export("game4")
 	game4("game4", "Game 4", 3),
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lib;"
+		descriptor = "Lib;"
 	)
 	@Export("game5")
 	game5("game5", "Game 5", 4),
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lib;"
+		descriptor = "Lib;"
 	)
 	@Export("oldscape")
 	oldscape("oldscape", "RuneScape 2007", 5);
@@ -64,7 +64,7 @@ public enum StudioGame implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -74,7 +74,7 @@ public enum StudioGame implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Ljz;",
+		descriptor = "(II)Ljz;",
 		garbageValue = "916487028"
 	)
 	@Export("getNpcDefinition")
@@ -98,7 +98,7 @@ public enum StudioGame implements Enumerated {
 
 	@ObfuscatedName("ih")
 	@ObfuscatedSignature(
-		signature = "(IIIIII)V",
+		descriptor = "(IIIIII)V",
 		garbageValue = "-1280022094"
 	)
 	@Export("drawScrollBar")

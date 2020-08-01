@@ -9,117 +9,117 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum WorldMapDecorationType implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2756(0, 0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2757(1, 0),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2755(2, 0),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2758(3, 0),
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2759(9, 2),
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2760(4, 1),
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2761(5, 1),
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2762(6, 1),
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2776(7, 1),
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2764(8, 1),
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2765(12, 2),
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2763(13, 2),
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2769(14, 2),
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2768(15, 2),
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2766(16, 2),
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2770(17, 2),
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2771(18, 2),
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2772(19, 2),
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2767(20, 2),
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2774(21, 2),
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2775(10, 2),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2778(11, 2),
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Lhp;"
+		descriptor = "Lhp;"
 	)
 	field2777(22, 3);
 
@@ -131,7 +131,7 @@ public enum WorldMapDecorationType implements Enumerated {
 	public final int id;
 
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "0"
 	)
 	WorldMapDecorationType(int var3, int var4) {
@@ -140,7 +140,7 @@ public enum WorldMapDecorationType implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")

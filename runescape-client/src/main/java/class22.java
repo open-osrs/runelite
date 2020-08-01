@@ -13,7 +13,7 @@ public class class22 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "4320081"
 	)
 	public static int method227(int var0, int var1) {
@@ -35,7 +35,7 @@ public class class22 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1618940930"
 	)
 	static void method225() {
@@ -49,7 +49,7 @@ public class class22 {
 
 	@ObfuscatedName("fe")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "1"
 	)
 	@Export("getLoginError")

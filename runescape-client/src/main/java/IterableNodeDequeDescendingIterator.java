@@ -9,24 +9,24 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class IterableNodeDequeDescendingIterator implements Iterator {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljx;"
+		descriptor = "Ljx;"
 	)
 	@Export("deque")
 	IterableNodeDeque deque;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	Node field3573;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("last")
 	Node last;
 
 	@ObfuscatedSignature(
-		signature = "(Ljx;)V"
+		descriptor = "(Ljx;)V"
 	)
 	IterableNodeDequeDescendingIterator(IterableNodeDeque var1) {
 		this.last = null;
@@ -35,7 +35,7 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Ljx;)V"
+		descriptor = "(Ljx;)V"
 	)
 	@Export("setDeque")
 	void setDeque(IterableNodeDeque var1) {

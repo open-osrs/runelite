@@ -5,57 +5,57 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class194 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2357;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2354;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2355;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2358;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2353;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2360;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2359;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2363;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2361;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lgl;"
+		descriptor = "Lgl;"
 	)
 	public static final class194 field2362;
 	@ObfuscatedName("jp")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	static Widget field2356;
 
@@ -73,7 +73,7 @@ public class class194 {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "6"
 	)
 	class194(int var1) {

@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Message extends DualNode {
 	@ObfuscatedName("dg")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive1")
 	static Archive archive1;
 	@ObfuscatedName("dy")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive12")
 	static Archive archive12;
@@ -42,19 +42,19 @@ public class Message extends DualNode {
 	String sender;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lkq;"
 	)
 	@Export("senderUsername")
 	Username senderUsername;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("isFromFriend0")
 	TriBool isFromFriend0;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("isFromIgnored0")
 	TriBool isFromIgnored0;
@@ -73,7 +73,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
 		garbageValue = "-427651151"
 	)
 	@Export("set")
@@ -92,7 +92,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2093900647"
 	)
 	@Export("clearIsFromFriend")
@@ -102,7 +102,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1408976904"
 	)
 	@Export("isFromFriend")
@@ -116,7 +116,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "511529108"
 	)
 	@Export("fillIsFromFriend")
@@ -126,7 +126,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "108"
 	)
 	@Export("clearIsFromIgnored")
@@ -136,7 +136,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "-124"
 	)
 	@Export("isFromIgnored")
@@ -150,7 +150,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-558597226"
 	)
 	@Export("fillIsFromIgnored")
@@ -160,7 +160,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1793288574"
 	)
 	@Export("fillSenderUsername")
@@ -175,7 +175,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("ik")
 	@ObfuscatedSignature(
-		signature = "(Lhd;III)V",
+		descriptor = "(Lhd;III)V",
 		garbageValue = "-1019531565"
 	)
 	@Export("Widget_addToMenu")

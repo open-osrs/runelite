@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapLabelSize {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lah;"
+		descriptor = "Lah;"
 	)
 	@Export("WorldMapLabelSize_small")
 	public static final WorldMapLabelSize WorldMapLabelSize_small;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lah;"
+		descriptor = "Lah;"
 	)
 	@Export("WorldMapLabelSize_medium")
 	public static final WorldMapLabelSize WorldMapLabelSize_medium;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lah;"
+		descriptor = "Lah;"
 	)
 	@Export("WorldMapLabelSize_large")
 	public static final WorldMapLabelSize WorldMapLabelSize_large;
@@ -32,7 +32,7 @@ public class WorldMapLabelSize {
 	static int field134;
 	@ObfuscatedName("fw")
 	@ObfuscatedSignature(
-		signature = "Leh;"
+		descriptor = "Leh;"
 	)
 	@Export("urlRequester")
 	static UrlRequester urlRequester;
@@ -66,7 +66,7 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(FI)Z",
+		descriptor = "(FI)Z",
 		garbageValue = "-645861568"
 	)
 	boolean method246(float var1) {
@@ -75,7 +75,7 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(III)Lhd;",
+		descriptor = "(III)Lhd;",
 		garbageValue = "-756668004"
 	)
 	@Export("getWidgetChild")
@@ -90,7 +90,7 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1950669116"
 	)
 	public static boolean method251() {
@@ -99,7 +99,7 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1407102588"
 	)
 	static final void method249() {
@@ -110,7 +110,7 @@ public class WorldMapLabelSize {
 
 	@ObfuscatedName("kw")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2140827250"
 	)
 	static void method247() {

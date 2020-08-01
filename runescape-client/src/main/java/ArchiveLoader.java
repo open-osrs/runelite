@@ -19,7 +19,7 @@ public class ArchiveLoader {
 	static String userHomeDirectory;
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "Llo;"
+		descriptor = "Llo;"
 	)
 	@Export("rasterProvider")
 	public static AbstractRasterProvider rasterProvider;
@@ -28,13 +28,13 @@ public class ArchiveLoader {
 	static boolean mouseCam;
 	@ObfuscatedName("fy")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+		descriptor = "Lfa;"
 	)
 	@Export("socketTask")
 	static Task socketTask;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive")
 	final Archive archive;
@@ -52,7 +52,7 @@ public class ArchiveLoader {
 	int loadedCount;
 
 	@ObfuscatedSignature(
-		signature = "(Lig;Ljava/lang/String;)V"
+		descriptor = "(Lig;Ljava/lang/String;)V"
 	)
 	ArchiveLoader(Archive var1, String var2) {
 		this.loadedCount = 0;
@@ -62,7 +62,7 @@ public class ArchiveLoader {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1314527591"
 	)
 	@Export("isLoaded")
@@ -80,7 +80,7 @@ public class ArchiveLoader {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "1299326622"
 	)
 	static int method1212(int var0, int var1) {
@@ -104,7 +104,7 @@ public class ArchiveLoader {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "677134031"
 	)
 	static int method1213(int var0, Script var1, boolean var2) {

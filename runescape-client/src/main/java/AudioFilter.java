@@ -107,7 +107,7 @@ public class AudioFilter {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lkn;Lds;)V"
+		descriptor = "(Lkn;Lds;)V"
 	)
 	final void method2829(Buffer var1, SoundEnvelope var2) {
 		int var3 = var1.readUnsignedByte();

@@ -19,7 +19,7 @@ public class BuddyRankComparator extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;I)I",
+		descriptor = "(Lkx;Lkx;I)I",
 		garbageValue = "1665981134"
 	)
 	@Export("compareBuddy")
@@ -37,7 +37,7 @@ public class BuddyRankComparator extends AbstractUserComparator {
 
 	@ObfuscatedName("ka")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/String;I)Ljava/lang/String;",
 		garbageValue = "-1830826767"
 	)
 	static String method3556(String var0) {

@@ -42,16 +42,15 @@ public abstract class RSBufferMixin implements RSBuffer
 	private static BigInteger modulus;
 
 	@Copy("encryptRsa")
-	abstract void rs$encryptRsa(BigInteger var1, BigInteger var2);
-
 	@Replace("encryptRsa")
-	public void rl$encryptRsa(BigInteger exp, BigInteger mod)
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$encryptRsa(BigInteger exp, BigInteger mod)
 	{
 		if (modulus != null)
 		{
 			mod = modulus;
 		}
 
-		rs$encryptRsa(exp, mod);
+		copy$encryptRsa(exp, mod);
 	}
 }

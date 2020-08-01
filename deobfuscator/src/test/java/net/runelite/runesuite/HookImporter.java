@@ -36,9 +36,7 @@ import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
 import net.runelite.asm.Type;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
-import net.runelite.asm.attributes.annotation.Element;
+import net.runelite.asm.attributes.Annotated;
 import net.runelite.asm.attributes.code.LocalVariable;
 import net.runelite.asm.attributes.code.Parameter;
 import net.runelite.asm.signature.Signature;
@@ -107,11 +105,11 @@ public class HookImporter
 
 			assert cf != null;
 
-			String implementsName = getAnnotation(cf.getAnnotations(), IMPLEMENTS);
+			String implementsName = getAnnotation(cf, IMPLEMENTS);
 			if (implementsName.isEmpty())
 			{
 				String deobfuscatedClassName = hc.clazz;
-				cf.getAnnotations().addAnnotation(IMPLEMENTS, "value", deobfuscatedClassName);
+				cf.addAnnotation(IMPLEMENTS, deobfuscatedClassName);
 				mappings.map(cf.getPoolClass(), deobfuscatedClassName);
 				++classes;
 			}
@@ -138,7 +136,7 @@ public class HookImporter
 					continue;
 				}
 
-				String exportedName = getAnnotation(f.getAnnotations(), EXPORT);
+				String exportedName = getAnnotation(f, EXPORT);
 				if (exportedName.isEmpty())
 				{
 					String deobfuscatedFieldName = fh.field;
@@ -150,7 +148,7 @@ public class HookImporter
 						continue;
 					}
 
-					f.getAnnotations().addAnnotation(EXPORT, "value", deobfuscatedFieldName);
+					f.addAnnotation(EXPORT, deobfuscatedFieldName);
 					mappings.map(f.getPoolField(), deobfuscatedFieldName);
 					++fields;
 				}
@@ -219,7 +217,7 @@ public class HookImporter
 				List<Method> virtualMethods = VirtualMethods.getVirtualMethods(m);
 				for (Method method : virtualMethods)
 				{
-					String exportedName = getAnnotation(method.getAnnotations(), EXPORT);
+					String exportedName = getAnnotation(method, EXPORT);
 					if (!exportedName.isEmpty())
 					{
 						if (!exportedName.equals(hm.method))
@@ -231,7 +229,7 @@ public class HookImporter
 				}
 
 				String deobfuscatedMethodName = hm.method;
-				m.getAnnotations().addAnnotation(EXPORT, "value", deobfuscatedMethodName);
+				m.addAnnotation(EXPORT, deobfuscatedMethodName);
 				mappings.map(m.getPoolMethod(), deobfuscatedMethodName);
 				++methods;
 			}
@@ -252,8 +250,7 @@ public class HookImporter
 				return c;
 			}
 
-			Annotations an = c.getAnnotations();
-			if (getAnnotation(an, OBFUSCATED_NAME).equals(name))
+			if (getAnnotation(c, OBFUSCATED_NAME).equals(name))
 			{
 				return c;
 			}
@@ -265,8 +262,7 @@ public class HookImporter
 	{
 		for (Field f : c.getFields())
 		{
-			Annotations an = f.getAnnotations();
-			if (getAnnotation(an, OBFUSCATED_NAME).equals(name))
+			if (getAnnotation(f, OBFUSCATED_NAME).equals(name))
 			{
 				return f;
 			}
@@ -280,8 +276,7 @@ public class HookImporter
 
 		for (Method m : c.getMethods())
 		{
-			Annotations an = m.getAnnotations();
-			if (m.getName().equals(name) || getAnnotation(an, OBFUSCATED_NAME).equals(name))
+			if (m.getName().equals(name) || getAnnotation(m, OBFUSCATED_NAME).equals(name))
 			{
 				Signature methodSig = getObfuscatedMethodSignature(m);
 
@@ -294,15 +289,12 @@ public class HookImporter
 		return null;
 	}
 
-	private String getAnnotation(Annotations an, Type type)
+	private String getAnnotation(Annotated an, Type type)
 	{
-		Annotation a = an.find(type);
+		final var a = an.findAnnotation(type);
 		if (a != null)
 		{
-			for (Element e : a.getElements())
-			{
-				return (String) e.getValue();
-			}
+			return a.getValueString();
 		}
 
 		return "";
@@ -310,7 +302,7 @@ public class HookImporter
 
 	private Signature getObfuscatedMethodSignature(Method method)
 	{
-		String sig = getAnnotation(method.getAnnotations(), OBFUSCATED_SIGNATURE);
+		String sig = getAnnotation(method, OBFUSCATED_SIGNATURE);
 		if (sig.isEmpty())
 		{
 			return method.getDescriptor();

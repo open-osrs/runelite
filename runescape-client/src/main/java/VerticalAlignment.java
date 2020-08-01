@@ -12,18 +12,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum VerticalAlignment implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lif;"
+		descriptor = "Lif;"
 	)
 	field3226(2, 0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lif;"
+		descriptor = "Lif;"
 	)
 	@Export("VerticalAlignment_centered")
 	VerticalAlignment_centered(1, 1),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lif;"
+		descriptor = "Lif;"
 	)
 	field3230(0, 2);
 
@@ -47,7 +47,7 @@ public enum VerticalAlignment implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -57,7 +57,7 @@ public enum VerticalAlignment implements Enumerated {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(III)Lcs;",
+		descriptor = "(III)Lcs;",
 		garbageValue = "1496312280"
 	)
 	static Script method4517(int var0, int var1) {
@@ -90,7 +90,7 @@ public enum VerticalAlignment implements Enumerated {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "735302127"
 	)
 	@Export("getGcDuration")

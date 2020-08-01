@@ -11,7 +11,7 @@ public class UserComparator6 extends AbstractUserComparator {
 	static boolean[] Widget_loadedInterfaces;
 	@ObfuscatedName("gp")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("mapSceneSprites")
 	static IndexedSprite[] mapSceneSprites;
@@ -25,7 +25,7 @@ public class UserComparator6 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;S)I",
+		descriptor = "(Lkx;Lkx;S)I",
 		garbageValue = "2600"
 	)
 	@Export("compareBuddy")
@@ -43,7 +43,7 @@ public class UserComparator6 extends AbstractUserComparator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
+		descriptor = "(IIB)I",
 		garbageValue = "-59"
 	)
 	@Export("ItemContainer_getCount")
@@ -58,7 +58,7 @@ public class UserComparator6 extends AbstractUserComparator {
 
 	@ObfuscatedName("gf")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "0"
 	)
 	static void method3564() {

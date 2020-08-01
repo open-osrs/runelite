@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ArchiveDiskActionHandler implements Runnable {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("ArchiveDiskActionHandler_requestQueue")
 	static NodeDeque ArchiveDiskActionHandler_requestQueue;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("ArchiveDiskActionHandler_responseQueue")
 	static NodeDeque ArchiveDiskActionHandler_responseQueue;
@@ -92,7 +92,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;I)I",
+		descriptor = "(Lic;Lic;I)I",
 		garbageValue = "-1395527740"
 	)
 	static int method4429(AbstractArchive var0, AbstractArchive var1) {
@@ -155,7 +155,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "8"
 	)
 	@Export("isWorldMapEvent")
@@ -165,7 +165,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 
 	@ObfuscatedName("fh")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZB)V",
+		descriptor = "(Ljava/lang/String;ZB)V",
 		garbageValue = "-20"
 	)
 	@Export("drawLoadingMessage")

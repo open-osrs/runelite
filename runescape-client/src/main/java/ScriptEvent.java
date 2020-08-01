@@ -14,7 +14,7 @@ public class ScriptEvent extends Node {
 	static int field604;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	static IndexedSprite field597;
 	@ObfuscatedName("az")
@@ -30,7 +30,7 @@ public class ScriptEvent extends Node {
 	boolean isMouseInputEvent;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("widget")
 	Widget widget;
@@ -54,7 +54,7 @@ public class ScriptEvent extends Node {
 	int opIndex;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
@@ -91,7 +91,7 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/Object;I)V",
+		descriptor = "([Ljava/lang/Object;I)V",
 		garbageValue = "-2050703759"
 	)
 	@Export("setArgs")
@@ -101,7 +101,7 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "20"
 	)
 	@Export("setType")
@@ -173,7 +173,7 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("fv")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "303339948"
 	)
 	@Export("setWindowedMode")
@@ -203,7 +203,7 @@ public class ScriptEvent extends Node {
 
 	@ObfuscatedName("hs")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;IIIII)V",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIII)V",
 		garbageValue = "-1977726761"
 	)
 	@Export("insertMenuItemNoShift")

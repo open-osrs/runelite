@@ -38,17 +38,15 @@ public abstract class RSMouseWheelHandlerMixin implements RSMouseWheelHandler
 	@Shadow("client")
 	private static RSClient client;
 
-	@Copy("mouseWheelMoved")
-	abstract void rs$mouseWheelMoved(MouseWheelEvent event);
-
 	@Override
+	@Copy("mouseWheelMoved")
 	@Replace("mouseWheelMoved")
 	public void mouseWheelMoved(MouseWheelEvent event)
 	{
 		event = client.getCallbacks().mouseWheelMoved(event);
 		if (!event.isConsumed())
 		{
-			rs$mouseWheelMoved(event);
+			mouseWheelMoved(event);
 		}
 	}
 }

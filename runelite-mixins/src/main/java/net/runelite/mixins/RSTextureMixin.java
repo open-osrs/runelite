@@ -45,17 +45,15 @@ public abstract class RSTextureMixin implements RSTexture
 	private float rl$v;
 
 	@Copy("animate")
-	public abstract void rs$animate(int diff);
-
 	@Replace("animate")
-	public void rl$animate(int diff)
+	public void copy$animate(int diff)
 	{
 		// The client animates textures by cycling the backing pixels of the texture each fram
 		// based on how long it was since the last tick. On GPU we let the plugin manage this
 		// which will calculate uvs instead.
 		if (!client.isGpu())
 		{
-			rs$animate(diff);
+			copy$animate(diff);
 			return;
 		}
 		assert client.getDrawCallbacks() != null;

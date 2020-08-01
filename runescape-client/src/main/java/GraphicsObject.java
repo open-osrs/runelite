@@ -14,7 +14,7 @@ public final class GraphicsObject extends Entity {
 	static long field1139;
 	@ObfuscatedName("dz")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive10")
 	static Archive archive10;
@@ -56,7 +56,7 @@ public final class GraphicsObject extends Entity {
 	int height;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Ljm;"
+		descriptor = "Ljm;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
@@ -98,7 +98,7 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1084299452"
 	)
 	@Export("advance")
@@ -120,7 +120,7 @@ public final class GraphicsObject extends Entity {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
+		descriptor = "(I)Lef;",
 		garbageValue = "1832696685"
 	)
 	@Export("getModel")

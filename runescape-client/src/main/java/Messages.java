@@ -14,13 +14,13 @@ public class Messages {
 	static final Map Messages_channels;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Ljq;"
+		descriptor = "Ljq;"
 	)
 	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
@@ -45,7 +45,7 @@ public class Messages {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "-1486803630"
 	)
 	static final int method2350(int var0, int var1) {

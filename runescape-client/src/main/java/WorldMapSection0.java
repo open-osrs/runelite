@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapSection0 implements WorldMapSection {
 	@ObfuscatedName("fa")
 	@ObfuscatedSignature(
-		signature = "Lkv;"
+		descriptor = "Lkv;"
 	)
 	@Export("WorldMapElement_fonts")
 	static Fonts WorldMapElement_fonts;
@@ -103,7 +103,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lad;I)V",
+		descriptor = "(Lad;I)V",
 		garbageValue = "411670415"
 	)
 	@Export("expandBounds")
@@ -128,7 +128,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIB)Z",
+		descriptor = "(IIIB)Z",
 		garbageValue = "2"
 	)
 	@Export("containsCoord")
@@ -142,7 +142,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIB)Z",
+		descriptor = "(IIB)Z",
 		garbageValue = "48"
 	)
 	@Export("containsPosition")
@@ -152,7 +152,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIII)[I",
+		descriptor = "(IIII)[I",
 		garbageValue = "459340529"
 	)
 	@Export("getBorderTileLengths")
@@ -167,7 +167,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)Lhg;",
+		descriptor = "(III)Lhg;",
 		garbageValue = "1240901536"
 	)
 	@Export("coord")
@@ -183,7 +183,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "0"
 	)
 	@Export("read")
@@ -207,7 +207,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1040528661"
 	)
 	@Export("postRead")
@@ -216,7 +216,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Lcs;",
+		descriptor = "(II)Lcs;",
 		garbageValue = "1805062826"
 	)
 	@Export("getScript")
@@ -238,7 +238,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1742384999"
 	)
 	public static final void method299() {
@@ -248,7 +248,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
+		descriptor = "(IB)I",
 		garbageValue = "50"
 	)
 	static int method295(int var0) {
@@ -257,7 +257,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("hd")
 	@ObfuscatedSignature(
-		signature = "(IIIILjava/lang/String;Ljava/lang/String;IIB)V",
+		descriptor = "(IIIILjava/lang/String;Ljava/lang/String;IIB)V",
 		garbageValue = "89"
 	)
 	@Export("menuAction")
@@ -1036,7 +1036,7 @@ public class WorldMapSection0 implements WorldMapSection {
 
 	@ObfuscatedName("ju")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-2103133941"
 	)
 	@Export("changeGameOptions")

@@ -930,6 +930,11 @@ public class ExternalPluginManager
 			log.info("Not updating external plugins since there is more than 1 client open");
 			return;
 		}
+		else if (developmentMode)
+		{
+			log.info("Not updating because we're running in developer mode");
+			return;
+		}
 
 		RuneLiteSplashScreen.stage(.59, "Updating external plugins");
 

@@ -10,13 +10,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PacketWriter {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llj;"
+		descriptor = "Llj;"
 	)
 	@Export("socket")
 	AbstractSocket socket;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljx;"
+		descriptor = "Ljx;"
 	)
 	@Export("packetBufferNodes")
 	IterableNodeDeque packetBufferNodes;
@@ -28,25 +28,25 @@ public class PacketWriter {
 	int bufferSize;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	@Export("buffer")
 	Buffer buffer;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Llb;"
+		descriptor = "Llb;"
 	)
 	@Export("isaacCipher")
 	public IsaacCipher isaacCipher;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lkb;"
+		descriptor = "Lkb;"
 	)
 	@Export("packetBuffer")
 	PacketBuffer packetBuffer;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lgu;"
+		descriptor = "Lgu;"
 	)
 	@Export("serverPacket")
 	ServerPacket serverPacket;
@@ -71,17 +71,17 @@ public class PacketWriter {
 	int pendingWrites;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lgu;"
+		descriptor = "Lgu;"
 	)
 	ServerPacket field1350;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lgu;"
+		descriptor = "Lgu;"
 	)
 	ServerPacket field1351;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lgu;"
+		descriptor = "Lgu;"
 	)
 	ServerPacket field1342;
 
@@ -99,7 +99,7 @@ public class PacketWriter {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "65"
 	)
 	@Export("clearBuffer")
@@ -110,7 +110,7 @@ public class PacketWriter {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1917984042"
 	)
 	@Export("flush")
@@ -138,7 +138,7 @@ public class PacketWriter {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lgj;I)V",
+		descriptor = "(Lgj;I)V",
 		garbageValue = "-251135286"
 	)
 	@Export("addNode")
@@ -151,7 +151,7 @@ public class PacketWriter {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Llj;I)V",
+		descriptor = "(Llj;I)V",
 		garbageValue = "-1410560856"
 	)
 	@Export("setSocket")
@@ -161,7 +161,7 @@ public class PacketWriter {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "446694129"
 	)
 	@Export("close")
@@ -175,7 +175,7 @@ public class PacketWriter {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2011501008"
 	)
 	@Export("removeSocket")
@@ -185,7 +185,7 @@ public class PacketWriter {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)Llj;",
+		descriptor = "(I)Llj;",
 		garbageValue = "2137567404"
 	)
 	@Export("getSocket")

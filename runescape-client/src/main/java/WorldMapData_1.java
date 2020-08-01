@@ -40,7 +40,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-484373567"
 	)
 	@Export("init")
@@ -66,7 +66,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1774414997"
 	)
 	@Export("readGeography")
@@ -100,7 +100,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "4"
 	)
 	@Export("getChunkXLow")
@@ -110,7 +110,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "259751183"
 	)
 	@Export("getChunkYLow")
@@ -120,7 +120,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-810164078"
 	)
 	@Export("getChunkX")
@@ -130,7 +130,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "196084572"
 	)
 	@Export("getChunkY")
@@ -157,7 +157,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "1959951733"
 	)
 	public static boolean method784(int var0) {
@@ -166,7 +166,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("im")
 	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
+		descriptor = "(IIIIB)V",
 		garbageValue = "87"
 	)
 	@Export("addSceneMenuOptions")

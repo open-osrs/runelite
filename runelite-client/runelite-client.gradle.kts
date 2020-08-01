@@ -155,7 +155,7 @@ tasks {
     register<JavaExec>("RuneLite.main()") {
         group = "openosrs"
 
-        classpath = project.sourceSets.main.get().runtimeClasspath
+        classpath = sourceSets["main"].runtimeClasspath
         enableAssertions = true
         main = "net.runelite.client.RuneLite"
     }

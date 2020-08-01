@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class EvictingDualNodeHashTable {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgf;"
+		descriptor = "Lgf;"
 	)
 	DualNode field1978;
 	@ObfuscatedName("o")
@@ -19,13 +19,13 @@ public final class EvictingDualNodeHashTable {
 	int remainingCapacity;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("hashTable")
 	IterableNodeHashTable hashTable;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Ljq;"
+		descriptor = "Ljq;"
 	)
 	@Export("deque")
 	IterableDualNodeQueue deque;
@@ -45,7 +45,7 @@ public final class EvictingDualNodeHashTable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(J)Lgf;"
+		descriptor = "(J)Lgf;"
 	)
 	@Export("get")
 	public DualNode get(long var1) {
@@ -71,7 +71,7 @@ public final class EvictingDualNodeHashTable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lgf;J)V"
+		descriptor = "(Lgf;J)V"
 	)
 	@Export("put")
 	public void put(DualNode var1, long var2) {

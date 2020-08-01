@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class CollisionMap {
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	@Export("NetCache_responseArchiveBuffer")
 	public static Buffer NetCache_responseArchiveBuffer;
 	@ObfuscatedName("gs")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("headIconPkSprites")
 	static Sprite[] headIconPkSprites;
@@ -58,7 +58,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "0"
 	)
 	@Export("clear")
@@ -77,7 +77,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIIZI)V",
+		descriptor = "(IIIIZI)V",
 		garbageValue = "1939344506"
 	)
 	public void method3680(int var1, int var2, int var3, int var4, boolean var5) {
@@ -229,7 +229,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIIIZI)V",
+		descriptor = "(IIIIZI)V",
 		garbageValue = "-2000199056"
 	)
 	@Export("addGameObject")
@@ -256,7 +256,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "14"
 	)
 	@Export("setBlockedByFloor")
@@ -269,7 +269,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "1576549082"
 	)
 	@Export("setBlockedByFloorDec")
@@ -282,7 +282,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IIII)V",
+		descriptor = "(IIII)V",
 		garbageValue = "-1405991942"
 	)
 	@Export("setFlag")
@@ -293,7 +293,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IIIIZI)V",
+		descriptor = "(IIIIZI)V",
 		garbageValue = "2079202664"
 	)
 	public void method3702(int var1, int var2, int var3, int var4, boolean var5) {
@@ -445,7 +445,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(IIIIIZB)V",
+		descriptor = "(IIIIIZB)V",
 		garbageValue = "-35"
 	)
 	@Export("setFlagOffNonSquare")
@@ -478,7 +478,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(IIII)V",
+		descriptor = "(IIII)V",
 		garbageValue = "-299380257"
 	)
 	@Export("setFlagOff")
@@ -489,7 +489,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "1"
 	)
 	public void method3689(int var1, int var2) {
@@ -501,7 +501,7 @@ public class CollisionMap {
 
 	@ObfuscatedName("fd")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1042513280"
 	)
 	static final void method3707() {

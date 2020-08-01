@@ -133,7 +133,7 @@ public abstract class Actor extends Entity {
 	int[] hitSplatValues2;
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		signature = "Ljx;"
+		descriptor = "Ljx;"
 	)
 	@Export("healthBars")
 	IterableNodeDeque healthBars;
@@ -366,7 +366,7 @@ public abstract class Actor extends Entity {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "1"
 	)
 	@Export("isVisible")
@@ -376,7 +376,7 @@ public abstract class Actor extends Entity {
 
 	@ObfuscatedName("bg")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "78"
 	)
 	final void method1810() {
@@ -386,7 +386,7 @@ public abstract class Actor extends Entity {
 
 	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		signature = "(IIIIIII)V",
+		descriptor = "(IIIIIII)V",
 		garbageValue = "-1007174032"
 	)
 	@Export("addHitSplat")
@@ -481,7 +481,7 @@ public abstract class Actor extends Entity {
 
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		signature = "(IIIIIII)V",
+		descriptor = "(IIIIIII)V",
 		garbageValue = "-680285813"
 	)
 	@Export("addHealthBar")
@@ -543,7 +543,7 @@ public abstract class Actor extends Entity {
 
 	@ObfuscatedName("ba")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "43"
 	)
 	@Export("removeHealthBar")
@@ -561,7 +561,7 @@ public abstract class Actor extends Entity {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Lch;Lch;IZI)I",
+		descriptor = "(Lch;Lch;IZI)I",
 		garbageValue = "-1172543926"
 	)
 	@Export("compareWorlds")
@@ -609,7 +609,7 @@ public abstract class Actor extends Entity {
 
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "([BIIB)I",
+		descriptor = "([BIIB)I",
 		garbageValue = "46"
 	)
 	static int method1822(byte[] var0, int var1, int var2) {

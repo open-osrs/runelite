@@ -14,7 +14,7 @@ public class UserComparator7 extends AbstractUserComparator {
 	static int field2003;
 	@ObfuscatedName("dv")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive6")
 	static Archive archive6;
@@ -28,7 +28,7 @@ public class UserComparator7 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;B)I",
+		descriptor = "(Lkx;Lkx;B)I",
 		garbageValue = "-76"
 	)
 	@Export("compareBuddy")
@@ -46,7 +46,7 @@ public class UserComparator7 extends AbstractUserComparator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)Z",
+		descriptor = "(Ljava/lang/CharSequence;I)Z",
 		garbageValue = "-71116023"
 	)
 	@Export("isNumber")

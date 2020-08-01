@@ -7,7 +7,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class58 {
 	@ObfuscatedName("qr")
 	@ObfuscatedSignature(
-		signature = "Ldt;"
+		descriptor = "Ldt;"
 	)
 	@Export("pcmPlayer1")
 	static PcmPlayer pcmPlayer1;
@@ -20,7 +20,7 @@ public class class58 {
 
 	@ObfuscatedName("fj")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1787909255"
 	)
 	@Export("getWindowedMode")

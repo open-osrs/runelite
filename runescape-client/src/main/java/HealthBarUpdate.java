@@ -10,7 +10,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class HealthBarUpdate extends Node {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Ldh;"
+		descriptor = "Ldh;"
 	)
 	@Export("pcmPlayerProvider")
 	static PlayerProvider pcmPlayerProvider;
@@ -52,7 +52,7 @@ public class HealthBarUpdate extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "880697270"
 	)
 	@Export("set")

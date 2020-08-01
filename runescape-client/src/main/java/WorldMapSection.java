@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface WorldMapSection {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lad;I)V",
+		descriptor = "(Lad;I)V",
 		garbageValue = "411670415"
 	)
 	@Export("expandBounds")
@@ -16,7 +16,7 @@ public interface WorldMapSection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIB)Z",
+		descriptor = "(IIIB)Z",
 		garbageValue = "2"
 	)
 	@Export("containsCoord")
@@ -24,7 +24,7 @@ public interface WorldMapSection {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIB)Z",
+		descriptor = "(IIB)Z",
 		garbageValue = "48"
 	)
 	@Export("containsPosition")
@@ -32,7 +32,7 @@ public interface WorldMapSection {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIII)[I",
+		descriptor = "(IIII)[I",
 		garbageValue = "459340529"
 	)
 	@Export("getBorderTileLengths")
@@ -40,7 +40,7 @@ public interface WorldMapSection {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)Lhg;",
+		descriptor = "(III)Lhg;",
 		garbageValue = "1240901536"
 	)
 	@Export("coord")
@@ -48,7 +48,7 @@ public interface WorldMapSection {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "0"
 	)
 	@Export("read")

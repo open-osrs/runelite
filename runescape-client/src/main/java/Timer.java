@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Timer {
 	@ObfuscatedName("hi")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("crossSprites")
 	static Sprite[] crossSprites;
@@ -76,7 +76,7 @@ public class Timer {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1434550274"
 	)
 	public void method5162() {
@@ -85,7 +85,7 @@ public class Timer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1764633933"
 	)
 	public void method5161() {
@@ -98,7 +98,7 @@ public class Timer {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "457646537"
 	)
 	public void method5184(int var1) {
@@ -108,7 +108,7 @@ public class Timer {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-15"
 	)
 	public void method5178() {
@@ -123,7 +123,7 @@ public class Timer {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "535522707"
 	)
 	public void method5165() {
@@ -133,7 +133,7 @@ public class Timer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-932156837"
 	)
 	public void method5166() {
@@ -142,7 +142,7 @@ public class Timer {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-152968698"
 	)
 	@Export("write")
@@ -158,7 +158,7 @@ public class Timer {
 
 	@ObfuscatedName("fp")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2109175482"
 	)
 	@Export("playPcmPlayers")
@@ -175,7 +175,7 @@ public class Timer {
 
 	@ObfuscatedName("gu")
 	@ObfuscatedSignature(
-		signature = "(Lcc;IIIIIB)V",
+		descriptor = "(Lcc;IIIIIB)V",
 		garbageValue = "103"
 	)
 	@Export("drawActor2d")

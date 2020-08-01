@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class MusicPatchNode2 {
 	@ObfuscatedName("fj")
 	@ObfuscatedSignature(
-		signature = "Lko;"
+		descriptor = "Lko;"
 	)
 	@Export("fontPlain12")
 	static Font fontPlain12;
@@ -58,7 +58,7 @@ public class MusicPatchNode2 {
 
 	@ObfuscatedName("ev")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "4"
 	)
 	static int method3820() {
@@ -77,7 +77,7 @@ public class MusicPatchNode2 {
 
 	@ObfuscatedName("gs")
 	@ObfuscatedSignature(
-		signature = "(Lbt;I)V",
+		descriptor = "(Lbt;I)V",
 		garbageValue = "486554393"
 	)
 	static final void method3819(PendingSpawn var0) {

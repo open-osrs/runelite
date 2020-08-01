@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class ObjectSound extends Node {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("objectSounds")
 	static NodeDeque objectSounds;
@@ -60,7 +60,7 @@ public final class ObjectSound extends Node {
 	int soundEffectId;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Ldk;"
+		descriptor = "Ldk;"
 	)
 	@Export("stream1")
 	RawPcmStream stream1;
@@ -84,13 +84,13 @@ public final class ObjectSound extends Node {
 	int field1111;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Ldk;"
+		descriptor = "Ldk;"
 	)
 	@Export("stream2")
 	RawPcmStream stream2;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Ljg;"
+		descriptor = "Ljg;"
 	)
 	@Export("obj")
 	ObjectDefinition obj;
@@ -104,7 +104,7 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2014471583"
 	)
 	@Export("set")
@@ -134,7 +134,7 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;I)V",
 		garbageValue = "-997797111"
 	)
 	@Export("addGameMessage")
@@ -144,7 +144,7 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;I)V",
+		descriptor = "(Lic;I)V",
 		garbageValue = "1163495687"
 	)
 	public static void method1999(AbstractArchive var0) {
@@ -153,7 +153,7 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(S)V",
+		descriptor = "(S)V",
 		garbageValue = "23035"
 	)
 	public static void method2007() {
@@ -168,7 +168,7 @@ public final class ObjectSound extends Node {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1381107864"
 	)
 	public static void method2008() {

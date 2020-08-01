@@ -72,7 +72,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bh")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1332846958"
 	)
 	@Export("releaseArray")
@@ -86,7 +86,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bg")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-238244279"
 	)
 	@Export("writeByte")
@@ -96,7 +96,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-2062616020"
 	)
 	@Export("writeShort")
@@ -107,7 +107,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1322343150"
 	)
 	@Export("writeMedium")
@@ -119,7 +119,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ba")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "1526300467"
 	)
 	@Export("writeInt")
@@ -156,7 +156,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "1754555155"
 	)
 	@Export("writeBoolean")
@@ -166,7 +166,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bn")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "914637380"
 	)
 	@Export("writeStringCp1252NullTerminated")
@@ -182,7 +182,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bo")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "2130981128"
 	)
 	@Export("writeStringCp1252NullCircumfixed")
@@ -199,7 +199,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bp")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)V",
+		descriptor = "(Ljava/lang/CharSequence;I)V",
 		garbageValue = "1273602380"
 	)
 	@Export("writeCESU8")
@@ -247,7 +247,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bm")
 	@ObfuscatedSignature(
-		signature = "([BIIB)V",
+		descriptor = "([BIIB)V",
 		garbageValue = "96"
 	)
 	@Export("writeBytes")
@@ -260,7 +260,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bl")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-914578816"
 	)
 	public void method5711(Buffer var1) {
@@ -269,7 +269,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bv")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "1697969107"
 	)
 	@Export("writeLengthInt")
@@ -286,7 +286,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bi")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-510969382"
 	)
 	@Export("writeLengthShort")
@@ -301,7 +301,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bz")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-767264169"
 	)
 	@Export("writeLengthByte")
@@ -315,7 +315,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bu")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "416798651"
 	)
 	@Export("writeSmartByteShort")
@@ -331,7 +331,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bx")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "18"
 	)
 	@Export("writeVarInt")
@@ -357,7 +357,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("br")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "124"
 	)
 	@Export("readUnsignedByte")
@@ -367,7 +367,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bs")
 	@ObfuscatedSignature(
-		signature = "(B)B",
+		descriptor = "(B)B",
 		garbageValue = "81"
 	)
 	@Export("readByte")
@@ -377,7 +377,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("by")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "471084162"
 	)
 	@Export("readUnsignedShort")
@@ -388,7 +388,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bj")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "87414619"
 	)
 	@Export("readShort")
@@ -404,7 +404,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("bt")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1982311791"
 	)
 	@Export("readMedium")
@@ -415,7 +415,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cc")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "94863796"
 	)
 	@Export("readInt")
@@ -426,7 +426,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cb")
 	@ObfuscatedSignature(
-		signature = "(I)J",
+		descriptor = "(I)J",
 		garbageValue = "-497792504"
 	)
 	@Export("readLong")
@@ -438,7 +438,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ch")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "364318278"
 	)
 	@Export("readBoolean")
@@ -448,7 +448,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cw")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "1669124168"
 	)
 	@Export("readStringCp1252NullTerminatedOrNull")
@@ -463,7 +463,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cz")
 	@ObfuscatedSignature(
-		signature = "(B)Ljava/lang/String;",
+		descriptor = "(B)Ljava/lang/String;",
 		garbageValue = "60"
 	)
 	@Export("readStringCp1252NullTerminated")
@@ -479,7 +479,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cg")
 	@ObfuscatedSignature(
-		signature = "(B)Ljava/lang/String;",
+		descriptor = "(B)Ljava/lang/String;",
 		garbageValue = "-10"
 	)
 	@Export("readStringCp1252NullCircumfixed")
@@ -500,7 +500,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cn")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-1123161230"
 	)
 	@Export("readCESU8")
@@ -522,7 +522,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ce")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
+		descriptor = "([BIII)V",
 		garbageValue = "2094233778"
 	)
 	@Export("readBytes")
@@ -535,7 +535,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cj")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1710018513"
 	)
 	@Export("readShortSmart")
@@ -546,7 +546,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ck")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "-96"
 	)
 	@Export("readUShortSmart")
@@ -557,7 +557,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cv")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "715402244"
 	)
 	public int method5732() {
@@ -574,7 +574,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cp")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "81140995"
 	)
 	public int method5733() {
@@ -583,7 +583,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ci")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "11"
 	)
 	public int method5843() {
@@ -597,7 +597,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cu")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "841550272"
 	)
 	@Export("readVarInt")
@@ -614,7 +614,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cq")
 	@ObfuscatedSignature(
-		signature = "([II)V",
+		descriptor = "([II)V",
 		garbageValue = "-1857698855"
 	)
 	@Export("xteaEncryptAll")
@@ -642,7 +642,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("co")
 	@ObfuscatedSignature(
-		signature = "([II)V",
+		descriptor = "([II)V",
 		garbageValue = "-1432585027"
 	)
 	@Export("xteaDecryptAll")
@@ -670,7 +670,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ca")
 	@ObfuscatedSignature(
-		signature = "([IIII)V",
+		descriptor = "([IIII)V",
 		garbageValue = "-230257638"
 	)
 	@Export("xteaEncrypt")
@@ -700,7 +700,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cm")
 	@ObfuscatedSignature(
-		signature = "([IIII)V",
+		descriptor = "([IIII)V",
 		garbageValue = "1537225216"
 	)
 	@Export("xteaDecrypt")
@@ -730,7 +730,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cf")
 	@ObfuscatedSignature(
-		signature = "(Ljava/math/BigInteger;Ljava/math/BigInteger;I)V",
+		descriptor = "(Ljava/math/BigInteger;Ljava/math/BigInteger;I)V",
 		garbageValue = "-859977936"
 	)
 	@Export("encryptRsa")
@@ -749,7 +749,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ct")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-693896153"
 	)
 	@Export("writeCrc")
@@ -761,7 +761,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cd")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1948165259"
 	)
 	@Export("checkCrc")
@@ -774,7 +774,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cy")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "2052645276"
 	)
 	@Export("writeIntME")
@@ -784,7 +784,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cx")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "0"
 	)
 	public void method5744(int var1) {
@@ -793,7 +793,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cs")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-394267159"
 	)
 	public void method5837(int var1) {
@@ -802,7 +802,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cr")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "851416829"
 	)
 	public int method5746() {
@@ -811,7 +811,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("cl")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "2135245803"
 	)
 	public int method5936() {
@@ -820,7 +820,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dx")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1231018339"
 	)
 	public int method5748() {
@@ -829,7 +829,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dw")
 	@ObfuscatedSignature(
-		signature = "(I)B",
+		descriptor = "(I)B",
 		garbageValue = "-209851904"
 	)
 	public byte method5730() {
@@ -838,7 +838,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dm")
 	@ObfuscatedSignature(
-		signature = "(I)B",
+		descriptor = "(I)B",
 		garbageValue = "1146670320"
 	)
 	public byte method5750() {
@@ -847,7 +847,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dd")
 	@ObfuscatedSignature(
-		signature = "(I)B",
+		descriptor = "(I)B",
 		garbageValue = "-658631883"
 	)
 	public byte method5751() {
@@ -856,7 +856,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dh")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "118"
 	)
 	public void method5752(int var1) {
@@ -866,7 +866,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dl")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-327298658"
 	)
 	public void method5753(int var1) {
@@ -876,7 +876,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dr")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "137731710"
 	)
 	public void method5898(int var1) {
@@ -886,7 +886,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("di")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1619364591"
 	)
 	public int method5755() {
@@ -896,7 +896,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dp")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "-31"
 	)
 	public int method5867() {
@@ -906,7 +906,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dc")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "713390854"
 	)
 	public int method5757() {
@@ -916,7 +916,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dt")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1572434954"
 	)
 	public int method5758() {
@@ -931,7 +931,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("ds")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "89596822"
 	)
 	public int method5759() {
@@ -946,7 +946,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dg")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "95"
 	)
 	public void method5798(int var1) {
@@ -957,7 +957,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("do")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "1"
 	)
 	public int method5761() {
@@ -967,7 +967,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dn")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-68115848"
 	)
 	public void method5762(int var1) {
@@ -979,7 +979,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("db")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "-95"
 	)
 	@Export("writeShortLE")
@@ -992,7 +992,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("de")
 	@ObfuscatedSignature(
-		signature = "(IS)V",
+		descriptor = "(IS)V",
 		garbageValue = "-18106"
 	)
 	public void method5764(int var1) {
@@ -1004,7 +1004,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dv")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1451471311"
 	)
 	public int method5765() {
@@ -1014,7 +1014,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("dk")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-684888758"
 	)
 	public int method5766() {
@@ -1024,7 +1024,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("da")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-2146396815"
 	)
 	public int method5767() {
@@ -1034,7 +1034,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("df")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
+		descriptor = "([BIII)V",
 		garbageValue = "-2049590377"
 	)
 	public void method5821(byte[] var1, int var2, int var3) {
@@ -1046,7 +1046,7 @@ public class Buffer extends Node {
 
 	@ObfuscatedName("jx")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-801005893"
 	)
 	static void method5950() {

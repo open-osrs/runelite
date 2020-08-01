@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class NetFileRequest extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive")
 	public Archive archive;
@@ -28,7 +28,7 @@ public class NetFileRequest extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(CI)Z",
+		descriptor = "(CI)Z",
 		garbageValue = "-612356648"
 	)
 	static boolean method4304(char var0) {
@@ -43,7 +43,7 @@ public class NetFileRequest extends DualNode {
 
 	@ObfuscatedName("ij")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIII)V",
+		descriptor = "(IIIIIIIII)V",
 		garbageValue = "-1145163576"
 	)
 	@Export("drawWidgets")

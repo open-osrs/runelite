@@ -14,19 +14,19 @@ public final class DemotingHashTable {
 	int remaining;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("hashTable")
 	IterableNodeHashTable hashTable;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Ljq;"
+		descriptor = "Ljq;"
 	)
 	@Export("queue")
 	IterableDualNodeQueue queue;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lee;"
+		descriptor = "Lee;"
 	)
 	class155 field1987;
 
@@ -82,7 +82,7 @@ public final class DemotingHashTable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lfi;)V"
+		descriptor = "(Lfi;)V"
 	)
 	@Export("removeWrapper")
 	void removeWrapper(Wrapper var1) {

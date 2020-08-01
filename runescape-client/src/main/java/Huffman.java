@@ -9,7 +9,7 @@ import net.runelite.rs.ScriptOpcodes;
 public class Huffman {
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("musicTrackArchive")
 	public static AbstractArchive musicTrackArchive;
@@ -108,7 +108,7 @@ public class Huffman {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([BII[BII)I",
+		descriptor = "([BII[BII)I",
 		garbageValue = "1506774655"
 	)
 	@Export("compress")
@@ -159,7 +159,7 @@ public class Huffman {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "([BI[BIII)I",
+		descriptor = "([BI[BIII)I",
 		garbageValue = "-417422425"
 	)
 	@Export("decompress")
@@ -303,7 +303,7 @@ public class Huffman {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "-2030952139"
 	)
 	static int method4099(int var0, Script var1, boolean var2) {

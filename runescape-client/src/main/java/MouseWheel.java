@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface MouseWheel {
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1995693829"
 	)
 	@Export("useRotation")

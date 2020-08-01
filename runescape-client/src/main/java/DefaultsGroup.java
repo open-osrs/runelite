@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class DefaultsGroup {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llm;"
+		descriptor = "Llm;"
 	)
 	static final DefaultsGroup field3822;
 	@ObfuscatedName("o")

@@ -38,7 +38,7 @@ public class WorldMapArea {
 	int zoom;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lhg;"
+		descriptor = "Lhg;"
 	)
 	@Export("origin")
 	Coord origin;
@@ -87,7 +87,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "1711579729"
 	)
 	@Export("read")
@@ -112,7 +112,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)Law;",
+		descriptor = "(Lkn;B)Law;",
 		garbageValue = "-69"
 	)
 	@Export("readWorldMapSection")
@@ -144,7 +144,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIII)Z",
+		descriptor = "(IIII)Z",
 		garbageValue = "303739781"
 	)
 	@Export("containsCoord")
@@ -165,7 +165,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIB)Z",
+		descriptor = "(IIB)Z",
 		garbageValue = "111"
 	)
 	@Export("containsPosition")
@@ -196,7 +196,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IIII)[I",
+		descriptor = "(IIII)[I",
 		garbageValue = "1838178690"
 	)
 	@Export("position")
@@ -217,7 +217,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(III)Lhg;",
+		descriptor = "(III)Lhg;",
 		garbageValue = "-1660127351"
 	)
 	@Export("coord")
@@ -238,7 +238,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "61"
 	)
 	@Export("setBounds")
@@ -254,7 +254,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-659291236"
 	)
 	@Export("getId")
@@ -264,7 +264,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-2131690602"
 	)
 	@Export("getIsMain")
@@ -274,7 +274,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-1380863043"
 	)
 	@Export("getInternalName")
@@ -284,7 +284,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "657919972"
 	)
 	@Export("getExternalName")
@@ -294,7 +294,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "49"
 	)
 	@Export("getBackGroundColor")
@@ -304,7 +304,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "24"
 	)
 	@Export("getZoom")
@@ -314,7 +314,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1324174996"
 	)
 	@Export("getRegionLowX")
@@ -324,7 +324,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "103"
 	)
 	@Export("getRegionHighX")
@@ -334,7 +334,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1253585407"
 	)
 	@Export("getRegionLowY")
@@ -344,7 +344,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1154975420"
 	)
 	@Export("getRegionHighY")
@@ -354,7 +354,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1645493175"
 	)
 	@Export("getOriginX")
@@ -364,7 +364,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "680709831"
 	)
 	@Export("getOriginPlane")
@@ -374,7 +374,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-734959342"
 	)
 	@Export("getOriginY")
@@ -384,7 +384,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(I)Lhg;",
+		descriptor = "(I)Lhg;",
 		garbageValue = "-1903361332"
 	)
 	@Export("getOrigin")
@@ -394,7 +394,7 @@ public class WorldMapArea {
 
 	@ObfuscatedName("hf")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "1010580353"
 	)
 	@Export("resumePauseWidget")

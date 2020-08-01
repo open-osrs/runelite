@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class MidiPcmStream extends PcmStream {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("musicPatches")
 	NodeHashTable musicPatches;
@@ -55,17 +55,17 @@ public class MidiPcmStream extends PcmStream {
 	int[] field2454;
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "[[Lhm;"
+		descriptor = "[[Lhm;"
 	)
 	MusicPatchNode[][] field2466;
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "[[Lhm;"
+		descriptor = "[[Lhm;"
 	)
 	MusicPatchNode[][] field2467;
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "Lhl;"
+		descriptor = "Lhl;"
 	)
 	@Export("midiFile")
 	MidiFileReader midiFile;
@@ -95,7 +95,7 @@ public class MidiPcmStream extends PcmStream {
 	long field2473;
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "Lhj;"
+		descriptor = "Lhj;"
 	)
 	@Export("patchStream")
 	MusicPatchPcmStream patchStream;
@@ -128,7 +128,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1244273754"
 	)
 	@Export("setPcmStreamVolume")
@@ -138,7 +138,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-988270526"
 	)
 	public int method3837() {
@@ -147,7 +147,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lhz;Lic;Ldo;II)Z",
+		descriptor = "(Lhz;Lic;Ldo;II)Z",
 		garbageValue = "-700249158"
 	)
 	@Export("loadMusicTrack")
@@ -186,7 +186,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "1"
 	)
 	@Export("clearAll")
@@ -199,7 +199,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-100699849"
 	)
 	@Export("removeAll")
@@ -212,7 +212,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("firstSubStream")
 	protected synchronized PcmStream firstSubStream() {
@@ -221,7 +221,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("nextSubStream")
 	protected synchronized PcmStream nextSubStream() {
@@ -260,7 +260,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Lhz;ZI)V",
+		descriptor = "(Lhz;ZI)V",
 		garbageValue = "746467478"
 	)
 	@Export("setMusicTrack")
@@ -308,7 +308,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "106"
 	)
 	@Export("clear")
@@ -319,7 +319,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1676507703"
 	)
 	@Export("isReady")
@@ -329,7 +329,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "0"
 	)
 	public synchronized void method3935(int var1, int var2) {
@@ -338,7 +338,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1377126651"
 	)
 	void method3916(int var1, int var2) {
@@ -349,7 +349,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "4"
 	)
 	void method3846(int var1, int var2) {
@@ -365,7 +365,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(IIIS)V",
+		descriptor = "(IIIS)V",
 		garbageValue = "23534"
 	)
 	void method3847(int var1, int var2, int var3) {
@@ -433,7 +433,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lhm;ZI)V",
+		descriptor = "(Lhm;ZI)V",
 		garbageValue = "2083616471"
 	)
 	void method3852(MusicPatchNode var1, boolean var2) {
@@ -456,7 +456,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(IIIB)V",
+		descriptor = "(IIIB)V",
 		garbageValue = "96"
 	)
 	void method3849(int var1, int var2, int var3) {
@@ -479,7 +479,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IIIB)V",
+		descriptor = "(IIIB)V",
 		garbageValue = "1"
 	)
 	void method3850(int var1, int var2, int var3) {
@@ -487,7 +487,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "-70"
 	)
 	void method3851(int var1, int var2) {
@@ -495,7 +495,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "40"
 	)
 	void method3961(int var1, int var2) {
@@ -504,7 +504,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1783640245"
 	)
 	void method3858(int var1) {
@@ -531,7 +531,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "183029579"
 	)
 	void method3952(int var1) {
@@ -559,7 +559,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "911673263"
 	)
 	void method3855(int var1) {
@@ -574,7 +574,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-57"
 	)
 	void method3856() {
@@ -594,7 +594,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "8"
 	)
 	void method3857(int var1) {
@@ -610,7 +610,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1839659310"
 	)
 	void method3929(int var1) {
@@ -626,7 +626,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1915531597"
 	)
 	void method3845(int var1) {
@@ -820,7 +820,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1375281235"
 	)
 	void method3860(int var1, int var2) {
@@ -830,7 +830,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		signature = "(Lhm;I)I",
+		descriptor = "(Lhm;I)I",
 		garbageValue = "2062902962"
 	)
 	int method3861(MusicPatchNode var1) {
@@ -856,7 +856,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "(Lhm;I)I",
+		descriptor = "(Lhm;I)I",
 		garbageValue = "-352128958"
 	)
 	int method3958(MusicPatchNode var1) {
@@ -902,7 +902,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(Lhm;B)I",
+		descriptor = "(Lhm;B)I",
 		garbageValue = "0"
 	)
 	int method3912(MusicPatchNode var1) {
@@ -912,7 +912,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-668815738"
 	)
 	void method3872() {
@@ -958,7 +958,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "(Lhm;I)Z",
+		descriptor = "(Lhm;I)Z",
 		garbageValue = "-1517604835"
 	)
 	boolean method3870(MusicPatchNode var1) {
@@ -978,7 +978,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "(Lhm;[IIII)Z",
+		descriptor = "(Lhm;[IIII)Z",
 		garbageValue = "2001156959"
 	)
 	boolean method3897(MusicPatchNode var1, int[] var2, int var3, int var4) {
@@ -1078,7 +1078,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2049415960"
 	)
 	public static void method3918() {
@@ -1119,7 +1119,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1122474734"
 	)
 	protected static final void method3905() {
@@ -1139,7 +1139,7 @@ public class MidiPcmStream extends PcmStream {
 
 	@ObfuscatedName("fr")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "1626393180"
 	)
 	@Export("forceDisconnect")

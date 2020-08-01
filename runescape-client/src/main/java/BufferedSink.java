@@ -56,7 +56,7 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "49"
 	)
 	@Export("isClosed")
@@ -81,7 +81,7 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
+		descriptor = "([BIII)V",
 		garbageValue = "2083374722"
 	)
 	@Export("write")
@@ -121,7 +121,7 @@ public class BufferedSink implements Runnable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(S)V",
+		descriptor = "(S)V",
 		garbageValue = "7072"
 	)
 	@Export("close")

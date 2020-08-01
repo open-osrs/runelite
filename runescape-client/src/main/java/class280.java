@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class280 {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;Lmo;I)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/CharSequence;Lmo;I)Ljava/lang/String;",
 		garbageValue = "-1896450279"
 	)
 	public static String method5160(CharSequence var0, LoginType var1) {

@@ -10,12 +10,12 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	static IndexedSprite field206;
 	@ObfuscatedName("dj")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive14")
 	static Archive archive14;
@@ -27,7 +27,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	final int objectDefId;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lap;"
+		descriptor = "Lap;"
 	)
 	@Export("region")
 	final WorldMapRegion region;
@@ -39,7 +39,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	int element;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lar;"
+		descriptor = "Lar;"
 	)
 	@Export("label")
 	WorldMapLabel label;
@@ -57,7 +57,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	int subHeight;
 
 	@ObfuscatedSignature(
-		signature = "(Lhg;Lhg;ILap;)V"
+		descriptor = "(Lhg;Lhg;ILap;)V"
 	)
 	WorldMapIcon_1(Coord var1, Coord var2, int var3, WorldMapRegion var4) {
 		super(var1, var2);
@@ -68,7 +68,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "0"
 	)
 	@Export("getElement")
@@ -78,7 +78,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)Lar;",
+		descriptor = "(B)Lar;",
 		garbageValue = "35"
 	)
 	@Export("getLabel")
@@ -88,7 +88,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1804331962"
 	)
 	@Export("getSubWidth")
@@ -98,7 +98,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1265869629"
 	)
 	@Export("getSubHeight")
@@ -108,7 +108,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "19136800"
 	)
 	@Export("init")
@@ -129,7 +129,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/security/SecureRandom;",
+		descriptor = "(I)Ljava/security/SecureRandom;",
 		garbageValue = "1486718795"
 	)
 	static SecureRandom method348() {
@@ -140,7 +140,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "([BIIIIIIILem;[Lfz;I)V",
+		descriptor = "([BIIIIIIILem;[Lfz;I)V",
 		garbageValue = "1704898412"
 	)
 	static final void method365(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, Scene var8, CollisionMap[] var9) {

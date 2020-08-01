@@ -26,13 +26,13 @@ public final class WorldMapManager {
 	boolean loadStarted;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Laz;"
+		descriptor = "Laz;"
 	)
 	@Export("mapAreaData")
 	WorldMapAreaData mapAreaData;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+		descriptor = "Llz;"
 	)
 	@Export("compositeTextureSprite")
 	Sprite compositeTextureSprite;
@@ -41,7 +41,7 @@ public final class WorldMapManager {
 	HashMap icons;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "[[Lap;"
+		descriptor = "[[Lap;"
 	)
 	@Export("regions")
 	WorldMapRegion[][] regions;
@@ -50,19 +50,19 @@ public final class WorldMapManager {
 	HashMap scaleHandlers;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("mapSceneSprites")
 	IndexedSprite[] mapSceneSprites;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("geographyArchive")
 	final AbstractArchive geographyArchive;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("groundArchive")
 	final AbstractArchive groundArchive;
@@ -101,7 +101,7 @@ public final class WorldMapManager {
 	public int pixelsPerTile;
 
 	@ObfuscatedSignature(
-		signature = "([Llh;Ljava/util/HashMap;Lic;Lic;)V"
+		descriptor = "([Llh;Ljava/util/HashMap;Lic;Lic;)V"
 	)
 	public WorldMapManager(IndexedSprite[] var1, HashMap var2, AbstractArchive var3, AbstractArchive var4) {
 		this.loaded = false;
@@ -116,7 +116,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Ljava/lang/String;ZI)V",
+		descriptor = "(Lic;Ljava/lang/String;ZI)V",
 		garbageValue = "2141843540"
 	)
 	@Export("load")
@@ -189,7 +189,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1532053467"
 	)
 	@Export("clearIcons")
@@ -199,7 +199,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIII)V",
+		descriptor = "(IIIIIIIII)V",
 		garbageValue = "-2041483003"
 	)
 	@Export("drawTiles")
@@ -246,7 +246,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIILjava/util/HashSet;Ljava/util/HashSet;IIZI)V",
+		descriptor = "(IIIIIIIILjava/util/HashSet;Ljava/util/HashSet;IIZI)V",
 		garbageValue = "531249052"
 	)
 	@Export("drawElements")
@@ -281,7 +281,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IIIILjava/util/HashSet;IIB)V",
+		descriptor = "(IIIILjava/util/HashSet;IIB)V",
 		garbageValue = "-52"
 	)
 	@Export("drawOverview")
@@ -321,7 +321,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIIIIB)Ljava/util/List;",
+		descriptor = "(IIIIIIIIIIB)Ljava/util/List;",
 		garbageValue = "7"
 	)
 	public List method695(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10) {
@@ -350,7 +350,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IIIII)Lag;",
+		descriptor = "(IIIII)Lag;",
 		garbageValue = "-1190093558"
 	)
 	@Export("createWorldMapRectangle")
@@ -393,7 +393,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "0"
 	)
 	@Export("isLoaded")
@@ -403,7 +403,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/util/HashMap;",
+		descriptor = "(I)Ljava/util/HashMap;",
 		garbageValue = "-518296380"
 	)
 	@Export("buildIcons")
@@ -414,7 +414,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-84"
 	)
 	@Export("buildIcons0")
@@ -451,7 +451,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(IIB)F",
+		descriptor = "(IIB)F",
 		garbageValue = "-11"
 	)
 	@Export("getPixelsPerTile")
@@ -469,7 +469,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1960710050"
 	)
 	@Export("isKeyDown")
@@ -488,7 +488,7 @@ public final class WorldMapManager {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZB)I",
+		descriptor = "(ILcs;ZB)I",
 		garbageValue = "-25"
 	)
 	static int method717(int var0, Script var1, boolean var2) {

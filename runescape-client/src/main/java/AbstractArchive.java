@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class AbstractArchive {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lmu;"
+		descriptor = "Lmu;"
 	)
 	@Export("gzipDecompressor")
 	static GZipDecompressor gzipDecompressor;
@@ -32,7 +32,7 @@ public abstract class AbstractArchive {
 	int[] groupNameHashes;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lmh;"
+		descriptor = "Lmh;"
 	)
 	@Export("groupNameHashTable")
 	IntHashTable groupNameHashTable;
@@ -53,7 +53,7 @@ public abstract class AbstractArchive {
 	int[][] fileNameHashes;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "[Lmh;"
+		descriptor = "[Lmh;"
 	)
 	@Export("fileNameHashTables")
 	IntHashTable[] fileNameHashTables;
@@ -88,7 +88,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([BB)V",
+		descriptor = "([BB)V",
 		garbageValue = "-101"
 	)
 	@Export("decodeIndex")
@@ -221,7 +221,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "479482423"
 	)
 	@Export("loadRegionFromGroup")
@@ -230,7 +230,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(III)[B",
+		descriptor = "(III)[B",
 		garbageValue = "1860640327"
 	)
 	@Export("takeFile")
@@ -240,7 +240,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II[II)[B",
+		descriptor = "(II[II)[B",
 		garbageValue = "-1226634846"
 	)
 	@Export("takeFileEncrypted")
@@ -270,7 +270,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
+		descriptor = "(III)Z",
 		garbageValue = "1957538709"
 	)
 	@Export("tryLoadFile")
@@ -291,7 +291,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "-2058273834"
 	)
 	public boolean method4359(int var1) {
@@ -306,7 +306,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "1896348837"
 	)
 	@Export("tryLoadGroup")
@@ -321,7 +321,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "0"
 	)
 	@Export("isFullyLoaded")
@@ -343,7 +343,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-1350822089"
 	)
 	@Export("groupLoadPercent")
@@ -353,7 +353,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(II)[B",
+		descriptor = "(II)[B",
 		garbageValue = "1718789334"
 	)
 	@Export("takeFileFlat")
@@ -369,7 +369,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(III)[B",
+		descriptor = "(III)[B",
 		garbageValue = "490044156"
 	)
 	@Export("getFile")
@@ -395,7 +395,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(II)[B",
+		descriptor = "(II)[B",
 		garbageValue = "1362853135"
 	)
 	@Export("getFileFlat")
@@ -411,7 +411,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1560066319"
 	)
 	@Export("loadGroup")
@@ -420,7 +420,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IB)[I",
+		descriptor = "(IB)[I",
 		garbageValue = "-56"
 	)
 	@Export("getGroupFileIds")
@@ -430,7 +430,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-888140327"
 	)
 	@Export("getGroupFileCount")
@@ -440,7 +440,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-763058439"
 	)
 	@Export("getGroupCount")
@@ -450,7 +450,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1760033757"
 	)
 	@Export("clearGroups")
@@ -463,7 +463,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-546235261"
 	)
 	@Export("clearFilesGroup")
@@ -476,7 +476,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "1"
 	)
 	@Export("clearFiles")
@@ -493,7 +493,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I[II)Z",
+		descriptor = "(I[II)Z",
 		garbageValue = "-1692394825"
 	)
 	@Export("buildFiles")
@@ -618,7 +618,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)I",
+		descriptor = "(Ljava/lang/String;I)I",
 		garbageValue = "-1113782685"
 	)
 	@Export("getGroupId")
@@ -629,7 +629,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)I",
+		descriptor = "(ILjava/lang/String;I)I",
 		garbageValue = "1362853135"
 	)
 	@Export("getFileId")
@@ -640,7 +640,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;I)Z",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;I)Z",
 		garbageValue = "-1310066556"
 	)
 	@Export("isValidFileName")
@@ -658,7 +658,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;I)[B",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;I)[B",
 		garbageValue = "-222408314"
 	)
 	@Export("takeFileByNames")
@@ -672,7 +672,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;I)Z",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;I)Z",
 		garbageValue = "-778364429"
 	)
 	@Export("tryLoadFileByNames")
@@ -686,7 +686,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)Z",
+		descriptor = "(Ljava/lang/String;B)Z",
 		garbageValue = "-81"
 	)
 	@Export("tryLoadGroupByName")
@@ -698,7 +698,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-1143877885"
 	)
 	@Export("loadRegionFromName")
@@ -712,7 +712,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)I",
+		descriptor = "(Ljava/lang/String;I)I",
 		garbageValue = "-252379742"
 	)
 	@Export("groupLoadPercentByName")
@@ -724,7 +724,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IIIIIII)V",
+		descriptor = "(Lkn;IIIIIII)V",
 		garbageValue = "-1571118584"
 	)
 	@Export("loadTerrain")
@@ -790,7 +790,7 @@ public abstract class AbstractArchive {
 
 	@ObfuscatedName("gr")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "682759182"
 	)
 	static final int method4411() {

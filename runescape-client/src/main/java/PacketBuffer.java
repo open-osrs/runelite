@@ -11,7 +11,7 @@ public class PacketBuffer extends Buffer {
 	static final int[] field3728;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llb;"
+		descriptor = "Llb;"
 	)
 	@Export("isaacCipher")
 	IsaacCipher isaacCipher;
@@ -32,7 +32,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([II)V",
+		descriptor = "([II)V",
 		garbageValue = "-1865727993"
 	)
 	@Export("newIsaacCipher")
@@ -42,7 +42,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Llb;I)V",
+		descriptor = "(Llb;I)V",
 		garbageValue = "-472683600"
 	)
 	@Export("setIsaacCipher")
@@ -52,7 +52,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-2126324259"
 	)
 	@Export("writeByteIsaac")
@@ -62,7 +62,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1443887320"
 	)
 	@Export("readByteIsaac")
@@ -72,7 +72,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1957045910"
 	)
 	public boolean method5657() {
@@ -82,7 +82,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "691786573"
 	)
 	@Export("readSmartByteShortIsaac")
@@ -93,7 +93,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
+		descriptor = "([BIII)V",
 		garbageValue = "1379772441"
 	)
 	public void method5680(byte[] var1, int var2, int var3) {
@@ -105,7 +105,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1358588268"
 	)
 	@Export("importIndex")
@@ -115,7 +115,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-1109143909"
 	)
 	@Export("readBits")
@@ -140,7 +140,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-15519430"
 	)
 	@Export("exportIndex")
@@ -150,7 +150,7 @@ public class PacketBuffer extends Buffer {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "565890213"
 	)
 	@Export("bitsRemaining")

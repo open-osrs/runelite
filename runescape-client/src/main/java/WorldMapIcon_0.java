@@ -10,7 +10,7 @@ import net.runelite.rs.ScriptOpcodes;
 public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	@ObfuscatedName("sq")
 	@ObfuscatedSignature(
-		signature = "Lr;"
+		descriptor = "Lr;"
 	)
 	@Export("grandExchangeEvents")
 	static GrandExchangeEvents grandExchangeEvents;
@@ -22,7 +22,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	final int element;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lar;"
+		descriptor = "Lar;"
 	)
 	@Export("label")
 	final WorldMapLabel label;
@@ -40,7 +40,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	final int subHeight;
 
 	@ObfuscatedSignature(
-		signature = "(Lhg;Lhg;ILar;)V"
+		descriptor = "(Lhg;Lhg;ILar;)V"
 	)
 	WorldMapIcon_0(Coord var1, Coord var2, int var3, WorldMapLabel var4) {
 		super(var1, var2);
@@ -60,7 +60,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "0"
 	)
 	@Export("getElement")
@@ -70,7 +70,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)Lar;",
+		descriptor = "(B)Lar;",
 		garbageValue = "35"
 	)
 	@Export("getLabel")
@@ -80,7 +80,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1804331962"
 	)
 	@Export("getSubWidth")
@@ -90,7 +90,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1265869629"
 	)
 	@Export("getSubHeight")
@@ -100,7 +100,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)[B",
+		descriptor = "(II)[B",
 		garbageValue = "-116765930"
 	)
 	@Export("ByteArrayPool_getArray")
@@ -110,7 +110,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1354105347"
 	)
 	static int method265(int var0, Script var1, boolean var2) {
@@ -467,7 +467,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("gc")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "-63078339"
 	)
 	@Export("addNpcsToScene")
@@ -497,7 +497,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	@ObfuscatedName("it")
 	@ObfuscatedSignature(
-		signature = "([Lhd;Lhd;ZS)V",
+		descriptor = "([Lhd;Lhd;ZS)V",
 		garbageValue = "-3141"
 	)
 	@Export("revalidateWidgetScroll")

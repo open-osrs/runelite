@@ -151,7 +151,7 @@ public class ClassGroup implements Iterable<ClassFile>
 	{
 		for (ClassFile cf : classes)
 		{
-			if (name.equals(getObfuscatedName(cf.getAnnotations())))
+			if (name.equals(getObfuscatedName(cf)))
 			{
 				return cf;
 			}

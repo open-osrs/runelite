@@ -16,7 +16,7 @@ public class LoginScreenAnimation {
 	static int selectedItemSlot;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("sprites")
 	IndexedSprite[] sprites;
@@ -70,7 +70,7 @@ public class LoginScreenAnimation {
 	int field1074;
 
 	@ObfuscatedSignature(
-		signature = "([Llh;)V"
+		descriptor = "([Llh;)V"
 	)
 	LoginScreenAnimation(IndexedSprite[] var1) {
 		this.field1075 = new int[256];
@@ -86,7 +86,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-16"
 	)
 	@Export("initColors")
@@ -157,7 +157,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2116735890"
 	)
 	void method1878() {
@@ -175,7 +175,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1329214185"
 	)
 	@Export("draw")
@@ -203,7 +203,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-305399146"
 	)
 	final void method1880(int var1) {
@@ -337,7 +337,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
+		descriptor = "(IIII)I",
 		garbageValue = "353428721"
 	)
 	final int method1891(int var1, int var2, int var3) {
@@ -347,7 +347,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "40685678"
 	)
 	final void method1882(int var1) {
@@ -367,7 +367,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I[IB)V",
+		descriptor = "(I[IB)V",
 		garbageValue = "41"
 	)
 	final void method1886(int var1, int[] var2) {
@@ -387,7 +387,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "15252473"
 	)
 	final void method1884(int var1) {
@@ -431,7 +431,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Llh;I)V",
+		descriptor = "(Llh;I)V",
 		garbageValue = "-760749522"
 	)
 	final void method1885(IndexedSprite var1) {
@@ -480,7 +480,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "([BIIIIIII[Lfz;I)V",
+		descriptor = "([BIIIIIII[Lfz;I)V",
 		garbageValue = "66216788"
 	)
 	static final void method1879(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, CollisionMap[] var8) {
@@ -527,7 +527,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "-83"
 	)
 	static void method1908(int var0) {
@@ -539,7 +539,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-49"
 	)
 	static void method1906() {
@@ -551,7 +551,7 @@ public class LoginScreenAnimation {
 
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "-1332294124"
 	)
 	static int method1883(int var0, Script var1, boolean var2) {

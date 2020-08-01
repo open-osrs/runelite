@@ -66,7 +66,7 @@ public class ViewportMouse {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
+		descriptor = "(IIB)I",
 		garbageValue = "-104"
 	)
 	public static int method3091(int var0, int var1) {
@@ -75,7 +75,7 @@ public class ViewportMouse {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(CI)Z",
+		descriptor = "(CI)Z",
 		garbageValue = "998588366"
 	)
 	public static boolean method3071(char var0) {

@@ -27,7 +27,7 @@ public class MappedClass
 
 		implementingName = DeobAnnotations.getImplements(c);
 
-		obfuscatedName = DeobAnnotations.getObfuscatedName(c.getAnnotations());
+		obfuscatedName = DeobAnnotations.getObfuscatedName(c);
 		if (obfuscatedName == null)
 		{
 			obfuscatedName = c.getName();
@@ -36,7 +36,7 @@ public class MappedClass
 		ClassFile parent = c.getParent();
 		if (parent != null)
 		{
-			superClass = DeobAnnotations.getObfuscatedName(parent.getAnnotations());
+			superClass = DeobAnnotations.getObfuscatedName(parent);
 		}
 
 		access = c.getAccess();
@@ -44,7 +44,6 @@ public class MappedClass
 		interfaces = c.getInterfaces()
 			.getMyInterfaces()
 			.stream()
-			.map(ClassFile::getAnnotations)
 			.map(DeobAnnotations::getObfuscatedName)
 			.collect(Collectors.toList());
 

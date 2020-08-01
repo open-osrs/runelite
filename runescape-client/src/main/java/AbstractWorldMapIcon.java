@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class AbstractWorldMapIcon {
 	@ObfuscatedName("es")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive17")
 	static Archive archive17;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lhg;"
+		descriptor = "Lhg;"
 	)
 	@Export("coord2")
 	public final Coord coord2;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lhg;"
+		descriptor = "Lhg;"
 	)
 	@Export("coord1")
 	public final Coord coord1;
@@ -39,7 +39,7 @@ public abstract class AbstractWorldMapIcon {
 	int screenY;
 
 	@ObfuscatedSignature(
-		signature = "(Lhg;Lhg;)V"
+		descriptor = "(Lhg;Lhg;)V"
 	)
 	AbstractWorldMapIcon(Coord var1, Coord var2) {
 		this.coord1 = var1;
@@ -48,7 +48,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "0"
 	)
 	@Export("getElement")
@@ -56,7 +56,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)Lar;",
+		descriptor = "(B)Lar;",
 		garbageValue = "35"
 	)
 	@Export("getLabel")
@@ -64,7 +64,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1804331962"
 	)
 	@Export("getSubWidth")
@@ -72,7 +72,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1265869629"
 	)
 	@Export("getSubHeight")
@@ -80,7 +80,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
+		descriptor = "(III)Z",
 		garbageValue = "422348755"
 	)
 	@Export("fitsScreen")
@@ -94,7 +94,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "807957820"
 	)
 	@Export("hasValidElement")
@@ -104,7 +104,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
+		descriptor = "(III)Z",
 		garbageValue = "872444562"
 	)
 	@Export("elementFitsScreen")
@@ -158,7 +158,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(IIB)Z",
+		descriptor = "(IIB)Z",
 		garbageValue = "1"
 	)
 	@Export("labelFitsScreen")
@@ -175,7 +175,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-288699605"
 	)
 	public static void method687() {
@@ -194,7 +194,7 @@ public abstract class AbstractWorldMapIcon {
 
 	@ObfuscatedName("fk")
 	@ObfuscatedSignature(
-		signature = "(IIII)V",
+		descriptor = "(IIII)V",
 		garbageValue = "-886030498"
 	)
 	@Export("queueSoundEffect")

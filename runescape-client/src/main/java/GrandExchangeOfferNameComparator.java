@@ -9,20 +9,20 @@ import net.runelite.mapping.ObfuscatedSignature;
 final class GrandExchangeOfferNameComparator implements Comparator {
 	@ObfuscatedName("fv")
 	@ObfuscatedSignature(
-		signature = "Lko;"
+		descriptor = "Lko;"
 	)
 	@Export("fontBold12")
 	static Font fontBold12;
 	@ObfuscatedName("gt")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+		descriptor = "Llz;"
 	)
 	@Export("compass")
 	static Sprite compass;
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ls;Ls;I)I",
+		descriptor = "(Ls;Ls;I)I",
 		garbageValue = "1584423872"
 	)
 	@Export("compare_bridged")
@@ -40,7 +40,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[Ljc;",
+		descriptor = "(I)[Ljc;",
 		garbageValue = "491674021"
 	)
 	static HorizontalAlignment[] method207() {
@@ -49,7 +49,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-678921308"
 	)
 	static void method213() {
@@ -59,7 +59,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 
 	@ObfuscatedName("kt")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-350266063"
 	)
 	static void method214(Buffer var0, int var1) {
@@ -74,7 +74,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 
 	@ObfuscatedName("kv")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2098531910"
 	)
 	static void method206() {

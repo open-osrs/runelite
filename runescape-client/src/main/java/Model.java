@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Model extends Entity {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lef;"
+		descriptor = "Lef;"
 	)
 	@Export("Model_sharedSequenceModel")
 	static Model Model_sharedSequenceModel;
@@ -17,7 +17,7 @@ public class Model extends Entity {
 	static byte[] Model_sharedSequenceModelFaceAlphas;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lef;"
+		descriptor = "Lef;"
 	)
 	@Export("Model_sharedSpotAnimationModel")
 	static Model Model_sharedSpotAnimationModel;
@@ -222,7 +222,7 @@ public class Model extends Entity {
 	}
 
 	@ObfuscatedSignature(
-		signature = "([Lef;I)V"
+		descriptor = "([Lef;I)V"
 	)
 	public Model(Model[] var1, int var2) {
 		this.verticesCount = 0;
@@ -365,7 +365,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([[IIIIZI)Lef;"
+		descriptor = "([[IIIIZI)Lef;"
 	)
 	@Export("contourGround")
 	public Model contourGround(int[][] var1, int var2, int var3, int var4, boolean var5, int var6) {
@@ -463,7 +463,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Z)Lef;"
+		descriptor = "(Z)Lef;"
 	)
 	@Export("toSharedSequenceModel")
 	public Model toSharedSequenceModel(boolean var1) {
@@ -476,7 +476,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Z)Lef;"
+		descriptor = "(Z)Lef;"
 	)
 	@Export("toSharedSpotAnimationModel")
 	public Model toSharedSpotAnimationModel(boolean var1) {
@@ -489,7 +489,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(ZLef;[B)Lef;"
+		descriptor = "(ZLef;[B)Lef;"
 	)
 	@Export("buildSharedModel")
 	Model buildSharedModel(boolean var1, Model var2, byte[] var3) {
@@ -678,7 +678,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Leg;I)V"
+		descriptor = "(Leg;I)V"
 	)
 	@Export("animate")
 	public void animate(Frames var1, int var2) {
@@ -702,7 +702,7 @@ public class Model extends Entity {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Leg;ILeg;I[I)V"
+		descriptor = "(Leg;ILeg;I[I)V"
 	)
 	@Export("animate2")
 	public void animate2(Frames var1, int var2, Frames var3, int var4, int[] var5) {

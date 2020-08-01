@@ -52,7 +52,7 @@ public class SoundEnvelope {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;)V"
+		descriptor = "(Lkn;)V"
 	)
 	@Export("decode")
 	final void decode(Buffer var1) {
@@ -64,7 +64,7 @@ public class SoundEnvelope {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;)V"
+		descriptor = "(Lkn;)V"
 	)
 	@Export("decodeSegments")
 	final void decodeSegments(Buffer var1) {

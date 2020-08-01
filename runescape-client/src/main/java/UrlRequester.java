@@ -23,7 +23,7 @@ public class UrlRequester implements Runnable {
 	static int Interpreter_intStackSize;
 	@ObfuscatedName("gk")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+		descriptor = "Llz;"
 	)
 	@Export("redHintArrowSprite")
 	static Sprite redHintArrowSprite;
@@ -46,7 +46,7 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/net/URL;I)Leb;",
+		descriptor = "(Ljava/net/URL;I)Leb;",
 		garbageValue = "1883643384"
 	)
 	@Export("request")
@@ -61,7 +61,7 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "1"
 	)
 	@Export("close")
@@ -133,7 +133,7 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZB)I",
+		descriptor = "(ILcs;ZB)I",
 		garbageValue = "23"
 	)
 	static int method3424(int var0, Script var1, boolean var2) {
@@ -269,7 +269,7 @@ public class UrlRequester implements Runnable {
 
 	@ObfuscatedName("ia")
 	@ObfuscatedSignature(
-		signature = "(S)I",
+		descriptor = "(S)I",
 		garbageValue = "-5481"
 	)
 	static final int method3421() {

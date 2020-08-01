@@ -6,19 +6,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class class13 {
 	@ObfuscatedName("sz")
 	@ObfuscatedSignature(
-		signature = "Lmc;"
+		descriptor = "Lmc;"
 	)
 	@Export("platformInfo")
 	static PlatformInfo platformInfo;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "[Lch;"
+		descriptor = "[Lch;"
 	)
 	@Export("World_worlds")
 	static World[] World_worlds;
 	@ObfuscatedName("bo")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	@Export("worldSelectLeftSprite")
 	static IndexedSprite worldSelectLeftSprite;

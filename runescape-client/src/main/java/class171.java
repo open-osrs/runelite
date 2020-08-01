@@ -15,7 +15,7 @@ public class class171 implements class170 {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-316130396"
 	)
 	@Export("Messages_getNextChatID")

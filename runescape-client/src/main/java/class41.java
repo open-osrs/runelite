@@ -17,7 +17,7 @@ public class class41 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "-1502584802"
 	)
 	public static void method624(boolean var0) {
@@ -42,7 +42,7 @@ public class class41 {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(IIIIIILem;Lfz;I)V",
+		descriptor = "(IIIIIILem;Lfz;I)V",
 		garbageValue = "-1774275667"
 	)
 	static final void method623(int var0, int var1, int var2, int var3, int var4, int var5, Scene var6, CollisionMap var7) {
@@ -406,7 +406,7 @@ public class class41 {
 
 	@ObfuscatedName("hl")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "1829350132"
 	)
 	@Export("updateItemPile")
@@ -459,7 +459,7 @@ public class class41 {
 
 	@ObfuscatedName("jj")
 	@ObfuscatedSignature(
-		signature = "(Lbz;ZI)V",
+		descriptor = "(Lbz;ZI)V",
 		garbageValue = "1167867750"
 	)
 	@Export("closeInterface")

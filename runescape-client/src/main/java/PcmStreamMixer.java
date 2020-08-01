@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class PcmStreamMixer extends PcmStream {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("subStreams")
 	NodeDeque subStreams;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	NodeDeque field1373;
 	@ObfuscatedName("q")
@@ -31,7 +31,7 @@ public class PcmStreamMixer extends PcmStream {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ldf;)V"
+		descriptor = "(Ldf;)V"
 	)
 	@Export("addSubStream")
 	public final synchronized void addSubStream(PcmStream var1) {
@@ -40,7 +40,7 @@ public class PcmStreamMixer extends PcmStream {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ldf;)V"
+		descriptor = "(Ldf;)V"
 	)
 	@Export("removeSubStream")
 	public final synchronized void removeSubStream(PcmStream var1) {
@@ -62,7 +62,7 @@ public class PcmStreamMixer extends PcmStream {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lgr;Ldb;)V"
+		descriptor = "(Lgr;Ldb;)V"
 	)
 	void method2423(Node var1, PcmStreamMixerListener var2) {
 		while (this.field1373.sentinel != var1 && ((PcmStreamMixerListener)var1).field1476 <= var2.field1476) {
@@ -75,7 +75,7 @@ public class PcmStreamMixer extends PcmStream {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ldb;)V"
+		descriptor = "(Ldb;)V"
 	)
 	void method2424(PcmStreamMixerListener var1) {
 		var1.remove();
@@ -91,7 +91,7 @@ public class PcmStreamMixer extends PcmStream {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
@@ -100,7 +100,7 @@ public class PcmStreamMixer extends PcmStream {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {

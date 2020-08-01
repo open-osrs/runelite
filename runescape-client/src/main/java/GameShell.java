@@ -32,7 +32,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public abstract class GameShell extends Applet implements Runnable, FocusListener, WindowListener {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lbn;"
+		descriptor = "Lbn;"
 	)
 	@Export("gameShell")
 	static GameShell gameShell;
@@ -77,7 +77,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	protected static int fps;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	@Export("options_buttons_2Sprite")
 	static IndexedSprite options_buttons_2Sprite;
@@ -186,7 +186,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	volatile long field489;
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "Lbh;"
+		descriptor = "Lbh;"
 	)
 	@Export("mouseWheelHandler")
 	MouseWheelHandler mouseWheelHandler;
@@ -234,7 +234,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-2030982939"
 	)
 	@Export("setMaxCanvasSize")
@@ -249,7 +249,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;I)V",
+		descriptor = "(Ljava/lang/Object;I)V",
 		garbageValue = "-876824322"
 	)
 	@Export("post")
@@ -268,7 +268,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Lfv;",
+		descriptor = "(I)Lfv;",
 		garbageValue = "-192453473"
 	)
 	@Export("mouseWheel")
@@ -283,7 +283,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-981291570"
 	)
 	@Export("setUpClipboard")
@@ -293,7 +293,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-2023298912"
 	)
 	@Export("clipboardSetString")
@@ -303,7 +303,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-316862367"
 	)
 	@Export("setUpKeyboard")
@@ -317,7 +317,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "196707341"
 	)
 	@Export("setUpMouse")
@@ -327,7 +327,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-752017845"
 	)
 	@Export("resizeCanvas")
@@ -365,7 +365,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1805213007"
 	)
 	@Export("resizeGame")
@@ -373,7 +373,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1664066560"
 	)
 	@Export("clearBackground")
@@ -418,7 +418,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "97"
 	)
 	@Export("replaceCanvas")
@@ -451,7 +451,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(IIII)V",
+		descriptor = "(IIII)V",
 		garbageValue = "-946150877"
 	)
 	@Export("startThread")
@@ -487,7 +487,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "799710409"
 	)
 	@Export("addCanvas")
@@ -537,7 +537,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "424530917"
 	)
 	@Export("checkHost")
@@ -569,7 +569,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-311013157"
 	)
 	@Export("clientTick")
@@ -590,7 +590,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "553684525"
 	)
 	@Export("graphicsTick")
@@ -633,7 +633,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "73839779"
 	)
 	final void method1004() {
@@ -647,7 +647,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2043772276"
 	)
 	final void method1029() {
@@ -656,7 +656,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-109609137"
 	)
 	@Export("kill")
@@ -694,7 +694,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "108465933"
 	)
 	@Export("setUp")
@@ -702,7 +702,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "202919973"
 	)
 	@Export("doCycle")
@@ -710,7 +710,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(ZS)V",
+		descriptor = "(ZS)V",
 		garbageValue = "255"
 	)
 	@Export("draw")
@@ -718,7 +718,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1432958229"
 	)
 	@Export("kill0")
@@ -726,7 +726,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;ZS)V",
+		descriptor = "(ILjava/lang/String;ZS)V",
 		garbageValue = "-6486"
 	)
 	@Export("drawInitial")
@@ -782,7 +782,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1038355483"
 	)
 	protected final void method1017() {
@@ -793,7 +793,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;S)V",
+		descriptor = "(Ljava/lang/String;S)V",
 		garbageValue = "23979"
 	)
 	@Export("error")
@@ -812,7 +812,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/awt/Container;",
+		descriptor = "(I)Ljava/awt/Container;",
 		garbageValue = "1395544876"
 	)
 	@Export("container")
@@ -822,7 +822,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		signature = "(S)Llv;",
+		descriptor = "(S)Llv;",
 		garbageValue = "9055"
 	)
 	@Export("getFrameContentBounds")
@@ -841,7 +841,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-2133416306"
 	)
 	@Export("hasFrame")
@@ -851,7 +851,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-453140820"
 	)
 	protected abstract void vmethod1570();
@@ -987,7 +987,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;ZI)Lmy;",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;ZI)Lmy;",
 		garbageValue = "968663760"
 	)
 	@Export("getPreferencesFile")
@@ -1028,7 +1028,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lic;III)Llz;",
+		descriptor = "(Lic;III)Llz;",
 		garbageValue = "1598756055"
 	)
 	@Export("SpriteBuffer_getSprite")

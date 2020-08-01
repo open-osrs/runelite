@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class23 {
 	@ObfuscatedName("eh")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1074751797"
 	)
 	static void method230(int var0, int var1) {
@@ -32,7 +32,7 @@ public class class23 {
 
 	@ObfuscatedName("ge")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1693964297"
 	)
 	static final void method229() {

@@ -25,7 +25,7 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
+		descriptor = "(I)Lef;",
 		garbageValue = "1832696685"
 	)
 	@Export("getModel")
@@ -35,7 +35,7 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;II)Lhi;",
+		descriptor = "(Lic;II)Lhi;",
 		garbageValue = "-1379318821"
 	)
 	static MusicPatch method2255(AbstractArchive var0, int var1) {
@@ -45,7 +45,7 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;B)V",
+		descriptor = "(Lic;B)V",
 		garbageValue = "14"
 	)
 	public static void method2256(AbstractArchive var0) {
@@ -55,7 +55,7 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(CI)Z",
+		descriptor = "(CI)Z",
 		garbageValue = "16711935"
 	)
 	@Export("isCharPrintable")
@@ -71,7 +71,7 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-145657229"
 	)
 	public static int method2259(int var0) {
@@ -84,7 +84,7 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("fs")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "748561937"
 	)
 	static final void method2260() {
@@ -102,7 +102,7 @@ public final class TileItem extends Entity {
 
 	@ObfuscatedName("gp")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIIII)V",
+		descriptor = "(IIIIIIIIII)V",
 		garbageValue = "393644147"
 	)
 	@Export("updatePendingSpawn")

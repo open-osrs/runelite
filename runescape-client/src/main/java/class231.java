@@ -6,7 +6,7 @@ import net.runelite.rs.ScriptOpcodes;
 public class class231 {
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "340792557"
 	)
 	static int method4277(int var0, Script var1, boolean var2) {
@@ -46,7 +46,7 @@ public class class231 {
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1553809797"
 	)
 	static int method4278(int var0, Script var1, boolean var2) {

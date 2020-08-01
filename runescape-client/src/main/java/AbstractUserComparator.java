@@ -23,7 +23,7 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/Comparator;S)V",
+		descriptor = "(Ljava/util/Comparator;S)V",
 		garbageValue = "-28900"
 	)
 	@Export("addComparator")
@@ -38,7 +38,7 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Ljf;Ljf;I)I",
+		descriptor = "(Ljf;Ljf;I)I",
 		garbageValue = "864234218"
 	)
 	@Export("compareUser")

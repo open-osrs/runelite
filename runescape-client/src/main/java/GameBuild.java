@@ -11,31 +11,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class GameBuild {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lij;"
+		descriptor = "Lij;"
 	)
 	@Export("LIVE")
 	public static final GameBuild LIVE;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lij;"
+		descriptor = "Lij;"
 	)
 	@Export("BUILDLIVE")
 	public static final GameBuild BUILDLIVE;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lij;"
+		descriptor = "Lij;"
 	)
 	@Export("RC")
 	public static final GameBuild RC;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lij;"
+		descriptor = "Lij;"
 	)
 	@Export("WIP")
 	public static final GameBuild WIP;
 	@ObfuscatedName("du")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive13")
 	static Archive archive13;
@@ -63,7 +63,7 @@ public class GameBuild {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)[Lgl;",
+		descriptor = "(I)[Lgl;",
 		garbageValue = "-290108173"
 	)
 	public static class194[] method4291() {
@@ -72,7 +72,7 @@ public class GameBuild {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)Ljava/io/File;",
+		descriptor = "(Ljava/lang/String;B)Ljava/io/File;",
 		garbageValue = "-93"
 	)
 	@Export("getFile")

@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class NodeDeque {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("sentinel")
 	public Node sentinel;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("current")
 	Node current;
@@ -41,7 +41,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lgr;)V"
+		descriptor = "(Lgr;)V"
 	)
 	@Export("addFirst")
 	public void addFirst(Node var1) {
@@ -57,7 +57,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lgr;)V"
+		descriptor = "(Lgr;)V"
 	)
 	@Export("addLast")
 	public void addLast(Node var1) {
@@ -73,7 +73,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("removeLast")
 	public Node removeLast() {
@@ -88,7 +88,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("removeFirst")
 	public Node removeFirst() {
@@ -103,7 +103,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("last")
 	public Node last() {
@@ -119,7 +119,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("first")
 	public Node first() {
@@ -135,7 +135,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("previous")
 	public Node previous() {
@@ -151,7 +151,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("next")
 	public Node next() {
@@ -167,7 +167,7 @@ public class NodeDeque {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lgr;Lgr;)V"
+		descriptor = "(Lgr;Lgr;)V"
 	)
 	@Export("NodeDeque_addBefore")
 	public static void NodeDeque_addBefore(Node var0, Node var1) {

@@ -11,7 +11,7 @@ public class ModelData0 {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(CI)C",
+		descriptor = "(CI)C",
 		garbageValue = "-706706502"
 	)
 	static char method3374(char var0) {
@@ -30,7 +30,7 @@ public class ModelData0 {
 
 	@ObfuscatedName("ii")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1532544056"
 	)
 	@Export("shouldPrioritizeDrop")

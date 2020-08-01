@@ -41,7 +41,7 @@ public class RawPcmStream extends PcmStream {
 	int field1504;
 
 	@ObfuscatedSignature(
-		signature = "(Ldp;III)V"
+		descriptor = "(Ldp;III)V"
 	)
 	RawPcmStream(RawSound var1, int var2, int var3, int var4) {
 		super.sound = var1;
@@ -56,7 +56,7 @@ public class RawPcmStream extends PcmStream {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Ldp;II)V"
+		descriptor = "(Ldp;II)V"
 	)
 	RawPcmStream(RawSound var1, int var2, int var3) {
 		super.sound = var1;
@@ -79,7 +79,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
@@ -88,7 +88,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
@@ -508,7 +508,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Z)V",
+		descriptor = "(Z)V",
 		garbageValue = "1"
 	)
 	public synchronized void method2683() {
@@ -842,7 +842,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ldp;II)Ldk;"
+		descriptor = "(Ldp;II)Ldk;"
 	)
 	@Export("createRawPcmStream")
 	public static RawPcmStream createRawPcmStream(RawSound var0, int var1, int var2) {
@@ -851,7 +851,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ldp;III)Ldk;"
+		descriptor = "(Ldp;III)Ldk;"
 	)
 	public static RawPcmStream method2674(RawSound var0, int var1, int var2, int var3) {
 		return var0.samples != null && var0.samples.length != 0 ? new RawPcmStream(var0, var1, var2, var3) : null;
@@ -859,7 +859,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "([B[IIIIIIILdk;)I"
+		descriptor = "([B[IIIIIIILdk;)I"
 	)
 	static int method2723(byte[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, RawPcmStream var8) {
 		var2 >>= 8;
@@ -890,7 +890,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		signature = "(I[B[IIIIIIIILdk;)I"
+		descriptor = "(I[B[IIIIIIIILdk;)I"
 	)
 	static int method2742(int var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, RawPcmStream var10) {
 		var3 >>= 8;
@@ -941,7 +941,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "([B[IIIIIIILdk;)I"
+		descriptor = "([B[IIIIIIILdk;)I"
 	)
 	static int method2702(byte[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, RawPcmStream var8) {
 		var2 >>= 8;
@@ -972,7 +972,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(I[B[IIIIIIIILdk;)I"
+		descriptor = "(I[B[IIIIIIIILdk;)I"
 	)
 	static int method2783(int var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, RawPcmStream var10) {
 		var3 >>= 8;
@@ -1023,7 +1023,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIILdk;II)I"
 	)
 	static int method2740(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, RawPcmStream var10, int var11, int var12) {
 		if (var11 == 0 || (var7 = var5 + (var11 + (var9 - var4) - 257) / var11) > var8) {
@@ -1056,7 +1056,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIIILdk;II)I"
 	)
 	static int method2705(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, RawPcmStream var11, int var12, int var13) {
 		if (var12 == 0 || (var8 = var5 + (var10 - var4 + var12 - 257) / var12) > var9) {
@@ -1098,7 +1098,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIILdk;II)I"
 	)
 	static int method2706(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, RawPcmStream var10, int var11, int var12) {
 		if (var11 == 0 || (var7 = var5 + (var11 + (var9 + 256 - var4)) / var11) > var8) {
@@ -1131,7 +1131,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("bk")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIIILdk;II)I"
 	)
 	static int method2707(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, RawPcmStream var11, int var12, int var13) {
 		if (var12 == 0 || (var8 = var5 + (var10 + 256 - var4 + var12) / var12) > var9) {
@@ -1171,7 +1171,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("bh")
 	@ObfuscatedSignature(
-		signature = "([B[IIIIIIIILdk;)I"
+		descriptor = "([B[IIIIIIIILdk;)I"
 	)
 	static int method2708(byte[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, RawPcmStream var9) {
 		var2 >>= 8;
@@ -1212,7 +1212,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("bg")
 	@ObfuscatedSignature(
-		signature = "(I[B[IIIIIIIIIILdk;)I"
+		descriptor = "(I[B[IIIIIIIIIILdk;)I"
 	)
 	static int method2781(int var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, RawPcmStream var12) {
 		var3 >>= 8;
@@ -1278,7 +1278,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		signature = "([B[IIIIIIIILdk;)I"
+		descriptor = "([B[IIIIIIIILdk;)I"
 	)
 	static int method2695(byte[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, RawPcmStream var9) {
 		var2 >>= 8;
@@ -1319,7 +1319,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		signature = "(I[B[IIIIIIIIIILdk;)I"
+		descriptor = "(I[B[IIIIIIIIIILdk;)I"
 	)
 	static int method2711(int var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, RawPcmStream var12) {
 		var3 >>= 8;
@@ -1385,7 +1385,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("ba")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIIILdk;II)I"
 	)
 	static int method2712(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, RawPcmStream var11, int var12, int var13) {
 		var11.field1495 -= var11.field1490 * var5;
@@ -1425,7 +1425,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("bd")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIIIIILdk;II)I"
 	)
 	static int method2738(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, RawPcmStream var13, int var14, int var15) {
 		var13.field1494 -= var5 * var13.field1502;
@@ -1476,7 +1476,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("bb")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIIILdk;II)I"
 	)
 	static int method2767(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, RawPcmStream var11, int var12, int var13) {
 		var11.field1495 -= var11.field1490 * var5;
@@ -1516,7 +1516,7 @@ public class RawPcmStream extends PcmStream {
 
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "(II[B[IIIIIIIIIILdk;II)I"
+		descriptor = "(II[B[IIIIIIIIIILdk;II)I"
 	)
 	static int method2672(int var0, int var1, byte[] var2, int[] var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, RawPcmStream var13, int var14, int var15) {
 		var13.field1494 -= var5 * var13.field1502;

@@ -33,7 +33,7 @@ public final class FloorDecoration {
 	int y;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity")
 	public Entity entity;

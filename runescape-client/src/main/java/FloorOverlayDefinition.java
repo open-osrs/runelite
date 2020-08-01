@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FloorOverlayDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("FloorOverlayDefinition_archive")
 	public static AbstractArchive FloorOverlayDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("FloorOverlayDefinition_cached")
 	public static EvictingDualNodeHashTable FloorOverlayDefinition_cached;
@@ -90,7 +90,7 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(S)V",
+		descriptor = "(S)V",
 		garbageValue = "9136"
 	)
 	@Export("postDecode")
@@ -107,7 +107,7 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "1893541080"
 	)
 	@Export("decode")
@@ -124,7 +124,7 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;III)V",
+		descriptor = "(Lkn;III)V",
 		garbageValue = "965813090"
 	)
 	@Export("decodeNext")
@@ -144,7 +144,7 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "1"
 	)
 	@Export("setHsl")
@@ -211,7 +211,7 @@ public class FloorOverlayDefinition extends DualNode {
 
 	@ObfuscatedName("bk")
 	@ObfuscatedSignature(
-		signature = "([BII)I",
+		descriptor = "([BII)I",
 		garbageValue = "-2091622873"
 	)
 	public static int method4936(byte[] var0, int var1) {

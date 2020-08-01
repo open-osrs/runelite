@@ -12,7 +12,7 @@ import netscape.javascript.JSObject;
 final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ls;Ls;I)I",
+		descriptor = "(Ls;Ls;I)I",
 		garbageValue = "-1370720727"
 	)
 	@Export("compare_bridged")
@@ -30,7 +30,7 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ILjava/lang/String;B)Z",
+		descriptor = "(Ljava/lang/String;ILjava/lang/String;B)Z",
 		garbageValue = "-68"
 	)
 	static boolean method165(String var0, int var1, String var2) {

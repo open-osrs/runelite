@@ -10,13 +10,13 @@ import net.runelite.rs.ScriptOpcodes;
 final class GrandExchangeOfferWorldComparator implements Comparator {
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		signature = "Lib;"
+		descriptor = "Lib;"
 	)
 	static StudioGame field54;
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ls;Ls;B)I",
+		descriptor = "(Ls;Ls;B)I",
 		garbageValue = "-1"
 	)
 	@Export("compare_bridged")
@@ -34,7 +34,7 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1613064985"
 	)
 	static int method137(int var0, Script var1, boolean var2) {

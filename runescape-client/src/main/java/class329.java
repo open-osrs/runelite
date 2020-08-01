@@ -13,7 +13,7 @@ public class class329 {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Lic;Ljava/lang/String;Ljava/lang/String;B)Llh;",
+		descriptor = "(Lic;Ljava/lang/String;Ljava/lang/String;B)Llh;",
 		garbageValue = "48"
 	)
 	@Export("SpriteBuffer_getIndexedSpriteByName")

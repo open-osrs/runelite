@@ -12,25 +12,25 @@ public class MusicPatchPcmStream extends PcmStream {
 	static GarbageCollectorMXBean garbageCollector;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgw;"
+		descriptor = "Lgw;"
 	)
 	@Export("superStream")
 	MidiPcmStream superStream;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("queue")
 	NodeDeque queue;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Ldd;"
+		descriptor = "Ldd;"
 	)
 	@Export("mixer")
 	PcmStreamMixer mixer;
 
 	@ObfuscatedSignature(
-		signature = "(Lgw;)V"
+		descriptor = "(Lgw;)V"
 	)
 	MusicPatchPcmStream(MidiPcmStream var1) {
 		this.queue = new NodeDeque();
@@ -40,7 +40,7 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lhm;[IIIIB)V",
+		descriptor = "(Lhm;[IIIIB)V",
 		garbageValue = "7"
 	)
 	void method4040(MusicPatchNode var1, int[] var2, int var3, int var4, int var5) {
@@ -90,7 +90,7 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lhm;II)V",
+		descriptor = "(Lhm;II)V",
 		garbageValue = "948558076"
 	)
 	void method4041(MusicPatchNode var1, int var2) {
@@ -119,7 +119,7 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
@@ -133,7 +133,7 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
@@ -205,7 +205,7 @@ public class MusicPatchPcmStream extends PcmStream {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
 		garbageValue = "-836395445"
 	)
 	@Export("setLoginResponseString")

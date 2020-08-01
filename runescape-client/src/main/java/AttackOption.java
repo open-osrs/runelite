@@ -10,38 +10,38 @@ import net.runelite.rs.ScriptOpcodes;
 public enum AttackOption implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lco;"
+		descriptor = "Lco;"
 	)
 	@Export("AttackOption_dependsOnCombatLevels")
 	AttackOption_dependsOnCombatLevels(0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lco;"
+		descriptor = "Lco;"
 	)
 	@Export("AttackOption_alwaysRightClick")
 	AttackOption_alwaysRightClick(1),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lco;"
+		descriptor = "Lco;"
 	)
 	@Export("AttackOption_leftClickWhereAvailable")
 	AttackOption_leftClickWhereAvailable(2),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lco;"
+		descriptor = "Lco;"
 	)
 	@Export("AttackOption_hidden")
 	AttackOption_hidden(3);
 
 	@ObfuscatedName("of")
 	@ObfuscatedSignature(
-		signature = "Lcy;"
+		descriptor = "Lcy;"
 	)
 	@Export("varcs")
 	static Varcs varcs;
 	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("mapDotSprites")
 	static Sprite[] mapDotSprites;
@@ -58,7 +58,7 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -68,7 +68,7 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Llh;",
+		descriptor = "(I)Llh;",
 		garbageValue = "-1275433341"
 	)
 	public static IndexedSprite method2173() {
@@ -87,7 +87,7 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-37"
 	)
 	public static void method2181() {
@@ -97,7 +97,7 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZB)I",
+		descriptor = "(ILcs;ZB)I",
 		garbageValue = "-99"
 	)
 	static int method2180(int var0, Script var1, boolean var2) {
@@ -192,7 +192,7 @@ public enum AttackOption implements Enumerated {
 
 	@ObfuscatedName("ho")
 	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
+		descriptor = "(IIIIB)V",
 		garbageValue = "-113"
 	)
 	@Export("selectSpell")

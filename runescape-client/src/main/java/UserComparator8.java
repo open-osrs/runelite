@@ -23,7 +23,7 @@ public class UserComparator8 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;B)I",
+		descriptor = "(Lkx;Lkx;B)I",
 		garbageValue = "101"
 	)
 	@Export("compareBuddy")
@@ -45,7 +45,7 @@ public class UserComparator8 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;B)V",
+		descriptor = "(Lic;B)V",
 		garbageValue = "-79"
 	)
 	public static void method3520(AbstractArchive var0) {

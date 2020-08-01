@@ -25,9 +25,11 @@
 package net.runelite.asm;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
+import java.util.Map;
+import lombok.Getter;
+import net.runelite.asm.attributes.Annotated;
 import net.runelite.asm.pool.Class;
 import net.runelite.asm.signature.Signature;
 import static net.runelite.deob.DeobAnnotations.*;
@@ -51,14 +53,14 @@ public class ClassFile implements Annotated, Named
 	private final Interfaces interfaces;
 	private final List<Field> fields = new ArrayList<>();
 	private final List<Method> methods = new ArrayList<>();
-	private final Annotations annotations;
+	@Getter
+	private final Map<Type, Annotation> annotations = new LinkedHashMap<>();
 
 	public ClassFile(ClassGroup group)
 	{
 		this.group = group;
 
 		interfaces = new Interfaces(this);
-		annotations = new Annotations();
 	}
 
 	public ClassFile()
@@ -99,7 +101,7 @@ public class ClassFile implements Annotated, Named
 		visitor.visit(version, access, name.getName(), null, super_class.getName(), ints);
 		visitor.visitSource(source, null);
 
-		for (Annotation annotation : annotations)
+		for (Annotation annotation : annotations.values())
 		{
 			annotation.accept(visitor.visitAnnotation(annotation.getType().toString(), true));
 		}
@@ -168,11 +170,6 @@ public class ClassFile implements Annotated, Named
 	public void removeMethod(Method method)
 	{
 		methods.remove(method);
-	}
-
-	public Annotations getAnnotations()
-	{
-		return annotations;
 	}
 
 	public String getName()
@@ -312,7 +309,7 @@ public class ClassFile implements Annotated, Named
 		for (Method m : methods)
 		{
 			if (m.isStatic() &&
-				name.equals(getObfuscatedName(m.getAnnotations())) &&
+				name.equals(getObfuscatedName(m)) &&
 				type.equals(getObfuscatedSignature(m)))
 			{
 				return m;

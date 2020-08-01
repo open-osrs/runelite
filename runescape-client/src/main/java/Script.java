@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Script extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Script_cached")
 	static EvictingDualNodeHashTable Script_cached;
@@ -48,7 +48,7 @@ public class Script extends DualNode {
 	int stringArgumentCount;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "[Llf;"
+		descriptor = "[Llf;"
 	)
 	@Export("switches")
 	IterableNodeHashTable[] switches;
@@ -62,7 +62,7 @@ public class Script extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)[Llf;",
+		descriptor = "(II)[Llf;",
 		garbageValue = "-978861309"
 	)
 	@Export("newIterableNodeHashTable")

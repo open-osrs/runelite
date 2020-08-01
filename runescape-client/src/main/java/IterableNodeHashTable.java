@@ -12,19 +12,19 @@ public final class IterableNodeHashTable implements Iterable {
 	int size;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "[Lgr;"
+		descriptor = "[Lgr;"
 	)
 	@Export("buckets")
 	Node[] buckets;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("currentGet")
 	Node currentGet;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("current")
 	Node current;
@@ -47,7 +47,7 @@ public final class IterableNodeHashTable implements Iterable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(J)Lgr;"
+		descriptor = "(J)Lgr;"
 	)
 	@Export("get")
 	public Node get(long var1) {
@@ -67,7 +67,7 @@ public final class IterableNodeHashTable implements Iterable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lgr;J)V"
+		descriptor = "(Lgr;J)V"
 	)
 	@Export("put")
 	public void put(Node var1, long var2) {
@@ -105,7 +105,7 @@ public final class IterableNodeHashTable implements Iterable {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("first")
 	public Node first() {
@@ -115,7 +115,7 @@ public final class IterableNodeHashTable implements Iterable {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "()Lgr;"
+		descriptor = "()Lgr;"
 	)
 	@Export("next")
 	public Node next() {

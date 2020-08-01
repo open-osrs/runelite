@@ -15,43 +15,43 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMap {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("fontNameVerdana11")
 	static final FontName fontNameVerdana11;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("fontNameVerdana13")
 	static final FontName fontNameVerdana13;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("fontNameVerdana15")
 	static final FontName fontNameVerdana15;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("WorldMap_archive")
 	AbstractArchive WorldMap_archive;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("WorldMap_geographyArchive")
 	AbstractArchive WorldMap_geographyArchive;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("WorldMap_groundArchive")
 	AbstractArchive WorldMap_groundArchive;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lko;"
+		descriptor = "Lko;"
 	)
 	@Export("font")
 	Font font;
@@ -60,7 +60,7 @@ public class WorldMap {
 	HashMap fonts;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("mapSceneSprites")
 	IndexedSprite[] mapSceneSprites;
@@ -69,30 +69,30 @@ public class WorldMap {
 	HashMap details;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Lad;"
+		descriptor = "Lad;"
 	)
 	@Export("mainMapArea")
 	WorldMapArea mainMapArea;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		signature = "Lad;"
+		descriptor = "Lad;"
 	)
 	@Export("currentMapArea")
 	WorldMapArea currentMapArea;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Lad;"
+		descriptor = "Lad;"
 	)
 	WorldMapArea field3984;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Laa;"
+		descriptor = "Laa;"
 	)
 	@Export("worldMapManager")
 	WorldMapManager worldMapManager;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "Lml;"
+		descriptor = "Lml;"
 	)
 	@Export("cacheLoader")
 	WorldMapArchiveLoader cacheLoader;
@@ -248,7 +248,7 @@ public class WorldMap {
 	HashSet field3978;
 	@ObfuscatedName("bd")
 	@ObfuscatedSignature(
-		signature = "Lhg;"
+		descriptor = "Lhg;"
 	)
 	@Export("mouseCoord")
 	Coord mouseCoord;
@@ -257,7 +257,7 @@ public class WorldMap {
 	public boolean showCoord;
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+		descriptor = "Llz;"
 	)
 	@Export("sprite")
 	Sprite sprite;
@@ -326,7 +326,7 @@ public class WorldMap {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;Lic;Lko;Ljava/util/HashMap;[Llh;I)V",
+		descriptor = "(Lic;Lic;Lic;Lko;Ljava/util/HashMap;[Llh;I)V",
 		garbageValue = "-2031713861"
 	)
 	@Export("init")
@@ -361,7 +361,7 @@ public class WorldMap {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "19"
 	)
 	public void method6696() {
@@ -370,7 +370,7 @@ public class WorldMap {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIZIIIII)V",
+		descriptor = "(IIZIIIII)V",
 		garbageValue = "2116125643"
 	)
 	@Export("onCycle")
@@ -421,7 +421,7 @@ public class WorldMap {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIZZB)V",
+		descriptor = "(IIZZB)V",
 		garbageValue = "69"
 	)
 	public void method6693(int var1, int var2, boolean var3, boolean var4) {
@@ -488,7 +488,7 @@ public class WorldMap {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "422650301"
 	)
 	@Export("smoothZoom")
@@ -509,7 +509,7 @@ public class WorldMap {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2119991272"
 	)
 	@Export("scrollToTarget")
@@ -536,7 +536,7 @@ public class WorldMap {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(IIZB)V",
+		descriptor = "(IIZB)V",
 		garbageValue = "83"
 	)
 	@Export("setWorldMapPosition")
@@ -552,7 +552,7 @@ public class WorldMap {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1330915767"
 	)
 	final void method6529() {
@@ -564,7 +564,7 @@ public class WorldMap {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-2089729451"
 	)
 	@Export("hasTarget")
@@ -574,7 +574,7 @@ public class WorldMap {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(IIII)Lad;",
+		descriptor = "(IIII)Lad;",
 		garbageValue = "-342923578"
 	)
 	@Export("mapAreaAtCoord")
@@ -595,7 +595,7 @@ public class WorldMap {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(IIIZI)V",
+		descriptor = "(IIIZI)V",
 		garbageValue = "-1486444716"
 	)
 	public void method6532(int var1, int var2, int var3, boolean var4) {
@@ -623,7 +623,7 @@ public class WorldMap {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1476612822"
 	)
 	@Export("setCurrentMapAreaId")
@@ -637,7 +637,7 @@ public class WorldMap {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "96"
 	)
 	@Export("currentMapAreaId")
@@ -647,7 +647,7 @@ public class WorldMap {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(I)Lad;",
+		descriptor = "(I)Lad;",
 		garbageValue = "-434939978"
 	)
 	@Export("getCurrentMapArea")
@@ -657,7 +657,7 @@ public class WorldMap {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(Lad;I)V",
+		descriptor = "(Lad;I)V",
 		garbageValue = "1435320921"
 	)
 	@Export("setCurrentMapArea")
@@ -670,7 +670,7 @@ public class WorldMap {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(Lad;I)V",
+		descriptor = "(Lad;I)V",
 		garbageValue = "1169619542"
 	)
 	@Export("initializeWorldMapManager")
@@ -682,7 +682,7 @@ public class WorldMap {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lad;Lhg;Lhg;ZB)V",
+		descriptor = "(Lad;Lhg;Lhg;ZB)V",
 		garbageValue = "-3"
 	)
 	public void method6538(WorldMapArea var1, Coord var2, Coord var3, boolean var4) {
@@ -702,7 +702,7 @@ public class WorldMap {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(IIII)V",
+		descriptor = "(IIII)V",
 		garbageValue = "662676533"
 	)
 	@Export("jump")
@@ -726,7 +726,7 @@ public class WorldMap {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(IIIIIB)V",
+		descriptor = "(IIIIIB)V",
 		garbageValue = "45"
 	)
 	@Export("draw")
@@ -788,7 +788,7 @@ public class WorldMap {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(IIIIIII)Z",
+		descriptor = "(IIIIIII)Z",
 		garbageValue = "1450598957"
 	)
 	boolean method6565(int var1, int var2, int var3, int var4, int var5, int var6) {
@@ -811,7 +811,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIB)V",
+		descriptor = "(IIIIIIB)V",
 		garbageValue = "0"
 	)
 	void method6603(int var1, int var2, int var3, int var4, int var5, int var6) {
@@ -854,7 +854,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "371539895"
 	)
 	@Export("drawOverview")
@@ -873,7 +873,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "2046053399"
 	)
 	@Export("setZoomPercentage")
@@ -883,7 +883,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(IIIIII)V",
+		descriptor = "(IIIIII)V",
 		garbageValue = "-911619085"
 	)
 	@Export("drawLoading")
@@ -899,7 +899,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(II)F",
+		descriptor = "(II)F",
 		garbageValue = "-101273681"
 	)
 	@Export("getZoomFromPercentage")
@@ -919,7 +919,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1432703186"
 	)
 	@Export("getZoomLevel")
@@ -939,7 +939,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-344269271"
 	)
 	@Export("loadCache")
@@ -949,7 +949,7 @@ public class WorldMap {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-2083683127"
 	)
 	@Export("isCacheLoaded")
@@ -959,7 +959,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(II)Lad;",
+		descriptor = "(II)Lad;",
 		garbageValue = "173267923"
 	)
 	@Export("getMapArea")
@@ -980,7 +980,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "124476569"
 	)
 	@Export("setWorldMapPositionTarget")
@@ -993,7 +993,7 @@ public class WorldMap {
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "796383009"
 	)
 	@Export("setWorldMapPositionTargetInstant")
@@ -1007,7 +1007,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(IIIB)V",
+		descriptor = "(IIIB)V",
 		garbageValue = "-86"
 	)
 	@Export("jumpToSourceCoord")
@@ -1023,7 +1023,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(IIII)V",
+		descriptor = "(IIII)V",
 		garbageValue = "1641941372"
 	)
 	@Export("jumpToSourceCoordInstant")
@@ -1039,7 +1039,7 @@ public class WorldMap {
 
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-2103537124"
 	)
 	@Export("getDisplayX")
@@ -1049,7 +1049,7 @@ public class WorldMap {
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "692721192"
 	)
 	@Export("getDisplayY")
@@ -1059,7 +1059,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		signature = "(I)Lhg;",
+		descriptor = "(I)Lhg;",
 		garbageValue = "-1863746595"
 	)
 	@Export("getDisplayCoord")
@@ -1069,7 +1069,7 @@ public class WorldMap {
 
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1645904359"
 	)
 	@Export("getDisplayWith")
@@ -1079,7 +1079,7 @@ public class WorldMap {
 
 	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1582823724"
 	)
 	@Export("getDisplayHeight")
@@ -1089,7 +1089,7 @@ public class WorldMap {
 
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "1740193117"
 	)
 	@Export("setMaxFlashCount")
@@ -1102,7 +1102,7 @@ public class WorldMap {
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-316454776"
 	)
 	@Export("resetMaxFlashCount")
@@ -1112,7 +1112,7 @@ public class WorldMap {
 
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "51"
 	)
 	@Export("setCyclesPerFlash")
@@ -1125,7 +1125,7 @@ public class WorldMap {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2071944062"
 	)
 	@Export("resetCyclesPerFlash")
@@ -1135,7 +1135,7 @@ public class WorldMap {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "-999392835"
 	)
 	@Export("setPerpetualFlash")
@@ -1145,7 +1145,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "106"
 	)
 	@Export("flashElement")
@@ -1158,7 +1158,7 @@ public class WorldMap {
 
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1070811489"
 	)
 	@Export("flashCategory")
@@ -1177,7 +1177,7 @@ public class WorldMap {
 
 	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "8454016"
 	)
 	@Export("stopCurrentFlashes")
@@ -1187,7 +1187,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bk")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "-74185669"
 	)
 	@Export("setElementsDisabled")
@@ -1197,7 +1197,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bh")
 	@ObfuscatedSignature(
-		signature = "(IZI)V",
+		descriptor = "(IZI)V",
 		garbageValue = "1502020559"
 	)
 	@Export("disableElement")
@@ -1213,7 +1213,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bg")
 	@ObfuscatedSignature(
-		signature = "(IZI)V",
+		descriptor = "(IZI)V",
 		garbageValue = "-324596356"
 	)
 	@Export("setCategoryDisabled")
@@ -1240,7 +1240,7 @@ public class WorldMap {
 
 	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "-45"
 	)
 	@Export("getElementsDisabled")
@@ -1250,7 +1250,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		signature = "(IS)Z",
+		descriptor = "(IS)Z",
 		garbageValue = "-10758"
 	)
 	@Export("isElementDisabled")
@@ -1260,7 +1260,7 @@ public class WorldMap {
 
 	@ObfuscatedName("ba")
 	@ObfuscatedSignature(
-		signature = "(IS)Z",
+		descriptor = "(IS)Z",
 		garbageValue = "24518"
 	)
 	@Export("isCategoryDisabled")
@@ -1270,7 +1270,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bd")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "32"
 	)
 	void method6573() {
@@ -1281,7 +1281,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bb")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIB)V",
+		descriptor = "(IIIIIIB)V",
 		garbageValue = "-102"
 	)
 	@Export("addElementMenuOptions")
@@ -1317,7 +1317,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "(ILhg;I)Lhg;",
+		descriptor = "(ILhg;I)Lhg;",
 		garbageValue = "-1210676807"
 	)
 	public Coord method6575(int var1, Coord var2) {
@@ -1363,7 +1363,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bq")
 	@ObfuscatedSignature(
-		signature = "(IILhg;Lhg;I)V",
+		descriptor = "(IILhg;Lhg;I)V",
 		garbageValue = "346883599"
 	)
 	@Export("worldMapMenuAction")
@@ -1393,7 +1393,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bn")
 	@ObfuscatedSignature(
-		signature = "(I)Laf;",
+		descriptor = "(I)Laf;",
 		garbageValue = "-1116444098"
 	)
 	@Export("iconStart")
@@ -1419,7 +1419,7 @@ public class WorldMap {
 
 	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
-		signature = "(B)Laf;",
+		descriptor = "(B)Laf;",
 		garbageValue = "-42"
 	)
 	@Export("iconNext")

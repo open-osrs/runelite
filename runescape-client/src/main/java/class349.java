@@ -6,13 +6,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class349 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("EnumDefinition_archive")
 	static AbstractArchive EnumDefinition_archive;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("Widget_spritesArchive")
 	static AbstractArchive Widget_spritesArchive;

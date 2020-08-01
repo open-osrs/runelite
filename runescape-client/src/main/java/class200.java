@@ -5,17 +5,17 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class200 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+		descriptor = "Lgi;"
 	)
 	static final class200 field2400;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+		descriptor = "Lgi;"
 	)
 	static final class200 field2398;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lgi;"
+		descriptor = "Lgi;"
 	)
 	static final class200 field2399;
 
@@ -30,7 +30,7 @@ public class class200 {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(IZII)V",
+		descriptor = "(IZII)V",
 		garbageValue = "405257362"
 	)
 	public static final void method3803(int var0, boolean var1, int var2) {

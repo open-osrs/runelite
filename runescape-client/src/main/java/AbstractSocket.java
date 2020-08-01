@@ -12,7 +12,7 @@ public abstract class AbstractSocket {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-768493590"
 	)
 	@Export("close")
@@ -20,7 +20,7 @@ public abstract class AbstractSocket {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "-8"
 	)
 	@Export("readUnsignedByte")
@@ -28,7 +28,7 @@ public abstract class AbstractSocket {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1942767880"
 	)
 	@Export("available")
@@ -36,7 +36,7 @@ public abstract class AbstractSocket {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "1355091335"
 	)
 	@Export("isAvailable")
@@ -44,7 +44,7 @@ public abstract class AbstractSocket {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([BIIB)I",
+		descriptor = "([BIIB)I",
 		garbageValue = "37"
 	)
 	@Export("read")
@@ -52,7 +52,7 @@ public abstract class AbstractSocket {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "([BIIB)V",
+		descriptor = "([BIIB)V",
 		garbageValue = "-105"
 	)
 	@Export("write")

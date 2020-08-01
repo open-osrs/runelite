@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class Tile extends Node {
 	@ObfuscatedName("df")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive9")
 	static Archive archive9;
@@ -39,37 +39,37 @@ public final class Tile extends Node {
 	int originalPlane;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lex;"
+		descriptor = "Lex;"
 	)
 	@Export("paint")
 	TilePaint paint;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lej;"
+		descriptor = "Lej;"
 	)
 	@Export("model")
 	TileModel model;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lez;"
+		descriptor = "Lez;"
 	)
 	@Export("boundaryObject")
 	BoundaryObject boundaryObject;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lep;"
+		descriptor = "Lep;"
 	)
 	@Export("wallDecoration")
 	WallDecoration wallDecoration;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Leu;"
+		descriptor = "Leu;"
 	)
 	@Export("floorDecoration")
 	FloorDecoration floorDecoration;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Ldj;"
+		descriptor = "Ldj;"
 	)
 	@Export("tileItemPile")
 	TileItemPile tileItemPile;
@@ -81,7 +81,7 @@ public final class Tile extends Node {
 	int gameObjectsCount;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "[Lev;"
+		descriptor = "[Lev;"
 	)
 	@Export("gameObjects")
 	GameObject[] gameObjects;
@@ -132,7 +132,7 @@ public final class Tile extends Node {
 	int field1692;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Lea;"
+		descriptor = "Lea;"
 	)
 	@Export("linkedBelowTile")
 	Tile linkedBelowTile;
@@ -148,7 +148,7 @@ public final class Tile extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)Lgj;",
+		descriptor = "(B)Lgj;",
 		garbageValue = "3"
 	)
 	public static PacketBufferNode method2990() {

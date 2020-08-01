@@ -22,7 +22,7 @@ public final class class298 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IZI)Ljava/lang/String;",
+		descriptor = "(IZI)Ljava/lang/String;",
 		garbageValue = "-1481741683"
 	)
 	@Export("intToString")

@@ -25,7 +25,7 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Lmc;",
+		descriptor = "(I)Lmc;",
 		garbageValue = "-1826697521"
 	)
 	@Export("get")
@@ -155,7 +155,7 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-1686875071"
 	)
 	void method6495(String var1) {
@@ -169,7 +169,7 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-1385366754"
 	)
 	void method6484(String var1) {
@@ -187,7 +187,7 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
+		descriptor = "(Ljava/lang/String;B)V",
 		garbageValue = "1"
 	)
 	void method6485(String var1) {
@@ -204,7 +204,7 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(CI)Z",
+		descriptor = "(CI)Z",
 		garbageValue = "2111177426"
 	)
 	static final boolean method6481(char var0) {

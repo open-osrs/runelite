@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class User implements Comparable {
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lkq;"
 	)
 	@Export("username")
 	Username username;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lkq;"
 	)
 	@Export("previousUsername")
 	Username previousUsername;
@@ -24,7 +24,7 @@ public class User implements Comparable {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(I)Lkq;",
+		descriptor = "(I)Lkq;",
 		garbageValue = "352262046"
 	)
 	@Export("getUsername")
@@ -34,7 +34,7 @@ public class User implements Comparable {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(B)Ljava/lang/String;",
+		descriptor = "(B)Ljava/lang/String;",
 		garbageValue = "111"
 	)
 	@Export("getName")
@@ -44,7 +44,7 @@ public class User implements Comparable {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-461021692"
 	)
 	@Export("getPreviousName")
@@ -54,7 +54,7 @@ public class User implements Comparable {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Lkq;Lkq;I)V",
+		descriptor = "(Lkq;Lkq;I)V",
 		garbageValue = "-1982838307"
 	)
 	@Export("set")
@@ -69,7 +69,7 @@ public class User implements Comparable {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(Ljf;I)I",
+		descriptor = "(Ljf;I)I",
 		garbageValue = "334051838"
 	)
 	@Export("compareTo_user")
@@ -83,7 +83,7 @@ public class User implements Comparable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "406400151"
 	)
 	static void method5228() {
@@ -119,7 +119,7 @@ public class User implements Comparable {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "([BI)V",
+		descriptor = "([BI)V",
 		garbageValue = "-519092714"
 	)
 	@Export("ByteArrayPool_release")

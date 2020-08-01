@@ -24,7 +24,7 @@ public abstract class UserList {
 	int size;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "[Ljf;"
+		descriptor = "[Ljf;"
 	)
 	@Export("array")
 	User[] array;
@@ -49,7 +49,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ljf;",
+		descriptor = "(I)Ljf;",
 		garbageValue = "551595115"
 	)
 	@Export("newInstance")
@@ -57,7 +57,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)[Ljf;",
+		descriptor = "(II)[Ljf;",
 		garbageValue = "1959965595"
 	)
 	@Export("newTypedArray")
@@ -65,7 +65,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-830188441"
 	)
 	@Export("clear")
@@ -78,7 +78,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-729089769"
 	)
 	@Export("getSize")
@@ -88,7 +88,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "-38"
 	)
 	@Export("isFull")
@@ -98,7 +98,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)Z",
+		descriptor = "(Lkq;I)Z",
 		garbageValue = "-1632091525"
 	)
 	@Export("contains")
@@ -112,7 +112,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)Ljf;",
+		descriptor = "(Lkq;I)Ljf;",
 		garbageValue = "-1715419579"
 	)
 	@Export("getByUsername")
@@ -123,7 +123,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)Ljf;",
+		descriptor = "(Lkq;I)Ljf;",
 		garbageValue = "181197805"
 	)
 	@Export("getByCurrentUsername")
@@ -133,7 +133,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)Ljf;",
+		descriptor = "(Lkq;I)Ljf;",
 		garbageValue = "-1953560186"
 	)
 	@Export("getByPreviousUsername")
@@ -143,7 +143,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)Z",
+		descriptor = "(Lkq;I)Z",
 		garbageValue = "-1728392725"
 	)
 	@Export("removeByUsername")
@@ -159,7 +159,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Ljf;I)V",
+		descriptor = "(Ljf;I)V",
 		garbageValue = "1431327027"
 	)
 	@Export("remove")
@@ -173,7 +173,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)Ljf;",
+		descriptor = "(Lkq;I)Ljf;",
 		garbageValue = "1944275129"
 	)
 	@Export("addLastNoPreviousUsername")
@@ -183,7 +183,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Lkq;Lkq;B)Ljf;",
+		descriptor = "(Lkq;Lkq;B)Ljf;",
 		garbageValue = "-18"
 	)
 	@Export("addLast")
@@ -201,7 +201,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(II)Ljf;",
+		descriptor = "(II)Ljf;",
 		garbageValue = "421321691"
 	)
 	@Export("get")
@@ -215,7 +215,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1382907285"
 	)
 	@Export("sort")
@@ -230,7 +230,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(Ljf;Lkq;Lkq;B)V",
+		descriptor = "(Ljf;Lkq;Lkq;B)V",
 		garbageValue = "30"
 	)
 	@Export("changeName")
@@ -242,7 +242,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(Ljf;I)I",
+		descriptor = "(Ljf;I)I",
 		garbageValue = "-473551805"
 	)
 	@Export("indexOf")
@@ -258,7 +258,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(Ljf;S)V",
+		descriptor = "(Ljf;S)V",
 		garbageValue = "28740"
 	)
 	@Export("mapRemove")
@@ -275,7 +275,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(Ljf;B)V",
+		descriptor = "(Ljf;B)V",
 		garbageValue = "-110"
 	)
 	@Export("arrayAddLast")
@@ -285,7 +285,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(Ljf;I)V",
+		descriptor = "(Ljf;I)V",
 		garbageValue = "-810709212"
 	)
 	@Export("mapPut")
@@ -302,7 +302,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1444172767"
 	)
 	@Export("arrayRemove")
@@ -316,7 +316,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "594179920"
 	)
 	@Export("removeComparator")
@@ -326,7 +326,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(Ljava/util/Comparator;B)V",
+		descriptor = "(Ljava/util/Comparator;B)V",
 		garbageValue = "-90"
 	)
 	@Export("addComparator")
@@ -341,7 +341,7 @@ public abstract class UserList {
 
 	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1614220910"
 	)
 	static final void method5333() {

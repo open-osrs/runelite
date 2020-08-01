@@ -5,14 +5,14 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface class0 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;Lkn;B)V",
+		descriptor = "(Ljava/lang/Object;Lkn;B)V",
 		garbageValue = "0"
 	)
 	void vmethod59(Object var1, Buffer var2);
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)Ljava/lang/Object;",
+		descriptor = "(Lkn;B)Ljava/lang/Object;",
 		garbageValue = "114"
 	)
 	Object vmethod47(Buffer var1);

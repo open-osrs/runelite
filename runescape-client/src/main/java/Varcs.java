@@ -73,7 +73,7 @@ public class Varcs {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1324015283"
 	)
 	@Export("setInt")
@@ -87,7 +87,7 @@ public class Varcs {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
+		descriptor = "(IB)I",
 		garbageValue = "16"
 	)
 	@Export("getInt")
@@ -98,7 +98,7 @@ public class Varcs {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;I)V",
 		garbageValue = "105969632"
 	)
 	@Export("setString")
@@ -108,7 +108,7 @@ public class Varcs {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)Ljava/lang/String;",
+		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "-1642204852"
 	)
 	@Export("getString")
@@ -119,7 +119,7 @@ public class Varcs {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;B)V",
+		descriptor = "(ILjava/lang/String;B)V",
 		garbageValue = "14"
 	)
 	@Export("setStringOld")
@@ -129,7 +129,7 @@ public class Varcs {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(II)Ljava/lang/String;",
+		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "658470799"
 	)
 	@Export("getStringOld")
@@ -139,7 +139,7 @@ public class Varcs {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-943211657"
 	)
 	@Export("clearTransient")
@@ -159,7 +159,7 @@ public class Varcs {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(ZI)Lmy;",
+		descriptor = "(ZI)Lmy;",
 		garbageValue = "-297386898"
 	)
 	@Export("getPreferencesFile")
@@ -169,7 +169,7 @@ public class Varcs {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1923811872"
 	)
 	@Export("write")
@@ -283,7 +283,7 @@ public class Varcs {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-50"
 	)
 	@Export("read")
@@ -376,7 +376,7 @@ public class Varcs {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "999745813"
 	)
 	@Export("tryWrite")
@@ -389,7 +389,7 @@ public class Varcs {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "0"
 	)
 	@Export("hasUnwrittenChanges")

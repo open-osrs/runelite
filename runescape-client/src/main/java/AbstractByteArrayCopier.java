@@ -11,7 +11,7 @@ public abstract class AbstractByteArrayCopier {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)[B",
+		descriptor = "(I)[B",
 		garbageValue = "300747627"
 	)
 	@Export("get")
@@ -19,7 +19,7 @@ public abstract class AbstractByteArrayCopier {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([BB)V",
+		descriptor = "([BB)V",
 		garbageValue = "92"
 	)
 	@Export("set")

@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FriendLoginUpdate extends Link {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lfb;"
+		descriptor = "Lfb;"
 	)
 	@Export("clock")
 	protected static Clock clock;
@@ -20,7 +20,7 @@ public class FriendLoginUpdate extends Link {
 	public int field3667;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lkq;"
 	)
 	@Export("username")
 	public Username username;
@@ -29,7 +29,7 @@ public class FriendLoginUpdate extends Link {
 	public short world;
 
 	@ObfuscatedSignature(
-		signature = "(Lkq;I)V"
+		descriptor = "(Lkq;I)V"
 	)
 	FriendLoginUpdate(Username var1, int var2) {
 		this.field3667 = (int)(MilliClock.currentTimeMillis() / 1000L);
@@ -39,7 +39,7 @@ public class FriendLoginUpdate extends Link {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Lgz;I)I",
+		descriptor = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Lgz;I)I",
 		garbageValue = "1283981780"
 	)
 	@Export("compareStrings")

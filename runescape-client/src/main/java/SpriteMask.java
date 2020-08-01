@@ -35,7 +35,7 @@ public class SpriteMask extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
+		descriptor = "(III)Z",
 		garbageValue = "-679501708"
 	)
 	@Export("contains")
@@ -62,7 +62,7 @@ public class SpriteMask extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "39704682"
 	)
 	@Export("savePreferences")
@@ -87,7 +87,7 @@ public class SpriteMask extends DualNode {
 
 	@ObfuscatedName("km")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZI)V",
+		descriptor = "(Ljava/lang/String;ZI)V",
 		garbageValue = "2008753616"
 	)
 	@Export("findItemDefinitions")

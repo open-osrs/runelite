@@ -16,31 +16,31 @@ public class Login {
 	static int xPadding;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("runesSprite")
 	static IndexedSprite[] runesSprite;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+		descriptor = "Llz;"
 	)
 	@Export("leftTitleSprite")
 	static Sprite leftTitleSprite;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	@Export("logoSprite")
 	static IndexedSprite logoSprite;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	@Export("options_buttons_0Sprite")
 	static IndexedSprite options_buttons_0Sprite;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lcw;"
+		descriptor = "Lcw;"
 	)
 	@Export("loginScreenRunesAnimation")
 	static LoginScreenAnimation loginScreenRunesAnimation;
@@ -173,7 +173,7 @@ public class Login {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIILga;Lfz;Z[I[IB)I",
+		descriptor = "(IIILga;Lfz;Z[I[IB)I",
 		garbageValue = "0"
 	)
 	public static int method2235(int var0, int var1, int var2, RouteStrategy var3, CollisionMap var4, boolean var5, int[] var6, int[] var7) {
@@ -290,7 +290,7 @@ public class Login {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IILga;Lfz;I)Z",
+		descriptor = "(IILga;Lfz;I)Z",
 		garbageValue = "783701635"
 	)
 	static final boolean method2234(int var0, int var1, RouteStrategy var2, CollisionMap var3) {

@@ -17,13 +17,13 @@ public class WorldMapLabel {
 	static byte[][][] field269;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("Widget_fontsArchive")
 	static AbstractArchive Widget_fontsArchive;
 	@ObfuscatedName("ek")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive15")
 	static Archive archive15;
@@ -35,7 +35,7 @@ public class WorldMapLabel {
 	static int port3;
 	@ObfuscatedName("fm")
 	@ObfuscatedSignature(
-		signature = "Lko;"
+		descriptor = "Lko;"
 	)
 	@Export("fontPlain11")
 	static Font fontPlain11;
@@ -56,13 +56,13 @@ public class WorldMapLabel {
 	int height;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lah;"
+		descriptor = "Lah;"
 	)
 	@Export("size")
 	WorldMapLabelSize size;
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;IILah;)V"
+		descriptor = "(Ljava/lang/String;IILah;)V"
 	)
 	WorldMapLabel(String var1, int var2, int var3, WorldMapLabelSize var4) {
 		this.text = var1;
@@ -73,7 +73,7 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "578317705"
 	)
 	@Export("Widget_hasContinueOption")
@@ -83,7 +83,7 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lbu;II)V",
+		descriptor = "(Lbu;II)V",
 		garbageValue = "1472646677"
 	)
 	@Export("runScript")
@@ -400,7 +400,7 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IB)J",
+		descriptor = "(IB)J",
 		garbageValue = "88"
 	)
 	@Export("getEntityUnderMouse")
@@ -410,7 +410,7 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "807704553"
 	)
 	@Export("Messages_getLastChatID")
@@ -425,7 +425,7 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("ff")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1944038316"
 	)
 	static final void method488() {
@@ -541,7 +541,7 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("il")
 	@ObfuscatedSignature(
-		signature = "(Lhd;III)V",
+		descriptor = "(Lhd;III)V",
 		garbageValue = "-488696963"
 	)
 	@Export("alignWidgetPosition")
@@ -578,7 +578,7 @@ public class WorldMapLabel {
 
 	@ObfuscatedName("jv")
 	@ObfuscatedSignature(
-		signature = "(IIII)Lbz;",
+		descriptor = "(IIII)Lbz;",
 		garbageValue = "1553809797"
 	)
 	static final InterfaceParent method486(int var0, int var1, int var2) {

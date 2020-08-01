@@ -26,8 +26,13 @@ package net.runelite.deob.deobfuscators.cfg;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import net.runelite.asm.attributes.code.Instruction;
+import net.runelite.asm.attributes.code.Label;
 
+@Getter
+@Setter
 public class Block
 {
 	private int id = -1;
@@ -36,64 +41,44 @@ public class Block
 	/**
 	 * blocks which jump here
 	 */
-	private final List<Block> prev = new ArrayList<>();
+	private final List<Block> preds = new ArrayList<>();
 
 	/**
 	 * blocks which this jumps to
 	 */
-	private final List<Block> next = new ArrayList<>();
+	private final List<Block> succs = new ArrayList<>();
 
 	/**
 	 * block which flows directly into this block
 	 */
-	private Block flowsFrom;
+	private Block pred;
 
 	/**
 	 * block which this directly flows into
 	 */
-	private Block flowsInto;
+	private Block succ;
 
 	/**
 	 * instructions in this block
 	 */
 	private final List<Instruction> instructions = new ArrayList<>();
 
-	public int getId()
-	{
-		return id;
-	}
-
-	public void setId(int id)
-	{
-		this.id = id;
-	}
-
-	public boolean isJumptarget()
-	{
-		return jumptarget;
-	}
-
-	public void setJumptarget(boolean jumptarget)
-	{
-		this.jumptarget = jumptarget;
-	}
-
 	@Override
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("Block ID ").append(id).append("\n");
-		if (flowsFrom != null)
+		if (pred != null)
 		{
-			sb.append(" flows from ").append(flowsFrom.id).append("\n");
+			sb.append(" flows from ").append(pred.id).append("\n");
 		}
 		for (Instruction i : instructions)
 		{
 			sb.append("  ").append(i.toString()).append("\n");
 		}
-		if (flowsInto != null)
+		if (succ != null)
 		{
-			sb.append(" flows into ").append(flowsInto.id).append("\n");
+			sb.append(" flows into ").append(succ.id).append("\n");
 		}
 		sb.append("\n");
 		return sb.toString();
@@ -111,54 +96,37 @@ public class Block
 		instructions.add(i);
 	}
 
-	public List<Instruction> getInstructions()
-	{
-		return instructions;
-	}
-
 	public void addPrev(Block block)
 	{
-		if (!prev.contains(block))
+		if (!preds.contains(block))
 		{
-			prev.add(block);
+			preds.add(block);
 		}
-	}
-
-	public List<Block> getPrev()
-	{
-		return prev;
 	}
 
 	public void addNext(Block block)
 	{
-		if (!next.contains(block))
+		if (!succs.contains(block))
 		{
-			next.add(block);
+			succs.add(block);
 		}
 	}
 
-	public List<Block> getNext()
+	static int compare(Block a, Block b)
 	{
-		return next;
+		final int l1 = a.getLineNumber();
+		final int l2 = b.getLineNumber();
+		if (l1 == l2 || l1 == -1 || l2 == -1)
+			return 0;
+		return Integer.compare(l1, l2);
 	}
 
-	public Block getFlowsFrom()
+	private int getLineNumber()
 	{
-		return flowsFrom;
-	}
-
-	public void setFlowsFrom(Block flowsFrom)
-	{
-		this.flowsFrom = flowsFrom;
-	}
-
-	public Block getFlowsInto()
-	{
-		return flowsInto;
-	}
-
-	public void setFlowsInto(Block flowsInto)
-	{
-		this.flowsInto = flowsInto;
+		for (Instruction i : instructions)
+			if (i instanceof Label)
+				if (((Label) i).getLineNumber() != null)
+					return ((Label) i).getLineNumber();
+		return -1;
 	}
 }

@@ -85,7 +85,7 @@ public final class PendingSpawn extends Node {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lic;Ljava/lang/String;Ljava/lang/String;I)[Llh;",
+		descriptor = "(Lic;Ljava/lang/String;Ljava/lang/String;I)[Llh;",
 		garbageValue = "574747014"
 	)
 	public static IndexedSprite[] method1806(AbstractArchive var0, String var1, String var2) {
@@ -96,7 +96,7 @@ public final class PendingSpawn extends Node {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I[B[BI)V",
+		descriptor = "(Lhd;I[B[BI)V",
 		garbageValue = "-1571904788"
 	)
 	@Export("Widget_setKey")
@@ -131,7 +131,7 @@ public final class PendingSpawn extends Node {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "556274205"
 	)
 	static int method1808(int var0, Script var1, boolean var2) {

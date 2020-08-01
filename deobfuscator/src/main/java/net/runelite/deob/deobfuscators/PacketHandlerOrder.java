@@ -151,7 +151,7 @@ public class PacketHandlerOrder implements Deobfuscator
 					// check if the invoke is on buffer/packetbuffer classes
 					boolean matches = ii.getMethods().stream()
 						.filter(m -> m.getDescriptor().size() == 0)
-						.map(method -> method.getClassFile())
+						.map(Method::getClassFile)
 						.anyMatch(cf -> cf == bf.getBuffer() || cf == bf.getPacketBuffer());
 					if (matches)
 					{
@@ -269,7 +269,7 @@ public class PacketHandlerOrder implements Deobfuscator
 				logger.warn("Unable to differentiate {} from {}", p1, p2);
 				return 0;
 			})
-			.map(s -> s.clone())
+			.map(PacketHandler::clone)
 			.collect(Collectors.toList());
 
 		assert sortedHandlers.size() == handlers.getHandlers().size();
@@ -277,7 +277,7 @@ public class PacketHandlerOrder implements Deobfuscator
 		for (PacketHandler handler : sortedHandlers)
 		{
 			handler.sortedReads = new ArrayList<>(handler.reads);
-			Collections.sort(handler.sortedReads, (PacketRead p1, PacketRead p2) ->
+			handler.sortedReads.sort((PacketRead p1, PacketRead p2) ->
 			{
 				LVTInstruction l1 = (LVTInstruction) p1.getStore();
 				LVTInstruction l2 = (LVTInstruction) p2.getStore();
@@ -350,7 +350,7 @@ public class PacketHandlerOrder implements Deobfuscator
 
 		// Find unique methods
 		List<Method> methods = unsortedHandlers.stream()
-			.map(ph -> ph.getMethod())
+			.map(PacketHandler::getMethod)
 			.distinct()
 			.collect(Collectors.toList());
 
@@ -439,10 +439,6 @@ public class PacketHandlerOrder implements Deobfuscator
 			}
 
 			List<Instruction> follow = follow(instructions, handler.getStart(), afterRead);
-			if (follow == null)
-			{
-				continue;
-			}
 
 			for (Instruction i : follow)
 			{
@@ -559,11 +555,11 @@ public class PacketHandlerOrder implements Deobfuscator
 	private int compareReads(List<PacketRead> r1, List<PacketRead> r2)
 	{
 		List<Type> t1 = r1.stream()
-			.map(pr -> pr.getType())
+			.map(PacketRead::getType)
 			.sorted(this::compareType)
 			.collect(Collectors.toList());
 		List<Type> t2 = r2.stream()
-			.map(pr -> pr.getType())
+			.map(PacketRead::getType)
 			.sorted(this::compareType)
 			.collect(Collectors.toList());
 		if (t1.size() != t2.size())

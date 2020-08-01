@@ -24,8 +24,10 @@
  */
 package net.runelite.asm;
 
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import lombok.Getter;
+import net.runelite.asm.attributes.Annotated;
 import net.runelite.deob.DeobAnnotations;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
@@ -43,20 +45,19 @@ public class Field implements Annotated, Named
 	private String name;
 	private Type type;
 	private Object value; // ConstantValue
-	private final Annotations annotations;
+	@Getter
+	private final Map<Type, Annotation> annotations = new LinkedHashMap<>();
 
 	public Field(ClassFile classFile, String name, Type type)
 	{
 		this.classFile = classFile;
 		this.name = name;
 		this.type = type;
-
-		this.annotations = new Annotations();
 	}
 
 	public void accept(FieldVisitor visitor)
 	{
-		for (Annotation annotation : annotations.getAnnotations())
+		for (Annotation annotation : annotations.values())
 		{
 			annotation.accept(visitor.visitAnnotation(annotation.getType().toString(), true));
 		}
@@ -150,15 +151,10 @@ public class Field implements Annotated, Named
 		this.value = value;
 	}
 
-	public Annotations getAnnotations()
-	{
-		return annotations;
-	}
-
 	public net.runelite.asm.pool.Field getPoolField()
 	{
 		return new net.runelite.asm.pool.Field(
-			new net.runelite.asm.pool.Class(classFile.getName()),
+			classFile.getPoolClass(),
 			this.getName(),
 			this.getType()
 		);

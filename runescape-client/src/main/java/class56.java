@@ -7,7 +7,7 @@ import netscape.javascript.JSObject;
 public class class56 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/applet/Applet;Ljava/lang/String;I)V",
+		descriptor = "(Ljava/applet/Applet;Ljava/lang/String;I)V",
 		garbageValue = "-1802347359"
 	)
 	public static void method919(Applet var0, String var1) throws Throwable {

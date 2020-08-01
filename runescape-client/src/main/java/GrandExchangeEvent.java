@@ -15,13 +15,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class GrandExchangeEvent {
 	@ObfuscatedName("bq")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("worldSelectArrows")
 	static IndexedSprite[] worldSelectArrows;
 	@ObfuscatedName("da")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive8")
 	static Archive archive8;
@@ -39,7 +39,7 @@ public class GrandExchangeEvent {
 	public final long age;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Ld;"
+		descriptor = "Ld;"
 	)
 	@Export("grandExchangeOffer")
 	public final GrandExchangeOffer grandExchangeOffer;
@@ -51,7 +51,7 @@ public class GrandExchangeEvent {
 	String previousOfferName;
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;BI)V"
+		descriptor = "(Lkn;BI)V"
 	)
 	GrandExchangeEvent(Buffer var1, byte var2, int var3) {
 		this.offerName = var1.readStringCp1252NullTerminated();
@@ -72,7 +72,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-1910615045"
 	)
 	@Export("getOfferName")
@@ -82,7 +82,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-966567999"
 	)
 	@Export("getPreviousOfferName")
@@ -92,7 +92,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "144078284"
 	)
 	static final void method153(int var0, int var1, int var2, int var3) {
@@ -123,7 +123,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lbn;I)V",
+		descriptor = "(Lbn;I)V",
 		garbageValue = "-1052517513"
 	)
 	@Export("doCycleTitle")
@@ -688,7 +688,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
+		descriptor = "(IB)I",
 		garbageValue = "-55"
 	)
 	@Export("Messages_getHistorySize")
@@ -699,7 +699,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1823027767"
 	)
 	static void method158() {
@@ -713,7 +713,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("hx")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-1963470031"
 	)
 	static final void method155(int var0) {
@@ -730,7 +730,7 @@ public class GrandExchangeEvent {
 
 	@ObfuscatedName("jp")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I)Lhd;",
+		descriptor = "(Lhd;I)Lhd;",
 		garbageValue = "-1293330124"
 	)
 	static Widget method157(Widget var0) {

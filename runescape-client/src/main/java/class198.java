@@ -6,14 +6,14 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class198 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("ParamDefinition_archive")
 	static AbstractArchive ParamDefinition_archive;
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "-100"
 	)
 	@Export("Widget_containerHasUseOption")

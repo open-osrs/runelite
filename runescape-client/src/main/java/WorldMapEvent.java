@@ -26,19 +26,19 @@ public class WorldMapEvent {
 	public int mapElement;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lhg;"
+		descriptor = "Lhg;"
 	)
 	@Export("coord1")
 	public Coord coord1;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lhg;"
+		descriptor = "Lhg;"
 	)
 	@Export("coord2")
 	public Coord coord2;
 
 	@ObfuscatedSignature(
-		signature = "(ILhg;Lhg;)V"
+		descriptor = "(ILhg;Lhg;)V"
 	)
 	public WorldMapEvent(int var1, Coord var2, Coord var3) {
 		this.mapElement = var1;
@@ -48,7 +48,7 @@ public class WorldMapEvent {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)J",
+		descriptor = "(I)J",
 		garbageValue = "-33276510"
 	)
 	static long method839() {
@@ -84,7 +84,7 @@ public class WorldMapEvent {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Lir;",
+		descriptor = "(II)Lir;",
 		garbageValue = "-2114458170"
 	)
 	@Export("KitDefinition_get")
@@ -106,7 +106,7 @@ public class WorldMapEvent {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lig;IIIBZI)V",
+		descriptor = "(Lig;IIIBZI)V",
 		garbageValue = "-966731754"
 	)
 	@Export("requestNetFile")
@@ -153,7 +153,7 @@ public class WorldMapEvent {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "-1652034071"
 	)
 	static int method836(int var0, Script var1, boolean var2) {
@@ -516,7 +516,7 @@ public class WorldMapEvent {
 
 	@ObfuscatedName("hg")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "823242837"
 	)
 	static void method840(int var0, int var1) {

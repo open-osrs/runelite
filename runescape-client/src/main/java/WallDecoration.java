@@ -51,13 +51,13 @@ public final class WallDecoration {
 	int yOffset;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity1")
 	public Entity entity1;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity2")
 	public Entity entity2;
@@ -81,7 +81,7 @@ public final class WallDecoration {
 
 	@ObfuscatedName("fu")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "764201281"
 	)
 	@Export("doCheat")
@@ -142,7 +142,7 @@ public final class WallDecoration {
 
 	@ObfuscatedName("ir")
 	@ObfuscatedSignature(
-		signature = "(Lhd;Ljo;IIZI)V",
+		descriptor = "(Lhd;Ljo;IIZI)V",
 		garbageValue = "-771039466"
 	)
 	@Export("addWidgetItemMenuItem")

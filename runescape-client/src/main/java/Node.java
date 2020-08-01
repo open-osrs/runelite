@@ -11,13 +11,13 @@ public class Node {
 	public long key;
 	@ObfuscatedName("cf")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("previous")
 	public Node previous;
 	@ObfuscatedName("ct")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("next")
 	public Node next;

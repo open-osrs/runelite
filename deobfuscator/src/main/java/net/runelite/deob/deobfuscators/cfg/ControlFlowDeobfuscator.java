@@ -24,16 +24,11 @@
  */
 package net.runelite.deob.deobfuscators.cfg;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.Code;
-import net.runelite.asm.attributes.code.Exception;
-import net.runelite.asm.attributes.code.Exceptions;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
@@ -64,7 +59,6 @@ public class ControlFlowDeobfuscator implements Deobfuscator
 					continue;
 				}
 
-				split(code);
 				run(code);
 				runJumpLabel(code);
 			}
@@ -74,167 +68,49 @@ public class ControlFlowDeobfuscator implements Deobfuscator
 			insertedJump, placedBlocks, removedJumps, insertedJump - removedJumps);
 	}
 
-	/**
-	 * Add gotos at the end of blocks without terminal instructions
-	 *
-	 * @param code
-	 */
-	private void split(Code code)
-	{
-		Instructions ins = code.getInstructions();
-		Exceptions exceptions = code.getExceptions();
-
-		ControlFlowGraph graph = new ControlFlowGraph.Builder().build(code);
-
-		List<Exception> exc = new ArrayList<>(exceptions.getExceptions());
-
-		exceptions.clear(); // Must clear this before ins.clear() runs
-		ins.clear();
-
-		// insert jumps where blocks flow into others
-		for (Block block : graph.getBlocks())
-		{
-			if (block.getFlowsInto() == null)
-			{
-				continue;
-			}
-
-			Block into = block.getFlowsInto();
-			assert into.getFlowsFrom() == block;
-
-			Instruction first = into.getInstructions().get(0);
-			Label label;
-			if (!(first instanceof Label))
-			{
-				label = new Label(null);
-				into.addInstruction(0, label);
-			}
-			else
-			{
-				label = (Label) first;
-			}
-
-			Goto g = new Goto(null, label);
-			block.addInstruction(g);
-
-			block.setFlowsInto(null);
-			into.setFlowsFrom(null);
-
-			++insertedJump;
-		}
-
-		// Readd instructions from modified blocks
-		for (Block block : graph.getBlocks())
-		{
-			for (Instruction i : block.getInstructions())
-			{
-				assert i.getInstructions() == null;
-				i.setInstructions(ins); // I shouldn't have to do this here
-				ins.addInstruction(i);
-			}
-		}
-
-		// Readd exceptions
-		for (Exception ex : exc)
-		{
-			exceptions.add(ex);
-		}
-	}
-
-	private int compareBlock(Block o1, Block o2)
-	{
-		// higher numbers have the lowest priority
-		if (o1.isJumptarget() && !o2.isJumptarget())
-		{
-			return -1;
-		}
-		if (o2.isJumptarget() && !o1.isJumptarget())
-		{
-			return 1;
-		}
-
-		return 0;
-	}
-
 	private void run(Code code)
 	{
 		Instructions ins = code.getInstructions();
-		Exceptions exceptions = code.getExceptions();
 
-		ControlFlowGraph graph = new ControlFlowGraph.Builder().build(code);
-
-		for (Block block : graph.getBlocks())
-		{
-			assert block.getFlowsFrom() == null;
-			assert block.getFlowsInto() == null;
-		}
+		ControlFlowGraph graph = new ControlFlowGraph(code);
 
 		if (logger.isDebugEnabled()) // graph.toString() is expensive
 		{
 			logger.debug(graph.toString());
 		}
 
-		List<Exception> originalExceptions = new ArrayList<>(exceptions.getExceptions());
-
-		// Clear existing exceptions and instructions as we are going to
-		// rebuild them
-		exceptions.clear();
+		// Clear existing instructions as we are going to rebuild them
 		ins.clear();
-
-		List<Block> done = new ArrayList<>();
-		Queue<Block> queue = new PriorityQueue<>(this::compareBlock);
-
-		// add initial code block
-		queue.add(graph.getHead());
-
-		while (!queue.isEmpty())
+		final List<Block> sorted = graph.topologicalSort();
+		for (Block b : sorted)
 		{
-			Block block = queue.remove();
-
-			if (done.contains(block))
-			{
-				continue;
-			}
-
-			done.add(block);
 			++placedBlocks;
-
-			logger.debug("Placed block {}", block.getId());
-
-			List<Block> next = block.getNext();
-
-			if (next.isEmpty() == false)
+			for (Instruction i : b.getInstructions())
 			{
-				// jumps are added in order their instructions are reached by ControlFlowGraph,
-				// so the last jump is the goto.
-				//
-				// removing this line causes the priority queue (due to implementation detail on how
-				// it handles objects with equal priority) to try to optimize for block closeness
-				// (how close blocks which are neighbors are to each other in bytecode).
-				// I get a jump delta of ~+14k with this on 143, vs ~-47k when priotiziing optimizing
-				// out jumps. I can't tell which is better.
-				next.get(next.size() - 1).setJumptarget(true);
-			}
-
-			// add next reachable blocks
-			for (Block bl : next)
-			{
-				queue.add(bl);
-			}
-
-			for (Instruction i : block.getInstructions())
-			{
-				assert i.getInstructions() == null;
-				i.setInstructions(ins); // I shouldn't have to do this here
 				ins.addInstruction(i);
+				i.setInstructions(ins);
+			}
+			if (b.getSucc() != null && b.getInstructions().size() > 0)
+			{
+				final var i = b.getInstructions().get(b.getInstructions().size() - 1);
+				if (!i.isTerminal())
+				{
+					final var next = b.getSucc();
+					var maybeLabel = next.getInstructions().get(0);
+					if (!(maybeLabel instanceof Label))
+					{
+						maybeLabel = new Label(ins);
+						next.getInstructions().add(0, maybeLabel);
+					}
+					ins.addInstruction(new Goto(ins, (Label) maybeLabel));
+					++insertedJump;
+				}
 			}
 		}
 	}
 
 	/**
 	 * remove jumps followed immediately by the label they are jumping to
-	 *
-	 * @param code
 	 */
 	private void runJumpLabel(Code code)
 	{

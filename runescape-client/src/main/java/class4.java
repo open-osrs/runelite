@@ -12,14 +12,14 @@ final class class4 implements class0 {
 	static boolean ClanChat_inClanChat;
 	@ObfuscatedName("ha")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("modIconSprites")
 	static IndexedSprite[] modIconSprites;
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;Lkn;B)V",
+		descriptor = "(Ljava/lang/Object;Lkn;B)V",
 		garbageValue = "0"
 	)
 	public void vmethod59(Object var1, Buffer var2) {
@@ -28,7 +28,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)Ljava/lang/Object;",
+		descriptor = "(Lkn;B)Ljava/lang/Object;",
 		garbageValue = "114"
 	)
 	public Object vmethod47(Buffer var1) {
@@ -37,7 +37,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Lkn;I)V",
+		descriptor = "(Ljava/lang/String;Lkn;I)V",
 		garbageValue = "-1456597328"
 	)
 	void method46(String var1, Buffer var2) {
@@ -46,7 +46,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([BIII)Ljava/lang/String;",
+		descriptor = "([BIII)Ljava/lang/String;",
 		garbageValue = "-1273544207"
 	)
 	public static String method48(byte[] var0, int var1, int var2) {
@@ -104,7 +104,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)Lie;",
+		descriptor = "(IB)Lie;",
 		garbageValue = "0"
 	)
 	@Export("SpotAnimationDefinition_get")
@@ -127,7 +127,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIII)Lcs;",
+		descriptor = "(IIII)Lcs;",
 		garbageValue = "-1977243752"
 	)
 	@Export("getWorldMapScript")
@@ -145,7 +145,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/String;[SIIB)V",
+		descriptor = "([Ljava/lang/String;[SIIB)V",
 		garbageValue = "-1"
 	)
 	@Export("sortItemsByName")
@@ -183,7 +183,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/io/File;ZS)Z",
+		descriptor = "(Ljava/io/File;ZS)Z",
 		garbageValue = "4093"
 	)
 	static boolean method58(File var0, boolean var1) {
@@ -203,7 +203,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZB)I",
+		descriptor = "(ILcs;ZB)I",
 		garbageValue = "0"
 	)
 	static int method63(int var0, Script var1, boolean var2) {
@@ -564,7 +564,7 @@ final class class4 implements class0 {
 
 	@ObfuscatedName("jq")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I)V",
+		descriptor = "(Lhd;I)V",
 		garbageValue = "1118535641"
 	)
 	static final void method57(Widget var0) {

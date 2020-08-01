@@ -15,25 +15,25 @@ public class JagexCache {
 	static File cacheDir;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lmn;"
+		descriptor = "Lmn;"
 	)
 	@Export("JagexCache_randomDat")
 	public static BufferedFile JagexCache_randomDat;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lmn;"
+		descriptor = "Lmn;"
 	)
 	@Export("JagexCache_dat2File")
 	public static BufferedFile JagexCache_dat2File;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lmn;"
+		descriptor = "Lmn;"
 	)
 	@Export("JagexCache_idx255File")
 	public static BufferedFile JagexCache_idx255File;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "[Lmn;"
+		descriptor = "[Lmn;"
 	)
 	@Export("JagexCache_idxFiles")
 	public static BufferedFile[] JagexCache_idxFiles;
@@ -48,7 +48,7 @@ public class JagexCache {
 
 	@ObfuscatedName("fn")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "201331676"
 	)
 	static final void method3625() {

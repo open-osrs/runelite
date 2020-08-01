@@ -33,49 +33,49 @@ public class Instrument {
 	static int[] Instrument_pitchBaseSteps;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("pitch")
 	SoundEnvelope pitch;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("volume")
 	SoundEnvelope volume;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("pitchModifier")
 	SoundEnvelope pitchModifier;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("pitchModifierAmplitude")
 	SoundEnvelope pitchModifierAmplitude;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("volumeMultiplier")
 	SoundEnvelope volumeMultiplier;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("volumeMultiplierAmplitude")
 	SoundEnvelope volumeMultiplierAmplitude;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("release")
 	SoundEnvelope release;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("attack")
 	SoundEnvelope attack;
@@ -96,13 +96,13 @@ public class Instrument {
 	int delayDecay;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lda;"
+		descriptor = "Lda;"
 	)
 	@Export("filter")
 	AudioFilter filter;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lds;"
+		descriptor = "Lds;"
 	)
 	@Export("filterEnvelope")
 	SoundEnvelope filterEnvelope;
@@ -369,7 +369,7 @@ public class Instrument {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;)V"
+		descriptor = "(Lkn;)V"
 	)
 	@Export("decode")
 	final void decode(Buffer var1) {

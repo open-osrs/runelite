@@ -53,7 +53,7 @@ public class Rasterizer3D extends Rasterizer2D {
 	public static int[] Rasterizer3D_colorPalette;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Ley;"
+		descriptor = "Ley;"
 	)
 	@Export("Rasterizer3D_textureLoader")
 	public static TextureLoader Rasterizer3D_textureLoader;
@@ -159,7 +159,7 @@ public class Rasterizer3D extends Rasterizer2D {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ley;)V"
+		descriptor = "(Ley;)V"
 	)
 	@Export("Rasterizer3D_setTextureLoader")
 	public static final void Rasterizer3D_setTextureLoader(TextureLoader var0) {

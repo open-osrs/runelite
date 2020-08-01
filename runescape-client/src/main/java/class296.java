@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class296 {
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(CI)C",
+		descriptor = "(CI)C",
 		garbageValue = "1101109074"
 	)
 	static char method5464(char var0) {
@@ -15,7 +15,7 @@ public class class296 {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(CI)Z",
+		descriptor = "(CI)Z",
 		garbageValue = "-2022540422"
 	)
 	@Export("isDigit")
@@ -25,7 +25,7 @@ public class class296 {
 
 	@ObfuscatedName("jy")
 	@ObfuscatedSignature(
-		signature = "(Lhd;IIII)V",
+		descriptor = "(Lhd;IIII)V",
 		garbageValue = "-213876459"
 	)
 	@Export("drawCompass")
