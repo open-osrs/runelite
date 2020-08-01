@@ -54,7 +54,7 @@ dependencies {
     implementation(group = "com.h2database", name = "h2", version = "1.4.200")
     implementation(group = "com.jakewharton.rxrelay3", name = "rxrelay", version = "3.0.0")
     implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.8.0")
-    implementation(group = "io.reactivex.rxjava3", name = "rxjava", version = "3.0.4")
+    implementation(group = "io.reactivex.rxjava3", name = "rxjava", version = "3.0.5")
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.6.0")
     implementation(group = "org.jgroups", name = "jgroups", version = "4.2.4.Final")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.6.0")
