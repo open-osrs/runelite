@@ -898,9 +898,9 @@ public class WidgetID
 		static final int CRUSH_DEFENCE_BONUS = 31;
 		static final int MAGIC_DEFENCE_BONUS = 32;
 		static final int RANGED_DEFENCE_BONUS = 33;
-		static final int MELEE_STRENGTH = 35;
-		static final int RANGED_STRENGTH = 36;
-		static final int MAGIC_DAMAGE = 37;
+		static final int MELEE_STRENGTH = 36;
+		static final int RANGED_STRENGTH = 37;
+		static final int MAGIC_DAMAGE = 38;
 		static final int PRAYER_BONUS = 38;
 		static final int UNDEAD_DAMAGE_BONUS = 40;
 		static final int SLAYER_DAMAGE_BONUS = 41;
