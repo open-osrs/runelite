@@ -99,8 +99,8 @@ public class LootManager
 
 	@Inject
 	private LootManager(
-			final EventBus eventBus,
-			final Client client
+		final EventBus eventBus,
+		final Client client
 	)
 	{
 		this.eventBus = eventBus;
