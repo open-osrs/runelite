@@ -1635,6 +1635,14 @@ public interface Client extends GameShell
 	void setAttackersHidden(boolean state);
 
 	/**
+	 * Sets whether hidden npcs are always hidden regardless
+	 * of interacting state (i.e. attacking).
+	 *
+	 * @param state hidden state
+	 */
+	void setAlwaysHideNamedNpcs(boolean state);
+
+	/**
 	 * Hides players input here.
 	 *
 	 * @param names the names of the players

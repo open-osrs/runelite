@@ -93,6 +93,9 @@ public abstract class EntityHiderMixin implements RSScene
 	@Shadow("hideAttackers")
 	private static boolean hideAttackers;
 
+	@Shadow("alwaysHideNamedNpcs")
+	private static boolean alwaysHideNamedNpcs;
+
 	@Shadow("hideProjectiles")
 	private static boolean hideProjectiles;
 
@@ -179,6 +182,12 @@ public abstract class EntityHiderMixin implements RSScene
 		else if (entity instanceof RSNPC)
 		{
 			RSNPC npc = (RSNPC) entity;
+
+			if (alwaysHideNamedNpcs && npc.getName() != null
+				&& hiddenNpcsName.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
+			{
+				return false;
+			}
 
 			if (!hideAttackers)
 			{
