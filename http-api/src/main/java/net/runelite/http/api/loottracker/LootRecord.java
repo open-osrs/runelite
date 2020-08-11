@@ -41,6 +41,7 @@ public class LootRecord
 	@Getter
 	private String username;
 	private LootRecordType type;
+	private Object metadata;
 	private Collection<GameItem> drops;
 	private Instant time;
 
