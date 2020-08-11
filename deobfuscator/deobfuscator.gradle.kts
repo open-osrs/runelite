@@ -37,7 +37,7 @@ dependencies {
 
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
 
-    implementation(group = "org.jetbrains", name = "annotations", version = "19.0.0")
+    implementation(group = "org.jetbrains", name = "annotations", version = "20.0.0")
     implementation(group = "org.ow2.asm", name = "asm", version = "8.0.1")
     implementation(group = "org.ow2.asm", name = "asm-util", version = "8.0.1")
     implementation(group = "net.runelite", name = "fernflower", version = "07082019")
