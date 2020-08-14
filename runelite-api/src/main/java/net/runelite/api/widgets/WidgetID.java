@@ -25,10 +25,6 @@
 package net.runelite.api.widgets;
 
 /**
-
-
-
-
  * Utility class mapping widget IDs to global constants.
  * <p>
  * The constants defined directly under the {@link WidgetID} class are
@@ -1369,13 +1365,13 @@ public class WidgetID
 	static class GauntletMap
 	{
 		static final int CONTAINER = 4;
-  }
-  
+	}
+
 	static class HallowedSepulchreTimer
 	{
 		static final int CONTAINER = 2;
 	}
-  
+
 	static class EncounterHealthBar
 	{
 		static final int CONTAINER = 6;
