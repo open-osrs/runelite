@@ -17,13 +17,8 @@ public abstract class WidgetSpriteMixin implements RSWidget
 	private static Map<Integer, Sprite> widgetSpriteOverrides;
 
 	@Copy("getSprite")
-	public RSSprite rs$getWidgetSprite(boolean var1)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("getSprite")
-	public RSSprite rl$getWidgetSprite(boolean var1)
+	public RSSprite copy$getWidgetSprite(boolean var1)
 	{
 		if (getSpriteId() != -1)
 		{
@@ -35,7 +30,7 @@ public abstract class WidgetSpriteMixin implements RSWidget
 			}
 		}
 
-		return rs$getWidgetSprite(var1);
+		return copy$getWidgetSprite(var1);
 	}
 
 	@Inject

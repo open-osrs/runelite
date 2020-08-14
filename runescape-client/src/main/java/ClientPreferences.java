@@ -12,7 +12,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ClientPreferences {
 	@ObfuscatedName("pv")
 	@ObfuscatedSignature(
-		signature = "Lkk;"
+		descriptor = "Lkk;"
 	)
 	@Export("clanChat")
 	static ClanChat clanChat;
@@ -24,7 +24,7 @@ public class ClientPreferences {
 	static int ClientPreferences_optionCount;
 	@ObfuscatedName("bp")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Llh;"
 	)
 	@Export("worldSelectRightSprite")
 	static IndexedSprite worldSelectRightSprite;
@@ -63,7 +63,7 @@ public class ClientPreferences {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;)V"
+		descriptor = "(Lkn;)V"
 	)
 	ClientPreferences(Buffer var1) {
 		this.windowMode = 1;
@@ -113,7 +113,7 @@ public class ClientPreferences {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "-943142768"
 	)
 	void method1911(boolean var1) {
@@ -121,7 +121,7 @@ public class ClientPreferences {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(S)Lkn;",
+		descriptor = "(S)Lkn;",
 		garbageValue = "128"
 	)
 	@Export("toBuffer")
@@ -147,7 +147,7 @@ public class ClientPreferences {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
+		descriptor = "(IIB)I",
 		garbageValue = "116"
 	)
 	static final int method1914(int var0, int var1) {
@@ -159,7 +159,7 @@ public class ClientPreferences {
 
 	@ObfuscatedName("ed")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "-82"
 	)
 	@Export("updateGameState")

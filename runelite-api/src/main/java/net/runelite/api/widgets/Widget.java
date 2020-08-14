@@ -68,6 +68,8 @@ public interface Widget
 	 */
 	void setType(int type);
 
+	int getButtonType();
+
 	/**
 	 * Gets the type of content displayed by the widget.
 	 */
@@ -179,6 +181,18 @@ public interface Widget
 	@Deprecated
 	void setRelativeY(int y);
 
+	String getSpellName();
+
+	/**
+	 * You probably want {@link Widget#getText()} instead
+	 */
+	String getRSButtonText();
+
+	/**
+	 * You probably want {@link Widget#getText()} instead
+	 */
+	String getButtonText();
+
 	/**
 	 * Gets the text displayed on this widget.
 	 *
@@ -234,6 +248,12 @@ public interface Widget
 	 * @return the name
 	 */
 	String getName();
+
+	/**
+	 * Gets the internal field returned by getName unfiltered
+	 * @return the unfiltered name
+	 */
+	String getRSName();
 
 	/**
 	 * Sets the name of the widget.
@@ -605,6 +625,8 @@ public interface Widget
 	 */
 	String[] getActions();
 
+	String[] getItemActions();
+
 	/**
 	 * Creates a dynamic widget child
 	 *
@@ -737,15 +759,6 @@ public interface Widget
 	Object[] getOnLoadListener();
 
 	Object[] getOnInvTransmit();
-
-	Object[] getOnOp();
-
-	/**
-	 * Gets the script and arguments to be ran when one of the listened for inventories changes.
-	 *
-	 * @return
-	 */
-	Object[] getOnInvTransmitListener();
 
 	/**
 	 * Returns the archive id of the font used

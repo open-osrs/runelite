@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class234 {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lko;"
+		descriptor = "Lko;"
 	)
 	@Export("ItemDefinition_fontPlain11")
 	static Font ItemDefinition_fontPlain11;
@@ -15,7 +15,7 @@ public class class234 {
 
 	@ObfuscatedName("jd")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I)V",
+		descriptor = "(Lhd;I)V",
 		garbageValue = "-750902552"
 	)
 	@Export("invalidateWidget")

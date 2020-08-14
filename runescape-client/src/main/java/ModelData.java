@@ -92,19 +92,19 @@ public class ModelData extends Entity {
 	int[][] faceLabelsAlpha;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "[Led;"
+		descriptor = "[Led;"
 	)
 	@Export("faceNormals")
 	FaceNormal[] faceNormals;
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "[Let;"
+		descriptor = "[Let;"
 	)
 	@Export("vertexNormals")
 	VertexNormal[] vertexNormals;
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "[Let;"
+		descriptor = "[Let;"
 	)
 	VertexNormal[] field1603;
 	@ObfuscatedName("ai")
@@ -143,7 +143,7 @@ public class ModelData extends Entity {
 	}
 
 	@ObfuscatedSignature(
-		signature = "([Lek;I)V"
+		descriptor = "([Lek;I)V"
 	)
 	public ModelData(ModelData[] var1, int var2) {
 		this.verticesCount = 0;
@@ -309,7 +309,7 @@ public class ModelData extends Entity {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Lek;ZZZZ)V",
+		descriptor = "(Lek;ZZZZ)V",
 		garbageValue = "1"
 	)
 	public ModelData(ModelData var1, boolean var2, boolean var3, boolean var4, boolean var5) {
@@ -965,7 +965,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lek;I)I"
+		descriptor = "(Lek;I)I"
 	)
 	final int method2928(ModelData var1, int var2) {
 		int var3 = -1;
@@ -996,7 +996,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "()Lek;"
+		descriptor = "()Lek;"
 	)
 	public ModelData method2938() {
 		ModelData var1 = new ModelData();
@@ -1040,7 +1040,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "([[IIIIZI)Lek;"
+		descriptor = "([[IIIIZI)Lek;"
 	)
 	public ModelData method2912(int[][] var1, int var2, int var3, int var4, boolean var5, int var6) {
 		this.calculateBounds();
@@ -1437,7 +1437,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(IIIII)Lef;"
+		descriptor = "(IIIII)Lef;"
 	)
 	@Export("toModel")
 	public final Model toModel(int var1, int var2, int var3, int var4, int var5) {
@@ -1624,7 +1624,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;II)Lek;"
+		descriptor = "(Lic;II)Lek;"
 	)
 	@Export("ModelData_get")
 	public static ModelData ModelData_get(AbstractArchive var0, int var1, int var2) {
@@ -1634,7 +1634,7 @@ public class ModelData extends Entity {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Lek;Lek;IIIZ)V"
+		descriptor = "(Lek;Lek;IIIZ)V"
 	)
 	static void method2924(ModelData var0, ModelData var1, int var2, int var3, int var4, boolean var5) {
 		var0.calculateBounds();

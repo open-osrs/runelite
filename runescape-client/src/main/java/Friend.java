@@ -16,7 +16,7 @@ public class Friend extends Buddy {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkl;I)I",
+		descriptor = "(Lkl;I)I",
 		garbageValue = "-1139109616"
 	)
 	@Export("compareToFriend")
@@ -44,7 +44,7 @@ public class Friend extends Buddy {
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		signature = "(Ljf;I)I",
+		descriptor = "(Ljf;I)I",
 		garbageValue = "334051838"
 	)
 	@Export("compareTo_user")
@@ -58,7 +58,7 @@ public class Friend extends Buddy {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(Lch;I)V",
+		descriptor = "(Lch;I)V",
 		garbageValue = "-463373379"
 	)
 	@Export("changeWorld")

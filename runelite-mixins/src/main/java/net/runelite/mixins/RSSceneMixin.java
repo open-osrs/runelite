@@ -81,7 +81,7 @@ public abstract class RSSceneMixin implements RSScene
 	private static int rl$drawDistance;
 
 	@Replace("draw")
-	void rl$drawScene(int cameraX, int cameraY, int cameraZ, int cameraPitch, int cameraYaw, int plane)
+	void drawScene(int cameraX, int cameraY, int cameraZ, int cameraPitch, int cameraYaw, int plane)
 	{
 		final DrawCallbacks drawCallbacks = client.getDrawCallbacks();
 		if (drawCallbacks != null)
@@ -410,12 +410,11 @@ public abstract class RSSceneMixin implements RSScene
 	}
 
 	@Copy("newWallDecoration")
-	abstract public void rs$addBoundaryDecoration(int plane, int x, int y, int floor, Entity var5, Entity var6, int var7, int var8, int var9, int var10, long hash, int var12);
-
 	@Replace("newWallDecoration")
-	public void rl$addBoundaryDecoration(int plane, int x, int y, int floor, Entity var5, Entity var6, int var7, int var8, int var9, int var10, long hash, int var12)
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$addBoundaryDecoration(int plane, int x, int y, int floor, Entity var5, Entity var6, int var7, int var8, int var9, int var10, long hash, int var12)
 	{
-		rs$addBoundaryDecoration(plane, x, y, floor, var5, var6, var7, var8, var9, var10, hash, var12);
+		copy$addBoundaryDecoration(plane, x, y, floor, var5, var6, var7, var8, var9, var10, hash, var12);
 		Tile tile = getTiles()[plane][x][y];
 		if (tile != null)
 		{
@@ -428,12 +427,11 @@ public abstract class RSSceneMixin implements RSScene
 	}
 
 	@Copy("newGroundItemPile")
-	abstract public void rs$addItemPile(int plane, int x, int y, int hash, Entity var5, long var6, Entity var7, Entity var8);
-
 	@Replace("newGroundItemPile")
-	public void rl$addItemPile(int plane, int x, int y, int hash, Entity var5, long var6, Entity var7, Entity var8)
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$addItemPile(int plane, int x, int y, int hash, Entity var5, long var6, Entity var7, Entity var8)
 	{
-		rs$addItemPile(plane, x, y, hash, var5, var6, var7, var8);
+		copy$addItemPile(plane, x, y, hash, var5, var6, var7, var8);
 		Tile tile = getTiles()[plane][x][y];
 		if (tile != null)
 		{
@@ -446,12 +444,11 @@ public abstract class RSSceneMixin implements RSScene
 	}
 
 	@Copy("newFloorDecoration")
-	abstract public void rs$groundObjectSpawned(int plane, int x, int y, int floor, Entity var5, long hash, int var7);
-
 	@Replace("newFloorDecoration")
-	public void rl$groundObjectSpawned(int plane, int x, int y, int floor, Entity var5, long hash, int var7)
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$groundObjectSpawned(int plane, int x, int y, int floor, Entity var5, long hash, int var7)
 	{
-		rs$groundObjectSpawned(plane, x, y, floor, var5, hash, var7);
+		copy$groundObjectSpawned(plane, x, y, floor, var5, hash, var7);
 		Tile tile = getTiles()[plane][x][y];
 		if (tile != null)
 		{
@@ -464,12 +461,11 @@ public abstract class RSSceneMixin implements RSScene
 	}
 
 	@Copy("newBoundaryObject")
-	abstract public void rs$addBoundary(int plane, int x, int y, int floor, Entity var5, Entity var6, int var7, int var8, long hash, int var10);
-
 	@Replace("newBoundaryObject")
-	public void rl$addBoundary(int plane, int x, int y, int floor, Entity var5, Entity var6, int var7, int var8, long hash, int var10)
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$addBoundary(int plane, int x, int y, int floor, Entity var5, Entity var6, int var7, int var8, long hash, int var10)
 	{
-		rs$addBoundary(plane, x, y, floor, var5, var6, var7, var8, hash, var10);
+		copy$addBoundary(plane, x, y, floor, var5, var6, var7, var8, hash, var10);
 		Tile tile = getTiles()[plane][x][y];
 		if (tile != null)
 		{
@@ -482,16 +478,14 @@ public abstract class RSSceneMixin implements RSScene
 	}
 
 	@Copy("drawTileUnderlay")
-	abstract public void rs$drawTileUnderlay(TilePaint tile, int z, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y);
-
 	@Replace("drawTileUnderlay")
-	public void rl$drawTileUnderlay(TilePaint tile, int z, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y)
+	public void copy$drawTileUnderlay(TilePaint tile, int z, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y)
 	{
 		if (!client.isGpu())
 		{
 			try
 			{
-				rs$drawTileUnderlay(tile, z, pitchSin, pitchCos, yawSin, yawCos, x, y);
+				copy$drawTileUnderlay(tile, z, pitchSin, pitchCos, yawSin, yawCos, x, y);
 			}
 			catch (Exception ex)
 			{
@@ -609,14 +603,12 @@ public abstract class RSSceneMixin implements RSScene
 	}
 
 	@Copy("drawTileOverlay")
-	abstract public void rs$drawTileOverlay(TileModel tile, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y);
-
 	@Replace("drawTileOverlay")
-	public void rl$drawTileOverlay(TileModel tile, int pitchSin, int pitchCos, int yawSin, int yawCos, int tileX, int tileY)
+	public void copy$drawTileOverlay(TileModel tile, int pitchSin, int pitchCos, int yawSin, int yawCos, int tileX, int tileY)
 	{
 		if (!client.isGpu())
 		{
-			rs$drawTileOverlay(tile, pitchSin, pitchCos, yawSin, yawCos, tileX, tileY);
+			copy$drawTileOverlay(tile, pitchSin, pitchCos, yawSin, yawCos, tileX, tileY);
 			return;
 		}
 
@@ -829,14 +821,12 @@ public abstract class RSSceneMixin implements RSScene
 	}
 
 	@Copy("drawTileMinimap")
-	abstract void rs$drawTile(int[] pixels, int pixelOffset, int width, int z, int x, int y);
-
 	@Replace("drawTileMinimap")
-	public void rl$drawTile(int[] pixels, int pixelOffset, int width, int z, int x, int y)
+	public void copy$drawTile(int[] pixels, int pixelOffset, int width, int z, int x, int y)
 	{
 		if (!hdMinimapEnabled)
 		{
-			rs$drawTile(pixels, pixelOffset, width, z, x, y);
+			copy$drawTile(pixels, pixelOffset, width, z, x, y);
 			return;
 		}
 		Tile tile = getTiles()[z][x][y];

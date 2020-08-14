@@ -9,48 +9,48 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class LoginType {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	@Export("oldscape")
 	public static final LoginType oldscape;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	static final LoginType field4052;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	static final LoginType field4056;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	static final LoginType field4054;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	static final LoginType field4058;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	static final LoginType field4055;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	static final LoginType field4053;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	static final LoginType field4061;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	public static final LoginType field4059;
 	@ObfuscatedName("z")
@@ -79,7 +79,7 @@ public class LoginType {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(IILjava/lang/String;Ljava/lang/String;Z[Lmo;)V"
+		descriptor = "(IILjava/lang/String;Ljava/lang/String;Z[Lmo;)V"
 	)
 	LoginType(int var1, int var2, String var3, String var4, boolean var5, LoginType[] var6) {
 		this.field4060 = var1;

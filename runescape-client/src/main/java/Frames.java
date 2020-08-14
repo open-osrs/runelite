@@ -15,13 +15,13 @@ public class Frames extends DualNode {
 	static int menuY;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "[Les;"
+		descriptor = "[Les;"
 	)
 	@Export("frames")
 	Animation[] frames;
 
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;IZ)V",
+		descriptor = "(Lic;Lic;IZ)V",
 		garbageValue = "0"
 	)
 	public Frames(AbstractArchive var1, AbstractArchive var2, int var3, boolean var4) {
@@ -55,7 +55,7 @@ public class Frames extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "-107"
 	)
 	@Export("hasAlphaTransform")
@@ -92,7 +92,7 @@ public class Frames extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(CLgz;I)C",
+		descriptor = "(CLgz;I)C",
 		garbageValue = "-959977971"
 	)
 	@Export("standardizeChar")
@@ -180,7 +180,7 @@ public class Frames extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;III)Lko;",
+		descriptor = "(Lic;Lic;III)Lko;",
 		garbageValue = "-2070991083"
 	)
 	public static Font method3394(AbstractArchive var0, AbstractArchive var1, int var2, int var3) {
@@ -198,7 +198,7 @@ public class Frames extends DualNode {
 
 	@ObfuscatedName("gw")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "150036680"
 	)
 	static final void method3396() {
@@ -249,7 +249,7 @@ public class Frames extends DualNode {
 
 	@ObfuscatedName("ku")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-179061034"
 	)
 	static final void method3399() {

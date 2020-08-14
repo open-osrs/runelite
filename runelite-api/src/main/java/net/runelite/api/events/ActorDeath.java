@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, HSJ <https://github.com/HSJ-OSRS>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,78 +22,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api.events;
 
-package net.runelite.asm.attributes.annotation;
+import lombok.Value;
+import net.runelite.api.Actor;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import net.runelite.asm.Type;
-import org.jetbrains.annotations.NotNull;
-import org.objectweb.asm.AnnotationVisitor;
-
-public class Annotation extends Element<List<Element>> implements Iterable<Element>
+/**
+ * An event fired when an actor dies.
+ */
+@Value
+public class ActorDeath implements Event
 {
-	private final Type type;
-
-	public Annotation(Type type)
-	{
-		this.value = new ArrayList<>();
-		this.type = type;
-	}
-
-	public Annotation(String name, Type type)
-	{
-		this.value = new ArrayList<>();
-		this.name = name;
-		this.type = type;
-	}
-
-	public Type getType()
-	{
-		return type;
-	}
-
-	public List<Element> getElements()
-	{
-		return value;
-	}
-
-	public Element getElement()
-	{
-		return value.get(0);
-	}
-
-	public void addElement(Element element)
-	{
-		value.add(element);
-	}
-
-	@Override
-	public final void setValue(List<Element> value)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public void accept(AnnotationVisitor visitor)
-	{
-		if (visitor == null)
-		{
-			return;
-		}
-
-		for (Element element : this)
-		{
-			accept(visitor, element.name, element.value);
-		}
-
-		visitor.visitEnd();
-	}
-
-	@NotNull
-	@Override
-	public Iterator<Element> iterator()
-	{
-		return this.value.iterator();
-	}
+	Actor actor;
 }

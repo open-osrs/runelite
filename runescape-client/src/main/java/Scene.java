@@ -59,7 +59,7 @@ public class Scene {
 	static int Scene_cameraYawCosine;
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "[Lev;"
+		descriptor = "[Lev;"
 	)
 	@Export("gameObjects")
 	static GameObject[] gameObjects;
@@ -92,7 +92,7 @@ public class Scene {
 	static int[] Scene_planeOccluderCounts;
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "[[Lew;"
+		descriptor = "[[Lew;"
 	)
 	@Export("Scene_planeOccluders")
 	static Occluder[][] Scene_planeOccluders;
@@ -101,13 +101,13 @@ public class Scene {
 	static int Scene_currentOccludersCount;
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		signature = "[Lew;"
+		descriptor = "[Lew;"
 	)
 	@Export("Scene_currentOccluders")
 	static Occluder[] Scene_currentOccluders;
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("Scene_tilesDeque")
 	static NodeDeque Scene_tilesDeque;
@@ -163,7 +163,7 @@ public class Scene {
 	int[][][] tileHeights;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "[[[Lea;"
+		descriptor = "[[[Lea;"
 	)
 	@Export("tiles")
 	Tile[][][] tiles;
@@ -175,7 +175,7 @@ public class Scene {
 	int tempGameObjectsCount;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "[Lev;"
+		descriptor = "[Lev;"
 	)
 	@Export("tempGameObjects")
 	GameObject[] tempGameObjects;
@@ -355,7 +355,7 @@ public class Scene {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IIIILel;JI)V"
+		descriptor = "(IIIILel;JI)V"
 	)
 	@Export("newFloorDecoration")
 	public void newFloorDecoration(int var1, int var2, int var3, int var4, Entity var5, long var6, int var8) {
@@ -377,7 +377,7 @@ public class Scene {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(IIIILel;JLel;Lel;)V"
+		descriptor = "(IIIILel;JLel;Lel;)V"
 	)
 	@Export("newGroundItemPile")
 	public void newGroundItemPile(int var1, int var2, int var3, int var4, Entity var5, long var6, Entity var8, Entity var9) {
@@ -413,7 +413,7 @@ public class Scene {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(IIIILel;Lel;IIJI)V"
+		descriptor = "(IIIILel;Lel;IIJI)V"
 	)
 	@Export("newBoundaryObject")
 	public void newBoundaryObject(int var1, int var2, int var3, int var4, Entity var5, Entity var6, int var7, int var8, long var9, int var11) {
@@ -441,7 +441,7 @@ public class Scene {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(IIIILel;Lel;IIIIJI)V"
+		descriptor = "(IIIILel;Lel;IIIIJI)V"
 	)
 	@Export("newWallDecoration")
 	public void newWallDecoration(int var1, int var2, int var3, int var4, Entity var5, Entity var6, int var7, int var8, int var9, int var10, long var11, int var13) {
@@ -471,7 +471,7 @@ public class Scene {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(IIIIIILel;IJI)Z"
+		descriptor = "(IIIIIILel;IJI)Z"
 	)
 	public boolean method3356(int var1, int var2, int var3, int var4, int var5, int var6, Entity var7, int var8, long var9, int var11) {
 		if (var7 == null) {
@@ -485,7 +485,7 @@ public class Scene {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(IIIIILel;IJZ)Z"
+		descriptor = "(IIIIILel;IJZ)Z"
 	)
 	@Export("drawEntity")
 	public boolean drawEntity(int var1, int var2, int var3, int var4, int var5, Entity var6, int var7, long var8, boolean var10) {
@@ -524,7 +524,7 @@ public class Scene {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(IIIIILel;IJIIII)Z"
+		descriptor = "(IIIIILel;IJIIII)Z"
 	)
 	@Export("addNullableObject")
 	public boolean addNullableObject(int var1, int var2, int var3, int var4, int var5, Entity var6, int var7, long var8, int var10, int var11, int var12, int var13) {
@@ -533,7 +533,7 @@ public class Scene {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIILel;IZJI)Z"
+		descriptor = "(IIIIIIIILel;IZJI)Z"
 	)
 	@Export("newGameObject")
 	boolean newGameObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, Entity var9, int var10, boolean var11, long var12, int var14) {
@@ -619,7 +619,7 @@ public class Scene {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(Lev;)V"
+		descriptor = "(Lev;)V"
 	)
 	@Export("removeGameObject")
 	void removeGameObject(GameObject var1) {
@@ -719,7 +719,7 @@ public class Scene {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(III)Lez;"
+		descriptor = "(III)Lez;"
 	)
 	public BoundaryObject method3213(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -728,7 +728,7 @@ public class Scene {
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		signature = "(III)Lep;"
+		descriptor = "(III)Lep;"
 	)
 	public WallDecoration method3214(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -737,7 +737,7 @@ public class Scene {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(III)Lev;"
+		descriptor = "(III)Lev;"
 	)
 	public GameObject method3215(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -757,7 +757,7 @@ public class Scene {
 
 	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
-		signature = "(III)Leu;"
+		descriptor = "(III)Leu;"
 	)
 	@Export("getFloorDecoration")
 	public FloorDecoration getFloorDecoration(int var1, int var2, int var3) {
@@ -789,7 +789,7 @@ public class Scene {
 			for (int var5 = 0; var5 < var4.gameObjectsCount; ++var5) {
 				GameObject var6 = var4.gameObjects[var5];
 				long var8 = var6.tag;
-				boolean var7 = class171.method3571(var8) == 2;
+				boolean var7 = class171.Entity_unpackType(var8) == 2;
 				if (var7 && var2 == var6.startX && var3 == var6.startY) {
 					return var6.tag;
 				}
@@ -875,7 +875,7 @@ public class Scene {
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(Lek;III)V"
+		descriptor = "(Lek;III)V"
 	)
 	void method3283(ModelData var1, int var2, int var3, int var4) {
 		Tile var5;
@@ -916,7 +916,7 @@ public class Scene {
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(Lek;IIIII)V"
+		descriptor = "(Lek;IIIII)V"
 	)
 	void method3224(ModelData var1, int var2, int var3, int var4, int var5, int var6) {
 		boolean var7 = true;
@@ -1037,13 +1037,13 @@ public class Scene {
 
 	@ObfuscatedName("av")
 	@Export("menuOpen")
-	public void menuOpen(int var1, int var2, int var3, boolean var4) {
-		if (!method3230() || var4) {
+	public void menuOpen(int plane, int mouseX, int mouseY, boolean walking) {
+		if (!shouldSendWalk() || walking) {
 			checkClick = true;
-			viewportWalking = var4;
-			Scene_selectedPlane = var1;
-			Scene_selectedScreenX = var2;
-			Scene_selectedScreenY = var3;
+			viewportWalking = walking;
+			Scene_selectedPlane = plane;
+			Scene_selectedScreenX = mouseX;
+			Scene_selectedScreenY = mouseY;
 			Scene_selectedX = -1;
 			Scene_selectedY = -1;
 		}
@@ -1254,7 +1254,7 @@ public class Scene {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "(Lea;Z)V"
+		descriptor = "(Lea;Z)V"
 	)
 	@Export("drawTile")
 	void drawTile(Tile var1, boolean var2) {
@@ -1784,7 +1784,7 @@ public class Scene {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(Lex;IIIIIII)V"
+		descriptor = "(Lex;IIIIIII)V"
 	)
 	@Export("drawTileUnderlay")
 	void drawTileUnderlay(TilePaint var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
@@ -1895,7 +1895,7 @@ public class Scene {
 
 	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		signature = "(Lej;IIIIII)V"
+		descriptor = "(Lej;IIIIII)V"
 	)
 	@Export("drawTileOverlay")
 	void drawTileOverlay(TileModel var1, int var2, int var3, int var4, int var5, int var6, int var7) {
@@ -2541,12 +2541,14 @@ public class Scene {
 	}
 
 	@ObfuscatedName("at")
-	public static boolean method3230() {
+	@Export("shouldSendWalk")
+	public static boolean shouldSendWalk() {
 		return viewportWalking && Scene_selectedX != -1;
 	}
 
 	@ObfuscatedName("aa")
-	public static void method3346() {
+	@Export("resetWalking")
+	public static void resetWalking() {
 		Scene_selectedX = -1;
 		viewportWalking = false;
 	}

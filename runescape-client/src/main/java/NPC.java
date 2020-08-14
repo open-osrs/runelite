@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class NPC extends Actor {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("SpotAnimationDefinition_modelArchive")
 	static AbstractArchive SpotAnimationDefinition_modelArchive;
@@ -17,7 +17,7 @@ public final class NPC extends Actor {
 	static int[] SpriteBuffer_yOffsets;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Ljz;"
+		descriptor = "Ljz;"
 	)
 	@Export("definition")
 	NPCDefinition definition;
@@ -27,7 +27,7 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IBI)V",
+		descriptor = "(IBI)V",
 		garbageValue = "-676669615"
 	)
 	final void method2150(int var1, byte var2) {
@@ -90,7 +90,7 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIZI)V",
+		descriptor = "(IIZI)V",
 		garbageValue = "-1996954385"
 	)
 	final void method2142(int var1, int var2, boolean var3) {
@@ -130,7 +130,7 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
+		descriptor = "(I)Lef;",
 		garbageValue = "1832696685"
 	)
 	@Export("getModel")
@@ -166,7 +166,7 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "1"
 	)
 	@Export("isVisible")
@@ -176,7 +176,7 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)Ljava/lang/String;",
+		descriptor = "(Lkn;I)Ljava/lang/String;",
 		garbageValue = "1758966720"
 	)
 	public static String method2157(Buffer var0) {
@@ -185,7 +185,7 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(S)V",
+		descriptor = "(S)V",
 		garbageValue = "-25347"
 	)
 	static void method2156() {
@@ -200,7 +200,7 @@ public final class NPC extends Actor {
 
 	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		signature = "(Ldh;I)V",
+		descriptor = "(Ldh;I)V",
 		garbageValue = "2097901447"
 	)
 	public static final void method2144(PlayerProvider var0) {

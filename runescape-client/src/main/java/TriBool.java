@@ -18,19 +18,19 @@ import net.runelite.rs.Reflection;
 public class TriBool {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("TriBool_unknown")
 	public static final TriBool TriBool_unknown;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("TriBool_true")
 	public static final TriBool TriBool_true;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("TriBool_false")
 	public static final TriBool TriBool_false;
@@ -46,7 +46,7 @@ public class TriBool {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkb;B)V",
+		descriptor = "(Lkb;B)V",
 		garbageValue = "-64"
 	)
 	@Export("performReflectionCheck")

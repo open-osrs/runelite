@@ -15,13 +15,13 @@ public class SoundSystem implements Runnable {
 	static int field1466;
 	@ObfuscatedName("hm")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("headIconHintSprites")
 	static Sprite[] headIconHintSprites;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "[Ldt;"
+		descriptor = "[Ldt;"
 	)
 	@Export("players")
 	volatile PcmPlayer[] players;
@@ -46,16 +46,17 @@ public class SoundSystem implements Runnable {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
+		descriptor = "(IB)I",
 		garbageValue = "101"
 	)
-	public static int method2628(int var0) {
-		return class279.method5159(ViewportMouse.ViewportMouse_entityTags[var0]);
+	@Export("getSceneXForObjectUnderMouse")
+	public static int getSceneXForObjectUnderMouse(int var0) {
+		return class279.Entity_unpackSceneX(ViewportMouse.ViewportMouse_entityTags[var0]);
 	}
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-123"
 	)
 	public static void method2629() {
@@ -75,7 +76,7 @@ public class SoundSystem implements Runnable {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1398391910"
 	)
 	static int method2630(int var0, Script var1, boolean var2) {

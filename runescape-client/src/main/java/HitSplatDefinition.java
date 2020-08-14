@@ -9,36 +9,36 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class HitSplatDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("HitSplatDefinition_archive")
 	public static AbstractArchive HitSplatDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	public static AbstractArchive field3356;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("HitSplatDefinition_fontsArchive")
 	public static AbstractArchive HitSplatDefinition_fontsArchive;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("HitSplatDefinition_cached")
 	public static EvictingDualNodeHashTable HitSplatDefinition_cached;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("HitSplatDefinition_cachedSprites")
 	public static EvictingDualNodeHashTable HitSplatDefinition_cachedSprites;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("HitSplatDefinition_cachedFonts")
 	public static EvictingDualNodeHashTable HitSplatDefinition_cachedFonts;
@@ -154,7 +154,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "-108"
 	)
 	@Export("decode")
@@ -171,7 +171,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-2104480969"
 	)
 	@Export("decodeNext")
@@ -240,7 +240,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(S)Ljs;",
+		descriptor = "(S)Ljs;",
 		garbageValue = "24687"
 	)
 	@Export("transform")
@@ -283,7 +283,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)Ljava/lang/String;",
+		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "2134005517"
 	)
 	@Export("getString")
@@ -302,7 +302,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)Llz;",
+		descriptor = "(B)Llz;",
 		garbageValue = "85"
 	)
 	public Sprite method4755() {
@@ -325,7 +325,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Llz;",
+		descriptor = "(I)Llz;",
 		garbageValue = "-2111693825"
 	)
 	public Sprite method4756() {
@@ -348,7 +348,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)Llz;",
+		descriptor = "(B)Llz;",
 		garbageValue = "1"
 	)
 	public Sprite method4752() {
@@ -371,7 +371,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)Llz;",
+		descriptor = "(I)Llz;",
 		garbageValue = "148088504"
 	)
 	public Sprite method4763() {
@@ -394,7 +394,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(B)Lko;",
+		descriptor = "(B)Lko;",
 		garbageValue = "-13"
 	)
 	@Export("getFont")
@@ -418,7 +418,7 @@ public class HitSplatDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkb;B)V",
+		descriptor = "(Lkb;B)V",
 		garbageValue = "121"
 	)
 	@Export("updatePlayer")

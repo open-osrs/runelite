@@ -14,27 +14,27 @@ public class WorldMapCacheName {
 	static int field329;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lat;"
+		descriptor = "Lat;"
 	)
 	public static final WorldMapCacheName field322;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lat;"
+		descriptor = "Lat;"
 	)
 	public static final WorldMapCacheName field325;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lat;"
+		descriptor = "Lat;"
 	)
 	public static final WorldMapCacheName field324;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lat;"
+		descriptor = "Lat;"
 	)
 	static final WorldMapCacheName field323;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lat;"
+		descriptor = "Lat;"
 	)
 	public static final WorldMapCacheName field326;
 	@ObfuscatedName("ga")
@@ -60,7 +60,7 @@ public class WorldMapCacheName {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(ILlp;Lig;I)V",
+		descriptor = "(ILlp;Lig;I)V",
 		garbageValue = "-1710341553"
 	)
 	static void method688(int var0, ArchiveDisk var1, Archive var2) {

@@ -27,16 +27,11 @@ package net.runelite.asm.annotations;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.ClassUtil;
 import net.runelite.asm.Method;
 import net.runelite.asm.Type;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
-import net.runelite.asm.attributes.annotation.Element;
 import net.runelite.deob.util.JarUtil;
 import org.junit.Assert;
 import org.junit.Test;
@@ -62,20 +57,14 @@ public class AnnotationTest
 		Method method = cf.getMethods().get(1);
 		Assert.assertEquals("method1", method.getName());
 
-		Annotations annotations = method.getAnnotations();
-		Assert.assertNotNull(annotations);
+		var annotation = method.findAnnotation(new Type("Lnet/runelite/asm/annotations/MyAnnotation;"));
+		Assert.assertNotNull(annotation);
 
-		Optional<Annotation> annotation = annotations.getAnnotations().stream().filter(a -> a.getType().equals(new Type("Lnet/runelite/asm/annotations/MyAnnotation;"))).findFirst();
-		Assert.assertTrue(annotation.isPresent());
+		Assert.assertEquals(1, annotation.size());
 
-		Annotation an = annotation.get();
-		List<Element> elements = an.getElements();
-
-		Assert.assertEquals(1, elements.size());
-
-		Element element = elements.get(0);
-
-		Assert.assertEquals("value", element.getName());
-		Assert.assertEquals("method1", element.getValue());
+		Object element = annotation.getValue();
+		Object also = annotation.get("value");
+		Assert.assertEquals(also, element);
+		Assert.assertEquals("method1", element);
 	}
 }

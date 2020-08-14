@@ -31,7 +31,7 @@ public class FaceNormal {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([Lgt;II)Lgt;",
+		descriptor = "([Lgt;II)Lgt;",
 		garbageValue = "-707018179"
 	)
 	@Export("findEnumerated")
@@ -50,7 +50,7 @@ public class FaceNormal {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
+		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "223741723"
 	)
 	static String method3392() {

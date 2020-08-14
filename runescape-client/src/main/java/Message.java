@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Message extends DualNode {
 	@ObfuscatedName("dg")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive1")
 	static Archive archive1;
 	@ObfuscatedName("dy")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive12")
 	static Archive archive12;
@@ -42,19 +42,19 @@ public class Message extends DualNode {
 	String sender;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lkq;"
 	)
 	@Export("senderUsername")
 	Username senderUsername;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("isFromFriend0")
 	TriBool isFromFriend0;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("isFromIgnored0")
 	TriBool isFromIgnored0;
@@ -73,7 +73,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
 		garbageValue = "-427651151"
 	)
 	@Export("set")
@@ -92,7 +92,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2093900647"
 	)
 	@Export("clearIsFromFriend")
@@ -102,7 +102,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1408976904"
 	)
 	@Export("isFromFriend")
@@ -116,7 +116,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "511529108"
 	)
 	@Export("fillIsFromFriend")
@@ -126,7 +126,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "108"
 	)
 	@Export("clearIsFromIgnored")
@@ -136,7 +136,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "-124"
 	)
 	@Export("isFromIgnored")
@@ -150,7 +150,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-558597226"
 	)
 	@Export("fillIsFromIgnored")
@@ -160,7 +160,7 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1793288574"
 	)
 	@Export("fillSenderUsername")
@@ -175,130 +175,131 @@ public class Message extends DualNode {
 
 	@ObfuscatedName("ik")
 	@ObfuscatedSignature(
-		signature = "(Lhd;III)V",
+		descriptor = "(Lhd;III)V",
 		garbageValue = "-1019531565"
 	)
-	static final void method1283(Widget var0, int var1, int var2) {
-		if (var0.buttonType == 1) {
-			ScriptEvent.insertMenuItemNoShift(var0.buttonText, "", 24, 0, 0, var0.id);
+	@Export("Widget_addToMenu")
+	static final void Widget_addToMenu(Widget widget, int var1, int var2) {
+		if (widget.buttonType == 1) {
+			ScriptEvent.insertMenuItemNoShift(widget.buttonText, "", 24, 0, 0, widget.id);
 		}
 
 		String var3;
-		if (var0.buttonType == 2 && !Client.isSpellSelected) {
-			var3 = WorldMapAreaData.method762(var0);
+		if (widget.buttonType == 2 && !Client.isSpellSelected) {
+			var3 = WorldMapAreaData.Widget_getSpellActionName(widget);
 			if (var3 != null) {
-				ScriptEvent.insertMenuItemNoShift(var3, ItemContainer.colorStartTag(65280) + var0.spellName, 25, 0, -1, var0.id);
+				ScriptEvent.insertMenuItemNoShift(var3, ItemContainer.colorStartTag(65280) + widget.spellName, 25, 0, -1, widget.id);
 			}
 		}
 
-		if (var0.buttonType == 3) {
-			ScriptEvent.insertMenuItemNoShift("Close", "", 26, 0, 0, var0.id);
+		if (widget.buttonType == 3) {
+			ScriptEvent.insertMenuItemNoShift("Close", "", 26, 0, 0, widget.id);
 		}
 
-		if (var0.buttonType == 4) {
-			ScriptEvent.insertMenuItemNoShift(var0.buttonText, "", 28, 0, 0, var0.id);
+		if (widget.buttonType == 4) {
+			ScriptEvent.insertMenuItemNoShift(widget.buttonText, "", 28, 0, 0, widget.id);
 		}
 
-		if (var0.buttonType == 5) {
-			ScriptEvent.insertMenuItemNoShift(var0.buttonText, "", 29, 0, 0, var0.id);
+		if (widget.buttonType == 5) {
+			ScriptEvent.insertMenuItemNoShift(widget.buttonText, "", 29, 0, 0, widget.id);
 		}
 
-		if (var0.buttonType == 6 && Client.meslayerContinueWidget == null) {
-			ScriptEvent.insertMenuItemNoShift(var0.buttonText, "", 30, 0, -1, var0.id);
+		if (widget.buttonType == 6 && Client.meslayerContinueWidget == null) {
+			ScriptEvent.insertMenuItemNoShift(widget.buttonText, "", 30, 0, -1, widget.id);
 		}
 
 		int var4;
 		int var6;
 		int var7;
 		int var13;
-		if (var0.type == 2) {
+		if (widget.type == 2) {
 			var13 = 0;
 
-			for (var4 = 0; var4 < var0.height; ++var4) {
-				for (int var5 = 0; var5 < var0.width; ++var5) {
-					var6 = (var0.paddingX + 32) * var5;
-					var7 = (var0.paddingY + 32) * var4;
+			for (var4 = 0; var4 < widget.height; ++var4) {
+				for (int var5 = 0; var5 < widget.width; ++var5) {
+					var6 = (widget.paddingX + 32) * var5;
+					var7 = (widget.paddingY + 32) * var4;
 					if (var13 < 20) {
-						var6 += var0.inventoryXOffsets[var13];
-						var7 += var0.inventoryYOffsets[var13];
+						var6 += widget.inventoryXOffsets[var13];
+						var7 += widget.inventoryYOffsets[var13];
 					}
 
 					if (var1 >= var6 && var2 >= var7 && var1 < var6 + 32 && var2 < var7 + 32) {
 						Client.dragItemSlotDestination = var13;
-						TaskHandler.field2066 = var0;
-						if (var0.itemIds[var13] > 0) {
-							ItemDefinition var8 = KitDefinition.ItemDefinition_get(var0.itemIds[var13] - 1);
-							if (Client.isItemSelected == 1 && FloorUnderlayDefinition.method4615(KeyHandler.getWidgetClickMask(var0))) {
-								if (var0.id != AbstractUserComparator.selectedItemWidget || var13 != LoginScreenAnimation.selectedItemSlot) {
-									ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + var8.name, 31, var8.id, var13, var0.id);
+						TaskHandler.hoveredItemContainer = widget;
+						if (widget.itemIds[var13] > 0) {
+							ItemDefinition itemDef = KitDefinition.ItemDefinition_get(widget.itemIds[var13] - 1);
+							if (Client.isItemSelected == 1 && FloorUnderlayDefinition.Widget_isItemContainer(KeyHandler.getWidgetFlags(widget))) {
+								if (widget.id != AbstractUserComparator.selectedItemWidget || var13 != LoginScreenAnimation.selectedItemSlot) {
+									ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + itemDef.name, 31, itemDef.id, var13, widget.id);
 								}
-							} else if (Client.isSpellSelected && FloorUnderlayDefinition.method4615(KeyHandler.getWidgetClickMask(var0))) {
+							} else if (Client.isSpellSelected && FloorUnderlayDefinition.Widget_isItemContainer(KeyHandler.getWidgetFlags(widget))) {
 								if ((WorldMapSprite.selectedSpellFlags & 16) == 16) {
-									ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + var8.name, 32, var8.id, var13, var0.id);
+									ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + itemDef.name, 32, itemDef.id, var13, widget.id);
 								}
 							} else {
-								String[] var9 = var8.inventoryActions;
-								int var10 = -1;
-								if (Client.shiftClickDrop && ModelData0.method3375()) {
-									var10 = var8.getShiftClickIndex();
+								String[] actionsAry = itemDef.inventoryActions;
+								int shiftClickIdx = -1;
+								if (Client.shiftClickDrop && ModelData0.shouldPrioritizeDrop()) {
+									shiftClickIdx = itemDef.getShiftClickIndex();
 								}
 
-								int var11;
-								if (FloorUnderlayDefinition.method4615(KeyHandler.getWidgetClickMask(var0))) {
-									for (var11 = 4; var11 >= 3; --var11) {
-										if (var11 != var10) {
-											WallDecoration.addWidgetItemMenuItem(var0, var8, var13, var11, false);
+								int loopIdx;
+								if (FloorUnderlayDefinition.Widget_isItemContainer(KeyHandler.getWidgetFlags(widget))) {
+									for (loopIdx = 4; loopIdx >= 3; --loopIdx) {
+										if (loopIdx != shiftClickIdx) {
+											WallDecoration.addWidgetItemMenuItem(widget, itemDef, var13, loopIdx, false);
 										}
 									}
 								}
 
-								if (class198.method3774(KeyHandler.getWidgetClickMask(var0))) {
-									ScriptEvent.insertMenuItemNoShift("Use", ItemContainer.colorStartTag(16748608) + var8.name, 38, var8.id, var13, var0.id);
+								if (class198.Widget_containerHasUseOption(KeyHandler.getWidgetFlags(widget))) {
+									ScriptEvent.insertMenuItemNoShift("Use", ItemContainer.colorStartTag(16748608) + itemDef.name, 38, itemDef.id, var13, widget.id);
 								}
 
-								if (FloorUnderlayDefinition.method4615(KeyHandler.getWidgetClickMask(var0))) {
-									for (var11 = 2; var11 >= 0; --var11) {
-										if (var11 != var10) {
-											WallDecoration.addWidgetItemMenuItem(var0, var8, var13, var11, false);
+								if (FloorUnderlayDefinition.Widget_isItemContainer(KeyHandler.getWidgetFlags(widget))) {
+									for (loopIdx = 2; loopIdx >= 0; --loopIdx) {
+										if (loopIdx != shiftClickIdx) {
+											WallDecoration.addWidgetItemMenuItem(widget, itemDef, var13, loopIdx, false);
 										}
 									}
 
-									if (var10 >= 0) {
-										WallDecoration.addWidgetItemMenuItem(var0, var8, var13, var10, true);
+									if (shiftClickIdx >= 0) {
+										WallDecoration.addWidgetItemMenuItem(widget, itemDef, var13, shiftClickIdx, true);
 									}
 								}
 
-								var9 = var0.itemActions;
-								if (var9 != null) {
-									for (var11 = 4; var11 >= 0; --var11) {
-										if (var9[var11] != null) {
-											byte var12 = 0;
-											if (var11 == 0) {
-												var12 = 39;
+								actionsAry = widget.itemActions;
+								if (actionsAry != null) {
+									for (loopIdx = 4; loopIdx >= 0; --loopIdx) {
+										if (actionsAry[loopIdx] != null) {
+											byte opcode = 0;
+											if (loopIdx == 0) {
+												opcode = 39;
 											}
 
-											if (var11 == 1) {
-												var12 = 40;
+											if (loopIdx == 1) {
+												opcode = 40;
 											}
 
-											if (var11 == 2) {
-												var12 = 41;
+											if (loopIdx == 2) {
+												opcode = 41;
 											}
 
-											if (var11 == 3) {
-												var12 = 42;
+											if (loopIdx == 3) {
+												opcode = 42;
 											}
 
-											if (var11 == 4) {
-												var12 = 43;
+											if (loopIdx == 4) {
+												opcode = 43;
 											}
 
-											ScriptEvent.insertMenuItemNoShift(var9[var11], ItemContainer.colorStartTag(16748608) + var8.name, var12, var8.id, var13, var0.id);
+											ScriptEvent.insertMenuItemNoShift(actionsAry[loopIdx], ItemContainer.colorStartTag(16748608) + itemDef.name, opcode, itemDef.id, var13, widget.id);
 										}
 									}
 								}
 
-								ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16748608) + var8.name, 1005, var8.id, var13, var0.id);
+								ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16748608) + itemDef.name, 1005, itemDef.id, var13, widget.id);
 							}
 						}
 					}
@@ -308,55 +309,55 @@ public class Message extends DualNode {
 			}
 		}
 
-		if (var0.isIf3) {
+		if (widget.isIf3) {
 			if (Client.isSpellSelected) {
-				var4 = KeyHandler.getWidgetClickMask(var0);
+				var4 = KeyHandler.getWidgetFlags(widget);
 				boolean var19 = (var4 >> 21 & 1) != 0;
 				if (var19 && (WorldMapSprite.selectedSpellFlags & 32) == 32) {
-					ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + var0.dataText, 58, 0, var0.childIndex, var0.id);
+					ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + widget.dataText, 58, 0, widget.childIndex, widget.id);
 				}
 			} else {
 				for (var13 = 9; var13 >= 5; --var13) {
-					var6 = KeyHandler.getWidgetClickMask(var0);
+					var6 = KeyHandler.getWidgetFlags(widget);
 					boolean var17 = (var6 >> var13 + 1 & 1) != 0;
 					String var14;
-					if (!var17 && var0.onOp == null) {
+					if (!var17 && widget.onOp == null) {
 						var14 = null;
-					} else if (var0.actions != null && var0.actions.length > var13 && var0.actions[var13] != null && var0.actions[var13].trim().length() != 0) {
-						var14 = var0.actions[var13];
+					} else if (widget.actions != null && widget.actions.length > var13 && widget.actions[var13] != null && widget.actions[var13].trim().length() != 0) {
+						var14 = widget.actions[var13];
 					} else {
 						var14 = null;
 					}
 
 					if (var14 != null) {
-						ScriptEvent.insertMenuItemNoShift(var14, var0.dataText, 1007, var13 + 1, var0.childIndex, var0.id);
+						ScriptEvent.insertMenuItemNoShift(var14, widget.dataText, 1007, var13 + 1, widget.childIndex, widget.id);
 					}
 				}
 
-				var3 = WorldMapAreaData.method762(var0);
+				var3 = WorldMapAreaData.Widget_getSpellActionName(widget);
 				if (var3 != null) {
-					ScriptEvent.insertMenuItemNoShift(var3, var0.dataText, 25, 0, var0.childIndex, var0.id);
+					ScriptEvent.insertMenuItemNoShift(var3, widget.dataText, 25, 0, widget.childIndex, widget.id);
 				}
 
 				for (var4 = 4; var4 >= 0; --var4) {
-					var7 = KeyHandler.getWidgetClickMask(var0);
+					var7 = KeyHandler.getWidgetFlags(widget);
 					boolean var18 = (var7 >> var4 + 1 & 1) != 0;
 					String var15;
-					if (!var18 && var0.onOp == null) {
+					if (!var18 && widget.onOp == null) {
 						var15 = null;
-					} else if (var0.actions != null && var0.actions.length > var4 && var0.actions[var4] != null && var0.actions[var4].trim().length() != 0) {
-						var15 = var0.actions[var4];
+					} else if (widget.actions != null && widget.actions.length > var4 && widget.actions[var4] != null && widget.actions[var4].trim().length() != 0) {
+						var15 = widget.actions[var4];
 					} else {
 						var15 = null;
 					}
 
 					if (var15 != null) {
-						ApproximateRouteStrategy.insertMenuItem(var15, var0.dataText, 57, var4 + 1, var0.childIndex, var0.id, var0.field2744);
+						ApproximateRouteStrategy.insertMenuItem(var15, widget.dataText, 57, var4 + 1, widget.childIndex, widget.id, widget.prioritizeMenuEntry);
 					}
 				}
 
-				if (WorldMapLabel.method487(KeyHandler.getWidgetClickMask(var0))) {
-					ScriptEvent.insertMenuItemNoShift("Continue", "", 30, 0, var0.childIndex, var0.id);
+				if (WorldMapLabel.Widget_hasContinueOption(KeyHandler.getWidgetFlags(widget))) {
+					ScriptEvent.insertMenuItemNoShift("Continue", "", 30, 0, widget.childIndex, widget.id);
 				}
 			}
 		}

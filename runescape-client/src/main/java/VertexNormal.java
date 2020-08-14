@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class VertexNormal {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Leb;"
+		descriptor = "Leb;"
 	)
 	@Export("World_request")
 	static UrlRequest World_request;
@@ -42,7 +42,7 @@ public class VertexNormal {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Let;)V"
+		descriptor = "(Let;)V"
 	)
 	VertexNormal(VertexNormal var1) {
 		this.x = var1.x;

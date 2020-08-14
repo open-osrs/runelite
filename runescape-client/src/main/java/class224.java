@@ -22,7 +22,7 @@ public class class224 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)Lje;",
+		descriptor = "(IB)Lje;",
 		garbageValue = "-100"
 	)
 	@Export("StructDefinition_getStructDefinition")

@@ -32,7 +32,7 @@ public class Buddy extends User {
 
 	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-820539853"
 	)
 	@Export("set")
@@ -43,7 +43,7 @@ public class Buddy extends User {
 
 	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "1724193250"
 	)
 	@Export("getWorld")
@@ -53,7 +53,7 @@ public class Buddy extends User {
 
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-279238296"
 	)
 	@Export("hasWorld")
@@ -63,7 +63,7 @@ public class Buddy extends User {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "562871414"
 	)
 	static int method5363(int var0, int var1) {
@@ -152,7 +152,7 @@ public class Buddy extends User {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lic;III)Llh;",
+		descriptor = "(Lic;III)Llh;",
 		garbageValue = "214880487"
 	)
 	static IndexedSprite method5355(AbstractArchive var0, int var1, int var2) {
@@ -170,7 +170,7 @@ public class Buddy extends User {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(IS)V",
+		descriptor = "(IS)V",
 		garbageValue = "1714"
 	)
 	static void method5349(int var0) {

@@ -13,13 +13,13 @@ public class TextureProvider implements TextureLoader {
 	static int[] Tiles_lightness;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "[Leo;"
+		descriptor = "[Leo;"
 	)
 	@Export("textures")
 	Texture[] textures;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("deque")
 	NodeDeque deque;
@@ -46,13 +46,13 @@ public class TextureProvider implements TextureLoader {
 	int textureSize;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("archive")
 	AbstractArchive archive;
 
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;IDI)V"
+		descriptor = "(Lic;Lic;IDI)V"
 	)
 	public TextureProvider(AbstractArchive var1, AbstractArchive var2, int var3, double var4, int var6) {
 		this.deque = new NodeDeque();
@@ -77,7 +77,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1846975444"
 	)
 	@Export("getLoadedPercentage")
@@ -117,7 +117,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)[I",
+		descriptor = "(II)[I",
 		garbageValue = "1948753683"
 	)
 	@Export("getTexturePixels")
@@ -150,7 +150,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "1038437362"
 	)
 	@Export("getAverageTextureRGB")
@@ -160,7 +160,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "54"
 	)
 	public boolean vmethod3404(int var1) {
@@ -169,7 +169,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "18"
 	)
 	@Export("isLowDetail")
@@ -179,7 +179,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-426854674"
 	)
 	@Export("clear")
@@ -196,7 +196,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "245586965"
 	)
 	@Export("animate")
@@ -213,7 +213,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1729691421"
 	)
 	static int method2888(int var0, Script var1, boolean var2) {
@@ -331,7 +331,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)I",
+		descriptor = "(Ljava/lang/String;I)I",
 		garbageValue = "1974416966"
 	)
 	public static int method2873(String var0) {
@@ -340,7 +340,7 @@ public class TextureProvider implements TextureLoader {
 
 	@ObfuscatedName("gz")
 	@ObfuscatedSignature(
-		signature = "(IIZB)V",
+		descriptor = "(IIZB)V",
 		garbageValue = "-64"
 	)
 	static final void method2900(int var0, int var1, boolean var2) {

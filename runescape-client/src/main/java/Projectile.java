@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class Projectile extends Entity {
 	@ObfuscatedName("dk")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive7")
 	static Archive archive7;
@@ -120,7 +120,7 @@ public final class Projectile extends Entity {
 	int pitch;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Ljm;"
+		descriptor = "Ljm;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
@@ -164,7 +164,7 @@ public final class Projectile extends Entity {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "129892196"
 	)
 	@Export("setDestination")
@@ -192,7 +192,7 @@ public final class Projectile extends Entity {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "-44"
 	)
 	@Export("advance")
@@ -228,7 +228,7 @@ public final class Projectile extends Entity {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
+		descriptor = "(I)Lef;",
 		garbageValue = "1832696685"
 	)
 	@Export("getModel")
@@ -245,7 +245,7 @@ public final class Projectile extends Entity {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-40295508"
 	)
 	static void method2247() {
@@ -259,7 +259,7 @@ public final class Projectile extends Entity {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "3"
 	)
 	public static boolean method2249(int var0) {

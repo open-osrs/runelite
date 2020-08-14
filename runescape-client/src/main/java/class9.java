@@ -15,7 +15,7 @@ public class class9 {
 	static int field42;
 	@ObfuscatedName("hl")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("mapMarkerSprites")
 	static Sprite[] mapMarkerSprites;
@@ -25,17 +25,17 @@ public class class9 {
 	Future field44;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	final Buffer field40;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lc;"
+		descriptor = "Lc;"
 	)
 	final class12 field41;
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;Lc;)V"
+		descriptor = "(Lkn;Lc;)V"
 	)
 	public class9(Buffer var1, class12 var2) {
 		this.field45 = Executors.newSingleThreadExecutor();
@@ -46,7 +46,7 @@ public class class9 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1196678116"
 	)
 	public boolean method106() {
@@ -55,7 +55,7 @@ public class class9 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1944585860"
 	)
 	public void method107() {
@@ -65,7 +65,7 @@ public class class9 {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)Lkn;",
+		descriptor = "(I)Lkn;",
 		garbageValue = "1647170417"
 	)
 	public Buffer method108() {
@@ -78,7 +78,7 @@ public class class9 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2093000238"
 	)
 	void method109() {
@@ -87,7 +87,7 @@ public class class9 {
 
 	@ObfuscatedName("gd")
 	@ObfuscatedSignature(
-		signature = "(Lby;ZI)V",
+		descriptor = "(Lby;ZI)V",
 		garbageValue = "928487649"
 	)
 	@Export("addPlayerToScene")
@@ -127,14 +127,14 @@ public class class9 {
 
 	@ObfuscatedName("jr")
 	@ObfuscatedSignature(
-		signature = "([Lhd;IIIIIIII)V",
+		descriptor = "([Lhd;IIIIIIII)V",
 		garbageValue = "-1819097133"
 	)
 	@Export("updateInterface")
 	static final void updateInterface(Widget[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		for (int var8 = 0; var8 < var0.length; ++var8) {
 			Widget var9 = var0[var8];
-			if (var9 != null && var9.parentId == var1 && (!var9.isIf3 || var9.type == 0 || var9.hasListener || KeyHandler.getWidgetClickMask(var9) != 0 || var9 == Client.clickedWidgetParent || var9.contentType == 1338)) {
+			if (var9 != null && var9.parentId == var1 && (!var9.isIf3 || var9.type == 0 || var9.hasListener || KeyHandler.getWidgetFlags(var9) != 0 || var9 == Client.clickedWidgetParent || var9.contentType == 1338)) {
 				if (var9.isIf3) {
 					if (Entity.isComponentHidden(var9)) {
 						continue;
@@ -268,7 +268,7 @@ public class class9 {
 							if (var9.contentType == 1400) {
 								class228.worldMap.addElementMenuOptions(var10, var11, var9.width, var9.height, var26, var18);
 							} else {
-								Message.method1283(var9, var26 - var10, var18 - var11);
+								Message.Widget_addToMenu(var9, var26 - var10, var18 - var11);
 							}
 						}
 
@@ -305,8 +305,8 @@ public class class9 {
 										class247.widgetDefaultMenuAction(var20 + 1, var9.id, var9.childIndex, var9.itemId, "");
 									} else if (var20 == 10) {
 										GrandExchangeOffer.Widget_runOnTargetLeave();
-										AttackOption.selectSpell(var9.id, var9.childIndex, WorldMapID.method617(KeyHandler.getWidgetClickMask(var9)), var9.itemId);
-										Client.selectedSpellActionName = WorldMapAreaData.method762(var9);
+										AttackOption.selectSpell(var9.id, var9.childIndex, WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var9)), var9.itemId);
+										Client.selectedSpellActionName = WorldMapAreaData.Widget_getSpellActionName(var9);
 										if (Client.selectedSpellActionName == null) {
 											Client.selectedSpellActionName = "null";
 										}
@@ -365,7 +365,7 @@ public class class9 {
 								class228.worldMap.method6693(var26, var18, var33 & var34, var33 & var21);
 							}
 
-							if (Client.clickedWidget != null && var9 != Client.clickedWidget && var33 && WorldMapScaleHandler.method819(KeyHandler.getWidgetClickMask(var9))) {
+							if (Client.clickedWidget != null && var9 != Client.clickedWidget && var33 && WorldMapScaleHandler.method819(KeyHandler.getWidgetFlags(var9))) {
 								Client.draggedOnWidget = var9;
 							}
 
@@ -678,7 +678,7 @@ public class class9 {
 
 	@ObfuscatedName("kc")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "1962834261"
 	)
 	@Export("clanKickUser")

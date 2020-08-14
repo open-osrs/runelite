@@ -10,37 +10,37 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FontName {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("FontName_plain11")
 	public static final FontName FontName_plain11;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("FontName_plain12")
 	public static final FontName FontName_plain12;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("FontName_bold12")
 	public static final FontName FontName_bold12;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("FontName_verdana11")
 	public static final FontName FontName_verdana11;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("FontName_verdana13")
 	public static final FontName FontName_verdana13;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lke;"
+		descriptor = "Lke;"
 	)
 	@Export("FontName_verdana15")
 	public static final FontName FontName_verdana15;
@@ -63,7 +63,7 @@ public class FontName {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(B)Lch;",
+		descriptor = "(B)Lch;",
 		garbageValue = "-18"
 	)
 	@Export("worldListStart")
@@ -74,7 +74,7 @@ public class FontName {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(Lhd;II)V",
+		descriptor = "(Lhd;II)V",
 		garbageValue = "1462159307"
 	)
 	@Export("Widget_setKeyIgnoreHeld")
@@ -92,7 +92,7 @@ public class FontName {
 
 	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(Lfm;III)Ldt;",
+		descriptor = "(Lfm;III)Ldt;",
 		garbageValue = "273987431"
 	)
 	public static final PcmPlayer method5519(TaskHandler var0, int var1, int var2) {
@@ -139,7 +139,7 @@ public class FontName {
 
 	@ObfuscatedName("hk")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1542752856"
 	)
 	@Export("addCancelMenuEntry")

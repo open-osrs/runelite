@@ -57,7 +57,7 @@ public class Skeleton extends Node {
 
 	@ObfuscatedName("iz")
 	@ObfuscatedSignature(
-		signature = "(ZB)V",
+		descriptor = "(ZB)V",
 		garbageValue = "38"
 	)
 	@Export("setTapToDrop")
@@ -67,7 +67,7 @@ public class Skeleton extends Node {
 
 	@ObfuscatedName("jo")
 	@ObfuscatedSignature(
-		signature = "([Lhd;IB)V",
+		descriptor = "([Lhd;IB)V",
 		garbageValue = "34"
 	)
 	@Export("runComponentCloseListeners")

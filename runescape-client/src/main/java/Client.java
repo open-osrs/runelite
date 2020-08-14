@@ -16,7 +16,7 @@ import netscape.javascript.JSObject;
 public final class Client extends GameShell implements Usernamed {
 	@ObfuscatedName("na")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("clickedWidget")
 	static Widget clickedWidget;
@@ -86,16 +86,16 @@ public final class Client extends GameShell implements Usernamed {
 	static int field852;
 	@ObfuscatedName("ng")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("clickedWidgetParent")
 	static Widget clickedWidgetParent;
 	@ObfuscatedName("oi")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
-	@Export("widgetClickMasks")
-	static NodeHashTable widgetClickMasks;
+	@Export("widgetFlags")
+	static NodeHashTable widgetFlags;
 	@ObfuscatedName("np")
 	@ObfuscatedGetter(
 		intValue = 152745331
@@ -103,7 +103,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int field853;
 	@ObfuscatedName("nk")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("viewportWidget")
 	static Widget viewportWidget;
@@ -137,7 +137,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int field855;
 	@ObfuscatedName("tt")
 	@ObfuscatedSignature(
-		signature = "Lbs;"
+		descriptor = "Lbs;"
 	)
 	static final ApproximateRouteStrategy field905;
 	@ObfuscatedName("nv")
@@ -150,7 +150,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] rootWidgetYs;
 	@ObfuscatedName("ow")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("scriptEvents")
 	static NodeDeque scriptEvents;
@@ -219,7 +219,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int field870;
 	@ObfuscatedName("ni")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("draggedOnWidget")
 	static Widget draggedOnWidget;
@@ -235,7 +235,7 @@ public final class Client extends GameShell implements Usernamed {
 	static ArrayList archiveLoaders;
 	@ObfuscatedName("sk")
 	@ObfuscatedSignature(
-		signature = "Lhv;"
+		descriptor = "Lhv;"
 	)
 	@Export("playerAppearance")
 	static PlayerAppearance playerAppearance;
@@ -283,7 +283,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int destinationX;
 	@ObfuscatedName("sd")
 	@ObfuscatedSignature(
-		signature = "[Ld;"
+		descriptor = "[Ld;"
 	)
 	@Export("grandExchangeOffers")
 	static GrandExchangeOffer[] grandExchangeOffers;
@@ -309,7 +309,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] changedItemContainers;
 	@ObfuscatedName("sf")
 	@ObfuscatedSignature(
-		signature = "Lmk;"
+		descriptor = "Lmk;"
 	)
 	@Export("platformInfoProvider")
 	static PlatformInfoProvider platformInfoProvider;
@@ -320,7 +320,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int field878;
 	@ObfuscatedName("mq")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("meslayerContinueWidget")
 	static Widget meslayerContinueWidget;
@@ -376,7 +376,7 @@ public final class Client extends GameShell implements Usernamed {
 	static short field685;
 	@ObfuscatedName("qm")
 	@ObfuscatedSignature(
-		signature = "[Ldr;"
+		descriptor = "[Ldr;"
 	)
 	@Export("soundEffects")
 	static SoundEffect[] soundEffects;
@@ -433,7 +433,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int viewportOffsetX;
 	@ObfuscatedName("pw")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("mapIcons")
 	static Sprite[] mapIcons;
@@ -486,12 +486,12 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean playerMod;
 	@ObfuscatedName("oj")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	static NodeDeque field891;
 	@ObfuscatedName("ot")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	static NodeDeque field691;
 	@ObfuscatedName("or")
@@ -515,13 +515,13 @@ public final class Client extends GameShell implements Usernamed {
 	static String field755;
 	@ObfuscatedName("sx")
 	@ObfuscatedSignature(
-		signature = "Lbj;"
+		descriptor = "Lbj;"
 	)
 	@Export("GrandExchangeEvents_worldComparator")
 	static GrandExchangeOfferOwnWorldComparator GrandExchangeEvents_worldComparator;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "[Lfz;"
+		descriptor = "[Lfz;"
 	)
 	@Export("collisionMaps")
 	static CollisionMap[] collisionMaps;
@@ -660,13 +660,13 @@ public final class Client extends GameShell implements Usernamed {
 	static int hintArrowSubY;
 	@ObfuscatedName("dm")
 	@ObfuscatedSignature(
-		signature = "Lco;"
+		descriptor = "Lco;"
 	)
 	@Export("playerAttackOption")
 	static AttackOption playerAttackOption;
 	@ObfuscatedName("dd")
 	@ObfuscatedSignature(
-		signature = "Lco;"
+		descriptor = "Lco;"
 	)
 	@Export("npcAttackOption")
 	static AttackOption npcAttackOption;
@@ -678,7 +678,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int titleLoadingStage;
 	@ObfuscatedName("dr")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+		descriptor = "Lfa;"
 	)
 	@Export("js5SocketTask")
 	static Task js5SocketTask;
@@ -722,7 +722,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int field675;
 	@ObfuscatedName("er")
 	@ObfuscatedSignature(
-		signature = "Lfg;"
+		descriptor = "Lfg;"
 	)
 	static class169 field708;
 	@ObfuscatedName("el")
@@ -736,7 +736,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean Login_isUsernameRemembered;
 	@ObfuscatedName("ev")
 	@ObfuscatedSignature(
-		signature = "Lct;"
+		descriptor = "Lct;"
 	)
 	@Export("secureRandomFuture")
 	static SecureRandomFuture secureRandomFuture;
@@ -745,7 +745,7 @@ public final class Client extends GameShell implements Usernamed {
 	static byte[] randomDatData;
 	@ObfuscatedName("fc")
 	@ObfuscatedSignature(
-		signature = "[Lcv;"
+		descriptor = "[Lcv;"
 	)
 	@Export("npcs")
 	static NPC[] npcs;
@@ -767,7 +767,7 @@ public final class Client extends GameShell implements Usernamed {
 	static int[] field719;
 	@ObfuscatedName("fn")
 	@ObfuscatedSignature(
-		signature = "Ldx;"
+		descriptor = "Ldx;"
 	)
 	@Export("packetWriter")
 	public static final PacketWriter packetWriter;
@@ -784,7 +784,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean useBufferedSocket;
 	@ObfuscatedName("fs")
 	@ObfuscatedSignature(
-		signature = "Ljy;"
+		descriptor = "Ljy;"
 	)
 	@Export("timer")
 	static Timer timer;
@@ -1090,7 +1090,7 @@ public final class Client extends GameShell implements Usernamed {
 	static boolean showLoadingMessages;
 	@ObfuscatedName("ku")
 	@ObfuscatedSignature(
-		signature = "[Lby;"
+		descriptor = "[Lby;"
 	)
 	@Export("players")
 	static Player[] players;
@@ -1141,25 +1141,25 @@ public final class Client extends GameShell implements Usernamed {
 	static int combatTargetPlayerIndex;
 	@ObfuscatedName("ka")
 	@ObfuscatedSignature(
-		signature = "[[[Ljp;"
+		descriptor = "[[[Ljp;"
 	)
 	@Export("groundItems")
 	static NodeDeque[][][] groundItems;
 	@ObfuscatedName("kg")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("pendingSpawns")
 	static NodeDeque pendingSpawns;
 	@ObfuscatedName("ky")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("projectiles")
 	static NodeDeque projectiles;
 	@ObfuscatedName("kb")
 	@ObfuscatedSignature(
-		signature = "Ljp;"
+		descriptor = "Ljp;"
 	)
 	@Export("graphicsObjects")
 	static NodeDeque graphicsObjects;
@@ -1276,18 +1276,18 @@ public final class Client extends GameShell implements Usernamed {
 	static int rootInterface;
 	@ObfuscatedName("md")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("interfaceParents")
 	static NodeHashTable interfaceParents;
 	@ObfuscatedName("ec")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	Buffer field929;
 	@ObfuscatedName("ee")
 	@ObfuscatedSignature(
-		signature = "Lz;"
+		descriptor = "Lz;"
 	)
 	class9 field851;
 
@@ -1492,7 +1492,7 @@ public final class Client extends GameShell implements Usernamed {
 		scriptEvents = new NodeDeque();
 		field891 = new NodeDeque();
 		field691 = new NodeDeque();
-		widgetClickMasks = new NodeHashTable(512);
+		widgetFlags = new NodeHashTable(512);
 		rootWidgetCount = 0;
 		field877 = -2;
 		field813 = new boolean[100];
@@ -1570,7 +1570,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1805213007"
 	)
 	@Export("resizeGame")
@@ -1585,7 +1585,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "108465933"
 	)
 	@Export("setUp")
@@ -1642,7 +1642,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "202919973"
 	)
 	@Export("doCycle")
@@ -1741,7 +1741,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(ZS)V",
+		descriptor = "(ZS)V",
 		garbageValue = "255"
 	)
 	@Export("draw")
@@ -1856,7 +1856,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1432958229"
 	)
 	@Export("kill0")
@@ -1894,7 +1894,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-453140820"
 	)
 	protected final void vmethod1570() {
@@ -2010,7 +2010,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("eg")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-61"
 	)
 	@Export("doCycleJs5")
@@ -2241,7 +2241,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ey")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "20"
 	)
 	@Export("doCycleJs5Connect")
@@ -2383,7 +2383,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ew")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "35"
 	)
 	@Export("js5Error")
@@ -2421,7 +2421,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ee")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "599725078"
 	)
 	@Export("doCycleLoggedOut")
@@ -3064,7 +3064,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ft")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-873982601"
 	)
 	@Export("doCycleLoggedIn")
@@ -3503,7 +3503,7 @@ public final class Client extends GameShell implements Usernamed {
 																++itemDragDuration;
 																if (MouseHandler.MouseHandler_currentButton == 0) {
 																	if (field785) {
-																		if (KeyHandler.dragInventoryWidget == TaskHandler.field2066 && dragItemSlotSource != dragItemSlotDestination) {
+																		if (KeyHandler.dragInventoryWidget == TaskHandler.hoveredItemContainer && dragItemSlotSource != dragItemSlotDestination) {
 																			Widget var43 = KeyHandler.dragInventoryWidget;
 																			byte var31 = 0;
 																			if (field838 == 1 && var43.contentType == 206) {
@@ -3514,7 +3514,7 @@ public final class Client extends GameShell implements Usernamed {
 																				var31 = 0;
 																			}
 
-																			if (Projectile.method2249(KeyHandler.getWidgetClickMask(var43))) {
+																			if (Projectile.method2249(KeyHandler.getWidgetFlags(var43))) {
 																				var6 = dragItemSlotSource;
 																				var7 = dragItemSlotDestination;
 																				var43.itemIds[var7] = var43.itemIds[var6];
@@ -3559,7 +3559,7 @@ public final class Client extends GameShell implements Usernamed {
 																}
 															}
 
-															if (Scene.method3230()) {
+															if (Scene.shouldSendWalk()) {
 																var4 = Scene.Scene_selectedX;
 																var5 = Scene.Scene_selectedY;
 																var18 = UserComparator4.getPacketBufferNode(ClientPacket.field2311, packetWriter.isaacCipher);
@@ -3568,7 +3568,7 @@ public final class Client extends GameShell implements Usernamed {
 																var18.packetBuffer.writeShort(var4 + class182.baseX);
 																var18.packetBuffer.method5744(KeyHandler.KeyHandler_pressedKeys[82] ? (KeyHandler.KeyHandler_pressedKeys[81] ? 2 : 1) : 0);
 																packetWriter.addNode(var18);
-																Scene.method3346();
+																Scene.resetWalking();
 																mouseCrossX = MouseHandler.MouseHandler_lastPressedX;
 																mouseCrossY = MouseHandler.MouseHandler_lastPressedY;
 																mouseCrossColor = 1;
@@ -3852,7 +3852,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("fl")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1501968527"
 	)
 	@Export("resizeJS")
@@ -3880,7 +3880,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("fb")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1953660969"
 	)
 	@Export("drawLoggedIn")
@@ -3905,7 +3905,7 @@ public final class Client extends GameShell implements Usernamed {
 		field877 = cycle;
 		viewportX = -1;
 		viewportY = -1;
-		TaskHandler.field2066 = null;
+		TaskHandler.hoveredItemContainer = null;
 		if (rootInterface != -1) {
 			rootWidgetCount = 0;
 			NetFileRequest.drawWidgets(rootInterface, 0, 0, Varcs.canvasWidth, class52.canvasHeight, 0, 0, -1);
@@ -3973,7 +3973,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("gt")
 	@ObfuscatedSignature(
-		signature = "(Ldx;B)Z",
+		descriptor = "(Ldx;B)Z",
 		garbageValue = "-15"
 	)
 	final boolean method1768(PacketWriter var1) {
@@ -4509,12 +4509,12 @@ public final class Client extends GameShell implements Usernamed {
 
 					for (var29 = var5; var29 <= var21; ++var29) {
 						var23 = (long)var29 + ((long)var16 << 32);
-						Node var11 = widgetClickMasks.get(var23);
+						Node var11 = widgetFlags.get(var23);
 						if (var11 != null) {
 							var11.remove();
 						}
 
-						widgetClickMasks.put(new IntegerNode(var22), var23);
+						widgetFlags.put(new IntegerNode(var22), var23);
 					}
 
 					var1.serverPacket = null;
@@ -4677,7 +4677,7 @@ public final class Client extends GameShell implements Usernamed {
 						}
 					}
 
-					widgetClickMasks = new NodeHashTable(512);
+					widgetFlags = new NodeHashTable(512);
 
 					while (var3.offset < var16) {
 						var22 = var3.readInt();
@@ -4687,7 +4687,7 @@ public final class Client extends GameShell implements Usernamed {
 
 						for (int var33 = var29; var33 <= var30; ++var33) {
 							var25 = (long)var33 + ((long)var22 << 32);
-							widgetClickMasks.put(new IntegerNode(var31), var25);
+							widgetFlags.put(new IntegerNode(var31), var25);
 						}
 					}
 
@@ -5347,7 +5347,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("hr")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-302072154"
 	)
 	@Export("menu")
@@ -5435,14 +5435,14 @@ public final class Client extends GameShell implements Usernamed {
 								var12 = menuArguments1[var2];
 								var5 = menuArguments2[var2];
 								Widget var13 = WorldMapSprite.getWidget(var5);
-								var8 = KeyHandler.getWidgetClickMask(var13);
+								var8 = KeyHandler.getWidgetFlags(var13);
 								boolean var7 = (var8 >> 28 & 1) != 0;
 								if (var7) {
 									break label281;
 								}
 
 								Object var10000 = null;
-								if (Projectile.method2249(KeyHandler.getWidgetClickMask(var13))) {
+								if (Projectile.method2249(KeyHandler.getWidgetFlags(var13))) {
 									break label281;
 								}
 							}
@@ -5494,7 +5494,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("hh")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1243315480"
 	)
 	@Export("shouldLeftClickOpenMenu")
@@ -5505,7 +5505,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ht")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "4"
 	)
 	@Export("openMenu")
@@ -5517,7 +5517,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ip")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "-558702165"
 	)
 	@Export("resizeRoot")
@@ -5533,7 +5533,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("ig")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I)V",
+		descriptor = "(Lhd;I)V",
 		garbageValue = "-985582804"
 	)
 	@Export("alignWidget")
@@ -5555,7 +5555,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("jz")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1745197570"
 	)
 	final void method1372() {
@@ -5642,7 +5642,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("kr")
 	@ObfuscatedSignature(
-		signature = "(B)Lkq;",
+		descriptor = "(B)Lkq;",
 		garbageValue = "-76"
 	)
 	@Export("username")
@@ -5652,7 +5652,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Lih;",
+		descriptor = "(II)Lih;",
 		garbageValue = "1222368622"
 	)
 	@Export("WorldMapElement_get")
@@ -5662,7 +5662,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/io/File;Ljava/io/File;I)V",
+		descriptor = "(Ljava/io/File;Ljava/io/File;I)V",
 		garbageValue = "1015952997"
 	)
 	static void method1803(File var0, File var1) {
@@ -5686,7 +5686,7 @@ public final class Client extends GameShell implements Usernamed {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(Lbn;B)V",
+		descriptor = "(Lbn;B)V",
 		garbageValue = "2"
 	)
 	static void method1522(GameShell var0) {

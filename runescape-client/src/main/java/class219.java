@@ -6,20 +6,20 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class219 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lhe;"
+		descriptor = "Lhe;"
 	)
 	@Export("huffman")
 	public static Huffman huffman;
 	@ObfuscatedName("ci")
 	@ObfuscatedSignature(
-		signature = "Lbx;"
+		descriptor = "Lbx;"
 	)
 	@Export("mouseRecorder")
 	static MouseRecorder mouseRecorder;
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)[Lif;",
+		descriptor = "(B)[Lif;",
 		garbageValue = "0"
 	)
 	static VerticalAlignment[] method4106() {
@@ -28,7 +28,7 @@ public class class219 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Liy;",
+		descriptor = "(II)Liy;",
 		garbageValue = "1818836653"
 	)
 	@Export("VarpDefinition_get")
@@ -50,7 +50,7 @@ public class class219 {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;I)I",
+		descriptor = "(Ljava/lang/CharSequence;I)I",
 		garbageValue = "527461459"
 	)
 	@Export("hashString")

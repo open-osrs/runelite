@@ -31,7 +31,7 @@ public class Varps {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(CB)Z",
+		descriptor = "(CB)Z",
 		garbageValue = "72"
 	)
 	@Export("isAlphaNumeric")

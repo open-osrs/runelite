@@ -15,19 +15,19 @@ public class FriendSystem {
 	public static long field1093;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lki;"
+		descriptor = "Lki;"
 	)
 	@Export("friendsList")
 	public final FriendsList friendsList;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Ljw;"
+		descriptor = "Ljw;"
 	)
 	@Export("ignoreList")
 	public final IgnoreList ignoreList;
@@ -38,7 +38,7 @@ public class FriendSystem {
 	int field1094;
 
 	@ObfuscatedSignature(
-		signature = "(Lmo;)V"
+		descriptor = "(Lmo;)V"
 	)
 	FriendSystem(LoginType var1) {
 		this.field1094 = 0;
@@ -49,7 +49,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-100444560"
 	)
 	boolean method1923() {
@@ -58,7 +58,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(S)V",
+		descriptor = "(S)V",
 		garbageValue = "-20972"
 	)
 	final void method1981() {
@@ -67,7 +67,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-11966056"
 	)
 	@Export("readUpdate")
@@ -95,7 +95,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "892305960"
 	)
 	@Export("processFriendUpdates")
@@ -118,7 +118,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2071426788"
 	)
 	@Export("clear")
@@ -130,7 +130,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkq;ZI)Z",
+		descriptor = "(Lkq;ZI)Z",
 		garbageValue = "1031830697"
 	)
 	@Export("isFriended")
@@ -146,7 +146,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Lkq;B)Z",
+		descriptor = "(Lkq;B)Z",
 		garbageValue = "41"
 	)
 	@Export("isIgnored")
@@ -160,7 +160,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "1198783878"
 	)
 	@Export("addFriend")
@@ -188,7 +188,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "276950128"
 	)
 	@Export("friendsListIsFull")
@@ -198,7 +198,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "467200787"
 	)
 	@Export("addIgnore")
@@ -232,7 +232,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-516025853"
 	)
 	@Export("canAddIgnore")
@@ -242,7 +242,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-964450223"
 	)
 	@Export("removeFriend")
@@ -280,7 +280,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-1026417394"
 	)
 	@Export("removeIgnore")
@@ -303,7 +303,7 @@ public class FriendSystem {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(Lkq;B)Z",
+		descriptor = "(Lkq;B)Z",
 		garbageValue = "-1"
 	)
 	@Export("isFriendAndHasWorld")
@@ -314,11 +314,11 @@ public class FriendSystem {
 
 	@ObfuscatedName("kq")
 	@ObfuscatedSignature(
-		signature = "(Lhd;B)Lhd;",
+		descriptor = "(Lhd;B)Lhd;",
 		garbageValue = "74"
 	)
 	static Widget method1994(Widget var0) {
-		int var1 = WorldMapDecoration.method402(KeyHandler.getWidgetClickMask(var0));
+		int var1 = WorldMapDecoration.method402(KeyHandler.getWidgetFlags(var0));
 		if (var1 == 0) {
 			return null;
 		} else {

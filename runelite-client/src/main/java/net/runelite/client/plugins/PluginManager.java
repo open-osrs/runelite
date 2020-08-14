@@ -619,7 +619,6 @@ public class PluginManager
 				binder.install(plugin);
 			};
 			Injector pluginInjector = parent.createChildInjector(pluginModule);
-			pluginInjector.injectMembers(plugin);
 			plugin.injector = pluginInjector;
 		}
 		catch (CreationException ex)

@@ -13,7 +13,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)[B",
+		descriptor = "(I)[B",
 		garbageValue = "300747627"
 	)
 	@Export("get")
@@ -26,7 +26,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([BB)V",
+		descriptor = "([BB)V",
 		garbageValue = "92"
 	)
 	@Export("set")
@@ -38,7 +38,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 	@ObfuscatedName("gl")
 	@ObfuscatedSignature(
-		signature = "(Lcc;II)V",
+		descriptor = "(Lcc;II)V",
 		garbageValue = "1934042219"
 	)
 	static final void method4090(Actor var0, int var1) {

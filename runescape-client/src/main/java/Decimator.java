@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Decimator {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("title_muteSprite")
 	static IndexedSprite[] title_muteSprite;
@@ -68,7 +68,7 @@ public class Decimator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([BI)[B",
+		descriptor = "([BI)[B",
 		garbageValue = "880157357"
 	)
 	@Export("resample")
@@ -114,7 +114,7 @@ public class Decimator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
+		descriptor = "(IB)I",
 		garbageValue = "124"
 	)
 	@Export("scaleRate")
@@ -128,7 +128,7 @@ public class Decimator {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IB)I",
+		descriptor = "(IB)I",
 		garbageValue = "70"
 	)
 	@Export("scalePosition")

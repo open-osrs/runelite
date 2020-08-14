@@ -27,7 +27,7 @@ package net.runelite.asm.visitors;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Field;
 import net.runelite.asm.Type;
-import net.runelite.asm.attributes.annotation.Annotation;
+import net.runelite.asm.Annotation;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.FieldVisitor;
@@ -51,9 +51,9 @@ public class ClassFieldVisitor extends FieldVisitor
 	@Override
 	public AnnotationVisitor visitAnnotation(String desc, boolean visible)
 	{
-		Annotation element = new Annotation(new Type(desc));
-		this.field.getAnnotations().addAnnotation(element);
-		return new AnnotationElementVisitor(element);
+		Annotation annotation = new Annotation(new Type(desc), visible);
+		this.field.addAnnotation(annotation);
+		return annotation;
 	}
 
 	@Override

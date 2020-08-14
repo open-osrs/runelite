@@ -19,18 +19,19 @@ public class TaskHandler implements Runnable {
 	public static String javaVersion;
 	@ObfuscatedName("jq")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
-	static Widget field2066;
+	@Export("hoveredItemContainer")
+	static Widget hoveredItemContainer;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+		descriptor = "Lfa;"
 	)
 	@Export("current")
 	Task current;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+		descriptor = "Lfa;"
 	)
 	@Export("task")
 	Task task;
@@ -63,7 +64,7 @@ public class TaskHandler implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "622783218"
 	)
 	@Export("close")
@@ -82,7 +83,7 @@ public class TaskHandler implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIILjava/lang/Object;I)Lfa;",
+		descriptor = "(IIILjava/lang/Object;I)Lfa;",
 		garbageValue = "962190485"
 	)
 	@Export("newTask")
@@ -106,7 +107,7 @@ public class TaskHandler implements Runnable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;II)Lfa;",
+		descriptor = "(Ljava/lang/String;II)Lfa;",
 		garbageValue = "746026781"
 	)
 	@Export("newSocketTask")
@@ -116,7 +117,7 @@ public class TaskHandler implements Runnable {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Runnable;II)Lfa;",
+		descriptor = "(Ljava/lang/Runnable;II)Lfa;",
 		garbageValue = "2089571271"
 	)
 	@Export("newThreadTask")
@@ -174,7 +175,7 @@ public class TaskHandler implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/applet/Applet;Ljava/lang/String;I)V",
+		descriptor = "(Ljava/applet/Applet;Ljava/lang/String;I)V",
 		garbageValue = "-1144544095"
 	)
 	public static void method3606(Applet var0, String var1) {
@@ -187,7 +188,7 @@ public class TaskHandler implements Runnable {
 
 	@ObfuscatedName("fa")
 	@ObfuscatedSignature(
-		signature = "(Lcc;IB)V",
+		descriptor = "(Lcc;IB)V",
 		garbageValue = "-73"
 	)
 	@Export("updateActorSequence")

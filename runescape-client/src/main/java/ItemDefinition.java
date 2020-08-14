@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ItemDefinition extends DualNode {
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("ItemDefinition_modelArchive")
 	static AbstractArchive ItemDefinition_modelArchive;
@@ -18,19 +18,19 @@ public class ItemDefinition extends DualNode {
 	static byte[][] SpriteBuffer_pixels;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ItemDefinition_cached")
 	public static EvictingDualNodeHashTable ItemDefinition_cached;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ItemDefinition_cachedModels")
 	public static EvictingDualNodeHashTable ItemDefinition_cachedModels;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ItemDefinition_cachedSprites")
 	public static EvictingDualNodeHashTable ItemDefinition_cachedSprites;
@@ -252,7 +252,7 @@ public class ItemDefinition extends DualNode {
 	public int team;
 	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -333,7 +333,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-196322626"
 	)
 	@Export("post")
@@ -342,7 +342,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "1671660410"
 	)
 	@Export("decode")
@@ -359,7 +359,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "2109543922"
 	)
 	@Export("decodeNext")
@@ -487,7 +487,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Ljo;Ljo;I)V",
+		descriptor = "(Ljo;Ljo;I)V",
 		garbageValue = "1175603747"
 	)
 	@Export("genCert")
@@ -511,7 +511,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Ljo;Ljo;B)V",
+		descriptor = "(Ljo;Ljo;B)V",
 		garbageValue = "12"
 	)
 	@Export("genBought")
@@ -555,7 +555,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljo;Ljo;I)V",
+		descriptor = "(Ljo;Ljo;I)V",
 		garbageValue = "-1279749968"
 	)
 	@Export("genPlaceholder")
@@ -580,7 +580,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(IB)Lek;",
+		descriptor = "(IB)Lek;",
 		garbageValue = "3"
 	)
 	@Export("getModelData")
@@ -626,7 +626,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(II)Lef;",
+		descriptor = "(II)Lef;",
 		garbageValue = "1775717489"
 	)
 	@Export("getModel")
@@ -680,7 +680,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(II)Ljo;",
+		descriptor = "(II)Ljo;",
 		garbageValue = "-539705094"
 	)
 	@Export("getCountObj")
@@ -704,7 +704,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(ZB)Z",
+		descriptor = "(ZB)Z",
 		garbageValue = "118"
 	)
 	@Export("hasNoValidModel")
@@ -740,7 +740,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(ZI)Lek;",
+		descriptor = "(ZI)Lek;",
 		garbageValue = "-952045746"
 	)
 	public final ModelData method4839(boolean var1) {
@@ -796,7 +796,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(ZI)Z",
+		descriptor = "(ZI)Z",
 		garbageValue = "-209072389"
 	)
 	public final boolean method4840(boolean var1) {
@@ -825,7 +825,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(ZB)Lek;",
+		descriptor = "(ZB)Lek;",
 		garbageValue = "52"
 	)
 	public final ModelData method4841(boolean var1) {
@@ -865,7 +865,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
+		descriptor = "(IIB)I",
 		garbageValue = "2"
 	)
 	@Export("getIntParam")
@@ -875,7 +875,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)Ljava/lang/String;",
+		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
 		garbageValue = "2076909967"
 	)
 	@Export("getStringParam")
@@ -885,7 +885,7 @@ public class ItemDefinition extends DualNode {
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "269605013"
 	)
 	@Export("getShiftClickIndex")

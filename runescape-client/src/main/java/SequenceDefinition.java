@@ -9,31 +9,31 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class SequenceDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("SequenceDefinition_archive")
 	public static AbstractArchive SequenceDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("SequenceDefinition_animationsArchive")
 	public static AbstractArchive SequenceDefinition_animationsArchive;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("SequenceDefinition_skeletonsArchive")
 	public static AbstractArchive SequenceDefinition_skeletonsArchive;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("SequenceDefinition_cached")
 	static EvictingDualNodeHashTable SequenceDefinition_cached;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("SequenceDefinition_cachedFrames")
 	static EvictingDualNodeHashTable SequenceDefinition_cachedFrames;
@@ -116,7 +116,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1837396411"
 	)
 	@Export("decode")
@@ -133,7 +133,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-1375281235"
 	)
 	@Export("decodeNext")
@@ -208,7 +208,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1490793911"
 	)
 	@Export("postDecode")
@@ -233,7 +233,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lef;II)Lef;",
+		descriptor = "(Lef;II)Lef;",
 		garbageValue = "-1881625962"
 	)
 	@Export("transformActorModel")
@@ -252,7 +252,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lef;III)Lef;",
+		descriptor = "(Lef;III)Lef;",
 		garbageValue = "-1040736484"
 	)
 	@Export("transformObjectModel")
@@ -288,7 +288,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Lef;II)Lef;",
+		descriptor = "(Lef;II)Lef;",
 		garbageValue = "-277583954"
 	)
 	@Export("transformSpotAnimationModel")
@@ -307,7 +307,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Lef;ILjm;II)Lef;",
+		descriptor = "(Lef;ILjm;II)Lef;",
 		garbageValue = "-864862384"
 	)
 	@Export("applyTransformations")
@@ -336,7 +336,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lef;IB)Lef;",
+		descriptor = "(Lef;IB)Lef;",
 		garbageValue = "32"
 	)
 	@Export("transformWidgetModel")
@@ -371,7 +371,7 @@ public class SequenceDefinition extends DualNode {
 
 	@ObfuscatedName("fc")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "1779036927"
 	)
 	static final void method4973(boolean var0) {

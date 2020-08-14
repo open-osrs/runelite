@@ -13,7 +13,7 @@ public class class247 {
 	final HashMap spriteMap;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Llv;"
+		descriptor = "Llv;"
 	)
 	@Export("bounds")
 	Bounds bounds;
@@ -38,7 +38,7 @@ public class class247 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-170659377"
 	)
 	void method4486(int var1) {
@@ -63,7 +63,7 @@ public class class247 {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)Llz;",
+		descriptor = "(II)Llz;",
 		garbageValue = "-1626397648"
 	)
 	Sprite method4487(int var1) {
@@ -76,7 +76,7 @@ public class class247 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-1291742689"
 	)
 	public final void method4504(int var1, int var2) {
@@ -89,7 +89,7 @@ public class class247 {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2033439477"
 	)
 	public final void method4489() {
@@ -98,7 +98,7 @@ public class class247 {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IILlz;FI)V",
+		descriptor = "(IILlz;FI)V",
 		garbageValue = "-2127559947"
 	)
 	public final void method4490(int var1, int var2, Sprite var3, float var4) {
@@ -149,7 +149,7 @@ public class class247 {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Llz;Llz;Llv;B)V",
+		descriptor = "(Llz;Llz;Llv;B)V",
 		garbageValue = "-113"
 	)
 	void method4512(Sprite var1, Sprite var2, Bounds var3) {
@@ -183,7 +183,7 @@ public class class247 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Lil;",
+		descriptor = "(II)Lil;",
 		garbageValue = "-125199916"
 	)
 	@Export("getInvDefinition")
@@ -205,7 +205,7 @@ public class class247 {
 
 	@ObfuscatedName("fw")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1527669385"
 	)
 	static final void method4496() {
@@ -221,7 +221,7 @@ public class class247 {
 
 	@ObfuscatedName("hb")
 	@ObfuscatedSignature(
-		signature = "(IIIILjava/lang/String;I)V",
+		descriptor = "(IIIILjava/lang/String;I)V",
 		garbageValue = "-870187769"
 	)
 	@Export("widgetDefaultMenuAction")
@@ -243,7 +243,7 @@ public class class247 {
 			}
 
 			if (var11) {
-				int var8 = KeyHandler.getWidgetClickMask(var5);
+				int var8 = KeyHandler.getWidgetFlags(var5);
 				int var9 = var0 - 1;
 				boolean var7 = (var8 >> var9 + 1 & 1) != 0;
 				if (var7) {

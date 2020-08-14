@@ -9,25 +9,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum WorldMapSectionType implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lae;"
+		descriptor = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE0")
 	WORLDMAPSECTIONTYPE0(3, (byte)0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lae;"
+		descriptor = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE1")
 	WORLDMAPSECTIONTYPE1(0, (byte)1),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lae;"
+		descriptor = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE2")
 	WORLDMAPSECTIONTYPE2(2, (byte)2),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lae;"
+		descriptor = "Lae;"
 	)
 	@Export("WORLDMAPSECTIONTYPE3")
 	WORLDMAPSECTIONTYPE3(1, (byte)3);
@@ -35,7 +35,7 @@ public enum WorldMapSectionType implements Enumerated {
 	@ObfuscatedName("au")
 	@Export("client")
 	@ObfuscatedSignature(
-		signature = "Lclient;"
+		descriptor = "Lclient;"
 	)
 	static Client client;
 	@ObfuscatedName("ew")
@@ -66,7 +66,7 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -76,7 +76,7 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZZI)V",
+		descriptor = "(Ljava/lang/String;ZZI)V",
 		garbageValue = "267980652"
 	)
 	@Export("openURL")
@@ -86,7 +86,7 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(ILic;Ljava/lang/String;Ljava/lang/String;IZI)V",
+		descriptor = "(ILic;Ljava/lang/String;Ljava/lang/String;IZI)V",
 		garbageValue = "-2120164920"
 	)
 	public static void method306(int var0, AbstractArchive var1, String var2, String var3, int var4, boolean var5) {
@@ -97,7 +97,7 @@ public enum WorldMapSectionType implements Enumerated {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-230874976"
 	)
 	public static void method312() {

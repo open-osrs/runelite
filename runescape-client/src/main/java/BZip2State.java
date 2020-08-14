@@ -182,7 +182,7 @@ public final class BZip2State {
 
 	@ObfuscatedName("iq")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Lhd;I)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/String;Lhd;I)Ljava/lang/String;",
 		garbageValue = "-1638627143"
 	)
 	static String method6001(String var0, Widget var1) {

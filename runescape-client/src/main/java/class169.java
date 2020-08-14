@@ -7,22 +7,22 @@ import net.runelite.mapping.ObfuscatedSignature;
 public enum class169 implements Enumerated {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lfg;"
+		descriptor = "Lfg;"
 	)
 	field2028(0, 0),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lfg;"
+		descriptor = "Lfg;"
 	)
 	field2023(1, 1),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lfg;"
+		descriptor = "Lfg;"
 	)
 	field2024(2, 2),
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lfg;"
+		descriptor = "Lfg;"
 	)
 	field2025(3, 3);
 
@@ -31,7 +31,7 @@ public enum class169 implements Enumerated {
 	static String worldHost;
 	@ObfuscatedName("lz")
 	@ObfuscatedSignature(
-		signature = "Lcu;"
+		descriptor = "Lcu;"
 	)
 	@Export("tempMenuAction")
 	static MenuAction tempMenuAction;
@@ -54,7 +54,7 @@ public enum class169 implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")

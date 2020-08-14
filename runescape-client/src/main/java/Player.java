@@ -14,13 +14,13 @@ public final class Player extends Actor {
 	static int field638;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lkq;"
 	)
 	@Export("username")
 	Username username;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lhv;"
+		descriptor = "Lhv;"
 	)
 	@Export("appearance")
 	PlayerAppearance appearance;
@@ -87,7 +87,7 @@ public final class Player extends Actor {
 	int field653;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lef;"
+		descriptor = "Lef;"
 	)
 	@Export("model0")
 	Model model0;
@@ -137,13 +137,13 @@ public final class Player extends Actor {
 	int index;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("isFriendTriBool")
 	TriBool isFriendTriBool;
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("isInClanChat")
 	TriBool isInClanChat;
@@ -185,7 +185,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "1937390555"
 	)
 	@Export("read")
@@ -291,7 +291,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-928055977"
 	)
 	@Export("isFriend")
@@ -305,7 +305,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1165782088"
 	)
 	@Export("clearIsFriend")
@@ -315,7 +315,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2131517341"
 	)
 	@Export("checkIsFriend")
@@ -325,7 +325,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1651593034"
 	)
 	@Export("isClanMember")
@@ -339,7 +339,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1245879584"
 	)
 	@Export("clearIsInClanChat")
@@ -349,7 +349,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "0"
 	)
 	@Export("updateIsInClanChat")
@@ -359,7 +359,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-6778929"
 	)
 	@Export("transformedSize")
@@ -369,7 +369,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
+		descriptor = "(I)Lef;",
 		garbageValue = "1832696685"
 	)
 	@Export("getModel")
@@ -440,7 +440,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(IIBI)V",
+		descriptor = "(IIBI)V",
 		garbageValue = "-1126022474"
 	)
 	final void method1300(int var1, int var2, byte var3) {
@@ -467,7 +467,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "2675490"
 	)
 	@Export("resetPath")
@@ -484,7 +484,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(IIBI)V",
+		descriptor = "(IIBI)V",
 		garbageValue = "-1628655645"
 	)
 	final void method1302(int var1, int var2, byte var3) {
@@ -505,7 +505,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "1"
 	)
 	@Export("isVisible")
@@ -515,7 +515,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-2139314606"
 	)
 	@Export("changeWorldSelectSorting")
@@ -541,7 +541,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("io")
 	@ObfuscatedSignature(
-		signature = "(Lby;IIIS)V",
+		descriptor = "(Lby;IIIS)V",
 		garbageValue = "160"
 	)
 	@Export("addPlayerToMenu")
@@ -550,7 +550,7 @@ public final class Player extends Actor {
 			if (Client.menuOptionsCount < 400) {
 				String var4;
 				if (var0.skillLevel == 0) {
-					var4 = var0.actions[0] + var0.username + var0.actions[1] + Canvas.method924(var0.combatLevel, class60.localPlayer.combatLevel) + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
+					var4 = var0.actions[0] + var0.username + var0.actions[1] + Canvas.getColorForCombatDifference(var0.combatLevel, class60.localPlayer.combatLevel) + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
 				} else {
 					var4 = var0.actions[0] + var0.username + var0.actions[1] + " " + " (" + "skill-" + var0.skillLevel + ")" + var0.actions[2];
 				}
@@ -606,7 +606,7 @@ public final class Player extends Actor {
 
 	@ObfuscatedName("iv")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "452106658"
 	)
 	@Export("getTapToDrop")

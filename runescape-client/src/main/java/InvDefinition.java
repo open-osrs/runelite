@@ -10,13 +10,13 @@ import net.runelite.rs.ScriptOpcodes;
 public class InvDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("InvDefinition_archive")
 	public static AbstractArchive InvDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("InvDefinition_cached")
 	static EvictingDualNodeHashTable InvDefinition_cached;
@@ -37,7 +37,7 @@ public class InvDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "-52"
 	)
 	@Export("decode")
@@ -54,7 +54,7 @@ public class InvDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "2103513845"
 	)
 	@Export("decodeNext")
@@ -67,7 +67,7 @@ public class InvDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1737706956"
 	)
 	static int method4530(int var0, Script var1, boolean var2) {
@@ -256,7 +256,7 @@ public class InvDefinition extends DualNode {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "(ZB)V",
+		descriptor = "(ZB)V",
 		garbageValue = "93"
 	)
 	public static void method4523(boolean var0) {

@@ -100,10 +100,8 @@ public abstract class EntityHiderMixin implements RSScene
 	private static boolean hideDeadNPCs;
 
 	@Copy("newGameObject")
-	abstract boolean addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13);
-
 	@Replace("newGameObject")
-	boolean rl$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13)
+	boolean copy$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13)
 	{
 		final boolean shouldDraw = shouldDraw(entity, false);
 
@@ -119,21 +117,16 @@ public abstract class EntityHiderMixin implements RSScene
 		}
 
 		return shouldDraw &&
-			addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, entity, var10, var11, var12, var13);
+			copy$addEntityMarker(var1, var2, var3, var4, var5, x, y, var8, entity, var10, var11, var12, var13);
 	}
 
 	@Copy("drawActor2d")
-	private static void draw2DExtras(RSActor actor, int var1, int var2, int var3, int var4, int var5)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("drawActor2d")
-	private static void rl$draw2DExtras(RSActor actor, int var1, int var2, int var3, int var4, int var5)
+	private static void copy$draw2DExtras(RSActor actor, int var1, int var2, int var3, int var4, int var5)
 	{
 		if (shouldDraw(actor, true))
 		{
-			draw2DExtras(actor, var1, var2, var3, var4, var5);
+			copy$draw2DExtras(actor, var1, var2, var3, var4, var5);
 		}
 	}
 

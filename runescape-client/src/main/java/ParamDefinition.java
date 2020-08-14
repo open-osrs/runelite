@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ParamDefinition extends DualNode {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("ParamDefinition_cached")
 	public static EvictingDualNodeHashTable ParamDefinition_cached;
@@ -42,7 +42,7 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1718151512"
 	)
 	@Export("postDecode")
@@ -51,7 +51,7 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-115197089"
 	)
 	@Export("decode")
@@ -68,7 +68,7 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-1727060018"
 	)
 	@Export("decodeNext")
@@ -103,7 +103,7 @@ public class ParamDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "624673738"
 	)
 	@Export("isString")

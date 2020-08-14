@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class World {
 	@ObfuscatedName("po")
 	@ObfuscatedSignature(
-		signature = "Lls;"
+		descriptor = "Lls;"
 	)
 	@Export("privateChatMode")
 	static PrivateChatMode privateChatMode;
@@ -80,7 +80,7 @@ public class World {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1952948484"
 	)
 	@Export("isMembersOnly")
@@ -90,7 +90,7 @@ public class World {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-964696384"
 	)
 	boolean method1874() {
@@ -99,7 +99,7 @@ public class World {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "-1522011023"
 	)
 	@Export("isPvp")
@@ -109,7 +109,7 @@ public class World {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1974803313"
 	)
 	boolean method1841() {
@@ -118,7 +118,7 @@ public class World {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "15"
 	)
 	@Export("isDeadman")
@@ -128,7 +128,7 @@ public class World {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "607891956"
 	)
 	@Export("isBeta")
@@ -138,7 +138,7 @@ public class World {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1312079731"
 	)
 	boolean method1835() {
@@ -147,7 +147,7 @@ public class World {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIILga;Lfz;I)Z",
+		descriptor = "(IIILga;Lfz;I)Z",
 		garbageValue = "1323151453"
 	)
 	static final boolean method1856(int var0, int var1, int var2, RouteStrategy var3, CollisionMap var4) {
@@ -361,7 +361,7 @@ public class World {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Lko;Lko;Lko;B)V",
+		descriptor = "(Lko;Lko;Lko;B)V",
 		garbageValue = "-14"
 	)
 	@Export("drawTitle")

@@ -40,7 +40,7 @@ public class MenuAction {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([BZI)Ljava/lang/Object;",
+		descriptor = "([BZI)Ljava/lang/Object;",
 		garbageValue = "1257898423"
 	)
 	public static Object method2169(byte[] var0, boolean var1) {
@@ -57,7 +57,7 @@ public class MenuAction {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;I)V",
+		descriptor = "(Lic;Lic;I)V",
 		garbageValue = "1591696142"
 	)
 	public static void method2171(AbstractArchive var0, AbstractArchive var1) {
@@ -67,7 +67,7 @@ public class MenuAction {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(ILic;IIIZI)V",
+		descriptor = "(ILic;IIIZI)V",
 		garbageValue = "896837453"
 	)
 	@Export("playMusicTrack")

@@ -16,7 +16,7 @@ public class GZipDecompressor {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "1000000"
 	)
 	GZipDecompressor(int var1, int var2, int var3) {
@@ -24,7 +24,7 @@ public class GZipDecompressor {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;[BI)V",
+		descriptor = "(Lkn;[BI)V",
 		garbageValue = "1767160394"
 	)
 	@Export("decompress")

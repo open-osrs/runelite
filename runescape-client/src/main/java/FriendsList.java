@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class FriendsList extends UserList {
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
@@ -20,13 +20,13 @@ public class FriendsList extends UserList {
 	int field3648;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Ljn;"
+		descriptor = "Ljn;"
 	)
 	@Export("friendLoginUpdates")
 	public LinkDeque friendLoginUpdates;
 
 	@ObfuscatedSignature(
-		signature = "(Lmo;)V"
+		descriptor = "(Lmo;)V"
 	)
 	public FriendsList(LoginType var1) {
 		super(400);
@@ -37,7 +37,7 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ljf;",
+		descriptor = "(I)Ljf;",
 		garbageValue = "551595115"
 	)
 	@Export("newInstance")
@@ -47,7 +47,7 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)[Ljf;",
+		descriptor = "(II)[Ljf;",
 		garbageValue = "1959965595"
 	)
 	@Export("newTypedArray")
@@ -57,7 +57,7 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkq;ZI)Z",
+		descriptor = "(Lkq;ZI)Z",
 		garbageValue = "2027561031"
 	)
 	@Export("isFriended")
@@ -72,7 +72,7 @@ public class FriendsList extends UserList {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-1956355163"
 	)
 	@Export("read")

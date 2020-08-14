@@ -51,13 +51,13 @@ public final class WallDecoration {
 	int yOffset;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity1")
 	public Entity entity1;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity2")
 	public Entity entity2;
@@ -81,7 +81,7 @@ public final class WallDecoration {
 
 	@ObfuscatedName("fu")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "764201281"
 	)
 	@Export("doCheat")
@@ -142,35 +142,35 @@ public final class WallDecoration {
 
 	@ObfuscatedName("ir")
 	@ObfuscatedSignature(
-		signature = "(Lhd;Ljo;IIZI)V",
+		descriptor = "(Lhd;Ljo;IIZI)V",
 		garbageValue = "-771039466"
 	)
 	@Export("addWidgetItemMenuItem")
-	static final void addWidgetItemMenuItem(Widget var0, ItemDefinition var1, int var2, int var3, boolean var4) {
-		String[] var5 = var1.inventoryActions;
-		byte var6 = -1;
-		String var7 = null;
-		if (var5 != null && var5[var3] != null) {
-			if (var3 == 0) {
-				var6 = 33;
-			} else if (var3 == 1) {
-				var6 = 34;
-			} else if (var3 == 2) {
-				var6 = 35;
-			} else if (var3 == 3) {
-				var6 = 36;
+	static final void addWidgetItemMenuItem(Widget widget, ItemDefinition itemDef, int slotIdx, int actionIdx, boolean forceLeftClick) {
+		String[] itemActions = itemDef.inventoryActions;
+		byte opcode = -1;
+		String action = null;
+		if (itemActions != null && itemActions[actionIdx] != null) {
+			if (actionIdx == 0) {
+				opcode = 33;
+			} else if (actionIdx == 1) {
+				opcode = 34;
+			} else if (actionIdx == 2) {
+				opcode = 35;
+			} else if (actionIdx == 3) {
+				opcode = 36;
 			} else {
-				var6 = 37;
+				opcode = 37;
 			}
 
-			var7 = var5[var3];
-		} else if (var3 == 4) {
-			var6 = 37;
-			var7 = "Drop";
+			action = itemActions[actionIdx];
+		} else if (actionIdx == 4) {
+			opcode = 37;
+			action = "Drop";
 		}
 
-		if (var6 != -1 && var7 != null) {
-			ApproximateRouteStrategy.insertMenuItem(var7, ItemContainer.colorStartTag(16748608) + var1.name, var6, var1.id, var2, var0.id, var4);
+		if (opcode != -1 && action != null) {
+			ApproximateRouteStrategy.insertMenuItem(action, ItemContainer.colorStartTag(16748608) + itemDef.name, opcode, itemDef.id, slotIdx, widget.id, forceLeftClick);
 		}
 
 	}

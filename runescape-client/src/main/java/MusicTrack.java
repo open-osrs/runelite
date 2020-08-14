@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class MusicTrack extends Node {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("table")
 	NodeHashTable table;
@@ -17,7 +17,7 @@ public class MusicTrack extends Node {
 	byte[] midi;
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;)V"
+		descriptor = "(Lkn;)V"
 	)
 	MusicTrack(Buffer var1) {
 		var1.offset = var1.array.length - 3;
@@ -424,7 +424,7 @@ public class MusicTrack extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;II)Lhz;"
+		descriptor = "(Lic;II)Lhz;"
 	)
 	@Export("readTrack")
 	public static MusicTrack readTrack(AbstractArchive var0, int var1, int var2) {

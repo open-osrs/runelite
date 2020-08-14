@@ -14,13 +14,13 @@ public class UserComparator3 extends AbstractUserComparator {
 	static int field2009;
 	@ObfuscatedName("gj")
 	@ObfuscatedSignature(
-		signature = "Lem;"
+		descriptor = "Lem;"
 	)
 	@Export("scene")
 	static Scene scene;
 	@ObfuscatedName("jf")
 	@ObfuscatedSignature(
-		signature = "Ldu;"
+		descriptor = "Ldu;"
 	)
 	@Export("textureProvider")
 	static TextureProvider textureProvider;
@@ -34,7 +34,7 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;I)I",
+		descriptor = "(Lkx;Lkx;I)I",
 		garbageValue = "1287219897"
 	)
 	@Export("compareBuddy")
@@ -52,7 +52,7 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(CB)B",
+		descriptor = "(CB)B",
 		garbageValue = "-48"
 	)
 	@Export("charToByteCp1252")
@@ -123,7 +123,7 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;ZLko;S)V",
+		descriptor = "(Lic;Lic;ZLko;S)V",
 		garbageValue = "22791"
 	)
 	public static void method3548(AbstractArchive var0, AbstractArchive var1, boolean var2, Font var3) {
@@ -136,7 +136,7 @@ public class UserComparator3 extends AbstractUserComparator {
 
 	@ObfuscatedName("if")
 	@ObfuscatedSignature(
-		signature = "(Lhd;IIZS)V",
+		descriptor = "(Lhd;IIZS)V",
 		garbageValue = "1700"
 	)
 	@Export("alignWidgetSize")

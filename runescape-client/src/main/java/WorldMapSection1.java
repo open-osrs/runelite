@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapSection1 implements WorldMapSection {
 	@ObfuscatedName("lg")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("mousedOverWidgetIf1")
 	static Widget mousedOverWidgetIf1;
@@ -55,7 +55,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lad;I)V",
+		descriptor = "(Lad;I)V",
 		garbageValue = "411670415"
 	)
 	@Export("expandBounds")
@@ -80,7 +80,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIIB)Z",
+		descriptor = "(IIIB)Z",
 		garbageValue = "2"
 	)
 	@Export("containsCoord")
@@ -94,7 +94,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIB)Z",
+		descriptor = "(IIB)Z",
 		garbageValue = "48"
 	)
 	@Export("containsPosition")
@@ -104,7 +104,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIII)[I",
+		descriptor = "(IIII)[I",
 		garbageValue = "459340529"
 	)
 	@Export("getBorderTileLengths")
@@ -119,7 +119,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(III)Lhg;",
+		descriptor = "(III)Lhg;",
 		garbageValue = "1240901536"
 	)
 	@Export("coord")
@@ -135,7 +135,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "0"
 	)
 	@Export("read")
@@ -151,7 +151,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-123"
 	)
 	@Export("postRead")
@@ -160,7 +160,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Ljava/lang/String;Ljava/lang/String;IZI)V",
+		descriptor = "(Lic;Ljava/lang/String;Ljava/lang/String;IZI)V",
 		garbageValue = "-1968156146"
 	)
 	public static void method656(AbstractArchive var0, String var1, String var2, int var3, boolean var4) {
@@ -171,7 +171,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IZIZI)V",
+		descriptor = "(IZIZI)V",
 		garbageValue = "1727413002"
 	)
 	@Export("sortWorldList")
@@ -184,7 +184,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-1443767280"
 	)
 	static final void method655(String var0) {
@@ -196,7 +196,7 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	@ObfuscatedName("jt")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "23"
 	)
 	static void method648(int var0) {

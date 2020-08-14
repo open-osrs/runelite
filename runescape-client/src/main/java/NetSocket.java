@@ -14,7 +14,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class NetSocket extends AbstractSocket implements Runnable {
 	@ObfuscatedName("st")
 	@ObfuscatedSignature(
-		signature = "Lcz;"
+		descriptor = "Lcz;"
 	)
 	@Export("clientPreferences")
 	static ClientPreferences clientPreferences;
@@ -32,13 +32,13 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 	boolean isClosed;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lfm;"
+		descriptor = "Lfm;"
 	)
 	@Export("taskHandler")
 	TaskHandler taskHandler;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+		descriptor = "Lfa;"
 	)
 	@Export("task")
 	Task task;
@@ -74,7 +74,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 	final int maxPacketLength;
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/net/Socket;Lfm;I)V"
+		descriptor = "(Ljava/net/Socket;Lfm;I)V"
 	)
 	public NetSocket(Socket var1, TaskHandler var2, int var3) throws IOException {
 		this.isClosed = false;
@@ -95,7 +95,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-768493590"
 	)
 	@Export("close")
@@ -125,7 +125,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "-8"
 	)
 	@Export("readUnsignedByte")
@@ -135,7 +135,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1942767880"
 	)
 	@Export("available")
@@ -145,7 +145,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "1355091335"
 	)
 	@Export("isAvailable")
@@ -159,7 +159,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([BIIB)I",
+		descriptor = "([BIIB)I",
 		garbageValue = "37"
 	)
 	@Export("read")
@@ -184,7 +184,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "([BIII)V",
+		descriptor = "([BIII)V",
 		garbageValue = "-950578253"
 	)
 	@Export("write0")
@@ -219,7 +219,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "([BIIB)V",
+		descriptor = "([BIIB)V",
 		garbageValue = "-105"
 	)
 	@Export("write")
@@ -305,7 +305,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IB)Ljm;",
+		descriptor = "(IB)Ljm;",
 		garbageValue = "67"
 	)
 	@Export("SequenceDefinition_get")
@@ -328,7 +328,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Lkn;J)V"
+		descriptor = "(Lkn;J)V"
 	)
 	static void method3677(Buffer var0, long var1) {
 		var1 /= 10L;
@@ -343,7 +343,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(II)Leg;",
+		descriptor = "(II)Leg;",
 		garbageValue = "-1650164099"
 	)
 	@Export("getFrames")
@@ -391,7 +391,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 	@ObfuscatedName("ko")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2085444453"
 	)
 	static void method3674() {

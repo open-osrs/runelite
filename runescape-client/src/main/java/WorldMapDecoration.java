@@ -50,7 +50,7 @@ public class WorldMapDecoration {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/String;[SI)V",
+		descriptor = "([Ljava/lang/String;[SI)V",
 		garbageValue = "478567291"
 	)
 	public static void method400(String[] var0, short[] var1) {
@@ -59,7 +59,7 @@ public class WorldMapDecoration {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "1441437585"
 	)
 	public static int method402(int var0) {
@@ -68,7 +68,7 @@ public class WorldMapDecoration {
 
 	@ObfuscatedName("jl")
 	@ObfuscatedSignature(
-		signature = "([Lhd;IB)V",
+		descriptor = "([Lhd;IB)V",
 		garbageValue = "-69"
 	)
 	@Export("drawModelComponents")

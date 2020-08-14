@@ -10,12 +10,12 @@ import net.runelite.rs.ScriptOpcodes;
 public class GrandExchangeOffer {
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "Llv;"
+		descriptor = "Llv;"
 	)
 	static Bounds field87;
 	@ObfuscatedName("db")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive4")
 	static Archive archive4;
@@ -57,7 +57,7 @@ public class GrandExchangeOffer {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(Lkn;Z)V",
+		descriptor = "(Lkn;Z)V",
 		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
@@ -71,7 +71,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "271165601"
 	)
 	@Export("status")
@@ -81,7 +81,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-2130764898"
 	)
 	@Export("type")
@@ -91,7 +91,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "-308953741"
 	)
 	void method172(int var1) {
@@ -101,7 +101,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "1"
 	)
 	void method173(int var1) {
@@ -114,7 +114,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "([Lch;II[I[II)V",
+		descriptor = "([Lch;II[I[II)V",
 		garbageValue = "-1520869912"
 	)
 	@Export("sortWorlds")
@@ -226,7 +226,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "-2096234716"
 	)
 	static int method194(int var0, Script var1, boolean var2) {
@@ -264,7 +264,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-1566307415"
 	)
 	static int method176(int var0) {
@@ -273,7 +273,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("hp")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1931279198"
 	)
 	@Export("Widget_runOnTargetLeave")
@@ -294,7 +294,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("jm")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "2119897094"
 	)
 	static void method189(int var0, int var1) {
@@ -304,7 +304,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("jf")
 	@ObfuscatedSignature(
-		signature = "(IIIILlz;Lhh;B)V",
+		descriptor = "(IIIILlz;Lhh;B)V",
 		garbageValue = "105"
 	)
 	@Export("drawSpriteOnMinimap")
@@ -329,7 +329,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("kp")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1908400826"
 	)
 	@Export("Clan_leaveChat")
@@ -341,7 +341,7 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("kj")
 	@ObfuscatedSignature(
-		signature = "(IIIZB)V",
+		descriptor = "(IIIZB)V",
 		garbageValue = "43"
 	)
 	public static void method191(int var0, int var1, int var2, boolean var3) {

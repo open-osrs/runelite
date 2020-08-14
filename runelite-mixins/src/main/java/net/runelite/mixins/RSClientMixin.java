@@ -957,15 +957,11 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Copy("runWidgetOnLoadListener")
-	public static void rs$runWidgetOnLoadListener(int groupId)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("runWidgetOnLoadListener")
-	public static void rl$runWidgetOnLoadListener(int groupId)
+	@SuppressWarnings("InfiniteRecursion")
+	public static void copy$runWidgetOnLoadListener(int groupId)
 	{
-		rs$runWidgetOnLoadListener(groupId);
+		copy$runWidgetOnLoadListener(groupId);
 
 		RSWidget[][] widgets = client.getWidgets();
 		boolean loaded = widgets != null && widgets[groupId] != null;
@@ -1024,7 +1020,7 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public static void boostedSkillLevelsChanged(int idx)
 	{
-		if (idx == 0)
+		if (idx == -1)
 		{
 			return;
 		}
@@ -1147,19 +1143,14 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Copy("findItemDefinitions")
-	public static void rs$findItemDefinitions(String var0, boolean var1)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("findItemDefinitions")
-	public static void rl$findItemDefinitions(String var0, boolean var1)
+	public static void copy$findItemDefinitions(String var0, boolean var1)
 	{
 		GrandExchangeSearched event = new GrandExchangeSearched();
 		client.getCallbacks().post(GrandExchangeSearched.class, event);
 		if (!event.isConsumed())
 		{
-			rs$findItemDefinitions(var0, var1);
+			copy$findItemDefinitions(var0, var1);
 		}
 	}
 
@@ -1379,13 +1370,8 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Copy("menuAction")
-	static void rs$menuAction(int var0, int var1, int var2, int var3, String var4, String var5, int var6, int var7)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("menuAction")
-	static void rl$menuAction(int param0, int param1, int opcode, int id, String option, String target, int canvasX, int canvasY)
+	static void copy$menuAction(int param0, int param1, int opcode, int id, String option, String target, int canvasX, int canvasY)
 	{
 		boolean authentic = true;
 		if (target != null && target.startsWith("!AUTHENTIC"))
@@ -1429,7 +1415,7 @@ public abstract class RSClientMixin implements RSClient
 			return;
 		}
 
-		rs$menuAction(menuOptionClicked.getParam0(), menuOptionClicked.getParam1(), menuOptionClicked.getOpcode(),
+		copy$menuAction(menuOptionClicked.getParam0(), menuOptionClicked.getParam1(), menuOptionClicked.getOpcode(),
 			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
 	}
 
@@ -1697,15 +1683,11 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Copy("shouldLeftClickOpenMenu")
-	boolean rs$shouldLeftClickOpenMenu()
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("shouldLeftClickOpenMenu")
-	boolean rl$shouldLeftClickOpenMenu()
+	@SuppressWarnings("InfiniteRecursion")
+	boolean copy$shouldLeftClickOpenMenu()
 	{
-		if (rs$shouldLeftClickOpenMenu())
+		if (copy$shouldLeftClickOpenMenu())
 		{
 			return true;
 		}
@@ -1729,20 +1711,15 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Copy("menu")
-	void rs$menu()
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("menu")
-	void rl$menu()
+	void copy$menu()
 	{
 		Menu menu = Menu.MENU;
 		menu.reset();
 		getCallbacks().post(Menu.class, menu);
 		if (menu.shouldRun())
 		{
-			rs$menu();
+			copy$menu();
 		}
 	}
 
@@ -1810,14 +1787,11 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Copy("forceDisconnect")
-	static void rs$forceDisconnect(int reason)
-	{
-	}
-
 	@Replace("forceDisconnect")
-	static void forceDisconnect(int reason)
+	@SuppressWarnings("InfiniteRecursion")
+	static void copy$forceDisconnect(int reason)
 	{
-		rs$forceDisconnect(reason);
+		copy$forceDisconnect(reason);
 
 		if (hideDisconnect && reason == 1)
 		{
@@ -1844,15 +1818,11 @@ public abstract class RSClientMixin implements RSClient
 
 
 	@Copy("changeGameOptions")
-	public static void rs$changeGameOptions(int var0)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("changeGameOptions")
-	public static void changeGameOptions(int var0)
+	@SuppressWarnings("InfiniteRecursion")
+	public static void copy$changeGameOptions(int var0)
 	{
-		rs$changeGameOptions(var0);
+		copy$changeGameOptions(var0);
 
 		int type = client.getVarpDefinition(var0).getType();
 		if (type == 3 || type == 4 || type == 10)
@@ -1862,8 +1832,8 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
-	@Replace("getWidgetClickMask")
-	public static int getWidgetClickMask(Widget widget)
+	@Replace("getWidgetFlags")
+	public static int getWidgetFlags(Widget widget)
 	{
 		IntegerNode integerNode = (IntegerNode) client.getWidgetFlags().get(((long) widget.getId() << 32) + (long) widget.getIndex());
 

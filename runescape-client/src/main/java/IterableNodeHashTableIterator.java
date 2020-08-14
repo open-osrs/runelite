@@ -9,13 +9,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class IterableNodeHashTableIterator implements Iterator {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("hashTable")
 	IterableNodeHashTable hashTable;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("head")
 	Node head;
@@ -24,13 +24,13 @@ public class IterableNodeHashTableIterator implements Iterator {
 	int index;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lgr;"
+		descriptor = "Lgr;"
 	)
 	@Export("last")
 	Node last;
 
 	@ObfuscatedSignature(
-		signature = "(Llf;)V"
+		descriptor = "(Llf;)V"
 	)
 	IterableNodeHashTableIterator(IterableNodeHashTable var1) {
 		this.last = null;

@@ -147,16 +147,13 @@ public abstract class RSSpriteMixin implements RSSprite
 	}
 
 	@Copy("drawRotatedMaskedCenteredAround")
-	abstract void rs$drawAlphaMapped(int x, int y, int width, int height, int xOffset, int yOffset,
-																	int rotation, int zoom, int[] xOffsets, int[] yOffsets);
-
 	@Replace("drawRotatedMaskedCenteredAround")
-	public void rl$drawAlphaMapped(int x, int y, int width, int height, int xOffset, int yOffset, int rotation,
+	public void copy$drawAlphaMapped(int x, int y, int width, int height, int xOffset, int yOffset, int rotation,
 																int zoom, int[] xOffsets, int[] yOffsets)
 	{
 		if (!hdMinimapEnabled)
 		{
-			rs$drawAlphaMapped(x, y, width, height, xOffset, yOffset, rotation, zoom, xOffsets, yOffsets);
+			copy$drawAlphaMapped(x, y, width, height, xOffset, yOffset, rotation, zoom, xOffsets, yOffsets);
 			return;
 		}
 		try

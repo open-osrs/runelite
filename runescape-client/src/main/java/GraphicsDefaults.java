@@ -82,7 +82,7 @@ public class GraphicsDefaults {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;B)V",
+		descriptor = "(Lic;B)V",
 		garbageValue = "0"
 	)
 	@Export("decode")

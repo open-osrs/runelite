@@ -33,6 +33,7 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSItemContainer;
+import net.runelite.rs.api.RSNodeHashTable;
 
 @Mixin(RSItemContainer.class)
 public abstract class RSItemContainerMixin implements RSItemContainer
@@ -129,13 +130,28 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 			int changedId = idx - 1 & 31;
 			int containerId = changedItemContainers[changedId];
 
-			RSItemContainer changedContainer = (RSItemContainer) client.getItemContainers().get(containerId);
+			RSNodeHashTable itemContainers = client.getItemContainers();
+			
+			RSItemContainer changedContainer = (RSItemContainer) itemContainers.get(containerId);
+			RSItemContainer changedContainerInvOther = (RSItemContainer) itemContainers.get(containerId | 0x8000);
 
 			if (changedContainer != null)
 			{
 				ItemContainerChanged event = new ItemContainerChanged(containerId, changedContainer);
 				client.getCallbacks().postDeferred(ItemContainerChanged.class, event);
 			}
+			
+			if (changedContainerInvOther != null)
+			{
+				ItemContainerChanged event = new ItemContainerChanged(containerId | 0x8000, changedContainerInvOther);
+				client.getCallbacks().postDeferred(ItemContainerChanged.class, event);
+			}
 		}
+	}
+
+	@Inject
+	public int size()
+	{
+		return getItemIds().length;
 	}
 }

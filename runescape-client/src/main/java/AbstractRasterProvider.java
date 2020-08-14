@@ -28,7 +28,7 @@ public abstract class AbstractRasterProvider {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "-5"
 	)
 	@Export("drawFull")
@@ -36,7 +36,7 @@ public abstract class AbstractRasterProvider {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "-1334771637"
 	)
 	@Export("draw")
@@ -44,7 +44,7 @@ public abstract class AbstractRasterProvider {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "25855118"
 	)
 	@Export("apply")

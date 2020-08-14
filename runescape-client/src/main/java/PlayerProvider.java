@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public interface PlayerProvider {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ldt;",
+		descriptor = "(I)Ldt;",
 		garbageValue = "-1371983171"
 	)
 	@Export("player")

@@ -16,7 +16,7 @@ public class class225 {
 
 	@ObfuscatedName("iu")
 	@ObfuscatedSignature(
-		signature = "(II)Ljava/lang/String;",
+		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "950917676"
 	)
 	static final String method4182(int var0) {

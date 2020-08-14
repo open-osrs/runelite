@@ -37,7 +37,7 @@ public abstract class ProcessClientErrorMixin implements RSClient
 	private static RSClient client;
 
 	@Replace("RunException_sendStackTrace")
-	static void rl$processClientError(String string, Throwable throwable)
+	static void processClientError(String string, Throwable throwable)
 	{
 		if (throwable != null)
 		{

@@ -760,9 +760,9 @@ public class ExternalPluginManager
 				scannedPlugins.add(plugin);
 			}
 		}
-		catch (NoClassDefFoundError ex)
+		catch (Throwable ex)
 		{
-			log.error("plugin {} is outdated", pluginId);
+			log.error("plugin {} could not be loaded. {} {}", pluginId, ex.toString(), ex.getMessage());
 		}
 
 		return scannedPlugins;
@@ -928,6 +928,11 @@ public class ExternalPluginManager
 		{
 			// Do not update when there is more than one client open -> api might contain changes
 			log.info("Not updating external plugins since there is more than 1 client open");
+			return;
+		}
+		else if (developmentMode)
+		{
+			log.info("Not updating because we're running in developer mode");
 			return;
 		}
 

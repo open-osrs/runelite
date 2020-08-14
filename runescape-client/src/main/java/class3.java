@@ -7,23 +7,23 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class3 implements Enumerated {
 	@ObfuscatedName("qs")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+		descriptor = "Llz;"
 	)
 	@Export("sceneMinimapSprite")
 	static Sprite sceneMinimapSprite;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lj;"
+		descriptor = "Lj;"
 	)
 	public static final class3 field10;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lj;"
+		descriptor = "Lj;"
 	)
 	public static final class3 field8;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lj;"
+		descriptor = "Lj;"
 	)
 	public static final class3 field9;
 	@ObfuscatedName("j")
@@ -40,7 +40,7 @@ public class class3 implements Enumerated {
 	public final Class field12;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lm;"
+		descriptor = "Lm;"
 	)
 	public final class0 field13;
 
@@ -51,7 +51,7 @@ public class class3 implements Enumerated {
 	}
 
 	@ObfuscatedSignature(
-		signature = "(IILjava/lang/Class;Lm;)V"
+		descriptor = "(IILjava/lang/Class;Lm;)V"
 	)
 	class3(int var1, int var2, Class var3, class0 var4) {
 		this.field14 = var1;
@@ -62,7 +62,7 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-995092303"
 	)
 	@Export("rsOrdinal")
@@ -72,7 +72,7 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)Ljava/lang/Object;",
+		descriptor = "(Lkn;I)Ljava/lang/Object;",
 		garbageValue = "-1114505867"
 	)
 	public Object method40(Buffer var1) {
@@ -81,7 +81,7 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[Lu;",
+		descriptor = "(I)[Lu;",
 		garbageValue = "849855680"
 	)
 	public static class7[] method41() {
@@ -90,7 +90,7 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(III)Lbr;",
+		descriptor = "(III)Lbr;",
 		garbageValue = "-1323441814"
 	)
 	@Export("Messages_getByChannelAndID")
@@ -101,7 +101,7 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(B)Lch;",
+		descriptor = "(B)Lch;",
 		garbageValue = "12"
 	)
 	@Export("getNextWorldListWorld")
@@ -111,7 +111,7 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "([BI)V",
+		descriptor = "([BI)V",
 		garbageValue = "-2060767069"
 	)
 	@Export("SpriteBuffer_decode")
@@ -183,7 +183,7 @@ public class class3 implements Enumerated {
 
 	@ObfuscatedName("fg")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2027582422"
 	)
 	static final void method33() {

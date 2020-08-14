@@ -9,37 +9,37 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Widget extends Node {
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "[[Lhd;"
+		descriptor = "[[Lhd;"
 	)
 	@Export("Widget_interfaceComponents")
 	public static Widget[][] Widget_interfaceComponents;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("Widget_archive")
 	static AbstractArchive Widget_archive;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedSprites")
 	static EvictingDualNodeHashTable Widget_cachedSprites;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedModels")
 	static EvictingDualNodeHashTable Widget_cachedModels;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedFonts")
 	static EvictingDualNodeHashTable Widget_cachedFonts;
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("Widget_cachedSpriteMasks")
 	static EvictingDualNodeHashTable Widget_cachedSpriteMasks;
@@ -222,7 +222,7 @@ public class Widget extends Node {
 	public boolean fill;
 	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
-		signature = "Llw;"
+		descriptor = "Llw;"
 	)
 	@Export("fillMode")
 	public class332 fillMode;
@@ -440,8 +440,8 @@ public class Widget extends Node {
 	@ObfuscatedGetter(
 		intValue = 1451565177
 	)
-	@Export("clickMask")
-	public int clickMask;
+	@Export("flags")
+	public int flags;
 	@ObfuscatedName("cq")
 	public boolean field2709;
 	@ObfuscatedName("co")
@@ -460,7 +460,7 @@ public class Widget extends Node {
 	public String[] actions;
 	@ObfuscatedName("dm")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("parent")
 	public Widget parent;
@@ -630,7 +630,7 @@ public class Widget extends Node {
 	public int modelFrameCycle;
 	@ObfuscatedName("ee")
 	@ObfuscatedSignature(
-		signature = "[Lhd;"
+		descriptor = "[Lhd;"
 	)
 	@Export("children")
 	public Widget[] children;
@@ -681,7 +681,8 @@ public class Widget extends Node {
 	@Export("noScrollThrough")
 	public boolean noScrollThrough;
 	@ObfuscatedName("fn")
-	public boolean field2744;
+	@Export("prioritizeMenuEntry")
+	public boolean prioritizeMenuEntry;
 
 	static {
 		Widget_cachedSprites = new EvictingDualNodeHashTable(200);
@@ -759,7 +760,7 @@ public class Widget extends Node {
 		this.textShadowed = false;
 		this.paddingX = 0;
 		this.paddingY = 0;
-		this.clickMask = 0;
+		this.flags = 0;
 		this.field2709 = false;
 		this.dataText = "";
 		this.parent = null;
@@ -785,12 +786,12 @@ public class Widget extends Node {
 		this.cycle = -1;
 		this.noClickThrough = false;
 		this.noScrollThrough = false;
-		this.field2744 = false;
+		this.prioritizeMenuEntry = false;
 	}
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lkn;S)V",
+		descriptor = "(Lkn;S)V",
 		garbageValue = "27305"
 	)
 	@Export("decodeLegacy")
@@ -863,22 +864,22 @@ public class Widget extends Node {
 			this.itemQuantities = new int[this.rawWidth * this.rawHeight];
 			var4 = var1.readUnsignedByte();
 			if (var4 == 1) {
-				this.clickMask |= 268435456;
+				this.flags |= 268435456;
 			}
 
 			var5 = var1.readUnsignedByte();
 			if (var5 == 1) {
-				this.clickMask |= 1073741824;
+				this.flags |= 1073741824;
 			}
 
 			var6 = var1.readUnsignedByte();
 			if (var6 == 1) {
-				this.clickMask |= Integer.MIN_VALUE;
+				this.flags |= Integer.MIN_VALUE;
 			}
 
 			int var7 = var1.readUnsignedByte();
 			if (var7 == 1) {
-				this.clickMask |= 536870912;
+				this.flags |= 536870912;
 			}
 
 			this.paddingX = var1.readUnsignedByte();
@@ -905,7 +906,7 @@ public class Widget extends Node {
 				String var10 = var1.readStringCp1252NullTerminated();
 				if (var10.length() > 0) {
 					this.itemActions[var8] = var10;
-					this.clickMask |= 1 << var8 + 23;
+					this.flags |= 1 << var8 + 23;
 				}
 			}
 		}
@@ -989,7 +990,7 @@ public class Widget extends Node {
 			this.paddingY = var1.readShort();
 			var4 = var1.readUnsignedByte();
 			if (var4 == 1) {
-				this.clickMask |= 1073741824;
+				this.flags |= 1073741824;
 			}
 
 			this.itemActions = new String[5];
@@ -998,7 +999,7 @@ public class Widget extends Node {
 				String var11 = var1.readStringCp1252NullTerminated();
 				if (var11.length() > 0) {
 					this.itemActions[var5] = var11;
-					this.clickMask |= 1 << var5 + 23;
+					this.flags |= 1 << var5 + 23;
 				}
 			}
 		}
@@ -1011,7 +1012,7 @@ public class Widget extends Node {
 			this.spellActionName = var1.readStringCp1252NullTerminated();
 			this.spellName = var1.readStringCp1252NullTerminated();
 			var4 = var1.readUnsignedShort() & 63;
-			this.clickMask |= var4 << 11;
+			this.flags |= var4 << 11;
 		}
 
 		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5 || this.buttonType == 6) {
@@ -1036,18 +1037,18 @@ public class Widget extends Node {
 		}
 
 		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5) {
-			this.clickMask |= 4194304;
+			this.flags |= 4194304;
 		}
 
 		if (this.buttonType == 6) {
-			this.clickMask |= 1;
+			this.flags |= 1;
 		}
 
 	}
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "0"
 	)
 	@Export("decode")
@@ -1149,7 +1150,7 @@ public class Widget extends Node {
 			this.field2633 = var1.readUnsignedByte() == 1;
 		}
 
-		this.clickMask = var1.readMedium();
+		this.flags = var1.readMedium();
 		this.dataText = var1.readStringCp1252NullTerminated();
 		int var2 = var1.readUnsignedByte();
 		if (var2 > 0) {
@@ -1189,7 +1190,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)[Ljava/lang/Object;",
+		descriptor = "(Lkn;I)[Ljava/lang/Object;",
 		garbageValue = "2034218421"
 	)
 	@Export("readListener")
@@ -1216,7 +1217,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lkn;S)[I",
+		descriptor = "(Lkn;S)[I",
 		garbageValue = "-3542"
 	)
 	@Export("readListenerTriggers")
@@ -1237,7 +1238,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "429586427"
 	)
 	@Export("swapItems")
@@ -1252,7 +1253,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(ZB)Llz;",
+		descriptor = "(ZB)Llz;",
 		garbageValue = "1"
 	)
 	@Export("getSprite")
@@ -1311,7 +1312,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)Lko;",
+		descriptor = "(B)Lko;",
 		garbageValue = "24"
 	)
 	@Export("getFont")
@@ -1338,7 +1339,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(II)Llz;",
+		descriptor = "(II)Llz;",
 		garbageValue = "2132771251"
 	)
 	@Export("getInventorySprite")
@@ -1370,7 +1371,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(Ljm;IZLhv;I)Lef;",
+		descriptor = "(Ljm;IZLhv;I)Lef;",
 		garbageValue = "-893461893"
 	)
 	@Export("getModel")
@@ -1452,7 +1453,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(ZI)Lhh;",
+		descriptor = "(ZI)Lhh;",
 		garbageValue = "-1801496414"
 	)
 	@Export("getSpriteMask")
@@ -1511,7 +1512,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;I)V",
 		garbageValue = "1766154663"
 	)
 	@Export("setAction")
@@ -1532,7 +1533,7 @@ public class Widget extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "863764794"
 	)
 	@Export("getVarbit")

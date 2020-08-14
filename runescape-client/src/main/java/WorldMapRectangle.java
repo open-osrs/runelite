@@ -11,7 +11,7 @@ public final class WorldMapRectangle {
 	static int[] field198;
 	@ObfuscatedName("de")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive5")
 	static Archive archive5;
@@ -47,12 +47,12 @@ public final class WorldMapRectangle {
 	int y;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		signature = "Laa;"
+		descriptor = "Laa;"
 	)
 	final WorldMapManager this$0;
 
 	@ObfuscatedSignature(
-		signature = "(Laa;)V"
+		descriptor = "(Laa;)V"
 	)
 	WorldMapRectangle(WorldMapManager var1) {
 		this.this$0 = var1;
@@ -60,7 +60,7 @@ public final class WorldMapRectangle {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "-429068240"
 	)
 	public static int method347(int var0, int var1) {
@@ -70,7 +70,7 @@ public final class WorldMapRectangle {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(ZI)V",
+		descriptor = "(ZI)V",
 		garbageValue = "-349989095"
 	)
 	@Export("Login_promptCredentials")
@@ -97,7 +97,7 @@ public final class WorldMapRectangle {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Lhd;IIII)V",
+		descriptor = "(Lhd;IIII)V",
 		garbageValue = "-127200615"
 	)
 	@Export("Widget_setKeyRate")
@@ -112,7 +112,7 @@ public final class WorldMapRectangle {
 
 	@ObfuscatedName("ji")
 	@ObfuscatedSignature(
-		signature = "(IIIILlz;Lhh;I)V",
+		descriptor = "(IIIILlz;Lhh;I)V",
 		garbageValue = "866321883"
 	)
 	@Export("worldToMinimap")

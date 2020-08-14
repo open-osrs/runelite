@@ -26,7 +26,7 @@ public class class204 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "1343176092"
 	)
 	public static int method3818(int var0, int var1) {

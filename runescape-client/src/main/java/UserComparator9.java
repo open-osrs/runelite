@@ -8,13 +8,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class UserComparator9 extends AbstractUserComparator {
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		signature = "Lkn;"
+		descriptor = "Lkn;"
 	)
 	@Export("NetCache_reference")
 	public static Buffer NetCache_reference;
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
-		signature = "Lgz;"
+		descriptor = "Lgz;"
 	)
 	@Export("clientLanguage")
 	static Language clientLanguage;
@@ -28,7 +28,7 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;I)I",
+		descriptor = "(Lkx;Lkx;I)I",
 		garbageValue = "239506152"
 	)
 	@Export("compareBuddy")
@@ -46,7 +46,7 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)[Lgx;",
+		descriptor = "(I)[Lgx;",
 		garbageValue = "-1951189301"
 	)
 	static LoginPacket[] method3512() {
@@ -55,7 +55,7 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "17173130"
 	)
 	public static void method3509() {
@@ -69,7 +69,7 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lic;IIIZB)V",
+		descriptor = "(Lic;IIIZB)V",
 		garbageValue = "18"
 	)
 	public static void method3513(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
@@ -84,7 +84,7 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	@ObfuscatedName("fx")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
+		descriptor = "(IB)V",
 		garbageValue = "41"
 	)
 	@Export("playSong")

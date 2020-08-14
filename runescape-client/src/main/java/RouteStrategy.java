@@ -43,7 +43,7 @@ public abstract class RouteStrategy {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIILfz;I)Z",
+		descriptor = "(IIILfz;I)Z",
 		garbageValue = "-1966963917"
 	)
 	@Export("hasArrived")

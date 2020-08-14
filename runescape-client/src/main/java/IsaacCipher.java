@@ -51,7 +51,7 @@ public final class IsaacCipher {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "-51"
 	)
 	@Export("nextInt")
@@ -66,7 +66,7 @@ public final class IsaacCipher {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1026117939"
 	)
 	public final int method6467() {
@@ -80,7 +80,7 @@ public final class IsaacCipher {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "2064479197"
 	)
 	@Export("generateMoreResults")
@@ -111,7 +111,7 @@ public final class IsaacCipher {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1036873606"
 	)
 	final void method6476() {

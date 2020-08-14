@@ -11,13 +11,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ClanChat extends UserList {
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lmo;"
+		descriptor = "Lmo;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lkp;"
+		descriptor = "Lkp;"
 	)
 	@Export("localUser")
 	final Usernamed localUser;
@@ -43,7 +43,7 @@ public class ClanChat extends UserList {
 	int field3663;
 
 	@ObfuscatedSignature(
-		signature = "(Lmo;Lkp;)V"
+		descriptor = "(Lmo;Lkp;)V"
 	)
 	public ClanChat(LoginType var1, Usernamed var2) {
 		super(100);
@@ -56,7 +56,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)Ljf;",
+		descriptor = "(I)Ljf;",
 		garbageValue = "551595115"
 	)
 	@Export("newInstance")
@@ -66,7 +66,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)[Ljf;",
+		descriptor = "(II)[Ljf;",
 		garbageValue = "1959965595"
 	)
 	@Export("newTypedArray")
@@ -76,7 +76,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
+		descriptor = "(Ljava/lang/String;B)V",
 		garbageValue = "-85"
 	)
 	@Export("readName")
@@ -114,7 +114,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-1810188467"
 	)
 	@Export("setOwner")
@@ -152,7 +152,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "585042716"
 	)
 	@Export("readUpdate")
@@ -179,7 +179,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("ci")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)V",
+		descriptor = "(Lkn;B)V",
 		garbageValue = "-100"
 	)
 	public final void method5421(Buffer var1) {
@@ -221,7 +221,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("cu")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-117"
 	)
 	@Export("clearFriends")
@@ -234,7 +234,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("cq")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-23"
 	)
 	@Export("invalidateIgnoreds")
@@ -247,7 +247,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("co")
 	@ObfuscatedSignature(
-		signature = "(Lji;I)V",
+		descriptor = "(Lji;I)V",
 		garbageValue = "244481619"
 	)
 	@Export("isLocalPlayer")
@@ -260,7 +260,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(Ljava/net/Socket;III)Llj;",
+		descriptor = "(Ljava/net/Socket;III)Llj;",
 		garbageValue = "-1116942702"
 	)
 	public static AbstractSocket method5441(Socket var0, int var1, int var2) throws IOException {
@@ -269,7 +269,7 @@ public class ClanChat extends UserList {
 
 	@ObfuscatedName("el")
 	@ObfuscatedSignature(
-		signature = "(B)Lma;",
+		descriptor = "(B)Lma;",
 		garbageValue = "-90"
 	)
 	@Export("getWorldMap")

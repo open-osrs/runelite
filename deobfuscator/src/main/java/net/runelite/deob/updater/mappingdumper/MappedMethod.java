@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.Code;
@@ -37,11 +38,11 @@ public class MappedMethod
 	public MappedMethod visitMethod(final Method m, final MappingDump dump)
 	{
 		MappingDumper.putMap(m.getPoolMethod(), this);
-		exportedName = DeobAnnotations.getExportedName(m.getAnnotations());
+		exportedName = DeobAnnotations.getExportedName(m);
 
 		owner = MappingDumper.getMap(m.getClassFile()).obfuscatedName;
 
-		obfuscatedName = DeobAnnotations.getObfuscatedName(m.getAnnotations());
+		obfuscatedName = DeobAnnotations.getObfuscatedName(m);
 		if (obfuscatedName == null)
 		{
 			obfuscatedName = m.getName();
@@ -94,8 +95,8 @@ public class MappedMethod
 				{
 					Method mme = met.get(0);
 					k = new net.runelite.asm.pool.Method(
-						new Class(DeobAnnotations.getObfuscatedName(mme.getClassFile().getAnnotations())),
-						DeobAnnotations.getObfuscatedName(mme.getAnnotations()),
+						new Class(Objects.requireNonNull(DeobAnnotations.getObfuscatedName(mme.getClassFile()))),
+						DeobAnnotations.getObfuscatedName(mme),
 						mme.getObfuscatedSignature() != null ? mme.getObfuscatedSignature() : mme.getDescriptor()
 					);
 				}

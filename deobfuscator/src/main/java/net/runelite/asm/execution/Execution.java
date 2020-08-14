@@ -204,6 +204,18 @@ public class Execution
 		this.addFrame(f);
 	}
 
+	public void addMethods(Iterable<Method> methods)
+	{
+		for (Method m : methods)
+		{
+			if (m.getCode() == null)
+				continue;
+			Frame f = new Frame(this, m);
+			f.initialize();
+			this.addFrame(f);
+		}
+	}
+
 	public void run()
 	{
 		assert !paused;

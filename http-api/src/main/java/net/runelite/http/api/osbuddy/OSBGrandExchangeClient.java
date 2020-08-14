@@ -29,15 +29,20 @@ import io.reactivex.rxjava3.core.Observable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 @Slf4j
+@AllArgsConstructor
 public class OSBGrandExchangeClient
 {
+	private final OkHttpClient client;
+
 	public Observable<OSBGrandExchangeResult> lookupItem(int itemId)
 	{
 		final HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
@@ -50,23 +55,23 @@ public class OSBGrandExchangeClient
 
 		return Observable.defer(() ->
 		{
-			Request request = new Request.Builder()
+			final Request request = new Request.Builder()
 				.url(url)
 				.build();
-
-			try (final Response response = RuneLiteAPI.CLIENT.newCall(request).execute())
+				
+			try (final Response response = client.newCall(request).execute())
 			{
 				if (!response.isSuccessful())
 				{
 					return Observable.error(new IOException("Error looking up item id: " + response));
 				}
-
+				
 				final InputStream in = response.body().byteStream();
 				return Observable.just(RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), OSBGrandExchangeResult.class));
 			}
-			catch (JsonParseException e)
+			catch (JsonParseException ex)
 			{
-				return Observable.error(e);
+				return Observable.error(ex);
 			}
 		});
 	}

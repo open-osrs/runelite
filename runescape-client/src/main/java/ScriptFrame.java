@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ScriptFrame {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lcs;"
+		descriptor = "Lcs;"
 	)
 	@Export("script")
 	Script script;
@@ -32,7 +32,7 @@ public class ScriptFrame {
 
 	@ObfuscatedName("gb")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-32"
 	)
 	static void method1201() {

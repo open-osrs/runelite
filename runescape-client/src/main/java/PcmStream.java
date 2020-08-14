@@ -11,7 +11,7 @@ public abstract class PcmStream extends Node {
 	volatile boolean active;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Ldf;"
+		descriptor = "Ldf;"
 	)
 	@Export("after")
 	PcmStream after;
@@ -19,7 +19,7 @@ public abstract class PcmStream extends Node {
 	int field1520;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		signature = "Ldy;"
+		descriptor = "Ldy;"
 	)
 	@Export("sound")
 	AbstractSound sound;
@@ -30,14 +30,14 @@ public abstract class PcmStream extends Node {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("firstSubStream")
 	protected abstract PcmStream firstSubStream();
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "()Ldf;"
+		descriptor = "()Ldf;"
 	)
 	@Export("nextSubStream")
 	protected abstract PcmStream nextSubStream();

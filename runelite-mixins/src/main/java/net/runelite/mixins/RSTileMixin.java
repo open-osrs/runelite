@@ -245,9 +245,12 @@ public abstract class RSTileMixin implements RSTile
 
 		List<TileItem> result = new ArrayList<TileItem>();
 		Node node = layer.getBottom();
-		while (node instanceof TileItem)
+		while (node instanceof RSTileItem)
 		{
-			result.add((TileItem) node);
+			RSTileItem item = (RSTileItem) node;
+			item.setX(getX());
+			item.setY(getY());
+			result.add(item);
 			node = node.getNext();
 		}
 		return result;
@@ -506,9 +509,7 @@ public abstract class RSTileMixin implements RSTile
 			return;
 		}
 
-		RSNodeDeque itemDeque = newQueue;
-
-		if (itemDeque == null)
+		if (newQueue == null)
 		{
 			if (lastUnlink != null)
 			{
@@ -519,7 +520,7 @@ public abstract class RSTileMixin implements RSTile
 		}
 
 		// The new item gets added to either the head, or the tail, depending on its price
-		RSNode head = itemDeque.getSentinel();
+		RSNode head = newQueue.getSentinel();
 		RSTileItem current = null;
 		RSNode next = head.getPrevious();
 		//boolean forward = false;

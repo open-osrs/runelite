@@ -36,6 +36,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
+import static java.awt.GraphicsDevice.WindowTranslucency.TRANSLUCENT;
 import java.awt.GraphicsEnvironment;
 import java.awt.LayoutManager;
 import java.awt.Rectangle;
@@ -54,6 +55,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 import javax.swing.BoxLayout;
@@ -62,6 +64,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
@@ -99,8 +102,6 @@ import net.runelite.client.util.WinUtil;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 import org.pushingpixels.substance.internal.utils.SubstanceCoreUtilities;
 import org.pushingpixels.substance.internal.utils.SubstanceTitlePaneUtilities;
-import static java.awt.GraphicsDevice.WindowTranslucency.TRANSLUCENT;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
 
 /**
  * Client UI.
@@ -139,7 +140,9 @@ public class ClientUI
 	private final ConfigManager configManager;
 	private final ExecutorService executorService;
 	private final Provider<ClientThread> clientThreadProvider;
-	private final EventBus eventBus;
+	private final EventBus eventbus;
+	private final boolean safeMode;
+
 	private final CardLayout cardLayout = new CardLayout();
 	private final Rectangle sidebarButtonPosition = new Rectangle();
 	private boolean withTitleBar;
@@ -167,7 +170,8 @@ public class ClientUI
 		ConfigManager configManager,
 		ExecutorService executorService,
 		Provider<ClientThread> clientThreadProvider,
-		EventBus eventbus)
+		EventBus eventbus,
+		@Named("safeMode") boolean safeMode)
 	{
 		this.config = config;
 		this.keyManager = keyManager;
@@ -176,7 +180,8 @@ public class ClientUI
 		this.configManager = configManager;
 		this.executorService = executorService;
 		this.clientThreadProvider = clientThreadProvider;
-		this.eventBus = eventbus;
+		this.eventbus = eventbus;
+		this.safeMode = safeMode;
 
 		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 		eventbus.subscribe(NavigationButtonAdded.class, this, this::onNavigationButtonAdded);
@@ -402,7 +407,7 @@ public class ClientUI
 					toggleSidebar();
 				}
 			};
-			sidebarListener.setEnabledOnLogin(true);
+			sidebarListener.setEnabledOnLoginScreen(true);
 			keyManager.registerKeyListener(sidebarListener);
 
 			final HotkeyListener pluginPanelListener = new HotkeyListener(config::panelToggleKey)
@@ -413,7 +418,7 @@ public class ClientUI
 					togglePluginPanel();
 				}
 			};
-			pluginPanelListener.setEnabledOnLogin(true);
+			pluginPanelListener.setEnabledOnLoginScreen(true);
 			keyManager.registerKeyListener(pluginPanelListener);
 
 			// Add mouse listener
@@ -532,7 +537,7 @@ public class ClientUI
 			trayIcon = SwingUtil.createTrayIcon(ICON, RuneLiteProperties.getTitle(), frame);
 
 			// Move frame around (needs to be done after frame is packed)
-			if (config.rememberScreenBounds())
+			if (config.rememberScreenBounds() && !safeMode)
 			{
 				try
 				{
@@ -543,8 +548,8 @@ public class ClientUI
 						frame.setBounds(clientBounds);
 
 						// frame.getGraphicsConfiguration().getBounds() returns the bounds for the primary display.
-						// We have to find the correct graphics configuration by using the intersection of the client boundaries.
-						GraphicsConfiguration gc = getIntersectingDisplay(clientBounds);
+						// We have to find the correct graphics configuration by using the client boundaries.
+						GraphicsConfiguration gc = findDisplayFromBounds(clientBounds);
 						if (gc != null)
 						{
 							double scale = gc.getDefaultTransform().getScaleX();
@@ -608,7 +613,7 @@ public class ClientUI
 		}
 	}
 
-	private GraphicsConfiguration getIntersectingDisplay(final Rectangle bounds)
+	private GraphicsConfiguration findDisplayFromBounds(final Rectangle bounds)
 	{
 		GraphicsDevice[] gds = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices();
 
@@ -617,7 +622,7 @@ public class ClientUI
 			GraphicsConfiguration gc = gd.getDefaultConfiguration();
 
 			final Rectangle displayBounds = gc.getBounds();
-			if (displayBounds.intersects(bounds))
+			if (displayBounds.contains(bounds))
 			{
 				return gc;
 			}
@@ -645,7 +650,7 @@ public class ClientUI
 	{
 		saveClientBoundsConfig();
 		ClientShutdown csev = new ClientShutdown();
-		eventBus.post(ClientShutdown.class, csev);
+		eventbus.post(ClientShutdown.class, csev);
 		executorService.shutdown();
 
 		new Thread(() ->

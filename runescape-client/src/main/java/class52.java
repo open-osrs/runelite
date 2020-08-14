@@ -17,7 +17,7 @@ public final class class52 {
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;II)V",
+		descriptor = "(Ljava/lang/String;II)V",
 		garbageValue = "-794896402"
 	)
 	static final void method873(String var0, int var1) {
@@ -30,7 +30,7 @@ public final class class52 {
 
 	@ObfuscatedName("hq")
 	@ObfuscatedSignature(
-		signature = "(III)Lga;",
+		descriptor = "(III)Lga;",
 		garbageValue = "-136372501"
 	)
 	static RouteStrategy method877(int var0, int var1) {

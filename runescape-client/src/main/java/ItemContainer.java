@@ -9,19 +9,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class ItemContainer extends Node {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lle;"
+		descriptor = "Lle;"
 	)
 	@Export("itemContainers")
 	static NodeHashTable itemContainers;
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Llz;"
+		descriptor = "Llz;"
 	)
 	@Export("rightTitleSprite")
 	static Sprite rightTitleSprite;
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		signature = "Llv;"
+		descriptor = "Llv;"
 	)
 	static Bounds field567;
 	@ObfuscatedName("ma")
@@ -48,7 +48,7 @@ public class ItemContainer extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(II)Lls;",
+		descriptor = "(II)Lls;",
 		garbageValue = "-1724420240"
 	)
 	public static PrivateChatMode method1232(int var0) {
@@ -67,7 +67,7 @@ public class ItemContainer extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Ljava/lang/String;",
+		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "1507611056"
 	)
 	@Export("colorStartTag")
@@ -77,7 +77,7 @@ public class ItemContainer extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Ljr;",
+		descriptor = "(II)Ljr;",
 		garbageValue = "2131303603"
 	)
 	@Export("getEnum")
@@ -99,7 +99,7 @@ public class ItemContainer extends Node {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(Lch;Lch;IZIZI)I",
+		descriptor = "(Lch;Lch;IZIZI)I",
 		garbageValue = "-1532099004"
 	)
 	static int method1225(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {

@@ -11,13 +11,13 @@ import net.runelite.rs.ScriptOpcodes;
 public class SecureRandomCallable implements Callable {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("Widget_modelsArchive")
 	static AbstractArchive Widget_modelsArchive;
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	static Widget field544;
 	@ObfuscatedName("cp")
@@ -27,7 +27,7 @@ public class SecureRandomCallable implements Callable {
 	public static int field546;
 	@ObfuscatedName("ll")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	static Widget field542;
 
@@ -40,7 +40,7 @@ public class SecureRandomCallable implements Callable {
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1445802198"
 	)
 	static int method1203(int var0, Script var1, boolean var2) {
@@ -184,7 +184,7 @@ public class SecureRandomCallable implements Callable {
 
 	@ObfuscatedName("fm")
 	@ObfuscatedSignature(
-		signature = "(Lby;IIB)V",
+		descriptor = "(Lby;IIB)V",
 		garbageValue = "72"
 	)
 	@Export("performPlayerAnimation")
@@ -214,7 +214,7 @@ public class SecureRandomCallable implements Callable {
 
 	@ObfuscatedName("hw")
 	@ObfuscatedSignature(
-		signature = "(Lcu;III)V",
+		descriptor = "(Lcu;III)V",
 		garbageValue = "9999999"
 	)
 	static final void method1205(MenuAction var0, int var1, int var2) {

@@ -67,7 +67,7 @@ public final class TilePaint {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(IIII)I",
+		descriptor = "(IIII)I",
 		garbageValue = "1631719470"
 	)
 	public static int method3187(int var0, int var1, int var2) {
@@ -83,7 +83,7 @@ public final class TilePaint {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "215317048"
 	)
 	public static void method3186() {
@@ -97,7 +97,7 @@ public final class TilePaint {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "6"
 	)
 	static void method3188() {

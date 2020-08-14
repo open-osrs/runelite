@@ -17,7 +17,7 @@ public class UserComparator1 implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljf;Ljf;I)I",
+		descriptor = "(Ljf;Ljf;I)I",
 		garbageValue = "1065681362"
 	)
 	@Export("compare_bridged")

@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class GameObject {
 	@ObfuscatedName("di")
 	@ObfuscatedSignature(
-		signature = "Llj;"
+		descriptor = "Llj;"
 	)
 	@Export("js5Socket")
 	static AbstractSocket js5Socket;
@@ -45,7 +45,7 @@ public final class GameObject {
 	int centerY;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("entity")
 	public Entity entity;
@@ -104,7 +104,7 @@ public final class GameObject {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(CI)Z",
+		descriptor = "(CI)Z",
 		garbageValue = "1896739320"
 	)
 	@Export("isCharAlphabetic")

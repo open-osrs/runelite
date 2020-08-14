@@ -6,17 +6,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class198 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("ParamDefinition_archive")
 	static AbstractArchive ParamDefinition_archive;
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IB)Z",
+		descriptor = "(IB)Z",
 		garbageValue = "-100"
 	)
-	public static boolean method3774(int var0) {
+	@Export("Widget_containerHasUseOption")
+	public static boolean Widget_containerHasUseOption(int var0) {
 		return (var0 >> 31 & 1) != 0;
 	}
 }

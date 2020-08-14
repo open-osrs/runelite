@@ -9,12 +9,12 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class WorldMapID {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lan;"
+		descriptor = "Lan;"
 	)
 	static final WorldMapID field301;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lan;"
+		descriptor = "Lan;"
 	)
 	static final WorldMapID field299;
 	@ObfuscatedName("am")
@@ -37,7 +37,7 @@ public class WorldMapID {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
 		garbageValue = "-452075122"
 	)
 	@Export("addChatMessage")
@@ -56,16 +56,17 @@ public class WorldMapID {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)I",
+		descriptor = "(II)I",
 		garbageValue = "-211582550"
 	)
-	public static int method617(int var0) {
+	@Export("Widget_unpackTargetMask")
+	public static int Widget_unpackTargetMask(int var0) {
 		return var0 >> 11 & 63;
 	}
 
 	@ObfuscatedName("gv")
 	@ObfuscatedSignature(
-		signature = "(IIIIZI)V",
+		descriptor = "(IIIIZI)V",
 		garbageValue = "-1973135066"
 	)
 	@Export("setViewportShape")

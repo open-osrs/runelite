@@ -8,7 +8,6 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
-import net.runelite.asm.attributes.Annotations;
 import net.runelite.deob.Deob;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.DeobTestProperties;
@@ -58,14 +57,12 @@ public class AnnotationCleaner
 
 			for (Field f : c.getFields())
 			{
-				Annotations an = f.getAnnotations();
-
 				String fieldName = f.getName();
-				String exportedName = DeobAnnotations.getExportedName(an);
+				String exportedName = DeobAnnotations.getExportedName(f);
 
 				if (exportedName == null)
 				{
-					if (!Deob.isObfuscated(fieldName) && DeobAnnotations.getObfuscatedName(an) != null)
+					if (!Deob.isObfuscated(fieldName) && DeobAnnotations.getObfuscatedName(f) != null)
 					{
 						missing.add("Export: (field)  " + className + '.' + fieldName + " == missing");
 					}
@@ -78,14 +75,12 @@ public class AnnotationCleaner
 
 			for (Method m : c.getMethods())
 			{
-				Annotations an = m.getAnnotations();
-
 				String methodName = m.getName();
-				String exportedName = DeobAnnotations.getExportedName(an);
+				String exportedName = DeobAnnotations.getExportedName(m);
 
 				if (exportedName == null)
 				{
-					if (!Deob.isObfuscated(methodName) && DeobAnnotations.getObfuscatedName(an) != null)
+					if (!Deob.isObfuscated(methodName) && DeobAnnotations.getObfuscatedName(m) != null)
 					{
 						missing.add("Export: (method) " + className + '.' + methodName + " == missing");
 					}
@@ -124,7 +119,7 @@ public class AnnotationCleaner
 		JarUtil.saveJar(group, new File("C:/Users/Lucas/Desktop/niec.jar"));
 	}
 
-	private class OhNoException extends Exception
+	private static class OhNoException extends Exception
 	{
 		private OhNoException()
 		{

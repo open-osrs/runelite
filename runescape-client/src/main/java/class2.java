@@ -6,14 +6,14 @@ import net.runelite.mapping.ObfuscatedSignature;
 final class class2 implements class0 {
 	@ObfuscatedName("qo")
 	@ObfuscatedSignature(
-		signature = "Ldt;"
+		descriptor = "Ldt;"
 	)
 	@Export("pcmPlayer0")
 	static PcmPlayer pcmPlayer0;
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;Lkn;B)V",
+		descriptor = "(Ljava/lang/Object;Lkn;B)V",
 		garbageValue = "0"
 	)
 	public void vmethod59(Object var1, Buffer var2) {
@@ -22,7 +22,7 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)Ljava/lang/Object;",
+		descriptor = "(Lkn;B)Ljava/lang/Object;",
 		garbageValue = "114"
 	)
 	public Object vmethod47(Buffer var1) {
@@ -31,7 +31,7 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Long;Lkn;I)V",
+		descriptor = "(Ljava/lang/Long;Lkn;I)V",
 		garbageValue = "2145124737"
 	)
 	void method23(Long var1, Buffer var2) {
@@ -40,16 +40,17 @@ final class class2 implements class0 {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(IS)I",
+		descriptor = "(IS)I",
 		garbageValue = "-12961"
 	)
-	public static int method32(int var0) {
+	@Export("getEntityIdUnderMouse")
+	public static int getEntityIdUnderMouse(int var0) {
 		return Language.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]);
 	}
 
 	@ObfuscatedName("hi")
 	@ObfuscatedSignature(
-		signature = "(ZLkb;I)V",
+		descriptor = "(ZLkb;I)V",
 		garbageValue = "1542604247"
 	)
 	@Export("updateNpcs")

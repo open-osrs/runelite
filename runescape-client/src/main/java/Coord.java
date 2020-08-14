@@ -27,7 +27,7 @@ public class Coord {
 	public int y;
 
 	@ObfuscatedSignature(
-		signature = "(Lhg;)V"
+		descriptor = "(Lhg;)V"
 	)
 	public Coord(Coord var1) {
 		this.plane = var1.plane;
@@ -54,7 +54,7 @@ public class Coord {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "57"
 	)
 	@Export("packed")
@@ -64,7 +64,7 @@ public class Coord {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lhg;I)Z",
+		descriptor = "(Lhg;I)Z",
 		garbageValue = "1413568323"
 	)
 	@Export("equalsCoord")
@@ -80,7 +80,7 @@ public class Coord {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;S)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/String;S)Ljava/lang/String;",
 		garbageValue = "-17265"
 	)
 	@Export("toString")
@@ -106,7 +106,7 @@ public class Coord {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "([BB)[B",
+		descriptor = "([BB)[B",
 		garbageValue = "113"
 	)
 	@Export("decompressBytes")
@@ -139,7 +139,7 @@ public class Coord {
 
 	@ObfuscatedName("iy")
 	@ObfuscatedSignature(
-		signature = "(Lhd;IIIIIIB)V",
+		descriptor = "(Lhd;IIIIIIB)V",
 		garbageValue = "-69"
 	)
 	static final void method4135(Widget var0, int var1, int var2, int var3, int var4, int var5, int var6) {

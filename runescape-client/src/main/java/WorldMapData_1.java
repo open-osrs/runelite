@@ -40,7 +40,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-484373567"
 	)
 	@Export("init")
@@ -66,7 +66,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1774414997"
 	)
 	@Export("readGeography")
@@ -100,7 +100,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "4"
 	)
 	@Export("getChunkXLow")
@@ -110,7 +110,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "259751183"
 	)
 	@Export("getChunkYLow")
@@ -120,7 +120,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-810164078"
 	)
 	@Export("getChunkX")
@@ -130,7 +130,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "196084572"
 	)
 	@Export("getChunkY")
@@ -157,7 +157,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "1959951733"
 	)
 	public static boolean method784(int var0) {
@@ -166,7 +166,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 
 	@ObfuscatedName("im")
 	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
+		descriptor = "(IIIIB)V",
 		garbageValue = "87"
 	)
 	@Export("addSceneMenuOptions")
@@ -179,64 +179,64 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		long var6 = -1L;
 
 		int var8;
-		for (var8 = 0; var8 < WorldMapSection2.method372(); ++var8) {
-			long var9 = WorldMapLabel.method482(var8);
-			if (var9 != var6) {
-				var6 = var9;
-				int var24 = SoundSystem.method2628(var8);
-				long var14 = ViewportMouse.ViewportMouse_entityTags[var8];
-				int var13 = (int)(var14 >>> 7 & 127L);
-				var13 = var13;
-				int var25 = class171.method3571(ViewportMouse.ViewportMouse_entityTags[var8]);
-				int var16 = class2.method32(var8);
-				if (var25 == 2 && UserComparator3.scene.getObjectFlags(TileItemPile.Client_plane, var24, var13, var9) >= 0) {
-					ObjectDefinition var17 = Canvas.getObjectDefinition(var16);
-					if (var17.transforms != null) {
-						var17 = var17.transform();
+		for (var8 = 0; var8 < WorldMapSection2.getEntityCountUnderMouse(); ++var8) {
+			long entityTag_1 = WorldMapLabel.getEntityUnderMouse(var8);
+			if (entityTag_1 != var6) {
+				var6 = entityTag_1;
+				int sceneX = SoundSystem.getSceneXForObjectUnderMouse(var8);
+				long entityTag_2 = ViewportMouse.ViewportMouse_entityTags[var8];
+				int sceneY = (int)(entityTag_2 >>> 7 & 0x7fL);
+				sceneY = sceneY;
+				int interactType = class171.Entity_unpackType(ViewportMouse.ViewportMouse_entityTags[var8]);
+				int objectId = class2.getEntityIdUnderMouse(var8);
+				if (interactType == 2 && UserComparator3.scene.getObjectFlags(TileItemPile.Client_plane, sceneX, sceneY, entityTag_1) >= 0) {
+					ObjectDefinition objectDef = Canvas.getObjectDefinition(objectId);
+					if (objectDef.transforms != null) {
+						objectDef = objectDef.transform();
 					}
 
-					if (var17 == null) {
+					if (objectDef == null) {
 						continue;
 					}
 
 					if (Client.isItemSelected == 1) {
-						ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(65535) + var17.name, 1, var16, var24, var13);
+						ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(65535) + objectDef.name, 1, objectId, sceneX, sceneY);
 					} else if (Client.isSpellSelected) {
 						if ((WorldMapSprite.selectedSpellFlags & 4) == 4) {
-							ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(65535) + var17.name, 2, var16, var24, var13);
+							ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(65535) + objectDef.name, 2, objectId, sceneX, sceneY);
 						}
 					} else {
-						String[] var26 = var17.actions;
-						if (var26 != null) {
-							for (int var27 = 4; var27 >= 0; --var27) {
-								if (var26[var27] != null) {
-									short var20 = 0;
-									if (var27 == 0) {
-										var20 = 3;
+						String[] actions = objectDef.actions;
+						if (actions != null) {
+							for (int actionIdx = 4; actionIdx >= 0; --actionIdx) {
+								if (actions[actionIdx] != null) {
+									short opcode = 0;
+									if (actionIdx == 0) {
+										opcode = 3;
 									}
 
-									if (var27 == 1) {
-										var20 = 4;
+									if (actionIdx == 1) {
+										opcode = 4;
 									}
 
-									if (var27 == 2) {
-										var20 = 5;
+									if (actionIdx == 2) {
+										opcode = 5;
 									}
 
-									if (var27 == 3) {
-										var20 = 6;
+									if (actionIdx == 3) {
+										opcode = 6;
 									}
 
-									if (var27 == 4) {
-										var20 = 1001;
+									if (actionIdx == 4) {
+										opcode = 1001;
 									}
 
-									ScriptEvent.insertMenuItemNoShift(var26[var27], ItemContainer.colorStartTag(65535) + var17.name, var20, var16, var24, var13);
+									ScriptEvent.insertMenuItemNoShift(actions[actionIdx], ItemContainer.colorStartTag(65535) + objectDef.name, opcode, objectId, sceneX, sceneY);
 								}
 							}
 						}
 
-						ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(65535) + var17.name, 1002, var17.id, var24, var13);
+						ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(65535) + objectDef.name, 1002, objectDef.id, sceneX, sceneY);
 					}
 				}
 
@@ -245,8 +245,8 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 				Player var21;
 				int[] var33;
 				int var35;
-				if (var25 == 1) {
-					NPC var30 = Client.npcs[var16];
+				if (interactType == 1) {
+					NPC var30 = Client.npcs[objectId];
 					if (var30 == null) {
 						continue;
 					}
@@ -255,7 +255,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 						for (var18 = 0; var18 < Client.npcCount; ++var18) {
 							var19 = Client.npcs[Client.npcIndices[var18]];
 							if (var19 != null && var30 != var19 && var19.definition.size == 1 && var19.x == var30.x && var19.y == var30.y) {
-								ApproximateRouteStrategy.addNpcToMenu(var19.definition, Client.npcIndices[var18], var24, var13);
+								ApproximateRouteStrategy.addNpcToMenu(var19.definition, Client.npcIndices[var18], sceneX, sceneY);
 							}
 						}
 
@@ -265,16 +265,16 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 						for (var35 = 0; var35 < var18; ++var35) {
 							var21 = Client.players[var33[var35]];
 							if (var21 != null && var30.x == var21.x && var30.y == var21.y) {
-								Player.addPlayerToMenu(var21, var33[var35], var24, var13);
+								Player.addPlayerToMenu(var21, var33[var35], sceneX, sceneY);
 							}
 						}
 					}
 
-					ApproximateRouteStrategy.addNpcToMenu(var30.definition, var16, var24, var13);
+					ApproximateRouteStrategy.addNpcToMenu(var30.definition, objectId, sceneX, sceneY);
 				}
 
-				if (var25 == 0) {
-					Player var31 = Client.players[var16];
+				if (interactType == 0) {
+					Player var31 = Client.players[objectId];
 					if (var31 == null) {
 						continue;
 					}
@@ -283,7 +283,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 						for (var18 = 0; var18 < Client.npcCount; ++var18) {
 							var19 = Client.npcs[Client.npcIndices[var18]];
 							if (var19 != null && var19.definition.size == 1 && var31.x == var19.x && var31.y == var19.y) {
-								ApproximateRouteStrategy.addNpcToMenu(var19.definition, Client.npcIndices[var18], var24, var13);
+								ApproximateRouteStrategy.addNpcToMenu(var19.definition, Client.npcIndices[var18], sceneX, sceneY);
 							}
 						}
 
@@ -293,28 +293,28 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 						for (var35 = 0; var35 < var18; ++var35) {
 							var21 = Client.players[var33[var35]];
 							if (var21 != null && var21 != var31 && var21.x == var31.x && var31.y == var21.y) {
-								Player.addPlayerToMenu(var21, var33[var35], var24, var13);
+								Player.addPlayerToMenu(var21, var33[var35], sceneX, sceneY);
 							}
 						}
 					}
 
-					if (var16 != Client.combatTargetPlayerIndex) {
-						Player.addPlayerToMenu(var31, var16, var24, var13);
+					if (objectId != Client.combatTargetPlayerIndex) {
+						Player.addPlayerToMenu(var31, objectId, sceneX, sceneY);
 					} else {
-						var4 = var9;
+						var4 = entityTag_1;
 					}
 				}
 
-				if (var25 == 3) {
-					NodeDeque var32 = Client.groundItems[TileItemPile.Client_plane][var24][var13];
+				if (interactType == 3) {
+					NodeDeque var32 = Client.groundItems[TileItemPile.Client_plane][sceneX][sceneY];
 					if (var32 != null) {
 						for (TileItem var36 = (TileItem)var32.first(); var36 != null; var36 = (TileItem)var32.next()) {
 							ItemDefinition var34 = KitDefinition.ItemDefinition_get(var36.id);
 							if (Client.isItemSelected == 1) {
-								ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + var34.name, 16, var36.id, var24, var13);
+								ScriptEvent.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + var34.name, 16, var36.id, sceneX, sceneY);
 							} else if (Client.isSpellSelected) {
 								if ((WorldMapSprite.selectedSpellFlags & 1) == 1) {
-									ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + var34.name, 17, var36.id, var24, var13);
+									ScriptEvent.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ItemContainer.colorStartTag(16748608) + var34.name, 17, var36.id, sceneX, sceneY);
 								}
 							} else {
 								String[] var28 = var34.groundActions;
@@ -342,13 +342,13 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 											var22 = 22;
 										}
 
-										ScriptEvent.insertMenuItemNoShift(var28[var29], ItemContainer.colorStartTag(16748608) + var34.name, var22, var36.id, var24, var13);
+										ScriptEvent.insertMenuItemNoShift(var28[var29], ItemContainer.colorStartTag(16748608) + var34.name, var22, var36.id, sceneX, sceneY);
 									} else if (var29 == 2) {
-										ScriptEvent.insertMenuItemNoShift("Take", ItemContainer.colorStartTag(16748608) + var34.name, 20, var36.id, var24, var13);
+										ScriptEvent.insertMenuItemNoShift("Take", ItemContainer.colorStartTag(16748608) + var34.name, 20, var36.id, sceneX, sceneY);
 									}
 								}
 
-								ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16748608) + var34.name, 1004, var36.id, var24, var13);
+								ScriptEvent.insertMenuItemNoShift("Examine", ItemContainer.colorStartTag(16748608) + var34.name, 1004, var36.id, sceneX, sceneY);
 							}
 						}
 					}
@@ -357,10 +357,10 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		}
 
 		if (-1L != var4) {
-			var8 = class279.method5159(var4);
-			int var23 = (int)(var4 >>> 7 & 127L);
+			var8 = class279.Entity_unpackSceneX(var4);
+			int pSceneY = (int)(var4 >>> 7 & 127L);
 			Player var11 = Client.players[Client.combatTargetPlayerIndex];
-			Player.addPlayerToMenu(var11, Client.combatTargetPlayerIndex, var8, var23);
+			Player.addPlayerToMenu(var11, Client.combatTargetPlayerIndex, var8, pSceneY);
 		}
 
 	}

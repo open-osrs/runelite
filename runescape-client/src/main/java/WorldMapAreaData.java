@@ -24,7 +24,7 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("bs")
 	@ObfuscatedSignature(
-		signature = "(Lkn;Lkn;IZI)V",
+		descriptor = "(Lkn;Lkn;IZI)V",
 		garbageValue = "442767924"
 	)
 	@Export("init")
@@ -66,7 +66,7 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("by")
 	@ObfuscatedSignature(
-		signature = "(Lkn;ZI)V",
+		descriptor = "(Lkn;ZI)V",
 		garbageValue = "-380421071"
 	)
 	@Export("initIconsList")
@@ -87,7 +87,7 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "([BI)Lcs;",
+		descriptor = "([BI)Lcs;",
 		garbageValue = "1792640289"
 	)
 	@Export("newScript")
@@ -159,7 +159,7 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/CharSequence;B)I",
+		descriptor = "(Ljava/lang/CharSequence;B)I",
 		garbageValue = "47"
 	)
 	public static int method759(CharSequence var0) {
@@ -175,7 +175,7 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("ic")
 	@ObfuscatedSignature(
-		signature = "(II)Ljava/lang/String;",
+		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "803969817"
 	)
 	@Export("formatItemStacks")
@@ -195,11 +195,12 @@ public class WorldMapAreaData extends WorldMapArea {
 
 	@ObfuscatedName("kk")
 	@ObfuscatedSignature(
-		signature = "(Lhd;B)Ljava/lang/String;",
+		descriptor = "(Lhd;B)Ljava/lang/String;",
 		garbageValue = "-51"
 	)
-	static String method762(Widget var0) {
-		if (WorldMapID.method617(KeyHandler.getWidgetClickMask(var0)) == 0) {
+	@Export("Widget_getSpellActionName")
+	static String Widget_getSpellActionName(Widget var0) {
+		if (WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var0)) == 0) {
 			return null;
 		} else {
 			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null;

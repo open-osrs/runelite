@@ -25,11 +25,13 @@
 package net.runelite.asm;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import net.runelite.asm.attributes.Annotations;
+import java.util.Map;
+import lombok.Getter;
+import net.runelite.asm.attributes.Annotated;
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.attributes.Exceptions;
-import net.runelite.asm.attributes.annotation.Annotation;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.LocalVariable;
 import net.runelite.asm.attributes.code.Parameter;
@@ -55,8 +57,9 @@ public class Method implements Annotated, Named
 	private int accessFlags;
 	private String name;
 	private Signature arguments;
-	private Exceptions exceptions;
-	private Annotations annotations;
+	private final Exceptions exceptions;
+	@Getter
+	private final Map<Type, Annotation> annotations = new LinkedHashMap<>();
 	private List<Parameter> parameters;
 	private Code code;
 
@@ -66,7 +69,6 @@ public class Method implements Annotated, Named
 		this.name = name;
 		this.arguments = signature;
 		exceptions = new Exceptions();
-		annotations = new Annotations();
 		parameters = new ArrayList<>();
 	}
 
@@ -89,7 +91,7 @@ public class Method implements Annotated, Named
 			visitor.visitParameter(p.getName(), p.getAccess());
 		}
 
-		for (Annotation annotation : annotations.getAnnotations())
+		for (Annotation annotation : annotations.values())
 		{
 			annotation.accept(visitor.visitAnnotation(annotation.getType().toString(), true));
 		}
@@ -277,11 +279,6 @@ public class Method implements Annotated, Named
 		this.code = code;
 	}
 
-	public Annotations getAnnotations()
-	{
-		return annotations;
-	}
-
 	@SuppressWarnings("unchecked")
 	public <T extends Instruction & LVTInstruction> List<T> findLVTInstructionsForVariable(int index)
 	{
@@ -313,7 +310,7 @@ public class Method implements Annotated, Named
 	public net.runelite.asm.pool.Method getPoolMethod()
 	{
 		return new net.runelite.asm.pool.Method(
-			new net.runelite.asm.pool.Class(classFile.getName()),
+			classFile.getPoolClass(),
 			name,
 			arguments
 		);

@@ -11,13 +11,13 @@ public class ClanMate extends Buddy {
 	static String otp;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("friend")
 	TriBool friend;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkf;"
 	)
 	@Export("ignored")
 	TriBool ignored;
@@ -29,7 +29,7 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "55"
 	)
 	@Export("clearIsFriend")
@@ -39,7 +39,7 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
+		descriptor = "(I)Z",
 		garbageValue = "1504738052"
 	)
 	@Export("isFriend")
@@ -53,7 +53,7 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-2080180390"
 	)
 	@Export("fillIsFriend")
@@ -63,7 +63,7 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "0"
 	)
 	@Export("clearIsIgnored")
@@ -73,7 +73,7 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "10"
 	)
 	@Export("isIgnored")
@@ -87,7 +87,7 @@ public class ClanMate extends Buddy {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-1156765322"
 	)
 	@Export("fillIsIgnored")

@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Task {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
+		descriptor = "Lfa;"
 	)
 	@Export("next")
 	Task next;

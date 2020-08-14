@@ -10,25 +10,25 @@ import net.runelite.rs.ScriptOpcodes;
 public class NPCDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("NpcDefinition_archive")
 	public static AbstractArchive NpcDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("NpcDefinition_modelArchive")
 	public static AbstractArchive NpcDefinition_modelArchive;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("NpcDefinition_cached")
 	public static EvictingDualNodeHashTable NpcDefinition_cached;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("NpcDefinition_cachedModels")
 	public static EvictingDualNodeHashTable NpcDefinition_cachedModels;
@@ -183,7 +183,7 @@ public class NPCDefinition extends DualNode {
 	public boolean isFollower;
 	@ObfuscatedName("as")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -222,7 +222,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-515379309"
 	)
 	@Export("postDecode")
@@ -231,7 +231,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "-1111522508"
 	)
 	@Export("decode")
@@ -248,7 +248,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "-1876580246"
 	)
 	@Export("decodeNext")
@@ -373,7 +373,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Ljm;ILjm;II)Lef;",
+		descriptor = "(Ljm;ILjm;II)Lef;",
 		garbageValue = "645123474"
 	)
 	@Export("getModel")
@@ -447,7 +447,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Lek;",
+		descriptor = "(I)Lek;",
 		garbageValue = "1862538614"
 	)
 	@Export("getModelData")
@@ -502,7 +502,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)Ljz;",
+		descriptor = "(I)Ljz;",
 		garbageValue = "478343419"
 	)
 	@Export("transform")
@@ -526,7 +526,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(B)Z",
+		descriptor = "(B)Z",
 		garbageValue = "1"
 	)
 	@Export("transformIsVisible")
@@ -551,7 +551,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(IIB)I",
+		descriptor = "(IIB)I",
 		garbageValue = "-3"
 	)
 	@Export("getIntParam")
@@ -561,7 +561,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)Ljava/lang/String;",
+		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
 		garbageValue = "-1927040360"
 	)
 	@Export("getStringParam")
@@ -571,7 +571,7 @@ public class NPCDefinition extends DualNode {
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "1804514310"
 	)
 	static int method4922(int var0, Script var1, boolean var2) {

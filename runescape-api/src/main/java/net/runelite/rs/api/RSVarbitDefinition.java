@@ -1,8 +1,9 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.VarbitDefinition;
 import net.runelite.mapping.Import;
 
-public interface RSVarbitDefinition extends RSDualNode
+public interface RSVarbitDefinition extends VarbitDefinition, RSDualNode
 {
 	@Import("baseVar")
 	int getIndex();
@@ -12,4 +13,7 @@ public interface RSVarbitDefinition extends RSDualNode
 
 	@Import("endBit")
 	int getMostSignificantBit();
+
+	@Import("decode")
+	void decode(RSBuffer buffer);
 }

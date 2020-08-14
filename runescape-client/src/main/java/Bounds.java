@@ -43,7 +43,7 @@ public class Bounds {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)V",
+		descriptor = "(III)V",
 		garbageValue = "-2102954293"
 	)
 	@Export("setLow")
@@ -54,7 +54,7 @@ public class Bounds {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
+		descriptor = "(IIB)V",
 		garbageValue = "-40"
 	)
 	@Export("setHigh")
@@ -65,7 +65,7 @@ public class Bounds {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Llv;Llv;I)V",
+		descriptor = "(Llv;Llv;I)V",
 		garbageValue = "1555379366"
 	)
 	public void method6202(Bounds var1, Bounds var2) {
@@ -75,7 +75,7 @@ public class Bounds {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Llv;Llv;B)V",
+		descriptor = "(Llv;Llv;B)V",
 		garbageValue = "58"
 	)
 	void method6199(Bounds var1, Bounds var2) {
@@ -98,7 +98,7 @@ public class Bounds {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Llv;Llv;I)V",
+		descriptor = "(Llv;Llv;I)V",
 		garbageValue = "-810970943"
 	)
 	void method6194(Bounds var1, Bounds var2) {
@@ -121,7 +121,7 @@ public class Bounds {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "515582700"
 	)
 	int method6193() {
@@ -130,7 +130,7 @@ public class Bounds {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-500619811"
 	)
 	int method6196() {

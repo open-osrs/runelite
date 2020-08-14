@@ -47,6 +47,7 @@ import net.runelite.client.ws.WSClient;
 import net.runelite.http.api.account.AccountClient;
 import net.runelite.http.api.account.OAuthResponse;
 import net.runelite.http.api.ws.messages.LoginResponse;
+import okhttp3.OkHttpClient;
 
 @Singleton
 @Slf4j
@@ -59,12 +60,17 @@ public class SessionManager
 
 	private final EventBus eventBus;
 	private final WSClient wsClient;
+	private final AccountClient accountClient;
 
 	@Inject
-	private SessionManager(EventBus eventBus, WSClient wsClient)
+	private SessionManager(
+		EventBus eventBus,
+		WSClient wsClient,
+		OkHttpClient okHttpClient)
 	{
 		this.eventBus = eventBus;
 		this.wsClient = wsClient;
+		this.accountClient = new AccountClient(okHttpClient);
 
 		this.eventBus.subscribe(LoginResponse.class, this, this::onLoginResponse);
 	}
@@ -92,7 +98,7 @@ public class SessionManager
 		}
 
 		// Check if session is still valid
-		AccountClient accountClient = new AccountClient(session.getUuid());
+		accountClient.setUuid(session.getUuid());
 		accountClient.sessionCheck()
 			.subscribeOn(Schedulers.io())
 			.subscribe(b ->
@@ -169,10 +175,10 @@ public class SessionManager
 
 		log.debug("Logging out of account {}", accountSession.getUsername());
 
-		AccountClient client = new AccountClient(accountSession.getUuid());
+		accountClient.setUuid(accountSession.getUuid());
 		try
 		{
-			client.logout();
+			accountClient.logout();
 		}
 		catch (IOException ex)
 		{
@@ -188,13 +194,13 @@ public class SessionManager
 	{
 		// If a session is already open, use that id. Otherwise generate a new id.
 		UUID uuid = wsClient.getSessionId() != null ? wsClient.getSessionId() : UUID.randomUUID();
-		AccountClient loginClient = new AccountClient(uuid);
+		accountClient.setUuid(uuid);
 
 		final OAuthResponse login;
 
 		try
 		{
-			login = loginClient.login();
+			login = accountClient.login();
 		}
 		catch (IOException ex)
 		{

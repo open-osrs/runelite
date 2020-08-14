@@ -12,19 +12,19 @@ public class class206 {
 	static int field2446;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("musicPatchesArchive")
 	public static AbstractArchive musicPatchesArchive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("musicSamplesArchive")
 	public static AbstractArchive musicSamplesArchive;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("soundEffectsArchive")
 	public static AbstractArchive soundEffectsArchive;
@@ -57,7 +57,7 @@ public class class206 {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(IIIZIB)J",
+		descriptor = "(IIIZIB)J",
 		garbageValue = "1"
 	)
 	@Export("calculateTag")

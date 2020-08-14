@@ -13,13 +13,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class KeyHandler implements KeyListener, FocusListener {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lbg;"
+		descriptor = "Lbg;"
 	)
 	@Export("KeyHandler_instance")
 	static KeyHandler KeyHandler_instance;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	static Widget field407;
 	@ObfuscatedName("ck")
@@ -74,13 +74,13 @@ public final class KeyHandler implements KeyListener, FocusListener {
 	static int[] KeyHandler_keyCodes;
 	@ObfuscatedName("gw")
 	@ObfuscatedSignature(
-		signature = "[Llz;"
+		descriptor = "[Llz;"
 	)
 	@Export("headIconPrayerSprites")
 	static Sprite[] headIconPrayerSprites;
 	@ObfuscatedName("ju")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhd;"
 	)
 	@Export("dragInventoryWidget")
 	static Widget dragInventoryWidget;
@@ -192,7 +192,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
 
 	@ObfuscatedName("fz")
 	@ObfuscatedSignature(
-		signature = "(IIIIB)V",
+		descriptor = "(IIIIB)V",
 		garbageValue = "98"
 	)
 	@Export("drawEntities")
@@ -653,12 +653,12 @@ public final class KeyHandler implements KeyListener, FocusListener {
 
 	@ObfuscatedName("ki")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I)I",
+		descriptor = "(Lhd;I)I",
 		garbageValue = "-1756984804"
 	)
-	@Export("getWidgetClickMask")
-	static int getWidgetClickMask(Widget var0) {
-		IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.get(((long)var0.id << 32) + (long)var0.childIndex);
-		return var1 != null ? var1.integer : var0.clickMask;
+	@Export("getWidgetFlags")
+	static int getWidgetFlags(Widget var0) {
+		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get(((long)var0.id << 32) + (long)var0.childIndex);
+		return var1 != null ? var1.integer : var0.flags;
 	}
 }

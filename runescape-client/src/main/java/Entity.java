@@ -21,7 +21,7 @@ public abstract class Entity extends DualNode {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
+		descriptor = "(I)Lef;",
 		garbageValue = "1832696685"
 	)
 	@Export("getModel")
@@ -42,7 +42,7 @@ public abstract class Entity extends DualNode {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "67"
 	)
 	public static void method3387() {
@@ -51,7 +51,7 @@ public abstract class Entity extends DualNode {
 
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "-1309600698"
 	)
 	static int method3376(int var0, Script var1, boolean var2) {
@@ -328,7 +328,7 @@ public abstract class Entity extends DualNode {
 
 	@ObfuscatedName("kl")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I)Z",
+		descriptor = "(Lhd;I)Z",
 		garbageValue = "-36347772"
 	)
 	@Export("isComponentHidden")

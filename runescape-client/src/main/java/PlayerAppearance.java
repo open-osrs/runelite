@@ -18,7 +18,7 @@ public class PlayerAppearance {
 	static final int[] equipmentIndices;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("PlayerAppearance_cachedModels")
 	static EvictingDualNodeHashTable PlayerAppearance_cachedModels;
@@ -56,7 +56,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([I[IZIB)V",
+		descriptor = "([I[IZIB)V",
 		garbageValue = "28"
 	)
 	@Export("update")
@@ -84,7 +84,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(IZI)V",
+		descriptor = "(IZI)V",
 		garbageValue = "-311469480"
 	)
 	@Export("changeAppearance")
@@ -119,7 +119,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(IZI)V",
+		descriptor = "(IZI)V",
 		garbageValue = "1803508005"
 	)
 	public void method4139(int var1, boolean var2) {
@@ -146,7 +146,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(ZB)V",
+		descriptor = "(ZB)V",
 		garbageValue = "80"
 	)
 	@Export("changeSex")
@@ -158,7 +158,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "1039310392"
 	)
 	@Export("write")
@@ -183,7 +183,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "1504678480"
 	)
 	@Export("setHash")
@@ -228,7 +228,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Ljm;ILjm;IB)Lef;",
+		descriptor = "(Ljm;ILjm;IB)Lef;",
 		garbageValue = "-39"
 	)
 	@Export("getModel")
@@ -342,7 +342,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(I)Lek;",
+		descriptor = "(I)Lek;",
 		garbageValue = "1279431909"
 	)
 	@Export("getModelData")
@@ -408,7 +408,7 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "0"
 	)
 	@Export("getChatHeadId")
@@ -418,11 +418,11 @@ public class PlayerAppearance {
 
 	@ObfuscatedName("kf")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "1446127367"
 	)
 	static void method4177(int var0) {
-		for (IntegerNode var1 = (IntegerNode)Client.widgetClickMasks.first(); var1 != null; var1 = (IntegerNode)Client.widgetClickMasks.next()) {
+		for (IntegerNode var1 = (IntegerNode)Client.widgetFlags.first(); var1 != null; var1 = (IntegerNode)Client.widgetFlags.next()) {
 			if ((long)var0 == (var1.key >> 48 & 65535L)) {
 				var1.remove();
 			}

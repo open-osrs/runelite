@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public final class BZip2Decompressor {
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "Llk;"
+		descriptor = "Llk;"
 	)
 	@Export("BZip2Decompressor_state")
 	static BZip2State BZip2Decompressor_state;
@@ -40,7 +40,7 @@ public final class BZip2Decompressor {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Llk;)V"
+		descriptor = "(Llk;)V"
 	)
 	static void method6004(BZip2State var0) {
 		byte var2 = var0.out_char;
@@ -166,7 +166,7 @@ public final class BZip2Decompressor {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(Llk;)V"
+		descriptor = "(Llk;)V"
 	)
 	@Export("BZip2Decompressor_decompress")
 	static void BZip2Decompressor_decompress(BZip2State var0) {
@@ -540,7 +540,7 @@ public final class BZip2Decompressor {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Llk;)B"
+		descriptor = "(Llk;)B"
 	)
 	@Export("BZip2Decompressor_readNextByte")
 	static byte BZip2Decompressor_readNextByte(BZip2State var0) {
@@ -549,7 +549,7 @@ public final class BZip2Decompressor {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Llk;)B"
+		descriptor = "(Llk;)B"
 	)
 	@Export("BZip2Decompressor_readNextBit")
 	static byte BZip2Decompressor_readNextBit(BZip2State var0) {
@@ -558,7 +558,7 @@ public final class BZip2Decompressor {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(ILlk;)I"
+		descriptor = "(ILlk;)I"
 	)
 	@Export("BZip2Decompressor_readBits")
 	static int BZip2Decompressor_readBits(int var0, BZip2State var1) {
@@ -578,7 +578,7 @@ public final class BZip2Decompressor {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(Llk;)V"
+		descriptor = "(Llk;)V"
 	)
 	@Export("makeMaps")
 	static void makeMaps(BZip2State var0) {

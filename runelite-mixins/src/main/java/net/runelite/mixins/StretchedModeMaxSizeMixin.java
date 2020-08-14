@@ -15,10 +15,9 @@ public abstract class StretchedModeMaxSizeMixin implements RSGameShell
 	private static RSClient client;
 
 	@Copy("resizeCanvas")
-	abstract void rs$resizeCanvas();
-
 	@Replace("resizeCanvas")
-	public void rl$resizeCanvas()
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$resizeCanvas()
 	{
 		if (client.isStretchedEnabled())
 		{
@@ -33,20 +32,18 @@ public abstract class StretchedModeMaxSizeMixin implements RSGameShell
 			}
 		}
 
-		rs$resizeCanvas();
+		copy$resizeCanvas();
 	}
 
 	@Copy("setMaxCanvasSize")
-	abstract void rs$setMaxCanvasSize(int width, int height);
-
 	@Replace("setMaxCanvasSize")
-	public void rl$setMaxCanvasSize(int width, int height)
+	public void copy$setMaxCanvasSize(int width, int height)
 	{
 		if (client.isStretchedEnabled() && client.isResized())
 		{
 			return;
 		}
 
-		rs$setMaxCanvasSize(width, height);
+		copy$setMaxCanvasSize(width, height);
 	}
 }

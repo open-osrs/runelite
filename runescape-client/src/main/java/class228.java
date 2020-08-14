@@ -7,13 +7,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class228 {
 	@ObfuscatedName("se")
 	@ObfuscatedSignature(
-		signature = "Lma;"
+		descriptor = "Lma;"
 	)
 	@Export("worldMap")
 	static WorldMap worldMap;
 	@ObfuscatedName("bn")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "[Llh;"
 	)
 	@Export("worldSelectStars")
 	static IndexedSprite[] worldSelectStars;
@@ -25,7 +25,7 @@ public class class228 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(ILlp;Lig;B)V",
+		descriptor = "(ILlp;Lig;B)V",
 		garbageValue = "-8"
 	)
 	static void method4262(int var0, ArchiveDisk var1, Archive var2) {

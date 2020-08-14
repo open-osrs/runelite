@@ -7,12 +7,12 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class class39 {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lal;"
+		descriptor = "Lal;"
 	)
 	static final class39 field296;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lal;"
+		descriptor = "Lal;"
 	)
 	static final class39 field293;
 	@ObfuscatedName("q")
@@ -33,7 +33,7 @@ public class class39 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
+		descriptor = "(III)Z",
 		garbageValue = "-1422185207"
 	)
 	static boolean method615(int var0, int var1) {
@@ -42,7 +42,7 @@ public class class39 {
 
 	@ObfuscatedName("gk")
 	@ObfuscatedSignature(
-		signature = "(Lgl;I)V",
+		descriptor = "(Lgl;I)V",
 		garbageValue = "-980354844"
 	)
 	static final void method616(class194 var0) {

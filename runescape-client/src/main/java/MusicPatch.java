@@ -15,7 +15,7 @@ public class MusicPatch extends Node {
 	int field2520;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "[Ldp;"
+		descriptor = "[Ldp;"
 	)
 	@Export("rawSounds")
 	RawSound[] rawSounds;
@@ -27,7 +27,7 @@ public class MusicPatch extends Node {
 	byte[] field2518;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "[Lgp;"
+		descriptor = "[Lgp;"
 	)
 	MusicPatchNode2[] field2519;
 	@ObfuscatedName("n")
@@ -481,7 +481,7 @@ public class MusicPatch extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ldo;[B[II)Z",
+		descriptor = "(Ldo;[B[II)Z",
 		garbageValue = "512208018"
 	)
 	boolean method4027(SoundCache var1, byte[] var2, int[] var3) {
@@ -519,7 +519,7 @@ public class MusicPatch extends Node {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "58"
 	)
 	@Export("clear")
@@ -529,7 +529,7 @@ public class MusicPatch extends Node {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/io/File;I)V",
+		descriptor = "(Ljava/io/File;I)V",
 		garbageValue = "-1151002932"
 	)
 	static void method4025(File var0) {
@@ -543,7 +543,7 @@ public class MusicPatch extends Node {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)[Llw;",
+		descriptor = "(I)[Llw;",
 		garbageValue = "16711680"
 	)
 	@Export("FillMode_values")

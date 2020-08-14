@@ -23,7 +23,7 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ls;Ls;I)I",
+		descriptor = "(Ls;Ls;I)I",
 		garbageValue = "646157510"
 	)
 	@Export("compare_bridged")
@@ -55,7 +55,7 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
+		descriptor = "(ILcs;ZI)I",
 		garbageValue = "987190791"
 	)
 	static int method1342(int var0, Script var1, boolean var2) {
@@ -116,7 +116,7 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 
 	@ObfuscatedName("fq")
 	@ObfuscatedSignature(
-		signature = "(Ljm;IIII)V",
+		descriptor = "(Ljm;IIII)V",
 		garbageValue = "1251688899"
 	)
 	@Export("addSequenceSoundEffect")

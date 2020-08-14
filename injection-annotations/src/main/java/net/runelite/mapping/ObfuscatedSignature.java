@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 	})
 public @interface ObfuscatedSignature
 {
-	String signature();
+	String descriptor();
 
 	String garbageValue() default ""; // valid garbage value for last parameter. can't be an Object because Java.
 }

@@ -440,8 +440,6 @@ class ConfigPanel extends PluginPanel
 		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
 		assert cd != null;
 
-		List<JButton> buttons = new ArrayList<>();
-
 		Map<String, Map<String, String>> pluginsInfoMap = externalPluginManager.getPluginsInfoMap();
 
 		if (pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName()))
@@ -566,28 +564,6 @@ class ConfigPanel extends PluginPanel
 				}
 			}
 
-			if (cid.getType() == Button.class)
-			{
-				try
-				{
-					ConfigItem item = cid.getItem();
-					JButton button = new JButton(item.name());
-					button.addActionListener((e) -> {
-						ConfigButtonClicked event = new ConfigButtonClicked();
-						event.setGroup(cd.getGroup().value());
-						event.setKey(cid.getItem().keyName());
-						eventBus.post(ConfigButtonClicked.class, event);
-					});
-					buttons.add(button);
-				}
-				catch (Exception ex)
-				{
-					log.error("Adding action listener failed: {}", ex.getMessage());
-					ex.printStackTrace();
-				}
-
-				continue;
-			}
 			JPanel item = new JPanel();
 			item.setLayout(new BorderLayout());
 			item.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
@@ -596,6 +572,28 @@ class ConfigPanel extends PluginPanel
 			configEntryName.setForeground(Color.WHITE);
 			configEntryName.setToolTipText("<html>" + name + ":<br>" + cid.getItem().description() + "</html>");
 			item.add(configEntryName, cid.getType() != String.class ? BorderLayout.CENTER : BorderLayout.NORTH);
+
+			if (cid.getType() == Button.class)
+			{
+				try
+				{
+					ConfigItem cidItem = cid.getItem();
+					JButton button = new JButton(cidItem.name());
+					button.addActionListener((e) ->
+					{
+						ConfigButtonClicked event = new ConfigButtonClicked();
+						event.setGroup(cd.getGroup().value());
+						event.setKey(cid.getItem().keyName());
+						eventBus.post(ConfigButtonClicked.class, event);
+					});
+					item.add(button);
+				}
+				catch (Exception ex)
+				{
+					log.error("Adding action listener failed: {}", ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
 
 			if (cid.getType() == boolean.class)
 			{
@@ -612,7 +610,8 @@ class ConfigPanel extends PluginPanel
 				item.remove(configEntryName);
 
 				JButton button = new JButton(cid.getItem().name());
-				button.addActionListener((e) -> {
+				button.addActionListener((e) ->
+				{
 					log.debug("Running consumer: {}.{}", cd.getGroup().value(), cid.getItem().keyName());
 					configManager.getConsumer(cd.getGroup().value(), cid.getItem().keyName()).accept(pluginConfig.getPlugin());
 				});
@@ -1015,8 +1014,6 @@ class ConfigPanel extends PluginPanel
 			}
 		}
 
-		buttons.forEach(mainPanel::add);
-
 		JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener((e) ->
 		{
@@ -1081,15 +1078,7 @@ class ConfigPanel extends PluginPanel
 
 		if (!Strings.isNullOrEmpty(configItem.warning()))
 		{
-			final int result = JOptionPane.showOptionDialog(component, configItem.warning(),
-				"Are you sure?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,
-				null, new String[]{"Yes", "No"}, "No");
-
-			if (result != JOptionPane.YES_OPTION)
-			{
-				rebuild(false);
-				return;
-			}
+			JOptionPane.showMessageDialog(component, configItem.warning(), "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 
 		if (component instanceof JCheckBox)

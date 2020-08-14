@@ -10,7 +10,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;Lkn;B)V",
+		descriptor = "(Ljava/lang/Object;Lkn;B)V",
 		garbageValue = "0"
 	)
 	public void vmethod59(Object var1, Buffer var2) {
@@ -19,7 +19,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lkn;B)Ljava/lang/Object;",
+		descriptor = "(Lkn;B)Ljava/lang/Object;",
 		garbageValue = "114"
 	)
 	public Object vmethod47(Buffer var1) {
@@ -28,7 +28,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Integer;Lkn;I)V",
+		descriptor = "(Ljava/lang/Integer;Lkn;I)V",
 		garbageValue = "554078910"
 	)
 	void method8(Integer var1, Buffer var2) {
@@ -37,7 +37,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Throwable;Ljava/lang/String;)Lmr;"
+		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lmr;"
 	)
 	@Export("newRunException")
 	public static RunException newRunException(Throwable var0, String var1) {
@@ -54,7 +54,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "-345681310"
 	)
 	static void method16(int var0, int var1, int var2, int var3) {
@@ -132,7 +132,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(CLgz;I)I",
+		descriptor = "(CLgz;I)I",
 		garbageValue = "393583355"
 	)
 	@Export("lowercaseChar")
@@ -152,7 +152,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "25"
 	)
 	static final int method17() {
@@ -161,7 +161,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("fo")
 	@ObfuscatedSignature(
-		signature = "(Lhd;III)V",
+		descriptor = "(Lhd;III)V",
 		garbageValue = "45098661"
 	)
 	@Export("checkIfMinimapClicked")
@@ -211,7 +211,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("hm")
 	@ObfuscatedSignature(
-		signature = "(IIIIIIII)V",
+		descriptor = "(IIIIIIII)V",
 		garbageValue = "1438850851"
 	)
 	@Export("addPendingSpawnToScene")
@@ -507,7 +507,7 @@ final class class1 implements class0 {
 
 	@ObfuscatedName("hn")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
+		descriptor = "(IIIII)V",
 		garbageValue = "-569208973"
 	)
 	static final void method7(int var0, int var1, int var2, int var3) {

@@ -26,7 +26,7 @@ public final class TileItemPile {
 	static int Client_plane;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("second")
 	Entity second;
@@ -50,13 +50,13 @@ public final class TileItemPile {
 	int y;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("first")
 	Entity first;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lel;"
+		descriptor = "Lel;"
 	)
 	@Export("third")
 	Entity third;
@@ -78,7 +78,7 @@ public final class TileItemPile {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;S)Ljava/lang/String;",
+		descriptor = "(Ljava/lang/String;S)Ljava/lang/String;",
 		garbageValue = "256"
 	)
 	public static String method2903(String var0) {
@@ -116,7 +116,7 @@ public final class TileItemPile {
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
+		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "1884532154"
 	)
 	static final void method2904(String var0) {
@@ -130,7 +130,7 @@ public final class TileItemPile {
 
 	@ObfuscatedName("am")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZS)I",
+		descriptor = "(ILcs;ZS)I",
 		garbageValue = "1024"
 	)
 	static int method2902(int var0, Script var1, boolean var2) {
@@ -309,7 +309,7 @@ public final class TileItemPile {
 
 	@ObfuscatedName("gn")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-907670239"
 	)
 	static final void method2901() {

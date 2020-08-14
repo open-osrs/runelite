@@ -9,7 +9,7 @@ public class WeaponMap
 
 	static
 	{
-	//Melee
+		//Melee
 		StyleMap.put(ItemID._3RD_AGE_AXE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID._3RD_AGE_LONGSWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID._3RD_AGE_PICKAXE, WeaponStyle.MELEE);
@@ -20,6 +20,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.ABYSSAL_DAGGER_P_13271, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ABYSSAL_TENTACLE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ABYSSAL_WHIP, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.ABYSSAL_WHIP_20405, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ADAMANT_2H_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ADAMANT_AXE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ADAMANT_BATTLEAXE, WeaponStyle.MELEE);
@@ -166,6 +167,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.DRAGON_CLAWS, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.DRAGON_CLAWS_20784, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.DRAGON_DAGGER, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.DRAGON_DAGGER_20407, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.DRAGON_DAGGERP, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.DRAGON_DAGGERP_5680, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.DRAGON_DAGGERP_5698, WeaponStyle.MELEE);
@@ -208,6 +210,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.FROZEN_ABYSSAL_WHIP, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GADDERHAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GHRAZI_RAPIER, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.GHRAZI_RAPIER_23628, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GILDED_2H_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GILDED_HASTA, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GILDED_SCIMITAR, WeaponStyle.MELEE);
@@ -219,6 +222,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.GRANITE_MAUL, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GRANITE_MAUL_12848, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GRANITE_MAUL_20557, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.GRANITE_MAUL_24225, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.GRANITE_MAUL_24227, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GREEN_BANNER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GUTHANS_WARSPEAR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GUTHANS_WARSPEAR_0, WeaponStyle.MELEE);
@@ -227,6 +232,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.GUTHANS_WARSPEAR_50, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.GUTHANS_WARSPEAR_75, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HALBERD, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.HAM_JOINT, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HAND_FAN, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HILL_GIANT_CLUB, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HOLY_HANDEGG, WeaponStyle.MELEE);
@@ -378,6 +384,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.SNOWBALL, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SPEAR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.STALE_BAGUETTE, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.STATIUSS_WARHAMMER, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.STATIUSS_WARHAMMER_23620, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.STEEL_2H_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.STEEL_AXE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.STEEL_BATTLEAXE, WeaponStyle.MELEE);
@@ -399,6 +407,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.STEEL_WARHAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.STONE_BOWL, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SWAMP_LIZARD, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SWIFT_BLADE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TOKTZXILAK, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TOKTZXILAK_20554, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TOKTZXILEK, WeaponStyle.MELEE);
@@ -421,6 +430,9 @@ public class WeaponMap
 		StyleMap.put(ItemID.VERACS_FLAIL_75, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.VESTAS_BLIGHTED_LONGSWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.VESTAS_LONGSWORD_INACTIVE, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.VESTAS_LONGSWORD, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.VESTAS_LONGSWORD_23615, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.VESTAS_SPEAR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.VIGGORAS_CHAINMACE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.VIGGORAS_CHAINMACE_U, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.VOLCANIC_ABYSSAL_WHIP, WeaponStyle.MELEE);
@@ -459,7 +471,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.ZAMORAK_GODSWORD_OR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ZOMBIE_HEAD, WeaponStyle.MELEE);
 
-	//Ranged
+		//Ranged
 		StyleMap.put(ItemID._3RD_AGE_BOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.ADAMANT_CROSSBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.ADAMANT_DART, WeaponStyle.RANGE);
@@ -472,6 +484,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.ADAMANT_KNIFEP_5666, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.ADAMANT_THROWNAXE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.ARMADYL_CROSSBOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.ARMADYL_CROSSBOW_23611, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.BLACK_CHINCHOMPA, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.BLACK_DART, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.BLACK_DARTP, WeaponStyle.RANGE);
@@ -539,6 +552,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.DRAGON_KNIFEP_22810, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRAGON_THROWNAXE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.HEAVY_BALLISTA, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.HEAVY_BALLISTA_23630, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.HOLY_WATER, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.HUNTERS_CROSSBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.IRON_CROSSBOW, WeaponStyle.RANGE);
@@ -578,6 +592,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.MITH_CROSSBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MONKEY_TALISMAN, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MORRIGANS_JAVELIN, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.MORRIGANS_JAVELIN_23619, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MORRIGANS_THROWING_AXE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MUD_PIE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.NEW_CRYSTAL_BOW, WeaponStyle.RANGE);
@@ -589,6 +604,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.RED_CHINCHOMPA, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RED_CHINCHOMPA_10034, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_CROSSBOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.RUNE_CROSSBOW_23601, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_DART, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_DARTP, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_DARTP_5634, WeaponStyle.RANGE);
@@ -624,7 +640,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.YEW_LONGBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.YEW_SHORTBOW, WeaponStyle.RANGE);
 
-	//Magic
+		//Magic
 		StyleMap.put(ItemID._3RD_AGE_WAND, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.AHRIMS_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.AHRIMS_STAFF_0, WeaponStyle.MAGIC);
@@ -632,6 +648,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.AHRIMS_STAFF_25, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.AHRIMS_STAFF_50, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.AHRIMS_STAFF_75, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.AHRIMS_STAFF_23653, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.AIR_BATTLESTAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.ANCIENT_CROZIER, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.ANCIENT_STAFF, WeaponStyle.MAGIC);
@@ -659,6 +676,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.IBANS_STAFF_U, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.IVANDIS_FLAIL, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.KODAI_WAND, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.KODAI_WAND_23626, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.LAVA_BATTLESTAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.LAVA_BATTLESTAFF_21198, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.LUNAR_STAFF, WeaponStyle.MAGIC);
@@ -710,10 +728,13 @@ public class WeaponMap
 		StyleMap.put(ItemID.SMOKE_BATTLESTAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_AIR, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.STAFF_OF_BALANCE, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.STAFF_OF_BOB_THE_CAT, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_EARTH, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_FIRE, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_LIGHT, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_THE_DEAD, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.STAFF_OF_THE_DEAD_23613, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STAFF_OF_WATER, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STARTER_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.STEAM_BATTLESTAFF, WeaponStyle.MAGIC);
@@ -742,7 +763,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.ZAMORAK_CROZIER, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.ZAMORAK_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.ZURIELS_STAFF, WeaponStyle.MAGIC);
-	//what the fuck...
+		StyleMap.put(ItemID.ZURIELS_STAFF_23617, WeaponStyle.MAGIC);
+		//what the fuck...
 		StyleMap.put(ItemID.GNOMEBALL, WeaponStyle.MAGIC);
 	}
 }

@@ -13,13 +13,13 @@ public class BufferedNetSocket extends AbstractSocket {
 	Socket socket;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lli;"
+		descriptor = "Lli;"
 	)
 	@Export("source")
 	BufferedSource source;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Llu;"
+		descriptor = "Llu;"
 	)
 	@Export("sink")
 	BufferedSink sink;
@@ -36,7 +36,7 @@ public class BufferedNetSocket extends AbstractSocket {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(I)V",
+		descriptor = "(I)V",
 		garbageValue = "-768493590"
 	)
 	@Export("close")
@@ -53,7 +53,7 @@ public class BufferedNetSocket extends AbstractSocket {
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(B)I",
+		descriptor = "(B)I",
 		garbageValue = "-8"
 	)
 	@Export("readUnsignedByte")
@@ -63,7 +63,7 @@ public class BufferedNetSocket extends AbstractSocket {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(I)I",
+		descriptor = "(I)I",
 		garbageValue = "-1942767880"
 	)
 	@Export("available")
@@ -73,7 +73,7 @@ public class BufferedNetSocket extends AbstractSocket {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "1355091335"
 	)
 	@Export("isAvailable")
@@ -83,7 +83,7 @@ public class BufferedNetSocket extends AbstractSocket {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "([BIIB)I",
+		descriptor = "([BIIB)I",
 		garbageValue = "37"
 	)
 	@Export("read")
@@ -93,7 +93,7 @@ public class BufferedNetSocket extends AbstractSocket {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "([BIIB)V",
+		descriptor = "([BIIB)V",
 		garbageValue = "-105"
 	)
 	@Export("write")

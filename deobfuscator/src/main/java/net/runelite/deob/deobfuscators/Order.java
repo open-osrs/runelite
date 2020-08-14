@@ -24,7 +24,6 @@
  */
 package net.runelite.deob.deobfuscators;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
-import net.runelite.asm.attributes.Annotations;
+import net.runelite.asm.attributes.Annotated;
 import net.runelite.asm.execution.Execution;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.Deobfuscator;
@@ -64,7 +63,7 @@ public class Order implements Deobfuscator
 		for (int i = 0; i < group.getClasses().size(); i++)
 		{
 			ClassFile cf = group.getClasses().get(i);
-			String className = DeobAnnotations.getObfuscatedName(cf.getAnnotations());
+			String className = DeobAnnotations.getObfuscatedName(cf);
 			nameIndices.put(className, i);
 		}
 
@@ -73,7 +72,7 @@ public class Order implements Deobfuscator
 		for (ClassFile cf : group.getClasses())
 		{
 			List<Method> m = cf.getMethods();
-			Collections.sort(m, this::compareMethod);
+			m.sort(this::compare);
 
 			sortedMethods += m.size();
 
@@ -81,7 +80,7 @@ public class Order implements Deobfuscator
 			if (!cf.isEnum())
 			{
 				List<Field> f = cf.getFields();
-				Collections.sort(f, this::compareFields);
+				f.sort(this::compare);
 
 				sortedFields += f.size();
 			}
@@ -91,53 +90,42 @@ public class Order implements Deobfuscator
 	}
 
 	// static fields, member fields, clinit, init, methods, static methods
-	private int compareMethod(Method m1, Method m2)
+	private int compare(Annotated a, Annotated b)
 	{
-		int i1 = getType(m1), i2 = getType(m2);
+		int i1 = getType(a), i2 = getType(b);
 
 		if (i1 != i2)
 		{
 			return Integer.compare(i1, i2);
 		}
 
-		int nameIdx1 = getNameIdx(m1.getAnnotations());
-		int nameIdx2 = getNameIdx(m2.getAnnotations());
+		int nameIdx1 = getNameIdx(a);
+		int nameIdx2 = getNameIdx(b);
 
 		if (nameIdx1 != nameIdx2)
 		{
 			return Integer.compare(nameIdx1, nameIdx2);
 		}
 
-		return compareOrder(m1, m2);
+		return compareOrder(a, b);
 	}
 
-	private int compareFields(Field f1, Field f2)
-	{
-		int i1 = getType(f1), i2 = getType(f2);
-
-		if (i1 != i2)
-		{
-			return Integer.compare(i1, i2);
-		}
-
-		int nameIdx1 = getNameIdx(f1.getAnnotations());
-		int nameIdx2 = getNameIdx(f2.getAnnotations());
-
-		if (nameIdx1 != nameIdx2)
-		{
-			return Integer.compare(nameIdx1, nameIdx2);
-		}
-
-		return compareOrder(f1, f2);
-	}
-
-	private int getNameIdx(Annotations annotations)
+	private int getNameIdx(Annotated annotations)
 	{
 		String name = DeobAnnotations.getObfuscatedName(annotations);
 
 		Integer nameIdx = nameIndices.get(name);
 
 		return nameIdx != null ? nameIdx : -1;
+	}
+
+	private int getType(Annotated a)
+	{
+		if (a instanceof Method)
+			return getType((Method) a);
+		else if (a instanceof Field)
+			return getType((Field) a);
+		throw new RuntimeException("kys");
 	}
 
 	private int getType(Method m)

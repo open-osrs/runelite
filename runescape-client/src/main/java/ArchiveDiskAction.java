@@ -18,13 +18,13 @@ public class ArchiveDiskAction extends Node {
 	byte[] data;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Llp;"
+		descriptor = "Llp;"
 	)
 	@Export("archiveDisk")
 	ArchiveDisk archiveDisk;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Lig;"
 	)
 	@Export("archive")
 	Archive archive;
@@ -34,7 +34,7 @@ public class ArchiveDiskAction extends Node {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lkb;II)Z",
+		descriptor = "(Lkb;II)Z",
 		garbageValue = "-1045128194"
 	)
 	@Export("updateExternalPlayer")
@@ -150,7 +150,7 @@ public class ArchiveDiskAction extends Node {
 
 	@ObfuscatedName("js")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "-418956614"
 	)
 	static boolean method4302(int var0) {

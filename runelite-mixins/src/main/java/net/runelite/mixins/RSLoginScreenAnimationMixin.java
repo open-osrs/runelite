@@ -38,17 +38,12 @@ public abstract class RSLoginScreenAnimationMixin implements RSLoginScreenAnimat
 	private static RSClient client;
 
 	@Copy("draw")
-	void rs$draw(int var1, int var2)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("draw")
-	void rl$draw(int var1, int var2)
+	void copy$draw(int var1, int var2)
 	{
 		if (client.shouldRenderLoginScreenFire())
 		{
-			rs$draw(var1, var2);
+			copy$draw(var1, var2);
 		}
 	}
 }

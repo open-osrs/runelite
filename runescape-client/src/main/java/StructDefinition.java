@@ -8,19 +8,19 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class StructDefinition extends DualNode {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("StructDefinition_archive")
 	static AbstractArchive StructDefinition_archive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lec;"
 	)
 	@Export("StructDefinition_cached")
 	public static EvictingDualNodeHashTable StructDefinition_cached;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "Llf;"
+		descriptor = "Llf;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -34,7 +34,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		signature = "(B)V",
+		descriptor = "(B)V",
 		garbageValue = "-98"
 	)
 	@Export("postDecode")
@@ -43,7 +43,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(Lkn;I)V",
+		descriptor = "(Lkn;I)V",
 		garbageValue = "381784776"
 	)
 	@Export("decode")
@@ -60,7 +60,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		signature = "(Lkn;II)V",
+		descriptor = "(Lkn;II)V",
 		garbageValue = "337645419"
 	)
 	@Export("decodeNext")
@@ -73,7 +73,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(III)I",
+		descriptor = "(III)I",
 		garbageValue = "48203250"
 	)
 	@Export("getIntParam")
@@ -83,7 +83,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "(ILjava/lang/String;I)Ljava/lang/String;",
+		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
 		garbageValue = "-1617799993"
 	)
 	@Export("getStringParam")
@@ -93,7 +93,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(S)[Lgu;",
+		descriptor = "(S)[Lgu;",
 		garbageValue = "8211"
 	)
 	@Export("ServerPacket_values")
@@ -103,7 +103,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/CharSequence;III)Ljava/lang/String;",
+		descriptor = "([Ljava/lang/CharSequence;III)Ljava/lang/String;",
 		garbageValue = "1817057195"
 	)
 	public static String method4718(CharSequence[] var0, int var1, int var2) {
@@ -142,7 +142,7 @@ public class StructDefinition extends DualNode {
 
 	@ObfuscatedName("jb")
 	@ObfuscatedSignature(
-		signature = "(Lhd;IIII)V",
+		descriptor = "(Lhd;IIII)V",
 		garbageValue = "-1082386904"
 	)
 	@Export("drawMinimap")

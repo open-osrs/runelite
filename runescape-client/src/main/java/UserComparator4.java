@@ -17,7 +17,7 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lkx;Lkx;I)I",
+		descriptor = "(Lkx;Lkx;I)I",
 		garbageValue = "-1314738925"
 	)
 	@Export("compare_bridged")
@@ -35,7 +35,7 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lgn;Llb;I)Lgj;",
+		descriptor = "(Lgn;Llb;I)Lgj;",
 		garbageValue = "527815306"
 	)
 	@Export("getPacketBufferNode")
@@ -69,7 +69,7 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "(Lic;Lic;Lic;Lic;B)V",
+		descriptor = "(Lic;Lic;Lic;Lic;B)V",
 		garbageValue = "-47"
 	)
 	public static void method3495(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2, AbstractArchive var3) {
@@ -83,7 +83,7 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
+		descriptor = "(II)Z",
 		garbageValue = "-2121734057"
 	)
 	@Export("loadInterface")
@@ -125,7 +125,7 @@ public class UserComparator4 implements Comparator {
 
 	@ObfuscatedName("at")
 	@ObfuscatedSignature(
-		signature = "(II)V",
+		descriptor = "(II)V",
 		garbageValue = "1503044626"
 	)
 	@Export("runWidgetOnLoadListener")

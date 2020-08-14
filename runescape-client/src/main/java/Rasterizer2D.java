@@ -525,7 +525,7 @@ public class Rasterizer2D extends DualNode {
 
 	@ObfuscatedName("dz")
 	@ObfuscatedSignature(
-		signature = "(IIIIII[BIZ)V",
+		descriptor = "(IIIIII[BIZ)V",
 		garbageValue = "1"
 	)
 	@Export("Rasterizer2D_drawGradientPixels")
