@@ -566,28 +566,6 @@ class ConfigPanel extends PluginPanel
 				}
 			}
 
-			if (cid.getType() == Button.class)
-			{
-				try
-				{
-					ConfigItem item = cid.getItem();
-					JButton button = new JButton(item.name());
-					button.addActionListener((e) -> {
-						ConfigButtonClicked event = new ConfigButtonClicked();
-						event.setGroup(cd.getGroup().value());
-						event.setKey(cid.getItem().keyName());
-						eventBus.post(ConfigButtonClicked.class, event);
-					});
-					buttons.add(button);
-				}
-				catch (Exception ex)
-				{
-					log.error("Adding action listener failed: {}", ex.getMessage());
-					ex.printStackTrace();
-				}
-
-				continue;
-			}
 			JPanel item = new JPanel();
 			item.setLayout(new BorderLayout());
 			item.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
@@ -596,6 +574,27 @@ class ConfigPanel extends PluginPanel
 			configEntryName.setForeground(Color.WHITE);
 			configEntryName.setToolTipText("<html>" + name + ":<br>" + cid.getItem().description() + "</html>");
 			item.add(configEntryName, cid.getType() != String.class ? BorderLayout.CENTER : BorderLayout.NORTH);
+
+			if (cid.getType() == Button.class)
+			{
+				try
+				{
+					ConfigItem cidItem = cid.getItem();
+					JButton button = new JButton(cidItem.name());
+					button.addActionListener((e) -> {
+						ConfigButtonClicked event = new ConfigButtonClicked();
+						event.setGroup(cd.getGroup().value());
+						event.setKey(cid.getItem().keyName());
+						eventBus.post(ConfigButtonClicked.class, event);
+					});
+					item.add(button);
+				}
+				catch (Exception ex)
+				{
+					log.error("Adding action listener failed: {}", ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
 
 			if (cid.getType() == boolean.class)
 			{
