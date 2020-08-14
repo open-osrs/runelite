@@ -440,8 +440,6 @@ class ConfigPanel extends PluginPanel
 		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
 		assert cd != null;
 
-		List<JButton> buttons = new ArrayList<>();
-
 		Map<String, Map<String, String>> pluginsInfoMap = externalPluginManager.getPluginsInfoMap();
 
 		if (pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName()))
@@ -581,7 +579,8 @@ class ConfigPanel extends PluginPanel
 				{
 					ConfigItem cidItem = cid.getItem();
 					JButton button = new JButton(cidItem.name());
-					button.addActionListener((e) -> {
+					button.addActionListener((e) ->
+					{
 						ConfigButtonClicked event = new ConfigButtonClicked();
 						event.setGroup(cd.getGroup().value());
 						event.setKey(cid.getItem().keyName());
@@ -611,7 +610,8 @@ class ConfigPanel extends PluginPanel
 				item.remove(configEntryName);
 
 				JButton button = new JButton(cid.getItem().name());
-				button.addActionListener((e) -> {
+				button.addActionListener((e) ->
+				{
 					log.debug("Running consumer: {}.{}", cd.getGroup().value(), cid.getItem().keyName());
 					configManager.getConsumer(cd.getGroup().value(), cid.getItem().keyName()).accept(pluginConfig.getPlugin());
 				});
@@ -1013,8 +1013,6 @@ class ConfigPanel extends PluginPanel
 				mainPanel.add(item);
 			}
 		}
-
-		buttons.forEach(mainPanel::add);
 
 		JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener((e) ->
