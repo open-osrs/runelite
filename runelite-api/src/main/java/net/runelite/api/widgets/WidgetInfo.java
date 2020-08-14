@@ -891,8 +891,7 @@ public enum WidgetInfo
 	SECOND_TRADING_WITH_THEIR_ITEMS(WidgetID.PLAYER_TRADE_CONFIRM_GROUP_ID, WidgetID.TradeScreen.SECOND_THEIR_ITEMS),
 
 	GAUNTLET_TIMER_CONTAINER(WidgetID.GAUNTLET_TIMER_GROUP_ID, WidgetID.GauntletTimer.CONTAINER),
-	GAUNTLET_MAP(WidgetID.GAUNTLET_MAP_GROUP_ID, WidgetID.GauntletMap.CONTAINER),
-	;
+	GAUNTLET_MAP(WidgetID.GAUNTLET_MAP_GROUP_ID, WidgetID.GauntletMap.CONTAINER);
 
 	private final int groupId;
 	private final int childId;
