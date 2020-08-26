@@ -42,12 +42,11 @@ import net.runelite.asm.attributes.code.Parameter;
 import net.runelite.asm.signature.Signature;
 import net.runelite.asm.signature.util.VirtualMethods;
 import net.runelite.deob.DeobAnnotations;
+import static net.runelite.deob.DeobAnnotations.*;
 import net.runelite.deob.Deobfuscator;
 import net.runelite.deob.util.NameMappings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static net.runelite.deob.DeobAnnotations.OBFUSCATED_NAME;
-import static net.runelite.deob.DeobAnnotations.OBFUSCATED_SIGNATURE;
 
 public class Renamer implements Deobfuscator
 {
@@ -137,7 +136,10 @@ public class Renamer implements Deobfuscator
 
 				if (!method.getDescriptor().equals(newSignature))
 				{
-					method.findAnnotation(OBFUSCATED_SIGNATURE, true).setElement( "descriptor", method.getDescriptor().toString());
+					if (method.findAnnotation(OBFUSCATED_SIGNATURE) == null)
+					{
+						method.findAnnotation(OBFUSCATED_SIGNATURE, true).setElement("descriptor", method.getDescriptor().toString());
+					}
 				}
 
 				method.setDescriptor(newSignature);
@@ -154,7 +156,10 @@ public class Renamer implements Deobfuscator
 			{
 				if (field.getType().getInternalName().equals(cf.getName()))
 				{
-					field.findAnnotation(OBFUSCATED_SIGNATURE, true).setElement("descriptor", field.getType().toString());
+					if (field.findAnnotation(OBFUSCATED_SIGNATURE) == null)
+					{
+						field.findAnnotation(OBFUSCATED_SIGNATURE, true).setElement("descriptor", field.getType().toString());
+					}
 					field.setType(Type.getType("L" + name + ";", field.getType().getDimensions()));
 				}
 			}
@@ -168,10 +173,16 @@ public class Renamer implements Deobfuscator
 	private void regeneratePool(ClassGroup group)
 	{
 		for (ClassFile cf : group.getClasses())
+		{
 			for (Method m : cf.getMethods())
+			{
 				if (m.getCode() != null)
+				{
 					m.getCode().getInstructions()
 						.regeneratePool();
+				}
+			}
+		}
 	}
 
 	@Override
@@ -276,6 +287,9 @@ public class Renamer implements Deobfuscator
 
 	private static <T extends Annotated & Named> void addObfuscatedName(T object)
 	{
-		object.findAnnotation(OBFUSCATED_NAME, true).setElement(object.getName());
+		if (object.findAnnotation(OBFUSCATED_NAME) == null)
+		{
+			object.findAnnotation(OBFUSCATED_NAME, true).setElement(object.getName());
+		}
 	}
 }

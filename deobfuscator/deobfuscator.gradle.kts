@@ -93,14 +93,14 @@ tasks {
         filteringCharset = "UTF-8"
     }
     // TODO: Enable assertions on all 3
-    register<JavaExec>("Downloader.main()") {
+    register<JavaExec>("Downloader\$main()") {
         group = "gamepack"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
         main = "net.runelite.gamepack.Downloader"
     }
 
-    register<JavaExec>("Deob.main()") {
+    register<JavaExec>("Deob\$main()") {
         group = "gamepack"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
@@ -108,7 +108,7 @@ tasks {
         args = listOf(tokens["vanilla.jar"], "$buildDir/libs/deobfuscated-$version.jar")
     }
 
-    register<JavaExec>("UpdateMappings.main()") {
+    register<JavaExec>("UpdateMappings\$main()") {
         group = "gamepack"
 
         classpath = project.sourceSets.main.get().runtimeClasspath

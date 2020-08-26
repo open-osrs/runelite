@@ -123,7 +123,7 @@ public class AnnotationMapper
 		{
 			if (isCopyable(a))
 			{
-				to.addAnnotation(a.getType(), a);
+				to.addAnnotation(a);
 				++count;
 			}
 		}

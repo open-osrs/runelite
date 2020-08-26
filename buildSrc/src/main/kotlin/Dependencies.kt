@@ -29,6 +29,6 @@ object ProjectVersions {
 
     const val openosrsVersion = "3.4.2"
 
-    const val rsversion = 190
+    const val rsversion = 191
     const val cacheversion = 165
 }
