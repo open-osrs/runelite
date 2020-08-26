@@ -2,155 +2,82 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("u")
+@ObfuscatedName("w")
 public enum class7 implements Enumerated {
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lu;"
+		descriptor = "Lw;"
 	)
-	field30(0, 0);
+	field37(0, 0);
 
-	@ObfuscatedName("ox")
+	@ObfuscatedName("g")
+	static int[] field39;
+	@ObfuscatedName("be")
 	@ObfuscatedSignature(
-		descriptor = "Lfv;"
+		descriptor = "Lls;"
 	)
-	@Export("mouseWheel")
-	static MouseWheel mouseWheel;
-	@ObfuscatedName("eb")
-	static int[] field28;
-	@ObfuscatedName("o")
+	static IndexedSprite field36;
+	@ObfuscatedName("if")
 	@ObfuscatedGetter(
-		intValue = -372916347
+		intValue = 1039444805
 	)
-	public final int field26;
-	@ObfuscatedName("q")
+	static int field40;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 546495013
+		intValue = 1712649125
 	)
-	final int field27;
+	final int field35;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = 969088693
+	)
+	final int field38;
 
 	class7(int var3, int var4) {
-		this.field26 = var3;
-		this.field27 = var4;
-	}
+		this.field35 = var3;
+		this.field38 = var4; // L: 13
+	} // L: 14
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-995092303"
+		garbageValue = "385513888"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field27;
+		return this.field38; // L: 17
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)V",
-		garbageValue = "-89"
+		descriptor = "(Lw;I)Lh;",
+		garbageValue = "1469756534"
 	)
-	static final void method95(String var0) {
-		StringBuilder var10000 = new StringBuilder();
-		Object var10001 = null;
-		var10000 = var10000.append("Please remove ").append(var0);
-		var10001 = null;
-		String var1 = var10000.append(" from your ignore list first").toString();
-		ObjectSound.addGameMessage(30, "", var1);
-	}
-
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		descriptor = "(IIS)Z",
-		garbageValue = "17445"
-	)
-	static final boolean method97(int var0, int var1) {
-		ObjectDefinition var2 = Canvas.getObjectDefinition(var0);
-		if (var1 == 11) {
-			var1 = 10;
-		}
-
-		if (var1 >= 5 && var1 <= 8) {
-			var1 = 4;
-		}
-
-		return var2.method4786(var1);
-	}
-
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		descriptor = "(ILcs;ZI)I",
-		garbageValue = "669918470"
-	)
-	static int method100(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
-		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) {
-			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = WorldMapID.Widget_unpackTargetMask(KeyHandler.getWidgetFlags(var3));
-			return 1;
-		} else if (var0 != ScriptOpcodes.CC_GETOP) {
-			if (var0 == ScriptOpcodes.CC_GETOPBASE) {
-				if (var3.dataText == null) {
-					Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = "";
-				} else {
-					Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = var3.dataText;
-				}
-
-				return 1;
-			} else {
-				return 2;
-			}
-		} else {
-			int var4 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
-			--var4;
-			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) {
-				Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = var3.actions[var4];
-			} else {
-				Interpreter.Interpreter_stringStack[++WorldMapEvent.Interpreter_stringStackSize - 1] = "";
-			}
-
-			return 1;
+	public static class12 method102(class7 var0) {
+		switch(var0.field35) { // L: 9
+		case 0:
+			return new class5(); // L: 12
+		default:
+			throw new IllegalArgumentException(); // L: 16
 		}
 	}
 
-	@ObfuscatedName("gm")
+	@ObfuscatedName("fk")
 	@ObfuscatedSignature(
-		descriptor = "(S)Z",
-		garbageValue = "255"
+		descriptor = "(IIII)V",
+		garbageValue = "-2096801183"
 	)
-	static boolean method98() {
-		return (Client.drawPlayerNames & 4) != 0;
-	}
-
-	@ObfuscatedName("hv")
-	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1244259463"
-	)
-	static final boolean method94(int var0) {
-		if (var0 < 0) {
-			return false;
-		} else {
-			int var1 = Client.menuOpcodes[var0];
-			if (var1 >= 2000) {
-				var1 -= 2000;
-			}
-
-			return var1 == 1007;
-		}
-	}
-
-	@ObfuscatedName("jw")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "9"
-	)
-	@Export("FriendSystem_invalidateFriends")
-	static final void FriendSystem_invalidateFriends() {
-		for (int var0 = 0; var0 < Players.Players_count; ++var0) {
-			Player var1 = Client.players[Players.Players_indices[var0]];
-			var1.clearIsInClanChat();
+	@Export("queueSoundEffect")
+	static void queueSoundEffect(int var0, int var1, int var2) {
+		if (Client.soundEffectVolume != 0 && var1 != 0 && Client.soundEffectCount < 50) { // L: 3277
+			Client.soundEffectIds[Client.soundEffectCount] = var0; // L: 3278
+			Client.queuedSoundEffectLoops[Client.soundEffectCount] = var1; // L: 3279
+			Client.queuedSoundEffectDelays[Client.soundEffectCount] = var2; // L: 3280
+			Client.soundEffects[Client.soundEffectCount] = null; // L: 3281
+			Client.soundLocations[Client.soundEffectCount] = 0; // L: 3282
+			++Client.soundEffectCount; // L: 3283
 		}
 
-	}
+	} // L: 3285
 }

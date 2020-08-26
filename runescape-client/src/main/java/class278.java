@@ -1,26 +1,16 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jj")
+@ObfuscatedName("ja")
 public class class278 {
-	@ObfuscatedName("sb")
-	@ObfuscatedSignature(
-		descriptor = "Lix;"
-	)
-	public static class247 field3585;
+	@ObfuscatedName("ae")
+	@Export("fontHelvetica13")
+	static java.awt.Font fontHelvetica13;
 
-	@ObfuscatedName("ap")
-	@ObfuscatedSignature(
-		descriptor = "(ILcs;ZB)I",
-		garbageValue = "73"
-	)
-	static int method5158(int var0, Script var1, boolean var2) {
-		if (var0 == ScriptOpcodes.LOGOUT) {
-			Client.logoutTimer = 250;
-			return 1;
-		} else {
-			return 2;
-		}
+	@ObfuscatedName("z")
+	static double method5090(double var0, double var2, double var4) {
+		double var8 = (var0 - var2) / var4; // L: 10
+		double var6 = Math.exp(-var8 * var8 / 2.0D) / Math.sqrt(6.283185307179586D); // L: 12
+		return var6 / var4; // L: 14
 	}
 }

@@ -1,135 +1,113 @@
+import java.applet.Applet;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iv")
+@ObfuscatedName("iy")
 @Implements("VarbitDefinition")
 public class VarbitDefinition extends DualNode {
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
 	@Export("VarbitDefinition_archive")
 	public static AbstractArchive VarbitDefinition_archive;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lec;"
+		descriptor = "Lel;"
 	)
 	@Export("VarbitDefinition_cached")
-	public static EvictingDualNodeHashTable VarbitDefinition_cached;
-	@ObfuscatedName("u")
-	@Export("ByteArrayPool_altSizeArrayCounts")
-	static int[] ByteArrayPool_altSizeArrayCounts;
-	@ObfuscatedName("q")
+	static EvictingDualNodeHashTable VarbitDefinition_cached;
+	@ObfuscatedName("hf")
+	@ObfuscatedSignature(
+		descriptor = "[Llp;"
+	)
+	@Export("mapMarkerSprites")
+	static Sprite[] mapMarkerSprites;
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -85877297
+		intValue = -416955877
 	)
 	@Export("baseVar")
 	public int baseVar;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -392632623
+		intValue = -740697079
 	)
 	@Export("startBit")
 	public int startBit;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 196486925
+		intValue = -427959509
 	)
 	@Export("endBit")
 	public int endBit;
 
 	static {
-		VarbitDefinition_cached = new EvictingDualNodeHashTable(64);
+		VarbitDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
 	}
 
-	@ObfuscatedName("m")
+	VarbitDefinition() {
+	}
+
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Lkn;I)V",
-		garbageValue = "-1405036764"
+		descriptor = "(Lkf;I)V",
+		garbageValue = "2006870580"
 	)
 	@Export("decode")
-	public void decode(Buffer var1) {
+	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
+			int var2 = var1.readUnsignedByte(); // L: 30
+			if (var2 == 0) { // L: 31
+				return; // L: 34
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 32
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lkn;II)V",
-		garbageValue = "692433347"
+		descriptor = "(Lkf;II)V",
+		garbageValue = "1701572620"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) {
-			this.baseVar = var1.readUnsignedShort();
-			this.startBit = var1.readUnsignedByte();
-			this.endBit = var1.readUnsignedByte();
+		if (var2 == 1) { // L: 37
+			this.baseVar = var1.readUnsignedShort(); // L: 38
+			this.startBit = var1.readUnsignedByte(); // L: 39
+			this.endBit = var1.readUnsignedByte(); // L: 40
 		}
 
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lis;",
-		garbageValue = "-2057939908"
-	)
-	@Export("PlayerType_values")
-	public static PlayerType[] PlayerType_values() {
-		return new PlayerType[]{PlayerType.PlayerType_ultimateIronman, PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_ironman, PlayerType.PlayerType_normal, PlayerType.PlayerType_playerModerator};
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lii;",
-		garbageValue = "-266354668"
-	)
-	@Export("getParamDefinition")
-	public static ParamDefinition getParamDefinition(int var0) {
-		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = class198.ParamDefinition_archive.takeFile(11, var0);
-			var1 = new ParamDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			ParamDefinition.ParamDefinition_cached.put(var1, (long)var0);
-			return var1;
-		}
-	}
+	} // L: 43
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "828959828"
+		descriptor = "(Ljava/applet/Applet;Ljava/lang/String;I)V",
+		garbageValue = "1125902282"
 	)
-	static final int method4696(int var0, int var1, int var2) {
-		int var3 = var0 / var2;
-		int var4 = var0 & var2 - 1;
-		int var5 = var1 / var2;
-		int var6 = var1 & var2 - 1;
-		int var7 = Messages.method2350(var3, var5);
-		int var8 = Messages.method2350(var3 + 1, var5);
-		int var9 = Messages.method2350(var3, var5 + 1);
-		int var10 = Messages.method2350(var3 + 1, var5 + 1);
-		int var12 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1;
-		int var11 = ((65536 - var12) * var7 >> 16) + (var12 * var8 >> 16);
-		int var14 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1;
-		int var13 = ((65536 - var14) * var9 >> 16) + (var14 * var10 >> 16);
-		int var16 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var6 * 1024 / var2] >> 1;
-		int var15 = ((65536 - var16) * var11 >> 16) + (var16 * var13 >> 16);
-		return var15;
+	public static void method4593(Applet var0, String var1) {
+		class60.applet = var0; // L: 22
+		if (var1 != null) { // L: 23
+			class60.field451 = var1;
+		}
+
+	} // L: 24
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "-852003243"
+	)
+	static int method4596(int var0, int var1) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 14
+		if (var2 == null) { // L: 15
+			return -1;
+		} else {
+			return var1 >= 0 && var1 < var2.ids.length ? var2.ids[var1] : -1; // L: 16 17
+		}
 	}
 }

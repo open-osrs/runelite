@@ -1,26 +1,33 @@
-import net.runelite.mapping.ObfuscatedGetter;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("f")
+@ObfuscatedName("e")
 public class class25 {
-	@ObfuscatedName("ns")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "[Lhd;"
+		descriptor = "(I)[Llm;",
+		garbageValue = "742415234"
 	)
-	static Widget[] field124;
-	@ObfuscatedName("rs")
-	@ObfuscatedGetter(
-		intValue = 2108681749
-	)
-	static int field122;
+	@Export("FillMode_values")
+	public static FillMode[] FillMode_values() {
+		return new FillMode[]{FillMode.GRADIENT, FillMode.SOLID, FillMode.GRADIENT_ALPHA}; // L: 15
+	}
 
-	@ObfuscatedName("ke")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-777100102"
+		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lme;"
 	)
-	static void method245(int var0) {
-		Client.oculusOrbState = var0;
+	@Export("newRunException")
+	public static RunException newRunException(Throwable var0, String var1) {
+		RunException var2;
+		if (var0 instanceof RunException) { // L: 99
+			var2 = (RunException)var0; // L: 100
+			var2.message = var2.message + ' ' + var1; // L: 101
+		} else {
+			var2 = new RunException(var0, var1); // L: 103
+		}
+
+		return var2; // L: 104
 	}
 }

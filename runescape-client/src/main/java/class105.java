@@ -1,51 +1,24 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dw")
+@ObfuscatedName("dq")
 public class class105 {
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Ljx;"
+		descriptor = "Ljv;"
 	)
 	@Export("reflectionChecks")
-	static IterableNodeDeque reflectionChecks;
-	@ObfuscatedName("dn")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
+	public static IterableNodeDeque reflectionChecks;
+	@ObfuscatedName("ix")
+	@ObfuscatedGetter(
+		intValue = 1183836299
 	)
-	@Export("archive3")
-	static Archive archive3;
+	@Export("selectedItemWidget")
+	static int selectedItemWidget;
 
 	static {
-		reflectionChecks = new IterableNodeDeque();
-	}
-
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "1577025565"
-	)
-	static final int method2414(int var0, int var1) {
-		if (var0 == -2) {
-			return 12345678;
-		} else if (var0 == -1) {
-			if (var1 < 2) {
-				var1 = 2;
-			} else if (var1 > 126) {
-				var1 = 126;
-			}
-
-			return var1;
-		} else {
-			var1 = (var0 & 127) * var1 / 128;
-			if (var1 < 2) {
-				var1 = 2;
-			} else if (var1 > 126) {
-				var1 = 126;
-			}
-
-			return (var0 & 65408) + var1;
-		}
+		reflectionChecks = new IterableNodeDeque(); // L: 17
 	}
 }

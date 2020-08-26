@@ -1,143 +1,68 @@
+import java.util.LinkedHashMap;
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("x")
+@ObfuscatedName("p")
 public class class22 {
-	@ObfuscatedName("gf")
-	@ObfuscatedGetter(
-		intValue = -1318000387
-	)
-	static int field104;
+	@ObfuscatedName("w")
+	static byte[][][] field122;
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("fj")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "4320081"
+		descriptor = "(ZI)V",
+		garbageValue = "-680563104"
 	)
-	public static int method227(int var0, int var1) {
-		int var2;
-		for (var2 = 1; var1 > 1; var1 >>= 1) {
-			if ((var1 & 1) != 0) {
-				var2 = var0 * var2;
+	static final void method245(boolean var0) {
+		if (var0) { // L: 2596
+			Client.field710 = Login.field1223 ? class169.field2046 : class169.field2044; // L: 2597
+		} else {
+			LinkedHashMap var1 = Tile.clientPreferences.parameters; // L: 2600
+			String var3 = Login.Login_username; // L: 2602
+			int var4 = var3.length(); // L: 2604
+			int var5 = 0; // L: 2605
+
+			for (int var6 = 0; var6 < var4; ++var6) { // L: 2606
+				var5 = (var5 << 5) - var5 + var3.charAt(var6);
 			}
 
-			var0 *= var0;
+			Client.field710 = var1.containsKey(var5) ? class169.field2045 : class169.field2043; // L: 2609
 		}
 
-		if (var1 == 1) {
-			return var0 * var2;
+	} // L: 2611
+
+	@ObfuscatedName("gv")
+	@ObfuscatedSignature(
+		descriptor = "(I)I",
+		garbageValue = "-916071017"
+	)
+	static final int method244() {
+		if (Tile.clientPreferences.roofsHidden) { // L: 4394
+			return Huffman.Client_plane;
 		} else {
-			return var2;
+			int var0 = ArchiveLoader.getTileHeight(VertexNormal.cameraX, AbstractWorldMapData.cameraZ, Huffman.Client_plane); // L: 4395
+			return var0 - FaceNormal.cameraY < 800 && (Tiles.Tiles_renderFlags[Huffman.Client_plane][VertexNormal.cameraX >> 7][AbstractWorldMapData.cameraZ >> 7] & 4) != 0 ? Huffman.Client_plane : 3; // L: 4396 4397
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("hq")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1618940930"
+		descriptor = "(S)V",
+		garbageValue = "31538"
 	)
-	static void method225() {
-		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) {
-			Login.currentLoginField = 1;
-		} else {
-			Login.currentLoginField = 0;
+	@Export("Widget_runOnTargetLeave")
+	static void Widget_runOnTargetLeave() {
+		if (Client.isSpellSelected) { // L: 8116
+			Widget var0 = SecureRandomCallable.getWidgetChild(class232.selectedSpellWidget, Client.selectedSpellChildIndex); // L: 8117
+			if (var0 != null && var0.onTargetLeave != null) { // L: 8118
+				ScriptEvent var1 = new ScriptEvent(); // L: 8119
+				var1.widget = var0; // L: 8120
+				var1.args = var0.onTargetLeave; // L: 8121
+				Script.runScriptEvent(var1); // L: 8122
+			}
+
+			Client.isSpellSelected = false; // L: 8124
+			class52.invalidateWidget(var0); // L: 8125
 		}
-
-	}
-
-	@ObfuscatedName("fe")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "1"
-	)
-	@Export("getLoginError")
-	static void getLoginError(int var0) {
-		if (var0 == -3) {
-			MusicPatchPcmStream.setLoginResponseString("Connection timed out.", "Please try using a different world.", "");
-		} else if (var0 == -2) {
-			MusicPatchPcmStream.setLoginResponseString("Error connecting to server.", "Please try using a different world.", "");
-		} else if (var0 == -1) {
-			MusicPatchPcmStream.setLoginResponseString("No response from server.", "Please try using a different world.", "");
-		} else if (var0 == 3) {
-			Login.loginIndex = 3;
-			Login.field1213 = 1;
-		} else if (var0 == 4) {
-			Buddy.method5349(0);
-		} else if (var0 == 5) {
-			Login.field1213 = 2;
-			MusicPatchPcmStream.setLoginResponseString("Your account has not logged out from its last", "session or the server is too busy right now.", "Please try again in a few minutes.");
-		} else if (var0 == 68 || !Client.onMobile && var0 == 6) {
-			MusicPatchPcmStream.setLoginResponseString("RuneScape has been updated!", "Please reload this page.", "");
-		} else if (var0 == 7) {
-			MusicPatchPcmStream.setLoginResponseString("This world is full.", "Please use a different world.", "");
-		} else if (var0 == 8) {
-			MusicPatchPcmStream.setLoginResponseString("Unable to connect.", "Login server offline.", "");
-		} else if (var0 == 9) {
-			MusicPatchPcmStream.setLoginResponseString("Login limit exceeded.", "Too many connections from your address.", "");
-		} else if (var0 == 10) {
-			MusicPatchPcmStream.setLoginResponseString("Unable to connect.", "Bad session id.", "");
-		} else if (var0 == 11) {
-			MusicPatchPcmStream.setLoginResponseString("We suspect someone knows your password.", "Press 'change your password' on front page.", "");
-		} else if (var0 == 12) {
-			MusicPatchPcmStream.setLoginResponseString("You need a members account to login to this world.", "Please subscribe, or use a different world.", "");
-		} else if (var0 == 13) {
-			MusicPatchPcmStream.setLoginResponseString("Could not complete login.", "Please try using a different world.", "");
-		} else if (var0 == 14) {
-			MusicPatchPcmStream.setLoginResponseString("The server is being updated.", "Please wait 1 minute and try again.", "");
-		} else if (var0 == 16) {
-			MusicPatchPcmStream.setLoginResponseString("Too many login attempts.", "Please wait a few minutes before trying again.", "");
-		} else if (var0 == 17) {
-			MusicPatchPcmStream.setLoginResponseString("You are standing in a members-only area.", "To play on this world move to a free area first", "");
-		} else if (var0 == 18) {
-			Buddy.method5349(1);
-		} else if (var0 == 19) {
-			MusicPatchPcmStream.setLoginResponseString("This world is running a closed Beta.", "Sorry invited players only.", "Please use a different world.");
-		} else if (var0 == 20) {
-			MusicPatchPcmStream.setLoginResponseString("Invalid loginserver requested.", "Please try using a different world.", "");
-		} else if (var0 == 22) {
-			MusicPatchPcmStream.setLoginResponseString("Malformed login packet.", "Please try again.", "");
-		} else if (var0 == 23) {
-			MusicPatchPcmStream.setLoginResponseString("No reply from loginserver.", "Please wait 1 minute and try again.", "");
-		} else if (var0 == 24) {
-			MusicPatchPcmStream.setLoginResponseString("Error loading your profile.", "Please contact customer support.", "");
-		} else if (var0 == 25) {
-			MusicPatchPcmStream.setLoginResponseString("Unexpected loginserver response.", "Please try using a different world.", "");
-		} else if (var0 == 26) {
-			MusicPatchPcmStream.setLoginResponseString("This computers address has been blocked", "as it was used to break our rules.", "");
-		} else if (var0 == 27) {
-			MusicPatchPcmStream.setLoginResponseString("", "Service unavailable.", "");
-		} else if (var0 == 31) {
-			MusicPatchPcmStream.setLoginResponseString("Your account must have a displayname set", "in order to play the game.  Please set it", "via the website, or the main game.");
-		} else if (var0 == 32) {
-			MusicPatchPcmStream.setLoginResponseString("Your attempt to log into your account was", "unsuccessful.  Don't worry, you can sort", "this out by visiting the billing system.");
-		} else if (var0 == 37) {
-			MusicPatchPcmStream.setLoginResponseString("Your account is currently inaccessible.", "Please try again in a few minutes.", "");
-		} else if (var0 == 38) {
-			MusicPatchPcmStream.setLoginResponseString("You need to vote to play!", "Visit runescape.com and vote,", "and then come back here!");
-		} else if (var0 == 55) {
-			Login.loginIndex = 8;
-		} else {
-			if (var0 == 56) {
-				MusicPatchPcmStream.setLoginResponseString("Enter the 6-digit code generated by your", "authenticator app.", "");
-				ClientPreferences.updateGameState(11);
-				return;
-			}
-
-			if (var0 == 57) {
-				MusicPatchPcmStream.setLoginResponseString("The code you entered was incorrect.", "Please try again.", "");
-				ClientPreferences.updateGameState(11);
-				return;
-			}
-
-			if (var0 == 61) {
-				Login.loginIndex = 7;
-			} else {
-				MusicPatchPcmStream.setLoginResponseString("Unexpected server response", "Please try using a different world.", "");
-			}
-		}
-
-		ClientPreferences.updateGameState(10);
-	}
+	} // L: 8126
 }

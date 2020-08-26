@@ -1,90 +1,105 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jw")
+@ObfuscatedName("js")
 @Implements("IgnoreList")
 public class IgnoreList extends UserList {
-	@ObfuscatedName("q")
+	@ObfuscatedName("rj")
+	@ObfuscatedGetter(
+		intValue = -1974595173
+	)
+	static int field3620;
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lmo;"
+		descriptor = "Lmu;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lmo;)V"
+		descriptor = "(Lmu;)V"
 	)
 	public IgnoreList(LoginType var1) {
-		super(400);
+		super(400); // L: 12
 		this.loginType = var1;
-	}
+	} // L: 14
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljf;",
-		garbageValue = "551595115"
+		descriptor = "(B)Ljc;",
+		garbageValue = "35"
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new Ignored();
+		return new Ignored(); // L: 17
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(II)[Ljf;",
-		garbageValue = "1959965595"
+		descriptor = "(IB)[Ljc;",
+		garbageValue = "-19"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new Ignored[var1];
+		return new Ignored[var1]; // L: 21
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lkn;IB)V",
-		garbageValue = "77"
+		descriptor = "(Lkf;IB)V",
+		garbageValue = "-55"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
 		while (true) {
-			if (var1.offset < var2) {
-				int var3 = var1.readUnsignedByte();
-				boolean var4 = (var3 & 1) == 1;
-				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				var1.readStringCp1252NullTerminated();
-				if (var5 != null && var5.hasCleanName()) {
-					Ignored var7 = (Ignored)this.getByCurrentUsername(var5);
-					if (var4) {
-						Ignored var8 = (Ignored)this.getByCurrentUsername(var6);
-						if (var8 != null && var7 != var8) {
-							if (var7 != null) {
-								this.remove(var8);
+			if (var1.offset < var2) { // L: 25
+				int var3 = var1.readUnsignedByte(); // L: 26
+				boolean var4 = (var3 & 1) == 1; // L: 27
+				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 28
+				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 29
+				var1.readStringCp1252NullTerminated(); // L: 30
+				if (var5 != null && var5.hasCleanName()) { // L: 31
+					Ignored var7 = (Ignored)this.getByCurrentUsername(var5); // L: 32
+					if (var4) { // L: 33
+						Ignored var8 = (Ignored)this.getByCurrentUsername(var6); // L: 34
+						if (var8 != null && var8 != var7) { // L: 35
+							if (var7 != null) { // L: 36
+								this.remove(var8); // L: 37
 							} else {
-								var7 = var8;
+								var7 = var8; // L: 40
 							}
 						}
 					}
 
-					if (var7 != null) {
-						this.changeName(var7, var5, var6);
+					if (var7 != null) { // L: 44
+						this.changeName(var7, var5, var6); // L: 45
 						continue;
 					}
 
-					if (this.getSize() < 400) {
-						int var9 = this.getSize();
-						var7 = (Ignored)this.addLast(var5, var6);
-						var7.id = var9;
+					if (this.getSize() < 400) { // L: 47
+						int var9 = this.getSize(); // L: 48
+						var7 = (Ignored)this.addLast(var5, var6); // L: 49
+						var7.id = var9; // L: 50
 					}
 					continue;
 				}
 
-				throw new IllegalStateException();
+				throw new IllegalStateException(); // L: 53
 			}
 
-			return;
+			return; // L: 54
 		}
+	}
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lij;",
+		garbageValue = "1485577751"
+	)
+	static GameBuild[] method5182() {
+		return new GameBuild[]{GameBuild.LIVE, GameBuild.WIP, GameBuild.RC, GameBuild.BUILDLIVE}; // L: 13
 	}
 }

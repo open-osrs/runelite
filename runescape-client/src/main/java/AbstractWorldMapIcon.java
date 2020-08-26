@@ -1,39 +1,47 @@
+import java.io.File;
+import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("af")
+@ObfuscatedName("az")
 @Implements("AbstractWorldMapIcon")
 public abstract class AbstractWorldMapIcon {
-	@ObfuscatedName("es")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lig;"
+		descriptor = "Lfa;"
 	)
-	@Export("archive17")
-	static Archive archive17;
-	@ObfuscatedName("n")
+	@Export("clock")
+	static Clock clock;
+	@ObfuscatedName("bp")
+	@ObfuscatedSignature(
+		descriptor = "[Lls;"
+	)
+	@Export("worldSelectFlagSprites")
+	static IndexedSprite[] worldSelectFlagSprites;
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
 	@Export("coord2")
 	public final Coord coord2;
-	@ObfuscatedName("u")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
 	@Export("coord1")
 	public final Coord coord1;
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -702767977
+		intValue = 857445445
 	)
 	@Export("screenX")
 	int screenX;
-	@ObfuscatedName("z")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 2041834837
+		intValue = -161924757
 	)
 	@Export("screenY")
 	int screenY;
@@ -42,171 +50,186 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(Lhg;Lhg;)V"
 	)
 	AbstractWorldMapIcon(Coord var1, Coord var2) {
-		this.coord1 = var1;
-		this.coord2 = var2;
-	}
+		this.coord1 = var1; // L: 13
+		this.coord2 = var2; // L: 14
+	} // L: 15
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "0"
+		descriptor = "(I)I",
+		garbageValue = "-1613828162"
 	)
 	@Export("getElement")
 	public abstract int getElement();
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lar;",
-		garbageValue = "35"
+		descriptor = "(I)Laq;",
+		garbageValue = "499378708"
 	)
 	@Export("getLabel")
 	abstract WorldMapLabel getLabel();
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1804331962"
+		garbageValue = "182515130"
 	)
 	@Export("getSubWidth")
 	abstract int getSubWidth();
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1265869629"
+		garbageValue = "-2001682063"
 	)
 	@Export("getSubHeight")
 	abstract int getSubHeight();
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(III)Z",
-		garbageValue = "422348755"
+		garbageValue = "1932387399"
 	)
 	@Export("fitsScreen")
 	boolean fitsScreen(int var1, int var2) {
-		if (this.elementFitsScreen(var1, var2)) {
-			return true;
+		if (this.elementFitsScreen(var1, var2)) { // L: 18
+			return true; // L: 19
 		} else {
-			return this.labelFitsScreen(var1, var2);
+			return this.labelFitsScreen(var1, var2); // L: 21
 		}
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "807957820"
+		garbageValue = "-446281234"
 	)
 	@Export("hasValidElement")
 	boolean hasValidElement() {
 		return this.getElement() >= 0;
 	}
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(III)Z",
-		garbageValue = "872444562"
+		descriptor = "(IIB)Z",
+		garbageValue = "-125"
 	)
 	@Export("elementFitsScreen")
 	boolean elementFitsScreen(int var1, int var2) {
 		if (!this.hasValidElement()) {
 			return false;
 		} else {
-			WorldMapElement var3 = Client.WorldMapElement_get(this.getElement());
-			int var4 = this.getSubWidth();
-			int var5 = this.getSubHeight();
+			WorldMapElement var3 = WorldMapSection0.WorldMapElement_get(this.getElement()); // L: 38
+			int var4 = this.getSubWidth(); // L: 39
+			int var5 = this.getSubHeight(); // L: 40
 			switch(var3.horizontalAlignment.value) {
 			case 0:
-				if (var1 >= this.screenX && var1 < var4 + this.screenX) {
-					break;
-				}
-
-				return false;
-			case 1:
-				if (var1 >= this.screenX - var4 / 2 && var1 <= var4 / 2 + this.screenX) {
-					break;
-				}
-
-				return false;
-			case 2:
-				if (var1 <= this.screenX - var4 || var1 > this.screenX) {
+				if (var1 < this.screenX - var4 / 2 || var1 > var4 / 2 + this.screenX) { // L: 44
 					return false;
 				}
-			}
-
-			switch(var3.verticalAlignment.value) {
-			case 0:
-				if (var2 >= this.screenY && var2 < var5 + this.screenY) {
-					break;
-				}
-
-				return false;
+				break;
 			case 1:
-				if (var2 < this.screenY - var5 / 2 || var2 > var5 / 2 + this.screenY) {
+				if (var1 <= this.screenX - var4 || var1 > this.screenX) { // L: 54
 					return false;
 				}
 				break;
 			case 2:
-				if (var2 <= this.screenY - var5 || var2 > this.screenY) {
+				if (var1 < this.screenX || var1 >= var4 + this.screenX) { // L: 49
 					return false;
 				}
 			}
 
-			return true;
-		}
-	}
-
-	@ObfuscatedName("ai")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)Z",
-		garbageValue = "1"
-	)
-	@Export("labelFitsScreen")
-	boolean labelFitsScreen(int var1, int var2) {
-		WorldMapLabel var3 = this.getLabel();
-		if (var3 == null) {
-			return false;
-		} else if (var1 >= this.screenX - var3.width / 2 && var1 <= var3.width / 2 + this.screenX) {
-			return var2 >= this.screenY && var2 <= var3.height + this.screenY;
-		} else {
-			return false;
-		}
-	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-288699605"
-	)
-	public static void method687() {
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) {
-			if (ArchiveDiskActionHandler.field3181 != 0) {
-				ArchiveDiskActionHandler.field3181 = 1;
-
-				try {
-					ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock.wait();
-				} catch (InterruptedException var3) {
+			switch(var3.verticalAlignment.value) { // L: 58
+			case 0:
+				if (var2 < this.screenY - var5 / 2 || var2 > var5 / 2 + this.screenY) { // L: 61
+					return false;
+				}
+				break;
+			case 1:
+				if (var2 <= this.screenY - var5 || var2 > this.screenY) { // L: 66
+					return false;
+				}
+				break;
+			case 2:
+				if (var2 < this.screenY || var2 >= var5 + this.screenY) { // L: 71
+					return false;
 				}
 			}
 
+			return true; // L: 75
 		}
 	}
 
-	@ObfuscatedName("fk")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)V",
-		garbageValue = "-886030498"
+		descriptor = "(III)Z",
+		garbageValue = "706174732"
 	)
-	@Export("queueSoundEffect")
-	static void queueSoundEffect(int var0, int var1, int var2) {
-		if (Client.soundEffectVolume != 0 && var1 != 0 && Client.soundEffectCount < 50) {
-			Client.soundEffectIds[Client.soundEffectCount] = var0;
-			Client.queuedSoundEffectLoops[Client.soundEffectCount] = var1;
-			Client.queuedSoundEffectDelays[Client.soundEffectCount] = var2;
-			Client.soundEffects[Client.soundEffectCount] = null;
-			Client.soundLocations[Client.soundEffectCount] = 0;
-			++Client.soundEffectCount;
+	@Export("labelFitsScreen")
+	boolean labelFitsScreen(int var1, int var2) {
+		WorldMapLabel var3 = this.getLabel(); // L: 79
+		if (var3 == null) { // L: 80
+			return false; // L: 81
+		} else if (var1 >= this.screenX - var3.width / 2 && var1 <= var3.width / 2 + this.screenX) { // L: 83
+			return var2 >= this.screenY && var2 <= this.screenY + var3.height; // L: 84
+		} else {
+			return false; // L: 85
 		}
+	}
 
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lcd;",
+		garbageValue = "1037177959"
+	)
+	static AttackOption[] method679() {
+		return new AttackOption[]{AttackOption.AttackOption_leftClickWhereAvailable, AttackOption.AttackOption_hidden, AttackOption.AttackOption_dependsOnCombatLevels, AttackOption.AttackOption_alwaysRightClick}; // L: 10925
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)Ljava/io/File;",
+		garbageValue = "379993437"
+	)
+	@Export("getFile")
+	static File getFile(String var0) {
+		if (!FileSystem.FileSystem_hasPermissions) { // L: 22
+			throw new RuntimeException("");
+		} else {
+			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0); // L: 23
+			if (var1 != null) { // L: 24
+				return var1;
+			} else {
+				File var2 = new File(FileSystem.FileSystem_cacheDir, var0); // L: 25
+				RandomAccessFile var3 = null; // L: 26
+
+				try {
+					File var4 = new File(var2.getParent()); // L: 28
+					if (!var4.exists()) { // L: 29
+						throw new RuntimeException("");
+					} else {
+						var3 = new RandomAccessFile(var2, "rw"); // L: 30
+						int var5 = var3.read(); // L: 31
+						var3.seek(0L); // L: 32
+						var3.write(var5); // L: 33
+						var3.seek(0L); // L: 34
+						var3.close(); // L: 35
+						FileSystem.FileSystem_cacheFiles.put(var0, var2); // L: 36
+						return var2; // L: 37
+					}
+				} catch (Exception var8) {
+					try {
+						if (var3 != null) { // L: 41
+							var3.close(); // L: 42
+							var3 = null; // L: 43
+						}
+					} catch (Exception var7) { // L: 46
+					}
+
+					throw new RuntimeException(); // L: 48
+				}
+			}
+		}
 	}
 }

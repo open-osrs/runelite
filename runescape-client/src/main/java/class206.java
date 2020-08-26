@@ -3,70 +3,49 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gs")
+@ObfuscatedName("gi")
 public class class206 {
-	@ObfuscatedName("rz")
-	@ObfuscatedGetter(
-		intValue = 271631865
-	)
-	static int field2446;
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
 	@Export("musicPatchesArchive")
-	public static AbstractArchive musicPatchesArchive;
-	@ObfuscatedName("o")
+	static AbstractArchive musicPatchesArchive;
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
 	@Export("musicSamplesArchive")
-	public static AbstractArchive musicSamplesArchive;
-	@ObfuscatedName("q")
+	static AbstractArchive musicSamplesArchive;
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lge;"
 	)
-	@Export("soundEffectsArchive")
-	public static AbstractArchive soundEffectsArchive;
-	@ObfuscatedName("p")
+	@Export("midiPcmStream")
+	public static MidiPcmStream midiPcmStream;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -164621127
+		intValue = -1660292459
 	)
-	public static int field2439;
+	@Export("musicPlayerStatus")
+	public static int musicPlayerStatus;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 1418179019
+	)
+	@Export("musicTrackFileId")
+	public static int musicTrackFileId;
 	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = -897953079
+	@Export("musicTrackBoolean")
+	public static boolean musicTrackBoolean;
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		descriptor = "Lhj;"
 	)
-	@Export("musicTrackGroupId")
-	public static int musicTrackGroupId;
-	@ObfuscatedName("a")
-	@ObfuscatedGetter(
-		intValue = 1138068073
-	)
-	@Export("musicTrackVolume")
-	public static int musicTrackVolume;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = 2058854379
-	)
-	public static int field2442;
+	@Export("musicTrack")
+	static MusicTrack musicTrack;
 
 	static {
-		field2439 = 0;
-	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "(IIIZIB)J",
-		garbageValue = "1"
-	)
-	@Export("calculateTag")
-	public static long calculateTag(int var0, int var1, int var2, boolean var3, int var4) {
-		long var5 = (long)((var0 & 127) << 0 | (var1 & 127) << 7 | (var2 & 3) << 14) | ((long)var4 & 4294967295L) << 17;
-		if (var3) {
-			var5 |= 65536L;
-		}
-
-		return var5;
+		musicPlayerStatus = 0; // L: 11
 	}
 }
