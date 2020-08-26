@@ -4,113 +4,85 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bv")
+@ObfuscatedName("bb")
 @Implements("ItemContainer")
 public class ItemContainer extends Node {
-	@ObfuscatedName("m")
+	@ObfuscatedName("sf")
+	@ObfuscatedGetter(
+		longValue = 6214484709053611949L
+	)
+	static long field553;
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lle;"
+		descriptor = "Llc;"
 	)
 	@Export("itemContainers")
 	static NodeHashTable itemContainers;
-	@ObfuscatedName("u")
+	@ObfuscatedName("dk")
 	@ObfuscatedSignature(
-		descriptor = "Llz;"
+		descriptor = "Lln;"
 	)
-	@Export("rightTitleSprite")
-	static Sprite rightTitleSprite;
-	@ObfuscatedName("ak")
-	@ObfuscatedSignature(
-		descriptor = "Llv;"
-	)
-	static Bounds field567;
-	@ObfuscatedName("ma")
-	@ObfuscatedGetter(
-		intValue = -1890638997
-	)
-	@Export("selectedSpellWidget")
-	static int selectedSpellWidget;
-	@ObfuscatedName("o")
+	@Export("js5Socket")
+	static AbstractSocket js5Socket;
+	@ObfuscatedName("ec")
+	@Export("worldHost")
+	static String worldHost;
+	@ObfuscatedName("k")
 	@Export("ids")
 	int[] ids;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@Export("quantities")
 	int[] quantities;
 
 	static {
-		itemContainers = new NodeHashTable(32);
+		itemContainers = new NodeHashTable(32); // L: 7
 	}
 
 	ItemContainer() {
-		this.ids = new int[]{-1};
-		this.quantities = new int[]{0};
+		this.ids = new int[]{-1}; // L: 8
+		this.quantities = new int[]{0}; // L: 9
+	} // L: 11
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(I)Lgb;",
+		garbageValue = "1985186614"
+	)
+	static PacketBufferNode method1226() {
+		return PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0 ? new PacketBufferNode() : PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount]; // L: 22 23
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("jh")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lls;",
-		garbageValue = "-1724420240"
+		descriptor = "(B)V",
+		garbageValue = "-22"
 	)
-	public static PrivateChatMode method1232(int var0) {
-		PrivateChatMode[] var1 = new PrivateChatMode[]{PrivateChatMode.field3818, PrivateChatMode.field3820, PrivateChatMode.field3819};
-		PrivateChatMode[] var2 = var1;
+	static final void method1213() {
+		PacketBufferNode var0 = Client.getPacketBufferNode(ClientPacket.field2336, Client.packetWriter.isaacCipher); // L: 10474
+		Client.packetWriter.addNode(var0); // L: 10475
 
-		for (int var3 = 0; var3 < var2.length; ++var3) {
-			PrivateChatMode var4 = var2[var3];
-			if (var0 == var4.field3817) {
-				return var4;
+		for (InterfaceParent var1 = (InterfaceParent)Client.interfaceParents.first(); var1 != null; var1 = (InterfaceParent)Client.interfaceParents.next()) { // L: 10476
+			if (var1.type == 0 || var1.type == 3) { // L: 10477
+				class58.closeInterface(var1, true);
 			}
 		}
 
-		return null;
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "1507611056"
-	)
-	@Export("colorStartTag")
-	static String colorStartTag(int var0) {
-		return "<col=" + Integer.toHexString(var0) + ">";
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljr;",
-		garbageValue = "2131303603"
-	)
-	@Export("getEnum")
-	public static EnumDefinition getEnum(int var0) {
-		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = class349.EnumDefinition_archive.takeFile(8, var0);
-			var1 = new EnumDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			EnumDefinition.EnumDefinition_cached.put(var1, (long)var0);
-			return var1;
+		if (Client.meslayerContinueWidget != null) { // L: 10479
+			class52.invalidateWidget(Client.meslayerContinueWidget); // L: 10480
+			Client.meslayerContinueWidget = null; // L: 10481
 		}
-	}
 
-	@ObfuscatedName("g")
+	} // L: 10483
+
+	@ObfuscatedName("kl")
 	@ObfuscatedSignature(
-		descriptor = "(Lch;Lch;IZIZI)I",
-		garbageValue = "-1532099004"
+		descriptor = "(I)V",
+		garbageValue = "-158946213"
 	)
-	static int method1225(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
-		int var6 = Actor.compareWorlds(var0, var1, var2, var3);
-		if (var6 != 0) {
-			return var3 ? -var6 : var6;
-		} else if (var4 == -1) {
-			return 0;
-		} else {
-			int var7 = Actor.compareWorlds(var0, var1, var4, var5);
-			return var5 ? -var7 : var7;
+	static void method1225() {
+		if (Client.oculusOrbState == 1) { // L: 10880
+			Client.field759 = true; // L: 10881
 		}
-	}
+
+	} // L: 10883
 }

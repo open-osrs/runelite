@@ -4,111 +4,130 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ev")
+@ObfuscatedName("ed")
 @Implements("GameObject")
 public final class GameObject {
-	@ObfuscatedName("di")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Llj;"
-	)
-	@Export("js5Socket")
-	static AbstractSocket js5Socket;
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = -1824184779
-	)
-	@Export("orientation")
-	int orientation;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 1881172017
-	)
-	@Export("plane")
-	int plane;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = 1546680727
-	)
-	@Export("height")
-	int height;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = -49650103
-	)
-	@Export("centerX")
-	int centerX;
-	@ObfuscatedName("p")
-	@ObfuscatedGetter(
-		intValue = -32489331
-	)
-	@Export("centerY")
-	int centerY;
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "Lel;"
+		descriptor = "Lez;"
 	)
 	@Export("entity")
 	public Entity entity;
-	@ObfuscatedName("n")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -136322441
+		intValue = -1221048069
+	)
+	@Export("plane")
+	int plane;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -530812325
+	)
+	@Export("height")
+	int height;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = 1973574069
+	)
+	@Export("centerX")
+	int centerX;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = 589322861
+	)
+	@Export("centerY")
+	int centerY;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 2067900831
+	)
+	@Export("orientation")
+	int orientation;
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = -37489551
 	)
 	@Export("startX")
 	int startX;
-	@ObfuscatedName("u")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 460055653
+		intValue = 694891885
 	)
 	@Export("endX")
 	int endX;
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 198720377
+		intValue = 977899527
 	)
 	@Export("startY")
 	int startY;
-	@ObfuscatedName("z")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1832139769
+		intValue = 523071703
 	)
 	@Export("endY")
 	int endY;
-	@ObfuscatedName("w")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1766645403
+		intValue = 1389208075
 	)
-	int field1959;
-	@ObfuscatedName("y")
+	int field1974;
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -665577125
+		intValue = 2140125731
 	)
 	@Export("lastDrawn")
 	int lastDrawn;
-	@ObfuscatedName("c")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		longValue = -5581328528529906223L
+		longValue = 6418610507484255719L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("h")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -234800787
+		intValue = -1693237637
 	)
 	@Export("flags")
 	int flags;
 
 	GameObject() {
-		this.tag = 0L;
-		this.flags = 0;
-	}
+		this.tag = 0L; // L: 16
+		this.flags = 0; // L: 17
+	} // L: 19
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "1896739320"
+		descriptor = "(I)V",
+		garbageValue = "723631912"
 	)
-	@Export("isCharAlphabetic")
-	public static boolean isCharAlphabetic(char var0) {
-		return var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z';
-	}
+	public static void method3411() {
+		if (NetCache.NetCache_socket != null) { // L: 319
+			NetCache.NetCache_socket.close();
+		}
+
+	} // L: 320
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1910859364"
+	)
+	public static void method3412() {
+		ItemDefinition.ItemDefinition_cached.clear(); // L: 551
+		ItemDefinition.ItemDefinition_cachedModels.clear(); // L: 552
+		ItemDefinition.ItemDefinition_cachedSprites.clear(); // L: 553
+	} // L: 554
+
+	@ObfuscatedName("il")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIIIB)V",
+		garbageValue = "-58"
+	)
+	@Export("updateRootInterface")
+	static final void updateRootInterface(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		if (WorldMapSprite.loadInterface(var0)) { // L: 9643
+			WorldMapSection1.updateInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6); // L: 9644
+		}
+	} // L: 9645
 }

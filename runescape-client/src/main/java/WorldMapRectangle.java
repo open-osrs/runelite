@@ -4,135 +4,102 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ag")
+@ObfuscatedName("am")
 @Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
-	@ObfuscatedName("h")
-	static int[] field198;
-	@ObfuscatedName("de")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
-	)
-	@Export("archive5")
-	static Archive archive5;
-	@ObfuscatedName("lj")
+	@ObfuscatedName("d")
+	@Export("Tiles_lightness")
+	static int[] Tiles_lightness;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 677341381
-	)
-	@Export("menuX")
-	static int menuX;
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = 2128861857
+		intValue = 743023489
 	)
 	@Export("width")
 	int width;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1397318075
+		intValue = 995076797
 	)
 	@Export("height")
 	int height;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -2033449825
+		intValue = -1102925233
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 2045769543
+		intValue = -1014669257
 	)
 	@Export("y")
 	int y;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Laa;"
+		descriptor = "Lai;"
 	)
 	final WorldMapManager this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Laa;)V"
+		descriptor = "(Lai;)V"
 	)
 	WorldMapRectangle(WorldMapManager var1) {
-		this.this$0 = var1;
-	}
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "-429068240"
-	)
-	public static int method347(int var0, int var1) {
-		int var2 = var0 >>> 31;
-		return (var0 + var2) / var1 - var2;
-	}
-
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "-349989095"
-	)
-	@Export("Login_promptCredentials")
-	static void Login_promptCredentials(boolean var0) {
-		Login.Login_response1 = "";
-		Login.Login_response2 = "Enter your username/email & password.";
-		Login.Login_response3 = "";
-		Login.loginIndex = 2;
-		if (var0) {
-			Login.Login_password = "";
-		}
-
-		if (Login.Login_username == null || Login.Login_username.length() <= 0) {
-			if (NetSocket.clientPreferences.rememberedUsername != null) {
-				Login.Login_username = NetSocket.clientPreferences.rememberedUsername;
-				Client.Login_isUsernameRemembered = true;
-			} else {
-				Client.Login_isUsernameRemembered = false;
-			}
-		}
-
-		class22.method225();
+		this.this$0 = var1; // L: 303
 	}
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(Lhd;IIII)V",
-		garbageValue = "-127200615"
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;S)V",
+		garbageValue = "128"
 	)
-	@Export("Widget_setKeyRate")
-	static final void Widget_setKeyRate(Widget var0, int var1, int var2, int var3) {
-		if (var0.field2679 == null) {
-			throw new RuntimeException();
-		} else {
-			var0.field2679[var1] = var2;
-			var0.field2680[var1] = var3;
-		}
-	}
+	@Export("addGameMessage")
+	static void addGameMessage(int var0, String var1, String var2) {
+		WorldMapData_0.addChatMessage(var0, var1, var2, (String)null); // L: 19
+	} // L: 20
 
-	@ObfuscatedName("ji")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILlz;Lhh;I)V",
-		garbageValue = "866321883"
+		descriptor = "(II)Lcy;",
+		garbageValue = "-1672146154"
 	)
-	@Export("worldToMinimap")
-	static final void worldToMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
-		int var6 = var3 * var3 + var2 * var2;
-		if (var6 > 4225 && var6 < 90000) {
-			int var7 = Client.camAngleY & 2047;
-			int var8 = Rasterizer3D.Rasterizer3D_sine[var7];
-			int var9 = Rasterizer3D.Rasterizer3D_cosine[var7];
-			int var10 = var3 * var8 + var9 * var2 >> 16;
-			int var11 = var3 * var9 - var8 * var2 >> 16;
-			double var12 = Math.atan2((double)var10, (double)var11);
-			int var14 = var5.width / 2 - 25;
-			int var15 = (int)(Math.sin(var12) * (double)var14);
-			int var16 = (int)(Math.cos(var12) * (double)var14);
-			byte var17 = 20;
-			UrlRequester.redHintArrowSprite.method6435(var15 + (var0 + var5.width / 2 - var17 / 2), var5.height / 2 + var1 - var17 / 2 - var16 - 10, var17, var17, 15, 15, var12, 256);
+	@Export("getScript")
+	static Script getScript(int var0) {
+		Script var1 = (Script)Script.Script_cached.get((long)var0); // L: 25
+		if (var1 != null) { // L: 26
+			return var1;
 		} else {
-			GrandExchangeOffer.drawSpriteOnMinimap(var0, var1, var2, var3, var4, var5);
+			byte[] var2 = ApproximateRouteStrategy.archive12.takeFile(var0, 0); // L: 27
+			if (var2 == null) { // L: 28
+				return null; // L: 29
+			} else {
+				var1 = UserComparator7.newScript(var2); // L: 31
+				Script.Script_cached.put(var1, (long)var0); // L: 32
+				return var1; // L: 33
+			}
+		}
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "-2081056745"
+	)
+	static String method359() {
+		return Tile.clientPreferences.hideUsername ? FontName.method5445(Login.Login_username) : Login.Login_username; // L: 213
+	}
+
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1970592993"
+	)
+	static void method361() {
+		Players.Players_count = 0; // L: 616
+
+		for (int var0 = 0; var0 < 2048; ++var0) { // L: 617
+			Players.field1277[var0] = null; // L: 618
+			Players.field1284[var0] = 1; // L: 619
 		}
 
-	}
+	} // L: 621
 }

@@ -1935,5 +1935,18 @@ public abstract class RSClientMixin implements RSClient
 		assert this.isClientThread() : "getNpcDefinition must be called on client thread";
 		return getRSNpcDefinition(id);
 	}
+
+	// this exists because the original got inlined
+	@Inject
+	public void playMusicTrack(int var0, RSAbstractArchive var1, int var2, int var3, int var4, boolean var5)
+	{
+		client.setMusicPlayerStatus(1);
+		client.setMusicTrackArchive(var1);
+		client.setMusicTrackGroupId(var2);
+		client.setMusicTrackFileId(var3);
+		client.setMusicTrackVolume(var4);
+		client.setMusicTrackBoolean(var5);
+		client.setPcmSampleLength(var0);
+	}
 }
 

@@ -3,52 +3,45 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("d")
+@ObfuscatedName("v")
 @Implements("GrandExchangeOffer")
 public class GrandExchangeOffer {
-	@ObfuscatedName("ad")
-	@ObfuscatedSignature(
-		descriptor = "Llv;"
+	@ObfuscatedName("be")
+	@ObfuscatedGetter(
+		intValue = -235857651
 	)
-	static Bounds field87;
-	@ObfuscatedName("db")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
-	)
-	@Export("archive4")
-	static Archive archive4;
-	@ObfuscatedName("m")
+	static int field99;
+	@ObfuscatedName("z")
 	@Export("state")
 	byte state;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1112039617
+		intValue = 1886313297
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 416176327
+		intValue = -1193190523
 	)
 	@Export("unitPrice")
 	public int unitPrice;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -981210321
+		intValue = 1489525001
 	)
 	@Export("totalQuantity")
 	public int totalQuantity;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1341718687
+		intValue = -683135485
 	)
 	@Export("currentQuantity")
 	public int currentQuantity;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1366605879
+		intValue = 2067595945
 	)
 	@Export("currentPrice")
 	public int currentPrice;
@@ -57,299 +50,208 @@ public class GrandExchangeOffer {
 	}
 
 	@ObfuscatedSignature(
-		descriptor = "(Lkn;Z)V",
+		descriptor = "(Lkf;Z)V",
 		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
 		this.state = var1.readByte();
-		this.id = var1.readUnsignedShort();
+		this.id = var1.readUnsignedShort(); // L: 17
 		this.unitPrice = var1.readInt();
 		this.totalQuantity = var1.readInt();
 		this.currentQuantity = var1.readInt();
-		this.currentPrice = var1.readInt();
-	}
+		this.currentPrice = var1.readInt(); // L: 21
+	} // L: 22
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "271165601"
+		garbageValue = "562486348"
 	)
 	@Export("status")
 	public int status() {
-		return this.state & 7;
+		return this.state & 7; // L: 50
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-2130764898"
+		garbageValue = "1427821401"
 	)
 	@Export("type")
 	public int type() {
-		return (this.state & 8) == 8 ? 1 : 0;
+		return (this.state & 8) == 8 ? 1 : 0; // L: 54
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "-308953741"
+		garbageValue = "1947498588"
 	)
-	void method172(int var1) {
+	void method189(int var1) {
 		this.state &= -8;
 		this.state = (byte)(this.state | var1 & 7);
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "1"
+		descriptor = "(II)V",
+		garbageValue = "1892738676"
 	)
-	void method173(int var1) {
+	void method184(int var1) {
 		this.state &= -9;
 		if (var1 == 1) {
 			this.state = (byte)(this.state | 8);
 		}
 
-	}
+	} // L: 65
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "([Lch;II[I[II)V",
-		garbageValue = "-1520869912"
+		descriptor = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Lgn;I)I",
+		garbageValue = "-780286568"
 	)
-	@Export("sortWorlds")
-	static void sortWorlds(World[] var0, int var1, int var2, int[] var3, int[] var4) {
-		if (var1 < var2) {
-			int var5 = var1 - 1;
-			int var6 = var2 + 1;
-			int var7 = (var2 + var1) / 2;
-			World var8 = var0[var7];
-			var0[var7] = var0[var1];
-			var0[var1] = var8;
+	@Export("compareStrings")
+	public static int compareStrings(CharSequence var0, CharSequence var1, Language var2) {
+		int var3 = var0.length(); // L: 11
+		int var4 = var1.length(); // L: 12
+		int var5 = 0; // L: 13
+		int var6 = 0; // L: 14
+		byte var7 = 0; // L: 15
+		char var8 = 0; // L: 16
 
-			while (var5 < var6) {
-				boolean var9 = true;
+		while (var5 - var7 < var3 || var6 - var8 < var4) { // L: 18
+			if (var5 - var7 >= var3) { // L: 19
+				return -1;
+			}
 
-				int var10;
-				int var11;
-				int var12;
-				do {
-					--var6;
+			if (var6 - var8 >= var4) { // L: 20
+				return 1;
+			}
 
-					for (var10 = 0; var10 < 4; ++var10) {
-						if (var3[var10] == 2) {
-							var11 = var0[var6].index;
-							var12 = var8.index;
-						} else if (var3[var10] == 1) {
-							var11 = var0[var6].population;
-							var12 = var8.population;
-							if (var11 == -1 && var4[var10] == 1) {
-								var11 = 2001;
-							}
+			char var9;
+			if (var7 != 0) { // L: 23
+				var9 = (char)var7; // L: 24
+				boolean var14 = false; // L: 25
+			} else {
+				var9 = var0.charAt(var5++); // L: 27
+			}
 
-							if (var12 == -1 && var4[var10] == 1) {
-								var12 = 2001;
-							}
-						} else if (var3[var10] == 3) {
-							var11 = var0[var6].isMembersOnly() ? 1 : 0;
-							var12 = var8.isMembersOnly() ? 1 : 0;
-						} else {
-							var11 = var0[var6].id;
-							var12 = var8.id;
-						}
+			char var10;
+			if (var8 != 0) { // L: 28
+				var10 = var8; // L: 29
+				boolean var15 = false; // L: 30
+			} else {
+				var10 = var1.charAt(var6++); // L: 32
+			}
 
-						if (var12 != var11) {
-							if ((var4[var10] != 1 || var11 <= var12) && (var4[var10] != 0 || var11 >= var12)) {
-								var9 = false;
-							}
-							break;
-						}
+			byte var11;
+			if (var9 == 198) { // L: 35
+				var11 = 69; // L: 36
+			} else if (var9 == 230) { // L: 39
+				var11 = 101; // L: 40
+			} else if (var9 == 223) { // L: 43
+				var11 = 115; // L: 44
+			} else if (var9 == 338) { // L: 47
+				var11 = 69; // L: 48
+			} else if (var9 == 339) { // L: 51
+				var11 = 101; // L: 52
+			} else {
+				var11 = 0; // L: 55
+			}
 
-						if (var10 == 3) {
-							var9 = false;
-						}
-					}
-				} while(var9);
-
-				var9 = true;
-
-				do {
-					++var5;
-
-					for (var10 = 0; var10 < 4; ++var10) {
-						if (var3[var10] == 2) {
-							var11 = var0[var5].index;
-							var12 = var8.index;
-						} else if (var3[var10] == 1) {
-							var11 = var0[var5].population;
-							var12 = var8.population;
-							if (var11 == -1 && var4[var10] == 1) {
-								var11 = 2001;
-							}
-
-							if (var12 == -1 && var4[var10] == 1) {
-								var12 = 2001;
-							}
-						} else if (var3[var10] == 3) {
-							var11 = var0[var5].isMembersOnly() ? 1 : 0;
-							var12 = var8.isMembersOnly() ? 1 : 0;
-						} else {
-							var11 = var0[var5].id;
-							var12 = var8.id;
-						}
-
-						if (var12 != var11) {
-							if ((var4[var10] != 1 || var11 >= var12) && (var4[var10] != 0 || var11 <= var12)) {
-								var9 = false;
-							}
-							break;
-						}
-
-						if (var10 == 3) {
-							var9 = false;
-						}
-					}
-				} while(var9);
-
-				if (var5 < var6) {
-					World var13 = var0[var5];
-					var0[var5] = var0[var6];
-					var0[var6] = var13;
+			var7 = var11; // L: 57
+			var8 = LoginScreenAnimation.method1879(var10); // L: 58
+			var9 = TileItem.standardizeChar(var9, var2); // L: 59
+			var10 = TileItem.standardizeChar(var10, var2); // L: 60
+			if (var9 != var10 && Character.toUpperCase(var9) != Character.toUpperCase(var10)) { // L: 61
+				var9 = Character.toLowerCase(var9); // L: 62
+				var10 = Character.toLowerCase(var10); // L: 63
+				if (var10 != var9) { // L: 64
+					return class58.lowercaseChar(var9, var2) - class58.lowercaseChar(var10, var2);
 				}
 			}
-
-			sortWorlds(var0, var1, var6, var3, var4);
-			sortWorlds(var0, var6 + 1, var2, var3, var4);
 		}
 
-	}
+		int var16 = Math.min(var3, var4); // L: 67
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(ILcs;ZI)I",
-		garbageValue = "-2096234716"
-	)
-	static int method194(int var0, Script var1, boolean var2) {
-		Widget var3;
-		if (var0 == ScriptOpcodes.IF_GETINVOBJECT) {
-			var3 = WorldMapSprite.getWidget(Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize]);
-			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.itemId;
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETINVCOUNT) {
-			var3 = WorldMapSprite.getWidget(Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize]);
-			if (var3.itemId != -1) {
-				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.itemQuantity;
+		char var12;
+		int var17;
+		for (var17 = 0; var17 < var16; ++var17) { // L: 68
+			if (var2 == Language.Language_FR) { // L: 69
+				var5 = var3 - 1 - var17; // L: 70
+				var6 = var4 - 1 - var17; // L: 71
 			} else {
-				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 0;
+				var6 = var17; // L: 73
+				var5 = var17;
 			}
 
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_HASSUB) {
-			int var5 = Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize];
-			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var5);
-			if (var4 != null) {
-				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 1;
-			} else {
-				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 0;
+			char var18 = var0.charAt(var5); // L: 74
+			var12 = var1.charAt(var6); // L: 75
+			if (var12 != var18 && Character.toUpperCase(var18) != Character.toUpperCase(var12)) { // L: 76
+				var18 = Character.toLowerCase(var18); // L: 77
+				var12 = Character.toLowerCase(var12); // L: 78
+				if (var18 != var12) {
+					return class58.lowercaseChar(var18, var2) - class58.lowercaseChar(var12, var2); // L: 79
+				}
 			}
+		}
 
-			return 1;
-		} else if (var0 == ScriptOpcodes.IF_GETTOP) {
-			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = Client.rootInterface;
-			return 1;
+		var17 = var3 - var4; // L: 82
+		if (var17 != 0) { // L: 83
+			return var17;
 		} else {
-			return 2;
-		}
-	}
-
-	@ObfuscatedName("al")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-1566307415"
-	)
-	static int method176(int var0) {
-		return (int)Math.pow(2.0D, (double)((float)var0 / 256.0F + 7.0F));
-	}
-
-	@ObfuscatedName("hp")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1931279198"
-	)
-	@Export("Widget_runOnTargetLeave")
-	static void Widget_runOnTargetLeave() {
-		if (Client.isSpellSelected) {
-			Widget var0 = WorldMapLabelSize.getWidgetChild(ItemContainer.selectedSpellWidget, Client.selectedSpellChildIndex);
-			if (var0 != null && var0.onTargetLeave != null) {
-				ScriptEvent var1 = new ScriptEvent();
-				var1.widget = var0;
-				var1.args = var0.onTargetLeave;
-				InterfaceParent.runScriptEvent(var1);
+			for (int var19 = 0; var19 < var16; ++var19) { // L: 84
+				var12 = var0.charAt(var19); // L: 85
+				char var13 = var1.charAt(var19); // L: 86
+				if (var13 != var12) { // L: 87
+					return class58.lowercaseChar(var12, var2) - class58.lowercaseChar(var13, var2);
+				}
 			}
 
-			Client.isSpellSelected = false;
-			class234.invalidateWidget(var0);
+			return 0; // L: 89
 		}
 	}
 
-	@ObfuscatedName("jm")
+	@ObfuscatedName("ew")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "2119897094"
+		descriptor = "(I)Z",
+		garbageValue = "-1774568305"
 	)
-	static void method189(int var0, int var1) {
-		SecureRandomCallable.method1205(class169.tempMenuAction, var0, var1);
-		class169.tempMenuAction = null;
-	}
-
-	@ObfuscatedName("jf")
-	@ObfuscatedSignature(
-		descriptor = "(IIIILlz;Lhh;B)V",
-		garbageValue = "105"
-	)
-	@Export("drawSpriteOnMinimap")
-	static final void drawSpriteOnMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
-		if (var4 != null) {
-			int var6 = Client.camAngleY & 2047;
-			int var7 = var3 * var3 + var2 * var2;
-			if (var7 <= 6400) {
-				int var8 = Rasterizer3D.Rasterizer3D_sine[var6];
-				int var9 = Rasterizer3D.Rasterizer3D_cosine[var6];
-				int var10 = var9 * var2 + var3 * var8 >> 16;
-				int var11 = var3 * var9 - var8 * var2 >> 16;
-				if (var7 > 2500) {
-					var4.method6408(var10 + var5.width / 2 - var4.width / 2, var5.height / 2 - var11 - var4.height / 2, var0, var1, var5.width, var5.height, var5.xStarts, var5.xWidths);
-				} else {
-					var4.drawTransBgAt(var0 + var10 + var5.width / 2 - var4.width / 2, var5.height / 2 + var1 - var11 - var4.height / 2);
+	static boolean method207() {
+		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) { // L: 1427
+			while (Client.archiveLoadersDone < Client.archiveLoaders.size()) { // L: 1428
+				ArchiveLoader var0 = (ArchiveLoader)Client.archiveLoaders.get(Client.archiveLoadersDone); // L: 1429
+				if (!var0.isLoaded()) {
+					return false; // L: 1430
 				}
 
+				++Client.archiveLoadersDone; // L: 1431
 			}
+
+			return true; // L: 1433
+		} else {
+			return true; // L: 1432
 		}
 	}
 
-	@ObfuscatedName("kp")
+	@ObfuscatedName("gx")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1908400826"
+		garbageValue = "695036800"
 	)
-	@Export("Clan_leaveChat")
-	static final void Clan_leaveChat() {
-		PacketBufferNode var0 = UserComparator4.getPacketBufferNode(ClientPacket.field2292, Client.packetWriter.isaacCipher);
-		var0.packetBuffer.writeByte(0);
-		Client.packetWriter.addNode(var0);
-	}
+	static void method206() {
+		if (Client.renderSelf) { // L: 4248
+			VarpDefinition.addPlayerToScene(WorldMapLabelSize.localPlayer, false); // L: 4249
+		}
 
-	@ObfuscatedName("kj")
+	} // L: 4251
+
+	@ObfuscatedName("hm")
 	@ObfuscatedSignature(
-		descriptor = "(IIIZB)V",
-		garbageValue = "43"
+		descriptor = "(B)I",
+		garbageValue = "-67"
 	)
-	public static void method191(int var0, int var1, int var2, boolean var3) {
-		PacketBufferNode var4 = UserComparator4.getPacketBufferNode(ClientPacket.field2277, Client.packetWriter.isaacCipher);
-		var4.packetBuffer.method5753(var1);
-		var4.packetBuffer.writeInt(var3 ? Client.field836 * 1500794883 * -1503339861 : 0);
-		var4.packetBuffer.method5898(var0);
-		var4.packetBuffer.writeIntME(var2);
-		Client.packetWriter.addNode(var4);
+	static final int method209() {
+		return Client.menuOptionsCount - 1; // L: 8254
 	}
 }

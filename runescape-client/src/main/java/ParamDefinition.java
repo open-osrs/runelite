@@ -4,110 +4,113 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ii")
+@ObfuscatedName("il")
 @Implements("ParamDefinition")
 public class ParamDefinition extends DualNode {
-	@ObfuscatedName("o")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lec;"
+		descriptor = "Lic;"
+	)
+	@Export("ParamDefinition_archive")
+	public static AbstractArchive ParamDefinition_archive;
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Lel;"
 	)
 	@Export("ParamDefinition_cached")
-	public static EvictingDualNodeHashTable ParamDefinition_cached;
-	@ObfuscatedName("n")
-	@Export("ByteArrayPool_alternativeSizes")
-	static int[] ByteArrayPool_alternativeSizes;
-	@ObfuscatedName("q")
+	static EvictingDualNodeHashTable ParamDefinition_cached;
+	@ObfuscatedName("s")
 	@Export("type")
 	char type;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 153668641
+		intValue = 2056477959
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@Export("autoDisable")
 	boolean autoDisable;
 
 	static {
-		ParamDefinition_cached = new EvictingDualNodeHashTable(64);
+		ParamDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
 	}
 
 	ParamDefinition() {
-		this.autoDisable = true;
-	}
+		this.autoDisable = true; // L: 16
+	} // L: 18
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1718151512"
+		garbageValue = "964888854"
 	)
 	@Export("postDecode")
 	void postDecode() {
-	}
+	} // L: 31
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lkn;I)V",
-		garbageValue = "-115197089"
+		descriptor = "(Lkf;B)V",
+		garbageValue = "2"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
+			int var2 = var1.readUnsignedByte(); // L: 35
+			if (var2 == 0) { // L: 36
+				return; // L: 39
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 37
 		}
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Lkn;II)V",
-		garbageValue = "-1727060018"
+		descriptor = "(Lkf;II)V",
+		garbageValue = "-659243660"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) {
-			byte var4 = var1.readByte();
-			int var5 = var4 & 255;
-			if (var5 == 0) {
+		if (var2 == 1) { // L: 42
+			byte var4 = var1.readByte(); // L: 44
+			int var5 = var4 & 255; // L: 46
+			if (var5 == 0) { // L: 47
 				throw new IllegalArgumentException("" + Integer.toString(var5, 16));
 			}
 
-			if (var5 >= 128 && var5 < 160) {
-				char var6 = class297.cp1252AsciiExtension[var5 - 128];
-				if (var6 == 0) {
+			if (var5 >= 128 && var5 < 160) { // L: 48
+				char var6 = class297.cp1252AsciiExtension[var5 - 128]; // L: 49
+				if (var6 == 0) { // L: 50
 					var6 = '?';
 				}
 
-				var5 = var6;
+				var5 = var6; // L: 51
 			}
 
-			char var3 = (char)var5;
-			this.type = var3;
-		} else if (var2 == 2) {
+			char var3 = (char)var5; // L: 53
+			this.type = var3; // L: 55
+		} else if (var2 == 2) { // L: 57
 			this.defaultInt = var1.readInt();
-		} else if (var2 == 4) {
+		} else if (var2 == 4) { // L: 58
 			this.autoDisable = false;
-		} else if (var2 == 5) {
+		} else if (var2 == 5) { // L: 59
 			this.defaultStr = var1.readStringCp1252NullTerminated();
 		}
 
-	}
+	} // L: 61
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "624673738"
+		garbageValue = "937250031"
 	)
 	@Export("isString")
 	public boolean isString() {
-		return this.type == 's';
+		return this.type == 's'; // L: 64
 	}
 }

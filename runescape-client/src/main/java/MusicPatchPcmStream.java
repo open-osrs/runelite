@@ -1,139 +1,140 @@
-import java.lang.management.GarbageCollectorMXBean;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hj")
+@ObfuscatedName("hb")
 @Implements("MusicPatchPcmStream")
 public class MusicPatchPcmStream extends PcmStream {
-	@ObfuscatedName("aw")
-	@Export("garbageCollector")
-	static GarbageCollectorMXBean garbageCollector;
-	@ObfuscatedName("m")
+	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		descriptor = "Lgw;"
+		descriptor = "Llr;"
+	)
+	static Bounds field2519;
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "Lge;"
 	)
 	@Export("superStream")
 	MidiPcmStream superStream;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lji;"
 	)
 	@Export("queue")
 	NodeDeque queue;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ldd;"
+		descriptor = "Ldh;"
 	)
 	@Export("mixer")
 	PcmStreamMixer mixer;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lgw;)V"
+		descriptor = "(Lge;)V"
 	)
 	MusicPatchPcmStream(MidiPcmStream var1) {
-		this.queue = new NodeDeque();
-		this.mixer = new PcmStreamMixer();
-		this.superStream = var1;
-	}
+		this.queue = new NodeDeque(); // L: 11
+		this.mixer = new PcmStreamMixer(); // L: 12
+		this.superStream = var1; // L: 15
+	} // L: 16
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(Lhm;[IIIIB)V",
-		garbageValue = "7"
+		descriptor = "(Lhe;[IIIII)V",
+		garbageValue = "770177978"
 	)
-	void method4040(MusicPatchNode var1, int[] var2, int var3, int var4, int var5) {
-		if ((this.superStream.field2460[var1.field2479] & 4) != 0 && var1.field2490 < 0) {
-			int var6 = this.superStream.field2454[var1.field2479] / class237.field3113;
+	void method3993(MusicPatchNode var1, int[] var2, int var3, int var4, int var5) {
+		if ((this.superStream.field2453[var1.field2484] & 4) != 0 && var1.field2483 < 0) { // L: 73
+			int var6 = this.superStream.field2442[var1.field2484] / PcmPlayer.field1447; // L: 74
 
 			while (true) {
-				int var7 = (var6 + 1048575 - var1.field2478) / var6;
-				if (var7 > var4) {
-					var1.field2478 += var4 * var6;
+				int var7 = (var6 + 1048575 - var1.field2486) / var6; // L: 76
+				if (var7 > var4) { // L: 77
+					var1.field2486 += var4 * var6; // L: 99
 					break;
 				}
 
-				var1.stream.fill(var2, var3, var7);
-				var3 += var7;
-				var4 -= var7;
-				var1.field2478 += var7 * var6 - 1048576;
-				int var8 = class237.field3113 / 100;
-				int var9 = 262144 / var6;
-				if (var9 < var8) {
+				var1.stream.fill(var2, var3, var7); // L: 78
+				var3 += var7; // L: 79
+				var4 -= var7; // L: 80
+				var1.field2486 += var7 * var6 - 1048576; // L: 81
+				int var8 = PcmPlayer.field1447 / 100; // L: 82
+				int var9 = 262144 / var6; // L: 83
+				if (var9 < var8) { // L: 84
 					var8 = var9;
 				}
 
-				RawPcmStream var10 = var1.stream;
-				if (this.superStream.field2463[var1.field2479] == 0) {
-					var1.stream = RawPcmStream.method2674(var1.rawSound, var10.method2747(), var10.method2680(), var10.method2710());
+				RawPcmStream var10 = var1.stream; // L: 85
+				if (this.superStream.field2441[var1.field2484] == 0) { // L: 86
+					var1.stream = RawPcmStream.method2638(var1.rawSound, var10.method2687(), var10.method2644(), var10.method2675()); // L: 87
 				} else {
-					var1.stream = RawPcmStream.method2674(var1.rawSound, var10.method2747(), 0, var10.method2710());
-					this.superStream.method3852(var1, var1.patch.field2521[var1.field2481] < 0);
-					var1.stream.method2685(var8, var10.method2680());
+					var1.stream = RawPcmStream.method2638(var1.rawSound, var10.method2687(), 0, var10.method2675()); // L: 90
+					this.superStream.method3817(var1, var1.patch.field2510[var1.field2474] < 0); // L: 91
+					var1.stream.method2744(var8, var10.method2644()); // L: 92
 				}
 
-				if (var1.patch.field2521[var1.field2481] < 0) {
+				if (var1.patch.field2510[var1.field2474] < 0) { // L: 94
 					var1.stream.setNumLoops(-1);
 				}
 
-				var10.method2732(var8);
-				var10.fill(var2, var3, var5 - var3);
-				if (var10.method2691()) {
+				var10.method2681(var8); // L: 95
+				var10.fill(var2, var3, var5 - var3); // L: 96
+				if (var10.method2655()) { // L: 97
 					this.mixer.addSubStream(var10);
 				}
 			}
 		}
 
-		var1.stream.fill(var2, var3, var4);
-	}
+		var1.stream.fill(var2, var3, var4); // L: 101
+	} // L: 102
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Lhm;II)V",
-		garbageValue = "948558076"
+		descriptor = "(Lhe;II)V",
+		garbageValue = "-1243702200"
 	)
-	void method4041(MusicPatchNode var1, int var2) {
-		if ((this.superStream.field2460[var1.field2479] & 4) != 0 && var1.field2490 < 0) {
-			int var3 = this.superStream.field2454[var1.field2479] / class237.field3113;
-			int var4 = (var3 + 1048575 - var1.field2478) / var3;
-			var1.field2478 = var3 * var2 + var1.field2478 & 1048575;
-			if (var4 <= var2) {
-				if (this.superStream.field2463[var1.field2479] == 0) {
-					var1.stream = RawPcmStream.method2674(var1.rawSound, var1.stream.method2747(), var1.stream.method2680(), var1.stream.method2710());
+	void method3998(MusicPatchNode var1, int var2) {
+		if ((this.superStream.field2453[var1.field2484] & 4) != 0 && var1.field2483 < 0) { // L: 105
+			int var3 = this.superStream.field2442[var1.field2484] / PcmPlayer.field1447; // L: 106
+			int var4 = (var3 + 1048575 - var1.field2486) / var3; // L: 107
+			var1.field2486 = var3 * var2 + var1.field2486 & 1048575; // L: 108
+			if (var4 <= var2) { // L: 109
+				if (this.superStream.field2441[var1.field2484] == 0) { // L: 110
+					var1.stream = RawPcmStream.method2638(var1.rawSound, var1.stream.method2687(), var1.stream.method2644(), var1.stream.method2675()); // L: 111
 				} else {
-					var1.stream = RawPcmStream.method2674(var1.rawSound, var1.stream.method2747(), 0, var1.stream.method2710());
-					this.superStream.method3852(var1, var1.patch.field2521[var1.field2481] < 0);
+					var1.stream = RawPcmStream.method2638(var1.rawSound, var1.stream.method2687(), 0, var1.stream.method2675()); // L: 114
+					this.superStream.method3817(var1, var1.patch.field2510[var1.field2474] < 0); // L: 115
 				}
 
-				if (var1.patch.field2521[var1.field2481] < 0) {
+				if (var1.patch.field2510[var1.field2474] < 0) { // L: 117
 					var1.stream.setNumLoops(-1);
 				}
 
-				var2 = var1.field2478 / var3;
+				var2 = var1.field2486 / var3; // L: 118
 			}
 		}
 
-		var1.stream.skip(var2);
-	}
+		var1.stream.skip(var2); // L: 121
+	} // L: 122
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "()Ldf;"
+		descriptor = "()Ldc;"
 	)
 	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
-		MusicPatchNode var1 = (MusicPatchNode)this.queue.last();
-		if (var1 == null) {
+		MusicPatchNode var1 = (MusicPatchNode)this.queue.last(); // L: 19
+		if (var1 == null) { // L: 20
 			return null;
 		} else {
 			return (PcmStream)(var1.stream != null ? var1.stream : this.nextSubStream());
 		}
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "()Ldf;"
+		descriptor = "()Ldc;"
 	)
 	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
@@ -141,77 +142,87 @@ public class MusicPatchPcmStream extends PcmStream {
 		do {
 			var1 = (MusicPatchNode)this.queue.previous();
 			if (var1 == null) {
-				return null;
+				return null; // L: 28
 			}
-		} while(var1.stream == null);
+		} while(var1.stream == null); // L: 29
 
 		return var1.stream;
 	}
 
-	@ObfuscatedName("u")
-	protected int vmethod4037() {
-		return 0;
+	@ObfuscatedName("w")
+	protected int vmethod3987() {
+		return 0; // L: 34
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@Export("fill")
 	protected void fill(int[] var1, int var2, int var3) {
-		this.mixer.fill(var1, var2, var3);
+		this.mixer.fill(var1, var2, var3); // L: 40
 
-		for (MusicPatchNode var6 = (MusicPatchNode)this.queue.last(); var6 != null; var6 = (MusicPatchNode)this.queue.previous()) {
-			if (!this.superStream.method3870(var6)) {
-				int var4 = var2;
-				int var5 = var3;
+		for (MusicPatchNode var6 = (MusicPatchNode)this.queue.last(); var6 != null; var6 = (MusicPatchNode)this.queue.previous()) { // L: 41
+			if (!this.superStream.method3838(var6)) { // L: 42
+				int var4 = var2; // L: 43
+				int var5 = var3; // L: 44
 
 				do {
-					if (var5 <= var6.field2495) {
-						this.method4040(var6, var1, var4, var5, var4 + var5);
-						var6.field2495 -= var5;
+					if (var5 <= var6.field2488) { // L: 45
+						this.method3993(var6, var1, var4, var5, var5 + var4); // L: 51
+						var6.field2488 -= var5; // L: 52
 						break;
 					}
 
-					this.method4040(var6, var1, var4, var6.field2495, var5 + var4);
-					var4 += var6.field2495;
-					var5 -= var6.field2495;
-				} while(!this.superStream.method3897(var6, var1, var4, var5));
+					this.method3993(var6, var1, var4, var6.field2488, var5 + var4); // L: 46
+					var4 += var6.field2488; // L: 47
+					var5 -= var6.field2488; // L: 48
+				} while(!this.superStream.method3839(var6, var1, var4, var5)); // L: 49
 			}
 		}
 
-	}
+	} // L: 54
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("n")
 	@Export("skip")
 	protected void skip(int var1) {
-		this.mixer.skip(var1);
+		this.mixer.skip(var1); // L: 58
 
-		for (MusicPatchNode var3 = (MusicPatchNode)this.queue.last(); var3 != null; var3 = (MusicPatchNode)this.queue.previous()) {
-			if (!this.superStream.method3870(var3)) {
-				int var2 = var1;
+		for (MusicPatchNode var3 = (MusicPatchNode)this.queue.last(); var3 != null; var3 = (MusicPatchNode)this.queue.previous()) { // L: 59
+			if (!this.superStream.method3838(var3)) { // L: 60
+				int var2 = var1; // L: 61
 
 				do {
-					if (var2 <= var3.field2495) {
-						this.method4041(var3, var2);
-						var3.field2495 -= var2;
+					if (var2 <= var3.field2488) { // L: 62
+						this.method3998(var3, var2); // L: 67
+						var3.field2488 -= var2; // L: 68
 						break;
 					}
 
-					this.method4041(var3, var3.field2495);
-					var2 -= var3.field2495;
-				} while(!this.superStream.method3897(var3, (int[])null, 0, var2));
+					this.method3998(var3, var3.field2488); // L: 63
+					var2 -= var3.field2488; // L: 64
+				} while(!this.superStream.method3839(var3, (int[])null, 0, var2)); // L: 65
 			}
 		}
 
-	}
+	} // L: 70
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "-836395445"
+		descriptor = "(II)Liq;",
+		garbageValue = "-367277844"
 	)
-	@Export("setLoginResponseString")
-	static void setLoginResponseString(String var0, String var1, String var2) {
-		Login.Login_response1 = var0;
-		Login.Login_response2 = var1;
-		Login.Login_response3 = var2;
+	@Export("getInvDefinition")
+	public static InvDefinition getInvDefinition(int var0) {
+		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0); // L: 21
+		if (var1 != null) { // L: 22
+			return var1;
+		} else {
+			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0); // L: 23
+			var1 = new InvDefinition(); // L: 24
+			if (var2 != null) { // L: 25
+				var1.decode(new Buffer(var2));
+			}
+
+			InvDefinition.InvDefinition_cached.put(var1, (long)var0); // L: 26
+			return var1; // L: 27
+		}
 	}
 }

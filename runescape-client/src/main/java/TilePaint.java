@@ -1,112 +1,85 @@
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ex")
+@ObfuscatedName("em")
 @Implements("TilePaint")
 public final class TilePaint {
-	@ObfuscatedName("hw")
-	@ObfuscatedGetter(
-		intValue = -120739893
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "Lio;"
 	)
-	@Export("cameraPitch")
-	static int cameraPitch;
-	@ObfuscatedName("m")
+	@Export("NetCache_currentResponse")
+	static NetFileRequest NetCache_currentResponse;
+	@ObfuscatedName("dt")
+	@ObfuscatedSignature(
+		descriptor = "Liw;"
+	)
+	@Export("archive13")
+	static Archive archive13;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -2010588443
+		intValue = -533090373
 	)
 	@Export("swColor")
 	int swColor;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 276331811
+		intValue = -141428387
 	)
 	@Export("seColor")
 	int seColor;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 249410369
+		intValue = -2027106077
 	)
 	@Export("neColor")
 	int neColor;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 911673263
+		intValue = 1015841735
 	)
 	@Export("nwColor")
 	int nwColor;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1767061331
+		intValue = -1352493759
 	)
 	@Export("texture")
 	int texture;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@Export("isFlat")
 	boolean isFlat;
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1091728871
+		intValue = 248691895
 	)
 	@Export("rgb")
 	int rgb;
 
 	TilePaint(int var1, int var2, int var3, int var4, int var5, int var6, boolean var7) {
-		this.isFlat = true;
-		this.swColor = var1;
-		this.seColor = var2;
-		this.neColor = var3;
-		this.nwColor = var4;
-		this.texture = var5;
-		this.rgb = var6;
-		this.isFlat = var7;
-	}
+		this.isFlat = true; // L: 9
+		this.swColor = var1; // L: 13
+		this.seColor = var2; // L: 14
+		this.neColor = var3; // L: 15
+		this.nwColor = var4; // L: 16
+		this.texture = var5; // L: 17
+		this.rgb = var6; // L: 18
+		this.isFlat = var7; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "1631719470"
+		descriptor = "(IZIZB)V",
+		garbageValue = "-24"
 	)
-	public static int method3187(int var0, int var1, int var2) {
-		var2 &= 3;
-		if (var2 == 0) {
-			return var0;
-		} else if (var2 == 1) {
-			return var1;
-		} else {
-			return var2 == 2 ? 7 - var0 : 7 - var1;
-		}
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "215317048"
-	)
-	public static void method3186() {
-		if (KeyHandler.KeyHandler_instance != null) {
-			synchronized(KeyHandler.KeyHandler_instance) {
-				KeyHandler.KeyHandler_instance = null;
-			}
+	@Export("sortWorldList")
+	static void sortWorldList(int var0, boolean var1, int var2, boolean var3) {
+		if (AbstractByteArrayCopier.World_worlds != null) { // L: 171
+			WorldMapRegion.doWorldSorting(0, AbstractByteArrayCopier.World_worlds.length - 1, var0, var1, var2, var3); // L: 172
 		}
 
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "6"
-	)
-	static void method3188() {
-		Iterator var0 = Messages.Messages_hashTable.iterator();
-
-		while (var0.hasNext()) {
-			Message var1 = (Message)var0.next();
-			var1.clearIsFromIgnored();
-		}
-
-	}
+	} // L: 174
 }

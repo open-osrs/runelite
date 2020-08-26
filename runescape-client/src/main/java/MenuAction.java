@@ -4,80 +4,69 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cu")
+@ObfuscatedName("cf")
 @Implements("MenuAction")
 public class MenuAction {
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = 1178399769
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lkf;"
 	)
-	@Export("param0")
-	int param0;
-	@ObfuscatedName("o")
+	@Export("NetCache_reference")
+	static Buffer NetCache_reference;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1300782503
-	)
-	@Export("param1")
-	int param1;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = 1809063501
+		intValue = -1817310685
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1681239955
+		intValue = -670222051
+	)
+	@Export("param0")
+	int param0;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = 1502625343
+	)
+	@Export("param1")
+	int param1;
+	@ObfuscatedName("t")
+	@Export("action")
+	String action;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = 691220539
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("p")
-	@Export("action")
-	String action;
 
 	MenuAction() {
+	} // L: 10944
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(IIIB)J",
+		garbageValue = "0"
+	)
+	static long method2139(int var0, int var1, int var2) {
+		return (long)(var2 << 16 | var0 << 8 | var1); // L: 38
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "([BZI)Ljava/lang/Object;",
-		garbageValue = "1257898423"
+		descriptor = "([BZB)Ljava/lang/Object;",
+		garbageValue = "117"
 	)
-	public static Object method2169(byte[] var0, boolean var1) {
-		if (var0 == null) {
+	public static Object method2140(byte[] var0, boolean var1) {
+		if (var0 == null) { // L: 7
 			return null;
-		} else if (var0.length > 136) {
-			DirectByteArrayCopier var2 = new DirectByteArrayCopier();
-			var2.set(var0);
-			return var2;
+		} else if (var0.length > 136) { // L: 8
+			DirectByteArrayCopier var2 = new DirectByteArrayCopier(); // L: 10
+			var2.set(var0); // L: 11
+			return var2; // L: 12
 		} else {
-			return var0;
+			return var0; // L: 25
 		}
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(Lic;Lic;I)V",
-		garbageValue = "1591696142"
-	)
-	public static void method2171(AbstractArchive var0, AbstractArchive var1) {
-		SpotAnimationDefinition.SpotAnimationDefinition_archive = var0;
-		NPC.SpotAnimationDefinition_modelArchive = var1;
-	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(ILic;IIIZI)V",
-		garbageValue = "896837453"
-	)
-	@Export("playMusicTrack")
-	public static void playMusicTrack(int var0, AbstractArchive var1, int var2, int var3, int var4, boolean var5) {
-		class206.field2439 = 1;
-		Huffman.musicTrackArchive = var1;
-		class206.musicTrackGroupId = var2;
-		MilliClock.musicTrackFileId = var3;
-		class206.musicTrackVolume = var4;
-		class336.musicTrackBoolean = var5;
-		class206.field2442 = var0;
 	}
 }
