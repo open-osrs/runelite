@@ -30,8 +30,8 @@ import java.awt.image.BufferedImage;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -40,6 +40,7 @@ import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.util.AsyncBufferedImage;
+import net.runelite.client.util.ImageUtil;
 
 @Singleton
 @Slf4j
@@ -149,12 +150,26 @@ public class InfoBoxManager
 			g.dispose();
 			resultImage = scaledImage;
 		}
+		else if (size > width || size > height)
+		{
+			final double scalex = width / size;
+			final double scaley = height / size;
+
+			final double scale = Math.max(scalex, scaley);
+
+			final int newWidth = (int) (width / scale);
+			final int newHeight = (int) (height / scale);
+
+			resultImage = ImageUtil.resizeImage(image, newWidth, newHeight);
+		}
+
 		infoBox.setScaledImage(resultImage);
 	}
 
 	/**
 	 * Find insertion point for the given key into the given sorted list. If key already exists in the list,
 	 * return the index after the last occurrence.
+	 *
 	 * @param list
 	 * @param key
 	 * @param c
