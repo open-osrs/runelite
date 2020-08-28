@@ -22,13 +22,14 @@ import net.runelite.client.ui.RuneLiteSplashScreen;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
-import org.jgroups.ReceiverAdapter;
+import org.jgroups.ObjectMessage;
+import org.jgroups.Receiver;
 import org.jgroups.View;
 import org.jgroups.util.Util;
 
 @Slf4j
 @Singleton
-public class Groups extends ReceiverAdapter
+public class Groups implements Receiver
 {
 	private final OpenOSRSConfig openOSRSConfig;
 	private final JChannel channel;
@@ -38,7 +39,7 @@ public class Groups extends ReceiverAdapter
 	@Getter(AccessLevel.PUBLIC)
 	private List<Address> members;
 	@Getter(AccessLevel.PUBLIC)
-	private Map<String, List<Address>> messageMap = new HashMap<>();
+	private final Map<String, List<Address>> messageMap = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
 	private final PublishSubject<Message> messageStringSubject = PublishSubject.create();
 	@Getter(AccessLevel.PUBLIC)
@@ -79,9 +80,9 @@ public class Groups extends ReceiverAdapter
 		try
 		{
 			byte[] buffer = Util.objectToByteBuffer(configChanged);
-			Message message = new Message()
+			Message message = new ObjectMessage()
 				.setDest(destination)
-				.setBuffer(buffer);
+				.setObject(buffer);
 
 			channel.send(message);
 		}
@@ -119,7 +120,7 @@ public class Groups extends ReceiverAdapter
 
 		try
 		{
-			channel.send(new Message(destination, command));
+			channel.send(new ObjectMessage(destination, command));
 		}
 		catch (Exception e)
 		{
