@@ -864,7 +864,7 @@ public class ConfigManager
 
 		try
 		{
-			ConfigChanged configChanged = Util.objectFromByteBuffer(message.getBuffer());
+			ConfigChanged configChanged = Util.objectFromByteBuffer(message.getObject());
 
 			if (!configChanged.getPath().equals(settingsFileInput.getAbsolutePath()))
 			{
