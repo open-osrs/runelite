@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.2
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Set up JDK 11
-        uses: actions/setup-java@v1.3.0
+        uses: actions/setup-java@v1.4.2
         with:
           java-version: 11
       - name: Update Gradle Wrapper
@@ -21,7 +21,7 @@ jobs:
       - name: Create Gradle wrapper update Pull Request
         uses: Owain94/create-pull-request@master
         env:
-          GITHUB_TOKEN: ${{ secrets.OpenOSRS }}
+          GITHUB_TOKEN: ${{ secrets.OPENOSRS }}
           PULL_REQUEST_BRANCH: GRADLE-WRAPPER-UPDATE
           PULL_REQUEST_TITLE: 'project: Update gradle wrapper'
           PULL_REQUEST_BODY: This is an auto-generated PR with an updated gradle version
@@ -32,11 +32,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.2
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Set up JDK 11
-        uses: actions/setup-java@v1.3.0
+        uses: actions/setup-java@v1.4.2
         with:
          java-version: 11
       - name: Update Gradle Dependencies
@@ -44,7 +44,7 @@ jobs:
       - name: Create Gradle dependencies update Pull Request
         uses: Owain94/create-pull-request@master
         env:
-          GITHUB_TOKEN: ${{ secrets.Owain }}
+          GITHUB_TOKEN: ${{ secrets.OPENOSRS }}
           PULL_REQUEST_BRANCH: GRADLE-DEPS-UPDATE
           PULL_REQUEST_TITLE: 'project: Update gradle dependencies'
           PULL_REQUEST_BODY: This is an auto-generated PR with updated gradle dependencies
