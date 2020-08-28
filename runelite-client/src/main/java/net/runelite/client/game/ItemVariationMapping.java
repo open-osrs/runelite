@@ -68,7 +68,7 @@ public class ItemVariationMapping
 		return INVERTED_MAPPINGS.asMap().getOrDefault(itemId, Collections.singletonList(itemId));
 	}
 
-	static void load() throws IOException
+	public static void load() throws IOException
 	{
 		try (JsonReader reader = new JsonReader(new InputStreamReader(ItemVariationMapping.class.getResourceAsStream("/item_variations.min.json"), StandardCharsets.UTF_8)))
 		{
