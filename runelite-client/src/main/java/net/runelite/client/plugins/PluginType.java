@@ -13,12 +13,12 @@ public enum PluginType
 	SKILLING("Skilling"),
 	UTILITY("Utilities"),
 	MISCELLANEOUS("Miscellaneous"),
-	IMPORTANT("System"),
+	SYSTEM("System"),
 	MINIGAME("Minigame"),
 	GAMEMODE("Gamemode"),
 	UNCATEGORIZED("Uncategorized");
 
-	private String name;
+	private final String name;
 
 	@Override
 	public String toString()

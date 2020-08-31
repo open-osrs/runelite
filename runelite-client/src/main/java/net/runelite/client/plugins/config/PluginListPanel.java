@@ -113,7 +113,7 @@ public class PluginListPanel extends PluginPanel
 	);
 
 	private static final List<String> colorOptions = Arrays.asList("enabledColors", "pvmColor", "pvpColor", "skillingColor", "utilityColor", "minigameColor", "miscellaneousColor", "gamemodeColor");
-	private static final List<PluginType> definedOrder = List.of(PluginType.IMPORTANT, PluginType.PVM, PluginType.SKILLING, PluginType.PVP, PluginType.UTILITY, PluginType.MINIGAME, PluginType.MISCELLANEOUS, PluginType.GAMEMODE, PluginType.UNCATEGORIZED);
+	private static final List<PluginType> definedOrder = List.of(PluginType.SYSTEM, PluginType.PVM, PluginType.SKILLING, PluginType.PVP, PluginType.UTILITY, PluginType.MINIGAME, PluginType.MISCELLANEOUS, PluginType.GAMEMODE, PluginType.UNCATEGORIZED);
 	private static final Comparator<PluginListItem> categoryComparator = Comparator.comparing(plugin -> definedOrder.indexOf(plugin.getPluginType()));
 
 	private final ConfigManager configManager;
@@ -187,7 +187,7 @@ public class PluginListPanel extends PluginPanel
 			{
 				pluginList.forEach(listItem ->
 				{
-					if (listItem.getPluginType() == PluginType.IMPORTANT)
+					if (listItem.getPluginType() == PluginType.SYSTEM)
 					{
 						return;
 					}
@@ -692,7 +692,7 @@ public class PluginListPanel extends PluginPanel
 				return openOSRSConfig.minigameColor();
 			case GAMEMODE:
 				return openOSRSConfig.gamemodeColor();
-			case IMPORTANT:
+			case SYSTEM:
 				return Color.WHITE;
 		}
 
