@@ -83,7 +83,7 @@ public class LootManager
 			.put(NpcID.CORRUPTED_DRAGON, AnimationID.CRYSTALLINE_DRAGON_DEATH)
 			.put(NpcID.CORRUPTED_DARK_BEAST, AnimationID.CRYSTALLINE_DARK_BEAST_DEATH)
 			.put(NpcID.CORRUPTED_BEAR, AnimationID.CRYSTALLINE_BEAR_DEATH)
-			.put(NpcID.THE_NIGHTMARE_9430, AnimationID.NIGHTMARE_DEATH)
+			.put(NpcID.THE_NIGHTMARE_9433, AnimationID.NIGHTMARE_DEATH)
 			.build();
 
 	private final EventBus eventBus;
@@ -246,7 +246,7 @@ public class LootManager
 				// Big Kraken drops loot wherever player is standing when animation starts.
 				krakenPlayerLocation = client.getLocalPlayer().getWorldLocation();
 			}
-			else if (id == NpcID.THE_NIGHTMARE_9430)
+			else if (id == NpcID.THE_NIGHTMARE_9433)
 			{
 				delayedLootNpc = npc;
 				delayedLootTickLimit = 16;
