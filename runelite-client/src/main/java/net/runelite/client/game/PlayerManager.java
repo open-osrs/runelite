@@ -17,12 +17,7 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Actor;
-import net.runelite.api.Client;
-import net.runelite.api.ItemDefinition;
-import net.runelite.api.ItemID;
-import net.runelite.api.NPC;
-import net.runelite.api.Player;
+import net.runelite.api.*;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.events.PlayerDespawned;
@@ -418,13 +413,16 @@ public class PlayerManager
 			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
 
-		if (player.getPlayer().getSkullIcon() == null)
+		if (client.getWorldType().stream().noneMatch(x -> x == WorldType.HIGH_RISK))
 		{
-			removeEntries(player.getRiskedGear(), player.getPrayerLevel() <= 25 ? 3 : 4);
-		}
-		else
-		{
-			removeEntries(player.getRiskedGear(), player.getPrayerLevel() <= 25 ? 0 : 1);
+			if (player.getPlayer().getSkullIcon() == null)
+			{
+				removeEntries(player.getRiskedGear(), player.getPrayerLevel() < 25 ? 3 : 4);
+			}
+			else
+			{
+				removeEntries(player.getRiskedGear(), player.getPrayerLevel() < 25 ? 0 : 1);
+			}
 		}
 
 		int risk = 0;
