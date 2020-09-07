@@ -3,143 +3,104 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jf")
+@ObfuscatedName("jc")
 @Implements("User")
 public class User implements Comparable {
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lku;"
 	)
 	@Export("username")
 	Username username;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lkq;"
+		descriptor = "Lku;"
 	)
 	@Export("previousUsername")
 	Username previousUsername;
 
 	User() {
-	}
+	} // L: 7
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		signature = "(I)Lkq;",
-		garbageValue = "352262046"
+		descriptor = "(I)Lku;",
+		garbageValue = "-53975348"
 	)
 	@Export("getUsername")
 	public Username getUsername() {
-		return this.username;
+		return this.username; // L: 10
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		signature = "(B)Ljava/lang/String;",
-		garbageValue = "111"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "-2094298107"
 	)
 	@Export("getName")
 	public String getName() {
-		return this.username == null ? "" : this.username.getName();
+		return this.username == null ? "" : this.username.getName(); // L: 14 15
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/lang/String;",
-		garbageValue = "-461021692"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "2114724515"
 	)
 	@Export("getPreviousName")
 	public String getPreviousName() {
-		return this.previousUsername == null ? "" : this.previousUsername.getName();
+		return this.previousUsername == null ? "" : this.previousUsername.getName(); // L: 19 20
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		signature = "(Lkq;Lkq;I)V",
-		garbageValue = "-1982838307"
+		descriptor = "(Lku;Lku;I)V",
+		garbageValue = "-1201574407"
 	)
 	@Export("set")
 	void set(Username var1, Username var2) {
-		if (var1 == null) {
+		if (var1 == null) { // L: 24
 			throw new NullPointerException();
 		} else {
-			this.username = var1;
-			this.previousUsername = var2;
+			this.username = var1; // L: 25
+			this.previousUsername = var2; // L: 26
 		}
-	}
+	} // L: 27
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		signature = "(Ljf;I)I",
-		garbageValue = "334051838"
+		descriptor = "(Ljc;I)I",
+		garbageValue = "-243007320"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.username.compareToTyped(var1.username);
+		return this.username.compareToTyped(var1.username); // L: 30
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_user((User)var1);
+		return this.compareTo_user((User)var1); // L: 34
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("hu")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "406400151"
+		descriptor = "(IIIII)V",
+		garbageValue = "793231569"
 	)
-	static void method5228() {
-		if (TaskHandler.javaVendor.toLowerCase().indexOf("microsoft") != -1) {
-			KeyHandler.KeyHandler_keyCodes[186] = 57;
-			KeyHandler.KeyHandler_keyCodes[187] = 27;
-			KeyHandler.KeyHandler_keyCodes[188] = 71;
-			KeyHandler.KeyHandler_keyCodes[189] = 26;
-			KeyHandler.KeyHandler_keyCodes[190] = 72;
-			KeyHandler.KeyHandler_keyCodes[191] = 73;
-			KeyHandler.KeyHandler_keyCodes[192] = 58;
-			KeyHandler.KeyHandler_keyCodes[219] = 42;
-			KeyHandler.KeyHandler_keyCodes[220] = 74;
-			KeyHandler.KeyHandler_keyCodes[221] = 43;
-			KeyHandler.KeyHandler_keyCodes[222] = 59;
-			KeyHandler.KeyHandler_keyCodes[223] = 28;
-		} else {
-			KeyHandler.KeyHandler_keyCodes[44] = 71;
-			KeyHandler.KeyHandler_keyCodes[45] = 26;
-			KeyHandler.KeyHandler_keyCodes[46] = 72;
-			KeyHandler.KeyHandler_keyCodes[47] = 73;
-			KeyHandler.KeyHandler_keyCodes[59] = 57;
-			KeyHandler.KeyHandler_keyCodes[61] = 27;
-			KeyHandler.KeyHandler_keyCodes[91] = 42;
-			KeyHandler.KeyHandler_keyCodes[92] = 74;
-			KeyHandler.KeyHandler_keyCodes[93] = 43;
-			KeyHandler.KeyHandler_keyCodes[192] = 28;
-			KeyHandler.KeyHandler_keyCodes[222] = 58;
-			KeyHandler.KeyHandler_keyCodes[520] = 59;
+	@Export("selectSpell")
+	static void selectSpell(int var0, int var1, int var2, int var3) {
+		Widget var4 = SecureRandomCallable.getWidgetChild(var0, var1); // L: 8100
+		if (var4 != null && var4.onTargetEnter != null) { // L: 8101
+			ScriptEvent var5 = new ScriptEvent(); // L: 8102
+			var5.widget = var4; // L: 8103
+			var5.args = var4.onTargetEnter; // L: 8104
+			Script.runScriptEvent(var5); // L: 8105
 		}
 
-	}
-
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		signature = "([BI)V",
-		garbageValue = "-519092714"
-	)
-	@Export("ByteArrayPool_release")
-	public static synchronized void ByteArrayPool_release(byte[] var0) {
-		if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < 1000) {
-			ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0;
-		} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < 250) {
-			ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0;
-		} else if (var0.length == 30000 && ByteArrayPool.ByteArrayPool_largeCount < 50) {
-			ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0;
-		} else {
-			if (Fonts.ByteArrayPool_arrays != null) {
-				for (int var1 = 0; var1 < ParamDefinition.ByteArrayPool_alternativeSizes.length; ++var1) {
-					if (var0.length == ParamDefinition.ByteArrayPool_alternativeSizes[var1] && VarbitDefinition.ByteArrayPool_altSizeArrayCounts[var1] < Fonts.ByteArrayPool_arrays[var1].length) {
-						Fonts.ByteArrayPool_arrays[var1][VarbitDefinition.ByteArrayPool_altSizeArrayCounts[var1]++] = var0;
-						return;
-					}
-				}
-			}
-
-		}
-	}
+		Client.field834 = var3; // L: 8107
+		Client.isSpellSelected = true; // L: 8108
+		class232.selectedSpellWidget = var0; // L: 8109
+		Client.selectedSpellChildIndex = var1; // L: 8110
+		UserComparator8.selectedSpellFlags = var2; // L: 8111
+		class52.invalidateWidget(var4); // L: 8112
+	} // L: 8113
 }

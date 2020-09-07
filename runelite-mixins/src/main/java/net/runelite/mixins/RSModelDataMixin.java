@@ -47,14 +47,13 @@ public abstract class RSModelDataMixin implements RSModelData
 	private float[][] faceTextureVCoordinates;
 
 	@Copy("toModel")
-	public abstract Model rs$light(int ambient, int contrast, int var3, int var4, int var5);
-
 	@Replace("toModel")
-	public Model rl$light(int ambient, int contrast, int var3, int var4, int var5)
+	@SuppressWarnings("InfiniteRecursion")
+	public Model copy$light(int ambient, int contrast, int var3, int var4, int var5)
 	{
 		client.getLogger().trace("Lighting model {}", this);
 
-		Model model = rs$light(ambient, contrast, var3, var4, var5);
+		Model model = copy$light(ambient, contrast, var3, var4, var5);
 		if (model == null)
 		{
 			return null;

@@ -4,111 +4,82 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("er")
+@ObfuscatedName("eh")
 @Implements("Skeleton")
 public class Skeleton extends Node {
-	@ObfuscatedName("aq")
-	@ObfuscatedGetter(
-		intValue = -47286483
+	@ObfuscatedName("sw")
+	@ObfuscatedSignature(
+		descriptor = "Llz;"
 	)
-	static int field1826;
-	@ObfuscatedName("m")
+	@Export("masterDisk")
+	static ArchiveDisk masterDisk;
+	@ObfuscatedName("gf")
+	@Export("regionLandArchiveIds")
+	static int[] regionLandArchiveIds;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -747457743
+		intValue = -891561701
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 386205487
+		intValue = 178139825
 	)
 	@Export("count")
 	int count;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@Export("transformTypes")
 	int[] transformTypes;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@Export("labels")
 	int[][] labels;
 
 	Skeleton(int var1, byte[] var2) {
-		this.id = var1;
-		Buffer var3 = new Buffer(var2);
-		this.count = var3.readUnsignedByte();
-		this.transformTypes = new int[this.count];
-		this.labels = new int[this.count][];
+		this.id = var1; // L: 13
+		Buffer var3 = new Buffer(var2); // L: 14
+		this.count = var3.readUnsignedByte(); // L: 15
+		this.transformTypes = new int[this.count]; // L: 16
+		this.labels = new int[this.count][]; // L: 17
 
 		int var4;
-		for (var4 = 0; var4 < this.count; ++var4) {
+		for (var4 = 0; var4 < this.count; ++var4) { // L: 18
 			this.transformTypes[var4] = var3.readUnsignedByte();
 		}
 
-		for (var4 = 0; var4 < this.count; ++var4) {
+		for (var4 = 0; var4 < this.count; ++var4) { // L: 19
 			this.labels[var4] = new int[var3.readUnsignedByte()];
 		}
 
-		for (var4 = 0; var4 < this.count; ++var4) {
-			for (int var5 = 0; var5 < this.labels[var4].length; ++var5) {
+		for (var4 = 0; var4 < this.count; ++var4) { // L: 20
+			for (int var5 = 0; var5 < this.labels[var4].length; ++var5) { // L: 21
 				this.labels[var4][var5] = var3.readUnsignedByte();
 			}
 		}
 
-	}
+	} // L: 23
 
-	@ObfuscatedName("iz")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(ZB)V",
-		garbageValue = "38"
+		descriptor = "(IB)Ljx;",
+		garbageValue = "29"
 	)
-	@Export("setTapToDrop")
-	static void setTapToDrop(boolean var0) {
-		Client.tapToDrop = var0;
-	}
-
-	@ObfuscatedName("jo")
-	@ObfuscatedSignature(
-		signature = "([Lhd;IB)V",
-		garbageValue = "34"
-	)
-	@Export("runComponentCloseListeners")
-	static final void runComponentCloseListeners(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) {
-			Widget var3 = var0[var2];
-			if (var3 != null) {
-				if (var3.type == 0) {
-					if (var3.children != null) {
-						runComponentCloseListeners(var3.children, var1);
-					}
-
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
-					if (var4 != null) {
-						Language.runIntfCloseListeners(var4.group, var1);
-					}
-				}
-
-				ScriptEvent var5;
-				if (var1 == 0 && var3.onDialogAbort != null) {
-					var5 = new ScriptEvent();
-					var5.widget = var3;
-					var5.args = var3.onDialogAbort;
-					InterfaceParent.runScriptEvent(var5);
-				}
-
-				if (var1 == 1 && var3.onSubChange != null) {
-					if (var3.childIndex >= 0) {
-						Widget var6 = WorldMapSprite.getWidget(var3.id);
-						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) {
-							continue;
-						}
-					}
-
-					var5 = new ScriptEvent();
-					var5.widget = var3;
-					var5.args = var3.onSubChange;
-					InterfaceParent.runScriptEvent(var5);
-				}
+	@Export("getNpcDefinition")
+	public static NPCDefinition getNpcDefinition(int var0) {
+		NPCDefinition var1 = (NPCDefinition)NPCDefinition.NpcDefinition_cached.get((long)var0); // L: 57
+		if (var1 != null) { // L: 58
+			return var1;
+		} else {
+			byte[] var2 = NPCDefinition.NpcDefinition_archive.takeFile(9, var0); // L: 59
+			var1 = new NPCDefinition(); // L: 60
+			var1.id = var0; // L: 61
+			if (var2 != null) { // L: 62
+				var1.decode(new Buffer(var2));
 			}
-		}
 
+			var1.postDecode(); // L: 63
+			NPCDefinition.NpcDefinition_cached.put(var1, (long)var0); // L: 64
+			return var1; // L: 65
+		}
 	}
 }

@@ -1,16 +1,11 @@
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("kg")
+@ObfuscatedName("ki")
 public final class class306 {
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		longValue = 4078807176419591129L
+		longValue = 4608600077918488349L
 	)
 	static long field3723;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		longValue = 5600259578615977693L
-	)
-	static long field3726;
 }

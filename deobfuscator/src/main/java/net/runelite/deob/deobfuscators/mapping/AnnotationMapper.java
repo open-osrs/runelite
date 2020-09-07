@@ -29,10 +29,8 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
-import net.runelite.asm.attributes.annotation.Element;
-import net.runelite.asm.attributes.annotation.SimpleElement;
+import net.runelite.asm.Annotation;
+import net.runelite.asm.attributes.Annotated;
 import net.runelite.deob.DeobAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,11 +67,11 @@ public class AnnotationMapper
 	{
 		int count = 0;
 
-		if (hasCopyableAnnotation(from.getAnnotations()))
+		if (hasCopyableAnnotation(from))
 		{
 			if (to != null)
 			{
-				count += copyAnnotations(from.getAnnotations(), to.getAnnotations());
+				count += copyAnnotations(from, to);
 			}
 			else
 			{
@@ -83,57 +81,49 @@ public class AnnotationMapper
 
 		for (Field f : from.getFields())
 		{
-			if (!hasCopyableAnnotation(f.getAnnotations()))
+			if (!hasCopyableAnnotation(f))
 				continue;
 
 			Field other = (Field) mapping.get(f);
 			if (other == null)
 			{
-				logger.warn("Unable to map annotated field {} named {}", f, DeobAnnotations.getExportedName(f.getAnnotations()));
+				logger.warn("Unable to map annotated field {} named {}", f, DeobAnnotations.getExportedName(f));
 				continue;
 			}
 
-			count += copyAnnotations(f.getAnnotations(), other.getAnnotations());
+			count += copyAnnotations(f, other);
 		}
 
 		for (Method m : from.getMethods())
 		{
-			if (!hasCopyableAnnotation(m.getAnnotations()))
+			if (!hasCopyableAnnotation(m))
 				continue;
 
 			Method other = (Method) mapping.get(m);
 			if (other == null)
 			{
-				logger.warn("Unable to map annotated method {} named {}", m, DeobAnnotations.getExportedName(m.getAnnotations()));
+				logger.warn("Unable to map annotated method {} named {}", m, DeobAnnotations.getExportedName(m));
 				continue;
 			}
 
-			count += copyAnnotations(m.getAnnotations(), other.getAnnotations());
+			count += copyAnnotations(m, other);
 		}
 
 		return count;
 	}
 
-	private int copyAnnotations(Annotations from, Annotations to)
+	private int copyAnnotations(Annotated from, Annotated to)
 	{
 		int count = 0;
 
 		if (from.getAnnotations() == null)
 			return count;
 
-		for (Annotation a : from.getAnnotations())
+		for (Annotation a : from.getAnnotations().values())
 		{
 			if (isCopyable(a))
 			{
-				Annotation annotation = new Annotation(a.getType());
-				to.addAnnotation(annotation);
-
-				for (Element e : a.getElements())
-				{
-					Element element = new SimpleElement(e.getName(), e.getValue());
-					annotation.addElement(element);
-				}
-
+				to.addAnnotation(a);
 				++count;
 			}
 		}
@@ -141,13 +131,9 @@ public class AnnotationMapper
 		return count;
 	}
 
-	private boolean hasCopyableAnnotation(Annotations a)
+	private boolean hasCopyableAnnotation(Annotated a)
 	{
-		for (Annotation an : a.getAnnotations())
-			if (isCopyable(an))
-				return true;
-
-		return false;
+		return a.findAnnotation(DeobAnnotations.EXPORT) != null || a.findAnnotation(DeobAnnotations.IMPLEMENTS) != null;
 	}
 
 	private boolean isCopyable(Annotation a)

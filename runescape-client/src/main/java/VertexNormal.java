@@ -4,50 +4,50 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("et")
+@ObfuscatedName("eg")
 @Implements("VertexNormal")
 public class VertexNormal {
+	@ObfuscatedName("hg")
+	@ObfuscatedGetter(
+		intValue = 1417653903
+	)
+	@Export("cameraX")
+	static int cameraX;
 	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		signature = "Leb;"
-	)
-	@Export("World_request")
-	static UrlRequest World_request;
-	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 923161949
-	)
-	@Export("x")
-	int x;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 126098109
-	)
-	@Export("y")
-	int y;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = -662882065
-	)
-	@Export("z")
-	int z;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = -1696865585
+		intValue = -213210241
 	)
 	@Export("magnitude")
 	int magnitude;
+	@ObfuscatedName("k")
+	@ObfuscatedGetter(
+		intValue = 525564355
+	)
+	@Export("x")
+	int x;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -1643627841
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = -1440997727
+	)
+	@Export("z")
+	int z;
 
 	VertexNormal() {
-	}
+	} // L: 9
 
 	@ObfuscatedSignature(
-		signature = "(Let;)V"
+		descriptor = "(Leg;)V"
 	)
 	VertexNormal(VertexNormal var1) {
-		this.x = var1.x;
-		this.y = var1.y;
-		this.z = var1.z;
-		this.magnitude = var1.magnitude;
-	}
+		this.x = var1.x; // L: 12
+		this.y = var1.y; // L: 13
+		this.z = var1.z; // L: 14
+		this.magnitude = var1.magnitude; // L: 15
+	} // L: 16
 }

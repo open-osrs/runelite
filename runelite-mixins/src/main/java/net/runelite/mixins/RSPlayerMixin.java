@@ -245,15 +245,14 @@ public abstract class RSPlayerMixin implements RSPlayer
 		return model.getConvexHull(getX(), getY(), getOrientation(), tileHeight);
 	}
 
+	@SuppressWarnings("InfiniteRecursion")
 	@Copy("getModel")
-	public abstract RSModel rs$getModel();
-
 	@Replace("getModel")
-	public RSModel rl$getModel()
+	public RSModel copy$getModel()
 	{
 		if (!client.isInterpolatePlayerAnimations())
 		{
-			return rs$getModel();
+			return copy$getModel();
 		}
 		int actionFrame = getActionFrame();
 		int poseFrame = getPoseFrame();
@@ -265,7 +264,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 			setActionFrame(Integer.MIN_VALUE | getActionFrameCycle() << 16 | actionFrame);
 			setPoseFrame(Integer.MIN_VALUE | getPoseFrameCycle() << 16 | poseFrame);
 			setSpotAnimationFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
-			return rs$getModel();
+			return copy$getModel();
 		}
 		finally
 		{
@@ -290,14 +289,13 @@ public abstract class RSPlayerMixin implements RSPlayer
 	}
 
 	@Copy("read")
-	public abstract void rs$read(RSBuffer buffer);
-
 	@Replace("read")
-	public void rl$read(RSBuffer buffer)
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$read(RSBuffer buffer)
 	{
 		final long appearanceHash = getPlayerAppearance() == null ? 0 : getPlayerAppearance().getHash();
 
-		rs$read(buffer);
+		this.copy$read(buffer);
 
 		if (getPlayerAppearance().getHash() != appearanceHash)
 		{

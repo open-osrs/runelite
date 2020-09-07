@@ -30,8 +30,6 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.mapping.Import;
 import net.runelite.rs.api.RSClient;
@@ -65,11 +63,6 @@ public class AnnotationIntegrityChecker
 		return errors;
 	}
 
-	public int getWarnings()
-	{
-		return warnings;
-	}
-
 	public void run()
 	{
 		for (ClassFile cf : one.getClasses())
@@ -97,11 +90,11 @@ public class AnnotationIntegrityChecker
 
 				if (f1.isStatic())
 				{
-					f2 = findExportedFieldStatic(two, DeobAnnotations.getExportedName(f1.getAnnotations()));
+					f2 = findExportedFieldStatic(two, DeobAnnotations.getExportedName(f1));
 				}
 				else
 				{
-					f2 = findExportedField(other, DeobAnnotations.getExportedName(f1.getAnnotations()));
+					f2 = findExportedField(other, DeobAnnotations.getExportedName(f1));
 				}
 
 				if (f2 == null)
@@ -110,7 +103,7 @@ public class AnnotationIntegrityChecker
 					{
 						logger.error("Missing IMPORTED field on {} named {}",
 							other,
-							DeobAnnotations.getExportedName(f1.getAnnotations()));
+							DeobAnnotations.getExportedName(f1));
 
 						++errors;
 					}
@@ -118,7 +111,7 @@ public class AnnotationIntegrityChecker
 					{
 						logger.warn("Missing exported field on {} named {}",
 							other,
-							DeobAnnotations.getExportedName(f1.getAnnotations()));
+							DeobAnnotations.getExportedName(f1));
 
 						++warnings;
 					}
@@ -143,11 +136,11 @@ public class AnnotationIntegrityChecker
 
 				if (m1.isStatic())
 				{
-					m2 = findExportedMethodStatic(two, DeobAnnotations.getExportedName(m1.getAnnotations()));
+					m2 = findExportedMethodStatic(two, DeobAnnotations.getExportedName(m1));
 				}
 				else
 				{
-					m2 = findExportedMethod(other, DeobAnnotations.getExportedName(m1.getAnnotations()));
+					m2 = findExportedMethod(other, DeobAnnotations.getExportedName(m1));
 				}
 
 				if (m2 == null)
@@ -156,7 +149,7 @@ public class AnnotationIntegrityChecker
 					{
 						logger.error("Missing IMPORTED method on {} named {} ({})",
 							other,
-							DeobAnnotations.getExportedName(m1.getAnnotations()),
+							DeobAnnotations.getExportedName(m1),
 							m1);
 
 						++errors;
@@ -165,41 +158,11 @@ public class AnnotationIntegrityChecker
 					{
 						logger.warn("Missing exported method on {} named {} ({})",
 							other,
-							DeobAnnotations.getExportedName(m1.getAnnotations()),
+							DeobAnnotations.getExportedName(m1),
 							m1);
 
 						++warnings;
 					}
-				}
-			}
-		}
-
-		checkAnnotationCounts();
-	}
-
-	private void checkAnnotationCounts()
-	{
-		for (ClassFile cf : two.getClasses())
-		{
-			for (Field f : cf.getFields())
-			{
-				int num = this.getNumberOfExports(f.getAnnotations());
-
-				if (num > 1)
-				{
-					logger.warn("Field {} has more than 1 export", f);
-					++errors;
-				}
-			}
-
-			for (Method m : cf.getMethods())
-			{
-				int num = this.getNumberOfExports(m.getAnnotations());
-
-				if (num > 1)
-				{
-					logger.warn("Method {} has more than 1 export", m);
-					++errors;
 				}
 			}
 		}
@@ -212,7 +175,6 @@ public class AnnotationIntegrityChecker
 	 * @param cf Class file field/method is on
 	 * @param name Exported name of field/method
 	 * @param isStatic Whether or not field/method is static
-	 * @return
 	 */
 	private boolean isImported(ClassFile cf, String name, boolean isStatic)
 	{
@@ -259,7 +221,7 @@ public class AnnotationIntegrityChecker
 		List<Field> list = new ArrayList<>();
 		for (Field f : clazz.getFields())
 		{
-			if (DeobAnnotations.getExportedName(f.getAnnotations()) != null)
+			if (DeobAnnotations.getExportedName(f) != null)
 			{
 				list.add(f);
 			}
@@ -272,7 +234,7 @@ public class AnnotationIntegrityChecker
 		List<Method> list = new ArrayList<>();
 		for (Method m : clazz.getMethods())
 		{
-			if (DeobAnnotations.getExportedName(m.getAnnotations()) != null)
+			if (DeobAnnotations.getExportedName(m) != null)
 			{
 				list.add(m);
 			}
@@ -280,26 +242,11 @@ public class AnnotationIntegrityChecker
 		return list;
 	}
 
-	private int getNumberOfExports(Annotations an)
-	{
-		int count = 0;
-
-		for (Annotation a : an.getAnnotations())
-		{
-			if (a.getType().equals(DeobAnnotations.EXPORT))
-			{
-				++count;
-			}
-		}
-
-		return count;
-	}
-
 	private Field findExportedField(ClassFile clazz, String name)
 	{
 		for (Field f : getExportedFields(clazz))
 		{
-			if (DeobAnnotations.getExportedName(f.getAnnotations()).equals(name))
+			if (name.equals(DeobAnnotations.getExportedName(f)))
 			{
 				return f;
 			}
@@ -315,7 +262,7 @@ public class AnnotationIntegrityChecker
 			{
 				if (f.isStatic())
 				{
-					if (name.equals(DeobAnnotations.getExportedName(f.getAnnotations())))
+					if (name.equals(DeobAnnotations.getExportedName(f)))
 					{
 						return f;
 					}
@@ -333,7 +280,7 @@ public class AnnotationIntegrityChecker
 			{
 				if (m.isStatic())
 				{
-					if (name.equals(DeobAnnotations.getExportedName(m.getAnnotations())))
+					if (name.equals(DeobAnnotations.getExportedName(m)))
 					{
 						return m;
 					}
@@ -347,7 +294,7 @@ public class AnnotationIntegrityChecker
 	{
 		for (Method m : getExportedMethods(clazz))
 		{
-			if (DeobAnnotations.getExportedName(m.getAnnotations()).equals(name))
+			if (name.equals(DeobAnnotations.getExportedName(m)))
 			{
 				return m;
 			}

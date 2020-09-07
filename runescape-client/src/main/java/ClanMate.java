@@ -3,95 +3,116 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ji")
+@ObfuscatedName("jf")
 @Implements("ClanMate")
 public class ClanMate extends Buddy {
-	@ObfuscatedName("bk")
-	@Export("otp")
-	static String otp;
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkm;"
 	)
 	@Export("friend")
 	TriBool friend;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lkf;"
+		descriptor = "Lkm;"
 	)
 	@Export("ignored")
 	TriBool ignored;
 
 	ClanMate() {
-		this.friend = TriBool.TriBool_unknown;
-		this.ignored = TriBool.TriBool_unknown;
-	}
+		this.friend = TriBool.TriBool_unknown; // L: 6
+		this.ignored = TriBool.TriBool_unknown; // L: 7
+	} // L: 9
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "55"
+		descriptor = "(I)V",
+		garbageValue = "-1483080876"
 	)
 	@Export("clearIsFriend")
 	void clearIsFriend() {
-		this.friend = TriBool.TriBool_unknown;
+		this.friend = TriBool.TriBool_unknown; // L: 12
+	} // L: 13
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "2093407981"
+	)
+	@Export("isFriend")
+	public final boolean isFriend() {
+		if (this.friend == TriBool.TriBool_unknown) { // L: 16
+			this.fillIsFriend(); // L: 17
+		}
+
+		return this.friend == TriBool.TriBool_true; // L: 19
+	}
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-2130404233"
+	)
+	@Export("fillIsFriend")
+	void fillIsFriend() {
+		this.friend = class60.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 23
+	} // L: 24
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "405113093"
+	)
+	@Export("clearIsIgnored")
+	void clearIsIgnored() {
+		this.ignored = TriBool.TriBool_unknown; // L: 27
+	} // L: 28
+
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "-607786293"
+	)
+	@Export("isIgnored")
+	public final boolean isIgnored() {
+		if (this.ignored == TriBool.TriBool_unknown) { // L: 31
+			this.fillIsIgnored(); // L: 32
+		}
+
+		return this.ignored == TriBool.TriBool_true; // L: 34
 	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1504738052"
-	)
-	@Export("isFriend")
-	public final boolean isFriend() {
-		if (this.friend == TriBool.TriBool_unknown) {
-			this.fillIsFriend();
-		}
-
-		return this.friend == TriBool.TriBool_true;
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-2080180390"
-	)
-	@Export("fillIsFriend")
-	void fillIsFriend() {
-		this.friend = ModeWhere.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
-	}
-
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		signature = "(B)V",
-		garbageValue = "0"
-	)
-	@Export("clearIsIgnored")
-	void clearIsIgnored() {
-		this.ignored = TriBool.TriBool_unknown;
-	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		signature = "(B)Z",
-		garbageValue = "10"
-	)
-	@Export("isIgnored")
-	public final boolean isIgnored() {
-		if (this.ignored == TriBool.TriBool_unknown) {
-			this.fillIsIgnored();
-		}
-
-		return this.ignored == TriBool.TriBool_true;
-	}
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-1156765322"
+		descriptor = "(I)V",
+		garbageValue = "-483165617"
 	)
 	@Export("fillIsIgnored")
 	void fillIsIgnored() {
-		this.ignored = ModeWhere.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
+		this.ignored = class60.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 38
+	} // L: 39
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(CB)Z",
+		garbageValue = "0"
+	)
+	public static boolean method5146(char var0) {
+		if ((var0 <= 0 || var0 >= 128) && (var0 < 160 || var0 > 255)) { // L: 45
+			if (var0 != 0) { // L: 46
+				char[] var1 = class297.cp1252AsciiExtension; // L: 48
+
+				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 49
+					char var3 = var1[var2]; // L: 50
+					if (var0 == var3) {
+						return true; // L: 52
+					}
+				}
+			}
+
+			return false; // L: 57
+		} else {
+			return true;
+		}
 	}
 }

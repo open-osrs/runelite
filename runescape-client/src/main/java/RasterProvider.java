@@ -14,88 +14,88 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bq")
+@ObfuscatedName("bn")
 @Implements("RasterProvider")
 public final class RasterProvider extends AbstractRasterProvider {
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@Export("component")
 	Component component;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@Export("image")
 	Image image;
 
 	RasterProvider(int var1, int var2, Component var3) {
-		super.width = var1;
-		super.height = var2;
-		super.pixels = new int[var2 * var1 + 1];
-		DataBufferInt var4 = new DataBufferInt(super.pixels, super.pixels.length);
-		DirectColorModel var5 = new DirectColorModel(32, 16711680, 65280, 255);
-		WritableRaster var6 = Raster.createWritableRaster(var5.createCompatibleSampleModel(super.width, super.height), var4, (Point)null);
-		this.image = new BufferedImage(var5, var6, false, new Hashtable());
-		this.setComponent(var3);
-		this.apply();
-	}
+		super.width = var1; // L: 23
+		super.height = var2; // L: 24
+		super.pixels = new int[var2 * var1 + 1]; // L: 25
+		DataBufferInt var4 = new DataBufferInt(super.pixels, super.pixels.length); // L: 26
+		DirectColorModel var5 = new DirectColorModel(32, 16711680, 65280, 255); // L: 27
+		WritableRaster var6 = Raster.createWritableRaster(var5.createCompatibleSampleModel(super.width, super.height), var4, (Point)null); // L: 28
+		this.image = new BufferedImage(var5, var6, false, new Hashtable()); // L: 29
+		this.setComponent(var3); // L: 30
+		this.apply(); // L: 31
+	} // L: 32
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Component;B)V",
-		garbageValue = "-55"
+		descriptor = "(Ljava/awt/Component;I)V",
+		garbageValue = "-90781444"
 	)
 	@Export("setComponent")
 	final void setComponent(Component var1) {
-		this.component = var1;
-	}
+		this.component = var1; // L: 35
+	} // L: 36
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(IIB)V",
-		garbageValue = "-5"
+		descriptor = "(III)V",
+		garbageValue = "-1964598850"
 	)
 	@Export("drawFull")
 	public final void drawFull(int var1, int var2) {
-		this.drawFull0(this.component.getGraphics(), var1, var2);
-	}
+		this.drawFull0(this.component.getGraphics(), var1, var2); // L: 39
+	} // L: 40
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(IIIII)V",
-		garbageValue = "-1334771637"
+		descriptor = "(IIIII)V",
+		garbageValue = "147756616"
 	)
 	@Export("draw")
 	public final void draw(int var1, int var2, int var3, int var4) {
-		this.draw0(this.component.getGraphics(), var1, var2, var3, var4);
-	}
+		this.draw0(this.component.getGraphics(), var1, var2, var3, var4); // L: 43
+	} // L: 44
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Graphics;III)V",
-		garbageValue = "2097062254"
+		descriptor = "(Ljava/awt/Graphics;IIB)V",
+		garbageValue = "0"
 	)
 	@Export("drawFull0")
 	final void drawFull0(Graphics var1, int var2, int var3) {
 		try {
-			var1.drawImage(this.image, var2, var3, this.component);
-		} catch (Exception var5) {
-			this.component.repaint();
+			var1.drawImage(this.image, var2, var3, this.component); // L: 48
+		} catch (Exception var5) { // L: 50
+			this.component.repaint(); // L: 51
 		}
 
-	}
+	} // L: 53
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(Ljava/awt/Graphics;IIIII)V",
-		garbageValue = "-199223642"
+		descriptor = "(Ljava/awt/Graphics;IIIIB)V",
+		garbageValue = "-54"
 	)
 	@Export("draw0")
 	final void draw0(Graphics var1, int var2, int var3, int var4, int var5) {
 		try {
-			Shape var6 = var1.getClip();
-			var1.clipRect(var2, var3, var4, var5);
-			var1.drawImage(this.image, 0, 0, this.component);
-			var1.setClip(var6);
-		} catch (Exception var7) {
-			this.component.repaint();
+			Shape var6 = var1.getClip(); // L: 57
+			var1.clipRect(var2, var3, var4, var5); // L: 58
+			var1.drawImage(this.image, 0, 0, this.component); // L: 59
+			var1.setClip(var6); // L: 60
+		} catch (Exception var7) { // L: 62
+			this.component.repaint(); // L: 63
 		}
 
-	}
+	} // L: 65
 }

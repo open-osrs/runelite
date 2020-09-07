@@ -136,6 +136,10 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 		{
 			try
 			{
+				if (!isPluginEligibleForLoading(pluginPath) && isNotDevelopment())
+				{
+					continue;
+				}
 				loadPluginFromPath(pluginPath);
 			}
 			catch (PluginRuntimeException e)
@@ -345,5 +349,10 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 		Path pluginPath = pluginWrapper.getPluginPath();
 
 		return pluginRepository.deletePluginPath(pluginPath);
+	}
+
+	private boolean isPluginEligibleForLoading(Path path)
+	{
+		return path.toFile().getName().endsWith(".jar");
 	}
 }

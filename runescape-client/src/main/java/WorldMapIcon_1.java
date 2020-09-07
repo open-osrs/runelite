@@ -1,239 +1,268 @@
-import java.security.SecureRandom;
+import java.applet.Applet;
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
+import netscape.javascript.JSObject;
 
-@ObfuscatedName("ab")
+@ObfuscatedName("ap")
 @Implements("WorldMapIcon_1")
 public class WorldMapIcon_1 extends AbstractWorldMapIcon {
-	@ObfuscatedName("bc")
-	@ObfuscatedSignature(
-		signature = "Llh;"
-	)
-	static IndexedSprite field206;
-	@ObfuscatedName("dj")
-	@ObfuscatedSignature(
-		signature = "Lig;"
-	)
-	@Export("archive14")
-	static Archive archive14;
-	@ObfuscatedName("m")
+	@ObfuscatedName("ew")
 	@ObfuscatedGetter(
-		intValue = 1169931065
+		intValue = 1433563031
+	)
+	static int field212;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = -18311555
 	)
 	@Export("objectDefId")
 	final int objectDefId;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lap;"
+		descriptor = "Lal;"
 	)
 	@Export("region")
 	final WorldMapRegion region;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -278806663
+		intValue = -2141926567
 	)
 	@Export("element")
 	int element;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "Lar;"
+		descriptor = "Laq;"
 	)
 	@Export("label")
 	WorldMapLabel label;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -475422811
+		intValue = 578089951
 	)
 	@Export("subWidth")
 	int subWidth;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -463998497
+		intValue = -258563275
 	)
 	@Export("subHeight")
 	int subHeight;
 
 	@ObfuscatedSignature(
-		signature = "(Lhg;Lhg;ILap;)V"
+		descriptor = "(Lhg;Lhg;ILal;)V"
 	)
 	WorldMapIcon_1(Coord var1, Coord var2, int var3, WorldMapRegion var4) {
-		super(var1, var2);
-		this.objectDefId = var3;
-		this.region = var4;
-		this.init();
-	}
+		super(var1, var2); // L: 17
+		this.objectDefId = var3; // L: 18
+		this.region = var4; // L: 19
+		this.init(); // L: 20
+	} // L: 21
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "0"
+		descriptor = "(I)I",
+		garbageValue = "-1613828162"
 	)
 	@Export("getElement")
 	public int getElement() {
-		return this.element;
+		return this.element; // L: 39
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(B)Lar;",
-		garbageValue = "35"
+		descriptor = "(I)Laq;",
+		garbageValue = "499378708"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
-		return this.label;
+		return this.label; // L: 43
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "1804331962"
+		descriptor = "(I)I",
+		garbageValue = "182515130"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
 		return this.subWidth;
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1265869629"
+		descriptor = "(I)I",
+		garbageValue = "-2001682063"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
-		return this.subHeight;
+		return this.subHeight; // L: 51
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "19136800"
+		descriptor = "(I)V",
+		garbageValue = "1388314285"
 	)
 	@Export("init")
 	void init() {
-		this.element = Canvas.getObjectDefinition(this.objectDefId).transform().mapIconId;
-		this.label = this.region.createMapLabel(Client.WorldMapElement_get(this.element));
-		WorldMapElement var1 = Client.WorldMapElement_get(this.getElement());
-		Sprite var2 = var1.getSpriteBool(false);
-		if (var2 != null) {
-			this.subWidth = var2.subWidth;
-			this.subHeight = var2.subHeight;
+		this.element = MidiPcmStream.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
+		this.label = this.region.createMapLabel(WorldMapSection0.WorldMapElement_get(this.element)); // L: 25
+		WorldMapElement var1 = WorldMapSection0.WorldMapElement_get(this.getElement()); // L: 26
+		Sprite var2 = var1.getSpriteBool(false); // L: 27
+		if (var2 != null) { // L: 28
+			this.subWidth = var2.subWidth; // L: 29
+			this.subHeight = var2.subHeight; // L: 30
 		} else {
-			this.subWidth = 0;
-			this.subHeight = 0;
+			this.subWidth = 0; // L: 33
+			this.subHeight = 0; // L: 34
 		}
 
+	} // L: 36
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1482054985"
+	)
+	static void method377() {
+		WorldMapRegion.WorldMapRegion_cachedSprites.clear(); // L: 46
+	} // L: 47
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(II)I",
+		garbageValue = "-40638792"
+	)
+	@Export("getSceneXForObjectUnderMouse")
+	public static int getSceneXForObjectUnderMouse(int var0) {
+		return TileItem.Entity_unpackSceneX(ViewportMouse.ViewportMouse_entityTags[var0]);
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(I)Ljava/security/SecureRandom;",
-		garbageValue = "1486718795"
+		descriptor = "(Ljava/lang/String;ILjava/lang/String;B)Z",
+		garbageValue = "126"
 	)
-	static SecureRandom method348() {
-		SecureRandom var0 = new SecureRandom();
-		var0.nextInt();
-		return var0;
-	}
+	static boolean method380(String var0, int var1, String var2) {
+		if (var1 == 0) { // L: 61
+			try {
+				if (!class60.field451.startsWith("win")) { // L: 63
+					throw new Exception();
+				} else if (!var0.startsWith("http://") && !var0.startsWith("https://")) { // L: 64
+					throw new Exception();
+				} else {
+					String var11 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?&=,.%+-_#:/*"; // L: 65
 
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		signature = "([BIIIIIIILem;[Lfz;I)V",
-		garbageValue = "1704898412"
-	)
-	static final void method365(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, Scene var8, CollisionMap[] var9) {
-		Buffer var10 = new Buffer(var0);
-		int var11 = -1;
+					for (int var4 = 0; var4 < var0.length(); ++var4) { // L: 66
+						if (var11.indexOf(var0.charAt(var4)) == -1) { // L: 67
+							throw new Exception();
+						}
+					}
 
-		while (true) {
-			int var12 = var10.method5732();
-			if (var12 == 0) {
-				return;
+					Runtime.getRuntime().exec("cmd /c start \"j\" \"" + var0 + "\""); // L: 69
+					return true; // L: 70
+				}
+			} catch (Throwable var5) { // L: 72
+				return false; // L: 73
+			}
+		} else if (var1 == 1) { // L: 76
+			try {
+				Object var10 = class56.method899(class60.applet, var2, new Object[]{(new URL(class60.applet.getCodeBase(), var0)).toString()}); // L: 78
+				return var10 != null; // L: 79
+			} catch (Throwable var6) { // L: 81
+				return false; // L: 82
+			}
+		} else if (var1 == 2) { // L: 85
+			try {
+				class60.applet.getAppletContext().showDocument(new URL(class60.applet.getCodeBase(), var0), "_blank"); // L: 87
+				return true; // L: 88
+			} catch (Exception var7) { // L: 90
+				return false; // L: 91
+			}
+		} else if (var1 == 3) { // L: 94
+			try {
+				Applet var3 = class60.applet; // L: 96
+				JSObject.getWindow(var3).call("loggedout", (Object[])null); // L: 99
+			} catch (Throwable var9) { // L: 102
 			}
 
-			var11 += var12;
-			int var13 = 0;
-
-			while (true) {
-				int var14 = var10.readUShortSmart();
-				if (var14 == 0) {
-					break;
-				}
-
-				var13 += var14 - 1;
-				int var15 = var13 & 63;
-				int var16 = var13 >> 6 & 63;
-				int var17 = var13 >> 12;
-				int var18 = var10.readUnsignedByte();
-				int var19 = var18 >> 2;
-				int var20 = var18 & 3;
-				if (var17 == var4 && var16 >= var5 && var16 < var5 + 8 && var15 >= var6 && var15 < var6 + 8) {
-					ObjectDefinition var21 = Canvas.getObjectDefinition(var11);
-					int var24 = var16 & 7;
-					int var25 = var15 & 7;
-					int var27 = var21.sizeX;
-					int var28 = var21.sizeY;
-					int var29;
-					if ((var20 & 1) == 1) {
-						var29 = var27;
-						var27 = var28;
-						var28 = var29;
-					}
-
-					int var26 = var7 & 3;
-					int var23;
-					if (var26 == 0) {
-						var23 = var24;
-					} else if (var26 == 1) {
-						var23 = var25;
-					} else if (var26 == 2) {
-						var23 = 7 - var24 - (var27 - 1);
-					} else {
-						var23 = 7 - var25 - (var28 - 1);
-					}
-
-					var29 = var23 + var2;
-					int var32 = var16 & 7;
-					int var33 = var15 & 7;
-					int var35 = var21.sizeX;
-					int var36 = var21.sizeY;
-					int var37;
-					if ((var20 & 1) == 1) {
-						var37 = var35;
-						var35 = var36;
-						var36 = var37;
-					}
-
-					int var34 = var7 & 3;
-					int var31;
-					if (var34 == 0) {
-						var31 = var33;
-					} else if (var34 == 1) {
-						var31 = 7 - var32 - (var35 - 1);
-					} else if (var34 == 2) {
-						var31 = 7 - var33 - (var36 - 1);
-					} else {
-						var31 = var32;
-					}
-
-					var37 = var31 + var3;
-					if (var29 > 0 && var37 > 0 && var29 < 103 && var37 < 103) {
-						int var38 = var1;
-						if ((Tiles.Tiles_renderFlags[1][var29][var37] & 2) == 2) {
-							var38 = var1 - 1;
-						}
-
-						CollisionMap var39 = null;
-						if (var38 >= 0) {
-							var39 = var9[var38];
-						}
-
-						class41.method623(var1, var29, var37, var11, var20 + var7 & 3, var19, var8, var39);
-					}
-				}
+			try {
+				class60.applet.getAppletContext().showDocument(new URL(class60.applet.getCodeBase(), var0), "_top"); // L: 104
+				return true; // L: 105
+			} catch (Exception var8) { // L: 107
+				return false; // L: 108
 			}
+		} else {
+			throw new IllegalArgumentException(); // L: 111
 		}
 	}
+
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(ILcy;ZI)I",
+		garbageValue = "-1976803623"
+	)
+	static int method378(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? Canvas.field438 : class3.field12; // L: 1104
+		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) { // L: 1105
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.itemId; // L: 1106
+			return 1; // L: 1107
+		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) { // L: 1109
+			if (var3.itemId != -1) { // L: 1110
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.itemQuantity;
+			} else {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0; // L: 1111
+			}
+
+			return 1; // L: 1112
+		} else if (var0 == ScriptOpcodes.CC_GETID) { // L: 1114
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.childIndex; // L: 1115
+			return 1; // L: 1116
+		} else {
+			return 2; // L: 1118
+		}
+	}
+
+	@ObfuscatedName("go")
+	@ObfuscatedSignature(
+		descriptor = "(Lbs;I)V",
+		garbageValue = "777785142"
+	)
+	static final void method375(PendingSpawn var0) {
+		long var1 = 0L; // L: 6635
+		int var3 = -1; // L: 6636
+		int var4 = 0; // L: 6637
+		int var5 = 0; // L: 6638
+		if (var0.type == 0) { // L: 6639
+			var1 = ScriptEvent.scene.getBoundaryObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 1) { // L: 6640
+			var1 = ScriptEvent.scene.getWallDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 2) { // L: 6641
+			var1 = ScriptEvent.scene.getGameObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 3) { // L: 6642
+			var1 = ScriptEvent.scene.getFloorDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (0L != var1) { // L: 6643
+			int var6 = ScriptEvent.scene.getObjectFlags(var0.plane, var0.x, var0.y, var1); // L: 6644
+			var3 = UserComparator9.Entity_unpackID(var1); // L: 6645
+			var4 = var6 & 31; // L: 6646
+			var5 = var6 >> 6 & 3; // L: 6647
+		}
+
+		var0.objectId = var3; // L: 6649
+		var0.field961 = var4; // L: 6650
+		var0.field960 = var5; // L: 6651
+	} // L: 6652
 }

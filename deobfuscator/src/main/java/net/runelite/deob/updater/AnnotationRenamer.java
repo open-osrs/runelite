@@ -29,8 +29,8 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
-import net.runelite.asm.attributes.Annotations;
-import net.runelite.asm.attributes.annotation.Annotation;
+import net.runelite.asm.Annotation;
+import net.runelite.asm.attributes.Annotated;
 import net.runelite.deob.DeobAnnotations;
 import net.runelite.deob.deobfuscators.Renamer;
 import net.runelite.deob.util.NameMappings;
@@ -58,20 +58,20 @@ public class AnnotationRenamer
 
 		for (ClassFile cf : group.getClasses())
 		{
-			String name = getImplements(cf.getAnnotations());
+			String name = getImplements(cf);
 			if (name != null)
 				mappings.map(cf.getPoolClass(), name);
 
 			for (Field f : cf.getFields())
 			{
-				name = DeobAnnotations.getExportedName(f.getAnnotations());
+				name = DeobAnnotations.getExportedName(f);
 				if (name != null)
 					mappings.map(f.getPoolField(), name);
 			}
 
 			for (Method m : cf.getMethods())
 			{
-				name = DeobAnnotations.getExportedName(m.getAnnotations());
+				name = DeobAnnotations.getExportedName(m);
 				if (name != null)
 					mappings.map(m.getPoolMethod(), name);
 			}
@@ -80,9 +80,9 @@ public class AnnotationRenamer
 		return mappings;
 	}
 
-	private String getImplements(Annotations annotations)
+	private String getImplements(Annotated cf)
 	{
-		Annotation an = annotations.find(DeobAnnotations.IMPLEMENTS);
-		return an != null ? an.getElement().getString() : null;
+		Annotation an = cf.findAnnotation(DeobAnnotations.IMPLEMENTS);
+		return an == null ? null : an.getValueString();
 	}
 }

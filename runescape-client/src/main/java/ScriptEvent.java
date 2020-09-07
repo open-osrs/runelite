@@ -4,210 +4,158 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bu")
+@ObfuscatedName("by")
 @Implements("ScriptEvent")
 public class ScriptEvent extends Node {
-	@ObfuscatedName("ri")
+	@ObfuscatedName("sz")
 	@ObfuscatedGetter(
-		intValue = 1137606481
+		intValue = 1903848297
 	)
-	static int field604;
+	@Export("foundItemIndex")
+	static int foundItemIndex;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "Llh;"
+		descriptor = "Lkr;"
 	)
-	static IndexedSprite field597;
-	@ObfuscatedName("az")
+	@Export("ItemDefinition_fontPlain11")
+	static Font ItemDefinition_fontPlain11;
+	@ObfuscatedName("dq")
+	@Export("mouseCam")
+	static boolean mouseCam;
+	@ObfuscatedName("gb")
+	@ObfuscatedSignature(
+		descriptor = "Lec;"
+	)
+	@Export("scene")
+	static Scene scene;
+	@ObfuscatedName("gy")
 	@ObfuscatedGetter(
-		intValue = -2018552551
+		intValue = -1883417759
 	)
-	static int field606;
-	@ObfuscatedName("m")
+	static int field597;
+	@ObfuscatedName("z")
 	@Export("args")
 	Object[] args;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhq;"
 	)
 	@Export("widget")
 	Widget widget;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1176492869
+		intValue = -2100516553
 	)
 	@Export("mouseX")
 	int mouseX;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1543053859
+		intValue = 1832434813
 	)
 	@Export("mouseY")
 	int mouseY;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1384344567
+		intValue = -720675073
 	)
 	@Export("opIndex")
 	int opIndex;
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Lhd;"
+		descriptor = "Lhq;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
-	@ObfuscatedName("u")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 710326963
+		intValue = 1621651451
 	)
 	@Export("keyTyped")
 	int keyTyped;
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -649367947
+		intValue = -582654831
 	)
 	@Export("keyPressed")
 	int keyPressed;
-	@ObfuscatedName("z")
+	@ObfuscatedName("m")
 	@Export("targetName")
 	String targetName;
-	@ObfuscatedName("w")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1551673037
+		intValue = -735061669
 	)
-	int field600;
-	@ObfuscatedName("y")
+	int field593;
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1226589713
+		intValue = 926169729
 	)
 	@Export("type")
 	int type;
 
 	public ScriptEvent() {
-		this.type = 76;
+		this.type = 76; // L: 19
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "([Ljava/lang/Object;I)V",
-		garbageValue = "-2050703759"
+		descriptor = "([Ljava/lang/Object;I)V",
+		garbageValue = "-1399912972"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
-		this.args = var1;
-	}
+		this.args = var1; // L: 22
+	} // L: 23
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
-		garbageValue = "20"
+		descriptor = "(II)V",
+		garbageValue = "-802645814"
 	)
 	@Export("setType")
 	public void setType(int var1) {
 		this.type = var1;
 	}
 
-	@ObfuscatedName("m")
-	public static final int method1235(double var0, double var2, double var4) {
-		double var6 = var4;
-		double var8 = var4;
-		double var10 = var4;
-		if (0.0D != var2) {
-			double var12;
-			if (var4 < 0.5D) {
-				var12 = var4 * (1.0D + var2);
-			} else {
-				var12 = var2 + var4 - var2 * var4;
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(Lkf;B)Ljava/lang/String;",
+		garbageValue = "-64"
+	)
+	public static String method1235(Buffer var0) {
+		String var1;
+		try {
+			int var2 = var0.readUShortSmart(); // L: 25
+			if (var2 > 32767) { // L: 26
+				var2 = 32767;
 			}
 
-			double var14 = 2.0D * var4 - var12;
-			double var16 = var0 + 0.3333333333333333D;
-			if (var16 > 1.0D) {
-				--var16;
-			}
-
-			double var20 = var0 - 0.3333333333333333D;
-			if (var20 < 0.0D) {
-				++var20;
-			}
-
-			if (6.0D * var16 < 1.0D) {
-				var6 = var16 * (var12 - var14) * 6.0D + var14;
-			} else if (2.0D * var16 < 1.0D) {
-				var6 = var12;
-			} else if (3.0D * var16 < 2.0D) {
-				var6 = (0.6666666666666666D - var16) * (var12 - var14) * 6.0D + var14;
-			} else {
-				var6 = var14;
-			}
-
-			if (var0 * 6.0D < 1.0D) {
-				var8 = var14 + var0 * 6.0D * (var12 - var14);
-			} else if (2.0D * var0 < 1.0D) {
-				var8 = var12;
-			} else if (var0 * 3.0D < 2.0D) {
-				var8 = (var12 - var14) * (0.6666666666666666D - var0) * 6.0D + var14;
-			} else {
-				var8 = var14;
-			}
-
-			if (6.0D * var20 < 1.0D) {
-				var10 = var14 + var20 * 6.0D * (var12 - var14);
-			} else if (2.0D * var20 < 1.0D) {
-				var10 = var12;
-			} else if (3.0D * var20 < 2.0D) {
-				var10 = (0.6666666666666666D - var20) * (var12 - var14) * 6.0D + var14;
-			} else {
-				var10 = var14;
-			}
+			byte[] var3 = new byte[var2]; // L: 27
+			var0.offset += class219.huffman.decompress(var0.array, var0.offset, var3, 0, var2); // L: 28
+			String var4 = SpotAnimationDefinition.decodeStringCp1252(var3, 0, var2); // L: 29
+			var1 = var4; // L: 30
+		} catch (Exception var6) { // L: 32
+			var1 = "Cabbage"; // L: 33
 		}
 
-		int var22 = (int)(256.0D * var6);
-		int var13 = (int)(var8 * 256.0D);
-		int var23 = (int)(var10 * 256.0D);
-		int var15 = var23 + (var13 << 8) + (var22 << 16);
-		return var15;
+		return var1; // L: 36
 	}
 
-	@ObfuscatedName("fv")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		signature = "(II)V",
-		garbageValue = "303339948"
+		descriptor = "(CII)Ljava/lang/String;",
+		garbageValue = "-1474859384"
 	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field886 = 0L;
-		if (var0 >= 2) {
-			Client.isResizable = true;
-		} else {
-			Client.isResizable = false;
+	static String method1236(char var0, int var1) {
+		char[] var2 = new char[var1]; // L: 173
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 174
+			var2[var3] = var0;
 		}
 
-		if (class58.getWindowedMode() == 1) {
-			WorldMapSectionType.client.setMaxCanvasSize(765, 503);
-		} else {
-			WorldMapSectionType.client.setMaxCanvasSize(7680, 2160);
-		}
-
-		if (Client.gameState >= 25) {
-			PacketBufferNode var1 = UserComparator4.getPacketBufferNode(ClientPacket.field2279, Client.packetWriter.isaacCipher);
-			var1.packetBuffer.writeByte(class58.getWindowedMode());
-			var1.packetBuffer.writeShort(Varcs.canvasWidth);
-			var1.packetBuffer.writeShort(class52.canvasHeight);
-			Client.packetWriter.addNode(var1);
-		}
-
-	}
-
-	@ObfuscatedName("hs")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;Ljava/lang/String;IIIII)V",
-		garbageValue = "-1977726761"
-	)
-	@Export("insertMenuItemNoShift")
-	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
-		ApproximateRouteStrategy.insertMenuItem(var0, var1, var2, var3, var4, var5, false);
+		return new String(var2); // L: 175
 	}
 }

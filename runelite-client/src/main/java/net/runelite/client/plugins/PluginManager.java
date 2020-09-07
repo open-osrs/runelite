@@ -80,6 +80,7 @@ import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.RuneLiteSplashScreen;
 import net.runelite.client.util.GameEventManager;
 import net.runelite.client.util.Groups;
+import net.runelite.client.util.SwingUtil;
 import org.jgroups.Message;
 import org.pf4j.Extension;
 
@@ -291,6 +292,7 @@ public class PluginManager
 			log.warn("Unable to reset plugin configuration", ex);
 		}
 	}
+
 	public void loadCorePlugins() throws IOException
 	{
 		plugins.addAll(scanAndInstantiate(getClass().getClassLoader(), PLUGIN_PACKAGE, false));
@@ -416,44 +418,44 @@ public class PluginManager
 
 		final long start = System.currentTimeMillis();
 
-			List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
-			sortedPlugins.forEach(group ->
-			{
-				List<Future<?>> curGroup = new ArrayList<>();
-				group.forEach(pluginClazz ->
-					curGroup.add(executorService.submit(() ->
-					{
-						Plugin plugin;
-						try
-						{
-							plugin = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz);
-							scannedPlugins.add(plugin);
-						}
-						catch (PluginInstantiationException e)
-						{
-							log.warn("Error instantiating plugin!", e);
-							return;
-						}
-
-						loaded.getAndIncrement();
-
-						RuneLiteSplashScreen.stage(.60, .65, "Loading internal plugins", loaded.get(), scannedPlugins.size());
-					})));
-				curGroup.forEach(future ->
+		List<Plugin> scannedPlugins = new CopyOnWriteArrayList<>();
+		sortedPlugins.forEach(group ->
+		{
+			List<Future<?>> curGroup = new ArrayList<>();
+			group.forEach(pluginClazz ->
+				curGroup.add(executorService.submit(() ->
 				{
+					Plugin plugin;
 					try
 					{
-						future.get();
+						plugin = instantiate(scannedPlugins, (Class<Plugin>) pluginClazz);
+						scannedPlugins.add(plugin);
 					}
-					catch (InterruptedException | ExecutionException e)
+					catch (PluginInstantiationException e)
 					{
-						e.printStackTrace();
+						log.warn("Error instantiating plugin!", e);
+						return;
 					}
-				});
-			});
 
-			log.info("Plugin instantiation took {}ms", System.currentTimeMillis() - start);
-			return scannedPlugins;
+					loaded.getAndIncrement();
+
+					RuneLiteSplashScreen.stage(.60, .65, "Loading internal plugins", loaded.get(), scannedPlugins.size());
+				})));
+			curGroup.forEach(future ->
+			{
+				try
+				{
+					future.get();
+				}
+				catch (InterruptedException | ExecutionException e)
+				{
+					e.printStackTrace();
+				}
+			});
+		});
+
+		log.info("Plugin instantiation took {}ms", System.currentTimeMillis() - start);
+		return scannedPlugins;
 	}
 
 	public boolean startPlugin(Plugin plugin) throws PluginInstantiationException
@@ -764,29 +766,47 @@ public class PluginManager
 		switch (command)
 		{
 			case "STARTPLUGIN":
-
 				try
 				{
-					startPlugin(finalPlugin);
+					SwingUtil.syncExec(() ->
+					{
+						try
+						{
+							startPlugin(finalPlugin);
+						}
+						catch (PluginInstantiationException e)
+						{
+							log.warn("unable to start plugin", e);
+							throw new RuntimeException(e);
+						}
+					});
 				}
-				catch (PluginInstantiationException e)
+				catch (InvocationTargetException | InterruptedException e)
 				{
-					log.warn("unable to start plugin", e);
-					throw new RuntimeException(e);
+					log.error("eh?");
 				}
 
 				break;
 
 			case "STOPPLUGIN":
-
 				try
 				{
-					stopPlugin(finalPlugin);
+					SwingUtil.syncExec(() ->
+					{
+						try
+						{
+							stopPlugin(finalPlugin);
+						}
+						catch (PluginInstantiationException e)
+						{
+							log.warn("unable to stop plugin", e);
+							throw new RuntimeException(e);
+						}
+					});
 				}
-				catch (PluginInstantiationException e)
+				catch (InvocationTargetException | InterruptedException e)
 				{
-					log.warn("unable to stop plugin", e);
-					throw new RuntimeException(e);
+					log.error("eh?");
 				}
 
 				break;

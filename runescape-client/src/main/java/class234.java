@@ -1,28 +1,25 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ia")
 public class class234 {
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		signature = "Lko;"
+	@ObfuscatedName("d")
+	@ObfuscatedGetter(
+		intValue = 710753405
 	)
-	@Export("ItemDefinition_fontPlain11")
-	static Font ItemDefinition_fontPlain11;
-	@ObfuscatedName("s")
-	static String[] field3096;
+	static int field3100;
 
-	@ObfuscatedName("jd")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I)V",
-		garbageValue = "-750902552"
+		descriptor = "(Lic;Ljava/lang/String;Ljava/lang/String;I)Lls;",
+		garbageValue = "246084812"
 	)
-	@Export("invalidateWidget")
-	static void invalidateWidget(Widget var0) {
-		if (var0.cycle == Client.field877) {
-			Client.field813[var0.rootIndex] = true;
-		}
-
+	@Export("SpriteBuffer_getIndexedSpriteByName")
+	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
+		int var3 = var0.getGroupId(var1); // L: 142
+		int var4 = var0.getFileId(var3, var2); // L: 143
+		return WorldMapRegion.method611(var0, var3, var4); // L: 144
 	}
 }

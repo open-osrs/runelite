@@ -1,52 +1,23 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ho")
+@ObfuscatedName("hr")
 public class class228 {
-	@ObfuscatedName("se")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "Lma;"
+		descriptor = "(Ljava/lang/CharSequence;II)I",
+		garbageValue = "-541975328"
 	)
-	@Export("worldMap")
-	static WorldMap worldMap;
-	@ObfuscatedName("bn")
+	public static int method4190(CharSequence var0, int var1) {
+		return UserComparator7.parseIntCustomRadix(var0, var1, true); // L: 71
+	}
+
+	@ObfuscatedName("bj")
 	@ObfuscatedSignature(
-		signature = "[Llh;"
+		descriptor = "(Ljava/lang/String;I)I",
+		garbageValue = "1840634740"
 	)
-	@Export("worldSelectStars")
-	static IndexedSprite[] worldSelectStars;
-	@ObfuscatedName("bc")
-	@ObfuscatedGetter(
-		intValue = 1895952065
-	)
-	static int field2754;
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		signature = "(ILlp;Lig;B)V",
-		garbageValue = "-8"
-	)
-	static void method4262(int var0, ArchiveDisk var1, Archive var2) {
-		ArchiveDiskAction var3 = new ArchiveDiskAction();
-		var3.type = 1;
-		var3.key = (long)var0;
-		var3.archiveDisk = var1;
-		var3.archive = var2;
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
-			ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.addFirst(var3);
-		}
-
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) {
-			if (ArchiveDiskActionHandler.field3181 == 0) {
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler());
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setDaemon(true);
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.start();
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setPriority(5);
-			}
-
-			ArchiveDiskActionHandler.field3181 = 600;
-		}
+	public static int method4189(String var0) {
+		return var0.length() + 2; // L: 130
 	}
 }

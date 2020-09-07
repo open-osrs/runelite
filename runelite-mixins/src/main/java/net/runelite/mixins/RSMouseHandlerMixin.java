@@ -18,28 +18,8 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 	@Inject
 	private int isInEvent;
 
-	@Copy("mousePressed")
-	abstract void rs$mousePressed(MouseEvent mouseEvent);
-
-	@Copy("mouseReleased")
-	abstract void rs$mouseReleased(MouseEvent mouseEvent);
-
-	@Copy("mouseClicked")
-	abstract void rs$mouseClicked(MouseEvent mouseEvent);
-
-	@Copy("mouseEntered")
-	abstract void rs$mouseEntered(MouseEvent mouseEvent);
-
-	@Copy("mouseExited")
-	abstract void rs$mouseExited(MouseEvent mouseEvent);
-
-	@Copy("mouseDragged")
-	abstract void rs$mouseDragged(MouseEvent mouseEvent);
-
-	@Copy("mouseMoved")
-	abstract void rs$mouseMoved(MouseEvent mouseEvent);
-
 	@Override
+	@Copy("mousePressed")
 	@Replace("mousePressed")
 	public synchronized void mousePressed(MouseEvent mouseEvent)
 	{
@@ -52,7 +32,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 			isInEvent++;
 			try
 			{
-				rs$mousePressed(mouseEvent);
+				mousePressed(mouseEvent);
 			}
 			finally
 			{
@@ -62,6 +42,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 	}
 
 	@Override
+	@Copy("mouseReleased")
 	@Replace("mouseReleased")
 	public synchronized void mouseReleased(MouseEvent mouseEvent)
 	{
@@ -74,7 +55,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 			isInEvent++;
 			try
 			{
-				rs$mouseReleased(mouseEvent);
+				mouseReleased(mouseEvent);
 			}
 			finally
 			{
@@ -84,17 +65,19 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 	}
 
 	@Override
+	@Copy("mouseClicked")
 	@Replace("mouseClicked")
 	public void mouseClicked(MouseEvent event)
 	{
 		event = client.getCallbacks().mouseClicked(event);
 		if (!event.isConsumed())
 		{
-			rs$mouseClicked(event);
+			mouseClicked(event);
 		}
 	}
 
 	@Override
+	@Copy("mouseEntered")
 	@Replace("mouseEntered")
 	public synchronized void mouseEntered(MouseEvent mouseEvent)
 	{
@@ -107,7 +90,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 			isInEvent++;
 			try
 			{
-				rs$mouseEntered(mouseEvent);
+				mouseEntered(mouseEvent);
 			}
 			finally
 			{
@@ -118,6 +101,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 
 
 	@Override
+	@Copy("mouseExited")
 	@Replace("mouseExited")
 	public synchronized void mouseExited(MouseEvent mouseEvent)
 	{
@@ -130,7 +114,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 			isInEvent++;
 			try
 			{
-				rs$mouseExited(mouseEvent);
+				mouseExited(mouseEvent);
 			}
 			finally
 			{
@@ -140,6 +124,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 	}
 
 	@Override
+	@Copy("mouseDragged")
 	@Replace("mouseDragged")
 	public synchronized void mouseDragged(MouseEvent mouseEvent)
 	{
@@ -152,7 +137,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 			isInEvent++;
 			try
 			{
-				rs$mouseDragged(mouseEvent);
+				mouseDragged(mouseEvent);
 			}
 			finally
 			{
@@ -162,6 +147,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 	}
 
 	@Override
+	@Copy("mouseMoved")
 	@Replace("mouseMoved")
 	public synchronized void mouseMoved(MouseEvent mouseEvent)
 	{
@@ -174,7 +160,7 @@ public abstract class RSMouseHandlerMixin implements RSMouseHandler
 			isInEvent++;
 			try
 			{
-				rs$mouseMoved(mouseEvent);
+				mouseMoved(mouseEvent);
 			}
 			finally
 			{

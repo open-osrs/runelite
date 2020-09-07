@@ -6,137 +6,200 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ge")
+@ObfuscatedName("gy")
 @Implements("ModeWhere")
 public enum ModeWhere implements Enumerated {
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2412("", 0, new class200[]{class200.field2399}),
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2414("", 1, new class200[]{class200.field2398, class200.field2399}),
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2404("", 2, new class200[]{class200.field2398, class200.field2400, class200.field2399}),
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2405("", 3, new class200[]{class200.field2398}),
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2403("", 4),
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2406("", 5, new class200[]{class200.field2398, class200.field2399}),
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2408("", 6, new class200[]{class200.field2399}),
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2409("", 8, new class200[]{class200.field2398, class200.field2399}),
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		signature = "Lge;"
-	)
-	field2402("", 9, new class200[]{class200.field2398, class200.field2400}),
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lgy;"
 	)
-	field2411("", 10, new class200[]{class200.field2398}),
+	field2413("", 0, new class200[]{class200.field2401}),
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2405("", 1, new class200[]{class200.field2399, class200.field2401}),
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2406("", 2, new class200[]{class200.field2399, class200.field2402, class200.field2401}),
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2407("", 3, new class200[]{class200.field2399}),
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2409("", 4),
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2416("", 5, new class200[]{class200.field2399, class200.field2401}),
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2410("", 6, new class200[]{class200.field2401}),
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lgy;"
 	)
-	field2410("", 11, new class200[]{class200.field2398}),
-	@ObfuscatedName("y")
+	field2411("", 8, new class200[]{class200.field2399, class200.field2401}),
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lgy;"
 	)
-	field2413("", 12, new class200[]{class200.field2398, class200.field2399}),
-	@ObfuscatedName("c")
+	field2408("", 9, new class200[]{class200.field2399, class200.field2402}),
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		signature = "Lge;"
+		descriptor = "Lgy;"
 	)
-	field2418("", 13, new class200[]{class200.field2398});
-
-	@ObfuscatedName("sw")
+	field2404("", 10, new class200[]{class200.field2399}),
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		signature = "Lcg;"
+		descriptor = "Lgy;"
 	)
-	@Export("friendSystem")
-	public static FriendSystem friendSystem;
+	field2414("", 11, new class200[]{class200.field2399}),
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2415("", 12, new class200[]{class200.field2399, class200.field2401}),
 	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Lgy;"
+	)
+	field2412("", 13, new class200[]{class200.field2399});
+
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1475259781
+		intValue = 1536594685
 	)
 	@Export("id")
 	final int id;
-	@ObfuscatedName("k")
-	final Set field2416;
+	@ObfuscatedName("q")
+	final Set field2418;
+
+	static {
+		method3771(); // L: 28
+	} // L: 29
 
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I[Lgi;)V"
+		descriptor = "(Ljava/lang/String;I[Lgl;)V"
 	)
 	ModeWhere(String var3, int var4, class200[] var5) {
-		this.field2416 = new HashSet();
-		this.id = var4;
-		class200[] var6 = var5;
+		this.field2418 = new HashSet();
+		this.id = var4; // L: 43
+		class200[] var6 = var5; // L: 45
 
-		for (int var7 = 0; var7 < var6.length; ++var7) {
-			class200 var8 = var6[var7];
-			this.field2416.add(var8);
+		for (int var7 = 0; var7 < var6.length; ++var7) { // L: 46
+			class200 var8 = var6[var7]; // L: 47
+			this.field2418.add(var8); // L: 48
 		}
 
-	}
+	} // L: 51
 
 	ModeWhere(String var3, int var4) {
-		this.field2416 = new HashSet();
-		this.id = var4;
+		this.field2418 = new HashSet();
+		this.id = var4; // L: 39
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-995092303"
+		descriptor = "(I)I",
+		garbageValue = "385513888"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 54
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(ZZI)I",
-		garbageValue = "57776207"
+		descriptor = "(I)[Lgy;",
+		garbageValue = "-1051683174"
 	)
-	public static int method3809(boolean var0, boolean var1) {
-		byte var2 = 0;
-		int var3 = var2 + NetCache.NetCache_pendingPriorityResponsesCount + NetCache.NetCache_pendingPriorityWritesCount;
-		return var3;
+	static ModeWhere[] method3771() {
+		return new ModeWhere[]{field2411, field2407, field2404, field2408, field2409, field2414, field2412, field2415, field2406, field2413, field2410, field2405, field2416};
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(CB)Z",
-		garbageValue = "51"
+		descriptor = "(I)V",
+		garbageValue = "166019854"
 	)
-	static boolean method3810(char var0) {
-		return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".indexOf(var0) != -1;
+	static void method3772() {
+		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 30
+			if (var0.stream1 != null) { // L: 31
+				Players.pcmStreamMixer.removeSubStream(var0.stream1); // L: 32
+				var0.stream1 = null; // L: 33
+			}
+
+			if (var0.stream2 != null) { // L: 35
+				Players.pcmStreamMixer.removeSubStream(var0.stream2); // L: 36
+				var0.stream2 = null; // L: 37
+			}
+		}
+
+		ObjectSound.objectSounds.clear(); // L: 40
+	} // L: 41
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(I)Lfa;",
+		garbageValue = "-839194319"
+	)
+	public static Clock method3761() {
+		try {
+			return new NanoClock(); // L: 8
+		} catch (Throwable var1) { // L: 10
+			return new MilliClock(); // L: 11
+		}
+	}
+
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "(IZI)Ljava/lang/String;",
+		garbageValue = "1007074370"
+	)
+	@Export("intToString")
+	public static String intToString(int var0, boolean var1) {
+		if (var1 && var0 >= 0) { // L: 105
+			int var3 = var0; // L: 107
+			String var2;
+			if (var1 && var0 >= 0) { // L: 110
+				int var4 = 2; // L: 114
+
+				for (int var5 = var0 / 10; var5 != 0; ++var4) { // L: 115 116 118
+					var5 /= 10; // L: 117
+				}
+
+				char[] var6 = new char[var4]; // L: 120
+				var6[0] = '+'; // L: 121
+
+				for (int var7 = var4 - 1; var7 > 0; --var7) { // L: 122
+					int var8 = var3; // L: 123
+					var3 /= 10; // L: 124
+					int var9 = var8 - var3 * 10; // L: 125
+					if (var9 >= 10) { // L: 126
+						var6[var7] = (char)(var9 + 87);
+					} else {
+						var6[var7] = (char)(var9 + 48); // L: 127
+					}
+				}
+
+				var2 = new String(var6); // L: 129
+			} else {
+				var2 = Integer.toString(var0, 10); // L: 111
+			}
+
+			return var2; // L: 131
+		} else {
+			return Integer.toString(var0);
+		}
 	}
 }

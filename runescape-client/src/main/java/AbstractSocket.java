@@ -4,57 +4,70 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lj")
+@ObfuscatedName("ln")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
 	protected AbstractSocket() {
-	}
+	} // L: 7
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-768493590"
+		descriptor = "(I)V",
+		garbageValue = "-147773206"
 	)
 	@Export("close")
 	public abstract void close();
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(B)I",
-		garbageValue = "-8"
+		descriptor = "(B)I",
+		garbageValue = "-99"
 	)
 	@Export("readUnsignedByte")
 	public abstract int readUnsignedByte() throws IOException;
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-1942767880"
+		descriptor = "(B)I",
+		garbageValue = "12"
 	)
 	@Export("available")
 	public abstract int available() throws IOException;
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(II)Z",
-		garbageValue = "1355091335"
+		descriptor = "(IB)Z",
+		garbageValue = "-78"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "([BIIB)I",
-		garbageValue = "37"
+		descriptor = "([BIII)I",
+		garbageValue = "-1533815985"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "([BIIB)V",
-		garbageValue = "-105"
+		descriptor = "([BIIB)V",
+		garbageValue = "52"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
+
+	@ObfuscatedName("hs")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "1292618906"
+	)
+	@Export("resumePauseWidget")
+	static void resumePauseWidget(int var0, int var1) {
+		PacketBufferNode var2 = Client.getPacketBufferNode(ClientPacket.field2276, Client.packetWriter.isaacCipher); // L: 8130
+		var2.packetBuffer.method5654(var1); // L: 8131
+		var2.packetBuffer.method5663(var0); // L: 8132
+		Client.packetWriter.addNode(var2); // L: 8133
+	} // L: 8134
 }

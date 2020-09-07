@@ -4,362 +4,244 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cr")
+@ObfuscatedName("cb")
 @Implements("DynamicObject")
 public class DynamicObject extends Entity {
-	@ObfuscatedName("m")
+	@ObfuscatedName("fo")
+	@ObfuscatedSignature(
+		descriptor = "Lkr;"
+	)
+	@Export("fontPlain11")
+	static Font fontPlain11;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 909997849
+		intValue = -992554479
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 2017652637
+		intValue = -224037215
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1099859107
+		intValue = -1337748479
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1395519623
+		intValue = 719138669
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1502042193
+		intValue = 1011089507
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1335019499
+		intValue = -1704315949
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		signature = "Ljm;"
+		descriptor = "Ljm;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("u")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 521544259
+		intValue = -791329731
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1788666009
+		intValue = -1556832647
 	)
 	@Export("cycleStart")
 	int cycleStart;
 
 	@ObfuscatedSignature(
-		signature = "(IIIIIIIZLel;)V"
+		descriptor = "(IIIIIIIZLez;)V"
 	)
 	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Entity var9) {
-		this.id = var1;
-		this.type = var2;
-		this.orientation = var3;
-		this.plane = var4;
-		this.x = var5;
-		this.y = var6;
-		if (var7 != -1) {
-			this.sequenceDefinition = NetSocket.SequenceDefinition_get(var7);
-			this.frame = 0;
-			this.cycleStart = Client.cycle - 1;
-			if (this.sequenceDefinition.field3561 == 0 && var9 != null && var9 instanceof DynamicObject) {
-				DynamicObject var10 = (DynamicObject)var9;
-				if (this.sequenceDefinition == var10.sequenceDefinition) {
-					this.frame = var10.frame;
-					this.cycleStart = var10.cycleStart;
-					return;
+		this.id = var1; // L: 20
+		this.type = var2; // L: 21
+		this.orientation = var3; // L: 22
+		this.plane = var4; // L: 23
+		this.x = var5; // L: 24
+		this.y = var6; // L: 25
+		if (var7 != -1) { // L: 26
+			this.sequenceDefinition = WorldMapRegion.SequenceDefinition_get(var7); // L: 27
+			this.frame = 0; // L: 28
+			this.cycleStart = Client.cycle - 1; // L: 29
+			if (this.sequenceDefinition.field3535 == 0 && var9 != null && var9 instanceof DynamicObject) { // L: 30
+				DynamicObject var10 = (DynamicObject)var9; // L: 31
+				if (this.sequenceDefinition == var10.sequenceDefinition) { // L: 32
+					this.frame = var10.frame; // L: 33
+					this.cycleStart = var10.cycleStart; // L: 34
+					return; // L: 35
 				}
 			}
 
-			if (var8 && this.sequenceDefinition.frameCount != -1) {
-				this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length);
-				this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]);
+			if (var8 && this.sequenceDefinition.frameCount != -1) { // L: 38
+				this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length); // L: 39
+				this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]); // L: 40
 			}
 		}
 
-	}
+	} // L: 43
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Lef;",
-		garbageValue = "1832696685"
+		descriptor = "(I)Ler;",
+		garbageValue = "-2026237468"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		if (this.sequenceDefinition != null) {
-			int var1 = Client.cycle - this.cycleStart;
-			if (var1 > 100 && this.sequenceDefinition.frameCount > 0) {
+		if (this.sequenceDefinition != null) { // L: 46
+			int var1 = Client.cycle - this.cycleStart; // L: 47
+			if (var1 > 100 && this.sequenceDefinition.frameCount > 0) { // L: 48
 				var1 = 100;
 			}
 
-			label55: {
+			label54: {
 				do {
 					do {
-						if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) {
-							break label55;
+						if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) { // L: 49
+							break label54;
 						}
 
-						var1 -= this.sequenceDefinition.frameLengths[this.frame];
-						++this.frame;
-					} while(this.frame < this.sequenceDefinition.frameIds.length);
+						var1 -= this.sequenceDefinition.frameLengths[this.frame]; // L: 50
+						++this.frame; // L: 51
+					} while(this.frame < this.sequenceDefinition.frameIds.length); // L: 52
 
-					this.frame -= this.sequenceDefinition.frameCount;
-				} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length);
+					this.frame -= this.sequenceDefinition.frameCount; // L: 53
+				} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length); // L: 54
 
-				this.sequenceDefinition = null;
+				this.sequenceDefinition = null; // L: 55
 			}
 
-			this.cycleStart = Client.cycle - var1;
+			this.cycleStart = Client.cycle - var1; // L: 60
 		}
 
-		ObjectDefinition var12 = Canvas.getObjectDefinition(this.id);
-		if (var12.transforms != null) {
+		ObjectDefinition var12 = MidiPcmStream.getObjectDefinition(this.id); // L: 62
+		if (var12.transforms != null) { // L: 63
 			var12 = var12.transform();
 		}
 
-		if (var12 == null) {
+		if (var12 == null) { // L: 64
 			return null;
 		} else {
 			int var2;
 			int var3;
-			if (this.orientation != 1 && this.orientation != 3) {
-				var2 = var12.sizeX;
-				var3 = var12.sizeY;
+			if (this.orientation != 1 && this.orientation != 3) { // L: 67
+				var2 = var12.sizeX; // L: 72
+				var3 = var12.sizeY; // L: 73
 			} else {
-				var2 = var12.sizeY;
-				var3 = var12.sizeX;
+				var2 = var12.sizeY; // L: 68
+				var3 = var12.sizeX; // L: 69
 			}
 
-			int var4 = (var2 >> 1) + this.x;
-			int var5 = (var2 + 1 >> 1) + this.x;
-			int var6 = (var3 >> 1) + this.y;
-			int var7 = (var3 + 1 >> 1) + this.y;
-			int[][] var8 = Tiles.Tiles_heights[this.plane];
-			int var9 = var8[var5][var7] + var8[var5][var6] + var8[var4][var6] + var8[var4][var7] >> 2;
-			int var10 = (this.x << 7) + (var2 << 6);
-			int var11 = (this.y << 7) + (var3 << 6);
-			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame);
+			int var4 = (var2 >> 1) + this.x; // L: 75
+			int var5 = (var2 + 1 >> 1) + this.x; // L: 76
+			int var6 = (var3 >> 1) + this.y; // L: 77
+			int var7 = (var3 + 1 >> 1) + this.y; // L: 78
+			int[][] var8 = Tiles.Tiles_heights[this.plane]; // L: 79
+			int var9 = var8[var4][var7] + var8[var4][var6] + var8[var5][var6] + var8[var5][var7] >> 2; // L: 80
+			int var10 = (this.x << 7) + (var2 << 6); // L: 81
+			int var11 = (this.y << 7) + (var3 << 6); // L: 82
+			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame); // L: 83
 		}
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(II)I",
-		garbageValue = "1062154046"
+		descriptor = "(Lkf;IIIIIIB)V",
+		garbageValue = "24"
 	)
-	public static int method2375(int var0) {
-		var0 = (var0 & 1431655765) + (var0 >>> 1 & 1431655765);
-		var0 = (var0 >>> 2 & 858993459) + (var0 & 858993459);
-		var0 = var0 + (var0 >>> 4) & 252645135;
-		var0 += var0 >>> 8;
-		var0 += var0 >>> 16;
-		return var0 & 255;
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "(Lkb;I)V",
-		garbageValue = "1312322364"
-	)
-	static final void method2373(PacketBuffer var0) {
-		int var1 = 0;
-		var0.importIndex();
-
-		byte[] var10000;
-		int var2;
-		int var3;
-		int var4;
-		int var6;
+	@Export("loadTerrain")
+	static final void loadTerrain(Buffer var0, int var1, int var2, int var3, int var4, int var5, int var6) {
 		int var7;
-		for (var2 = 0; var2 < Players.Players_count; ++var2) {
-			var3 = Players.Players_indices[var2];
-			if ((Players.field1282[var3] & 1) == 0) {
-				if (var1 > 0) {
-					--var1;
-					var10000 = Players.field1282;
-					var10000[var3] = (byte)(var10000[var3] | 2);
-				} else {
-					var4 = var0.readBits(1);
-					if (var4 == 0) {
-						var6 = var0.readBits(2);
-						if (var6 == 0) {
-							var7 = 0;
-						} else if (var6 == 1) {
-							var7 = var0.readBits(5);
-						} else if (var6 == 2) {
-							var7 = var0.readBits(8);
-						} else {
-							var7 = var0.readBits(11);
+		if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) { // L: 108
+			Tiles.Tiles_renderFlags[var1][var2][var3] = 0; // L: 109
+
+			while (true) {
+				var7 = var0.readUnsignedByte(); // L: 111
+				if (var7 == 0) { // L: 112
+					if (var1 == 0) { // L: 113
+						int[] var14 = Tiles.Tiles_heights[0][var2]; // L: 114
+						int var11 = var2 + var4 + 932731; // L: 117
+						int var12 = var3 + var5 + 556238; // L: 118
+						int var13 = class60.method947(45365 + var11, 91923 + var12, 4) - 128 + (class60.method947(var11 + 10294, 37821 + var12, 2) - 128 >> 1) + (class60.method947(var11, var12, 1) - 128 >> 2); // L: 120
+						var13 = (int)((double)var13 * 0.3D) + 35; // L: 121
+						if (var13 < 10) { // L: 122
+							var13 = 10;
+						} else if (var13 > 60) { // L: 123
+							var13 = 60;
 						}
 
-						var1 = var7;
-						var10000 = Players.field1282;
-						var10000[var3] = (byte)(var10000[var3] | 2);
+						var14[var3] = -var13 * 8; // L: 126
 					} else {
-						class92.readPlayerUpdate(var0, var3);
+						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - 240; // L: 128
 					}
+					break;
+				}
+
+				if (var7 == 1) { // L: 131
+					int var8 = var0.readUnsignedByte(); // L: 132
+					if (var8 == 1) { // L: 133
+						var8 = 0;
+					}
+
+					if (var1 == 0) { // L: 134
+						Tiles.Tiles_heights[0][var2][var3] = -var8 * 8;
+					} else {
+						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - var8 * 8; // L: 135
+					}
+					break;
+				}
+
+				if (var7 <= 49) { // L: 138
+					Tiles.field521[var1][var2][var3] = var0.readByte(); // L: 139
+					class297.field3668[var1][var2][var3] = (byte)((var7 - 2) / 4); // L: 140
+					class171.field2049[var1][var2][var3] = (byte)(var7 - 2 + var6 & 3); // L: 141
+				} else if (var7 <= 81) { // L: 144
+					Tiles.Tiles_renderFlags[var1][var2][var3] = (byte)(var7 - 49); // L: 145
+				} else {
+					Tiles.field528[var1][var2][var3] = (byte)(var7 - 81); // L: 148
 				}
 			}
-		}
-
-		var0.exportIndex();
-		if (var1 != 0) {
-			throw new RuntimeException();
 		} else {
-			var0.importIndex();
-
-			for (var2 = 0; var2 < Players.Players_count; ++var2) {
-				var3 = Players.Players_indices[var2];
-				if ((Players.field1282[var3] & 1) != 0) {
-					if (var1 > 0) {
-						--var1;
-						var10000 = Players.field1282;
-						var10000[var3] = (byte)(var10000[var3] | 2);
-					} else {
-						var4 = var0.readBits(1);
-						if (var4 == 0) {
-							var6 = var0.readBits(2);
-							if (var6 == 0) {
-								var7 = 0;
-							} else if (var6 == 1) {
-								var7 = var0.readBits(5);
-							} else if (var6 == 2) {
-								var7 = var0.readBits(8);
-							} else {
-								var7 = var0.readBits(11);
-							}
-
-							var1 = var7;
-							var10000 = Players.field1282;
-							var10000[var3] = (byte)(var10000[var3] | 2);
-						} else {
-							class92.readPlayerUpdate(var0, var3);
-						}
-					}
-				}
-			}
-
-			var0.exportIndex();
-			if (var1 != 0) {
-				throw new RuntimeException();
-			} else {
-				var0.importIndex();
-
-				for (var2 = 0; var2 < Players.Players_emptyIdxCount; ++var2) {
-					var3 = Players.Players_emptyIndices[var2];
-					if ((Players.field1282[var3] & 1) != 0) {
-						if (var1 > 0) {
-							--var1;
-							var10000 = Players.field1282;
-							var10000[var3] = (byte)(var10000[var3] | 2);
-						} else {
-							var4 = var0.readBits(1);
-							if (var4 == 0) {
-								var6 = var0.readBits(2);
-								if (var6 == 0) {
-									var7 = 0;
-								} else if (var6 == 1) {
-									var7 = var0.readBits(5);
-								} else if (var6 == 2) {
-									var7 = var0.readBits(8);
-								} else {
-									var7 = var0.readBits(11);
-								}
-
-								var1 = var7;
-								var10000 = Players.field1282;
-								var10000[var3] = (byte)(var10000[var3] | 2);
-							} else if (ArchiveDiskAction.updateExternalPlayer(var0, var3)) {
-								var10000 = Players.field1282;
-								var10000[var3] = (byte)(var10000[var3] | 2);
-							}
-						}
-					}
+			while (true) {
+				var7 = var0.readUnsignedByte(); // L: 153
+				if (var7 == 0) { // L: 154
+					break;
 				}
 
-				var0.exportIndex();
-				if (var1 != 0) {
-					throw new RuntimeException();
-				} else {
-					var0.importIndex();
+				if (var7 == 1) { // L: 155
+					var0.readUnsignedByte(); // L: 156
+					break;
+				}
 
-					for (var2 = 0; var2 < Players.Players_emptyIdxCount; ++var2) {
-						var3 = Players.Players_emptyIndices[var2];
-						if ((Players.field1282[var3] & 1) == 0) {
-							if (var1 > 0) {
-								--var1;
-								var10000 = Players.field1282;
-								var10000[var3] = (byte)(var10000[var3] | 2);
-							} else {
-								var4 = var0.readBits(1);
-								if (var4 == 0) {
-									var6 = var0.readBits(2);
-									if (var6 == 0) {
-										var7 = 0;
-									} else if (var6 == 1) {
-										var7 = var0.readBits(5);
-									} else if (var6 == 2) {
-										var7 = var0.readBits(8);
-									} else {
-										var7 = var0.readBits(11);
-									}
-
-									var1 = var7;
-									var10000 = Players.field1282;
-									var10000[var3] = (byte)(var10000[var3] | 2);
-								} else if (ArchiveDiskAction.updateExternalPlayer(var0, var3)) {
-									var10000 = Players.field1282;
-									var10000[var3] = (byte)(var10000[var3] | 2);
-								}
-							}
-						}
-					}
-
-					var0.exportIndex();
-					if (var1 != 0) {
-						throw new RuntimeException();
-					} else {
-						Players.Players_count = 0;
-						Players.Players_emptyIdxCount = 0;
-
-						for (var2 = 1; var2 < 2048; ++var2) {
-							var10000 = Players.field1282;
-							var10000[var2] = (byte)(var10000[var2] >> 1);
-							Player var8 = Client.players[var2];
-							if (var8 != null) {
-								Players.Players_indices[++Players.Players_count - 1] = var2;
-							} else {
-								Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var2;
-							}
-						}
-
-					}
+				if (var7 <= 49) { // L: 159
+					var0.readUnsignedByte();
 				}
 			}
 		}
-	}
 
-	@ObfuscatedName("bq")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)I",
-		garbageValue = "-627685416"
-	)
-	@Export("stringCp1252NullTerminatedByteSize")
-	public static int stringCp1252NullTerminatedByteSize(String var0) {
-		return var0.length() + 1;
-	}
+	} // L: 162
+
+	@ObfuscatedName("m")
+	@Export("addEntityUnderMouse")
+	static final void addEntityUnderMouse(long var0) {
+		ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var0; // L: 99
+	} // L: 100
 }

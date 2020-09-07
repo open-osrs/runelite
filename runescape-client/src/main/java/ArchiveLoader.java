@@ -3,204 +3,100 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bl")
+@ObfuscatedName("bd")
 @Implements("ArchiveLoader")
 public class ArchiveLoader {
-	@ObfuscatedName("sm")
-	@ObfuscatedGetter(
-		intValue = -1707200579
-	)
-	@Export("foundItemIndex")
-	static int foundItemIndex;
-	@ObfuscatedName("x")
-	@Export("userHomeDirectory")
-	static String userHomeDirectory;
-	@ObfuscatedName("an")
+	@ObfuscatedName("hx")
 	@ObfuscatedSignature(
-		signature = "Llo;"
+		descriptor = "[Llp;"
 	)
-	@Export("rasterProvider")
-	public static AbstractRasterProvider rasterProvider;
-	@ObfuscatedName("dw")
-	@Export("mouseCam")
-	static boolean mouseCam;
-	@ObfuscatedName("fy")
+	@Export("crossSprites")
+	static Sprite[] crossSprites;
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lfa;"
-	)
-	@Export("socketTask")
-	static Task socketTask;
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		signature = "Lig;"
+		descriptor = "Liw;"
 	)
 	@Export("archive")
 	final Archive archive;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1705798073
+		intValue = -412619053
 	)
 	@Export("groupCount")
 	final int groupCount;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 607937277
+		intValue = 486257523
 	)
 	@Export("loadedCount")
 	int loadedCount;
 
 	@ObfuscatedSignature(
-		signature = "(Lig;Ljava/lang/String;)V"
+		descriptor = "(Liw;Ljava/lang/String;)V"
 	)
 	ArchiveLoader(Archive var1, String var2) {
-		this.loadedCount = 0;
-		this.archive = var1;
-		this.groupCount = var1.getGroupCount();
-	}
+		this.loadedCount = 0; // L: 9
+		this.archive = var1; // L: 12
+		this.groupCount = var1.getGroupCount(); // L: 13
+	} // L: 14
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "-1314527591"
+		descriptor = "(I)Z",
+		garbageValue = "-1957084823"
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
-		this.loadedCount = 0;
+		this.loadedCount = 0; // L: 17
 
-		for (int var1 = 0; var1 < this.groupCount; ++var1) {
-			if (!this.archive.method4452(var1) || this.archive.method4460(var1)) {
-				++this.loadedCount;
+		for (int var1 = 0; var1 < this.groupCount; ++var1) { // L: 18
+			if (!this.archive.method4350(var1) || this.archive.method4349(var1)) {
+				++this.loadedCount; // L: 19
 			}
 		}
 
-		return this.loadedCount >= this.groupCount;
+		return this.loadedCount >= this.groupCount; // L: 21
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("fp")
 	@ObfuscatedSignature(
-		signature = "(III)I",
-		garbageValue = "1299326622"
+		descriptor = "(I)V",
+		garbageValue = "2074712023"
 	)
-	static int method1212(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var2 == null) {
-			return 0;
-		} else if (var1 == -1) {
-			return 0;
+	static final void method1208() {
+		if (Client.logoutTimer > 0) { // L: 2585
+			ViewportMouse.logOut(); // L: 2586
 		} else {
-			int var3 = 0;
-
-			for (int var4 = 0; var4 < var2.quantities.length; ++var4) {
-				if (var2.ids[var4] == var1) {
-					var3 += var2.quantities[var4];
-				}
-			}
-
-			return var3;
+			Client.timer.method5098(); // L: 2589
+			CollisionMap.updateGameState(40); // L: 2590
+			MouseHandler.field508 = Client.packetWriter.getSocket(); // L: 2591
+			Client.packetWriter.removeSocket(); // L: 2592
 		}
-	}
+	} // L: 2587 2593
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("gp")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
-		garbageValue = "677134031"
+		descriptor = "(IIII)I",
+		garbageValue = "-513803575"
 	)
-	static int method1213(int var0, Script var1, boolean var2) {
-		int var3;
-		int var4;
-		if (var0 == ScriptOpcodes.CC_CREATE) {
-			UrlRequester.Interpreter_intStackSize -= 3;
-			var3 = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize];
-			var4 = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 1];
-			int var5 = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 2];
-			if (var4 == 0) {
-				throw new RuntimeException();
-			} else {
-				Widget var6 = WorldMapSprite.getWidget(var3);
-				if (var6.children == null) {
-					var6.children = new Widget[var5 + 1];
-				}
-
-				if (var6.children.length <= var5) {
-					Widget[] var7 = new Widget[var5 + 1];
-
-					for (int var8 = 0; var8 < var6.children.length; ++var8) {
-						var7[var8] = var6.children[var8];
-					}
-
-					var6.children = var7;
-				}
-
-				if (var5 > 0 && var6.children[var5 - 1] == null) {
-					throw new RuntimeException("" + (var5 - 1));
-				} else {
-					Widget var12 = new Widget();
-					var12.type = var4;
-					var12.parentId = var12.id = var6.id;
-					var12.childIndex = var5;
-					var12.isIf3 = true;
-					var6.children[var5] = var12;
-					if (var2) {
-						KeyHandler.field407 = var12;
-					} else {
-						SecureRandomCallable.field544 = var12;
-					}
-
-					class234.invalidateWidget(var6);
-					return 1;
-				}
+	@Export("getTileHeight")
+	static final int getTileHeight(int var0, int var1, int var2) {
+		int var3 = var0 >> 7; // L: 4975
+		int var4 = var1 >> 7; // L: 4976
+		if (var3 >= 0 && var4 >= 0 && var3 <= 103 && var4 <= 103) { // L: 4977
+			int var5 = var2; // L: 4978
+			if (var2 < 3 && (Tiles.Tiles_renderFlags[1][var3][var4] & 2) == 2) { // L: 4979
+				var5 = var2 + 1;
 			}
+
+			int var6 = var0 & 127; // L: 4980
+			int var7 = var1 & 127; // L: 4981
+			int var8 = (128 - var6) * Tiles.Tiles_heights[var5][var3][var4] + Tiles.Tiles_heights[var5][var3 + 1][var4] * var6 >> 7; // L: 4982
+			int var9 = Tiles.Tiles_heights[var5][var3][var4 + 1] * (128 - var6) + Tiles.Tiles_heights[var5][var3 + 1][var4 + 1] * var6 >> 7; // L: 4983
+			return var8 * (128 - var7) + var9 * var7 >> 7; // L: 4984
 		} else {
-			Widget var9;
-			if (var0 == ScriptOpcodes.CC_DELETE) {
-				var9 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
-				Widget var10 = WorldMapSprite.getWidget(var9.id);
-				var10.children[var9.childIndex] = null;
-				class234.invalidateWidget(var10);
-				return 1;
-			} else if (var0 == ScriptOpcodes.CC_DELETEALL) {
-				var9 = WorldMapSprite.getWidget(Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize]);
-				var9.children = null;
-				class234.invalidateWidget(var9);
-				return 1;
-			} else if (var0 != ScriptOpcodes.CC_FIND) {
-				if (var0 == ScriptOpcodes.IF_FIND) {
-					var9 = WorldMapSprite.getWidget(Interpreter.Interpreter_intStack[--UrlRequester.Interpreter_intStackSize]);
-					if (var9 != null) {
-						Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 1;
-						if (var2) {
-							KeyHandler.field407 = var9;
-						} else {
-							SecureRandomCallable.field544 = var9;
-						}
-					} else {
-						Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 0;
-					}
-
-					return 1;
-				} else {
-					return 2;
-				}
-			} else {
-				UrlRequester.Interpreter_intStackSize -= 2;
-				var3 = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize];
-				var4 = Interpreter.Interpreter_intStack[UrlRequester.Interpreter_intStackSize + 1];
-				Widget var11 = WorldMapLabelSize.getWidgetChild(var3, var4);
-				if (var11 != null && var4 != -1) {
-					Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 1;
-					if (var2) {
-						KeyHandler.field407 = var11;
-					} else {
-						SecureRandomCallable.field544 = var11;
-					}
-				} else {
-					Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 0;
-				}
-
-				return 1;
-			}
+			return 0;
 		}
 	}
 }

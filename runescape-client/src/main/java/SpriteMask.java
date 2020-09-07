@@ -4,130 +4,68 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hh")
+@ObfuscatedName("hz")
 @Implements("SpriteMask")
 public class SpriteMask extends DualNode {
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 293169349
+		intValue = -1396616335
+	)
+	static int field2552;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = 2052975947
 	)
 	@Export("width")
 	public final int width;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1667471455
+		intValue = -583477063
 	)
 	@Export("height")
 	public final int height;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@Export("xWidths")
 	public final int[] xWidths;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@Export("xStarts")
 	public final int[] xStarts;
 
 	SpriteMask(int var1, int var2, int[] var3, int[] var4, int var5) {
-		this.width = var1;
-		this.height = var2;
-		this.xWidths = var3;
-		this.xStarts = var4;
-	}
+		this.width = var1; // L: 712
+		this.height = var2; // L: 713
+		this.xWidths = var3; // L: 714
+		this.xStarts = var4; // L: 715
+	} // L: 716
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(III)Z",
-		garbageValue = "-679501708"
+		descriptor = "(III)Z",
+		garbageValue = "1864355280"
 	)
 	@Export("contains")
 	public boolean contains(int var1, int var2) {
-		if (var2 >= 0 && var2 < this.xStarts.length) {
-			int var3 = this.xStarts[var2];
-			if (var1 >= var3 && var1 <= var3 + this.xWidths[var2]) {
+		if (var2 >= 0 && var2 < this.xStarts.length) { // L: 719
+			int var3 = this.xStarts[var2]; // L: 720
+			if (var1 >= var3 && var1 <= var3 + this.xWidths[var2]) { // L: 721
 				return true;
 			}
 		}
 
-		return false;
+		return false; // L: 723
 	}
 
-	@ObfuscatedName("m")
-	@Export("sleepExact")
-	public static final void sleepExact(long var0) {
-		try {
-			Thread.sleep(var0);
-		} catch (InterruptedException var3) {
-		}
-
-	}
-
-	@ObfuscatedName("q")
+	@ObfuscatedName("ku")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "39704682"
+		descriptor = "(Lhq;I)Ljava/lang/String;",
+		garbageValue = "1504596976"
 	)
-	@Export("savePreferences")
-	static void savePreferences() {
-		AccessFile var0 = null;
-
-		try {
-			var0 = GameShell.getPreferencesFile("", GrandExchangeOfferWorldComparator.field54.name, true);
-			Buffer var1 = NetSocket.clientPreferences.toBuffer();
-			var0.write(var1.array, 0, var1.offset);
-		} catch (Exception var3) {
+	@Export("Widget_getSpellActionName")
+	static String Widget_getSpellActionName(Widget var0) {
+		if (GrandExchangeOfferTotalQuantityComparator.Widget_unpackTargetMask(WorldMapIcon_0.getWidgetFlags(var0)) == 0) { // L: 10744
+			return null;
+		} else {
+			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null; // L: 10745 10746 10748
 		}
-
-		try {
-			if (var0 != null) {
-				var0.closeSync(true);
-			}
-		} catch (Exception var2) {
-		}
-
-	}
-
-	@ObfuscatedName("km")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;ZI)V",
-		garbageValue = "2008753616"
-	)
-	@Export("findItemDefinitions")
-	static void findItemDefinitions(String var0, boolean var1) {
-		var0 = var0.toLowerCase();
-		short[] var2 = new short[16];
-		int var3 = 0;
-
-		for (int var4 = 0; var4 < HitSplatDefinition.ItemDefinition_fileCount; ++var4) {
-			ItemDefinition var5 = KitDefinition.ItemDefinition_get(var4);
-			if ((!var1 || var5.isTradable) && var5.noteTemplate == -1 && var5.name.toLowerCase().indexOf(var0) != -1) {
-				if (var3 >= 250) {
-					TileItemPile.foundItemIdCount = -1;
-					WorldMapScaleHandler.foundItemIds = null;
-					return;
-				}
-
-				if (var3 >= var2.length) {
-					short[] var6 = new short[var2.length * 2];
-
-					for (int var7 = 0; var7 < var3; ++var7) {
-						var6[var7] = var2[var7];
-					}
-
-					var2 = var6;
-				}
-
-				var2[var3++] = (short)var4;
-			}
-		}
-
-		WorldMapScaleHandler.foundItemIds = var2;
-		ArchiveLoader.foundItemIndex = 0;
-		TileItemPile.foundItemIdCount = var3;
-		String[] var8 = new String[TileItemPile.foundItemIdCount];
-
-		for (int var9 = 0; var9 < TileItemPile.foundItemIdCount; ++var9) {
-			var8[var9] = KitDefinition.ItemDefinition_get(var2[var9]).name;
-		}
-
-		WorldMapDecoration.method400(var8, WorldMapScaleHandler.foundItemIds);
 	}
 }

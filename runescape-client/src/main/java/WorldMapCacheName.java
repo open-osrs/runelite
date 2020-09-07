@@ -1,84 +1,86 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("at")
+@ObfuscatedName("ad")
 @Implements("WorldMapCacheName")
 public class WorldMapCacheName {
-	@ObfuscatedName("rq")
-	@ObfuscatedGetter(
-		intValue = 1378764689
-	)
-	static int field329;
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lat;"
+		descriptor = "Lad;"
 	)
 	public static final WorldMapCacheName field322;
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Lad;"
+	)
+	public static final WorldMapCacheName field318;
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Lad;"
+	)
+	public static final WorldMapCacheName field327;
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "Lad;"
+	)
+	static final WorldMapCacheName field319;
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lad;"
+	)
+	public static final WorldMapCacheName field321;
 	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		signature = "Lat;"
-	)
-	public static final WorldMapCacheName field325;
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "Lat;"
-	)
-	public static final WorldMapCacheName field324;
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		signature = "Lat;"
-	)
-	static final WorldMapCacheName field323;
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		signature = "Lat;"
-	)
-	public static final WorldMapCacheName field326;
-	@ObfuscatedName("ga")
-	@ObfuscatedGetter(
-		intValue = 1520300025
-	)
-	static int field328;
-	@ObfuscatedName("g")
 	@Export("name")
 	public final String name;
 
 	static {
-		field322 = new WorldMapCacheName("details");
-		field325 = new WorldMapCacheName("compositemap");
-		field324 = new WorldMapCacheName("compositetexture");
-		field323 = new WorldMapCacheName("area");
-		field326 = new WorldMapCacheName("labels");
+		field322 = new WorldMapCacheName("details"); // L: 4
+		field318 = new WorldMapCacheName("compositemap"); // L: 5
+		field327 = new WorldMapCacheName("compositetexture"); // L: 6
+		field319 = new WorldMapCacheName("area"); // L: 7
+		field321 = new WorldMapCacheName("labels"); // L: 8
 	}
 
 	WorldMapCacheName(String var1) {
-		this.name = var1;
-	}
+		this.name = var1; // L: 12
+	} // L: 13
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(ILlp;Lig;I)V",
-		garbageValue = "-1710341553"
+		descriptor = "(IIB)Lbk;",
+		garbageValue = "-87"
 	)
-	static void method688(int var0, ArchiveDisk var1, Archive var2) {
-		byte[] var3 = null;
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) {
-			for (ArchiveDiskAction var5 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.last(); var5 != null; var5 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.previous()) {
-				if (var5.key == (long)var0 && var1 == var5.archiveDisk && var5.type == 0) {
-					var3 = var5.data;
-					break;
-				}
-			}
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 35
+		return var2.getMessage(var1); // L: 36
+	}
+
+	@ObfuscatedName("fe")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "1002606295"
+	)
+	@Export("playSong")
+	static void playSong(int var0) {
+		if (var0 == -1 && !Client.field704) { // L: 3288
+			class206.midiPcmStream.clear(); // L: 3290
+			class206.musicPlayerStatus = 1; // L: 3291
+			class204.musicTrackArchive = null; // L: 3292
+		} else if (var0 != -1 && var0 != Client.currentTrackGroupId && Client.musicVolume != 0 && !Client.field704) { // L: 3295
+			Archive var1 = CollisionMap.archive6; // L: 3296
+			int var2 = Client.musicVolume; // L: 3297
+			class206.musicPlayerStatus = 1; // L: 3299
+			class204.musicTrackArchive = var1; // L: 3300
+			BuddyRankComparator.musicTrackGroupId = var0; // L: 3301
+			class206.musicTrackFileId = 0; // L: 3302
+			Tiles.musicTrackVolume = var2; // L: 3303
+			class206.musicTrackBoolean = false; // L: 3304
+			FaceNormal.pcmSampleLength = 2; // L: 3305
 		}
 
-		if (var3 != null) {
-			var2.load(var1, var0, var3, true);
-		} else {
-			byte[] var4 = var1.read(var0);
-			var2.load(var1, var0, var4, true);
-		}
-	}
+		Client.currentTrackGroupId = var0; // L: 3308
+	} // L: 3309
 }

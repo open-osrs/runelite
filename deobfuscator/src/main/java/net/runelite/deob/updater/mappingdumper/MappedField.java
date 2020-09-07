@@ -26,11 +26,11 @@ public class MappedField
 	{
 		MappingDumper.putMap(f.getPoolField(), this);
 
-		exportedName = DeobAnnotations.getExportedName(f.getAnnotations());
+		exportedName = DeobAnnotations.getExportedName(f);
 
 		owner = MappingDumper.getMap(f.getClassFile()).obfuscatedName;
 
-		obfuscatedName = DeobAnnotations.getObfuscatedName(f.getAnnotations());
+		obfuscatedName = DeobAnnotations.getObfuscatedName(f);
 		if (obfuscatedName == null)
 		{
 			obfuscatedName = f.getName();

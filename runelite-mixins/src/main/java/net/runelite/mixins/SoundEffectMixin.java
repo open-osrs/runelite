@@ -57,13 +57,9 @@ public abstract class SoundEffectMixin implements RSClient
 	private static int lastSoundEffectSourceNPCid;
 
 	@Copy("updateActorSequence")
-	public static void rs$updateActorSequence(RSActor actor, int size)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("updateActorSequence")
-	public static void rl$updateActorSequence(RSActor actor, int size)
+	@SuppressWarnings("InfiniteRecursion")
+	public static void copy$updateActorSequence(RSActor actor, int size)
 	{
 		if (actor instanceof RSNPC)
 		{
@@ -71,7 +67,7 @@ public abstract class SoundEffectMixin implements RSClient
 		}
 		lastSoundEffectSourceActor = actor;
 
-		rs$updateActorSequence(actor, size);
+		copy$updateActorSequence(actor, size);
 
 		lastSoundEffectSourceActor = null;
 	}

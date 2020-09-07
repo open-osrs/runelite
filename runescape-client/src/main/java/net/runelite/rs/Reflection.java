@@ -165,7 +165,7 @@ public class Reflection
 			return types;
 		}
 
-		String s = sig.signature();
+		String s = sig.descriptor();
 		int i = s.lastIndexOf(')');
 		char c = s.charAt(i - 1);
 

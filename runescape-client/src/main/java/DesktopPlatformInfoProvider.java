@@ -4,210 +4,201 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ms")
+@ObfuscatedName("mf")
 @Implements("DesktopPlatformInfoProvider")
 public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1476161003
+		intValue = 1098787301
 	)
-	int field3925;
-	@ObfuscatedName("p")
+	int field3933;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 602625261
+		intValue = 125115333
 	)
-	int field3926;
-	@ObfuscatedName("g")
+	int field3936;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 35397071
+		intValue = 1328442545
 	)
-	int field3927;
+	int field3930;
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "(I)Lmc;",
-		garbageValue = "-1826697521"
+		descriptor = "(I)Lmr;",
+		garbageValue = "-1896317364"
 	)
 	@Export("get")
 	public PlatformInfo get() {
 		byte var1;
-		if (JagexCache.field2077.startsWith("win")) {
+		if (JagexCache.field2094.startsWith("win")) { // L: 15
 			var1 = 1;
-		} else if (JagexCache.field2077.startsWith("mac")) {
+		} else if (JagexCache.field2094.startsWith("mac")) { // L: 16
 			var1 = 2;
-		} else if (JagexCache.field2077.startsWith("linux")) {
+		} else if (JagexCache.field2094.startsWith("linux")) { // L: 17
 			var1 = 3;
 		} else {
-			var1 = 4;
+			var1 = 4; // L: 18
 		}
 
 		String var2;
 		try {
-			var2 = System.getProperty("os.arch").toLowerCase();
-		} catch (Exception var27) {
-			var2 = "";
+			var2 = System.getProperty("os.arch").toLowerCase(); // L: 22
+		} catch (Exception var27) { // L: 24
+			var2 = ""; // L: 25
 		}
 
 		String var3;
 		try {
-			var3 = System.getProperty("os.version").toLowerCase();
-		} catch (Exception var26) {
-			var3 = "";
+			var3 = System.getProperty("os.version").toLowerCase(); // L: 28
+		} catch (Exception var26) { // L: 30
+			var3 = ""; // L: 31
 		}
 
-		String var4 = "Unknown";
-		String var5 = "1.1";
+		String var4 = "Unknown"; // L: 33
+		String var5 = "1.1"; // L: 34
 
 		try {
-			var4 = System.getProperty("java.vendor");
-			var5 = System.getProperty("java.version");
-		} catch (Exception var25) {
+			var4 = System.getProperty("java.vendor"); // L: 36
+			var5 = System.getProperty("java.version"); // L: 37
+		} catch (Exception var25) { // L: 39
 		}
 
 		boolean var24;
-		if (!var2.startsWith("amd64") && !var2.startsWith("x86_64")) {
-			var24 = false;
+		if (!var2.startsWith("amd64") && !var2.startsWith("x86_64")) { // L: 41
+			var24 = false; // L: 42
 		} else {
 			var24 = true;
 		}
 
-		byte var7 = 0;
-		if (var1 == 1) {
-			if (var3.indexOf("4.0") != -1) {
+		byte var7 = 0; // L: 43
+		if (var1 == 1) { // L: 44
+			if (var3.indexOf("4.0") != -1) { // L: 45
 				var7 = 1;
-			} else if (var3.indexOf("4.1") != -1) {
+			} else if (var3.indexOf("4.1") != -1) { // L: 46
 				var7 = 2;
-			} else if (var3.indexOf("4.9") != -1) {
+			} else if (var3.indexOf("4.9") != -1) { // L: 47
 				var7 = 3;
-			} else if (var3.indexOf("5.0") != -1) {
+			} else if (var3.indexOf("5.0") != -1) { // L: 48
 				var7 = 4;
-			} else if (var3.indexOf("5.1") != -1) {
+			} else if (var3.indexOf("5.1") != -1) { // L: 49
 				var7 = 5;
-			} else if (var3.indexOf("5.2") != -1) {
+			} else if (var3.indexOf("5.2") != -1) { // L: 50
 				var7 = 8;
-			} else if (var3.indexOf("6.0") != -1) {
+			} else if (var3.indexOf("6.0") != -1) { // L: 51
 				var7 = 6;
-			} else if (var3.indexOf("6.1") != -1) {
+			} else if (var3.indexOf("6.1") != -1) { // L: 52
 				var7 = 7;
-			} else if (var3.indexOf("6.2") != -1) {
+			} else if (var3.indexOf("6.2") != -1) { // L: 53
 				var7 = 9;
-			} else if (var3.indexOf("6.3") != -1) {
+			} else if (var3.indexOf("6.3") != -1) { // L: 54
 				var7 = 10;
-			} else if (var3.indexOf("10.0") != -1) {
+			} else if (var3.indexOf("10.0") != -1) { // L: 55
 				var7 = 11;
 			}
-		} else if (var1 == 2) {
-			if (var3.indexOf("10.4") != -1) {
+		} else if (var1 == 2) { // L: 57
+			if (var3.indexOf("10.4") != -1) { // L: 58
 				var7 = 20;
-			} else if (var3.indexOf("10.5") != -1) {
+			} else if (var3.indexOf("10.5") != -1) { // L: 59
 				var7 = 21;
-			} else if (var3.indexOf("10.6") != -1) {
+			} else if (var3.indexOf("10.6") != -1) { // L: 60
 				var7 = 22;
-			} else if (var3.indexOf("10.7") != -1) {
+			} else if (var3.indexOf("10.7") != -1) { // L: 61
 				var7 = 23;
-			} else if (var3.indexOf("10.8") != -1) {
+			} else if (var3.indexOf("10.8") != -1) { // L: 62
 				var7 = 24;
-			} else if (var3.indexOf("10.9") != -1) {
+			} else if (var3.indexOf("10.9") != -1) { // L: 63
 				var7 = 25;
-			} else if (var3.indexOf("10.10") != -1) {
+			} else if (var3.indexOf("10.10") != -1) { // L: 64
 				var7 = 26;
-			} else if (var3.indexOf("10.11") != -1) {
+			} else if (var3.indexOf("10.11") != -1) { // L: 65
 				var7 = 27;
-			} else if (var3.indexOf("10.12") != -1) {
+			} else if (var3.indexOf("10.12") != -1) { // L: 66
 				var7 = 28;
-			} else if (var3.indexOf("10.13") != -1) {
+			} else if (var3.indexOf("10.13") != -1) { // L: 67
 				var7 = 29;
 			}
 		}
 
 		byte var8;
-		if (var4.toLowerCase().indexOf("sun") != -1) {
+		if (var4.toLowerCase().indexOf("sun") != -1) { // L: 70
 			var8 = 1;
-		} else if (var4.toLowerCase().indexOf("microsoft") != -1) {
+		} else if (var4.toLowerCase().indexOf("microsoft") != -1) { // L: 71
 			var8 = 2;
-		} else if (var4.toLowerCase().indexOf("apple") != -1) {
+		} else if (var4.toLowerCase().indexOf("apple") != -1) { // L: 72
 			var8 = 3;
-		} else if (var4.toLowerCase().indexOf("oracle") != -1) {
+		} else if (var4.toLowerCase().indexOf("oracle") != -1) { // L: 73
 			var8 = 5;
 		} else {
-			var8 = 4;
+			var8 = 4; // L: 74
 		}
 
-		this.method6495(var5);
-		int var10 = (int)(Runtime.getRuntime().maxMemory() / 1048576L) + 1;
+		this.method6396(var5); // L: 75
+		int var10 = (int)(Runtime.getRuntime().maxMemory() / 1048576L) + 1; // L: 77
 		int var11;
-		if (this.field3925 > 3) {
+		if (this.field3933 > 3) { // L: 80
 			var11 = Runtime.getRuntime().availableProcessors();
 		} else {
-			var11 = 0;
+			var11 = 0; // L: 81
 		}
 
-		byte var12 = 0;
-		String var13 = "";
-		String var14 = "";
-		String var15 = "";
-		String var16 = "";
-		String var17 = "";
-		String var18 = "";
-		int[] var23 = new int[3];
-		return new PlatformInfo(var1, var24, var7, var8, this.field3925, this.field3926, this.field3927, false, var10, var11, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, "");
+		byte var12 = 0; // L: 82
+		String var13 = ""; // L: 83
+		String var14 = ""; // L: 84
+		String var15 = ""; // L: 85
+		String var16 = ""; // L: 86
+		String var17 = ""; // L: 87
+		String var18 = ""; // L: 88
+		int[] var23 = new int[3]; // L: 93
+		return new PlatformInfo(var1, var24, var7, var8, this.field3933, this.field3936, this.field3930, false, var10, var11, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, ""); // L: 97
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "-1686875071"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "395335674"
 	)
-	void method6495(String var1) {
-		if (var1.startsWith("1.")) {
-			this.method6484(var1);
+	void method6396(String var1) {
+		if (var1.startsWith("1.")) { // L: 101
+			this.method6399(var1); // L: 102
 		} else {
-			this.method6485(var1);
+			this.method6400(var1); // L: 105
 		}
 
-	}
+	} // L: 107
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;I)V",
-		garbageValue = "-1385366754"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "1051455651"
 	)
-	void method6484(String var1) {
-		String[] var2 = var1.split("\\.");
+	void method6399(String var1) {
+		String[] var2 = var1.split("\\."); // L: 110
 
 		try {
-			this.field3925 = Integer.parseInt(var2[1]);
-			var2 = var2[2].split("_");
-			this.field3926 = Integer.parseInt(var2[0]);
-			this.field3927 = Integer.parseInt(var2[1]);
-		} catch (Exception var4) {
+			this.field3933 = Integer.parseInt(var2[1]); // L: 112
+			var2 = var2[2].split("_"); // L: 113
+			this.field3936 = Integer.parseInt(var2[0]); // L: 114
+			this.field3930 = Integer.parseInt(var2[1]); // L: 115
+		} catch (Exception var4) { // L: 117
 		}
 
-	}
+	} // L: 118
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;B)V",
-		garbageValue = "1"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-2119124304"
 	)
-	void method6485(String var1) {
-		String[] var2 = var1.split("\\.");
+	void method6400(String var1) {
+		String[] var2 = var1.split("\\."); // L: 121
 
 		try {
-			this.field3925 = Integer.parseInt(var2[0]);
-			this.field3926 = Integer.parseInt(var2[1]);
-			this.field3927 = Integer.parseInt(var2[2]);
-		} catch (Exception var4) {
+			this.field3933 = Integer.parseInt(var2[0]); // L: 123
+			this.field3936 = Integer.parseInt(var2[1]); // L: 124
+			this.field3930 = Integer.parseInt(var2[2]); // L: 125
+		} catch (Exception var4) { // L: 127
 		}
 
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "(CI)Z",
-		garbageValue = "2111177426"
-	)
-	static final boolean method6481(char var0) {
-		return var0 == 160 || var0 == ' ' || var0 == '_' || var0 == '-';
-	}
+	} // L: 128
 }

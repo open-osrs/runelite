@@ -1,132 +1,60 @@
-import java.lang.management.GarbageCollectorMXBean;
-import java.lang.management.ManagementFactory;
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("if")
+@ObfuscatedName("it")
 @Implements("VerticalAlignment")
 public enum VerticalAlignment implements Enumerated {
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Lif;"
+		descriptor = "Lit;"
 	)
-	field3226(2, 0),
-	@ObfuscatedName("o")
+	field3221(1, 0),
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lif;"
+		descriptor = "Lit;"
 	)
 	@Export("VerticalAlignment_centered")
-	VerticalAlignment_centered(1, 1),
-	@ObfuscatedName("q")
+	VerticalAlignment_centered(0, 1),
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "Lif;"
+		descriptor = "Lit;"
 	)
-	field3230(0, 2);
+	field3225(2, 2);
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("jh")
+	@ObfuscatedSignature(
+		descriptor = "Lhq;"
+	)
+	@Export("hoveredItemContainer")
+	static Widget hoveredItemContainer;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -296657291
+		intValue = -1300403611
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1007871837
+		intValue = -496509631
 	)
 	@Export("id")
 	final int id;
 
 	VerticalAlignment(int var3, int var4) {
-		this.value = var3;
-		this.id = var4;
-	}
+		this.value = var3; // L: 14
+		this.id = var4; // L: 15
+	} // L: 16
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "-995092303"
+		descriptor = "(I)I",
+		garbageValue = "385513888"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "(III)Lcs;",
-		garbageValue = "1496312280"
-	)
-	static Script method4517(int var0, int var1) {
-		Script var2 = (Script)Script.Script_cached.get((long)(var0 << 16));
-		if (var2 != null) {
-			return var2;
-		} else {
-			String var3 = String.valueOf(var0);
-			int var4 = Message.archive12.getGroupId(var3);
-			if (var4 == -1) {
-				return null;
-			} else {
-				byte[] var5 = Message.archive12.takeFileFlat(var4);
-				if (var5 != null) {
-					if (var5.length <= 1) {
-						return null;
-					}
-
-					var2 = WorldMapAreaData.newScript(var5);
-					if (var2 != null) {
-						Script.Script_cached.put(var2, (long)(var0 << 16));
-						return var2;
-					}
-				}
-
-				return null;
-			}
-		}
-	}
-
-	@ObfuscatedName("ac")
-	@ObfuscatedSignature(
-		signature = "(I)I",
-		garbageValue = "735302127"
-	)
-	@Export("getGcDuration")
-	protected static int getGcDuration() {
-		int var0 = 0;
-		if (MusicPatchPcmStream.garbageCollector == null || !MusicPatchPcmStream.garbageCollector.isValid()) {
-			try {
-				Iterator var1 = ManagementFactory.getGarbageCollectorMXBeans().iterator();
-
-				while (var1.hasNext()) {
-					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next();
-					if (var2.isValid()) {
-						MusicPatchPcmStream.garbageCollector = var2;
-						GameShell.garbageCollectorLastCheckTimeMs = -1L;
-						GameShell.garbageCollectorLastCollectionTime = -1L;
-					}
-				}
-			} catch (Throwable var11) {
-			}
-		}
-
-		if (MusicPatchPcmStream.garbageCollector != null) {
-			long var9 = MilliClock.currentTimeMillis();
-			long var3 = MusicPatchPcmStream.garbageCollector.getCollectionTime();
-			if (GameShell.garbageCollectorLastCollectionTime != -1L) {
-				long var5 = var3 - GameShell.garbageCollectorLastCollectionTime;
-				long var7 = var9 - GameShell.garbageCollectorLastCheckTimeMs;
-				if (var7 != 0L) {
-					var0 = (int)(100L * var5 / var7);
-				}
-			}
-
-			GameShell.garbageCollectorLastCollectionTime = var3;
-			GameShell.garbageCollectorLastCheckTimeMs = var9;
-		}
-
-		return var0;
+		return this.id; // L: 19
 	}
 }

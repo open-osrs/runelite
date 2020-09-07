@@ -44,6 +44,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.ADAMANT_WARHAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ALE_OF_THE_GODS, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ANCIENT_MACE, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.AMYS_SAW, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ARCEUUS_BANNER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ARCLIGHT, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ARMADYL_GODSWORD, WeaponStyle.MELEE);

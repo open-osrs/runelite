@@ -1,40 +1,71 @@
+import java.io.IOException;
+import java.net.Socket;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("en")
+@ObfuscatedName("ej")
 @Implements("ModelData0")
 public class ModelData0 {
-	ModelData0() {
-	}
-
-	@ObfuscatedName("q")
+	@ObfuscatedName("sl")
 	@ObfuscatedSignature(
-		signature = "(CI)C",
-		garbageValue = "-706706502"
+		descriptor = "Lid;"
 	)
-	static char method3374(char var0) {
-		if (var0 == 198) {
-			return 'E';
-		} else if (var0 == 230) {
-			return 'e';
-		} else if (var0 == 223) {
-			return 's';
-		} else if (var0 == 338) {
-			return 'E';
+	public static class247 field1901;
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Lic;"
+	)
+	@Export("soundEffectsArchive")
+	static AbstractArchive soundEffectsArchive;
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "Lls;"
+	)
+	@Export("titlebuttonSprite")
+	static IndexedSprite titlebuttonSprite;
+	@ObfuscatedName("au")
+	static String field1904;
+
+	ModelData0() {
+	} // L: 4
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(Lct;Lct;IZIZB)I",
+		garbageValue = "73"
+	)
+	static int method3376(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
+		int var6 = class2.compareWorlds(var0, var1, var2, var3); // L: 199
+		if (var6 != 0) { // L: 200
+			return var3 ? -var6 : var6; // L: 201
+		} else if (var4 == -1) { // L: 204
+			return 0;
 		} else {
-			return (char)(var0 == 339 ? 'e' : '\u0000');
+			int var7 = class2.compareWorlds(var0, var1, var4, var5); // L: 205
+			return var5 ? -var7 : var7; // L: 206
 		}
 	}
 
-	@ObfuscatedName("ii")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		signature = "(I)Z",
-		garbageValue = "1532544056"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "1145056768"
 	)
-	@Export("shouldPrioritizeDrop")
-	static boolean shouldPrioritizeDrop() {
-		return Client.tapToDrop || KeyHandler.KeyHandler_pressedKeys[81];
+	static final void method3377(String var0) {
+		StringBuilder var10000 = (new StringBuilder()).append(var0);
+		Object var10001 = null;
+		String var1 = var10000.append(" is already on your friend list").toString(); // L: 112
+		WorldMapRectangle.addGameMessage(30, "", var1); // L: 114
+	} // L: 116
+
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/net/Socket;IIB)Lln;",
+		garbageValue = "14"
+	)
+	public static AbstractSocket method3375(Socket var0, int var1, int var2) throws IOException {
+		return new BufferedNetSocket(var0, var1, var2); // L: 10
 	}
 }

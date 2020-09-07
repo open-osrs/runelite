@@ -28,6 +28,7 @@ import org.ajoberstar.grgit.Grgit
 
 buildscript {
     repositories {
+        mavenLocal()
         gradlePluginPortal()
         maven(url = "https://repo.openosrs.com/repository/maven/")
         maven(url = "https://raw.githubusercontent.com/open-osrs/hosting/master")
@@ -35,13 +36,13 @@ buildscript {
     dependencies {
         classpath("org.ajoberstar.grgit:grgit-core:4.0.2")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.29.0")
-        classpath("com.openosrs:injector-plugin:1.1.4")
+        classpath("com.openosrs:injector-plugin:1.1.5")
     }
 }
 
 plugins {
     id("com.adarshr.test-logger") version "2.1.0" apply false
-    id("com.github.ben-manes.versions") version "0.28.0"
+    id("com.github.ben-manes.versions") version "0.29.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.14"
     id("org.ajoberstar.grgit") version "4.0.2"
     id("com.simonharrer.modernizer") version "2.1.0-1" apply false
@@ -165,8 +166,6 @@ subprojects {
         java {
             sourceCompatibility = JavaVersion.VERSION_11
             targetCompatibility = JavaVersion.VERSION_11
-
-            withSourcesJar()
         }
 
         withType<AbstractArchiveTask> {
@@ -202,6 +201,8 @@ subprojects {
             }
         }
     }
+
+    configurations["compileOnly"].extendsFrom(configurations["annotationProcessor"])
 }
 
 application {

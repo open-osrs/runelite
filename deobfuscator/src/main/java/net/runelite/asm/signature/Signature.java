@@ -28,20 +28,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import net.runelite.asm.Type;
 
 public class Signature
 {
-	private static Pattern paramRetPattern = Pattern.compile("\\((.*)\\)(.*)"),
-		paramsPattern = Pattern.compile("(\\[*(?:B|C|Z|S|I|J|F|D|(?:L[^;]*;)))");
+	private static final Pattern RLAPITORSAPI = Pattern.compile("net/runelite/(rs/)?api/(RS)?");
 
 	private final List<Type> arguments;
 	private final Type rv;
 
-	private Signature(List<Type> arguments, Type rv)
+	public Signature(List<Type> arguments, Type rv)
 	{
 		this.arguments = new ArrayList<>(arguments);
 		this.rv = rv;
@@ -49,29 +46,33 @@ public class Signature
 
 	public Signature(String str)
 	{
-		Matcher m = paramRetPattern.matcher(str);
-		if (!m.find())
-		{
-			throw new IllegalArgumentException("Signature has no arguments");
-		}
+		final int rvStart = str.indexOf(')');
+		if (rvStart == -1)
+			throw new IllegalArgumentException("Descriptor has no return value!");
 
-		String args = m.group(1), ret = m.group(2);
-
-		m = paramsPattern.matcher(args);
-		arguments = new ArrayList<>();
-		while (m.find())
-		{
-			String arg = m.group(1);
-			arguments.add(new Type(arg));
-		}
-
-		rv = new Type(ret);
+		rv = new Type(str.substring(rvStart + 1));
+		arguments = findArgs(str, new ArrayList<>(), str.indexOf('(') + 1, rvStart);
 	}
 
 	public Signature(Signature other)
 	{
 		arguments = new ArrayList<>(other.arguments);
 		rv = other.rv;
+	}
+
+	private static List<Type> findArgs(final String str, final List<Type> ret, final int from, final int to)
+	{
+		if (from >= to) return ret;
+
+		int i = from;
+		while (str.charAt(i) == '[') ++i;
+
+		if (str.charAt(i) == 'L')
+			i = str.indexOf(';', i);
+
+		ret.add(new Type(str.substring(from, ++i)));
+
+		return findArgs(str, ret, i, to);
 	}
 
 	@Override
@@ -82,17 +83,13 @@ public class Signature
 			return false;
 		}
 
-		Signature a = (Signature) other;
-		return arguments.equals(a.arguments) && rv.equals(a.rv);
+		return this.toString().equals(other.toString());
 	}
 
 	@Override
 	public int hashCode()
 	{
-		int hash = 5;
-		hash = 97 * hash + Objects.hashCode(this.arguments);
-		hash = 97 * hash + Objects.hashCode(this.rv);
-		return hash;
+		return this.toString().hashCode();
 	}
 
 	@Override
@@ -176,6 +173,6 @@ public class Signature
 
 	public Signature rsApiToRsClient()
 	{
-		return new Signature(this.toString().replaceAll("net/runelite/(rs/)?api/(RS)?", ""));
+		return new Signature(RLAPITORSAPI.matcher(this.toString()).replaceAll(""));
 	}
 }

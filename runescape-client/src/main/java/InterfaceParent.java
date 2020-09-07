@@ -2,50 +2,26 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bz")
+@ObfuscatedName("bq")
 @Implements("InterfaceParent")
 public class InterfaceParent extends Node {
-	@ObfuscatedName("v")
-	static String[] field590;
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -228767789
+		intValue = -1616122647
 	)
 	@Export("group")
 	int group;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -109575985
+		intValue = 1330314565
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("q")
-	boolean field587;
+	@ObfuscatedName("s")
+	boolean field580;
 
 	InterfaceParent() {
-		this.field587 = false;
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "(IIIB)Llz;",
-		garbageValue = "-72"
-	)
-	static Sprite method1233(int var0, int var1, int var2) {
-		DemotingHashTable var3 = WorldMapRegion.WorldMapRegion_cachedSprites;
-		long var4 = (long)(var2 << 16 | var0 << 8 | var1);
-		return (Sprite)var3.get(var4);
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "(Lbu;I)V",
-		garbageValue = "-764301386"
-	)
-	@Export("runScriptEvent")
-	public static void runScriptEvent(ScriptEvent var0) {
-		WorldMapLabel.runScript(var0, 500000);
-	}
+		this.field580 = false; // L: 8
+	} // L: 10
 }

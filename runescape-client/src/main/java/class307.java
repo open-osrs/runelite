@@ -1,250 +1,113 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ky")
+@ObfuscatedName("kq")
 public class class307 {
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
-		garbageValue = "-549793273"
+		descriptor = "(CI)C",
+		garbageValue = "-2104430234"
 	)
-	static int method5650(int var0, Script var1, boolean var2) {
-		if (var0 < 1000) {
-			return ArchiveLoader.method1213(var0, var1, var2);
-		} else if (var0 < 1100) {
-			return GrandExchangeOfferOwnWorldComparator.method1342(var0, var1, var2);
-		} else if (var0 < 1200) {
-			return InvDefinition.method4530(var0, var1, var2);
-		} else if (var0 < 1300) {
-			return PlayerType.method4289(var0, var1, var2);
-		} else if (var0 < 1400) {
-			return GrandExchangeOfferWorldComparator.method137(var0, var1, var2);
-		} else if (var0 < 1500) {
-			return Tiles.method1199(var0, var1, var2);
-		} else if (var0 < 1600) {
-			return MusicPatchNode.method3964(var0, var1, var2);
-		} else if (var0 < 1700) {
-			return ReflectionCheck.method2418(var0, var1, var2);
-		} else if (var0 < 1800) {
-			return PendingSpawn.method1808(var0, var1, var2);
-		} else if (var0 < 1900) {
-			return class7.method100(var0, var1, var2);
-		} else if (var0 < 2000) {
-			return SoundSystem.method2630(var0, var1, var2);
-		} else if (var0 < 2100) {
-			return GrandExchangeOfferOwnWorldComparator.method1342(var0, var1, var2);
-		} else if (var0 < 2200) {
-			return InvDefinition.method4530(var0, var1, var2);
-		} else if (var0 < 2300) {
-			return PlayerType.method4289(var0, var1, var2);
-		} else if (var0 < 2400) {
-			return GrandExchangeOfferWorldComparator.method137(var0, var1, var2);
-		} else if (var0 < 2500) {
-			return Tiles.method1199(var0, var1, var2);
-		} else if (var0 < 2600) {
-			return Huffman.method4099(var0, var1, var2);
-		} else if (var0 < 2700) {
-			return Clock.method3641(var0, var1, var2);
-		} else if (var0 < 2800) {
-			return GrandExchangeOffer.method194(var0, var1, var2);
-		} else if (var0 < 2900) {
-			return WorldMapManager.method717(var0, var1, var2);
-		} else if (var0 < 3000) {
-			return SoundSystem.method2630(var0, var1, var2);
-		} else if (var0 < 3200) {
-			return WorldMapEvent.method836(var0, var1, var2);
-		} else if (var0 < 3300) {
-			return MusicPatchNode.method3969(var0, var1, var2);
-		} else if (var0 < 3400) {
-			return UrlRequester.method3424(var0, var1, var2);
-		} else if (var0 < 3500) {
-			return SecureRandomFuture.method2272(var0, var1, var2);
-		} else if (var0 < 3700) {
-			return class4.method63(var0, var1, var2);
-		} else if (var0 < 4000) {
-			return NPCDefinition.method4922(var0, var1, var2);
-		} else if (var0 < 4100) {
-			return SecureRandomCallable.method1203(var0, var1, var2);
-		} else if (var0 < 4200) {
-			return TileItemPile.method2902(var0, var1, var2);
-		} else if (var0 < 4300) {
-			return TextureProvider.method2888(var0, var1, var2);
-		} else if (var0 < 5100) {
-			return Entity.method3376(var0, var1, var2);
-		} else if (var0 < 5400) {
-			return class231.method4277(var0, var1, var2);
-		} else if (var0 < 5600) {
-			return class231.method4278(var0, var1, var2);
-		} else if (var0 < 5700) {
-			return class278.method5158(var0, var1, var2);
-		} else if (var0 < 6300) {
-			return AttackOption.method2180(var0, var1, var2);
-		} else if (var0 < 6600) {
-			return LoginScreenAnimation.method1883(var0, var1, var2);
-		} else {
-			return var0 < 6700 ? WorldMapIcon_0.method265(var0, var1, var2) : 2;
+	public static char method5555(char var0) {
+		switch(var0) { // L: 48
+		case ' ':
+		case '-':
+		case '_':
+		case ' ':
+			return '_'; // L: 62
+		case '#':
+		case '[':
+		case ']':
+			return var0; // L: 92
+		case 'À':
+		case 'Á':
+		case 'Â':
+		case 'Ã':
+		case 'Ä':
+		case 'à':
+		case 'á':
+		case 'â':
+		case 'ã':
+		case 'ä':
+			return 'a'; // L: 117
+		case 'Ç':
+		case 'ç':
+			return 'c'; // L: 79
+		case 'È':
+		case 'É':
+		case 'Ê':
+		case 'Ë':
+		case 'è':
+		case 'é':
+		case 'ê':
+		case 'ë':
+			return 'e'; // L: 88
+		case 'Í':
+		case 'Î':
+		case 'Ï':
+		case 'í':
+		case 'î':
+		case 'ï':
+			return 'i'; // L: 57
+		case 'Ñ':
+		case 'ñ':
+			return 'n'; // L: 95
+		case 'Ò':
+		case 'Ó':
+		case 'Ô':
+		case 'Õ':
+		case 'Ö':
+		case 'ò':
+		case 'ó':
+		case 'ô':
+		case 'õ':
+		case 'ö':
+			return 'o'; // L: 106
+		case 'Ù':
+		case 'Ú':
+		case 'Û':
+		case 'Ü':
+		case 'ù':
+		case 'ú':
+		case 'û':
+		case 'ü':
+			return 'u'; // L: 74
+		case 'ß':
+			return 'b'; // L: 50
+		case 'ÿ':
+		case 'Ÿ':
+			return 'y'; // L: 65
+		default:
+			return Character.toLowerCase(var0); // L: 76
 		}
 	}
 
-	@ObfuscatedName("gy")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		signature = "(IIIIIB)V",
-		garbageValue = "51"
+		descriptor = "(B)[Lls;",
+		garbageValue = "1"
 	)
-	@Export("drawObject")
-	static final void drawObject(int var0, int var1, int var2, int var3, int var4) {
-		long var5 = UserComparator3.scene.getBoundaryObjectTag(var0, var1, var2);
-		int var7;
-		int var8;
-		int var9;
-		int var10;
-		int var14;
-		int var26;
-		if (var5 != 0L) {
-			var7 = UserComparator3.scene.getObjectFlags(var0, var1, var2, var5);
-			var8 = var7 >> 6 & 3;
-			var9 = var7 & 31;
-			var10 = var3;
-			boolean var12 = 0L != var5;
-			if (var12) {
-				boolean var13 = (int)(var5 >>> 16 & 1L) == 1;
-				var12 = !var13;
-			}
+	static IndexedSprite[] method5558() {
+		IndexedSprite[] var0 = new IndexedSprite[class335.SpriteBuffer_spriteCount]; // L: 154
 
-			if (var12) {
-				var10 = var4;
-			}
-
-			int[] var19 = class3.sceneMinimapSprite.pixels;
-			var26 = var1 * 4 + (103 - var2) * 2048 + 24624;
-			var14 = Language.Entity_unpackID(var5);
-			ObjectDefinition var15 = Canvas.getObjectDefinition(var14);
-			if (var15.mapSceneId != -1) {
-				IndexedSprite var16 = UserComparator6.mapSceneSprites[var15.mapSceneId];
-				if (var16 != null) {
-					int var17 = (var15.sizeX * 4 - var16.subWidth) / 2;
-					int var18 = (var15.sizeY * 4 - var16.subHeight) / 2;
-					var16.drawAt(var17 + var1 * 4 + 48, (104 - var2 - var15.sizeY) * 4 + var18 + 48);
-				}
-			} else {
-				if (var9 == 0 || var9 == 2) {
-					if (var8 == 0) {
-						var19[var26] = var10;
-						var19[var26 + 512] = var10;
-						var19[var26 + 1024] = var10;
-						var19[var26 + 1536] = var10;
-					} else if (var8 == 1) {
-						var19[var26] = var10;
-						var19[var26 + 1] = var10;
-						var19[var26 + 2] = var10;
-						var19[var26 + 3] = var10;
-					} else if (var8 == 2) {
-						var19[var26 + 3] = var10;
-						var19[var26 + 512 + 3] = var10;
-						var19[var26 + 1024 + 3] = var10;
-						var19[var26 + 1536 + 3] = var10;
-					} else if (var8 == 3) {
-						var19[var26 + 1536] = var10;
-						var19[var26 + 1536 + 1] = var10;
-						var19[var26 + 1536 + 2] = var10;
-						var19[var26 + 1536 + 3] = var10;
-					}
-				}
-
-				if (var9 == 3) {
-					if (var8 == 0) {
-						var19[var26] = var10;
-					} else if (var8 == 1) {
-						var19[var26 + 3] = var10;
-					} else if (var8 == 2) {
-						var19[var26 + 1536 + 3] = var10;
-					} else if (var8 == 3) {
-						var19[var26 + 1536] = var10;
-					}
-				}
-
-				if (var9 == 2) {
-					if (var8 == 3) {
-						var19[var26] = var10;
-						var19[var26 + 512] = var10;
-						var19[var26 + 1024] = var10;
-						var19[var26 + 1536] = var10;
-					} else if (var8 == 0) {
-						var19[var26] = var10;
-						var19[var26 + 1] = var10;
-						var19[var26 + 2] = var10;
-						var19[var26 + 3] = var10;
-					} else if (var8 == 1) {
-						var19[var26 + 3] = var10;
-						var19[var26 + 512 + 3] = var10;
-						var19[var26 + 1024 + 3] = var10;
-						var19[var26 + 1536 + 3] = var10;
-					} else if (var8 == 2) {
-						var19[var26 + 1536] = var10;
-						var19[var26 + 1536 + 1] = var10;
-						var19[var26 + 1536 + 2] = var10;
-						var19[var26 + 1536 + 3] = var10;
-					}
-				}
-			}
+		for (int var1 = 0; var1 < class335.SpriteBuffer_spriteCount; ++var1) { // L: 155
+			IndexedSprite var2 = var0[var1] = new IndexedSprite(); // L: 156
+			var2.width = class335.SpriteBuffer_spriteWidth; // L: 157
+			var2.height = class335.SpriteBuffer_spriteHeight; // L: 158
+			var2.xOffset = Username.SpriteBuffer_xOffsets[var1]; // L: 159
+			var2.yOffset = class335.SpriteBuffer_yOffsets[var1]; // L: 160
+			var2.subWidth = class335.SpriteBuffer_spriteWidths[var1]; // L: 161
+			var2.subHeight = class335.SpriteBuffer_spriteHeights[var1]; // L: 162
+			var2.palette = TaskHandler.SpriteBuffer_spritePalette; // L: 163
+			var2.pixels = class92.SpriteBuffer_pixels[var1]; // L: 164
 		}
 
-		var5 = UserComparator3.scene.getGameObjectTag(var0, var1, var2);
-		if (var5 != 0L) {
-			var7 = UserComparator3.scene.getObjectFlags(var0, var1, var2, var5);
-			var8 = var7 >> 6 & 3;
-			var9 = var7 & 31;
-			var10 = Language.Entity_unpackID(var5);
-			ObjectDefinition var20 = Canvas.getObjectDefinition(var10);
-			if (var20.mapSceneId != -1) {
-				IndexedSprite var28 = UserComparator6.mapSceneSprites[var20.mapSceneId];
-				if (var28 != null) {
-					var26 = (var20.sizeX * 4 - var28.subWidth) / 2;
-					var14 = (var20.sizeY * 4 - var28.subHeight) / 2;
-					var28.drawAt(var26 + var1 * 4 + 48, (104 - var2 - var20.sizeY) * 4 + var14 + 48);
-				}
-			} else if (var9 == 9) {
-				int var25 = 15658734;
-				boolean var27 = var5 != 0L;
-				if (var27) {
-					boolean var23 = (int)(var5 >>> 16 & 1L) == 1;
-					var27 = !var23;
-				}
-
-				if (var27) {
-					var25 = 15597568;
-				}
-
-				int[] var24 = class3.sceneMinimapSprite.pixels;
-				int var29 = var1 * 4 + (103 - var2) * 2048 + 24624;
-				if (var8 != 0 && var8 != 2) {
-					var24[var29] = var25;
-					var24[var29 + 1 + 512] = var25;
-					var24[var29 + 1024 + 2] = var25;
-					var24[var29 + 1536 + 3] = var25;
-				} else {
-					var24[var29 + 1536] = var25;
-					var24[var29 + 1 + 1024] = var25;
-					var24[var29 + 512 + 2] = var25;
-					var24[var29 + 3] = var25;
-				}
-			}
-		}
-
-		var5 = UserComparator3.scene.getFloorDecorationTag(var0, var1, var2);
-		if (0L != var5) {
-			var7 = Language.Entity_unpackID(var5);
-			ObjectDefinition var21 = Canvas.getObjectDefinition(var7);
-			if (var21.mapSceneId != -1) {
-				IndexedSprite var22 = UserComparator6.mapSceneSprites[var21.mapSceneId];
-				if (var22 != null) {
-					var10 = (var21.sizeX * 4 - var22.subWidth) / 2;
-					int var11 = (var21.sizeY * 4 - var22.subHeight) / 2;
-					var22.drawAt(var1 * 4 + var10 + 48, (104 - var2 - var21.sizeY) * 4 + var11 + 48);
-				}
-			}
-		}
-
+		Username.SpriteBuffer_xOffsets = null; // L: 167
+		class335.SpriteBuffer_yOffsets = null; // L: 168
+		class335.SpriteBuffer_spriteWidths = null; // L: 169
+		class335.SpriteBuffer_spriteHeights = null; // L: 170
+		TaskHandler.SpriteBuffer_spritePalette = null; // L: 171
+		class92.SpriteBuffer_pixels = null; // L: 172
+		return var0; // L: 174
 	}
 }

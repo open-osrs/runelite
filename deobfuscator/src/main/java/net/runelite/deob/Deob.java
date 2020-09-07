@@ -37,7 +37,6 @@ import net.runelite.deob.deobfuscators.Lvt;
 import net.runelite.deob.deobfuscators.Order;
 import net.runelite.deob.deobfuscators.RenameUnique;
 import net.runelite.deob.deobfuscators.RuntimeExceptions;
-import net.runelite.deob.deobfuscators.StaticShouldBeInstance;
 import net.runelite.deob.deobfuscators.UnreachedCode;
 import net.runelite.deob.deobfuscators.UnusedClass;
 import net.runelite.deob.deobfuscators.UnusedFields;
@@ -80,68 +79,63 @@ public class Deob
 
 		ClassGroup group = JarUtil.loadJar(new File(args[0]));
 
-		run(group, new StaticShouldBeInstance());
+		// remove except RuntimeException
+		run(group, new RuntimeExceptions());
 
-		if (args.length <= 2 || !args[2].equals("rl"))
-		{
-			// remove except RuntimeException
-			run(group, new RuntimeExceptions());
+		run(group, new ControlFlowDeobfuscator());
 
-			run(group, new ControlFlowDeobfuscator());
+		run(group, new RenameUnique());
 
-			run(group, new RenameUnique());
+		// remove unused methods - this leaves Code with no instructions,
+		// which is not valid, so unused methods is run after
+		run(group, new UnreachedCode());
+		run(group, new UnusedMethods());
 
-			// remove unused methods - this leaves Code with no instructions,
-			// which is not valid, so unused methods is run after
-			run(group, new UnreachedCode());
-			run(group, new UnusedMethods());
+		// remove illegal state exceptions, frees up some parameters
+		run(group, new IllegalStateExceptions());
 
-			// remove illegal state exceptions, frees up some parameters
-			run(group, new IllegalStateExceptions());
+		// remove constant logically dead parameters
+		run(group, new ConstantParameter());
 
-			// remove constant logically dead parameters
-			run(group, new ConstantParameter());
+		// remove unhit blocks
+		run(group, new UnreachedCode());
+		run(group, new UnusedMethods());
 
-			// remove unhit blocks
-			run(group, new UnreachedCode());
-			run(group, new UnusedMethods());
+		// remove unused parameters
+		run(group, new UnusedParameters());
 
-			// remove unused parameters
-			run(group, new UnusedParameters());
+		// remove unused fields
+		run(group, new UnusedFields());
 
-			// remove unused fields
-			run(group, new UnusedFields());
+		run(group, new FieldInliner());
 
-			run(group, new FieldInliner());
+		// order uses class name order for sorting fields/methods,
+		// so run it before removing classes below
+		run(group, new Order());
 
-			// order uses class name order for sorting fields/methods,
-			// so run it before removing classes below
-			run(group, new Order());
+		run(group, new UnusedClass());
 
-			run(group, new UnusedClass());
+		runMath(group);
 
-			runMath(group);
+		run(group, new ExprArgOrder());
 
-			run(group, new ExprArgOrder());
+		run(group, new Lvt());
 
-			run(group, new Lvt());
+		run(group, new CastNull());
 
-			run(group, new CastNull());
+		run(group, new EnumDeobfuscator());
 
-			run(group, new EnumDeobfuscator());
+		new OpcodesTransformer().transform(group);
+		//run(group, new PacketHandlerOrder());
+		//run(group, new PacketWriteDeobfuscator());
 
-			new OpcodesTransformer().transform(group);
-			//run(group, new PacketHandlerOrder());
-			//run(group, new PacketWriteDeobfuscator());
+		run(group, new MenuActionDeobfuscator());
 
-			run(group, new MenuActionDeobfuscator());
-
-			new GetPathTransformer().transform(group);
-			new ClientErrorTransformer().transform(group);
-			new ReflectionTransformer().transform(group);
-			//new MaxMemoryTransformer().transform(group);
-			//new RuneliteBufferTransformer().transform(group);
-		}
+		new GetPathTransformer().transform(group);
+		new ClientErrorTransformer().transform(group);
+		new ReflectionTransformer().transform(group);
+		//new MaxMemoryTransformer().transform(group);
+		//new RuneliteBufferTransformer().transform(group);
 
 		JarUtil.saveJar(group, new File(args[1]));
 

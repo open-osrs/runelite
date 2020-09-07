@@ -53,7 +53,6 @@ import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ItemDespawned;
 import net.runelite.api.events.ItemQuantityChanged;
 import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.client.eventbus.EventBus;
@@ -65,26 +64,27 @@ import net.runelite.client.events.PlayerLootReceived;
 public class LootManager
 {
 	private static final Map<Integer, Integer> NPC_DEATH_ANIMATIONS = ImmutableMap.<Integer, Integer>builder()
-		.put(NpcID.CAVE_KRAKEN, AnimationID.CAVE_KRAKEN_DEATH)
-		.put(NpcID.CRYSTALLINE_BAT, AnimationID.CRYSTALLINE_BAT_DEATH)
-		.put(NpcID.CRYSTALLINE_RAT, AnimationID.CRYSTALLINE_RAT_DEATH)
-		.put(NpcID.CRYSTALLINE_SPIDER, AnimationID.CRYSTALLINE_SPIDER_DEATH)
-		.put(NpcID.CRYSTALLINE_WOLF, AnimationID.CRYSTALLINE_WOLF_DEATH)
-		.put(NpcID.CRYSTALLINE_UNICORN, AnimationID.CRYSTALLINE_UNICORN_DEATH)
-		.put(NpcID.CRYSTALLINE_SCORPION, AnimationID.CORRUPTED_SCORPION_DEATH)
-		.put(NpcID.CRYSTALLINE_DRAGON, AnimationID.CRYSTALLINE_DRAGON_DEATH)
-		.put(NpcID.CRYSTALLINE_DARK_BEAST, AnimationID.CRYSTALLINE_DARK_BEAST_DEATH)
-		.put(NpcID.CRYSTALLINE_BEAR, AnimationID.CRYSTALLINE_BEAR_DEATH)
-		.put(NpcID.CORRUPTED_BAT, AnimationID.CRYSTALLINE_BAT_DEATH)
-		.put(NpcID.CORRUPTED_RAT, AnimationID.CRYSTALLINE_RAT_DEATH)
-		.put(NpcID.CORRUPTED_SPIDER, AnimationID.CRYSTALLINE_SPIDER_DEATH)
-		.put(NpcID.CORRUPTED_WOLF, AnimationID.CRYSTALLINE_WOLF_DEATH)
-		.put(NpcID.CORRUPTED_UNICORN, AnimationID.CRYSTALLINE_UNICORN_DEATH)
-		.put(NpcID.CORRUPTED_SCORPION, AnimationID.CORRUPTED_SCORPION_DEATH)
-		.put(NpcID.CORRUPTED_DRAGON, AnimationID.CRYSTALLINE_DRAGON_DEATH)
-		.put(NpcID.CORRUPTED_DARK_BEAST, AnimationID.CRYSTALLINE_DARK_BEAST_DEATH)
-		.put(NpcID.CORRUPTED_BEAR, AnimationID.CRYSTALLINE_BEAR_DEATH)
-		.build();
+			.put(NpcID.CAVE_KRAKEN, AnimationID.CAVE_KRAKEN_DEATH)
+			.put(NpcID.CRYSTALLINE_BAT, AnimationID.CRYSTALLINE_BAT_DEATH)
+			.put(NpcID.CRYSTALLINE_RAT, AnimationID.CRYSTALLINE_RAT_DEATH)
+			.put(NpcID.CRYSTALLINE_SPIDER, AnimationID.CRYSTALLINE_SPIDER_DEATH)
+			.put(NpcID.CRYSTALLINE_WOLF, AnimationID.CRYSTALLINE_WOLF_DEATH)
+			.put(NpcID.CRYSTALLINE_UNICORN, AnimationID.CRYSTALLINE_UNICORN_DEATH)
+			.put(NpcID.CRYSTALLINE_SCORPION, AnimationID.CORRUPTED_SCORPION_DEATH)
+			.put(NpcID.CRYSTALLINE_DRAGON, AnimationID.CRYSTALLINE_DRAGON_DEATH)
+			.put(NpcID.CRYSTALLINE_DARK_BEAST, AnimationID.CRYSTALLINE_DARK_BEAST_DEATH)
+			.put(NpcID.CRYSTALLINE_BEAR, AnimationID.CRYSTALLINE_BEAR_DEATH)
+			.put(NpcID.CORRUPTED_BAT, AnimationID.CRYSTALLINE_BAT_DEATH)
+			.put(NpcID.CORRUPTED_RAT, AnimationID.CRYSTALLINE_RAT_DEATH)
+			.put(NpcID.CORRUPTED_SPIDER, AnimationID.CRYSTALLINE_SPIDER_DEATH)
+			.put(NpcID.CORRUPTED_WOLF, AnimationID.CRYSTALLINE_WOLF_DEATH)
+			.put(NpcID.CORRUPTED_UNICORN, AnimationID.CRYSTALLINE_UNICORN_DEATH)
+			.put(NpcID.CORRUPTED_SCORPION, AnimationID.CORRUPTED_SCORPION_DEATH)
+			.put(NpcID.CORRUPTED_DRAGON, AnimationID.CRYSTALLINE_DRAGON_DEATH)
+			.put(NpcID.CORRUPTED_DARK_BEAST, AnimationID.CRYSTALLINE_DARK_BEAST_DEATH)
+			.put(NpcID.CORRUPTED_BEAR, AnimationID.CRYSTALLINE_BEAR_DEATH)
+			.put(NpcID.THE_NIGHTMARE_9433, AnimationID.NIGHTMARE_DEATH)
+			.build();
 
 	private final EventBus eventBus;
 	private final Client client;
@@ -106,7 +106,6 @@ public class LootManager
 		this.client = client;
 
 		eventBus.subscribe(GameTick.class, this, this::onGameTick);
-		eventBus.subscribe(NpcDefinitionChanged.class, this, this::onNpcChanged);
 		eventBus.subscribe(NpcDespawned.class, this, this::onNpcDespawned);
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(ItemSpawned.class, this, this::onItemSpawned);
@@ -247,21 +246,16 @@ public class LootManager
 				// Big Kraken drops loot wherever player is standing when animation starts.
 				krakenPlayerLocation = client.getLocalPlayer().getWorldLocation();
 			}
+			else if (id == NpcID.THE_NIGHTMARE_9433)
+			{
+				delayedLootNpc = npc;
+				delayedLootTickLimit = 16;
+			}
 			else
 			{
 				// These NPCs drop loot on death animation, which is right now.
 				processNpcLoot(npc);
 			}
-		}
-	}
-
-	private void onNpcChanged(NpcDefinitionChanged npcChanged)
-	{
-		final NPC npc = npcChanged.getNpc();
-		if (npc.getId() == NpcID.THE_NIGHTMARE_9433)
-		{
-			delayedLootNpc = npc;
-			delayedLootTickLimit = 15;
 		}
 	}
 

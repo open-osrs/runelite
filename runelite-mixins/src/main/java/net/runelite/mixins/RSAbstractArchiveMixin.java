@@ -33,13 +33,12 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
 		return overlayOutdated;
 	}
 
+	@SuppressWarnings("InfiniteRecursion")
 	@Copy("takeFile")
-	abstract byte[] rs$getConfigData(int archiveId, int fileId);
-
 	@Replace("takeFile")
-	public byte[] rl$getConfigData(int groupId, int fileId)
+	public byte[] copy$getConfigData(int groupId, int fileId)
 	{
-		final byte[] rsData = rs$getConfigData(groupId, fileId);
+		final byte[] rsData = copy$getConfigData(groupId, fileId);
 		final int archiveId = ((RSArchive) this).getIndex();
 
 		if (!OverlayIndex.hasOverlay(archiveId, groupId))

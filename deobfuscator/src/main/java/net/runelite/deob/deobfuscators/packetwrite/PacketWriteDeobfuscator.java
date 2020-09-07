@@ -33,7 +33,6 @@ import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Type;
 import net.runelite.asm.attributes.code.Instruction;
-import static net.runelite.asm.attributes.code.InstructionType.INVOKEVIRTUAL;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.InvokeInstruction;
@@ -55,6 +54,7 @@ import net.runelite.deob.Deobfuscator;
 import net.runelite.deob.c2s.RWOpcodeFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import static net.runelite.asm.attributes.code.InstructionType.INVOKEVIRTUAL;
 
 public class PacketWriteDeobfuscator implements Deobfuscator
 {

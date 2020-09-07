@@ -590,16 +590,15 @@ public abstract class RSWidgetMixin implements RSWidget
 	}
 
 	@Copy("getModel")
-	public abstract RSModel rs$getModel(RSSequenceDefinition sequence, int frame, boolean alternate, RSPlayerAppearance playerComposition);
-
 	@Replace("getModel")
-	public RSModel rl$getModel(RSSequenceDefinition sequence, int frame, boolean alternate, RSPlayerAppearance playerComposition)
+	@SuppressWarnings("InfiniteRecursion")
+	public RSModel copy$getModel(RSSequenceDefinition sequence, int frame, boolean alternate, RSPlayerAppearance playerComposition)
 	{
 		if (frame != -1 && client.isInterpolateWidgetAnimations())
 		{
 			frame = frame | getModelFrameCycle() << 16 | Integer.MIN_VALUE;
 		}
-		return rs$getModel(sequence, frame, alternate, playerComposition);
+		return copy$getModel(sequence, frame, alternate, playerComposition);
 	}
 
 	@Inject

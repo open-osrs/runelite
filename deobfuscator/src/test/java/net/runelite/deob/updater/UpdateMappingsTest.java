@@ -105,16 +105,16 @@ public class UpdateMappingsTest
 	{
 		for (ClassFile cf : group.getClasses())
 		{
-			cf.getAnnotations().clearAnnotations();
+			cf.getAnnotations().clear();
 
 			for (Field f : cf.getFields())
 			{
-				f.getAnnotations().clearAnnotations();
+				f.getAnnotations().clear();
 			}
 
 			for (Method m : cf.getMethods())
 			{
-				m.getAnnotations().clearAnnotations();
+				m.getAnnotations().clear();
 			}
 		}
 	}
@@ -136,8 +136,8 @@ public class UpdateMappingsTest
 
 				assert otherf != null : "unable to find " + f;
 
-				String name = DeobAnnotations.getExportedName(f.getAnnotations());
-				String otherName = DeobAnnotations.getExportedName(otherf.getAnnotations());
+				String name = DeobAnnotations.getExportedName(f);
+				String otherName = DeobAnnotations.getExportedName(otherf);
 
 				Assert.assertEquals(name + " <-> " + otherName, name, otherName);
 			}
@@ -148,8 +148,8 @@ public class UpdateMappingsTest
 
 				assert otherm != null : "unable to find " + m;
 
-				String name = DeobAnnotations.getExportedName(m.getAnnotations());
-				String otherName = DeobAnnotations.getExportedName(otherm.getAnnotations());
+				String name = DeobAnnotations.getExportedName(m);
+				String otherName = DeobAnnotations.getExportedName(otherm);
 
 				Assert.assertEquals(name + " <-> " + otherName, name, otherName);
 			}

@@ -98,7 +98,7 @@ public class Interfaces implements Iterable<Class>
 		final List<String> names = new ArrayList<>();
 		for (ClassFile c : getMyInterfaces())
 		{
-			String name = DeobAnnotations.getObfuscatedName(c.getAnnotations());
+			String name = DeobAnnotations.getObfuscatedName(c);
 			if (name == null)
 			{
 				continue;

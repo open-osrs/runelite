@@ -28,13 +28,8 @@ public abstract class RSRasterizer2DMixin implements RSClient
 	}
 
 	@Copy("Rasterizer2D_fillRectangleGradientAlpha")
-	private static void rs$drawGradientAlpha(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("Rasterizer2D_fillRectangleGradientAlpha")
-	private static void rl$drawGradientAlpha(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7)
+	private static void copy$drawGradientAlpha(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7)
 	{
 		final int width = client.getGraphicsPixelsWidth();
 		final int startX = client.getStartX();
@@ -45,7 +40,7 @@ public abstract class RSRasterizer2DMixin implements RSClient
 
 		if (!client.isGpu())
 		{
-			rs$drawGradientAlpha(var0, var1, var2, var3, var4, var5, var6, var7);
+			copy$drawGradientAlpha(var0, var1, var2, var3, var4, var5, var6, var7);
 			return;
 		}
 
@@ -110,13 +105,8 @@ public abstract class RSRasterizer2DMixin implements RSClient
 	}
 
 	@Copy("Rasterizer2D_drawGradientPixels")
-	public static void rs$raster2d7(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7)
-	{
-		throw new RuntimeException();
-	}
-
 	@Replace("Rasterizer2D_drawGradientPixels")
-	public static void rl$raster2d7(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7)
+	public static void copy$raster2d7(int var0, int var1, int var2, int var3, int var4, int var5, byte[] var6, int var7)
 	{
 		final int width = client.getGraphicsPixelsWidth();
 		final int height = client.getGraphicsPixelsHeight();
@@ -124,7 +114,7 @@ public abstract class RSRasterizer2DMixin implements RSClient
 
 		if (!client.isGpu())
 		{
-			rs$raster2d7(var0, var1, var2, var3, var4, var5, var6, var7);
+			copy$raster2d7(var0, var1, var2, var3, var4, var5, var6, var7);
 			return;
 		}
 

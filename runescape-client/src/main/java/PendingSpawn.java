@@ -5,153 +5,136 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bt")
+@ObfuscatedName("bs")
 @Implements("PendingSpawn")
 public final class PendingSpawn extends Node {
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1985828823
-	)
-	@Export("plane")
-	int plane;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = -1983032759
-	)
-	@Export("type")
-	int type;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = -1818060675
-	)
-	@Export("x")
-	int x;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = 1999145911
-	)
-	@Export("y")
-	int y;
-	@ObfuscatedName("p")
-	@ObfuscatedGetter(
-		intValue = 386133029
+		intValue = -1658510555
 	)
 	@Export("objectId")
 	int objectId;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1588520035
+		intValue = 537531937
 	)
-	int field956;
-	@ObfuscatedName("n")
+	@Export("plane")
+	int plane;
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1476403807
+		intValue = -451639577
 	)
-	int field957;
-	@ObfuscatedName("u")
+	@Export("type")
+	int type;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1658497211
+		intValue = -805517653
+	)
+	@Export("x")
+	int x;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = 309622261
+	)
+	@Export("y")
+	int y;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 1728058903
+	)
+	int field960;
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = -629147525
+	)
+	int field961;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = -922964443
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1422873381
+		intValue = 1252885215
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("z")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1345962763
+		intValue = -743478207
 	)
-	int field962;
-	@ObfuscatedName("w")
+	int field964;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -577159519
+		intValue = 1560488333
 	)
 	@Export("delay")
 	int delay;
-	@ObfuscatedName("y")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 790870073
+		intValue = 1735849843
 	)
 	@Export("hitpoints")
 	int hitpoints;
 
 	PendingSpawn() {
-		this.delay = 0;
-		this.hitpoints = -1;
-	}
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		signature = "(Lic;Ljava/lang/String;Ljava/lang/String;I)[Llh;",
-		garbageValue = "574747014"
-	)
-	public static IndexedSprite[] method1806(AbstractArchive var0, String var1, String var2) {
-		int var3 = var0.getGroupId(var1);
-		int var4 = var0.getFileId(var3, var2);
-		return HealthBar.method2125(var0, var3, var4);
-	}
+		this.delay = 0; // L: 16
+		this.hitpoints = -1; // L: 17
+	} // L: 19
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		signature = "(Lhd;I[B[BI)V",
-		garbageValue = "-1571904788"
+		descriptor = "(III)I",
+		garbageValue = "681625855"
 	)
-	@Export("Widget_setKey")
-	static final void Widget_setKey(Widget var0, int var1, byte[] var2, byte[] var3) {
-		if (var0.field2647 == null) {
-			if (var2 == null) {
-				return;
-			}
-
-			var0.field2647 = new byte[11][];
-			var0.field2678 = new byte[11][];
-			var0.field2679 = new int[11];
-			var0.field2680 = new int[11];
-		}
-
-		var0.field2647[var1] = var2;
-		if (var2 != null) {
-			var0.field2709 = true;
+	static final int method1795(int var0, int var1) {
+		if (var0 == -1) { // L: 863
+			return 12345678;
 		} else {
-			var0.field2709 = false;
-
-			for (int var4 = 0; var4 < var0.field2647.length; ++var4) {
-				if (var0.field2647[var4] != null) {
-					var0.field2709 = true;
-					break;
-				}
+			var1 = (var0 & 127) * var1 / 128; // L: 864
+			if (var1 < 2) { // L: 865
+				var1 = 2;
+			} else if (var1 > 126) { // L: 866
+				var1 = 126;
 			}
-		}
 
-		var0.field2678[var1] = var3;
+			return (var0 & 65408) + var1; // L: 867
+		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		signature = "(ILcs;ZI)I",
-		garbageValue = "556274205"
+		descriptor = "(ILcy;ZB)I",
+		garbageValue = "1"
 	)
-	static int method1808(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? KeyHandler.field407 : SecureRandomCallable.field544;
-		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) {
-			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.itemId;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) {
-			if (var3.itemId != -1) {
-				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.itemQuantity;
+	static int method1794(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? Canvas.field438 : class3.field12; // L: 1122
+		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1123
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = GrandExchangeOfferTotalQuantityComparator.Widget_unpackTargetMask(WorldMapIcon_0.getWidgetFlags(var3)); // L: 1124
+			return 1; // L: 1125
+		} else if (var0 != ScriptOpcodes.CC_GETOP) { // L: 1127
+			if (var0 == ScriptOpcodes.CC_GETOPBASE) { // L: 1134
+				if (var3.dataText == null) { // L: 1135
+					Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = "";
+				} else {
+					Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1136
+				}
+
+				return 1; // L: 1137
 			} else {
-				Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = 0;
+				return 2; // L: 1139
+			}
+		} else {
+			int var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 1128
+			--var4; // L: 1129
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1130
+				Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1131
+			} else {
+				Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = "";
 			}
 
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETID) {
-			Interpreter.Interpreter_intStack[++UrlRequester.Interpreter_intStackSize - 1] = var3.childIndex;
-			return 1;
-		} else {
-			return 2;
+			return 1; // L: 1132
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,70 +22,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.rs.api;
 
-package net.runelite.asm.attributes.annotation;
-
-import java.util.List;
-import org.objectweb.asm.AnnotationVisitor;
-
-public abstract class Element<T>
+public interface RSFillMode
 {
-	String name = "value";
-
-	T value;
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
-	public T getValue()
-	{
-		return value;
-	}
-
-	public void setValue(T value)
-	{
-		this.value = value;
-	}
-
-	public String getString()
-	{
-		return value.toString();
-	}
-
-	public static void accept(AnnotationVisitor visitor, final String name, final Object value)
-	{
-		if (visitor == null)
-		{
-			return;
-		}
-
-		if (value instanceof Annotation)
-		{
-			Annotation annotation = (Annotation) value;
-			annotation.accept(visitor.visitAnnotation(name, annotation.getType().toString()));
-		}
-		else if (value instanceof List)
-		{
-			AnnotationVisitor arr = visitor.visitArray(name);
-			List<?> arrayValue = (List<?>) value;
-
-			for (Object o : arrayValue)
-			{
-				accept(arr, null, o);
-			}
-
-			arr.visitEnd();
-		}
-		else
-		{
-			visitor.visit(name, value);
-		}
-	}
 }

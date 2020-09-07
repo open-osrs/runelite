@@ -783,7 +783,7 @@ public class ModArith implements Deobfuscator
 				String ename = pair.getType() == Long.class
 					? "longValue"
 					: "intValue";
-				f.getAnnotations().addAnnotation(DeobAnnotations.OBFUSCATED_GETTER, ename, pair.getter);
+				f.addAnnotation(DeobAnnotations.OBFUSCATED_GETTER, ename, pair.getter);
 			}
 		}
 	}

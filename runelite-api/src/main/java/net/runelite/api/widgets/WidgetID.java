@@ -170,6 +170,7 @@ public class WidgetID
 	public static final int ADVENTURE_LOG_ID = 187;
 	public static final int GENERIC_SCROLL_GROUP_ID = 625;
 	public static final int GAUNTLET_TIMER_GROUP_ID = 637;
+	public static final int GAUNTLET_MAP_GROUP_ID = 638;
 	public static final int HALLOWED_SEPULCHRE_TIMER_GROUP_ID = 668;
 	public static final int HEALTH_OVERLAY_BAR_GROUP_ID = 303;
 
@@ -888,23 +889,23 @@ public class WidgetID
 	static class EquipmentWidgetIdentifiers
 	{
 		static final int EQUIP_YOUR_CHARACTER = 3;
-		static final int STAB_ATTACK_BONUS = 23;
-		static final int SLASH_ATTACK_BONUS = 24;
-		static final int CRUSH_ATTACK_BONUS = 25;
-		static final int MAGIC_ATTACK_BONUS = 26;
-		static final int RANGED_ATTACK_BONUS = 27;
-		static final int STAB_DEFENCE_BONUS = 29;
-		static final int SLASH_DEFENCE_BONUS = 30;
-		static final int CRUSH_DEFENCE_BONUS = 31;
-		static final int MAGIC_DEFENCE_BONUS = 32;
-		static final int RANGED_DEFENCE_BONUS = 33;
-		static final int MELEE_STRENGTH = 35;
-		static final int RANGED_STRENGTH = 36;
-		static final int MAGIC_DAMAGE = 37;
-		static final int PRAYER_BONUS = 38;
-		static final int UNDEAD_DAMAGE_BONUS = 40;
-		static final int SLAYER_DAMAGE_BONUS = 41;
-		static final int WEIGHT = 43;
+		static final int STAB_ATTACK_BONUS = 24;
+		static final int SLASH_ATTACK_BONUS = 25;
+		static final int CRUSH_ATTACK_BONUS = 26;
+		static final int MAGIC_ATTACK_BONUS = 27;
+		static final int RANGED_ATTACK_BONUS = 28;
+		static final int STAB_DEFENCE_BONUS = 30;
+		static final int SLASH_DEFENCE_BONUS = 31;
+		static final int CRUSH_DEFENCE_BONUS = 32;
+		static final int MAGIC_DEFENCE_BONUS = 33;
+		static final int RANGED_DEFENCE_BONUS = 34;
+		static final int MELEE_STRENGTH = 36;
+		static final int RANGED_STRENGTH = 37;
+		static final int MAGIC_DAMAGE = 38;
+		static final int PRAYER_BONUS = 39;
+		static final int UNDEAD_DAMAGE_BONUS = 41;
+		static final int SLAYER_DAMAGE_BONUS = 42;
+		static final int WEIGHT = 49;
 	}
 
 	static class VarrockMuseum
@@ -1154,10 +1155,10 @@ public class WidgetID
 		static final int SKULL = 56;  // OUTDATED?
 		static final int ATTACK_RANGE = 59;  // OUTDATED?
 		static final int BOUNTY_HUNTER_INFO = 6;
-		static final int KILLDEATH_RATIO = 34;
-		static final int SKULL_CONTAINER = 54;
-		static final int SAFE_ZONE = 56;
-		static final int WILDERNESS_LEVEL = 59; // this can also be the Deadman Mode "Protection" text
+		static final int KILLDEATH_RATIO = 28;
+		static final int SKULL_CONTAINER = 48;
+		static final int SAFE_ZONE = 50;
+		static final int WILDERNESS_LEVEL = 53; // this can also be the Deadman Mode "Protection" text
 	}
 
 	static class KourendFavour
@@ -1361,10 +1362,16 @@ public class WidgetID
 		static final int CONTAINER = 2;
 	}
 
+	static class GauntletMap
+	{
+		static final int CONTAINER = 4;
+	}
+
 	static class HallowedSepulchreTimer
 	{
 		static final int CONTAINER = 2;
 	}
+
 	static class EncounterHealthBar
 	{
 		static final int CONTAINER = 6;

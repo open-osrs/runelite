@@ -1,264 +1,177 @@
-import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iw")
+@ObfuscatedName("iu")
 @Implements("FloorUnderlayDefinition")
 public class FloorUnderlayDefinition extends DualNode {
-	@ObfuscatedName("sh")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		signature = "Llp;"
-	)
-	@Export("masterDisk")
-	static ArchiveDisk masterDisk;
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "Lic;"
+		descriptor = "Lic;"
 	)
 	@Export("FloorUnderlayDefinition_archive")
 	public static AbstractArchive FloorUnderlayDefinition_archive;
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "Lec;"
+		descriptor = "Lel;"
 	)
 	@Export("FloorUnderlayDefinition_cached")
 	public static EvictingDualNodeHashTable FloorUnderlayDefinition_cached;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 582353211
+		intValue = 1526550495
 	)
 	@Export("rgb")
 	int rgb;
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -50831355
+		intValue = -196392257
 	)
 	@Export("hue")
 	public int hue;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 88823617
+		intValue = -1341685519
 	)
 	@Export("saturation")
 	public int saturation;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1334094789
+		intValue = 57935727
 	)
 	@Export("lightness")
 	public int lightness;
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1647084533
+		intValue = 1946992829
 	)
 	@Export("hueMultiplier")
 	public int hueMultiplier;
 
 	static {
-		FloorUnderlayDefinition_cached = new EvictingDualNodeHashTable(64);
+		FloorUnderlayDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
 	}
 
 	public FloorUnderlayDefinition() {
-		this.rgb = 0;
+		this.rgb = 0; // L: 12
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		signature = "(I)V",
-		garbageValue = "-33176492"
+		descriptor = "(B)V",
+		garbageValue = "-7"
 	)
 	@Export("postDecode")
 	public void postDecode() {
-		this.setHsl(this.rgb);
-	}
+		this.setHsl(this.rgb); // L: 23
+	} // L: 24
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IB)V",
-		garbageValue = "17"
+		descriptor = "(Lkf;II)V",
+		garbageValue = "-1970476156"
 	)
 	@Export("decode")
 	public void decode(Buffer var1, int var2) {
 		while (true) {
-			int var3 = var1.readUnsignedByte();
-			if (var3 == 0) {
-				return;
+			int var3 = var1.readUnsignedByte(); // L: 28
+			if (var3 == 0) { // L: 29
+				return; // L: 32
 			}
 
-			this.decodeNext(var1, var3, var2);
+			this.decodeNext(var1, var3, var2); // L: 30
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		signature = "(Lkn;IIB)V",
-		garbageValue = "-93"
+		descriptor = "(Lkf;III)V",
+		garbageValue = "-789345955"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
-		if (var2 == 1) {
+		if (var2 == 1) { // L: 35
 			this.rgb = var1.readMedium();
 		}
 
-	}
+	} // L: 37
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		signature = "(IB)V",
-		garbageValue = "-14"
+		descriptor = "(IB)V",
+		garbageValue = "39"
 	)
 	@Export("setHsl")
 	void setHsl(int var1) {
-		double var2 = (double)(var1 >> 16 & 255) / 256.0D;
-		double var4 = (double)(var1 >> 8 & 255) / 256.0D;
-		double var6 = (double)(var1 & 255) / 256.0D;
-		double var8 = var2;
-		if (var4 < var2) {
+		double var2 = (double)(var1 >> 16 & 255) / 256.0D; // L: 40
+		double var4 = (double)(var1 >> 8 & 255) / 256.0D; // L: 41
+		double var6 = (double)(var1 & 255) / 256.0D; // L: 42
+		double var8 = var2; // L: 43
+		if (var4 < var2) { // L: 44
 			var8 = var4;
 		}
 
-		if (var6 < var8) {
+		if (var6 < var8) { // L: 45
 			var8 = var6;
 		}
 
-		double var10 = var2;
-		if (var4 > var2) {
+		double var10 = var2; // L: 46
+		if (var4 > var2) { // L: 47
 			var10 = var4;
 		}
 
-		if (var6 > var10) {
+		if (var6 > var10) { // L: 48
 			var10 = var6;
 		}
 
-		double var12 = 0.0D;
-		double var14 = 0.0D;
-		double var16 = (var10 + var8) / 2.0D;
-		if (var8 != var10) {
-			if (var16 < 0.5D) {
-				var14 = (var10 - var8) / (var8 + var10);
+		double var12 = 0.0D; // L: 49
+		double var14 = 0.0D; // L: 50
+		double var16 = (var8 + var10) / 2.0D; // L: 51
+		if (var10 != var8) { // L: 52
+			if (var16 < 0.5D) { // L: 53
+				var14 = (var10 - var8) / (var10 + var8);
 			}
 
-			if (var16 >= 0.5D) {
+			if (var16 >= 0.5D) { // L: 54
 				var14 = (var10 - var8) / (2.0D - var10 - var8);
 			}
 
-			if (var2 == var10) {
+			if (var10 == var2) { // L: 55
 				var12 = (var4 - var6) / (var10 - var8);
-			} else if (var10 == var4) {
-				var12 = 2.0D + (var6 - var2) / (var10 - var8);
+			} else if (var10 == var4) { // L: 56
+				var12 = (var6 - var2) / (var10 - var8) + 2.0D;
 			} else if (var6 == var10) {
-				var12 = 4.0D + (var2 - var4) / (var10 - var8);
+				var12 = 4.0D + (var2 - var4) / (var10 - var8); // L: 57
 			}
 		}
 
-		var12 /= 6.0D;
-		this.saturation = (int)(256.0D * var14);
-		this.lightness = (int)(256.0D * var16);
-		if (this.saturation < 0) {
+		var12 /= 6.0D; // L: 59
+		this.saturation = (int)(var14 * 256.0D); // L: 60
+		this.lightness = (int)(256.0D * var16); // L: 61
+		if (this.saturation < 0) { // L: 62
 			this.saturation = 0;
-		} else if (this.saturation > 255) {
+		} else if (this.saturation > 255) { // L: 63
 			this.saturation = 255;
 		}
 
-		if (this.lightness < 0) {
+		if (this.lightness < 0) { // L: 64
 			this.lightness = 0;
-		} else if (this.lightness > 255) {
+		} else if (this.lightness > 255) { // L: 65
 			this.lightness = 255;
 		}
 
-		if (var16 > 0.5D) {
-			this.hueMultiplier = (int)(512.0D * var14 * (1.0D - var16));
+		if (var16 > 0.5D) { // L: 66
+			this.hueMultiplier = (int)(512.0D * (1.0D - var16) * var14);
 		} else {
-			this.hueMultiplier = (int)(512.0D * var16 * var14);
+			this.hueMultiplier = (int)(512.0D * var14 * var16); // L: 67
 		}
 
-		if (this.hueMultiplier < 1) {
+		if (this.hueMultiplier < 1) { // L: 68
 			this.hueMultiplier = 1;
 		}
 
-		this.hue = (int)((double)this.hueMultiplier * var12);
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		signature = "([BI)Llz;",
-		garbageValue = "619951505"
-	)
-	@Export("convertJpgToSprite")
-	public static final Sprite convertJpgToSprite(byte[] var0) {
-		BufferedImage var1 = null;
-
-		try {
-			var1 = ImageIO.read(new ByteArrayInputStream(var0));
-			int var2 = var1.getWidth();
-			int var3 = var1.getHeight();
-			int[] var4 = new int[var3 * var2];
-			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2);
-			var5.grabPixels();
-			return new Sprite(var4, var2, var3);
-		} catch (IOException var7) {
-		} catch (InterruptedException var8) {
-		}
-
-		return new Sprite(0, 0);
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/Object;ZB)[B",
-		garbageValue = "101"
-	)
-	public static byte[] method4613(Object var0, boolean var1) {
-		if (var0 == null) {
-			return null;
-		} else if (var0 instanceof byte[]) {
-			byte[] var3 = (byte[])((byte[])var0);
-			return var1 ? class195.method3748(var3) : var3;
-		} else if (var0 instanceof AbstractByteArrayCopier) {
-			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0;
-			return var2.get();
-		} else {
-			throw new IllegalArgumentException();
-		}
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		signature = "(Llf;ILjava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "-1916318659"
-	)
-	static String method4612(IterableNodeHashTable var0, int var1, String var2) {
-		if (var0 == null) {
-			return var2;
-		} else {
-			ObjectNode var3 = (ObjectNode)var0.get((long)var1);
-			return var3 == null ? var2 : (String)var3.obj;
-		}
-	}
-
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		signature = "(Ljava/lang/String;IB)Z",
-		garbageValue = "3"
-	)
-	static boolean method4608(String var0, int var1) {
-		return GrandExchangeOfferTotalQuantityComparator.method165(var0, var1, "openjs");
-	}
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		signature = "(IB)Z",
-		garbageValue = "7"
-	)
-	@Export("Widget_isItemContainer")
-	public static boolean Widget_isItemContainer(int var0) {
-		return (var0 >> 30 & 1) != 0;
-	}
+		this.hue = (int)((double)this.hueMultiplier * var12); // L: 69
+	} // L: 70
 }

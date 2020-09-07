@@ -1125,7 +1125,6 @@ public interface RSClient extends RSGameShell, Client
 	@Import("viewportWalking")
 	void setViewportWalking(boolean viewportWalking);
 
-	@Import("playMusicTrack")
 	void playMusicTrack(int var0, RSAbstractArchive var1, int var2, int var3, int var4, boolean var5);
 
 	@Import("midiPcmStream")
@@ -1313,4 +1312,22 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("meslayerContinueWidget")
 	Widget getMessageContinueWidget();
+
+	@Import("musicPlayerStatus")
+	void setMusicPlayerStatus(int var0);
+
+	@Import("musicTrackArchive")
+	void setMusicTrackArchive(RSAbstractArchive var0);
+
+	@Import("musicTrackGroupId")
+	void setMusicTrackGroupId(int var0);
+
+	@Import("musicTrackFileId")
+	void setMusicTrackFileId(int var0);
+
+	@Import("musicTrackBoolean")
+	void setMusicTrackBoolean(boolean var0);
+
+	@Import("pcmSampleLength")
+	void setPcmSampleLength(int var0);
 }
