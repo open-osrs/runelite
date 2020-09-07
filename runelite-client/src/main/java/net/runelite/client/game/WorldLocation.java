@@ -82,7 +82,6 @@ public enum WorldLocation
 	RIMMINGTON_MINE("Rimmington Mine", new Location(2968, 3252, 2991, 3230), 0),
 	RIMMINGTON_PORTAL("Rimmington Portal", new Location(2946, 3228, 2960, 3218), 0),
 	ROGUES_DEN("Rogue's Den", new Location(3036, 4957, 3067, 4986), 1),
-	TAVERLY_POH_PORTAL("Taverly POH Portal", new Location(2885, 3471, 2899, 3458), 0),
 	TAVERLY("Taverly", new Location(2880, 3442, 2917, 3409), 0),
 	TAVERLY_DUNGEON_BLACK_KNGIHTS("Taverly Dungeon - Black Knights", new Location(2883, 9717, 2939, 9667), 0),
 	TAVERLY_DUNGEON_HILL_GIANTS("Taverly Dungeon - Hill Giants", new Location(2895, 9743, 2920, 9718), 0),
@@ -97,16 +96,17 @@ public enum WorldLocation
 	TAVERLY_DUNGEON_CHAOS_DWARVES("Taverly Dungeon - Chaos Dwarves", new Location(2920, 9776, 2938, 9745), 0),
 	TAVERLY_DUNGEON_MAIN_CORRIDOR("Taverly Dungeon - Main Corridor", new Location(2880, 9793, 2889, 9850), 0),
 	TAVERLY_GATE("Taverly Gate", new Location(2931, 3456, 2944, 3444), 0),
+	TAVERLY_POH_PORTAL("Taverly POH Portal", new Location(2885, 3471, 2899, 3458), 0),
 	WARRIORS_GUILD("Warriors' Guild", new Location(2838, 3536, 2876, 3555), 0),
 	WARRIORS_GUILD_BASEMENT("Warriors' Guild Basement (Dragon Defender)", new Location(2904, 9974, 2941, 9956), 0),
 
 	/*-
 	 *	Entrana
 	 */
+	ENTRANA_BALLOON("Entrana Balloon", new Location(2803, 3359, 2815, 3347), 0),
+	ENTRANA_CHURCH("Entrana Church", new Location(2840, 3356, 2858, 3341), 0),
 	ENTRANA_DOCKS("Entrana Docks", new Location(2825, 3338, 2847, 3328), 0),
 	ENTRANA_NORTH("Entrana (North Portion)", new Location(2541, 2875, 2595, 2837), 0),
-	ENTRANA_CHURCH("Entrana Church", new Location(2840, 3356, 2858, 3341), 0),
-	ENTRANA_BALLOON("Entrana Balloon", new Location(2803, 3359, 2815, 3347), 0),
 
 	/*-
 	 *	Feldip Hills
@@ -125,11 +125,11 @@ public enum WorldLocation
 	 */
 	MUSEUM_CAMP("Fossil Island Museum Camp", new Location(3708, 3797, 3751, 3833), 0),
 	FOSSIL_ISLAND_HOUSE_ON_THE_HILL("House on the Hill (Fossil Island)", new Location(3747, 3891, 3795, 3855), 0),
-	FOSSIL_ISLAND_VOLCANO_BANK("Fossil Island Volcano Bank", new Location(3807, 3818, 3825, 3800), 0),
-	FOSSIL_ISLAND_VERDANT_VALLEY("Fossil Island Verdant Valley (South East Island)", new Location(3670, 3894, 3707, 3814), 0),
+	FOSSIL_ISLAND_MUSHROOM_FOREST("Fossil Island Mushroom Forest (Herbiboar)", new Location(3670, 3894, 3707, 3814), 0),
 	FOSSIL_ISLAND_SWAMP_NORTH("Fossil Island Swamp (North half)", new Location(3707, 3758, 3643, 3696), 0),
 	FOSSIL_ISLAND_SWAMP_SOUTH("Fossil Island Swamp (South half)", new Location(3707, 3813, 3643, 3759), 0),
-	FOSSIL_ISLAND_MUSHROOM_FOREST("Fossil Island Mushroom Forest (Herbiboar)", new Location(3670, 3894, 3707, 3814), 0),
+	FOSSIL_ISLAND_VERDANT_VALLEY("Fossil Island Verdant Valley (South East Island)", new Location(3670, 3894, 3707, 3814), 0),
+	FOSSIL_ISLAND_VOLCANO_BANK("Fossil Island Volcano Bank", new Location(3807, 3818, 3825, 3800), 0),
 
 	/*-
 	 *	Fremennik Province
@@ -141,6 +141,7 @@ public enum WorldLocation
 	 * 		Waterbirth Island
 	 */
 	ETCETERIA("Etceteria", new Location(2626, 3904, 2571, 3861), 0),
+	ETCETERIA_DOCKS("Etceteria Docks", new Location(2571, 3904, 2626, 3861), 0),
 	FREMENNIK_BASILISK_KNIGHT_DUNGEON("Fremennik Basilisk Knight Dungeon", new Location(2398, 10468, 2496, 10370), 0),
 	FREMENNIK_SLAYER_DUNGEON("Fremennik Slayer Dungeon", new Location(2771, 10023, 2811, 9989), 0),
 	FREMENNIK_SLAYER_DUNGEON_BASILISKS("Fremennik Slayer Dungeon - Baslisks", new Location(2734, 10015, 2751, 9988), 0),
@@ -149,7 +150,6 @@ public enum WorldLocation
 	FREMENNIK_SLAYER_DUNGEON_KURASKS("Fremennik Slayer Dungeon - Kurasks", new Location(2708, 10007, 2690, 9988), 0),
 	FREMENNIK_SLAYER_DUNGEON_PYREFIENDS("Fremennik Slayer Dungeon - Pyrefiends", new Location(2752, 10015, 2770, 9988), 0),
 	FREMENNIK_SLAYER_DUNGEON_TUROTHS("Fremennik Slayer Dungeon - Turoths", new Location(2709, 10015, 2733, 9988), 0),
-	ETCETERIA_DOCKS("Etceteria Docks", new Location(2571, 3904, 2626, 3861), 0),
 	JATIZSO("Jatizso", new Location(2369, 3826, 2428, 3776), 0),
 	KELDAGRIM_EAST("Eastern Keldagrim", new Location(2884, 10236, 2943, 10181), 0),
 	KELDAGRIM_ENTRANCE("Keldagrim Entrance", new Location(2722, 3720, 2738, 3703), 0),
@@ -315,12 +315,12 @@ public enum WorldLocation
 	CATHERBY_FISHING_SPOTS("Catherby Fishing Spots", new Location(2834, 3441, 2862, 3425), 0),
 	CATHERBY_FARMING_PATCH("Catherby Farming Patch", new Location(2791, 3472, 2833, 3458), 0),
 	EAGLES_PEAK("Eagles' Peak", new Location(2308, 3495, 2350, 3479), 0),
-	GNOME_AGILITY("Gnome Agility", new Location(2469, 3441, 2489, 3412), 0),
-	GNOME_BALL("Gnome Ball", new Location(2384, 3495, 2408, 3479), 0),
-	GRAND_TREE("Grand Tree", new Location(2442, 3515, 2490, 3478), 0),
 	FALCONRY_HUNTING_AREA("Falconry Hunting Area", new Location(2365, 3621, 2390, 3572), 0),
 	FISHING_GUILD("Fishing Guild", new Location(2627, 3426, 2579, 3391), 0),
 	FISHING_PLATFORM("Fishing Platform", new Location(2763, 3290, 2792, 3273), 0),
+	GNOME_AGILITY("Gnome Agility", new Location(2469, 3441, 2489, 3412), 0),
+	GNOME_BALL("Gnome Ball", new Location(2384, 3495, 2408, 3479), 0),
+	GRAND_TREE("Grand Tree", new Location(2442, 3515, 2490, 3478), 0),
 	KRAKEN_COVE_DUNGEON("Kraken Dungeon", new Location(2303, 10047, 2240, 9983), 0),
 	KRAKEN_COVE_ENTRANCE("Kraken Cove Entrance", new Location(2262, 3623, 2295, 3596), 0),
 	LEGENDS_GUILD("Legends' Guild", new Location(2716, 3388, 2741, 3346), 0),
@@ -368,7 +368,6 @@ public enum WorldLocation
 	 * 		Ship Yard
 	 * 		Tai Bwo Wannai
 	 */
-	BRIMHAVEN_POH_PORTAL("Brimhaven POH Portal", new Location(2749, 3184, 2765, 3170), 0),
 	BRIMHAVEN_AGILITY_ARENA("Brimhaven Agility Arena", new Location(2757, 9594, 2809, 9541), 3),
 	BRIMHAVEN_DOCKS("Brimhaven Docks", new Location(2758, 3241, 2777, 3220), 0),
 	BRIMHAVEN_DUNGEON("Brimhaven Dungeon - Main Corridor", new Location(2690, 9572, 2714, 9556), 0),
@@ -380,6 +379,7 @@ public enum WorldLocation
 	BRIMHAVEN_DUNGEON_METAL_DRAGONS("Brimhaven Dungeon - Metal Dragons", new Location(2693, 9469, 2748, 9412), 0),
 	BRIMHAVEN_DUNGEON_MOSS_GIANTS("Brimhaven Dungeon - Moss Giants", new Location(2630, 9575, 2670, 9531), 0),
 	BRIMHAVEN_DUNGEON_RED_DRAGONS("Brimhaven Dungeon - Red Dragons", new Location(2686, 9553, 2726, 9496), 0),
+	BRIMHAVEN_POH_PORTAL("Brimhaven POH Portal", new Location(2749, 3184, 2765, 3170), 0),
 	CAIRN_ISLE("Cairn Isle", new Location(2752, 2993, 2775, 2963), 0),
 	CRANDOR("Crandor", new Location(2813, 3310, 2864, 3231), 0),
 	HARDWOOD_GROVE("Hardwood Grove", new Location(2815, 3092, 2830, 3073), 0),
@@ -460,13 +460,13 @@ public enum WorldLocation
 	 * 		Wizards' Tower
 	 */
 	BARB_VILLAGE("Barb Village", new Location(3071, 3448, 3092, 3405), 0),
-	DRAYNOR_SEWERS("Draynor Sewers", new Location(3077, 9699, 3135, 9642), 0),
 	COOKS_GUILD("Cooks Guild", new Location(3135, 3455, 3155, 3427), 0),
 	CHAMPIONS_GUILD("Champoins' Guild", new Location(3184, 3364, 3199, 3348), 0),
 	DARK_WIZARDS("Varrock Dark Wizards", new Location(3220, 3377, 3235, 3361), 0),
 	DIGSITE("Digsite", new Location(3340, 3435, 3380, 3390), 0),
 	DIGSITE_EXAM_CENTER("Digsite Exam Center", new Location(3357, 3339, 3367, 3331), 0),
 	DRAYNOR_MANOR("Draynor Manor", new Location(3089, 3375, 3127, 3350), 0),
+	DRAYNOR_SEWERS("Draynor Sewers", new Location(3077, 9699, 3135, 9642), 0),
 	DRYANOR_VILLAGE("Dryanor Village", new Location(3074, 3283, 3112, 3241), 0),
 	EDGEVILLE_BANK("Edge Bank", new Location(3090, 3499, 3099, 3487), 0),
 	EDGEVILLE_DUNGEON("Edgeville Dungeon - Main Corridor (Paddewwa Tele)", new Location(3091, 9890, 3105, 9866), 0),
@@ -493,7 +493,7 @@ public enum WorldLocation
 	VARROCK_CHURCH("Varrock Church", new Location(3249, 3488, 3259, 3471), 0),
 	VARROCK_BANK_EAST("Varrock East Bank", new Location(3246, 3428, 3261, 3412), 0),
 	VARROCK_BANK_WEST("Varrock West Bank", new Location(3172, 3450, 3197, 3425), 0),
-	VARROCK_MAGIG_SHOP("Varrock Magic Shop", new Location(3249, 3405, 3256, 3398), 0),
+	VARROCK_MAGIC_SHOP("Varrock Magic Shop", new Location(3249, 3405, 3256, 3398), 0),
 	VARROCK_MINE("Varrock Mine", new Location(3278, 3372, 3294, 3355), 0),
 	VARROCK_MOSS_GIANTS("Varrock Sewers - Moss Giants", new Location(3190, 9910, 3153, 9876), 0),
 	VARROCK_MUSEUM("Varrock Museum", new Location(3249, 3455, 3267, 3442), 0),
@@ -526,8 +526,8 @@ public enum WorldLocation
 	CANIFIS_BANK("Canifis Bank", new Location(3508, 3483, 3516, 3474), 0),
 	CANIFIS_ZONE("Canifis", new Location(3472, 3506, 3519, 3467), 0),
 	CROMBWICK_MANOR("Crombwick Manor in Slepe", new Location(3710, 3377, 3742, 3341), 0),
-	DARKMEYER("Darkmeyer", new Location(3592, 3392, 3662, 3331), 0),
 	DARKMEYER_BANK("Darkmeyer Bank", new Location(3600, 3370, 3610, 3364), 0),
+	DARKMEYER_ZONE("Darkmeyer", new Location(3592, 3392, 3662, 3331), 0),
 	FENKENSTRAINS_CASTLE("Fenkenstrain's Castle", new Location(3533, 3568, 3564, 3534), 0),
 	ECTOFUNTUS("Ectofuntus", new Location(3651, 3528, 3668, 3510), 0),
 	HALLOWED_SEPULCHER_ENTRANCE("Hallowed Sepulcher Entrance", new Location(3649, 3389, 3659, 3379), 0),
@@ -644,7 +644,7 @@ public enum WorldLocation
 	/*
 	 * Wilderness Locations
 	 */
-	ANNAKARL_TELEPORT("Gdz", new Location(3279, 3895, 3296, 3875), 0),
+	ANNAKARL_TELEPORT("GDZ", new Location(3279, 3895, 3296, 3875), 0),
 	AXE_HUT("Axe Hut", new Location(3187, 3962, 3194, 3957), 0),
 	BANDIT_CAMP("Bandit Camp", new Location(3017, 3712, 3059, 3681), 0),
 	BLACK_SALAMANDERS("Black Salamanders", new Location(3291, 3677, 3301, 3664), 0),
@@ -659,10 +659,10 @@ public enum WorldLocation
 	CRAZY_ARCHAEOLOGIST("Crazy Archaeologist", new Location(2952, 3709, 2985, 3678), 0),
 	DARK_CRAB_TELEPORT("Dark Crab Tele", new Location(3343, 3800, 3355, 3780), 0),
 	DARK_WARRIORS("Dark Warriors", new Location(3014, 3648, 3046, 3616), 0),
-	DEEP_WILDERNESS_DUNGEON("Deep Wilderness Dungeon", new Location(3038, 10305, 3053, 10330), 0),
+	DEEP_WILDERNESS_DUNGEON("Deep Wilderness Dungeon", new Location(3038, 10330, 3053, 10305), 0),
 	DEEP_WILDERNESS_DUNGEON_ENTRANCE("Deep Wild Dungeon", new Location(3042, 3929, 3051, 3920), 0),
-	DEEP_WILDERNESS_DUNGEON_FIRE_GIANTS("Deep Wilderness Dungeon Fire Giants", new Location(3035, 10331, 3060, 10349), 0),
-	DEEP_WILDERNESS_DUNGEON_WINES("Deep Wilderness Dungeon Wines", new Location(3013, 10350, 3060, 10365), 0),
+	DEEP_WILDERNESS_DUNGEON_FIRE_GIANTS("Deep Wilderness Dungeon Fire Giants", new Location(3035, 10349, 3060, 10331), 0),
+	DEEP_WILDERNESS_DUNGEON_WINES("Deep Wilderness Dungeon Wines", new Location(3013, 10365, 3060, 10350), 0),
 	DWARVES("Dwarves", new Location(3230, 3805, 3264, 3779), 0),
 	EDGEVILLE_DUNGEON_EARTH_WARRIORS("Edgeville Dungeon - Earth Warriors", new Location(3114, 9999, 3129, 9960), 0),
 	EDGEVILLE_DUNGEON_CHAOS_DRUIDS("Edgeville Dungeon - Chaos Druids", new Location(3104, 9944, 3135, 9923), 0),
@@ -688,10 +688,10 @@ public enum WorldLocation
 	MAGE_ARENA("Mage Arena", new Location(3088, 3949, 3123, 3919), 0),
 	MAGE_BANK("Mage Bank", new Location(3082, 3960, 3103, 3952), 0),
 	MAGE_BANK_SAFE_ZONE("Mage Bank Safe Zone", new Location(2526, 4727, 2550, 4707), 0),
-	NEW_GATE("New Gate", new Location(3345, 3957, 3390, 3916), 0),
+	NEW_GATE("New Gate", new Location(3348, 3890, 3325, 3911), 0),
 	OBELISK_13("13s Port", new Location(3152, 3624, 3160, 3616), 0),
 	OBELISK_19("19s", new Location(3220, 3672, 3234, 3660), 0),
-	OBELISK_27("27 GWDs Portal", new Location(2973, 3870, 2987, 3859), 0),
+//	OBELISK_27("27 GWDs Portal", new Location(3031, 3736, 3039, 3728), 0),
 	OBELISK_35("36 Port", new Location(3097, 3804, 3115, 3785), 0),
 	OBELISK_44("44s", new Location(2973, 3870, 2987, 3859), 0),
 	OBELISK_50("50 ports", new Location(3301, 3923, 3315, 3909), 0),
@@ -701,7 +701,7 @@ public enum WorldLocation
 	REV_CAVE_AGILITY_65("Rev Cave Green Dragon Agility Jump", new Location(3216, 10090, 3226, 10080), 0),
 	REV_CAVE_AGILITY_75_1("Rev Cave 75 Agility Jump", new Location(3195, 10200, 3212, 10190), 0),
 	REV_CAVE_AGILITY_75_2("Rev Cave 75 Agility Jump (North of Ankous)", new Location(3173, 10214, 3186, 10205), 0),
-	REV_CAVE_AGILITY_89("Rev Cave 89 Agility Jump", new Location(3233, 10148, 3242, 10140), 0),
+	REV_CAVE_AGILITY_89("Rev Cave 89 Agility Jump", new Location(3233, 10148, 3244, 10140), 0),
 	REV_CAVE_ANKOUS("Rev Cave Ankous", new Location(3160, 10204, 3191, 10177), 0),
 	REV_CAVE_BLACK_DEMONS("Rev Cave Black Demons", new Location(3158, 10171, 3187, 10145), 0),
 	REV_CAVE_BLACK_DRAGS("Rev Cave Black Drags", new Location(3223, 10216, 3254, 10190), 0),
@@ -717,7 +717,7 @@ public enum WorldLocation
 	REV_CAVE_HELL_HOUNDS("Rev Cave Hell Hounds", new Location(3190, 10078, 3210, 10063), 0),
 	REV_CAVE_ICE_GIANTS("Rev Cave Ice Giants", new Location(3200, 10173, 3221, 10155), 0),
 	REV_CAVE_LESSER_DEMONS("Rev Cave Lesser Demons", new Location(3143, 10125, 3176, 10104), 0),
-	REVENANT_DARK_BEAST("Revenant Dark Beast", new Location(3243, 10154, 3264, 10136), 0),
+	REVENANT_DARK_BEAST("Revenant Dark Beast", new Location(3244, 10154, 3260, 10136), 0),
 	REVENANT_MAIN_CHAMBER("Main Rev Chamber", new Location(3227, 10187, 3261, 10157), 0),
 	ROGUE_CASTLE("Rogue Castle", new Location(3275, 3947, 3299, 3920), 0),
 	RUNE_ROCKS("Rune Rocks", new Location(3055, 3890, 3072, 3876), 0),
@@ -767,7 +767,7 @@ public enum WorldLocation
 	{
 		this.name = name;
 		this.location = location;
-		this.worldArea = new WorldArea(location.x, location.y1, location.width, location.height, plane);
+		this.worldArea = new WorldArea(location.x, location.y, location.width, location.height, plane);
 	}
 
 	/**
@@ -875,10 +875,10 @@ public enum WorldLocation
 
 		Location(int x, int y, int x1, int y1)
 		{
-			this.x = x;
-			this.y = y;
-			this.x1 = x1;
-			this.y1 = y1;
+			this.x = Math.min(x, x1);
+			this.y = Math.min(y, y1);
+			this.x1 = Math.max(x, x1);
+			this.y1 = Math.max(y, y1);
 			this.width = Math.abs(x1 - x);
 			this.height = Math.abs(y1 - y);
 		}
