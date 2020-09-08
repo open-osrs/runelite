@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2020, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,13 +22,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.timetracking;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.6.26"
+import lombok.AllArgsConstructor;
 
-    const val openosrsVersion = "3.4.4"
+@AllArgsConstructor
+public enum TimeFormatMode
+{
+	RELATIVE("Relative"),
+	ABSOLUTE_12H("12 Hour"),
+	ABSOLUTE_24H("24 Hour");
 
-    const val rsversion = 191
-    const val cacheversion = 165
+	private final String name;
+
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }

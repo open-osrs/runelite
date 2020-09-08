@@ -339,7 +339,6 @@ public class WeaponMap
 		StyleMap.put(ItemID.ROCK_HAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ROYAL_SCEPTRE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUBBER_CHICKEN, WeaponStyle.MELEE);
-		StyleMap.put(ItemID.RUBBER_CHICKEN_10732, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUBBER_CHICKEN_22666, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_2H_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_AXE, WeaponStyle.MELEE);
@@ -370,7 +369,6 @@ public class WeaponMap
 		StyleMap.put(ItemID.SARADOMIN_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SARAS_BLESSED_SWORD_FULL, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE, WeaponStyle.MELEE);
-		StyleMap.put(ItemID.SCYTHE_10735, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_22664, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_UNCHARGED, WeaponStyle.MELEE);

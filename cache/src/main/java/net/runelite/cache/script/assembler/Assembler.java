@@ -26,10 +26,12 @@ package net.runelite.cache.script.assembler;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import net.runelite.cache.definitions.ScriptDefinition;
 import net.runelite.cache.script.Instructions;
 import net.runelite.cache.script.assembler.rs2asmParser.ProgContext;
-import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
@@ -45,7 +47,7 @@ public class Assembler
 	public ScriptDefinition assemble(InputStream in) throws IOException
 	{
 		// Get our lexer
-		rs2asmLexer lexer = new rs2asmLexer(CharStreams.fromStream(in));
+		rs2asmLexer lexer = new rs2asmLexer(new ANTLRInputStream(new InputStreamReader(in, StandardCharsets.UTF_8)));
 
 		LexerErrorListener errorListener = new LexerErrorListener();
 		lexer.addErrorListener(errorListener);
