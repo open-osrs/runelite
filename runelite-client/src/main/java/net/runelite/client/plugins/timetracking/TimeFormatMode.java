@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,35 +22,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.cache.util;
+package net.runelite.client.plugins.timetracking;
 
-import java.nio.charset.StandardCharsets;
-import static org.junit.Assert.assertArrayEquals;
-import org.junit.Test;
+import lombok.AllArgsConstructor;
 
-public class XteaTest
+@AllArgsConstructor
+public enum TimeFormatMode
 {
-	@Test
-	public void test()
+	RELATIVE("Relative"),
+	ABSOLUTE_12H("12 Hour"),
+	ABSOLUTE_24H("24 Hour");
+
+	private final String name;
+
+	@Override
+	public String toString()
 	{
-		byte[] data = "testtesttest1".getBytes(StandardCharsets.UTF_8);
-
-		int[] key = new int[]
-		{
-			4, 8, 15, 16
-		};
-		byte[] encrypted = new byte[]
-		{
-			121, -18, 48, 64, 120, -42, -113, 77, 116, 101, 115, 116, 49
-		};
-
-		Xtea xtea = new Xtea(key);
-		byte[] encData = xtea.encrypt(data, data.length);
-		assertArrayEquals(encrypted, encData);
-
-		xtea = new Xtea(key);
-		byte[] decData = xtea.decrypt(encData, encData.length);
-
-		assertArrayEquals(data, decData);
+		return name;
 	}
 }

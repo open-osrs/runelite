@@ -29,6 +29,7 @@ import io.reactivex.rxjava3.core.Observable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
@@ -67,7 +68,7 @@ public class OSBGrandExchangeClient
 				}
 				
 				final InputStream in = response.body().byteStream();
-				return Observable.just(RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), OSBGrandExchangeResult.class));
+				return Observable.just(RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), OSBGrandExchangeResult.class));
 			}
 			catch (JsonParseException ex)
 			{
