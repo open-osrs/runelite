@@ -446,6 +446,7 @@ public class WidgetID
 		static final int TOGGLE_RUN_ORB = 22; // Has the "Toggle run" name
 		static final int RUN_ORB_TEXT = 23;
 		static final int SPEC_ORB = 28;
+		static final int SPEC_CLICKBOX = 30;
 		static final int WORLDMAP_ORB = 41;
 		static final int WIKI_BANNER = 43;
 	}
