@@ -684,6 +684,7 @@ public class WidgetID
 		static final int SPELL_TEXT = 29;
 		static final int AUTO_RETALIATE = 30;
 		static final int SPECIAL_ATTACK_BAR = 34;
+		static final int SPECIAL_ATTACK_CLICKBOX = 36;
 		static final int TOOLTIP = 41;
 	}
 
