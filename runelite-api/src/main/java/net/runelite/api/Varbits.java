@@ -113,6 +113,13 @@ public enum Varbits
 	
 	/**
 	 * Locked Prayers
+	 * 0-7 = Locked
+	 * 8 = Unlocked
+	 */
+	CHIVPIETY_UNLOCKED(3909),
+	
+	/**
+	 * Locked Prayers
 	 * 0 = Locked
 	 * 1 = Unlocked
 	 */
