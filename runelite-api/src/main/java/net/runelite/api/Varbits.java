@@ -110,6 +110,16 @@ public enum Varbits
 	PRAYER_PRESERVE(5466),
 	PRAYER_RIGOUR(5464),
 	PRAYER_AUGURY(5465),
+	
+	/**
+	 * Locked Prayers
+	 * 0 = Locked
+	 * 1 = Unlocked
+	 */
+
+	RIGOUR_UNLOCKED(5451),
+	AUGURY_UNLOCKED(5452),
+	PRESERVE_UNLOCKED(5453),
 
 	/**
 	 * Diary Entries
