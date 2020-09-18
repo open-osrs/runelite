@@ -519,7 +519,7 @@ public class ItemManager
 	 */
 	private BufferedImage loadItemOutline(final int itemId, final int itemQuantity, final Color outlineColor)
 	{
-		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, true, 710);
+		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, false, Constants.CLIENT_DEFAULT_ZOOM);
 		return itemSprite.toBufferedOutline(outlineColor);
 	}
 
