@@ -38,7 +38,7 @@ public abstract class VerboseInventoryQuantitiesMixin implements RSClient
 
 	@Inject
 	@Override
-	public void setItemQuantitiesVerbose(boolean state) 
+	public void setItemQuantitiesVerbose(boolean state)
 	{
 		verbose = state;
 	}
