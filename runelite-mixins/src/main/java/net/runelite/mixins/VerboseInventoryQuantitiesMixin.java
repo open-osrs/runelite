@@ -33,25 +33,25 @@ import net.runelite.rs.api.RSClient;
 @Mixin(RSClient.class)
 public abstract class VerboseInventoryQuantitiesMixin implements RSClient
 {
-    @Inject
-    private static boolean verbose;
+	@Inject
+	private static boolean verbose;
 
-    @Inject
+	@Inject
 	@Override
-    public void setItemQuantitiesVerbose(boolean state) 
+	public void setItemQuantitiesVerbose(boolean state) 
 	{
 		verbose = state;
-    }
+	}
 
-    @Copy("inventoryQuantityFormat")
-    @Replace("inventoryQuantityFormat")
-    public static String getInventoryQuantityFormat(int n) 
+	@Copy("inventoryQuantityFormat")
+	@Replace("inventoryQuantityFormat")
+	public static String getInventoryQuantityFormat(int n)
 	{
-		if (verbose) 
+		if (verbose)
 		{
 			return String.valueOf(n);
 		}
 
 		return getInventoryQuantityFormat(n);
-    }
+	}
 }
