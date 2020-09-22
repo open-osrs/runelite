@@ -40,16 +40,18 @@ public abstract class VerboseInventoryQuantitiesMixin implements RSClient
 	@Override
     public void setItemQuantitiesVerbose(boolean state) 
 	{
-        verbose = state;
+		verbose = state;
     }
 
     @Copy("inventoryQuantityFormat")
     @Replace("inventoryQuantityFormat")
-    public static String getInventoryQuantityFormat(int n) {
-        if (verbose) {
-            return String.valueOf(n);
-        }
+    public static String getInventoryQuantityFormat(int n) 
+	{
+		if (verbose) 
+		{
+			return String.valueOf(n);
+		}
 
-        return getInventoryQuantityFormat(n);
+		return getInventoryQuantityFormat(n);
     }
 }
