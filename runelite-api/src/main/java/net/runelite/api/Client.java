@@ -1709,7 +1709,7 @@ public interface Client extends GameShell
 	 *
 	 * @param state verbose state
 	 */
-	void setVerbose(boolean state);
+	void setItemQuantitiesVerbose(boolean state);
 
 	/**
 	 * Returns widget sprite cache, to be used with {@link Client#getSpriteOverrides()}
