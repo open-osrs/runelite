@@ -79,7 +79,8 @@ public class class194 {
 		descriptor = "(IS)Ljava/lang/String;",
 		garbageValue = "4096"
 	)
-	static final String method3712(int var0) {
+	@Export("inventoryQuantityFormat")
+	static final String inventoryQuantityFormat(int var0) {
 		if (var0 < 100000) { // L: 421
 			return "<col=ffff00>" + var0 + "</col>";
 		} else {
