@@ -188,7 +188,7 @@ public class ChatChannel {
 			}
 
 			if (var4 == 1 || var4 == 2 && var9.isStackable == 1) { // L: 409
-				ScriptEvent.ItemDefinition_fontPlain11.draw(class194.method3712(var1), 0, 9, 16776960, 1); // L: 410
+				ScriptEvent.ItemDefinition_fontPlain11.draw(class194.inventoryQuantityFormat(var1), 0, 9, 16776960, 1); // L: 410
 			}
 
 			if (!var5) { // L: 412
