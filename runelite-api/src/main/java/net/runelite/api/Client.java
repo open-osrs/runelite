@@ -156,7 +156,7 @@ public interface Client extends GameShell
 	 *
 	 * @param gameState
 	 */
-	void setRSGameState(int gameState);
+	void setGameState(int gameState);
 
 	/**
 	 * Causes the client to shutdown. It is faster than

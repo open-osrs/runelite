@@ -142,7 +142,6 @@ public interface RSClient extends RSGameShell, Client
 	int getRSGameState();
 
 	@Import("updateGameState")
-	@Override
 	void setRSGameState(int gameState);
 
 	@Import("checkClick")

@@ -525,6 +525,7 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
+	@Override
 	public void setGameState(int state)
 	{
 		assert this.isClientThread() : "setGameState must be called on client thread";
