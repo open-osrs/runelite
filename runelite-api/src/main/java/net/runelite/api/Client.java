@@ -136,11 +136,27 @@ public interface Client extends GameShell
 	GameState getGameState();
 
 	/**
+	 * Gets the current game state as an int
+	 *
+	 * @return the game state
+	 */
+	int getRSGameState();
+
+	/**
 	 * Sets the current game state
 	 *
 	 * @param gameState
 	 */
 	void setGameState(GameState gameState);
+
+	/**
+	 * Sets the current game state
+	 * This takes an int instead of a {@link GameState} so it can
+	 * can handle states that aren't in the enum yet
+	 *
+	 * @param gameState
+	 */
+	void setRSGameState(int gameState);
 
 	/**
 	 * Causes the client to shutdown. It is faster than
@@ -2053,7 +2069,7 @@ public interface Client extends GameShell
 	 * Sets the status of client mirror
 	 */
 	void setMirrored(boolean isMirrored);
-	
+
 	/**
 	 * Sets the image to be used for the login screen, provided as SpritePixels
 	 * If the image is larger than half the width of fixed mode,
@@ -2073,6 +2089,7 @@ public interface Client extends GameShell
 
 	/**
 	 * Test if a key is pressed
+	 *
 	 * @param keycode the keycode
 	 * @return
 	 * @see KeyCode
