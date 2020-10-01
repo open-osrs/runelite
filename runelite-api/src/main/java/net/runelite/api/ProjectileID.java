@@ -79,6 +79,7 @@ public class ProjectileID
 	public static final int DEMONIC_GORILLA_BOULDER = 856;
 
 	public static final int XARPUS_ACID = 1555;
+	public static final int VERZIK_PURPLE_SPAWN = 1586;
 	public static final int CERB_FIRE = 1247;
 
 	/**
