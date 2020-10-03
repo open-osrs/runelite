@@ -158,12 +158,9 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 			}
 		}
 
-		if (duplicatePlugins.size() > 0)
+		if (!duplicatePlugins.isEmpty())
 		{
-			for (String dupe : duplicatePlugins)
-			{
-				log.error("Duplicate plugin detected: {}", dupe);
-			}
+			log.error("Duplicate plugins detected: {}", String.join(", ", duplicatePlugins));
 
 			String formatted = String.join("\n", duplicatePlugins);
 
