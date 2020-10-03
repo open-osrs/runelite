@@ -56,6 +56,8 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,6 +67,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
+import java.util.Stack;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -680,7 +683,7 @@ public class ConfigManager
 			return;
 		}
 
-		for (Method method : clazz.getDeclaredMethods())
+		for (Method method : getAllDeclaredInterfaceMethods(clazz))
 		{
 			ConfigItem item = method.getAnnotation(ConfigItem.class);
 
@@ -866,6 +869,25 @@ public class ConfigManager
 			return Base64.getUrlEncoder().encodeToString((byte[]) object);
 		}
 		return object == null ? null : object.toString();
+	}
+
+	/**
+	 * Does DFS on a class's interfaces to find all of its implemented methods.
+	 */
+	private Collection<Method> getAllDeclaredInterfaceMethods(Class<?> clazz)
+	{
+		Collection<Method> methods = new HashSet<>();
+		Stack<Class<?>> interfazes = new Stack<>();
+		interfazes.push(clazz);
+
+		while (!interfazes.isEmpty())
+		{
+			Class<?> interfaze = interfazes.pop();
+			Collections.addAll(methods, interfaze.getDeclaredMethods());
+			Collections.addAll(interfazes, interfaze.getInterfaces());
+		}
+
+		return methods;
 	}
 
 	@Subscribe(priority = 100)
