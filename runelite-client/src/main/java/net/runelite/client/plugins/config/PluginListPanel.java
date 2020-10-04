@@ -702,7 +702,7 @@ public class PluginListPanel extends PluginPanel
 	public void sortPluginList(Comparator<PluginListItem> comparator)
 	{
 		if (pluginList == null)
-		return;
+			return;
 		
 		if (comparator != null)
 		{
