@@ -66,7 +66,7 @@ dependencies {
     implementation(group = "org.jooq", name = "jooq", version = "3.13.5")
     implementation(group = "org.jooq", name = "jooq-codegen", version = "3.13.5")
     implementation(group = "org.jooq", name = "jooq-meta", version = "3.13.5")
-    implementation(group = "io.sentry", name = "sentry-logback", version = "3.0.0")
+    implementation(group = "io.sentry", name = "sentry-logback", version = "1.7.30")
     implementation(group = "com.github.zafarkhaja", name = "java-semver", version = "0.9.0")
     implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
     implementation(group = "org.pf4j", name = "pf4j", version = "3.4.1") {
