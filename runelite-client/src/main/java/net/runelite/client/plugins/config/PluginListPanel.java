@@ -701,6 +701,9 @@ public class PluginListPanel extends PluginPanel
 
 	public void sortPluginList(Comparator<PluginListItem> comparator)
 	{
+		if (pluginList == null)
+		return;
+		
 		if (comparator != null)
 		{
 			pluginList.sort(comparator.thenComparing(ev -> ev.getPluginConfig().getName()));
