@@ -36,11 +36,11 @@ dependencies {
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.6")
     implementation(group = "com.google.guava", name = "guava", version = "29.0-jre")
     implementation(group = "com.github.petitparser", name = "java-petitparser", version = "2.3.1")
-    implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.8.1")
+    implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.0")
     implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
     implementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.30")
 
-    implementation(group = "org.junit.jupiter", name = "junit-jupiter-api", version = "5.7.0-M1")
+    implementation(group = "org.junit.jupiter", name = "junit-jupiter-api", version = "5.7.0")
 }
 
 tasks {
