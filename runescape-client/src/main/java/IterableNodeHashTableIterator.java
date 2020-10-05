@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -11,22 +10,18 @@ public class IterableNodeHashTableIterator implements Iterator {
 	@ObfuscatedSignature(
 		descriptor = "Llq;"
 	)
-	@Export("hashTable")
 	IterableNodeHashTable hashTable;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("head")
 	Node head;
 	@ObfuscatedName("s")
-	@Export("index")
 	int index;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("last")
 	Node last;
 
 	@ObfuscatedSignature(
@@ -39,7 +34,6 @@ public class IterableNodeHashTableIterator implements Iterator {
 	} // L: 15
 
 	@ObfuscatedName("x")
-	@Export("start")
 	void start() {
 		this.head = this.hashTable.buckets[0].previous; // L: 18
 		this.index = 1; // L: 19

@@ -1,5 +1,4 @@
 import java.util.Comparator;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -11,13 +10,10 @@ public class UserComparator2 implements Comparator {
 	@ObfuscatedSignature(
 		descriptor = "Llp;"
 	)
-	@Export("leftTitleSprite")
 	static Sprite leftTitleSprite;
 	@ObfuscatedName("p")
-	@Export("userHomeDirectory")
 	static String userHomeDirectory;
 	@ObfuscatedName("z")
-	@Export("reversed")
 	final boolean reversed;
 
 	public UserComparator2(boolean var1) {
@@ -29,7 +25,6 @@ public class UserComparator2 implements Comparator {
 		descriptor = "(Ljc;Ljc;I)I",
 		garbageValue = "-512542775"
 	)
-	@Export("compare_bridged")
 	int compare_bridged(User var1, User var2) {
 		return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername()); // L: 14
 	}

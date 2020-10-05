@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
@@ -20,49 +19,34 @@ public final class TileModel {
 	@ObfuscatedName("u")
 	static final int[][] field1616;
 	@ObfuscatedName("z")
-	@Export("vertexX")
 	int[] vertexX;
 	@ObfuscatedName("k")
-	@Export("vertexY")
 	int[] vertexY;
 	@ObfuscatedName("s")
-	@Export("vertexZ")
 	int[] vertexZ;
 	@ObfuscatedName("t")
-	@Export("triangleColorA")
 	int[] triangleColorA;
 	@ObfuscatedName("i")
-	@Export("triangleColorB")
 	int[] triangleColorB;
 	@ObfuscatedName("o")
-	@Export("triangleColorC")
 	int[] triangleColorC;
 	@ObfuscatedName("x")
-	@Export("faceX")
 	int[] faceX;
 	@ObfuscatedName("w")
-	@Export("faceY")
 	int[] faceY;
 	@ObfuscatedName("g")
-	@Export("faceZ")
 	int[] faceZ;
 	@ObfuscatedName("m")
-	@Export("triangleTextureId")
 	int[] triangleTextureId;
 	@ObfuscatedName("n")
-	@Export("isFlat")
 	boolean isFlat;
 	@ObfuscatedName("d")
-	@Export("shape")
 	int shape;
 	@ObfuscatedName("h")
-	@Export("rotation")
 	int rotation;
 	@ObfuscatedName("a")
-	@Export("underlayRgb")
 	int underlayRgb;
 	@ObfuscatedName("q")
-	@Export("overlayRgb")
 	int overlayRgb;
 
 	static {

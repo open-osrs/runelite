@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,46 +10,38 @@ public class WorldMapElement extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("WorldMapElement_archive")
 	public static AbstractArchive WorldMapElement_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "[Liv;"
 	)
-	@Export("WorldMapElement_cached")
 	public static WorldMapElement[] WorldMapElement_cached;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1742537505
 	)
-	@Export("WorldMapElement_count")
 	public static int WorldMapElement_count;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("WorldMapElement_cachedSprites")
 	static EvictingDualNodeHashTable WorldMapElement_cachedSprites;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 2104194333
 	)
-	@Export("objectId")
 	public final int objectId;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 1581878653
 	)
-	@Export("sprite1")
 	public int sprite1;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -886122493
 	)
-	@Export("sprite2")
 	int sprite2;
 	@ObfuscatedName("w")
-	@Export("name")
 	public String name;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
@@ -61,13 +52,10 @@ public class WorldMapElement extends DualNode {
 	@ObfuscatedGetter(
 		intValue = -1165437927
 	)
-	@Export("textSize")
 	public int textSize;
 	@ObfuscatedName("d")
-	@Export("menuActions")
 	public String[] menuActions;
 	@ObfuscatedName("h")
-	@Export("menuTargetName")
 	public String menuTargetName;
 	@ObfuscatedName("a")
 	int[] field3247;
@@ -95,13 +83,11 @@ public class WorldMapElement extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lju;"
 	)
-	@Export("horizontalAlignment")
 	public HorizontalAlignment horizontalAlignment;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "Lit;"
 	)
-	@Export("verticalAlignment")
 	public VerticalAlignment verticalAlignment;
 	@ObfuscatedName("r")
 	int[] field3253;
@@ -111,7 +97,6 @@ public class WorldMapElement extends DualNode {
 	@ObfuscatedGetter(
 		intValue = 763418107
 	)
-	@Export("category")
 	public int category;
 
 	static {
@@ -138,7 +123,6 @@ public class WorldMapElement extends DualNode {
 		descriptor = "(Lkf;B)V",
 		garbageValue = "-62"
 	)
-	@Export("decode")
 	public void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 50
@@ -155,7 +139,6 @@ public class WorldMapElement extends DualNode {
 		descriptor = "(Lkf;IB)V",
 		garbageValue = "87"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) { // L: 57
 			this.sprite1 = var1.method5634();
@@ -267,7 +250,6 @@ public class WorldMapElement extends DualNode {
 		descriptor = "(ZI)Llp;",
 		garbageValue = "435474118"
 	)
-	@Export("getSpriteBool")
 	public Sprite getSpriteBool(boolean var1) {
 		int var2 = this.sprite1; // L: 137
 		return this.getSprite(var2); // L: 138
@@ -278,7 +260,6 @@ public class WorldMapElement extends DualNode {
 		descriptor = "(II)Llp;",
 		garbageValue = "-335461547"
 	)
-	@Export("getSprite")
 	Sprite getSprite(int var1) {
 		if (var1 < 0) { // L: 142
 			return null;
@@ -302,7 +283,6 @@ public class WorldMapElement extends DualNode {
 		descriptor = "(B)I",
 		garbageValue = "13"
 	)
-	@Export("getObjectId")
 	public int getObjectId() {
 		return this.objectId; // L: 153
 	}

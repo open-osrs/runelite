@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -11,6 +10,5 @@ public interface PlayerProvider {
 		descriptor = "(I)Ldr;",
 		garbageValue = "-1032997343"
 	)
-	@Export("player")
 	PcmPlayer player();
 }

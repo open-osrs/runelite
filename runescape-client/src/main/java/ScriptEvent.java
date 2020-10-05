@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,22 +10,18 @@ public class ScriptEvent extends Node {
 	@ObfuscatedGetter(
 		intValue = 1903848297
 	)
-	@Export("foundItemIndex")
 	static int foundItemIndex;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Lkr;"
 	)
-	@Export("ItemDefinition_fontPlain11")
 	static Font ItemDefinition_fontPlain11;
 	@ObfuscatedName("dq")
-	@Export("mouseCam")
 	static boolean mouseCam;
 	@ObfuscatedName("gb")
 	@ObfuscatedSignature(
 		descriptor = "Lec;"
 	)
-	@Export("scene")
 	static Scene scene;
 	@ObfuscatedName("gy")
 	@ObfuscatedGetter(
@@ -34,55 +29,45 @@ public class ScriptEvent extends Node {
 	)
 	static int field597;
 	@ObfuscatedName("z")
-	@Export("args")
 	Object[] args;
 	@ObfuscatedName("k")
-	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lhq;"
 	)
-	@Export("widget")
 	Widget widget;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -2100516553
 	)
-	@Export("mouseX")
 	int mouseX;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1832434813
 	)
-	@Export("mouseY")
 	int mouseY;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -720675073
 	)
-	@Export("opIndex")
 	int opIndex;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lhq;"
 	)
-	@Export("dragTarget")
 	Widget dragTarget;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = 1621651451
 	)
-	@Export("keyTyped")
 	int keyTyped;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = -582654831
 	)
-	@Export("keyPressed")
 	int keyPressed;
 	@ObfuscatedName("m")
-	@Export("targetName")
 	String targetName;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
@@ -93,7 +78,6 @@ public class ScriptEvent extends Node {
 	@ObfuscatedGetter(
 		intValue = 926169729
 	)
-	@Export("type")
 	int type;
 
 	public ScriptEvent() {
@@ -105,7 +89,6 @@ public class ScriptEvent extends Node {
 		descriptor = "([Ljava/lang/Object;I)V",
 		garbageValue = "-1399912972"
 	)
-	@Export("setArgs")
 	public void setArgs(Object[] var1) {
 		this.args = var1; // L: 22
 	} // L: 23
@@ -115,7 +98,6 @@ public class ScriptEvent extends Node {
 		descriptor = "(II)V",
 		garbageValue = "-802645814"
 	)
-	@Export("setType")
 	public void setType(int var1) {
 		this.type = var1;
 	}

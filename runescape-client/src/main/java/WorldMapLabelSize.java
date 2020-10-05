@@ -1,6 +1,5 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -15,28 +14,23 @@ public class WorldMapLabelSize {
 	@ObfuscatedSignature(
 		descriptor = "Lab;"
 	)
-	@Export("WorldMapLabelSize_small")
 	public static final WorldMapLabelSize WorldMapLabelSize_small;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lab;"
 	)
-	@Export("WorldMapLabelSize_medium")
 	public static final WorldMapLabelSize WorldMapLabelSize_medium;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lab;"
 	)
-	@Export("WorldMapLabelSize_large")
 	public static final WorldMapLabelSize WorldMapLabelSize_large;
 	@ObfuscatedName("bl")
-	@Export("otp")
 	static String otp;
 	@ObfuscatedName("km")
 	@ObfuscatedSignature(
 		descriptor = "Lbf;"
 	)
-	@Export("localPlayer")
 	static Player localPlayer;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
@@ -107,7 +101,6 @@ public class WorldMapLabelSize {
 		descriptor = "(Lkf;IB)V",
 		garbageValue = "-8"
 	)
-	@Export("readReflectionCheck")
 	public static void readReflectionCheck(Buffer var0, int var1) {
 		ReflectionCheck var2 = new ReflectionCheck(); // L: 127
 		var2.size = var0.readUnsignedByte(); // L: 128
@@ -279,7 +272,6 @@ public class WorldMapLabelSize {
 		descriptor = "(IZZZI)Liw;",
 		garbageValue = "-1692884564"
 	)
-	@Export("newArchive")
 	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
 		ArchiveDisk var4 = null; // L: 1847
 		if (JagexCache.JagexCache_dat2File != null) { // L: 1848
@@ -294,7 +286,6 @@ public class WorldMapLabelSize {
 		descriptor = "(IIIIIIII)V",
 		garbageValue = "-775156313"
 	)
-	@Export("addPendingSpawnToScene")
 	static final void addPendingSpawnToScene(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var2 >= 1 && var3 >= 1 && var2 <= 102 && var3 <= 102) { // L: 6655
 			if (Client.isLowDetail && var0 != Huffman.Client_plane) { // L: 6656

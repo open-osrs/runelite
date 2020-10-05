@@ -1,6 +1,5 @@
 import java.math.BigInteger;
 import java.util.Iterator;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -46,7 +45,6 @@ public class class89 {
 		descriptor = "(II)V",
 		garbageValue = "602324309"
 	)
-	@Export("forceDisconnect")
 	static final void forceDisconnect(int var0) {
 		ViewportMouse.logOut(); // L: 2510
 		switch(var0) { // L: 2511
@@ -65,7 +63,6 @@ public class class89 {
 		descriptor = "(IIIB)V",
 		garbageValue = "-29"
 	)
-	@Export("worldToScreen")
 	static final void worldToScreen(int var0, int var1, int var2) {
 		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) { // L: 4945
 			int var3 = ArchiveLoader.getTileHeight(var0, var1, Huffman.Client_plane) - var2; // L: 4950

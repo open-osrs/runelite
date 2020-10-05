@@ -1,7 +1,6 @@
 import java.awt.Desktop;
 import java.awt.Desktop.Action;
 import java.net.URI;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -17,7 +16,6 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 		descriptor = "(Lkf;B)V",
 		garbageValue = "29"
 	)
-	@Export("init")
 	void init(Buffer var1) {
 		int var2 = var1.readUnsignedByte(); // L: 9
 		if (var2 != WorldMapID.field291.value) { // L: 10
@@ -39,7 +37,6 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "728123848"
 	)
-	@Export("readGeography")
 	void readGeography(Buffer var1) {
 		super.planes = Math.min(super.planes, 4);
 		super.floorUnderlayIds = new short[1][64][64];
@@ -84,7 +81,6 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
 		garbageValue = "-379441451"
 	)
-	@Export("addChatMessage")
 	static void addChatMessage(int var0, String var1, String var2, String var3) {
 		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 23
 		if (var4 == null) { // L: 24

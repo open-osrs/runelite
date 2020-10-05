@@ -1,5 +1,4 @@
 import java.awt.FontMetrics;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -12,16 +11,13 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 	@ObfuscatedSignature(
 		descriptor = "Llp;"
 	)
-	@Export("sceneMinimapSprite")
 	static Sprite sceneMinimapSprite;
 	@ObfuscatedName("an")
-	@Export("loginScreenFontMetrics")
 	static FontMetrics loginScreenFontMetrics;
 	@ObfuscatedName("dp")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive12")
 	static Archive archive12;
 
 	ApproximateRouteStrategy() {
@@ -32,7 +28,6 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 		descriptor = "(IIILft;I)Z",
 		garbageValue = "-1274441547"
 	)
-	@Export("hasArrived")
 	protected boolean hasArrived(int var1, int var2, int var3, CollisionMap var4) {
 		return var2 == super.approxDestinationX && var3 == super.approxDestinationY; // L: 10974
 	}
@@ -42,7 +37,6 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 		descriptor = "(B)[Lix;",
 		garbageValue = "64"
 	)
-	@Export("PlayerType_values")
 	public static PlayerType[] PlayerType_values() {
 		return new PlayerType[]{PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_playerModerator, PlayerType.PlayerType_ultimateIronman, PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_ironman, PlayerType.PlayerType_normal, PlayerType.field3131}; // L: 20
 	}

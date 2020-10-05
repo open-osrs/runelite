@@ -1,5 +1,4 @@
 import java.util.TimeZone;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -8,13 +7,10 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Calendar")
 public class Calendar {
 	@ObfuscatedName("z")
-	@Export("MONTH_NAMES_ENGLISH_GERMAN")
 	static final String[][] MONTH_NAMES_ENGLISH_GERMAN;
 	@ObfuscatedName("k")
-	@Export("DAYS_OF_THE_WEEK")
 	static final String[] DAYS_OF_THE_WEEK;
 	@ObfuscatedName("s")
-	@Export("Calendar_calendar")
 	static java.util.Calendar Calendar_calendar;
 	@ObfuscatedName("x")
 	public static short[] field2535;

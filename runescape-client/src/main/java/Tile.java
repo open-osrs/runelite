@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,109 +10,89 @@ public final class Tile extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Lce;"
 	)
-	@Export("clientPreferences")
 	static ClientPreferences clientPreferences;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -400770483
 	)
-	@Export("originalPlane")
 	int originalPlane;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -1404568893
 	)
-	@Export("plane")
 	int plane;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -378034661
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -266768933
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lem;"
 	)
-	@Export("paint")
 	TilePaint paint;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Len;"
 	)
-	@Export("model")
 	TileModel model;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Leb;"
 	)
-	@Export("boundaryObject")
 	BoundaryObject boundaryObject;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Lex;"
 	)
-	@Export("wallDecoration")
 	WallDecoration wallDecoration;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "Leu;"
 	)
-	@Export("floorDecoration")
 	FloorDecoration floorDecoration;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "Ldg;"
 	)
-	@Export("tileItemPile")
 	TileItemPile tileItemPile;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = 240084109
 	)
-	@Export("gameObjectsCount")
 	int gameObjectsCount;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "[Led;"
 	)
-	@Export("gameObjects")
 	GameObject[] gameObjects;
 	@ObfuscatedName("h")
-	@Export("gameObjectEdgeMasks")
 	int[] gameObjectEdgeMasks;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
 		intValue = -640534231
 	)
-	@Export("gameObjectsEdgeMask")
 	int gameObjectsEdgeMask;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
 		intValue = -1686983663
 	)
-	@Export("minPlane")
 	int minPlane;
 	@ObfuscatedName("c")
-	@Export("drawPrimary")
 	boolean drawPrimary;
 	@ObfuscatedName("f")
-	@Export("drawSecondary")
 	boolean drawSecondary;
 	@ObfuscatedName("y")
-	@Export("drawGameObjects")
 	boolean drawGameObjects;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
 		intValue = 913733009
 	)
-	@Export("drawGameObjectEdges")
 	int drawGameObjectEdges;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
@@ -134,7 +113,6 @@ public final class Tile extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Lek;"
 	)
-	@Export("linkedBelowTile")
 	Tile linkedBelowTile;
 
 	Tile(int var1, int var2, int var3) {

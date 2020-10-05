@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,43 +15,36 @@ public final class FloorDecoration {
 	@ObfuscatedGetter(
 		intValue = -339938865
 	)
-	@Export("canvasWidth")
 	public static int canvasWidth;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lez;"
 	)
-	@Export("entity")
 	public Entity entity;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -894788303
 	)
-	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1021856255
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 1156042873
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		longValue = -1933481833005826137L
 	)
-	@Export("tag")
 	public long tag;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -124409527
 	)
-	@Export("flags")
 	int flags;
 
 	FloorDecoration() {
@@ -63,7 +55,6 @@ public final class FloorDecoration {
 		descriptor = "([Lct;II[I[II)V",
 		garbageValue = "1270252584"
 	)
-	@Export("sortWorlds")
 	static void sortWorlds(World[] var0, int var1, int var2, int[] var3, int[] var4) {
 		if (var1 < var2) { // L: 81
 			int var5 = var1 - 1; // L: 82

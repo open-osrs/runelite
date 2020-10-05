@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.Socket;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -9,19 +8,16 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("BufferedNetSocket")
 public class BufferedNetSocket extends AbstractSocket {
 	@ObfuscatedName("z")
-	@Export("socket")
 	Socket socket;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Llx;"
 	)
-	@Export("source")
 	BufferedSource source;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Llf;"
 	)
-	@Export("sink")
 	BufferedSink sink;
 
 	BufferedNetSocket(Socket var1, int var2, int var3) throws IOException {
@@ -39,7 +35,6 @@ public class BufferedNetSocket extends AbstractSocket {
 		descriptor = "(I)V",
 		garbageValue = "-147773206"
 	)
-	@Export("close")
 	public void close() {
 		this.sink.close(); // L: 42
 
@@ -56,7 +51,6 @@ public class BufferedNetSocket extends AbstractSocket {
 		descriptor = "(B)I",
 		garbageValue = "-99"
 	)
-	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
 		return this.source.readUnsignedByte(); // L: 30
 	}
@@ -66,7 +60,6 @@ public class BufferedNetSocket extends AbstractSocket {
 		descriptor = "(B)I",
 		garbageValue = "12"
 	)
-	@Export("available")
 	public int available() throws IOException {
 		return this.source.available(); // L: 26
 	}
@@ -76,7 +69,6 @@ public class BufferedNetSocket extends AbstractSocket {
 		descriptor = "(IB)Z",
 		garbageValue = "-78"
 	)
-	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
 		return this.source.isAvailable(var1); // L: 22
 	}
@@ -86,7 +78,6 @@ public class BufferedNetSocket extends AbstractSocket {
 		descriptor = "([BIII)I",
 		garbageValue = "-1533815985"
 	)
-	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
 		return this.source.read(var1, var2, var3); // L: 34
 	}
@@ -96,7 +87,6 @@ public class BufferedNetSocket extends AbstractSocket {
 		descriptor = "([BIIB)V",
 		garbageValue = "52"
 	)
-	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
 		this.sink.write(var1, var2, var3); // L: 38
 	} // L: 39

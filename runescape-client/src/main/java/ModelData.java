@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -13,94 +12,66 @@ public class ModelData extends Entity {
 	@ObfuscatedName("aq")
 	static int field1605;
 	@ObfuscatedName("al")
-	@Export("ModelData_sine")
 	static int[] ModelData_sine;
 	@ObfuscatedName("ah")
-	@Export("ModelData_cosine")
 	static int[] ModelData_cosine;
 	@ObfuscatedName("z")
-	@Export("verticesCount")
 	int verticesCount;
 	@ObfuscatedName("k")
-	@Export("verticesX")
 	int[] verticesX;
 	@ObfuscatedName("s")
-	@Export("verticesY")
 	int[] verticesY;
 	@ObfuscatedName("t")
-	@Export("verticesZ")
 	int[] verticesZ;
 	@ObfuscatedName("i")
-	@Export("faceCount")
 	int faceCount;
 	@ObfuscatedName("o")
-	@Export("indices1")
 	int[] indices1;
 	@ObfuscatedName("x")
-	@Export("indices2")
 	int[] indices2;
 	@ObfuscatedName("w")
-	@Export("indices3")
 	int[] indices3;
 	@ObfuscatedName("g")
-	@Export("faceRenderTypes")
 	byte[] faceRenderTypes;
 	@ObfuscatedName("m")
-	@Export("faceRenderPriorities")
 	byte[] faceRenderPriorities;
 	@ObfuscatedName("n")
-	@Export("faceAlphas")
 	byte[] faceAlphas;
 	@ObfuscatedName("d")
-	@Export("textureCoords")
 	byte[] textureCoords;
 	@ObfuscatedName("h")
-	@Export("faceColors")
 	short[] faceColors;
 	@ObfuscatedName("a")
-	@Export("faceTextures")
 	short[] faceTextures;
 	@ObfuscatedName("q")
-	@Export("priority")
 	byte priority;
 	@ObfuscatedName("c")
-	@Export("textureTriangleCount")
 	int textureTriangleCount;
 	@ObfuscatedName("f")
-	@Export("textureRenderTypes")
 	byte[] textureRenderTypes;
 	@ObfuscatedName("y")
-	@Export("texTriangleX")
 	short[] texTriangleX;
 	@ObfuscatedName("v")
-	@Export("texTriangleY")
 	short[] texTriangleY;
 	@ObfuscatedName("j")
-	@Export("texTriangleZ")
 	short[] texTriangleZ;
 	@ObfuscatedName("r")
-	@Export("vertexSkins")
 	int[] vertexSkins;
 	@ObfuscatedName("u")
-	@Export("faceSkins")
 	int[] faceSkins;
 	@ObfuscatedName("p")
-	@Export("vertexLabels")
 	int[][] vertexLabels;
 	@ObfuscatedName("b")
-	@Export("faceLabelsAlpha")
 	int[][] faceLabelsAlpha;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "[Let;"
 	)
-	@Export("faceNormals")
 	FaceNormal[] faceNormals;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "[Leg;"
 	)
-	@Export("vertexNormals")
 	VertexNormal[] vertexNormals;
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
@@ -108,13 +79,10 @@ public class ModelData extends Entity {
 	)
 	VertexNormal[] field1599;
 	@ObfuscatedName("ag")
-	@Export("ambient")
 	public short ambient;
 	@ObfuscatedName("ao")
-	@Export("contrast")
 	public short contrast;
 	@ObfuscatedName("ae")
-	@Export("isBoundsCalculated")
 	boolean isBoundsCalculated;
 	@ObfuscatedName("an")
 	int field1598;
@@ -1240,7 +1208,6 @@ public class ModelData extends Entity {
 	} // L: 841
 
 	@ObfuscatedName("h")
-	@Export("changeOffset")
 	public void changeOffset(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.verticesCount; ++var4) { // L: 844
 			int[] var10000 = this.verticesX; // L: 845
@@ -1255,7 +1222,6 @@ public class ModelData extends Entity {
 	} // L: 850
 
 	@ObfuscatedName("a")
-	@Export("recolor")
 	public void recolor(short var1, short var2) {
 		for (int var3 = 0; var3 < this.faceCount; ++var3) { // L: 853
 			if (this.faceColors[var3] == var1) { // L: 854
@@ -1266,7 +1232,6 @@ public class ModelData extends Entity {
 	} // L: 856
 
 	@ObfuscatedName("q")
-	@Export("retexture")
 	public void retexture(short var1, short var2) {
 		if (this.faceTextures != null) { // L: 859
 			for (int var3 = 0; var3 < this.faceCount; ++var3) { // L: 860
@@ -1295,7 +1260,6 @@ public class ModelData extends Entity {
 	} // L: 873
 
 	@ObfuscatedName("j")
-	@Export("resize")
 	public void resize(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.verticesCount; ++var4) { // L: 876
 			this.verticesX[var4] = this.verticesX[var4] * var1 / 128; // L: 877
@@ -1307,7 +1271,6 @@ public class ModelData extends Entity {
 	} // L: 882
 
 	@ObfuscatedName("r")
-	@Export("calculateVertexNormals")
 	public void calculateVertexNormals() {
 		if (this.vertexNormals == null) { // L: 885
 			this.vertexNormals = new VertexNormal[this.verticesCount]; // L: 886
@@ -1383,7 +1346,6 @@ public class ModelData extends Entity {
 	} // L: 940
 
 	@ObfuscatedName("u")
-	@Export("invalidate")
 	void invalidate() {
 		this.vertexNormals = null; // L: 943
 		this.field1599 = null; // L: 944
@@ -1392,7 +1354,6 @@ public class ModelData extends Entity {
 	} // L: 947
 
 	@ObfuscatedName("p")
-	@Export("calculateBounds")
 	void calculateBounds() {
 		if (!this.isBoundsCalculated) { // L: 950
 			super.height = 0; // L: 951
@@ -1439,7 +1400,6 @@ public class ModelData extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(IIIII)Ler;"
 	)
-	@Export("toModel")
 	public final Model toModel(int var1, int var2, int var3, int var4, int var5) {
 		this.calculateVertexNormals(); // L: 1028
 		int var6 = (int)Math.sqrt((double)(var5 * var5 + var3 * var3 + var4 * var4)); // L: 1029
@@ -1626,7 +1586,6 @@ public class ModelData extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(Lic;II)Lee;"
 	)
-	@Export("ModelData_get")
 	public static ModelData ModelData_get(AbstractArchive var0, int var1, int var2) {
 		byte[] var3 = var0.takeFile(var1, var2); // L: 53
 		return var3 == null ? null : new ModelData(var3); // L: 54

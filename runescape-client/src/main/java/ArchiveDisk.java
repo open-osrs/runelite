@@ -1,6 +1,5 @@
 import java.io.EOFException;
 import java.io.IOException;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,31 +9,26 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("ArchiveDisk")
 public final class ArchiveDisk {
 	@ObfuscatedName("z")
-	@Export("ArchiveDisk_buffer")
 	static byte[] ArchiveDisk_buffer;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lmz;"
 	)
-	@Export("datFile")
 	BufferedFile datFile;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lmz;"
 	)
-	@Export("idxFile")
 	BufferedFile idxFile;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 728284557
 	)
-	@Export("archive")
 	int archive;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -669464675
 	)
-	@Export("maxEntrySize")
 	int maxEntrySize;
 
 	static {
@@ -59,7 +53,6 @@ public final class ArchiveDisk {
 		descriptor = "(II)[B",
 		garbageValue = "881928186"
 	)
-	@Export("read")
 	public byte[] read(int var1) {
 		synchronized(this.datFile) { // L: 21
 			try {
@@ -153,7 +146,6 @@ public final class ArchiveDisk {
 		descriptor = "(I[BII)Z",
 		garbageValue = "749770493"
 	)
-	@Export("write")
 	public boolean write(int var1, byte[] var2, int var3) {
 		synchronized(this.datFile) { // L: 76
 			if (var3 >= 0 && var3 <= this.maxEntrySize) { // L: 77
@@ -174,7 +166,6 @@ public final class ArchiveDisk {
 		descriptor = "(I[BIZB)Z",
 		garbageValue = "-74"
 	)
-	@Export("write0")
 	boolean write0(int var1, byte[] var2, int var3, boolean var4) {
 		synchronized(this.datFile) { // L: 87
 			try {

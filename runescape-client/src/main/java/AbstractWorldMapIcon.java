@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.RandomAccessFile;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,37 +12,31 @@ public abstract class AbstractWorldMapIcon {
 	@ObfuscatedSignature(
 		descriptor = "Lfa;"
 	)
-	@Export("clock")
 	static Clock clock;
 	@ObfuscatedName("bp")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("worldSelectFlagSprites")
 	static IndexedSprite[] worldSelectFlagSprites;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
-	@Export("coord2")
 	public final Coord coord2;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
-	@Export("coord1")
 	public final Coord coord1;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = 857445445
 	)
-	@Export("screenX")
 	int screenX;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = -161924757
 	)
-	@Export("screenY")
 	int screenY;
 
 	@ObfuscatedSignature(
@@ -59,7 +52,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "-1613828162"
 	)
-	@Export("getElement")
 	public abstract int getElement();
 
 	@ObfuscatedName("k")
@@ -67,7 +59,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(I)Laq;",
 		garbageValue = "499378708"
 	)
-	@Export("getLabel")
 	abstract WorldMapLabel getLabel();
 
 	@ObfuscatedName("s")
@@ -75,7 +66,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "182515130"
 	)
-	@Export("getSubWidth")
 	abstract int getSubWidth();
 
 	@ObfuscatedName("t")
@@ -83,7 +73,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "-2001682063"
 	)
-	@Export("getSubHeight")
 	abstract int getSubHeight();
 
 	@ObfuscatedName("q")
@@ -91,7 +80,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(III)Z",
 		garbageValue = "1932387399"
 	)
-	@Export("fitsScreen")
 	boolean fitsScreen(int var1, int var2) {
 		if (this.elementFitsScreen(var1, var2)) { // L: 18
 			return true; // L: 19
@@ -105,7 +93,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(I)Z",
 		garbageValue = "-446281234"
 	)
-	@Export("hasValidElement")
 	boolean hasValidElement() {
 		return this.getElement() >= 0;
 	}
@@ -115,7 +102,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(IIB)Z",
 		garbageValue = "-125"
 	)
-	@Export("elementFitsScreen")
 	boolean elementFitsScreen(int var1, int var2) {
 		if (!this.hasValidElement()) {
 			return false;
@@ -166,7 +152,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(III)Z",
 		garbageValue = "706174732"
 	)
-	@Export("labelFitsScreen")
 	boolean labelFitsScreen(int var1, int var2) {
 		WorldMapLabel var3 = this.getLabel(); // L: 79
 		if (var3 == null) { // L: 80
@@ -192,7 +177,6 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "(Ljava/lang/String;I)Ljava/io/File;",
 		garbageValue = "379993437"
 	)
-	@Export("getFile")
 	static File getFile(String var0) {
 		if (!FileSystem.FileSystem_hasPermissions) { // L: 22
 			throw new RuntimeException("");

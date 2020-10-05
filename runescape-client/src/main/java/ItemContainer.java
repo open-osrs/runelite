@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,22 +15,17 @@ public class ItemContainer extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Llc;"
 	)
-	@Export("itemContainers")
 	static NodeHashTable itemContainers;
 	@ObfuscatedName("dk")
 	@ObfuscatedSignature(
 		descriptor = "Lln;"
 	)
-	@Export("js5Socket")
 	static AbstractSocket js5Socket;
 	@ObfuscatedName("ec")
-	@Export("worldHost")
 	static String worldHost;
 	@ObfuscatedName("k")
-	@Export("ids")
 	int[] ids;
 	@ObfuscatedName("s")
-	@Export("quantities")
 	int[] quantities;
 
 	static {

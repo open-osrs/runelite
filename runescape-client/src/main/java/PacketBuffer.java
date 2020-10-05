@@ -1,5 +1,4 @@
 import java.awt.Image;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,19 +15,16 @@ public class PacketBuffer extends Buffer {
 	@ObfuscatedGetter(
 		intValue = 1400093691
 	)
-	@Export("cameraPitch")
 	static int cameraPitch;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Llh;"
 	)
-	@Export("isaacCipher")
 	IsaacCipher isaacCipher;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1373505985
 	)
-	@Export("bitIndex")
 	int bitIndex;
 
 	static {
@@ -44,7 +40,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "([II)V",
 		garbageValue = "687379780"
 	)
-	@Export("newIsaacCipher")
 	public void newIsaacCipher(int[] var1) {
 		this.isaacCipher = new IsaacCipher(var1); // L: 15
 	} // L: 16
@@ -54,7 +49,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(Llh;I)V",
 		garbageValue = "-1243349913"
 	)
-	@Export("setIsaacCipher")
 	public void setIsaacCipher(IsaacCipher var1) {
 		this.isaacCipher = var1; // L: 19
 	} // L: 20
@@ -64,7 +58,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(II)V",
 		garbageValue = "28692652"
 	)
-	@Export("writeByteIsaac")
 	public void writeByteIsaac(int var1) {
 		super.array[++super.offset - 1] = (byte)(var1 + this.isaacCipher.nextInt()); // L: 23
 	} // L: 24
@@ -74,7 +67,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(B)I",
 		garbageValue = "3"
 	)
-	@Export("readByteIsaac")
 	public int readByteIsaac() {
 		return super.array[++super.offset - 1] - this.isaacCipher.nextInt() & 255; // L: 27
 	}
@@ -94,7 +86,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(B)I",
 		garbageValue = "-121"
 	)
-	@Export("readSmartByteShortIsaac")
 	public int readSmartByteShortIsaac() {
 		int var1 = super.array[++super.offset - 1] - this.isaacCipher.nextInt() & 255; // L: 37
 		return var1 < 128 ? var1 : (var1 - 128 << 8) + (super.array[++super.offset - 1] - this.isaacCipher.nextInt() & 255); // L: 38 39
@@ -117,7 +108,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(I)V",
 		garbageValue = "1646456009"
 	)
-	@Export("importIndex")
 	public void importIndex() {
 		this.bitIndex = super.offset * 8; // L: 47
 	} // L: 48
@@ -127,7 +117,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(II)I",
 		garbageValue = "606103556"
 	)
-	@Export("readBits")
 	public int readBits(int var1) {
 		int var2 = this.bitIndex >> 3; // L: 51
 		int var3 = 8 - (this.bitIndex & 7); // L: 52
@@ -152,7 +141,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(I)V",
 		garbageValue = "2092208058"
 	)
-	@Export("exportIndex")
 	public void exportIndex() {
 		super.offset = (this.bitIndex + 7) / 8; // L: 66
 	} // L: 67
@@ -162,7 +150,6 @@ public class PacketBuffer extends Buffer {
 		descriptor = "(IS)I",
 		garbageValue = "-20679"
 	)
-	@Export("bitsRemaining")
 	public int bitsRemaining(int var1) {
 		return var1 * 8 - this.bitIndex; // L: 70
 	}

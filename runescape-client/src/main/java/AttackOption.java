@@ -1,5 +1,4 @@
 import java.io.IOException;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,32 +12,27 @@ public enum AttackOption implements Enumerated {
 	@ObfuscatedSignature(
 		descriptor = "Lcd;"
 	)
-	@Export("AttackOption_dependsOnCombatLevels")
 	AttackOption_dependsOnCombatLevels(0),
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lcd;"
 	)
-	@Export("AttackOption_alwaysRightClick")
 	AttackOption_alwaysRightClick(1),
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lcd;"
 	)
-	@Export("AttackOption_leftClickWhereAvailable")
 	AttackOption_leftClickWhereAvailable(2),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lcd;"
 	)
-	@Export("AttackOption_hidden")
 	AttackOption_hidden(3);
 
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1798928251
 	)
-	@Export("id")
 	final int id;
 
 	AttackOption(int var3) {
@@ -50,7 +44,6 @@ public enum AttackOption implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 10933
 	}

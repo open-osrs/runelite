@@ -1,5 +1,4 @@
 import java.util.Locale;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -12,60 +11,50 @@ public class Language implements Enumerated {
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("Language_EN")
 	public static final Language Language_EN;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("Language_DE")
 	static final Language Language_DE;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("Language_FR")
 	public static final Language Language_FR;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("Language_PT")
 	static final Language Language_PT;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("Language_NL")
 	static final Language Language_NL;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("Language_ES")
 	public static final Language Language_ES;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("Language_ES_MX")
 	static final Language Language_ES_MX;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "[Lgn;"
 	)
-	@Export("Language_valuesOrdered")
 	public static final Language[] Language_valuesOrdered;
 	@ObfuscatedName("w")
 	final String field2387;
 	@ObfuscatedName("g")
-	@Export("language")
 	final String language;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = 2011360821
 	)
-	@Export("id")
 	final int id;
 
 	static {
@@ -111,7 +100,6 @@ public class Language implements Enumerated {
 		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "1763794440"
 	)
-	@Export("getLanguage")
 	String getLanguage() {
 		return this.language; // L: 56
 	}
@@ -121,7 +109,6 @@ public class Language implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 60
 	}

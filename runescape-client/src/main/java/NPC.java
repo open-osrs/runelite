@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -10,7 +9,6 @@ public final class NPC extends Actor {
 	@ObfuscatedSignature(
 		descriptor = "Ljx;"
 	)
-	@Export("definition")
 	NPCDefinition definition;
 
 	NPC() {
@@ -124,7 +122,6 @@ public final class NPC extends Actor {
 		descriptor = "(I)Ler;",
 		garbageValue = "-2026237468"
 	)
-	@Export("getModel")
 	protected final Model getModel() {
 		if (this.definition == null) { // L: 77
 			return null;
@@ -160,7 +157,6 @@ public final class NPC extends Actor {
 		descriptor = "(I)Z",
 		garbageValue = "68470795"
 	)
-	@Export("isVisible")
 	final boolean isVisible() {
 		return this.definition != null; // L: 97
 	}

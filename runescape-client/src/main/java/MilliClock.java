@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -53,7 +52,6 @@ public class MilliClock extends Clock {
 		descriptor = "(I)V",
 		garbageValue = "208275261"
 	)
-	@Export("mark")
 	public void mark() {
 		for (int var1 = 0; var1 < 10; ++var1) { // L: 25
 			this.field2057[var1] = 0L; // L: 26
@@ -66,7 +64,6 @@ public class MilliClock extends Clock {
 		descriptor = "(III)I",
 		garbageValue = "-16016139"
 	)
-	@Export("wait")
 	public int wait(int var1, int var2) {
 		int var3 = this.field2053; // L: 31
 		int var4 = this.field2055; // L: 32
@@ -123,7 +120,6 @@ public class MilliClock extends Clock {
 		descriptor = "(CI)Z",
 		garbageValue = "-473742756"
 	)
-	@Export("isCharAlphabetic")
 	public static boolean isCharAlphabetic(char var0) {
 		return var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z'; // L: 142
 	}

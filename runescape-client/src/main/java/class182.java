@@ -1,5 +1,4 @@
 import java.awt.Component;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -7,10 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("gx")
 public class class182 {
 	@ObfuscatedName("s")
-	@Export("directions")
 	static int[][] directions;
 	@ObfuscatedName("t")
-	@Export("distances")
 	static int[][] distances;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
@@ -23,16 +20,13 @@ public class class182 {
 	)
 	static int field2136;
 	@ObfuscatedName("w")
-	@Export("bufferX")
 	static int[] bufferX;
 	@ObfuscatedName("g")
-	@Export("bufferY")
 	static int[] bufferY;
 	@ObfuscatedName("dw")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive0")
 	static Archive archive0;
 
 	static {

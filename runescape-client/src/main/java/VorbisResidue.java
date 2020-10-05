@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
@@ -6,25 +5,18 @@ import net.runelite.mapping.ObfuscatedName;
 @Implements("VorbisResidue")
 public class VorbisResidue {
 	@ObfuscatedName("z")
-	@Export("residueType")
 	int residueType;
 	@ObfuscatedName("k")
-	@Export("begin")
 	int begin;
 	@ObfuscatedName("s")
-	@Export("end")
 	int end;
 	@ObfuscatedName("t")
-	@Export("partitionSize")
 	int partitionSize;
 	@ObfuscatedName("i")
-	@Export("classifications")
 	int classifications;
 	@ObfuscatedName("o")
-	@Export("classbook")
 	int classbook;
 	@ObfuscatedName("x")
-	@Export("cascade")
 	int[] cascade;
 
 	VorbisResidue() {

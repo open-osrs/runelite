@@ -1,5 +1,4 @@
 import java.nio.ByteBuffer;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -11,7 +10,6 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("ObjectDefinition_modelsArchive")
 	public static AbstractArchive ObjectDefinition_modelsArchive;
 	@ObfuscatedName("bz")
 	@ObfuscatedSignature(
@@ -19,7 +17,6 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 	)
 	static GameBuild field2525;
 	@ObfuscatedName("z")
-	@Export("directBuffer")
 	ByteBuffer directBuffer;
 
 	DirectByteArrayCopier() {
@@ -30,7 +27,6 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		descriptor = "(I)[B",
 		garbageValue = "-1021172953"
 	)
-	@Export("get")
 	byte[] get() {
 		byte[] var1 = new byte[this.directBuffer.capacity()]; // L: 13
 		this.directBuffer.position(0); // L: 14
@@ -43,7 +39,6 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		descriptor = "([BI)V",
 		garbageValue = "-1366071744"
 	)
-	@Export("set")
 	void set(byte[] var1) {
 		this.directBuffer = ByteBuffer.allocateDirect(var1.length); // L: 20
 		this.directBuffer.position(0); // L: 21
@@ -55,7 +50,6 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		descriptor = "(Lhq;IIB)V",
 		garbageValue = "47"
 	)
-	@Export("alignWidgetPosition")
 	static void alignWidgetPosition(Widget var0, int var1, int var2) {
 		if (var0.xAlignment == 0) { // L: 9262
 			var0.x = var0.rawX;

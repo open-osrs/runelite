@@ -1,6 +1,5 @@
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,13 +12,11 @@ public final class TileItem extends Entity {
 	@ObfuscatedGetter(
 		intValue = 652464565
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 417363545
 	)
-	@Export("quantity")
 	int quantity;
 
 	TileItem() {
@@ -30,7 +27,6 @@ public final class TileItem extends Entity {
 		descriptor = "(I)Ler;",
 		garbageValue = "-2026237468"
 	)
-	@Export("getModel")
 	protected final Model getModel() {
 		return GrandExchangeOfferTotalQuantityComparator.ItemDefinition_get(this.id).getModel(this.quantity); // L: 14
 	}
@@ -40,7 +36,6 @@ public final class TileItem extends Entity {
 		descriptor = "(II)Lhq;",
 		garbageValue = "7632896"
 	)
-	@Export("getWidget")
 	public static Widget getWidget(int var0) {
 		int var1 = var0 >> 16; // L: 186
 		int var2 = var0 & 65535; // L: 187
@@ -77,7 +72,6 @@ public final class TileItem extends Entity {
 		descriptor = "(CLgn;I)C",
 		garbageValue = "-2022621554"
 	)
-	@Export("standardizeChar")
 	static char standardizeChar(char var0, Language var1) {
 		if (var0 >= 192 && var0 <= 255) { // L: 93
 			if (var0 >= 192 && var0 <= 198) { // L: 94
@@ -161,7 +155,6 @@ public final class TileItem extends Entity {
 	}
 
 	@ObfuscatedName("t")
-	@Export("Entity_unpackSceneX")
 	public static int Entity_unpackSceneX(long var0) {
 		return (int)(var0 >>> 0 & 127L);
 	}

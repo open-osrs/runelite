@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -10,13 +9,11 @@ public abstract class AbstractByteArrayCopier {
 	@ObfuscatedSignature(
 		descriptor = "[Lct;"
 	)
-	@Export("World_worlds")
 	static World[] World_worlds;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "Lls;"
 	)
-	@Export("logoSprite")
 	static IndexedSprite logoSprite;
 
 	AbstractByteArrayCopier() {
@@ -27,7 +24,6 @@ public abstract class AbstractByteArrayCopier {
 		descriptor = "(I)[B",
 		garbageValue = "-1021172953"
 	)
-	@Export("get")
 	abstract byte[] get();
 
 	@ObfuscatedName("t")
@@ -35,7 +31,6 @@ public abstract class AbstractByteArrayCopier {
 		descriptor = "([BI)V",
 		garbageValue = "-1366071744"
 	)
-	@Export("set")
 	abstract void set(byte[] var1);
 
 	@ObfuscatedName("ig")
@@ -65,7 +60,6 @@ public abstract class AbstractByteArrayCopier {
 		descriptor = "(I)V",
 		garbageValue = "-1068531314"
 	)
-	@Export("Clan_leaveChat")
 	static final void Clan_leaveChat() {
 		PacketBufferNode var0 = Client.getPacketBufferNode(ClientPacket.field2324, Client.packetWriter.isaacCipher); // L: 10705
 		var0.packetBuffer.writeByte(0); // L: 10706

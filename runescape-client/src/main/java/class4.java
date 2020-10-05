@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -8,7 +7,6 @@ final class class4 implements class0 {
 	@ObfuscatedSignature(
 		descriptor = "Lkr;"
 	)
-	@Export("fontBold12")
 	static Font fontBold12;
 
 	@ObfuscatedName("z")
@@ -52,7 +50,6 @@ final class class4 implements class0 {
 		descriptor = "([Lhq;Lhq;ZB)V",
 		garbageValue = "73"
 	)
-	@Export("revalidateWidgetScroll")
 	static void revalidateWidgetScroll(Widget[] var0, Widget var1, boolean var2) {
 		int var3 = var1.scrollWidth != 0 ? var1.scrollWidth * -1105005447 * -1556531767 : var1.width * 1613274363 * 1200164403; // L: 9211
 		int var4 = var1.scrollHeight != 0 ? var1.scrollHeight * 1626628049 * 298473777 : var1.height * 1137118319 * 1991496335; // L: 9212

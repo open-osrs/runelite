@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -8,31 +7,26 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Bounds")
 public class Bounds {
 	@ObfuscatedName("w")
-	@Export("Widget_loadedInterfaces")
 	public static boolean[] Widget_loadedInterfaces;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -942038373
 	)
-	@Export("lowX")
 	public int lowX;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -38208119
 	)
-	@Export("lowY")
 	public int lowY;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -468327151
 	)
-	@Export("highX")
 	public int highX;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 85471293
 	)
-	@Export("highY")
 	public int highY;
 
 	public Bounds(int var1, int var2, int var3, int var4) {
@@ -49,7 +43,6 @@ public class Bounds {
 		descriptor = "(III)V",
 		garbageValue = "1517519205"
 	)
-	@Export("setLow")
 	public void setLow(int var1, int var2) {
 		this.lowX = var1; // L: 19
 		this.lowY = var2; // L: 20
@@ -60,7 +53,6 @@ public class Bounds {
 		descriptor = "(III)V",
 		garbageValue = "1357233631"
 	)
-	@Export("setHigh")
 	public void setHigh(int var1, int var2) {
 		this.highX = var1; // L: 24
 		this.highY = var2; // L: 25

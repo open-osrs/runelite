@@ -1,5 +1,4 @@
 import java.io.File;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,19 +12,16 @@ public class WorldMapDecoration {
 	@ObfuscatedGetter(
 		intValue = -1951458321
 	)
-	@Export("objectDefinitionId")
 	final int objectDefinitionId;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 1622720231
 	)
-	@Export("decoration")
 	final int decoration;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1680868715
 	)
-	@Export("rotation")
 	final int rotation;
 
 	WorldMapDecoration(int var1, int var2, int var3) {

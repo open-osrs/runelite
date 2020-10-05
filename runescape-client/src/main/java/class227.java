@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -9,13 +8,11 @@ public class class227 {
 	@ObfuscatedGetter(
 		intValue = 775643589
 	)
-	@Export("ItemDefinition_fileCount")
 	public static int ItemDefinition_fileCount;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Lls;"
 	)
-	@Export("options_buttons_0Sprite")
 	static IndexedSprite options_buttons_0Sprite;
 
 	@ObfuscatedName("z")
@@ -23,7 +20,6 @@ public class class227 {
 		descriptor = "(CI)B",
 		garbageValue = "-636086719"
 	)
-	@Export("charToByteCp1252")
 	public static byte charToByteCp1252(char var0) {
 		byte var1;
 		if (var0 > 0 && var0 < 128 || var0 >= 160 && var0 <= 255) { // L: 12
@@ -90,7 +86,6 @@ public class class227 {
 	}
 
 	@ObfuscatedName("z")
-	@Export("sleepExact")
 	public static final void sleepExact(long var0) {
 		if (var0 > 0L) { // L: 9
 			if (0L == var0 % 10L) { // L: 10
@@ -130,7 +125,6 @@ public class class227 {
 		descriptor = "(IIIZII)J",
 		garbageValue = "-1245700740"
 	)
-	@Export("calculateTag")
 	public static long calculateTag(int var0, int var1, int var2, boolean var3, int var4) {
 		long var5 = (long)((var0 & 127) << 0 | (var1 & 127) << 7 | (var2 & 3) << 14) | ((long)var4 & 4294967295L) << 17; // L: 80
 		if (var3) { // L: 81

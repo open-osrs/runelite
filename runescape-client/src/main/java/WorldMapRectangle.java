@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -8,31 +7,26 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
 	@ObfuscatedName("d")
-	@Export("Tiles_lightness")
 	static int[] Tiles_lightness;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = 743023489
 	)
-	@Export("width")
 	int width;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 995076797
 	)
-	@Export("height")
 	int height;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1102925233
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -1014669257
 	)
-	@Export("y")
 	int y;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
@@ -52,7 +46,6 @@ public final class WorldMapRectangle {
 		descriptor = "(ILjava/lang/String;Ljava/lang/String;S)V",
 		garbageValue = "128"
 	)
-	@Export("addGameMessage")
 	static void addGameMessage(int var0, String var1, String var2) {
 		WorldMapData_0.addChatMessage(var0, var1, var2, (String)null); // L: 19
 	} // L: 20
@@ -62,7 +55,6 @@ public final class WorldMapRectangle {
 		descriptor = "(II)Lcy;",
 		garbageValue = "-1672146154"
 	)
-	@Export("getScript")
 	static Script getScript(int var0) {
 		Script var1 = (Script)Script.Script_cached.get((long)var0); // L: 25
 		if (var1 != null) { // L: 26

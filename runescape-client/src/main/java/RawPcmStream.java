@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -21,13 +20,10 @@ public class RawPcmStream extends PcmStream {
 	@ObfuscatedName("x")
 	int field1498;
 	@ObfuscatedName("g")
-	@Export("numLoops")
 	int numLoops;
 	@ObfuscatedName("m")
-	@Export("start")
 	int start;
 	@ObfuscatedName("n")
-	@Export("end")
 	int end;
 	@ObfuscatedName("d")
 	boolean field1502;
@@ -81,7 +77,6 @@ public class RawPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "()Ldc;"
 	)
-	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
 		return null; // L: 200
 	}
@@ -90,7 +85,6 @@ public class RawPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "()Ldc;"
 	)
-	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
 		return null; // L: 204
 	}
@@ -101,7 +95,6 @@ public class RawPcmStream extends PcmStream {
 	}
 
 	@ObfuscatedName("g")
-	@Export("fill")
 	public synchronized void fill(int[] var1, int var2, int var3) {
 		if (this.field1494 == 0 && this.field1496 == 0) { // L: 213
 			this.skip(var3); // L: 214
@@ -283,13 +276,11 @@ public class RawPcmStream extends PcmStream {
 	} // L: 215 342
 
 	@ObfuscatedName("m")
-	@Export("setNumLoops")
 	public synchronized void setNumLoops(int var1) {
 		this.numLoops = var1; // L: 79
 	} // L: 80
 
 	@ObfuscatedName("n")
-	@Export("skip")
 	public synchronized void skip(int var1) {
 		if (this.field1496 > 0) { // L: 345
 			if (var1 >= this.field1496) { // L: 346
@@ -848,7 +839,6 @@ public class RawPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "(Lde;II)Ldm;"
 	)
-	@Export("createRawPcmStream")
 	public static RawPcmStream createRawPcmStream(RawSound var0, int var1, int var2) {
 		return var0.samples != null && var0.samples.length != 0 ? new RawPcmStream(var0, (int)((long)var0.sampleRate * 256L * (long)var1 / (long)(PcmPlayer.field1447 * 100)), var2 << 6) : null; // L: 63 64
 	}

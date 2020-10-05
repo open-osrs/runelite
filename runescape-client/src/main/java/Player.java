@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -12,70 +11,58 @@ public final class Player extends Actor {
 	@ObfuscatedSignature(
 		descriptor = "Lfd;"
 	)
-	@Export("mouseWheel")
 	static MouseWheel mouseWheel;
 	@ObfuscatedName("pp")
 	@ObfuscatedSignature(
 		descriptor = "Lld;"
 	)
-	@Export("privateChatMode")
 	static PrivateChatMode privateChatMode;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lku;"
 	)
-	@Export("username")
 	Username username;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lha;"
 	)
-	@Export("appearance")
 	PlayerAppearance appearance;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 262221405
 	)
-	@Export("headIconPk")
 	int headIconPk;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 1053442849
 	)
-	@Export("headIconPrayer")
 	int headIconPrayer;
 	@ObfuscatedName("o")
-	@Export("actions")
 	String[] actions;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -1265290789
 	)
-	@Export("combatLevel")
 	int combatLevel;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -2038384431
 	)
-	@Export("skillLevel")
 	int skillLevel;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = 1117584059
 	)
-	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = 1379087493
 	)
-	@Export("animationCycleStart")
 	int animationCycleStart;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = 1569239967
 	)
-	@Export("animationCycleEnd")
 	int animationCycleEnd;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
@@ -86,7 +73,6 @@ public final class Player extends Actor {
 	@ObfuscatedGetter(
 		intValue = 232655151
 	)
-	@Export("tileHeight2")
 	int tileHeight2;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
@@ -97,7 +83,6 @@ public final class Player extends Actor {
 	@ObfuscatedSignature(
 		descriptor = "Ler;"
 	)
-	@Export("model0")
 	Model model0;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
@@ -120,40 +105,33 @@ public final class Player extends Actor {
 	)
 	int field643;
 	@ObfuscatedName("j")
-	@Export("isUnanimated")
 	boolean isUnanimated;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
 		intValue = 1988252929
 	)
-	@Export("team")
 	int team;
 	@ObfuscatedName("u")
-	@Export("isHidden")
 	boolean isHidden;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
 		intValue = -398923579
 	)
-	@Export("plane")
 	int plane;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
 		intValue = -1030686615
 	)
-	@Export("index")
 	int index;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "Lkm;"
 	)
-	@Export("isFriendTriBool")
 	TriBool isFriendTriBool;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "Lkm;"
 	)
-	@Export("isInClanChat")
 	TriBool isInClanChat;
 	@ObfuscatedName("ab")
 	boolean field660;
@@ -161,13 +139,11 @@ public final class Player extends Actor {
 	@ObfuscatedGetter(
 		intValue = 321223155
 	)
-	@Export("tileX")
 	int tileX;
 	@ObfuscatedName("ao")
 	@ObfuscatedGetter(
 		intValue = 1001779515
 	)
-	@Export("tileY")
 	int tileY;
 
 	Player() {
@@ -196,7 +172,6 @@ public final class Player extends Actor {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "-1567604648"
 	)
-	@Export("read")
 	final void read(Buffer var1) {
 		var1.offset = 0; // L: 54
 		int var2 = var1.readUnsignedByte(); // L: 55
@@ -302,7 +277,6 @@ public final class Player extends Actor {
 		descriptor = "(I)Z",
 		garbageValue = "-659819020"
 	)
-	@Export("isFriend")
 	boolean isFriend() {
 		if (this.isFriendTriBool == TriBool.TriBool_unknown) { // L: 112
 			this.checkIsFriend(); // L: 113
@@ -316,7 +290,6 @@ public final class Player extends Actor {
 		descriptor = "(I)V",
 		garbageValue = "1737435180"
 	)
-	@Export("clearIsFriend")
 	void clearIsFriend() {
 		this.isFriendTriBool = TriBool.TriBool_unknown; // L: 119
 	} // L: 120
@@ -326,7 +299,6 @@ public final class Player extends Actor {
 		descriptor = "(I)V",
 		garbageValue = "1949087224"
 	)
-	@Export("checkIsFriend")
 	void checkIsFriend() {
 		this.isFriendTriBool = class60.friendSystem.isFriendAndHasWorld(this.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 123
 	} // L: 124
@@ -336,7 +308,6 @@ public final class Player extends Actor {
 		descriptor = "(B)Z",
 		garbageValue = "73"
 	)
-	@Export("isClanMember")
 	boolean isClanMember() {
 		if (this.isInClanChat == TriBool.TriBool_unknown) { // L: 127
 			this.updateIsInClanChat(); // L: 128
@@ -350,7 +321,6 @@ public final class Player extends Actor {
 		descriptor = "(B)V",
 		garbageValue = "94"
 	)
-	@Export("clearIsInClanChat")
 	void clearIsInClanChat() {
 		this.isInClanChat = TriBool.TriBool_unknown; // L: 134
 	} // L: 135
@@ -360,7 +330,6 @@ public final class Player extends Actor {
 		descriptor = "(I)V",
 		garbageValue = "2055605300"
 	)
-	@Export("updateIsInClanChat")
 	void updateIsInClanChat() {
 		this.isInClanChat = Entity.clanChat != null && Entity.clanChat.contains(this.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 138
 	} // L: 139
@@ -370,7 +339,6 @@ public final class Player extends Actor {
 		descriptor = "(I)I",
 		garbageValue = "1374983546"
 	)
-	@Export("transformedSize")
 	int transformedSize() {
 		return this.appearance != null && this.appearance.npcTransformId != -1 ? Skeleton.getNpcDefinition(this.appearance.npcTransformId).size : 1; // L: 142 143 145
 	}
@@ -380,7 +348,6 @@ public final class Player extends Actor {
 		descriptor = "(I)Ler;",
 		garbageValue = "-2026237468"
 	)
-	@Export("getModel")
 	protected final Model getModel() {
 		if (this.appearance == null) { // L: 149
 			return null;
@@ -478,7 +445,6 @@ public final class Player extends Actor {
 		descriptor = "(III)V",
 		garbageValue = "-1761567284"
 	)
-	@Export("resetPath")
 	void resetPath(int var1, int var2) {
 		super.pathLength = 0; // L: 210
 		super.field973 = 0; // L: 211
@@ -516,7 +482,6 @@ public final class Player extends Actor {
 		descriptor = "(I)Z",
 		garbageValue = "68470795"
 	)
-	@Export("isVisible")
 	final boolean isVisible() {
 		return this.appearance != null; // L: 233
 	}
@@ -570,7 +535,6 @@ public final class Player extends Actor {
 		descriptor = "(Lkr;Lkr;Lkr;B)V",
 		garbageValue = "-76"
 	)
-	@Export("drawTitle")
 	static void drawTitle(Font var0, Font var1, Font var2) {
 		Login.xPadding = (FloorDecoration.canvasWidth - 765) / 2; // L: 1105
 		Login.loginBoxX = Login.xPadding + 202; // L: 1106

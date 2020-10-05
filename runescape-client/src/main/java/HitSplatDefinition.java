@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -12,7 +11,6 @@ public class HitSplatDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("HitSplatDefinition_archive")
 	public static AbstractArchive HitSplatDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
@@ -23,37 +21,31 @@ public class HitSplatDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("HitSplatDefinition_fontsArchive")
 	public static AbstractArchive HitSplatDefinition_fontsArchive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("HitSplatDefinition_cached")
 	public static EvictingDualNodeHashTable HitSplatDefinition_cached;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("HitSplatDefinition_cachedSprites")
 	public static EvictingDualNodeHashTable HitSplatDefinition_cachedSprites;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("HitSplatDefinition_cachedFonts")
 	public static EvictingDualNodeHashTable HitSplatDefinition_cachedFonts;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
 		intValue = 840460821
 	)
-	@Export("fontId")
 	int fontId;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = -910808373
 	)
-	@Export("textColor")
 	public int textColor;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
@@ -108,19 +100,16 @@ public class HitSplatDefinition extends DualNode {
 	)
 	public int field3366;
 	@ObfuscatedName("l")
-	@Export("transforms")
 	public int[] transforms;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
 		intValue = -1795835533
 	)
-	@Export("transformVarbit")
 	int transformVarbit;
 	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
 		intValue = 1163513145
 	)
-	@Export("transformVarp")
 	int transformVarp;
 
 	static {
@@ -152,7 +141,6 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "183277091"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 57
@@ -169,7 +157,6 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "-2105056828"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) { // L: 64
 			this.fontId = var1.method5634();
@@ -238,7 +225,6 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(B)Ljd;",
 		garbageValue = "-79"
 	)
-	@Export("transform")
 	public final HitSplatDefinition transform() {
 		int var1 = -1; // L: 100
 		if (this.transformVarbit != -1) { // L: 101
@@ -262,7 +248,6 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "-265851490"
 	)
-	@Export("getString")
 	public String getString(int var1) {
 		String var2 = this.field3361; // L: 111
 
@@ -373,7 +358,6 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(I)Lkr;",
 		garbageValue = "-456462046"
 	)
-	@Export("getFont")
 	public Font getFont() {
 		if (this.fontId == -1) { // L: 161
 			return null;

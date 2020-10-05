@@ -36,7 +36,7 @@ buildscript {
     dependencies {
         classpath("org.ajoberstar.grgit:grgit-core:4.1.0")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.33.0")
-        classpath("com.openosrs:injector-plugin:1.1.5")
+        classpath("com.openosrs:injector-plugin:1.1.6")
     }
 }
 

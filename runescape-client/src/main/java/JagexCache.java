@@ -1,5 +1,4 @@
 import java.io.File;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -8,34 +7,28 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("JagexCache")
 public class JagexCache {
 	@ObfuscatedName("t")
-	@Export("JagexCache_locationFile")
 	static File JagexCache_locationFile;
 	@ObfuscatedName("i")
-	@Export("cacheDir")
 	static File cacheDir;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "Lmz;"
 	)
-	@Export("JagexCache_randomDat")
 	public static BufferedFile JagexCache_randomDat;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Lmz;"
 	)
-	@Export("JagexCache_dat2File")
 	public static BufferedFile JagexCache_dat2File;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "Lmz;"
 	)
-	@Export("JagexCache_idx255File")
 	public static BufferedFile JagexCache_idx255File;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "[Lmz;"
 	)
-	@Export("JagexCache_idxFiles")
 	public static BufferedFile[] JagexCache_idxFiles;
 	@ObfuscatedName("r")
 	public static String field2094;
@@ -51,7 +44,6 @@ public class JagexCache {
 		descriptor = "(IIIII)V",
 		garbageValue = "1010534169"
 	)
-	@Export("addSceneMenuOptions")
 	static final void addSceneMenuOptions(int var0, int var1, int var2, int var3) {
 		if (Client.isItemSelected == 0 && !Client.isSpellSelected) { // L: 8289
 			StructDefinition.insertMenuItemNoShift("Walk here", "", 23, 0, var0 - var2, var1 - var3); // L: 8290

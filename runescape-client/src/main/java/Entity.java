@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,13 +10,11 @@ public abstract class Entity extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lkx;"
 	)
-	@Export("clanChat")
 	static ClanChat clanChat;
 	@ObfuscatedName("cf")
 	@ObfuscatedGetter(
 		intValue = -282434447
 	)
-	@Export("height")
 	public int height;
 
 	protected Entity() {
@@ -29,13 +26,11 @@ public abstract class Entity extends DualNode {
 		descriptor = "(I)Ler;",
 		garbageValue = "-2026237468"
 	)
-	@Export("getModel")
 	protected Model getModel() {
 		return null; // L: 19
 	}
 
 	@ObfuscatedName("cb")
-	@Export("draw")
 	void draw(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, long var9) {
 		Model var11 = this.getModel(); // L: 11
 		if (var11 != null) { // L: 12

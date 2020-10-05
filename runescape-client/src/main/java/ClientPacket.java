@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -516,13 +515,11 @@ public class ClientPacket implements class190 {
 	@ObfuscatedGetter(
 		intValue = -1495788607
 	)
-	@Export("id")
 	final int id;
 	@ObfuscatedName("cb")
 	@ObfuscatedGetter(
 		intValue = -1365749519
 	)
-	@Export("length")
 	final int length;
 
 	static {
@@ -671,7 +668,6 @@ public class ClientPacket implements class190 {
 		descriptor = "(IIB)V",
 		garbageValue = "-100"
 	)
-	@Export("runIntfCloseListeners")
 	static final void runIntfCloseListeners(int var0, int var1) {
 		if (WorldMapSprite.loadInterface(var0)) { // L: 10110
 			WorldMapAreaData.runComponentCloseListeners(Widget.Widget_interfaceComponents[var0], var1); // L: 10111

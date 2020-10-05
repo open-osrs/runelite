@@ -1,5 +1,4 @@
 import java.text.DecimalFormat;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -9,19 +8,16 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Login")
 public class Login {
 	@ObfuscatedName("k")
-	@Export("clearLoginScreen")
 	static boolean clearLoginScreen;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1062905543
 	)
-	@Export("xPadding")
 	static int xPadding;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Llp;"
 	)
-	@Export("rightTitleSprite")
 	static Sprite rightTitleSprite;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
@@ -32,16 +28,13 @@ public class Login {
 	@ObfuscatedGetter(
 		intValue = -760884959
 	)
-	@Export("loginBoxX")
 	static int loginBoxX;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
 		intValue = 496089237
 	)
-	@Export("Login_loadingPercent")
 	static int Login_loadingPercent;
 	@ObfuscatedName("p")
-	@Export("Login_loadingText")
 	static String Login_loadingText;
 	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
@@ -57,25 +50,18 @@ public class Login {
 	@ObfuscatedGetter(
 		intValue = 662808535
 	)
-	@Export("loginIndex")
 	static int loginIndex;
 	@ObfuscatedName("aq")
-	@Export("Login_response0")
 	static String Login_response0;
 	@ObfuscatedName("al")
-	@Export("Login_response1")
 	static String Login_response1;
 	@ObfuscatedName("ah")
-	@Export("Login_response2")
 	static String Login_response2;
 	@ObfuscatedName("av")
-	@Export("Login_response3")
 	static String Login_response3;
 	@ObfuscatedName("ax")
-	@Export("Login_username")
 	static String Login_username;
 	@ObfuscatedName("as")
-	@Export("Login_password")
 	static String Login_password;
 	@ObfuscatedName("af")
 	static boolean field1224;
@@ -87,34 +73,28 @@ public class Login {
 	@ObfuscatedGetter(
 		intValue = -189383965
 	)
-	@Export("currentLoginField")
 	static int currentLoginField;
 	@ObfuscatedName("bg")
-	@Export("worldSelectOpen")
 	static boolean worldSelectOpen;
 	@ObfuscatedName("bw")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("worldSelectStars")
 	static IndexedSprite[] worldSelectStars;
 	@ObfuscatedName("bm")
 	@ObfuscatedGetter(
 		intValue = -322396857
 	)
-	@Export("hoveredWorldIndex")
 	static int hoveredWorldIndex;
 	@ObfuscatedName("bd")
 	@ObfuscatedGetter(
 		intValue = -1129392139
 	)
-	@Export("worldSelectPage")
 	static int worldSelectPage;
 	@ObfuscatedName("bb")
 	@ObfuscatedGetter(
 		intValue = 1846745523
 	)
-	@Export("worldSelectPagesCount")
 	static int worldSelectPagesCount;
 	@ObfuscatedName("bq")
 	@ObfuscatedGetter(

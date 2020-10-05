@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -28,7 +27,6 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		descriptor = "(I)Lmr;",
 		garbageValue = "-1896317364"
 	)
-	@Export("get")
 	public PlatformInfo get() {
 		byte var1;
 		if (JagexCache.field2094.startsWith("win")) { // L: 15

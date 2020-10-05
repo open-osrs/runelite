@@ -1,5 +1,4 @@
 import java.util.Date;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -12,49 +11,41 @@ public class WorldMapSection1 implements WorldMapSection {
 	@ObfuscatedSignature(
 		descriptor = "Lc;"
 	)
-	@Export("grandExchangeEvents")
 	static GrandExchangeEvents grandExchangeEvents;
 	@ObfuscatedName("dm")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive7")
 	static Archive archive7;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -2060258139
 	)
-	@Export("minPlane")
 	int minPlane;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -1398963829
 	)
-	@Export("planes")
 	int planes;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 682976363
 	)
-	@Export("regionStartX")
 	int regionStartX;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 38335685
 	)
-	@Export("regionStartY")
 	int regionStartY;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1282107961
 	)
-	@Export("regionEndX")
 	int regionEndX;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -167107483
 	)
-	@Export("regionEndY")
 	int regionEndY;
 
 	WorldMapSection1() {
@@ -65,7 +56,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(Lar;B)V",
 		garbageValue = "100"
 	)
-	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
 		if (var1.regionLowX > this.regionEndX) { // L: 17
 			var1.regionLowX = this.regionEndX;
@@ -90,7 +80,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(IIII)Z",
 		garbageValue = "-339896458"
 	)
-	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
 		if (var1 >= this.minPlane && var1 < this.minPlane + this.planes) {
 			return var2 >> 6 == this.regionStartX && var3 >> 6 == this.regionStartY;
@@ -104,7 +93,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(III)Z",
 		garbageValue = "-2135820245"
 	)
-	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
 		return var1 >> 6 == this.regionEndX && var2 >> 6 == this.regionEndY;
 	}
@@ -114,7 +102,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(IIII)[I",
 		garbageValue = "-1761492451"
 	)
-	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
 		if (!this.containsCoord(var1, var2, var3)) {
 			return null;
@@ -129,7 +116,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(III)Lhg;",
 		garbageValue = "-1553504587"
 	)
-	@Export("coord")
 	public Coord coord(int var1, int var2) {
 		if (!this.containsPosition(var1, var2)) { // L: 45
 			return null; // L: 46
@@ -145,7 +131,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "2144381737"
 	)
-	@Export("read")
 	public void read(Buffer var1) {
 		this.minPlane = var1.readUnsignedByte(); // L: 54
 		this.planes = var1.readUnsignedByte(); // L: 55
@@ -161,7 +146,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(I)V",
 		garbageValue = "1994421574"
 	)
-	@Export("postRead")
 	void postRead() {
 	} // L: 63
 
@@ -170,7 +154,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "(II)I",
 		garbageValue = "1982002808"
 	)
-	@Export("getVarbit")
 	public static int getVarbit(int var0) {
 		VarbitDefinition var1 = TaskHandler.method3567(var0); // L: 24
 		int var2 = var1.baseVar; // L: 25
@@ -254,7 +237,6 @@ public class WorldMapSection1 implements WorldMapSection {
 		descriptor = "([Lhq;IIIIIIIB)V",
 		garbageValue = "2"
 	)
-	@Export("updateInterface")
 	static final void updateInterface(Widget[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		for (int var8 = 0; var8 < var0.length; ++var8) { // L: 9649
 			Widget var9 = var0[var8]; // L: 9650

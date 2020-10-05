@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,10 +15,8 @@ public class FriendLoginUpdate extends Link {
 	@ObfuscatedSignature(
 		descriptor = "Lku;"
 	)
-	@Export("username")
 	public Username username;
 	@ObfuscatedName("i")
-	@Export("world")
 	public short world;
 
 	@ObfuscatedSignature(

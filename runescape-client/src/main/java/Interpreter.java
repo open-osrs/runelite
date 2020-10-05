@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -8,43 +7,33 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Interpreter")
 public class Interpreter {
 	@ObfuscatedName("s")
-	@Export("Interpreter_intLocals")
 	static int[] Interpreter_intLocals;
 	@ObfuscatedName("i")
-	@Export("Interpreter_arrayLengths")
 	static int[] Interpreter_arrayLengths;
 	@ObfuscatedName("o")
-	@Export("Interpreter_arrays")
 	static int[][] Interpreter_arrays;
 	@ObfuscatedName("x")
-	@Export("Interpreter_intStack")
 	static int[] Interpreter_intStack;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -1375275397
 	)
-	@Export("Interpreter_intStackSize")
 	static int Interpreter_intStackSize;
 	@ObfuscatedName("g")
-	@Export("Interpreter_stringStack")
 	static String[] Interpreter_stringStack;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = -800989913
 	)
-	@Export("Interpreter_frameDepth")
 	static int Interpreter_frameDepth;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "[Lba;"
 	)
-	@Export("Interpreter_frames")
 	static ScriptFrame[] Interpreter_frames;
 	@ObfuscatedName("q")
-	@Export("Interpreter_calendar")
 	static java.util.Calendar Interpreter_calendar;
 	@ObfuscatedName("c")
-	@Export("Interpreter_MONTHS")
 	static final String[] Interpreter_MONTHS;
 	@ObfuscatedName("y")
 	static boolean field1131;

@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -80,7 +79,6 @@ public class class194 {
 		descriptor = "(IS)Ljava/lang/String;",
 		garbageValue = "4096"
 	)
-	@Export("inventoryQuantityFormat")
 	static final String inventoryQuantityFormat(int var0) {
 		if (var0 < 100000) { // L: 421
 			return "<col=ffff00>" + var0 + "</col>";

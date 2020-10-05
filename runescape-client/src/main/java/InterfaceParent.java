@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -10,13 +9,11 @@ public class InterfaceParent extends Node {
 	@ObfuscatedGetter(
 		intValue = -1616122647
 	)
-	@Export("group")
 	int group;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 1330314565
 	)
-	@Export("type")
 	int type;
 	@ObfuscatedName("s")
 	boolean field580;

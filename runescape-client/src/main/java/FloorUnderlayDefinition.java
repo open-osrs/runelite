@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,43 +10,36 @@ public class FloorUnderlayDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("FloorUnderlayDefinition_archive")
 	public static AbstractArchive FloorUnderlayDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("FloorUnderlayDefinition_cached")
 	public static EvictingDualNodeHashTable FloorUnderlayDefinition_cached;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1526550495
 	)
-	@Export("rgb")
 	int rgb;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -196392257
 	)
-	@Export("hue")
 	public int hue;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -1341685519
 	)
-	@Export("saturation")
 	public int saturation;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 57935727
 	)
-	@Export("lightness")
 	public int lightness;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = 1946992829
 	)
-	@Export("hueMultiplier")
 	public int hueMultiplier;
 
 	static {
@@ -63,7 +55,6 @@ public class FloorUnderlayDefinition extends DualNode {
 		descriptor = "(B)V",
 		garbageValue = "-7"
 	)
-	@Export("postDecode")
 	public void postDecode() {
 		this.setHsl(this.rgb); // L: 23
 	} // L: 24
@@ -73,7 +64,6 @@ public class FloorUnderlayDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "-1970476156"
 	)
-	@Export("decode")
 	public void decode(Buffer var1, int var2) {
 		while (true) {
 			int var3 = var1.readUnsignedByte(); // L: 28
@@ -90,7 +80,6 @@ public class FloorUnderlayDefinition extends DualNode {
 		descriptor = "(Lkf;III)V",
 		garbageValue = "-789345955"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
 		if (var2 == 1) { // L: 35
 			this.rgb = var1.readMedium();
@@ -103,7 +92,6 @@ public class FloorUnderlayDefinition extends DualNode {
 		descriptor = "(IB)V",
 		garbageValue = "39"
 	)
-	@Export("setHsl")
 	void setHsl(int var1) {
 		double var2 = (double)(var1 >> 16 & 255) / 256.0D; // L: 40
 		double var4 = (double)(var1 >> 8 & 255) / 256.0D; // L: 41

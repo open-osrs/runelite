@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,16 +10,13 @@ public class BuddyRankComparator extends AbstractUserComparator {
 	@ObfuscatedGetter(
 		intValue = 841228159
 	)
-	@Export("musicTrackGroupId")
 	public static int musicTrackGroupId;
 	@ObfuscatedName("jo")
 	@ObfuscatedSignature(
 		descriptor = "Lhq;"
 	)
-	@Export("dragInventoryWidget")
 	static Widget dragInventoryWidget;
 	@ObfuscatedName("z")
-	@Export("reversed")
 	final boolean reversed;
 
 	public BuddyRankComparator(boolean var1) {
@@ -32,7 +28,6 @@ public class BuddyRankComparator extends AbstractUserComparator {
 		descriptor = "(Lko;Lko;I)I",
 		garbageValue = "-895598946"
 	)
-	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
 		if (var2.rank != var1.rank) { // L: 14
 			return this.reversed ? var1.rank - var2.rank : var2.rank - var1.rank; // L: 15

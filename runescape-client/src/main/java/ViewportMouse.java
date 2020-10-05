@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -9,22 +8,18 @@ import netscape.javascript.JSObject;
 @Implements("ViewportMouse")
 public class ViewportMouse {
 	@ObfuscatedName("z")
-	@Export("ViewportMouse_isInViewport")
 	static boolean ViewportMouse_isInViewport;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -1355902097
 	)
-	@Export("ViewportMouse_x")
 	static int ViewportMouse_x;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1743017163
 	)
-	@Export("ViewportMouse_y")
 	static int ViewportMouse_y;
 	@ObfuscatedName("t")
-	@Export("ViewportMouse_false0")
 	static boolean ViewportMouse_false0;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
@@ -50,10 +45,8 @@ public class ViewportMouse {
 	@ObfuscatedGetter(
 		intValue = 1953465913
 	)
-	@Export("ViewportMouse_entityCount")
 	public static int ViewportMouse_entityCount;
 	@ObfuscatedName("q")
-	@Export("ViewportMouse_entityTags")
 	public static long[] ViewportMouse_entityTags;
 
 	static {
@@ -81,7 +74,6 @@ public class ViewportMouse {
 		descriptor = "(I)V",
 		garbageValue = "173237024"
 	)
-	@Export("logOut")
 	static final void logOut() {
 		Client.packetWriter.close(); // L: 2485
 		Actor.method1805(); // L: 2486

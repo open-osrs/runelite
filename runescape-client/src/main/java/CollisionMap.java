@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,34 +10,28 @@ public class CollisionMap {
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive6")
 	static Archive archive6;
 	@ObfuscatedName("au")
 	@ObfuscatedGetter(
 		intValue = 232599941
 	)
-	@Export("xInset")
 	int xInset;
 	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
 		intValue = -2100158867
 	)
-	@Export("yInset")
 	int yInset;
 	@ObfuscatedName("ar")
 	@ObfuscatedGetter(
 		intValue = -393101507
 	)
-	@Export("xSize")
 	int xSize;
 	@ObfuscatedName("at")
 	@ObfuscatedGetter(
 		intValue = -2096335191
 	)
-	@Export("ySize")
 	int ySize;
 	@ObfuscatedName("aq")
-	@Export("flags")
 	public int[][] flags;
 
 	public CollisionMap(int var1, int var2) {
@@ -55,7 +48,6 @@ public class CollisionMap {
 		descriptor = "(I)V",
 		garbageValue = "-1749898511"
 	)
-	@Export("clear")
 	public void clear() {
 		for (int var1 = 0; var1 < this.xSize; ++var1) { // L: 53
 			for (int var2 = 0; var2 < this.ySize; ++var2) { // L: 54
@@ -226,7 +218,6 @@ public class CollisionMap {
 		descriptor = "(IIIIZI)V",
 		garbageValue = "-1934730516"
 	)
-	@Export("addGameObject")
 	public void addGameObject(int var1, int var2, int var3, int var4, boolean var5) {
 		int var6 = 256; // L: 185
 		if (var5) { // L: 186
@@ -253,7 +244,6 @@ public class CollisionMap {
 		descriptor = "(III)V",
 		garbageValue = "1924690823"
 	)
-	@Export("setBlockedByFloor")
 	public void setBlockedByFloor(int var1, int var2) {
 		var1 -= this.xInset; // L: 199
 		var2 -= this.yInset; // L: 200
@@ -266,7 +256,6 @@ public class CollisionMap {
 		descriptor = "(III)V",
 		garbageValue = "1474053794"
 	)
-	@Export("setBlockedByFloorDec")
 	public void setBlockedByFloorDec(int var1, int var2) {
 		var1 -= this.xInset; // L: 205
 		var2 -= this.yInset; // L: 206
@@ -279,7 +268,6 @@ public class CollisionMap {
 		descriptor = "(IIIB)V",
 		garbageValue = "88"
 	)
-	@Export("setFlag")
 	void setFlag(int var1, int var2, int var3) {
 		int[] var10000 = this.flags[var1]; // L: 211
 		var10000[var2] |= var3;
@@ -442,7 +430,6 @@ public class CollisionMap {
 		descriptor = "(IIIIIZI)V",
 		garbageValue = "65280"
 	)
-	@Export("setFlagOffNonSquare")
 	public void setFlagOffNonSquare(int var1, int var2, int var3, int var4, int var5, boolean var6) {
 		int var7 = 256; // L: 338
 		if (var6) { // L: 339
@@ -475,7 +462,6 @@ public class CollisionMap {
 		descriptor = "(IIII)V",
 		garbageValue = "-1445892610"
 	)
-	@Export("setFlagOff")
 	void setFlagOff(int var1, int var2, int var3) {
 		int[] var10000 = this.flags[var1]; // L: 357
 		var10000[var2] &= ~var3;
@@ -507,7 +493,6 @@ public class CollisionMap {
 		descriptor = "(II)V",
 		garbageValue = "1831550493"
 	)
-	@Export("updateGameState")
 	static void updateGameState(int var0) {
 		if (var0 != Client.gameState) { // L: 1279
 			if (Client.gameState == 0) { // L: 1280
@@ -558,7 +543,6 @@ public class CollisionMap {
 		descriptor = "(Lcg;II)V",
 		garbageValue = "1018652463"
 	)
-	@Export("updateActorSequence")
 	static final void updateActorSequence(Actor var0, int var1) {
 		SequenceDefinition var2;
 		int var3;
@@ -929,7 +913,6 @@ public class CollisionMap {
 		descriptor = "(ZI)V",
 		garbageValue = "-1510761090"
 	)
-	@Export("addNpcsToScene")
 	static final void addNpcsToScene(boolean var0) {
 		for (int var1 = 0; var1 < Client.npcCount; ++var1) { // L: 4289
 			NPC var2 = Client.npcs[Client.npcIndices[var1]]; // L: 4290

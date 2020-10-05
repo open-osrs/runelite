@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -8,19 +7,15 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Varps")
 public class Varps {
 	@ObfuscatedName("z")
-	@Export("Varps_masks")
 	static int[] Varps_masks;
 	@ObfuscatedName("k")
-	@Export("Varps_temp")
 	public static int[] Varps_temp;
 	@ObfuscatedName("s")
-	@Export("Varps_main")
 	public static int[] Varps_main;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = 1581164719
 	)
-	@Export("Interpreter_stringStackSize")
 	static int Interpreter_stringStackSize;
 
 	static {
@@ -41,7 +36,6 @@ public class Varps {
 		descriptor = "(Liw;IIIBZI)V",
 		garbageValue = "-1882336793"
 	)
-	@Export("requestNetFile")
 	static void requestNetFile(Archive var0, int var1, int var2, int var3, byte var4, boolean var5) {
 		long var6 = (long)((var1 << 16) + var2); // L: 271
 		NetFileRequest var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityWrites.get(var6); // L: 272

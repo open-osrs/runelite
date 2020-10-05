@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -17,67 +16,55 @@ public class WorldMap {
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("fontNameVerdana11")
 	static final FontName fontNameVerdana11;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("fontNameVerdana13")
 	static final FontName fontNameVerdana13;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("fontNameVerdana15")
 	static final FontName fontNameVerdana15;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("WorldMap_archive")
 	AbstractArchive WorldMap_archive;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("WorldMap_geographyArchive")
 	AbstractArchive WorldMap_geographyArchive;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("WorldMap_groundArchive")
 	AbstractArchive WorldMap_groundArchive;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Lkr;"
 	)
-	@Export("font")
 	Font font;
 	@ObfuscatedName("a")
-	@Export("fonts")
 	HashMap fonts;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("mapSceneSprites")
 	IndexedSprite[] mapSceneSprites;
 	@ObfuscatedName("c")
-	@Export("details")
 	HashMap details;
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "Lar;"
 	)
-	@Export("mainMapArea")
 	WorldMapArea mainMapArea;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "Lar;"
 	)
-	@Export("currentMapArea")
 	WorldMapArea currentMapArea;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -88,97 +75,79 @@ public class WorldMap {
 	@ObfuscatedSignature(
 		descriptor = "Lai;"
 	)
-	@Export("worldMapManager")
 	WorldMapManager worldMapManager;
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
 		descriptor = "Lmd;"
 	)
-	@Export("cacheLoader")
 	WorldMapArchiveLoader cacheLoader;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
 		intValue = -611163949
 	)
-	@Export("centerTileX")
 	int centerTileX;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
 		intValue = -1065399067
 	)
-	@Export("centerTileY")
 	int centerTileY;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
 		intValue = -681769299
 	)
-	@Export("worldMapTargetX")
 	int worldMapTargetX;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
 		intValue = -1693054595
 	)
-	@Export("worldMapTargetY")
 	int worldMapTargetY;
 	@ObfuscatedName("e")
-	@Export("zoom")
 	float zoom;
 	@ObfuscatedName("ab")
-	@Export("zoomTarget")
 	float zoomTarget;
 	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
 		intValue = 1569686885
 	)
-	@Export("worldMapDisplayWidth")
 	int worldMapDisplayWidth;
 	@ObfuscatedName("ao")
 	@ObfuscatedGetter(
 		intValue = 358605679
 	)
-	@Export("worldMapDisplayHeight")
 	int worldMapDisplayHeight;
 	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
 		intValue = -2122847541
 	)
-	@Export("worldMapDisplayX")
 	int worldMapDisplayX;
 	@ObfuscatedName("an")
 	@ObfuscatedGetter(
 		intValue = -2116246555
 	)
-	@Export("worldMapDisplayY")
 	int worldMapDisplayY;
 	@ObfuscatedName("am")
 	@ObfuscatedGetter(
 		intValue = 52853051
 	)
-	@Export("maxFlashCount")
 	int maxFlashCount;
 	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
 		intValue = 1639517063
 	)
-	@Export("cyclesPerFlash")
 	int cyclesPerFlash;
 	@ObfuscatedName("au")
-	@Export("perpetualFlash")
 	boolean perpetualFlash;
 	@ObfuscatedName("aa")
-	@Export("flashingElements")
 	HashSet flashingElements;
 	@ObfuscatedName("ar")
 	@ObfuscatedGetter(
 		intValue = 1602251249
 	)
-	@Export("flashCount")
 	int flashCount;
 	@ObfuscatedName("at")
 	@ObfuscatedGetter(
 		intValue = -1930209769
 	)
-	@Export("flashCycle")
 	int flashCycle;
 	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
@@ -218,18 +187,14 @@ public class WorldMap {
 	@ObfuscatedName("ad")
 	boolean field4021;
 	@ObfuscatedName("aj")
-	@Export("enabledElements")
 	HashSet enabledElements;
 	@ObfuscatedName("aw")
-	@Export("enabledCategories")
 	HashSet enabledCategories;
 	@ObfuscatedName("af")
-	@Export("enabledElementIds")
 	HashSet enabledElementIds;
 	@ObfuscatedName("ak")
 	HashSet field4025;
 	@ObfuscatedName("ac")
-	@Export("elementsDisabled")
 	boolean elementsDisabled;
 	@ObfuscatedName("bl")
 	@ObfuscatedGetter(
@@ -237,12 +202,10 @@ public class WorldMap {
 	)
 	int field4027;
 	@ObfuscatedName("bz")
-	@Export("menuOpcodes")
 	final int[] menuOpcodes;
 	@ObfuscatedName("bj")
 	List field4029;
 	@ObfuscatedName("bh")
-	@Export("iconIterator")
 	Iterator iconIterator;
 	@ObfuscatedName("bi")
 	HashSet field4007;
@@ -250,34 +213,28 @@ public class WorldMap {
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
-	@Export("mouseCoord")
 	Coord mouseCoord;
 	@ObfuscatedName("br")
-	@Export("showCoord")
 	public boolean showCoord;
 	@ObfuscatedName("bp")
 	@ObfuscatedSignature(
 		descriptor = "Llp;"
 	)
-	@Export("sprite")
 	Sprite sprite;
 	@ObfuscatedName("bn")
 	@ObfuscatedGetter(
 		intValue = -1176520287
 	)
-	@Export("cachedPixelsPerTile")
 	int cachedPixelsPerTile;
 	@ObfuscatedName("bw")
 	@ObfuscatedGetter(
 		intValue = 627351645
 	)
-	@Export("minCachedTileX")
 	int minCachedTileX;
 	@ObfuscatedName("be")
 	@ObfuscatedGetter(
 		intValue = 357245399
 	)
-	@Export("minCachedTileY")
 	int minCachedTileY;
 	@ObfuscatedName("bu")
 	@ObfuscatedGetter(
@@ -329,7 +286,6 @@ public class WorldMap {
 		descriptor = "(Lic;Lic;Lic;Lkr;Ljava/util/HashMap;[Lls;I)V",
 		garbageValue = "-926248913"
 	)
-	@Export("init")
 	public void init(AbstractArchive var1, AbstractArchive var2, AbstractArchive var3, Font var4, HashMap var5, IndexedSprite[] var6) {
 		this.mapSceneSprites = var6; // L: 105
 		this.WorldMap_archive = var1; // L: 106
@@ -373,7 +329,6 @@ public class WorldMap {
 		descriptor = "(IIZIIIII)V",
 		garbageValue = "-1994141756"
 	)
-	@Export("onCycle")
 	public void onCycle(int var1, int var2, boolean var3, int var4, int var5, int var6, int var7) {
 		if (this.cacheLoader.isLoaded()) { // L: 138
 			this.smoothZoom(); // L: 141
@@ -490,7 +445,6 @@ public class WorldMap {
 		descriptor = "(I)V",
 		garbageValue = "1666598951"
 	)
-	@Export("smoothZoom")
 	void smoothZoom() {
 		if (ModelData0.field1901 != null) { // L: 238
 			this.zoom = this.zoomTarget; // L: 239
@@ -511,7 +465,6 @@ public class WorldMap {
 		descriptor = "(B)V",
 		garbageValue = "1"
 	)
-	@Export("scrollToTarget")
 	void scrollToTarget() {
 		if (this.hasTarget()) { // L: 251
 			int var1 = this.worldMapTargetX - this.centerTileX; // L: 254
@@ -538,7 +491,6 @@ public class WorldMap {
 		descriptor = "(IIZI)V",
 		garbageValue = "1721878015"
 	)
-	@Export("setWorldMapPosition")
 	final void setWorldMapPosition(int var1, int var2, boolean var3) {
 		this.centerTileX = var1; // L: 270
 		this.centerTileY = var2; // L: 271
@@ -566,7 +518,6 @@ public class WorldMap {
 		descriptor = "(I)Z",
 		garbageValue = "2112762378"
 	)
-	@Export("hasTarget")
 	boolean hasTarget() {
 		return this.worldMapTargetX != -1 && this.worldMapTargetY != -1; // L: 284
 	}
@@ -576,7 +527,6 @@ public class WorldMap {
 		descriptor = "(IIIB)Lar;",
 		garbageValue = "-8"
 	)
-	@Export("mapAreaAtCoord")
 	public WorldMapArea mapAreaAtCoord(int var1, int var2, int var3) {
 		Iterator var4 = this.details.values().iterator(); // L: 288
 
@@ -625,7 +575,6 @@ public class WorldMap {
 		descriptor = "(IB)V",
 		garbageValue = "-5"
 	)
-	@Export("setCurrentMapAreaId")
 	public void setCurrentMapAreaId(int var1) {
 		WorldMapArea var2 = this.getMapArea(var1); // L: 319
 		if (var2 != null) { // L: 320
@@ -639,7 +588,6 @@ public class WorldMap {
 		descriptor = "(B)I",
 		garbageValue = "84"
 	)
-	@Export("currentMapAreaId")
 	public int currentMapAreaId() {
 		return this.currentMapArea == null ? -1 : this.currentMapArea.getId(); // L: 326 327 329
 	}
@@ -649,7 +597,6 @@ public class WorldMap {
 		descriptor = "(B)Lar;",
 		garbageValue = "-64"
 	)
-	@Export("getCurrentMapArea")
 	public WorldMapArea getCurrentMapArea() {
 		return this.currentMapArea; // L: 333
 	}
@@ -659,7 +606,6 @@ public class WorldMap {
 		descriptor = "(Lar;I)V",
 		garbageValue = "65867668"
 	)
-	@Export("setCurrentMapArea")
 	void setCurrentMapArea(WorldMapArea var1) {
 		if (this.currentMapArea == null || var1 != this.currentMapArea) { // L: 337
 			this.initializeWorldMapManager(var1); // L: 340
@@ -672,7 +618,6 @@ public class WorldMap {
 		descriptor = "(Lar;I)V",
 		garbageValue = "-1701354489"
 	)
-	@Export("initializeWorldMapManager")
 	void initializeWorldMapManager(WorldMapArea var1) {
 		this.currentMapArea = var1; // L: 345
 		this.worldMapManager = new WorldMapManager(this.mapSceneSprites, this.fonts, this.WorldMap_geographyArchive, this.WorldMap_groundArchive); // L: 346
@@ -704,7 +649,6 @@ public class WorldMap {
 		descriptor = "(IIIB)V",
 		garbageValue = "-6"
 	)
-	@Export("jump")
 	void jump(int var1, int var2, int var3) {
 		if (this.currentMapArea != null) { // L: 366
 			int[] var4 = this.currentMapArea.position(var1, var2, var3); // L: 369
@@ -728,7 +672,6 @@ public class WorldMap {
 		descriptor = "(IIIIII)V",
 		garbageValue = "1145142542"
 	)
-	@Export("draw")
 	public void draw(int var1, int var2, int var3, int var4, int var5) {
 		int[] var6 = new int[4]; // L: 384
 		Rasterizer2D.Rasterizer2D_getClipArray(var6); // L: 385
@@ -854,7 +797,6 @@ public class WorldMap {
 		descriptor = "(IIIIB)V",
 		garbageValue = "-31"
 	)
-	@Export("drawOverview")
 	public void drawOverview(int var1, int var2, int var3, int var4) {
 		if (this.cacheLoader.isLoaded()) { // L: 475
 			if (!this.worldMapManager.isLoaded()) { // L: 478
@@ -873,7 +815,6 @@ public class WorldMap {
 		descriptor = "(II)V",
 		garbageValue = "-1877509796"
 	)
-	@Export("setZoomPercentage")
 	public void setZoomPercentage(int var1) {
 		this.zoomTarget = this.getZoomFromPercentage(var1); // L: 488
 	} // L: 489
@@ -883,7 +824,6 @@ public class WorldMap {
 		descriptor = "(IIIIII)V",
 		garbageValue = "-1108867958"
 	)
-	@Export("drawLoading")
 	void drawLoading(int var1, int var2, int var3, int var4, int var5) {
 		byte var6 = 20; // L: 492
 		int var7 = var3 / 2 + var1; // L: 493
@@ -899,7 +839,6 @@ public class WorldMap {
 		descriptor = "(IB)F",
 		garbageValue = "55"
 	)
-	@Export("getZoomFromPercentage")
 	float getZoomFromPercentage(int var1) {
 		if (var1 == 25) { // L: 502
 			return 1.0F;
@@ -919,7 +858,6 @@ public class WorldMap {
 		descriptor = "(I)I",
 		garbageValue = "-1167531031"
 	)
-	@Export("getZoomLevel")
 	public int getZoomLevel() {
 		if (1.0D == (double)this.zoomTarget) { // L: 511
 			return 25;
@@ -939,7 +877,6 @@ public class WorldMap {
 		descriptor = "(I)V",
 		garbageValue = "-1132818911"
 	)
-	@Export("loadCache")
 	public void loadCache() {
 		this.cacheLoader.load(); // L: 520
 	} // L: 521
@@ -949,7 +886,6 @@ public class WorldMap {
 		descriptor = "(I)Z",
 		garbageValue = "-683321726"
 	)
-	@Export("isCacheLoaded")
 	public boolean isCacheLoaded() {
 		return this.cacheLoader.isLoaded(); // L: 524
 	}
@@ -959,7 +895,6 @@ public class WorldMap {
 		descriptor = "(II)Lar;",
 		garbageValue = "-1578034984"
 	)
-	@Export("getMapArea")
 	public WorldMapArea getMapArea(int var1) {
 		Iterator var2 = this.details.values().iterator(); // L: 528
 
@@ -980,7 +915,6 @@ public class WorldMap {
 		descriptor = "(III)V",
 		garbageValue = "-1263582707"
 	)
-	@Export("setWorldMapPositionTarget")
 	public void setWorldMapPositionTarget(int var1, int var2) {
 		if (this.currentMapArea != null && this.currentMapArea.containsPosition(var1, var2)) { // L: 540
 			this.worldMapTargetX = var1 - this.currentMapArea.getRegionLowX() * 64; // L: 543
@@ -993,7 +927,6 @@ public class WorldMap {
 		descriptor = "(IIB)V",
 		garbageValue = "-39"
 	)
-	@Export("setWorldMapPositionTargetInstant")
 	public void setWorldMapPositionTargetInstant(int var1, int var2) {
 		if (this.currentMapArea != null) { // L: 548
 			this.setWorldMapPosition(var1 - this.currentMapArea.getRegionLowX() * 64, var2 - this.currentMapArea.getRegionLowY() * 64, true); // L: 551
@@ -1007,7 +940,6 @@ public class WorldMap {
 		descriptor = "(IIII)V",
 		garbageValue = "1993790921"
 	)
-	@Export("jumpToSourceCoord")
 	public void jumpToSourceCoord(int var1, int var2, int var3) {
 		if (this.currentMapArea != null) { // L: 557
 			int[] var4 = this.currentMapArea.position(var1, var2, var3); // L: 560
@@ -1023,7 +955,6 @@ public class WorldMap {
 		descriptor = "(IIII)V",
 		garbageValue = "-367968117"
 	)
-	@Export("jumpToSourceCoordInstant")
 	public void jumpToSourceCoordInstant(int var1, int var2, int var3) {
 		if (this.currentMapArea != null) { // L: 567
 			int[] var4 = this.currentMapArea.position(var1, var2, var3); // L: 570
@@ -1039,7 +970,6 @@ public class WorldMap {
 		descriptor = "(I)I",
 		garbageValue = "1157589126"
 	)
-	@Export("getDisplayX")
 	public int getDisplayX() {
 		return this.currentMapArea == null ? -1 : this.centerTileX + this.currentMapArea.getRegionLowX() * 64; // L: 577 578 580
 	}
@@ -1049,7 +979,6 @@ public class WorldMap {
 		descriptor = "(I)I",
 		garbageValue = "423694608"
 	)
-	@Export("getDisplayY")
 	public int getDisplayY() {
 		return this.currentMapArea == null ? -1 : this.centerTileY + this.currentMapArea.getRegionLowY() * 64; // L: 584 585 587
 	}
@@ -1059,7 +988,6 @@ public class WorldMap {
 		descriptor = "(I)Lhg;",
 		garbageValue = "1327996030"
 	)
-	@Export("getDisplayCoord")
 	public Coord getDisplayCoord() {
 		return this.currentMapArea == null ? null : this.currentMapArea.coord(this.getDisplayX(), this.getDisplayY()); // L: 591 592 594
 	}
@@ -1069,7 +997,6 @@ public class WorldMap {
 		descriptor = "(I)I",
 		garbageValue = "-1261786031"
 	)
-	@Export("getDisplayWith")
 	public int getDisplayWith() {
 		return this.worldMapDisplayWidth; // L: 598
 	}
@@ -1079,7 +1006,6 @@ public class WorldMap {
 		descriptor = "(I)I",
 		garbageValue = "-2040090881"
 	)
-	@Export("getDisplayHeight")
 	public int getDisplayHeight() {
 		return this.worldMapDisplayHeight; // L: 602
 	}
@@ -1089,7 +1015,6 @@ public class WorldMap {
 		descriptor = "(IB)V",
 		garbageValue = "-83"
 	)
-	@Export("setMaxFlashCount")
 	public void setMaxFlashCount(int var1) {
 		if (var1 >= 1) { // L: 606
 			this.maxFlashCount = var1; // L: 607
@@ -1102,7 +1027,6 @@ public class WorldMap {
 		descriptor = "(B)V",
 		garbageValue = "119"
 	)
-	@Export("resetMaxFlashCount")
 	public void resetMaxFlashCount() {
 		this.maxFlashCount = 3; // L: 612
 	} // L: 613
@@ -1112,7 +1036,6 @@ public class WorldMap {
 		descriptor = "(II)V",
 		garbageValue = "147371535"
 	)
-	@Export("setCyclesPerFlash")
 	public void setCyclesPerFlash(int var1) {
 		if (var1 >= 1) { // L: 616
 			this.cyclesPerFlash = var1; // L: 617
@@ -1125,7 +1048,6 @@ public class WorldMap {
 		descriptor = "(I)V",
 		garbageValue = "561976387"
 	)
-	@Export("resetCyclesPerFlash")
 	public void resetCyclesPerFlash() {
 		this.cyclesPerFlash = 50; // L: 622
 	} // L: 623
@@ -1135,7 +1057,6 @@ public class WorldMap {
 		descriptor = "(ZB)V",
 		garbageValue = "36"
 	)
-	@Export("setPerpetualFlash")
 	public void setPerpetualFlash(boolean var1) {
 		this.perpetualFlash = var1; // L: 626
 	} // L: 627
@@ -1145,7 +1066,6 @@ public class WorldMap {
 		descriptor = "(IB)V",
 		garbageValue = "-1"
 	)
-	@Export("flashElement")
 	public void flashElement(int var1) {
 		this.flashingElements = new HashSet(); // L: 630
 		this.flashingElements.add(var1); // L: 631
@@ -1158,7 +1078,6 @@ public class WorldMap {
 		descriptor = "(IB)V",
 		garbageValue = "0"
 	)
-	@Export("flashCategory")
 	public void flashCategory(int var1) {
 		this.flashingElements = new HashSet(); // L: 637
 		this.flashCount = 0; // L: 638
@@ -1177,7 +1096,6 @@ public class WorldMap {
 		descriptor = "(I)V",
 		garbageValue = "578188764"
 	)
-	@Export("stopCurrentFlashes")
 	public void stopCurrentFlashes() {
 		this.flashingElements = null; // L: 651
 	} // L: 652
@@ -1187,7 +1105,6 @@ public class WorldMap {
 		descriptor = "(ZI)V",
 		garbageValue = "-805542752"
 	)
-	@Export("setElementsDisabled")
 	public void setElementsDisabled(boolean var1) {
 		this.elementsDisabled = !var1; // L: 655
 	} // L: 656
@@ -1197,7 +1114,6 @@ public class WorldMap {
 		descriptor = "(IZS)V",
 		garbageValue = "5539"
 	)
-	@Export("disableElement")
 	public void disableElement(int var1, boolean var2) {
 		if (!var2) { // L: 659
 			this.enabledElements.add(var1); // L: 660
@@ -1213,7 +1129,6 @@ public class WorldMap {
 		descriptor = "(IZS)V",
 		garbageValue = "3311"
 	)
-	@Export("setCategoryDisabled")
 	public void setCategoryDisabled(int var1, boolean var2) {
 		if (!var2) { // L: 669
 			this.enabledCategories.add(var1); // L: 670
@@ -1240,7 +1155,6 @@ public class WorldMap {
 		descriptor = "(I)Z",
 		garbageValue = "-1921316185"
 	)
-	@Export("getElementsDisabled")
 	public boolean getElementsDisabled() {
 		return !this.elementsDisabled; // L: 693
 	}
@@ -1250,7 +1164,6 @@ public class WorldMap {
 		descriptor = "(II)Z",
 		garbageValue = "1781251597"
 	)
-	@Export("isElementDisabled")
 	public boolean isElementDisabled(int var1) {
 		return !this.enabledElements.contains(var1); // L: 697
 	}
@@ -1260,7 +1173,6 @@ public class WorldMap {
 		descriptor = "(II)Z",
 		garbageValue = "1674259718"
 	)
-	@Export("isCategoryDisabled")
 	public boolean isCategoryDisabled(int var1) {
 		return !this.enabledCategories.contains(var1); // L: 701
 	}
@@ -1281,7 +1193,6 @@ public class WorldMap {
 		descriptor = "(IIIIIIB)V",
 		garbageValue = "49"
 	)
-	@Export("addElementMenuOptions")
 	public void addElementMenuOptions(int var1, int var2, int var3, int var4, int var5, int var6) {
 		if (this.cacheLoader.isLoaded()) { // L: 711
 			int var7 = (int)Math.ceil((double)((float)var3 / this.zoom)); // L: 714
@@ -1363,7 +1274,6 @@ public class WorldMap {
 		descriptor = "(IILhg;Lhg;I)V",
 		garbageValue = "-2008216886"
 	)
-	@Export("worldMapMenuAction")
 	public void worldMapMenuAction(int var1, int var2, Coord var3, Coord var4) {
 		ScriptEvent var5 = new ScriptEvent(); // L: 774
 		WorldMapEvent var6 = new WorldMapEvent(var2, var3, var4); // L: 775
@@ -1393,7 +1303,6 @@ public class WorldMap {
 		descriptor = "(I)Laz;",
 		garbageValue = "-710181196"
 	)
-	@Export("iconStart")
 	public AbstractWorldMapIcon iconStart() {
 		if (!this.cacheLoader.isLoaded()) { // L: 808
 			return null; // L: 809
@@ -1419,7 +1328,6 @@ public class WorldMap {
 		descriptor = "(S)Laz;",
 		garbageValue = "-2586"
 	)
-	@Export("iconNext")
 	public AbstractWorldMapIcon iconNext() {
 		if (this.iconIterator == null) { // L: 827
 			return null; // L: 828

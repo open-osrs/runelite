@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -19,7 +18,6 @@ public class Friend extends Buddy {
 		descriptor = "(Lkc;I)I",
 		garbageValue = "1550059745"
 	)
-	@Export("compareToFriend")
 	int compareToFriend(Friend var1) {
 		if (super.world == Client.worldId && Client.worldId != var1.world) { // L: 12
 			return -1;
@@ -47,7 +45,6 @@ public class Friend extends Buddy {
 		descriptor = "(Ljc;I)I",
 		garbageValue = "-243007320"
 	)
-	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
 		return this.compareToFriend((Friend)var1); // L: 29
 	}

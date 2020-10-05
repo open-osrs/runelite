@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.Socket;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -17,13 +16,11 @@ public class ModelData0 {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("soundEffectsArchive")
 	static AbstractArchive soundEffectsArchive;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lls;"
 	)
-	@Export("titlebuttonSprite")
 	static IndexedSprite titlebuttonSprite;
 	@ObfuscatedName("au")
 	static String field1904;

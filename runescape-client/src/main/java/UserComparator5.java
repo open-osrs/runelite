@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -7,7 +6,6 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("UserComparator5")
 public class UserComparator5 extends AbstractUserComparator {
 	@ObfuscatedName("z")
-	@Export("reversed")
 	final boolean reversed;
 
 	public UserComparator5(boolean var1) {
@@ -19,7 +17,6 @@ public class UserComparator5 extends AbstractUserComparator {
 		descriptor = "(Lko;Lko;B)I",
 		garbageValue = "46"
 	)
-	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
 		if (var1.world != 0) { // L: 14
 			if (var2.world == 0) { // L: 15

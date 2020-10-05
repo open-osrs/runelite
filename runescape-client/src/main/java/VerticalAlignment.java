@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,7 +15,6 @@ public enum VerticalAlignment implements Enumerated {
 	@ObfuscatedSignature(
 		descriptor = "Lit;"
 	)
-	@Export("VerticalAlignment_centered")
 	VerticalAlignment_centered(0, 1),
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -28,19 +26,16 @@ public enum VerticalAlignment implements Enumerated {
 	@ObfuscatedSignature(
 		descriptor = "Lhq;"
 	)
-	@Export("hoveredItemContainer")
 	static Widget hoveredItemContainer;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -1300403611
 	)
-	@Export("value")
 	public final int value;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -496509631
 	)
-	@Export("id")
 	final int id;
 
 	VerticalAlignment(int var3, int var4) {
@@ -53,7 +48,6 @@ public enum VerticalAlignment implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 19
 	}

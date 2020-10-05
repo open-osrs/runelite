@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -17,7 +16,6 @@ public class WorldMapRegion {
 	@ObfuscatedSignature(
 		descriptor = "Lfp;"
 	)
-	@Export("WorldMapRegion_cachedSprites")
 	public static DemotingHashTable WorldMapRegion_cachedSprites;
 	@ObfuscatedName("u")
 	static String field277;
@@ -25,43 +23,34 @@ public class WorldMapRegion {
 	@ObfuscatedGetter(
 		intValue = 1185290071
 	)
-	@Export("regionX")
 	int regionX;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -1059284245
 	)
-	@Export("regionY")
 	int regionY;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Ll;"
 	)
-	@Export("worldMapData_0")
 	WorldMapData_0 worldMapData_0;
 	@ObfuscatedName("g")
-	@Export("worldMapData1List")
 	LinkedList worldMapData1List;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = 1881987389
 	)
-	@Export("backgroundColor")
 	int backgroundColor;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = -1196076883
 	)
-	@Export("pixelsPerTile")
 	int pixelsPerTile;
 	@ObfuscatedName("d")
-	@Export("icon0List")
 	List icon0List;
 	@ObfuscatedName("h")
-	@Export("iconMap")
 	HashMap iconMap;
 	@ObfuscatedName("a")
-	@Export("fonts")
 	final HashMap fonts;
 
 	static {
@@ -103,7 +92,6 @@ public class WorldMapRegion {
 		descriptor = "(Ll;Ljava/util/List;I)V",
 		garbageValue = "-1730892204"
 	)
-	@Export("initWorldMapData0")
 	void initWorldMapData0(WorldMapData_0 var1, List var2) {
 		this.iconMap.clear(); // L: 78
 		this.worldMapData_0 = var1; // L: 79
@@ -115,7 +103,6 @@ public class WorldMapRegion {
 		descriptor = "(Ljava/util/HashSet;Ljava/util/List;B)V",
 		garbageValue = "1"
 	)
-	@Export("initWorldMapData1")
 	void initWorldMapData1(HashSet var1, List var2) {
 		this.iconMap.clear(); // L: 84
 		Iterator var3 = var1.iterator(); // L: 85
@@ -135,7 +122,6 @@ public class WorldMapRegion {
 		descriptor = "(IIIILan;I)V",
 		garbageValue = "121581751"
 	)
-	@Export("getIconsForTiles")
 	void getIconsForTiles(int var1, int var2, int var3, int var4, AbstractWorldMapData var5) {
 		for (int var6 = var1; var6 < var3 + var1; ++var6) { // L: 97
 			label74:
@@ -187,7 +173,6 @@ public class WorldMapRegion {
 		descriptor = "(Ljg;IIILan;I)V",
 		garbageValue = "329414981"
 	)
-	@Export("getIcon")
 	void getIcon(ObjectDefinition var1, int var2, int var3, int var4, AbstractWorldMapData var5) {
 		Coord var6 = new Coord(var2, var3 + this.regionX * 64, this.regionY * 64 + var4); // L: 147
 		Coord var7 = null; // L: 148
@@ -214,7 +199,6 @@ public class WorldMapRegion {
 		descriptor = "(I)V",
 		garbageValue = "1946946990"
 	)
-	@Export("initWorldMapIcon1s")
 	void initWorldMapIcon1s() {
 		Iterator var1 = this.iconMap.values().iterator(); // L: 168
 
@@ -232,7 +216,6 @@ public class WorldMapRegion {
 		descriptor = "(Ljava/util/List;I)V",
 		garbageValue = "-2052830022"
 	)
-	@Export("addAllToIconList")
 	void addAllToIconList(List var1) {
 		Iterator var2 = var1.iterator();
 
@@ -270,7 +253,6 @@ public class WorldMapRegion {
 		descriptor = "(Lic;B)Z",
 		garbageValue = "-62"
 	)
-	@Export("loadGeography")
 	boolean loadGeography(AbstractArchive var1) {
 		this.iconMap.clear(); // L: 205
 		if (this.worldMapData_0 != null) { // L: 206
@@ -309,7 +291,6 @@ public class WorldMapRegion {
 		descriptor = "(ILaf;[Lls;Lic;Lic;B)V",
 		garbageValue = "-79"
 	)
-	@Export("drawTile")
 	void drawTile(int var1, WorldMapScaleHandler var2, IndexedSprite[] var3, AbstractArchive var4, AbstractArchive var5) {
 		this.pixelsPerTile = var1; // L: 236
 		if (this.worldMapData_0 != null || !this.worldMapData1List.isEmpty()) { // L: 237
@@ -364,7 +345,6 @@ public class WorldMapRegion {
 		descriptor = "(Ljava/util/HashSet;III)V",
 		garbageValue = "2015143479"
 	)
-	@Export("flashElements")
 	void flashElements(HashSet var1, int var2, int var3) {
 		Iterator var4 = this.iconMap.values().iterator(); // L: 284
 
@@ -456,7 +436,6 @@ public class WorldMapRegion {
 		descriptor = "(IILan;Laf;Lat;I)V",
 		garbageValue = "-1873495133"
 	)
-	@Export("drawTileGround")
 	void drawTileGround(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4, WorldMapSprite var5) {
 		int var6 = var3.floorUnderlayIds[0][var1][var2] - 1; // L: 342
 		int var7 = var3.floorOverlayIds[0][var1][var2] - 1; // L: 343
@@ -688,7 +667,6 @@ public class WorldMapRegion {
 		descriptor = "(IILjava/util/HashSet;II)V",
 		garbageValue = "-473063416"
 	)
-	@Export("drawNonLinkMapIcons")
 	void drawNonLinkMapIcons(int var1, int var2, HashSet var3, int var4) {
 		float var5 = (float)var4 / 64.0F; // L: 546
 		float var6 = var5 / 2.0F; // L: 547
@@ -737,7 +715,6 @@ public class WorldMapRegion {
 		descriptor = "(Liv;IIIII)V",
 		garbageValue = "-1177603152"
 	)
-	@Export("drawBackgroundCircle")
 	void drawBackgroundCircle(WorldMapElement var1, int var2, int var3, int var4, int var5) {
 		Sprite var6 = var1.getSpriteBool(false); // L: 581
 		if (var6 != null) { // L: 582
@@ -796,7 +773,6 @@ public class WorldMapRegion {
 		descriptor = "(IILjava/util/HashSet;II)V",
 		garbageValue = "-1868522380"
 	)
-	@Export("drawMapLinks")
 	void drawMapLinks(int var1, int var2, HashSet var3, int var4) {
 		float var5 = (float)var4 / 64.0F; // L: 620
 		Iterator var6 = this.icon0List.iterator(); // L: 621
@@ -863,7 +839,6 @@ public class WorldMapRegion {
 		descriptor = "(Liv;I)Laq;",
 		garbageValue = "-1919467673"
 	)
-	@Export("createMapLabel")
 	WorldMapLabel createMapLabel(WorldMapElement var1) {
 		if (var1.name != null && this.fonts != null && this.fonts.get(WorldMapLabelSize.WorldMapLabelSize_small) != null) { // L: 677
 			WorldMapLabelSize var2 = WorldMapLabelSize.method270(var1.textSize); // L: 680
@@ -939,7 +914,6 @@ public class WorldMapRegion {
 		descriptor = "(I)Ljava/util/List;",
 		garbageValue = "-715702618"
 	)
-	@Export("icons")
 	List icons() {
 		LinkedList var1 = new LinkedList(); // L: 732
 		var1.addAll(this.icon0List); // L: 733
@@ -977,7 +951,6 @@ public class WorldMapRegion {
 		descriptor = "(IB)Ljm;",
 		garbageValue = "-91"
 	)
-	@Export("SequenceDefinition_get")
 	public static SequenceDefinition SequenceDefinition_get(int var0) {
 		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0); // L: 35
 		if (var1 != null) { // L: 36
@@ -1018,7 +991,6 @@ public class WorldMapRegion {
 		descriptor = "(IIIZIZI)V",
 		garbageValue = "783564244"
 	)
-	@Export("doWorldSorting")
 	static void doWorldSorting(int var0, int var1, int var2, boolean var3, int var4, boolean var5) {
 		if (var0 < var1) { // L: 177
 			int var6 = (var0 + var1) / 2; // L: 178

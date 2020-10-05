@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,19 +15,15 @@ public class SpriteMask extends DualNode {
 	@ObfuscatedGetter(
 		intValue = 2052975947
 	)
-	@Export("width")
 	public final int width;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -583477063
 	)
-	@Export("height")
 	public final int height;
 	@ObfuscatedName("s")
-	@Export("xWidths")
 	public final int[] xWidths;
 	@ObfuscatedName("t")
-	@Export("xStarts")
 	public final int[] xStarts;
 
 	SpriteMask(int var1, int var2, int[] var3, int[] var4, int var5) {
@@ -43,7 +38,6 @@ public class SpriteMask extends DualNode {
 		descriptor = "(III)Z",
 		garbageValue = "1864355280"
 	)
-	@Export("contains")
 	public boolean contains(int var1, int var2) {
 		if (var2 >= 0 && var2 < this.xStarts.length) { // L: 719
 			int var3 = this.xStarts[var2]; // L: 720
@@ -60,7 +54,6 @@ public class SpriteMask extends DualNode {
 		descriptor = "(Lhq;I)Ljava/lang/String;",
 		garbageValue = "1504596976"
 	)
-	@Export("Widget_getSpellActionName")
 	static String Widget_getSpellActionName(Widget var0) {
 		if (GrandExchangeOfferTotalQuantityComparator.Widget_unpackTargetMask(WorldMapIcon_0.getWidgetFlags(var0)) == 0) { // L: 10744
 			return null;

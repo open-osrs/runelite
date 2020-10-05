@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -9,7 +8,6 @@ public class class25 {
 		descriptor = "(I)[Llm;",
 		garbageValue = "742415234"
 	)
-	@Export("FillMode_values")
 	public static FillMode[] FillMode_values() {
 		return new FillMode[]{FillMode.GRADIENT, FillMode.SOLID, FillMode.GRADIENT_ALPHA}; // L: 15
 	}
@@ -18,7 +16,6 @@ public class class25 {
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lme;"
 	)
-	@Export("newRunException")
 	public static RunException newRunException(Throwable var0, String var1) {
 		RunException var2;
 		if (var0 instanceof RunException) { // L: 99

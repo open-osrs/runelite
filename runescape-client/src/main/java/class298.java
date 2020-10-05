@@ -1,11 +1,9 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ks")
 public final class class298 {
 	@ObfuscatedName("z")
-	@Export("base37Table")
 	static final char[] base37Table;
 	@ObfuscatedName("k")
 	static long[] field3673;
@@ -64,7 +62,6 @@ public final class class298 {
 		descriptor = "(II)[B",
 		garbageValue = "1967636466"
 	)
-	@Export("ByteArrayPool_getArray")
 	public static synchronized byte[] ByteArrayPool_getArray(int var0) {
 		return ByteArrayPool.ByteArrayPool_getArrayBool(var0, false); // L: 72
 	}
@@ -74,7 +71,6 @@ public final class class298 {
 		descriptor = "(IIB)V",
 		garbageValue = "108"
 	)
-	@Export("playSoundJingle")
 	static void playSoundJingle(int var0, int var1) {
 		if (Client.musicVolume != 0 && var0 != -1) { // L: 3312
 			Script.method2322(GrandExchangeEvent.archive11, var0, 0, Client.musicVolume, false); // L: 3313

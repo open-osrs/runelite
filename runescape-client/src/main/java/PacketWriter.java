@@ -1,5 +1,4 @@
 import java.io.IOException;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -14,49 +13,41 @@ public class PacketWriter {
 	@ObfuscatedSignature(
 		descriptor = "Lln;"
 	)
-	@Export("socket")
 	AbstractSocket socket;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Ljv;"
 	)
-	@Export("packetBufferNodes")
 	IterableNodeDeque packetBufferNodes;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1900413985
 	)
-	@Export("bufferSize")
 	int bufferSize;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lkf;"
 	)
-	@Export("buffer")
 	Buffer buffer;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Llh;"
 	)
-	@Export("isaacCipher")
 	public IsaacCipher isaacCipher;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lky;"
 	)
-	@Export("packetBuffer")
 	PacketBuffer packetBuffer;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lga;"
 	)
-	@Export("serverPacket")
 	ServerPacket serverPacket;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = 1678952517
 	)
-	@Export("serverPacketLength")
 	int serverPacketLength;
 	@ObfuscatedName("g")
 	boolean field1344;
@@ -69,7 +60,6 @@ public class PacketWriter {
 	@ObfuscatedGetter(
 		intValue = 2009057559
 	)
-	@Export("pendingWrites")
 	int pendingWrites;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
@@ -104,7 +94,6 @@ public class PacketWriter {
 		descriptor = "(I)V",
 		garbageValue = "-256200238"
 	)
-	@Export("clearBuffer")
 	final void clearBuffer() {
 		this.packetBufferNodes.rsClear(); // L: 32
 		this.bufferSize = 0; // L: 33
@@ -115,7 +104,6 @@ public class PacketWriter {
 		descriptor = "(I)V",
 		garbageValue = "-1276124374"
 	)
-	@Export("flush")
 	final void flush() throws IOException {
 		if (this.socket != null && this.bufferSize > 0) { // L: 37
 			this.buffer.offset = 0; // L: 38
@@ -143,7 +131,6 @@ public class PacketWriter {
 		descriptor = "(Lgb;I)V",
 		garbageValue = "1906163027"
 	)
-	@Export("addNode")
 	public final void addNode(PacketBufferNode var1) {
 		this.packetBufferNodes.addFirst(var1);
 		var1.index = var1.packetBuffer.offset; // L: 56
@@ -156,7 +143,6 @@ public class PacketWriter {
 		descriptor = "(Lln;I)V",
 		garbageValue = "-666263315"
 	)
-	@Export("setSocket")
 	void setSocket(AbstractSocket var1) {
 		this.socket = var1; // L: 62
 	} // L: 63
@@ -166,7 +152,6 @@ public class PacketWriter {
 		descriptor = "(I)V",
 		garbageValue = "2058968107"
 	)
-	@Export("close")
 	void close() {
 		if (this.socket != null) { // L: 66
 			this.socket.close(); // L: 67
@@ -180,7 +165,6 @@ public class PacketWriter {
 		descriptor = "(B)V",
 		garbageValue = "-102"
 	)
-	@Export("removeSocket")
 	void removeSocket() {
 		this.socket = null; // L: 73
 	} // L: 74
@@ -190,7 +174,6 @@ public class PacketWriter {
 		descriptor = "(B)Lln;",
 		garbageValue = "43"
 	)
-	@Export("getSocket")
 	AbstractSocket getSocket() {
 		return this.socket; // L: 77
 	}
@@ -200,7 +183,6 @@ public class PacketWriter {
 		descriptor = "(B)J",
 		garbageValue = "-123"
 	)
-	@Export("currentTimeMillis")
 	public static final synchronized long currentTimeMillis() {
 		long var0 = System.currentTimeMillis(); // L: 14
 		if (var0 < class306.field3723) { // L: 15
@@ -216,7 +198,6 @@ public class PacketWriter {
 		descriptor = "(Lkf;Llq;I)Llq;",
 		garbageValue = "309027289"
 	)
-	@Export("readStringIntParameters")
 	static final IterableNodeHashTable readStringIntParameters(Buffer var0, IterableNodeHashTable var1) {
 		int var2 = var0.readUnsignedByte(); // L: 16
 		int var3;
@@ -273,7 +254,6 @@ public class PacketWriter {
 		descriptor = "(II)V",
 		garbageValue = "82642187"
 	)
-	@Export("Widget_resetModelFrames")
 	static final void Widget_resetModelFrames(int var0) {
 		if (WorldMapSprite.loadInterface(var0)) { // L: 10286
 			Widget[] var1 = Widget.Widget_interfaceComponents[var0]; // L: 10287

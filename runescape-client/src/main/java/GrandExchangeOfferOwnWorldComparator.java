@@ -1,5 +1,4 @@
 import java.util.Comparator;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -8,7 +7,6 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("GrandExchangeOfferOwnWorldComparator")
 public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 	@ObfuscatedName("z")
-	@Export("filterWorlds")
 	boolean filterWorlds;
 
 	GrandExchangeOfferOwnWorldComparator() {
@@ -19,7 +17,6 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 		descriptor = "(Lf;Lf;I)I",
 		garbageValue = "960814637"
 	)
-	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
 		if (var2.world == var1.world) { // L: 10953
 			return 0;
@@ -51,7 +48,6 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 		descriptor = "(II)I",
 		garbageValue = "1772140785"
 	)
-	@Export("Messages_getLastChatID")
 	static int Messages_getLastChatID(int var0) {
 		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0); // L: 68
 		if (var1 == null) { // L: 69
@@ -78,7 +74,6 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 		descriptor = "(IIIIS)V",
 		garbageValue = "18134"
 	)
-	@Export("drawEntities")
 	static final void drawEntities(int var0, int var1, int var2, int var3) {
 		++Client.viewportDrawCount; // L: 3990
 		if (WorldMapLabelSize.localPlayer.x >> 7 == Client.destinationX && WorldMapLabelSize.localPlayer.y >> 7 == Client.destinationY) { // L: 3992

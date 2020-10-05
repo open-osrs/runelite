@@ -1,7 +1,6 @@
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -14,40 +13,31 @@ public class ClientPreferences {
 	@ObfuscatedSignature(
 		descriptor = "Lco;"
 	)
-	@Export("varcs")
 	static Varcs varcs;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -1940309873
 	)
-	@Export("ClientPreferences_optionCount")
 	static int ClientPreferences_optionCount;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("title_muteSprite")
 	static IndexedSprite[] title_muteSprite;
 	@ObfuscatedName("s")
-	@Export("roofsHidden")
 	boolean roofsHidden;
 	@ObfuscatedName("t")
-	@Export("titleMusicDisabled")
 	boolean titleMusicDisabled;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -1674568027
 	)
-	@Export("windowMode")
 	int windowMode;
 	@ObfuscatedName("o")
-	@Export("rememberedUsername")
 	String rememberedUsername;
 	@ObfuscatedName("x")
-	@Export("hideUsername")
 	boolean hideUsername;
 	@ObfuscatedName("w")
-	@Export("parameters")
 	LinkedHashMap parameters;
 
 	static {
@@ -124,7 +114,6 @@ public class ClientPreferences {
 		descriptor = "(I)Lkf;",
 		garbageValue = "1981106247"
 	)
-	@Export("toBuffer")
 	Buffer toBuffer() {
 		Buffer var1 = new Buffer(100); // L: 62
 		var1.writeByte(ClientPreferences_optionCount); // L: 63

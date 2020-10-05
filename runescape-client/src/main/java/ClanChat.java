@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,28 +10,22 @@ public class ClanChat extends UserList {
 	@ObfuscatedSignature(
 		descriptor = "Lmu;"
 	)
-	@Export("loginType")
 	final LoginType loginType;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lkp;"
 	)
-	@Export("localUser")
 	final Usernamed localUser;
 	@ObfuscatedName("m")
-	@Export("name")
 	public String name;
 	@ObfuscatedName("n")
-	@Export("owner")
 	public String owner;
 	@ObfuscatedName("d")
-	@Export("minKick")
 	public byte minKick;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = 996591213
 	)
-	@Export("rank")
 	public int rank;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
@@ -57,7 +50,6 @@ public class ClanChat extends UserList {
 		descriptor = "(B)Ljc;",
 		garbageValue = "35"
 	)
-	@Export("newInstance")
 	User newInstance() {
 		return new ClanMate(); // L: 24
 	}
@@ -67,7 +59,6 @@ public class ClanChat extends UserList {
 		descriptor = "(IB)[Ljc;",
 		garbageValue = "-19"
 	)
-	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
 		return new ClanMate[var1]; // L: 28
 	}
@@ -77,7 +68,6 @@ public class ClanChat extends UserList {
 		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-2006450135"
 	)
-	@Export("readName")
 	final void readName(String var1) {
 		long var5 = 0L; // L: 36
 		int var7 = var1.length(); // L: 37
@@ -115,7 +105,6 @@ public class ClanChat extends UserList {
 		descriptor = "(Ljava/lang/String;B)V",
 		garbageValue = "-13"
 	)
-	@Export("setOwner")
 	final void setOwner(String var1) {
 		long var5 = 0L; // L: 61
 		int var7 = var1.length(); // L: 62
@@ -153,7 +142,6 @@ public class ClanChat extends UserList {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "-140522773"
 	)
-	@Export("readUpdate")
 	public final void readUpdate(Buffer var1) {
 		this.setOwner(var1.readStringCp1252NullTerminated()); // L: 82
 		long var2 = var1.readLong(); // L: 83
@@ -222,7 +210,6 @@ public class ClanChat extends UserList {
 		descriptor = "(I)V",
 		garbageValue = "-1118151470"
 	)
-	@Export("clearFriends")
 	public final void clearFriends() {
 		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 126
 			((ClanMate)this.get(var1)).clearIsFriend(); // L: 127
@@ -235,7 +222,6 @@ public class ClanChat extends UserList {
 		descriptor = "(I)V",
 		garbageValue = "1383721491"
 	)
-	@Export("invalidateIgnoreds")
 	public final void invalidateIgnoreds() {
 		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 132
 			((ClanMate)this.get(var1)).clearIsIgnored(); // L: 133
@@ -248,7 +234,6 @@ public class ClanChat extends UserList {
 		descriptor = "(Ljf;I)V",
 		garbageValue = "-1871849373"
 	)
-	@Export("isLocalPlayer")
 	final void isLocalPlayer(ClanMate var1) {
 		if (var1.getUsername().equals(this.localUser.username())) { // L: 138
 			this.rank = var1.rank;
@@ -261,7 +246,6 @@ public class ClanChat extends UserList {
 		descriptor = "(I)Z",
 		garbageValue = "2030161914"
 	)
-	@Export("getTapToDrop")
 	static boolean getTapToDrop() {
 		return Client.tapToDrop; // L: 9635
 	}

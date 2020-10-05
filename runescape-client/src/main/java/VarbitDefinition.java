@@ -1,5 +1,4 @@
 import java.applet.Applet;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -12,37 +11,31 @@ public class VarbitDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("VarbitDefinition_archive")
 	public static AbstractArchive VarbitDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("VarbitDefinition_cached")
 	static EvictingDualNodeHashTable VarbitDefinition_cached;
 	@ObfuscatedName("hf")
 	@ObfuscatedSignature(
 		descriptor = "[Llp;"
 	)
-	@Export("mapMarkerSprites")
 	static Sprite[] mapMarkerSprites;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -416955877
 	)
-	@Export("baseVar")
 	public int baseVar;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -740697079
 	)
-	@Export("startBit")
 	public int startBit;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -427959509
 	)
-	@Export("endBit")
 	public int endBit;
 
 	static {
@@ -57,7 +50,6 @@ public class VarbitDefinition extends DualNode {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "2006870580"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 30
@@ -74,7 +66,6 @@ public class VarbitDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "1701572620"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) { // L: 37
 			this.baseVar = var1.readUnsignedShort(); // L: 38

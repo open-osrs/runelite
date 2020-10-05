@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -8,6 +7,5 @@ public class class296 {
 	@ObfuscatedSignature(
 		descriptor = "Lls;"
 	)
-	@Export("titleboxSprite")
 	static IndexedSprite titleboxSprite;
 }

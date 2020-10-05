@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -10,13 +9,11 @@ public class User implements Comparable {
 	@ObfuscatedSignature(
 		descriptor = "Lku;"
 	)
-	@Export("username")
 	Username username;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lku;"
 	)
-	@Export("previousUsername")
 	Username previousUsername;
 
 	User() {
@@ -27,7 +24,6 @@ public class User implements Comparable {
 		descriptor = "(I)Lku;",
 		garbageValue = "-53975348"
 	)
-	@Export("getUsername")
 	public Username getUsername() {
 		return this.username; // L: 10
 	}
@@ -37,7 +33,6 @@ public class User implements Comparable {
 		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-2094298107"
 	)
-	@Export("getName")
 	public String getName() {
 		return this.username == null ? "" : this.username.getName(); // L: 14 15
 	}
@@ -47,7 +42,6 @@ public class User implements Comparable {
 		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "2114724515"
 	)
-	@Export("getPreviousName")
 	public String getPreviousName() {
 		return this.previousUsername == null ? "" : this.previousUsername.getName(); // L: 19 20
 	}
@@ -57,7 +51,6 @@ public class User implements Comparable {
 		descriptor = "(Lku;Lku;I)V",
 		garbageValue = "-1201574407"
 	)
-	@Export("set")
 	void set(Username var1, Username var2) {
 		if (var1 == null) { // L: 24
 			throw new NullPointerException();
@@ -72,7 +65,6 @@ public class User implements Comparable {
 		descriptor = "(Ljc;I)I",
 		garbageValue = "-243007320"
 	)
-	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
 		return this.username.compareToTyped(var1.username); // L: 30
 	}
@@ -86,7 +78,6 @@ public class User implements Comparable {
 		descriptor = "(IIIII)V",
 		garbageValue = "793231569"
 	)
-	@Export("selectSpell")
 	static void selectSpell(int var0, int var1, int var2, int var3) {
 		Widget var4 = SecureRandomCallable.getWidgetChild(var0, var1); // L: 8100
 		if (var4 != null && var4.onTargetEnter != null) { // L: 8101

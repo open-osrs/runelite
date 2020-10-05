@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -139,7 +138,6 @@ public class Timer {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "-1209731041"
 	)
-	@Export("write")
 	public void write(Buffer var1) {
 		long var2 = this.field3601; // L: 53
 		var2 /= 10L; // L: 55
@@ -179,7 +177,6 @@ public class Timer {
 		descriptor = "(Ljava/lang/CharSequence;B)I",
 		garbageValue = "98"
 	)
-	@Export("hashString")
 	public static int hashString(CharSequence var0) {
 		int var1 = var0.length(); // L: 135
 		int var2 = 0; // L: 136

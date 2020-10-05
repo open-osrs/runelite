@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,25 +10,21 @@ public enum WorldMapSectionType implements Enumerated {
 	@ObfuscatedSignature(
 		descriptor = "Lae;"
 	)
-	@Export("WORLDMAPSECTIONTYPE0")
 	WORLDMAPSECTIONTYPE0(2, (byte)0),
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lae;"
 	)
-	@Export("WORLDMAPSECTIONTYPE1")
 	WORLDMAPSECTIONTYPE1(1, (byte)1),
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lae;"
 	)
-	@Export("WORLDMAPSECTIONTYPE2")
 	WORLDMAPSECTIONTYPE2(3, (byte)2),
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lae;"
 	)
-	@Export("WORLDMAPSECTIONTYPE3")
 	WORLDMAPSECTIONTYPE3(0, (byte)3);
 
 	@ObfuscatedName("g")
@@ -41,10 +36,8 @@ public enum WorldMapSectionType implements Enumerated {
 	@ObfuscatedGetter(
 		intValue = 750880259
 	)
-	@Export("type")
 	final int type;
 	@ObfuscatedName("o")
-	@Export("id")
 	final byte id;
 
 	WorldMapSectionType(int var3, byte var4) {
@@ -57,7 +50,6 @@ public enum WorldMapSectionType implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 26
 	}

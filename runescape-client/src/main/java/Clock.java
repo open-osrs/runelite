@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -14,7 +13,6 @@ public abstract class Clock {
 		descriptor = "(I)V",
 		garbageValue = "208275261"
 	)
-	@Export("mark")
 	public abstract void mark();
 
 	@ObfuscatedName("k")
@@ -22,7 +20,6 @@ public abstract class Clock {
 		descriptor = "(III)I",
 		garbageValue = "-16016139"
 	)
-	@Export("wait")
 	public abstract int wait(int var1, int var2);
 
 	@ObfuscatedName("ik")
@@ -30,7 +27,6 @@ public abstract class Clock {
 		descriptor = "(IIIIIB)V",
 		garbageValue = "24"
 	)
-	@Export("drawScrollBar")
 	static final void drawScrollBar(int var0, int var1, int var2, int var3, int var4) {
 		GrandExchangeEvent.scrollBarSprites[0].drawAt(var0, var1); // L: 9309
 		GrandExchangeEvent.scrollBarSprites[1].drawAt(var0, var3 + var1 - 16); // L: 9310
@@ -57,7 +53,6 @@ public abstract class Clock {
 		descriptor = "(IB)V",
 		garbageValue = "59"
 	)
-	@Export("changeGameOptions")
 	static final void changeGameOptions(int var0) {
 		DevicePcmPlayerProvider.method897(); // L: 10348
 

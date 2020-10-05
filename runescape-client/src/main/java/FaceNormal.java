@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,31 +10,26 @@ public class FaceNormal {
 	@ObfuscatedGetter(
 		intValue = 1856660121
 	)
-	@Export("pcmSampleLength")
 	public static int pcmSampleLength;
 	@ObfuscatedName("ha")
 	@ObfuscatedGetter(
 		intValue = 1637295417
 	)
-	@Export("cameraY")
 	static int cameraY;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -364011515
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1271035903
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -1616346001
 	)
-	@Export("z")
 	int z;
 
 	FaceNormal() {

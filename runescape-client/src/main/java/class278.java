@@ -1,10 +1,8 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("ja")
 public class class278 {
 	@ObfuscatedName("ae")
-	@Export("fontHelvetica13")
 	static java.awt.Font fontHelvetica13;
 
 	@ObfuscatedName("z")

@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,19 +10,16 @@ public class WorldMapEvent {
 	@ObfuscatedGetter(
 		intValue = 1732221889
 	)
-	@Export("mapElement")
 	public int mapElement;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
-	@Export("coord1")
 	public Coord coord1;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
-	@Export("coord2")
 	public Coord coord2;
 
 	@ObfuscatedSignature(
@@ -123,7 +119,6 @@ public class WorldMapEvent {
 		descriptor = "(B)Lct;",
 		garbageValue = "-13"
 	)
-	@Export("getNextWorldListWorld")
 	static World getNextWorldListWorld() {
 		return World.World_listCount < World.World_count ? AbstractByteArrayCopier.World_worlds[++World.World_listCount - 1] : null; // L: 242 243
 	}

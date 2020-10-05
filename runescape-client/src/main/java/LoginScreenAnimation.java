@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -21,7 +20,6 @@ public class LoginScreenAnimation {
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("sprites")
 	IndexedSprite[] sprites;
 	@ObfuscatedName("x")
 	int[] field1075;
@@ -92,7 +90,6 @@ public class LoginScreenAnimation {
 		descriptor = "(B)V",
 		garbageValue = "87"
 	)
-	@Export("initColors")
 	void initColors() {
 		this.field1064 = new int[256]; // L: 35
 
@@ -181,7 +178,6 @@ public class LoginScreenAnimation {
 		descriptor = "(IIB)V",
 		garbageValue = "0"
 	)
-	@Export("draw")
 	void draw(int var1, int var2) {
 		if (this.field1058 == null) { // L: 73
 			this.initColors(); // L: 74

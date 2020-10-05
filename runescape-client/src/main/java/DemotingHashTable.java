@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -7,22 +6,18 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("DemotingHashTable")
 public final class DemotingHashTable {
 	@ObfuscatedName("z")
-	@Export("capacity")
 	int capacity;
 	@ObfuscatedName("k")
-	@Export("remaining")
 	int remaining;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Llq;"
 	)
-	@Export("hashTable")
 	IterableNodeHashTable hashTable;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Ljh;"
 	)
-	@Export("queue")
 	IterableDualNodeQueue queue;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
@@ -43,7 +38,6 @@ public final class DemotingHashTable {
 	} // L: 20
 
 	@ObfuscatedName("z")
-	@Export("get")
 	public Object get(long var1) {
 		Wrapper var3 = (Wrapper)this.hashTable.get(var1); // L: 23
 		if (var3 == null) { // L: 24
@@ -74,7 +68,6 @@ public final class DemotingHashTable {
 	}
 
 	@ObfuscatedName("k")
-	@Export("remove")
 	void remove(long var1) {
 		Wrapper var3 = (Wrapper)this.hashTable.get(var1); // L: 48
 		this.removeWrapper(var3); // L: 49
@@ -84,7 +77,6 @@ public final class DemotingHashTable {
 	@ObfuscatedSignature(
 		descriptor = "(Lfx;)V"
 	)
-	@Export("removeWrapper")
 	void removeWrapper(Wrapper var1) {
 		if (var1 != null) { // L: 53
 			var1.remove(); // L: 54
@@ -95,7 +87,6 @@ public final class DemotingHashTable {
 	} // L: 58
 
 	@ObfuscatedName("t")
-	@Export("put")
 	public void put(Object var1, long var2, int var4) {
 		if (var4 > this.capacity) { // L: 61
 			throw new IllegalStateException();
@@ -126,7 +117,6 @@ public final class DemotingHashTable {
 	} // L: 79
 
 	@ObfuscatedName("i")
-	@Export("demote")
 	public void demote(int var1) {
 		for (Wrapper var2 = (Wrapper)this.queue.last(); var2 != null; var2 = (Wrapper)this.queue.previous()) { // L: 82
 			if (var2.isSoft()) { // L: 83
@@ -147,7 +137,6 @@ public final class DemotingHashTable {
 	} // L: 101
 
 	@ObfuscatedName("o")
-	@Export("clear")
 	public void clear() {
 		this.queue.clear(); // L: 104
 		this.hashTable.clear(); // L: 105

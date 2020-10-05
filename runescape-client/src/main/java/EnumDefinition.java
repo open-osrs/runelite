@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,43 +10,33 @@ public class EnumDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("EnumDefinition_archive")
 	static AbstractArchive EnumDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
 	@ObfuscatedName("s")
-	@Export("inputType")
 	public char inputType;
 	@ObfuscatedName("t")
-	@Export("outputType")
 	public char outputType;
 	@ObfuscatedName("i")
-	@Export("defaultStr")
 	public String defaultStr;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -1401922337
 	)
-	@Export("defaultInt")
 	public int defaultInt;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -1452935225
 	)
-	@Export("outputCount")
 	public int outputCount;
 	@ObfuscatedName("w")
-	@Export("keys")
 	public int[] keys;
 	@ObfuscatedName("g")
-	@Export("intVals")
 	public int[] intVals;
 	@ObfuscatedName("m")
-	@Export("strVals")
 	public String[] strVals;
 
 	static {
@@ -64,7 +53,6 @@ public class EnumDefinition extends DualNode {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "-2086226438"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 40
@@ -81,7 +69,6 @@ public class EnumDefinition extends DualNode {
 		descriptor = "(Lkf;IB)V",
 		garbageValue = "57"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) { // L: 47
 			this.inputType = (char)var1.readUnsignedByte();
@@ -121,7 +108,6 @@ public class EnumDefinition extends DualNode {
 		descriptor = "(B)I",
 		garbageValue = "1"
 	)
-	@Export("size")
 	public int size() {
 		return this.outputCount; // L: 73
 	}

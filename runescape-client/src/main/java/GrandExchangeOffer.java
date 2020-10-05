@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,37 +12,31 @@ public class GrandExchangeOffer {
 	)
 	static int field99;
 	@ObfuscatedName("z")
-	@Export("state")
 	byte state;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 1886313297
 	)
-	@Export("id")
 	public int id;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1193190523
 	)
-	@Export("unitPrice")
 	public int unitPrice;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 1489525001
 	)
-	@Export("totalQuantity")
 	public int totalQuantity;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -683135485
 	)
-	@Export("currentQuantity")
 	public int currentQuantity;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 2067595945
 	)
-	@Export("currentPrice")
 	public int currentPrice;
 
 	public GrandExchangeOffer() {
@@ -67,7 +60,6 @@ public class GrandExchangeOffer {
 		descriptor = "(I)I",
 		garbageValue = "562486348"
 	)
-	@Export("status")
 	public int status() {
 		return this.state & 7; // L: 50
 	}
@@ -77,7 +69,6 @@ public class GrandExchangeOffer {
 		descriptor = "(I)I",
 		garbageValue = "1427821401"
 	)
-	@Export("type")
 	public int type() {
 		return (this.state & 8) == 8 ? 1 : 0; // L: 54
 	}
@@ -110,7 +101,6 @@ public class GrandExchangeOffer {
 		descriptor = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Lgn;I)I",
 		garbageValue = "-780286568"
 	)
-	@Export("compareStrings")
 	public static int compareStrings(CharSequence var0, CharSequence var1, Language var2) {
 		int var3 = var0.length(); // L: 11
 		int var4 = var1.length(); // L: 12

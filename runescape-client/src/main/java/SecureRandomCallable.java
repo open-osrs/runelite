@@ -1,5 +1,4 @@
 import java.util.concurrent.Callable;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -20,7 +19,6 @@ public class SecureRandomCallable implements Callable {
 		descriptor = "(IIB)Lhq;",
 		garbageValue = "105"
 	)
-	@Export("getWidgetChild")
 	public static Widget getWidgetChild(int var0, int var1) {
 		Widget var2 = TileItem.getWidget(var0); // L: 196
 		if (var1 == -1) { // L: 197
@@ -171,7 +169,6 @@ public class SecureRandomCallable implements Callable {
 		descriptor = "(IIIILjava/lang/String;Ljava/lang/String;III)V",
 		garbageValue = "-990196444"
 	)
-	@Export("menuAction")
 	static final void menuAction(int var0, int var1, int var2, int var3, String var4, String var5, int var6, int var7) {
 		if (var2 >= 2000) { // L: 7255
 			var2 -= 2000;

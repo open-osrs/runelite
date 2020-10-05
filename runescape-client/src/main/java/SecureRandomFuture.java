@@ -2,7 +2,6 @@ import java.security.SecureRandom;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -11,10 +10,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("SecureRandomFuture")
 public class SecureRandomFuture {
 	@ObfuscatedName("z")
-	@Export("executor")
 	ExecutorService executor;
 	@ObfuscatedName("k")
-	@Export("future")
 	Future future;
 
 	SecureRandomFuture() {
@@ -27,7 +24,6 @@ public class SecureRandomFuture {
 		descriptor = "(I)V",
 		garbageValue = "-1936171902"
 	)
-	@Export("shutdown")
 	void shutdown() {
 		this.executor.shutdown(); // L: 18
 		this.executor = null; // L: 19
@@ -38,7 +34,6 @@ public class SecureRandomFuture {
 		descriptor = "(B)Z",
 		garbageValue = "11"
 	)
-	@Export("isDone")
 	boolean isDone() {
 		return this.future.isDone(); // L: 23
 	}
@@ -48,7 +43,6 @@ public class SecureRandomFuture {
 		descriptor = "(S)Ljava/security/SecureRandom;",
 		garbageValue = "2000"
 	)
-	@Export("get")
 	SecureRandom get() {
 		try {
 			return (SecureRandom)this.future.get(); // L: 28
@@ -94,7 +88,6 @@ public class SecureRandomFuture {
 		descriptor = "(II)I",
 		garbageValue = "116037374"
 	)
-	@Export("Messages_getHistorySize")
 	static int Messages_getHistorySize(int var0) {
 		ChatChannel var1 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 44
 		return var1 == null ? 0 : var1.size(); // L: 45 46

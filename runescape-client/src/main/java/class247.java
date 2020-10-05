@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -7,13 +6,11 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("id")
 public class class247 {
 	@ObfuscatedName("z")
-	@Export("spriteMap")
 	final HashMap spriteMap;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Llr;"
 	)
-	@Export("bounds")
 	Bounds bounds;
 	@ObfuscatedName("s")
 	int[] field3214;
@@ -204,7 +201,6 @@ public class class247 {
 		descriptor = "(Lhq;Ljq;IIZB)V",
 		garbageValue = "0"
 	)
-	@Export("addWidgetItemMenuItem")
 	static final void addWidgetItemMenuItem(Widget var0, ItemDefinition var1, int var2, int var3, boolean var4) {
 		String[] var5 = var1.inventoryActions; // L: 9431
 		byte var6 = -1; // L: 9432

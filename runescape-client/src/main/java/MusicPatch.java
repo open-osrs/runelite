@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,7 +15,6 @@ public class MusicPatch extends Node {
 	@ObfuscatedSignature(
 		descriptor = "[Lde;"
 	)
-	@Export("rawSounds")
 	RawSound[] rawSounds;
 	@ObfuscatedName("s")
 	short[] field2510;
@@ -527,7 +525,6 @@ public class MusicPatch extends Node {
 		descriptor = "(S)V",
 		garbageValue = "25153"
 	)
-	@Export("clear")
 	void clear() {
 		this.field2512 = null; // L: 321
 	} // L: 322
@@ -537,7 +534,6 @@ public class MusicPatch extends Node {
 		descriptor = "(Lhq;I)Z",
 		garbageValue = "-2027629220"
 	)
-	@Export("runCs1")
 	static final boolean runCs1(Widget var0) {
 		if (var0.cs1Comparisons == null) { // L: 9332
 			return false;

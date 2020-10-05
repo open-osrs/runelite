@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,25 +10,21 @@ public class ArchiveLoader {
 	@ObfuscatedSignature(
 		descriptor = "[Llp;"
 	)
-	@Export("crossSprites")
 	static Sprite[] crossSprites;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive")
 	final Archive archive;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -412619053
 	)
-	@Export("groupCount")
 	final int groupCount;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 486257523
 	)
-	@Export("loadedCount")
 	int loadedCount;
 
 	@ObfuscatedSignature(
@@ -46,7 +41,6 @@ public class ArchiveLoader {
 		descriptor = "(I)Z",
 		garbageValue = "-1957084823"
 	)
-	@Export("isLoaded")
 	boolean isLoaded() {
 		this.loadedCount = 0; // L: 17
 
@@ -80,7 +74,6 @@ public class ArchiveLoader {
 		descriptor = "(IIII)I",
 		garbageValue = "-513803575"
 	)
-	@Export("getTileHeight")
 	static final int getTileHeight(int var0, int var1, int var2) {
 		int var3 = var0 >> 7; // L: 4975
 		int var4 = var1 >> 7; // L: 4976

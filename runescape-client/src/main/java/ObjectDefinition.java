@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -8,43 +7,36 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("ObjectDefinition")
 public class ObjectDefinition extends DualNode {
 	@ObfuscatedName("z")
-	@Export("ObjectDefinition_isLowDetail")
 	public static boolean ObjectDefinition_isLowDetail;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("ObjectDefinition_archive")
 	public static AbstractArchive ObjectDefinition_archive;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -316763003
 	)
-	@Export("RunException_revision")
 	public static int RunException_revision;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("ObjectDefinition_cached")
 	static EvictingDualNodeHashTable ObjectDefinition_cached;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("ObjectDefinition_cachedModelData")
 	public static EvictingDualNodeHashTable ObjectDefinition_cachedModelData;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("ObjectDefinition_cachedEntities")
 	static EvictingDualNodeHashTable ObjectDefinition_cachedEntities;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("ObjectDefinition_cachedModels")
 	static EvictingDualNodeHashTable ObjectDefinition_cachedModels;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -55,208 +47,165 @@ public class ObjectDefinition extends DualNode {
 	@ObfuscatedGetter(
 		intValue = 1213282055
 	)
-	@Export("id")
 	public int id;
 	@ObfuscatedName("m")
-	@Export("modelIds")
 	int[] modelIds;
 	@ObfuscatedName("n")
-	@Export("models")
 	int[] models;
 	@ObfuscatedName("d")
-	@Export("name")
 	public String name;
 	@ObfuscatedName("h")
-	@Export("recolorFrom")
 	short[] recolorFrom;
 	@ObfuscatedName("a")
-	@Export("recolorTo")
 	short[] recolorTo;
 	@ObfuscatedName("q")
-	@Export("retextureFrom")
 	short[] retextureFrom;
 	@ObfuscatedName("c")
-	@Export("retextureTo")
 	short[] retextureTo;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
 		intValue = 1077626397
 	)
-	@Export("sizeX")
 	public int sizeX;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
 		intValue = -2025374519
 	)
-	@Export("sizeY")
 	public int sizeY;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
 		intValue = 890541759
 	)
-	@Export("interactType")
 	public int interactType;
 	@ObfuscatedName("j")
-	@Export("boolean1")
 	public boolean boolean1;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
 		intValue = -372778753
 	)
-	@Export("int1")
 	public int int1;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
 		intValue = 1406792895
 	)
-	@Export("clipType")
 	int clipType;
 	@ObfuscatedName("p")
-	@Export("nonFlatShading")
 	boolean nonFlatShading;
 	@ObfuscatedName("b")
-	@Export("modelClipped")
 	public boolean modelClipped;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
 		intValue = -1020675379
 	)
-	@Export("animationId")
 	public int animationId;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
 		intValue = 926776109
 	)
-	@Export("int2")
 	public int int2;
 	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
 		intValue = 1365611553
 	)
-	@Export("ambient")
 	int ambient;
 	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
 		intValue = -1927272841
 	)
-	@Export("contrast")
 	int contrast;
 	@ObfuscatedName("ao")
-	@Export("actions")
 	public String[] actions;
 	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
 		intValue = 668674641
 	)
-	@Export("mapIconId")
 	public int mapIconId;
 	@ObfuscatedName("an")
 	@ObfuscatedGetter(
 		intValue = -889777445
 	)
-	@Export("mapSceneId")
 	public int mapSceneId;
 	@ObfuscatedName("am")
-	@Export("isRotated")
 	boolean isRotated;
 	@ObfuscatedName("ap")
-	@Export("clipped")
 	public boolean clipped;
 	@ObfuscatedName("au")
 	@ObfuscatedGetter(
 		intValue = -772733315
 	)
-	@Export("modelSizeX")
 	int modelSizeX;
 	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
 		intValue = 616774407
 	)
-	@Export("modelHeight")
 	int modelHeight;
 	@ObfuscatedName("ar")
 	@ObfuscatedGetter(
 		intValue = 967285395
 	)
-	@Export("modelSizeY")
 	int modelSizeY;
 	@ObfuscatedName("at")
 	@ObfuscatedGetter(
 		intValue = 574968885
 	)
-	@Export("offsetX")
 	int offsetX;
 	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
 		intValue = 1686483135
 	)
-	@Export("offsetHeight")
 	int offsetHeight;
 	@ObfuscatedName("al")
 	@ObfuscatedGetter(
 		intValue = 1033480045
 	)
-	@Export("offsetY")
 	int offsetY;
 	@ObfuscatedName("ah")
-	@Export("boolean2")
 	public boolean boolean2;
 	@ObfuscatedName("av")
-	@Export("isSolid")
 	boolean isSolid;
 	@ObfuscatedName("ax")
 	@ObfuscatedGetter(
 		intValue = -1249127107
 	)
-	@Export("int3")
 	public int int3;
 	@ObfuscatedName("as")
-	@Export("transforms")
 	public int[] transforms;
 	@ObfuscatedName("az")
 	@ObfuscatedGetter(
 		intValue = -654003283
 	)
-	@Export("transformVarbit")
 	int transformVarbit;
 	@ObfuscatedName("ad")
 	@ObfuscatedGetter(
 		intValue = 528036607
 	)
-	@Export("transformVarp")
 	int transformVarp;
 	@ObfuscatedName("ai")
 	@ObfuscatedGetter(
 		intValue = -241145981
 	)
-	@Export("ambientSoundId")
 	public int ambientSoundId;
 	@ObfuscatedName("ay")
 	@ObfuscatedGetter(
 		intValue = 719354007
 	)
-	@Export("int4")
 	public int int4;
 	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
 		intValue = -402900319
 	)
-	@Export("int5")
 	public int int5;
 	@ObfuscatedName("aw")
 	@ObfuscatedGetter(
 		intValue = 1265456877
 	)
-	@Export("int6")
 	public int int6;
 	@ObfuscatedName("af")
-	@Export("soundEffectIds")
 	public int[] soundEffectIds;
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
 		descriptor = "Llq;"
 	)
-	@Export("params")
 	IterableNodeHashTable params;
 
 	static {
@@ -309,7 +258,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(I)V",
 		garbageValue = "1906131064"
 	)
-	@Export("postDecode")
 	void postDecode() {
 		if (this.int1 == -1) { // L: 88
 			this.int1 = 0; // L: 89
@@ -335,7 +283,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(Lkf;B)V",
 		garbageValue = "81"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte();
@@ -352,7 +299,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "1904388143"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		int var3;
 		int var4;
@@ -555,7 +501,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(I)Z",
 		garbageValue = "-1059534809"
 	)
-	@Export("needsModelFiles")
 	public final boolean needsModelFiles() {
 		if (this.modelIds == null) { // L: 242
 			return true;
@@ -575,7 +520,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(II[[IIIIB)Lez;",
 		garbageValue = "14"
 	)
-	@Export("getEntity")
 	public final Entity getEntity(int var1, int var2, int[][] var3, int var4, int var5, int var6) {
 		long var7;
 		if (this.models == null) { // L: 252
@@ -623,7 +567,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(II[[IIIIB)Ler;",
 		garbageValue = "-34"
 	)
-	@Export("getModel")
 	public final Model getModel(int var1, int var2, int[][] var3, int var4, int var5, int var6) {
 		long var7;
 		if (this.models == null) { // L: 279
@@ -655,7 +598,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(II[[IIIILjm;II)Ler;",
 		garbageValue = "929962963"
 	)
-	@Export("getModelDynamic")
 	public final Model getModelDynamic(int var1, int var2, int[][] var3, int var4, int var5, int var6, SequenceDefinition var7, int var8) {
 		long var9;
 		if (this.models == null) { // L: 294
@@ -697,7 +639,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(III)Lee;",
 		garbageValue = "1848667865"
 	)
-	@Export("getModelData")
 	final ModelData getModelData(int var1, int var2) {
 		ModelData var3 = null; // L: 311
 		boolean var4;
@@ -838,7 +779,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(I)Ljg;",
 		garbageValue = "1360246605"
 	)
-	@Export("transform")
 	public final ObjectDefinition transform() {
 		int var1 = -1; // L: 383
 		if (this.transformVarbit != -1) { // L: 384
@@ -862,7 +802,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(IIB)I",
 		garbageValue = "1"
 	)
-	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
 		return Username.method5309(this.params, var1, var2); // L: 394
 	}
@@ -872,7 +811,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
 		garbageValue = "1714990387"
 	)
-	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
 		IterableNodeHashTable var4 = this.params; // L: 399
 		String var3;
@@ -895,7 +833,6 @@ public class ObjectDefinition extends DualNode {
 		descriptor = "(B)Z",
 		garbageValue = "-95"
 	)
-	@Export("hasSound")
 	public boolean hasSound() {
 		if (this.transforms == null) { // L: 423
 			return this.ambientSoundId != -1 || this.soundEffectIds != null;

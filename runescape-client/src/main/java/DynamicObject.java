@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,61 +10,51 @@ public class DynamicObject extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "Lkr;"
 	)
-	@Export("fontPlain11")
 	static Font fontPlain11;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -992554479
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -224037215
 	)
-	@Export("type")
 	int type;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1337748479
 	)
-	@Export("orientation")
 	int orientation;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 719138669
 	)
-	@Export("plane")
 	int plane;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1011089507
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -1704315949
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Ljm;"
 	)
-	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -791329731
 	)
-	@Export("frame")
 	int frame;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = -1556832647
 	)
-	@Export("cycleStart")
 	int cycleStart;
 
 	@ObfuscatedSignature(
@@ -104,7 +93,6 @@ public class DynamicObject extends Entity {
 		descriptor = "(I)Ler;",
 		garbageValue = "-2026237468"
 	)
-	@Export("getModel")
 	protected final Model getModel() {
 		if (this.sequenceDefinition != null) { // L: 46
 			int var1 = Client.cycle - this.cycleStart; // L: 47
@@ -167,7 +155,6 @@ public class DynamicObject extends Entity {
 		descriptor = "(Lkf;IIIIIIB)V",
 		garbageValue = "24"
 	)
-	@Export("loadTerrain")
 	static final void loadTerrain(Buffer var0, int var1, int var2, int var3, int var4, int var5, int var6) {
 		int var7;
 		if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) { // L: 108
@@ -240,7 +227,6 @@ public class DynamicObject extends Entity {
 	} // L: 162
 
 	@ObfuscatedName("m")
-	@Export("addEntityUnderMouse")
 	static final void addEntityUnderMouse(long var0) {
 		ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var0; // L: 99
 	} // L: 100

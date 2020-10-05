@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -8,16 +7,13 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Tiles")
 public final class Tiles {
 	@ObfuscatedName("z")
-	@Export("Tiles_heights")
 	static int[][][] Tiles_heights;
 	@ObfuscatedName("k")
-	@Export("Tiles_renderFlags")
 	static byte[][][] Tiles_renderFlags;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 210424451
 	)
-	@Export("Tiles_minPlane")
 	static int Tiles_minPlane;
 	@ObfuscatedName("t")
 	static byte[][][] field528;
@@ -27,13 +23,10 @@ public final class Tiles {
 	@ObfuscatedGetter(
 		intValue = -1682339213
 	)
-	@Export("musicTrackVolume")
 	public static int musicTrackVolume;
 	@ObfuscatedName("m")
-	@Export("Tiles_hue")
 	static int[] Tiles_hue;
 	@ObfuscatedName("n")
-	@Export("Tiles_saturation")
 	static int[] Tiles_saturation;
 	@ObfuscatedName("v")
 	static final int[] field524;
@@ -82,7 +75,6 @@ public final class Tiles {
 		descriptor = "(II)Lih;",
 		garbageValue = "1036194944"
 	)
-	@Export("SpotAnimationDefinition_get")
 	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
 		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0); // L: 32
 		if (var1 != null) { // L: 33
@@ -168,7 +160,6 @@ public final class Tiles {
 		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
 		garbageValue = "-1"
 	)
-	@Export("insertMenuItem")
 	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
 		if (!Client.isMenuOpen) { // L: 8240
 			if (Client.menuOptionsCount < 500) { // L: 8241

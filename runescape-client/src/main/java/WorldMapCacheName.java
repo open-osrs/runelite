@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -32,7 +31,6 @@ public class WorldMapCacheName {
 	)
 	public static final WorldMapCacheName field321;
 	@ObfuscatedName("o")
-	@Export("name")
 	public final String name;
 
 	static {
@@ -52,7 +50,6 @@ public class WorldMapCacheName {
 		descriptor = "(IIB)Lbk;",
 		garbageValue = "-87"
 	)
-	@Export("Messages_getByChannelAndID")
 	static Message Messages_getByChannelAndID(int var0, int var1) {
 		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 35
 		return var2.getMessage(var1); // L: 36
@@ -63,7 +60,6 @@ public class WorldMapCacheName {
 		descriptor = "(II)V",
 		garbageValue = "1002606295"
 	)
-	@Export("playSong")
 	static void playSong(int var0) {
 		if (var0 == -1 && !Client.field704) { // L: 3288
 			class206.midiPcmStream.clear(); // L: 3290

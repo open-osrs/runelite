@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,25 +15,19 @@ public class Varcs {
 	@ObfuscatedSignature(
 		descriptor = "Lcv;"
 	)
-	@Export("loginScreenRunesAnimation")
 	static LoginScreenAnimation loginScreenRunesAnimation;
 	@ObfuscatedName("he")
 	@ObfuscatedSignature(
 		descriptor = "[Llp;"
 	)
-	@Export("headIconHintSprites")
 	static Sprite[] headIconHintSprites;
 	@ObfuscatedName("s")
-	@Export("intsPersistence")
 	boolean[] intsPersistence;
 	@ObfuscatedName("t")
-	@Export("map")
 	Map map;
 	@ObfuscatedName("i")
-	@Export("strings")
 	String[] strings;
 	@ObfuscatedName("o")
-	@Export("unwrittenChanges")
 	boolean unwrittenChanges;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
@@ -68,7 +61,6 @@ public class Varcs {
 		descriptor = "(III)V",
 		garbageValue = "-500127476"
 	)
-	@Export("setInt")
 	void setInt(int var1, int var2) {
 		this.map.put(var1, var2); // L: 42
 		if (this.intsPersistence[var1]) {
@@ -82,7 +74,6 @@ public class Varcs {
 		descriptor = "(IB)I",
 		garbageValue = "-31"
 	)
-	@Export("getInt")
 	int getInt(int var1) {
 		Object var2 = this.map.get(var1); // L: 47
 		return var2 instanceof Integer ? (Integer)var2 : -1; // L: 48 49 51
@@ -93,7 +84,6 @@ public class Varcs {
 		descriptor = "(ILjava/lang/String;I)V",
 		garbageValue = "-1549127087"
 	)
-	@Export("setString")
 	void setString(int var1, String var2) {
 		this.map.put(var1, var2); // L: 55
 	} // L: 56
@@ -103,7 +93,6 @@ public class Varcs {
 		descriptor = "(IB)Ljava/lang/String;",
 		garbageValue = "95"
 	)
-	@Export("getString")
 	String getString(int var1) {
 		Object var2 = this.map.get(var1); // L: 59
 		return var2 instanceof String ? (String)var2 : ""; // L: 60 61 63
@@ -114,7 +103,6 @@ public class Varcs {
 		descriptor = "(ILjava/lang/String;I)V",
 		garbageValue = "1427019178"
 	)
-	@Export("setStringOld")
 	void setStringOld(int var1, String var2) {
 		this.strings[var1] = var2; // L: 67
 	} // L: 68
@@ -124,7 +112,6 @@ public class Varcs {
 		descriptor = "(IB)Ljava/lang/String;",
 		garbageValue = "106"
 	)
-	@Export("getStringOld")
 	String getStringOld(int var1) {
 		return this.strings[var1]; // L: 71
 	}
@@ -134,7 +121,6 @@ public class Varcs {
 		descriptor = "(B)V",
 		garbageValue = "-69"
 	)
-	@Export("clearTransient")
 	void clearTransient() {
 		int var1;
 		for (var1 = 0; var1 < this.intsPersistence.length; ++var1) { // L: 75
@@ -154,7 +140,6 @@ public class Varcs {
 		descriptor = "(ZI)Lmy;",
 		garbageValue = "-850108574"
 	)
-	@Export("getPreferencesFile")
 	AccessFile getPreferencesFile(boolean var1) {
 		return class2.getPreferencesFile("2", Tiles.field532.name, var1); // L: 86
 	}
@@ -164,7 +149,6 @@ public class Varcs {
 		descriptor = "(B)V",
 		garbageValue = "67"
 	)
-	@Export("write")
 	void write() {
 		AccessFile var1 = this.getPreferencesFile(true); // L: 90
 
@@ -251,7 +235,6 @@ public class Varcs {
 		descriptor = "(B)V",
 		garbageValue = "2"
 	)
-	@Export("read")
 	void read() {
 		AccessFile var1 = this.getPreferencesFile(false); // L: 154
 
@@ -343,7 +326,6 @@ public class Varcs {
 		descriptor = "(B)V",
 		garbageValue = "89"
 	)
-	@Export("tryWrite")
 	void tryWrite() {
 		if (this.unwrittenChanges && this.field1295 < PacketWriter.currentTimeMillis() - 60000L) { // L: 206
 			this.write(); // L: 207
@@ -356,7 +338,6 @@ public class Varcs {
 		descriptor = "(I)Z",
 		garbageValue = "-1436880111"
 	)
-	@Export("hasUnwrittenChanges")
 	boolean hasUnwrittenChanges() {
 		return this.unwrittenChanges; // L: 212
 	}

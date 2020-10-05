@@ -1,5 +1,4 @@
 import java.applet.Applet;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -10,17 +9,14 @@ public class class60 {
 	@ObfuscatedSignature(
 		descriptor = "Lcr;"
 	)
-	@Export("friendSystem")
 	public static FriendSystem friendSystem;
 	@ObfuscatedName("z")
-	@Export("applet")
 	static Applet applet;
 	@ObfuscatedName("k")
 	static String field451;
 	@ObfuscatedName("a")
 	static int[] field453;
 	@ObfuscatedName("ah")
-	@Export("null_string")
 	protected static String null_string;
 	@ObfuscatedName("ef")
 	@ObfuscatedGetter(
@@ -38,7 +34,6 @@ public class class60 {
 		descriptor = "(B)Z",
 		garbageValue = "-14"
 	)
-	@Export("isKeyDown")
 	public static final boolean isKeyDown() {
 		synchronized(KeyHandler.KeyHandler_instance) { // L: 164
 			if (KeyHandler.field423 == KeyHandler.field399) { // L: 165
@@ -78,7 +73,6 @@ public class class60 {
 		descriptor = "(Lhq;IS)V",
 		garbageValue = "15262"
 	)
-	@Export("Widget_setKeyIgnoreHeld")
 	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
 		if (var0.field2626 == null) { // L: 934
 			throw new RuntimeException(); // L: 935
@@ -96,7 +90,6 @@ public class class60 {
 		descriptor = "(IIII)I",
 		garbageValue = "877979774"
 	)
-	@Export("hslToRgb")
 	static final int hslToRgb(int var0, int var1, int var2) {
 		if (var2 > 179) { // L: 884
 			var1 /= 2;

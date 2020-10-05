@@ -1,5 +1,4 @@
 import java.security.SecureRandom;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -20,28 +19,23 @@ public class WorldMapID {
 	)
 	static final WorldMapID field288;
 	@ObfuscatedName("t")
-	@Export("Interpreter_stringLocals")
 	static String[] Interpreter_stringLocals;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 658473583
 	)
-	@Export("clientType")
 	public static int clientType;
 	@ObfuscatedName("dl")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive3")
 	static Archive archive3;
 	@ObfuscatedName("ev")
-	@Export("secureRandom")
 	static SecureRandom secureRandom;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 563184905
 	)
-	@Export("value")
 	final int value;
 
 	static {
@@ -239,7 +233,6 @@ public class WorldMapID {
 		descriptor = "(ZLky;B)V",
 		garbageValue = "45"
 	)
-	@Export("loadRegions")
 	static final void loadRegions(boolean var0, PacketBuffer var1) {
 		Client.isInInstance = var0; // L: 4988
 		int var2;

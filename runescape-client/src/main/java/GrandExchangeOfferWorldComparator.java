@@ -1,5 +1,4 @@
 import java.util.Comparator;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,13 +12,11 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("modIconSprites")
 	static IndexedSprite[] modIconSprites;
 	@ObfuscatedName("im")
 	@ObfuscatedGetter(
 		intValue = -1435460859
 	)
-	@Export("oculusOrbFocalPointX")
 	static int oculusOrbFocalPointX;
 
 	@ObfuscatedName("z")
@@ -27,7 +24,6 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 		descriptor = "(Lf;Lf;I)I",
 		garbageValue = "-1922470"
 	)
-	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
 		return var1.world < var2.world ? -1 : (var2.world == var1.world ? 0 : 1); // L: 28
 	}

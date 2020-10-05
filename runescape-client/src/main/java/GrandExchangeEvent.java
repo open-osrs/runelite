@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -11,13 +10,11 @@ public class GrandExchangeEvent {
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive11")
 	static Archive archive11;
 	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("scrollBarSprites")
 	static IndexedSprite[] scrollBarSprites;
 	@ObfuscatedName("ji")
 	@ObfuscatedSignature(
@@ -28,25 +25,20 @@ public class GrandExchangeEvent {
 	@ObfuscatedGetter(
 		intValue = 152068117
 	)
-	@Export("world")
 	public final int world;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		longValue = 3809481130081136381L
 	)
-	@Export("age")
 	public final long age;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lv;"
 	)
-	@Export("grandExchangeOffer")
 	public final GrandExchangeOffer grandExchangeOffer;
 	@ObfuscatedName("t")
-	@Export("offerName")
 	String offerName;
 	@ObfuscatedName("i")
-	@Export("previousOfferName")
 	String previousOfferName;
 
 	@ObfuscatedSignature(
@@ -74,7 +66,6 @@ public class GrandExchangeEvent {
 		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-820260328"
 	)
-	@Export("getOfferName")
 	public String getOfferName() {
 		return this.offerName; // L: 128
 	}
@@ -84,7 +75,6 @@ public class GrandExchangeEvent {
 		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "2082763364"
 	)
-	@Export("getPreviousOfferName")
 	public String getPreviousOfferName() {
 		return this.previousOfferName; // L: 132
 	}
@@ -94,7 +84,6 @@ public class GrandExchangeEvent {
 		descriptor = "(Ljm;IIIB)V",
 		garbageValue = "6"
 	)
-	@Export("addSequenceSoundEffect")
 	static void addSequenceSoundEffect(SequenceDefinition var0, int var1, int var2, int var3) {
 		if (Client.soundEffectCount < 50 && Client.areaSoundEffectVolume != 0) { // L: 3259
 			if (var0.soundEffects != null && var1 < var0.soundEffects.length) { // L: 3260
@@ -121,7 +110,6 @@ public class GrandExchangeEvent {
 		descriptor = "(Lhq;III)V",
 		garbageValue = "-570952041"
 	)
-	@Export("checkIfMinimapClicked")
 	static final void checkIfMinimapClicked(Widget var0, int var1, int var2) {
 		if (Client.minimapState == 0 || Client.minimapState == 3) { // L: 3365
 			if (!Client.isMenuOpen && (MouseHandler.MouseHandler_lastButton == 1 || !ScriptEvent.mouseCam && MouseHandler.MouseHandler_lastButton == 4)) { // L: 3366

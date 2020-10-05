@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,7 +12,6 @@ public class UserComparator9 extends AbstractUserComparator {
 	)
 	static int field2013;
 	@ObfuscatedName("z")
-	@Export("reversed")
 	final boolean reversed;
 
 	public UserComparator9(boolean var1) {
@@ -25,7 +23,6 @@ public class UserComparator9 extends AbstractUserComparator {
 		descriptor = "(Lko;Lko;B)I",
 		garbageValue = "6"
 	)
-	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
 		if (Client.worldId == var1.world && var2.world == Client.worldId) { // L: 15
 			return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername()); // L: 16
@@ -52,7 +49,6 @@ public class UserComparator9 extends AbstractUserComparator {
 	} // L: 89
 
 	@ObfuscatedName("o")
-	@Export("Entity_unpackID")
 	public static int Entity_unpackID(long var0) {
 		return (int)(var0 >>> 17 & 4294967295L); // L: 76
 	}

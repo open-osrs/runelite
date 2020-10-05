@@ -1,5 +1,4 @@
 import java.lang.management.GarbageCollectorMXBean;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -9,13 +8,11 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("WorldMapIcon_0")
 public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	@ObfuscatedName("ay")
-	@Export("garbageCollector")
 	static GarbageCollectorMXBean garbageCollector;
 	@ObfuscatedName("bu")
 	@ObfuscatedSignature(
 		descriptor = "Lls;"
 	)
-	@Export("worldSelectLeftSprite")
 	static IndexedSprite worldSelectLeftSprite;
 	@ObfuscatedName("gl")
 	@ObfuscatedGetter(
@@ -26,25 +23,21 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	@ObfuscatedGetter(
 		intValue = -68382233
 	)
-	@Export("element")
 	final int element;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Laq;"
 	)
-	@Export("label")
 	final WorldMapLabel label;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1820517903
 	)
-	@Export("subWidth")
 	final int subWidth;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 877531577
 	)
-	@Export("subHeight")
 	final int subHeight;
 
 	@ObfuscatedSignature(
@@ -71,7 +64,6 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "-1613828162"
 	)
-	@Export("getElement")
 	public int getElement() {
 		return this.element; // L: 30
 	}
@@ -81,7 +73,6 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		descriptor = "(I)Laq;",
 		garbageValue = "499378708"
 	)
-	@Export("getLabel")
 	WorldMapLabel getLabel() {
 		return this.label; // L: 34
 	}
@@ -91,7 +82,6 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "182515130"
 	)
-	@Export("getSubWidth")
 	int getSubWidth() {
 		return this.subWidth; // L: 38
 	}
@@ -101,7 +91,6 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "-2001682063"
 	)
-	@Export("getSubHeight")
 	int getSubHeight() {
 		return this.subHeight; // L: 42
 	}
@@ -111,7 +100,6 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		descriptor = "(Lhq;B)I",
 		garbageValue = "-82"
 	)
-	@Export("getWidgetFlags")
 	static int getWidgetFlags(Widget var0) {
 		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get(((long)var0.id << 32) + (long)var0.childIndex); // L: 10711
 		return var1 != null ? var1.integer : var0.flags; // L: 10712 10713

@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -18,25 +17,18 @@ public class Animation {
 	@ObfuscatedSignature(
 		descriptor = "Leh;"
 	)
-	@Export("skeleton")
 	Skeleton skeleton;
 	@ObfuscatedName("o")
-	@Export("transformCount")
 	int transformCount;
 	@ObfuscatedName("x")
-	@Export("transformSkeletonLabels")
 	int[] transformSkeletonLabels;
 	@ObfuscatedName("w")
-	@Export("transformXs")
 	int[] transformXs;
 	@ObfuscatedName("g")
-	@Export("transformYs")
 	int[] transformYs;
 	@ObfuscatedName("m")
-	@Export("transformZs")
 	int[] transformZs;
 	@ObfuscatedName("n")
-	@Export("hasAlphaTransform")
 	boolean hasAlphaTransform;
 
 	static {

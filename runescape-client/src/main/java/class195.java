@@ -7,7 +7,6 @@ import java.io.StreamCorruptedException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.Reflection;
@@ -19,7 +18,6 @@ public class class195 {
 		descriptor = "(II)Lik;",
 		garbageValue = "-26050751"
 	)
-	@Export("VarpDefinition_get")
 	public static VarpDefinition VarpDefinition_get(int var0) {
 		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0); // L: 23
 		if (var1 != null) { // L: 24
@@ -41,7 +39,6 @@ public class class195 {
 		descriptor = "(Lky;I)V",
 		garbageValue = "1634836666"
 	)
-	@Export("performReflectionCheck")
 	public static void performReflectionCheck(PacketBuffer var0) {
 		ReflectionCheck var1 = (ReflectionCheck)class105.reflectionChecks.last(); // L: 29
 		if (var1 != null) { // L: 30

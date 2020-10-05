@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -17,25 +16,21 @@ public class SoundCache {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("soundEffectIndex")
 	AbstractArchive soundEffectIndex;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("musicSampleIndex")
 	AbstractArchive musicSampleIndex;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Llc;"
 	)
-	@Export("musicSamples")
 	NodeHashTable musicSamples;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Llc;"
 	)
-	@Export("rawSounds")
 	NodeHashTable rawSounds;
 
 	@ObfuscatedSignature(
@@ -53,7 +48,6 @@ public class SoundCache {
 		descriptor = "(II[II)Lde;",
 		garbageValue = "-484042119"
 	)
-	@Export("getSoundEffect0")
 	RawSound getSoundEffect0(int var1, int var2, int[] var3) {
 		int var4 = var2 ^ (var1 << 4 & 65535 | var1 >>> 12); // L: 18
 		var4 |= var1 << 16; // L: 19
@@ -84,7 +78,6 @@ public class SoundCache {
 		descriptor = "(II[IS)Lde;",
 		garbageValue = "-29447"
 	)
-	@Export("getMusicSample0")
 	RawSound getMusicSample0(int var1, int var2, int[] var3) {
 		int var4 = var2 ^ (var1 << 4 & 65535 | var1 >>> 12); // L: 33
 		var4 |= var1 << 16; // L: 34
@@ -121,7 +114,6 @@ public class SoundCache {
 		descriptor = "(I[IB)Lde;",
 		garbageValue = "-94"
 	)
-	@Export("getSoundEffect")
 	public RawSound getSoundEffect(int var1, int[] var2) {
 		if (this.soundEffectIndex.getGroupCount() == 1) { // L: 53
 			return this.getSoundEffect0(0, var1, var2);
@@ -137,7 +129,6 @@ public class SoundCache {
 		descriptor = "(I[II)Lde;",
 		garbageValue = "-1455606991"
 	)
-	@Export("getMusicSample")
 	public RawSound getMusicSample(int var1, int[] var2) {
 		if (this.musicSampleIndex.getGroupCount() == 1) { // L: 59
 			return this.getMusicSample0(0, var1, var2);

@@ -1,5 +1,4 @@
 import java.net.URL;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -12,19 +11,15 @@ public class ScriptFrame {
 	@ObfuscatedSignature(
 		descriptor = "Lcy;"
 	)
-	@Export("script")
 	Script script;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 394588123
 	)
-	@Export("pc")
 	int pc;
 	@ObfuscatedName("s")
-	@Export("intLocals")
 	int[] intLocals;
 	@ObfuscatedName("t")
-	@Export("stringLocals")
 	String[] stringLocals;
 
 	ScriptFrame() {
@@ -36,7 +31,6 @@ public class ScriptFrame {
 		descriptor = "(I)Z",
 		garbageValue = "-1817871528"
 	)
-	@Export("loadWorlds")
 	static boolean loadWorlds() {
 		try {
 			if (WorldMapScaleHandler.World_request == null) { // L: 31

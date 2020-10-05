@@ -1,5 +1,4 @@
 import java.util.Comparator;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -13,10 +12,8 @@ public class UserComparator4 implements Comparator {
 	@ObfuscatedSignature(
 		descriptor = "Lev;"
 	)
-	@Export("urlRequester")
 	static UrlRequester urlRequester;
 	@ObfuscatedName("z")
-	@Export("reversed")
 	final boolean reversed;
 
 	public UserComparator4(boolean var1) {
@@ -28,7 +25,6 @@ public class UserComparator4 implements Comparator {
 		descriptor = "(Lko;Lko;I)I",
 		garbageValue = "1508747808"
 	)
-	@Export("compare_bridged")
 	int compare_bridged(Buddy var1, Buddy var2) {
 		return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2; // L: 14
 	}

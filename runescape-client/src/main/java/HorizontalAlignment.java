@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -16,7 +15,6 @@ public enum HorizontalAlignment implements Enumerated {
 	@ObfuscatedSignature(
 		descriptor = "Lju;"
 	)
-	@Export("HorizontalAlignment_centered")
 	HorizontalAlignment_centered(0, 1),
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -28,13 +26,11 @@ public enum HorizontalAlignment implements Enumerated {
 	@ObfuscatedGetter(
 		intValue = 1646295401
 	)
-	@Export("value")
 	public final int value;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -1817509831
 	)
-	@Export("id")
 	final int id;
 
 	HorizontalAlignment(int var3, int var4) {
@@ -47,7 +43,6 @@ public enum HorizontalAlignment implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 23
 	}
@@ -57,7 +52,6 @@ public enum HorizontalAlignment implements Enumerated {
 		descriptor = "(Lky;B)V",
 		garbageValue = "-34"
 	)
-	@Export("updatePlayer")
 	static final void updatePlayer(PacketBuffer var0) {
 		var0.importIndex(); // L: 37
 		int var1 = Client.localPlayerIndex; // L: 38

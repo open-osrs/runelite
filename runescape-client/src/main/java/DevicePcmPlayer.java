@@ -3,7 +3,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.DataLine.Info;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
@@ -13,19 +12,15 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("DevicePcmPlayer")
 public class DevicePcmPlayer extends PcmPlayer {
 	@ObfuscatedName("z")
-	@Export("format")
 	AudioFormat format;
 	@ObfuscatedName("k")
-	@Export("line")
 	SourceDataLine line;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -636994811
 	)
-	@Export("capacity2")
 	int capacity2;
 	@ObfuscatedName("t")
-	@Export("byteSamples")
 	byte[] byteSamples;
 
 	DevicePcmPlayer() {
@@ -36,7 +31,6 @@ public class DevicePcmPlayer extends PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "-841767260"
 	)
-	@Export("init")
 	protected void init() {
 		this.format = new AudioFormat((float)PcmPlayer.field1447, 16, PcmPlayer.PcmPlayer_stereo ? 2 : 1, true, false); // L: 21
 		this.byteSamples = new byte[256 << (PcmPlayer.PcmPlayer_stereo ? 2 : 1)]; // L: 22
@@ -47,7 +41,6 @@ public class DevicePcmPlayer extends PcmPlayer {
 		descriptor = "(IB)V",
 		garbageValue = "-120"
 	)
-	@Export("open")
 	protected void open(int var1) throws LineUnavailableException {
 		try {
 			Info var2 = new Info(SourceDataLine.class, this.format, var1 << (PcmPlayer.PcmPlayer_stereo ? 2 : 1)); // L: 27
@@ -70,13 +63,11 @@ public class DevicePcmPlayer extends PcmPlayer {
 		descriptor = "(B)I",
 		garbageValue = "106"
 	)
-	@Export("position")
 	protected int position() {
 		return this.capacity2 - (this.line.available() >> (PcmPlayer.PcmPlayer_stereo ? 2 : 1)); // L: 44
 	}
 
 	@ObfuscatedName("t")
-	@Export("write")
 	protected void write() {
 		int var1 = 256; // L: 49
 		if (PcmPlayer.PcmPlayer_stereo) { // L: 50
@@ -101,7 +92,6 @@ public class DevicePcmPlayer extends PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "667465439"
 	)
-	@Export("close")
 	protected void close() {
 		if (this.line != null) { // L: 63
 			this.line.close(); // L: 64
@@ -115,7 +105,6 @@ public class DevicePcmPlayer extends PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "-2027971398"
 	)
-	@Export("discard")
 	protected void discard() {
 		this.line.flush(); // L: 70
 	} // L: 71

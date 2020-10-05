@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -7,28 +6,23 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("NodeHashTable")
 public final class NodeHashTable {
 	@ObfuscatedName("z")
-	@Export("size")
 	int size;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "[Lgw;"
 	)
-	@Export("buckets")
 	Node[] buckets;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("currentGet")
 	Node currentGet;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("current")
 	Node current;
 	@ObfuscatedName("i")
-	@Export("index")
 	int index;
 
 	public NodeHashTable(int var1) {
@@ -48,7 +42,6 @@ public final class NodeHashTable {
 	@ObfuscatedSignature(
 		descriptor = "(J)Lgw;"
 	)
-	@Export("get")
 	public Node get(long var1) {
 		Node var3 = this.buckets[(int)(var1 & (long)(this.size - 1))]; // L: 23
 
@@ -68,7 +61,6 @@ public final class NodeHashTable {
 	@ObfuscatedSignature(
 		descriptor = "(Lgw;J)V"
 	)
-	@Export("put")
 	public void put(Node var1, long var2) {
 		if (var1.next != null) { // L: 38
 			var1.remove();
@@ -86,7 +78,6 @@ public final class NodeHashTable {
 	@ObfuscatedSignature(
 		descriptor = "()Lgw;"
 	)
-	@Export("first")
 	public Node first() {
 		this.index = 0; // L: 48
 		return this.next(); // L: 49
@@ -96,7 +87,6 @@ public final class NodeHashTable {
 	@ObfuscatedSignature(
 		descriptor = "()Lgw;"
 	)
-	@Export("next")
 	public Node next() {
 		Node var1;
 		if (this.index > 0 && this.buckets[this.index - 1] != this.current) { // L: 53

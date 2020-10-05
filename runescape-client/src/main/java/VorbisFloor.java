@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
@@ -8,7 +7,6 @@ public class VorbisFloor {
 	@ObfuscatedName("z")
 	static final int[] field1422;
 	@ObfuscatedName("k")
-	@Export("VorbisFloor_decibelStatics")
 	static final float[] VorbisFloor_decibelStatics;
 	@ObfuscatedName("m")
 	static int[] field1418;
@@ -19,22 +17,16 @@ public class VorbisFloor {
 	@ObfuscatedName("s")
 	int[] field1420;
 	@ObfuscatedName("t")
-	@Export("multiplier")
 	int multiplier;
 	@ObfuscatedName("i")
-	@Export("partitionClassList")
 	int[] partitionClassList;
 	@ObfuscatedName("o")
-	@Export("classDimensions")
 	int[] classDimensions;
 	@ObfuscatedName("x")
-	@Export("classSubClasses")
 	int[] classSubClasses;
 	@ObfuscatedName("w")
-	@Export("classMasterbooks")
 	int[] classMasterbooks;
 	@ObfuscatedName("g")
-	@Export("subclassBooks")
 	int[][] subclassBooks;
 
 	static {
@@ -154,7 +146,6 @@ public class VorbisFloor {
 	} // L: 80
 
 	@ObfuscatedName("i")
-	@Export("VarbisFloor_sort")
 	void VarbisFloor_sort(int var1, int var2) {
 		if (var1 < var2) { // L: 83
 			int var3 = var1; // L: 84
@@ -184,7 +175,6 @@ public class VorbisFloor {
 	} // L: 105
 
 	@ObfuscatedName("o")
-	@Export("readSubmapFloor")
 	boolean readSubmapFloor() {
 		boolean var1 = VorbisSample.readBit() != 0; // L: 153
 		if (!var1) { // L: 154

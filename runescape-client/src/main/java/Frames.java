@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -10,13 +9,11 @@ public class Frames extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lak;"
 	)
-	@Export("worldMapEvent")
 	static WorldMapEvent worldMapEvent;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "[Les;"
 	)
-	@Export("frames")
 	Animation[] frames;
 
 	@ObfuscatedSignature(
@@ -62,7 +59,6 @@ public class Frames extends DualNode {
 		descriptor = "(II)Z",
 		garbageValue = "-615268512"
 	)
-	@Export("hasAlphaTransform")
 	public boolean hasAlphaTransform(int var1) {
 		return this.frames[var1].hasAlphaTransform; // L: 63
 	}
@@ -134,7 +130,6 @@ public class Frames extends DualNode {
 		descriptor = "(II)I",
 		garbageValue = "-500804162"
 	)
-	@Export("getEntityIdUnderMouse")
 	public static int getEntityIdUnderMouse(int var0) {
 		return UserComparator9.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 72
 	}
@@ -144,7 +139,6 @@ public class Frames extends DualNode {
 		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "2077943773"
 	)
-	@Export("clanKickUser")
 	static final void clanKickUser(String var0) {
 		if (Entity.clanChat != null) { // L: 10687
 			PacketBufferNode var1 = Client.getPacketBufferNode(ClientPacket.field2257, Client.packetWriter.isaacCipher); // L: 10688
