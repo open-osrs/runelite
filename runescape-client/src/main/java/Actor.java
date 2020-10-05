@@ -1,33 +1,26 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("cg")
-@Implements("Actor")
 public abstract class Actor extends Entity {
 	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
 		intValue = -2072659501
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("an")
-	@Export("isWalking")
 	boolean isWalking;
 	@ObfuscatedName("am")
 	@ObfuscatedGetter(
 		intValue = 1621996049
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
 		intValue = -572229331
 	)
-	@Export("rotation")
 	int rotation;
 	@ObfuscatedName("au")
 	@ObfuscatedGetter(
@@ -38,61 +31,50 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = 1649860163
 	)
-	@Export("playerCycle")
 	int playerCycle;
 	@ObfuscatedName("ar")
 	@ObfuscatedGetter(
 		intValue = -1340931717
 	)
-	@Export("idleSequence")
 	int idleSequence;
 	@ObfuscatedName("at")
 	@ObfuscatedGetter(
 		intValue = 1622912625
 	)
-	@Export("turnLeftSequence")
 	int turnLeftSequence;
 	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
 		intValue = 1928797643
 	)
-	@Export("turnRightSequence")
 	int turnRightSequence;
 	@ObfuscatedName("al")
 	@ObfuscatedGetter(
 		intValue = 214300391
 	)
-	@Export("walkSequence")
 	int walkSequence;
 	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
 		intValue = 1491970759
 	)
-	@Export("walkBackSequence")
 	int walkBackSequence;
 	@ObfuscatedName("av")
 	@ObfuscatedGetter(
 		intValue = -433468795
 	)
-	@Export("walkLeftSequence")
 	int walkLeftSequence;
 	@ObfuscatedName("ax")
 	@ObfuscatedGetter(
 		intValue = -1020521095
 	)
-	@Export("walkRightSequence")
 	int walkRightSequence;
 	@ObfuscatedName("as")
 	@ObfuscatedGetter(
 		intValue = 1963413453
 	)
-	@Export("runSequence")
 	int runSequence;
 	@ObfuscatedName("az")
-	@Export("overheadText")
 	String overheadText;
 	@ObfuscatedName("ad")
-	@Export("isAutoChatting")
 	boolean isAutoChatting;
 	@ObfuscatedName("ai")
 	boolean field986;
@@ -100,52 +82,40 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = 885225201
 	)
-	@Export("overheadTextCyclesRemaining")
 	int overheadTextCyclesRemaining;
 	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
 		intValue = 592862521
 	)
-	@Export("overheadTextColor")
 	int overheadTextColor;
 	@ObfuscatedName("aw")
 	@ObfuscatedGetter(
 		intValue = 231964227
 	)
-	@Export("overheadTextEffect")
 	int overheadTextEffect;
 	@ObfuscatedName("ak")
-	@Export("hitSplatCount")
 	byte hitSplatCount;
 	@ObfuscatedName("ac")
-	@Export("hitSplatTypes")
 	int[] hitSplatTypes;
 	@ObfuscatedName("bl")
-	@Export("hitSplatValues")
 	int[] hitSplatValues;
 	@ObfuscatedName("bc")
-	@Export("hitSplatCycles")
 	int[] hitSplatCycles;
 	@ObfuscatedName("bz")
-	@Export("hitSplatTypes2")
 	int[] hitSplatTypes2;
 	@ObfuscatedName("bj")
-	@Export("hitSplatValues2")
 	int[] hitSplatValues2;
 	@ObfuscatedName("bh")
 	@ObfuscatedSignature(
 		descriptor = "Ljv;"
 	)
-	@Export("healthBars")
 	IterableNodeDeque healthBars;
 	@ObfuscatedName("bi")
 	@ObfuscatedGetter(
 		intValue = -1685554577
 	)
-	@Export("targetIndex")
 	int targetIndex;
 	@ObfuscatedName("bg")
-	@Export("false0")
 	boolean false0;
 	@ObfuscatedName("br")
 	@ObfuscatedGetter(
@@ -156,43 +126,36 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = 450756931
 	)
-	@Export("movementSequence")
 	int movementSequence;
 	@ObfuscatedName("bn")
 	@ObfuscatedGetter(
 		intValue = 1637238895
 	)
-	@Export("movementFrame")
 	int movementFrame;
 	@ObfuscatedName("bw")
 	@ObfuscatedGetter(
 		intValue = 784527629
 	)
-	@Export("movementFrameCycle")
 	int movementFrameCycle;
 	@ObfuscatedName("be")
 	@ObfuscatedGetter(
 		intValue = -218661123
 	)
-	@Export("sequence")
 	int sequence;
 	@ObfuscatedName("bu")
 	@ObfuscatedGetter(
 		intValue = 1658984867
 	)
-	@Export("sequenceFrame")
 	int sequenceFrame;
 	@ObfuscatedName("ba")
 	@ObfuscatedGetter(
 		intValue = -1886437137
 	)
-	@Export("sequenceFrameCycle")
 	int sequenceFrameCycle;
 	@ObfuscatedName("bm")
 	@ObfuscatedGetter(
 		intValue = 1364114839
 	)
-	@Export("sequenceDelay")
 	int sequenceDelay;
 	@ObfuscatedName("bd")
 	@ObfuscatedGetter(
@@ -203,19 +166,16 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = 1569897565
 	)
-	@Export("spotAnimation")
 	int spotAnimation;
 	@ObfuscatedName("bx")
 	@ObfuscatedGetter(
 		intValue = -475440643
 	)
-	@Export("spotAnimationFrame")
 	int spotAnimationFrame;
 	@ObfuscatedName("bq")
 	@ObfuscatedGetter(
 		intValue = -822724081
 	)
-	@Export("spotAnimationFrameCycle")
 	int spotAnimationFrameCycle;
 	@ObfuscatedName("by")
 	@ObfuscatedGetter(
@@ -266,19 +226,16 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = -1077536781
 	)
-	@Export("npcCycle")
 	int npcCycle;
 	@ObfuscatedName("cv")
 	@ObfuscatedGetter(
 		intValue = -446174757
 	)
-	@Export("defaultHeight")
 	int defaultHeight;
 	@ObfuscatedName("ce")
 	@ObfuscatedGetter(
 		intValue = -1431847965
 	)
-	@Export("orientation")
 	int orientation;
 	@ObfuscatedName("cr")
 	@ObfuscatedGetter(
@@ -294,16 +251,12 @@ public abstract class Actor extends Entity {
 	@ObfuscatedGetter(
 		intValue = -775156313
 	)
-	@Export("pathLength")
 	int pathLength;
 	@ObfuscatedName("cm")
-	@Export("pathX")
 	int[] pathX;
 	@ObfuscatedName("cu")
-	@Export("pathY")
 	int[] pathY;
 	@ObfuscatedName("cw")
-	@Export("pathTraversed")
 	byte[] pathTraversed;
 	@ObfuscatedName("cq")
 	@ObfuscatedGetter(
@@ -370,7 +323,6 @@ public abstract class Actor extends Entity {
 		descriptor = "(I)Z",
 		garbageValue = "68470795"
 	)
-	@Export("isVisible")
 	boolean isVisible() {
 		return false; // L: 81
 	}
@@ -390,7 +342,6 @@ public abstract class Actor extends Entity {
 		descriptor = "(IIIIIII)V",
 		garbageValue = "733671711"
 	)
-	@Export("addHitSplat")
 	final void addHitSplat(int var1, int var2, int var3, int var4, int var5, int var6) {
 		boolean var7 = true; // L: 85
 		boolean var8 = true; // L: 86
@@ -471,7 +422,6 @@ public abstract class Actor extends Entity {
 		descriptor = "(IIIIIIB)V",
 		garbageValue = "-47"
 	)
-	@Export("addHealthBar")
 	final void addHealthBar(int var1, int var2, int var3, int var4, int var5, int var6) {
 		HealthBarDefinition var7 = class204.method3780(var1); // L: 141
 		HealthBar var8 = null; // L: 142
@@ -518,7 +468,6 @@ public abstract class Actor extends Entity {
 		descriptor = "(IB)V",
 		garbageValue = "-28"
 	)
-	@Export("removeHealthBar")
 	final void removeHealthBar(int var1) {
 		HealthBarDefinition var2 = class204.method3780(var1); // L: 167
 
@@ -954,7 +903,6 @@ public abstract class Actor extends Entity {
 		descriptor = "(Ljava/lang/String;ZI)V",
 		garbageValue = "-1341362245"
 	)
-	@Export("drawLoadingMessage")
 	static final void drawLoadingMessage(String var0, boolean var1) {
 		if (Client.showLoadingMessages) { // L: 3963
 			byte var2 = 4; // L: 3964

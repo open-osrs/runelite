@@ -2,20 +2,16 @@ import java.awt.Component;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("aj")
-@Implements("WorldMapAreaData")
 public class WorldMapAreaData extends WorldMapArea {
 	@ObfuscatedName("bi")
 	@ObfuscatedSignature(
 		descriptor = "Lmu;"
 	)
-	@Export("loginType")
 	static LoginType loginType;
 	@ObfuscatedName("ey")
 	@ObfuscatedGetter(
@@ -23,13 +19,10 @@ public class WorldMapAreaData extends WorldMapArea {
 	)
 	static int field352;
 	@ObfuscatedName("h")
-	@Export("worldMapData0Set")
 	HashSet worldMapData0Set;
 	@ObfuscatedName("a")
-	@Export("worldMapData1Set")
 	HashSet worldMapData1Set;
 	@ObfuscatedName("q")
-	@Export("iconList")
 	List iconList;
 
 	WorldMapAreaData() {
@@ -40,7 +33,6 @@ public class WorldMapAreaData extends WorldMapArea {
 		descriptor = "(Lkf;Lkf;IZB)V",
 		garbageValue = "1"
 	)
-	@Export("init")
 	void init(Buffer var1, Buffer var2, int var3, boolean var4) {
 		this.read(var1, var3); // L: 17
 		int var5 = var2.readUnsignedShort(); // L: 18
@@ -82,7 +74,6 @@ public class WorldMapAreaData extends WorldMapArea {
 		descriptor = "(Lkf;ZS)V",
 		garbageValue = "8691"
 	)
-	@Export("initIconsList")
 	void initIconsList(Buffer var1, boolean var2) {
 		this.iconList = new LinkedList();
 		int var3 = var1.readUnsignedShort();
@@ -115,7 +106,6 @@ public class WorldMapAreaData extends WorldMapArea {
 		descriptor = "(II)Ljava/lang/String;",
 		garbageValue = "638484007"
 	)
-	@Export("colorStartTag")
 	static String colorStartTag(int var0) {
 		return "<col=" + Integer.toHexString(var0) + ">"; // L: 22
 	}
@@ -322,7 +312,6 @@ public class WorldMapAreaData extends WorldMapArea {
 		descriptor = "(I)V",
 		garbageValue = "-1654311283"
 	)
-	@Export("addCancelMenuEntry")
 	static void addCancelMenuEntry() {
 		class279.method5091(); // L: 7009
 		Client.menuActions[0] = "Cancel"; // L: 7010
@@ -337,7 +326,6 @@ public class WorldMapAreaData extends WorldMapArea {
 		descriptor = "([Lhq;II)V",
 		garbageValue = "1802029198"
 	)
-	@Export("runComponentCloseListeners")
 	static final void runComponentCloseListeners(Widget[] var0, int var1) {
 		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 10115
 			Widget var3 = var0[var2]; // L: 10116

@@ -1,17 +1,13 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cn")
-@Implements("ObjectSound")
 public final class ObjectSound extends Node {
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lji;"
 	)
-	@Export("objectSounds")
 	static NodeDeque objectSounds;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
@@ -27,19 +23,16 @@ public final class ObjectSound extends Node {
 	@ObfuscatedGetter(
 		intValue = -2039655179
 	)
-	@Export("plane")
 	int plane;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -1121925225
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -1814534079
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
@@ -55,13 +48,11 @@ public final class ObjectSound extends Node {
 	@ObfuscatedGetter(
 		intValue = -34287423
 	)
-	@Export("soundEffectId")
 	int soundEffectId;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "Ldm;"
 	)
-	@Export("stream1")
 	RawPcmStream stream1;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
@@ -69,7 +60,6 @@ public final class ObjectSound extends Node {
 	)
 	int field1115;
 	@ObfuscatedName("d")
-	@Export("soundEffectIds")
 	int[] soundEffectIds;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
@@ -80,13 +70,11 @@ public final class ObjectSound extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Ldm;"
 	)
-	@Export("stream2")
 	RawPcmStream stream2;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "Ljg;"
 	)
-	@Export("obj")
 	ObjectDefinition obj;
 
 	static {
@@ -101,7 +89,6 @@ public final class ObjectSound extends Node {
 		descriptor = "(S)V",
 		garbageValue = "23141"
 	)
-	@Export("set")
 	void set() {
 		int var1 = this.soundEffectId;
 		ObjectDefinition var2 = this.obj.transform();

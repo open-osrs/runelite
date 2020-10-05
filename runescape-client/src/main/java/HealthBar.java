@@ -1,32 +1,25 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("cu")
-@Implements("HealthBar")
 public class HealthBar extends Node {
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("Widget_fontsArchive")
 	public static AbstractArchive Widget_fontsArchive;
 	@ObfuscatedName("l")
-	@Export("BZip2Decompressor_block")
 	static int[] BZip2Decompressor_block;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lir;"
 	)
-	@Export("definition")
 	HealthBarDefinition definition;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Ljv;"
 	)
-	@Export("updates")
 	IterableNodeDeque updates;
 
 	@ObfuscatedSignature(
@@ -42,7 +35,6 @@ public class HealthBar extends Node {
 		descriptor = "(IIIII)V",
 		garbageValue = "-891370152"
 	)
-	@Export("put")
 	void put(int var1, int var2, int var3, int var4) {
 		HealthBarUpdate var5 = null; // L: 19
 		int var6 = 0; // L: 20
@@ -78,7 +70,6 @@ public class HealthBar extends Node {
 		descriptor = "(IB)Lca;",
 		garbageValue = "-95"
 	)
-	@Export("get")
 	HealthBarUpdate get(int var1) {
 		HealthBarUpdate var2 = (HealthBarUpdate)this.updates.last(); // L: 38
 		if (var2 != null && var2.cycle <= var1) { // L: 39
@@ -103,7 +94,6 @@ public class HealthBar extends Node {
 		descriptor = "(B)Z",
 		garbageValue = "0"
 	)
-	@Export("isEmpty")
 	boolean isEmpty() {
 		return this.updates.method4945(); // L: 55
 	}
@@ -607,7 +597,6 @@ public class HealthBar extends Node {
 		descriptor = "(II)I",
 		garbageValue = "-2034460378"
 	)
-	@Export("Messages_getNextChatID")
 	static int Messages_getNextChatID(int var0) {
 		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0); // L: 75
 		if (var1 == null) { // L: 76
@@ -768,7 +757,6 @@ public class HealthBar extends Node {
 		descriptor = "(IIIILlp;Lhz;I)V",
 		garbageValue = "728555201"
 	)
-	@Export("drawSpriteOnMinimap")
 	static final void drawSpriteOnMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
 		if (var4 != null) { // L: 10662
 			int var6 = Client.camAngleY & 2047; // L: 10663

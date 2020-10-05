@@ -1,46 +1,35 @@
 import java.io.IOException;
 import java.io.OutputStream;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lf")
-@Implements("BufferedSink")
 public class BufferedSink implements Runnable {
 	@ObfuscatedName("z")
-	@Export("thread")
 	Thread thread;
 	@ObfuscatedName("k")
-	@Export("outputStream")
 	OutputStream outputStream;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 744968193
 	)
-	@Export("capacity")
 	int capacity;
 	@ObfuscatedName("t")
-	@Export("buffer")
 	byte[] buffer;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -683527295
 	)
-	@Export("position")
 	int position;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 870280175
 	)
-	@Export("limit")
 	int limit;
 	@ObfuscatedName("x")
-	@Export("exception")
 	IOException exception;
 	@ObfuscatedName("w")
-	@Export("closed")
 	boolean closed;
 
 	BufferedSink(OutputStream var1, int var2) {
@@ -59,7 +48,6 @@ public class BufferedSink implements Runnable {
 		descriptor = "(B)Z",
 		garbageValue = "8"
 	)
-	@Export("isClosed")
 	boolean isClosed() {
 		if (this.closed) { // L: 201
 			try {
@@ -84,7 +72,6 @@ public class BufferedSink implements Runnable {
 		descriptor = "([BIII)V",
 		garbageValue = "803679823"
 	)
-	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
 		if (var3 >= 0 && var2 >= 0 && var3 + var2 <= var1.length) { // L: 261
 			synchronized(this) { // L: 262
@@ -124,7 +111,6 @@ public class BufferedSink implements Runnable {
 		descriptor = "(S)V",
 		garbageValue = "256"
 	)
-	@Export("close")
 	void close() {
 		synchronized(this) { // L: 282
 			this.closed = true; // L: 283

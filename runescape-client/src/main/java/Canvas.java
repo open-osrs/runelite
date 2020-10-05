@@ -1,12 +1,9 @@
 import java.awt.Component;
 import java.awt.Graphics;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bi")
-@Implements("Canvas")
 public final class Canvas extends java.awt.Canvas {
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
@@ -14,7 +11,6 @@ public final class Canvas extends java.awt.Canvas {
 	)
 	static Widget field438;
 	@ObfuscatedName("z")
-	@Export("component")
 	Component component;
 
 	Canvas(Component var1) {
@@ -48,7 +44,6 @@ public final class Canvas extends java.awt.Canvas {
 		descriptor = "([BI)V",
 		garbageValue = "1073407655"
 	)
-	@Export("ByteArrayPool_release")
 	public static synchronized void ByteArrayPool_release(byte[] var0) {
 		if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < 1000) { // L: 76
 			ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0; // L: 77
@@ -74,7 +69,6 @@ public final class Canvas extends java.awt.Canvas {
 		descriptor = "(Lct;B)V",
 		garbageValue = "-37"
 	)
-	@Export("changeWorld")
 	static void changeWorld(World var0) {
 		if (var0.isMembersOnly() != Client.isMembersWorld) { // L: 1720
 			Client.isMembersWorld = var0.isMembersOnly(); // L: 1721

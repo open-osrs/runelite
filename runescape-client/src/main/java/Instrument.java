@@ -1,116 +1,88 @@
 import java.util.Random;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dz")
-@Implements("Instrument")
 public class Instrument {
 	@ObfuscatedName("y")
-	@Export("Instrument_samples")
 	static int[] Instrument_samples;
 	@ObfuscatedName("v")
-	@Export("Instrument_noise")
 	static int[] Instrument_noise;
 	@ObfuscatedName("j")
-	@Export("Instrument_sine")
 	static int[] Instrument_sine;
 	@ObfuscatedName("u")
-	@Export("Instrument_phases")
 	static int[] Instrument_phases;
 	@ObfuscatedName("p")
-	@Export("Instrument_delays")
 	static int[] Instrument_delays;
 	@ObfuscatedName("b")
-	@Export("Instrument_volumeSteps")
 	static int[] Instrument_volumeSteps;
 	@ObfuscatedName("l")
-	@Export("Instrument_pitchSteps")
 	static int[] Instrument_pitchSteps;
 	@ObfuscatedName("e")
-	@Export("Instrument_pitchBaseSteps")
 	static int[] Instrument_pitchBaseSteps;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("pitch")
 	SoundEnvelope pitch;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("volume")
 	SoundEnvelope volume;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("pitchModifier")
 	SoundEnvelope pitchModifier;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("pitchModifierAmplitude")
 	SoundEnvelope pitchModifierAmplitude;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("volumeMultiplier")
 	SoundEnvelope volumeMultiplier;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("volumeMultiplierAmplitude")
 	SoundEnvelope volumeMultiplierAmplitude;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("release")
 	SoundEnvelope release;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("attack")
 	SoundEnvelope attack;
 	@ObfuscatedName("g")
-	@Export("oscillatorVolume")
 	int[] oscillatorVolume;
 	@ObfuscatedName("m")
-	@Export("oscillatorPitch")
 	int[] oscillatorPitch;
 	@ObfuscatedName("n")
-	@Export("oscillatorDelays")
 	int[] oscillatorDelays;
 	@ObfuscatedName("d")
-	@Export("delayTime")
 	int delayTime;
 	@ObfuscatedName("h")
-	@Export("delayDecay")
 	int delayDecay;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "Ldu;"
 	)
-	@Export("filter")
 	AudioFilter filter;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "Ldw;"
 	)
-	@Export("filterEnvelope")
 	SoundEnvelope filterEnvelope;
 	@ObfuscatedName("c")
-	@Export("duration")
 	int duration;
 	@ObfuscatedName("f")
-	@Export("offset")
 	int offset;
 
 	static {
@@ -147,7 +119,6 @@ public class Instrument {
 	} // L: 50
 
 	@ObfuscatedName("z")
-	@Export("synthesize")
 	final int[] synthesize(int var1, int var2) {
 		class310.clearIntArray(Instrument_samples, 0, var1); // L: 53
 		if (var2 < 10) { // L: 54
@@ -354,7 +325,6 @@ public class Instrument {
 	}
 
 	@ObfuscatedName("k")
-	@Export("evaluateWave")
 	final int evaluateWave(int var1, int var2, int var3) {
 		if (var3 == 1) { // L: 179
 			return (var1 & 32767) < 16384 ? var2 : -var2; // L: 180 181
@@ -371,7 +341,6 @@ public class Instrument {
 	@ObfuscatedSignature(
 		descriptor = "(Lkf;)V"
 	)
-	@Export("decode")
 	final void decode(Buffer var1) {
 		this.pitch = new SoundEnvelope(); // L: 190
 		this.pitch.decode(var1); // L: 191

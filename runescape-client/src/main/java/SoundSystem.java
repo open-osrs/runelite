@@ -1,23 +1,18 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dy")
-@Implements("SoundSystem")
 public class SoundSystem implements Runnable {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
 		intValue = -2042157485
 	)
-	@Export("cacheGamebuild")
 	static int cacheGamebuild;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "[Ldr;"
 	)
-	@Export("players")
 	volatile PcmPlayer[] players;
 
 	SoundSystem() {
@@ -65,7 +60,6 @@ public class SoundSystem implements Runnable {
 		descriptor = "(Ljava/lang/CharSequence;II[BII)I",
 		garbageValue = "-2072659501"
 	)
-	@Export("encodeStringCp1252")
 	public static int encodeStringCp1252(CharSequence var0, int var1, int var2, byte[] var3, int var4) {
 		int var5 = var2 - var1; // L: 122
 
@@ -165,7 +159,6 @@ public class SoundSystem implements Runnable {
 		descriptor = "(B)Z",
 		garbageValue = "69"
 	)
-	@Export("shouldPrioritizeDrop")
 	static boolean shouldPrioritizeDrop() {
 		return Client.tapToDrop || KeyHandler.KeyHandler_pressedKeys[81]; // L: 9639
 	}

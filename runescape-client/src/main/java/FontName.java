@@ -1,68 +1,55 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kz")
-@Implements("FontName")
 public class FontName {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("FontName_plain11")
 	public static final FontName FontName_plain11;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("FontName_plain12")
 	public static final FontName FontName_plain12;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("FontName_bold12")
 	public static final FontName FontName_bold12;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("FontName_verdana11")
 	public static final FontName FontName_verdana11;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("FontName_verdana13")
 	public static final FontName FontName_verdana13;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("FontName_verdana15")
 	public static final FontName FontName_verdana15;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
 		intValue = 334630663
 	)
-	@Export("clientTickTimeIdx")
 	static int clientTickTimeIdx;
 	@ObfuscatedName("eo")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive20")
 	static Archive archive20;
 	@ObfuscatedName("gg")
 	@ObfuscatedSignature(
 		descriptor = "Llp;"
 	)
-	@Export("redHintArrowSprite")
 	static Sprite redHintArrowSprite;
 	@ObfuscatedName("x")
-	@Export("name")
 	String name;
 
 	static {
@@ -110,7 +97,6 @@ public class FontName {
 		descriptor = "(II)V",
 		garbageValue = "1773491987"
 	)
-	@Export("setWindowedMode")
 	static void setWindowedMode(int var0) {
 		Client.field890 = 0L; // L: 3866
 		if (var0 >= 2) { // L: 3867

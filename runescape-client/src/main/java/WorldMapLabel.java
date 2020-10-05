@@ -1,45 +1,36 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("aq")
-@Implements("WorldMapLabel")
 public class WorldMapLabel {
 	@ObfuscatedName("do")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive5")
 	static Archive archive5;
 	@ObfuscatedName("gx")
 	@ObfuscatedGetter(
 		intValue = 2023281377
 	)
-	@Export("baseY")
 	static int baseY;
 	@ObfuscatedName("z")
-	@Export("text")
 	String text;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 1365255333
 	)
-	@Export("width")
 	int width;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 2029280505
 	)
-	@Export("height")
 	int height;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lab;"
 	)
-	@Export("size")
 	WorldMapLabelSize size;
 
 	@ObfuscatedSignature(

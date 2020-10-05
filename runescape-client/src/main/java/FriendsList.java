@@ -1,17 +1,13 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kw")
-@Implements("FriendsList")
 public class FriendsList extends UserList {
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lmu;"
 	)
-	@Export("loginType")
 	final LoginType loginType;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
@@ -22,7 +18,6 @@ public class FriendsList extends UserList {
 	@ObfuscatedSignature(
 		descriptor = "Ljb;"
 	)
-	@Export("friendLoginUpdates")
 	public LinkDeque friendLoginUpdates;
 
 	@ObfuscatedSignature(
@@ -40,7 +35,6 @@ public class FriendsList extends UserList {
 		descriptor = "(B)Ljc;",
 		garbageValue = "35"
 	)
-	@Export("newInstance")
 	User newInstance() {
 		return new Friend(); // L: 22
 	}
@@ -50,7 +44,6 @@ public class FriendsList extends UserList {
 		descriptor = "(IB)[Ljc;",
 		garbageValue = "-19"
 	)
-	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
 		return new Friend[var1]; // L: 26
 	}
@@ -60,7 +53,6 @@ public class FriendsList extends UserList {
 		descriptor = "(Lku;ZI)Z",
 		garbageValue = "-1059654626"
 	)
-	@Export("isFriended")
 	public boolean isFriended(Username var1, boolean var2) {
 		Friend var3 = (Friend)this.getByUsername(var1); // L: 30
 		if (var3 == null) {
@@ -75,7 +67,6 @@ public class FriendsList extends UserList {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "-233603151"
 	)
-	@Export("read")
 	public void read(Buffer var1, int var2) {
 		while (true) {
 			if (var1.offset < var2) { // L: 37

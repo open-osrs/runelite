@@ -1,17 +1,13 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ew")
-@Implements("Occluder")
 public final class Occluder {
 	@ObfuscatedName("dn")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive10")
 	static Archive archive10;
 	@ObfuscatedName("le")
 	@ObfuscatedSignature(
@@ -22,67 +18,56 @@ public final class Occluder {
 	@ObfuscatedGetter(
 		intValue = 299619711
 	)
-	@Export("minTileX")
 	int minTileX;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 1317670669
 	)
-	@Export("maxTileX")
 	int maxTileX;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -322147255
 	)
-	@Export("minTileY")
 	int minTileY;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -2083623235
 	)
-	@Export("maxTileY")
 	int maxTileY;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 2131844695
 	)
-	@Export("type")
 	int type;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -453208547
 	)
-	@Export("minX")
 	int minX;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -985593835
 	)
-	@Export("maxX")
 	int maxX;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = 1472483077
 	)
-	@Export("minZ")
 	int minZ;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = 459569369
 	)
-	@Export("maxZ")
 	int maxZ;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = -2090994579
 	)
-	@Export("minY")
 	int minY;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = 1349976535
 	)
-	@Export("maxY")
 	int maxY;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
@@ -128,7 +113,6 @@ public final class Occluder {
 		descriptor = "([BB)V",
 		garbageValue = "-61"
 	)
-	@Export("SpriteBuffer_decode")
 	static void SpriteBuffer_decode(byte[] var0) {
 		Buffer var1 = new Buffer(var0); // L: 229
 		var1.offset = var0.length - 2; // L: 230

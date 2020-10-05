@@ -1,44 +1,35 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cf")
-@Implements("MenuAction")
 public class MenuAction {
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "Lkf;"
 	)
-	@Export("NetCache_reference")
 	static Buffer NetCache_reference;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -1817310685
 	)
-	@Export("opcode")
 	int opcode;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -670222051
 	)
-	@Export("param0")
 	int param0;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1502625343
 	)
-	@Export("param1")
 	int param1;
 	@ObfuscatedName("t")
-	@Export("action")
 	String action;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 691220539
 	)
-	@Export("identifier")
 	int identifier;
 
 	MenuAction() {

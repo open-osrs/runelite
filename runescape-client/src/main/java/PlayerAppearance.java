@@ -1,20 +1,15 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ha")
-@Implements("PlayerAppearance")
 public class PlayerAppearance {
 	@ObfuscatedName("n")
-	@Export("equipmentIndices")
 	static final int[] equipmentIndices;
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("PlayerAppearance_cachedModels")
 	public static EvictingDualNodeHashTable PlayerAppearance_cachedModels;
 	@ObfuscatedName("cq")
 	@ObfuscatedGetter(
@@ -25,34 +20,27 @@ public class PlayerAppearance {
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive14")
 	static Archive archive14;
 	@ObfuscatedName("ee")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive15")
 	static Archive archive15;
 	@ObfuscatedName("z")
-	@Export("equipment")
 	int[] equipment;
 	@ObfuscatedName("k")
-	@Export("bodyColors")
 	int[] bodyColors;
 	@ObfuscatedName("s")
-	@Export("isFemale")
 	public boolean isFemale;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 32109537
 	)
-	@Export("npcTransformId")
 	public int npcTransformId;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		longValue = 7297189778048494063L
 	)
-	@Export("hash")
 	long hash;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
@@ -70,7 +58,6 @@ public class PlayerAppearance {
 		descriptor = "([I[IZII)V",
 		garbageValue = "1005364184"
 	)
-	@Export("update")
 	public void update(int[] var1, int[] var2, boolean var3, int var4) {
 		if (var1 == null) {
 			var1 = new int[12];
@@ -98,7 +85,6 @@ public class PlayerAppearance {
 		descriptor = "(IZB)V",
 		garbageValue = "-97"
 	)
-	@Export("changeAppearance")
 	public void changeAppearance(int var1, boolean var2) {
 		if (var1 != 1 || !this.isFemale) { // L: 47
 			int var3 = this.equipment[equipmentIndices[var1]]; // L: 48
@@ -173,7 +159,6 @@ public class PlayerAppearance {
 		descriptor = "(ZI)V",
 		garbageValue = "-1897659753"
 	)
-	@Export("changeSex")
 	public void changeSex(boolean var1) {
 		if (this.isFemale != var1) { // L: 106
 			this.update((int[])null, this.bodyColors, var1, -1); // L: 107
@@ -185,7 +170,6 @@ public class PlayerAppearance {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "85946625"
 	)
-	@Export("write")
 	public void write(Buffer var1) {
 		var1.writeByte(this.isFemale ? 1 : 0); // L: 111
 
@@ -210,7 +194,6 @@ public class PlayerAppearance {
 		descriptor = "(B)V",
 		garbageValue = "6"
 	)
-	@Export("setHash")
 	void setHash() {
 		long var1 = this.hash; // L: 121
 		int var3 = this.equipment[5]; // L: 122
@@ -255,7 +238,6 @@ public class PlayerAppearance {
 		descriptor = "(Ljm;ILjm;IB)Ler;",
 		garbageValue = "-25"
 	)
-	@Export("getModel")
 	public Model getModel(SequenceDefinition var1, int var2, SequenceDefinition var3, int var4) {
 		if (this.npcTransformId != -1) { // L: 145
 			return Skeleton.getNpcDefinition(this.npcTransformId).getModel(var1, var2, var3, var4); // L: 146
@@ -369,7 +351,6 @@ public class PlayerAppearance {
 		descriptor = "(I)Lee;",
 		garbageValue = "491299614"
 	)
-	@Export("getModelData")
 	ModelData getModelData() {
 		if (this.npcTransformId != -1) { // L: 211
 			return Skeleton.getNpcDefinition(this.npcTransformId).getModelData(); // L: 212
@@ -435,7 +416,6 @@ public class PlayerAppearance {
 		descriptor = "(I)I",
 		garbageValue = "-2109600157"
 	)
-	@Export("getChatHeadId")
 	public int getChatHeadId() {
 		return this.npcTransformId == -1 ? (this.equipment[0] << 15) + this.equipment[1] + (this.equipment[11] << 5) + (this.equipment[8] << 10) + (this.bodyColors[0] << 25) + (this.bodyColors[4] << 20) : 305419896 + Skeleton.getNpcDefinition(this.npcTransformId).id; // L: 247 248
 	}
@@ -445,7 +425,6 @@ public class PlayerAppearance {
 		descriptor = "(IB)Lil;",
 		garbageValue = "19"
 	)
-	@Export("getParamDefinition")
 	public static ParamDefinition getParamDefinition(int var0) {
 		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0); // L: 21
 		if (var1 != null) { // L: 22
@@ -496,7 +475,6 @@ public class PlayerAppearance {
 		descriptor = "(IIIIIIIII)V",
 		garbageValue = "1591550158"
 	)
-	@Export("drawWidgets")
 	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		if (WorldMapSprite.loadInterface(var0)) { // L: 8652
 			GrandExchangeOfferNameComparator.field115 = null; // L: 8659

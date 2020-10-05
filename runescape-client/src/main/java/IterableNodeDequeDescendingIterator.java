@@ -1,17 +1,13 @@
 import java.util.Iterator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jo")
-@Implements("IterableNodeDequeDescendingIterator")
 public class IterableNodeDequeDescendingIterator implements Iterator {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Ljv;"
 	)
-	@Export("deque")
 	IterableNodeDeque deque;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
@@ -22,7 +18,6 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("last")
 	Node last;
 
 	@ObfuscatedSignature(
@@ -37,14 +32,12 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 	@ObfuscatedSignature(
 		descriptor = "(Ljv;)V"
 	)
-	@Export("setDeque")
 	void setDeque(IterableNodeDeque var1) {
 		this.deque = var1; // L: 16
 		this.start(); // L: 17
 	} // L: 18
 
 	@ObfuscatedName("w")
-	@Export("start")
 	void start() {
 		this.field3562 = this.deque != null ? this.deque.sentinel.previous : null; // L: 21
 		this.last = null; // L: 22

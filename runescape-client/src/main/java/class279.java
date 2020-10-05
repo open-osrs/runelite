@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -8,7 +7,6 @@ public class class279 {
 	@ObfuscatedSignature(
 		descriptor = "[Llp;"
 	)
-	@Export("headIconPkSprites")
 	static Sprite[] headIconPkSprites;
 
 	@ObfuscatedName("r")

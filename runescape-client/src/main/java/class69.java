@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -12,7 +11,6 @@ public class class69 {
 		descriptor = "([Ljava/lang/String;[SIII)V",
 		garbageValue = "928633152"
 	)
-	@Export("sortItemsByName")
 	public static void sortItemsByName(String[] var0, short[] var1, int var2, int var3) {
 		if (var2 < var3) { // L: 9
 			int var4 = (var3 + var2) / 2; // L: 10
@@ -50,7 +48,6 @@ public class class69 {
 		descriptor = "(Lhq;IIII)V",
 		garbageValue = "1412729632"
 	)
-	@Export("drawCompass")
 	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
 		SpriteMask var4 = var0.getSpriteMask(false); // L: 10637
 		if (var4 != null) { // L: 10638

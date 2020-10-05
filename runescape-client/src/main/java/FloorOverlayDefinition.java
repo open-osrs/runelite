@@ -1,74 +1,60 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jt")
-@Implements("FloorOverlayDefinition")
 public class FloorOverlayDefinition extends DualNode {
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("FloorOverlayDefinition_cached")
 	static EvictingDualNodeHashTable FloorOverlayDefinition_cached;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1313207677
 	)
-	@Export("primaryRgb")
 	public int primaryRgb;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 1768544221
 	)
-	@Export("texture")
 	public int texture;
 	@ObfuscatedName("i")
-	@Export("hideUnderlay")
 	public boolean hideUnderlay;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -1964387519
 	)
-	@Export("secondaryRgb")
 	public int secondaryRgb;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -1954941483
 	)
-	@Export("hue")
 	public int hue;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -935699783
 	)
-	@Export("saturation")
 	public int saturation;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = 1596036719
 	)
-	@Export("lightness")
 	public int lightness;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = 45293449
 	)
-	@Export("secondaryHue")
 	public int secondaryHue;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = 1367236851
 	)
-	@Export("secondarySaturation")
 	public int secondarySaturation;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
 		intValue = 1186195215
 	)
-	@Export("secondaryLightness")
 	public int secondaryLightness;
 
 	static {
@@ -87,7 +73,6 @@ public class FloorOverlayDefinition extends DualNode {
 		descriptor = "(I)V",
 		garbageValue = "1294557825"
 	)
-	@Export("postDecode")
 	void postDecode() {
 		if (this.secondaryRgb != -1) { // L: 37
 			this.setHsl(this.secondaryRgb); // L: 38
@@ -104,7 +89,6 @@ public class FloorOverlayDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "-1509952388"
 	)
-	@Export("decode")
 	void decode(Buffer var1, int var2) {
 		while (true) {
 			int var3 = var1.readUnsignedByte(); // L: 48
@@ -121,7 +105,6 @@ public class FloorOverlayDefinition extends DualNode {
 		descriptor = "(Lkf;III)V",
 		garbageValue = "211427426"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
 		if (var2 == 1) { // L: 55
 			this.primaryRgb = var1.readMedium();
@@ -141,7 +124,6 @@ public class FloorOverlayDefinition extends DualNode {
 		descriptor = "(II)V",
 		garbageValue = "304322495"
 	)
-	@Export("setHsl")
 	void setHsl(int var1) {
 		double var2 = (double)(var1 >> 16 & 255) / 256.0D; // L: 64
 		double var4 = (double)(var1 >> 8 & 255) / 256.0D; // L: 65
@@ -231,7 +213,6 @@ public class FloorOverlayDefinition extends DualNode {
 		descriptor = "(ZLky;I)V",
 		garbageValue = "2034094426"
 	)
-	@Export("updateNpcs")
 	static final void updateNpcs(boolean var0, PacketBuffer var1) {
 		Client.field771 = 0; // L: 6735
 		Client.field702 = 0; // L: 6736

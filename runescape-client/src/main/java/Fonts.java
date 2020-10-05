@@ -1,26 +1,20 @@
 import java.util.HashMap;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kl")
-@Implements("Fonts")
 public class Fonts {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("spritesArchive")
 	AbstractArchive spritesArchive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("fontsArchive")
 	AbstractArchive fontsArchive;
 	@ObfuscatedName("s")
-	@Export("map")
 	HashMap map;
 
 	@ObfuscatedSignature(
@@ -37,7 +31,6 @@ public class Fonts {
 		descriptor = "([Lkz;I)Ljava/util/HashMap;",
 		garbageValue = "376087905"
 	)
-	@Export("createMap")
 	public HashMap createMap(FontName[] var1) {
 		HashMap var2 = new HashMap(); // L: 20
 		FontName[] var3 = var1; // L: 22

@@ -1,29 +1,22 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("md")
-@Implements("WorldMapArchiveLoader")
 public class WorldMapArchiveLoader {
 	@ObfuscatedName("i")
-	@Export("cacheName")
 	String cacheName;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("archive")
 	AbstractArchive archive;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = 2018598251
 	)
-	@Export("percentLoaded")
 	int percentLoaded;
 	@ObfuscatedName("w")
-	@Export("loaded")
 	boolean loaded;
 
 	@ObfuscatedSignature(
@@ -40,7 +33,6 @@ public class WorldMapArchiveLoader {
 		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "1155527039"
 	)
-	@Export("reset")
 	void reset(String var1) {
 		if (var1 != null && !var1.isEmpty()) { // L: 21
 			if (var1 != this.cacheName) { // L: 24
@@ -57,7 +49,6 @@ public class WorldMapArchiveLoader {
 		descriptor = "(I)I",
 		garbageValue = "-739480731"
 	)
-	@Export("load")
 	int load() {
 		if (this.percentLoaded < 33) { // L: 34
 			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field318.name, this.cacheName)) { // L: 35
@@ -92,7 +83,6 @@ public class WorldMapArchiveLoader {
 		descriptor = "(I)Z",
 		garbageValue = "-337934116"
 	)
-	@Export("isLoaded")
 	boolean isLoaded() {
 		return this.loaded; // L: 59
 	}
@@ -102,7 +92,6 @@ public class WorldMapArchiveLoader {
 		descriptor = "(B)I",
 		garbageValue = "-64"
 	)
-	@Export("getPercentLoaded")
 	int getPercentLoaded() {
 		return this.percentLoaded; // L: 63
 	}

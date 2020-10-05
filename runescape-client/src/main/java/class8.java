@@ -1,5 +1,4 @@
 import java.util.concurrent.Callable;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -12,7 +11,6 @@ public class class8 implements Callable {
 	)
 	static int field43;
 	@ObfuscatedName("pv")
-	@Export("ClanChat_inClanChat")
 	static boolean ClanChat_inClanChat;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

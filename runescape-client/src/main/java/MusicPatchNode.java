@@ -1,17 +1,13 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("he")
-@Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
 	@ObfuscatedName("bn")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("worldSelectArrows")
 	static IndexedSprite[] worldSelectArrows;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
@@ -22,13 +18,11 @@ public class MusicPatchNode extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Lhx;"
 	)
-	@Export("patch")
 	MusicPatch patch;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lde;"
 	)
-	@Export("rawSound")
 	RawSound rawSound;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -109,7 +103,6 @@ public class MusicPatchNode extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Ldm;"
 	)
-	@Export("stream")
 	RawPcmStream stream;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
@@ -163,7 +156,6 @@ public class MusicPatchNode extends Node {
 		descriptor = "(Ljava/lang/String;B)V",
 		garbageValue = "-27"
 	)
-	@Export("Clan_joinChat")
 	static final void Clan_joinChat(String var0) {
 		if (!var0.equals("")) { // L: 10695
 			PacketBufferNode var1 = Client.getPacketBufferNode(ClientPacket.field2324, Client.packetWriter.isaacCipher); // L: 10697

@@ -1,14 +1,12 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cc")
 public class class90 {
 	@ObfuscatedName("gh")
-	@Export("regions")
 	static int[] regions;
 
 	@ObfuscatedName("z")

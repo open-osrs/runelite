@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Random;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -46,7 +45,6 @@ public class class3 implements Enumerated {
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive17")
 	static Archive archive17;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
@@ -87,7 +85,6 @@ public class class3 implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.field16; // L: 94
 	}
@@ -149,7 +146,6 @@ public class class3 implements Enumerated {
 		descriptor = "(Lbw;I)V",
 		garbageValue = "823083332"
 	)
-	@Export("doCycleTitle")
 	static void doCycleTitle(GameShell var0) {
 		if (Login.worldSelectOpen) { // L: 264
 			GameBuild.method4217(var0); // L: 265
@@ -1064,7 +1060,6 @@ public class class3 implements Enumerated {
 		descriptor = "(I)V",
 		garbageValue = "1948911757"
 	)
-	@Export("load")
 	static void load() {
 		int var27;
 		if (Client.titleLoadingStage == 0) { // L: 1446

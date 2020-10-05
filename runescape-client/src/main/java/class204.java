@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -10,13 +9,11 @@ public class class204 {
 	@ObfuscatedGetter(
 		intValue = 326799997
 	)
-	@Export("foundItemIdCount")
 	static int foundItemIdCount;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("musicTrackArchive")
 	public static AbstractArchive musicTrackArchive;
 	@ObfuscatedName("q")
 	static int[][][] field2421;
@@ -51,7 +48,6 @@ public class class204 {
 		descriptor = "(IIIB)Lcy;",
 		garbageValue = "-39"
 	)
-	@Export("getWorldMapScript")
 	static Script getWorldMapScript(int var0, int var1, int var2) {
 		int var3 = class13.method129(var1, var0); // L: 37
 		Script var5 = (Script)Script.Script_cached.get((long)(var3 << 16)); // L: 40
@@ -127,7 +123,6 @@ public class class204 {
 		descriptor = "(CI)Z",
 		garbageValue = "-2091339129"
 	)
-	@Export("isAlphaNumeric")
 	public static boolean isAlphaNumeric(char var0) {
 		return var0 >= '0' && var0 <= '9' || var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z'; // L: 150
 	}

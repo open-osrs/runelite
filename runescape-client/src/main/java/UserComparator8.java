@@ -1,21 +1,16 @@
 import java.util.Iterator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fz")
-@Implements("UserComparator8")
 public class UserComparator8 extends AbstractUserComparator {
 	@ObfuscatedName("ml")
 	@ObfuscatedGetter(
 		intValue = 1924820265
 	)
-	@Export("selectedSpellFlags")
 	static int selectedSpellFlags;
 	@ObfuscatedName("z")
-	@Export("reversed")
 	final boolean reversed;
 
 	public UserComparator8(boolean var1) {
@@ -27,7 +22,6 @@ public class UserComparator8 extends AbstractUserComparator {
 		descriptor = "(Lko;Lko;I)I",
 		garbageValue = "2134639094"
 	)
-	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
 		if (Client.worldId == var1.world) { // L: 15
 			if (var2.world != Client.worldId) {
@@ -64,7 +58,6 @@ public class UserComparator8 extends AbstractUserComparator {
 		descriptor = "(IIIILjava/lang/String;I)V",
 		garbageValue = "5447361"
 	)
-	@Export("widgetDefaultMenuAction")
 	static void widgetDefaultMenuAction(int var0, int var1, int var2, int var3, String var4) {
 		Widget var5 = SecureRandomCallable.getWidgetChild(var1, var2); // L: 8137
 		if (var5 != null) { // L: 8138

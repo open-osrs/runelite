@@ -1,47 +1,38 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gb")
-@Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "[Lgb;"
 	)
-	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 110077839
 	)
-	@Export("PacketBufferNode_packetBufferNodeCount")
 	static int PacketBufferNode_packetBufferNodeCount;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lgf;"
 	)
-	@Export("clientPacket")
 	ClientPacket clientPacket;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -1747169149
 	)
-	@Export("clientPacketLength")
 	int clientPacketLength;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lky;"
 	)
-	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 1051886947
 	)
-	@Export("index")
 	public int index;
 
 	static {
@@ -57,7 +48,6 @@ public class PacketBufferNode extends Node {
 		descriptor = "(I)V",
 		garbageValue = "-1940555210"
 	)
-	@Export("release")
 	public void release() {
 		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 50
 			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 51
@@ -81,7 +71,6 @@ public class PacketBufferNode extends Node {
 		descriptor = "(Ldc;B)V",
 		garbageValue = "1"
 	)
-	@Export("PcmStream_disable")
 	static final void PcmStream_disable(PcmStream var0) {
 		var0.active = false; // L: 266
 		if (var0.sound != null) { // L: 267

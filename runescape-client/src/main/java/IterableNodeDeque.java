@@ -1,18 +1,14 @@
 import java.util.Collection;
 import java.util.Iterator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jv")
-@Implements("IterableNodeDeque")
 public class IterableNodeDeque implements Iterable, Collection {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("sentinel")
 	Node sentinel;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
@@ -27,7 +23,6 @@ public class IterableNodeDeque implements Iterable, Collection {
 	} // L: 13
 
 	@ObfuscatedName("z")
-	@Export("rsClear")
 	public void rsClear() {
 		while (this.sentinel.previous != this.sentinel) { // L: 16
 			this.sentinel.previous.remove(); // L: 17
@@ -39,7 +34,6 @@ public class IterableNodeDeque implements Iterable, Collection {
 	@ObfuscatedSignature(
 		descriptor = "(Lgw;)V"
 	)
-	@Export("addFirst")
 	public void addFirst(Node var1) {
 		if (var1.next != null) { // L: 22
 			var1.remove();
@@ -55,7 +49,6 @@ public class IterableNodeDeque implements Iterable, Collection {
 	@ObfuscatedSignature(
 		descriptor = "(Lgw;)V"
 	)
-	@Export("addLast")
 	public void addLast(Node var1) {
 		if (var1.next != null) { // L: 30
 			var1.remove();
@@ -71,7 +64,6 @@ public class IterableNodeDeque implements Iterable, Collection {
 	@ObfuscatedSignature(
 		descriptor = "()Lgw;"
 	)
-	@Export("last")
 	public Node last() {
 		return this.method4946((Node)null); // L: 46
 	}
@@ -101,7 +93,6 @@ public class IterableNodeDeque implements Iterable, Collection {
 	@ObfuscatedSignature(
 		descriptor = "()Lgw;"
 	)
-	@Export("previous")
 	public Node previous() {
 		Node var1 = this.field3554; // L: 62
 		if (var1 == this.sentinel) { // L: 63
@@ -223,7 +214,6 @@ public class IterableNodeDeque implements Iterable, Collection {
 	@ObfuscatedSignature(
 		descriptor = "(Lgw;Lgw;)V"
 	)
-	@Export("IterableNodeDeque_addBefore")
 	public static void IterableNodeDeque_addBefore(Node var0, Node var1) {
 		if (var0.next != null) { // L: 38
 			var0.remove();

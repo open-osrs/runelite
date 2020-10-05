@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -8,7 +7,6 @@ public class class231 {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("ItemDefinition_archive")
 	static AbstractArchive ItemDefinition_archive;
 
 	@ObfuscatedName("ft")
@@ -16,7 +14,6 @@ public class class231 {
 		descriptor = "(IIIIZI)V",
 		garbageValue = "1537075351"
 	)
-	@Export("setViewportShape")
 	static final void setViewportShape(int var0, int var1, int var2, int var3, boolean var4) {
 		if (var2 < 1) { // L: 4175
 			var2 = 1;

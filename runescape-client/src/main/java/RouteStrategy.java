@@ -1,35 +1,28 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gk")
-@Implements("RouteStrategy")
 public abstract class RouteStrategy {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = 1047579843
 	)
-	@Export("approxDestinationX")
 	public int approxDestinationX;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -1846311175
 	)
-	@Export("approxDestinationY")
 	public int approxDestinationY;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1025962081
 	)
-	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -881860999
 	)
-	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
 
 	protected RouteStrategy() {
@@ -40,7 +33,6 @@ public abstract class RouteStrategy {
 		descriptor = "(IIILft;I)Z",
 		garbageValue = "-1274441547"
 	)
-	@Export("hasArrived")
 	protected abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 
 	@ObfuscatedName("i")
@@ -85,7 +77,6 @@ public abstract class RouteStrategy {
 		descriptor = "(I)V",
 		garbageValue = "1480468521"
 	)
-	@Export("playPcmPlayers")
 	static final void playPcmPlayers() {
 		if (IntHashTable.pcmPlayer1 != null) { // L: 3254
 			IntHashTable.pcmPlayer1.run();

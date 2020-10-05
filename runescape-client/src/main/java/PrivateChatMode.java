@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ld")
-@Implements("PrivateChatMode")
 public class PrivateChatMode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

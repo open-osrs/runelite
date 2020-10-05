@@ -1,38 +1,29 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eh")
-@Implements("Skeleton")
 public class Skeleton extends Node {
 	@ObfuscatedName("sw")
 	@ObfuscatedSignature(
 		descriptor = "Llz;"
 	)
-	@Export("masterDisk")
 	static ArchiveDisk masterDisk;
 	@ObfuscatedName("gf")
-	@Export("regionLandArchiveIds")
 	static int[] regionLandArchiveIds;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -891561701
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 178139825
 	)
-	@Export("count")
 	int count;
 	@ObfuscatedName("s")
-	@Export("transformTypes")
 	int[] transformTypes;
 	@ObfuscatedName("t")
-	@Export("labels")
 	int[][] labels;
 
 	Skeleton(int var1, byte[] var2) {
@@ -64,7 +55,6 @@ public class Skeleton extends Node {
 		descriptor = "(IB)Ljx;",
 		garbageValue = "29"
 	)
-	@Export("getNpcDefinition")
 	public static NPCDefinition getNpcDefinition(int var0) {
 		NPCDefinition var1 = (NPCDefinition)NPCDefinition.NpcDefinition_cached.get((long)var0); // L: 57
 		if (var1 != null) { // L: 58

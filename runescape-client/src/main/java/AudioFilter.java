@@ -1,23 +1,17 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("du")
-@Implements("AudioFilter")
 public class AudioFilter {
 	@ObfuscatedName("o")
 	static float[][] field1512;
 	@ObfuscatedName("x")
-	@Export("coefficients")
 	static int[][] coefficients;
 	@ObfuscatedName("w")
 	static float field1514;
 	@ObfuscatedName("g")
-	@Export("forwardMultiplier")
 	static int forwardMultiplier;
 	@ObfuscatedName("z")
-	@Export("pairs")
 	int[] pairs;
 	@ObfuscatedName("s")
 	int[][][] field1509;
@@ -53,7 +47,6 @@ public class AudioFilter {
 	}
 
 	@ObfuscatedName("t")
-	@Export("compute")
 	int compute(int var1, float var2) {
 		float var3;
 		if (var1 == 0) { // L: 41
@@ -151,7 +144,6 @@ public class AudioFilter {
 	} // L: 99
 
 	@ObfuscatedName("k")
-	@Export("normalize")
 	static float normalize(float var0) {
 		float var1 = 32.703197F * (float)Math.pow(2.0D, (double)var0); // L: 30
 		return var1 * 3.1415927F / 11025.0F; // L: 31

@@ -1,17 +1,13 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("go")
-@Implements("MusicPatchNode2")
 public class MusicPatchNode2 {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Lls;"
 	)
-	@Export("options_buttons_2Sprite")
 	static IndexedSprite options_buttons_2Sprite;
 	@ObfuscatedName("z")
 	byte[] field2426;

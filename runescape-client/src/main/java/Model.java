@@ -1,38 +1,29 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("er")
-@Implements("Model")
 public class Model extends Entity {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Ler;"
 	)
-	@Export("Model_sharedSequenceModel")
 	static Model Model_sharedSequenceModel;
 	@ObfuscatedName("k")
-	@Export("Model_sharedSequenceModelFaceAlphas")
 	static byte[] Model_sharedSequenceModelFaceAlphas;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Ler;"
 	)
-	@Export("Model_sharedSpotAnimationModel")
 	static Model Model_sharedSpotAnimationModel;
 	@ObfuscatedName("t")
-	@Export("Model_sharedSpotAnimationModelFaceAlphas")
 	static byte[] Model_sharedSpotAnimationModelFaceAlphas;
 	@ObfuscatedName("ah")
 	static boolean[] field1747;
 	@ObfuscatedName("av")
 	static boolean[] field1734;
 	@ObfuscatedName("ax")
-	@Export("modelViewportXs")
 	static int[] modelViewportXs;
 	@ObfuscatedName("as")
-	@Export("modelViewportYs")
 	static int[] modelViewportYs;
 	@ObfuscatedName("az")
 	static int[] field1760;
@@ -63,69 +54,50 @@ public class Model extends Entity {
 	@ObfuscatedName("bi")
 	static int[] field1751;
 	@ObfuscatedName("bg")
-	@Export("Model_transformTempX")
 	static int Model_transformTempX;
 	@ObfuscatedName("br")
-	@Export("Model_transformTempY")
 	static int Model_transformTempY;
 	@ObfuscatedName("bp")
-	@Export("Model_transformTempZ")
 	static int Model_transformTempZ;
 	@ObfuscatedName("bn")
 	static boolean field1700;
 	@ObfuscatedName("bu")
-	@Export("Model_sine")
 	static int[] Model_sine;
 	@ObfuscatedName("ba")
-	@Export("Model_cosine")
 	static int[] Model_cosine;
 	@ObfuscatedName("bm")
 	static int[] field1756;
 	@ObfuscatedName("bd")
 	static int[] field1761;
 	@ObfuscatedName("i")
-	@Export("verticesCount")
 	int verticesCount;
 	@ObfuscatedName("o")
-	@Export("verticesX")
 	int[] verticesX;
 	@ObfuscatedName("x")
-	@Export("verticesY")
 	int[] verticesY;
 	@ObfuscatedName("w")
-	@Export("verticesZ")
 	int[] verticesZ;
 	@ObfuscatedName("g")
-	@Export("indicesCount")
 	int indicesCount;
 	@ObfuscatedName("m")
-	@Export("indices1")
 	int[] indices1;
 	@ObfuscatedName("n")
-	@Export("indices2")
 	int[] indices2;
 	@ObfuscatedName("d")
-	@Export("indices3")
 	int[] indices3;
 	@ObfuscatedName("h")
-	@Export("faceColors1")
 	int[] faceColors1;
 	@ObfuscatedName("a")
-	@Export("faceColors2")
 	int[] faceColors2;
 	@ObfuscatedName("q")
-	@Export("faceColors3")
 	int[] faceColors3;
 	@ObfuscatedName("c")
-	@Export("faceRenderPriorities")
 	byte[] faceRenderPriorities;
 	@ObfuscatedName("f")
-	@Export("faceAlphas")
 	byte[] faceAlphas;
 	@ObfuscatedName("y")
 	byte[] field1757;
 	@ObfuscatedName("v")
-	@Export("faceTextures")
 	short[] faceTextures;
 	@ObfuscatedName("j")
 	byte field1720;
@@ -138,46 +110,32 @@ public class Model extends Entity {
 	@ObfuscatedName("b")
 	int[] field1717;
 	@ObfuscatedName("l")
-	@Export("vertexLabels")
 	int[][] vertexLabels;
 	@ObfuscatedName("e")
-	@Export("faceLabelsAlpha")
 	int[][] faceLabelsAlpha;
 	@ObfuscatedName("ab")
-	@Export("isSingleTile")
 	public boolean isSingleTile;
 	@ObfuscatedName("ag")
-	@Export("boundsType")
 	int boundsType;
 	@ObfuscatedName("ao")
-	@Export("bottomY")
 	int bottomY;
 	@ObfuscatedName("ae")
-	@Export("xzRadius")
 	int xzRadius;
 	@ObfuscatedName("an")
-	@Export("diameter")
 	int diameter;
 	@ObfuscatedName("am")
-	@Export("radius")
 	int radius;
 	@ObfuscatedName("ap")
-	@Export("xMid")
 	int xMid;
 	@ObfuscatedName("au")
-	@Export("yMid")
 	int yMid;
 	@ObfuscatedName("aa")
-	@Export("zMid")
 	int zMid;
 	@ObfuscatedName("ar")
-	@Export("xMidOffset")
 	int xMidOffset;
 	@ObfuscatedName("at")
-	@Export("yMidOffset")
 	int yMidOffset;
 	@ObfuscatedName("aq")
-	@Export("zMidOffset")
 	int zMidOffset;
 
 	static {
@@ -367,7 +325,6 @@ public class Model extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "([[IIIIZI)Ler;"
 	)
-	@Export("contourGround")
 	public Model contourGround(int[][] var1, int var2, int var3, int var4, boolean var5, int var6) {
 		this.calculateBoundsCylinder(); // L: 169
 		int var7 = var2 - this.xzRadius; // L: 170
@@ -465,7 +422,6 @@ public class Model extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(Z)Ler;"
 	)
-	@Export("toSharedSequenceModel")
 	public Model toSharedSequenceModel(boolean var1) {
 		if (!var1 && Model_sharedSequenceModelFaceAlphas.length < this.indicesCount) { // L: 246
 			Model_sharedSequenceModelFaceAlphas = new byte[this.indicesCount + 100];
@@ -478,7 +434,6 @@ public class Model extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(Z)Ler;"
 	)
-	@Export("toSharedSpotAnimationModel")
 	public Model toSharedSpotAnimationModel(boolean var1) {
 		if (!var1 && Model_sharedSpotAnimationModelFaceAlphas.length < this.indicesCount) { // L: 251
 			Model_sharedSpotAnimationModelFaceAlphas = new byte[this.indicesCount + 100];
@@ -491,7 +446,6 @@ public class Model extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(ZLer;[B)Ler;"
 	)
-	@Export("buildSharedModel")
 	Model buildSharedModel(boolean var1, Model var2, byte[] var3) {
 		var2.verticesCount = this.verticesCount; // L: 256
 		var2.indicesCount = this.indicesCount; // L: 257
@@ -545,7 +499,6 @@ public class Model extends Entity {
 	}
 
 	@ObfuscatedName("i")
-	@Export("calculateBoundingBox")
 	void calculateBoundingBox(int var1) {
 		if (this.xMidOffset == -1) { // L: 300
 			int var2 = 0; // L: 301
@@ -609,7 +562,6 @@ public class Model extends Entity {
 	} // L: 334
 
 	@ObfuscatedName("o")
-	@Export("calculateBoundsCylinder")
 	public void calculateBoundsCylinder() {
 		if (this.boundsType != 1) { // L: 337
 			this.boundsType = 1; // L: 338
@@ -670,7 +622,6 @@ public class Model extends Entity {
 	}
 
 	@ObfuscatedName("m")
-	@Export("resetBounds")
 	void resetBounds() {
 		this.boundsType = 0; // L: 378
 		this.xMidOffset = -1; // L: 379
@@ -680,7 +631,6 @@ public class Model extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(Lef;I)V"
 	)
-	@Export("animate")
 	public void animate(Frames var1, int var2) {
 		if (this.vertexLabels != null) { // L: 383
 			if (var2 != -1) { // L: 384
@@ -704,7 +654,6 @@ public class Model extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(Lef;ILef;I[I)V"
 	)
-	@Export("animate2")
 	public void animate2(Frames var1, int var2, Frames var3, int var4, int[] var5) {
 		if (var2 != -1) { // L: 398
 			if (var5 != null && var4 != -1) { // L: 399
@@ -753,7 +702,6 @@ public class Model extends Entity {
 	} // L: 401 427
 
 	@ObfuscatedName("h")
-	@Export("transform")
 	void transform(int var1, int[] var2, int var3, int var4, int var5) {
 		int var6 = var2.length; // L: 430
 		int var7;
@@ -921,7 +869,6 @@ public class Model extends Entity {
 	} // L: 459 474 516 537 555 557
 
 	@ObfuscatedName("a")
-	@Export("rotateY90Ccw")
 	public void rotateY90Ccw() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) { // L: 560
 			int var2 = this.verticesX[var1]; // L: 561
@@ -933,7 +880,6 @@ public class Model extends Entity {
 	} // L: 566
 
 	@ObfuscatedName("q")
-	@Export("rotateY180")
 	public void rotateY180() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) { // L: 569
 			this.verticesX[var1] = -this.verticesX[var1]; // L: 570
@@ -944,7 +890,6 @@ public class Model extends Entity {
 	} // L: 574
 
 	@ObfuscatedName("c")
-	@Export("rotateY270Ccw")
 	public void rotateY270Ccw() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) { // L: 577
 			int var2 = this.verticesZ[var1]; // L: 578
@@ -956,7 +901,6 @@ public class Model extends Entity {
 	} // L: 583
 
 	@ObfuscatedName("j")
-	@Export("rotateZ")
 	public void rotateZ(int var1) {
 		int var2 = Model_sine[var1]; // L: 586
 		int var3 = Model_cosine[var1]; // L: 587
@@ -971,7 +915,6 @@ public class Model extends Entity {
 	} // L: 594
 
 	@ObfuscatedName("r")
-	@Export("offsetBy")
 	public void offsetBy(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.verticesCount; ++var4) { // L: 597
 			int[] var10000 = this.verticesX; // L: 598
@@ -986,7 +929,6 @@ public class Model extends Entity {
 	} // L: 603
 
 	@ObfuscatedName("u")
-	@Export("scale")
 	public void scale(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.verticesCount; ++var4) { // L: 606
 			this.verticesX[var4] = this.verticesX[var4] * var1 / 128; // L: 607
@@ -1126,7 +1068,6 @@ public class Model extends Entity {
 	} // L: 720
 
 	@ObfuscatedName("l")
-	@Export("draw0")
 	final void draw0(boolean var1, boolean var2, boolean var3, long var4) {
 		if (this.diameter < 1600) { // L: 844
 			int var6;
@@ -1351,7 +1292,6 @@ public class Model extends Entity {
 	} // L: 902 993
 
 	@ObfuscatedName("e")
-	@Export("drawFace")
 	final void drawFace(int var1) {
 		if (field1734[var1]) { // L: 996
 			this.method3051(var1); // L: 997
@@ -1563,7 +1503,6 @@ public class Model extends Entity {
 	} // L: 1179
 
 	@ObfuscatedName("cb")
-	@Export("draw")
 	void draw(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, long var9) {
 		field1742[0] = -1; // L: 723
 		if (this.boundsType != 1) { // L: 724

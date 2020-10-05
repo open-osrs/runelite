@@ -1,43 +1,34 @@
 import java.util.HashMap;
 import java.util.Map;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cz")
-@Implements("Messages")
 public class Messages {
 	@ObfuscatedName("sb")
-	@Export("foundItemIds")
 	static short[] foundItemIds;
 	@ObfuscatedName("z")
-	@Export("Messages_channels")
 	static final Map Messages_channels;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Llq;"
 	)
-	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Ljh;"
 	)
-	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 785090077
 	)
-	@Export("Messages_count")
 	static int Messages_count;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("Widget_spritesArchive")
 	public static AbstractArchive Widget_spritesArchive;
 
 	static {

@@ -1,7 +1,5 @@
 import java.applet.Applet;
 import java.net.URL;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -9,7 +7,6 @@ import net.runelite.rs.ScriptOpcodes;
 import netscape.javascript.JSObject;
 
 @ObfuscatedName("ap")
-@Implements("WorldMapIcon_1")
 public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	@ObfuscatedName("ew")
 	@ObfuscatedGetter(
@@ -20,37 +17,31 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	@ObfuscatedGetter(
 		intValue = -18311555
 	)
-	@Export("objectDefId")
 	final int objectDefId;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lal;"
 	)
-	@Export("region")
 	final WorldMapRegion region;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -2141926567
 	)
-	@Export("element")
 	int element;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Laq;"
 	)
-	@Export("label")
 	WorldMapLabel label;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 578089951
 	)
-	@Export("subWidth")
 	int subWidth;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -258563275
 	)
-	@Export("subHeight")
 	int subHeight;
 
 	@ObfuscatedSignature(
@@ -68,7 +59,6 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "-1613828162"
 	)
-	@Export("getElement")
 	public int getElement() {
 		return this.element; // L: 39
 	}
@@ -78,7 +68,6 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(I)Laq;",
 		garbageValue = "499378708"
 	)
-	@Export("getLabel")
 	WorldMapLabel getLabel() {
 		return this.label; // L: 43
 	}
@@ -88,7 +77,6 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "182515130"
 	)
-	@Export("getSubWidth")
 	int getSubWidth() {
 		return this.subWidth;
 	}
@@ -98,7 +86,6 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(I)I",
 		garbageValue = "-2001682063"
 	)
-	@Export("getSubHeight")
 	int getSubHeight() {
 		return this.subHeight; // L: 51
 	}
@@ -108,7 +95,6 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(I)V",
 		garbageValue = "1388314285"
 	)
-	@Export("init")
 	void init() {
 		this.element = MidiPcmStream.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
 		this.label = this.region.createMapLabel(WorldMapSection0.WorldMapElement_get(this.element)); // L: 25
@@ -138,7 +124,6 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(II)I",
 		garbageValue = "-40638792"
 	)
-	@Export("getSceneXForObjectUnderMouse")
 	public static int getSceneXForObjectUnderMouse(int var0) {
 		return TileItem.Entity_unpackSceneX(ViewportMouse.ViewportMouse_entityTags[var0]);
 	}

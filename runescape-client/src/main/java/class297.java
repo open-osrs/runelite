@@ -1,11 +1,9 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kt")
 public class class297 {
 	@ObfuscatedName("z")
-	@Export("cp1252AsciiExtension")
 	public static final char[] cp1252AsciiExtension;
 	@ObfuscatedName("o")
 	static byte[][][] field3668;
@@ -34,7 +32,6 @@ public class class297 {
 		descriptor = "(IB)Ljava/lang/String;",
 		garbageValue = "115"
 	)
-	@Export("formatItemStacks")
 	static final String formatItemStacks(int var0) {
 		String var1 = Integer.toString(var0); // L: 9175
 

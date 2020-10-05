@@ -1,35 +1,28 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ik")
-@Implements("VarpDefinition")
 public class VarpDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("VarpDefinition_archive")
 	static AbstractArchive VarpDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 1332454231
 	)
-	@Export("VarpDefinition_fileCount")
 	public static int VarpDefinition_fileCount;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("VarpDefinition_cached")
 	static EvictingDualNodeHashTable VarpDefinition_cached;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -955851785
 	)
-	@Export("type")
 	public int type;
 
 	static {
@@ -45,7 +38,6 @@ public class VarpDefinition extends DualNode {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "1437653896"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 34
@@ -62,7 +54,6 @@ public class VarpDefinition extends DualNode {
 		descriptor = "(Lkf;IS)V",
 		garbageValue = "24454"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 5) { // L: 41
 			this.type = var1.readUnsignedShort();
@@ -75,7 +66,6 @@ public class VarpDefinition extends DualNode {
 		descriptor = "(Lbf;ZI)V",
 		garbageValue = "-1746985052"
 	)
-	@Export("addPlayerToScene")
 	static void addPlayerToScene(Player var0, boolean var1) {
 		if (var0 != null && var0.isVisible() && !var0.isHidden) { // L: 4260
 			var0.isUnanimated = false; // L: 4261
@@ -115,7 +105,6 @@ public class VarpDefinition extends DualNode {
 		descriptor = "(Lbf;IIII)V",
 		garbageValue = "-1811983965"
 	)
-	@Export("addPlayerToMenu")
 	static final void addPlayerToMenu(Player var0, int var1, int var2, int var3) {
 		if (WorldMapLabelSize.localPlayer != var0) { // L: 8564
 			if (Client.menuOptionsCount < 400) { // L: 8565

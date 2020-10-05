@@ -1,35 +1,27 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("af")
-@Implements("WorldMapScaleHandler")
 public class WorldMapScaleHandler {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "Lei;"
 	)
-	@Export("World_request")
 	static UrlRequest World_request;
 	@ObfuscatedName("h")
-	@Export("Tiles_hueMultiplier")
 	static int[] Tiles_hueMultiplier;
 	@ObfuscatedName("eb")
 	@ObfuscatedGetter(
 		intValue = -1388382927
 	)
-	@Export("port3")
 	static int port3;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = 1114368907
 	)
-	@Export("pixelsPerTile")
 	int pixelsPerTile;
 	@ObfuscatedName("k")
-	@Export("tileTemplates")
 	byte[][][] tileTemplates;
 
 	WorldMapScaleHandler(int var1) {
@@ -88,7 +80,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "-1909065180"
 	)
-	@Export("init")
 	void init() {
 		if (this.tileTemplates == null) { // L: 34
 			this.tileTemplates = new byte[8][4][]; // L: 37
@@ -108,7 +99,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(B)V",
 		garbageValue = "97"
 	)
-	@Export("init0")
 	void init0() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 49
 		int var2 = 0; // L: 50
@@ -175,7 +165,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "-1716417605"
 	)
-	@Export("init1")
 	void init1() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 88
 		int var2 = 0; // L: 89
@@ -246,7 +235,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "-1974218360"
 	)
-	@Export("init2")
 	void init2() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 131
 		int var2 = 0; // L: 132
@@ -313,7 +301,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "922410315"
 	)
-	@Export("init3")
 	void init3() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 170
 		int var2 = 0; // L: 171
@@ -380,7 +367,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "-1095934607"
 	)
-	@Export("init4")
 	void init4() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 209
 		int var2 = 0; // L: 210
@@ -447,7 +433,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "1883920620"
 	)
-	@Export("init5")
 	void init5() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 248
 		boolean var2 = false; // L: 249
@@ -516,7 +501,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "-1746576330"
 	)
-	@Export("init6")
 	void init6() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 289
 		boolean var2 = false; // L: 290
@@ -585,7 +569,6 @@ public class WorldMapScaleHandler {
 		descriptor = "(I)V",
 		garbageValue = "1072905152"
 	)
-	@Export("init7")
 	void init7() {
 		byte[] var1 = new byte[this.pixelsPerTile * this.pixelsPerTile]; // L: 330
 		boolean var2 = false; // L: 331

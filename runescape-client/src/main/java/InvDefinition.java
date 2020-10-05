@@ -1,29 +1,23 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("iq")
-@Implements("InvDefinition")
 public class InvDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("InvDefinition_archive")
 	static AbstractArchive InvDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("InvDefinition_cached")
 	static EvictingDualNodeHashTable InvDefinition_cached;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1545647129
 	)
-	@Export("size")
 	public int size;
 
 	static {
@@ -39,7 +33,6 @@ public class InvDefinition extends DualNode {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "-1963217868"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 32
@@ -56,7 +49,6 @@ public class InvDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "-1931159207"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 2) { // L: 39
 			this.size = var1.readUnsignedShort();

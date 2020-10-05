@@ -3,74 +3,58 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fh")
-@Implements("NetSocket")
 public final class NetSocket extends AbstractSocket implements Runnable {
 	@ObfuscatedName("er")
 	@ObfuscatedSignature(
 		descriptor = "Llb;"
 	)
-	@Export("spriteIds")
 	static GraphicsDefaults spriteIds;
 	@ObfuscatedName("z")
-	@Export("inputStream")
 	InputStream inputStream;
 	@ObfuscatedName("k")
-	@Export("outputStream")
 	OutputStream outputStream;
 	@ObfuscatedName("s")
-	@Export("socket")
 	Socket socket;
 	@ObfuscatedName("t")
-	@Export("isClosed")
 	boolean isClosed;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lfo;"
 	)
-	@Export("taskHandler")
 	TaskHandler taskHandler;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lfl;"
 	)
-	@Export("task")
 	Task task;
 	@ObfuscatedName("x")
-	@Export("outBuffer")
 	byte[] outBuffer;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -43739121
 	)
-	@Export("outLength")
 	int outLength;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = -1877498573
 	)
-	@Export("outOffset")
 	int outOffset;
 	@ObfuscatedName("m")
-	@Export("exceptionWriting")
 	boolean exceptionWriting;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = -1318092279
 	)
-	@Export("bufferLength")
 	final int bufferLength;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
 		intValue = 202627819
 	)
-	@Export("maxPacketLength")
 	final int maxPacketLength;
 
 	@ObfuscatedSignature(
@@ -98,7 +82,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "(I)V",
 		garbageValue = "-147773206"
 	)
-	@Export("close")
 	public void close() {
 		if (!this.isClosed) { // L: 41
 			synchronized(this) { // L: 42
@@ -128,7 +111,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "(B)I",
 		garbageValue = "-99"
 	)
-	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.read(); // L: 65 66
 	}
@@ -138,7 +120,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "(B)I",
 		garbageValue = "12"
 	)
-	@Export("available")
 	public int available() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.available(); // L: 70 71
 	}
@@ -148,7 +129,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "(IB)Z",
 		garbageValue = "-78"
 	)
-	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
 		if (this.isClosed) { // L: 75
 			return false;
@@ -162,7 +142,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "([BIII)I",
 		garbageValue = "-1533815985"
 	)
-	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
 		if (this.isClosed) { // L: 80
 			return 0;
@@ -187,7 +166,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "([BIII)V",
 		garbageValue = "-588582807"
 	)
-	@Export("write0")
 	void write0(byte[] var1, int var2, int var3) throws IOException {
 		if (!this.isClosed) { // L: 92
 			if (this.exceptionWriting) { // L: 93
@@ -222,7 +200,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "([BIIB)V",
 		garbageValue = "52"
 	)
-	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
 		this.write0(var1, var2, var3); // L: 160
 	} // L: 161
@@ -308,7 +285,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "(II)Ljj;",
 		garbageValue = "2080665133"
 	)
-	@Export("StructDefinition_getStructDefinition")
 	public static StructDefinition StructDefinition_getStructDefinition(int var0) {
 		StructDefinition var1 = (StructDefinition)StructDefinition.StructDefinition_cached.get((long)var0); // L: 23
 		if (var1 != null) { // L: 24
@@ -364,7 +340,6 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		descriptor = "(Lhq;I[B[BI)V",
 		garbageValue = "-421721574"
 	)
-	@Export("Widget_setKey")
 	static final void Widget_setKey(Widget var0, int var1, byte[] var2, byte[] var3) {
 		if (var0.field2626 == null) { // L: 902
 			if (var2 == null) { // L: 903

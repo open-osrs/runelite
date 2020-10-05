@@ -1,7 +1,6 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -11,7 +10,6 @@ public class class9 {
 	@ObfuscatedSignature(
 		descriptor = "Ldf;"
 	)
-	@Export("decimator")
 	static Decimator decimator;
 	@ObfuscatedName("z")
 	ExecutorService field52;
@@ -217,7 +215,6 @@ public class class9 {
 		descriptor = "(IIIIIIIIII)V",
 		garbageValue = "-1834411387"
 	)
-	@Export("updatePendingSpawn")
 	static final void updatePendingSpawn(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		PendingSpawn var9 = null; // L: 6609
 

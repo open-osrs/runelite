@@ -2,7 +2,6 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -58,7 +57,6 @@ public final class class13 {
 		descriptor = "(III)V",
 		garbageValue = "347660061"
 	)
-	@Export("updateItemPile")
 	static final void updateItemPile(int var0, int var1) {
 		NodeDeque var2 = Client.groundItems[Huffman.Client_plane][var0][var1]; // L: 6697
 		if (var2 == null) { // L: 6698
@@ -111,7 +109,6 @@ public final class class13 {
 		descriptor = "(Lhq;IIB)V",
 		garbageValue = "-96"
 	)
-	@Export("clickWidget")
 	static final void clickWidget(Widget var0, int var1, int var2) {
 		if (Client.clickedWidget == null && !Client.isMenuOpen) { // L: 10145
 			if (var0 != null) { // L: 10147

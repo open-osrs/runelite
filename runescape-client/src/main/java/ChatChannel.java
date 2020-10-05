@@ -1,29 +1,23 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cl")
-@Implements("ChatChannel")
 public class ChatChannel {
 	@ObfuscatedName("ln")
 	@ObfuscatedGetter(
 		intValue = -1406179309
 	)
-	@Export("menuX")
 	static int menuX;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "[Lbk;"
 	)
-	@Export("messages")
 	Message[] messages;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1207472641
 	)
-	@Export("count")
 	int count;
 
 	ChatChannel() {
@@ -35,7 +29,6 @@ public class ChatChannel {
 		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lbk;",
 		garbageValue = "-1549087177"
 	)
-	@Export("addMessage")
 	Message addMessage(int var1, String var2, String var3, String var4) {
 		Message var5 = this.messages[99]; // L: 89
 
@@ -66,7 +59,6 @@ public class ChatChannel {
 		descriptor = "(II)Lbk;",
 		garbageValue = "1867589012"
 	)
-	@Export("getMessage")
 	Message getMessage(int var1) {
 		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null; // L: 106 107
 	}
@@ -76,7 +68,6 @@ public class ChatChannel {
 		descriptor = "(I)I",
 		garbageValue = "-1452572127"
 	)
-	@Export("size")
 	int size() {
 		return this.count; // L: 111
 	}
@@ -86,7 +77,6 @@ public class ChatChannel {
 		descriptor = "(IIIIIZI)Llp;",
 		garbageValue = "-1593670187"
 	)
-	@Export("getItemSprite")
 	public static final Sprite getItemSprite(int var0, int var1, int var2, int var3, int var4, boolean var5) {
 		if (var1 == -1) { // L: 353
 			var4 = 0;
@@ -208,7 +198,6 @@ public class ChatChannel {
 		descriptor = "(IIIIII)V",
 		garbageValue = "-2146534087"
 	)
-	@Export("drawObject")
 	static final void drawObject(int var0, int var1, int var2, int var3, int var4) {
 		long var5 = ScriptEvent.scene.getBoundaryObjectTag(var0, var1, var2); // L: 5182
 		int var7;

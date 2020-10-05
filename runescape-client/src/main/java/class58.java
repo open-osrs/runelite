@@ -1,5 +1,4 @@
 import javax.imageio.ImageIO;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -10,13 +9,11 @@ public class class58 {
 	@ObfuscatedGetter(
 		intValue = -1766812037
 	)
-	@Export("gameCyclesToDo")
 	static int gameCyclesToDo;
 	@ObfuscatedName("bp")
 	@ObfuscatedSignature(
 		descriptor = "Lgn;"
 	)
-	@Export("clientLanguage")
 	static Language clientLanguage;
 
 	static {
@@ -120,7 +117,6 @@ public class class58 {
 		descriptor = "(CLgn;I)I",
 		garbageValue = "65536"
 	)
-	@Export("lowercaseChar")
 	static int lowercaseChar(char var0, Language var1) {
 		int var2 = var0 << 4; // L: 128
 		if (Character.isUpperCase(var0) || Character.isTitleCase(var0)) { // L: 129
@@ -140,7 +136,6 @@ public class class58 {
 		descriptor = "(IB)V",
 		garbageValue = "50"
 	)
-	@Export("getLoginError")
 	static void getLoginError(int var0) {
 		if (var0 == -3) { // L: 2419
 			UrlRequester.setLoginResponseString("Connection timed out.", "Please try using a different world.", "");
@@ -248,7 +243,6 @@ public class class58 {
 		descriptor = "(Lbq;ZI)V",
 		garbageValue = "-1212325817"
 	)
-	@Export("closeInterface")
 	static final void closeInterface(InterfaceParent var0, boolean var1) {
 		int var2 = var0.group; // L: 10505
 		int var3 = (int)var0.key; // L: 10506

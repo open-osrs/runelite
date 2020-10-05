@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.Reflection;
@@ -104,7 +103,6 @@ public class class197 {
 		descriptor = "(Ljava/lang/String;I)Ljava/lang/Class;",
 		garbageValue = "432871093"
 	)
-	@Export("loadClassFromDescriptor")
 	static Class loadClassFromDescriptor(String var0) throws ClassNotFoundException {
 		if (var0.equals("B")) { // L: 216
 			return Byte.TYPE;

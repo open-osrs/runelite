@@ -1,53 +1,41 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jm")
-@Implements("SequenceDefinition")
 public class SequenceDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("SequenceDefinition_archive")
 	public static AbstractArchive SequenceDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("SequenceDefinition_animationsArchive")
 	public static AbstractArchive SequenceDefinition_animationsArchive;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("SequenceDefinition_cached")
 	public static EvictingDualNodeHashTable SequenceDefinition_cached;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("SequenceDefinition_cachedFrames")
 	public static EvictingDualNodeHashTable SequenceDefinition_cachedFrames;
 	@ObfuscatedName("o")
-	@Export("frameIds")
 	public int[] frameIds;
 	@ObfuscatedName("x")
-	@Export("chatFrameIds")
 	int[] chatFrameIds;
 	@ObfuscatedName("w")
-	@Export("frameLengths")
 	public int[] frameLengths;
 	@ObfuscatedName("g")
-	@Export("soundEffects")
 	public int[] soundEffects;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = 742845073
 	)
-	@Export("frameCount")
 	public int frameCount;
 	@ObfuscatedName("n")
 	int[] field3550;
@@ -62,13 +50,11 @@ public class SequenceDefinition extends DualNode {
 	@ObfuscatedGetter(
 		intValue = 1046570775
 	)
-	@Export("shield")
 	public int shield;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
 		intValue = 435585977
 	)
-	@Export("weapon")
 	public int weapon;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
@@ -113,7 +99,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "892270610"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 47
@@ -130,7 +115,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "322225834"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		int var3;
 		int var4;
@@ -205,7 +189,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(B)V",
 		garbageValue = "-125"
 	)
-	@Export("postDecode")
 	void postDecode() {
 		if (this.field3549 == -1) { // L: 92
 			if (this.field3550 != null) { // L: 93
@@ -230,7 +213,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(Ler;II)Ler;",
 		garbageValue = "-1365991470"
 	)
-	@Export("transformActorModel")
 	public Model transformActorModel(Model var1, int var2) {
 		var2 = this.frameIds[var2]; // L: 103
 		Frames var3 = UrlRequester.getFrames(var2 >> 16); // L: 104
@@ -249,7 +231,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(Ler;III)Ler;",
 		garbageValue = "2144819244"
 	)
-	@Export("transformObjectModel")
 	Model transformObjectModel(Model var1, int var2, int var3) {
 		var2 = this.frameIds[var2]; // L: 113
 		Frames var4 = UrlRequester.getFrames(var2 >> 16); // L: 114
@@ -285,7 +266,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(Ler;II)Ler;",
 		garbageValue = "2009150039"
 	)
-	@Export("transformSpotAnimationModel")
 	Model transformSpotAnimationModel(Model var1, int var2) {
 		var2 = this.frameIds[var2]; // L: 130
 		Frames var3 = UrlRequester.getFrames(var2 >> 16); // L: 131
@@ -304,7 +284,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(Ler;ILjm;IB)Ler;",
 		garbageValue = "-2"
 	)
-	@Export("applyTransformations")
 	public Model applyTransformations(Model var1, int var2, SequenceDefinition var3, int var4) {
 		var2 = this.frameIds[var2]; // L: 140
 		Frames var5 = UrlRequester.getFrames(var2 >> 16); // L: 141
@@ -333,7 +312,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(Ler;II)Ler;",
 		garbageValue = "1789593927"
 	)
-	@Export("transformWidgetModel")
 	public Model transformWidgetModel(Model var1, int var2) {
 		int var3 = this.frameIds[var2]; // L: 158
 		Frames var4 = UrlRequester.getFrames(var3 >> 16); // L: 159
@@ -368,7 +346,6 @@ public class SequenceDefinition extends DualNode {
 		descriptor = "(II)V",
 		garbageValue = "-2006270151"
 	)
-	@Export("clearItemContainer")
 	static void clearItemContainer(int var0) {
 		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 63
 		if (var1 != null) { // L: 64

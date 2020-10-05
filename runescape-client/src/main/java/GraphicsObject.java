@@ -1,71 +1,58 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cm")
-@Implements("GraphicsObject")
 public final class GraphicsObject extends Entity {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -1326465881
 	)
-	@Export("height")
 	int height;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -1027327973
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1536729399
 	)
-	@Export("cycleStart")
 	int cycleStart;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -1152665819
 	)
-	@Export("plane")
 	int plane;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1500063053
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -1460229241
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Ljm;"
 	)
-	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = 1933421917
 	)
-	@Export("frame")
 	int frame;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = 1610487487
 	)
-	@Export("frameCycle")
 	int frameCycle;
 	@ObfuscatedName("m")
-	@Export("isFinished")
 	boolean isFinished;
 
 	GraphicsObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
@@ -93,7 +80,6 @@ public final class GraphicsObject extends Entity {
 		descriptor = "(II)V",
 		garbageValue = "-1653124671"
 	)
-	@Export("advance")
 	final void advance(int var1) {
 		if (!this.isFinished) { // L: 36
 			this.frameCycle += var1; // L: 37
@@ -115,7 +101,6 @@ public final class GraphicsObject extends Entity {
 		descriptor = "(I)Ler;",
 		garbageValue = "-2026237468"
 	)
-	@Export("getModel")
 	protected final Model getModel() {
 		SpotAnimationDefinition var1 = Tiles.SpotAnimationDefinition_get(this.id); // L: 49
 		Model var2;

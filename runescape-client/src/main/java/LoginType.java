@@ -1,17 +1,13 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("mu")
-@Implements("LoginType")
 public class LoginType {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lmu;"
 	)
-	@Export("oldscape")
 	public static final LoginType oldscape;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(

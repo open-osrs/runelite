@@ -1,45 +1,36 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ij")
-@Implements("GameBuild")
 public class GameBuild {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lij;"
 	)
-	@Export("LIVE")
 	static final GameBuild LIVE;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lij;"
 	)
-	@Export("BUILDLIVE")
 	static final GameBuild BUILDLIVE;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lij;"
 	)
-	@Export("RC")
 	static final GameBuild RC;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lij;"
 	)
-	@Export("WIP")
 	static final GameBuild WIP;
 	@ObfuscatedName("i")
-	@Export("name")
 	public final String name;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 1493317811
 	)
-	@Export("buildId")
 	final int buildId;
 
 	static {

@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ac")
-@Implements("WorldMapSection3")
 public class WorldMapSection3 implements WorldMapSection {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
@@ -66,7 +63,6 @@ public class WorldMapSection3 implements WorldMapSection {
 		descriptor = "(Lar;B)V",
 		garbageValue = "100"
 	)
-	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
 		if (var1.regionLowX > this.field384) { // L: 21
 			var1.regionLowX = this.field384;
@@ -91,7 +87,6 @@ public class WorldMapSection3 implements WorldMapSection {
 		descriptor = "(IIII)Z",
 		garbageValue = "-339896458"
 	)
-	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
 		if (var1 >= this.field391 && var1 < this.field381 + this.field391) { // L: 28
 			return var2 >= (this.field382 << 6) + (this.field389 << 3) && var2 <= (this.field382 << 6) + (this.field389 << 3) + 7 && var3 >= (this.field392 << 6) + (this.field387 << 3) && var3 <= (this.field392 << 6) + (this.field387 << 3) + 7; // L: 31
@@ -105,7 +100,6 @@ public class WorldMapSection3 implements WorldMapSection {
 		descriptor = "(III)Z",
 		garbageValue = "-2135820245"
 	)
-	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
 		return var1 >= (this.field384 << 6) + (this.field380 << 3) && var1 <= (this.field384 << 6) + (this.field380 << 3) + 7 && var2 >= (this.field385 << 6) + (this.field386 << 3) && var2 <= (this.field385 << 6) + (this.field386 << 3) + 7; // L: 35
 	}
@@ -115,7 +109,6 @@ public class WorldMapSection3 implements WorldMapSection {
 		descriptor = "(IIII)[I",
 		garbageValue = "-1761492451"
 	)
-	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
 		if (!this.containsCoord(var1, var2, var3)) { // L: 39
 			return null; // L: 40
@@ -130,7 +123,6 @@ public class WorldMapSection3 implements WorldMapSection {
 		descriptor = "(III)Lhg;",
 		garbageValue = "-1553504587"
 	)
-	@Export("coord")
 	public Coord coord(int var1, int var2) {
 		if (!this.containsPosition(var1, var2)) { // L: 49
 			return null; // L: 50
@@ -146,7 +138,6 @@ public class WorldMapSection3 implements WorldMapSection {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "2144381737"
 	)
-	@Export("read")
 	public void read(Buffer var1) {
 		this.field391 = var1.readUnsignedByte(); // L: 58
 		this.field381 = var1.readUnsignedByte(); // L: 59
