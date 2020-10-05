@@ -1,11 +1,9 @@
 import java.lang.management.GarbageCollectorMXBean;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ag")
-@Implements("WorldMapIcon_0")
 public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	@ObfuscatedName("ay")
 	static GarbageCollectorMXBean garbageCollector;

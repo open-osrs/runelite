@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jg")
-@Implements("ObjectDefinition")
 public class ObjectDefinition extends DualNode {
 	@ObfuscatedName("z")
 	public static boolean ObjectDefinition_isLowDetail;

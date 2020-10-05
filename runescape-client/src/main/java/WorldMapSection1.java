@@ -1,11 +1,9 @@
 import java.util.Date;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("as")
-@Implements("WorldMapSection1")
 public class WorldMapSection1 implements WorldMapSection {
 	@ObfuscatedName("sy")
 	@ObfuscatedSignature(

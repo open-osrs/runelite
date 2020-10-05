@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ef")
-@Implements("Frames")
 public class Frames extends DualNode {
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(

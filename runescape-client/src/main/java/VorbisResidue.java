@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("do")
-@Implements("VorbisResidue")
 public class VorbisResidue {
 	@ObfuscatedName("z")
 	int residueType;

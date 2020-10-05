@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ga")
-@Implements("ServerPacket")
 public class ServerPacket {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

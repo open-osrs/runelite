@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jp")
-@Implements("EnumDefinition")
 public class EnumDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

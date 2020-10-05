@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("da")
-@Implements("VorbisFloor")
 public class VorbisFloor {
 	@ObfuscatedName("z")
 	static final int[] field1422;

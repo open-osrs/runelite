@@ -1,12 +1,10 @@
 import java.io.EOFException;
 import java.io.IOException;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lz")
-@Implements("ArchiveDisk")
 public final class ArchiveDisk {
 	@ObfuscatedName("z")
 	static byte[] ArchiveDisk_buffer;

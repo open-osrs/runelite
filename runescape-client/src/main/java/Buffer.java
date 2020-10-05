@@ -1,11 +1,9 @@
 import java.math.BigInteger;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kf")
-@Implements("Buffer")
 public class Buffer extends Node {
 	@ObfuscatedName("w")
 	static int[] crc32Table;

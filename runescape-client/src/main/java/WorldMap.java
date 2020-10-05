@@ -4,13 +4,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("mx")
-@Implements("WorldMap")
 public class WorldMap {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(

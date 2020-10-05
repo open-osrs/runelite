@@ -1,10 +1,8 @@
 import java.util.Iterator;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jh")
-@Implements("IterableDualNodeQueue")
 public class IterableDualNodeQueue implements Iterable {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

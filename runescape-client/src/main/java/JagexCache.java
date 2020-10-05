@@ -1,10 +1,8 @@
 import java.io.File;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fn")
-@Implements("JagexCache")
 public class JagexCache {
 	@ObfuscatedName("t")
 	static File JagexCache_locationFile;

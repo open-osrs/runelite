@@ -3,13 +3,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.DataLine.Info;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("br")
-@Implements("DevicePcmPlayer")
 public class DevicePcmPlayer extends PcmPlayer {
 	@ObfuscatedName("z")
 	AudioFormat format;

@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fp")
-@Implements("DemotingHashTable")
 public final class DemotingHashTable {
 	@ObfuscatedName("z")
 	int capacity;

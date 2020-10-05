@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ll")
-@Implements("BZip2Decompressor")
 public final class BZip2Decompressor {
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(

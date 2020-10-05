@@ -1,12 +1,10 @@
 import java.util.HashMap;
 import java.util.Map;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cz")
-@Implements("Messages")
 public class Messages {
 	@ObfuscatedName("sb")
 	static short[] foundItemIds;

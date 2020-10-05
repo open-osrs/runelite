@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bu")
-@Implements("Tiles")
 public final class Tiles {
 	@ObfuscatedName("z")
 	static int[][][] Tiles_heights;

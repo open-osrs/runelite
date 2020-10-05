@@ -1,11 +1,9 @@
 import java.util.concurrent.ScheduledExecutorService;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dr")
-@Implements("PcmPlayer")
 public class PcmPlayer {
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(

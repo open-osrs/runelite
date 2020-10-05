@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eu")
-@Implements("FloorDecoration")
 public final class FloorDecoration {
 	@ObfuscatedName("re")
 	@ObfuscatedGetter(

@@ -1,11 +1,9 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("bf")
-@Implements("Player")
 public final class Player extends Actor {
 	@ObfuscatedName("oa")
 	@ObfuscatedSignature(

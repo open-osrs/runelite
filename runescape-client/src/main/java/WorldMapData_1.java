@@ -2,13 +2,11 @@ import java.io.IOException;
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.util.Iterator;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("aw")
-@Implements("WorldMapData_1")
 public class WorldMapData_1 extends AbstractWorldMapData {
 	@ObfuscatedName("en")
 	@ObfuscatedSignature(

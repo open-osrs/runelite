@@ -2,14 +2,12 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("bz")
-@Implements("KeyHandler")
 public final class KeyHandler implements KeyListener, FocusListener {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jc")
-@Implements("User")
 public class User implements Comparable {
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(

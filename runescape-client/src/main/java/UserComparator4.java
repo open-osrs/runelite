@@ -1,10 +1,8 @@
 import java.util.Comparator;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fs")
-@Implements("UserComparator4")
 public class UserComparator4 implements Comparator {
 	@ObfuscatedName("f")
 	static String[] field2005;

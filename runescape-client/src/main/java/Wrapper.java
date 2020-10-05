@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("fx")
-@Implements("Wrapper")
 public abstract class Wrapper extends DualNode {
 	@ObfuscatedName("k")
 	final int size;

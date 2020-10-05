@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("dn")
-@Implements("VorbisMapping")
 public class VorbisMapping {
 	@ObfuscatedName("z")
 	int submaps;

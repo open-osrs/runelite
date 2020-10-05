@@ -1,10 +1,8 @@
 import java.nio.ByteBuffer;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hi")
-@Implements("DirectByteArrayCopier")
 public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(

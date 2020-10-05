@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dd")
-@Implements("PlayerProvider")
 public interface PlayerProvider {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

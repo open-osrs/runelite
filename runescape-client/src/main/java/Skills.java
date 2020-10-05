@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("hd")
-@Implements("Skills")
 public class Skills {
 	@ObfuscatedName("k")
 	public static final boolean[] Skills_enabled;

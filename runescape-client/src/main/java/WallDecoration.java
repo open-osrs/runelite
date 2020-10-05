@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ex")
-@Implements("WallDecoration")
 public final class WallDecoration {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(

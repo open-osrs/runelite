@@ -1,11 +1,9 @@
 import java.io.IOException;
 import java.util.Comparator;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lt")
-@Implements("UserComparator1")
 public class UserComparator1 implements Comparator {
 	@ObfuscatedName("z")
 	final boolean reversed;

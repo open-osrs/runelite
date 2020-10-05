@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fm")
-@Implements("BuddyRankComparator")
 public class BuddyRankComparator extends AbstractUserComparator {
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(

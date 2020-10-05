@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("er")
-@Implements("Model")
 public class Model extends Entity {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

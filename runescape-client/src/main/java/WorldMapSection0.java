@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ao")
-@Implements("WorldMapSection0")
 public class WorldMapSection0 implements WorldMapSection {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(

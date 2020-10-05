@@ -1,12 +1,10 @@
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ch")
-@Implements("TileItem")
 public final class TileItem extends Entity {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(

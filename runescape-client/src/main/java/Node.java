@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gw")
-@Implements("Node")
 public class Node {
 	@ObfuscatedName("cp")
 	public long key;

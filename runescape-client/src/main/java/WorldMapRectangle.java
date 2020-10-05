@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("am")
-@Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
 	@ObfuscatedName("d")
 	static int[] Tiles_lightness;

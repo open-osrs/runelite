@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bj")
-@Implements("DevicePcmPlayerProvider")
 public class DevicePcmPlayerProvider implements PlayerProvider {
 	@ObfuscatedName("fl")
 	@ObfuscatedSignature(

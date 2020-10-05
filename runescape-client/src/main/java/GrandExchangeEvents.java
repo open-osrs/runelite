@@ -3,13 +3,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("c")
-@Implements("GrandExchangeEvents")
 public class GrandExchangeEvents {
 	@ObfuscatedName("k")
 	public static Comparator GrandExchangeEvents_ageComparator;

@@ -1,13 +1,11 @@
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ce")
-@Implements("ClientPreferences")
 public class ClientPreferences {
 	@ObfuscatedName("ot")
 	@ObfuscatedSignature(

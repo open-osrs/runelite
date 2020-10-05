@@ -1,11 +1,9 @@
 import java.awt.Component;
 import java.awt.Graphics;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bi")
-@Implements("Canvas")
 public final class Canvas extends java.awt.Canvas {
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(

@@ -1,12 +1,10 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dv")
-@Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
 	@ObfuscatedName("aw")
 	@ObfuscatedGetter(

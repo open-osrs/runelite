@@ -1,12 +1,10 @@
 import java.awt.Desktop;
 import java.awt.Desktop.Action;
 import java.net.URI;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("l")
-@Implements("WorldMapData_0")
 public class WorldMapData_0 extends AbstractWorldMapData {
 	WorldMapData_0() {
 	} // L: 6

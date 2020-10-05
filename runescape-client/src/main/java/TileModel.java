@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("en")
-@Implements("TileModel")
 public final class TileModel {
 	@ObfuscatedName("c")
 	static int[] field1626;

@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ku")
-@Implements("Username")
 public class Username implements Comparable {
 	@ObfuscatedName("t")
 	static int[] SpriteBuffer_xOffsets;

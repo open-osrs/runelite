@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("fq")
-@Implements("DirectWrapper")
 public class DirectWrapper extends Wrapper {
 	@ObfuscatedName("z")
 	Object obj;

@@ -1,10 +1,8 @@
 import java.util.Comparator;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jn")
-@Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
 	@ObfuscatedName("gd")
 	static byte[][] regionLandArchives;

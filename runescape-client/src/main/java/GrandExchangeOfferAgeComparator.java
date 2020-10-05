@@ -1,11 +1,9 @@
 import java.awt.Component;
 import java.util.Comparator;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("u")
-@Implements("GrandExchangeOfferAgeComparator")
 final class GrandExchangeOfferAgeComparator implements Comparator {
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(

@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dh")
-@Implements("PcmStreamMixer")
 public class PcmStreamMixer extends PcmStream {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

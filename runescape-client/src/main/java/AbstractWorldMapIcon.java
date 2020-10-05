@@ -1,12 +1,10 @@
 import java.io.File;
 import java.io.RandomAccessFile;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("az")
-@Implements("AbstractWorldMapIcon")
 public abstract class AbstractWorldMapIcon {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(

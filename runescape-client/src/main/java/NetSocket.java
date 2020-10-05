@@ -3,13 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fh")
-@Implements("NetSocket")
 public final class NetSocket extends AbstractSocket implements Runnable {
 	@ObfuscatedName("er")
 	@ObfuscatedSignature(

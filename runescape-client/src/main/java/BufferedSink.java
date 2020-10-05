@@ -1,12 +1,10 @@
 import java.io.IOException;
 import java.io.OutputStream;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lf")
-@Implements("BufferedSink")
 public class BufferedSink implements Runnable {
 	@ObfuscatedName("z")
 	Thread thread;

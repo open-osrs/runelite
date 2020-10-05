@@ -9,12 +9,10 @@ import java.awt.image.DirectColorModel;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.util.Hashtable;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bn")
-@Implements("RasterProvider")
 public final class RasterProvider extends AbstractRasterProvider {
 	@ObfuscatedName("z")
 	Component component;

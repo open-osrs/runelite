@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hf")
-@Implements("MidiFileReader")
 public class MidiFileReader {
 	@ObfuscatedName("m")
 	static final byte[] field2500;

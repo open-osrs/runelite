@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("ls")
-@Implements("IndexedSprite")
 public final class IndexedSprite extends Rasterizer2D {
 	@ObfuscatedName("z")
 	public byte[] pixels;

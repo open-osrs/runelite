@@ -4,13 +4,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("al")
-@Implements("WorldMapRegion")
 public class WorldMapRegion {
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(

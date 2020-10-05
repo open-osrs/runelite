@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("de")
-@Implements("RawSound")
 public class RawSound extends AbstractSound {
 	@ObfuscatedName("z")
 	public int sampleRate;

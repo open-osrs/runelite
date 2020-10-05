@@ -1,12 +1,10 @@
 import java.io.IOException;
 import java.security.SecureRandom;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eb")
-@Implements("BoundaryObject")
 public final class BoundaryObject {
 	@ObfuscatedName("nf")
 	@ObfuscatedGetter(

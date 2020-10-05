@@ -1,6 +1,5 @@
 import java.applet.Applet;
 import java.net.URL;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -8,7 +7,6 @@ import net.runelite.rs.ScriptOpcodes;
 import netscape.javascript.JSObject;
 
 @ObfuscatedName("ap")
-@Implements("WorldMapIcon_1")
 public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	@ObfuscatedName("ew")
 	@ObfuscatedGetter(

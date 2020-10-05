@@ -1,12 +1,10 @@
 import java.io.File;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("aa")
-@Implements("WorldMapDecoration")
 public class WorldMapDecoration {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(

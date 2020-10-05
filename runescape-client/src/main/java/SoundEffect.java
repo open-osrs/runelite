@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dj")
-@Implements("SoundEffect")
 public class SoundEffect {
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(

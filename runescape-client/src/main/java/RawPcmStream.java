@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dm")
-@Implements("RawPcmStream")
 public class RawPcmStream extends PcmStream {
 	@ObfuscatedName("z")
 	int field1506;

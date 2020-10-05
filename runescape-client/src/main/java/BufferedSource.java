@@ -1,13 +1,11 @@
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lx")
-@Implements("BufferedSource")
 public class BufferedSource implements Runnable {
 	@ObfuscatedName("z")
 	Thread thread;

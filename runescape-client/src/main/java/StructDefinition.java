@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jj")
-@Implements("StructDefinition")
 public class StructDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("el")
-@Implements("EvictingDualNodeHashTable")
 public final class EvictingDualNodeHashTable {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

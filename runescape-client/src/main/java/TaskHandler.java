@@ -2,12 +2,10 @@ import java.io.DataInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fo")
-@Implements("TaskHandler")
 public class TaskHandler implements Runnable {
 	@ObfuscatedName("z")
 	public static String javaVendor;

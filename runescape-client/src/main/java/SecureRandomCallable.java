@@ -1,11 +1,9 @@
 import java.util.concurrent.Callable;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("bm")
-@Implements("SecureRandomCallable")
 public class SecureRandomCallable implements Callable {
 	SecureRandomCallable() {
 	} // L: 36

@@ -2,12 +2,10 @@ import java.security.SecureRandom;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cs")
-@Implements("SecureRandomFuture")
 public class SecureRandomFuture {
 	@ObfuscatedName("z")
 	ExecutorService executor;

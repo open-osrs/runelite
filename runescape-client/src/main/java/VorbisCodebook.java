@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("db")
-@Implements("VorbisCodebook")
 public class VorbisCodebook {
 	@ObfuscatedName("z")
 	int dimensions;

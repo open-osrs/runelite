@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eo")
-@Implements("Texture")
 public class Texture extends Node {
 	@ObfuscatedName("q")
 	static int[] Texture_animatedPixels;

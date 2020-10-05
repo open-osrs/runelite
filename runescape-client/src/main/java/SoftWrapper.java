@@ -1,9 +1,7 @@
 import java.lang.ref.SoftReference;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("fj")
-@Implements("SoftWrapper")
 public class SoftWrapper extends Wrapper {
 	@ObfuscatedName("z")
 	SoftReference ref;

@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("bq")
-@Implements("InterfaceParent")
 public class InterfaceParent extends Node {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(

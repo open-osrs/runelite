@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ee")
-@Implements("ModelData")
 public class ModelData extends Entity {
 	@ObfuscatedName("ar")
 	static int[] field1606;

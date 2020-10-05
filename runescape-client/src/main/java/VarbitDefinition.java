@@ -1,11 +1,9 @@
 import java.applet.Applet;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("iy")
-@Implements("VarbitDefinition")
 public class VarbitDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

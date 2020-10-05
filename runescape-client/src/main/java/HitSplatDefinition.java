@@ -1,11 +1,9 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("jd")
-@Implements("HitSplatDefinition")
 public class HitSplatDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

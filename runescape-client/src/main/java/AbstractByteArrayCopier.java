@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hh")
-@Implements("AbstractByteArrayCopier")
 public abstract class AbstractByteArrayCopier {
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(

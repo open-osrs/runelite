@@ -1,10 +1,8 @@
 import java.util.Random;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dz")
-@Implements("Instrument")
 public class Instrument {
 	@ObfuscatedName("y")
 	static int[] Instrument_samples;

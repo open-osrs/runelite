@@ -1,11 +1,9 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("bs")
-@Implements("PendingSpawn")
 public final class PendingSpawn extends Node {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(

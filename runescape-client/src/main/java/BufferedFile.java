@@ -1,12 +1,10 @@
 import java.io.EOFException;
 import java.io.IOException;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("mz")
-@Implements("BufferedFile")
 public class BufferedFile {
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(

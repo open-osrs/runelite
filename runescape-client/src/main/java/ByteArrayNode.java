@@ -1,8 +1,6 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("gm")
-@Implements("ByteArrayNode")
 public class ByteArrayNode extends Node {
 	@ObfuscatedName("z")
 	public byte[] byteArray;

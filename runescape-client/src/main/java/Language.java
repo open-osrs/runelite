@@ -1,11 +1,9 @@
 import java.util.Locale;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gn")
-@Implements("Language")
 public class Language implements Enumerated {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

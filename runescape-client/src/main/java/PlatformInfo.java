@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("mr")
-@Implements("PlatformInfo")
 public class PlatformInfo extends Node {
 	@ObfuscatedName("ap")
 	@ObfuscatedGetter(

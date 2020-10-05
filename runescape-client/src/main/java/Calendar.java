@@ -1,10 +1,8 @@
 import java.util.TimeZone;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hk")
-@Implements("Calendar")
 public class Calendar {
 	@ObfuscatedName("z")
 	static final String[][] MONTH_NAMES_ENGLISH_GERMAN;

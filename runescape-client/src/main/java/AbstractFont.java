@@ -1,10 +1,8 @@
 import java.util.Random;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kj")
-@Implements("AbstractFont")
 public abstract class AbstractFont extends Rasterizer2D {
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(

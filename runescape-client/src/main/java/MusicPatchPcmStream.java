@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hb")
-@Implements("MusicPatchPcmStream")
 public class MusicPatchPcmStream extends PcmStream {
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(

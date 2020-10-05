@@ -1,11 +1,9 @@
 import java.awt.FontMetrics;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("bv")
-@Implements("ApproximateRouteStrategy")
 public class ApproximateRouteStrategy extends RouteStrategy {
 	@ObfuscatedName("qm")
 	@ObfuscatedSignature(

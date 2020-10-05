@@ -1,10 +1,8 @@
 import java.net.URL;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ei")
-@Implements("UrlRequest")
 public class UrlRequest {
 	@ObfuscatedName("h")
 	static boolean field1986;

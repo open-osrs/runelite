@@ -1,11 +1,9 @@
 import java.text.DecimalFormat;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cx")
-@Implements("Login")
 public class Login {
 	@ObfuscatedName("k")
 	static boolean clearLoginScreen;

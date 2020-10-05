@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("he")
-@Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
 	@ObfuscatedName("bn")
 	@ObfuscatedSignature(

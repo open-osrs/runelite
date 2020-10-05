@@ -1,13 +1,11 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ka")
-@Implements("UserList")
 public abstract class UserList {
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(

@@ -1,10 +1,8 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cb")
-@Implements("DynamicObject")
 public class DynamicObject extends Entity {
 	@ObfuscatedName("fo")
 	@ObfuscatedSignature(

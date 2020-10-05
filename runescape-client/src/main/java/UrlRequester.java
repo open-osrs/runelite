@@ -5,13 +5,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.Queue;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ev")
-@Implements("UrlRequester")
 public class UrlRequester implements Runnable {
 	@ObfuscatedName("dc")
 	@ObfuscatedSignature(

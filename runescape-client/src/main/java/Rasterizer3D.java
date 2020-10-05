@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eq")
-@Implements("Rasterizer3D")
 public class Rasterizer3D extends Rasterizer2D {
 	@ObfuscatedName("z")
 	static boolean field1791;

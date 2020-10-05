@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("li")
-@Implements("BZip2State")
 public final class BZip2State {
 	@ObfuscatedName("bn")
 	static String worldListURL;

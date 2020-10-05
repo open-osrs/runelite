@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cw")
-@Implements("NPC")
 public final class NPC extends Actor {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

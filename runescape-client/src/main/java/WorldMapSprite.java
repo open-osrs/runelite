@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("at")
-@Implements("WorldMapSprite")
 public final class WorldMapSprite {
 	@ObfuscatedName("w")
 	public static short[][] field253;

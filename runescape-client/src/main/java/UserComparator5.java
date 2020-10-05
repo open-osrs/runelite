@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fb")
-@Implements("UserComparator5")
 public class UserComparator5 extends AbstractUserComparator {
 	@ObfuscatedName("z")
 	final boolean reversed;

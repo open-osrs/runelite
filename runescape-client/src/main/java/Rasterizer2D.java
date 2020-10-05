@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lv")
-@Implements("Rasterizer2D")
 public class Rasterizer2D extends DualNode {
 	@ObfuscatedName("ag")
 	public static int[] Rasterizer2D_pixels;

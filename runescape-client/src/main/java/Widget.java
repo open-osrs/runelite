@@ -1,11 +1,9 @@
 import java.io.IOException;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hq")
-@Implements("Widget")
 public class Widget extends Node {
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(

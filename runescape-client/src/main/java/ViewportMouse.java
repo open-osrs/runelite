@@ -1,11 +1,9 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import netscape.javascript.JSObject;
 
 @ObfuscatedName("ep")
-@Implements("ViewportMouse")
 public class ViewportMouse {
 	@ObfuscatedName("z")
 	static boolean ViewportMouse_isInViewport;

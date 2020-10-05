@@ -1,9 +1,7 @@
 import java.applet.Applet;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("me")
-@Implements("RunException")
 public class RunException extends RuntimeException {
 	@ObfuscatedName("z")
 	public static Applet RunException_applet;

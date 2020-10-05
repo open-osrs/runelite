@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dk")
-@Implements("VorbisSample")
 public class VorbisSample extends Node {
 	@ObfuscatedName("x")
 	static byte[] VorbisSample_bytes;

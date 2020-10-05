@@ -1,13 +1,11 @@
 import java.util.Iterator;
 import java.util.LinkedList;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ar")
-@Implements("WorldMapArea")
 public class WorldMapArea {
 	@ObfuscatedName("sk")
 	@ObfuscatedSignature(

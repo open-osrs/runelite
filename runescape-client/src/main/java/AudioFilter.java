@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("du")
-@Implements("AudioFilter")
 public class AudioFilter {
 	@ObfuscatedName("o")
 	static float[][] field1512;

@@ -1,9 +1,7 @@
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gr")
-@Implements("Link")
 public class Link {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(

@@ -1,11 +1,9 @@
 import java.io.IOException;
 import java.net.Socket;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lk")
-@Implements("BufferedNetSocket")
 public class BufferedNetSocket extends AbstractSocket {
 	@ObfuscatedName("z")
 	Socket socket;
