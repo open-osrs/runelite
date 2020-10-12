@@ -1,38 +1,29 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("il")
-@Implements("ParamDefinition")
 public class ParamDefinition extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("ParamDefinition_archive")
 	public static AbstractArchive ParamDefinition_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("ParamDefinition_cached")
 	static EvictingDualNodeHashTable ParamDefinition_cached;
 	@ObfuscatedName("s")
-	@Export("type")
 	char type;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 2056477959
 	)
-	@Export("defaultInt")
 	public int defaultInt;
 	@ObfuscatedName("i")
-	@Export("defaultStr")
 	public String defaultStr;
 	@ObfuscatedName("o")
-	@Export("autoDisable")
 	boolean autoDisable;
 
 	static {
@@ -48,7 +39,6 @@ public class ParamDefinition extends DualNode {
 		descriptor = "(I)V",
 		garbageValue = "964888854"
 	)
-	@Export("postDecode")
 	void postDecode() {
 	} // L: 31
 
@@ -57,7 +47,6 @@ public class ParamDefinition extends DualNode {
 		descriptor = "(Lkf;B)V",
 		garbageValue = "2"
 	)
-	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
 			int var2 = var1.readUnsignedByte(); // L: 35
@@ -74,7 +63,6 @@ public class ParamDefinition extends DualNode {
 		descriptor = "(Lkf;II)V",
 		garbageValue = "-659243660"
 	)
-	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) { // L: 42
 			byte var4 = var1.readByte(); // L: 44
@@ -109,7 +97,6 @@ public class ParamDefinition extends DualNode {
 		descriptor = "(I)Z",
 		garbageValue = "937250031"
 	)
-	@Export("isString")
 	public boolean isString() {
 		return this.type == 's'; // L: 64
 	}

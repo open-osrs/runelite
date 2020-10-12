@@ -1,5 +1,4 @@
 import java.util.LinkedHashMap;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -50,7 +49,6 @@ public class class22 {
 		descriptor = "(S)V",
 		garbageValue = "31538"
 	)
-	@Export("Widget_runOnTargetLeave")
 	static void Widget_runOnTargetLeave() {
 		if (Client.isSpellSelected) { // L: 8116
 			Widget var0 = SecureRandomCallable.getWidgetChild(class232.selectedSpellWidget, Client.selectedSpellChildIndex); // L: 8117

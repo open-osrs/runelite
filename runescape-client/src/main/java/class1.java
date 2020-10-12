@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
@@ -9,13 +8,11 @@ final class class1 implements class0 {
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("FloorOverlayDefinition_archive")
 	public static AbstractArchive FloorOverlayDefinition_archive;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "Ldy;"
 	)
-	@Export("soundSystem")
 	static SoundSystem soundSystem;
 
 	@ObfuscatedName("z")
@@ -108,7 +105,6 @@ final class class1 implements class0 {
 		descriptor = "(CI)Z",
 		garbageValue = "2143002774"
 	)
-	@Export("isDigit")
 	public static boolean isDigit(char var0) {
 		return var0 >= '0' && var0 <= '9'; // L: 146
 	}
@@ -118,7 +114,6 @@ final class class1 implements class0 {
 		descriptor = "(Lhq;III)V",
 		garbageValue = "362928511"
 	)
-	@Export("Widget_addToMenu")
 	static final void Widget_addToMenu(Widget var0, int var1, int var2) {
 		if (var0.buttonType == 1) { // L: 9454
 			StructDefinition.insertMenuItemNoShift(var0.buttonText, "", 24, 0, 0, var0.id); // L: 9455

@@ -1,80 +1,64 @@
 import java.util.Iterator;
 import java.util.LinkedList;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ar")
-@Implements("WorldMapArea")
 public class WorldMapArea {
 	@ObfuscatedName("sk")
 	@ObfuscatedSignature(
 		descriptor = "Lmr;"
 	)
-	@Export("platformInfo")
 	static PlatformInfo platformInfo;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -2004467599
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("k")
-	@Export("internalName")
 	String internalName;
 	@ObfuscatedName("s")
-	@Export("externalName")
 	String externalName;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 173771503
 	)
-	@Export("backGroundColor")
 	int backGroundColor;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -1585723591
 	)
-	@Export("zoom")
 	int zoom;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lhg;"
 	)
-	@Export("origin")
 	Coord origin;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -2050801149
 	)
-	@Export("regionLowX")
 	int regionLowX;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = 1803706305
 	)
-	@Export("regionHighX")
 	int regionHighX;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = 2137946489
 	)
-	@Export("regionLowY")
 	int regionLowY;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = 1133866307
 	)
-	@Export("regionHighY")
 	int regionHighY;
 	@ObfuscatedName("n")
-	@Export("isMain")
 	boolean isMain;
 	@ObfuscatedName("d")
-	@Export("sections")
 	LinkedList sections;
 
 	public WorldMapArea() {
@@ -94,7 +78,6 @@ public class WorldMapArea {
 		descriptor = "(Lkf;IB)V",
 		garbageValue = "24"
 	)
-	@Export("read")
 	public void read(Buffer var1, int var2) {
 		this.id = var2; // L: 23
 		this.internalName = var1.readStringCp1252NullTerminated(); // L: 24
@@ -119,7 +102,6 @@ public class WorldMapArea {
 		descriptor = "(Lkf;B)Lay;",
 		garbageValue = "-55"
 	)
-	@Export("readWorldMapSection")
 	WorldMapSection readWorldMapSection(Buffer var1) {
 		int var2 = var1.readUnsignedByte(); // L: 40
 		WorldMapSectionType var3 = (WorldMapSectionType)TextureProvider.findEnumerated(WorldMapSectionType.method327(), var2); // L: 41
@@ -150,7 +132,6 @@ public class WorldMapArea {
 		descriptor = "(IIIB)Z",
 		garbageValue = "31"
 	)
-	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
 		Iterator var4 = this.sections.iterator(); // L: 64
 
@@ -171,7 +152,6 @@ public class WorldMapArea {
 		descriptor = "(IIB)Z",
 		garbageValue = "118"
 	)
-	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
 		int var3 = var1 / 64; // L: 76
 		int var4 = var2 / 64; // L: 77
@@ -202,7 +182,6 @@ public class WorldMapArea {
 		descriptor = "(IIII)[I",
 		garbageValue = "-1676257391"
 	)
-	@Export("position")
 	public int[] position(int var1, int var2, int var3) {
 		Iterator var4 = this.sections.iterator(); // L: 92
 
@@ -223,7 +202,6 @@ public class WorldMapArea {
 		descriptor = "(III)Lhg;",
 		garbageValue = "788821782"
 	)
-	@Export("coord")
 	public Coord coord(int var1, int var2) {
 		Iterator var3 = this.sections.iterator(); // L: 104
 
@@ -244,7 +222,6 @@ public class WorldMapArea {
 		descriptor = "(I)V",
 		garbageValue = "-1087000802"
 	)
-	@Export("setBounds")
 	void setBounds() {
 		Iterator var1 = this.sections.iterator(); // L: 116
 
@@ -260,7 +237,6 @@ public class WorldMapArea {
 		descriptor = "(I)I",
 		garbageValue = "809929326"
 	)
-	@Export("getId")
 	public int getId() {
 		return this.id; // L: 125
 	}
@@ -270,7 +246,6 @@ public class WorldMapArea {
 		descriptor = "(I)Z",
 		garbageValue = "-1492211356"
 	)
-	@Export("getIsMain")
 	public boolean getIsMain() {
 		return this.isMain; // L: 129
 	}
@@ -280,7 +255,6 @@ public class WorldMapArea {
 		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-401502532"
 	)
-	@Export("getInternalName")
 	public String getInternalName() {
 		return this.internalName; // L: 133
 	}
@@ -290,7 +264,6 @@ public class WorldMapArea {
 		descriptor = "(S)Ljava/lang/String;",
 		garbageValue = "-32528"
 	)
-	@Export("getExternalName")
 	public String getExternalName() {
 		return this.externalName; // L: 137
 	}
@@ -300,7 +273,6 @@ public class WorldMapArea {
 		descriptor = "(I)I",
 		garbageValue = "194013380"
 	)
-	@Export("getBackGroundColor")
 	int getBackGroundColor() {
 		return this.backGroundColor; // L: 141
 	}
@@ -310,7 +282,6 @@ public class WorldMapArea {
 		descriptor = "(B)I",
 		garbageValue = "24"
 	)
-	@Export("getZoom")
 	public int getZoom() {
 		return this.zoom; // L: 145
 	}
@@ -320,7 +291,6 @@ public class WorldMapArea {
 		descriptor = "(B)I",
 		garbageValue = "63"
 	)
-	@Export("getRegionLowX")
 	public int getRegionLowX() {
 		return this.regionLowX; // L: 149
 	}
@@ -330,7 +300,6 @@ public class WorldMapArea {
 		descriptor = "(I)I",
 		garbageValue = "-691462213"
 	)
-	@Export("getRegionHighX")
 	public int getRegionHighX() {
 		return this.regionHighX; // L: 153
 	}
@@ -340,7 +309,6 @@ public class WorldMapArea {
 		descriptor = "(I)I",
 		garbageValue = "-515564038"
 	)
-	@Export("getRegionLowY")
 	public int getRegionLowY() {
 		return this.regionLowY; // L: 157
 	}
@@ -350,7 +318,6 @@ public class WorldMapArea {
 		descriptor = "(I)I",
 		garbageValue = "330383709"
 	)
-	@Export("getRegionHighY")
 	public int getRegionHighY() {
 		return this.regionHighY; // L: 161
 	}
@@ -360,7 +327,6 @@ public class WorldMapArea {
 		descriptor = "(I)I",
 		garbageValue = "1099952817"
 	)
-	@Export("getOriginX")
 	public int getOriginX() {
 		return this.origin.x; // L: 165
 	}
@@ -370,7 +336,6 @@ public class WorldMapArea {
 		descriptor = "(B)I",
 		garbageValue = "8"
 	)
-	@Export("getOriginPlane")
 	public int getOriginPlane() {
 		return this.origin.plane; // L: 169
 	}
@@ -380,7 +345,6 @@ public class WorldMapArea {
 		descriptor = "(I)I",
 		garbageValue = "2050944019"
 	)
-	@Export("getOriginY")
 	public int getOriginY() {
 		return this.origin.y; // L: 173
 	}
@@ -390,7 +354,6 @@ public class WorldMapArea {
 		descriptor = "(B)Lhg;",
 		garbageValue = "0"
 	)
-	@Export("getOrigin")
 	public Coord getOrigin() {
 		return new Coord(this.origin); // L: 177
 	}

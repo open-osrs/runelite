@@ -1,82 +1,67 @@
 import java.io.IOException;
 import java.security.SecureRandom;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eb")
-@Implements("BoundaryObject")
 public final class BoundaryObject {
 	@ObfuscatedName("nf")
 	@ObfuscatedGetter(
 		intValue = 1982051309
 	)
-	@Export("widgetDragDuration")
 	static int widgetDragDuration;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
 		intValue = 1829902819
 	)
-	@Export("graphicsTickTimeIdx")
 	static int graphicsTickTimeIdx;
 	@ObfuscatedName("gc")
-	@Export("xteaKeys")
 	static int[][] xteaKeys;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = 1415372023
 	)
-	@Export("orientationA")
 	int orientationA;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -506654425
 	)
-	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1147548215
 	)
-	@Export("x")
 	int x;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 1940819727
 	)
-	@Export("y")
 	int y;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1131836163
 	)
-	@Export("orientationB")
 	int orientationB;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "Lez;"
 	)
-	@Export("entity1")
 	public Entity entity1;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lez;"
 	)
-	@Export("entity2")
 	public Entity entity2;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		longValue = 6638213269109827123L
 	)
-	@Export("tag")
 	public long tag;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = 1666155333
 	)
-	@Export("flags")
 	int flags;
 
 	BoundaryObject() {

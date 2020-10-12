@@ -1,29 +1,23 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hg")
-@Implements("Coord")
 public class Coord {
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -877871317
 	)
-	@Export("plane")
 	public int plane;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1594066417
 	)
-	@Export("x")
 	public int x;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -1889586591
 	)
-	@Export("y")
 	public int y;
 
 	@ObfuscatedSignature(
@@ -57,7 +51,6 @@ public class Coord {
 		descriptor = "(B)I",
 		garbageValue = "-78"
 	)
-	@Export("packed")
 	public int packed() {
 		return this.plane << 28 | this.x << 14 | this.y; // L: 30
 	}
@@ -67,7 +60,6 @@ public class Coord {
 		descriptor = "(Lhg;I)Z",
 		garbageValue = "24386397"
 	)
-	@Export("equalsCoord")
 	boolean equalsCoord(Coord var1) {
 		if (this.plane != var1.plane) { // L: 40
 			return false;
@@ -83,7 +75,6 @@ public class Coord {
 		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
 		garbageValue = "0"
 	)
-	@Export("toString")
 	String toString(String var1) {
 		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63); // L: 55
 	}
@@ -161,7 +152,6 @@ public class Coord {
 		descriptor = "(IIIILlp;Lhz;I)V",
 		garbageValue = "-334370993"
 	)
-	@Export("worldToMinimap")
 	static final void worldToMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
 		int var6 = var3 * var3 + var2 * var2; // L: 10644
 		if (var6 > 4225 && var6 < 90000) { // L: 10645

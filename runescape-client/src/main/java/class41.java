@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -8,7 +7,6 @@ public class class41 {
 	@ObfuscatedSignature(
 		descriptor = "Ldt;"
 	)
-	@Export("textureProvider")
 	static TextureProvider textureProvider;
 
 	@ObfuscatedName("z")
@@ -141,7 +139,6 @@ public class class41 {
 		descriptor = "(ZI)V",
 		garbageValue = "-1795227808"
 	)
-	@Export("Login_promptCredentials")
 	static void Login_promptCredentials(boolean var0) {
 		Login.Login_response1 = ""; // L: 1088
 		Login.Login_response2 = "Enter your username/email & password."; // L: 1089

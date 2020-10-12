@@ -1,21 +1,15 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eo")
-@Implements("Texture")
 public class Texture extends Node {
 	@ObfuscatedName("q")
-	@Export("Texture_animatedPixels")
 	static int[] Texture_animatedPixels;
 	@ObfuscatedName("i")
-	@Export("averageRGB")
 	int averageRGB;
 	@ObfuscatedName("o")
 	boolean field1647;
 	@ObfuscatedName("x")
-	@Export("fileIds")
 	int[] fileIds;
 	@ObfuscatedName("w")
 	int[] field1649;
@@ -24,16 +18,12 @@ public class Texture extends Node {
 	@ObfuscatedName("m")
 	int[] field1651;
 	@ObfuscatedName("n")
-	@Export("animationDirection")
 	int animationDirection;
 	@ObfuscatedName("d")
-	@Export("animationSpeed")
 	int animationSpeed;
 	@ObfuscatedName("h")
-	@Export("pixels")
 	int[] pixels;
 	@ObfuscatedName("a")
-	@Export("isLoaded")
 	boolean isLoaded;
 
 	@ObfuscatedSignature(
@@ -86,7 +76,6 @@ public class Texture extends Node {
 	@ObfuscatedSignature(
 		descriptor = "(DILic;)Z"
 	)
-	@Export("load")
 	boolean load(double var1, int var3, AbstractArchive var4) {
 		int var5;
 		for (var5 = 0; var5 < this.fileIds.length; ++var5) { // L: 53
@@ -186,13 +175,11 @@ public class Texture extends Node {
 	}
 
 	@ObfuscatedName("k")
-	@Export("reset")
 	void reset() {
 		this.pixels = null; // L: 118
 	} // L: 119
 
 	@ObfuscatedName("s")
-	@Export("animate")
 	void animate(int var1) {
 		if (this.pixels != null) { // L: 122
 			short var2;

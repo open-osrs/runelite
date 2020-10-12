@@ -1,18 +1,14 @@
 import java.awt.Component;
 import java.util.Comparator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("u")
-@Implements("GrandExchangeOfferAgeComparator")
 final class GrandExchangeOfferAgeComparator implements Comparator {
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("SequenceDefinition_skeletonsArchive")
 	public static AbstractArchive SequenceDefinition_skeletonsArchive;
 
 	@ObfuscatedName("z")
@@ -20,7 +16,6 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 		descriptor = "(Lf;Lf;B)I",
 		garbageValue = "0"
 	)
-	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
 		return var1.age < var2.age ? -1 : (var2.age == var1.age ? 0 : 1); // L: 13
 	}

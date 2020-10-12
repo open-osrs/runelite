@@ -26,6 +26,7 @@ public class AnnotationCleaner
 	public DeobTestProperties properties = new DeobTestProperties();
 
 	@Test
+	@Ignore
 	public void checkMappings() throws Exception
 	{
 		final List<String> missing = new ArrayList<>();

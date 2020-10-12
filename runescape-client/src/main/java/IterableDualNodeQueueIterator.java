@@ -1,29 +1,23 @@
 import java.util.Iterator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("je")
-@Implements("IterableDualNodeQueueIterator")
 public class IterableDualNodeQueueIterator implements Iterator {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Ljh;"
 	)
-	@Export("queue")
 	IterableDualNodeQueue queue;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lgs;"
 	)
-	@Export("head")
 	DualNode head;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lgs;"
 	)
-	@Export("last")
 	DualNode last;
 
 	@ObfuscatedSignature(

@@ -4,14 +4,11 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("df")
-@Implements("Decimator")
 public class Decimator {
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
@@ -22,16 +19,13 @@ public class Decimator {
 	@ObfuscatedGetter(
 		intValue = -1300343433
 	)
-	@Export("inputRate")
 	int inputRate;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1507874041
 	)
-	@Export("outputRate")
 	int outputRate;
 	@ObfuscatedName("o")
-	@Export("table")
 	int[][] table;
 
 	public Decimator(int var1, int var2) {
@@ -88,7 +82,6 @@ public class Decimator {
 		descriptor = "([BB)[B",
 		garbageValue = "-47"
 	)
-	@Export("resample")
 	byte[] resample(byte[] var1) {
 		if (this.table != null) {
 			int var2 = (int)((long)this.outputRate * (long)var1.length / (long)this.inputRate) + 14;
@@ -134,7 +127,6 @@ public class Decimator {
 		descriptor = "(IB)I",
 		garbageValue = "0"
 	)
-	@Export("scaleRate")
 	int scaleRate(int var1) {
 		if (this.table != null) {
 			var1 = (int)((long)this.outputRate * (long)var1 / (long)this.inputRate);
@@ -148,7 +140,6 @@ public class Decimator {
 		descriptor = "(II)I",
 		garbageValue = "-1133574944"
 	)
-	@Export("scalePosition")
 	int scalePosition(int var1) {
 		if (this.table != null) {
 			var1 = (int)((long)this.outputRate * (long)var1 / (long)this.inputRate) + 6;
@@ -162,7 +153,6 @@ public class Decimator {
 		descriptor = "(Ljava/lang/String;Ljava/lang/Throwable;B)V",
 		garbageValue = "0"
 	)
-	@Export("RunException_sendStackTrace")
 	public static void RunException_sendStackTrace(String var0, Throwable var1) {
 		if (var1 != null) {
 			var1.printStackTrace();
@@ -252,7 +242,6 @@ public class Decimator {
 		descriptor = "(I)Lct;",
 		garbageValue = "-1387826100"
 	)
-	@Export("worldListStart")
 	static World worldListStart() {
 		World.World_listCount = 0; // L: 237
 		return WorldMapEvent.getNextWorldListWorld(); // L: 238
@@ -263,7 +252,6 @@ public class Decimator {
 		descriptor = "(Ljava/lang/String;B)I",
 		garbageValue = "-65"
 	)
-	@Export("stringCp1252NullTerminatedByteSize")
 	public static int stringCp1252NullTerminatedByteSize(String var0) {
 		return var0.length() + 1; // L: 119
 	}
@@ -273,7 +261,6 @@ public class Decimator {
 		descriptor = "([Lhq;IIIIIIIII)V",
 		garbageValue = "1194287146"
 	)
-	@Export("drawInterface")
 	static final void drawInterface(Widget[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		Rasterizer2D.Rasterizer2D_setClip(var2, var3, var4, var5); // L: 8669
 		Rasterizer3D.Rasterizer3D_setClipFromRasterizer2D(); // L: 8670

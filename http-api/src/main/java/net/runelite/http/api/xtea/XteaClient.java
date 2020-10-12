@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.nio.charset.StandardCharsets;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
@@ -104,7 +105,7 @@ public class XteaClient
 		{
 			InputStream in = response.body().byteStream();
 			// CHECKSTYLE:OFF
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in), new TypeToken<HashMap<Integer, Integer[]>>() {}.getType());
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), new TypeToken<HashMap<Integer, Integer[]>>() {}.getType());
 			// CHECKSTYLE:ON
 		}
 		catch (JsonParseException ex)

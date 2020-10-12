@@ -1,17 +1,12 @@
 import java.util.Comparator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jn")
-@Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
 	@ObfuscatedName("gd")
-	@Export("regionLandArchives")
 	static byte[][] regionLandArchives;
 	@ObfuscatedName("k")
-	@Export("nextComparator")
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
@@ -22,7 +17,6 @@ public abstract class AbstractUserComparator implements Comparator {
 		descriptor = "(Ljava/util/Comparator;B)V",
 		garbageValue = "-9"
 	)
-	@Export("addComparator")
 	final void addComparator(Comparator var1) {
 		if (this.nextComparator == null) { // L: 11
 			this.nextComparator = var1; // L: 12
@@ -37,7 +31,6 @@ public abstract class AbstractUserComparator implements Comparator {
 		descriptor = "(Ljc;Ljc;I)I",
 		garbageValue = "1339061941"
 	)
-	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
 		return this.nextComparator == null ? 0 : this.nextComparator.compare(var1, var2); // L: 20 21
 	}
@@ -51,7 +44,6 @@ public abstract class AbstractUserComparator implements Comparator {
 		descriptor = "(Lic;III)Llp;",
 		garbageValue = "-2098090850"
 	)
-	@Export("SpriteBuffer_getSprite")
 	public static Sprite SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
 		byte[] var4 = var0.takeFile(var1, var2); // L: 96
 		boolean var3;
@@ -70,7 +62,6 @@ public abstract class AbstractUserComparator implements Comparator {
 		descriptor = "(Lhq;IIII)V",
 		garbageValue = "-1377715845"
 	)
-	@Export("drawMinimap")
 	static final void drawMinimap(Widget var0, int var1, int var2, int var3) {
 		RouteStrategy.playPcmPlayers(); // L: 10551
 		SpriteMask var4 = var0.getSpriteMask(false); // L: 10552

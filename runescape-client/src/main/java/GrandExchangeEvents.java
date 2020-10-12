@@ -3,32 +3,23 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("c")
-@Implements("GrandExchangeEvents")
 public class GrandExchangeEvents {
 	@ObfuscatedName("k")
-	@Export("GrandExchangeEvents_ageComparator")
 	public static Comparator GrandExchangeEvents_ageComparator;
 	@ObfuscatedName("s")
-	@Export("GrandExchangeEvents_priceComparator")
 	public static Comparator GrandExchangeEvents_priceComparator;
 	@ObfuscatedName("t")
-	@Export("GrandExchangeEvents_nameComparator")
 	public static Comparator GrandExchangeEvents_nameComparator;
 	@ObfuscatedName("i")
-	@Export("GrandExchangeEvents_quantityComparator")
 	public static Comparator GrandExchangeEvents_quantityComparator;
 	@ObfuscatedName("ga")
-	@Export("regionMapArchiveIds")
 	static int[] regionMapArchiveIds;
 	@ObfuscatedName("z")
-	@Export("events")
 	public final List events;
 
 	static {
@@ -67,7 +58,6 @@ public class GrandExchangeEvents {
 		descriptor = "(Ljava/util/Comparator;ZS)V",
 		garbageValue = "6265"
 	)
-	@Export("sort")
 	public void sort(Comparator var1, boolean var2) {
 		if (var2) { // L: 95
 			Collections.sort(this.events, var1); // L: 96
@@ -284,7 +274,6 @@ public class GrandExchangeEvents {
 		descriptor = "(Ljx;IIII)V",
 		garbageValue = "1036487158"
 	)
-	@Export("addNpcToMenu")
 	static final void addNpcToMenu(NPCDefinition var0, int var1, int var2, int var3) {
 		if (Client.menuOptionsCount < 400) { // L: 8457
 			if (var0.transforms != null) { // L: 8458
@@ -419,7 +408,6 @@ public class GrandExchangeEvents {
 		descriptor = "(ZI)V",
 		garbageValue = "-775294286"
 	)
-	@Export("setTapToDrop")
 	static void setTapToDrop(boolean var0) {
 		Client.tapToDrop = var0; // L: 9631
 	} // L: 9632

@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
@@ -10,7 +9,6 @@ public class class280 {
 		descriptor = "(Lby;II)V",
 		garbageValue = "1050583706"
 	)
-	@Export("runScript")
 	static void runScript(ScriptEvent var0, int var1) {
 		Object[] var2 = var0.args; // L: 101
 		Script var3;
@@ -327,7 +325,6 @@ public class class280 {
 		descriptor = "(Ljava/lang/String;ZZI)V",
 		garbageValue = "-1343804215"
 	)
-	@Export("openURL")
 	public static void openURL(String var0, boolean var1, boolean var2) {
 		WorldMapData_0.method255(var0, var1, "openjs", var2); // L: 27
 	} // L: 28

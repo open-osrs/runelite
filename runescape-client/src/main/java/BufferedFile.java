@@ -1,73 +1,59 @@
 import java.io.EOFException;
 import java.io.IOException;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("mz")
-@Implements("BufferedFile")
 public class BufferedFile {
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lmy;"
 	)
-	@Export("accessFile")
 	AccessFile accessFile;
 	@ObfuscatedName("s")
-	@Export("readBuffer")
 	byte[] readBuffer;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		longValue = 9179108447436471203L
 	)
-	@Export("readBufferOffset")
 	long readBufferOffset;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 405113093
 	)
-	@Export("readBufferLength")
 	int readBufferLength;
 	@ObfuscatedName("o")
-	@Export("writeBuffer")
 	byte[] writeBuffer;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		longValue = -2663227867343054731L
 	)
-	@Export("writeBufferOffset")
 	long writeBufferOffset;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -44681909
 	)
-	@Export("writeBufferLength")
 	int writeBufferLength;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		longValue = 8904526348477535207L
 	)
-	@Export("offset")
 	long offset;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		longValue = 3315460692689798849L
 	)
-	@Export("fileLength")
 	long fileLength;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		longValue = -7074391582166578327L
 	)
-	@Export("length")
 	long length;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
 		longValue = 8487172473192178189L
 	)
-	@Export("fileOffset")
 	long fileOffset;
 
 	@ObfuscatedSignature(
@@ -89,14 +75,12 @@ public class BufferedFile {
 		descriptor = "(B)V",
 		garbageValue = "-33"
 	)
-	@Export("close")
 	public void close() throws IOException {
 		this.flush(); // L: 28
 		this.accessFile.close(); // L: 29
 	} // L: 30
 
 	@ObfuscatedName("k")
-	@Export("seek")
 	public void seek(long var1) throws IOException {
 		if (var1 < 0L) { // L: 33
 			throw new IOException("");
@@ -110,7 +94,6 @@ public class BufferedFile {
 		descriptor = "(I)J",
 		garbageValue = "-1539100429"
 	)
-	@Export("length")
 	public long length() {
 		return this.length; // L: 38
 	}
@@ -120,7 +103,6 @@ public class BufferedFile {
 		descriptor = "([BI)V",
 		garbageValue = "-1457343734"
 	)
-	@Export("readFully")
 	public void readFully(byte[] var1) throws IOException {
 		this.read(var1, 0, var1.length); // L: 42
 	} // L: 43
@@ -130,7 +112,6 @@ public class BufferedFile {
 		descriptor = "([BIII)V",
 		garbageValue = "779663490"
 	)
-	@Export("read")
 	public void read(byte[] var1, int var2, int var3) throws IOException {
 		try {
 			if (var3 + var2 > var1.length) { // L: 47
@@ -236,7 +217,6 @@ public class BufferedFile {
 		descriptor = "(I)V",
 		garbageValue = "1341738722"
 	)
-	@Export("load")
 	void load() throws IOException {
 		this.readBufferLength = 0; // L: 128
 		if (this.offset != this.fileOffset) { // L: 129
@@ -266,7 +246,6 @@ public class BufferedFile {
 		descriptor = "([BIII)V",
 		garbageValue = "329860365"
 	)
-	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
 		try {
 			if ((long)var3 + this.offset > this.length) { // L: 146
@@ -344,7 +323,6 @@ public class BufferedFile {
 		descriptor = "(I)V",
 		garbageValue = "-236075933"
 	)
-	@Export("flush")
 	void flush() throws IOException {
 		if (-1L != this.writeBufferOffset) { // L: 203
 			if (this.fileOffset != this.writeBufferOffset) { // L: 204

@@ -1,16 +1,12 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dh")
-@Implements("PcmStreamMixer")
 public class PcmStreamMixer extends PcmStream {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lji;"
 	)
-	@Export("subStreams")
 	NodeDeque subStreams;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
@@ -33,7 +29,6 @@ public class PcmStreamMixer extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "(Ldc;)V"
 	)
-	@Export("addSubStream")
 	public final synchronized void addSubStream(PcmStream var1) {
 		this.subStreams.addLast(var1); // L: 15
 	} // L: 16
@@ -42,7 +37,6 @@ public class PcmStreamMixer extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "(Ldc;)V"
 	)
-	@Export("removeSubStream")
 	public final synchronized void removeSubStream(PcmStream var1) {
 		var1.remove(); // L: 19
 	} // L: 20
@@ -93,7 +87,6 @@ public class PcmStreamMixer extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "()Ldc;"
 	)
-	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
 		return (PcmStream)this.subStreams.last(); // L: 47
 	}
@@ -102,7 +95,6 @@ public class PcmStreamMixer extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "()Ldc;"
 	)
-	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
 		return (PcmStream)this.subStreams.previous(); // L: 51
 	}
@@ -113,7 +105,6 @@ public class PcmStreamMixer extends PcmStream {
 	}
 
 	@ObfuscatedName("g")
-	@Export("fill")
 	public final synchronized void fill(int[] var1, int var2, int var3) {
 		do {
 			if (this.field1368 < 0) { // L: 60
@@ -149,7 +140,6 @@ public class PcmStreamMixer extends PcmStream {
 	}
 
 	@ObfuscatedName("m")
-	@Export("updateSubStreams")
 	void updateSubStreams(int[] var1, int var2, int var3) {
 		for (PcmStream var4 = (PcmStream)this.subStreams.last(); var4 != null; var4 = (PcmStream)this.subStreams.previous()) { // L: 92
 			var4.update(var1, var2, var3); // L: 93
@@ -158,7 +148,6 @@ public class PcmStreamMixer extends PcmStream {
 	} // L: 95
 
 	@ObfuscatedName("n")
-	@Export("skip")
 	public final synchronized void skip(int var1) {
 		do {
 			if (this.field1368 < 0) { // L: 99
@@ -193,7 +182,6 @@ public class PcmStreamMixer extends PcmStream {
 	}
 
 	@ObfuscatedName("d")
-	@Export("skipSubStreams")
 	void skipSubStreams(int var1) {
 		for (PcmStream var2 = (PcmStream)this.subStreams.last(); var2 != null; var2 = (PcmStream)this.subStreams.previous()) { // L: 130
 			var2.skip(var1); // L: 131

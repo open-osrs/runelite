@@ -446,6 +446,7 @@ public class WidgetID
 		static final int TOGGLE_RUN_ORB = 22; // Has the "Toggle run" name
 		static final int RUN_ORB_TEXT = 23;
 		static final int SPEC_ORB = 28;
+		static final int SPEC_CLICKBOX = 30;
 		static final int WORLDMAP_ORB = 41;
 		static final int WIKI_BANNER = 43;
 	}
@@ -683,6 +684,7 @@ public class WidgetID
 		static final int SPELL_TEXT = 29;
 		static final int AUTO_RETALIATE = 30;
 		static final int SPECIAL_ATTACK_BAR = 34;
+		static final int SPECIAL_ATTACK_CLICKBOX = 36;
 		static final int TOOLTIP = 41;
 	}
 
@@ -1354,7 +1356,7 @@ public class WidgetID
 
 	static class GenericScroll
 	{
-		static final int TEXT = 6;
+		static final int TEXT = 7;
 	}
 
 	static class GauntletTimer

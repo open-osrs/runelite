@@ -1,5 +1,4 @@
 import java.math.BigInteger;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -10,7 +9,6 @@ public class class92 {
 	@ObfuscatedName("k")
 	static final BigInteger field1187;
 	@ObfuscatedName("g")
-	@Export("SpriteBuffer_pixels")
 	static byte[][] SpriteBuffer_pixels;
 
 	static {

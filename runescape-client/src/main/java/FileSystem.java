@@ -1,13 +1,10 @@
 import java.io.File;
 import java.util.Hashtable;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fw")
-@Implements("FileSystem")
 public class FileSystem {
 	@ObfuscatedName("rt")
 	@ObfuscatedGetter(
@@ -15,13 +12,10 @@ public class FileSystem {
 	)
 	static int field2099;
 	@ObfuscatedName("z")
-	@Export("FileSystem_hasPermissions")
 	static boolean FileSystem_hasPermissions;
 	@ObfuscatedName("k")
-	@Export("FileSystem_cacheDir")
 	static File FileSystem_cacheDir;
 	@ObfuscatedName("s")
-	@Export("FileSystem_cacheFiles")
 	static Hashtable FileSystem_cacheFiles;
 
 	static {
@@ -34,7 +28,6 @@ public class FileSystem {
 		descriptor = "(Lky;IB)Z",
 		garbageValue = "1"
 	)
-	@Export("updateExternalPlayer")
 	static boolean updateExternalPlayer(PacketBuffer var0, int var1) {
 		int var2 = var0.readBits(2); // L: 368
 		int var3;

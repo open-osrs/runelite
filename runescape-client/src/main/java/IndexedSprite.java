@@ -1,40 +1,28 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
 @ObfuscatedName("ls")
-@Implements("IndexedSprite")
 public final class IndexedSprite extends Rasterizer2D {
 	@ObfuscatedName("z")
-	@Export("pixels")
 	public byte[] pixels;
 	@ObfuscatedName("k")
-	@Export("palette")
 	public int[] palette;
 	@ObfuscatedName("s")
-	@Export("subWidth")
 	public int subWidth;
 	@ObfuscatedName("t")
-	@Export("subHeight")
 	public int subHeight;
 	@ObfuscatedName("i")
-	@Export("xOffset")
 	public int xOffset;
 	@ObfuscatedName("o")
-	@Export("yOffset")
 	public int yOffset;
 	@ObfuscatedName("x")
-	@Export("width")
 	public int width;
 	@ObfuscatedName("w")
-	@Export("height")
 	public int height;
 
 	IndexedSprite() {
 	} // L: 15
 
 	@ObfuscatedName("z")
-	@Export("normalize")
 	public void normalize() {
 		if (this.subWidth != this.width || this.subHeight != this.height) { // L: 18
 			byte[] var1 = new byte[this.width * this.height]; // L: 19
@@ -55,7 +43,6 @@ public final class IndexedSprite extends Rasterizer2D {
 	} // L: 31
 
 	@ObfuscatedName("k")
-	@Export("shiftColors")
 	public void shiftColors(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.palette.length; ++var4) { // L: 34
 			int var5 = this.palette[var4] >> 16 & 255; // L: 35
@@ -88,7 +75,6 @@ public final class IndexedSprite extends Rasterizer2D {
 	} // L: 49
 
 	@ObfuscatedName("s")
-	@Export("drawAt")
 	public void drawAt(int var1, int var2) {
 		var1 += this.xOffset; // L: 52
 		var2 += this.yOffset; // L: 53
@@ -196,7 +182,6 @@ public final class IndexedSprite extends Rasterizer2D {
 	} // L: 158
 
 	@ObfuscatedName("t")
-	@Export("IndexedSprite_two")
 	static void IndexedSprite_two(int[] var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		int var9 = -(var5 >> 2); // L: 88
 		var5 = -(var5 & 3); // L: 89
@@ -250,7 +235,6 @@ public final class IndexedSprite extends Rasterizer2D {
 	} // L: 113
 
 	@ObfuscatedName("o")
-	@Export("IndexedSprite_something")
 	static void IndexedSprite_something(int[] var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11) {
 		int var12 = var3; // L: 161
 

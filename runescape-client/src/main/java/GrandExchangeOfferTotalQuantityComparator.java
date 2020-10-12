@@ -1,17 +1,13 @@
 import java.util.Comparator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("y")
-@Implements("GrandExchangeOfferTotalQuantityComparator")
 final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("runesSprite")
 	static IndexedSprite[] runesSprite;
 	@ObfuscatedName("g")
 	public static short[] field83;
@@ -21,7 +17,6 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 		descriptor = "(Lf;Lf;I)I",
 		garbageValue = "1171850991"
 	)
-	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
 		return var1.grandExchangeOffer.totalQuantity < var2.grandExchangeOffer.totalQuantity ? -1 : (var2.grandExchangeOffer.totalQuantity == var1.grandExchangeOffer.totalQuantity ? 0 : 1); // L: 69
 	}
@@ -68,7 +63,6 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 		descriptor = "(IB)Ljq;",
 		garbageValue = "5"
 	)
-	@Export("ItemDefinition_get")
 	public static ItemDefinition ItemDefinition_get(int var0) {
 		ItemDefinition var1 = (ItemDefinition)ItemDefinition.ItemDefinition_cached.get((long)var0); // L: 92
 		if (var1 != null) { // L: 93
@@ -125,7 +119,6 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	}
 
 	@ObfuscatedName("k")
-	@Export("base37DecodeLong")
 	public static String base37DecodeLong(long var0) {
 		if (var0 > 0L && var0 < 6582952005840035281L) { // L: 34
 			if (var0 % 37L == 0L) { // L: 35
@@ -175,7 +168,6 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 		descriptor = "(II)I",
 		garbageValue = "2133866985"
 	)
-	@Export("Widget_unpackTargetMask")
 	public static int Widget_unpackTargetMask(int var0) {
 		return var0 >> 11 & 63; // L: 17
 	}
@@ -185,7 +177,6 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 		descriptor = "(Ljava/lang/CharSequence;I)I",
 		garbageValue = "1811677104"
 	)
-	@Export("parseInt")
 	public static int parseInt(CharSequence var0) {
 		return UserComparator7.parseIntCustomRadix(var0, 10, true); // L: 67
 	}

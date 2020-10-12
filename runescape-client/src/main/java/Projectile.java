@@ -1,134 +1,106 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cp")
-@Implements("Projectile")
 public final class Projectile extends Entity {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -1675813545
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -1633530883
 	)
-	@Export("plane")
 	int plane;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -1241662831
 	)
-	@Export("sourceX")
 	int sourceX;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 674628417
 	)
-	@Export("sourceY")
 	int sourceY;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -1517344079
 	)
-	@Export("sourceZ")
 	int sourceZ;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -1565729659
 	)
-	@Export("endHeight")
 	int endHeight;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = 287551571
 	)
-	@Export("cycleStart")
 	int cycleStart;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -23705649
 	)
-	@Export("cycleEnd")
 	int cycleEnd;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
 		intValue = -1941838325
 	)
-	@Export("slope")
 	int slope;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
 		intValue = -1921562263
 	)
-	@Export("startHeight")
 	int startHeight;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = 1380116723
 	)
-	@Export("targetIndex")
 	int targetIndex;
 	@ObfuscatedName("d")
-	@Export("isMoving")
 	boolean isMoving;
 	@ObfuscatedName("h")
-	@Export("x")
 	double x;
 	@ObfuscatedName("a")
-	@Export("y")
 	double y;
 	@ObfuscatedName("q")
-	@Export("z")
 	double z;
 	@ObfuscatedName("c")
-	@Export("speedX")
 	double speedX;
 	@ObfuscatedName("f")
-	@Export("speedY")
 	double speedY;
 	@ObfuscatedName("y")
-	@Export("speed")
 	double speed;
 	@ObfuscatedName("v")
-	@Export("speedZ")
 	double speedZ;
 	@ObfuscatedName("j")
-	@Export("accelerationZ")
 	double accelerationZ;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
 		intValue = -2137407611
 	)
-	@Export("yaw")
 	int yaw;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
 		intValue = -2024563433
 	)
-	@Export("pitch")
 	int pitch;
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "Ljm;"
 	)
-	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
 		intValue = 1681921945
 	)
-	@Export("frame")
 	int frame;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
 		intValue = 1329964451
 	)
-	@Export("frameCycle")
 	int frameCycle;
 
 	Projectile(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11) {
@@ -161,7 +133,6 @@ public final class Projectile extends Entity {
 		descriptor = "(IIIIB)V",
 		garbageValue = "81"
 	)
-	@Export("setDestination")
 	final void setDestination(int var1, int var2, int var3, int var4) {
 		double var5;
 		if (!this.isMoving) { // L: 54
@@ -189,7 +160,6 @@ public final class Projectile extends Entity {
 		descriptor = "(IB)V",
 		garbageValue = "-28"
 	)
-	@Export("advance")
 	final void advance(int var1) {
 		this.isMoving = true; // L: 71
 		this.x += this.speedX * (double)var1; // L: 72
@@ -225,7 +195,6 @@ public final class Projectile extends Entity {
 		descriptor = "(I)Ler;",
 		garbageValue = "-2026237468"
 	)
-	@Export("getModel")
 	protected final Model getModel() {
 		SpotAnimationDefinition var1 = Tiles.SpotAnimationDefinition_get(this.id); // L: 92
 		Model var2 = var1.getModel(this.frame); // L: 93
@@ -242,7 +211,6 @@ public final class Projectile extends Entity {
 		descriptor = "([Lhq;II)V",
 		garbageValue = "-823007916"
 	)
-	@Export("drawModelComponents")
 	static final void drawModelComponents(Widget[] var0, int var1) {
 		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 10302
 			Widget var3 = var0[var2]; // L: 10303

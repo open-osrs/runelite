@@ -3,113 +3,91 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ai")
-@Implements("WorldMapManager")
 public final class WorldMapManager {
 	@ObfuscatedName("qs")
 	@ObfuscatedSignature(
 		descriptor = "Ldr;"
 	)
-	@Export("pcmPlayer0")
 	static PcmPlayer pcmPlayer0;
 	@ObfuscatedName("ft")
 	@ObfuscatedGetter(
 		intValue = 1798679755
 	)
-	@Export("baseX")
 	static int baseX;
 	@ObfuscatedName("lz")
 	@ObfuscatedGetter(
 		intValue = 495693627
 	)
-	@Export("menuHeight")
 	static int menuHeight;
 	@ObfuscatedName("z")
-	@Export("loaded")
 	boolean loaded;
 	@ObfuscatedName("k")
-	@Export("loadStarted")
 	boolean loadStarted;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Laj;"
 	)
-	@Export("mapAreaData")
 	WorldMapAreaData mapAreaData;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Llp;"
 	)
-	@Export("compositeTextureSprite")
 	Sprite compositeTextureSprite;
 	@ObfuscatedName("i")
-	@Export("icons")
 	HashMap icons;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "[[Lal;"
 	)
-	@Export("regions")
 	WorldMapRegion[][] regions;
 	@ObfuscatedName("x")
-	@Export("scaleHandlers")
 	HashMap scaleHandlers;
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("mapSceneSprites")
 	IndexedSprite[] mapSceneSprites;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("geographyArchive")
 	final AbstractArchive geographyArchive;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("groundArchive")
 	final AbstractArchive groundArchive;
 	@ObfuscatedName("n")
-	@Export("fonts")
 	final HashMap fonts;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
 		intValue = -822250353
 	)
-	@Export("tileX")
 	int tileX;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = 47788579
 	)
-	@Export("tileY")
 	int tileY;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
 		intValue = -1367840659
 	)
-	@Export("tileWidth")
 	int tileWidth;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
 		intValue = -989936121
 	)
-	@Export("tileHeight")
 	int tileHeight;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
 		intValue = -1477799013
 	)
-	@Export("pixelsPerTile")
 	public int pixelsPerTile;
 
 	@ObfuscatedSignature(
@@ -131,7 +109,6 @@ public final class WorldMapManager {
 		descriptor = "(Lic;Ljava/lang/String;ZI)V",
 		garbageValue = "1563820048"
 	)
-	@Export("load")
 	public void load(AbstractArchive var1, String var2, boolean var3) {
 		if (!this.loadStarted) { // L: 41
 			this.loaded = false; // L: 44
@@ -204,7 +181,6 @@ public final class WorldMapManager {
 		descriptor = "(I)V",
 		garbageValue = "-1887133174"
 	)
-	@Export("clearIcons")
 	public final void clearIcons() {
 		this.icons = null; // L: 105
 	} // L: 106
@@ -214,7 +190,6 @@ public final class WorldMapManager {
 		descriptor = "(IIIIIIIIB)V",
 		garbageValue = "-33"
 	)
-	@Export("drawTiles")
 	public final void drawTiles(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		int[] var9 = Rasterizer2D.Rasterizer2D_pixels; // L: 109
 		int var10 = Rasterizer2D.Rasterizer2D_width; // L: 110
@@ -261,7 +236,6 @@ public final class WorldMapManager {
 		descriptor = "(IIIIIIIILjava/util/HashSet;Ljava/util/HashSet;IIZB)V",
 		garbageValue = "84"
 	)
-	@Export("drawElements")
 	public final void drawElements(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, HashSet var9, HashSet var10, int var11, int var12, boolean var13) {
 		WorldMapRectangle var14 = this.createWorldMapRectangle(var1, var2, var3, var4); // L: 143
 		float var15 = this.getPixelsPerTile(var7 - var5, var3 - var1); // L: 144
@@ -296,7 +270,6 @@ public final class WorldMapManager {
 		descriptor = "(IIIILjava/util/HashSet;III)V",
 		garbageValue = "-1439979069"
 	)
-	@Export("drawOverview")
 	public void drawOverview(int var1, int var2, int var3, int var4, HashSet var5, int var6, int var7) {
 		if (this.compositeTextureSprite != null) { // L: 166
 			this.compositeTextureSprite.drawScaledAt(var1, var2, var3, var4); // L: 169
@@ -365,7 +338,6 @@ public final class WorldMapManager {
 		descriptor = "(IIIII)Lam;",
 		garbageValue = "1560413650"
 	)
-	@Export("createWorldMapRectangle")
 	WorldMapRectangle createWorldMapRectangle(int var1, int var2, int var3, int var4) {
 		WorldMapRectangle var5 = new WorldMapRectangle(this); // L: 217
 		int var6 = this.tileX + var1; // L: 218
@@ -408,7 +380,6 @@ public final class WorldMapManager {
 		descriptor = "(B)Z",
 		garbageValue = "0"
 	)
-	@Export("isLoaded")
 	public boolean isLoaded() {
 		return this.loaded; // L: 250
 	}
@@ -418,7 +389,6 @@ public final class WorldMapManager {
 		descriptor = "(I)Ljava/util/HashMap;",
 		garbageValue = "-391367086"
 	)
-	@Export("buildIcons")
 	public HashMap buildIcons() {
 		this.buildIcons0(); // L: 254
 		return this.icons; // L: 255
@@ -429,7 +399,6 @@ public final class WorldMapManager {
 		descriptor = "(I)V",
 		garbageValue = "2109869337"
 	)
-	@Export("buildIcons0")
 	void buildIcons0() {
 		if (this.icons == null) { // L: 259
 			this.icons = new HashMap(); // L: 260
@@ -466,7 +435,6 @@ public final class WorldMapManager {
 		descriptor = "(III)F",
 		garbageValue = "-1667086517"
 	)
-	@Export("getPixelsPerTile")
 	float getPixelsPerTile(int var1, int var2) {
 		float var3 = (float)var1 / (float)var2; // L: 287
 		if (var3 > 8.0F) { // L: 288

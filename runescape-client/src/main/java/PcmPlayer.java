@@ -1,12 +1,9 @@
 import java.util.concurrent.ScheduledExecutorService;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dr")
-@Implements("PcmPlayer")
 public class PcmPlayer {
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
@@ -14,10 +11,8 @@ public class PcmPlayer {
 	)
 	public static int field1447;
 	@ObfuscatedName("o")
-	@Export("PcmPlayer_stereo")
 	protected static boolean PcmPlayer_stereo;
 	@ObfuscatedName("w")
-	@Export("soundSystemExecutor")
 	static ScheduledExecutorService soundSystemExecutor;
 	@ObfuscatedName("fb")
 	@ObfuscatedGetter(
@@ -25,13 +20,11 @@ public class PcmPlayer {
 	)
 	static long field1430;
 	@ObfuscatedName("a")
-	@Export("samples")
 	protected int[] samples;
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "Ldc;"
 	)
-	@Export("stream")
 	PcmStream stream;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
@@ -42,13 +35,11 @@ public class PcmPlayer {
 	@ObfuscatedGetter(
 		longValue = -2930435928401446917L
 	)
-	@Export("timeMs")
 	long timeMs;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
 		intValue = -149687327
 	)
-	@Export("capacity")
 	int capacity;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
@@ -122,7 +113,6 @@ public class PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "-841767260"
 	)
-	@Export("init")
 	protected void init() throws Exception {
 	} // L: 280
 
@@ -131,7 +121,6 @@ public class PcmPlayer {
 		descriptor = "(IB)V",
 		garbageValue = "-120"
 	)
-	@Export("open")
 	protected void open(int var1) throws Exception {
 	} // L: 281
 
@@ -140,13 +129,11 @@ public class PcmPlayer {
 		descriptor = "(B)I",
 		garbageValue = "106"
 	)
-	@Export("position")
 	protected int position() throws Exception {
 		return this.capacity; // L: 284
 	}
 
 	@ObfuscatedName("t")
-	@Export("write")
 	protected void write() throws Exception {
 	} // L: 287
 
@@ -155,7 +142,6 @@ public class PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "667465439"
 	)
-	@Export("close")
 	protected void close() {
 	} // L: 288
 
@@ -164,7 +150,6 @@ public class PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "-2027971398"
 	)
-	@Export("discard")
 	protected void discard() throws Exception {
 	} // L: 289
 
@@ -173,7 +158,6 @@ public class PcmPlayer {
 		descriptor = "(Ldc;I)V",
 		garbageValue = "35825022"
 	)
-	@Export("setStream")
 	public final synchronized void setStream(PcmStream var1) {
 		this.stream = var1; // L: 79
 	} // L: 80
@@ -183,7 +167,6 @@ public class PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "-1677504744"
 	)
-	@Export("run")
 	public final synchronized void run() {
 		if (this.samples != null) { // L: 83
 			long var1 = PacketWriter.currentTimeMillis(); // L: 84
@@ -285,7 +268,6 @@ public class PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "30633041"
 	)
-	@Export("tryDiscard")
 	public final synchronized void tryDiscard() {
 		this.field1445 = true; // L: 150
 
@@ -303,7 +285,6 @@ public class PcmPlayer {
 		descriptor = "(I)V",
 		garbageValue = "2048322330"
 	)
-	@Export("shutdown")
 	public final synchronized void shutdown() {
 		if (class1.soundSystem != null) { // L: 161
 			boolean var1 = true; // L: 162
@@ -334,7 +315,6 @@ public class PcmPlayer {
 		descriptor = "(II)V",
 		garbageValue = "2014217671"
 	)
-	@Export("skip")
 	final void skip(int var1) {
 		this.field1441 -= var1; // L: 178
 		if (this.field1441 < 0) {
@@ -348,7 +328,6 @@ public class PcmPlayer {
 	} // L: 181
 
 	@ObfuscatedName("au")
-	@Export("fill")
 	final void fill(int[] var1, int var2) {
 		int var3 = var2; // L: 185
 		if (PcmPlayer_stereo) { // L: 186

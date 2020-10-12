@@ -1,35 +1,27 @@
 import java.util.Iterator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lq")
-@Implements("IterableNodeHashTable")
 public final class IterableNodeHashTable implements Iterable {
 	@ObfuscatedName("z")
-	@Export("size")
 	int size;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "[Lgw;"
 	)
-	@Export("buckets")
 	Node[] buckets;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("currentGet")
 	Node currentGet;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lgw;"
 	)
-	@Export("current")
 	Node current;
 	@ObfuscatedName("i")
-	@Export("index")
 	int index;
 
 	public IterableNodeHashTable(int var1) {
@@ -49,7 +41,6 @@ public final class IterableNodeHashTable implements Iterable {
 	@ObfuscatedSignature(
 		descriptor = "(J)Lgw;"
 	)
-	@Export("get")
 	public Node get(long var1) {
 		Node var3 = this.buckets[(int)(var1 & (long)(this.size - 1))]; // L: 24
 
@@ -69,7 +60,6 @@ public final class IterableNodeHashTable implements Iterable {
 	@ObfuscatedSignature(
 		descriptor = "(Lgw;J)V"
 	)
-	@Export("put")
 	public void put(Node var1, long var2) {
 		if (var1.next != null) { // L: 39
 			var1.remove();
@@ -84,7 +74,6 @@ public final class IterableNodeHashTable implements Iterable {
 	} // L: 46
 
 	@ObfuscatedName("s")
-	@Export("clear")
 	public void clear() {
 		for (int var1 = 0; var1 < this.size; ++var1) { // L: 49
 			Node var2 = this.buckets[var1]; // L: 50
@@ -107,7 +96,6 @@ public final class IterableNodeHashTable implements Iterable {
 	@ObfuscatedSignature(
 		descriptor = "()Lgw;"
 	)
-	@Export("first")
 	public Node first() {
 		this.index = 0; // L: 62
 		return this.next(); // L: 63
@@ -117,7 +105,6 @@ public final class IterableNodeHashTable implements Iterable {
 	@ObfuscatedSignature(
 		descriptor = "()Lgw;"
 	)
-	@Export("next")
 	public Node next() {
 		Node var1;
 		if (this.index > 0 && this.buckets[this.index - 1] != this.current) { // L: 67

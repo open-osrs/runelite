@@ -1,62 +1,49 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cy")
-@Implements("Script")
 public class Script extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("Script_cached")
 	static EvictingDualNodeHashTable Script_cached;
 	@ObfuscatedName("iz")
 	@ObfuscatedGetter(
 		intValue = 1391677451
 	)
-	@Export("selectedItemId")
 	static int selectedItemId;
 	@ObfuscatedName("k")
-	@Export("opcodes")
 	int[] opcodes;
 	@ObfuscatedName("s")
-	@Export("intOperands")
 	int[] intOperands;
 	@ObfuscatedName("t")
-	@Export("stringOperands")
 	String[] stringOperands;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = 1204485325
 	)
-	@Export("localIntCount")
 	int localIntCount;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 1685131019
 	)
-	@Export("localStringCount")
 	int localStringCount;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = 1488258005
 	)
-	@Export("intArgumentCount")
 	int intArgumentCount;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = 395196509
 	)
-	@Export("stringArgumentCount")
 	int stringArgumentCount;
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "[Llq;"
 	)
-	@Export("switches")
 	IterableNodeHashTable[] switches;
 
 	static {
@@ -71,7 +58,6 @@ public class Script extends DualNode {
 		descriptor = "(II)[Llq;",
 		garbageValue = "-502401324"
 	)
-	@Export("newIterableNodeHashTable")
 	IterableNodeHashTable[] newIterableNodeHashTable(int var1) {
 		return new IterableNodeHashTable[var1]; // L: 153
 	}
@@ -81,7 +67,6 @@ public class Script extends DualNode {
 		descriptor = "(Lby;B)V",
 		garbageValue = "-76"
 	)
-	@Export("runScriptEvent")
 	public static void runScriptEvent(ScriptEvent var0) {
 		class280.runScript(var0, 500000); // L: 97
 	}

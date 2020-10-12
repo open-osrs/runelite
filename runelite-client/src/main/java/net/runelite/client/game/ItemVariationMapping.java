@@ -28,23 +28,54 @@ package net.runelite.client.game;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.google.gson.stream.JsonReader;
-import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Converts variation items to it's base item counterparts
  */
-@Slf4j
 public class ItemVariationMapping
 {
-	private static Map<Integer, Integer> MAPPINGS;
-	private static Multimap<Integer, Integer> INVERTED_MAPPINGS;
+	private static final Map<Integer, Integer> MAPPINGS;
+	private static final Multimap<Integer, Integer> INVERTED_MAPPINGS;
+
+	static
+	{
+		final Gson gson = new Gson();
+		final TypeToken<Map<String, Collection<Integer>>> typeToken = new TypeToken<Map<String, Collection<Integer>>>()
+		{
+		};
+
+		final InputStream geLimitData = ItemVariationMapping.class.getResourceAsStream("/item_variations.json");
+		final Map<String, Collection<Integer>> itemVariations = gson.fromJson(new InputStreamReader(geLimitData, StandardCharsets.UTF_8), typeToken.getType());
+
+		ImmutableMap.Builder<Integer, Integer> builder = new ImmutableMap.Builder<>();
+		ImmutableMultimap.Builder<Integer, Integer> invertedBuilder = new ImmutableMultimap.Builder<>();
+		for (Collection<Integer> value : itemVariations.values())
+		{
+			final Iterator<Integer> iterator = value.iterator();
+			final int base = iterator.next();
+
+			while (iterator.hasNext())
+			{
+				final int id = iterator.next();
+				builder.put(id, base);
+				invertedBuilder.put(base, id);
+			}
+
+			invertedBuilder.put(base, base);
+		}
+
+		INVERTED_MAPPINGS = invertedBuilder.build();
+		MAPPINGS = builder.build();
+	}
 
 	/**
 	 * Get base item id for provided variation item id.
@@ -66,41 +97,6 @@ public class ItemVariationMapping
 	public static Collection<Integer> getVariations(int itemId)
 	{
 		return INVERTED_MAPPINGS.asMap().getOrDefault(itemId, Collections.singletonList(itemId));
-	}
-
-	public static void load() throws IOException
-	{
-		try (JsonReader reader = new JsonReader(new InputStreamReader(ItemVariationMapping.class.getResourceAsStream("/item_variations.min.json"), StandardCharsets.UTF_8)))
-		{
-			ImmutableMap.Builder<Integer, Integer> builder = ImmutableMap.builderWithExpectedSize(5039);
-			ImmutableMultimap.Builder<Integer, Integer> invertedBuilder = new ImmutableMultimap.Builder<>();
-			reader.beginObject();
-
-			while (reader.hasNext())
-			{
-				// Names are useless
-				reader.skipValue();
-				reader.beginArray();
-
-				int base = reader.nextInt();
-				while (reader.hasNext())
-				{
-					final int id = reader.nextInt();
-
-					builder.put(id, base);
-					invertedBuilder.put(base, id);
-				}
-
-				invertedBuilder.put(base, base);
-
-				reader.endArray();
-			}
-
-			reader.endObject();
-
-			INVERTED_MAPPINGS = invertedBuilder.build();
-			MAPPINGS = builder.build();
-		}
 	}
 
 	static int getSize()

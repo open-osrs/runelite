@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bo")
-@Implements("MouseRecorder")
 public class MouseRecorder implements Runnable {
 	@ObfuscatedName("rc")
 	@ObfuscatedGetter(
@@ -16,34 +13,26 @@ public class MouseRecorder implements Runnable {
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive18")
 	static Archive archive18;
 	@ObfuscatedName("fc")
 	@ObfuscatedSignature(
 		descriptor = "Lfl;"
 	)
-	@Export("socketTask")
 	static Task socketTask;
 	@ObfuscatedName("z")
-	@Export("isRunning")
 	boolean isRunning;
 	@ObfuscatedName("k")
-	@Export("lock")
 	Object lock;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -587598223
 	)
-	@Export("index")
 	int index;
 	@ObfuscatedName("t")
-	@Export("xs")
 	int[] xs;
 	@ObfuscatedName("i")
-	@Export("ys")
 	int[] ys;
 	@ObfuscatedName("o")
-	@Export("millis")
 	long[] millis;
 
 	MouseRecorder() {
@@ -74,7 +63,6 @@ public class MouseRecorder implements Runnable {
 		descriptor = "(Lhq;IIZS)V",
 		garbageValue = "338"
 	)
-	@Export("alignWidgetSize")
 	static void alignWidgetSize(Widget var0, int var1, int var2, boolean var3) {
 		int var4 = var0.width; // L: 9242
 		int var5 = var0.height; // L: 9243

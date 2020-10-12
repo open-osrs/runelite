@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gc")
-@Implements("LoginPacket")
 public class LoginPacket implements class190 {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
@@ -41,19 +38,16 @@ public class LoginPacket implements class190 {
 	@ObfuscatedSignature(
 		descriptor = "[Lgc;"
 	)
-	@Export("LoginPacket_indexedValues")
 	static final LoginPacket[] LoginPacket_indexedValues;
 	@ObfuscatedName("gq")
 	@ObfuscatedSignature(
 		descriptor = "Llp;"
 	)
-	@Export("compass")
 	static Sprite compass;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -176591909
 	)
-	@Export("id")
 	public final int id;
 
 	static {

@@ -1,10 +1,7 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("at")
-@Implements("WorldMapSprite")
 public final class WorldMapSprite {
 	@ObfuscatedName("w")
 	public static short[][] field253;
@@ -12,10 +9,8 @@ public final class WorldMapSprite {
 	@ObfuscatedSignature(
 		descriptor = "Llw;"
 	)
-	@Export("rasterProvider")
 	public static AbstractRasterProvider rasterProvider;
 	@ObfuscatedName("k")
-	@Export("tileColors")
 	final int[] tileColors;
 
 	WorldMapSprite() {
@@ -31,7 +26,6 @@ public final class WorldMapSprite {
 		descriptor = "(III)I",
 		garbageValue = "1945716520"
 	)
-	@Export("getTileColor")
 	final int getTileColor(int var1, int var2) {
 		return this.tileColors[var2 * 64 + var1]; // L: 24
 	}
@@ -76,7 +70,6 @@ public final class WorldMapSprite {
 		descriptor = "(IS)Z",
 		garbageValue = "20454"
 	)
-	@Export("loadInterface")
 	public static boolean loadInterface(int var0) {
 		if (Bounds.Widget_loadedInterfaces[var0]) { // L: 203
 			return true;

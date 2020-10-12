@@ -1,65 +1,51 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ct")
-@Implements("World")
 public class World {
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = 1992113923
 	)
-	@Export("World_count")
 	static int World_count;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = 1564802557
 	)
-	@Export("World_listCount")
 	static int World_listCount;
 	@ObfuscatedName("w")
-	@Export("World_sortOption2")
 	static int[] World_sortOption2;
 	@ObfuscatedName("g")
-	@Export("World_sortOption1")
 	static int[] World_sortOption1;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		intValue = 1790821377
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
 		intValue = -370098411
 	)
-	@Export("properties")
 	int properties;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = 1089553333
 	)
-	@Export("population")
 	int population;
 	@ObfuscatedName("a")
-	@Export("host")
 	String host;
 	@ObfuscatedName("q")
-	@Export("activity")
 	String activity;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
 		intValue = -82869953
 	)
-	@Export("location")
 	int location;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
 		intValue = 1577335433
 	)
-	@Export("index")
 	int index;
 
 	static {
@@ -77,7 +63,6 @@ public class World {
 		descriptor = "(B)Z",
 		garbageValue = "17"
 	)
-	@Export("isMembersOnly")
 	boolean isMembersOnly() {
 		return (1 & this.properties) != 0; // L: 247
 	}
@@ -96,7 +81,6 @@ public class World {
 		descriptor = "(I)Z",
 		garbageValue = "1058529393"
 	)
-	@Export("isPvp")
 	boolean isPvp() {
 		return (4 & this.properties) != 0; // L: 255
 	}
@@ -115,7 +99,6 @@ public class World {
 		descriptor = "(B)Z",
 		garbageValue = "-101"
 	)
-	@Export("isDeadman")
 	boolean isDeadman() {
 		return (536870912 & this.properties) != 0; // L: 263
 	}
@@ -125,7 +108,6 @@ public class World {
 		descriptor = "(I)Z",
 		garbageValue = "-249036975"
 	)
-	@Export("isBeta")
 	boolean isBeta() {
 		return (33554432 & this.properties) != 0; // L: 267
 	}
@@ -144,7 +126,6 @@ public class World {
 		descriptor = "(Ljava/lang/CharSequence;I)Z",
 		garbageValue = "-1732366534"
 	)
-	@Export("isNumber")
 	public static boolean isNumber(CharSequence var0) {
 		return class92.method2141(var0, 10, true); // L: 34
 	}

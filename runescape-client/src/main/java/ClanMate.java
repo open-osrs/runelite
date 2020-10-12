@@ -1,22 +1,17 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jf")
-@Implements("ClanMate")
 public class ClanMate extends Buddy {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lkm;"
 	)
-	@Export("friend")
 	TriBool friend;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lkm;"
 	)
-	@Export("ignored")
 	TriBool ignored;
 
 	ClanMate() {
@@ -29,7 +24,6 @@ public class ClanMate extends Buddy {
 		descriptor = "(I)V",
 		garbageValue = "-1483080876"
 	)
-	@Export("clearIsFriend")
 	void clearIsFriend() {
 		this.friend = TriBool.TriBool_unknown; // L: 12
 	} // L: 13
@@ -39,7 +33,6 @@ public class ClanMate extends Buddy {
 		descriptor = "(I)Z",
 		garbageValue = "2093407981"
 	)
-	@Export("isFriend")
 	public final boolean isFriend() {
 		if (this.friend == TriBool.TriBool_unknown) { // L: 16
 			this.fillIsFriend(); // L: 17
@@ -53,7 +46,6 @@ public class ClanMate extends Buddy {
 		descriptor = "(I)V",
 		garbageValue = "-2130404233"
 	)
-	@Export("fillIsFriend")
 	void fillIsFriend() {
 		this.friend = class60.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 23
 	} // L: 24
@@ -63,7 +55,6 @@ public class ClanMate extends Buddy {
 		descriptor = "(I)V",
 		garbageValue = "405113093"
 	)
-	@Export("clearIsIgnored")
 	void clearIsIgnored() {
 		this.ignored = TriBool.TriBool_unknown; // L: 27
 	} // L: 28
@@ -73,7 +64,6 @@ public class ClanMate extends Buddy {
 		descriptor = "(I)Z",
 		garbageValue = "-607786293"
 	)
-	@Export("isIgnored")
 	public final boolean isIgnored() {
 		if (this.ignored == TriBool.TriBool_unknown) { // L: 31
 			this.fillIsIgnored(); // L: 32
@@ -87,7 +77,6 @@ public class ClanMate extends Buddy {
 		descriptor = "(I)V",
 		garbageValue = "-483165617"
 	)
-	@Export("fillIsIgnored")
 	void fillIsIgnored() {
 		this.ignored = class60.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 38
 	} // L: 39

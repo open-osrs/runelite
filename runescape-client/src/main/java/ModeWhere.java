@@ -1,13 +1,10 @@
 import java.util.HashSet;
 import java.util.Set;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gy")
-@Implements("ModeWhere")
 public enum ModeWhere implements Enumerated {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
@@ -79,7 +76,6 @@ public enum ModeWhere implements Enumerated {
 	@ObfuscatedGetter(
 		intValue = 1536594685
 	)
-	@Export("id")
 	final int id;
 	@ObfuscatedName("q")
 	final Set field2418;
@@ -113,7 +109,6 @@ public enum ModeWhere implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 54
 	}
@@ -166,7 +161,6 @@ public enum ModeWhere implements Enumerated {
 		descriptor = "(IZI)Ljava/lang/String;",
 		garbageValue = "1007074370"
 	)
-	@Export("intToString")
 	public static String intToString(int var0, boolean var1) {
 		if (var1 && var0 >= 0) { // L: 105
 			int var3 = var0; // L: 107

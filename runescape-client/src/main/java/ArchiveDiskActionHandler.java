@@ -1,23 +1,18 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ip")
-@Implements("ArchiveDiskActionHandler")
 public class ArchiveDiskActionHandler implements Runnable {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lji;"
 	)
-	@Export("ArchiveDiskActionHandler_requestQueue")
 	static NodeDeque ArchiveDiskActionHandler_requestQueue;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lji;"
 	)
-	@Export("ArchiveDiskActionHandler_responseQueue")
 	static NodeDeque ArchiveDiskActionHandler_responseQueue;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
@@ -25,13 +20,11 @@ public class ArchiveDiskActionHandler implements Runnable {
 	)
 	public static int field3179;
 	@ObfuscatedName("i")
-	@Export("ArchiveDiskActionHandler_lock")
 	public static Object ArchiveDiskActionHandler_lock;
 	@ObfuscatedName("ba")
 	@ObfuscatedSignature(
 		descriptor = "Lls;"
 	)
-	@Export("worldSelectRightSprite")
 	static IndexedSprite worldSelectRightSprite;
 
 	static {

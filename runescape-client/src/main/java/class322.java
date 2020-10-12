@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -57,7 +56,6 @@ public enum class322 implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.field3844; // L: 23
 	}

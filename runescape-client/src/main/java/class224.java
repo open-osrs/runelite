@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -16,7 +15,6 @@ public class class224 {
 	@ObfuscatedSignature(
 		descriptor = "Lkf;"
 	)
-	@Export("NetCache_responseArchiveBuffer")
 	static Buffer NetCache_responseArchiveBuffer;
 
 	static {

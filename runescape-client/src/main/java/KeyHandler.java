@@ -2,24 +2,19 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("bz")
-@Implements("KeyHandler")
 public final class KeyHandler implements KeyListener, FocusListener {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lbz;"
 	)
-	@Export("KeyHandler_instance")
 	public static KeyHandler KeyHandler_instance;
 	@ObfuscatedName("cu")
-	@Export("KeyHandler_pressedKeys")
 	public static boolean[] KeyHandler_pressedKeys;
 	@ObfuscatedName("cc")
 	public static int[] field409;
@@ -63,10 +58,8 @@ public final class KeyHandler implements KeyListener, FocusListener {
 	@ObfuscatedGetter(
 		intValue = -2101231775
 	)
-	@Export("KeyHandler_idleCycles")
 	public static volatile int KeyHandler_idleCycles;
 	@ObfuscatedName("cy")
-	@Export("KeyHandler_keyCodes")
 	static int[] KeyHandler_keyCodes;
 	@ObfuscatedName("dr")
 	@ObfuscatedGetter(
@@ -271,7 +264,6 @@ public final class KeyHandler implements KeyListener, FocusListener {
 		descriptor = "([Lhq;IIIZI)V",
 		garbageValue = "102322570"
 	)
-	@Export("resizeInterface")
 	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
 		for (int var5 = 0; var5 < var0.length; ++var5) { // L: 9227
 			Widget var6 = var0[var5]; // L: 9228

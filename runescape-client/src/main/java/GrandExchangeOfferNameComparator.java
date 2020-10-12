@@ -1,13 +1,10 @@
 import java.util.Comparator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("r")
-@Implements("GrandExchangeOfferNameComparator")
 final class GrandExchangeOfferNameComparator implements Comparator {
 	@ObfuscatedName("na")
 	@ObfuscatedSignature(
@@ -30,7 +27,6 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		descriptor = "(Lf;Lf;I)I",
 		garbageValue = "-1190870183"
 	)
-	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
 		return var1.getOfferName().compareTo(var2.getOfferName()); // L: 56
 	}
@@ -48,7 +44,6 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		descriptor = "(II)Ljp;",
 		garbageValue = "-615080564"
 	)
-	@Export("getEnum")
 	public static EnumDefinition getEnum(int var0) {
 		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0); // L: 29
 		if (var1 != null) { // L: 30
@@ -108,7 +103,6 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		descriptor = "(Lbf;IIB)V",
 		garbageValue = "2"
 	)
-	@Export("performPlayerAnimation")
 	static void performPlayerAnimation(Player var0, int var1, int var2) {
 		if (var0.sequence == var1 && var1 != -1) { // L: 3839
 			int var3 = WorldMapRegion.SequenceDefinition_get(var1).field3535; // L: 3840
@@ -138,7 +132,6 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		descriptor = "(Lcg;IIIIII)V",
 		garbageValue = "930508889"
 	)
-	@Export("drawActor2d")
 	static final void drawActor2d(Actor var0, int var1, int var2, int var3, int var4, int var5) {
 		if (var0 != null && var0.isVisible()) { // L: 4429
 			if (var0 instanceof NPC) { // L: 4430

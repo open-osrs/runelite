@@ -1,13 +1,11 @@
 import java.io.File;
 import java.io.IOException;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("s")
 final class class2 implements class0 {
 	@ObfuscatedName("ak")
-	@Export("client")
 	@ObfuscatedSignature(
 		descriptor = "Lclient;"
 	)
@@ -54,7 +52,6 @@ final class class2 implements class0 {
 		descriptor = "(Ljava/lang/String;Ljava/lang/String;ZI)Lmy;",
 		garbageValue = "-65308195"
 	)
-	@Export("getPreferencesFile")
 	public static AccessFile getPreferencesFile(String var0, String var1, boolean var2) {
 		File var3 = new File(JagexCache.cacheDir, "preferences" + var0 + ".dat"); // L: 254
 		if (var3.exists()) { // L: 255
@@ -95,7 +92,6 @@ final class class2 implements class0 {
 		descriptor = "(Lky;IB)V",
 		garbageValue = "0"
 	)
-	@Export("updatePlayers")
 	static final void updatePlayers(PacketBuffer var0, int var1) {
 		int var2 = var0.offset; // L: 71
 		Players.Players_pendingUpdateCount = 0; // L: 72
@@ -248,7 +244,6 @@ final class class2 implements class0 {
 		descriptor = "(Lct;Lct;IZI)I",
 		garbageValue = "-1471350049"
 	)
-	@Export("compareWorlds")
 	static int compareWorlds(World var0, World var1, int var2, boolean var3) {
 		if (var2 == 1) { // L: 211
 			int var4 = var0.population; // L: 212

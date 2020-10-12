@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 
@@ -8,6 +7,5 @@ public class class23 {
 	@ObfuscatedGetter(
 		intValue = 121218585
 	)
-	@Export("port2")
 	static int port2;
 }

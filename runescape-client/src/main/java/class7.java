@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -44,7 +43,6 @@ public enum class7 implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.field38; // L: 17
 	}
@@ -68,7 +66,6 @@ public enum class7 implements Enumerated {
 		descriptor = "(IIII)V",
 		garbageValue = "-2096801183"
 	)
-	@Export("queueSoundEffect")
 	static void queueSoundEffect(int var0, int var1, int var2) {
 		if (Client.soundEffectVolume != 0 && var1 != 0 && Client.soundEffectCount < 50) { // L: 3277
 			Client.soundEffectIds[Client.soundEffectCount] = var0; // L: 3278

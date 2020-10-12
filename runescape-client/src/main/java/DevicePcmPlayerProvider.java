@@ -1,23 +1,18 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bj")
-@Implements("DevicePcmPlayerProvider")
 public class DevicePcmPlayerProvider implements PlayerProvider {
 	@ObfuscatedName("fl")
 	@ObfuscatedSignature(
 		descriptor = "Lkl;"
 	)
-	@Export("WorldMapElement_fonts")
 	static Fonts WorldMapElement_fonts;
 	@ObfuscatedName("lf")
 	@ObfuscatedGetter(
 		intValue = 1325063249
 	)
-	@Export("menuWidth")
 	static int menuWidth;
 
 	DevicePcmPlayerProvider() {
@@ -28,7 +23,6 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 		descriptor = "(I)Ldr;",
 		garbageValue = "-1032997343"
 	)
-	@Export("player")
 	public PcmPlayer player() {
 		return new DevicePcmPlayer(); // L: 10
 	}
@@ -38,7 +32,6 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 		descriptor = "(IB)I",
 		garbageValue = "1"
 	)
-	@Export("iLog")
 	public static int iLog(int var0) {
 		int var1 = 0; // L: 54
 		if (var0 < 0 || var0 >= 65536) { // L: 55
@@ -74,7 +67,6 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 		descriptor = "([BI)[B",
 		garbageValue = "-2036549161"
 	)
-	@Export("decompressBytes")
 	static final byte[] decompressBytes(byte[] var0) {
 		Buffer var1 = new Buffer(var0); // L: 363
 		int var2 = var1.readUnsignedByte(); // L: 364

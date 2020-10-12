@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, ImNoOSRS <https://github.com/ImNoOSRS>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,35 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.cache.util;
+package net.runelite.mixins;
 
-import java.nio.charset.StandardCharsets;
-import static org.junit.Assert.assertArrayEquals;
-import org.junit.Test;
+import net.runelite.api.mixins.Copy;
+import net.runelite.api.mixins.Inject;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.api.mixins.Replace;
+import net.runelite.rs.api.RSClient;
 
-public class XteaTest
+@Mixin(RSClient.class)
+public abstract class VerboseInventoryQuantitiesMixin implements RSClient
 {
-	@Test
-	public void test()
+	@Inject
+	private static boolean itemQuantitiesVerbose;
+
+	@Inject
+	@Override
+	public void setItemQuantitiesVerbose(boolean state)
 	{
-		byte[] data = "testtesttest1".getBytes(StandardCharsets.UTF_8);
+		itemQuantitiesVerbose = state;
+	}
 
-		int[] key = new int[]
+	@Copy("inventoryQuantityFormat")
+	@Replace("inventoryQuantityFormat")
+	public static String getInventoryQuantityFormat(int n)
+	{
+		if (itemQuantitiesVerbose)
 		{
-			4, 8, 15, 16
-		};
-		byte[] encrypted = new byte[]
-		{
-			121, -18, 48, 64, 120, -42, -113, 77, 116, 101, 115, 116, 49
-		};
+			return String.valueOf(n);
+		}
 
-		Xtea xtea = new Xtea(key);
-		byte[] encData = xtea.encrypt(data, data.length);
-		assertArrayEquals(encrypted, encData);
-
-		xtea = new Xtea(key);
-		byte[] decData = xtea.decrypt(encData, encData.length);
-
-		assertArrayEquals(data, decData);
+		return getInventoryQuantityFormat(n);
 	}
 }

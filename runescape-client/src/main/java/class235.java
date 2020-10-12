@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -8,7 +7,6 @@ public class class235 {
 	@ObfuscatedSignature(
 		descriptor = "[Llp;"
 	)
-	@Export("mapDotSprites")
 	static Sprite[] mapDotSprites;
 
 	@ObfuscatedName("ad")
@@ -16,7 +14,6 @@ public class class235 {
 		descriptor = "(IB)V",
 		garbageValue = "1"
 	)
-	@Export("runWidgetOnLoadListener")
 	static void runWidgetOnLoadListener(int var0) {
 		if (var0 != -1) { // L: 3836
 			if (WorldMapSprite.loadInterface(var0)) { // L: 3837

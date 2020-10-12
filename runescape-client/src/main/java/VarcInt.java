@@ -1,25 +1,19 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ib")
-@Implements("VarcInt")
 public class VarcInt extends DualNode {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("VarcInt_archive")
 	public static AbstractArchive VarcInt_archive;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lel;"
 	)
-	@Export("VarcInt_cached")
 	static EvictingDualNodeHashTable VarcInt_cached;
 	@ObfuscatedName("s")
-	@Export("persist")
 	public boolean persist;
 
 	static {

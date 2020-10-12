@@ -1,10 +1,7 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hb")
-@Implements("MusicPatchPcmStream")
 public class MusicPatchPcmStream extends PcmStream {
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
@@ -15,19 +12,16 @@ public class MusicPatchPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "Lge;"
 	)
-	@Export("superStream")
 	MidiPcmStream superStream;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lji;"
 	)
-	@Export("queue")
 	NodeDeque queue;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Ldh;"
 	)
-	@Export("mixer")
 	PcmStreamMixer mixer;
 
 	@ObfuscatedSignature(
@@ -122,7 +116,6 @@ public class MusicPatchPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "()Ldc;"
 	)
-	@Export("firstSubStream")
 	protected PcmStream firstSubStream() {
 		MusicPatchNode var1 = (MusicPatchNode)this.queue.last(); // L: 19
 		if (var1 == null) { // L: 20
@@ -136,7 +129,6 @@ public class MusicPatchPcmStream extends PcmStream {
 	@ObfuscatedSignature(
 		descriptor = "()Ldc;"
 	)
-	@Export("nextSubStream")
 	protected PcmStream nextSubStream() {
 		MusicPatchNode var1;
 		do {
@@ -155,7 +147,6 @@ public class MusicPatchPcmStream extends PcmStream {
 	}
 
 	@ObfuscatedName("g")
-	@Export("fill")
 	protected void fill(int[] var1, int var2, int var3) {
 		this.mixer.fill(var1, var2, var3); // L: 40
 
@@ -181,7 +172,6 @@ public class MusicPatchPcmStream extends PcmStream {
 	} // L: 54
 
 	@ObfuscatedName("n")
-	@Export("skip")
 	protected void skip(int var1) {
 		this.mixer.skip(var1); // L: 58
 
@@ -209,7 +199,6 @@ public class MusicPatchPcmStream extends PcmStream {
 		descriptor = "(II)Liq;",
 		garbageValue = "-367277844"
 	)
-	@Export("getInvDefinition")
 	public static InvDefinition getInvDefinition(int var0) {
 		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0); // L: 21
 		if (var1 != null) { // L: 22

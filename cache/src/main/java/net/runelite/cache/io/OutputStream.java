@@ -26,10 +26,8 @@ package net.runelite.cache.io;
 
 import com.google.common.base.Preconditions;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public final class OutputStream extends java.io.OutputStream
 {
@@ -183,23 +181,13 @@ public final class OutputStream extends java.io.OutputStream
 
 	public void writeString(String str)
 	{
-		Charset utf8charset = Charset.forName("UTF-8");
-		Charset cp1252charset = Charset.forName("Cp1252");
-
-		ByteBuffer inputBuffer = ByteBuffer.wrap(str.getBytes());
-
-		CharBuffer data = utf8charset.decode(inputBuffer);
-
-		ByteBuffer outputBuffer = cp1252charset.encode(data);
-		byte[] outputData = outputBuffer.array();
-
-		writeBytes(outputData);
+		writeBytes(str.getBytes(StandardCharsets.ISO_8859_1));
 		writeByte(0);
 	}
 
 	public byte[] flip()
 	{
-		((Buffer) buffer).flip();
+		buffer.flip();
 		byte[] b = new byte[buffer.limit()];
 		buffer.get(b);
 		return b;

@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -36,7 +35,6 @@ public enum class169 implements Enumerated {
 	@ObfuscatedGetter(
 		intValue = 1306076667
 	)
-	@Export("id")
 	final int id;
 
 	class169(int var3, int var4) {
@@ -49,7 +47,6 @@ public enum class169 implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 21
 	}

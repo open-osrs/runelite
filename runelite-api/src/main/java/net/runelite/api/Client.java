@@ -1705,6 +1705,13 @@ public interface Client extends GameShell
 	void setCompass(Sprite Sprite);
 
 	/**
+	 * Sets whether inventory quantity is verbose.
+	 *
+	 * @param state verbose state
+	 */
+	void setItemQuantitiesVerbose(boolean state);
+
+	/**
 	 * Returns widget sprite cache, to be used with {@link Client#getSpriteOverrides()}
 	 *
 	 * @return the cache

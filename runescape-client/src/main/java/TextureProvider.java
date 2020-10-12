@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dt")
-@Implements("TextureProvider")
 public class TextureProvider implements TextureLoader {
 	@ObfuscatedName("ri")
 	@ObfuscatedGetter(
@@ -16,40 +13,33 @@ public class TextureProvider implements TextureLoader {
 	@ObfuscatedSignature(
 		descriptor = "[Leo;"
 	)
-	@Export("textures")
 	Texture[] textures;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "Lji;"
 	)
-	@Export("deque")
 	NodeDeque deque;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1194513141
 	)
-	@Export("capacity")
 	int capacity;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 1829748835
 	)
-	@Export("remaining")
 	int remaining;
 	@ObfuscatedName("i")
-	@Export("brightness")
 	double brightness;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
 		intValue = -436241833
 	)
-	@Export("textureSize")
 	int textureSize;
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "Lic;"
 	)
-	@Export("archive")
 	AbstractArchive archive;
 
 	@ObfuscatedSignature(
@@ -81,7 +71,6 @@ public class TextureProvider implements TextureLoader {
 		descriptor = "(I)I",
 		garbageValue = "861798052"
 	)
-	@Export("getLoadedPercentage")
 	public int getLoadedPercentage() {
 		int var1 = 0; // L: 32
 		int var2 = 0; // L: 33
@@ -110,7 +99,6 @@ public class TextureProvider implements TextureLoader {
 	}
 
 	@ObfuscatedName("k")
-	@Export("setBrightness")
 	public void setBrightness(double var1) {
 		this.brightness = var1; // L: 60
 		this.clear(); // L: 61
@@ -121,7 +109,6 @@ public class TextureProvider implements TextureLoader {
 		descriptor = "(II)[I",
 		garbageValue = "-1265290789"
 	)
-	@Export("getTexturePixels")
 	public int[] getTexturePixels(int var1) {
 		Texture var2 = this.textures[var1]; // L: 65
 		if (var2 != null) { // L: 66
@@ -154,7 +141,6 @@ public class TextureProvider implements TextureLoader {
 		descriptor = "(II)I",
 		garbageValue = "260599249"
 	)
-	@Export("getAverageTextureRGB")
 	public int getAverageTextureRGB(int var1) {
 		return this.textures[var1] != null ? this.textures[var1].averageRGB : 0; // L: 88 89
 	}
@@ -173,7 +159,6 @@ public class TextureProvider implements TextureLoader {
 		descriptor = "(IS)Z",
 		garbageValue = "14506"
 	)
-	@Export("isLowDetail")
 	public boolean isLowDetail(int var1) {
 		return this.textureSize == 64; // L: 97
 	}
@@ -183,7 +168,6 @@ public class TextureProvider implements TextureLoader {
 		descriptor = "(B)V",
 		garbageValue = "8"
 	)
-	@Export("clear")
 	public void clear() {
 		for (int var1 = 0; var1 < this.textures.length; ++var1) { // L: 101
 			if (this.textures[var1] != null) { // L: 102
@@ -200,7 +184,6 @@ public class TextureProvider implements TextureLoader {
 		descriptor = "(II)V",
 		garbageValue = "-736148510"
 	)
-	@Export("animate")
 	public void animate(int var1) {
 		for (int var2 = 0; var2 < this.textures.length; ++var2) { // L: 109
 			Texture var3 = this.textures[var2]; // L: 110
@@ -226,7 +209,6 @@ public class TextureProvider implements TextureLoader {
 		descriptor = "([Lgq;II)Lgq;",
 		garbageValue = "1374231902"
 	)
-	@Export("findEnumerated")
 	public static Enumerated findEnumerated(Enumerated[] var0, int var1) {
 		Enumerated[] var2 = var0; // L: 17
 

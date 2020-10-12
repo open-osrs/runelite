@@ -2,44 +2,36 @@ import java.io.IOException;
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.util.Iterator;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("aw")
-@Implements("WorldMapData_1")
 public class WorldMapData_1 extends AbstractWorldMapData {
 	@ObfuscatedName("en")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive19")
 	static Archive archive19;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
 		intValue = -1032395207
 	)
-	@Export("chunkXLow")
 	int chunkXLow;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
 		intValue = 1804098781
 	)
-	@Export("chunkYLow")
 	int chunkYLow;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
 		intValue = -1816930541
 	)
-	@Export("chunkX")
 	int chunkX;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
 		intValue = 875347201
 	)
-	@Export("chunkY")
 	int chunkY;
 
 	WorldMapData_1() {
@@ -50,7 +42,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(Lkf;B)V",
 		garbageValue = "-5"
 	)
-	@Export("init")
 	void init(Buffer var1) {
 		int var2 = var1.readUnsignedByte(); // L: 14
 		if (var2 != WorldMapID.field288.value) { // L: 15
@@ -76,7 +67,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(Lkf;I)V",
 		garbageValue = "728123848"
 	)
-	@Export("readGeography")
 	void readGeography(Buffer var1) {
 		super.planes = Math.min(super.planes, 4); // L: 33
 		super.floorUnderlayIds = new short[1][64][64]; // L: 34
@@ -110,7 +100,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(I)I",
 		garbageValue = "-173161380"
 	)
-	@Export("getChunkXLow")
 	int getChunkXLow() {
 		return this.chunkXLow; // L: 73
 	}
@@ -120,7 +109,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(I)I",
 		garbageValue = "-1289176366"
 	)
-	@Export("getChunkYLow")
 	int getChunkYLow() {
 		return this.chunkYLow; // L: 77
 	}
@@ -130,7 +118,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(I)I",
 		garbageValue = "1672760755"
 	)
-	@Export("getChunkX")
 	int getChunkX() {
 		return this.chunkX;
 	}
@@ -140,7 +127,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(I)I",
 		garbageValue = "-56911987"
 	)
-	@Export("getChunkY")
 	int getChunkY() {
 		return this.chunkY;
 	}
@@ -167,7 +153,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(B)V",
 		garbageValue = "1"
 	)
-	@Export("savePreferences")
 	static void savePreferences() {
 		AccessFile var0 = null; // L: 81
 
@@ -192,7 +177,6 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 		descriptor = "(I)I",
 		garbageValue = "570960818"
 	)
-	@Export("getGcDuration")
 	protected static int getGcDuration() {
 		int var0 = 0; // L: 549
 		if (WorldMapIcon_0.garbageCollector == null || !WorldMapIcon_0.garbageCollector.isValid()) { // L: 550

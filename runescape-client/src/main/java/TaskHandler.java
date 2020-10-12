@@ -2,46 +2,35 @@ import java.io.DataInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fo")
-@Implements("TaskHandler")
 public class TaskHandler implements Runnable {
 	@ObfuscatedName("z")
-	@Export("javaVendor")
 	public static String javaVendor;
 	@ObfuscatedName("k")
-	@Export("javaVersion")
 	public static String javaVersion;
 	@ObfuscatedName("w")
-	@Export("SpriteBuffer_spritePalette")
 	static int[] SpriteBuffer_spritePalette;
 	@ObfuscatedName("lp")
 	@ObfuscatedSignature(
 		descriptor = "Lcf;"
 	)
-	@Export("tempMenuAction")
 	static MenuAction tempMenuAction;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lfl;"
 	)
-	@Export("current")
 	Task current;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Lfl;"
 	)
-	@Export("task")
 	Task task;
 	@ObfuscatedName("i")
-	@Export("thread")
 	Thread thread;
 	@ObfuscatedName("o")
-	@Export("isClosed")
 	boolean isClosed;
 
 	public TaskHandler() {
@@ -69,7 +58,6 @@ public class TaskHandler implements Runnable {
 		descriptor = "(I)V",
 		garbageValue = "-1905813436"
 	)
-	@Export("close")
 	public final void close() {
 		synchronized(this) { // L: 35
 			this.isClosed = true; // L: 36
@@ -88,7 +76,6 @@ public class TaskHandler implements Runnable {
 		descriptor = "(IIILjava/lang/Object;B)Lfl;",
 		garbageValue = "1"
 	)
-	@Export("newTask")
 	final Task newTask(int var1, int var2, int var3, Object var4) {
 		Task var5 = new Task(); // L: 90
 		var5.type = var1; // L: 91
@@ -112,7 +99,6 @@ public class TaskHandler implements Runnable {
 		descriptor = "(Ljava/lang/String;II)Lfl;",
 		garbageValue = "-1230716173"
 	)
-	@Export("newSocketTask")
 	public final Task newSocketTask(String var1, int var2) {
 		return this.newTask(1, var2, 0, var1); // L: 108
 	}
@@ -122,7 +108,6 @@ public class TaskHandler implements Runnable {
 		descriptor = "(Ljava/lang/Runnable;II)Lfl;",
 		garbageValue = "1199992408"
 	)
-	@Export("newThreadTask")
 	public final Task newThreadTask(Runnable var1, int var2) {
 		return this.newTask(2, var2, 0, var1); // L: 112
 	}

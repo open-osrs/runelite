@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ca")
-@Implements("HealthBarUpdate")
 public class HealthBarUpdate extends Node {
 	@ObfuscatedName("rb")
 	@ObfuscatedGetter(
@@ -16,25 +13,21 @@ public class HealthBarUpdate extends Node {
 	@ObfuscatedGetter(
 		intValue = -1931274229
 	)
-	@Export("cycle")
 	int cycle;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = 1765683631
 	)
-	@Export("health")
 	int health;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1932254665
 	)
-	@Export("health2")
 	int health2;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -488536303
 	)
-	@Export("cycleOffset")
 	int cycleOffset;
 
 	HealthBarUpdate(int var1, int var2, int var3, int var4) {
@@ -49,7 +42,6 @@ public class HealthBarUpdate extends Node {
 		descriptor = "(IIIIB)V",
 		garbageValue = "1"
 	)
-	@Export("set")
 	void set(int var1, int var2, int var3, int var4) {
 		this.cycle = var1; // L: 19
 		this.health = var2; // L: 20

@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -21,13 +20,11 @@ public class class39 {
 	@ObfuscatedSignature(
 		descriptor = "Lds;"
 	)
-	@Export("soundCache")
 	static SoundCache soundCache;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -812273923
 	)
-	@Export("value")
 	final int value;
 
 	static {
@@ -53,7 +50,6 @@ public class class39 {
 		descriptor = "(IB)Z",
 		garbageValue = "91"
 	)
-	@Export("Widget_hasContinueOption")
 	public static boolean Widget_hasContinueOption(int var0) {
 		return (var0 & 1) != 0; // L: 9
 	}
@@ -63,7 +59,6 @@ public class class39 {
 		descriptor = "(I)I",
 		garbageValue = "488436516"
 	)
-	@Export("getWindowedMode")
 	static int getWindowedMode() {
 		return Client.isResizable ? 2 : 1; // L: 3862
 	}

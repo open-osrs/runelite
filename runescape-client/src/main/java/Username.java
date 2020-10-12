@@ -1,19 +1,13 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ku")
-@Implements("Username")
 public class Username implements Comparable {
 	@ObfuscatedName("t")
-	@Export("SpriteBuffer_xOffsets")
 	static int[] SpriteBuffer_xOffsets;
 	@ObfuscatedName("z")
-	@Export("name")
 	String name;
 	@ObfuscatedName("k")
-	@Export("cleanName")
 	String cleanName;
 
 	@ObfuscatedSignature(
@@ -80,7 +74,6 @@ public class Username implements Comparable {
 		descriptor = "(I)Ljava/lang/String;",
 		garbageValue = "-2006682850"
 	)
-	@Export("getName")
 	public String getName() {
 		return this.name; // L: 72
 	}
@@ -90,7 +83,6 @@ public class Username implements Comparable {
 		descriptor = "(B)Z",
 		garbageValue = "2"
 	)
-	@Export("hasCleanName")
 	public boolean hasCleanName() {
 		return this.cleanName != null; // L: 76
 	}
@@ -100,7 +92,6 @@ public class Username implements Comparable {
 		descriptor = "(Lku;I)I",
 		garbageValue = "-354391485"
 	)
-	@Export("compareToTyped")
 	public int compareToTyped(Username var1) {
 		if (this.cleanName == null) { // L: 100
 			return var1.cleanName == null ? 0 : 1; // L: 101 102

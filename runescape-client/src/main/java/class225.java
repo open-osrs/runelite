@@ -1,4 +1,3 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -25,7 +24,6 @@ public class class225 {
 		descriptor = "(Lky;II)V",
 		garbageValue = "2025973106"
 	)
-	@Export("readPlayerUpdate")
 	static void readPlayerUpdate(PacketBuffer var0, int var1) {
 		boolean var2 = var0.readBits(1) == 1; // L: 189
 		if (var2) { // L: 190

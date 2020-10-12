@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -105,6 +106,10 @@ public class ImageCapture
 			final EnumSet<WorldType> worldTypes = client.getWorldType();
 
 			String playerDir = client.getLocalPlayer().getName();
+			if (playerDir.startsWith("#"))
+			{
+				playerDir = "Username not set";
+			}
 			if (worldTypes.contains(WorldType.DEADMAN))
 			{
 				playerDir += "-Deadman";
@@ -215,7 +220,7 @@ public class ImageCapture
 				try (InputStream in = response.body().byteStream())
 				{
 					ImageUploadResponse imageUploadResponse = RuneLiteAPI.GSON
-						.fromJson(new InputStreamReader(in), ImageUploadResponse.class);
+						.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), ImageUploadResponse.class);
 
 					if (imageUploadResponse.isSuccess())
 					{

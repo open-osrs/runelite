@@ -145,8 +145,11 @@ public class WeaponMap
 		StyleMap.put(ItemID.CRYSTAL_HALBERD_810_I, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.CRYSTAL_HALBERD_910, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.CRYSTAL_HALBERD_910_I, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.CRYSTAL_HALBERD_ATTUNED, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.CRYSTAL_HALBERD_BASIC, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.CRYSTAL_HALBERD_FULL, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.CRYSTAL_HALBERD_FULL_I, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.CRYSTAL_HALBERD_PERFECTED, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.CURSED_GOBLIN_HAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.DARKLIGHT, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.DARK_DAGGER, WeaponStyle.MELEE);
@@ -339,7 +342,6 @@ public class WeaponMap
 		StyleMap.put(ItemID.ROCK_HAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ROYAL_SCEPTRE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUBBER_CHICKEN, WeaponStyle.MELEE);
-		StyleMap.put(ItemID.RUBBER_CHICKEN_10732, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUBBER_CHICKEN_22666, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_2H_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_AXE, WeaponStyle.MELEE);
@@ -370,7 +372,6 @@ public class WeaponMap
 		StyleMap.put(ItemID.SARADOMIN_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SARAS_BLESSED_SWORD_FULL, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE, WeaponStyle.MELEE);
-		StyleMap.put(ItemID.SCYTHE_10735, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_22664, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_UNCHARGED, WeaponStyle.MELEE);
@@ -530,8 +531,11 @@ public class WeaponMap
 		StyleMap.put(ItemID.CRYSTAL_BOW_810_I, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_910, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_910_I, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.CRYSTAL_BOW_ATTUNED, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.CRYSTAL_BOW_BASIC, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_FULL, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_FULL_I, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.CRYSTAL_BOW_PERFECTED, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CURSED_GOBLIN_BOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DARK_BOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DARK_BOW_12765, WeaponStyle.RANGE);
@@ -662,6 +666,9 @@ public class WeaponMap
 		StyleMap.put(ItemID.BROKEN_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.BRYOPHYTAS_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.BRYOPHYTAS_STAFF_UNCHARGED, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.CRYSTAL_STAFF_ATTUNED, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.CRYSTAL_STAFF_BASIC, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.CRYSTAL_STAFF_PERFECTED, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.CURSED_GOBLIN_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.DAWNBRINGER, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.DRAMEN_STAFF, WeaponStyle.MAGIC);

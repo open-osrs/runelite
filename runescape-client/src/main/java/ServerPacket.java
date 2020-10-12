@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ga")
-@Implements("ServerPacket")
 public class ServerPacket {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
@@ -441,19 +438,16 @@ public class ServerPacket {
 	@ObfuscatedGetter(
 		intValue = 281094069
 	)
-	@Export("cameraYaw")
 	static int cameraYaw;
 	@ObfuscatedName("cm")
 	@ObfuscatedGetter(
 		intValue = -317415457
 	)
-	@Export("id")
 	public final int id;
 	@ObfuscatedName("cu")
 	@ObfuscatedGetter(
 		intValue = -811501627
 	)
-	@Export("length")
 	public final int length;
 
 	static {

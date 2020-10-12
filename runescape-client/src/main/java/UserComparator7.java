@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("fe")
-@Implements("UserComparator7")
 public class UserComparator7 extends AbstractUserComparator {
 	@ObfuscatedName("m")
 	public static short[][] field2021;
@@ -13,10 +10,8 @@ public class UserComparator7 extends AbstractUserComparator {
 	@ObfuscatedSignature(
 		descriptor = "Lfl;"
 	)
-	@Export("js5SocketTask")
 	static Task js5SocketTask;
 	@ObfuscatedName("z")
-	@Export("reversed")
 	final boolean reversed;
 
 	public UserComparator7(boolean var1) {
@@ -28,7 +23,6 @@ public class UserComparator7 extends AbstractUserComparator {
 		descriptor = "(Lko;Lko;I)I",
 		garbageValue = "1614336230"
 	)
-	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
 		if (var1.world != 0 && var2.world != 0) { // L: 14
 			return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2; // L: 15
@@ -46,7 +40,6 @@ public class UserComparator7 extends AbstractUserComparator {
 		descriptor = "([BS)Lcy;",
 		garbageValue = "-15973"
 	)
-	@Export("newScript")
 	static Script newScript(byte[] var0) {
 		Script var1 = new Script(); // L: 111
 		Buffer var2 = new Buffer(var0); // L: 112
@@ -103,7 +96,6 @@ public class UserComparator7 extends AbstractUserComparator {
 		descriptor = "(Ljava/lang/CharSequence;IZI)I",
 		garbageValue = "-1793488116"
 	)
-	@Export("parseIntCustomRadix")
 	static int parseIntCustomRadix(CharSequence var0, int var1, boolean var2) {
 		if (var1 >= 2 && var1 <= 36) { // L: 75
 			boolean var3 = false; // L: 76

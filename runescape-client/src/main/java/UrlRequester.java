@@ -5,29 +5,22 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.LinkedList;
 import java.util.Queue;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ev")
-@Implements("UrlRequester")
 public class UrlRequester implements Runnable {
 	@ObfuscatedName("dc")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive9")
 	static Archive archive9;
 	@ObfuscatedName("z")
-	@Export("thread")
 	final Thread thread;
 	@ObfuscatedName("k")
-	@Export("isClosed")
 	volatile boolean isClosed;
 	@ObfuscatedName("s")
-	@Export("requests")
 	Queue requests;
 
 	public UrlRequester() {
@@ -42,7 +35,6 @@ public class UrlRequester implements Runnable {
 		descriptor = "(Ljava/net/URL;I)Lei;",
 		garbageValue = "-8401642"
 	)
-	@Export("request")
 	public UrlRequest request(URL var1) {
 		UrlRequest var2 = new UrlRequest(var1); // L: 71
 		synchronized(this) { // L: 72
@@ -57,7 +49,6 @@ public class UrlRequester implements Runnable {
 		descriptor = "(I)V",
 		garbageValue = "-210243346"
 	)
-	@Export("close")
 	public void close() {
 		this.isClosed = true; // L: 80
 
@@ -129,7 +120,6 @@ public class UrlRequester implements Runnable {
 		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
 		garbageValue = "-516919063"
 	)
-	@Export("setLoginResponseString")
 	static void setLoginResponseString(String var0, String var1, String var2) {
 		Login.Login_response1 = var0; // L: 1456
 		Login.Login_response2 = var1; // L: 1457
@@ -280,7 +270,6 @@ public class UrlRequester implements Runnable {
 		descriptor = "(II)Lef;",
 		garbageValue = "-1165420128"
 	)
-	@Export("getFrames")
 	static Frames getFrames(int var0) {
 		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0); // L: 181
 		if (var1 != null) { // L: 182

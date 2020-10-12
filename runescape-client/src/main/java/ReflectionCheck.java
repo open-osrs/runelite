@@ -1,13 +1,10 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("dv")
-@Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
 	@ObfuscatedName("aw")
 	@ObfuscatedGetter(
@@ -18,37 +15,28 @@ public class ReflectionCheck extends Node {
 	@ObfuscatedSignature(
 		descriptor = "[Lls;"
 	)
-	@Export("mapSceneSprites")
 	static IndexedSprite[] mapSceneSprites;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = -1209180911
 	)
-	@Export("id")
 	int id;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
 		intValue = -2142089503
 	)
-	@Export("size")
 	int size;
 	@ObfuscatedName("s")
-	@Export("operations")
 	int[] operations;
 	@ObfuscatedName("t")
-	@Export("creationErrors")
 	int[] creationErrors;
 	@ObfuscatedName("i")
-	@Export("fields")
 	Field[] fields;
 	@ObfuscatedName("o")
-	@Export("intReplaceValues")
 	int[] intReplaceValues;
 	@ObfuscatedName("x")
-	@Export("methods")
 	Method[] methods;
 	@ObfuscatedName("w")
-	@Export("arguments")
 	byte[][][] arguments;
 
 	ReflectionCheck() {

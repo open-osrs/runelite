@@ -1,33 +1,26 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ig")
-@Implements("ArchiveDiskAction")
 public class ArchiveDiskAction extends Node {
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
 		intValue = 1337486671
 	)
-	@Export("type")
 	int type;
 	@ObfuscatedName("k")
-	@Export("data")
 	byte[] data;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Llz;"
 	)
-	@Export("archiveDisk")
 	ArchiveDisk archiveDisk;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Liw;"
 	)
-	@Export("archive")
 	Archive archive;
 
 	ArchiveDiskAction() {
@@ -165,7 +158,6 @@ public class ArchiveDiskAction extends Node {
 		descriptor = "(Ljava/lang/String;ZI)V",
 		garbageValue = "-1075762777"
 	)
-	@Export("findItemDefinitions")
 	static void findItemDefinitions(String var0, boolean var1) {
 		var0 = var0.toLowerCase(); // L: 10783
 		short[] var2 = new short[16]; // L: 10784

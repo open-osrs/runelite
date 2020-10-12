@@ -1,11 +1,8 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hl")
-@Implements("WorldMapDecorationType")
 public enum WorldMapDecorationType implements Enumerated {
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
@@ -127,7 +124,6 @@ public enum WorldMapDecorationType implements Enumerated {
 	@ObfuscatedGetter(
 		intValue = 212530535
 	)
-	@Export("id")
 	public final int id;
 
 	@ObfuscatedSignature(
@@ -143,7 +139,6 @@ public enum WorldMapDecorationType implements Enumerated {
 		descriptor = "(I)I",
 		garbageValue = "385513888"
 	)
-	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 38
 	}
