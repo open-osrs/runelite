@@ -318,14 +318,8 @@ public class MenuManager
 
 		if (leftClickEntry == null)
 		{
-			Arrays.stream(entries)
-				.filter(Objects::nonNull)
-				.filter(MenuEntry::isForceLeftClick)
-				.findFirst()
-				.ifPresentOrElse(
-					(entry) -> leftClickEntry = entry,
-					() -> leftClickEntry = entries[menuOptionCount - 1]
-				);
+			// stop being null smh
+			leftClickEntry = entries[menuOptionCount - 1];
 		}
 
 		client.setMenuEntries(entries);
@@ -440,7 +434,7 @@ public class MenuManager
 	void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		// option and target will be the same if this one came from "tempMenuAction"
-		if (!client.isMenuOpen() && event.isAuthentic())
+		if (!client.isMenuOpen() && !event.getOption().equals(event.getTarget()) && event.isAuthentic())
 		{
 			if (!event.equals(leftClickEntry))
 			{
