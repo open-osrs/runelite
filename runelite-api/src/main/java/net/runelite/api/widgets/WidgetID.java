@@ -225,7 +225,7 @@ public class WidgetID
 	static class LogoutPanel
 	{
 		static final int WORLD_SWITCHER_BUTTON = 3;
-		static final int LOGOUT_BUTTON = 6;
+		static final int LOGOUT_BUTTON = 8;
 	}
 
 	static class PestControlBoat
@@ -323,6 +323,8 @@ public class WidgetID
 		static final int TAB_CONTAINER = 10;
 		static final int ITEM_CONTAINER = 12;
 		static final int SCROLLBAR = 13;
+		static final int UNNOTED_BUTTON = 21;
+		static final int NOTED_BUTTON = 23;
 		static final int SEARCH_BUTTON_BACKGROUND = 39;
 		static final int DEPOSIT_INVENTORY = 41;
 		static final int DEPOSIT_EQUIPMENT = 43;
@@ -936,7 +938,9 @@ public class WidgetID
 
 	static class WorldSwitcher
 	{
+		static final int CONTAINER = 1;
 		static final int WORLD_LIST = 16;
+		static final int LOGOUT_BUTTON = 23;
 	}
 
 	static class FossilOxygen
