@@ -102,7 +102,7 @@ import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.WidgetOverlay;
 import net.runelite.client.ui.overlay.arrow.ArrowMinimapOverlay;
 import net.runelite.client.ui.overlay.arrow.ArrowWorldOverlay;
-import net.runelite.client.ui.overlay.infobox.InfoBoxOverlay;
+import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.ui.overlay.tooltip.TooltipOverlay;
 import net.runelite.client.ui.overlay.worldmap.WorldMapOverlay;
@@ -190,7 +190,7 @@ public class RuneLite
 	private Provider<CommandManager> commandManager;
 
 	@Inject
-	private Provider<InfoBoxOverlay> infoBoxOverlay;
+	private Provider<InfoBoxManager> infoBoxManager;
 
 	@Inject
 	private Provider<TooltipOverlay> tooltipOverlay;
@@ -511,6 +511,7 @@ public class RuneLite
 			// Initialize chat colors
 			chatMessageManager.get().loadColors();
 
+			infoBoxManager.get();
 			overlayRenderer.get();
 			friendChatManager.get();
 			itemManager.get();
@@ -522,14 +523,12 @@ public class RuneLite
 			playerManager.get();
 			chatboxPanelManager.get();
 			partyService.get();
-			infoBoxOverlay.get();
 
 			eventBus.subscribe(GameStateChanged.class, this, hooks::onGameStateChanged);
 			eventBus.subscribe(ScriptCallbackEvent.class, this, hooks::onScriptCallbackEvent);
 
 			// Add core overlays
 			WidgetOverlay.createOverlays(client).forEach(overlayManager::add);
-			overlayManager.add(infoBoxOverlay.get());
 			overlayManager.add(worldMapOverlay.get());
 			overlayManager.add(tooltipOverlay.get());
 			overlayManager.add(arrowWorldOverlay.get());

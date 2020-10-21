@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.config;
 
+import com.google.common.base.Splitter;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -102,6 +103,7 @@ public class PluginListPanel extends PluginPanel
 
 	private static final String RUNELITE_GROUP_NAME = RuneLiteConfig.class.getAnnotation(ConfigGroup.class).value();
 	private static final String PINNED_PLUGINS_CONFIG_KEY = "pinnedPlugins";
+	private static final Splitter SPLITTER = Splitter.on(" ").trimResults().omitEmptyStrings();
 	private static final List<String> CATEGORY_TAGS = List.of(
 		"Combat",
 		"Chat",
@@ -443,10 +445,9 @@ public class PluginListPanel extends PluginPanel
 		}
 		else
 		{
-			final String[] searchTerms = text.toLowerCase().split(" ");
 			pluginList.forEach(listItem ->
 			{
-				if (pinned == listItem.isPinned() && Text.matchesSearchTerms(searchTerms, listItem.getKeywords()))
+				if (pinned == listItem.isPinned() && Text.matchesSearchTerms(SPLITTER.split(text.toLowerCase()), listItem.getKeywords()))
 				{
 					if (openOSRSConfig.pluginSortMode() == OpenOSRSConfig.SortStyle.ALPHABETICALLY || (!openOSRSConfig.enableCategories() && (openOSRSConfig.pluginSortMode() != OpenOSRSConfig.SortStyle.REPOSITORY)))
 					{
