@@ -26,14 +26,14 @@
 description = "RuneLite API"
 
 dependencies {
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
-    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
     implementation(group = "com.google.code.findbugs", name = "jsr305", version = "3.0.2")
-    implementation(group = "com.google.guava", name = "guava", version = "29.0-jre")
+    implementation(group = "com.google.guava", name = "guava", version = "30.0-jre")
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.9")
     implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
 
-    testImplementation(group = "junit", name = "junit", version = "4.13")
+    testImplementation(group = "junit", name = "junit", version = "4.13.1")
 }
