@@ -1,8 +1,10 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("kn")
-public class class310 {
-	@ObfuscatedName("z")
+@ObfuscatedName("kh")
+public class class311 {
+	@ObfuscatedName("f")
+	@Export("writeRandomDat")
 	public static void writeRandomDat(byte[] var0, int var1, byte[] var2, int var3, int var4) {
 		if (var2 == var0) { // L: 12
 			if (var3 == var1) { // L: 13
@@ -49,7 +51,8 @@ public class class310 {
 
 	} // L: 49
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
+	@Export("clearIntArray")
 	public static void clearIntArray(int[] var0, int var1, int var2) {
 		for (var2 = var2 + var1 - 7; var1 < var2; var0[var1++] = 0) { // L: 364 365 373
 			var0[var1++] = 0; // L: 366

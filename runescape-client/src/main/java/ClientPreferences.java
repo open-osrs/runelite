@@ -1,41 +1,46 @@
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cp")
+@Implements("ClientPreferences")
 public class ClientPreferences {
-	@ObfuscatedName("ot")
-	@ObfuscatedSignature(
-		descriptor = "Lco;"
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 297838275
 	)
-	static Varcs varcs;
+	@Export("ClientPreferences_optionCount")
+	static int ClientPreferences_optionCount;
+	@ObfuscatedName("ak")
+	@ObfuscatedSignature(
+		descriptor = "Llw;"
+	)
+	static Bounds field1089;
+	@ObfuscatedName("l")
+	@Export("roofsHidden")
+	boolean roofsHidden;
+	@ObfuscatedName("m")
+	@Export("titleMusicDisabled")
+	boolean titleMusicDisabled;
 	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1940309873
+		intValue = 183452859
 	)
-	static int ClientPreferences_optionCount;
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "[Lls;"
-	)
-	static IndexedSprite[] title_muteSprite;
-	@ObfuscatedName("s")
-	boolean roofsHidden;
-	@ObfuscatedName("t")
-	boolean titleMusicDisabled;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -1674568027
-	)
+	@Export("windowMode")
 	int windowMode;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
+	@Export("rememberedUsername")
 	String rememberedUsername;
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
+	@Export("hideUsername")
 	boolean hideUsername;
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
+	@Export("parameters")
 	LinkedHashMap parameters;
 
 	static {
@@ -47,11 +52,11 @@ public class ClientPreferences {
 		this.rememberedUsername = null;
 		this.hideUsername = false;
 		this.parameters = new LinkedHashMap();
-		this.method1907(true); // L: 21
+		this.method1948(true); // L: 21
 	} // L: 22
 
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;)V"
+		descriptor = "(Lkb;)V"
 	)
 	ClientPreferences(Buffer var1) {
 		this.windowMode = 1; // L: 15
@@ -91,27 +96,28 @@ public class ClientPreferences {
 					this.hideUsername = var1.readBoolean(); // L: 53
 				}
 			} else {
-				this.method1907(true); // L: 31
+				this.method1948(true); // L: 31
 			}
 		} else {
-			this.method1907(true); // L: 26
+			this.method1948(true); // L: 26
 		}
 
 	} // L: 57
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "124970777"
+		descriptor = "(ZB)V",
+		garbageValue = "120"
 	)
-	void method1907(boolean var1) {
+	void method1948(boolean var1) {
 	} // L: 59
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lkf;",
-		garbageValue = "1981106247"
+		descriptor = "(I)Lkb;",
+		garbageValue = "-948717510"
 	)
+	@Export("toBuffer")
 	Buffer toBuffer() {
 		Buffer var1 = new Buffer(100); // L: 62
 		var1.writeByte(ClientPreferences_optionCount); // L: 63
