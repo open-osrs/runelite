@@ -29,7 +29,6 @@ import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import io.reactivex.rxjava3.functions.Consumer;
-import io.sentry.Sentry;
 import java.lang.reflect.Method;
 import java.util.Set;
 import lombok.AccessLevel;
@@ -96,7 +95,6 @@ public abstract class Plugin implements Module, ExtensionPoint
 			if (method.getExceptionTypes().length != 0)
 			{
 				log.warn("Event handlers should handle all checked exceptions themselves " + method.toString());
-				Sentry.capture("EventHandler " + method.toString()); // Spam Owain's inbox with this :)
 			}
 
 			method.setAccessible(true);
