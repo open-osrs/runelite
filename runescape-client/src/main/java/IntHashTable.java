@@ -1,14 +1,13 @@
+import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mc")
+@ObfuscatedName("mj")
+@Implements("IntHashTable")
 public class IntHashTable {
-	@ObfuscatedName("qy")
-	@ObfuscatedSignature(
-		descriptor = "Ldr;"
-	)
-	static PcmPlayer pcmPlayer1;
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
+	@Export("array")
 	int[] array;
 
 	public IntHashTable(int[] var1) {
@@ -33,11 +32,12 @@ public class IntHashTable {
 
 	} // L: 17
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(II)I",
-		garbageValue = "1243310529"
+		garbageValue = "1541928585"
 	)
+	@Export("get")
 	public int get(int var1) {
 		int var2 = (this.array.length >> 1) - 1; // L: 20
 		int var3 = var1 & var2; // L: 21

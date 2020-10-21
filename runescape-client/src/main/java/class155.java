@@ -1,7 +1,7 @@
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("ea")
+@ObfuscatedName("ee")
 public interface class155 {
-	@ObfuscatedName("z")
-	void method3442(Object var1);
+	@ObfuscatedName("f")
+	void method3450(Object var1);
 }
