@@ -41,7 +41,7 @@ buildscript {
 }
 
 plugins {
-    id("com.adarshr.test-logger") version "2.1.0" apply false
+    id("com.adarshr.test-logger") version "2.1.1" apply false
     id("com.github.ben-manes.versions") version "0.33.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.15"
     id("org.ajoberstar.grgit") version "4.1.0"
