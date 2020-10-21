@@ -151,8 +151,11 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 			{
 				if (!(e instanceof PluginAlreadyLoadedException))
 				{
-					String plugin = pluginPath.toString().substring(pluginsRoot.toString().length() + 1);
-					duplicatePlugins.add(plugin);
+					if (!ExternalPluginManager.isDevelopmentMode())
+					{
+						String plugin = pluginPath.toString().substring(pluginsRoot.toString().length() + 1);
+						duplicatePlugins.add(plugin);
+					}
 					log.error("Could not load plugin {}", pluginPath, e);
 				}
 			}
