@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2020, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,13 +22,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.ui;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.6.28"
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
-    const val openosrsVersion = "3.5.0"
-
-    const val rsversion = 191
-    const val cacheversion = 165
+public class ContainableFrameTest
+{
+	@Test
+	public void testJdk8231564()
+	{
+		assertTrue(ContainableFrame.jdk8231564("11.0.8"));
+		assertFalse(ContainableFrame.jdk8231564("11.0.7"));
+		assertFalse(ContainableFrame.jdk8231564("1.8.0_261"));
+		assertFalse(ContainableFrame.jdk8231564("12.0.0"));
+		assertFalse(ContainableFrame.jdk8231564("13.0.0"));
+		assertFalse(ContainableFrame.jdk8231564("14.0.0"));
+	}
 }
