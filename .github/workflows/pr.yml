@@ -12,9 +12,14 @@ jobs:
     steps:
       - name: PR title lint
         if: github.event_name == 'pull_request'
-        uses: seferov/pr-lint-action@v1.1.1
+        uses: morrisoncole/pr-lint-action@v1.4.1
         with:
-          title-regex: '^([\w-/ ]+): [\w ]+'
+          title-regex: '^([\w-/]+): \w+'
+          on-failed-regex-fail-action: false
+          on-failed-regex-request-changes: false
+          on-failed-regex-create-review: true
+          on-failed-regex-comment: "Your PR title should match the following regex: `%regex%`!"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   validate:
     name: Validate gradle wrapper
