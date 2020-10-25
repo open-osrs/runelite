@@ -36,6 +36,7 @@ import javax.annotation.Nullable;
 import net.runelite.api.annotations.VisibleForExternalPlugins;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.vars.AccountType;
@@ -2069,6 +2070,20 @@ public interface Client extends GameShell
 	 * Sets the status of client mirror
 	 */
 	void setMirrored(boolean isMirrored);
+
+	/**
+	 * True if the client is comparing player appearance hashes.
+	 */
+	boolean isComparingAppearance();
+
+	/**
+	 * Setting this to true will allow the client to compare
+	 * player appearance hashes and dispatch when one changes
+	 * via the {@link PlayerAppearanceChanged} event.
+	 * <p>
+	 * WARNING - THIS METHOD IS CPU-INTENSE.
+	 */
+	void setComparingAppearance(boolean comparingAppearance);
 
 	/**
 	 * Sets the image to be used for the login screen, provided as SpritePixels
