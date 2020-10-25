@@ -25,7 +25,6 @@ import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.WorldType;
 import net.runelite.api.events.AnimationChanged;
-import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.eventbus.EventBus;
@@ -68,7 +67,6 @@ public class PlayerManager
 
 		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
-		eventBus.subscribe(PlayerAppearanceChanged.class, this, this::onAppearenceChanged);
 	}
 
 	/**
@@ -209,14 +207,6 @@ public class PlayerManager
 			player.setHttpRetry(false);
 			player.setHiscoresRequested(false);
 		});
-	}
-
-	private void onAppearenceChanged(PlayerAppearanceChanged event)
-	{
-		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
-		update(player);
-		player.setFriend(client.isFriended(player.getName(), false));
-		player.setClan(friendChatManager.isMember(player.getName()));
 	}
 
 	private void onPlayerDespawned(PlayerDespawned event)
