@@ -28,7 +28,7 @@ import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.kit.KitType;
-import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.AttackStyleChanged;
 import net.runelite.client.util.PvPUtil;
 import net.runelite.http.api.hiscore.HiscoreClient;
@@ -45,14 +45,16 @@ public class PlayerManager
 	private final HiscoreClient hiscoreClient;
 	private final Client client;
 	private final ItemManager itemManager;
+	private final EventBus eventBus;
 	private final FriendChatManager friendChatManager;
 	private final Map<String, PlayerContainer> playerMap = new ConcurrentHashMap<>();
 	private final Map<String, HiscoreResult> resultCache = new ConcurrentHashMap<>();
-	private final ExecutorService executorService = Executors.newFixedThreadPool(100);
+	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 	@Inject
 	PlayerManager(
 		final Client client,
+		final EventBus eventBus,
 		final ItemManager itemManager,
 		final FriendChatManager friendChatManager,
 		final OkHttpClient okHttpClient
@@ -60,8 +62,13 @@ public class PlayerManager
 	{
 		this.client = client;
 		this.itemManager = itemManager;
+		this.eventBus = eventBus;
 		this.friendChatManager = friendChatManager;
 		this.hiscoreClient = new HiscoreClient(okHttpClient);
+
+		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
+		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+		eventBus.subscribe(PlayerAppearanceChanged.class, this, this::onAppearenceChanged);
 	}
 
 	/**
@@ -204,22 +211,21 @@ public class PlayerManager
 		});
 	}
 
-	@Subscribe
 	private void onAppearenceChanged(PlayerAppearanceChanged event)
 	{
-		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
-		update(player);
-		player.setFriend(client.isFriended(player.getName(), false));
-		player.setClan(friendChatManager.isMember(player.getName()));
+		executorService.submit(() -> {
+			PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
+			update(player);
+			player.setFriend(client.isFriended(player.getName(), false));
+			player.setClan(friendChatManager.isMember(player.getName()));
+		});
 	}
 
-	@Subscribe
 	private void onPlayerDespawned(PlayerDespawned event)
 	{
 		playerMap.remove(event.getPlayer().getName());
 	}
 
-	@Subscribe
 	private void onAnimationChanged(AnimationChanged event)
 	{
 		final Actor actor = event.getActor();
@@ -429,9 +435,7 @@ public class PlayerManager
 
 		int risk = 0;
 		for (int val : player.getRiskedGear().values())
-		{
 			risk += val;
-		}
 		player.setRisk(risk);
 	}
 
@@ -466,8 +470,8 @@ public class PlayerManager
 				player.setAttackStyle(AttackStyle.MAGE);
 				if (oldStyle != player.getAttackStyle())
 				{
-					new AttackStyleChanged(
-						player.getPlayer(), oldStyle, player.getAttackStyle()
+					eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
+						player.getPlayer(), oldStyle, player.getAttackStyle())
 					);
 				}
 				return;
@@ -491,9 +495,9 @@ public class PlayerManager
 
 		if (oldStyle != player.getAttackStyle())
 		{
-			new AttackStyleChanged(
-				player.getPlayer(), oldStyle, player.getAttackStyle());
-
+			eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
+				player.getPlayer(), oldStyle, player.getAttackStyle())
+			);
 		}
 	}
 
