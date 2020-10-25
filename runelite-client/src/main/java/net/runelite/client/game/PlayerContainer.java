@@ -24,12 +24,16 @@
 package net.runelite.client.game;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.runelite.api.Player;
+import net.runelite.api.SkullIcon;
+import net.runelite.api.coords.WorldPoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
+import org.jetbrains.annotations.Nullable;
 
 @Getter
 @Setter
@@ -42,9 +46,14 @@ public class PlayerContainer
 	private LinkedHashMap<Integer, Integer> gear;
 	private LinkedHashMap<Integer, Integer> riskedGear;
 	private MeleeStyle meleeStyle;
+	@Nullable
 	private Player player;
+	private WorldPoint worldPoint;
+	private List<ConcurrentItem> appearance;
+	private SkullIcon skullIcon;
 	private String location;
 	private String name;
+	@Deprecated
 	private String targetString;
 	private CombatStats combatStats;
 	private boolean httpRetry;
@@ -76,7 +85,6 @@ public class PlayerContainer
 		this.scoutTimer = 500;
 		this.scouted = false;
 		this.skills = null;
-		this.targetString = "";
 		this.weakness = AttackStyle.UNKNOWN;
 	}
 

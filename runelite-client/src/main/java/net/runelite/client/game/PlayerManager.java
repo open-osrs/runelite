@@ -19,22 +19,19 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
-import net.runelite.api.ItemDefinition;
 import net.runelite.api.ItemID;
-import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.WorldType;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.events.PlayerDespawned;
-import net.runelite.api.kit.KitType;
+import static net.runelite.api.kit.KitType.WEAPON;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.AttackStyleChanged;
 import net.runelite.client.util.PvPUtil;
 import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreResult;
 import net.runelite.http.api.item.ItemEquipmentStats;
-import net.runelite.http.api.item.ItemStats;
 import okhttp3.OkHttpClient;
 
 @Singleton
@@ -76,6 +73,7 @@ public class PlayerManager
 	 */
 	public Set<PlayerContainer> getAllAttackers()
 	{
+		assert client.isClientThread() : "getAllAttackers() must be called and accessed on the clientThread.";
 		Set<PlayerContainer> result = new HashSet<>();
 		for (PlayerContainer playerContainer : playerMap.values())
 		{
@@ -92,6 +90,7 @@ public class PlayerManager
 	 */
 	public Collection<PlayerContainer> getPlayerContainers()
 	{
+		assert client.isClientThread() : "getPlayerContainers() must be called and accessed on the clientThread.";
 		return playerMap.values();
 	}
 
@@ -102,6 +101,7 @@ public class PlayerManager
 	@Nullable
 	public PlayerContainer getPlayer(String name)
 	{
+		assert client.isClientThread() : "getPlayer() must be called and accessed on the clientThread.";
 		return playerMap.get(name);
 	}
 
@@ -112,6 +112,7 @@ public class PlayerManager
 	@Nullable
 	public PlayerContainer getPlayer(Player player)
 	{
+		assert client.isClientThread() : "getPlayer() must be called and accessed on the clientThread.";
 		if (player == null)
 		{
 			return null;
@@ -214,9 +215,11 @@ public class PlayerManager
 	private void onAppearenceChanged(PlayerAppearanceChanged event)
 	{
 		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
-		update(player);
+		player.setAppearance(ConcurrentItem.getConcurrentList(event.getPlayer().getPlayerAppearance(), itemManager));
+		player.setWorldPoint(event.getPlayer().getWorldLocation());
 		player.setFriend(client.isFriended(player.getName(), false));
 		player.setClan(friendChatManager.isMember(player.getName()));
+		executorService.submit(() -> update(player));
 	}
 
 	private void onPlayerDespawned(PlayerDespawned event)
@@ -257,16 +260,15 @@ public class PlayerManager
 		updatePlayerGear(player);
 		updateAttackStyle(player);
 		updateWeakness(player);
-		player.setLocation(WorldLocation.location(player.getPlayer().getWorldLocation()));
-		player.setWildyLevel(PvPUtil.getWildernessLevelFrom(player.getPlayer().getWorldLocation()));
-		player.setTargetString(targetStringBuilder(player));
+		player.setLocation(WorldLocation.location(player.getWorldPoint()));
+		player.setWildyLevel(PvPUtil.getWildernessLevelFrom(player.getWorldPoint()));
 	}
 
 	private void updatePlayerGear(PlayerContainer player)
 	{
 		final Map<Integer, Integer> prices = new HashMap<>();
 
-		if (player.getPlayer().getPlayerAppearance() == null)
+		if (player.getAppearance() == null)
 		{
 			return;
 		}
@@ -286,25 +288,18 @@ public class PlayerManager
 			rangeStr = 0,
 			speed = 0;
 
-		for (KitType kitType : KitType.values())
+		for (ConcurrentItem item : player.getAppearance())
 		{
-			if (kitType.equals(KitType.RING) || kitType.equals(KitType.AMMUNITION))
+			if (item.getStats() == null)
 			{
 				continue;
 			}
 
-			final int id = player.getPlayer().getPlayerAppearance().getEquipmentId(kitType);
-
-			if (id == -1)
+			if (item.getType() == WEAPON)
 			{
-				continue;
-			}
+				player.setWeapon(item.getId());
 
-			if (kitType.equals(KitType.WEAPON))
-			{
-				player.setWeapon(id);
-
-				switch (id)
+				switch (item.getId())
 				{
 					case ItemID.HEAVY_BALLISTA:
 					case ItemID.HEAVY_BALLISTA_23630:
@@ -340,16 +335,7 @@ public class PlayerManager
 				}
 			}
 
-			final ItemStats item = itemManager.getItemStats(id, false);
-			final ItemDefinition itemDefinition = itemManager.getItemDefinition(id);
-
-			if (item == null)
-			{
-				log.debug("Item is null: {}", id);
-				continue;
-			}
-
-			final ItemEquipmentStats stats = item.getEquipment();
+			final ItemEquipmentStats stats = item.getEquipmentStats();
 
 			speed += stats.getAspeed();
 			meleeAtkCrush += stats.getAcrush();
@@ -366,20 +352,20 @@ public class PlayerManager
 			meleeStr += stats.getStr();
 			magicStr += stats.getMdmg();
 
-			if (ItemReclaimCost.breaksOnDeath(id))
+			if (ItemReclaimCost.breaksOnDeath(item.getId()))
 			{
-				prices.put(id, itemManager.getRepairValue(id));
-				log.debug("Item has a broken value: Id {}, Value {}", id, itemManager.getRepairValue(id));
+				prices.put(item.getId(), itemManager.getRepairValue(item.getId()));
+				log.debug("Item has a broken value: Id {}, Value {}", item.getId(), itemManager.getRepairValue(item.getId()));
 				continue;
 			}
 
-			if (!itemDefinition.isTradeable() && !ItemMapping.isMapped(id))
+			if (!item.getDefinition().isTradeable() && !ItemMapping.isMapped(item.getId()))
 			{
-				prices.put(id, itemDefinition.getPrice());
+				prices.put(item.getId(), item.getDefinition().getPrice());
 			}
-			else if (itemDefinition.isTradeable())
+			else if (item.getDefinition().isTradeable())
 			{
-				prices.put(id, itemManager.getItemPrice(id, false));
+				prices.put(item.getId(), itemManager.getItemPrice(item.getId(), false));
 			}
 		}
 
@@ -421,7 +407,7 @@ public class PlayerManager
 
 		if (client.getWorldType().stream().noneMatch(x -> x == WorldType.HIGH_RISK))
 		{
-			if (player.getPlayer().getSkullIcon() == null)
+			if (player.getSkullIcon() == null)
 			{
 				removeEntries(player.getRiskedGear(), player.getPrayerLevel() < 25 ? 3 : 4);
 			}
@@ -433,7 +419,9 @@ public class PlayerManager
 
 		int risk = 0;
 		for (int val : player.getRiskedGear().values())
+		{
 			risk += val;
+		}
 		player.setRisk(risk);
 	}
 
@@ -460,14 +448,18 @@ public class PlayerManager
 		final AttackStyle oldStyle = player.getAttackStyle();
 		boolean staff = false;
 
-		for (int id : player.getGear().keySet())
+		for (ConcurrentItem item : player.getAppearance())
 		{
-			ItemDefinition def = itemManager.getItemDefinition(id);
-			if (def.getName().toLowerCase().contains("staff"))
+			String name = item.getDefinition().getName().toLowerCase();
+			if (name.contains("staff") || name.contains("wand") || name.contains("sceptre") || name.contains("trident"))
 			{
 				player.setAttackStyle(AttackStyle.MAGE);
 				if (oldStyle != player.getAttackStyle())
 				{
+					if (player.getPlayer() == null)
+					{
+						return;
+					}
 					eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
 						player.getPlayer(), oldStyle, player.getAttackStyle())
 					);
@@ -493,6 +485,10 @@ public class PlayerManager
 
 		if (oldStyle != player.getAttackStyle())
 		{
+			if (player.getPlayer() == null)
+			{
+				return;
+			}
 			eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
 				player.getPlayer(), oldStyle, player.getAttackStyle())
 			);
@@ -525,22 +521,5 @@ public class PlayerManager
 			it.next();
 			it.remove(); // LinkedHashMap iterator supports this
 		}
-	}
-
-	private String targetStringBuilder(PlayerContainer player)
-	{
-		if (player.getPlayer().getInteracting() != null)
-		{
-			Actor actor = player.getPlayer().getInteracting();
-			if (actor instanceof Player)
-			{
-				return "(Player) " + actor.getName();
-			}
-			else if (actor instanceof NPC)
-			{
-				return "(NPC) " + actor.getName();
-			}
-		}
-		return "No Target Detected";
 	}
 }
