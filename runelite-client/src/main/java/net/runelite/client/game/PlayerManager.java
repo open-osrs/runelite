@@ -52,10 +52,10 @@ public class PlayerManager
 
 	@Inject
 	PlayerManager(
-			final Client client,
-			final ItemManager itemManager,
-			final FriendChatManager friendChatManager,
-			final OkHttpClient okHttpClient
+		final Client client,
+		final ItemManager itemManager,
+		final FriendChatManager friendChatManager,
+		final OkHttpClient okHttpClient
 	)
 	{
 		this.client = client;
@@ -268,19 +268,19 @@ public class PlayerManager
 		}
 
 		int magicAttack = 0,
-				magicDefence = 0,
-				magicStr = 0,
-				meleeAtkCrush = 0,
-				meleeAtkStab = 0,
-				meleeAtkSlash = 0,
-				meleeDefCrush = 0,
-				meleeDefStab = 0,
-				meleeDefSlash = 0,
-				meleeStr = 0,
-				rangeAttack = 0,
-				rangeDefence = 0,
-				rangeStr = 0,
-				speed = 0;
+			magicDefence = 0,
+			magicStr = 0,
+			meleeAtkCrush = 0,
+			meleeAtkStab = 0,
+			meleeAtkSlash = 0,
+			meleeDefCrush = 0,
+			meleeDefStab = 0,
+			meleeDefSlash = 0,
+			meleeStr = 0,
+			rangeAttack = 0,
+			rangeDefence = 0,
+			rangeStr = 0,
+			speed = 0;
 
 		for (KitType kitType : KitType.values())
 		{
@@ -380,22 +380,22 @@ public class PlayerManager
 		}
 
 		player.setCombatStats(new CombatStats(
-				magicAttack,
-				magicDefence,
-				magicStr,
-				meleeAtkCrush,
-				meleeAtkSlash,
-				meleeAtkStab,
-				(meleeAtkCrush + meleeAtkSlash + meleeAtkStab) / 3,
-				meleeDefCrush,
-				(meleeDefCrush + meleeDefSlash + meleeDefStab) / 3,
-				meleeDefSlash,
-				meleeDefStab,
-				meleeStr,
-				rangeAttack,
-				rangeDefence,
-				rangeStr,
-				speed
+			magicAttack,
+			magicDefence,
+			magicStr,
+			meleeAtkCrush,
+			meleeAtkSlash,
+			meleeAtkStab,
+			(meleeAtkCrush + meleeAtkSlash + meleeAtkStab) / 3,
+			meleeDefCrush,
+			(meleeDefCrush + meleeDefSlash + meleeDefStab) / 3,
+			meleeDefSlash,
+			meleeDefStab,
+			meleeStr,
+			rangeAttack,
+			rangeDefence,
+			rangeStr,
+			speed
 		));
 		updateGear(player, prices);
 		updateMeleeStyle(player);
@@ -404,15 +404,15 @@ public class PlayerManager
 	private void updateGear(PlayerContainer player, Map<Integer, Integer> prices)
 	{
 		player.setGear(prices.entrySet()
-				.stream()
-				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+			.stream()
+			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
 
 		player.setRiskedGear(prices.entrySet()
-				.stream()
-				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+			.stream()
+			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
 
 		if (client.getWorldType().stream().noneMatch(x -> x == WorldType.HIGH_RISK))
@@ -429,7 +429,9 @@ public class PlayerManager
 
 		int risk = 0;
 		for (int val : player.getRiskedGear().values())
+		{
 			risk += val;
+		}
 		player.setRisk(risk);
 	}
 
@@ -465,7 +467,7 @@ public class PlayerManager
 				if (oldStyle != player.getAttackStyle())
 				{
 					new AttackStyleChanged(
-							player.getPlayer(), oldStyle, player.getAttackStyle()
+						player.getPlayer(), oldStyle, player.getAttackStyle()
 					);
 				}
 				return;
@@ -490,7 +492,7 @@ public class PlayerManager
 		if (oldStyle != player.getAttackStyle())
 		{
 			new AttackStyleChanged(
-					player.getPlayer(), oldStyle, player.getAttackStyle());
+				player.getPlayer(), oldStyle, player.getAttackStyle());
 
 		}
 	}
