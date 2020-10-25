@@ -25,9 +25,10 @@ import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.WorldType;
 import net.runelite.api.events.AnimationChanged;
+import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.kit.KitType;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.AttackStyleChanged;
 import net.runelite.client.util.PvPUtil;
 import net.runelite.http.api.hiscore.HiscoreClient;
@@ -44,29 +45,23 @@ public class PlayerManager
 	private final HiscoreClient hiscoreClient;
 	private final Client client;
 	private final ItemManager itemManager;
-	private final EventBus eventBus;
 	private final FriendChatManager friendChatManager;
 	private final Map<String, PlayerContainer> playerMap = new ConcurrentHashMap<>();
 	private final Map<String, HiscoreResult> resultCache = new ConcurrentHashMap<>();
-	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+	private final ExecutorService executorService = Executors.newFixedThreadPool(100);
 
 	@Inject
 	PlayerManager(
-		final Client client,
-		final EventBus eventBus,
-		final ItemManager itemManager,
-		final FriendChatManager friendChatManager,
-		final OkHttpClient okHttpClient
+			final Client client,
+			final ItemManager itemManager,
+			final FriendChatManager friendChatManager,
+			final OkHttpClient okHttpClient
 	)
 	{
 		this.client = client;
 		this.itemManager = itemManager;
-		this.eventBus = eventBus;
 		this.friendChatManager = friendChatManager;
 		this.hiscoreClient = new HiscoreClient(okHttpClient);
-
-		eventBus.subscribe(PlayerDespawned.class, this, this::onPlayerDespawned);
-		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
 	}
 
 	/**
@@ -209,11 +204,22 @@ public class PlayerManager
 		});
 	}
 
+	@Subscribe
+	private void onAppearenceChanged(PlayerAppearanceChanged event)
+	{
+		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
+		update(player);
+		player.setFriend(client.isFriended(player.getName(), false));
+		player.setClan(friendChatManager.isMember(player.getName()));
+	}
+
+	@Subscribe
 	private void onPlayerDespawned(PlayerDespawned event)
 	{
 		playerMap.remove(event.getPlayer().getName());
 	}
 
+	@Subscribe
 	private void onAnimationChanged(AnimationChanged event)
 	{
 		final Actor actor = event.getActor();
@@ -262,19 +268,19 @@ public class PlayerManager
 		}
 
 		int magicAttack = 0,
-			magicDefence = 0,
-			magicStr = 0,
-			meleeAtkCrush = 0,
-			meleeAtkStab = 0,
-			meleeAtkSlash = 0,
-			meleeDefCrush = 0,
-			meleeDefStab = 0,
-			meleeDefSlash = 0,
-			meleeStr = 0,
-			rangeAttack = 0,
-			rangeDefence = 0,
-			rangeStr = 0,
-			speed = 0;
+				magicDefence = 0,
+				magicStr = 0,
+				meleeAtkCrush = 0,
+				meleeAtkStab = 0,
+				meleeAtkSlash = 0,
+				meleeDefCrush = 0,
+				meleeDefStab = 0,
+				meleeDefSlash = 0,
+				meleeStr = 0,
+				rangeAttack = 0,
+				rangeDefence = 0,
+				rangeStr = 0,
+				speed = 0;
 
 		for (KitType kitType : KitType.values())
 		{
@@ -374,22 +380,22 @@ public class PlayerManager
 		}
 
 		player.setCombatStats(new CombatStats(
-			magicAttack,
-			magicDefence,
-			magicStr,
-			meleeAtkCrush,
-			meleeAtkSlash,
-			meleeAtkStab,
-			(meleeAtkCrush + meleeAtkSlash + meleeAtkStab) / 3,
-			meleeDefCrush,
-			(meleeDefCrush + meleeDefSlash + meleeDefStab) / 3,
-			meleeDefSlash,
-			meleeDefStab,
-			meleeStr,
-			rangeAttack,
-			rangeDefence,
-			rangeStr,
-			speed
+				magicAttack,
+				magicDefence,
+				magicStr,
+				meleeAtkCrush,
+				meleeAtkSlash,
+				meleeAtkStab,
+				(meleeAtkCrush + meleeAtkSlash + meleeAtkStab) / 3,
+				meleeDefCrush,
+				(meleeDefCrush + meleeDefSlash + meleeDefStab) / 3,
+				meleeDefSlash,
+				meleeDefStab,
+				meleeStr,
+				rangeAttack,
+				rangeDefence,
+				rangeStr,
+				speed
 		));
 		updateGear(player, prices);
 		updateMeleeStyle(player);
@@ -398,15 +404,15 @@ public class PlayerManager
 	private void updateGear(PlayerContainer player, Map<Integer, Integer> prices)
 	{
 		player.setGear(prices.entrySet()
-			.stream()
-			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+				.stream()
+				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
 
 		player.setRiskedGear(prices.entrySet()
-			.stream()
-			.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
+				.stream()
+				.sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new))
 		);
 
 		if (client.getWorldType().stream().noneMatch(x -> x == WorldType.HIGH_RISK))
@@ -458,8 +464,8 @@ public class PlayerManager
 				player.setAttackStyle(AttackStyle.MAGE);
 				if (oldStyle != player.getAttackStyle())
 				{
-					eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
-						player.getPlayer(), oldStyle, player.getAttackStyle())
+					new AttackStyleChanged(
+							player.getPlayer(), oldStyle, player.getAttackStyle()
 					);
 				}
 				return;
@@ -483,9 +489,9 @@ public class PlayerManager
 
 		if (oldStyle != player.getAttackStyle())
 		{
-			eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
-				player.getPlayer(), oldStyle, player.getAttackStyle())
-			);
+			new AttackStyleChanged(
+					player.getPlayer(), oldStyle, player.getAttackStyle());
+
 		}
 	}
 
