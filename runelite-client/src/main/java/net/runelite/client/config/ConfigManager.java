@@ -61,6 +61,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -246,6 +247,7 @@ public class ConfigManager
 		return str;
 	}
 
+	@Nullable
 	static String objectToString(Object object)
 	{
 		if (object instanceof Color)
@@ -310,7 +312,8 @@ public class ConfigManager
 		{
 			return String.valueOf(object);
 		}
-		return object.toString();
+
+		return object == null ? null : object.toString();
 	}
 
 	public static <T extends Enum<T>> Class<T> getElementType(EnumSet<T> enumSet)

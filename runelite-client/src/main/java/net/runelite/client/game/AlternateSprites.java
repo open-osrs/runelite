@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2020 Jordan <nightfirecat@protonmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,13 +22,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.game;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.6.30"
-
-    const val openosrsVersion = "3.5.2"
-
-    const val rsversion = 192
-    const val cacheversion = 165
+public class AlternateSprites
+{
+	public static final String DISEASE_HEART = "1067-DISEASE.png";
+	public static final String POISON_HEART = "1067-POISON.png";
+	public static final String VENOM_HEART = "1067-VENOM.png";
 }
