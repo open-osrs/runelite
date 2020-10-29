@@ -41,17 +41,6 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
 		return overlayOutdated;
 	}
 
-	private InputStream getResourceAsStream(String resource) {
-		final InputStream in
-			= getContextClassLoader().getResourceAsStream(resource);
-
-		return in == null ? getClass().getResourceAsStream(resource) : in;
-	}
-
-	private ClassLoader getContextClassLoader() {
-		return Thread.currentThread().getContextClassLoader();
-	}
-
 	@SuppressWarnings("InfiniteRecursion")
 	@Copy("takeFile")
 	@Replace("takeFile")
