@@ -62,6 +62,7 @@ dependencies {
     implementation(group = "org.pushing-pixels", name = "radiance-substance", version = "2.5.1")
     implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.9")
+    implementation(group = "commons-io", name = "commons-io", version = "2.8.0")
     implementation(group = "org.jetbrains", name = "annotations", version = "20.1.0")
     implementation(group = "org.jooq", name = "jooq", version = "3.14.0")
     implementation(group = "org.jooq", name = "jooq-codegen", version = "3.14.0")
