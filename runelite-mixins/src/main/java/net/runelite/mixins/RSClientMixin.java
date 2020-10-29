@@ -241,6 +241,9 @@ public abstract class RSClientMixin implements RSClient
 	private boolean comparingAppearance = false;
 
 	@Inject
+	private List<String> outdatedScripts = new ArrayList<>();
+
+	@Inject
 	@Override
 	public void setPrintMenuActions(boolean yes)
 	{
@@ -1972,6 +1975,23 @@ public abstract class RSClientMixin implements RSClient
 		client.setMusicTrackVolume(var4);
 		client.setMusicTrackBoolean(var5);
 		client.setPcmSampleLength(var0);
+	}
+
+	// this exists because the original got inlined
+	@Inject
+	@Override
+	public void setOutdatedScript(String outdatedScript)
+	{
+		if (!outdatedScripts.contains(outdatedScript))
+			outdatedScripts.add(outdatedScript);
+	}
+
+	// this exists because the original got inlined
+	@Inject
+	@Override
+	public List<String> getOutdatedScripts()
+	{
+		return this.outdatedScripts;
 	}
 }
 

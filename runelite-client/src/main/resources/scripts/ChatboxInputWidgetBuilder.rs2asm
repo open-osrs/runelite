@@ -47,165 +47,189 @@ LABEL23:
    get_varbit             8119
    iconst                 1
    if_icmpeq              LABEL42
-   jump                   LABEL146
+   jump                   LABEL155
 LABEL42:
+   invoke                 3160
+   iconst                 1
+   if_icmpeq              LABEL46
+   jump                   LABEL51
+LABEL46:
+   sconst                 "<img=22>"
+   chat_playername
+   join_string            2
+   sstore                 2
+   jump                   LABEL59
+LABEL51:
    iconst                 105
    iconst                 115
    iconst                 1894
    get_varbit             1777
-   enum                  
-   chat_playername       
+   enum
+   chat_playername
    join_string            2
    sstore                 2
+LABEL59:
    iload                  4
    iconst                 1
-   if_icmpeq              LABEL54
-   jump                   LABEL58
-LABEL54:
+   if_icmpeq              LABEL63
+   jump                   LABEL67
+LABEL63:
    sload                  2
    sconst                 "<img=19>"
-   append                
+   append
    sstore                 2
-LABEL58:
+LABEL67:
    sload                  2
    sconst                 ": "
    sload                  0
    sload                  1
    sconst                 "</col>"
    join_string            4
-   append                
+   append
    sstore                 2
    iload                  2
    iconst                 80
-   if_icmplt              LABEL70
-   jump                   LABEL77
-LABEL70:
+   if_icmplt              LABEL79
+   jump                   LABEL86
+LABEL79:
    sload                  2
    sload                  0
    sconst                 "*"
    sconst                 "</col>"
    join_string            3
-   append                
+   append
    sstore                 2
-LABEL77:
+LABEL86:
    sload                  2
    iconst                 2147483647
    iconst                 495
-   parawidth             
+   parawidth
    istore                 3
    iload                  4
    iconst                 1
-   if_icmpeq              LABEL86
-   jump                   LABEL103
-LABEL86:
+   if_icmpeq              LABEL95
+   jump                   LABEL112
+LABEL95:
    iconst                 60
    iconst                 5
    iload                  3
-   add                   
+   add
    invoke                 1045
    iconst                 30
    iconst                 0
    iconst                 0
    iconst                 10616871
-   if_setsize            
+   if_setsize
    iconst                 0
    iconst                 0
    iconst                 0
    iconst                 2
    iconst                 10616871
-   if_setposition        
-   jump                   LABEL115
-LABEL103:
+   if_setposition
+   jump                   LABEL124
+LABEL112:
    iconst                 0
    iconst                 30
    iconst                 0
    iconst                 1
    iconst                 10616871
-   if_setsize            
+   if_setsize
    iconst                 0
    iconst                 0
    iconst                 0
    iconst                 2
    iconst                 10616871
-   if_setposition        
-LABEL115:
+   if_setposition
+LABEL124:
    iload                  3
    iconst                 10616890
-   if_getwidth           
-   if_icmpgt              LABEL120
-   jump                   LABEL126
-LABEL120:
+   if_getwidth
+   if_icmpgt              LABEL129
+   jump                   LABEL135
+LABEL129:
    iconst                 2
    iconst                 2
    iconst                 0
    iconst                 10616890
-   if_settextalign       
-   jump                   LABEL131
-LABEL126:
+   if_settextalign
+   jump                   LABEL140
+LABEL135:
    iconst                 0
    iconst                 2
    iconst                 0
    iconst                 10616890
-   if_settextalign       
-LABEL131:
+   if_settextalign
+LABEL140:
    iconst                 10616890
-   if_clearops           
+   if_clearops
    iconst                 -1
    sconst                 ""
    iconst                 10616890
-   if_setonmouserepeat   
+   if_setonmouserepeat
    iconst                 -1
    sconst                 ""
    iconst                 10616890
-   if_setonmouseleave    
+   if_setonmouseleave
    iconst                 -1
    sconst                 ""
    iconst                 10616890
-   if_setonop            
-   jump                   LABEL187
-LABEL146:
+   if_setonop
+   jump                   LABEL205
+LABEL155:
+   invoke                 3160
+   iconst                 1
+   if_icmpeq              LABEL159
+   jump                   LABEL164
+LABEL159:
+   sconst                 "<img=22>"
+   sconst                 " You must set a name before you can chat."
+   join_string            2
+   sstore                 2
+   jump                   LABEL172
+LABEL164:
    iconst                 105
    iconst                 115
    iconst                 1894
    get_varbit             1777
-   enum                  
+   enum
    sconst                 " You must set a name before you can chat."
    join_string            2
    sstore                 2
+LABEL172:
    iconst                 1
    iconst                 2
    iconst                 0
    iconst                 10616890
-   if_settextalign       
+   if_settextalign
    iconst                 10
    sconst                 "Configure"
    iconst                 10616890
-   if_setop              
+   if_setop
    sconst                 "<col=ff9040>"
    sconst                 "Display name"
    sconst                 "</col>"
    join_string            3
    iconst                 10616890
-   if_setopbase          
+   if_setopbase
    iconst                 45
    iconst                 -2147483645
    iload                  1
    sconst                 "Ii"
    iconst                 10616890
-   if_setonmouserepeat   
+   if_setonmouserepeat
    iconst                 45
    iconst                 -2147483645
    iload                  0
    sconst                 "Ii"
    iconst                 10616890
-   if_setonmouseleave    
+   if_setonmouseleave
    iconst                 489
    iconst                 -2147483644
    iconst                 1024
    sconst                 "ii"
    iconst                 10616890
-   if_setonop            
-LABEL187:
+   if_setonop
+LABEL205:
    sload                  2
    iconst                 10616890
    if_settext            

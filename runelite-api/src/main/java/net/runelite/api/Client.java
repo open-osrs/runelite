@@ -2118,4 +2118,8 @@ public interface Client extends GameShell
 	String getSelectedItemName();
 
 	Widget getMessageContinueWidget();
+
+	void setOutdatedScript(String outdatedScript);
+
+	List<String> getOutdatedScripts();
 }
