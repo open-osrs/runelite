@@ -594,7 +594,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.MITHRIL_KNIFEP_5657, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MITHRIL_KNIFEP_5664, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MITHRIL_THROWNAXE, WeaponStyle.RANGE);
-		StyleMap.put(ItemID.MITH_CROSSBOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.MITHRIL_CROSSBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MONKEY_TALISMAN, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MORRIGANS_JAVELIN, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MORRIGANS_JAVELIN_23619, WeaponStyle.RANGE);

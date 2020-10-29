@@ -182,4 +182,6 @@ public interface RSActor extends RSEntity, Actor
 	@Import("runSequence")
 	@Override
 	int getRunAnimation();
+
+	void setDead(boolean dead);
 }

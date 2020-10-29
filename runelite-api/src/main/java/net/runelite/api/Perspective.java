@@ -366,6 +366,20 @@ public class Perspective
 	}
 
 	/**
+	 * Calculates a tile polygon from offset worldToScreen() points.
+	 *
+	 * @param client the game client
+	 * @param localLocation local location of the tile
+	 * @param zOffset offset from ground plane
+	 * @return a {@link Polygon} on screen corresponding to the given
+	 * localLocation.
+	 */
+	public static Polygon getCanvasTilePoly(@Nonnull Client client, @Nonnull LocalPoint localLocation, int zOffset)
+	{
+		return getCanvasTileAreaPoly(client, localLocation, 1, zOffset);
+	}
+
+	/**
 	 * Returns a polygon representing an area.
 	 *
 	 * @param client the game client
@@ -374,6 +388,24 @@ public class Perspective
 	 * @return a polygon representing the tiles in the area
 	 */
 	public static Polygon getCanvasTileAreaPoly(@Nonnull Client client, @Nonnull LocalPoint localLocation, int size)
+	{
+		return getCanvasTileAreaPoly(client, localLocation, size, 0);
+	}
+
+	/**
+	 * Returns a polygon representing an area.
+	 *
+	 * @param client the game client
+	 * @param localLocation the center location of the AoE
+	 * @param size the size of the area (ie. 3x3 AoE evaluates to size 3)
+	 * @param zOffset offset from ground plane
+	 * @return a polygon representing the tiles in the area
+	 */
+	public static Polygon getCanvasTileAreaPoly(
+		@Nonnull Client client,
+		@Nonnull LocalPoint localLocation,
+		int size,
+		int zOffset)
 	{
 		final int plane = client.getPlane();
 
@@ -399,10 +431,10 @@ public class Perspective
 			tilePlane = plane + 1;
 		}
 
-		final int swHeight = getHeight(client, swX, swY, tilePlane);
-		final int nwHeight = getHeight(client, neX, swY, tilePlane);
-		final int neHeight = getHeight(client, neX, neY, tilePlane);
-		final int seHeight = getHeight(client, swX, neY, tilePlane);
+		final int swHeight = getHeight(client, swX, swY, tilePlane) - zOffset;
+		final int nwHeight = getHeight(client, neX, swY, tilePlane) - zOffset;
+		final int neHeight = getHeight(client, neX, neY, tilePlane) - zOffset;
+		final int seHeight = getHeight(client, swX, neY, tilePlane) - zOffset;
 
 		Point p1 = localToCanvas(client, swX, swY, swHeight);
 		Point p2 = localToCanvas(client, neX, swY, nwHeight);
