@@ -28,7 +28,7 @@ LABEL18:
    iconst                 0                   ; Boolean
    sconst                 "drawSpecbarAnyway"
    runelite_callback
-   if_icmpeq              LABEL38 ; change this
+   if_icmpeq              LABEL38
    iconst                 1
    iconst                 38862883
    if_sethide
@@ -103,6 +103,17 @@ LABEL69:
    iload                  3
    iload                  2
    invoke                 189
+   iconst                 38862884
+   iconst                 0
+   invoke                 835
+   pop_int                                          ; Specbar is fully built here
+   iload                  1
+   iconst                 0
+   if_icmple              RETURN                    ; Return if the weapon isn't supposed to have a spec
+   jump                   CONTINUE                  ; Idk why I'm doing it like this but it's the jagex way
+   RETURN:
+      return
+   CONTINUE:
    iload                  3
    iload                  1
    if_icmpge              LABEL86

@@ -69,12 +69,5 @@ public interface NPC extends Actor
 	@Nullable
 	NPCDefinition getTransformedDefinition();
 
-	/**
-	 * Returns true if this NPC has died
-	 *
-	 * @return
-	 */
-	boolean isDead();
-
 	void onDefinitionChanged(NPCDefinition composition);
 }

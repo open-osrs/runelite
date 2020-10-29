@@ -283,4 +283,11 @@ public interface Actor extends Entity, Locatable
 	int getWalkRightAnimation();
 
 	int getRunAnimation();
+
+	/**
+	 * Returns true if this NPC has died
+	 *
+	 * @return
+	 */
+	boolean isDead();
 }

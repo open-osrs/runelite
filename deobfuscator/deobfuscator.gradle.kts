@@ -51,7 +51,7 @@ dependencies {
 
     testImplementation(deobjars)
     testImplementation(group = "junit", name = "junit", version = "4.13.1")
-    testImplementation(group = "org.mockito", name = "mockito-core", version = "3.5.15")
+    testImplementation(group = "org.mockito", name = "mockito-core", version = "3.6.0")
 }
 
 tasks {
