@@ -50,8 +50,12 @@ plugins {
     application
 }
 
-val grgit = Grgit.open(mapOf("dir" to rootProject.projectDir.absolutePath))
-val localGitCommit = grgit.head().id
+val localGitCommit = try {
+    val projectPath = rootProject.projectDir.absolutePath
+    Grgit.open(mapOf("dir" to projectPath)).head().id
+} catch (_: Exception) {
+    "n/a"
+}
 
 fun isNonStable(version: String): Boolean {
     return listOf("ALPHA", "BETA", "RC").any {
