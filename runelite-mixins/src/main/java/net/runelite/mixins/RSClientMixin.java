@@ -1977,7 +1977,6 @@ public abstract class RSClientMixin implements RSClient
 		client.setPcmSampleLength(var0);
 	}
 
-	// this exists because the original got inlined
 	@Inject
 	@Override
 	public void setOutdatedScript(String outdatedScript)
@@ -1985,8 +1984,7 @@ public abstract class RSClientMixin implements RSClient
 		if (!outdatedScripts.contains(outdatedScript))
 			outdatedScripts.add(outdatedScript);
 	}
-
-	// this exists because the original got inlined
+	
 	@Inject
 	@Override
 	public List<String> getOutdatedScripts()
