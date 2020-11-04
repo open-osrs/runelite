@@ -44,4 +44,12 @@ tasks {
     withType<JavaCompile> {
         options.compilerArgs.addAll(arrayOf("-g:source,vars,lines", "-Xlint:-unchecked"))
     }
+    register<JavaExec>("rsc-run") {
+        group = "openosrs"
+
+        classpath = project(":runescape-client").sourceSets.test.get().runtimeClasspath
+        enableAssertions = true
+
+        mainClass.set("Main")
+    }
 }

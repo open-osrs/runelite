@@ -158,6 +158,6 @@ tasks {
 
         classpath = sourceSets["main"].runtimeClasspath
         enableAssertions = true
-        main = "net.runelite.client.RuneLite"
+        mainClass.set("net.runelite.client.RuneLite")
     }
 }
