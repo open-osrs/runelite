@@ -35,14 +35,14 @@ buildscript {
     }
     dependencies {
         classpath("org.ajoberstar.grgit:grgit-core:4.1.0")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.33.0")
+        classpath("com.github.ben-manes:gradle-versions-plugin:0.34.0")
         classpath("com.openosrs:injector-plugin:1.1.7")
     }
 }
 
 plugins {
     id("com.adarshr.test-logger") version "2.1.1" apply false
-    id("com.github.ben-manes.versions") version "0.33.0"
+    id("com.github.ben-manes.versions") version "0.34.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.15"
     id("org.ajoberstar.grgit") version "4.1.0"
     id("com.simonharrer.modernizer") version "2.1.0-1" apply false
