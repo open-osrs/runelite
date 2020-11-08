@@ -17,4 +17,7 @@ public interface RSDynamicObject extends RSEntity, DynamicObject, Entity
 
 	@Import("cycleStart")
 	int getAnimCycleCount();
+
+	@Import("sequenceDefinition")
+	RSSequenceDefinition getSequenceDefinition();
 }
