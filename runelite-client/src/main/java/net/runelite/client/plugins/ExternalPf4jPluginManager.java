@@ -78,12 +78,6 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 		if (isNotDevelopment())
 		{
 			JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot());
-
-			// Default pf4j comparator crashes on some systems (https://github.com/open-osrs/runelite/pull/2621)
-			// We also don't care about plugin order at this point, pf4j will sort by Plugin-Dependencies
-			// and we re-sort later based on `@PluginDependency`
-			jarPluginRepository.setComparator(null);
-
 			compoundPluginRepository.add(jarPluginRepository);
 		}
 
