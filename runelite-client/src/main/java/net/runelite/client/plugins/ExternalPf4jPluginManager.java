@@ -120,10 +120,14 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 	@Override
 	public void loadPlugins()
 	{
-		if (Files.notExists(pluginsRoot) || !Files.isDirectory(pluginsRoot))
+		for (Path path : pluginsRoots)
 		{
-			log.warn("No '{}' root", pluginsRoot);
-			return;
+			if (Files.notExists(path) || !Files.isDirectory(path))
+			{
+				log.warn("No '{}' root", path);
+
+				return;
+			}
 		}
 
 		List<Path> pluginPaths = pluginRepository.getPluginPaths();
@@ -153,7 +157,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 				{
 					if (!ExternalPluginManager.isDevelopmentMode())
 					{
-						String plugin = pluginPath.toString().substring(pluginsRoot.toString().length() + 1);
+						String plugin = pluginPath.toString().substring(pluginsRoots.get(0).toString().length() + 1);
 						duplicatePlugins.add(plugin);
 					}
 					log.error("Could not load plugin {}", pluginPath, e);
