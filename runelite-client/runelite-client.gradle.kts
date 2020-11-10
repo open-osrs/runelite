@@ -39,7 +39,7 @@ description = "RuneLite Client"
 
 dependencies {
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.16")
-    annotationProcessor(group = "org.pf4j", name = "pf4j", version = "3.4.1")
+    annotationProcessor(group = "org.pf4j", name = "pf4j", version = "3.5.0")
 
     api(project(":runelite-api"))
 
@@ -64,13 +64,13 @@ dependencies {
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.9")
     implementation(group = "commons-io", name = "commons-io", version = "2.8.0")
     implementation(group = "org.jetbrains", name = "annotations", version = "20.1.0")
-    implementation(group = "org.jooq", name = "jooq", version = "3.14.1")
-    implementation(group = "org.jooq", name = "jooq-codegen", version = "3.14.1")
-    implementation(group = "org.jooq", name = "jooq-meta", version = "3.14.1")
-    implementation(group = "io.sentry", name = "sentry-logback", version = "3.1.2")
+    implementation(group = "org.jooq", name = "jooq", version = "3.14.2")
+    implementation(group = "org.jooq", name = "jooq-codegen", version = "3.14.2")
+    implementation(group = "org.jooq", name = "jooq-meta", version = "3.14.2")
+    implementation(group = "io.sentry", name = "sentry-logback", version = "3.1.3")
     implementation(group = "com.github.zafarkhaja", name = "java-semver", version = "0.9.0")
     implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
-    implementation(group = "org.pf4j", name = "pf4j", version = "3.4.1") {
+    implementation(group = "org.pf4j", name = "pf4j", version = "3.5.0") {
         exclude(group = "org.slf4j")
     }
     implementation(group = "org.pf4j", name = "pf4j-update", version = "2.3.0")
