@@ -218,7 +218,7 @@ public class RuneLiteAPI
 			for (int i = 0; i != versionList.getLength(); i++)
 			{
 				Node node = versionList.item(i);
-				if (node.getTextContent() != null)
+				if (node.getTextContent() != null && !node.getTextContent().endsWith("SNAPSHOT"))
 				{
 					upstreamVersion = node.getTextContent();
 				}
