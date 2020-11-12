@@ -59,9 +59,17 @@ class SessionClient
 			try (Response response = okHttpClient.newCall(request).execute())
 			{
 				ResponseBody body = response.body();
-			
-			InputStream in = body.byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), UUID.class);
+
+				InputStream in = body.byteStream();
+				try
+				{
+					return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), UUID.class);
+				}
+				catch (IllegalArgumentException ex)
+				{
+					ex.printStackTrace();
+					return null;
+				}
 			}
 		});
 	}
