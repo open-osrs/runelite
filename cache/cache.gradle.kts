@@ -32,26 +32,26 @@ plugins {
 description = "Cache"
 
 dependencies {
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
     api(project(":http-api"))
 
-    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.6")
-    implementation(group = "com.google.guava", name = "guava", version = "29.0-jre")
+    implementation(group = "com.google.guava", name = "guava", version = "30.0-jre")
     implementation(group = "commons-cli", name = "commons-cli", version = "1.4")
-    implementation(group = "io.netty", name = "netty-buffer", version = "4.1.52.Final")
+    implementation(group = "io.netty", name = "netty-buffer", version = "4.1.53.Final")
     implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.0")
     implementation(group = "org.antlr", name = "antlr4-runtime", version = "4.8-1")
     implementation(group = "org.apache.commons", name = "commons-compress", version = "1.20")
     implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
 
-    testAnnotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+    testAnnotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
-    testCompileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.12")
+    testCompileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
-    testImplementation(group = "junit", name = "junit", version = "4.13")
+    testImplementation(group = "junit", name = "junit", version = "4.13.1")
     testImplementation(group = "net.runelite.rs", name = "cache", version = "${ProjectVersions.cacheversion}")
 }
 

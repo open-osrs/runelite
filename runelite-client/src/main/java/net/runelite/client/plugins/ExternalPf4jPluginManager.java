@@ -6,8 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
 import net.runelite.client.RuneLiteProperties;
@@ -74,12 +78,6 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 		if (isNotDevelopment())
 		{
 			JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot());
-
-			// Default pf4j comparator crashes on some systems (https://github.com/open-osrs/runelite/pull/2621)
-			// We also don't care about plugin order at this point, pf4j will sort by Plugin-Dependencies
-			// and we re-sort later based on `@PluginDependency`
-			jarPluginRepository.setComparator(null);
-
 			compoundPluginRepository.add(jarPluginRepository);
 		}
 
@@ -116,10 +114,14 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 	@Override
 	public void loadPlugins()
 	{
-		if (Files.notExists(pluginsRoot) || !Files.isDirectory(pluginsRoot))
+		for (Path path : pluginsRoots)
 		{
-			log.warn("No '{}' root", pluginsRoot);
-			return;
+			if (Files.notExists(path) || !Files.isDirectory(path))
+			{
+				log.warn("No '{}' root", path);
+
+				return;
+			}
 		}
 
 		List<Path> pluginPaths = pluginRepository.getPluginPaths();
@@ -132,6 +134,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 
 		log.debug("Found {} possible plugins: {}", pluginPaths.size(), pluginPaths);
 
+		Set<String> duplicatePlugins = new HashSet<>();
 		for (Path pluginPath : pluginPaths)
 		{
 			try
@@ -146,9 +149,27 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 			{
 				if (!(e instanceof PluginAlreadyLoadedException))
 				{
+					if (!ExternalPluginManager.isDevelopmentMode())
+					{
+						String plugin = pluginPath.toString().substring(pluginsRoots.get(0).toString().length() + 1);
+						duplicatePlugins.add(plugin);
+					}
 					log.error("Could not load plugin {}", pluginPath, e);
 				}
 			}
+		}
+
+		if (!duplicatePlugins.isEmpty())
+		{
+			log.error("Duplicate plugins detected: {}", String.join(", ", duplicatePlugins));
+
+			String formatted = String.join("\n", duplicatePlugins);
+
+			SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "You have duplicate plugins in your externalmanager.\n" +
+				"Having duplicate plugins will result in an unstable\n" +
+				"experience, It is highly recommended to delete any\n" +
+				"duplicates, here is a list of the plugins.\n\n" +
+				formatted, "Duplicate Plugins Detected", JOptionPane.WARNING_MESSAGE));
 		}
 
 		try

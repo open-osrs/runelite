@@ -138,6 +138,7 @@ public interface RSClient extends RSGameShell, Client
 	void setChangedSkillsCount(int i);
 
 	@Import("gameState")
+	@Override
 	int getRSGameState();
 
 	@Import("updateGameState")

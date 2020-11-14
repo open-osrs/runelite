@@ -1,27 +1,35 @@
 import java.util.Iterator;
+import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lq")
+@ObfuscatedName("ll")
+@Implements("IterableNodeHashTable")
 public final class IterableNodeHashTable implements Iterable {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
+	@Export("size")
 	int size;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "[Lgw;"
+		descriptor = "[Lgn;"
 	)
+	@Export("buckets")
 	Node[] buckets;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgw;"
+		descriptor = "Lgn;"
 	)
+	@Export("currentGet")
 	Node currentGet;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lgw;"
+		descriptor = "Lgn;"
 	)
+	@Export("current")
 	Node current;
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
+	@Export("index")
 	int index;
 
 	public IterableNodeHashTable(int var1) {
@@ -37,10 +45,11 @@ public final class IterableNodeHashTable implements Iterable {
 
 	} // L: 21
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(J)Lgw;"
+		descriptor = "(J)Lgn;"
 	)
+	@Export("get")
 	public Node get(long var1) {
 		Node var3 = this.buckets[(int)(var1 & (long)(this.size - 1))]; // L: 24
 
@@ -56,10 +65,11 @@ public final class IterableNodeHashTable implements Iterable {
 		return null; // L: 35
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lgw;J)V"
+		descriptor = "(Lgn;J)V"
 	)
+	@Export("put")
 	public void put(Node var1, long var2) {
 		if (var1.next != null) { // L: 39
 			var1.remove();
@@ -73,7 +83,8 @@ public final class IterableNodeHashTable implements Iterable {
 		var1.key = var2; // L: 45
 	} // L: 46
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
+	@Export("clear")
 	public void clear() {
 		for (int var1 = 0; var1 < this.size; ++var1) { // L: 49
 			Node var2 = this.buckets[var1]; // L: 50
@@ -92,19 +103,21 @@ public final class IterableNodeHashTable implements Iterable {
 		this.current = null; // L: 58
 	} // L: 59
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "()Lgw;"
+		descriptor = "()Lgn;"
 	)
+	@Export("first")
 	public Node first() {
 		this.index = 0; // L: 62
 		return this.next(); // L: 63
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "()Lgw;"
+		descriptor = "()Lgn;"
 	)
+	@Export("next")
 	public Node next() {
 		Node var1;
 		if (this.index > 0 && this.buckets[this.index - 1] != this.current) { // L: 67

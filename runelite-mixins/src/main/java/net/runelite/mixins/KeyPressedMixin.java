@@ -30,7 +30,7 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 
 @Mixin(RSClient.class)
-public abstract class KeyHandlerMixin implements RSClient
+public abstract class KeyPressedMixin implements RSClient
 {
 	@Shadow("client")
 	private static RSClient client;

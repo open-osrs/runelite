@@ -72,7 +72,7 @@ final class ClientPanel extends JPanel
 			{
 				JOptionPane.showMessageDialog(ClientUI.getFrame(), "Error loading Oldschool RuneScape!", "Error",
 					JOptionPane.ERROR_MESSAGE);
-				Sentry.capture(e);
+				Sentry.captureException(e);
 			}
 
 			((Client) client).getLogger().error(null, e);

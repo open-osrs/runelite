@@ -32,6 +32,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import net.runelite.api.Client;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.plugins.Plugin;
@@ -57,6 +59,14 @@ public class InfoBoxManagerTest
 	@Mock
 	@Bind
 	private OpenOSRSConfig openOSRSConfig;
+
+	@Mock
+	@Bind
+	private ConfigManager configManager;
+
+	@Mock
+	@Bind
+	private Client client;
 
 	@Before
 	public void before()

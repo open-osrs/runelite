@@ -1,11 +1,15 @@
 package net.runelite.mixins;
 
+import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CharStreams;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -15,6 +19,7 @@ import net.runelite.api.overlay.OverlayIndex;
 import net.runelite.rs.api.RSAbstractArchive;
 import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSClient;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 
 @Mixin(RSAbstractArchive.class)
@@ -25,6 +30,9 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
 
 	@Inject
 	private boolean overlayOutdated;
+
+	@Inject
+	private Map<String, String> scriptNames;
 
 	@Inject
 	@Override
@@ -44,6 +52,34 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
 		if (!OverlayIndex.hasOverlay(archiveId, groupId))
 		{
 			return rsData;
+		}
+
+		if (scriptNames == null)
+		try
+		{
+			scriptNames = new HashMap<>();
+			InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("scripts/");
+			if (is != null)
+			{
+				List<String> files = IOUtils.readLines(is, Charsets.UTF_8);
+				for (String s : files)
+				{
+					if (s.endsWith(".rs2asm"))
+						continue;
+
+					String scriptName = s.replace(".hash", "");
+					InputStream hashStream = ClassLoader.getSystemClassLoader().getResourceAsStream("scripts/" + scriptName + ".hash");
+					if (hashStream != null)
+					{
+						String scriptHash = (String) IOUtils.readLines(hashStream, Charsets.UTF_8).toArray()[0];
+						scriptNames.put(scriptHash, scriptName);
+					}
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 
 		final Logger log = client.getLogger();
@@ -68,8 +104,8 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
 			// Check if hash is correct first, so we don't have to load the overlay file if it doesn't match
 			if (!overlayHash.equalsIgnoreCase(originalHash))
 			{
-				log.warn("Mismatch in overlaid cache archive hash for {}/{}: {} != {}",
-					archiveId, groupId, overlayHash, originalHash);
+				log.error("Script " + scriptNames.get(overlayHash) + " is invalid, and will not be overlaid. This will break plugin(s)!");
+				client.setOutdatedScript(scriptNames.get(overlayHash));
 				overlayOutdated = true;
 				return rsData;
 			}

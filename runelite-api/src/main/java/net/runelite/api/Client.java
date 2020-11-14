@@ -36,6 +36,7 @@ import javax.annotation.Nullable;
 import net.runelite.api.annotations.VisibleForExternalPlugins;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.events.PlayerAppearanceChanged;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.vars.AccountType;
@@ -136,11 +137,27 @@ public interface Client extends GameShell
 	GameState getGameState();
 
 	/**
+	 * Gets the current game state as an int
+	 *
+	 * @return the game state
+	 */
+	int getRSGameState();
+
+	/**
 	 * Sets the current game state
 	 *
 	 * @param gameState
 	 */
 	void setGameState(GameState gameState);
+
+	/**
+	 * Sets the current game state
+	 * This takes an int instead of a {@link GameState} so it can
+	 * can handle states that aren't in the enum yet
+	 *
+	 * @param gameState
+	 */
+	void setGameState(int gameState);
 
 	/**
 	 * Causes the client to shutdown. It is faster than
@@ -2053,7 +2070,21 @@ public interface Client extends GameShell
 	 * Sets the status of client mirror
 	 */
 	void setMirrored(boolean isMirrored);
-	
+
+	/**
+	 * True if the client is comparing player appearance hashes.
+	 */
+	boolean isComparingAppearance();
+
+	/**
+	 * Setting this to true will allow the client to compare
+	 * player appearance hashes and dispatch when one changes
+	 * via the {@link PlayerAppearanceChanged} event.
+	 * <p>
+	 * WARNING - THIS METHOD IS CPU-INTENSE.
+	 */
+	void setComparingAppearance(boolean comparingAppearance);
+
 	/**
 	 * Sets the image to be used for the login screen, provided as SpritePixels
 	 * If the image is larger than half the width of fixed mode,
@@ -2073,6 +2104,7 @@ public interface Client extends GameShell
 
 	/**
 	 * Test if a key is pressed
+	 *
 	 * @param keycode the keycode
 	 * @return
 	 * @see KeyCode
@@ -2086,4 +2118,8 @@ public interface Client extends GameShell
 	String getSelectedItemName();
 
 	Widget getMessageContinueWidget();
+
+	void setOutdatedScript(String outdatedScript);
+
+	List<String> getOutdatedScripts();
 }

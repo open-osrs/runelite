@@ -28,8 +28,6 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class ColorUtilTest
@@ -96,27 +94,5 @@ public class ColorUtilTest
 	{
 		COLOR_HEXSTRING_MAP.forEach((color, hex) ->
 			assertEquals(hex, ColorUtil.colorToHexCode(color)));
-	}
-
-	@Test
-	public void isFullyTransparent()
-	{
-		for (Color color : COLOR_HEXSTRING_MAP.keySet())
-		{
-			assertFalse(ColorUtil.isFullyTransparent(color));
-		}
-		assertTrue(ColorUtil.isFullyTransparent(new Color(0, 0, 0, 0)));
-		assertFalse(ColorUtil.isFullyTransparent(new Color(0, 0, 0, 1)));
-	}
-
-	@Test
-	public void isNotFullyTransparent()
-	{
-		for (Color color : COLOR_HEXSTRING_MAP.keySet())
-		{
-			assertTrue(ColorUtil.isNotFullyTransparent(color));
-		}
-		assertFalse(ColorUtil.isNotFullyTransparent(new Color(0, 0, 0, 0)));
-		assertTrue(ColorUtil.isNotFullyTransparent(new Color(0, 0, 0, 1)));
 	}
 }

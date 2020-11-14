@@ -55,7 +55,6 @@ import net.runelite.rs.api.RSHealthBar;
 import net.runelite.rs.api.RSHealthBarDefinition;
 import net.runelite.rs.api.RSHealthBarUpdate;
 import net.runelite.rs.api.RSIterableNodeDeque;
-import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSNode;
 
 @Mixin(RSActor.class)
@@ -63,6 +62,9 @@ public abstract class RSActorMixin implements RSActor
 {
 	@Shadow("client")
 	private static RSClient client;
+
+	@Inject
+	private boolean dead;
 
 	@Inject
 	@Override
@@ -242,6 +244,20 @@ public abstract class RSActorMixin implements RSActor
 	}
 
 	@Inject
+	@Override
+	public boolean isDead()
+	{
+		return dead;
+	}
+
+	@Inject
+	@Override
+	public void setDead(boolean dead)
+	{
+		this.dead = dead;
+	}
+
+	@Inject
 	@MethodHook("addHealthBar")
 	public void setCombatInfo(int combatInfoId, int gameCycle, int var3, int var4, int healthRatio, int health)
 	{
@@ -250,10 +266,7 @@ public abstract class RSActorMixin implements RSActor
 			final ActorDeath event = new ActorDeath(this);
 			client.getCallbacks().post(ActorDeath.class, event);
 
-			if (this instanceof RSNPC)
-			{
-				((RSNPC) this).setDead(true);
-			}
+			this.setDead(true);
 		}
 	}
 

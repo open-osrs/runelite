@@ -1,103 +1,52 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ke")
-public class class299 {
-	@ObfuscatedName("z")
-	static char[] field3676;
-	@ObfuscatedName("k")
-	static char[] field3675;
-	@ObfuscatedName("s")
-	static char[] field3674;
-	@ObfuscatedName("t")
-	static int[] field3677;
+@ObfuscatedName("kf")
+public final class class299 {
+	@ObfuscatedName("f")
+	@Export("base37Table")
+	public static final char[] base37Table;
+	@ObfuscatedName("b")
+	static long[] field3678;
+	@ObfuscatedName("c")
+	static byte[][][] field3679;
 
 	static {
-		field3676 = new char[64]; // L: 7
+		base37Table = new char[]{'_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; // L: 4
+		field3678 = new long[12]; // L: 5
 
-		int var0;
-		for (var0 = 0; var0 < 26; ++var0) { // L: 8
-			field3676[var0] = (char)(var0 + 65);
+		for (int var0 = 0; var0 < field3678.length; ++var0) { // L: 8
+			field3678[var0] = (long)Math.pow(37.0D, (double)var0);
 		}
 
-		for (var0 = 26; var0 < 52; ++var0) { // L: 9
-			field3676[var0] = (char)(var0 + 97 - 26);
-		}
+	} // L: 9
 
-		for (var0 = 52; var0 < 62; ++var0) { // L: 10
-			field3676[var0] = (char)(var0 + 48 - 52);
-		}
-
-		field3676[62] = '+'; // L: 11
-		field3676[63] = '/'; // L: 12
-		field3675 = new char[64]; // L: 18
-
-		for (var0 = 0; var0 < 26; ++var0) { // L: 19
-			field3675[var0] = (char)(var0 + 65);
-		}
-
-		for (var0 = 26; var0 < 52; ++var0) { // L: 20
-			field3675[var0] = (char)(var0 + 97 - 26);
-		}
-
-		for (var0 = 52; var0 < 62; ++var0) { // L: 21
-			field3675[var0] = (char)(var0 + 48 - 52);
-		}
-
-		field3675[62] = '*'; // L: 22
-		field3675[63] = '-'; // L: 23
-		field3674 = new char[64]; // L: 29
-
-		for (var0 = 0; var0 < 26; ++var0) { // L: 30
-			field3674[var0] = (char)(var0 + 65);
-		}
-
-		for (var0 = 26; var0 < 52; ++var0) { // L: 31
-			field3674[var0] = (char)(var0 + 97 - 26);
-		}
-
-		for (var0 = 52; var0 < 62; ++var0) { // L: 32
-			field3674[var0] = (char)(var0 + 48 - 52);
-		}
-
-		field3674[62] = '-'; // L: 33
-		field3674[63] = '_'; // L: 34
-		field3677 = new int[128]; // L: 40
-
-		for (var0 = 0; var0 < field3677.length; ++var0) { // L: 41
-			field3677[var0] = -1;
-		}
-
-		for (var0 = 65; var0 <= 90; ++var0) { // L: 42
-			field3677[var0] = var0 - 65;
-		}
-
-		for (var0 = 97; var0 <= 122; ++var0) { // L: 43
-			field3677[var0] = var0 - 97 + 26;
-		}
-
-		for (var0 = 48; var0 <= 57; ++var0) { // L: 44
-			field3677[var0] = var0 - 48 + 52;
-		}
-
-		int[] var2 = field3677; // L: 45
-		field3677[43] = 62; // L: 46
-		var2[42] = 62; // L: 47
-		int[] var1 = field3677; // L: 48
-		field3677[47] = 63; // L: 49
-		var1[45] = 63; // L: 50
-	} // L: 51
-
-	@ObfuscatedName("w")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "-48"
+		descriptor = "([BIII)Ljava/lang/String;",
+		garbageValue = "1354932272"
 	)
-	public static final void method5393(int var0, int var1) {
-		ViewportMouse.ViewportMouse_x = var0; // L: 86
-		ViewportMouse.ViewportMouse_y = var1; // L: 87
-		ViewportMouse.ViewportMouse_isInViewport = true; // L: 88
-		ViewportMouse.ViewportMouse_entityCount = 0; // L: 89
-		ViewportMouse.ViewportMouse_false0 = false; // L: 90
-	} // L: 91
+	public static String method5418(byte[] var0, int var1, int var2) {
+		StringBuilder var3 = new StringBuilder(); // L: 58
+
+		for (int var4 = var1; var4 < var2 + var1; var4 += 3) { // L: 59
+			int var5 = var0[var4] & 255; // L: 60
+			var3.append(class300.field3686[var5 >>> 2]); // L: 61
+			if (var4 < var2 - 1) { // L: 62
+				int var6 = var0[var4 + 1] & 255; // L: 63
+				var3.append(class300.field3686[(var5 & 3) << 4 | var6 >>> 4]); // L: 64
+				if (var4 < var2 - 2) { // L: 65
+					int var7 = var0[var4 + 2] & 255; // L: 66
+					var3.append(class300.field3686[(var6 & 15) << 2 | var7 >>> 6]).append(class300.field3686[var7 & 63]); // L: 67
+				} else {
+					var3.append(class300.field3686[(var6 & 15) << 2]).append("="); // L: 69
+				}
+			} else {
+				var3.append(class300.field3686[(var5 & 3) << 4]).append("=="); // L: 71
+			}
+		}
+
+		return var3.toString(); // L: 73
+	}
 }

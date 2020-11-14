@@ -43,9 +43,6 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	@Shadow("client")
 	private static RSClient client;
 
-	@Inject
-	public int animationID;
-
 	@SuppressWarnings("InfiniteRecursion")
 	@Copy("getModel")
 	@Replace("getModel")
@@ -88,8 +85,6 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	@Inject
 	public void rl$init(int id, int type, int orientation, int plane, int x, int y, int animationID, boolean var8, RSEntity var9)
 	{
-		this.animationID = animationID;
-
 		if (animationID != -1)
 		{
 			DynamicObjectAnimationChanged dynamicObjectAnimationChanged = new DynamicObjectAnimationChanged();
@@ -103,6 +98,6 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	@Override
 	public int getAnimationID()
 	{
-		return animationID;
+		return (int) (getSequenceDefinition() == null ? -1 : getSequenceDefinition().getHash());
 	}
 }

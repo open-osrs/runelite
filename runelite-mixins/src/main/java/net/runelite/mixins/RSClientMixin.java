@@ -54,7 +54,14 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuOpcode;
-import static net.runelite.api.MenuOpcode.*;
+import static net.runelite.api.MenuOpcode.PLAYER_EIGTH_OPTION;
+import static net.runelite.api.MenuOpcode.PLAYER_FIFTH_OPTION;
+import static net.runelite.api.MenuOpcode.PLAYER_FIRST_OPTION;
+import static net.runelite.api.MenuOpcode.PLAYER_FOURTH_OPTION;
+import static net.runelite.api.MenuOpcode.PLAYER_SECOND_OPTION;
+import static net.runelite.api.MenuOpcode.PLAYER_SEVENTH_OPTION;
+import static net.runelite.api.MenuOpcode.PLAYER_SIXTH_OPTION;
+import static net.runelite.api.MenuOpcode.PLAYER_THIRD_OPTION;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
@@ -229,6 +236,12 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	private boolean isMirrored = false;
+
+	@Inject
+	private boolean comparingAppearance = false;
+
+	@Inject
+	private List<String> outdatedScripts = new ArrayList<>();
 
 	@Inject
 	@Override
@@ -525,6 +538,7 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
+	@Override
 	public void setGameState(int state)
 	{
 		assert this.isClientThread() : "setGameState must be called on client thread";
@@ -1913,6 +1927,20 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public boolean isComparingAppearance()
+	{
+		return comparingAppearance;
+	}
+
+	@Inject
+	@Override
+	public void setComparingAppearance(boolean comparingAppearance)
+	{
+		this.comparingAppearance = comparingAppearance;
+	}
+
+	@Inject
+	@Override
 	public ObjectDefinition getObjectDefinition(int objectId)
 	{
 		assert this.isClientThread() : "getObjectDefinition must be called on client thread";
@@ -1947,6 +1975,21 @@ public abstract class RSClientMixin implements RSClient
 		client.setMusicTrackVolume(var4);
 		client.setMusicTrackBoolean(var5);
 		client.setPcmSampleLength(var0);
+	}
+
+	@Inject
+	@Override
+	public void setOutdatedScript(String outdatedScript)
+	{
+		if (!outdatedScripts.contains(outdatedScript))
+			outdatedScripts.add(outdatedScript);
+	}
+	
+	@Inject
+	@Override
+	public List<String> getOutdatedScripts()
+	{
+		return this.outdatedScripts;
 	}
 }
 

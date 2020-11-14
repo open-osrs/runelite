@@ -1,26 +1,34 @@
+import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lc")
+@ObfuscatedName("lp")
+@Implements("NodeHashTable")
 public final class NodeHashTable {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
+	@Export("size")
 	int size;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "[Lgw;"
+		descriptor = "[Lgn;"
 	)
+	@Export("buckets")
 	Node[] buckets;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgw;"
+		descriptor = "Lgn;"
 	)
+	@Export("currentGet")
 	Node currentGet;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lgw;"
+		descriptor = "Lgn;"
 	)
+	@Export("current")
 	Node current;
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
+	@Export("index")
 	int index;
 
 	public NodeHashTable(int var1) {
@@ -36,10 +44,11 @@ public final class NodeHashTable {
 
 	} // L: 20
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(J)Lgw;"
+		descriptor = "(J)Lgn;"
 	)
+	@Export("get")
 	public Node get(long var1) {
 		Node var3 = this.buckets[(int)(var1 & (long)(this.size - 1))]; // L: 23
 
@@ -55,10 +64,11 @@ public final class NodeHashTable {
 		return null; // L: 34
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lgw;J)V"
+		descriptor = "(Lgn;J)V"
 	)
+	@Export("put")
 	public void put(Node var1, long var2) {
 		if (var1.next != null) { // L: 38
 			var1.remove();
@@ -72,19 +82,21 @@ public final class NodeHashTable {
 		var1.key = var2; // L: 44
 	} // L: 45
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "()Lgw;"
+		descriptor = "()Lgn;"
 	)
+	@Export("first")
 	public Node first() {
 		this.index = 0; // L: 48
 		return this.next(); // L: 49
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "()Lgw;"
+		descriptor = "()Lgn;"
 	)
+	@Export("next")
 	public Node next() {
 		Node var1;
 		if (this.index > 0 && this.buckets[this.index - 1] != this.current) { // L: 53

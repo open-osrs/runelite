@@ -1,41 +1,53 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gl")
+@ObfuscatedName("gj")
 public class class200 {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lgl;"
+		descriptor = "Lgj;"
 	)
-	static final class200 field2402;
-	@ObfuscatedName("k")
+	static final class200 field2391;
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lgl;"
+		descriptor = "Lgj;"
 	)
-	static final class200 field2399;
-	@ObfuscatedName("s")
+	static final class200 field2390;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgl;"
+		descriptor = "Lgj;"
 	)
-	static final class200 field2401;
-	@ObfuscatedName("bw")
-	static String field2403;
+	static final class200 field2392;
 
 	static {
-		field2402 = new class200(); // L: 4
-		field2399 = new class200(); // L: 5
-		field2401 = new class200(); // L: 6
+		field2391 = new class200(); // L: 4
+		field2390 = new class200(); // L: 5
+		field2392 = new class200(); // L: 6
 	}
 
 	class200() {
 	} // L: 8
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-1315253613"
+		descriptor = "(B)V",
+		garbageValue = "96"
 	)
-	static final boolean method3760() {
-		return ViewportMouse.ViewportMouse_isInViewport; // L: 103
-	}
+	public static void method3803() {
+		ItemDefinition.ItemDefinition_cached.clear(); // L: 543
+		ItemDefinition.ItemDefinition_cachedModels.clear(); // L: 544
+		ItemDefinition.ItemDefinition_cachedSprites.clear(); // L: 545
+	} // L: 546
+
+	@ObfuscatedName("gp")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1508888429"
+	)
+	static void method3804() {
+		if (PlayerType.localPlayer.x >> 7 == Client.destinationX && PlayerType.localPlayer.y >> 7 == Client.destinationY) { // L: 4809
+			Client.destinationX = 0; // L: 4810
+		}
+
+	} // L: 4812
 }
