@@ -558,6 +558,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.CRAWS_BOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRAWS_BOW_U, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CROSSBOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.CRYSTAL_BOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_110, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_110_I, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_210, WeaponStyle.RANGE);
@@ -576,10 +577,12 @@ public class WeaponMap
 		StyleMap.put(ItemID.CRYSTAL_BOW_810_I, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_910, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_910_I, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.CRYSTAL_BOW_24123, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_ATTUNED, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_BASIC, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_FULL, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_FULL_I, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.CRYSTAL_BOW_INACTIVE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CRYSTAL_BOW_PERFECTED, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.CURSED_GOBLIN_BOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DARK_BOW, WeaponStyle.RANGE);
@@ -646,7 +649,10 @@ public class WeaponMap
 		StyleMap.put(ItemID.MORRIGANS_THROWING_AXE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.MUD_PIE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.NEW_CRYSTAL_BOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.NEW_CRYSTAL_BOW_4213, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.NEW_CRYSTAL_BOW_16888, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.NEW_CRYSTAL_BOW_I, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.NEW_CRYSTAL_BOW_I_16889, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.OAK_LONGBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.OAK_SHORTBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.OGRE_BOW, WeaponStyle.RANGE);

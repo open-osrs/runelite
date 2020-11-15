@@ -782,7 +782,7 @@ public enum Varbits
 	TWISTED_LEAGUE_RELIC_3(10051),
 	TWISTED_LEAGUE_RELIC_4(10052),
 	TWISTED_LEAGUE_RELIC_5(10053),
-
+	TWISTED_LEAGUE_RELIC_6(11696),
 	/**
 	 * Whether the Special Attack orb is disabled due to being in a PvP area
 	 *
