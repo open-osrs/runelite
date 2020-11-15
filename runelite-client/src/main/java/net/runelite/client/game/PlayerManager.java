@@ -211,6 +211,17 @@ public class PlayerManager
 		});
 	}
 
+	//Temp fix for adding manual entries to the containers. Fixes plugins/#473 with the plugins pr.
+	public void addPlayerContainer(Player p)
+	{
+		PlayerContainer player = playerMap.computeIfAbsent(p.getName(), s -> new PlayerContainer(p));
+		update(player);
+		player.setFriend(client.isFriended(player.getName(), false));
+		player.setClan(friendChatManager.isMember(player.getName()));
+	}
+	
+	//Doesn't seem to fire
+	//TODO: Check what's the problem
 	private void onAppearenceChanged(PlayerAppearanceChanged event)
 	{
 		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
