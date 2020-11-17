@@ -45,7 +45,7 @@ public class WildcardMatcher
 			}
 			else
 			{
-				matcher.appendReplacement(sb, "\\\\Q" + matcher.group(0) + "\\\\E");
+				matcher.appendReplacement(sb, Matcher.quoteReplacement(Pattern.quote(matcher.group(0))));
 			}
 		}
 

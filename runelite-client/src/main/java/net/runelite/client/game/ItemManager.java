@@ -283,11 +283,11 @@ public class ItemManager
 	 * */
 	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
 	{
-		if (itemID == ItemID.COINS_995)
+		if (itemID == COINS_995)
 		{
 			return 1;
 		}
-		if (itemID == ItemID.PLATINUM_TOKEN)
+		if (itemID == PLATINUM_TOKEN)
 		{
 			return 1000;
 		}
@@ -527,7 +527,7 @@ public class ItemManager
 	 */
 	private BufferedImage loadItemOutline(final int itemId, final int itemQuantity, final Color outlineColor)
 	{
-		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, false, Constants.CLIENT_DEFAULT_ZOOM);
+		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, false, CLIENT_DEFAULT_ZOOM);
 		return itemSprite.toBufferedOutline(outlineColor);
 	}
 

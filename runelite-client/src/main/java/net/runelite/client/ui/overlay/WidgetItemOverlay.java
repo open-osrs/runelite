@@ -34,7 +34,20 @@ import java.util.Set;
 import lombok.AccessLevel;
 import lombok.Setter;
 import net.runelite.api.widgets.Widget;
-import static net.runelite.api.widgets.WidgetID.*;
+import static net.runelite.api.widgets.WidgetID.BANK_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.BANK_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.DEPOSIT_BOX_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.EQUIPMENT_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.EQUIPMENT_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.GRAND_EXCHANGE_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.GUIDE_PRICES_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.SEED_VAULT_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.SHOP_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.DUEL_INVENTORY_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.DUEL_INVENTORY_OTHER_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.PLAYER_TRADE_SCREEN_GROUP_ID;
+import static net.runelite.api.widgets.WidgetID.PLAYER_TRADE_INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetInfo.BANK_CONTENT_CONTAINER;
 import static net.runelite.api.widgets.WidgetInfo.BANK_TAB_CONTAINER;
 import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
@@ -129,7 +142,11 @@ public abstract class WidgetItemOverlay extends Overlay
 			GUIDE_PRICES_INVENTORY_GROUP_ID,
 			EQUIPMENT_INVENTORY_GROUP_ID,
 			INVENTORY_GROUP_ID,
-			SEED_VAULT_INVENTORY_GROUP_ID);
+			SEED_VAULT_INVENTORY_GROUP_ID,
+			DUEL_INVENTORY_GROUP_ID,
+			DUEL_INVENTORY_OTHER_GROUP_ID,
+			PLAYER_TRADE_SCREEN_GROUP_ID,
+			PLAYER_TRADE_INVENTORY_GROUP_ID);
 	}
 
 	protected void showOnBank()
