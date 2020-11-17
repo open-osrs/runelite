@@ -41,7 +41,7 @@ dependencies {
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.6")
     implementation(group = "com.google.guava", name = "guava", version = "30.0-jre")
     implementation(group = "commons-cli", name = "commons-cli", version = "1.4")
-    implementation(group = "io.netty", name = "netty-buffer", version = "4.1.53.Final")
+    implementation(group = "io.netty", name = "netty-buffer", version = "4.1.54.Final")
     implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.0")
     implementation(group = "org.antlr", name = "antlr4-runtime", version = "4.8-1")
     implementation(group = "org.apache.commons", name = "commons-compress", version = "1.20")
