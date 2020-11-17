@@ -102,7 +102,7 @@ public class ClientThread implements Executor
 	{
 		assert client.isClientThread();
 		Iterator<BooleanSupplier> ir = invokes.iterator();
-		for (; ir.hasNext(); )
+		while (ir.hasNext())
 		{
 			BooleanSupplier r = ir.next();
 			boolean remove = true;
