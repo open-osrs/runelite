@@ -225,7 +225,7 @@ public final class ScriptID
 	 * </ul>
 	 */
 	@ScriptArguments(string = 1)
-	public static final int FRIENDS_CHAT_SEND_KICK = 215;
+	public static final int FRIENDS_CHAT_SEND_KICK = 3764;
 
 	/**
 	 * Toggles the bank search
