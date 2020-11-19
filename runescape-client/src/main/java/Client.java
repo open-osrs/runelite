@@ -6047,7 +6047,7 @@ public final class Client extends GameShell implements Usernamed {
 				draggedWidgetX = MouseHandler.MouseHandler_lastPressedX; // L: 7859
 				draggedWidgetY = MouseHandler.MouseHandler_lastPressedY; // L: 7860
 				if (var2 >= 0) { // L: 7861
-					AbstractByteArrayCopier.method4087(var2);
+					AbstractByteArrayCopier.setTempMenuAction(var2);
 				}
 
 				GrandExchangeOfferOwnWorldComparator.invalidateWidget(GameBuild.dragInventoryWidget); // L: 7862

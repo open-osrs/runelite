@@ -93,7 +93,7 @@ public class class228 {
 					Client.isDraggingWidget = false; // L: 10912
 					int var11 = FileSystem.method3638(); // L: 10913
 					if (var11 != -1) { // L: 10914
-						AbstractByteArrayCopier.method4087(var11);
+						AbstractByteArrayCopier.setTempMenuAction(var11);
 					}
 
 					return; // L: 10915

@@ -88,7 +88,8 @@ public abstract class AbstractByteArrayCopier {
 		descriptor = "(II)V",
 		garbageValue = "407362763"
 	)
-	static void method4087(int var0) {
+	@Export("setTempMenuAction")
+	static void setTempMenuAction(int var0) {
 		GrandExchangeOffer.tempMenuAction = new MenuAction(); // L: 11020
 		GrandExchangeOffer.tempMenuAction.param0 = Client.menuArguments1[var0]; // L: 11021
 		GrandExchangeOffer.tempMenuAction.param1 = Client.menuArguments2[var0]; // L: 11022

@@ -26,9 +26,10 @@ package net.runelite.mixins;
 
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.WidgetPressed;
-import net.runelite.api.mixins.FieldHook;
+import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
+import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSFont;
@@ -193,14 +194,13 @@ public abstract class MenuMixin implements RSClient
 		getMenuForceLeftClick()[i] = entry.isForceLeftClick();
 	}
 
-	@Inject
-	@FieldHook("tempMenuAction")
-	public static void onTempMenuActionChanged(int idx)
+	@SuppressWarnings("InfiniteRecursion")
+	@Replace("setTempMenuAction")
+	@Copy("setTempMenuAction")
+	static void copy$setTempMenuAction(int arg)
 	{
-		if (tempMenuAction != null)
-		{
-			client.getCallbacks().post(WidgetPressed.class, WidgetPressed.INSTANCE);
-		}
+		copy$setTempMenuAction(arg);
+		client.getCallbacks().post(WidgetPressed.class, WidgetPressed.INSTANCE);
 	}
 
 	@Inject
