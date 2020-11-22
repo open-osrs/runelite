@@ -1,20 +1,21 @@
 package net.runelite.api;
+
 /**
- * Represents animation data. Each animation frame will contain this data set.
+ * Represents animation data. Each animation animation frame will have its own animation animation data.
  */
 public interface Animation
 {
-    Skeleton getSkeleton();
+	Skeleton getSkeleton();
 
-    int getTransformCount();
+	int getTransformCount();
 
-    int[] getTransformTypes();
+	int[] getTransformTypes();
 
-    int[] getTranslatorX();
+	int[] getTranslatorX();
 
-    int[] getTranslatorY();
+	int[] getTranslatorY();
 
-    int[] getTranslatorZ();
+	int[] getTranslatorZ();
 
-    boolean isShowing();
+	boolean isShowing();
 }

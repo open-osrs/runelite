@@ -2,9 +2,9 @@ package net.runelite.api;
 
 public interface Skeleton extends Node
 {
-    int getCount();
+	int getCount();
 
-    int[] getTypes();
+	int[] getTypes();
 
-    int[][] getList();
+	int[][] getList();
 }
