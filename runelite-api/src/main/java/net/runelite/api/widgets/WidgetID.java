@@ -90,7 +90,7 @@ public class WidgetID
 	public static final int BA_HORN_OF_GLORY = 484;
 	public static final int LEVEL_UP_GROUP_ID = 233;
 	public static final int DIALOG_SPRITE_GROUP_ID = 193;
-	public static final int QUEST_COMPLETED_GROUP_ID = 277;
+	public static final int QUEST_COMPLETED_GROUP_ID = 153;
 	public static final int CLUE_SCROLL_REWARD_GROUP_ID = 73;
 	public static final int BARROWS_REWARD_GROUP_ID = 155;
 	public static final int RAIDS_GROUP_ID = 513;
@@ -101,6 +101,7 @@ public class WidgetID
 	public static final int PUZZLE_BOX_GROUP_ID = 306;
 	public static final int LIGHT_BOX_GROUP_ID = 322;
 	public static final int NIGHTMARE_ZONE_GROUP_ID = 202;
+	public static final int NIGHTMARE_PILLAR_HEALTH_GROUP_ID = 413;
 	public static final int BLAST_FURNACE_GROUP_ID = 474;
 	public static final int WORLD_MAP_GROUP_ID = 595;
 	public static final int PYRAMID_PLUNDER_GROUP_ID = 428;
@@ -108,7 +109,7 @@ public class WidgetID
 	public static final int THEATRE_OF_BLOOD_REWARD_GROUP_ID = 23;
 	public static final int EXPERIENCE_TRACKER_GROUP_ID = 122;
 	public static final int TITHE_FARM_GROUP_ID = 241;
-	public static final int KINGDOM_GROUP_ID = 392;
+	public static final int KINGDOM_GROUP_ID = 616;
 	public static final int BARROWS_GROUP_ID = 24;
 	public static final int BLAST_MINE_GROUP_ID = 598;
 	public static final int MTA_ALCHEMY_GROUP_ID = 194;
@@ -173,6 +174,12 @@ public class WidgetID
 	public static final int GAUNTLET_MAP_GROUP_ID = 638;
 	public static final int HALLOWED_SEPULCHRE_TIMER_GROUP_ID = 668;
 	public static final int HEALTH_OVERLAY_BAR_GROUP_ID = 303;
+	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_PRIVATE_GROUP_ID = 271;
+	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_SHARED_GROUP_ID = 550;
+	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_INVENTORY_GROUP_ID = 551;
+	public static final int DUEL_INVENTORY_GROUP_ID = 421;
+	public static final int DUEL_INVENTORY_OTHER_GROUP_ID = 481;
+	public static final int TRAILBLAZER_AREAS_GROUP_ID = 512;
 
 	static class WorldMap
 	{
@@ -225,7 +232,7 @@ public class WidgetID
 	static class LogoutPanel
 	{
 		static final int WORLD_SWITCHER_BUTTON = 3;
-		static final int LOGOUT_BUTTON = 6;
+		static final int LOGOUT_BUTTON = 8;
 	}
 
 	static class PestControlBoat
@@ -323,6 +330,8 @@ public class WidgetID
 		static final int TAB_CONTAINER = 10;
 		static final int ITEM_CONTAINER = 12;
 		static final int SCROLLBAR = 13;
+		static final int UNNOTED_BUTTON = 21;
+		static final int NOTED_BUTTON = 23;
 		static final int SEARCH_BUTTON_BACKGROUND = 39;
 		static final int DEPOSIT_INVENTORY = 41;
 		static final int DEPOSIT_EQUIPMENT = 43;
@@ -339,6 +348,14 @@ public class WidgetID
 		static final int WINDOW_BORDERS = 2;
 		static final int HISTORY_BUTTON = 3;
 		static final int BACK_BUTTON = 4;
+		static final int OFFER1 = 7;
+		static final int OFFER2 = 8;
+		static final int OFFER3 = 9;
+		static final int OFFER4 = 10;
+		static final int OFFER5 = 11;
+		static final int OFFER6 = 12;
+		static final int OFFER7 = 13;
+		static final int OFFER8 = 14;
 		static final int OFFER_CONTAINER = 24;
 		static final int OFFER_DESCRIPTION = 25;
 		static final int OFFER_PRICE = 26;
@@ -446,6 +463,7 @@ public class WidgetID
 		static final int TOGGLE_RUN_ORB = 22; // Has the "Toggle run" name
 		static final int RUN_ORB_TEXT = 23;
 		static final int SPEC_ORB = 28;
+		static final int SPEC_CLICKBOX = 30;
 		static final int WORLDMAP_ORB = 41;
 		static final int WIKI_BANNER = 43;
 	}
@@ -683,6 +701,7 @@ public class WidgetID
 		static final int SPELL_TEXT = 29;
 		static final int AUTO_RETALIATE = 30;
 		static final int SPECIAL_ATTACK_BAR = 34;
+		static final int SPECIAL_ATTACK_CLICKBOX = 36;
 		static final int TOOLTIP = 41;
 	}
 
@@ -693,7 +712,8 @@ public class WidgetID
 		static final int POINTS = 10;
 		static final int STABILITY = 12;
 		static final int PLAYER_COUNT = 14;
-		static final int VENTS_INFOBOX_GROUP_ID = 15;
+		static final int STABILITY_INFOBOX_GROUP_ID = 5;
+		static final int VENTS_INFOBOX_GROUP_ID = 16;
 		static final int VENT_A_PERCENTAGE = 19;
 		static final int VENT_B_PERCENTAGE = 20;
 		static final int VENT_C_PERCENTAGE = 21;
@@ -926,7 +946,9 @@ public class WidgetID
 
 	static class WorldSwitcher
 	{
+		static final int CONTAINER = 1;
 		static final int WORLD_LIST = 16;
+		static final int LOGOUT_BUTTON = 23;
 	}
 
 	static class FossilOxygen
@@ -1189,7 +1211,7 @@ public class WidgetID
 	static class QuestList
 	{
 		static final int BOX = 0;
-		static final int SCROLLBAR = 3;
+		static final int SCROLLBAR = 4;
 		static final int CONTAINER = 5;
 		static final int FREE_CONTAINER = 6;
 		static final int MEMBERS_CONTAINER = 7;
@@ -1354,7 +1376,7 @@ public class WidgetID
 
 	static class GenericScroll
 	{
-		static final int TEXT = 6;
+		static final int TEXT = 7;
 	}
 
 	static class GauntletTimer
@@ -1375,5 +1397,10 @@ public class WidgetID
 	static class EncounterHealthBar
 	{
 		static final int CONTAINER = 6;
+	}
+
+	static class TrailblazerAreas
+	{
+		static final int TELEPORT = 59;
 	}
 }

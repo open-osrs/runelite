@@ -1,75 +1,79 @@
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ex")
+@ObfuscatedName("ey")
 @Implements("WallDecoration")
 public final class WallDecoration {
-	@ObfuscatedName("z")
+	@ObfuscatedName("gd")
+	@Export("regionLandArchiveIds")
+	static int[] regionLandArchiveIds;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1170791361
-	)
-	@Export("orientation")
-	int orientation;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = 85116123
+		intValue = -1368883061
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("s")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 841011539
+		intValue = 1255836875
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("t")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 321574291
+		intValue = 1394186747
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("i")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -429102155
+		intValue = -1069815711
+	)
+	@Export("orientation")
+	int orientation;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = -1005575771
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -978448895
+		intValue = 287109355
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 2017479075
+		intValue = -872509349
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lez;"
+		descriptor = "Lej;"
 	)
 	@Export("entity1")
 	public Entity entity1;
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lez;"
+		descriptor = "Lej;"
 	)
 	@Export("entity2")
 	public Entity entity2;
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		longValue = -8703832368131294063L
+		longValue = -3894207238426267157L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -2069520015
+		intValue = -237175035
 	)
 	@Export("flags")
 	int flags;
@@ -79,22 +83,43 @@ public final class WallDecoration {
 		this.flags = 0; // L: 14
 	} // L: 16
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-807916273"
+		descriptor = "(B)Z",
+		garbageValue = "28"
 	)
-	public static void method3409() {
-		synchronized(MouseHandler.MouseHandler_instance) { // L: 58
-			MouseHandler.MouseHandler_currentButton = MouseHandler.MouseHandler_currentButtonVolatile; // L: 59
-			MouseHandler.MouseHandler_x = MouseHandler.MouseHandler_xVolatile; // L: 60
-			MouseHandler.MouseHandler_y = MouseHandler.MouseHandler_yVolatile; // L: 61
-			MouseHandler.MouseHandler_millis = MouseHandler.MouseHandler_lastMovedVolatile; // L: 62
-			MouseHandler.MouseHandler_lastButton = MouseHandler.MouseHandler_lastButtonVolatile; // L: 63
-			MouseHandler.MouseHandler_lastPressedX = MouseHandler.MouseHandler_lastPressedXVolatile; // L: 64
-			MouseHandler.MouseHandler_lastPressedY = MouseHandler.MouseHandler_lastPressedYVolatile; // L: 65
-			MouseHandler.MouseHandler_lastPressedTimeMillis = MouseHandler.MouseHandler_lastPressedTimeMillisVolatile; // L: 66
-			MouseHandler.MouseHandler_lastButtonVolatile = 0; // L: 67
+	@Export("loadWorlds")
+	static boolean loadWorlds() {
+		try {
+			if (class248.World_request == null) { // L: 31
+				class248.World_request = class52.urlRequester.request(new URL(PcmPlayer.worldListURL));
+			} else if (class248.World_request.isDone()) { // L: 33
+				byte[] var0 = class248.World_request.getResponse(); // L: 34
+				Buffer var1 = new Buffer(var0); // L: 35
+				var1.readInt(); // L: 36
+				World.World_count = var1.readUnsignedShort(); // L: 37
+				DefaultsGroup.World_worlds = new World[World.World_count]; // L: 38
+
+				World var3;
+				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) { // L: 39 47
+					var3 = DefaultsGroup.World_worlds[var2] = new World(); // L: 40
+					var3.id = var1.readUnsignedShort(); // L: 41
+					var3.properties = var1.readInt(); // L: 42
+					var3.host = var1.readStringCp1252NullTerminated(); // L: 43
+					var3.activity = var1.readStringCp1252NullTerminated(); // L: 44
+					var3.location = var1.readUnsignedByte(); // L: 45
+					var3.population = var1.readShort(); // L: 46
+				}
+
+				ModeWhere.sortWorlds(DefaultsGroup.World_worlds, 0, DefaultsGroup.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2); // L: 49
+				class248.World_request = null; // L: 50
+				return true; // L: 51
+			}
+		} catch (Exception var4) { // L: 55
+			var4.printStackTrace(); // L: 56
+			class248.World_request = null; // L: 57
 		}
-	} // L: 69
+
+		return false; // L: 59
+	}
 }

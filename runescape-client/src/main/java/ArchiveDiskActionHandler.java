@@ -4,139 +4,106 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ip")
+@ObfuscatedName("il")
 @Implements("ArchiveDiskActionHandler")
 public class ArchiveDiskActionHandler implements Runnable {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lji;"
+		descriptor = "Lja;"
 	)
 	@Export("ArchiveDiskActionHandler_requestQueue")
-	static NodeDeque ArchiveDiskActionHandler_requestQueue;
-	@ObfuscatedName("k")
+	public static NodeDeque ArchiveDiskActionHandler_requestQueue;
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lji;"
+		descriptor = "Lja;"
 	)
 	@Export("ArchiveDiskActionHandler_responseQueue")
-	static NodeDeque ArchiveDiskActionHandler_responseQueue;
-	@ObfuscatedName("s")
+	public static NodeDeque ArchiveDiskActionHandler_responseQueue;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1967146285
+		intValue = -1765623667
 	)
-	public static int field3179;
-	@ObfuscatedName("i")
+	public static int field3176;
+	@ObfuscatedName("m")
 	@Export("ArchiveDiskActionHandler_lock")
 	public static Object ArchiveDiskActionHandler_lock;
-	@ObfuscatedName("ba")
-	@ObfuscatedSignature(
-		descriptor = "Lls;"
-	)
-	@Export("worldSelectRightSprite")
-	static IndexedSprite worldSelectRightSprite;
 
 	static {
 		ArchiveDiskActionHandler_requestQueue = new NodeDeque(); // L: 9
 		ArchiveDiskActionHandler_responseQueue = new NodeDeque(); // L: 10
-		field3179 = 0;
+		field3176 = 0; // L: 11
 		ArchiveDiskActionHandler_lock = new Object();
-	}
+	} // L: 12
 
 	ArchiveDiskActionHandler() {
-	}
+	} // L: 15
 
 	public void run() {
 		try {
 			while (true) {
 				ArchiveDiskAction var1;
-				synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 68
-					var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last(); // L: 69
-				} // L: 70
+				synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 43
+					var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last(); // L: 44
+				} // L: 45
 
-				if (var1 != null) { // L: 71
-					if (var1.type == 0) { // L: 72
-						var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length); // L: 73
-						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 74
-							var1.remove(); // L: 75
-						} // L: 76
-					} else if (var1.type == 1) { // L: 78
-						var1.data = var1.archiveDisk.read((int)var1.key); // L: 79
-						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 80
-							ArchiveDiskActionHandler_responseQueue.addFirst(var1); // L: 81
-						} // L: 82
+				if (var1 != null) { // L: 46
+					if (var1.type == 0) { // L: 47
+						var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length); // L: 48
+						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 49
+							var1.remove(); // L: 50
+						} // L: 51
+					} else if (var1.type == 1) { // L: 53
+						var1.data = var1.archiveDisk.read((int)var1.key); // L: 54
+						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 55
+							ArchiveDiskActionHandler_responseQueue.addFirst(var1); // L: 56
+						} // L: 57
 					}
 
-					synchronized(ArchiveDiskActionHandler_lock) { // L: 84
-						if (field3179 <= 1) { // L: 85
-							field3179 = 0; // L: 86
-							ArchiveDiskActionHandler_lock.notifyAll(); // L: 87
-							return; // L: 88
+					synchronized(ArchiveDiskActionHandler_lock) { // L: 59
+						if (field3176 <= 1) { // L: 60
+							field3176 = 0; // L: 61
+							ArchiveDiskActionHandler_lock.notifyAll(); // L: 62
+							return; // L: 63
 						}
 
-						field3179 = 600; // L: 90
+						field3176 = 600; // L: 65
 					}
 				} else {
-					class227.sleepExact(100L); // L: 94
-					synchronized(ArchiveDiskActionHandler_lock) { // L: 95
-						if (field3179 <= 1) { // L: 96
-							field3179 = 0; // L: 97
-							ArchiveDiskActionHandler_lock.notifyAll(); // L: 98
-							return; // L: 99
+					WorldMapSection3.sleepExact(100L); // L: 69
+					synchronized(ArchiveDiskActionHandler_lock) { // L: 70
+						if (field3176 <= 1) { // L: 71
+							field3176 = 0; // L: 72
+							ArchiveDiskActionHandler_lock.notifyAll(); // L: 73
+							return; // L: 74
 						}
 
-						--field3179; // L: 101
+						--field3176; // L: 76
 					}
 				}
 			}
-		} catch (Exception var13) { // L: 106
-			Decimator.RunException_sendStackTrace((String)null, var13); // L: 107
+		} catch (Exception var13) { // L: 81
+			PacketWriter.RunException_sendStackTrace((String)null, var13); // L: 82
 		}
-	} // L: 109
+	} // L: 84
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lic;Lic;IZI)Lef;",
-		garbageValue = "2091199656"
+		descriptor = "(B)[Lgw;",
+		garbageValue = "0"
 	)
-	public static Frames method4337(AbstractArchive var0, AbstractArchive var1, int var2, boolean var3) {
-		boolean var4 = true; // L: 11
-		int[] var5 = var0.getGroupFileIds(var2); // L: 12
-
-		for (int var6 = 0; var6 < var5.length; ++var6) { // L: 13
-			byte[] var7 = var0.getFile(var2, var5[var6]); // L: 14
-			if (var7 == null) { // L: 15
-				var4 = false; // L: 16
-			} else {
-				int var8 = (var7[0] & 255) << 8 | var7[1] & 255; // L: 19
-				byte[] var9;
-				if (var3) { // L: 21
-					var9 = var1.getFile(0, var8);
-				} else {
-					var9 = var1.getFile(var8, 0); // L: 22
-				}
-
-				if (var9 == null) { // L: 23
-					var4 = false;
-				}
-			}
-		}
-
-		if (!var4) { // L: 25
-			return null;
-		} else {
-			try {
-				return new Frames(var0, var1, var2, var3); // L: 27
-			} catch (Exception var11) { // L: 29
-				return null; // L: 30
-			}
-		}
+	@Export("ServerPacket_values")
+	public static ServerPacket[] ServerPacket_values() {
+		return new ServerPacket[]{ServerPacket.field2215, ServerPacket.field2202, ServerPacket.field2175, ServerPacket.field2145, ServerPacket.field2146, ServerPacket.field2147, ServerPacket.field2148, ServerPacket.field2142, ServerPacket.field2150, ServerPacket.field2218, ServerPacket.field2152, ServerPacket.field2178, ServerPacket.field2154, ServerPacket.field2155, ServerPacket.field2156, ServerPacket.field2170, ServerPacket.field2158, ServerPacket.field2159, ServerPacket.field2160, ServerPacket.field2161, ServerPacket.field2162, ServerPacket.field2163, ServerPacket.field2149, ServerPacket.field2186, ServerPacket.field2166, ServerPacket.field2153, ServerPacket.field2168, ServerPacket.field2197, ServerPacket.field2144, ServerPacket.field2171, ServerPacket.field2172, ServerPacket.field2173, ServerPacket.field2174, ServerPacket.field2165, ServerPacket.field2176, ServerPacket.field2177, ServerPacket.field2200, ServerPacket.field2179, ServerPacket.field2180, ServerPacket.field2181, ServerPacket.field2182, ServerPacket.field2183, ServerPacket.field2227, ServerPacket.field2185, ServerPacket.field2221, ServerPacket.field2190, ServerPacket.field2167, ServerPacket.field2199, ServerPacket.field2211, ServerPacket.field2191, ServerPacket.field2187, ServerPacket.field2193, ServerPacket.field2194, ServerPacket.field2195, ServerPacket.field2196, ServerPacket.field2220, ServerPacket.field2198, ServerPacket.field2219, ServerPacket.field2143, ServerPacket.field2201, ServerPacket.field2216, ServerPacket.field2203, ServerPacket.field2204, ServerPacket.field2205, ServerPacket.field2206, ServerPacket.field2207, ServerPacket.field2188, ServerPacket.field2209, ServerPacket.field2210, ServerPacket.field2230, ServerPacket.field2212, ServerPacket.field2213, ServerPacket.field2214, ServerPacket.field2189, ServerPacket.field2151, ServerPacket.field2217, ServerPacket.field2192, ServerPacket.field2157, ServerPacket.field2164, ServerPacket.field2184, ServerPacket.field2222, ServerPacket.field2223, ServerPacket.field2169, ServerPacket.field2225, ServerPacket.field2226, ServerPacket.field2224}; // L: 95
 	}
 
-	@ObfuscatedName("iv")
+	@ObfuscatedName("ej")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Ljava/lang/String;",
-		garbageValue = "46"
+		descriptor = "(Lid;Ljava/lang/String;B)V",
+		garbageValue = "125"
 	)
-	static final String method4338(int var0) {
-		return var0 < 999999999 ? Integer.toString(var0) : "*"; // L: 9327 9328
-	}
+	static void method4404(Archive var0, String var1) {
+		ArchiveLoader var2 = new ArchiveLoader(var0, var1); // L: 1893
+		Client.archiveLoaders.add(var2); // L: 1894
+		Client.field953 += var2.groupCount; // L: 1895
+	} // L: 1896
 }

@@ -401,11 +401,24 @@ public interface RuneLiteConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "infoBoxTextOutline",
+		name = "Outline infobox text",
+		description = "Draw a full outline instead of a simple shadow for infobox text",
+		position = 31,
+		titleSection = "infoboxTitle"
+	)
+	default boolean infoBoxTextOutline()
+	{
+		return false;
+	}
+
+	@ConfigItem(
 		keyName = "infoBoxVertical",
 		name = "Display infoboxes vertically",
 		description = "Toggles the infoboxes to display vertically",
-		position = 31,
-		titleSection = "infoboxTitle"
+		position = 32,
+		titleSection = "infoboxTitle",
+		hidden = true
 	)
 	default boolean infoBoxVertical()
 	{
@@ -416,7 +429,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "infoBoxSize",
 		name = "Infobox size",
 		description = "Configures the size of each infobox in pixels",
-		position = 32,
+		position = 33,
 		titleSection = "infoboxTitle"
 	)
 	@Units(Units.PIXELS)
@@ -429,7 +442,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "keybindsTitle",
 		name = "Key binds",
 		description = "",
-		position = 33
+		position = 34
 	)
 	default Title keybindsTitle()
 	{
@@ -440,7 +453,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "sidebarToggleKey",
 		name = "Sidebar Toggle Key",
 		description = "The key that will toggle the sidebar (accepts modifiers)",
-		position = 34,
+		position = 35,
 		titleSection = "keybindsTitle"
 	)
 	default Keybind sidebarToggleKey()
@@ -452,7 +465,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "panelToggleKey",
 		name = "Plugin Panel Toggle Key",
 		description = "The key that will toggle the current or last opened plugin panel (accepts modifiers)",
-		position = 35,
+		position = 36,
 		titleSection = "keybindsTitle"
 	)
 	default Keybind panelToggleKey()
@@ -464,7 +477,7 @@ public interface RuneLiteConfig extends Config
 		keyName = "blockExtraMouseButtons",
 		name = "Block Extra Mouse Buttons",
 		description = "Blocks extra mouse buttons (4 and above)",
-		position = 36,
+		position = 37,
 		titleSection = "keybindsTitle"
 	)
 	default boolean blockExtraMouseButtons()

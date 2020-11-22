@@ -4,67 +4,73 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ac")
+@ObfuscatedName("ad")
 @Implements("WorldMapSection3")
 public class WorldMapSection3 implements WorldMapSection {
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = 1540857287
+	@ObfuscatedName("dc")
+	@ObfuscatedSignature(
+		descriptor = "Lid;"
 	)
-	int field391;
-	@ObfuscatedName("k")
+	@Export("archive2")
+	static Archive archive2;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1117083463
+		intValue = 375073711
 	)
 	int field381;
-	@ObfuscatedName("s")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -186376071
-	)
-	int field382;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = -1787934953
-	)
-	int field392;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = 1247077539
-	)
-	int field384;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = -134643499
-	)
-	int field385;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = 1837481963
-	)
-	int field389;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = 1861989631
+		intValue = -670342777
 	)
 	int field387;
-	@ObfuscatedName("g")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 185317539
+		intValue = -831871381
 	)
-	int field380;
+	int field382;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1881120603
+		intValue = -1970843519
+	)
+	int field383;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = -1989869311
+	)
+	int field384;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 1016940673
+	)
+	int field385;
+	@ObfuscatedName("k")
+	@ObfuscatedGetter(
+		intValue = -597741031
 	)
 	int field386;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = -664935547
+	)
+	int field389;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = 266959941
+	)
+	int field388;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = -486540041
+	)
+	int field391;
 
 	WorldMapSection3() {
 	} // L: 18
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lar;B)V",
-		garbageValue = "100"
+		descriptor = "(Lak;I)V",
+		garbageValue = "-1645245778"
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
@@ -86,86 +92,113 @@ public class WorldMapSection3 implements WorldMapSection {
 
 	} // L: 25
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)Z",
-		garbageValue = "-339896458"
+		descriptor = "(IIIB)Z",
+		garbageValue = "51"
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
-		if (var1 >= this.field391 && var1 < this.field381 + this.field391) { // L: 28
-			return var2 >= (this.field382 << 6) + (this.field389 << 3) && var2 <= (this.field382 << 6) + (this.field389 << 3) + 7 && var3 >= (this.field392 << 6) + (this.field387 << 3) && var3 <= (this.field392 << 6) + (this.field387 << 3) + 7; // L: 31
+		if (var1 >= this.field381 && var1 < this.field381 + this.field387) { // L: 28
+			return var2 >= (this.field382 << 6) + (this.field386 << 3) && var2 <= (this.field382 << 6) + (this.field386 << 3) + 7 && var3 >= (this.field383 << 6) + (this.field389 << 3) && var3 <= (this.field383 << 6) + (this.field389 << 3) + 7; // L: 31
 		} else {
 			return false; // L: 29
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(III)Z",
-		garbageValue = "-2135820245"
+		descriptor = "(IIB)Z",
+		garbageValue = "10"
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
-		return var1 >= (this.field384 << 6) + (this.field380 << 3) && var1 <= (this.field384 << 6) + (this.field380 << 3) + 7 && var2 >= (this.field385 << 6) + (this.field386 << 3) && var2 <= (this.field385 << 6) + (this.field386 << 3) + 7; // L: 35
+		return var1 >= (this.field384 << 6) + (this.field388 << 3) && var1 <= (this.field384 << 6) + (this.field388 << 3) + 7 && var2 >= (this.field385 << 6) + (this.field391 << 3) && var2 <= (this.field385 << 6) + (this.field391 << 3) + 7; // L: 35
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)[I",
-		garbageValue = "-1761492451"
+		descriptor = "(IIIB)[I",
+		garbageValue = "-25"
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
 		if (!this.containsCoord(var1, var2, var3)) { // L: 39
 			return null; // L: 40
 		} else {
-			int[] var4 = new int[]{var2 + (this.field384 * 64 - this.field382 * 64) + (this.field380 * 8 - this.field389 * 8), var3 + (this.field385 * 64 - this.field392 * 64) + (this.field386 * 8 - this.field387 * 8)}; // L: 42 43 44
+			int[] var4 = new int[]{var2 + (this.field384 * 64 - this.field382 * 64) + (this.field388 * 8 - this.field386 * 8), var3 + (this.field385 * 64 - this.field383 * 64) + (this.field391 * 8 - this.field389 * 8)}; // L: 42 43 44
 			return var4; // L: 45
 		}
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(III)Lhg;",
-		garbageValue = "-1553504587"
+		descriptor = "(IIB)Lhw;",
+		garbageValue = "1"
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
 		if (!this.containsPosition(var1, var2)) { // L: 49
 			return null; // L: 50
 		} else {
-			int var3 = this.field382 * 64 - this.field384 * 64 + (this.field389 * 8 - this.field380 * 8) + var1; // L: 52
-			int var4 = var2 + (this.field392 * 64 - this.field385 * 64) + (this.field387 * 8 - this.field386 * 8); // L: 53
-			return new Coord(this.field391, var3, var4); // L: 54
+			int var3 = this.field382 * 64 - this.field384 * 64 + (this.field386 * 8 - this.field388 * 8) + var1; // L: 52
+			int var4 = var2 + (this.field383 * 64 - this.field385 * 64) + (this.field389 * 8 - this.field391 * 8); // L: 53
+			return new Coord(this.field381, var3, var4); // L: 54
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;I)V",
-		garbageValue = "2144381737"
+		descriptor = "(Lkb;I)V",
+		garbageValue = "-222098123"
 	)
 	@Export("read")
 	public void read(Buffer var1) {
-		this.field391 = var1.readUnsignedByte(); // L: 58
-		this.field381 = var1.readUnsignedByte(); // L: 59
+		this.field381 = var1.readUnsignedByte(); // L: 58
+		this.field387 = var1.readUnsignedByte(); // L: 59
 		this.field382 = var1.readUnsignedShort(); // L: 60
-		this.field389 = var1.readUnsignedByte(); // L: 61
-		this.field392 = var1.readUnsignedShort(); // L: 62
-		this.field387 = var1.readUnsignedByte(); // L: 63
+		this.field386 = var1.readUnsignedByte(); // L: 61
+		this.field383 = var1.readUnsignedShort(); // L: 62
+		this.field389 = var1.readUnsignedByte(); // L: 63
 		this.field384 = var1.readUnsignedShort(); // L: 64
-		this.field380 = var1.readUnsignedByte(); // L: 65
+		this.field388 = var1.readUnsignedByte(); // L: 65
 		this.field385 = var1.readUnsignedShort(); // L: 66
-		this.field386 = var1.readUnsignedByte(); // L: 67
-		this.method838(); // L: 68
+		this.field391 = var1.readUnsignedByte(); // L: 67
+		this.method874(); // L: 68
 	} // L: 69
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1599277860"
+		descriptor = "(B)V",
+		garbageValue = "-115"
 	)
-	void method838() {
+	void method874() {
 	} // L: 71
+
+	@ObfuscatedName("f")
+	@Export("sleepExact")
+	public static final void sleepExact(long var0) {
+		if (var0 > 0L) { // L: 9
+			if (0L == var0 % 10L) { // L: 10
+				VertexNormal.method3135(var0 - 1L); // L: 11
+				VertexNormal.method3135(1L); // L: 12
+			} else {
+				VertexNormal.method3135(var0); // L: 14
+			}
+
+		}
+	} // L: 15
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "606509160"
+	)
+	static void method870(int var0, int var1) {
+		long var2 = (long)((var0 << 16) + var1); // L: 258
+		NetFileRequest var4 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var2); // L: 259
+		if (var4 != null) { // L: 260
+			NetCache.NetCache_pendingWritesQueue.addLast(var4); // L: 261
+		}
+	} // L: 262
 }

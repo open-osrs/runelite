@@ -4,12 +4,12 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fy")
+@ObfuscatedName("fx")
 @Implements("NanoClock")
 public class NanoClock extends Clock {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		longValue = -6496299108672843091L
+		longValue = 531777541003154129L
 	)
 	@Export("lastTimeNano")
 	long lastTimeNano;
@@ -18,20 +18,20 @@ public class NanoClock extends Clock {
 		this.lastTimeNano = System.nanoTime(); // L: 10
 	} // L: 11
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "208275261"
+		garbageValue = "345512591"
 	)
 	@Export("mark")
 	public void mark() {
 		this.lastTimeNano = System.nanoTime(); // L: 14
 	} // L: 15
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "-16016139"
+		garbageValue = "-837141414"
 	)
 	@Export("wait")
 	public int wait(int var1, int var2) {
@@ -41,7 +41,7 @@ public class NanoClock extends Clock {
 			var5 = var3;
 		}
 
-		class227.sleepExact(var5 / 1000000L); // L: 21
+		WorldMapSection3.sleepExact(var5 / 1000000L); // L: 21
 		long var7 = System.nanoTime(); // L: 22
 
 		int var9;

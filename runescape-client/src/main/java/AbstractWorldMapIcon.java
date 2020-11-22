@@ -1,95 +1,93 @@
-import java.io.File;
-import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("az")
+@ObfuscatedName("am")
 @Implements("AbstractWorldMapIcon")
 public abstract class AbstractWorldMapIcon {
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "Lfa;"
+	@ObfuscatedName("si")
+	@ObfuscatedGetter(
+		intValue = -2092651161
 	)
-	@Export("clock")
-	static Clock clock;
-	@ObfuscatedName("bp")
+	@Export("foundItemIndex")
+	static int foundItemIndex;
+	@ObfuscatedName("gx")
 	@ObfuscatedSignature(
-		descriptor = "[Lls;"
+		descriptor = "[Lle;"
 	)
-	@Export("worldSelectFlagSprites")
-	static IndexedSprite[] worldSelectFlagSprites;
-	@ObfuscatedName("x")
+	@Export("mapSceneSprites")
+	static IndexedSprite[] mapSceneSprites;
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lhg;"
+		descriptor = "Lhw;"
 	)
 	@Export("coord2")
 	public final Coord coord2;
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lhg;"
+		descriptor = "Lhw;"
 	)
 	@Export("coord1")
 	public final Coord coord1;
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 857445445
+		intValue = 1323341995
 	)
 	@Export("screenX")
 	int screenX;
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -161924757
+		intValue = 276589985
 	)
 	@Export("screenY")
 	int screenY;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lhg;Lhg;)V"
+		descriptor = "(Lhw;Lhw;)V"
 	)
 	AbstractWorldMapIcon(Coord var1, Coord var2) {
 		this.coord1 = var1; // L: 13
 		this.coord2 = var2; // L: 14
 	} // L: 15
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1613828162"
+		descriptor = "(B)I",
+		garbageValue = "24"
 	)
 	@Export("getElement")
 	public abstract int getElement();
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(I)Laq;",
-		garbageValue = "499378708"
+		descriptor = "(I)Lai;",
+		garbageValue = "-669051823"
 	)
 	@Export("getLabel")
 	abstract WorldMapLabel getLabel();
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "182515130"
+		garbageValue = "1627026836"
 	)
 	@Export("getSubWidth")
 	abstract int getSubWidth();
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-2001682063"
+		garbageValue = "190840278"
 	)
 	@Export("getSubHeight")
 	abstract int getSubHeight();
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(III)Z",
-		garbageValue = "1932387399"
+		descriptor = "(IIB)Z",
+		garbageValue = "24"
 	)
 	@Export("fitsScreen")
 	boolean fitsScreen(int var1, int var2) {
@@ -100,59 +98,60 @@ public abstract class AbstractWorldMapIcon {
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-446281234"
+		garbageValue = "50327739"
 	)
 	@Export("hasValidElement")
 	boolean hasValidElement() {
-		return this.getElement() >= 0;
+		return this.getElement() >= 0; // L: 33
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "(IIB)Z",
-		garbageValue = "-125"
+		garbageValue = "0"
 	)
 	@Export("elementFitsScreen")
 	boolean elementFitsScreen(int var1, int var2) {
-		if (!this.hasValidElement()) {
+		if (!this.hasValidElement()) { // L: 37
 			return false;
 		} else {
-			WorldMapElement var3 = WorldMapSection0.WorldMapElement_get(this.getElement()); // L: 38
+			WorldMapElement var3 = class194.WorldMapElement_get(this.getElement()); // L: 38
 			int var4 = this.getSubWidth(); // L: 39
 			int var5 = this.getSubHeight(); // L: 40
-			switch(var3.horizontalAlignment.value) {
+			switch(var3.horizontalAlignment.value) { // L: 41
 			case 0:
-				if (var1 < this.screenX - var4 / 2 || var1 > var4 / 2 + this.screenX) { // L: 44
-					return false;
+				if (var1 >= this.screenX && var1 < var4 + this.screenX) { // L: 49
+					break;
 				}
-				break;
+
+				return false;
 			case 1:
-				if (var1 <= this.screenX - var4 || var1 > this.screenX) { // L: 54
+				if (var1 <= this.screenX - var4 || var1 > this.screenX) { // L: 44
 					return false;
 				}
 				break;
 			case 2:
-				if (var1 < this.screenX || var1 >= var4 + this.screenX) { // L: 49
+				if (var1 < this.screenX - var4 / 2 || var1 > var4 / 2 + this.screenX) { // L: 54
 					return false;
 				}
 			}
 
 			switch(var3.verticalAlignment.value) { // L: 58
 			case 0:
-				if (var2 < this.screenY - var5 / 2 || var2 > var5 / 2 + this.screenY) { // L: 61
+				if (var2 <= this.screenY - var5 || var2 > this.screenY) { // L: 71
 					return false;
 				}
 				break;
 			case 1:
-				if (var2 <= this.screenY - var5 || var2 > this.screenY) { // L: 66
+				if (var2 < this.screenY - var5 / 2 || var2 > var5 / 2 + this.screenY) { // L: 66
 					return false;
 				}
 				break;
 			case 2:
-				if (var2 < this.screenY || var2 >= var5 + this.screenY) { // L: 71
+				if (var2 < this.screenY || var2 >= var5 + this.screenY) { // L: 61
 					return false;
 				}
 			}
@@ -161,10 +160,10 @@ public abstract class AbstractWorldMapIcon {
 		}
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "(III)Z",
-		garbageValue = "706174732"
+		garbageValue = "290939531"
 	)
 	@Export("labelFitsScreen")
 	boolean labelFitsScreen(int var1, int var2) {
@@ -172,64 +171,29 @@ public abstract class AbstractWorldMapIcon {
 		if (var3 == null) { // L: 80
 			return false; // L: 81
 		} else if (var1 >= this.screenX - var3.width / 2 && var1 <= var3.width / 2 + this.screenX) { // L: 83
-			return var2 >= this.screenY && var2 <= this.screenY + var3.height; // L: 84
+			return var2 >= this.screenY && var2 <= var3.height + this.screenY; // L: 84
 		} else {
 			return false; // L: 85
 		}
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lcd;",
-		garbageValue = "1037177959"
+		descriptor = "(CLgb;I)I",
+		garbageValue = "-816252921"
 	)
-	static AttackOption[] method679() {
-		return new AttackOption[]{AttackOption.AttackOption_leftClickWhereAvailable, AttackOption.AttackOption_hidden, AttackOption.AttackOption_dependsOnCombatLevels, AttackOption.AttackOption_alwaysRightClick}; // L: 10925
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)Ljava/io/File;",
-		garbageValue = "379993437"
-	)
-	@Export("getFile")
-	static File getFile(String var0) {
-		if (!FileSystem.FileSystem_hasPermissions) { // L: 22
-			throw new RuntimeException("");
-		} else {
-			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0); // L: 23
-			if (var1 != null) { // L: 24
-				return var1;
-			} else {
-				File var2 = new File(FileSystem.FileSystem_cacheDir, var0); // L: 25
-				RandomAccessFile var3 = null; // L: 26
-
-				try {
-					File var4 = new File(var2.getParent()); // L: 28
-					if (!var4.exists()) { // L: 29
-						throw new RuntimeException("");
-					} else {
-						var3 = new RandomAccessFile(var2, "rw"); // L: 30
-						int var5 = var3.read(); // L: 31
-						var3.seek(0L); // L: 32
-						var3.write(var5); // L: 33
-						var3.seek(0L); // L: 34
-						var3.close(); // L: 35
-						FileSystem.FileSystem_cacheFiles.put(var0, var2); // L: 36
-						return var2; // L: 37
-					}
-				} catch (Exception var8) {
-					try {
-						if (var3 != null) { // L: 41
-							var3.close(); // L: 42
-							var3 = null; // L: 43
-						}
-					} catch (Exception var7) { // L: 46
-					}
-
-					throw new RuntimeException(); // L: 48
-				}
-			}
+	@Export("lowercaseChar")
+	static int lowercaseChar(char var0, Language var1) {
+		int var2 = var0 << 4; // L: 104
+		if (Character.isUpperCase(var0) || Character.isTitleCase(var0)) { // L: 105
+			var0 = Character.toLowerCase(var0); // L: 106
+			var2 = (var0 << 4) + 1; // L: 107
 		}
+
+		if (var0 == 241 && var1 == Language.Language_ES) { // L: 109
+			var2 = 1762;
+		}
+
+		return var2; // L: 110
 	}
 }

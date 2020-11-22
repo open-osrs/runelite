@@ -28,11 +28,11 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableMap;
-import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -216,13 +216,6 @@ public class ItemManager
 
 		eventbus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
 		eventbus.subscribe(PostItemDefinition.class, this, this::onPostItemDefinition);
-
-		Completable.fromAction(ItemVariationMapping::load)
-			.subscribeOn(Schedulers.computation())
-			.subscribe(
-				() -> log.debug("Loaded {} item variations", ItemVariationMapping.getSize()),
-				ex -> log.warn("Error loading item variations", ex)
-			);
 	}
 
 	private void loadPrices()
@@ -284,44 +277,51 @@ public class ItemManager
 	/**
 	 * Look up an item's price
 	 *
-	 * @param itemID               item id
-	 * @param ignoreUntradeableMap should the price returned ignore the {@link UntradeableItemMapping}
+	 * @param itemID item id
+	 * @param ignoreUntradeableMap should the price returned ignore items that are not tradeable for coins in regular way
 	 * @return item price
-	 */
+	 * */
 	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
 	{
-		if (itemID == ItemID.COINS_995)
+		if (itemID == COINS_995)
 		{
 			return 1;
 		}
-		if (itemID == ItemID.PLATINUM_TOKEN)
+		if (itemID == PLATINUM_TOKEN)
 		{
 			return 1000;
 		}
 
-		ItemDefinition itemComposition = getItemDefinition(itemID);
-		if (itemComposition.getNote() != -1)
+		ItemDefinition itemDefinition = getItemDefinition(itemID);
+		if (itemDefinition.getNote() != -1)
 		{
-			itemID = itemComposition.getLinkedNoteId();
+			itemID = itemDefinition.getLinkedNoteId();
 		}
 		itemID = WORN_ITEMS.getOrDefault(itemID, itemID);
 
-		if (!ignoreUntradeableMap)
-		{
-			UntradeableItemMapping p = UntradeableItemMapping.map(ItemVariationMapping.map(itemID));
-			if (p != null)
-			{
-				return getItemPrice(p.getPriceID()) * p.getQuantity();
-			}
-		}
-
 		int price = 0;
-		for (int mappedID : ItemMapping.map(itemID))
+
+		final Collection<ItemMapping> mappedItems = ItemMapping.map(itemID);
+
+		if (mappedItems == null)
 		{
-			ItemPrice ip = itemPrices.get(mappedID);
+			final ItemPrice ip = itemPrices.get(itemID);
+
 			if (ip != null)
 			{
 				price += ip.getPrice();
+			}
+		}
+		else
+		{
+			for (final ItemMapping mappedItem : mappedItems)
+			{
+				if (ignoreUntradeableMap && mappedItem.isUntradeable())
+				{
+					continue;
+				}
+
+				price += getItemPrice(mappedItem.getTradeableItem(), ignoreUntradeableMap) * mappedItem.getQuantity();
 			}
 		}
 
@@ -527,7 +527,7 @@ public class ItemManager
 	 */
 	private BufferedImage loadItemOutline(final int itemId, final int itemQuantity, final Color outlineColor)
 	{
-		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, true, 710);
+		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, false, CLIENT_DEFAULT_ZOOM);
 		return itemSprite.toBufferedOutline(outlineColor);
 	}
 

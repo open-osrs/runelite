@@ -110,6 +110,23 @@ public enum Varbits
 	PRAYER_PRESERVE(5466),
 	PRAYER_RIGOUR(5464),
 	PRAYER_AUGURY(5465),
+	
+	/**
+	 * Locked Prayers
+	 * 0-7 = Locked
+	 * 8 = Unlocked
+	 */
+	CHIVPIETY_UNLOCKED(3909),
+	
+	/**
+	 * Locked Prayers
+	 * 0 = Locked
+	 * 1 = Unlocked
+	 */
+
+	RIGOUR_UNLOCKED(5451),
+	AUGURY_UNLOCKED(5452),
+	PRESERVE_UNLOCKED(5453),
 
 	/**
 	 * Diary Entries
@@ -476,6 +493,7 @@ public enum Varbits
 	FARMING_7909(7909),
 	FARMING_7910(7910),
 	FARMING_7911(7911),
+	FARMING_7912(7912),
 
 	/**
 	 * Transmog controllers for grapes
@@ -757,13 +775,14 @@ public enum Varbits
 	LMS_SAFE_X(5316),
 
 	/**
-	 * Starts at 100, counts down every 10 ticks (6 seconds)
+	 * League relics
 	 */
-	TWISTED_LEAGUE_RELIC_1(10049),
-	TWISTED_LEAGUE_RELIC_2(10050),
-	TWISTED_LEAGUE_RELIC_3(10051),
-	TWISTED_LEAGUE_RELIC_4(10052),
-	TWISTED_LEAGUE_RELIC_5(10053),
+	LEAGUE_RELIC_1(10049),
+	LEAGUE_RELIC_2(10050),
+	LEAGUE_RELIC_3(10051),
+	LEAGUE_RELIC_4(10052),
+	LEAGUE_RELIC_5(10053),
+	LEAGUE_RELIC_6(11696),
 
 	/**
 	 * Whether the Special Attack orb is disabled due to being in a PvP area

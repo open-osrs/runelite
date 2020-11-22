@@ -297,7 +297,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 		this.copy$read(buffer);
 
-		if (getPlayerAppearance().getHash() != appearanceHash)
+		if (client.isComparingAppearance() && getPlayerAppearance().getHash() != appearanceHash)
 		{
 			client.getCallbacks().post(PlayerAppearanceChanged.class, new PlayerAppearanceChanged(this));
 		}

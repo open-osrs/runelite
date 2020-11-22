@@ -27,6 +27,9 @@ package net.runelite.client;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import net.runelite.http.api.RuneLiteAPI;
@@ -34,6 +37,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 @AllArgsConstructor
 class SessionClient
@@ -54,7 +58,18 @@ class SessionClient
 
 			try (Response response = okHttpClient.newCall(request).execute())
 			{
-				return RuneLiteAPI.GSON.fromJson(response.body().string(), UUID.class);
+				ResponseBody body = response.body();
+
+				InputStream in = body.byteStream();
+				try
+				{
+					return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), UUID.class);
+				}
+				catch (IllegalArgumentException ex)
+				{
+					ex.printStackTrace();
+					return null;
+				}
 			}
 		});
 	}

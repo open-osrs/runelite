@@ -762,7 +762,7 @@ public class ExternalPluginManager
 		}
 		catch (Throwable ex)
 		{
-			log.error("plugin {} could not be loaded. {} {}", pluginId, ex.toString(), ex.getMessage());
+			log.error("Plugin {} could not be loaded.", pluginId, ex);
 		}
 
 		return scannedPlugins;

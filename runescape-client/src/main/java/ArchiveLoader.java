@@ -4,36 +4,35 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bd")
+@ObfuscatedName("bq")
 @Implements("ArchiveLoader")
 public class ArchiveLoader {
-	@ObfuscatedName("hx")
-	@ObfuscatedSignature(
-		descriptor = "[Llp;"
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		longValue = 3333293732747841481L
 	)
-	@Export("crossSprites")
-	static Sprite[] crossSprites;
-	@ObfuscatedName("k")
+	static long field565;
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lid;"
 	)
 	@Export("archive")
 	final Archive archive;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -412619053
+		intValue = -30883449
 	)
 	@Export("groupCount")
 	final int groupCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 486257523
+		intValue = 1222733201
 	)
 	@Export("loadedCount")
 	int loadedCount;
 
 	@ObfuscatedSignature(
-		descriptor = "(Liw;Ljava/lang/String;)V"
+		descriptor = "(Lid;Ljava/lang/String;)V"
 	)
 	ArchiveLoader(Archive var1, String var2) {
 		this.loadedCount = 0; // L: 9
@@ -41,17 +40,17 @@ public class ArchiveLoader {
 		this.groupCount = var1.getGroupCount(); // L: 13
 	} // L: 14
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1957084823"
+		garbageValue = "1049083276"
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
 		this.loadedCount = 0; // L: 17
 
 		for (int var1 = 0; var1 < this.groupCount; ++var1) { // L: 18
-			if (!this.archive.method4350(var1) || this.archive.method4349(var1)) {
+			if (!this.archive.method4416(var1) || this.archive.method4411(var1)) {
 				++this.loadedCount; // L: 19
 			}
 		}
@@ -59,44 +58,76 @@ public class ArchiveLoader {
 		return this.loadedCount >= this.groupCount; // L: 21
 	}
 
-	@ObfuscatedName("fp")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2074712023"
+		descriptor = "(III)Lco;",
+		garbageValue = "-2052034218"
 	)
-	static final void method1208() {
-		if (Client.logoutTimer > 0) { // L: 2585
-			ViewportMouse.logOut(); // L: 2586
+	static Script method1240(int var0, int var1) {
+		Script var2 = (Script)Script.Script_cached.get((long)(var0 << 16)); // L: 59
+		if (var2 != null) { // L: 60
+			return var2; // L: 61
 		} else {
-			Client.timer.method5098(); // L: 2589
-			CollisionMap.updateGameState(40); // L: 2590
-			MouseHandler.field508 = Client.packetWriter.getSocket(); // L: 2591
-			Client.packetWriter.removeSocket(); // L: 2592
-		}
-	} // L: 2587 2593
+			String var3 = String.valueOf(var0); // L: 63
+			int var4 = ViewportMouse.archive12.getGroupId(var3); // L: 64
+			if (var4 == -1) { // L: 65
+				return null; // L: 66
+			} else {
+				byte[] var5 = ViewportMouse.archive12.takeFileFlat(var4); // L: 68
+				if (var5 != null) { // L: 69
+					if (var5.length <= 1) { // L: 70
+						return null; // L: 71
+					}
 
-	@ObfuscatedName("gp")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-513803575"
-	)
-	@Export("getTileHeight")
-	static final int getTileHeight(int var0, int var1, int var2) {
-		int var3 = var0 >> 7; // L: 4975
-		int var4 = var1 >> 7; // L: 4976
-		if (var3 >= 0 && var4 >= 0 && var3 <= 103 && var4 <= 103) { // L: 4977
-			int var5 = var2; // L: 4978
-			if (var2 < 3 && (Tiles.Tiles_renderFlags[1][var3][var4] & 2) == 2) { // L: 4979
-				var5 = var2 + 1;
+					var2 = ClientPacket.newScript(var5); // L: 73
+					if (var2 != null) { // L: 74
+						Script.Script_cached.put(var2, (long)(var0 << 16)); // L: 75
+						return var2; // L: 76
+					}
+				}
+
+				return null; // L: 79
 			}
-
-			int var6 = var0 & 127; // L: 4980
-			int var7 = var1 & 127; // L: 4981
-			int var8 = (128 - var6) * Tiles.Tiles_heights[var5][var3][var4] + Tiles.Tiles_heights[var5][var3 + 1][var4] * var6 >> 7; // L: 4982
-			int var9 = Tiles.Tiles_heights[var5][var3][var4 + 1] * (128 - var6) + Tiles.Tiles_heights[var5][var3 + 1][var4 + 1] * var6 >> 7; // L: 4983
-			return var8 * (128 - var7) + var9 * var7 >> 7; // L: 4984
-		} else {
-			return 0;
 		}
 	}
+
+	@ObfuscatedName("gq")
+	@ObfuscatedSignature(
+		descriptor = "(Lbi;ZI)V",
+		garbageValue = "-788560949"
+	)
+	@Export("addPlayerToScene")
+	static void addPlayerToScene(Player var0, boolean var1) {
+		if (var0 != null && var0.isVisible() && !var0.isHidden) { // L: 4830
+			var0.isUnanimated = false; // L: 4831
+			if ((Client.isLowDetail && Players.Players_count > 50 || Players.Players_count > 200) && var1 && var0.idleSequence == var0.movementSequence) { // L: 4832 4833
+				var0.isUnanimated = true;
+			}
+
+			int var2 = var0.x >> 7; // L: 4835
+			int var3 = var0.y >> 7; // L: 4836
+			if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) { // L: 4837
+				long var4 = GrandExchangeOfferOwnWorldComparator.calculateTag(0, 0, 0, false, var0.index); // L: 4838
+				if (var0.model0 != null && Client.cycle >= var0.animationCycleStart && Client.cycle < var0.animationCycleEnd) { // L: 4839
+					var0.isUnanimated = false; // L: 4840
+					var0.tileHeight = GrandExchangeOfferWorldComparator.getTileHeight(var0.x, var0.y, GrandExchangeOfferUnitPriceComparator.Client_plane); // L: 4841
+					var0.playerCycle = Client.cycle; // L: 4842
+					ModeWhere.scene.addNullableObject(GrandExchangeOfferUnitPriceComparator.Client_plane, var0.x, var0.y, var0.tileHeight, 60, var0, var0.rotation, var4, var0.field646, var0.field669, var0.field660, var0.field661); // L: 4843
+				} else {
+					if ((var0.x & 127) == 64 && (var0.y & 127) == 64) { // L: 4846
+						if (Client.tileLastDrawnActor[var2][var3] == Client.viewportDrawCount) { // L: 4847
+							return;
+						}
+
+						Client.tileLastDrawnActor[var2][var3] = Client.viewportDrawCount; // L: 4848
+					}
+
+					var0.tileHeight = GrandExchangeOfferWorldComparator.getTileHeight(var0.x, var0.y, GrandExchangeOfferUnitPriceComparator.Client_plane); // L: 4850
+					var0.playerCycle = Client.cycle; // L: 4851
+					ModeWhere.scene.drawEntity(GrandExchangeOfferUnitPriceComparator.Client_plane, var0.x, var0.y, var0.tileHeight, 60, var0, var0.rotation, var4, var0.isWalking); // L: 4852
+				}
+			}
+		}
+
+	} // L: 4856
 }

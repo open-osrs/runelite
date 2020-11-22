@@ -2,7 +2,7 @@ package net.runelite.rs.api;
 
 import net.runelite.mapping.Import;
 
-public interface RSSequenceDefinition
+public interface RSSequenceDefinition extends RSNode
 {
 //	@Import("stretches")
 //	boolean getStretches();
@@ -23,7 +23,7 @@ public interface RSSequenceDefinition
 	int[] getFrameIDs();
 
 	@Import("frameLengths")
-	int[] getFrameLenths();
+	int[] getFrameLengths();
 
 	@Import("chatFrameIds")
 	int[] getChatFrameIds();

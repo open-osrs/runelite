@@ -9,44 +9,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.4
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1.3.0
-        with:
-          java-version: 11
       - name: Update Gradle Wrapper
         run: ./gradlew wrapper --gradle-version $(curl -s https://api.github.com/repos/gradle/gradle/releases/latest | grep -Po '"name":.*?[^\\]",' | sed -r 's/[\"name:, ]+//g') --distribution-type all --console=plain
       - name: Create Gradle wrapper update Pull Request
-        uses: Owain94/create-pull-request@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.OpenOSRS }}
-          PULL_REQUEST_BRANCH: GRADLE-WRAPPER-UPDATE
-          PULL_REQUEST_TITLE: 'project: Update gradle wrapper'
-          PULL_REQUEST_BODY: This is an auto-generated PR with an updated gradle version
-          COMMIT_MESSAGE: 'project: Update gradle wrapper'
-          PULL_REQUEST_LABELS: automated-pull-request, gradle
+        uses: peter-evans/create-pull-request@v3.4.1
+        with:
+          token: ${{ secrets.OpenOSRS }}
+          author: OpenOSRS <openosrs.github@gmail.com>
+          committer: OpenOSRS <openosrs.github@gmail.com>
+          branch: GRADLE-WRAPPER-UPDATE
+          commit-message: 'gradle: Update gradle wrapper'
+          title: 'gradle: Update gradle wrapper'
+          body: This is an auto-generated PR with an updated gradle version
+          labels: automated-pull-request, gradle
+          signoff: false
 
   update-dependencies:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.4
       - name: Make gradlew executable
         run: chmod +x ./gradlew
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1.3.0
-        with:
-         java-version: 11
       - name: Update Gradle Dependencies
         run: ./gradlew useLatestVersions --console=plain
       - name: Create Gradle dependencies update Pull Request
-        uses: Owain94/create-pull-request@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.Owain }}
-          PULL_REQUEST_BRANCH: GRADLE-DEPS-UPDATE
-          PULL_REQUEST_TITLE: 'project: Update gradle dependencies'
-          PULL_REQUEST_BODY: This is an auto-generated PR with updated gradle dependencies
-          COMMIT_MESSAGE: 'project: Update gradle dependencies'
-          PULL_REQUEST_LABELS: automated-pull-request, gradle
+        uses: peter-evans/create-pull-request@v3.4.1
+        with:
+          token: ${{ secrets.OpenOSRS }}
+          author: OpenOSRS <openosrs.github@gmail.com>
+          committer: OpenOSRS <openosrs.github@gmail.com>
+          branch: GRADLE-DEPS-UPDATE
+          commit-message: 'gradle: Update gradle dependencies'
+          title: 'gradle: Update gradle dependencies'
+          body: This is an auto-generated PR with an updated gradle dependencies
+          labels: automated-pull-request, gradle
+          signoff: false

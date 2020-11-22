@@ -79,7 +79,12 @@ public class ProjectileID
 	public static final int DEMONIC_GORILLA_BOULDER = 856;
 
 	public static final int XARPUS_ACID = 1555;
+	public static final int VERZIK_PURPLE_SPAWN = 1586;
 	public static final int CERB_FIRE = 1247;
+
+	public static final int DERWEN_HEALING_BALL = 1512;
+	public static final int JUSTICIAR_LEASH = 1515;
+	public static final int MAGE_ARENA_BOSS_FREEZE = 368;
 
 	/**
 	 * missing: superior dark beast
@@ -114,4 +119,6 @@ public class ProjectileID
 	public static final int HUNLLEF_CORRUPTED_PRAYER_ATTACK = 1714;
 
 	public static final int ZALCANO_PROJECTILE = 1728;
+
+	public static final int PORAZDIR_ENERGY_BALL = 1514;
 }

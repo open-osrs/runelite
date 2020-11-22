@@ -5,135 +5,154 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cx")
+@ObfuscatedName("cj")
 @Implements("Login")
 public class Login {
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@Export("clearLoginScreen")
 	static boolean clearLoginScreen;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1062905543
+		intValue = 1744707789
 	)
 	@Export("xPadding")
 	static int xPadding;
-	@ObfuscatedName("w")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Llp;"
+		descriptor = "Lle;"
+	)
+	@Export("titlebuttonSprite")
+	static IndexedSprite titlebuttonSprite;
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Llc;"
+	)
+	@Export("leftTitleSprite")
+	static Sprite leftTitleSprite;
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "Llc;"
 	)
 	@Export("rightTitleSprite")
 	static Sprite rightTitleSprite;
-	@ObfuscatedName("a")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lls;"
+		descriptor = "Lle;"
 	)
-	static IndexedSprite field1221;
-	@ObfuscatedName("j")
+	@Export("options_buttons_0Sprite")
+	static IndexedSprite options_buttons_0Sprite;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lle;"
+	)
+	@Export("options_buttons_2Sprite")
+	static IndexedSprite options_buttons_2Sprite;
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "Lcg;"
+	)
+	@Export("loginScreenRunesAnimation")
+	static LoginScreenAnimation loginScreenRunesAnimation;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -760884959
+		intValue = -1076468107
 	)
 	@Export("loginBoxX")
 	static int loginBoxX;
-	@ObfuscatedName("u")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 496089237
+		intValue = -1330731251
 	)
 	@Export("Login_loadingPercent")
 	static int Login_loadingPercent;
-	@ObfuscatedName("p")
+	@ObfuscatedName("a")
 	@Export("Login_loadingText")
 	static String Login_loadingText;
-	@ObfuscatedName("ae")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -1163892197
+		intValue = 1371548097
 	)
-	static int field1210;
-	@ObfuscatedName("ap")
+	static int field1216;
+	@ObfuscatedName("ay")
 	@ObfuscatedGetter(
-		intValue = -608933825
+		intValue = 402121111
 	)
-	static int field1213;
-	@ObfuscatedName("at")
+	static int field1217;
+	@ObfuscatedName("au")
 	@ObfuscatedGetter(
-		intValue = 662808535
+		intValue = 1682315035
 	)
 	@Export("loginIndex")
 	static int loginIndex;
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ai")
 	@Export("Login_response0")
 	static String Login_response0;
-	@ObfuscatedName("al")
+	@ObfuscatedName("ax")
 	@Export("Login_response1")
 	static String Login_response1;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ag")
 	@Export("Login_response2")
 	static String Login_response2;
-	@ObfuscatedName("av")
+	@ObfuscatedName("aq")
 	@Export("Login_response3")
 	static String Login_response3;
-	@ObfuscatedName("ax")
+	@ObfuscatedName("aw")
 	@Export("Login_username")
 	static String Login_username;
-	@ObfuscatedName("as")
+	@ObfuscatedName("an")
 	@Export("Login_password")
 	static String Login_password;
-	@ObfuscatedName("af")
-	static boolean field1224;
-	@ObfuscatedName("ak")
-	static boolean field1201;
-	@ObfuscatedName("bc")
-	static boolean field1223;
-	@ObfuscatedName("bz")
+	@ObfuscatedName("al")
+	static boolean field1230;
+	@ObfuscatedName("ap")
+	static boolean field1229;
+	@ObfuscatedName("bf")
+	static boolean field1227;
+	@ObfuscatedName("bp")
 	@ObfuscatedGetter(
-		intValue = -189383965
+		intValue = -1450671401
 	)
 	@Export("currentLoginField")
 	static int currentLoginField;
-	@ObfuscatedName("bg")
+	@ObfuscatedName("bl")
 	@Export("worldSelectOpen")
 	static boolean worldSelectOpen;
-	@ObfuscatedName("bw")
-	@ObfuscatedSignature(
-		descriptor = "[Lls;"
-	)
-	@Export("worldSelectStars")
-	static IndexedSprite[] worldSelectStars;
-	@ObfuscatedName("bm")
+	@ObfuscatedName("by")
 	@ObfuscatedGetter(
-		intValue = -322396857
+		intValue = -374959449
 	)
 	@Export("hoveredWorldIndex")
 	static int hoveredWorldIndex;
-	@ObfuscatedName("bd")
+	@ObfuscatedName("bq")
 	@ObfuscatedGetter(
-		intValue = -1129392139
+		intValue = -1738897563
 	)
 	@Export("worldSelectPage")
 	static int worldSelectPage;
-	@ObfuscatedName("bb")
+	@ObfuscatedName("bv")
 	@ObfuscatedGetter(
-		intValue = 1846745523
+		intValue = 1533348533
 	)
 	@Export("worldSelectPagesCount")
 	static int worldSelectPagesCount;
-	@ObfuscatedName("bq")
+	@ObfuscatedName("bs")
 	@ObfuscatedGetter(
-		longValue = -4736688833894642183L
+		longValue = -8374739296205492955L
 	)
-	static long field1232;
-	@ObfuscatedName("by")
+	static long field1223;
+	@ObfuscatedName("bd")
 	@ObfuscatedGetter(
-		longValue = -2848820817006551463L
+		longValue = 3745631578629079475L
 	)
-	static long field1233;
+	static long field1241;
 
 	static {
 		xPadding = 0; // L: 38
 		loginBoxX = xPadding + 202; // L: 55
-		Login_loadingPercent = 10; // L: 57
-		Login_loadingText = ""; // L: 58
-		field1210 = -1; // L: 65
-		field1213 = 1; // L: 68
+		Login_loadingPercent = 10;
+		Login_loadingText = "";
+		field1216 = -1; // L: 65
+		field1217 = 1; // L: 68
 		loginIndex = 0; // L: 72
 		Login_response0 = ""; // L: 73
 		Login_response1 = ""; // L: 74
@@ -141,9 +160,9 @@ public class Login {
 		Login_response3 = ""; // L: 76
 		Login_username = ""; // L: 77
 		Login_password = ""; // L: 78
-		field1224 = false; // L: 85
-		field1201 = false; // L: 86
-		field1223 = true; // L: 89
+		field1230 = false; // L: 85
+		field1229 = false; // L: 86
+		field1227 = true; // L: 89
 		currentLoginField = 0; // L: 90
 		worldSelectOpen = false; // L: 94
 		hoveredWorldIndex = -1; // L: 102
@@ -151,47 +170,101 @@ public class Login {
 		worldSelectPagesCount = 0; // L: 104
 		new DecimalFormat("##0.00"); // L: 107
 		new class171();
-		field1232 = -1L; // L: 115
-		field1233 = -1L; // L: 116
+		field1223 = -1L; // L: 115
+		field1241 = -1L; // L: 116
 	}
 
-	@ObfuscatedName("gm")
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
+		garbageValue = "-1829542828"
+	)
+	public static String method2219(CharSequence var0) {
+		long var3 = 0L; // L: 44
+		int var5 = var0.length(); // L: 45
+
+		for (int var6 = 0; var6 < var5; ++var6) { // L: 46
+			var3 *= 37L; // L: 47
+			char var7 = var0.charAt(var6); // L: 48
+			if (var7 >= 'A' && var7 <= 'Z') { // L: 49
+				var3 += (long)(var7 + 1 - 65);
+			} else if (var7 >= 'a' && var7 <= 'z') { // L: 50
+				var3 += (long)(var7 + 1 - 97);
+			} else if (var7 >= '0' && var7 <= '9') {
+				var3 += (long)(var7 + 27 - 48); // L: 51
+			}
+
+			if (var3 >= 177917621779460413L) { // L: 52
+				break;
+			}
+		}
+
+		while (var3 % 37L == 0L && var3 != 0L) { // L: 54
+			var3 /= 37L;
+		}
+
+		String var8 = class69.base37DecodeLong(var3);
+		if (var8 == null) {
+			var8 = "";
+		}
+
+		return var8;
+	}
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lmp;"
+	)
+	@Export("newRunException")
+	public static RunException newRunException(Throwable var0, String var1) {
+		RunException var2;
+		if (var0 instanceof RunException) { // L: 57
+			var2 = (RunException)var0; // L: 58
+			var2.message = var2.message + ' ' + var1; // L: 59
+		} else {
+			var2 = new RunException(var0, var1); // L: 61
+		}
+
+		return var2; // L: 62
+	}
+
+	@ObfuscatedName("gn")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "942552334"
+		garbageValue = "-560858239"
 	)
-	static final void method2160() {
-		for (Projectile var0 = (Projectile)Client.projectiles.last(); var0 != null; var0 = (Projectile)Client.projectiles.previous()) { // L: 4308 4309 4326
-			if (var0.plane == Huffman.Client_plane && Client.cycle <= var0.cycleEnd) { // L: 4310
-				if (Client.cycle >= var0.cycleStart) { // L: 4311
-					if (var0.targetIndex > 0) { // L: 4312
-						NPC var1 = Client.npcs[var0.targetIndex - 1]; // L: 4313
-						if (var1 != null && var1.x >= 0 && var1.x < 13312 && var1.y >= 0 && var1.y < 13312) { // L: 4314
-							var0.setDestination(var1.x, var1.y, ArchiveLoader.getTileHeight(var1.x, var1.y, var0.plane) - var0.endHeight, Client.cycle);
+	static final void method2200() {
+		for (Projectile var0 = (Projectile)Client.projectiles.last(); var0 != null; var0 = (Projectile)Client.projectiles.previous()) { // L: 4878 4879 4896
+			if (var0.plane == GrandExchangeOfferUnitPriceComparator.Client_plane && Client.cycle <= var0.cycleEnd) { // L: 4880
+				if (Client.cycle >= var0.cycleStart) { // L: 4881
+					if (var0.targetIndex > 0) { // L: 4882
+						NPC var1 = Client.npcs[var0.targetIndex - 1]; // L: 4883
+						if (var1 != null && var1.x >= 0 && var1.x < 13312 && var1.y >= 0 && var1.y < 13312) { // L: 4884
+							var0.setDestination(var1.x, var1.y, GrandExchangeOfferWorldComparator.getTileHeight(var1.x, var1.y, var0.plane) - var0.endHeight, Client.cycle);
 						}
 					}
 
-					if (var0.targetIndex < 0) { // L: 4316
-						int var2 = -var0.targetIndex - 1; // L: 4318
+					if (var0.targetIndex < 0) { // L: 4886
+						int var2 = -var0.targetIndex - 1; // L: 4888
 						Player var3;
-						if (var2 == Client.localPlayerIndex) { // L: 4319
-							var3 = WorldMapLabelSize.localPlayer;
+						if (var2 == Client.localPlayerIndex) { // L: 4889
+							var3 = PlayerType.localPlayer;
 						} else {
-							var3 = Client.players[var2]; // L: 4320
+							var3 = Client.players[var2]; // L: 4890
 						}
 
 						if (var3 != null && var3.x >= 0 && var3.x < 13312 && var3.y >= 0 && var3.y < 13312) {
-							var0.setDestination(var3.x, var3.y, ArchiveLoader.getTileHeight(var3.x, var3.y, var0.plane) - var0.endHeight, Client.cycle); // L: 4321
+							var0.setDestination(var3.x, var3.y, GrandExchangeOfferWorldComparator.getTileHeight(var3.x, var3.y, var0.plane) - var0.endHeight, Client.cycle); // L: 4891
 						}
 					}
 
-					var0.advance(Client.field737); // L: 4323
-					ScriptEvent.scene.drawEntity(Huffman.Client_plane, (int)var0.x, (int)var0.y, (int)var0.z, 60, var0, var0.yaw, -1L, false); // L: 4324
+					var0.advance(Client.field743); // L: 4893
+					ModeWhere.scene.drawEntity(GrandExchangeOfferUnitPriceComparator.Client_plane, (int)var0.x, (int)var0.y, (int)var0.z, 60, var0, var0.yaw, -1L, false); // L: 4894
 				}
 			} else {
 				var0.remove();
 			}
 		}
 
-	} // L: 4328
+	} // L: 4898
 }

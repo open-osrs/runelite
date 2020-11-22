@@ -4,58 +4,63 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ie")
+@ObfuscatedName("ii")
 @Implements("KitDefinition")
 public class KitDefinition extends DualNode {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Liw;"
 	)
 	@Export("KitDefinition_archive")
 	static AbstractArchive KitDefinition_archive;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Liw;"
 	)
 	@Export("KitDefinition_modelsArchive")
 	static AbstractArchive KitDefinition_modelsArchive;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 12947469
+		intValue = -609176759
 	)
 	@Export("KitDefinition_fileCount")
 	public static int KitDefinition_fileCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lel;"
+		descriptor = "Lev;"
 	)
 	@Export("KitDefinition_cached")
 	public static EvictingDualNodeHashTable KitDefinition_cached;
-	@ObfuscatedName("i")
+	@ObfuscatedName("ed")
 	@ObfuscatedGetter(
-		intValue = -346028961
+		intValue = 1533008419
+	)
+	static int field3297;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = 1729249671
 	)
 	@Export("bodypartID")
 	public int bodypartID;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@Export("models2")
 	int[] models2;
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
 	@Export("recolorFrom")
 	short[] recolorFrom;
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@Export("recolorTo")
 	short[] recolorTo;
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@Export("retextureFrom")
 	short[] retextureFrom;
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
 	@Export("retextureTo")
 	short[] retextureTo;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@Export("models")
 	int[] models;
-	@ObfuscatedName("d")
+	@ObfuscatedName("o")
 	@Export("nonSelectable")
 	public boolean nonSelectable;
 
@@ -69,10 +74,10 @@ public class KitDefinition extends DualNode {
 		this.nonSelectable = false; // L: 22
 	} // L: 24
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;I)V",
-		garbageValue = "-861511508"
+		descriptor = "(Lkb;I)V",
+		garbageValue = "-902223111"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -86,10 +91,10 @@ public class KitDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;IB)V",
-		garbageValue = "36"
+		descriptor = "(Lkb;IB)V",
+		garbageValue = "101"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -132,10 +137,10 @@ public class KitDefinition extends DualNode {
 
 	} // L: 78
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-62"
+		descriptor = "(I)Z",
+		garbageValue = "1495290745"
 	)
 	@Export("ready")
 	public boolean ready() {
@@ -154,10 +159,10 @@ public class KitDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lee;",
-		garbageValue = "-1978614087"
+		descriptor = "(B)Len;",
+		garbageValue = "-99"
 	)
 	@Export("getModelData")
 	public ModelData getModelData() {
@@ -194,12 +199,12 @@ public class KitDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-57"
+		descriptor = "(I)Z",
+		garbageValue = "-1549480832"
 	)
-	public boolean method4543() {
+	public boolean method4620() {
 		boolean var1 = true; // L: 108
 
 		for (int var2 = 0; var2 < 5; ++var2) { // L: 109
@@ -211,10 +216,10 @@ public class KitDefinition extends DualNode {
 		return var1; // L: 112
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lee;",
-		garbageValue = "16"
+		descriptor = "(I)Len;",
+		garbageValue = "1284292663"
 	)
 	@Export("getKitDefinitionModels")
 	public ModelData getKitDefinitionModels() {
@@ -244,17 +249,73 @@ public class KitDefinition extends DualNode {
 		return var5; // L: 132
 	}
 
-	@ObfuscatedName("jc")
+	@ObfuscatedName("fo")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "1024"
+		descriptor = "(IIII)V",
+		garbageValue = "2143746786"
 	)
-	@Export("FriendSystem_invalidateIgnoreds")
-	static final void FriendSystem_invalidateIgnoreds() {
-		UserComparator8.method3497(); // L: 10675
-		if (Entity.clanChat != null) { // L: 10676
-			Entity.clanChat.invalidateIgnoreds(); // L: 10677
+	@Export("queueSoundEffect")
+	static void queueSoundEffect(int var0, int var1, int var2) {
+		if (Client.soundEffectVolume != 0 && var1 != 0 && Client.soundEffectCount < 50) { // L: 3574
+			Client.soundEffectIds[Client.soundEffectCount] = var0; // L: 3575
+			Client.queuedSoundEffectLoops[Client.soundEffectCount] = var1; // L: 3576
+			Client.queuedSoundEffectDelays[Client.soundEffectCount] = var2; // L: 3577
+			Client.soundEffects[Client.soundEffectCount] = null; // L: 3578
+			Client.soundLocations[Client.soundEffectCount] = 0; // L: 3579
+			++Client.soundEffectCount; // L: 3580
 		}
 
-	} // L: 10679
+	} // L: 3582
+
+	@ObfuscatedName("hx")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "1433287432"
+	)
+	static void method4634(int var0, int var1) {
+		int var2 = ReflectionCheck.fontBold12.stringWidth("Choose Option"); // L: 7895
+
+		int var3;
+		for (var3 = 0; var3 < Client.menuOptionsCount; ++var3) { // L: 7896
+			Font var7 = ReflectionCheck.fontBold12; // L: 7897
+			String var8;
+			if (var3 < 0) { // L: 7900
+				var8 = ""; // L: 7901
+			} else if (Client.menuTargets[var3].length() > 0) { // L: 7904
+				var8 = Client.menuActions[var3] + " " + Client.menuTargets[var3];
+			} else {
+				var8 = Client.menuActions[var3]; // L: 7905
+			}
+
+			int var6 = var7.stringWidth(var8); // L: 7907
+			if (var6 > var2) { // L: 7908
+				var2 = var6;
+			}
+		}
+
+		var2 += 8; // L: 7910
+		var3 = Client.menuOptionsCount * 15 + 22; // L: 7911
+		int var4 = var0 - var2 / 2; // L: 7912
+		if (var4 + var2 > ItemContainer.canvasWidth) { // L: 7913
+			var4 = ItemContainer.canvasWidth - var2;
+		}
+
+		if (var4 < 0) { // L: 7914
+			var4 = 0;
+		}
+
+		int var5 = var1; // L: 7915
+		if (var1 + var3 > HealthBar.canvasHeight) { // L: 7916
+			var5 = HealthBar.canvasHeight - var3;
+		}
+
+		if (var5 < 0) { // L: 7917
+			var5 = 0;
+		}
+
+		Coord.menuX = var4; // L: 7918
+		WorldMapArea.menuY = var5; // L: 7919
+		KeyHandler.menuWidth = var2; // L: 7920
+		ServerPacket.menuHeight = Client.menuOptionsCount * 15 + 22; // L: 7921
+	} // L: 7922
 }

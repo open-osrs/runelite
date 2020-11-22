@@ -1,71 +1,91 @@
-import java.io.IOException;
-import java.net.Socket;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ej")
+@ObfuscatedName("ec")
 @Implements("ModelData0")
 public class ModelData0 {
-	@ObfuscatedName("sl")
+	@ObfuscatedName("sv")
+	@ObfuscatedSignature(
+		descriptor = "Liq;"
+	)
+	public static class248 field1895;
+	@ObfuscatedName("ez")
 	@ObfuscatedSignature(
 		descriptor = "Lid;"
 	)
-	public static class247 field1901;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Lic;"
-	)
-	@Export("soundEffectsArchive")
-	static AbstractArchive soundEffectsArchive;
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lls;"
-	)
-	@Export("titlebuttonSprite")
-	static IndexedSprite titlebuttonSprite;
-	@ObfuscatedName("au")
-	static String field1904;
+	@Export("archive18")
+	static Archive archive18;
 
 	ModelData0() {
 	} // L: 4
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lct;Lct;IZIZB)I",
-		garbageValue = "73"
+		descriptor = "(I)Lcf;",
+		garbageValue = "1326128676"
 	)
-	static int method3376(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
-		int var6 = class2.compareWorlds(var0, var1, var2, var3); // L: 199
-		if (var6 != 0) { // L: 200
-			return var3 ? -var6 : var6; // L: 201
-		} else if (var4 == -1) { // L: 204
-			return 0;
-		} else {
-			int var7 = class2.compareWorlds(var0, var1, var4, var5); // L: 205
-			return var5 ? -var7 : var7; // L: 206
-		}
+	@Export("worldListStart")
+	static World worldListStart() {
+		World.World_listCount = 0; // L: 237
+		return FileSystem.getNextWorldListWorld(); // L: 238
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("he")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "1145056768"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIB)V",
+		garbageValue = "-117"
 	)
-	static final void method3377(String var0) {
-		StringBuilder var10000 = (new StringBuilder()).append(var0);
-		Object var10001 = null;
-		String var1 = var10000.append(" is already on your friend list").toString(); // L: 112
-		WorldMapRectangle.addGameMessage(30, "", var1); // L: 114
-	} // L: 116
+	@Export("insertMenuItemNoShift")
+	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
+		KeyHandler.insertMenuItem(var0, var1, var2, var3, var4, var5, false); // L: 8934
+	} // L: 8935
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("jt")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/Socket;IIB)Lln;",
-		garbageValue = "14"
+		descriptor = "(IIII)Lbs;",
+		garbageValue = "1523932767"
 	)
-	public static AbstractSocket method3375(Socket var0, int var1, int var2) throws IOException {
-		return new BufferedNetSocket(var0, var1, var2); // L: 10
+	static final InterfaceParent method3381(int var0, int var1, int var2) {
+		InterfaceParent var3 = new InterfaceParent(); // L: 11261
+		var3.group = var1; // L: 11262
+		var3.type = var2; // L: 11263
+		Client.interfaceParents.put(var3, (long)var0); // L: 11264
+		FontName.Widget_resetModelFrames(var1); // L: 11265
+		Widget var4 = UserComparator4.getWidget(var0); // L: 11266
+		GrandExchangeOfferOwnWorldComparator.invalidateWidget(var4); // L: 11267
+		if (Client.meslayerContinueWidget != null) { // L: 11268
+			GrandExchangeOfferOwnWorldComparator.invalidateWidget(Client.meslayerContinueWidget); // L: 11269
+			Client.meslayerContinueWidget = null; // L: 11270
+		}
+
+		for (int var5 = 0; var5 < Client.menuOptionsCount; ++var5) { // L: 11273
+			if (DynamicObject.method2362(Client.menuOpcodes[var5])) { // L: 11274
+				if (var5 < Client.menuOptionsCount - 1) { // L: 11275
+					for (int var6 = var5; var6 < Client.menuOptionsCount - 1; ++var6) { // L: 11276
+						Client.menuActions[var6] = Client.menuActions[var6 + 1]; // L: 11277
+						Client.menuTargets[var6] = Client.menuTargets[var6 + 1]; // L: 11278
+						Client.menuOpcodes[var6] = Client.menuOpcodes[var6 + 1]; // L: 11279
+						Client.menuIdentifiers[var6] = Client.menuIdentifiers[var6 + 1]; // L: 11280
+						Client.menuArguments1[var6] = Client.menuArguments1[var6 + 1]; // L: 11281
+						Client.menuArguments2[var6] = Client.menuArguments2[var6 + 1]; // L: 11282
+						Client.menuShiftClick[var6] = Client.menuShiftClick[var6 + 1]; // L: 11283
+					}
+				}
+
+				--var5; // L: 11286
+				--Client.menuOptionsCount; // L: 11287
+			}
+		}
+
+		TileItemPile.method2908(); // L: 11290
+		UserComparator9.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var0 >> 16], var4, false); // L: 11292
+		ScriptFrame.runWidgetOnLoadListener(var1); // L: 11293
+		if (Client.rootInterface != -1) { // L: 11294
+			WorldMapAreaData.runIntfCloseListeners(Client.rootInterface, 1);
+		}
+
+		return var3; // L: 11295
 	}
 }

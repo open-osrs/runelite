@@ -4,51 +4,45 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kg")
+@ObfuscatedName("ln")
 @Implements("ByteArrayPool")
 public class ByteArrayPool {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -2025901059
+		intValue = 1202056679
 	)
 	@Export("ByteArrayPool_smallCount")
 	static int ByteArrayPool_smallCount;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1213393185
+		intValue = -2063240013
 	)
 	@Export("ByteArrayPool_mediumCount")
 	static int ByteArrayPool_mediumCount;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1641573055
+		intValue = -1967432073
 	)
 	@Export("ByteArrayPool_largeCount")
 	static int ByteArrayPool_largeCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@Export("ByteArrayPool_small")
 	static byte[][] ByteArrayPool_small;
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@Export("ByteArrayPool_medium")
 	static byte[][] ByteArrayPool_medium;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@Export("ByteArrayPool_large")
 	static byte[][] ByteArrayPool_large;
-	@ObfuscatedName("x")
-	@Export("ByteArrayPool_alternativeSizes")
-	static int[] ByteArrayPool_alternativeSizes;
-	@ObfuscatedName("w")
-	@Export("ByteArrayPool_altSizeArrayCounts")
-	static int[] ByteArrayPool_altSizeArrayCounts;
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@Export("ByteArrayPool_arrays")
 	static byte[][][] ByteArrayPool_arrays;
-	@ObfuscatedName("cc")
+	@ObfuscatedName("ap")
+	@Export("client")
 	@ObfuscatedSignature(
-		descriptor = "Lbo;"
+		descriptor = "Lclient;"
 	)
-	@Export("mouseRecorder")
-	static MouseRecorder mouseRecorder;
+	static Client client;
 
 	static {
 		ByteArrayPool_smallCount = 0; // L: 4
@@ -59,10 +53,10 @@ public class ByteArrayPool {
 		ByteArrayPool_large = new byte[50][]; // L: 9
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(IZB)[B",
-		garbageValue = "29"
+		descriptor = "(IZI)[B",
+		garbageValue = "-1957443325"
 	)
 	@Export("ByteArrayPool_getArrayBool")
 	static synchronized byte[] ByteArrayPool_getArrayBool(int var0, boolean var1) {
@@ -95,13 +89,13 @@ public class ByteArrayPool {
 		}
 
 		if (ByteArrayPool_arrays != null) { // L: 50
-			for (int var2 = 0; var2 < ByteArrayPool_alternativeSizes.length; ++var2) { // L: 51
-				if (ByteArrayPool_alternativeSizes[var2] != var0) { // L: 52
-					if (var0 < ByteArrayPool_alternativeSizes[var2]) {
+			for (int var2 = 0; var2 < Coord.ByteArrayPool_alternativeSizes.length; ++var2) { // L: 51
+				if (Coord.ByteArrayPool_alternativeSizes[var2] != var0) { // L: 52
+					if (var0 < Coord.ByteArrayPool_alternativeSizes[var2]) {
 					}
-				} else if (ByteArrayPool_altSizeArrayCounts[var2] > 0) {
-					byte[] var3 = ByteArrayPool_arrays[var2][--ByteArrayPool_altSizeArrayCounts[var2]]; // L: 53
-					ByteArrayPool_arrays[var2][ByteArrayPool_altSizeArrayCounts[var2]] = null; // L: 54
+				} else if (FloorDecoration.ByteArrayPool_altSizeArrayCounts[var2] > 0) {
+					byte[] var3 = ByteArrayPool_arrays[var2][--FloorDecoration.ByteArrayPool_altSizeArrayCounts[var2]]; // L: 53
+					ByteArrayPool_arrays[var2][FloorDecoration.ByteArrayPool_altSizeArrayCounts[var2]] = null; // L: 54
 					return var3; // L: 55
 				}
 			}

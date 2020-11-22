@@ -1,70 +1,67 @@
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cm")
+@ObfuscatedName("cy")
 @Implements("GraphicsObject")
 public final class GraphicsObject extends Entity {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1326465881
-	)
-	@Export("height")
-	int height;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = -1027327973
+		intValue = 494289481
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("s")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1536729399
+		intValue = -770993721
 	)
 	@Export("cycleStart")
 	int cycleStart;
-	@ObfuscatedName("t")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1152665819
+		intValue = 2046486035
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("i")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1500063053
+		intValue = 467633941
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("o")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1460229241
+		intValue = 1569589891
+	)
+	@Export("height")
+	int height;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 1673763885
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Ljm;"
+		descriptor = "Ljg;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1933421917
+		intValue = -300375293
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 1610487487
+		intValue = 687860479
 	)
 	@Export("frameCycle")
 	int frameCycle;
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
 	@Export("isFinished")
 	boolean isFinished;
 
@@ -78,20 +75,20 @@ public final class GraphicsObject extends Entity {
 		this.y = var4; // L: 24
 		this.height = var5; // L: 25
 		this.cycleStart = var7 + var6; // L: 26
-		int var8 = Tiles.SpotAnimationDefinition_get(this.id).sequence; // L: 27
+		int var8 = HealthBarUpdate.SpotAnimationDefinition_get(this.id).sequence; // L: 27
 		if (var8 != -1) { // L: 28
 			this.isFinished = false; // L: 29
-			this.sequenceDefinition = WorldMapRegion.SequenceDefinition_get(var8); // L: 30
+			this.sequenceDefinition = class105.SequenceDefinition_get(var8); // L: 30
 		} else {
 			this.isFinished = true; // L: 32
 		}
 
 	} // L: 33
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "-1653124671"
+		garbageValue = "-825901935"
 	)
 	@Export("advance")
 	final void advance(int var1) {
@@ -110,14 +107,14 @@ public final class GraphicsObject extends Entity {
 		}
 	} // L: 46
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ler;",
-		garbageValue = "-2026237468"
+		descriptor = "(I)Leh;",
+		garbageValue = "-2070677844"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		SpotAnimationDefinition var1 = Tiles.SpotAnimationDefinition_get(this.id); // L: 49
+		SpotAnimationDefinition var1 = HealthBarUpdate.SpotAnimationDefinition_get(this.id); // L: 49
 		Model var2;
 		if (!this.isFinished) { // L: 51
 			var2 = var1.getModel(this.frame);
@@ -128,82 +125,22 @@ public final class GraphicsObject extends Entity {
 		return var2 == null ? null : var2; // L: 53
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("eb")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "104"
+		descriptor = "(I)I",
+		garbageValue = "1882927898"
 	)
-	static void method2091() {
-		try {
-			File var0 = new File(UserComparator2.userHomeDirectory, "random.dat"); // L: 283
-			int var2;
-			if (var0.exists()) { // L: 284
-				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0); // L: 285
-			} else {
-				label38:
-				for (int var1 = 0; var1 < class69.field570.length; ++var1) { // L: 288
-					for (var2 = 0; var2 < UserComparator4.field2005.length; ++var2) { // L: 289
-						File var3 = new File(UserComparator4.field2005[var2] + class69.field570[var1] + File.separatorChar + "random.dat"); // L: 290
-						if (var3.exists()) { // L: 291
-							JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var3, "rw", 25L), 24, 0); // L: 292
-							break label38; // L: 293
-						}
-					}
-				}
+	static int method2122() {
+		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) { // L: 1909
+			int var0 = 0; // L: 1910
+
+			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) { // L: 1911
+				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount; // L: 1912
 			}
 
-			if (JagexCache.JagexCache_randomDat == null) { // L: 298
-				RandomAccessFile var4 = new RandomAccessFile(var0, "rw"); // L: 299
-				var2 = var4.read(); // L: 300
-				var4.seek(0L); // L: 301
-				var4.write(var2); // L: 302
-				var4.seek(0L); // L: 303
-				var4.close(); // L: 304
-				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0); // L: 305
-			}
-		} catch (IOException var5) { // L: 308
+			return var0 * 10000 / Client.field953; // L: 1914
+		} else {
+			return 10000;
 		}
-
-	} // L: 309
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1643627841"
-	)
-	public static void method2095() {
-		try {
-			if (class206.musicPlayerStatus == 1) { // L: 65
-				int var0 = class206.midiPcmStream.method3806(); // L: 66
-				if (var0 > 0 && class206.midiPcmStream.isReady()) { // L: 67
-					var0 -= FaceNormal.pcmSampleLength; // L: 68
-					if (var0 < 0) { // L: 69
-						var0 = 0;
-					}
-
-					class206.midiPcmStream.setPcmStreamVolume(var0); // L: 70
-					return; // L: 71
-				}
-
-				class206.midiPcmStream.clear(); // L: 73
-				class206.midiPcmStream.removeAll(); // L: 74
-				if (class204.musicTrackArchive != null) { // L: 75
-					class206.musicPlayerStatus = 2;
-				} else {
-					class206.musicPlayerStatus = 0; // L: 76
-				}
-
-				class206.musicTrack = null; // L: 77
-				class39.soundCache = null; // L: 78
-			}
-		} catch (Exception var2) { // L: 81
-			var2.printStackTrace(); // L: 82
-			class206.midiPcmStream.clear(); // L: 83
-			class206.musicPlayerStatus = 0; // L: 84
-			class206.musicTrack = null; // L: 85
-			class39.soundCache = null; // L: 86
-			class204.musicTrackArchive = null; // L: 87
-		}
-
-	} // L: 89
+	}
 }

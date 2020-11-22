@@ -29,7 +29,7 @@ description = "RuneScape Client"
 dependencies {
     implementation(project(":injection-annotations"))
 
-    testImplementation(group = "junit", name = "junit", version = "4.13")
+    testImplementation(group = "junit", name = "junit", version = "4.13.1")
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
     testImplementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.30")
 }
@@ -43,5 +43,13 @@ tasks {
     }
     withType<JavaCompile> {
         options.compilerArgs.addAll(arrayOf("-g:source,vars,lines", "-Xlint:-unchecked"))
+    }
+    register<JavaExec>("rsc-run") {
+        group = "openosrs"
+
+        classpath = project(":runescape-client").sourceSets.test.get().runtimeClasspath
+        enableAssertions = true
+
+        mainClass.set("Main")
     }
 }

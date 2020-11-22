@@ -49,18 +49,23 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.Stack;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -246,6 +251,7 @@ public class ConfigManager
 		return str;
 	}
 
+	@Nullable
 	static String objectToString(Object object)
 	{
 		if (object instanceof Color)
@@ -310,7 +316,8 @@ public class ConfigManager
 		{
 			return String.valueOf(object);
 		}
-		return object.toString();
+
+		return object == null ? null : object.toString();
 	}
 
 	public static <T extends Enum<T>> Class<T> getElementType(EnumSet<T> enumSet)
@@ -692,7 +699,7 @@ public class ConfigManager
 			return;
 		}
 
-		for (Method method : clazz.getDeclaredMethods())
+		for (Method method : getAllDeclaredInterfaceMethods(clazz))
 		{
 			ConfigItem item = method.getAnnotation(ConfigItem.class);
 
@@ -810,6 +817,25 @@ public class ConfigManager
 		}
 	}
 
+	/**
+	 * Does DFS on a class's interfaces to find all of its implemented methods.
+	 */
+	private Collection<Method> getAllDeclaredInterfaceMethods(Class<?> clazz)
+	{
+		Collection<Method> methods = new HashSet<>();
+		Stack<Class<?>> interfazes = new Stack<>();
+		interfazes.push(clazz);
+
+		while (!interfazes.isEmpty())
+		{
+			Class<?> interfaze = interfazes.pop();
+			Collections.addAll(methods, interfaze.getDeclaredMethods());
+			Collections.addAll(interfazes, interfaze.getInterfaces());
+		}
+
+		return methods;
+	}
+
 	private void syncLastModified()
 	{
 		File newestFile;
@@ -864,7 +890,7 @@ public class ConfigManager
 
 		try
 		{
-			ConfigChanged configChanged = Util.objectFromByteBuffer(message.getBuffer());
+			ConfigChanged configChanged = Util.objectFromByteBuffer(message.getObject());
 
 			if (!configChanged.getPath().equals(settingsFileInput.getAbsolutePath()))
 			{

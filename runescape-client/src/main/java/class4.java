@@ -2,119 +2,105 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("i")
+@ObfuscatedName("z")
 final class class4 implements class0 {
-	@ObfuscatedName("fd")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lkr;"
+		descriptor = "(Ljava/lang/Object;Lkb;I)V",
+		garbageValue = "192866787"
 	)
-	@Export("fontBold12")
-	static Font fontBold12;
+	public void vmethod69(Object var1, Buffer var2) {
+		this.method67((String)var1, var2);
+	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Object;Lkf;B)V",
-		garbageValue = "21"
+		descriptor = "(Lkb;I)Ljava/lang/Object;",
+		garbageValue = "-1094020977"
 	)
-	public void vmethod70(Object var1, Buffer var2) {
-		this.method59((String)var1, var2); // L: 46
-	} // L: 47
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(Lkf;I)Ljava/lang/Object;",
-		garbageValue = "-453860591"
-	)
-	public Object vmethod61(Buffer var1) {
+	public Object vmethod72(Buffer var1) {
 		return var1.readStringCp1252NullTerminated(); // L: 42
+	}
+
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Lkb;B)V",
+		garbageValue = "-103"
+	)
+	void method67(String var1, Buffer var2) {
+		var2.writeStringCp1252NullTerminated(var1);
+	}
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(Lhi;S)V",
+		garbageValue = "-19591"
+	)
+	public static void method77(Huffman var0) {
+		class219.huffman = var0; // L: 14
+	} // L: 15
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(Lgz;Lmh;B)Lgk;",
+		garbageValue = "10"
+	)
+	@Export("getPacketBufferNode")
+	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {
+		PacketBufferNode var2 = ChatChannel.method2363(); // L: 27
+		var2.clientPacket = var0; // L: 28
+		var2.clientPacketLength = var0.length; // L: 29
+		if (var2.clientPacketLength == -1) { // L: 30
+			var2.packetBuffer = new PacketBuffer(260);
+		} else if (var2.clientPacketLength == -2) {
+			var2.packetBuffer = new PacketBuffer(10000); // L: 31
+		} else if (var2.clientPacketLength <= 18) { // L: 32
+			var2.packetBuffer = new PacketBuffer(20);
+		} else if (var2.clientPacketLength <= 98) { // L: 33
+			var2.packetBuffer = new PacketBuffer(100);
+		} else {
+			var2.packetBuffer = new PacketBuffer(260); // L: 34
+		}
+
+		var2.packetBuffer.setIsaacCipher(var1); // L: 35
+		var2.packetBuffer.writeByteIsaac(var2.clientPacket.id); // L: 36
+		var2.index = 0; // L: 37
+		return var2; // L: 38
 	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Lkf;I)V",
-		garbageValue = "-758974757"
+		descriptor = "(IIB)Lbk;",
+		garbageValue = "-20"
 	)
-	void method59(String var1, Buffer var2) {
-		var2.writeStringCp1252NullTerminated(var1); // L: 38
-	} // L: 39
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 39
+		return var2.getMessage(var1); // L: 40
+	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Lic;I)V",
-		garbageValue = "-1502572430"
+		descriptor = "(B)V",
+		garbageValue = "43"
 	)
-	public static void method73(AbstractArchive var0) {
-		InvDefinition.InvDefinition_archive = var0; // L: 17
-	} // L: 18
+	static void method78() {
+		ItemContainer.itemContainers = new NodeHashTable(32); // L: 78
+	} // L: 79
 
-	@ObfuscatedName("iw")
+	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		descriptor = "([Lhq;Lhq;ZB)V",
-		garbageValue = "73"
+		descriptor = "([BIII)I",
+		garbageValue = "-56891300"
 	)
-	@Export("revalidateWidgetScroll")
-	static void revalidateWidgetScroll(Widget[] var0, Widget var1, boolean var2) {
-		int var3 = var1.scrollWidth != 0 ? var1.scrollWidth * -1105005447 * -1556531767 : var1.width * 1613274363 * 1200164403; // L: 9211
-		int var4 = var1.scrollHeight != 0 ? var1.scrollHeight * 1626628049 * 298473777 : var1.height * 1137118319 * 1991496335; // L: 9212
-		KeyHandler.resizeInterface(var0, var1.id, var3, var4, var2); // L: 9213
-		if (var1.children != null) { // L: 9214
-			KeyHandler.resizeInterface(var1.children, var1.id, var3, var4, var2);
+	public static int method81(byte[] var0, int var1, int var2) {
+		int var3 = -1; // L: 45
+
+		for (int var4 = var1; var4 < var2; ++var4) { // L: 46
+			var3 = var3 >>> 8 ^ Buffer.crc32Table[(var3 ^ var0[var4]) & 255]; // L: 47
 		}
 
-		InterfaceParent var5 = (InterfaceParent)Client.interfaceParents.get((long)var1.id); // L: 9215
-		if (var5 != null) { // L: 9216
-			int var6 = var5.group; // L: 9217
-			if (WorldMapSprite.loadInterface(var6)) { // L: 9219
-				KeyHandler.resizeInterface(Widget.Widget_interfaceComponents[var6], -1, var3, var4, var2); // L: 9220
-			}
-		}
-
-		if (var1.contentType == 1337) { // L: 9223
-		}
-
-	} // L: 9224
-
-	@ObfuscatedName("ja")
-	@ObfuscatedSignature(
-		descriptor = "(Lhq;I)Z",
-		garbageValue = "1437525598"
-	)
-	static final boolean method60(Widget var0) {
-		int var1 = var0.contentType; // L: 10523
-		if (var1 == 205) { // L: 10524
-			Client.logoutTimer = 250; // L: 10525
-			return true; // L: 10526
-		} else {
-			int var2;
-			int var3;
-			if (var1 >= 300 && var1 <= 313) { // L: 10528
-				var2 = (var1 - 300) / 2; // L: 10529
-				var3 = var1 & 1; // L: 10530
-				Client.playerAppearance.changeAppearance(var2, var3 == 1); // L: 10531
-			}
-
-			if (var1 >= 314 && var1 <= 323) { // L: 10533
-				var2 = (var1 - 314) / 2; // L: 10534
-				var3 = var1 & 1; // L: 10535
-				Client.playerAppearance.method4102(var2, var3 == 1); // L: 10536
-			}
-
-			if (var1 == 324) {
-				Client.playerAppearance.changeSex(false); // L: 10538
-			}
-
-			if (var1 == 325) { // L: 10539
-				Client.playerAppearance.changeSex(true);
-			}
-
-			if (var1 == 326) { // L: 10540
-				PacketBufferNode var4 = Client.getPacketBufferNode(ClientPacket.field2307, Client.packetWriter.isaacCipher); // L: 10542
-				Client.playerAppearance.write(var4.packetBuffer); // L: 10543
-				Client.packetWriter.addNode(var4); // L: 10544
-				return true; // L: 10545
-			} else {
-				return false; // L: 10547
-			}
-		}
+		var3 = ~var3; // L: 49
+		return var3; // L: 50
 	}
 }

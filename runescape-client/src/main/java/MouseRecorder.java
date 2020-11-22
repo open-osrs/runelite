@@ -4,45 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bo")
+@ObfuscatedName("bh")
 @Implements("MouseRecorder")
 public class MouseRecorder implements Runnable {
-	@ObfuscatedName("rc")
-	@ObfuscatedGetter(
-		intValue = 829134311
-	)
-	static int field609;
-	@ObfuscatedName("eu")
+	@ObfuscatedName("c")
+	public static short[][] field628;
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lht;"
 	)
-	@Export("archive18")
-	static Archive archive18;
-	@ObfuscatedName("fc")
+	static Widget field621;
+	@ObfuscatedName("v")
+	public static String field617;
+	@ObfuscatedName("fz")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Llv;"
 	)
-	@Export("socketTask")
-	static Task socketTask;
-	@ObfuscatedName("z")
+	static AbstractSocket field615;
+	@ObfuscatedName("f")
 	@Export("isRunning")
 	boolean isRunning;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@Export("lock")
 	Object lock;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -587598223
+		intValue = -973723423
 	)
 	@Export("index")
 	int index;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@Export("xs")
 	int[] xs;
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@Export("ys")
 	int[] ys;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@Export("millis")
 	long[] millis;
 
@@ -56,62 +53,77 @@ public class MouseRecorder implements Runnable {
 	} // L: 14
 
 	public void run() {
-		for (; this.isRunning; class227.sleepExact(50L)) { // L: 17 26
+		for (; this.isRunning; WorldMapSection3.sleepExact(50L)) { // L: 17 26
 			synchronized(this.lock) { // L: 18
 				if (this.index < 500) { // L: 19
-					this.xs[this.index] = MouseHandler.MouseHandler_x; // L: 20
-					this.ys[this.index] = MouseHandler.MouseHandler_y; // L: 21
-					this.millis[this.index] = MouseHandler.MouseHandler_millis; // L: 22
+					this.xs[this.index] = MouseHandler.MouseHandler_x;
+					this.ys[this.index] = MouseHandler.MouseHandler_y;
+					this.millis[this.index] = MouseHandler.MouseHandler_millis;
 					++this.index; // L: 23
 				}
 			}
 		}
 
-	} // L: 28
+	}
 
-	@ObfuscatedName("id")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lhq;IIZS)V",
-		garbageValue = "338"
+		descriptor = "(II)Llb;",
+		garbageValue = "-2124586789"
 	)
-	@Export("alignWidgetSize")
-	static void alignWidgetSize(Widget var0, int var1, int var2, boolean var3) {
-		int var4 = var0.width; // L: 9242
-		int var5 = var0.height; // L: 9243
-		if (var0.widthAlignment == 0) { // L: 9244
-			var0.width = var0.rawWidth;
-		} else if (var0.widthAlignment == 1) { // L: 9245
-			var0.width = var1 - var0.rawWidth;
-		} else if (var0.widthAlignment == 2) { // L: 9246
-			var0.width = var0.rawWidth * var1 >> 14;
+	public static PrivateChatMode method1287(int var0) {
+		PrivateChatMode[] var1 = FloorDecoration.method2989(); // L: 20
+
+		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 21
+			PrivateChatMode var3 = var1[var2]; // L: 22
+			if (var0 == var3.field3825) {
+				return var3; // L: 24
+			}
 		}
 
-		if (var0.heightAlignment == 0) { // L: 9247
-			var0.height = var0.rawHeight;
-		} else if (var0.heightAlignment == 1) { // L: 9248
-			var0.height = var2 - var0.rawHeight;
-		} else if (var0.heightAlignment == 2) {
-			var0.height = var2 * var0.rawHeight >> 14; // L: 9249
+		return null; // L: 28
+	}
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1737054142"
+	)
+	public static void method1283() {
+		VarpDefinition.VarpDefinition_cached.clear(); // L: 46
+	} // L: 47
+
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-500540968"
+	)
+	static final void method1286() {
+		Object var10000 = null; // L: 133
+		String var0 = "You can't add yourself to your own friend list";
+		DevicePcmPlayerProvider.addGameMessage(30, "", var0); // L: 135
+	} // L: 137
+
+	@ObfuscatedName("gt")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1123050484"
+	)
+	static final void method1285() {
+		for (GraphicsObject var0 = (GraphicsObject)Client.graphicsObjects.last(); var0 != null; var0 = (GraphicsObject)Client.graphicsObjects.previous()) { // L: 4901 4902 4909
+			if (var0.plane == GrandExchangeOfferUnitPriceComparator.Client_plane && !var0.isFinished) { // L: 4903
+				if (Client.cycle >= var0.cycleStart) { // L: 4904
+					var0.advance(Client.field743); // L: 4905
+					if (var0.isFinished) { // L: 4906
+						var0.remove();
+					} else {
+						ModeWhere.scene.drawEntity(var0.plane, var0.x, var0.y, var0.height, 60, var0, 0, -1L, false); // L: 4907
+					}
+				}
+			} else {
+				var0.remove();
+			}
 		}
 
-		if (var0.widthAlignment == 4) { // L: 9250
-			var0.width = var0.height * var0.field2622 / var0.field2623;
-		}
-
-		if (var0.heightAlignment == 4) { // L: 9251
-			var0.height = var0.field2623 * var0.width / var0.field2622;
-		}
-
-		if (var0.contentType == 1337) { // L: 9252
-			Client.viewportWidget = var0;
-		}
-
-		if (var3 && var0.onResize != null && (var4 != var0.width || var5 != var0.height)) { // L: 9253
-			ScriptEvent var6 = new ScriptEvent(); // L: 9254
-			var6.widget = var0; // L: 9255
-			var6.args = var0.onResize; // L: 9256
-			Client.scriptEvents.addFirst(var6); // L: 9257
-		}
-
-	} // L: 9259
+	} // L: 4911
 }

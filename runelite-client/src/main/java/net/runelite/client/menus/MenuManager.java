@@ -318,8 +318,14 @@ public class MenuManager
 
 		if (leftClickEntry == null)
 		{
-			// stop being null smh
-			leftClickEntry = entries[menuOptionCount - 1];
+			Arrays.stream(entries)
+				.filter(Objects::nonNull)
+				.filter(MenuEntry::isForceLeftClick)
+				.findFirst()
+				.ifPresentOrElse(
+					(entry) -> leftClickEntry = entry,
+					() -> leftClickEntry = entries[menuOptionCount - 1]
+				);
 		}
 
 		client.setMenuEntries(entries);

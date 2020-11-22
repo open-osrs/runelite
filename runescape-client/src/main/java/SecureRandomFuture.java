@@ -7,13 +7,19 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cs")
+@ObfuscatedName("ct")
 @Implements("SecureRandomFuture")
 public class SecureRandomFuture {
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "Lle;"
+	)
+	@Export("logoSprite")
+	static IndexedSprite logoSprite;
+	@ObfuscatedName("f")
 	@Export("executor")
 	ExecutorService executor;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@Export("future")
 	Future future;
 
@@ -22,10 +28,10 @@ public class SecureRandomFuture {
 		this.future = this.executor.submit(new SecureRandomCallable()); // L: 14
 	} // L: 15
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1936171902"
+		descriptor = "(B)V",
+		garbageValue = "22"
 	)
 	@Export("shutdown")
 	void shutdown() {
@@ -33,80 +39,75 @@ public class SecureRandomFuture {
 		this.executor = null; // L: 19
 	} // L: 20
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(B)Z",
-		garbageValue = "11"
+		garbageValue = "19"
 	)
 	@Export("isDone")
 	boolean isDone() {
 		return this.future.isDone(); // L: 23
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(S)Ljava/security/SecureRandom;",
-		garbageValue = "2000"
+		descriptor = "(I)Ljava/security/SecureRandom;",
+		garbageValue = "-2492664"
 	)
 	@Export("get")
 	SecureRandom get() {
 		try {
 			return (SecureRandom)this.future.get(); // L: 28
 		} catch (Exception var2) { // L: 30
-			return BoundaryObject.method3387(); // L: 31
+			return ServerPacket.method3740(); // L: 31
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-531384694"
+		descriptor = "(III)I",
+		garbageValue = "-623024875"
 	)
-	public static void method2225(int var0) {
-		if (var0 != -1) { // L: 227
-			if (Bounds.Widget_loadedInterfaces[var0]) { // L: 228
-				Widget.Widget_archive.clearFilesGroup(var0); // L: 229
-				if (Widget.Widget_interfaceComponents[var0] != null) { // L: 230
-					boolean var1 = true; // L: 231
+	static final int method2252(int var0, int var1) {
+		int var2 = var1 * 57 + var0; // L: 462
+		var2 ^= var2 << 13; // L: 463
+		int var3 = var2 * (var2 * var2 * 15731 + 789221) + 1376312589 & Integer.MAX_VALUE; // L: 464
+		return var3 >> 19 & 255; // L: 465
+	}
 
-					for (int var2 = 0; var2 < Widget.Widget_interfaceComponents[var0].length; ++var2) { // L: 232
-						if (Widget.Widget_interfaceComponents[var0][var2] != null) { // L: 233
-							if (Widget.Widget_interfaceComponents[var0][var2].type != 2) { // L: 234
-								Widget.Widget_interfaceComponents[var0][var2] = null;
-							} else {
-								var1 = false; // L: 235
-							}
-						}
-					}
+	@ObfuscatedName("ir")
+	@ObfuscatedSignature(
+		descriptor = "([Lht;IIIZI)V",
+		garbageValue = "1783989616"
+	)
+	@Export("resizeInterface")
+	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
+		for (int var5 = 0; var5 < var0.length; ++var5) { // L: 9890
+			Widget var6 = var0[var5]; // L: 9891
+			if (var6 != null && var6.parentId == var1) { // L: 9892 9893
+				WorldMapIcon_0.alignWidgetSize(var6, var2, var3, var4); // L: 9894
+				FileSystem.alignWidgetPosition(var6, var2, var3); // L: 9895
+				if (var6.scrollX > var6.scrollWidth - var6.width) { // L: 9896
+					var6.scrollX = var6.scrollWidth - var6.width;
+				}
 
-					if (var1) {
-						Widget.Widget_interfaceComponents[var0] = null; // L: 238
-					}
+				if (var6.scrollX < 0) { // L: 9897
+					var6.scrollX = 0;
+				}
 
-					Bounds.Widget_loadedInterfaces[var0] = false; // L: 239
+				if (var6.scrollY > var6.scrollHeight - var6.height) {
+					var6.scrollY = var6.scrollHeight - var6.height; // L: 9898
+				}
+
+				if (var6.scrollY < 0) { // L: 9899
+					var6.scrollY = 0;
+				}
+
+				if (var6.type == 0) { // L: 9900
+					UserComparator9.revalidateWidgetScroll(var0, var6, var4);
 				}
 			}
 		}
-	} // L: 240
 
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "116037374"
-	)
-	@Export("Messages_getHistorySize")
-	static int Messages_getHistorySize(int var0) {
-		ChatChannel var1 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 44
-		return var1 == null ? 0 : var1.size(); // L: 45 46
-	}
-
-	@ObfuscatedName("jt")
-	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-1418698978"
-	)
-	static void method2211(int var0, int var1) {
-		class2.method39(TaskHandler.tempMenuAction, var0, var1); // L: 10254
-		TaskHandler.tempMenuAction = null; // L: 10255
-	} // L: 10256
+	} // L: 9902
 }

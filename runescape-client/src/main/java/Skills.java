@@ -1,14 +1,21 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hd")
+@ObfuscatedName("hf")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("k")
+	@ObfuscatedName("sf")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
+	)
+	@Export("platformInfo")
+	static PlatformInfo platformInfo;
+	@ObfuscatedName("b")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
 

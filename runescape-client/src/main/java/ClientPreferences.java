@@ -7,46 +7,39 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cp")
 @Implements("ClientPreferences")
 public class ClientPreferences {
-	@ObfuscatedName("ot")
-	@ObfuscatedSignature(
-		descriptor = "Lco;"
-	)
-	@Export("varcs")
-	static Varcs varcs;
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1940309873
+		intValue = 297838275
 	)
 	@Export("ClientPreferences_optionCount")
 	static int ClientPreferences_optionCount;
-	@ObfuscatedName("m")
+	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		descriptor = "[Lls;"
+		descriptor = "Llw;"
 	)
-	@Export("title_muteSprite")
-	static IndexedSprite[] title_muteSprite;
-	@ObfuscatedName("s")
+	static Bounds field1089;
+	@ObfuscatedName("l")
 	@Export("roofsHidden")
 	boolean roofsHidden;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@Export("titleMusicDisabled")
 	boolean titleMusicDisabled;
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1674568027
+		intValue = 183452859
 	)
 	@Export("windowMode")
 	int windowMode;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@Export("rememberedUsername")
 	String rememberedUsername;
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
 	@Export("hideUsername")
 	boolean hideUsername;
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@Export("parameters")
 	LinkedHashMap parameters;
 
@@ -59,11 +52,11 @@ public class ClientPreferences {
 		this.rememberedUsername = null;
 		this.hideUsername = false;
 		this.parameters = new LinkedHashMap();
-		this.method1907(true); // L: 21
+		this.method1948(true); // L: 21
 	} // L: 22
 
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;)V"
+		descriptor = "(Lkb;)V"
 	)
 	ClientPreferences(Buffer var1) {
 		this.windowMode = 1; // L: 15
@@ -103,26 +96,26 @@ public class ClientPreferences {
 					this.hideUsername = var1.readBoolean(); // L: 53
 				}
 			} else {
-				this.method1907(true); // L: 31
+				this.method1948(true); // L: 31
 			}
 		} else {
-			this.method1907(true); // L: 26
+			this.method1948(true); // L: 26
 		}
 
 	} // L: 57
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "124970777"
+		descriptor = "(ZB)V",
+		garbageValue = "120"
 	)
-	void method1907(boolean var1) {
+	void method1948(boolean var1) {
 	} // L: 59
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lkf;",
-		garbageValue = "1981106247"
+		descriptor = "(I)Lkb;",
+		garbageValue = "-948717510"
 	)
 	@Export("toBuffer")
 	Buffer toBuffer() {

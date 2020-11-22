@@ -4,18 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ez")
+@ObfuscatedName("ej")
 @Implements("Entity")
 public abstract class Entity extends DualNode {
-	@ObfuscatedName("pe")
+	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
-		descriptor = "Lkx;"
+		descriptor = "[Llc;"
 	)
-	@Export("clanChat")
-	static ClanChat clanChat;
-	@ObfuscatedName("cf")
+	@Export("mapDotSprites")
+	static Sprite[] mapDotSprites;
+	@ObfuscatedName("iz")
 	@ObfuscatedGetter(
-		intValue = -282434447
+		intValue = 685420897
+	)
+	@Export("selectedItemId")
+	static int selectedItemId;
+	@ObfuscatedName("cu")
+	@ObfuscatedGetter(
+		intValue = 1647777713
 	)
 	@Export("height")
 	public int height;
@@ -24,17 +30,17 @@ public abstract class Entity extends DualNode {
 		this.height = 1000; // L: 6
 	} // L: 8
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ler;",
-		garbageValue = "-2026237468"
+		descriptor = "(I)Leh;",
+		garbageValue = "-2070677844"
 	)
 	@Export("getModel")
 	protected Model getModel() {
 		return null; // L: 19
 	}
 
-	@ObfuscatedName("cb")
+	@ObfuscatedName("cg")
 	@Export("draw")
 	void draw(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, long var9) {
 		Model var11 = this.getModel(); // L: 11
@@ -45,14 +51,13 @@ public abstract class Entity extends DualNode {
 
 	} // L: 16
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lic;Lic;B)V",
-		garbageValue = "28"
+		descriptor = "(Lbd;I)V",
+		garbageValue = "-1146861517"
 	)
-	public static void method3381(AbstractArchive var0, AbstractArchive var1) {
-		KitDefinition.KitDefinition_archive = var0; // L: 27
-		KitDefinition.KitDefinition_modelsArchive = var1; // L: 28
-		KitDefinition.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3); // L: 29
-	} // L: 30
+	@Export("runScriptEvent")
+	public static void runScriptEvent(ScriptEvent var0) {
+		class58.runScript(var0, 500000); // L: 97
+	} // L: 98
 }

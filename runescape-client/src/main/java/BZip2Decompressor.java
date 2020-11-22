@@ -3,12 +3,12 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ll")
+@ObfuscatedName("lg")
 @Implements("BZip2Decompressor")
 public final class BZip2Decompressor {
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lli;"
+		descriptor = "Llj;"
 	)
 	@Export("BZip2Decompressor_state")
 	static BZip2State BZip2Decompressor_state;
@@ -17,7 +17,7 @@ public final class BZip2Decompressor {
 		BZip2Decompressor_state = new BZip2State(); // L: 13
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@Export("BZip2Decompressor_decompress")
 	public static int BZip2Decompressor_decompress(byte[] var0, int var1, byte[] var2, int var3, int var4) {
 		synchronized(BZip2Decompressor_state) { // L: 20
@@ -29,7 +29,7 @@ public final class BZip2Decompressor {
 			BZip2Decompressor_state.bsLive = 0; // L: 26
 			BZip2Decompressor_state.bsBuff = 0; // L: 27
 			BZip2Decompressor_state.nextBit_unused = 0; // L: 28
-			BZip2Decompressor_state.field3759 = 0; // L: 29
+			BZip2Decompressor_state.field3766 = 0; // L: 29
 			BZip2Decompressor_decompress(BZip2Decompressor_state); // L: 30
 			var1 -= BZip2Decompressor_state.outputLength; // L: 31
 			BZip2Decompressor_state.inputArray = null; // L: 32
@@ -38,21 +38,21 @@ public final class BZip2Decompressor {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lli;)V"
+		descriptor = "(Llj;)V"
 	)
-	static void method5902(BZip2State var0) {
+	static void method5912(BZip2State var0) {
 		byte var2 = var0.out_char; // L: 40
 		int var3 = var0.su_rNToGo; // L: 41
 		int var4 = var0.nblocks_used; // L: 42
 		int var5 = var0.su_ch2; // L: 43
-		int[] var6 = HealthBar.BZip2Decompressor_block; // L: 44
-		int var7 = var0.field3766; // L: 45
+		int[] var6 = class217.BZip2Decompressor_block; // L: 44
+		int var7 = var0.field3761; // L: 45
 		byte[] var8 = var0.outputArray; // L: 46
 		int var9 = var0.next_out; // L: 47
 		int var10 = var0.outputLength; // L: 48
-		int var12 = var0.field3770 + 1; // L: 50
+		int var12 = var0.field3791 + 1; // L: 50
 
 		label70:
 		while (true) {
@@ -148,25 +148,25 @@ public final class BZip2Decompressor {
 			break; // L: 73
 		}
 
-		int var13 = var0.field3759; // L: 133
-		var0.field3759 += var10 - var10; // L: 134
-		if (var0.field3759 < var13) { // L: 135
+		int var13 = var0.field3766; // L: 133
+		var0.field3766 += var10 - var10; // L: 134
+		if (var0.field3766 < var13) { // L: 135
 		}
 
 		var0.out_char = var2; // L: 136
 		var0.su_rNToGo = var3; // L: 137
 		var0.nblocks_used = var4; // L: 138
 		var0.su_ch2 = var5; // L: 139
-		HealthBar.BZip2Decompressor_block = var6; // L: 140
-		var0.field3766 = var7; // L: 141
+		class217.BZip2Decompressor_block = var6; // L: 140
+		var0.field3761 = var7; // L: 141
 		var0.outputArray = var8; // L: 142
 		var0.next_out = var9; // L: 143
 		var0.outputLength = var10; // L: 144
 	} // L: 145
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lli;)V"
+		descriptor = "(Llj;)V"
 	)
 	@Export("BZip2Decompressor_decompress")
 	static void BZip2Decompressor_decompress(BZip2State var0) {
@@ -192,9 +192,9 @@ public final class BZip2Decompressor {
 		int[] var23 = null; // L: 170
 		int[] var24 = null; // L: 171
 		int[] var25 = null; // L: 172
-		var0.blockSize100k = 171518257; // L: 173
-		if (HealthBar.BZip2Decompressor_block == null) { // L: 174
-			HealthBar.BZip2Decompressor_block = new int[var0.blockSize100k * 122833056];
+		var0.blockSize100k = -1050833919; // L: 173
+		if (class217.BZip2Decompressor_block == null) { // L: 174
+			class217.BZip2Decompressor_block = new int[var0.blockSize100k * -599652704];
 		}
 
 		boolean var26 = true; // L: 175
@@ -430,7 +430,7 @@ public final class BZip2Decompressor {
 							}
 
 							var10002 = var0.unzftab[var0.seqToUnseq[var1 & 255] & 255]++; // L: 396
-							HealthBar.BZip2Decompressor_block[var47] = var0.seqToUnseq[var1 & 255] & 255; // L: 397
+							class217.BZip2Decompressor_block[var47] = var0.seqToUnseq[var1 & 255] & 255; // L: 397
 							++var47; // L: 398
 							if (var45 == 0) { // L: 399
 								++var43; // L: 400
@@ -489,7 +489,7 @@ public final class BZip2Decompressor {
 							var10000 = var0.unzftab; // L: 332
 
 							for (var10000[var1 & 255] += var48; var48 > 0; --var48) { // L: 333 336
-								HealthBar.BZip2Decompressor_block[var47] = var1 & 255; // L: 334
+								class217.BZip2Decompressor_block[var47] = var1 & 255; // L: 334
 								++var47; // L: 335
 							}
 						}
@@ -509,22 +509,22 @@ public final class BZip2Decompressor {
 					}
 
 					for (var36 = 0; var36 < var47; ++var36) { // L: 426
-						var1 = (byte)(HealthBar.BZip2Decompressor_block[var36] & 255); // L: 427
-						var10000 = HealthBar.BZip2Decompressor_block; // L: 428
+						var1 = (byte)(class217.BZip2Decompressor_block[var36] & 255); // L: 427
+						var10000 = class217.BZip2Decompressor_block; // L: 428
 						int var10001 = var0.cftab[var1 & 255];
 						var10000[var10001] |= var36 << 8;
 						var10002 = var0.cftab[var1 & 255]++; // L: 429
 					}
 
-					var0.field3766 = HealthBar.BZip2Decompressor_block[var0.originalPointer] >> 8; // L: 431
+					var0.field3761 = class217.BZip2Decompressor_block[var0.originalPointer] >> 8; // L: 431
 					var0.nblocks_used = 0; // L: 432
-					var0.field3766 = HealthBar.BZip2Decompressor_block[var0.field3766]; // L: 433
-					var0.su_ch2 = (byte)(var0.field3766 & 255); // L: 434
-					var0.field3766 >>= 8; // L: 436
+					var0.field3761 = class217.BZip2Decompressor_block[var0.field3761]; // L: 433
+					var0.su_ch2 = (byte)(var0.field3761 & 255); // L: 434
+					var0.field3761 >>= 8; // L: 436
 					++var0.nblocks_used; // L: 437
-					var0.field3770 = var47; // L: 438
-					method5902(var0); // L: 439
-					if (var0.field3770 + 1 == var0.nblocks_used && var0.su_rNToGo == 0) { // L: 440
+					var0.field3791 = var47; // L: 438
+					method5912(var0); // L: 439
+					if (var0.field3791 + 1 == var0.nblocks_used && var0.su_rNToGo == 0) { // L: 440
 						var26 = true;
 						break;
 					}
@@ -538,27 +538,27 @@ public final class BZip2Decompressor {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lli;)B"
+		descriptor = "(Llj;)B"
 	)
 	@Export("BZip2Decompressor_readNextByte")
 	static byte BZip2Decompressor_readNextByte(BZip2State var0) {
 		return (byte)BZip2Decompressor_readBits(8, var0); // L: 447
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(Lli;)B"
+		descriptor = "(Llj;)B"
 	)
 	@Export("BZip2Decompressor_readNextBit")
 	static byte BZip2Decompressor_readNextBit(BZip2State var0) {
 		return (byte)BZip2Decompressor_readBits(1, var0); // L: 451
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(ILli;)I"
+		descriptor = "(ILlj;)I"
 	)
 	@Export("BZip2Decompressor_readBits")
 	static int BZip2Decompressor_readBits(int var0, BZip2State var1) {
@@ -576,9 +576,9 @@ public final class BZip2Decompressor {
 		return var2; // L: 460
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Lli;)V"
+		descriptor = "(Llj;)V"
 	)
 	@Export("makeMaps")
 	static void makeMaps(BZip2State var0) {
@@ -593,7 +593,7 @@ public final class BZip2Decompressor {
 
 	} // L: 479
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@Export("BZip2Decompressor_createHuffmanTables")
 	static void BZip2Decompressor_createHuffmanTables(int[] var0, int[] var1, int[] var2, byte[] var3, int var4, int var5, int var6) {
 		int var7 = 0; // L: 486

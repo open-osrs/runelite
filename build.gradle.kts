@@ -34,24 +34,28 @@ buildscript {
         maven(url = "https://raw.githubusercontent.com/open-osrs/hosting/master")
     }
     dependencies {
-        classpath("org.ajoberstar.grgit:grgit-core:4.0.2")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.29.0")
-        classpath("com.openosrs:injector-plugin:1.1.5")
+        classpath("org.ajoberstar.grgit:grgit-core:4.1.0")
+        classpath("com.github.ben-manes:gradle-versions-plugin:0.36.0")
+        classpath("com.openosrs:injector-plugin:1.1.7")
     }
 }
 
 plugins {
-    id("com.adarshr.test-logger") version "2.1.0" apply false
-    id("com.github.ben-manes.versions") version "0.29.0"
-    id("se.patrikerdes.use-latest-versions") version "0.2.14"
-    id("org.ajoberstar.grgit") version "4.0.2"
+    id("com.adarshr.test-logger") version "2.1.1" apply false
+    id("com.github.ben-manes.versions") version "0.36.0"
+    id("se.patrikerdes.use-latest-versions") version "0.2.15"
+    id("org.ajoberstar.grgit") version "4.1.0"
     id("com.simonharrer.modernizer") version "2.1.0-1" apply false
 
     application
 }
 
-val grgit = Grgit.open(mapOf("dir" to rootProject.projectDir.absolutePath))
-val localGitCommit = grgit.head().id
+val localGitCommit = try {
+    val projectPath = rootProject.projectDir.absolutePath
+    Grgit.open(mapOf("dir" to projectPath)).head().id
+} catch (_: Exception) {
+    "n/a"
+}
 
 fun isNonStable(version: String): Boolean {
     return listOf("ALPHA", "BETA", "RC").any {
@@ -166,8 +170,6 @@ subprojects {
         java {
             sourceCompatibility = JavaVersion.VERSION_11
             targetCompatibility = JavaVersion.VERSION_11
-
-            withSourcesJar()
         }
 
         withType<AbstractArchiveTask> {

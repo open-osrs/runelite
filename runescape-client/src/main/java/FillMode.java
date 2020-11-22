@@ -4,37 +4,37 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lm")
+@ObfuscatedName("lu")
 @Implements("FillMode")
 public enum FillMode implements Enumerated {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Llm;"
+		descriptor = "Llu;"
 	)
 	@Export("SOLID")
 	SOLID(0, 0),
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Llm;"
+		descriptor = "Llu;"
 	)
 	@Export("GRADIENT")
 	GRADIENT(1, 1),
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Llm;"
+		descriptor = "Llu;"
 	)
 	@Export("GRADIENT_ALPHA")
 	GRADIENT_ALPHA(2, 2);
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1262740687
+		intValue = -142023791
 	)
 	@Export("id")
 	public final int id;
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1489188623
+		intValue = 2056260395
 	)
 	@Export("index")
 	final int index;
@@ -44,10 +44,10 @@ public enum FillMode implements Enumerated {
 		this.index = var4; // L: 20
 	} // L: 21
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "385513888"
+		descriptor = "(B)I",
+		garbageValue = "23"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {

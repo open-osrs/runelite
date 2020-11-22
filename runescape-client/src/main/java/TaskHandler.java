@@ -7,53 +7,50 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fo")
+@ObfuscatedName("fl")
 @Implements("TaskHandler")
 public class TaskHandler implements Runnable {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@Export("javaVendor")
 	public static String javaVendor;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@Export("javaVersion")
 	public static String javaVersion;
-	@ObfuscatedName("w")
-	@Export("SpriteBuffer_spritePalette")
-	static int[] SpriteBuffer_spritePalette;
-	@ObfuscatedName("lp")
+	@ObfuscatedName("hl")
 	@ObfuscatedSignature(
-		descriptor = "Lcf;"
+		descriptor = "[Llc;"
 	)
-	@Export("tempMenuAction")
-	static MenuAction tempMenuAction;
-	@ObfuscatedName("s")
+	@Export("headIconPrayerSprites")
+	static Sprite[] headIconPrayerSprites;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Lfu;"
 	)
 	@Export("current")
 	Task current;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Lfu;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@Export("isClosed")
 	boolean isClosed;
 
 	public TaskHandler() {
-		this.current = null;
-		this.task = null;
+		this.current = null; // L: 11
+		this.task = null; // L: 12
 		this.isClosed = false; // L: 14
-		javaVendor = "Unknown";
-		javaVersion = "1.6";
+		javaVendor = "Unknown"; // L: 20
+		javaVersion = "1.6"; // L: 21
 
 		try {
-			javaVendor = System.getProperty("java.vendor");
-			javaVersion = System.getProperty("java.version");
+			javaVendor = System.getProperty("java.vendor"); // L: 23
+			javaVersion = System.getProperty("java.version"); // L: 24
 		} catch (Exception var2) { // L: 26
 		}
 
@@ -64,10 +61,10 @@ public class TaskHandler implements Runnable {
 		this.thread.start(); // L: 31
 	} // L: 32
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1905813436"
+		descriptor = "(B)V",
+		garbageValue = "14"
 	)
 	@Export("close")
 	public final void close() {
@@ -83,10 +80,10 @@ public class TaskHandler implements Runnable {
 
 	} // L: 43
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(IIILjava/lang/Object;B)Lfl;",
-		garbageValue = "1"
+		descriptor = "(IIILjava/lang/Object;B)Lfu;",
+		garbageValue = "44"
 	)
 	@Export("newTask")
 	final Task newTask(int var1, int var2, int var3, Object var4) {
@@ -107,20 +104,20 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;II)Lfl;",
-		garbageValue = "-1230716173"
+		descriptor = "(Ljava/lang/String;II)Lfu;",
+		garbageValue = "1542542692"
 	)
 	@Export("newSocketTask")
 	public final Task newSocketTask(String var1, int var2) {
 		return this.newTask(1, var2, 0, var1); // L: 108
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Runnable;II)Lfl;",
-		garbageValue = "1199992408"
+		descriptor = "(Ljava/lang/Runnable;IS)Lfu;",
+		garbageValue = "3910"
 	)
 	@Export("newThreadTask")
 	public final Task newThreadTask(Runnable var1, int var2) {
@@ -175,40 +172,12 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(II)Liy;",
-		garbageValue = "960281764"
+		descriptor = "(ZZI)Lle;",
+		garbageValue = "1626700828"
 	)
-	public static VarbitDefinition method3567(int var0) {
-		VarbitDefinition var1 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0); // L: 19
-		if (var1 != null) { // L: 20
-			return var1;
-		} else {
-			byte[] var2 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0); // L: 21
-			var1 = new VarbitDefinition(); // L: 22
-			if (var2 != null) { // L: 23
-				var1.decode(new Buffer(var2));
-			}
-
-			VarbitDefinition.VarbitDefinition_cached.put(var1, (long)var0); // L: 24
-			return var1; // L: 25
-		}
-	}
-
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-1918850707"
-	)
-	public static int method3568(int var0, int var1, int var2) {
-		var2 &= 3; // L: 9
-		if (var2 == 0) { // L: 10
-			return var0;
-		} else if (var2 == 1) { // L: 11
-			return var1;
-		} else {
-			return var2 == 2 ? 7 - var0 : 7 - var1; // L: 12 13
-		}
+	static IndexedSprite method3609(boolean var0, boolean var1) {
+		return var0 ? (var1 ? DevicePcmPlayerProvider.field439 : Login.options_buttons_2Sprite) : (var1 ? class69.field583 : Login.options_buttons_0Sprite); // L: 199
 	}
 }

@@ -7,40 +7,40 @@ import java.util.LinkedList;
 import java.util.Queue;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ev")
+@ObfuscatedName("es")
 @Implements("UrlRequester")
 public class UrlRequester implements Runnable {
-	@ObfuscatedName("dc")
-	@ObfuscatedSignature(
-		descriptor = "Liw;"
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = -2009862837
 	)
-	@Export("archive9")
-	static Archive archive9;
-	@ObfuscatedName("z")
+	@Export("Interpreter_stringStackSize")
+	static int Interpreter_stringStackSize;
+	@ObfuscatedName("f")
 	@Export("thread")
 	final Thread thread;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@Export("isClosed")
 	volatile boolean isClosed;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@Export("requests")
 	Queue requests;
 
 	public UrlRequester() {
 		this.requests = new LinkedList(); // L: 15
-		this.thread = new Thread(this); // L: 18
-		this.thread.setPriority(1); // L: 19
-		this.thread.start(); // L: 20
-	} // L: 21
+		this.thread = new Thread(this);
+		this.thread.setPriority(1);
+		this.thread.start();
+	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;I)Lei;",
-		garbageValue = "-8401642"
+		descriptor = "(Ljava/net/URL;B)Leg;",
+		garbageValue = "70"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
@@ -52,10 +52,10 @@ public class UrlRequester implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-210243346"
+		garbageValue = "1551713219"
 	)
 	@Export("close")
 	public void close() {
@@ -73,21 +73,21 @@ public class UrlRequester implements Runnable {
 	} // L: 88
 
 	public void run() {
-		while (!this.isClosed) { // L: 24
+		while (!this.isClosed) {
 			try {
 				UrlRequest var1;
-				synchronized(this) { // L: 27
-					var1 = (UrlRequest)this.requests.poll(); // L: 28
-					if (var1 == null) { // L: 29
+				synchronized(this) {
+					var1 = (UrlRequest)this.requests.poll();
+					if (var1 == null) {
 						try {
-							this.wait(); // L: 31
+							this.wait();
 						} catch (InterruptedException var13) { // L: 33
 						}
 						continue;
 					}
 				}
 
-				DataInputStream var2 = null; // L: 37
+				DataInputStream var2 = null;
 				URLConnection var3 = null; // L: 38
 
 				try {
@@ -118,180 +118,83 @@ public class UrlRequester implements Runnable {
 
 				}
 			} catch (Exception var17) { // L: 64
-				Decimator.RunException_sendStackTrace((String)null, var17); // L: 65
+				PacketWriter.RunException_sendStackTrace((String)null, var17); // L: 65
 			}
 		}
 
 	} // L: 68
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "-516919063"
+		descriptor = "(I[BLlt;I)V",
+		garbageValue = "300500560"
 	)
-	@Export("setLoginResponseString")
-	static void setLoginResponseString(String var0, String var1, String var2) {
-		Login.Login_response1 = var0; // L: 1456
-		Login.Login_response2 = var1; // L: 1457
-		Login.Login_response3 = var2; // L: 1458
-	} // L: 1459
+	static void method3417(int var0, byte[] var1, ArchiveDisk var2) {
+		ArchiveDiskAction var3 = new ArchiveDiskAction(); // L: 18
+		var3.type = 0; // L: 19
+		var3.key = (long)var0; // L: 20
+		var3.data = var1; // L: 21
+		var3.archiveDisk = var2; // L: 22
+		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) { // L: 23
+			ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.addFirst(var3); // L: 24
+		} // L: 25
 
-	@ObfuscatedName("w")
+		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) { // L: 27
+			if (ArchiveDiskActionHandler.field3176 == 0) { // L: 28
+				class105.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler()); // L: 29
+				class105.ArchiveDiskActionHandler_thread.setDaemon(true); // L: 30
+				class105.ArchiveDiskActionHandler_thread.start(); // L: 31
+				class105.ArchiveDiskActionHandler_thread.setPriority(5); // L: 32
+			}
+
+			ArchiveDiskActionHandler.field3176 = 600; // L: 34
+		}
+	} // L: 37
+
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(ILcy;ZI)I",
-		garbageValue = "1482184938"
+		descriptor = "(Ljava/lang/CharSequence;B)I",
+		garbageValue = "-25"
 	)
-	static int method3419(int var0, Script var1, boolean var2) {
-		boolean var3 = true; // L: 772
-		Widget var4;
-		if (var0 >= 2000) { // L: 774
-			var0 -= 1000; // L: 775
-			var4 = TileItem.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]); // L: 776
-			var3 = false; // L: 777
-		} else {
-			var4 = var2 ? Canvas.field438 : class3.field12; // L: 779
+	@Export("hashString")
+	public static int hashString(CharSequence var0) {
+		int var1 = var0.length(); // L: 136
+		int var2 = 0; // L: 137
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 138
+			var2 = (var2 << 5) - var2 + class219.charToByteCp1252(var0.charAt(var3));
 		}
 
-		int var11;
-		if (var0 == ScriptOpcodes.CC_SETOP) { // L: 780
-			var11 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] - 1; // L: 781
-			if (var11 >= 0 && var11 <= 9) { // L: 782
-				var4.setAction(var11, Interpreter.Interpreter_stringStack[--Varps.Interpreter_stringStackSize]); // L: 786
-				return 1; // L: 787
-			} else {
-				--Varps.Interpreter_stringStackSize; // L: 783
-				return 1; // L: 784
-			}
+		return var2; // L: 139
+	}
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "([BB)Lkq;",
+		garbageValue = "98"
+	)
+	public static Font method3430(byte[] var0) {
+		if (var0 == null) { // L: 239
+			return null;
 		} else {
-			int var6;
-			if (var0 == ScriptOpcodes.CC_SETDRAGGABLE) { // L: 789
-				Interpreter.Interpreter_intStackSize -= 2; // L: 790
-				var11 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 791
-				var6 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 792
-				var4.parent = SecureRandomCallable.getWidgetChild(var11, var6); // L: 793
-				return 1; // L: 794
-			} else if (var0 == ScriptOpcodes.CC_SETDRAGGABLEBEHAVIOR) { // L: 796
-				var4.isScrollBar = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1; // L: 797
-				return 1; // L: 798
-			} else if (var0 == ScriptOpcodes.CC_SETDRAGDEADZONE) { // L: 800
-				var4.dragZoneSize = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 801
-				return 1; // L: 802
-			} else if (var0 == ScriptOpcodes.CC_SETDRAGDEADTIME) { // L: 804
-				var4.dragThreshold = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 805
-				return 1; // L: 806
-			} else if (var0 == ScriptOpcodes.CC_SETOPBASE) { // L: 808
-				var4.dataText = Interpreter.Interpreter_stringStack[--Varps.Interpreter_stringStackSize]; // L: 809
-				return 1; // L: 810
-			} else if (var0 == ScriptOpcodes.CC_SETTARGETVERB) { // L: 812
-				var4.spellActionName = Interpreter.Interpreter_stringStack[--Varps.Interpreter_stringStackSize]; // L: 813
-				return 1; // L: 814
-			} else if (var0 == ScriptOpcodes.CC_CLEAROPS) { // L: 816
-				var4.actions = null; // L: 817
-				return 1; // L: 818
-			} else if (var0 == 1308) { // L: 820
-				var4.prioritizeMenuEntry = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1; // L: 821
-				return 1; // L: 822
-			} else if (var0 == 1309) { // L: 824
-				--Interpreter.Interpreter_intStackSize; // L: 825
-				return 1; // L: 826
-			} else {
-				int var7;
-				byte[] var8;
-				if (var0 != ScriptOpcodes.CC_SETOPKEY) { // L: 828
-					byte var5;
-					if (var0 == ScriptOpcodes.CC_SETOPTKEY) { // L: 858
-						Interpreter.Interpreter_intStackSize -= 2; // L: 859
-						var5 = 10; // L: 860
-						var8 = new byte[]{(byte)Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]}; // L: 861
-						byte[] var9 = new byte[]{(byte)Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]}; // L: 862
-						NetSocket.Widget_setKey(var4, var5, var8, var9); // L: 863
-						return 1; // L: 864
-					} else if (var0 == ScriptOpcodes.CC_SETOPKEYRATE) { // L: 866
-						Interpreter.Interpreter_intStackSize -= 3; // L: 867
-						var11 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] - 1; // L: 868
-						var6 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 869
-						var7 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 2]; // L: 870
-						if (var11 >= 0 && var11 <= 9) { // L: 871
-							MouseHandler.Widget_setKeyRate(var4, var11, var6, var7); // L: 874
-							return 1; // L: 875
-						} else {
-							throw new RuntimeException(); // L: 872
-						}
-					} else if (var0 == ScriptOpcodes.CC_SETOPTKEYRATE) { // L: 877
-						var5 = 10; // L: 878
-						var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 879
-						var7 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 880
-						MouseHandler.Widget_setKeyRate(var4, var5, var6, var7); // L: 881
-						return 1; // L: 882
-					} else if (var0 == ScriptOpcodes.CC_SETOPKEYIGNOREHELD) { // L: 884
-						--Interpreter.Interpreter_intStackSize; // L: 885
-						var11 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize] - 1; // L: 886
-						if (var11 >= 0 && var11 <= 9) { // L: 887
-							class60.Widget_setKeyIgnoreHeld(var4, var11); // L: 890
-							return 1; // L: 891
-						} else {
-							throw new RuntimeException(); // L: 888
-						}
-					} else if (var0 == ScriptOpcodes.CC_SETOPTKEYIGNOREHELD) { // L: 893
-						var5 = 10; // L: 894
-						class60.Widget_setKeyIgnoreHeld(var4, var5); // L: 895
-						return 1; // L: 896
-					} else {
-						return 2; // L: 898
-					}
-				} else {
-					byte[] var10 = null; // L: 829
-					var8 = null; // L: 830
-					if (var3) { // L: 831
-						Interpreter.Interpreter_intStackSize -= 10; // L: 832
-
-						for (var7 = 0; var7 < 10 && Interpreter.Interpreter_intStack[var7 + Interpreter.Interpreter_intStackSize] >= 0; var7 += 2) { // L: 834 835
-						}
-
-						if (var7 > 0) { // L: 837
-							var10 = new byte[var7 / 2]; // L: 838
-							var8 = new byte[var7 / 2]; // L: 839
-
-							for (var7 -= 2; var7 >= 0; var7 -= 2) { // L: 840
-								var10[var7 / 2] = (byte)Interpreter.Interpreter_intStack[var7 + Interpreter.Interpreter_intStackSize]; // L: 841
-								var8[var7 / 2] = (byte)Interpreter.Interpreter_intStack[var7 + Interpreter.Interpreter_intStackSize + 1]; // L: 842
-							}
-						}
-					} else {
-						Interpreter.Interpreter_intStackSize -= 2; // L: 847
-						var10 = new byte[]{(byte)Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]}; // L: 848
-						var8 = new byte[]{(byte)Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]}; // L: 849
-					}
-
-					var7 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] - 1; // L: 851
-					if (var7 >= 0 && var7 <= 9) { // L: 852
-						NetSocket.Widget_setKey(var4, var7, var10, var8); // L: 855
-						return 1; // L: 856
-					} else {
-						throw new RuntimeException(); // L: 853
-					}
-				}
-			}
+			Font var1 = new Font(var0, class336.SpriteBuffer_xOffsets, class225.SpriteBuffer_yOffsets, class336.SpriteBuffer_spriteWidths, class336.SpriteBuffer_spriteHeights, WorldMapID.SpriteBuffer_spritePalette, class13.SpriteBuffer_pixels); // L: 240
+			class336.SpriteBuffer_xOffsets = null; // L: 242
+			class225.SpriteBuffer_yOffsets = null; // L: 243
+			class336.SpriteBuffer_spriteWidths = null; // L: 244
+			class336.SpriteBuffer_spriteHeights = null; // L: 245
+			WorldMapID.SpriteBuffer_spritePalette = null; // L: 246
+			class13.SpriteBuffer_pixels = null; // L: 247
+			return var1; // L: 249
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("fp")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lef;",
-		garbageValue = "-1165420128"
+		descriptor = "(B)I",
+		garbageValue = "-4"
 	)
-	@Export("getFrames")
-	static Frames getFrames(int var0) {
-		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0); // L: 181
-		if (var1 != null) { // L: 182
-			return var1;
-		} else {
-			var1 = ArchiveDiskActionHandler.method4337(SequenceDefinition.SequenceDefinition_animationsArchive, GrandExchangeOfferAgeComparator.SequenceDefinition_skeletonsArchive, var0, false); // L: 183
-			if (var1 != null) { // L: 184
-				SequenceDefinition.SequenceDefinition_cachedFrames.put(var1, (long)var0);
-			}
-
-			return var1; // L: 185
-		}
+	@Export("getWindowedMode")
+	static int getWindowedMode() {
+		return Client.isResizable ? 2 : 1; // L: 4200
 	}
 }

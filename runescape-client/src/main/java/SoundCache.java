@@ -1,45 +1,41 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("ds")
 @Implements("SoundCache")
 public class SoundCache {
-	@ObfuscatedName("rp")
-	@ObfuscatedGetter(
-		intValue = 1426340781
-	)
-	static int field1472;
-	@ObfuscatedName("z")
+	@ObfuscatedName("c")
+	@Export("ItemDefinition_inMembersWorld")
+	public static boolean ItemDefinition_inMembersWorld;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Liw;"
 	)
 	@Export("soundEffectIndex")
 	AbstractArchive soundEffectIndex;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Liw;"
 	)
 	@Export("musicSampleIndex")
 	AbstractArchive musicSampleIndex;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Llc;"
+		descriptor = "Llp;"
 	)
 	@Export("musicSamples")
 	NodeHashTable musicSamples;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Llc;"
+		descriptor = "Llp;"
 	)
 	@Export("rawSounds")
 	NodeHashTable rawSounds;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lic;Lic;)V"
+		descriptor = "(Liw;Liw;)V"
 	)
 	public SoundCache(AbstractArchive var1, AbstractArchive var2) {
 		this.musicSamples = new NodeHashTable(256); // L: 9
@@ -48,10 +44,10 @@ public class SoundCache {
 		this.musicSampleIndex = var2; // L: 14
 	} // L: 15
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(II[II)Lde;",
-		garbageValue = "-484042119"
+		descriptor = "(II[II)Ldo;",
+		garbageValue = "16776960"
 	)
 	@Export("getSoundEffect0")
 	RawSound getSoundEffect0(int var1, int var2, int[] var3) {
@@ -70,8 +66,8 @@ public class SoundCache {
 			} else {
 				var7 = var8.toRawSound(); // L: 26
 				this.rawSounds.put(var7, var5); // L: 27
-				if (var3 != null) {
-					var3[0] -= var7.samples.length; // L: 28
+				if (var3 != null) { // L: 28
+					var3[0] -= var7.samples.length;
 				}
 
 				return var7; // L: 29
@@ -79,10 +75,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II[IS)Lde;",
-		garbageValue = "-29447"
+		descriptor = "(II[II)Ldo;",
+		garbageValue = "-716229534"
 	)
 	@Export("getMusicSample0")
 	RawSound getMusicSample0(int var1, int var2, int[] var3) {
@@ -116,10 +112,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I[IB)Lde;",
-		garbageValue = "-94"
+		descriptor = "(I[II)Ldo;",
+		garbageValue = "-541178737"
 	)
 	@Export("getSoundEffect")
 	public RawSound getSoundEffect(int var1, int[] var2) {
@@ -132,10 +128,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I[II)Lde;",
-		garbageValue = "-1455606991"
+		descriptor = "(I[II)Ldo;",
+		garbageValue = "-1523377894"
 	)
 	@Export("getMusicSample")
 	public RawSound getMusicSample(int var1, int[] var2) {
@@ -148,42 +144,73 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("aq")
+	@ObfuscatedName("gi")
 	@ObfuscatedSignature(
-		descriptor = "(ILcy;ZB)I",
-		garbageValue = "115"
+		descriptor = "(IB)V",
+		garbageValue = "50"
 	)
-	static int method2607(int var0, Script var1, boolean var2) {
+	static final void method2646(int var0) {
+		int[] var1 = InterfaceParent.sceneMinimapSprite.pixels; // L: 5674
+		int var2 = var1.length; // L: 5675
+
 		int var3;
-		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) { // L: 3153
-			Interpreter.Interpreter_intStackSize -= 2; // L: 3154
-			var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 3155
-			int var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 3156
-			if (!Client.isCameraLocked) { // L: 3157
-				Client.camAngleX = var3; // L: 3158
-				Client.camAngleY = var4; // L: 3159
-			}
-
-			return 1; // L: 3161
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) { // L: 3163
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleX; // L: 3164
-			return 1; // L: 3165
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) { // L: 3167
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleY; // L: 3168
-			return 1; // L: 3169
-		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) { // L: 3171
-			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3172
-			if (var3 < 0) { // L: 3173
-				var3 = 0;
-			}
-
-			Client.camFollowHeight = var3; // L: 3174
-			return 1; // L: 3175
-		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) { // L: 3177
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camFollowHeight; // L: 3178
-			return 1; // L: 3179
-		} else {
-			return 2; // L: 3181
+		for (var3 = 0; var3 < var2; ++var3) { // L: 5676
+			var1[var3] = 0;
 		}
-	}
+
+		int var4;
+		int var5;
+		for (var3 = 1; var3 < 103; ++var3) { // L: 5677
+			var4 = (103 - var3) * 2048 + 24628; // L: 5678
+
+			for (var5 = 1; var5 < 103; ++var5) { // L: 5679
+				if ((Tiles.Tiles_renderFlags[var0][var5][var3] & 24) == 0) { // L: 5680
+					ModeWhere.scene.drawTileMinimap(var1, var4, 512, var0, var5, var3);
+				}
+
+				if (var0 < 3 && (Tiles.Tiles_renderFlags[var0 + 1][var5][var3] & 8) != 0) { // L: 5681
+					ModeWhere.scene.drawTileMinimap(var1, var4, 512, var0 + 1, var5, var3);
+				}
+
+				var4 += 4; // L: 5682
+			}
+		}
+
+		var3 = (238 + (int)(Math.random() * 20.0D) - 10 << 16) + (238 + (int)(Math.random() * 20.0D) - 10 << 8) + (238 + (int)(Math.random() * 20.0D) - 10); // L: 5685
+		var4 = 238 + (int)(Math.random() * 20.0D) - 10 << 16; // L: 5686
+		InterfaceParent.sceneMinimapSprite.setRaster(); // L: 5687
+
+		int var6;
+		for (var5 = 1; var5 < 103; ++var5) { // L: 5688
+			for (var6 = 1; var6 < 103; ++var6) { // L: 5689
+				if ((Tiles.Tiles_renderFlags[var0][var6][var5] & 24) == 0) { // L: 5690
+					Canvas.drawObject(var0, var6, var5, var3, var4);
+				}
+
+				if (var0 < 3 && (Tiles.Tiles_renderFlags[var0 + 1][var6][var5] & 8) != 0) { // L: 5691
+					Canvas.drawObject(var0 + 1, var6, var5, var3, var4);
+				}
+			}
+		}
+
+		Client.mapIconCount = 0; // L: 5694
+
+		for (var5 = 0; var5 < 104; ++var5) { // L: 5695
+			for (var6 = 0; var6 < 104; ++var6) { // L: 5696
+				long var7 = ModeWhere.scene.getFloorDecorationTag(GrandExchangeOfferUnitPriceComparator.Client_plane, var5, var6); // L: 5697
+				if (var7 != 0L) { // L: 5698
+					int var9 = ObjectSound.Entity_unpackID(var7); // L: 5699
+					int var10 = ScriptEvent.getObjectDefinition(var9).mapIconId; // L: 5700
+					if (var10 >= 0 && class194.WorldMapElement_get(var10).field3248) { // L: 5701 5702
+						Client.mapIcons[Client.mapIconCount] = class194.WorldMapElement_get(var10).getSpriteBool(false); // L: 5705
+						Client.mapIconXs[Client.mapIconCount] = var5; // L: 5706
+						Client.mapIconYs[Client.mapIconCount] = var6; // L: 5707
+						++Client.mapIconCount; // L: 5708
+					}
+				}
+			}
+		}
+
+		class22.rasterProvider.apply(); // L: 5713
+	} // L: 5714
 }

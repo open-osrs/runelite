@@ -1,97 +1,120 @@
 import java.math.BigInteger;
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cq")
+@ObfuscatedName("cn")
 public class class89 {
-	@ObfuscatedName("i")
-	static final BigInteger field1161;
-	@ObfuscatedName("o")
-	static final BigInteger field1164;
+	@ObfuscatedName("z")
+	static final BigInteger field1166;
+	@ObfuscatedName("q")
+	static final BigInteger field1167;
+	@ObfuscatedName("az")
+	@ObfuscatedSignature(
+		descriptor = "Llw;"
+	)
+	static Bounds field1163;
 
 	static {
-		field1161 = new BigInteger("80782894952180643741752986186714059433953886149239752893425047584684715842049"); // L: 20
-		field1164 = new BigInteger("7237300117305667488707183861728052766358166655052137727439795191253340127955075499635575104901523446809299097934591732635674173519120047404024393881551683"); // L: 21
+		field1166 = new BigInteger("80782894952180643741752986186714059433953886149239752893425047584684715842049"); // L: 20
+		field1167 = new BigInteger("7237300117305667488707183861728052766358166655052137727439795191253340127955075499635575104901523446809299097934591732635674173519120047404024393881551683"); // L: 21
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(II)Lbk;",
+		garbageValue = "971686415"
+	)
+	@Export("Messages_getMessage")
+	static Message Messages_getMessage(int var0) {
+		return (Message)Messages.Messages_hashTable.get((long)var0); // L: 44
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "39"
+	)
+	static void method2163() {
+		Players.Players_count = 0; // L: 616
+
+		for (int var0 = 0; var0 < 2048; ++var0) { // L: 617
+			Players.field1284[var0] = null; // L: 618
+			Players.field1295[var0] = 1; // L: 619
+		}
+
+	} // L: 621
+
+	@ObfuscatedName("eg")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1737643934"
+		garbageValue = "-1081555887"
 	)
-	static void method2127() {
-		Iterator var0 = Messages.Messages_hashTable.iterator(); // L: 50
+	@Export("logOut")
+	static final void logOut() {
+		Client.packetWriter.close(); // L: 2933
+		NetFileRequest.method4292(); // L: 2935
+		MidiPcmStream.method3970(); // L: 2936
+		KitDefinition.KitDefinition_cached.clear(); // L: 2938
+		ObjectDefinition.ObjectDefinition_cached.clear(); // L: 2941
+		ObjectDefinition.ObjectDefinition_cachedModelData.clear(); // L: 2942
+		ObjectDefinition.ObjectDefinition_cachedEntities.clear(); // L: 2943
+		ObjectDefinition.ObjectDefinition_cachedModels.clear(); // L: 2944
+		TileItem.method2239(); // L: 2946
+		class200.method3803(); // L: 2947
+		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 2949
+		SequenceDefinition.SequenceDefinition_cachedFrames.clear(); // L: 2950
+		Projectile.method2228(); // L: 2952
+		class234.method4261(); // L: 2953
+		MouseRecorder.method1283(); // L: 2954
+		GrandExchangeOfferAgeComparator.method242(); // L: 2955
+		WorldMapIcon_0.method297(); // L: 2956
+		StructDefinition.method4699(); // L: 2957
+		ParamDefinition.ParamDefinition_cached.clear(); // L: 2959
+		class13.method150(); // L: 2961
+		WorldMapIcon_1.method398(); // L: 2962
+		Widget.Widget_cachedSprites.clear(); // L: 2964
+		Widget.Widget_cachedModels.clear(); // L: 2965
+		Widget.Widget_cachedFonts.clear(); // L: 2966
+		Widget.Widget_cachedSpriteMasks.clear(); // L: 2967
+		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear(); // L: 2969
+		Script.Script_cached.clear(); // L: 2970
+		MenuAction.archive0.clearFiles(); // L: 2971
+		WorldMapManager.archive1.clearFiles(); // L: 2972
+		FaceNormal.archive3.clearFiles(); // L: 2973
+		Username.archive4.clearFiles(); // L: 2974
+		Varcs.archive5.clearFiles(); // L: 2975
+		ApproximateRouteStrategy.archive6.clearFiles(); // L: 2976
+		class236.archive7.clearFiles(); // L: 2977
+		GrandExchangeOffer.archive8.clearFiles(); // L: 2978
+		WorldMapData_1.archive9.clearFiles(); // L: 2979
+		class281.archive10.clearFiles(); // L: 2980
+		AbstractByteArrayCopier.archive11.clearFiles(); // L: 2981
+		ViewportMouse.archive12.clearFiles(); // L: 2982
+		ModeWhere.scene.clear(); // L: 2984
 
-		while (var0.hasNext()) {
-			Message var1 = (Message)var0.next(); // L: 51
-			var1.clearIsFromFriend(); // L: 53
+		for (int var0 = 0; var0 < 4; ++var0) { // L: 2985
+			Client.collisionMaps[var0].clear();
 		}
 
-	} // L: 56
+		System.gc(); // L: 2986
+		VertexNormal.method3133(2); // L: 2987
+		Client.currentTrackGroupId = -1; // L: 2988
+		Client.field916 = false; // L: 2989
 
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1760703138"
-	)
-	static void method2130(int var0) {
-		Login.loginIndex = 12; // L: 1733
-		Login.field1210 = var0; // L: 1734
-	} // L: 1735
-
-	@ObfuscatedName("fq")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "602324309"
-	)
-	@Export("forceDisconnect")
-	static final void forceDisconnect(int var0) {
-		ViewportMouse.logOut(); // L: 2510
-		switch(var0) { // L: 2511
-		case 1:
-			Login.loginIndex = 24; // L: 2520
-			UrlRequester.setLoginResponseString("", "You were disconnected from the server.", ""); // L: 2521
-			break;
-		case 2:
-			GrandExchangeOfferTotalQuantityComparator.method169(); // L: 2514
-		}
-
-	} // L: 2526
-
-	@ObfuscatedName("gb")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)V",
-		garbageValue = "-29"
-	)
-	@Export("worldToScreen")
-	static final void worldToScreen(int var0, int var1, int var2) {
-		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) { // L: 4945
-			int var3 = ArchiveLoader.getTileHeight(var0, var1, Huffman.Client_plane) - var2; // L: 4950
-			var0 -= VertexNormal.cameraX; // L: 4951
-			var3 -= FaceNormal.cameraY; // L: 4952
-			var1 -= AbstractWorldMapData.cameraZ; // L: 4953
-			int var4 = Rasterizer3D.Rasterizer3D_sine[PacketBuffer.cameraPitch]; // L: 4954
-			int var5 = Rasterizer3D.Rasterizer3D_cosine[PacketBuffer.cameraPitch]; // L: 4955
-			int var6 = Rasterizer3D.Rasterizer3D_sine[ServerPacket.cameraYaw]; // L: 4956
-			int var7 = Rasterizer3D.Rasterizer3D_cosine[ServerPacket.cameraYaw]; // L: 4957
-			int var8 = var6 * var1 + var0 * var7 >> 16; // L: 4958
-			var1 = var7 * var1 - var0 * var6 >> 16; // L: 4959
-			var0 = var8; // L: 4960
-			var8 = var5 * var3 - var4 * var1 >> 16; // L: 4961
-			var1 = var3 * var4 + var5 * var1 >> 16; // L: 4962
-			if (var1 >= 50) { // L: 4964
-				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2; // L: 4965
-				Client.viewportTempY = Client.viewportHeight / 2 + var8 * Client.viewportZoom / var1; // L: 4966
-			} else {
-				Client.viewportTempX = -1; // L: 4969
-				Client.viewportTempY = -1; // L: 4970
+		for (ObjectSound var1 = (ObjectSound)ObjectSound.objectSounds.last(); var1 != null; var1 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 2991
+			if (var1.stream1 != null) { // L: 2992
+				GrandExchangeEvents.pcmStreamMixer.removeSubStream(var1.stream1); // L: 2993
+				var1.stream1 = null; // L: 2994
 			}
 
-		} else {
-			Client.viewportTempX = -1; // L: 4946
-			Client.viewportTempY = -1; // L: 4947
+			if (var1.stream2 != null) { // L: 2996
+				GrandExchangeEvents.pcmStreamMixer.removeSubStream(var1.stream2); // L: 2997
+				var1.stream2 = null; // L: 2998
+			}
 		}
-	} // L: 4948 4972
+
+		ObjectSound.objectSounds.clear(); // L: 3001
+		BuddyRankComparator.updateGameState(10); // L: 3003
+	} // L: 3004
 }

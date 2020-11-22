@@ -340,10 +340,8 @@ public class ItemVariationMappingTest
 	}};
 
 	@Test
-	public void testMappedNames() throws Exception
+	public void testMappedNames()
 	{
-		ItemVariationMapping.load();
-
 		ITEMS_MAP.forEach((key, value) ->
 			assertEquals(value, (Integer) ItemVariationMapping.map(key)));
 	}

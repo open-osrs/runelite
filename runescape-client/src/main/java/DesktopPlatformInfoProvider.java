@@ -4,38 +4,38 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mf")
+@ObfuscatedName("mx")
 @Implements("DesktopPlatformInfoProvider")
 public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1098787301
+		intValue = 1591606451
 	)
-	int field3933;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = 125115333
-	)
-	int field3936;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 1328442545
-	)
-	int field3930;
-
+	int field3938;
 	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = -1274184543
+	)
+	int field3941;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = -1204832127
+	)
+	int field3944;
+
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lmr;",
-		garbageValue = "-1896317364"
+		descriptor = "(I)Lme;",
+		garbageValue = "1154202585"
 	)
 	@Export("get")
 	public PlatformInfo get() {
 		byte var1;
-		if (JagexCache.field2094.startsWith("win")) { // L: 15
+		if (MouseRecorder.field617.startsWith("win")) { // L: 15
 			var1 = 1;
-		} else if (JagexCache.field2094.startsWith("mac")) { // L: 16
+		} else if (MouseRecorder.field617.startsWith("mac")) { // L: 16
 			var1 = 2;
-		} else if (JagexCache.field2094.startsWith("linux")) { // L: 17
+		} else if (MouseRecorder.field617.startsWith("linux")) { // L: 17
 			var1 = 3;
 		} else {
 			var1 = 4; // L: 18
@@ -133,10 +133,10 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 			var8 = 4; // L: 74
 		}
 
-		this.method6396(var5); // L: 75
+		this.method6425(var5); // L: 75
 		int var10 = (int)(Runtime.getRuntime().maxMemory() / 1048576L) + 1; // L: 77
 		int var11;
-		if (this.field3933 > 3) { // L: 80
+		if (this.field3938 > 3) { // L: 80
 			var11 = Runtime.getRuntime().availableProcessors();
 		} else {
 			var11 = 0; // L: 81
@@ -150,53 +150,53 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		String var17 = ""; // L: 87
 		String var18 = ""; // L: 88
 		int[] var23 = new int[3]; // L: 93
-		return new PlatformInfo(var1, var24, var7, var8, this.field3933, this.field3936, this.field3930, false, var10, var11, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, ""); // L: 97
+		return new PlatformInfo(var1, var24, var7, var8, this.field3938, this.field3941, this.field3944, false, var10, var11, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, ""); // L: 97
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "395335674"
+		descriptor = "(Ljava/lang/String;B)V",
+		garbageValue = "1"
 	)
-	void method6396(String var1) {
+	void method6425(String var1) {
 		if (var1.startsWith("1.")) { // L: 101
-			this.method6399(var1); // L: 102
+			this.method6426(var1); // L: 102
 		} else {
-			this.method6400(var1); // L: 105
+			this.method6427(var1); // L: 105
 		}
 
 	} // L: 107
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "1051455651"
+		garbageValue = "291167261"
 	)
-	void method6399(String var1) {
+	void method6426(String var1) {
 		String[] var2 = var1.split("\\."); // L: 110
 
 		try {
-			this.field3933 = Integer.parseInt(var2[1]); // L: 112
+			this.field3938 = Integer.parseInt(var2[1]); // L: 112
 			var2 = var2[2].split("_"); // L: 113
-			this.field3936 = Integer.parseInt(var2[0]); // L: 114
-			this.field3930 = Integer.parseInt(var2[1]); // L: 115
+			this.field3941 = Integer.parseInt(var2[0]); // L: 114
+			this.field3944 = Integer.parseInt(var2[1]); // L: 115
 		} catch (Exception var4) { // L: 117
 		}
 
 	} // L: 118
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-2119124304"
+		garbageValue = "-1635640262"
 	)
-	void method6400(String var1) {
+	void method6427(String var1) {
 		String[] var2 = var1.split("\\."); // L: 121
 
 		try {
-			this.field3933 = Integer.parseInt(var2[0]); // L: 123
-			this.field3936 = Integer.parseInt(var2[1]); // L: 124
-			this.field3930 = Integer.parseInt(var2[2]); // L: 125
+			this.field3938 = Integer.parseInt(var2[0]); // L: 123
+			this.field3941 = Integer.parseInt(var2[1]); // L: 124
+			this.field3944 = Integer.parseInt(var2[2]); // L: 125
 		} catch (Exception var4) { // L: 127
 		}
 

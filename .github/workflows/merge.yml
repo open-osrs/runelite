@@ -12,8 +12,8 @@ jobs:
 
     steps:
       - name: automerge
-        if: github.event_name == 'pull_request' && github.actor == 'OpenOSRS'
-        uses: pascalgn/automerge-action@master
+        if: github.event_name == 'pull_request' && github.actor == 'Owain94'
+        uses: pascalgn/automerge-action@v0.12.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_FORKS: false
@@ -31,8 +31,8 @@ jobs:
         id: extract_branch
 
       - name: Delete PR head branch
-        if: github.event_name == 'pull_request' && github.actor == 'OpenOSRS'
-        uses: dawidd6/action-delete-branch@master
+        if: github.event_name == 'pull_request' && github.actor == 'Owain94'
+        uses: dawidd6/action-delete-branch@v3.0.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branches: ${{ steps.extract_branch.outputs.branch }}

@@ -3,185 +3,170 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bu")
+@ObfuscatedName("bw")
 @Implements("Tiles")
 public final class Tiles {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@Export("Tiles_heights")
 	static int[][][] Tiles_heights;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@Export("Tiles_renderFlags")
 	static byte[][][] Tiles_renderFlags;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 210424451
+		intValue = -1638163549
 	)
 	@Export("Tiles_minPlane")
 	static int Tiles_minPlane;
-	@ObfuscatedName("t")
-	static byte[][][] field528;
-	@ObfuscatedName("i")
-	static byte[][][] field521;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = -1682339213
-	)
-	@Export("musicTrackVolume")
-	public static int musicTrackVolume;
-	@ObfuscatedName("m")
-	@Export("Tiles_hue")
-	static int[] Tiles_hue;
-	@ObfuscatedName("n")
-	@Export("Tiles_saturation")
-	static int[] Tiles_saturation;
-	@ObfuscatedName("v")
-	static final int[] field524;
-	@ObfuscatedName("j")
-	static final int[] field525;
-	@ObfuscatedName("r")
-	static final int[] field517;
-	@ObfuscatedName("u")
-	static final int[] field527;
-	@ObfuscatedName("p")
-	static final int[] field534;
-	@ObfuscatedName("b")
-	static final int[] field529;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -1084049787
-	)
-	static int field535;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = 96867879
-	)
-	static int field520;
-	@ObfuscatedName("bh")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lis;"
+		descriptor = "Lle;"
 	)
-	static StudioGame field532;
+	@Export("titleboxSprite")
+	static IndexedSprite titleboxSprite;
+	@ObfuscatedName("q")
+	static byte[][][] field531;
+	@ObfuscatedName("j")
+	static final int[] field533;
+	@ObfuscatedName("w")
+	static final int[] field534;
+	@ObfuscatedName("v")
+	static final int[] field528;
+	@ObfuscatedName("d")
+	static final int[] field536;
+	@ObfuscatedName("a")
+	static final int[] field535;
+	@ObfuscatedName("g")
+	static final int[] field529;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = 2130461421
+	)
+	static int field539;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = 1692186847
+	)
+	static int field540;
+	@ObfuscatedName("er")
+	@ObfuscatedSignature(
+		descriptor = "Lid;"
+	)
+	@Export("archive20")
+	static Archive archive20;
+	@ObfuscatedName("im")
+	@ObfuscatedGetter(
+		intValue = -1235854871
+	)
+	static int field542;
 
 	static {
 		Tiles_heights = new int[4][105][105]; // L: 16
 		Tiles_renderFlags = new byte[4][104][104]; // L: 17
 		Tiles_minPlane = 99; // L: 18
-		field524 = new int[]{1, 2, 4, 8};
-		field525 = new int[]{16, 32, 64, 128};
-		field517 = new int[]{1, 0, -1, 0};
-		field527 = new int[]{0, -1, 0, 1};
-		field534 = new int[]{1, -1, -1, 1};
-		field529 = new int[]{-1, -1, 1, 1};
-		field535 = (int)(Math.random() * 17.0D) - 8; // L: 40
-		field520 = (int)(Math.random() * 33.0D) - 16; // L: 41
+		field533 = new int[]{1, 2, 4, 8}; // L: 34
+		field534 = new int[]{16, 32, 64, 128}; // L: 35
+		field528 = new int[]{1, 0, -1, 0};
+		field536 = new int[]{0, -1, 0, 1}; // L: 37
+		field535 = new int[]{1, -1, -1, 1}; // L: 38
+		field529 = new int[]{-1, -1, 1, 1}; // L: 39
+		field539 = (int)(Math.random() * 17.0D) - 8; // L: 40
+		field540 = (int)(Math.random() * 33.0D) - 16; // L: 41
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lih;",
-		garbageValue = "1036194944"
+		descriptor = "(CB)Z",
+		garbageValue = "-86"
 	)
-	@Export("SpotAnimationDefinition_get")
-	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
-		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0); // L: 32
-		if (var1 != null) { // L: 33
-			return var1;
-		} else {
-			byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0); // L: 34
-			var1 = new SpotAnimationDefinition(); // L: 35
-			var1.id = var0; // L: 36
-			if (var2 != null) { // L: 37
-				var1.decode(new Buffer(var2));
-			}
-
-			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0); // L: 38
-			return var1; // L: 39
-		}
+	static final boolean method1223(char var0) {
+		return var0 == 160 || var0 == ' ' || var0 == '_' || var0 == '-'; // L: 36
 	}
 
-	@ObfuscatedName("z")
-	static boolean method1191(long var0) {
-		int var2 = (int)(var0 >>> 14 & 3L); // L: 46
-		return var2 == 2; // L: 48
-	}
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(Lky;S)I",
-		garbageValue = "5748"
-	)
-	static int method1186(PacketBuffer var0) {
-		int var1 = var0.readBits(2); // L: 179
-		int var2;
-		if (var1 == 0) { // L: 181
-			var2 = 0;
-		} else if (var1 == 1) { // L: 182
-			var2 = var0.readBits(5);
-		} else if (var1 == 2) { // L: 183
-			var2 = var0.readBits(8);
-		} else {
-			var2 = var0.readBits(11); // L: 184
-		}
-
-		return var2; // L: 185
-	}
-
-	@ObfuscatedName("s")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(CI)Z",
-		garbageValue = "-877871317"
+		garbageValue = "-1955687589"
 	)
-	public static boolean method1187(char var0) {
-		if ((var0 < ' ' || var0 >= 127) && (var0 <= 127 || var0 >= 160) && (var0 <= 160 || var0 > 255)) { // L: 61
-			if (var0 != 0) { // L: 62
-				char[] var1 = class297.cp1252AsciiExtension; // L: 64
+	public static boolean method1195(char var0) {
+		if (var0 >= ' ' && var0 < 127 || var0 > 127 && var0 < 160 || var0 > 160 && var0 <= 255) { // L: 45
+			return true;
+		} else {
+			if (var0 != 0) { // L: 46
+				char[] var1 = class298.cp1252AsciiExtension; // L: 48
 
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 65
-					char var3 = var1[var2]; // L: 66
-					if (var0 == var3) { // L: 68
-						return true; // L: 69
+				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 49
+					char var3 = var1[var2]; // L: 50
+					if (var0 == var3) { // L: 52
+						return true; // L: 53
 					}
 				}
 			}
 
-			return false; // L: 75
-		} else {
-			return true;
+			return false; // L: 59
 		}
 	}
 
-	@ObfuscatedName("gk")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1367737542"
+		descriptor = "(Lks;I)I",
+		garbageValue = "2087937385"
 	)
-	static void method1177() {
-		if (Client.combatTargetPlayerIndex >= 0 && Client.players[Client.combatTargetPlayerIndex] != null) { // L: 4254
-			VarpDefinition.addPlayerToScene(Client.players[Client.combatTargetPlayerIndex], false); // L: 4255
+	static int method1220(PacketBuffer var0) {
+		int var1 = var0.readBits(2); // L: 352
+		int var2;
+		if (var1 == 0) { // L: 354
+			var2 = 0;
+		} else if (var1 == 1) { // L: 355
+			var2 = var0.readBits(5);
+		} else if (var1 == 2) { // L: 356
+			var2 = var0.readBits(8);
+		} else {
+			var2 = var0.readBits(11); // L: 357
 		}
 
-	} // L: 4257
+		return var2; // L: 358
+	}
 
-	@ObfuscatedName("hd")
+	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
-		garbageValue = "-1"
+		descriptor = "(ILco;ZB)I",
+		garbageValue = "45"
 	)
-	@Export("insertMenuItem")
-	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
-		if (!Client.isMenuOpen) { // L: 8240
-			if (Client.menuOptionsCount < 500) { // L: 8241
-				Client.menuActions[Client.menuOptionsCount] = var0; // L: 8242
-				Client.menuTargets[Client.menuOptionsCount] = var1; // L: 8243
-				Client.menuOpcodes[Client.menuOptionsCount] = var2; // L: 8244
-				Client.menuIdentifiers[Client.menuOptionsCount] = var3; // L: 8245
-				Client.menuArguments1[Client.menuOptionsCount] = var4; // L: 8246
-				Client.menuArguments2[Client.menuOptionsCount] = var5; // L: 8247
-				Client.menuShiftClick[Client.menuOptionsCount] = var6; // L: 8248
-				++Client.menuOptionsCount; // L: 8249
+	static int method1222(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.GETWINDOWMODE) { // L: 3124
+			Interpreter.Interpreter_intStack[++MilliClock.Interpreter_intStackSize - 1] = UrlRequester.getWindowedMode(); // L: 3125
+			return 1; // L: 3126
+		} else {
+			int var3;
+			if (var0 == ScriptOpcodes.SETWINDOWMODE) { // L: 3128
+				var3 = Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize]; // L: 3129
+				if (var3 == 1 || var3 == 2) { // L: 3130
+					class277.setWindowedMode(var3);
+				}
+
+				return 1; // L: 3131
+			} else if (var0 == ScriptOpcodes.GETDEFAULTWINDOWMODE) { // L: 3133
+				Interpreter.Interpreter_intStack[++MilliClock.Interpreter_intStackSize - 1] = GrandExchangeOfferAgeComparator.clientPreferences.windowMode; // L: 3134
+				return 1; // L: 3135
+			} else if (var0 != ScriptOpcodes.SETDEFAULTWINDOWMODE) { // L: 3137
+				if (var0 == 5310) { // L: 3145
+					--MilliClock.Interpreter_intStackSize; // L: 3146
+					return 1; // L: 3147
+				} else {
+					return 2; // L: 3149
+				}
+			} else {
+				var3 = Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize]; // L: 3138
+				if (var3 == 1 || var3 == 2) { // L: 3139
+					GrandExchangeOfferAgeComparator.clientPreferences.windowMode = var3; // L: 3140
+					Tile.savePreferences(); // L: 3141
+				}
+
+				return 1; // L: 3143
 			}
-
 		}
-	} // L: 8251
+	}
 }

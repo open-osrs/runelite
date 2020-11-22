@@ -76,9 +76,6 @@ tasks {
     jar {
         enabled = false
     }
-    sourcesJar {
-        enabled = false
-    }
     processResources {
         enabled = false
     }

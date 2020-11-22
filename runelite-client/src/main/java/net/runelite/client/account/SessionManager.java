@@ -28,9 +28,11 @@ import com.google.gson.Gson;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.UUID;
@@ -87,7 +89,7 @@ public class SessionManager
 
 		try (FileInputStream in = new FileInputStream(SESSION_FILE))
 		{
-			session = new Gson().fromJson(new InputStreamReader(in), AccountSession.class);
+			session = new Gson().fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), AccountSession.class);
 
 			log.debug("Loaded session for {}", session.getUsername());
 		}
@@ -128,7 +130,7 @@ public class SessionManager
 			return;
 		}
 
-		try (FileWriter fw = new FileWriter(SESSION_FILE, StandardCharsets.UTF_8))
+		try (Writer fw = new OutputStreamWriter(new FileOutputStream(SESSION_FILE), StandardCharsets.UTF_8))
 		{
 			new Gson().toJson(accountSession, fw);
 

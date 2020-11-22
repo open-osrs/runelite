@@ -33,25 +33,80 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface ConfigTitleSection
 {
+	/**
+	 * Displayed position of the title section.
+	 *
+	 * @return The index of the title section.
+	 */
 	int position();
 
+	/**
+	 * This is not visible to users
+	 *
+	 * @return name used for finding the config section
+	 * from the properties map. Hence, KEY name.
+	 */
 	String keyName();
 
+	/**
+	 * This is the name that is shown to users when looking
+	 * at the config panel.
+	 * <p>
+	 * Choose a name carefully, as there is a maximum width
+	 * that depends on the users DPI scaling. Short is best.
+	 *
+	 * @return display name for the config title section.
+	 */
 	String name();
 
+	/**
+	 * This will be shown to the user if they are hovering
+	 * the config item in the config panel.
+	 *
+	 * @return the description of the config item.
+	 */
 	String description();
 
+	/**
+	 * Setting this will tell the panel
+	 * that this title should be placed beneath
+	 * said section.
+	 *
+	 * @return parent section.
+	 */
 	String section() default "";
 
+	/**
+	 * Setting this will tell the panel
+	 * that this title should be placed beneath
+	 * said title.
+	 *
+	 * @return parent title section.
+	 */
 	String titleSection() default "";
 
+	/**
+	 * NOT USED.
+	 */
 	boolean hidden() default false;
 
+	/**
+	 * NOT USED.
+	 */
 	String unhide() default "";
 
+	/**
+	 * NOT USED.
+	 */
 	String unhideValue() default "";
 
+	/**
+	 * NOT USED.
+	 */
 	String hide() default "";
 
+	/**
+	 * NOT USED.
+	 */
 	String hideValue() default "";
 }

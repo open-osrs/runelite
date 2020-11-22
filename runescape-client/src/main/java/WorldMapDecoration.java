@@ -1,4 +1,3 @@
-import java.io.File;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -6,24 +5,36 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("aa")
+@ObfuscatedName("az")
 @Implements("WorldMapDecoration")
 public class WorldMapDecoration {
-	@ObfuscatedName("z")
+	@ObfuscatedName("se")
+	@ObfuscatedSignature(
+		descriptor = "Lr;"
+	)
+	@Export("grandExchangeEvents")
+	static GrandExchangeEvents grandExchangeEvents;
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "Ldz;"
+	)
+	@Export("soundSystem")
+	static SoundSystem soundSystem;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1951458321
+		intValue = 573803167
 	)
 	@Export("objectDefinitionId")
 	final int objectDefinitionId;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1622720231
+		intValue = 502095041
 	)
 	@Export("decoration")
 	final int decoration;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1680868715
+		intValue = -81694959
 	)
 	@Export("rotation")
 	final int rotation;
@@ -34,52 +45,35 @@ public class WorldMapDecoration {
 		this.rotation = var3; // L: 11
 	} // L: 12
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/io/File;I)V",
-		garbageValue = "1315266294"
+		descriptor = "(IB)V",
+		garbageValue = "7"
 	)
-	static void method406(File var0) {
-		FileSystem.FileSystem_cacheDir = var0; // L: 16
-		if (!FileSystem.FileSystem_cacheDir.exists()) { // L: 17
-			throw new RuntimeException("");
-		} else {
-			FileSystem.FileSystem_hasPermissions = true; // L: 18
-		}
-	} // L: 19
+	static void method428(int var0) {
+		Login.loginIndex = 12; // L: 1560
+		Login.field1216 = var0; // L: 1561
+	} // L: 1562
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(ILcy;ZI)I",
-		garbageValue = "-1984297327"
+		descriptor = "(ILco;ZI)I",
+		garbageValue = "-1847675306"
 	)
-	static int method405(int var0, Script var1, boolean var2) {
-		Widget var3 = TileItem.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]); // L: 1285
-		if (var0 == ScriptOpcodes.IF_GETTARGETMASK) { // L: 1286
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = GrandExchangeOfferTotalQuantityComparator.Widget_unpackTargetMask(WorldMapIcon_0.getWidgetFlags(var3)); // L: 1287
-			return 1; // L: 1288
-		} else if (var0 != ScriptOpcodes.IF_GETOP) { // L: 1290
-			if (var0 == ScriptOpcodes.IF_GETOPBASE) { // L: 1297
-				if (var3.dataText == null) { // L: 1298
-					Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = "";
-				} else {
-					Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1299
-				}
-
-				return 1; // L: 1300
-			} else {
-				return 2; // L: 1302
-			}
+	static int method429(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.SOUND_SYNTH) { // L: 1705
+			MilliClock.Interpreter_intStackSize -= 3; // L: 1706
+			KitDefinition.queueSoundEffect(Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize], Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 1], Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 2]); // L: 1707
+			return 1; // L: 1708
+		} else if (var0 == ScriptOpcodes.SOUND_SONG) { // L: 1710
+			Messages.playSong(Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize]); // L: 1711
+			return 1; // L: 1712
+		} else if (var0 == ScriptOpcodes.SOUND_JINGLE) { // L: 1714
+			MilliClock.Interpreter_intStackSize -= 2; // L: 1715
+			Projectile.playSoundJingle(Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize], Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 1]); // L: 1716
+			return 1; // L: 1717
 		} else {
-			int var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 1291
-			--var4; // L: 1292
-			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1293
-				Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1294
-			} else {
-				Interpreter.Interpreter_stringStack[++Varps.Interpreter_stringStackSize - 1] = "";
-			}
-
-			return 1; // L: 1295
+			return 2; // L: 1719
 		}
 	}
 }

@@ -49,6 +49,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
+import net.runelite.api.KeyCode;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.events.BeforeRender;
 import net.runelite.api.events.ClientTick;
@@ -73,13 +74,13 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private static final int BORDER = 5;
 	private static final int BORDER_TOP = BORDER + 15;
 	private static final int PADDING = 2;
-	private static final int MIN_OVERLAY_SIZE = 32;
 	private static final int OVERLAY_RESIZE_TOLERANCE = 5;
 	private static final Dimension SNAP_CORNER_SIZE = new Dimension(80, 80);
 	private static final Color SNAP_CORNER_COLOR = new Color(0, 255, 255, 50);
 	private static final Color SNAP_CORNER_ACTIVE_COLOR = new Color(0, 255, 0, 100);
 	private static final Color MOVING_OVERLAY_COLOR = new Color(255, 255, 0, 100);
 	private static final Color MOVING_OVERLAY_ACTIVE_COLOR = new Color(255, 255, 0, 200);
+	private static final Color MOVING_OVERLAY_TARGET_COLOR = Color.RED;
 	private static final Color MOVING_OVERLAY_RESIZING_COLOR = new Color(255, 0, 255, 200);
 	private final Client client;
 	private final OverlayManager overlayManager;
@@ -90,11 +91,11 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private final Point overlayOffset = new Point();
 	private final Point mousePosition = new Point();
 	private Overlay currentManagedOverlay;
+	private Overlay dragTargetOverlay;
 	private Rectangle currentManagedBounds;
 	private boolean inOverlayManagingMode;
 	private boolean inOverlayResizingMode;
 	private boolean inOverlayDraggingMode;
-	private boolean inMenuEntryMode;
 	private boolean startedMovingOverlay;
 	private MenuEntry[] menuEntries;
 
@@ -141,7 +142,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 				resetOverlayManagementMode();
 			}
 
-			inMenuEntryMode = false;
 			menuEntries = null;
 		}
 	}
@@ -153,7 +153,8 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			return;
 		}
 
-		if (!inMenuEntryMode && runeLiteConfig.menuEntryShift())
+		final boolean shift = client.isKeyPressed(KeyCode.KC_SHIFT);
+		if (!shift && runeLiteConfig.menuEntryShift())
 		{
 			return;
 		}
@@ -313,15 +314,28 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 				{
 					if (inOverlayManagingMode)
 					{
+						Color boundsColor;
 						if (inOverlayResizingMode && currentManagedOverlay == overlay)
 						{
-							graphics.setColor(MOVING_OVERLAY_RESIZING_COLOR);
+							boundsColor = MOVING_OVERLAY_RESIZING_COLOR;
+						}
+						else if (inOverlayDraggingMode && currentManagedOverlay == overlay)
+						{
+							boundsColor = MOVING_OVERLAY_ACTIVE_COLOR;
+						}
+						else if (inOverlayDraggingMode && overlay.isDragTargetable() && currentManagedOverlay.isDragTargetable()
+							&& currentManagedOverlay.getBounds().intersects(bounds))
+						{
+							boundsColor = MOVING_OVERLAY_TARGET_COLOR;
+							assert currentManagedOverlay != overlay;
+							dragTargetOverlay = overlay;
 						}
 						else
 						{
-							graphics.setColor(inOverlayDraggingMode && currentManagedOverlay == overlay ? MOVING_OVERLAY_ACTIVE_COLOR : MOVING_OVERLAY_COLOR);
+							boundsColor = MOVING_OVERLAY_COLOR;
 						}
 
+						graphics.setColor(boundsColor);
 						graphics.draw(bounds);
 						graphics.setPaint(paint);
 					}
@@ -402,6 +416,12 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			{
 				for (Overlay overlay : overlayManager.getOverlays())
 				{
+					if (overlay.getPosition() == OverlayPosition.DYNAMIC || overlay.getPosition() == OverlayPosition.TOOLTIP)
+					{
+						// never allow moving dynamic or tooltip overlays
+						continue;
+					}
+
 					final Rectangle bounds = overlay.getBounds();
 					if (bounds.contains(mousePoint))
 					{
@@ -472,6 +492,12 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			return mouseEvent;
 		}
 
+		if (dragTargetOverlay != null && !currentManagedOverlay.getBounds().intersects(dragTargetOverlay.getBounds()))
+		{
+			// No longer over drag target
+			dragTargetOverlay = null;
+		}
+
 		final Rectangle canvasRect = new Rectangle(client.getRealDimensions());
 
 		if (!canvasRect.contains(p))
@@ -530,8 +556,9 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 					// center
 			}
 
-			final int widthOverflow = Math.max(0, MIN_OVERLAY_SIZE - width);
-			final int heightOverflow = Math.max(0, MIN_OVERLAY_SIZE - height);
+			final int minOverlaySize = currentManagedOverlay.getMinimumSize();
+			final int widthOverflow = Math.max(0, minOverlaySize - width);
+			final int heightOverflow = Math.max(0, minOverlaySize - height);
 			final int dx = x - originalX;
 			final int dy = y - originalY;
 
@@ -539,7 +566,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			// dimensions and adjust the x/y position accordingly as needed
 			if (widthOverflow > 0)
 			{
-				width = MIN_OVERLAY_SIZE;
+				width = minOverlaySize;
 
 				if (dx > 0)
 				{
@@ -548,7 +575,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			}
 			if (heightOverflow > 0)
 			{
-				height = MIN_OVERLAY_SIZE;
+				height = minOverlaySize;
 
 				if (dy > 0)
 				{
@@ -598,7 +625,17 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 		mousePosition.setLocation(-1, -1);
 
-		// do not snapcorner detached overlays
+		if (dragTargetOverlay != null)
+		{
+			if (dragTargetOverlay.onDrag(currentManagedOverlay))
+			{
+				mouseEvent.consume();
+				resetOverlayManagementMode();
+				return mouseEvent;
+			}
+		}
+
+		// Check if the overlay is over a snapcorner and move it if so, unless it is a detached overlay
 		if (currentManagedOverlay.getPosition() != OverlayPosition.DETACHED && inOverlayDraggingMode)
 		{
 			final OverlayBounds snapCorners = this.snapCorners.translated(-SNAP_CORNER_SIZE.width, -SNAP_CORNER_SIZE.height);
@@ -640,11 +677,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		{
 			inOverlayManagingMode = true;
 		}
-
-		if (e.isShiftDown() && runeLiteConfig.menuEntryShift())
-		{
-			inMenuEntryMode = true;
-		}
 	}
 
 	@Override
@@ -654,11 +686,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		{
 			inOverlayManagingMode = false;
 			resetOverlayManagementMode();
-		}
-
-		if (!e.isShiftDown())
-		{
-			inMenuEntryMode = false;
 		}
 	}
 
@@ -750,6 +777,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		inOverlayResizingMode = false;
 		inOverlayDraggingMode = false;
 		currentManagedOverlay = null;
+		dragTargetOverlay = null;
 		currentManagedBounds = null;
 		clientUI.setCursor(clientUI.getDefaultCursor());
 	}

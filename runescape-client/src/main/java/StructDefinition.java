@@ -3,24 +3,24 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jj")
+@ObfuscatedName("jo")
 @Implements("StructDefinition")
 public class StructDefinition extends DualNode {
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Liw;"
 	)
 	@Export("StructDefinition_archive")
 	static AbstractArchive StructDefinition_archive;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lel;"
+		descriptor = "Lev;"
 	)
 	@Export("StructDefinition_cached")
 	static EvictingDualNodeHashTable StructDefinition_cached;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -32,19 +32,19 @@ public class StructDefinition extends DualNode {
 	StructDefinition() {
 	} // L: 16
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2018201430"
+		garbageValue = "-1231164770"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	} // L: 33
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;I)V",
-		garbageValue = "1854456107"
+		descriptor = "(Lkb;I)V",
+		garbageValue = "-1053369133"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -58,59 +58,68 @@ public class StructDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;II)V",
-		garbageValue = "1912740742"
+		descriptor = "(Lkb;II)V",
+		garbageValue = "-941858292"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 249) {
-			this.params = PacketWriter.readStringIntParameters(var1, this.params); // L: 44
+			this.params = InvDefinition.readStringIntParameters(var1, this.params); // L: 44
 		}
 
 	} // L: 46
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "1"
+		descriptor = "(III)I",
+		garbageValue = "408521937"
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
-		return Username.method5309(this.params, var1, var2); // L: 49
-	}
-
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "101"
-	)
-	@Export("getStringParam")
-	public String getStringParam(int var1, String var2) {
-		IterableNodeHashTable var4 = this.params; // L: 54
-		String var3;
-		if (var4 == null) { // L: 56
-			var3 = var2; // L: 57
+		IterableNodeHashTable var4 = this.params; // L: 50
+		int var3;
+		if (var4 == null) { // L: 52
+			var3 = var2; // L: 53
 		} else {
-			ObjectNode var5 = (ObjectNode)var4.get((long)var1); // L: 60
-			if (var5 == null) { // L: 61
-				var3 = var2; // L: 62
+			IntegerNode var5 = (IntegerNode)var4.get((long)var1); // L: 56
+			if (var5 == null) { // L: 57
+				var3 = var2; // L: 58
 			} else {
-				var3 = (String)var5.obj; // L: 65
+				var3 = var5.integer; // L: 61
 			}
 		}
 
-		return var3; // L: 67
+		return var3; // L: 63
 	}
 
-	@ObfuscatedName("hl")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIII)V",
-		garbageValue = "-1032705828"
+		descriptor = "(ILjava/lang/String;S)Ljava/lang/String;",
+		garbageValue = "7540"
 	)
-	@Export("insertMenuItemNoShift")
-	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
-		Tiles.insertMenuItem(var0, var1, var2, var3, var4, var5, false); // L: 8236
-	} // L: 8237
+	@Export("getStringParam")
+	public String getStringParam(int var1, String var2) {
+		return WorldMapSection0.method307(this.params, var1, var2); // L: 67
+	}
+
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(IB)I",
+		garbageValue = "22"
+	)
+	@Export("getEntityIdUnderMouse")
+	public static int getEntityIdUnderMouse(int var0) {
+		return ObjectSound.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 64
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1317179334"
+	)
+	public static void method4699() {
+		StructDefinition_cached.clear(); // L: 71
+	} // L: 72
 }

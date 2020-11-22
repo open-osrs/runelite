@@ -32,7 +32,7 @@ dependencies {
 
     compileOnly(group = "org.apache.maven.plugin-tools", name = "maven-plugin-annotations", version = "3.6.0")
 
-    implementation(group = "com.google.guava", name = "guava", version = "29.0-jre")
+    implementation(group = "com.google.guava", name = "guava", version = "30.0-jre")
     implementation(group = "org.apache.maven", name = "maven-plugin-api", version = "3.6.3")
     implementation(group = "org.slf4j", name = "slf4j-nop", version = "1.7.30")
     implementation(project(":cache"))
@@ -42,7 +42,7 @@ dependencies {
 tasks {
     register<JavaExec>("assembleMojo") {
         outputs.cacheIf { true }
-        val inp = "${project.extra["rootPath"]}/runelite-client/src/main/scripts"
+        val inp = "${project.extra["rootPath"]}/runelite-client/src/main/resources/scripts"
         val out = "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite"
         inputs.dir(inp)
         outputs.dir(out)

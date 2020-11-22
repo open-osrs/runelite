@@ -4,42 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gb")
+@ObfuscatedName("gk")
 @Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
-	@ObfuscatedName("i")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "[Lgb;"
+		descriptor = "[Lgk;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
-	@ObfuscatedName("o")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 110077839
+		intValue = 606603159
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
 	static int PacketBufferNode_packetBufferNodeCount;
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lgf;"
+		descriptor = "Lgz;"
 	)
 	@Export("clientPacket")
 	ClientPacket clientPacket;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1747169149
+		intValue = 532342923
 	)
 	@Export("clientPacketLength")
 	int clientPacketLength;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lky;"
+		descriptor = "Lks;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1051886947
+		intValue = -690165039
 	)
 	@Export("index")
 	public int index;
@@ -52,10 +52,10 @@ public class PacketBufferNode extends Node {
 	PacketBufferNode() {
 	} // L: 19
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1940555210"
+		garbageValue = "-1831799327"
 	)
 	@Export("release")
 	public void release() {
@@ -64,33 +64,77 @@ public class PacketBufferNode extends Node {
 		}
 	} // L: 52
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "416660759"
+		garbageValue = "-1081926235"
 	)
-	static void method3726() {
-		Login.worldSelectOpen = false; // L: 1738
-		UserComparator2.leftTitleSprite.drawAt(Login.xPadding, 0); // L: 1739
-		Login.rightTitleSprite.drawAt(Login.xPadding + 382, 0); // L: 1740
-		AbstractByteArrayCopier.logoSprite.drawAt(Login.xPadding + 382 - AbstractByteArrayCopier.logoSprite.subWidth / 2, 18); // L: 1741
-	} // L: 1742
+	static void method3768() {
+		class248.field3216 = new int[2000]; // L: 25
+		int var0 = 0; // L: 26
+		int var1 = 240; // L: 27
 
-	@ObfuscatedName("aa")
+		int var3;
+		for (byte var2 = 12; var0 < 16; var1 -= var2) { // L: 28
+			var3 = Player.method1325((double)((float)var1 / 360.0F), 0.9998999834060669D, (double)(0.425F * (float)var0 / 16.0F + 0.075F)); // L: 30
+			class248.field3216[var0] = var3; // L: 31
+			++var0; // L: 29
+		}
+
+		var1 = 48; // L: 33
+
+		for (int var5 = var1 / 6; var0 < class248.field3216.length; var1 -= var5) { // L: 34 35 41
+			var3 = var0 * 2; // L: 36
+
+			for (int var4 = Player.method1325((double)((float)var1 / 360.0F), 0.9998999834060669D, 0.5D); var0 < var3 && var0 < class248.field3216.length; ++var0) { // L: 37 38
+				class248.field3216[var0] = var4; // L: 39
+			}
+		}
+
+	} // L: 43
+
+	@ObfuscatedName("ij")
 	@ObfuscatedSignature(
-		descriptor = "(Ldc;B)V",
-		garbageValue = "1"
+		descriptor = "(Lht;IIIIIIB)V",
+		garbageValue = "19"
 	)
-	@Export("PcmStream_disable")
-	static final void PcmStream_disable(PcmStream var0) {
-		var0.active = false; // L: 266
-		if (var0.sound != null) { // L: 267
-			var0.sound.position = 0;
+	static final void method3759(Widget var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		if (Client.field690) { // L: 9940
+			Client.alternativeScrollbarWidth = 32;
+		} else {
+			Client.alternativeScrollbarWidth = 0; // L: 9941
 		}
 
-		for (PcmStream var1 = var0.firstSubStream(); var1 != null; var1 = var0.nextSubStream()) { // L: 268
-			PcmStream_disable(var1);
+		Client.field690 = false; // L: 9942
+		int var7;
+		if (MouseHandler.MouseHandler_currentButton == 1 || !MusicPatchNode.mouseCam && MouseHandler.MouseHandler_currentButton == 4) { // L: 9943
+			if (var5 >= var1 && var5 < var1 + 16 && var6 >= var2 && var6 < var2 + 16) { // L: 9944
+				var0.scrollY -= 4; // L: 9945
+				GrandExchangeOfferOwnWorldComparator.invalidateWidget(var0); // L: 9946
+			} else if (var5 >= var1 && var5 < var1 + 16 && var6 >= var3 + var2 - 16 && var6 < var3 + var2) { // L: 9948
+				var0.scrollY += 4; // L: 9949
+				GrandExchangeOfferOwnWorldComparator.invalidateWidget(var0); // L: 9950
+			} else if (var5 >= var1 - Client.alternativeScrollbarWidth && var5 < Client.alternativeScrollbarWidth + var1 + 16 && var6 >= var2 + 16 && var6 < var3 + var2 - 16) { // L: 9952
+				var7 = var3 * (var3 - 32) / var4; // L: 9953
+				if (var7 < 8) { // L: 9954
+					var7 = 8;
+				}
+
+				int var8 = var6 - var2 - 16 - var7 / 2; // L: 9955
+				int var9 = var3 - 32 - var7; // L: 9956
+				var0.scrollY = var8 * (var4 - var3) / var9; // L: 9957
+				GrandExchangeOfferOwnWorldComparator.invalidateWidget(var0); // L: 9958
+				Client.field690 = true; // L: 9959
+			}
 		}
 
-	} // L: 269
+		if (Client.mouseWheelRotation != 0) { // L: 9962
+			var7 = var0.width; // L: 9963
+			if (var5 >= var1 - var7 && var6 >= var2 && var5 < var1 + 16 && var6 <= var3 + var2) { // L: 9964
+				var0.scrollY += Client.mouseWheelRotation * 45; // L: 9965
+				GrandExchangeOfferOwnWorldComparator.invalidateWidget(var0); // L: 9966
+			}
+		}
+
+	} // L: 9969
 }
