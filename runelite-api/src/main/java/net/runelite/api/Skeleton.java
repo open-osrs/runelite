@@ -15,7 +15,7 @@ public interface Skeleton extends Node
 	 * the transform type of each bone
 	 * The possible transform types are as follows:
 	 * 0 (set pivot point)
-	 * 1 (translate)
+	 * 1 (translate/move)
 	 * 2 (rotate)
 	 * 3 (scale)
 	 * 5 (alpha/transparency)

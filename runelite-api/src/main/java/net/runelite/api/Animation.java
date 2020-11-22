@@ -14,13 +14,13 @@ public interface Animation
 
 	/**
 	 * this variable name is incorrect. it is an array of bone ids. not transform types.
-	 * this array has a one to one relation ship with the arrays of translator values (X, Y and Z) in the animation frame.
-	 * in other words, it is the array of bones that the animation translator values translate.
+	 * this array has a one to one relationship with the arrays of translator values in the animation frame(TranslatorX getTranslatorY TranslatorZ).
+	 * it is the array of bone ids which point each translator value to the bone it should be transforming.
 	 */
 	int[] getTransformTypes();
 
 	/**
-	 * these are x, y, and z values, which tell the transform function how much to transform the model in an animation frame.
+	 * these are x, y, and z values, which tell the transform function how much to transform the each bone.
 	 */
 	int[] getTranslatorX();
 
