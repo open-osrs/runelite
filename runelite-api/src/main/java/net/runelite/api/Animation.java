@@ -1,7 +1,7 @@
 package net.runelite.api;
 
 /**
- * Represents a frame of animation data. Each animation animation frame will have its own animation animation data.
+ * Represents a frame of animation data. Each animation frame will have its own animation animation data.
  */
 public interface Animation
 {
