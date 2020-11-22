@@ -204,12 +204,12 @@ public abstract class RSModelMixin implements RSModel
 			if (frameId != -1)
 			{
 				RSAnimation frame = frames.getFrames()[frameId];
-				RSSkeleton skin = frame.getSkeleton();
+				RSSkeleton skeleton = frame.getSkeleton();
 				RSAnimation nextFrame = null;
 				if (nextFrames != null)
 				{
 					nextFrame = nextFrames.getFrames()[nextFrameId];
-					if (nextFrame.getSkeleton() != skin)
+					if (nextFrame.getSkeleton() != skeleton)
 					{
 						nextFrame = null;
 					}
@@ -219,7 +219,7 @@ public abstract class RSModelMixin implements RSModel
 				client.setAnimOffsetY(0);
 				client.setAnimOffsetZ(0);
 
-				interpolateFrames(skin, frame, nextFrame, interval, intervalCount);
+				interpolateFrames(skeleton, frame, nextFrame, interval, intervalCount);
 				resetBounds();
 			}
 		}
