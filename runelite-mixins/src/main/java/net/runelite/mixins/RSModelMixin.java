@@ -204,12 +204,12 @@ public abstract class RSModelMixin implements RSModel
 			if (frameId != -1)
 			{
 				RSAnimation frame = frames.getFrames()[frameId];
-				RSSkeleton skin = frame.getSkin();
+				RSSkeleton skin = frame.getSkeleton();
 				RSAnimation nextFrame = null;
 				if (nextFrames != null)
 				{
 					nextFrame = nextFrames.getFrames()[nextFrameId];
-					if (nextFrame.getSkin() != skin)
+					if (nextFrame.getSkeleton() != skin)
 					{
 						nextFrame = null;
 					}
