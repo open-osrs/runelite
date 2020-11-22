@@ -29,7 +29,7 @@ import net.runelite.mapping.Import;
 public interface RSAnimation
 {
 	@Import("skeleton")
-	RSSkeleton getSkin();
+	RSSkeleton getSkeleton();
 
 	@Import("transformCount")
 	int getTransformCount();
