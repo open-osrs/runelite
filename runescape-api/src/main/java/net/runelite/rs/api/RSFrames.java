@@ -1,6 +1,5 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.Animation;
 import net.runelite.api.Frames;
 import net.runelite.mapping.Import;
 
