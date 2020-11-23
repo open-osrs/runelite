@@ -125,6 +125,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 		}
 
 		List<Path> pluginPaths = pluginRepository.getPluginPaths();
+		Collections.reverse(pluginPaths);
 
 		if (pluginPaths.isEmpty())
 		{
