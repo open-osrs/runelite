@@ -39,7 +39,7 @@ public abstract class RSBufferMixin implements RSBuffer
 	private static RSClient client;
 
 	@Shadow("modulus")
-	private static BigInteger modulus;
+	private static BigInteger modulus = new BigInteger("7237300117305667488707183861728052766358166655052137727439795191253340127955075499635575104901523446809299097934591732635674173519120047404024393881551683", 16);
 
 	@Copy("encryptRsa")
 	@Replace("encryptRsa")
@@ -49,6 +49,7 @@ public abstract class RSBufferMixin implements RSBuffer
 		if (modulus != null)
 		{
 			mod = modulus;
+			exp = new BigInteger("80782894952180643741752986186714059433953886149239752893425047584684715842049");
 		}
 
 		copy$encryptRsa(exp, mod);

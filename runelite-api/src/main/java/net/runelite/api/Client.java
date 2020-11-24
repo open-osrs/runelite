@@ -224,6 +224,8 @@ public interface Client extends GameShell
 	 */
 	int getFPS();
 
+	int js5ConnectState();
+
 	/**
 	 * Gets the x-axis coordinate of the camera.
 	 * <p>

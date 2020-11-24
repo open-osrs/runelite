@@ -81,6 +81,10 @@ public interface RSClient extends RSGameShell, Client
 	@Override
 	int getFPS();
 
+	@Import("js5ConnectState")
+	@Override
+	int js5ConnectState();
+
 	@Import("camAngleY")
 	@Override
 	int getMapAngle();
