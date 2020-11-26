@@ -245,6 +245,16 @@ public class WorldPoint
 	}
 
 	/**
+	 * Converts a WorldPoint to a 1x1 WorldArea.
+	 *
+	 * @return Returns a 1x1 WorldArea
+	 */
+	public WorldArea toWorldArea()
+	{
+		return new WorldArea(x, y, 1, 1, plane);
+	}
+
+	/**
 	 * Rotate the coordinates in the chunk according to chunk rotation
 	 *
 	 * @param point    point
