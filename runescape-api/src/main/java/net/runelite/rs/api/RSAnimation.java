@@ -24,12 +24,14 @@
  */
 package net.runelite.rs.api;
 
+import net.runelite.api.Animation;
+import net.runelite.api.Frames;
 import net.runelite.mapping.Import;
 
-public interface RSAnimation
+public interface RSAnimation extends Frames, Animation
 {
 	@Import("skeleton")
-	RSSkeleton getSkin();
+	RSSkeleton getSkeleton();
 
 	@Import("transformCount")
 	int getTransformCount();

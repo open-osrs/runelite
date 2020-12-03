@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Noodleeater <noodleeater4@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,13 +22,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.rs.api;
+package net.runelite.api;
 
-import net.runelite.api.DualNode;
-import net.runelite.mapping.Import;
-
-public interface RSDualNode extends RSNode, DualNode
+/**
+ * Represents a Skeleton.
+ * When calculating a model's pose in a animation frame, the skeleton is used to link vertices to animation values.
+ */
+public interface Skeleton extends Node
 {
-	@Import("removeDual")
-	void unlinkDual();
+	/**
+	 * the number of bones in the Skeleton
+	 */
+	int getCount();
+
+	/**
+	 * the transform type of each bone
+	 * The possible transform types are as follows:
+	 * 0 (set pivot point)
+	 * 1 (translate/move)
+	 * 2 (rotate)
+	 * 3 (scale)
+	 * 5 (alpha/transparency)
+	 */
+	int[] getTypes();
+
+	/**
+	 * Each bone is linked to a list of vertex skins. [bone id][list of vertex skins]
+	 * if a vertex's skin is linked to a bone, the vertex can be transformed by that bone.
+	 */
+	int[][] getList();
 }
