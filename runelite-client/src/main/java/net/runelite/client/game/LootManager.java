@@ -55,6 +55,7 @@ import net.runelite.api.events.ItemQuantityChanged;
 import net.runelite.api.events.ItemSpawned;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.PlayerDespawned;
+import net.runelite.api.events.NpcDefinitionChanged;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.NpcLootReceived;
 import net.runelite.client.events.PlayerLootReceived;
@@ -112,6 +113,7 @@ public class LootManager
 		eventBus.subscribe(ItemDespawned.class, this, this::onItemDespawned);
 		eventBus.subscribe(ItemQuantityChanged.class, this, this::onItemQuantityChanged);
 		eventBus.subscribe(AnimationChanged.class, this, this::onAnimationChanged);
+		eventBus.subscribe(NpcDefinitionChanged.class, this, this::onNpcDefinitionChanged);
 	}
 
 	private void onNpcDespawned(NpcDespawned npcDespawned)
@@ -246,16 +248,21 @@ public class LootManager
 				// Big Kraken drops loot wherever player is standing when animation starts.
 				krakenPlayerLocation = client.getLocalPlayer().getWorldLocation();
 			}
-			else if (id == NpcID.THE_NIGHTMARE_9433)
-			{
-				delayedLootNpc = npc;
-				delayedLootTickLimit = 16;
-			}
 			else
 			{
 				// These NPCs drop loot on death animation, which is right now.
 				processNpcLoot(npc);
 			}
+		}
+	}
+
+	public void onNpcDefinitionChanged(NpcDefinitionChanged npcChanged)
+	{
+		final NPC npc = npcChanged.getNpc();
+		if (npc.getId() == NpcID.THE_NIGHTMARE_9433)
+		{
+			delayedLootNpc = npc;
+			delayedLootTickLimit = 15;
 		}
 	}
 
