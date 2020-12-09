@@ -31,7 +31,7 @@ public interface RSClientPreferences extends Preferences
 
 	@Import("musicVolume")
 	@Override
-	int getClientMusicVolume();
+	int getMusicVolume();
 
 	@Import("musicVolume")
 	@Override

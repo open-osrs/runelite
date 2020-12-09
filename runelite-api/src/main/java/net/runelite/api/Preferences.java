@@ -51,7 +51,7 @@ public interface Preferences
 
 	void setAreaSoundEffectsVolume(int i);
 
-	int getClientMusicVolume();
+	int getMusicVolume();
 
 	void setMusicVolume(int i);
 }
