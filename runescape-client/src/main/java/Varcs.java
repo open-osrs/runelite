@@ -9,407 +9,416 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cz")
+@ObfuscatedName("cg")
 @Implements("Varcs")
 public class Varcs {
-	@ObfuscatedName("dw")
+	@ObfuscatedName("oq")
 	@ObfuscatedSignature(
-		descriptor = "Lid;"
+		descriptor = "Lcg;"
 	)
-	@Export("archive5")
-	static Archive archive5;
+	@Export("varcs")
+	static Varcs varcs;
 	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 329492753
+	)
+	@Export("ItemDefinition_fileCount")
+	public static int ItemDefinition_fileCount;
+	@ObfuscatedName("c")
+	static int[] field1283;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = -69113617
+	)
+	@Export("clientTickTimeIdx")
+	static int clientTickTimeIdx;
+	@ObfuscatedName("x")
 	@Export("intsPersistence")
 	boolean[] intsPersistence;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@Export("map")
 	Map map;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@Export("strings")
 	String[] strings;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@Export("unwrittenChanges")
 	boolean unwrittenChanges;
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		longValue = -5306156143570405753L
+		longValue = 442917365631683491L
 	)
-	long field1298;
+	long field1276;
 
 	Varcs() {
-		this.unwrittenChanges = false; // L: 22
-		int var1 = WorldMapSection3.archive2.getGroupFileCount(19); // L: 26
-		this.map = new HashMap(); // L: 27
-		this.intsPersistence = new boolean[var1]; // L: 28
+		this.unwrittenChanges = false;
+		int var1 = DynamicObject.archive2.getGroupFileCount(19);
+		this.map = new HashMap();
+		this.intsPersistence = new boolean[var1];
 
 		int var2;
-		for (var2 = 0; var2 < var1; ++var2) { // L: 29
-			VarcInt var4 = (VarcInt)VarcInt.VarcInt_cached.get((long)var2); // L: 32
-			VarcInt var3;
-			if (var4 != null) { // L: 33
-				var3 = var4; // L: 34
-			} else {
-				byte[] var5 = VarcInt.VarcInt_archive.takeFile(19, var2); // L: 37
-				var4 = new VarcInt(); // L: 38
-				if (var5 != null) {
-					var4.method4552(new Buffer(var5)); // L: 39
-				}
-
-				VarcInt.VarcInt_cached.put(var4, (long)var2); // L: 40
-				var3 = var4; // L: 41
-			}
-
-			this.intsPersistence[var2] = var3.persist; // L: 44
+		for (var2 = 0; var2 < var1; ++var2) {
+			VarcInt var3 = TextureProvider.method2843(var2);
+			this.intsPersistence[var2] = var3.persist;
 		}
 
-		var2 = 0; // L: 46
-		if (WorldMapSection3.archive2.method4416(15)) { // L: 47
-			var2 = WorldMapSection3.archive2.getGroupFileCount(15); // L: 48
+		var2 = 0;
+		if (DynamicObject.archive2.method4305(15)) {
+			var2 = DynamicObject.archive2.getGroupFileCount(15);
 		}
 
-		this.strings = new String[var2]; // L: 50
-		this.read(); // L: 51
-	} // L: 52
+		this.strings = new String[var2];
+		this.read();
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "-1056987732"
+		garbageValue = "-298220081"
 	)
 	@Export("setInt")
 	void setInt(int var1, int var2) {
-		this.map.put(var1, var2); // L: 55
+		this.map.put(var1, var2);
 		if (this.intsPersistence[var1]) {
-			this.unwrittenChanges = true; // L: 56
+			this.unwrittenChanges = true;
 		}
 
-	} // L: 57
+	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IB)I",
-		garbageValue = "0"
+		descriptor = "(II)I",
+		garbageValue = "-2112992813"
 	)
 	@Export("getInt")
 	int getInt(int var1) {
-		Object var2 = this.map.get(var1); // L: 60
-		return var2 instanceof Integer ? (Integer)var2 : -1; // L: 61 62 64
+		Object var2 = this.map.get(var1);
+		return var2 instanceof Integer ? (Integer)var2 : -1;
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "(ILjava/lang/String;I)V",
-		garbageValue = "-368948322"
+		garbageValue = "-387665729"
 	)
 	@Export("setString")
 	void setString(int var1, String var2) {
-		this.map.put(var1, var2); // L: 68
-	} // L: 69
+		this.map.put(var1, var2);
+	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "2139997801"
+		descriptor = "(IB)Ljava/lang/String;",
+		garbageValue = "-99"
 	)
 	@Export("getString")
 	String getString(int var1) {
-		Object var2 = this.map.get(var1); // L: 72
-		return var2 instanceof String ? (String)var2 : ""; // L: 73 74 76
+		Object var2 = this.map.get(var1);
+		return var2 instanceof String ? (String)var2 : "";
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;S)V",
-		garbageValue = "14747"
+		descriptor = "(ILjava/lang/String;B)V",
+		garbageValue = "0"
 	)
 	@Export("setStringOld")
 	void setStringOld(int var1, String var2) {
-		this.strings[var1] = var2; // L: 80
-	} // L: 81
+		this.strings[var1] = var2;
+	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "-475073463"
+		garbageValue = "343264324"
 	)
 	@Export("getStringOld")
 	String getStringOld(int var1) {
-		return this.strings[var1]; // L: 84
+		return this.strings[var1];
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "2"
+		descriptor = "(I)V",
+		garbageValue = "-1770667153"
 	)
 	@Export("clearTransient")
 	void clearTransient() {
 		int var1;
-		for (var1 = 0; var1 < this.intsPersistence.length; ++var1) { // L: 88
-			if (!this.intsPersistence[var1]) { // L: 89
-				this.map.remove(var1); // L: 90
+		for (var1 = 0; var1 < this.intsPersistence.length; ++var1) {
+			if (!this.intsPersistence[var1]) {
+				this.map.remove(var1);
 			}
 		}
 
-		for (var1 = 0; var1 < this.strings.length; ++var1) { // L: 93
-			this.strings[var1] = null; // L: 94
+		for (var1 = 0; var1 < this.strings.length; ++var1) {
+			this.strings[var1] = null;
 		}
 
-	} // L: 96
+	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)Lmr;",
-		garbageValue = "229705825"
+		descriptor = "(ZB)Lmy;",
+		garbageValue = "-102"
 	)
 	@Export("getPreferencesFile")
 	AccessFile getPreferencesFile(boolean var1) {
-		return WorldMapID.getPreferencesFile("2", GrandExchangeOfferWorldComparator.field58.name, var1); // L: 99
+		return WorldMapRegion.getPreferencesFile("2", AttackOption.field1174.name, var1);
+	}
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1929534435"
+	)
+	@Export("write")
+	void write() {
+		AccessFile var1 = this.getPreferencesFile(true);
+
+		try {
+			int var2 = 3;
+			int var3 = 0;
+			Iterator var4 = this.map.entrySet().iterator();
+
+			while (var4.hasNext()) {
+				Entry var5 = (Entry)var4.next();
+				int var6 = (Integer)var5.getKey();
+				if (this.intsPersistence[var6]) {
+					Object var7 = var5.getValue();
+					var2 += 3;
+					if (var7 instanceof Integer) {
+						var2 += 4;
+					} else if (var7 instanceof String) {
+						var2 += FloorDecoration.stringCp1252NullTerminatedByteSize((String)var7);
+					}
+
+					++var3;
+				}
+			}
+
+			Buffer var28 = new Buffer(var2);
+			var28.writeByte(2);
+			var28.writeShort(var3);
+			Iterator var29 = this.map.entrySet().iterator();
+
+			label146:
+			while (true) {
+				Entry var17;
+				int var18;
+				do {
+					if (!var29.hasNext()) {
+						var1.write(var28.array, 0, var28.offset);
+						break label146;
+					}
+
+					var17 = (Entry)var29.next();
+					var18 = (Integer)var17.getKey();
+				} while(!this.intsPersistence[var18]);
+
+				var28.writeShort(var18);
+				Object var8 = var17.getValue();
+				Class var10 = var8.getClass();
+				class3[] var11 = new class3[]{class3.field13, class3.field12, class3.field8};
+				class3[] var12 = var11;
+				int var13 = 0;
+
+				class3 var9;
+				while (true) {
+					if (var13 >= var12.length) {
+						var9 = null;
+						break;
+					}
+
+					class3 var14 = var12[var13];
+					if (var10 == var14.field6) {
+						var9 = var14;
+						break;
+					}
+
+					++var13;
+				}
+
+				var28.writeByte(var9.field10);
+				class3.method25(var8, var28);
+			}
+		} catch (Exception var26) {
+		} finally {
+			try {
+				var1.close();
+			} catch (Exception var25) {
+			}
+
+		}
+
+		this.unwrittenChanges = false;
+		this.field1276 = class298.currentTimeMillis();
+	}
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "20"
+	)
+	@Export("read")
+	void read() {
+		AccessFile var1 = this.getPreferencesFile(false);
+
+		label210: {
+			try {
+				byte[] var2 = new byte[(int)var1.length()];
+
+				int var4;
+				for (int var3 = 0; var3 < var2.length; var3 += var4) {
+					var4 = var1.read(var2, var3, var2.length - var3);
+					if (var4 == -1) {
+						throw new EOFException();
+					}
+				}
+
+				Buffer var15 = new Buffer(var2);
+				if (var15.array.length - var15.offset >= 1) {
+					int var16 = var15.readUnsignedByte();
+					if (var16 < 0 || var16 > 2) {
+						return;
+					}
+
+					int var7;
+					int var8;
+					int var9;
+					int var17;
+					if (var16 >= 2) {
+						var17 = var15.readUnsignedShort();
+						var7 = 0;
+
+						while (true) {
+							if (var7 >= var17) {
+								break label210;
+							}
+
+							var8 = var15.readUnsignedShort();
+							var9 = var15.readUnsignedByte();
+							class3[] var10 = new class3[]{class3.field13, class3.field12, class3.field8};
+							class3 var11 = (class3)UrlRequester.findEnumerated(var10, var9);
+							Object var12 = var11.method28(var15);
+							if (this.intsPersistence[var8]) {
+								this.map.put(var8, var12);
+							}
+
+							++var7;
+						}
+					} else {
+						var17 = var15.readUnsignedShort();
+
+						for (var7 = 0; var7 < var17; ++var7) {
+							var8 = var15.readUnsignedShort();
+							var9 = var15.readInt();
+							if (this.intsPersistence[var8]) {
+								this.map.put(var8, var9);
+							}
+						}
+
+						var7 = var15.readUnsignedShort();
+						var8 = 0;
+
+						while (true) {
+							if (var8 >= var7) {
+								break label210;
+							}
+
+							var15.readUnsignedShort();
+							var15.readStringCp1252NullTerminated();
+							++var8;
+						}
+					}
+				}
+			} catch (Exception var26) {
+				break label210;
+			} finally {
+				try {
+					var1.close();
+				} catch (Exception var25) {
+				}
+
+			}
+
+			return;
+		}
+
+		this.unwrittenChanges = false;
 	}
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "2018720636"
-	)
-	@Export("write")
-	void write() {
-		AccessFile var1 = this.getPreferencesFile(true); // L: 103
-
-		try {
-			int var2 = 3; // L: 105
-			int var3 = 0; // L: 106
-			Iterator var4 = this.map.entrySet().iterator(); // L: 107
-
-			while (var4.hasNext()) {
-				Entry var5 = (Entry)var4.next(); // L: 108
-				int var6 = (Integer)var5.getKey(); // L: 110
-				if (this.intsPersistence[var6]) { // L: 111
-					Object var7 = var5.getValue(); // L: 112
-					var2 += 3; // L: 113
-					if (var7 instanceof Integer) { // L: 114
-						var2 += 4;
-					} else if (var7 instanceof String) {
-						var2 += SpriteMask.stringCp1252NullTerminatedByteSize((String)var7); // L: 115
-					}
-
-					++var3; // L: 116
-				}
-			}
-
-			Buffer var27 = new Buffer(var2); // L: 120
-			var27.writeByte(2); // L: 121
-			var27.writeShort(var3); // L: 122
-			Iterator var28 = this.map.entrySet().iterator(); // L: 123
-
-			label146:
-			while (true) {
-				Entry var16;
-				int var17;
-				do {
-					if (!var28.hasNext()) {
-						var1.write(var27.array, 0, var27.offset); // L: 153
-						break label146;
-					}
-
-					var16 = (Entry)var28.next(); // L: 124
-					var17 = (Integer)var16.getKey(); // L: 126
-				} while(!this.intsPersistence[var17]); // L: 127
-
-				var27.writeShort(var17); // L: 128
-				Object var8 = var16.getValue(); // L: 129
-				Class var10 = var8.getClass(); // L: 131
-				class3[] var11 = class3.method43(); // L: 134
-				int var12 = 0;
-
-				class3 var9;
-				while (true) {
-					if (var12 >= var11.length) {
-						var9 = null; // L: 145
-						break;
-					}
-
-					class3 var13 = var11[var12]; // L: 136
-					if (var10 == var13.field13) { // L: 138
-						var9 = var13; // L: 139
-						break; // L: 140
-					}
-
-					++var12; // L: 135
-				}
-
-				var27.writeByte(var9.field12); // L: 148
-				class3.method57(var8, var27); // L: 149
-			}
-		} catch (Exception var25) { // L: 155
-		} finally {
-			try {
-				var1.close(); // L: 158
-			} catch (Exception var24) { // L: 160
-			}
-
-		}
-
-		this.unwrittenChanges = false; // L: 162
-		this.field1298 = User.currentTimeMillis(); // L: 163
-	} // L: 164
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-236281402"
-	)
-	@Export("read")
-	void read() {
-		AccessFile var1 = this.getPreferencesFile(false); // L: 167
-
-		label224: {
-			try {
-				byte[] var2 = new byte[(int)var1.length()]; // L: 169
-
-				int var4;
-				for (int var3 = 0; var3 < var2.length; var3 += var4) { // L: 170 171 174
-					var4 = var1.read(var2, var3, var2.length - var3); // L: 172
-					if (var4 == -1) { // L: 173
-						throw new EOFException();
-					}
-				}
-
-				Buffer var14 = new Buffer(var2); // L: 176
-				if (var14.array.length - var14.offset < 1) { // L: 177
-					return;
-				}
-
-				int var15 = var14.readUnsignedByte(); // L: 178
-				if (var15 >= 0 && var15 <= 2) { // L: 179
-					int var7;
-					int var8;
-					int var9;
-					int var16;
-					if (var15 >= 2) { // L: 180
-						var16 = var14.readUnsignedShort(); // L: 181
-						var7 = 0;
-
-						while (true) {
-							if (var7 >= var16) {
-								break label224;
-							}
-
-							var8 = var14.readUnsignedShort(); // L: 183
-							var9 = var14.readUnsignedByte(); // L: 184
-							class3 var10 = (class3)class195.findEnumerated(class3.method43(), var9); // L: 185
-							Object var11 = var10.method47(var14); // L: 186
-							if (this.intsPersistence[var8]) { // L: 187
-								this.map.put(var8, var11); // L: 188
-							}
-
-							++var7; // L: 182
-						}
-					} else {
-						var16 = var14.readUnsignedShort(); // L: 193
-
-						for (var7 = 0; var7 < var16; ++var7) { // L: 194
-							var8 = var14.readUnsignedShort(); // L: 195
-							var9 = var14.readInt(); // L: 196
-							if (this.intsPersistence[var8]) { // L: 197
-								this.map.put(var8, var9); // L: 198
-							}
-						}
-
-						var7 = var14.readUnsignedShort(); // L: 201
-						var8 = 0;
-
-						while (true) {
-							if (var8 >= var7) {
-								break label224;
-							}
-
-							var14.readUnsignedShort(); // L: 203
-							var14.readStringCp1252NullTerminated(); // L: 204
-							++var8; // L: 202
-						}
-					}
-				}
-			} catch (Exception var25) { // L: 208
-				break label224;
-			} finally {
-				try {
-					var1.close(); // L: 211
-				} catch (Exception var24) {
-				}
-
-			}
-
-			return; // L: 213
-		}
-
-		this.unwrittenChanges = false; // L: 215
-	} // L: 216
-
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "362118254"
+		garbageValue = "1201076072"
 	)
 	@Export("tryWrite")
 	void tryWrite() {
-		if (this.unwrittenChanges && this.field1298 < User.currentTimeMillis() - 60000L) { // L: 219
-			this.write(); // L: 220
+		if (this.unwrittenChanges && this.field1276 < class298.currentTimeMillis() - 60000L) {
+			this.write();
 		}
 
-	} // L: 222
+	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-398043475"
+		garbageValue = "-1775213978"
 	)
 	@Export("hasUnwrittenChanges")
 	boolean hasUnwrittenChanges() {
-		return this.unwrittenChanges; // L: 225
+		return this.unwrittenChanges;
 	}
 
-	@ObfuscatedName("jq")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(Lht;I)Z",
-		garbageValue = "322576420"
+		descriptor = "(Ldi;I)V",
+		garbageValue = "1243916403"
 	)
-	static final boolean method2313(Widget var0) {
-		int var1 = var0.contentType; // L: 11330
-		if (var1 == 205) { // L: 11331
-			Client.logoutTimer = 250; // L: 11332
-			return true; // L: 11333
-		} else {
-			int var2;
-			int var3;
-			if (var1 >= 300 && var1 <= 313) { // L: 11335
-				var2 = (var1 - 300) / 2; // L: 11336
-				var3 = var1 & 1; // L: 11337
-				Client.playerAppearance.changeAppearance(var2, var3 == 1); // L: 11338
-			}
+	@Export("PcmStream_disable")
+	static final void PcmStream_disable(PcmStream var0) {
+		var0.active = false;
+		if (var0.sound != null) {
+			var0.sound.position = 0;
+		}
 
-			if (var1 >= 314 && var1 <= 323) { // L: 11340
-				var2 = (var1 - 314) / 2; // L: 11341
-				var3 = var1 & 1; // L: 11342
-				Client.playerAppearance.method4148(var2, var3 == 1); // L: 11343
-			}
+		for (PcmStream var1 = var0.firstSubStream(); var1 != null; var1 = var0.nextSubStream()) {
+			PcmStream_disable(var1);
+		}
 
-			if (var1 == 324) { // L: 11345
-				Client.playerAppearance.changeSex(false);
-			}
+	}
 
-			if (var1 == 325) { // L: 11346
-				Client.playerAppearance.changeSex(true);
-			}
-
-			if (var1 == 326) { // L: 11347
-				PacketBufferNode var4 = class4.getPacketBufferNode(ClientPacket.field2335, Client.packetWriter.isaacCipher); // L: 11349
-				Client.playerAppearance.write(var4.packetBuffer); // L: 11350
-				Client.packetWriter.addNode(var4); // L: 11351
-				return true; // L: 11352
+	@ObfuscatedName("km")
+	@ObfuscatedSignature(
+		descriptor = "(Lhe;IIII)V",
+		garbageValue = "842543427"
+	)
+	@Export("drawCompass")
+	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
+		SpriteMask var4 = var0.getSpriteMask(false);
+		if (var4 != null) {
+			if (Client.minimapState < 3) {
+				UrlRequester.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
 			} else {
-				return false; // L: 11354
+				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths);
 			}
+
+		}
+	}
+
+	@ObfuscatedName("lr")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "1893534902"
+	)
+	@Export("Clan_joinChat")
+	static final void Clan_joinChat(String var0) {
+		if (!var0.equals("")) {
+			PacketBufferNode var1 = ItemContainer.getPacketBufferNode(ClientPacket.field2285, Client.packetWriter.isaacCipher);
+			var1.packetBuffer.writeByte(FloorDecoration.stringCp1252NullTerminatedByteSize(var0));
+			var1.packetBuffer.writeStringCp1252NullTerminated(var0);
+			Client.packetWriter.addNode(var1);
 		}
 	}
 }

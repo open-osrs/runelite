@@ -1,53 +1,66 @@
-import java.util.Iterator;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("is")
+@ObfuscatedName("iq")
 public class class234 {
-	@ObfuscatedName("b")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(IS)Lia;",
-		garbageValue = "-3621"
+		descriptor = "(B)[Lin;",
+		garbageValue = "34"
 	)
-	public static FloorUnderlayDefinition method4260(int var0) {
-		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition)FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long)var0); // L: 25
-		if (var1 != null) { // L: 26
-			return var1;
-		} else {
-			byte[] var2 = FloorUnderlayDefinition.FloorUnderlayDefinition_archive.takeFile(1, var0); // L: 27
-			var1 = new FloorUnderlayDefinition(); // L: 28
-			if (var2 != null) { // L: 29
-				var1.decode(new Buffer(var2), var0);
-			}
-
-			var1.postDecode(); // L: 30
-			FloorUnderlayDefinition.FloorUnderlayDefinition_cached.put(var1, (long)var0); // L: 31
-			return var1; // L: 32
-		}
+	@Export("PlayerType_values")
+	public static PlayerType[] PlayerType_values() {
+		return new PlayerType[]{PlayerType.field3124, PlayerType.PlayerType_ultimateIronman, PlayerType.PlayerType_ironman, PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_playerModerator, PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_normal};
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "4"
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;B)V",
+		garbageValue = "-30"
 	)
-	public static void method4261() {
-		VarbitDefinition.VarbitDefinition_cached.clear(); // L: 34
-	} // L: 35
+	@Export("addGameMessage")
+	static void addGameMessage(int var0, String var1, String var2) {
+		UserComparator10.addChatMessage(var0, var1, var2, (String)null);
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "969326800"
+		descriptor = "(III)Z",
+		garbageValue = "1847408099"
 	)
-	static String method4262() {
-		String var0 = ""; // L: 84
-
-		Message var2;
-		for (Iterator var1 = Messages.Messages_hashTable.iterator(); var1.hasNext(); var0 = var0 + var2.sender + ':' + var2.text + '\n') { // L: 85 88
-			var2 = (Message)var1.next(); // L: 86
+	static final boolean method4159(int var0, int var1) {
+		ObjectDefinition var2 = WorldMapDecoration.getObjectDefinition(var0);
+		if (var1 == 11) {
+			var1 = 10;
 		}
 
-		return var0; // L: 91
+		if (var1 >= 5 && var1 <= 8) {
+			var1 = 4;
+		}
+
+		return var2.method4614(var1);
+	}
+
+	@ObfuscatedName("jq")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Lhe;I)Ljava/lang/String;",
+		garbageValue = "-1574592106"
+	)
+	static String method4160(String var0, Widget var1) {
+		if (var0.indexOf("%") != -1) {
+			for (int var2 = 1; var2 <= 5; ++var2) {
+				while (true) {
+					int var3 = var0.indexOf("%" + var2);
+					if (var3 == -1) {
+						break;
+					}
+
+					var0 = var0.substring(0, var3) + ModelData0.method3329(HealthBarDefinition.method4512(var1, var2 - 1)) + var0.substring(var3 + 2);
+				}
+			}
+		}
+
+		return var0;
 	}
 }

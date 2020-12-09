@@ -1824,7 +1824,7 @@ public abstract class RSClientMixin implements RSClient
 			client.playMusicTrack(1000, client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
 		}
 
-		client.setClientMusicVolume(volume);
+		client.getPreferences().setMusicVolume(volume);
 		client.setMusicTrackVolume(volume);
 		if (client.getMidiPcmStream() != null)
 		{

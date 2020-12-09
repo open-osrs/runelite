@@ -1,13 +1,13 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kx")
+@ObfuscatedName("kp")
 public class class297 {
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = -278592989
+	@ObfuscatedName("fu")
+	@ObfuscatedSignature(
+		descriptor = "Lku;"
 	)
-	@Export("idxCount")
-	static int idxCount;
+	@Export("fontPlain11")
+	static Font fontPlain11;
 }

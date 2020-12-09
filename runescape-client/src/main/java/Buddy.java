@@ -4,78 +4,60 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kl")
+@ObfuscatedName("kz")
 @Implements("Buddy")
 public class Buddy extends User {
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 11106869
+		intValue = -1856185425
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -152395721
+		intValue = 503110863
 	)
 	@Export("int2")
 	public int int2;
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -2046861125
+		intValue = 368633443
 	)
 	@Export("rank")
 	public int rank;
 
 	Buddy() {
-		this.world = -1; // L: 4
-	} // L: 8
+		this.world = -1;
+	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "-2040582240"
+		garbageValue = "1333742475"
 	)
 	@Export("set")
 	void set(int var1, int var2) {
-		this.world = var1; // L: 11
-		this.int2 = var2; // L: 12
-	} // L: 13
+		this.world = var1;
+		this.int2 = var2;
+	}
 
-	@ObfuscatedName("aj")
+	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1227798999"
+		garbageValue = "-1196815789"
 	)
 	@Export("getWorld")
 	public int getWorld() {
-		return this.world; // L: 16
+		return this.world;
 	}
 
-	@ObfuscatedName("ae")
+	@ObfuscatedName("az")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-17715809"
+		garbageValue = "323903236"
 	)
 	@Export("hasWorld")
 	public boolean hasWorld() {
-		return this.world > 0; // L: 20
-	}
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(S)I",
-		garbageValue = "3913"
-	)
-	static int method5322() {
-		return ++Messages.Messages_count - 1; // L: 19
-	}
-
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)Llc;",
-		garbageValue = "-95"
-	)
-	static Sprite method5321(int var0, int var1, int var2) {
-		return (Sprite)WorldMapRegion.WorldMapRegion_cachedSprites.get(class8.method117(var0, var1, var2)); // L: 42
+		return this.world > 0;
 	}
 }

@@ -6,66 +6,75 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dv")
+@ObfuscatedName("du")
 @Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
-	@ObfuscatedName("rk")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -556270823
-	)
-	static int field1364;
-	@ObfuscatedName("fn")
-	@ObfuscatedSignature(
-		descriptor = "Lkq;"
-	)
-	@Export("fontBold12")
-	static Font fontBold12;
-	@ObfuscatedName("f")
-	@Export("intReplaceValues")
-	int[] intReplaceValues;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = -296860669
+		intValue = -333963767
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("l")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 989914791
+		intValue = 58962995
 	)
 	@Export("size")
 	int size;
-	@ObfuscatedName("m")
-	@Export("arguments")
-	byte[][][] arguments;
-	@ObfuscatedName("z")
+	@ObfuscatedName("x")
 	@Export("operations")
 	int[] operations;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@Export("creationErrors")
 	int[] creationErrors;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@Export("fields")
 	Field[] fields;
-	@ObfuscatedName("c")
+	@ObfuscatedName("j")
+	@Export("intReplaceValues")
+	int[] intReplaceValues;
+	@ObfuscatedName("n")
 	@Export("methods")
 	Method[] methods;
+	@ObfuscatedName("p")
+	@Export("arguments")
+	byte[][][] arguments;
 
 	ReflectionCheck() {
-	} // L: 17
+	}
 
-	@ObfuscatedName("ed")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(IZZZS)Lid;",
-		garbageValue = "255"
+		descriptor = "(IIII)V",
+		garbageValue = "527859339"
 	)
-	@Export("newArchive")
-	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
-		ArchiveDisk var4 = null; // L: 2297
-		if (JagexCache.JagexCache_dat2File != null) { // L: 2298
-			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, JagexCache.JagexCache_idxFiles[var0], 1000000);
+	static final void method2350(int var0, int var1, int var2) {
+		int var3;
+		for (var3 = 0; var3 < 8; ++var3) {
+			for (int var4 = 0; var4 < 8; ++var4) {
+				Tiles.Tiles_heights[var0][var3 + var1][var4 + var2] = 0;
+			}
 		}
 
-		return new Archive(var4, GrandExchangeOfferWorldComparator.masterDisk, var0, var1, var2, var3); // L: 2299
+		if (var1 > 0) {
+			for (var3 = 1; var3 < 8; ++var3) {
+				Tiles.Tiles_heights[var0][var1][var3 + var2] = Tiles.Tiles_heights[var0][var1 - 1][var3 + var2];
+			}
+		}
+
+		if (var2 > 0) {
+			for (var3 = 1; var3 < 8; ++var3) {
+				Tiles.Tiles_heights[var0][var3 + var1][var2] = Tiles.Tiles_heights[var0][var3 + var1][var2 - 1];
+			}
+		}
+
+		if (var1 > 0 && Tiles.Tiles_heights[var0][var1 - 1][var2] != 0) {
+			Tiles.Tiles_heights[var0][var1][var2] = Tiles.Tiles_heights[var0][var1 - 1][var2];
+		} else if (var2 > 0 && Tiles.Tiles_heights[var0][var1][var2 - 1] != 0) {
+			Tiles.Tiles_heights[var0][var1][var2] = Tiles.Tiles_heights[var0][var1][var2 - 1];
+		} else if (var1 > 0 && var2 > 0 && Tiles.Tiles_heights[var0][var1 - 1][var2 - 1] != 0) {
+			Tiles.Tiles_heights[var0][var1][var2] = Tiles.Tiles_heights[var0][var1 - 1][var2 - 1];
+		}
+
 	}
 }

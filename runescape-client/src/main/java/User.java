@@ -3,97 +3,81 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jh")
+@ObfuscatedName("ju")
 @Implements("User")
 public class User implements Comparable {
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lki;"
 	)
 	@Export("username")
 	Username username;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lki;"
 	)
 	@Export("previousUsername")
 	Username previousUsername;
 
 	User() {
-	} // L: 7
+	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lkm;",
-		garbageValue = "-335278145"
+		descriptor = "(I)Lki;",
+		garbageValue = "1670678120"
 	)
 	@Export("getUsername")
 	public Username getUsername() {
-		return this.username; // L: 10
+		return this.username;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1574764800"
+		descriptor = "(S)Ljava/lang/String;",
+		garbageValue = "2928"
 	)
 	@Export("getName")
 	public String getName() {
 		return this.username == null ? "" : this.username.getName();
 	}
 
-	@ObfuscatedName("ao")
+	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "198172856"
+		garbageValue = "1728130643"
 	)
 	@Export("getPreviousName")
 	public String getPreviousName() {
-		return this.previousUsername == null ? "" : this.previousUsername.getName(); // L: 20
+		return this.previousUsername == null ? "" : this.previousUsername.getName();
 	}
 
-	@ObfuscatedName("af")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Lkm;Lkm;I)V",
-		garbageValue = "208802745"
+		descriptor = "(Lki;Lki;I)V",
+		garbageValue = "-1682462851"
 	)
 	@Export("set")
 	void set(Username var1, Username var2) {
-		if (var1 == null) { // L: 24
+		if (var1 == null) {
 			throw new NullPointerException();
 		} else {
-			this.username = var1; // L: 25
-			this.previousUsername = var2; // L: 26
+			this.username = var1;
+			this.previousUsername = var2;
 		}
-	} // L: 27
+	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		descriptor = "(Ljh;B)I",
-		garbageValue = "69"
+		descriptor = "(Lju;I)I",
+		garbageValue = "-1545516578"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.username.compareToTyped(var1.username); // L: 30
+		return this.username.compareToTyped(var1.username);
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_user((User)var1); // L: 34
-	}
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(S)J",
-		garbageValue = "17738"
-	)
-	@Export("currentTimeMillis")
-	public static final synchronized long currentTimeMillis() {
-		long var0 = System.currentTimeMillis(); // L: 14
-		if (var0 < ArchiveLoader.field565) { // L: 15
-			class307.field3731 += ArchiveLoader.field565 - var0; // L: 16
-		}
-
-		ArchiveLoader.field565 = var0; // L: 18
-		return class307.field3731 + var0; // L: 19
+		return this.compareTo_user((User)var1);
 	}
 }

@@ -1,130 +1,47 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gs")
+@ObfuscatedName("gc")
 public class class182 {
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@Export("directions")
-	static int[][] directions;
-	@ObfuscatedName("m")
+	public static int[][] directions;
+	@ObfuscatedName("w")
 	@Export("distances")
-	static int[][] distances;
-	@ObfuscatedName("q")
+	public static int[][] distances;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1047012721
+		intValue = -611809779
 	)
-	static int field2122;
-	@ObfuscatedName("c")
+	public static int field2115;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = -405492077
+	)
+	public static int field2121;
+	@ObfuscatedName("p")
 	@Export("bufferX")
-	static int[] bufferX;
-	@ObfuscatedName("u")
+	public static int[] bufferX;
+	@ObfuscatedName("l")
 	@Export("bufferY")
-	static int[] bufferY;
+	public static int[] bufferY;
+	@ObfuscatedName("gj")
+	@ObfuscatedGetter(
+		intValue = -1967646503
+	)
+	static int field2112;
+	@ObfuscatedName("lx")
+	@ObfuscatedGetter(
+		intValue = -652373903
+	)
+	@Export("menuHeight")
+	static int menuHeight;
 
 	static {
-		directions = new int[128][128]; // L: 6
-		distances = new int[128][128]; // L: 7
-		bufferX = new int[4096]; // L: 11
-		bufferY = new int[4096]; // L: 12
-	}
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Liw;Liw;S)V",
-		garbageValue = "19317"
-	)
-	public static void method3716(AbstractArchive var0, AbstractArchive var1) {
-		SpotAnimationDefinition.SpotAnimationDefinition_archive = var0; // L: 32
-		SpotAnimationDefinition.SpotAnimationDefinition_modelArchive = var1; // L: 33
-	} // L: 34
-
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(CLgb;I)C",
-		garbageValue = "1155060289"
-	)
-	@Export("standardizeChar")
-	static char standardizeChar(char var0, Language var1) {
-		if (var0 >= 192 && var0 <= 255) { // L: 69
-			if (var0 >= 192 && var0 <= 198) { // L: 70
-				return 'A';
-			}
-
-			if (var0 == 199) { // L: 71
-				return 'C';
-			}
-
-			if (var0 >= 200 && var0 <= 203) { // L: 72
-				return 'E';
-			}
-
-			if (var0 >= 204 && var0 <= 207) { // L: 73
-				return 'I';
-			}
-
-			if (var0 == 209 && var1 != Language.Language_ES) { // L: 74
-				return 'N';
-			}
-
-			if (var0 >= 210 && var0 <= 214) { // L: 75
-				return 'O';
-			}
-
-			if (var0 >= 217 && var0 <= 220) { // L: 76
-				return 'U';
-			}
-
-			if (var0 == 221) { // L: 77
-				return 'Y';
-			}
-
-			if (var0 == 223) { // L: 78
-				return 's';
-			}
-
-			if (var0 >= 224 && var0 <= 230) { // L: 79
-				return 'a';
-			}
-
-			if (var0 == 231) { // L: 80
-				return 'c';
-			}
-
-			if (var0 >= 232 && var0 <= 235) { // L: 81
-				return 'e';
-			}
-
-			if (var0 >= 236 && var0 <= 239) { // L: 82
-				return 'i';
-			}
-
-			if (var0 == 241 && var1 != Language.Language_ES) { // L: 83
-				return 'n';
-			}
-
-			if (var0 >= 242 && var0 <= 246) { // L: 84
-				return 'o';
-			}
-
-			if (var0 >= 249 && var0 <= 252) { // L: 85
-				return 'u';
-			}
-
-			if (var0 == 253 || var0 == 255) { // L: 86
-				return 'y';
-			}
-		}
-
-		if (var0 == 338) { // L: 88
-			return 'O';
-		} else if (var0 == 339) { // L: 89
-			return 'o';
-		} else if (var0 == 376) { // L: 90
-			return 'Y';
-		} else {
-			return var0; // L: 91
-		}
+		directions = new int[128][128];
+		distances = new int[128][128];
+		bufferX = new int[4096];
+		bufferY = new int[4096];
 	}
 }

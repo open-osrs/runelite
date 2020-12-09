@@ -6,70 +6,70 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("jj")
 @Implements("LinkDeque")
 public class LinkDeque {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lgq;"
+		descriptor = "Lgm;"
 	)
 	@Export("sentinel")
 	Link sentinel;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lgq;"
+		descriptor = "Lgm;"
 	)
 	@Export("current")
 	Link current;
 
 	public LinkDeque() {
-		this.sentinel = new Link(); // L: 6
-		this.sentinel.previous = this.sentinel; // L: 10
-		this.sentinel.next = this.sentinel; // L: 11
-	} // L: 12
+		this.sentinel = new Link();
+		this.sentinel.previous = this.sentinel;
+		this.sentinel.next = this.sentinel;
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lgq;)V"
+		descriptor = "(Lgm;)V"
 	)
 	@Export("addFirst")
 	public void addFirst(Link var1) {
-		if (var1.next != null) { // L: 15
+		if (var1.next != null) {
 			var1.remove();
 		}
 
-		var1.next = this.sentinel.next; // L: 16
-		var1.previous = this.sentinel; // L: 17
-		var1.next.previous = var1; // L: 18
-		var1.previous.next = var1; // L: 19
-	} // L: 20
+		var1.next = this.sentinel.next;
+		var1.previous = this.sentinel;
+		var1.next.previous = var1;
+		var1.previous.next = var1;
+	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "()Lgq;"
+		descriptor = "()Lgm;"
 	)
 	@Export("last")
 	public Link last() {
-		Link var1 = this.sentinel.previous; // L: 23
-		if (var1 == this.sentinel) { // L: 24
-			this.current = null; // L: 25
-			return null; // L: 26
+		Link var1 = this.sentinel.previous;
+		if (var1 == this.sentinel) {
+			this.current = null;
+			return null;
 		} else {
-			this.current = var1.previous; // L: 28
-			return var1; // L: 29
+			this.current = var1.previous;
+			return var1;
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "()Lgq;"
+		descriptor = "()Lgm;"
 	)
 	@Export("previous")
 	public Link previous() {
-		Link var1 = this.current; // L: 33
-		if (var1 == this.sentinel) { // L: 34
-			this.current = null; // L: 35
-			return null; // L: 36
+		Link var1 = this.current;
+		if (var1 == this.sentinel) {
+			this.current = null;
+			return null;
 		} else {
-			this.current = var1.previous; // L: 38
-			return var1; // L: 39
+			this.current = var1.previous;
+			return var1;
 		}
 	}
 }

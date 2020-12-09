@@ -2,55 +2,38 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cu")
+@ObfuscatedName("cq")
 @Implements("MenuAction")
 public class MenuAction {
-	@ObfuscatedName("dz")
-	@ObfuscatedSignature(
-		descriptor = "Lid;"
-	)
-	@Export("archive0")
-	static Archive archive0;
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 856343337
+		intValue = -498360171
 	)
 	@Export("param0")
 	int param0;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1008037325
+		intValue = 853980149
 	)
 	@Export("param1")
 	int param1;
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 967999089
+		intValue = 1397689415
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1415709673
+		intValue = 1633768997
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@Export("action")
 	String action;
 
 	MenuAction() {
-	} // L: 11733
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "3"
-	)
-	static void method2171() {
-		Login.loginIndex = 24; // L: 1565
-		GrandExchangeOfferNameComparator.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", ""); // L: 1566
-	} // L: 1567
+	}
 }

@@ -3,68 +3,54 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ft")
+@ObfuscatedName("fl")
 @Implements("Clock")
 public abstract class Clock {
 	Clock() {
-	} // L: 4
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "345512591"
+		garbageValue = "2095078818"
 	)
 	@Export("mark")
 	public abstract void mark();
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "-837141414"
+		garbageValue = "-680717242"
 	)
 	@Export("wait")
 	public abstract int wait(int var1, int var2);
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljn;",
-		garbageValue = "-1793250808"
+		descriptor = "([BIIB)Ljava/lang/String;",
+		garbageValue = "74"
 	)
-	@Export("getNpcDefinition")
-	public static NPCDefinition getNpcDefinition(int var0) {
-		NPCDefinition var1 = (NPCDefinition)NPCDefinition.NpcDefinition_cached.get((long)var0); // L: 57
-		if (var1 != null) { // L: 58
-			return var1;
-		} else {
-			byte[] var2 = NPCDefinition.NpcDefinition_archive.takeFile(9, var0); // L: 59
-			var1 = new NPCDefinition(); // L: 60
-			var1.id = var0; // L: 61
-			if (var2 != null) { // L: 62
-				var1.decode(new Buffer(var2));
-			}
+	@Export("decodeStringCp1252")
+	public static String decodeStringCp1252(byte[] var0, int var1, int var2) {
+		char[] var3 = new char[var2];
+		int var4 = 0;
 
-			var1.postDecode(); // L: 63
-			NPCDefinition.NpcDefinition_cached.put(var1, (long)var0); // L: 64
-			return var1; // L: 65
-		}
-	}
+		for (int var5 = 0; var5 < var2; ++var5) {
+			int var6 = var0[var5 + var1] & 255;
+			if (var6 != 0) {
+				if (var6 >= 128 && var6 < 160) {
+					char var7 = class298.cp1252AsciiExtension[var6 - 128];
+					if (var7 == 0) {
+						var7 = '?';
+					}
 
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "34"
-	)
-	@Export("isKeyDown")
-	public static final boolean isKeyDown() {
-		synchronized(KeyHandler.KeyHandler_instance) { // L: 183
-			if (KeyHandler.field428 == KeyHandler.field415) { // L: 184
-				return false;
-			} else {
-				SecureRandomCallable.field555 = KeyHandler.field425[KeyHandler.field415]; // L: 185
-				WorldMapManager.field335 = KeyHandler.field424[KeyHandler.field415]; // L: 186
-				KeyHandler.field415 = KeyHandler.field415 + 1 & 127; // L: 187
-				return true; // L: 188
+					var6 = var7;
+				}
+
+				var3[var4++] = (char)var6;
 			}
 		}
+
+		return new String(var3, 0, var4);
 	}
 }
