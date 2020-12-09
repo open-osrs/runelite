@@ -2,12 +2,12 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kr")
+@ObfuscatedName("kl")
 public final class class301 {
-	@ObfuscatedName("be")
+	@ObfuscatedName("bz")
 	@ObfuscatedSignature(
-		descriptor = "[Lle;"
+		descriptor = "[Llm;"
 	)
-	@Export("worldSelectArrows")
-	static IndexedSprite[] worldSelectArrows;
+	@Export("worldSelectBackSprites")
+	static Sprite[] worldSelectBackSprites;
 }

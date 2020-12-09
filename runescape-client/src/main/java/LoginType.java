@@ -4,95 +4,89 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mc")
+@ObfuscatedName("mu")
 @Implements("LoginType")
 public class LoginType {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lmc;"
+		descriptor = "Lmu;"
 	)
 	@Export("oldscape")
 	public static final LoginType oldscape;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lmc;"
+		descriptor = "Lmu;"
 	)
-	static final LoginType field4071;
-	@ObfuscatedName("l")
+	static final LoginType field4070;
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "Lmc;"
-	)
-	static final LoginType field4063;
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Lmc;"
-	)
-	static final LoginType field4064;
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "Lmc;"
-	)
-	static final LoginType field4065;
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Lmc;"
+		descriptor = "Lmu;"
 	)
 	static final LoginType field4066;
-	@ObfuscatedName("k")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lmc;"
+		descriptor = "Lmu;"
 	)
-	static final LoginType field4067;
-	@ObfuscatedName("c")
+	static final LoginType field4073;
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lmc;"
+		descriptor = "Lmu;"
+	)
+	static final LoginType field4068;
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lmu;"
 	)
 	static final LoginType field4069;
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "Lmc;"
-	)
-	public static final LoginType field4061;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lds;"
+		descriptor = "Lmu;"
 	)
-	@Export("soundCache")
-	public static SoundCache soundCache;
-	@ObfuscatedName("t")
+	static final LoginType field4071;
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "Lmu;"
+	)
+	static final LoginType field4064;
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Lmu;"
+	)
+	public static final LoginType field4072;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1603045389
+		intValue = -434232697
 	)
-	final int field4070;
-	@ObfuscatedName("e")
-	final String field4068;
+	final int field4067;
+	@ObfuscatedName("u")
+	final String field4074;
 
 	static {
-		oldscape = new LoginType(8, 0, "", ""); // L: 5
-		field4071 = new LoginType(4, 1, "", ""); // L: 6
-		field4063 = new LoginType(7, 2, "", ""); // L: 7
-		field4064 = new LoginType(0, 3, "", ""); // L: 8
-		field4065 = new LoginType(2, 4, "", ""); // L: 9
-		field4066 = new LoginType(6, 5, "", ""); // L: 10
-		field4067 = new LoginType(3, 6, "", ""); // L: 11
-		field4069 = new LoginType(1, 7, "", ""); // L: 12
-		field4061 = new LoginType(5, -1, "", "", true, new LoginType[]{oldscape, field4071, field4063, field4065, field4064}); // L: 13
+		oldscape = new LoginType(0, 0, "", "");
+		field4070 = new LoginType(3, 1, "", "");
+		field4066 = new LoginType(1, 2, "", "");
+		field4073 = new LoginType(7, 3, "", "");
+		field4068 = new LoginType(6, 4, "", "");
+		field4069 = new LoginType(2, 5, "", "");
+		field4071 = new LoginType(4, 6, "", "");
+		field4064 = new LoginType(5, 7, "", "");
+		field4072 = new LoginType(8, -1, "", "", true, new LoginType[]{oldscape, field4070, field4066, field4068, field4073});
 	}
 
 	LoginType(int var1, int var2, String var3, String var4) {
-		this.field4070 = var1; // L: 18
-		this.field4068 = var4; // L: 19
-	} // L: 20
+		this.field4067 = var1;
+		this.field4074 = var4;
+	}
 
 	@ObfuscatedSignature(
-		descriptor = "(IILjava/lang/String;Ljava/lang/String;Z[Lmc;)V"
+		descriptor = "(IILjava/lang/String;Ljava/lang/String;Z[Lmu;)V"
 	)
 	LoginType(int var1, int var2, String var3, String var4, boolean var5, LoginType[] var6) {
-		this.field4070 = var1; // L: 23
-		this.field4068 = var4; // L: 24
-	} // L: 25
+		this.field4067 = var1;
+		this.field4074 = var4;
+	}
 
 	public String toString() {
-		return this.field4068; // L: 28
+		return this.field4074;
 	}
 }

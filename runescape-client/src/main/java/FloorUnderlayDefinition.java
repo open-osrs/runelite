@@ -3,175 +3,215 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ia")
+@ObfuscatedName("iw")
 @Implements("FloorUnderlayDefinition")
 public class FloorUnderlayDefinition extends DualNode {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lib;"
 	)
 	@Export("FloorUnderlayDefinition_archive")
-	static AbstractArchive FloorUnderlayDefinition_archive;
-	@ObfuscatedName("b")
+	public static AbstractArchive FloorUnderlayDefinition_archive;
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("FloorUnderlayDefinition_cached")
 	static EvictingDualNodeHashTable FloorUnderlayDefinition_cached;
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1168290687
+		intValue = -1640099513
 	)
 	@Export("rgb")
 	int rgb;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1022846445
+		intValue = 772769107
 	)
 	@Export("hue")
 	public int hue;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1296043119
+		intValue = 1277008429
 	)
 	@Export("saturation")
 	public int saturation;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -834824709
+		intValue = 1129854273
 	)
 	@Export("lightness")
 	public int lightness;
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1129037543
+		intValue = 2072275111
 	)
 	@Export("hueMultiplier")
 	public int hueMultiplier;
 
 	static {
-		FloorUnderlayDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
+		FloorUnderlayDefinition_cached = new EvictingDualNodeHashTable(64);
 	}
 
 	FloorUnderlayDefinition() {
-		this.rgb = 0; // L: 12
-	} // L: 18
+		this.rgb = 0;
+	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1295425125"
+		garbageValue = "1848989672"
 	)
 	@Export("postDecode")
 	void postDecode() {
-		this.setHsl(this.rgb); // L: 36
-	} // L: 37
+		this.setHsl(this.rgb);
+	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;II)V",
-		garbageValue = "387811374"
+		descriptor = "(Lkj;II)V",
+		garbageValue = "731438667"
 	)
 	@Export("decode")
 	void decode(Buffer var1, int var2) {
 		while (true) {
-			int var3 = var1.readUnsignedByte(); // L: 41
-			if (var3 == 0) { // L: 42
-				return; // L: 45
+			int var3 = var1.readUnsignedByte();
+			if (var3 == 0) {
+				return;
 			}
 
-			this.decodeNext(var1, var3, var2); // L: 43
+			this.decodeNext(var1, var3, var2);
 		}
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;IIS)V",
-		garbageValue = "255"
+		descriptor = "(Lkj;IIB)V",
+		garbageValue = "5"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
-		if (var2 == 1) { // L: 48
+		if (var2 == 1) {
 			this.rgb = var1.readMedium();
 		}
 
-	} // L: 50
+	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "1228051433"
+		garbageValue = "1248052268"
 	)
 	@Export("setHsl")
 	void setHsl(int var1) {
-		double var2 = (double)(var1 >> 16 & 255) / 256.0D; // L: 53
-		double var4 = (double)(var1 >> 8 & 255) / 256.0D; // L: 54
-		double var6 = (double)(var1 & 255) / 256.0D; // L: 55
-		double var8 = var2; // L: 56
-		if (var4 < var2) { // L: 57
+		double var2 = (double)(var1 >> 16 & 255) / 256.0D;
+		double var4 = (double)(var1 >> 8 & 255) / 256.0D;
+		double var6 = (double)(var1 & 255) / 256.0D;
+		double var8 = var2;
+		if (var4 < var2) {
 			var8 = var4;
 		}
 
-		if (var6 < var8) { // L: 58
+		if (var6 < var8) {
 			var8 = var6;
 		}
 
-		double var10 = var2; // L: 59
-		if (var4 > var2) { // L: 60
+		double var10 = var2;
+		if (var4 > var2) {
 			var10 = var4;
 		}
 
-		if (var6 > var10) { // L: 61
+		if (var6 > var10) {
 			var10 = var6;
 		}
 
-		double var12 = 0.0D; // L: 62
-		double var14 = 0.0D; // L: 63
-		double var16 = (var10 + var8) / 2.0D; // L: 64
-		if (var8 != var10) { // L: 65
-			if (var16 < 0.5D) { // L: 66
-				var14 = (var10 - var8) / (var10 + var8);
+		double var12 = 0.0D;
+		double var14 = 0.0D;
+		double var16 = (var8 + var10) / 2.0D;
+		if (var8 != var10) {
+			if (var16 < 0.5D) {
+				var14 = (var10 - var8) / (var8 + var10);
 			}
 
-			if (var16 >= 0.5D) { // L: 67
+			if (var16 >= 0.5D) {
 				var14 = (var10 - var8) / (2.0D - var10 - var8);
 			}
 
-			if (var10 == var2) { // L: 68
+			if (var2 == var10) {
 				var12 = (var4 - var6) / (var10 - var8);
-			} else if (var4 == var10) { // L: 69
+			} else if (var10 == var4) {
 				var12 = 2.0D + (var6 - var2) / (var10 - var8);
 			} else if (var6 == var10) {
-				var12 = 4.0D + (var2 - var4) / (var10 - var8); // L: 70
+				var12 = 4.0D + (var2 - var4) / (var10 - var8);
 			}
 		}
 
-		var12 /= 6.0D; // L: 72
-		this.saturation = (int)(256.0D * var14); // L: 73
-		this.lightness = (int)(256.0D * var16); // L: 74
-		if (this.saturation < 0) { // L: 75
+		var12 /= 6.0D;
+		this.saturation = (int)(var14 * 256.0D);
+		this.lightness = (int)(256.0D * var16);
+		if (this.saturation < 0) {
 			this.saturation = 0;
-		} else if (this.saturation > 255) { // L: 76
+		} else if (this.saturation > 255) {
 			this.saturation = 255;
 		}
 
-		if (this.lightness < 0) { // L: 77
+		if (this.lightness < 0) {
 			this.lightness = 0;
-		} else if (this.lightness > 255) { // L: 78
+		} else if (this.lightness > 255) {
 			this.lightness = 255;
 		}
 
-		if (var16 > 0.5D) { // L: 79
-			this.hueMultiplier = (int)(512.0D * (1.0D - var16) * var14);
+		if (var16 > 0.5D) {
+			this.hueMultiplier = (int)(var14 * (1.0D - var16) * 512.0D);
 		} else {
-			this.hueMultiplier = (int)(var14 * var16 * 512.0D); // L: 80
+			this.hueMultiplier = (int)(var16 * var14 * 512.0D);
 		}
 
-		if (this.hueMultiplier < 1) { // L: 81
+		if (this.hueMultiplier < 1) {
 			this.hueMultiplier = 1;
 		}
 
-		this.hue = (int)((double)this.hueMultiplier * var12); // L: 82
-	} // L: 83
+		this.hue = (int)((double)this.hueMultiplier * var12);
+	}
+
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "(ILcs;ZI)I",
+		garbageValue = "-170727251"
+	)
+	static int method4460(int var0, Script var1, boolean var2) {
+		int var3;
+		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) {
+			VarcInt.Interpreter_intStackSize -= 2;
+			var3 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize];
+			int var4 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1];
+			if (!Client.isCameraLocked) {
+				Client.camAngleX = var3;
+				Client.camAngleY = var4;
+			}
+
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) {
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = Client.camAngleX;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) {
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = Client.camAngleY;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) {
+			var3 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize];
+			if (var3 < 0) {
+				var3 = 0;
+			}
+
+			Client.camFollowHeight = var3;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) {
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = Client.camFollowHeight;
+			return 1;
+		} else {
+			return 2;
+		}
+	}
 }

@@ -42,4 +42,16 @@ public interface Preferences
 	 * @param username the new remembered username
 	 */
 	void setRememberedUsername(String username);
+
+	int getSoundEffectsVolume();
+
+	void setSoundEffectsVolume(int i);
+
+	int getAreaSoundEffectsVolume();
+
+	void setAreaSoundEffectsVolume(int i);
+
+	int getMusicVolume();
+
+	void setMusicVolume(int i);
 }

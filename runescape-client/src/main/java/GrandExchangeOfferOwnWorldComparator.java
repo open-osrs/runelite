@@ -4,81 +4,63 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bu")
+@ObfuscatedName("be")
 @Implements("GrandExchangeOfferOwnWorldComparator")
 public class GrandExchangeOfferOwnWorldComparator implements Comparator {
-	@ObfuscatedName("t")
-	@Export("Tiles_hue")
-	static int[] Tiles_hue;
-	@ObfuscatedName("lq")
+	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		descriptor = "Lht;"
+		descriptor = "Llc;"
 	)
-	static Widget field677;
-	@ObfuscatedName("f")
+	static Bounds field643;
+	@ObfuscatedName("h")
 	@Export("filterWorlds")
 	boolean filterWorlds;
 
 	GrandExchangeOfferOwnWorldComparator() {
-	} // L: 11739
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Ly;Ly;B)I",
-		garbageValue = "22"
+		descriptor = "(La;La;B)I",
+		garbageValue = "-7"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		if (var2.world == var1.world) { // L: 11742
+		if (var2.world == var1.world) {
 			return 0;
 		} else {
-			if (this.filterWorlds) { // L: 11743
-				if (Client.worldId == var1.world) { // L: 11744
+			if (this.filterWorlds) {
+				if (Client.worldId == var1.world) {
 					return -1;
 				}
 
-				if (var2.world == Client.worldId) { // L: 11745
+				if (var2.world == Client.worldId) {
 					return 1;
 				}
 			}
 
-			return var1.world < var2.world ? -1 : 1; // L: 11747
+			return var1.world < var2.world ? -1 : 1;
 		}
-	}
-
-	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 11755
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 11751
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(IIIZIB)J",
-		garbageValue = "14"
-	)
-	@Export("calculateTag")
-	public static long calculateTag(int var0, int var1, int var2, boolean var3, int var4) {
-		long var5 = (long)((var0 & 127) << 0 | (var1 & 127) << 7 | (var2 & 3) << 14) | ((long)var4 & 4294967295L) << 17; // L: 72
-		if (var3) { // L: 73
-			var5 |= 65536L;
-		}
-
-		return var5; // L: 74
+	public boolean equals(Object var1) {
+		return super.equals(var1);
 	}
 
-	@ObfuscatedName("jg")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(Lht;I)V",
-		garbageValue = "1071185333"
+		descriptor = "(Ljava/lang/String;II)V",
+		garbageValue = "-812111829"
 	)
-	@Export("invalidateWidget")
-	static void invalidateWidget(Widget var0) {
-		if (var0.cycle == Client.field748) { // L: 11029
-			Client.field834[var0.rootIndex] = true; // L: 11030
-		}
-
-	} // L: 11032
+	static final void method1359(String var0, int var1) {
+		PacketBufferNode var2 = ItemContainer.getPacketBufferNode(ClientPacket.field2292, Client.packetWriter.isaacCipher);
+		var2.packetBuffer.writeByte(FloorDecoration.stringCp1252NullTerminatedByteSize(var0) + 1);
+		var2.packetBuffer.writeStringCp1252NullTerminated(var0);
+		var2.packetBuffer.method5569(var1);
+		Client.packetWriter.addNode(var2);
+	}
 }

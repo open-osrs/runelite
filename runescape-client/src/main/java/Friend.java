@@ -3,56 +3,56 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ki")
+@ObfuscatedName("kx")
 @Implements("Friend")
 public class Friend extends Buddy {
-	@ObfuscatedName("f")
-	boolean field3659;
-	@ObfuscatedName("b")
-	boolean field3660;
+	@ObfuscatedName("h")
+	boolean field3666;
+	@ObfuscatedName("v")
+	boolean field3667;
 
 	Friend() {
-	} // L: 9
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lki;I)I",
-		garbageValue = "638196038"
+		descriptor = "(Lkx;I)I",
+		garbageValue = "-1658027604"
 	)
 	@Export("compareToFriend")
 	int compareToFriend(Friend var1) {
-		if (super.world == Client.worldId && Client.worldId != var1.world) { // L: 12
+		if (super.world == Client.worldId && Client.worldId != var1.world) {
 			return -1;
-		} else if (Client.worldId == var1.world && super.world != Client.worldId) { // L: 13
+		} else if (Client.worldId == var1.world && super.world != Client.worldId) {
 			return 1;
-		} else if (super.world != 0 && var1.world == 0) { // L: 14
+		} else if (super.world != 0 && var1.world == 0) {
 			return -1;
-		} else if (var1.world != 0 && super.world == 0) { // L: 15
+		} else if (var1.world != 0 && super.world == 0) {
 			return 1;
-		} else if (this.field3659 && !var1.field3659) { // L: 16
+		} else if (this.field3666 && !var1.field3666) {
 			return -1;
-		} else if (!this.field3659 && var1.field3659) { // L: 17
+		} else if (!this.field3666 && var1.field3666) {
 			return 1;
-		} else if (this.field3660 && !var1.field3660) { // L: 18
+		} else if (this.field3667 && !var1.field3667) {
 			return -1;
-		} else if (!this.field3660 && var1.field3660) { // L: 19
+		} else if (!this.field3667 && var1.field3667) {
 			return 1;
 		} else {
-			return super.world != 0 ? super.int2 - var1.int2 : var1.int2 - super.int2; // L: 20 21 24
+			return super.world != 0 ? super.int2 - var1.int2 : var1.int2 - super.int2;
 		}
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		descriptor = "(Ljh;B)I",
-		garbageValue = "69"
+		descriptor = "(Lju;I)I",
+		garbageValue = "-1545516578"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.compareToFriend((Friend)var1); // L: 29
+		return this.compareToFriend((Friend)var1);
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareToFriend((Friend)var1); // L: 33
+		return this.compareToFriend((Friend)var1);
 	}
 }

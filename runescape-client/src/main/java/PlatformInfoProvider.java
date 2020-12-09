@@ -3,13 +3,13 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("my")
+@ObfuscatedName("mi")
 @Implements("PlatformInfoProvider")
 public interface PlatformInfoProvider {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lme;",
-		garbageValue = "1154202585"
+		descriptor = "(I)Lmf;",
+		garbageValue = "-1820791637"
 	)
 	@Export("get")
 	PlatformInfo get();
