@@ -53,5 +53,5 @@ public interface Preferences
 
 	int getMusicVolume();
 
-	void setMusicVolume(int i);
+	void setClientMusicVolume(int i);
 }
