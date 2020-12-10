@@ -1815,24 +1815,6 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
-	@Inject
-	@Override
-	public void setMusicVolume(int volume)
-	{
-		if (volume > 0 && client.getMusicVolume() <= 0 && client.getCurrentTrackGroupId() != -1)
-		{
-			client.playMusicTrack(1000, client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
-		}
-
-		client.getPreferences().setMusicVolume(volume);
-		client.setMusicTrackVolume(volume);
-		if (client.getMidiPcmStream() != null)
-		{
-			client.getMidiPcmStream().setPcmStreamVolume(volume);
-		}
-	}
-
-
 	@Copy("changeGameOptions")
 	@Replace("changeGameOptions")
 	@SuppressWarnings("InfiniteRecursion")
