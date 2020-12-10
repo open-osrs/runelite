@@ -14,7 +14,7 @@ public abstract class RSClientPreferencesMixin implements RSClientPreferences
 
 	@Inject
 	@Override
-	public void setMusicVolume(int volume)
+	public void setClientMusicVolume(int volume)
 	{
 		if (volume > 0 && client.getPreferences().getMusicVolume() <= 0 && client.getCurrentTrackGroupId() != -1)
 		{
