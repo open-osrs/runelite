@@ -129,31 +129,31 @@ public class Login {
 	static long field1209;
 
 	static {
-		xPadding = 0;
-		loginBoxX = xPadding + 202;
-		Login_loadingPercent = 10;
-		Login_loadingText = "";
-		field1199 = -1;
-		field1190 = 1;
-		loginIndex = 0;
-		Login_response0 = "";
-		Login_response1 = "";
-		Login_response2 = "";
-		Login_response3 = "";
-		Login_username = "";
-		Login_password = "";
-		field1192 = false;
-		field1180 = false;
-		field1200 = true;
-		currentLoginField = 0;
-		worldSelectOpen = false;
-		hoveredWorldIndex = -1;
-		worldSelectPage = 0;
-		worldSelectPagesCount = 0;
-		new DecimalFormat("##0.00");
+		xPadding = 0; // L: 38
+		loginBoxX = xPadding + 202; // L: 55
+		Login_loadingPercent = 10; // L: 57
+		Login_loadingText = ""; // L: 58
+		field1199 = -1; // L: 65
+		field1190 = 1; // L: 68
+		loginIndex = 0; // L: 72
+		Login_response0 = ""; // L: 73
+		Login_response1 = ""; // L: 74
+		Login_response2 = ""; // L: 75
+		Login_response3 = ""; // L: 76
+		Login_username = ""; // L: 77
+		Login_password = ""; // L: 78
+		field1192 = false; // L: 85
+		field1180 = false; // L: 86
+		field1200 = true; // L: 89
+		currentLoginField = 0; // L: 90
+		worldSelectOpen = false; // L: 94
+		hoveredWorldIndex = -1; // L: 102
+		worldSelectPage = 0; // L: 103
+		worldSelectPagesCount = 0; // L: 104
+		new DecimalFormat("##0.00"); // L: 107
 		new class171();
-		field1208 = -1L;
-		field1209 = -1L;
+		field1208 = -1L; // L: 115
+		field1209 = -1L; // L: 116
 	}
 
 	@ObfuscatedName("h")
@@ -162,6 +162,6 @@ public class Login {
 		garbageValue = "-1905829152"
 	)
 	static int method2152() {
-		return ++Messages.Messages_count - 1;
+		return ++Messages.Messages_count - 1; // L: 19
 	}
 }

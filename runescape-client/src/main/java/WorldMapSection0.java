@@ -123,7 +123,7 @@ public class WorldMapSection0 implements WorldMapSection {
 			var1.regionHighY = this.newY;
 		}
 
-	}
+	} // L: 29
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -133,9 +133,9 @@ public class WorldMapSection0 implements WorldMapSection {
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
 		if (var1 >= this.oldZ && var1 < this.newZ + this.oldZ) {
-			return var2 >= (this.oldX << 6) + (this.oldChunkXLow << 3) && var2 <= (this.oldX << 6) + (this.oldChunkXHigh << 3) + 7 && var3 >= (this.oldY << 6) + (this.oldChunkYLow << 3) && var3 <= (this.oldY << 6) + (this.oldChunkYHigh << 3) + 7;
+			return var2 >= (this.oldX << 6) + (this.oldChunkXLow << 3) && var2 <= (this.oldX << 6) + (this.oldChunkXHigh << 3) + 7 && var3 >= (this.oldY << 6) + (this.oldChunkYLow << 3) && var3 <= (this.oldY << 6) + (this.oldChunkYHigh << 3) + 7; // L: 35
 		} else {
-			return false;
+			return false; // L: 33
 		}
 	}
 
@@ -146,7 +146,7 @@ public class WorldMapSection0 implements WorldMapSection {
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
-		return var1 >= (this.newX << 6) + (this.newChunkXLow << 3) && var1 <= (this.newX << 6) + (this.newChunkXHigh << 3) + 7 && var2 >= (this.newY << 6) + (this.newChunkYLow << 3) && var2 <= (this.newY << 6) + (this.newChunkYHigh << 3) + 7;
+		return var1 >= (this.newX << 6) + (this.newChunkXLow << 3) && var1 <= (this.newX << 6) + (this.newChunkXHigh << 3) + 7 && var2 >= (this.newY << 6) + (this.newChunkYLow << 3) && var2 <= (this.newY << 6) + (this.newChunkYHigh << 3) + 7; // L: 39
 	}
 
 	@ObfuscatedName("w")
@@ -156,11 +156,11 @@ public class WorldMapSection0 implements WorldMapSection {
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
-		if (!this.containsCoord(var1, var2, var3)) {
-			return null;
+		if (!this.containsCoord(var1, var2, var3)) { // L: 43
+			return null; // L: 44
 		} else {
-			int[] var4 = new int[]{this.newX * 64 - this.oldX * 64 + var2 + (this.newChunkXLow * 8 - this.oldChunkXLow * 8), var3 + (this.newY * 64 - this.oldY * 64) + (this.newChunkYLow * 8 - this.oldChunkYLow * 8)};
-			return var4;
+			int[] var4 = new int[]{var2 + (this.newX * 64 - this.oldX * 64) + (this.newChunkXLow * 8 - this.oldChunkXLow * 8), var3 + (this.newY * 64 - this.oldY * 64) + (this.newChunkYLow * 8 - this.oldChunkYLow * 8)}; // L: 46 47 48
+			return var4; // L: 49
 		}
 	}
 
@@ -171,12 +171,12 @@ public class WorldMapSection0 implements WorldMapSection {
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
-		if (!this.containsPosition(var1, var2)) {
-			return null;
+		if (!this.containsPosition(var1, var2)) { // L: 53
+			return null; // L: 54
 		} else {
-			int var3 = this.oldX * 64 - this.newX * 64 + (this.oldChunkXLow * 8 - this.newChunkXLow * 8) + var1;
-			int var4 = this.oldY * 64 - this.newY * 64 + var2 + (this.oldChunkYLow * 8 - this.newChunkYLow * 8);
-			return new Coord(this.oldZ, var3, var4);
+			int var3 = this.oldX * 64 - this.newX * 64 + (this.oldChunkXLow * 8 - this.newChunkXLow * 8) + var1; // L: 56
+			int var4 = var2 + (this.oldY * 64 - this.newY * 64) + (this.oldChunkYLow * 8 - this.newChunkYLow * 8); // L: 57
+			return new Coord(this.oldZ, var3, var4); // L: 58
 		}
 	}
 
@@ -187,22 +187,22 @@ public class WorldMapSection0 implements WorldMapSection {
 	)
 	@Export("read")
 	public void read(Buffer var1) {
-		this.oldZ = var1.readUnsignedByte();
-		this.newZ = var1.readUnsignedByte();
-		this.oldX = var1.readUnsignedShort();
-		this.oldChunkXLow = var1.readUnsignedByte();
-		this.oldChunkXHigh = var1.readUnsignedByte();
-		this.oldY = var1.readUnsignedShort();
-		this.oldChunkYLow = var1.readUnsignedByte();
-		this.oldChunkYHigh = var1.readUnsignedByte();
-		this.newX = var1.readUnsignedShort();
-		this.newChunkXLow = var1.readUnsignedByte();
-		this.newChunkXHigh = var1.readUnsignedByte();
-		this.newY = var1.readUnsignedShort();
-		this.newChunkYLow = var1.readUnsignedByte();
-		this.newChunkYHigh = var1.readUnsignedByte();
-		this.postRead();
-	}
+		this.oldZ = var1.readUnsignedByte(); // L: 62
+		this.newZ = var1.readUnsignedByte(); // L: 63
+		this.oldX = var1.readUnsignedShort(); // L: 64
+		this.oldChunkXLow = var1.readUnsignedByte(); // L: 65
+		this.oldChunkXHigh = var1.readUnsignedByte(); // L: 66
+		this.oldY = var1.readUnsignedShort(); // L: 67
+		this.oldChunkYLow = var1.readUnsignedByte(); // L: 68
+		this.oldChunkYHigh = var1.readUnsignedByte(); // L: 69
+		this.newX = var1.readUnsignedShort(); // L: 70
+		this.newChunkXLow = var1.readUnsignedByte(); // L: 71
+		this.newChunkXHigh = var1.readUnsignedByte(); // L: 72
+		this.newY = var1.readUnsignedShort(); // L: 73
+		this.newChunkYLow = var1.readUnsignedByte(); // L: 74
+		this.newChunkYHigh = var1.readUnsignedByte(); // L: 75
+		this.postRead(); // L: 76
+	} // L: 77
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
@@ -211,7 +211,7 @@ public class WorldMapSection0 implements WorldMapSection {
 	)
 	@Export("postRead")
 	void postRead() {
-	}
+	} // L: 79
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -220,21 +220,21 @@ public class WorldMapSection0 implements WorldMapSection {
 	)
 	@Export("convertJpgToSprite")
 	public static final Sprite convertJpgToSprite(byte[] var0) {
-		BufferedImage var1 = null;
+		BufferedImage var1 = null; // L: 20
 
 		try {
-			var1 = ImageIO.read(new ByteArrayInputStream(var0));
-			int var2 = var1.getWidth();
-			int var3 = var1.getHeight();
-			int[] var4 = new int[var2 * var3];
-			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2);
-			var5.grabPixels();
-			return new Sprite(var4, var2, var3);
-		} catch (IOException var7) {
-		} catch (InterruptedException var8) {
+			var1 = ImageIO.read(new ByteArrayInputStream(var0)); // L: 22
+			int var2 = var1.getWidth(); // L: 23
+			int var3 = var1.getHeight(); // L: 24
+			int[] var4 = new int[var2 * var3]; // L: 25
+			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2); // L: 26
+			var5.grabPixels(); // L: 27
+			return new Sprite(var4, var2, var3); // L: 28
+		} catch (IOException var7) { // L: 30
+		} catch (InterruptedException var8) { // L: 31
 		}
 
-		return new Sprite(0, 0);
+		return new Sprite(0, 0); // L: 32
 	}
 
 	@ObfuscatedName("j")
@@ -244,111 +244,111 @@ public class WorldMapSection0 implements WorldMapSection {
 	)
 	@Export("updateExternalPlayer")
 	static boolean updateExternalPlayer(PacketBuffer var0, int var1) {
-		int var2 = var0.readBits(2);
+		int var2 = var0.readBits(2); // L: 378
 		int var3;
 		int var4;
 		int var7;
 		int var8;
 		int var9;
 		int var10;
-		if (var2 == 0) {
-			if (var0.readBits(1) != 0) {
+		if (var2 == 0) { // L: 379
+			if (var0.readBits(1) != 0) { // L: 380
 				updateExternalPlayer(var0, var1);
 			}
 
-			var3 = var0.readBits(13);
-			var4 = var0.readBits(13);
-			boolean var12 = var0.readBits(1) == 1;
-			if (var12) {
+			var3 = var0.readBits(13); // L: 381
+			var4 = var0.readBits(13); // L: 382
+			boolean var12 = var0.readBits(1) == 1; // L: 383
+			if (var12) { // L: 384
 				Players.Players_pendingUpdateIndices[++Players.Players_pendingUpdateCount - 1] = var1;
 			}
 
-			if (Client.players[var1] != null) {
-				throw new RuntimeException();
+			if (Client.players[var1] != null) { // L: 385
+				throw new RuntimeException(); // L: 386
 			} else {
-				Player var11 = Client.players[var1] = new Player();
-				var11.index = var1;
-				if (Players.field1254[var1] != null) {
+				Player var11 = Client.players[var1] = new Player(); // L: 388
+				var11.index = var1; // L: 389
+				if (Players.field1254[var1] != null) { // L: 390
 					var11.read(Players.field1254[var1]);
 				}
 
-				var11.orientation = Players.Players_orientations[var1];
-				var11.targetIndex = Players.Players_targetIndices[var1];
-				var7 = Players.Players_regions[var1];
-				var8 = var7 >> 28;
-				var9 = var7 >> 14 & 255;
-				var10 = var7 & 255;
-				var11.pathTraversed[0] = Players.field1253[var1];
-				var11.plane = (byte)var8;
-				var11.resetPath((var9 << 13) + var3 - NetFileRequest.baseX * 64, (var10 << 13) + var4 - class41.baseY * 64);
-				var11.field631 = false;
-				return true;
+				var11.orientation = Players.Players_orientations[var1]; // L: 391
+				var11.targetIndex = Players.Players_targetIndices[var1]; // L: 392
+				var7 = Players.Players_regions[var1]; // L: 393
+				var8 = var7 >> 28; // L: 394
+				var9 = var7 >> 14 & 255; // L: 395
+				var10 = var7 & 255; // L: 396
+				var11.pathTraversed[0] = Players.field1253[var1]; // L: 397
+				var11.plane = (byte)var8; // L: 398
+				var11.resetPath((var9 << 13) + var3 - NetFileRequest.baseX, (var10 << 13) + var4 - class41.baseY); // L: 399
+				var11.field631 = false; // L: 400
+				return true; // L: 401
 			}
-		} else if (var2 == 1) {
-			var3 = var0.readBits(2);
-			var4 = Players.Players_regions[var1];
-			Players.Players_regions[var1] = (var4 & 268435455) + (((var4 >> 28) + var3 & 3) << 28);
-			return false;
+		} else if (var2 == 1) { // L: 403
+			var3 = var0.readBits(2); // L: 404
+			var4 = Players.Players_regions[var1]; // L: 405
+			Players.Players_regions[var1] = (var4 & 268435455) + (((var4 >> 28) + var3 & 3) << 28); // L: 406
+			return false; // L: 407
 		} else {
 			int var5;
 			int var6;
-			if (var2 == 2) {
-				var3 = var0.readBits(5);
-				var4 = var3 >> 3;
-				var5 = var3 & 7;
-				var6 = Players.Players_regions[var1];
-				var7 = (var6 >> 28) + var4 & 3;
-				var8 = var6 >> 14 & 255;
-				var9 = var6 & 255;
-				if (var5 == 0) {
-					--var8;
+			if (var2 == 2) { // L: 409
+				var3 = var0.readBits(5); // L: 410
+				var4 = var3 >> 3; // L: 411
+				var5 = var3 & 7; // L: 412
+				var6 = Players.Players_regions[var1]; // L: 413
+				var7 = (var6 >> 28) + var4 & 3; // L: 414
+				var8 = var6 >> 14 & 255; // L: 415
+				var9 = var6 & 255; // L: 416
+				if (var5 == 0) { // L: 417
+					--var8; // L: 418
+					--var9; // L: 419
+				}
+
+				if (var5 == 1) { // L: 421
 					--var9;
 				}
 
-				if (var5 == 1) {
-					--var9;
+				if (var5 == 2) { // L: 422
+					++var8; // L: 423
+					--var9; // L: 424
 				}
 
-				if (var5 == 2) {
-					++var8;
-					--var9;
-				}
-
-				if (var5 == 3) {
+				if (var5 == 3) { // L: 426
 					--var8;
 				}
 
-				if (var5 == 4) {
+				if (var5 == 4) { // L: 427
 					++var8;
 				}
 
-				if (var5 == 5) {
-					--var8;
+				if (var5 == 5) { // L: 428
+					--var8; // L: 429
+					++var9; // L: 430
+				}
+
+				if (var5 == 6) { // L: 432
 					++var9;
 				}
 
-				if (var5 == 6) {
-					++var9;
+				if (var5 == 7) { // L: 433
+					++var8; // L: 434
+					++var9; // L: 435
 				}
 
-				if (var5 == 7) {
-					++var8;
-					++var9;
-				}
-
-				Players.Players_regions[var1] = (var8 << 14) + var9 + (var7 << 28);
-				return false;
+				Players.Players_regions[var1] = (var8 << 14) + var9 + (var7 << 28); // L: 437
+				return false; // L: 438
 			} else {
-				var3 = var0.readBits(18);
-				var4 = var3 >> 16;
-				var5 = var3 >> 8 & 255;
-				var6 = var3 & 255;
-				var7 = Players.Players_regions[var1];
-				var8 = (var7 >> 28) + var4 & 3;
-				var9 = var5 + (var7 >> 14) & 255;
-				var10 = var7 + var6 & 255;
-				Players.Players_regions[var1] = (var9 << 14) + var10 + (var8 << 28);
-				return false;
+				var3 = var0.readBits(18); // L: 440
+				var4 = var3 >> 16; // L: 441
+				var5 = var3 >> 8 & 255; // L: 442
+				var6 = var3 & 255; // L: 443
+				var7 = Players.Players_regions[var1]; // L: 444
+				var8 = (var7 >> 28) + var4 & 3; // L: 445
+				var9 = var5 + (var7 >> 14) & 255; // L: 446
+				var10 = var7 + var6 & 255; // L: 447
+				Players.Players_regions[var1] = (var9 << 14) + var10 + (var8 << 28); // L: 448
+				return false; // L: 449
 			}
 		}
 	}

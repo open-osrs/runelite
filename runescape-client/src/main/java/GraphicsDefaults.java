@@ -67,17 +67,17 @@ public class GraphicsDefaults {
 	public int field3850;
 
 	public GraphicsDefaults() {
-		this.compass = -1;
-		this.field3845 = -1;
-		this.mapScenes = -1;
-		this.headIconsPk = -1;
-		this.field3844 = -1;
-		this.field3843 = -1;
-		this.field3846 = -1;
-		this.field3847 = -1;
-		this.field3848 = -1;
-		this.field3849 = -1;
-		this.field3850 = -1;
+		this.compass = -1; // L: 7
+		this.field3845 = -1; // L: 8
+		this.mapScenes = -1; // L: 9
+		this.headIconsPk = -1; // L: 10
+		this.field3844 = -1; // L: 11
+		this.field3843 = -1; // L: 12
+		this.field3846 = -1; // L: 13
+		this.field3847 = -1; // L: 14
+		this.field3848 = -1; // L: 15
+		this.field3849 = -1; // L: 16
+		this.field3850 = -1; // L: 17
 	}
 
 	@ObfuscatedName("h")
@@ -87,31 +87,31 @@ public class GraphicsDefaults {
 	)
 	@Export("decode")
 	public void decode(AbstractArchive var1) {
-		byte[] var2 = var1.takeFileFlat(DefaultsGroup.field3839.group);
-		Buffer var3 = new Buffer(var2);
+		byte[] var2 = var1.takeFileFlat(DefaultsGroup.field3839.group); // L: 20
+		Buffer var3 = new Buffer(var2); // L: 21
 
 		while (true) {
-			int var4 = var3.readUnsignedByte();
-			if (var4 == 0) {
-				return;
+			int var4 = var3.readUnsignedByte(); // L: 23
+			if (var4 == 0) { // L: 24
+				return; // L: 51
 			}
 
-			switch(var4) {
+			switch(var4) { // L: 25
 			case 1:
-				var3.readMedium();
-				break;
+				var3.readMedium(); // L: 31
+				break; // L: 32
 			case 2:
-				this.compass = var3.method5559();
-				this.field3845 = var3.method5559();
-				this.mapScenes = var3.method5559();
-				this.headIconsPk = var3.method5559();
-				this.field3844 = var3.method5559();
-				this.field3843 = var3.method5559();
-				this.field3846 = var3.method5559();
-				this.field3847 = var3.method5559();
-				this.field3848 = var3.method5559();
-				this.field3849 = var3.method5559();
-				this.field3850 = var3.method5559();
+				this.compass = var3.method5559(); // L: 36
+				this.field3845 = var3.method5559(); // L: 37
+				this.mapScenes = var3.method5559(); // L: 38
+				this.headIconsPk = var3.method5559(); // L: 39
+				this.field3844 = var3.method5559(); // L: 40
+				this.field3843 = var3.method5559(); // L: 41
+				this.field3846 = var3.method5559(); // L: 42
+				this.field3847 = var3.method5559(); // L: 43
+				this.field3848 = var3.method5559(); // L: 44
+				this.field3849 = var3.method5559(); // L: 45
+				this.field3850 = var3.method5559(); // L: 46
 			}
 		}
 	}

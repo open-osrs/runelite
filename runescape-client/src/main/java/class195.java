@@ -20,28 +20,28 @@ public class class195 {
 		garbageValue = "1214913884"
 	)
 	static void method3680() {
-		class248.field3219 = new int[2000];
-		int var0 = 0;
-		int var1 = 240;
+		class248.field3219 = new int[2000]; // L: 25
+		int var0 = 0; // L: 26
+		int var1 = 240; // L: 27
 
 		int var3;
-		for (byte var2 = 12; var0 < 16; var1 -= var2) {
-			var3 = class2.method23((double)((float)var1 / 360.0F), 0.9998999834060669D, (double)(0.425F * (float)var0 / 16.0F + 0.075F));
-			class248.field3219[var0] = var3;
-			++var0;
+		for (byte var2 = 12; var0 < 16; var1 -= var2) { // L: 28
+			var3 = class2.method23((double)((float)var1 / 360.0F), 0.9998999834060669D, (double)(0.425F * (float)var0 / 16.0F + 0.075F)); // L: 30
+			class248.field3219[var0] = var3; // L: 31
+			++var0; // L: 29
 		}
 
-		var1 = 48;
+		var1 = 48; // L: 33
 
-		for (int var5 = var1 / 6; var0 < class248.field3219.length; var1 -= var5) {
-			var3 = var0 * 2;
+		for (int var5 = var1 / 6; var0 < class248.field3219.length; var1 -= var5) { // L: 34 35 41
+			var3 = var0 * 2; // L: 36
 
-			for (int var4 = class2.method23((double)((float)var1 / 360.0F), 0.9998999834060669D, 0.5D); var0 < var3 && var0 < class248.field3219.length; ++var0) {
-				class248.field3219[var0] = var4;
+			for (int var4 = class2.method23((double)((float)var1 / 360.0F), 0.9998999834060669D, 0.5D); var0 < var3 && var0 < class248.field3219.length; ++var0) { // L: 37 38
+				class248.field3219[var0] = var4; // L: 39
 			}
 		}
 
-	}
+	} // L: 43
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -50,7 +50,7 @@ public class class195 {
 	)
 	@Export("Messages_getMessage")
 	static Message Messages_getMessage(int var0) {
-		return (Message)Messages.Messages_hashTable.get((long)var0);
+		return (Message)Messages.Messages_hashTable.get((long)var0); // L: 44
 	}
 
 	@ObfuscatedName("m")
@@ -60,10 +60,10 @@ public class class195 {
 	)
 	@Export("inventoryQuantityFormat")
 	static final String inventoryQuantityFormat(int var0) {
-		if (var0 < 100000) {
+		if (var0 < 100000) { // L: 421
 			return "<col=ffff00>" + var0 + "</col>";
 		} else {
-			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>";
+			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>"; // L: 422 423
 		}
 	}
 
@@ -73,29 +73,29 @@ public class class195 {
 		garbageValue = "-4544721"
 	)
 	static void method3681() {
-		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) {
-			int var1 = var0.group;
-			if (class41.loadInterface(var1)) {
-				boolean var2 = true;
-				Widget[] var3 = class9.Widget_interfaceComponents[var1];
+		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) { // L: 10531
+			int var1 = var0.group; // L: 10532
+			if (class41.loadInterface(var1)) { // L: 10533
+				boolean var2 = true; // L: 10534
+				Widget[] var3 = class9.Widget_interfaceComponents[var1]; // L: 10535
 
 				int var4;
-				for (var4 = 0; var4 < var3.length; ++var4) {
-					if (var3[var4] != null) {
-						var2 = var3[var4].isIf3;
+				for (var4 = 0; var4 < var3.length; ++var4) { // L: 10536
+					if (var3[var4] != null) { // L: 10537
+						var2 = var3[var4].isIf3; // L: 10538
 						break;
 					}
 				}
 
-				if (!var2) {
-					var4 = (int)var0.key;
-					Widget var5 = CollisionMap.getWidget(var4);
-					if (var5 != null) {
+				if (!var2) { // L: 10542
+					var4 = (int)var0.key; // L: 10543
+					Widget var5 = CollisionMap.getWidget(var4); // L: 10544
+					if (var5 != null) { // L: 10545
 						CollisionMap.invalidateWidget(var5);
 					}
 				}
 			}
 		}
 
-	}
+	} // L: 10549
 }

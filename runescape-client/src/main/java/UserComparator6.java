@@ -19,8 +19,8 @@ public class UserComparator6 extends AbstractUserComparator {
 	final boolean reversed;
 
 	public UserComparator6(boolean var1) {
-		this.reversed = var1;
-	}
+		this.reversed = var1; // L: 10
+	} // L: 11
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -29,15 +29,15 @@ public class UserComparator6 extends AbstractUserComparator {
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
-		if (var1.world != 0 && var2.world != 0) {
-			return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername());
+		if (var1.world != 0 && var2.world != 0) { // L: 14
+			return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername()); // L: 15
 		} else {
-			return this.compareUser(var1, var2);
+			return this.compareUser(var1, var2); // L: 17
 		}
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2);
+		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
 	}
 
 	@ObfuscatedName("ag")
@@ -46,41 +46,41 @@ public class UserComparator6 extends AbstractUserComparator {
 		garbageValue = "7"
 	)
 	public static final PcmPlayer method3526(TaskHandler var0, int var1, int var2) {
-		if (PcmPlayer.field1443 == 0) {
+		if (PcmPlayer.field1443 == 0) { // L: 56
 			throw new IllegalStateException();
-		} else if (var1 >= 0 && var1 < 2) {
-			if (var2 < 256) {
+		} else if (var1 >= 0 && var1 < 2) { // L: 57
+			if (var2 < 256) { // L: 58
 				var2 = 256;
 			}
 
 			try {
-				PcmPlayer var3 = Varps.pcmPlayerProvider.player();
-				var3.samples = new int[256 * (PcmPlayer.PcmPlayer_stereo ? 2 : 1)];
-				var3.field1431 = var2;
-				var3.init();
-				var3.capacity = (var2 & -1024) + 1024;
-				if (var3.capacity > 16384) {
+				PcmPlayer var3 = Varps.pcmPlayerProvider.player(); // L: 60
+				var3.samples = new int[256 * (PcmPlayer.PcmPlayer_stereo ? 2 : 1)]; // L: 61
+				var3.field1431 = var2; // L: 62
+				var3.init(); // L: 63
+				var3.capacity = (var2 & -1024) + 1024; // L: 64
+				if (var3.capacity > 16384) { // L: 65
 					var3.capacity = 16384;
 				}
 
-				var3.open(var3.capacity);
-				if (PcmPlayer.field1424 > 0 && PcmPlayer.soundSystem == null) {
-					PcmPlayer.soundSystem = new SoundSystem();
-					InterfaceParent.soundSystemExecutor = Executors.newScheduledThreadPool(1);
-					InterfaceParent.soundSystemExecutor.scheduleAtFixedRate(PcmPlayer.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS);
+				var3.open(var3.capacity); // L: 66
+				if (PcmPlayer.field1424 > 0 && PcmPlayer.soundSystem == null) { // L: 67
+					PcmPlayer.soundSystem = new SoundSystem(); // L: 68
+					InterfaceParent.soundSystemExecutor = Executors.newScheduledThreadPool(1); // L: 69
+					InterfaceParent.soundSystemExecutor.scheduleAtFixedRate(PcmPlayer.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS); // L: 70
 				}
 
-				if (PcmPlayer.soundSystem != null) {
-					if (PcmPlayer.soundSystem.players[var1] != null) {
+				if (PcmPlayer.soundSystem != null) { // L: 72
+					if (PcmPlayer.soundSystem.players[var1] != null) { // L: 73
 						throw new IllegalArgumentException();
 					}
 
-					PcmPlayer.soundSystem.players[var1] = var3;
+					PcmPlayer.soundSystem.players[var1] = var3; // L: 74
 				}
 
-				return var3;
-			} catch (Throwable var4) {
-				return new PcmPlayer();
+				return var3; // L: 76
+			} catch (Throwable var4) { // L: 78
+				return new PcmPlayer(); // L: 79
 			}
 		} else {
 			throw new IllegalArgumentException();

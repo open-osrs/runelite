@@ -70,7 +70,7 @@ public final class TileItemPile {
 	int height;
 
 	TileItemPile() {
-	}
+	} // L: 13
 
 	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
@@ -81,74 +81,74 @@ public final class TileItemPile {
 		int var3;
 		int var6;
 		int var9;
-		if (var0 == ScriptOpcodes.ENUM_STRING) {
-			VarcInt.Interpreter_intStackSize -= 2;
-			var3 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize];
-			var9 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1];
-			EnumDefinition var10 = MusicPatchNode.getEnum(var3);
-			if (var10.outputType != 's') {
+		if (var0 == ScriptOpcodes.ENUM_STRING) { // L: 1919
+			VarcInt.Interpreter_intStackSize -= 2; // L: 1920
+			var3 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize]; // L: 1921
+			var9 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 1922
+			EnumDefinition var10 = MusicPatchNode.getEnum(var3); // L: 1923
+			if (var10.outputType != 's') { // L: 1924
 			}
 
-			for (var6 = 0; var6 < var10.outputCount; ++var6) {
-				if (var9 == var10.keys[var6]) {
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var10.strVals[var6];
-					var10 = null;
+			for (var6 = 0; var6 < var10.outputCount; ++var6) { // L: 1925
+				if (var9 == var10.keys[var6]) { // L: 1926
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var10.strVals[var6]; // L: 1927
+					var10 = null; // L: 1928
 					break;
 				}
 			}
 
-			if (var10 != null) {
+			if (var10 != null) { // L: 1932
 				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var10.defaultStr;
 			}
 
-			return 1;
-		} else if (var0 != ScriptOpcodes.ENUM) {
-			if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) {
-				var3 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize];
-				EnumDefinition var4 = MusicPatchNode.getEnum(var3);
-				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var4.size();
-				return 1;
+			return 1; // L: 1933
+		} else if (var0 != ScriptOpcodes.ENUM) { // L: 1935
+			if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) { // L: 1961
+				var3 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 1962
+				EnumDefinition var4 = MusicPatchNode.getEnum(var3); // L: 1963
+				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var4.size(); // L: 1964
+				return 1; // L: 1965
 			} else {
-				return 2;
+				return 2; // L: 1967
 			}
 		} else {
-			VarcInt.Interpreter_intStackSize -= 4;
-			var3 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize];
-			var9 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1];
-			int var5 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 2];
-			var6 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 3];
-			EnumDefinition var7 = MusicPatchNode.getEnum(var5);
-			if (var3 == var7.inputType && var9 == var7.outputType) {
-				for (int var8 = 0; var8 < var7.outputCount; ++var8) {
-					if (var6 == var7.keys[var8]) {
-						if (var9 == 115) {
+			VarcInt.Interpreter_intStackSize -= 4; // L: 1936
+			var3 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize]; // L: 1937
+			var9 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 1938
+			int var5 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 2]; // L: 1939
+			var6 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 3]; // L: 1940
+			EnumDefinition var7 = MusicPatchNode.getEnum(var5); // L: 1941
+			if (var3 == var7.inputType && var9 == var7.outputType) { // L: 1942
+				for (int var8 = 0; var8 < var7.outputCount; ++var8) { // L: 1947
+					if (var6 == var7.keys[var8]) { // L: 1948
+						if (var9 == 115) { // L: 1949
 							Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var7.strVals[var8];
 						} else {
-							Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var7.intVals[var8];
+							Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var7.intVals[var8]; // L: 1950
 						}
 
-						var7 = null;
+						var7 = null; // L: 1951
 						break;
 					}
 				}
 
-				if (var7 != null) {
-					if (var9 == 115) {
+				if (var7 != null) { // L: 1955
+					if (var9 == 115) { // L: 1956
 						Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var7.defaultStr;
 					} else {
-						Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var7.defaultInt;
+						Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var7.defaultInt; // L: 1957
 					}
 				}
 
-				return 1;
+				return 1; // L: 1959
 			} else {
-				if (var9 == 115) {
+				if (var9 == 115) { // L: 1943
 					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "null";
 				} else {
-					Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 0;
+					Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 0; // L: 1944
 				}
 
-				return 1;
+				return 1; // L: 1945
 			}
 		}
 	}

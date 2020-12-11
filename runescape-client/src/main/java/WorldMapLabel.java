@@ -50,11 +50,11 @@ public class WorldMapLabel {
 		descriptor = "(Ljava/lang/String;IILan;)V"
 	)
 	WorldMapLabel(String var1, int var2, int var3, WorldMapLabelSize var4) {
-		this.text = var1;
-		this.width = var2;
-		this.height = var3;
-		this.size = var4;
-	}
+		this.text = var1; // L: 10
+		this.width = var2; // L: 11
+		this.height = var3; // L: 12
+		this.size = var4; // L: 13
+	} // L: 14
 
 	@ObfuscatedName("li")
 	@ObfuscatedSignature(
@@ -62,7 +62,7 @@ public class WorldMapLabel {
 		garbageValue = "-13"
 	)
 	static final void method469() {
-		Client.field842 = Client.cycleCntr;
-		WorldMapIcon_1.ClanChat_inClanChat = true;
-	}
+		Client.field842 = Client.cycleCntr; // L: 11016
+		WorldMapIcon_1.ClanChat_inClanChat = true; // L: 11017
+	} // L: 11018
 }

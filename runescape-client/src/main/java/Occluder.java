@@ -122,7 +122,7 @@ public final class Occluder {
 	int field1927;
 
 	Occluder() {
-	}
+	} // L: 23
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -130,7 +130,7 @@ public final class Occluder {
 		garbageValue = "79"
 	)
 	static class238[] method3377() {
-		return new class238[]{class238.field3111, class238.field3114};
+		return new class238[]{class238.field3111, class238.field3114}; // L: 35
 	}
 
 	@ObfuscatedName("x")
@@ -139,12 +139,12 @@ public final class Occluder {
 		garbageValue = "1625020333"
 	)
 	public static int method3378() {
-		return ++MouseHandler.MouseHandler_idleCycles - 1;
+		return ++MouseHandler.MouseHandler_idleCycles - 1; // L: 59
 	}
 
 	@ObfuscatedName("p")
 	@Export("Entity_unpackID")
 	public static int Entity_unpackID(long var0) {
-		return (int)(var0 >>> 17 & 4294967295L);
+		return (int)(var0 >>> 17 & 4294967295L); // L: 77
 	}
 }

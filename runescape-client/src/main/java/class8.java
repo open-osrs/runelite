@@ -38,13 +38,13 @@ public class class8 implements Callable {
 		descriptor = "(Lz;Lkj;Lm;)V"
 	)
 	class8(class9 var1, Buffer var2, class12 var3) {
-		this.this$0 = var1;
-		this.field35 = var2;
-		this.field32 = var3;
-	}
+		this.this$0 = var1; // L: 47
+		this.field35 = var2; // L: 48
+		this.field32 = var3; // L: 49
+	} // L: 50
 
 	public Object call() {
-		return this.field32.vmethod123(this.field35);
+		return this.field32.vmethod123(this.field35); // L: 53
 	}
 
 	@ObfuscatedName("v")
@@ -54,11 +54,11 @@ public class class8 implements Callable {
 	)
 	@Export("ItemContainer_getCount")
 	static int ItemContainer_getCount(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var2 == null) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 21
+		if (var2 == null) { // L: 22
 			return 0;
 		} else {
-			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0;
+			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0; // L: 23 24
 		}
 	}
 
@@ -69,30 +69,30 @@ public class class8 implements Callable {
 	)
 	@Export("runCs1")
 	static final boolean runCs1(Widget var0) {
-		if (var0.cs1Comparisons == null) {
+		if (var0.cs1Comparisons == null) { // L: 9587
 			return false;
 		} else {
-			for (int var1 = 0; var1 < var0.cs1Comparisons.length; ++var1) {
-				int var2 = HealthBarDefinition.method4512(var0, var1);
-				int var3 = var0.cs1ComparisonValues[var1];
-				if (var0.cs1Comparisons[var1] == 2) {
-					if (var2 >= var3) {
+			for (int var1 = 0; var1 < var0.cs1Comparisons.length; ++var1) { // L: 9588
+				int var2 = HealthBarDefinition.method4512(var0, var1); // L: 9589
+				int var3 = var0.cs1ComparisonValues[var1]; // L: 9590
+				if (var0.cs1Comparisons[var1] == 2) { // L: 9591
+					if (var2 >= var3) { // L: 9592
 						return false;
 					}
-				} else if (var0.cs1Comparisons[var1] == 3) {
-					if (var2 <= var3) {
+				} else if (var0.cs1Comparisons[var1] == 3) { // L: 9594
+					if (var2 <= var3) { // L: 9595
 						return false;
 					}
-				} else if (var0.cs1Comparisons[var1] == 4) {
-					if (var2 == var3) {
+				} else if (var0.cs1Comparisons[var1] == 4) { // L: 9597
+					if (var2 == var3) { // L: 9598
 						return false;
 					}
-				} else if (var3 != var2) {
+				} else if (var3 != var2) { // L: 9600
 					return false;
 				}
 			}
 
-			return true;
+			return true; // L: 9602
 		}
 	}
 }

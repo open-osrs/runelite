@@ -98,7 +98,7 @@ public final class GameObject {
 	int flags;
 
 	GameObject() {
-		this.tag = 0L;
-		this.flags = 0;
-	}
+		this.tag = 0L; // L: 16
+		this.flags = 0; // L: 17
+	} // L: 19
 }

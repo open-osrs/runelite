@@ -130,28 +130,28 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 	static int selectedSpellWidget;
 
 	static {
-		MouseHandler_instance = new MouseHandler();
-		MouseHandler_idleCycles = 0;
-		MouseHandler_currentButtonVolatile = 0;
-		MouseHandler_xVolatile = -1;
-		MouseHandler_yVolatile = -1;
-		MouseHandler_lastMovedVolatile = -1L;
-		MouseHandler_currentButton = 0;
-		MouseHandler_x = 0;
-		MouseHandler_y = 0;
-		MouseHandler_millis = 0L;
-		MouseHandler_lastButtonVolatile = 0;
+		MouseHandler_instance = new MouseHandler(); // L: 15
+		MouseHandler_idleCycles = 0; // L: 16
+		MouseHandler_currentButtonVolatile = 0; // L: 17
+		MouseHandler_xVolatile = -1; // L: 18
+		MouseHandler_yVolatile = -1; // L: 19
+		MouseHandler_lastMovedVolatile = -1L; // L: 20
+		MouseHandler_currentButton = 0; // L: 21
+		MouseHandler_x = 0; // L: 22
+		MouseHandler_y = 0; // L: 23
+		MouseHandler_millis = 0L; // L: 24
+		MouseHandler_lastButtonVolatile = 0; // L: 25
 		MouseHandler_lastPressedXVolatile = 0;
 		MouseHandler_lastPressedYVolatile = 0;
-		MouseHandler_lastPressedTimeMillisVolatile = 0L;
-		MouseHandler_lastButton = 0;
-		MouseHandler_lastPressedX = 0;
-		MouseHandler_lastPressedY = 0;
-		MouseHandler_lastPressedTimeMillis = 0L;
+		MouseHandler_lastPressedTimeMillisVolatile = 0L; // L: 28
+		MouseHandler_lastButton = 0; // L: 29
+		MouseHandler_lastPressedX = 0; // L: 30
+		MouseHandler_lastPressedY = 0; // L: 31
+		MouseHandler_lastPressedTimeMillis = 0L; // L: 32
 	}
 
 	MouseHandler() {
-	}
+	} // L: 34
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -160,88 +160,88 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 	)
 	@Export("getButton")
 	final int getButton(MouseEvent var1) {
-		int var2 = var1.getButton();
-		if (!var1.isAltDown() && var2 != 2) {
-			return !var1.isMetaDown() && var2 != 3 ? 1 : 2;
+		int var2 = var1.getButton(); // L: 67
+		if (!var1.isAltDown() && var2 != 2) { // L: 68
+			return !var1.isMetaDown() && var2 != 3 ? 1 : 2; // L: 69 70
 		} else {
 			return 4;
 		}
 	}
 
 	public final synchronized void mouseMoved(MouseEvent var1) {
-		if (MouseHandler_instance != null) {
-			MouseHandler_idleCycles = 0;
-			MouseHandler_xVolatile = var1.getX();
-			MouseHandler_yVolatile = var1.getY();
-			MouseHandler_lastMovedVolatile = var1.getWhen();
+		if (MouseHandler_instance != null) { // L: 115
+			MouseHandler_idleCycles = 0; // L: 116
+			MouseHandler_xVolatile = var1.getX(); // L: 117
+			MouseHandler_yVolatile = var1.getY(); // L: 118
+			MouseHandler_lastMovedVolatile = var1.getWhen(); // L: 119
 		}
 
-	}
+	} // L: 121
 
 	public final synchronized void focusLost(FocusEvent var1) {
-		if (MouseHandler_instance != null) {
+		if (MouseHandler_instance != null) { // L: 126
 			MouseHandler_currentButtonVolatile = 0;
 		}
 
-	}
+	} // L: 127
 
 	public final synchronized void mousePressed(MouseEvent var1) {
-		if (MouseHandler_instance != null) {
-			MouseHandler_idleCycles = 0;
-			MouseHandler_lastPressedXVolatile = var1.getX();
-			MouseHandler_lastPressedYVolatile = var1.getY();
-			MouseHandler_lastPressedTimeMillisVolatile = class298.currentTimeMillis();
-			MouseHandler_lastButtonVolatile = this.getButton(var1);
-			if (MouseHandler_lastButtonVolatile != 0) {
+		if (MouseHandler_instance != null) { // L: 74
+			MouseHandler_idleCycles = 0; // L: 75
+			MouseHandler_lastPressedXVolatile = var1.getX(); // L: 76
+			MouseHandler_lastPressedYVolatile = var1.getY(); // L: 77
+			MouseHandler_lastPressedTimeMillisVolatile = class298.currentTimeMillis(); // L: 78
+			MouseHandler_lastButtonVolatile = this.getButton(var1); // L: 79
+			if (MouseHandler_lastButtonVolatile != 0) { // L: 80
 				MouseHandler_currentButtonVolatile = MouseHandler_lastButtonVolatile;
 			}
 		}
 
-		if (var1.isPopupTrigger()) {
+		if (var1.isPopupTrigger()) { // L: 82
 			var1.consume();
 		}
 
-	}
+	} // L: 83
 
 	public final void mouseClicked(MouseEvent var1) {
-		if (var1.isPopupTrigger()) {
+		if (var1.isPopupTrigger()) { // L: 94
 			var1.consume();
 		}
 
-	}
+	} // L: 95
 
 	public final synchronized void mouseExited(MouseEvent var1) {
-		if (MouseHandler_instance != null) {
-			MouseHandler_idleCycles = 0;
-			MouseHandler_xVolatile = -1;
-			MouseHandler_yVolatile = -1;
-			MouseHandler_lastMovedVolatile = var1.getWhen();
+		if (MouseHandler_instance != null) { // L: 102
+			MouseHandler_idleCycles = 0; // L: 103
+			MouseHandler_xVolatile = -1; // L: 104
+			MouseHandler_yVolatile = -1; // L: 105
+			MouseHandler_lastMovedVolatile = var1.getWhen(); // L: 106
 		}
 
-	}
+	} // L: 108
 
 	public final synchronized void mouseReleased(MouseEvent var1) {
-		if (MouseHandler_instance != null) {
-			MouseHandler_idleCycles = 0;
-			MouseHandler_currentButtonVolatile = 0;
+		if (MouseHandler_instance != null) { // L: 86
+			MouseHandler_idleCycles = 0; // L: 87
+			MouseHandler_currentButtonVolatile = 0; // L: 88
 		}
 
-		if (var1.isPopupTrigger()) {
+		if (var1.isPopupTrigger()) { // L: 90
 			var1.consume();
 		}
 
-	}
+	} // L: 91
 
 	public final void focusGained(FocusEvent var1) {
-	}
+	} // L: 123
 
 	public final synchronized void mouseEntered(MouseEvent var1) {
-		this.mouseMoved(var1);
-	}
+		this.mouseMoved(var1); // L: 98
+	} // L: 99
 
 	public final synchronized void mouseDragged(MouseEvent var1) {
-		this.mouseMoved(var1);
-	}
+		this.mouseMoved(var1); // L: 111
+	} // L: 112
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -249,8 +249,8 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 		garbageValue = "-1589242946"
 	)
 	public static void method1157(AbstractArchive var0) {
-		FloorOverlayDefinition.FloorOverlayDefinition_archive = var0;
-	}
+		FloorOverlayDefinition.FloorOverlayDefinition_archive = var0; // L: 26
+	} // L: 27
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
@@ -258,7 +258,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 		garbageValue = "-870366396"
 	)
 	static int method1156(int var0) {
-		return (int)((Math.log((double)var0) / Interpreter.field1093 - 7.0D) * 256.0D);
+		return (int)((Math.log((double)var0) / Interpreter.field1093 - 7.0D) * 256.0D); // L: 3263
 	}
 
 	@ObfuscatedName("hk")
@@ -267,6 +267,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 		garbageValue = "-1220632952"
 	)
 	static boolean method1150() {
-		return (Client.drawPlayerNames & 8) != 0;
+		return (Client.drawPlayerNames & 8) != 0; // L: 4795
 	}
 }

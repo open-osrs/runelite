@@ -18,11 +18,11 @@ public class Calendar {
 	static java.util.Calendar Calendar_calendar;
 
 	static {
-		MONTH_NAMES_ENGLISH_GERMAN = new String[][]{{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}, {"Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"}, {"jan", "fév", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"}, {"jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"}, {"jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"}, {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}, {"ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"}};
-		DAYS_OF_THE_WEEK = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-		java.util.Calendar.getInstance();
-		Calendar_calendar = java.util.Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-	}
+		MONTH_NAMES_ENGLISH_GERMAN = new String[][]{{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}, {"Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"}, {"jan", "fév", "mars", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"}, {"jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"}, {"jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"}, {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}, {"ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"}}; // L: 7
+		DAYS_OF_THE_WEEK = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; // L: 17
+		java.util.Calendar.getInstance(); // L: 21
+		Calendar_calendar = java.util.Calendar.getInstance(TimeZone.getTimeZone("GMT")); // L: 22
+	} // L: 23
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
@@ -30,10 +30,10 @@ public class Calendar {
 		garbageValue = "-1496948542"
 	)
 	static final void method3985() {
-		Object var10000 = null;
+		Object var10000 = null; // L: 112
 		String var0 = "Your friend list is full. Max of 200 for free users, and 400 for members";
-		class234.addGameMessage(30, "", var0);
-	}
+		class234.addGameMessage(30, "", var0); // L: 114
+	} // L: 116
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
@@ -42,11 +42,11 @@ public class Calendar {
 	)
 	@Export("Messages_getNextChatID")
 	static int Messages_getNextChatID(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
-		if (var1 == null) {
+		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0); // L: 77
+		if (var1 == null) { // L: 78
 			return -1;
 		} else {
-			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.previousDual).count;
+			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.previousDual).count; // L: 79 80
 		}
 	}
 }

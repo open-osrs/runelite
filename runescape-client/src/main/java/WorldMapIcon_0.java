@@ -61,20 +61,20 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		descriptor = "(Lhs;Lhs;ILah;)V"
 	)
 	WorldMapIcon_0(Coord var1, Coord var2, int var3, WorldMapLabel var4) {
-		super(var1, var2);
-		this.element = var3;
-		this.label = var4;
-		WorldMapElement var5 = UserComparator10.WorldMapElement_get(this.getElement());
-		Sprite var6 = var5.getSpriteBool(false);
-		if (var6 != null) {
-			this.subWidth = var6.subWidth;
-			this.subHeight = var6.subHeight;
+		super(var1, var2); // L: 14
+		this.element = var3; // L: 15
+		this.label = var4; // L: 16
+		WorldMapElement var5 = UserComparator10.WorldMapElement_get(this.getElement()); // L: 17
+		Sprite var6 = var5.getSpriteBool(false); // L: 18
+		if (var6 != null) { // L: 19
+			this.subWidth = var6.subWidth; // L: 20
+			this.subHeight = var6.subHeight; // L: 21
 		} else {
-			this.subWidth = 0;
-			this.subHeight = 0;
+			this.subWidth = 0; // L: 24
+			this.subHeight = 0; // L: 25
 		}
 
-	}
+	} // L: 27
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -83,7 +83,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	)
 	@Export("getElement")
 	public int getElement() {
-		return this.element;
+		return this.element; // L: 30
 	}
 
 	@ObfuscatedName("v")
@@ -93,7 +93,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
-		return this.label;
+		return this.label; // L: 34
 	}
 
 	@ObfuscatedName("x")
@@ -103,7 +103,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
-		return this.subWidth;
+		return this.subWidth; // L: 38
 	}
 
 	@ObfuscatedName("w")
@@ -113,7 +113,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
-		return this.subHeight;
+		return this.subHeight; // L: 42
 	}
 
 	@ObfuscatedName("v")
@@ -123,20 +123,20 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 	)
 	@Export("getNpcDefinition")
 	public static NPCDefinition getNpcDefinition(int var0) {
-		NPCDefinition var1 = (NPCDefinition)NPCDefinition.NpcDefinition_cached.get((long)var0);
-		if (var1 != null) {
+		NPCDefinition var1 = (NPCDefinition)NPCDefinition.NpcDefinition_cached.get((long)var0); // L: 62
+		if (var1 != null) { // L: 63
 			return var1;
 		} else {
-			byte[] var2 = NPCDefinition.NpcDefinition_archive.takeFile(9, var0);
-			var1 = new NPCDefinition();
-			var1.id = var0;
-			if (var2 != null) {
+			byte[] var2 = NPCDefinition.NpcDefinition_archive.takeFile(9, var0); // L: 64
+			var1 = new NPCDefinition(); // L: 65
+			var1.id = var0; // L: 66
+			if (var2 != null) { // L: 67
 				var1.decode(new Buffer(var2));
 			}
 
-			var1.postDecode();
-			NPCDefinition.NpcDefinition_cached.put(var1, (long)var0);
-			return var1;
+			var1.postDecode(); // L: 68
+			NPCDefinition.NpcDefinition_cached.put(var1, (long)var0); // L: 69
+			return var1; // L: 70
 		}
 	}
 
@@ -146,12 +146,12 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		garbageValue = "1525295907"
 	)
 	public static final void method270(int var0, boolean var1, int var2) {
-		if (var0 >= 8000 && var0 <= 48000) {
-			PcmPlayer.field1443 = var0;
-			PcmPlayer.PcmPlayer_stereo = var1;
-			PcmPlayer.field1424 = var2;
+		if (var0 >= 8000 && var0 <= 48000) { // L: 49
+			PcmPlayer.field1443 = var0; // L: 50
+			PcmPlayer.PcmPlayer_stereo = var1; // L: 51
+			PcmPlayer.field1424 = var2; // L: 52
 		} else {
 			throw new IllegalArgumentException();
 		}
-	}
+	} // L: 53
 }

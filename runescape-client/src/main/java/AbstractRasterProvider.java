@@ -24,7 +24,7 @@ public abstract class AbstractRasterProvider {
 	public int height;
 
 	protected AbstractRasterProvider() {
-	}
+	} // L: 8
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -49,6 +49,6 @@ public abstract class AbstractRasterProvider {
 	)
 	@Export("apply")
 	public final void apply() {
-		Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height);
-	}
+		Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height); // L: 11
+	} // L: 12
 }

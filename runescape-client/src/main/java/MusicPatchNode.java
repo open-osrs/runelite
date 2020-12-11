@@ -76,7 +76,7 @@ public class MusicPatchNode extends Node {
 	int field2465;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -17380566
+		intValue = -8690283
 	)
 	int field2472;
 	@ObfuscatedName("i")
@@ -127,9 +127,9 @@ public class MusicPatchNode extends Node {
 	void method3860() {
 		this.patch = null;
 		this.rawSound = null;
-		this.field2459 = null;
-		this.stream = null;
-	}
+		this.field2459 = null; // L: 36
+		this.stream = null; // L: 37
+	} // L: 38
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -138,18 +138,18 @@ public class MusicPatchNode extends Node {
 	)
 	@Export("getEnum")
 	public static EnumDefinition getEnum(int var0) {
-		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0);
-		if (var1 != null) {
+		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0); // L: 29
+		if (var1 != null) { // L: 30
 			return var1;
 		} else {
-			byte[] var2 = EnumDefinition.EnumDefinition_archive.takeFile(8, var0);
-			var1 = new EnumDefinition();
-			if (var2 != null) {
+			byte[] var2 = EnumDefinition.EnumDefinition_archive.takeFile(8, var0); // L: 31
+			var1 = new EnumDefinition(); // L: 32
+			if (var2 != null) { // L: 33
 				var1.decode(new Buffer(var2));
 			}
 
-			EnumDefinition.EnumDefinition_cached.put(var1, (long)var0);
-			return var1;
+			EnumDefinition.EnumDefinition_cached.put(var1, (long)var0); // L: 34
+			return var1; // L: 35
 		}
 	}
 }

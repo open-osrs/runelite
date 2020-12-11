@@ -44,13 +44,13 @@ public class ClanChat extends UserList {
 		descriptor = "(Lmu;Lka;)V"
 	)
 	public ClanChat(LoginType var1, Usernamed var2) {
-		super(100);
-		this.name = null;
-		this.owner = null;
-		this.field3676 = 1;
-		this.loginType = var1;
-		this.localUser = var2;
-	}
+		super(100); // L: 18
+		this.name = null; // L: 11
+		this.owner = null; // L: 12
+		this.field3676 = 1; // L: 15
+		this.loginType = var1; // L: 19
+		this.localUser = var2; // L: 20
+	} // L: 21
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -59,7 +59,7 @@ public class ClanChat extends UserList {
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new ClanMate();
+		return new ClanMate(); // L: 24
 	}
 
 	@ObfuscatedName("v")
@@ -69,7 +69,7 @@ public class ClanChat extends UserList {
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new ClanMate[var1];
+		return new ClanMate[var1]; // L: 28
 	}
 
 	@ObfuscatedName("x")
@@ -79,8 +79,8 @@ public class ClanChat extends UserList {
 	)
 	@Export("readName")
 	final void readName(String var1) {
-		this.name = class238.method4166(var1);
-	}
+		this.name = class238.method4166(var1); // L: 32
+	} // L: 33
 
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
@@ -89,8 +89,8 @@ public class ClanChat extends UserList {
 	)
 	@Export("setOwner")
 	final void setOwner(String var1) {
-		this.owner = class238.method4166(var1);
-	}
+		this.owner = class238.method4166(var1); // L: 36
+	} // L: 37
 
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
@@ -99,25 +99,25 @@ public class ClanChat extends UserList {
 	)
 	@Export("readUpdate")
 	public final void readUpdate(Buffer var1) {
-		this.setOwner(var1.readStringCp1252NullTerminated());
-		long var2 = var1.readLong();
-		this.readName(SecureRandomCallable.method1218(var2));
-		this.minKick = var1.readByte();
-		int var4 = var1.readUnsignedByte();
-		if (var4 != 255) {
-			this.clear();
+		this.setOwner(var1.readStringCp1252NullTerminated()); // L: 40
+		long var2 = var1.readLong(); // L: 41
+		this.readName(SecureRandomCallable.method1218(var2)); // L: 42
+		this.minKick = var1.readByte(); // L: 43
+		int var4 = var1.readUnsignedByte(); // L: 44
+		if (var4 != 255) { // L: 45
+			this.clear(); // L: 46
 
-			for (int var5 = 0; var5 < var4; ++var5) {
-				ClanMate var6 = (ClanMate)this.addLastNoPreviousUsername(new Username(var1.readStringCp1252NullTerminated(), this.loginType));
-				int var7 = var1.readUnsignedShort();
-				var6.set(var7, ++this.field3676 - 1);
-				var6.rank = var1.readByte();
-				var1.readStringCp1252NullTerminated();
-				this.isLocalPlayer(var6);
+			for (int var5 = 0; var5 < var4; ++var5) { // L: 47
+				ClanMate var6 = (ClanMate)this.addLastNoPreviousUsername(new Username(var1.readStringCp1252NullTerminated(), this.loginType)); // L: 48
+				int var7 = var1.readUnsignedShort(); // L: 49
+				var6.set(var7, ++this.field3676 - 1); // L: 50
+				var6.rank = var1.readByte(); // L: 51
+				var1.readStringCp1252NullTerminated(); // L: 52
+				this.isLocalPlayer(var6); // L: 53
 			}
 
 		}
-	}
+	} // L: 55
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
@@ -125,41 +125,41 @@ public class ClanChat extends UserList {
 		garbageValue = "255"
 	)
 	public final void method5251(Buffer var1) {
-		Username var2 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-		int var3 = var1.readUnsignedShort();
-		byte var4 = var1.readByte();
-		boolean var5 = false;
-		if (var4 == -128) {
+		Username var2 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 58
+		int var3 = var1.readUnsignedShort(); // L: 59
+		byte var4 = var1.readByte(); // L: 60
+		boolean var5 = false; // L: 61
+		if (var4 == -128) { // L: 62
 			var5 = true;
 		}
 
 		ClanMate var6;
-		if (var5) {
-			if (this.getSize() == 0) {
+		if (var5) { // L: 63
+			if (this.getSize() == 0) { // L: 64
 				return;
 			}
 
-			var6 = (ClanMate)this.getByCurrentUsername(var2);
-			if (var6 != null && var6.getWorld() == var3) {
-				this.remove(var6);
+			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 65
+			if (var6 != null && var6.getWorld() == var3) { // L: 66
+				this.remove(var6); // L: 67
 			}
 		} else {
-			var1.readStringCp1252NullTerminated();
-			var6 = (ClanMate)this.getByCurrentUsername(var2);
-			if (var6 == null) {
-				if (this.getSize() > super.capacity) {
+			var1.readStringCp1252NullTerminated(); // L: 71
+			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 72
+			if (var6 == null) { // L: 73
+				if (this.getSize() > super.capacity) { // L: 74
 					return;
 				}
 
-				var6 = (ClanMate)this.addLastNoPreviousUsername(var2);
+				var6 = (ClanMate)this.addLastNoPreviousUsername(var2); // L: 75
 			}
 
-			var6.set(var3, ++this.field3676 - 1);
-			var6.rank = var4;
-			this.isLocalPlayer(var6);
+			var6.set(var3, ++this.field3676 - 1); // L: 77
+			var6.rank = var4; // L: 78
+			this.isLocalPlayer(var6); // L: 79
 		}
 
-	}
+	} // L: 81
 
 	@ObfuscatedName("cz")
 	@ObfuscatedSignature(
@@ -168,11 +168,11 @@ public class ClanChat extends UserList {
 	)
 	@Export("clearFriends")
 	public final void clearFriends() {
-		for (int var1 = 0; var1 < this.getSize(); ++var1) {
-			((ClanMate)this.get(var1)).clearIsFriend();
+		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 84
+			((ClanMate)this.get(var1)).clearIsFriend(); // L: 85
 		}
 
-	}
+	} // L: 87
 
 	@ObfuscatedName("cc")
 	@ObfuscatedSignature(
@@ -181,11 +181,11 @@ public class ClanChat extends UserList {
 	)
 	@Export("invalidateIgnoreds")
 	public final void invalidateIgnoreds() {
-		for (int var1 = 0; var1 < this.getSize(); ++var1) {
-			((ClanMate)this.get(var1)).clearIsIgnored();
+		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 90
+			((ClanMate)this.get(var1)).clearIsIgnored(); // L: 91
 		}
 
-	}
+	} // L: 93
 
 	@ObfuscatedName("ce")
 	@ObfuscatedSignature(
@@ -194,9 +194,9 @@ public class ClanChat extends UserList {
 	)
 	@Export("isLocalPlayer")
 	final void isLocalPlayer(ClanMate var1) {
-		if (var1.getUsername().equals(this.localUser.username())) {
+		if (var1.getUsername().equals(this.localUser.username())) { // L: 96
 			this.rank = var1.rank;
 		}
 
-	}
+	} // L: 97
 }

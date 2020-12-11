@@ -32,11 +32,11 @@ public class SpriteMask extends DualNode {
 	public final int[] xStarts;
 
 	SpriteMask(int var1, int var2, int[] var3, int[] var4, int var5) {
-		this.width = var1;
-		this.height = var2;
-		this.xWidths = var3;
-		this.xStarts = var4;
-	}
+		this.width = var1; // L: 689
+		this.height = var2; // L: 690
+		this.xWidths = var3; // L: 691
+		this.xStarts = var4; // L: 692
+	} // L: 693
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -45,13 +45,13 @@ public class SpriteMask extends DualNode {
 	)
 	@Export("contains")
 	public boolean contains(int var1, int var2) {
-		if (var2 >= 0 && var2 < this.xStarts.length) {
-			int var3 = this.xStarts[var2];
-			if (var1 >= var3 && var1 <= var3 + this.xWidths[var2]) {
+		if (var2 >= 0 && var2 < this.xStarts.length) { // L: 696
+			int var3 = this.xStarts[var2]; // L: 697
+			if (var1 >= var3 && var1 <= var3 + this.xWidths[var2]) { // L: 698
 				return true;
 			}
 		}
 
-		return false;
+		return false; // L: 700
 	}
 }

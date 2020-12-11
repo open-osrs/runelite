@@ -26,14 +26,14 @@ public class class238 {
 	final int field3117;
 
 	static {
-		field3111 = new class238(51, 27, 800, 0, 16, 16);
-		field3114 = new class238(25, 28, 800, 656, 40, 40);
+		field3111 = new class238(51, 27, 800, 0, 16, 16); // L: 29
+		field3114 = new class238(25, 28, 800, 656, 40, 40); // L: 30
 	}
 
 	class238(int var1, int var2, int var3, int var4, int var5, int var6) {
-		this.field3113 = var5;
-		this.field3117 = var6;
-	}
+		this.field3113 = var5; // L: 39
+		this.field3117 = var6; // L: 40
+	} // L: 41
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -41,11 +41,11 @@ public class class238 {
 		garbageValue = "1585982662"
 	)
 	public static String method4166(CharSequence var0) {
-		String var1 = ParamDefinition.base37DecodeLong(Entity.method3340(var0));
-		if (var1 == null) {
+		String var1 = ParamDefinition.base37DecodeLong(Entity.method3340(var0)); // L: 75
+		if (var1 == null) { // L: 76
 			var1 = "";
 		}
 
-		return var1;
+		return var1; // L: 77
 	}
 }

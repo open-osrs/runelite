@@ -64,7 +64,7 @@ public class WorldMapSection1 implements WorldMapSection {
 	int regionEndY;
 
 	WorldMapSection1() {
-	}
+	} // L: 14
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -73,23 +73,23 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
-		if (var1.regionLowX > this.regionEndX) {
+		if (var1.regionLowX > this.regionEndX) { // L: 17
 			var1.regionLowX = this.regionEndX;
 		}
 
 		if (var1.regionHighX < this.regionEndX) {
-			var1.regionHighX = this.regionEndX;
+			var1.regionHighX = this.regionEndX; // L: 18
 		}
 
-		if (var1.regionLowY > this.regionEndY) {
+		if (var1.regionLowY > this.regionEndY) { // L: 19
 			var1.regionLowY = this.regionEndY;
 		}
 
-		if (var1.regionHighY < this.regionEndY) {
+		if (var1.regionHighY < this.regionEndY) { // L: 20
 			var1.regionHighY = this.regionEndY;
 		}
 
-	}
+	} // L: 21
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -98,10 +98,10 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
-		if (var1 >= this.minPlane && var1 < this.planes + this.minPlane) {
-			return var2 >> 6 == this.regionStartX && var3 >> 6 == this.regionStartY;
+		if (var1 >= this.minPlane && var1 < this.planes + this.minPlane) { // L: 24
+			return var2 >> 6 == this.regionStartX && var3 >> 6 == this.regionStartY; // L: 27
 		} else {
-			return false;
+			return false; // L: 25
 		}
 	}
 
@@ -112,7 +112,7 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
-		return var1 >> 6 == this.regionEndX && var2 >> 6 == this.regionEndY;
+		return var1 >> 6 == this.regionEndX && var2 >> 6 == this.regionEndY; // L: 31
 	}
 
 	@ObfuscatedName("w")
@@ -122,11 +122,11 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
-		if (!this.containsCoord(var1, var2, var3)) {
-			return null;
+		if (!this.containsCoord(var1, var2, var3)) { // L: 35
+			return null; // L: 36
 		} else {
-			int[] var4 = new int[]{this.regionEndX * 64 - this.regionStartX * 64 + var2, var3 + (this.regionEndY * 64 - this.regionStartY * 64)};
-			return var4;
+			int[] var4 = new int[]{var2 + (this.regionEndX * 64 - this.regionStartX * 64), var3 + (this.regionEndY * 64 - this.regionStartY * 64)}; // L: 38 39 40
+			return var4; // L: 41
 		}
 	}
 
@@ -137,12 +137,12 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
-		if (!this.containsPosition(var1, var2)) {
-			return null;
+		if (!this.containsPosition(var1, var2)) { // L: 45
+			return null; // L: 46
 		} else {
-			int var3 = this.regionStartX * 64 - this.regionEndX * 64 + var1;
-			int var4 = this.regionStartY * 64 - this.regionEndY * 64 + var2;
-			return new Coord(this.minPlane, var3, var4);
+			int var3 = this.regionStartX * 64 - this.regionEndX * 64 + var1; // L: 48
+			int var4 = var2 + (this.regionStartY * 64 - this.regionEndY * 64); // L: 49
+			return new Coord(this.minPlane, var3, var4); // L: 50
 		}
 	}
 
@@ -153,14 +153,14 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("read")
 	public void read(Buffer var1) {
-		this.minPlane = var1.readUnsignedByte();
-		this.planes = var1.readUnsignedByte();
-		this.regionStartX = var1.readUnsignedShort();
-		this.regionStartY = var1.readUnsignedShort();
-		this.regionEndX = var1.readUnsignedShort();
-		this.regionEndY = var1.readUnsignedShort();
-		this.postRead();
-	}
+		this.minPlane = var1.readUnsignedByte(); // L: 54
+		this.planes = var1.readUnsignedByte(); // L: 55
+		this.regionStartX = var1.readUnsignedShort(); // L: 56
+		this.regionStartY = var1.readUnsignedShort(); // L: 57
+		this.regionEndX = var1.readUnsignedShort(); // L: 58
+		this.regionEndY = var1.readUnsignedShort(); // L: 59
+		this.postRead(); // L: 60
+	} // L: 61
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
@@ -169,7 +169,7 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("postRead")
 	void postRead() {
-	}
+	} // L: 63
 
 	@ObfuscatedName("fi")
 	@ObfuscatedSignature(
@@ -178,17 +178,17 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("forceDisconnect")
 	static final void forceDisconnect(int var0) {
-		WorldMapRectangle.logOut();
-		switch(var0) {
+		WorldMapRectangle.logOut(); // L: 2940
+		switch(var0) { // L: 2941
 		case 1:
-			Login.loginIndex = 24;
-			GameShell.setLoginResponseString("", "You were disconnected from the server.", "");
+			Login.loginIndex = 24; // L: 2950
+			GameShell.setLoginResponseString("", "You were disconnected from the server.", ""); // L: 2951
 			break;
 		case 2:
-			Messages.method2285();
+			Messages.method2285(); // L: 2944
 		}
 
-	}
+	} // L: 2956
 
 	@ObfuscatedName("ie")
 	@ObfuscatedSignature(
@@ -196,17 +196,17 @@ public class WorldMapSection1 implements WorldMapSection {
 		garbageValue = "-546925347"
 	)
 	static boolean method624(int var0) {
-		return var0 == 57 || var0 == 58 || var0 == 1007 || var0 == 25 || var0 == 30;
+		return var0 == 57 || var0 == 58 || var0 == 1007 || var0 == 25 || var0 == 30; // L: 8551
 	}
 
 	@ObfuscatedName("kp")
 	static final void method626(double var0) {
-		Rasterizer3D.Rasterizer3D_setBrightness(var0);
-		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).setBrightness(var0);
-		ItemDefinition.ItemDefinition_cachedSprites.clear();
-		Timer.clientPreferences.field1057 = var0;
-		GrandExchangeOffer.savePreferences();
-	}
+		Rasterizer3D.Rasterizer3D_setBrightness(var0); // L: 10642
+		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).setBrightness(var0); // L: 10643
+		ItemDefinition.ItemDefinition_cachedSprites.clear(); // L: 10645
+		Timer.clientPreferences.field1057 = var0; // L: 10647
+		GrandExchangeOffer.savePreferences(); // L: 10648
+	} // L: 10649
 
 	@ObfuscatedName("lz")
 	@ObfuscatedSignature(
@@ -215,43 +215,43 @@ public class WorldMapSection1 implements WorldMapSection {
 	)
 	@Export("findItemDefinitions")
 	static void findItemDefinitions(String var0, boolean var1) {
-		var0 = var0.toLowerCase();
-		short[] var2 = new short[16];
-		int var3 = 0;
+		var0 = var0.toLowerCase(); // L: 11102
+		short[] var2 = new short[16]; // L: 11103
+		int var3 = 0; // L: 11104
 
-		for (int var4 = 0; var4 < Varcs.ItemDefinition_fileCount; ++var4) {
-			ItemDefinition var9 = SecureRandomCallable.ItemDefinition_get(var4);
-			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) {
-				if (var3 >= 250) {
-					PacketBufferNode.foundItemIdCount = -1;
-					UrlRequest.foundItemIds = null;
-					return;
+		for (int var4 = 0; var4 < Varcs.ItemDefinition_fileCount; ++var4) { // L: 11105
+			ItemDefinition var9 = SecureRandomCallable.ItemDefinition_get(var4); // L: 11106
+			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) { // L: 11107 11108 11109
+				if (var3 >= 250) { // L: 11110
+					PacketBufferNode.foundItemIdCount = -1; // L: 11111
+					UrlRequest.foundItemIds = null; // L: 11112
+					return; // L: 11113
 				}
 
-				if (var3 >= var2.length) {
-					short[] var6 = new short[var2.length * 2];
+				if (var3 >= var2.length) { // L: 11115
+					short[] var6 = new short[var2.length * 2]; // L: 11116
 
-					for (int var7 = 0; var7 < var3; ++var7) {
+					for (int var7 = 0; var7 < var3; ++var7) { // L: 11117
 						var6[var7] = var2[var7];
 					}
 
-					var2 = var6;
+					var2 = var6; // L: 11118
 				}
 
-				var2[var3++] = (short)var4;
+				var2[var3++] = (short)var4; // L: 11120
 			}
 		}
 
-		UrlRequest.foundItemIds = var2;
-		NetCache.foundItemIndex = 0;
-		PacketBufferNode.foundItemIdCount = var3;
-		String[] var8 = new String[PacketBufferNode.foundItemIdCount];
+		UrlRequest.foundItemIds = var2; // L: 11122
+		NetCache.foundItemIndex = 0; // L: 11123
+		PacketBufferNode.foundItemIdCount = var3; // L: 11124
+		String[] var8 = new String[PacketBufferNode.foundItemIdCount]; // L: 11125
 
-		for (int var5 = 0; var5 < PacketBufferNode.foundItemIdCount; ++var5) {
+		for (int var5 = 0; var5 < PacketBufferNode.foundItemIdCount; ++var5) { // L: 11126
 			var8[var5] = SecureRandomCallable.ItemDefinition_get(var2[var5]).name;
 		}
 
-		short[] var10 = UrlRequest.foundItemIds;
-		class89.sortItemsByName(var8, var10, 0, var8.length - 1);
-	}
+		short[] var10 = UrlRequest.foundItemIds; // L: 11127
+		class89.sortItemsByName(var8, var10, 0, var8.length - 1); // L: 11129
+	} // L: 11131
 }

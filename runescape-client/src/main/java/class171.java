@@ -17,6 +17,6 @@ public class class171 implements class170 {
 		garbageValue = "-1627436603"
 	)
 	static boolean method3535(int var0, int var1) {
-		return var0 != 4 || var1 < 8;
+		return var0 != 4 || var1 < 8; // L: 26
 	}
 }

@@ -15,7 +15,7 @@ public class Ignored extends User {
 	int id;
 
 	Ignored() {
-	}
+	} // L: 6
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -24,7 +24,7 @@ public class Ignored extends User {
 	)
 	@Export("compareTo_ignored")
 	int compareTo_ignored(Ignored var1) {
-		return this.id - var1.id;
+		return this.id - var1.id; // L: 9
 	}
 
 	@ObfuscatedName("au")
@@ -34,10 +34,10 @@ public class Ignored extends User {
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.compareTo_ignored((Ignored)var1);
+		return this.compareTo_ignored((Ignored)var1); // L: 13
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_ignored((Ignored)var1);
+		return this.compareTo_ignored((Ignored)var1); // L: 17
 	}
 }

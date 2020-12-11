@@ -29,11 +29,11 @@ public class FriendsList extends UserList {
 		descriptor = "(Lmu;)V"
 	)
 	public FriendsList(LoginType var1) {
-		super(400);
-		this.field3657 = 1;
-		this.friendLoginUpdates = new LinkDeque();
-		this.loginType = var1;
-	}
+		super(400); // L: 17
+		this.field3657 = 1; // L: 13
+		this.friendLoginUpdates = new LinkDeque(); // L: 14
+		this.loginType = var1; // L: 18
+	} // L: 19
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -42,7 +42,7 @@ public class FriendsList extends UserList {
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new Friend();
+		return new Friend(); // L: 22
 	}
 
 	@ObfuscatedName("v")
@@ -52,7 +52,7 @@ public class FriendsList extends UserList {
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new Friend[var1];
+		return new Friend[var1]; // L: 26
 	}
 
 	@ObfuscatedName("x")
@@ -62,11 +62,11 @@ public class FriendsList extends UserList {
 	)
 	@Export("isFriended")
 	public boolean isFriended(Username var1, boolean var2) {
-		Friend var3 = (Friend)this.getByUsername(var1);
-		if (var3 == null) {
+		Friend var3 = (Friend)this.getByUsername(var1); // L: 30
+		if (var3 == null) { // L: 31
 			return false;
 		} else {
-			return !var2 || var3.world != 0;
+			return !var2 || var3.world != 0; // L: 32
 		}
 	}
 
@@ -78,23 +78,23 @@ public class FriendsList extends UserList {
 	@Export("read")
 	public void read(Buffer var1, int var2) {
 		while (true) {
-			if (var1.offset < var2) {
-				boolean var3 = var1.readUnsignedByte() == 1;
-				Username var4 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				int var6 = var1.readUnsignedShort();
-				int var7 = var1.readUnsignedByte();
-				int var8 = var1.readUnsignedByte();
-				boolean var9 = (var8 & 2) != 0;
-				boolean var10 = (var8 & 1) != 0;
-				if (var6 > 0) {
-					var1.readStringCp1252NullTerminated();
-					var1.readUnsignedByte();
-					var1.readInt();
+			if (var1.offset < var2) { // L: 37
+				boolean var3 = var1.readUnsignedByte() == 1; // L: 38
+				Username var4 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 39
+				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 40
+				int var6 = var1.readUnsignedShort(); // L: 41
+				int var7 = var1.readUnsignedByte(); // L: 42
+				int var8 = var1.readUnsignedByte(); // L: 43
+				boolean var9 = (var8 & 2) != 0; // L: 44
+				boolean var10 = (var8 & 1) != 0; // L: 45
+				if (var6 > 0) { // L: 46
+					var1.readStringCp1252NullTerminated(); // L: 47
+					var1.readUnsignedByte(); // L: 48
+					var1.readInt(); // L: 49
 				}
 
-				var1.readStringCp1252NullTerminated();
-				if (var4 != null && var4.hasCleanName()) {
+				var1.readStringCp1252NullTerminated(); // L: 51
+				if (var4 != null && var4.hasCleanName()) { // L: 52
 					Friend var11 = (Friend)this.getByCurrentUsername(var4);
 					if (var3) {
 						Friend var12 = (Friend)this.getByCurrentUsername(var5);
@@ -110,10 +110,10 @@ public class FriendsList extends UserList {
 					if (var11 != null) {
 						this.changeName(var11, var4, var5);
 						if (var6 != var11.world) {
-							boolean var14 = true;
+							boolean var14 = true; // L: 68
 
-							for (FriendLoginUpdate var13 = (FriendLoginUpdate)this.friendLoginUpdates.last(); var13 != null; var13 = (FriendLoginUpdate)this.friendLoginUpdates.previous()) {
-								if (var13.username.equals(var4)) {
+							for (FriendLoginUpdate var13 = (FriendLoginUpdate)this.friendLoginUpdates.last(); var13 != null; var13 = (FriendLoginUpdate)this.friendLoginUpdates.previous()) { // L: 69
+								if (var13.username.equals(var4)) { // L: 70
 									if (var6 != 0 && var13.world == 0) {
 										var13.remove();
 										var14 = false;
@@ -129,11 +129,11 @@ public class FriendsList extends UserList {
 							}
 						}
 					} else {
-						if (this.getSize() >= 400) {
+						if (this.getSize() >= 400) { // L: 84
 							continue;
 						}
 
-						var11 = (Friend)this.addLast(var4, var5);
+						var11 = (Friend)this.addLast(var4, var5); // L: 85
 					}
 
 					if (var6 != var11.world) {
@@ -155,7 +155,7 @@ public class FriendsList extends UserList {
 			}
 
 			this.sort();
-			return;
+			return; // L: 98
 		}
 	}
 
@@ -165,75 +165,75 @@ public class FriendsList extends UserList {
 		garbageValue = "754468419"
 	)
 	static void method5222(int var0, int var1, int var2, int var3) {
-		for (ObjectSound var4 = (ObjectSound)ObjectSound.objectSounds.last(); var4 != null; var4 = (ObjectSound)ObjectSound.objectSounds.previous()) {
-			if (var4.soundEffectId != -1 || var4.soundEffectIds != null) {
-				int var5 = 0;
-				if (var1 > var4.field1073 * 128) {
-					var5 += var1 - var4.field1073 * 128;
-				} else if (var1 < var4.x * 128) {
-					var5 += var4.x * 128 - var1;
+		for (ObjectSound var4 = (ObjectSound)ObjectSound.objectSounds.last(); var4 != null; var4 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 53
+			if (var4.soundEffectId != -1 || var4.soundEffectIds != null) { // L: 54
+				int var5 = 0; // L: 55
+				if (var1 > var4.field1073) { // L: 56
+					var5 += var1 - var4.field1073;
+				} else if (var1 < var4.x) { // L: 57
+					var5 += var4.x - var1;
 				}
 
-				if (var2 > var4.field1078 * 16384) {
-					var5 += var2 - var4.field1078 * 16384;
-				} else if (var2 < var4.y * 16384) {
-					var5 += var4.y * 16384 - var2;
+				if (var2 > var4.field1078) { // L: 58
+					var5 += var2 - var4.field1078;
+				} else if (var2 < var4.y) { // L: 59
+					var5 += var4.y - var2;
 				}
 
-				if (var5 - 64 <= var4.field1086 && Timer.clientPreferences.areaSoundEffectsVolume != 0 && var0 == var4.plane) {
-					var5 -= 64;
-					if (var5 < 0) {
+				if (var5 - 64 <= var4.field1086 && Timer.clientPreferences.areaSoundEffectsVolume != 0 && var0 == var4.plane) { // L: 60
+					var5 -= 64; // L: 71
+					if (var5 < 0) { // L: 72
 						var5 = 0;
 					}
 
-					int var6 = (var4.field1086 - var5) * Timer.clientPreferences.areaSoundEffectsVolume / var4.field1086;
-					if (var4.stream1 == null) {
-						if (var4.soundEffectId >= 0) {
-							SoundEffect var7 = SoundEffect.readSoundEffect(class227.archive4, var4.soundEffectId, 0);
-							if (var7 != null) {
-								RawSound var8 = var7.toRawSound().resample(TileItemPile.decimator);
-								RawPcmStream var9 = RawPcmStream.createRawPcmStream(var8, 100, var6);
-								var9.setNumLoops(-1);
-								WorldMapManager.pcmStreamMixer.addSubStream(var9);
-								var4.stream1 = var9;
+					int var6 = (var4.field1086 - var5) * Timer.clientPreferences.areaSoundEffectsVolume / var4.field1086; // L: 73
+					if (var4.stream1 == null) { // L: 74
+						if (var4.soundEffectId >= 0) { // L: 75
+							SoundEffect var7 = SoundEffect.readSoundEffect(class227.archive4, var4.soundEffectId, 0); // L: 76
+							if (var7 != null) { // L: 77
+								RawSound var8 = var7.toRawSound().resample(TileItemPile.decimator); // L: 78
+								RawPcmStream var9 = RawPcmStream.createRawPcmStream(var8, 100, var6); // L: 79
+								var9.setNumLoops(-1); // L: 80
+								WorldMapManager.pcmStreamMixer.addSubStream(var9); // L: 81
+								var4.stream1 = var9; // L: 82
 							}
 						}
 					} else {
-						var4.stream1.method2610(var6);
+						var4.stream1.method2610(var6); // L: 86
 					}
 
-					if (var4.stream2 == null) {
-						if (var4.soundEffectIds != null && (var4.field1081 -= var3) <= 0) {
-							int var11 = (int)(Math.random() * (double)var4.soundEffectIds.length);
-							SoundEffect var12 = SoundEffect.readSoundEffect(class227.archive4, var4.soundEffectIds[var11], 0);
-							if (var12 != null) {
-								RawSound var13 = var12.toRawSound().resample(TileItemPile.decimator);
-								RawPcmStream var10 = RawPcmStream.createRawPcmStream(var13, 100, var6);
-								var10.setNumLoops(0);
-								WorldMapManager.pcmStreamMixer.addSubStream(var10);
-								var4.stream2 = var10;
-								var4.field1081 = var4.field1085 + (int)(Math.random() * (double)(var4.field1083 - var4.field1085));
+					if (var4.stream2 == null) { // L: 87
+						if (var4.soundEffectIds != null && (var4.field1081 -= var3) <= 0) { // L: 88
+							int var11 = (int)(Math.random() * (double)var4.soundEffectIds.length); // L: 89
+							SoundEffect var12 = SoundEffect.readSoundEffect(class227.archive4, var4.soundEffectIds[var11], 0); // L: 90
+							if (var12 != null) { // L: 91
+								RawSound var13 = var12.toRawSound().resample(TileItemPile.decimator); // L: 92
+								RawPcmStream var10 = RawPcmStream.createRawPcmStream(var13, 100, var6); // L: 93
+								var10.setNumLoops(0); // L: 94
+								WorldMapManager.pcmStreamMixer.addSubStream(var10); // L: 95
+								var4.stream2 = var10; // L: 96
+								var4.field1081 = var4.field1085 + (int)(Math.random() * (double)(var4.field1083 - var4.field1085)); // L: 97
 							}
 						}
 					} else {
-						var4.stream2.method2610(var6);
-						if (!var4.stream2.hasNext()) {
-							var4.stream2 = null;
+						var4.stream2.method2610(var6); // L: 102
+						if (!var4.stream2.hasNext()) { // L: 103
+							var4.stream2 = null; // L: 104
 						}
 					}
 				} else {
-					if (var4.stream1 != null) {
-						WorldMapManager.pcmStreamMixer.removeSubStream(var4.stream1);
-						var4.stream1 = null;
+					if (var4.stream1 != null) { // L: 61
+						WorldMapManager.pcmStreamMixer.removeSubStream(var4.stream1); // L: 62
+						var4.stream1 = null; // L: 63
 					}
 
-					if (var4.stream2 != null) {
-						WorldMapManager.pcmStreamMixer.removeSubStream(var4.stream2);
-						var4.stream2 = null;
+					if (var4.stream2 != null) { // L: 65
+						WorldMapManager.pcmStreamMixer.removeSubStream(var4.stream2); // L: 66
+						var4.stream2 = null; // L: 67
 					}
 				}
 			}
 		}
 
-	}
+	} // L: 108
 }

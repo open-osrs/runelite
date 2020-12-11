@@ -54,16 +54,16 @@ public class WorldMapLabelSize {
 	final int field135;
 
 	static {
-		WorldMapLabelSize_small = new WorldMapLabelSize(2, 0, 4);
-		WorldMapLabelSize_medium = new WorldMapLabelSize(1, 1, 2);
-		WorldMapLabelSize_large = new WorldMapLabelSize(0, 2, 0);
+		WorldMapLabelSize_small = new WorldMapLabelSize(2, 0, 4); // L: 7
+		WorldMapLabelSize_medium = new WorldMapLabelSize(1, 1, 2); // L: 8
+		WorldMapLabelSize_large = new WorldMapLabelSize(0, 2, 0); // L: 9
 	}
 
 	WorldMapLabelSize(int var1, int var2, int var3) {
-		this.field142 = var1;
-		this.field133 = var2;
-		this.field135 = var3;
-	}
+		this.field142 = var1; // L: 15
+		this.field133 = var2; // L: 16
+		this.field135 = var3; // L: 17
+	} // L: 18
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -71,7 +71,7 @@ public class WorldMapLabelSize {
 		garbageValue = "-7"
 	)
 	boolean method254(float var1) {
-		return var1 >= (float)this.field135;
+		return var1 >= (float)this.field135; // L: 21
 	}
 
 	@ObfuscatedName("f")
@@ -81,23 +81,23 @@ public class WorldMapLabelSize {
 	)
 	@Export("hslToRgb")
 	static final int hslToRgb(int var0, int var1, int var2) {
-		if (var2 > 179) {
+		if (var2 > 179) { // L: 883
 			var1 /= 2;
 		}
 
-		if (var2 > 192) {
+		if (var2 > 192) { // L: 884
 			var1 /= 2;
 		}
 
-		if (var2 > 217) {
+		if (var2 > 217) { // L: 885
 			var1 /= 2;
 		}
 
-		if (var2 > 243) {
+		if (var2 > 243) { // L: 886
 			var1 /= 2;
 		}
 
-		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2;
-		return var3;
+		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2; // L: 887
+		return var3; // L: 888
 	}
 }

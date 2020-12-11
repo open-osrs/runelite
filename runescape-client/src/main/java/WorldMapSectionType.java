@@ -49,9 +49,9 @@ public enum WorldMapSectionType implements Enumerated {
 	final byte id;
 
 	WorldMapSectionType(int var3, byte var4) {
-		this.type = var3;
-		this.id = var4;
-	}
+		this.type = var3; // L: 21
+		this.id = var4; // L: 22
+	} // L: 23
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -60,7 +60,7 @@ public enum WorldMapSectionType implements Enumerated {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 26
 	}
 
 	@ObfuscatedName("h")
@@ -69,7 +69,7 @@ public enum WorldMapSectionType implements Enumerated {
 		garbageValue = "116"
 	)
 	static WorldMapSectionType[] method295() {
-		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE2};
+		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE2}; // L: 17
 	}
 
 	@ObfuscatedName("x")
@@ -78,8 +78,8 @@ public enum WorldMapSectionType implements Enumerated {
 		garbageValue = "-519940907"
 	)
 	public static void method300(int var0, AbstractArchive var1, String var2, String var3, int var4, boolean var5) {
-		int var6 = var1.getGroupId(var2);
-		int var7 = var1.getFileId(var6, var3);
-		SecureRandomCallable.method1221(var0, var1, var6, var7, var4, var5);
-	}
+		int var6 = var1.getGroupId(var2); // L: 42
+		int var7 = var1.getFileId(var6, var3); // L: 43
+		SecureRandomCallable.method1221(var0, var1, var6, var7, var4, var5); // L: 44
+	} // L: 45
 }

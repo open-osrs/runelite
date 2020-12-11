@@ -25,7 +25,7 @@ public abstract class AbstractUserComparator implements Comparator {
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
-	}
+	} // L: 8
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -34,13 +34,13 @@ public abstract class AbstractUserComparator implements Comparator {
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
-		if (this.nextComparator == null) {
-			this.nextComparator = var1;
-		} else if (this.nextComparator instanceof AbstractUserComparator) {
-			((AbstractUserComparator)this.nextComparator).addComparator(var1);
+		if (this.nextComparator == null) { // L: 11
+			this.nextComparator = var1; // L: 12
+		} else if (this.nextComparator instanceof AbstractUserComparator) { // L: 14
+			((AbstractUserComparator)this.nextComparator).addComparator(var1); // L: 15
 		}
 
-	}
+	} // L: 17
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
@@ -49,10 +49,10 @@ public abstract class AbstractUserComparator implements Comparator {
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
-		return this.nextComparator == null ? 0 : this.nextComparator.compare(var1, var2);
+		return this.nextComparator == null ? 0 : this.nextComparator.compare(var1, var2); // L: 20 21
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1);
+		return super.equals(var1); // L: 25
 	}
 }

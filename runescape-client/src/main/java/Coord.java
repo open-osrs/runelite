@@ -30,24 +30,24 @@ public class Coord {
 		descriptor = "(Lhs;)V"
 	)
 	public Coord(Coord var1) {
-		this.plane = var1.plane;
-		this.x = var1.x;
-		this.y = var1.y;
-	}
+		this.plane = var1.plane; // L: 15
+		this.x = var1.x; // L: 16
+		this.y = var1.y; // L: 17
+	} // L: 18
 
 	public Coord(int var1, int var2, int var3) {
-		this.plane = var1;
-		this.x = var2;
-		this.y = var3;
-	}
+		this.plane = var1; // L: 9
+		this.x = var2; // L: 10
+		this.y = var3; // L: 11
+	} // L: 12
 
 	public Coord(int var1) {
-		if (var1 == -1) {
+		if (var1 == -1) { // L: 21
 			this.plane = -1;
 		} else {
-			this.plane = var1 >> 28 & 3;
-			this.x = var1 >> 14 & 16383;
-			this.y = var1 & 16383;
+			this.plane = var1 >> 28 & 3; // L: 23
+			this.x = var1 >> 14 & 16383; // L: 24
+			this.y = var1 & 16383; // L: 25
 		}
 
 	}
@@ -59,7 +59,7 @@ public class Coord {
 	)
 	@Export("packed")
 	public int packed() {
-		return this.plane << 28 | this.x << 14 | this.y;
+		return this.plane << 28 | this.x << 14 | this.y; // L: 30
 	}
 
 	@ObfuscatedName("v")
@@ -85,23 +85,23 @@ public class Coord {
 	)
 	@Export("toString")
 	String toString(String var1) {
-		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63);
+		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63); // L: 55
 	}
 
 	public boolean equals(Object var1) {
 		if (this == var1) {
 			return true;
 		} else {
-			return !(var1 instanceof Coord) ? false : this.equalsCoord((Coord)var1);
+			return !(var1 instanceof Coord) ? false : this.equalsCoord((Coord)var1); // L: 36
 		}
 	}
 
 	public int hashCode() {
-		return this.packed();
+		return this.packed(); // L: 47
 	}
 
 	public String toString() {
-		return this.toString(",");
+		return this.toString(","); // L: 51
 	}
 
 	@ObfuscatedName("h")
@@ -111,25 +111,25 @@ public class Coord {
 	)
 	@Export("getVarbit")
 	public static int getVarbit(int var0) {
-		VarbitDefinition var2 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0);
+		VarbitDefinition var2 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0); // L: 26
 		VarbitDefinition var1;
-		if (var2 != null) {
-			var1 = var2;
+		if (var2 != null) { // L: 27
+			var1 = var2; // L: 28
 		} else {
-			byte[] var3 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0);
-			var2 = new VarbitDefinition();
-			if (var3 != null) {
+			byte[] var3 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0); // L: 31
+			var2 = new VarbitDefinition(); // L: 32
+			if (var3 != null) { // L: 33
 				var2.decode(new Buffer(var3));
 			}
 
-			VarbitDefinition.VarbitDefinition_cached.put(var2, (long)var0);
-			var1 = var2;
+			VarbitDefinition.VarbitDefinition_cached.put(var2, (long)var0); // L: 34
+			var1 = var2; // L: 35
 		}
 
-		int var7 = var1.baseVar;
-		int var4 = var1.startBit;
-		int var5 = var1.endBit;
-		int var6 = Varps.Varps_masks[var5 - var4];
-		return Varps.Varps_main[var7] >> var4 & var6;
+		int var7 = var1.baseVar; // L: 38
+		int var4 = var1.startBit; // L: 39
+		int var5 = var1.endBit; // L: 40
+		int var6 = Varps.Varps_masks[var5 - var4]; // L: 41
+		return Varps.Varps_main[var7] >> var4 & var6; // L: 42
 	}
 }

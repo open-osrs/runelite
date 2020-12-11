@@ -44,15 +44,15 @@ public class BufferedSink implements Runnable {
 	boolean closed;
 
 	BufferedSink(OutputStream var1, int var2) {
-		this.position = 0;
-		this.limit = 0;
-		this.outputStream = var1;
-		this.capacity = var2 + 1;
-		this.buffer = new byte[this.capacity];
-		this.thread = new Thread(this);
-		this.thread.setDaemon(true);
-		this.thread.start();
-	}
+		this.position = 0; // L: 186
+		this.limit = 0; // L: 187
+		this.outputStream = var1; // L: 192
+		this.capacity = var2 + 1; // L: 193
+		this.buffer = new byte[this.capacity]; // L: 194
+		this.thread = new Thread(this); // L: 195
+		this.thread.setDaemon(true); // L: 196
+		this.thread.start(); // L: 197
+	} // L: 198
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -61,21 +61,21 @@ public class BufferedSink implements Runnable {
 	)
 	@Export("isClosed")
 	boolean isClosed() {
-		if (this.closed) {
+		if (this.closed) { // L: 201
 			try {
-				this.outputStream.close();
+				this.outputStream.close(); // L: 203
 				if (this.exception == null) {
-					this.exception = new IOException("");
+					this.exception = new IOException(""); // L: 204
 				}
-			} catch (IOException var2) {
-				if (this.exception == null) {
+			} catch (IOException var2) { // L: 206
+				if (this.exception == null) { // L: 207
 					this.exception = new IOException(var2);
 				}
 			}
 
-			return true;
+			return true; // L: 209
 		} else {
-			return false;
+			return false; // L: 211
 		}
 	}
 
@@ -86,38 +86,38 @@ public class BufferedSink implements Runnable {
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
-		if (var3 >= 0 && var2 >= 0 && var3 + var2 <= var1.length) {
-			synchronized(this) {
-				if (this.exception != null) {
+		if (var3 >= 0 && var2 >= 0 && var3 + var2 <= var1.length) { // L: 261
+			synchronized(this) { // L: 262
+				if (this.exception != null) { // L: 263
 					throw new IOException(this.exception.toString());
 				} else {
 					int var5;
-					if (this.position <= this.limit) {
+					if (this.position <= this.limit) { // L: 265
 						var5 = this.capacity - this.limit + this.position - 1;
 					} else {
-						var5 = this.position - this.limit - 1;
+						var5 = this.position - this.limit - 1; // L: 266
 					}
 
-					if (var5 < var3) {
+					if (var5 < var3) { // L: 267
 						throw new IOException("");
 					} else {
-						if (var3 + this.limit <= this.capacity) {
-							System.arraycopy(var1, var2, this.buffer, this.limit, var3);
+						if (var3 + this.limit <= this.capacity) { // L: 268
+							System.arraycopy(var1, var2, this.buffer, this.limit, var3); // L: 269
 						} else {
-							int var6 = this.capacity - this.limit;
-							System.arraycopy(var1, var2, this.buffer, this.limit, var6);
-							System.arraycopy(var1, var6 + var2, this.buffer, 0, var3 - var6);
+							int var6 = this.capacity - this.limit; // L: 272
+							System.arraycopy(var1, var2, this.buffer, this.limit, var6); // L: 273
+							System.arraycopy(var1, var6 + var2, this.buffer, 0, var3 - var6); // L: 274
 						}
 
-						this.limit = (var3 + this.limit) % this.capacity;
-						this.notifyAll();
+						this.limit = (var3 + this.limit) % this.capacity; // L: 276
+						this.notifyAll(); // L: 277
 					}
 				}
 			}
 		} else {
 			throw new IOException();
 		}
-	}
+	} // L: 279
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -126,75 +126,75 @@ public class BufferedSink implements Runnable {
 	)
 	@Export("close")
 	void close() {
-		synchronized(this) {
-			this.closed = true;
-			this.notifyAll();
-		}
+		synchronized(this) { // L: 282
+			this.closed = true; // L: 283
+			this.notifyAll(); // L: 284
+		} // L: 285
 
 		try {
-			this.thread.join();
-		} catch (InterruptedException var3) {
+			this.thread.join(); // L: 287
+		} catch (InterruptedException var3) { // L: 289
 		}
 
-	}
+	} // L: 290
 
 	public void run() {
 		do {
 			int var1;
-			synchronized(this) {
+			synchronized(this) { // L: 217
 				while (true) {
-					if (this.exception != null) {
+					if (this.exception != null) { // L: 219
 						return;
 					}
 
-					if (this.position <= this.limit) {
+					if (this.position <= this.limit) { // L: 220
 						var1 = this.limit - this.position;
 					} else {
-						var1 = this.capacity - this.position + this.limit;
+						var1 = this.capacity - this.position + this.limit; // L: 221
 					}
 
-					if (var1 > 0) {
+					if (var1 > 0) { // L: 222
 						break;
 					}
 
 					try {
-						this.outputStream.flush();
-					} catch (IOException var11) {
-						this.exception = var11;
-						return;
+						this.outputStream.flush(); // L: 224
+					} catch (IOException var11) { // L: 226
+						this.exception = var11; // L: 227
+						return; // L: 228
 					}
 
-					if (this.isClosed()) {
+					if (this.isClosed()) { // L: 230
 						return;
 					}
 
 					try {
-						this.wait();
-					} catch (InterruptedException var12) {
+						this.wait(); // L: 232
+					} catch (InterruptedException var12) { // L: 234
 					}
 				}
 			}
 
 			try {
-				if (var1 + this.position <= this.capacity) {
-					this.outputStream.write(this.buffer, this.position, var1);
+				if (var1 + this.position <= this.capacity) { // L: 238
+					this.outputStream.write(this.buffer, this.position, var1); // L: 239
 				} else {
-					int var7 = this.capacity - this.position;
-					this.outputStream.write(this.buffer, this.position, var7);
-					this.outputStream.write(this.buffer, 0, var1 - var7);
+					int var7 = this.capacity - this.position; // L: 242
+					this.outputStream.write(this.buffer, this.position, var7); // L: 243
+					this.outputStream.write(this.buffer, 0, var1 - var7); // L: 244
 				}
-			} catch (IOException var10) {
+			} catch (IOException var10) { // L: 247
 				IOException var2 = var10;
-				synchronized(this) {
-					this.exception = var2;
-					return;
+				synchronized(this) { // L: 248
+					this.exception = var2; // L: 249
+					return; // L: 250
 				}
 			}
 
-			synchronized(this) {
-				this.position = (var1 + this.position) % this.capacity;
-			}
-		} while(!this.isClosed());
+			synchronized(this) { // L: 253
+				this.position = (var1 + this.position) % this.capacity; // L: 254
+			} // L: 255
+		} while(!this.isClosed()); // L: 256
 
 	}
 
@@ -204,6 +204,6 @@ public class BufferedSink implements Runnable {
 		garbageValue = "248442350"
 	)
 	public static class7[] method5889() {
-		return new class7[]{class7.field25};
+		return new class7[]{class7.field25}; // L: 12
 	}
 }

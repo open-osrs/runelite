@@ -75,10 +75,10 @@ public class World {
 	int index;
 
 	static {
-		World_count = 0;
-		World_listCount = 0;
-		World_sortOption2 = new int[]{1, 1, 1, 1};
-		World_sortOption1 = new int[]{0, 1, 2, 3};
+		World_count = 0; // L: 14
+		World_listCount = 0; // L: 15
+		World_sortOption2 = new int[]{1, 1, 1, 1}; // L: 16
+		World_sortOption1 = new int[]{0, 1, 2, 3}; // L: 17
 	}
 
 	World() {
@@ -91,7 +91,7 @@ public class World {
 	)
 	@Export("isMembersOnly")
 	boolean isMembersOnly() {
-		return (1 & this.properties) != 0;
+		return (1 & this.properties) != 0; // L: 257
 	}
 
 	@ObfuscatedName("z")
@@ -100,7 +100,7 @@ public class World {
 		garbageValue = "-2039082864"
 	)
 	boolean method1829() {
-		return (2 & this.properties) != 0;
+		return (2 & this.properties) != 0; // L: 261
 	}
 
 	@ObfuscatedName("u")
@@ -110,7 +110,7 @@ public class World {
 	)
 	@Export("isPvp")
 	boolean isPvp() {
-		return (4 & this.properties) != 0;
+		return (4 & this.properties) != 0; // L: 265
 	}
 
 	@ObfuscatedName("e")
@@ -119,7 +119,7 @@ public class World {
 		garbageValue = "-1688533510"
 	)
 	boolean method1831() {
-		return (8 & this.properties) != 0;
+		return (8 & this.properties) != 0; // L: 269
 	}
 
 	@ObfuscatedName("m")
@@ -129,7 +129,7 @@ public class World {
 	)
 	@Export("isDeadman")
 	boolean isDeadman() {
-		return (536870912 & this.properties) != 0;
+		return (536870912 & this.properties) != 0; // L: 273
 	}
 
 	@ObfuscatedName("c")
@@ -139,7 +139,7 @@ public class World {
 	)
 	@Export("isBeta")
 	boolean isBeta() {
-		return (33554432 & this.properties) != 0;
+		return (33554432 & this.properties) != 0; // L: 277
 	}
 
 	@ObfuscatedName("i")
@@ -148,7 +148,7 @@ public class World {
 		garbageValue = "48"
 	)
 	boolean method1845() {
-		return (1073741824 & this.properties) != 0;
+		return (1073741824 & this.properties) != 0; // L: 281
 	}
 
 	@ObfuscatedName("h")
@@ -157,12 +157,12 @@ public class World {
 		garbageValue = "719435212"
 	)
 	public static int method1870(int var0) {
-		--var0;
-		var0 |= var0 >>> 1;
-		var0 |= var0 >>> 2;
-		var0 |= var0 >>> 4;
-		var0 |= var0 >>> 8;
-		var0 |= var0 >>> 16;
+		--var0; // L: 24
+		var0 |= var0 >>> 1; // L: 25
+		var0 |= var0 >>> 2; // L: 26
+		var0 |= var0 >>> 4; // L: 27
+		var0 |= var0 >>> 8; // L: 28
+		var0 |= var0 >>> 16; // L: 29
 		return var0 + 1;
 	}
 
@@ -172,9 +172,9 @@ public class World {
 		garbageValue = "-186964533"
 	)
 	public static void method1849(AbstractArchive var0, AbstractArchive var1) {
-		NPCDefinition.NpcDefinition_archive = var0;
-		NPCDefinition.NpcDefinition_modelArchive = var1;
-	}
+		NPCDefinition.NpcDefinition_archive = var0; // L: 57
+		NPCDefinition.NpcDefinition_modelArchive = var1; // L: 58
+	} // L: 59
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -182,19 +182,19 @@ public class World {
 		garbageValue = "689239187"
 	)
 	public static int method1871(int var0, int var1, int var2, int var3, int var4, int var5) {
-		if ((var5 & 1) == 1) {
-			int var6 = var3;
-			var3 = var4;
-			var4 = var6;
+		if ((var5 & 1) == 1) { // L: 30
+			int var6 = var3; // L: 31
+			var3 = var4; // L: 32
+			var4 = var6; // L: 33
 		}
 
-		var2 &= 3;
-		if (var2 == 0) {
+		var2 &= 3; // L: 35
+		if (var2 == 0) { // L: 36
 			return var1;
-		} else if (var2 == 1) {
+		} else if (var2 == 1) { // L: 37
 			return 7 - var0 - (var3 - 1);
 		} else {
-			return var2 == 2 ? 7 - var1 - (var4 - 1) : var0;
+			return var2 == 2 ? 7 - var1 - (var4 - 1) : var0; // L: 38
 		}
 	}
 
@@ -205,59 +205,59 @@ public class World {
 	)
 	@Export("parseIntCustomRadix")
 	public static int parseIntCustomRadix(CharSequence var0, int var1, boolean var2) {
-		if (var1 >= 2 && var1 <= 36) {
-			boolean var3 = false;
-			boolean var4 = false;
-			int var5 = 0;
-			int var6 = var0.length();
+		if (var1 >= 2 && var1 <= 36) { // L: 80
+			boolean var3 = false; // L: 81
+			boolean var4 = false; // L: 82
+			int var5 = 0; // L: 83
+			int var6 = var0.length(); // L: 84
 
-			for (int var7 = 0; var7 < var6; ++var7) {
-				char var8 = var0.charAt(var7);
-				if (var7 == 0) {
-					if (var8 == '-') {
-						var3 = true;
+			for (int var7 = 0; var7 < var6; ++var7) { // L: 85
+				char var8 = var0.charAt(var7); // L: 86
+				if (var7 == 0) { // L: 87
+					if (var8 == '-') { // L: 88
+						var3 = true; // L: 89
 						continue;
 					}
 
-					if (var8 == '+') {
+					if (var8 == '+') { // L: 92
 						continue;
 					}
 				}
 
 				int var10;
 				if (var8 >= '0' && var8 <= '9') {
-					var10 = var8 - '0';
-				} else if (var8 >= 'A' && var8 <= 'Z') {
+					var10 = var8 - '0'; // L: 94
+				} else if (var8 >= 'A' && var8 <= 'Z') { // L: 95
 					var10 = var8 - '7';
 				} else {
-					if (var8 < 'a' || var8 > 'z') {
-						throw new NumberFormatException();
+					if (var8 < 'a' || var8 > 'z') { // L: 96
+						throw new NumberFormatException(); // L: 97
 					}
 
 					var10 = var8 - 'W';
 				}
 
-				if (var10 >= var1) {
+				if (var10 >= var1) { // L: 98
 					throw new NumberFormatException();
 				}
 
-				if (var3) {
+				if (var3) { // L: 99
 					var10 = -var10;
 				}
 
-				int var9 = var5 * var1 + var10;
-				if (var9 / var1 != var5) {
+				int var9 = var5 * var1 + var10; // L: 100
+				if (var9 / var1 != var5) { // L: 101
 					throw new NumberFormatException();
 				}
 
-				var5 = var9;
-				var4 = true;
+				var5 = var9; // L: 102
+				var4 = true; // L: 103
 			}
 
-			if (!var4) {
+			if (!var4) { // L: 105
 				throw new NumberFormatException();
 			} else {
-				return var5;
+				return var5; // L: 106
 			}
 		} else {
 			throw new IllegalArgumentException("" + var1);
@@ -270,10 +270,10 @@ public class World {
 		garbageValue = "614025062"
 	)
 	public static int method1874(int var0) {
-		if (var0 > 0) {
+		if (var0 > 0) { // L: 195
 			return 1;
 		} else {
-			return var0 < 0 ? -1 : 0;
+			return var0 < 0 ? -1 : 0; // L: 196 197
 		}
 	}
 }

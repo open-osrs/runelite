@@ -8,7 +8,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
 	protected AbstractSocket() {
-	}
+	} // L: 7
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -64,10 +64,10 @@ public abstract class AbstractSocket {
 		garbageValue = "66"
 	)
 	static void method5846(byte[] var0, int var1) {
-		if (Client.randomDatData == null) {
+		if (Client.randomDatData == null) { // L: 11134
 			Client.randomDatData = new byte[24];
 		}
 
-		class311.writeRandomDat(var0, var1, Client.randomDatData, 0, 24);
-	}
+		class311.writeRandomDat(var0, var1, Client.randomDatData, 0, 24); // L: 11135
+	} // L: 11136
 }

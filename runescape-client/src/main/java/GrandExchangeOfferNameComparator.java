@@ -21,7 +21,7 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1);
+		return super.equals(var1); // L: 64
 	}
 
 	public int compare(Object var1, Object var2) {
@@ -44,34 +44,34 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 	)
 	@Export("itemContainerSetItem")
 	static void itemContainerSetItem(int var0, int var1, int var2, int var3) {
-		ItemContainer var4 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var4 == null) {
-			var4 = new ItemContainer();
-			ItemContainer.itemContainers.put(var4, (long)var0);
+		ItemContainer var4 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 39
+		if (var4 == null) { // L: 40
+			var4 = new ItemContainer(); // L: 41
+			ItemContainer.itemContainers.put(var4, (long)var0); // L: 42
 		}
 
-		if (var4.ids.length <= var1) {
-			int[] var5 = new int[var1 + 1];
-			int[] var6 = new int[var1 + 1];
+		if (var4.ids.length <= var1) { // L: 44
+			int[] var5 = new int[var1 + 1]; // L: 45
+			int[] var6 = new int[var1 + 1]; // L: 46
 
 			int var7;
-			for (var7 = 0; var7 < var4.ids.length; ++var7) {
-				var5[var7] = var4.ids[var7];
-				var6[var7] = var4.quantities[var7];
+			for (var7 = 0; var7 < var4.ids.length; ++var7) { // L: 47
+				var5[var7] = var4.ids[var7]; // L: 48
+				var6[var7] = var4.quantities[var7]; // L: 49
 			}
 
-			for (var7 = var4.ids.length; var7 < var1; ++var7) {
-				var5[var7] = -1;
-				var6[var7] = 0;
+			for (var7 = var4.ids.length; var7 < var1; ++var7) { // L: 51
+				var5[var7] = -1; // L: 52
+				var6[var7] = 0; // L: 53
 			}
 
-			var4.ids = var5;
-			var4.quantities = var6;
+			var4.ids = var5; // L: 55
+			var4.quantities = var6; // L: 56
 		}
 
-		var4.ids[var1] = var2;
-		var4.quantities[var1] = var3;
-	}
+		var4.ids[var1] = var2; // L: 58
+		var4.quantities[var1] = var3; // L: 59
+	} // L: 60
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -80,14 +80,14 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 	)
 	@Export("isKeyDown")
 	public static final boolean isKeyDown() {
-		synchronized(KeyHandler.KeyHandler_instance) {
-			if (KeyHandler.field415 == KeyHandler.field417) {
+		synchronized(KeyHandler.KeyHandler_instance) { // L: 191
+			if (KeyHandler.field415 == KeyHandler.field417) { // L: 192
 				return false;
 			} else {
-				StudioGame.field3135 = KeyHandler.field412[KeyHandler.field415];
-				WorldMapIcon_1.field200 = KeyHandler.field409[KeyHandler.field415];
-				KeyHandler.field415 = KeyHandler.field415 + 1 & 127;
-				return true;
+				StudioGame.field3135 = KeyHandler.field412[KeyHandler.field415]; // L: 193
+				WorldMapIcon_1.field200 = KeyHandler.field409[KeyHandler.field415]; // L: 194
+				KeyHandler.field415 = KeyHandler.field415 + 1 & 127; // L: 195
+				return true; // L: 196
 			}
 		}
 	}
@@ -99,39 +99,39 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 	)
 	@Export("getGcDuration")
 	protected static int getGcDuration() {
-		int var0 = 0;
-		if (class25.garbageCollector == null || !class25.garbageCollector.isValid()) {
+		int var0 = 0; // L: 566
+		if (class25.garbageCollector == null || !class25.garbageCollector.isValid()) { // L: 567
 			try {
-				Iterator var1 = ManagementFactory.getGarbageCollectorMXBeans().iterator();
+				Iterator var1 = ManagementFactory.getGarbageCollectorMXBeans().iterator(); // L: 569
 
 				while (var1.hasNext()) {
-					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next();
-					if (var2.isValid()) {
-						class25.garbageCollector = var2;
-						GameShell.garbageCollectorLastCheckTimeMs = -1L;
-						GameShell.garbageCollectorLastCollectionTime = -1L;
+					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next(); // L: 570
+					if (var2.isValid()) { // L: 572
+						class25.garbageCollector = var2; // L: 573
+						GameShell.garbageCollectorLastCheckTimeMs = -1L; // L: 574
+						GameShell.garbageCollectorLastCollectionTime = -1L; // L: 575
 					}
 				}
-			} catch (Throwable var11) {
+			} catch (Throwable var11) { // L: 580
 			}
 		}
 
-		if (class25.garbageCollector != null) {
-			long var9 = class298.currentTimeMillis();
-			long var3 = class25.garbageCollector.getCollectionTime();
-			if (-1L != GameShell.garbageCollectorLastCollectionTime) {
-				long var5 = var3 - GameShell.garbageCollectorLastCollectionTime;
-				long var7 = var9 - GameShell.garbageCollectorLastCheckTimeMs;
-				if (var7 != 0L) {
+		if (class25.garbageCollector != null) { // L: 582
+			long var9 = class298.currentTimeMillis(); // L: 583
+			long var3 = class25.garbageCollector.getCollectionTime(); // L: 584
+			if (-1L != GameShell.garbageCollectorLastCollectionTime) { // L: 585
+				long var5 = var3 - GameShell.garbageCollectorLastCollectionTime; // L: 586
+				long var7 = var9 - GameShell.garbageCollectorLastCheckTimeMs; // L: 587
+				if (var7 != 0L) { // L: 588
 					var0 = (int)(100L * var5 / var7);
 				}
 			}
 
-			GameShell.garbageCollectorLastCollectionTime = var3;
-			GameShell.garbageCollectorLastCheckTimeMs = var9;
+			GameShell.garbageCollectorLastCollectionTime = var3; // L: 590
+			GameShell.garbageCollectorLastCheckTimeMs = var9; // L: 591
 		}
 
-		return var0;
+		return var0; // L: 593
 	}
 
 	@ObfuscatedName("gm")
@@ -140,14 +140,14 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		garbageValue = "112778991"
 	)
 	static final void method209() {
-		if (WorldMapIcon_1.ClanChat_inClanChat) {
-			if (WorldMapArea.clanChat != null) {
-				WorldMapArea.clanChat.sort();
+		if (WorldMapIcon_1.ClanChat_inClanChat) { // L: 3725
+			if (WorldMapArea.clanChat != null) { // L: 3726
+				WorldMapArea.clanChat.sort(); // L: 3727
 			}
 
-			SecureRandomCallable.method1217();
-			WorldMapIcon_1.ClanChat_inClanChat = false;
+			SecureRandomCallable.method1217(); // L: 3729
+			WorldMapIcon_1.ClanChat_inClanChat = false; // L: 3730
 		}
 
-	}
+	} // L: 3732
 }

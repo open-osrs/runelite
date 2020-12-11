@@ -69,11 +69,11 @@ public enum PlayerType implements Enumerated {
 	public final boolean isUser;
 
 	PlayerType(int var3, int var4, boolean var5, boolean var6, boolean var7) {
-		this.id = var3;
-		this.modIcon = var4;
-		this.isPrivileged = var6;
-		this.isUser = var7;
-	}
+		this.id = var3; // L: 24
+		this.modIcon = var4; // L: 25
+		this.isPrivileged = var6; // L: 26
+		this.isUser = var7; // L: 27
+	} // L: 28
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -82,7 +82,7 @@ public enum PlayerType implements Enumerated {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 31
 	}
 
 	@ObfuscatedName("h")
@@ -91,8 +91,8 @@ public enum PlayerType implements Enumerated {
 		garbageValue = "-320192439"
 	)
 	static Sprite method4170(int var0, int var1, int var2) {
-		DemotingHashTable var3 = WorldMapRegion.WorldMapRegion_cachedSprites;
-		long var4 = (long)(var2 << 16 | var0 << 8 | var1);
-		return (Sprite)var3.get(var4);
+		DemotingHashTable var3 = WorldMapRegion.WorldMapRegion_cachedSprites; // L: 38
+		long var4 = (long)(var2 << 16 | var0 << 8 | var1); // L: 41
+		return (Sprite)var3.get(var4); // L: 43
 	}
 }

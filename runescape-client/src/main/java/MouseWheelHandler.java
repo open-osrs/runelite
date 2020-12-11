@@ -18,8 +18,8 @@ public final class MouseWheelHandler implements MouseWheel, MouseWheelListener {
 	int rotation;
 
 	MouseWheelHandler() {
-		this.rotation = 0;
-	}
+		this.rotation = 0; // L: 8
+	} // L: 10
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -28,8 +28,8 @@ public final class MouseWheelHandler implements MouseWheel, MouseWheelListener {
 	)
 	@Export("addTo")
 	void addTo(Component var1) {
-		var1.addMouseWheelListener(this);
-	}
+		var1.addMouseWheelListener(this); // L: 13
+	} // L: 14
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -38,8 +38,8 @@ public final class MouseWheelHandler implements MouseWheel, MouseWheelListener {
 	)
 	@Export("removeFrom")
 	void removeFrom(Component var1) {
-		var1.removeMouseWheelListener(this);
-	}
+		var1.removeMouseWheelListener(this); // L: 17
+	} // L: 18
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -48,12 +48,12 @@ public final class MouseWheelHandler implements MouseWheel, MouseWheelListener {
 	)
 	@Export("useRotation")
 	public synchronized int useRotation() {
-		int var1 = this.rotation;
-		this.rotation = 0;
-		return var1;
+		int var1 = this.rotation; // L: 26
+		this.rotation = 0; // L: 27
+		return var1; // L: 28
 	}
 
 	public synchronized void mouseWheelMoved(MouseWheelEvent var1) {
-		this.rotation += var1.getWheelRotation();
-	}
+		this.rotation += var1.getWheelRotation(); // L: 22
+	} // L: 23
 }

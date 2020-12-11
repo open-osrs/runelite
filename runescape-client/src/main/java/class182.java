@@ -39,9 +39,9 @@ public class class182 {
 	static int menuHeight;
 
 	static {
-		directions = new int[128][128];
-		distances = new int[128][128];
-		bufferX = new int[4096];
-		bufferY = new int[4096];
+		directions = new int[128][128]; // L: 6
+		distances = new int[128][128]; // L: 7
+		bufferX = new int[4096]; // L: 11
+		bufferY = new int[4096]; // L: 12
 	}
 }

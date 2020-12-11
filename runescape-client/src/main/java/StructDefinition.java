@@ -26,11 +26,11 @@ public class StructDefinition extends DualNode {
 	IterableNodeHashTable params;
 
 	static {
-		StructDefinition_cached = new EvictingDualNodeHashTable(64);
+		StructDefinition_cached = new EvictingDualNodeHashTable(64); // L: 13
 	}
 
 	StructDefinition() {
-	}
+	} // L: 16
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -39,7 +39,7 @@ public class StructDefinition extends DualNode {
 	)
 	@Export("postDecode")
 	void postDecode() {
-	}
+	} // L: 33
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -49,12 +49,12 @@ public class StructDefinition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
+			int var2 = var1.readUnsignedByte(); // L: 37
+			if (var2 == 0) { // L: 38
+				return; // L: 41
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 39
 		}
 	}
 
@@ -66,10 +66,10 @@ public class StructDefinition extends DualNode {
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 249) {
-			this.params = NetSocket.readStringIntParameters(var1, this.params);
+			this.params = NetSocket.readStringIntParameters(var1, this.params); // L: 44
 		}
 
-	}
+	} // L: 46
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -78,20 +78,20 @@ public class StructDefinition extends DualNode {
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
-		IterableNodeHashTable var4 = this.params;
+		IterableNodeHashTable var4 = this.params; // L: 50
 		int var3;
-		if (var4 == null) {
-			var3 = var2;
+		if (var4 == null) { // L: 52
+			var3 = var2; // L: 53
 		} else {
-			IntegerNode var5 = (IntegerNode)var4.get((long)var1);
-			if (var5 == null) {
-				var3 = var2;
+			IntegerNode var5 = (IntegerNode)var4.get((long)var1); // L: 56
+			if (var5 == null) { // L: 57
+				var3 = var2; // L: 58
 			} else {
-				var3 = var5.integer;
+				var3 = var5.integer; // L: 61
 			}
 		}
 
-		return var3;
+		return var3; // L: 63
 	}
 
 	@ObfuscatedName("n")
@@ -101,20 +101,20 @@ public class StructDefinition extends DualNode {
 	)
 	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
-		IterableNodeHashTable var4 = this.params;
+		IterableNodeHashTable var4 = this.params; // L: 68
 		String var3;
-		if (var4 == null) {
-			var3 = var2;
+		if (var4 == null) { // L: 70
+			var3 = var2; // L: 71
 		} else {
-			ObjectNode var5 = (ObjectNode)var4.get((long)var1);
-			if (var5 == null) {
-				var3 = var2;
+			ObjectNode var5 = (ObjectNode)var4.get((long)var1); // L: 74
+			if (var5 == null) { // L: 75
+				var3 = var2; // L: 76
 			} else {
-				var3 = (String)var5.obj;
+				var3 = (String)var5.obj; // L: 79
 			}
 		}
 
-		return var3;
+		return var3; // L: 81
 	}
 
 	@ObfuscatedName("h")
@@ -123,6 +123,6 @@ public class StructDefinition extends DualNode {
 		garbageValue = "-890013246"
 	)
 	public static void method4545(AbstractArchive var0) {
-		EnumDefinition.EnumDefinition_archive = var0;
-	}
+		EnumDefinition.EnumDefinition_archive = var0; // L: 25
+	} // L: 26
 }

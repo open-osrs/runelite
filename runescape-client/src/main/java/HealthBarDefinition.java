@@ -85,21 +85,21 @@ public class HealthBarDefinition extends DualNode {
 	public int widthPadding;
 
 	static {
-		HealthBarDefinition_cached = new EvictingDualNodeHashTable(64);
-		HealthBarDefinition_cachedSprites = new EvictingDualNodeHashTable(64);
+		HealthBarDefinition_cached = new EvictingDualNodeHashTable(64); // L: 14
+		HealthBarDefinition_cachedSprites = new EvictingDualNodeHashTable(64); // L: 15
 	}
 
 	HealthBarDefinition() {
-		this.int1 = 255;
-		this.int2 = 255;
-		this.int3 = -1;
-		this.field3307 = 1;
-		this.int5 = 70;
-		this.frontSpriteID = -1;
-		this.backSpriteID = -1;
-		this.width = 30;
-		this.widthPadding = 0;
-	}
+		this.int1 = 255; // L: 19
+		this.int2 = 255; // L: 20
+		this.int3 = -1; // L: 21
+		this.field3307 = 1; // L: 22
+		this.int5 = 70; // L: 23
+		this.frontSpriteID = -1; // L: 24
+		this.backSpriteID = -1; // L: 25
+		this.width = 30; // L: 26
+		this.widthPadding = 0; // L: 27
+	} // L: 29
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -109,12 +109,12 @@ public class HealthBarDefinition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
+			int var2 = var1.readUnsignedByte(); // L: 48
+			if (var2 == 0) { // L: 49
+				return; // L: 52
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 50
 		}
 	}
 
@@ -125,17 +125,17 @@ public class HealthBarDefinition extends DualNode {
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) {
-			var1.readUnsignedShort();
-		} else if (var2 == 2) {
+		if (var2 == 1) { // L: 55
+			var1.readUnsignedShort(); // L: 56
+		} else if (var2 == 2) { // L: 58
 			this.int1 = var1.readUnsignedByte();
-		} else if (var2 == 3) {
+		} else if (var2 == 3) { // L: 59
 			this.int2 = var1.readUnsignedByte();
-		} else if (var2 == 4) {
+		} else if (var2 == 4) { // L: 60
 			this.int3 = 0;
 		} else if (var2 == 5) {
-			this.int5 = var1.readUnsignedShort();
-		} else if (var2 == 6) {
+			this.int5 = var1.readUnsignedShort(); // L: 61
+		} else if (var2 == 6) { // L: 62
 			var1.readUnsignedByte();
 		} else if (var2 == 7) {
 			this.frontSpriteID = var1.method5559();
@@ -158,7 +158,7 @@ public class HealthBarDefinition extends DualNode {
 	)
 	@Export("getFrontSprite")
 	public Sprite getFrontSprite() {
-		if (this.frontSpriteID < 0) {
+		if (this.frontSpriteID < 0) { // L: 74
 			return null;
 		} else {
 			Sprite var1 = (Sprite)HealthBarDefinition_cachedSprites.get((long)this.frontSpriteID);
@@ -170,7 +170,7 @@ public class HealthBarDefinition extends DualNode {
 					HealthBarDefinition_cachedSprites.put(var1, (long)this.frontSpriteID);
 				}
 
-				return var1;
+				return var1; // L: 80
 			}
 		}
 	}
@@ -182,19 +182,19 @@ public class HealthBarDefinition extends DualNode {
 	)
 	@Export("getBackSprite")
 	public Sprite getBackSprite() {
-		if (this.backSpriteID < 0) {
+		if (this.backSpriteID < 0) { // L: 84
 			return null;
 		} else {
-			Sprite var1 = (Sprite)HealthBarDefinition_cachedSprites.get((long)this.backSpriteID);
+			Sprite var1 = (Sprite)HealthBarDefinition_cachedSprites.get((long)this.backSpriteID); // L: 85
 			if (var1 != null) {
-				return var1;
+				return var1; // L: 86
 			} else {
-				var1 = Skills.SpriteBuffer_getSprite(HitSplatDefinition_spritesArchive, this.backSpriteID, 0);
+				var1 = Skills.SpriteBuffer_getSprite(HitSplatDefinition_spritesArchive, this.backSpriteID, 0); // L: 87
 				if (var1 != null) {
-					HealthBarDefinition_cachedSprites.put(var1, (long)this.backSpriteID);
+					HealthBarDefinition_cachedSprites.put(var1, (long)this.backSpriteID); // L: 88
 				}
 
-				return var1;
+				return var1; // L: 90
 			}
 		}
 	}
@@ -206,24 +206,24 @@ public class HealthBarDefinition extends DualNode {
 	)
 	@Export("changeWorldSelectSorting")
 	static void changeWorldSelectSorting(int var0, int var1) {
-		int[] var2 = new int[4];
-		int[] var3 = new int[4];
-		var2[0] = var0;
-		var3[0] = var1;
-		int var4 = 1;
+		int[] var2 = new int[4]; // L: 63
+		int[] var3 = new int[4]; // L: 64
+		var2[0] = var0; // L: 65
+		var3[0] = var1; // L: 66
+		int var4 = 1; // L: 67
 
-		for (int var5 = 0; var5 < 4; ++var5) {
-			if (World.World_sortOption1[var5] != var0) {
-				var2[var4] = World.World_sortOption1[var5];
-				var3[var4] = World.World_sortOption2[var5];
-				++var4;
+		for (int var5 = 0; var5 < 4; ++var5) { // L: 68
+			if (World.World_sortOption1[var5] != var0) { // L: 69
+				var2[var4] = World.World_sortOption1[var5]; // L: 70
+				var3[var4] = World.World_sortOption2[var5]; // L: 71
+				++var4; // L: 72
 			}
 		}
 
-		World.World_sortOption1 = var2;
-		World.World_sortOption2 = var3;
-		ChatChannel.sortWorlds(World.World_worlds, 0, World.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2);
-	}
+		World.World_sortOption1 = var2; // L: 75
+		World.World_sortOption2 = var3; // L: 76
+		ChatChannel.sortWorlds(World.World_worlds, 0, World.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2); // L: 77
+	} // L: 78
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -232,36 +232,36 @@ public class HealthBarDefinition extends DualNode {
 	)
 	@Export("intToString")
 	public static String intToString(int var0, boolean var1) {
-		if (var1 && var0 >= 0) {
-			int var3 = var0;
+		if (var1 && var0 >= 0) { // L: 110
+			int var3 = var0; // L: 112
 			String var2;
-			if (var1 && var0 >= 0) {
-				int var4 = 2;
+			if (var1 && var0 >= 0) { // L: 115
+				int var4 = 2; // L: 119
 
-				for (int var5 = var0 / 10; var5 != 0; ++var4) {
-					var5 /= 10;
+				for (int var5 = var0 / 10; var5 != 0; ++var4) { // L: 120 121 123
+					var5 /= 10; // L: 122
 				}
 
-				char[] var6 = new char[var4];
-				var6[0] = '+';
+				char[] var6 = new char[var4]; // L: 125
+				var6[0] = '+'; // L: 126
 
-				for (int var7 = var4 - 1; var7 > 0; --var7) {
-					int var8 = var3;
-					var3 /= 10;
-					int var9 = var8 - var3 * 10;
-					if (var9 >= 10) {
+				for (int var7 = var4 - 1; var7 > 0; --var7) { // L: 127
+					int var8 = var3; // L: 128
+					var3 /= 10; // L: 129
+					int var9 = var8 - var3 * 10; // L: 130
+					if (var9 >= 10) { // L: 131
 						var6[var7] = (char)(var9 + 87);
 					} else {
-						var6[var7] = (char)(var9 + 48);
+						var6[var7] = (char)(var9 + 48); // L: 132
 					}
 				}
 
-				var2 = new String(var6);
+				var2 = new String(var6); // L: 134
 			} else {
-				var2 = Integer.toString(var0, 10);
+				var2 = Integer.toString(var0, 10); // L: 116
 			}
 
-			return var2;
+			return var2; // L: 136
 		} else {
 			return Integer.toString(var0);
 		}
@@ -273,10 +273,10 @@ public class HealthBarDefinition extends DualNode {
 		garbageValue = "46"
 	)
 	public static void method4509() {
-		HitSplatDefinition.HitSplatDefinition_cached.clear();
-		HitSplatDefinition.HitSplatDefinition_cachedSprites.clear();
-		HitSplatDefinition.HitSplatDefinition_cachedFonts.clear();
-	}
+		HitSplatDefinition.HitSplatDefinition_cached.clear(); // L: 177
+		HitSplatDefinition.HitSplatDefinition_cachedSprites.clear(); // L: 178
+		HitSplatDefinition.HitSplatDefinition_cachedFonts.clear(); // L: 179
+	} // L: 180
 
 	@ObfuscatedName("jo")
 	@ObfuscatedSignature(
@@ -284,30 +284,30 @@ public class HealthBarDefinition extends DualNode {
 		garbageValue = "128"
 	)
 	static final int method4512(Widget var0, int var1) {
-		if (var0.cs1Instructions != null && var1 < var0.cs1Instructions.length) {
+		if (var0.cs1Instructions != null && var1 < var0.cs1Instructions.length) { // L: 9606
 			try {
-				int[] var2 = var0.cs1Instructions[var1];
-				int var3 = 0;
-				int var4 = 0;
-				byte var5 = 0;
+				int[] var2 = var0.cs1Instructions[var1]; // L: 9608
+				int var3 = 0; // L: 9609
+				int var4 = 0; // L: 9610
+				byte var5 = 0; // L: 9611
 
 				while (true) {
-					int var6 = var2[var4++];
-					int var7 = 0;
-					byte var8 = 0;
-					if (var6 == 0) {
+					int var6 = var2[var4++]; // L: 9613
+					int var7 = 0; // L: 9614
+					byte var8 = 0; // L: 9615
+					if (var6 == 0) { // L: 9616
 						return var3;
 					}
 
-					if (var6 == 1) {
+					if (var6 == 1) { // L: 9617
 						var7 = Client.currentLevels[var2[var4++]];
 					}
 
-					if (var6 == 2) {
+					if (var6 == 2) { // L: 9618
 						var7 = Client.levels[var2[var4++]];
 					}
 
-					if (var6 == 3) {
+					if (var6 == 3) { // L: 9619
 						var7 = Client.experience[var2[var4++]];
 					}
 
@@ -315,126 +315,126 @@ public class HealthBarDefinition extends DualNode {
 					Widget var10;
 					int var11;
 					int var12;
-					if (var6 == 4) {
-						var9 = var2[var4++] << 16;
-						var9 += var2[var4++];
-						var10 = CollisionMap.getWidget(var9);
-						var11 = var2[var4++];
-						if (var11 != -1 && (!SecureRandomCallable.ItemDefinition_get(var11).isMembersOnly || Client.isMembersWorld)) {
-							for (var12 = 0; var12 < var10.itemIds.length; ++var12) {
-								if (var11 + 1 == var10.itemIds[var12]) {
+					if (var6 == 4) { // L: 9620
+						var9 = var2[var4++] << 16; // L: 9621
+						var9 += var2[var4++]; // L: 9622
+						var10 = CollisionMap.getWidget(var9); // L: 9623
+						var11 = var2[var4++]; // L: 9624
+						if (var11 != -1 && (!SecureRandomCallable.ItemDefinition_get(var11).isMembersOnly || Client.isMembersWorld)) { // L: 9625
+							for (var12 = 0; var12 < var10.itemIds.length; ++var12) { // L: 9626
+								if (var11 + 1 == var10.itemIds[var12]) { // L: 9627
 									var7 += var10.itemQuantities[var12];
 								}
 							}
 						}
 					}
 
-					if (var6 == 5) {
+					if (var6 == 5) { // L: 9631
 						var7 = Varps.Varps_main[var2[var4++]];
 					}
 
-					if (var6 == 6) {
+					if (var6 == 6) { // L: 9632
 						var7 = Skills.Skills_experienceTable[Client.levels[var2[var4++]] - 1];
 					}
 
-					if (var6 == 7) {
+					if (var6 == 7) { // L: 9633
 						var7 = Varps.Varps_main[var2[var4++]] * 100 / 46875;
 					}
 
-					if (var6 == 8) {
+					if (var6 == 8) { // L: 9634
 						var7 = PlayerAppearance.localPlayer.combatLevel;
 					}
 
-					if (var6 == 9) {
-						for (var9 = 0; var9 < 25; ++var9) {
-							if (Skills.Skills_enabled[var9]) {
+					if (var6 == 9) { // L: 9635
+						for (var9 = 0; var9 < 25; ++var9) { // L: 9636
+							if (Skills.Skills_enabled[var9]) { // L: 9637
 								var7 += Client.levels[var9];
 							}
 						}
 					}
 
-					if (var6 == 10) {
-						var9 = var2[var4++] << 16;
-						var9 += var2[var4++];
-						var10 = CollisionMap.getWidget(var9);
-						var11 = var2[var4++];
-						if (var11 != -1 && (!SecureRandomCallable.ItemDefinition_get(var11).isMembersOnly || Client.isMembersWorld)) {
-							for (var12 = 0; var12 < var10.itemIds.length; ++var12) {
-								if (var11 + 1 == var10.itemIds[var12]) {
-									var7 = 999999999;
-									break;
+					if (var6 == 10) { // L: 9640
+						var9 = var2[var4++] << 16; // L: 9641
+						var9 += var2[var4++]; // L: 9642
+						var10 = CollisionMap.getWidget(var9); // L: 9643
+						var11 = var2[var4++]; // L: 9644
+						if (var11 != -1 && (!SecureRandomCallable.ItemDefinition_get(var11).isMembersOnly || Client.isMembersWorld)) { // L: 9645
+							for (var12 = 0; var12 < var10.itemIds.length; ++var12) { // L: 9646
+								if (var11 + 1 == var10.itemIds[var12]) { // L: 9647
+									var7 = 999999999; // L: 9648
+									break; // L: 9649
 								}
 							}
 						}
 					}
 
-					if (var6 == 11) {
+					if (var6 == 11) { // L: 9654
 						var7 = Client.runEnergy;
 					}
 
-					if (var6 == 12) {
+					if (var6 == 12) { // L: 9655
 						var7 = Client.weight;
 					}
 
-					if (var6 == 13) {
-						var9 = Varps.Varps_main[var2[var4++]];
-						int var13 = var2[var4++];
-						var7 = (var9 & 1 << var13) != 0 ? 1 : 0;
+					if (var6 == 13) { // L: 9656
+						var9 = Varps.Varps_main[var2[var4++]]; // L: 9657
+						int var13 = var2[var4++]; // L: 9658
+						var7 = (var9 & 1 << var13) != 0 ? 1 : 0; // L: 9659
 					}
 
-					if (var6 == 14) {
-						var9 = var2[var4++];
-						var7 = Coord.getVarbit(var9);
+					if (var6 == 14) { // L: 9661
+						var9 = var2[var4++]; // L: 9662
+						var7 = Coord.getVarbit(var9); // L: 9663
 					}
 
-					if (var6 == 15) {
+					if (var6 == 15) { // L: 9665
 						var8 = 1;
 					}
 
-					if (var6 == 16) {
+					if (var6 == 16) { // L: 9666
 						var8 = 2;
 					}
 
-					if (var6 == 17) {
+					if (var6 == 17) { // L: 9667
 						var8 = 3;
 					}
 
-					if (var6 == 18) {
-						var7 = NetFileRequest.baseX * 64 + (PlayerAppearance.localPlayer.x >> 7);
+					if (var6 == 18) { // L: 9668
+						var7 = (PlayerAppearance.localPlayer.x >> 7) + NetFileRequest.baseX;
 					}
 
-					if (var6 == 19) {
-						var7 = class41.baseY * 64 + (PlayerAppearance.localPlayer.y >> 7);
+					if (var6 == 19) { // L: 9669
+						var7 = (PlayerAppearance.localPlayer.y >> 7) + class41.baseY;
 					}
 
-					if (var6 == 20) {
+					if (var6 == 20) { // L: 9670
 						var7 = var2[var4++];
 					}
 
-					if (var8 == 0) {
-						if (var5 == 0) {
+					if (var8 == 0) { // L: 9671
+						if (var5 == 0) { // L: 9672
 							var3 += var7;
 						}
 
-						if (var5 == 1) {
+						if (var5 == 1) { // L: 9673
 							var3 -= var7;
 						}
 
-						if (var5 == 2 && var7 != 0) {
+						if (var5 == 2 && var7 != 0) { // L: 9674
 							var3 /= var7;
 						}
 
-						if (var5 == 3) {
+						if (var5 == 3) { // L: 9675
 							var3 *= var7;
 						}
 
-						var5 = 0;
+						var5 = 0; // L: 9676
 					} else {
-						var5 = var8;
+						var5 = var8; // L: 9678
 					}
 				}
-			} catch (Exception var14) {
-				return -1;
+			} catch (Exception var14) { // L: 9681
+				return -1; // L: 9682
 			}
 		} else {
 			return -2;

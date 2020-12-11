@@ -40,11 +40,11 @@ public class class9 {
 		descriptor = "(Lkj;Lm;)V"
 	)
 	public class9(Buffer var1, class12 var2) {
-		this.field39 = Executors.newSingleThreadExecutor();
-		this.field41 = var1;
-		this.field38 = var2;
-		this.method96();
-	}
+		this.field39 = Executors.newSingleThreadExecutor(); // L: 10
+		this.field41 = var1; // L: 16
+		this.field38 = var2; // L: 17
+		this.method96(); // L: 18
+	} // L: 19
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -52,7 +52,7 @@ public class class9 {
 		garbageValue = "139189298"
 	)
 	public boolean method112() {
-		return this.field43.isDone();
+		return this.field43.isDone(); // L: 22
 	}
 
 	@ObfuscatedName("v")
@@ -61,9 +61,9 @@ public class class9 {
 		garbageValue = "-1420165485"
 	)
 	public void method97() {
-		this.field39.shutdown();
-		this.field39 = null;
-	}
+		this.field39.shutdown(); // L: 26
+		this.field39 = null; // L: 27
+	} // L: 28
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -72,9 +72,9 @@ public class class9 {
 	)
 	public Buffer method98() {
 		try {
-			return (Buffer)this.field43.get();
-		} catch (Exception var2) {
-			return null;
+			return (Buffer)this.field43.get(); // L: 32
+		} catch (Exception var2) { // L: 34
+			return null; // L: 35
 		}
 	}
 
@@ -84,8 +84,8 @@ public class class9 {
 		garbageValue = "-787508892"
 	)
 	void method96() {
-		this.field43 = this.field39.submit(new class8(this, this.field41, this.field38));
-	}
+		this.field43 = this.field39.submit(new class8(this, this.field41, this.field38)); // L: 40
+	} // L: 41
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
@@ -93,25 +93,25 @@ public class class9 {
 		garbageValue = "20"
 	)
 	static final int method101(int var0, int var1) {
-		if (var0 == -2) {
+		if (var0 == -2) { // L: 870
 			return 12345678;
-		} else if (var0 == -1) {
+		} else if (var0 == -1) { // L: 871
 			if (var1 < 2) {
-				var1 = 2;
-			} else if (var1 > 126) {
+				var1 = 2; // L: 872
+			} else if (var1 > 126) { // L: 873
 				var1 = 126;
 			}
 
-			return var1;
+			return var1; // L: 874
 		} else {
-			var1 = (var0 & 127) * var1 / 128;
-			if (var1 < 2) {
+			var1 = (var0 & 127) * var1 / 128; // L: 876
+			if (var1 < 2) { // L: 877
 				var1 = 2;
-			} else if (var1 > 126) {
+			} else if (var1 > 126) { // L: 878
 				var1 = 126;
 			}
 
-			return (var0 & 65408) + var1;
+			return (var0 & 65408) + var1; // L: 879
 		}
 	}
 
@@ -122,16 +122,16 @@ public class class9 {
 	)
 	@Export("FriendSystem_invalidateIgnoreds")
 	static final void FriendSystem_invalidateIgnoreds() {
-		Iterator var0 = Messages.Messages_hashTable.iterator();
+		Iterator var0 = Messages.Messages_hashTable.iterator(); // L: 10996
 
 		while (var0.hasNext()) {
-			Message var1 = (Message)var0.next();
-			var1.clearIsFromIgnored();
+			Message var1 = (Message)var0.next(); // L: 10997
+			var1.clearIsFromIgnored(); // L: 10999
 		}
 
-		if (WorldMapArea.clanChat != null) {
-			WorldMapArea.clanChat.invalidateIgnoreds();
+		if (WorldMapArea.clanChat != null) { // L: 11003
+			WorldMapArea.clanChat.invalidateIgnoreds(); // L: 11004
 		}
 
-	}
+	} // L: 11006
 }
