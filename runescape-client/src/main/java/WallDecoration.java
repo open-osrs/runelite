@@ -75,9 +75,9 @@ public final class WallDecoration {
 	int flags;
 
 	WallDecoration() {
-		this.tag = 0L;
-		this.flags = 0;
-	}
+		this.tag = 0L; // L: 13
+		this.flags = 0; // L: 14
+	} // L: 16
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -86,8 +86,8 @@ public final class WallDecoration {
 	)
 	@Export("Messages_getByChannelAndID")
 	static Message Messages_getByChannelAndID(int var0, int var1) {
-		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0);
-		return var2.getMessage(var1);
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 39
+		return var2.getMessage(var1); // L: 40
 	}
 
 	@ObfuscatedName("j")
@@ -96,7 +96,7 @@ public final class WallDecoration {
 		garbageValue = "613088833"
 	)
 	public static void method3379() {
-		SpotAnimationDefinition.SpotAnimationDefinition_cached.clear();
-		SpotAnimationDefinition.SpotAnimationDefinition_cachedModels.clear();
-	}
+		SpotAnimationDefinition.SpotAnimationDefinition_cached.clear(); // L: 122
+		SpotAnimationDefinition.SpotAnimationDefinition_cachedModels.clear(); // L: 123
+	} // L: 124
 }

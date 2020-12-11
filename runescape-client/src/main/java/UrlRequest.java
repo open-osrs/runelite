@@ -21,8 +21,8 @@ public class UrlRequest {
 	volatile byte[] response0;
 
 	UrlRequest(URL var1) {
-		this.url = var1;
-	}
+		this.url = var1; // L: 96
+	} // L: 97
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -31,7 +31,7 @@ public class UrlRequest {
 	)
 	@Export("isDone")
 	public boolean isDone() {
-		return this.isDone0;
+		return this.isDone0; // L: 100
 	}
 
 	@ObfuscatedName("v")
@@ -41,6 +41,6 @@ public class UrlRequest {
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {
-		return this.response0;
+		return this.response0; // L: 104
 	}
 }

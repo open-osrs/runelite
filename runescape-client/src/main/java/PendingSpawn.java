@@ -78,9 +78,9 @@ public final class PendingSpawn extends Node {
 	int hitpoints;
 
 	PendingSpawn() {
-		this.delay = 0;
-		this.hitpoints = -1;
-	}
+		this.delay = 0; // L: 16
+		this.hitpoints = -1; // L: 17
+	} // L: 19
 
 	@ObfuscatedName("jy")
 	@ObfuscatedSignature(
@@ -89,20 +89,20 @@ public final class PendingSpawn extends Node {
 	)
 	@Export("revalidateWidgetScroll")
 	static void revalidateWidgetScroll(Widget[] var0, Widget var1, boolean var2) {
-		int var3 = var1.scrollWidth != 0 ? var1.scrollWidth : var1.width;
-		int var4 = var1.scrollHeight != 0 ? var1.scrollHeight : var1.height;
-		Interpreter.resizeInterface(var0, var1.id, var3, var4, var2);
-		if (var1.children != null) {
+		int var3 = var1.scrollWidth != 0 ? var1.scrollWidth * 23997287 * -1515274153 : var1.width * -1889150965 * -832572509; // L: 9467
+		int var4 = var1.scrollHeight != 0 ? var1.scrollHeight * -1479373561 * -1602400073 : var1.height * 1772768209 * -1282937551; // L: 9468
+		Interpreter.resizeInterface(var0, var1.id, var3, var4, var2); // L: 9469
+		if (var1.children != null) { // L: 9470
 			Interpreter.resizeInterface(var1.children, var1.id, var3, var4, var2);
 		}
 
-		InterfaceParent var5 = (InterfaceParent)Client.interfaceParents.get((long)var1.id);
+		InterfaceParent var5 = (InterfaceParent)Client.interfaceParents.get((long)var1.id); // L: 9471
 		if (var5 != null) {
-			WorldMapManager.method686(var5.group, var3, var4, var2);
+			WorldMapManager.method686(var5.group, var3, var4, var2); // L: 9472
 		}
 
-		if (var1.contentType == 1337) {
+		if (var1.contentType == 1337) { // L: 9473
 		}
 
-	}
+	} // L: 9474
 }

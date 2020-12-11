@@ -12,8 +12,8 @@ public class class60 {
 	public static String field439;
 
 	static {
-		applet = null;
-		field439 = "";
+		applet = null; // L: 10
+		field439 = ""; // L: 11
 	}
 
 	@ObfuscatedName("h")
@@ -22,11 +22,11 @@ public class class60 {
 		garbageValue = "24"
 	)
 	static int method942(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var2 == null) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 14
+		if (var2 == null) { // L: 15
 			return -1;
 		} else {
-			return var1 >= 0 && var1 < var2.ids.length ? var2.ids[var1] : -1;
+			return var1 >= 0 && var1 < var2.ids.length ? var2.ids[var1] : -1; // L: 16 17
 		}
 	}
 }

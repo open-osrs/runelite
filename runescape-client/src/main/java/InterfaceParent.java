@@ -41,6 +41,6 @@ public class InterfaceParent extends Node {
 	boolean field559;
 
 	InterfaceParent() {
-		this.field559 = false;
-	}
+		this.field559 = false; // L: 8
+	} // L: 10
 }

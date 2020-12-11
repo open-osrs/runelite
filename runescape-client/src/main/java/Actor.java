@@ -36,7 +36,7 @@ public abstract class Actor extends Entity {
 	int rotation;
 	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = -1237850944
+		intValue = -824647789
 	)
 	int field941;
 	@ObfuscatedName("ak")
@@ -322,52 +322,52 @@ public abstract class Actor extends Entity {
 	int field996;
 
 	Actor() {
-		this.isWalking = false;
-		this.field941 = 64;
-		this.idleSequence = -1;
-		this.turnLeftSequence = -1;
-		this.turnRightSequence = -1;
-		this.walkSequence = -1;
-		this.walkBackSequence = -1;
-		this.walkLeftSequence = -1;
-		this.walkRightSequence = -1;
-		this.runSequence = -1;
-		this.overheadText = null;
-		this.field953 = false;
-		this.overheadTextCyclesRemaining = 100;
-		this.overheadTextColor = 0;
-		this.overheadTextEffect = 0;
-		this.hitSplatCount = 0;
-		this.hitSplatTypes = new int[4];
-		this.hitSplatValues = new int[4];
-		this.hitSplatCycles = new int[4];
-		this.hitSplatTypes2 = new int[4];
-		this.hitSplatValues2 = new int[4];
-		this.healthBars = new IterableNodeDeque();
-		this.targetIndex = -1;
-		this.false0 = false;
-		this.field959 = -1;
-		this.movementSequence = -1;
-		this.movementFrame = 0;
-		this.movementFrameCycle = 0;
-		this.sequence = -1;
-		this.sequenceFrame = 0;
-		this.sequenceFrameCycle = 0;
-		this.sequenceDelay = 0;
-		this.field974 = 0;
-		this.spotAnimation = -1;
-		this.spotAnimationFrame = 0;
-		this.spotAnimationFrameCycle = 0;
-		this.npcCycle = 0;
-		this.defaultHeight = 200;
-		this.field954 = 0;
-		this.field940 = 32;
-		this.pathLength = 0;
-		this.pathX = new int[10];
-		this.pathY = new int[10];
-		this.pathTraversed = new byte[10];
-		this.field963 = 0;
-		this.field996 = 0;
+		this.isWalking = false; // L: 13
+		this.field941 = 1; // L: 14
+		this.idleSequence = -1; // L: 16
+		this.turnLeftSequence = -1; // L: 17
+		this.turnRightSequence = -1; // L: 18
+		this.walkSequence = -1; // L: 19
+		this.walkBackSequence = -1; // L: 20
+		this.walkLeftSequence = -1; // L: 21
+		this.walkRightSequence = -1; // L: 22
+		this.runSequence = -1; // L: 23
+		this.overheadText = null; // L: 24
+		this.field953 = false; // L: 26
+		this.overheadTextCyclesRemaining = 100; // L: 27
+		this.overheadTextColor = 0; // L: 28
+		this.overheadTextEffect = 0; // L: 29
+		this.hitSplatCount = 0; // L: 31
+		this.hitSplatTypes = new int[4]; // L: 32
+		this.hitSplatValues = new int[4]; // L: 33
+		this.hitSplatCycles = new int[4]; // L: 34
+		this.hitSplatTypes2 = new int[4]; // L: 35
+		this.hitSplatValues2 = new int[4]; // L: 36
+		this.healthBars = new IterableNodeDeque(); // L: 37
+		this.targetIndex = -1; // L: 38
+		this.false0 = false; // L: 39
+		this.field959 = -1; // L: 40
+		this.movementSequence = -1; // L: 41
+		this.movementFrame = 0; // L: 42
+		this.movementFrameCycle = 0; // L: 43
+		this.sequence = -1; // L: 44
+		this.sequenceFrame = 0; // L: 45
+		this.sequenceFrameCycle = 0; // L: 46
+		this.sequenceDelay = 0; // L: 47
+		this.field974 = 0; // L: 48
+		this.spotAnimation = -1; // L: 49
+		this.spotAnimationFrame = 0; // L: 50
+		this.spotAnimationFrameCycle = 0; // L: 51
+		this.npcCycle = 0; // L: 61
+		this.defaultHeight = 200; // L: 62
+		this.field954 = 0; // L: 64
+		this.field940 = 32; // L: 65
+		this.pathLength = 0; // L: 66
+		this.pathX = new int[10]; // L: 67
+		this.pathY = new int[10]; // L: 68
+		this.pathTraversed = new byte[10]; // L: 69
+		this.field963 = 0; // L: 70
+		this.field996 = 0; // L: 71
 	}
 
 	@ObfuscatedName("m")
@@ -377,7 +377,7 @@ public abstract class Actor extends Entity {
 	)
 	@Export("isVisible")
 	boolean isVisible() {
-		return false;
+		return false; // L: 81
 	}
 
 	@ObfuscatedName("bh")
@@ -386,9 +386,9 @@ public abstract class Actor extends Entity {
 		garbageValue = "-874125335"
 	)
 	final void method1803() {
-		this.pathLength = 0;
-		this.field996 = 0;
-	}
+		this.pathLength = 0; // L: 76
+		this.field996 = 0; // L: 77
+	} // L: 78
 
 	@ObfuscatedName("by")
 	@ObfuscatedSignature(
@@ -409,34 +409,34 @@ public abstract class Actor extends Entity {
 			}
 		}
 
-		var9 = -1;
-		int var10 = -1;
-		int var11 = 0;
-		if (var1 >= 0) {
-			HitSplatDefinition var12 = class198.method3697(var1);
-			var10 = var12.field3373;
-			var11 = var12.field3364;
+		var9 = -1; // L: 91
+		int var10 = -1; // L: 92
+		int var11 = 0; // L: 93
+		if (var1 >= 0) { // L: 94
+			HitSplatDefinition var12 = class198.method3697(var1); // L: 95
+			var10 = var12.field3373; // L: 96
+			var11 = var12.field3364; // L: 97
 		}
 
 		int var14;
-		if (var8) {
-			if (var10 == -1) {
+		if (var8) { // L: 99
+			if (var10 == -1) { // L: 100
 				return;
 			}
 
-			var9 = 0;
-			var14 = 0;
-			if (var10 == 0) {
+			var9 = 0; // L: 101
+			var14 = 0; // L: 102
+			if (var10 == 0) { // L: 103
 				var14 = this.hitSplatCycles[0];
-			} else if (var10 == 1) {
+			} else if (var10 == 1) { // L: 104
 				var14 = this.hitSplatValues[0];
 			}
 
-			for (int var13 = 1; var13 < 4; ++var13) {
-				if (var10 == 0) {
-					if (this.hitSplatCycles[var13] < var14) {
-						var9 = var13;
-						var14 = this.hitSplatCycles[var13];
+			for (int var13 = 1; var13 < 4; ++var13) { // L: 105
+				if (var10 == 0) { // L: 106
+					if (this.hitSplatCycles[var13] < var14) { // L: 107
+						var9 = var13; // L: 108
+						var14 = this.hitSplatCycles[var13]; // L: 109
 					}
 				} else if (var10 == 1 && this.hitSplatValues[var13] < var14) {
 					var9 = var13;
@@ -463,9 +463,9 @@ public abstract class Actor extends Entity {
 		}
 
 		if (var9 >= 0) {
-			this.hitSplatTypes[var9] = var1;
-			this.hitSplatValues[var9] = var2;
-			this.hitSplatTypes2[var9] = var3;
+			this.hitSplatTypes[var9] = var1; // L: 133
+			this.hitSplatValues[var9] = var2; // L: 134
+			this.hitSplatTypes2[var9] = var3; // L: 135
 			this.hitSplatValues2[var9] = var4;
 			this.hitSplatCycles[var9] = var5 + var11 + var6;
 		}
@@ -487,36 +487,36 @@ public abstract class Actor extends Entity {
 		HealthBar var12;
 		for (var12 = (HealthBar)this.healthBars.last(); var12 != null; var12 = (HealthBar)this.healthBars.previous()) {
 			++var11;
-			if (var12.definition.field3313 == var7.field3313) {
+			if (var12.definition.field3313 == var7.field3313) { // L: 148
 				var12.put(var2 + var4, var5, var6, var3);
-				return;
+				return; // L: 150
 			}
 
-			if (var12.definition.int1 <= var7.int1) {
+			if (var12.definition.int1 <= var7.int1) { // L: 152
 				var8 = var12;
 			}
 
-			if (var12.definition.int2 > var10) {
-				var9 = var12;
-				var10 = var12.definition.int2;
+			if (var12.definition.int2 > var10) { // L: 153
+				var9 = var12; // L: 154
+				var10 = var12.definition.int2; // L: 155
 			}
 		}
 
-		if (var9 != null || var11 < 4) {
-			var12 = new HealthBar(var7);
-			if (var8 == null) {
+		if (var9 != null || var11 < 4) { // L: 158
+			var12 = new HealthBar(var7); // L: 159
+			if (var8 == null) { // L: 160
 				this.healthBars.addLast(var12);
 			} else {
-				IterableNodeDeque.IterableNodeDeque_addBefore(var12, var8);
+				IterableNodeDeque.IterableNodeDeque_addBefore(var12, var8); // L: 161
 			}
 
-			var12.put(var2 + var4, var5, var6, var3);
-			if (var11 >= 4) {
+			var12.put(var2 + var4, var5, var6, var3); // L: 162
+			if (var11 >= 4) { // L: 163
 				var9.remove();
 			}
 
 		}
-	}
+	} // L: 164
 
 	@ObfuscatedName("br")
 	@ObfuscatedSignature(
@@ -525,16 +525,16 @@ public abstract class Actor extends Entity {
 	)
 	@Export("removeHealthBar")
 	final void removeHealthBar(int var1) {
-		HealthBarDefinition var2 = HealthBarUpdate.method1826(var1);
+		HealthBarDefinition var2 = HealthBarUpdate.method1826(var1); // L: 167
 
-		for (HealthBar var3 = (HealthBar)this.healthBars.last(); var3 != null; var3 = (HealthBar)this.healthBars.previous()) {
-			if (var2 == var3.definition) {
-				var3.remove();
-				return;
+		for (HealthBar var3 = (HealthBar)this.healthBars.last(); var3 != null; var3 = (HealthBar)this.healthBars.previous()) { // L: 168
+			if (var2 == var3.definition) { // L: 169
+				var3.remove(); // L: 170
+				return; // L: 171
 			}
 		}
 
-	}
+	} // L: 174
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -542,12 +542,12 @@ public abstract class Actor extends Entity {
 		garbageValue = "411546609"
 	)
 	public static void method1821(AbstractArchive var0, AbstractArchive var1, boolean var2, Font var3) {
-		NPC.ItemDefinition_archive = var0;
-		VertexNormal.ItemDefinition_modelArchive = var1;
-		ItemDefinition.ItemDefinition_inMembersWorld = var2;
-		Varcs.ItemDefinition_fileCount = NPC.ItemDefinition_archive.getGroupFileCount(10);
-		ItemDefinition.ItemDefinition_fontPlain11 = var3;
-	}
+		NPC.ItemDefinition_archive = var0; // L: 84
+		VertexNormal.ItemDefinition_modelArchive = var1; // L: 85
+		ItemDefinition.ItemDefinition_inMembersWorld = var2; // L: 86
+		Varcs.ItemDefinition_fileCount = NPC.ItemDefinition_archive.getGroupFileCount(10); // L: 87
+		ItemDefinition.ItemDefinition_fontPlain11 = var3; // L: 88
+	} // L: 89
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -556,54 +556,54 @@ public abstract class Actor extends Entity {
 	)
 	@Export("newScript")
 	static Script newScript(byte[] var0) {
-		Script var1 = new Script();
-		Buffer var2 = new Buffer(var0);
-		var2.offset = var2.array.length - 2;
-		int var3 = var2.readUnsignedShort();
-		int var4 = var2.array.length - 2 - var3 - 12;
-		var2.offset = var4;
-		int var5 = var2.readInt();
-		var1.localIntCount = var2.readUnsignedShort();
-		var1.localStringCount = var2.readUnsignedShort();
-		var1.intArgumentCount = var2.readUnsignedShort();
-		var1.stringArgumentCount = var2.readUnsignedShort();
-		int var6 = var2.readUnsignedByte();
+		Script var1 = new Script(); // L: 111
+		Buffer var2 = new Buffer(var0); // L: 112
+		var2.offset = var2.array.length - 2; // L: 113
+		int var3 = var2.readUnsignedShort(); // L: 114
+		int var4 = var2.array.length - 2 - var3 - 12; // L: 115
+		var2.offset = var4; // L: 116
+		int var5 = var2.readInt(); // L: 117
+		var1.localIntCount = var2.readUnsignedShort(); // L: 118
+		var1.localStringCount = var2.readUnsignedShort(); // L: 119
+		var1.intArgumentCount = var2.readUnsignedShort(); // L: 120
+		var1.stringArgumentCount = var2.readUnsignedShort(); // L: 121
+		int var6 = var2.readUnsignedByte(); // L: 122
 		int var7;
 		int var8;
-		if (var6 > 0) {
-			var1.switches = var1.newIterableNodeHashTable(var6);
+		if (var6 > 0) { // L: 123
+			var1.switches = var1.newIterableNodeHashTable(var6); // L: 124
 
-			for (var7 = 0; var7 < var6; ++var7) {
-				var8 = var2.readUnsignedShort();
-				IterableNodeHashTable var9 = new IterableNodeHashTable(var8 > 0 ? World.method1870(var8) : 1);
-				var1.switches[var7] = var9;
+			for (var7 = 0; var7 < var6; ++var7) { // L: 125
+				var8 = var2.readUnsignedShort(); // L: 126
+				IterableNodeHashTable var9 = new IterableNodeHashTable(var8 > 0 ? World.method1870(var8) : 1); // L: 127
+				var1.switches[var7] = var9; // L: 128
 
-				while (var8-- > 0) {
-					int var10 = var2.readInt();
-					int var11 = var2.readInt();
-					var9.put(new IntegerNode(var11), (long)var10);
+				while (var8-- > 0) { // L: 129
+					int var10 = var2.readInt(); // L: 130
+					int var11 = var2.readInt(); // L: 131
+					var9.put(new IntegerNode(var11), (long)var10); // L: 132
 				}
 			}
 		}
 
-		var2.offset = 0;
-		var2.readStringCp1252NullTerminatedOrNull();
-		var1.opcodes = new int[var5];
-		var1.intOperands = new int[var5];
-		var1.stringOperands = new String[var5];
+		var2.offset = 0; // L: 136
+		var2.readStringCp1252NullTerminatedOrNull(); // L: 137
+		var1.opcodes = new int[var5]; // L: 138
+		var1.intOperands = new int[var5]; // L: 139
+		var1.stringOperands = new String[var5]; // L: 140
 
-		for (var7 = 0; var2.offset < var4; var1.opcodes[var7++] = var8) {
-			var8 = var2.readUnsignedShort();
-			if (var8 == 3) {
+		for (var7 = 0; var2.offset < var4; var1.opcodes[var7++] = var8) { // L: 141 142 147
+			var8 = var2.readUnsignedShort(); // L: 143
+			if (var8 == 3) { // L: 144
 				var1.stringOperands[var7] = var2.readStringCp1252NullTerminated();
-			} else if (var8 < 100 && var8 != 21 && var8 != 38 && var8 != 39) {
+			} else if (var8 < 100 && var8 != 21 && var8 != 38 && var8 != 39) { // L: 145
 				var1.intOperands[var7] = var2.readInt();
 			} else {
-				var1.intOperands[var7] = var2.readUnsignedByte();
+				var1.intOperands[var7] = var2.readUnsignedByte(); // L: 146
 			}
 		}
 
-		return var1;
+		return var1; // L: 149
 	}
 
 	@ObfuscatedName("j")
@@ -612,11 +612,11 @@ public abstract class Actor extends Entity {
 		garbageValue = "1653526163"
 	)
 	static void method1819(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 72
 		if (var1 != null) {
-			var1.remove();
+			var1.remove(); // L: 74
 		}
-	}
+	} // L: 73 75
 
 	@ObfuscatedName("fe")
 	@ObfuscatedSignature(
@@ -625,6 +625,6 @@ public abstract class Actor extends Entity {
 	)
 	@Export("getWorldMap")
 	static WorldMap getWorldMap() {
-		return WorldMapRectangle.worldMap;
+		return WorldMapRectangle.worldMap; // L: 663
 	}
 }

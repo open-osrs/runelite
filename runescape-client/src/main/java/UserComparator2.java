@@ -12,8 +12,8 @@ public class UserComparator2 implements Comparator {
 	final boolean reversed;
 
 	public UserComparator2(boolean var1) {
-		this.reversed = var1;
-	}
+		this.reversed = var1; // L: 10
+	} // L: 11
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -22,15 +22,15 @@ public class UserComparator2 implements Comparator {
 	)
 	@Export("compare_bridged")
 	int compare_bridged(User var1, User var2) {
-		return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername());
+		return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername()); // L: 14
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((User)var1, (User)var2);
+		return this.compare_bridged((User)var1, (User)var2); // L: 18
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1);
+		return super.equals(var1); // L: 22
 	}
 
 	@ObfuscatedName("p")
@@ -39,6 +39,6 @@ public class UserComparator2 implements Comparator {
 		garbageValue = "-2053247999"
 	)
 	public static void method5959() {
-		KitDefinition.KitDefinition_cached.clear();
-	}
+		KitDefinition.KitDefinition_cached.clear(); // L: 130
+	} // L: 131
 }

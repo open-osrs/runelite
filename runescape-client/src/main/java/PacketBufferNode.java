@@ -57,12 +57,12 @@ public class PacketBufferNode extends Node {
 	public int index;
 
 	static {
-		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300];
-		PacketBufferNode_packetBufferNodeCount = 0;
+		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300]; // L: 13
+		PacketBufferNode_packetBufferNodeCount = 0; // L: 14
 	}
 
 	PacketBufferNode() {
-	}
+	} // L: 19
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -71,13 +71,13 @@ public class PacketBufferNode extends Node {
 	)
 	@Export("release")
 	public void release() {
-		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) {
-			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this;
+		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 61
+			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 62
 		}
-	}
+	} // L: 63
 
 	@ObfuscatedName("h")
 	static boolean method3682(long var0) {
-		return Widget.Entity_unpackSceneX(var0) == 2;
+		return Widget.Entity_unpackSceneX(var0) == 2; // L: 44
 	}
 }

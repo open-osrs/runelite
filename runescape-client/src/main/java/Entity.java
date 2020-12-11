@@ -20,8 +20,8 @@ public abstract class Entity extends DualNode {
 	public int height;
 
 	protected Entity() {
-		this.height = 1000;
-	}
+		this.height = 1000; // L: 6
+	} // L: 8
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
@@ -36,10 +36,10 @@ public abstract class Entity extends DualNode {
 	@ObfuscatedName("cf")
 	@Export("draw")
 	void draw(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, long var9) {
-		Model var11 = this.getModel();
-		if (var11 != null) {
-			this.height = var11.height;
-			var11.draw(var1, var2, var3, var4, var5, var6, var7, var8, var9);
+		Model var11 = this.getModel(); // L: 11
+		if (var11 != null) { // L: 12
+			this.height = var11.height; // L: 13
+			var11.draw(var1, var2, var3, var4, var5, var6, var7, var8, var9); // L: 14
 		}
 
 	}
@@ -50,29 +50,29 @@ public abstract class Entity extends DualNode {
 		garbageValue = "85"
 	)
 	static long method3340(CharSequence var0) {
-		long var1 = 0L;
-		int var3 = var0.length();
+		long var1 = 0L; // L: 16
+		int var3 = var0.length(); // L: 17
 
-		for (int var4 = 0; var4 < var3; ++var4) {
-			var1 *= 37L;
-			char var5 = var0.charAt(var4);
-			if (var5 >= 'A' && var5 <= 'Z') {
+		for (int var4 = 0; var4 < var3; ++var4) { // L: 18
+			var1 *= 37L; // L: 19
+			char var5 = var0.charAt(var4); // L: 20
+			if (var5 >= 'A' && var5 <= 'Z') { // L: 21
 				var1 += (long)(var5 + 1 - 65);
-			} else if (var5 >= 'a' && var5 <= 'z') {
+			} else if (var5 >= 'a' && var5 <= 'z') { // L: 22
 				var1 += (long)(var5 + 1 - 97);
-			} else if (var5 >= '0' && var5 <= '9') {
+			} else if (var5 >= '0' && var5 <= '9') { // L: 23
 				var1 += (long)(var5 + 27 - 48);
 			}
 
-			if (var1 >= 177917621779460413L) {
+			if (var1 >= 177917621779460413L) { // L: 24
 				break;
 			}
 		}
 
-		while (0L == var1 % 37L && var1 != 0L) {
+		while (0L == var1 % 37L && var1 != 0L) { // L: 26
 			var1 /= 37L;
 		}
 
-		return var1;
+		return var1; // L: 27
 	}
 }

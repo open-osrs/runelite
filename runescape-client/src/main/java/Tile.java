@@ -132,13 +132,13 @@ public final class Tile extends Node {
 	Tile linkedBelowTile;
 
 	Tile(int var1, int var2, int var3) {
-		this.gameObjects = new GameObject[5];
-		this.gameObjectEdgeMasks = new int[5];
-		this.gameObjectsEdgeMask = 0;
-		this.originalPlane = this.plane = var1;
-		this.x = var2;
-		this.y = var3;
-	}
+		this.gameObjects = new GameObject[5]; // L: 17
+		this.gameObjectEdgeMasks = new int[5]; // L: 18
+		this.gameObjectsEdgeMask = 0; // L: 19
+		this.originalPlane = this.plane = var1; // L: 31
+		this.x = var2; // L: 32
+		this.y = var3; // L: 33
+	} // L: 34
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -147,24 +147,24 @@ public final class Tile extends Node {
 	)
 	@Export("ByteArrayPool_release")
 	public static synchronized void ByteArrayPool_release(byte[] var0) {
-		if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < 1000) {
-			ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0;
-		} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < 250) {
-			ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0;
-		} else if (var0.length == 30000 && ByteArrayPool.ByteArrayPool_largeCount < 50) {
-			ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0;
+		if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < 1000) { // L: 61
+			ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0; // L: 62
+		} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < 250) { // L: 65
+			ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0; // L: 66
+		} else if (var0.length == 30000 && ByteArrayPool.ByteArrayPool_largeCount < 50) { // L: 69
+			ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0; // L: 70
 		} else {
-			if (class23.ByteArrayPool_arrays != null) {
-				for (int var1 = 0; var1 < SoundCache.ByteArrayPool_alternativeSizes.length; ++var1) {
-					if (var0.length == SoundCache.ByteArrayPool_alternativeSizes[var1] && JagexCache.ByteArrayPool_altSizeArrayCounts[var1] < class23.ByteArrayPool_arrays[var1].length) {
-						class23.ByteArrayPool_arrays[var1][JagexCache.ByteArrayPool_altSizeArrayCounts[var1]++] = var0;
-						return;
+			if (class23.ByteArrayPool_arrays != null) { // L: 73
+				for (int var1 = 0; var1 < SoundCache.ByteArrayPool_alternativeSizes.length; ++var1) { // L: 74
+					if (var0.length == SoundCache.ByteArrayPool_alternativeSizes[var1] && JagexCache.ByteArrayPool_altSizeArrayCounts[var1] < class23.ByteArrayPool_arrays[var1].length) { // L: 75
+						class23.ByteArrayPool_arrays[var1][JagexCache.ByteArrayPool_altSizeArrayCounts[var1]++] = var0; // L: 76
+						return; // L: 77
 					}
 				}
 			}
 
 		}
-	}
+	} // L: 63 67 71 81
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -172,17 +172,17 @@ public final class Tile extends Node {
 		garbageValue = "123"
 	)
 	static final int method2946(int var0, int var1) {
-		if (var0 == -1) {
+		if (var0 == -1) { // L: 862
 			return 12345678;
 		} else {
-			var1 = (var0 & 127) * var1 / 128;
-			if (var1 < 2) {
+			var1 = (var0 & 127) * var1 / 128; // L: 863
+			if (var1 < 2) { // L: 864
 				var1 = 2;
-			} else if (var1 > 126) {
+			} else if (var1 > 126) { // L: 865
 				var1 = 126;
 			}
 
-			return (var0 & 65408) + var1;
+			return (var0 & 65408) + var1; // L: 866
 		}
 	}
 }

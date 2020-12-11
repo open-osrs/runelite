@@ -29,9 +29,9 @@ public class FileSystem {
 	static int[] regions;
 
 	static {
-		FileSystem_hasPermissions = false;
+		FileSystem_hasPermissions = false; // L: 7
 		FileSystem_cacheFiles = new Hashtable(16);
-	}
+	} // L: 9
 
 	@ObfuscatedName("la")
 	@ObfuscatedSignature(
@@ -39,29 +39,29 @@ public class FileSystem {
 		garbageValue = "-1885661901"
 	)
 	static void method3573(Buffer var0) {
-		if (Client.randomDatData != null) {
-			var0.writeBytes(Client.randomDatData, 0, Client.randomDatData.length);
+		if (Client.randomDatData != null) { // L: 11152
+			var0.writeBytes(Client.randomDatData, 0, Client.randomDatData.length); // L: 11153
 		} else {
-			byte[] var2 = new byte[24];
+			byte[] var2 = new byte[24]; // L: 11158
 
 			try {
-				JagexCache.JagexCache_randomDat.seek(0L);
-				JagexCache.JagexCache_randomDat.readFully(var2);
+				JagexCache.JagexCache_randomDat.seek(0L); // L: 11160
+				JagexCache.JagexCache_randomDat.readFully(var2); // L: 11161
 
 				int var3;
-				for (var3 = 0; var3 < 24 && var2[var3] == 0; ++var3) {
+				for (var3 = 0; var3 < 24 && var2[var3] == 0; ++var3) { // L: 11162 11163 11164
 				}
 
-				if (var3 >= 24) {
+				if (var3 >= 24) { // L: 11166
 					throw new IOException();
 				}
 			} catch (Exception var6) {
-				for (int var4 = 0; var4 < 24; ++var4) {
+				for (int var4 = 0; var4 < 24; ++var4) { // L: 11169
 					var2[var4] = -1;
 				}
 			}
 
-			var0.writeBytes(var2, 0, var2.length);
+			var0.writeBytes(var2, 0, var2.length); // L: 11174
 		}
-	}
+	} // L: 11154 11175
 }

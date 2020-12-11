@@ -29,9 +29,9 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 		descriptor = "(Ljn;)V"
 	)
 	IterableNodeDequeDescendingIterator(IterableNodeDeque var1) {
-		this.last = null;
-		this.setDeque(var1);
-	}
+		this.last = null; // L: 9
+		this.setDeque(var1); // L: 12
+	} // L: 13
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
@@ -39,40 +39,40 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 	)
 	@Export("setDeque")
 	void setDeque(IterableNodeDeque var1) {
-		this.deque = var1;
-		this.start();
-	}
+		this.deque = var1; // L: 16
+		this.start(); // L: 17
+	} // L: 18
 
 	@ObfuscatedName("u")
 	@Export("start")
 	void start() {
-		this.field3575 = this.deque != null ? this.deque.sentinel.previous : null;
-		this.last = null;
-	}
+		this.field3575 = this.deque != null ? this.deque.sentinel.previous : null; // L: 21
+		this.last = null; // L: 22
+	} // L: 23
 
 	public Object next() {
-		Node var1 = this.field3575;
-		if (var1 == this.deque.sentinel) {
-			var1 = null;
-			this.field3575 = null;
+		Node var1 = this.field3575; // L: 26
+		if (var1 == this.deque.sentinel) { // L: 27
+			var1 = null; // L: 28
+			this.field3575 = null; // L: 29
 		} else {
-			this.field3575 = var1.previous;
+			this.field3575 = var1.previous; // L: 31
 		}
 
-		this.last = var1;
-		return var1;
+		this.last = var1; // L: 32
+		return var1; // L: 33
 	}
 
 	public void remove() {
-		if (this.last == null) {
+		if (this.last == null) { // L: 41
 			throw new IllegalStateException();
 		} else {
-			this.last.remove();
-			this.last = null;
+			this.last.remove(); // L: 42
+			this.last = null; // L: 43
 		}
-	}
+	} // L: 44
 
 	public boolean hasNext() {
-		return this.deque.sentinel != this.field3575;
+		return this.deque.sentinel != this.field3575; // L: 37
 	}
 }

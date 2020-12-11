@@ -56,18 +56,18 @@ public class Interpreter {
 	static final double field1093;
 
 	static {
-		Interpreter_arrayLengths = new int[5];
-		Interpreter_arrays = new int[5][5000];
-		Interpreter_intStack = new int[1000];
-		Interpreter_stringStack = new String[1000];
-		Interpreter_frameDepth = 0;
-		Interpreter_frames = new ScriptFrame[50];
-		Interpreter_calendar = java.util.Calendar.getInstance();
-		Interpreter_MONTHS = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-		field1104 = false;
-		field1103 = false;
-		field1097 = 0;
-		field1093 = Math.log(2.0D);
+		Interpreter_arrayLengths = new int[5]; // L: 70
+		Interpreter_arrays = new int[5][5000]; // L: 71
+		Interpreter_intStack = new int[1000]; // L: 72
+		Interpreter_stringStack = new String[1000]; // L: 74
+		Interpreter_frameDepth = 0; // L: 76
+		Interpreter_frames = new ScriptFrame[50]; // L: 77
+		Interpreter_calendar = java.util.Calendar.getInstance(); // L: 80
+		Interpreter_MONTHS = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; // L: 83
+		field1104 = false; // L: 86
+		field1103 = false; // L: 87
+		field1097 = 0; // L: 88
+		field1093 = Math.log(2.0D); // L: 92
 	}
 
 	@ObfuscatedName("h")
@@ -76,14 +76,14 @@ public class Interpreter {
 		garbageValue = "781493841"
 	)
 	public static void method2082(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
-		class206.musicPlayerStatus = 1;
-		Varps.musicTrackArchive = var0;
-		HealthBarUpdate.musicTrackGroupId = var1;
-		class206.musicTrackFileId = var2;
-		GrandExchangeEvent.musicTrackVolume = var3;
-		class231.musicTrackBoolean = var4;
-		WorldMapSection1.pcmSampleLength = 10000;
-	}
+		class206.musicPlayerStatus = 1; // L: 26
+		Varps.musicTrackArchive = var0; // L: 27
+		HealthBarUpdate.musicTrackGroupId = var1; // L: 28
+		class206.musicTrackFileId = var2; // L: 29
+		GrandExchangeEvent.musicTrackVolume = var3; // L: 30
+		class231.musicTrackBoolean = var4; // L: 31
+		WorldMapSection1.pcmSampleLength = 10000; // L: 32
+	} // L: 33
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
@@ -91,7 +91,7 @@ public class Interpreter {
 		garbageValue = "636889033"
 	)
 	static boolean method1995(char var0) {
-		return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".indexOf(var0) != -1;
+		return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".indexOf(var0) != -1; // L: 875
 	}
 
 	@ObfuscatedName("jn")
@@ -101,32 +101,32 @@ public class Interpreter {
 	)
 	@Export("resizeInterface")
 	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
-		for (int var5 = 0; var5 < var0.length; ++var5) {
-			Widget var6 = var0[var5];
-			if (var6 != null && var6.parentId == var1) {
-				TileItem.alignWidgetSize(var6, var2, var3, var4);
-				class7.alignWidgetPosition(var6, var2, var3);
-				if (var6.scrollX > var6.scrollWidth - var6.width) {
+		for (int var5 = 0; var5 < var0.length; ++var5) { // L: 9482
+			Widget var6 = var0[var5]; // L: 9483
+			if (var6 != null && var6.parentId == var1) { // L: 9484 9485
+				TileItem.alignWidgetSize(var6, var2, var3, var4); // L: 9486
+				class7.alignWidgetPosition(var6, var2, var3); // L: 9487
+				if (var6.scrollX > var6.scrollWidth - var6.width) { // L: 9488
 					var6.scrollX = var6.scrollWidth - var6.width;
 				}
 
-				if (var6.scrollX < 0) {
+				if (var6.scrollX < 0) { // L: 9489
 					var6.scrollX = 0;
 				}
 
 				if (var6.scrollY > var6.scrollHeight - var6.height) {
-					var6.scrollY = var6.scrollHeight - var6.height;
+					var6.scrollY = var6.scrollHeight - var6.height; // L: 9490
 				}
 
-				if (var6.scrollY < 0) {
+				if (var6.scrollY < 0) { // L: 9491
 					var6.scrollY = 0;
 				}
 
-				if (var6.type == 0) {
+				if (var6.type == 0) { // L: 9492
 					PendingSpawn.revalidateWidgetScroll(var0, var6, var4);
 				}
 			}
 		}
 
-	}
+	} // L: 9494
 }

@@ -63,10 +63,10 @@ public class Message extends DualNode {
 	String text;
 
 	Message(int var1, String var2, String var3, String var4) {
-		this.isFromFriend0 = TriBool.TriBool_unknown;
-		this.isFromIgnored0 = TriBool.TriBool_unknown;
-		this.set(var1, var2, var3, var4);
-	}
+		this.isFromFriend0 = TriBool.TriBool_unknown; // L: 13
+		this.isFromIgnored0 = TriBool.TriBool_unknown; // L: 14
+		this.set(var1, var2, var3, var4); // L: 19
+	} // L: 20
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -75,16 +75,16 @@ public class Message extends DualNode {
 	)
 	@Export("set")
 	void set(int var1, String var2, String var3, String var4) {
-		this.count = Login.method2152();
-		this.cycle = Client.cycle;
-		this.type = var1;
-		this.sender = var2;
-		this.fillSenderUsername();
-		this.prefix = var3;
-		this.text = var4;
-		this.clearIsFromFriend();
-		this.clearIsFromIgnored();
-	}
+		this.count = Login.method2152(); // L: 23
+		this.cycle = Client.cycle; // L: 24
+		this.type = var1; // L: 25
+		this.sender = var2; // L: 26
+		this.fillSenderUsername(); // L: 27
+		this.prefix = var3; // L: 28
+		this.text = var4; // L: 29
+		this.clearIsFromFriend(); // L: 30
+		this.clearIsFromIgnored(); // L: 31
+	} // L: 32
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -93,8 +93,8 @@ public class Message extends DualNode {
 	)
 	@Export("clearIsFromFriend")
 	void clearIsFromFriend() {
-		this.isFromFriend0 = TriBool.TriBool_unknown;
-	}
+		this.isFromFriend0 = TriBool.TriBool_unknown; // L: 35
+	} // L: 36
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -103,11 +103,11 @@ public class Message extends DualNode {
 	)
 	@Export("isFromFriend")
 	final boolean isFromFriend() {
-		if (this.isFromFriend0 == TriBool.TriBool_unknown) {
-			this.fillIsFromFriend();
+		if (this.isFromFriend0 == TriBool.TriBool_unknown) { // L: 39
+			this.fillIsFromFriend(); // L: 40
 		}
 
-		return this.isFromFriend0 == TriBool.TriBool_true;
+		return this.isFromFriend0 == TriBool.TriBool_true; // L: 42
 	}
 
 	@ObfuscatedName("w")
@@ -117,8 +117,8 @@ public class Message extends DualNode {
 	)
 	@Export("fillIsFromFriend")
 	void fillIsFromFriend() {
-		this.isFromFriend0 = MilliClock.friendSystem.friendsList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false;
-	}
+		this.isFromFriend0 = MilliClock.friendSystem.friendsList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 46
+	} // L: 47
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -127,8 +127,8 @@ public class Message extends DualNode {
 	)
 	@Export("clearIsFromIgnored")
 	void clearIsFromIgnored() {
-		this.isFromIgnored0 = TriBool.TriBool_unknown;
-	}
+		this.isFromIgnored0 = TriBool.TriBool_unknown; // L: 50
+	} // L: 51
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -137,11 +137,11 @@ public class Message extends DualNode {
 	)
 	@Export("isFromIgnored")
 	final boolean isFromIgnored() {
-		if (this.isFromIgnored0 == TriBool.TriBool_unknown) {
-			this.fillIsFromIgnored();
+		if (this.isFromIgnored0 == TriBool.TriBool_unknown) { // L: 54
+			this.fillIsFromIgnored(); // L: 55
 		}
 
-		return this.isFromIgnored0 == TriBool.TriBool_true;
+		return this.isFromIgnored0 == TriBool.TriBool_true; // L: 57
 	}
 
 	@ObfuscatedName("n")
@@ -151,8 +151,8 @@ public class Message extends DualNode {
 	)
 	@Export("fillIsFromIgnored")
 	void fillIsFromIgnored() {
-		this.isFromIgnored0 = MilliClock.friendSystem.ignoreList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false;
-	}
+		this.isFromIgnored0 = MilliClock.friendSystem.ignoreList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 61
+	} // L: 62
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -161,11 +161,11 @@ public class Message extends DualNode {
 	)
 	@Export("fillSenderUsername")
 	final void fillSenderUsername() {
-		if (this.sender != null) {
+		if (this.sender != null) { // L: 65
 			this.senderUsername = new Username(class22.method220(this.sender), GrandExchangeOfferUnitPriceComparator.loginType);
 		} else {
-			this.senderUsername = null;
+			this.senderUsername = null; // L: 66
 		}
 
-	}
+	} // L: 67
 }

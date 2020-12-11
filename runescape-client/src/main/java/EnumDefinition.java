@@ -9,7 +9,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class EnumDefinition extends DualNode {
 	@ObfuscatedName("rk")
 	@ObfuscatedGetter(
-		intValue = -718709376
+		intValue = 2141868731
 	)
 	static int field3340;
 	@ObfuscatedName("h")
@@ -62,13 +62,13 @@ public class EnumDefinition extends DualNode {
 	public String[] strVals;
 
 	static {
-		EnumDefinition_cached = new EvictingDualNodeHashTable(64);
+		EnumDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
 	}
 
 	EnumDefinition() {
-		this.defaultStr = "null";
-		this.outputCount = 0;
-	}
+		this.defaultStr = "null"; // L: 15
+		this.outputCount = 0; // L: 17
+	} // L: 22
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -78,12 +78,12 @@ public class EnumDefinition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
+			int var2 = var1.readUnsignedByte(); // L: 40
+			if (var2 == 0) { // L: 41
+				return; // L: 44
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 42
 		}
 	}
 
@@ -94,38 +94,38 @@ public class EnumDefinition extends DualNode {
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) {
+		if (var2 == 1) { // L: 47
 			this.inputType = (char)var1.readUnsignedByte();
-		} else if (var2 == 2) {
+		} else if (var2 == 2) { // L: 48
 			this.outputType = (char)var1.readUnsignedByte();
-		} else if (var2 == 3) {
+		} else if (var2 == 3) { // L: 49
 			this.defaultStr = var1.readStringCp1252NullTerminated();
-		} else if (var2 == 4) {
+		} else if (var2 == 4) { // L: 50
 			this.defaultInt = var1.readInt();
 		} else {
 			int var3;
-			if (var2 == 5) {
-				this.outputCount = var1.readUnsignedShort();
-				this.keys = new int[this.outputCount];
-				this.strVals = new String[this.outputCount];
+			if (var2 == 5) { // L: 51
+				this.outputCount = var1.readUnsignedShort(); // L: 52
+				this.keys = new int[this.outputCount]; // L: 53
+				this.strVals = new String[this.outputCount]; // L: 54
 
-				for (var3 = 0; var3 < this.outputCount; ++var3) {
-					this.keys[var3] = var1.readInt();
-					this.strVals[var3] = var1.readStringCp1252NullTerminated();
+				for (var3 = 0; var3 < this.outputCount; ++var3) { // L: 55
+					this.keys[var3] = var1.readInt(); // L: 56
+					this.strVals[var3] = var1.readStringCp1252NullTerminated(); // L: 57
 				}
-			} else if (var2 == 6) {
-				this.outputCount = var1.readUnsignedShort();
-				this.keys = new int[this.outputCount];
-				this.intVals = new int[this.outputCount];
+			} else if (var2 == 6) { // L: 60
+				this.outputCount = var1.readUnsignedShort(); // L: 61
+				this.keys = new int[this.outputCount]; // L: 62
+				this.intVals = new int[this.outputCount]; // L: 63
 
-				for (var3 = 0; var3 < this.outputCount; ++var3) {
-					this.keys[var3] = var1.readInt();
-					this.intVals[var3] = var1.readInt();
+				for (var3 = 0; var3 < this.outputCount; ++var3) { // L: 64
+					this.keys[var3] = var1.readInt(); // L: 65
+					this.intVals[var3] = var1.readInt(); // L: 66
 				}
 			}
 		}
 
-	}
+	} // L: 70
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -134,6 +134,6 @@ public class EnumDefinition extends DualNode {
 	)
 	@Export("size")
 	public int size() {
-		return this.outputCount;
+		return this.outputCount; // L: 73
 	}
 }

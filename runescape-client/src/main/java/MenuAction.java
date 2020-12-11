@@ -35,5 +35,5 @@ public class MenuAction {
 	String action;
 
 	MenuAction() {
-	}
+	} // L: 11246
 }

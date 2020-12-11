@@ -71,12 +71,12 @@ public class ViewportMouse {
 	static Sprite redHintArrowSprite;
 
 	static {
-		ViewportMouse_isInViewport = false;
-		ViewportMouse_x = 0;
-		ViewportMouse_y = 0;
-		ViewportMouse_false0 = false;
-		ViewportMouse_entityCount = 0;
-		ViewportMouse_entityTags = new long[1000];
+		ViewportMouse_isInViewport = false; // L: 4
+		ViewportMouse_x = 0; // L: 5
+		ViewportMouse_y = 0; // L: 6
+		ViewportMouse_false0 = false; // L: 7
+		ViewportMouse_entityCount = 0; // L: 17
+		ViewportMouse_entityTags = new long[1000]; // L: 18
 	}
 
 	@ObfuscatedName("h")
@@ -85,6 +85,6 @@ public class ViewportMouse {
 		garbageValue = "12"
 	)
 	static LoginPacket[] method3062() {
-		return new LoginPacket[]{LoginPacket.field2334, LoginPacket.field2332, LoginPacket.field2336, LoginPacket.field2339, LoginPacket.field2335, LoginPacket.field2337};
+		return new LoginPacket[]{LoginPacket.field2334, LoginPacket.field2332, LoginPacket.field2336, LoginPacket.field2339, LoginPacket.field2335, LoginPacket.field2337}; // L: 22
 	}
 }

@@ -14,8 +14,8 @@ public class UserComparator7 extends AbstractUserComparator {
 	final boolean reversed;
 
 	public UserComparator7(boolean var1) {
-		this.reversed = var1;
-	}
+		this.reversed = var1; // L: 10
+	} // L: 11
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -24,14 +24,14 @@ public class UserComparator7 extends AbstractUserComparator {
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
-		if (var1.world != 0 && var2.world != 0) {
-			return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2;
+		if (var1.world != 0 && var2.world != 0) { // L: 14
+			return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2; // L: 15
 		} else {
-			return this.compareUser(var1, var2);
+			return this.compareUser(var1, var2); // L: 17
 		}
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2);
+		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
 	}
 }

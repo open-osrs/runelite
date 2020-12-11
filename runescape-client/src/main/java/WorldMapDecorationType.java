@@ -135,8 +135,8 @@ public enum WorldMapDecorationType implements Enumerated {
 		garbageValue = "0"
 	)
 	WorldMapDecorationType(int var3, int var4) {
-		this.id = var3;
-	}
+		this.id = var3; // L: 34
+	} // L: 35
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -145,6 +145,6 @@ public enum WorldMapDecorationType implements Enumerated {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 38
 	}
 }

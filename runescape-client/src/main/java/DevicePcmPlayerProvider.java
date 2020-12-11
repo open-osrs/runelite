@@ -7,7 +7,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("DevicePcmPlayerProvider")
 public class DevicePcmPlayerProvider implements PlayerProvider {
 	DevicePcmPlayerProvider() {
-	}
+	} // L: 7
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -16,7 +16,7 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 	)
 	@Export("player")
 	public PcmPlayer player() {
-		return new DevicePcmPlayer();
+		return new DevicePcmPlayer(); // L: 10
 	}
 
 	@ObfuscatedName("jt")
@@ -26,16 +26,16 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 	)
 	@Export("formatItemStacks")
 	static final String formatItemStacks(int var0) {
-		String var1 = Integer.toString(var0);
+		String var1 = Integer.toString(var0); // L: 9437
 
-		for (int var2 = var1.length() - 3; var2 > 0; var2 -= 3) {
-			var1 = var1.substring(0, var2) + "," + var1.substring(var2);
+		for (int var2 = var1.length() - 3; var2 > 0; var2 -= 3) { // L: 9438
+			var1 = var1.substring(0, var2) + "," + var1.substring(var2); // L: 9439
 		}
 
-		if (var1.length() > 9) {
+		if (var1.length() > 9) { // L: 9441
 			return " " + class23.colorStartTag(65408) + var1.substring(0, var1.length() - 8) + "M" + " " + " (" + var1 + ")" + "</col>";
 		} else {
-			return var1.length() > 6 ? " " + class23.colorStartTag(16777215) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + class23.colorStartTag(16776960) + var1 + "</col>";
+			return var1.length() > 6 ? " " + class23.colorStartTag(16777215) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + class23.colorStartTag(16776960) + var1 + "</col>"; // L: 9442 9443
 		}
 	}
 
@@ -46,6 +46,6 @@ public class DevicePcmPlayerProvider implements PlayerProvider {
 	)
 	@Export("isComponentHidden")
 	static boolean isComponentHidden(Widget var0) {
-		return var0.isHidden;
+		return var0.isHidden; // L: 11059
 	}
 }

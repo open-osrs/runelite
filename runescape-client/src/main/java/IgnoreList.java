@@ -24,9 +24,9 @@ public class IgnoreList extends UserList {
 		descriptor = "(Lmu;)V"
 	)
 	public IgnoreList(LoginType var1) {
-		super(400);
-		this.loginType = var1;
-	}
+		super(400); // L: 12
+		this.loginType = var1; // L: 13
+	} // L: 14
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -35,7 +35,7 @@ public class IgnoreList extends UserList {
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new Ignored();
+		return new Ignored(); // L: 17
 	}
 
 	@ObfuscatedName("v")
@@ -45,7 +45,7 @@ public class IgnoreList extends UserList {
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new Ignored[var1];
+		return new Ignored[var1]; // L: 21
 	}
 
 	@ObfuscatedName("x")
@@ -56,15 +56,15 @@ public class IgnoreList extends UserList {
 	@Export("read")
 	public void read(Buffer var1, int var2) {
 		while (true) {
-			if (var1.offset < var2) {
-				int var3 = var1.readUnsignedByte();
-				boolean var4 = (var3 & 1) == 1;
-				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				var1.readStringCp1252NullTerminated();
-				if (var5 != null && var5.hasCleanName()) {
-					Ignored var7 = (Ignored)this.getByCurrentUsername(var5);
-					if (var4) {
+			if (var1.offset < var2) { // L: 25
+				int var3 = var1.readUnsignedByte(); // L: 26
+				boolean var4 = (var3 & 1) == 1; // L: 27
+				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 28
+				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 29
+				var1.readStringCp1252NullTerminated(); // L: 30
+				if (var5 != null && var5.hasCleanName()) { // L: 31
+					Ignored var7 = (Ignored)this.getByCurrentUsername(var5); // L: 32
+					if (var4) { // L: 33
 						Ignored var8 = (Ignored)this.getByCurrentUsername(var6);
 						if (var8 != null && var8 != var7) {
 							if (var7 != null) {
@@ -83,7 +83,7 @@ public class IgnoreList extends UserList {
 					if (this.getSize() < 400) {
 						int var9 = this.getSize();
 						var7 = (Ignored)this.addLast(var5, var6);
-						var7.id = var9;
+						var7.id = var9; // L: 50
 					}
 					continue;
 				}
@@ -91,7 +91,7 @@ public class IgnoreList extends UserList {
 				throw new IllegalStateException();
 			}
 
-			return;
+			return; // L: 54
 		}
 	}
 
@@ -102,32 +102,32 @@ public class IgnoreList extends UserList {
 	)
 	@Export("iLog")
 	public static int iLog(int var0) {
-		int var1 = 0;
-		if (var0 < 0 || var0 >= 65536) {
-			var0 >>>= 16;
-			var1 += 16;
+		int var1 = 0; // L: 34
+		if (var0 < 0 || var0 >= 65536) { // L: 35
+			var0 >>>= 16; // L: 36
+			var1 += 16; // L: 37
 		}
 
-		if (var0 >= 256) {
-			var0 >>>= 8;
-			var1 += 8;
+		if (var0 >= 256) { // L: 39
+			var0 >>>= 8; // L: 40
+			var1 += 8; // L: 41
 		}
 
-		if (var0 >= 16) {
-			var0 >>>= 4;
-			var1 += 4;
+		if (var0 >= 16) { // L: 43
+			var0 >>>= 4; // L: 44
+			var1 += 4; // L: 45
 		}
 
-		if (var0 >= 4) {
-			var0 >>>= 2;
-			var1 += 2;
+		if (var0 >= 4) { // L: 47
+			var0 >>>= 2; // L: 48
+			var1 += 2; // L: 49
 		}
 
-		if (var0 >= 1) {
-			var0 >>>= 1;
-			++var1;
+		if (var0 >= 1) { // L: 51
+			var0 >>>= 1; // L: 52
+			++var1; // L: 53
 		}
 
-		return var0 + var1;
+		return var0 + var1; // L: 55
 	}
 }

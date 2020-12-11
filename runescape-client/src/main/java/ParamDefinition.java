@@ -36,12 +36,12 @@ public class ParamDefinition extends DualNode {
 	boolean autoDisable;
 
 	static {
-		ParamDefinition_cached = new EvictingDualNodeHashTable(64);
+		ParamDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
 	}
 
 	ParamDefinition() {
-		this.autoDisable = true;
-	}
+		this.autoDisable = true; // L: 16
+	} // L: 18
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -50,7 +50,7 @@ public class ParamDefinition extends DualNode {
 	)
 	@Export("postDecode")
 	void postDecode() {
-	}
+	} // L: 35
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -60,8 +60,8 @@ public class ParamDefinition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
+			int var2 = var1.readUnsignedByte(); // L: 39
+			if (var2 == 0) { // L: 40
 				return;
 			}
 
@@ -111,7 +111,7 @@ public class ParamDefinition extends DualNode {
 	)
 	@Export("isString")
 	public boolean isString() {
-		return this.type == 's';
+		return this.type == 's'; // L: 68
 	}
 
 	@ObfuscatedName("h")
@@ -120,8 +120,8 @@ public class ParamDefinition extends DualNode {
 		garbageValue = "1899658312"
 	)
 	public static void method4526(AbstractArchive var0) {
-		StructDefinition.StructDefinition_archive = var0;
-	}
+		StructDefinition.StructDefinition_archive = var0; // L: 19
+	} // L: 20
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -130,51 +130,51 @@ public class ParamDefinition extends DualNode {
 	)
 	@Export("SequenceDefinition_get")
 	public static SequenceDefinition SequenceDefinition_get(int var0) {
-		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0);
-		if (var1 != null) {
+		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0); // L: 41
+		if (var1 != null) { // L: 42
 			return var1;
 		} else {
-			byte[] var2 = SequenceDefinition.SequenceDefinition_archive.takeFile(12, var0);
-			var1 = new SequenceDefinition();
-			if (var2 != null) {
+			byte[] var2 = SequenceDefinition.SequenceDefinition_archive.takeFile(12, var0); // L: 43
+			var1 = new SequenceDefinition(); // L: 44
+			if (var2 != null) { // L: 45
 				var1.decode(new Buffer(var2));
 			}
 
-			var1.postDecode();
-			SequenceDefinition.SequenceDefinition_cached.put(var1, (long)var0);
-			return var1;
+			var1.postDecode(); // L: 46
+			SequenceDefinition.SequenceDefinition_cached.put(var1, (long)var0); // L: 47
+			return var1; // L: 48
 		}
 	}
 
 	@ObfuscatedName("x")
 	@Export("base37DecodeLong")
 	public static String base37DecodeLong(long var0) {
-		if (var0 > 0L && var0 < 6582952005840035281L) {
-			if (var0 % 37L == 0L) {
+		if (var0 > 0L && var0 < 6582952005840035281L) { // L: 49
+			if (var0 % 37L == 0L) { // L: 50
 				return null;
 			} else {
-				int var2 = 0;
+				int var2 = 0; // L: 51
 
-				for (long var3 = var0; var3 != 0L; var3 /= 37L) {
-					++var2;
+				for (long var3 = var0; var3 != 0L; var3 /= 37L) { // L: 52 53 55
+					++var2; // L: 54
 				}
 
 				StringBuilder var5;
 				char var8;
-				for (var5 = new StringBuilder(var2); 0L != var0; var5.append(var8)) {
-					long var6 = var0;
-					var0 /= 37L;
-					var8 = class299.base37Table[(int)(var6 - var0 * 37L)];
-					if (var8 == '_') {
-						int var9 = var5.length() - 1;
-						var5.setCharAt(var9, Character.toUpperCase(var5.charAt(var9)));
-						var8 = 160;
+				for (var5 = new StringBuilder(var2); 0L != var0; var5.append(var8)) { // L: 57 58 67
+					long var6 = var0; // L: 59
+					var0 /= 37L; // L: 60
+					var8 = class299.base37Table[(int)(var6 - var0 * 37L)]; // L: 61
+					if (var8 == '_') { // L: 62
+						int var9 = var5.length() - 1; // L: 63
+						var5.setCharAt(var9, Character.toUpperCase(var5.charAt(var9))); // L: 64
+						var8 = 160; // L: 65
 					}
 				}
 
-				var5.reverse();
-				var5.setCharAt(0, Character.toUpperCase(var5.charAt(0)));
-				return var5.toString();
+				var5.reverse(); // L: 69
+				var5.setCharAt(0, Character.toUpperCase(var5.charAt(0))); // L: 70
+				return var5.toString(); // L: 71
 			}
 		} else {
 			return null;

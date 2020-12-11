@@ -48,9 +48,9 @@ public enum class323 implements Enumerated {
 	final int field3858;
 
 	class323(int var3, int var4) {
-		this.field3851 = var3;
-		this.field3858 = var4;
-	}
+		this.field3851 = var3; // L: 18
+		this.field3858 = var4; // L: 19
+	} // L: 20
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -59,6 +59,6 @@ public enum class323 implements Enumerated {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field3858;
+		return this.field3858; // L: 23
 	}
 }

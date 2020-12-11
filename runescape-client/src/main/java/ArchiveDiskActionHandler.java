@@ -32,11 +32,11 @@ public class ArchiveDiskActionHandler implements Runnable {
 	static int[] Tiles_saturation;
 
 	static {
-		ArchiveDiskActionHandler_requestQueue = new NodeDeque();
-		ArchiveDiskActionHandler_responseQueue = new NodeDeque();
-		field3178 = 0;
+		ArchiveDiskActionHandler_requestQueue = new NodeDeque(); // L: 9
+		ArchiveDiskActionHandler_responseQueue = new NodeDeque(); // L: 10
+		field3178 = 0; // L: 11
 		ArchiveDiskActionHandler_lock = new Object();
-	}
+	} // L: 12
 
 	ArchiveDiskActionHandler() {
 	}
@@ -45,49 +45,49 @@ public class ArchiveDiskActionHandler implements Runnable {
 		try {
 			while (true) {
 				ArchiveDiskAction var1;
-				synchronized(ArchiveDiskActionHandler_requestQueue) {
-					var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last();
-				}
+				synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 76
+					var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last(); // L: 77
+				} // L: 78
 
-				if (var1 != null) {
-					if (var1.type == 0) {
-						var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length);
-						synchronized(ArchiveDiskActionHandler_requestQueue) {
-							var1.remove();
-						}
-					} else if (var1.type == 1) {
-						var1.data = var1.archiveDisk.read((int)var1.key);
-						synchronized(ArchiveDiskActionHandler_requestQueue) {
-							ArchiveDiskActionHandler_responseQueue.addFirst(var1);
-						}
+				if (var1 != null) { // L: 79
+					if (var1.type == 0) { // L: 80
+						var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length); // L: 81
+						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 82
+							var1.remove(); // L: 83
+						} // L: 84
+					} else if (var1.type == 1) { // L: 86
+						var1.data = var1.archiveDisk.read((int)var1.key); // L: 87
+						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 88
+							ArchiveDiskActionHandler_responseQueue.addFirst(var1); // L: 89
+						} // L: 90
 					}
 
-					synchronized(ArchiveDiskActionHandler_lock) {
-						if (field3178 <= 1) {
-							field3178 = 0;
-							ArchiveDiskActionHandler_lock.notifyAll();
-							return;
+					synchronized(ArchiveDiskActionHandler_lock) { // L: 92
+						if (field3178 <= 1) { // L: 93
+							field3178 = 0; // L: 94
+							ArchiveDiskActionHandler_lock.notifyAll(); // L: 95
+							return; // L: 96
 						}
 
-						field3178 = 600;
+						field3178 = 600; // L: 98
 					}
 				} else {
-					class236.sleepExact(100L);
-					synchronized(ArchiveDiskActionHandler_lock) {
-						if (field3178 <= 1) {
-							field3178 = 0;
-							ArchiveDiskActionHandler_lock.notifyAll();
-							return;
+					class236.sleepExact(100L); // L: 102
+					synchronized(ArchiveDiskActionHandler_lock) { // L: 103
+						if (field3178 <= 1) { // L: 104
+							field3178 = 0; // L: 105
+							ArchiveDiskActionHandler_lock.notifyAll(); // L: 106
+							return; // L: 107
 						}
 
-						--field3178;
+						--field3178; // L: 109
 					}
 				}
 			}
-		} catch (Exception var13) {
-			PlayerAppearance.RunException_sendStackTrace((String)null, var13);
+		} catch (Exception var13) { // L: 114
+			PlayerAppearance.RunException_sendStackTrace((String)null, var13); // L: 115
 		}
-	}
+	} // L: 117
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -95,16 +95,16 @@ public class ArchiveDiskActionHandler implements Runnable {
 		garbageValue = "961736597"
 	)
 	public static double[] method4294(double var0, double var2, int var4) {
-		int var5 = var4 * 2 + 1;
-		double[] var6 = new double[var5];
+		int var5 = var4 * 2 + 1; // L: 13
+		double[] var6 = new double[var5]; // L: 14
 		int var7 = -var4;
 
 		for (int var8 = 0; var7 <= var4; ++var8) {
-			double var11 = FriendSystem.method1972(((double)var7 - var0) / var2) / var2;
-			var6[var8] = var11;
-			++var7;
+			double var11 = FriendSystem.method1972(((double)var7 - var0) / var2) / var2; // L: 20
+			var6[var8] = var11; // L: 22
+			++var7; // L: 15
 		}
 
-		return var6;
+		return var6; // L: 24
 	}
 }

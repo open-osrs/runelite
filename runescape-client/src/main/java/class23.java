@@ -14,8 +14,8 @@ public class class23 {
 		garbageValue = "-1191377295"
 	)
 	public static boolean method225() {
-		ReflectionCheck var0 = (ReflectionCheck)class105.reflectionChecks.last();
-		return var0 != null;
+		ReflectionCheck var0 = (ReflectionCheck)class105.reflectionChecks.last(); // L: 24
+		return var0 != null; // L: 25
 	}
 
 	@ObfuscatedName("v")
@@ -25,6 +25,6 @@ public class class23 {
 	)
 	@Export("colorStartTag")
 	static String colorStartTag(int var0) {
-		return "<col=" + Integer.toHexString(var0) + ">";
+		return "<col=" + Integer.toHexString(var0) + ">"; // L: 22
 	}
 }

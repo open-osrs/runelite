@@ -55,6 +55,6 @@ public class class206 {
 	public static Buffer NetCache_responseArchiveBuffer;
 
 	static {
-		musicPlayerStatus = 0;
+		musicPlayerStatus = 0; // L: 11
 	}
 }

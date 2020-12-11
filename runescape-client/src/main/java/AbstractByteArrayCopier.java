@@ -7,7 +7,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("AbstractByteArrayCopier")
 public abstract class AbstractByteArrayCopier {
 	AbstractByteArrayCopier() {
-	}
+	} // L: 4
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(

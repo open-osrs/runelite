@@ -36,7 +36,7 @@ public class ArchiveDiskAction extends Node {
 	Archive archive;
 
 	ArchiveDiskAction() {
-	}
+	} // L: 12
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -45,69 +45,69 @@ public class ArchiveDiskAction extends Node {
 	)
 	@Export("isNumber")
 	public static boolean isNumber(CharSequence var0) {
-		boolean var2 = false;
-		boolean var3 = false;
-		int var4 = 0;
-		int var5 = var0.length();
+		boolean var2 = false; // L: 37
+		boolean var3 = false; // L: 38
+		int var4 = 0; // L: 39
+		int var5 = var0.length(); // L: 40
 		int var6 = 0;
 
 		boolean var1;
 		while (true) {
 			if (var6 >= var5) {
-				var1 = var3;
+				var1 = var3; // L: 70
 				break;
 			}
 
 			label84: {
-				char var7 = var0.charAt(var6);
-				if (var6 == 0) {
-					if (var7 == '-') {
-						var2 = true;
+				char var7 = var0.charAt(var6); // L: 42
+				if (var6 == 0) { // L: 43
+					if (var7 == '-') { // L: 44
+						var2 = true; // L: 45
 						break label84;
 					}
 
-					if (var7 == '+') {
+					if (var7 == '+') { // L: 48
 						break label84;
 					}
 				}
 
 				int var9;
-				if (var7 >= '0' && var7 <= '9') {
+				if (var7 >= '0' && var7 <= '9') { // L: 50
 					var9 = var7 - '0';
-				} else if (var7 >= 'A' && var7 <= 'Z') {
+				} else if (var7 >= 'A' && var7 <= 'Z') { // L: 51
 					var9 = var7 - '7';
 				} else {
-					if (var7 < 'a' || var7 > 'z') {
-						var1 = false;
+					if (var7 < 'a' || var7 > 'z') { // L: 52
+						var1 = false; // L: 54
 						break;
 					}
 
 					var9 = var7 - 'W';
 				}
 
-				if (var9 >= 10) {
-					var1 = false;
-					break;
+				if (var9 >= 10) { // L: 57
+					var1 = false; // L: 58
+					break; // L: 59
 				}
 
-				if (var2) {
+				if (var2) { // L: 61
 					var9 = -var9;
 				}
 
-				int var8 = var9 + var4 * 10;
-				if (var4 != var8 / 10) {
-					var1 = false;
+				int var8 = var9 + var4 * 10; // L: 62
+				if (var4 != var8 / 10) { // L: 63
+					var1 = false; // L: 64
 					break;
 				}
 
-				var4 = var8;
-				var3 = true;
+				var4 = var8; // L: 67
+				var3 = true; // L: 68
 			}
 
-			++var6;
+			++var6; // L: 41
 		}
 
-		return var1;
+		return var1; // L: 72
 	}
 
 	@ObfuscatedName("u")
@@ -117,16 +117,16 @@ public class ArchiveDiskAction extends Node {
 	)
 	@Export("getFrames")
 	static Frames getFrames(int var0) {
-		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0);
-		if (var1 != null) {
+		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0); // L: 187
+		if (var1 != null) { // L: 188
 			return var1;
 		} else {
-			var1 = UserComparator4.method3470(SequenceDefinition.SequenceDefinition_animationsArchive, SequenceDefinition.SequenceDefinition_skeletonsArchive, var0, false);
-			if (var1 != null) {
+			var1 = UserComparator4.method3470(SequenceDefinition.SequenceDefinition_animationsArchive, SequenceDefinition.SequenceDefinition_skeletonsArchive, var0, false); // L: 189
+			if (var1 != null) { // L: 190
 				SequenceDefinition.SequenceDefinition_cachedFrames.put(var1, (long)var0);
 			}
 
-			return var1;
+			return var1; // L: 191
 		}
 	}
 }

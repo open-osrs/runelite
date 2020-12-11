@@ -56,16 +56,16 @@ public class class194 {
 	public static final class194 field2351;
 
 	static {
-		field2348 = new class194(3);
-		field2342 = new class194(5);
-		field2344 = new class194(14);
-		field2350 = new class194(7);
-		field2346 = new class194(15);
-		field2345 = new class194(5);
-		field2343 = new class194(4);
-		field2349 = new class194(6);
-		field2347 = new class194(2);
-		field2351 = new class194(4);
+		field2348 = new class194(3); // L: 5
+		field2342 = new class194(5); // L: 6
+		field2344 = new class194(14); // L: 7
+		field2350 = new class194(7); // L: 8
+		field2346 = new class194(15); // L: 9
+		field2345 = new class194(5); // L: 10
+		field2343 = new class194(4); // L: 11
+		field2349 = new class194(6); // L: 12
+		field2347 = new class194(2); // L: 13
+		field2351 = new class194(4); // L: 14
 	}
 
 	@ObfuscatedSignature(
@@ -73,7 +73,7 @@ public class class194 {
 		garbageValue = "3"
 	)
 	class194(int var1) {
-	}
+	} // L: 20
 
 	@ObfuscatedName("iz")
 	@ObfuscatedSignature(
@@ -82,21 +82,21 @@ public class class194 {
 	)
 	@Export("selectSpell")
 	static void selectSpell(int var0, int var1, int var2, int var3) {
-		Widget var4 = class92.getWidgetChild(var0, var1);
-		if (var4 != null && var4.onTargetEnter != null) {
-			ScriptEvent var5 = new ScriptEvent();
-			var5.widget = var4;
-			var5.args = var4.onTargetEnter;
-			class22.runScriptEvent(var5);
+		Widget var4 = class92.getWidgetChild(var0, var1); // L: 8331
+		if (var4 != null && var4.onTargetEnter != null) { // L: 8332
+			ScriptEvent var5 = new ScriptEvent(); // L: 8333
+			var5.widget = var4; // L: 8334
+			var5.args = var4.onTargetEnter; // L: 8335
+			class22.runScriptEvent(var5); // L: 8336
 		}
 
-		Client.field836 = var3;
-		Client.isSpellSelected = true;
-		MouseHandler.selectedSpellWidget = var0;
-		Client.selectedSpellChildIndex = var1;
-		Player.selectedSpellFlags = var2;
-		CollisionMap.invalidateWidget(var4);
-	}
+		Client.field836 = var3; // L: 8338
+		Client.isSpellSelected = true; // L: 8339
+		MouseHandler.selectedSpellWidget = var0; // L: 8340
+		Client.selectedSpellChildIndex = var1; // L: 8341
+		Player.selectedSpellFlags = var2; // L: 8342
+		CollisionMap.invalidateWidget(var4); // L: 8343
+	} // L: 8344
 
 	@ObfuscatedName("kg")
 	@ObfuscatedSignature(
@@ -104,8 +104,8 @@ public class class194 {
 		garbageValue = "-1005104193"
 	)
 	static final void method3676(int var0) {
-		var0 = Math.min(Math.max(var0, 0), 127);
-		Timer.clientPreferences.areaSoundEffectsVolume = var0;
-		GrandExchangeOffer.savePreferences();
-	}
+		var0 = Math.min(Math.max(var0, 0), 127); // L: 10678
+		Timer.clientPreferences.areaSoundEffectsVolume = var0; // L: 10679
+		GrandExchangeOffer.savePreferences(); // L: 10680
+	} // L: 10681
 }

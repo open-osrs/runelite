@@ -68,24 +68,24 @@ public final class GraphicsObject extends Entity {
 	boolean isFinished;
 
 	GraphicsObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		this.frame = 0;
-		this.frameCycle = 0;
-		this.isFinished = false;
-		this.id = var1;
-		this.plane = var2;
-		this.x = var3;
-		this.y = var4;
-		this.height = var5;
-		this.cycleStart = var7 + var6;
-		int var8 = TileItem.SpotAnimationDefinition_get(this.id).sequence;
-		if (var8 != -1) {
-			this.isFinished = false;
-			this.sequenceDefinition = ParamDefinition.SequenceDefinition_get(var8);
+		this.frame = 0; // L: 16
+		this.frameCycle = 0; // L: 17
+		this.isFinished = false; // L: 18
+		this.id = var1; // L: 21
+		this.plane = var2; // L: 22
+		this.x = var3; // L: 23
+		this.y = var4; // L: 24
+		this.height = var5; // L: 25
+		this.cycleStart = var7 + var6; // L: 26
+		int var8 = TileItem.SpotAnimationDefinition_get(this.id).sequence; // L: 27
+		if (var8 != -1) { // L: 28
+			this.isFinished = false; // L: 29
+			this.sequenceDefinition = ParamDefinition.SequenceDefinition_get(var8); // L: 30
 		} else {
-			this.isFinished = true;
+			this.isFinished = true; // L: 32
 		}
 
-	}
+	} // L: 33
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -94,20 +94,20 @@ public final class GraphicsObject extends Entity {
 	)
 	@Export("advance")
 	final void advance(int var1) {
-		if (!this.isFinished) {
-			this.frameCycle += var1;
+		if (!this.isFinished) { // L: 36
+			this.frameCycle += var1; // L: 37
 
-			while (this.frameCycle > this.sequenceDefinition.frameLengths[this.frame]) {
-				this.frameCycle -= this.sequenceDefinition.frameLengths[this.frame];
-				++this.frame;
-				if (this.frame >= this.sequenceDefinition.frameIds.length) {
-					this.isFinished = true;
+			while (this.frameCycle > this.sequenceDefinition.frameLengths[this.frame]) { // L: 38
+				this.frameCycle -= this.sequenceDefinition.frameLengths[this.frame]; // L: 39
+				++this.frame; // L: 40
+				if (this.frame >= this.sequenceDefinition.frameIds.length) { // L: 41
+					this.isFinished = true; // L: 42
 					break;
 				}
 			}
 
 		}
-	}
+	} // L: 46
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
@@ -116,15 +116,15 @@ public final class GraphicsObject extends Entity {
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		SpotAnimationDefinition var1 = TileItem.SpotAnimationDefinition_get(this.id);
+		SpotAnimationDefinition var1 = TileItem.SpotAnimationDefinition_get(this.id); // L: 49
 		Model var2;
-		if (!this.isFinished) {
+		if (!this.isFinished) { // L: 51
 			var2 = var1.getModel(this.frame);
 		} else {
-			var2 = var1.getModel(-1);
+			var2 = var1.getModel(-1); // L: 52
 		}
 
-		return var2 == null ? null : var2;
+		return var2 == null ? null : var2; // L: 53
 	}
 
 	@ObfuscatedName("w")
@@ -133,38 +133,38 @@ public final class GraphicsObject extends Entity {
 		garbageValue = "14"
 	)
 	public static void method2090() {
-		synchronized(KeyHandler.KeyHandler_instance) {
-			++KeyHandler.KeyHandler_idleCycles;
-			KeyHandler.field415 = KeyHandler.field417;
-			KeyHandler.field414 = 0;
+		synchronized(KeyHandler.KeyHandler_instance) { // L: 164
+			++KeyHandler.KeyHandler_idleCycles; // L: 165
+			KeyHandler.field415 = KeyHandler.field417; // L: 166
+			KeyHandler.field414 = 0; // L: 167
 			int var1;
-			if (KeyHandler.field410 < 0) {
-				for (var1 = 0; var1 < 112; ++var1) {
+			if (KeyHandler.field410 < 0) { // L: 168
+				for (var1 = 0; var1 < 112; ++var1) { // L: 169
 					KeyHandler.KeyHandler_pressedKeys[var1] = false;
 				}
 
-				KeyHandler.field410 = KeyHandler.field401;
+				KeyHandler.field410 = KeyHandler.field401; // L: 170
 			} else {
-				while (KeyHandler.field401 != KeyHandler.field410) {
-					var1 = KeyHandler.field408[KeyHandler.field401];
-					KeyHandler.field401 = KeyHandler.field401 + 1 & 127;
-					if (var1 < 0) {
+				while (KeyHandler.field401 != KeyHandler.field410) { // L: 173
+					var1 = KeyHandler.field408[KeyHandler.field401]; // L: 174
+					KeyHandler.field401 = KeyHandler.field401 + 1 & 127; // L: 175
+					if (var1 < 0) { // L: 176
 						KeyHandler.KeyHandler_pressedKeys[~var1] = false;
 					} else {
-						if (!KeyHandler.KeyHandler_pressedKeys[var1] && KeyHandler.field414 < KeyHandler.field413.length - 1) {
-							KeyHandler.field413[++KeyHandler.field414 - 1] = var1;
+						if (!KeyHandler.KeyHandler_pressedKeys[var1] && KeyHandler.field414 < KeyHandler.field413.length - 1) { // L: 178
+							KeyHandler.field413[++KeyHandler.field414 - 1] = var1; // L: 179
 						}
 
-						KeyHandler.KeyHandler_pressedKeys[var1] = true;
+						KeyHandler.KeyHandler_pressedKeys[var1] = true; // L: 181
 					}
 				}
 			}
 
-			if (KeyHandler.field414 > 0) {
+			if (KeyHandler.field414 > 0) { // L: 185
 				KeyHandler.KeyHandler_idleCycles = 0;
 			}
 
-			KeyHandler.field417 = KeyHandler.field419;
+			KeyHandler.field417 = KeyHandler.field419; // L: 186
 		}
-	}
+	} // L: 188
 }

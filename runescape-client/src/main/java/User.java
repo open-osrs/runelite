@@ -20,7 +20,7 @@ public class User implements Comparable {
 	Username previousUsername;
 
 	User() {
-	}
+	} // L: 7
 
 	@ObfuscatedName("an")
 	@ObfuscatedSignature(
@@ -29,7 +29,7 @@ public class User implements Comparable {
 	)
 	@Export("getUsername")
 	public Username getUsername() {
-		return this.username;
+		return this.username; // L: 10
 	}
 
 	@ObfuscatedName("aj")
@@ -39,7 +39,7 @@ public class User implements Comparable {
 	)
 	@Export("getName")
 	public String getName() {
-		return this.username == null ? "" : this.username.getName();
+		return this.username == null ? "" : this.username.getName(); // L: 14 15
 	}
 
 	@ObfuscatedName("ax")
@@ -49,7 +49,7 @@ public class User implements Comparable {
 	)
 	@Export("getPreviousName")
 	public String getPreviousName() {
-		return this.previousUsername == null ? "" : this.previousUsername.getName();
+		return this.previousUsername == null ? "" : this.previousUsername.getName(); // L: 19 20
 	}
 
 	@ObfuscatedName("ag")
@@ -59,13 +59,13 @@ public class User implements Comparable {
 	)
 	@Export("set")
 	void set(Username var1, Username var2) {
-		if (var1 == null) {
+		if (var1 == null) { // L: 24
 			throw new NullPointerException();
 		} else {
-			this.username = var1;
-			this.previousUsername = var2;
+			this.username = var1; // L: 25
+			this.previousUsername = var2; // L: 26
 		}
-	}
+	} // L: 27
 
 	@ObfuscatedName("au")
 	@ObfuscatedSignature(
@@ -74,10 +74,10 @@ public class User implements Comparable {
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.username.compareToTyped(var1.username);
+		return this.username.compareToTyped(var1.username); // L: 30
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_user((User)var1);
+		return this.compareTo_user((User)var1); // L: 34
 	}
 }

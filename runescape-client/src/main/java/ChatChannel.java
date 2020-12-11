@@ -40,15 +40,15 @@ public class ChatChannel {
 		Message var5 = this.messages[99];
 
 		for (int var6 = this.count; var6 > 0; --var6) {
-			if (var6 != 100) {
-				this.messages[var6] = this.messages[var6 - 1];
+			if (var6 != 100) { // L: 93
+				this.messages[var6] = this.messages[var6 - 1]; // L: 94
 			}
 		}
 
 		if (var5 == null) {
 			var5 = new Message(var1, var2, var4, var3);
 		} else {
-			var5.remove();
+			var5.remove(); // L: 98
 			var5.removeDual();
 			var5.set(var1, var2, var4, var3);
 		}
@@ -58,7 +58,7 @@ public class ChatChannel {
 			++this.count;
 		}
 
-		return var5;
+		return var5; // L: 104
 	}
 
 	@ObfuscatedName("v")
@@ -68,7 +68,7 @@ public class ChatChannel {
 	)
 	@Export("getMessage")
 	Message getMessage(int var1) {
-		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null;
+		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null; // L: 108 109
 	}
 
 	@ObfuscatedName("x")
@@ -98,7 +98,7 @@ public class ChatChannel {
 			} else {
 				var1 = Actor.newScript(var2);
 				Script.Script_cached.put(var1, (long)var0);
-				return var1;
+				return var1; // L: 33
 			}
 		}
 	}
@@ -110,19 +110,19 @@ public class ChatChannel {
 	)
 	@Export("getParamDefinition")
 	public static ParamDefinition getParamDefinition(int var0) {
-		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0);
-		if (var1 != null) {
+		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0); // L: 25
+		if (var1 != null) { // L: 26
 			return var1;
 		} else {
-			byte[] var2 = ParamDefinition.ParamDefinition_archive.takeFile(11, var0);
-			var1 = new ParamDefinition();
-			if (var2 != null) {
+			byte[] var2 = ParamDefinition.ParamDefinition_archive.takeFile(11, var0); // L: 27
+			var1 = new ParamDefinition(); // L: 28
+			if (var2 != null) { // L: 29
 				var1.decode(new Buffer(var2));
 			}
 
-			var1.postDecode();
-			ParamDefinition.ParamDefinition_cached.put(var1, (long)var0);
-			return var1;
+			var1.postDecode(); // L: 30
+			ParamDefinition.ParamDefinition_cached.put(var1, (long)var0); // L: 31
+			return var1; // L: 32
 		}
 	}
 
@@ -133,110 +133,110 @@ public class ChatChannel {
 	)
 	@Export("sortWorlds")
 	static void sortWorlds(World[] var0, int var1, int var2, int[] var3, int[] var4) {
-		if (var1 < var2) {
-			int var5 = var1 - 1;
-			int var6 = var2 + 1;
-			int var7 = (var2 + var1) / 2;
-			World var8 = var0[var7];
-			var0[var7] = var0[var1];
-			var0[var1] = var8;
+		if (var1 < var2) { // L: 81
+			int var5 = var1 - 1; // L: 82
+			int var6 = var2 + 1; // L: 83
+			int var7 = (var2 + var1) / 2; // L: 84
+			World var8 = var0[var7]; // L: 85
+			var0[var7] = var0[var1]; // L: 86
+			var0[var1] = var8; // L: 87
 
-			while (var5 < var6) {
-				boolean var9 = true;
+			while (var5 < var6) { // L: 88
+				boolean var9 = true; // L: 89
 
 				int var10;
 				int var11;
 				int var12;
 				do {
-					--var6;
+					--var6; // L: 91
 
-					for (var10 = 0; var10 < 4; ++var10) {
-						if (var3[var10] == 2) {
-							var11 = var0[var6].index;
-							var12 = var8.index;
-						} else if (var3[var10] == 1) {
-							var11 = var0[var6].population;
-							var12 = var8.population;
-							if (var11 == -1 && var4[var10] == 1) {
+					for (var10 = 0; var10 < 4; ++var10) { // L: 92
+						if (var3[var10] == 2) { // L: 95
+							var11 = var0[var6].index; // L: 96
+							var12 = var8.index; // L: 97
+						} else if (var3[var10] == 1) { // L: 99
+							var11 = var0[var6].population; // L: 100
+							var12 = var8.population; // L: 101
+							if (var11 == -1 && var4[var10] == 1) { // L: 102
 								var11 = 2001;
 							}
 
-							if (var12 == -1 && var4[var10] == 1) {
+							if (var12 == -1 && var4[var10] == 1) { // L: 103
 								var12 = 2001;
 							}
-						} else if (var3[var10] == 3) {
-							var11 = var0[var6].isMembersOnly() ? 1 : 0;
-							var12 = var8.isMembersOnly() ? 1 : 0;
+						} else if (var3[var10] == 3) { // L: 105
+							var11 = var0[var6].isMembersOnly() ? 1 : 0; // L: 106
+							var12 = var8.isMembersOnly() ? 1 : 0; // L: 107
 						} else {
-							var11 = var0[var6].id;
-							var12 = var8.id;
+							var11 = var0[var6].id; // L: 110
+							var12 = var8.id; // L: 111
 						}
 
-						if (var11 != var12) {
-							if ((var4[var10] != 1 || var11 <= var12) && (var4[var10] != 0 || var11 >= var12)) {
-								var9 = false;
+						if (var11 != var12) { // L: 113
+							if ((var4[var10] != 1 || var11 <= var12) && (var4[var10] != 0 || var11 >= var12)) { // L: 116 117
+								var9 = false; // L: 119
 							}
 							break;
 						}
 
-						if (var10 == 3) {
+						if (var10 == 3) { // L: 114
 							var9 = false;
 						}
 					}
 				} while(var9);
 
-				var9 = true;
+				var9 = true; // L: 124
 
 				do {
-					++var5;
+					++var5; // L: 126
 
-					for (var10 = 0; var10 < 4; ++var10) {
-						if (var3[var10] == 2) {
-							var11 = var0[var5].index;
-							var12 = var8.index;
-						} else if (var3[var10] == 1) {
-							var11 = var0[var5].population;
-							var12 = var8.population;
-							if (var11 == -1 && var4[var10] == 1) {
+					for (var10 = 0; var10 < 4; ++var10) { // L: 127
+						if (var3[var10] == 2) { // L: 130
+							var11 = var0[var5].index; // L: 131
+							var12 = var8.index; // L: 132
+						} else if (var3[var10] == 1) { // L: 134
+							var11 = var0[var5].population; // L: 135
+							var12 = var8.population; // L: 136
+							if (var11 == -1 && var4[var10] == 1) { // L: 137
 								var11 = 2001;
 							}
 
-							if (var12 == -1 && var4[var10] == 1) {
+							if (var12 == -1 && var4[var10] == 1) { // L: 138
 								var12 = 2001;
 							}
-						} else if (var3[var10] == 3) {
-							var11 = var0[var5].isMembersOnly() ? 1 : 0;
-							var12 = var8.isMembersOnly() ? 1 : 0;
+						} else if (var3[var10] == 3) { // L: 140
+							var11 = var0[var5].isMembersOnly() ? 1 : 0; // L: 141
+							var12 = var8.isMembersOnly() ? 1 : 0; // L: 142
 						} else {
-							var11 = var0[var5].id;
-							var12 = var8.id;
+							var11 = var0[var5].id; // L: 145
+							var12 = var8.id; // L: 146
 						}
 
-						if (var11 != var12) {
-							if ((var4[var10] != 1 || var11 >= var12) && (var4[var10] != 0 || var11 <= var12)) {
-								var9 = false;
+						if (var11 != var12) { // L: 148
+							if ((var4[var10] != 1 || var11 >= var12) && (var4[var10] != 0 || var11 <= var12)) { // L: 151 152
+								var9 = false; // L: 154
 							}
 							break;
 						}
 
-						if (var10 == 3) {
+						if (var10 == 3) { // L: 149
 							var9 = false;
 						}
 					}
 				} while(var9);
 
-				if (var5 < var6) {
-					World var13 = var0[var5];
-					var0[var5] = var0[var6];
-					var0[var6] = var13;
+				if (var5 < var6) { // L: 159
+					World var13 = var0[var5]; // L: 160
+					var0[var5] = var0[var6]; // L: 161
+					var0[var6] = var13; // L: 162
 				}
 			}
 
-			sortWorlds(var0, var1, var6, var3, var4);
-			sortWorlds(var0, var6 + 1, var2, var3, var4);
+			sortWorlds(var0, var1, var6, var3, var4); // L: 165
+			sortWorlds(var0, var6 + 1, var2, var3, var4); // L: 166
 		}
 
-	}
+	} // L: 168
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -244,6 +244,6 @@ public class ChatChannel {
 		garbageValue = "57"
 	)
 	public static void method2317(int var0) {
-		MouseHandler.MouseHandler_idleCycles = var0;
-	}
+		MouseHandler.MouseHandler_idleCycles = var0; // L: 63
+	} // L: 64
 }

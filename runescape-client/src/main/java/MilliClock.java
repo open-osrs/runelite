@@ -42,17 +42,17 @@ public class MilliClock extends Clock {
 	int field2035;
 
 	public MilliClock() {
-		this.field2030 = new long[10];
-		this.field2031 = 256;
-		this.field2032 = 1;
-		this.field2034 = 0;
-		this.field2038 = class298.currentTimeMillis();
+		this.field2030 = new long[10]; // L: 7
+		this.field2031 = 256; // L: 15
+		this.field2032 = 1; // L: 16
+		this.field2034 = 0; // L: 17
+		this.field2038 = class298.currentTimeMillis(); // L: 18
 
-		for (int var1 = 0; var1 < 10; ++var1) {
-			this.field2030[var1] = this.field2038;
+		for (int var1 = 0; var1 < 10; ++var1) { // L: 19
+			this.field2030[var1] = this.field2038; // L: 20
 		}
 
-	}
+	} // L: 22
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -61,11 +61,11 @@ public class MilliClock extends Clock {
 	)
 	@Export("mark")
 	public void mark() {
-		for (int var1 = 0; var1 < 10; ++var1) {
-			this.field2030[var1] = 0L;
+		for (int var1 = 0; var1 < 10; ++var1) { // L: 25
+			this.field2030[var1] = 0L; // L: 26
 		}
 
-	}
+	} // L: 28
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -74,53 +74,53 @@ public class MilliClock extends Clock {
 	)
 	@Export("wait")
 	public int wait(int var1, int var2) {
-		int var3 = this.field2031;
-		int var4 = this.field2032;
-		this.field2031 = 300;
-		this.field2032 = 1;
-		this.field2038 = class298.currentTimeMillis();
-		if (0L == this.field2030[this.field2035]) {
-			this.field2031 = var3;
-			this.field2032 = var4;
-		} else if (this.field2038 > this.field2030[this.field2035]) {
+		int var3 = this.field2031; // L: 31
+		int var4 = this.field2032; // L: 32
+		this.field2031 = 300; // L: 33
+		this.field2032 = 1; // L: 34
+		this.field2038 = class298.currentTimeMillis(); // L: 35
+		if (0L == this.field2030[this.field2035]) { // L: 36
+			this.field2031 = var3; // L: 37
+			this.field2032 = var4; // L: 38
+		} else if (this.field2038 > this.field2030[this.field2035]) { // L: 40
 			this.field2031 = (int)((long)(var1 * 2560) / (this.field2038 - this.field2030[this.field2035]));
 		}
 
-		if (this.field2031 < 25) {
+		if (this.field2031 < 25) { // L: 41
 			this.field2031 = 25;
 		}
 
-		if (this.field2031 > 256) {
-			this.field2031 = 256;
-			this.field2032 = (int)((long)var1 - (this.field2038 - this.field2030[this.field2035]) / 10L);
+		if (this.field2031 > 256) { // L: 42
+			this.field2031 = 256; // L: 43
+			this.field2032 = (int)((long)var1 - (this.field2038 - this.field2030[this.field2035]) / 10L); // L: 44
 		}
 
-		if (this.field2032 > var1) {
+		if (this.field2032 > var1) { // L: 46
 			this.field2032 = var1;
 		}
 
-		this.field2030[this.field2035] = this.field2038;
-		this.field2035 = (this.field2035 + 1) % 10;
+		this.field2030[this.field2035] = this.field2038; // L: 47
+		this.field2035 = (this.field2035 + 1) % 10; // L: 48
 		int var5;
-		if (this.field2032 > 1) {
-			for (var5 = 0; var5 < 10; ++var5) {
-				if (this.field2030[var5] != 0L) {
+		if (this.field2032 > 1) { // L: 49
+			for (var5 = 0; var5 < 10; ++var5) { // L: 50
+				if (this.field2030[var5] != 0L) { // L: 51
 					this.field2030[var5] += (long)this.field2032;
 				}
 			}
 		}
 
-		if (this.field2032 < var2) {
+		if (this.field2032 < var2) { // L: 54
 			this.field2032 = var2;
 		}
 
-		class236.sleepExact((long)this.field2032);
+		class236.sleepExact((long)this.field2032); // L: 55
 
-		for (var5 = 0; this.field2034 < 256; this.field2034 += this.field2031) {
-			++var5;
+		for (var5 = 0; this.field2034 < 256; this.field2034 += this.field2031) { // L: 56 57 59
+			++var5; // L: 58
 		}
 
-		this.field2034 &= 255;
-		return var5;
+		this.field2034 &= 255; // L: 61
+		return var5; // L: 62
 	}
 }

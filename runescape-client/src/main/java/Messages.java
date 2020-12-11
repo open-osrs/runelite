@@ -40,10 +40,10 @@ public class Messages {
 	static Archive archive8;
 
 	static {
-		Messages_channels = new HashMap();
-		Messages_hashTable = new IterableNodeHashTable(1024);
-		Messages_queue = new IterableDualNodeQueue();
-		Messages_count = 0;
+		Messages_channels = new HashMap(); // L: 9
+		Messages_hashTable = new IterableNodeHashTable(1024); // L: 10
+		Messages_queue = new IterableDualNodeQueue(); // L: 11
+		Messages_count = 0; // L: 12
 	}
 
 	@ObfuscatedName("v")
@@ -52,10 +52,10 @@ public class Messages {
 		garbageValue = "-826057575"
 	)
 	static void method2275(Component var0) {
-		var0.setFocusTraversalKeysEnabled(false);
-		var0.addKeyListener(KeyHandler.KeyHandler_instance);
-		var0.addFocusListener(KeyHandler.KeyHandler_instance);
-	}
+		var0.setFocusTraversalKeysEnabled(false); // L: 150
+		var0.addKeyListener(KeyHandler.KeyHandler_instance); // L: 151
+		var0.addFocusListener(KeyHandler.KeyHandler_instance); // L: 152
+	} // L: 153
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
@@ -63,27 +63,27 @@ public class Messages {
 		garbageValue = "-729014462"
 	)
 	static int method2283(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264;
-		if (var0 == ScriptOpcodes.CC_GETX) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.x;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETY) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.y;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.width;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.height;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETHIDE) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETLAYER) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.parentId;
-			return 1;
+		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1012
+		if (var0 == ScriptOpcodes.CC_GETX) { // L: 1013
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.x; // L: 1014
+			return 1; // L: 1015
+		} else if (var0 == ScriptOpcodes.CC_GETY) { // L: 1017
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.y; // L: 1018
+			return 1; // L: 1019
+		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) { // L: 1021
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.width; // L: 1022
+			return 1; // L: 1023
+		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) { // L: 1025
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.height; // L: 1026
+			return 1; // L: 1027
+		} else if (var0 == ScriptOpcodes.CC_GETHIDE) { // L: 1029
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1030
+			return 1; // L: 1031
+		} else if (var0 == ScriptOpcodes.CC_GETLAYER) { // L: 1033
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.parentId; // L: 1034
+			return 1; // L: 1035
 		} else {
-			return 2;
+			return 2; // L: 1037
 		}
 	}
 
@@ -93,7 +93,7 @@ public class Messages {
 		garbageValue = "804061602"
 	)
 	static void method2285() {
-		Login.loginIndex = 24;
-		GameShell.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", "");
-	}
+		Login.loginIndex = 24; // L: 1517
+		GameShell.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", ""); // L: 1518
+	} // L: 1519
 }

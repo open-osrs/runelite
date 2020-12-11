@@ -44,9 +44,9 @@ public enum VerticalAlignment implements Enumerated {
 	final int id;
 
 	VerticalAlignment(int var3, int var4) {
-		this.value = var3;
-		this.id = var4;
-	}
+		this.value = var3; // L: 14
+		this.id = var4; // L: 15
+	} // L: 16
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -55,6 +55,6 @@ public enum VerticalAlignment implements Enumerated {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 19
 	}
 }

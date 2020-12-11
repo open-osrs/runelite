@@ -36,7 +36,7 @@ public class NetFileRequest extends DualNode {
 	public byte padding;
 
 	NetFileRequest() {
-	}
+	} // L: 10
 
 	@ObfuscatedName("kw")
 	@ObfuscatedSignature(
@@ -44,25 +44,25 @@ public class NetFileRequest extends DualNode {
 		garbageValue = "102160869"
 	)
 	static final InterfaceParent method4189(int var0, int var1, int var2) {
-		InterfaceParent var3 = new InterfaceParent();
-		var3.group = var1;
-		var3.type = var2;
-		Client.interfaceParents.put(var3, (long)var0);
-		class304.Widget_resetModelFrames(var1);
-		Widget var4 = CollisionMap.getWidget(var0);
-		CollisionMap.invalidateWidget(var4);
-		if (Client.meslayerContinueWidget != null) {
-			CollisionMap.invalidateWidget(Client.meslayerContinueWidget);
-			Client.meslayerContinueWidget = null;
+		InterfaceParent var3 = new InterfaceParent(); // L: 10798
+		var3.group = var1; // L: 10799
+		var3.type = var2; // L: 10800
+		Client.interfaceParents.put(var3, (long)var0); // L: 10801
+		class304.Widget_resetModelFrames(var1); // L: 10802
+		Widget var4 = CollisionMap.getWidget(var0); // L: 10803
+		CollisionMap.invalidateWidget(var4); // L: 10804
+		if (Client.meslayerContinueWidget != null) { // L: 10805
+			CollisionMap.invalidateWidget(Client.meslayerContinueWidget); // L: 10806
+			Client.meslayerContinueWidget = null; // L: 10807
 		}
 
-		WorldMapData_1.method767();
-		PendingSpawn.revalidateWidgetScroll(class9.Widget_interfaceComponents[var0 >> 16], var4, false);
-		VarpDefinition.runWidgetOnLoadListener(var1);
-		if (Client.rootInterface != -1) {
+		WorldMapData_1.method767(); // L: 10809
+		PendingSpawn.revalidateWidgetScroll(class9.Widget_interfaceComponents[var0 >> 16], var4, false); // L: 10810
+		VarpDefinition.runWidgetOnLoadListener(var1); // L: 10811
+		if (Client.rootInterface != -1) { // L: 10812
 			WorldMapRectangle.runIntfCloseListeners(Client.rootInterface, 1);
 		}
 
-		return var3;
+		return var3; // L: 10813
 	}
 }

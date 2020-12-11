@@ -43,9 +43,9 @@ public class JagexCache {
 	public static int cacheGamebuild;
 
 	static {
-		JagexCache_randomDat = null;
-		JagexCache_dat2File = null;
-		JagexCache_idx255File = null;
+		JagexCache_randomDat = null; // L: 22
+		JagexCache_dat2File = null; // L: 23
+		JagexCache_idx255File = null; // L: 24
 	}
 
 	@ObfuscatedName("j")
@@ -55,14 +55,14 @@ public class JagexCache {
 	)
 	@Export("hashString")
 	public static int hashString(CharSequence var0) {
-		int var1 = var0.length();
-		int var2 = 0;
+		int var1 = var0.length(); // L: 140
+		int var2 = 0; // L: 141
 
-		for (int var3 = 0; var3 < var1; ++var3) {
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 142
 			var2 = (var2 << 5) - var2 + Varps.charToByteCp1252(var0.charAt(var3));
 		}
 
-		return var2;
+		return var2; // L: 143
 	}
 
 	@ObfuscatedName("j")
@@ -71,6 +71,6 @@ public class JagexCache {
 		garbageValue = "3"
 	)
 	public static boolean method3566() {
-		return class206.musicPlayerStatus != 0 ? true : class206.midiPcmStream.isReady();
+		return class206.musicPlayerStatus != 0 ? true : class206.midiPcmStream.isReady(); // L: 68 69
 	}
 }

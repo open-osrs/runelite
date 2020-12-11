@@ -26,15 +26,15 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		return var1.grandExchangeOffer.totalQuantity < var2.grandExchangeOffer.totalQuantity ? -1 : (var2.grandExchangeOffer.totalQuantity == var1.grandExchangeOffer.totalQuantity ? 0 : 1);
+		return var1.grandExchangeOffer.totalQuantity < var2.grandExchangeOffer.totalQuantity ? -1 : (var2.grandExchangeOffer.totalQuantity == var1.grandExchangeOffer.totalQuantity ? 0 : 1); // L: 69
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 73
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1);
+		return super.equals(var1); // L: 77
 	}
 
 	@ObfuscatedName("i")
@@ -44,10 +44,10 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	)
 	static final void method165(String var0) {
 		StringBuilder var10000 = new StringBuilder();
-		Object var10001 = null;
+		Object var10001 = null; // L: 186
 		var10000 = var10000.append("Please remove ").append(var0);
 		var10001 = null;
 		String var1 = var10000.append(" from your friend list first").toString();
-		class234.addGameMessage(30, "", var1);
-	}
+		class234.addGameMessage(30, "", var1); // L: 188
+	} // L: 190
 }

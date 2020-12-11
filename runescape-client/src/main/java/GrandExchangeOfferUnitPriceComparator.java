@@ -40,15 +40,15 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		return var1.grandExchangeOffer.unitPrice < var2.grandExchangeOffer.unitPrice ? -1 : (var2.grandExchangeOffer.unitPrice == var1.grandExchangeOffer.unitPrice ? 0 : 1);
+		return var1.grandExchangeOffer.unitPrice < var2.grandExchangeOffer.unitPrice ? -1 : (var2.grandExchangeOffer.unitPrice == var1.grandExchangeOffer.unitPrice ? 0 : 1); // L: 43
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 47
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1);
+		return super.equals(var1); // L: 51
 	}
 
 	@ObfuscatedName("u")
@@ -58,16 +58,16 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 	)
 	@Export("Widget_setKeyIgnoreHeld")
 	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
-		if (var0.field2649 == null) {
-			throw new RuntimeException();
+		if (var0.field2649 == null) { // L: 936
+			throw new RuntimeException(); // L: 937
 		} else {
-			if (var0.field2684 == null) {
-				var0.field2684 = new int[var0.field2649.length];
+			if (var0.field2684 == null) { // L: 939
+				var0.field2684 = new int[var0.field2649.length]; // L: 940
 			}
 
-			var0.field2684[var1] = Integer.MAX_VALUE;
+			var0.field2684[var1] = Integer.MAX_VALUE; // L: 942
 		}
-	}
+	} // L: 943
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -75,54 +75,54 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 		garbageValue = "-613147121"
 	)
 	static int method200(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264;
-		if (var0 == ScriptOpcodes.CC_GETSCROLLX) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollX;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETSCROLLY) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollY;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETTEXT) {
-			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.text;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETSCROLLWIDTH) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollWidth;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETSCROLLHEIGHT) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollHeight;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETMODELZOOM) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelZoom;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_X) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleX;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Z) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleZ;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Y) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleY;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETTRANSTOP) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.transparencyTop;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETTRANSBOT) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.transparencyBot;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETCOLOUR) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.color;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETFILLCOLOUR) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.color2;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETFILLMODE) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal();
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETMODELTRANSPARENT) {
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0;
-			return 1;
+		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1041
+		if (var0 == ScriptOpcodes.CC_GETSCROLLX) { // L: 1042
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollX; // L: 1043
+			return 1; // L: 1044
+		} else if (var0 == ScriptOpcodes.CC_GETSCROLLY) { // L: 1046
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollY; // L: 1047
+			return 1; // L: 1048
+		} else if (var0 == ScriptOpcodes.CC_GETTEXT) { // L: 1050
+			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.text; // L: 1051
+			return 1; // L: 1052
+		} else if (var0 == ScriptOpcodes.CC_GETSCROLLWIDTH) { // L: 1054
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollWidth; // L: 1055
+			return 1; // L: 1056
+		} else if (var0 == ScriptOpcodes.CC_GETSCROLLHEIGHT) { // L: 1058
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollHeight; // L: 1059
+			return 1; // L: 1060
+		} else if (var0 == ScriptOpcodes.CC_GETMODELZOOM) { // L: 1062
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelZoom; // L: 1063
+			return 1; // L: 1064
+		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_X) { // L: 1066
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleX; // L: 1067
+			return 1; // L: 1068
+		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Z) { // L: 1070
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleZ; // L: 1071
+			return 1; // L: 1072
+		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Y) { // L: 1074
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleY; // L: 1075
+			return 1; // L: 1076
+		} else if (var0 == ScriptOpcodes.CC_GETTRANSTOP) { // L: 1078
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.transparencyTop; // L: 1079
+			return 1; // L: 1080
+		} else if (var0 == ScriptOpcodes.CC_GETTRANSBOT) { // L: 1082
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.transparencyBot; // L: 1083
+			return 1; // L: 1084
+		} else if (var0 == ScriptOpcodes.CC_GETCOLOUR) { // L: 1086
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.color; // L: 1087
+			return 1; // L: 1088
+		} else if (var0 == ScriptOpcodes.CC_GETFILLCOLOUR) { // L: 1090
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.color2; // L: 1091
+			return 1; // L: 1092
+		} else if (var0 == ScriptOpcodes.CC_GETFILLMODE) { // L: 1094
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal(); // L: 1095
+			return 1; // L: 1096
+		} else if (var0 == ScriptOpcodes.CC_GETMODELTRANSPARENT) { // L: 1098
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0; // L: 1099
+			return 1; // L: 1100
 		} else {
-			return 2;
+			return 2; // L: 1102
 		}
 	}
 }

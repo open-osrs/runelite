@@ -42,7 +42,7 @@ public class VarbitDefinition extends DualNode {
 	public int endBit;
 
 	static {
-		VarbitDefinition_cached = new EvictingDualNodeHashTable(64);
+		VarbitDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
 	}
 
 	@ObfuscatedName("v")
@@ -53,12 +53,12 @@ public class VarbitDefinition extends DualNode {
 	@Export("decode")
 	public void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
+			int var2 = var1.readUnsignedByte(); // L: 22
+			if (var2 == 0) { // L: 23
+				return; // L: 26
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 24
 		}
 	}
 
@@ -69,13 +69,13 @@ public class VarbitDefinition extends DualNode {
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) {
-			this.baseVar = var1.readUnsignedShort();
-			this.startBit = var1.readUnsignedByte();
-			this.endBit = var1.readUnsignedByte();
+		if (var2 == 1) { // L: 29
+			this.baseVar = var1.readUnsignedShort(); // L: 30
+			this.startBit = var1.readUnsignedByte(); // L: 31
+			this.endBit = var1.readUnsignedByte(); // L: 32
 		}
 
-	}
+	} // L: 35
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
@@ -83,50 +83,50 @@ public class VarbitDefinition extends DualNode {
 		garbageValue = "3"
 	)
 	public static String method4525(CharSequence var0, LoginType var1) {
-		if (var0 == null) {
+		if (var0 == null) { // L: 48
 			return null;
 		} else {
-			int var2 = 0;
+			int var2 = 0; // L: 49
 
 			int var3;
 			boolean var4;
 			char var5;
-			for (var3 = var0.length(); var2 < var3; ++var2) {
-				var5 = var0.charAt(var2);
-				var4 = var5 == 160 || var5 == ' ' || var5 == '_' || var5 == '-';
-				if (!var4) {
+			for (var3 = var0.length(); var2 < var3; ++var2) { // L: 50 53 63
+				var5 = var0.charAt(var2); // L: 55
+				var4 = var5 == 160 || var5 == ' ' || var5 == '_' || var5 == '-'; // L: 57
+				if (!var4) { // L: 59
 					break;
 				}
 			}
 
-			while (var3 > var2) {
-				var5 = var0.charAt(var3 - 1);
-				var4 = var5 == 160 || var5 == ' ' || var5 == '_' || var5 == '-';
-				if (!var4) {
+			while (var3 > var2) { // L: 67
+				var5 = var0.charAt(var3 - 1); // L: 69
+				var4 = var5 == 160 || var5 == ' ' || var5 == '_' || var5 == '-'; // L: 71
+				if (!var4) { // L: 73
 					break;
 				}
 
-				--var3;
+				--var3; // L: 77
 			}
 
-			int var10 = var3 - var2;
-			if (var10 >= 1 && var10 <= ArchiveLoader.method1232(var1)) {
-				StringBuilder var9 = new StringBuilder(var10);
+			int var10 = var3 - var2; // L: 79
+			if (var10 >= 1 && var10 <= ArchiveLoader.method1232(var1)) { // L: 80
+				StringBuilder var9 = new StringBuilder(var10); // L: 81
 
-				for (int var6 = var2; var6 < var3; ++var6) {
-					char var7 = var0.charAt(var6);
-					if (ObjectDefinition.method4657(var7)) {
-						char var8 = UserComparator10.method3492(var7);
-						if (var8 != 0) {
-							var9.append(var8);
+				for (int var6 = var2; var6 < var3; ++var6) { // L: 82
+					char var7 = var0.charAt(var6); // L: 83
+					if (ObjectDefinition.method4657(var7)) { // L: 84
+						char var8 = UserComparator10.method3492(var7); // L: 85
+						if (var8 != 0) { // L: 86
+							var9.append(var8); // L: 87
 						}
 					}
 				}
 
-				if (var9.length() == 0) {
+				if (var9.length() == 0) { // L: 89
 					return null;
 				} else {
-					return var9.toString();
+					return var9.toString(); // L: 90
 				}
 			} else {
 				return null;

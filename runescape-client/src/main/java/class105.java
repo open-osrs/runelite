@@ -12,6 +12,6 @@ public class class105 {
 	public static IterableNodeDeque reflectionChecks;
 
 	static {
-		reflectionChecks = new IterableNodeDeque();
+		reflectionChecks = new IterableNodeDeque(); // L: 17
 	}
 }
