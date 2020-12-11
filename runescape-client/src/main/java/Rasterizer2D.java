@@ -607,10 +607,10 @@ public class Rasterizer2D extends DualNode {
 	@ObfuscatedName("dz")
 	@Export("Rasterizer2D_drawRectangle")
 	public static void Rasterizer2D_drawRectangle(int var0, int var1, int var2, int var3, int var4) {
-		method6097(var0, var1, var2, var4); // L: 383
-		method6097(var0, var3 + var1 - 1, var2, var4); // L: 384
-		method6068(var0, var1, var3, var4); // L: 385
-		method6068(var0 + var2 - 1, var1, var3, var4); // L: 386
+		Rasterizer2D_drawHorizontalLine(var0, var1, var2, var4); // L: 383
+		Rasterizer2D_drawHorizontalLine(var0, var3 + var1 - 1, var2, var4); // L: 384
+		Rasterizer2D_drawVerticalLine(var0, var1, var3, var4); // L: 385
+		Rasterizer2D_drawVerticalLine(var0 + var2 - 1, var1, var3, var4); // L: 386
 	} // L: 387
 
 	@ObfuscatedName("es")
@@ -626,7 +626,8 @@ public class Rasterizer2D extends DualNode {
 	} // L: 396
 
 	@ObfuscatedName("eq")
-	public static void method6097(int var0, int var1, int var2, int var3) {
+	@Export("Rasterizer2D_drawHorizontalLine")
+	public static void Rasterizer2D_drawHorizontalLine(int var0, int var1, int var2, int var3) {
 		if (var1 >= Rasterizer2D_yClipStart && var1 < Rasterizer2D_yClipEnd) { // L: 399
 			if (var0 < Rasterizer2D_xClipStart) { // L: 400
 				var2 -= Rasterizer2D_xClipStart - var0; // L: 401
@@ -677,7 +678,8 @@ public class Rasterizer2D extends DualNode {
 	} // L: 431
 
 	@ObfuscatedName("eg")
-	public static void method6068(int var0, int var1, int var2, int var3) {
+	@Export("Rasterizer2D_drawVerticalLine")
+	public static void Rasterizer2D_drawVerticalLine(int var0, int var1, int var2, int var3) {
 		if (var0 >= Rasterizer2D_xClipStart && var0 < Rasterizer2D_xClipEnd) { // L: 434
 			if (var1 < Rasterizer2D_yClipStart) { // L: 435
 				var2 -= Rasterizer2D_yClipStart - var1; // L: 436
@@ -735,16 +737,16 @@ public class Rasterizer2D extends DualNode {
 		var3 -= var1; // L: 471
 		if (var3 == 0) { // L: 472
 			if (var2 >= 0) { // L: 473
-				method6097(var0, var1, var2 + 1, var4);
+				Rasterizer2D_drawHorizontalLine(var0, var1, var2 + 1, var4);
 			} else {
-				method6097(var0 + var2, var1, -var2 + 1, var4); // L: 474
+				Rasterizer2D_drawHorizontalLine(var0 + var2, var1, -var2 + 1, var4); // L: 474
 			}
 
 		} else if (var2 == 0) { // L: 477
 			if (var3 >= 0) { // L: 478
-				method6068(var0, var1, var3 + 1, var4);
+				Rasterizer2D_drawVerticalLine(var0, var1, var3 + 1, var4);
 			} else {
-				method6068(var0, var3 + var1, -var3 + 1, var4); // L: 479
+				Rasterizer2D_drawVerticalLine(var0, var3 + var1, -var3 + 1, var4); // L: 479
 			}
 
 		} else {

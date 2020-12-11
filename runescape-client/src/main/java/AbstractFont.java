@@ -722,11 +722,11 @@ public abstract class AbstractFont extends Rasterizer2D {
 
 						int var13 = this.advances[var7]; // L: 504
 						if (AbstractFont_strike != -1) { // L: 505
-							Rasterizer2D.method6097(var2, var3 + (int)((double)this.ascent * 0.7D), var13, AbstractFont_strike);
+							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var13, AbstractFont_strike);
 						}
 
 						if (AbstractFont_underline != -1) { // L: 506
-							Rasterizer2D.method6097(var2, var3 + this.ascent + 1, var13, AbstractFont_underline);
+							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + this.ascent + 1, var13, AbstractFont_underline);
 						}
 
 						var2 += var13; // L: 507
@@ -840,11 +840,11 @@ public abstract class AbstractFont extends Rasterizer2D {
 
 						int var18 = this.advances[var10]; // L: 582
 						if (AbstractFont_strike != -1) { // L: 583
-							Rasterizer2D.method6097(var2, var3 + (int)((double)this.ascent * 0.7D), var18, AbstractFont_strike);
+							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var18, AbstractFont_strike);
 						}
 
 						if (AbstractFont_underline != -1) { // L: 584
-							Rasterizer2D.method6097(var2, var3 + this.ascent, var18, AbstractFont_underline);
+							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + this.ascent, var18, AbstractFont_underline);
 						}
 
 						var2 += var18; // L: 585
