@@ -47,7 +47,7 @@ public final class class13 {
 			try {
 				Applet var7 = class60.applet;
 				Object[] var5 = new Object[]{(new URL(class60.applet.getCodeBase(), var0)).toString()};
-				Object var3 = null;
+				Object var3 = JSObject.getWindow(var7).call(var2, var5);
 				return var3 != null;
 			} catch (Throwable var9) {
 				return false;

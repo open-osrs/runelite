@@ -17,6 +17,7 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.Reflection;
 import net.runelite.rs.ScriptOpcodes;
+import netscape.javascript.JSObject;
 
 @ObfuscatedName("k")
 @Implements("WorldMapData_0")
@@ -608,7 +609,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 
 			Client var4 = WorldMapIcon_0.client;
 			String var5 = "document.cookie=\"" + var3 + "\"";
-			//JSObject.getWindow(var4).eval(var5);
+			JSObject.getWindow(var4).eval(var5);
 		} catch (Throwable var6) {
 		}
 

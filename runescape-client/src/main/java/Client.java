@@ -11,6 +11,7 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import netscape.javascript.JSObject;
 
 @Implements("Client")
 @ObfuscatedName("client")
@@ -4189,7 +4190,7 @@ public final class Client extends GameShell implements Usernamed {
 			try {
 				Client var3 = WorldMapIcon_0.client;
 				Object[] var4 = new Object[]{SoundSystem.getWindowedMode()};
-				//JSObject.getWindow(var3).call("resize", var4);
+				JSObject.getWindow(var3).call("resize", var4);
 			} catch (Throwable var5) {
 			}
 		}

@@ -11,6 +11,6 @@ public class class56 {
 		garbageValue = "16"
 	)
 	public static Object method901(Applet var0, String var1) throws Throwable {
-		return null;
+		return JSObject.getWindow(var0).call(var1, (Object[])null);
 	}
 }
