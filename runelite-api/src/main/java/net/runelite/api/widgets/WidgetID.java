@@ -787,6 +787,7 @@ public class WidgetID
 	{
 		static final int SKILL = 1;
 		static final int LEVEL = 2;
+		static final int CONTINUE = 3;
 	}
 
 	static class QuestCompleted
