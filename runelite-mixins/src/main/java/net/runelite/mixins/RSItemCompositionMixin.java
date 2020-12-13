@@ -1,6 +1,6 @@
 package net.runelite.mixins;
 
-import net.runelite.api.events.PostItemDefinition;
+import net.runelite.api.events.PostItemComposition;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.MethodHook;
@@ -69,9 +69,9 @@ public abstract class RSItemCompositionMixin implements RSItemComposition
 	@MethodHook(value = "post", end = true)
 	public void post()
 	{
-		final PostItemDefinition event = new PostItemDefinition();
+		final PostItemComposition event = new PostItemComposition();
 		event.setItemComposition(this);
-		client.getCallbacks().post(PostItemDefinition.class, event);
+		client.getCallbacks().post(PostItemComposition.class, event);
 	}
 
 	@Copy("getModel")
