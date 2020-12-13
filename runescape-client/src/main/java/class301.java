@@ -9,5 +9,5 @@ public final class class301 {
 		descriptor = "[Llm;"
 	)
 	@Export("worldSelectBackSprites")
-	static Sprite[] worldSelectBackSprites;
+	static SpritePixels[] worldSelectBackSpritePixels;
 }

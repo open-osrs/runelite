@@ -339,7 +339,7 @@ public class FontName {
 
 											if (var10.itemIds[var19] <= 0) { // L: 9090
 												if (var10.inventorySprites != null && var19 < 20) { // L: 9135
-													Sprite var46 = var10.getInventorySprite(var19); // L: 9136
+													SpritePixels var46 = var10.getInventorySprite(var19); // L: 9136
 													if (var46 != null) { // L: 9137
 														var46.drawTransBgAt(var22, var23);
 													} else if (Widget.field2603) { // L: 9138
@@ -351,7 +351,7 @@ public class FontName {
 												boolean var38 = false; // L: 9092
 												var26 = var10.itemIds[var19] - 1; // L: 9093
 												if (var22 + 32 > var2 && var22 < var4 && var23 + 32 > var3 && var23 < var5 || var10 == class171.dragInventoryWidget && var19 == Client.dragItemSlotSource) { // L: 9094
-													Sprite var35;
+													SpritePixels var35;
 													if (Client.isItemSelected == 1 && var19 == ChatChannel.selectedItemSlot && var10.id == WorldMapLabelSize.selectedItemWidget) { // L: 9096
 														var35 = WorldMapManager.getItemSprite(var26, var10.itemQuantities[var19], 2, 0, 2, false);
 													} else {
@@ -483,7 +483,7 @@ public class FontName {
 											}
 
 											if (var10.isIf3 && var10.itemId != -1) { // L: 9192
-												ItemDefinition var45 = SecureRandomCallable.ItemDefinition_get(var10.itemId); // L: 9193
+												ItemComposition var45 = SecureRandomCallable.ItemDefinition_get(var10.itemId); // L: 9193
 												var44 = var45.name; // L: 9194
 												if (var44 == null) { // L: 9195
 													var44 = "null";
@@ -506,7 +506,7 @@ public class FontName {
 											var39.drawLines(var44, var12, var13, var10.width, var10.height, var20, var10.textShadowed ? 0 : -1, var10.textXAlignment, var10.textYAlignment, var10.textLineHeight); // L: 9203
 										}
 									} else if (var10.type == 5) { // L: 9206
-										Sprite var40;
+										SpritePixels var40;
 										if (!var10.isIf3) { // L: 9207
 											var40 = var10.getSprite(class8.runCs1(var10)); // L: 9208
 											if (var40 != null) { // L: 9209
@@ -561,7 +561,7 @@ public class FontName {
 											}
 										}
 									} else {
-										ItemDefinition var33;
+										ItemComposition var33;
 										if (var10.type == 6) { // L: 9244
 											boolean var36 = class8.runCs1(var10); // L: 9245
 											if (var36) { // L: 9247

@@ -75,9 +75,9 @@ public class SecureRandomFuture {
 		garbageValue = "109574038"
 	)
 	public static void method2205(boolean var0) {
-		if (var0 != ItemDefinition.ItemDefinition_inMembersWorld) { // L: 571
+		if (var0 != ItemComposition.ItemDefinition_inMembersWorld) { // L: 571
 			TileItem.method2187(); // L: 572
-			ItemDefinition.ItemDefinition_inMembersWorld = var0; // L: 573
+			ItemComposition.ItemDefinition_inMembersWorld = var0; // L: 573
 		}
 
 	} // L: 575
@@ -545,7 +545,7 @@ public class SecureRandomFuture {
 		if (Client.hintArrowType == 2) { // L: 4621
 			GrandExchangeOffer.worldToScreen((Client.hintArrowX - NetFileRequest.baseX << 7) + Client.hintArrowSubX, (Client.hintArrowY - class41.baseY << 7) + Client.hintArrowSubY, Client.hintArrowHeight * 2); // L: 4622
 			if (Client.viewportTempX > -1 && Client.cycle % 20 < 10) { // L: 4623
-				AbstractWorldMapIcon.headIconHintSprites[0].drawTransBgAt(var0 + Client.viewportTempX - 12, Client.viewportTempY + var1 - 28);
+				AbstractWorldMapIcon.headIconHintSpritePixels[0].drawTransBgAt(var0 + Client.viewportTempX - 12, Client.viewportTempY + var1 - 28);
 			}
 		}
 

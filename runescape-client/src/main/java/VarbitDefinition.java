@@ -115,7 +115,7 @@ public class VarbitDefinition extends DualNode {
 
 				for (int var6 = var2; var6 < var3; ++var6) { // L: 82
 					char var7 = var0.charAt(var6); // L: 83
-					if (ObjectDefinition.method4657(var7)) { // L: 84
+					if (ObjectComposition.method4657(var7)) { // L: 84
 						char var8 = UserComparator10.method3492(var7); // L: 85
 						if (var8 != 0) { // L: 86
 							var9.append(var8); // L: 87

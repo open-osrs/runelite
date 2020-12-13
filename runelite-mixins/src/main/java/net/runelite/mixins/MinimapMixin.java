@@ -38,7 +38,7 @@ public abstract class MinimapMixin implements RSClient
 	@Override
 	public RSSpritePixels drawInstanceMap(int z)
 	{
-		RSSpritePixels ourSprite = createSprite(new int[512 * 512], 512, 512);
+		RSSpritePixels ourSprite = createSpritePixels(new int[512 * 512], 512, 512);
 		RSSpritePixels theirSprite = getMinimapSprite();
 
 		RSScene scene = getScene();

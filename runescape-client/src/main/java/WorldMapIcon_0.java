@@ -65,7 +65,7 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		this.element = var3; // L: 15
 		this.label = var4; // L: 16
 		WorldMapElement var5 = UserComparator10.WorldMapElement_get(this.getElement()); // L: 17
-		Sprite var6 = var5.getSpriteBool(false); // L: 18
+		SpritePixels var6 = var5.getSpriteBool(false); // L: 18
 		if (var6 != null) { // L: 19
 			this.subWidth = var6.subWidth; // L: 20
 			this.subHeight = var6.subHeight; // L: 21
@@ -122,20 +122,20 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 		garbageValue = "-1562808952"
 	)
 	@Export("getNpcDefinition")
-	public static NPCDefinition getNpcDefinition(int var0) {
-		NPCDefinition var1 = (NPCDefinition)NPCDefinition.NpcDefinition_cached.get((long)var0); // L: 62
+	public static NPCComposition getNpcDefinition(int var0) {
+		NPCComposition var1 = (NPCComposition) NPCComposition.NpcDefinition_cached.get((long)var0); // L: 62
 		if (var1 != null) { // L: 63
 			return var1;
 		} else {
-			byte[] var2 = NPCDefinition.NpcDefinition_archive.takeFile(9, var0); // L: 64
-			var1 = new NPCDefinition(); // L: 65
+			byte[] var2 = NPCComposition.NpcDefinition_archive.takeFile(9, var0); // L: 64
+			var1 = new NPCComposition(); // L: 65
 			var1.id = var0; // L: 66
 			if (var2 != null) { // L: 67
 				var1.decode(new Buffer(var2));
 			}
 
 			var1.postDecode(); // L: 68
-			NPCDefinition.NpcDefinition_cached.put(var1, (long)var0); // L: 69
+			NPCComposition.NpcDefinition_cached.put(var1, (long)var0); // L: 69
 			return var1; // L: 70
 		}
 	}

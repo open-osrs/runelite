@@ -45,6 +45,6 @@ public abstract class RSNPCCompositionMixin implements RSNPCComposition
 		NpcActionChanged npcActionChanged = new NpcActionChanged();
 		npcActionChanged.setNpcComposition(this);
 		npcActionChanged.setIdx(idx);
-		client.getCallbacks().post(NpcActionChanged.class, npcActionChanged);
+		client.getCallbacks().post(npcActionChanged);
 	}
 }

@@ -113,7 +113,7 @@ public class class89 {
 			Login.title_muteSprite = null; // L: 224
 			DirectByteArrayCopier.options_buttons_0Sprite = null; // L: 225
 			ItemContainer.options_buttons_2Sprite = null; // L: 226
-			class301.worldSelectBackSprites = null; // L: 227
+			class301.worldSelectBackSpritePixels = null; // L: 227
 			class90.worldSelectFlagSprites = null; // L: 228
 			WorldMapSectionType.worldSelectArrows = null; // L: 229
 			class349.worldSelectStars = null; // L: 230

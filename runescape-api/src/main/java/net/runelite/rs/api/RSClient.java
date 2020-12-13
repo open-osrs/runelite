@@ -338,10 +338,10 @@ public interface RSClient extends RSGameShell, Client
 	void addRSChatMessage(int type, String name, String message, String sender);
 
 	@Import("getObjectDefinition")
-	RSObjectDefinition getRSObjectDefinition(int objectId);
+	RSObjectComposition getRSObjectComposition(int objectId);
 
 	@Import("getNpcDefinition")
-	RSNPCComposition getRSNpcDefinition(int npcId);
+	RSNPCComposition getRSNpcComposition(int npcId);
 
 	@Import("viewportZoom")
 	@Override
@@ -577,7 +577,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Construct
 	@Override
-	RSSpritePixels createSprite(int[] pixels, int width, int height);
+	RSSpritePixels createSpritePixels(int[] pixels, int width, int height);
 
 	@Import("destinationX")
 	int getDestinationX();
@@ -1080,7 +1080,7 @@ public interface RSClient extends RSGameShell, Client
 	int getSelectedSpellFlags();
 
 	@Import("isSpellSelected")
-	boolean isSpellSelected();
+	boolean getSpellSelected();
 
 	@Import("readSoundEffect")
 	RSSoundEffect getTrack(RSAbstractArchive indexData, int id, int var0);

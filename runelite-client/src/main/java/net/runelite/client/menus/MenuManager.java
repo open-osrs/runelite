@@ -109,8 +109,8 @@ public class MenuManager
 	{
 		for (MenuEntry menuEntry : client.getMenuEntries())
 		{
-			String option = menuEntry.getOption();
-			String target = menuEntry.getTarget();
+			String option = menuEntry.getMenuOption();
+			String target = menuEntry.getMenuTarget();
 
 			if (option.equals(customMenuOption.getMenuOption()) && target.equals(customMenuOption.getMenuTarget()))
 			{
@@ -128,7 +128,7 @@ public class MenuManager
 			return;
 		}
 
-		int widgetId = event.getActionParam1();
+		int widgetId = event.getWidgetId();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 
 		for (WidgetMenuOption currentMenu : options)
@@ -139,9 +139,9 @@ public class MenuManager
 				menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
 
 				MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
-				menuEntry.setOption(currentMenu.getMenuOption());
-				menuEntry.setParam1(widgetId);
-				menuEntry.setTarget(currentMenu.getMenuTarget());
+				menuEntry.setMenuOption(currentMenu.getMenuOption());
+				menuEntry.setWidgetId(widgetId);
+				menuEntry.setMenuTarget(currentMenu.getMenuTarget());
 				menuEntry.setType(MenuAction.RUNELITE.getId());
 
 				client.setMenuEntries(menuEntries);

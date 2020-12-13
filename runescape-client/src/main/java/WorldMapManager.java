@@ -47,7 +47,7 @@ public final class WorldMapManager {
 		descriptor = "Llm;"
 	)
 	@Export("compositeTextureSprite")
-	Sprite compositeTextureSprite;
+	SpritePixels compositeTextureSpritePixels;
 	@ObfuscatedName("t")
 	@Export("icons")
 	HashMap icons;
@@ -189,7 +189,7 @@ public final class WorldMapManager {
 			System.nanoTime(); // L: 93
 			if (var1.isValidFileName(WorldMapCacheName.field327.name, var2)) { // L: 94
 				byte[] var20 = var1.takeFileByNames(WorldMapCacheName.field327.name, var2); // L: 95
-				this.compositeTextureSprite = WorldMapSection0.convertJpgToSprite(var20); // L: 96
+				this.compositeTextureSpritePixels = WorldMapSection0.convertJpgToSprite(var20); // L: 96
 			}
 
 			System.nanoTime(); // L: 98
@@ -298,8 +298,8 @@ public final class WorldMapManager {
 	)
 	@Export("drawOverview")
 	public void drawOverview(int var1, int var2, int var3, int var4, HashSet var5, int var6, int var7) {
-		if (this.compositeTextureSprite != null) { // L: 166
-			this.compositeTextureSprite.drawScaledAt(var1, var2, var3, var4); // L: 169
+		if (this.compositeTextureSpritePixels != null) { // L: 166
+			this.compositeTextureSpritePixels.drawScaledAt(var1, var2, var3, var4); // L: 169
 			if (var6 > 0 && var6 % var7 < var7 / 2) { // L: 170
 				if (this.icons == null) { // L: 173
 					this.buildIcons0(); // L: 174
@@ -777,7 +777,7 @@ public final class WorldMapManager {
 		garbageValue = "-1786223770"
 	)
 	@Export("getItemSprite")
-	public static final Sprite getItemSprite(int var0, int var1, int var2, int var3, int var4, boolean var5) {
+	public static final SpritePixels getItemSprite(int var0, int var1, int var2, int var3, int var4, boolean var5) {
 		if (var1 == -1) { // L: 353
 			var4 = 0;
 		} else if (var4 == 2 && var1 != 1) { // L: 354
@@ -785,15 +785,15 @@ public final class WorldMapManager {
 		}
 
 		long var6 = ((long)var3 << 42) + ((long)var4 << 40) + ((long)var2 << 38) + (long)var0 + ((long)var1 << 16); // L: 355
-		Sprite var8;
+		SpritePixels var8;
 		if (!var5) { // L: 357
-			var8 = (Sprite)ItemDefinition.ItemDefinition_cachedSprites.get(var6); // L: 358
+			var8 = (SpritePixels) ItemComposition.ItemDefinition_cachedSprites.get(var6); // L: 358
 			if (var8 != null) { // L: 359
 				return var8;
 			}
 		}
 
-		ItemDefinition var9 = SecureRandomCallable.ItemDefinition_get(var0); // L: 361
+		ItemComposition var9 = SecureRandomCallable.ItemDefinition_get(var0); // L: 361
 		if (var1 > 1 && var9.countobj != null) { // L: 362
 			int var10 = -1; // L: 363
 
@@ -812,7 +812,7 @@ public final class WorldMapManager {
 		if (var19 == null) { // L: 370
 			return null;
 		} else {
-			Sprite var20 = null; // L: 371
+			SpritePixels var20 = null; // L: 371
 			if (var9.noteTemplate != -1) { // L: 372
 				var20 = getItemSprite(var9.note, 10, 1, 0, 0, true); // L: 373
 				if (var20 == null) { // L: 374
@@ -835,7 +835,7 @@ public final class WorldMapManager {
 			int var14 = Rasterizer2D.Rasterizer2D_height; // L: 386
 			int[] var15 = new int[4]; // L: 387
 			Rasterizer2D.Rasterizer2D_getClipArray(var15); // L: 388
-			var8 = new Sprite(36, 32); // L: 389
+			var8 = new SpritePixels(36, 32); // L: 389
 			Rasterizer2D.Rasterizer2D_replace(var8.pixels, 36, 32); // L: 390
 			Rasterizer2D.Rasterizer2D_clear(); // L: 391
 			Rasterizer3D.Rasterizer3D_setClipFromRasterizer2D(); // L: 392
@@ -878,11 +878,11 @@ public final class WorldMapManager {
 			}
 
 			if (var4 == 1 || var4 == 2 && var9.isStackable == 1) { // L: 409
-				ItemDefinition.ItemDefinition_fontPlain11.draw(class195.inventoryQuantityFormat(var1), 0, 9, 16776960, 1); // L: 410
+				ItemComposition.ItemDefinition_fontPlain11.draw(class195.inventoryQuantityFormat(var1), 0, 9, 16776960, 1); // L: 410
 			}
 
 			if (!var5) { // L: 412
-				ItemDefinition.ItemDefinition_cachedSprites.put(var8, var6);
+				ItemComposition.ItemDefinition_cachedSprites.put(var8, var6);
 			}
 
 			Rasterizer2D.Rasterizer2D_replace(var12, var13, var14); // L: 413

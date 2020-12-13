@@ -120,7 +120,7 @@ public class Skeleton extends Node {
 
 					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 10605
 					if (var4 != null) { // L: 10606
-						NPCDefinition.method4759(var4.group);
+						NPCComposition.method4759(var4.group);
 					}
 				}
 

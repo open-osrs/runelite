@@ -1245,7 +1245,7 @@ public class Widget extends Node {
 		garbageValue = "14"
 	)
 	@Export("getSprite")
-	public Sprite getSprite(boolean var1) {
+	public SpritePixels getSprite(boolean var1) {
 		field2603 = false; // L: 530
 		int var2;
 		if (var1) { // L: 532
@@ -1258,7 +1258,7 @@ public class Widget extends Node {
 			return null;
 		} else {
 			long var3 = ((long)this.spriteShadow << 40) + ((this.spriteFlipV ? 1L : 0L) << 38) + ((long)this.outline << 36) + (long)var2 + ((this.spriteFlipH ? 1L : 0L) << 39); // L: 535
-			Sprite var5 = (Sprite)Widget_cachedSprites.get(var3); // L: 536
+			SpritePixels var5 = (SpritePixels)Widget_cachedSprites.get(var3); // L: 536
 			if (var5 != null) { // L: 537
 				return var5;
 			} else {
@@ -1331,14 +1331,14 @@ public class Widget extends Node {
 		garbageValue = "1550530577"
 	)
 	@Export("getInventorySprite")
-	public Sprite getInventorySprite(int var1) {
+	public SpritePixels getInventorySprite(int var1) {
 		field2603 = false; // L: 565
 		if (var1 >= 0 && var1 < this.inventorySprites.length) { // L: 566
 			int var2 = this.inventorySprites[var1]; // L: 567
 			if (var2 == -1) { // L: 568
 				return null;
 			} else {
-				Sprite var3 = (Sprite)Widget_cachedSprites.get((long)var2); // L: 569
+				SpritePixels var3 = (SpritePixels)Widget_cachedSprites.get((long)var2); // L: 569
 				if (var3 != null) { // L: 570
 					return var3;
 				} else {
@@ -1418,7 +1418,7 @@ public class Widget extends Node {
 				}
 
 				if (var5 == 4) { // L: 619
-					ItemDefinition var9 = SecureRandomCallable.ItemDefinition_get(var6); // L: 620
+					ItemComposition var9 = SecureRandomCallable.ItemDefinition_get(var6); // L: 620
 					var8 = var9.getModelData(10); // L: 621
 					if (var8 == null) { // L: 622
 						field2603 = true; // L: 623
@@ -1459,11 +1459,11 @@ public class Widget extends Node {
 			if (var5 != null) { // L: 642
 				return var5;
 			} else {
-				Sprite var6 = this.getSprite(var1); // L: 643
+				SpritePixels var6 = this.getSprite(var1); // L: 643
 				if (var6 == null) { // L: 644
 					return null;
 				} else {
-					Sprite var7 = var6.copyNormalized(); // L: 645
+					SpritePixels var7 = var6.copyNormalized(); // L: 645
 					int[] var8 = new int[var7.subHeight]; // L: 646
 					int[] var9 = new int[var7.subHeight]; // L: 647
 

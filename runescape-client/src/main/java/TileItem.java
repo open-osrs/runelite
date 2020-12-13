@@ -154,9 +154,9 @@ public final class TileItem extends Entity {
 		garbageValue = "-1747466644"
 	)
 	public static void method2187() {
-		ItemDefinition.ItemDefinition_cached.clear(); // L: 565
-		ItemDefinition.ItemDefinition_cachedModels.clear(); // L: 566
-		ItemDefinition.ItemDefinition_cachedSprites.clear(); // L: 567
+		ItemComposition.ItemDefinition_cached.clear(); // L: 565
+		ItemComposition.ItemDefinition_cachedModels.clear(); // L: 566
+		ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 567
 	} // L: 568
 
 	@ObfuscatedName("jl")
@@ -165,7 +165,7 @@ public final class TileItem extends Entity {
 		garbageValue = "9349"
 	)
 	@Export("addNpcToMenu")
-	static final void addNpcToMenu(NPCDefinition var0, int var1, int var2, int var3) {
+	static final void addNpcToMenu(NPCComposition var0, int var1, int var2, int var3) {
 		if (Client.menuOptionsCount < 400) { // L: 8719
 			if (var0.transforms != null) { // L: 8720
 				var0 = var0.transform();

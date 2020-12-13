@@ -113,10 +113,10 @@ public final class WorldMapRectangle {
 		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear(); // L: 2863
 		MusicPatchPcmStream.method3953(); // L: 2865
 		UserComparator2.method5959(); // L: 2866
-		ObjectDefinition.ObjectDefinition_cached.clear(); // L: 2868
-		ObjectDefinition.ObjectDefinition_cachedModelData.clear(); // L: 2869
-		ObjectDefinition.ObjectDefinition_cachedEntities.clear(); // L: 2870
-		ObjectDefinition.ObjectDefinition_cachedModels.clear(); // L: 2871
+		ObjectComposition.ObjectDefinition_cached.clear(); // L: 2868
+		ObjectComposition.ObjectDefinition_cachedModelData.clear(); // L: 2869
+		ObjectComposition.ObjectDefinition_cachedEntities.clear(); // L: 2870
+		ObjectComposition.ObjectDefinition_cachedModels.clear(); // L: 2871
 		WorldMapIcon_1.method339(); // L: 2873
 		TileItem.method2187(); // L: 2874
 		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 2876

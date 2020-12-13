@@ -68,7 +68,7 @@ public class ViewportMouse {
 		descriptor = "Llm;"
 	)
 	@Export("redHintArrowSprite")
-	static Sprite redHintArrowSprite;
+	static SpritePixels redHintArrowSpritePixels;
 
 	static {
 		ViewportMouse_isInViewport = false; // L: 4

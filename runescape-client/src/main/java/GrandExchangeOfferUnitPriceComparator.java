@@ -31,7 +31,7 @@ final class GrandExchangeOfferUnitPriceComparator implements Comparator {
 		descriptor = "[Llm;"
 	)
 	@Export("mapMarkerSprites")
-	static Sprite[] mapMarkerSprites;
+	static SpritePixels[] mapMarkerSpritePixels;
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(

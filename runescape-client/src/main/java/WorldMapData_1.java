@@ -402,7 +402,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 				int var14 = Occluder.Entity_unpackID(var7); // L: 6999
 				int var15 = var12 & 31; // L: 7000
 				int var16 = var12 >> 6 & 3; // L: 7001
-				ObjectDefinition var13;
+				ObjectComposition var13;
 				if (var1 == 0) { // L: 7002
 					ArchiveLoader.scene.removeBoundaryObject(var0, var2, var3); // L: 7003
 					var13 = WorldMapDecoration.getObjectDefinition(var14); // L: 7004

@@ -12,7 +12,7 @@ public abstract class Actor extends Entity {
 		descriptor = "[Llm;"
 	)
 	@Export("mapDotSprites")
-	static Sprite[] mapDotSprites;
+	static SpritePixels[] mapDotSprites;
 	@ObfuscatedName("an")
 	@Export("isWalking")
 	boolean isWalking;
@@ -544,9 +544,9 @@ public abstract class Actor extends Entity {
 	public static void method1821(AbstractArchive var0, AbstractArchive var1, boolean var2, Font var3) {
 		NPC.ItemDefinition_archive = var0; // L: 84
 		VertexNormal.ItemDefinition_modelArchive = var1; // L: 85
-		ItemDefinition.ItemDefinition_inMembersWorld = var2; // L: 86
+		ItemComposition.ItemDefinition_inMembersWorld = var2; // L: 86
 		Varcs.ItemDefinition_fileCount = NPC.ItemDefinition_archive.getGroupFileCount(10); // L: 87
-		ItemDefinition.ItemDefinition_fontPlain11 = var3; // L: 88
+		ItemComposition.ItemDefinition_fontPlain11 = var3; // L: 88
 	} // L: 89
 
 	@ObfuscatedName("x")

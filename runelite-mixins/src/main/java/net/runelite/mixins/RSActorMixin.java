@@ -190,7 +190,7 @@ public abstract class RSActorMixin implements RSActor
 	{
 		AnimationChanged animationChange = new AnimationChanged();
 		animationChange.setActor(this);
-		client.getCallbacks().post(AnimationChanged.class, animationChange);
+		client.getCallbacks().post(animationChange);
 	}
 
 	@FieldHook("spotAnimation")
@@ -199,7 +199,7 @@ public abstract class RSActorMixin implements RSActor
 	{
 		SpotAnimationChanged spotAnimationChanged = new SpotAnimationChanged();
 		spotAnimationChanged.setActor(this);
-		client.getCallbacks().post(SpotAnimationChanged.class, spotAnimationChanged);
+		client.getCallbacks().post(spotAnimationChanged);
 	}
 
 	@FieldHook("targetIndex")
@@ -207,7 +207,7 @@ public abstract class RSActorMixin implements RSActor
 	public void interactingChanged(int idx)
 	{
 		InteractingChanged interactingChanged = new InteractingChanged(this, getInteracting());
-		client.getCallbacks().post(InteractingChanged.class, interactingChanged);
+		client.getCallbacks().post(interactingChanged);
 	}
 
 	@FieldHook("overheadText")
@@ -218,7 +218,7 @@ public abstract class RSActorMixin implements RSActor
 		if (overheadText != null)
 		{
 			OverheadTextChanged overheadTextChanged = new OverheadTextChanged(this, overheadText);
-			client.getCallbacks().post(OverheadTextChanged.class, overheadTextChanged);
+			client.getCallbacks().post(overheadTextChanged);
 		}
 	}
 
@@ -229,7 +229,7 @@ public abstract class RSActorMixin implements RSActor
 		int size = 1;
 		if (this instanceof NPC)
 		{
-			NPCComposition composition = ((NPC)this).getDefinition();
+			NPCComposition composition = ((NPC)this).getComposition();
 			if (composition != null && composition.getConfigs() != null)
 			{
 				composition = composition.transform();
@@ -264,7 +264,7 @@ public abstract class RSActorMixin implements RSActor
 		if (healthRatio == 0)
 		{
 			final ActorDeath event = new ActorDeath(this);
-			client.getCallbacks().post(ActorDeath.class, event);
+			client.getCallbacks().post(event);
 
 			this.setDead(true);
 		}
@@ -290,6 +290,6 @@ public abstract class RSActorMixin implements RSActor
 		final HitsplatApplied event = new HitsplatApplied();
 		event.setActor(this);
 		event.setHitsplat(hitsplat);
-		client.getCallbacks().post(HitsplatApplied.class, event);
+		client.getCallbacks().post(event);
 	}
 }

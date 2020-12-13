@@ -779,7 +779,7 @@ public abstract class RouteStrategy {
 										Client.mouseCrossState = 0; // L: 7872
 										var13 = Client.npcs[var3]; // L: 7873
 										if (var13 != null) { // L: 7874
-											NPCDefinition var17 = var13.definition; // L: 7875
+											NPCComposition var17 = var13.definition; // L: 7875
 											if (var17.transforms != null) { // L: 7876
 												var17 = var17.transform();
 											}

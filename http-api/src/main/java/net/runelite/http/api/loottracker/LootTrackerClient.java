@@ -64,13 +64,18 @@ public class LootTrackerClient
 	{
 		CompletableFuture<Void> future = new CompletableFuture<>();
 
-		RequestBody body = RequestBody.Companion.create(GSON.toJson(lootRecords), JSON);
+		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
+			.addPathSegment("loottracker")
+			.build();
+
 		Request.Builder requestBuilder = new Request.Builder();
 		if (uuid != null)
 		{
 			requestBuilder.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString());
 		}
-		requestBuilder.post(body);
+		requestBuilder.post(RequestBody.create(JSON, GSON.toJson(lootRecords)))
+			.url(url)
+			.build();
 
 		client.newCall(requestBuilder.build()).enqueue(new Callback()
 		{
@@ -100,7 +105,7 @@ public class LootTrackerClient
 		return future;
 	}
 
-	public Collection<LootRecord> get() throws IOException
+	public Collection<LootAggregate> get() throws IOException
 	{
 		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
 			.addPathSegment("loottracker")
@@ -120,7 +125,9 @@ public class LootTrackerClient
 			}
 
 			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), new TypeToken<List<LootRecord>>() {}.getType());
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), new TypeToken<List<LootAggregate>>()
+			{
+			}.getType());
 		}
 		catch (JsonParseException ex)
 		{

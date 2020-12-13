@@ -184,12 +184,12 @@ public abstract class MenuMixin implements RSClient
 	public void setLeftClickMenuEntry(final MenuEntry entry)
 	{
 		final int i = getMenuOptionCount() - 1;
-		getMenuOptions()[i] = entry.getOption();
-		getMenuTargets()[i] = entry.getTarget();
-		getMenuIdentifiers()[i] = entry.getIdentifier();
+		getMenuOptions()[i] = entry.getMenuOption();
+		getMenuTargets()[i] = entry.getMenuTarget();
+		getMenuIdentifiers()[i] = entry.getType();
 		getMenuOpcodes()[i] = entry.getOpcode();
-		getMenuArguments1()[i] = entry.getParam0();
-		getMenuArguments2()[i] = entry.getParam1();
+		getMenuArguments1()[i] = entry.getActionParam0();
+		getMenuArguments2()[i] = entry.getWidgetId();
 		getMenuForceLeftClick()[i] = entry.isForceLeftClick();
 	}
 
@@ -199,7 +199,7 @@ public abstract class MenuMixin implements RSClient
 	{
 		if (tempMenuAction != null)
 		{
-			client.getCallbacks().post(WidgetPressed.class, WidgetPressed.INSTANCE);
+			client.getCallbacks().post(WidgetPressed.INSTANCE);
 		}
 	}
 
@@ -212,10 +212,10 @@ public abstract class MenuMixin implements RSClient
 			return;
 		}
 
-		tempMenuAction.setOption(entry.getOption());
+		tempMenuAction.setOption(entry.getMenuOption());
 		tempMenuAction.setOpcode(entry.getOpcode());
-		tempMenuAction.setIdentifier(entry.getIdentifier());
-		tempMenuAction.setParam0(entry.getParam0());
-		tempMenuAction.setParam1(entry.getParam1());
+		tempMenuAction.setIdentifier(entry.getType());
+		tempMenuAction.setParam0(entry.getActionParam0());
+		tempMenuAction.setParam1(entry.getWidgetId());
 	}
 }

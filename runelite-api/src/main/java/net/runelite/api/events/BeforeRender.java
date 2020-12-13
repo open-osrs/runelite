@@ -31,7 +31,7 @@ public class BeforeRender implements Event
 {
 	public static final BeforeRender INSTANCE = new BeforeRender();
 
-	private BeforeRender()
+	public BeforeRender()
 	{
 		// noop
 	}

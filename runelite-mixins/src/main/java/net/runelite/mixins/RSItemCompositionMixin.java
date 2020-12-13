@@ -71,7 +71,7 @@ public abstract class RSItemCompositionMixin implements RSItemComposition
 	{
 		final PostItemComposition event = new PostItemComposition();
 		event.setItemComposition(this);
-		client.getCallbacks().post(PostItemComposition.class, event);
+		client.getCallbacks().post(event);
 	}
 
 	@Copy("getModel")

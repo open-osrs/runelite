@@ -55,7 +55,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public int getId()
 	{
-		RSNPCComposition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -67,7 +67,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public String getName()
 	{
-		RSNPCComposition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -79,7 +79,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public int getCombatLevel()
 	{
-		RSNPCComposition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -107,11 +107,11 @@ public abstract class RSNPCMixin implements RSNPC
 	{
 		if (composition == null)
 		{
-			client.getCallbacks().post(NpcDespawned.class, new NpcDespawned(this));
+			client.getCallbacks().post(new NpcDespawned(this));
 		}
 		else if (this.getId() != -1)
 		{
-			client.getCallbacks().post(NpcChanged.class, new NpcChanged(this));
+			client.getCallbacks().post(new NpcChanged(this));
 		}
 	}
 
@@ -150,7 +150,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public NPCComposition getTransformedDefinition()
 	{
-		RSNPCComposition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -168,7 +168,7 @@ public abstract class RSNPCMixin implements RSNPC
 			return null;
 		}
 
-		int size = getDefinition().getSize();
+		int size = getComposition().getSize();
 		LocalPoint tileHeightPoint = new LocalPoint(
 			size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + getX(),
 			size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + getY());

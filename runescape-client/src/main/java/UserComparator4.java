@@ -330,7 +330,7 @@ public class UserComparator4 implements Comparator {
 						}
 
 						if (var17 != null) { // L: 6854
-							ObjectDefinition var18 = WorldMapDecoration.getObjectDefinition(var14); // L: 6855
+							ObjectComposition var18 = WorldMapDecoration.getObjectDefinition(var14); // L: 6855
 							int var19;
 							int var20;
 							if (var5 != 1 && var5 != 3) { // L: 6858

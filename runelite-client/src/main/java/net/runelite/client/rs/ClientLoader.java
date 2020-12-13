@@ -133,37 +133,11 @@ public class ClientLoader implements Supplier<Applet>
 				StandardOpenOption.CREATE, StandardOpenOption.READ, StandardOpenOption.WRITE);
 				FileLock flock = lockfile.lock())
 			{
-				SplashScreen.stage(.05, null, "Downloading Old School RuneScape");
-				try
-				{
-					updateVanilla(config);
-				}
-				catch (IOException ex)
-				{
-					// try again with the fallback config and gamepack
-					if (!config.isFallback())
-					{
-						log.warn("Unable to download game client, attempting to use fallback config", ex);
-						config = downloadFallbackConfig();
-						updateVanilla(config);
-					}
-					else
-					{
-						throw ex;
-					}
-				}
-
-				if (updateCheckMode == AUTO)
-				{
-					SplashScreen.stage(.35, null, "Patching");
-					applyPatch();
-				}
-
 				SplashScreen.stage(.40, null, "Loading client");
 				File jarFile = updateCheckMode == AUTO ? PATCHED_CACHE : VANILLA_CACHE;
 				// create the classloader for the jar while we hold the lock, and eagerly load and link all classes
 				// in the jar. Otherwise the jar can change on disk and can break future classloads.
-				classLoader = createJarClassLoader(jarFile);
+				classLoader = createJarClassLoader(new File("./injected-client/build/libs/injected-client-3.5.4.jar"));
 			}
 
 			SplashScreen.stage(.465, "Starting", "Starting Old School RuneScape");
@@ -175,7 +149,7 @@ public class ClientLoader implements Supplier<Applet>
 			return rs;
 		}
 		catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException
-			| VerificationException | SecurityException e)
+			| SecurityException e)
 		{
 			log.error("Error loading RS!", e);
 
@@ -543,7 +517,7 @@ public class ClientLoader implements Supplier<Applet>
 
 		if (rs instanceof Client)
 		{
-			log.info("client-patch {}", ((Client) rs).getBuildID());
+			//.info("client-patch {}", ((Client) rs).getBuildID());
 		}
 
 		return rs;

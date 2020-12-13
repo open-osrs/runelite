@@ -932,7 +932,7 @@ public interface Client extends GameShell
 	 * @return the corresponding object composition
 	 * @see ObjectID
 	 */
-	ObjectDefinition getObjectDefinition(int objectId);
+	ObjectDefinition getObjectComposition(int objectId);
 
 	/**
 	 * Gets the NPC composition corresponding to an NPCs ID.
@@ -1010,7 +1010,7 @@ public interface Client extends GameShell
 	 * @param height the height
 	 * @return the sprite image
 	 */
-	SpritePixels createSprite(int[] pixels, int width, int height);
+	SpritePixels createSpritePixels(int[] pixels, int width, int height);
 
 	/**
 	 * Gets the location of the local player.
@@ -1863,7 +1863,7 @@ public interface Client extends GameShell
 
 	void setSelectedSpellName(String name);
 
-	boolean isSpellSelected();
+	boolean getSpellSelected();
 
 	String getSelectedSpellActionName();
 

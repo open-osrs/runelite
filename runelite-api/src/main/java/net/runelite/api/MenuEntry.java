@@ -37,18 +37,18 @@ public class MenuEntry implements Cloneable
 	/**
 	 * The option text added to the menu (ie. "Walk here", "Use").
 	 */
-	private String option;
+	private String menuOption;
 	/**
 	 * The target of the action (ie. Item or Actor name).
 	 * <p>
 	 * If the option does not apply to any target, this field
 	 * will be set to empty string.
 	 */
-	private String target;
+	private String menuTarget;
 	/**
 	 * An identifier value for the target of the action.
 	 */
-	private int identifier;
+	private int type;
 	/**
 	 * The action the entry will trigger.
 	 * {@link MenuAction}
@@ -57,11 +57,11 @@ public class MenuEntry implements Cloneable
 	/**
 	 * An additional parameter for the action.
 	 */
-	private int param0;
+	private int actionParam0;
 	/**
 	 * A second additional parameter for the action.
 	 */
-	private int param1;
+	private int widgetId;
 	/**
 	 * If this field is true and you have single mouse button on and this entry is
 	 * the top entry the right click menu will not be opened when you left click
@@ -70,14 +70,14 @@ public class MenuEntry implements Cloneable
 	 */
 	private boolean forceLeftClick;
 
-	public MenuEntry(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
+	public MenuEntry(String menuOption, String menuTarget, int type, int opcode, int actionParam0, int widgetId, boolean forceLeftClick)
 	{
-		this.option = option;
-		this.target = target;
-		this.identifier = identifier;
+		this.menuOption = menuOption;
+		this.menuTarget = menuTarget;
+		this.type = type;
 		this.opcode = opcode;
-		this.param0 = param0;
-		this.param1 = param1;
+		this.actionParam0 = actionParam0;
+		this.widgetId = widgetId;
 		this.forceLeftClick = forceLeftClick;
 	}
 
@@ -97,7 +97,7 @@ public class MenuEntry implements Cloneable
 	/**
 	 * Get opcode, but as it's enum counterpart
 	 */
-	public MenuAction getMenuOpcode()
+	public MenuAction getMenuAction()
 	{
 		return MenuAction.of(getOpcode());
 	}

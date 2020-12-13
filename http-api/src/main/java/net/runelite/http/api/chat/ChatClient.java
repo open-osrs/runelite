@@ -40,7 +40,6 @@ import okhttp3.Response;
 @AllArgsConstructor
 public class ChatClient
 {
-	private static final RequestBody body = RequestBody.Companion.create(new byte[0], null);
 	private final OkHttpClient client;
 
 	public boolean submitKc(String username, String boss, int kc) throws IOException
@@ -288,7 +287,6 @@ public class ChatClient
 			return response.isSuccessful();
 		}
 	}
-
 
 	public Duels getDuels(String username) throws IOException
 	{

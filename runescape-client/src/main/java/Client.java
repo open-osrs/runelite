@@ -362,7 +362,7 @@ public final class Client extends GameShell implements Usernamed {
 		descriptor = "[Llm;"
 	)
 	@Export("mapIcons")
-	static Sprite[] mapIcons;
+	static SpritePixels[] mapIcons;
 	@ObfuscatedName("rb")
 	static short field828;
 	@ObfuscatedName("ra")
@@ -821,7 +821,7 @@ public final class Client extends GameShell implements Usernamed {
 		descriptor = "[Llm;"
 	)
 	@Export("headIconPrayerSprites")
-	static Sprite[] headIconPrayerSprites;
+	static SpritePixels[] headIconPrayerSpritePixels;
 	@ObfuscatedName("hv")
 	@ObfuscatedGetter(
 		intValue = -1487008623
@@ -1513,7 +1513,7 @@ public final class Client extends GameShell implements Usernamed {
 		mapIconCount = 0; // L: 572
 		mapIconXs = new int[1000]; // L: 573
 		mapIconYs = new int[1000]; // L: 574
-		mapIcons = new Sprite[1000]; // L: 575
+		mapIcons = new SpritePixels[1000]; // L: 575
 		destinationX = 0; // L: 576
 		destinationY = 0; // L: 577
 		minimapState = 0; // L: 584
@@ -1760,7 +1760,7 @@ public final class Client extends GameShell implements Usernamed {
 										int var41 = var4 + var16; // L: 1007
 										int var42 = var5 + var15; // L: 1008
 										if (var41 > 0 && var42 > 0 && var41 < 103 && var42 < 103) { // L: 1009
-											ObjectDefinition var20 = WorldMapDecoration.getObjectDefinition(var10); // L: 1010
+											ObjectComposition var20 = WorldMapDecoration.getObjectDefinition(var10); // L: 1010
 											if (var17 != 22 || !isLowDetail || var20.int1 != 0 || var20.interactType == 1 || var20.boolean2) { // L: 1011
 												if (!var20.needsModelFiles()) { // L: 1012
 													++field702; // L: 1013
@@ -1934,7 +1934,7 @@ public final class Client extends GameShell implements Usernamed {
 																	int var29 = var28 >> 2; // L: 1160
 																	int var30 = var28 & 3; // L: 1161
 																	if (var27 == var7 && var26 >= var16 && var26 < var16 + 8 && var25 >= var17 && var25 < var17 + 8) { // L: 1162
-																		ObjectDefinition var31 = WorldMapDecoration.getObjectDefinition(var21); // L: 1163
+																		ObjectComposition var31 = WorldMapDecoration.getObjectDefinition(var21); // L: 1163
 																		int var32 = var14 + HitSplatDefinition.method4612(var26 & 7, var25 & 7, var46, var31.sizeX, var31.sizeY, var30); // L: 1164
 																		int var33 = var15 + World.method1871(var26 & 7, var25 & 7, var46, var31.sizeX, var31.sizeY, var30); // L: 1165
 																		if (var32 > 0 && var33 > 0 && var32 < 103 && var33 < 103) { // L: 1166
@@ -2031,7 +2031,7 @@ public final class Client extends GameShell implements Usernamed {
 							}
 						}
 
-						ObjectDefinition.ObjectDefinition_cachedModelData.clear(); // L: 1211
+						ObjectComposition.ObjectDefinition_cachedModelData.clear(); // L: 1211
 						PacketBufferNode var49;
 						if (WorldMapIcon_0.client.hasFrame()) { // L: 1212
 							var49 = ItemContainer.getPacketBufferNode(ClientPacket.field2299, packetWriter.isaacCipher); // L: 1214
@@ -4205,7 +4205,7 @@ public final class Client extends GameShell implements Usernamed {
 	@Export("drawLoggedIn")
 	final void drawLoggedIn() {
 		if (rootInterface != -1) { // L: 4224
-			NPCDefinition.method4759(rootInterface);
+			NPCComposition.method4759(rootInterface);
 		}
 
 		int var1;
@@ -4914,7 +4914,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					var58 = CollisionMap.getWidget(var16); // L: 6079
-					ItemDefinition var42;
+					ItemComposition var42;
 					if (!var58.isIf3) { // L: 6080
 						if (var18 == -1) { // L: 6081
 							var58.modelType = 0; // L: 6082

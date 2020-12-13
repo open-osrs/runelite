@@ -22,7 +22,7 @@ public final class NPC extends Actor {
 		descriptor = "Ljd;"
 	)
 	@Export("definition")
-	NPCDefinition definition;
+	NPCComposition definition;
 
 	NPC() {
 	} // L: 12

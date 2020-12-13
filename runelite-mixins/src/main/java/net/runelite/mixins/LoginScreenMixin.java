@@ -96,7 +96,7 @@ public abstract class LoginScreenMixin implements RSClient
 
 		if (loginscreen != null && loginscreen.getWidth() > 383)
 		{
-			client.setRightTitleSprite(client.createSprite(new int[]{loginscreen.getPixels()[383]}, 1, 1));
+			client.setRightTitleSprite(client.createSpritePixels(new int[]{loginscreen.getPixels()[383]}, 1, 1));
 		}
 	}
 }

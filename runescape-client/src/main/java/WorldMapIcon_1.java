@@ -110,7 +110,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		this.element = WorldMapDecoration.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
 		this.label = this.region.createMapLabel(UserComparator10.WorldMapElement_get(this.element)); // L: 25
 		WorldMapElement var1 = UserComparator10.WorldMapElement_get(this.getElement()); // L: 26
-		Sprite var2 = var1.getSpriteBool(false); // L: 27
+		SpritePixels var2 = var1.getSpriteBool(false); // L: 27
 		if (var2 != null) { // L: 28
 			this.subWidth = var2.subWidth; // L: 29
 			this.subHeight = var2.subHeight; // L: 30
@@ -205,8 +205,8 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		garbageValue = "620552386"
 	)
 	public static void method339() {
-		NPCDefinition.NpcDefinition_cached.clear(); // L: 285
-		NPCDefinition.NpcDefinition_cachedModels.clear(); // L: 286
+		NPCComposition.NpcDefinition_cached.clear(); // L: 285
+		NPCComposition.NpcDefinition_cachedModels.clear(); // L: 286
 	} // L: 287
 
 	@ObfuscatedName("q")

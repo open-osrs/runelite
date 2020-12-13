@@ -45,7 +45,7 @@ public class GameTick implements Event
 {
 	public static final GameTick INSTANCE = new GameTick();
 
-	private GameTick()
+	public GameTick()
 	{
 		// noop
 	}

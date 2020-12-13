@@ -33,11 +33,11 @@ public class Skills {
 		garbageValue = "71"
 	)
 	@Export("SpriteBuffer_getSprite")
-	public static Sprite SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
+	public static SpritePixels SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
 		if (!class304.method5363(var0, var1, var2)) {
 			return null;
 		} else {
-			Sprite var4 = new Sprite(); // L: 57
+			SpritePixels var4 = new SpritePixels(); // L: 57
 			var4.width = DirectByteArrayCopier.SpriteBuffer_spriteWidth; // L: 58
 			var4.height = class336.SpriteBuffer_spriteHeight;
 			var4.xOffset = class336.SpriteBuffer_xOffsets[0]; // L: 60

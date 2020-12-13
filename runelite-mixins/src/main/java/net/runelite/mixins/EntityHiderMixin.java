@@ -190,7 +190,7 @@ public abstract class EntityHiderMixin implements RSScene
 
 			if (hidePets)
 			{
-				if (npc.getDefinition().isFollower())
+				if (npc.getComposition().isFollower())
 				{
 					return false;
 				}

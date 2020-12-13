@@ -260,7 +260,7 @@ public class WorldMap {
 		descriptor = "Llm;"
 	)
 	@Export("sprite")
-	Sprite sprite;
+	SpritePixels spritePixels;
 	@ObfuscatedName("bn")
 	@ObfuscatedGetter(
 		intValue = -905159911
@@ -802,9 +802,9 @@ public class WorldMap {
 		garbageValue = "-90"
 	)
 	boolean method6515(int var1, int var2, int var3, int var4, int var5, int var6) {
-		if (this.sprite == null) { // L: 449
+		if (this.spritePixels == null) { // L: 449
 			return true;
-		} else if (this.sprite.subWidth == var1 && this.sprite.subHeight == var2) { // L: 450
+		} else if (this.spritePixels.subWidth == var1 && this.spritePixels.subHeight == var2) { // L: 450
 			if (this.worldMapManager.pixelsPerTile != this.cachedPixelsPerTile) { // L: 451
 				return true;
 			} else if (this.field4048 != Client.field915) { // L: 452
@@ -837,16 +837,16 @@ public class WorldMap {
 			int var13 = var1 - (var7 + var11 - this.minCachedTileX) * this.worldMapManager.pixelsPerTile; // L: 468
 			int var14 = var2 - this.worldMapManager.pixelsPerTile * (var7 - (var12 - this.minCachedTileY)); // L: 469
 			if (this.method6515(var8, var9, var13, var14, var3, var4)) { // L: 470
-				if (this.sprite != null && this.sprite.subWidth == var8 && this.sprite.subHeight == var9) { // L: 471
-					Arrays.fill(this.sprite.pixels, 0); // L: 474
+				if (this.spritePixels != null && this.spritePixels.subWidth == var8 && this.spritePixels.subHeight == var9) { // L: 471
+					Arrays.fill(this.spritePixels.pixels, 0); // L: 474
 				} else {
-					this.sprite = new Sprite(var8, var9); // L: 472
+					this.spritePixels = new SpritePixels(var8, var9); // L: 472
 				}
 
 				this.minCachedTileX = this.getDisplayX() - var5 / 2 - var7; // L: 475
 				this.minCachedTileY = this.getDisplayY() - var6 / 2 - var7; // L: 476
 				this.cachedPixelsPerTile = this.worldMapManager.pixelsPerTile; // L: 477
-				WorldMapIcon_0.field148.method4346(this.minCachedTileX, this.minCachedTileY, this.sprite, (float)this.cachedPixelsPerTile / var10); // L: 478
+				WorldMapIcon_0.field148.method4346(this.minCachedTileX, this.minCachedTileY, this.spritePixels, (float)this.cachedPixelsPerTile / var10); // L: 478
 				this.field4048 = Client.field915; // L: 479
 				var13 = var1 - (var7 + var11 - this.minCachedTileX) * this.worldMapManager.pixelsPerTile; // L: 480
 				var14 = var2 - this.worldMapManager.pixelsPerTile * (var7 - (var12 - this.minCachedTileY)); // L: 481
@@ -854,9 +854,9 @@ public class WorldMap {
 
 			Rasterizer2D.Rasterizer2D_fillRectangleAlpha(var1, var2, var3, var4, 0, 128); // L: 483
 			if (1.0F == var10) { // L: 484
-				this.sprite.method6181(var13, var14, 192); // L: 485
+				this.spritePixels.method6181(var13, var14, 192); // L: 485
 			} else {
-				this.sprite.method6184(var13, var14, (int)((float)var8 * var10), (int)(var10 * (float)var9), 192); // L: 488
+				this.spritePixels.method6184(var13, var14, (int)((float)var8 * var10), (int)(var10 * (float)var9), 192); // L: 488
 			}
 		}
 

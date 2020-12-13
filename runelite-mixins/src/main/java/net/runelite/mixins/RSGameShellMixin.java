@@ -73,7 +73,7 @@ public abstract class RSGameShellMixin implements RSGameShell
 	{
 		final FocusChanged focusChanged = new FocusChanged();
 		focusChanged.setFocused(true);
-		client.getCallbacks().post(FocusChanged.class, focusChanged);
+		client.getCallbacks().post(focusChanged);
 	}
 
 	@Inject

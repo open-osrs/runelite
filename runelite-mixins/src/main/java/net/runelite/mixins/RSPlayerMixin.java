@@ -106,7 +106,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 			final HeadIcon headIcon = getHeadIcon(getRsOverheadIcon());
 			if (getRsOverheadIcon() != oldHeadIcon)
 			{
-				client.getCallbacks().post(OverheadPrayerChanged.class,
+				client.getCallbacks().post(
 					new OverheadPrayerChanged(this, getHeadIcon(oldHeadIcon), headIcon));
 			}
 		}
@@ -127,7 +127,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 		final SkullIcon skullIcon = skullFromInt(getRsSkullIcon());
 		if (getRsSkullIcon() != oldSkullIcon)
 		{
-			client.getCallbacks().post(PlayerSkullChanged.class,
+			client.getCallbacks().post(
 				new PlayerSkullChanged(this, skullFromInt(getRsSkullIcon()), skullIcon));
 		}
 		oldSkullIcon = getRsSkullIcon();
@@ -299,7 +299,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 		if (client.isComparingAppearance() && getPlayerAppearance().getHash() != appearanceHash)
 		{
-			client.getCallbacks().post(PlayerChanged.class, new PlayerChanged(this));
+			client.getCallbacks().post(new PlayerChanged(this));
 		}
 	}
 }

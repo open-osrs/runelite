@@ -24,7 +24,7 @@ public class UrlRequester implements Runnable {
 		descriptor = "Llm;"
 	)
 	@Export("compass")
-	static Sprite compass;
+	static SpritePixels compass;
 	@ObfuscatedName("h")
 	@Export("thread")
 	final Thread thread;

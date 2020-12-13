@@ -20,7 +20,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 		descriptor = "[Llm;"
 	)
 	@Export("crossSprites")
-	static Sprite[] crossSprites;
+	static SpritePixels[] crossSprites;
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(

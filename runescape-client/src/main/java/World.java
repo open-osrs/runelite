@@ -172,8 +172,8 @@ public class World {
 		garbageValue = "-186964533"
 	)
 	public static void method1849(AbstractArchive var0, AbstractArchive var1) {
-		NPCDefinition.NpcDefinition_archive = var0; // L: 57
-		NPCDefinition.NpcDefinition_modelArchive = var1; // L: 58
+		NPCComposition.NpcDefinition_archive = var0; // L: 57
+		NPCComposition.NpcDefinition_modelArchive = var1; // L: 58
 	} // L: 59
 
 	@ObfuscatedName("x")

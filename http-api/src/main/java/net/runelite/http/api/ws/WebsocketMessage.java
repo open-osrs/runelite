@@ -24,9 +24,7 @@
  */
 package net.runelite.http.api.ws;
 
-import net.runelite.api.events.Event;
-
-public class WebsocketMessage implements Event
+public class WebsocketMessage
 {
 	protected boolean _party;
 

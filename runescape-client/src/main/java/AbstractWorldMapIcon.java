@@ -13,7 +13,7 @@ public abstract class AbstractWorldMapIcon {
 		descriptor = "[Llm;"
 	)
 	@Export("headIconHintSprites")
-	static Sprite[] headIconHintSprites;
+	static SpritePixels[] headIconHintSpritePixels;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Lhs;"
@@ -255,7 +255,7 @@ public abstract class AbstractWorldMapIcon {
 	static final void drawActor2d(Actor var0, int var1, int var2, int var3, int var4, int var5) {
 		if (var0 != null && var0.isVisible()) { // L: 4819
 			if (var0 instanceof NPC) { // L: 4820
-				NPCDefinition var6 = ((NPC)var0).definition; // L: 4821
+				NPCComposition var6 = ((NPC)var0).definition; // L: 4821
 				if (var6.transforms != null) { // L: 4822
 					var6 = var6.transform();
 				}
@@ -294,8 +294,8 @@ public abstract class AbstractWorldMapIcon {
 						}
 					} else {
 						HealthBarDefinition var80 = var87.definition; // L: 4844
-						Sprite var13 = var80.getBackSprite(); // L: 4845
-						Sprite var81 = var80.getFrontSprite(); // L: 4846
+						SpritePixels var13 = var80.getBackSprite(); // L: 4845
+						SpritePixels var81 = var80.getFrontSprite(); // L: 4846
 						int var82 = 0; // L: 4848
 						if (var13 != null && var81 != null) { // L: 4849
 							if (var80.widthPadding * 2 < var81.subWidth) { // L: 4850
@@ -384,12 +384,12 @@ public abstract class AbstractWorldMapIcon {
 					if (Client.viewportTempX > -1) { // L: 4911
 						if (var88.headIconPk != -1) { // L: 4912
 							var76 += 25; // L: 4913
-							Message.headIconPkSprites[var88.headIconPk].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var76); // L: 4914
+							Message.headIconPkSpritePixels[var88.headIconPk].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var76); // L: 4914
 						}
 
 						if (var88.headIconPrayer != -1) { // L: 4916
 							var76 += 25; // L: 4917
-							Client.headIconPrayerSprites[var88.headIconPrayer].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var76); // L: 4918
+							Client.headIconPrayerSpritePixels[var88.headIconPrayer].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var76); // L: 4918
 						}
 					}
 				}
@@ -397,27 +397,27 @@ public abstract class AbstractWorldMapIcon {
 				if (var1 >= 0 && Client.hintArrowType == 10 && var7[var1] == Client.hintArrowPlayerIndex) { // L: 4922
 					GrandExchangeEvents.method144(var0, var0.defaultHeight + 15); // L: 4923
 					if (Client.viewportTempX > -1) { // L: 4924
-						var76 += headIconHintSprites[1].subHeight; // L: 4925
-						headIconHintSprites[1].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var76); // L: 4926
+						var76 += headIconHintSpritePixels[1].subHeight; // L: 4925
+						headIconHintSpritePixels[1].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - var76); // L: 4926
 					}
 				}
 			} else {
-				NPCDefinition var89 = ((NPC)var0).definition; // L: 4931
+				NPCComposition var89 = ((NPC)var0).definition; // L: 4931
 				if (var89.transforms != null) { // L: 4932
 					var89 = var89.transform();
 				}
 
-				if (var89.headIconPrayer >= 0 && var89.headIconPrayer < Client.headIconPrayerSprites.length) { // L: 4933
+				if (var89.headIconPrayer >= 0 && var89.headIconPrayer < Client.headIconPrayerSpritePixels.length) { // L: 4933
 					GrandExchangeEvents.method144(var0, var0.defaultHeight + 15); // L: 4934
 					if (Client.viewportTempX > -1) { // L: 4935
-						Client.headIconPrayerSprites[var89.headIconPrayer].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - 30); // L: 4936
+						Client.headIconPrayerSpritePixels[var89.headIconPrayer].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - 30); // L: 4936
 					}
 				}
 
 				if (Client.hintArrowType == 1 && Client.npcIndices[var1 - var75] == Client.hintArrowNpcIndex && Client.cycle % 20 < 10) { // L: 4939
 					GrandExchangeEvents.method144(var0, var0.defaultHeight + 15); // L: 4940
 					if (Client.viewportTempX > -1) { // L: 4941
-						headIconHintSprites[0].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - 28);
+						headIconHintSpritePixels[0].drawTransBgAt(var2 + Client.viewportTempX - 12, var3 + Client.viewportTempY - 28);
 					}
 				}
 			}
@@ -489,10 +489,10 @@ public abstract class AbstractWorldMapIcon {
 								Client.viewportTempY -= 10; // L: 5001
 							}
 
-							Sprite var18 = null; // L: 5003
-							Sprite var19 = null; // L: 5004
-							Sprite var20 = null; // L: 5005
-							Sprite var21 = null; // L: 5006
+							SpritePixels var18 = null; // L: 5003
+							SpritePixels var19 = null; // L: 5004
+							SpritePixels var20 = null; // L: 5005
+							SpritePixels var21 = null; // L: 5006
 							var22 = 0; // L: 5007
 							var23 = 0; // L: 5008
 							int var24 = 0; // L: 5009
@@ -501,10 +501,10 @@ public abstract class AbstractWorldMapIcon {
 							int var27 = 0; // L: 5012
 							int var28 = 0; // L: 5013
 							int var29 = 0; // L: 5014
-							Sprite var30 = null; // L: 5015
-							Sprite var31 = null; // L: 5016
-							Sprite var32 = null; // L: 5017
-							Sprite var33 = null; // L: 5018
+							SpritePixels var30 = null; // L: 5015
+							SpritePixels var31 = null; // L: 5016
+							SpritePixels var32 = null; // L: 5017
+							SpritePixels var33 = null; // L: 5018
 							int var34 = 0; // L: 5019
 							int var35 = 0; // L: 5020
 							int var36 = 0; // L: 5021

@@ -29,7 +29,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import net.runelite.api.MainBufferProvider;
-import net.runelite.api.events.Event;
 import net.runelite.api.widgets.WidgetItem;
 
 /**
@@ -38,18 +37,18 @@ import net.runelite.api.widgets.WidgetItem;
 public interface Callbacks
 {
 	/**
-	 * Post an event. See the events in api.events.
+	 * Post an event. See the events in net.runelite.api.events.
 	 *
 	 * @param event the event
 	 */
-	<T extends Event, E extends T> void post(Class<T> eventClass, E event);
+	void post(Object event);
 
 	/**
 	 * Post a deferred event, which gets delayed until the next cycle.
 	 *
 	 * @param event the event
 	 */
-	<T extends Event, E extends T> void postDeferred(Class<T> eventClass, E event);
+	void postDeferred(Object event);
 
 	/**
 	 * Called each client cycle.
@@ -70,6 +69,8 @@ public interface Callbacks
 	 * Called after logic that is drawing 2D objects is processed.
 	 */
 	void drawAboveOverheads();
+
+	void drawAfterWidgets();
 
 	/**
 	 * Client top-most draw method, rendering over top of most of game interfaces.

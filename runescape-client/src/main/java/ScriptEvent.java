@@ -112,7 +112,7 @@ public class ScriptEvent extends Node {
 		garbageValue = "-82"
 	)
 	static final void method1259(int var0, int var1, int var2, int var3, int var4, int var5, int var6, Scene var7, CollisionMap var8) {
-		ObjectDefinition var9 = WorldMapDecoration.getObjectDefinition(var4); // L: 899
+		ObjectComposition var9 = WorldMapDecoration.getObjectDefinition(var4); // L: 899
 		int var10;
 		int var11;
 		if (var5 != 1 && var5 != 3) { // L: 902

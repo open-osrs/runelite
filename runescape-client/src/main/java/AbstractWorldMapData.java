@@ -281,7 +281,7 @@ public abstract class AbstractWorldMapData {
 		garbageValue = "-942051498"
 	)
 	@Export("worldToMinimap")
-	static final void worldToMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
+	static final void worldToMinimap(int var0, int var1, int var2, int var3, SpritePixels var4, SpriteMask var5) {
 		int var6 = var3 * var3 + var2 * var2; // L: 10964
 		if (var6 > 4225 && var6 < 90000) { // L: 10965
 			int var7 = Client.camAngleY & 2047; // L: 10966
@@ -294,7 +294,7 @@ public abstract class AbstractWorldMapData {
 			int var15 = (int)(Math.sin(var12) * (double)var14); // L: 10973
 			int var16 = (int)(Math.cos(var12) * (double)var14); // L: 10974
 			byte var17 = 20; // L: 10975
-			ViewportMouse.redHintArrowSprite.method6189(var15 + (var0 + var5.width / 2 - var17 / 2), var5.height / 2 + var1 - var17 / 2 - var16 - 10, var17, var17, 15, 15, var12, 256); // L: 10976
+			ViewportMouse.redHintArrowSpritePixels.method6189(var15 + (var0 + var5.width / 2 - var17 / 2), var5.height / 2 + var1 - var17 / 2 - var16 - 10, var17, var17, 15, 15, var12, 256); // L: 10976
 		} else {
 			class25.drawSpriteOnMinimap(var0, var1, var2, var3, var4, var5); // L: 10978
 		}

@@ -58,7 +58,7 @@ public enum class7 implements Enumerated {
 				Tiles.Tiles_minPlane = var0;
 			}
 
-			ObjectDefinition var8 = WorldMapDecoration.getObjectDefinition(var3); // L: 234
+			ObjectComposition var8 = WorldMapDecoration.getObjectDefinition(var3); // L: 234
 			int var9;
 			int var10;
 			if (var4 != 1 && var4 != 3) { // L: 237
@@ -636,7 +636,7 @@ public enum class7 implements Enumerated {
 		garbageValue = "1516995220"
 	)
 	@Export("addWidgetItemMenuItem")
-	static final void addWidgetItemMenuItem(Widget var0, ItemDefinition var1, int var2, int var3, boolean var4) {
+	static final void addWidgetItemMenuItem(Widget var0, ItemComposition var1, int var2, int var3, boolean var4) {
 		String[] var5 = var1.inventoryActions; // L: 9686
 		byte var6 = -1; // L: 9687
 		String var7 = null; // L: 9688

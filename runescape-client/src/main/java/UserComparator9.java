@@ -86,7 +86,7 @@ public class UserComparator9 extends AbstractUserComparator {
 			int var5 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 743
 			var3.itemId = var4; // L: 744
 			var3.itemQuantity = var5; // L: 745
-			ItemDefinition var6 = SecureRandomCallable.ItemDefinition_get(var4); // L: 746
+			ItemComposition var6 = SecureRandomCallable.ItemDefinition_get(var4); // L: 746
 			var3.modelAngleX = var6.xan2d; // L: 747
 			var3.modelAngleY = var6.yan2d; // L: 748
 			var3.modelAngleZ = var6.zan2d; // L: 749

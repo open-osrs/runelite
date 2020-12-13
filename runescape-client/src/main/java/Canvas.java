@@ -64,7 +64,7 @@ public final class Canvas extends java.awt.Canvas {
 				Client.collisionMaps[var12] = new CollisionMap(104, 104);
 			}
 
-			class25.sceneMinimapSprite = new Sprite(512, 512); // L: 1729
+			class25.sceneMinimapSprite = new SpritePixels(512, 512); // L: 1729
 			Login.Login_loadingText = "Starting game engine..."; // L: 1730
 			Login.Login_loadingPercent = 5; // L: 1731
 			Client.titleLoadingStage = 20; // L: 1732
@@ -270,9 +270,9 @@ public final class Canvas extends java.awt.Canvas {
 						var16 = DynamicObject.archive2; // L: 1912
 						Archive var4 = BuddyRankComparator.archive7; // L: 1913
 						boolean var17 = Client.isLowDetail; // L: 1914
-						ObjectDefinition.ObjectDefinition_archive = var16; // L: 1916
-						ObjectDefinition.ObjectDefinition_modelsArchive = var4; // L: 1917
-						ObjectDefinition.ObjectDefinition_isLowDetail = var17; // L: 1918
+						ObjectComposition.ObjectDefinition_archive = var16; // L: 1916
+						ObjectComposition.ObjectDefinition_modelsArchive = var4; // L: 1917
+						ObjectComposition.ObjectDefinition_isLowDetail = var17; // L: 1918
 						World.method1849(DynamicObject.archive2, BuddyRankComparator.archive7); // L: 1920
 						ParamDefinition.method4526(DynamicObject.archive2); // L: 1921
 						Actor.method1821(DynamicObject.archive2, BuddyRankComparator.archive7, Client.isMembersWorld, class297.fontPlain11); // L: 1922
@@ -313,8 +313,8 @@ public final class Canvas extends java.awt.Canvas {
 						++var12; // L: 1962
 					}
 
-					if (ViewportMouse.redHintArrowSprite == null) { // L: 1963
-						ViewportMouse.redHintArrowSprite = Skills.SpriteBuffer_getSprite(Messages.archive8, WorldMapManager.spriteIds.field3845, 0);
+					if (ViewportMouse.redHintArrowSpritePixels == null) { // L: 1963
+						ViewportMouse.redHintArrowSpritePixels = Skills.SpriteBuffer_getSprite(Messages.archive8, WorldMapManager.spriteIds.field3845, 0);
 					} else {
 						++var12; // L: 1964
 					}
@@ -357,26 +357,26 @@ public final class Canvas extends java.awt.Canvas {
 						++var12; // L: 2002
 					}
 
-					if (Message.headIconPkSprites == null) { // L: 2003
-						Message.headIconPkSprites = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.headIconsPk, 0);
+					if (Message.headIconPkSpritePixels == null) { // L: 2003
+						Message.headIconPkSpritePixels = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.headIconsPk, 0);
 					} else {
 						++var12; // L: 2004
 					}
 
-					if (Client.headIconPrayerSprites == null) { // L: 2005
-						Client.headIconPrayerSprites = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.field3844, 0);
+					if (Client.headIconPrayerSpritePixels == null) { // L: 2005
+						Client.headIconPrayerSpritePixels = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.field3844, 0);
 					} else {
 						++var12; // L: 2006
 					}
 
-					if (AbstractWorldMapIcon.headIconHintSprites == null) { // L: 2007
-						AbstractWorldMapIcon.headIconHintSprites = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.field3843, 0);
+					if (AbstractWorldMapIcon.headIconHintSpritePixels == null) { // L: 2007
+						AbstractWorldMapIcon.headIconHintSpritePixels = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.field3843, 0);
 					} else {
 						++var12; // L: 2008
 					}
 
-					if (GrandExchangeOfferUnitPriceComparator.mapMarkerSprites == null) { // L: 2009
-						GrandExchangeOfferUnitPriceComparator.mapMarkerSprites = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.field3846, 0);
+					if (GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels == null) { // L: 2009
+						GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels = ClientPreferences.method1918(Messages.archive8, WorldMapManager.spriteIds.field3846, 0);
 					} else {
 						++var12; // L: 2010
 					}
@@ -466,7 +466,7 @@ public final class Canvas extends java.awt.Canvas {
 						Login.Login_loadingPercent = 70; // L: 2093
 					} else {
 						AbstractFont.AbstractFont_modIconSprites = class39.modIconSprites; // L: 2096
-						ViewportMouse.redHintArrowSprite.normalize(); // L: 2097
+						ViewportMouse.redHintArrowSpritePixels.normalize(); // L: 2097
 						int var13 = (int)(Math.random() * 21.0D) - 10; // L: 2098
 						int var14 = (int)(Math.random() * 21.0D) - 10; // L: 2099
 						var3 = (int)(Math.random() * 21.0D) - 10; // L: 2100

@@ -143,7 +143,7 @@ public class OverlayManager
 
 		event.consume();
 
-		Overlay overlay = overlays.get(event.getId());
+		Overlay overlay = overlays.get(event.getType());
 		if (overlay != null)
 		{
 			List<OverlayMenuEntry> menuEntries = overlay.getMenuEntries();

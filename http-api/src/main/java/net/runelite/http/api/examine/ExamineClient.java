@@ -70,10 +70,9 @@ public class ExamineClient
 
 		log.debug("Built URI: {}", url);
 
-		RequestBody body = RequestBody.Companion.create(text, TEXT);
 		Request request = new Request.Builder()
 			.url(url)
-			.post(body)
+			.post(RequestBody.create(TEXT, text))
 			.build();
 
 		client.newCall(request).enqueue(new Callback()

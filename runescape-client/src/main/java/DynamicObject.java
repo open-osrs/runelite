@@ -145,7 +145,7 @@ public class DynamicObject extends Entity {
 			this.cycleStart = Client.cycle - var1; // L: 60
 		}
 
-		ObjectDefinition var12 = WorldMapDecoration.getObjectDefinition(this.id); // L: 62
+		ObjectComposition var12 = WorldMapDecoration.getObjectDefinition(this.id); // L: 62
 		if (var12.transforms != null) { // L: 63
 			var12 = var12.transform();
 		}

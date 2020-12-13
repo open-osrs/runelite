@@ -112,7 +112,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 				for (var8 = 0; var8 < Client.npcCount; ++var8) { // L: 10895
 					NPC var9 = Client.npcs[Client.npcIndices[var8]]; // L: 10896
 					if (var9 != null && var9.isVisible()) { // L: 10897
-						NPCDefinition var19 = var9.definition; // L: 10898
+						NPCComposition var19 = var9.definition; // L: 10898
 						if (var19 != null && var19.transforms != null) { // L: 10899
 							var19 = var19.transform();
 						}
@@ -156,14 +156,14 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 						if (var20 != null) { // L: 10925
 							var11 = var20.x / 32 - PlayerAppearance.localPlayer.x / 32; // L: 10926
 							var12 = var20.y / 32 - PlayerAppearance.localPlayer.y / 32; // L: 10927
-							AbstractWorldMapData.worldToMinimap(var1, var2, var11, var12, GrandExchangeOfferUnitPriceComparator.mapMarkerSprites[1], var4); // L: 10928
+							AbstractWorldMapData.worldToMinimap(var1, var2, var11, var12, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[1], var4); // L: 10928
 						}
 					}
 
 					if (Client.hintArrowType == 2) { // L: 10931
 						var10 = Client.hintArrowX * 4 - NetFileRequest.baseX * 4 + 2 - PlayerAppearance.localPlayer.x / 32; // L: 10932
 						var11 = Client.hintArrowY * 4 - class41.baseY * 4 + 2 - PlayerAppearance.localPlayer.y / 32; // L: 10933
-						AbstractWorldMapData.worldToMinimap(var1, var2, var10, var11, GrandExchangeOfferUnitPriceComparator.mapMarkerSprites[1], var4); // L: 10934
+						AbstractWorldMapData.worldToMinimap(var1, var2, var10, var11, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[1], var4); // L: 10934
 					}
 
 					if (Client.hintArrowType == 10 && Client.hintArrowPlayerIndex >= 0 && Client.hintArrowPlayerIndex < Client.players.length) { // L: 10936
@@ -171,7 +171,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 						if (var21 != null) { // L: 10938
 							var11 = var21.x / 32 - PlayerAppearance.localPlayer.x / 32; // L: 10939
 							var12 = var21.y / 32 - PlayerAppearance.localPlayer.y / 32; // L: 10940
-							AbstractWorldMapData.worldToMinimap(var1, var2, var11, var12, GrandExchangeOfferUnitPriceComparator.mapMarkerSprites[1], var4); // L: 10941
+							AbstractWorldMapData.worldToMinimap(var1, var2, var11, var12, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[1], var4); // L: 10941
 						}
 					}
 				}
@@ -179,7 +179,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 				if (Client.destinationX != 0) { // L: 10945
 					var10 = Client.destinationX * 4 + 2 - PlayerAppearance.localPlayer.x / 32; // L: 10946
 					var11 = Client.destinationY * 4 + 2 - PlayerAppearance.localPlayer.y / 32; // L: 10947
-					class25.drawSpriteOnMinimap(var1, var2, var10, var11, GrandExchangeOfferUnitPriceComparator.mapMarkerSprites[0], var4); // L: 10948
+					class25.drawSpriteOnMinimap(var1, var2, var10, var11, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[0], var4); // L: 10948
 				}
 
 				if (!PlayerAppearance.localPlayer.isHidden) { // L: 10950

@@ -29,16 +29,18 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
+import static net.runelite.http.api.RuneLiteAPI.JSON;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 @Slf4j
@@ -47,21 +49,18 @@ public class XteaClient
 {
 	private final OkHttpClient client;
 
-	public void submit(int region, int[] keys)
+	public void submit(XteaRequest xteaRequest)
 	{
+		String json = RuneLiteAPI.GSON.toJson(xteaRequest);
 
-		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
-			.addPathSegment("submit")
-			.addQueryParameter("region", String.valueOf(region))
-			.addQueryParameter("key1", String.valueOf(keys[0]))
-			.addQueryParameter("key2", String.valueOf(keys[1]))
-			.addQueryParameter("key3", String.valueOf(keys[2]))
-			.addQueryParameter("key4", String.valueOf(keys[3]))
+		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
+			.addPathSegment("xtea")
 			.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
+			.post(RequestBody.create(JSON, json))
 			.url(url)
 			.build();
 
@@ -91,10 +90,10 @@ public class XteaClient
 		});
 	}
 
-	public HashMap<Integer, Integer[]> get() throws IOException
+	public List<XteaKey> get() throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
-			.addPathSegment("get")
+		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
+			.addPathSegment("xtea")
 			.build();
 
 		Request request = new Request.Builder()
@@ -105,8 +104,30 @@ public class XteaClient
 		{
 			InputStream in = response.body().byteStream();
 			// CHECKSTYLE:OFF
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), new TypeToken<HashMap<Integer, Integer[]>>() {}.getType());
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), new TypeToken<List<XteaKey>>() { }.getType());
 			// CHECKSTYLE:ON
+		}
+		catch (JsonParseException ex)
+		{
+			throw new IOException(ex);
+		}
+	}
+
+	public XteaKey get(int region) throws IOException
+	{
+		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
+			.addPathSegment("xtea")
+			.addPathSegment(Integer.toString(region))
+			.build();
+
+		Request request = new Request.Builder()
+			.url(url)
+			.build();
+
+		try (Response response = client.newCall(request).execute())
+		{
+			InputStream in = response.body().byteStream();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), XteaKey.class);
 		}
 		catch (JsonParseException ex)
 		{
