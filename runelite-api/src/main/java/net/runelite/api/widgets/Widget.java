@@ -28,7 +28,7 @@ import java.awt.Rectangle;
 import java.util.Collection;
 import net.runelite.api.FontTypeFace;
 import net.runelite.api.Point;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 
 /**
  * Represents an on-screen UI element that is drawn on the canvas.
@@ -988,7 +988,7 @@ public interface Widget
 	/**
 	 * Gets the image which is (or should be) drawn on this widget
 	 */
-	Sprite getSprite();
+	SpritePixels getSprite();
 
 	/**
 	 * {@link net.runelite.api.VarPlayer}s that triggers this widgets varTransmitListener

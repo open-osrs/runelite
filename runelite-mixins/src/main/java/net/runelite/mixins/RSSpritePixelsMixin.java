@@ -32,10 +32,10 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSSprite;
+import net.runelite.rs.api.RSSpritePixels;
 
-@Mixin(RSSprite.class)
-public abstract class RSSpriteMixin implements RSSprite
+@Mixin(RSSpritePixels.class)
+public abstract class RSSpritePixelsMixin implements RSSpritePixels
 {
 	private static final int ALPHA = 0xFF000000;
 

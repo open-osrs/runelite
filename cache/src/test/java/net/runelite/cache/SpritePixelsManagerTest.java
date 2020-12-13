@@ -34,9 +34,9 @@ import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SpriteManagerTest
+public class SpritePixelsManagerTest
 {
-	private static final Logger logger = LoggerFactory.getLogger(SpriteManagerTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(SpritePixelsManagerTest.class);
 
 	@Rule
 	public TemporaryFolder folder = StoreLocation.getTemporaryFolder();

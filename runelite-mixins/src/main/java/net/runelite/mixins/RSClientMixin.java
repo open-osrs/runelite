@@ -74,7 +74,7 @@ import net.runelite.api.Point;
 import net.runelite.api.Prayer;
 import net.runelite.api.Projectile;
 import net.runelite.api.Skill;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 import net.runelite.api.Tile;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
@@ -135,7 +135,7 @@ import net.runelite.rs.api.RSNodeHashTable;
 import net.runelite.rs.api.RSPacketBuffer;
 import net.runelite.rs.api.RSPlayer;
 import net.runelite.rs.api.RSScene;
-import net.runelite.rs.api.RSSprite;
+import net.runelite.rs.api.RSSpritePixels;
 import net.runelite.rs.api.RSTile;
 import net.runelite.rs.api.RSTileItem;
 import net.runelite.rs.api.RSUsername;
@@ -946,7 +946,7 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
-	public RSSprite createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted)
+	public RSSpritePixels createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted)
 	{
 		assert isClientThread() : "createItemSprite must be called on client thread";
 		return createRSItemSprite(itemId, quantity, border, shadowColor, stackable, noted);
@@ -955,7 +955,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public Sprite createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale)
+	public SpritePixels createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale)
 	{
 		assert isClientThread();
 		int zoom = get3dZoom();
@@ -1622,7 +1622,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public RSSprite[] getSprites(IndexDataBase source, int archiveId, int fileId)
+	public RSSpritePixels[] getSprites(IndexDataBase source, int archiveId, int fileId)
 	{
 		RSAbstractArchive rsSource = (RSAbstractArchive) source;
 		byte[] configData = rsSource.getConfigData(archiveId, fileId);
@@ -1643,7 +1643,7 @@ public abstract class RSClientMixin implements RSClient
 		byte[][] spritePixelsArray = getSpritePixels();
 		int[] indexedSpritePalette = getIndexedSpritePalette();
 
-		RSSprite[] array = new RSSprite[indexedSpriteCount];
+		RSSpritePixels[] array = new RSSpritePixels[indexedSpriteCount];
 
 		for (int i = 0; i < indexedSpriteCount; ++i)
 		{
@@ -1653,7 +1653,7 @@ public abstract class RSClientMixin implements RSClient
 			byte[] pixelArray = spritePixelsArray[i];
 			int[] pixels = new int[width * height];
 
-			RSSprite spritePixels = createSprite(pixels, width, height);
+			RSSpritePixels spritePixels = createSprite(pixels, width, height);
 			spritePixels.setMaxHeight(maxHeight);
 			spritePixels.setMaxWidth(maxWidth);
 			spritePixels.setOffsetX(offsetX[i]);

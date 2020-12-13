@@ -27,7 +27,7 @@ package net.runelite.rs.api;
 import java.math.BigInteger;
 import java.util.Map;
 import net.runelite.api.Client;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 import net.runelite.api.World;
 import net.runelite.api.widgets.Widget;
 import net.runelite.mapping.Construct;
@@ -405,7 +405,7 @@ public interface RSClient extends RSGameShell, Client
 	RSItemDefinition getRSItemDefinition(int itemId);
 
 	@Import("getItemSprite")
-	RSSprite createRSItemSprite(int itemId, int quantity, int thickness, int borderColor, int stackable, boolean noted);
+	RSSpritePixels createRSItemSprite(int itemId, int quantity, int thickness, int borderColor, int stackable, boolean noted);
 
 	@Import("menuAction")
 	void sendMenuAction(int n2, int n3, int n4, int n5, String string, String string2, int n6, int n7);
@@ -559,10 +559,10 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("mapIcons")
 	@Override
-	RSSprite[] getMapIcons();
+	RSSpritePixels[] getMapIcons();
 
 	@Import("mapDotSprites")
-	RSSprite[] getMapDots();
+	RSSpritePixels[] getMapDots();
 
 	@Import("AbstractFont_modIconSprites")
 	@Override
@@ -577,7 +577,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Construct
 	@Override
-	RSSprite createSprite(int[] pixels, int width, int height);
+	RSSpritePixels createSprite(int[] pixels, int width, int height);
 
 	@Import("destinationX")
 	int getDestinationX();
@@ -776,10 +776,10 @@ public interface RSClient extends RSGameShell, Client
 	RSFrames getFrames(int frameId);
 
 	@Import("sceneMinimapSprite")
-	RSSprite getMinimapSprite();
+	RSSpritePixels getMinimapSprite();
 
 	@Import("sceneMinimapSprite")
-	void setMinimapSprite(Sprite spritePixels);
+	void setMinimapSprite(SpritePixels spritePixels);
 
 	@Import("drawObject")
 	void drawObject(int z, int x, int y, int randomColor1, int randomColor2);
@@ -841,7 +841,7 @@ public interface RSClient extends RSGameShell, Client
 	int getFlags();
 
 	@Import("compass")
-	void setCompass(Sprite spritePixels);
+	void setCompass(SpritePixels spritePixels);
 
 	@Import("Widget_cachedSprites")
 	@Override
@@ -1113,7 +1113,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("crossSprites")
 	@Override
-	RSSprite[] getCrossSprites();
+	RSSpritePixels[] getCrossSprites();
 
 	void setModulus(BigInteger modulus);
 
@@ -1265,10 +1265,10 @@ public interface RSClient extends RSGameShell, Client
 	void clearLoginScreen(boolean shouldClear);
 
 	@Import("leftTitleSprite")
-	void setLeftTitleSprite(Sprite background);
+	void setLeftTitleSprite(SpritePixels background);
 
 	@Import("rightTitleSprite")
-	void setRightTitleSprite(Sprite background);
+	void setRightTitleSprite(SpritePixels background);
 
 	@Construct
 	RSBuffer newBuffer(byte[] bytes);

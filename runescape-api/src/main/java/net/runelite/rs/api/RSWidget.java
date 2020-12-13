@@ -553,7 +553,7 @@ public interface RSWidget extends Widget
 	boolean containsMouse();
 
 	@Import("getSprite")
-	RSSprite getSprite(boolean b);
+	RSSpritePixels getSprite(boolean b);
 
 	@Import("onRelease")
 	@Override

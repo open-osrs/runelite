@@ -31,7 +31,7 @@ import net.runelite.api.NPCDefinition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
@@ -172,9 +172,9 @@ public abstract class RSActorMixin implements RSActor
 
 	@Inject
 	@Override
-	public Point getCanvasSpriteLocation(Sprite sprite, int zOffset)
+	public Point getCanvasSpriteLocation(SpritePixels spritePixels, int zOffset)
 	{
-		return Perspective.getCanvasSpriteLocation(client, getLocalLocation(), sprite, zOffset);
+		return Perspective.getCanvasSpriteLocation(client, getLocalLocation(), spritePixels, zOffset);
 	}
 
 	@Inject

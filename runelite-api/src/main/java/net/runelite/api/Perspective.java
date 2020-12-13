@@ -557,14 +557,14 @@ public class Perspective
 	 *
 	 * @param client the game client
 	 * @param localLocation local location of the tile
-	 * @param sprite SpritePixel for size measurement
+	 * @param spritePixels SpritePixel for size measurement
 	 * @param zOffset offset from ground plane
 	 * @return a {@link Point} on screen corresponding to the given localLocation.
 	 */
 	public static Point getCanvasSpriteLocation(
 		@Nonnull Client client,
 		@Nonnull LocalPoint localLocation,
-		@Nonnull Sprite sprite,
+		@Nonnull SpritePixels spritePixels,
 		int zOffset)
 	{
 		int plane = client.getPlane();
@@ -576,8 +576,8 @@ public class Perspective
 			return null;
 		}
 
-		int xOffset = p.getX() - sprite.getWidth() / 2;
-		int yOffset = p.getY() - sprite.getHeight() / 2;
+		int xOffset = p.getX() - spritePixels.getWidth() / 2;
+		int yOffset = p.getY() - spritePixels.getHeight() / 2;
 
 		return new Point(xOffset, yOffset);
 	}

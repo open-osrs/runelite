@@ -1,9 +1,9 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 import net.runelite.mapping.Import;
 
-public interface RSSprite extends Sprite
+public interface RSSpritePixels extends SpritePixels
 {
 	@Import("drawTransBgAt")
 	@Override

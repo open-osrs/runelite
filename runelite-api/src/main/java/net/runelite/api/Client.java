@@ -401,7 +401,7 @@ public interface Client extends GameShell
 	 * @return the created sprite
 	 */
 	@Nullable
-	Sprite createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale);
+	SpritePixels createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale);
 
 	/**
 	 * Loads and creates the sprite images of the passed archive and file IDs.
@@ -412,7 +412,7 @@ public interface Client extends GameShell
 	 * @return the sprite image of the file
 	 */
 	@Nullable
-	Sprite[] getSprites(IndexDataBase source, int archiveId, int fileId);
+	SpritePixels[] getSprites(IndexDataBase source, int archiveId, int fileId);
 
 	/**
 	 * Gets the sprite index.
@@ -962,7 +962,7 @@ public interface Client extends GameShell
 	 *
 	 * @return all mini-map dots
 	 */
-	Sprite[] getMapDots();
+	SpritePixels[] getMapDots();
 
 	/**
 	 * Gets the local clients game cycle.
@@ -978,7 +978,7 @@ public interface Client extends GameShell
 	 *
 	 * @return the map icons
 	 */
-	Sprite[] getMapIcons();
+	SpritePixels[] getMapIcons();
 
 	/**
 	 * Gets an array of mod icon sprites.
@@ -1010,7 +1010,7 @@ public interface Client extends GameShell
 	 * @param height the height
 	 * @return the sprite image
 	 */
-	Sprite createSprite(int[] pixels, int width, int height);
+	SpritePixels createSprite(int[] pixels, int width, int height);
 
 	/**
 	 * Gets the location of the local player.
@@ -1339,7 +1339,7 @@ public interface Client extends GameShell
 	 * @param z the plane
 	 * @return the map sprite
 	 */
-	Sprite drawInstanceMap(int z);
+	SpritePixels drawInstanceMap(int z);
 
 	/**
 	 * Executes a client script from the cache
@@ -1662,7 +1662,7 @@ public interface Client extends GameShell
 	 * The key value in the map corresponds to the ID of the sprite,
 	 * and the value the sprite to replace it with.
 	 */
-	Map<Integer, Sprite> getSpriteOverrides();
+	Map<Integer, SpritePixels> getSpriteOverrides();
 
 	/**
 	 * Gets a mapping of widget sprites to override.
@@ -1670,14 +1670,14 @@ public interface Client extends GameShell
 	 * The key value in the map corresponds to the packed widget ID,
 	 * and the value the sprite to replace the widgets sprite with.
 	 */
-	Map<Integer, Sprite> getWidgetSpriteOverrides();
+	Map<Integer, SpritePixels> getWidgetSpriteOverrides();
 
 	/**
 	 * Sets the compass sprite.
 	 *
-	 * @param Sprite the new sprite
+	 * @param SpritePixels the new sprite
 	 */
-	void setCompass(Sprite Sprite);
+	void setCompass(SpritePixels SpritePixels);
 
 	/**
 	 * Sets whether inventory quantity is verbose.
@@ -1829,7 +1829,7 @@ public interface Client extends GameShell
 	/**
 	 * Returns the array of cross sprites that appear and animate when left-clicking
 	 */
-	Sprite[] getCrossSprites();
+	SpritePixels[] getCrossSprites();
 
 	EnumDefinition getEnum(int id);
 
@@ -1954,7 +1954,7 @@ public interface Client extends GameShell
 	 * @param pixelWidth   pretty much horizontal scale
 	 * @param pixelHeight  pretty much vertical scale
 	 * @param oldWidth     old width
-	 * @see net.runelite.client.util.ImageUtil#resizeSprite(Client, Sprite, int, int)
+	 * @see net.runelite.client.util.ImageUtil#resizeSprite(Client, SpritePixels, int, int)
 	 */
 	void scaleSprite(int[] canvas, int[] pixels, int color, int pixelX, int pixelY, int canvasIdx, int canvasOffset, int newWidth, int newHeight, int pixelWidth, int pixelHeight, int oldWidth);
 
@@ -2048,7 +2048,7 @@ public interface Client extends GameShell
 	 * If the image is larger than half the width of fixed mode,
 	 * it won't get mirrored to the other side of the screen
 	 */
-	void setLoginScreen(Sprite pixels);
+	void setLoginScreen(SpritePixels pixels);
 
 	/**
 	 * Sets whether the flames on the login screen should be rendered

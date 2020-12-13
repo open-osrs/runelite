@@ -30,7 +30,7 @@ import java.awt.image.BufferedImage;
 /**
  * Represents data about the pixels of a sprite image.
  */
-public interface Sprite
+public interface SpritePixels
 {
 	int DEFAULT_SHADOW_COLOR = 3153952;
 

@@ -205,11 +205,11 @@ public interface Actor extends Entity, Locatable
 	 * Gets the point at which a sprite should be drawn, relative to the
 	 * current location with the given z-axis offset.
 	 *
-	 * @param sprite the sprite to draw
+	 * @param spritePixels the sprite to draw
 	 * @param zOffset the z-axis offset
 	 * @return the sprite drawing location
 	 */
-	Point getCanvasSpriteLocation(Sprite sprite, int zOffset);
+	Point getCanvasSpriteLocation(SpritePixels spritePixels, int zOffset);
 
 	/**
 	 * Gets a point on the canvas of where this actors mini-map indicator

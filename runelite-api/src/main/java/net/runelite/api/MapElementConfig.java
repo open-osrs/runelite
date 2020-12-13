@@ -35,5 +35,5 @@ public interface MapElementConfig
 	 * @param unused unused value
 	 * @return the sprite icon to display on the world map
 	 */
-	Sprite getMapIcon(boolean unused);
+	SpritePixels getMapIcon(boolean unused);
 }
