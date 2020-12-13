@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * An enumeration of right-click menu actions.
  */
-public enum MenuOpcode
+public enum MenuAction
 {
 	/**
 	 * Menu action for using an item in your inventory on a tile object (GameObject or GroundObject).
@@ -299,19 +299,19 @@ public enum MenuOpcode
 
 	public static final int MENU_ACTION_DEPRIORITIZE_OFFSET = 2000;
 
-	private static final Map<Integer, MenuOpcode> map = new HashMap<>();
+	private static final Map<Integer, MenuAction> map = new HashMap<>();
 
 	static
 	{
-		for (MenuOpcode menuOpcode : values())
+		for (MenuAction menuAction : values())
 		{
-			map.put(menuOpcode.getId(), menuOpcode);
+			map.put(menuAction.getId(), menuAction);
 		}
 	}
 
 	private final int id;
 
-	MenuOpcode(int id)
+	MenuAction(int id)
 	{
 		this.id = id;
 	}
@@ -321,7 +321,7 @@ public enum MenuOpcode
 		return id;
 	}
 
-	public static MenuOpcode of(int id)
+	public static MenuAction of(int id)
 	{
 		return map.getOrDefault(id, UNKNOWN);
 	}

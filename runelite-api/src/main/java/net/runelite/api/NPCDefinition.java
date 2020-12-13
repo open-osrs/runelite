@@ -41,8 +41,8 @@ public interface NPCDefinition
 
 	/**
 	 * The 5 menuops this NPC has when in world. Index 0 corresponds to
-	 * {@link MenuOpcode#NPC_FIRST_OPTION}, Index 2 to
-	 * {@link MenuOpcode#NPC_SECOND_OPTION} and so on.
+	 * {@link MenuAction#NPC_FIRST_OPTION}, Index 2 to
+	 * {@link MenuAction#NPC_SECOND_OPTION} and so on.
 	 */
 	String[] getActions();
 

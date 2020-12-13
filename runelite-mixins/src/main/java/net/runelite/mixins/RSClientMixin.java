@@ -53,15 +53,15 @@ import net.runelite.api.IntegerNode;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemDefinition;
 import net.runelite.api.MenuEntry;
-import net.runelite.api.MenuOpcode;
-import static net.runelite.api.MenuOpcode.PLAYER_EIGTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_FIFTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_FIRST_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_FOURTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_SECOND_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_SEVENTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_SIXTH_OPTION;
-import static net.runelite.api.MenuOpcode.PLAYER_THIRD_OPTION;
+import net.runelite.api.MenuAction;
+import static net.runelite.api.MenuAction.PLAYER_EIGTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FIFTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FIRST_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FOURTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SECOND_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SEVENTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SIXTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_THIRD_OPTION;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCDefinition;
@@ -1059,11 +1059,11 @@ public abstract class RSClientMixin implements RSClient
 	public static void playerOptionsChanged(int idx)
 	{
 		// Reset the menu opcode
-		MenuOpcode[] playerActions = {PLAYER_FIRST_OPTION, PLAYER_SECOND_OPTION, PLAYER_THIRD_OPTION, PLAYER_FOURTH_OPTION,
+		MenuAction[] playerActions = {PLAYER_FIRST_OPTION, PLAYER_SECOND_OPTION, PLAYER_THIRD_OPTION, PLAYER_FOURTH_OPTION,
 			PLAYER_FIFTH_OPTION, PLAYER_SIXTH_OPTION, PLAYER_SEVENTH_OPTION, PLAYER_EIGTH_OPTION};
 		if (idx >= 0 && idx < playerActions.length)
 		{
-			MenuOpcode playerAction = playerActions[idx];
+			MenuAction playerAction = playerActions[idx];
 			client.getPlayerMenuTypes()[idx] = playerAction.getId();
 		}
 
@@ -1720,7 +1720,7 @@ public abstract class RSClientMixin implements RSClient
 		if (len > 0)
 		{
 			int type = getMenuOpcodes()[len - 1];
-			return type == MenuOpcode.RUNELITE_OVERLAY.getId();
+			return type == MenuAction.RUNELITE_OVERLAY.getId();
 		}
 
 		return false;

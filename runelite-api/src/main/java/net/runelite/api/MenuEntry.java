@@ -51,7 +51,7 @@ public class MenuEntry implements Cloneable
 	private int identifier;
 	/**
 	 * The action the entry will trigger.
-	 * {@link net.runelite.api.MenuOpcode}
+	 * {@link MenuAction}
 	 */
 	private int opcode;
 	/**
@@ -97,8 +97,8 @@ public class MenuEntry implements Cloneable
 	/**
 	 * Get opcode, but as it's enum counterpart
 	 */
-	public MenuOpcode getMenuOpcode()
+	public MenuAction getMenuOpcode()
 	{
-		return MenuOpcode.of(getOpcode());
+		return MenuAction.of(getOpcode());
 	}
 }
