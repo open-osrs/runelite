@@ -24,18 +24,13 @@
  */
 package net.runelite.client;
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
 import java.applet.Applet;
 import java.io.File;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
@@ -47,8 +42,6 @@ import net.runelite.client.callback.Hooks;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.config.ChatColorConfig;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.config.LauncherConfig;
-import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.game.ItemManager;
@@ -57,25 +50,27 @@ import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.util.DeferredEventBus;
 import net.runelite.client.util.ExecutorServiceExceptionLogger;
-import net.runelite.client.util.NonScheduledExecutorServiceExceptionLogger;
 import net.runelite.http.api.chat.ChatClient;
 import okhttp3.OkHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @AllArgsConstructor
 public class RuneLiteModule extends AbstractModule
 {
 	private final OkHttpClient okHttpClient;
 	private final Supplier<Applet> clientLoader;
+	private final boolean developerMode;
 	private final boolean safeMode;
+	private final File sessionfile;
 	private final File config;
 
 	@Override
 	protected void configure()
 	{
+		bindConstant().annotatedWith(Names.named("developerMode")).to(developerMode);
 		bindConstant().annotatedWith(Names.named("safeMode")).to(safeMode);
+		bind(File.class).annotatedWith(Names.named("sessionfile")).toInstance(sessionfile);
 		bind(File.class).annotatedWith(Names.named("config")).toInstance(config);
+		bind(ScheduledExecutorService.class).toInstance(new ExecutorServiceExceptionLogger(Executors.newSingleThreadScheduledExecutor()));
 		bind(OkHttpClient.class).toInstance(okHttpClient);
 		bind(MenuManager.class);
 		bind(ChatMessageManager.class);
@@ -92,10 +87,6 @@ public class RuneLiteModule extends AbstractModule
 		bind(EventBus.class)
 			.annotatedWith(Names.named("Deferred EventBus"))
 			.to(DeferredEventBus.class);
-
-		bind(Logger.class)
-			.annotatedWith(Names.named("Core Logger"))
-			.toInstance(LoggerFactory.getLogger(RuneLite.class));
 	}
 
 	@Provides
@@ -121,49 +112,9 @@ public class RuneLiteModule extends AbstractModule
 
 	@Provides
 	@Singleton
-	OpenOSRSConfig providePlusConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(OpenOSRSConfig.class);
-	}
-
-	@Provides
-	@Singleton
 	ChatColorConfig provideChatColorConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(ChatColorConfig.class);
-	}
-
-	@Provides
-	@Singleton
-	LauncherConfig provideLauncherConfig(ConfigManager configManager)
-	{
-		return configManager.getConfig(LauncherConfig.class);
-	}
-
-	@Provides
-	@Singleton
-	ScheduledExecutorService provideScheduledExecutorService()
-	{
-		return new ExecutorServiceExceptionLogger(Executors.newSingleThreadScheduledExecutor(new ThreadFactoryBuilder()
-			.setNameFormat("scheduled-%d")
-			.build()));
-	}
-
-	@Provides
-	@Singleton
-	ExecutorService provideExecutorService()
-	{
-		int poolSize = 2 * Runtime.getRuntime().availableProcessors();
-
-		// Will start up to poolSize threads (because of allowCoreThreadTimeOut) as necessary, and times out
-		// unused threads after 1 minute
-		ThreadPoolExecutor executor = new ThreadPoolExecutor(poolSize, poolSize,
-			60L, TimeUnit.SECONDS,
-			new LinkedBlockingQueue<>(),
-			new ThreadFactoryBuilder().setNameFormat("worker-%d").build());
-		executor.allowCoreThreadTimeOut(true);
-
-		return new NonScheduledExecutorServiceExceptionLogger(executor);
 	}
 
 	@Provides

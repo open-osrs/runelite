@@ -36,7 +36,6 @@ import javax.inject.Singleton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.ui.ClientUI;
 
 /**
  * Utility class used for web and file browser navigation
@@ -72,7 +71,7 @@ public class LinkBrowser
 				log.debug("Opened url through xdg-open to {}", url);
 				return;
 			}
-
+			
 			log.warn("LinkBrowser.browse() could not open {}", url);
 			showMessageBox("Unable to open link. Press 'OK' and the link will be copied to your clipboard.", url);
 		}).start();
@@ -80,7 +79,6 @@ public class LinkBrowser
 
 	/**
 	 * Tries to open a directory in the OS native file manager.
-	 *
 	 * @param directory directory to open
 	 */
 	public static void open(final String directory)
@@ -104,7 +102,7 @@ public class LinkBrowser
 				log.debug("Opened directory through xdg-open to {}", directory);
 				return;
 			}
-
+			
 			log.warn("LinkBrowser.open() could not open {}", directory);
 			showMessageBox("Unable to open folder. Press 'OK' and the folder directory will be copied to your clipboard.", directory);
 		}).start();
@@ -192,65 +190,14 @@ public class LinkBrowser
 	}
 
 	/**
-	 * Tries to open the specified {@code File} with the systems default text editor. If operation fails
-	 * an error message is displayed with the option to copy the absolute file path to clipboard.
-	 *
-	 * @param file the File instance of the log file
-	 * @return did the file open successfully?
-	 */
-	public static boolean openLocalFile(final File file)
-	{
-		if (file == null || !file.exists())
-		{
-			return false;
-		}
-
-		if (attemptOpenLocalFile(file))
-		{
-			log.debug("Opened log file through Desktop#edit to {}", file);
-			return true;
-		}
-
-		showMessageBox("Unable to open log file. Press 'OK' and the file path will be copied to your clipboard", file.getAbsolutePath());
-		return false;
-	}
-
-	private static boolean attemptOpenLocalFile(final File file)
-	{
-		if (!Desktop.isDesktopSupported())
-		{
-			return false;
-		}
-
-		final Desktop desktop = Desktop.getDesktop();
-
-		if (!desktop.isSupported(Desktop.Action.OPEN))
-		{
-			return false;
-		}
-
-		try
-		{
-			desktop.open(file);
-			return true;
-		}
-		catch (IOException ex)
-		{
-			log.warn("Failed to open Desktop#edit {}", file, ex);
-			return false;
-		}
-	}
-
-	/**
 	 * Open swing message box with specified message and copy data to clipboard
-	 *
 	 * @param message message to show
 	 */
 	private static void showMessageBox(final String message, final String data)
 	{
 		SwingUtilities.invokeLater(() ->
 		{
-			final int result = JOptionPane.showConfirmDialog(ClientUI.getFrame(), message, "Message",
+			final int result = JOptionPane.showConfirmDialog(null, message, "Message",
 				JOptionPane.OK_CANCEL_OPTION);
 
 			if (result == JOptionPane.OK_OPTION)

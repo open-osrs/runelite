@@ -44,7 +44,7 @@ public abstract class PluginPanel extends JPanel
 	@Getter(AccessLevel.PROTECTED)
 	private final JScrollPane scrollPane;
 
-	@Getter(AccessLevel.PUBLIC)
+	@Getter(AccessLevel.PACKAGE)
 	private final JPanel wrappedPanel;
 
 	protected PluginPanel()

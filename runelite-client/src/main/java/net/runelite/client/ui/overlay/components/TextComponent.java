@@ -24,19 +24,15 @@
  */
 package net.runelite.client.ui.overlay.components;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Composite;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Shape;
-import java.awt.font.GlyphVector;
 import java.util.regex.Pattern;
 import lombok.Setter;
-import net.runelite.api.util.Text;
 import net.runelite.client.ui.overlay.RenderableEntity;
+import net.runelite.client.util.Text;
 
 @Setter
 public class TextComponent implements RenderableEntity
@@ -48,89 +44,66 @@ public class TextComponent implements RenderableEntity
 	private Point position = new Point();
 	private Color color = Color.WHITE;
 	private boolean outline;
-	private boolean alpha; // Generates a lot of garbage!
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
 		final FontMetrics fontMetrics = graphics.getFontMetrics();
 
-		final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
-		int x = position.x;
-
-		for (String part : parts)
+		if (COL_TAG_PATTERN_W_LOOKAHEAD.matcher(text).find())
 		{
-			final String notags = Text.removeTags(part);
-			final Color col = part.equals(notags) ? color : getColor(part);
+			final String[] parts = COL_TAG_PATTERN_W_LOOKAHEAD.split(text);
+			int x = position.x;
 
-			if (alpha)
+			for (String textSplitOnCol : parts)
 			{
-				drawAlpha(graphics, x, position.y, notags, col);
+				final String textWithoutCol = Text.removeTags(textSplitOnCol);
+				final String colColor = textSplitOnCol.substring(textSplitOnCol.indexOf("=") + 1, textSplitOnCol.indexOf(">"));
+
+				graphics.setColor(Color.BLACK);
+
+				if (outline)
+				{
+					graphics.drawString(textWithoutCol, x, position.y + 1);
+					graphics.drawString(textWithoutCol, x, position.y - 1);
+					graphics.drawString(textWithoutCol, x + 1, position.y);
+					graphics.drawString(textWithoutCol, x - 1, position.y);
+				}
+				else
+				{
+					// shadow
+					graphics.drawString(textWithoutCol, x + 1, position.y + 1);
+				}
+
+				// actual text
+				graphics.setColor(Color.decode("#" + colColor));
+				graphics.drawString(textWithoutCol, x, position.y);
+
+				x += fontMetrics.stringWidth(textWithoutCol);
 			}
-			else
-			{
-				drawString(graphics, x, position.y, notags, col);
-			}
-
-			x += fontMetrics.stringWidth(notags);
-		}
-
-		return new Dimension(fontMetrics.stringWidth(Text.removeTags(text)), fontMetrics.getHeight());
-	}
-
-	private void drawString(Graphics2D graphics, int x, int y, String text, Color color)
-	{
-		graphics.setColor(Color.BLACK);
-
-		if (outline)
-		{
-			graphics.drawString(text, x, y + 1);
-			graphics.drawString(text, x, y - 1);
-			graphics.drawString(text, x + 1, y);
-			graphics.drawString(text, x - 1, y);
 		}
 		else
 		{
-			// shadow
-			graphics.drawString(text, x + 1, y + 1);
+			graphics.setColor(Color.BLACK);
+
+			if (outline)
+			{
+				graphics.drawString(text, position.x, position.y + 1);
+				graphics.drawString(text, position.x, position.y - 1);
+				graphics.drawString(text, position.x + 1, position.y);
+				graphics.drawString(text, position.x - 1, position.y);
+			}
+			else
+			{
+				// shadow
+				graphics.drawString(text, position.x + 1, position.y + 1);
+			}
+
+			// actual text
+			graphics.setColor(color);
+			graphics.drawString(text, position.x, position.y);
 		}
 
-
-		// actual text
-		graphics.setColor(color);
-		graphics.drawString(text, x, y);
-	}
-
-	private void drawAlpha(Graphics2D graphics, int x, int y, String text, Color color)
-	{
-		// remember previous composite
-		Composite originalComposite = graphics.getComposite();
-
-		// create a vector of the text
-		GlyphVector vector = graphics.getFont().createGlyphVector(graphics.getFontRenderContext(), text);
-
-		// compute the text shape
-		Shape stroke = vector.getOutline(x + 1, y + 1);
-		Shape shape = vector.getOutline(x, y);
-
-		// draw text border
-		graphics.setColor(Color.BLACK);
-		graphics.fill(stroke);
-
-		// replace the pixels instead of overlaying
-		graphics.setComposite(AlphaComposite.Src);
-
-		// draw actual text
-		graphics.setColor(color);
-		graphics.fill(shape);
-
-		// reset composite to original
-		graphics.setComposite(originalComposite);
-	}
-
-	private static Color getColor(String from)
-	{
-		final String colColor = from.substring(from.indexOf('=') + 1, from.indexOf('>'));
-		return Color.decode("#" + colColor);
+		return new Dimension(fontMetrics.stringWidth(text), fontMetrics.getHeight());
 	}
 }

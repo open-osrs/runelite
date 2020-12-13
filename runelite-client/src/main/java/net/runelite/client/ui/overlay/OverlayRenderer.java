@@ -24,6 +24,7 @@
  */
 package net.runelite.client.ui.overlay;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.primitives.Ints;
 import java.awt.Color;
 import java.awt.Composite;
@@ -35,17 +36,13 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.SwingUtilities;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
@@ -57,7 +54,7 @@ import net.runelite.api.events.FocusChanged;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.RuneLiteConfig;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseAdapter;
@@ -65,7 +62,6 @@ import net.runelite.client.input.MouseManager;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.client.util.MiscUtils;
 
 @Singleton
 @Slf4j
@@ -107,9 +103,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private boolean isResizeable;
 	private OverlayBounds snapCorners;
 
-	@Setter
-	private boolean shouldRender = true;
-
 	@Inject
 	private OverlayRenderer(
 		final Client client,
@@ -117,7 +110,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		final RuneLiteConfig runeLiteConfig,
 		final MouseManager mouseManager,
 		final KeyManager keyManager,
-		final EventBus eventbus,
 		final ClientUI clientUI)
 	{
 		this.client = client;
@@ -126,13 +118,10 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		this.clientUI = clientUI;
 		keyManager.registerKeyListener(this);
 		mouseManager.registerMouseListener(this);
-
-		eventbus.subscribe(FocusChanged.class, this, this::onFocusChanged);
-		eventbus.subscribe(ClientTick.class, this, this::onClientTick);
-		eventbus.subscribe(BeforeRender.class, this, this::onBeforeRender);
 	}
 
-	private void onFocusChanged(FocusChanged event)
+	@Subscribe
+	public void onFocusChanged(FocusChanged event)
 	{
 		if (!event.isFocused())
 		{
@@ -146,7 +135,8 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 	}
 
-	private void onClientTick(ClientTick t)
+	@Subscribe
+	protected void onClientTick(ClientTick t)
 	{
 		if (menuEntries == null)
 		{
@@ -173,17 +163,14 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		client.setMenuEntries(newEntries);
 	}
 
-	private void onBeforeRender(BeforeRender event)
+	@Subscribe
+	public void onBeforeRender(BeforeRender event)
 	{
 		menuEntries = null;
 	}
 
 	public void render(Graphics2D graphics, final OverlayLayer layer)
 	{
-		if (!shouldRender)
-		{
-			return;
-		}
 		if (layer != OverlayLayer.ABOVE_MAP
 			&& client.getWidget(WidgetInfo.FULLSCREEN_MAP_ROOT) != null
 			&& !client.getWidget(WidgetInfo.FULLSCREEN_MAP_ROOT).isHidden())
@@ -200,14 +187,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			|| client.getViewportWidget() == null)
 		{
 			return;
-		}
-
-		// Set font rendering properties like the OS's font rendering
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Map desktopHints = (Map) (tk.getDesktopProperty("awt.font.desktophints"));
-		if (desktopHints != null)
-		{
-			graphics.addRenderingHints(desktopHints);
 		}
 
 		if (shouldInvalidateBounds())
@@ -267,11 +246,14 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			}
 			else
 			{
-				final Point location = overlay.getBounds().getLocation();
-				final Dimension dimension = overlay.getBounds().getSize();
+				final Rectangle bounds = overlay.getBounds();
+				final Point location = bounds.getLocation();
+				final Dimension dimension = bounds.getSize();
+
+				final Point preferredLocation = overlay.getPreferredLocation();
 
 				// If the final position is not modified, layout it
-				if (overlayPosition != OverlayPosition.DETACHED && (overlay.getPreferredLocation() == null || overlay.getPreferredPosition() != null))
+				if (overlayPosition != OverlayPosition.DETACHED && (preferredLocation == null || overlay.getPreferredPosition() != null))
 				{
 					final Rectangle snapCorner = snapCorners.forPosition(overlayPosition);
 					final Point translation = OverlayUtil.transformPosition(overlayPosition, dimension);
@@ -281,21 +263,18 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 				}
 				else
 				{
-					final Point preferredLocation = overlay.getPreferredLocation();
-
 					if (preferredLocation != null)
 					{
 						location.setLocation(preferredLocation);
 					}
 
-					final Dimension realDimensions = client.getRealDimensions();
-					location.x = MiscUtils.clamp(location.x, 0, Math.max(0, realDimensions.width - dimension.width));
-					location.y = MiscUtils.clamp(location.y, 0, Math.max(0, realDimensions.height - dimension.height));
+					// Clamp the overlay position to ensure it is on screen or within parent bounds
+					clampOverlayLocation(location, dimension.width, dimension.height, overlay);
 				}
 
 				if (overlay.getPreferredSize() != null)
 				{
-					overlay.getBounds().setSize(overlay.getPreferredSize());
+					bounds.setSize(overlay.getPreferredSize());
 				}
 
 				safeRender(client, overlay, layer, graphics, location);
@@ -307,8 +286,6 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 				graphics.setPaint(paint);
 				graphics.setRenderingHints(renderingHints);
 				graphics.setBackground(background);
-
-				final Rectangle bounds = overlay.getBounds();
 
 				if (!bounds.isEmpty())
 				{
@@ -340,7 +317,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 						graphics.setPaint(paint);
 					}
 
-					if (!client.isMenuOpen() && !client.isSpellSelected() && bounds.contains(mouse))
+					if (!client.isMenuOpen() && !client.getSpellSelected() && bounds.contains(mouse))
 					{
 						if (menuEntries == null)
 						{
@@ -364,6 +341,9 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 		final Point mousePoint = mouseEvent.getPoint();
 		mousePosition.setLocation(mousePoint);
+
+		// See if we've clicked on an overlay
+		currentManagedOverlay = findMangedOverlay(mousePoint);
 
 		if (currentManagedOverlay == null)
 		{
@@ -410,26 +390,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 		if (!inOverlayResizingMode && !inOverlayDraggingMode)
 		{
-			currentManagedOverlay = null;
-
-			synchronized (overlayManager)
-			{
-				for (Overlay overlay : overlayManager.getOverlays())
-				{
-					if (overlay.getPosition() == OverlayPosition.DYNAMIC || overlay.getPosition() == OverlayPosition.TOOLTIP)
-					{
-						// never allow moving dynamic or tooltip overlays
-						continue;
-					}
-
-					final Rectangle bounds = overlay.getBounds();
-					if (bounds.contains(mousePoint))
-					{
-						currentManagedOverlay = overlay;
-						break;
-					}
-				}
-			}
+			currentManagedOverlay = findMangedOverlay(mousePoint);
 		}
 
 		if (currentManagedOverlay == null || !currentManagedOverlay.isResizable())
@@ -474,6 +435,33 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 
 		return mouseEvent;
+	}
+
+	/**
+	 * Find an overlay to manage which is under the given mouse point
+	 * @param mousePoint
+	 * @return
+	 */
+	private Overlay findMangedOverlay(Point mousePoint)
+	{
+		synchronized (overlayManager)
+		{
+			for (Overlay overlay : overlayManager.getOverlays())
+			{
+				if (overlay.getPosition() == OverlayPosition.DYNAMIC || overlay.getPosition() == OverlayPosition.TOOLTIP)
+				{
+					// never allow moving dynamic or tooltip overlays
+					continue;
+				}
+
+				final Rectangle bounds = overlay.getBounds();
+				if (bounds.contains(mousePoint))
+				{
+					return overlay;
+				}
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -593,12 +581,14 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 		else if (inOverlayDraggingMode)
 		{
-			final Dimension realDimension = client.getRealDimensions();
-			p.translate(-overlayOffset.x, -overlayOffset.y);
-			p.x = Ints.constrainToRange(p.x, 0, Math.max(0, realDimension.width - currentManagedOverlay.getBounds().width));
-			p.y = Ints.constrainToRange(p.y, 0, Math.max(0, realDimension.height - currentManagedOverlay.getBounds().height));
+			Point overlayPosition = new Point(p);
+			overlayPosition.translate(-overlayOffset.x, -overlayOffset.y); // adjust by mouse offset to get overlay position
+
+			// Clamp drag to parent component
+			final Rectangle overlayBounds = currentManagedOverlay.getBounds();
+			clampOverlayLocation(overlayPosition, overlayBounds.width, overlayBounds.height, currentManagedOverlay);
 			currentManagedOverlay.setPreferredPosition(null);
-			currentManagedOverlay.setPreferredLocation(p);
+			currentManagedOverlay.setPreferredLocation(overlayPosition);
 		}
 		else
 		{
@@ -612,6 +602,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			startedMovingOverlay = false;
 		}
 
+		mouseEvent.consume();
 		return mouseEvent;
 	}
 
@@ -729,17 +720,11 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		}
 		catch (Exception ex)
 		{
-			log.warn("Exception during overlay rendering", ex);
-			return;
-		}
-		catch (Error er)
-		{
-			log.warn("Error during overlay rendering, removing overlay", er);
-			overlayManager.remove(overlay);
+			log.warn("Error during overlay rendering", ex);
 			return;
 		}
 
-		final Dimension dimension = Objects.requireNonNullElse(overlayDimension, new Dimension());
+		final Dimension dimension = MoreObjects.firstNonNull(overlayDimension, new Dimension());
 		overlay.getBounds().setSize(dimension);
 	}
 
@@ -863,7 +848,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			bottomLeftPoint.y) : bottomRightPoint;
 
 		final Point canvasTopRightPoint = isResizeable ? new Point(
-			(int) client.getRealDimensions().getWidth(),
+			(int)client.getRealDimensions().getWidth(),
 			0) : topRightPoint;
 
 		return new OverlayBounds(
@@ -894,12 +879,37 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			final MenuEntry entry = new MenuEntry();
 			entry.setOption(overlayMenuEntry.getOption());
 			entry.setTarget(ColorUtil.wrapWithColorTag(overlayMenuEntry.getTarget(), JagexColors.MENU_TARGET));
-			entry.setOpcode(overlayMenuEntry.getMenuOpcode().getId());
+			entry.setType(overlayMenuEntry.getMenuAction().getId());
 			entry.setIdentifier(overlayManager.getOverlays().indexOf(overlay)); // overlay id
 
 			entries[i] = entry;
 		}
 
 		return entries;
+	}
+
+	/**
+	 * Adjust the given overlay position to be within its parent's bounds.
+	 *
+	 * @param overlayPosition  the overlay position, which is modified in place
+	 * @param overlayWidth
+	 * @param overlayHeight
+	 * @param overlay          the overlay
+	 */
+	private void clampOverlayLocation(Point overlayPosition, int overlayWidth, int overlayHeight, Overlay overlay)
+	{
+		Rectangle parentBounds = overlay.getParentBounds();
+		if (parentBounds == null || parentBounds.isEmpty())
+		{
+			// If no bounds are set, use the full client bounds
+			Dimension dim = client.getRealDimensions();
+			parentBounds = new Rectangle(0, 0, dim.width, dim.height);
+		}
+
+		// Constrain overlay position to be within the parent bounds
+		overlayPosition.x = Ints.constrainToRange(overlayPosition.x, parentBounds.x,
+			Math.max(parentBounds.x, parentBounds.width - overlayWidth));
+		overlayPosition.y = Ints.constrainToRange(overlayPosition.y, parentBounds.y,
+			Math.max(parentBounds.y, parentBounds.height - overlayHeight));
 	}
 }

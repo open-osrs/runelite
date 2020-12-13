@@ -34,18 +34,16 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
 import java.awt.image.PixelGrabber;
 import java.awt.image.RescaleOp;
-import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.GrayFilter;
-import java.util.function.Predicate;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.IndexedSprite;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 
 /**
  * Various Image/BufferedImage utilities.
@@ -295,21 +293,7 @@ public class ImageUtil
 	 */
 	public static BufferedImage outlineImage(final BufferedImage image, final Color color)
 	{
-		return outlineImage(image, color, ColorUtil::isNotFullyTransparent, false);
-	}
-
-	/**
-	 * Outlines pixels of a BufferedImage with the given color, using a given predicate to colorize
-	 * the given image for outlining.
-	 *
-	 * @param image         The image to be outlined.
-	 * @param color         The color to use for the outline.
-	 * @param fillCondition The predicate to be consumed by {@link #fillImage(BufferedImage, Color, Predicate) fillImage(BufferedImage, Color, Predicate)}
-	 * @return              The BufferedImage with its edges outlined with the given color.
-	 */
-	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition)
-	{
-		return outlineImage(image, color, fillCondition, false);
+		return outlineImage(image, color, false);
 	}
 
 	/**
@@ -324,23 +308,7 @@ public class ImageUtil
 	 */
 	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Boolean outlineCorners)
 	{
-		return outlineImage(image, color, ColorUtil::isNotFullyTransparent, outlineCorners);
-	}
-
-	/**
-	 * Outlines pixels of a BufferedImage with the given color, using a given predicate to colorize
-	 * the given image for outlining. Optionally outlines corners in addition to edges.
-	 *
-	 * @param image          The image to be outlined.
-	 * @param color          The color to use for the outline.
-	 * @param fillCondition  The predicate to be consumed by {@link #fillImage(BufferedImage, Color, Predicate) fillImage(BufferedImage, Color, Predicate)}
-	 * @param outlineCorners Whether to draw an outline around corners, or only around edges.
-	 * @return               The BufferedImage with its edges--and optionally, corners--outlined
-	 * 	                     with the given color.
-	 */
-	public static BufferedImage outlineImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition, final Boolean outlineCorners)
-	{
-		final BufferedImage filledImage = fillImage(image, color, fillCondition);
+		final BufferedImage filledImage = fillImage(image, color);
 		final BufferedImage outlinedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
 		final Graphics2D g2d = outlinedImage.createGraphics();
@@ -383,6 +351,19 @@ public class ImageUtil
 		}
 		catch (IllegalArgumentException e)
 		{
+			final String filePath;
+
+			if (path.startsWith("/"))
+			{
+				filePath = path;
+			}
+			else
+			{
+				filePath = c.getPackage().getName().replace(".", "/") + "/" + path;
+			}
+
+			log.warn("Failed to load image from class: {}, path: {}", c.getName(), filePath);
+
 			throw new IllegalArgumentException(path, e);
 		}
 		catch (IOException e)
@@ -400,28 +381,13 @@ public class ImageUtil
 	 */
 	public static BufferedImage fillImage(final BufferedImage image, final Color color)
 	{
-		return fillImage(image, color, ColorUtil::isNotFullyTransparent);
-	}
-
-	/**
-	 * 	Fills pixels of the given image with the given color based on a given fill condition
-	 * 	predicate.
-	 *
-	 * @param image         The image which should have its non-transparent pixels filled.
-	 * @param color         The color with which to fill pixels.
-	 * @param fillCondition The condition on which to fill pixels with the given color.
-	 * @return              The given image with all pixels fulfilling the fill condition predicate
-	 *                      set to the given color.
-	 */
-	static BufferedImage fillImage(final BufferedImage image, final Color color, final Predicate<Color> fillCondition)
-	{
 		final BufferedImage filledImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		for (int x = 0; x < filledImage.getWidth(); x++)
 		{
 			for (int y = 0; y < filledImage.getHeight(); y++)
 			{
 				final Color pixelColor = new Color(image.getRGB(x, y), true);
-				if (!fillCondition.test(pixelColor))
+				if (pixelColor.getAlpha() == 0)
 				{
 					continue;
 				}
@@ -430,56 +396,6 @@ public class ImageUtil
 			}
 		}
 		return filledImage;
-	}
-
-	/**
-	 * Recolors pixels of the given image with the given color based on a given recolor condition
-	 * predicate.
-	 *
-	 * @param image            The image which should have its non-transparent pixels recolored.
-	 * @param color            The color with which to recolor pixels.
-	 * @param recolorCondition The condition on which to recolor pixels with the given color.
-	 * @return The given image with all pixels fulfilling the recolor condition predicate
-	 * set to the given color.
-	 */
-	public static BufferedImage recolorImage(final BufferedImage image, final Color color, final Predicate<Color> recolorCondition)
-	{
-		final BufferedImage recoloredImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-		for (int x = 0; x < recoloredImage.getWidth(); x++)
-		{
-			for (int y = 0; y < recoloredImage.getHeight(); y++)
-			{
-				final Color pixelColor = new Color(image.getRGB(x, y), true);
-				if (!recolorCondition.test(pixelColor))
-				{
-					recoloredImage.setRGB(x, y, image.getRGB(x, y));
-					continue;
-				}
-
-				recoloredImage.setRGB(x, y, color.getRGB());
-			}
-		}
-		return recoloredImage;
-	}
-
-	public static BufferedImage recolorImage(BufferedImage image, final Color color)
-	{
-		int width = image.getWidth();
-		int height = image.getHeight();
-		WritableRaster raster = image.getRaster();
-
-		for (int xx = 0; xx < width; xx++)
-		{
-			for (int yy = 0; yy < height; yy++)
-			{
-				int[] pixels = raster.getPixel(xx, yy, (int[]) null);
-				pixels[0] = color.getRed();
-				pixels[1] = color.getGreen();
-				pixels[2] = color.getBlue();
-				raster.setPixel(xx, yy, pixels);
-			}
-		}
-		return image;
 	}
 
 	/**
@@ -502,7 +418,7 @@ public class ImageUtil
 	 * @param client Current client instance
 	 * @return       The buffered image as a sprite image
 	 */
-	public static Sprite getImageSprite(BufferedImage image, Client client)
+	public static SpritePixels getImageSpritePixels(BufferedImage image, Client client)
 	{
 		int[] pixels = new int[image.getWidth() * image.getHeight()];
 
@@ -527,7 +443,7 @@ public class ImageUtil
 			log.debug("PixelGrabber was interrupted: ", ex);
 		}
 
-		return client.createSprite(pixels, image.getWidth(), image.getHeight());
+		return client.createSpritePixels(pixels, image.getWidth(), image.getHeight());
 	}
 
 	/**
@@ -598,135 +514,5 @@ public class ImageUtil
 		sprite.setOffsetY(0);
 
 		return sprite;
-	}
-
-	/**
-	 * Resize Sprite sprite to given width (newW) and height (newH)
-	 */
-	public static Sprite resizeSprite(final Client client, final Sprite sprite, int newW, int newH)
-	{
-		assert newW > 0 && newH > 0;
-
-		final int oldW = sprite.getWidth();
-		final int oldH = sprite.getHeight();
-
-		if (oldW == newW && oldH == newH)
-		{
-			return sprite;
-		}
-
-		final int[] canvas = new int[newW * newH];
-		final int[] pixels = sprite.getPixels();
-
-		final Sprite result = client.createSprite(canvas, newW, newH);
-
-		int pixelX = 0;
-		int pixelY = 0;
-
-		final int oldMaxW = sprite.getMaxWidth();
-		final int oldMaxH = sprite.getMaxHeight();
-
-		final int pixelW = (oldMaxW << 16) / newW;
-		final int pixelH = (oldMaxH << 16) / newH;
-
-		int xOffset = 0;
-		int yOffset = 0;
-
-		int canvasIdx;
-		if (sprite.getOffsetX() > 0)
-		{
-			canvasIdx = (pixelW + (sprite.getOffsetX() << 16) - 1) / pixelW;
-			xOffset += canvasIdx;
-			pixelX += canvasIdx * pixelW - (sprite.getOffsetX() << 16);
-		}
-
-		if (sprite.getOffsetY() > 0)
-		{
-			canvasIdx = (pixelH + (sprite.getOffsetY() << 16) - 1) / pixelH;
-			yOffset += canvasIdx;
-			pixelY += canvasIdx * pixelH - (sprite.getOffsetY() << 16);
-		}
-
-		if (oldW < oldMaxW)
-		{
-			newW = (pixelW + ((oldW << 16) - pixelX) - 1) / pixelW;
-		}
-
-		if (oldH < oldMaxH)
-		{
-			newH = (pixelH + ((oldH << 16) - pixelY) - 1) / pixelH;
-		}
-
-		canvasIdx = xOffset + yOffset * newW;
-		int canvasOffset = 0;
-		if (yOffset + newH > newH)
-		{
-			newH -= yOffset + newH - newH;
-		}
-
-		int tmp;
-		if (yOffset < 0)
-		{
-			tmp = -yOffset;
-			newH -= tmp;
-			canvasIdx += tmp * newW;
-			pixelY += pixelH * tmp;
-		}
-
-		if (newW + xOffset > newW)
-		{
-			tmp = newW + xOffset - newW;
-			newW -= tmp;
-			canvasOffset += tmp;
-		}
-
-		if (xOffset < 0)
-		{
-			tmp = -xOffset;
-			newW -= tmp;
-			canvasIdx += tmp;
-			pixelX += pixelW * tmp;
-			canvasOffset += tmp;
-		}
-
-		client.scaleSprite(canvas, pixels, 0, pixelX, pixelY, canvasIdx, canvasOffset, newW, newH, pixelW, pixelH, oldW);
-
-		return result;
-	}
-
-	/**
-	 * Draw fg centered on top of bg
-	 */
-	public static Sprite mergeSprites(final Client client, final Sprite bg, final Sprite fg)
-	{
-		assert fg.getHeight() <= bg.getHeight() && fg.getWidth() <= bg.getWidth() : "Background has to be larger than foreground";
-
-		final int[] canvas = Arrays.copyOf(bg.getPixels(), bg.getWidth() * bg.getHeight());
-		final Sprite result = client.createSprite(canvas, bg.getWidth(), bg.getHeight());
-
-		final int bgWid = bg.getWidth();
-		final int fgHgt = fg.getHeight();
-		final int fgWid = fg.getWidth();
-
-		final int xOffset = (bgWid - fgWid) / 2;
-		final int yOffset = (bg.getHeight() - fgHgt) / 2;
-
-		final int[] fgPixels = fg.getPixels();
-
-		for (int y1 = yOffset, y2 = 0; y2 < fgHgt; y1++, y2++)
-		{
-			int i1 = y1 * bgWid + xOffset;
-			int i2 = y2 * fgWid;
-
-			for (int x = 0; x < fgWid; x++, i1++, i2++)
-			{
-				if (fgPixels[i2] > 0)
-				{
-					canvas[i1] = fgPixels[i2];
-				}
-			}
-		}
-
-		return result;
 	}
 }

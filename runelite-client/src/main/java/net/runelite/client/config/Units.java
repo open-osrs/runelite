@@ -42,12 +42,8 @@ public @interface Units
 	String MINUTES = " mins";
 	String PERCENT = "%";
 	String PIXELS = "px";
-	String POINTS = "pt";
 	String SECONDS = "s";
 	String TICKS = " ticks";
-	String LEVELS = " lvls";
-	String FPS = " fps";
-	String GP = " GP";
 
 	String value();
 }

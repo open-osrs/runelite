@@ -36,7 +36,6 @@ import static net.runelite.client.game.HiscoreManager.NONE;
 import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreEndpoint;
 import net.runelite.http.api.hiscore.HiscoreResult;
-import org.jetbrains.annotations.NotNull;
 
 @Slf4j
 class HiscoreLoader extends CacheLoader<HiscoreManager.HiscoreKey, HiscoreResult>
@@ -51,7 +50,7 @@ class HiscoreLoader extends CacheLoader<HiscoreManager.HiscoreKey, HiscoreResult
 	}
 
 	@Override
-	public HiscoreResult load(@NotNull HiscoreManager.HiscoreKey hiscoreKey)
+	public HiscoreResult load(HiscoreManager.HiscoreKey hiscoreKey) throws Exception
 	{
 		return EMPTY;
 	}

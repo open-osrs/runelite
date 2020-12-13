@@ -24,7 +24,6 @@
  */
 package net.runelite.client.callback;
 
-import com.google.inject.Injector;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -40,31 +39,25 @@ import java.awt.image.VolatileImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.BufferProvider;
 import net.runelite.api.Client;
-import net.runelite.api.Entity;
 import net.runelite.api.MainBufferProvider;
 import net.runelite.api.NullItemID;
 import net.runelite.api.RenderOverview;
 import net.runelite.api.Skill;
 import net.runelite.api.WorldMapManager;
-import net.runelite.api.events.BeforeMenuRender;
 import net.runelite.api.events.BeforeRender;
-import net.runelite.api.events.Event;
 import net.runelite.api.events.FakeXpDrop;
 import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.hooks.Callbacks;
-import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetInfo.WORLD_MAP_VIEW;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.Notifier;
-import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.events.DrawFinished;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.task.Scheduler;
@@ -75,7 +68,6 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.DeferredEventBus;
-import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.RSTimeUnit;
 
 /**
@@ -89,19 +81,17 @@ public class Hooks implements Callbacks
 {
 	private static final long CHECK = RSTimeUnit.GAME_TICKS.getDuration().toNanos(); // ns - how often to run checks
 
-	private static final Injector injector = RuneLite.getInjector();
-	private static final Client client = injector.getInstance(Client.class);
-	public static final OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
-	private static final OverlayManager overlayManager = injector.getInstance(OverlayManager.class);
+	private static final GameTick GAME_TICK = new GameTick();
+	private static final BeforeRender BEFORE_RENDER = new BeforeRender();
 
-	private static final GameTick GAME_TICK = GameTick.INSTANCE;
-	private static final BeforeRender BEFORE_RENDER = BeforeRender.INSTANCE;
-	private static final DrawFinished drawFinishedEvent = new DrawFinished();
+	@Inject
+	private Client client;
 
-	private int mouseX = 0;
-	private int mouseY = 0;
-	private final Image cursor = ImageUtil.getResourceStreamFromClass(Hooks.class, "cursor.png");
+	@Inject
+	private OverlayRenderer renderer;
 
+	@Inject
+	private OverlayManager overlayManager;
 
 	@Inject
 	private EventBus eventBus;
@@ -145,7 +135,7 @@ public class Hooks implements Callbacks
 	private boolean shouldProcessGameTick;
 
 	private static MainBufferProvider lastMainBufferProvider;
-	public static Graphics2D lastGraphics;
+	private static Graphics2D lastGraphics;
 
 	/**
 	 * Get the Graphics2D for the MainBufferProvider image
@@ -170,15 +160,15 @@ public class Hooks implements Callbacks
 	}
 
 	@Override
-	public <T extends Event, E extends T> void post(Class<T> eventClass, E event)
+	public void post(Object event)
 	{
-		eventBus.post(eventClass, event);
+		eventBus.post(event);
 	}
 
 	@Override
-	public <T extends Event, E extends T> void postDeferred(Class<T> eventClass, E event)
+	public void postDeferred(Object event)
 	{
-		deferredEventBus.post(eventClass, event);
+		deferredEventBus.post(event);
 	}
 
 	@Override
@@ -190,13 +180,13 @@ public class Hooks implements Callbacks
 
 			deferredEventBus.replay();
 
-			eventBus.post(GameTick.class, GameTick.INSTANCE);
+			eventBus.post(GAME_TICK);
 
 			int tick = client.getTickCount();
 			client.setTickCount(tick + 1);
 		}
 
-		eventBus.post(BeforeRender.class, BeforeRender.INSTANCE);
+		eventBus.post(BEFORE_RENDER);
 
 		clientThread.invoke();
 
@@ -293,16 +283,12 @@ public class Hooks implements Callbacks
 	@Override
 	public MouseEvent mouseDragged(MouseEvent mouseEvent)
 	{
-		mouseX = mouseEvent.getX();
-		mouseY = mouseEvent.getY();
 		return mouseManager.processMouseDragged(mouseEvent);
 	}
 
 	@Override
 	public MouseEvent mouseMoved(MouseEvent mouseEvent)
 	{
-		mouseX = mouseEvent.getX();
-		mouseY = mouseEvent.getY();
 		return mouseManager.processMouseMoved(mouseEvent);
 	}
 
@@ -405,22 +391,6 @@ public class Hooks implements Callbacks
 			finalImage = image;
 		}
 
-		if (client.isMirrored())
-		{
-			drawFinishedEvent.image = copy(finalImage);
-			drawFinishedEvent.image.getGraphics().drawImage(cursor, mouseX, mouseY, null);
-			eventBus.post(DrawFinished.class, drawFinishedEvent);
-		}
-
-		try
-		{
-			renderer.render((Graphics2D)finalImage.getGraphics(), OverlayLayer.AFTER_MIRROR);
-		}
-		catch (Exception ex)
-		{
-			log.warn("Error during post-mirror rendering", ex);
-		}
-
 		// Draw the image onto the game canvas
 		graphics.drawImage(finalImage, 0, 0, client.getCanvas());
 
@@ -431,6 +401,8 @@ public class Hooks implements Callbacks
 
 	/**
 	 * Copy an image
+	 * @param src
+	 * @return
 	 */
 	private static Image copy(Image src)
 	{
@@ -475,7 +447,8 @@ public class Hooks implements Callbacks
 		}
 	}
 
-	public static void drawAfterWidgets()
+	@Override
+	public void drawAfterWidgets()
 	{
 		MainBufferProvider bufferProvider = (MainBufferProvider) client.getBufferProvider();
 		Graphics2D graphics2d = getGraphics(bufferProvider);
@@ -495,6 +468,7 @@ public class Hooks implements Callbacks
 		overlayManager.getItemWidgets().clear();
 	}
 
+	@Subscribe
 	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
 		switch (gameStateChanged.getGameState())
@@ -530,38 +504,6 @@ public class Hooks implements Callbacks
 		deferredEventBus.replay();
 	}
 
-	public static void renderDraw(Entity entity, int orientation, int pitchSin, int pitchCos, int yawSin, int yawCos, int x, int y, int z, long hash)
-	{
-		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
-		if (drawCallbacks != null)
-		{
-			drawCallbacks.draw(entity, orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash);
-		}
-		else
-		{
-			entity.draw(orientation, pitchSin, pitchCos, yawSin, yawCos, x, y, z, hash);
-		}
-	}
-
-	public static void clearColorBuffer(int x, int y, int width, int height, int color)
-	{
-		BufferProvider bp = client.getBufferProvider();
-		int canvasWidth = bp.getWidth();
-		int[] pixels = bp.getPixels();
-
-		int pixelPos = y * canvasWidth + x;
-		int pixelJump = canvasWidth - width;
-
-		for (int cy = y; cy < y + height; cy++)
-		{
-			for (int cx = x; cx < x + width; cx++)
-			{
-				pixels[pixelPos++] = 0;
-			}
-			pixelPos += pixelJump;
-		}
-	}
-
 	@Override
 	public void drawItem(int itemId, WidgetItem widgetItem)
 	{
@@ -572,13 +514,7 @@ public class Hooks implements Callbacks
 		}
 	}
 
-	public static boolean drawMenu()
-	{
-		BeforeMenuRender event = new BeforeMenuRender();
-		client.getCallbacks().post(BeforeMenuRender.class, event);
-		return event.isConsumed();
-	}
-
+	@Subscribe
 	public void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
 	{
 		if (!scriptCallbackEvent.getEventName().equals("fakeXpDrop"))
@@ -597,6 +533,6 @@ public class Hooks implements Callbacks
 			skill,
 			xp
 		);
-		eventBus.post(FakeXpDrop.class, fakeXpDrop);
+		eventBus.post(fakeXpDrop);
 	}
 }

@@ -50,9 +50,4 @@ public enum OverlayLayer
 	 * Render over the map, even when it's fullscreen
 	 */
 	ABOVE_MAP,
-
-	/**
-	 * Render overlay after mirror is produced
-	 */
-	AFTER_MIRROR,
 }

@@ -24,8 +24,10 @@
  */
 package net.runelite.client.chat;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import java.awt.Color;
 import java.util.Arrays;
@@ -44,20 +46,20 @@ import net.runelite.api.MessageNode;
 import net.runelite.api.Player;
 import net.runelite.api.Varbits;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.api.events.ResizeableChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ChatColorConfig;
-import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
 public class ChatMessageManager
 {
-	private static final Set<Integer> TUTORIAL_ISLAND_REGIONS = Set.of(12336, 12335, 12592, 12080, 12079, 12436);
+	private static final Set<Integer> TUTORIAL_ISLAND_REGIONS = ImmutableSet.of(12336, 12335, 12592, 12080, 12079, 12436);
 
 	private final Multimap<ChatMessageType, ChatColor> colorCache = HashMultimap.create();
 	private final Client client;
@@ -68,23 +70,17 @@ public class ChatMessageManager
 
 	@Inject
 	private ChatMessageManager(
-		final Client client,
-		final ChatColorConfig chatColorConfig,
-		final ClientThread clientThread,
-		final EventBus eventbus)
+		Client client,
+		ChatColorConfig chatColorConfig,
+		ClientThread clientThread)
 	{
 		this.client = client;
 		this.chatColorConfig = chatColorConfig;
 		this.clientThread = clientThread;
-
-		eventbus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-		eventbus.subscribe(ResizeableChanged.class, this, this::onResizeableChanged);
-		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventbus.subscribe(ChatMessage.class, this, this::onChatMessage);
-		eventbus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
 	}
 
-	private void onVarbitChanged(VarbitChanged event)
+	@Subscribe
+	public void onVarbitChanged(VarbitChanged event)
 	{
 		int setting = client.getVar(Varbits.TRANSPARENT_CHATBOX);
 
@@ -95,12 +91,14 @@ public class ChatMessageManager
 		}
 	}
 
-	private void onResizeableChanged(ResizeableChanged event)
+	@Subscribe
+	public void onResizeableChanged(ResizeableChanged event)
 	{
 		refreshAll();
 	}
 
-	private void onConfigChanged(ConfigChanged event)
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals("textrecolor"))
 		{
@@ -109,7 +107,8 @@ public class ChatMessageManager
 		}
 	}
 
-	void onChatMessage(ChatMessage chatMessage)
+	@Subscribe(priority = -1) // run after all plugins
+	public void onChatMessage(ChatMessage chatMessage)
 	{
 		MessageNode messageNode = chatMessage.getMessageNode();
 		ChatMessageType chatMessageType = chatMessage.getType();
@@ -174,7 +173,8 @@ public class ChatMessageManager
 		}
 	}
 
-	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
+	@Subscribe
+	public void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
 	{
 		final String eventName = scriptCallbackEvent.getEventName();
 
@@ -571,17 +571,11 @@ public class ChatMessageManager
 			return;
 		}
 
-		//guard case for google MoreObjects#firstNonNull
-		if (message.getValue() == null && message.getRuneLiteFormattedMessage() == null)
-		{
-			return;
-		}
-
 		// this updates chat cycle
 		client.addChatMessage(
 			message.getType(),
-			Objects.requireNonNullElse(message.getName(), ""),
-			Objects.requireNonNullElse(message.getValue(), message.getRuneLiteFormattedMessage()),
+			MoreObjects.firstNonNull(message.getName(), ""),
+			MoreObjects.firstNonNull(message.getValue(), message.getRuneLiteFormattedMessage()),
 			message.getSender());
 
 		// Get last message from line buffer (the one we just added)
@@ -591,7 +585,7 @@ public class ChatMessageManager
 
 		// Update the message with RuneLite additions
 		line.setRuneLiteFormatMessage(message.getRuneLiteFormattedMessage());
-
+		
 		if (message.getTimestamp() != 0)
 		{
 			line.setTimestamp(message.getTimestamp());

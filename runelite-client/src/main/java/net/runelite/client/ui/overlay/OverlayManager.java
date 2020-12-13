@@ -33,20 +33,19 @@ import java.util.Comparator;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Predicate;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.AccessLevel;
 import lombok.Getter;
-import net.runelite.api.MenuOpcode;
+import net.runelite.api.MenuAction;
 import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.OverlayMenuClicked;
 import net.runelite.client.events.PluginChanged;
@@ -113,12 +112,9 @@ public class OverlayManager
 		this.configManager = configManager;
 		this.eventBus = eventBus;
 		this.runeLiteConfig = runeLiteConfig;
-
-		eventBus.subscribe(PluginChanged.class, this, this::onPluginChanged);
-		eventBus.subscribe(MenuOptionClicked.class, this, this::onMenuOptionClicked);
-		eventBus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
 	}
 
+	@Subscribe
 	public void onConfigChanged(final ConfigChanged event)
 	{
 		if (!RuneLiteConfig.GROUP_NAME.equals(event.getGroup()) || !"overlayBackgroundColor".equals(event.getKey()))
@@ -129,30 +125,36 @@ public class OverlayManager
 		overlays.forEach(this::updateOverlayConfig);
 	}
 
-	private void onPluginChanged(final PluginChanged event)
+	@Subscribe
+	public void onPluginChanged(final PluginChanged event)
 	{
 		overlays.forEach(this::loadOverlay);
 		rebuildOverlayLayers();
 	}
 
-	private void onMenuOptionClicked(MenuOptionClicked event)
+	@Subscribe
+	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		MenuOpcode menuOpcode = event.getMenuOpcode();
-		if (menuOpcode != MenuOpcode.RUNELITE_OVERLAY && menuOpcode != MenuOpcode.RUNELITE_OVERLAY_CONFIG)
+		MenuAction menuAction = event.getMenuAction();
+		if (menuAction != MenuAction.RUNELITE_OVERLAY && menuAction != MenuAction.RUNELITE_OVERLAY_CONFIG)
 		{
 			return;
 		}
 
 		event.consume();
 
-		Overlay overlay = overlays.get(event.getIdentifier());
+		Overlay overlay = overlays.get(event.getId());
 		if (overlay != null)
 		{
 			List<OverlayMenuEntry> menuEntries = overlay.getMenuEntries();
-			Optional<OverlayMenuEntry> optionalOverlayMenuEntry = menuEntries.stream()
-				.filter(me -> me.getOption().equals(event.getOption()))
-				.findAny();
-			optionalOverlayMenuEntry.ifPresent(overlayMenuEntry -> eventBus.post(OverlayMenuClicked.class, new OverlayMenuClicked(overlayMenuEntry, overlay)));
+			OverlayMenuEntry overlayMenuEntry = menuEntries.stream()
+				.filter(me -> me.getOption().equals(event.getMenuOption()))
+				.findAny()
+				.orElse(null);
+			if (overlayMenuEntry != null)
+			{
+				eventBus.post(new OverlayMenuClicked(overlayMenuEntry, overlay));
+			}
 		}
 	}
 
@@ -398,22 +400,5 @@ public class OverlayManager
 	{
 		final String locationKey = overlay.getName() + OVERLAY_CONFIG_PREFERRED_POSITION;
 		return configManager.getConfiguration(RUNELITE_CONFIG_GROUP_NAME, locationKey, OverlayPosition.class);
-	}
-
-	public WidgetOverlay getWidgetOverlay(final WidgetInfo info)
-	{
-		for (Overlay o : overlays)
-		{
-			if (o instanceof WidgetOverlay)
-			{
-				WidgetOverlay overlay = (WidgetOverlay) o;
-				if (overlay.getWidgetInfo().equals(info))
-				{
-					return overlay;
-				}
-			}
-		}
-
-		return null;
 	}
 }

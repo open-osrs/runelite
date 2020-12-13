@@ -34,23 +34,23 @@ public class WildcardMatcher
 	public static boolean matches(String pattern, String text)
 	{
 		final Matcher matcher = WILDCARD_PATTERN.matcher(pattern);
-		final StringBuilder sb = new StringBuilder();
+		final StringBuffer buffer = new StringBuffer();
 
-		sb.append("(?i)");
+		buffer.append("(?i)");
 		while (matcher.find())
 		{
 			if (matcher.group(1) != null)
 			{
-				matcher.appendReplacement(sb, ".*");
+				matcher.appendReplacement(buffer, ".*");
 			}
 			else
 			{
-				matcher.appendReplacement(sb, Matcher.quoteReplacement(Pattern.quote(matcher.group(0))));
+				matcher.appendReplacement(buffer, Matcher.quoteReplacement(Pattern.quote(matcher.group(0))));
 			}
 		}
 
-		matcher.appendTail(sb);
-		final String replaced = sb.toString();
+		matcher.appendTail(buffer);
+		final String replaced = buffer.toString();
 
 		return text.matches(replaced);
 	}

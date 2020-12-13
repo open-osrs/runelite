@@ -26,11 +26,11 @@ package net.runelite.client.config;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.client.util.ReflectUtil;
 
 @Slf4j
 class ConfigInvocationHandler implements InvocationHandler
@@ -100,7 +100,7 @@ class ConfigInvocationHandler implements InvocationHandler
 
 			// Convert value to return type
 			Class<?> returnType = method.getReturnType();
-
+			
 			try
 			{
 				Object objectValue = ConfigManager.stringToObject(value, returnType);
@@ -112,11 +112,7 @@ class ConfigInvocationHandler implements InvocationHandler
 				log.warn("Unable to unmarshal {}.{} ", group.value(), item.keyName(), e);
 				if (method.isDefault())
 				{
-					Object defaultValue = callDefaultMethod(proxy, method, null);
-
-					manager.setConfiguration(group.value(), item.keyName(), defaultValue);
-
-					return defaultValue;
+					return callDefaultMethod(proxy, method, null);
 				}
 				return null;
 			}
@@ -127,7 +123,7 @@ class ConfigInvocationHandler implements InvocationHandler
 
 			if (args.length != 1)
 			{
-				throw new RuntimeException("Invalid number of arguents to configuration method");
+				throw new RuntimeException("Invalid number of arguments to configuration method");
 			}
 
 			Object newValue = args[0];
@@ -169,7 +165,7 @@ class ConfigInvocationHandler implements InvocationHandler
 	static Object callDefaultMethod(Object proxy, Method method, Object[] args) throws Throwable
 	{
 		Class<?> declaringClass = method.getDeclaringClass();
-		return MethodHandles.privateLookupIn(declaringClass, MethodHandles.lookup())
+		return ReflectUtil.privateLookupIn(declaringClass)
 			.unreflectSpecial(method, declaringClass)
 			.bindTo(proxy)
 			.invokeWithArguments(args);

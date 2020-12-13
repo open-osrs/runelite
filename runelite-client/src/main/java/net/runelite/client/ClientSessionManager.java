@@ -24,88 +24,114 @@
  */
 package net.runelite.client;
 
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import java.time.temporal.ChronoUnit;
+import java.io.IOException;
 import java.util.UUID;
-import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.eventbus.EventBus;
+import net.runelite.api.Client;
+import net.runelite.api.GameState;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ClientShutdown;
-import net.runelite.client.task.Schedule;
+import net.runelite.client.util.RunnableExceptionLogger;
 import okhttp3.OkHttpClient;
 
 @Singleton
 @Slf4j
 public class ClientSessionManager
 {
+	private final ScheduledExecutorService executorService;
+	private final Client client;
 	private final SessionClient sessionClient;
+
+	private ScheduledFuture<?> scheduledFuture;
 	private UUID sessionId;
 
-
 	@Inject
-	ClientSessionManager(EventBus eventBus,
+	ClientSessionManager(ScheduledExecutorService executorService,
+		@Nullable Client client,
 		OkHttpClient okHttpClient)
 	{
+		this.executorService = executorService;
+		this.client = client;
 		this.sessionClient = new SessionClient(okHttpClient);
+	}
 
-		eventBus.subscribe(ClientShutdown.class, this, (e) ->
+	public void start()
+	{
+		try
 		{
-			Future<Void> f = shutdown();
-			if (f != null)
+			sessionId = sessionClient.open();
+			log.debug("Opened session {}", sessionId);
+		}
+		catch (IOException ex)
+		{
+			log.warn("error opening session", ex);
+		}
+
+		scheduledFuture = executorService.scheduleWithFixedDelay(RunnableExceptionLogger.wrap(this::ping), 1, 10, TimeUnit.MINUTES);
+	}
+
+	@Subscribe
+	private void onClientShutdown(ClientShutdown e)
+	{
+		scheduledFuture.cancel(true);
+
+		e.waitFor(executorService.submit(() ->
+		{
+			try
 			{
-				e.waitFor(f);
+				UUID localUuid = sessionId;
+				if (localUuid != null)
+				{
+					sessionClient.delete(localUuid);
+				}
+			}
+			catch (IOException ex)
+			{
+				log.warn(null, ex);
 			}
 			sessionId = null;
-		});
+		}));
 	}
 
-	void start()
+	private void ping()
 	{
-		sessionClient.openSession()
-			.subscribeOn(Schedulers.io())
-			.observeOn(Schedulers.single())
-			.doOnError(this::error)
-			.subscribe(this::setUuid);
-	}
-
-	@Schedule(period = 10, unit = ChronoUnit.MINUTES, asynchronous = true)
-	public void ping()
-	{
-		if (sessionId == null)
+		try
 		{
-			start();
+			if (sessionId == null)
+			{
+				sessionId = sessionClient.open();
+				log.debug("Opened session {}", sessionId);
+				return;
+			}
+		}
+		catch (IOException ex)
+		{
+			log.warn("unable to open session", ex);
 			return;
 		}
 
-		sessionClient.pingSession(sessionId)
-			.subscribeOn(Schedulers.io())
-			.observeOn(Schedulers.single())
-			.doOnError(this::error)
-			.subscribe();
-	}
-
-	private Future<Void> shutdown()
-	{
-		if (sessionId != null)
+		boolean loggedIn = false;
+		if (client != null)
 		{
-			return sessionClient.delete(sessionId)
-				.toFuture();
-
+			GameState gameState = client.getGameState();
+			loggedIn = gameState.getState() >= GameState.LOADING.getState();
 		}
-		return null;
-	}
 
-	private void setUuid(UUID uuid)
-	{
-		this.sessionId = uuid;
-		log.debug("Opened session {}.", sessionId);
-	}
+		try
+		{
+			sessionClient.ping(sessionId, loggedIn);
+		}
+		catch (IOException ex)
+		{
+			log.warn("Resetting session", ex);
+			sessionId = null;
+		}
 
-	private void error(Throwable error)
-	{
-		log.debug("Error in client session.");
-		log.trace(null, error);
 	}
 }

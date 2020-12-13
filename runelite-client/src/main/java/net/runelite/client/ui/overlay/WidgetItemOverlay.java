@@ -69,7 +69,7 @@ public abstract class WidgetItemOverlay extends Overlay
 		super.setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
 
-	protected abstract void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget);
+	public abstract void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem itemWidget);
 
 	@Override
 	public Dimension render(Graphics2D graphics)

@@ -46,7 +46,7 @@ import org.pushingpixels.substance.api.painter.overlay.TopLineOverlayPainter;
 import org.pushingpixels.substance.api.shaper.ClassicButtonShaper;
 import org.pushingpixels.substance.internal.utils.SubstanceColorUtilities;
 
-class ObsidianSkin extends SubstanceSkin
+public class ObsidianSkin extends SubstanceSkin
 {
 	/**
 	 * Display name for <code>this</code> skin.
@@ -65,11 +65,10 @@ class ObsidianSkin extends SubstanceSkin
 
 		final SubstanceColorSchemeBundle defaultSchemeBundle = new SubstanceColorSchemeBundle(
 			activeScheme, enabledScheme, enabledScheme);
-
-		defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_SELECTED);
-		defaultSchemeBundle.registerColorScheme(activeScheme, ComponentState.DISABLED_SELECTED);
+		defaultSchemeBundle.registerColorScheme(enabledScheme, 0.6f,
+			ComponentState.DISABLED_UNSELECTED);
+		defaultSchemeBundle.registerColorScheme(activeScheme, 0.6f,
+			ComponentState.DISABLED_SELECTED);
 
 		// borders
 		final SubstanceColorScheme borderDisabledSelectedScheme = schemes
@@ -83,8 +82,7 @@ class ObsidianSkin extends SubstanceSkin
 		final SubstanceColorScheme markActiveScheme = schemes.get("RuneLite Mark Active");
 		defaultSchemeBundle.registerColorScheme(markActiveScheme, ColorSchemeAssociationKind.MARK,
 			ComponentState.getActiveStates());
-		defaultSchemeBundle.registerAlpha(0.6f, ComponentState.DISABLED_SELECTED, ComponentState.DISABLED_UNSELECTED);
-		defaultSchemeBundle.registerColorScheme(markActiveScheme,
+		defaultSchemeBundle.registerColorScheme(markActiveScheme, 0.6f,
 			ColorSchemeAssociationKind.MARK, ComponentState.DISABLED_SELECTED,
 			ComponentState.DISABLED_UNSELECTED);
 
@@ -104,8 +102,8 @@ class ObsidianSkin extends SubstanceSkin
 
 		final SubstanceColorSchemeBundle decorationsSchemeBundle = new SubstanceColorSchemeBundle(
 			activeScheme, enabledScheme, enabledScheme);
-		decorationsSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
-		decorationsSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
+		decorationsSchemeBundle.registerColorScheme(enabledScheme, 0.5f,
+			ComponentState.DISABLED_UNSELECTED);
 
 		// borders
 		decorationsSchemeBundle.registerColorScheme(borderDisabledSelectedScheme,
@@ -131,8 +129,8 @@ class ObsidianSkin extends SubstanceSkin
 
 		final SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
 			enabledScheme, enabledScheme);
-		headerSchemeBundle.registerAlpha(0.5f, ComponentState.DISABLED_UNSELECTED);
-		headerSchemeBundle.registerColorScheme(enabledScheme, ComponentState.DISABLED_UNSELECTED);
+		headerSchemeBundle.registerColorScheme(enabledScheme, 0.5f,
+			ComponentState.DISABLED_UNSELECTED);
 
 		// borders
 		final SubstanceColorScheme headerBorderScheme = schemes.get("RuneLite Header Border");
@@ -144,15 +142,13 @@ class ObsidianSkin extends SubstanceSkin
 		headerSchemeBundle.registerColorScheme(markActiveScheme, ColorSchemeAssociationKind.MARK,
 			ComponentState.getActiveStates());
 
-		headerSchemeBundle.registerAlpha(0.7f, ComponentState.ROLLOVER_UNSELECTED,
-			ComponentState.ROLLOVER_ARMED, ComponentState.ARMED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme,
+		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.7f,
 			ComponentState.ROLLOVER_UNSELECTED, ComponentState.ROLLOVER_ARMED,
 			ComponentState.ARMED);
-		headerSchemeBundle.registerAlpha(0.8f, ComponentState.SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.SELECTED);
-		headerSchemeBundle.registerAlpha(1.0f, ComponentState.ROLLOVER_SELECTED);
-		headerSchemeBundle.registerHighlightColorScheme(activeScheme, ComponentState.ROLLOVER_SELECTED);
+		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 0.8f,
+			ComponentState.SELECTED);
+		headerSchemeBundle.registerHighlightColorScheme(activeScheme, 1.0f,
+			ComponentState.ROLLOVER_SELECTED);
 
 		final SubstanceColorScheme headerWatermarkScheme = schemes.get("RuneLite Header Watermark");
 

@@ -31,13 +31,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.events.Event;
 
 @Value
 @Slf4j
-public class ClientShutdown implements Event
+public class ClientShutdown
 {
-	Queue<Future<?>> tasks = new ConcurrentLinkedQueue<>();
+	private Queue<Future<?>> tasks = new ConcurrentLinkedQueue<>();
 
 	public void waitFor(Future<?> future)
 	{

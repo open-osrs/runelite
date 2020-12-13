@@ -24,6 +24,7 @@
  */
 package net.runelite.client;
 
+import com.google.common.base.Strings;
 import com.google.common.escape.Escaper;
 import com.google.common.escape.Escapers;
 import com.google.inject.Inject;
@@ -113,7 +114,7 @@ public class Notifier
 	private final ChatMessageManager chatMessageManager;
 	private final EventBus eventBus;
 	private final Path notifyIconPath;
-	private final boolean terminalNotifierAvailable;
+	private boolean terminalNotifierAvailable;
 	private Instant flashStart;
 	private long mouseLastPressedMillis;
 	private long lastClipMTime = CLIP_MTIME_UNLOADED;
@@ -137,7 +138,10 @@ public class Notifier
 		this.notifyIconPath = RuneLite.RUNELITE_DIR.toPath().resolve("icon.png");
 
 		// First check if we are running in launcher
-		this.terminalNotifierAvailable = true;
+		if (!Strings.isNullOrEmpty(RuneLiteProperties.getLauncherVersion()) && OSType.getOSType() == OSType.MacOS)
+		{
+			executorService.execute(() -> terminalNotifierAvailable = isTerminalNotifierAvailable());
+		}
 
 		storeIcon();
 	}
@@ -149,7 +153,7 @@ public class Notifier
 
 	public void notify(String message, TrayIcon.MessageType type)
 	{
-		eventBus.post(NotificationFired.class, new NotificationFired(message, type));
+		eventBus.post(new NotificationFired(message, type));
 
 		if (!runeLiteConfig.sendNotificationsWhenFocused() && clientUI.isFocused())
 		{
@@ -364,7 +368,7 @@ public class Notifier
 
 	private static Process sendCommand(final List<String> commands) throws IOException
 	{
-		return new ProcessBuilder(commands.toArray(new String[0]))
+		return new ProcessBuilder(commands.toArray(new String[commands.size()]))
 			.redirectErrorStream(true)
 			.start();
 	}
@@ -373,7 +377,7 @@ public class Notifier
 	{
 		if (OSType.getOSType() == OSType.Linux && !Files.exists(notifyIconPath))
 		{
-			try (InputStream stream = Notifier.class.getResourceAsStream("/openosrs.png"))
+			try (InputStream stream = Notifier.class.getResourceAsStream("/runelite.png"))
 			{
 				Files.copy(stream, notifyIconPath);
 			}
@@ -386,21 +390,19 @@ public class Notifier
 
 	private boolean isTerminalNotifierAvailable()
 	{
-		if (OSType.getOSType() == OSType.MacOS)
+		try
 		{
-			try
-			{
-				final Process exec = Runtime.getRuntime().exec(new String[]{"terminal-notifier", "-help"});
-				exec.waitFor();
-				return exec.exitValue() == 0;
-			}
-			catch (IOException | InterruptedException e)
+			final Process exec = Runtime.getRuntime().exec(new String[]{"terminal-notifier", "-help"});
+			if (!exec.waitFor(2, TimeUnit.SECONDS))
 			{
 				return false;
 			}
+			return exec.exitValue() == 0;
 		}
-
-		return false;
+		catch (IOException | InterruptedException e)
+		{
+			return false;
+		}
 	}
 
 	private static String toUrgency(TrayIcon.MessageType type)

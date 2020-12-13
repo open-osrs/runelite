@@ -66,7 +66,7 @@ public abstract class Overlay implements LayoutableRenderableEntity
 		plugin = null;
 	}
 
-	protected Overlay(@Nullable Plugin plugin)
+	protected Overlay(Plugin plugin)
 	{
 		this.plugin = plugin;
 	}
@@ -80,7 +80,7 @@ public abstract class Overlay implements LayoutableRenderableEntity
 	{
 		return this.getClass().getSimpleName();
 	}
-	
+
 	public void onMouseOver()
 	{
 	}
@@ -96,5 +96,16 @@ public abstract class Overlay implements LayoutableRenderableEntity
 	public boolean onDrag(Overlay other)
 	{
 		return false;
+	}
+
+	/**
+	 * Get the parent bounds for overlay dragging. The overlay will
+	 * not be allowed to be moved outside of the parent bounds.
+	 * @return
+	 */
+	@Nullable
+	public Rectangle getParentBounds()
+	{
+		return null;
 	}
 }
