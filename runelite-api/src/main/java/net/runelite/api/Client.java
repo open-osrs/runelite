@@ -386,7 +386,7 @@ public interface Client extends GameShell
 	 * @see ItemID
 	 */
 	@Nonnull
-	ItemDefinition getItemDefinition(int id);
+	ItemComposition getItemDefinition(int id);
 
 	/**
 	 * Creates an item icon sprite with passed variables.

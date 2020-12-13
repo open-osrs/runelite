@@ -51,7 +51,7 @@ import net.runelite.api.IndexDataBase;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.IntegerNode;
 import net.runelite.api.InventoryID;
-import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemComposition;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuAction;
 import static net.runelite.api.MenuAction.PLAYER_EIGTH_OPTION;
@@ -1934,7 +1934,7 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	@Override
 	@Nonnull
-	public ItemDefinition getItemDefinition(int id)
+	public ItemComposition getItemDefinition(int id)
 	{
 		assert this.isClientThread() : "getItemDefinition must be called on client thread";
 		return getRSItemDefinition(id);

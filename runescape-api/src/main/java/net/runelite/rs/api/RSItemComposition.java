@@ -1,9 +1,9 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemComposition;
 import net.runelite.mapping.Import;
 
-public interface RSItemDefinition extends ItemDefinition
+public interface RSItemComposition extends ItemComposition
 {
 	@Import("name")
 	@Override

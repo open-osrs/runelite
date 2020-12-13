@@ -402,7 +402,7 @@ public interface RSClient extends RSGameShell, Client
 	RSNodeHashTable getItemContainers();
 
 	@Import("ItemDefinition_get")
-	RSItemDefinition getRSItemDefinition(int itemId);
+	RSItemComposition getRSItemDefinition(int itemId);
 
 	@Import("getItemSprite")
 	RSSpritePixels createRSItemSprite(int itemId, int quantity, int thickness, int borderColor, int stackable, boolean noted);

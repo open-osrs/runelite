@@ -8,11 +8,11 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSItemDefinition;
+import net.runelite.rs.api.RSItemComposition;
 import net.runelite.rs.api.RSModel;
 
-@Mixin(RSItemDefinition.class)
-public abstract class RSItemDefinitionMixin implements RSItemDefinition
+@Mixin(RSItemComposition.class)
+public abstract class RSItemCompositionMixin implements RSItemComposition
 {
 	private static final int DEFAULT_CUSTOM_SHIFT_CLICK_INDEX = -2;
 
@@ -33,7 +33,7 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 	}
 
 	@Inject
-	RSItemDefinitionMixin()
+	RSItemCompositionMixin()
 	{
 	}
 
@@ -70,7 +70,7 @@ public abstract class RSItemDefinitionMixin implements RSItemDefinition
 	public void post()
 	{
 		final PostItemDefinition event = new PostItemDefinition();
-		event.setItemDefinition(this);
+		event.setItemComposition(this);
 		client.getCallbacks().post(PostItemDefinition.class, event);
 	}
 

@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 /**
  * Represents the template of a specific item type.
  */
-public interface ItemDefinition
+public interface ItemComposition
 {
 	/**
 	 * Gets the items name.
