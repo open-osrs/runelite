@@ -11,10 +11,10 @@ import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSNPCDefinition;
+import net.runelite.rs.api.RSNPCComposition;
 
-@Mixin(RSNPCDefinition.class)
-public abstract class RSNPCDefinitionMixin implements RSNPCDefinition
+@Mixin(RSNPCComposition.class)
+public abstract class RSNPCCompositionMixin implements RSNPCComposition
 {
 	@Shadow("client")
 	private static RSClient client;
@@ -43,7 +43,7 @@ public abstract class RSNPCDefinitionMixin implements RSNPCDefinition
 	public void actionsHook(int idx)
 	{
 		NpcActionChanged npcActionChanged = new NpcActionChanged();
-		npcActionChanged.setNpcDefinition(this);
+		npcActionChanged.setNpcComposition(this);
 		npcActionChanged.setIdx(idx);
 		client.getCallbacks().post(NpcActionChanged.class, npcActionChanged);
 	}

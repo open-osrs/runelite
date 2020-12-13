@@ -341,7 +341,7 @@ public interface RSClient extends RSGameShell, Client
 	RSObjectDefinition getRSObjectDefinition(int objectId);
 
 	@Import("getNpcDefinition")
-	RSNPCDefinition getRSNpcDefinition(int npcId);
+	RSNPCComposition getRSNpcDefinition(int npcId);
 
 	@Import("viewportZoom")
 	@Override

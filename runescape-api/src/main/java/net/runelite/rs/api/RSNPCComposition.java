@@ -1,9 +1,9 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.NPCDefinition;
+import net.runelite.api.NPCComposition;
 import net.runelite.mapping.Import;
 
-public interface RSNPCDefinition extends NPCDefinition
+public interface RSNPCComposition extends NPCComposition
 {
 	@Import("name")
 	@Override
@@ -51,7 +51,7 @@ public interface RSNPCDefinition extends NPCDefinition
 
 	@Import("transform")
 	@Override
-	RSNPCDefinition transform();
+	RSNPCComposition transform();
 
 	@Import("size")
 	@Override

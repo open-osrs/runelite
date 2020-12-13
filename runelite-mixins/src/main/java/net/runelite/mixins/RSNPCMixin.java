@@ -26,7 +26,7 @@ package net.runelite.mixins;
 
 import java.awt.Shape;
 import net.runelite.api.AnimationID;
-import net.runelite.api.NPCDefinition;
+import net.runelite.api.NPCComposition;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.NpcDefinitionChanged;
@@ -40,7 +40,7 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSNPC;
-import net.runelite.rs.api.RSNPCDefinition;
+import net.runelite.rs.api.RSNPCComposition;
 
 @Mixin(RSNPC.class)
 public abstract class RSNPCMixin implements RSNPC
@@ -55,7 +55,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public int getId()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getDefinition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -67,7 +67,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public String getName()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getDefinition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -79,7 +79,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public int getCombatLevel()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getDefinition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -103,7 +103,7 @@ public abstract class RSNPCMixin implements RSNPC
 
 	@FieldHook(value = "definition", before = true)
 	@Inject
-	public void onDefinitionChanged(RSNPCDefinition composition)
+	public void onDefinitionChanged(RSNPCComposition composition)
 	{
 		if (composition == null)
 		{
@@ -148,9 +148,9 @@ public abstract class RSNPCMixin implements RSNPC
 
 	@Inject
 	@Override
-	public NPCDefinition getTransformedDefinition()
+	public NPCComposition getTransformedDefinition()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getDefinition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();

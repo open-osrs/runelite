@@ -27,7 +27,7 @@ package net.runelite.api;
 /**
  * Information about a specific {@link NpcID}
  */
-public interface NPCDefinition
+public interface NPCComposition
 {
 	/**
 	 * Gets the name of the NPC.
@@ -87,7 +87,7 @@ public interface NPCDefinition
 	 *
 	 * @throws NullPointerException if {@link #getConfigs()} is null
 	 */
-	NPCDefinition transform();
+	NPCComposition transform();
 
 	/**
 	 * How many tiles wide this NPC is

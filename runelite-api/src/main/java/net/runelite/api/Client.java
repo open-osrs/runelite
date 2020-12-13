@@ -941,7 +941,7 @@ public interface Client extends GameShell
 	 * @return the corresponding NPC composition
 	 * @see NpcID
 	 */
-	NPCDefinition getNpcDefinition(int npcId);
+	NPCComposition getNpcDefinition(int npcId);
 
 	/**
 	 * Gets an array of all world areas

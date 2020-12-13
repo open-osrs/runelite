@@ -64,7 +64,7 @@ import static net.runelite.api.MenuAction.PLAYER_SIXTH_OPTION;
 import static net.runelite.api.MenuAction.PLAYER_THIRD_OPTION;
 import net.runelite.api.MessageNode;
 import net.runelite.api.NPC;
-import net.runelite.api.NPCDefinition;
+import net.runelite.api.NPCComposition;
 import net.runelite.api.NameableContainer;
 import net.runelite.api.Node;
 import net.runelite.api.ObjectDefinition;
@@ -1942,7 +1942,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public NPCDefinition getNpcDefinition(int id)
+	public NPCComposition getNpcDefinition(int id)
 	{
 		assert this.isClientThread() : "getNpcDefinition must be called on client thread";
 		return getRSNpcDefinition(id);

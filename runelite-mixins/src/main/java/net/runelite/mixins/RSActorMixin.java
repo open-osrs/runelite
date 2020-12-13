@@ -27,7 +27,7 @@ package net.runelite.mixins;
 import net.runelite.api.Actor;
 import net.runelite.api.Hitsplat;
 import net.runelite.api.NPC;
-import net.runelite.api.NPCDefinition;
+import net.runelite.api.NPCComposition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
@@ -229,7 +229,7 @@ public abstract class RSActorMixin implements RSActor
 		int size = 1;
 		if (this instanceof NPC)
 		{
-			NPCDefinition composition = ((NPC)this).getDefinition();
+			NPCComposition composition = ((NPC)this).getDefinition();
 			if (composition != null && composition.getConfigs() != null)
 			{
 				composition = composition.transform();
