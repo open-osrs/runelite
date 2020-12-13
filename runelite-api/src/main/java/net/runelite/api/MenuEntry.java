@@ -48,7 +48,7 @@ public class MenuEntry implements Cloneable
 	/**
 	 * An identifier value for the target of the action.
 	 */
-	private int type;
+	private int identifier;
 	/**
 	 * The action the entry will trigger.
 	 * {@link MenuAction}
@@ -74,7 +74,7 @@ public class MenuEntry implements Cloneable
 	{
 		this.option = option;
 		this.target = target;
-		this.type = type;
+		this.identifier = type;
 		this.opcode = opcode;
 		this.actionParam0 = actionParam0;
 		this.actionParam1 = actionParam1;
@@ -102,6 +102,16 @@ public class MenuEntry implements Cloneable
 	public void setParam1(int i)
 	{
 		this.actionParam1 = i;
+	}
+
+	public void setType(int i)
+	{
+		this.opcode = i;
+	}
+
+	public int getType()
+	{
+		return this.opcode;
 	}
 
 	/**

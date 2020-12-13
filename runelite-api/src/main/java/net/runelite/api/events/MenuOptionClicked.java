@@ -88,10 +88,25 @@ public class MenuOptionClicked extends MenuEntry implements Event
 	{
 		setOption(e.getOption());
 		setTarget(e.getTarget());
-		setType(e.getType());
+		setIdentifier(e.getIdentifier());
 		setOpcode(e.getOpcode());
 		setActionParam0(e.getActionParam0());
 		setActionParam1(e.getActionParam1());
 		setForceLeftClick(e.isForceLeftClick());
+	}
+
+	public int getWidgetId()
+	{
+		return getActionParam1();
+	}
+
+	public String getMenuTarget()
+	{
+		return getTarget();
+	}
+
+	public String getMenuOption()
+	{
+		return getOption();
 	}
 }

@@ -752,7 +752,7 @@ public abstract class RSClientMixin implements RSClient
 			MenuEntry entry = entries[i] = new MenuEntry();
 			entry.setOption(menuOptions[i]);
 			entry.setTarget(menuTargets[i]);
-			entry.setType(menuIdentifiers[i]);
+			entry.setIdentifier(menuIdentifiers[i]);
 			entry.setOpcode(menuTypes[i]);
 			entry.setActionParam0(params0[i]);
 			entry.setActionParam1(params1[i]);
@@ -783,7 +783,7 @@ public abstract class RSClientMixin implements RSClient
 
 			menuOptions[count] = entry.getOption();
 			menuTargets[count] = entry.getTarget();
-			menuIdentifiers[count] = entry.getType();
+			menuIdentifiers[count] = entry.getIdentifier();
 			menuTypes[count] = entry.getOpcode();
 			params0[count] = entry.getActionParam0();
 			params1[count] = entry.getActionParam1();
@@ -830,7 +830,7 @@ public abstract class RSClientMixin implements RSClient
 			{
 				options[oldCount] = event.getOption();
 				targets[oldCount] = event.getTarget();
-				identifiers[oldCount] = event.getType();
+				identifiers[oldCount] = event.getIdentifier();
 				opcodes[oldCount] = event.getOpcode();
 				arguments1[oldCount] = event.getActionParam0();
 				arguments2[oldCount] = event.getActionParam1();
@@ -1425,14 +1425,14 @@ public abstract class RSClientMixin implements RSClient
 		{
 			client.getLogger().info(
 				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={} Authentic={}",
-				menuOptionClicked.getOption(), menuOptionClicked.getTarget(), menuOptionClicked.getType(),
+				menuOptionClicked.getOption(), menuOptionClicked.getTarget(), menuOptionClicked.getIdentifier(),
 				menuOptionClicked.getOpcode(), menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(),
 				canvasX, canvasY, authentic
 			);
 		}
 
 		copy$menuAction(menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(), menuOptionClicked.getOpcode(),
-			menuOptionClicked.getType(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
+			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
 	}
 
 	@Override
