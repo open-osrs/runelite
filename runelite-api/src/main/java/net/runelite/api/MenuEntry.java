@@ -37,14 +37,14 @@ public class MenuEntry implements Cloneable
 	/**
 	 * The option text added to the menu (ie. "Walk here", "Use").
 	 */
-	private String menuOption;
+	private String option;
 	/**
 	 * The target of the action (ie. Item or Actor name).
 	 * <p>
 	 * If the option does not apply to any target, this field
 	 * will be set to empty string.
 	 */
-	private String menuTarget;
+	private String target;
 	/**
 	 * An identifier value for the target of the action.
 	 */
@@ -61,7 +61,7 @@ public class MenuEntry implements Cloneable
 	/**
 	 * A second additional parameter for the action.
 	 */
-	private int widgetId;
+	private int actionParam1;
 	/**
 	 * If this field is true and you have single mouse button on and this entry is
 	 * the top entry the right click menu will not be opened when you left click
@@ -70,14 +70,14 @@ public class MenuEntry implements Cloneable
 	 */
 	private boolean forceLeftClick;
 
-	public MenuEntry(String menuOption, String menuTarget, int type, int opcode, int actionParam0, int widgetId, boolean forceLeftClick)
+	public MenuEntry(String option, String target, int type, int opcode, int actionParam0, int actionParam1, boolean forceLeftClick)
 	{
-		this.menuOption = menuOption;
-		this.menuTarget = menuTarget;
+		this.option = option;
+		this.target = target;
 		this.type = type;
 		this.opcode = opcode;
 		this.actionParam0 = actionParam0;
-		this.widgetId = widgetId;
+		this.actionParam1 = actionParam1;
 		this.forceLeftClick = forceLeftClick;
 	}
 
@@ -92,6 +92,16 @@ public class MenuEntry implements Cloneable
 		{
 			throw new RuntimeException(ex);
 		}
+	}
+
+	public void setParam0(int i)
+	{
+		this.actionParam0 = i;
+	}
+
+	public void setParam1(int i)
+	{
+		this.actionParam1 = i;
 	}
 
 	/**

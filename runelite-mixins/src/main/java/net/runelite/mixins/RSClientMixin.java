@@ -750,12 +750,12 @@ public abstract class RSClientMixin implements RSClient
 		for (int i = 0; i < count; ++i)
 		{
 			MenuEntry entry = entries[i] = new MenuEntry();
-			entry.setMenuOption(menuOptions[i]);
-			entry.setMenuTarget(menuTargets[i]);
+			entry.setOption(menuOptions[i]);
+			entry.setTarget(menuTargets[i]);
 			entry.setType(menuIdentifiers[i]);
 			entry.setOpcode(menuTypes[i]);
 			entry.setActionParam0(params0[i]);
-			entry.setWidgetId(params1[i]);
+			entry.setActionParam1(params1[i]);
 			entry.setForceLeftClick(leftClick[i]);
 		}
 		return entries;
@@ -781,12 +781,12 @@ public abstract class RSClientMixin implements RSClient
 				continue;
 			}
 
-			menuOptions[count] = entry.getMenuOption();
-			menuTargets[count] = entry.getMenuTarget();
+			menuOptions[count] = entry.getOption();
+			menuTargets[count] = entry.getTarget();
 			menuIdentifiers[count] = entry.getType();
 			menuTypes[count] = entry.getOpcode();
 			params0[count] = entry.getActionParam0();
-			params1[count] = entry.getWidgetId();
+			params1[count] = entry.getActionParam1();
 			leftClick[count] = entry.isForceLeftClick();
 			++count;
 		}
@@ -828,12 +828,12 @@ public abstract class RSClientMixin implements RSClient
 
 			if (event.isModified() && client.getMenuOptionCount() == newCount)
 			{
-				options[oldCount] = event.getMenuOption();
-				targets[oldCount] = event.getMenuTarget();
+				options[oldCount] = event.getOption();
+				targets[oldCount] = event.getTarget();
 				identifiers[oldCount] = event.getType();
 				opcodes[oldCount] = event.getOpcode();
 				arguments1[oldCount] = event.getActionParam0();
-				arguments2[oldCount] = event.getWidgetId();
+				arguments2[oldCount] = event.getActionParam1();
 				forceLeftClick[oldCount] = event.isForceLeftClick();
 			}
 		}
@@ -1425,14 +1425,14 @@ public abstract class RSClientMixin implements RSClient
 		{
 			client.getLogger().info(
 				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={} Authentic={}",
-				menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), menuOptionClicked.getType(),
-				menuOptionClicked.getOpcode(), menuOptionClicked.getActionParam0(), menuOptionClicked.getWidgetId(),
+				menuOptionClicked.getOption(), menuOptionClicked.getTarget(), menuOptionClicked.getType(),
+				menuOptionClicked.getOpcode(), menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(),
 				canvasX, canvasY, authentic
 			);
 		}
 
-		copy$menuAction(menuOptionClicked.getActionParam0(), menuOptionClicked.getWidgetId(), menuOptionClicked.getOpcode(),
-			menuOptionClicked.getType(), menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), canvasX, canvasY);
+		copy$menuAction(menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(), menuOptionClicked.getOpcode(),
+			menuOptionClicked.getType(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
 	}
 
 	@Override

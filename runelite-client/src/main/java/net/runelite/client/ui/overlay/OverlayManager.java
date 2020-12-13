@@ -148,7 +148,7 @@ public class OverlayManager
 		{
 			List<OverlayMenuEntry> menuEntries = overlay.getMenuEntries();
 			OverlayMenuEntry overlayMenuEntry = menuEntries.stream()
-				.filter(me -> me.getOption().equals(event.getMenuOption()))
+				.filter(me -> me.getOption().equals(event.getOption()))
 				.findAny()
 				.orElse(null);
 			if (overlayMenuEntry != null)

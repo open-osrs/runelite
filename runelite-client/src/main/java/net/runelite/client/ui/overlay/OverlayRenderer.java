@@ -877,8 +877,8 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			OverlayMenuEntry overlayMenuEntry = menuEntries.get(i);
 
 			final MenuEntry entry = new MenuEntry();
-			entry.setMenuOption(overlayMenuEntry.getOption());
-			entry.setMenuTarget(ColorUtil.wrapWithColorTag(overlayMenuEntry.getTarget(), JagexColors.MENU_TARGET));
+			entry.setOption(overlayMenuEntry.getOption());
+			entry.setTarget(ColorUtil.wrapWithColorTag(overlayMenuEntry.getTarget(), JagexColors.MENU_TARGET));
 			entry.setType(overlayMenuEntry.getMenuAction().getId());
 			entry.setType(overlayManager.getOverlays().indexOf(overlay)); // overlay id
 
