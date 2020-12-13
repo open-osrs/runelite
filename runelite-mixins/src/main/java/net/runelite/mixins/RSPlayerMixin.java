@@ -45,7 +45,7 @@ import static net.runelite.api.SkullIcon.DEAD_MAN_TWO;
 import static net.runelite.api.SkullIcon.SKULL;
 import static net.runelite.api.SkullIcon.SKULL_FIGHT_PIT;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.events.PlayerAppearanceChanged;
+import net.runelite.api.events.PlayerChanged;
 import net.runelite.api.events.player.headicon.OverheadPrayerChanged;
 import net.runelite.api.events.player.headicon.PlayerSkullChanged;
 import net.runelite.api.mixins.Copy;
@@ -299,7 +299,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 
 		if (client.isComparingAppearance() && getPlayerAppearance().getHash() != appearanceHash)
 		{
-			client.getCallbacks().post(PlayerAppearanceChanged.class, new PlayerAppearanceChanged(this));
+			client.getCallbacks().post(PlayerChanged.class, new PlayerChanged(this));
 		}
 	}
 }
