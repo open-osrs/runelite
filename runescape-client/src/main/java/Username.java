@@ -23,7 +23,7 @@ public class Username implements Comparable {
 	)
 	public Username(String var1, LoginType var2) {
 		this.name = var1; // L: 11
-		this.cleanName = VarbitDefinition.method4525(var1, var2); // L: 12
+		this.cleanName = VarbitComposition.method4525(var1, var2); // L: 12
 	} // L: 13
 
 	@ObfuscatedName("h")

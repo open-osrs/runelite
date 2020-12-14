@@ -31,7 +31,7 @@ public final class class307 {
 	static final void updatePlayer(PacketBuffer var0) {
 		var0.importIndex(); // L: 37
 		int var1 = Client.localPlayerIndex; // L: 38
-		Player var2 = PlayerAppearance.localPlayer = Client.players[var1] = new Player(); // L: 39
+		Player var2 = PlayerComposition.localPlayer = Client.players[var1] = new Player(); // L: 39
 		var2.index = var1; // L: 40
 		int var3 = var0.readBits(30); // L: 41
 		byte var4 = (byte)(var3 >> 28); // L: 42

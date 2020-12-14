@@ -135,7 +135,7 @@ public class FriendSystem {
 	final boolean isFriended(Username var1, boolean var2) {
 		if (var1 == null) { // L: 71
 			return false;
-		} else if (var1.equals(PlayerAppearance.localPlayer.username)) { // L: 72
+		} else if (var1.equals(PlayerComposition.localPlayer.username)) { // L: 72
 			return true;
 		} else {
 			return this.friendsList.isFriended(var1, var2); // L: 73
@@ -168,7 +168,7 @@ public class FriendSystem {
 			if (var2.hasCleanName()) { // L: 86
 				if (this.friendsListIsFull()) { // L: 87
 					Calendar.method3985(); // L: 88
-				} else if (PlayerAppearance.localPlayer.username.equals(var2)) { // L: 91
+				} else if (PlayerComposition.localPlayer.username.equals(var2)) { // L: 91
 					ServerPacket.method3668(); // L: 92
 				} else if (this.isFriended(var2, false)) { // L: 95
 					class219.method4003(var1); // L: 96
@@ -212,7 +212,7 @@ public class FriendSystem {
 					var10000 = null; // L: 153
 					var3 = "Your ignore list is full. Max of 100 for free users, and 400 for members";
 					class234.addGameMessage(30, "", var3); // L: 155
-				} else if (PlayerAppearance.localPlayer.username.equals(var2)) { // L: 160
+				} else if (PlayerComposition.localPlayer.username.equals(var2)) { // L: 160
 					var10000 = null; // L: 162
 					var3 = "You can't add yourself to your own ignore list";
 					class234.addGameMessage(30, "", var3); // L: 164

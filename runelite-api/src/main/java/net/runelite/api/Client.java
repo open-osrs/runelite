@@ -837,7 +837,7 @@ public interface Client extends GameShell
 	 * Gets the varbit composition for a given varbit id
 	 */
 	@Nullable
-	VarbitDefinition getVarbitDefinition(int id);
+	VarbitComposition getVarbitDefinition(int id);
 
 	/**
 	 * Gets the widget flags table.
@@ -2080,4 +2080,10 @@ public interface Client extends GameShell
 	void setOutdatedScript(String outdatedScript);
 
 	List<String> getOutdatedScripts();
+
+	void queueChangedVarp(int varp);
+
+	VarbitComposition getVarbit(Integer id);
+
+	Widget getWidget(int param1);
 }

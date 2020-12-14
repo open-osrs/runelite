@@ -216,8 +216,8 @@ public class Language implements Enumerated {
 				int var5;
 				if (var0 == ScriptOpcodes.COORD) { // L: 1826
 					var3 = GameObject.Client_plane; // L: 1827
-					var4 = (PlayerAppearance.localPlayer.x >> 7) + NetFileRequest.baseX; // L: 1828
-					var5 = (PlayerAppearance.localPlayer.y >> 7) + class41.baseY; // L: 1829
+					var4 = (PlayerComposition.localPlayer.x >> 7) + NetFileRequest.baseX; // L: 1828
+					var5 = (PlayerComposition.localPlayer.y >> 7) + class41.baseY; // L: 1829
 					Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = (var4 << 14) + var5 + (var3 << 28); // L: 1830
 					return 1; // L: 1831
 				} else if (var0 == ScriptOpcodes.COORDX) { // L: 1833

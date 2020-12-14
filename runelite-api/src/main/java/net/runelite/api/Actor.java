@@ -165,11 +165,11 @@ public interface Actor extends Renderable, Locatable
 	 * @return the graphic of the actor
 	 * @see GraphicID
 	 */
-	int getSpotAnimation();
+	int getGraphic();
 
-	void setSpotAnimation(int graphic);
+	void setGraphic(int graphic);
 
-	void setSpotAnimationFrame(int spotAnimFrame);
+	void setSpotAnimFrame(int spotAnimFrame);
 
 	/**
 	 * Gets the canvas area of the current tile the actor is standing on.

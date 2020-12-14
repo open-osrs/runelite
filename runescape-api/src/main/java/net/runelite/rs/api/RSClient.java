@@ -1274,7 +1274,7 @@ public interface RSClient extends RSGameShell, Client
 	RSBuffer newBuffer(byte[] bytes);
 
 	@Construct
-	RSVarbitDefinition newVarbitDefinition();
+	RSVarbitComposition newVarbitDefinition();
 
 	@Override
 	@Import("followerIndex")

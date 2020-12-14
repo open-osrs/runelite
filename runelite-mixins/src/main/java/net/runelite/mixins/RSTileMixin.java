@@ -33,7 +33,7 @@ import net.runelite.api.Constants;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameState;
 import net.runelite.api.GroundObject;
-import net.runelite.api.TileItemPile;
+import net.runelite.api.ItemLayer;
 import net.runelite.api.Node;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
@@ -64,7 +64,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSGameObject;
 import net.runelite.rs.api.RSGraphicsObject;
-import net.runelite.rs.api.RSTileItemPile;
+import net.runelite.rs.api.RSItemLayer;
 import net.runelite.rs.api.RSNode;
 import net.runelite.rs.api.RSNodeDeque;
 import net.runelite.rs.api.RSProjectile;
@@ -237,7 +237,7 @@ public abstract class RSTileMixin implements RSTile
 	@Override
 	public List<TileItem> getGroundItems()
 	{
-		TileItemPile layer = this.getItemLayer();
+		ItemLayer layer = this.getItemLayer();
 		if (layer == null)
 		{
 			return null;
@@ -459,7 +459,7 @@ public abstract class RSTileMixin implements RSTile
 		}
 	}
 
-	@FieldHook("tileItemPile")
+	@FieldHook("itemLayer")
 	@Inject
 	public void itemLayerChanged(int idx)
 	{
@@ -500,7 +500,7 @@ public abstract class RSTileMixin implements RSTile
 			client.setLastItemDespawn(null);
 		}
 
-		RSTileItemPile itemLayer = (RSTileItemPile) getItemLayer();
+		RSItemLayer itemLayer = (RSItemLayer) getItemLayer();
 		if (itemLayer == null)
 		{
 			if (lastUnlink != null)

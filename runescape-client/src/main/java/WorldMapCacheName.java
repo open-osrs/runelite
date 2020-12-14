@@ -109,7 +109,7 @@ public class WorldMapCacheName {
 	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
 		ArchiveDisk var4 = null; // L: 2195
 		if (JagexCache.JagexCache_dat2File != null) { // L: 2196
-			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, PlayerAppearance.JagexCache_idxFiles[var0], 1000000);
+			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, PlayerComposition.JagexCache_idxFiles[var0], 1000000);
 		}
 
 		return new Archive(var4, class7.masterDisk, var0, var1, var2, var3); // L: 2197

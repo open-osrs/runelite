@@ -1363,7 +1363,7 @@ public class Widget extends Node {
 		garbageValue = "-2117213889"
 	)
 	@Export("getModel")
-	public Model getModel(SequenceDefinition var1, int var2, boolean var3, PlayerAppearance var4) {
+	public Model getModel(SequenceDefinition var1, int var2, boolean var3, PlayerComposition var4) {
 		field2603 = false; // L: 578
 		int var5;
 		int var6;

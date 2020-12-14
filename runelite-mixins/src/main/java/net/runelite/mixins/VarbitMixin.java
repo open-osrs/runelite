@@ -10,7 +10,7 @@ import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSVarbitDefinition;
+import net.runelite.rs.api.RSVarbitComposition;
 
 @Mixin(RSClient.class)
 public abstract class VarbitMixin implements RSClient
@@ -21,7 +21,7 @@ public abstract class VarbitMixin implements RSClient
 	private static RSClient client;
 
 	@Inject
-	private Cache<Integer, RSVarbitDefinition> varbitCache = CacheBuilder.newBuilder()
+	private Cache<Integer, RSVarbitComposition> varbitCache = CacheBuilder.newBuilder()
 		.maximumSize(128)
 		.build();
 
@@ -55,17 +55,17 @@ public abstract class VarbitMixin implements RSClient
 
 	@Inject
 	@Override
-	public RSVarbitDefinition getVarbitDefinition(int id)
+	public RSVarbitComposition getVarbitDefinition(int id)
 	{
 		assert isClientThread();
 
-		RSVarbitDefinition varbit;
+		RSVarbitComposition varbit;
 		varbit = varbitCache.getIfPresent(id);
 		if (varbit != null)
 		{
 			return varbit;
 		}
-		varbit = (RSVarbitDefinition) getVarbitCache().get(id);
+		varbit = (RSVarbitComposition) getVarbitCache().get(id);
 		if (varbit != null && !(varbit.getIndex() == 0 && varbit.getMostSignificantBit() == 0 && varbit.getLeastSignificantBit() == 0))
 		{
 			return varbit;
@@ -87,7 +87,7 @@ public abstract class VarbitMixin implements RSClient
 	{
 		assert client.isClientThread();
 
-		RSVarbitDefinition v = getVarbitDefinition(varbitId);
+		RSVarbitComposition v = getVarbitDefinition(varbitId);
 		if (v == null)
 		{
 			throw new IndexOutOfBoundsException(String.format("Varbit %d does not exist!", varbitId)); // oob for "backwards compatibility lol"
@@ -104,7 +104,7 @@ public abstract class VarbitMixin implements RSClient
 	@Override
 	public void setVarbitValue(int[] varps, int varbitId, int value)
 	{
-		RSVarbitDefinition v = getVarbitDefinition(varbitId);
+		RSVarbitComposition v = getVarbitDefinition(varbitId);
 		if (v == null)
 		{
 			throw new IndexOutOfBoundsException(String.format("Varbit %d does not exist!", varbitId)); // oob for "backwards compatibility lol"

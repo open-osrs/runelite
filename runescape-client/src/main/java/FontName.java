@@ -586,18 +586,18 @@ public class FontName {
 												}
 											} else if (var10.modelType == 5) { // L: 9263
 												if (var10.modelId == 0) { // L: 9264
-													var41 = Client.playerAppearance.getModel((SequenceDefinition)null, -1, (SequenceDefinition)null, -1);
+													var41 = Client.playerComposition.getModel((SequenceDefinition)null, -1, (SequenceDefinition)null, -1);
 												} else {
-													var41 = PlayerAppearance.localPlayer.getModel(); // L: 9265
+													var41 = PlayerComposition.localPlayer.getModel(); // L: 9265
 												}
 											} else if (var20 == -1) { // L: 9267
-												var41 = var10.getModel((SequenceDefinition)null, -1, var36, PlayerAppearance.localPlayer.appearance); // L: 9268
+												var41 = var10.getModel((SequenceDefinition)null, -1, var36, PlayerComposition.localPlayer.appearance); // L: 9268
 												if (var41 == null && Widget.field2603) { // L: 9269
 													CollisionMap.invalidateWidget(var10);
 												}
 											} else {
 												SequenceDefinition var47 = ParamDefinition.SequenceDefinition_get(var20); // L: 9272
-												var41 = var10.getModel(var47, var10.modelFrame, var36, PlayerAppearance.localPlayer.appearance); // L: 9273
+												var41 = var10.getModel(var47, var10.modelFrame, var36, PlayerComposition.localPlayer.appearance); // L: 9273
 												if (var41 == null && Widget.field2603) { // L: 9274
 													CollisionMap.invalidateWidget(var10);
 												}

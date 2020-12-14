@@ -182,7 +182,7 @@ public class LoginPacket implements class190 {
 			}
 
 			for (var11 = 0; var11 < 104; ++var11) { // L: 540
-				VarbitDefinition.Tiles_hue[var11] = 0; // L: 541
+				VarbitComposition.Tiles_hue[var11] = 0; // L: 541
 				ArchiveDiskActionHandler.Tiles_saturation[var11] = 0; // L: 542
 				class92.Tiles_lightness[var11] = 0; // L: 543
 				UserComparator7.Tiles_hueMultiplier[var11] = 0; // L: 544
@@ -197,7 +197,7 @@ public class LoginPacket implements class190 {
 						var14 = Tiles.field514[var2][var13][var12] & 255; // L: 551
 						if (var14 > 0) { // L: 552
 							FloorUnderlayDefinition var44 = WorldMapElement.method4405(var14 - 1); // L: 553
-							var10000 = VarbitDefinition.Tiles_hue; // L: 554
+							var10000 = VarbitComposition.Tiles_hue; // L: 554
 							var10000[var12] += var44.hue;
 							var10000 = ArchiveDiskActionHandler.Tiles_saturation; // L: 555
 							var10000[var12] += var44.saturation;
@@ -214,7 +214,7 @@ public class LoginPacket implements class190 {
 						var15 = Tiles.field514[var2][var14][var12] & 255; // L: 563
 						if (var15 > 0) { // L: 564
 							FloorUnderlayDefinition var45 = WorldMapElement.method4405(var15 - 1); // L: 565
-							var10000 = VarbitDefinition.Tiles_hue; // L: 566
+							var10000 = VarbitComposition.Tiles_hue; // L: 566
 							var10000[var12] -= var45.hue;
 							var10000 = ArchiveDiskActionHandler.Tiles_saturation; // L: 567
 							var10000[var12] -= var45.saturation;
@@ -237,7 +237,7 @@ public class LoginPacket implements class190 {
 					for (var17 = -5; var17 < 109; ++var17) { // L: 580
 						var18 = var17 + 5; // L: 581
 						if (var18 >= 0 && var18 < 104) { // L: 582
-							var12 += VarbitDefinition.Tiles_hue[var18]; // L: 583
+							var12 += VarbitComposition.Tiles_hue[var18]; // L: 583
 							var13 += ArchiveDiskActionHandler.Tiles_saturation[var18]; // L: 584
 							var14 += class92.Tiles_lightness[var18]; // L: 585
 							var15 += UserComparator7.Tiles_hueMultiplier[var18]; // L: 586
@@ -246,7 +246,7 @@ public class LoginPacket implements class190 {
 
 						var19 = var17 - 5; // L: 589
 						if (var19 >= 0 && var19 < 104) { // L: 590
-							var12 -= VarbitDefinition.Tiles_hue[var19]; // L: 591
+							var12 -= VarbitComposition.Tiles_hue[var19]; // L: 591
 							var13 -= ArchiveDiskActionHandler.Tiles_saturation[var19]; // L: 592
 							var14 -= class92.Tiles_lightness[var19]; // L: 593
 							var15 -= UserComparator7.Tiles_hueMultiplier[var19]; // L: 594

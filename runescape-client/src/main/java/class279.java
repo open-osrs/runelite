@@ -27,7 +27,7 @@ public class class279 {
 				Client.field911 = var0.spriteId; // L: 10753
 			}
 
-			if (Client.playerAppearance.isFemale) { // L: 10755
+			if (Client.playerComposition.isFemale) { // L: 10755
 				var0.spriteId2 = Client.field813;
 			} else {
 				var0.spriteId2 = Client.field911; // L: 10756
@@ -39,7 +39,7 @@ public class class279 {
 				Client.field911 = var0.spriteId; // L: 10762
 			}
 
-			if (Client.playerAppearance.isFemale) { // L: 10764
+			if (Client.playerComposition.isFemale) { // L: 10764
 				var0.spriteId2 = Client.field911;
 			} else {
 				var0.spriteId2 = Client.field813; // L: 10765

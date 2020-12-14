@@ -157,7 +157,7 @@ public class class231 {
 					var12.isIf3 = true; // L: 452
 					var6.children[var11] = var12; // L: 453
 					if (var2) { // L: 454
-						PlayerAppearance.field2561 = var12;
+						PlayerComposition.field2561 = var12;
 					} else {
 						VarcInt.field3264 = var12; // L: 455
 					}
@@ -169,7 +169,7 @@ public class class231 {
 		} else {
 			Widget var3;
 			if (var0 == ScriptOpcodes.CC_DELETE) { // L: 459
-				var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 460
+				var3 = var2 ? PlayerComposition.field2561 : VarcInt.field3264; // L: 460
 				Widget var10 = CollisionMap.getWidget(var3.id); // L: 461
 				var10.children[var3.childIndex] = null; // L: 462
 				CollisionMap.invalidateWidget(var10); // L: 463
@@ -185,7 +185,7 @@ public class class231 {
 					if (var3 != null) { // L: 487
 						Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 1; // L: 488
 						if (var2) { // L: 489
-							PlayerAppearance.field2561 = var3;
+							PlayerComposition.field2561 = var3;
 						} else {
 							VarcInt.field3264 = var3; // L: 490
 						}
@@ -205,7 +205,7 @@ public class class231 {
 				if (var5 != null && var4 != -1) { // L: 477
 					Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 1; // L: 478
 					if (var2) { // L: 479
-						PlayerAppearance.field2561 = var5;
+						PlayerComposition.field2561 = var5;
 					} else {
 						VarcInt.field3264 = var5; // L: 480
 					}
@@ -225,8 +225,8 @@ public class class231 {
 	)
 	static final void method4153() {
 		Client.field762 = 0; // L: 5231
-		int var0 = (PlayerAppearance.localPlayer.x >> 7) + NetFileRequest.baseX; // L: 5232
-		int var1 = (PlayerAppearance.localPlayer.y >> 7) + class41.baseY; // L: 5233
+		int var0 = (PlayerComposition.localPlayer.x >> 7) + NetFileRequest.baseX; // L: 5232
+		int var1 = (PlayerComposition.localPlayer.y >> 7) + class41.baseY; // L: 5233
 		if (var0 >= 3053 && var0 <= 3156 && var1 >= 3056 && var1 <= 3136) { // L: 5234
 			Client.field762 = 1;
 		}

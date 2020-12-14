@@ -47,7 +47,7 @@ public final class BZip2Decompressor {
 		int var3 = var0.su_rNToGo; // L: 41
 		int var4 = var0.nblocks_used; // L: 42
 		int var5 = var0.su_ch2; // L: 43
-		int[] var6 = TileItemPile.BZip2Decompressor_block; // L: 44
+		int[] var6 = ItemLayer.BZip2Decompressor_block; // L: 44
 		int var7 = var0.field3779; // L: 45
 		byte[] var8 = var0.outputArray; // L: 46
 		int var9 = var0.next_out; // L: 47
@@ -157,7 +157,7 @@ public final class BZip2Decompressor {
 		var0.su_rNToGo = var3; // L: 137
 		var0.nblocks_used = var4; // L: 138
 		var0.su_ch2 = var5; // L: 139
-		TileItemPile.BZip2Decompressor_block = var6; // L: 140
+		ItemLayer.BZip2Decompressor_block = var6; // L: 140
 		var0.field3779 = var7; // L: 141
 		var0.outputArray = var8; // L: 142
 		var0.next_out = var9; // L: 143
@@ -193,8 +193,8 @@ public final class BZip2Decompressor {
 		int[] var24 = null; // L: 171
 		int[] var25 = null; // L: 172
 		var0.blockSize100k = -1205153797; // L: 173
-		if (TileItemPile.BZip2Decompressor_block == null) { // L: 174
-			TileItemPile.BZip2Decompressor_block = new int[var0.blockSize100k * 1124970976];
+		if (ItemLayer.BZip2Decompressor_block == null) { // L: 174
+			ItemLayer.BZip2Decompressor_block = new int[var0.blockSize100k * 1124970976];
 		}
 
 		boolean var26 = true; // L: 175
@@ -430,7 +430,7 @@ public final class BZip2Decompressor {
 							}
 
 							var10002 = var0.unzftab[var0.seqToUnseq[var1 & 255] & 255]++; // L: 396
-							TileItemPile.BZip2Decompressor_block[var47] = var0.seqToUnseq[var1 & 255] & 255; // L: 397
+							ItemLayer.BZip2Decompressor_block[var47] = var0.seqToUnseq[var1 & 255] & 255; // L: 397
 							++var47; // L: 398
 							if (var45 == 0) { // L: 399
 								++var43; // L: 400
@@ -489,7 +489,7 @@ public final class BZip2Decompressor {
 							var10000 = var0.unzftab; // L: 332
 
 							for (var10000[var1 & 255] += var48; var48 > 0; --var48) { // L: 333 336
-								TileItemPile.BZip2Decompressor_block[var47] = var1 & 255; // L: 334
+								ItemLayer.BZip2Decompressor_block[var47] = var1 & 255; // L: 334
 								++var47; // L: 335
 							}
 						}
@@ -509,16 +509,16 @@ public final class BZip2Decompressor {
 					}
 
 					for (var36 = 0; var36 < var47; ++var36) { // L: 426
-						var1 = (byte)(TileItemPile.BZip2Decompressor_block[var36] & 255); // L: 427
-						var10000 = TileItemPile.BZip2Decompressor_block; // L: 428
+						var1 = (byte)(ItemLayer.BZip2Decompressor_block[var36] & 255); // L: 427
+						var10000 = ItemLayer.BZip2Decompressor_block; // L: 428
 						int var10001 = var0.cftab[var1 & 255];
 						var10000[var10001] |= var36 << 8;
 						var10002 = var0.cftab[var1 & 255]++; // L: 429
 					}
 
-					var0.field3779 = TileItemPile.BZip2Decompressor_block[var0.originalPointer] >> 8; // L: 431
+					var0.field3779 = ItemLayer.BZip2Decompressor_block[var0.originalPointer] >> 8; // L: 431
 					var0.nblocks_used = 0; // L: 432
-					var0.field3779 = TileItemPile.BZip2Decompressor_block[var0.field3779]; // L: 433
+					var0.field3779 = ItemLayer.BZip2Decompressor_block[var0.field3779]; // L: 433
 					var0.su_ch2 = (byte)(var0.field3779 & 255); // L: 434
 					var0.field3779 >>= 8; // L: 436
 					++var0.nblocks_used; // L: 437

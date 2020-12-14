@@ -381,7 +381,7 @@ public class Scene {
 	)
 	@Export("newGroundItemPile")
 	public void newGroundItemPile(int var1, int var2, int var3, int var4, Renderable var5, long var6, Renderable var8, Renderable var9) {
-		TileItemPile var10 = new TileItemPile(); // L: 202
+		ItemLayer var10 = new ItemLayer(); // L: 202
 		var10.first = var5; // L: 203
 		var10.x = var2 * 128 + 64; // L: 204
 		var10.y = var3 * 128 + 64; // L: 205
@@ -408,7 +408,7 @@ public class Scene {
 			this.tiles[var1][var2][var3] = new Tile(var1, var2, var3); // L: 222
 		}
 
-		this.tiles[var1][var2][var3].tileItemPile = var10; // L: 223
+		this.tiles[var1][var2][var3].itemLayer = var10; // L: 223
 	} // L: 224
 
 	@ObfuscatedName("l")
@@ -713,7 +713,7 @@ public class Scene {
 	public void removeGroundItemPile(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3]; // L: 407
 		if (var4 != null) {
-			var4.tileItemPile = null; // L: 409
+			var4.itemLayer = null; // L: 409
 		}
 	} // L: 408 410
 
@@ -1467,7 +1467,7 @@ public class Scene {
 													var22.renderable.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var22.x - Scene_cameraX, var22.tileHeight - Scene_cameraY, var22.y - Scene_cameraZ, var22.tag);
 												}
 
-												TileItemPile var23 = var3.tileItemPile; // L: 994
+												ItemLayer var23 = var3.itemLayer; // L: 994
 												if (var23 != null && var23.height == 0) { // L: 995
 													if (var23.second != null) { // L: 996
 														var23.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
@@ -1685,7 +1685,7 @@ public class Scene {
 
 			var3.drawSecondary = false; // L: 1130
 			--tileUpdateCount; // L: 1131
-			TileItemPile var32 = var3.tileItemPile; // L: 1132
+			ItemLayer var32 = var3.itemLayer; // L: 1132
 			if (var32 != null && var32.height != 0) { // L: 1133
 				if (var32.second != null) { // L: 1134
 					var32.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);

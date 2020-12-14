@@ -171,8 +171,8 @@ public class UserComparator5 extends AbstractUserComparator {
 					int var8 = Rasterizer3D.Rasterizer3D_cosine[var6]; // L: 3795
 					int var9 = var4 * var8 + var7 * var5 >> 11; // L: 3796
 					int var10 = var8 * var5 - var7 * var4 >> 11; // L: 3797
-					int var11 = var9 + PlayerAppearance.localPlayer.x >> 7; // L: 3798
-					int var12 = PlayerAppearance.localPlayer.y - var10 >> 7; // L: 3799
+					int var11 = var9 + PlayerComposition.localPlayer.x >> 7; // L: 3798
+					int var12 = PlayerComposition.localPlayer.y - var10 >> 7; // L: 3799
 					PacketBufferNode var13 = ItemContainer.getPacketBufferNode(ClientPacket.field2272, Client.packetWriter.isaacCipher); // L: 3801
 					var13.packetBuffer.writeByte(18); // L: 3802
 					var13.packetBuffer.method5739(var11 + NetFileRequest.baseX); // L: 3803
@@ -185,8 +185,8 @@ public class UserComparator5 extends AbstractUserComparator {
 					var13.packetBuffer.writeByte(0); // L: 3810
 					var13.packetBuffer.writeByte(0); // L: 3811
 					var13.packetBuffer.writeByte(89); // L: 3812
-					var13.packetBuffer.writeShort(PlayerAppearance.localPlayer.x); // L: 3813
-					var13.packetBuffer.writeShort(PlayerAppearance.localPlayer.y); // L: 3814
+					var13.packetBuffer.writeShort(PlayerComposition.localPlayer.x); // L: 3813
+					var13.packetBuffer.writeShort(PlayerComposition.localPlayer.y); // L: 3814
 					var13.packetBuffer.writeByte(63); // L: 3815
 					Client.packetWriter.addNode(var13); // L: 3816
 					Client.destinationX = var11; // L: 3817

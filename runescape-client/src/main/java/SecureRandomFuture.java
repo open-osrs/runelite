@@ -115,7 +115,7 @@ public class SecureRandomFuture {
 						var6 = -var4.targetIndex - 1; // L: 4326
 						Player var36;
 						if (var6 == Client.localPlayerIndex) { // L: 4327
-							var36 = PlayerAppearance.localPlayer;
+							var36 = PlayerComposition.localPlayer;
 						} else {
 							var36 = Client.players[var6]; // L: 4328
 						}
@@ -196,8 +196,8 @@ public class SecureRandomFuture {
 			class69.cameraZ = var8 - var14; // L: 4377
 			Skeleton.cameraPitch = var28; // L: 4378
 			AbstractArchive.cameraYaw = var5; // L: 4379
-			if (Client.oculusOrbState == 1 && Client.staffModLevel >= 2 && Client.cycle % 50 == 0 && (oculusOrbFocalPointX >> 7 != PlayerAppearance.localPlayer.x >> 7 || Decimator.oculusOrbFocalPointY >> 7 != PlayerAppearance.localPlayer.y >> 7)) { // L: 4380 4381
-				var15 = PlayerAppearance.localPlayer.plane; // L: 4382
+			if (Client.oculusOrbState == 1 && Client.staffModLevel >= 2 && Client.cycle % 50 == 0 && (oculusOrbFocalPointX >> 7 != PlayerComposition.localPlayer.x >> 7 || Decimator.oculusOrbFocalPointY >> 7 != PlayerComposition.localPlayer.y >> 7)) { // L: 4380 4381
+				var15 = PlayerComposition.localPlayer.plane; // L: 4382
 				var16 = (oculusOrbFocalPointX >> 7) + NetFileRequest.baseX; // L: 4383
 				var17 = (Decimator.oculusOrbFocalPointY >> 7) + class41.baseY; // L: 4384
 				PacketBufferNode var18 = ItemContainer.getPacketBufferNode(ClientPacket.field2269, Client.packetWriter.isaacCipher); // L: 4387
@@ -220,8 +220,8 @@ public class SecureRandomFuture {
 							var7 = oculusOrbFocalPointX >> 7; // L: 4411
 							var8 = Decimator.oculusOrbFocalPointY >> 7; // L: 4412
 						} else {
-							var7 = PlayerAppearance.localPlayer.x >> 7; // L: 4415
-							var8 = PlayerAppearance.localPlayer.y >> 7; // L: 4416
+							var7 = PlayerComposition.localPlayer.x >> 7; // L: 4415
+							var8 = PlayerComposition.localPlayer.y >> 7; // L: 4416
 						}
 
 						var9 = Player.cameraX >> 7; // L: 4418
@@ -313,8 +313,8 @@ public class SecureRandomFuture {
 						}
 					}
 
-					if (PlayerAppearance.localPlayer.x >= 0 && PlayerAppearance.localPlayer.y >= 0 && PlayerAppearance.localPlayer.x < 13312 && PlayerAppearance.localPlayer.y < 13312) { // L: 4468
-						if ((Tiles.Tiles_renderFlags[GameObject.Client_plane][PlayerAppearance.localPlayer.x >> 7][PlayerAppearance.localPlayer.y >> 7] & 4) != 0) { // L: 4472
+					if (PlayerComposition.localPlayer.x >= 0 && PlayerComposition.localPlayer.y >= 0 && PlayerComposition.localPlayer.x < 13312 && PlayerComposition.localPlayer.y < 13312) { // L: 4468
+						if ((Tiles.Tiles_renderFlags[GameObject.Client_plane][PlayerComposition.localPlayer.x >> 7][PlayerComposition.localPlayer.y >> 7] & 4) != 0) { // L: 4472
 							var6 = GameObject.Client_plane;
 						}
 
@@ -409,7 +409,7 @@ public class SecureRandomFuture {
 					continue;
 				}
 
-				if (var32 == PlayerAppearance.localPlayer) { // L: 4537
+				if (var32 == PlayerComposition.localPlayer) { // L: 4537
 					var15 = var30; // L: 4538
 					continue; // L: 4539
 				}
@@ -421,7 +421,7 @@ public class SecureRandomFuture {
 		}
 
 		if (Client.renderSelf && var15 != -1) { // L: 4545
-			AbstractWorldMapIcon.drawActor2d(PlayerAppearance.localPlayer, var15, var0, var1, var2, var3); // L: 4546
+			AbstractWorldMapIcon.drawActor2d(PlayerComposition.localPlayer, var15, var0, var1, var2, var3); // L: 4546
 		}
 
 		if (var34) { // L: 4548

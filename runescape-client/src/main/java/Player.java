@@ -30,7 +30,7 @@ public final class Player extends Actor {
 		descriptor = "Lhh;"
 	)
 	@Export("appearance")
-	PlayerAppearance appearance;
+	PlayerComposition appearance;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
 		intValue = -1265111393
@@ -278,7 +278,7 @@ public final class Player extends Actor {
 		this.username = new Username(var1.readStringCp1252NullTerminated(), GrandExchangeOfferUnitPriceComparator.loginType); // L: 99
 		this.clearIsFriend(); // L: 100
 		this.clearIsInClanChat(); // L: 101
-		if (this == PlayerAppearance.localPlayer) { // L: 102
+		if (this == PlayerComposition.localPlayer) { // L: 102
 			RunException.localPlayerName = this.username.getName();
 		}
 
@@ -290,7 +290,7 @@ public final class Player extends Actor {
 		}
 
 		if (this.appearance == null) { // L: 107
-			this.appearance = new PlayerAppearance();
+			this.appearance = new PlayerComposition();
 		}
 
 		this.appearance.update(var4, var9, var2 == 1, var3); // L: 108

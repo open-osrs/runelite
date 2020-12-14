@@ -84,7 +84,7 @@ public class FaceNormal {
 		} else if (var0 < 3400) { // L: 414
 			return Language.method3709(var0, var1, var2);
 		} else if (var0 < 3500) { // L: 415
-			return TileItemPile.method2850(var0, var1, var2);
+			return ItemLayer.method2850(var0, var1, var2);
 		} else if (var0 < 3700) { // L: 416
 			return ApproximateRouteStrategy.method1302(var0, var1, var2);
 		} else if (var0 < 4000) { // L: 417

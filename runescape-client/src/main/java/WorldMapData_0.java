@@ -232,7 +232,7 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 	)
 	public static void method237() {
 		try {
-			File var0 = new File(TileItemPile.userHomeDirectory, "random.dat"); // L: 212
+			File var0 = new File(ItemLayer.userHomeDirectory, "random.dat"); // L: 212
 			int var2;
 			if (var0.exists()) { // L: 213
 				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0); // L: 214

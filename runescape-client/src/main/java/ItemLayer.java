@@ -6,8 +6,9 @@ import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("dz")
-@Implements("TileItemPile")
-public final class TileItemPile {
+@Implements("ItemLayer")
+public final class ItemLayer
+{
 	@ObfuscatedName("qq")
 	@ObfuscatedSignature(
 		descriptor = "Ldn;"
@@ -69,7 +70,7 @@ public final class TileItemPile {
 	@Export("height")
 	int height;
 
-	TileItemPile() {
+	ItemLayer() {
 	} // L: 13
 
 	@ObfuscatedName("ag")

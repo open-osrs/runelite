@@ -42,7 +42,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSNode;
 import net.runelite.rs.api.RSNodeHashTable;
-import net.runelite.rs.api.RSPlayerAppearance;
+import net.runelite.rs.api.RSPlayerComposition;
 import net.runelite.rs.api.RSSequenceDefinition;
 import net.runelite.rs.api.RSWidget;
 import java.awt.Rectangle;
@@ -592,7 +592,7 @@ public abstract class RSWidgetMixin implements RSWidget
 	@Copy("getModel")
 	@Replace("getModel")
 	@SuppressWarnings("InfiniteRecursion")
-	public RSModel copy$getModel(RSSequenceDefinition sequence, int frame, boolean alternate, RSPlayerAppearance playerComposition)
+	public RSModel copy$getModel(RSSequenceDefinition sequence, int frame, boolean alternate, RSPlayerComposition playerComposition)
 	{
 		if (frame != -1 && client.isInterpolateWidgetAnimations())
 		{

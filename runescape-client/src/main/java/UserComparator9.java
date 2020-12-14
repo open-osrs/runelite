@@ -64,7 +64,7 @@ public class UserComparator9 extends AbstractUserComparator {
 			var0 -= 1000; // L: 735
 			var3 = CollisionMap.getWidget(Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]); // L: 736
 		} else {
-			var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 738
+			var3 = var2 ? PlayerComposition.field2561 : VarcInt.field3264; // L: 738
 		}
 
 		CollisionMap.invalidateWidget(var3); // L: 739
@@ -75,7 +75,7 @@ public class UserComparator9 extends AbstractUserComparator {
 				return 1; // L: 763
 			} else if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) { // L: 765
 				var3.modelType = 3; // L: 766
-				var3.modelId = PlayerAppearance.localPlayer.appearance.getChatHeadId(); // L: 767
+				var3.modelId = PlayerComposition.localPlayer.appearance.getChatHeadId(); // L: 767
 				return 1; // L: 768
 			} else {
 				return 2; // L: 770

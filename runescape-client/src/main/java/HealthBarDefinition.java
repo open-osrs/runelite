@@ -342,7 +342,7 @@ public class HealthBarDefinition extends DualNode {
 					}
 
 					if (var6 == 8) { // L: 9634
-						var7 = PlayerAppearance.localPlayer.combatLevel;
+						var7 = PlayerComposition.localPlayer.combatLevel;
 					}
 
 					if (var6 == 9) { // L: 9635
@@ -400,11 +400,11 @@ public class HealthBarDefinition extends DualNode {
 					}
 
 					if (var6 == 18) { // L: 9668
-						var7 = (PlayerAppearance.localPlayer.x >> 7) + NetFileRequest.baseX;
+						var7 = (PlayerComposition.localPlayer.x >> 7) + NetFileRequest.baseX;
 					}
 
 					if (var6 == 19) { // L: 9669
-						var7 = (PlayerAppearance.localPlayer.y >> 7) + class41.baseY;
+						var7 = (PlayerComposition.localPlayer.y >> 7) + class41.baseY;
 					}
 
 					if (var6 == 20) { // L: 9670

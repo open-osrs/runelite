@@ -65,8 +65,8 @@ public final class Tile extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Ldz;"
 	)
-	@Export("tileItemPile")
-	TileItemPile tileItemPile;
+	@Export("itemLayer")
+	ItemLayer itemLayer;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
 		intValue = 418075799

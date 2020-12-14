@@ -207,7 +207,7 @@ final class GrandExchangeOfferAgeComparator implements Comparator {
 					Interpreter.Interpreter_stringStackSize -= 2; // L: 2668
 					var3 = Interpreter.Interpreter_stringStack[Interpreter.Interpreter_stringStackSize]; // L: 2669
 					var4 = Interpreter.Interpreter_stringStack[Interpreter.Interpreter_stringStackSize + 1]; // L: 2670
-					if (PlayerAppearance.localPlayer.appearance != null && PlayerAppearance.localPlayer.appearance.isFemale) { // L: 2671
+					if (PlayerComposition.localPlayer.appearance != null && PlayerComposition.localPlayer.appearance.isFemale) { // L: 2671
 						Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var4;
 					} else {
 						Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3; // L: 2672

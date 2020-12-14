@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, TheStonedTurtle <https://github.com/TheStonedTurtle>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,54 +22,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.devtools;
 
-import net.runelite.api.kit.KitType;
+import javax.annotation.Nullable;
+import lombok.Value;
+import net.runelite.api.Item;
 
-/**
- * Represents the template of a player.
- */
-public interface PlayerAppearance
+@Value
+class InventoryLog
 {
-	/**
-	 * Checks if the player is female.
-	 *
-	 * @return true if the player is female
-	 */
-	boolean isFemale();
-
-	/**
-	 * Gets an array of IDs related to equipment slots.
-	 * <p>
-	 * If the ID for a specific slot is between 256 and 512, subtracting
-	 * 256 will result in the kit ID. Values above 512 indicate an item
-	 * and can be converted to the item ID by subtracting 512.
-	 *
-	 * @return the equipment IDs
-	 */
-	int[] getEquipmentIds();
-
-	/**
-	 * Gets the equipment ID of a particular slot.
-	 *
-	 * @param type equipment slot
-	 * @return the equipment ID
-	 */
-	int getEquipmentId(KitType type);
-
-	/**
-	 * Gets the kit ID of a particular slot.
-	 *
-	 * @param type equipment slot
-	 * @return the kit ID
-	 */
-	int getKitId(KitType type);
-
-	/**
-	 * Update the cached hash value for player equipment
-	 * Used to cache the player models based on equipment.
-	 */
-	void setHash();
-
-	void setTransformedNpcId(int id);
+	int containerId;
+	@Nullable
+	String containerName;
+	Item[] items;
+	int tick;
 }
+

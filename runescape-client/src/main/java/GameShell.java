@@ -472,7 +472,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 			taskHandler.newThreadTask(this, 1); // L: 235
 		} catch (Exception var5) { // L: 237
-			PlayerAppearance.RunException_sendStackTrace((String)null, var5); // L: 238
+			PlayerComposition.RunException_sendStackTrace((String)null, var5); // L: 238
 			this.error("crash"); // L: 239
 		}
 
@@ -960,7 +960,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 				this.post(this.canvas); // L: 332
 			}
 		} catch (Exception var7) { // L: 335
-			PlayerAppearance.RunException_sendStackTrace((String)null, var7); // L: 336
+			PlayerComposition.RunException_sendStackTrace((String)null, var7); // L: 336
 			this.error("crash"); // L: 337
 		}
 

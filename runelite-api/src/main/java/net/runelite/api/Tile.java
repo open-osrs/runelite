@@ -50,7 +50,7 @@ public interface Tile extends TileObject
 	 *
 	 * @return the item
 	 */
-	TileItemPile getItemLayer();
+	ItemLayer getItemLayer();
 
 	/**
 	 * Gets the object on the ground layer of the tile.

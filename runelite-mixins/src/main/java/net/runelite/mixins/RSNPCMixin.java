@@ -134,7 +134,7 @@ public abstract class RSNPCMixin implements RSNPC
 			// without having to change method calls
 			setActionFrame(Integer.MIN_VALUE | getActionFrameCycle() << 16 | actionFrame);
 			setPoseFrame(Integer.MIN_VALUE | getPoseFrameCycle() << 16 | poseFrame);
-			setSpotAnimationFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
+			setSpotAnimFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
 			return copy$getModel();
 		}
 		finally
@@ -142,7 +142,7 @@ public abstract class RSNPCMixin implements RSNPC
 			// reset frames
 			setActionFrame(actionFrame);
 			setPoseFrame(poseFrame);
-			setSpotAnimationFrame(spotAnimFrame);
+			setSpotAnimFrame(spotAnimFrame);
 		}
 	}
 

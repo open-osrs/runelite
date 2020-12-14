@@ -63,7 +63,7 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		GrandExchangeOfferWorldComparator.field52 = new int[4][105][105]; // L: 53
 		Tiles.field511 = new byte[4][105][105]; // L: 54
 		class92.field1173 = new int[105][105]; // L: 55
-		VarbitDefinition.Tiles_hue = new int[104]; // L: 56
+		VarbitComposition.Tiles_hue = new int[104]; // L: 56
 		ArchiveDiskActionHandler.Tiles_saturation = new int[104]; // L: 57
 		class92.Tiles_lightness = new int[104]; // L: 58
 		UserComparator7.Tiles_hueMultiplier = new int[104]; // L: 59
@@ -83,16 +83,16 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 			Rasterizer2D.Rasterizer2D_setClip(var1, var2, var4.width + var1, var2 + var4.height); // L: 10874
 			if (Client.minimapState != 2 && Client.minimapState != 5) { // L: 10875
 				int var5 = Client.camAngleY & 2047; // L: 10876
-				int var6 = PlayerAppearance.localPlayer.x / 32 + 48; // L: 10877
-				int var7 = 464 - PlayerAppearance.localPlayer.y / 32; // L: 10878
+				int var6 = PlayerComposition.localPlayer.x / 32 + 48; // L: 10877
+				int var7 = 464 - PlayerComposition.localPlayer.y / 32; // L: 10878
 				class25.sceneMinimapSprite.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, var6, var7, var5, 256, var4.xStarts, var4.xWidths); // L: 10879
 
 				int var8;
 				int var10;
 				int var17;
 				for (var8 = 0; var8 < Client.mapIconCount; ++var8) { // L: 10880
-					var17 = Client.mapIconXs[var8] * 4 + 2 - PlayerAppearance.localPlayer.x / 32; // L: 10881
-					var10 = Client.mapIconYs[var8] * 4 + 2 - PlayerAppearance.localPlayer.y / 32; // L: 10882
+					var17 = Client.mapIconXs[var8] * 4 + 2 - PlayerComposition.localPlayer.x / 32; // L: 10881
+					var10 = Client.mapIconYs[var8] * 4 + 2 - PlayerComposition.localPlayer.y / 32; // L: 10882
 					class25.drawSpriteOnMinimap(var1, var2, var17, var10, Client.mapIcons[var8], var4); // L: 10883
 				}
 
@@ -102,8 +102,8 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 					for (var17 = 0; var17 < 104; ++var17) { // L: 10886
 						NodeDeque var15 = Client.groundItems[GameObject.Client_plane][var8][var17]; // L: 10887
 						if (var15 != null) { // L: 10888
-							var11 = var8 * 4 + 2 - PlayerAppearance.localPlayer.x / 32; // L: 10889
-							var12 = var17 * 4 + 2 - PlayerAppearance.localPlayer.y / 32; // L: 10890
+							var11 = var8 * 4 + 2 - PlayerComposition.localPlayer.x / 32; // L: 10889
+							var12 = var17 * 4 + 2 - PlayerComposition.localPlayer.y / 32; // L: 10890
 							class25.drawSpriteOnMinimap(var1, var2, var11, var12, Actor.mapDotSprites[0], var4); // L: 10891
 						}
 					}
@@ -118,8 +118,8 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 						}
 
 						if (var19 != null && var19.drawMapDot && var19.isInteractable) { // L: 10900
-							var11 = var9.x / 32 - PlayerAppearance.localPlayer.x / 32; // L: 10901
-							var12 = var9.y / 32 - PlayerAppearance.localPlayer.y / 32; // L: 10902
+							var11 = var9.x / 32 - PlayerComposition.localPlayer.x / 32; // L: 10901
+							var12 = var9.y / 32 - PlayerComposition.localPlayer.y / 32; // L: 10902
 							class25.drawSpriteOnMinimap(var1, var2, var11, var12, Actor.mapDotSprites[1], var4); // L: 10903
 						}
 					}
@@ -130,11 +130,11 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 
 				for (var10 = 0; var10 < var8; ++var10) { // L: 10909
 					Player var16 = Client.players[var18[var10]]; // L: 10910
-					if (var16 != null && var16.isVisible() && !var16.isHidden && var16 != PlayerAppearance.localPlayer) { // L: 10911
-						var12 = var16.x / 32 - PlayerAppearance.localPlayer.x / 32; // L: 10912
-						int var13 = var16.y / 32 - PlayerAppearance.localPlayer.y / 32; // L: 10913
+					if (var16 != null && var16.isVisible() && !var16.isHidden && var16 != PlayerComposition.localPlayer) { // L: 10911
+						var12 = var16.x / 32 - PlayerComposition.localPlayer.x / 32; // L: 10912
+						int var13 = var16.y / 32 - PlayerComposition.localPlayer.y / 32; // L: 10913
 						boolean var14 = false; // L: 10914
-						if (PlayerAppearance.localPlayer.team != 0 && var16.team != 0 && var16.team == PlayerAppearance.localPlayer.team) { // L: 10915
+						if (PlayerComposition.localPlayer.team != 0 && var16.team != 0 && var16.team == PlayerComposition.localPlayer.team) { // L: 10915
 							var14 = true;
 						}
 
@@ -154,35 +154,35 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 					if (Client.hintArrowType == 1 && Client.hintArrowNpcIndex >= 0 && Client.hintArrowNpcIndex < Client.npcs.length) { // L: 10923
 						NPC var20 = Client.npcs[Client.hintArrowNpcIndex]; // L: 10924
 						if (var20 != null) { // L: 10925
-							var11 = var20.x / 32 - PlayerAppearance.localPlayer.x / 32; // L: 10926
-							var12 = var20.y / 32 - PlayerAppearance.localPlayer.y / 32; // L: 10927
+							var11 = var20.x / 32 - PlayerComposition.localPlayer.x / 32; // L: 10926
+							var12 = var20.y / 32 - PlayerComposition.localPlayer.y / 32; // L: 10927
 							AbstractWorldMapData.worldToMinimap(var1, var2, var11, var12, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[1], var4); // L: 10928
 						}
 					}
 
 					if (Client.hintArrowType == 2) { // L: 10931
-						var10 = Client.hintArrowX * 4 - NetFileRequest.baseX * 4 + 2 - PlayerAppearance.localPlayer.x / 32; // L: 10932
-						var11 = Client.hintArrowY * 4 - class41.baseY * 4 + 2 - PlayerAppearance.localPlayer.y / 32; // L: 10933
+						var10 = Client.hintArrowX * 4 - NetFileRequest.baseX * 4 + 2 - PlayerComposition.localPlayer.x / 32; // L: 10932
+						var11 = Client.hintArrowY * 4 - class41.baseY * 4 + 2 - PlayerComposition.localPlayer.y / 32; // L: 10933
 						AbstractWorldMapData.worldToMinimap(var1, var2, var10, var11, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[1], var4); // L: 10934
 					}
 
 					if (Client.hintArrowType == 10 && Client.hintArrowPlayerIndex >= 0 && Client.hintArrowPlayerIndex < Client.players.length) { // L: 10936
 						Player var21 = Client.players[Client.hintArrowPlayerIndex]; // L: 10937
 						if (var21 != null) { // L: 10938
-							var11 = var21.x / 32 - PlayerAppearance.localPlayer.x / 32; // L: 10939
-							var12 = var21.y / 32 - PlayerAppearance.localPlayer.y / 32; // L: 10940
+							var11 = var21.x / 32 - PlayerComposition.localPlayer.x / 32; // L: 10939
+							var12 = var21.y / 32 - PlayerComposition.localPlayer.y / 32; // L: 10940
 							AbstractWorldMapData.worldToMinimap(var1, var2, var11, var12, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[1], var4); // L: 10941
 						}
 					}
 				}
 
 				if (Client.destinationX != 0) { // L: 10945
-					var10 = Client.destinationX * 4 + 2 - PlayerAppearance.localPlayer.x / 32; // L: 10946
-					var11 = Client.destinationY * 4 + 2 - PlayerAppearance.localPlayer.y / 32; // L: 10947
+					var10 = Client.destinationX * 4 + 2 - PlayerComposition.localPlayer.x / 32; // L: 10946
+					var11 = Client.destinationY * 4 + 2 - PlayerComposition.localPlayer.y / 32; // L: 10947
 					class25.drawSpriteOnMinimap(var1, var2, var10, var11, GrandExchangeOfferUnitPriceComparator.mapMarkerSpritePixels[0], var4); // L: 10948
 				}
 
-				if (!PlayerAppearance.localPlayer.isHidden) { // L: 10950
+				if (!PlayerComposition.localPlayer.isHidden) { // L: 10950
 					Rasterizer2D.Rasterizer2D_fillRectangle(var4.width / 2 + var1 - 1, var4.height / 2 + var2 - 1, 3, 3, 16777215);
 				}
 			} else {

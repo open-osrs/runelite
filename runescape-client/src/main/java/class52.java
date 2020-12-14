@@ -41,8 +41,8 @@ public final class class52 {
 		int var3;
 		if (var0 == 6600) { // L: 3536
 			var3 = GameObject.Client_plane; // L: 3537
-			int var15 = (PlayerAppearance.localPlayer.x >> 7) + NetFileRequest.baseX; // L: 3538
-			int var8 = (PlayerAppearance.localPlayer.y >> 7) + class41.baseY; // L: 3539
+			int var15 = (PlayerComposition.localPlayer.x >> 7) + NetFileRequest.baseX; // L: 3538
+			int var8 = (PlayerComposition.localPlayer.y >> 7) + class41.baseY; // L: 3539
 			Actor.getWorldMap().method6370(var3, var15, var8, true); // L: 3540
 			return 1; // L: 3541
 		} else {

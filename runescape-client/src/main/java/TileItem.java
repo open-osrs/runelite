@@ -180,7 +180,7 @@ public final class TileItem extends Renderable
 						int var8;
 						if (var0.combatLevel != 0) { // L: 8725
 							var7 = var0.combatLevel; // L: 8728
-							var8 = PlayerAppearance.localPlayer.combatLevel; // L: 8729
+							var8 = PlayerComposition.localPlayer.combatLevel; // L: 8729
 							int var9 = var8 - var7; // L: 8731
 							String var6;
 							if (var9 < -9) { // L: 8732
@@ -253,7 +253,7 @@ public final class TileItem extends Renderable
 									if (var11[var7] != null && var11[var7].equalsIgnoreCase("Attack")) { // L: 8801
 										short var12 = 0; // L: 8802
 										if (AttackOption.AttackOption_hidden != Client.npcAttackOption) { // L: 8803
-											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.npcAttackOption && var0.combatLevel > PlayerAppearance.localPlayer.combatLevel) { // L: 8804
+											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.npcAttackOption && var0.combatLevel > PlayerComposition.localPlayer.combatLevel) { // L: 8804
 												var12 = 2000; // L: 8805
 											}
 

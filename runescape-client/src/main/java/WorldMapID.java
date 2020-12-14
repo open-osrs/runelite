@@ -62,7 +62,7 @@ public class WorldMapID {
 			return 1; // L: 1330
 		} else if (var0 == ScriptOpcodes.ANIM) {
 			VarcInt.Interpreter_intStackSize -= 2; // L: 1333
-			Tiles.performPlayerAnimation(PlayerAppearance.localPlayer, Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize], Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]); // L: 1334
+			Tiles.performPlayerAnimation(PlayerComposition.localPlayer, Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize], Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]); // L: 1334
 			return 1; // L: 1335
 		} else if (var0 == ScriptOpcodes.IF_CLOSE) {
 			if (!Interpreter.field1103) { // L: 1338
@@ -119,7 +119,7 @@ public class WorldMapID {
 						VarcInt.Interpreter_intStackSize -= 2; // L: 1387
 						var10 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize]; // L: 1388
 						var16 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 1389
-						Widget var13 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1390
+						Widget var13 = var2 ? PlayerComposition.field2561 : VarcInt.field3264; // L: 1390
 						class13.clickWidget(var13, var10, var16); // L: 1391
 						return 1; // L: 1392
 					} else if (var0 == ScriptOpcodes.MOUSECAM) {
@@ -256,7 +256,7 @@ public class WorldMapID {
 						return 1; // L: 1534
 					} else if (var0 == 3140) {
 						Client.field810 = 3; // L: 1537
-						Client.field811 = var2 ? PlayerAppearance.field2561.id * -437932207 * 653064625 : VarcInt.field3264.id * -437932207 * 653064625; // L: 1538
+						Client.field811 = var2 ? PlayerComposition.field2561.id * -437932207 * 653064625 : VarcInt.field3264.id * -437932207 * 653064625; // L: 1538
 						return 1; // L: 1539
 					} else {
 						boolean var11;
@@ -556,7 +556,7 @@ public class WorldMapID {
 			var0.method1803(); // L: 3902
 		}
 
-		if (PlayerAppearance.localPlayer == var0 && (var0.x < 1536 || var0.y < 1536 || var0.x >= 11776 || var0.y >= 11776)) { // L: 3904 3905
+		if (PlayerComposition.localPlayer == var0 && (var0.x < 1536 || var0.y < 1536 || var0.x >= 11776 || var0.y >= 11776)) { // L: 3904 3905
 			var0.sequence = -1; // L: 3906
 			var0.spotAnimation = -1; // L: 3907
 			var0.field984 = 0; // L: 3908

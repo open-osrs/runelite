@@ -263,7 +263,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 			// without having to change method calls
 			setActionFrame(Integer.MIN_VALUE | getActionFrameCycle() << 16 | actionFrame);
 			setPoseFrame(Integer.MIN_VALUE | getPoseFrameCycle() << 16 | poseFrame);
-			setSpotAnimationFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
+			setSpotAnimFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
 			return copy$getModel();
 		}
 		finally
@@ -271,7 +271,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 			// reset frames
 			setActionFrame(actionFrame);
 			setPoseFrame(poseFrame);
-			setSpotAnimationFrame(spotAnimFrame);
+			setSpotAnimFrame(spotAnimFrame);
 		}
 	}
 
@@ -293,11 +293,11 @@ public abstract class RSPlayerMixin implements RSPlayer
 	@SuppressWarnings("InfiniteRecursion")
 	public void copy$read(RSBuffer buffer)
 	{
-		final long appearanceHash = getPlayerAppearance() == null ? 0 : getPlayerAppearance().getHash();
+		final long appearanceHash = getPlayerComposition() == null ? 0 : getPlayerComposition().getHash();
 
 		this.copy$read(buffer);
 
-		if (client.isComparingAppearance() && getPlayerAppearance().getHash() != appearanceHash)
+		if (client.isComparingAppearance() && getPlayerComposition().getHash() != appearanceHash)
 		{
 			client.getCallbacks().post(new PlayerChanged(this));
 		}

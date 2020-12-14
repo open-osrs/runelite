@@ -591,7 +591,7 @@ public final class WorldMapManager {
 			if (var2.overheadText.charAt(0) == '~') { // L: 480
 				var2.overheadText = var2.overheadText.substring(1); // L: 481
 				class234.addGameMessage(2, var2.username.getName(), var2.overheadText); // L: 482
-			} else if (var2 == PlayerAppearance.localPlayer) { // L: 484
+			} else if (var2 == PlayerComposition.localPlayer) { // L: 484
 				class234.addGameMessage(2, var2.username.getName(), var2.overheadText); // L: 485
 			}
 
@@ -627,7 +627,7 @@ public final class WorldMapManager {
 					var2.overheadTextEffect = var5 & 255; // L: 510
 					var2.overheadTextCyclesRemaining = 150; // L: 511
 					var2.isAutoChatting = var7; // L: 512
-					var2.field953 = var2 != PlayerAppearance.localPlayer && var6.isUser && "" != Client.field871 && var11.toLowerCase().indexOf(Client.field871) == -1; // L: 513
+					var2.field953 = var2 != PlayerComposition.localPlayer && var6.isUser && "" != Client.field871 && var11.toLowerCase().indexOf(Client.field871) == -1; // L: 513
 					if (var6.isPrivileged) { // L: 515
 						var12 = var7 ? 91 : 1;
 					} else {
@@ -929,13 +929,13 @@ public final class WorldMapManager {
 					if (Client.soundLocations[var0] != 0) { // L: 3646
 						int var3 = (Client.soundLocations[var0] & 255) * 128; // L: 3647
 						int var4 = Client.soundLocations[var0] >> 16 & 255; // L: 3648
-						int var5 = var4 * 128 + 64 - PlayerAppearance.localPlayer.x; // L: 3649
+						int var5 = var4 * 128 + 64 - PlayerComposition.localPlayer.x; // L: 3649
 						if (var5 < 0) { // L: 3650
 							var5 = -var5;
 						}
 
 						int var6 = Client.soundLocations[var0] >> 8 & 255; // L: 3651
-						int var7 = var6 * 128 + 64 - PlayerAppearance.localPlayer.y; // L: 3652
+						int var7 = var6 * 128 + 64 - PlayerComposition.localPlayer.y; // L: 3652
 						if (var7 < 0) { // L: 3653
 							var7 = -var7;
 						}
@@ -956,7 +956,7 @@ public final class WorldMapManager {
 					}
 
 					if (var2 > 0) { // L: 3663
-						RawSound var9 = var1.toRawSound().resample(TileItemPile.decimator); // L: 3664
+						RawSound var9 = var1.toRawSound().resample(ItemLayer.decimator); // L: 3664
 						RawPcmStream var10 = RawPcmStream.createRawPcmStream(var9, 100, var2); // L: 3665
 						var10.setNumLoops(Client.queuedSoundEffectLoops[var0] - 1); // L: 3666
 						pcmStreamMixer.addSubStream(var10); // L: 3667

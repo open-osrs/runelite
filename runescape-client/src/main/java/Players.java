@@ -207,7 +207,7 @@ public class Players {
 		Client.meslayerContinueWidget = null; // L: 2736
 		Client.menuOptionsCount = 0; // L: 2738
 		Client.isMenuOpen = false; // L: 2739
-		Client.playerAppearance.update((int[])null, new int[]{0, 0, 0, 0, 0}, false, -1); // L: 2741
+		Client.playerComposition.update((int[])null, new int[]{0, 0, 0, 0, 0}, false, -1); // L: 2741
 
 		for (var0 = 0; var0 < 8; ++var0) { // L: 2742
 			Client.playerMenuActions[var0] = null; // L: 2743

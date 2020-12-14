@@ -164,7 +164,7 @@ public final class Canvas extends java.awt.Canvas {
 				FriendLoginUpdate.pcmPlayer1 = UserComparator6.method3526(GameShell.taskHandler, 1, 2048); // L: 1829
 				WorldMapManager.pcmStreamMixer = new PcmStreamMixer(); // L: 1830
 				FriendLoginUpdate.pcmPlayer1.setStream(WorldMapManager.pcmStreamMixer); // L: 1831
-				TileItemPile.decimator = new Decimator(22050, PcmPlayer.field1443); // L: 1832
+				ItemLayer.decimator = new Decimator(22050, PcmPlayer.field1443); // L: 1832
 				Login.Login_loadingText = "Prepared sound engine"; // L: 1833
 				Login.Login_loadingPercent = 35; // L: 1834
 				Client.titleLoadingStage = 50; // L: 1835

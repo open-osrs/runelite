@@ -12,7 +12,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hh")
 @Implements("PlayerAppearance")
-public class PlayerAppearance {
+public class PlayerComposition
+{
 	@ObfuscatedName("n")
 	public static short[] field2551;
 	@ObfuscatedName("l")

@@ -30,7 +30,7 @@ public class SoundSystem implements Runnable {
 				}
 			}
 		} catch (Exception var4) { // L: 17
-			PlayerAppearance.RunException_sendStackTrace((String)null, var4); // L: 18
+			PlayerComposition.RunException_sendStackTrace((String)null, var4); // L: 18
 		}
 
 	} // L: 20

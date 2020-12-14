@@ -370,7 +370,7 @@ public class class51 implements WorldMapSection {
 	)
 	static void method832() {
 		if (Client.renderSelf) { // L: 4708
-			ClientPreferences.addPlayerToScene(PlayerAppearance.localPlayer, false); // L: 4709
+			ClientPreferences.addPlayerToScene(PlayerComposition.localPlayer, false); // L: 4709
 		}
 
 	} // L: 4711

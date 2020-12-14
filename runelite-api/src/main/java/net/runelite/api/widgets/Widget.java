@@ -1020,4 +1020,9 @@ public interface Widget
 	boolean isWidgetItemDragged(int index);
 
 	Point getWidgetItemDragOffsets();
+
+	static boolean getDragParent(Widget widget)
+	{
+		throw new UnsupportedOperationException("Implement");
+	}
 }

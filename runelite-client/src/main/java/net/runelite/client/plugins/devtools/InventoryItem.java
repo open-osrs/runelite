@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, TheStonedTurtle <https://github.com/TheStonedTurtle>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,22 +22,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.devtools;
 
-public interface VarbitDefinition
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import net.runelite.api.Item;
+
+@Data
+@AllArgsConstructor
+class InventoryItem
 {
-	/**
-	 * The varp index for this varbit
-	 */
-	int getIndex();
-
-	/**
-	 * The least significant bit of the varbit
-	 */
-	int getLeastSignificantBit();
-
-	/**
-	 * The most significant bit of the varbit (inclusive)
-	 */
-	int getMostSignificantBit();
+	private final int slot;
+	private Item item;
+	private final String name;
+	private final boolean stackable;
 }

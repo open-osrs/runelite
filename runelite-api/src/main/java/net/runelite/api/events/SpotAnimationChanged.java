@@ -7,7 +7,7 @@ import net.runelite.api.Actor;
  * An event where the graphic of an {@link Actor} has changed.
  * <p>
  * The graphic the player has changed to can be obtained using
- * {@link Actor#getSpotAnimation()}.
+ * {@link Actor#getGraphic()}.
  * <p>
  * Examples of when this event may trigger include:
  * <ul>

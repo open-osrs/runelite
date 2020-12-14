@@ -24,40 +24,52 @@
  */
 package net.runelite.api;
 
+import net.runelite.api.kit.KitType;
+
 /**
- * Represents a pile of items held by a tile.
+ * Represents the template of a player.
  */
-public interface TileItemPile extends TileObject
+public interface PlayerComposition
 {
 	/**
-	 * Gets the height of the layer.
+	 * Checks if the player is female.
 	 *
-	 * @return the height
+	 * @return true if the player is female
 	 */
-	int getHeight();
+	boolean isFemale();
 
 	/**
-	 * Gets the item at the bottom of the pile.
+	 * Gets an array of IDs related to equipment slots.
+	 * <p>
+	 * If the ID for a specific slot is between 256 and 512, subtracting
+	 * 256 will result in the kit ID. Values above 512 indicate an item
+	 * and can be converted to the item ID by subtracting 512.
 	 *
-	 * @return the bottom item
+	 * @return the equipment IDs
 	 */
-	Renderable getBottom();
+	int[] getEquipmentIds();
 
 	/**
-	 * Gets the item at the middle of the pile.
+	 * Gets the equipment ID of a particular slot.
 	 *
-	 * @return the middle item
+	 * @param type equipment slot
+	 * @return the equipment ID
 	 */
-	Renderable getMiddle();
+	int getEquipmentId(KitType type);
 
 	/**
-	 * Gets the item at the top of the pile.
+	 * Gets the kit ID of a particular slot.
 	 *
-	 * @return the top item
+	 * @param type equipment slot
+	 * @return the kit ID
 	 */
-	Renderable getTop();
+	int getKitId(KitType type);
 
-	Model getModelBottom();
-	Model getModelMiddle();
-	Model getModelTop();
+	/**
+	 * Update the cached hash value for player equipment
+	 * Used to cache the player models based on equipment.
+	 */
+	void setHash();
+
+	void setTransformedNpcId(int id);
 }

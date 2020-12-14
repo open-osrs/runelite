@@ -82,7 +82,7 @@ public final class FloorDecoration {
 
 		for (int var6 = 0; var6 < var2; ++var6) { // L: 8292
 			Player var7 = Client.players[var3[var6]]; // L: 8293
-			if (var7 != null && var7 != PlayerAppearance.localPlayer && var7.username != null && var7.username.equals(var5)) { // L: 8294
+			if (var7 != null && var7 != PlayerComposition.localPlayer && var7.username != null && var7.username.equals(var5)) { // L: 8294
 				PacketBufferNode var8;
 				if (var0 == 1) { // L: 8295
 					var8 = ItemContainer.getPacketBufferNode(ClientPacket.field2260, Client.packetWriter.isaacCipher); // L: 8297
@@ -124,14 +124,14 @@ public final class FloorDecoration {
 	)
 	@Export("addPlayerToMenu")
 	static final void addPlayerToMenu(Player var0, int var1, int var2, int var3) {
-		if (PlayerAppearance.localPlayer != var0) { // L: 8826
+		if (PlayerComposition.localPlayer != var0) { // L: 8826
 			if (Client.menuOptionsCount < 400) { // L: 8827
 				String var4;
 				int var7;
 				if (var0.skillLevel == 0) { // L: 8829
 					String var5 = var0.actions[0] + var0.username + var0.actions[1]; // L: 8830
 					var7 = var0.combatLevel; // L: 8832
-					int var8 = PlayerAppearance.localPlayer.combatLevel; // L: 8833
+					int var8 = PlayerComposition.localPlayer.combatLevel; // L: 8833
 					int var9 = var8 - var7; // L: 8835
 					String var6;
 					if (var9 < -9) { // L: 8836
@@ -175,12 +175,12 @@ public final class FloorDecoration {
 									continue;
 								}
 
-								if (Client.playerAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.playerAttackOption && var0.combatLevel > PlayerAppearance.localPlayer.combatLevel) { // L: 8889
+								if (Client.playerAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.playerAttackOption && var0.combatLevel > PlayerComposition.localPlayer.combatLevel) { // L: 8889
 									var11 = 2000; // L: 8890
 								}
 
-								if (PlayerAppearance.localPlayer.team != 0 && var0.team != 0) { // L: 8892
-									if (var0.team == PlayerAppearance.localPlayer.team) { // L: 8893
+								if (PlayerComposition.localPlayer.team != 0 && var0.team != 0) { // L: 8892
+									if (var0.team == PlayerComposition.localPlayer.team) { // L: 8893
 										var11 = 2000;
 									} else {
 										var11 = 0; // L: 8894

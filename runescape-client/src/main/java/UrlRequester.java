@@ -123,7 +123,7 @@ public class UrlRequester implements Runnable {
 
 				}
 			} catch (Exception var17) {
-				PlayerAppearance.RunException_sendStackTrace((String)null, var17);
+				PlayerComposition.RunException_sendStackTrace((String)null, var17);
 			}
 		}
 

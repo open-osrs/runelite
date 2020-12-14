@@ -112,7 +112,7 @@ public class UserComparator4 implements Comparator {
 			var9 = var1.method5572(); // L: 6657
 			if (var4 >= 0 && var5 >= 0 && var4 < 104 && var5 < 104) { // L: 6658
 				var10 = var7 + 1; // L: 6659
-				if (PlayerAppearance.localPlayer.pathX[0] >= var4 - var10 && PlayerAppearance.localPlayer.pathX[0] <= var10 + var4 && PlayerAppearance.localPlayer.pathY[0] >= var5 - var10 && PlayerAppearance.localPlayer.pathY[0] <= var5 + var10 && Timer.clientPreferences.areaSoundEffectsVolume != 0 && var8 > 0 && Client.soundEffectCount < 50) { // L: 6660 6661
+				if (PlayerComposition.localPlayer.pathX[0] >= var4 - var10 && PlayerComposition.localPlayer.pathX[0] <= var10 + var4 && PlayerComposition.localPlayer.pathY[0] >= var5 - var10 && PlayerComposition.localPlayer.pathY[0] <= var5 + var10 && Timer.clientPreferences.areaSoundEffectsVolume != 0 && var8 > 0 && Client.soundEffectCount < 50) { // L: 6660 6661
 					Client.soundEffectIds[Client.soundEffectCount] = var2; // L: 6662
 					Client.queuedSoundEffectLoops[Client.soundEffectCount] = var8; // L: 6663
 					Client.queuedSoundEffectDelays[Client.soundEffectCount] = var9; // L: 6664
@@ -324,7 +324,7 @@ public class UserComparator4 implements Comparator {
 						byte var16 = var1.readByte(); // L: 6850
 						Player var17;
 						if (var13 == Client.localPlayerIndex) { // L: 6852
-							var17 = PlayerAppearance.localPlayer;
+							var17 = PlayerComposition.localPlayer;
 						} else {
 							var17 = Client.players[var13]; // L: 6853
 						}

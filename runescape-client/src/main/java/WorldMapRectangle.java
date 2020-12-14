@@ -57,7 +57,7 @@ public final class WorldMapRectangle {
 		garbageValue = "470419605"
 	)
 	static int method331(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1124
+		Widget var3 = var2 ? PlayerComposition.field2561 : VarcInt.field3264; // L: 1124
 		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1125
 			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = ServerPacket.Widget_unpackTargetMask(FaceNormal.getWidgetFlags(var3)); // L: 1126
 			return 1; // L: 1127
@@ -122,14 +122,14 @@ public final class WorldMapRectangle {
 		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 2876
 		SequenceDefinition.SequenceDefinition_cachedFrames.clear(); // L: 2877
 		WallDecoration.method3379(); // L: 2879
-		VarbitDefinition.VarbitDefinition_cached.clear(); // L: 2881
+		VarbitComposition.VarbitDefinition_cached.clear(); // L: 2881
 		WorldMapID.method601(); // L: 2883
 		HealthBarDefinition.method4509(); // L: 2884
 		VarcInt.method4426(); // L: 2885
 		StructDefinition.StructDefinition_cached.clear(); // L: 2887
 		StudioGame.method4185(); // L: 2889
 		WorldMapElement.WorldMapElement_cachedSprites.clear(); // L: 2891
-		PlayerAppearance.PlayerAppearance_cachedModels.clear(); // L: 2894
+		PlayerComposition.PlayerAppearance_cachedModels.clear(); // L: 2894
 		Widget.Widget_cachedSprites.clear(); // L: 2897
 		Widget.Widget_cachedModels.clear(); // L: 2898
 		Widget.Widget_cachedFonts.clear(); // L: 2899
