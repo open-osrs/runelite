@@ -67,7 +67,7 @@ public class Injection extends InjectData implements InjectTaskHandler
 
 		inject(new RSApiInjector(this));
 
-		//inject(new DrawAfterWidgets(this));
+		inject(new DrawAfterWidgets(this));
 
 		inject(new ScriptVM(this));
 
