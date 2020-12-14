@@ -40,8 +40,8 @@ public interface DecorativeObject extends TileObject
 	Shape getConvexHull();
 	Shape getConvexHull2();
 
-	Entity getEntity1();
-	Entity getEntity2();
+	Renderable getRenderable();
+	Renderable getRenderable2();
 
 	Model getModel1();
 

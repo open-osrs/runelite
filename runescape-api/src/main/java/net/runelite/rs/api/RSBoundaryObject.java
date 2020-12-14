@@ -25,13 +25,13 @@ public interface RSBoundaryObject extends WallObject
 	@Override
 	int getOrientationB();
 
-	@Import("entity1")
+	@Import("renderable1")
 	@Override
-	RSEntity getEntity1();
+	RSRenderable getRenderable();
 
-	@Import("entity2")
+	@Import("renderable2")
 	@Override
-	RSEntity getEntity2();
+	RSRenderable getRenderable2();
 
 	@Import("flags")
 	@Override

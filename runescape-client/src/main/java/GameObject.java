@@ -42,7 +42,7 @@ public final class GameObject {
 		descriptor = "Ler;"
 	)
 	@Export("entity")
-	public Entity entity;
+	public Renderable renderable;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
 		intValue = 1255599163

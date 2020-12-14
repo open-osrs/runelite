@@ -29,7 +29,7 @@ import net.runelite.api.coords.LocalPoint;
 /**
  * Represents a graphics object/spotanim.
  */
-public interface GraphicsObject extends Entity
+public interface GraphicsObject extends Renderable
 {
 	/**
 	 * The graphics object ID.

@@ -347,4 +347,7 @@ public final class ScriptID
 
 	@ScriptArguments()
 	public static final int BANKMAIN_SEARCHING = 514;
+
+	@ScriptArguments(integer = 7)
+	public static final int SETTINGS_SLIDER_CHOOSE_ONOP = 3885;
 }

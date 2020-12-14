@@ -36,7 +36,7 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.api.util.Text;
 import net.runelite.rs.api.RSActor;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSEntity;
+import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSPlayer;
 import net.runelite.rs.api.RSProjectile;
@@ -101,7 +101,7 @@ public abstract class EntityHiderMixin implements RSScene
 
 	@Copy("newGameObject")
 	@Replace("newGameObject")
-	boolean copy$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13)
+	boolean copy$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSRenderable entity, int var10, boolean var11, long var12, int var13)
 	{
 		final boolean shouldDraw = shouldDraw(entity, false);
 

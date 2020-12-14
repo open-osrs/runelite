@@ -32,6 +32,11 @@ plugins {
     java
 }
 
+repositories {
+    maven {
+        url = uri("https://repo.runelite.net")
+    }
+}
 
 apply<BootstrapPlugin>()
 
@@ -76,10 +81,20 @@ dependencies {
     implementation(group = "org.pf4j", name = "pf4j-update", version = "2.3.0")
     implementation(group = "com.google.archivepatcher", name = "archive-patch-applier", version= "1.0.4")
     implementation(project(":http-api"))
+    implementation(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429")
+    implementation(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429")
 
     runtimeOnly(group = "org.pushing-pixels", name = "radiance-trident", version = "2.5.1")
     runtimeOnly(project(":injected-client"))
     runtimeOnly(project(":runescape-api"))
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-linux-amd64")
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-windows-amd64")
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-windows-i586")
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-macosx-universal")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-linux-amd64")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-windows-amd64")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-windows-i586")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-macosx-universal")
 
     testAnnotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 

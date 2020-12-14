@@ -181,6 +181,22 @@ public class WidgetID
 	public static final int DUEL_INVENTORY_OTHER_GROUP_ID = 481;
 	public static final int TRAILBLAZER_AREAS_GROUP_ID = 512;
 
+	public static final int SETTINGS_SIDE_GROUP_ID = 116;
+	public static final int SETTINGS_GROUP_ID = 134;
+
+	static class SettingsSide
+	{
+		static final int CAMERA_ZOOM_SLIDER_TRACK = 59;
+		static final int MUSIC_SLIDER = 13;
+		static final int SOUND_EFFECT_SLIDER = 17;
+		static final int AREA_SOUND_SLIDER = 21;
+	}
+
+	static class Settings
+	{
+		static final int INIT = 1;
+	}
+
 	static class WorldMap
 	{
 		static final int MAPVIEW = 7;
@@ -766,6 +782,7 @@ public class WidgetID
 			static final int BASE_POINTS = 33;
 			static final int HONOUR_POINTS_REWARD = 49;
 		}
+		static final int CORRECT_STYLE = 3;
 		static final int GAME_WIDGET = 3;
 		static final int CURRENT_WAVE_WIDGET = 4;
 		static final int CURRENT_WAVE = 5;

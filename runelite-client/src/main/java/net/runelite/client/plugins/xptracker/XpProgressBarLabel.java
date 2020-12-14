@@ -26,9 +26,7 @@ package net.runelite.client.plugins.xptracker;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.function.Function;
-
 import static net.runelite.client.plugins.xptracker.XpInfoBox.TWO_DECIMAL_FORMAT;
 
 @Getter

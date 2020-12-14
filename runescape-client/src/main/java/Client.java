@@ -3056,7 +3056,7 @@ public final class Client extends GameShell implements Usernamed {
 				var5.packetBuffer.method5718(Messages.archive8.hash); // L: 2380
 				var5.packetBuffer.method5587(DynamicObject.archive2.hash); // L: 2381
 				var5.packetBuffer.method5718(class330.archive3.hash); // L: 2382
-				var5.packetBuffer.method5587(TilePaint.archive0.hash); // L: 2383
+				var5.packetBuffer.method5587(SceneTilePaint.archive0.hash); // L: 2383
 				var5.packetBuffer.writeInt(class227.archive4.hash); // L: 2384
 				var5.packetBuffer.method5587(0); // L: 2385
 				var5.packetBuffer.method5588(BuddyRankComparator.archive7.hash); // L: 2386

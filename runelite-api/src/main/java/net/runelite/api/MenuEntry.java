@@ -57,7 +57,7 @@ public class MenuEntry implements Cloneable
 	/**
 	 * An additional parameter for the action.
 	 */
-	private int actionParam0;
+	private int actionParam;
 	/**
 	 * A second additional parameter for the action.
 	 */
@@ -70,13 +70,13 @@ public class MenuEntry implements Cloneable
 	 */
 	private boolean forceLeftClick;
 
-	public MenuEntry(String option, String target, int type, int opcode, int actionParam0, int actionParam1, boolean forceLeftClick)
+	public MenuEntry(String option, String target, int type, int opcode, int actionParam, int actionParam1, boolean forceLeftClick)
 	{
 		this.option = option;
 		this.target = target;
 		this.identifier = type;
 		this.opcode = opcode;
-		this.actionParam0 = actionParam0;
+		this.actionParam = actionParam;
 		this.actionParam1 = actionParam1;
 		this.forceLeftClick = forceLeftClick;
 	}
@@ -94,9 +94,19 @@ public class MenuEntry implements Cloneable
 		}
 	}
 
+	public void setActionParam0(int i)
+	{
+		this.actionParam = i;
+	}
+
+	public int getActionParam0()
+	{
+		return this.actionParam;
+	}
+
 	public void setParam0(int i)
 	{
-		this.actionParam0 = i;
+		this.actionParam = i;
 	}
 
 	public void setParam1(int i)
@@ -112,6 +122,16 @@ public class MenuEntry implements Cloneable
 	public int getType()
 	{
 		return this.opcode;
+	}
+
+	public void setId(int i)
+	{
+		this.identifier = i;
+	}
+
+	public int getId()
+	{
+		return this.identifier;
 	}
 
 	/**

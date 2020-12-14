@@ -67,7 +67,7 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.NameableContainer;
 import net.runelite.api.Node;
-import net.runelite.api.ObjectDefinition;
+import net.runelite.api.ObjectComposition;
 import static net.runelite.api.Perspective.LOCAL_TILE_SIZE;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
@@ -754,7 +754,7 @@ public abstract class RSClientMixin implements RSClient
 			entry.setTarget(menuTargets[i]);
 			entry.setIdentifier(menuIdentifiers[i]);
 			entry.setOpcode(menuTypes[i]);
-			entry.setActionParam0(params0[i]);
+			entry.setActionParam(params0[i]);
 			entry.setActionParam1(params1[i]);
 			entry.setForceLeftClick(leftClick[i]);
 		}
@@ -785,7 +785,7 @@ public abstract class RSClientMixin implements RSClient
 			menuTargets[count] = entry.getTarget();
 			menuIdentifiers[count] = entry.getIdentifier();
 			menuTypes[count] = entry.getOpcode();
-			params0[count] = entry.getActionParam0();
+			params0[count] = entry.getActionParam();
 			params1[count] = entry.getActionParam1();
 			leftClick[count] = entry.isForceLeftClick();
 			++count;
@@ -832,7 +832,7 @@ public abstract class RSClientMixin implements RSClient
 				targets[oldCount] = event.getTarget();
 				identifiers[oldCount] = event.getIdentifier();
 				opcodes[oldCount] = event.getOpcode();
-				arguments1[oldCount] = event.getActionParam0();
+				arguments1[oldCount] = event.getActionParam();
 				arguments2[oldCount] = event.getActionParam1();
 				forceLeftClick[oldCount] = event.isForceLeftClick();
 			}
@@ -1426,12 +1426,12 @@ public abstract class RSClientMixin implements RSClient
 			client.getLogger().info(
 				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={} Authentic={}",
 				menuOptionClicked.getOption(), menuOptionClicked.getTarget(), menuOptionClicked.getIdentifier(),
-				menuOptionClicked.getOpcode(), menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(),
+				menuOptionClicked.getOpcode(), menuOptionClicked.getActionParam(), menuOptionClicked.getActionParam1(),
 				canvasX, canvasY, authentic
 			);
 		}
 
-		copy$menuAction(menuOptionClicked.getActionParam0(), menuOptionClicked.getActionParam1(), menuOptionClicked.getOpcode(),
+		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getActionParam1(), menuOptionClicked.getOpcode(),
 			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
 	}
 
@@ -1925,7 +1925,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public ObjectDefinition getObjectComposition(int objectId)
+	public ObjectComposition getObjectDefinition(int objectId)
 	{
 		assert this.isClientThread() : "getObjectDefinition must be called on client thread";
 		return getRSObjectComposition(objectId);

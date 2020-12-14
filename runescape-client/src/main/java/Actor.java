@@ -6,7 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cx")
 @Implements("Actor")
-public abstract class Actor extends Entity {
+public abstract class Actor extends Renderable
+{
 	@ObfuscatedName("hg")
 	@ObfuscatedSignature(
 		descriptor = "[Llm;"

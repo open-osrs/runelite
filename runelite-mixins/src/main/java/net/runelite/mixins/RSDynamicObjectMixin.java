@@ -34,7 +34,7 @@ import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSDynamicObject;
-import net.runelite.rs.api.RSEntity;
+import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSModel;
 
 @Mixin(RSDynamicObject.class)
@@ -83,7 +83,7 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 
 	@MethodHook(value = "<init>", end = true)
 	@Inject
-	public void rl$init(int id, int type, int orientation, int plane, int x, int y, int animationID, boolean var8, RSEntity var9)
+	public void rl$init(int id, int type, int orientation, int plane, int x, int y, int animationID, boolean var8, RSRenderable var9)
 	{
 		if (animationID != -1)
 		{

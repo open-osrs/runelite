@@ -581,7 +581,7 @@ public class ObjectComposition extends DualNode {
 		garbageValue = "-18803"
 	)
 	@Export("getEntity")
-	public final Entity getEntity(int var1, int var2, int[][] var3, int var4, int var5, int var6) {
+	public final Renderable getEntity(int var1, int var2, int[][] var3, int var4, int var5, int var6) {
 		long var7;
 		if (this.models == null) { // L: 254
 			var7 = (long)(var2 + (this.id << 10));
@@ -589,7 +589,7 @@ public class ObjectComposition extends DualNode {
 			var7 = (long)(var2 + (var1 << 3) + (this.id << 10)); // L: 255
 		}
 
-		Object var9 = (Entity)ObjectDefinition_cachedEntities.get(var7); // L: 256
+		Object var9 = (Renderable)ObjectDefinition_cachedEntities.get(var7); // L: 256
 		if (var9 == null) { // L: 257
 			ModelData var10 = this.getModelData(var1, var2); // L: 258
 			if (var10 == null) { // L: 259
@@ -620,7 +620,7 @@ public class ObjectComposition extends DualNode {
 			}
 		}
 
-		return (Entity)var9; // L: 276
+		return (Renderable)var9; // L: 276
 	}
 
 	@ObfuscatedName("p")

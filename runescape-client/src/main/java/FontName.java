@@ -157,7 +157,7 @@ public class FontName {
 						if (var1 != -1412584499 && !var10.isScrollBar) { // L: 8954
 							class200.field2390 = var0; // L: 8955
 							Client.field923 = var6; // L: 8956
-							Entity.field1893 = var7; // L: 8957
+							Renderable.field1893 = var7; // L: 8957
 							continue; // L: 8958
 						}
 

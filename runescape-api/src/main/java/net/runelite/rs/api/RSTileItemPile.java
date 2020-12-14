@@ -20,15 +20,15 @@ public interface RSTileItemPile extends TileItemPile
 
 	@Import("first")
 	@Override
-	RSEntity getBottom();
+	RSRenderable getBottom();
 
 	@Import("second")
 	@Override
-	RSEntity getMiddle();
+	RSRenderable getMiddle();
 
 	@Import("third")
 	@Override
-	RSEntity getTop();
+	RSRenderable getTop();
 
 	void setPlane(int plane);
 }

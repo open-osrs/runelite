@@ -639,7 +639,7 @@ public class WorldMapID {
 			}
 		}
 
-		TilePaint.method3154(var0); // L: 3971
+		SceneTilePaint.method3154(var0); // L: 3971
 	} // L: 3972
 
 	@ObfuscatedName("ik")

@@ -932,7 +932,7 @@ public interface Client extends GameShell
 	 * @return the corresponding object composition
 	 * @see ObjectID
 	 */
-	ObjectDefinition getObjectComposition(int objectId);
+	ObjectComposition getObjectDefinition(int objectId);
 
 	/**
 	 * Gets the NPC composition corresponding to an NPCs ID.

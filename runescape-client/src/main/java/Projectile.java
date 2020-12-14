@@ -6,7 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cu")
 @Implements("Projectile")
-public final class Projectile extends Entity {
+public final class Projectile extends Renderable
+{
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = -1007905183

@@ -974,7 +974,7 @@ c 7 4
 #100
 R 19 19 21 20
 
-// Cosmic entity's plane
+// Cosmic renderable's plane
 #040404
 r 32 75
 

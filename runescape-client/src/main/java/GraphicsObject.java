@@ -6,7 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ce")
 @Implements("GraphicsObject")
-public final class GraphicsObject extends Entity {
+public final class GraphicsObject extends Renderable
+{
 	@ObfuscatedName("a")
 	public static String[] field1117;
 	@ObfuscatedName("h")

@@ -1,9 +1,9 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.ObjectDefinition;
+import net.runelite.api.ObjectComposition;
 import net.runelite.mapping.Import;
 
-public interface RSObjectComposition extends ObjectDefinition
+public interface RSObjectComposition extends ObjectComposition
 {
 	@Import("id")
 	@Override

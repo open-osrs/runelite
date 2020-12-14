@@ -136,7 +136,7 @@ public final class WorldMapRectangle {
 		Widget.Widget_cachedSpriteMasks.clear(); // L: 2900
 		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear(); // L: 2902
 		Script.Script_cached.clear(); // L: 2903
-		TilePaint.archive0.clearFiles(); // L: 2904
+		SceneTilePaint.archive0.clearFiles(); // L: 2904
 		WorldMapSprite.archive1.clearFiles(); // L: 2905
 		class330.archive3.clearFiles(); // L: 2906
 		class227.archive4.clearFiles(); // L: 2907

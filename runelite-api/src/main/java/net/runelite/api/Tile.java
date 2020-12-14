@@ -71,14 +71,14 @@ public interface Tile extends TileObject
 	 *
 	 * @return the paint
 	 */
-	TilePaint getTilePaint();
+	SceneTilePaint getSceneTilePaint();
 
 	/**
 	 * Gets the model of the tile in the scene.
 	 *
 	 * @return the tile model
 	 */
-	TileModel getTileModel();
+	SceneTileModel getSceneTileModel();
 
 	/**
 	 * Gets the location coordinate of the tile in scene coords

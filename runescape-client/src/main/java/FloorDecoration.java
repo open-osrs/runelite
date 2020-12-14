@@ -30,7 +30,7 @@ public final class FloorDecoration {
 		descriptor = "Ler;"
 	)
 	@Export("entity")
-	public Entity entity;
+	public Renderable renderable;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		longValue = 2801138791321477185L

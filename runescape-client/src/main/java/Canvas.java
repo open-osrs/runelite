@@ -73,7 +73,7 @@ public final class Canvas extends java.awt.Canvas {
 			Login.Login_loadingPercent = 10; // L: 1737
 			Client.titleLoadingStage = 30; // L: 1738
 		} else if (Client.titleLoadingStage == 30) { // L: 1741
-			TilePaint.archive0 = WorldMapCacheName.newArchive(0, false, true, true); // L: 1742
+			SceneTilePaint.archive0 = WorldMapCacheName.newArchive(0, false, true, true); // L: 1742
 			WorldMapSprite.archive1 = WorldMapCacheName.newArchive(1, false, true, true); // L: 1743
 			DynamicObject.archive2 = WorldMapCacheName.newArchive(2, true, false, true); // L: 1744
 			class330.archive3 = WorldMapCacheName.newArchive(3, false, true, true); // L: 1745
@@ -98,7 +98,7 @@ public final class Canvas extends java.awt.Canvas {
 			Client.titleLoadingStage = 40; // L: 1764
 		} else if (Client.titleLoadingStage == 40) { // L: 1767
 			byte var23 = 0; // L: 1768
-			var12 = var23 + TilePaint.archive0.percentage() * 4 / 100; // L: 1769
+			var12 = var23 + SceneTilePaint.archive0.percentage() * 4 / 100; // L: 1769
 			var12 += WorldMapSprite.archive1.percentage() * 4 / 100; // L: 1770
 			var12 += DynamicObject.archive2.percentage() * 2 / 100; // L: 1771
 			var12 += class330.archive3.percentage() * 2 / 100; // L: 1772
@@ -125,7 +125,7 @@ public final class Canvas extends java.awt.Canvas {
 
 				Login.Login_loadingPercent = 30; // L: 1791
 			} else {
-				UserComparator4.method3469(TilePaint.archive0, "Animations"); // L: 1794
+				UserComparator4.method3469(SceneTilePaint.archive0, "Animations"); // L: 1794
 				UserComparator4.method3469(WorldMapSprite.archive1, "Skeletons"); // L: 1795
 				UserComparator4.method3469(class227.archive4, "Sound FX"); // L: 1796
 				UserComparator4.method3469(GameShell.archive5, "Maps"); // L: 1797
@@ -276,7 +276,7 @@ public final class Canvas extends java.awt.Canvas {
 						World.method1849(DynamicObject.archive2, BuddyRankComparator.archive7); // L: 1920
 						ParamDefinition.method4526(DynamicObject.archive2); // L: 1921
 						Actor.method1821(DynamicObject.archive2, BuddyRankComparator.archive7, Client.isMembersWorld, class297.fontPlain11); // L: 1922
-						PcmPlayer.method2538(DynamicObject.archive2, TilePaint.archive0, WorldMapSprite.archive1); // L: 1923
+						PcmPlayer.method2538(DynamicObject.archive2, SceneTilePaint.archive0, WorldMapSprite.archive1); // L: 1923
 						ModelData0.method3331(DynamicObject.archive2, BuddyRankComparator.archive7); // L: 1924
 						class200.method3712(DynamicObject.archive2); // L: 1925
 						Archive var18 = DynamicObject.archive2; // L: 1926

@@ -7,7 +7,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ct")
 @Implements("TileItem")
-public final class TileItem extends Entity {
+public final class TileItem extends Renderable
+{
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = 1316978929

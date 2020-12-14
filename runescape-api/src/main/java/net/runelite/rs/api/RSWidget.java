@@ -546,7 +546,7 @@ public interface RSWidget extends Widget
 
 	@Import("onInvTransmit")
 	@Override
-	Object[] getOnInvTransmit();
+	Object[] getOnInvTransmitListener();
 
 	@Import("containsMouse")
 	@Override

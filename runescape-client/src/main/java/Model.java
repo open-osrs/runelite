@@ -5,7 +5,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("eh")
 @Implements("Model")
-public class Model extends Entity {
+public class Model extends Renderable
+{
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Leh;"

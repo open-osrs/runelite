@@ -41,21 +41,21 @@ public interface TileItemPile extends TileObject
 	 *
 	 * @return the bottom item
 	 */
-	Entity getBottom();
+	Renderable getBottom();
 
 	/**
 	 * Gets the item at the middle of the pile.
 	 *
 	 * @return the middle item
 	 */
-	Entity getMiddle();
+	Renderable getMiddle();
 
 	/**
 	 * Gets the item at the top of the pile.
 	 *
 	 * @return the top item
 	 */
-	Entity getTop();
+	Renderable getTop();
 
 	Model getModelBottom();
 	Model getModelMiddle();

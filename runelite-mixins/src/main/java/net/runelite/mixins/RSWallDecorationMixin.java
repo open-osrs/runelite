@@ -9,7 +9,7 @@ import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSEntity;
+import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSWallDecoration;
 
@@ -40,7 +40,7 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration
 	@Override
 	public RSModel getModel1()
 	{
-		RSEntity renderable = getEntity1();
+		RSRenderable renderable = getRenderable();
 		if (renderable == null)
 		{
 			return null;
@@ -64,7 +64,7 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration
 	@Override
 	public RSModel getModel2()
 	{
-		RSEntity renderable = getEntity2();
+		RSRenderable renderable = getRenderable2();
 		if (renderable == null)
 		{
 			return null;

@@ -500,7 +500,7 @@ public class XpTrackerPlugin extends Plugin
 		MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
 		menuEntry.setTarget(skillText);
 		menuEntry.setOption(hasOverlay(skill) ? MENUOP_REMOVE_CANVAS_TRACKER : MENUOP_ADD_CANVAS_TRACKER);
-		menuEntry.setParam0(event.getActionParam0());
+		menuEntry.setActionParam(event.getActionParam());
 		menuEntry.setParam1(widgetID);
 		menuEntry.setType(MenuAction.RUNELITE.getId());
 
@@ -513,9 +513,6 @@ public class XpTrackerPlugin extends Plugin
 		if (event.getMenuAction().getId() != MenuAction.RUNELITE.getId()
 			|| TO_GROUP(event.getWidgetId()) != WidgetID.SKILLS_GROUP_ID)
 		{
-			System.out.println("opcode " + event.getMenuAction());
-			System.out.println("id " + event.getMenuAction().getId());
-			System.out.println("group " + TO_GROUP(event.getWidgetId()));
 			return;
 		}
 
@@ -538,8 +535,6 @@ public class XpTrackerPlugin extends Plugin
 			case MENUOP_REMOVE_CANVAS_TRACKER:
 				removeOverlay(skill);
 				break;
-			default:
-				System.out.println(event.getMenuOption());
 		}
 	}
 

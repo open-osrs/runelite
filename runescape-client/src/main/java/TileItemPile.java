@@ -43,19 +43,19 @@ public final class TileItemPile {
 		descriptor = "Ler;"
 	)
 	@Export("first")
-	Entity first;
+	Renderable first;
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "Ler;"
 	)
 	@Export("second")
-	Entity second;
+	Renderable second;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "Ler;"
 	)
 	@Export("third")
-	Entity third;
+	Renderable third;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
 		longValue = 7869520931752751385L
