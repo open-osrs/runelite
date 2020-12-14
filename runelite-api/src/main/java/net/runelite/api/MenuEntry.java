@@ -104,6 +104,11 @@ public class MenuEntry implements Cloneable
 		return this.actionParam;
 	}
 
+	public int getParam0()
+	{
+		return this.actionParam;
+	}
+
 	public void setParam0(int i)
 	{
 		this.actionParam = i;
@@ -112,6 +117,11 @@ public class MenuEntry implements Cloneable
 	public void setParam1(int i)
 	{
 		this.actionParam1 = i;
+	}
+
+	public int getParam1()
+	{
+		return this.actionParam1;
 	}
 
 	public void setType(int i)
