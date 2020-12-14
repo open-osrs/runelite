@@ -49,6 +49,7 @@ include(":injected-client")
 include(":injection-annotations")
 include(":runelite-plugin-archetype")
 include(":wiki-scraper")
+include(":openosrs-injector")
 
 for (project in rootProject.children) {
     project.apply {

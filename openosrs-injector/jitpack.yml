@@ -1,0 +1,6 @@
+# JitPack publishing yml - used for CI and externals
+jdk:
+  - openjdk11
+install:
+  - chmod a+x ./gradlew
+  - ./gradlew clean build publishToMavenLocal -x test --console=plain
