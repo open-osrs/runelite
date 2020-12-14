@@ -47,7 +47,6 @@ include(":runelite-client")
 include(":runelite-mixins")
 include(":injected-client")
 include(":injection-annotations")
-include(":runelite-plugin-archetype")
 include(":wiki-scraper")
 include(":openosrs-injector")
 
