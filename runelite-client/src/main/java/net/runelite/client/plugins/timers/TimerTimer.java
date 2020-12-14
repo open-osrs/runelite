@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,26 +22,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.client.plugins.timers;
 
-import lombok.Value;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.ui.overlay.infobox.InfoBoxPriority;
+import net.runelite.client.ui.overlay.infobox.Timer;
 
-/**
- * Fires after the composition of an {@link NPC} changes.
- */
-@Value
-public class NpcChanged implements Event
+class TimerTimer extends Timer
 {
-	/**
-	 * The NPC of which the composition changed.
-	 */
-	NPC npc;
+	private final GameTimer timer;
 
+	TimerTimer(GameTimer timer, Duration duration, Plugin plugin)
+	{
+		super(duration.toMillis(), ChronoUnit.MILLIS, null, plugin);
+		this.timer = timer;
+		setPriority(InfoBoxPriority.MED);
+	}
 
-	/**
-	 * The old composition of the NPC
-	 */
-	NPCComposition old;
+	public GameTimer getTimer()
+	{
+		return timer;
+	}
+
+	@Override
+	public String getName()
+	{
+		return timer.name();
+	}
 }

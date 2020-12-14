@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2018, Jordan Atwood <jordan.atwood423@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,26 +22,46 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.client.plugins.timers;
 
-import lombok.Value;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
+import com.google.common.collect.ImmutableList;
+import java.util.Collection;
+import javax.annotation.Nullable;
+import net.runelite.api.widgets.WidgetInfo;
 
-/**
- * Fires after the composition of an {@link NPC} changes.
- */
-@Value
-public class NpcChanged implements Event
+enum TeleportWidget
 {
-	/**
-	 * The NPC of which the composition changed.
-	 */
-	NPC npc;
+	HOME_TELEPORT,
+	MINIGAME_TELEPORT,
+	TRAILBLAZER_AREA_TELEPORT,
+	;
 
+	private static final Collection HOME_TELEPORT_IDS = ImmutableList.of(
+		WidgetInfo.SPELL_LUMBRIDGE_HOME_TELEPORT.getId(),
+		WidgetInfo.SPELL_EDGEVILLE_HOME_TELEPORT.getId(),
+		WidgetInfo.SPELL_LUNAR_HOME_TELEPORT.getId(),
+		WidgetInfo.SPELL_ARCEUUS_HOME_TELEPORT.getId(),
+		WidgetInfo.SPELL_KOUREND_HOME_TELEPORT.getId()
+	);
+	private static final Collection MINIGAME_TELEPORT_IDS = ImmutableList.of(
+		WidgetInfo.MINIGAME_TELEPORT_BUTTON.getId()
+	);
 
-	/**
-	 * The old composition of the NPC
-	 */
-	NPCComposition old;
+	@Nullable
+	static TeleportWidget of(int widgetId)
+	{
+		if (HOME_TELEPORT_IDS.contains(widgetId))
+		{
+			return HOME_TELEPORT;
+		}
+		else if (MINIGAME_TELEPORT_IDS.contains(widgetId))
+		{
+			return MINIGAME_TELEPORT;
+		}
+		else if (widgetId == WidgetInfo.TRAILBLAZER_AREA_TELEPORT.getId())
+		{
+			return TRAILBLAZER_AREA_TELEPORT;
+		}
+		return null;
+	}
 }

@@ -111,7 +111,7 @@ public abstract class RSNPCMixin implements RSNPC
 		}
 		else if (this.getId() != -1)
 		{
-			client.getCallbacks().post(new NpcChanged(this));
+			client.getCallbacks().post(new NpcChanged(this, composition));
 		}
 	}
 

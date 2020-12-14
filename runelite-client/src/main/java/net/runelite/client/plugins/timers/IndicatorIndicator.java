@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2018, Tyler <https://github.com/tylerthardy>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,26 +22,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.client.plugins.timers;
 
-import lombok.Value;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
+import java.awt.Color;
+import lombok.Getter;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.ui.overlay.infobox.InfoBox;
+import net.runelite.client.ui.overlay.infobox.InfoBoxPriority;
 
-/**
- * Fires after the composition of an {@link NPC} changes.
- */
-@Value
-public class NpcChanged implements Event
+public class IndicatorIndicator extends InfoBox
 {
-	/**
-	 * The NPC of which the composition changed.
-	 */
-	NPC npc;
+	@Getter
+	private final GameIndicator indicator;
 
+	IndicatorIndicator(GameIndicator indicator, Plugin plugin)
+	{
+		super(null, plugin);
+		this.indicator = indicator;
+		setPriority(InfoBoxPriority.MED);
+	}
 
-	/**
-	 * The old composition of the NPC
-	 */
-	NPCComposition old;
+	@Override
+	public String getText()
+	{
+		return indicator.getText();
+	}
+
+	@Override
+	public Color getTextColor()
+	{
+		return indicator.getTextColor();
+	}
 }

@@ -641,20 +641,6 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public int getVarpValue(int varpId)
-	{
-		return getVarpValue(getVarps(), varpId);
-	}
-
-	@Inject
-	@Override
-	public void setVarpValue(int[] varps, int varpId, int value)
-	{
-		varps[varpId] = value;
-	}
-
-	@Inject
-	@Override
 	public boolean isPrayerActive(Prayer prayer)
 	{
 		return getVar(prayer.getVarbit()) == 1;
@@ -1974,6 +1960,12 @@ public abstract class RSClientMixin implements RSClient
 	public List<String> getOutdatedScripts()
 	{
 		return this.outdatedScripts;
+	}
+
+	@Override
+	public Widget getWidget(int i)
+	{
+		return getWidget(i, i);
 	}
 }
 

@@ -740,15 +740,6 @@ public interface Client extends GameShell
 	String getVar(VarClientStr varClientStr);
 
 	/**
-	 * Gets the value of a given VarPlayer.
-	 *
-	 * @param varpId the VarPlayer id
-	 * @return the value
-	 */
-	@VisibleForExternalPlugins
-	int getVarpValue(int varpId);
-
-	/**
 	 * Gets the value of a given Varbit.
 	 *
 	 * @param varbitId the varbit id
@@ -812,16 +803,6 @@ public interface Client extends GameShell
 	 * @see VarPlayer#id
 	 */
 	int getVarpValue(int[] varps, int varpId);
-
-	/**
-	 * Sets the value of a given VarPlayer.
-	 *
-	 * @param varps  passed varps
-	 * @param varpId the VarpPlayer id
-	 * @param value  the value
-	 * @see VarPlayer#id
-	 */
-	void setVarpValue(int[] varps, int varpId, int value);
 
 	/**
 	 * Sets the value of a given variable.
@@ -2087,7 +2068,6 @@ public interface Client extends GameShell
 	//TODO: Implement
 	VarbitComposition getVarbit(Integer id);
 
-	//TODO: Implement
 	Widget getWidget(int param1);
 
 	//TODO: Implement

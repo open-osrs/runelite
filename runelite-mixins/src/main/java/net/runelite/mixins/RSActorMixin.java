@@ -38,7 +38,7 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ActorDeath;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.HitsplatApplied;
-import net.runelite.api.events.SpotAnimationChanged;
+import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.OverheadTextChanged;
 import java.awt.Graphics2D;
@@ -197,9 +197,9 @@ public abstract class RSActorMixin implements RSActor
 	@Inject
 	public void spotAnimationChanged(int idx)
 	{
-		SpotAnimationChanged spotAnimationChanged = new SpotAnimationChanged();
-		spotAnimationChanged.setActor(this);
-		client.getCallbacks().post(spotAnimationChanged);
+		GraphicChanged graphicChanged = new GraphicChanged();
+		graphicChanged.setActor(this);
+		client.getCallbacks().post(graphicChanged);
 	}
 
 	@FieldHook("targetIndex")

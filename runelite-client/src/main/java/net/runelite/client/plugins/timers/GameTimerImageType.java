@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2018, Jordan Atwood <jordan.atwood423@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,26 +22,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.client.plugins.timers;
 
-import lombok.Value;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
-
-/**
- * Fires after the composition of an {@link NPC} changes.
- */
-@Value
-public class NpcChanged implements Event
+enum GameTimerImageType
 {
-	/**
-	 * The NPC of which the composition changed.
-	 */
-	NPC npc;
-
-
-	/**
-	 * The old composition of the NPC
-	 */
-	NPCComposition old;
+	ITEM,
+	SPRITE
 }

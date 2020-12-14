@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
+ * Copyright (c) 2018, Tyler <https://github.com/tylerthardy>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,26 +22,35 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.client.plugins.timers;
 
-import lombok.Value;
-import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
+import java.awt.Color;
+import lombok.AccessLevel;
+import lombok.Getter;
+import net.runelite.api.SpriteID;
 
-/**
- * Fires after the composition of an {@link NPC} changes.
- */
-@Value
-public class NpcChanged implements Event
+@Getter(AccessLevel.PACKAGE)
+enum GameIndicator
 {
-	/**
-	 * The NPC of which the composition changed.
-	 */
-	NPC npc;
+	VENGEANCE_ACTIVE(SpriteID.SPELL_VENGEANCE_OTHER, GameTimerImageType.SPRITE, "Vengeance active");
 
+	private final String description;
+	private String text;
+	private Color textColor;
+	private final int imageId;
+	private final GameTimerImageType imageType;
 
-	/**
-	 * The old composition of the NPC
-	 */
-	NPCComposition old;
+	GameIndicator(int imageId, GameTimerImageType idType, String description, String text, Color textColor)
+	{
+		this.imageId = imageId;
+		this.imageType = idType;
+		this.description = description;
+		this.text = text;
+		this.textColor = textColor;
+	}
+
+	GameIndicator(int imageId, GameTimerImageType idType, String description)
+	{
+		this(imageId, idType, description, "", null);
+	}
 }
