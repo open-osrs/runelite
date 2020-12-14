@@ -39,7 +39,7 @@ public abstract class RSBoundaryObjectMixin implements RSBoundaryObject
 	@Inject
 	public RSModel getModelA()
 	{
-		RSRenderable entity = getRenderable();
+		RSRenderable entity = getRenderable1();
 		if (entity == null)
 		{
 			return null;

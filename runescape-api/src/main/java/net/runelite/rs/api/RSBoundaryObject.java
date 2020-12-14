@@ -27,7 +27,7 @@ public interface RSBoundaryObject extends WallObject
 
 	@Import("renderable1")
 	@Override
-	RSRenderable getRenderable();
+	RSRenderable getRenderable1();
 
 	@Import("renderable2")
 	@Override
