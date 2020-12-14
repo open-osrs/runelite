@@ -27,7 +27,6 @@ package net.runelite.client.plugins.devtools;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.runelite.api.CollisionDataFlag;
-
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;

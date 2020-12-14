@@ -36,7 +36,6 @@ import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.coords.WorldPoint;
-
 import static net.runelite.client.plugins.kourendlibrary.Book.*;
 
 /**
