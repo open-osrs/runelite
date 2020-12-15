@@ -474,4 +474,12 @@ public class RuneLite
 			log.warn("unable to setup insecure trust manager", ex);
 		}
 	}
+
+	static
+	{
+		//Fixes win10 scaling when not 100% while using Anti-Aliasing with GPU
+		System.setProperty("sun.java2d.uiScale", "1.0");
+
+		System.setProperty("runelite.launcher.version", "OpenOSRS Injected");
+	}
 }
