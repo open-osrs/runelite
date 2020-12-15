@@ -24,7 +24,11 @@
  */
 package net.runelite.client.game;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.stream.JsonReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
@@ -42,12 +46,14 @@ public class NPCManager
 {
 	private final OkHttpClient okHttpClient;
 	private Map<Integer, NpcInfo> npcMap = Collections.emptyMap();
+	private ImmutableMap<Integer, NPCStats> statsMap;
 
 	@Inject
 	private NPCManager(OkHttpClient okHttpClient, ScheduledExecutorService scheduledExecutorService)
 	{
 		this.okHttpClient = okHttpClient;
 		scheduledExecutorService.execute(this::loadNpcs);
+		loadStats();
 	}
 
 	@Nullable
@@ -73,5 +79,46 @@ public class NPCManager
 		{
 			log.warn("error loading npc stats", e);
 		}
+	}
+
+	private void loadStats()
+	{
+		try (JsonReader reader = new JsonReader(new InputStreamReader(NPCManager.class.getResourceAsStream("/npc_stats.json"), StandardCharsets.UTF_8)))
+		{
+			ImmutableMap.Builder<Integer, NPCStats> builder = ImmutableMap.builderWithExpectedSize(2821);
+			reader.beginObject();
+
+			while (reader.hasNext())
+			{
+				builder.put(
+					Integer.parseInt(reader.nextName()),
+					NPCStats.NPC_STATS_TYPE_ADAPTER.read(reader)
+				);
+			}
+
+			reader.endObject();
+			statsMap = builder.build();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Returns the attack speed for target NPC ID.
+	 *
+	 * @param npcId NPC id
+	 * @return attack speed in game ticks for NPC ID.
+	 */
+	public int getAttackSpeed(final int npcId)
+	{
+		final NPCStats s = statsMap.get(npcId);
+		if (s == null || s.getAttackSpeed() == -1)
+		{
+			return -1;
+		}
+
+		return s.getAttackSpeed();
 	}
 }
