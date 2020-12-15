@@ -93,11 +93,8 @@ public class Hooks implements Callbacks
 	private static final Injector injector = RuneLite.getInjector();
 	private static final Client client = injector.getInstance(Client.class);
 
-	@Inject
-	private OverlayRenderer renderer;
-
-	@Inject
-	private OverlayManager overlayManager;
+	public static final OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
+	private static final OverlayManager overlayManager = injector.getInstance(OverlayManager.class);
 
 	@Inject
 	private EventBus eventBus;
@@ -453,8 +450,7 @@ public class Hooks implements Callbacks
 		}
 	}
 
-	@Override
-	public void drawAfterWidgets()
+	public static void drawAfterWidgets()
 	{
 		MainBufferProvider bufferProvider = (MainBufferProvider) client.getBufferProvider();
 		Graphics2D graphics2d = getGraphics(bufferProvider);
