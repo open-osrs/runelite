@@ -28,6 +28,7 @@ import net.runelite.asm.signature.Signature;
 public abstract class InjectData
 {
 	public static final String HOOKS = "net/runelite/client/callback/Hooks";
+	public static final String CALLBACKS = "net/runelite/api/hooks/Callbacks";
 
 	@Getter
 	private final ClassGroup vanilla;

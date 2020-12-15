@@ -450,7 +450,8 @@ public class Hooks implements Callbacks
 		}
 	}
 
-	public static void drawAfterWidgets()
+	@Override
+	public void drawAfterWidgets()
 	{
 		MainBufferProvider bufferProvider = (MainBufferProvider) client.getBufferProvider();
 		Graphics2D graphics2d = getGraphics(bufferProvider);

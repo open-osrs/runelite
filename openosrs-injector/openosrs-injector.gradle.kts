@@ -18,7 +18,7 @@ plugins {
 val oprsver = "3.5.1"
 
 group = "com.openosrs"
-version = "1.3.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -38,9 +38,7 @@ dependencies {
     implementation("org.ow2.asm:asm-util:8.0.1")
     implementation("org.jetbrains:annotations:19.0.0")
     implementation("com.google.guava:guava:29.0-jre")
-    implementation("com.openosrs:deobfuscator:${oprsver}") {
-        isTransitive = false
-    }
+    implementation(project(":deobfuscator"))
 
     testCompileOnly("com.openosrs:injection-annotations:1.0")
     testImplementation("junit:junit:4.13")

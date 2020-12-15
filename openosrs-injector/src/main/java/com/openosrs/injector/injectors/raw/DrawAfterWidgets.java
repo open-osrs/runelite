@@ -33,22 +33,25 @@ package com.openosrs.injector.injectors.raw;
 import com.openosrs.injector.InjectException;
 import com.openosrs.injector.InjectUtil;
 import com.openosrs.injector.injection.InjectData;
+import static com.openosrs.injector.injection.InjectData.CALLBACKS;
 import com.openosrs.injector.injectors.AbstractInjector;
 import java.util.HashSet;
 import java.util.ListIterator;
 import java.util.Set;
 import net.runelite.asm.ClassFile;
+import net.runelite.asm.Field;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.JumpingInstruction;
 import net.runelite.asm.attributes.code.instruction.types.PushConstantInstruction;
+import net.runelite.asm.attributes.code.instructions.GetField;
 import net.runelite.asm.attributes.code.instructions.GetStatic;
 import net.runelite.asm.attributes.code.instructions.IMul;
+import net.runelite.asm.attributes.code.instructions.InvokeInterface;
 import net.runelite.asm.attributes.code.instructions.InvokeStatic;
 import net.runelite.asm.signature.Signature;
-import static com.openosrs.injector.injection.InjectData.HOOKS;
 
 public class DrawAfterWidgets extends AbstractInjector
 {
@@ -103,6 +106,8 @@ public class DrawAfterWidgets extends AbstractInjector
 
 		boolean injected = false;
 
+		Field client = getVanillaStaticFieldFromDeob("client");
+		Field callbacks = getObfuscatedField("callbacks");
 		Method noClip = InjectUtil.findMethod(inject, "Rasterizer2D_resetClip", "Rasterizer2D", null); // !!!!!
 
 		if (noClip == null)
@@ -235,16 +240,17 @@ public class DrawAfterWidgets extends AbstractInjector
 
 				for (Label l : labelsToInjectAfter)
 				{
-					InvokeStatic invoke = new InvokeStatic(instructions,
+					InvokeInterface invoke = new InvokeInterface(instructions,
 						new net.runelite.asm.pool.Method(
-							new net.runelite.asm.pool.Class(HOOKS),
+							new net.runelite.asm.pool.Class(CALLBACKS),
 							"drawAfterWidgets",
 							new Signature("()V")
 						)
 					);
 
 					instructions.addInstruction(instructions.getInstructions().indexOf(l) + 1, invoke);
-
+					instructions.addInstruction(instructions.getInstructions().indexOf(l) + 1, new GetField(instructions, callbacks.getPoolField()));
+					instructions.addInstruction(instructions.getInstructions().indexOf(l) + 1, new GetStatic(instructions, client.getPoolField()));
 					log.debug("[DEBUG] injectDrawAfterWidgets injected a call after " + l);
 
 					injected = true;
@@ -256,5 +262,37 @@ public class DrawAfterWidgets extends AbstractInjector
 		{
 			throw new InjectException("injectDrawAfterWidgets failed to inject!");
 		}
+	}
+
+	public Field getVanillaStaticFieldFromDeob(String s)
+	{
+		for (ClassFile c : inject.getDeobfuscated())
+		{
+			for (Field f : c.getFields())
+			{
+				if (f.isStatic())
+					if (f.getName().equals(s))
+					{
+						return inject.toVanilla(f);
+					}
+			}
+		}
+		return null;
+	}
+
+	public Field getObfuscatedField(String s)
+	{
+		for (ClassFile c : inject.getVanilla())
+		{
+			for (Field f : c.getFields())
+			{
+				if (!f.isStatic())
+					if (f.getName().equals(s))
+					{
+						return f;
+					}
+			}
+		}
+		return null;
 	}
 }
