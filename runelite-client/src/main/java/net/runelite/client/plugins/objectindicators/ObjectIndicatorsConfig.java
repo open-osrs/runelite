@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
 
-/**
- * Stores the clients persisting preferences.
- */
-public interface Preferences
+package net.runelite.client.plugins.objectindicators;
+
+import java.awt.Color;
+import net.runelite.client.config.Alpha;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+
+@ConfigGroup("objectindicators")
+public interface ObjectIndicatorsConfig extends Config
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
+	@Alpha
+	@ConfigItem(
+		keyName = "markerColor",
+		name = "Marker color",
+		description = "Configures the color of object marker"
+	)
+	default Color markerColor()
+	{
+		return Color.YELLOW;
+	}
 
-	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
-	 */
-	void setRememberedUsername(String username);
-
-	int getSoundEffectVolume();
-
-	void setSoundEffectVolume(int i);
-
-	int getAreaSoundEffectVolume();
-
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	@ConfigItem(
+		keyName = "rememberObjectColors",
+		name = "Remember color per object",
+		description = "Color objects using the color from time of marking"
+	)
+	default boolean rememberObjectColors()
+	{
+		return false;
+	}
 }

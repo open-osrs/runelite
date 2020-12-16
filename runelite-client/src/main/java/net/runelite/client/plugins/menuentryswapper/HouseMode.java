@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2018, Snakk <http://github.com/SnakkSnokk>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
 
-/**
- * Stores the clients persisting preferences.
- */
-public interface Preferences
+package net.runelite.client.plugins.menuentryswapper;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum HouseMode
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
+	ENTER("Enter"),
+	HOME("Home"),
+	BUILD_MODE("Build mode"),
+	FRIENDS_HOUSE("Friend's House");
 
-	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
-	 */
-	void setRememberedUsername(String username);
+	private final String name;
 
-	int getSoundEffectVolume();
-
-	void setSoundEffectVolume(int i);
-
-	int getAreaSoundEffectVolume();
-
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }

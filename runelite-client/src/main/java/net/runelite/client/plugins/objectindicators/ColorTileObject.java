@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2020, dekvall <https://github.com/dekvall>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.objectindicators;
+
+import java.awt.Color;
+import lombok.RequiredArgsConstructor;
+import lombok.Value;
+import net.runelite.api.TileObject;
 
 /**
- * Stores the clients persisting preferences.
+ * Used to denote marked objects and their colors.
+ * Note: This is not used for serialization of object indicators; see {@link ObjectPoint}
  */
-public interface Preferences
+@Value
+@RequiredArgsConstructor
+class ColorTileObject
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
-
-	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
-	 */
-	void setRememberedUsername(String username);
-
-	int getSoundEffectVolume();
-
-	void setSoundEffectVolume(int i);
-
-	int getAreaSoundEffectVolume();
-
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	private final TileObject tileObject;
+	private final Color color;
 }

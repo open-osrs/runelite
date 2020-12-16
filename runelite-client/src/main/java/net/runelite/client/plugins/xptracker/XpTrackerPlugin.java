@@ -58,7 +58,7 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.StatChanged;
 import net.runelite.api.widgets.WidgetID;
-import static net.runelite.api.widgets.WidgetInfo.getGroupFromID;
+import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.NPCManager;
@@ -483,7 +483,7 @@ public class XpTrackerPlugin extends Plugin
 	{
 		int widgetID = event.getActionParam1();
 
-		if (getGroupFromID(widgetID) != WidgetID.SKILLS_GROUP_ID
+		if (TO_GROUP(widgetID) != WidgetID.SKILLS_GROUP_ID
 			|| !event.getOption().startsWith("View")
 			|| !xpTrackerConfig.skillTabOverlayMenuOptions())
 		{
@@ -511,7 +511,7 @@ public class XpTrackerPlugin extends Plugin
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		if (event.getMenuAction().getId() != MenuAction.RUNELITE.getId()
-			|| getGroupFromID(event.getWidgetId()) != WidgetID.SKILLS_GROUP_ID)
+			|| TO_GROUP(event.getWidgetId()) != WidgetID.SKILLS_GROUP_ID)
 		{
 			return;
 		}

@@ -64,7 +64,7 @@ import net.runelite.api.events.ScriptPreFired;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import static net.runelite.api.widgets.WidgetInfo.getChildFromID;
-import static net.runelite.api.widgets.WidgetInfo.getGroupFromID;
+import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
@@ -120,7 +120,7 @@ public class ScriptInspector extends JFrame
 			if (source != null)
 			{
 				int id = source.getId();
-				output += "  -  " + getGroupFromID(id) + "." + getChildFromID(id);
+				output += "  -  " + TO_GROUP(id) + "." + getChildFromID(id);
 
 				if (source.getIndex() != -1)
 				{

@@ -51,7 +51,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import static net.runelite.api.widgets.WidgetInfo.getChildFromID;
-import static net.runelite.api.widgets.WidgetInfo.getGroupFromID;
+import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 
 @Mixin(RSWidget.class)
 public abstract class RSWidgetMixin implements RSWidget
@@ -107,7 +107,7 @@ public abstract class RSWidgetMixin implements RSWidget
 			return null;
 		}
 
-		return client.getWidget(getGroupFromID(id), getChildFromID(id));
+		return client.getWidget(TO_GROUP(id), getChildFromID(id));
 	}
 
 	@Inject
@@ -123,7 +123,7 @@ public abstract class RSWidgetMixin implements RSWidget
 		}
 
 		final int id = getId();
-		if (getGroupFromID(id) == client.getWidgetRoot())
+		if (TO_GROUP(id) == client.getWidgetRoot())
 		{
 			// this is a root widget
 			return -1;
@@ -140,7 +140,7 @@ public abstract class RSWidgetMixin implements RSWidget
 			// check the parent in the component table
 			@SuppressWarnings("unchecked") HashTable<WidgetNode> componentTable = client.getComponentTable();
 			WidgetNode widgetNode = componentTable.get(parentId);
-			if (widgetNode == null || widgetNode.getId() != getGroupFromID(id))
+			if (widgetNode == null || widgetNode.getId() != TO_GROUP(id))
 			{
 				// invalidate parent
 				rl$parentId = -1;
@@ -152,7 +152,7 @@ public abstract class RSWidgetMixin implements RSWidget
 		}
 
 		// also the widget may not have been drawn, yet
-		int groupId = getGroupFromID(getId());
+		int groupId = TO_GROUP(getId());
 		RSNodeHashTable componentTable = client.getComponentTable();
 		RSNode[] buckets = componentTable.getBuckets();
 		for (RSNode node : buckets)
@@ -220,7 +220,7 @@ public abstract class RSWidgetMixin implements RSWidget
 		// If the parent is hidden, this widget is also hidden.
 		// Widget has no parent and is not the root widget (which is always visible),
 		// so it's not visible.
-		return parent == null ? getGroupFromID(getId()) != client.getWidgetRoot() : parent.isHidden();
+		return parent == null ? TO_GROUP(getId()) != client.getWidgetRoot() : parent.isHidden();
 	}
 
 	@Inject
@@ -360,7 +360,7 @@ public abstract class RSWidgetMixin implements RSWidget
 		}
 
 		List<Widget> widgets = new ArrayList<Widget>();
-		for (RSWidget widget : client.getGroup(getGroupFromID(getId())))
+		for (RSWidget widget : client.getGroup(TO_GROUP(getId())))
 		{
 			if (widget != null && widget.getRSParentId() == getId())
 			{
@@ -475,7 +475,7 @@ public abstract class RSWidgetMixin implements RSWidget
 				return;
 			}
 		}
-		else if (getGroupFromID(id) != client.getWidgetRoot())
+		else if (TO_GROUP(id) != client.getWidgetRoot())
 		{
 			return;
 		}
@@ -576,7 +576,7 @@ public abstract class RSWidgetMixin implements RSWidget
 		assert client.isClientThread();
 
 		client.revalidateWidget(this);
-		client.revalidateWidgetScroll(client.getWidgets()[getGroupFromID(this.getId())], this, false);
+		client.revalidateWidgetScroll(client.getWidgets()[TO_GROUP(this.getId())], this, false);
 	}
 
 	@Inject

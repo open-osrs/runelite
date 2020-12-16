@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,58 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.npchighlight;
 
-/**
- * Stores the clients persisting preferences.
- */
-public interface Preferences
+import java.util.ArrayList;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import net.runelite.api.NPC;
+import net.runelite.api.NPCComposition;
+import net.runelite.api.coords.WorldPoint;
+
+class MemorizedNpc
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
+	@Getter
+	private int npcIndex;
+
+	@Getter
+	private String npcName;
+
+	@Getter
+	private int npcSize;
 
 	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
+	 * The time the npc died at, in game ticks, relative to the tick counter
 	 */
-	void setRememberedUsername(String username);
+	@Getter
+	@Setter
+	private int diedOnTick;
 
-	int getSoundEffectVolume();
+	/**
+	 * The time it takes for the npc to respawn, in game ticks
+	 */
+	@Getter
+	@Setter
+	private int respawnTime;
 
-	void setSoundEffectVolume(int i);
+	@Getter
+	@Setter
+	private List<WorldPoint> possibleRespawnLocations;
 
-	int getAreaSoundEffectVolume();
+	MemorizedNpc(NPC npc)
+	{
+		this.npcName = npc.getName();
+		this.npcIndex = npc.getIndex();
+		this.possibleRespawnLocations = new ArrayList<>();
+		this.respawnTime = -1;
+		this.diedOnTick = -1;
 
-	void setAreaSoundEffectVolume(int i);
+		final NPCComposition composition = npc.getTransformedComposition();
 
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+		if (composition != null)
+		{
+			this.npcSize = composition.getSize();
+		}
+	}
 }

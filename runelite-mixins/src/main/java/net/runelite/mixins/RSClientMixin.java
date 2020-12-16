@@ -594,7 +594,7 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public Widget getWidget(int id)
 	{
-		return getWidget(WidgetInfo.getGroupFromID(id), WidgetInfo.getChildFromID(id));
+		return getWidget(WidgetInfo.TO_GROUP(id), WidgetInfo.getChildFromID(id));
 	}
 
 	@Inject

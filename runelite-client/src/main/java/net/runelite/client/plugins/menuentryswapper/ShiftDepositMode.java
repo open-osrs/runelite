@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2020, Zach <https://github.com/zacharydwaller>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.menuentryswapper;
 
-/**
- * Stores the clients persisting preferences.
- */
-public interface Preferences
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
+public enum ShiftDepositMode
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
+	DEPOSIT_1("Deposit-1", 3, 2, 1),
+	DEPOSIT_5("Deposit-5", 4, 3, 2),
+	DEPOSIT_10("Deposit-10", 5, 4, 3),
+	DEPOSIT_X("Deposit-X", 6, 6, 5),
+	DEPOSIT_ALL("Deposit-All", 8, 5, 4),
+	EXTRA_OP("Eat/Wield/Etc.", 9, 0, 0),
+	OFF("Off", 0, 0, 0);
 
-	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
-	 */
-	void setRememberedUsername(String username);
+	private final String name;
+	private final int identifier;
+	private final int identifierDepositBox;
+	private final int identifierChambersStorageUnit;
 
-	int getSoundEffectVolume();
-
-	void setSoundEffectVolume(int i);
-
-	int getAreaSoundEffectVolume();
-
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }

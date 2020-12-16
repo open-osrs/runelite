@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,47 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.npcunaggroarea;
 
-/**
- * Stores the clients persisting preferences.
- */
-public interface Preferences
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import lombok.Getter;
+import lombok.Setter;
+import net.runelite.client.plugins.Plugin;
+import net.runelite.client.ui.overlay.infobox.Timer;
+
+class AggressionTimer extends Timer
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
+	@Getter
+	@Setter
+	private boolean visible;
 
-	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
-	 */
-	void setRememberedUsername(String username);
+	AggressionTimer(Duration duration, BufferedImage image, Plugin plugin, boolean visible)
+	{
+		super(duration.toMillis(), ChronoUnit.MILLIS, image, plugin);
+		setTooltip("Time until NPCs become unaggressive");
+		this.visible = visible;
+	}
 
-	int getSoundEffectVolume();
+	@Override
+	public Color getTextColor()
+	{
+		Duration timeLeft = Duration.between(Instant.now(), getEndTime());
 
-	void setSoundEffectVolume(int i);
+		if (timeLeft.getSeconds() < 60)
+		{
+			return Color.RED.brighter();
+		}
 
-	int getAreaSoundEffectVolume();
+		return Color.WHITE;
+	}
 
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	@Override
+	public boolean render()
+	{
+		return visible && super.render();
+	}
 }

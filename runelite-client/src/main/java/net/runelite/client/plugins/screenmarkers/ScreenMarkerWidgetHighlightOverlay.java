@@ -74,7 +74,7 @@ class ScreenMarkerWidgetHighlightOverlay extends Overlay
 		final MenuEntry menuEntry = menuEntries[menuEntries.length - 1];
 		final int childIdx = menuEntry.getParam0();
 		final int widgetId = menuEntry.getParam1();
-		final int groupId = WidgetInfo.getGroupFromID(widgetId);
+		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 		final int componentId = WidgetInfo.getChildFromID(widgetId);
 
 		final Widget widget = client.getWidget(groupId, componentId);

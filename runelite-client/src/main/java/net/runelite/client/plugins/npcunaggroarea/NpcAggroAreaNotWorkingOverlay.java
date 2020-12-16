@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2018, Woox <https://github.com/wooxsolo>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.npcunaggroarea;
 
-/**
- * Stores the clients persisting preferences.
- */
-public interface Preferences
+import com.google.inject.Inject;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import net.runelite.client.ui.overlay.OverlayPanel;
+import net.runelite.client.ui.overlay.OverlayPosition;
+import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.components.LineComponent;
+
+class NpcAggroAreaNotWorkingOverlay extends OverlayPanel
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
+	private final NpcAggroAreaPlugin plugin;
 
-	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
-	 */
-	void setRememberedUsername(String username);
+	@Inject
+	private NpcAggroAreaNotWorkingOverlay(NpcAggroAreaPlugin plugin)
+	{
+		this.plugin = plugin;
 
-	int getSoundEffectVolume();
+		panelComponent.getChildren().add(LineComponent.builder()
+			.left("Unaggressive NPC timers will start working when you teleport far away or enter a dungeon.")
+			.build());
 
-	void setSoundEffectVolume(int i);
+		setPriority(OverlayPriority.LOW);
+		setPosition(OverlayPosition.TOP_LEFT);
+		setClearChildren(false);
+	}
 
-	int getAreaSoundEffectVolume();
+	@Override
+	public Dimension render(Graphics2D graphics)
+	{
+		if (!plugin.isActive() || plugin.getSafeCenters()[1] != null)
+		{
+			return null;
+		}
 
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+		return super.render(graphics);
+	}
 }

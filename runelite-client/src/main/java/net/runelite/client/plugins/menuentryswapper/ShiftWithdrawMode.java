@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2020, Zach <https://github.com/zacharydwaller>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.menuentryswapper;
 
-/**
- * Stores the clients persisting preferences.
- */
-public interface Preferences
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import net.runelite.api.MenuAction;
+
+@Getter
+@RequiredArgsConstructor
+public enum ShiftWithdrawMode
 {
-	/**
-	 * Gets the remembered login username.
-	 *
-	 * @return the remembered username
-	 */
-	String getRememberedUsername();
+	WITHDRAW_1("Withdraw-1", MenuAction.CC_OP, 2, 1),
+	WITHDRAW_5("Withdraw-5", MenuAction.CC_OP, 3, 2),
+	WITHDRAW_10("Withdraw-10", MenuAction.CC_OP, 4, 3),
+	WITHDRAW_X("Withdraw-X", MenuAction.CC_OP, 5, 5),
+	WITHDRAW_ALL("Withdraw-All", MenuAction.CC_OP_LOW_PRIORITY, 7, 4),
+	// chambers of xeric storage units do not have an "all-but-1" option, so this option will choose "Withdraw-all"
+	// instead when using the storage unit.
+	WITHDRAW_ALL_BUT_1("Withdraw-All-But-1", MenuAction.CC_OP_LOW_PRIORITY, 8, 4),
+	OFF("Off", MenuAction.UNKNOWN, 0, 0);
 
-	/**
-	 * Sets the remembered login username.
-	 *
-	 * @param username the new remembered username
-	 */
-	void setRememberedUsername(String username);
+	private final String name;
+	private final MenuAction menuAction;
+	private final int identifier;
+	private final int identifierChambersStorageUnit;
 
-	int getSoundEffectVolume();
-
-	void setSoundEffectVolume(int i);
-
-	int getAreaSoundEffectVolume();
-
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	@Override
+	public String toString()
+	{
+		return name;
+	}
 }

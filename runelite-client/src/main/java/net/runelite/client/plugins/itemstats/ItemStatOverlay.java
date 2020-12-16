@@ -92,7 +92,7 @@ public class ItemStatOverlay extends Overlay
 		}
 
 		final MenuEntry entry = menu[menuSize - 1];
-		final int group = WidgetInfo.getGroupFromID(entry.getParam1());
+		final int group = WidgetInfo.TO_GROUP(entry.getParam1());
 		final int child = WidgetInfo.getChildFromID(entry.getParam1());
 		final Widget widget = client.getWidget(group, child);
 

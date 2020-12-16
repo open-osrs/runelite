@@ -235,7 +235,7 @@ public class FriendNotesPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		final int groupId = WidgetInfo.getGroupFromID(event.getActionParam1());
+		final int groupId = WidgetInfo.TO_GROUP(event.getActionParam1());
 
 		// Look for "Message" on friends list
 		if ((groupId == WidgetInfo.FRIENDS_LIST.getGroupId() && event.getOption().equals("Message")) ||
@@ -265,7 +265,7 @@ public class FriendNotesPlugin extends Plugin
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		final int groupId = WidgetInfo.getGroupFromID(event.getWidgetId());
+		final int groupId = WidgetInfo.TO_GROUP(event.getWidgetId());
 
 		if (groupId == WidgetInfo.FRIENDS_LIST.getGroupId() || groupId == WidgetInfo.IGNORE_LIST.getGroupId())
 		{

@@ -91,7 +91,7 @@ class ItemPricesOverlay extends Overlay
 		final MenuEntry menuEntry = menuEntries[last];
 		final MenuAction action = MenuAction.of(menuEntry.getType());
 		final int widgetId = menuEntry.getParam1();
-		final int groupId = WidgetInfo.getGroupFromID(widgetId);
+		final int groupId = WidgetInfo.TO_GROUP(widgetId);
 		final boolean isAlching = menuEntry.getOption().equals("Cast") && menuEntry.getTarget().contains("High Level Alchemy");
 
 		// Tooltip action type handling

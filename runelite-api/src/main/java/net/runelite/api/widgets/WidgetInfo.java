@@ -981,7 +981,7 @@ public enum WidgetInfo
 	 * @param id passed group-child ID
 	 * @return the group ID
 	 */
-	public static int getGroupFromID(int id)
+	public static int TO_GROUP(int id)
 	{
 		return id >>> 16;
 	}

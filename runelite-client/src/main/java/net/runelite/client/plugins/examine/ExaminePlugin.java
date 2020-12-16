@@ -46,7 +46,7 @@ import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import static net.runelite.api.widgets.WidgetInfo.SEED_VAULT_ITEM_CONTAINER;
 import static net.runelite.api.widgets.WidgetInfo.getChildFromID;
-import static net.runelite.api.widgets.WidgetInfo.getGroupFromID;
+import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
@@ -123,7 +123,7 @@ public class ExaminePlugin extends Plugin
 				id = event.getId();
 
 				int widgetId = event.getWidgetId();
-				int widgetGroup = getGroupFromID(widgetId);
+				int widgetGroup = TO_GROUP(widgetId);
 				int widgetChild = getChildFromID(widgetId);
 				Widget widget = client.getWidget(widgetGroup, widgetChild);
 				WidgetItem widgetItem = widget.getWidgetItem(event.getActionParam());
@@ -266,7 +266,7 @@ public class ExaminePlugin extends Plugin
 
 	private int[] findItemFromWidget(int widgetId, int actionParam)
 	{
-		int widgetGroup = getGroupFromID(widgetId);
+		int widgetGroup = TO_GROUP(widgetId);
 		int widgetChild = getChildFromID(widgetId);
 		Widget widget = client.getWidget(widgetGroup, widgetChild);
 

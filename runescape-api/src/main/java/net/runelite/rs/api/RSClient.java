@@ -849,7 +849,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("ItemDefinition_cached")
 	@Override
-	RSEvictingDualNodeHashTable getItemDefinitionCache();
+	RSEvictingDualNodeHashTable getItemCompositionCache();
 
 	@Import("oculusOrbState")
 	@Override
