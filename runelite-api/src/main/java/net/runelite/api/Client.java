@@ -804,6 +804,8 @@ public interface Client extends GameShell
 	 */
 	int getVarpValue(int[] varps, int varpId);
 
+	int getVarpValue(int i);
+
 	/**
 	 * Sets the value of a given variable.
 	 *
