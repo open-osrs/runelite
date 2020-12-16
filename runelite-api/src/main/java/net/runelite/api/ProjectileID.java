@@ -118,7 +118,7 @@ public class ProjectileID
 	public static final int HUNLLEF_PRAYER_ATTACK = 1713;
 	public static final int HUNLLEF_CORRUPTED_PRAYER_ATTACK = 1714;
 
-	public static final int ZALCANO_PROJECTILE = 1728;
-
 	public static final int PORAZDIR_ENERGY_BALL = 1514;
+
+	public static final int ZALCANO_PROJECTILE_FIREBALL = 1728;
 }

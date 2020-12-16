@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Henry Darnell <hjdarnel@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,53 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.wiki;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-/**
- * Client side only, content-developer integers
- *
- * VarCInts are stored entirely in memory, or locally on a user's
- * machine in the preferences2.dat file depending on how Jagex
- * configured the variable
- */
-@AllArgsConstructor
-@Getter
-public enum VarClientInt
+@ConfigGroup(WikiPlugin.CONFIG_GROUP_KEY)
+public interface WikiConfig extends Config
 {
-	TOOLTIP_TIMEOUT(1),
-
-/**
- * 0 = no tooltip displayed
- * 1 = tooltip displaying
-*/
-	TOOLTIP_VISIBLE(2),
-
-	/**
-	 * Current message layer mode
-	 * @see net.runelite.api.vars.InputType
-	 */
-	INPUT_TYPE(5),
-
-	/**
-	 * The game sets this to the same value as {@link #CAMERA_ZOOM_RESIZABLE_VIEWPORT}
-	 */
-	CAMERA_ZOOM_FIXED_VIEWPORT(73),
-	CAMERA_ZOOM_RESIZABLE_VIEWPORT(74),
-	
-	/**
-	 * 0 = deadman/attackable
-	 * 1 = guarded/safe
-	 */
-	DMM_SAFEZONE(78),
-
-	MEMBERSHIP_STATUS(103),
-
-	INVENTORY_TAB(171),
-
-	WORLD_MAP_SEARCH_FOCUSED(190);
-
-	private final int index;
+	@ConfigItem(
+		keyName = "leftClickSearch",
+		name = "Left Click Search",
+		description = "Swap left-click on the Wiki button to Search",
+		position = 1
+	)
+	default boolean leftClickSearch()
+	{
+		return false;
+	}
 }

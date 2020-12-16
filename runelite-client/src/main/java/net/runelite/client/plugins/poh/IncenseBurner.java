@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,53 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.poh;
 
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-/**
- * Client side only, content-developer integers
- *
- * VarCInts are stored entirely in memory, or locally on a user's
- * machine in the preferences2.dat file depending on how Jagex
- * configured the variable
- */
-@AllArgsConstructor
 @Getter
-public enum VarClientInt
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
+class IncenseBurner
 {
-	TOOLTIP_TIMEOUT(1),
-
-/**
- * 0 = no tooltip displayed
- * 1 = tooltip displaying
-*/
-	TOOLTIP_VISIBLE(2),
-
-	/**
-	 * Current message layer mode
-	 * @see net.runelite.api.vars.InputType
-	 */
-	INPUT_TYPE(5),
-
-	/**
-	 * The game sets this to the same value as {@link #CAMERA_ZOOM_RESIZABLE_VIEWPORT}
-	 */
-	CAMERA_ZOOM_FIXED_VIEWPORT(73),
-	CAMERA_ZOOM_RESIZABLE_VIEWPORT(74),
-	
-	/**
-	 * 0 = deadman/attackable
-	 * 1 = guarded/safe
-	 */
-	DMM_SAFEZONE(78),
-
-	MEMBERSHIP_STATUS(103),
-
-	INVENTORY_TAB(171),
-
-	WORLD_MAP_SEARCH_FOCUSED(190);
-
-	private final int index;
+	private final Instant start = Instant.now();
+	private final int id;
+	private double countdownTimer;
+	private double randomTimer;
+	private Instant end;
 }

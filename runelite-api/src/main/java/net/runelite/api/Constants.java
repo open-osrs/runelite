@@ -114,4 +114,9 @@ public class Constants
 	 * Height of a standard item sprite
 	 */
 	public static final int ITEM_SPRITE_HEIGHT = 32;
+
+	/**
+	 * The height of the overworld, in tiles. Coordinates above this are in caves and other such zones.
+	 */
+	public static final int OVERWORLD_MAX_Y = 4160;
 }

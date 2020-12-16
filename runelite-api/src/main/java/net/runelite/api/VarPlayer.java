@@ -292,7 +292,9 @@ public enum VarPlayer
 	/**
 	 * 0 = 2 buttons, 1 = 1 button
 	 */
-	MOUSE_BUTTONS(170);
+	MOUSE_BUTTONS(170),
+
+	ZALCANO_FORM(1683);
 
 	public final int id;
 }

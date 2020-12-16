@@ -22,53 +22,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.worldhopper.ping;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
+import com.sun.jna.platform.win32.WinDef;
+import java.util.Arrays;
+import java.util.List;
 
-/**
- * Client side only, content-developer integers
- *
- * VarCInts are stored entirely in memory, or locally on a user's
- * machine in the preferences2.dat file depending on how Jagex
- * configured the variable
- */
-@AllArgsConstructor
-@Getter
-public enum VarClientInt
+public class IcmpEchoReply extends Structure
 {
-	TOOLTIP_TIMEOUT(1),
+	private static final int IP_OPTION_INFO_SIZE = 1 + 1 + 1 + 1 + (Native.POINTER_SIZE == 8 ? 12 : 4); // on 64bit vms add 4 byte padding
+	public static final int SIZE = 4 + 4 + 4 + 2 + 2 + Native.POINTER_SIZE + IP_OPTION_INFO_SIZE;
 
-/**
- * 0 = no tooltip displayed
- * 1 = tooltip displaying
-*/
-	TOOLTIP_VISIBLE(2),
+	public WinDef.ULONG address;
+	public WinDef.ULONG status;
+	public WinDef.ULONG roundTripTime;
+	public WinDef.USHORT dataSize;
+	public WinDef.USHORT reserved;
+	public WinDef.PVOID data;
+	public WinDef.UCHAR ttl;
+	public WinDef.UCHAR tos;
+	public WinDef.UCHAR flags;
+	public WinDef.UCHAR optionsSize;
+	public WinDef.PVOID optionsData;
 
-	/**
-	 * Current message layer mode
-	 * @see net.runelite.api.vars.InputType
-	 */
-	INPUT_TYPE(5),
+	IcmpEchoReply(Pointer p)
+	{
+		super(p);
+	}
 
-	/**
-	 * The game sets this to the same value as {@link #CAMERA_ZOOM_RESIZABLE_VIEWPORT}
-	 */
-	CAMERA_ZOOM_FIXED_VIEWPORT(73),
-	CAMERA_ZOOM_RESIZABLE_VIEWPORT(74),
-	
-	/**
-	 * 0 = deadman/attackable
-	 * 1 = guarded/safe
-	 */
-	DMM_SAFEZONE(78),
-
-	MEMBERSHIP_STATUS(103),
-
-	INVENTORY_TAB(171),
-
-	WORLD_MAP_SEARCH_FOCUSED(190);
-
-	private final int index;
+	@Override
+	protected List<String> getFieldOrder()
+	{
+		return Arrays.asList("address", "status", "roundTripTime", "dataSize", "reserved", "data", "ttl", "tos", "flags", "optionsSize", "optionsData");
+	}
 }
