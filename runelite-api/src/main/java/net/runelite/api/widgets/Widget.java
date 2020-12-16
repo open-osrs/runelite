@@ -1023,6 +1023,7 @@ public interface Widget
 
 	static boolean getDragParent(Widget widget)
 	{
-		throw new UnsupportedOperationException("Implement");
+		System.out.println("ERROR: IMPLEMENT"); //Would throw but that breaks widget inspector
+		return false;
 	}
 }

@@ -592,6 +592,19 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public Widget getWidget(int id)
+	{
+		for (WidgetInfo widgetInfo : WidgetInfo.values())
+		{
+			if (widgetInfo.getId() == id)
+				return getWidget(widgetInfo);
+		}
+
+		return null;
+	}
+
+	@Inject
+	@Override
 	public RSWidget[] getGroup(int groupId)
 	{
 		RSWidget[][] widgets = getWidgets();
@@ -1967,12 +1980,6 @@ public abstract class RSClientMixin implements RSClient
 	public List<String> getOutdatedScripts()
 	{
 		return this.outdatedScripts;
-	}
-
-	@Override
-	public Widget getWidget(int i)
-	{
-		return getWidget(i, i);
 	}
 }
 
