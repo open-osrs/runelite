@@ -148,7 +148,7 @@ public abstract class RSNPCMixin implements RSNPC
 
 	@Inject
 	@Override
-	public NPCComposition getTransformedDefinition()
+	public NPCComposition getTransformedComposition()
 	{
 		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
