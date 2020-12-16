@@ -263,7 +263,7 @@ public class Players {
 					if (DevicePcmPlayerProvider.isComponentHidden(var9)) { // L: 9916
 						continue;
 					}
-				} else if (var9.type == 0 && var9 != EnumDefinition.mousedOverWidgetIf1 && DevicePcmPlayerProvider.isComponentHidden(var9)) { // L: 9919
+				} else if (var9.type == 0 && var9 != EnumComposition.mousedOverWidgetIf1 && DevicePcmPlayerProvider.isComponentHidden(var9)) { // L: 9919
 					continue;
 				}
 
@@ -749,9 +749,9 @@ public class Players {
 
 							if ((var9.mouseOverRedirect >= 0 || var9.mouseOverColor != 0) && MouseHandler.MouseHandler_x >= var12 && MouseHandler.MouseHandler_y >= var13 && MouseHandler.MouseHandler_x < var14 && MouseHandler.MouseHandler_y < var15) { // L: 10328
 								if (var9.mouseOverRedirect >= 0) { // L: 10329
-									EnumDefinition.mousedOverWidgetIf1 = var0[var9.mouseOverRedirect];
+									EnumComposition.mousedOverWidgetIf1 = var0[var9.mouseOverRedirect];
 								} else {
-									EnumDefinition.mousedOverWidgetIf1 = var9; // L: 10330
+									EnumComposition.mousedOverWidgetIf1 = var9; // L: 10330
 								}
 							}
 

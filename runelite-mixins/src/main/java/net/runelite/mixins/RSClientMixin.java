@@ -39,7 +39,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Named;
 import net.runelite.api.ChatMessageType;
-import net.runelite.api.EnumDefinition;
+import net.runelite.api.EnumComposition;
 import net.runelite.api.Friend;
 import net.runelite.api.GameState;
 import net.runelite.api.GrandExchangeOffer;
@@ -124,7 +124,7 @@ import net.runelite.api.widgets.WidgetType;
 import net.runelite.rs.api.RSAbstractArchive;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSEnumDefinition;
+import net.runelite.rs.api.RSEnumComposition;
 import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSItemContainer;
@@ -206,7 +206,7 @@ public abstract class RSClientMixin implements RSClient
 	static int skyboxColor;
 
 	@Inject
-	private final Cache<Integer, RSEnumDefinition> enumCache = CacheBuilder.newBuilder()
+	private final Cache<Integer, RSEnumComposition> enumCache = CacheBuilder.newBuilder()
 		.maximumSize(64)
 		.build();
 
@@ -594,13 +594,7 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public Widget getWidget(int id)
 	{
-		for (WidgetInfo widgetInfo : WidgetInfo.values())
-		{
-			if (widgetInfo.getId() == id)
-				return getWidget(widgetInfo);
-		}
-
-		return null;
+		return getWidget(WidgetInfo.getGroupFromID(id), WidgetInfo.getChildFromID(id));
 	}
 
 	@Inject
@@ -1747,11 +1741,11 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public EnumDefinition getEnum(int id)
+	public EnumComposition getEnum(int id)
 	{
 		assert isClientThread() : "getEnum must be called on client thread";
 
-		RSEnumDefinition rsEnumDefinition = enumCache.getIfPresent(id);
+		RSEnumComposition rsEnumDefinition = enumCache.getIfPresent(id);
 		if (rsEnumDefinition != null)
 		{
 			return rsEnumDefinition;

@@ -45,7 +45,7 @@ import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_E;
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_F;
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_G;
 import static net.runelite.api.widgets.WidgetInfo.LIGHT_BOX_BUTTON_H;
-import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
+import static net.runelite.api.widgets.WidgetInfo.getGroupFromID;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -139,7 +139,7 @@ public class PuzzleSolverPlugin extends Plugin
 	public void onMenuOptionClicked(MenuOptionClicked menuOptionClicked)
 	{
 		int widgetId = menuOptionClicked.getWidgetId();
-		if (TO_GROUP(widgetId) != WidgetID.LIGHT_BOX_GROUP_ID)
+		if (getGroupFromID(widgetId) != WidgetID.LIGHT_BOX_GROUP_ID)
 		{
 			return;
 		}

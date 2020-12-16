@@ -50,7 +50,7 @@ import static net.runelite.api.widgets.WidgetID.PLAYER_TRADE_SCREEN_GROUP_ID;
 import static net.runelite.api.widgets.WidgetID.PLAYER_TRADE_INVENTORY_GROUP_ID;
 import static net.runelite.api.widgets.WidgetInfo.BANK_CONTENT_CONTAINER;
 import static net.runelite.api.widgets.WidgetInfo.BANK_TAB_CONTAINER;
-import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
+import static net.runelite.api.widgets.WidgetInfo.getGroupFromID;
 import net.runelite.api.widgets.WidgetItem;
 
 public abstract class WidgetItemOverlay extends Overlay
@@ -80,7 +80,7 @@ public abstract class WidgetItemOverlay extends Overlay
 		for (WidgetItem widgetItem : itemWidgets)
 		{
 			Widget widget = widgetItem.getWidget();
-			int interfaceGroup = TO_GROUP(widget.getId());
+			int interfaceGroup = getGroupFromID(widget.getId());
 
 			// Don't draw if this widget isn't one of the allowed nor in tag tab/item tab
 			if (!interfaceGroups.contains(interfaceGroup) ||

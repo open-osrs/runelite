@@ -279,7 +279,7 @@ public class TimersPlugin extends Plugin
 	{
 		Widget widget = event.getWidget();
 		if (WorldType.isPvpWorld(client.getWorldType())
-			&& WidgetInfo.TO_GROUP(widget.getId()) == WidgetID.PVP_GROUP_ID)
+			&& WidgetInfo.getGroupFromID(widget.getId()) == WidgetID.PVP_GROUP_ID)
 		{
 			widgetHiddenChangedOnPvpWorld = true;
 		}

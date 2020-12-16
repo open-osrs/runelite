@@ -1,7 +1,7 @@
 package net.runelite.mixins;
 
 import net.runelite.api.events.FriendAdded;
-import net.runelite.api.events.FriendRemoved;
+import net.runelite.api.events.RemovedFriend;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.MethodHook;
 import net.runelite.api.mixins.Mixin;
@@ -19,8 +19,8 @@ public abstract class RSFriendSystemMixin implements RSFriendSystem
 	@Inject
 	public void rl$removeFriend(String friendName)
 	{
-		FriendRemoved friendRemoved = new FriendRemoved(friendName);
-		client.getCallbacks().post(friendRemoved);
+		RemovedFriend removedFriend = new RemovedFriend(friendName);
+		client.getCallbacks().post(removedFriend);
 	}
 
 	@MethodHook("addFriend")

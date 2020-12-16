@@ -53,8 +53,8 @@ import net.runelite.api.events.MenuOptionClicked;
 import net.runelite.api.vars.InputType;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
-import static net.runelite.api.widgets.WidgetInfo.TO_CHILD;
-import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
+import static net.runelite.api.widgets.WidgetInfo.getChildFromID;
+import static net.runelite.api.widgets.WidgetInfo.getGroupFromID;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
@@ -203,8 +203,8 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 			return;
 		}
 
-		final int groupId = TO_GROUP(entry.getParam1());
-		final int childId = TO_CHILD(entry.getParam1());
+		final int groupId = getGroupFromID(entry.getParam1());
+		final int childId = getChildFromID(entry.getParam1());
 
 		if (groupId != WidgetInfo.CHATBOX.getGroupId())
 		{

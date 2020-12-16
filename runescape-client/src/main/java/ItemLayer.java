@@ -86,7 +86,7 @@ public final class ItemLayer
 			VarcInt.Interpreter_intStackSize -= 2; // L: 1920
 			var3 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize]; // L: 1921
 			var9 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 1922
-			EnumDefinition var10 = MusicPatchNode.getEnum(var3); // L: 1923
+			EnumComposition var10 = MusicPatchNode.getEnum(var3); // L: 1923
 			if (var10.outputType != 's') { // L: 1924
 			}
 
@@ -106,7 +106,7 @@ public final class ItemLayer
 		} else if (var0 != ScriptOpcodes.ENUM) { // L: 1935
 			if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) { // L: 1961
 				var3 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 1962
-				EnumDefinition var4 = MusicPatchNode.getEnum(var3); // L: 1963
+				EnumComposition var4 = MusicPatchNode.getEnum(var3); // L: 1963
 				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var4.size(); // L: 1964
 				return 1; // L: 1965
 			} else {
@@ -118,7 +118,7 @@ public final class ItemLayer
 			var9 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 1938
 			int var5 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 2]; // L: 1939
 			var6 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 3]; // L: 1940
-			EnumDefinition var7 = MusicPatchNode.getEnum(var5); // L: 1941
+			EnumComposition var7 = MusicPatchNode.getEnum(var5); // L: 1941
 			if (var3 == var7.inputType && var9 == var7.outputType) { // L: 1942
 				for (int var8 = 0; var8 < var7.outputCount; ++var8) { // L: 1947
 					if (var6 == var7.keys[var8]) { // L: 1948

@@ -1814,7 +1814,7 @@ public interface Client extends GameShell
 	 */
 	SpritePixels[] getCrossSprites();
 
-	EnumDefinition getEnum(int id);
+	EnumComposition getEnum(int id);
 
 	/**
 	 * Draws a menu in the 2010 interface style.

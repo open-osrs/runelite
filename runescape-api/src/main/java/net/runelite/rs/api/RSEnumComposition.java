@@ -1,9 +1,9 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.EnumDefinition;
+import net.runelite.api.EnumComposition;
 import net.runelite.mapping.Import;
 
-public interface RSEnumDefinition extends EnumDefinition, RSDualNode
+public interface RSEnumComposition extends EnumComposition, RSDualNode
 {
 	@Import("keys")
 	@Override

@@ -981,7 +981,7 @@ public enum WidgetInfo
 	 * @param id passed group-child ID
 	 * @return the group ID
 	 */
-	public static int TO_GROUP(int id)
+	public static int getGroupFromID(int id)
 	{
 		return id >>> 16;
 	}
@@ -993,21 +993,8 @@ public enum WidgetInfo
 	 * @param id passed group-child ID
 	 * @return the child ID
 	 */
-	public static int TO_CHILD(int id)
+	public static int getChildFromID(int id)
 	{
 		return id & 0xFFFF;
 	}
-
-	/**
-	 * Packs the group and child IDs into a single integer.
-	 *
-	 * @param groupId the group ID
-	 * @param childId the child ID
-	 * @return the packed ID
-	 */
-	public static int PACK(int groupId, int childId)
-	{
-		return groupId << 16 | childId;
-	}
-
 }

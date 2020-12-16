@@ -137,18 +137,18 @@ public class MusicPatchNode extends Node {
 		garbageValue = "-621121394"
 	)
 	@Export("getEnum")
-	public static EnumDefinition getEnum(int var0) {
-		EnumDefinition var1 = (EnumDefinition)EnumDefinition.EnumDefinition_cached.get((long)var0); // L: 29
+	public static EnumComposition getEnum(int var0) {
+		EnumComposition var1 = (EnumComposition) EnumComposition.EnumDefinition_cached.get((long)var0); // L: 29
 		if (var1 != null) { // L: 30
 			return var1;
 		} else {
-			byte[] var2 = EnumDefinition.EnumDefinition_archive.takeFile(8, var0); // L: 31
-			var1 = new EnumDefinition(); // L: 32
+			byte[] var2 = EnumComposition.EnumDefinition_archive.takeFile(8, var0); // L: 31
+			var1 = new EnumComposition(); // L: 32
 			if (var2 != null) { // L: 33
 				var1.decode(new Buffer(var2));
 			}
 
-			EnumDefinition.EnumDefinition_cached.put(var1, (long)var0); // L: 34
+			EnumComposition.EnumDefinition_cached.put(var1, (long)var0); // L: 34
 			return var1; // L: 35
 		}
 	}

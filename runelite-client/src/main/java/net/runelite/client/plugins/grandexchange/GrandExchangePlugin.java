@@ -557,13 +557,13 @@ public class GrandExchangePlugin extends Plugin
 		final MenuEntry[] entries = client.getMenuEntries();
 		final MenuEntry menuEntry = entries[entries.length - 1];
 		final int widgetId = menuEntry.getParam1();
-		final int groupId = WidgetInfo.TO_GROUP(widgetId);
+		final int groupId = WidgetInfo.getGroupFromID(widgetId);
 
 		switch (groupId)
 		{
 			case WidgetID.BANK_GROUP_ID:
 				// Don't show for view tabs and such
-				if (WidgetInfo.TO_CHILD(widgetId) != WidgetInfo.BANK_ITEM_CONTAINER.getChildId())
+				if (WidgetInfo.getChildFromID(widgetId) != WidgetInfo.BANK_ITEM_CONTAINER.getChildId())
 				{
 					break;
 				}

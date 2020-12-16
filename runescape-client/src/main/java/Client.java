@@ -3613,9 +3613,9 @@ public final class Client extends GameShell implements Usernamed {
 							}
 						}
 
-						Widget var35 = EnumDefinition.mousedOverWidgetIf1; // L: 3201
+						Widget var35 = EnumComposition.mousedOverWidgetIf1; // L: 3201
 						Widget var37 = CollisionMap.field2092; // L: 3202
-						EnumDefinition.mousedOverWidgetIf1 = null; // L: 3203
+						EnumComposition.mousedOverWidgetIf1 = null; // L: 3203
 						CollisionMap.field2092 = null; // L: 3204
 						draggedOnWidget = null; // L: 3205
 						field829 = false; // L: 3206
@@ -3775,13 +3775,13 @@ public final class Client extends GameShell implements Usernamed {
 																destinationY = var5; // L: 3387
 															}
 
-															if (var35 != EnumDefinition.mousedOverWidgetIf1) { // L: 3389
+															if (var35 != EnumComposition.mousedOverWidgetIf1) { // L: 3389
 																if (var35 != null) { // L: 3390
 																	CollisionMap.invalidateWidget(var35);
 																}
 
-																if (EnumDefinition.mousedOverWidgetIf1 != null) { // L: 3391
-																	CollisionMap.invalidateWidget(EnumDefinition.mousedOverWidgetIf1);
+																if (EnumComposition.mousedOverWidgetIf1 != null) { // L: 3391
+																	CollisionMap.invalidateWidget(EnumComposition.mousedOverWidgetIf1);
 																}
 															}
 
@@ -4036,7 +4036,7 @@ public final class Client extends GameShell implements Usernamed {
 																}
 
 																var4 = WorldMapData_0.field112 * 128 + 64; // L: 3552
-																var5 = EnumDefinition.field3340 * 128 + 64; // L: 3553
+																var5 = EnumComposition.field3340 * 128 + 64; // L: 3553
 																var6 = SecureRandomFuture.getTileHeight(var4, var5, GameObject.Client_plane) - class25.field128; // L: 3554
 																var7 = var4 - Player.cameraX; // L: 3555
 																var8 = var6 - KeyHandler.cameraY; // L: 3556
@@ -5347,13 +5347,13 @@ public final class Client extends GameShell implements Usernamed {
 				if (ServerPacket.field2163 == var1.serverPacket) { // L: 6415
 					isCameraLocked = true; // L: 6416
 					WorldMapData_0.field112 = var3.readUnsignedByte(); // L: 6417
-					EnumDefinition.field3340 = var3.readUnsignedByte(); // L: 6418
+					EnumComposition.field3340 = var3.readUnsignedByte(); // L: 6418
 					class25.field128 = var3.readUnsignedShort(); // L: 6419
 					Players.field1267 = var3.readUnsignedByte(); // L: 6420
 					ModeWhere.field2405 = var3.readUnsignedByte(); // L: 6421
 					if (ModeWhere.field2405 >= 100) { // L: 6422
 						var16 = WorldMapData_0.field112 * 128 + 64; // L: 6423
-						var5 = EnumDefinition.field3340 * 128 + 64; // L: 6424
+						var5 = EnumComposition.field3340 * 128 + 64; // L: 6424
 						var18 = SecureRandomFuture.getTileHeight(var16, var5, GameObject.Client_plane) - class25.field128; // L: 6425
 						var7 = var16 - Player.cameraX; // L: 6426
 						var19 = var18 - KeyHandler.cameraY; // L: 6427

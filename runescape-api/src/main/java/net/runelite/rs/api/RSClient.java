@@ -997,7 +997,7 @@ public interface RSClient extends RSGameShell, Client
 	void setSpellSelected(boolean selected);
 
 	@Import("getEnum")
-	RSEnumDefinition getRsEnum(int id);
+	RSEnumComposition getRsEnum(int id);
 
 	@Import("menuX")
 	int getMenuX();

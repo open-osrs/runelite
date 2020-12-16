@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,18 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api.events;
+package net.runelite.api;
 
-import lombok.Value;
-
-/**
- * An event where a request to remove a friend is sent to the server.
- */
-@Value
-public class FriendRemoved implements Event
+public interface EnumComposition
 {
-	/**
-	 * The name of the removed friend.
-	 */
-	String name;
+	int[] getKeys();
+
+	int[] getIntVals();
+
+	String[] getStringVals();
+
+	int getIntValue(int key);
+
+	String getStringValue(int key);
 }

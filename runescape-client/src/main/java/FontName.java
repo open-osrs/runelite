@@ -287,7 +287,7 @@ public class FontName {
 						}
 
 						if (var10.type == 0) { // L: 9058
-							if (!var10.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var10) && var10 != EnumDefinition.mousedOverWidgetIf1) { // L: 9059
+							if (!var10.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var10) && var10 != EnumComposition.mousedOverWidgetIf1) { // L: 9059
 								continue;
 							}
 
@@ -426,12 +426,12 @@ public class FontName {
 								} else if (var10.type == 3) { // L: 9145
 									if (class8.runCs1(var10)) { // L: 9147
 										var19 = var10.color2; // L: 9148
-										if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9149
+										if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9149
 											var19 = var10.mouseOverColor2;
 										}
 									} else {
 										var19 = var10.color; // L: 9152
-										if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9153
+										if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9153
 											var19 = var10.mouseOverColor;
 										}
 									}
@@ -468,7 +468,7 @@ public class FontName {
 											String var44 = var10.text; // L: 9182
 											if (class8.runCs1(var10)) { // L: 9183
 												var20 = var10.color2; // L: 9184
-												if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9185
+												if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9185
 													var20 = var10.mouseOverColor2;
 												}
 
@@ -477,7 +477,7 @@ public class FontName {
 												}
 											} else {
 												var20 = var10.color; // L: 9189
-												if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9190
+												if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9190
 													var20 = var10.mouseOverColor;
 												}
 											}

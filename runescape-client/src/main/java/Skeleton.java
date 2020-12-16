@@ -109,7 +109,7 @@ public class Skeleton extends Node {
 			Widget var3 = var0[var2]; // L: 10597
 			if (var3 != null && var3.parentId == var1 && (!var3.isIf3 || !DevicePcmPlayerProvider.isComponentHidden(var3))) { // L: 10598 10599 10600
 				if (var3.type == 0) { // L: 10601
-					if (!var3.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var3) && var3 != EnumDefinition.mousedOverWidgetIf1) { // L: 10602
+					if (!var3.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var3) && var3 != EnumComposition.mousedOverWidgetIf1) { // L: 10602
 						continue;
 					}
 

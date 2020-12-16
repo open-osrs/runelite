@@ -6,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jx")
 @Implements("EnumDefinition")
-public class EnumDefinition extends DualNode {
+public class EnumComposition extends DualNode {
 	@ObfuscatedName("rk")
 	@ObfuscatedGetter(
 		intValue = 2141868731
@@ -65,7 +65,7 @@ public class EnumDefinition extends DualNode {
 		EnumDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
 	}
 
-	EnumDefinition() {
+	EnumComposition() {
 		this.defaultStr = "null"; // L: 15
 		this.outputCount = 0; // L: 17
 	} // L: 22

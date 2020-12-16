@@ -123,6 +123,6 @@ public class StructDefinition extends DualNode {
 		garbageValue = "-890013246"
 	)
 	public static void method4545(AbstractArchive var0) {
-		EnumDefinition.EnumDefinition_archive = var0; // L: 25
+		EnumComposition.EnumDefinition_archive = var0; // L: 25
 	} // L: 26
 }
