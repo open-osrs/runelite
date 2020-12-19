@@ -563,7 +563,7 @@ public class GrandExchangePlugin extends Plugin
 		{
 			case WidgetID.BANK_GROUP_ID:
 				// Don't show for view tabs and such
-				if (WidgetInfo.getChildFromID(widgetId) != WidgetInfo.BANK_ITEM_CONTAINER.getChildId())
+				if (WidgetInfo.TO_CHILD(widgetId) != WidgetInfo.BANK_ITEM_CONTAINER.getChildId())
 				{
 					break;
 				}

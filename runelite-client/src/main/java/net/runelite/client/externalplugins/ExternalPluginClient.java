@@ -67,13 +67,12 @@ public class ExternalPluginClient
 	{
 		HttpUrl manifest = RuneLiteProperties.getPluginHubBase()
 			.newBuilder()
-			.addPathSegment("manifest.js")
+			.addPathSegments("manifest.js")
 			.build();
 		try (Response res = okHttpClient.newCall(new Request.Builder().url(manifest).build()).execute())
 		{
 			if (res.code() != 200)
 			{
-				System.out.println(manifest.url().toString());
 				throw new IOException("Non-OK response code: " + res.code());
 			}
 

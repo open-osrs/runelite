@@ -974,6 +974,11 @@ public enum WidgetInfo
 		return groupId << 16 | childId;
 	}
 
+	public static int PACK(int groupId, int childId)
+	{
+		return groupId << 16 | childId;
+	}
+
 	/**
 	 * Utility method that converts an ID returned by {@link #getId()} back
 	 * to its group ID.
@@ -993,7 +998,7 @@ public enum WidgetInfo
 	 * @param id passed group-child ID
 	 * @return the child ID
 	 */
-	public static int getChildFromID(int id)
+	public static int TO_CHILD(int id)
 	{
 		return id & 0xFFFF;
 	}

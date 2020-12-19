@@ -59,7 +59,7 @@ import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.SpriteID;
-import static net.runelite.api.widgets.WidgetInfo.getChildFromID;
+import static net.runelite.api.widgets.WidgetInfo.TO_CHILD;
 import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.api.events.MenuEntryAdded;
@@ -464,7 +464,7 @@ class WidgetInspector extends JFrame
 
 		picker = parent.createChild(-1, WidgetType.GRAPHIC);
 
-		log.info("Picker is {}.{} [{}]", WidgetInfo.TO_GROUP(picker.getId()), WidgetInfo.getChildFromID(picker.getId()), picker.getIndex());
+		log.info("Picker is {}.{} [{}]", WidgetInfo.TO_GROUP(picker.getId()), WidgetInfo.TO_CHILD(picker.getId()), picker.getIndex());
 
 		picker.setSpriteId(SpriteID.MOBILE_FINGER_ON_INTERFACE);
 		picker.setOriginalWidth(15);
@@ -538,7 +538,7 @@ class WidgetInspector extends JFrame
 			{
 				continue;
 			}
-			String name = WidgetInfo.TO_GROUP(entry.getParam1()) + "." + WidgetInfo.getChildFromID(entry.getParam1());
+			String name = WidgetInfo.TO_GROUP(entry.getParam1()) + "." + WidgetInfo.TO_CHILD(entry.getParam1());
 
 			if (entry.getParam0() != -1)
 			{
@@ -584,7 +584,7 @@ class WidgetInspector extends JFrame
 	public static String getWidgetIdentifier(Widget widget)
 	{
 		int id = widget.getId();
-		String str = TO_GROUP(id) + "." + getChildFromID(id);
+		String str = TO_GROUP(id) + "." + TO_CHILD(id);
 
 		if (widget.getIndex() != -1)
 		{

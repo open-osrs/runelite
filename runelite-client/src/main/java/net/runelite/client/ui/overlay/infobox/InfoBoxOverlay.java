@@ -197,7 +197,7 @@ public class InfoBoxOverlay extends OverlayPanel
 
 		InfoBox infoBox = hoveredComponent.getInfoBox();
 		OverlayMenuEntry overlayMenuEntry = infoBox.getMenuEntries().stream()
-			.filter(me -> me.getOption().equals(menuOptionClicked.getOption()))
+			.filter(me -> me.getOption().equals(menuOptionClicked.getMenuOption()))
 			.findAny()
 			.orElse(null);
 		if (overlayMenuEntry != null)

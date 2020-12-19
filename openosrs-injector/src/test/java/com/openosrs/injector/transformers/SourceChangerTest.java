@@ -36,9 +36,11 @@ public class SourceChangerTest
 		new ClassReader(PACKAGE + "OldName").accept(vann, ClassReader.SKIP_FRAMES);
 
 		new SourceChanger(
-			new InjectData(new ClassGroup(), new ClassGroup(), null, null) {
+			new InjectData(new ClassGroup(), new ClassGroup(), null, null)
+			{
 				public void runChildInjector(Injector injector) throws InjectException
-				{}
+				{
+				}
 
 				@Override
 				public void forEachPair(BiConsumer<ClassFile, ClassFile> consumer)
@@ -54,8 +56,8 @@ public class SourceChangerTest
 		vann.getClassFile().accept(cw);
 
 		OldName obj = (OldName) MethodHandles.privateLookupIn(
-				NewName.class,
-				MethodHandles.lookup())
+			NewName.class,
+			MethodHandles.lookup())
 			.defineClass(cw.toByteArray())
 			.getDeclaredConstructor()
 			.newInstance();

@@ -76,7 +76,6 @@ class PluginListPanel extends PluginPanel
 	private static final String RUNELITE_GROUP_NAME = RuneLiteConfig.class.getAnnotation(ConfigGroup.class).value();
 	private static final String PINNED_PLUGINS_CONFIG_KEY = "pinnedPlugins";
 	private static final ImmutableList<String> CATEGORY_TAGS = ImmutableList.of(
-		"OpenOSRS",
 		"Combat",
 		"Chat",
 		"Item",
@@ -165,16 +164,10 @@ class PluginListPanel extends PluginPanel
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 
-		JButton externalPluginOPRSButton = new JButton("OpenOSRS Hub");
-		externalPluginOPRSButton.setBorder(new EmptyBorder(5, 5, 5, 5));
-		externalPluginOPRSButton.setLayout(new BorderLayout(0, BORDER_OFFSET));
-		externalPluginOPRSButton.addActionListener(l -> muxer.pushState(pluginHubPanelProvider.get()));
-
 		JPanel topPanel = new JPanel();
 		topPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		topPanel.setLayout(new BorderLayout(0, BORDER_OFFSET));
 		topPanel.add(searchBar, BorderLayout.CENTER);
-		topPanel.add(externalPluginOPRSButton, BorderLayout.SOUTH);
 		add(topPanel, BorderLayout.NORTH);
 
 		mainPanel = new FixedWidthPanel();

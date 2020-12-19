@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.annotation.Nullable;
-import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
 
 public class RuneLiteProperties
@@ -145,7 +144,7 @@ public class RuneLiteProperties
 	public static HttpUrl getPluginHubBase()
 	{
 		String version = System.getProperty(PLUGINHUB_VERSION, properties.getProperty(PLUGINHUB_VERSION));
-		return HttpUrl.parse(properties.get(PLUGINHUB_BASE) + "/" + RuneLiteAPI.getVersion());
+		return HttpUrl.parse(properties.get(PLUGINHUB_BASE) + "/" + version);
 	}
 
 	public static String getImgurClientId()

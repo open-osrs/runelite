@@ -9,9 +9,7 @@ package com.openosrs.injector.rsapi;
 
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Data;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.runelite.asm.Annotation;
 import net.runelite.asm.Named;

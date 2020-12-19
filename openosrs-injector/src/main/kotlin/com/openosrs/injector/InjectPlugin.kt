@@ -10,19 +10,21 @@ package com.openosrs.injector
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-class InjectPlugin: Plugin<Project> {
-    override fun apply(project: Project) { with(project) {
-        val task = tasks.create("inject", Inject::class.java)
-        task.output.convention { file("$buildDir/libs/$name-$version.jar") }
+class InjectPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        with(project) {
+            val task = tasks.create("inject", Inject::class.java)
+            task.output.convention { file("$buildDir/libs/$name-$version.jar") }
 
-        artifacts {
-            it.add("runtimeElements", task.output)
+            artifacts {
+                it.add("runtimeElements", task.output)
+            }
+
+            tasks.getByName("assemble") {
+                it.finalizedBy("inject")
+            }
+
+            extensions.add(InjectExtension::class.java, "injector", task.extension)
         }
-
-        tasks.getByName("assemble") {
-            it.finalizedBy("inject")
-        }
-
-        extensions.add(InjectExtension::class.java, "injector", task.extension)
-    }}
+    }
 }

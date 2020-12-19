@@ -26,6 +26,7 @@ package net.runelite.api.widgets;
 
 import java.awt.Rectangle;
 import java.util.Collection;
+import java.util.List;
 import net.runelite.api.FontTypeFace;
 import net.runelite.api.Point;
 import net.runelite.api.SpritePixels;
@@ -475,7 +476,7 @@ public interface Widget
 	 *
 	 * @return any items displayed, or null if there are no items
 	 */
-	Collection<WidgetItem> getWidgetItems();
+	List<WidgetItem> getWidgetItems();
 
 	/**
 	 * Gets a widget item at a specific index.

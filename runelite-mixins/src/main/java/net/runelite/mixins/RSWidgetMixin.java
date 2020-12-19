@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import static net.runelite.api.widgets.WidgetInfo.getChildFromID;
+import static net.runelite.api.widgets.WidgetInfo.TO_CHILD;
 import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 
 @Mixin(RSWidget.class)
@@ -107,7 +107,7 @@ public abstract class RSWidgetMixin implements RSWidget
 			return null;
 		}
 
-		return client.getWidget(TO_GROUP(id), getChildFromID(id));
+		return client.getWidget(TO_GROUP(id), TO_CHILD(id));
 	}
 
 	@Inject
@@ -240,7 +240,7 @@ public abstract class RSWidgetMixin implements RSWidget
 
 	@Inject
 	@Override
-	public Collection<WidgetItem> getWidgetItems()
+	public List<WidgetItem> getWidgetItems()
 	{
 		int[] itemIds = getItemIds();
 

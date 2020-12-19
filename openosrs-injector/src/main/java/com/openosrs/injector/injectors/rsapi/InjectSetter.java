@@ -53,7 +53,9 @@ public class InjectSetter
 	public static void inject(ClassFile targetClass, RSApiMethod apiMethod, Field field, Number getter)
 	{
 		if (targetClass.findMethod(apiMethod.getName(), apiMethod.getSignature()) != null)
+		{
 			throw new InjectException("Duplicate setter method " + apiMethod.getMethod().toString());
+		}
 
 		final String name = apiMethod.getName();
 		final Signature sig = apiMethod.getSignature();
@@ -69,7 +71,9 @@ public class InjectSetter
 
 		// load this
 		if (!field.isStatic())
+		{
 			ins.add(new ALoad(instructions, 0));
+		}
 
 		// load argument
 		final Type argumentType = sig.getTypeOfArg(0);
@@ -85,12 +89,18 @@ public class InjectSetter
 		}
 
 		if (getter != null)
+		{
 			InjectUtil.injectObfuscatedSetter(getter, instructions, ins::add);
+		}
 
 		if (field.isStatic())
+		{
 			ins.add(new PutStatic(instructions, field));
+		}
 		else
+		{
 			ins.add(new PutField(instructions, field));
+		}
 
 		ins.add(new VReturn(instructions));
 

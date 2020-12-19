@@ -87,7 +87,9 @@ public class DrawMenu extends AbstractInjector
 		{
 			Instruction instruction = ic.getInstruction();
 			if (!(instruction instanceof GetStatic))
+			{
 				continue;
+			}
 
 			if (((GetStatic) instruction).getField().equals(isMenuOpen))
 			{
@@ -100,25 +102,35 @@ public class DrawMenu extends AbstractInjector
 				// If the popper is a IfNe the label it's pointing to is the drawMenu one and topLeft is directly after it
 				// else it's the other way around, obviously
 				if (isMenuOpenPopI instanceof IfNe)
+				{
 					injectInvokeAfter = ((IfNe) isMenuOpenPopI).getTo();
+				}
 				else
+				{
 					injectInvokeAfter = isMenuOpenPopI;
+				}
 			}
 			else if (((GetStatic) instruction).getField().equals(gameDrawMode))
 			{
 				List<Instruction> instrL = instruction.getInstructions().getInstructions();
 				for (int i = instrL.indexOf(instruction); !(instruction instanceof Label); i--)
+				{
 					instruction = instrL.get(i);
+				}
 
 				labelToJumpTo = (Label) instruction;
 			}
 
 			if (injectInvokeAfter != null && labelToJumpTo != null)
+			{
 				break;
+			}
 		}
 
 		if (injectInvokeAfter == null || labelToJumpTo == null)
+		{
 			throw new InjectException("Couldn't find the right location for DrawMenu to inject");
+		}
 
 		final Instructions instrs = mc.getMethod().getCode().getInstructions();
 		int idx = instrs.getInstructions().indexOf(injectInvokeAfter);

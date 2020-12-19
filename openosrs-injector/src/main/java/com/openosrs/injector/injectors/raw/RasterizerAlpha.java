@@ -74,7 +74,9 @@ public class RasterizerAlpha extends AbstractInjector
 		{
 			Instructions instrs = getInstrs(mc);
 			if (instrs == null)
+			{
 				return;
+			}
 
 			int count = 0;
 			int orCount = 0;
@@ -84,14 +86,18 @@ public class RasterizerAlpha extends AbstractInjector
 			{
 				Instruction instruction = ic.getInstruction();
 				if (!(instruction instanceof IAStore))
+				{
 					continue;
+				}
 
 				// Field field = astore.getMyField(ic);
 				// doesn't track into methods so doing it here
 				StackContext array = ic.getPops().get(2);
 
 				if (!isSameField(r2dPx, array))
+				{
 					continue;
+				}
 
 				// This is the colour that's being set
 				StackContext colour = ic.getPops().get(0);
@@ -111,15 +117,21 @@ public class RasterizerAlpha extends AbstractInjector
 					for (InstructionContext ins : mc.getInstructionContexts())
 					{
 						if (!(ins.getInstruction() instanceof SiPush))
+						{
 							continue;
+						}
 
 						SiPush pci = (SiPush) ins.getInstruction();
 						if ((short) pci.getConstant() != (short) 256)
+						{
 							continue;
+						}
 
 						InstructionContext isub = ins.getPushes().get(0).getPopped().get(0);
 						if (!(isub.getInstruction() instanceof ISub))
+						{
 							continue;
+						}
 
 						StackContext alphaPop = isub.getPops().get(0);
 						InstructionContext alphaPusher = alphaPop.getPushed();
@@ -168,12 +180,16 @@ public class RasterizerAlpha extends AbstractInjector
 				// If we're copying from the same field we don't have to apply extra alpha again
 				if (colPushI instanceof IALoad
 					&& isSameField(r2dPx, colPusher.getPops().get(1)))
+				{
 					continue;
+				}
 
 				// If the value is 0, it's supposed to be transparent, not black
 				if (colPushI instanceof PushConstantInstruction
 					&& ((PushConstantInstruction) colPushI).getConstant().equals(0))
+				{
 					continue;
+				}
 
 				// rasterPx[idx] = color | 0xff000000 (the | 0xff000000 is what's added)
 				int storeIdx = instrs.getInstructions().indexOf(instruction);
@@ -217,7 +233,9 @@ public class RasterizerAlpha extends AbstractInjector
 	{
 		Code c = mc.getMethod().getCode();
 		if (c == null)
+		{
 			return null;
+		}
 
 		return c.getInstructions();
 	}
@@ -226,11 +244,15 @@ public class RasterizerAlpha extends AbstractInjector
 	{
 		InstructionContext pusher = stackContext.getPushed().resolve(stackContext);
 		if (pusher.getInstruction() instanceof GetFieldInstruction)
+		{
 			return pusher;
+		}
 
 		// No field I wanna trace, rn at least
 		if (!(pusher.getInstruction() instanceof LVTInstruction))
+		{
 			return null;
+		}
 
 		int vidx = ((LVTInstruction) pusher.getInstruction()).getVariableIndex();
 
@@ -245,7 +267,9 @@ public class RasterizerAlpha extends AbstractInjector
 		InstructionContext ic = resolveFieldThroughInvokes(array);
 
 		if (ic == null)
+		{
 			return false;
+		}
 
 		return ((GetFieldInstruction) ic.getInstruction()).getMyField() == f;
 	}

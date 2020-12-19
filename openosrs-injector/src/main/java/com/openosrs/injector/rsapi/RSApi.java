@@ -45,7 +45,9 @@ public class RSApi implements Iterable<RSApiClass>
 		for (File file : classes)
 		{
 			if (!file.getName().startsWith("RS"))
+			{
 				continue;
+			}
 
 			try (InputStream is = new FileInputStream(file))
 			{
@@ -72,7 +74,9 @@ public class RSApi implements Iterable<RSApiClass>
 		final ImmutableMap.Builder<String, RSApiClass> builder = ImmutableMap.builder();
 
 		for (RSApiClass clazz : this)
+		{
 			builder.put(clazz.getName(), clazz);
+		}
 
 		this.map = builder.build();
 
@@ -112,11 +116,17 @@ public class RSApi implements Iterable<RSApiClass>
 	{
 		RSApiClass clazz = findClass(interf.getName());
 		if (clazz != null)
+		{
 			return clazz;
+		}
 
 		for (RSApiClass apiC : this)
+		{
 			if (apiC.getInterfaces().contains(interf))
+			{
 				return apiC;
+			}
+		}
 
 		return null;
 	}

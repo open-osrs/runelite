@@ -15,10 +15,13 @@ import org.gradle.api.tasks.PathSensitivity
 interface InjectExtension {
     @get:[InputFile PathSensitive(PathSensitivity.NONE)]
     val vanilla: RegularFileProperty
+
     @get:[InputFile PathSensitive(PathSensitivity.NONE)]
     val rsclient: RegularFileProperty
+
     @get:[InputFile PathSensitive(PathSensitivity.NONE)]
     val mixins: RegularFileProperty
+
     @get:[InputFile PathSensitive(PathSensitivity.NONE)]
     val rsapi: RegularFileProperty
 }

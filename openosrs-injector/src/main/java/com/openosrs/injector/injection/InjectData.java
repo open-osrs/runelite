@@ -149,7 +149,7 @@ public abstract class InjectData
 
 	/**
 	 * Do something with all paired classes.
-	 *
+	 * <p>
 	 * Key = deobfuscated, Value = vanilla
 	 */
 	public void forEachPair(BiConsumer<ClassFile, ClassFile> action)

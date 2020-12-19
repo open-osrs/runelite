@@ -36,7 +36,9 @@ public class InterfaceInjector extends AbstractInjector
 		final String impls = DeobAnnotations.getImplements(deobCf);
 
 		if (impls == null)
+		{
 			return;
+		}
 
 		final String fullName = API_BASE + impls;
 		if (!inject.getRsApi().hasClass(fullName))

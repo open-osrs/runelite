@@ -49,12 +49,16 @@ public class Occluder extends AbstractInjector
 			Instruction i = it.next();
 
 			if (!(i instanceof BiPush))
+			{
 				continue;
+			}
 
 			boolean shouldChange = (byte) ((BiPush) i).getConstant() == OLDVALUE;
 
 			if (!shouldChange)
+			{
 				continue;
+			}
 
 			replaced++;
 
@@ -64,6 +68,8 @@ public class Occluder extends AbstractInjector
 		}
 
 		if (replaced != 10)
+		{
 			throw new InjectException("Only found " + replaced + " 25's to replace in occlude instead of expected 10");
+		}
 	}
 }

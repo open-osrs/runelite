@@ -140,7 +140,7 @@ public class MenuManager
 
 				MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
 				menuEntry.setOption(currentMenu.getMenuOption());
-				menuEntry.setActionParam1(widgetId);
+				menuEntry.setParam1(widgetId);
 				menuEntry.setTarget(currentMenu.getMenuTarget());
 				menuEntry.setType(MenuAction.RUNELITE.getId());
 
@@ -241,17 +241,17 @@ public class MenuManager
 			return; // not a managed widget option or custom player option
 		}
 
-		int widgetId = event.getActionParam1();
+		int widgetId = event.getWidgetId();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 
 		for (WidgetMenuOption curMenuOption : options)
 		{
-			if (curMenuOption.getMenuTarget().equals(event.getTarget())
-				&& curMenuOption.getMenuOption().equals(event.getOption()))
+			if (curMenuOption.getMenuTarget().equals(event.getMenuTarget())
+				&& curMenuOption.getMenuOption().equals(event.getMenuOption()))
 			{
 				WidgetMenuOptionClicked customMenu = new WidgetMenuOptionClicked();
-				customMenu.setMenuOption(event.getOption());
-				customMenu.setMenuTarget(event.getTarget());
+				customMenu.setMenuOption(event.getMenuOption());
+				customMenu.setMenuTarget(event.getMenuTarget());
 				customMenu.setWidget(curMenuOption.getWidget());
 				eventBus.post(customMenu);
 				return; // don't continue because it's not a player option
@@ -260,14 +260,14 @@ public class MenuManager
 
 		// removes bounty hunter emblem tag and tier from player name, e.g:
 		// "username<img=20>5<col=40ff00>  (level-42)" -> "username<col=40ff00>  (level-42)"
-		String target = BOUNTY_EMBLEM_TAG_AND_TIER_REGEXP.matcher(event.getTarget()).replaceAll("");
+		String target = BOUNTY_EMBLEM_TAG_AND_TIER_REGEXP.matcher(event.getMenuTarget()).replaceAll("");
 
 		// removes tags and level from player names for example:
 		// <col=ffffff>username<col=40ff00>  (level-42) or <col=ffffff><img=2>username</col>
 		String username = Text.removeTags(target).split("[(]")[0].trim();
 
 		PlayerMenuOptionClicked playerMenuOptionClicked = new PlayerMenuOptionClicked();
-		playerMenuOptionClicked.setMenuOption(event.getOption());
+		playerMenuOptionClicked.setMenuOption(event.getMenuOption());
 		playerMenuOptionClicked.setMenuTarget(username);
 
 		eventBus.post(playerMenuOptionClicked);

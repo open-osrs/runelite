@@ -28,7 +28,9 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.util.List;
 import net.runelite.api.MainBufferProvider;
+import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetItem;
 
 /**
@@ -70,8 +72,9 @@ public interface Callbacks
 	 */
 	void drawAboveOverheads();
 
-	void drawAfterWidgets();
+	void drawLayer(Widget layer, List<WidgetItem> widgetItems);
 
+	void drawInterface(int interfaceId, List<WidgetItem> widgetItems);
 	/**
 	 * Client top-most draw method, rendering over top of most of game interfaces.
 	 *
@@ -81,11 +84,6 @@ public interface Callbacks
 	 * @param y                  the y
 	 */
 	void draw(MainBufferProvider mainBufferProvider, Graphics graphics, int x, int y);
-
-	/**
-	 * Called before the client will render an item widget.
-	 */
-	void drawItem(int itemId, WidgetItem widgetItem);
 
 	/**
 	 * Mouse pressed event. If this event will be consumed it will not be propagated further to client.

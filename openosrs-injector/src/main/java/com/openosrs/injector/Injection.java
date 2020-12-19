@@ -67,7 +67,7 @@ public class Injection extends InjectData implements InjectTaskHandler
 
 		inject(new RSApiInjector(this));
 
-		inject(new DrawAfterWidgets(this));
+		//inject(new DrawAfterWidgets(this));
 
 		inject(new ScriptVM(this));
 
@@ -107,7 +107,9 @@ public class Injection extends InjectData implements InjectTaskHandler
 		log.lifecycle("{} {}", name, injector.getCompletionMsg());
 
 		if (injector instanceof Validator)
+		{
 			validate((Validator) injector);
+		}
 	}
 
 	private void validate(Validator validator)

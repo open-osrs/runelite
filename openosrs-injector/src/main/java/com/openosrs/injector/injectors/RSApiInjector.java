@@ -84,7 +84,9 @@ public class RSApiInjector extends AbstractInjector
 			final List<RSApiMethod> matching = findImportsFor(deobField, deobField.isStatic(), implementingClass);
 
 			if (matching == null)
+			{
 				continue;
+			}
 
 			final Type deobType = deobField.getType();
 
@@ -153,7 +155,9 @@ public class RSApiInjector extends AbstractInjector
 			final Number getter = DeobAnnotations.getObfuscatedGetter(deobField);
 
 			if (deobField.isStatic() != vanillaField.isStatic()) // Can this even happen
+			{
 				throw new InjectException("Something went horribly wrong, and this should honestly never happen, but you never know. Btw it's the static-ness");
+			}
 
 			inject(matching, deobField, vanillaField, getter);
 		}
@@ -166,7 +170,9 @@ public class RSApiInjector extends AbstractInjector
 			final List<RSApiMethod> matching = findImportsFor(deobMethod, deobMethod.isStatic(), implementingClass);
 
 			if (matching == null)
+			{
 				continue;
+			}
 
 			final Signature deobSig = deobMethod.getDescriptor();
 
@@ -211,7 +217,9 @@ public class RSApiInjector extends AbstractInjector
 				apiMethod.setInjected(true);
 			}
 			else if (matching.size() != 0)
+			{
 				throw new InjectException("Multiple api imports matching method " + deobMethod.getPoolMethod());
+			}
 		}
 	}
 
@@ -225,7 +233,9 @@ public class RSApiInjector extends AbstractInjector
 			matched.removeIf(RSApiMethod::isInjected);
 
 			if (matched.size() > 2)
+			{
 				throw new InjectException("More than 2 imported api methods for field " + deobField.getPoolField());
+			}
 
 			final Field vanillaField = inject.toVanilla(deobField);
 			final Number getter = DeobAnnotations.getObfuscatedGetter(deobField);
@@ -238,7 +248,9 @@ public class RSApiInjector extends AbstractInjector
 	{
 		final String exportedName = InjectUtil.getExportedName(object);
 		if (exportedName == null)
+		{
 			return null;
+		}
 
 		final List<RSApiMethod> matching = new ArrayList<>();
 

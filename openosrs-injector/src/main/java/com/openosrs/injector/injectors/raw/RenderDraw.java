@@ -64,6 +64,8 @@ public class RenderDraw extends AbstractInjector
 		}
 
 		if (replaced != EXPECTED)
+		{
 			throw new InjectException("Didn't replace the expected amount of method calls");
+		}
 	}
 }

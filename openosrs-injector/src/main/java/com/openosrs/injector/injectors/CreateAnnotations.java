@@ -42,38 +42,40 @@ import net.runelite.deob.DeobAnnotations;
 public class CreateAnnotations extends AbstractInjector
 {
 
-    public CreateAnnotations(InjectData inject)
-    {
-        super(inject);
-    }
+	public CreateAnnotations(InjectData inject)
+	{
+		super(inject);
+	}
 
-    public void inject()
-    {
-        for (final ClassFile deobClass : inject.getDeobfuscated())
-        {
-            injectFields(deobClass);
-            injectMethods(deobClass);
+	public void inject()
+	{
+		for (final ClassFile deobClass : inject.getDeobfuscated())
+		{
+			injectFields(deobClass);
+			injectMethods(deobClass);
 
-            if (deobClass.getName().startsWith("class"))
-                continue;
+			if (deobClass.getName().startsWith("class"))
+			{
+				continue;
+			}
 
-            deobClass.addAnnotation(DeobAnnotations.IMPLEMENTS, deobClass.getName());
-        }
-    }
+			deobClass.addAnnotation(DeobAnnotations.IMPLEMENTS, deobClass.getName());
+		}
+	}
 
-    private void injectFields(ClassFile deobClass)
-    {
-        for (Field deobField : deobClass.getFields())
-        {
-            deobField.addAnnotation(DeobAnnotations.EXPORT, deobField.getName());
-        }
-    }
+	private void injectFields(ClassFile deobClass)
+	{
+		for (Field deobField : deobClass.getFields())
+		{
+			deobField.addAnnotation(DeobAnnotations.EXPORT, deobField.getName());
+		}
+	}
 
-    private void injectMethods(ClassFile deobClass)
-    {
-        for (Method deobMethod : deobClass.getMethods())
-        {
-            deobMethod.addAnnotation(DeobAnnotations.EXPORT, deobMethod.getName());
-        }
-    }
+	private void injectMethods(ClassFile deobClass)
+	{
+		for (Method deobMethod : deobClass.getMethods())
+		{
+			deobMethod.addAnnotation(DeobAnnotations.EXPORT, deobMethod.getName());
+		}
+	}
 }

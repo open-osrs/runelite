@@ -86,7 +86,9 @@ public class InjectHook extends AbstractInjector
 	public void inject()
 	{
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
+		{
 			injectMethods(entry.getKey(), entry.getValue());
+		}
 
 		injectHooks();
 
@@ -103,7 +105,9 @@ public class InjectHook extends AbstractInjector
 			{
 				final Annotation fieldHook = mixinMethod.findAnnotation(FIELDHOOK);
 				if (fieldHook == null)
+				{
 					continue;
+				}
 
 				final String hookName = fieldHook.getValueString();
 				final boolean before = isBefore(fieldHook);
@@ -141,7 +145,7 @@ public class InjectHook extends AbstractInjector
 		Set<Instruction> doneIh = new HashSet<>();
 
 		e.addExecutionVisitor((
-		InstructionContext ic) ->
+			InstructionContext ic) ->
 		{
 			Instruction i = ic.getInstruction();
 			Instructions ins = i.getInstructions();
@@ -149,23 +153,33 @@ public class InjectHook extends AbstractInjector
 			Method method = code.getMethod();
 
 			if (method.getName().equals(CLINIT))
+			{
 				return;
+			}
 
 			if (!(i instanceof SetFieldInstruction))
+			{
 				return;
+			}
 
 			if (!done.add(i))
+			{
 				return;
+			}
 
 			SetFieldInstruction sfi = (SetFieldInstruction) i;
 			Field fieldBeingSet = sfi.getMyField();
 
 			if (fieldBeingSet == null)
+			{
 				return;
+			}
 
 			HookInfo hookInfo = hooked.get(fieldBeingSet);
 			if (hookInfo == null)
+			{
 				return;
+			}
 
 			log.trace("Found injection location for hook {} at instruction {}", hookInfo.method.getName(), sfi);
 			++injectedHooks;
@@ -174,7 +188,9 @@ public class InjectHook extends AbstractInjector
 
 			StackContext objectStackContext = null;
 			if (sfi instanceof PutField)
+			{
 				objectStackContext = ic.getPops().get(1);
+			}
 
 			int idx = ins.getInstructions().indexOf(sfi);
 			assert idx != -1;
@@ -182,10 +198,14 @@ public class InjectHook extends AbstractInjector
 			try
 			{
 				if (hookInfo.before)
+				{
 					injectCallbackBefore(ins, idx, hookInfo, null, objectStackContext, value);
+				}
 				else
-					// idx + 1 to insert after the set
+				// idx + 1 to insert after the set
+				{
 					injectCallback(ins, idx + 1, hookInfo, null, objectStackContext);
+				}
 			}
 			catch (InjectException ex)
 			{
@@ -206,23 +226,33 @@ public class InjectHook extends AbstractInjector
 			Method method = code.getMethod();
 
 			if (method.getName().equals(CLINIT))
+			{
 				return;
+			}
 
 			if (!(i instanceof ArrayStore))
+			{
 				return;
+			}
 
 			if (!doneIh.add(i))
+			{
 				return;
+			}
 
 			ArrayStore as = (ArrayStore) i;
 
 			Field fieldBeingSet = as.getMyField(ic);
 			if (fieldBeingSet == null)
+			{
 				return;
+			}
 
 			HookInfo hookInfo = hooked.get(fieldBeingSet);
 			if (hookInfo == null)
+			{
 				return;
+			}
 
 			StackContext value = ic.getPops().get(0);
 			StackContext index = ic.getPops().get(1);
@@ -232,7 +262,9 @@ public class InjectHook extends AbstractInjector
 
 			StackContext objectStackContext = null;
 			if (arrayReferencePushed.getInstruction().getType() == InstructionType.GETFIELD)
+			{
 				objectStackContext = arrayReferencePushed.getPops().get(0);
+			}
 
 			// inject hook after 'i'
 			log.debug("[DEBUG] Found array injection location for hook {} at instruction {}", hookInfo.method.getName(), i);
@@ -244,9 +276,13 @@ public class InjectHook extends AbstractInjector
 			try
 			{
 				if (hookInfo.before)
+				{
 					injectCallbackBefore(ins, idx, hookInfo, index, objectStackContext, value);
+				}
 				else
+				{
 					injectCallback(ins, idx + 1, hookInfo, index, objectStackContext);
+				}
 			}
 			catch (InjectException ex)
 			{
@@ -265,7 +301,9 @@ public class InjectHook extends AbstractInjector
 		if (!hookInfo.method.isStatic())
 		{
 			if (object == null)
+			{
 				throw new InjectException("null object");
+			}
 
 			ins.getInstructions().add(idx++, new Dup(ins)); // dup value
 			idx = recursivelyPush(ins, idx, object);
@@ -313,7 +351,9 @@ public class InjectHook extends AbstractInjector
 		}
 
 		for (StackContext s : Lists.reverse(ctx.getPops()))
+		{
 			idx = recursivelyPush(ins, idx, s);
+		}
 
 		ins.getInstructions().add(idx++, ctx.getInstruction().clone());
 		return idx;
@@ -324,15 +364,21 @@ public class InjectHook extends AbstractInjector
 		if (!hookInfo.method.isStatic())
 		{
 			if (objectPusher == null)
+			{
 				throw new InjectException("Null object pusher");
+			}
 
 			idx = recursivelyPush(ins, idx, objectPusher);
 		}
 
 		if (index != null)
+		{
 			idx = recursivelyPush(ins, idx, index);
+		}
 		else
+		{
 			ins.getInstructions().add(idx++, new LDC(ins, -1));
+		}
 
 		Instruction invoke = hookInfo.getInvoke(ins);
 		ins.getInstructions().add(idx, invoke);

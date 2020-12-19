@@ -283,12 +283,15 @@ public class MixinInjectorTest
 		Instruction i;
 		while (it.hasNext() &&
 			!((i = it.next()) instanceof GetStatic &&
-			((GetStatic) i).getField().getName().equals(gottenField)));
+				((GetStatic) i).getField().getName().equals(gottenField)))
+		{
+			;
+		}
 
 		return
 			(i = it.next()) instanceof LDC &&
-			((LDC) i).getConstantAsInt() == 1157381415 &&
-			it.next() instanceof IMul;
+				((LDC) i).getConstantAsInt() == 1157381415 &&
+				it.next() instanceof IMul;
 	}
 
 	private static ClassFile loadClass(Class<?> clazz)

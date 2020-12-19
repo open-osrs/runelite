@@ -65,7 +65,9 @@ public class InjectHookMethod extends AbstractInjector
 	public void inject()
 	{
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
+		{
 			injectMethods(entry.getKey(), entry.getValue());
+		}
 
 		log.info("[INFO] Injected {} method hooks", injected);
 	}
@@ -80,10 +82,14 @@ public class InjectHookMethod extends AbstractInjector
 			{
 				final Annotation methodHook = mixinMethod.findAnnotation(METHODHOOK);
 				if (methodHook == null)
+				{
 					continue;
+				}
 
 				if (!mixinMethod.getDescriptor().isVoid())
+				{
 					throw new InjectException("Method hook " + mixinMethod.getPoolMethod() + " doesn't have void return type");
+				}
 
 				final String hookName = methodHook.getValueString();
 				final boolean end = isEnd(methodHook);
@@ -116,8 +122,12 @@ public class InjectHookMethod extends AbstractInjector
 		{
 			it = ins.listIterator(ins.size());
 			while (it.hasPrevious())
+			{
 				if (it.previous() instanceof ReturnInstruction)
+				{
 					insertVoke(method, hookMethod, it);
+				}
+			}
 
 			return;
 		}
@@ -126,8 +136,12 @@ public class InjectHookMethod extends AbstractInjector
 		if (method.getName().equals("<init>"))
 		{
 			while (it.hasNext())
+			{
 				if (it.next() instanceof InvokeSpecial)
+				{
 					break;
+				}
+			}
 
 			assert it.hasNext() : "Constructor without invokespecial";
 		}
@@ -141,7 +155,9 @@ public class InjectHookMethod extends AbstractInjector
 		int varIdx = 0;
 
 		if (!method.isStatic())
+		{
 			iterator.add(new ALoad(instructions, varIdx++));
+		}
 
 		for (Type type : hookMethod.getType().getArguments())
 		{

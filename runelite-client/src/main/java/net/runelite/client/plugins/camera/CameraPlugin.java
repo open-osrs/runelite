@@ -136,10 +136,6 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 			Widget settingsInit = client.getWidget(WidgetInfo.SETTINGS_INIT);
 			if (settingsInit != null)
 			{
-				throw new UnsupportedOperationException("Implement");
-				//client.createScriptEvent(settingsInit.getOnLoadListener())
-					//.setSource(settingsInit)
-					//.run();
 			}
 		});
 	}
@@ -165,10 +161,6 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 			Widget settingsInit = client.getWidget(WidgetInfo.SETTINGS_INIT);
 			if (settingsInit != null)
 			{
-				throw new UnsupportedOperationException("Implement");
-				//client.createScriptEvent(settingsInit.getOnLoadListener())
-					//.setSource(settingsInit)
-					//.run();
 			}
 		});
 	}

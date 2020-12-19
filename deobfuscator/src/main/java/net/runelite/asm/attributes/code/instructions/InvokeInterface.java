@@ -57,7 +57,8 @@ public class InvokeInterface extends Instruction implements InvokeInstruction
 		super(instructions, type);
 	}
 
-	public InvokeInterface(Instructions instructions, Method method) {
+	public InvokeInterface(Instructions instructions, Method method)
+	{
 		super(instructions, InstructionType.INVOKEINTERFACE);
 		this.method = method;
 	}

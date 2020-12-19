@@ -271,10 +271,12 @@ public class DrawAfterWidgets extends AbstractInjector
 			for (Field f : c.getFields())
 			{
 				if (f.isStatic())
+				{
 					if (f.getName().equals(s))
 					{
 						return inject.toVanilla(f);
 					}
+				}
 			}
 		}
 		return null;
@@ -287,10 +289,12 @@ public class DrawAfterWidgets extends AbstractInjector
 			for (Field f : c.getFields())
 			{
 				if (!f.isStatic())
+				{
 					if (f.getName().equals(s))
 					{
 						return f;
 					}
+				}
 			}
 		}
 		return null;

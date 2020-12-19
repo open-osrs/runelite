@@ -27,6 +27,7 @@ package net.runelite.client.plugins.blastmine;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+
 import java.awt.Color;
 
 @ConfigGroup("blastmine")

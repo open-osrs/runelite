@@ -594,7 +594,7 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public Widget getWidget(int id)
 	{
-		return getWidget(WidgetInfo.TO_GROUP(id), WidgetInfo.getChildFromID(id));
+		return getWidget(WidgetInfo.TO_GROUP(id), WidgetInfo.TO_CHILD(id));
 	}
 
 	@Inject
@@ -1552,16 +1552,16 @@ public abstract class RSClientMixin implements RSClient
 				if (renderX >= minX && renderX <= maxX && renderY >= minY && renderY <= maxY)
 				{
 					WidgetItem widgetItem = new WidgetItem(widget.getItemId(), widget.getItemQuantity(), -1, widget.getBounds(), widget, null);
-					callbacks.drawItem(widget.getItemId(), widgetItem);
+					//TODO:IMPLEMENT
+					//callbacks.drawItem(widget.getItemId(), widgetItem);
 				}
 			}
 			else if (widgetType == WidgetType.INVENTORY)
 			{
-				Collection<WidgetItem> widgetItems = widget.getWidgetItems();
-				for (WidgetItem widgetItem : widgetItems)
-				{
-					callbacks.drawItem(widgetItem.getId(), widgetItem);
-				}
+
+				List<WidgetItem> widgetItems = widget.getWidgetItems();
+				//TODO:IMPLEMENT
+				//callbacks.drawLayer(rlWidget, widgetItems);
 			}
 
 			WidgetNode childNode = componentTable.get(widget.getId());
@@ -1578,6 +1578,10 @@ public abstract class RSClientMixin implements RSClient
 						child.setRenderParentId(widgetId);
 					}
 				}
+			}
+			else
+			{
+
 			}
 		}
 	}

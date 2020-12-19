@@ -1041,7 +1041,7 @@ public class ConfigManager
 	{
 		updateRSProfile();
 	}
-
+	
 	@Subscribe
 	private void onPlayerChanged(PlayerChanged ev)
 	{

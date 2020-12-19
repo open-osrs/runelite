@@ -50,7 +50,9 @@ public class InjectGetter
 	public static void inject(ClassFile targetClass, RSApiMethod apiMethod, Field field, Number getter)
 	{
 		if (targetClass.findMethod(apiMethod.getName(), apiMethod.getSignature()) != null)
+		{
 			throw new InjectException("Duplicate getter method " + apiMethod.getMethod().toString());
+		}
 
 		final String name = apiMethod.getName();
 		final Signature sig = apiMethod.getSignature();
@@ -75,7 +77,9 @@ public class InjectGetter
 		}
 
 		if (getter != null)
+		{
 			InjectUtil.injectObfuscatedGetter(getter, instructions, ins::add);
+		}
 
 		ins.add(InjectUtil.createReturnForType(instructions, field.getType()));
 

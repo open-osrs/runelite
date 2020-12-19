@@ -69,7 +69,9 @@ public class InjectConstruct extends AbstractInjector
 		{
 			Annotation construct = apiMethod.findAnnotation(CONSTRUCT);
 			if (construct == null)
+			{
 				continue;
+			}
 
 			final Method method = apiMethod.getMethod();
 			final Class clazz = method.getClazz();
@@ -103,7 +105,9 @@ public class InjectConstruct extends AbstractInjector
 
 		final net.runelite.asm.Method constructor = classToConstruct.findMethod("<init>", constr);
 		if (constructor == null)
+		{
 			throw new InjectException("Unable to find constructor for " + classToConstruct.getName() + ".<init>" + constr);
+		}
 
 
 		net.runelite.asm.Method setterMethod = new net.runelite.asm.Method(targetClass, apiMethod.getName(), apiMethod.getType());

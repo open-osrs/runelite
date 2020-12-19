@@ -16,7 +16,7 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
-abstract class Inject: DefaultTask() {
+abstract class Inject : DefaultTask() {
     @get:Nested
     abstract val extension: InjectExtension
 

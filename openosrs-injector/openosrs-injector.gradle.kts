@@ -40,7 +40,7 @@ dependencies {
     implementation("com.google.guava:guava:29.0-jre")
     implementation(project(":deobfuscator"))
 
-    testCompileOnly("com.openosrs:injection-annotations:1.0")
+    testCompileOnly(project(":injection-annotations"))
     testImplementation("junit:junit:4.13")
 }
 
