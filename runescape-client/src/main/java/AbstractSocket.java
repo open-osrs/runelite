@@ -4,57 +4,70 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lv")
+@ObfuscatedName("lr")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
 	protected AbstractSocket() {
 	} // L: 7
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1983450651"
+		descriptor = "(B)V",
+		garbageValue = "-10"
 	)
 	@Export("close")
 	public abstract void close();
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "1"
+		garbageValue = "0"
 	)
 	@Export("readUnsignedByte")
 	public abstract int readUnsignedByte() throws IOException;
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "933186835"
+		garbageValue = "1974658106"
 	)
 	@Export("available")
 	public abstract int available() throws IOException;
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-916126565"
+		descriptor = "(IB)Z",
+		garbageValue = "-7"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "([BIII)I",
-		garbageValue = "1049423117"
+		descriptor = "([BIIB)I",
+		garbageValue = "98"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "1456512196"
+		garbageValue = "-2028715299"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
+
+	@ObfuscatedName("lp")
+	@ObfuscatedSignature(
+		descriptor = "([BIB)V",
+		garbageValue = "66"
+	)
+	static void method5846(byte[] var0, int var1) {
+		if (Client.randomDatData == null) { // L: 11134
+			Client.randomDatData = new byte[24];
+		}
+
+		class311.writeRandomDat(var0, var1, Client.randomDatData, 0, 24); // L: 11135
+	} // L: 11136
 }

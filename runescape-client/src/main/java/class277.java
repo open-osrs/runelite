@@ -1,37 +1,32 @@
-import java.io.File;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ji")
+@ObfuscatedName("jh")
 public class class277 {
-	@ObfuscatedName("m")
-	@Export("JagexCache_locationFile")
-	static File JagexCache_locationFile;
-
-	@ObfuscatedName("fq")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-1799040781"
+		descriptor = "(ILcs;ZI)I",
+		garbageValue = "-1829984749"
 	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field879 = 0L; // L: 4204
-		if (var0 >= 2) { // L: 4205
-			Client.isResizable = true;
+	static int method5005(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1106
+		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) { // L: 1107
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.itemId; // L: 1108
+			return 1; // L: 1109
+		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) { // L: 1111
+			if (var3.itemId != -1) { // L: 1112
+				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.itemQuantity;
+			} else {
+				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 0; // L: 1113
+			}
+
+			return 1; // L: 1114
+		} else if (var0 == ScriptOpcodes.CC_GETID) { // L: 1116
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.childIndex; // L: 1117
+			return 1; // L: 1118
 		} else {
-			Client.isResizable = false; // L: 4206
+			return 2; // L: 1120
 		}
-
-		if (UrlRequester.getWindowedMode() == 1) { // L: 4207
-			ByteArrayPool.client.setMaxCanvasSize(765, 503); // L: 4208
-		} else {
-			ByteArrayPool.client.setMaxCanvasSize(7680, 2160); // L: 4211
-		}
-
-		if (Client.gameState >= 25) { // L: 4213
-			Actor.method1855();
-		}
-
-	} // L: 4214
+	}
 }

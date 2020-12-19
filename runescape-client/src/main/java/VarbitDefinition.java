@@ -4,36 +4,39 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iy")
+@ObfuscatedName("iv")
 @Implements("VarbitDefinition")
 public class VarbitDefinition extends DualNode {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lib;"
 	)
 	@Export("VarbitDefinition_archive")
 	public static AbstractArchive VarbitDefinition_archive;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("VarbitDefinition_cached")
 	public static EvictingDualNodeHashTable VarbitDefinition_cached;
-	@ObfuscatedName("l")
+	@ObfuscatedName("z")
+	@Export("Tiles_hue")
+	static int[] Tiles_hue;
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1810404981
+		intValue = -1845026741
 	)
 	@Export("baseVar")
 	public int baseVar;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -581436309
+		intValue = -974081687
 	)
 	@Export("startBit")
 	public int startBit;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1763957303
+		intValue = -1357944677
 	)
 	@Export("endBit")
 	public int endBit;
@@ -42,54 +45,92 @@ public class VarbitDefinition extends DualNode {
 		VarbitDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;B)V",
-		garbageValue = "7"
+		descriptor = "(Lkj;I)V",
+		garbageValue = "1196473375"
 	)
 	@Export("decode")
 	public void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 18
-			if (var2 == 0) { // L: 19
-				return; // L: 22
+			int var2 = var1.readUnsignedByte(); // L: 22
+			if (var2 == 0) { // L: 23
+				return; // L: 26
 			}
 
-			this.decodeNext(var1, var2); // L: 20
+			this.decodeNext(var1, var2); // L: 24
 		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;IB)V",
-		garbageValue = "37"
+		descriptor = "(Lkj;II)V",
+		garbageValue = "-1699368159"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) { // L: 25
-			this.baseVar = var1.readUnsignedShort(); // L: 26
-			this.startBit = var1.readUnsignedByte(); // L: 27
-			this.endBit = var1.readUnsignedByte(); // L: 28
+		if (var2 == 1) { // L: 29
+			this.baseVar = var1.readUnsignedShort(); // L: 30
+			this.startBit = var1.readUnsignedByte(); // L: 31
+			this.endBit = var1.readUnsignedByte(); // L: 32
 		}
 
-	} // L: 31
+	} // L: 35
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(CI)C",
-		garbageValue = "-943155680"
+		descriptor = "(Ljava/lang/CharSequence;Lmu;B)Ljava/lang/String;",
+		garbageValue = "3"
 	)
-	static char method4663(char var0) {
-		if (var0 == 198) { // L: 95
-			return 'E';
-		} else if (var0 == 230) { // L: 96
-			return 'e';
-		} else if (var0 == 223) {
-			return 's'; // L: 97
-		} else if (var0 == 338) { // L: 98
-			return 'E';
+	public static String method4525(CharSequence var0, LoginType var1) {
+		if (var0 == null) { // L: 48
+			return null;
 		} else {
-			return (char)(var0 == 339 ? 'e' : '\u0000'); // L: 99 100
+			int var2 = 0; // L: 49
+
+			int var3;
+			boolean var4;
+			char var5;
+			for (var3 = var0.length(); var2 < var3; ++var2) { // L: 50 53 63
+				var5 = var0.charAt(var2); // L: 55
+				var4 = var5 == 160 || var5 == ' ' || var5 == '_' || var5 == '-'; // L: 57
+				if (!var4) { // L: 59
+					break;
+				}
+			}
+
+			while (var3 > var2) { // L: 67
+				var5 = var0.charAt(var3 - 1); // L: 69
+				var4 = var5 == 160 || var5 == ' ' || var5 == '_' || var5 == '-'; // L: 71
+				if (!var4) { // L: 73
+					break;
+				}
+
+				--var3; // L: 77
+			}
+
+			int var10 = var3 - var2; // L: 79
+			if (var10 >= 1 && var10 <= ArchiveLoader.method1232(var1)) { // L: 80
+				StringBuilder var9 = new StringBuilder(var10); // L: 81
+
+				for (int var6 = var2; var6 < var3; ++var6) { // L: 82
+					char var7 = var0.charAt(var6); // L: 83
+					if (ObjectDefinition.method4657(var7)) { // L: 84
+						char var8 = UserComparator10.method3492(var7); // L: 85
+						if (var8 != 0) { // L: 86
+							var9.append(var8); // L: 87
+						}
+					}
+				}
+
+				if (var9.length() == 0) { // L: 89
+					return null;
+				} else {
+					return var9.toString(); // L: 90
+				}
+			} else {
+				return null;
+			}
 		}
 	}
 }

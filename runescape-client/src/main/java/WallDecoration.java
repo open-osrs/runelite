@@ -1,4 +1,3 @@
-import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
@@ -8,72 +7,69 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ey")
 @Implements("WallDecoration")
 public final class WallDecoration {
-	@ObfuscatedName("gd")
-	@Export("regionLandArchiveIds")
-	static int[] regionLandArchiveIds;
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1368883061
+		intValue = 1081581953
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1255836875
+		intValue = -297749373
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1394186747
+		intValue = 791976009
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1069815711
+		intValue = 1711892485
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1005575771
+		intValue = 1589340577
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 287109355
+		intValue = 1872177181
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -872509349
+		intValue = -1614504195
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lej;"
+		descriptor = "Ler;"
 	)
 	@Export("entity1")
 	public Entity entity1;
-	@ObfuscatedName("u")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lej;"
+		descriptor = "Ler;"
 	)
 	@Export("entity2")
 	public Entity entity2;
-	@ObfuscatedName("t")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		longValue = -3894207238426267157L
+		longValue = 3554481859042868621L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("e")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -237175035
+		intValue = 542501961
 	)
 	@Export("flags")
 	int flags;
@@ -83,43 +79,24 @@ public final class WallDecoration {
 		this.flags = 0; // L: 14
 	} // L: 16
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "28"
+		descriptor = "(III)Lbg;",
+		garbageValue = "-876680442"
 	)
-	@Export("loadWorlds")
-	static boolean loadWorlds() {
-		try {
-			if (class248.World_request == null) { // L: 31
-				class248.World_request = class52.urlRequester.request(new URL(PcmPlayer.worldListURL));
-			} else if (class248.World_request.isDone()) { // L: 33
-				byte[] var0 = class248.World_request.getResponse(); // L: 34
-				Buffer var1 = new Buffer(var0); // L: 35
-				var1.readInt(); // L: 36
-				World.World_count = var1.readUnsignedShort(); // L: 37
-				DefaultsGroup.World_worlds = new World[World.World_count]; // L: 38
-
-				World var3;
-				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) { // L: 39 47
-					var3 = DefaultsGroup.World_worlds[var2] = new World(); // L: 40
-					var3.id = var1.readUnsignedShort(); // L: 41
-					var3.properties = var1.readInt(); // L: 42
-					var3.host = var1.readStringCp1252NullTerminated(); // L: 43
-					var3.activity = var1.readStringCp1252NullTerminated(); // L: 44
-					var3.location = var1.readUnsignedByte(); // L: 45
-					var3.population = var1.readShort(); // L: 46
-				}
-
-				ModeWhere.sortWorlds(DefaultsGroup.World_worlds, 0, DefaultsGroup.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2); // L: 49
-				class248.World_request = null; // L: 50
-				return true; // L: 51
-			}
-		} catch (Exception var4) { // L: 55
-			var4.printStackTrace(); // L: 56
-			class248.World_request = null; // L: 57
-		}
-
-		return false; // L: 59
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 39
+		return var2.getMessage(var1); // L: 40
 	}
+
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "613088833"
+	)
+	public static void method3379() {
+		SpotAnimationDefinition.SpotAnimationDefinition_cached.clear(); // L: 122
+		SpotAnimationDefinition.SpotAnimationDefinition_cachedModels.clear(); // L: 123
+	} // L: 124
 }

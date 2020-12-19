@@ -11,66 +11,71 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("es")
+@ObfuscatedName("ea")
 @Implements("UrlRequester")
 public class UrlRequester implements Runnable {
-	@ObfuscatedName("t")
+	@ObfuscatedName("ep")
 	@ObfuscatedGetter(
-		intValue = -2009862837
+		intValue = -863739849
 	)
-	@Export("Interpreter_stringStackSize")
-	static int Interpreter_stringStackSize;
-	@ObfuscatedName("f")
+	static int field1963;
+	@ObfuscatedName("gl")
+	@ObfuscatedSignature(
+		descriptor = "Llm;"
+	)
+	@Export("compass")
+	static Sprite compass;
+	@ObfuscatedName("h")
 	@Export("thread")
 	final Thread thread;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@Export("isClosed")
 	volatile boolean isClosed;
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@Export("requests")
 	Queue requests;
 
 	public UrlRequester() {
-		this.requests = new LinkedList(); // L: 15
+		this.requests = new LinkedList();
 		this.thread = new Thread(this);
 		this.thread.setPriority(1);
 		this.thread.start();
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;B)Leg;",
-		garbageValue = "70"
+		descriptor = "(Ljava/net/URL;I)Lei;",
+		garbageValue = "-1941564889"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
 		UrlRequest var2 = new UrlRequest(var1); // L: 71
-		synchronized(this) { // L: 72
-			this.requests.add(var2); // L: 73
-			this.notify(); // L: 74
-			return var2; // L: 76
+		synchronized(this) {
+			this.requests.add(var2);
+			this.notify();
+			return var2;
 		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1551713219"
+		descriptor = "(B)V",
+		garbageValue = "6"
 	)
 	@Export("close")
 	public void close() {
-		this.isClosed = true; // L: 80
+		this.isClosed = true;
 
 		try {
-			synchronized(this) { // L: 82
-				this.notify(); // L: 83
-			} // L: 84
+			synchronized(this) {
+				this.notify();
+			}
 
-			this.thread.join(); // L: 85
-		} catch (InterruptedException var4) { // L: 87
+			this.thread.join();
+		} catch (InterruptedException var4) {
 		}
 
-	} // L: 88
+	}
 
 	public void run() {
 		while (!this.isClosed) {
@@ -80,121 +85,242 @@ public class UrlRequester implements Runnable {
 					var1 = (UrlRequest)this.requests.poll();
 					if (var1 == null) {
 						try {
-							this.wait();
+							this.wait(); // L: 31
 						} catch (InterruptedException var13) { // L: 33
 						}
 						continue;
 					}
 				}
 
-				DataInputStream var2 = null;
+				DataInputStream var2 = null; // L: 37
 				URLConnection var3 = null; // L: 38
 
 				try {
-					var3 = var1.url.openConnection(); // L: 40
+					var3 = var1.url.openConnection();
 					var3.setConnectTimeout(5000); // L: 41
 					var3.setReadTimeout(5000); // L: 42
-					var3.setUseCaches(false); // L: 43
-					var3.setRequestProperty("Connection", "close"); // L: 44
+					var3.setUseCaches(false);
+					var3.setRequestProperty("Connection", "close");
 					int var7 = var3.getContentLength(); // L: 45
 					if (var7 >= 0) { // L: 46
-						byte[] var5 = new byte[var7]; // L: 47
-						var2 = new DataInputStream(var3.getInputStream()); // L: 48
+						byte[] var5 = new byte[var7];
+						var2 = new DataInputStream(var3.getInputStream());
 						var2.readFully(var5); // L: 49
 						var1.response0 = var5; // L: 50
 					}
 
-					var1.isDone0 = true; // L: 52
+					var1.isDone0 = true;
 				} catch (IOException var14) { // L: 54
-					var1.isDone0 = true; // L: 55
+					var1.isDone0 = true;
 				} finally {
 					if (var2 != null) { // L: 58
 						var2.close();
 					}
 
 					if (var3 != null && var3 instanceof HttpURLConnection) { // L: 59
-						((HttpURLConnection)var3).disconnect(); // L: 60
+						((HttpURLConnection)var3).disconnect();
 					}
 
 				}
-			} catch (Exception var17) { // L: 64
-				PacketWriter.RunException_sendStackTrace((String)null, var17); // L: 65
+			} catch (Exception var17) {
+				PlayerAppearance.RunException_sendStackTrace((String)null, var17);
 			}
 		}
 
-	} // L: 68
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(I[BLlt;I)V",
-		garbageValue = "300500560"
-	)
-	static void method3417(int var0, byte[] var1, ArchiveDisk var2) {
-		ArchiveDiskAction var3 = new ArchiveDiskAction(); // L: 18
-		var3.type = 0; // L: 19
-		var3.key = (long)var0; // L: 20
-		var3.data = var1; // L: 21
-		var3.archiveDisk = var2; // L: 22
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) { // L: 23
-			ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.addFirst(var3); // L: 24
-		} // L: 25
-
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) { // L: 27
-			if (ArchiveDiskActionHandler.field3176 == 0) { // L: 28
-				class105.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler()); // L: 29
-				class105.ArchiveDiskActionHandler_thread.setDaemon(true); // L: 30
-				class105.ArchiveDiskActionHandler_thread.start(); // L: 31
-				class105.ArchiveDiskActionHandler_thread.setPriority(5); // L: 32
-			}
-
-			ArchiveDiskActionHandler.field3176 = 600; // L: 34
-		}
-	} // L: 37
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;B)I",
-		garbageValue = "-25"
-	)
-	@Export("hashString")
-	public static int hashString(CharSequence var0) {
-		int var1 = var0.length(); // L: 136
-		int var2 = 0; // L: 137
-
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 138
-			var2 = (var2 << 5) - var2 + class219.charToByteCp1252(var0.charAt(var3));
-		}
-
-		return var2; // L: 139
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "([BB)Lkq;",
-		garbageValue = "98"
+		descriptor = "([Lgd;II)Lgd;",
+		garbageValue = "-933292802"
 	)
-	public static Font method3430(byte[] var0) {
-		if (var0 == null) { // L: 239
-			return null;
+	@Export("findEnumerated")
+	public static Enumerated findEnumerated(Enumerated[] var0, int var1) {
+		Enumerated[] var2 = var0; // L: 17
+
+		for (int var3 = 0; var3 < var2.length; ++var3) {
+			Enumerated var4 = var2[var3];
+			if (var1 == var4.rsOrdinal()) {
+				return var4;
+			}
+		}
+
+		return null;
+	}
+
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Lgi;I)I",
+		garbageValue = "-530251547"
+	)
+	@Export("compareStrings")
+	public static int compareStrings(CharSequence var0, CharSequence var1, Language var2) {
+		int var3 = var0.length(); // L: 11
+		int var4 = var1.length(); // L: 12
+		int var5 = 0; // L: 13
+		int var6 = 0; // L: 14
+		byte var7 = 0; // L: 15
+		byte var8 = 0; // L: 16
+
+		while (var5 - var7 < var3 || var6 - var8 < var4) {
+			if (var5 - var7 >= var3) {
+				return -1;
+			}
+
+			if (var6 - var8 >= var4) {
+				return 1;
+			}
+
+			char var9;
+			if (var7 != 0) { // L: 23
+				var9 = (char)var7; // L: 24
+				boolean var14 = false; // L: 25
+			} else {
+				var9 = var0.charAt(var5++); // L: 27
+			}
+
+			char var10;
+			if (var8 != 0) { // L: 28
+				var10 = (char)var8; // L: 29
+				boolean var15 = false; // L: 30
+			} else {
+				var10 = var1.charAt(var6++); // L: 32
+			}
+
+			byte var11;
+			if (var9 == 198) { // L: 35
+				var11 = 69; // L: 36
+			} else if (var9 == 230) { // L: 39
+				var11 = 101; // L: 40
+			} else if (var9 == 223) { // L: 43
+				var11 = 115; // L: 44
+			} else if (var9 == 338) { // L: 47
+				var11 = 69; // L: 48
+			} else if (var9 == 339) { // L: 51
+				var11 = 101; // L: 52
+			} else {
+				var11 = 0; // L: 55
+			}
+
+			var7 = var11; // L: 57
+			byte var12;
+			if (var10 == 198) { // L: 60
+				var12 = 69; // L: 61
+			} else if (var10 == 230) { // L: 64
+				var12 = 101; // L: 65
+			} else if (var10 == 223) { // L: 68
+				var12 = 115; // L: 69
+			} else if (var10 == 338) { // L: 72
+				var12 = 69; // L: 73
+			} else if (var10 == 339) {
+				var12 = 101;
+			} else {
+				var12 = 0;
+			}
+
+			var8 = var12;
+			var9 = UserComparator5.standardizeChar(var9, var2);
+			var10 = UserComparator5.standardizeChar(var10, var2);
+			if (var9 != var10 && Character.toUpperCase(var9) != Character.toUpperCase(var10)) {
+				var9 = Character.toLowerCase(var9);
+				var10 = Character.toLowerCase(var10);
+				if (var10 != var9) { // L: 88
+					return WorldMapAreaData.lowercaseChar(var9, var2) - WorldMapAreaData.lowercaseChar(var10, var2);
+				}
+			}
+		}
+
+		int var16 = Math.min(var3, var4);
+
+		int var17;
+		char var20;
+		for (var17 = 0; var17 < var16; ++var17) {
+			if (var2 == Language.Language_FR) {
+				var5 = var3 - 1 - var17;
+				var6 = var4 - 1 - var17;
+			} else {
+				var6 = var17; // L: 97
+				var5 = var17;
+			}
+
+			char var18 = var0.charAt(var5);
+			var20 = var1.charAt(var6); // L: 99
+			if (var20 != var18 && Character.toUpperCase(var18) != Character.toUpperCase(var20)) { // L: 100
+				var18 = Character.toLowerCase(var18); // L: 101
+				var20 = Character.toLowerCase(var20); // L: 102
+				if (var18 != var20) {
+					return WorldMapAreaData.lowercaseChar(var18, var2) - WorldMapAreaData.lowercaseChar(var20, var2); // L: 103
+				}
+			}
+		}
+
+		var17 = var3 - var4; // L: 106
+		if (var17 != 0) { // L: 107
+			return var17;
 		} else {
-			Font var1 = new Font(var0, class336.SpriteBuffer_xOffsets, class225.SpriteBuffer_yOffsets, class336.SpriteBuffer_spriteWidths, class336.SpriteBuffer_spriteHeights, WorldMapID.SpriteBuffer_spritePalette, class13.SpriteBuffer_pixels); // L: 240
-			class336.SpriteBuffer_xOffsets = null; // L: 242
-			class225.SpriteBuffer_yOffsets = null; // L: 243
-			class336.SpriteBuffer_spriteWidths = null; // L: 244
-			class336.SpriteBuffer_spriteHeights = null; // L: 245
-			WorldMapID.SpriteBuffer_spritePalette = null; // L: 246
-			class13.SpriteBuffer_pixels = null; // L: 247
-			return var1; // L: 249
+			for (int var19 = 0; var19 < var16; ++var19) { // L: 108
+				var20 = var0.charAt(var19); // L: 109
+				char var13 = var1.charAt(var19); // L: 110
+				if (var20 != var13) { // L: 111
+					return WorldMapAreaData.lowercaseChar(var20, var2) - WorldMapAreaData.lowercaseChar(var13, var2);
+				}
+			}
+
+			return 0; // L: 113
 		}
 	}
 
-	@ObfuscatedName("fp")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-4"
+		descriptor = "(Lkj;Ljava/lang/String;I)I",
+		garbageValue = "-1031927437"
 	)
-	@Export("getWindowedMode")
-	static int getWindowedMode() {
-		return Client.isResizable ? 2 : 1; // L: 4200
+	public static int method3383(Buffer var0, String var1) {
+		int var2 = var0.offset; // L: 18
+		byte[] var3 = Projectile.method2171(var1); // L: 19
+		var0.writeSmartByteShort(var3.length); // L: 20
+		var0.offset += class219.huffman.compress(var3, 0, var3.length, var0.array, var0.offset); // L: 21
+		return var0.offset - var2; // L: 22
 	}
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "117"
+	)
+	public static void method3381() {
+		try {
+			if (class206.musicPlayerStatus == 1) { // L: 74
+				int var0 = class206.midiPcmStream.method3816(); // L: 75
+				if (var0 > 0 && class206.midiPcmStream.isReady()) { // L: 76
+					var0 -= WorldMapSection1.pcmSampleLength; // L: 77
+					if (var0 < 0) { // L: 78
+						var0 = 0;
+					}
+
+					class206.midiPcmStream.setPcmStreamVolume(var0); // L: 79
+					return; // L: 80
+				}
+
+				class206.midiPcmStream.clear(); // L: 82
+				class206.midiPcmStream.removeAll(); // L: 83
+				if (Varps.musicTrackArchive != null) { // L: 84
+					class206.musicPlayerStatus = 2;
+				} else {
+					class206.musicPlayerStatus = 0; // L: 85
+				}
+
+				FileSystem.musicTrack = null; // L: 86
+				class206.soundCache = null; // L: 87
+			}
+		} catch (Exception var2) { // L: 90
+			var2.printStackTrace(); // L: 91
+			class206.midiPcmStream.clear(); // L: 92
+			class206.musicPlayerStatus = 0; // L: 93
+			FileSystem.musicTrack = null; // L: 94
+			class206.soundCache = null; // L: 95
+			Varps.musicTrackArchive = null; // L: 96
+		}
+
+	} // L: 98
 }

@@ -1,90 +1,101 @@
+import java.io.IOException;
+import java.net.Socket;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hp")
+@ObfuscatedName("hx")
 public class class219 {
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lhu;"
 	)
 	@Export("huffman")
 	static Huffman huffman;
-	@ObfuscatedName("gi")
-	@ObfuscatedSignature(
-		descriptor = "Llc;"
-	)
-	@Export("redHintArrowSprite")
-	static Sprite redHintArrowSprite;
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(CI)B",
-		garbageValue = "-1341366570"
+		descriptor = "(II)Lis;",
+		garbageValue = "1786599747"
 	)
-	@Export("charToByteCp1252")
-	public static byte charToByteCp1252(char var0) {
-		byte var1;
-		if (var0 > 0 && var0 < 128 || var0 >= 160 && var0 <= 255) { // L: 12
-			var1 = (byte)var0;
-		} else if (var0 == 8364) { // L: 13
-			var1 = -128;
-		} else if (var0 == 8218) { // L: 14
-			var1 = -126;
-		} else if (var0 == 402) { // L: 15
-			var1 = -125;
-		} else if (var0 == 8222) { // L: 16
-			var1 = -124;
-		} else if (var0 == 8230) { // L: 17
-			var1 = -123;
-		} else if (var0 == 8224) { // L: 18
-			var1 = -122;
-		} else if (var0 == 8225) { // L: 19
-			var1 = -121;
-		} else if (var0 == 710) { // L: 20
-			var1 = -120;
-		} else if (var0 == 8240) { // L: 21
-			var1 = -119;
-		} else if (var0 == 352) { // L: 22
-			var1 = -118;
-		} else if (var0 == 8249) { // L: 23
-			var1 = -117;
-		} else if (var0 == 338) { // L: 24
-			var1 = -116;
-		} else if (var0 == 381) { // L: 25
-			var1 = -114;
-		} else if (var0 == 8216) { // L: 26
-			var1 = -111;
-		} else if (var0 == 8217) { // L: 27
-			var1 = -110;
-		} else if (var0 == 8220) { // L: 28
-			var1 = -109;
-		} else if (var0 == 8221) { // L: 29
-			var1 = -108;
-		} else if (var0 == 8226) { // L: 30
-			var1 = -107;
-		} else if (var0 == 8211) { // L: 31
-			var1 = -106;
-		} else if (var0 == 8212) { // L: 32
-			var1 = -105;
-		} else if (var0 == 732) { // L: 33
-			var1 = -104;
-		} else if (var0 == 8482) { // L: 34
-			var1 = -103;
-		} else if (var0 == 353) { // L: 35
-			var1 = -102;
-		} else if (var0 == 8250) { // L: 36
-			var1 = -101;
-		} else if (var0 == 339) { // L: 37
-			var1 = -100;
-		} else if (var0 == 382) { // L: 38
-			var1 = -98;
-		} else if (var0 == 376) { // L: 39
-			var1 = -97;
+	@Export("VarpDefinition_get")
+	public static VarpDefinition VarpDefinition_get(int var0) {
+		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0); // L: 18
+		if (var1 != null) { // L: 19
+			return var1;
 		} else {
-			var1 = 63; // L: 40
-		}
+			byte[] var2 = class1.VarpDefinition_archive.takeFile(16, var0); // L: 20
+			var1 = new VarpDefinition(); // L: 21
+			if (var2 != null) { // L: 22
+				var1.decode(new Buffer(var2));
+			}
 
-		return var1; // L: 41
+			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0); // L: 23
+			return var1; // L: 24
+		}
+	}
+
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(Lib;Lib;I)Z",
+		garbageValue = "1703173158"
+	)
+	public static boolean method4010(AbstractArchive var0, AbstractArchive var1) {
+		WorldMapElement.WorldMapElement_archive = var1; // L: 44
+		if (!var0.isFullyLoaded()) { // L: 45
+			return false; // L: 46
+		} else {
+			WorldMapElement.WorldMapElement_count = var0.getGroupFileCount(35); // L: 48
+			WorldMapElement.WorldMapElement_cached = new WorldMapElement[WorldMapElement.WorldMapElement_count]; // L: 49
+
+			for (int var2 = 0; var2 < WorldMapElement.WorldMapElement_count; ++var2) { // L: 50
+				byte[] var3 = var0.takeFile(35, var2); // L: 51
+				WorldMapElement.WorldMapElement_cached[var2] = new WorldMapElement(var2); // L: 52
+				if (var3 != null) { // L: 53
+					WorldMapElement.WorldMapElement_cached[var2].decode(new Buffer(var3)); // L: 54
+					WorldMapElement.WorldMapElement_cached[var2].method4391(); // L: 55
+				}
+			}
+
+			return true; // L: 58
+		}
+	}
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-2069010716"
+	)
+	static void method4009() {
+		if (Login.Login_username == null || Login.Login_username.length() <= 0) { // L: 208
+			if (Timer.clientPreferences.rememberedUsername != null) { // L: 209
+				Login.Login_username = Timer.clientPreferences.rememberedUsername; // L: 210
+				Client.Login_isUsernameRemembered = true; // L: 211
+			} else {
+				Client.Login_isUsernameRemembered = false; // L: 213
+			}
+
+		}
+	} // L: 214
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-317727770"
+	)
+	static final void method4003(String var0) {
+		StringBuilder var10000 = (new StringBuilder()).append(var0);
+		Object var10001 = null;
+		String var1 = var10000.append(" is already on your friend list").toString(); // L: 119
+		class234.addGameMessage(30, "", var1); // L: 121
+	} // L: 123
+
+	@ObfuscatedName("an")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/net/Socket;IIB)Llr;",
+		garbageValue = "1"
+	)
+	public static AbstractSocket method4011(Socket var0, int var1, int var2) throws IOException {
+		return new BufferedNetSocket(var0, var1, var2); // L: 10
 	}
 }

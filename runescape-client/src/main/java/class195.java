@@ -1,121 +1,101 @@
-import java.security.SecureRandom;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gr")
+@ObfuscatedName("gk")
 public class class195 {
-	@ObfuscatedName("qx")
+	@ObfuscatedName("p")
+	@Export("Widget_loadedInterfaces")
+	public static boolean[] Widget_loadedInterfaces;
+	@ObfuscatedName("em")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Lil;"
 	)
-	@Export("pcmPlayer0")
-	static PcmPlayer pcmPlayer0;
-	@ObfuscatedName("e")
-	@Export("musicTrackBoolean")
-	public static boolean musicTrackBoolean;
-	@ObfuscatedName("eg")
-	@Export("secureRandom")
-	static SecureRandom secureRandom;
+	@Export("archive19")
+	static Archive archive19;
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "([Lga;II)Lga;",
-		garbageValue = "2137068077"
+		descriptor = "(I)V",
+		garbageValue = "1214913884"
 	)
-	@Export("findEnumerated")
-	public static Enumerated findEnumerated(Enumerated[] var0, int var1) {
-		Enumerated[] var2 = var0; // L: 17
+	static void method3680() {
+		class248.field3219 = new int[2000]; // L: 25
+		int var0 = 0; // L: 26
+		int var1 = 240; // L: 27
 
-		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 18
-			Enumerated var4 = var2[var3]; // L: 19
-			if (var1 == var4.rsOrdinal()) {
-				return var4; // L: 21
+		int var3;
+		for (byte var2 = 12; var0 < 16; var1 -= var2) { // L: 28
+			var3 = class2.method23((double)((float)var1 / 360.0F), 0.9998999834060669D, (double)(0.425F * (float)var0 / 16.0F + 0.075F)); // L: 30
+			class248.field3219[var0] = var3; // L: 31
+			++var0; // L: 29
+		}
+
+		var1 = 48; // L: 33
+
+		for (int var5 = var1 / 6; var0 < class248.field3219.length; var1 -= var5) { // L: 34 35 41
+			var3 = var0 * 2; // L: 36
+
+			for (int var4 = class2.method23((double)((float)var1 / 360.0F), 0.9998999834060669D, 0.5D); var0 < var3 && var0 < class248.field3219.length; ++var0) { // L: 37 38
+				class248.field3219[var0] = var4; // L: 39
 			}
 		}
 
-		return null; // L: 25
+	} // L: 43
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(II)Lbg;",
+		garbageValue = "36521879"
+	)
+	@Export("Messages_getMessage")
+	static Message Messages_getMessage(int var0) {
+		return (Message)Messages.Messages_hashTable.get((long)var0); // L: 44
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "64"
+		descriptor = "(IB)Ljava/lang/String;",
+		garbageValue = "1"
 	)
-	@Export("Widget_hasContinueOption")
-	public static boolean Widget_hasContinueOption(int var0) {
-		return (var0 & 1) != 0; // L: 9
+	@Export("inventoryQuantityFormat")
+	static final String inventoryQuantityFormat(int var0) {
+		if (var0 < 100000) { // L: 421
+			return "<col=ffff00>" + var0 + "</col>";
+		} else {
+			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>"; // L: 422 423
+		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("ko")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)Z",
-		garbageValue = "461882503"
+		descriptor = "(I)V",
+		garbageValue = "-4544721"
 	)
-	@Export("isNumber")
-	public static boolean isNumber(CharSequence var0) {
-		boolean var2 = false; // L: 37
-		boolean var3 = false; // L: 38
-		int var4 = 0; // L: 39
-		int var5 = var0.length(); // L: 40
-		int var6 = 0;
+	static void method3681() {
+		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) { // L: 10531
+			int var1 = var0.group; // L: 10532
+			if (class41.loadInterface(var1)) { // L: 10533
+				boolean var2 = true; // L: 10534
+				Widget[] var3 = class9.Widget_interfaceComponents[var1]; // L: 10535
 
-		boolean var1;
-		while (true) {
-			if (var6 >= var5) {
-				var1 = var3; // L: 70
-				break;
-			}
-
-			label84: {
-				char var7 = var0.charAt(var6); // L: 42
-				if (var6 == 0) { // L: 43
-					if (var7 == '-') { // L: 44
-						var2 = true; // L: 45
-						break label84;
-					}
-
-					if (var7 == '+') { // L: 48
-						break label84;
-					}
-				}
-
-				int var9;
-				if (var7 >= '0' && var7 <= '9') { // L: 50
-					var9 = var7 - '0';
-				} else if (var7 >= 'A' && var7 <= 'Z') { // L: 51
-					var9 = var7 - '7';
-				} else {
-					if (var7 < 'a' || var7 > 'z') { // L: 52
-						var1 = false; // L: 54
+				int var4;
+				for (var4 = 0; var4 < var3.length; ++var4) { // L: 10536
+					if (var3[var4] != null) { // L: 10537
+						var2 = var3[var4].isIf3; // L: 10538
 						break;
 					}
-
-					var9 = var7 - 'W';
 				}
 
-				if (var9 >= 10) { // L: 57
-					var1 = false; // L: 58
-					break; // L: 59
+				if (!var2) { // L: 10542
+					var4 = (int)var0.key; // L: 10543
+					Widget var5 = CollisionMap.getWidget(var4); // L: 10544
+					if (var5 != null) { // L: 10545
+						CollisionMap.invalidateWidget(var5);
+					}
 				}
-
-				if (var2) { // L: 61
-					var9 = -var9;
-				}
-
-				int var8 = var4 * 10 + var9; // L: 62
-				if (var4 != var8 / 10) { // L: 63
-					var1 = false; // L: 64
-					break; // L: 65
-				}
-
-				var4 = var8; // L: 67
-				var3 = true; // L: 68
 			}
-
-			++var6; // L: 41
 		}
 
-		return var1; // L: 72
-	}
+	} // L: 10549
 }

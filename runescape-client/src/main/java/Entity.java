@@ -4,24 +4,17 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ej")
+@ObfuscatedName("er")
 @Implements("Entity")
 public abstract class Entity extends DualNode {
-	@ObfuscatedName("hj")
-	@ObfuscatedSignature(
-		descriptor = "[Llc;"
-	)
-	@Export("mapDotSprites")
-	static Sprite[] mapDotSprites;
-	@ObfuscatedName("iz")
+	@ObfuscatedName("nw")
 	@ObfuscatedGetter(
-		intValue = 685420897
+		intValue = -1743769759
 	)
-	@Export("selectedItemId")
-	static int selectedItemId;
-	@ObfuscatedName("cu")
+	static int field1893;
+	@ObfuscatedName("cq")
 	@ObfuscatedGetter(
-		intValue = 1647777713
+		intValue = 1865957833
 	)
 	@Export("height")
 	public int height;
@@ -30,17 +23,17 @@ public abstract class Entity extends DualNode {
 		this.height = 1000; // L: 6
 	} // L: 8
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)Leh;",
-		garbageValue = "-2070677844"
+		garbageValue = "-1814248977"
 	)
 	@Export("getModel")
 	protected Model getModel() {
-		return null; // L: 19
+		return null;
 	}
 
-	@ObfuscatedName("cg")
+	@ObfuscatedName("cf")
 	@Export("draw")
 	void draw(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, long var9) {
 		Model var11 = this.getModel(); // L: 11
@@ -49,15 +42,37 @@ public abstract class Entity extends DualNode {
 			var11.draw(var1, var2, var3, var4, var5, var6, var7, var8, var9); // L: 14
 		}
 
-	} // L: 16
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lbd;I)V",
-		garbageValue = "-1146861517"
+		descriptor = "(Ljava/lang/CharSequence;B)J",
+		garbageValue = "85"
 	)
-	@Export("runScriptEvent")
-	public static void runScriptEvent(ScriptEvent var0) {
-		class58.runScript(var0, 500000); // L: 97
-	} // L: 98
+	static long method3340(CharSequence var0) {
+		long var1 = 0L; // L: 16
+		int var3 = var0.length(); // L: 17
+
+		for (int var4 = 0; var4 < var3; ++var4) { // L: 18
+			var1 *= 37L; // L: 19
+			char var5 = var0.charAt(var4); // L: 20
+			if (var5 >= 'A' && var5 <= 'Z') { // L: 21
+				var1 += (long)(var5 + 1 - 65);
+			} else if (var5 >= 'a' && var5 <= 'z') { // L: 22
+				var1 += (long)(var5 + 1 - 97);
+			} else if (var5 >= '0' && var5 <= '9') { // L: 23
+				var1 += (long)(var5 + 27 - 48);
+			}
+
+			if (var1 >= 177917621779460413L) { // L: 24
+				break;
+			}
+		}
+
+		while (0L == var1 % 37L && var1 != 0L) { // L: 26
+			var1 /= 37L;
+		}
+
+		return var1; // L: 27
+	}
 }

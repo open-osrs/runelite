@@ -1,23 +1,28 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("s")
+@ObfuscatedName("b")
 @Implements("GrandExchangeOfferTotalQuantityComparator")
 final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
-	@ObfuscatedName("u")
-	@ObfuscatedGetter(
-		intValue = -343674237
-	)
-	static int field81;
-
-	@ObfuscatedName("f")
+	@ObfuscatedName("bn")
+	static String field75;
+	@ObfuscatedName("fc")
 	@ObfuscatedSignature(
-		descriptor = "(Ly;Ly;I)I",
-		garbageValue = "-2113100809"
+		descriptor = "Lku;"
+	)
+	@Export("fontBold12")
+	static Font fontBold12;
+	@ObfuscatedName("gw")
+	@Export("regionLandArchiveIds")
+	static int[] regionLandArchiveIds;
+
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(La;La;B)I",
+		garbageValue = "5"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -25,66 +30,24 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 73
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1);
+		return super.equals(var1); // L: 77
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "280235874"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-1658797049"
 	)
-	static int method183(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 14
-		if (var2 == null) { // L: 15
-			return -1;
-		} else {
-			return var1 >= 0 && var1 < var2.ids.length ? var2.ids[var1] : -1; // L: 16 17
-		}
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "43"
-	)
-	public static boolean method174() {
-		try {
-			if (class206.musicPlayerStatus == 2) { // L: 71
-				if (InterfaceParent.musicTrack == null) { // L: 72
-					InterfaceParent.musicTrack = MusicTrack.readTrack(class23.musicTrackArchive, TileItem.musicTrackGroupId, class206.musicTrackFileId); // L: 73
-					if (InterfaceParent.musicTrack == null) { // L: 74
-						return false;
-					}
-				}
-
-				if (LoginType.soundCache == null) { // L: 76
-					LoginType.soundCache = new SoundCache(class206.soundEffectsArchive, class206.musicSamplesArchive);
-				}
-
-				if (class13.midiPcmStream.loadMusicTrack(InterfaceParent.musicTrack, class206.musicPatchesArchive, LoginType.soundCache, 22050)) { // L: 77
-					class13.midiPcmStream.clearAll(); // L: 78
-					class13.midiPcmStream.setPcmStreamVolume(class206.musicTrackVolume); // L: 79
-					class13.midiPcmStream.setMusicTrack(InterfaceParent.musicTrack, class195.musicTrackBoolean); // L: 80
-					class206.musicPlayerStatus = 0; // L: 81
-					InterfaceParent.musicTrack = null; // L: 82
-					LoginType.soundCache = null; // L: 83
-					class23.musicTrackArchive = null; // L: 84
-					return true; // L: 85
-				}
-			}
-		} catch (Exception var1) { // L: 89
-			var1.printStackTrace(); // L: 90
-			class13.midiPcmStream.clear(); // L: 91
-			class206.musicPlayerStatus = 0; // L: 92
-			InterfaceParent.musicTrack = null; // L: 93
-			LoginType.soundCache = null; // L: 94
-			class23.musicTrackArchive = null; // L: 95
-		}
-
-		return false; // L: 97
-	}
+	static final void method165(String var0) {
+		StringBuilder var10000 = new StringBuilder();
+		Object var10001 = null; // L: 186
+		var10000 = var10000.append("Please remove ").append(var0);
+		var10001 = null;
+		String var1 = var10000.append(" from your friend list first").toString();
+		class234.addGameMessage(30, "", var1); // L: 188
+	} // L: 190
 }

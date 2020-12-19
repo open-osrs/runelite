@@ -1,19 +1,13 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jq")
+@ObfuscatedName("jo")
 public class class278 {
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "[Lle;"
+	@ObfuscatedName("er")
+	@ObfuscatedGetter(
+		intValue = 1418794593
 	)
-	@Export("runesSprite")
-	static IndexedSprite[] runesSprite;
-	@ObfuscatedName("jh")
-	@ObfuscatedSignature(
-		descriptor = "Ldu;"
-	)
-	@Export("textureProvider")
-	static TextureProvider textureProvider;
+	@Export("port1")
+	static int port1;
 }

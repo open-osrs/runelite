@@ -1,9 +1,9 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("kh")
+@ObfuscatedName("kd")
 public class class311 {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("writeRandomDat")
 	public static void writeRandomDat(byte[] var0, int var1, byte[] var2, int var3, int var4) {
 		if (var2 == var0) { // L: 12
@@ -51,7 +51,7 @@ public class class311 {
 
 	} // L: 49
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("z")
 	@Export("clearIntArray")
 	public static void clearIntArray(int[] var0, int var1, int var2) {
 		for (var2 = var2 + var1 - 7; var1 < var2; var0[var1++] = 0) { // L: 364 365 373

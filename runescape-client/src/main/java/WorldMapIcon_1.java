@@ -3,49 +3,55 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ay")
+@ObfuscatedName("ae")
 @Implements("WorldMapIcon_1")
 public class WorldMapIcon_1 extends AbstractWorldMapIcon {
-	@ObfuscatedName("f")
+	@ObfuscatedName("pv")
+	@Export("ClanChat_inClanChat")
+	static boolean ClanChat_inClanChat;
+	@ObfuscatedName("cf")
+	public static char field200;
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1272071383
+		intValue = 1040342565
 	)
 	@Export("objectDefId")
 	final int objectDefId;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lax;"
+		descriptor = "Lam;"
 	)
 	@Export("region")
 	final WorldMapRegion region;
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1816725297
+		intValue = -1070346919
 	)
 	@Export("element")
 	int element;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lai;"
+		descriptor = "Lah;"
 	)
 	@Export("label")
 	WorldMapLabel label;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -29406003
+		intValue = 807187901
 	)
 	@Export("subWidth")
 	int subWidth;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1922717703
+		intValue = 1506081143
 	)
 	@Export("subHeight")
 	int subHeight;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lhw;Lhw;ILax;)V"
+		descriptor = "(Lhs;Lhs;ILam;)V"
 	)
 	WorldMapIcon_1(Coord var1, Coord var2, int var3, WorldMapRegion var4) {
 		super(var1, var2); // L: 17
@@ -54,56 +60,56 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		this.init(); // L: 20
 	} // L: 21
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "24"
+		descriptor = "(I)I",
+		garbageValue = "-359753179"
 	)
 	@Export("getElement")
 	public int getElement() {
 		return this.element; // L: 39
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lai;",
-		garbageValue = "-669051823"
+		descriptor = "(I)Lah;",
+		garbageValue = "1889474780"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
 		return this.label; // L: 43
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1627026836"
+		descriptor = "(B)I",
+		garbageValue = "-79"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
 		return this.subWidth; // L: 47
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "190840278"
+		garbageValue = "1082591682"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
 		return this.subHeight; // L: 51
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1939133514"
+		garbageValue = "1102738521"
 	)
 	@Export("init")
 	void init() {
-		this.element = ScriptEvent.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
-		this.label = this.region.createMapLabel(class194.WorldMapElement_get(this.element)); // L: 25
-		WorldMapElement var1 = class194.WorldMapElement_get(this.getElement()); // L: 26
+		this.element = WorldMapDecoration.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
+		this.label = this.region.createMapLabel(UserComparator10.WorldMapElement_get(this.element)); // L: 25
+		WorldMapElement var1 = UserComparator10.WorldMapElement_get(this.getElement()); // L: 26
 		Sprite var2 = var1.getSpriteBool(false); // L: 27
 		if (var2 != null) { // L: 28
 			this.subWidth = var2.subWidth; // L: 29
@@ -115,160 +121,186 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	} // L: 36
 
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "14"
+	)
+	static void method354() {
+		if (TaskHandler.javaVendor.toLowerCase().indexOf("microsoft") != -1) { // L: 119
+			KeyHandler.KeyHandler_keyCodes[186] = 57;
+			KeyHandler.KeyHandler_keyCodes[187] = 27;
+			KeyHandler.KeyHandler_keyCodes[188] = 71;
+			KeyHandler.KeyHandler_keyCodes[189] = 26;
+			KeyHandler.KeyHandler_keyCodes[190] = 72;
+			KeyHandler.KeyHandler_keyCodes[191] = 73;
+			KeyHandler.KeyHandler_keyCodes[192] = 58;
+			KeyHandler.KeyHandler_keyCodes[219] = 42; // L: 127
+			KeyHandler.KeyHandler_keyCodes[220] = 74;
+			KeyHandler.KeyHandler_keyCodes[221] = 43; // L: 129
+			KeyHandler.KeyHandler_keyCodes[222] = 59; // L: 130
+			KeyHandler.KeyHandler_keyCodes[223] = 28; // L: 131
+		} else {
+			KeyHandler.KeyHandler_keyCodes[44] = 71; // L: 134
+			KeyHandler.KeyHandler_keyCodes[45] = 26; // L: 135
+			KeyHandler.KeyHandler_keyCodes[46] = 72; // L: 136
+			KeyHandler.KeyHandler_keyCodes[47] = 73; // L: 137
+			KeyHandler.KeyHandler_keyCodes[59] = 57; // L: 138
+			KeyHandler.KeyHandler_keyCodes[61] = 27; // L: 139
+			KeyHandler.KeyHandler_keyCodes[91] = 42; // L: 140
+			KeyHandler.KeyHandler_keyCodes[92] = 74; // L: 141
+			KeyHandler.KeyHandler_keyCodes[93] = 43; // L: 142
+			KeyHandler.KeyHandler_keyCodes[192] = 28; // L: 143
+			KeyHandler.KeyHandler_keyCodes[222] = 58; // L: 144
+			KeyHandler.KeyHandler_keyCodes[520] = 59; // L: 145
+		}
+
+	} // L: 147
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "982246175"
+	)
+	public static boolean method355() {
+		try {
+			if (class206.musicPlayerStatus == 2) { // L: 102
+				if (FileSystem.musicTrack == null) { // L: 103
+					FileSystem.musicTrack = MusicTrack.readTrack(Varps.musicTrackArchive, HealthBarUpdate.musicTrackGroupId, class206.musicTrackFileId); // L: 104
+					if (FileSystem.musicTrack == null) { // L: 105
+						return false;
+					}
+				}
+
+				if (class206.soundCache == null) { // L: 107
+					class206.soundCache = new SoundCache(class206.soundEffectsArchive, class206.musicSamplesArchive);
+				}
+
+				if (class206.midiPcmStream.loadMusicTrack(FileSystem.musicTrack, class206.musicPatchesArchive, class206.soundCache, 22050)) { // L: 108
+					class206.midiPcmStream.clearAll(); // L: 109
+					class206.midiPcmStream.setPcmStreamVolume(GrandExchangeEvent.musicTrackVolume); // L: 110
+					class206.midiPcmStream.setMusicTrack(FileSystem.musicTrack, class231.musicTrackBoolean); // L: 111
+					class206.musicPlayerStatus = 0; // L: 112
+					FileSystem.musicTrack = null; // L: 113
+					class206.soundCache = null; // L: 114
+					Varps.musicTrackArchive = null; // L: 115
+					return true; // L: 116
+				}
+			}
+		} catch (Exception var1) { // L: 120
+			var1.printStackTrace(); // L: 121
+			class206.midiPcmStream.clear(); // L: 122
+			class206.musicPlayerStatus = 0; // L: 123
+			FileSystem.musicTrack = null; // L: 124
+			class206.soundCache = null; // L: 125
+			Varps.musicTrackArchive = null; // L: 126
+		}
+
+		return false; // L: 128
+	}
+
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "620552386"
+	)
+	public static void method339() {
+		NPCDefinition.NpcDefinition_cached.clear(); // L: 285
+		NPCDefinition.NpcDefinition_cachedModels.clear(); // L: 286
+	} // L: 287
+
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lcf;Lcf;IZIZI)I",
-		garbageValue = "586968313"
+		descriptor = "(ILcs;ZI)I",
+		garbageValue = "1021880804"
 	)
-	static int method395(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
-		int var6 = WorldMapSprite.compareWorlds(var0, var1, var2, var3); // L: 199
-		if (var6 != 0) { // L: 200
-			return var3 ? -var6 : var6; // L: 201
-		} else if (var4 == -1) { // L: 204
-			return 0;
+	static int method336(int var0, Script var1, boolean var2) {
+		Widget var3 = CollisionMap.getWidget(Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]); // L: 1215
+		if (var0 == ScriptOpcodes.IF_GETSCROLLX) { // L: 1216
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollX; // L: 1217
+			return 1; // L: 1218
+		} else if (var0 == ScriptOpcodes.IF_GETSCROLLY) { // L: 1220
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollY; // L: 1221
+			return 1; // L: 1222
+		} else if (var0 == ScriptOpcodes.IF_GETTEXT) { // L: 1224
+			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.text; // L: 1225
+			return 1; // L: 1226
+		} else if (var0 == ScriptOpcodes.IF_GETSCROLLWIDTH) { // L: 1228
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollWidth; // L: 1229
+			return 1; // L: 1230
+		} else if (var0 == ScriptOpcodes.IF_GETSCROLLHEIGHT) { // L: 1232
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.scrollHeight; // L: 1233
+			return 1; // L: 1234
+		} else if (var0 == ScriptOpcodes.IF_GETMODELZOOM) { // L: 1236
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelZoom; // L: 1237
+			return 1; // L: 1238
+		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_X) { // L: 1240
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleX; // L: 1241
+			return 1; // L: 1242
+		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Z) { // L: 1244
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleZ; // L: 1245
+			return 1; // L: 1246
+		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Y) { // L: 1248
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelAngleY; // L: 1249
+			return 1; // L: 1250
+		} else if (var0 == ScriptOpcodes.IF_GETTRANSTOP) { // L: 1252
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.transparencyTop; // L: 1253
+			return 1; // L: 1254
+		} else if (var0 == ScriptOpcodes.IF_GETTRANSBOT) { // L: 1256
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.transparencyBot; // L: 1257
+			return 1; // L: 1258
+		} else if (var0 == ScriptOpcodes.IF_GETCOLOUR) { // L: 1260
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.color; // L: 1261
+			return 1; // L: 1262
+		} else if (var0 == ScriptOpcodes.IF_GETFILLCOLOUR) { // L: 1264
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.color2; // L: 1265
+			return 1; // L: 1266
+		} else if (var0 == ScriptOpcodes.IF_GETFILLMODE) { // L: 1268
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal(); // L: 1269
+			return 1; // L: 1270
+		} else if (var0 == ScriptOpcodes.IF_GETMODELTRANSPARENT) { // L: 1272
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0; // L: 1273
+			return 1; // L: 1274
 		} else {
-			int var7 = WorldMapSprite.compareWorlds(var0, var1, var4, var5); // L: 205
-			return var5 ? -var7 : var7; // L: 206
+			return 2; // L: 1276
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-218709876"
+		descriptor = "(ILcs;ZS)I",
+		garbageValue = "255"
 	)
-	public static void method398() {
-		PlayerAppearance.PlayerAppearance_cachedModels.clear(); // L: 252
-	} // L: 253
+	static int method345(int var0, Script var1, boolean var2) {
+		Widget var5;
+		if (var0 == ScriptOpcodes.IF_GETINVOBJECT) { // L: 1280
+			var5 = CollisionMap.getWidget(Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]); // L: 1281
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var5.itemId; // L: 1282
+			return 1; // L: 1283
+		} else if (var0 == ScriptOpcodes.IF_GETINVCOUNT) { // L: 1285
+			var5 = CollisionMap.getWidget(Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]); // L: 1286
+			if (var5.itemId != -1) { // L: 1287
+				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var5.itemQuantity;
+			} else {
+				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 0; // L: 1288
+			}
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(Lht;IIII)V",
-		garbageValue = "-630082836"
-	)
-	@Export("Widget_setKeyRate")
-	static final void Widget_setKeyRate(Widget var0, int var1, int var2, int var3) {
-		if (var0.field2670 == null) { // L: 926
-			throw new RuntimeException(); // L: 927
+			return 1; // L: 1289
+		} else if (var0 == ScriptOpcodes.IF_HASSUB) { // L: 1291
+			int var3 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 1292
+			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3); // L: 1293
+			if (var4 != null) { // L: 1294
+				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 1;
+			} else {
+				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 0; // L: 1295
+			}
+
+			return 1; // L: 1296
+		} else if (var0 == ScriptOpcodes.IF_GETTOP) { // L: 1298
+			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = Client.rootInterface; // L: 1299
+			return 1; // L: 1300
 		} else {
-			var0.field2670[var1] = var2; // L: 929
-			var0.field2671[var1] = var3; // L: 930
+			return 2; // L: 1302
 		}
-	} // L: 931
-
-	@ObfuscatedName("fg")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1198701264"
-	)
-	static final void method392() {
-		int var0 = WorldMapSection2.field225 * 128 + 64; // L: 3711
-		int var1 = WorldMapLabelSize.field152 * 128 + 64; // L: 3712
-		int var2 = GrandExchangeOfferWorldComparator.getTileHeight(var0, var1, GrandExchangeOfferUnitPriceComparator.Client_plane) - SpriteMask.field2542; // L: 3713
-		if (ItemContainer.cameraX < var0) { // L: 3714
-			ItemContainer.cameraX = (var0 - ItemContainer.cameraX) * ReflectionCheck.field1364 / 1000 + ItemContainer.cameraX + Player.field674; // L: 3715
-			if (ItemContainer.cameraX > var0) { // L: 3716
-				ItemContainer.cameraX = var0;
-			}
-		}
-
-		if (ItemContainer.cameraX > var0) { // L: 3718
-			ItemContainer.cameraX -= ReflectionCheck.field1364 * (ItemContainer.cameraX - var0) / 1000 + Player.field674; // L: 3719
-			if (ItemContainer.cameraX < var0) { // L: 3720
-				ItemContainer.cameraX = var0;
-			}
-		}
-
-		if (ChatChannel.cameraY < var2) { // L: 3722
-			ChatChannel.cameraY = (var2 - ChatChannel.cameraY) * ReflectionCheck.field1364 / 1000 + ChatChannel.cameraY + Player.field674; // L: 3723
-			if (ChatChannel.cameraY > var2) { // L: 3724
-				ChatChannel.cameraY = var2;
-			}
-		}
-
-		if (ChatChannel.cameraY > var2) { // L: 3726
-			ChatChannel.cameraY -= ReflectionCheck.field1364 * (ChatChannel.cameraY - var2) / 1000 + Player.field674; // L: 3727
-			if (ChatChannel.cameraY < var2) { // L: 3728
-				ChatChannel.cameraY = var2;
-			}
-		}
-
-		if (WorldMapManager.cameraZ < var1) { // L: 3730
-			WorldMapManager.cameraZ = (var1 - WorldMapManager.cameraZ) * ReflectionCheck.field1364 / 1000 + WorldMapManager.cameraZ + Player.field674; // L: 3731
-			if (WorldMapManager.cameraZ > var1) { // L: 3732
-				WorldMapManager.cameraZ = var1;
-			}
-		}
-
-		if (WorldMapManager.cameraZ > var1) { // L: 3734
-			WorldMapManager.cameraZ -= ReflectionCheck.field1364 * (WorldMapManager.cameraZ - var1) / 1000 + Player.field674; // L: 3735
-			if (WorldMapManager.cameraZ < var1) { // L: 3736
-				WorldMapManager.cameraZ = var1;
-			}
-		}
-
-		var0 = MilliClock.field2048 * 128 + 64; // L: 3738
-		var1 = PcmPlayer.field1449 * 128 + 64; // L: 3739
-		var2 = GrandExchangeOfferWorldComparator.getTileHeight(var0, var1, GrandExchangeOfferUnitPriceComparator.Client_plane) - AbstractRasterProvider.field3890; // L: 3740
-		int var3 = var0 - ItemContainer.cameraX; // L: 3741
-		int var4 = var2 - ChatChannel.cameraY; // L: 3742
-		int var5 = var1 - WorldMapManager.cameraZ; // L: 3743
-		int var6 = (int)Math.sqrt((double)(var5 * var5 + var3 * var3)); // L: 3744
-		int var7 = (int)(Math.atan2((double)var4, (double)var6) * 325.949D) & 2047; // L: 3745
-		int var8 = (int)(Math.atan2((double)var3, (double)var5) * -325.949D) & 2047; // L: 3746
-		if (var7 < 128) { // L: 3747
-			var7 = 128;
-		}
-
-		if (var7 > 383) { // L: 3748
-			var7 = 383;
-		}
-
-		if (World.cameraPitch < var7) { // L: 3749
-			World.cameraPitch = (var7 - World.cameraPitch) * class60.field452 / 1000 + World.cameraPitch + WorldMapCacheName.field326; // L: 3750
-			if (World.cameraPitch > var7) { // L: 3751
-				World.cameraPitch = var7;
-			}
-		}
-
-		if (World.cameraPitch > var7) { // L: 3753
-			World.cameraPitch -= class60.field452 * (World.cameraPitch - var7) / 1000 + WorldMapCacheName.field326; // L: 3754
-			if (World.cameraPitch < var7) { // L: 3755
-				World.cameraPitch = var7;
-			}
-		}
-
-		int var9 = var8 - ViewportMouse.cameraYaw; // L: 3757
-		if (var9 > 1024) { // L: 3758
-			var9 -= 2048;
-		}
-
-		if (var9 < -1024) { // L: 3759
-			var9 += 2048;
-		}
-
-		if (var9 > 0) { // L: 3760
-			ViewportMouse.cameraYaw = var9 * class60.field452 / 1000 + ViewportMouse.cameraYaw + WorldMapCacheName.field326; // L: 3761
-			ViewportMouse.cameraYaw &= 2047; // L: 3762
-		}
-
-		if (var9 < 0) { // L: 3764
-			ViewportMouse.cameraYaw -= -var9 * class60.field452 / 1000 + WorldMapCacheName.field326; // L: 3765
-			ViewportMouse.cameraYaw &= 2047; // L: 3766
-		}
-
-		int var10 = var8 - ViewportMouse.cameraYaw; // L: 3768
-		if (var10 > 1024) { // L: 3769
-			var10 -= 2048;
-		}
-
-		if (var10 < -1024) { // L: 3770
-			var10 += 2048;
-		}
-
-		if (var10 < 0 && var9 > 0 || var10 > 0 && var9 < 0) { // L: 3771
-			ViewportMouse.cameraYaw = var8;
-		}
-
-	} // L: 3772
+	}
 }
