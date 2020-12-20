@@ -30,6 +30,7 @@ import com.google.common.cache.CacheBuilder;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
@@ -242,6 +243,9 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	private List<String> outdatedScripts = new ArrayList<>();
+
+	@Inject
+	private static ArrayList<WidgetItem> widgetItems = new ArrayList<>();
 
 	@Inject
 	@Override
@@ -1523,7 +1527,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@MethodHook("drawInterface")
 	@Inject
-	public static void renderWidgetLayer(Widget[] widgets, int parentId, int minX, int minY, int maxX, int maxY, int x, int y, int var8)
+	public static void preRenderWidgetLayer(Widget[] widgets, int parentId, int minX, int minY, int maxX, int maxY, int x, int y, int var8)
 	{
 		Callbacks callbacks = client.getCallbacks();
 		@SuppressWarnings("unchecked") HashTable<WidgetNode> componentTable = client.getComponentTable();
@@ -1546,23 +1550,6 @@ public abstract class RSClientMixin implements RSClient
 			widget.setRenderX(renderX);
 			widget.setRenderY(renderY);
 
-			final int widgetType = widget.getType();
-			if (widgetType == WidgetType.GRAPHIC && widget.getItemId() != -1)
-			{
-				if (renderX >= minX && renderX <= maxX && renderY >= minY && renderY <= maxY)
-				{
-					WidgetItem widgetItem = new WidgetItem(widget.getItemId(), widget.getItemQuantity(), -1, widget.getBounds(), widget, null);
-					//TODO:IMPLEMENT
-					//callbacks.drawItem(widget.getItemId(), widgetItem);
-				}
-			}
-			else if (widgetType == WidgetType.INVENTORY)
-			{
-
-				List<WidgetItem> widgetItems = widget.getWidgetItems();
-				//TODO:IMPLEMENT
-				//callbacks.drawLayer(rlWidget, widgetItems);
-			}
 
 			WidgetNode childNode = componentTable.get(widget.getId());
 			if (childNode != null)
@@ -1585,6 +1572,87 @@ public abstract class RSClientMixin implements RSClient
 			}
 		}
 	}
+
+	@Inject
+	@MethodHook(value = "drawInterface", end = true)
+	public static void postRenderWidgetLayer(Widget[] widgets, int parentId, int minX, int minY, int maxX, int maxY, int x, int y, int var8)
+	{
+		Callbacks callbacks = client.getCallbacks();
+		int oldSize = widgetItems.size();
+
+		for (Widget rlWidget : widgets)
+		{
+			RSWidget widget = (RSWidget) rlWidget;
+			if (widget == null || widget.getRSParentId() != parentId || widget.isSelfHidden())
+			{
+				continue;
+			}
+
+			int type = widget.getType();
+			if (type == WidgetType.GRAPHIC && widget.getItemId() != -1)
+			{
+				final int renderX = x + widget.getRelativeX();
+				final int renderY = y + widget.getRelativeY();
+				if (renderX >= minX && renderX <= maxX && renderY >= minY && renderY <= maxY)
+				{
+					WidgetItem widgetItem = new WidgetItem(widget.getItemId(), widget.getItemQuantity(), -1, widget.getBounds(), widget, null);
+					widgetItems.add(widgetItem);
+				}
+			}
+			else if (type == WidgetType.INVENTORY)
+			{
+				widgetItems.addAll(widget.getWidgetItems());
+			}
+		}
+
+		List<WidgetItem> subList = Collections.emptyList();
+		if (oldSize < widgetItems.size())
+		{
+			if (oldSize > 0)
+			{
+				subList = widgetItems.subList(oldSize, widgetItems.size());
+			}
+			else
+			{
+				subList = widgetItems;
+			}
+		}
+
+		if (parentId == 0xabcdabcd)
+		{
+			widgetItems.clear();
+		}
+		else if (parentId != -1)
+		{
+			Widget widget = client.getWidget(parentId);
+			Widget[] children = widget.getChildren();
+			if (children == null || children == widgets)
+			{
+				callbacks.drawLayer(widget, subList);
+			}
+		}
+		else
+		{
+			int group = -1;
+			for (Widget widget : widgets)
+			{
+				if (widget != null)
+				{
+					group = WidgetInfo.TO_GROUP(widget.getId());
+					break;
+				}
+			}
+
+			if (group == -1)
+			{
+				return;
+			}
+
+			callbacks.drawInterface(group, widgetItems);
+			widgetItems.clear();
+		}
+	}
+
 
 	@Inject
 	@Override
