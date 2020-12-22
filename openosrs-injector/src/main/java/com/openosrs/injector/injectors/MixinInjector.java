@@ -87,6 +87,7 @@ public class MixinInjector extends AbstractInjector
 	private static final String ASSERTION_FIELD = "$assertionsDisabled";
 	private static final String MIXIN_BASE = "net/runelite/mixins/";
 
+	private int injectedInterfaces = 0;
 	private final Map<String, Field> injectedFields = new HashMap<>();
 	private final Map<net.runelite.asm.pool.Field, ShadowField> shadowFields = new HashMap<>();
 	private int copied = 0, replaced = 0, injected = 0;
@@ -106,6 +107,13 @@ public class MixinInjector extends AbstractInjector
 	@VisibleForTesting
 	void inject(Map<Provider<ClassFile>, List<ClassFile>> mixinTargets)
 	{
+		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
+		{
+			injectInterfaces(entry.getKey(), entry.getValue());
+		}
+
+		log.info("[INFO] Injected {} interfaces", injectedInterfaces);
+
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
 		{
 			System.out.println(entry.getKey().get().getName());
@@ -155,6 +163,29 @@ public class MixinInjector extends AbstractInjector
 		}
 
 		return builder.build();
+	}
+
+	private void injectInterfaces(Provider<ClassFile> mixinProvider, List<ClassFile> targetClasses)
+	{
+		try
+		{
+			final ClassFile mixinClass = mixinProvider.get();
+
+			for (final ClassFile targetClass : targetClasses)
+			{
+				mixinClass.getInterfaces().getInterfaces().forEach((itf) ->
+				{
+					if (targetClass.getInterfaces().addInterface(itf))
+					{
+						injectedInterfaces++;
+					}
+				});
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void injectFields(Provider<ClassFile> mixinProvider, List<ClassFile> targetClasses)

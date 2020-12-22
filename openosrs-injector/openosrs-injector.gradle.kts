@@ -15,10 +15,8 @@ plugins {
     id("se.patrikerdes.use-latest-versions")
 }
 
-val oprsver = "3.5.1"
-
 group = "com.openosrs"
-version = "1.0.1"
+version = "1.0.2"
 
 repositories {
     mavenCentral()
