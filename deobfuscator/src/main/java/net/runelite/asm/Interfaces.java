@@ -43,12 +43,15 @@ public class Interfaces implements Iterable<Class>
 		classFile = c;
 	}
 
-	public void addInterface(Class clazz)
+	public boolean addInterface(Class clazz)
 	{
-		if (!interfaces.contains(clazz))
+		if (interfaces.stream().noneMatch((itf) -> itf.getName().equals(clazz.getName())))
 		{
 			interfaces.add(clazz);
+			return true;
 		}
+
+		return false;
 	}
 
 	public List<Class> getInterfaces()
