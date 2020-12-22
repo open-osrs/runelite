@@ -27,7 +27,6 @@ package net.runelite.client.config;
 import lombok.RequiredArgsConstructor;
 import lombok.Getter;
 import net.runelite.client.ui.FontManager;
-
 import java.awt.Font;
 
 @Getter

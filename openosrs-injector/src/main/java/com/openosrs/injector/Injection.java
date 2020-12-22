@@ -17,7 +17,6 @@ import com.openosrs.injector.injectors.MixinInjector;
 import com.openosrs.injector.injectors.RSApiInjector;
 import com.openosrs.injector.injectors.raw.AddPlayerToMenu;
 import com.openosrs.injector.injectors.raw.ClearColorBuffer;
-import com.openosrs.injector.injectors.raw.DrawAfterWidgets;
 import com.openosrs.injector.injectors.raw.DrawMenu;
 import com.openosrs.injector.injectors.raw.Occluder;
 import com.openosrs.injector.injectors.raw.RasterizerAlpha;

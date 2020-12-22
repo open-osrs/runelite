@@ -44,9 +44,6 @@
 			<property name="message" value="Indent must use tab characters"/>
 			<property name="ignoreComments" value="true"/>
 		</module>
-		<module name="AvoidStarImport">
-			<property name="allowStaticMemberImports" value="true"/>
-		</module>
 		<module name="RegexpSinglelineJava">
 			<property name="format" value="[^\s]\s+$"/>
 			<property name="message" value="No trailing whitespace"/>
@@ -63,11 +60,6 @@
 	<module name="RegexpMultiline">
 		<property name="format" value="else[ \t]*[\r\n]+[ \t]*if"/>
 		<property name="message" value="Newline should not be between else and if"/>
-	</module>
-	<module name="RegexpMultiline">
-		<property name="format" value="^[\r\n\s]+import"/>
-		<property name="maximum" value="1"/>
-		<property name="message" value="There should not be empty lines in the imports list"/>
 	</module>
 	<module name="SuppressionFilter">
 		<property name="file" value="${config_loc}/suppressions.xml"/>
