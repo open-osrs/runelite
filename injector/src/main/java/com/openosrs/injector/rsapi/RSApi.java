@@ -21,7 +21,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.runelite.asm.Type;
 import net.runelite.asm.pool.Class;
-import org.gradle.api.file.FileTree;
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.ClassReader;
 

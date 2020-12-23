@@ -52,7 +52,7 @@ public class Injector extends InjectData implements InjectTaskHandler
 		{
 			args = new String[]
 				{
-					"./vanilla.jar",
+					args[0],
 					"../runescape-client/build/libs/runescape-client-3.5.4.jar",
 					"../runelite-mixins/build/libs/runelite-mixins-3.5.4.jar",
 					"../runescape-api/build/classes/java/main/net/runelite/rs/api/"

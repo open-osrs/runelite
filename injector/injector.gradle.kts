@@ -3,21 +3,15 @@ import ProjectVersions.rsversion
 group = "com.openosrs"
 version = 1.0
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-    maven {
-        url = uri("https://repo.runelite.net")
-        url = uri("https://raw.githubusercontent.com/open-osrs/hosting/master")
-        url = uri("https://repo.openosrs.com/repository/maven")
-    }
-}
+val vanillaDep: Configuration by configurations.creating
 
 plugins {
     java
 }
 
 dependencies {
+    vanillaDep(group = "net.runelite.rs", name = "vanilla", version = rsversion.toString())
+
     implementation(gradleApi())
     annotationProcessor("org.projectlombok:lombok:1.18.12")
     compileOnly("org.projectlombok:lombok:1.18.12")
@@ -35,6 +29,7 @@ dependencies {
 tasks.register<JavaExec>("inject") {
     main = "com.openosrs.injector.Injector"
     classpath = sourceSets["main"].runtimeClasspath
+    args(vanillaDep.singleFile)
 }
 
 tasks {
@@ -42,3 +37,4 @@ tasks {
         finalizedBy("inject")
     }
 }
+
