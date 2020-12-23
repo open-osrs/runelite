@@ -127,6 +127,7 @@ tasks {
     }
 
     processResources {
+        dependsOn(":injector:build")
         finalizedBy("filterResources")
     }
 

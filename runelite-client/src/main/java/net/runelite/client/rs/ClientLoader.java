@@ -73,6 +73,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.io.FileUtils;
 
 @Slf4j
 @SuppressWarnings("deprecation")
@@ -137,7 +138,12 @@ public class ClientLoader implements Supplier<Applet>
 				File jarFile = updateCheckMode == AUTO ? PATCHED_CACHE : VANILLA_CACHE;
 				// create the classloader for the jar while we hold the lock, and eagerly load and link all classes
 				// in the jar. Otherwise the jar can change on disk and can break future classloads.
-				classLoader = createJarClassLoader(new File("./injected-client/build/libs/injected-client-3.5.4.jar"));
+				File oprsInjected = new File(System.getProperty("user.home") + "/.openosrs/cache/injected-client.jar");
+				InputStream initialStream = RuneLite.class.getResourceAsStream("injected-client.jar");
+				if (oprsInjected.length() != RuneLite.class.getResource("injected-client.jar").getFile().length())
+					FileUtils.copyInputStreamToFile(initialStream, oprsInjected);
+
+				classLoader = createJarClassLoader(oprsInjected);
 			}
 
 			SplashScreen.stage(.465, "Starting", "Starting Old School RuneScape");

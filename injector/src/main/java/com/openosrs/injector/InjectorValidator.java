@@ -69,7 +69,7 @@ public class InjectorValidator implements Validator
 
 			if (clazz.findMethodDeep(apiMethod.getName(), apiMethod.getSignature()) == null)
 			{
-				log.warn("[WARN] Class {} implements interface {} but doesn't implement {}",
+				log.error("[WARN] Class {} implements interface {} but doesn't implement {}",
 					clazz.getPoolClass(), apiClass.getClazz(), apiMethod.getMethod());
 				++missing;
 			}

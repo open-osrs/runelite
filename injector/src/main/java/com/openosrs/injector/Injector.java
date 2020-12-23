@@ -43,6 +43,7 @@ public class Injector extends InjectData implements InjectTaskHandler
 			new RSApi(rsapi)
 		);
 		inject();
+		save(new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.jar"));
 	}
 
 	public static void main(String[] args)
@@ -54,7 +55,7 @@ public class Injector extends InjectData implements InjectTaskHandler
 					"./vanilla.jar",
 					"../runescape-client/build/libs/runescape-client-3.5.4.jar",
 					"../runelite-mixins/build/libs/runelite-mixins-3.5.4.jar",
-					"../runescape-api/build/classes/"
+					"../runescape-api/build/classes/java/main/net/runelite/rs/api/"
 				};
 			new Injector(new File(args[0]), new File(args[1]), new File(args[2]), new File(args[3]).listFiles());
 		}
