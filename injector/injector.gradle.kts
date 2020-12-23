@@ -1,3 +1,4 @@
+import ProjectVersions.openosrsVersion
 import ProjectVersions.rsversion
 
 group = "com.openosrs"
@@ -29,7 +30,7 @@ dependencies {
 tasks.register<JavaExec>("inject") {
     main = "com.openosrs.injector.Injector"
     classpath = sourceSets["main"].runtimeClasspath
-    args(vanillaDep.singleFile)
+    args(vanillaDep.singleFile, openosrsVersion)
 }
 
 tasks {
