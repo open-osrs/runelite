@@ -785,7 +785,8 @@ public interface RSClient extends RSGameShell, Client
 	void drawObject(int z, int x, int y, int randomColor1, int randomColor2);
 
 	@Construct
-	RSScriptEvent createScriptEvent();
+	@Override
+	RSScriptEvent createScriptEvent(Object... args);
 
 	@Import("runScript")
 	void runScript(RSScriptEvent ev, int ex);

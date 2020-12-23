@@ -1335,6 +1335,14 @@ public interface Client extends GameShell
 	void runScript(Object... args);
 
 	/**
+	 * Creates a blank ScriptEvent for executing a ClientScript2 script
+	 *
+	 * @param args the script id, then any additional arguments to execute the script with
+	 * @see ScriptID
+	 */
+	ScriptEvent createScriptEvent(Object ...args);
+
+	/**
 	 * Checks whether or not there is any active hint arrow.
 	 *
 	 * @return true if there is a hint arrow, false otherwise
