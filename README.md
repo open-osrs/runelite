@@ -9,12 +9,8 @@
 [OpenOSRS](https://openosrs.com) is a fully open-source client with no restrictions. We are not affiliated with Jagex or RuneLite.  
   
 This is a special branch that uses the upstream client (RuneLite) with the OpenOSRS injector. (bundled)  
-  
-To get going, currently you will need to publish the injector to mavenLocal: (only need to run when updating injector)  
-openosrs-injector:  
-```clean build publishToMavenLocal```  
-  
-Then you can run the client in gradle from the root project using:  
+
+From the root module, run the following gradle tasks:  
 ```clean build run```
   
 This branch is still in bringup but most functionality works as intended.  
