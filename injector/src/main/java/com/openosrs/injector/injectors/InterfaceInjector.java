@@ -43,7 +43,7 @@ public class InterfaceInjector extends AbstractInjector
 		final String fullName = API_BASE + impls;
 		if (!inject.getRsApi().hasClass(fullName))
 		{
-			log.debug("[DEBUG] Class {} implements nonexistent interface {}, skipping interface injection",
+			log.error("[DEBUG] Class {} implements nonexistent interface {}, skipping interface injection",
 				deobCf.getName(),
 				fullName
 			);
@@ -52,6 +52,7 @@ public class InterfaceInjector extends AbstractInjector
 		}
 
 		final Interfaces interfaces = vanillaCf.getInterfaces();
+		System.out.println(fullName);
 		interfaces.addInterface(new Class(fullName));
 		implemented++;
 

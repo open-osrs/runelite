@@ -23,7 +23,7 @@ import net.runelite.asm.Type;
 import net.runelite.asm.signature.Signature;
 
 /**
- * Abstract class meant as the interface of {@link com.openosrs.injector.Injection injection} for injectors
+ * Abstract class meant as the interface of {@link com.openosrs.injector.Injector injection} for injectors
  */
 public abstract class InjectData
 {
@@ -96,6 +96,7 @@ public abstract class InjectData
 	 */
 	public ClassFile toVanilla(ClassFile deobClass)
 	{
+
 		return toVanilla.get(deobClass);
 	}
 

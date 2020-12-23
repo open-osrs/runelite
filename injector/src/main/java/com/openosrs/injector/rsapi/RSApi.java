@@ -40,7 +40,7 @@ public class RSApi implements Iterable<RSApiClass>
 
 	private ImmutableMap<String, RSApiClass> map;
 
-	public RSApi(FileTree classes)
+	public RSApi(File[] classes)
 	{
 		for (File file : classes)
 		{

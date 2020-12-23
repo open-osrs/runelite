@@ -11,7 +11,6 @@ import com.openosrs.injector.injection.InjectData;
 import com.openosrs.injector.injection.InjectTaskHandler;
 import com.openosrs.injector.injectors.CreateAnnotations;
 import com.openosrs.injector.injectors.InjectConstruct;
-import com.openosrs.injector.injectors.Injector;
 import com.openosrs.injector.injectors.InterfaceInjector;
 import com.openosrs.injector.injectors.MixinInjector;
 import com.openosrs.injector.injectors.RSApiInjector;
@@ -28,15 +27,14 @@ import com.openosrs.injector.transformers.SourceChanger;
 import java.io.File;
 import java.io.IOException;
 import net.runelite.deob.util.JarUtil;
-import org.gradle.api.file.FileTree;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
 
-public class Injection extends InjectData implements InjectTaskHandler
+public class Injector extends InjectData implements InjectTaskHandler
 {
-	private static final Logger log = Logging.getLogger(Injection.class);
+	private static final Logger log = Logging.getLogger(Injector.class);
 
-	public Injection(File vanilla, File rsclient, File mixins, FileTree rsapi) throws IOException
+	public Injector(File vanilla, File rsclient, File mixins, File[] rsapi) throws IOException
 	{
 		super(
 			JarUtil.loadJar(vanilla),
@@ -44,6 +42,28 @@ public class Injection extends InjectData implements InjectTaskHandler
 			JarUtil.loadJar(mixins),
 			new RSApi(rsapi)
 		);
+		inject();
+		save(new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.jar"));
+	}
+
+	public static void main(String[] args)
+	{
+		try
+		{
+			args = new String[]
+				{
+					"./vanilla.jar",
+					"../runescape-client/build/libs/runescape-client-3.5.4.jar",
+					"../runelite-mixins/build/libs/runelite-mixins-3.5.4.jar",
+					"../runescape-api/build/classes/java/main/net/runelite/rs/api/"
+				};
+			new Injector(new File(args[0]), new File(args[1]), new File(args[2]), new File(args[3]).listFiles());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
 	}
 
 	public void inject()
@@ -93,7 +113,7 @@ public class Injection extends InjectData implements InjectTaskHandler
 		JarUtil.saveJar(this.getVanilla(), outputJar);
 	}
 
-	private void inject(Injector injector)
+	private void inject(com.openosrs.injector.injectors.Injector injector)
 	{
 		final String name = injector.getName();
 
@@ -132,7 +152,7 @@ public class Injection extends InjectData implements InjectTaskHandler
 		log.lifecycle("{} {}", name, transformer.getCompletionMsg());
 	}
 
-	public void runChildInjector(Injector injector)
+	public void runChildInjector(com.openosrs.injector.injectors.Injector injector)
 	{
 		inject(injector);
 	}
