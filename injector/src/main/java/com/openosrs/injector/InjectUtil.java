@@ -523,7 +523,6 @@ public interface InjectUtil
 	{
 		Object v = annotation.getValue();
 		String str = ((org.objectweb.asm.Type) v).getInternalName();
-		System.out.println(str);
 		return data.toVanilla(data.toDeob(str));
 	}
 
