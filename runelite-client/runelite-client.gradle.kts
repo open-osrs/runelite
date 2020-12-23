@@ -83,7 +83,6 @@ dependencies {
     implementation(project(":http-api"))
     implementation(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429")
     implementation(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429")
-    implementation(project(":injector"))
 
     runtimeOnly(group = "org.pushing-pixels", name = "radiance-trident", version = "2.5.1")
     runtimeOnly(project(":runescape-api"))
