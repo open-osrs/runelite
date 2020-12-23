@@ -35,20 +35,18 @@ gradleEnterprise {
         termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
     }
 }
-
-include(":http-api")
 include(":cache")
-include(":runelite-api")
-include(":runescape-api")
-include(":runescape-client")
 include(":deobfuscator")
-include(":runelite-script-assembler-plugin")
+include(":http-api")
+include(":injection-annotations")
+include(":injector")
+include(":runelite-api")
 include(":runelite-client")
 include(":runelite-mixins")
-include(":injected-client")
-include(":injection-annotations")
+include(":runelite-script-assembler-plugin")
+include(":runescape-api")
+include(":runescape-client")
 include(":wiki-scraper")
-include(":openosrs-injector")
 
 for (project in rootProject.children) {
     project.apply {
