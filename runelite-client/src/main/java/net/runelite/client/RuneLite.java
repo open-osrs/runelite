@@ -30,6 +30,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.openosrs.client.PluginManager;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -68,7 +69,6 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.LootManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.menus.MenuManager;
-import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.ClientUpdateCheckMode;
 import net.runelite.client.ui.ClientUI;
@@ -107,7 +107,7 @@ public class RuneLite
 	private static Injector injector;
 
 	@Inject
-	private PluginManager pluginManager;
+	private net.runelite.client.plugins.PluginManager pluginManager;
 
 	@Inject
 	private ExternalPluginManager externalPluginManager;
@@ -376,6 +376,9 @@ public class RuneLite
 			overlayManager.add(worldMapOverlay.get());
 			overlayManager.add(tooltipOverlay.get());
 		}
+
+		//Load OPRS plugins
+		PluginManager.loadPlugins();
 
 		// Start plugins
 		pluginManager.startPlugins();
