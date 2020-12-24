@@ -24,6 +24,7 @@
  */
 package net.runelite.client.ui;
 
+import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -130,7 +131,7 @@ public class SplashScreen extends JFrame implements ActionListener
 		timer.setRepeats(true);
 		timer.start();
 
-		setVisible(true);
+		//setVisible(true);
 	}
 
 	@Override
@@ -207,11 +208,13 @@ public class SplashScreen extends JFrame implements ActionListener
 			INSTANCE.dispose();
 			INSTANCE = null;
 		});
+		OpenOSRSSplashScreen.close();
 	}
 
 	public static void stage(double overallProgress, @Nullable String actionText, String subActionText)
 	{
 		stage(overallProgress, actionText, subActionText, null);
+		OpenOSRSSplashScreen.stage(overallProgress, subActionText);
 	}
 
 	public static void stage(double startProgress, double endProgress,
@@ -230,6 +233,7 @@ public class SplashScreen extends JFrame implements ActionListener
 			progress = done + " / " + total;
 		}
 		stage(startProgress + ((endProgress - startProgress) * done / total), actionText, subActionText, progress);
+		OpenOSRSSplashScreen.stage(startProgress, endProgress, subActionText, done, total);
 	}
 
 	public static void stage(double overallProgress, @Nullable String actionText, String subActionText, @Nullable String progressText)

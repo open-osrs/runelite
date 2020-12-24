@@ -74,6 +74,7 @@ import net.runelite.client.rs.ClientUpdateCheckMode;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.DrawManager;
 import net.runelite.client.ui.FatalErrorDialog;
+import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import net.runelite.client.ui.SplashScreen;
 import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
@@ -248,6 +249,7 @@ public class RuneLite
 		final OkHttpClient okHttpClient = okHttpClientBuilder.build();
 
 		SplashScreen.init();
+		OpenOSRSSplashScreen.init();
 		SplashScreen.stage(0, "Retrieving client", "");
 
 		try
@@ -466,6 +468,6 @@ public class RuneLite
 		//Fixes win10 scaling when not 100% while using Anti-Aliasing with GPU
 		System.setProperty("sun.java2d.uiScale", "1.0");
 
-		System.setProperty("runelite.launcher.version", "OpenOSRS Injected");
+		System.setProperty("runelite.launcher.version", "" + RuneLiteAPI.getVersion());
 	}
 }
