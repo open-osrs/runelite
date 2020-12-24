@@ -43,7 +43,7 @@ public class Injector extends InjectData implements InjectTaskHandler
 			new RSApi(rsapi)
 		);
 		inject();
-		save(new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.jar"));
+		save(new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs"));
 	}
 
 	public static void main(String[] args)

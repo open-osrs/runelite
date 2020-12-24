@@ -127,7 +127,7 @@ tasks {
 
     processResources {
         dependsOn(":injector:build")
-        finalizedBy("filterResources")
+        finalizedBy("filterResources", "packInjectedClient")
     }
 
     register<Copy>("filterResources") {
@@ -147,6 +147,12 @@ tasks {
 
         filter(ReplaceTokens::class, "tokens" to tokens)
         filteringCharset = "UTF-8"
+    }
+
+    register<Copy>("packInjectedClient") {
+        from("src/main/resources/")
+        include("**/injected-client.oprs")
+        into("${buildDir}/resources/main")
     }
 
     jar {
