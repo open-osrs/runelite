@@ -30,7 +30,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.openosrs.client.PluginManager;
+import com.openosrs.client.plugins.PluginManager;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -111,6 +111,9 @@ public class RuneLite
 
 	@Inject
 	private ExternalPluginManager externalPluginManager;
+
+	@Inject
+	private com.openosrs.client.plugins.ExternalPluginManager oprsExternalPluginManager;
 
 	@Inject
 	private EventBus eventBus;
@@ -322,9 +325,19 @@ public class RuneLite
 		// Tell the plugin manager if client is outdated or not
 		pluginManager.setOutdated(isOutdated);
 
+		// Load external plugin manager
+		oprsExternalPluginManager.startExternalUpdateManager();
+		oprsExternalPluginManager.startExternalPluginManager();
+
+		// Update external plugins
+		oprsExternalPluginManager.update();
+
 		// Load the plugins, but does not start them yet.
 		// This will initialize configuration
 		pluginManager.loadCorePlugins();
+
+		oprsExternalPluginManager.loadPlugins();
+
 		externalPluginManager.loadExternalPlugins();
 
 		SplashScreen.stage(.70, null, "Finalizing configuration");

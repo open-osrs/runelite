@@ -24,13 +24,20 @@
  */
 package net.runelite.client;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
+import com.openosrs.client.config.OpenOSRSConfig;
+import com.openosrs.client.util.NonScheduledExecutorServiceExceptionLogger;
 import java.applet.Applet;
 import java.io.File;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
@@ -128,5 +135,29 @@ public class RuneLiteModule extends AbstractModule
 	ChatClient provideChatClient(OkHttpClient okHttpClient)
 	{
 		return new ChatClient(okHttpClient);
+	}
+
+	@Provides
+	@Singleton
+	OpenOSRSConfig provideOpenOSRSConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(OpenOSRSConfig.class);
+	}
+
+	@Provides
+	@Singleton
+	ExecutorService provideExecutorService()
+	{
+		int poolSize = 2 * Runtime.getRuntime().availableProcessors();
+
+		// Will start up to poolSize threads (because of allowCoreThreadTimeOut) as necessary, and times out
+		// unused threads after 1 minute
+		ThreadPoolExecutor executor = new ThreadPoolExecutor(poolSize, poolSize,
+			60L, TimeUnit.SECONDS,
+			new LinkedBlockingQueue<>(),
+			new ThreadFactoryBuilder().setNameFormat("worker-%d").build());
+		executor.allowCoreThreadTimeOut(true);
+
+		return new NonScheduledExecutorServiceExceptionLogger(executor);
 	}
 }
