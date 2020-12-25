@@ -76,7 +76,7 @@ import okhttp3.Response;
 public class ExternalPluginManager
 {
 	private static final String PLUGIN_LIST_KEY = "externalPlugins";
-	public static Class<? extends Plugin>[] builtinExternals = null;
+	private static Class<? extends Plugin>[] builtinExternals = null;
 
 	@Inject
 	@Named("safeMode")
