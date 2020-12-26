@@ -918,6 +918,7 @@ public class ExternalPluginManager
 		OpenOSRSSplashScreen.stage(.59, "Updating external plugins");
 
 		boolean error = false;
+
 		if (updateManager.hasUpdates())
 		{
 			List<PluginInfo> updates = updateManager.getUpdates();
