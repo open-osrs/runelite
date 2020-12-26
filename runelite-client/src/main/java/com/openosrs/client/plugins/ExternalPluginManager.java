@@ -80,7 +80,6 @@ import com.openosrs.client.util.Groups;
 import com.openosrs.client.util.MiscUtils;
 import com.openosrs.client.util.SwingUtil;
 import org.jgroups.Message;
-import org.jooq.meta.derby.sys.Sys;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.DependencyResolver;
 import org.pf4j.PluginDependency;
@@ -427,9 +426,6 @@ public class ExternalPluginManager
 		{
 			Class<? extends Plugin> clazz = plugin.getClass();
 			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
-
-			System.out.println(plugin.getClass().getName());
-			com.openosrs.client.plugins.PluginManager.oprsPlugins.add(clazz);
 
 			try
 			{

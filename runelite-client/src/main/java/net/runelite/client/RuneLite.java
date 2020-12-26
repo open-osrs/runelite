@@ -30,7 +30,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.openosrs.client.plugins.PluginManager;
+import com.openosrs.client.plugins.BuiltInPluginManager;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -326,7 +326,7 @@ public class RuneLite
 		pluginManager.setOutdated(isOutdated);
 
 		// Load external plugin manager
-		oprsExternalPluginManager.startExternalUpdateManager();
+		//oprsExternalPluginManager.startExternalUpdateManager(); //TODO: Re-enable after fixing actions for new repo
 		oprsExternalPluginManager.startExternalPluginManager();
 
 		// Update external plugins
@@ -390,8 +390,8 @@ public class RuneLite
 			overlayManager.add(tooltipOverlay.get());
 		}
 
-		//Load OPRS plugins
-		PluginManager.loadPlugins();
+		//Load built-in OPRS plugins
+		BuiltInPluginManager.loadPlugins();
 
 		// Start plugins
 		pluginManager.startPlugins();

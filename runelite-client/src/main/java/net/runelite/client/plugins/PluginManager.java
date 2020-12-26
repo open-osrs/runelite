@@ -194,7 +194,26 @@ public class PluginManager
 			injectors.add(RuneLite.getInjector());
 			plugins = getPlugins();
 		}
-		plugins.forEach(pl -> injectors.add(pl.getInjector()));
+		plugins.forEach(pl ->
+		{
+			//TODO: Not sure why this is necessary but it is. The Injector isn't null when its handed off from our ExternalPluginManager.
+			//		Hopefully we can figure out the root cause of the underlying issue.
+			if (pl.injector == null)
+			{
+				// Create injector for the module
+				Module pluginModule = (Binder binder) ->
+				{
+					// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
+					binder.bind(com.openosrs.client.plugins.Plugin.class).toInstance((com.openosrs.client.plugins.Plugin)pl);
+					binder.install(pl);
+				};
+				Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
+				pluginInjector.injectMembers(pl);
+				pl.injector = pluginInjector;
+			}
+
+			injectors.add(pl.getInjector());
+		});
 
 		List<Config> list = new ArrayList<>();
 		for (Injector injector : injectors)
