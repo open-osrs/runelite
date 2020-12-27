@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, OpenOSRS <https://github.com/open-osrs>
+ * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,38 +22,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package com.openosrs.client.events;
 
-package com.openosrs.client.plugins.neverlog;
+import lombok.Data;
+import net.runelite.api.events.Event;
 
-import javax.inject.Inject;
-import net.runelite.api.Client;
-import net.runelite.api.events.GameTick;
-import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDescriptor;
-
-@PluginDescriptor(
-	name = "Never Logout",
-	enabledByDefault = false,
-	description = "Overrides the 5 minute AFK logout timer.",
-	tags = {"openosrs", "never log", "idle", "logout", "log", "never"}
-)
-@SuppressWarnings("unchecked")
-public class NeverLogoutPlugin extends Plugin
-{
-	@Inject
-	private Client client;
-
-	@Subscribe
-	private void onGameTick(GameTick gameTick)
-	{
-		if (client.getKeyboardIdleTicks() > 14900)
-		{
-			client.setKeyboardIdleTicks(0);
-		}
-		if (client.getMouseIdleTicks() > 14900)
-		{
-			client.setMouseIdleTicks(0);
-		}
-	}
-}
+@Data
+public class ExternalPluginsLoaded implements Event
+{}
