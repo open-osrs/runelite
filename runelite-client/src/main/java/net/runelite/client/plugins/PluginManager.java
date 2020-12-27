@@ -99,7 +99,6 @@ public class PluginManager
 
 	@Setter
 	boolean isOutdated;
-	private Collection<com.openosrs.client.plugins.Plugin> oprsPlugins;
 
 	@Inject
 	@VisibleForTesting
@@ -567,11 +566,6 @@ public class PluginManager
 	public Collection<Plugin> getPlugins()
 	{
 		return plugins;
-	}
-
-	public Collection<com.openosrs.client.plugins.Plugin> getOprsPlugins()
-	{
-		return oprsPlugins;
 	}
 
 	/**

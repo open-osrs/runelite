@@ -129,7 +129,7 @@ public interface OpenOSRSConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "externalRepositories",
+		keyName = "externalRepos",
 		name = "",
 		description = "",
 		hidden = true
@@ -140,7 +140,7 @@ public interface OpenOSRSConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "externalRepositories",
+		keyName = "externalRepos",
 		name = "",
 		description = "",
 		hidden = true

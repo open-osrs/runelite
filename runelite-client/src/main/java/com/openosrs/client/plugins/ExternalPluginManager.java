@@ -89,17 +89,16 @@ import org.pf4j.update.DefaultUpdateRepository;
 import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateManager;
 import org.pf4j.update.UpdateRepository;
-import org.pf4j.update.VerifyException;
 
 @Slf4j
 @Singleton
 public class ExternalPluginManager
 {
-	public static final String DEFAULT_PLUGIN_REPOS = "OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugin-hosting/master/";
+	public static final String DEFAULT_PLUGIN_REPOS = "OpenOSRS:https://raw.githubusercontent.com/zeruth/runelite-plugins-release/master/";
 	static final String DEVELOPMENT_MANIFEST_PATH = "build/tmp/jar/MANIFEST.MF";
 
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
-	private final net.runelite.client.plugins.PluginManager runelitePluginManager;
+	private final PluginManager runelitePluginManager;
 	private org.pf4j.PluginManager externalPluginManager;
 	@Getter(AccessLevel.PUBLIC)
 	private final List<UpdateRepository> repositories = new ArrayList<>();
@@ -260,7 +259,7 @@ public class ExternalPluginManager
 
 				if (id.contains("https://raw.githubusercontent.com/"))
 				{
-					id = "gh:" + id.substring(id.indexOf("https://raw.githubusercontent.com/")).replace("/master", "")
+					id = "gh:" + id.substring(id.indexOf("https://raw.githubusercontent.com/")).replace("/main", "")
 						.replace("https://raw.githubusercontent.com/", "");
 
 					if (id.endsWith("/"))
@@ -540,15 +539,15 @@ public class ExternalPluginManager
 		List<Plugin> deps = new ArrayList<>();
 		for (net.runelite.client.plugins.PluginDependency pluginDependency : pluginDependencies)
 		{
-			Optional<Plugin> dependency =
-				Stream.concat(runelitePluginManager.getOprsPlugins().stream(), scannedPlugins.stream())
+			Optional<net.runelite.client.plugins.Plugin> dependency =
+				Stream.concat(runelitePluginManager.getPlugins().stream(), scannedPlugins.stream())
 					.filter(p -> p.getClass() == pluginDependency.value()).findFirst();
 			if (dependency.isEmpty())
 			{
 				throw new PluginInstantiationException(
 					"Unmet dependency for " + clazz.getSimpleName() + ": " + pluginDependency.value().getSimpleName());
 			}
-			deps.add(dependency.get());
+			deps.add((Plugin) dependency.get());
 		}
 
 		log.info("Loading plugin {}", clazz.getSimpleName());
@@ -774,7 +773,7 @@ public class ExternalPluginManager
 
 			List<Plugin> extensions = externalPluginManager.getExtensions(Plugin.class, pluginId);
 
-			for (Plugin plugin : runelitePluginManager.getOprsPlugins())
+			for (net.runelite.client.plugins.Plugin plugin : runelitePluginManager.getPlugins())
 			{
 				if (!extensions.get(0).getClass().getName().equals(plugin.getClass().getName()))
 				{
@@ -812,7 +811,7 @@ public class ExternalPluginManager
 		return null;
 	}
 
-	public boolean install(String pluginId) throws VerifyException
+	public boolean install(String pluginId)
 	{
 		if (getDisabledPlugins().contains(pluginId))
 		{
