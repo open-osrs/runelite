@@ -204,7 +204,7 @@ public class PluginManager
 				Module pluginModule = (Binder binder) ->
 				{
 					// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
-					binder.bind(com.openosrs.client.plugins.Plugin.class).toInstance((com.openosrs.client.plugins.Plugin)pl);
+					binder.bind((Class<Plugin>) pl.getClass()).toInstance(pl);
 					binder.install(pl);
 				};
 				Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
