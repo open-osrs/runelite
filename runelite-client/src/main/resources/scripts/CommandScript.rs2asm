@@ -53,7 +53,7 @@ LABEL35:
    istore                 4
 LABEL37:
    staffmodlevel         
-   iconst                 -1
+   iconst                 0
    if_icmpgt              LABEL41
    jump                   LABEL43
 LABEL41:
