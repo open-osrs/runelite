@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,27 +22,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.ge;
+package net.runelite.api.events;
 
-import java.time.Instant;
-import lombok.Data;
-import net.runelite.http.api.worlds.WorldType;
+import lombok.Value;
 
-@Data
-public class GrandExchangeTrade
+/**
+ * Posted when an interface is about to be closed
+ */
+@Value
+public class WidgetClosed
 {
-	private boolean buy;
-	private boolean cancel;
-	private boolean login;
-	private int itemId;
-	private int qty;
-	private int dqty;
-	private int total;
-	private int spent;
-	private int dspent;
-	private int offer;
-	private int slot;
-	private WorldType worldType;
-	private int seq;
-	private Instant resetTime;
+	/**
+	 * The ID of the interface that is closed
+	 */
+	private final int groupId;
+
+	/**
+	 * @see net.runelite.api.widgets.WidgetModalMode
+	 */
+	private final int modalMode;
+
+	/**
+	 * If the interface will be unloaded or if it will be immediately reloaded
+	 */
+	private final boolean unload;
 }
