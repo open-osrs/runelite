@@ -25,7 +25,7 @@ import com.openosrs.injector.rsapi.RSApi;
 import com.openosrs.injector.transformers.InjectTransformer;
 import com.openosrs.injector.transformers.SourceChanger;
 import java.io.File;
-import java.io.IOException;
+import java.util.Objects;
 import net.runelite.deob.util.JarUtil;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
@@ -34,30 +34,28 @@ public class Injector extends InjectData implements InjectTaskHandler
 {
 	private static final Logger log = Logging.getLogger(Injector.class);
 
-	public Injector(File vanilla, File rsclient, File mixins, File[] rsapi) throws IOException
-	{
-		super(
-			JarUtil.loadJar(vanilla),
-			JarUtil.loadJar(rsclient),
-			JarUtil.loadJar(mixins),
-			new RSApi(rsapi)
-		);
-		inject();
-		save(new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs"));
-	}
+	private static Injector injector;
+	static File injectedClientOutput = new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs");
 
 	public static void main(String[] args)
 	{
 		try
 		{
-			args = new String[]
-				{
-					args[0],
-					"../runescape-client/build/libs/runescape-client-" + args[1] + ".jar",
-					"../runelite-mixins/build/libs/runelite-mixins-" + args[1] + ".jar",
-					"../runescape-api/build/classes/java/main/net/runelite/rs/api/"
-				};
-			new Injector(new File(args[0]), new File(args[1]), new File(args[2]), new File(args[3]).listFiles());
+			File vanilla = new File(args[0]);
+			File rsClient = new File("../runescape-client/build/libs/runescape-client-" + args[1] + ".jar");
+			File mixins = new File("../runelite-mixins/build/libs/runelite-mixins-" + args[1] + ".jar");
+			RSApi rsApi = new RSApi(Objects.requireNonNull(
+				new File("../runescape-api/build/classes/java/main/net/runelite/rs/api/")
+					.listFiles()));
+
+			injector = new Injector();
+			injector.vanilla = JarUtil.loadJar(vanilla);
+			injector.deobfuscated = JarUtil.loadJar(rsClient);
+			injector.rsApi = rsApi;
+			injector.mixins = JarUtil.loadJar(mixins);
+			injector.initToVanilla();
+			injector.inject();
+			save(injectedClientOutput);
 		}
 		catch (Exception e)
 		{
@@ -106,11 +104,11 @@ public class Injector extends InjectData implements InjectTaskHandler
 		transform(new SourceChanger(this));
 	}
 
-	public void save(File outputJar) throws IOException
+	public static void save(File outputJar)
 	{
 		log.info("[INFO] Saving jar to {}", outputJar.toString());
 
-		JarUtil.saveJar(this.getVanilla(), outputJar);
+		JarUtil.saveJar(injector.getVanilla(), outputJar);
 	}
 
 	private void inject(com.openosrs.injector.injectors.Injector injector)

@@ -115,7 +115,7 @@ public class JarUtil
 		return group;
 	}
 
-	public static void saveJar(ClassGroup group, File jarfile) throws IOException
+	public static void saveJar(ClassGroup group, File jarfile)
 	{
 		try (JarOutputStream jout = new JarOutputStream(new FileOutputStream(jarfile)))
 		{
@@ -130,6 +130,10 @@ public class JarUtil
 				jout.write(data);
 				jout.closeEntry();
 			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 	}
 
