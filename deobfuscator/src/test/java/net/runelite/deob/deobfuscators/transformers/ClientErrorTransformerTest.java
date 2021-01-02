@@ -51,7 +51,7 @@ public class ClientErrorTransformerTest
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(GAMEPACK);
+		group = JarUtil.load(GAMEPACK);
 	}
 
 	@After

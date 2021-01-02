@@ -49,7 +49,7 @@ public class JarUtil
 {
 	private static final Logger logger = LoggerFactory.getLogger(JarUtil.class);
 
-	public static ClassGroup loadJar(File jarfile) throws IOException
+	public static ClassGroup load(File jarfile)
 	{
 		ClassGroup group = new ClassGroup();
 
@@ -73,6 +73,10 @@ public class JarUtil
 
 				group.addClass(cv.getClassFile());
 			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 
 		group.initialize();

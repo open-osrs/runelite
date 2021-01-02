@@ -72,7 +72,7 @@ public class HookImporter
 		java.lang.reflect.Type type = new TypeToken<Map<String, ClassHook>>() {}.getType();
 		hooks = gson.fromJson(new InputStreamReader(is), type);
 
-		group = JarUtil.loadJar(IN);
+		group = JarUtil.load(IN);
 	}
 
 	@After

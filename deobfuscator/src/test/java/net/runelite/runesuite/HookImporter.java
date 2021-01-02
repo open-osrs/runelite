@@ -75,7 +75,7 @@ public class HookImporter
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(properties.getRsClient()));
+		group = JarUtil.load(new File(properties.getRsClient()));
 
 		InputStream is = getClass().getResourceAsStream("hooks.json");
 		Gson gson = new Gson();

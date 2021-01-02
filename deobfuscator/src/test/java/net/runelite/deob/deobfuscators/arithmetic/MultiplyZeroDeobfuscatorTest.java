@@ -51,7 +51,7 @@ public class MultiplyZeroDeobfuscatorTest
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(properties.getVanillaClient()));
+		group = JarUtil.load(new File(properties.getVanillaClient()));
 	}
 
 	@After

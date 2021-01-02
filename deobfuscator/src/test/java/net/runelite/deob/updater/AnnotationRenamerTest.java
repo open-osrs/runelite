@@ -42,7 +42,7 @@ public class AnnotationRenamerTest
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(JAR));
+		group = JarUtil.load(new File(JAR));
 	}
 
 	@After

@@ -64,7 +64,7 @@ public class MappingImporter
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(IN);
+		group = JarUtil.load(IN);
 	}
 
 	@After

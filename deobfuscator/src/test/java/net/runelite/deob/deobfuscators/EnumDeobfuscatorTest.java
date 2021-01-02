@@ -50,7 +50,7 @@ public class EnumDeobfuscatorTest
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(properties.getRsClient()));
+		group = JarUtil.load(new File(properties.getRsClient()));
 	}
 
 	@After
