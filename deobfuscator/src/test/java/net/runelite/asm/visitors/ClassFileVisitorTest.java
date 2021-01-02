@@ -47,7 +47,7 @@ public class ClassFileVisitorTest
 	{
 		ClassGroup group = JarUtil.load(new File(properties.getVanillaClient()));
 
-		JarUtil.saveJar(group, folder.newFile());
+		JarUtil.save(group, folder.newFile());
 	}
 
 }

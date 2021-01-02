@@ -119,7 +119,7 @@ public class JarUtil
 		return group;
 	}
 
-	public static void saveJar(ClassGroup group, File jarfile)
+	public static void save(ClassGroup group, File jarfile)
 	{
 		try (JarOutputStream jout = new JarOutputStream(new FileOutputStream(jarfile)))
 		{

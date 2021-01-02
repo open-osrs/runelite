@@ -24,39 +24,36 @@ import com.openosrs.injector.injectors.raw.ScriptVM;
 import com.openosrs.injector.rsapi.RSApi;
 import com.openosrs.injector.transformers.InjectTransformer;
 import com.openosrs.injector.transformers.SourceChanger;
+import static net.runelite.deob.util.JarUtil.load;
+import static net.runelite.deob.util.JarUtil.save;
 import java.io.File;
 import java.util.Objects;
-import net.runelite.deob.util.JarUtil;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
 
 public class Injector extends InjectData implements InjectTaskHandler
 {
-	private static final Logger log = Logging.getLogger(Injector.class);
-
-	private static Injector injector;
-	static File injectedClient = new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs");
+	static final Logger log = Logging.getLogger(Injector.class);
+	static Injector injector = new Injector();
+	static File injectedClient =
+		new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs");
 
 	public static void main(String[] args)
 	{
-		File vanillaJar = new File(args[0]);
-		File rsClientJar = new File("../runescape-client/build/libs/runescape-client-" + args[1] + ".jar");
-		File mixinsJar = new File("../runelite-mixins/build/libs/runelite-mixins-" + args[1] + ".jar");
-		RSApi rsApiClasses = new RSApi(Objects.requireNonNull(
+		injector.vanilla = load(new File(args[0]));
+		injector.deobfuscated = load(
+			new File("../runescape-client/build/libs/runescape-client-" + args[1] + ".jar"));
+		injector.rsApi = new RSApi(Objects.requireNonNull(
 			new File("../runescape-api/build/classes/java/main/net/runelite/rs/api/")
 				.listFiles()));
-
-		injector = new Injector();
-		injector.vanilla = JarUtil.load(vanillaJar);
-		injector.deobfuscated = JarUtil.load(rsClientJar);
-		injector.rsApi = rsApiClasses;
-		injector.mixins = JarUtil.load(mixinsJar);
+		injector.mixins = load(
+			new File("../runelite-mixins/build/libs/runelite-mixins-" + args[1] + ".jar"));
 		injector.initToVanilla();
-		injector.inject();
-		save();
+		injector.injectVanilla();
+		save(injector.getVanilla(), injectedClient);
 	}
 
-	public void inject()
+	public void injectVanilla()
 	{
 		log.debug("[DEBUG] Starting injection");
 
@@ -94,13 +91,6 @@ public class Injector extends InjectData implements InjectTaskHandler
 		validate(new InjectorValidator(this));
 
 		transform(new SourceChanger(this));
-	}
-
-	public static void save()
-	{
-		log.info("[INFO] Saving jar to {}", injectedClient.toString());
-
-		JarUtil.saveJar(injector.getVanilla(), injectedClient);
 	}
 
 	private void inject(com.openosrs.injector.injectors.Injector injector)

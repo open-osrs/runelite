@@ -82,7 +82,7 @@ public class UpdateMappings
 
 	public void save(File out) throws IOException
 	{
-		JarUtil.saveJar(group2, out);
+		JarUtil.save(group2, out);
 	}
 
 	public static void main(String[] args) throws IOException

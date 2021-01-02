@@ -137,7 +137,7 @@ public class Deob
 		//new MaxMemoryTransformer().transform(group);
 		//new RuneliteBufferTransformer().transform(group);
 
-		JarUtil.saveJar(group, new File(args[1]));
+		JarUtil.save(group, new File(args[1]));
 
 		stopwatch.stop();
 		logger.info("Done in {}", stopwatch);

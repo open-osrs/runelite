@@ -59,7 +59,7 @@ public class ClientErrorTransformerTest
 	{
 		File out = folder.newFile();
 
-		JarUtil.saveJar(group, out);
+		JarUtil.save(group, out);
 
 		logger.info("Wrote to {}", out);
 	}

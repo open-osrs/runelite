@@ -67,7 +67,7 @@ public class UpdateMappingsTest
 
 		map(group1, group2);
 
-		JarUtil.saveJar(group2, new File(OUT));
+		JarUtil.save(group2, new File(OUT));
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class UpdateMappingsTest
 
 		new ScriptOpcodesTransformer().transform(group);
 
-		JarUtil.saveJar(group, new File("C:/Users/Lucas/Desktop/Apapapapapap.jar"));
+		JarUtil.save(group, new File("C:/Users/Lucas/Desktop/Apapapapapap.jar"));
 	}
 
 	private void unannotate(ClassGroup group)

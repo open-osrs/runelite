@@ -70,7 +70,7 @@ public class MappingImporter
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group, OUT);
+		JarUtil.save(group, OUT);
 	}
 
 	private boolean hasObfuscatedName(Annotated an, String name)

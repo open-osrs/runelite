@@ -78,7 +78,7 @@ public class HookImporter
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group, OUT);
+		JarUtil.save(group, OUT);
 	}
 
 	@Test

@@ -56,7 +56,7 @@ public class EnumDeobfuscatorTest
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group, folder.newFile());
+		JarUtil.save(group, folder.newFile());
 	}
 
 	@Test

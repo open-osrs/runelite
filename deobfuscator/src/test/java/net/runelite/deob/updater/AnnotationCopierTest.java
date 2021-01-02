@@ -54,7 +54,7 @@ public class AnnotationCopierTest
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group2, new File(OUT));
+		JarUtil.save(group2, new File(OUT));
 	}
 
 	//@Test

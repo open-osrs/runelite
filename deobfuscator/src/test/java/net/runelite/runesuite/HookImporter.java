@@ -87,7 +87,7 @@ public class HookImporter
 	public void after() throws IOException
 	{
 		File out = folder.newFile("client.jar");
-		JarUtil.saveJar(group, out);
+		JarUtil.save(group, out);
 		logger.info("Wrote to {}", out);
 	}
 

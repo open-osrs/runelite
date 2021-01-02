@@ -15,5 +15,5 @@ public interface InjectTaskHandler
 	/**
 	 * The actual method that does all the work
 	 */
-	void inject();
+	void injectVanilla();
 }

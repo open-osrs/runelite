@@ -117,7 +117,7 @@ public class AnnotationCleaner
 
 		new AnnotationAdder(group).run();
 
-		JarUtil.saveJar(group, new File("C:/Users/Lucas/Desktop/niec.jar"));
+		JarUtil.save(group, new File("C:/Users/Lucas/Desktop/niec.jar"));
 	}
 
 	private static class OhNoException extends Exception

@@ -48,7 +48,7 @@ public class AnnotationRenamerTest
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group, new File(OUT));
+		JarUtil.save(group, new File(OUT));
 	}
 
 	//@Test
