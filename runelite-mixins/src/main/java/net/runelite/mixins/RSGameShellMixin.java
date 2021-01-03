@@ -83,7 +83,7 @@ public abstract class RSGameShellMixin implements RSGameShell
 		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
 		if (drawCallbacks != null)
 		{
-			drawCallbacks.draw();
+			drawCallbacks.draw(client.getViewportColor());
 		}
 	}
 

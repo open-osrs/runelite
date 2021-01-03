@@ -244,7 +244,7 @@ public abstract class RSSceneMixin implements RSScene
 				}
 			}
 		}
-
+		outer:
 		for (int z = minLevel; z < maxY; ++z)
 		{
 			RSTile[][] planeTiles = tiles[z];
@@ -303,17 +303,8 @@ public abstract class RSSceneMixin implements RSScene
 
 						if (client.getTileUpdateCount() == 0)
 						{
-							if (!isGpu && (client.getOculusOrbState() != 0 && !client.getComplianceValue("orbInteraction")))
-							{
-								client.setEntitiesAtMouseCount(0);
-							}
-							client.setCheckClick(false);
-							if (!checkClick)
-							{
-								client.setViewportWalking(false);
-							}
-							client.getCallbacks().drawScene();
-							return;
+							// exit the loop early and go straight to "if (!isGpu && (client..."
+							break outer;
 						}
 					}
 				}

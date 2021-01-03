@@ -247,6 +247,9 @@ public abstract class RSClientMixin implements RSClient
 	private static ArrayList<WidgetItem> widgetItems = new ArrayList<>();
 
 	@Inject
+	private static ArrayList<Widget> hiddenWidgets = new ArrayList<>();
+
+	@Inject
 	@Override
 	public void setPrintMenuActions(boolean yes)
 	{
@@ -1549,6 +1552,30 @@ public abstract class RSClientMixin implements RSClient
 			widget.setRenderX(renderX);
 			widget.setRenderY(renderY);
 
+			if (widget.getContentType() == WidgetType.VIEWPORT)
+			{
+				client.setViewportColor(0);
+			}
+			else if (widget.getContentType() == WidgetType.RECTANGLE)
+			{
+				if (renderX == client.getViewportXOffset() && renderY == client.getViewportYOffset()
+			&& widget.getWidth() == client.getViewportWidth() && widget.getHeight() == client.getViewportHeight()
+			&& widget.getOpacity() > 0 && widget.isFilled() && client.isGpu())
+			{
+				int textColor = widget.getTextColor();
+			int alpha = widget.getOpacity() & 0xFF;
+			int inverseAlpha = 256 - alpha;
+			int viewportColor = client.getViewportColor();
+			int c1 = (alpha * (textColor & 0xff00ff) >> 8 & 0xFF00FF) + (alpha * (textColor & 0x00FF00) >> 8 & 0x00FF00);
+			int c2 = (inverseAlpha * (viewportColor & 0xff00ff) >> 8 & 0xFF00FF) + (inverseAlpha * (viewportColor & 0x00FF00) >> 8 & 0x00FF00);
+			int outAlpha = alpha + ((viewportColor >>> 24) * (255 - alpha) * 0x8081 >>> 23);
+			client.setViewportColor(outAlpha << 24 | c1 + c2);
+			widget.setHidden(true);
+			hiddenWidgets.add(widget);
+			continue;
+			}
+		}
+
 
 			WidgetNode childNode = componentTable.get(widget.getId());
 			if (childNode != null)
@@ -1564,10 +1591,6 @@ public abstract class RSClientMixin implements RSClient
 						child.setRenderParentId(widgetId);
 					}
 				}
-			}
-			else
-			{
-
 			}
 		}
 	}
@@ -1649,6 +1672,15 @@ public abstract class RSClientMixin implements RSClient
 
 			callbacks.drawInterface(group, widgetItems);
 			widgetItems.clear();
+			for (int i = hiddenWidgets.size() - 1; i >= 0; i--)
+			{
+				Widget widget = hiddenWidgets.get(i);
+			if (WidgetInfo.TO_GROUP(widget.getId()) == group)
+			{
+				widget.setHidden(false);
+			hiddenWidgets.remove(i);
+			}
+			}
 		}
 	}
 
