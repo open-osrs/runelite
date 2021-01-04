@@ -2071,4 +2071,6 @@ public interface Client extends GameShell
 	Widget getWidget(int param1);
 
 	Widget getScriptActiveWidget();
+
+	ScriptEvent createScriptEvent(Object[] args);
 }
