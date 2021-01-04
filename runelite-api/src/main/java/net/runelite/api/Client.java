@@ -2073,4 +2073,6 @@ public interface Client extends GameShell
 	Widget getScriptActiveWidget();
 
 	ScriptEvent createScriptEvent(Object[] args);
+
+	int getViewportColor();
 }
