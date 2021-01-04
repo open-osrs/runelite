@@ -2075,4 +2075,8 @@ public interface Client extends GameShell
 	ScriptEvent createScriptEvent(Object[] args);
 
 	int getViewportColor();
+
+	NodeCache getStructCompositionCache();
+
+	void setMusicVolume(int i);
 }
