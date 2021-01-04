@@ -1,5 +1,6 @@
 package com.openosrs.client.plugins.openosrs.externals;
 
+import com.openosrs.client.plugins.ExternalPluginManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +22,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.eventbus.EventBus;
-import com.openosrs.client.plugins.ExternalPluginManager;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;

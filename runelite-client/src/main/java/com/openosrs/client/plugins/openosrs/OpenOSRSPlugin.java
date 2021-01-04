@@ -27,6 +27,8 @@
 package com.openosrs.client.plugins.openosrs;
 
 import ch.qos.logback.classic.Logger;
+import com.openosrs.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
+import com.openosrs.client.config.OpenOSRSConfig;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
@@ -55,14 +57,12 @@ import static net.runelite.api.widgets.WidgetInfo.BANK_PIN_SECOND_ENTERED;
 import static net.runelite.api.widgets.WidgetInfo.BANK_PIN_THIRD_ENTERED;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.Keybind;
-import com.openosrs.client.config.OpenOSRSConfig;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import com.openosrs.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.HotkeyListener;

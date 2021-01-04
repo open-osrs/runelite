@@ -33,6 +33,15 @@ import com.google.inject.CreationException;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
+import static com.openosrs.client.OpenOSRS.EXTERNALPLUGIN_DIR;
+import static com.openosrs.client.OpenOSRS.SYSTEM_VERSION;
+import com.openosrs.client.config.OpenOSRSConfig;
+import com.openosrs.client.events.ExternalPluginChanged;
+import com.openosrs.client.events.ExternalRepositoryChanged;
+import com.openosrs.client.ui.OpenOSRSSplashScreen;
+import com.openosrs.client.util.Groups;
+import com.openosrs.client.util.MiscUtils;
+import com.openosrs.client.util.SwingUtil;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -61,24 +70,15 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
-import static com.openosrs.client.OpenOSRS.EXTERNALPLUGIN_DIR;
-import static com.openosrs.client.OpenOSRS.SYSTEM_VERSION;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigManager;
-import com.openosrs.client.config.OpenOSRSConfig;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
-import com.openosrs.client.events.ExternalPluginChanged;
-import com.openosrs.client.events.ExternalRepositoryChanged;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.ui.ClientUI;
-import com.openosrs.client.ui.OpenOSRSSplashScreen;
-import com.openosrs.client.util.Groups;
-import com.openosrs.client.util.MiscUtils;
-import com.openosrs.client.util.SwingUtil;
 import org.jgroups.Message;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.DependencyResolver;
@@ -117,7 +117,7 @@ public class ExternalPluginManager
 	@Inject
 	public ExternalPluginManager(
 		@Named("safeMode") final boolean safeMode,
-		net.runelite.client.plugins.PluginManager pluginManager,
+		PluginManager pluginManager,
 		OpenOSRSConfig openOSRSConfig,
 		EventBus eventBus,
 		ExecutorService executorService,
