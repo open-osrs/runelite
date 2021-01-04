@@ -178,19 +178,19 @@ public abstract class AbstractWorldMapIcon {
 		garbageValue = "5"
 	)
 	@Export("StructDefinition_getStructDefinition")
-	public static StructDefinition StructDefinition_getStructDefinition(int var0) {
-		StructDefinition var1 = (StructDefinition)StructDefinition.StructDefinition_cached.get((long)var0); // L: 23
+	public static StructComposition StructDefinition_getStructDefinition(int var0) {
+		StructComposition var1 = (StructComposition) StructComposition.StructDefinition_cached.get((long)var0); // L: 23
 		if (var1 != null) { // L: 24
 			return var1;
 		} else {
-			byte[] var2 = StructDefinition.StructDefinition_archive.takeFile(34, var0); // L: 25
-			var1 = new StructDefinition(); // L: 26
+			byte[] var2 = StructComposition.StructDefinition_archive.takeFile(34, var0); // L: 25
+			var1 = new StructComposition(); // L: 26
 			if (var2 != null) { // L: 27
 				var1.decode(new Buffer(var2));
 			}
 
 			var1.postDecode(); // L: 28
-			StructDefinition.StructDefinition_cached.put(var1, (long)var0); // L: 29
+			StructComposition.StructDefinition_cached.put(var1, (long)var0); // L: 29
 			return var1; // L: 30
 		}
 	}

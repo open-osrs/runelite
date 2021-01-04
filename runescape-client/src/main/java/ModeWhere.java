@@ -131,7 +131,7 @@ public enum ModeWhere implements Enumerated {
 			var0 -= 1000; // L: 948
 			var3 = CollisionMap.getWidget(Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]); // L: 949
 		} else {
-			var3 = var2 ? PlayerComposition.field2561 : VarcInt.scriptActiveWidget; // L: 951
+			var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 951
 		}
 
 		String var4 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]; // L: 952

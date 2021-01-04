@@ -4,8 +4,8 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jb")
-@Implements("StructDefinition")
-public class StructDefinition extends DualNode {
+@Implements("StructComposition")
+public class StructComposition extends DualNode {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Lib;"
@@ -29,7 +29,7 @@ public class StructDefinition extends DualNode {
 		StructDefinition_cached = new EvictingDualNodeHashTable(64); // L: 13
 	}
 
-	StructDefinition() {
+	StructComposition() {
 	} // L: 16
 
 	@ObfuscatedName("x")

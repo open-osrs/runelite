@@ -2,6 +2,7 @@ package net.runelite.mixins;
 
 import net.runelite.api.VarClientInt;
 import net.runelite.api.VarClientStr;
+import net.runelite.api.VarbitComposition;
 import net.runelite.api.Varbits;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -55,7 +56,7 @@ public abstract class VarbitMixin implements RSClient
 
 	@Inject
 	@Override
-	public RSVarbitComposition getVarbitDefinition(int id)
+	public RSVarbitComposition getVarbitComposition(int id)
 	{
 		assert client.isClientThread() : "getVarbitDefinition must be called on client thread";
 
@@ -78,7 +79,7 @@ public abstract class VarbitMixin implements RSClient
 	{
 		assert client.isClientThread();
 
-		RSVarbitComposition v = getVarbitDefinition(varbitId);
+		RSVarbitComposition v = getVarbitComposition(varbitId);
 		if (v == null)
 		{
 			throw new IndexOutOfBoundsException("Varbit " + varbitId + " does not exist!"); // oob for "backwards compatibility lol"
@@ -95,7 +96,7 @@ public abstract class VarbitMixin implements RSClient
 	@Override
 	public void setVarbitValue(int[] varps, int varbitId, int value)
 	{
-		RSVarbitComposition v = getVarbitDefinition(varbitId);
+		RSVarbitComposition v = getVarbitComposition(varbitId);
 		if (v == null)
 		{
 			throw new IndexOutOfBoundsException(String.format("Varbit %d does not exist!", varbitId)); // oob for "backwards compatibility lol"
@@ -160,5 +161,12 @@ public abstract class VarbitMixin implements RSClient
 	public Map<Integer, Object> getVarcMap()
 	{
 		return getVarcs().getVarcMap();
+	}
+
+	@Inject
+	@Override
+	public VarbitComposition getVarbit(int id)
+	{
+		return getVarbitComposition(id);
 	}
 }

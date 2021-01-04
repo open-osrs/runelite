@@ -30,7 +30,6 @@ public interface RSClientPreferences extends Preferences
 	void setAreaSoundEffectVolume(int i);
 
 	@Import("musicVolume")
-	@Override
 	int getMusicVolume();
 
 	@Import("musicVolume")

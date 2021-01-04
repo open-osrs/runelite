@@ -93,7 +93,7 @@ public class DynamicObject extends Renderable
 		this.x = var5; // L: 24
 		this.y = var6; // L: 25
 		if (var7 != -1) { // L: 26
-			this.sequenceDefinition = ParamDefinition.SequenceDefinition_get(var7); // L: 27
+			this.sequenceDefinition = ParamComposition.SequenceDefinition_get(var7); // L: 27
 			this.frame = 0; // L: 28
 			this.cycleStart = Client.cycle - 1; // L: 29
 			if (this.sequenceDefinition.field3548 == 0 && var9 != null && var9 instanceof DynamicObject) { // L: 30

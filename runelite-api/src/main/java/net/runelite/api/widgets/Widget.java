@@ -70,6 +70,10 @@ public interface Widget
 
 	int getButtonType();
 
+	boolean isWidgetItemDragged(int index);
+
+	Point getWidgetItemDragOffsets();
+
 	/**
 	 * Gets the type of content displayed by the widget.
 	 */
@@ -1017,16 +1021,6 @@ public interface Widget
 	 */
 	void setOnReleaseListener(Object ...args);
 
-	boolean isWidgetItemDragged(int index);
-
-	Point getWidgetItemDragOffsets();
-
-	static boolean getDragParent(Widget widget)
-	{
-		System.out.println("ERROR: IMPLEMENT"); //Would throw but that breaks widget inspector
-		return false;
-	}
-
 	/**
 	 * Sets a script to be ran when a drag operation is finished on this widget
 	 *
@@ -1057,5 +1051,4 @@ public interface Widget
 	 * @param args A ScriptID, then the args for the script
 	 */
 	void setOnVarTransmitListener(Object ...args);
-}
 }

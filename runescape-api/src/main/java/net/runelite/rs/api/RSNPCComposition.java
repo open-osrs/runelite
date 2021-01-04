@@ -59,4 +59,10 @@ public interface RSNPCComposition extends NPCComposition
 
 	@Import("headIconPrayer")
 	int getRsOverheadIcon();
+
+	@Import("params")
+	RSIterableNodeHashTable getParams();
+
+	@Import("params")
+	void setParams(RSIterableNodeHashTable params);
 }

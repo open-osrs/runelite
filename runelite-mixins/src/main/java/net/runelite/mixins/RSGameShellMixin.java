@@ -42,6 +42,9 @@ public abstract class RSGameShellMixin implements RSGameShell
 	@Shadow("client")
 	private static RSClient client;
 
+	@Shadow("viewportColor")
+	private static int viewportColor;
+
 	@Inject
 	private Thread thread;
 
@@ -83,7 +86,7 @@ public abstract class RSGameShellMixin implements RSGameShell
 		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
 		if (drawCallbacks != null)
 		{
-			drawCallbacks.draw(client.getViewportColor());
+			drawCallbacks.draw(viewportColor);
 		}
 	}
 

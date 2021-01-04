@@ -109,19 +109,19 @@ public class ChatChannel {
 		garbageValue = "1207819240"
 	)
 	@Export("getParamDefinition")
-	public static ParamDefinition getParamDefinition(int var0) {
-		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0); // L: 25
+	public static ParamComposition getParamDefinition(int var0) {
+		ParamComposition var1 = (ParamComposition) ParamComposition.ParamDefinition_cached.get((long)var0); // L: 25
 		if (var1 != null) { // L: 26
 			return var1;
 		} else {
-			byte[] var2 = ParamDefinition.ParamDefinition_archive.takeFile(11, var0); // L: 27
-			var1 = new ParamDefinition(); // L: 28
+			byte[] var2 = ParamComposition.ParamDefinition_archive.takeFile(11, var0); // L: 27
+			var1 = new ParamComposition(); // L: 28
 			if (var2 != null) { // L: 29
 				var1.decode(new Buffer(var2));
 			}
 
 			var1.postDecode(); // L: 30
-			ParamDefinition.ParamDefinition_cached.put(var1, (long)var0); // L: 31
+			ParamComposition.ParamDefinition_cached.put(var1, (long)var0); // L: 31
 			return var1; // L: 32
 		}
 	}

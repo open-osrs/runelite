@@ -57,7 +57,7 @@ public final class WorldMapRectangle {
 		garbageValue = "470419605"
 	)
 	static int method331(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerComposition.field2561 : VarcInt.scriptActiveWidget; // L: 1124
+		Widget var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 1124
 		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1125
 			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = ServerPacket.Widget_unpackTargetMask(FaceNormal.getWidgetFlags(var3)); // L: 1126
 			return 1; // L: 1127
@@ -126,7 +126,7 @@ public final class WorldMapRectangle {
 		WorldMapID.method601(); // L: 2883
 		HealthBarDefinition.method4509(); // L: 2884
 		VarcInt.method4426(); // L: 2885
-		StructDefinition.StructDefinition_cached.clear(); // L: 2887
+		StructComposition.StructDefinition_cached.clear(); // L: 2887
 		StudioGame.method4185(); // L: 2889
 		WorldMapElement.WorldMapElement_cachedSprites.clear(); // L: 2891
 		PlayerComposition.PlayerAppearance_cachedModels.clear(); // L: 2894

@@ -596,7 +596,7 @@ public class FontName {
 													CollisionMap.invalidateWidget(var10);
 												}
 											} else {
-												SequenceDefinition var47 = ParamDefinition.SequenceDefinition_get(var20); // L: 9272
+												SequenceDefinition var47 = ParamComposition.SequenceDefinition_get(var20); // L: 9272
 												var41 = var10.getModel(var47, var10.modelFrame, var36, PlayerComposition.localPlayer.appearance); // L: 9273
 												if (var41 == null && Widget.field2603) { // L: 9274
 													CollisionMap.invalidateWidget(var10);

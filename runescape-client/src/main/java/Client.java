@@ -5098,9 +5098,9 @@ public final class Client extends GameShell implements Usernamed {
 						field707 = (field707 + 1) % 100; // L: 6209
 						String var34 = AbstractFont.escapeBrackets(ServerPacket.method3663(AttackOption.method2135(var3))); // L: 6210
 						if (var60.modIcon != -1) { // L: 6211
-							UserComparator10.addChatMessage(9, class25.method248(var60.modIcon) + var38, var34, ParamDefinition.base37DecodeLong(var22));
+							UserComparator10.addChatMessage(9, class25.method248(var60.modIcon) + var38, var34, ParamComposition.base37DecodeLong(var22));
 						} else {
-							UserComparator10.addChatMessage(9, var38, var34, ParamDefinition.base37DecodeLong(var22)); // L: 6212
+							UserComparator10.addChatMessage(9, var38, var34, ParamComposition.base37DecodeLong(var22)); // L: 6212
 						}
 					}
 
