@@ -1,5 +1,8 @@
 package com.openosrs.client.plugins.openosrs.externals;
 
+import com.openosrs.client.plugins.ExternalPluginManager;
+import com.openosrs.client.ui.JMultilineLabel;
+import com.openosrs.client.util.ImageUtil;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,11 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import com.openosrs.client.plugins.ExternalPluginManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
-import com.openosrs.client.ui.JMultilineLabel;
-import com.openosrs.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateRepository;
