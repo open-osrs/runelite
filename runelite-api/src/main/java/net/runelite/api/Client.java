@@ -2064,14 +2064,11 @@ public interface Client extends GameShell
 
 	List<String> getOutdatedScripts();
 
-	//TODO: Implement
 	void queueChangedVarp(int varp);
 
-	//TODO: Implement
-	VarbitComposition getVarbit(Integer id);
+	VarbitComposition getVarbit(int id);
 
 	Widget getWidget(int param1);
 
-	//TODO: Implement
 	Widget getScriptActiveWidget();
 }

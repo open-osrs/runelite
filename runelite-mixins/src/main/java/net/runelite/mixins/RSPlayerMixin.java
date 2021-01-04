@@ -288,18 +288,10 @@ public abstract class RSPlayerMixin implements RSPlayer
 		friended = client.getFriendManager().isFriended(getRsName(), false);
 	}
 
-	@Copy("read")
-	@Replace("read")
-	@SuppressWarnings("InfiniteRecursion")
-	public void copy$read(RSBuffer buffer)
+	@Inject
+	@MethodHook(value = "read", end = true)
+	void postRead(RSBuffer var1)
 	{
-		final long appearanceHash = getPlayerComposition() == null ? 0 : getPlayerComposition().getHash();
-
-		this.copy$read(buffer);
-
-		if (client.isComparingAppearance() && getPlayerComposition().getHash() != appearanceHash)
-		{
-			client.getCallbacks().post(new PlayerChanged(this));
-		}
+		client.getCallbacks().post(new PlayerChanged(this));
 	}
 }

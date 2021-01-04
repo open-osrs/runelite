@@ -119,7 +119,7 @@ public class WorldMapID {
 						VarcInt.Interpreter_intStackSize -= 2; // L: 1387
 						var10 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize]; // L: 1388
 						var16 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 1389
-						Widget var13 = var2 ? PlayerComposition.field2561 : VarcInt.field3264; // L: 1390
+						Widget var13 = var2 ? PlayerComposition.field2561 : VarcInt.scriptActiveWidget; // L: 1390
 						class13.clickWidget(var13, var10, var16); // L: 1391
 						return 1; // L: 1392
 					} else if (var0 == ScriptOpcodes.MOUSECAM) {
@@ -256,7 +256,7 @@ public class WorldMapID {
 						return 1; // L: 1534
 					} else if (var0 == 3140) {
 						Client.field810 = 3; // L: 1537
-						Client.field811 = var2 ? PlayerComposition.field2561.id * -437932207 * 653064625 : VarcInt.field3264.id * -437932207 * 653064625; // L: 1538
+						Client.field811 = var2 ? PlayerComposition.field2561.id * -437932207 * 653064625 : VarcInt.scriptActiveWidget.id * -437932207 * 653064625; // L: 1538
 						return 1; // L: 1539
 					} else {
 						boolean var11;

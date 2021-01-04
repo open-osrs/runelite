@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,19 +22,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.api.events;
 
-import java.awt.Image;
+import net.runelite.api.Client;
 
 /**
- * Represents the clients primary image buffer.
+ * Posted when the game world the client wants to connect to has changed
+ * This is posted after the world ID and type have updated, but before a new
+ * connection is established
+ *
+ * @see Client#getWorld()
+ * @see Client#getWorldType()
  */
-public interface MainBufferProvider extends BufferProvider
+public class WorldChanged
 {
-	/**
-	 * Gets the image currently loaded in the buffer.
-	 *
-	 * @return the loaded image
-	 */
-	Image getImage();
 }

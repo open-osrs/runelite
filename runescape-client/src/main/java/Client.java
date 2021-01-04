@@ -175,7 +175,8 @@ public final class Client extends GameShell implements Usernamed {
 	@ObfuscatedGetter(
 		intValue = 1311691811
 	)
-	static int field835;
+	@Export("changedVarpCount")
+	static int changedVarpCount;
 	@ObfuscatedName("tc")
 	static int[] field920;
 	@ObfuscatedName("tr")
@@ -390,7 +391,8 @@ public final class Client extends GameShell implements Usernamed {
 	@Export("viewportHeight")
 	static int viewportHeight;
 	@ObfuscatedName("nq")
-	static int[] field834;
+	@Export("changedVarps")
+	static int[] changedVarps;
 	@ObfuscatedName("rh")
 	@ObfuscatedGetter(
 		intValue = -1202571805
@@ -1471,8 +1473,8 @@ public final class Client extends GameShell implements Usernamed {
 		field862 = -1; // L: 509
 		isDraggingWidget = false; // L: 510
 		cycleCntr = 1; // L: 515
-		field834 = new int[32]; // L: 518
-		field835 = 0; // L: 519
+		changedVarps = new int[32]; // L: 518
+		changedVarpCount = 0; // L: 519
 		changedItemContainers = new int[32]; // L: 520
 		field837 = 0; // L: 521
 		changedSkills = new int[32]; // L: 522
@@ -4417,7 +4419,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					class195.method3681(); // L: 5700
-					field835 += 32; // L: 5701
+					changedVarpCount += 32; // L: 5701
 					var1.serverPacket = null; // L: 5702
 					return true; // L: 5703
 				}
@@ -4983,7 +4985,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					Script.changeGameOptions(var5); // L: 6129
-					field834[++field835 - 1 & 31] = var5; // L: 6130
+					changedVarps[++changedVarpCount - 1 & 31] = var5; // L: 6130
 					var1.serverPacket = null; // L: 6131
 					return true; // L: 6132
 				}
@@ -5008,7 +5010,7 @@ public final class Client extends GameShell implements Usernamed {
 						if (Varps.Varps_main[var16] != Varps.Varps_temp[var16]) { // L: 6144
 							Varps.Varps_main[var16] = Varps.Varps_temp[var16]; // L: 6145
 							Script.changeGameOptions(var16); // L: 6146
-							field834[++field835 - 1 & 31] = var16; // L: 6147
+							changedVarps[++changedVarpCount - 1 & 31] = var16; // L: 6147
 						}
 					}
 
@@ -5207,7 +5209,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					Script.changeGameOptions(var5); // L: 6297
-					field834[++field835 - 1 & 31] = var5; // L: 6298
+					changedVarps[++changedVarpCount - 1 & 31] = var5; // L: 6298
 					var1.serverPacket = null; // L: 6299
 					return true; // L: 6300
 				}
