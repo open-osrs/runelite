@@ -69,7 +69,6 @@ public class ExternalPluginClient
 			.newBuilder()
 			.addPathSegments("manifest.js")
 			.build();
-		System.out.println(manifest.uri());
 		try (Response res = okHttpClient.newCall(new Request.Builder().url(manifest).build()).execute())
 		{
 			if (res.code() != 200)

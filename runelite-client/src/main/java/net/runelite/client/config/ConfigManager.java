@@ -85,6 +85,7 @@ import net.runelite.api.Player;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.PlayerChanged;
 import net.runelite.api.events.UsernameChanged;
+import net.runelite.api.events.WorldChanged;
 import net.runelite.client.RuneLite;
 import net.runelite.client.account.AccountSession;
 import net.runelite.client.eventbus.EventBus;
@@ -1041,7 +1042,13 @@ public class ConfigManager
 	{
 		updateRSProfile();
 	}
-	
+
+	@Subscribe
+	private void onWorldChanged(WorldChanged ev)
+	{
+		updateRSProfile();
+	}
+
 	@Subscribe
 	private void onPlayerChanged(PlayerChanged ev)
 	{
