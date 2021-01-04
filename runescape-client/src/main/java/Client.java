@@ -931,8 +931,7 @@ public final class Client extends GameShell implements Usernamed {
 	@ObfuscatedGetter(
 		intValue = -380994417
 	)
-	@Export("viewportColor")
-	public static int viewportColor;
+	public static int field730;
 	@ObfuscatedName("il")
 	static boolean field649;
 	@ObfuscatedName("im")
@@ -1369,7 +1368,7 @@ public final class Client extends GameShell implements Usernamed {
 		field788 = 0; // L: 374
 		oculusOrbNormalSpeed = 12; // L: 376
 		oculusOrbSlowedSpeed = 6; // L: 377
-		viewportColor = 0; // L: 378
+		field730 = 0; // L: 378
 		field649 = false; // L: 379
 		field732 = 0; // L: 380
 		field843 = false; // L: 381
@@ -5625,8 +5624,8 @@ public final class Client extends GameShell implements Usernamed {
 
 				if (ServerPacket.field2146 == var1.serverPacket) { // L: 6617
 					var16 = var3.readInt(); // L: 6618
-					if (var16 != viewportColor) { // L: 6619
-						viewportColor = var16; // L: 6620
+					if (var16 != field730) { // L: 6619
+						field730 = var16; // L: 6620
 						WorldMapCacheName.method664(); // L: 6621
 					}
 
