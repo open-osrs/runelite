@@ -40,6 +40,7 @@ void main() {
   int uvOffset = minfo.uvOffset;
   int flags = minfo.flags;
   ivec4 pos = ivec4(minfo.x, minfo.y, minfo.z, 0);
+
   if (localId >= size) {
     return;
   }

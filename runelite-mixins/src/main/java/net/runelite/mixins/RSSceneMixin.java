@@ -244,6 +244,87 @@ public abstract class RSSceneMixin implements RSScene
 				}
 			}
 		}
+
+		for (int z = minLevel; z < maxY; ++z)
+		{
+			RSTile[][] planeTiles = tiles[z];
+
+			for (int x = -distance; x <= 0; ++x)
+			{
+				int var10 = x + screenCenterX;
+				int var16 = screenCenterX - x;
+				if (var10 >= minTileX || var16 < maxTileX)
+				{
+					for (int y = -distance; y <= 0; ++y)
+					{
+						int var13 = y + screenCenterZ;
+						int var14 = screenCenterZ - y;
+						if (var10 >= minTileX)
+						{
+							if (var13 >= minTileZ)
+							{
+								RSTile tile = planeTiles[var10][var13];
+								if (tile != null && tile.isDraw())
+								{
+									draw(tile, true);
+								}
+							}
+
+							if (var14 < maxTileZ)
+							{
+								RSTile tile = planeTiles[var10][var14];
+								if (tile != null && tile.isDraw())
+								{
+									draw(tile, true);
+								}
+							}
+						}
+
+						if (var16 < maxTileX)
+						{
+							if (var13 >= minTileZ)
+							{
+								RSTile tile = planeTiles[var16][var13];
+								if (tile != null && tile.isDraw())
+								{
+									draw(tile, true);
+								}
+							}
+
+							if (var14 < maxTileZ)
+							{
+								RSTile tile = planeTiles[var16][var14];
+								if (tile != null && tile.isDraw())
+								{
+									draw(tile, true);
+								}
+							}
+						}
+
+						if (client.getTileUpdateCount() == 0)
+						{
+							if (!isGpu && (client.getOculusOrbState() != 0 && !client.getComplianceValue("orbInteraction")))
+							{
+								client.setEntitiesAtMouseCount(0);
+							}
+							client.setCheckClick(false);
+							if (!checkClick)
+							{
+								client.setViewportWalking(false);
+							}
+							client.getCallbacks().drawScene();
+
+							if (client.getDrawCallbacks() != null)
+							{
+								client.getDrawCallbacks().postDrawScene();
+							}
+
+							return;
+						}
+					}
+				}
+			}
+		}
 		outer:
 		for (int z = minLevel; z < maxY; ++z)
 		{
@@ -266,7 +347,7 @@ public abstract class RSSceneMixin implements RSScene
 								RSTile tile = planeTiles[var10][var13];
 								if (tile != null && tile.isDraw())
 								{
-									draw(tile, true);
+									draw(tile, false);
 								}
 							}
 
@@ -275,7 +356,7 @@ public abstract class RSSceneMixin implements RSScene
 								RSTile tile = planeTiles[var10][var14];
 								if (tile != null && tile.isDraw())
 								{
-									draw(tile, true);
+									draw(tile, false);
 								}
 							}
 						}
@@ -287,7 +368,7 @@ public abstract class RSSceneMixin implements RSScene
 								RSTile tile = planeTiles[var16][var13];
 								if (tile != null && tile.isDraw())
 								{
-									draw(tile, true);
+									draw(tile, false);
 								}
 							}
 
@@ -296,7 +377,7 @@ public abstract class RSSceneMixin implements RSScene
 								RSTile tile = planeTiles[var16][var14];
 								if (tile != null && tile.isDraw())
 								{
-									draw(tile, true);
+									draw(tile, false);
 								}
 							}
 						}
@@ -305,81 +386,6 @@ public abstract class RSSceneMixin implements RSScene
 						{
 							// exit the loop early and go straight to "if (!isGpu && (client..."
 							break outer;
-						}
-					}
-				}
-			}
-		}
-
-		for (int z = minLevel; z < maxY; ++z)
-		{
-			RSTile[][] planeTiles = tiles[z];
-
-			for (int x = -distance; x <= 0; ++x)
-			{
-				int var10 = x + screenCenterX;
-				int var16 = screenCenterX - x;
-				if (var10 >= minTileX || var16 < maxTileX)
-				{
-					for (int y = -distance; y <= 0; ++y)
-					{
-						int var13 = y + screenCenterZ;
-						int var14 = screenCenterZ - y;
-						if (var10 >= minTileX)
-						{
-							if (var13 >= minTileZ)
-							{
-								RSTile tile = planeTiles[var10][var13];
-								if (tile != null && tile.isDraw())
-								{
-									draw(tile, false);
-								}
-							}
-
-							if (var14 < maxTileZ)
-							{
-								RSTile tile = planeTiles[var10][var14];
-								if (tile != null && tile.isDraw())
-								{
-									draw(tile, false);
-								}
-							}
-						}
-
-						if (var16 < maxTileX)
-						{
-							if (var13 >= minTileZ)
-							{
-								RSTile tile = planeTiles[var16][var13];
-								if (tile != null && tile.isDraw())
-								{
-									draw(tile, false);
-								}
-							}
-
-							if (var14 < maxTileZ)
-							{
-								RSTile tile = planeTiles[var16][var14];
-								if (tile != null && tile.isDraw())
-								{
-									draw(tile, false);
-								}
-							}
-						}
-
-						if (client.getTileUpdateCount() == 0)
-						{
-							if (!isGpu && (client.getOculusOrbState() != 0 && !client.getComplianceValue("orbInteraction")))
-							{
-								client.setEntitiesAtMouseCount(0);
-							}
-							client.setCheckClick(false);
-							if (!checkClick)
-							{
-								client.setViewportWalking(false);
-							}
-							client.getCallbacks().drawScene();
-							return;
 						}
 					}
 				}
@@ -398,6 +404,10 @@ public abstract class RSSceneMixin implements RSScene
 			client.setViewportWalking(false);
 		}
 		client.getCallbacks().drawScene();
+		if (client.getDrawCallbacks() != null)
+		{
+			client.getDrawCallbacks().postDrawScene();
+		}
 	}
 
 	@Copy("newWallDecoration")
@@ -790,9 +800,9 @@ public abstract class RSSceneMixin implements RSScene
 	@MethodHook(value = "addTile", end = true)
 	@Inject
 	public void rl$addTile(int z, int x, int y, int shape, int rotation, int texture, int heightSw, int heightNw,
-					int heightNe, int heightSe, int underlaySwColor, int underlayNwColor, int underlayNeColor,
-					int underlaySeColor, int overlaySwColor, int overlayNwColor, int overlayNeColor,
-					int overlaySeColor, int underlayRgb, int overlayRgb)
+							int heightNe, int heightSe, int underlaySwColor, int underlayNwColor, int underlayNeColor,
+							int underlaySeColor, int overlaySwColor, int overlayNwColor, int overlayNeColor,
+							int overlaySeColor, int underlayRgb, int overlayRgb)
 	{
 		if (shape != 0 && shape != 1)
 		{
@@ -929,28 +939,28 @@ public abstract class RSSceneMixin implements RSScene
 						{
 							int lig = 0xFF - ((seLightness >> 1) * (seLightness >> 1) >> 8);
 							pixels[pixelOffset] = ((overlayRgb & 0xFF00FF) * lig & ~0xFF00FF) +
-									((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
+								((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
 						}
 						if (points[indices[shapeOffset++]] != 0)
 						{
 							int lig = 0xFF - ((seLightness * 3 + neLightness >> 3) *
-									(seLightness * 3 + neLightness >> 3) >> 8);
+								(seLightness * 3 + neLightness >> 3) >> 8);
 							pixels[pixelOffset + 1] = ((overlayRgb & 0xFF00FF) * lig & ~0xFF00FF) +
-									((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
+								((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
 						}
 						if (points[indices[shapeOffset++]] != 0)
 						{
 							int lig = 0xFF - ((seLightness + neLightness >> 2) *
-									(seLightness + neLightness >> 2) >> 8);
+								(seLightness + neLightness >> 2) >> 8);
 							pixels[pixelOffset + 2] = ((overlayRgb & 0xFF00FF) * lig & ~0xFF00FF) +
-									((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
+								((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
 						}
 						if (points[indices[shapeOffset++]] != 0)
 						{
 							int lig = 0xFF - ((seLightness + neLightness * 3 >> 3) *
-									(seLightness + neLightness * 3 >> 3) >> 8);
+								(seLightness + neLightness * 3 >> 3) >> 8);
 							pixels[pixelOffset + 3] = ((overlayRgb & 0xFF00FF) * lig & ~0xFF00FF) +
-									((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
+								((overlayRgb & 0xFF00) * lig & 0xFF0000) >> 8;
 						}
 					}
 					seLightness += southDeltaLightness;
@@ -1000,11 +1010,11 @@ public abstract class RSSceneMixin implements RSScene
 				{
 					pixels[pixelOffset] = points[indices[shapeOffset++]] != 0 ? overlayRgb : underlayRgb;
 					pixels[pixelOffset + 1] =
-							points[indices[shapeOffset++]] != 0 ? overlayRgb : underlayRgb;
+						points[indices[shapeOffset++]] != 0 ? overlayRgb : underlayRgb;
 					pixels[pixelOffset + 2] =
-							points[indices[shapeOffset++]] != 0 ? overlayRgb : underlayRgb;
+						points[indices[shapeOffset++]] != 0 ? overlayRgb : underlayRgb;
 					pixels[pixelOffset + 3] =
-							points[indices[shapeOffset++]] != 0 ? overlayRgb : underlayRgb;
+						points[indices[shapeOffset++]] != 0 ? overlayRgb : underlayRgb;
 					pixelOffset += width;
 				}
 			}
