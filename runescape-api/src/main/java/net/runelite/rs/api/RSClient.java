@@ -686,7 +686,7 @@ public interface RSClient extends RSGameShell, Client
 	RSUsername createName(String name, RSLoginType type);
 
 	@Import("getVarbit")
-	int getVarbit(int varbitId);
+	int rs$getVarbit(int varbitId);
 
 	@Import("VarbitDefinition_cached")
 	RSEvictingDualNodeHashTable getVarbitCache();
@@ -1314,4 +1314,16 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("viewportColor")
 	void setViewportColor(int i);
+
+	@Import("changedVarps")
+	int[] getChangedVarps();
+
+	@Import("changedVarpCount")
+	int getChangedVarpCount();
+
+	@Import("changedVarpCount")
+	void setChangedVarpCount(int changedVarpCount);
+
+	@Import("scriptActiveWidget")
+	RSWidget getScriptActiveWidget();
 }

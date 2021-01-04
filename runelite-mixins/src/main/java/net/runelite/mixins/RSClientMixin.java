@@ -77,6 +77,7 @@ import net.runelite.api.Skill;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.Tile;
 import net.runelite.api.VarPlayer;
+import net.runelite.api.VarbitComposition;
 import net.runelite.api.Varbits;
 import net.runelite.api.WidgetNode;
 import net.runelite.api.WorldType;
@@ -106,6 +107,7 @@ import net.runelite.api.events.UsernameChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.VolumeChanged;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.events.WorldChanged;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.mixins.Copy;
@@ -140,6 +142,7 @@ import net.runelite.rs.api.RSTile;
 import net.runelite.rs.api.RSTileItem;
 import net.runelite.rs.api.RSUsername;
 import net.runelite.rs.api.RSWidget;
+import net.runelite.rs.api.RSWorld;
 import org.slf4j.Logger;
 
 @Mixin(RSClient.class)
@@ -2071,12 +2074,38 @@ public abstract class RSClientMixin implements RSClient
 		if (!outdatedScripts.contains(outdatedScript))
 			outdatedScripts.add(outdatedScript);
 	}
-	
+
 	@Inject
 	@Override
 	public List<String> getOutdatedScripts()
 	{
 		return this.outdatedScripts;
+	}
+
+	@Inject
+	@MethodHook(value = "changeWorld", end = true)
+	public static void postChangeWorld(RSWorld world)
+	{
+		client.getCallbacks().post(new WorldChanged());
+	}
+
+	@Inject
+	@Override
+	public void queueChangedVarp(int varp)
+	{
+		assert client.isClientThread() : "queueChangedVarp must be called on client thread";
+
+		int[] changedVarps = client.getChangedVarps();
+		int changedVarpCount = client.getChangedVarpCount();
+		changedVarps[changedVarpCount & 31] = varp;
+		client.setChangedVarpCount(changedVarpCount + 1);
+	}
+
+	@Inject
+	@Override
+	public VarbitComposition getVarbit(int id)
+	{
+		return getVarbitDefinition(id);
 	}
 }
 

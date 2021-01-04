@@ -57,28 +57,19 @@ public abstract class VarbitMixin implements RSClient
 	@Override
 	public RSVarbitComposition getVarbitDefinition(int id)
 	{
-		assert isClientThread();
+		assert client.isClientThread() : "getVarbitDefinition must be called on client thread";
 
-		RSVarbitComposition varbit;
-		varbit = varbitCache.getIfPresent(id);
-		if (varbit != null)
+		RSVarbitComposition varbit = varbitCache.getIfPresent(id);
+
+		if (varbit == null)
 		{
-			return varbit;
-		}
-		varbit = (RSVarbitComposition) getVarbitCache().get(id);
-		if (varbit != null && !(varbit.getIndex() == 0 && varbit.getMostSignificantBit() == 0 && varbit.getLeastSignificantBit() == 0))
-		{
-			return varbit;
+			client.getLogger().trace("Cache miss for varbit {}", id);
+			client.rs$getVarbit(id); // preload varbit
+			varbit = (RSVarbitComposition) getVarbitCache().get(id);
+			varbitCache.put(id, varbit);
 		}
 
-		byte[] fileData = getIndexConfig().getConfigData(VARBITS_GROUP, id);
-		if (fileData == null)
-		{
-			return null;
-		}
-		varbit = newVarbitDefinition();
-		varbit.decode(newBuffer(fileData));
-		return varbit;
+		return varbit.getIndex() == 0 && varbit.getLeastSignificantBit() == 0 && varbit.getMostSignificantBit() == 0 ? null : varbit;
 	}
 
 	@Inject
@@ -90,7 +81,7 @@ public abstract class VarbitMixin implements RSClient
 		RSVarbitComposition v = getVarbitDefinition(varbitId);
 		if (v == null)
 		{
-			throw new IndexOutOfBoundsException(String.format("Varbit %d does not exist!", varbitId)); // oob for "backwards compatibility lol"
+			throw new IndexOutOfBoundsException("Varbit " + varbitId + " does not exist!"); // oob for "backwards compatibility lol"
 		}
 
 		int value = varps[v.getIndex()];
