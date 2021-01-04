@@ -1308,4 +1308,10 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("pcmSampleLength")
 	void setPcmSampleLength(int var0);
+
+	@Import("viewportColor")
+	int getViewportColor();
+
+	@Import("viewportColor")
+	void setViewportColor(int i);
 }

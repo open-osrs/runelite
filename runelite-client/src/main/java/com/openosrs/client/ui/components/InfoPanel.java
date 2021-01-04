@@ -46,7 +46,7 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import net.runelite.client.util.ImageUtil;
-import net.runelite.client.util.LinkBrowser;
+import com.openosrs.client.util.LinkBrowser;
 
 @Slf4j
 public class InfoPanel extends JPanel
