@@ -98,7 +98,7 @@ public class ExternalPluginManager
 	static final String DEVELOPMENT_MANIFEST_PATH = "build/tmp/jar/MANIFEST.MF";
 
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
-	public static PluginManager runelitePluginManager = null;
+	private final PluginManager runelitePluginManager;
 	private org.pf4j.PluginManager externalPluginManager;
 	@Getter(AccessLevel.PUBLIC)
 	private final List<UpdateRepository> repositories = new ArrayList<>();
@@ -125,7 +125,7 @@ public class ExternalPluginManager
 		Groups groups)
 	{
 		this.safeMode = safeMode;
-		runelitePluginManager = pluginManager;
+		this.runelitePluginManager = pluginManager;
 		this.openOSRSConfig = openOSRSConfig;
 		this.eventBus = eventBus;
 		this.executorService = executorService;
