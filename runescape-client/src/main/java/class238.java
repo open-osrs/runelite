@@ -41,7 +41,7 @@ public class class238 {
 		garbageValue = "1585982662"
 	)
 	public static String method4166(CharSequence var0) {
-		String var1 = ParamDefinition.base37DecodeLong(Renderable.method3340(var0)); // L: 75
+		String var1 = ParamComposition.base37DecodeLong(Renderable.method3340(var0)); // L: 75
 		if (var1 == null) { // L: 76
 			var1 = "";
 		}

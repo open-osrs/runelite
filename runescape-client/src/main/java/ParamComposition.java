@@ -5,8 +5,8 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jl")
-@Implements("ParamDefinition")
-public class ParamDefinition extends DualNode {
+@Implements("ParamComposition")
+public class ParamComposition extends DualNode {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Lib;"
@@ -39,7 +39,7 @@ public class ParamDefinition extends DualNode {
 		ParamDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
 	}
 
-	ParamDefinition() {
+	ParamComposition() {
 		this.autoDisable = true; // L: 16
 	} // L: 18
 
@@ -120,7 +120,7 @@ public class ParamDefinition extends DualNode {
 		garbageValue = "1899658312"
 	)
 	public static void method4526(AbstractArchive var0) {
-		StructDefinition.StructDefinition_archive = var0; // L: 19
+		StructComposition.StructDefinition_archive = var0; // L: 19
 	} // L: 20
 
 	@ObfuscatedName("v")

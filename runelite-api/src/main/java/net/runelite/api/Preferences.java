@@ -43,15 +43,27 @@ public interface Preferences
 	 */
 	void setRememberedUsername(String username);
 
+	/**
+	 * Gets the sound effect volume
+	 * @return volume 0-127 inclusive
+	 */
 	int getSoundEffectVolume();
 
-	void setSoundEffectVolume(int i);
+	/**
+	 * Sets the sound effect volume
+	 * @param volume 0-127 inclusive
+	 */
+	void setSoundEffectVolume(int volume);
 
+	/**
+	 * Gets the area sound effect volume
+	 * @return volume 0-127 inclusive
+	 */
 	int getAreaSoundEffectVolume();
 
-	void setAreaSoundEffectVolume(int i);
-
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	/**
+	 * Sets the area sound effect volume
+	 * @param volume 0-127 inclusive
+	 */
+	void setAreaSoundEffectVolume(int volume);
 }

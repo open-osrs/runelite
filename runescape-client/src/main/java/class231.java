@@ -157,7 +157,7 @@ public class class231 {
 					var12.isIf3 = true; // L: 452
 					var6.children[var11] = var12; // L: 453
 					if (var2) { // L: 454
-						PlayerComposition.field2561 = var12;
+						PlayerComposition.scriptDotWidget = var12;
 					} else {
 						VarcInt.scriptActiveWidget = var12; // L: 455
 					}
@@ -169,7 +169,7 @@ public class class231 {
 		} else {
 			Widget var3;
 			if (var0 == ScriptOpcodes.CC_DELETE) { // L: 459
-				var3 = var2 ? PlayerComposition.field2561 : VarcInt.scriptActiveWidget; // L: 460
+				var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 460
 				Widget var10 = CollisionMap.getWidget(var3.id); // L: 461
 				var10.children[var3.childIndex] = null; // L: 462
 				CollisionMap.invalidateWidget(var10); // L: 463
@@ -185,7 +185,7 @@ public class class231 {
 					if (var3 != null) { // L: 487
 						Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 1; // L: 488
 						if (var2) { // L: 489
-							PlayerComposition.field2561 = var3;
+							PlayerComposition.scriptDotWidget = var3;
 						} else {
 							VarcInt.scriptActiveWidget = var3; // L: 490
 						}
@@ -205,7 +205,7 @@ public class class231 {
 				if (var5 != null && var4 != -1) { // L: 477
 					Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 1; // L: 478
 					if (var2) { // L: 479
-						PlayerComposition.field2561 = var5;
+						PlayerComposition.scriptDotWidget = var5;
 					} else {
 						VarcInt.scriptActiveWidget = var5; // L: 480
 					}

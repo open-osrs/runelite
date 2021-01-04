@@ -8,4 +8,8 @@ public interface RSInterfaceParent extends RSNode, WidgetNode
 	@Import("group")
 	@Override
 	int getId();
+
+	@Import("type")
+	@Override
+	int getModalMode();
 }

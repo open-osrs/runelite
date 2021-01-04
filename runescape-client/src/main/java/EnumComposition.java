@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jx")
-@Implements("EnumDefinition")
+@Implements("EnumComposition")
 public class EnumComposition extends DualNode {
 	@ObfuscatedName("rk")
 	@ObfuscatedGetter(

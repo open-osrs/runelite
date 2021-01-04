@@ -37,7 +37,8 @@ public class PlayerComposition
 	@ObfuscatedSignature(
 		descriptor = "Lhe;"
 	)
-	static Widget field2561;
+	@Export("scriptDotWidget")
+	static Widget scriptDotWidget;
 	@ObfuscatedName("kn")
 	@ObfuscatedSignature(
 		descriptor = "Lbq;"

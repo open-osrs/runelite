@@ -72,9 +72,6 @@ public interface Callbacks
 	 */
 	void drawAboveOverheads();
 
-	void drawLayer(Widget layer, List<WidgetItem> widgetItems);
-
-	void drawInterface(int interfaceId, List<WidgetItem> widgetItems);
 	/**
 	 * Client top-most draw method, rendering over top of most of game interfaces.
 	 *
@@ -84,6 +81,20 @@ public interface Callbacks
 	 * @param y                  the y
 	 */
 	void draw(MainBufferProvider mainBufferProvider, Graphics graphics, int x, int y);
+
+	/**
+	 * Called after an interface has been drawn
+	 * @param interfaceId the interface id
+	 * @param widgetItems Widget items within the interface
+	 */
+	void drawInterface(int interfaceId, List<WidgetItem> widgetItems);
+
+	/**
+	 * Called after a widget layer has been drawn
+	 * @param layer The layer
+	 * @param widgetItems Widget items within the layer
+	 */
+	void drawLayer(Widget layer, List<WidgetItem> widgetItems);
 
 	/**
 	 * Mouse pressed event. If this event will be consumed it will not be propagated further to client.

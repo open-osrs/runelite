@@ -67,17 +67,19 @@ import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.NameableContainer;
 import net.runelite.api.Node;
+import net.runelite.api.NodeCache;
 import net.runelite.api.ObjectComposition;
 import static net.runelite.api.Perspective.LOCAL_TILE_SIZE;
 import net.runelite.api.Player;
 import net.runelite.api.Point;
 import net.runelite.api.Prayer;
 import net.runelite.api.Projectile;
+import net.runelite.api.ScriptEvent;
 import net.runelite.api.Skill;
 import net.runelite.api.SpritePixels;
+import net.runelite.api.StructComposition;
 import net.runelite.api.Tile;
 import net.runelite.api.VarPlayer;
-import net.runelite.api.VarbitComposition;
 import net.runelite.api.Varbits;
 import net.runelite.api.WidgetNode;
 import net.runelite.api.WorldType;
@@ -101,11 +103,13 @@ import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.events.PlayerMenuOptionsChanged;
 import net.runelite.api.events.PlayerSpawned;
+import net.runelite.api.events.PostStructComposition;
 import net.runelite.api.events.ResizeableChanged;
 import net.runelite.api.events.StatChanged;
 import net.runelite.api.events.UsernameChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.VolumeChanged;
+import net.runelite.api.events.WidgetClosed;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.events.WorldChanged;
 import net.runelite.api.hooks.Callbacks;
@@ -129,6 +133,7 @@ import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEnumComposition;
 import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
+import net.runelite.rs.api.RSInterfaceParent;
 import net.runelite.rs.api.RSItemContainer;
 import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSNode;
@@ -137,7 +142,9 @@ import net.runelite.rs.api.RSNodeHashTable;
 import net.runelite.rs.api.RSPacketBuffer;
 import net.runelite.rs.api.RSPlayer;
 import net.runelite.rs.api.RSScene;
+import net.runelite.rs.api.RSScriptEvent;
 import net.runelite.rs.api.RSSpritePixels;
+import net.runelite.rs.api.RSStructComposition;
 import net.runelite.rs.api.RSTile;
 import net.runelite.rs.api.RSTileItem;
 import net.runelite.rs.api.RSUsername;
@@ -725,24 +732,6 @@ public abstract class RSClientMixin implements RSClient
 	public void refreshChat()
 	{
 		setChatCycle(getCycleCntr());
-	}
-
-	@Inject
-	@Override
-	public Widget getViewportWidget()
-	{
-		if (isResized())
-		{
-			if (getVar(Varbits.SIDE_PANELS) == 1)
-			{
-				return getWidget(WidgetInfo.RESIZABLE_VIEWPORT_BOTTOM_LINE);
-			}
-			else
-			{
-				return getWidget(WidgetInfo.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX);
-			}
-		}
-		return getWidget(WidgetInfo.FIXED_VIEWPORT);
 	}
 
 	@Inject
@@ -1565,23 +1554,22 @@ public abstract class RSClientMixin implements RSClient
 			else if (widget.getContentType() == WidgetType.RECTANGLE)
 			{
 				if (renderX == client.getViewportXOffset() && renderY == client.getViewportYOffset()
-				&& widget.getWidth() == client.getViewportWidth() && widget.getHeight() == client.getViewportHeight()
+					&& widget.getWidth() == client.getViewportWidth() && widget.getHeight() == client.getViewportHeight()
 					&& widget.getOpacity() > 0 && widget.isFilled() && client.isGpu())
 				{
 					int tc = widget.getTextColor();
-				int alpha = widget.getOpacity() & 0xFF;
-				int inverseAlpha = 256 - alpha;
-				int vpc = viewportColor;
-				int c1 = (alpha * (tc & 0xff00ff) >> 8 & 0xFF00FF) + (alpha * (tc & 0x00FF00) >> 8 & 0x00FF00);
-				int c2 = (inverseAlpha * (vpc & 0xff00ff) >> 8 & 0xFF00FF) + (inverseAlpha * (vpc & 0x00FF00) >> 8 & 0x00FF00);
-				int outAlpha = alpha + ((vpc >>> 24) * (255 - alpha) * 0x8081 >>> 23);
-				viewportColor = outAlpha << 24 | c1 + c2;
-				widget.setHidden(true);
-				hiddenWidgets.add(widget);
-				continue;
+					int alpha = widget.getOpacity() & 0xFF;
+					int inverseAlpha = 256 - alpha;
+					int vpc = viewportColor;
+					int c1 = (alpha * (tc & 0xff00ff) >> 8 & 0xFF00FF) + (alpha * (tc & 0x00FF00) >> 8 & 0x00FF00);
+					int c2 = (inverseAlpha * (vpc & 0xff00ff) >> 8 & 0xFF00FF) + (inverseAlpha * (vpc & 0x00FF00) >> 8 & 0x00FF00);
+					int outAlpha = alpha + ((vpc >>> 24) * (255 - alpha) * 0x8081 >>> 23);
+					viewportColor = outAlpha << 24 | c1 + c2;
+					widget.setHidden(true);
+					hiddenWidgets.add(widget);
+					continue;
 				}
 			}
-
 
 			WidgetNode childNode = componentTable.get(widget.getId());
 			if (childNode != null)
@@ -2108,16 +2096,85 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public VarbitComposition getVarbit(int id)
+	public ScriptEvent createScriptEvent(Object... args)
 	{
-		return getVarbitDefinition(id);
+		return createRSScriptEvent(args);
 	}
 
 	@Inject
 	@Override
-	public int getViewportColor()
+	public RSScriptEvent createRSScriptEvent(Object... args)
 	{
-		return viewportColor;
+		RSScriptEvent event = createScriptEvent();
+		event.setArguments(args);
+		return event;
+	}
+
+	@Inject
+	@Override
+	public NodeCache getStructCompositionCache()
+	{
+		assert client.isClientThread() : "getStructCompositionCache must be called on client thread";
+
+		return getRSStructCompositionCache();
+	}
+
+	@Inject
+	@Override
+	public StructComposition getStructComposition(int structID)
+	{
+		assert client.isClientThread() : "getStructComposition must be called on client thread";
+
+		return getRSStructComposition(structID);
+	}
+
+	@Copy("StructDefinition_getStructDefinition")
+	@Replace("StructDefinition_getStructDefinition")
+	@SuppressWarnings("InfiniteRecursion")
+	static RSStructComposition copy$getStructComposition(int id)
+	{
+		RSStructComposition comp = copy$getStructComposition(id);
+
+		if (comp.getId() == -1)
+		{
+			comp.setId(id);
+			PostStructComposition event = new PostStructComposition();
+			event.setStructComposition(comp);
+			client.getCallbacks().post(event);
+		}
+
+		return comp;
+	}
+
+	@Inject
+	@Override
+	public int getMusicVolume()
+	{
+		return client.getPreferences().getMusicVolume();
+	}
+
+	@Inject
+	@Override
+	public void setMusicVolume(int volume)
+	{
+		if (volume > 0 && client.getPreferences().getMusicVolume() <= 0 && client.getCurrentTrackGroupId() != -1)
+		{
+			client.playMusicTrack(1000, client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
+		}
+
+		client.getPreferences().setMusicVolume(volume);
+		client.setMusicTrackVolume(volume);
+		if (client.getMidiPcmStream() != null)
+		{
+			client.getMidiPcmStream().setPcmStreamVolume(volume);
+		}
+	}
+
+	@Inject
+	@MethodHook("closeInterface")
+	public static void preCloseInterface(RSInterfaceParent iface, boolean willUnload)
+	{
+		client.getCallbacks().post(new WidgetClosed(iface.getId(), iface.getModalMode(), willUnload));
 	}
 }
 

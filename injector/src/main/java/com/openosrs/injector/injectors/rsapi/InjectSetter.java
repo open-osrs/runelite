@@ -102,7 +102,15 @@ public class InjectSetter
 			ins.add(new PutField(instructions, field));
 		}
 
-		ins.add(new VReturn(instructions));
+		if (!apiMethod.getSignature().getReturnValue().equals(Type.VOID))
+		{
+			ins.add(new ALoad(instructions, 0));
+			ins.add(InjectUtil.createReturnForType(instructions, apiMethod.getSignature().getReturnValue()));
+		}
+		else
+		{
+			ins.add(new VReturn(instructions));
+		}
 
 		targetClass.addMethod(method);
 	}

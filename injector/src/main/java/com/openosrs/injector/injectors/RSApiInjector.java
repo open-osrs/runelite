@@ -118,9 +118,9 @@ public class RSApiInjector extends AbstractInjector
 
 				final Signature sig = apiMethod.getSignature();
 
-				if (sig.isVoid())
+				if (sig.size() == 1)
 				{
-					if (sig.size() == 1)
+					if (sig.isVoid() || sig.getReturnValue().equals(Type.fromAsmString(apiMethod.getClazz().getName())))
 					{
 						Type type = InjectUtil.apiToDeob(inject, sig.getTypeOfArg(0));
 						if (deobType.equals(type))
@@ -276,7 +276,7 @@ public class RSApiInjector extends AbstractInjector
 			final ClassFile targetClass = InjectUtil.vanillaFromApiMethod(inject, apiMethod);
 			apiMethod.setInjected(true);
 
-			if (apiMethod.getSignature().isVoid())
+			if (apiMethod.getSignature().getArguments().size() == 1)
 			{
 				++set;
 				log.debug("[DEBUG] Injecting setter {} for {} into {}", apiMethod.getMethod(), field.getPoolField(), targetClass.getPoolClass());

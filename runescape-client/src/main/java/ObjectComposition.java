@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jm")
-@Implements("ObjectDefinition")
+@Implements("ObjectComposition")
 public class ObjectComposition extends DualNode {
 	@ObfuscatedName("h")
 	@Export("ObjectDefinition_isLowDetail")
