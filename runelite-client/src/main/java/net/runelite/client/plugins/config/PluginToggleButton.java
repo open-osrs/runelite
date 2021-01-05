@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
+import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
 
@@ -40,7 +41,7 @@ class PluginToggleButton extends JToggleButton
 	static
 	{
 		BufferedImage onSwitcher = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "switcher_on.png");
-		ON_SWITCHER = new ImageIcon(onSwitcher);
+		ON_SWITCHER = new ImageIcon(ImageUtil.recolorImage(onSwitcher, ColorScheme.BRAND_BLUE));
 		OFF_SWITCHER = new ImageIcon(ImageUtil.flipImage(
 			ImageUtil.luminanceScale(
 				ImageUtil.grayscaleImage(onSwitcher),
