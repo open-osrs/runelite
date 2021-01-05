@@ -76,7 +76,7 @@ class PluginListItem extends JPanel implements SearchablePlugin
 		BufferedImage configIcon = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "config_edit_icon.png");
 		BufferedImage onStar = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "star_on.png");
 		CONFIG_ICON = new ImageIcon(configIcon);
-		ON_STAR = new ImageIcon(onStar);
+		ON_STAR = new ImageIcon(ImageUtil.recolorImage(onStar, ColorScheme.BRAND_BLUE));
 		CONFIG_ICON_HOVER = new ImageIcon(ImageUtil.luminanceOffset(configIcon, -100));
 
 		BufferedImage offStar = ImageUtil.luminanceScale(
@@ -216,7 +216,7 @@ class PluginListItem extends JPanel implements SearchablePlugin
 	}
 
 	/**
-	 * Adds a mouseover effect to change the text of the passed label to {@link ColorScheme#BRAND_ORANGE} color, and
+	 * Adds a mouseover effect to change the text of the passed label to {@link ColorScheme#BRAND_BLUE} color, and
 	 * adds the passed menu items to a popup menu shown when the label is clicked.
 	 *
 	 * @param label     The label to attach the mouseover and click effects to
@@ -258,7 +258,7 @@ class PluginListItem extends JPanel implements SearchablePlugin
 			public void mouseEntered(MouseEvent mouseEvent)
 			{
 				lastForeground = label.getForeground();
-				label.setForeground(ColorScheme.BRAND_ORANGE);
+				label.setForeground(ColorScheme.BRAND_BLUE);
 			}
 
 			@Override

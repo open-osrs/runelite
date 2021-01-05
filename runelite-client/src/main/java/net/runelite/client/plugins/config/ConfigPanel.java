@@ -285,7 +285,7 @@ class ConfigPanel extends PluginPanel
 
 			String name = cs.name();
 			final JLabel sectionName = new JLabel(name);
-			sectionName.setForeground(ColorScheme.BRAND_ORANGE);
+			sectionName.setForeground(ColorScheme.BRAND_BLUE);
 			sectionName.setFont(FontManager.getRunescapeBoldFont());
 			sectionName.setToolTipText("<html>" + name + ":<br>" + cs.description() + "</html>");
 			sectionHeader.add(sectionName, BorderLayout.CENTER);
