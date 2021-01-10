@@ -108,7 +108,7 @@ public class ClientUI
 	private static final String CONFIG_CLIENT_BOUNDS = "clientBounds";
 	private static final String CONFIG_CLIENT_MAXIMIZED = "clientMaximized";
 	private static final String CONFIG_CLIENT_SIDEBAR_CLOSED = "clientSidebarClosed";
-	public static final BufferedImage ICON = ImageUtil.getResourceStreamFromClass(ClientUI.class, "/openosrs.png");
+	public static final BufferedImage ICON = ImageUtil.loadImageResource(ClientUI.class, "/openosrs.png");
 
 	@Getter
 	private TrayIcon trayIcon;
@@ -128,8 +128,9 @@ public class ClientUI
 	private boolean withTitleBar;
 	private BufferedImage sidebarOpenIcon;
 	private BufferedImage sidebarClosedIcon;
+
 	@Getter
-	private static ContainableFrame frame;
+	public static ContainableFrame frame;
 	private JPanel navContainer;
 	private PluginPanel pluginPanel;
 	private ClientPluginToolbar pluginToolbar;
@@ -475,7 +476,7 @@ public class ClientUI
 
 			// Create hide sidebar button
 
-			sidebarOpenIcon = ImageUtil.getResourceStreamFromClass(ClientUI.class, withTitleBar ? "open.png" : "open_rs.png");
+			sidebarOpenIcon = ImageUtil.loadImageResource(ClientUI.class, withTitleBar ? "open.png" : "open_rs.png");
 			sidebarClosedIcon = ImageUtil.flipImage(sidebarOpenIcon, true, false);
 
 			sidebarNavigationButton = NavigationButton

@@ -269,6 +269,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 	private int uniBlockLarge;
 	private int uniBlockMain;
 	private int uniSmoothBanding;
+	private int uniTextureLightMode;
 
 	@Override
 	protected void startUp()
@@ -538,6 +539,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 		uniFogDepth = gl.glGetUniformLocation(glProgram, "fogDepth");
 		uniDrawDistance = gl.glGetUniformLocation(glProgram, "drawDistance");
 		uniColorBlindMode = gl.glGetUniformLocation(glProgram, "colorBlindMode");
+		uniTextureLightMode = gl.glGetUniformLocation(glProgram, "textureLightMode");
 
 		uniTex = gl.glGetUniformLocation(glUiProgram, "tex");
 		uniTexSamplingMode = gl.glGetUniformLocation(glUiProgram, "samplingMode");
@@ -791,9 +793,9 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 				.put(client.getCenterX())
 				.put(client.getCenterY())
 				.put(client.getScale())
-				.put(client.getCameraX2())
-				.put(client.getCameraY2())
-				.put(client.getCameraZ2());
+				.put(cameraX)
+				.put(cameraY)
+				.put(cameraZ);
 			uniformBuffer.flip();
 
 			gl.glBufferSubData(gl.GL_UNIFORM_BUFFER, 0, uniformBuffer.limit() * Integer.BYTES, uniformBuffer);
@@ -1151,6 +1153,7 @@ public class GpuPlugin extends Plugin implements DrawCallbacks
 			gl.glUniform1f(uniBrightness, (float) textureProvider.getBrightness());
 			gl.glUniform1f(uniSmoothBanding, config.smoothBanding() ? 0f : 1f);
 			gl.glUniform1i(uniColorBlindMode, config.colorBlindMode().ordinal());
+			gl.glUniform1f(uniTextureLightMode, config.brightTextures() ? 1f : 0f);
 
 			// Calculate projection matrix
 			Matrix4 projectionMatrix = new Matrix4();

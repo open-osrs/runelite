@@ -76,7 +76,6 @@ class PluginListPanel extends PluginPanel
 	private static final String RUNELITE_GROUP_NAME = RuneLiteConfig.class.getAnnotation(ConfigGroup.class).value();
 	private static final String PINNED_PLUGINS_CONFIG_KEY = "pinnedPlugins";
 	private static final ImmutableList<String> CATEGORY_TAGS = ImmutableList.of(
-		"OpenOSRS",
 		"Combat",
 		"Chat",
 		"Item",
