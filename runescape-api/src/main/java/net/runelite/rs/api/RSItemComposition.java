@@ -84,4 +84,10 @@ public interface RSItemComposition extends ItemComposition
 
 	@Import("retextureTo")
 	short[] getTextureToReplaceWith();
+
+	@Import("params")
+	RSIterableNodeHashTable getParams();
+
+	@Import("params")
+	void setParams(RSIterableNodeHashTable params);
 }

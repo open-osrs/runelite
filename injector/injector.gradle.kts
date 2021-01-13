@@ -31,6 +31,9 @@ tasks.register<JavaExec>("inject") {
     main = "com.openosrs.injector.Injector"
     classpath = sourceSets["main"].runtimeClasspath
     args(vanillaDep.singleFile, openosrsVersion)
+    outputs.upToDateWhen {
+        false
+    }
 }
 
 tasks {

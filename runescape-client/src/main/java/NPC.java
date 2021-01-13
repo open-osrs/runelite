@@ -71,7 +71,7 @@ public final class NPC extends Actor {
 			--var4; // L: 35
 		}
 
-		if (super.sequence != -1 && ParamDefinition.SequenceDefinition_get(super.sequence).field3555 == 1) { // L: 37
+		if (super.sequence != -1 && ParamComposition.SequenceDefinition_get(super.sequence).field3555 == 1) { // L: 37
 			super.sequence = -1;
 		}
 
@@ -96,7 +96,7 @@ public final class NPC extends Actor {
 		garbageValue = "-169739231"
 	)
 	final void method2106(int var1, int var2, boolean var3) {
-		if (super.sequence != -1 && ParamDefinition.SequenceDefinition_get(super.sequence).field3555 == 1) { // L: 50
+		if (super.sequence != -1 && ParamComposition.SequenceDefinition_get(super.sequence).field3555 == 1) { // L: 50
 			super.sequence = -1;
 		}
 
@@ -140,8 +140,8 @@ public final class NPC extends Actor {
 		if (this.definition == null) { // L: 77
 			return null;
 		} else {
-			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? ParamDefinition.SequenceDefinition_get(super.sequence) : null; // L: 78
-			SequenceDefinition var2 = super.movementSequence != -1 && (super.idleSequence != super.movementSequence || var1 == null) ? ParamDefinition.SequenceDefinition_get(super.movementSequence) : null; // L: 79
+			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? ParamComposition.SequenceDefinition_get(super.sequence) : null; // L: 78
+			SequenceDefinition var2 = super.movementSequence != -1 && (super.idleSequence != super.movementSequence || var1 == null) ? ParamComposition.SequenceDefinition_get(super.movementSequence) : null; // L: 79
 			Model var3 = this.definition.getModel(var1, super.sequenceFrame, var2, super.movementFrame); // L: 80
 			if (var3 == null) {
 				return null;

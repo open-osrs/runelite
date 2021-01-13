@@ -686,7 +686,7 @@ public interface RSClient extends RSGameShell, Client
 	RSUsername createName(String name, RSLoginType type);
 
 	@Import("getVarbit")
-	int getVarbit(int varbitId);
+	int rs$getVarbit(int varbitId);
 
 	@Import("VarbitDefinition_cached")
 	RSEvictingDualNodeHashTable getVarbitCache();
@@ -1308,4 +1308,46 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("pcmSampleLength")
 	void setPcmSampleLength(int var0);
+
+	@Import("changedVarps")
+	int[] getChangedVarps();
+
+	@Import("changedVarpCount")
+	int getChangedVarpCount();
+
+	@Import("changedVarpCount")
+	void setChangedVarpCount(int changedVarpCount);
+
+	@Import("scriptActiveWidget")
+	RSWidget getScriptActiveWidget();
+
+	@Import("scriptDotWidget")
+	RSWidget getScriptDotWidget();
+
+	RSScriptEvent createRSScriptEvent(Object... args);
+
+	void runScriptEvent(RSScriptEvent event);
+
+	@Import("Script_cached")
+	RSEvictingDualNodeHashTable getScriptCache();
+
+	@Import("StructDefinition_cached")
+	RSEvictingDualNodeHashTable getRSStructCompositionCache();
+
+	@Import("StructDefinition_getStructDefinition")
+	RSStructComposition getRSStructComposition(int id);
+
+	@Import("getParamDefinition")
+	RSParamComposition getRSParamComposition(int id);
+
+	@Construct
+	RSIntegerNode newIntegerNode(int contents);
+
+	@Construct
+	RSObjectNode newObjectNode(Object contents);
+
+	@Construct
+	RSIterableNodeHashTable newIterableNodeHashTable(int size);
+
+	RSVarbitComposition getVarbitComposition(int id);
 }

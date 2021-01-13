@@ -24,49 +24,36 @@ import com.openosrs.injector.injectors.raw.ScriptVM;
 import com.openosrs.injector.rsapi.RSApi;
 import com.openosrs.injector.transformers.InjectTransformer;
 import com.openosrs.injector.transformers.SourceChanger;
+import static net.runelite.deob.util.JarUtil.load;
+import static net.runelite.deob.util.JarUtil.save;
 import java.io.File;
-import java.io.IOException;
-import net.runelite.deob.util.JarUtil;
+import java.util.Objects;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
 
 public class Injector extends InjectData implements InjectTaskHandler
 {
-	private static final Logger log = Logging.getLogger(Injector.class);
-
-	public Injector(File vanilla, File rsclient, File mixins, File[] rsapi) throws IOException
-	{
-		super(
-			JarUtil.loadJar(vanilla),
-			JarUtil.loadJar(rsclient),
-			JarUtil.loadJar(mixins),
-			new RSApi(rsapi)
-		);
-		inject();
-		save(new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs"));
-	}
+	static final Logger log = Logging.getLogger(Injector.class);
+	static Injector injector = new Injector();
+	static File injectedClient =
+		new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs");
 
 	public static void main(String[] args)
 	{
-		try
-		{
-			args = new String[]
-				{
-					args[0],
-					"../runescape-client/build/libs/runescape-client-" + args[1] + ".jar",
-					"../runelite-mixins/build/libs/runelite-mixins-" + args[1] + ".jar",
-					"../runescape-api/build/classes/java/main/net/runelite/rs/api/"
-				};
-			new Injector(new File(args[0]), new File(args[1]), new File(args[2]), new File(args[3]).listFiles());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
+		injector.vanilla = load(new File(args[0]));
+		injector.deobfuscated = load(
+			new File("../runescape-client/build/libs/runescape-client-" + args[1] + ".jar"));
+		injector.rsApi = new RSApi(Objects.requireNonNull(
+			new File("../runescape-api/build/classes/java/main/net/runelite/rs/api/")
+				.listFiles()));
+		injector.mixins = load(
+			new File("../runelite-mixins/build/libs/runelite-mixins-" + args[1] + ".jar"));
+		injector.initToVanilla();
+		injector.injectVanilla();
+		save(injector.getVanilla(), injectedClient);
 	}
 
-	public void inject()
+	public void injectVanilla()
 	{
 		log.debug("[DEBUG] Starting injection");
 
@@ -104,13 +91,6 @@ public class Injector extends InjectData implements InjectTaskHandler
 		validate(new InjectorValidator(this));
 
 		transform(new SourceChanger(this));
-	}
-
-	public void save(File outputJar) throws IOException
-	{
-		log.info("[INFO] Saving jar to {}", outputJar.toString());
-
-		JarUtil.saveJar(this.getVanilla(), outputJar);
 	}
 
 	private void inject(com.openosrs.injector.injectors.Injector injector)

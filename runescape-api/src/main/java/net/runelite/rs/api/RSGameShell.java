@@ -57,4 +57,7 @@ public interface RSGameShell extends GameShell
 
 	@Import("maxCanvasHeight")
 	void setMaxCanvasHeight(int height);
+
+	@Import("fullRedraw")
+	void setFullRedraw(boolean fullRedraw);
 }

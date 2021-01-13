@@ -32,6 +32,7 @@ import com.openosrs.client.config.OpenOSRSConfig;
 import com.openosrs.client.util.NonScheduledExecutorServiceExceptionLogger;
 import java.applet.Applet;
 import java.io.File;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -75,6 +76,12 @@ public class RuneLiteModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
+		Properties properties = RuneLiteProperties.getProperties();
+		for (String key : properties.stringPropertyNames())
+		{
+			String value = properties.getProperty(key);
+			bindConstant().annotatedWith(Names.named(key)).to(value);
+		}
 		bindConstant().annotatedWith(Names.named("developerMode")).to(developerMode);
 		bindConstant().annotatedWith(Names.named("safeMode")).to(safeMode);
 		bind(File.class).annotatedWith(Names.named("sessionfile")).toInstance(sessionfile);

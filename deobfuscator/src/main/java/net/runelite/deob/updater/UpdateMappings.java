@@ -82,7 +82,7 @@ public class UpdateMappings
 
 	public void save(File out) throws IOException
 	{
-		JarUtil.saveJar(group2, out);
+		JarUtil.save(group2, out);
 	}
 
 	public static void main(String[] args) throws IOException
@@ -93,8 +93,8 @@ public class UpdateMappings
 		}
 
 		UpdateMappings u = new UpdateMappings(
-			JarUtil.loadJar(new File(args[0])),
-			JarUtil.loadJar(new File(args[1]))
+			JarUtil.load(new File(args[0])),
+			JarUtil.load(new File(args[1]))
 		);
 		u.update();
 		u.save(new File(args[2]));

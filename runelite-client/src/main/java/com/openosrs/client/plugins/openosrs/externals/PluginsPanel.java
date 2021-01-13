@@ -1,6 +1,12 @@
 package com.openosrs.client.plugins.openosrs.externals;
 
+import com.openosrs.client.plugins.ExternalPluginManager;
 import com.google.gson.JsonSyntaxException;
+import com.openosrs.client.events.ExternalPluginChanged;
+import com.openosrs.client.events.ExternalRepositoryChanged;
+import com.openosrs.client.util.DeferredDocumentChangedListener;
+import com.openosrs.client.util.ImageUtil;
+import com.openosrs.client.util.SwingUtil;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -32,10 +38,6 @@ import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import static net.runelite.api.util.Text.DISTANCE;
 import net.runelite.client.eventbus.EventBus;
-import com.openosrs.client.events.ExternalPluginChanged;
-import com.openosrs.client.events.ExternalRepositoryChanged;
-import com.openosrs.client.plugins.ExternalPluginManager;
-import static com.openosrs.client.plugins.openosrs.externals.ExternalPluginManagerPanel.wrapContainer;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.ColorScheme;
@@ -43,9 +45,6 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.IconTextField;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
-import com.openosrs.client.util.DeferredDocumentChangedListener;
-import com.openosrs.client.util.ImageUtil;
-import com.openosrs.client.util.SwingUtil;
 import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateManager;
 import org.pf4j.update.UpdateRepository;
@@ -112,8 +111,8 @@ public class PluginsPanel extends JPanel
 
 		JTabbedPane mainTabPane = new JTabbedPane();
 
-		mainTabPane.add("Installed", wrapContainer(installedPluginsPanel()));
-		mainTabPane.add("Available", wrapContainer(availablePluginsPanel()));
+		mainTabPane.add("Installed", ExternalPluginManagerPanel.wrapContainer(installedPluginsPanel()));
+		mainTabPane.add("Available", ExternalPluginManagerPanel.wrapContainer(availablePluginsPanel()));
 
 		add(filterwrapper, BorderLayout.NORTH);
 		add(mainTabPane, BorderLayout.CENTER);

@@ -32,4 +32,10 @@ public interface RSObjectComposition extends ObjectComposition
 	@Import("transform")
 	@Override
 	RSObjectComposition getImpostor();
+
+	@Import("params")
+	RSIterableNodeHashTable getParams();
+
+	@Import("params")
+	void setParams(RSIterableNodeHashTable params);
 }

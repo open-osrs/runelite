@@ -31,21 +31,21 @@ public abstract class InjectData
 	public static final String CALLBACKS = "net/runelite/api/hooks/Callbacks";
 
 	@Getter
-	private final ClassGroup vanilla;
+	public ClassGroup vanilla;
 
 	@Getter
-	private final ClassGroup deobfuscated;
+	public ClassGroup deobfuscated;
 
 	@Getter
-	private final ClassGroup mixins;
+	public ClassGroup mixins;
 
 	@Getter
-	private final RSApi rsApi;
+	public RSApi rsApi;
 
 	/**
 	 * Deobfuscated ClassFiles -> Vanilla ClassFiles
 	 */
-	private final Map<ClassFile, ClassFile> toVanilla;
+	public Map<ClassFile, ClassFile> toVanilla;
 
 	/**
 	 * Strings -> Deobfuscated ClassFiles
@@ -55,18 +55,9 @@ public abstract class InjectData
 	 */
 	private final Map<String, ClassFile> toDeob = new HashMap<>();
 
-	public InjectData(ClassGroup vanilla, ClassGroup deobfuscated, ClassGroup mixins, RSApi rsApi)
-	{
-		this.vanilla = vanilla;
-		this.deobfuscated = deobfuscated;
-		this.rsApi = rsApi;
-		this.mixins = mixins;
-		this.toVanilla = initToVanilla();
-	}
-
 	public abstract void runChildInjector(Injector injector);
 
-	private Map<ClassFile, ClassFile> initToVanilla()
+	public void initToVanilla()
 	{
 		ImmutableMap.Builder<ClassFile, ClassFile> toVanillaB = ImmutableMap.builder();
 
@@ -88,7 +79,7 @@ public abstract class InjectData
 			}
 		}
 
-		return toVanillaB.build();
+		this.toVanilla = toVanillaB.build();
 	}
 
 	/**

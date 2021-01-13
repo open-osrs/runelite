@@ -27,6 +27,7 @@ package net.runelite.mixins;
 import net.runelite.api.events.FocusChanged;
 import net.runelite.api.hooks.DrawCallbacks;
 import java.awt.event.FocusEvent;
+import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.MethodHook;
@@ -41,6 +42,9 @@ public abstract class RSGameShellMixin implements RSGameShell
 {
 	@Shadow("client")
 	private static RSClient client;
+
+	@Shadow("viewportColor")
+	private static int viewportColor;
 
 	@Inject
 	private Thread thread;
@@ -83,7 +87,7 @@ public abstract class RSGameShellMixin implements RSGameShell
 		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
 		if (drawCallbacks != null)
 		{
-			drawCallbacks.draw();
+			drawCallbacks.draw(viewportColor);
 		}
 	}
 
@@ -104,5 +108,19 @@ public abstract class RSGameShellMixin implements RSGameShell
 	{
 		//Always allow host.
 		return true;
+	}
+
+	@Copy("replaceCanvas")
+	@Replace("replaceCanvas")
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$replaceCanvas()
+	{
+		if (client != null && client.isGpu())
+		{
+			setFullRedraw(false);
+			return;
+		}
+
+		copy$replaceCanvas();
 	}
 }

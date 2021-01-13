@@ -62,12 +62,12 @@ public class UpdateMappingsTest
 	{
 		File client = new File(properties.getRsClient());
 
-		ClassGroup group1 = JarUtil.loadJar(client);
-		ClassGroup group2 = JarUtil.loadJar(new File(JAR));
+		ClassGroup group1 = JarUtil.load(client);
+		ClassGroup group2 = JarUtil.load(new File(JAR));
 
 		map(group1, group2);
 
-		JarUtil.saveJar(group2, new File(OUT));
+		JarUtil.save(group2, new File(OUT));
 	}
 
 	@Test
@@ -76,8 +76,8 @@ public class UpdateMappingsTest
 	{
 		File client = new File(properties.getRsClient());
 
-		ClassGroup group1 = JarUtil.loadJar(client);
-		ClassGroup group2 = JarUtil.loadJar(client);
+		ClassGroup group1 = JarUtil.load(client);
+		ClassGroup group2 = JarUtil.load(client);
 
 		// Remove existing annotations
 		unannotate(group2);
@@ -94,11 +94,11 @@ public class UpdateMappingsTest
 	{
 		File client = new File("C:\\Users\\Lucas\\IdeaProjects\\runelitexxx\\client.jar");
 
-		ClassGroup group = JarUtil.loadJar(client);
+		ClassGroup group = JarUtil.load(client);
 
 		new ScriptOpcodesTransformer().transform(group);
 
-		JarUtil.saveJar(group, new File("C:/Users/Lucas/Desktop/Apapapapapap.jar"));
+		JarUtil.save(group, new File("C:/Users/Lucas/Desktop/Apapapapapap.jar"));
 	}
 
 	private void unannotate(ClassGroup group)

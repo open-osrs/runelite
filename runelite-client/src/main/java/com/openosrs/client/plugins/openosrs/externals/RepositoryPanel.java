@@ -1,5 +1,7 @@
 package com.openosrs.client.plugins.openosrs.externals;
 
+import com.openosrs.client.plugins.ExternalPluginManager;
+import com.openosrs.client.events.ExternalRepositoryChanged;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -7,8 +9,6 @@ import javax.inject.Inject;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.eventbus.EventBus;
-import com.openosrs.client.events.ExternalRepositoryChanged;
-import com.openosrs.client.plugins.ExternalPluginManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.ui.ColorScheme;
 import org.pf4j.update.UpdateRepository;

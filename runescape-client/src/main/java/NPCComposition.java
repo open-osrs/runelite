@@ -5,7 +5,7 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("jd")
-@Implements("NPCDefinition")
+@Implements("NPCComposition")
 public class NPCComposition extends DualNode {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(

@@ -30,7 +30,6 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import com.openosrs.client.plugins.BuiltInPluginManager;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -389,9 +388,6 @@ public class RuneLite
 			overlayManager.add(worldMapOverlay.get());
 			overlayManager.add(tooltipOverlay.get());
 		}
-
-		//Load built-in OPRS plugins
-		BuiltInPluginManager.loadPlugins();
 
 		// Start plugins
 		pluginManager.startPlugins();

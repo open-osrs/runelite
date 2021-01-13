@@ -27,7 +27,7 @@ package net.runelite.mixins;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.runelite.api.Client;
+import static net.runelite.api.Opcodes.*;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.ScriptPostFired;
 import net.runelite.api.events.ScriptPreFired;
@@ -40,13 +40,12 @@ import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSScript;
 import net.runelite.rs.api.RSScriptEvent;
-import static net.runelite.api.Opcodes.*;
 
 @Mixin(RSClient.class)
 public abstract class ScriptVMMixin implements RSClient
 {
 	@Shadow("client")
-	private static Client client;
+	private static RSClient client;
 
 	@Inject
 	private static RSScript currentScript;
@@ -172,11 +171,44 @@ public abstract class ScriptVMMixin implements RSClient
 	@Override
 	public void runScript(Object... args)
 	{
-		assert isClientThread();
-		assert currentScript == null;
-		assert args[0] instanceof Integer || args[0] instanceof JavaScriptCallback : "The first argument should always be a ScriptID!";
-		RSScriptEvent se = createScriptEvent();
-		se.setArguments(args);
-		runScript(se, 5000000);
+		runScriptEvent(createRSScriptEvent(args));
+	}
+
+	@Inject
+	@Override
+	public void runScriptEvent(RSScriptEvent event)
+	{
+		assert isClientThread() : "runScriptEvent must be called on client thread";
+		assert currentScript == null : "scripts are not reentrant";
+		runScript(event, 5000000);
+		boolean assertionsEnabled = false;
+		assert assertionsEnabled = true;
+
+		Object[] args = event.getArguments();
+		if (assertionsEnabled && args[0] instanceof Integer)
+		{
+			int scriptId = (int) args[0];
+			RSScript script = (RSScript) client.getScriptCache().get(scriptId);
+
+			if (script != null)
+			{
+				int intCount = 0, stringCount = 0;
+				for (int i = 1; i < args.length; i++)
+				{
+					if (args[i] instanceof Integer)
+					{
+						intCount++;
+					}
+					else
+					{
+						stringCount++;
+					}
+				}
+
+				assert script.getIntArgumentCount() == intCount && script.getStringArgumentCount() == stringCount :
+					"Script " + scriptId + " was called with the incorrect number of arguments; takes "
+						+ script.getIntArgumentCount() + "+" + script.getStringArgumentCount() + ", got " + intCount + "+" + stringCount;
+			}
+		}
 	}
 }

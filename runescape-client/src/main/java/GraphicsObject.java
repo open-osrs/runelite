@@ -81,7 +81,7 @@ public final class GraphicsObject extends Renderable
 		int var8 = TileItem.SpotAnimationDefinition_get(this.id).sequence; // L: 27
 		if (var8 != -1) { // L: 28
 			this.isFinished = false; // L: 29
-			this.sequenceDefinition = ParamDefinition.SequenceDefinition_get(var8); // L: 30
+			this.sequenceDefinition = ParamComposition.SequenceDefinition_get(var8); // L: 30
 		} else {
 			this.isFinished = true; // L: 32
 		}

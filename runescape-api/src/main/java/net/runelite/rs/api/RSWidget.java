@@ -345,8 +345,6 @@ public interface RSWidget extends Widget
 	@Import("paddingY")
 	int getYPitch();
 
-	void broadcastHidden(boolean hidden);
-
 	@Import("onOp")
 	@Override
 	void setOnOpListener(Object... args);
@@ -570,4 +568,24 @@ public interface RSWidget extends Widget
 	@Import("onClick")
 	@Override
 	void setOnClickListener(Object[] o);
+
+	@Import("onDragComplete")
+	@Override
+	void setOnDragCompleteListener(Object[] o);
+
+	@Import("onDrag")
+	@Override
+	void setOnDragListener(Object[] o);
+
+	@Import("parent")
+	@Override
+	RSWidget getDragParent();
+
+	@Import("parent")
+	@Override
+	void setDragParent(Widget dragParent);
+
+	@Import("onVarTransmit")
+	@Override
+	void setOnVarTransmitListener(Object[] o);
 }

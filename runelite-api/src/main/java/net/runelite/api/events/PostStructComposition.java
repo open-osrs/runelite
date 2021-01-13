@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,21 +24,18 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.widgets.Widget;
 import lombok.Data;
+import net.runelite.api.StructComposition;
 
 /**
- * An event where the hidden state of a {@link Widget} has been modified.
+ * An event called after a new {@link StructComposition} is created and
+ * its data is initialized.
  */
 @Data
-public class WidgetHiddenChanged implements Event
+public class PostStructComposition
 {
 	/**
-	 * The affected widget.
+	 * The newly created struct.
 	 */
-	private Widget widget;
-	/**
-	 * The new hidden state of the widget.
-	 */
-	private boolean hidden;
+	private StructComposition structComposition;
 }

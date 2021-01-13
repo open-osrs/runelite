@@ -384,8 +384,8 @@ public final class Player extends Actor {
 		if (this.appearance == null) { // L: 149
 			return null;
 		} else {
-			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? ParamDefinition.SequenceDefinition_get(super.sequence) : null; // L: 150
-			SequenceDefinition var2 = super.movementSequence == -1 || this.isUnanimated || super.idleSequence == super.movementSequence && var1 != null ? null : ParamDefinition.SequenceDefinition_get(super.movementSequence); // L: 151
+			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? ParamComposition.SequenceDefinition_get(super.sequence) : null; // L: 150
+			SequenceDefinition var2 = super.movementSequence == -1 || this.isUnanimated || super.idleSequence == super.movementSequence && var1 != null ? null : ParamComposition.SequenceDefinition_get(super.movementSequence); // L: 151
 			Model var3 = this.appearance.getModel(var1, super.sequenceFrame, var2, super.movementFrame); // L: 152
 			if (var3 == null) { // L: 153
 				return null;
@@ -451,7 +451,7 @@ public final class Player extends Actor {
 		garbageValue = "1635620178"
 	)
 	final void method1313(int var1, int var2, byte var3) {
-		if (super.sequence != -1 && ParamDefinition.SequenceDefinition_get(super.sequence).field3555 == 1) { // L: 199
+		if (super.sequence != -1 && ParamComposition.SequenceDefinition_get(super.sequence).field3555 == 1) { // L: 199
 			super.sequence = -1;
 		}
 

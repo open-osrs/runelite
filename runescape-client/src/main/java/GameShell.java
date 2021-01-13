@@ -165,7 +165,8 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	@Export("canvas")
 	java.awt.Canvas canvas;
 	@ObfuscatedName("ac")
-	volatile boolean field470;
+	@Export("fullRedraw")
+	volatile boolean fullRedraw;
 	@ObfuscatedName("aq")
 	@Export("resizeCanvasNextFrame")
 	boolean resizeCanvasNextFrame;
@@ -210,7 +211,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		this.hasErrored = false; // L: 46
 		this.canvasX = 0; // L: 59
 		this.canvasY = 0; // L: 60
-		this.field470 = true; // L: 71
+		this.fullRedraw = true; // L: 71
 		this.resizeCanvasNextFrame = false; // L: 74
 		this.isCanvasInvalid = false; // L: 75
 		this.field472 = 0L; // L: 76
@@ -351,7 +352,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 				this.canvas.setLocation(this.canvasX, this.canvasY); // L: 158
 			}
 
-			this.field470 = true; // L: 159
+			this.fullRedraw = true; // L: 159
 			this.resizeGame(); // L: 160
 		}
 	} // L: 161
@@ -516,7 +517,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 		this.canvas.addFocusListener(this); // L: 268
 		this.canvas.requestFocus(); // L: 269
-		this.field470 = true; // L: 270
+		this.fullRedraw = true; // L: 270
 		if (WorldMapIcon_0.rasterProvider != null && IgnoreList.canvasWidth == WorldMapIcon_0.rasterProvider.width && ModelData0.canvasHeight == WorldMapIcon_0.rasterProvider.height) { // L: 271
 			((RasterProvider)WorldMapIcon_0.rasterProvider).setComponent(this.canvas); // L: 272
 			WorldMapIcon_0.rasterProvider.drawFull(0, 0); // L: 273
@@ -600,7 +601,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 		if (++field471 - 1 > 50) { // L: 364
 			field471 -= 50; // L: 365
-			this.field470 = true; // L: 366
+			this.fullRedraw = true; // L: 366
 			this.canvas.setSize(IgnoreList.canvasWidth, ModelData0.canvasHeight); // L: 367
 			this.canvas.setVisible(true); // L: 368
 			if (var1 == this.frame) { // L: 369
@@ -616,12 +617,12 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		}
 
 		this.method984(); // L: 376
-		this.draw(this.field470); // L: 377
-		if (this.field470) { // L: 378
+		this.draw(this.fullRedraw); // L: 377
+		if (this.fullRedraw) { // L: 378
 			this.clearBackground();
 		}
 
-		this.field470 = false; // L: 379
+		this.fullRedraw = false; // L: 379
 	} // L: 380
 
 	@ObfuscatedName("ag")
@@ -851,7 +852,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	public final synchronized void paint(Graphics var1) {
 		if (this == gameShell && !isKilled) { // L: 449
-			this.field470 = true; // L: 450
+			this.fullRedraw = true; // L: 450
 			if (class298.currentTimeMillis() - this.field472 > 1000L) { // L: 451
 				Rectangle var2 = var1.getClipBounds(); // L: 452
 				if (var2 == null || var2.width >= IgnoreList.canvasWidth && var2.height >= ModelData0.canvasHeight) {
@@ -872,7 +873,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 
 	public final void focusGained(FocusEvent var1) {
 		volatileFocus = true; // L: 458
-		this.field470 = true; // L: 459
+		this.fullRedraw = true; // L: 459
 	} // L: 460
 
 	public final void focusLost(FocusEvent var1) {

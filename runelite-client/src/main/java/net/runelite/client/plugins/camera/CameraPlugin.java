@@ -132,6 +132,14 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 			{
 				addZoomTooltip(sideSlider);
 			}
+
+			Widget settingsInit = client.getWidget(WidgetInfo.SETTINGS_INIT);
+			if (settingsInit != null)
+			{
+				client.createScriptEvent(settingsInit.getOnLoadListener())
+					.setSource(settingsInit)
+					.run();
+			}
 		});
 	}
 
@@ -151,6 +159,14 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 			if (sideSlider != null)
 			{
 				sideSlider.setOnMouseRepeatListener((Object[]) null);
+			}
+
+			Widget settingsInit = client.getWidget(WidgetInfo.SETTINGS_INIT);
+			if (settingsInit != null)
+			{
+				client.createScriptEvent(settingsInit.getOnLoadListener())
+					.setSource(settingsInit)
+					.run();
 			}
 		});
 	}

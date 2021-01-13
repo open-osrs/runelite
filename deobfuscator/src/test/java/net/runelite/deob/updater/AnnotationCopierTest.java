@@ -47,14 +47,14 @@ public class AnnotationCopierTest
 	@Before
 	public void before() throws IOException
 	{
-		group1 = JarUtil.loadJar(new File(JAR1));
-		group2 = JarUtil.loadJar(new File(JAR2));
+		group1 = JarUtil.load(new File(JAR1));
+		group2 = JarUtil.load(new File(JAR2));
 	}
 
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group2, new File(OUT));
+		JarUtil.save(group2, new File(OUT));
 	}
 
 	//@Test

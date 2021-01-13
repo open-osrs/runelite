@@ -14,7 +14,6 @@ class BootstrapPlugin : Plugin<Project> {
             bootstrapDependencies(project(":runelite-api"))
             bootstrapDependencies(project(":runescape-api"))
             bootstrapDependencies(project(":http-api"))
-            bootstrapDependencies(project(":injector"))
             bootstrapDependencies(project(":runelite-client"))
         }
 
@@ -31,7 +30,6 @@ class BootstrapPlugin : Plugin<Project> {
             dependsOn(project(":runelite-api").tasks["publish"])
             dependsOn(project(":runescape-api").tasks["publish"])
             dependsOn(project(":http-api").tasks["publish"])
-            dependsOn(project(":injector").tasks["publish"])
 
             doLast {
                 copy {
@@ -41,7 +39,6 @@ class BootstrapPlugin : Plugin<Project> {
                 copy {
                     from(
                             "${buildDir}/repo/.",
-                            "${parent?.projectDir}/injector/build/repo/.",
                             "${parent?.projectDir}/runelite-api/build/repo/.",
                             "${parent?.projectDir}/http-api/build/repo/.",
                             "${parent?.projectDir}/runescape-api/build/repo/."

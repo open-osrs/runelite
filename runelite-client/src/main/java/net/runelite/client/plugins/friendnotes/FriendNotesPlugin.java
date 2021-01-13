@@ -327,7 +327,7 @@ public class FriendNotesPlugin extends Plugin
 	public void onRemovedFriend(RemovedFriend event)
 	{
 		// Delete a friend's note if they are removed
-		final String displayName = Text.toJagexName(event.getName());
+		final String displayName = Text.toJagexName(event.getNameable().getName());
 		log.debug("Remove friend: '{}'", displayName);
 		setFriendNote(displayName, null);
 	}
@@ -416,7 +416,7 @@ public class FriendNotesPlugin extends Plugin
 			return;
 		}
 
-		final BufferedImage iconImg = ImageUtil.getResourceStreamFromClass(getClass(), "note_icon.png");
+		final BufferedImage iconImg = ImageUtil.loadImageResource(getClass(), "note_icon.png");
 		if (iconImg == null)
 		{
 			return;

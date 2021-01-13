@@ -96,8 +96,8 @@ public class SplashScreen extends JFrame implements ActionListener
 		y += action.getHeight() + PAD;
 
 		pane.add(progress);
-		progress.setForeground(ColorScheme.BRAND_ORANGE);
-		progress.setBackground(ColorScheme.BRAND_ORANGE.darker().darker());
+		progress.setForeground(ColorScheme.BRAND_BLUE);
+		progress.setBackground(ColorScheme.BRAND_BLUE.darker().darker());
 		progress.setBorder(new EmptyBorder(0, 0, 0, 0));
 		progress.setBounds(0, y, WIDTH, 14);
 		progress.setFont(font);

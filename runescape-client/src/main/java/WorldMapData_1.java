@@ -188,7 +188,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 			var4 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 553
 			var3 = CollisionMap.getWidget(var4); // L: 554
 		} else {
-			var3 = var2 ? PlayerComposition.field2561 : VarcInt.field3264; // L: 556
+			var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 556
 		}
 
 		if (var0 == ScriptOpcodes.CC_SETSCROLLPOS) { // L: 557

@@ -1,3 +1,9 @@
 package net.runelite.rs.api;
 
-public interface RSObjectNode {}
+import net.runelite.mapping.Import;
+
+public interface RSObjectNode extends RSNode
+{
+	@Import("obj")
+	Object getValue();
+}

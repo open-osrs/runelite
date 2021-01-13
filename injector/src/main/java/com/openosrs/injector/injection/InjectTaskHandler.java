@@ -7,9 +7,6 @@
  */
 package com.openosrs.injector.injection;
 
-import java.io.File;
-import java.io.IOException;
-
 /**
  * Interface containing all the methods gradle needs to know about
  */
@@ -18,10 +15,5 @@ public interface InjectTaskHandler
 	/**
 	 * The actual method that does all the work
 	 */
-	void inject();
-
-	/**
-	 * Call this to save the injected jar to outputJar
-	 */
-	void save(File outputJar) throws IOException;
+	void injectVanilla();
 }

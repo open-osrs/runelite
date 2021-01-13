@@ -74,7 +74,7 @@ public final class SceneTilePaint
 		var0.isWalking = false; // L: 4080
 		SequenceDefinition var1;
 		if (var0.movementSequence != -1) { // L: 4081
-			var1 = ParamDefinition.SequenceDefinition_get(var0.movementSequence); // L: 4082
+			var1 = ParamComposition.SequenceDefinition_get(var0.movementSequence); // L: 4082
 			if (var1 != null && var1.frameIds != null) { // L: 4083
 				++var0.movementFrameCycle; // L: 4084
 				if (var0.movementFrame < var1.frameIds.length && var0.movementFrameCycle > var1.frameLengths[var0.movementFrame]) { // L: 4085
@@ -100,7 +100,7 @@ public final class SceneTilePaint
 
 			int var3 = TileItem.SpotAnimationDefinition_get(var0.spotAnimation).sequence; // L: 4100
 			if (var3 != -1) { // L: 4101
-				SequenceDefinition var2 = ParamDefinition.SequenceDefinition_get(var3); // L: 4102
+				SequenceDefinition var2 = ParamComposition.SequenceDefinition_get(var3); // L: 4102
 				if (var2 != null && var2.frameIds != null) { // L: 4103
 					++var0.spotAnimationFrameCycle; // L: 4104
 					if (var0.spotAnimationFrame < var2.frameIds.length && var0.spotAnimationFrameCycle > var2.frameLengths[var0.spotAnimationFrame]) { // L: 4105
@@ -121,7 +121,7 @@ public final class SceneTilePaint
 		}
 
 		if (var0.sequence != -1 && var0.sequenceDelay <= 1) { // L: 4118
-			var1 = ParamDefinition.SequenceDefinition_get(var0.sequence); // L: 4119
+			var1 = ParamComposition.SequenceDefinition_get(var0.sequence); // L: 4119
 			if (var1.field3560 == 1 && var0.field996 > 0 && var0.field984 <= Client.cycle && var0.field973 < Client.cycle) { // L: 4120 4121
 				var0.sequenceDelay = 1; // L: 4122
 				return; // L: 4123
@@ -129,7 +129,7 @@ public final class SceneTilePaint
 		}
 
 		if (var0.sequence != -1 && var0.sequenceDelay == 0) { // L: 4127
-			var1 = ParamDefinition.SequenceDefinition_get(var0.sequence); // L: 4128
+			var1 = ParamComposition.SequenceDefinition_get(var0.sequence); // L: 4128
 			if (var1 != null && var1.frameIds != null) { // L: 4129
 				++var0.sequenceFrameCycle; // L: 4130
 				if (var0.sequenceFrame < var1.frameIds.length && var0.sequenceFrameCycle > var1.frameLengths[var0.sequenceFrame]) { // L: 4131
