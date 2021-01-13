@@ -6,5 +6,5 @@ import net.runelite.api.DialogOption;
 @Value
 public class DialogProcessed implements Event
 {
-    DialogOption dialogOption;
+	DialogOption dialogOption;
 }
