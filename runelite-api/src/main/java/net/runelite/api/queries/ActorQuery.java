@@ -107,4 +107,5 @@ public abstract class ActorQuery<EntityType extends Actor, QueryType> extends Lo
 		predicate = and(other);
 		return (QueryType) this;
 	}
+
 }

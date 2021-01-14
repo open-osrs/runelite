@@ -65,6 +65,16 @@ public interface TileObject extends Locatable
 	int getId();
 
 	/**
+	 * Gets the name of the object
+	 */
+	String getName();
+
+	/**
+	 * Gets the menu actions of the object
+	 */
+	String[] getActions();
+
+	/**
 	 * Calculates the position of the center of this tile on the canvas
 	 */
 	Point getCanvasLocation();
