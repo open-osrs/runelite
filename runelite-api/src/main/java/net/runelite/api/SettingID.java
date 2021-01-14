@@ -24,6 +24,9 @@
  */
 package net.runelite.api;
 
+/**
+ * @see ParamID#SETTING_ID
+ */
 public class SettingID
 {
 	public static final int CAMERA_ZOOM = 14;
