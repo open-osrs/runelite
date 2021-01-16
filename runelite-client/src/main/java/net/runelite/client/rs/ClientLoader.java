@@ -140,7 +140,7 @@ public class ClientLoader implements Supplier<Applet>
 				// in the jar. Otherwise the jar can change on disk and can break future classloads.
 				File oprsInjected = new File(System.getProperty("user.home") + "/.openosrs/cache/injected-client.jar");
 				InputStream initialStream = RuneLite.class.getResourceAsStream("injected-client.oprs");
-				if (oprsInjected.length() != RuneLite.class.getResource("injected-client.oprs").getFile().length())
+				if (!oprsInjected.exists() || oprsInjected.length() != RuneLite.class.getResource("injected-client.oprs").getFile().length())
 					FileUtils.copyInputStreamToFile(initialStream, oprsInjected);
 
 				classLoader = createJarClassLoader(oprsInjected);
