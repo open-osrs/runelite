@@ -46,6 +46,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.swing.SwingUtilities;
+
+import com.openosrs.client.OpenOSRS;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -283,6 +285,8 @@ public class RuneLite
 				options.valueOf(configfile)));
 
 			injector.getInstance(RuneLite.class).start();
+
+			OpenOSRS.init();
 
 			final long end = System.currentTimeMillis();
 			final RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();

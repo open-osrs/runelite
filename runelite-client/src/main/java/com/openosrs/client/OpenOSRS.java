@@ -1,5 +1,7 @@
 package com.openosrs.client;
 
+import com.openosrs.client.game.NPCStats;
+
 import java.io.File;
 import java.util.UUID;
 
@@ -10,4 +12,16 @@ public class OpenOSRS
 	public static final String SYSTEM_VERSION = "0.0.1";
 
 	public static String uuid = UUID.randomUUID().toString();
+
+	public static void init()
+	{
+		try
+		{
+			NPCStats.loadStats();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
