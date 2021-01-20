@@ -46,6 +46,7 @@ public enum KitType
 	WEAPON("Weapon", 3, WidgetInfo.EQUIPMENT_WEAPON),
 	TORSO("Torso", 4, WidgetInfo.EQUIPMENT_BODY),
 	SHIELD("Shield", 5, WidgetInfo.EQUIPMENT_SHIELD),
+	ARMS("Arms", 6, WidgetInfo.EQUIPMENT_GLOVES),
 	LEGS("Legs", 7, WidgetInfo.EQUIPMENT_LEGS),
 	HAIR("Hair", 8, null),
 	HANDS("Hands", 9, WidgetInfo.EQUIPMENT_GLOVES),
