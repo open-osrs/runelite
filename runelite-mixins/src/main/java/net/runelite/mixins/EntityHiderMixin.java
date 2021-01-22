@@ -99,6 +99,9 @@ public abstract class EntityHiderMixin implements RSScene
 	@Shadow("hideDeadNPCs")
 	private static boolean hideDeadNPCs;
 
+	@Shadow("hiddenNpcIndices")
+	private static List<Integer> hiddenNpcIndices;
+
 	@Copy("newGameObject")
 	@Replace("newGameObject")
 	boolean copy$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSEntity entity, int var10, boolean var11, long var12, int var13)
@@ -211,6 +214,14 @@ public abstract class EntityHiderMixin implements RSScene
 				hiddenNpcsDeath.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
 			{
 				return false;
+			}
+
+			for (Integer index : hiddenNpcIndices)
+			{
+				if (index != null && npc.getIndex() == index)
+				{
+					return false;
+				}
 			}
 
 			return drawingUI ? !hideNPCs2D : !hideNPCs;
