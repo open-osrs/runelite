@@ -1617,6 +1617,20 @@ public interface Client extends GameShell
 	void forciblyUnhideNpcName(String name);
 
 	/**
+	 * Get the list of NPC indices that are currently hidden
+	 *
+	 * @return all of the current hidden NPC Indices
+	 */
+	List<Integer> getHiddenNpcIndices();
+
+	/**
+	 * If an NPC index is in this List then do not render it
+	 *
+	 * @param npcIndices the npc indices to hide
+	 */
+	void setHiddenNpcIndices(List<Integer> npcIndices);
+
+	/**
 	 * Increments the counter for how many times this npc has been selected to be hidden on death
 	 *
 	 * @param name npc name
