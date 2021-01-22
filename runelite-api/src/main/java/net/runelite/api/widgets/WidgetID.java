@@ -726,19 +726,15 @@ public class WidgetID
 	{
 		static class ATK
 		{
-			static final int LISTEN_TOP = 7;
-			static final int LISTEN_BOTTOM = 8;
-			static final int TO_CALL_WIDGET = 9;
-			static final int TO_CALL = 10;
-			static final int ROLE_SPRITE = 11;
-			static final int ROLE = 12;
+			static final int ROLE_SPRITE = 12;
+			static final int ROLE = 13;
 		}
 		static class HLR
 		{
-			static final int TEAMMATE1 = 18;
-			static final int TEAMMATE2 = 22;
-			static final int TEAMMATE3 = 26;
-			static final int TEAMMATE4 = 30;
+			static final int TEAMMATE1 = 19;
+			static final int TEAMMATE2 = 23;
+			static final int TEAMMATE3 = 27;
+			static final int TEAMMATE4 = 31;
 		}
 		static class HORN_GLORY
 		{
@@ -766,15 +762,9 @@ public class WidgetID
 			static final int BASE_POINTS = 33;
 			static final int HONOUR_POINTS_REWARD = 49;
 		}
-		static final int GAME_WIDGET = 3;
-		static final int CURRENT_WAVE_WIDGET = 4;
-		static final int CURRENT_WAVE = 5;
-		static final int LISTEN_WIDGET = 6;
-		static final int LISTEN = 7;
-		static final int TO_CALL_WIDGET = 8;
-		static final int TO_CALL = 9;
-		static final int ROLE_SPRITE = 10;
-		static final int ROLE = 11;
+		static final int ROLE_SPRITE = 11;
+		static final int ROLE = 12;
+
 		static final int REWARD_TEXT = 57;
 	}
 
