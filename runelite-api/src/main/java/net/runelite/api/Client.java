@@ -1617,6 +1617,20 @@ public interface Client extends GameShell
 	void setHideSpecificPlayers(List<String> names);
 
 	/**
+	 * Get the list of NPC indices that are currently hidden
+	 *
+	 * @return all of the current hidden NPC Indices
+	 */
+	List<Integer> getHiddenNpcIndices();
+
+	/**
+	 * If an NPC index is in this List then do not render it
+	 *
+	 * @param npcIndices the npc indices to hide
+	 */
+	void setHiddenNpcIndices(List<Integer> npcIndices);
+
+	/**
 	 * Sets whether projectiles are hidden.
 	 *
 	 * @param state new projectile hidden state
