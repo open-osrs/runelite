@@ -611,16 +611,6 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public Widget getWidget(com.openosrs.api.widgets.WidgetInfo widget)
-	{
-		int groupId = widget.getGroupId();
-		int childId = widget.getChildId();
-
-		return getWidget(groupId, childId);
-	}
-
-	@Inject
-	@Override
 	public Widget getWidget(int id)
 	{
 		return getWidget(WidgetInfo.TO_GROUP(id), WidgetInfo.TO_CHILD(id));

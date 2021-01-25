@@ -1,4 +1,4 @@
-package com.openosrs.api.widgets;
+package com.openosrs.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

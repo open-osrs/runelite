@@ -26,7 +26,7 @@ package net.runelite.api.kit;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import com.openosrs.api.widgets.WidgetInfo;
+import net.runelite.api.widgets.WidgetInfo;
 
 /**
  * Represents an equipment slot in a players composition.
