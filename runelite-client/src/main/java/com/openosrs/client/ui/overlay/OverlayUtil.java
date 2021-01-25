@@ -1,14 +1,24 @@
 package com.openosrs.client.ui.overlay;
 
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.image.BufferedImage;
+import java.util.List;
 import net.runelite.api.*;
 import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.vars.InterfaceTab;
 import net.runelite.api.widgets.Widget;
 
-import java.awt.*;
 
 public class OverlayUtil extends net.runelite.client.ui.overlay.OverlayUtil
 {
@@ -80,5 +90,52 @@ public class OverlayUtil extends net.runelite.client.ui.overlay.OverlayUtil
 			}
 			renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
 		}
+	}
+
+	public static void setProgressIcon(Graphics2D graphics, Point point, BufferedImage currentPhaseIcon, int totalWidth, int bgPadding, int currentPosX, Color colorIconBackground, int overlayIconDistance, Color colorIconBorder, Color colorIconBorderFill)
+	{
+		graphics.setStroke(new BasicStroke(2));
+		graphics.setColor(colorIconBackground);
+		graphics.fillOval(
+			point.getX() - totalWidth / 2 + currentPosX - bgPadding,
+			point.getY() - currentPhaseIcon.getHeight() / 2 - overlayIconDistance - bgPadding,
+			currentPhaseIcon.getWidth() + bgPadding * 2,
+			currentPhaseIcon.getHeight() + bgPadding * 2);
+
+		graphics.setColor(colorIconBorder);
+		graphics.drawOval(
+			point.getX() - totalWidth / 2 + currentPosX - bgPadding,
+			point.getY() - currentPhaseIcon.getHeight() / 2 - overlayIconDistance - bgPadding,
+			currentPhaseIcon.getWidth() + bgPadding * 2,
+			currentPhaseIcon.getHeight() + bgPadding * 2);
+
+		graphics.drawImage(
+			currentPhaseIcon,
+			point.getX() - totalWidth / 2 + currentPosX,
+			point.getY() - currentPhaseIcon.getHeight() / 2 - overlayIconDistance,
+			null);
+
+		graphics.setColor(colorIconBorderFill);
+	}
+
+	public static List<WorldPoint> getHitSquares(WorldPoint npcLoc, int npcSize, int thickness, boolean includeUnder)
+	{
+		List<WorldPoint> little = new WorldArea(npcLoc, npcSize, npcSize).toWorldPointList();
+		List<WorldPoint> big = new WorldArea(npcLoc.getX() - thickness, npcLoc.getY() - thickness, npcSize + (thickness * 2), npcSize + (thickness * 2), npcLoc.getPlane()).toWorldPointList();
+		if (!includeUnder)
+		{
+			big.removeIf(little::contains);
+		}
+		return big;
+	}
+
+	public static void renderFilledPolygon(Graphics2D graphics, Shape poly, Color color)
+	{
+		graphics.setColor(color);
+		final Stroke originalStroke = graphics.getStroke();
+		graphics.setStroke(new BasicStroke(2));
+		graphics.draw(poly);
+		graphics.fill(poly);
+		graphics.setStroke(originalStroke);
 	}
 }

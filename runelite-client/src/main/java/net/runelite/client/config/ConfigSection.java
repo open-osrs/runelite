@@ -47,4 +47,7 @@ public @interface ConfigSection
 	OpenOSRS Lazy Helpers tm
 	 */
 	String keyName() default "";
+	String section() default "";
+	boolean hidden() default false;
+	String unhide() default "";
 }

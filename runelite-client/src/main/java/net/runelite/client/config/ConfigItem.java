@@ -56,4 +56,5 @@ public @interface ConfigItem
 	*/
 	Class<?> enumClass() default OpenOSRS.class;
 	String unhide() default "";
+	String hide() default "";
 }
