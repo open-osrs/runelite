@@ -1,13 +1,14 @@
 package com.openosrs.client.ui.overlay;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import net.runelite.api.Client;
-import net.runelite.api.Perspective;
+
+import net.runelite.api.*;
+import net.runelite.api.Point;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import net.runelite.api.vars.InterfaceTab;
+import net.runelite.api.widgets.Widget;
+
+import java.awt.*;
 
 public class OverlayUtil extends net.runelite.client.ui.overlay.OverlayUtil
 {
@@ -38,5 +39,46 @@ public class OverlayUtil extends net.runelite.client.ui.overlay.OverlayUtil
 		graphics.draw(poly);
 		graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), fillAlpha));
 		graphics.fill(poly);
+	}
+
+	public static Rectangle renderPrayerOverlay(Graphics2D graphics, Client client, Prayer prayer, Color color)
+	{
+		Widget widget = client.getWidget(prayer.getWidgetInfo());
+
+		if (widget == null || client.getVar(VarClientInt.INVENTORY_TAB) != InterfaceTab.PRAYER.getId())
+		{
+			return null;
+		}
+
+		Rectangle bounds = widget.getBounds();
+		renderPolygon(graphics, rectangleToPolygon(bounds), color);
+		return bounds;
+	}
+
+	private static Polygon rectangleToPolygon(Rectangle rect)
+	{
+		int[] xpoints = {rect.x, rect.x + rect.width, rect.x + rect.width, rect.x};
+		int[] ypoints = {rect.y, rect.y, rect.y + rect.height, rect.y + rect.height};
+
+		return new Polygon(xpoints, ypoints, 4);
+	}
+
+	public static void renderTextLocation(Graphics2D graphics, String txtString, int fontSize, int fontStyle, Color fontColor, Point canvasPoint, boolean shadows, int yOffset)
+	{
+		graphics.setFont(new Font("Arial", fontStyle, fontSize));
+		if (canvasPoint != null)
+		{
+			final Point canvasCenterPoint = new Point(
+					canvasPoint.getX(),
+					canvasPoint.getY() + yOffset);
+			final Point canvasCenterPoint_shadow = new Point(
+					canvasPoint.getX() + 1,
+					canvasPoint.getY() + 1 + yOffset);
+			if (shadows)
+			{
+				renderTextLocation(graphics, canvasCenterPoint_shadow, txtString, Color.BLACK);
+			}
+			renderTextLocation(graphics, canvasCenterPoint, txtString, fontColor);
+		}
 	}
 }

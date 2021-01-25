@@ -24,6 +24,8 @@
  */
 package net.runelite.client.config;
 
+import com.openosrs.client.OpenOSRS;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -40,4 +42,9 @@ public @interface ConfigSection
 	int position();
 
 	boolean closedByDefault() default false;
+
+	/*
+	OpenOSRS Lazy Helpers tm
+	 */
+	String keyName() default "";
 }
