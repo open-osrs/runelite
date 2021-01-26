@@ -333,7 +333,7 @@ public class RuneLite
 		oprsExternalPluginManager.startExternalPluginManager();
 
 		// Update external plugins
-		//oprsExternalPluginManager.update(); //TODO: Re-enable after fixing actions for new repo
+		oprsExternalPluginManager.update(); //TODO: Re-enable after fixing actions for new repo
 
 		// Load the plugins, but does not start them yet.
 		// This will initialize configuration
