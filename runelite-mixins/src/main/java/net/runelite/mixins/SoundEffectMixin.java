@@ -173,7 +173,7 @@ public abstract class SoundEffectMixin implements RSClient
 		}
 
 		// If the current volume is not muted, use it instead
-		final int soundEffectVolume = getSoundEffectVolume();
+		final int soundEffectVolume = client.getPreferences().getSoundEffectsVolume();
 		if (soundEffectVolume != SoundEffectVolume.MUTED)
 		{
 			volume = soundEffectVolume;

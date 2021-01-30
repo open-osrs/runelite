@@ -2,53 +2,61 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ip")
+@ObfuscatedName("ii")
 public final class class236 {
-	@ObfuscatedName("dt")
-	@ObfuscatedSignature(
-		descriptor = "Lid;"
-	)
-	@Export("archive7")
-	static Archive archive7;
+	@ObfuscatedName("h")
+	@Export("sleepExact")
+	public static final void sleepExact(long var0) {
+		if (var0 > 0L) { // L: 9
+			if (0L == var0 % 10L) { // L: 10
+				long var2 = var0 - 1L; // L: 11
 
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Lid;II)V",
-		garbageValue = "-237601579"
-	)
-	static void method4263(Archive var0, int var1) {
-		if (class90.NetCache_reference != null) { // L: 211
-			class90.NetCache_reference.offset = var1 * 8 + 5; // L: 212
-			int var2 = class90.NetCache_reference.readInt(); // L: 213
-			int var3 = class90.NetCache_reference.readInt(); // L: 214
-			var0.loadIndex(var2, var3); // L: 215
-		} else {
-			VarcInt.requestNetFile((Archive)null, 255, 255, 0, (byte)0, true); // L: 218
-			NetCache.NetCache_archives[var1] = var0; // L: 219
+				try {
+					Thread.sleep(var2); // L: 14
+				} catch (InterruptedException var8) { // L: 16
+				}
+
+				try {
+					Thread.sleep(1L); // L: 20
+				} catch (InterruptedException var7) { // L: 22
+				}
+			} else {
+				try {
+					Thread.sleep(var0); // L: 27
+				} catch (InterruptedException var6) { // L: 29
+				}
+			}
+
 		}
-	} // L: 216 220
+	} // L: 31
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1381808682"
+		descriptor = "(I)Lgv;",
+		garbageValue = "1686839438"
 	)
-	public static int method4264() {
-		return KeyHandler.KeyHandler_idleCycles; // L: 193
+	public static PacketBufferNode method4163() {
+		PacketBufferNode var0;
+		if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) { // L: 47
+			var0 = new PacketBufferNode(); // L: 48
+		} else {
+			var0 = PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount]; // L: 51
+		}
+
+		var0.clientPacket = null; // L: 54
+		var0.clientPacketLength = 0; // L: 55
+		var0.packetBuffer = new PacketBuffer(5000); // L: 56
+		return var0; // L: 57
 	}
 
-	@ObfuscatedName("fx")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lcs;B)V",
-		garbageValue = "-118"
+		descriptor = "(I)Lcj;",
+		garbageValue = "-2109446409"
 	)
-	static final void method4265(Actor var0) {
-		int var1 = Math.max(1, var0.field1009 - Client.cycle); // L: 4094
-		int var2 = var0.field1011 * 64 + var0.field1017 * 128; // L: 4095
-		int var3 = var0.field1011 * 64 + var0.field1019 * 128; // L: 4096
-		var0.x += (var2 - var0.x) / var1; // L: 4097
-		var0.y += (var3 - var0.y) / var1; // L: 4098
-		var0.field978 = 0; // L: 4099
-		var0.orientation = var0.field1023; // L: 4100
-	} // L: 4101
+	@Export("worldListStart")
+	static World worldListStart() {
+		World.World_listCount = 0; // L: 247
+		return GrandExchangeEvents.getNextWorldListWorld(); // L: 248
+	}
 }

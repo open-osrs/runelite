@@ -729,4 +729,45 @@ public class ImageUtil
 
 		return result;
 	}
+
+	/**
+	 * Reads an image resource from a given path relative to a given class.
+	 * This method is primarily shorthand for the synchronization and error handling required for
+	 * loading image resources from the classpath.
+	 *
+	 * @param c    The class to be referenced for the package path.
+	 * @param path The path, relative to the given class.
+	 * @return     A {@link BufferedImage} of the loaded image resource from the given path.
+	 */
+	public static BufferedImage loadImageResource(final Class<?> c, final String path)
+	{
+		try
+		{
+			synchronized (ImageIO.class)
+			{
+				return ImageIO.read(c.getResourceAsStream(path));
+			}
+		}
+		catch (IllegalArgumentException e)
+		{
+			final String filePath;
+
+			if (path.startsWith("/"))
+			{
+				filePath = path;
+			}
+			else
+			{
+				filePath = c.getPackage().getName().replace('.', '/') + "/" + path;
+			}
+
+			log.warn("Failed to load image from class: {}, path: {}", c.getName(), filePath);
+
+			throw new IllegalArgumentException(path, e);
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(path, e);
+		}
+	}
 }

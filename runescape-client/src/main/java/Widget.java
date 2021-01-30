@@ -4,607 +4,586 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ht")
+@ObfuscatedName("he")
 @Implements("Widget")
 public class Widget extends Node {
-	@ObfuscatedName("k")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "[[Lht;"
-	)
-	@Export("Widget_interfaceComponents")
-	public static Widget[][] Widget_interfaceComponents;
-	@ObfuscatedName("c")
-	@Export("Widget_loadedInterfaces")
-	static boolean[] Widget_loadedInterfaces;
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "Liw;"
-	)
-	@Export("Widget_spritesArchive")
-	static AbstractArchive Widget_spritesArchive;
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Liw;"
-	)
-	@Export("Widget_fontsArchive")
-	static AbstractArchive Widget_fontsArchive;
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("Widget_cachedSprites")
 	public static EvictingDualNodeHashTable Widget_cachedSprites;
-	@ObfuscatedName("x")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("Widget_cachedModels")
 	public static EvictingDualNodeHashTable Widget_cachedModels;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("Widget_cachedFonts")
 	public static EvictingDualNodeHashTable Widget_cachedFonts;
-	@ObfuscatedName("r")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("Widget_cachedSpriteMasks")
 	public static EvictingDualNodeHashTable Widget_cachedSpriteMasks;
-	@ObfuscatedName("y")
-	public static boolean field2677;
-	@ObfuscatedName("s")
+	@ObfuscatedName("a")
+	public static boolean field2603;
+	@ObfuscatedName("b")
 	@Export("isIf3")
 	public boolean isIf3;
-	@ObfuscatedName("j")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -583486671
+		intValue = -437932207
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("w")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1360175439
+		intValue = 951345111
 	)
 	@Export("childIndex")
 	public int childIndex;
-	@ObfuscatedName("v")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1823014479
+		intValue = 1268940833
 	)
 	@Export("type")
 	public int type;
-	@ObfuscatedName("d")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1601942739
+		intValue = -1862664277
 	)
 	@Export("buttonType")
 	public int buttonType;
-	@ObfuscatedName("a")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1509263011
+		intValue = -198743491
 	)
 	@Export("contentType")
 	public int contentType;
-	@ObfuscatedName("g")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -577014137
+		intValue = -1898483217
 	)
 	@Export("xAlignment")
 	public int xAlignment;
-	@ObfuscatedName("h")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1228051433
+		intValue = 1346571391
 	)
 	@Export("yAlignment")
 	public int yAlignment;
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 841889031
+		intValue = 1889947491
 	)
 	@Export("widthAlignment")
 	public int widthAlignment;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("an")
 	@ObfuscatedGetter(
-		intValue = -300976641
+		intValue = -531400749
 	)
 	@Export("heightAlignment")
 	public int heightAlignment;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
-		intValue = -1326300873
+		intValue = -800692123
 	)
 	@Export("rawX")
 	public int rawX;
-	@ObfuscatedName("ao")
+	@ObfuscatedName("ax")
 	@ObfuscatedGetter(
-		intValue = 1422648317
+		intValue = 382974687
 	)
 	@Export("rawY")
 	public int rawY;
-	@ObfuscatedName("af")
+	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
-		intValue = 497062529
+		intValue = -1322726457
 	)
 	@Export("rawWidth")
 	public int rawWidth;
-	@ObfuscatedName("av")
+	@ObfuscatedName("au")
 	@ObfuscatedGetter(
-		intValue = -682926215
+		intValue = 1644488463
 	)
 	@Export("rawHeight")
 	public int rawHeight;
-	@ObfuscatedName("ar")
+	@ObfuscatedName("as")
 	@ObfuscatedGetter(
-		intValue = 371785153
+		intValue = 1900410117
 	)
 	@Export("x")
 	public int x;
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
-		intValue = 766965945
+		intValue = 747357693
 	)
 	@Export("y")
 	public int y;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
-		intValue = 410180701
+		intValue = -832572509
 	)
 	@Export("width")
 	public int width;
-	@ObfuscatedName("az")
+	@ObfuscatedName("ak")
 	@ObfuscatedGetter(
-		intValue = -1661593933
+		intValue = 1772768209
 	)
 	@Export("height")
 	public int height;
-	@ObfuscatedName("ak")
+	@ObfuscatedName("av")
 	@ObfuscatedGetter(
-		intValue = -370918947
+		intValue = 1349630747
 	)
-	public int field2610;
-	@ObfuscatedName("au")
+	public int field2660;
+	@ObfuscatedName("aq")
 	@ObfuscatedGetter(
-		intValue = -1940118895
+		intValue = -396518171
 	)
-	public int field2611;
-	@ObfuscatedName("ai")
+	public int field2604;
+	@ObfuscatedName("ah")
 	@ObfuscatedGetter(
-		intValue = 1412750483
+		intValue = 2117837783
 	)
 	@Export("parentId")
 	public int parentId;
-	@ObfuscatedName("ax")
+	@ObfuscatedName("am")
 	@Export("isHidden")
 	public boolean isHidden;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("aa")
 	@ObfuscatedGetter(
-		intValue = -182885719
+		intValue = -709692579
 	)
 	@Export("scrollX")
 	public int scrollX;
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ao")
 	@ObfuscatedGetter(
-		intValue = 192866787
+		intValue = 1771973021
 	)
 	@Export("scrollY")
 	public int scrollY;
-	@ObfuscatedName("aw")
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = -999155981
+		intValue = -1515274153
 	)
 	@Export("scrollWidth")
 	public int scrollWidth;
-	@ObfuscatedName("an")
+	@ObfuscatedName("aw")
 	@ObfuscatedGetter(
-		intValue = -1625501093
+		intValue = -1479373561
 	)
 	@Export("scrollHeight")
 	public int scrollHeight;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
-		intValue = -1857019467
+		intValue = -1315662131
 	)
 	@Export("color")
 	public int color;
-	@ObfuscatedName("aa")
+	@ObfuscatedName("ad")
 	@ObfuscatedGetter(
-		intValue = 808301363
+		intValue = 165176819
 	)
 	@Export("color2")
 	public int color2;
-	@ObfuscatedName("at")
+	@ObfuscatedName("ai")
 	@ObfuscatedGetter(
-		intValue = -153387015
+		intValue = 1061783441
 	)
 	@Export("mouseOverColor")
 	public int mouseOverColor;
-	@ObfuscatedName("as")
+	@ObfuscatedName("al")
 	@ObfuscatedGetter(
-		intValue = -2099006501
+		intValue = -416430081
 	)
 	@Export("mouseOverColor2")
 	public int mouseOverColor2;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("ay")
 	@Export("fill")
 	public boolean fill;
-	@ObfuscatedName("ae")
+	@ObfuscatedName("af")
 	@ObfuscatedSignature(
-		descriptor = "Llu;"
+		descriptor = "Llj;"
 	)
 	@Export("fillMode")
-	public FillMode fillMode;
-	@ObfuscatedName("al")
+	public class333 fillMode;
+	@ObfuscatedName("ar")
 	@ObfuscatedGetter(
-		intValue = 527341201
+		intValue = -318915915
 	)
 	@Export("transparencyTop")
 	public int transparencyTop;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("az")
 	@ObfuscatedGetter(
-		intValue = 509195953
+		intValue = 761063403
 	)
 	@Export("transparencyBot")
 	public int transparencyBot;
-	@ObfuscatedName("ad")
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = 854987601
+		intValue = -1947378617
 	)
 	@Export("lineWid")
 	public int lineWid;
-	@ObfuscatedName("bb")
-	public boolean field2627;
-	@ObfuscatedName("bf")
+	@ObfuscatedName("bh")
+	public boolean field2620;
+	@ObfuscatedName("by")
 	@ObfuscatedGetter(
-		intValue = 372301921
+		intValue = -1999476695
 	)
 	@Export("spriteId2")
 	public int spriteId2;
-	@ObfuscatedName("bp")
+	@ObfuscatedName("bs")
 	@ObfuscatedGetter(
-		intValue = -402783927
+		intValue = -1427429915
 	)
 	@Export("spriteId")
 	public int spriteId;
-	@ObfuscatedName("bg")
+	@ObfuscatedName("br")
 	@ObfuscatedGetter(
-		intValue = 1106974971
+		intValue = -1067627905
 	)
 	@Export("spriteAngle")
 	public int spriteAngle;
-	@ObfuscatedName("bc")
+	@ObfuscatedName("bl")
 	@Export("spriteTiling")
 	public boolean spriteTiling;
-	@ObfuscatedName("bj")
+	@ObfuscatedName("bx")
 	@ObfuscatedGetter(
-		intValue = -90624959
+		intValue = 530627825
 	)
 	@Export("outline")
 	public int outline;
-	@ObfuscatedName("bl")
+	@ObfuscatedName("bf")
 	@ObfuscatedGetter(
-		intValue = 980647975
+		intValue = 700546127
 	)
 	@Export("spriteShadow")
 	public int spriteShadow;
-	@ObfuscatedName("bn")
+	@ObfuscatedName("bz")
 	@Export("spriteFlipV")
 	public boolean spriteFlipV;
-	@ObfuscatedName("bo")
+	@ObfuscatedName("bm")
 	@Export("spriteFlipH")
 	public boolean spriteFlipH;
-	@ObfuscatedName("be")
+	@ObfuscatedName("bn")
 	@ObfuscatedGetter(
-		intValue = -498393033
+		intValue = -1216081495
 	)
 	@Export("modelType")
 	public int modelType;
-	@ObfuscatedName("ba")
+	@ObfuscatedName("bd")
 	@ObfuscatedGetter(
-		intValue = -259490959
+		intValue = -503453445
 	)
 	@Export("modelId")
 	public int modelId;
-	@ObfuscatedName("bt")
+	@ObfuscatedName("bc")
 	@ObfuscatedGetter(
-		intValue = 1852201437
+		intValue = 614808645
 	)
 	@Export("modelType2")
 	int modelType2;
-	@ObfuscatedName("bw")
+	@ObfuscatedName("bi")
 	@ObfuscatedGetter(
-		intValue = 1086899159
+		intValue = 1013399743
 	)
 	@Export("modelId2")
 	int modelId2;
-	@ObfuscatedName("bm")
+	@ObfuscatedName("bk")
 	@ObfuscatedGetter(
-		intValue = -1208440245
+		intValue = 801294357
 	)
 	@Export("sequenceId")
 	public int sequenceId;
-	@ObfuscatedName("by")
+	@ObfuscatedName("bw")
 	@ObfuscatedGetter(
-		intValue = 931568329
+		intValue = -142244715
 	)
 	@Export("sequenceId2")
 	public int sequenceId2;
-	@ObfuscatedName("bq")
+	@ObfuscatedName("bo")
 	@ObfuscatedGetter(
-		intValue = -858623233
+		intValue = -31767663
 	)
 	@Export("modelOffsetX")
 	public int modelOffsetX;
-	@ObfuscatedName("bv")
+	@ObfuscatedName("bj")
 	@ObfuscatedGetter(
-		intValue = -741084995
+		intValue = 721853025
 	)
 	@Export("modelOffsetY")
 	public int modelOffsetY;
-	@ObfuscatedName("br")
+	@ObfuscatedName("bu")
 	@ObfuscatedGetter(
-		intValue = -2065006749
+		intValue = 1324971467
 	)
 	@Export("modelAngleX")
 	public int modelAngleX;
-	@ObfuscatedName("bs")
+	@ObfuscatedName("bt")
 	@ObfuscatedGetter(
-		intValue = 989386551
+		intValue = 1383766093
 	)
 	@Export("modelAngleY")
 	public int modelAngleY;
-	@ObfuscatedName("bd")
+	@ObfuscatedName("bb")
 	@ObfuscatedGetter(
-		intValue = 1566757881
+		intValue = -1080546289
 	)
 	@Export("modelAngleZ")
 	public int modelAngleZ;
-	@ObfuscatedName("bh")
+	@ObfuscatedName("bv")
 	@ObfuscatedGetter(
-		intValue = 695055175
+		intValue = -1151246903
 	)
 	@Export("modelZoom")
 	public int modelZoom;
-	@ObfuscatedName("bk")
+	@ObfuscatedName("bg")
 	@ObfuscatedGetter(
-		intValue = 200052753
+		intValue = -1446492125
 	)
-	public int field2678;
-	@ObfuscatedName("bx")
+	public int field2641;
+	@ObfuscatedName("ba")
 	@ObfuscatedGetter(
-		intValue = 2066974309
+		intValue = 1121746929
 	)
-	public int field2734;
-	@ObfuscatedName("bi")
+	public int field2642;
+	@ObfuscatedName("bq")
 	@Export("modelOrthog")
 	public boolean modelOrthog;
-	@ObfuscatedName("bu")
+	@ObfuscatedName("be")
 	@Export("modelTransparency")
 	public boolean modelTransparency;
-	@ObfuscatedName("bz")
+	@ObfuscatedName("bp")
 	@ObfuscatedGetter(
-		intValue = -484301607
+		intValue = 1783042781
 	)
 	@Export("itemQuantityMode")
 	public int itemQuantityMode;
-	@ObfuscatedName("cs")
+	@ObfuscatedName("cx")
 	@ObfuscatedGetter(
-		intValue = 272063495
+		intValue = -1451320085
 	)
 	@Export("fontId")
 	public int fontId;
-	@ObfuscatedName("ce")
+	@ObfuscatedName("ci")
 	@Export("text")
 	public String text;
-	@ObfuscatedName("cf")
+	@ObfuscatedName("cj")
 	@Export("text2")
 	public String text2;
-	@ObfuscatedName("cg")
+	@ObfuscatedName("ca")
 	@ObfuscatedGetter(
-		intValue = 1323405895
+		intValue = -413643261
 	)
 	@Export("textLineHeight")
 	public int textLineHeight;
-	@ObfuscatedName("cp")
+	@ObfuscatedName("cd")
 	@ObfuscatedGetter(
-		intValue = 1997351313
+		intValue = 258668731
 	)
 	@Export("textXAlignment")
 	public int textXAlignment;
-	@ObfuscatedName("cc")
+	@ObfuscatedName("cm")
 	@ObfuscatedGetter(
-		intValue = -1635883311
+		intValue = -1607527969
 	)
 	@Export("textYAlignment")
 	public int textYAlignment;
-	@ObfuscatedName("cl")
+	@ObfuscatedName("cz")
 	@Export("textShadowed")
 	public boolean textShadowed;
-	@ObfuscatedName("ci")
+	@ObfuscatedName("cc")
 	@ObfuscatedGetter(
-		intValue = 1844469737
+		intValue = 794981295
 	)
 	@Export("paddingX")
 	public int paddingX;
-	@ObfuscatedName("cy")
+	@ObfuscatedName("ce")
 	@ObfuscatedGetter(
-		intValue = 1233173447
+		intValue = -135649533
 	)
 	@Export("paddingY")
 	public int paddingY;
-	@ObfuscatedName("cx")
+	@ObfuscatedName("cb")
 	@Export("inventoryXOffsets")
 	public int[] inventoryXOffsets;
-	@ObfuscatedName("ca")
+	@ObfuscatedName("cf")
 	@Export("inventoryYOffsets")
 	public int[] inventoryYOffsets;
-	@ObfuscatedName("cn")
+	@ObfuscatedName("cr")
 	@Export("inventorySprites")
 	public int[] inventorySprites;
-	@ObfuscatedName("cw")
+	@ObfuscatedName("ch")
 	@Export("itemActions")
 	public String[] itemActions;
-	@ObfuscatedName("cu")
+	@ObfuscatedName("cq")
 	@ObfuscatedGetter(
-		intValue = 59391427
+		intValue = -15083415
 	)
 	@Export("flags")
 	public int flags;
-	@ObfuscatedName("cq")
-	public boolean field2667;
-	@ObfuscatedName("cd")
-	public byte[][] field2668;
-	@ObfuscatedName("cj")
+	@ObfuscatedName("cl")
+	public boolean field2590;
+	@ObfuscatedName("cw")
 	public byte[][] field2649;
-	@ObfuscatedName("cv")
-	public int[] field2670;
-	@ObfuscatedName("cz")
-	public int[] field2671;
-	@ObfuscatedName("dg")
+	@ObfuscatedName("cp")
+	public byte[][] field2637;
+	@ObfuscatedName("cy")
+	public int[] field2679;
+	@ObfuscatedName("cg")
+	public int[] field2664;
+	@ObfuscatedName("dh")
 	@Export("dataText")
 	public String dataText;
-	@ObfuscatedName("db")
+	@ObfuscatedName("dl")
 	@Export("actions")
 	public String[] actions;
-	@ObfuscatedName("dv")
+	@ObfuscatedName("du")
 	@ObfuscatedSignature(
-		descriptor = "Lht;"
+		descriptor = "Lhe;"
 	)
 	@Export("parent")
 	public Widget parent;
-	@ObfuscatedName("df")
+	@ObfuscatedName("de")
 	@ObfuscatedGetter(
-		intValue = 1496607755
+		intValue = 1469736299
 	)
 	@Export("dragZoneSize")
 	public int dragZoneSize;
-	@ObfuscatedName("dd")
+	@ObfuscatedName("dw")
 	@ObfuscatedGetter(
-		intValue = -149689265
+		intValue = -1420143935
 	)
 	@Export("dragThreshold")
 	public int dragThreshold;
-	@ObfuscatedName("dl")
+	@ObfuscatedName("db")
 	@Export("isScrollBar")
 	public boolean isScrollBar;
 	@ObfuscatedName("dq")
 	@Export("spellActionName")
 	public String spellActionName;
-	@ObfuscatedName("dp")
+	@ObfuscatedName("dx")
 	@Export("hasListener")
 	public boolean hasListener;
-	@ObfuscatedName("do")
+	@ObfuscatedName("df")
 	@Export("onLoad")
 	public Object[] onLoad;
 	@ObfuscatedName("dm")
 	@Export("onClick")
 	public Object[] onClick;
-	@ObfuscatedName("dh")
+	@ObfuscatedName("dp")
 	@Export("onClickRepeat")
 	public Object[] onClickRepeat;
-	@ObfuscatedName("da")
+	@ObfuscatedName("dr")
 	@Export("onRelease")
 	public Object[] onRelease;
-	@ObfuscatedName("dz")
+	@ObfuscatedName("dt")
 	@Export("onHold")
 	public Object[] onHold;
 	@ObfuscatedName("ds")
 	@Export("onMouseOver")
 	public Object[] onMouseOver;
-	@ObfuscatedName("dc")
+	@ObfuscatedName("dv")
 	@Export("onMouseRepeat")
 	public Object[] onMouseRepeat;
-	@ObfuscatedName("dy")
+	@ObfuscatedName("dd")
 	@Export("onMouseLeave")
 	public Object[] onMouseLeave;
-	@ObfuscatedName("dj")
+	@ObfuscatedName("dy")
 	@Export("onDrag")
 	public Object[] onDrag;
-	@ObfuscatedName("dw")
+	@ObfuscatedName("dn")
 	@Export("onDragComplete")
 	public Object[] onDragComplete;
-	@ObfuscatedName("dx")
+	@ObfuscatedName("dj")
 	@Export("onTargetEnter")
 	public Object[] onTargetEnter;
-	@ObfuscatedName("dt")
+	@ObfuscatedName("da")
 	@Export("onTargetLeave")
 	public Object[] onTargetLeave;
-	@ObfuscatedName("de")
+	@ObfuscatedName("di")
 	@Export("onVarTransmit")
 	public Object[] onVarTransmit;
-	@ObfuscatedName("di")
+	@ObfuscatedName("do")
 	@Export("varTransmitTriggers")
 	public int[] varTransmitTriggers;
-	@ObfuscatedName("dk")
+	@ObfuscatedName("dc")
 	@Export("onInvTransmit")
 	public Object[] onInvTransmit;
-	@ObfuscatedName("dn")
+	@ObfuscatedName("dg")
 	@Export("invTransmitTriggers")
 	public int[] invTransmitTriggers;
-	@ObfuscatedName("du")
+	@ObfuscatedName("dk")
 	@Export("onStatTransmit")
 	public Object[] onStatTransmit;
-	@ObfuscatedName("dr")
+	@ObfuscatedName("dz")
 	@Export("statTransmitTriggers")
 	public int[] statTransmitTriggers;
-	@ObfuscatedName("en")
+	@ObfuscatedName("es")
 	@Export("onTimer")
 	public Object[] onTimer;
 	@ObfuscatedName("eq")
 	@Export("onOp")
 	public Object[] onOp;
-	@ObfuscatedName("ek")
+	@ObfuscatedName("em")
 	@Export("onScroll")
 	public Object[] onScroll;
-	@ObfuscatedName("ez")
+	@ObfuscatedName("eg")
 	@Export("onChatTransmit")
 	public Object[] onChatTransmit;
-	@ObfuscatedName("er")
+	@ObfuscatedName("eu")
 	@Export("onKey")
 	public Object[] onKey;
-	@ObfuscatedName("eo")
+	@ObfuscatedName("ec")
 	@Export("onFriendTransmit")
 	public Object[] onFriendTransmit;
 	@ObfuscatedName("eh")
 	@Export("onClanTransmit")
 	public Object[] onClanTransmit;
-	@ObfuscatedName("ew")
+	@ObfuscatedName("ee")
 	@Export("onMiscTransmit")
 	public Object[] onMiscTransmit;
-	@ObfuscatedName("ep")
+	@ObfuscatedName("eb")
 	@Export("onDialogAbort")
 	public Object[] onDialogAbort;
-	@ObfuscatedName("et")
+	@ObfuscatedName("ek")
 	@Export("onSubChange")
 	public Object[] onSubChange;
-	@ObfuscatedName("eu")
+	@ObfuscatedName("ew")
 	@Export("onResize")
 	public Object[] onResize;
-	@ObfuscatedName("ei")
+	@ObfuscatedName("ej")
 	@Export("onStockTransmit")
 	public Object[] onStockTransmit;
-	@ObfuscatedName("ef")
-	public Object[] field2669;
-	@ObfuscatedName("ec")
+	@ObfuscatedName("eo")
+	public Object[] field2703;
+	@ObfuscatedName("et")
 	@Export("cs1Instructions")
 	public int[][] cs1Instructions;
-	@ObfuscatedName("ej")
+	@ObfuscatedName("er")
 	@Export("cs1Comparisons")
 	public int[] cs1Comparisons;
-	@ObfuscatedName("em")
+	@ObfuscatedName("ev")
 	@Export("cs1ComparisonValues")
 	public int[] cs1ComparisonValues;
-	@ObfuscatedName("eb")
+	@ObfuscatedName("ef")
 	@ObfuscatedGetter(
-		intValue = 493890133
+		intValue = 258948825
 	)
 	@Export("mouseOverRedirect")
 	public int mouseOverRedirect;
-	@ObfuscatedName("ex")
+	@ObfuscatedName("ep")
 	@Export("spellName")
 	public String spellName;
-	@ObfuscatedName("ea")
+	@ObfuscatedName("ex")
 	@Export("buttonText")
 	public String buttonText;
 	@ObfuscatedName("ed")
@@ -615,78 +594,78 @@ public class Widget extends Node {
 	public int[] itemQuantities;
 	@ObfuscatedName("el")
 	@ObfuscatedGetter(
-		intValue = -659047965
+		intValue = 258014549
 	)
 	@Export("itemId")
 	public int itemId;
-	@ObfuscatedName("es")
+	@ObfuscatedName("ea")
 	@ObfuscatedGetter(
-		intValue = 1581915613
+		intValue = -962806035
 	)
 	@Export("itemQuantity")
 	public int itemQuantity;
-	@ObfuscatedName("eg")
+	@ObfuscatedName("ei")
 	@ObfuscatedGetter(
-		intValue = 1715464223
+		intValue = -394848869
 	)
 	@Export("modelFrame")
 	public int modelFrame;
-	@ObfuscatedName("ev")
+	@ObfuscatedName("ez")
 	@ObfuscatedGetter(
-		intValue = 540822947
+		intValue = -1837069957
 	)
 	@Export("modelFrameCycle")
 	public int modelFrameCycle;
-	@ObfuscatedName("ee")
+	@ObfuscatedName("en")
 	@ObfuscatedSignature(
-		descriptor = "[Lht;"
+		descriptor = "[Lhe;"
 	)
 	@Export("children")
 	public Widget[] children;
-	@ObfuscatedName("fs")
+	@ObfuscatedName("fn")
 	@Export("containsMouse")
 	public boolean containsMouse;
-	@ObfuscatedName("fw")
+	@ObfuscatedName("ft")
 	@Export("isClicked")
 	public boolean isClicked;
-	@ObfuscatedName("fi")
-	@ObfuscatedGetter(
-		intValue = -884134671
-	)
-	public int field2726;
-	@ObfuscatedName("fj")
-	@ObfuscatedGetter(
-		intValue = 1253917553
-	)
-	public int field2727;
 	@ObfuscatedName("fr")
 	@ObfuscatedGetter(
-		intValue = 1015869805
+		intValue = -1866786949
 	)
-	public int field2728;
-	@ObfuscatedName("fo")
+	public int field2719;
+	@ObfuscatedName("fe")
 	@ObfuscatedGetter(
-		intValue = 884540733
+		intValue = -605544769
 	)
-	public int field2729;
-	@ObfuscatedName("fy")
+	public int field2645;
+	@ObfuscatedName("fz")
 	@ObfuscatedGetter(
-		intValue = 651630769
+		intValue = 1348194339
+	)
+	public int field2721;
+	@ObfuscatedName("fj")
+	@ObfuscatedGetter(
+		intValue = -229655759
+	)
+	public int field2725;
+	@ObfuscatedName("fp")
+	@ObfuscatedGetter(
+		intValue = 138352117
 	)
 	@Export("rootIndex")
 	public int rootIndex;
 	@ObfuscatedName("ff")
 	@ObfuscatedGetter(
-		intValue = -536480473
+		intValue = -210635413
 	)
 	@Export("cycle")
 	public int cycle;
-	@ObfuscatedName("fb")
-	public int[] field2594;
-	@ObfuscatedName("fv")
+	@ObfuscatedName("fs")
+	public int[] field2684;
+	@ObfuscatedName("fk")
 	@Export("noClickThrough")
 	public boolean noClickThrough;
-	@ObfuscatedName("fk")
+	@ObfuscatedName("fv")
 	@Export("noScrollThrough")
 	public boolean noScrollThrough;
 	@ObfuscatedName("fm")
@@ -698,7 +677,7 @@ public class Widget extends Node {
 		Widget_cachedModels = new EvictingDualNodeHashTable(50); // L: 32
 		Widget_cachedFonts = new EvictingDualNodeHashTable(20); // L: 33
 		Widget_cachedSpriteMasks = new EvictingDualNodeHashTable(8); // L: 34
-		field2677 = false; // L: 35
+		field2603 = false; // L: 35
 	}
 
 	public Widget() {
@@ -719,44 +698,44 @@ public class Widget extends Node {
 		this.y = 0; // L: 51
 		this.width = 0; // L: 52
 		this.height = 0; // L: 53
-		this.field2610 = 1; // L: 54
-		this.field2611 = 1; // L: 55
+		this.field2660 = 1; // L: 54
+		this.field2604 = 1; // L: 55
 		this.parentId = -1; // L: 56
 		this.isHidden = false; // L: 57
 		this.scrollX = 0; // L: 58
 		this.scrollY = 0; // L: 59
-		this.scrollWidth = 0; // L: 60
-		this.scrollHeight = 0; // L: 61
-		this.color = 0; // L: 62
-		this.color2 = 0; // L: 63
-		this.mouseOverColor = 0; // L: 64
-		this.mouseOverColor2 = 0; // L: 65
-		this.fill = false; // L: 66
-		this.fillMode = FillMode.SOLID; // L: 67
-		this.transparencyTop = 0; // L: 68
-		this.transparencyBot = 0; // L: 69
-		this.lineWid = 1; // L: 70
-		this.field2627 = false; // L: 71
+		this.scrollWidth = 0;
+		this.scrollHeight = 0;
+		this.color = 0;
+		this.color2 = 0;
+		this.mouseOverColor = 0;
+		this.mouseOverColor2 = 0;
+		this.fill = false;
+		this.fillMode = class333.SOLID;
+		this.transparencyTop = 0;
+		this.transparencyBot = 0;
+		this.lineWid = 1;
+		this.field2620 = false;
 		this.spriteId2 = -1; // L: 72
-		this.spriteId = -1; // L: 73
+		this.spriteId = -1;
 		this.spriteAngle = 0; // L: 74
-		this.spriteTiling = false; // L: 75
-		this.outline = 0; // L: 76
-		this.spriteShadow = 0; // L: 77
-		this.modelType = 1; // L: 80
-		this.modelId = -1; // L: 81
-		this.modelType2 = 1; // L: 82
-		this.modelId2 = -1; // L: 83
-		this.sequenceId = -1; // L: 84
-		this.sequenceId2 = -1; // L: 85
+		this.spriteTiling = false;
+		this.outline = 0;
+		this.spriteShadow = 0;
+		this.modelType = 1;
+		this.modelId = -1;
+		this.modelType2 = 1;
+		this.modelId2 = -1;
+		this.sequenceId = -1;
+		this.sequenceId2 = -1;
 		this.modelOffsetX = 0; // L: 86
 		this.modelOffsetY = 0; // L: 87
-		this.modelAngleX = 0; // L: 88
-		this.modelAngleY = 0; // L: 89
-		this.modelAngleZ = 0; // L: 90
+		this.modelAngleX = 0;
+		this.modelAngleY = 0;
+		this.modelAngleZ = 0;
 		this.modelZoom = 100; // L: 91
-		this.field2678 = 0; // L: 92
-		this.field2734 = 0; // L: 93
+		this.field2641 = 0;
+		this.field2642 = 0; // L: 93
 		this.modelOrthog = false; // L: 94
 		this.modelTransparency = false; // L: 95
 		this.itemQuantityMode = 2; // L: 96
@@ -770,7 +749,7 @@ public class Widget extends Node {
 		this.paddingX = 0; // L: 104
 		this.paddingY = 0; // L: 105
 		this.flags = 0; // L: 110
-		this.field2667 = false; // L: 111
+		this.field2590 = false; // L: 111
 		this.dataText = ""; // L: 120
 		this.parent = null; // L: 122
 		this.dragZoneSize = 0; // L: 123
@@ -787,783 +766,809 @@ public class Widget extends Node {
 		this.modelFrameCycle = 0; // L: 170
 		this.containsMouse = false; // L: 172
 		this.isClicked = false; // L: 173
-		this.field2726 = -1; // L: 174
-		this.field2727 = 0; // L: 175
-		this.field2728 = 0; // L: 176
-		this.field2729 = 0; // L: 177
+		this.field2719 = -1; // L: 174
+		this.field2645 = 0; // L: 175
+		this.field2721 = 0; // L: 176
+		this.field2725 = 0; // L: 177
 		this.rootIndex = -1; // L: 178
 		this.cycle = -1; // L: 179
 		this.noClickThrough = false; // L: 181
 		this.noScrollThrough = false; // L: 182
 		this.prioritizeMenuEntry = false; // L: 183
-	} // L: 728
+	} // L: 682
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;I)V",
-		garbageValue = "1764104870"
+		descriptor = "(Lkj;I)V",
+		garbageValue = "1734549663"
 	)
 	@Export("decodeLegacy")
 	void decodeLegacy(Buffer var1) {
-		this.isIf3 = false; // L: 252
-		this.type = var1.readUnsignedByte(); // L: 253
-		this.buttonType = var1.readUnsignedByte(); // L: 254
-		this.contentType = var1.readUnsignedShort(); // L: 255
-		this.rawX = var1.readShort(); // L: 256
-		this.rawY = var1.readShort(); // L: 257
-		this.rawWidth = var1.readUnsignedShort(); // L: 258
-		this.rawHeight = var1.readUnsignedShort(); // L: 259
-		this.transparencyTop = var1.readUnsignedByte(); // L: 260
-		this.parentId = var1.readUnsignedShort(); // L: 261
-		if (this.parentId == 65535) { // L: 262
+		this.isIf3 = false; // L: 227
+		this.type = var1.readUnsignedByte(); // L: 228
+		this.buttonType = var1.readUnsignedByte(); // L: 229
+		this.contentType = var1.readUnsignedShort(); // L: 230
+		this.rawX = var1.readShort(); // L: 231
+		this.rawY = var1.readShort(); // L: 232
+		this.rawWidth = var1.readUnsignedShort(); // L: 233
+		this.rawHeight = var1.readUnsignedShort(); // L: 234
+		this.transparencyTop = var1.readUnsignedByte(); // L: 235
+		this.parentId = var1.readUnsignedShort(); // L: 236
+		if (this.parentId == 65535) { // L: 237
 			this.parentId = -1;
 		} else {
-			this.parentId += this.id & -65536; // L: 263
+			this.parentId += this.id & -65536; // L: 238
 		}
 
-		this.mouseOverRedirect = var1.readUnsignedShort(); // L: 264
-		if (this.mouseOverRedirect == 65535) { // L: 265
+		this.mouseOverRedirect = var1.readUnsignedShort(); // L: 239
+		if (this.mouseOverRedirect == 65535) { // L: 240
 			this.mouseOverRedirect = -1;
 		}
 
-		int var2 = var1.readUnsignedByte(); // L: 266
+		int var2 = var1.readUnsignedByte(); // L: 241
 		int var3;
-		if (var2 > 0) { // L: 267
-			this.cs1Comparisons = new int[var2]; // L: 268
-			this.cs1ComparisonValues = new int[var2]; // L: 269
+		if (var2 > 0) { // L: 242
+			this.cs1Comparisons = new int[var2]; // L: 243
+			this.cs1ComparisonValues = new int[var2]; // L: 244
 
-			for (var3 = 0; var3 < var2; ++var3) { // L: 270
-				this.cs1Comparisons[var3] = var1.readUnsignedByte(); // L: 271
-				this.cs1ComparisonValues[var3] = var1.readUnsignedShort(); // L: 272
+			for (var3 = 0; var3 < var2; ++var3) { // L: 245
+				this.cs1Comparisons[var3] = var1.readUnsignedByte(); // L: 246
+				this.cs1ComparisonValues[var3] = var1.readUnsignedShort(); // L: 247
 			}
 		}
 
-		var3 = var1.readUnsignedByte(); // L: 275
+		var3 = var1.readUnsignedByte(); // L: 250
 		int var4;
 		int var5;
 		int var6;
-		if (var3 > 0) { // L: 276
-			this.cs1Instructions = new int[var3][]; // L: 277
+		if (var3 > 0) { // L: 251
+			this.cs1Instructions = new int[var3][]; // L: 252
 
-			for (var4 = 0; var4 < var3; ++var4) { // L: 278
-				var5 = var1.readUnsignedShort(); // L: 279
-				this.cs1Instructions[var4] = new int[var5]; // L: 280
+			for (var4 = 0; var4 < var3; ++var4) { // L: 253
+				var5 = var1.readUnsignedShort(); // L: 254
+				this.cs1Instructions[var4] = new int[var5]; // L: 255
 
-				for (var6 = 0; var6 < var5; ++var6) { // L: 281
-					this.cs1Instructions[var4][var6] = var1.readUnsignedShort(); // L: 282
-					if (this.cs1Instructions[var4][var6] == 65535) { // L: 283
+				for (var6 = 0; var6 < var5; ++var6) { // L: 256
+					this.cs1Instructions[var4][var6] = var1.readUnsignedShort(); // L: 257
+					if (this.cs1Instructions[var4][var6] == 65535) { // L: 258
 						this.cs1Instructions[var4][var6] = -1;
 					}
 				}
 			}
 		}
 
-		if (this.type == 0) { // L: 287
-			this.scrollHeight = var1.readUnsignedShort(); // L: 288
-			this.isHidden = var1.readUnsignedByte() == 1; // L: 289
+		if (this.type == 0) { // L: 262
+			this.scrollHeight = var1.readUnsignedShort(); // L: 263
+			this.isHidden = var1.readUnsignedByte() == 1; // L: 264
 		}
 
-		if (this.type == 1) { // L: 291
-			var1.readUnsignedShort(); // L: 292
-			var1.readUnsignedByte(); // L: 293
+		if (this.type == 1) { // L: 266
+			var1.readUnsignedShort(); // L: 267
+			var1.readUnsignedByte(); // L: 268
 		}
 
-		if (this.type == 2) { // L: 295
-			this.itemIds = new int[this.rawWidth * this.rawHeight]; // L: 296
-			this.itemQuantities = new int[this.rawWidth * this.rawHeight]; // L: 297
-			var4 = var1.readUnsignedByte(); // L: 298
-			if (var4 == 1) { // L: 299
+		if (this.type == 2) { // L: 270
+			this.itemIds = new int[this.rawWidth * this.rawHeight]; // L: 271
+			this.itemQuantities = new int[this.rawHeight * this.rawWidth]; // L: 272
+			var4 = var1.readUnsignedByte(); // L: 273
+			if (var4 == 1) { // L: 274
 				this.flags |= 268435456;
 			}
 
-			var5 = var1.readUnsignedByte(); // L: 300
-			if (var5 == 1) { // L: 301
+			var5 = var1.readUnsignedByte(); // L: 275
+			if (var5 == 1) { // L: 276
 				this.flags |= 1073741824;
 			}
 
-			var6 = var1.readUnsignedByte(); // L: 302
-			if (var6 == 1) { // L: 303
+			var6 = var1.readUnsignedByte(); // L: 277
+			if (var6 == 1) { // L: 278
 				this.flags |= Integer.MIN_VALUE;
 			}
 
-			int var7 = var1.readUnsignedByte(); // L: 304
-			if (var7 == 1) { // L: 305
+			int var7 = var1.readUnsignedByte(); // L: 279
+			if (var7 == 1) { // L: 280
 				this.flags |= 536870912;
 			}
 
-			this.paddingX = var1.readUnsignedByte(); // L: 306
-			this.paddingY = var1.readUnsignedByte(); // L: 307
-			this.inventoryXOffsets = new int[20]; // L: 308
-			this.inventoryYOffsets = new int[20]; // L: 309
-			this.inventorySprites = new int[20]; // L: 310
+			this.paddingX = var1.readUnsignedByte(); // L: 281
+			this.paddingY = var1.readUnsignedByte(); // L: 282
+			this.inventoryXOffsets = new int[20]; // L: 283
+			this.inventoryYOffsets = new int[20]; // L: 284
+			this.inventorySprites = new int[20]; // L: 285
 
 			int var8;
-			for (var8 = 0; var8 < 20; ++var8) { // L: 311
-				int var11 = var1.readUnsignedByte(); // L: 312
-				if (var11 == 1) { // L: 313
-					this.inventoryXOffsets[var8] = var1.readShort(); // L: 314
-					this.inventoryYOffsets[var8] = var1.readShort(); // L: 315
-					this.inventorySprites[var8] = var1.readInt(); // L: 316
+			for (var8 = 0; var8 < 20; ++var8) { // L: 286
+				int var11 = var1.readUnsignedByte(); // L: 287
+				if (var11 == 1) { // L: 288
+					this.inventoryXOffsets[var8] = var1.readShort(); // L: 289
+					this.inventoryYOffsets[var8] = var1.readShort(); // L: 290
+					this.inventorySprites[var8] = var1.readInt(); // L: 291
 				} else {
-					this.inventorySprites[var8] = -1; // L: 318
+					this.inventorySprites[var8] = -1; // L: 293
 				}
 			}
 
-			this.itemActions = new String[5]; // L: 320
+			this.itemActions = new String[5]; // L: 295
 
-			for (var8 = 0; var8 < 5; ++var8) { // L: 321
-				String var9 = var1.readStringCp1252NullTerminated(); // L: 322
-				if (var9.length() > 0) { // L: 323
-					this.itemActions[var8] = var9; // L: 324
-					this.flags |= 1 << var8 + 23; // L: 325
+			for (var8 = 0; var8 < 5; ++var8) { // L: 296
+				String var9 = var1.readStringCp1252NullTerminated(); // L: 297
+				if (var9.length() > 0) { // L: 298
+					this.itemActions[var8] = var9; // L: 299
+					this.flags |= 1 << var8 + 23; // L: 300
 				}
 			}
 		}
 
-		if (this.type == 3) { // L: 329
-			this.fill = var1.readUnsignedByte() == 1; // L: 330
+		if (this.type == 3) { // L: 304
+			this.fill = var1.readUnsignedByte() == 1; // L: 305
 		}
 
-		if (this.type == 4 || this.type == 1) { // L: 332
-			this.textXAlignment = var1.readUnsignedByte(); // L: 333
-			this.textYAlignment = var1.readUnsignedByte(); // L: 334
-			this.textLineHeight = var1.readUnsignedByte(); // L: 335
-			this.fontId = var1.readUnsignedShort(); // L: 336
-			if (this.fontId == 65535) { // L: 337
+		if (this.type == 4 || this.type == 1) { // L: 307
+			this.textXAlignment = var1.readUnsignedByte(); // L: 308
+			this.textYAlignment = var1.readUnsignedByte(); // L: 309
+			this.textLineHeight = var1.readUnsignedByte(); // L: 310
+			this.fontId = var1.readUnsignedShort(); // L: 311
+			if (this.fontId == 65535) { // L: 312
 				this.fontId = -1;
 			}
 
-			this.textShadowed = var1.readUnsignedByte() == 1; // L: 338
+			this.textShadowed = var1.readUnsignedByte() == 1; // L: 313
 		}
 
-		if (this.type == 4) { // L: 340
-			this.text = var1.readStringCp1252NullTerminated(); // L: 341
-			this.text2 = var1.readStringCp1252NullTerminated(); // L: 342
+		if (this.type == 4) { // L: 315
+			this.text = var1.readStringCp1252NullTerminated(); // L: 316
+			this.text2 = var1.readStringCp1252NullTerminated(); // L: 317
 		}
 
-		if (this.type == 1 || this.type == 3 || this.type == 4) { // L: 344
+		if (this.type == 1 || this.type == 3 || this.type == 4) { // L: 319
 			this.color = var1.readInt();
 		}
 
-		if (this.type == 3 || this.type == 4) { // L: 345
-			this.color2 = var1.readInt(); // L: 346
-			this.mouseOverColor = var1.readInt(); // L: 347
-			this.mouseOverColor2 = var1.readInt(); // L: 348
+		if (this.type == 3 || this.type == 4) { // L: 320
+			this.color2 = var1.readInt(); // L: 321
+			this.mouseOverColor = var1.readInt(); // L: 322
+			this.mouseOverColor2 = var1.readInt(); // L: 323
 		}
 
-		if (this.type == 5) { // L: 350
-			this.spriteId2 = var1.readInt(); // L: 351
-			this.spriteId = var1.readInt(); // L: 352
+		if (this.type == 5) { // L: 325
+			this.spriteId2 = var1.readInt(); // L: 326
+			this.spriteId = var1.readInt(); // L: 327
 		}
 
-		if (this.type == 6) { // L: 354
-			this.modelType = 1; // L: 355
-			this.modelId = var1.readUnsignedShort(); // L: 356
-			if (this.modelId == 65535) { // L: 357
+		if (this.type == 6) { // L: 329
+			this.modelType = 1; // L: 330
+			this.modelId = var1.readUnsignedShort(); // L: 331
+			if (this.modelId == 65535) { // L: 332
 				this.modelId = -1;
 			}
 
-			this.modelType2 = 1; // L: 358
-			this.modelId2 = var1.readUnsignedShort(); // L: 359
-			if (this.modelId2 == 65535) { // L: 360
+			this.modelType2 = 1; // L: 333
+			this.modelId2 = var1.readUnsignedShort(); // L: 334
+			if (this.modelId2 == 65535) { // L: 335
 				this.modelId2 = -1;
 			}
 
-			this.sequenceId = var1.readUnsignedShort(); // L: 361
-			if (this.sequenceId == 65535) { // L: 362
+			this.sequenceId = var1.readUnsignedShort(); // L: 336
+			if (this.sequenceId == 65535) { // L: 337
 				this.sequenceId = -1;
 			}
 
-			this.sequenceId2 = var1.readUnsignedShort(); // L: 363
-			if (this.sequenceId2 == 65535) { // L: 364
+			this.sequenceId2 = var1.readUnsignedShort(); // L: 338
+			if (this.sequenceId2 == 65535) { // L: 339
 				this.sequenceId2 = -1;
 			}
 
-			this.modelZoom = var1.readUnsignedShort(); // L: 365
-			this.modelAngleX = var1.readUnsignedShort(); // L: 366
-			this.modelAngleY = var1.readUnsignedShort(); // L: 367
+			this.modelZoom = var1.readUnsignedShort(); // L: 340
+			this.modelAngleX = var1.readUnsignedShort(); // L: 341
+			this.modelAngleY = var1.readUnsignedShort(); // L: 342
 		}
 
-		if (this.type == 7) { // L: 369
-			this.itemIds = new int[this.rawWidth * this.rawHeight]; // L: 370
-			this.itemQuantities = new int[this.rawWidth * this.rawHeight]; // L: 371
-			this.textXAlignment = var1.readUnsignedByte(); // L: 372
-			this.fontId = var1.readUnsignedShort(); // L: 373
-			if (this.fontId == 65535) { // L: 374
+		if (this.type == 7) { // L: 344
+			this.itemIds = new int[this.rawWidth * this.rawHeight]; // L: 345
+			this.itemQuantities = new int[this.rawHeight * this.rawWidth]; // L: 346
+			this.textXAlignment = var1.readUnsignedByte(); // L: 347
+			this.fontId = var1.readUnsignedShort(); // L: 348
+			if (this.fontId == 65535) { // L: 349
 				this.fontId = -1;
 			}
 
-			this.textShadowed = var1.readUnsignedByte() == 1; // L: 375
-			this.color = var1.readInt(); // L: 376
-			this.paddingX = var1.readShort(); // L: 377
-			this.paddingY = var1.readShort(); // L: 378
-			var4 = var1.readUnsignedByte(); // L: 379
+			this.textShadowed = var1.readUnsignedByte() == 1; // L: 350
+			this.color = var1.readInt(); // L: 351
+			this.paddingX = var1.readShort(); // L: 352
+			this.paddingY = var1.readShort(); // L: 353
+			var4 = var1.readUnsignedByte(); // L: 354
 			if (var4 == 1) {
-				this.flags |= 1073741824; // L: 380
+				this.flags |= 1073741824; // L: 355
 			}
 
-			this.itemActions = new String[5]; // L: 381
+			this.itemActions = new String[5]; // L: 356
 
-			for (var5 = 0; var5 < 5; ++var5) { // L: 382
-				String var10 = var1.readStringCp1252NullTerminated(); // L: 383
-				if (var10.length() > 0) { // L: 384
-					this.itemActions[var5] = var10; // L: 385
-					this.flags |= 1 << var5 + 23; // L: 386
+			for (var5 = 0; var5 < 5; ++var5) { // L: 357
+				String var10 = var1.readStringCp1252NullTerminated(); // L: 358
+				if (var10.length() > 0) { // L: 359
+					this.itemActions[var5] = var10; // L: 360
+					this.flags |= 1 << var5 + 23; // L: 361
 				}
 			}
 		}
 
-		if (this.type == 8) { // L: 390
-			this.text = var1.readStringCp1252NullTerminated(); // L: 391
+		if (this.type == 8) { // L: 365
+			this.text = var1.readStringCp1252NullTerminated(); // L: 366
 		}
 
-		if (this.buttonType == 2 || this.type == 2) { // L: 393
-			this.spellActionName = var1.readStringCp1252NullTerminated(); // L: 394
-			this.spellName = var1.readStringCp1252NullTerminated(); // L: 395
-			var4 = var1.readUnsignedShort() & 63; // L: 396
-			this.flags |= var4 << 11; // L: 397
+		if (this.buttonType == 2 || this.type == 2) { // L: 368
+			this.spellActionName = var1.readStringCp1252NullTerminated(); // L: 369
+			this.spellName = var1.readStringCp1252NullTerminated(); // L: 370
+			var4 = var1.readUnsignedShort() & 63; // L: 371
+			this.flags |= var4 << 11; // L: 372
 		}
 
-		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5 || this.buttonType == 6) { // L: 399
-			this.buttonText = var1.readStringCp1252NullTerminated(); // L: 400
-			if (this.buttonText.length() == 0) { // L: 401
-				if (this.buttonType == 1) { // L: 402
+		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5 || this.buttonType == 6) { // L: 374
+			this.buttonText = var1.readStringCp1252NullTerminated(); // L: 375
+			if (this.buttonText.length() == 0) { // L: 376
+				if (this.buttonType == 1) { // L: 377
 					this.buttonText = "Ok";
 				}
 
-				if (this.buttonType == 4) { // L: 403
+				if (this.buttonType == 4) { // L: 378
 					this.buttonText = "Select";
 				}
 
-				if (this.buttonType == 5) { // L: 404
+				if (this.buttonType == 5) { // L: 379
 					this.buttonText = "Select";
 				}
 
-				if (this.buttonType == 6) { // L: 405
+				if (this.buttonType == 6) { // L: 380
 					this.buttonText = "Continue";
 				}
 			}
 		}
 
-		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5) { // L: 408
-			this.flags |= 4194304; // L: 409
+		if (this.buttonType == 1 || this.buttonType == 4 || this.buttonType == 5) { // L: 383
+			this.flags |= 4194304; // L: 384
 		}
 
-		if (this.buttonType == 6) { // L: 411
-			this.flags |= 1; // L: 412
+		if (this.buttonType == 6) { // L: 386
+			this.flags |= 1; // L: 387
 		}
 
-	} // L: 414
+	} // L: 389
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;I)V",
-		garbageValue = "-517843839"
+		descriptor = "(Lkj;B)V",
+		garbageValue = "-2"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
-		var1.readUnsignedByte(); // L: 417
-		this.isIf3 = true; // L: 418
-		this.type = var1.readUnsignedByte(); // L: 419
-		this.contentType = var1.readUnsignedShort(); // L: 420
-		this.rawX = var1.readShort(); // L: 421
-		this.rawY = var1.readShort(); // L: 422
-		this.rawWidth = var1.readUnsignedShort(); // L: 423
-		if (this.type == 9) { // L: 424
+		var1.readUnsignedByte(); // L: 392
+		this.isIf3 = true; // L: 393
+		this.type = var1.readUnsignedByte(); // L: 394
+		this.contentType = var1.readUnsignedShort(); // L: 395
+		this.rawX = var1.readShort(); // L: 396
+		this.rawY = var1.readShort(); // L: 397
+		this.rawWidth = var1.readUnsignedShort(); // L: 398
+		if (this.type == 9) { // L: 399
 			this.rawHeight = var1.readShort();
 		} else {
-			this.rawHeight = var1.readUnsignedShort(); // L: 425
+			this.rawHeight = var1.readUnsignedShort(); // L: 400
 		}
 
-		this.widthAlignment = var1.readByte(); // L: 426
-		this.heightAlignment = var1.readByte(); // L: 427
-		this.xAlignment = var1.readByte(); // L: 428
-		this.yAlignment = var1.readByte(); // L: 429
-		this.parentId = var1.readUnsignedShort(); // L: 430
-		if (this.parentId == 65535) { // L: 431
+		this.widthAlignment = var1.readByte(); // L: 401
+		this.heightAlignment = var1.readByte(); // L: 402
+		this.xAlignment = var1.readByte(); // L: 403
+		this.yAlignment = var1.readByte(); // L: 404
+		this.parentId = var1.readUnsignedShort(); // L: 405
+		if (this.parentId == 65535) { // L: 406
 			this.parentId = -1;
 		} else {
-			this.parentId += this.id & -65536; // L: 432
+			this.parentId += this.id & -65536; // L: 407
 		}
 
-		this.isHidden = var1.readUnsignedByte() == 1; // L: 433
-		if (this.type == 0) { // L: 434
-			this.scrollWidth = var1.readUnsignedShort(); // L: 435
-			this.scrollHeight = var1.readUnsignedShort(); // L: 436
-			this.noClickThrough = var1.readUnsignedByte() == 1; // L: 437
+		this.isHidden = var1.readUnsignedByte() == 1; // L: 408
+		if (this.type == 0) { // L: 409
+			this.scrollWidth = var1.readUnsignedShort(); // L: 410
+			this.scrollHeight = var1.readUnsignedShort(); // L: 411
+			this.noClickThrough = var1.readUnsignedByte() == 1; // L: 412
 		}
 
-		if (this.type == 5) { // L: 439
-			this.spriteId2 = var1.readInt(); // L: 440
-			this.spriteAngle = var1.readUnsignedShort(); // L: 441
-			this.spriteTiling = var1.readUnsignedByte() == 1; // L: 442
-			this.transparencyTop = var1.readUnsignedByte(); // L: 443
-			this.outline = var1.readUnsignedByte(); // L: 444
-			this.spriteShadow = var1.readInt(); // L: 445
-			this.spriteFlipV = var1.readUnsignedByte() == 1; // L: 446
-			this.spriteFlipH = var1.readUnsignedByte() == 1; // L: 447
+		if (this.type == 5) { // L: 414
+			this.spriteId2 = var1.readInt(); // L: 415
+			this.spriteAngle = var1.readUnsignedShort(); // L: 416
+			this.spriteTiling = var1.readUnsignedByte() == 1; // L: 417
+			this.transparencyTop = var1.readUnsignedByte(); // L: 418
+			this.outline = var1.readUnsignedByte(); // L: 419
+			this.spriteShadow = var1.readInt(); // L: 420
+			this.spriteFlipV = var1.readUnsignedByte() == 1; // L: 421
+			this.spriteFlipH = var1.readUnsignedByte() == 1; // L: 422
 		}
 
-		if (this.type == 6) { // L: 449
-			this.modelType = 1; // L: 450
-			this.modelId = var1.readUnsignedShort(); // L: 451
-			if (this.modelId == 65535) { // L: 452
+		if (this.type == 6) { // L: 424
+			this.modelType = 1; // L: 425
+			this.modelId = var1.readUnsignedShort(); // L: 426
+			if (this.modelId == 65535) { // L: 427
 				this.modelId = -1;
 			}
 
-			this.modelOffsetX = var1.readShort(); // L: 453
-			this.modelOffsetY = var1.readShort(); // L: 454
-			this.modelAngleX = var1.readUnsignedShort(); // L: 455
-			this.modelAngleY = var1.readUnsignedShort(); // L: 456
-			this.modelAngleZ = var1.readUnsignedShort(); // L: 457
-			this.modelZoom = var1.readUnsignedShort(); // L: 458
-			this.sequenceId = var1.readUnsignedShort(); // L: 459
-			if (this.sequenceId == 65535) { // L: 460
+			this.modelOffsetX = var1.readShort(); // L: 428
+			this.modelOffsetY = var1.readShort(); // L: 429
+			this.modelAngleX = var1.readUnsignedShort(); // L: 430
+			this.modelAngleY = var1.readUnsignedShort(); // L: 431
+			this.modelAngleZ = var1.readUnsignedShort(); // L: 432
+			this.modelZoom = var1.readUnsignedShort(); // L: 433
+			this.sequenceId = var1.readUnsignedShort(); // L: 434
+			if (this.sequenceId == 65535) { // L: 435
 				this.sequenceId = -1;
 			}
 
-			this.modelOrthog = var1.readUnsignedByte() == 1; // L: 461
-			var1.readUnsignedShort(); // L: 462
-			if (this.widthAlignment != 0) { // L: 463
-				this.field2678 = var1.readUnsignedShort();
+			this.modelOrthog = var1.readUnsignedByte() == 1; // L: 436
+			var1.readUnsignedShort(); // L: 437
+			if (this.widthAlignment != 0) { // L: 438
+				this.field2641 = var1.readUnsignedShort();
 			}
 
-			if (this.heightAlignment != 0) { // L: 464
-				var1.readUnsignedShort(); // L: 465
+			if (this.heightAlignment != 0) { // L: 439
+				var1.readUnsignedShort(); // L: 440
 			}
 		}
 
-		if (this.type == 4) { // L: 468
-			this.fontId = var1.readUnsignedShort(); // L: 469
-			if (this.fontId == 65535) { // L: 470
+		if (this.type == 4) { // L: 443
+			this.fontId = var1.readUnsignedShort(); // L: 444
+			if (this.fontId == 65535) { // L: 445
 				this.fontId = -1;
 			}
 
-			this.text = var1.readStringCp1252NullTerminated(); // L: 471
-			this.textLineHeight = var1.readUnsignedByte(); // L: 472
-			this.textXAlignment = var1.readUnsignedByte(); // L: 473
-			this.textYAlignment = var1.readUnsignedByte(); // L: 474
-			this.textShadowed = var1.readUnsignedByte() == 1; // L: 475
-			this.color = var1.readInt(); // L: 476
+			this.text = var1.readStringCp1252NullTerminated(); // L: 446
+			this.textLineHeight = var1.readUnsignedByte(); // L: 447
+			this.textXAlignment = var1.readUnsignedByte(); // L: 448
+			this.textYAlignment = var1.readUnsignedByte(); // L: 449
+			this.textShadowed = var1.readUnsignedByte() == 1; // L: 450
+			this.color = var1.readInt(); // L: 451
 		}
 
-		if (this.type == 3) { // L: 478
-			this.color = var1.readInt(); // L: 479
-			this.fill = var1.readUnsignedByte() == 1; // L: 480
-			this.transparencyTop = var1.readUnsignedByte(); // L: 481
+		if (this.type == 3) { // L: 453
+			this.color = var1.readInt(); // L: 454
+			this.fill = var1.readUnsignedByte() == 1; // L: 455
+			this.transparencyTop = var1.readUnsignedByte(); // L: 456
 		}
 
-		if (this.type == 9) { // L: 483
-			this.lineWid = var1.readUnsignedByte(); // L: 484
-			this.color = var1.readInt(); // L: 485
-			this.field2627 = var1.readUnsignedByte() == 1; // L: 486
+		if (this.type == 9) { // L: 458
+			this.lineWid = var1.readUnsignedByte(); // L: 459
+			this.color = var1.readInt(); // L: 460
+			this.field2620 = var1.readUnsignedByte() == 1; // L: 461
 		}
 
-		this.flags = var1.readMedium(); // L: 488
-		this.dataText = var1.readStringCp1252NullTerminated(); // L: 489
-		int var2 = var1.readUnsignedByte(); // L: 490
-		if (var2 > 0) { // L: 491
-			this.actions = new String[var2]; // L: 492
+		this.flags = var1.readMedium(); // L: 463
+		this.dataText = var1.readStringCp1252NullTerminated(); // L: 464
+		int var2 = var1.readUnsignedByte(); // L: 465
+		if (var2 > 0) { // L: 466
+			this.actions = new String[var2]; // L: 467
 
-			for (int var3 = 0; var3 < var2; ++var3) { // L: 493
+			for (int var3 = 0; var3 < var2; ++var3) { // L: 468
 				this.actions[var3] = var1.readStringCp1252NullTerminated();
 			}
 		}
 
-		this.dragZoneSize = var1.readUnsignedByte(); // L: 495
-		this.dragThreshold = var1.readUnsignedByte(); // L: 496
-		this.isScrollBar = var1.readUnsignedByte() == 1; // L: 497
-		this.spellActionName = var1.readStringCp1252NullTerminated(); // L: 498
-		this.onLoad = this.readListener(var1); // L: 499
-		this.onMouseOver = this.readListener(var1); // L: 500
-		this.onMouseLeave = this.readListener(var1); // L: 501
-		this.onTargetLeave = this.readListener(var1); // L: 502
-		this.onTargetEnter = this.readListener(var1); // L: 503
-		this.onVarTransmit = this.readListener(var1); // L: 504
-		this.onInvTransmit = this.readListener(var1); // L: 505
-		this.onStatTransmit = this.readListener(var1); // L: 506
-		this.onTimer = this.readListener(var1); // L: 507
-		this.onOp = this.readListener(var1); // L: 508
-		this.onMouseRepeat = this.readListener(var1); // L: 509
-		this.onClick = this.readListener(var1); // L: 510
-		this.onClickRepeat = this.readListener(var1); // L: 511
-		this.onRelease = this.readListener(var1); // L: 512
-		this.onHold = this.readListener(var1); // L: 513
-		this.onDrag = this.readListener(var1); // L: 514
-		this.onDragComplete = this.readListener(var1); // L: 515
-		this.onScroll = this.readListener(var1); // L: 516
-		this.varTransmitTriggers = this.readListenerTriggers(var1); // L: 517
-		this.invTransmitTriggers = this.readListenerTriggers(var1); // L: 518
-		this.statTransmitTriggers = this.readListenerTriggers(var1); // L: 519
-	} // L: 520
+		this.dragZoneSize = var1.readUnsignedByte(); // L: 470
+		this.dragThreshold = var1.readUnsignedByte(); // L: 471
+		this.isScrollBar = var1.readUnsignedByte() == 1; // L: 472
+		this.spellActionName = var1.readStringCp1252NullTerminated(); // L: 473
+		this.onLoad = this.readListener(var1); // L: 474
+		this.onMouseOver = this.readListener(var1); // L: 475
+		this.onMouseLeave = this.readListener(var1); // L: 476
+		this.onTargetLeave = this.readListener(var1); // L: 477
+		this.onTargetEnter = this.readListener(var1); // L: 478
+		this.onVarTransmit = this.readListener(var1); // L: 479
+		this.onInvTransmit = this.readListener(var1); // L: 480
+		this.onStatTransmit = this.readListener(var1); // L: 481
+		this.onTimer = this.readListener(var1); // L: 482
+		this.onOp = this.readListener(var1); // L: 483
+		this.onMouseRepeat = this.readListener(var1); // L: 484
+		this.onClick = this.readListener(var1); // L: 485
+		this.onClickRepeat = this.readListener(var1); // L: 486
+		this.onRelease = this.readListener(var1); // L: 487
+		this.onHold = this.readListener(var1); // L: 488
+		this.onDrag = this.readListener(var1); // L: 489
+		this.onDragComplete = this.readListener(var1); // L: 490
+		this.onScroll = this.readListener(var1); // L: 491
+		this.varTransmitTriggers = this.readListenerTriggers(var1); // L: 492
+		this.invTransmitTriggers = this.readListenerTriggers(var1); // L: 493
+		this.statTransmitTriggers = this.readListenerTriggers(var1); // L: 494
+	} // L: 495
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;I)[Ljava/lang/Object;",
-		garbageValue = "1938670345"
+		descriptor = "(Lkj;I)[Ljava/lang/Object;",
+		garbageValue = "-747120554"
 	)
 	@Export("readListener")
 	Object[] readListener(Buffer var1) {
-		int var2 = var1.readUnsignedByte(); // L: 523
-		if (var2 == 0) { // L: 524
+		int var2 = var1.readUnsignedByte(); // L: 498
+		if (var2 == 0) { // L: 499
 			return null;
 		} else {
-			Object[] var3 = new Object[var2]; // L: 525
+			Object[] var3 = new Object[var2]; // L: 500
 
-			for (int var4 = 0; var4 < var2; ++var4) { // L: 526
-				int var5 = var1.readUnsignedByte(); // L: 527
+			for (int var4 = 0; var4 < var2; ++var4) { // L: 501
+				int var5 = var1.readUnsignedByte(); // L: 502
 				if (var5 == 0) {
-					var3[var4] = new Integer(var1.readInt()); // L: 528
-				} else if (var5 == 1) { // L: 529
+					var3[var4] = new Integer(var1.readInt()); // L: 503
+				} else if (var5 == 1) { // L: 504
 					var3[var4] = var1.readStringCp1252NullTerminated();
 				}
 			}
 
-			this.hasListener = true; // L: 531
-			return var3; // L: 532
-		}
-	}
-
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "(Lkb;S)[I",
-		garbageValue = "22328"
-	)
-	@Export("readListenerTriggers")
-	int[] readListenerTriggers(Buffer var1) {
-		int var2 = var1.readUnsignedByte(); // L: 536
-		if (var2 == 0) { // L: 537
-			return null;
-		} else {
-			int[] var3 = new int[var2]; // L: 538
-
-			for (int var4 = 0; var4 < var2; ++var4) { // L: 539
-				var3[var4] = var1.readInt(); // L: 540
-			}
-
-			return var3; // L: 542
-		}
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "49"
-	)
-	@Export("swapItems")
-	public void swapItems(int var1, int var2) {
-		int var3 = this.itemIds[var2]; // L: 546
-		this.itemIds[var2] = this.itemIds[var1]; // L: 547
-		this.itemIds[var1] = var3; // L: 548
-		var3 = this.itemQuantities[var2]; // L: 549
-		this.itemQuantities[var2] = this.itemQuantities[var1]; // L: 550
-		this.itemQuantities[var1] = var3; // L: 551
-	} // L: 552
-
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(ZI)Llc;",
-		garbageValue = "1009735615"
-	)
-	@Export("getSprite")
-	public Sprite getSprite(boolean var1) {
-		field2677 = false; // L: 555
-		int var2;
-		if (var1) { // L: 557
-			var2 = this.spriteId;
-		} else {
-			var2 = this.spriteId2; // L: 558
-		}
-
-		if (var2 == -1) { // L: 559
-			return null;
-		} else {
-			long var3 = ((long)this.spriteShadow << 40) + (long)var2 + ((long)this.outline << 36) + ((this.spriteFlipV ? 1L : 0L) << 38) + ((this.spriteFlipH ? 1L : 0L) << 39); // L: 560
-			Sprite var5 = (Sprite)Widget_cachedSprites.get(var3); // L: 561
-			if (var5 != null) { // L: 562
-				return var5;
-			} else {
-				var5 = FloorDecoration.SpriteBuffer_getSprite(Widget_spritesArchive, var2, 0); // L: 563
-				if (var5 == null) { // L: 564
-					field2677 = true; // L: 565
-					return null; // L: 566
-				} else {
-					if (this.spriteFlipV) { // L: 568
-						var5.flipVertically();
-					}
-
-					if (this.spriteFlipH) { // L: 569
-						var5.flipHorizontally();
-					}
-
-					if (this.outline > 0) { // L: 570
-						var5.pad(this.outline);
-					}
-
-					if (this.outline >= 1) { // L: 571
-						var5.outline(1);
-					}
-
-					if (this.outline >= 2) { // L: 572
-						var5.outline(16777215);
-					}
-
-					if (this.spriteShadow != 0) { // L: 573
-						var5.shadow(this.spriteShadow);
-					}
-
-					Widget_cachedSprites.put(var5, var3); // L: 574
-					return var5; // L: 575
-				}
-			}
-		}
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)Lkq;",
-		garbageValue = "-1856461280"
-	)
-	@Export("getFont")
-	public Font getFont() {
-		field2677 = false; // L: 579
-		if (this.fontId == -1) { // L: 580
-			return null;
-		} else {
-			Font var1 = (Font)Widget_cachedFonts.get((long)this.fontId); // L: 581
-			if (var1 != null) { // L: 582
-				return var1;
-			} else {
-				AbstractArchive var3 = Widget_spritesArchive; // L: 584
-				AbstractArchive var4 = Widget_fontsArchive; // L: 585
-				int var5 = this.fontId; // L: 586
-				byte[] var7 = var3.takeFile(var5, 0); // L: 590
-				boolean var6;
-				if (var7 == null) { // L: 591
-					var6 = false; // L: 592
-				} else {
-					class217.SpriteBuffer_decode(var7); // L: 595
-					var6 = true; // L: 596
-				}
-
-				Font var2;
-				if (!var6) { // L: 598
-					var2 = null; // L: 599
-				} else {
-					var2 = UrlRequester.method3430(var4.takeFile(var5, 0)); // L: 602
-				}
-
-				if (var2 != null) {
-					Widget_cachedFonts.put(var2, (long)this.fontId); // L: 605
-				} else {
-					field2677 = true; // L: 606
-				}
-
-				return var2; // L: 607
-			}
+			this.hasListener = true; // L: 506
+			return var3; // L: 507
 		}
 	}
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(II)Llc;",
-		garbageValue = "-521963360"
+		descriptor = "(Lkj;I)[I",
+		garbageValue = "-149240461"
 	)
-	@Export("getInventorySprite")
-	public Sprite getInventorySprite(int var1) {
-		field2677 = false; // L: 611
-		if (var1 >= 0 && var1 < this.inventorySprites.length) { // L: 612
-			int var2 = this.inventorySprites[var1]; // L: 613
-			if (var2 == -1) { // L: 614
-				return null;
-			} else {
-				Sprite var3 = (Sprite)Widget_cachedSprites.get((long)var2); // L: 615
-				if (var3 != null) { // L: 616
-					return var3;
-				} else {
-					var3 = FloorDecoration.SpriteBuffer_getSprite(Widget_spritesArchive, var2, 0); // L: 617
-					if (var3 != null) { // L: 618
-						Widget_cachedSprites.put(var3, (long)var2);
-					} else {
-						field2677 = true; // L: 619
-					}
-
-					return var3; // L: 620
-				}
-			}
-		} else {
-			return null;
-		}
-	}
-
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(Ljg;IZLhu;I)Leh;",
-		garbageValue = "1269686702"
-	)
-	@Export("getModel")
-	public Model getModel(SequenceDefinition var1, int var2, boolean var3, PlayerAppearance var4) {
-		field2677 = false; // L: 624
-		int var5;
-		int var6;
-		if (var3) { // L: 627
-			var5 = this.modelType2; // L: 628
-			var6 = this.modelId2; // L: 629
-		} else {
-			var5 = this.modelType; // L: 632
-			var6 = this.modelId; // L: 633
-		}
-
-		if (var5 == 0) { // L: 635
-			return null;
-		} else if (var5 == 1 && var6 == -1) { // L: 636
+	@Export("readListenerTriggers")
+	int[] readListenerTriggers(Buffer var1) {
+		int var2 = var1.readUnsignedByte(); // L: 511
+		if (var2 == 0) { // L: 512
 			return null;
 		} else {
-			Model var7 = (Model)Widget_cachedModels.get((long)(var6 + (var5 << 16))); // L: 637
-			if (var7 == null) { // L: 638
-				ModelData var8;
-				if (var5 == 1) { // L: 640
-					var8 = ModelData.ModelData_get(GameBuild.Widget_modelsArchive, var6, 0); // L: 641
-					if (var8 == null) { // L: 642
-						field2677 = true; // L: 643
-						return null; // L: 644
-					}
+			int[] var3 = new int[var2]; // L: 513
 
-					var7 = var8.toModel(64, 768, -50, -10, -50); // L: 646
-				}
-
-				if (var5 == 2) { // L: 648
-					var8 = Clock.getNpcDefinition(var6).getModelData(); // L: 649
-					if (var8 == null) { // L: 650
-						field2677 = true; // L: 651
-						return null; // L: 652
-					}
-
-					var7 = var8.toModel(64, 768, -50, -10, -50); // L: 654
-				}
-
-				if (var5 == 3) { // L: 656
-					if (var4 == null) { // L: 657
-						return null;
-					}
-
-					var8 = var4.getModelData(); // L: 658
-					if (var8 == null) { // L: 659
-						field2677 = true; // L: 660
-						return null; // L: 661
-					}
-
-					var7 = var8.toModel(64, 768, -50, -10, -50); // L: 663
-				}
-
-				if (var5 == 4) { // L: 665
-					ItemDefinition var9 = AbstractWorldMapData.ItemDefinition_get(var6); // L: 666
-					var8 = var9.getModelData(10); // L: 667
-					if (var8 == null) { // L: 668
-						field2677 = true; // L: 669
-						return null; // L: 670
-					}
-
-					var7 = var8.toModel(var9.ambient + 64, var9.contrast + 768, -50, -10, -50); // L: 672
-				}
-
-				Widget_cachedModels.put(var7, (long)(var6 + (var5 << 16))); // L: 674
+			for (int var4 = 0; var4 < var2; ++var4) { // L: 514
+				var3[var4] = var1.readInt(); // L: 515
 			}
 
-			if (var1 != null) { // L: 676
-				var7 = var1.transformWidgetModel(var7, var2); // L: 677
-			}
-
-			return var7; // L: 679
+			return var3; // L: 517
 		}
 	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(ZB)Lho;",
-		garbageValue = "-13"
+		descriptor = "(IIB)V",
+		garbageValue = "90"
 	)
-	@Export("getSpriteMask")
-	public SpriteMask getSpriteMask(boolean var1) {
-		if (this.spriteId == -1) { // L: 683
-			var1 = false;
+	@Export("swapItems")
+	public void swapItems(int var1, int var2) {
+		int var3 = this.itemIds[var2]; // L: 521
+		this.itemIds[var2] = this.itemIds[var1]; // L: 522
+		this.itemIds[var1] = var3; // L: 523
+		var3 = this.itemQuantities[var2]; // L: 524
+		this.itemQuantities[var2] = this.itemQuantities[var1]; // L: 525
+		this.itemQuantities[var1] = var3; // L: 526
+	} // L: 527
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(ZB)Llm;",
+		garbageValue = "14"
+	)
+	@Export("getSprite")
+	public Sprite getSprite(boolean var1) {
+		field2603 = false; // L: 530
+		int var2;
+		if (var1) { // L: 532
+			var2 = this.spriteId;
+		} else {
+			var2 = this.spriteId2; // L: 533
 		}
 
-		int var2 = var1 ? this.spriteId * -402783927 * -1960132359 : this.spriteId2 * 372301921 * -755383391; // L: 684
-		if (var2 == -1) { // L: 685
+		if (var2 == -1) { // L: 534
 			return null;
 		} else {
-			long var3 = ((this.spriteFlipH ? 1L : 0L) << 39) + (long)var2 + ((long)this.outline << 36) + ((this.spriteFlipV ? 1L : 0L) << 38) + ((long)this.spriteShadow << 40); // L: 686
-			SpriteMask var5 = (SpriteMask)Widget_cachedSpriteMasks.get(var3); // L: 687
-			if (var5 != null) { // L: 688
+			long var3 = ((long)this.spriteShadow << 40) + ((this.spriteFlipV ? 1L : 0L) << 38) + ((long)this.outline << 36) + (long)var2 + ((this.spriteFlipH ? 1L : 0L) << 39); // L: 535
+			Sprite var5 = (Sprite)Widget_cachedSprites.get(var3); // L: 536
+			if (var5 != null) { // L: 537
 				return var5;
 			} else {
-				Sprite var6 = this.getSprite(var1); // L: 689
-				if (var6 == null) { // L: 690
-					return null;
+				var5 = Skills.SpriteBuffer_getSprite(class1.Widget_spritesArchive, var2, 0); // L: 538
+				if (var5 == null) { // L: 539
+					field2603 = true; // L: 540
+					return null; // L: 541
 				} else {
-					Sprite var7 = var6.copyNormalized(); // L: 691
-					int[] var8 = new int[var7.subHeight]; // L: 692
-					int[] var9 = new int[var7.subHeight]; // L: 693
-
-					for (int var10 = 0; var10 < var7.subHeight; ++var10) { // L: 694
-						int var11 = 0; // L: 695
-						int var12 = var7.subWidth; // L: 696
-
-						int var13;
-						for (var13 = 0; var13 < var7.subWidth; ++var13) { // L: 697
-							if (var7.pixels[var13 + var10 * var7.subWidth] == 0) { // L: 698
-								var11 = var13; // L: 699
-								break;
-							}
-						}
-
-						for (var13 = var7.subWidth - 1; var13 >= var11; --var13) { // L: 703
-							if (var7.pixels[var13 + var10 * var7.subWidth] == 0) { // L: 704
-								var12 = var13 + 1; // L: 705
-								break;
-							}
-						}
-
-						var8[var10] = var11; // L: 709
-						var9[var10] = var12 - var11; // L: 710
+					if (this.spriteFlipV) { // L: 543
+						var5.flipVertically();
 					}
 
-					var5 = new SpriteMask(var7.subWidth, var7.subHeight, var9, var8, var2); // L: 712
-					Widget_cachedSpriteMasks.put(var5, var3); // L: 713
-					return var5; // L: 714
+					if (this.spriteFlipH) { // L: 544
+						var5.flipHorizontally();
+					}
+
+					if (this.outline > 0) { // L: 545
+						var5.pad(this.outline);
+					}
+
+					if (this.outline >= 1) { // L: 546
+						var5.outline(1);
+					}
+
+					if (this.outline >= 2) { // L: 547
+						var5.outline(16777215);
+					}
+
+					if (this.spriteShadow != 0) { // L: 548
+						var5.shadow(this.spriteShadow);
+					}
+
+					Widget_cachedSprites.put(var5, var3); // L: 549
+					return var5; // L: 550
 				}
 			}
 		}
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(I)Lku;",
+		garbageValue = "521072072"
+	)
+	@Export("getFont")
+	public Font getFont() {
+		field2603 = false; // L: 554
+		if (this.fontId == -1) { // L: 555
+			return null;
+		} else {
+			Font var1 = (Font)Widget_cachedFonts.get((long)this.fontId); // L: 556
+			if (var1 != null) { // L: 557
+				return var1;
+			} else {
+				var1 = PrivateChatMode.method5934(class1.Widget_spritesArchive, Bounds.Widget_fontsArchive, this.fontId, 0); // L: 558
+				if (var1 != null) {
+					Widget_cachedFonts.put(var1, (long)this.fontId); // L: 559
+				} else {
+					field2603 = true; // L: 560
+				}
+
+				return var1; // L: 561
+			}
+		}
+	}
+
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "(II)Llm;",
+		garbageValue = "1550530577"
+	)
+	@Export("getInventorySprite")
+	public Sprite getInventorySprite(int var1) {
+		field2603 = false; // L: 565
+		if (var1 >= 0 && var1 < this.inventorySprites.length) { // L: 566
+			int var2 = this.inventorySprites[var1]; // L: 567
+			if (var2 == -1) { // L: 568
+				return null;
+			} else {
+				Sprite var3 = (Sprite)Widget_cachedSprites.get((long)var2); // L: 569
+				if (var3 != null) { // L: 570
+					return var3;
+				} else {
+					var3 = Skills.SpriteBuffer_getSprite(class1.Widget_spritesArchive, var2, 0); // L: 571
+					if (var3 != null) { // L: 572
+						Widget_cachedSprites.put(var3, (long)var2);
+					} else {
+						field2603 = true; // L: 573
+					}
+
+					return var3; // L: 574
+				}
+			}
+		} else {
+			return null;
+		}
+	}
+
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(Ljy;IZLhh;I)Leh;",
+		garbageValue = "-2117213889"
+	)
+	@Export("getModel")
+	public Model getModel(SequenceDefinition var1, int var2, boolean var3, PlayerAppearance var4) {
+		field2603 = false; // L: 578
+		int var5;
+		int var6;
+		if (var3) { // L: 581
+			var5 = this.modelType2; // L: 582
+			var6 = this.modelId2; // L: 583
+		} else {
+			var5 = this.modelType; // L: 586
+			var6 = this.modelId; // L: 587
+		}
+
+		if (var5 == 0) { // L: 589
+			return null;
+		} else if (var5 == 1 && var6 == -1) { // L: 590
+			return null;
+		} else {
+			Model var7 = (Model)Widget_cachedModels.get((long)(var6 + (var5 << 16))); // L: 591
+			if (var7 == null) { // L: 592
+				ModelData var8;
+				if (var5 == 1) { // L: 594
+					var8 = ModelData.ModelData_get(GrandExchangeOfferWorldComparator.Widget_modelsArchive, var6, 0); // L: 595
+					if (var8 == null) { // L: 596
+						field2603 = true; // L: 597
+						return null; // L: 598
+					}
+
+					var7 = var8.toModel(64, 768, -50, -10, -50); // L: 600
+				}
+
+				if (var5 == 2) { // L: 602
+					var8 = WorldMapIcon_0.getNpcDefinition(var6).getModelData(); // L: 603
+					if (var8 == null) { // L: 604
+						field2603 = true; // L: 605
+						return null; // L: 606
+					}
+
+					var7 = var8.toModel(64, 768, -50, -10, -50); // L: 608
+				}
+
+				if (var5 == 3) { // L: 610
+					if (var4 == null) { // L: 611
+						return null;
+					}
+
+					var8 = var4.getModelData(); // L: 612
+					if (var8 == null) { // L: 613
+						field2603 = true; // L: 614
+						return null; // L: 615
+					}
+
+					var7 = var8.toModel(64, 768, -50, -10, -50); // L: 617
+				}
+
+				if (var5 == 4) { // L: 619
+					ItemDefinition var9 = SecureRandomCallable.ItemDefinition_get(var6); // L: 620
+					var8 = var9.getModelData(10); // L: 621
+					if (var8 == null) { // L: 622
+						field2603 = true; // L: 623
+						return null; // L: 624
+					}
+
+					var7 = var8.toModel(var9.ambient + 64, var9.contrast + 768, -50, -10, -50); // L: 626
+				}
+
+				Widget_cachedModels.put(var7, (long)(var6 + (var5 << 16))); // L: 628
+			}
+
+			if (var1 != null) { // L: 630
+				var7 = var1.transformWidgetModel(var7, var2); // L: 631
+			}
+
+			return var7; // L: 633
+		}
+	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(ZB)Lho;",
+		garbageValue = "-21"
+	)
+	@Export("getSpriteMask")
+	public SpriteMask getSpriteMask(boolean var1) {
+		if (this.spriteId == -1) { // L: 637
+			var1 = false;
+		}
+
+		int var2 = var1 ? this.spriteId * -815296531 * -1427429915 : this.spriteId2 * -1999476695 * 325039129; // L: 638
+		if (var2 == -1) { // L: 639
+			return null;
+		} else {
+			long var3 = ((long)this.spriteShadow << 40) + ((this.spriteFlipV ? 1L : 0L) << 38) + ((long)this.outline << 36) + (long)var2 + ((this.spriteFlipH ? 1L : 0L) << 39); // L: 640
+			SpriteMask var5 = (SpriteMask)Widget_cachedSpriteMasks.get(var3); // L: 641
+			if (var5 != null) { // L: 642
+				return var5;
+			} else {
+				Sprite var6 = this.getSprite(var1); // L: 643
+				if (var6 == null) { // L: 644
+					return null;
+				} else {
+					Sprite var7 = var6.copyNormalized(); // L: 645
+					int[] var8 = new int[var7.subHeight]; // L: 646
+					int[] var9 = new int[var7.subHeight]; // L: 647
+
+					for (int var10 = 0; var10 < var7.subHeight; ++var10) { // L: 648
+						int var11 = 0; // L: 649
+						int var12 = var7.subWidth; // L: 650
+
+						int var13;
+						for (var13 = 0; var13 < var7.subWidth; ++var13) { // L: 651
+							if (var7.pixels[var13 + var10 * var7.subWidth] == 0) { // L: 652
+								var11 = var13; // L: 653
+								break;
+							}
+						}
+
+						for (var13 = var7.subWidth - 1; var13 >= var11; --var13) { // L: 657
+							if (var7.pixels[var13 + var10 * var7.subWidth] == 0) { // L: 658
+								var12 = var13 + 1; // L: 659
+								break;
+							}
+						}
+
+						var8[var10] = var11; // L: 663
+						var9[var10] = var12 - var11; // L: 664
+					}
+
+					var5 = new SpriteMask(var7.subWidth, var7.subHeight, var9, var8, var2); // L: 666
+					Widget_cachedSpriteMasks.put(var5, var3); // L: 667
+					return var5; // L: 668
+				}
+			}
+		}
+	}
+
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(ILjava/lang/String;I)V",
-		garbageValue = "1671583868"
+		garbageValue = "925556129"
 	)
 	@Export("setAction")
 	public void setAction(int var1, String var2) {
-		if (this.actions == null || this.actions.length <= var1) { // L: 718
-			String[] var3 = new String[var1 + 1]; // L: 719
-			if (this.actions != null) { // L: 720
-				for (int var4 = 0; var4 < this.actions.length; ++var4) { // L: 721
+		if (this.actions == null || this.actions.length <= var1) { // L: 672
+			String[] var3 = new String[var1 + 1]; // L: 673
+			if (this.actions != null) { // L: 674
+				for (int var4 = 0; var4 < this.actions.length; ++var4) { // L: 675
 					var3[var4] = this.actions[var4];
 				}
 			}
 
-			this.actions = var3; // L: 723
+			this.actions = var3; // L: 677
 		}
 
-		this.actions[var1] = var2; // L: 725
-	} // L: 726
+		this.actions[var1] = var2; // L: 679
+	} // L: 680
 
-	@ObfuscatedName("gd")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "0"
+		descriptor = "(Lil;IIIBZI)V",
+		garbageValue = "452837182"
 	)
-	static boolean method4239() {
-		return (Client.drawPlayerNames & 2) != 0; // L: 4922
+	@Export("requestNetFile")
+	static void requestNetFile(Archive var0, int var1, int var2, int var3, byte var4, boolean var5) {
+		long var6 = (long)((var1 << 16) + var2); // L: 60
+		NetFileRequest var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityWrites.get(var6); // L: 61
+		if (var8 == null) { // L: 62
+			var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.get(var6); // L: 63
+			if (var8 == null) { // L: 64
+				var8 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var6); // L: 65
+				if (var8 != null) { // L: 66
+					if (var5) { // L: 67
+						var8.removeDual(); // L: 68
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6);
+						--NetCache.NetCache_pendingWritesCount; // L: 70
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 71
+					}
+
+				} else {
+					if (!var5) { // L: 75
+						var8 = (NetFileRequest)NetCache.NetCache_pendingResponses.get(var6); // L: 76
+						if (var8 != null) { // L: 77
+							return;
+						}
+					}
+
+					var8 = new NetFileRequest(); // L: 79
+					var8.archive = var0; // L: 80
+					var8.crc = var3; // L: 81
+					var8.padding = var4; // L: 82
+					if (var5) { // L: 83
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 84
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 85
+					} else {
+						NetCache.NetCache_pendingWritesQueue.addFirst(var8); // L: 88
+						NetCache.NetCache_pendingWrites.put(var8, var6); // L: 89
+						++NetCache.NetCache_pendingWritesCount; // L: 90
+					}
+
+				}
+			}
+		}
+	} // L: 73 92
+
+	@ObfuscatedName("j")
+	@Export("Entity_unpackSceneX")
+	public static int Entity_unpackSceneX(long var0) {
+		return (int)(var0 >>> 14 & 3L); // L: 69
 	}
 }

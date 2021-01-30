@@ -92,7 +92,6 @@ public abstract class RSModelDataMixin implements RSModelData
 		final short[] texTriangleZ = getTexTriangleZ();
 
 		final byte[] textureCoords = getTextureCoords();
-		final byte[] textureRenderTypes = getTextureRenderTypes();
 
 		int faceCount = getTriangleFaceCount();
 		this.faceTextureUCoordinates = new float[faceCount][];
@@ -100,15 +99,10 @@ public abstract class RSModelDataMixin implements RSModelData
 
 		for (int i = 0; i < faceCount; i++)
 		{
-			int textureCoordinate;
-			if (textureCoords == null)
-			{
-				textureCoordinate = -1;
-			}
-			else
-			{
-				textureCoordinate = textureCoords[i];
-			}
+			int trianglePointX = trianglePointsX[i];
+			int trianglePointY = trianglePointsY[i];
+			int trianglePointZ = trianglePointsZ[i];
+			int textureCoordinate = textureCoords != null && textureCoords[i] != -1 ? textureCoords[i] & 255 : -1;
 
 			short textureIdx;
 			textureIdx = faceTextures[i];
@@ -118,79 +112,63 @@ public abstract class RSModelDataMixin implements RSModelData
 				float[] u = new float[3];
 				float[] v = new float[3];
 
+				int triangleVertexIdx1;
+				int triangleVertexIdx2;
+				int triangleVertexIdx3;
+
 				if (textureCoordinate == -1)
 				{
-					u[0] = 0.0F;
-					v[0] = 1.0F;
-
-					u[1] = 1.0F;
-					v[1] = 1.0F;
-
-					u[2] = 0.0F;
-					v[2] = 0.0F;
+					triangleVertexIdx1 = trianglePointX;
+					triangleVertexIdx2 = trianglePointY;
+					triangleVertexIdx3 = trianglePointZ;
 				}
 				else
 				{
-					textureCoordinate &= 0xFF;
-
-					byte textureRenderType = 0;
-					if (textureRenderTypes != null)
-					{
-						textureRenderType = textureRenderTypes[textureCoordinate];
-					}
-
-					if (textureRenderType == 0)
-					{
-						int faceVertexIdx1 = trianglePointsX[i];
-						int faceVertexIdx2 = trianglePointsY[i];
-						int faceVertexIdx3 = trianglePointsZ[i];
-
-						int triangleVertexIdx1 = texTriangleX[textureCoordinate];
-						int triangleVertexIdx2 = texTriangleY[textureCoordinate];
-						int triangleVertexIdx3 = texTriangleZ[textureCoordinate];
-
-						float triangleX = (float) vertexPositionsX[triangleVertexIdx1];
-						float triangleY = (float) vertexPositionsY[triangleVertexIdx1];
-						float triangleZ = (float) vertexPositionsZ[triangleVertexIdx1];
-
-						float f_882_ = (float) vertexPositionsX[triangleVertexIdx2] - triangleX;
-						float f_883_ = (float) vertexPositionsY[triangleVertexIdx2] - triangleY;
-						float f_884_ = (float) vertexPositionsZ[triangleVertexIdx2] - triangleZ;
-						float f_885_ = (float) vertexPositionsX[triangleVertexIdx3] - triangleX;
-						float f_886_ = (float) vertexPositionsY[triangleVertexIdx3] - triangleY;
-						float f_887_ = (float) vertexPositionsZ[triangleVertexIdx3] - triangleZ;
-						float f_888_ = (float) vertexPositionsX[faceVertexIdx1] - triangleX;
-						float f_889_ = (float) vertexPositionsY[faceVertexIdx1] - triangleY;
-						float f_890_ = (float) vertexPositionsZ[faceVertexIdx1] - triangleZ;
-						float f_891_ = (float) vertexPositionsX[faceVertexIdx2] - triangleX;
-						float f_892_ = (float) vertexPositionsY[faceVertexIdx2] - triangleY;
-						float f_893_ = (float) vertexPositionsZ[faceVertexIdx2] - triangleZ;
-						float f_894_ = (float) vertexPositionsX[faceVertexIdx3] - triangleX;
-						float f_895_ = (float) vertexPositionsY[faceVertexIdx3] - triangleY;
-						float f_896_ = (float) vertexPositionsZ[faceVertexIdx3] - triangleZ;
-
-						float f_897_ = f_883_ * f_887_ - f_884_ * f_886_;
-						float f_898_ = f_884_ * f_885_ - f_882_ * f_887_;
-						float f_899_ = f_882_ * f_886_ - f_883_ * f_885_;
-						float f_900_ = f_886_ * f_899_ - f_887_ * f_898_;
-						float f_901_ = f_887_ * f_897_ - f_885_ * f_899_;
-						float f_902_ = f_885_ * f_898_ - f_886_ * f_897_;
-						float f_903_ = 1.0F / (f_900_ * f_882_ + f_901_ * f_883_ + f_902_ * f_884_);
-
-						u[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
-						u[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
-						u[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
-
-						f_900_ = f_883_ * f_899_ - f_884_ * f_898_;
-						f_901_ = f_884_ * f_897_ - f_882_ * f_899_;
-						f_902_ = f_882_ * f_898_ - f_883_ * f_897_;
-						f_903_ = 1.0F / (f_900_ * f_885_ + f_901_ * f_886_ + f_902_ * f_887_);
-
-						v[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
-						v[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
-						v[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
-					}
+					triangleVertexIdx1 = texTriangleX[textureCoordinate];
+					triangleVertexIdx2 = texTriangleY[textureCoordinate];
+					triangleVertexIdx3 = texTriangleZ[textureCoordinate];
 				}
+
+				float triangleX = (float) vertexPositionsX[triangleVertexIdx1];
+				float triangleY = (float) vertexPositionsY[triangleVertexIdx1];
+				float triangleZ = (float) vertexPositionsZ[triangleVertexIdx1];
+
+				float f_882_ = (float) vertexPositionsX[triangleVertexIdx2] - triangleX;
+				float f_883_ = (float) vertexPositionsY[triangleVertexIdx2] - triangleY;
+				float f_884_ = (float) vertexPositionsZ[triangleVertexIdx2] - triangleZ;
+				float f_885_ = (float) vertexPositionsX[triangleVertexIdx3] - triangleX;
+				float f_886_ = (float) vertexPositionsY[triangleVertexIdx3] - triangleY;
+				float f_887_ = (float) vertexPositionsZ[triangleVertexIdx3] - triangleZ;
+				float f_888_ = (float) vertexPositionsX[trianglePointX] - triangleX;
+				float f_889_ = (float) vertexPositionsY[trianglePointX] - triangleY;
+				float f_890_ = (float) vertexPositionsZ[trianglePointX] - triangleZ;
+				float f_891_ = (float) vertexPositionsX[trianglePointY] - triangleX;
+				float f_892_ = (float) vertexPositionsY[trianglePointY] - triangleY;
+				float f_893_ = (float) vertexPositionsZ[trianglePointY] - triangleZ;
+				float f_894_ = (float) vertexPositionsX[trianglePointZ] - triangleX;
+				float f_895_ = (float) vertexPositionsY[trianglePointZ] - triangleY;
+				float f_896_ = (float) vertexPositionsZ[trianglePointZ] - triangleZ;
+
+				float f_897_ = f_883_ * f_887_ - f_884_ * f_886_;
+				float f_898_ = f_884_ * f_885_ - f_882_ * f_887_;
+				float f_899_ = f_882_ * f_886_ - f_883_ * f_885_;
+				float f_900_ = f_886_ * f_899_ - f_887_ * f_898_;
+				float f_901_ = f_887_ * f_897_ - f_885_ * f_899_;
+				float f_902_ = f_885_ * f_898_ - f_886_ * f_897_;
+				float f_903_ = 1.0F / (f_900_ * f_882_ + f_901_ * f_883_ + f_902_ * f_884_);
+
+				u[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+				u[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+				u[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
+
+				f_900_ = f_883_ * f_899_ - f_884_ * f_898_;
+				f_901_ = f_884_ * f_897_ - f_882_ * f_899_;
+				f_902_ = f_882_ * f_898_ - f_883_ * f_897_;
+				f_903_ = 1.0F / (f_900_ * f_885_ + f_901_ * f_886_ + f_902_ * f_887_);
+
+				v[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+				v[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+				v[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
 
 				this.faceTextureUCoordinates[i] = u;
 				this.faceTextureVCoordinates[i] = v;

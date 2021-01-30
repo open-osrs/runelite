@@ -3,103 +3,91 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ie")
+@ObfuscatedName("ik")
 @Implements("SpotAnimationDefinition")
 public class SpotAnimationDefinition extends DualNode {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lib;"
 	)
 	@Export("SpotAnimationDefinition_archive")
 	static AbstractArchive SpotAnimationDefinition_archive;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lib;"
 	)
 	@Export("SpotAnimationDefinition_modelArchive")
 	static AbstractArchive SpotAnimationDefinition_modelArchive;
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("SpotAnimationDefinition_cached")
 	static EvictingDualNodeHashTable SpotAnimationDefinition_cached;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("SpotAnimationDefinition_cachedModels")
 	static EvictingDualNodeHashTable SpotAnimationDefinition_cachedModels;
-	@ObfuscatedName("ex")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 324624887
-	)
-	static int field3282;
-	@ObfuscatedName("ix")
-	@ObfuscatedGetter(
-		intValue = -787495021
-	)
-	@Export("selectedItemWidget")
-	static int selectedItemWidget;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = -378851373
+		intValue = 116853057
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1622885381
+		intValue = 1527605981
 	)
 	@Export("archive")
 	int archive;
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1604295303
+		intValue = 664616399
 	)
 	@Export("sequence")
 	public int sequence;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@Export("recolorFrom")
 	short[] recolorFrom;
-	@ObfuscatedName("u")
+	@ObfuscatedName("l")
 	@Export("recolorTo")
 	short[] recolorTo;
-	@ObfuscatedName("t")
+	@ObfuscatedName("z")
 	@Export("retextureFrom")
 	short[] retextureFrom;
-	@ObfuscatedName("e")
+	@ObfuscatedName("u")
 	@Export("retextureTo")
 	short[] retextureTo;
-	@ObfuscatedName("o")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1171838019
+		intValue = 492539667
 	)
 	@Export("widthScale")
 	int widthScale;
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1777738887
+		intValue = 1988933589
 	)
 	@Export("heightScale")
 	int heightScale;
-	@ObfuscatedName("x")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 439933857
+		intValue = 130255545
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -2047701161
+		intValue = 905155291
 	)
 	@Export("ambient")
 	int ambient;
-	@ObfuscatedName("r")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1188839011
+		intValue = -1227772685
 	)
 	@Export("contrast")
 	int contrast;
@@ -118,10 +106,10 @@ public class SpotAnimationDefinition extends DualNode {
 		this.contrast = 0; // L: 27
 	} // L: 29
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;B)V",
-		garbageValue = "57"
+		descriptor = "(Lkj;I)V",
+		garbageValue = "-1477796181"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -135,10 +123,10 @@ public class SpotAnimationDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;II)V",
-		garbageValue = "-1222478116"
+		descriptor = "(Lkj;IB)V",
+		garbageValue = "7"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -154,8 +142,8 @@ public class SpotAnimationDefinition extends DualNode {
 			this.orientation = var1.readUnsignedShort();
 		} else if (var2 == 7) { // L: 61
 			this.ambient = var1.readUnsignedByte();
-		} else if (var2 == 8) { // L: 62
-			this.contrast = var1.readUnsignedByte();
+		} else if (var2 == 8) {
+			this.contrast = var1.readUnsignedByte(); // L: 62
 		} else {
 			int var3;
 			int var4;
@@ -182,10 +170,10 @@ public class SpotAnimationDefinition extends DualNode {
 
 	} // L: 82
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Leh;",
-		garbageValue = "-32"
+		descriptor = "(II)Leh;",
+		garbageValue = "-888239890"
 	)
 	@Export("getModel")
 	public final Model getModel(int var1) {
@@ -215,7 +203,7 @@ public class SpotAnimationDefinition extends DualNode {
 
 		Model var5;
 		if (this.sequence != -1 && var1 != -1) { // L: 103
-			var5 = class105.SequenceDefinition_get(this.sequence).transformSpotAnimationModel(var2, var1);
+			var5 = ParamDefinition.SequenceDefinition_get(this.sequence).transformSpotAnimationModel(var2, var1);
 		} else {
 			var5 = var2.toSharedSpotAnimationModel(true); // L: 104
 		}
@@ -242,66 +230,5 @@ public class SpotAnimationDefinition extends DualNode {
 		}
 
 		return var5; // L: 118
-	}
-
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(ILco;ZI)I",
-		garbageValue = "2006459682"
-	)
-	static int method4577(int var0, Script var1, boolean var2) {
-		int var3 = -1; // L: 497
-		Widget var4;
-		if (var0 >= 2000) { // L: 499
-			var0 -= 1000; // L: 500
-			var3 = Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize]; // L: 501
-			var4 = UserComparator4.getWidget(var3); // L: 502
-		} else {
-			var4 = var2 ? MouseRecorder.field621 : Interpreter.field1122; // L: 504
-		}
-
-		if (var0 == ScriptOpcodes.CC_SETPOSITION) { // L: 505
-			MilliClock.Interpreter_intStackSize -= 4; // L: 506
-			var4.rawX = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize]; // L: 507
-			var4.rawY = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 1]; // L: 508
-			var4.xAlignment = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 2]; // L: 509
-			var4.yAlignment = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 3]; // L: 510
-			GrandExchangeOfferOwnWorldComparator.invalidateWidget(var4); // L: 511
-			ByteArrayPool.client.alignWidget(var4); // L: 512
-			if (var3 != -1 && var4.type == 0) { // L: 513
-				UserComparator9.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
-			}
-
-			return 1; // L: 514
-		} else if (var0 == ScriptOpcodes.CC_SETSIZE) { // L: 516
-			MilliClock.Interpreter_intStackSize -= 4; // L: 517
-			var4.rawWidth = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize]; // L: 518
-			var4.rawHeight = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 1]; // L: 519
-			var4.widthAlignment = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 2]; // L: 520
-			var4.heightAlignment = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 3]; // L: 521
-			GrandExchangeOfferOwnWorldComparator.invalidateWidget(var4); // L: 522
-			ByteArrayPool.client.alignWidget(var4); // L: 523
-			if (var3 != -1 && var4.type == 0) { // L: 524
-				UserComparator9.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
-			}
-
-			return 1; // L: 525
-		} else if (var0 == ScriptOpcodes.CC_SETHIDE) { // L: 527
-			boolean var5 = Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize] == 1; // L: 528
-			if (var5 != var4.isHidden) { // L: 529
-				var4.isHidden = var5; // L: 530
-				GrandExchangeOfferOwnWorldComparator.invalidateWidget(var4); // L: 531
-			}
-
-			return 1; // L: 533
-		} else if (var0 == ScriptOpcodes.CC_SETNOCLICKTHROUGH) { // L: 535
-			var4.noClickThrough = Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize] == 1; // L: 536
-			return 1; // L: 537
-		} else if (var0 == ScriptOpcodes.CC_SETNOSCROLLTHROUGH) { // L: 539
-			var4.noScrollThrough = Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize] == 1; // L: 540
-			return 1; // L: 541
-		} else {
-			return 2; // L: 543
-		}
 	}
 }

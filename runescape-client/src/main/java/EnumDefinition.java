@@ -4,58 +4,60 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jd")
+@ObfuscatedName("jx")
 @Implements("EnumDefinition")
 public class EnumDefinition extends DualNode {
-	@ObfuscatedName("f")
+	@ObfuscatedName("rk")
+	@ObfuscatedGetter(
+		intValue = 2141868731
+	)
+	static int field3340;
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lib;"
 	)
 	@Export("EnumDefinition_archive")
 	static AbstractArchive EnumDefinition_archive;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lev;"
+		descriptor = "Lez;"
 	)
 	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
-	@ObfuscatedName("bb")
-	@Export("otp")
-	static String otp;
-	@ObfuscatedName("bn")
+	@ObfuscatedName("lh")
 	@ObfuscatedSignature(
-		descriptor = "[Llc;"
+		descriptor = "Lhe;"
 	)
-	@Export("worldSelectBackSprites")
-	static Sprite[] worldSelectBackSprites;
-	@ObfuscatedName("l")
+	@Export("mousedOverWidgetIf1")
+	static Widget mousedOverWidgetIf1;
+	@ObfuscatedName("x")
 	@Export("inputType")
 	public char inputType;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@Export("outputType")
 	public char outputType;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -25790237
+		intValue = 1632225121
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1613773715
+		intValue = -1333539623
 	)
 	@Export("outputCount")
 	public int outputCount;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@Export("keys")
 	public int[] keys;
-	@ObfuscatedName("u")
+	@ObfuscatedName("l")
 	@Export("intVals")
 	public int[] intVals;
-	@ObfuscatedName("t")
+	@ObfuscatedName("z")
 	@Export("strVals")
 	public String[] strVals;
 
@@ -68,10 +70,10 @@ public class EnumDefinition extends DualNode {
 		this.outputCount = 0; // L: 17
 	} // L: 22
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;I)V",
-		garbageValue = "729247361"
+		descriptor = "(Lkj;B)V",
+		garbageValue = "1"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -85,10 +87,10 @@ public class EnumDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Lkb;II)V",
-		garbageValue = "-2002314807"
+		descriptor = "(Lkj;II)V",
+		garbageValue = "-1344091650"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -125,43 +127,13 @@ public class EnumDefinition extends DualNode {
 
 	} // L: 70
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1958366010"
+		garbageValue = "-1619007901"
 	)
 	@Export("size")
 	public int size() {
 		return this.outputCount; // L: 73
 	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "22707007"
-	)
-	public static int method4714(int var0) {
-		if (var0 > 0) { // L: 191
-			return 1;
-		} else {
-			return var0 < 0 ? -1 : 0; // L: 192 193
-		}
-	}
-
-	@ObfuscatedName("ht")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1488753124"
-	)
-	static final void method4721(int var0) {
-		if (var0 >= 0) { // L: 7935
-			int var1 = Client.menuArguments1[var0]; // L: 7936
-			int var2 = Client.menuArguments2[var0]; // L: 7937
-			int var3 = Client.menuOpcodes[var0]; // L: 7938
-			int var4 = Client.menuIdentifiers[var0]; // L: 7939
-			String var5 = Client.menuActions[var0]; // L: 7940
-			String var6 = Client.menuTargets[var0]; // L: 7941
-			Calendar.menuAction(var1, var2, var3, var4, var5, var6, MouseHandler.MouseHandler_lastPressedX, MouseHandler.MouseHandler_lastPressedY); // L: 7942
-		}
-	} // L: 7943
 }

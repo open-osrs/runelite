@@ -2,132 +2,130 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("fz")
+@ObfuscatedName("fq")
 public enum class169 implements Enumerated {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lfz;"
+		descriptor = "Lfq;"
 	)
-	field2033(2, 0),
-	@ObfuscatedName("b")
+	field2025(0, 0),
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lfz;"
+		descriptor = "Lfq;"
 	)
-	field2029(0, 1),
-	@ObfuscatedName("l")
+	field2019(3, 1),
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "Lfz;"
+		descriptor = "Lfq;"
 	)
-	field2028(1, 2),
-	@ObfuscatedName("m")
+	field2021(1, 2),
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lfz;"
+		descriptor = "Lfq;"
 	)
-	field2034(3, 3);
+	field2020(2, 3);
 
-	@ObfuscatedName("ad")
-	@ObfuscatedGetter(
-		intValue = -1161977131
+	@ObfuscatedName("ec")
+	@ObfuscatedSignature(
+		descriptor = "Lil;"
 	)
-	static int field2035;
-	@ObfuscatedName("z")
+	@Export("archive17")
+	static Archive archive17;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1105831857
+		intValue = -53306941
 	)
-	public final int field2032;
-	@ObfuscatedName("q")
+	public final int field2022;
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1075265281
+		intValue = -2018130907
 	)
 	@Export("id")
 	final int id;
 
 	class169(int var3, int var4) {
-		this.field2032 = var3; // L: 16
+		this.field2022 = var3; // L: 16
 		this.id = var4; // L: 17
 	} // L: 18
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "23"
+		descriptor = "(I)I",
+		garbageValue = "-275768542"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 21
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "19136995"
+		descriptor = "(Lib;Lib;Ljava/lang/String;Ljava/lang/String;B)Lku;",
+		garbageValue = "35"
 	)
-	public static void method3571(int var0, int var1) {
-		VarbitDefinition var3 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0); // L: 48
-		VarbitDefinition var2;
-		if (var3 != null) { // L: 49
-			var2 = var3; // L: 50
-		} else {
-			byte[] var4 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0); // L: 53
-			var3 = new VarbitDefinition(); // L: 54
-			if (var4 != null) { // L: 55
-				var3.decode(new Buffer(var4));
-			}
+	public static Font method3534(AbstractArchive var0, AbstractArchive var1, String var2, String var3) {
+		int var4 = var0.getGroupId(var2); // L: 145
+		int var5 = var0.getFileId(var4, var3); // L: 146
+		return PrivateChatMode.method5934(var0, var1, var4, var5); // L: 147
+	}
 
-			VarbitDefinition.VarbitDefinition_cached.put(var3, (long)var0); // L: 56
-			var2 = var3; // L: 57
-		}
-
-		int var8 = var2.baseVar; // L: 60
-		int var5 = var2.startBit; // L: 61
-		int var6 = var2.endBit; // L: 62
-		int var7 = Varps.Varps_masks[var6 - var5]; // L: 63
-		if (var1 < 0 || var1 > var7) { // L: 64
-			var1 = 0;
-		}
-
-		var7 <<= var5; // L: 65
-		Varps.Varps_main[var8] = Varps.Varps_main[var8] & ~var7 | var1 << var5 & var7; // L: 66
-	} // L: 67
-
-	@ObfuscatedName("ak")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(ILco;ZB)I",
-		garbageValue = "-118"
+		descriptor = "([BIILeo;[Lfo;I)V",
+		garbageValue = "-1437204785"
 	)
-	static int method3572(int var0, Script var1, boolean var2) {
-		int var3;
-		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) { // L: 3153
-			MilliClock.Interpreter_intStackSize -= 2; // L: 3154
-			var3 = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize]; // L: 3155
-			int var4 = Interpreter.Interpreter_intStack[MilliClock.Interpreter_intStackSize + 1]; // L: 3156
-			if (!Client.isCameraLocked) { // L: 3157
-				Client.camAngleX = var3; // L: 3158
-				Client.camAngleY = var4; // L: 3159
+	static final void method3533(byte[] var0, int var1, int var2, Scene var3, CollisionMap[] var4) {
+		Buffer var5 = new Buffer(var0); // L: 197
+		int var6 = -1; // L: 198
+
+		while (true) {
+			int var7 = var5.method5557(); // L: 200
+			if (var7 == 0) { // L: 201
+				return; // L: 225
 			}
 
-			return 1; // L: 3161
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) { // L: 3163
-			Interpreter.Interpreter_intStack[++MilliClock.Interpreter_intStackSize - 1] = Client.camAngleX; // L: 3164
-			return 1; // L: 3165
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) { // L: 3167
-			Interpreter.Interpreter_intStack[++MilliClock.Interpreter_intStackSize - 1] = Client.camAngleY; // L: 3168
-			return 1; // L: 3169
-		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) { // L: 3171
-			var3 = Interpreter.Interpreter_intStack[--MilliClock.Interpreter_intStackSize]; // L: 3172
-			if (var3 < 0) { // L: 3173
-				var3 = 0;
-			}
+			var6 += var7; // L: 202
+			int var8 = 0; // L: 203
 
-			Client.camFollowHeight = var3; // L: 3174
-			return 1; // L: 3175
-		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) { // L: 3177
-			Interpreter.Interpreter_intStack[++MilliClock.Interpreter_intStackSize - 1] = Client.camFollowHeight; // L: 3178
-			return 1; // L: 3179
-		} else {
-			return 2; // L: 3181
+			while (true) {
+				int var9 = var5.readUShortSmart(); // L: 205
+				if (var9 == 0) { // L: 206
+					break;
+				}
+
+				var8 += var9 - 1; // L: 207
+				int var10 = var8 & 63; // L: 208
+				int var11 = var8 >> 6 & 63; // L: 209
+				int var12 = var8 >> 12; // L: 210
+				int var13 = var5.readUnsignedByte(); // L: 211
+				int var14 = var13 >> 2; // L: 212
+				int var15 = var13 & 3; // L: 213
+				int var16 = var11 + var1; // L: 214
+				int var17 = var10 + var2; // L: 215
+				if (var16 > 0 && var17 > 0 && var16 < 103 && var17 < 103) { // L: 216
+					int var18 = var12; // L: 217
+					if ((Tiles.Tiles_renderFlags[1][var16][var17] & 2) == 2) { // L: 218
+						var18 = var12 - 1;
+					}
+
+					CollisionMap var19 = null; // L: 219
+					if (var18 >= 0) { // L: 220
+						var19 = var4[var18];
+					}
+
+					class7.method90(var12, var16, var17, var6, var15, var14, var3, var19); // L: 221
+				}
+			}
 		}
+	}
+
+	@ObfuscatedName("jz")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "725246299"
+	)
+	static boolean method3529() {
+		return Client.tapToDrop || KeyHandler.KeyHandler_pressedKeys[81]; // L: 9900
 	}
 }

@@ -176,6 +176,7 @@ public final class AnimationID
 	public static final int HERBLORE_POTIONMAKING = 363; //used for both herb and secondary
 	public static final int MAGIC_CHARGING_ORBS = 726;
 	public static final int MAGIC_MAKE_TABLET = 4068;
+	public static final int TABLET_TELEPORT = 4069;
 	public static final int MAGIC_ENCHANTING_JEWELRY = 931;
 	public static final int MAGIC_ENCHANTING_AMULET_1 = 719; // sapphire, opal, diamond
 	public static final int MAGIC_ENCHANTING_AMULET_2 = 720; // emerald, jade, dragonstone
@@ -208,13 +209,20 @@ public final class AnimationID
 	public static final int LEAGUE_HOME_TELEPORT_4 = 8803;
 	public static final int LEAGUE_HOME_TELEPORT_5 = 8805;
 	public static final int LEAGUE_HOME_TELEPORT_6 = 8807;
-
 	public static final int CONSTRUCTION = 3676;
 	public static final int SAND_COLLECTION = 895;
 	public static final int PISCARILIUS_CRANE_REPAIR = 7199;
 	public static final int HOME_MAKE_TABLET = 4067;
 	public static final int THIEVING_STALL = 832;
 	public static final int PICKPOCKET_SUCCESS = 881;
+	public static final int PULL_LEVER = 2140;
+	public static final int STANDARD_PURPLE_TELEPORT = 714;
+	public static final int ECTOPHIAL_TELEPORT = 878;
+	public static final int FAIRY_RING_TELEPORT = 3265;
+	public static final int SCROLL_TELEPORT = 3864;
+	public static final int XERICS_TALISMAN_TELEPORT = 3865;
+	public static final int WILDERNESS_OBELISK_TELEPORT = 3945;
+	public static final int SEED_POD_TELEPORT = 4544;
 
 	//block animations for players and perhaps npcs as well?
 	public static final int BLOCK_DEFENDER = 4177;
@@ -250,27 +258,32 @@ public final class AnimationID
 	public static final int GOBLIN_BOW = 2127;
 	public static final int GOBLIN_SALUTE = 2128;
 
-	// NPC animations
-	public static final int TZTOK_JAD_RANGE_ATTACK = 2652;
-	public static final int TZTOK_JAD_MELEE_ATTACK = 2655;
-	public static final int TZTOK_JAD_MAGIC_ATTACK = 2656;
-	public static final int TOK_XIL_RANGE_ATTACK = 2633;
-	public static final int TOK_XIL_MELEE_ATTACK = 2628;
-	public static final int KET_ZEK_MELEE_ATTACK = 2644;
-	public static final int KET_ZEK_MAGE_ATTACK = 2647;
-	public static final int MEJ_KOT_MELEE_ATTACK = 2637;
-	public static final int MEJ_KOT_HEAL_ATTACK = 2639;
-	public static final int HELLHOUND_DEFENCE = 6566;
-	public static final int VORKATH_WAKE_UP = 7950;
-	public static final int VORKATH_DEATH = 7949;
-	public static final int VORKATH_SLASH_ATTACK = 7951;
-	public static final int VORKATH_ATTACK = 7952;
-	public static final int VORKATH_FIRE_BOMB_OR_SPAWN_ATTACK = 7960;
-	public static final int VORKATH_ACID_ATTACK = 7957;
-	public static final int BLACKJACK_KO = 838;
-	public static final int VETION_EARTHQUAKE = 5507;
-	public static final int ZULRAH_DEATH = 5804;
-	public static final int ZULRAH_PHASE = 5072;
+	// Combat counter
+	public static final int BARRAGE_ANIMATION = 1979;
+	public static final int BLITZ_ANIMATION = 1978;
+	public static final int CHIN_ANIMATION = 7618;
+
+	//Supplies Tracker
+	public static final int ONEHAND_SLASH_SWORD_ANIMATION = 390;
+	public static final int ONEHAND_STAB_SWORD_ANIMATION = 386;
+	public static final int SCYTHE_OF_VITUR_ANIMATION = 8056;
+	public static final int LOW_LEVEL_STANDARD_SPELLS = 711;
+	public static final int WAVE_SPELL_ANIMATION = 727;
+	public static final int SURGE_SPELL_ANIMATION = 7855;
+	public static final int HIGH_ALCH_ANIMATION = 713;
+	public static final int LUNAR_HUMIDIFY = 6294;
+	public static final int PRAY_AT_ALTAR = 645;
+	public static final int ENSOULED_HEADS_ANIMATION = 7198;
+
+	// Weapon attack animations
+	public static final int ONEHAND_SLASH_AXE_ANIMATION = 395;
+	public static final int ONEHAND_CRUSH_PICKAXE_ANIMATION = 400;
+	public static final int ONEHAND_CRUSH_AXE_ANIMATION = 401;
+	public static final int UNARMED_PUNCH_ANIMATION = 422;
+	public static final int UNARMED_KICK_ANIMATION = 423;
+	public static final int BOW_ATTACK_ANIMATION = 426;
+	public static final int ONEHAND_STAB_HALBERD_ANIMATION = 428;
+	public static final int ONEHAND_SLASH_HALBERD_ANIMATION = 440;
 
 	// Farming
 	public static final int FARMING_HARVEST_FRUIT_TREE = 2280;
@@ -314,6 +327,29 @@ public final class AnimationID
 	public static final int HIGH_LEVEL_MAGIC_ATTACK = 1167;
 	public static final int BLOWPIPE_ATTACK = 5061;
 
+	// NPC animations
+	public static final int HELLHOUND_DEFENCE = 6566;
+	public static final int BLACKJACK_KO = 838;
+
+	// Fight Caves
+	public static final int TZTOK_JAD_RANGE_ATTACK = 2652;
+	public static final int TZTOK_JAD_MELEE_ATTACK = 2655;
+	public static final int TZTOK_JAD_MAGIC_ATTACK = 2656;
+	public static final int TOK_XIL_RANGE_ATTACK = 2633;
+	public static final int TOK_XIL_MELEE_ATTACK = 2628;
+	public static final int KET_ZEK_MELEE_ATTACK = 2644;
+	public static final int KET_ZEK_MAGE_ATTACK = 2647;
+	public static final int MEJ_KOT_MELEE_ATTACK = 2637;
+	public static final int MEJ_KOT_HEAL_ATTACK = 2639;
+
+	// Vorkath
+	public static final int VORKATH_WAKE_UP = 7950;
+	public static final int VORKATH_DEATH = 7949;
+	public static final int VORKATH_SLASH_ATTACK = 7951;
+	public static final int VORKATH_ATTACK = 7952;
+	public static final int VORKATH_FIRE_BOMB_OR_SPAWN_ATTACK = 7960;
+	public static final int VORKATH_ACID_ATTACK = 7957;
+
 	// Tekton
 	public static final int TEKTON_ANVIL = 7475;
 	public static final int TEKTON_AUTO1 = 7482;
@@ -326,6 +362,8 @@ public final class AnimationID
 	public static final int TEKTON_ENRAGE_AUTO3 = 7494;
 
 	// Hydra
+	public static final int HYDRA_WALKING = 8232;
+	public static final int HYDRA_IDLE = 8233;
 	public static final int HYDRA_POISON_1 = 8234;
 	public static final int HYDRA_RANGED_1 = 8235;
 	public static final int HYDRA_MAGIC_1 = 8236;
@@ -344,10 +382,11 @@ public final class AnimationID
 	public static final int HYDRA_MAGIC_4 = 8254;
 	public static final int HYDRA_POISON_4 = 8254;
 	public static final int HYDRA_RANGED_4 = 8255;
+	public static final int HYDRA_RANGED_OR_POISON_ATTACK = 8256;
 	public static final int HYDRA_4_1 = 8257;
 	public static final int HYDRA_4_2 = 8258;
 
-	// INFERNO animations
+	// Inferno animations
 	public static final int JAL_NIB = 7574;
 	public static final int JAL_MEJRAH = 7578;
 	public static final int JAL_MEJRAH_STAND = 7577;
@@ -365,7 +404,7 @@ public final class AnimationID
 	public static final int TZKAL_ZUK = 7566;
 	public static final int JAL_MEJJAK = 2858;
 
-	//General Graardor
+	// General Graardor
 	public static final int MINION_AUTO1 = 6154;
 	public static final int MINION_AUTO2 = 6156;
 	public static final int MINION_AUTO3 = 7071;
@@ -374,14 +413,14 @@ public final class AnimationID
 	public static final int GENERAL_AUTO2 = 7020;
 	public static final int GENERAL_AUTO3 = 7021;
 
-	//Zammy-poo
+	// Kr'il Tsutsaroth
 	public static final int ZAMMY_GENERIC_AUTO = 64;
 	public static final int KRIL_AUTO = 6948;
 	public static final int KRIL_SPEC = 6950;
 	public static final int ZAKL_AUTO = 7077;
 	public static final int BALFRUG_AUTO = 4630;
 
-	//Sara-Poo
+	// Commander Zilyana
 	public static final int ZILYANA_MELEE_AUTO = 6964;
 	public static final int ZILYANA_AUTO = 6967;
 	public static final int ZILYANA_SPEC = 6970;
@@ -389,14 +428,21 @@ public final class AnimationID
 	public static final int BREE_AUTO = 7026;
 	public static final int GROWLER_AUTO = 7037;
 
-	//Arma-Poo
+	// Kree'arra
 	public static final int KREE_RANGED = 6978;
 	public static final int SKREE_AUTO = 6955;
 	public static final int GEERIN_AUTO = 6956;
 	public static final int GEERIN_FLINCH = 6958;
 	public static final int KILISA_AUTO = 6957;
 
-	//Dag Kings
+	// Vetion
+	public static final int VETION_EARTHQUAKE = 5507;
+
+	// Zulrah
+	public static final int ZULRAH_DEATH = 5804;
+	public static final int ZULRAH_PHASE = 5072;
+
+	//Dagannoth Kings
 	public static final int DAG_REX = 2853;
 	public static final int DAG_PRIME = 2854;
 	public static final int DAG_SUPREME = 2855;
@@ -405,40 +451,73 @@ public final class AnimationID
 	public static final int LIZARDMAN_SHAMAN_SPAWN = 7157;
 	public static final int LIZARDMAN_SHAMAN_SPAWN_EXPLOSION = 7159;
 
-	// Combat counter
-	public static final int BARRAGE_ANIMATION = 1979;
-	public static final int BLITZ_ANIMATION = 1978;
-	public static final int CHIN_ANIMATION = 7618;
+	// Cerberus
+	public static final int CERBERUS_MAGIC_ATTACK = 4489;
+	public static final int CERBERUS_RANGED_ATTACK = 4490;
+	public static final int CERBERUS_MELEE_ATTACK = 4491;
+	public static final int CERBERUS_LAVA_ATTACK = 4493;
+	public static final int CERBERUS_SUMMON_GHOSTS = 4494;
 
 	// Gauntlet Hunleff
 	public static final int HUNLEFF_TRAMPLE = 8420;
 	public static final int HUNLEFF_ATTACK = 8419;
 	public static final int HUNLEFF_TORNADO = 8418;
+	public static final int HUNLLEF_SWITCH_TO_MAGIC = 8754;
+	public static final int HUNLLEF_SWITCH_TO_RANGED = 8755;
 
 	//Zalcano
 	public static final int ZALCANO_KNOCKED_DOWN = 8437;
 	public static final int ZALCANO_WAKEUP = 8439;
 	public static final int ZALCANO_ROCK_GLOWING = 8448;
 
-	//Supplies Tracker
-	public static final int ONEHAND_SLASH_SWORD_ANIMATION = 390;
-	public static final int ONEHAND_STAB_SWORD_ANIMATION = 386;
-	public static final int SCYTHE_OF_VITUR_ANIMATION = 8056;
-	public static final int LOW_LEVEL_STANDARD_SPELLS = 711;
-	public static final int WAVE_SPELL_ANIMATION = 727;
-	public static final int SURGE_SPELL_ANIMATION = 7855;
-	public static final int HIGH_ALCH_ANIMATION = 713;
-	public static final int LUNAR_HUMIDIFY = 6294;
-	public static final int PRAY_AT_ALTAR = 645;
-	public static final int ENSOULED_HEADS_ANIMATION = 7198;
+	// Theatre of Blood - Sugadinti Maiden
+	public static final int SUGADINTI_MAIDEN_BLOOD_SPLAT_ATTACK = 8091;
+	public static final int SUGADINTI_MAIDEN_MAGIC_ATTACK = 8092;
+	public static final int SUGADINTI_MAIDEN_DEATH = 8094;
 
-	// Weapon attack animations
-	public static final int ONEHAND_SLASH_AXE_ANIMATION = 395;
-	public static final int ONEHAND_CRUSH_PICKAXE_ANIMATION = 400;
-	public static final int ONEHAND_CRUSH_AXE_ANIMATION = 401;
-	public static final int UNARMED_PUNCH_ANIMATION = 422;
-	public static final int UNARMED_KICK_ANIMATION = 423;
-	public static final int BOW_ATTACK_ANIMATION = 426;
-	public static final int ONEHAND_STAB_HALBERD_ANIMATION = 428;
-	public static final int ONEHAND_SLASH_HALBERD_ANIMATION = 440;
+	// Theatre of Blood - Pestilent Bloat
+	public static final int BLOAT_SLEEP = 8082;
+
+	// Theatre of Blood - Sotetseg
+	public static final int SOTETSEG_MELEE_ATTACK = 8138;
+	public static final int SOTETSEG_REGULAR_PROJECTILE_ATTACK = 8139;
+
+	// Theatre of Blood - Verzik Vitur
+	public static final int VERZIK_PHASE_1_MAGIC_ATTACK = 8109;
+	public static final int VERZIK_PHASE_1_MAGIC_ATTACK_CHANNEL = 8110;
+	public static final int VERZIK_CHANGE_TO_PHASE_2 = 8111;
+	public static final int VERZIK_PHASE_2_MAGIC_ATTACK = 8114;
+	public static final int VERZIK_PHASE_2_BELLY_FLOP_ATTACK_1 = 8116;
+	public static final int VERZIK_PHASE_2_HEALING_CHANNEL = 8117;
+	public static final int VERZIK_PHASE_2_BELLY_FLOP_ATTACK_2 = 8118;
+	public static final int VERZIK_CHANGE_TO_PHASE_3 = 8119;
+	public static final int VERZIK_PHASE_3_MELEE_ATTACK = 8123;
+	public static final int VERZIK_PHASE_3_MAGIC_ATTACK = 8124;
+	public static final int VERZIK_PHASE_3_RANGED_ATTACK = 8125;
+	public static final int VERZIK_PHASE_3_GREEN_POOL_ATTACK = 8126;
+	public static final int VERZIK_PHASE_3_WEB_ATTACK = 8127;
+	public static final int VERZIK_DEATH_1 = 8128;
+	public static final int VERZIK_DEATH_2 = 8129;
+
+	// The Nightmare of Ashihama
+	public static final int NIGHTMARE_SPAWN_SLEEPWALKERS = 8572;
+	public static final int NIGHTMARE_FLOATY = 8592;
+	public static final int NIGHTMARE_WALKING = 8592;
+	public static final int NIGHTMARE_IDLE = 8593;
+	public static final int NIGHTMARE_MELEE_ATTACK = 8594;
+	public static final int NIGHTMARE_MAGIC_ATTACK = 8595;
+	public static final int NIGHTMARE_RANGED_ATTACK = 8596;
+	public static final int NIGHTMARE_SURGE_ATTACK = 8597;
+	public static final int NIGHTMARE_GHOST_AOE_ATTACK = 8598;
+	public static final int NIGHTMARE_CURSE_PRAYERS_ATTACK = 8599;
+	public static final int NIGHTMARE_SPAWN_INFECTIOUS_SPORES = 8600;
+	public static final int NIGHTMARE_SPAWN_ROOM_SECTION_FLOWERS = 8601;
+	public static final int NIGHTMARE_CHANNEL_DEVASTATING_ATTACK = 8604;
+	public static final int NIGHTMARE_SWITCH_TO_DEVIL_PHASE = 8605;
+	public static final int NIGHTMARE_PARASITE_ATTACK = 8606;
+	public static final int NIGHTMARE_JUMP_DOWN = 8607;
+	public static final int NIGHTMARE_SINK_DOWN = 8608;
+	public static final int NIGHTMARE_JUMP_UP = 8609;
+	public static final int NIGHTMARE_JUMP_UP_2 = 8610;
+	public static final int NIGHTMARE_WAKE_UP = 8611;
 }

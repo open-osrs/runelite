@@ -1035,48 +1035,6 @@ public interface Client extends GameShell
 	List<GraphicsObject> getGraphicsObjects();
 
 	/**
-	 * Gets the music volume
-	 *
-	 * @return volume 0-255 inclusive
-	 */
-	int getMusicVolume();
-
-	/**
-	 * Sets the music volume
-	 *
-	 * @param volume 0-255 inclusive
-	 */
-	void setMusicVolume(int volume);
-
-	/**
-	 * Gets the sound effect volume
-	 *
-	 * @return volume 0-127 inclusive
-	 */
-	int getSoundEffectVolume();
-
-	/**
-	 * Sets the sound effect volume
-	 *
-	 * @param volume 0-127 inclusive
-	 */
-	void setSoundEffectVolume(int volume);
-
-	/**
-	 * Gets the area sound effect volume
-	 *
-	 * @return volume 0-127 inclusive
-	 */
-	int getAreaSoundEffectVolume();
-
-	/**
-	 * Sets the area sound effect volume
-	 *
-	 * @param volume 0-127 inclusive
-	 */
-	void setAreaSoundEffectVolume(int volume);
-
-	/**
 	 * Play a sound effect at the player's current location. This is how UI,
 	 * and player-generated (e.g. mining, woodcutting) sound effects are
 	 * normally played.
@@ -1657,6 +1615,20 @@ public interface Client extends GameShell
 	 * @param names the names of the players
 	 */
 	void setHideSpecificPlayers(List<String> names);
+
+	/**
+	 * Get the list of NPC indices that are currently hidden
+	 *
+	 * @return all of the current hidden NPC Indices
+	 */
+	List<Integer> getHiddenNpcIndices();
+
+	/**
+	 * If an NPC index is in this List then do not render it
+	 *
+	 * @param npcIndices the npc indices to hide
+	 */
+	void setHiddenNpcIndices(List<Integer> npcIndices);
 
 	/**
 	 * Sets whether projectiles are hidden.

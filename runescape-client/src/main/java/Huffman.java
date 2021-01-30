@@ -3,16 +3,16 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hi")
+@ObfuscatedName("hu")
 @Implements("Huffman")
 public class Huffman {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("masks")
 	int[] masks;
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@Export("bits")
 	byte[] bits;
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
 	@Export("keys")
 	int[] keys;
 
@@ -99,10 +99,10 @@ public class Huffman {
 
 	} // L: 60
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "([BII[BII)I",
-		garbageValue = "-1847376111"
+		garbageValue = "2127333577"
 	)
 	@Export("compress")
 	int compress(byte[] var1, int var2, int var3, byte[] var4, int var5) {
@@ -150,10 +150,10 @@ public class Huffman {
 		return (var7 + 7 >> 3) - var5; // L: 97
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "([BI[BIII)I",
-		garbageValue = "-1101500142"
+		garbageValue = "-556309350"
 	)
 	@Export("decompress")
 	int decompress(byte[] var1, int var2, byte[] var3, int var4, int var5) {
@@ -265,21 +265,21 @@ public class Huffman {
 
 				if ((var9 = this.keys[var6]) < 0) { // L: 152
 					var3[var4++] = (byte)(~var9); // L: 153
-					if (var4 >= var5) { // L: 154
+					if (var4 >= var5) {
 						break;
 					}
 
-					var6 = 0; // L: 155
+					var6 = 0;
 				}
 
 				if ((var8 & 1) != 0) {
-					var6 = this.keys[var6]; // L: 157
+					var6 = this.keys[var6];
 				} else {
-					++var6; // L: 158
+					++var6;
 				}
 
-				if ((var9 = this.keys[var6]) < 0) { // L: 159
-					var3[var4++] = (byte)(~var9); // L: 160
+				if ((var9 = this.keys[var6]) < 0) {
+					var3[var4++] = (byte)(~var9);
 					if (var4 >= var5) { // L: 161
 						break;
 					}
@@ -290,17 +290,73 @@ public class Huffman {
 				++var7; // L: 105
 			}
 
-			return var7 + 1 - var2; // L: 165
+			return var7 + 1 - var2;
 		}
 	}
 
-	@ObfuscatedName("iy")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "-1189529622"
+		descriptor = "(Lkj;IIIIIII)V",
+		garbageValue = "109073521"
 	)
-	@Export("setTapToDrop")
-	static void setTapToDrop(boolean var0) {
-		Client.tapToDrop = var0; // L: 10334
-	} // L: 10335
+	@Export("loadTerrain")
+	static final void loadTerrain(Buffer var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		int var7;
+		if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) { // L: 154
+			Tiles.Tiles_renderFlags[var1][var2][var3] = 0; // L: 155
+
+			while (true) {
+				var7 = var0.readUnsignedByte(); // L: 157
+				if (var7 == 0) { // L: 158
+					if (var1 == 0) {
+						Tiles.Tiles_heights[0][var2][var3] = -PcmPlayer.method2544(932731 + var2 + var4, var3 + 556238 + var5) * 8; // L: 159
+					} else {
+						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - 240; // L: 160
+					}
+					break;
+				}
+
+				if (var7 == 1) { // L: 163
+					int var8 = var0.readUnsignedByte(); // L: 164
+					if (var8 == 1) { // L: 165
+						var8 = 0;
+					}
+
+					if (var1 == 0) { // L: 166
+						Tiles.Tiles_heights[0][var2][var3] = -var8 * 8;
+					} else {
+						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - var8 * 8; // L: 167
+					}
+					break;
+				}
+
+				if (var7 <= 49) { // L: 170
+					Tiles.field508[var1][var2][var3] = var0.readByte(); // L: 171
+					class9.field40[var1][var2][var3] = (byte)((var7 - 2) / 4); // L: 172
+					Username.field3663[var1][var2][var3] = (byte)(var7 - 2 + var6 & 3); // L: 173
+				} else if (var7 <= 81) { // L: 176
+					Tiles.Tiles_renderFlags[var1][var2][var3] = (byte)(var7 - 49); // L: 177
+				} else {
+					Tiles.field514[var1][var2][var3] = (byte)(var7 - 81); // L: 180
+				}
+			}
+		} else {
+			while (true) {
+				var7 = var0.readUnsignedByte(); // L: 185
+				if (var7 == 0) { // L: 186
+					break;
+				}
+
+				if (var7 == 1) { // L: 187
+					var0.readUnsignedByte(); // L: 188
+					break;
+				}
+
+				if (var7 <= 49) { // L: 191
+					var0.readUnsignedByte();
+				}
+			}
+		}
+
+	} // L: 194
 }

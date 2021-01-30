@@ -238,7 +238,7 @@ public abstract class RSClientMixin implements RSClient
 	private boolean isMirrored = false;
 
 	@Inject
-	private boolean comparingAppearance = false;
+	private Integer comparingAppearance = 0;
 
 	@Inject
 	private List<String> outdatedScripts = new ArrayList<>();
@@ -1815,24 +1815,6 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
-	@Inject
-	@Override
-	public void setMusicVolume(int volume)
-	{
-		if (volume > 0 && client.getMusicVolume() <= 0 && client.getCurrentTrackGroupId() != -1)
-		{
-			client.playMusicTrack(1000, client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
-		}
-
-		client.setClientMusicVolume(volume);
-		client.setMusicTrackVolume(volume);
-		if (client.getMidiPcmStream() != null)
-		{
-			client.getMidiPcmStream().setPcmStreamVolume(volume);
-		}
-	}
-
-
 	@Copy("changeGameOptions")
 	@Replace("changeGameOptions")
 	@SuppressWarnings("InfiniteRecursion")
@@ -1931,14 +1913,14 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public boolean isComparingAppearance()
 	{
-		return comparingAppearance;
+		return comparingAppearance > 0;
 	}
 
 	@Inject
 	@Override
 	public void setComparingAppearance(boolean comparingAppearance)
 	{
-		this.comparingAppearance = comparingAppearance;
+		this.comparingAppearance += comparingAppearance ? 1 : -1;
 	}
 
 	@Inject
