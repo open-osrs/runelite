@@ -7,11 +7,12 @@ import net.runelite.mapping.Import;
 public interface RSAbstractArchive extends IndexDataBase, AbstractArchive
 {
 	@Import("takeFile")
+	@Override
 	byte[] getConfigData(int archiveId, int fileId);
 
 	@Import("getGroupFileIds")
 	@Override
-	int[] getFileIds(int group);
+	int[] getFileIds(int groupId);
 
 	@Import("groupCount")
 	@Override
@@ -23,11 +24,11 @@ public interface RSAbstractArchive extends IndexDataBase, AbstractArchive
 
 	@Import("getFile")
 	@Override
-	byte[] getFile(int var1, int var2);
+	byte[] getFile(int groupId, int fileId);
 
 	@Import("getGroupFileCount")
 	@Override
-	int getGroupFileCount(int var1);
+	int getGroupFileCount(int groupId);
 
 	@Import("fileCounts")
 	@Override
