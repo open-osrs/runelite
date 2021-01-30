@@ -2162,4 +2162,9 @@ public interface Client extends GameEngine
 	AbstractArchive getSpotAnimationDefinition_archive();
 
 	AbstractArchive getSpotAnimationDefinition_modelArchive();
+
+	/**
+	 * use createBuffer to create a new byte buffer
+	 */
+	Buffer createBuffer(byte[] initialBytes);
 }
