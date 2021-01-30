@@ -237,7 +237,7 @@ public class FontName {
 							if (var10.contentType == 1336) { // L: 9016
 								if (Client.displayFps) { // L: 9017
 									var13 += 15; // L: 9018
-									WorldMapLabelSize.fontPlain12.drawRightAligned("Fps:" + GameShell.fps, var12 + var10.width, var13, 16776960, -1); // L: 9019
+									WorldMapLabelSize.fontPlain12.drawRightAligned("Fps:" + GameEngine.fps, var12 + var10.width, var13, 16776960, -1); // L: 9019
 									var13 += 15; // L: 9020
 									Runtime var42 = Runtime.getRuntime(); // L: 9021
 									var20 = (int)((var42.totalMemory() - var42.freeMemory()) / 1024L); // L: 9022

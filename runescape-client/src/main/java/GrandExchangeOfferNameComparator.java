@@ -108,8 +108,8 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next(); // L: 570
 					if (var2.isValid()) { // L: 572
 						class25.garbageCollector = var2; // L: 573
-						GameShell.garbageCollectorLastCheckTimeMs = -1L; // L: 574
-						GameShell.garbageCollectorLastCollectionTime = -1L; // L: 575
+						GameEngine.garbageCollectorLastCheckTimeMs = -1L; // L: 574
+						GameEngine.garbageCollectorLastCollectionTime = -1L; // L: 575
 					}
 				}
 			} catch (Throwable var11) { // L: 580
@@ -119,16 +119,16 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		if (class25.garbageCollector != null) { // L: 582
 			long var9 = class298.currentTimeMillis(); // L: 583
 			long var3 = class25.garbageCollector.getCollectionTime(); // L: 584
-			if (-1L != GameShell.garbageCollectorLastCollectionTime) { // L: 585
-				long var5 = var3 - GameShell.garbageCollectorLastCollectionTime; // L: 586
-				long var7 = var9 - GameShell.garbageCollectorLastCheckTimeMs; // L: 587
+			if (-1L != GameEngine.garbageCollectorLastCollectionTime) { // L: 585
+				long var5 = var3 - GameEngine.garbageCollectorLastCollectionTime; // L: 586
+				long var7 = var9 - GameEngine.garbageCollectorLastCheckTimeMs; // L: 587
 				if (var7 != 0L) { // L: 588
 					var0 = (int)(100L * var5 / var7);
 				}
 			}
 
-			GameShell.garbageCollectorLastCollectionTime = var3; // L: 590
-			GameShell.garbageCollectorLastCheckTimeMs = var9; // L: 591
+			GameEngine.garbageCollectorLastCollectionTime = var3; // L: 590
+			GameEngine.garbageCollectorLastCheckTimeMs = var9; // L: 591
 		}
 
 		return var0; // L: 593

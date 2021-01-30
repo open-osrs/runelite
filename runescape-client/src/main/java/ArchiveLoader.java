@@ -526,7 +526,7 @@ public class ArchiveLoader {
 							class22.field107 = "Can't login? Click here."; // L: 1256
 						}
 
-						GameShell.field481 = new Bounds(Login.loginBoxCenter, var31, var1.stringWidth(class22.field107), 11); // L: 1259
+						GameEngine.field481 = new Bounds(Login.loginBoxCenter, var31, var1.stringWidth(class22.field107), 11); // L: 1259
 						GrandExchangeOfferOwnWorldComparator.field643 = new Bounds(Login.loginBoxCenter, var31, var1.stringWidth("Still having trouble logging in?"), 11); // L: 1260
 						var1.drawCentered(class22.field107, Login.loginBoxCenter, var31, 16777215, 0); // L: 1261
 					} else if (Login.loginIndex == 3) { // L: 1263

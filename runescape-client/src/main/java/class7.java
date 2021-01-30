@@ -444,7 +444,7 @@ public enum class7 implements Enumerated {
 	static void method83() {
 		Login.Login_username = Login.Login_username.trim(); // L: 896
 		if (Login.Login_username.length() == 0) { // L: 897
-			GameShell.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 898
+			GameEngine.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 898
 		} else {
 			long var1;
 			try {
@@ -488,23 +488,23 @@ public enum class7 implements Enumerated {
 
 			switch(var0) { // L: 936
 			case 2:
-				GameShell.setLoginResponseString(Strings.field3053, Strings.field3054, Strings.field3055); // L: 941
+				GameEngine.setLoginResponseString(Strings.field3053, Strings.field3054, Strings.field3055); // L: 941
 				Login.loginIndex = 6; // L: 942
 				break; // L: 943
 			case 3:
-				GameShell.setLoginResponseString("", "Error connecting to server.", ""); // L: 954
+				GameEngine.setLoginResponseString("", "Error connecting to server.", ""); // L: 954
 				break;
 			case 4:
-				GameShell.setLoginResponseString("The part of the website you are trying", "to connect to is offline at the moment.", "Please try again later."); // L: 951
+				GameEngine.setLoginResponseString("The part of the website you are trying", "to connect to is offline at the moment.", "Please try again later."); // L: 951
 				break; // L: 952
 			case 5:
-				GameShell.setLoginResponseString("Sorry, there was an error trying to", "log you in to this part of the website.", "Please try again later."); // L: 938
+				GameEngine.setLoginResponseString("Sorry, there was an error trying to", "log you in to this part of the website.", "Please try again later."); // L: 938
 				break; // L: 939
 			case 6:
-				GameShell.setLoginResponseString("", "Error connecting to server.", ""); // L: 948
+				GameEngine.setLoginResponseString("", "Error connecting to server.", ""); // L: 948
 				break; // L: 949
 			case 7:
-				GameShell.setLoginResponseString("You must enter a valid login to proceed. For accounts", "created after 24th November 2010, please use your", "email address. Otherwise please use your username."); // L: 945
+				GameEngine.setLoginResponseString("You must enter a valid login to proceed. For accounts", "created after 24th November 2010, please use your", "email address. Otherwise please use your username."); // L: 945
 			}
 
 		}

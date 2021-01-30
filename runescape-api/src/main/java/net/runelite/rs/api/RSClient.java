@@ -33,7 +33,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
 
-public interface RSClient extends RSGameShell, Client
+public interface RSClient extends RSGameEngine, Client
 {
 	@Import("cameraX")
 	@Override

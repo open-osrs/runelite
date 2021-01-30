@@ -78,7 +78,7 @@ public final class Canvas extends java.awt.Canvas {
 			DynamicObject.archive2 = WorldMapCacheName.newArchive(2, true, false, true); // L: 1744
 			class330.archive3 = WorldMapCacheName.newArchive(3, false, true, true); // L: 1745
 			class227.archive4 = WorldMapCacheName.newArchive(4, false, true, true); // L: 1746
-			GameShell.archive5 = WorldMapCacheName.newArchive(5, true, true, true); // L: 1747
+			GameEngine.archive5 = WorldMapCacheName.newArchive(5, true, true, true); // L: 1747
 			class217.archive6 = WorldMapCacheName.newArchive(6, true, true, true); // L: 1748
 			BuddyRankComparator.archive7 = WorldMapCacheName.newArchive(7, false, true, true); // L: 1749
 			Messages.archive8 = WorldMapCacheName.newArchive(8, false, true, true); // L: 1750
@@ -103,7 +103,7 @@ public final class Canvas extends java.awt.Canvas {
 			var12 += DynamicObject.archive2.percentage() * 2 / 100; // L: 1771
 			var12 += class330.archive3.percentage() * 2 / 100; // L: 1772
 			var12 += class227.archive4.percentage() * 6 / 100; // L: 1773
-			var12 += GameShell.archive5.percentage() * 4 / 100; // L: 1774
+			var12 += GameEngine.archive5.percentage() * 4 / 100; // L: 1774
 			var12 += class217.archive6.percentage() * 2 / 100; // L: 1775
 			var12 += BuddyRankComparator.archive7.percentage() * 56 / 100; // L: 1776
 			var12 += Messages.archive8.percentage() * 2 / 100; // L: 1777
@@ -128,7 +128,7 @@ public final class Canvas extends java.awt.Canvas {
 				UserComparator4.method3469(SceneTilePaint.archive0, "Animations"); // L: 1794
 				UserComparator4.method3469(WorldMapSprite.archive1, "Skeletons"); // L: 1795
 				UserComparator4.method3469(class227.archive4, "Sound FX"); // L: 1796
-				UserComparator4.method3469(GameShell.archive5, "Maps"); // L: 1797
+				UserComparator4.method3469(GameEngine.archive5, "Maps"); // L: 1797
 				UserComparator4.method3469(class217.archive6, "Music Tracks"); // L: 1798
 				UserComparator4.method3469(BuddyRankComparator.archive7, "Models"); // L: 1799
 				UserComparator4.method3469(Messages.archive8, "Sprites"); // L: 1800
@@ -152,7 +152,7 @@ public final class Canvas extends java.awt.Canvas {
 				WorldMapIcon_0.method270(22050, !Client.isLowDetail, 2); // L: 1815
 				MidiPcmStream var20 = new MidiPcmStream(); // L: 1816
 				var20.method3759(9, 128); // L: 1817
-				AbstractWorldMapData.pcmPlayer0 = UserComparator6.method3526(GameShell.taskHandler, 0, 22050); // L: 1818
+				AbstractWorldMapData.pcmPlayer0 = UserComparator6.method3526(GameEngine.taskHandler, 0, 22050); // L: 1818
 				AbstractWorldMapData.pcmPlayer0.setStream(var20); // L: 1819
 				var21 = Client.archive15; // L: 1820
 				var2 = FontName.archive14; // L: 1821
@@ -161,7 +161,7 @@ public final class Canvas extends java.awt.Canvas {
 				class206.musicSamplesArchive = var2; // L: 1825
 				class206.soundEffectsArchive = var16; // L: 1826
 				class206.midiPcmStream = var20; // L: 1827
-				FriendLoginUpdate.pcmPlayer1 = UserComparator6.method3526(GameShell.taskHandler, 1, 2048); // L: 1829
+				FriendLoginUpdate.pcmPlayer1 = UserComparator6.method3526(GameEngine.taskHandler, 1, 2048); // L: 1829
 				WorldMapManager.pcmStreamMixer = new PcmStreamMixer(); // L: 1830
 				FriendLoginUpdate.pcmPlayer1.setStream(WorldMapManager.pcmStreamMixer); // L: 1831
 				ItemLayer.decimator = new Decimator(22050, PcmPlayer.field1443); // L: 1832
@@ -498,7 +498,7 @@ public final class Canvas extends java.awt.Canvas {
 					}
 				} else if (Client.titleLoadingStage == 110) { // L: 2132
 					SoundCache.mouseRecorder = new MouseRecorder(); // L: 2133
-					GameShell.taskHandler.newThreadTask(SoundCache.mouseRecorder, 10); // L: 2134
+					GameEngine.taskHandler.newThreadTask(SoundCache.mouseRecorder, 10); // L: 2134
 					Login.Login_loadingText = "Loaded input handler"; // L: 2135
 					Login.Login_loadingPercent = 92; // L: 2136
 					Client.titleLoadingStage = 120; // L: 2137

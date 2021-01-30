@@ -15,7 +15,7 @@ import netscape.javascript.JSObject;
 
 @Implements("Client")
 @ObfuscatedName("client")
-public final class Client extends GameShell implements Usernamed {
+public final class Client extends GameEngine implements Usernamed {
 	@ObfuscatedName("ns")
 	@ObfuscatedSignature(
 		descriptor = "Lhe;"
@@ -1691,7 +1691,7 @@ public final class Client extends GameShell implements Usernamed {
 				int var2;
 				for (var2 = 0; var2 < WorldMapIcon_0.regionLandArchives.length; ++var2) { // L: 947
 					if (class41.regionMapArchiveIds[var2] != -1 && WorldMapIcon_0.regionLandArchives[var2] == null) { // L: 948 949
-						WorldMapIcon_0.regionLandArchives[var2] = GameShell.archive5.takeFile(class41.regionMapArchiveIds[var2], 0); // L: 950
+						WorldMapIcon_0.regionLandArchives[var2] = GameEngine.archive5.takeFile(class41.regionMapArchiveIds[var2], 0); // L: 950
 						if (WorldMapIcon_0.regionLandArchives[var2] == null) { // L: 951
 							var43 = false; // L: 952
 							++field700; // L: 953
@@ -1699,7 +1699,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					if (GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var2] != -1 && MouseRecorder.regionMapArchives[var2] == null) { // L: 957 958
-						MouseRecorder.regionMapArchives[var2] = GameShell.archive5.takeFileEncrypted(GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var2], 0, class227.xteaKeys[var2]); // L: 959
+						MouseRecorder.regionMapArchives[var2] = GameEngine.archive5.takeFileEncrypted(GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var2], 0, class227.xteaKeys[var2]); // L: 959
 						if (MouseRecorder.regionMapArchives[var2] == null) { // L: 960
 							var43 = false; // L: 961
 							++field700; // L: 962
@@ -2050,8 +2050,8 @@ public final class Client extends GameShell implements Usernamed {
 							for (var46 = var4 - 1; var46 <= var5 + 1; ++var46) { // L: 1223
 								for (var9 = var6 - 1; var9 <= var7 + 1; ++var9) { // L: 1224
 									if (var46 < var4 || var46 > var5 || var9 < var6 || var9 > var7) { // L: 1225
-										GameShell.archive5.loadRegionFromName("m" + var46 + "_" + var9); // L: 1226
-										GameShell.archive5.loadRegionFromName("l" + var46 + "_" + var9); // L: 1227
+										GameEngine.archive5.loadRegionFromName("m" + var46 + "_" + var9); // L: 1226
+										GameEngine.archive5.loadRegionFromName("l" + var46 + "_" + var9); // L: 1227
 									}
 								}
 							}
@@ -2076,11 +2076,11 @@ public final class Client extends GameShell implements Usernamed {
 						class225.clock.mark(); // L: 1250
 
 						for (var5 = 0; var5 < 32; ++var5) { // L: 1251
-							GameShell.graphicsTickTimes[var5] = 0L;
+							GameEngine.graphicsTickTimes[var5] = 0L;
 						}
 
 						for (var5 = 0; var5 < 32; ++var5) { // L: 1252
-							GameShell.clientTickTimes[var5] = 0L;
+							GameEngine.clientTickTimes[var5] = 0L;
 						}
 
 						class8.gameCyclesToDo = 0; // L: 1253
@@ -2687,7 +2687,7 @@ public final class Client extends GameShell implements Usernamed {
 			if (--field864 + 1 <= 0) { // L: 1561
 				try {
 					if (js5ConnectState == 0) { // L: 1563
-						WorldMapManager.js5SocketTask = GameShell.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 1564
+						WorldMapManager.js5SocketTask = GameEngine.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 1564
 						++js5ConnectState; // L: 1565
 					}
 
@@ -2706,7 +2706,7 @@ public final class Client extends GameShell implements Usernamed {
 						if (useBufferedSocket) { // L: 1575
 							TaskHandler.js5Socket = class219.method4011((Socket)WorldMapManager.js5SocketTask.result, 40000, 5000); // L: 1576
 						} else {
-							TaskHandler.js5Socket = new NetSocket((Socket)WorldMapManager.js5SocketTask.result, GameShell.taskHandler, 5000); // L: 1579
+							TaskHandler.js5Socket = new NetSocket((Socket)WorldMapManager.js5SocketTask.result, GameEngine.taskHandler, 5000); // L: 1579
 						}
 
 						Buffer var1 = new Buffer(5); // L: 1581
@@ -2875,7 +2875,7 @@ public final class Client extends GameShell implements Usernamed {
 
 			if (loginState == 1) { // L: 2221
 				if (WorldMapID.socketTask == null) { // L: 2222
-					WorldMapID.socketTask = GameShell.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 2223
+					WorldMapID.socketTask = GameEngine.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 2223
 				}
 
 				if (WorldMapID.socketTask.status == 2) { // L: 2225
@@ -2886,7 +2886,7 @@ public final class Client extends GameShell implements Usernamed {
 					if (useBufferedSocket) { // L: 2227
 						var1 = class219.method4011((Socket)WorldMapID.socketTask.result, 40000, 5000); // L: 2228
 					} else {
-						var1 = new NetSocket((Socket)WorldMapID.socketTask.result, GameShell.taskHandler, 5000); // L: 2231
+						var1 = new NetSocket((Socket)WorldMapID.socketTask.result, GameEngine.taskHandler, 5000); // L: 2231
 					}
 
 					packetWriter.setSocket((AbstractSocket)var1); // L: 2233
@@ -3042,7 +3042,7 @@ public final class Client extends GameShell implements Usernamed {
 				var5.packetBuffer.writeBytes(var29.array, 0, var29.array.length); // L: 2364
 				var5.packetBuffer.writeByte(clientType); // L: 2365
 				var5.packetBuffer.writeInt(0); // L: 2366
-				var5.packetBuffer.method5718(GameShell.archive5.hash); // L: 2367
+				var5.packetBuffer.method5718(GameEngine.archive5.hash); // L: 2367
 				var5.packetBuffer.method5718(GrandExchangeOfferUnitPriceComparator.archive13.hash); // L: 2368
 				var5.packetBuffer.method5718(PacketBufferNode.archive12.hash); // L: 2369
 				var5.packetBuffer.method5587(ItemContainer.archive11.hash); // L: 2370
@@ -3164,7 +3164,7 @@ public final class Client extends GameShell implements Usernamed {
 
 			if (loginState == 13) { // L: 2493
 				field892 = 0; // L: 2494
-				GameShell.setLoginResponseString("You have only just left another world.", "Your profile will be transferred in:", field682 / 60 + " seconds."); // L: 2495
+				GameEngine.setLoginResponseString("You have only just left another world.", "Your profile will be transferred in:", field682 / 60 + " seconds."); // L: 2495
 				if (--field682 <= 0) { // L: 2496
 					loginState = 0;
 				}
@@ -3270,7 +3270,7 @@ public final class Client extends GameShell implements Usernamed {
 						String var25 = var2.readStringCp1252NullTerminated(); // L: 2591
 						String var33 = var2.readStringCp1252NullTerminated(); // L: 2592
 						String var27 = var2.readStringCp1252NullTerminated(); // L: 2593
-						GameShell.setLoginResponseString(var25, var33, var27); // L: 2594
+						GameEngine.setLoginResponseString(var25, var33, var27); // L: 2594
 						WorldMapCacheName.updateGameState(10); // L: 2595
 					}
 
@@ -5333,7 +5333,7 @@ public final class Client extends GameShell implements Usernamed {
 					var57.packetBuffer.method5569(var18); // L: 6401
 					var57.packetBuffer.method5718(var16); // L: 6402
 					var57.packetBuffer.method5587(var5); // L: 6403
-					var57.packetBuffer.method5568(GameShell.fps); // L: 6404
+					var57.packetBuffer.method5568(GameEngine.fps); // L: 6404
 					packetWriter.addNode(var57); // L: 6405
 					var1.serverPacket = null; // L: 6406
 					return true; // L: 6407

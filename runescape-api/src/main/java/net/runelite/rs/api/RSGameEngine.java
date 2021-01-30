@@ -24,11 +24,11 @@
  */
 package net.runelite.rs.api;
 
-import net.runelite.api.GameShell;
+import net.runelite.api.GameEngine;
 import java.awt.Canvas;
 import net.runelite.mapping.Import;
 
-public interface RSGameShell extends GameShell
+public interface RSGameEngine extends GameEngine
 {
 	@Import("canvas")
 	Canvas getCanvas();
