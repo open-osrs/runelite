@@ -25,19 +25,91 @@
  */
 package net.runelite.mixins;
 
-import net.runelite.api.mixins.Inject;
-import net.runelite.api.mixins.MethodHook;
+import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Mixin;
-import net.runelite.rs.api.RSClient;
+import net.runelite.api.mixins.Replace;
+import net.runelite.rs.api.RScom.jagex.oldscape.osrenderer.ak;
 
-@Mixin(RSClient.class)
-public abstract class RSClientMixin implements RSClient
+@Mixin(ak.class)
+public abstract class OSRendererMixin
 {
-	@Inject
-	@MethodHook("getWidget")
-	static void afterGetWidget()
+
+	@Copy("ab")
+	static boolean rs$ab(int var0)
 	{
-		System.out.println("getWidget Called");
+		return false;
+	}
+
+	@Replace("ab")
+	static boolean rl$ab(int var0)
+	{
+		//System.out.println("ab(" + var0 + ")");
+		return rs$ab(var0);
+	}
+
+	@Copy("bn")
+	static String rs$bn(byte b)
+	{
+		return "";
+	}
+
+	@Replace("bn")
+	static String rl$bn(byte b)
+	{
+		System.out.println("bn(" + rs$bn(b) + ")");
+		return rs$bn(b);
+	}
+
+	@Copy("bu")
+	static String rs$bu(byte b)
+	{
+		return "";
+	}
+
+	@Replace("bu")
+	static String rl$bu(byte b)
+	{
+		System.out.println("bu(" + rs$bu(b) + ")");
+		return rs$bu(b);
+	}
+
+	@Copy("cd")
+	static String rs$cd(int b)
+	{
+		return "";
+	}
+
+	@Replace("cd")
+	static String rl$cd(int b)
+	{
+		System.out.println("cd(" + rs$cd(b) + ")");
+		return rs$cd(b);
+	}
+
+	@Copy("cg")
+	static String rs$cg(byte b)
+	{
+		return "";
+	}
+
+	@Replace("cg")
+	static String rl$cg(byte b)
+	{
+		System.out.println("cg(" + rs$cg(b) + ")");
+		return rs$cg(b);
+	}
+
+	@Copy("cq")
+	static String rs$cq(int b)
+	{
+		return "";
+	}
+
+	@Replace("cq")
+	static String rl$cq(int b)
+	{
+		System.out.println("cq(" + rs$cq(b) + ")");
+		return rs$cq(b);
 	}
 }
 

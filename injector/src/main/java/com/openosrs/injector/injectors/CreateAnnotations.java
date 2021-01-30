@@ -31,13 +31,14 @@
 package com.openosrs.injector.injectors;
 
 import com.openosrs.injector.injection.InjectData;
+import net.runelite.asm.Annotation;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
 import net.runelite.deob.DeobAnnotations;
 
 /*
- * This handles creating "virtual" annotations to clean up rs-client in the main project
+ * This handles creating "virtual" annotations to members that don't have them so anything can be imported.
  */
 public class CreateAnnotations extends AbstractInjector
 {
@@ -58,7 +59,13 @@ public class CreateAnnotations extends AbstractInjector
 			{
 				continue;
 			}
-
+			for (Annotation a : deobClass.getAnnotations().values())
+			{
+				if (a.getType() == DeobAnnotations.IMPLEMENTS)
+				{
+					return;
+				}
+			}
 			deobClass.addAnnotation(DeobAnnotations.IMPLEMENTS, deobClass.getName());
 		}
 	}
@@ -67,6 +74,13 @@ public class CreateAnnotations extends AbstractInjector
 	{
 		for (Field deobField : deobClass.getFields())
 		{
+			for (Annotation a : deobField.getAnnotations().values())
+			{
+				if (a.getType() == DeobAnnotations.EXPORT)
+				{
+					return;
+				}
+			}
 			deobField.addAnnotation(DeobAnnotations.EXPORT, deobField.getName());
 		}
 	}
@@ -75,6 +89,13 @@ public class CreateAnnotations extends AbstractInjector
 	{
 		for (Method deobMethod : deobClass.getMethods())
 		{
+			for (Annotation a : deobMethod.getAnnotations().values())
+			{
+				if (a.getType() == DeobAnnotations.EXPORT)
+				{
+					return;
+				}
+			}
 			deobMethod.addAnnotation(DeobAnnotations.EXPORT, deobMethod.getName());
 		}
 	}

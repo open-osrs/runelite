@@ -43,6 +43,9 @@ public class RSApi implements Iterable<RSApiClass>
 	{
 		for (File file : classes)
 		{
+			if (file.isDirectory())
+				continue;
+
 			if (!file.getName().startsWith("RS"))
 			{
 				continue;

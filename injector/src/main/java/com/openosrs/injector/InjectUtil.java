@@ -523,6 +523,18 @@ public interface InjectUtil
 	{
 		Object v = annotation.getValue();
 		String str = ((org.objectweb.asm.Type) v).getInternalName();
+
+		// TODO: Fix this being necessary
+		if (data.toDeob(str) == null)
+		{
+			for (ClassFile cf : data.deobfuscated.getClasses())
+			{
+				if (str.contains("osrenderer/ak") && cf.getName().contains("osrenderer/ak"))
+				{
+					return data.toVanilla(cf);
+				}
+			}
+		}
 		return data.toVanilla(data.toDeob(str));
 	}
 
