@@ -29,13 +29,13 @@ package net.runelite.api;
  */
 public interface Buffer extends Node
 {
-	/**
-	 * Use this api to write to byte buffers
-	 */
 	byte[] getPayload();
 
 	int getOffset();
 
+	/**
+	 * Use this api to write to byte buffers
+	 */
 	void writeByte(int var1);
 
 	void writeShort(int var1);
