@@ -36,13 +36,13 @@ public class Injector extends InjectData implements InjectTaskHandler
 	static final Logger log = Logging.getLogger(Injector.class);
 	static Injector injector = new Injector();
 	static File injectedClient =
-		new File("../runelite-client/src/main/resources/net/runelite/client/injected-client.oprs");
+		new File("./build/libs/injected-client.jar");
 
 	public static void main(String[] args)
 	{
 		injector.vanilla = load(new File(args[0]));
 		injector.deobfuscated = load(
-			new File("../runescape-client/build/libs/runescape-client-" + args[1] + ".jar"));
+			new File("./lib/runescape-client-mobile.jar"));
 		injector.rsApi = new RSApi(Objects.requireNonNull(
 			new File("../runescape-api/build/classes/java/main/net/runelite/rs/api/")
 				.listFiles()));

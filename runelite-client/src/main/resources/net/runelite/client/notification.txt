@@ -1,2 +1,0 @@
-Notification is cloud from
-https://github.com/akx/Notifications

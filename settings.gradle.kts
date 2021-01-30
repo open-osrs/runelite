@@ -35,18 +35,12 @@ gradleEnterprise {
         termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
     }
 }
-include(":cache")
 include(":deobfuscator")
-include(":http-api")
 include(":injection-annotations")
 include(":injector")
 include(":runelite-api")
-include(":runelite-client")
 include(":runelite-mixins")
-include(":runelite-script-assembler-plugin")
 include(":runescape-api")
-include(":runescape-client")
-include(":wiki-scraper")
 
 for (project in rootProject.children) {
     project.apply {

@@ -23,7 +23,6 @@ dependencies {
     implementation("com.google.guava:guava:29.0-jre")
     implementation(project(":deobfuscator"))
     implementation(project(":runescape-api"))
-    implementation(project(":runescape-client"))
     implementation(project(":runelite-mixins"))
 }
 

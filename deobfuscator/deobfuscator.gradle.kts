@@ -33,7 +33,6 @@ val deobjars = configurations.create("deobjars")
 
 dependencies {
     deobjars(group = "net.runelite.rs", name = "vanilla", version = ProjectVersions.rsversion.toString())
-    deobjars(project(":runescape-client"))
 
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
