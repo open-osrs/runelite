@@ -13,6 +13,7 @@ import com.openosrs.injector.injectors.Injector;
 import com.openosrs.injector.rsapi.RSApi;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import lombok.Getter;
 import net.runelite.asm.ClassFile;
@@ -75,7 +76,7 @@ public abstract class InjectData
 
 				// Can't be null
 				final ClassFile obClass = this.vanilla.findClass(obName);
-				toVanillaB.put(deobClass, obClass);
+				toVanillaB.put(deobClass, Objects.requireNonNullElse(obClass, deobClass));
 			}
 		}
 
