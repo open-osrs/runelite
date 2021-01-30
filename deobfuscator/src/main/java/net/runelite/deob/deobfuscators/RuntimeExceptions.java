@@ -54,7 +54,7 @@ public class RuntimeExceptions implements Deobfuscator
 
 				// Keep one handler in the client so the deobfuscator
 				// keeps the client error handling related methods
-				if (cf.getName().equals("client") && m.getName().equals("init"))
+				if (cf.getName().equals("client") && m.getName().equals("<init>"))
 				{
 					foundInit = true;
 					continue;

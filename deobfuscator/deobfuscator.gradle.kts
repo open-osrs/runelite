@@ -65,6 +65,18 @@ tasks {
         finalizedBy("filterResources")
     }
 
+    register<JavaExec>("deobfuscate") {
+        classpath = files(project.sourceSets.main.get().runtimeClasspath, "./lib/android.jar", "./lib/classes-dex2jar-orig.jar")
+        main = "net.runelite.deob.Deob"
+        args = listOf("./lib/classes-dex2jar.jar","./lib/classes-deob.jar")
+    }
+
+    register<JavaExec>("updateMappings") {
+        classpath = files(project.sourceSets.main.get().runtimeClasspath, "./lib/android.jar", "./lib/classes-dex2jar-orig.jar")
+        main = "net.runelite.deob.updater.UpdateMappings"
+        args = listOf("./lib/rs-client-193.jar","./lib/classes-deob.jar", "./lib/mobile-193-mapped.jar")
+    }
+
     register<Copy>("filterResources") {
         inputs.properties(tokens)
 

@@ -29,31 +29,18 @@ import java.io.File;
 import java.io.IOException;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.execution.Execution;
-import net.runelite.deob.deobfuscators.CastNull;
-import net.runelite.deob.deobfuscators.EnumDeobfuscator;
 import net.runelite.deob.deobfuscators.FieldInliner;
 import net.runelite.deob.deobfuscators.IllegalStateExceptions;
-import net.runelite.deob.deobfuscators.Lvt;
 import net.runelite.deob.deobfuscators.Order;
-import net.runelite.deob.deobfuscators.RenameUnique;
 import net.runelite.deob.deobfuscators.RuntimeExceptions;
 import net.runelite.deob.deobfuscators.UnreachedCode;
 import net.runelite.deob.deobfuscators.UnusedClass;
-import net.runelite.deob.deobfuscators.UnusedFields;
 import net.runelite.deob.deobfuscators.UnusedMethods;
-import net.runelite.deob.deobfuscators.UnusedParameters;
 import net.runelite.deob.deobfuscators.arithmetic.ModArith;
 import net.runelite.deob.deobfuscators.arithmetic.MultiplicationDeobfuscator;
 import net.runelite.deob.deobfuscators.arithmetic.MultiplyOneDeobfuscator;
 import net.runelite.deob.deobfuscators.arithmetic.MultiplyZeroDeobfuscator;
 import net.runelite.deob.deobfuscators.cfg.ControlFlowDeobfuscator;
-import net.runelite.deob.deobfuscators.constparam.ConstantParameter;
-import net.runelite.deob.deobfuscators.exprargorder.ExprArgOrder;
-import net.runelite.deob.deobfuscators.menuaction.MenuActionDeobfuscator;
-import net.runelite.deob.deobfuscators.transformers.ClientErrorTransformer;
-import net.runelite.deob.deobfuscators.transformers.GetPathTransformer;
-import net.runelite.deob.deobfuscators.transformers.OpcodesTransformer;
-import net.runelite.deob.deobfuscators.transformers.ReflectionTransformer;
 import net.runelite.deob.util.JarUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,28 +71,28 @@ public class Deob
 
 		run(group, new ControlFlowDeobfuscator());
 
-		run(group, new RenameUnique());
+		//run(group, new RenameUnique());
 
 		// remove unused methods - this leaves Code with no instructions,
 		// which is not valid, so unused methods is run after
-		run(group, new UnreachedCode());
-		run(group, new UnusedMethods());
+		//run(group, new UnreachedCode());
+		//run(group, new UnusedMethods());
 
 		// remove illegal state exceptions, frees up some parameters
-		run(group, new IllegalStateExceptions());
+		//run(group, new IllegalStateExceptions());
 
 		// remove constant logically dead parameters
-		run(group, new ConstantParameter());
-
+		//run(group, new ConstantParameter());
+		//TODO
 		// remove unhit blocks
-		run(group, new UnreachedCode());
-		run(group, new UnusedMethods());
+		//run(group, new UnreachedCode());
+		//run(group, new UnusedMethods());
 
 		// remove unused parameters
-		run(group, new UnusedParameters());
+		//run(group, new UnusedParameters());
 
 		// remove unused fields
-		run(group, new UnusedFields());
+		//run(group, new UnusedFields());
 
 		run(group, new FieldInliner());
 
@@ -117,25 +104,21 @@ public class Deob
 
 		runMath(group);
 
-		run(group, new ExprArgOrder());
+		//run(group, new ExprArgOrder());
 
-		run(group, new Lvt());
+		//run(group, new Lvt());
 
-		run(group, new CastNull());
+		//run(group, new CastNull());
 
-		run(group, new EnumDeobfuscator());
+		//run(group, new EnumDeobfuscator());
 
-		new OpcodesTransformer().transform(group);
-		//run(group, new PacketHandlerOrder());
-		//run(group, new PacketWriteDeobfuscator());
+		//new OpcodesTransformer().transform(group);
 
-		run(group, new MenuActionDeobfuscator());
+		//run(group, new MenuActionDeobfuscator());
 
-		new GetPathTransformer().transform(group);
-		new ClientErrorTransformer().transform(group);
-		new ReflectionTransformer().transform(group);
-		//new MaxMemoryTransformer().transform(group);
-		//new RuneliteBufferTransformer().transform(group);
+		//new GetPathTransformer().transform(group);
+		//new ClientErrorTransformer().transform(group);
+		//new ReflectionTransformer().transform(group);
 
 		JarUtil.save(group, new File(args[1]));
 

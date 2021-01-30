@@ -48,16 +48,22 @@ public class ExecutionMapper
 
 		for (Method m : methods2)
 		{
-			ParallelExecutorMapping mapping = MappingExecutorUtil.map(method1, m);
-
-			if (highest == null || mapping.same > highest.same)
+			try
 			{
-				highest = mapping;
-				multiple = false;
+				ParallelExecutorMapping mapping = MappingExecutorUtil.map(method1, m);
+				if (highest == null || mapping.same > highest.same)
+				{
+					highest = mapping;
+					multiple = false;
+				}
+				else if (mapping.same == highest.same)
+				{
+					multiple = true;
+				}
 			}
-			else if (mapping.same == highest.same)
+			catch (Exception e)
 			{
-				multiple = true;
+				continue;
 			}
 		}
 
