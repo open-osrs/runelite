@@ -52,6 +52,8 @@ public class CreateAnnotations extends AbstractInjector
 	{
 		for (final ClassFile deobClass : inject.getDeobfuscated())
 		{
+			boolean isAnnotated = false;
+
 			injectFields(deobClass);
 			injectMethods(deobClass);
 
@@ -63,9 +65,12 @@ public class CreateAnnotations extends AbstractInjector
 			{
 				if (a.getType() == DeobAnnotations.IMPLEMENTS)
 				{
-					return;
+					isAnnotated = true;
+					break;
 				}
 			}
+
+			if (!isAnnotated)
 			deobClass.addAnnotation(DeobAnnotations.IMPLEMENTS, deobClass.getName());
 		}
 	}
@@ -74,13 +79,18 @@ public class CreateAnnotations extends AbstractInjector
 	{
 		for (Field deobField : deobClass.getFields())
 		{
+			boolean isAnnotated = false;
+
 			for (Annotation a : deobField.getAnnotations().values())
 			{
 				if (a.getType() == DeobAnnotations.EXPORT)
 				{
-					return;
+					isAnnotated = true;
+					break;
 				}
 			}
+
+			if (!isAnnotated)
 			deobField.addAnnotation(DeobAnnotations.EXPORT, deobField.getName());
 		}
 	}
@@ -89,13 +99,18 @@ public class CreateAnnotations extends AbstractInjector
 	{
 		for (Method deobMethod : deobClass.getMethods())
 		{
+			boolean isAnnotated = false;
+
 			for (Annotation a : deobMethod.getAnnotations().values())
 			{
 				if (a.getType() == DeobAnnotations.EXPORT)
 				{
-					return;
+					isAnnotated = true;
+					break;
 				}
 			}
+
+			if (!isAnnotated)
 			deobMethod.addAnnotation(DeobAnnotations.EXPORT, deobMethod.getName());
 		}
 	}
