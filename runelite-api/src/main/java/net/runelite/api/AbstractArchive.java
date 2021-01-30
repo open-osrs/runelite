@@ -25,7 +25,7 @@
 package net.runelite.api;
 
 /**
- * Represents an archive of data, which is split split into "groups" of "files".
+ * Represents an archive of data, which is ordered into "groups" of "files".
  */
 public interface AbstractArchive extends IndexDataBase
 {
