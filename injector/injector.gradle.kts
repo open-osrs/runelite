@@ -11,8 +11,6 @@ plugins {
 }
 
 dependencies {
-    vanillaDep(group = "net.runelite.rs", name = "vanilla", version = rsversion.toString())
-
     implementation(gradleApi())
     annotationProcessor("org.projectlombok:lombok:1.18.12")
     compileOnly("org.projectlombok:lombok:1.18.12")
@@ -28,8 +26,8 @@ dependencies {
 
 tasks.register<JavaExec>("inject") {
     main = "com.openosrs.injector.Injector"
-    classpath = sourceSets["main"].runtimeClasspath
-    args(vanillaDep.singleFile, openosrsVersion)
+    classpath = files(sourceSets["main"].runtimeClasspath, "./lib/android.jar")
+    args(File("./lib/mobile-vanilla-193-1.jar"), openosrsVersion)
     outputs.upToDateWhen {
         false
     }

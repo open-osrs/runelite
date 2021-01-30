@@ -151,9 +151,11 @@ public class RSApiInjector extends AbstractInjector
 				continue;
 			}
 
-			final Field vanillaField = inject.toVanilla(deobField);
+			Field vanillaField = inject.toVanilla(deobField);
 			final Number getter = DeobAnnotations.getObfuscatedGetter(deobField);
 
+			if (vanillaField == null)
+				vanillaField = deobField;
 			if (deobField.isStatic() != vanillaField.isStatic()) // Can this even happen
 			{
 				throw new InjectException("Something went horribly wrong, and this should honestly never happen, but you never know. Btw it's the static-ness");
