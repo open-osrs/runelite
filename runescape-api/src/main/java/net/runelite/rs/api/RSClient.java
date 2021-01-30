@@ -1395,4 +1395,7 @@ public interface RSClient extends RSGameEngine, Client
 	@Override
 	@Import("SpotAnimationDefinition_modelArchive")
 	AbstractArchive getSpotAnimationDefinition_modelArchive();
+
+	@Construct
+	RSBuffer createBuffer(byte[] bytes);
 }
