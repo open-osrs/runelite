@@ -2137,4 +2137,29 @@ public interface Client extends GameEngine
 	void setOutdatedScript(String outdatedScript);
 
 	List<String> getOutdatedScripts();
+
+	/**
+	 * various archives you might want to use for reading data from cache
+	 */
+	AbstractArchive getSequenceDefinition_skeletonsArchive();
+
+	AbstractArchive getSequenceDefinition_archive();
+
+	AbstractArchive getSequenceDefinition_animationsArchive();
+
+	AbstractArchive getNpcDefinition_archive();
+
+	AbstractArchive getObjectDefinition_modelsArchive();
+
+	AbstractArchive getObjectDefinition_archive();
+
+	AbstractArchive getItemDefinition_archive();
+
+	AbstractArchive getKitDefinition_archive();
+
+	AbstractArchive getKitDefinition_modelsArchive();
+
+	AbstractArchive getSpotAnimationDefinition_archive();
+
+	AbstractArchive getSpotAnimationDefinition_modelArchive();
 }
