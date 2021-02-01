@@ -223,10 +223,16 @@ public abstract class RSClientMixin implements RSClient
 	private static boolean hideClanmateAttackOptions = false;
 
 	@Inject
+	private static boolean hideTeamCapeAttackOptions = false;
+
+	@Inject
 	private static boolean hideFriendCastOptions = false;
 
 	@Inject
 	private static boolean hideClanmateCastOptions = false;
+
+	@Inject
+	private static boolean hideTeamCapeCastOptions = false;
 
 	@Inject
 	private static boolean allWidgetsAreOpTargetable = false;
@@ -283,6 +289,20 @@ public abstract class RSClientMixin implements RSClient
 	public void setHideClanmateCastOptions(boolean yes)
 	{
 		hideClanmateCastOptions = yes;
+	}
+
+	@Inject
+	@Override
+	public void setHideTeamCapeAttackOptions(boolean yes)
+	{
+		hideTeamCapeAttackOptions = yes;
+	}
+
+	@Inject
+	@Override
+	public void setHideTeamCapeCastOptions(boolean yes)
+	{
+		hideTeamCapeCastOptions = yes;
 	}
 
 	@Inject
@@ -1769,11 +1789,17 @@ public abstract class RSClientMixin implements RSClient
 	{
 		if (client.isSpellSelected())
 		{
-			return ((hideFriendCastOptions && p.isFriended()) || (hideClanmateCastOptions && p.isFriendsChatMember()))
-				&& !unhiddenCasts.contains(client.getSelectedSpellName().replaceAll("<[^>]*>", "").toLowerCase());
+			return ((hideFriendCastOptions && p.isFriended())
+					|| (hideClanmateCastOptions && p.isFriendsChatMember())
+					|| (client.getLocalPlayer() != null && hideTeamCapeCastOptions && p.getTeam() > 0 && client.getLocalPlayer().getTeam() > 0
+						&& p.getTeam() == client.getLocalPlayer().getTeam()))
+					&& !unhiddenCasts.contains(client.getSelectedSpellName().replaceAll("<[^>]*>", "").toLowerCase());
 		}
 
-		return ((hideFriendAttackOptions && p.isFriended()) || (hideClanmateAttackOptions && p.isFriendsChatMember()));
+		return ((hideFriendAttackOptions && p.isFriended())
+				|| (hideClanmateAttackOptions && p.isFriendsChatMember())
+				|| (hideTeamCapeAttackOptions && client.getLocalPlayer() != null && p.getTeam() > 0 && client.getLocalPlayer().getTeam() > 0
+					&& p.getTeam() == client.getLocalPlayer().getTeam()));
 	}
 
 	@Inject

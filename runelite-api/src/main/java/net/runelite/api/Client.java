@@ -1904,6 +1904,16 @@ public interface Client extends GameShell
 	void setHideClanmateCastOptions(boolean yes);
 
 	/**
+	 * Set whether or not player attack options will be hidden for matching teamcapes
+	 */
+	void setHideTeamCapeAttackOptions(boolean yes);
+
+	/**
+	 * Set whether or not player cast options will be hidden for matching teamcapes
+	 */
+	void setHideTeamCapeCastOptions(boolean yes);
+
+	/**
 	 * Set spells excluded from above hiding
 	 */
 	void setUnhiddenCasts(Set<String> casts);
