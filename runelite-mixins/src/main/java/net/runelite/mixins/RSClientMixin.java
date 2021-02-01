@@ -1791,7 +1791,7 @@ public abstract class RSClientMixin implements RSClient
 		{
 			return ((hideFriendCastOptions && p.isFriended())
 					|| (hideClanmateCastOptions && p.isFriendsChatMember())
-					|| (client.getLocalPlayer() != null && hideTeamCapeCastOptions && p.getTeam() > 0 && client.getLocalPlayer().getTeam() > 0
+					|| (hideTeamCapeCastOptions && client.getLocalPlayer() != null && p.getTeam() > 0 && client.getLocalPlayer().getTeam() > 0
 						&& p.getTeam() == client.getLocalPlayer().getTeam()))
 					&& !unhiddenCasts.contains(client.getSelectedSpellName().replaceAll("<[^>]*>", "").toLowerCase());
 		}
