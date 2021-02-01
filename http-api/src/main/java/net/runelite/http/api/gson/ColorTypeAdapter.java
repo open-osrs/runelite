@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2020 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,62 +22,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.config;
+package net.runelite.http.api.gson;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JButton;
-import lombok.Getter;
-import net.runelite.client.config.Keybind;
-import net.runelite.client.config.ModifierlessKeybind;
-import net.runelite.client.ui.FontManager;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
+import java.awt.Color;
+import java.io.IOException;
 
-class HotkeyButton extends JButton
+public class ColorTypeAdapter extends TypeAdapter<Color>
 {
-	@Getter
-	private Keybind value;
-
-	public HotkeyButton(Keybind value, boolean modifierless)
-	{
-		setFont(FontManager.getDefaultFont().deriveFont(12.f));
-		setValue(value);
-		addMouseListener(new MouseAdapter()
-		{
-			@Override
-			public void mouseReleased(MouseEvent e)
-			{
-				// We have to use a mouse adapter instead of an action listener so the press action key (space) can be bound
-				setValue(Keybind.NOT_SET);
-			}
-		});
-
-		addKeyListener(new KeyAdapter()
-		{
-			@Override
-			public void keyPressed(KeyEvent e)
-			{
-				if (modifierless)
-				{
-					setValue(new ModifierlessKeybind(e));
-				}
-				else
-				{
-					setValue(new Keybind(e));
-				}
-			}
-		});
-	}
-
-	public void setValue(Keybind value)
+	@Override
+	public void write(JsonWriter out, Color value) throws IOException
 	{
 		if (value == null)
 		{
-			value = Keybind.NOT_SET;
+			out.nullValue();
+			return;
 		}
 
-		this.value = value;
-		setText(value.toString());
+		int rgba = value.getRGB();
+		out.beginObject()
+			.name("value")
+			.value(rgba)
+			.endObject();
+	}
+
+	@Override
+	public Color read(JsonReader in) throws IOException
+	{
+		switch (in.peek())
+		{
+			case NULL:
+				in.nextNull();
+				return null;
+			case BEGIN_OBJECT:
+				in.beginObject();
+				double value = 0;
+				while (in.peek() != JsonToken.END_OBJECT)
+				{
+					switch (in.nextName())
+					{
+						case "value":
+							value = in.nextDouble();
+							break;
+						default:
+							in.skipValue();
+							break;
+					}
+				}
+				in.endObject();
+				return new Color((int) value, true);
+		}
+		return null; // throws
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2020 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,62 +22,61 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.config;
+package net.runelite.http.api.gson;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JButton;
-import lombok.Getter;
-import net.runelite.client.config.Keybind;
-import net.runelite.client.config.ModifierlessKeybind;
-import net.runelite.client.ui.FontManager;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+import java.time.Instant;
 
-class HotkeyButton extends JButton
+// Just add water!
+public class InstantTypeAdapter extends TypeAdapter<Instant>
 {
-	@Getter
-	private Keybind value;
-
-	public HotkeyButton(Keybind value, boolean modifierless)
-	{
-		setFont(FontManager.getDefaultFont().deriveFont(12.f));
-		setValue(value);
-		addMouseListener(new MouseAdapter()
-		{
-			@Override
-			public void mouseReleased(MouseEvent e)
-			{
-				// We have to use a mouse adapter instead of an action listener so the press action key (space) can be bound
-				setValue(Keybind.NOT_SET);
-			}
-		});
-
-		addKeyListener(new KeyAdapter()
-		{
-			@Override
-			public void keyPressed(KeyEvent e)
-			{
-				if (modifierless)
-				{
-					setValue(new ModifierlessKeybind(e));
-				}
-				else
-				{
-					setValue(new Keybind(e));
-				}
-			}
-		});
-	}
-
-	public void setValue(Keybind value)
+	@Override
+	public void write(JsonWriter out, Instant value) throws IOException
 	{
 		if (value == null)
 		{
-			value = Keybind.NOT_SET;
+			out.nullValue();
+			return;
 		}
 
-		this.value = value;
-		setText(value.toString());
+		out.beginObject()
+			.name("seconds")
+			.value(value.getEpochSecond())
+			.name("nanos")
+			.value(value.getNano())
+			.endObject();
+	}
+
+	@Override
+	public Instant read(JsonReader in) throws IOException
+	{
+		if (in.peek() == JsonToken.NULL)
+		{
+			in.nextNull();
+			return null;
+		}
+
+		long seconds = 0;
+		int nanos = 0;
+		in.beginObject();
+		while (in.peek() != JsonToken.END_OBJECT)
+		{
+			switch (in.nextName())
+			{
+				case "nanos":
+					nanos = in.nextInt();
+					break;
+				case "seconds":
+					seconds = in.nextLong();
+					break;
+			}
+		}
+		in.endObject();
+
+		return Instant.ofEpochSecond(seconds, nanos);
 	}
 }
