@@ -27,6 +27,7 @@ package net.runelite.client.plugins;
 import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import net.runelite.client.RuneLite;
 
 public abstract class Plugin implements Module
 {
@@ -49,8 +50,20 @@ public abstract class Plugin implements Module
 	{
 	}
 
+	// This should never be null when we are using it
 	public final Injector getInjector()
 	{
+		if (injector == null)
+		{
+			Module pluginModule = (Binder binder) ->
+			{
+				binder.bind((Class<Plugin>) this.getClass()).toInstance(this);
+				binder.install(this);
+			};
+			Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
+			pluginInjector.injectMembers(this);
+			injector = pluginInjector;
+		}
 		return injector;
 	}
 
