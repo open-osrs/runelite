@@ -2,8 +2,8 @@ package net.runelite.client.plugins.openosrs.externals;
 
 import net.runelite.client.plugins.OPRSExternalPluginManager;
 import com.google.gson.JsonSyntaxException;
-import com.openosrs.client.events.ExternalPluginChanged;
-import com.openosrs.client.events.ExternalRepositoryChanged;
+import com.openosrs.client.events.OPRSPluginChanged;
+import com.openosrs.client.events.OPRSRepositoryChanged;
 import net.runelite.client.util.DeferredDocumentChangedListener;
 import com.openosrs.client.util.SwingUtil;
 import java.awt.BorderLayout;
@@ -123,7 +123,7 @@ public class PluginsPanel extends JPanel
 	}
 
 	@Subscribe
-	public void onExternalRepositoryChanged(ExternalRepositoryChanged event)
+	public void onExternalRepositoryChanged(OPRSRepositoryChanged event)
 	{
 		buildFilter();
 		reloadPlugins();
@@ -283,7 +283,7 @@ public class PluginsPanel extends JPanel
 	}
 
 	@Subscribe
-	private void onExternalPluginChanged(ExternalPluginChanged externalPluginChanged)
+	private void onExternalPluginChanged(OPRSPluginChanged externalPluginChanged)
 	{
 		String pluginId = externalPluginChanged.getPluginId();
 		Optional<Component> externalBox;

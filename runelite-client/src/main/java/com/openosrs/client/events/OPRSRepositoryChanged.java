@@ -27,7 +27,7 @@ package com.openosrs.client.events;
 import lombok.Data;
 
 @Data
-public class ExternalRepositoryChanged
+public class OPRSRepositoryChanged
 {
 	private final String owner;
 	private final boolean added;

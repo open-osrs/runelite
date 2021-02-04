@@ -163,8 +163,21 @@ public class PluginManager
 	{
 		try
 		{
-			final Injector injector = plugin.getInjector();
-
+			Injector injector = plugin.getInjector();
+			if (injector == null)
+			{
+				// Create injector for the module
+				Module pluginModule = (Binder binder) ->
+				{
+					// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
+					binder.bind((Class<Plugin>) plugin.getClass()).toInstance(plugin);
+					binder.install(plugin);
+				};
+				Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
+				pluginInjector.injectMembers(plugin);
+				plugin.injector = pluginInjector;
+				injector = pluginInjector;
+			}
 			for (Key<?> key : injector.getBindings().keySet())
 			{
 				Class<?> type = key.getTypeLiteral().getRawType();

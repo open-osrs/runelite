@@ -28,7 +28,7 @@ import lombok.Data;
 import net.runelite.client.plugins.Plugin;
 
 @Data
-public class ExternalPluginChanged
+public class OPRSPluginChanged
 {
 	private final String pluginId;
 	private final Plugin plugin;

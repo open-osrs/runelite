@@ -1,7 +1,7 @@
 package net.runelite.client.plugins.openosrs.externals;
 
 import net.runelite.client.plugins.OPRSExternalPluginManager;
-import com.openosrs.client.events.ExternalRepositoryChanged;
+import com.openosrs.client.events.OPRSRepositoryChanged;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -36,7 +36,7 @@ public class RepositoryPanel extends JPanel
 	}
 
 	@Subscribe
-	private void onExternalRepositoryChanged(ExternalRepositoryChanged event)
+	private void onExternalRepositoryChanged(OPRSRepositoryChanged event)
 	{
 		removeAll();
 

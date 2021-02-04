@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
+ * Copyright (c) 2020, Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,8 +36,8 @@ import com.google.inject.Module;
 import static com.openosrs.client.OpenOSRS.EXTERNALPLUGIN_DIR;
 import static com.openosrs.client.OpenOSRS.SYSTEM_VERSION;
 import com.openosrs.client.config.OpenOSRSConfig;
-import com.openosrs.client.events.ExternalPluginChanged;
-import com.openosrs.client.events.ExternalRepositoryChanged;
+import com.openosrs.client.events.OPRSPluginChanged;
+import com.openosrs.client.events.OPRSRepositoryChanged;
 import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import com.openosrs.client.util.Groups;
 import java.lang.reflect.InvocationTargetException;
@@ -75,6 +75,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.util.SwingUtil;
 import org.jgroups.Message;
@@ -325,14 +326,14 @@ public class OPRSExternalPluginManager
 	{
 		DefaultUpdateRepository respository = new DefaultUpdateRepository(key, url);
 		updateManager.addRepository(respository);
-		eventBus.post(new ExternalRepositoryChanged(key, true));
+		eventBus.post(new OPRSRepositoryChanged(key, true));
 		saveConfig();
 	}
 
 	public void removeRepository(String owner)
 	{
 		updateManager.removeRepository(owner);
-		eventBus.post(new ExternalRepositoryChanged(owner, false));
+		eventBus.post(new OPRSRepositoryChanged(owner, false));
 		saveConfig();
 	}
 
@@ -627,7 +628,7 @@ public class OPRSExternalPluginManager
 						{
 							runelitePluginManager.add(plugin);
 							runelitePluginManager.startPlugin(plugin);
-							eventBus.post(new ExternalPluginChanged(pluginsMap.get(plugin.getClass().getSimpleName()),
+							eventBus.post(new OPRSPluginChanged(pluginsMap.get(plugin.getClass().getSimpleName()),
 								plugin, true));
 						}
 						catch (PluginInstantiationException e)
@@ -794,7 +795,7 @@ public class OPRSExternalPluginManager
 					runelitePluginManager.remove(plugin);
 					pluginClassLoaders.remove(plugin.getClass().getClassLoader());
 
-					eventBus.post(new ExternalPluginChanged(pluginId, plugin, false));
+					eventBus.post(new OPRSPluginChanged(pluginId, plugin, false));
 
 					return pluginWrapper.getPluginPath();
 				}
@@ -818,6 +819,8 @@ public class OPRSExternalPluginManager
 
 			groups.broadcastSring("STARTEXTERNAL;" + pluginId);
 			scanAndInstantiate(loadPlugin(pluginId), true, false);
+			ExternalPluginsChanged event = new ExternalPluginsChanged(null);
+			eventBus.post(event);
 
 			return true;
 		}
@@ -851,9 +854,9 @@ public class OPRSExternalPluginManager
 			}
 
 			updateManager.installPlugin(pluginId, null);
-
 			scanAndInstantiate(loadPlugin(pluginId), true, true);
-
+			ExternalPluginsChanged event = new ExternalPluginsChanged(null);
+			eventBus.post(event);
 			groups.broadcastSring("STARTEXTERNAL;" + pluginId);
 		}
 		catch (DependencyResolver.DependenciesNotFoundException ex)
