@@ -75,6 +75,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
+import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
 import net.runelite.client.plugins.PluginManager;
@@ -421,9 +422,9 @@ public class ExternalPluginManager
 			.directed()
 			.build();
 
-		for (Plugin plugin : plugins)
+		for (net.runelite.client.plugins.Plugin plugin : plugins)
 		{
-			Class<? extends Plugin> clazz = plugin.getClass();
+			Class<? extends net.runelite.client.plugins.Plugin> clazz = plugin.getClass();
 			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
 
 			try
@@ -820,6 +821,8 @@ public class ExternalPluginManager
 
 			groups.broadcastSring("STARTEXTERNAL;" + pluginId);
 			scanAndInstantiate(loadPlugin(pluginId), true, false);
+			ExternalPluginsChanged event = new ExternalPluginsChanged(null);
+			eventBus.post(event);
 
 			return true;
 		}
@@ -853,9 +856,9 @@ public class ExternalPluginManager
 			}
 
 			updateManager.installPlugin(pluginId, null);
-
 			scanAndInstantiate(loadPlugin(pluginId), true, true);
-
+			ExternalPluginsChanged event = new ExternalPluginsChanged(null);
+			eventBus.post(event);
 			groups.broadcastSring("STARTEXTERNAL;" + pluginId);
 		}
 		catch (DependencyResolver.DependenciesNotFoundException ex)
