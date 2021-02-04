@@ -26,7 +26,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bd")
 @Implements("GameShell")
-public abstract class GameShell extends Applet implements Runnable, FocusListener, WindowListener {
+public abstract class GameEngine extends Applet implements Runnable, FocusListener, WindowListener {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Lfa;"
@@ -38,7 +38,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		descriptor = "Lbd;"
 	)
 	@Export("gameShell")
-	static GameShell gameShell;
+	static GameEngine gameEngine;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 548418733
@@ -192,7 +192,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	final EventQueue eventQueue;
 
 	static {
-		gameShell = null; // L: 41
+		gameEngine = null; // L: 41
 		GameShell_redundantStartThreadCount = 0; // L: 43
 		stopTimeMs = 0L; // L: 44
 		isKilled = false; // L: 45
@@ -207,7 +207,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 		garbageCollectorLastCheckTimeMs = -1L; // L: 86
 	}
 
-	protected GameShell() {
+	protected GameEngine() {
 		this.hasErrored = false; // L: 46
 		this.canvasX = 0; // L: 59
 		this.canvasY = 0; // L: 60
@@ -451,7 +451,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	@Export("startThread")
 	protected final void startThread(int var1, int var2, int var3) {
 		try {
-			if (gameShell != null) { // L: 220
+			if (gameEngine != null) { // L: 220
 				++GameShell_redundantStartThreadCount; // L: 221
 				if (GameShell_redundantStartThreadCount >= 3) { // L: 222
 					this.error("alreadyloaded"); // L: 223
@@ -462,7 +462,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 				return; // L: 227
 			}
 
-			gameShell = this; // L: 229
+			gameEngine = this; // L: 229
 			IgnoreList.canvasWidth = var1; // L: 230
 			ModelData0.canvasHeight = var2; // L: 231
 			RunException.RunException_revision = var3; // L: 232
@@ -851,7 +851,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	protected abstract void vmethod1777();
 
 	public final synchronized void paint(Graphics var1) {
-		if (this == gameShell && !isKilled) { // L: 449
+		if (this == gameEngine && !isKilled) { // L: 449
 			this.fullRedraw = true; // L: 450
 			if (class298.currentTimeMillis() - this.field472 > 1000L) { // L: 451
 				Rectangle var2 = var1.getClipBounds(); // L: 452
@@ -864,7 +864,7 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	} // L: 455
 
 	public final void destroy() {
-		if (this == gameShell && !isKilled) { // L: 438
+		if (this == gameEngine && !isKilled) { // L: 438
 			stopTimeMs = class298.currentTimeMillis(); // L: 439
 			class236.sleepExact(5000L); // L: 440
 			this.kill(); // L: 441
@@ -899,13 +899,13 @@ public abstract class GameShell extends Applet implements Runnable, FocusListene
 	public abstract void init();
 
 	public final void stop() {
-		if (this == gameShell && !isKilled) { // L: 433
+		if (this == gameEngine && !isKilled) { // L: 433
 			stopTimeMs = class298.currentTimeMillis() + 4000L; // L: 434
 		}
 	} // L: 435
 
 	public final void start() {
-		if (this == gameShell && !isKilled) { // L: 428
+		if (this == gameEngine && !isKilled) { // L: 428
 			stopTimeMs = 0L; // L: 429
 		}
 	} // L: 430

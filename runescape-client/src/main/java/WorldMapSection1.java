@@ -182,7 +182,7 @@ public class WorldMapSection1 implements WorldMapSection {
 		switch(var0) { // L: 2941
 		case 1:
 			Login.loginIndex = 24; // L: 2950
-			GameShell.setLoginResponseString("", "You were disconnected from the server.", ""); // L: 2951
+			GameEngine.setLoginResponseString("", "You were disconnected from the server.", ""); // L: 2951
 			break;
 		case 2:
 			Messages.method2285(); // L: 2944

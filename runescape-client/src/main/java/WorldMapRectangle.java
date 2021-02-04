@@ -140,7 +140,7 @@ public final class WorldMapRectangle {
 		WorldMapSprite.archive1.clearFiles(); // L: 2905
 		class330.archive3.clearFiles(); // L: 2906
 		class227.archive4.clearFiles(); // L: 2907
-		GameShell.archive5.clearFiles(); // L: 2908
+		GameEngine.archive5.clearFiles(); // L: 2908
 		class217.archive6.clearFiles(); // L: 2909
 		BuddyRankComparator.archive7.clearFiles(); // L: 2910
 		Messages.archive8.clearFiles(); // L: 2911

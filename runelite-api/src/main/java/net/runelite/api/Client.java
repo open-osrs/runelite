@@ -47,7 +47,7 @@ import org.slf4j.Logger;
 /**
  * Represents the RuneScape client.
  */
-public interface Client extends GameShell
+public interface Client extends GameEngine
 {
 	/**
 	 * The injected client invokes these callbacks to send events to us
@@ -67,6 +67,8 @@ public interface Client extends GameShell
 	 * This is most useful for mixins which can't have their own.
 	 */
 	Logger getLogger();
+
+	String getBuildID();
 
 	/**
 	 * Gets a list of all valid players from the player cache.
@@ -457,7 +459,7 @@ public interface Client extends GameShell
 	int getMouseCurrentButton();
 
 	/**
-	 * Gets the currently selected tile (ie. last right clicked tile).
+	 * Gets the currently selected tile. (ie. last right clicked tile)
 	 *
 	 * @return the selected tile
 	 */
@@ -1543,8 +1545,8 @@ public interface Client extends GameShell
 	void setPlayersHidden(boolean state);
 
 	/**
-	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
-	 * the other players are hidden.
+	 * Sets whether 2D sprites related to the other players are hidden.
+	 * (ie. overhead prayers, PK skull)
 	 *
 	 * @param state the new player 2D hidden state
 	 */
@@ -1572,8 +1574,8 @@ public interface Client extends GameShell
 	void setLocalPlayerHidden(boolean state);
 
 	/**
-	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
-	 * the local player are hidden.
+	 * Sets whether 2D sprites related to the local player are hidden.
+	 * (ie. overhead prayers, PK skull)
 	 *
 	 * @param state new local player 2D hidden state
 	 */
@@ -2135,4 +2137,34 @@ public interface Client extends GameShell
 	void setOutdatedScript(String outdatedScript);
 
 	List<String> getOutdatedScripts();
+
+	/**
+	 * various archives you might want to use for reading data from cache
+	 */
+	AbstractArchive getSequenceDefinition_skeletonsArchive();
+
+	AbstractArchive getSequenceDefinition_archive();
+
+	AbstractArchive getSequenceDefinition_animationsArchive();
+
+	AbstractArchive getNpcDefinition_archive();
+
+	AbstractArchive getObjectDefinition_modelsArchive();
+
+	AbstractArchive getObjectDefinition_archive();
+
+	AbstractArchive getItemDefinition_archive();
+
+	AbstractArchive getKitDefinition_archive();
+
+	AbstractArchive getKitDefinition_modelsArchive();
+
+	AbstractArchive getSpotAnimationDefinition_archive();
+
+	AbstractArchive getSpotAnimationDefinition_modelArchive();
+
+	/**
+	 * use createBuffer to create a new byte buffer
+	 */
+	Buffer createBuffer(byte[] initialBytes);
 }

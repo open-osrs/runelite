@@ -30,7 +30,7 @@ import java.awt.Canvas;
 /**
  * Represents the client game engine.
  */
-public interface GameShell
+public interface GameEngine
 {
 	/**
 	 * Gets the canvas that contains everything.

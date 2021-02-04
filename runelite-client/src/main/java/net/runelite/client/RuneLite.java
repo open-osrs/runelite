@@ -94,7 +94,7 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class RuneLite
 {
-	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".runelite");
+	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".openosrs");
 	public static final File CACHE_DIR = new File(RUNELITE_DIR, "cache");
 	public static final File PLUGINS_DIR = new File(RUNELITE_DIR, "plugins");
 	public static final File PROFILES_DIR = new File(RUNELITE_DIR, "profiles");
@@ -334,7 +334,7 @@ public class RuneLite
 		oprsExternalPluginManager.startExternalPluginManager();
 
 		// Update external plugins
-		//oprsExternalPluginManager.update(); //TODO: Re-enable after fixing actions for new repo
+		oprsExternalPluginManager.update(); //TODO: Re-enable after fixing actions for new repo
 
 		// Load the plugins, but does not start them yet.
 		// This will initialize configuration

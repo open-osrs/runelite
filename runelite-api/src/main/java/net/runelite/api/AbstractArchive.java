@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Noodleeater <noodleeater4@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,42 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.rs.api;
+package net.runelite.api;
 
-import net.runelite.api.GameShell;
-import java.awt.Canvas;
-import net.runelite.mapping.Import;
-
-public interface RSGameShell extends GameShell
+/**
+ * Represents an archive of data, which is ordered into "groups" of "files".
+ */
+public interface AbstractArchive extends IndexDataBase
 {
-	@Import("canvas")
-	Canvas getCanvas();
+	/**
+	 * the methods bellow are usefull for reading byte data from the cache
+	 */
+	int getGroupCount();
 
-	@Import("post")
-	void post(Object canvas);
+	byte[] getConfigData(int archiveId, int fileId);
 
-	@Import("resizeCanvas")
-	@Override
-	void resizeCanvas();
+	int[] getFileIds(int groupId);
 
-	@Import("resizeCanvasNextFrame")
-	boolean isResizeCanvasNextFrame();
+	int[][] getFileIds();
 
-	@Import("resizeCanvasNextFrame")
-	void setResizeCanvasNextFrame(boolean resize);
+	byte[] getFile(int groupId, int fileId);
 
-	@Import("isCanvasInvalid")
-	boolean isReplaceCanvasNextFrame();
+	int getGroupFileCount(int groupId);
 
-	@Import("isCanvasInvalid")
-	void setReplaceCanvasNextFrame(boolean replace);
-
-	@Import("maxCanvasWidth")
-	void setMaxCanvasWidth(int width);
-
-	@Import("maxCanvasHeight")
-	void setMaxCanvasHeight(int height);
-
-	@Import("fullRedraw")
-	void setFullRedraw(boolean fullRedraw);
+	int[] getFileCounts();
 }
