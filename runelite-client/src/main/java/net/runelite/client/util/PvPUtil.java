@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
+ * Copyright (c) 2019, PKLite
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

@@ -1,4 +1,4 @@
-package com.openosrs.client.plugins.openosrs.externals;
+package net.runelite.client.plugins.openosrs.externals;
 
 import net.runelite.client.plugins.OPRSExternalPluginManager;
 import com.openosrs.client.events.ExternalRepositoryChanged;

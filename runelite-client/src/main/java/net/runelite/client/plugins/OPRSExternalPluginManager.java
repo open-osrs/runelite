@@ -40,11 +40,11 @@ import com.openosrs.client.events.ExternalPluginChanged;
 import com.openosrs.client.events.ExternalRepositoryChanged;
 import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import com.openosrs.client.util.Groups;
-import com.openosrs.client.util.MiscUtils;
-import com.openosrs.client.util.SwingUtil;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,6 +76,7 @@ import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.ui.ClientUI;
+import net.runelite.client.util.SwingUtil;
 import org.jgroups.Message;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.DependencyResolver;
@@ -343,7 +344,7 @@ public class OPRSExternalPluginManager
 		{
 			config.append(repository.getId());
 			config.append("|");
-			config.append(MiscUtils.urlToStringEncoded(repository.getUrl()));
+			config.append(urlToStringEncoded(repository.getUrl()));
 			config.append(";");
 		}
 		config.deleteCharAt(config.lastIndexOf(";"));
@@ -1066,4 +1067,27 @@ public class OPRSExternalPluginManager
 		}
 	}
 
+	/**
+	 * Mostly stolen from {@link java.net.URLStreamHandler#toExternalForm(URL)}
+	 *
+	 * @param url URL to encode
+	 * @return URL, with path, query and ref encoded
+	 */
+	private static String urlToStringEncoded(URL url)
+	{
+		String s;
+		String path = url.getPath() != null ? Stream.of(url.getPath().split("/"))
+			.map(s2 -> URLEncoder.encode(s2, StandardCharsets.UTF_8)).collect(Collectors.joining("/")) : "";
+		return url.getProtocol()
+			+ ':'
+			+ (((s = url.getAuthority()) != null && s.length() > 0) ? "//" + s : "")
+			+ (path)
+			+ (((s = url.getQuery()) != null) ? '?' + urlEncode(s) : "")
+			+ (((s = url.getRef()) != null) ? '#' + urlEncode(s) : "");
+	}
+
+	private static String urlEncode(String s)
+	{
+		return URLEncoder.encode(s, StandardCharsets.UTF_8);
+	}
 }

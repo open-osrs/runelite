@@ -30,7 +30,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
 import com.openosrs.client.config.OpenOSRSConfig;
-import com.openosrs.client.util.NonScheduledExecutorServiceExceptionLogger;
 import java.applet.Applet;
 import java.io.File;
 import java.util.Properties;

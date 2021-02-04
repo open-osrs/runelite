@@ -24,10 +24,8 @@
  */
 package net.runelite.api.events;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import net.runelite.api.MenuEntry;
+import lombok.Data;
+import net.runelite.api.MenuAction;
 
 /**
  * An event where a menu option has been clicked.
@@ -40,22 +38,35 @@ import net.runelite.api.MenuEntry;
  * By default, when there is no action performed when left-clicking,
  * it seems that this event still triggers with the "Cancel" action.
  */
-@Getter
-public class MenuOptionClicked extends MenuEntry
+@Data
+public class MenuOptionClicked
 {
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
-	{
-		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
-		authentic = true;
-	}
-
-	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick, boolean authentic, int mouseButton)
-	{
-		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
-		this.authentic = authentic;
-		this.mouseButton = mouseButton;
-	}
-
+	/**
+	 * The action parameter used in the click.
+	 */
+	private int actionParam;
+	/**
+	 * The option text added to the menu.
+	 */
+	private String menuOption;
+	/**
+	 * The target of the action.
+	 */
+	private String menuTarget;
+	/**
+	 * The action performed.
+	 */
+	private MenuAction menuAction;
+	/**
+	 * The ID of the object, actor, or item that the interaction targets.
+	 */
+	private int id;
+	/**
+	 * The ID of the widget where the menu was clicked.
+	 *
+	 * @see net.runelite.api.widgets.WidgetID
+	 */
+	private int widgetId;
 	/**
 	 * The selected item index at the time of the option click.
 	 */
@@ -64,11 +75,6 @@ public class MenuOptionClicked extends MenuEntry
 	 * Whether or not the event has been consumed by a subscriber.
 	 */
 	private boolean consumed;
-
-	/**
-	 * The mouse button will be 1 if a non draggable widget was clicked,
-	 */
-	private int mouseButton;
 
 	/**
 	 * Marks the event as having been consumed.
@@ -80,37 +86,5 @@ public class MenuOptionClicked extends MenuEntry
 	public void consume()
 	{
 		this.consumed = true;
-	}
-
-	/**
-	 * Whether or not the event is authentic.
-	 */
-	@Setter(AccessLevel.NONE)
-	private final boolean authentic;
-
-	public void setMenuEntry(MenuEntry e)
-	{
-		setOption(e.getOption());
-		setTarget(e.getTarget());
-		setIdentifier(e.getIdentifier());
-		setOpcode(e.getOpcode());
-		setActionParam(e.getActionParam());
-		setActionParam1(e.getActionParam1());
-		setForceLeftClick(e.isForceLeftClick());
-	}
-
-	public int getWidgetId()
-	{
-		return getActionParam1();
-	}
-
-	public String getMenuTarget()
-	{
-		return getTarget();
-	}
-
-	public String getMenuOption()
-	{
-		return getOption();
 	}
 }

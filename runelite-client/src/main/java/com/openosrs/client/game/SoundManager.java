@@ -28,11 +28,10 @@ public class SoundManager
 		this.runeliteConfig = runeLiteConfig;
 	}
 
-	public void playSound(final Sound sound)
+	public void play(final Sound sound)
 	{
 		new Thread(new Runnable()
 		{
-
 			@Override
 			public void run()
 			{
