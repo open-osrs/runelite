@@ -1,8 +1,7 @@
 package com.openosrs.client.plugins.openosrs.externals;
 
-import com.openosrs.client.plugins.ExternalPluginManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import com.openosrs.client.ui.JMultilineLabel;
-import com.openosrs.client.util.ImageUtil;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -19,6 +18,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
+import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateRepository;
@@ -53,7 +53,7 @@ public class RepositoryBox extends JPanel
 		DISCORD_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(discordImg, 0.53f));
 	}
 
-	RepositoryBox(ExternalPluginManager externalPluginManager, UpdateRepository updateRepository)
+	RepositoryBox(OPRSExternalPluginManager externalPluginManager, UpdateRepository updateRepository)
 	{
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARKER_GRAY_COLOR);

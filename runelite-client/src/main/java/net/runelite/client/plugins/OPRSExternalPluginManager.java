@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.openosrs.client.plugins;
+package net.runelite.client.plugins;
 
 import com.google.common.collect.Lists;
 import com.google.common.graph.GraphBuilder;
@@ -75,9 +75,6 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginInstantiationException;
-import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.ui.ClientUI;
 import org.jgroups.Message;
 import org.pf4j.DefaultPluginManager;
@@ -92,9 +89,9 @@ import org.pf4j.update.UpdateRepository;
 
 @Slf4j
 @Singleton
-public class ExternalPluginManager
+public class OPRSExternalPluginManager
 {
-	public static final String DEFAULT_PLUGIN_REPOS = "OpenOSRS:https://raw.githubusercontent.com/zeruth/runelite-plugins-release/master/";
+	public static final String DEFAULT_PLUGIN_REPOS = "OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugins-v2/master/";
 	static final String DEVELOPMENT_MANIFEST_PATH = "build/tmp/jar/MANIFEST.MF";
 
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
@@ -115,7 +112,7 @@ public class ExternalPluginManager
 	private final boolean safeMode;
 
 	@Inject
-	public ExternalPluginManager(
+	public OPRSExternalPluginManager(
 		@Named("safeMode") final boolean safeMode,
 		PluginManager pluginManager,
 		OpenOSRSConfig openOSRSConfig,
@@ -143,7 +140,7 @@ public class ExternalPluginManager
 
 	private void initPluginManager()
 	{
-		externalPluginManager = new ExternalPf4jPluginManager(this);
+		externalPluginManager = new OPRSExternalPf4jPluginManager(this);
 		externalPluginManager.setSystemVersion(SYSTEM_VERSION);
 	}
 

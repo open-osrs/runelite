@@ -4,7 +4,7 @@ import lombok.Value;
 import net.runelite.api.DialogOption;
 
 @Value
-public class DialogProcessed implements Event
+public class DialogProcessed
 {
 	DialogOption dialogOption;
 }

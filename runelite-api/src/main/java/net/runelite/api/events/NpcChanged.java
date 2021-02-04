@@ -32,7 +32,7 @@ import net.runelite.api.NPCComposition;
  * Fires after the composition of an {@link NPC} changes.
  */
 @Value
-public class NpcChanged implements Event
+public class NpcChanged
 {
 	/**
 	 * The NPC of which the composition changed.

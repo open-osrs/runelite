@@ -26,7 +26,6 @@ package net.runelite.api.kit;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import com.openosrs.api.widgets.WidgetInfo;
 
 /**
  * Represents an equipment slot in a players composition.
@@ -40,20 +39,20 @@ import com.openosrs.api.widgets.WidgetInfo;
 @AllArgsConstructor
 public enum KitType
 {
-	HEAD("Head", 0, WidgetInfo.EQUIPMENT_HELMET),
-	CAPE("Cape", 1, WidgetInfo.EQUIPMENT_CAPE),
-	AMULET("Amulet", 2, WidgetInfo.EQUIPMENT_AMULET),
-	WEAPON("Weapon", 3, WidgetInfo.EQUIPMENT_WEAPON),
-	TORSO("Torso", 4, WidgetInfo.EQUIPMENT_BODY),
-	SHIELD("Shield", 5, WidgetInfo.EQUIPMENT_SHIELD),
-	ARMS("Arms", 6, null),
-	LEGS("Legs", 7, WidgetInfo.EQUIPMENT_LEGS),
-	HAIR("Hair", 8, null),
-	HANDS("Hands", 9, WidgetInfo.EQUIPMENT_GLOVES),
-	BOOTS("Boots", 10, WidgetInfo.EQUIPMENT_BOOTS),
-	JAW("Jaw", 11, null),
-	RING("Ring", 12, WidgetInfo.EQUIPMENT_RING),
-	AMMUNITION("Ammo", 13, WidgetInfo.EQUIPMENT_AMMO);
+	HEAD("Head", 0),
+	CAPE("Cape", 1),
+	AMULET("Amulet", 2),
+	WEAPON("Weapon", 3),
+	TORSO("Torso", 4),
+	SHIELD("Shield", 5),
+	ARMS("Arms", 6),
+	LEGS("Legs", 7),
+	HAIR("Hair", 8),
+	HANDS("Hands", 9),
+	BOOTS("Boots", 10),
+	JAW("Jaw", 11),
+	RING("Ring", 12),
+	AMMUNITION("Ammo", 13);
 
 	private final String name;
 
@@ -61,6 +60,4 @@ public enum KitType
 	 * Gets the raw equipment index for use in {PlayerAppearance#getEquipmentIds()}.
 	 */
 	private final int index;
-
-	private final WidgetInfo widgetInfo;
 }

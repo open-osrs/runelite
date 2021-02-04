@@ -1,11 +1,10 @@
 package com.openosrs.client.plugins.openosrs.externals;
 
-import com.openosrs.client.plugins.ExternalPluginManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import com.google.gson.JsonSyntaxException;
 import com.openosrs.client.events.ExternalPluginChanged;
 import com.openosrs.client.events.ExternalRepositoryChanged;
-import com.openosrs.client.util.DeferredDocumentChangedListener;
-import com.openosrs.client.util.ImageUtil;
+import net.runelite.client.util.DeferredDocumentChangedListener;
 import com.openosrs.client.util.SwingUtil;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -45,6 +44,7 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.IconTextField;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
+import net.runelite.client.util.ImageUtil;
 import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateManager;
 import org.pf4j.update.UpdateRepository;
@@ -82,7 +82,7 @@ public class PluginsPanel extends JPanel
 		DELETE_HOVER_ICON_GRAY = new ImageIcon(ImageUtil.alphaOffset(ImageUtil.grayscaleImage(deleteImg), 0.53f));
 	}
 
-	private final ExternalPluginManager externalPluginManager;
+	private final OPRSExternalPluginManager externalPluginManager;
 	private final UpdateManager updateManager;
 	private final ScheduledExecutorService executor;
 	private final EventBus eventBus;
@@ -97,7 +97,7 @@ public class PluginsPanel extends JPanel
 	private JComboBox<String> filterComboBox;
 	private Set<String> deps;
 
-	PluginsPanel(ExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
+	PluginsPanel(OPRSExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
 	{
 		this.externalPluginManager = externalPluginManager;
 		this.updateManager = externalPluginManager.getUpdateManager();

@@ -1,6 +1,6 @@
 package com.openosrs.client.plugins.openosrs.externals;
 
-import com.openosrs.client.plugins.ExternalPluginManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import com.openosrs.client.events.ExternalRepositoryChanged;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,11 +18,11 @@ public class RepositoryPanel extends JPanel
 	@Inject
 	public EventBus eventBus;
 
-	private final ExternalPluginManager externalPluginManager;
+	private final OPRSExternalPluginManager externalPluginManager;
 
 	private final GridBagConstraints c = new GridBagConstraints();
 
-	RepositoryPanel(ExternalPluginManager externalPluginManager, EventBus eventBus)
+	RepositoryPanel(OPRSExternalPluginManager externalPluginManager, EventBus eventBus)
 	{
 		this.externalPluginManager = externalPluginManager;
 

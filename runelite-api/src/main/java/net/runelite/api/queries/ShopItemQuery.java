@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 import net.runelite.api.Client;
 import net.runelite.api.QueryResults;
 import net.runelite.api.widgets.Widget;
-import com.openosrs.api.widgets.WidgetInfo;
+import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 
 public class ShopItemQuery extends WidgetItemQuery
@@ -50,7 +50,7 @@ public class ShopItemQuery extends WidgetItemQuery
 	private Collection<WidgetItem> getShopItems(Client client)
 	{
 		Collection<WidgetItem> widgetItems = new ArrayList<>();
-		Widget shop = client.getWidget(WidgetInfo.SHOP_ITEMS_CONTAINER);
+		Widget shop = client.getWidget(300, 2);
 		if (shop != null && !shop.isHidden())
 		{
 			Widget[] children = shop.getDynamicChildren();

@@ -32,7 +32,7 @@ import lombok.Data;
  * An event where a {@link WallObject} is added to a {@link Tile}.
  */
 @Data
-public class WallObjectSpawned implements Event
+public class WallObjectSpawned
 {
 	/**
 	 * The affected tile.

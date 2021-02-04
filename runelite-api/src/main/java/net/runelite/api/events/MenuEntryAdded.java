@@ -30,7 +30,7 @@ import net.runelite.api.MenuEntry;
 /**
  * An event when a new entry is added to a right-click menu.
  */
-public class MenuEntryAdded extends MenuEntry implements Event
+public class MenuEntryAdded extends MenuEntry
 {
 	public MenuEntryAdded(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
 	{

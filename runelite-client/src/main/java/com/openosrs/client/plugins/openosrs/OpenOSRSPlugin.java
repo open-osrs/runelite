@@ -27,8 +27,8 @@
 package com.openosrs.client.plugins.openosrs;
 
 import ch.qos.logback.classic.Logger;
-import com.openosrs.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import com.openosrs.client.config.OpenOSRSConfig;
+import com.openosrs.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -78,6 +78,10 @@ public class OpenOSRSPlugin extends Plugin
 		@Override
 		public void hotkeyPressed()
 		{
+			if (client == null)
+			{
+				return;
+			}
 			detach = !detach;
 			client.setOculusOrbState(detach ? 1 : 0);
 			client.setOculusOrbNormalSpeed(detach ? 36 : 12);

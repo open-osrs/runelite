@@ -25,10 +25,9 @@
 package com.openosrs.client.events;
 
 import lombok.Data;
-import net.runelite.api.events.Event;
 
 @Data
-public class ExternalRepositoryChanged implements Event
+public class ExternalRepositoryChanged
 {
 	private final String owner;
 	private final boolean added;

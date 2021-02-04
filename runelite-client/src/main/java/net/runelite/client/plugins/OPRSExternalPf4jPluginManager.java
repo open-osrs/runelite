@@ -1,4 +1,29 @@
-package com.openosrs.client.plugins;
+/*
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+package net.runelite.client.plugins;
 
 import com.openosrs.client.OpenOSRS;
 import java.io.Closeable;
@@ -33,11 +58,11 @@ import org.pf4j.PluginWrapper;
 import org.pf4j.RuntimeMode;
 
 @Slf4j
-class ExternalPf4jPluginManager extends DefaultPluginManager
+class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 {
-	private final ExternalPluginManager externalPluginManager;
+	private final OPRSExternalPluginManager externalPluginManager;
 
-	public ExternalPf4jPluginManager(ExternalPluginManager externalPluginManager)
+	public OPRSExternalPf4jPluginManager(OPRSExternalPluginManager externalPluginManager)
 	{
 		super(OpenOSRS.EXTERNALPLUGIN_DIR.toPath());
 		this.externalPluginManager = externalPluginManager;
@@ -55,7 +80,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 					// The superclass performs a find, which is slow in development mode since we're pointing
 					// at a sources directory, which can have a lot of files. The external plugin template
 					// will always output the manifest at the following location, so we can hardcode this path.
-					return pluginPath.resolve(ExternalPluginManager.DEVELOPMENT_MANIFEST_PATH);
+					return pluginPath.resolve(OPRSExternalPluginManager.DEVELOPMENT_MANIFEST_PATH);
 				}
 
 				return super.getManifestPath(pluginPath);
@@ -78,7 +103,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 	protected PluginLoader createPluginLoader()
 	{
 		return new CompoundPluginLoader()
-			.add(new BasePluginLoader(this, new ExternalPluginClasspath()), this::isDevelopment)
+			.add(new BasePluginLoader(this, new OPRSExternalPluginClasspath()), this::isDevelopment)
 			.add(new JarPluginLoader(this), this::isNotDevelopment);
 	}
 

@@ -25,8 +25,7 @@
 package com.openosrs.client.events;
 
 import lombok.Data;
-import net.runelite.api.events.Event;
 
 @Data
-public class ExternalPluginsLoaded implements Event
+public class ExternalPluginsLoaded
 {}

@@ -514,15 +514,6 @@ public interface Client extends GameShell
 	Widget getWidget(WidgetInfo widget);
 
 	/**
-	 * Gets a widget from our extended WidgetInfo
-	 *
-	 * @param widget the widget info
-	 * @return the widget
-	 */
-	@Nullable
-	Widget getWidget(com.openosrs.api.widgets.WidgetInfo widget);
-
-	/**
 	 * Gets a widget by its raw group ID and child ID.
 	 * <p>
 	 * Note: Use {@link #getWidget(WidgetInfo)} for a more human-readable
@@ -828,7 +819,7 @@ public interface Client extends GameShell
 	 * @param varps  passed varps
 	 * @param varpId the VarpPlayer id
 	 * @return the value
-	 * @see VarPlayer#id
+	 * @see VarPlayer#getId()
 	 */
 	int getVarpValue(int[] varps, int varpId);
 

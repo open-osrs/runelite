@@ -101,6 +101,10 @@ public enum Varbits
 	PRAYER_RIGOUR(5464),
 	PRAYER_AUGURY(5465),
 
+	RIGOUR_UNLOCKED(5451),
+	AUGURY_UNLOCKED(5452),
+	PRESERVE_UNLOCKED(5453),
+
 	/**
 	 * Diary Entries
 	 */
@@ -182,6 +186,10 @@ public enum Varbits
 	 * Defensive casting mode
 	 */
 	DEFENSIVE_CASTING_MODE(2668),
+	/**
+	 * Spells being auto-casted
+	 */
+	AUTO_CAST_SPELL(276),
 
 	/**
 	 * Options
@@ -397,6 +405,8 @@ public enum Varbits
 	 */
 	QUEST_THE_HAND_IN_THE_SAND(1527),
 
+	CAMELOT_TRAINING_ROOM_STATUS(3909),
+
 	/**
 	 * Daily Tasks (Collection availability)
 	 */
@@ -546,6 +556,7 @@ public enum Varbits
 	 * 1 = sell
 	 */
 	GE_OFFER_CREATION_TYPE(4397),
+	GE_OFFER_PRICE_PER_ITEM(4398),
 
 	/**
 	 * The active tab within the quest interface

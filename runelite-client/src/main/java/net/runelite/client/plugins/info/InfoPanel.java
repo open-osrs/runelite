@@ -27,6 +27,7 @@ package net.runelite.client.plugins.info;
 
 import com.google.common.base.MoreObjects;
 import com.google.inject.Inject;
+import com.openosrs.client.OpenOSRS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -135,8 +136,11 @@ public class InfoPanel extends PluginPanel
 
 		final Font smallFont = FontManager.getRunescapeSmallFont();
 
-		JLabel version = new JLabel(htmlLabel("RuneLite version: ", runeliteVersion));
-		version.setFont(smallFont);
+		JLabel rlVersion = new JLabel(htmlLabel("RuneLite version: ", runeliteVersion));
+		rlVersion.setFont(smallFont);
+
+		JLabel oprsVersion = new JLabel(htmlLabel("OpenOSRS version: ", OpenOSRS.SYSTEM_VERSION));
+		oprsVersion.setFont(smallFont);
 
 		JLabel revision = new JLabel();
 		revision.setFont(smallFont);
@@ -147,7 +151,7 @@ public class InfoPanel extends PluginPanel
 			engineVer = String.format("Rev %d", client.getRevision());
 		}
 
-		revision.setText(htmlLabel("Oldschool revision: ", engineVer));
+		revision.setText(htmlLabel("OldSchool revision: ", engineVer));
 
 		JLabel launcher = new JLabel(htmlLabel("Launcher version: ", MoreObjects
 			.firstNonNull(RuneLiteProperties.getLauncherVersion(), "Unknown")));
@@ -170,7 +174,8 @@ public class InfoPanel extends PluginPanel
 			}
 		});
 
-		versionPanel.add(version);
+		versionPanel.add(rlVersion);
+		versionPanel.add(oprsVersion);
 		versionPanel.add(revision);
 		versionPanel.add(launcher);
 		versionPanel.add(Box.createGlue());

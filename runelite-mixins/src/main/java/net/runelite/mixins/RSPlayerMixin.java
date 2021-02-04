@@ -46,8 +46,8 @@ import static net.runelite.api.SkullIcon.SKULL;
 import static net.runelite.api.SkullIcon.SKULL_FIGHT_PIT;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.PlayerChanged;
-import net.runelite.api.events.player.headicon.OverheadPrayerChanged;
-import net.runelite.api.events.player.headicon.PlayerSkullChanged;
+import net.runelite.api.events.OverheadPrayerChanged;
+import net.runelite.api.events.PlayerSkullChanged;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
@@ -143,23 +143,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 	@Inject
 	private HeadIcon getHeadIcon(int overheadIcon)
 	{
-		switch (overheadIcon)
-		{
-			case 0:
-				return MELEE;
-			case 1:
-				return RANGED;
-			case 2:
-				return MAGIC;
-			case 3:
-				return RETRIBUTION;
-			case 4:
-				return SMITE;
-			case 5:
-				return REDEMPTION;
-			default:
-				return null;
-		}
+		return HeadIcon.values()[overheadIcon];
 	}
 
 	@Inject

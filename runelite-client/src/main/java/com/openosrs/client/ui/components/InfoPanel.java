@@ -24,6 +24,7 @@
  */
 package com.openosrs.client.ui.components;
 
+import com.openosrs.client.OpenOSRS;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -88,7 +89,7 @@ public class InfoPanel extends JPanel
 		c.weighty = 0;
 
 		// OpenOSRS version
-		this.add(createPanelTextButton("OpenOSRS Version: " + RuneLiteProperties.getLauncherVersion()), c);
+		this.add(createPanelTextButton("OpenOSRS Version: " + OpenOSRS.SYSTEM_VERSION), c);
 		c.gridy++;
 
 		final JLabel logsFolder = createPanelButton("Open logs folder", null, () -> LinkBrowser.openLocalFile(LOGS_DIR));

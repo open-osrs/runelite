@@ -35,7 +35,7 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Units;
-import com.openosrs.client.plugins.ExternalPluginManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 
 @ConfigGroup("openosrs")
 public interface OpenOSRSConfig extends Config
@@ -136,7 +136,7 @@ public interface OpenOSRSConfig extends Config
 	)
 	default String getExternalRepositories()
 	{
-		return ExternalPluginManager.DEFAULT_PLUGIN_REPOS;
+		return OPRSExternalPluginManager.DEFAULT_PLUGIN_REPOS;
 	}
 
 	@ConfigItem(

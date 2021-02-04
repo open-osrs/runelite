@@ -70,6 +70,7 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.LootManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.menus.MenuManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.ClientUpdateCheckMode;
 import net.runelite.client.ui.ClientUI;
@@ -114,7 +115,7 @@ public class RuneLite
 	private ExternalPluginManager externalPluginManager;
 
 	@Inject
-	private com.openosrs.client.plugins.ExternalPluginManager oprsExternalPluginManager;
+	private OPRSExternalPluginManager oprsExternalPluginManager;
 
 	@Inject
 	private EventBus eventBus;
@@ -241,6 +242,8 @@ public class RuneLite
 			}
 		});
 
+		OpenOSRS.preload();
+
 		OkHttpClient.Builder okHttpClientBuilder = RuneLiteAPI.CLIENT.newBuilder()
 			.cache(new Cache(new File(CACHE_DIR, "okhttp"), MAX_OKHTTP_CACHE_SIZE));
 
@@ -285,8 +288,6 @@ public class RuneLite
 				options.valueOf(configfile)));
 
 			injector.getInstance(RuneLite.class).start();
-
-			OpenOSRS.init();
 
 			final long end = System.currentTimeMillis();
 			final RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();

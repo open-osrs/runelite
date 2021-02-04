@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,14 +22,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 package net.runelite.api.events;
 
-import lombok.Value;
-import net.runelite.api.Skill;
+import lombok.Data;
+import net.runelite.api.Player;
+import net.runelite.api.SkullIcon;
 
-@Value
-public class FakeXpDrop
+@Data
+public class PlayerSkullChanged
 {
-	Skill skill;
-	int xp;
+	private final Player player;
+
+	private final SkullIcon oldSkullIcon;
+
+	private final SkullIcon newSkullIcon;
 }

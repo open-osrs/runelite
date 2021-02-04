@@ -41,7 +41,7 @@ import lombok.Data;
  * can change into.
  */
 @Data
-public class GrandExchangeOfferChanged implements Event
+public class GrandExchangeOfferChanged
 {
 	/**
 	 * The offer that has been modified.

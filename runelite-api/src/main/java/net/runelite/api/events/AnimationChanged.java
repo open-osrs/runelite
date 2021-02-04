@@ -17,7 +17,7 @@ import lombok.Data;
  * @see net.runelite.api.AnimationID
  */
 @Data
-public class AnimationChanged implements Event
+public class AnimationChanged
 {
 	/**
 	 * The actor that has entered a new animation.

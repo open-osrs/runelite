@@ -41,7 +41,7 @@ import net.runelite.api.MenuEntry;
  * it seems that this event still triggers with the "Cancel" action.
  */
 @Getter
-public class MenuOptionClicked extends MenuEntry implements Event
+public class MenuOptionClicked extends MenuEntry
 {
 	public MenuOptionClicked(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
 	{
