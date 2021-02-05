@@ -560,7 +560,7 @@ public enum Varbits
 	EXPLORER_RING_ALCHS(4554),
 	EXPLORER_RING_RUNENERGY(4553),
 
-
+	WINTERTODT_TIMER(7980),
 
 	/**
 	 * League relics
@@ -599,76 +599,102 @@ public enum Varbits
 	PVP_SPEC_ORB(8121),
 
 	//OPENOSRS
+	/*
+	 * Kharedst's Memoirs Teleport Item
+	 */
+	KHAREDSTS_MEMOIRS_CHARGES(6035),
 
 	/**
 	 * Grand Exchange
 	 */
 	GRAND_EXCHANGE_PRICE_PER_ITEM(4398),
 
-	/*
-	 * Kharedst's Memoirs Teleport Item
-	 */
-	KHAREDSTS_MEMOIRS_CHARGES(6035),
-
-	LMS_POISON_PROGRESS(5317),
 
 	/**
-	 * The y coordinate of the final safespace (world coord)
+	 * Locked Prayers
+	 * 0-7 = Locked
+	 * 8 = Unlocked
 	 */
-	LMS_SAFE_Y(5320),
+	CHIVPIETY_UNLOCKED(3909),
 
 	/**
-	 * 1 is true, 0 is false.
+	 * Locked Prayers
+	 * 0 = Locked
+	 * 1 = Unlocked
 	 */
-	GAUNTLET_FINAL_ROOM_ENTERED(9177),
+
+	RIGOUR_UNLOCKED(5451),
+	AUGURY_UNLOCKED(5452),
+	PRESERVE_UNLOCKED(5453),
 
 	/**
-	 * 1 is true, 0 is false.
+	 * Theatre of Blood 1=In Party, 2=Inside/Spectator, 3=Dead Spectating
 	 */
-	GAUNTLET_ENTERED(9178),
-
-	WITHDRAW_X_AMOUNT(3960),
-
-	IN_PVP_AREA(8121),
+	BLOAT_DOOR(6447),
 
 	/**
-	 * Value of hotkey varbits can be 0-13
-	 * 0 corresponds to no hotkey set
-	 * 1-12 correspond to F1-F12 respectively
-	 * 13 corresponds to escape
+	 * Theatre of Blood orb varbits each number stands for the player's health on a scale of 1-27 (I think), 0 hides the orb
 	 */
-	COMBAT_TAB_HOTKEY(4675),
-	STATS_TAB_HOTKEY(4676),
-	QUESTS_TAB_HOTKEY(4677),
-	INVENTORY_TAB_HOTKEY(4678),
-	EQUIPMENT_TAB_HOTKEY(4679),
-	PRAYER_TAB_HOTKEY(4680),
-	SPELLBOOK_TAB_HOTKEY(4682),
-	FRIENDS_TAB_HOTKEY(4684),
-	ACCOUNT_MANAGEMENT_TAB_HOTKEY(6517),
-	LOGOUT_TAB_HOTKEY(4689),
-	OPTIONS_TAB_HOTKEY(4686),
-	EMOTES_TAB_HOTKEY(4687),
-	CLAN_TAB_HOTKEY(4683),
-	MUSIC_TAB_HOTKEY(4688),
+	THEATRE_OF_BLOOD_ORB_1(6442),
+	THEATRE_OF_BLOOD_ORB_2(6443),
+	THEATRE_OF_BLOOD_ORB_3(6444),
+	THEATRE_OF_BLOOD_ORB_4(6445),
+	THEATRE_OF_BLOOD_ORB_5(6446),
 
 	/**
-	 * Chat Notifications settings
-	 * <br>
-	 * LOOT_DROP_NOTIFICATIONS: 1 is true, 0 is false
-	 * LOOT_DROP_NOTIFICATIONS_VALUE: gp value
-	 * UNTRADEABLE_LOOT_NOTIFICATIONS: 1 is true, 0 is false
-	 * BOSS_KILL_COUNT_UPDATES: 1 is filtered, 0 is unfiltered
-	 * DROP_ITEM_WARNINGS: 1 is true, 0 is false
-	 * DROP_ITEM_WARNINGS_VALUE: gp value
+	 * Nightmare Zone
 	 */
-	LOOT_DROP_NOTIFICATIONS(5399),
-	LOOT_DROP_NOTIFICATIONS_VALUE(5400),
-	UNTRADEABLE_LOOT_NOTIFICATIONS(5402),
-	BOSS_KILL_COUNT_UPDATES(4930),
-	DROP_ITEM_WARNINGS(5411),
-	DROP_ITEM_WARNINGS_VALUE(5412),
-		/**
+	NMZ_OVERLOAD(3955),
+
+	/**
+	 * Pyramid plunder
+	 */
+	PYRAMID_PLUNDER_SARCO_OPEN(2362),
+	PYRAMID_PLUNDER_CHEST_OPEN(2363),
+
+	/**
+	 * In the Wilderness
+	 */
+	IN_THE_WILDERNESS(5963),
+
+	/**
+	 * Kingdom Management
+	 */
+	KINGDOM_WORKERS_WOOD(81),
+	KINGDOM_WORKERS_HERBS(82),
+	KINGDOM_WORKERS_FISHING(83),
+	KINGDOM_WORKERS_MINING(84),
+	KINGDOM_WORKERS_FISH_COOKED_BUTTON(135), // 0 - Raw, 1 - Cooked
+	KINGDOM_WORKERS_HARDWOOD(2131),
+	KINGDOM_WORKERS_FARM(2132),
+	KINGDOM_WORKERS_HARDWOOD_BUTTON(2133), // 0 - Mahogany, 1 - Teak, 2 - Both
+	KINGDOM_WORKERS_HERBS_BUTTON(2134), // 0 - Herbs, 1 - Flax
+
+	/**
+	 * Varbit used for Slayer reward points
+	 */
+	SLAYER_REWARD_POINTS(4068),
+
+	/**
+	 * 0 = standard
+	 * 1 = ancients
+	 * 2 = lunars
+	 * 3 = arrceus
+	 **/
+	SPELLBOOK(4070),
+
+	/**
+	 * Bank settings/flags
+	 **/
+	BANK_NOTE_FLAG(3958),
+
+
+	/**
+	 * Spells being auto-casted
+	 */
+	AUTO_CAST_SPELL(276),
+
+	/**
 	 * Temple Trekking
 	 */
 	TREK_POINTS(1955),
@@ -785,8 +811,6 @@ public enum Varbits
 	 */
 	BUILDING_MODE(2176),
 
-	WINTERTODT_TIMER(7980),
-
 	/**
 	 * 1 if in game, 0 if not
 	 */
@@ -802,81 +826,64 @@ public enum Varbits
 	 */
 	LMS_SAFE_X(5316),
 
+	LMS_POISON_PROGRESS(5317),
+
 	/**
-	 * Locked Prayers
-	 * 0-7 = Locked
-	 * 8 = Unlocked
+	 * The y coordinate of the final safespace (world coord)
 	 */
-	CHIVPIETY_UNLOCKED(3909),
+	LMS_SAFE_Y(5320),
 
 	/**
-	 * Locked Prayers
-	 * 0 = Locked
-	 * 1 = Unlocked
+	 * 1 is true, 0 is false.
 	 */
+	GAUNTLET_FINAL_ROOM_ENTERED(9177),
 
-	RIGOUR_UNLOCKED(5451),
-	AUGURY_UNLOCKED(5452),
-	PRESERVE_UNLOCKED(5453),
-	
 	/**
-	 * Spells being auto-casted
+	 * 1 is true, 0 is false.
 	 */
-	AUTO_CAST_SPELL(276),
+	GAUNTLET_ENTERED(9178),
+
+	WITHDRAW_X_AMOUNT(3960),
+
+	IN_PVP_AREA(8121),
 
 	/**
-	 * Theatre of Blood 1=In Party, 2=Inside/Spectator, 3=Dead Spectating
+	 * Value of hotkey varbits can be 0-13
+	 * 0 corresponds to no hotkey set
+	 * 1-12 correspond to F1-F12 respectively
+	 * 13 corresponds to escape
 	 */
-	BLOAT_DOOR(6447),
+	COMBAT_TAB_HOTKEY(4675),
+	STATS_TAB_HOTKEY(4676),
+	QUESTS_TAB_HOTKEY(4677),
+	INVENTORY_TAB_HOTKEY(4678),
+	EQUIPMENT_TAB_HOTKEY(4679),
+	PRAYER_TAB_HOTKEY(4680),
+	SPELLBOOK_TAB_HOTKEY(4682),
+	FRIENDS_TAB_HOTKEY(4684),
+	ACCOUNT_MANAGEMENT_TAB_HOTKEY(6517),
+	LOGOUT_TAB_HOTKEY(4689),
+	OPTIONS_TAB_HOTKEY(4686),
+	EMOTES_TAB_HOTKEY(4687),
+	CLAN_TAB_HOTKEY(4683),
+	MUSIC_TAB_HOTKEY(4688),
 
 	/**
-	 * Theatre of Blood orb varbits each number stands for the player's health on a scale of 1-27 (I think), 0 hides the orb
+	 * Chat Notifications settings
+	 * <br>
+	 * LOOT_DROP_NOTIFICATIONS: 1 is true, 0 is false
+	 * LOOT_DROP_NOTIFICATIONS_VALUE: gp value
+	 * UNTRADEABLE_LOOT_NOTIFICATIONS: 1 is true, 0 is false
+	 * BOSS_KILL_COUNT_UPDATES: 1 is filtered, 0 is unfiltered
+	 * DROP_ITEM_WARNINGS: 1 is true, 0 is false
+	 * DROP_ITEM_WARNINGS_VALUE: gp value
 	 */
-	THEATRE_OF_BLOOD_ORB_1(6442),
-	THEATRE_OF_BLOOD_ORB_2(6443),
-	THEATRE_OF_BLOOD_ORB_3(6444),
-	THEATRE_OF_BLOOD_ORB_4(6445),
-	THEATRE_OF_BLOOD_ORB_5(6446),
-
-	//NMZ
-	NMZ_OVERLOAD(3955),
-
-	//Pyramid Plunder
-	PYRAMID_PLUNDER_SARCO_OPEN(2362),
-	PYRAMID_PLUNDER_CHEST_OPEN(2363),
-
-	/**
-	 * Varbit used for Slayer reward points
-	 */
-	SLAYER_REWARD_POINTS(4068),
-
-	/**
-	 * 0 = standard
-	 * 1 = ancients
-	 * 2 = lunars
-	 * 3 = arrceus
-	 **/
-	SPELLBOOK(4070),
-
-	/**
-	 * Bank settings/flags
-	 **/
-	BANK_NOTE_FLAG(3958),
-
-	KINGDOM_WORKERS_WOOD(81),
-	KINGDOM_WORKERS_HERBS(82),
-	KINGDOM_WORKERS_FISHING(83),
-	KINGDOM_WORKERS_MINING(84),
-	KINGDOM_WORKERS_FISH_COOKED_BUTTON(135), // 0 - Raw, 1 - Cooked
-	KINGDOM_WORKERS_HARDWOOD(2131),
-	KINGDOM_WORKERS_FARM(2132),
-	KINGDOM_WORKERS_HARDWOOD_BUTTON(2133), // 0 - Mahogany, 1 - Teak, 2 - Both
-	KINGDOM_WORKERS_HERBS_BUTTON(2134), // 0 - Herbs, 1 - Flax
-
-	/**
-	 * In the Wilderness
-	 */
-	IN_THE_WILDERNESS(5963),
+	LOOT_DROP_NOTIFICATIONS(5399),
+	LOOT_DROP_NOTIFICATIONS_VALUE(5400),
+	UNTRADEABLE_LOOT_NOTIFICATIONS(5402),
+	BOSS_KILL_COUNT_UPDATES(4930),
+	DROP_ITEM_WARNINGS(5411),
+	DROP_ITEM_WARNINGS_VALUE(5412),
 	;
 
 	/**
