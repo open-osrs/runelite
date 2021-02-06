@@ -1,3 +1,4 @@
+import groovy.json.JsonOutput
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.*
@@ -117,11 +118,13 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                 "artifacts" to getArtifacts()
         ).toString()
 
+        val prettyJson = JsonOutput.prettyPrint(json)
+
         val bootstrapDir = File("${project.buildDir}/bootstrap")
         bootstrapDir.mkdirs()
 
         File(bootstrapDir, "bootstrap-${type}.json").printWriter().use { out ->
-            out.println(json)
+            out.println(prettyJson)
         }
     }
 }
