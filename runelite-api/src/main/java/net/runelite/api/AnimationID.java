@@ -482,4 +482,26 @@ public final class AnimationID
 	public static final int NIGHTMARE_JUMP_UP = 8609;
 	public static final int NIGHTMARE_JUMP_UP_2 = 8610;
 	public static final int NIGHTMARE_WAKE_UP = 8611;
+
+	//Supplies Tracker
+	public static final int ONEHAND_SLASH_SWORD_ANIMATION = 390;
+	public static final int ONEHAND_STAB_SWORD_ANIMATION = 386;
+	public static final int SCYTHE_OF_VITUR_ANIMATION = 8056;
+	public static final int LOW_LEVEL_STANDARD_SPELLS = 711;
+	public static final int WAVE_SPELL_ANIMATION = 727;
+	public static final int SURGE_SPELL_ANIMATION = 7855;
+	public static final int HIGH_ALCH_ANIMATION = 713;
+	public static final int LUNAR_HUMIDIFY = 6294;
+	public static final int PRAY_AT_ALTAR = 645;
+	public static final int ENSOULED_HEADS_ANIMATION = 7198;
+
+	// Weapon attack animations
+	public static final int ONEHAND_SLASH_AXE_ANIMATION = 395;
+	public static final int ONEHAND_CRUSH_PICKAXE_ANIMATION = 400;
+	public static final int ONEHAND_CRUSH_AXE_ANIMATION = 401;
+	public static final int UNARMED_PUNCH_ANIMATION = 422;
+	public static final int UNARMED_KICK_ANIMATION = 423;
+	public static final int BOW_ATTACK_ANIMATION = 426;
+	public static final int ONEHAND_STAB_HALBERD_ANIMATION = 428;
+	public static final int ONEHAND_SLASH_HALBERD_ANIMATION = 440;
 }
