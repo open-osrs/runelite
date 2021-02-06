@@ -207,6 +207,14 @@ public class NPCStats
 		}
 	};
 
+	public static int getAttackSpeed(int npcId)
+	{
+		if (statsMap != null)
+			if (statsMap.get(npcId) != null)
+				return statsMap.get(npcId).getAttackSpeed();
+		return -1;
+	}
+
 	public static void loadStats() throws IOException
 	{
 		try (JsonReader reader = new JsonReader(new InputStreamReader(NPCStats.class.getResourceAsStream("npc_stats.json"), StandardCharsets.UTF_8)))
