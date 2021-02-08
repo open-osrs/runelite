@@ -19,15 +19,6 @@ import org.slf4j.LoggerFactory;
 @Singleton
 public class SoundManager
 {
-	private static final Logger log = LoggerFactory.getLogger(SoundManager.class);
-	private final RuneLiteConfig runeliteConfig;
-
-	@Inject
-	private SoundManager(RuneLiteConfig runeLiteConfig)
-	{
-		this.runeliteConfig = runeLiteConfig;
-	}
-
 	public void play(final Sound sound)
 	{
 		new Thread(new Runnable()
@@ -49,15 +40,8 @@ public class SoundManager
 							int volume = 50;
 							FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
 							BooleanControl muteControl = (BooleanControl) line.getControl(BooleanControl.Type.MUTE);
-							if (volume == 0)
-							{
-								muteControl.setValue(true);
-							}
-							else
-							{
-								muteControl.setValue(false);
-								gainControl.setValue((float) (Math.log((double) volume / 100.0) / Math.log(10.0) * 20.0));
-							}
+							muteControl.setValue(false);
+							gainControl.setValue((float) (Math.log((double) volume / 100.0) / Math.log(10.0) * 20.0));
 						}
 						line.start();
 						SoundManager.this.stream(AudioSystem.getAudioInputStream(outFormat, in), line);
