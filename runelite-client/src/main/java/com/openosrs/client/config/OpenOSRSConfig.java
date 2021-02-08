@@ -107,21 +107,10 @@ public interface OpenOSRSConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "keyboardPin",
-		name = "Keyboard bank pin",
-		description = "Enables you to type your bank pin",
-		position = 22
-	)
-	default boolean keyboardPin()
-	{
-		return false;
-	}
-
-	@ConfigItem(
 		keyName = "detachHotkey",
 		name = "Detach Cam",
-		description = "Detach Camera hotkey, press this and it will activate detatched camera.",
-		position = 23
+		description = "Detach Camera hotkey, press this and it will activate detached camera.",
+		position = 22
 	)
 	default Keybind detachHotkey()
 	{
