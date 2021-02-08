@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,54 +22,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins;
+package net.runelite.api.events;
 
-import com.google.inject.Binder;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import org.pf4j.ExtensionPoint;
-import net.runelite.client.RuneLite;
+import net.runelite.api.widgets.Widget;
+import lombok.Data;
 
-public abstract class Plugin implements Module, ExtensionPoint
+/**
+ * An event where the hidden state of a {@link Widget} has been modified.
+ */
+@Data
+public class WidgetHiddenChanged implements Event
 {
-	protected Injector injector;
-
-	@Override
-	public void configure(Binder binder)
-	{
-	}
-
-	protected void startUp() throws Exception
-	{
-	}
-
-	protected void shutDown() throws Exception
-	{
-	}
-
-	public void resetConfiguration()
-	{
-	}
-
-	// This should never be null when we are using it
-	public final Injector getInjector()
-	{
-		if (injector == null)
-		{
-			Module pluginModule = (Binder binder) ->
-			{
-				binder.bind((Class<Plugin>) this.getClass()).toInstance(this);
-				binder.install(this);
-			};
-			Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
-			pluginInjector.injectMembers(this);
-			injector = pluginInjector;
-		}
-		return injector;
-	}
-
-	public String getName()
-	{
-		return getClass().getAnnotation(PluginDescriptor.class).name();
-	}
+	/**
+	 * The affected widget.
+	 */
+	private Widget widget;
+	/**
+	 * The new hidden state of the widget.
+	 */
+	private boolean hidden;
 }

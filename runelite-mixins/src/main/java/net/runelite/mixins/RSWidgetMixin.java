@@ -28,6 +28,7 @@ import net.runelite.api.HashTable;
 import net.runelite.api.Node;
 import net.runelite.api.Point;
 import net.runelite.api.WidgetNode;
+import net.runelite.api.events.WidgetHiddenChanged;
 import net.runelite.api.events.WidgetPositioned;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
@@ -72,6 +73,48 @@ public abstract class RSWidgetMixin implements RSWidget
 		rl$parentId = -1;
 		rl$x = -1;
 		rl$y = -1;
+	}
+
+	@Inject
+	@Override
+	public void broadcastHidden(boolean hidden)
+	{
+		WidgetHiddenChanged event = new WidgetHiddenChanged();
+		event.setWidget(this);
+		event.setHidden(hidden);
+
+		client.getCallbacks().post(event);
+
+		RSWidget[] children = getChildren();
+
+		if (children != null)
+		{
+			// recursive through children
+			for (RSWidget child : children)
+			{
+				// if the widget is hidden it will not magically unhide from its parent changing
+				if (child == null || child.isSelfHidden())
+				{
+					continue;
+				}
+
+				child.broadcastHidden(hidden);
+			}
+		}
+
+		// make sure we iterate nested children as well
+		// cannot be null
+		Widget[] nestedChildren = getNestedChildren();
+
+		for (Widget nestedChild : nestedChildren)
+		{
+			if (nestedChild == null || nestedChild.isSelfHidden())
+			{
+				continue;
+			}
+
+			((RSWidget) nestedChild).broadcastHidden(hidden);
+		}
 	}
 
 	@Inject

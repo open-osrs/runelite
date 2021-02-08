@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Connor <contact@connor-parks.email>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,54 +22,41 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins;
 
-import com.google.inject.Binder;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import org.pf4j.ExtensionPoint;
-import net.runelite.client.RuneLite;
+package com.openosrs.client.util;
 
-public abstract class Plugin implements Module, ExtensionPoint
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+
+public class Clipboard
 {
-	protected Injector injector;
-
-	@Override
-	public void configure(Binder binder)
+	public static String retrieve()
 	{
-	}
+		Transferable contents = Toolkit.getDefaultToolkit().getSystemClipboard().getContents(null);
 
-	protected void startUp() throws Exception
-	{
-	}
-
-	protected void shutDown() throws Exception
-	{
-	}
-
-	public void resetConfiguration()
-	{
-	}
-
-	// This should never be null when we are using it
-	public final Injector getInjector()
-	{
-		if (injector == null)
+		if (contents == null || !contents.isDataFlavorSupported(DataFlavor.stringFlavor))
 		{
-			Module pluginModule = (Binder binder) ->
-			{
-				binder.bind((Class<Plugin>) this.getClass()).toInstance(this);
-				binder.install(this);
-			};
-			Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
-			pluginInjector.injectMembers(this);
-			injector = pluginInjector;
+			return null;
 		}
-		return injector;
+
+		try
+		{
+			return (String) contents.getTransferData(DataFlavor.stringFlavor);
+		}
+		catch (UnsupportedFlavorException | IOException ex)
+		{
+			return null;
+		}
 	}
 
-	public String getName()
+	public static void store(String contents)
 	{
-		return getClass().getAnnotation(PluginDescriptor.class).name();
+		final StringSelection selection = new StringSelection(contents);
+
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
 	}
 }
