@@ -28,25 +28,13 @@ import java.awt.Polygon;
 import java.awt.Shape;
 import java.util.ArrayList;
 import net.runelite.api.HeadIcon;
-import static net.runelite.api.HeadIcon.MAGIC;
-import static net.runelite.api.HeadIcon.MELEE;
-import static net.runelite.api.HeadIcon.RANGED;
-import static net.runelite.api.HeadIcon.REDEMPTION;
-import static net.runelite.api.HeadIcon.RETRIBUTION;
-import static net.runelite.api.HeadIcon.SMITE;
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
 import net.runelite.api.SkullIcon;
-import static net.runelite.api.SkullIcon.DEAD_MAN_FIVE;
-import static net.runelite.api.SkullIcon.DEAD_MAN_FOUR;
-import static net.runelite.api.SkullIcon.DEAD_MAN_ONE;
-import static net.runelite.api.SkullIcon.DEAD_MAN_THREE;
-import static net.runelite.api.SkullIcon.DEAD_MAN_TWO;
-import static net.runelite.api.SkullIcon.SKULL;
-import static net.runelite.api.SkullIcon.SKULL_FIGHT_PIT;
+import static net.runelite.api.SkullIcon.*;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.events.PlayerChanged;
 import net.runelite.api.events.OverheadPrayerChanged;
+import net.runelite.api.events.PlayerChanged;
 import net.runelite.api.events.PlayerSkullChanged;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
@@ -71,10 +59,10 @@ public abstract class RSPlayerMixin implements RSPlayer
 	private boolean friended;
 
 	@Inject
-	private int oldHeadIcon = -1;
+	private int oldHeadIcon = -2;
 
 	@Inject
-	private int oldSkullIcon = -1;
+	private int oldSkullIcon = -2;
 
 	@Inject
 	@Override
@@ -101,14 +89,11 @@ public abstract class RSPlayerMixin implements RSPlayer
 	@FieldHook("headIconPrayer")
 	public void prayerChanged(int idx)
 	{
-		if (!(getRsOverheadIcon() == -1 && oldHeadIcon == -1))
+		if (getRsOverheadIcon() != oldHeadIcon)
 		{
 			final HeadIcon headIcon = getHeadIcon(getRsOverheadIcon());
-			if (getRsOverheadIcon() != oldHeadIcon)
-			{
-				client.getCallbacks().post(
-					new OverheadPrayerChanged(this, getHeadIcon(oldHeadIcon), headIcon));
-			}
+			client.getCallbacks().post(
+				new OverheadPrayerChanged(this, getHeadIcon(oldHeadIcon), headIcon));
 		}
 		oldHeadIcon = getRsOverheadIcon();
 	}
@@ -143,6 +128,11 @@ public abstract class RSPlayerMixin implements RSPlayer
 	@Inject
 	private HeadIcon getHeadIcon(int overheadIcon)
 	{
+		if (overheadIcon == -1)
+		{
+			return null;
+		}
+
 		return HeadIcon.values()[overheadIcon];
 	}
 
