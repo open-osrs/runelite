@@ -1,42 +1,67 @@
+/*
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.openosrs.client.game;
 
-public enum Sound
+import java.io.File;
+import java.net.URL;
+import lombok.EqualsAndHashCode;
+import lombok.SneakyThrows;
+import lombok.Value;
+import net.runelite.client.RuneLite;
+
+public abstract class Sound
 {
-	FIFTEEN_SECONDS(1, "net/runelite/client/game/sounds/15seconds.wav"),
-	FIVE_SECONDS(2, "net/runelite/client/game/sounds/5seconds.wav"),
-	ATTACK_WITH_MAGIC(3, "net/runelite/client/game/sounds/attackmagic.wav"),
-	ATTACK_WITH_MELEE(4, "net/runelite/client/game/sounds/attackmelee.wav"),
-	ATTACK_WITH_RANGED(5, "net/runelite/client/game/sounds/attackranged.wav"),
-	INCOMING(6, "net/runelite/client/game/sounds/incoming.wav"),
-	MOVE(7, "net/runelite/client/game/sounds/move.wav"),
-	PRAY_MAGIC(8, "net/runelite/client/game/sounds/praymagic.wav"),
-	PRAY_MELEE(9, "net/runelite/client/game/sounds/praymelee.wav"),
-	PRAY_RANGED(10, "net/runelite/client/game/sounds/prayranged.wav"),
-	REENABLE_PRAYER(11, "net/runelite/client/game/sounds/reenableprayer.wav"),
-	RUNAWAY(12, "net/runelite/client/game/sounds/runaway.wav"),
-	LOW_HEATLH(13, "net/runelite/client/game/sounds/lowhealth.wav"),
-	LOW_PRAYER(14, "net/runelite/client/game/sounds/lowprayer.wav"),
-	OUT_OF_COMBAT(15, "net/runelite/client/game/sounds/outofcombat.wav"),
-	RESTORED_SPECIAL_ATTACK(16, "net/runelite/client/game/sounds/restorespec.wav"),
-	IDLE(17, "net/runelite/client/game/sounds/idle.wav"),
-	BREAK(18, "net/runelite/client/game/sounds/break.wav");
+	public abstract URL getPath();
 
-	private final String filePath;
-	private final int id;
+	// TODO: these inner classes should probably be removed
 
-	Sound(int id, String filePath)
+	@Value
+	@EqualsAndHashCode(callSuper = true) // stop the warning
+	static class SoundJarResource extends Sound
 	{
-		this.id = id;
-		this.filePath = filePath;
+		String path;
+
+		@Override
+		public URL getPath()
+		{
+			return RuneLite.class.getResource(path);
+		}
 	}
 
-	public String getFilePath()
+	@Value
+	@EqualsAndHashCode(callSuper = true) // stop the warning
+	static class SoundFileResource extends Sound
 	{
-		return this.filePath;
-	}
+		File file;
 
-	public int getId()
-	{
-		return this.id;
+		@Override
+		@SneakyThrows
+		public URL getPath()
+		{
+			return file.toURI().toURL();
+		}
 	}
 }
