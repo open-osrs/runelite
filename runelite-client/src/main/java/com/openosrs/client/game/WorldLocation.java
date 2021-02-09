@@ -33,9 +33,9 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
-import com.openosrs.client.util.PvPUtil;
+import net.runelite.client.util.PvPUtil;
 
-	/*
+/*
 	 * Enums sorted alphabetically by main regions (Kingdoms) and then their sub-regions or notable features
 	 * Example:
 	 * 	Wilderness
