@@ -93,7 +93,7 @@ import org.pf4j.update.UpdateRepository;
 @Singleton
 public class OPRSExternalPluginManager
 {
-	public static final String DEFAULT_PLUGIN_REPOS = "OpenOSRS:https://raw.githubusercontent.com/open-osrs/plugins-v2/master/";
+	public static final String DEFAULT_PLUGIN_REPOS = "";
 	static final String DEVELOPMENT_MANIFEST_PATH = "build/tmp/jar/MANIFEST.MF";
 
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
