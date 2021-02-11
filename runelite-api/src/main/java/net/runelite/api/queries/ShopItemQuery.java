@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 import net.runelite.api.Client;
 import net.runelite.api.QueryResults;
 import net.runelite.api.widgets.Widget;
-import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 
 public class ShopItemQuery extends WidgetItemQuery

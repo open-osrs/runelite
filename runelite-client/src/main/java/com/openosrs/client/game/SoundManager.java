@@ -25,7 +25,6 @@
 
 package com.openosrs.client.game;
 
-import com.google.inject.Inject;
 import java.io.IOException;
 import javax.inject.Singleton;
 import javax.sound.sampled.AudioFormat;
@@ -37,9 +36,6 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import net.runelite.client.config.RuneLiteConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class SoundManager
