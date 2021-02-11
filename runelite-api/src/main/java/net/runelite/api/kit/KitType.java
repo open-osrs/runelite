@@ -39,25 +39,30 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum KitType
 {
-	HEAD("Head", 0),
-	CAPE("Cape", 1),
-	AMULET("Amulet", 2),
-	WEAPON("Weapon", 3),
-	TORSO("Torso", 4),
-	SHIELD("Shield", 5),
-	ARMS("Arms", 6),
-	LEGS("Legs", 7),
-	HAIR("Hair", 8),
-	HANDS("Hands", 9),
-	BOOTS("Boots", 10),
-	JAW("Jaw", 11),
-	RING("Ring", 12),
-	AMMUNITION("Ammo", 13);
+	HEAD("Head"),
+	CAPE("Cape"),
+	AMULET("Amulet"),
+	WEAPON("Weapon"),
+	TORSO("Torso"),
+	SHIELD("Shield"),
+	ARMS("Arms"),
+	LEGS("Legs"),
+	HAIR("Hair"),
+	HANDS("Hands"),
+	BOOTS("Boots"),
+	JAW("Jaw"),
+	RING("Ring"),
+	AMMUNITION("Ammo");
 
 	private final String name;
 
 	/**
-	 * Gets the raw equipment index for use in {PlayerAppearance#getEquipmentIds()}.
+	 * Gets the raw equipment index for use in {@link net.runelite.api.PlayerComposition#getEquipmentIds()}.
+	 *
+	 * @return raw equipment index
 	 */
-	private final int index;
+	public int getIndex()
+	{
+		return ordinal();
+	}
 }
