@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
+ * Copyright (c) 2019, Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,7 +22,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 package net.runelite.client.util;
 
 import java.util.ArrayList;
