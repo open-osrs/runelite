@@ -26,6 +26,7 @@ package net.runelite.api.events;
 
 import lombok.Data;
 import net.runelite.api.MenuAction;
+import net.runelite.api.MenuEntry;
 
 /**
  * An event where a menu option has been clicked.
@@ -86,5 +87,15 @@ public class MenuOptionClicked
 	public void consume()
 	{
 		this.consumed = true;
+	}
+
+	public void setMenuEntry(MenuEntry entry)
+	{
+		this.setMenuOption(entry.getOption());
+		this.setMenuTarget(entry.getTarget());
+		this.setId(entry.getId());
+		this.setMenuAction(MenuAction.of(entry.getOpcode()));
+		this.setActionParam(entry.getActionParam());
+		this.setWidgetId(entry.getActionParam1());
 	}
 }
