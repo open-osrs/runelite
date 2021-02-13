@@ -152,7 +152,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Getter
 	private boolean configuringShiftClick = false;
 
-	private static final Multimap<String, Swap> swaps = LinkedHashMultimap.create();
+	private final Multimap<String, Swap> swaps = LinkedHashMultimap.create();
 	private final ArrayListMultimap<String, Integer> optionIndexes = ArrayListMultimap.create();
 
 	@Provides
@@ -361,22 +361,22 @@ public class MenuEntrySwapperPlugin extends Plugin
 		swap("eat", "guzzle", config::swapRockCake);
 	}
 
-	public static void swap(String option, String swappedOption, Supplier<Boolean> enabled)
+	public void swap(String option, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swap(option, alwaysTrue(), swappedOption, enabled);
 	}
 
-	private void swap(String option, String target, String swappedOption, Supplier<Boolean> enabled)
+	public void swap(String option, String target, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swap(option, equalTo(target), swappedOption, enabled);
 	}
 
-	private static void swap(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
+	public void swap(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swaps.put(option, new Swap(alwaysTrue(), targetPredicate, swappedOption, enabled, true));
 	}
 
-	private void swapContains(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
+	public void swapContains(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swaps.put(option, new Swap(alwaysTrue(), targetPredicate, swappedOption, enabled, false));
 	}

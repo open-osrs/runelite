@@ -7,7 +7,7 @@ import lombok.Value;
  * An event called when the actor an actor is interacting with changes
  */
 @Value
-public class InteractingChanged implements Event
+public class InteractingChanged
 {
 	Actor source;
 

@@ -87,7 +87,6 @@ public class PluginManager
 	 * Base package where the core plugins are
 	 */
 	private static final String PLUGIN_PACKAGE = "net.runelite.client.plugins";
-	private static final String OPENOSRS_PACKAGE = "com.openosrs.client.plugins";
 
 	private final boolean developerMode;
 	private final boolean safeMode;
@@ -272,10 +271,6 @@ public class PluginManager
 		List<Class<?>> plugins = classPath.getTopLevelClassesRecursive(PLUGIN_PACKAGE).stream()
 			.map(ClassInfo::load)
 			.collect(Collectors.toList());
-
-		plugins.addAll(classPath.getTopLevelClassesRecursive(OPENOSRS_PACKAGE).stream()
-			.map(ClassInfo::load)
-			.collect(Collectors.toList()));
 
 		loadPlugins(plugins, (loaded, total) ->
 			SplashScreen.stage(.60, .70, null, "Loading Plugins", loaded, total, false));

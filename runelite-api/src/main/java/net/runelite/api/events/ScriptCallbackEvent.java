@@ -31,7 +31,7 @@ import lombok.Data;
  * A callback from a runelite_callback opcode in a cs2
  */
 @Data
-public class ScriptCallbackEvent implements Event
+public class ScriptCallbackEvent
 {
 	/**
 	 * The script that is currently being executed

@@ -29,7 +29,7 @@ import lombok.Data;
 import net.runelite.api.Actor;
 
 @Data
-public class AreaSoundEffectPlayed implements Event
+public class AreaSoundEffectPlayed
 {
 	@Nullable
 	private final Actor source;

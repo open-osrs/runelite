@@ -35,7 +35,7 @@ import net.runelite.client.config.ConfigItem;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Units;
-import com.openosrs.client.plugins.ExternalPluginManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 
 @ConfigGroup("openosrs")
 public interface OpenOSRSConfig extends Config
@@ -107,21 +107,10 @@ public interface OpenOSRSConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "keyboardPin",
-		name = "Keyboard bank pin",
-		description = "Enables you to type your bank pin",
-		position = 22
-	)
-	default boolean keyboardPin()
-	{
-		return false;
-	}
-
-	@ConfigItem(
 		keyName = "detachHotkey",
 		name = "Detach Cam",
-		description = "Detach Camera hotkey, press this and it will activate detatched camera.",
-		position = 23
+		description = "Detach Camera hotkey, press this and it will activate detached camera.",
+		position = 22
 	)
 	default Keybind detachHotkey()
 	{
@@ -136,7 +125,7 @@ public interface OpenOSRSConfig extends Config
 	)
 	default String getExternalRepositories()
 	{
-		return ExternalPluginManager.DEFAULT_PLUGIN_REPOS;
+		return OPRSExternalPluginManager.DEFAULT_PLUGIN_REPOS;
 	}
 
 	@ConfigItem(

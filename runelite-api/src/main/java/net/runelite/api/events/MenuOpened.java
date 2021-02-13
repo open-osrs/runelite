@@ -34,7 +34,7 @@ import lombok.Data;
  * An event where a menu has been opened.
  */
 @Data
-public class MenuOpened implements Event, Iterable<MenuEntry>
+public class MenuOpened implements Iterable<MenuEntry>
 {
 	/**
 	 * This should be set to true if anything about the menu

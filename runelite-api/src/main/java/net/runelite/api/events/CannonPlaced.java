@@ -33,7 +33,7 @@ import net.runelite.api.coords.WorldPoint;
  * an event posted when a cannonball is fired
  */
 @Value
-public class CannonPlaced implements Event
+public class CannonPlaced
 {
 	/**
 	 * Cannon placed or picked up.

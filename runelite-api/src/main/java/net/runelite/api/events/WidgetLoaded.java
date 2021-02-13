@@ -30,7 +30,7 @@ import lombok.Data;
  * An event where a {@link net.runelite.api.widgets.Widget} has been loaded.
  */
 @Data
-public class WidgetLoaded implements Event
+public class WidgetLoaded
 {
 	/**
 	 * The group ID of the loaded widget.

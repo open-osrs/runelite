@@ -1,4 +1,4 @@
-package com.openosrs.client.plugins;
+package net.runelite.client.plugins;
 
 import com.openosrs.client.OpenOSRS;
 import java.io.Closeable;
@@ -33,11 +33,11 @@ import org.pf4j.PluginWrapper;
 import org.pf4j.RuntimeMode;
 
 @Slf4j
-class ExternalPf4jPluginManager extends DefaultPluginManager
+class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 {
-	private final ExternalPluginManager externalPluginManager;
+	private final OPRSExternalPluginManager externalPluginManager;
 
-	public ExternalPf4jPluginManager(ExternalPluginManager externalPluginManager)
+	public OPRSExternalPf4jPluginManager(OPRSExternalPluginManager externalPluginManager)
 	{
 		super(OpenOSRS.EXTERNALPLUGIN_DIR.toPath());
 		this.externalPluginManager = externalPluginManager;
@@ -55,7 +55,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 					// The superclass performs a find, which is slow in development mode since we're pointing
 					// at a sources directory, which can have a lot of files. The external plugin template
 					// will always output the manifest at the following location, so we can hardcode this path.
-					return pluginPath.resolve(ExternalPluginManager.DEVELOPMENT_MANIFEST_PATH);
+					return pluginPath.resolve(OPRSExternalPluginManager.DEVELOPMENT_MANIFEST_PATH);
 				}
 
 				return super.getManifestPath(pluginPath);
@@ -78,7 +78,7 @@ class ExternalPf4jPluginManager extends DefaultPluginManager
 	protected PluginLoader createPluginLoader()
 	{
 		return new CompoundPluginLoader()
-			.add(new BasePluginLoader(this, new ExternalPluginClasspath()), this::isDevelopment)
+			.add(new BasePluginLoader(this, new OPRSExternalPluginClasspath()), this::isDevelopment)
 			.add(new JarPluginLoader(this), this::isNotDevelopment);
 	}
 

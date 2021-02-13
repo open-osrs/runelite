@@ -40,6 +40,7 @@ import java.awt.TrayIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import java.util.function.BiConsumer;
 import javax.annotation.Nonnull;
@@ -300,6 +301,21 @@ public class SwingUtil
 			SecondaryLoop l = eq.createSecondaryLoop();
 			SwingUtilities.invokeLater(l::exit);
 			l.enter();
+		}
+	}
+
+	/**
+	 * Executes a runnable on the EDT, blocking until it finishes.
+	 */
+	public static void syncExec(final Runnable r) throws InvocationTargetException, InterruptedException
+	{
+		if (EventQueue.isDispatchThread())
+		{
+			r.run();
+		}
+		else
+		{
+			EventQueue.invokeAndWait(r);
 		}
 	}
 }

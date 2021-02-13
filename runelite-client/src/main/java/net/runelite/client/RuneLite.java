@@ -70,6 +70,7 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.LootManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.menus.MenuManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.ClientUpdateCheckMode;
 import net.runelite.client.ui.ClientUI;
@@ -95,7 +96,7 @@ public class RuneLite
 {
 	public static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".openosrs");
 	public static final File CACHE_DIR = new File(RUNELITE_DIR, "cache");
-	public static final File PLUGINS_DIR = new File(RUNELITE_DIR, "plugins-hub");
+	public static final File PLUGINS_DIR = new File(RUNELITE_DIR, "plugin-hub");
 	public static final File PROFILES_DIR = new File(RUNELITE_DIR, "profiles");
 	public static final File SCREENSHOT_DIR = new File(RUNELITE_DIR, "screenshots");
 	public static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
@@ -114,7 +115,7 @@ public class RuneLite
 	private ExternalPluginManager externalPluginManager;
 
 	@Inject
-	private com.openosrs.client.plugins.ExternalPluginManager oprsExternalPluginManager;
+	private OPRSExternalPluginManager oprsExternalPluginManager;
 
 	@Inject
 	private EventBus eventBus;
@@ -241,6 +242,8 @@ public class RuneLite
 			}
 		});
 
+		OpenOSRS.preload();
+
 		OkHttpClient.Builder okHttpClientBuilder = RuneLiteAPI.CLIENT.newBuilder()
 			.cache(new Cache(new File(CACHE_DIR, "okhttp"), MAX_OKHTTP_CACHE_SIZE));
 
@@ -285,8 +288,6 @@ public class RuneLite
 				options.valueOf(configfile)));
 
 			injector.getInstance(RuneLite.class).start();
-
-			OpenOSRS.init();
 
 			final long end = System.currentTimeMillis();
 			final RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();

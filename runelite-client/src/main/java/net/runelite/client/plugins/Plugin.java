@@ -27,9 +27,10 @@ package net.runelite.client.plugins;
 import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import org.pf4j.ExtensionPoint;
 import net.runelite.client.RuneLite;
 
-public abstract class Plugin implements Module
+public abstract class Plugin implements Module, ExtensionPoint
 {
 	protected Injector injector;
 

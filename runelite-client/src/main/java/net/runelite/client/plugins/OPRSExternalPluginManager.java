@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.openosrs.client.plugins;
+package net.runelite.client.plugins;
 
 import com.google.common.collect.Lists;
 import com.google.common.graph.GraphBuilder;
@@ -36,15 +36,15 @@ import com.google.inject.Module;
 import static com.openosrs.client.OpenOSRS.EXTERNALPLUGIN_DIR;
 import static com.openosrs.client.OpenOSRS.SYSTEM_VERSION;
 import com.openosrs.client.config.OpenOSRSConfig;
-import com.openosrs.client.events.ExternalPluginChanged;
-import com.openosrs.client.events.ExternalRepositoryChanged;
+import com.openosrs.client.events.OPRSPluginChanged;
+import com.openosrs.client.events.OPRSRepositoryChanged;
 import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import com.openosrs.client.util.Groups;
-import com.openosrs.client.util.MiscUtils;
-import com.openosrs.client.util.SwingUtil;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,10 +76,8 @@ import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.ExternalPluginsChanged;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginInstantiationException;
-import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.ui.ClientUI;
+import net.runelite.client.util.SwingUtil;
 import org.jgroups.Message;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.DependencyResolver;
@@ -93,9 +91,9 @@ import org.pf4j.update.UpdateRepository;
 
 @Slf4j
 @Singleton
-public class ExternalPluginManager
+public class OPRSExternalPluginManager
 {
-	public static final String DEFAULT_PLUGIN_REPOS = "OpenOSRS:https://raw.githubusercontent.com/zeruth/runelite-plugins-release/master/";
+	public static final String DEFAULT_PLUGIN_REPOS = "";
 	static final String DEVELOPMENT_MANIFEST_PATH = "build/tmp/jar/MANIFEST.MF";
 
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
@@ -116,7 +114,7 @@ public class ExternalPluginManager
 	private final boolean safeMode;
 
 	@Inject
-	public ExternalPluginManager(
+	public OPRSExternalPluginManager(
 		@Named("safeMode") final boolean safeMode,
 		PluginManager pluginManager,
 		OpenOSRSConfig openOSRSConfig,
@@ -144,7 +142,7 @@ public class ExternalPluginManager
 
 	private void initPluginManager()
 	{
-		externalPluginManager = new ExternalPf4jPluginManager(this);
+		externalPluginManager = new OPRSExternalPf4jPluginManager(this);
 		externalPluginManager.setSystemVersion(SYSTEM_VERSION);
 	}
 
@@ -328,14 +326,14 @@ public class ExternalPluginManager
 	{
 		DefaultUpdateRepository respository = new DefaultUpdateRepository(key, url);
 		updateManager.addRepository(respository);
-		eventBus.post(new ExternalRepositoryChanged(key, true));
+		eventBus.post(new OPRSRepositoryChanged(key, true));
 		saveConfig();
 	}
 
 	public void removeRepository(String owner)
 	{
 		updateManager.removeRepository(owner);
-		eventBus.post(new ExternalRepositoryChanged(owner, false));
+		eventBus.post(new OPRSRepositoryChanged(owner, false));
 		saveConfig();
 	}
 
@@ -347,7 +345,7 @@ public class ExternalPluginManager
 		{
 			config.append(repository.getId());
 			config.append("|");
-			config.append(MiscUtils.urlToStringEncoded(repository.getUrl()));
+			config.append(urlToStringEncoded(repository.getUrl()));
 			config.append(";");
 		}
 		config.deleteCharAt(config.lastIndexOf(";"));
@@ -422,9 +420,9 @@ public class ExternalPluginManager
 			.directed()
 			.build();
 
-		for (net.runelite.client.plugins.Plugin plugin : plugins)
+		for (Plugin plugin : plugins)
 		{
-			Class<? extends net.runelite.client.plugins.Plugin> clazz = plugin.getClass();
+			Class<? extends Plugin> clazz = plugin.getClass();
 			PluginDescriptor pluginDescriptor = clazz.getAnnotation(PluginDescriptor.class);
 
 			try
@@ -630,7 +628,7 @@ public class ExternalPluginManager
 						{
 							runelitePluginManager.add(plugin);
 							runelitePluginManager.startPlugin(plugin);
-							eventBus.post(new ExternalPluginChanged(pluginsMap.get(plugin.getClass().getSimpleName()),
+							eventBus.post(new OPRSPluginChanged(pluginsMap.get(plugin.getClass().getSimpleName()),
 								plugin, true));
 						}
 						catch (PluginInstantiationException e)
@@ -797,7 +795,7 @@ public class ExternalPluginManager
 					runelitePluginManager.remove(plugin);
 					pluginClassLoaders.remove(plugin.getClass().getClassLoader());
 
-					eventBus.post(new ExternalPluginChanged(pluginId, plugin, false));
+					eventBus.post(new OPRSPluginChanged(pluginId, plugin, false));
 
 					return pluginWrapper.getPluginPath();
 				}
@@ -1072,4 +1070,27 @@ public class ExternalPluginManager
 		}
 	}
 
+	/**
+	 * Mostly stolen from {@link java.net.URLStreamHandler#toExternalForm(URL)}
+	 *
+	 * @param url URL to encode
+	 * @return URL, with path, query and ref encoded
+	 */
+	private static String urlToStringEncoded(URL url)
+	{
+		String s;
+		String path = url.getPath() != null ? Stream.of(url.getPath().split("/"))
+			.map(s2 -> URLEncoder.encode(s2, StandardCharsets.UTF_8)).collect(Collectors.joining("/")) : "";
+		return url.getProtocol()
+			+ ':'
+			+ (((s = url.getAuthority()) != null && s.length() > 0) ? "//" + s : "")
+			+ (path)
+			+ (((s = url.getQuery()) != null) ? '?' + urlEncode(s) : "")
+			+ (((s = url.getRef()) != null) ? '#' + urlEncode(s) : "");
+	}
+
+	private static String urlEncode(String s)
+	{
+		return URLEncoder.encode(s, StandardCharsets.UTF_8);
+	}
 }

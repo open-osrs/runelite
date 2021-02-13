@@ -31,7 +31,7 @@ import net.runelite.api.ScriptEvent;
  * An event that is fired before the designated script is ran
  */
 @Value
-public class ScriptPreFired implements Event
+public class ScriptPreFired
 {
 	/**
 	 * The script id of the invoked script

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, TheStonedTurtle <https://github.com/TheStonedTurtle>
+ * Copyright (c) 2020, SwazRGB
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,20 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.openosrs.client.ui.overlay.components.table;
 
-import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
-import lombok.Builder;
-import lombok.Data;
+package net.runelite.client.plugins;
 
-@Data
-@Builder
-public class TableRow
+import org.pf4j.DevelopmentPluginClasspath;
+
+class OPRSExternalPluginClasspath extends DevelopmentPluginClasspath
 {
-	Color rowColor;
-	TableAlignment rowAlignment;
-	@Builder.Default
-	List<TableElement> elements = Collections.emptyList();
+	static final String GRADLE_DEPS_PATH = "build/deps";
+
+	OPRSExternalPluginClasspath()
+	{
+		addJarsDirectories(GRADLE_DEPS_PATH);
+	}
 }

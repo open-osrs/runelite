@@ -1,6 +1,30 @@
+/*
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package com.openosrs.client.game;
 
-import com.google.inject.Inject;
 import java.io.IOException;
 import javax.inject.Singleton;
 import javax.sound.sampled.AudioFormat;
@@ -12,36 +36,20 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import net.runelite.client.config.RuneLiteConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Singleton
 public class SoundManager
 {
-	private static final Logger log = LoggerFactory.getLogger(SoundManager.class);
-	private final RuneLiteConfig runeliteConfig;
-
-	@Inject
-	private SoundManager(RuneLiteConfig runeLiteConfig)
+	public void play(final Sound sound)
 	{
-		this.runeliteConfig = runeLiteConfig;
-	}
-
-	public void playSound(final Sound sound)
-	{
-		new Thread(new Runnable()
+		new Thread(() ->
 		{
-
-			@Override
-			public void run()
+			try (AudioInputStream in = AudioSystem.getAudioInputStream(sound.getPath()))
 			{
-				try
+				AudioFormat outFormat = SoundManager.this.getOutFormat(in.getFormat());
+				DataLine.Info info = new DataLine.Info(SourceDataLine.class, outFormat);
+				try (SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info))
 				{
-					AudioInputStream in = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResource(sound.getFilePath()));
-					AudioFormat outFormat = SoundManager.this.getOutFormat(in.getFormat());
-					DataLine.Info info = new DataLine.Info(SourceDataLine.class, outFormat);
-					SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
 					if (line != null)
 					{
 						line.open(outFormat, 2200);
@@ -50,26 +58,19 @@ public class SoundManager
 							int volume = 50;
 							FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
 							BooleanControl muteControl = (BooleanControl) line.getControl(BooleanControl.Type.MUTE);
-							if (volume == 0)
-							{
-								muteControl.setValue(true);
-							}
-							else
-							{
-								muteControl.setValue(false);
-								gainControl.setValue((float) (Math.log((double) volume / 100.0) / Math.log(10.0) * 20.0));
-							}
+							muteControl.setValue(false);
+							gainControl.setValue((float) (Math.log((double) volume / 100.0) / Math.log(10.0) * 20.0));
 						}
 						line.start();
-						SoundManager.this.stream(AudioSystem.getAudioInputStream(outFormat, in), line);
+						stream(AudioSystem.getAudioInputStream(outFormat, in), line);
 						line.drain();
 						line.stop();
 					}
 				}
-				catch (IOException | LineUnavailableException | UnsupportedAudioFileException e)
-				{
-					throw new IllegalStateException(e);
-				}
+			}
+			catch (IOException | LineUnavailableException | UnsupportedAudioFileException e)
+			{
+				throw new IllegalStateException(e);
 			}
 		}).start();
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,11 +22,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.openosrs.client.events;
+
+package net.runelite.api.events;
 
 import lombok.Data;
-import net.runelite.api.events.Event;
+import net.runelite.api.Player;
+import net.runelite.api.SkullIcon;
 
 @Data
-public class ExternalPluginsLoaded implements Event
-{}
+public class PlayerSkullChanged
+{
+	private final Player player;
+
+	private final SkullIcon oldSkullIcon;
+
+	private final SkullIcon newSkullIcon;
+}

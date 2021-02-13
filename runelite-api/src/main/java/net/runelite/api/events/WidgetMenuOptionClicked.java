@@ -31,7 +31,7 @@ import lombok.Data;
  * A MenuManager widget menu was clicked. This event is NOT fired for non-MenuManager menu options
  */
 @Data
-public class WidgetMenuOptionClicked implements Event
+public class WidgetMenuOptionClicked
 {
 	/**
 	 * The clicked menu option.

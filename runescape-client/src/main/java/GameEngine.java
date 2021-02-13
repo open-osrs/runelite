@@ -25,7 +25,7 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bd")
-@Implements("GameShell")
+@Implements("GameEngine")
 public abstract class GameEngine extends Applet implements Runnable, FocusListener, WindowListener {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
@@ -37,14 +37,14 @@ public abstract class GameEngine extends Applet implements Runnable, FocusListen
 	@ObfuscatedSignature(
 		descriptor = "Lbd;"
 	)
-	@Export("gameShell")
+	@Export("gameEngine")
 	static GameEngine gameEngine;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 548418733
 	)
-	@Export("GameShell_redundantStartThreadCount")
-	static int GameShell_redundantStartThreadCount;
+	@Export("GameEngine_redundantStartThreadCount")
+	static int GameEngine_redundantStartThreadCount;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
 		longValue = -299301004563523829L
@@ -193,7 +193,7 @@ public abstract class GameEngine extends Applet implements Runnable, FocusListen
 
 	static {
 		gameEngine = null; // L: 41
-		GameShell_redundantStartThreadCount = 0; // L: 43
+		GameEngine_redundantStartThreadCount = 0; // L: 43
 		stopTimeMs = 0L; // L: 44
 		isKilled = false; // L: 45
 		cycleDurationMillis = 20; // L: 48
@@ -452,8 +452,8 @@ public abstract class GameEngine extends Applet implements Runnable, FocusListen
 	protected final void startThread(int var1, int var2, int var3) {
 		try {
 			if (gameEngine != null) { // L: 220
-				++GameShell_redundantStartThreadCount; // L: 221
-				if (GameShell_redundantStartThreadCount >= 3) { // L: 222
+				++GameEngine_redundantStartThreadCount; // L: 221
+				if (GameEngine_redundantStartThreadCount >= 3) { // L: 222
 					this.error("alreadyloaded"); // L: 223
 					return; // L: 224
 				}

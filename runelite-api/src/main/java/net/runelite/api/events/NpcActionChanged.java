@@ -31,7 +31,7 @@ import net.runelite.api.NPCComposition;
  * An event where an action of an {@link NPCComposition} has changed.
  */
 @Data
-public class NpcActionChanged implements Event
+public class NpcActionChanged
 {
 	/**
 	 * The NPC composition that has been changed.

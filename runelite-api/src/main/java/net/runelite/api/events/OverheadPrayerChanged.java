@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, TheStonedTurtle <https://github.com/TheStonedTurtle>
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,11 +22,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.openosrs.client.ui.overlay.components.table;
 
-public enum TableAlignment
+package net.runelite.api.events;
+
+import lombok.Data;
+import net.runelite.api.HeadIcon;
+import net.runelite.api.Player;
+
+@Data
+public class OverheadPrayerChanged
 {
-	LEFT,
-	CENTER,
-	RIGHT
+	private final Player player;
+
+	private final HeadIcon oldHeadIcon;
+
+	private final HeadIcon newHeadIcon;
 }
