@@ -75,12 +75,14 @@ public class GroundItemsOverlay extends Overlay
 	private static final Duration DESPAWN_TIME_INSTANCE = Duration.ofMinutes(30);
 	private static final Duration DESPAWN_TIME_LOOT = Duration.ofMinutes(2);
 	private static final Duration DESPAWN_TIME_DROP = Duration.ofMinutes(3);
+	private static final Duration DESPAWN_TIME_TABLE = Duration.ofMinutes(10);
 	private static final int KRAKEN_REGION = 9116;
 	private static final int KBD_NMZ_REGION = 9033;
 	private static final int ZILYANA_REGION = 11602;
 	private static final int GRAARDOR_REGION = 11347;
 	private static final int KRIL_TSUTSAROTH_REGION = 11603;
 	private static final int KREEARRA_REGION = 11346;
+	private static final int NIGHTMARE_REGION = 15515;
 
 	private final Client client;
 	private final GroundItemsPlugin plugin;
@@ -397,8 +399,11 @@ public class GroundItemsOverlay extends Overlay
 
 	private Instant calculateDespawnTime(GroundItem groundItem)
 	{
-		// We can only accurately guess despawn times for our own pvm loot and dropped items
-		if (groundItem.getLootType() != LootType.PVM && groundItem.getLootType() != LootType.DROPPED)
+		// We can only accurately guess despawn times for our own pvm loot, dropped items,
+		// and items we placed on tables
+		if (groundItem.getLootType() != LootType.PVM
+			&& groundItem.getLootType() != LootType.DROPPED
+			&& groundItem.getLootType() != LootType.TABLE)
 		{
 			return null;
 		}
@@ -447,9 +452,9 @@ public class GroundItemsOverlay extends Overlay
 				}
 			}
 			else if (playerRegionID == ZILYANA_REGION || playerRegionID == GRAARDOR_REGION ||
-				playerRegionID == KRIL_TSUTSAROTH_REGION || playerRegionID == KREEARRA_REGION)
+				playerRegionID == KRIL_TSUTSAROTH_REGION || playerRegionID == KREEARRA_REGION || playerRegionID == NIGHTMARE_REGION)
 			{
-				// GWD instances use the normal despawn timers
+				// GWD and Nightmare instances use the normal despawn timers
 				despawnTime = spawnTime.plus(groundItem.getLootType() == LootType.DROPPED
 					? DESPAWN_TIME_DROP
 					: DESPAWN_TIME_LOOT);
@@ -461,9 +466,18 @@ public class GroundItemsOverlay extends Overlay
 		}
 		else
 		{
-			despawnTime = spawnTime.plus(groundItem.getLootType() == LootType.DROPPED
-				? DESPAWN_TIME_DROP
-				: DESPAWN_TIME_LOOT);
+			switch (groundItem.getLootType())
+			{
+				case DROPPED:
+					despawnTime = spawnTime.plus(DESPAWN_TIME_DROP);
+					break;
+				case TABLE:
+					despawnTime = spawnTime.plus(DESPAWN_TIME_TABLE);
+					break;
+				default:
+					despawnTime = spawnTime.plus(DESPAWN_TIME_LOOT);
+					break;
+			}
 		}
 
 		if (now.isBefore(spawnTime) || now.isAfter(despawnTime))
@@ -477,8 +491,11 @@ public class GroundItemsOverlay extends Overlay
 
 	private Color getItemTimerColor(GroundItem groundItem)
 	{
-		// We can only accurately guess despawn times for our own pvm loot and dropped items
-		if (groundItem.getLootType() != LootType.PVM && groundItem.getLootType() != LootType.DROPPED)
+		// We can only accurately guess despawn times for our own pvm loot, dropped items,
+		// and items we placed on tables
+		if (groundItem.getLootType() != LootType.PVM
+			&& groundItem.getLootType() != LootType.DROPPED
+			&& groundItem.getLootType() != LootType.TABLE)
 		{
 			return null;
 		}

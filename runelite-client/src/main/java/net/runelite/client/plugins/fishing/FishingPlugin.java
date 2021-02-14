@@ -215,6 +215,11 @@ public class FishingPlugin extends Plugin
 			spotOverlay.setHidden(false);
 			fishingSpotMinimapOverlay.setHidden(false);
 		}
+
+		if (event.getMessage().equals("A flying fish jumps up and eats some of your minnows!") && config.flyingFishNotification())
+		{
+			notifier.notify("A flying fish is eating your minnows!");
+		}
 	}
 
 	@Subscribe
@@ -372,7 +377,7 @@ public class FishingPlugin extends Plugin
 		{
 			if (!trawlerNotificationSent)
 			{
-				notifier.notify("[" + client.getLocalPlayer().getName() + "] has low Fishing Trawler activity!");
+				notifier.notify("You have low Fishing Trawler activity!");
 				trawlerNotificationSent = true;
 			}
 		}

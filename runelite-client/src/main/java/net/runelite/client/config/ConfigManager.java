@@ -152,6 +152,11 @@ public class ConfigManager
 		scheduledExecutorService.scheduleWithFixedDelay(this::sendConfig, 30, 30, TimeUnit.SECONDS);
 	}
 
+	public String getRSProfileKey()
+	{
+		return rsProfileKey;
+	}
+
 	public final void switchSession(AccountSession session)
 	{
 		// Ensure existing config is saved
@@ -507,6 +512,11 @@ public class ConfigManager
 
 	public void setConfiguration(String groupName, String profile, String key, String value)
 	{
+		if (Strings.isNullOrEmpty(groupName) || Strings.isNullOrEmpty(key))
+		{
+			throw new IllegalArgumentException();
+		}
+
 		assert !key.startsWith(RSPROFILE_GROUP + ".");
 		String wholeKey = getWholeKey(groupName, profile, key);
 		String oldValue = (String) properties.setProperty(wholeKey, value);
