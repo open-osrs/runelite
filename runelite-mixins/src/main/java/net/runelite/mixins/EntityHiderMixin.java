@@ -36,10 +36,10 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.api.util.Text;
 import net.runelite.rs.api.RSActor;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSPlayer;
 import net.runelite.rs.api.RSProjectile;
+import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSScene;
 
 @Mixin(RSScene.class)
@@ -51,11 +51,11 @@ public abstract class EntityHiderMixin implements RSScene
 	@Shadow("isHidingEntities")
 	private static boolean isHidingEntities;
 
-	@Shadow("hidePlayers")
-	private static boolean hidePlayers;
+	@Shadow("hideOthers")
+	private static boolean hideOthers;
 
-	@Shadow("hidePlayers2D")
-	private static boolean hidePlayers2D;
+	@Shadow("hideOthers2D")
+	private static boolean hideOthers2D;
 
 	@Shadow("hideFriends")
 	private static boolean hideFriends;
@@ -69,20 +69,14 @@ public abstract class EntityHiderMixin implements RSScene
 	@Shadow("hideLocalPlayer2D")
 	private static boolean hideLocalPlayer2D;
 
+	@Shadow("hideIgnores")
+	private static boolean hideIgnores;
+
 	@Shadow("hideNPCs")
 	private static boolean hideNPCs;
 
-	@Shadow("hiddenNpcsName")
-	private static HashMap<String, Integer> hiddenNpcsName;
-
-	@Shadow("hiddenNpcsDeath")
-	private static HashMap<String, Integer> hiddenNpcsDeath;
-
 	@Shadow("hideSpecificPlayers")
 	private static List<String> hideSpecificPlayers;
-
-	@Shadow("blacklistDeadNpcs")
-	private static Set<Integer> blacklistDeadNpcs;
 
 	@Shadow("hideNPCs2D")
 	private static boolean hideNPCs2D;
@@ -98,9 +92,6 @@ public abstract class EntityHiderMixin implements RSScene
 
 	@Shadow("hideDeadNPCs")
 	private static boolean hideDeadNPCs;
-
-	@Shadow("hiddenNpcIndices")
-	private static List<Integer> hiddenNpcIndices;
 
 	@Copy("newGameObject")
 	@Replace("newGameObject")
@@ -143,10 +134,17 @@ public abstract class EntityHiderMixin implements RSScene
 
 		if (entity instanceof RSPlayer)
 		{
-			boolean local = drawingUI ? hideLocalPlayer2D : hideLocalPlayer;
-			boolean other = drawingUI ? hidePlayers2D : hidePlayers;
-			boolean isLocalPlayer = entity == client.getLocalPlayer();
 			RSPlayer player = (RSPlayer) entity;
+			RSPlayer local = client.getLocalPlayer();
+			if (player.getName() == null)
+			{
+				return true;
+			}
+
+			if (player == local)
+			{
+				return drawingUI ? !hideLocalPlayer2D : !hideLocalPlayer;
+			}
 
 			for (String name : hideSpecificPlayers)
 			{
@@ -159,69 +157,45 @@ public abstract class EntityHiderMixin implements RSScene
 				}
 			}
 
-			if (isLocalPlayer ? local : other)
+			if (hideAttackers && player.getInteracting() == local)
 			{
-				if (!hideAttackers)
-				{
-					if (player.getInteracting() == client.getLocalPlayer())
-					{
-						return true;
-					}
-				}
-
-				if (player.getName() == null)
-				{
-					// player.isFriend() and player.isClanMember() npe when the player has a null name
-					return false;
-				}
-
-				return (!hideFriends && player.isFriend()) ||
-					(!isLocalPlayer && !hideClanMates && player.isFriendsChatMember());
+				return false;
 			}
+
+			if (player.isFriend())
+			{
+				return !hideFriends;
+			}
+
+			if (player.isFriendsChatMember())
+			{
+				return !hideClanMates;
+			}
+
+			if (client.getFriendManager().isIgnored(player.getRsName()))
+			{
+				return !hideIgnores;
+			}
+
+			return drawingUI ? !hideOthers2D : !hideOthers;
 		}
 		else if (entity instanceof RSNPC)
 		{
 			RSNPC npc = (RSNPC) entity;
 
-			if (!hideAttackers)
-			{
-				if (npc.getInteracting() == client.getLocalPlayer())
-				{
-					return true;
-				}
-			}
-
-			if (hidePets)
-			{
-				if (npc.getComposition().isFollower())
-				{
-					return false;
-				}
-			}
-
-			if (hideDeadNPCs && npc.getHealthRatio() == 0 && !blacklistDeadNpcs.contains(npc.getId()))
+			if (npc.isDead() && hideDeadNPCs)
 			{
 				return false;
 			}
 
-			if (npc.getName() != null &&
-				hiddenNpcsName.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
+			if (npc.getComposition().isFollower() && npc.getIndex() != client.getFollowerIndex() && hidePets)
 			{
 				return false;
 			}
 
-			if (npc.getName() != null && npc.getHealthRatio() == 0 &&
-				hiddenNpcsDeath.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
+			if (npc.getInteracting() == client.getLocalPlayer() && hideAttackers)
 			{
 				return false;
-			}
-
-			for (Integer index : hiddenNpcIndices)
-			{
-				if (index != null && npc.getIndex() == index)
-				{
-					return false;
-				}
 			}
 
 			return drawingUI ? !hideNPCs2D : !hideNPCs;
