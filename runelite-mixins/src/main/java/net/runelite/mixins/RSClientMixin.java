@@ -1503,6 +1503,7 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().updateNpcs();
 	}
 
+	@SuppressWarnings("InfiniteRecursion")
 	@Copy("addChatMessage")
 	@Replace("addChatMessage")
 	public static void copy$addChatMessage(int type, String name, String message, String sender)
