@@ -17,8 +17,9 @@ class BootstrapPlugin : Plugin<Project> {
             bootstrapDependencies(project(":runelite-client"))
         }
 
-        tasks.register<BootstrapTask>("bootstrap", "openosrs")
         tasks.register<BootstrapTask>("bootstrapStaging", "staging")
+        tasks.register<BootstrapTask>("bootstrapNightly", "nightly")
+        tasks.register<BootstrapTask>("bootstrapStable", "stable")
 
         tasks.withType<BootstrapTask> {
             this.group = "openosrs"
