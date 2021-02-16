@@ -87,7 +87,6 @@ public class PluginManager
 	 * Base package where the core plugins are
 	 */
 	private static final String PLUGIN_PACKAGE = "net.runelite.client.plugins";
-	private static final String OPENOSRS_PACKAGE = "com.openosrs.client.plugins";
 
 	private final boolean developerMode;
 	private final boolean safeMode;
@@ -164,8 +163,21 @@ public class PluginManager
 	{
 		try
 		{
-			final Injector injector = plugin.getInjector();
-
+			Injector injector = plugin.getInjector();
+			if (injector == null)
+			{
+				// Create injector for the module
+				Module pluginModule = (Binder binder) ->
+				{
+					// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
+					binder.bind((Class<Plugin>) plugin.getClass()).toInstance(plugin);
+					binder.install(plugin);
+				};
+				Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
+				pluginInjector.injectMembers(plugin);
+				plugin.injector = pluginInjector;
+				injector = pluginInjector;
+			}
 			for (Key<?> key : injector.getBindings().keySet())
 			{
 				Class<?> type = key.getTypeLiteral().getRawType();
@@ -290,10 +302,6 @@ public class PluginManager
 		List<Class<?>> plugins = classPath.getTopLevelClassesRecursive(PLUGIN_PACKAGE).stream()
 			.map(ClassInfo::load)
 			.collect(Collectors.toList());
-
-		plugins.addAll(classPath.getTopLevelClassesRecursive(OPENOSRS_PACKAGE).stream()
-			.map(ClassInfo::load)
-			.collect(Collectors.toList()));
 
 		loadPlugins(plugins, (loaded, total) ->
 			SplashScreen.stage(.60, .70, null, "Loading Plugins", loaded, total, false));

@@ -47,7 +47,7 @@ import org.slf4j.Logger;
 /**
  * Represents the RuneScape client.
  */
-public interface Client extends GameShell
+public interface Client extends GameEngine
 {
 	/**
 	 * The injected client invokes these callbacks to send events to us
@@ -67,6 +67,8 @@ public interface Client extends GameShell
 	 * This is most useful for mixins which can't have their own.
 	 */
 	Logger getLogger();
+
+	String getBuildID();
 
 	/**
 	 * Gets a list of all valid players from the player cache.
@@ -122,12 +124,25 @@ public interface Client extends GameShell
 	/**
 	 * Adds a new chat message to the chatbox.
 	 *
-	 * @param type    the type of message
-	 * @param name    the name of the player that sent the message
+	 * @param type the type of message
+	 * @param name the name of the player that sent the message
 	 * @param message the message contents
-	 * @param sender  the sender/channel name
+	 * @param sender the sender/channel name
+	 * @return the message node for the message
 	 */
-	void addChatMessage(ChatMessageType type, String name, String message, String sender);
+	MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender);
+
+	/**
+	 * Adds a new chat message to the chatbox.
+	 *
+	 * @param type the type of message
+	 * @param name the name of the player that sent the message
+	 * @param message the message contents
+	 * @param sender the sender/channel name
+	 * @param postEvent whether to post the chat message event
+	 * @return the message node for the message
+	 */
+	MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender, boolean postEvent);
 
 	/**
 	 * Gets the current game state.
@@ -457,7 +472,7 @@ public interface Client extends GameShell
 	int getMouseCurrentButton();
 
 	/**
-	 * Gets the currently selected tile (ie. last right clicked tile).
+	 * Gets the currently selected tile. (ie. last right clicked tile)
 	 *
 	 * @return the selected tile
 	 */
@@ -819,7 +834,7 @@ public interface Client extends GameShell
 	 * @param varps  passed varps
 	 * @param varpId the VarpPlayer id
 	 * @return the value
-	 * @see VarPlayer#id
+	 * @see VarPlayer#getId()
 	 */
 	int getVarpValue(int[] varps, int varpId);
 
@@ -1540,15 +1555,15 @@ public interface Client extends GameShell
 	 *
 	 * @param state the new player hidden state
 	 */
-	void setPlayersHidden(boolean state);
+	void setOthersHidden(boolean state);
 
 	/**
-	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
-	 * the other players are hidden.
+	 * Sets whether 2D sprites related to the other players are hidden.
+	 * (ie. overhead prayers, PK skull)
 	 *
 	 * @param state the new player 2D hidden state
 	 */
-	void setPlayersHidden2D(boolean state);
+	void setOthersHidden2D(boolean state);
 
 	/**
 	 * Sets whether or not friends are hidden.
@@ -1565,6 +1580,13 @@ public interface Client extends GameShell
 	void setFriendsChatMembersHidden(boolean state);
 
 	/**
+	 * Sets whether or not ignored players are hidden.
+	 *
+	 * @param state the new ignored player hidden state
+	 */
+	void setIgnoresHidden(boolean state);
+
+	/**
 	 * Sets whether the local player is hidden.
 	 *
 	 * @param state new local player hidden state
@@ -1572,8 +1594,8 @@ public interface Client extends GameShell
 	void setLocalPlayerHidden(boolean state);
 
 	/**
-	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
-	 * the local player are hidden.
+	 * Sets whether 2D sprites related to the local player are hidden.
+	 * (ie. overhead prayers, PK skull)
 	 *
 	 * @param state new local player 2D hidden state
 	 */
@@ -1585,48 +1607,6 @@ public interface Client extends GameShell
 	 * @param state new NPC hidden state
 	 */
 	void setNPCsHidden(boolean state);
-
-	/**
-	 * Increments the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void addHiddenNpcName(String name);
-
-	/**
-	 * Decrements the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void removeHiddenNpcName(String name);
-
-	/**
-	 * Forcibly unhides an npc by setting its counter to zero
-	 *
-	 * @param name npc name
-	 */
-	void forciblyUnhideNpcName(String name);
-
-	/**
-	 * Increments the counter for how many times this npc has been selected to be hidden on death
-	 *
-	 * @param name npc name
-	 */
-	void addHiddenNpcDeath(String name);
-
-	/**
-	 * Decrements the counter for how many times this npc has been selected to be hidden on death
-	 *
-	 * @param name npc name
-	 */
-	void removeHiddenNpcDeath(String name);
-
-	/**
-	 * Forcibly unhides a hidden-while-dead npc by setting its counter to zero
-	 *
-	 * @param name npc name
-	 */
-	void forciblyUnhideNpcDeath(String name);
 
 	/**
 	 * Sets whether 2D sprites (ie. overhead prayers) related to
@@ -2121,4 +2101,34 @@ public interface Client extends GameShell
 	void setOutdatedScript(String outdatedScript);
 
 	List<String> getOutdatedScripts();
+
+	/**
+	 * various archives you might want to use for reading data from cache
+	 */
+	AbstractArchive getSequenceDefinition_skeletonsArchive();
+
+	AbstractArchive getSequenceDefinition_archive();
+
+	AbstractArchive getSequenceDefinition_animationsArchive();
+
+	AbstractArchive getNpcDefinition_archive();
+
+	AbstractArchive getObjectDefinition_modelsArchive();
+
+	AbstractArchive getObjectDefinition_archive();
+
+	AbstractArchive getItemDefinition_archive();
+
+	AbstractArchive getKitDefinition_archive();
+
+	AbstractArchive getKitDefinition_modelsArchive();
+
+	AbstractArchive getSpotAnimationDefinition_archive();
+
+	AbstractArchive getSpotAnimationDefinition_modelArchive();
+
+	/**
+	 * use createBuffer to create a new byte buffer
+	 */
+	Buffer createBuffer(byte[] initialBytes);
 }

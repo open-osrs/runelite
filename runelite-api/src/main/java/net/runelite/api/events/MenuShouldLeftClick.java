@@ -31,7 +31,7 @@ import lombok.Data;
  * opened on left click.
  */
 @Data
-public class MenuShouldLeftClick implements Event
+public class MenuShouldLeftClick
 {
 	/**
 	 * If set to true, the menu will open on left click.

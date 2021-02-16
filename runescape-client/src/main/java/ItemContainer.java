@@ -170,8 +170,8 @@ public class ItemContainer extends Node {
 					var8 = var7 + (var6 << 8); // L: 5317
 					if (!var16 || var7 != 49 && var7 != 149 && var7 != 147 && var6 != 50 && (var6 != 49 || var7 != 47)) { // L: 5318
 						FileSystem.regions[var4] = var8; // L: 5319
-						class41.regionMapArchiveIds[var4] = GameShell.archive5.getGroupId("m" + var6 + "_" + var7); // L: 5320
-						GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var4] = GameShell.archive5.getGroupId("l" + var6 + "_" + var7); // L: 5321
+						class41.regionMapArchiveIds[var4] = GameEngine.archive5.getGroupId("m" + var6 + "_" + var7); // L: 5320
+						GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var4] = GameEngine.archive5.getGroupId("l" + var6 + "_" + var7); // L: 5321
 						++var4; // L: 5322
 					}
 				}
@@ -236,8 +236,8 @@ public class ItemContainer extends Node {
 								FileSystem.regions[var5] = var12; // L: 5368
 								var13 = var12 >> 8 & 255; // L: 5369
 								int var14 = var12 & 255; // L: 5370
-								class41.regionMapArchiveIds[var5] = GameShell.archive5.getGroupId("m" + var13 + "_" + var14); // L: 5371
-								GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var5] = GameShell.archive5.getGroupId("l" + var13 + "_" + var14); // L: 5372
+								class41.regionMapArchiveIds[var5] = GameEngine.archive5.getGroupId("m" + var13 + "_" + var14); // L: 5371
+								GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var5] = GameEngine.archive5.getGroupId("l" + var13 + "_" + var14); // L: 5372
 								++var5; // L: 5373
 							}
 						}

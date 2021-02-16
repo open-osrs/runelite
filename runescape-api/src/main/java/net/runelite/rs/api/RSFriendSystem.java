@@ -13,6 +13,9 @@ public interface RSFriendSystem
 	@Import("isFriended")
 	boolean isFriended(RSUsername var1, boolean var2);
 
+	@Import("isIgnored")
+	boolean isIgnored(RSUsername var1);
+
 	@Import("addFriend")
 	void addFriend(String username);
 

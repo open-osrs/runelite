@@ -66,6 +66,8 @@ import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.events.ConfigButtonClicked;
+import net.runelite.client.config.Button;
 import net.runelite.client.config.ConfigDescriptor;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -78,6 +80,7 @@ import net.runelite.client.config.Keybind;
 import net.runelite.client.config.ModifierlessKeybind;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Units;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.events.PluginChanged;
@@ -129,6 +132,9 @@ class ConfigPanel extends PluginPanel
 
 	@Inject
 	private ColorPickerManager colorPickerManager;
+
+	@Inject
+	private EventBus eventBus;
 
 	private PluginConfigurationDescriptor pluginConfig = null;
 
@@ -334,6 +340,28 @@ class ConfigPanel extends PluginPanel
 			PluginListItem.addLabelPopupMenu(configEntryName, createResetMenuItem(pluginConfig, cid));
 			item.add(configEntryName, BorderLayout.CENTER);
 
+			if (cid.getType() == Button.class)
+			{
+				try
+				{
+					ConfigItem cidItem = cid.getItem();
+					JButton button = new JButton(cidItem.name());
+					button.addActionListener((e) ->
+					{
+						ConfigButtonClicked event = new ConfigButtonClicked();
+						event.setGroup(cd.getGroup().value());
+						event.setKey(cid.getItem().keyName());
+						eventBus.post(event);
+					});
+					item.add(button);
+				}
+				catch (Exception ex)
+				{
+					log.error("Adding action listener failed: {}", ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+
 			if (cid.getType() == boolean.class)
 			{
 				JCheckBox checkbox = new JCheckBox();
@@ -487,15 +515,19 @@ class ConfigPanel extends PluginPanel
 			if (cid.getType().isEnum())
 			{
 				Class<? extends Enum> type = (Class<? extends Enum>) cid.getType();
-				JComboBox box = new JComboBox(type.getEnumConstants());
+
+				JComboBox<Enum<?>> box = new JComboBox<Enum<?>>(type.getEnumConstants()); // NOPMD: UseDiamondOperator
+				// set renderer prior to calling box.getPreferredSize(), since it will invoke the renderer
+				// to build components for each combobox element in order to compute the display size of the
+				// combobox
+				box.setRenderer(new ComboBoxListRenderer<>());
 				box.setPreferredSize(new Dimension(box.getPreferredSize().width, 25));
-				box.setRenderer(new ComboBoxListRenderer());
 				box.setForeground(Color.WHITE);
 				box.setFocusable(false);
-				box.setPrototypeDisplayValue("XXXXXXXX"); //sorry but this is the way to keep the size of the combobox in check.
+
 				try
 				{
-					Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName()));
+					Enum<?> selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName()));
 					box.setSelectedItem(selectedItem);
 					box.setToolTipText(Text.titleCase(selectedItem));
 				}
@@ -508,7 +540,7 @@ class ConfigPanel extends PluginPanel
 					if (e.getStateChange() == ItemEvent.SELECTED)
 					{
 						changeConfiguration(box, cd, cid);
-						box.setToolTipText(Text.titleCase((Enum) box.getSelectedItem()));
+						box.setToolTipText(Text.titleCase((Enum<?>) box.getSelectedItem()));
 					}
 				});
 				item.add(box, BorderLayout.EAST);

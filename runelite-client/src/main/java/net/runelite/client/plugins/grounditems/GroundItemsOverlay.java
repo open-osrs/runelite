@@ -58,7 +58,6 @@ import net.runelite.client.ui.overlay.components.BackgroundComponent;
 import net.runelite.client.ui.overlay.components.ProgressPieComponent;
 import net.runelite.client.ui.overlay.components.TextComponent;
 import net.runelite.client.util.QuantityFormatter;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class GroundItemsOverlay extends Overlay
 {
@@ -76,8 +75,14 @@ public class GroundItemsOverlay extends Overlay
 	private static final Duration DESPAWN_TIME_INSTANCE = Duration.ofMinutes(30);
 	private static final Duration DESPAWN_TIME_LOOT = Duration.ofMinutes(2);
 	private static final Duration DESPAWN_TIME_DROP = Duration.ofMinutes(3);
+	private static final Duration DESPAWN_TIME_TABLE = Duration.ofMinutes(10);
 	private static final int KRAKEN_REGION = 9116;
 	private static final int KBD_NMZ_REGION = 9033;
+	private static final int ZILYANA_REGION = 11602;
+	private static final int GRAARDOR_REGION = 11347;
+	private static final int KRIL_TSUTSAROTH_REGION = 11603;
+	private static final int KREEARRA_REGION = 11346;
+	private static final int NIGHTMARE_REGION = 15515;
 
 	private final Client client;
 	private final GroundItemsPlugin plugin;
@@ -394,8 +399,11 @@ public class GroundItemsOverlay extends Overlay
 
 	private Instant calculateDespawnTime(GroundItem groundItem)
 	{
-		// We can only accurately guess despawn times for our own pvm loot and dropped items
-		if (groundItem.getLootType() != LootType.PVM && groundItem.getLootType() != LootType.DROPPED)
+		// We can only accurately guess despawn times for our own pvm loot, dropped items,
+		// and items we placed on tables
+		if (groundItem.getLootType() != LootType.PVM
+			&& groundItem.getLootType() != LootType.DROPPED
+			&& groundItem.getLootType() != LootType.TABLE)
 		{
 			return null;
 		}
@@ -410,35 +418,31 @@ public class GroundItemsOverlay extends Overlay
 			return null;
 		}
 
-		Instant despawnTime;
+		final Instant despawnTime;
 		Instant now = Instant.now();
 		if (client.isInInstancedRegion())
 		{
-			// Items in the Kraken instance appear to never despawn?
-			if (isInKraken())
+			final int playerRegionID = WorldPoint.fromLocalInstance(client, client.getLocalPlayer().getLocalLocation()).getRegionID();
+			if (playerRegionID == KRAKEN_REGION)
 			{
+				// Items in the Kraken instance never despawn
 				return null;
 			}
-			else if (isInKBDorNMZ())
+			else if (playerRegionID == KBD_NMZ_REGION)
 			{
 				// NMZ and the KBD lair uses the same region ID but NMZ uses planes 1-3 and KBD uses plane 0
 				if (client.getLocalPlayer().getWorldLocation().getPlane() == 0)
 				{
 					// Items in the KBD instance use the standard despawn timer
-					if (groundItem.getLootType() == LootType.DROPPED)
-					{
-						despawnTime = spawnTime.plus(DESPAWN_TIME_DROP);
-					}
-					else
-					{
-						despawnTime = spawnTime.plus(DESPAWN_TIME_LOOT);
-					}
+					despawnTime = spawnTime.plus(groundItem.getLootType() == LootType.DROPPED
+						? DESPAWN_TIME_DROP
+						: DESPAWN_TIME_LOOT);
 				}
 				else
 				{
-					// Dropped items in the NMZ instance appear to never despawn?
 					if (groundItem.getLootType() == LootType.DROPPED)
 					{
+						// Dropped items in the NMZ instance never despawn
 						return null;
 					}
 					else
@@ -447,6 +451,14 @@ public class GroundItemsOverlay extends Overlay
 					}
 				}
 			}
+			else if (playerRegionID == ZILYANA_REGION || playerRegionID == GRAARDOR_REGION ||
+				playerRegionID == KRIL_TSUTSAROTH_REGION || playerRegionID == KREEARRA_REGION || playerRegionID == NIGHTMARE_REGION)
+			{
+				// GWD and Nightmare instances use the normal despawn timers
+				despawnTime = spawnTime.plus(groundItem.getLootType() == LootType.DROPPED
+					? DESPAWN_TIME_DROP
+					: DESPAWN_TIME_LOOT);
+			}
 			else
 			{
 				despawnTime = spawnTime.plus(DESPAWN_TIME_INSTANCE);
@@ -454,13 +466,17 @@ public class GroundItemsOverlay extends Overlay
 		}
 		else
 		{
-			if (groundItem.getLootType() == LootType.DROPPED)
+			switch (groundItem.getLootType())
 			{
-				despawnTime = spawnTime.plus(DESPAWN_TIME_DROP);
-			}
-			else
-			{
-				despawnTime = spawnTime.plus(DESPAWN_TIME_LOOT);
+				case DROPPED:
+					despawnTime = spawnTime.plus(DESPAWN_TIME_DROP);
+					break;
+				case TABLE:
+					despawnTime = spawnTime.plus(DESPAWN_TIME_TABLE);
+					break;
+				default:
+					despawnTime = spawnTime.plus(DESPAWN_TIME_LOOT);
+					break;
 			}
 		}
 
@@ -475,8 +491,11 @@ public class GroundItemsOverlay extends Overlay
 
 	private Color getItemTimerColor(GroundItem groundItem)
 	{
-		// We can only accurately guess despawn times for our own pvm loot and dropped items
-		if (groundItem.getLootType() != LootType.PVM && groundItem.getLootType() != LootType.DROPPED)
+		// We can only accurately guess despawn times for our own pvm loot, dropped items,
+		// and items we placed on tables
+		if (groundItem.getLootType() != LootType.PVM
+			&& groundItem.getLootType() != LootType.DROPPED
+			&& groundItem.getLootType() != LootType.TABLE)
 		{
 			return null;
 		}
@@ -560,15 +579,5 @@ public class GroundItemsOverlay extends Overlay
 				);
 		}
 
-	}
-
-	private boolean isInKraken()
-	{
-		return ArrayUtils.contains(client.getMapRegions(), KRAKEN_REGION);
-	}
-
-	private boolean isInKBDorNMZ()
-	{
-		return ArrayUtils.contains(client.getMapRegions(), KBD_NMZ_REGION);
 	}
 }

@@ -4,7 +4,7 @@ package net.runelite.api.events;
  * Gets sent before menu handling code is ran, once per client tick.
  * Can be consumed, skipping this method this tick.
  */
-public class Menu implements Event
+public class Menu
 {
 	public static final Menu MENU = new Menu();
 

@@ -94,6 +94,6 @@ public class Messages {
 	)
 	static void method2285() {
 		Login.loginIndex = 24; // L: 1517
-		GameShell.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", ""); // L: 1518
+		GameEngine.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", ""); // L: 1518
 	} // L: 1519
 }

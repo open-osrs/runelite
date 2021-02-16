@@ -127,6 +127,7 @@ public class ChatCommandsPlugin extends Plugin
 	private static final String GC_COMMAND_STRING = "!gc";
 	private static final String DUEL_ARENA_COMMAND = "!duels";
 	private static final String LEAGUE_POINTS_COMMAND = "!lp";
+	private static final String SOUL_WARS_ZEAL_COMMAND = "!sw";
 
 	@VisibleForTesting
 	static final int ADV_LOG_EXPLOITS_TEXT_INDEX = 1;
@@ -192,6 +193,7 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.registerCommandAsync(PB_COMMAND, this::personalBestLookup, this::personalBestSubmit);
 		chatCommandManager.registerCommandAsync(GC_COMMAND_STRING, this::gambleCountLookup, this::gambleCountSubmit);
 		chatCommandManager.registerCommandAsync(DUEL_ARENA_COMMAND, this::duelArenaLookup, this::duelArenaSubmit);
+		chatCommandManager.registerCommandAsync(SOUL_WARS_ZEAL_COMMAND, this::soulWarsZealLookup);
 	}
 
 	@Override
@@ -216,6 +218,7 @@ public class ChatCommandsPlugin extends Plugin
 		chatCommandManager.unregisterCommand(PB_COMMAND);
 		chatCommandManager.unregisterCommand(GC_COMMAND_STRING);
 		chatCommandManager.unregisterCommand(DUEL_ARENA_COMMAND);
+		chatCommandManager.unregisterCommand(SOUL_WARS_ZEAL_COMMAND);
 	}
 
 	@Provides
@@ -663,7 +666,7 @@ public class ChatCommandsPlugin extends Plugin
 			.append(ChatColorType.NORMAL)
 			.append(" kill count: ")
 			.append(ChatColorType.HIGHLIGHT)
-			.append(Integer.toString(kc))
+			.append(String.format("%,d", kc))
 			.build();
 
 		log.debug("Setting response {}", response);
@@ -745,15 +748,15 @@ public class ChatCommandsPlugin extends Plugin
 			.append(ChatColorType.NORMAL)
 			.append("Duel Arena wins: ")
 			.append(ChatColorType.HIGHLIGHT)
-			.append(Integer.toString(wins))
+			.append(String.format("%,d", wins))
 			.append(ChatColorType.NORMAL)
 			.append("   losses: ")
 			.append(ChatColorType.HIGHLIGHT)
-			.append(Integer.toString(losses))
+			.append(String.format("%,d", losses))
 			.append(ChatColorType.NORMAL)
 			.append("   streak: ")
 			.append(ChatColorType.HIGHLIGHT)
-			.append(Integer.toString((winningStreak != 0 ? winningStreak : -losingStreak)))
+			.append(String.format("%,d", winningStreak != 0 ? winningStreak : -losingStreak))
 			.build();
 
 		log.debug("Setting response {}", response);
@@ -954,7 +957,7 @@ public class ChatCommandsPlugin extends Plugin
 			.append(ChatColorType.NORMAL)
 			.append("Barbarian Assault High-level gambles: ")
 			.append(ChatColorType.HIGHLIGHT)
-			.append(Integer.toString(gc))
+			.append(String.format("%,d", gc))
 			.build();
 
 		log.debug("Setting response {}", response);
@@ -1259,6 +1262,16 @@ public class ChatCommandsPlugin extends Plugin
 		minigameLookup(chatMessage, HiscoreSkill.LAST_MAN_STANDING);
 	}
 
+	private void soulWarsZealLookup(ChatMessage chatMessage, String message)
+	{
+		if (!config.sw())
+		{
+			return;
+		}
+
+		minigameLookup(chatMessage, HiscoreSkill.SOUL_WARS_ZEAL);
+	}
+
 	private void minigameLookup(ChatMessage chatMessage, HiscoreSkill minigame)
 	{
 		try
@@ -1292,6 +1305,9 @@ public class ChatCommandsPlugin extends Plugin
 					break;
 				case LEAGUE_POINTS:
 					hiscoreSkill = result.getLeaguePoints();
+					break;
+				case SOUL_WARS_ZEAL:
+					hiscoreSkill = result.getSoulWarsZeal();
 					break;
 				default:
 					log.warn("error looking up {} score: not implemented", minigame.getName().toLowerCase());
@@ -1404,7 +1420,7 @@ public class ChatCommandsPlugin extends Plugin
 				.append(ChatColorType.NORMAL)
 				.append("Clue scroll (" + level + ")").append(": ")
 				.append(ChatColorType.HIGHLIGHT)
-				.append(Integer.toString(quantity));
+				.append(String.format("%,d", quantity));
 
 			if (rank != -1)
 			{

@@ -205,6 +205,8 @@ public class CoordinateClue extends ClueScroll implements TextClueScroll, Locati
 		.put(new WorldPoint(2484, 4016, 0), new CoordinateClueInfo("Northeast corner of the Island of Stone.", ARMADYLIAN_OR_BANDOSIAN_GUARD))
 		.put(new WorldPoint(2222, 3331, 0), new CoordinateClueInfo("Prifddinas, west of the Tower of Voices", ARMADYLIAN_OR_BANDOSIAN_GUARD))
 		.put(new WorldPoint(3560, 3987, 0), new CoordinateClueInfo("Lithkren. Digsite pendant teleport if unlocked, otherwise take rowboat from west of Mushroom Meadow Mushtree.", ARMADYLIAN_OR_BANDOSIAN_GUARD))
+		.put(new WorldPoint(2318, 2954, 0), new CoordinateClueInfo("North-east corner of the Isle of Souls.", ARMADYLIAN_OR_BANDOSIAN_GUARD))
+		.put(new WorldPoint(2094, 2889, 0), new CoordinateClueInfo("West side of the Isle of Souls.", ARMADYLIAN_OR_BANDOSIAN_GUARD))
 		// Master
 		.put(new WorldPoint(2178, 3209, 0), new CoordinateClueInfo("South of Iorwerth Camp.", BRASSICAN_MAGE))
 		.put(new WorldPoint(2155, 3100, 0), new CoordinateClueInfo("South of Port Tyras (BJS if 76 Agility).", BRASSICAN_MAGE))
@@ -227,7 +229,7 @@ public class CoordinateClue extends ClueScroll implements TextClueScroll, Locati
 		.put(new WorldPoint(2202, 3825, 0), new CoordinateClueInfo("Pirates' Cove, between Lunar Isle and Rellekka.", ANCIENT_WIZARDS))
 		.put(new WorldPoint(1761, 3853, 0), new CoordinateClueInfo("Arceuus essence mine (CIS).", BRASSICAN_MAGE))
 		.put(new WorldPoint(2090, 3863, 0), new CoordinateClueInfo("South of Lunar Isle, west of Astral altar.", ANCIENT_WIZARDS))
-		.put(new WorldPoint(1442, 3878, 0), new CoordinateClueInfo("Sulphur Mine.", BRASSICAN_MAGE))
+		.put(new WorldPoint(1442, 3878, 0), new CoordinateClueInfo("Northern area of the Lovakengj Sulphur Mine. Facemask or Slayer Helmet recommended.", BRASSICAN_MAGE))
 		.put(new WorldPoint(3380, 3929, 0), new CoordinateClueInfo("Wilderness. Near Volcano.", ANCIENT_WIZARDS))
 		.put(new WorldPoint(3188, 3939, 0), new CoordinateClueInfo("Wilderness. Resource Area.", BRASSICAN_MAGE))
 		.put(new WorldPoint(3304, 3941, 0), new CoordinateClueInfo("Wilderness. East of Rogues' Castle.", ANCIENT_WIZARDS))

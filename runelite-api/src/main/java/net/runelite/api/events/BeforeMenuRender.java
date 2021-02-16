@@ -27,7 +27,7 @@ package net.runelite.api.events;
 import lombok.Data;
 
 @Data
-public class BeforeMenuRender implements Event
+public class BeforeMenuRender
 {
 	private boolean consumed;
 

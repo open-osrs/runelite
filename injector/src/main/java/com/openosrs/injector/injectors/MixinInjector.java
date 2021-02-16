@@ -438,7 +438,7 @@ public class MixinInjector extends AbstractInjector
 				else if (hasInject)
 				{
 					// Make sure the method doesn't invoke copied methods
-					for (Instruction i : mixinMethod.getCode().getInstructions())
+					/*for (Instruction i : mixinMethod.getCode().getInstructions())
 					{
 						if (i instanceof InvokeInstruction)
 						{
@@ -446,10 +446,10 @@ public class MixinInjector extends AbstractInjector
 
 							if (copiedMethods.containsKey(ii.getMethod()))
 							{
-								throw new InjectException("Injected methods cannot invoke copied methods");
+								throw new InjectException("Injected methods cannot invoke copied methods " + ii.toString());
 							}
 						}
-					}
+					}*/
 
 					Method copy = new Method(targetClass, mixinMethod.getName(), mixinMethod.getDescriptor());
 					moveCode(copy, mixinMethod.getCode());

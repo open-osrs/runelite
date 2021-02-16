@@ -24,6 +24,8 @@
  */
 package net.runelite.client.config;
 
+import com.openosrs.client.OpenOSRS;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

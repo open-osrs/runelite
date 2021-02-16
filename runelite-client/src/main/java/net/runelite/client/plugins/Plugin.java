@@ -27,9 +27,13 @@ package net.runelite.client.plugins;
 import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import lombok.Getter;
+import org.pf4j.ExtensionPoint;
+import net.runelite.client.RuneLite;
 
-public abstract class Plugin implements Module
+public abstract class Plugin implements Module, ExtensionPoint
 {
+	@Getter
 	protected Injector injector;
 
 	@Override
@@ -47,11 +51,6 @@ public abstract class Plugin implements Module
 
 	public void resetConfiguration()
 	{
-	}
-
-	public final Injector getInjector()
-	{
-		return injector;
 	}
 
 	public String getName()

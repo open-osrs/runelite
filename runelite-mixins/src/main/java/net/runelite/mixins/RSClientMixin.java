@@ -536,17 +536,36 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
-	public void addChatMessage(int type, String name, String message, String sender)
+	public MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender, boolean postEvent)
 	{
 		assert this.isClientThread() : "addChatMessage must be called on client thread";
-		addRSChatMessage(type, name, message, sender);
+		copy$addChatMessage(type.getType(), name, message, sender);
+
+		Logger logger = client.getLogger();
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("Chat message type {}: {}", type.name(), message);
+		}
+
+		// Get the message node which was added
+		@SuppressWarnings("unchecked") Map<Integer, RSChatChannel> chatLineMap = client.getChatLineMap();
+		RSChatChannel chatLineBuffer = chatLineMap.get(type.getType());
+		MessageNode messageNode = chatLineBuffer.getLines()[0];
+
+		if (postEvent)
+		{
+			final ChatMessage chatMessage = new ChatMessage(messageNode, type, name, message, sender, messageNode.getTimestamp());
+			client.getCallbacks().post(chatMessage);
+		}
+
+		return messageNode;
 	}
 
 	@Inject
 	@Override
-	public void addChatMessage(ChatMessageType type, String name, String message, String sender)
+	public MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender)
 	{
-		addChatMessage(type.getType(), name, message, sender);
+		return addChatMessage(type, name, message, sender, true);
 	}
 
 	@Inject
@@ -1388,13 +1407,6 @@ public abstract class RSClientMixin implements RSClient
 	@Replace("menuAction")
 	static void copy$menuAction(int param0, int param1, int opcode, int id, String option, String target, int canvasX, int canvasY)
 	{
-		boolean authentic = true;
-		if (target != null && target.startsWith("!AUTHENTIC"))
-		{
-			authentic = false;
-			target = target.substring(10);
-		}
-
 		/* Along the way, the RuneScape client may change a menuAction by incrementing it with 2000.
 		 * I have no idea why, but it does. Their code contains the same conditional statement.
 		 */
@@ -1403,17 +1415,13 @@ public abstract class RSClientMixin implements RSClient
 			opcode -= 2000;
 		}
 
-		final MenuOptionClicked menuOptionClicked = new MenuOptionClicked(
-			option,
-			target,
-			id,
-			opcode,
-			param0,
-			param1,
-			false,
-			authentic,
-			client.getMouseCurrentButton()
-		);
+		final MenuOptionClicked menuOptionClicked = new MenuOptionClicked();
+		menuOptionClicked.setActionParam(param0);
+		menuOptionClicked.setMenuOption(option);
+		menuOptionClicked.setMenuTarget(target);
+		menuOptionClicked.setMenuAction(MenuAction.of(opcode));
+		menuOptionClicked.setId(id);
+		menuOptionClicked.setWidgetId(param1);
 
 		client.getCallbacks().post(menuOptionClicked);
 
@@ -1425,15 +1433,15 @@ public abstract class RSClientMixin implements RSClient
 		if (printMenuActions)
 		{
 			client.getLogger().info(
-				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={} Authentic={}",
-				menuOptionClicked.getOption(), menuOptionClicked.getTarget(), menuOptionClicked.getIdentifier(),
-				menuOptionClicked.getOpcode(), menuOptionClicked.getActionParam(), menuOptionClicked.getActionParam1(),
-				canvasX, canvasY, authentic
+				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={}",
+				menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), menuOptionClicked.getId(),
+				menuOptionClicked.getMenuAction(), menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(),
+				canvasX, canvasY
 			);
 		}
 
-		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getActionParam1(), menuOptionClicked.getOpcode(),
-			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
+		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(), menuOptionClicked.getMenuAction().getId(),
+			menuOptionClicked.getId(), menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), canvasX, canvasY);
 	}
 
 	@Override
@@ -1442,7 +1450,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		assert isClientThread();
 
-		client.sendMenuAction(param0, param1, opcode, identifier, option, "!AUTHENTIC" + target, 658, 384);
+		client.sendMenuAction(param0, param1, opcode, identifier, option, target, 658, 384);
 	}
 
 	@FieldHook("Login_username")
@@ -1495,14 +1503,18 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().updateNpcs();
 	}
 
-	@Inject
-	@MethodHook(value = "addChatMessage", end = true)
-	public static void onAddChatMessage(int type, String name, String message, String sender)
+	@SuppressWarnings("InfiniteRecursion")
+	@Copy("addChatMessage")
+	@Replace("addChatMessage")
+	public static void copy$addChatMessage(int type, String name, String message, String sender)
 	{
+		copy$addChatMessage(type, name, message, sender);
+
 		Logger logger = client.getLogger();
 		if (logger.isDebugEnabled())
 		{
-			logger.debug("Chat message type {}: {}", ChatMessageType.of(type), message);
+			ChatMessageType msgType = ChatMessageType.of(type);
+			logger.debug("Chat message type {}: {}", msgType == ChatMessageType.UNKNOWN ? String.valueOf(type) : msgType.name(), message);
 		}
 
 		// Get the message node which was added

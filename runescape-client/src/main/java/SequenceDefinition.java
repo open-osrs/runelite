@@ -381,7 +381,7 @@ public class SequenceDefinition extends DualNode {
 		garbageValue = "1"
 	)
 	@Export("doCycleTitle")
-	static void doCycleTitle(GameShell var0) {
+	static void doCycleTitle(GameEngine var0) {
 		int var2;
 		int var3;
 		int var4;
@@ -662,12 +662,12 @@ public class SequenceDefinition extends DualNode {
 
 								var35 += 15; // L: 496
 								var36 = 361; // L: 497
-								if (GameShell.field481 != null) { // L: 498
-									var38 = GameShell.field481.highX / 2; // L: 499
-									if (var4 == 1 && var44 >= GameShell.field481.lowX - var38 && var44 <= var38 + GameShell.field481.lowX && var34 >= var36 - 15 && var34 < var36) { // L: 500
+								if (GameEngine.field481 != null) { // L: 498
+									var38 = GameEngine.field481.highX / 2; // L: 499
+									if (var4 == 1 && var44 >= GameEngine.field481.lowX - var38 && var44 <= var38 + GameEngine.field481.lowX && var34 >= var36 - 15 && var34 < var36) { // L: 500
 										switch(Login.field1190) { // L: 501
 										case 1:
-											GameShell.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 504
+											GameEngine.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 504
 											Login.loginIndex = 5; // L: 505
 											return; // L: 506
 										case 2:
@@ -681,16 +681,16 @@ public class SequenceDefinition extends DualNode {
 								if (var4 == 1 && var44 >= var38 - 75 && var44 <= var38 + 75 && var34 >= var37 - 20 && var34 <= var37 + 20) { // L: 518
 									Login.Login_username = Login.Login_username.trim(); // L: 519
 									if (Login.Login_username.length() == 0) { // L: 520
-										GameShell.setLoginResponseString("", "Please enter your username/email address.", ""); // L: 521
+										GameEngine.setLoginResponseString("", "Please enter your username/email address.", ""); // L: 521
 										return; // L: 522
 									}
 
 									if (Login.Login_password.length() == 0) { // L: 524
-										GameShell.setLoginResponseString("", "Please enter your password.", ""); // L: 525
+										GameEngine.setLoginResponseString("", "Please enter your password.", ""); // L: 525
 										return; // L: 526
 									}
 
-									GameShell.setLoginResponseString("", "Connecting to server...", ""); // L: 528
+									GameEngine.setLoginResponseString("", "Connecting to server...", ""); // L: 528
 									WorldMapDecoration.method380(false); // L: 529
 									WorldMapCacheName.updateGameState(20); // L: 530
 									return; // L: 531
@@ -782,16 +782,16 @@ public class SequenceDefinition extends DualNode {
 												if (StudioGame.field3135 == 84) { // L: 591
 													Login.Login_username = Login.Login_username.trim(); // L: 592
 													if (Login.Login_username.length() == 0) { // L: 593
-														GameShell.setLoginResponseString("", "Please enter your username/email address.", ""); // L: 594
+														GameEngine.setLoginResponseString("", "Please enter your username/email address.", ""); // L: 594
 														return; // L: 595
 													}
 
 													if (Login.Login_password.length() == 0) { // L: 597
-														GameShell.setLoginResponseString("", "Please enter your password.", ""); // L: 598
+														GameEngine.setLoginResponseString("", "Please enter your password.", ""); // L: 598
 														return; // L: 599
 													}
 
-													GameShell.setLoginResponseString("", "Connecting to server...", ""); // L: 601
+													GameEngine.setLoginResponseString("", "Connecting to server...", ""); // L: 601
 													WorldMapDecoration.method380(false); // L: 602
 													WorldMapCacheName.updateGameState(20); // L: 603
 													return; // L: 604
@@ -880,7 +880,7 @@ public class SequenceDefinition extends DualNode {
 								var35 = Login.loginBoxX + 180; // L: 688
 								var8 = 326; // L: 689
 								if (var4 == 1 && var44 >= var35 - 75 && var44 <= var35 + 75 && var34 >= var8 - 20 && var34 <= var8 + 20) { // L: 690
-									GameShell.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 691
+									GameEngine.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 691
 									Login.loginIndex = 5; // L: 692
 									return; // L: 693
 								}
@@ -892,14 +892,14 @@ public class SequenceDefinition extends DualNode {
 									if (var4 == 1 && var44 >= var35 - 75 && var44 <= var35 + 75 && var34 >= var8 - 20 && var34 <= var8 + 20) { // L: 699
 										SecureRandomCallable.otp.trim(); // L: 700
 										if (SecureRandomCallable.otp.length() != 6) { // L: 701
-											GameShell.setLoginResponseString("", "Please enter a 6-digit PIN.", ""); // L: 702
+											GameEngine.setLoginResponseString("", "Please enter a 6-digit PIN.", ""); // L: 702
 											return; // L: 703
 										}
 
 										WorldMapSection1.field313 = Integer.parseInt(SecureRandomCallable.otp); // L: 705
 										SecureRandomCallable.otp = ""; // L: 706
 										WorldMapDecoration.method380(true); // L: 707
-										GameShell.setLoginResponseString("", "Connecting to server...", ""); // L: 708
+										GameEngine.setLoginResponseString("", "Connecting to server...", ""); // L: 708
 										WorldMapCacheName.updateGameState(20); // L: 709
 										return; // L: 710
 									}
@@ -945,14 +945,14 @@ public class SequenceDefinition extends DualNode {
 											if (StudioGame.field3135 == 84) { // L: 743
 												SecureRandomCallable.otp.trim(); // L: 744
 												if (SecureRandomCallable.otp.length() != 6) { // L: 745
-													GameShell.setLoginResponseString("", "Please enter a 6-digit PIN.", ""); // L: 746
+													GameEngine.setLoginResponseString("", "Please enter a 6-digit PIN.", ""); // L: 746
 													return; // L: 747
 												}
 
 												WorldMapSection1.field313 = Integer.parseInt(SecureRandomCallable.otp); // L: 749
 												SecureRandomCallable.otp = ""; // L: 750
 												WorldMapDecoration.method380(true); // L: 751
-												GameShell.setLoginResponseString("", "Connecting to server...", ""); // L: 752
+												GameEngine.setLoginResponseString("", "Connecting to server...", ""); // L: 752
 												WorldMapCacheName.updateGameState(20); // L: 753
 												return; // L: 754
 											}
@@ -1016,7 +1016,7 @@ public class SequenceDefinition extends DualNode {
 										var8 = 321; // L: 812
 										if (var4 == 1 && var44 >= var35 - 75 && var44 <= var35 + 75 && var34 >= var8 - 20 && var34 <= var8 + 20) { // L: 813
 											AttackOption.openURL(AbstractWorldMapIcon.method632("secure", true) + "m=dob/set_dob.ws", true, false); // L: 814
-											GameShell.setLoginResponseString("", "Page has opened in a new window.", "(Please check your popup blocker.)"); // L: 815
+											GameEngine.setLoginResponseString("", "Page has opened in a new window.", "(Please check your popup blocker.)"); // L: 815
 											Login.loginIndex = 6; // L: 816
 											return; // L: 817
 										}
@@ -1030,7 +1030,7 @@ public class SequenceDefinition extends DualNode {
 										var8 = 321; // L: 826
 										if (var4 == 1 && var44 >= var35 - 75 && var44 <= var35 + 75 && var34 >= var8 - 20 && var34 <= var8 + 20) { // L: 827
 											AttackOption.openURL("https://www.jagex.com/terms/privacy", true, false); // L: 828
-											GameShell.setLoginResponseString("", "Page has opened in a new window.", "(Please check your popup blocker.)"); // L: 829
+											GameEngine.setLoginResponseString("", "Page has opened in a new window.", "(Please check your popup blocker.)"); // L: 829
 											Login.loginIndex = 6; // L: 830
 											return; // L: 831
 										}
@@ -1056,7 +1056,7 @@ public class SequenceDefinition extends DualNode {
 										var37 = 276; // L: 852
 										if (var4 == 1 && var44 >= var38 - 75 && var44 <= var38 + 75 && var34 >= var37 - 20 && var34 <= var37 + 20) { // L: 853
 											AttackOption.openURL(var30, true, false); // L: 854
-											GameShell.setLoginResponseString("", "Page has opened in a new window.", "(Please check your popup blocker.)"); // L: 855
+											GameEngine.setLoginResponseString("", "Page has opened in a new window.", "(Please check your popup blocker.)"); // L: 855
 											Login.loginIndex = 6; // L: 856
 											return; // L: 857
 										}
