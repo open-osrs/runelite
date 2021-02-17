@@ -157,7 +157,7 @@ public class FontName {
 						if (var1 != -1412584499 && !var10.isScrollBar) { // L: 8954
 							class200.field2390 = var0; // L: 8955
 							Client.field923 = var6; // L: 8956
-							Entity.field1893 = var7; // L: 8957
+							Renderable.field1893 = var7; // L: 8957
 							continue; // L: 8958
 						}
 
@@ -237,7 +237,7 @@ public class FontName {
 							if (var10.contentType == 1336) { // L: 9016
 								if (Client.displayFps) { // L: 9017
 									var13 += 15; // L: 9018
-									WorldMapLabelSize.fontPlain12.drawRightAligned("Fps:" + GameShell.fps, var12 + var10.width, var13, 16776960, -1); // L: 9019
+									WorldMapLabelSize.fontPlain12.drawRightAligned("Fps:" + GameEngine.fps, var12 + var10.width, var13, 16776960, -1); // L: 9019
 									var13 += 15; // L: 9020
 									Runtime var42 = Runtime.getRuntime(); // L: 9021
 									var20 = (int)((var42.totalMemory() - var42.freeMemory()) / 1024L); // L: 9022
@@ -287,7 +287,7 @@ public class FontName {
 						}
 
 						if (var10.type == 0) { // L: 9058
-							if (!var10.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var10) && var10 != EnumDefinition.mousedOverWidgetIf1) { // L: 9059
+							if (!var10.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var10) && var10 != EnumComposition.mousedOverWidgetIf1) { // L: 9059
 								continue;
 							}
 
@@ -339,7 +339,7 @@ public class FontName {
 
 											if (var10.itemIds[var19] <= 0) { // L: 9090
 												if (var10.inventorySprites != null && var19 < 20) { // L: 9135
-													Sprite var46 = var10.getInventorySprite(var19); // L: 9136
+													SpritePixels var46 = var10.getInventorySprite(var19); // L: 9136
 													if (var46 != null) { // L: 9137
 														var46.drawTransBgAt(var22, var23);
 													} else if (Widget.field2603) { // L: 9138
@@ -351,7 +351,7 @@ public class FontName {
 												boolean var38 = false; // L: 9092
 												var26 = var10.itemIds[var19] - 1; // L: 9093
 												if (var22 + 32 > var2 && var22 < var4 && var23 + 32 > var3 && var23 < var5 || var10 == class171.dragInventoryWidget && var19 == Client.dragItemSlotSource) { // L: 9094
-													Sprite var35;
+													SpritePixels var35;
 													if (Client.isItemSelected == 1 && var19 == ChatChannel.selectedItemSlot && var10.id == WorldMapLabelSize.selectedItemWidget) { // L: 9096
 														var35 = WorldMapManager.getItemSprite(var26, var10.itemQuantities[var19], 2, 0, 2, false);
 													} else {
@@ -426,12 +426,12 @@ public class FontName {
 								} else if (var10.type == 3) { // L: 9145
 									if (class8.runCs1(var10)) { // L: 9147
 										var19 = var10.color2; // L: 9148
-										if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9149
+										if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9149
 											var19 = var10.mouseOverColor2;
 										}
 									} else {
 										var19 = var10.color; // L: 9152
-										if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9153
+										if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9153
 											var19 = var10.mouseOverColor;
 										}
 									}
@@ -468,7 +468,7 @@ public class FontName {
 											String var44 = var10.text; // L: 9182
 											if (class8.runCs1(var10)) { // L: 9183
 												var20 = var10.color2; // L: 9184
-												if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9185
+												if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor2 != 0) { // L: 9185
 													var20 = var10.mouseOverColor2;
 												}
 
@@ -477,13 +477,13 @@ public class FontName {
 												}
 											} else {
 												var20 = var10.color; // L: 9189
-												if (var10 == EnumDefinition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9190
+												if (var10 == EnumComposition.mousedOverWidgetIf1 && var10.mouseOverColor != 0) { // L: 9190
 													var20 = var10.mouseOverColor;
 												}
 											}
 
 											if (var10.isIf3 && var10.itemId != -1) { // L: 9192
-												ItemDefinition var45 = SecureRandomCallable.ItemDefinition_get(var10.itemId); // L: 9193
+												ItemComposition var45 = SecureRandomCallable.ItemDefinition_get(var10.itemId); // L: 9193
 												var44 = var45.name; // L: 9194
 												if (var44 == null) { // L: 9195
 													var44 = "null";
@@ -506,7 +506,7 @@ public class FontName {
 											var39.drawLines(var44, var12, var13, var10.width, var10.height, var20, var10.textShadowed ? 0 : -1, var10.textXAlignment, var10.textYAlignment, var10.textLineHeight); // L: 9203
 										}
 									} else if (var10.type == 5) { // L: 9206
-										Sprite var40;
+										SpritePixels var40;
 										if (!var10.isIf3) { // L: 9207
 											var40 = var10.getSprite(class8.runCs1(var10)); // L: 9208
 											if (var40 != null) { // L: 9209
@@ -561,7 +561,7 @@ public class FontName {
 											}
 										}
 									} else {
-										ItemDefinition var33;
+										ItemComposition var33;
 										if (var10.type == 6) { // L: 9244
 											boolean var36 = class8.runCs1(var10); // L: 9245
 											if (var36) { // L: 9247
@@ -586,18 +586,18 @@ public class FontName {
 												}
 											} else if (var10.modelType == 5) { // L: 9263
 												if (var10.modelId == 0) { // L: 9264
-													var41 = Client.playerAppearance.getModel((SequenceDefinition)null, -1, (SequenceDefinition)null, -1);
+													var41 = Client.playerComposition.getModel((SequenceDefinition)null, -1, (SequenceDefinition)null, -1);
 												} else {
-													var41 = PlayerAppearance.localPlayer.getModel(); // L: 9265
+													var41 = PlayerComposition.localPlayer.getModel(); // L: 9265
 												}
 											} else if (var20 == -1) { // L: 9267
-												var41 = var10.getModel((SequenceDefinition)null, -1, var36, PlayerAppearance.localPlayer.appearance); // L: 9268
+												var41 = var10.getModel((SequenceDefinition)null, -1, var36, PlayerComposition.localPlayer.appearance); // L: 9268
 												if (var41 == null && Widget.field2603) { // L: 9269
 													CollisionMap.invalidateWidget(var10);
 												}
 											} else {
-												SequenceDefinition var47 = ParamDefinition.SequenceDefinition_get(var20); // L: 9272
-												var41 = var10.getModel(var47, var10.modelFrame, var36, PlayerAppearance.localPlayer.appearance); // L: 9273
+												SequenceDefinition var47 = ParamComposition.SequenceDefinition_get(var20); // L: 9272
+												var41 = var10.getModel(var47, var10.modelFrame, var36, PlayerComposition.localPlayer.appearance); // L: 9273
 												if (var41 == null && Widget.field2603) { // L: 9274
 													CollisionMap.invalidateWidget(var10);
 												}

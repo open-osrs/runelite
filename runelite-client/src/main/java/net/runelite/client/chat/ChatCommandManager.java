@@ -41,21 +41,20 @@ import net.runelite.client.events.ChatboxInput;
 import net.runelite.client.events.PrivateMessageInput;
 
 @Singleton
-public class ChatCommandManager
+public class ChatCommandManager implements ChatboxInputListener
 {
 	private final Map<String, ChatCommand> commands = new ConcurrentHashMap<>();
+
 	private final Client client;
 	private final ScheduledExecutorService scheduledExecutorService;
 
 	@Inject
-	private ChatCommandManager(EventBus eventBus, Client client, ScheduledExecutorService scheduledExecutorService)
+	private ChatCommandManager(EventBus eventBus, CommandManager commandManager, Client client, ScheduledExecutorService scheduledExecutorService)
 	{
 		this.client = client;
 		this.scheduledExecutorService = scheduledExecutorService;
-
-		eventBus.subscribe(ChatboxInput.class, this, this::onChatboxInput);
-		eventBus.subscribe(PrivateMessageInput.class, this, this::onPrivateMessageInput);
-		eventBus.subscribe(ChatMessage.class, this, this::onChatMessage);
+		eventBus.register(this);
+		commandManager.register(this);
 	}
 
 	public void registerCommand(String command, BiConsumer<ChatMessage, String> execute)
@@ -83,7 +82,8 @@ public class ChatCommandManager
 		commands.remove(command.toLowerCase());
 	}
 
-	private void onChatMessage(ChatMessage chatMessage)
+	@Subscribe
+	public void onChatMessage(ChatMessage chatMessage)
 	{
 		if (client.getGameState() != GameState.LOGGED_IN)
 		{
@@ -122,8 +122,8 @@ public class ChatCommandManager
 		}
 	}
 
-	@Subscribe // just for show
-	private void onChatboxInput(ChatboxInput chatboxInput)
+	@Override
+	public boolean onChatboxInput(ChatboxInput chatboxInput)
 	{
 		String message = chatboxInput.getValue();
 		if (message.startsWith("/"))
@@ -131,30 +131,41 @@ public class ChatCommandManager
 			message = message.substring(1); // friends chat input
 		}
 
-		onInput(chatboxInput, message);
-	}
-
-	@Subscribe // just for show
-	private void onPrivateMessageInput(PrivateMessageInput input)
-	{
-		onInput(input, input.getMessage());
-	}
-
-	private void onInput(ChatInput chatInput, String message)
-	{
 		String command = extractCommand(message);
-
 		ChatCommand chatCommand = commands.get(command.toLowerCase());
 		if (chatCommand == null)
 		{
-			return;
+			return false;
 		}
 
 		BiPredicate<ChatInput, String> input = chatCommand.getInput();
-		if (input != null && input.test(chatInput, message))
+		if (input == null)
 		{
-			chatInput.setStop();
+			return false;
 		}
+
+		return input.test(chatboxInput, message);
+	}
+
+	@Override
+	public boolean onPrivateMessageInput(PrivateMessageInput privateMessageInput)
+	{
+		final String message = privateMessageInput.getMessage();
+
+		String command = extractCommand(message);
+		ChatCommand chatCommand = commands.get(command.toLowerCase());
+		if (chatCommand == null)
+		{
+			return false;
+		}
+
+		BiPredicate<ChatInput, String> input = chatCommand.getInput();
+		if (input == null)
+		{
+			return false;
+		}
+
+		return input.test(privateMessageInput, message);
 	}
 
 	private static String extractCommand(String message)

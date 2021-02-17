@@ -191,7 +191,7 @@ public class FriendsList extends UserList {
 						if (var4.soundEffectId >= 0) { // L: 75
 							SoundEffect var7 = SoundEffect.readSoundEffect(class227.archive4, var4.soundEffectId, 0); // L: 76
 							if (var7 != null) { // L: 77
-								RawSound var8 = var7.toRawSound().resample(TileItemPile.decimator); // L: 78
+								RawSound var8 = var7.toRawSound().resample(ItemLayer.decimator); // L: 78
 								RawPcmStream var9 = RawPcmStream.createRawPcmStream(var8, 100, var6); // L: 79
 								var9.setNumLoops(-1); // L: 80
 								WorldMapManager.pcmStreamMixer.addSubStream(var9); // L: 81
@@ -207,7 +207,7 @@ public class FriendsList extends UserList {
 							int var11 = (int)(Math.random() * (double)var4.soundEffectIds.length); // L: 89
 							SoundEffect var12 = SoundEffect.readSoundEffect(class227.archive4, var4.soundEffectIds[var11], 0); // L: 90
 							if (var12 != null) { // L: 91
-								RawSound var13 = var12.toRawSound().resample(TileItemPile.decimator); // L: 92
+								RawSound var13 = var12.toRawSound().resample(ItemLayer.decimator); // L: 92
 								RawPcmStream var10 = RawPcmStream.createRawPcmStream(var13, 100, var6); // L: 93
 								var10.setNumLoops(0); // L: 94
 								WorldMapManager.pcmStreamMixer.addSubStream(var10); // L: 95

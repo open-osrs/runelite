@@ -268,8 +268,8 @@ public class class258 {
 						return 2; // L: 3178
 					}
 				} else {
-					if (PlayerAppearance.localPlayer != null && PlayerAppearance.localPlayer.username != null) { // L: 3136
-						var3 = PlayerAppearance.localPlayer.username.getName();
+					if (PlayerComposition.localPlayer != null && PlayerComposition.localPlayer.username != null) { // L: 3136
+						var3 = PlayerComposition.localPlayer.username.getName();
 					} else {
 						var3 = ""; // L: 3137
 					}

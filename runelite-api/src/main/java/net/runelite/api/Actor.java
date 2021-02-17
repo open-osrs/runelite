@@ -36,7 +36,7 @@ import net.runelite.api.coords.WorldPoint;
 /**
  * Represents a RuneScape actor/entity.
  */
-public interface Actor extends Entity, Locatable
+public interface Actor extends Renderable, Locatable
 {
 	/**
 	 * Gets the combat level of the actor.
@@ -165,11 +165,11 @@ public interface Actor extends Entity, Locatable
 	 * @return the graphic of the actor
 	 * @see GraphicID
 	 */
-	int getSpotAnimation();
+	int getGraphic();
 
-	void setSpotAnimation(int graphic);
+	void setGraphic(int graphic);
 
-	void setSpotAnimationFrame(int spotAnimFrame);
+	void setSpotAnimFrame(int spotAnimFrame);
 
 	/**
 	 * Gets the canvas area of the current tile the actor is standing on.
@@ -205,11 +205,11 @@ public interface Actor extends Entity, Locatable
 	 * Gets the point at which a sprite should be drawn, relative to the
 	 * current location with the given z-axis offset.
 	 *
-	 * @param sprite the sprite to draw
+	 * @param spritePixels the sprite to draw
 	 * @param zOffset the z-axis offset
 	 * @return the sprite drawing location
 	 */
-	Point getCanvasSpriteLocation(Sprite sprite, int zOffset);
+	Point getCanvasSpriteLocation(SpritePixels spritePixels, int zOffset);
 
 	/**
 	 * Gets a point on the canvas of where this actors mini-map indicator
@@ -290,4 +290,6 @@ public interface Actor extends Entity, Locatable
 	 * @return
 	 */
 	boolean isDead();
+
+	boolean isMoving();
 }

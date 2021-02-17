@@ -280,11 +280,11 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(I)Llm;",
 		garbageValue = "-1476611889"
 	)
-	public Sprite method4583() {
+	public SpritePixels method4583() {
 		if (this.field3365 < 0) { // L: 127
 			return null;
 		} else {
-			Sprite var1 = (Sprite)HitSplatDefinition_cachedSprites.get((long)this.field3365); // L: 128
+			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedSprites.get((long)this.field3365); // L: 128
 			if (var1 != null) { // L: 129
 				return var1;
 			} else {
@@ -303,11 +303,11 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(I)Llm;",
 		garbageValue = "809304727"
 	)
-	public Sprite method4578() {
+	public SpritePixels method4578() {
 		if (this.field3366 < 0) { // L: 137
 			return null;
 		} else {
-			Sprite var1 = (Sprite)HitSplatDefinition_cachedSprites.get((long)this.field3366); // L: 138
+			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedSprites.get((long)this.field3366); // L: 138
 			if (var1 != null) { // L: 139
 				return var1;
 			} else {
@@ -326,11 +326,11 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(I)Llm;",
 		garbageValue = "644601071"
 	)
-	public Sprite method4587() {
+	public SpritePixels method4587() {
 		if (this.field3355 < 0) { // L: 147
 			return null;
 		} else {
-			Sprite var1 = (Sprite)HitSplatDefinition_cachedSprites.get((long)this.field3355); // L: 148
+			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedSprites.get((long)this.field3355); // L: 148
 			if (var1 != null) {
 				return var1; // L: 149
 			} else {
@@ -349,11 +349,11 @@ public class HitSplatDefinition extends DualNode {
 		descriptor = "(S)Llm;",
 		garbageValue = "500"
 	)
-	public Sprite method4585() {
+	public SpritePixels method4585() {
 		if (this.field3358 < 0) { // L: 157
 			return null;
 		} else {
-			Sprite var1 = (Sprite)HitSplatDefinition_cachedSprites.get((long)this.field3358); // L: 158
+			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedSprites.get((long)this.field3358); // L: 158
 			if (var1 != null) {
 				return var1; // L: 159
 			} else {

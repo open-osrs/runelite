@@ -28,13 +28,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.runelite.client.RuneLite;
 
 /**
  * A set of utility functions to use when formatting quantities
@@ -64,20 +60,8 @@ public class QuantityFormatter
 	);
 
 	/**
-	 * Get a localized DateTimeFormatter for use.
-	 *
-	 * @param formatStyle The format style to use for the formatter
-	 * @return The localized DateTimeFormatter
-	 */
-	public static DateTimeFormatter getLocalizedDateTimeFormatter(FormatStyle formatStyle)
-	{
-		return DateTimeFormatter.ofLocalizedTime(formatStyle).withLocale(RuneLite.SYSTEM_LOCALE);
-	}
-
-
-	/**
 	 * Convert a quantity to a short, comma separated, SI-prefix style string
-	 * <p>
+	 *
 	 * example: {@code 9,450}, {@code 2.14B}, {@code 100K}
 	 *
 	 * @param quantity The quantity to convert.
@@ -123,10 +107,10 @@ public class QuantityFormatter
 	/**
 	 * Convert a quantity to a short SI-prefix style string, possibly with a decimal,
 	 * with K after 100,000 and M after 10,000,000
-	 * <p>
+	 * 
 	 * example: {@code 9,450}, {@code 2.1B}, {@code 100K}
-	 *
-	 * @see #quantityToRSDecimalStack(int, boolean)
+	 * 
+	 * @see #quantityToRSDecimalStack(int, boolean) 
 	 */
 	public static String quantityToRSDecimalStack(int quantity)
 	{
@@ -136,7 +120,7 @@ public class QuantityFormatter
 	/**
 	 * Convert a quantity to a short SI-prefix style string, possibly with decimals,
 	 * with K after 100,000 and M after 10,000,000
-	 * <p>
+	 *
 	 * example without {@code precise}: {@code 9,450}, {@code 2.1B}, {@code 8.4M}
 	 * example with {@code precise}: {@code 9,450}, {@code 2.147B}, {@code 8.32M}
 	 *
@@ -177,7 +161,7 @@ public class QuantityFormatter
 
 	/**
 	 * Formats a number to be comma delimited. No suffixes are given
-	 * <p>
+	 *
 	 * example: {@code 10,123,351}, {@code 5}
 	 */
 	public static synchronized String formatNumber(final long number)
@@ -189,7 +173,7 @@ public class QuantityFormatter
 	/**
 	 * Formats a number to be comma delimited. No suffixes are given. Has at
 	 * most 3 decimal places
-	 * <p>
+	 *
 	 * example: {@code 10,123,351}, {@code 5.612}
 	 */
 	public static synchronized String formatNumber(double number)
@@ -198,7 +182,7 @@ public class QuantityFormatter
 	}
 
 	/**
-	 * Calculates, given a string with a value denominator (ex. 20K)
+	 * Calculates, given a string with a value denominator (for example, 20K)
 	 * the multiplier that the denominator represents (in this case 1000).
 	 *
 	 * @param string The string to check.
@@ -234,22 +218,5 @@ public class QuantityFormatter
 		{
 			return 1;
 		}
-	}
-
-	/**
-	 * Attempts to call the platform to get a localized time string based on
-	 * the users preferences. Falls back on using locale default if it is on a
-	 * platform that has no consistent way of obtaining this information.
-	 *
-	 * @param localDateTime The LocalDateTime object to format as a string
-	 * @return The formatted string.
-	 */
-	public static String getPlatformTimeStringFromLocalDateTime(LocalDateTime localDateTime)
-	{
-		if (OSType.getOSType() == OSType.Windows)
-		{
-			return WinApi.getTimeFormatString(localDateTime);
-		}
-		return QuantityFormatter.getLocalizedDateTimeFormatter(FormatStyle.SHORT).format(localDateTime.toLocalTime());
 	}
 }

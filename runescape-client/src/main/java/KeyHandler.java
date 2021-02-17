@@ -217,7 +217,7 @@ public final class KeyHandler implements KeyListener, FocusListener {
 			class200.field2390 = null; // L: 8921
 			FontName.drawInterface(class9.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7); // L: 8922
 			if (class200.field2390 != null) { // L: 8923
-				FontName.drawInterface(class200.field2390, -1412584499, var1, var2, var3, var4, Client.field923, Entity.field1893, var7); // L: 8924
+				FontName.drawInterface(class200.field2390, -1412584499, var1, var2, var3, var4, Client.field923, Renderable.field1893, var7); // L: 8924
 				class200.field2390 = null; // L: 8925
 			}
 

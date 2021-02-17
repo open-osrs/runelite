@@ -24,6 +24,7 @@
  */
 package net.runelite.client.ui.overlay.infobox;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
 import java.awt.Graphics;
@@ -33,7 +34,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -41,10 +41,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import net.runelite.api.MenuOpcode;
+import net.runelite.api.MenuAction;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.InfoBoxMenuClicked;
 import net.runelite.client.ui.overlay.OverlayManager;
@@ -66,9 +67,9 @@ public class InfoBoxManager
 	private static final String FLIP = "Flip";
 	private static final String DELETE = "Delete";
 
-	private static final OverlayMenuEntry DETACH_ME = new OverlayMenuEntry(MenuOpcode.RUNELITE_INFOBOX, DETACH, "InfoBox");
-	private static final OverlayMenuEntry FLIP_ME = new OverlayMenuEntry(MenuOpcode.RUNELITE_INFOBOX, FLIP, "InfoBox Group");
-	private static final OverlayMenuEntry DELETE_ME = new OverlayMenuEntry(MenuOpcode.RUNELITE_INFOBOX, DELETE, "InfoBox Group");
+	private static final OverlayMenuEntry DETACH_ME = new OverlayMenuEntry(MenuAction.RUNELITE_INFOBOX, DETACH, "InfoBox");
+	private static final OverlayMenuEntry FLIP_ME = new OverlayMenuEntry(MenuAction.RUNELITE_INFOBOX, FLIP, "InfoBox Group");
+	private static final OverlayMenuEntry DELETE_ME = new OverlayMenuEntry(MenuAction.RUNELITE_INFOBOX, DELETE, "InfoBox Group");
 
 	private final Map<String, InfoBoxOverlay> layers = new ConcurrentHashMap<>();
 
@@ -80,13 +81,13 @@ public class InfoBoxManager
 	private final ConfigManager configManager;
 
 	@Inject
-	private InfoBoxManager(final RuneLiteConfig runeLiteConfig,
-						final TooltipManager tooltipManager,
-						final Client client,
-						final EventBus eventBus,
-						final OverlayManager overlayManager,
-						final ConfigManager configManager,
-						final EventBus eventbus)
+	private InfoBoxManager(
+		final RuneLiteConfig runeLiteConfig,
+		final TooltipManager tooltipManager,
+		final Client client,
+		final EventBus eventBus,
+		final OverlayManager overlayManager,
+		final ConfigManager configManager)
 	{
 		this.runeLiteConfig = runeLiteConfig;
 		this.tooltipManager = tooltipManager;
@@ -94,21 +95,19 @@ public class InfoBoxManager
 		this.eventBus = eventBus;
 		this.overlayManager = overlayManager;
 		this.configManager = configManager;
-
-		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventbus.subscribe(InfoBoxMenuClicked.class, this, this::onInfoBoxMenuClicked);
 	}
 
-	private void onConfigChanged(ConfigChanged event)
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals("runelite") && event.getKey().equals("infoBoxSize"))
 		{
-
 			layers.values().forEach(l -> l.getInfoBoxes().forEach(this::updateInfoBoxImage));
 		}
 	}
 
-	private void onInfoBoxMenuClicked(InfoBoxMenuClicked event)
+	@Subscribe
+	public void onInfoBoxMenuClicked(InfoBoxMenuClicked event)
 	{
 		if (DETACH.equals(event.getEntry().getOption()))
 		{
@@ -135,7 +134,7 @@ public class InfoBoxManager
 
 	public void addInfoBox(InfoBox infoBox)
 	{
-		Objects.requireNonNull(infoBox);
+		Preconditions.checkNotNull(infoBox);
 		log.debug("Adding InfoBox {}", infoBox);
 
 		updateInfoBoxImage(infoBox);
@@ -241,6 +240,7 @@ public class InfoBoxManager
 			g.dispose();
 			resultImage = scaledImage;
 		}
+
 		infoBox.setScaledImage(resultImage);
 	}
 
@@ -271,7 +271,7 @@ public class InfoBoxManager
 			name,
 			orientation);
 		overlayManager.add(infoBoxOverlay);
-
+		eventBus.register(infoBoxOverlay);
 		return infoBoxOverlay;
 	}
 
@@ -381,7 +381,6 @@ public class InfoBoxManager
 	/**
 	 * Find insertion point for the given key into the given sorted list. If key already exists in the list,
 	 * return the index after the last occurrence.
-	 *
 	 * @param list
 	 * @param key
 	 * @param c

@@ -250,18 +250,18 @@ public class KitDefinition extends DualNode {
 		garbageValue = "-1929348115"
 	)
 	public static void method4491(int var0, int var1) {
-		VarbitDefinition var3 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0); // L: 48
-		VarbitDefinition var2;
+		VarbitComposition var3 = (VarbitComposition) VarbitComposition.VarbitDefinition_cached.get((long)var0); // L: 48
+		VarbitComposition var2;
 		if (var3 != null) { // L: 49
 			var2 = var3; // L: 50
 		} else {
-			byte[] var4 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0); // L: 53
-			var3 = new VarbitDefinition(); // L: 54
+			byte[] var4 = VarbitComposition.VarbitDefinition_archive.takeFile(14, var0); // L: 53
+			var3 = new VarbitComposition(); // L: 54
 			if (var4 != null) { // L: 55
 				var3.decode(new Buffer(var4));
 			}
 
-			VarbitDefinition.VarbitDefinition_cached.put(var3, (long)var0); // L: 56
+			VarbitComposition.VarbitDefinition_cached.put(var3, (long)var0); // L: 56
 			var2 = var3; // L: 57
 		}
 

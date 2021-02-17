@@ -183,7 +183,7 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 					return 1; // L: 2120
 				} else if (var0 == ScriptOpcodes.CLAN_ISSELF) {
 					var3 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 2123
-					if (WorldMapArea.clanChat != null && var3 < WorldMapArea.clanChat.getSize() && WorldMapArea.clanChat.get(var3).getUsername().equals(PlayerAppearance.localPlayer.username)) { // L: 2124
+					if (WorldMapArea.clanChat != null && var3 < WorldMapArea.clanChat.getSize() && WorldMapArea.clanChat.get(var3).getUsername().equals(PlayerComposition.localPlayer.username)) { // L: 2124
 						Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 1; // L: 2125
 					} else {
 						Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 0; // L: 2127

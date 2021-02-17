@@ -59,7 +59,7 @@ public class MappingDumper
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(properties.getRsClient()));
+		group = JarUtil.load(new File(properties.getRsClient()));
 	}
 
 	@Test
@@ -72,7 +72,7 @@ public class MappingDumper
 	@Test
 	public void dump() throws IOException
 	{
-		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));
+		ClassGroup group = JarUtil.load(new File(properties.getRsClient()));
 
 		final String GAP = "%-40s";
 		int classes = 0, methods = 0, fields = 0;
@@ -321,7 +321,7 @@ public class MappingDumper
 	@Test
 	public void dumpTiny() throws IOException
 	{
-		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));
+		ClassGroup group = JarUtil.load(new File(properties.getRsClient()));
 		System.out.println("v1\tofficial\tintermediary");
 		for (ClassFile clazz : group.getClasses())
 		{
@@ -379,7 +379,7 @@ public class MappingDumper
 	@Test
 	public void dumpJson() throws IOException
 	{
-		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));
+		ClassGroup group = JarUtil.load(new File(properties.getRsClient()));
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonObject jObject = new JsonObject();

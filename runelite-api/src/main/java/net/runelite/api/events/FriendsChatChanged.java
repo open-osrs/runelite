@@ -30,7 +30,7 @@ import lombok.Value;
  * An event where the client has joined or left a friends chat.
  */
 @Value
-public class FriendsChatChanged implements Event
+public class FriendsChatChanged
 {
 	/**
 	 * Whether or not the client is now in a friends chat.

@@ -26,10 +26,10 @@ package net.runelite.mixins;
 
 import java.awt.Shape;
 import net.runelite.api.AnimationID;
-import net.runelite.api.NPCDefinition;
+import net.runelite.api.NPCComposition;
 import net.runelite.api.Perspective;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.events.NpcDefinitionChanged;
+import net.runelite.api.events.NpcChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
@@ -40,7 +40,7 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSNPC;
-import net.runelite.rs.api.RSNPCDefinition;
+import net.runelite.rs.api.RSNPCComposition;
 
 @Mixin(RSNPC.class)
 public abstract class RSNPCMixin implements RSNPC
@@ -55,7 +55,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public int getId()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -67,7 +67,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public String getName()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -79,7 +79,7 @@ public abstract class RSNPCMixin implements RSNPC
 	@Override
 	public int getCombatLevel()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -103,15 +103,26 @@ public abstract class RSNPCMixin implements RSNPC
 
 	@FieldHook(value = "definition", before = true)
 	@Inject
-	public void onDefinitionChanged(RSNPCDefinition composition)
+	public void onDefinitionChanged(RSNPCComposition composition)
 	{
 		if (composition == null)
 		{
-			client.getCallbacks().post(NpcDespawned.class, new NpcDespawned(this));
+			client.getCallbacks().post(new NpcDespawned(this));
 		}
 		else if (this.getId() != -1)
 		{
-			client.getCallbacks().post(NpcDefinitionChanged.class, new NpcDefinitionChanged(this));
+			RSNPCComposition oldComposition = getComposition();
+			if (oldComposition == null)
+			{
+				return;
+			}
+
+			if (composition.getId() == oldComposition.getId())
+			{
+				return;
+			}
+
+			client.getCallbacks().postDeferred(new NpcChanged(this, oldComposition));
 		}
 	}
 
@@ -134,7 +145,7 @@ public abstract class RSNPCMixin implements RSNPC
 			// without having to change method calls
 			setActionFrame(Integer.MIN_VALUE | getActionFrameCycle() << 16 | actionFrame);
 			setPoseFrame(Integer.MIN_VALUE | getPoseFrameCycle() << 16 | poseFrame);
-			setSpotAnimationFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
+			setSpotAnimFrame(Integer.MIN_VALUE | getSpotAnimationFrameCycle() << 16 | spotAnimFrame);
 			return copy$getModel();
 		}
 		finally
@@ -142,15 +153,15 @@ public abstract class RSNPCMixin implements RSNPC
 			// reset frames
 			setActionFrame(actionFrame);
 			setPoseFrame(poseFrame);
-			setSpotAnimationFrame(spotAnimFrame);
+			setSpotAnimFrame(spotAnimFrame);
 		}
 	}
 
 	@Inject
 	@Override
-	public NPCDefinition getTransformedDefinition()
+	public NPCComposition getTransformedComposition()
 	{
-		RSNPCDefinition composition = getDefinition();
+		RSNPCComposition composition = getComposition();
 		if (composition != null && composition.getConfigs() != null)
 		{
 			composition = composition.transform();
@@ -168,7 +179,7 @@ public abstract class RSNPCMixin implements RSNPC
 			return null;
 		}
 
-		int size = getDefinition().getSize();
+		int size = getComposition().getSize();
 		LocalPoint tileHeightPoint = new LocalPoint(
 			size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + getX(),
 			size * Perspective.LOCAL_HALF_TILE_SIZE - Perspective.LOCAL_HALF_TILE_SIZE + getY());

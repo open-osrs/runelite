@@ -33,7 +33,7 @@ import net.runelite.api.Constants;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameState;
 import net.runelite.api.GroundObject;
-import net.runelite.api.TileItemPile;
+import net.runelite.api.ItemLayer;
 import net.runelite.api.Node;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
@@ -61,10 +61,10 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSActor;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSEntity;
+import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSGameObject;
 import net.runelite.rs.api.RSGraphicsObject;
-import net.runelite.rs.api.RSTileItemPile;
+import net.runelite.rs.api.RSItemLayer;
 import net.runelite.rs.api.RSNode;
 import net.runelite.rs.api.RSNodeDeque;
 import net.runelite.rs.api.RSProjectile;
@@ -237,7 +237,7 @@ public abstract class RSTileMixin implements RSTile
 	@Override
 	public List<TileItem> getGroundItems()
 	{
-		TileItemPile layer = this.getItemLayer();
+		ItemLayer layer = this.getItemLayer();
 		if (layer == null)
 		{
 			return null;
@@ -270,14 +270,14 @@ public abstract class RSTileMixin implements RSTile
 			WallObjectDespawned wallObjectDespawned = new WallObjectDespawned();
 			wallObjectDespawned.setTile(this);
 			wallObjectDespawned.setWallObject(previous);
-			client.getCallbacks().post(WallObjectDespawned.class, wallObjectDespawned);
+			client.getCallbacks().post(wallObjectDespawned);
 		}
 		else if (current != null && previous == null)
 		{
 			WallObjectSpawned wallObjectSpawned = new WallObjectSpawned();
 			wallObjectSpawned.setTile(this);
 			wallObjectSpawned.setWallObject(current);
-			client.getCallbacks().post(WallObjectSpawned.class, wallObjectSpawned);
+			client.getCallbacks().post(wallObjectSpawned);
 		}
 		else if (current != null)
 		{
@@ -285,7 +285,7 @@ public abstract class RSTileMixin implements RSTile
 			wallObjectChanged.setTile(this);
 			wallObjectChanged.setPrevious(previous);
 			wallObjectChanged.setWallObject(current);
-			client.getCallbacks().post(WallObjectChanged.class, wallObjectChanged);
+			client.getCallbacks().post(wallObjectChanged);
 		}
 	}
 
@@ -303,14 +303,14 @@ public abstract class RSTileMixin implements RSTile
 			DecorativeObjectDespawned decorativeObjectDespawned = new DecorativeObjectDespawned();
 			decorativeObjectDespawned.setTile(this);
 			decorativeObjectDespawned.setDecorativeObject(previous);
-			client.getCallbacks().post(DecorativeObjectDespawned.class, decorativeObjectDespawned);
+			client.getCallbacks().post(decorativeObjectDespawned);
 		}
 		else if (current != null && previous == null)
 		{
 			DecorativeObjectSpawned decorativeObjectSpawned = new DecorativeObjectSpawned();
 			decorativeObjectSpawned.setTile(this);
 			decorativeObjectSpawned.setDecorativeObject(current);
-			client.getCallbacks().post(DecorativeObjectSpawned.class, decorativeObjectSpawned);
+			client.getCallbacks().post(decorativeObjectSpawned);
 		}
 		else if (current != null)
 		{
@@ -318,7 +318,7 @@ public abstract class RSTileMixin implements RSTile
 			decorativeObjectChanged.setTile(this);
 			decorativeObjectChanged.setPrevious(previous);
 			decorativeObjectChanged.setDecorativeObject(current);
-			client.getCallbacks().post(DecorativeObjectChanged.class, decorativeObjectChanged);
+			client.getCallbacks().post(decorativeObjectChanged);
 		}
 	}
 
@@ -336,14 +336,14 @@ public abstract class RSTileMixin implements RSTile
 			GroundObjectDespawned groundObjectDespawned = new GroundObjectDespawned();
 			groundObjectDespawned.setTile(this);
 			groundObjectDespawned.setGroundObject(previous);
-			client.getCallbacks().post(GroundObjectDespawned.class, groundObjectDespawned);
+			client.getCallbacks().post(groundObjectDespawned);
 		}
 		else if (current != null && previous == null)
 		{
 			GroundObjectSpawned groundObjectSpawned = new GroundObjectSpawned();
 			groundObjectSpawned.setTile(this);
 			groundObjectSpawned.setGroundObject(current);
-			client.getCallbacks().post(GroundObjectSpawned.class, groundObjectSpawned);
+			client.getCallbacks().post(groundObjectSpawned);
 		}
 		else if (current != null)
 		{
@@ -351,7 +351,7 @@ public abstract class RSTileMixin implements RSTile
 			groundObjectChanged.setTile(this);
 			groundObjectChanged.setPrevious(previous);
 			groundObjectChanged.setGroundObject(current);
-			client.getCallbacks().post(GroundObjectChanged.class, groundObjectChanged);
+			client.getCallbacks().post(groundObjectChanged);
 		}
 	}
 
@@ -403,13 +403,13 @@ public abstract class RSTileMixin implements RSTile
 		boolean currentInvalid = false, prevInvalid = false;
 		if (current != null)
 		{
-			RSEntity renderable = current.getEntity();
+			RSRenderable renderable = current.getRenderable();
 			currentInvalid = renderable instanceof RSActor || renderable instanceof RSProjectile || renderable instanceof RSGraphicsObject;
 		}
 
 		if (previous != null)
 		{
-			RSEntity renderable = previous.getEntity();
+			RSRenderable renderable = previous.getRenderable();
 			prevInvalid = renderable instanceof RSActor || renderable instanceof RSProjectile || renderable instanceof RSGraphicsObject;
 		}
 
@@ -426,7 +426,7 @@ public abstract class RSTileMixin implements RSTile
 			GameObjectDespawned gameObjectDespawned = new GameObjectDespawned();
 			gameObjectDespawned.setTile(this);
 			gameObjectDespawned.setGameObject(previous);
-			client.getCallbacks().post(GameObjectDespawned.class, gameObjectDespawned);
+			client.getCallbacks().post(gameObjectDespawned);
 		}
 		else if (previous == null)
 		{
@@ -437,8 +437,10 @@ public abstract class RSTileMixin implements RSTile
 
 			logger.trace("Game object spawn: {}", current.getId());
 
-			GameObjectSpawned gameObjectSpawned = new GameObjectSpawned(this, current);
-			client.getCallbacks().post(GameObjectSpawned.class, gameObjectSpawned);
+			GameObjectSpawned gameObjectSpawned = new GameObjectSpawned();
+			gameObjectSpawned.setTile(this);
+			gameObjectSpawned.setGameObject(current);
+			client.getCallbacks().post(gameObjectSpawned);
 		}
 		else
 		{
@@ -453,11 +455,11 @@ public abstract class RSTileMixin implements RSTile
 			gameObjectsChanged.setTile(this);
 			gameObjectsChanged.setPrevious(previous);
 			gameObjectsChanged.setGameObject(current);
-			client.getCallbacks().post(GameObjectChanged.class, gameObjectsChanged);
+			client.getCallbacks().post(gameObjectsChanged);
 		}
 	}
 
-	@FieldHook("tileItemPile")
+	@FieldHook("itemLayer")
 	@Inject
 	public void itemLayerChanged(int idx)
 	{
@@ -486,7 +488,7 @@ public abstract class RSTileMixin implements RSTile
 				{
 					RSTileItem item = (RSTileItem) cur;
 					ItemDespawned itemDespawned = new ItemDespawned(this, item);
-					client.getCallbacks().post(ItemDespawned.class, itemDespawned);
+					client.getCallbacks().post(itemDespawned);
 				}
 			}
 			lastGroundItems[z][x][y] = newQueue;
@@ -498,13 +500,13 @@ public abstract class RSTileMixin implements RSTile
 			client.setLastItemDespawn(null);
 		}
 
-		RSTileItemPile itemLayer = (RSTileItemPile) getItemLayer();
+		RSItemLayer itemLayer = (RSItemLayer) getItemLayer();
 		if (itemLayer == null)
 		{
 			if (lastUnlink != null)
 			{
 				ItemDespawned itemDespawned = new ItemDespawned(this, lastUnlink);
-				client.getCallbacks().post(ItemDespawned.class, itemDespawned);
+				client.getCallbacks().post(itemDespawned);
 			}
 			return;
 		}
@@ -514,7 +516,7 @@ public abstract class RSTileMixin implements RSTile
 			if (lastUnlink != null)
 			{
 				ItemDespawned itemDespawned = new ItemDespawned(this, lastUnlink);
-				client.getCallbacks().post(ItemDespawned.class, itemDespawned);
+				client.getCallbacks().post(itemDespawned);
 			}
 			return;
 		}
@@ -547,7 +549,7 @@ public abstract class RSTileMixin implements RSTile
 		if (lastUnlink != null && lastUnlink != next && lastUnlink != previous)
 		{
 			ItemDespawned itemDespawned = new ItemDespawned(this, lastUnlink);
-			client.getCallbacks().post(ItemDespawned.class, itemDespawned);
+			client.getCallbacks().post(itemDespawned);
 		}
 
 		if (current != null)
@@ -555,7 +557,7 @@ public abstract class RSTileMixin implements RSTile
 			current.setX(x);
 			current.setY(y);
 			ItemSpawned event = new ItemSpawned(this, current);
-			client.getCallbacks().post(ItemSpawned.class, event);
+			client.getCallbacks().post(event);
 		}
 	}
 }

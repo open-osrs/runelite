@@ -177,14 +177,14 @@ public class ClientPreferences {
 		descriptor = "(Lib;IIB)[Llm;",
 		garbageValue = "93"
 	)
-	public static Sprite[] method1918(AbstractArchive var0, int var1, int var2) {
+	public static SpritePixels[] method1918(AbstractArchive var0, int var1, int var2) {
 		if (!class304.method5363(var0, var1, var2)) { // L: 23
 			return null;
 		} else {
-			Sprite[] var4 = new Sprite[class336.SpriteBuffer_spriteCount]; // L: 26
+			SpritePixels[] var4 = new SpritePixels[class336.SpriteBuffer_spriteCount]; // L: 26
 
 			for (int var5 = 0; var5 < class336.SpriteBuffer_spriteCount; ++var5) { // L: 27
-				Sprite var6 = var4[var5] = new Sprite(); // L: 28
+				SpritePixels var6 = var4[var5] = new SpritePixels(); // L: 28
 				var6.width = DirectByteArrayCopier.SpriteBuffer_spriteWidth; // L: 29
 				var6.height = class336.SpriteBuffer_spriteHeight; // L: 30
 				var6.xOffset = class336.SpriteBuffer_xOffsets[var5]; // L: 31

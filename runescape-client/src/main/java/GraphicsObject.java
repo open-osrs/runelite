@@ -6,7 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ce")
 @Implements("GraphicsObject")
-public final class GraphicsObject extends Entity {
+public final class GraphicsObject extends Renderable
+{
 	@ObfuscatedName("a")
 	public static String[] field1117;
 	@ObfuscatedName("h")
@@ -80,7 +81,7 @@ public final class GraphicsObject extends Entity {
 		int var8 = TileItem.SpotAnimationDefinition_get(this.id).sequence; // L: 27
 		if (var8 != -1) { // L: 28
 			this.isFinished = false; // L: 29
-			this.sequenceDefinition = ParamDefinition.SequenceDefinition_get(var8); // L: 30
+			this.sequenceDefinition = ParamComposition.SequenceDefinition_get(var8); // L: 30
 		} else {
 			this.isFinished = true; // L: 32
 		}

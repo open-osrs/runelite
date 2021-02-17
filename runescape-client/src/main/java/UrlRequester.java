@@ -24,7 +24,7 @@ public class UrlRequester implements Runnable {
 		descriptor = "Llm;"
 	)
 	@Export("compass")
-	static Sprite compass;
+	static SpritePixels compass;
 	@ObfuscatedName("h")
 	@Export("thread")
 	final Thread thread;
@@ -123,7 +123,7 @@ public class UrlRequester implements Runnable {
 
 				}
 			} catch (Exception var17) {
-				PlayerAppearance.RunException_sendStackTrace((String)null, var17);
+				PlayerComposition.RunException_sendStackTrace((String)null, var17);
 			}
 		}
 

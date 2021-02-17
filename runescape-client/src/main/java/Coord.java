@@ -111,18 +111,18 @@ public class Coord {
 	)
 	@Export("getVarbit")
 	public static int getVarbit(int var0) {
-		VarbitDefinition var2 = (VarbitDefinition)VarbitDefinition.VarbitDefinition_cached.get((long)var0); // L: 26
-		VarbitDefinition var1;
+		VarbitComposition var2 = (VarbitComposition) VarbitComposition.VarbitDefinition_cached.get((long)var0); // L: 26
+		VarbitComposition var1;
 		if (var2 != null) { // L: 27
 			var1 = var2; // L: 28
 		} else {
-			byte[] var3 = VarbitDefinition.VarbitDefinition_archive.takeFile(14, var0); // L: 31
-			var2 = new VarbitDefinition(); // L: 32
+			byte[] var3 = VarbitComposition.VarbitDefinition_archive.takeFile(14, var0); // L: 31
+			var2 = new VarbitComposition(); // L: 32
 			if (var3 != null) { // L: 33
 				var2.decode(new Buffer(var3));
 			}
 
-			VarbitDefinition.VarbitDefinition_cached.put(var2, (long)var0); // L: 34
+			VarbitComposition.VarbitDefinition_cached.put(var2, (long)var0); // L: 34
 			var1 = var2; // L: 35
 		}
 

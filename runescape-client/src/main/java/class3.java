@@ -165,7 +165,7 @@ public class class3 implements Enumerated {
 	static boolean method42(Player var0) {
 		if (Client.drawPlayerNames == 0) { // L: 4799
 			return false;
-		} else if (PlayerAppearance.localPlayer != var0) { // L: 4800
+		} else if (PlayerComposition.localPlayer != var0) { // L: 4800
 			boolean var1 = (Client.drawPlayerNames & 4) != 0; // L: 4803
 			boolean var2 = var1; // L: 4805
 			if (!var1) { // L: 4806

@@ -30,7 +30,7 @@ public class class234 {
 		garbageValue = "1847408099"
 	)
 	static final boolean method4159(int var0, int var1) {
-		ObjectDefinition var2 = WorldMapDecoration.getObjectDefinition(var0); // L: 892
+		ObjectComposition var2 = WorldMapDecoration.getObjectDefinition(var0); // L: 892
 		if (var1 == 11) { // L: 893
 			var1 = 10;
 		}

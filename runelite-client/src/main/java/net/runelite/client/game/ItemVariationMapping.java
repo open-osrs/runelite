@@ -98,9 +98,4 @@ public class ItemVariationMapping
 	{
 		return INVERTED_MAPPINGS.asMap().getOrDefault(itemId, Collections.singletonList(itemId));
 	}
-
-	static int getSize()
-	{
-		return MAPPINGS.size();
-	}
 }

@@ -32,6 +32,11 @@ plugins {
     java
 }
 
+repositories {
+    maven {
+        url = uri("https://repo.runelite.net")
+    }
+}
 
 apply<BootstrapPlugin>()
 
@@ -74,11 +79,24 @@ dependencies {
         exclude(group = "org.slf4j")
     }
     implementation(group = "org.pf4j", name = "pf4j-update", version = "2.3.0")
+    implementation(group = "com.google.archivepatcher", name = "archive-patch-applier", version= "1.0.4")
     implementation(project(":http-api"))
+    implementation(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429")
+    implementation(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429")
+    implementation(group = "net.runelite.jocl", name = "jocl", version = "1.0")
 
     runtimeOnly(group = "org.pushing-pixels", name = "radiance-trident", version = "2.5.1")
-    runtimeOnly(project(":injected-client"))
     runtimeOnly(project(":runescape-api"))
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-linux-amd64")
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-windows-amd64")
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-windows-i586")
+    runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429", classifier = "natives-macosx-universal")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-linux-amd64")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-windows-amd64")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-windows-i586")
+    runtimeOnly(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429", classifier = "natives-macosx-universal")
+    runtimeOnly(group = "net.runelite.jocl", name = "jocl", version = "1.0", classifier = "macos-x64")
+    runtimeOnly(group = "net.runelite.jocl", name = "jocl", version = "1.0", classifier = "macos-arm64")
 
     testAnnotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.16")
 
@@ -111,7 +129,8 @@ tasks {
     }
 
     processResources {
-        finalizedBy("filterResources")
+        dependsOn(":injector:build")
+        finalizedBy("filterResources", "packInjectedClient")
     }
 
     register<Copy>("filterResources") {
@@ -131,6 +150,12 @@ tasks {
 
         filter(ReplaceTokens::class, "tokens" to tokens)
         filteringCharset = "UTF-8"
+    }
+
+    register<Copy>("packInjectedClient") {
+        from("src/main/resources/")
+        include("**/injected-client.oprs")
+        into("${buildDir}/resources/main")
     }
 
     jar {

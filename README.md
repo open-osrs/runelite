@@ -2,12 +2,21 @@
 
 
 
-# OpenOSRS  
+# OpenOSRS injected RuneLite 
 
 [![Build Status](https://github.com/open-osrs/runelite/workflows/OpenOSRS%20-%20CI%20(push)/badge.svg)](https://github.com/open-osrs/runelite/actions?query=workflow%3A%22OpenOSRS+-+CI+%28push%29%22)
 [![HitCount](http://hits.dwyl.io/open-osrs/runelite.svg)](http://hits.dwyl.io/open-osrs/runelite)  
-[OpenOSRS](https://openosrs.com) is a fully open-source client with no restrictions. We are not affiliated with Jagex or RuneLite.
+[OpenOSRS](https://openosrs.com) is a fully open-source client with no restrictions. We are not affiliated with Jagex or RuneLite.  
+  
+This is a special branch that uses the upstream client (RuneLite) with the OpenOSRS injector. (bundled)  
 
+From the root module, run the following gradle tasks:  
+```clean build run```
+  
+This branch is still in bringup but most functionality works as intended.  
+This branch uses upstreams PlayerManager/OverlayManager etc so keep that in mind if porting a plugin.  
+  
+Contributions are welcome, but there should be no changes made to runelite-client unless necessary/minor. Mould the api around the client.
 ## Discord  
 
 [![Discord](https://img.shields.io/discord/373382904769675265.svg)](https://discord.gg/openosrs)
@@ -17,7 +26,7 @@
 - [cache](cache/src/main/java/net/runelite/cache) - Libraries used for reading/writing cache files, as well as the data in it
 - [deobfuscator](deobfuscator/src/main/java/net/runelite/deob) - Can decompile and cleanup gamepacks as well as map updates to newer revs
 - [http-api](http-api/src/main/java/net/runelite/http/api) - API for runelite and OpenOSRS
-- [injector-plugin](injector-plugin/src/main/java/net/runelite/injector) - Tool for implementing our modifications to the gamepack
+- [injector](injector/src/main/java/com/openosrs/injector) - Bytecode weaver that allows us to add code to the obfuscated gamepack
 - [runelite-api](runelite-api/src/main/java/net/runelite/api) - RuneLite API, interfaces for accessing the client
 - [runelite-mixins](runelite-mixins/src/main/java/net/runelite) - Classes containing the Objects to be injected using the injector-plugin
 - [runescape-api](runescape-api/src/main/java/net/runelite) - Mappings correspond to these interfaces, runelite-api is a subset of this

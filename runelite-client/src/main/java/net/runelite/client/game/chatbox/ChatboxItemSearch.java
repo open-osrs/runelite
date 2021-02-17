@@ -37,7 +37,7 @@ import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.Value;
 import net.runelite.api.Client;
-import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemComposition;
 import net.runelite.api.widgets.ItemQuantityMode;
 import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
@@ -63,7 +63,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 	private final ItemManager itemManager;
 	private final Client client;
 
-	private final Map<Integer, ItemDefinition> results = new LinkedHashMap<>();
+	private final Map<Integer, ItemComposition> results = new LinkedHashMap<>();
 	private String tooltipText;
 	private int index = -1;
 
@@ -80,7 +80,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 
 	@Inject
 	private ChatboxItemSearch(ChatboxPanelManager chatboxPanelManager, ClientThread clientThread,
-							ItemManager itemManager, Client client)
+		ItemManager itemManager, Client client)
 	{
 		super(chatboxPanelManager, clientThread);
 		this.chatboxPanelManager = chatboxPanelManager;
@@ -133,7 +133,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 		int x = PADDING;
 		int y = PADDING * 3;
 		int idx = 0;
-		for (ItemDefinition itemDefinition : results.values())
+		for (ItemComposition itemComposition : results.values())
 		{
 			Widget item = container.createChild(-1, WidgetType.GRAPHIC);
 			item.setXPositionMode(WidgetPositionMode.ABSOLUTE_LEFT);
@@ -142,8 +142,8 @@ public class ChatboxItemSearch extends ChatboxTextInput
 			item.setOriginalY(y + FONT_SIZE * 2);
 			item.setOriginalHeight(ICON_HEIGHT);
 			item.setOriginalWidth(ICON_WIDTH);
-			item.setName(JagexColors.MENU_TARGET_TAG + itemDefinition.getName());
-			item.setItemId(itemDefinition.getId());
+			item.setName(JagexColors.MENU_TARGET_TAG + itemComposition.getName());
+			item.setItemId(itemComposition.getId());
 			item.setItemQuantity(10000);
 			item.setItemQuantityMode(ItemQuantityMode.NEVER);
 			item.setBorderType(1);
@@ -164,7 +164,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 			{
 				if (onItemSelected != null)
 				{
-					onItemSelected.accept(itemDefinition.getId());
+					onItemSelected.accept(itemComposition.getId());
 				}
 
 				chatboxPanelManager.close();
@@ -198,7 +198,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 				{
 					if (onItemSelected != null)
 					{
-						onItemSelected.accept(results.keySet().toArray(new Integer[0])[index]);
+						onItemSelected.accept(results.keySet().toArray(new Integer[results.size()])[index]);
 					}
 
 					chatboxPanelManager.close();
@@ -307,7 +307,7 @@ public class ChatboxItemSearch extends ChatboxTextInput
 		Set<ItemIcon> itemIcons = new HashSet<>();
 		for (int i = 0; i < client.getItemCount() && results.size() < MAX_RESULTS; i++)
 		{
-			ItemDefinition itemComposition = itemManager.getItemDefinition(itemManager.canonicalize(i));
+			ItemComposition itemComposition = itemManager.getItemComposition(itemManager.canonicalize(i));
 			String name = itemComposition.getName().toLowerCase();
 
 			// The client assigns "null" to item names of items it doesn't know about

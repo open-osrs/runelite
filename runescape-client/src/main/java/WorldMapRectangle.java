@@ -57,7 +57,7 @@ public final class WorldMapRectangle {
 		garbageValue = "470419605"
 	)
 	static int method331(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1124
+		Widget var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 1124
 		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1125
 			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = ServerPacket.Widget_unpackTargetMask(FaceNormal.getWidgetFlags(var3)); // L: 1126
 			return 1; // L: 1127
@@ -113,34 +113,34 @@ public final class WorldMapRectangle {
 		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear(); // L: 2863
 		MusicPatchPcmStream.method3953(); // L: 2865
 		UserComparator2.method5959(); // L: 2866
-		ObjectDefinition.ObjectDefinition_cached.clear(); // L: 2868
-		ObjectDefinition.ObjectDefinition_cachedModelData.clear(); // L: 2869
-		ObjectDefinition.ObjectDefinition_cachedEntities.clear(); // L: 2870
-		ObjectDefinition.ObjectDefinition_cachedModels.clear(); // L: 2871
+		ObjectComposition.ObjectDefinition_cached.clear(); // L: 2868
+		ObjectComposition.ObjectDefinition_cachedModelData.clear(); // L: 2869
+		ObjectComposition.ObjectDefinition_cachedEntities.clear(); // L: 2870
+		ObjectComposition.ObjectDefinition_cachedModels.clear(); // L: 2871
 		WorldMapIcon_1.method339(); // L: 2873
 		TileItem.method2187(); // L: 2874
 		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 2876
 		SequenceDefinition.SequenceDefinition_cachedFrames.clear(); // L: 2877
 		WallDecoration.method3379(); // L: 2879
-		VarbitDefinition.VarbitDefinition_cached.clear(); // L: 2881
+		VarbitComposition.VarbitDefinition_cached.clear(); // L: 2881
 		WorldMapID.method601(); // L: 2883
 		HealthBarDefinition.method4509(); // L: 2884
 		VarcInt.method4426(); // L: 2885
-		StructDefinition.StructDefinition_cached.clear(); // L: 2887
+		StructComposition.StructDefinition_cached.clear(); // L: 2887
 		StudioGame.method4185(); // L: 2889
 		WorldMapElement.WorldMapElement_cachedSprites.clear(); // L: 2891
-		PlayerAppearance.PlayerAppearance_cachedModels.clear(); // L: 2894
+		PlayerComposition.PlayerAppearance_cachedModels.clear(); // L: 2894
 		Widget.Widget_cachedSprites.clear(); // L: 2897
 		Widget.Widget_cachedModels.clear(); // L: 2898
 		Widget.Widget_cachedFonts.clear(); // L: 2899
 		Widget.Widget_cachedSpriteMasks.clear(); // L: 2900
 		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear(); // L: 2902
 		Script.Script_cached.clear(); // L: 2903
-		TilePaint.archive0.clearFiles(); // L: 2904
+		SceneTilePaint.archive0.clearFiles(); // L: 2904
 		WorldMapSprite.archive1.clearFiles(); // L: 2905
 		class330.archive3.clearFiles(); // L: 2906
 		class227.archive4.clearFiles(); // L: 2907
-		GameShell.archive5.clearFiles(); // L: 2908
+		GameEngine.archive5.clearFiles(); // L: 2908
 		class217.archive6.clearFiles(); // L: 2909
 		BuddyRankComparator.archive7.clearFiles(); // L: 2910
 		Messages.archive8.clearFiles(); // L: 2911

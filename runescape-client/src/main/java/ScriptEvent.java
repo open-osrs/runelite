@@ -112,7 +112,7 @@ public class ScriptEvent extends Node {
 		garbageValue = "-82"
 	)
 	static final void method1259(int var0, int var1, int var2, int var3, int var4, int var5, int var6, Scene var7, CollisionMap var8) {
-		ObjectDefinition var9 = WorldMapDecoration.getObjectDefinition(var4); // L: 899
+		ObjectComposition var9 = WorldMapDecoration.getObjectDefinition(var4); // L: 899
 		int var10;
 		int var11;
 		if (var5 != 1 && var5 != 3) { // L: 902
@@ -158,10 +158,10 @@ public class ScriptEvent extends Node {
 			if (var9.animationId == -1 && var9.transforms == null) { // L: 939
 				var30 = var9.getModel(22, var5, var16, var18, var17, var19);
 			} else {
-				var30 = new DynamicObject(var4, 22, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 940
+				var30 = new DynamicObject(var4, 22, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 940
 			}
 
-			var7.newFloorDecoration(var0, var2, var3, var17, (Entity)var30, var20, var22); // L: 941
+			var7.newFloorDecoration(var0, var2, var3, var17, (Renderable)var30, var20, var22); // L: 941
 			if (var9.interactType == 1) { // L: 942
 				var8.setBlockedByFloorDec(var2, var3);
 			}
@@ -171,10 +171,10 @@ public class ScriptEvent extends Node {
 				if (var9.animationId == -1 && var9.transforms == null) { // L: 955
 					var30 = var9.getModel(var6, var5, var16, var18, var17, var19);
 				} else {
-					var30 = new DynamicObject(var4, var6, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 956
+					var30 = new DynamicObject(var4, var6, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 956
 				}
 
-				var7.method3160(var0, var2, var3, var17, 1, 1, (Entity)var30, 0, var20, var22); // L: 957
+				var7.method3160(var0, var2, var3, var17, 1, 1, (Renderable)var30, 0, var20, var22); // L: 957
 				if (var9.interactType != 0) { // L: 958
 					var8.addGameObject(var2, var3, var10, var11, var9.boolean1);
 				}
@@ -183,10 +183,10 @@ public class ScriptEvent extends Node {
 				if (var9.animationId == -1 && var9.transforms == null) { // L: 963
 					var30 = var9.getModel(0, var5, var16, var18, var17, var19);
 				} else {
-					var30 = new DynamicObject(var4, 0, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 964
+					var30 = new DynamicObject(var4, 0, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 964
 				}
 
-				var7.newBoundaryObject(var0, var2, var3, var17, (Entity)var30, (Entity)null, Tiles.field512[var5], 0, var20, var22); // L: 965
+				var7.newBoundaryObject(var0, var2, var3, var17, (Renderable)var30, (Renderable)null, Tiles.field512[var5], 0, var20, var22); // L: 965
 				if (var9.interactType != 0) { // L: 966
 					var8.method3611(var2, var3, var6, var5, var9.boolean1);
 				}
@@ -195,10 +195,10 @@ public class ScriptEvent extends Node {
 				if (var9.animationId == -1 && var9.transforms == null) { // L: 971
 					var30 = var9.getModel(1, var5, var16, var18, var17, var19);
 				} else {
-					var30 = new DynamicObject(var4, 1, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 972
+					var30 = new DynamicObject(var4, 1, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 972
 				}
 
-				var7.newBoundaryObject(var0, var2, var3, var17, (Entity)var30, (Entity)null, Tiles.field513[var5], 0, var20, var22); // L: 973
+				var7.newBoundaryObject(var0, var2, var3, var17, (Renderable)var30, (Renderable)null, Tiles.field513[var5], 0, var20, var22); // L: 973
 				if (var9.interactType != 0) { // L: 974
 					var8.method3611(var2, var3, var6, var5, var9.boolean1);
 				}
@@ -213,11 +213,11 @@ public class ScriptEvent extends Node {
 						var31 = var9.getModel(2, var5 + 4, var16, var18, var17, var19); // L: 982
 						var25 = var9.getModel(2, var23, var16, var18, var17, var19); // L: 983
 					} else {
-						var31 = new DynamicObject(var4, 2, var5 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 986
-						var25 = new DynamicObject(var4, 2, var23, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 987
+						var31 = new DynamicObject(var4, 2, var5 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 986
+						var25 = new DynamicObject(var4, 2, var23, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 987
 					}
 
-					var7.newBoundaryObject(var0, var2, var3, var17, (Entity)var31, (Entity)var25, Tiles.field512[var5], Tiles.field512[var23], var20, var22); // L: 989
+					var7.newBoundaryObject(var0, var2, var3, var17, (Renderable)var31, (Renderable)var25, Tiles.field512[var5], Tiles.field512[var23], var20, var22); // L: 989
 					if (var9.interactType != 0) { // L: 990
 						var8.method3611(var2, var3, var6, var5, var9.boolean1);
 					}
@@ -226,10 +226,10 @@ public class ScriptEvent extends Node {
 					if (var9.animationId == -1 && var9.transforms == null) { // L: 995
 						var30 = var9.getModel(3, var5, var16, var18, var17, var19);
 					} else {
-						var30 = new DynamicObject(var4, 3, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 996
+						var30 = new DynamicObject(var4, 3, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 996
 					}
 
-					var7.newBoundaryObject(var0, var2, var3, var17, (Entity)var30, (Entity)null, Tiles.field513[var5], 0, var20, var22); // L: 997
+					var7.newBoundaryObject(var0, var2, var3, var17, (Renderable)var30, (Renderable)null, Tiles.field513[var5], 0, var20, var22); // L: 997
 					if (var9.interactType != 0) { // L: 998
 						var8.method3611(var2, var3, var6, var5, var9.boolean1);
 					}
@@ -238,10 +238,10 @@ public class ScriptEvent extends Node {
 					if (var9.animationId == -1 && var9.transforms == null) { // L: 1003
 						var30 = var9.getModel(var6, var5, var16, var18, var17, var19);
 					} else {
-						var30 = new DynamicObject(var4, var6, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 1004
+						var30 = new DynamicObject(var4, var6, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 1004
 					}
 
-					var7.method3160(var0, var2, var3, var17, 1, 1, (Entity)var30, 0, var20, var22); // L: 1005
+					var7.method3160(var0, var2, var3, var17, 1, 1, (Renderable)var30, 0, var20, var22); // L: 1005
 					if (var9.interactType != 0) { // L: 1006
 						var8.addGameObject(var2, var3, var10, var11, var9.boolean1);
 					}
@@ -250,10 +250,10 @@ public class ScriptEvent extends Node {
 					if (var9.animationId == -1 && var9.transforms == null) { // L: 1011
 						var30 = var9.getModel(4, var5, var16, var18, var17, var19);
 					} else {
-						var30 = new DynamicObject(var4, 4, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 1012
+						var30 = new DynamicObject(var4, 4, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 1012
 					}
 
-					var7.newWallDecoration(var0, var2, var3, var17, (Entity)var30, (Entity)null, Tiles.field512[var5], 0, 0, 0, var20, var22); // L: 1013
+					var7.newWallDecoration(var0, var2, var3, var17, (Renderable)var30, (Renderable)null, Tiles.field512[var5], 0, 0, 0, var20, var22); // L: 1013
 				} else {
 					long var24;
 					Object var26;
@@ -267,10 +267,10 @@ public class ScriptEvent extends Node {
 						if (var9.animationId == -1 && var9.transforms == null) { // L: 1021
 							var26 = var9.getModel(4, var5, var16, var18, var17, var19);
 						} else {
-							var26 = new DynamicObject(var4, 4, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 1022
+							var26 = new DynamicObject(var4, 4, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 1022
 						}
 
-						var7.newWallDecoration(var0, var2, var3, var17, (Entity)var26, (Entity)null, Tiles.field512[var5], 0, var23 * Tiles.field518[var5], var23 * Tiles.field515[var5], var20, var22); // L: 1023
+						var7.newWallDecoration(var0, var2, var3, var17, (Renderable)var26, (Renderable)null, Tiles.field512[var5], 0, var23 * Tiles.field518[var5], var23 * Tiles.field515[var5], var20, var22); // L: 1023
 					} else if (var6 == 6) { // L: 1026
 						var23 = 8; // L: 1027
 						var24 = var7.getBoundaryObjectTag(var0, var2, var3); // L: 1028
@@ -281,19 +281,19 @@ public class ScriptEvent extends Node {
 						if (var9.animationId == -1 && var9.transforms == null) { // L: 1031
 							var26 = var9.getModel(4, var5 + 4, var16, var18, var17, var19);
 						} else {
-							var26 = new DynamicObject(var4, 4, var5 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 1032
+							var26 = new DynamicObject(var4, 4, var5 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 1032
 						}
 
-						var7.newWallDecoration(var0, var2, var3, var17, (Entity)var26, (Entity)null, 256, var5, var23 * Tiles.field509[var5], var23 * Tiles.field517[var5], var20, var22); // L: 1033
+						var7.newWallDecoration(var0, var2, var3, var17, (Renderable)var26, (Renderable)null, 256, var5, var23 * Tiles.field509[var5], var23 * Tiles.field517[var5], var20, var22); // L: 1033
 					} else if (var6 == 7) { // L: 1036
 						int var29 = var5 + 2 & 3; // L: 1038
 						if (var9.animationId == -1 && var9.transforms == null) { // L: 1039
 							var30 = var9.getModel(4, var29 + 4, var16, var18, var17, var19);
 						} else {
-							var30 = new DynamicObject(var4, 4, var29 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 1040
+							var30 = new DynamicObject(var4, 4, var29 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 1040
 						}
 
-						var7.newWallDecoration(var0, var2, var3, var17, (Entity)var30, (Entity)null, 256, var29, 0, 0, var20, var22); // L: 1041
+						var7.newWallDecoration(var0, var2, var3, var17, (Renderable)var30, (Renderable)null, 256, var29, 0, 0, var20, var22); // L: 1041
 					} else if (var6 == 8) { // L: 1044
 						var23 = 8; // L: 1045
 						var24 = var7.getBoundaryObjectTag(var0, var2, var3); // L: 1046
@@ -307,11 +307,11 @@ public class ScriptEvent extends Node {
 							var26 = var9.getModel(4, var5 + 4, var16, var18, var17, var19); // L: 1052
 							var27 = var9.getModel(4, var28 + 4, var16, var18, var17, var19); // L: 1053
 						} else {
-							var26 = new DynamicObject(var4, 4, var5 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 1056
-							var27 = new DynamicObject(var4, 4, var28 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 1057
+							var26 = new DynamicObject(var4, 4, var5 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 1056
+							var27 = new DynamicObject(var4, 4, var28 + 4, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 1057
 						}
 
-						var7.newWallDecoration(var0, var2, var3, var17, (Entity)var26, (Entity)var27, 256, var5, var23 * Tiles.field509[var5], var23 * Tiles.field517[var5], var20, var22); // L: 1059
+						var7.newWallDecoration(var0, var2, var3, var17, (Renderable)var26, (Renderable)var27, 256, var5, var23 * Tiles.field509[var5], var23 * Tiles.field517[var5], var20, var22); // L: 1059
 					}
 				}
 			}
@@ -319,11 +319,11 @@ public class ScriptEvent extends Node {
 			if (var9.animationId == -1 && var9.transforms == null) { // L: 947
 				var30 = var9.getModel(10, var5, var16, var18, var17, var19);
 			} else {
-				var30 = new DynamicObject(var4, 10, var5, var1, var2, var3, var9.animationId, var9.field3429, (Entity)null); // L: 948
+				var30 = new DynamicObject(var4, 10, var5, var1, var2, var3, var9.animationId, var9.field3429, (Renderable)null); // L: 948
 			}
 
 			if (var30 != null) { // L: 949
-				var7.method3160(var0, var2, var3, var17, var10, var11, (Entity)var30, var6 == 11 ? 256 : 0, var20, var22);
+				var7.method3160(var0, var2, var3, var17, var10, var11, (Renderable)var30, var6 == 11 ? 256 : 0, var20, var22);
 			}
 
 			if (var9.interactType != 0) { // L: 950

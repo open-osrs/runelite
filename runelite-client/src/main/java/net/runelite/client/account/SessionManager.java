@@ -25,7 +25,6 @@
 package net.runelite.client.account;
 
 import com.google.gson.Gson;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,11 +36,13 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.UUID;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.RuneLite;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
 import net.runelite.client.util.LinkBrowser;
@@ -55,31 +56,38 @@ import okhttp3.OkHttpClient;
 @Slf4j
 public class SessionManager
 {
-	private static final File SESSION_FILE = new File(RuneLite.RUNELITE_DIR, "session");
-
 	@Getter
 	private AccountSession accountSession;
 
 	private final EventBus eventBus;
+	private final ConfigManager configManager;
 	private final WSClient wsClient;
+	private final File sessionFile;
 	private final AccountClient accountClient;
+	private final Gson gson;
 
 	@Inject
 	private SessionManager(
+		@Named("sessionfile") File sessionfile,
+		ConfigManager configManager,
 		EventBus eventBus,
 		WSClient wsClient,
-		OkHttpClient okHttpClient)
+		OkHttpClient okHttpClient,
+		Gson gson)
 	{
+		this.configManager = configManager;
 		this.eventBus = eventBus;
 		this.wsClient = wsClient;
+		this.sessionFile = sessionfile;
 		this.accountClient = new AccountClient(okHttpClient);
+		this.gson = gson;
 
-		this.eventBus.subscribe(LoginResponse.class, this, this::onLoginResponse);
+		eventBus.register(this);
 	}
 
 	public void loadSession()
 	{
-		if (!SESSION_FILE.exists())
+		if (!sessionFile.exists())
 		{
 			log.info("No session file exists");
 			return;
@@ -87,9 +95,9 @@ public class SessionManager
 
 		AccountSession session;
 
-		try (FileInputStream in = new FileInputStream(SESSION_FILE))
+		try (FileInputStream in = new FileInputStream(sessionFile))
 		{
-			session = new Gson().fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), AccountSession.class);
+			session = gson.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), AccountSession.class);
 
 			log.debug("Loaded session for {}", session.getUsername());
 		}
@@ -101,26 +109,13 @@ public class SessionManager
 
 		// Check if session is still valid
 		accountClient.setUuid(session.getUuid());
-		accountClient.sessionCheck()
-			.subscribeOn(Schedulers.io())
-			.subscribe(b ->
-			{
-				if (!b)
-				{
-					log.debug("Loaded session {} is invalid", session.getUuid());
-				}
-				else
-				{
-					openSession(session, false);
-				}
-			}, ex ->
-			{
-				if (ex instanceof IOException)
-				{
-					log.debug("Unable to verify session", ex);
-					openSession(session, false);
-				}
-			});
+		if (!accountClient.sessionCheck())
+		{
+			log.debug("Loaded session {} is invalid", session.getUuid());
+			return;
+		}
+
+		openSession(session, false);
 	}
 
 	private void saveSession()
@@ -130,11 +125,11 @@ public class SessionManager
 			return;
 		}
 
-		try (Writer fw = new OutputStreamWriter(new FileOutputStream(SESSION_FILE), StandardCharsets.UTF_8))
+		try (Writer fw = new OutputStreamWriter(new FileOutputStream(sessionFile), StandardCharsets.UTF_8))
 		{
-			new Gson().toJson(accountSession, fw);
+			gson.toJson(accountSession, fw);
 
-			log.debug("Saved session to {}", SESSION_FILE);
+			log.debug("Saved session to {}", sessionFile);
 		}
 		catch (IOException ex)
 		{
@@ -144,7 +139,7 @@ public class SessionManager
 
 	private void deleteSession()
 	{
-		SESSION_FILE.delete();
+		sessionFile.delete();
 	}
 
 	/**
@@ -163,7 +158,14 @@ public class SessionManager
 
 		accountSession = session;
 
-		eventBus.post(SessionOpen.class, new SessionOpen());
+		if (session.getUsername() != null)
+		{
+			// Initialize config for new session
+			// If the session isn't logged in yet, don't switch to the new config
+			configManager.switchSession(session);
+		}
+
+		eventBus.post(new SessionOpen());
 	}
 
 	private void closeSession()
@@ -189,7 +191,10 @@ public class SessionManager
 
 		accountSession = null; // No more account
 
-		eventBus.post(SessionClose.class, new SessionClose());
+		// Restore config
+		configManager.switchSession(null);
+
+		eventBus.post(new SessionClose());
 	}
 
 	public void login()
@@ -217,7 +222,8 @@ public class SessionManager
 		LinkBrowser.browse(login.getOauthUrl());
 	}
 
-	private void onLoginResponse(LoginResponse loginResponse)
+	@Subscribe
+	public void onLoginResponse(LoginResponse loginResponse)
 	{
 		log.debug("Now logged in as {}", loginResponse.getUsername());
 

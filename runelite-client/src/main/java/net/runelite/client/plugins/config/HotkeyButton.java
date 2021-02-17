@@ -28,21 +28,20 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.inject.Singleton;
 import javax.swing.JButton;
-import lombok.AccessLevel;
 import lombok.Getter;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.ModifierlessKeybind;
+import net.runelite.client.ui.FontManager;
 
-@Singleton
 class HotkeyButton extends JButton
 {
-	@Getter(AccessLevel.PACKAGE)
+	@Getter
 	private Keybind value;
 
-	HotkeyButton(Keybind value, boolean modifierless)
+	public HotkeyButton(Keybind value, boolean modifierless)
 	{
+		setFont(FontManager.getDefaultFont().deriveFont(12.f));
 		setValue(value);
 		addMouseListener(new MouseAdapter()
 		{
@@ -53,6 +52,7 @@ class HotkeyButton extends JButton
 				setValue(Keybind.NOT_SET);
 			}
 		});
+
 		addKeyListener(new KeyAdapter()
 		{
 			@Override
@@ -70,7 +70,7 @@ class HotkeyButton extends JButton
 		});
 	}
 
-	private void setValue(Keybind value)
+	public void setValue(Keybind value)
 	{
 		if (value == null)
 		{

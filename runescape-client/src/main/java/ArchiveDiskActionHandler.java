@@ -85,7 +85,7 @@ public class ArchiveDiskActionHandler implements Runnable {
 				}
 			}
 		} catch (Exception var13) { // L: 114
-			PlayerAppearance.RunException_sendStackTrace((String)null, var13); // L: 115
+			PlayerComposition.RunException_sendStackTrace((String)null, var13); // L: 115
 		}
 	} // L: 117
 

@@ -3,7 +3,7 @@ package net.runelite.api.events;
 import lombok.Data;
 
 @Data
-public class DynamicObjectAnimationChanged implements Event
+public class DynamicObjectAnimationChanged
 {
 	/**
 	 * The object that has entered a new animation.

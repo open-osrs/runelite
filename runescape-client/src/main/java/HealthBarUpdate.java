@@ -104,26 +104,26 @@ public class HealthBarUpdate extends Node {
 			if (var1 >= 300 && var1 <= 313) { // L: 10848
 				var2 = (var1 - 300) / 2; // L: 10849
 				var3 = var1 & 1; // L: 10850
-				Client.playerAppearance.changeAppearance(var2, var3 == 1); // L: 10851
+				Client.playerComposition.changeAppearance(var2, var3 == 1); // L: 10851
 			}
 
 			if (var1 >= 314 && var1 <= 323) { // L: 10853
 				var2 = (var1 - 314) / 2; // L: 10854
 				var3 = var1 & 1; // L: 10855
-				Client.playerAppearance.method4043(var2, var3 == 1); // L: 10856
+				Client.playerComposition.method4043(var2, var3 == 1); // L: 10856
 			}
 
 			if (var1 == 324) {
-				Client.playerAppearance.changeSex(false); // L: 10858
+				Client.playerComposition.changeSex(false); // L: 10858
 			}
 
 			if (var1 == 325) { // L: 10859
-				Client.playerAppearance.changeSex(true);
+				Client.playerComposition.changeSex(true);
 			}
 
 			if (var1 == 326) { // L: 10860
 				PacketBufferNode var4 = ItemContainer.getPacketBufferNode(ClientPacket.field2239, Client.packetWriter.isaacCipher); // L: 10862
-				Client.playerAppearance.write(var4.packetBuffer); // L: 10863
+				Client.playerComposition.write(var4.packetBuffer); // L: 10863
 				Client.packetWriter.addNode(var4); // L: 10864
 				return true; // L: 10865
 			} else {

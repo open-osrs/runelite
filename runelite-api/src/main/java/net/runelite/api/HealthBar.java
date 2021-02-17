@@ -26,9 +26,9 @@ package net.runelite.api;
 
 public interface HealthBar
 {
-	Sprite getHealthBarFrontSprite();
+	SpritePixels getHealthBarFrontSprite();
 
-	Sprite getHealthBarBackSprite();
+	SpritePixels getHealthBarBackSprite();
 
 	int getHealthBarFrontSpriteId();
 

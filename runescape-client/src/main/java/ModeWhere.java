@@ -131,7 +131,7 @@ public enum ModeWhere implements Enumerated {
 			var0 -= 1000; // L: 948
 			var3 = CollisionMap.getWidget(Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]); // L: 949
 		} else {
-			var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 951
+			var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 951
 		}
 
 		String var4 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]; // L: 952
@@ -301,7 +301,7 @@ public enum ModeWhere implements Enumerated {
 					var4.idleSequence = var4.definition.idleSequence; // L: 7303
 					var4.turnLeftSequence = var4.definition.turnLeftSequence; // L: 7304
 					var4.turnRightSequence = var4.definition.turnRightSequence; // L: 7305
-					var4.method2106(PlayerAppearance.localPlayer.pathX[0] + var6, PlayerAppearance.localPlayer.pathY[0] + var9, var8 == 1); // L: 7306
+					var4.method2106(PlayerComposition.localPlayer.pathX[0] + var6, PlayerComposition.localPlayer.pathY[0] + var9, var8 == 1); // L: 7306
 					continue; // L: 7307
 				}
 			}

@@ -27,7 +27,6 @@ package net.runelite.client.plugins.info;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import javax.inject.Singleton;
 import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.event.HyperlinkEvent;
@@ -36,7 +35,6 @@ import javax.swing.text.html.HTMLEditorKit;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Singleton
 public class JRichTextPane extends JEditorPane
 {
 	private HyperlinkListener linkHandler;
@@ -53,14 +51,14 @@ public class JRichTextPane extends JEditorPane
 		ek.getStyleSheet().addRule("a {color: #DDDDDD }");
 	}
 
-	private JRichTextPane(String type, String text)
+	public JRichTextPane(String type, String text)
 	{
 		this();
 		setContentType(type);
 		setText(text);
 	}
 
-	private void enableAutoLinkHandler(boolean enable)
+	public void enableAutoLinkHandler(boolean enable)
 	{
 		if (enable == (linkHandler == null))
 		{
@@ -68,15 +66,18 @@ public class JRichTextPane extends JEditorPane
 			{
 				linkHandler = e ->
 				{
-					if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType()) && e.getURL() != null && Desktop.isDesktopSupported())
+					if (HyperlinkEvent.EventType.ACTIVATED.equals(e.getEventType()) && e.getURL() != null)
 					{
-						try
+						if (Desktop.isDesktopSupported())
 						{
-							Desktop.getDesktop().browse(e.getURL().toURI());
-						}
-						catch (URISyntaxException | IOException ex)
-						{
-							log.warn("Error opening link", ex);
+							try
+							{
+								Desktop.getDesktop().browse(e.getURL().toURI());
+							}
+							catch (URISyntaxException | IOException ex)
+							{
+								log.warn("Error opening link", ex);
+							}
 						}
 					}
 				};

@@ -15,7 +15,7 @@ import netscape.javascript.JSObject;
 
 @Implements("Client")
 @ObfuscatedName("client")
-public final class Client extends GameShell implements Usernamed {
+public final class Client extends GameEngine implements Usernamed {
 	@ObfuscatedName("ns")
 	@ObfuscatedSignature(
 		descriptor = "Lhe;"
@@ -175,7 +175,8 @@ public final class Client extends GameShell implements Usernamed {
 	@ObfuscatedGetter(
 		intValue = 1311691811
 	)
-	static int field835;
+	@Export("changedVarpCount")
+	static int changedVarpCount;
 	@ObfuscatedName("tc")
 	static int[] field920;
 	@ObfuscatedName("tr")
@@ -230,7 +231,7 @@ public final class Client extends GameShell implements Usernamed {
 		descriptor = "Lhh;"
 	)
 	@Export("playerAppearance")
-	static PlayerAppearance playerAppearance;
+	static PlayerComposition playerComposition;
 	@ObfuscatedName("sk")
 	@ObfuscatedGetter(
 		intValue = -1302699221
@@ -362,7 +363,7 @@ public final class Client extends GameShell implements Usernamed {
 		descriptor = "[Llm;"
 	)
 	@Export("mapIcons")
-	static Sprite[] mapIcons;
+	static SpritePixels[] mapIcons;
 	@ObfuscatedName("rb")
 	static short field828;
 	@ObfuscatedName("ra")
@@ -390,7 +391,8 @@ public final class Client extends GameShell implements Usernamed {
 	@Export("viewportHeight")
 	static int viewportHeight;
 	@ObfuscatedName("nq")
-	static int[] field834;
+	@Export("changedVarps")
+	static int[] changedVarps;
 	@ObfuscatedName("rh")
 	@ObfuscatedGetter(
 		intValue = -1202571805
@@ -821,7 +823,7 @@ public final class Client extends GameShell implements Usernamed {
 		descriptor = "[Llm;"
 	)
 	@Export("headIconPrayerSprites")
-	static Sprite[] headIconPrayerSprites;
+	static SpritePixels[] headIconPrayerSpritePixels;
 	@ObfuscatedName("hv")
 	@ObfuscatedGetter(
 		intValue = -1487008623
@@ -1470,8 +1472,8 @@ public final class Client extends GameShell implements Usernamed {
 		field862 = -1; // L: 509
 		isDraggingWidget = false; // L: 510
 		cycleCntr = 1; // L: 515
-		field834 = new int[32]; // L: 518
-		field835 = 0; // L: 519
+		changedVarps = new int[32]; // L: 518
+		changedVarpCount = 0; // L: 519
 		changedItemContainers = new int[32]; // L: 520
 		field837 = 0; // L: 521
 		changedSkills = new int[32]; // L: 522
@@ -1513,7 +1515,7 @@ public final class Client extends GameShell implements Usernamed {
 		mapIconCount = 0; // L: 572
 		mapIconXs = new int[1000]; // L: 573
 		mapIconYs = new int[1000]; // L: 574
-		mapIcons = new Sprite[1000]; // L: 575
+		mapIcons = new SpritePixels[1000]; // L: 575
 		destinationX = 0; // L: 576
 		destinationY = 0; // L: 577
 		minimapState = 0; // L: 584
@@ -1544,7 +1546,7 @@ public final class Client extends GameShell implements Usernamed {
 		viewportWidth = 0; // L: 626
 		viewportHeight = 0; // L: 627
 		viewportZoom = 0; // L: 628
-		playerAppearance = new PlayerAppearance(); // L: 630
+		playerComposition = new PlayerComposition(); // L: 630
 		field813 = -1; // L: 631
 		field911 = -1; // L: 632
 		platformInfoProvider = new DesktopPlatformInfoProvider(); // L: 634
@@ -1600,9 +1602,9 @@ public final class Client extends GameShell implements Usernamed {
 		class278.port1 = gameBuild == 0 ? 43594 : worldId + 40000; // L: 870
 		Players.port2 = gameBuild == 0 ? 443 : worldId + 50000; // L: 871
 		ArchiveDiskAction.port3 = class278.port1; // L: 872
-		PlayerAppearance.field2551 = class224.field2569; // L: 873
+		PlayerComposition.field2551 = class224.field2569; // L: 873
 		WorldMapScaleHandler.field366 = class224.field2565; // L: 874
-		PlayerAppearance.field2557 = class224.field2566; // L: 875
+		PlayerComposition.field2557 = class224.field2566; // L: 875
 		WorldMapCacheName.field331 = class224.field2567; // L: 876
 		GrandExchangeOfferAgeComparator.urlRequester = new UrlRequester(); // L: 877
 		this.setUpKeyboard(); // L: 878
@@ -1689,7 +1691,7 @@ public final class Client extends GameShell implements Usernamed {
 				int var2;
 				for (var2 = 0; var2 < WorldMapIcon_0.regionLandArchives.length; ++var2) { // L: 947
 					if (class41.regionMapArchiveIds[var2] != -1 && WorldMapIcon_0.regionLandArchives[var2] == null) { // L: 948 949
-						WorldMapIcon_0.regionLandArchives[var2] = GameShell.archive5.takeFile(class41.regionMapArchiveIds[var2], 0); // L: 950
+						WorldMapIcon_0.regionLandArchives[var2] = GameEngine.archive5.takeFile(class41.regionMapArchiveIds[var2], 0); // L: 950
 						if (WorldMapIcon_0.regionLandArchives[var2] == null) { // L: 951
 							var43 = false; // L: 952
 							++field700; // L: 953
@@ -1697,7 +1699,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					if (GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var2] != -1 && MouseRecorder.regionMapArchives[var2] == null) { // L: 957 958
-						MouseRecorder.regionMapArchives[var2] = GameShell.archive5.takeFileEncrypted(GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var2], 0, class227.xteaKeys[var2]); // L: 959
+						MouseRecorder.regionMapArchives[var2] = GameEngine.archive5.takeFileEncrypted(GrandExchangeOfferTotalQuantityComparator.regionLandArchiveIds[var2], 0, class227.xteaKeys[var2]); // L: 959
 						if (MouseRecorder.regionMapArchives[var2] == null) { // L: 960
 							var43 = false; // L: 961
 							++field700; // L: 962
@@ -1760,7 +1762,7 @@ public final class Client extends GameShell implements Usernamed {
 										int var41 = var4 + var16; // L: 1007
 										int var42 = var5 + var15; // L: 1008
 										if (var41 > 0 && var42 > 0 && var41 < 103 && var42 < 103) { // L: 1009
-											ObjectDefinition var20 = WorldMapDecoration.getObjectDefinition(var10); // L: 1010
+											ObjectComposition var20 = WorldMapDecoration.getObjectDefinition(var10); // L: 1010
 											if (var17 != 22 || !isLowDetail || var20.int1 != 0 || var20.interactType == 1 || var20.boolean2) { // L: 1011
 												if (!var20.needsModelFiles()) { // L: 1012
 													++field702; // L: 1013
@@ -1934,7 +1936,7 @@ public final class Client extends GameShell implements Usernamed {
 																	int var29 = var28 >> 2; // L: 1160
 																	int var30 = var28 & 3; // L: 1161
 																	if (var27 == var7 && var26 >= var16 && var26 < var16 + 8 && var25 >= var17 && var25 < var17 + 8) { // L: 1162
-																		ObjectDefinition var31 = WorldMapDecoration.getObjectDefinition(var21); // L: 1163
+																		ObjectComposition var31 = WorldMapDecoration.getObjectDefinition(var21); // L: 1163
 																		int var32 = var14 + HitSplatDefinition.method4612(var26 & 7, var25 & 7, var46, var31.sizeX, var31.sizeY, var30); // L: 1164
 																		int var33 = var15 + World.method1871(var26 & 7, var25 & 7, var46, var31.sizeX, var31.sizeY, var30); // L: 1165
 																		if (var32 > 0 && var33 > 0 && var32 < 103 && var33 < 103) { // L: 1166
@@ -2031,7 +2033,7 @@ public final class Client extends GameShell implements Usernamed {
 							}
 						}
 
-						ObjectDefinition.ObjectDefinition_cachedModelData.clear(); // L: 1211
+						ObjectComposition.ObjectDefinition_cachedModelData.clear(); // L: 1211
 						PacketBufferNode var49;
 						if (WorldMapIcon_0.client.hasFrame()) { // L: 1212
 							var49 = ItemContainer.getPacketBufferNode(ClientPacket.field2299, packetWriter.isaacCipher); // L: 1214
@@ -2048,8 +2050,8 @@ public final class Client extends GameShell implements Usernamed {
 							for (var46 = var4 - 1; var46 <= var5 + 1; ++var46) { // L: 1223
 								for (var9 = var6 - 1; var9 <= var7 + 1; ++var9) { // L: 1224
 									if (var46 < var4 || var46 > var5 || var9 < var6 || var9 > var7) { // L: 1225
-										GameShell.archive5.loadRegionFromName("m" + var46 + "_" + var9); // L: 1226
-										GameShell.archive5.loadRegionFromName("l" + var46 + "_" + var9); // L: 1227
+										GameEngine.archive5.loadRegionFromName("m" + var46 + "_" + var9); // L: 1226
+										GameEngine.archive5.loadRegionFromName("l" + var46 + "_" + var9); // L: 1227
 									}
 								}
 							}
@@ -2064,7 +2066,7 @@ public final class Client extends GameShell implements Usernamed {
 						GrandExchangeOfferWorldComparator.field52 = null; // L: 1238
 						Tiles.field511 = null; // L: 1239
 						class92.field1173 = null; // L: 1240
-						VarbitDefinition.Tiles_hue = null; // L: 1241
+						VarbitComposition.Tiles_hue = null; // L: 1241
 						ArchiveDiskActionHandler.Tiles_saturation = null; // L: 1242
 						class92.Tiles_lightness = null; // L: 1243
 						UserComparator7.Tiles_hueMultiplier = null; // L: 1244
@@ -2074,11 +2076,11 @@ public final class Client extends GameShell implements Usernamed {
 						class225.clock.mark(); // L: 1250
 
 						for (var5 = 0; var5 < 32; ++var5) { // L: 1251
-							GameShell.graphicsTickTimes[var5] = 0L;
+							GameEngine.graphicsTickTimes[var5] = 0L;
 						}
 
 						for (var5 = 0; var5 < 32; ++var5) { // L: 1252
-							GameShell.clientTickTimes[var5] = 0L;
+							GameEngine.clientTickTimes[var5] = 0L;
 						}
 
 						class8.gameCyclesToDo = 0; // L: 1253
@@ -2222,7 +2224,7 @@ public final class Client extends GameShell implements Usernamed {
 			JagexCache.JagexCache_dat2File.close(); // L: 1335
 
 			for (int var4 = 0; var4 < MusicPatchPcmStream.idxCount; ++var4) { // L: 1336
-				PlayerAppearance.JagexCache_idxFiles[var4].close();
+				PlayerComposition.JagexCache_idxFiles[var4].close();
 			}
 
 			JagexCache.JagexCache_idx255File.close(); // L: 1337
@@ -2325,33 +2327,33 @@ public final class Client extends GameShell implements Usernamed {
 					ObjectSound.field1077 = WorldMapScaleHandler.field365.toLowerCase(); // L: 770
 
 					try {
-						TileItemPile.userHomeDirectory = System.getProperty("user.home"); // L: 772
-						if (TileItemPile.userHomeDirectory != null) { // L: 773
-							TileItemPile.userHomeDirectory = TileItemPile.userHomeDirectory + "/";
+						ItemLayer.userHomeDirectory = System.getProperty("user.home"); // L: 772
+						if (ItemLayer.userHomeDirectory != null) { // L: 773
+							ItemLayer.userHomeDirectory = ItemLayer.userHomeDirectory + "/";
 						}
 					} catch (Exception var17) { // L: 775
 					}
 
 					try {
 						if (ObjectSound.field1077.startsWith("win")) { // L: 777
-							if (TileItemPile.userHomeDirectory == null) { // L: 778
-								TileItemPile.userHomeDirectory = System.getenv("USERPROFILE");
+							if (ItemLayer.userHomeDirectory == null) { // L: 778
+								ItemLayer.userHomeDirectory = System.getenv("USERPROFILE");
 							}
-						} else if (TileItemPile.userHomeDirectory == null) { // L: 781
-							TileItemPile.userHomeDirectory = System.getenv("HOME");
+						} else if (ItemLayer.userHomeDirectory == null) { // L: 781
+							ItemLayer.userHomeDirectory = System.getenv("HOME");
 						}
 
-						if (TileItemPile.userHomeDirectory != null) { // L: 783
-							TileItemPile.userHomeDirectory = TileItemPile.userHomeDirectory + "/";
+						if (ItemLayer.userHomeDirectory != null) { // L: 783
+							ItemLayer.userHomeDirectory = ItemLayer.userHomeDirectory + "/";
 						}
 					} catch (Exception var16) { // L: 785
 					}
 
-					if (TileItemPile.userHomeDirectory == null) { // L: 786
-						TileItemPile.userHomeDirectory = "~/";
+					if (ItemLayer.userHomeDirectory == null) { // L: 786
+						ItemLayer.userHomeDirectory = "~/";
 					}
 
-					GraphicsObject.field1117 = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", TileItemPile.userHomeDirectory, "/tmp/", ""}; // L: 787
+					GraphicsObject.field1117 = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", ItemLayer.userHomeDirectory, "/tmp/", ""}; // L: 787
 					DynamicObject.field1318 = new String[]{".jagex_cache_" + JagexCache.cacheGamebuild, ".file_store_" + JagexCache.cacheGamebuild}; // L: 788
 
 					label144:
@@ -2407,13 +2409,13 @@ public final class Client extends GameShell implements Usernamed {
 					WorldMapData_0.method237(); // L: 828
 					JagexCache.JagexCache_dat2File = new BufferedFile(new AccessFile(ModelData0.getFile("main_file_cache.dat2"), "rw", 1048576000L), 5200, 0); // L: 829
 					JagexCache.JagexCache_idx255File = new BufferedFile(new AccessFile(ModelData0.getFile("main_file_cache.idx255"), "rw", 1048576L), 6000, 0); // L: 830
-					PlayerAppearance.JagexCache_idxFiles = new BufferedFile[MusicPatchPcmStream.idxCount]; // L: 831
+					PlayerComposition.JagexCache_idxFiles = new BufferedFile[MusicPatchPcmStream.idxCount]; // L: 831
 
 					for (int var14 = 0; var14 < MusicPatchPcmStream.idxCount; ++var14) { // L: 832
-						PlayerAppearance.JagexCache_idxFiles[var14] = new BufferedFile(new AccessFile(ModelData0.getFile("main_file_cache.idx" + var14), "rw", 1048576L), 6000, 0); // L: 833
+						PlayerComposition.JagexCache_idxFiles[var14] = new BufferedFile(new AccessFile(ModelData0.getFile("main_file_cache.idx" + var14), "rw", 1048576L), 6000, 0); // L: 833
 					}
 				} catch (Exception var19) { // L: 837
-					PlayerAppearance.RunException_sendStackTrace((String)null, var19); // L: 838
+					PlayerComposition.RunException_sendStackTrace((String)null, var19); // L: 838
 				}
 
 				WorldMapIcon_0.client = this; // L: 840
@@ -2685,7 +2687,7 @@ public final class Client extends GameShell implements Usernamed {
 			if (--field864 + 1 <= 0) { // L: 1561
 				try {
 					if (js5ConnectState == 0) { // L: 1563
-						WorldMapManager.js5SocketTask = GameShell.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 1564
+						WorldMapManager.js5SocketTask = GameEngine.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 1564
 						++js5ConnectState; // L: 1565
 					}
 
@@ -2704,7 +2706,7 @@ public final class Client extends GameShell implements Usernamed {
 						if (useBufferedSocket) { // L: 1575
 							TaskHandler.js5Socket = class219.method4011((Socket)WorldMapManager.js5SocketTask.result, 40000, 5000); // L: 1576
 						} else {
-							TaskHandler.js5Socket = new NetSocket((Socket)WorldMapManager.js5SocketTask.result, GameShell.taskHandler, 5000); // L: 1579
+							TaskHandler.js5Socket = new NetSocket((Socket)WorldMapManager.js5SocketTask.result, GameEngine.taskHandler, 5000); // L: 1579
 						}
 
 						Buffer var1 = new Buffer(5); // L: 1581
@@ -2873,7 +2875,7 @@ public final class Client extends GameShell implements Usernamed {
 
 			if (loginState == 1) { // L: 2221
 				if (WorldMapID.socketTask == null) { // L: 2222
-					WorldMapID.socketTask = GameShell.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 2223
+					WorldMapID.socketTask = GameEngine.taskHandler.newSocketTask(WorldMapSprite.worldHost, ArchiveDiskAction.port3); // L: 2223
 				}
 
 				if (WorldMapID.socketTask.status == 2) { // L: 2225
@@ -2884,7 +2886,7 @@ public final class Client extends GameShell implements Usernamed {
 					if (useBufferedSocket) { // L: 2227
 						var1 = class219.method4011((Socket)WorldMapID.socketTask.result, 40000, 5000); // L: 2228
 					} else {
-						var1 = new NetSocket((Socket)WorldMapID.socketTask.result, GameShell.taskHandler, 5000); // L: 2231
+						var1 = new NetSocket((Socket)WorldMapID.socketTask.result, GameEngine.taskHandler, 5000); // L: 2231
 					}
 
 					packetWriter.setSocket((AbstractSocket)var1); // L: 2233
@@ -3040,7 +3042,7 @@ public final class Client extends GameShell implements Usernamed {
 				var5.packetBuffer.writeBytes(var29.array, 0, var29.array.length); // L: 2364
 				var5.packetBuffer.writeByte(clientType); // L: 2365
 				var5.packetBuffer.writeInt(0); // L: 2366
-				var5.packetBuffer.method5718(GameShell.archive5.hash); // L: 2367
+				var5.packetBuffer.method5718(GameEngine.archive5.hash); // L: 2367
 				var5.packetBuffer.method5718(GrandExchangeOfferUnitPriceComparator.archive13.hash); // L: 2368
 				var5.packetBuffer.method5718(PacketBufferNode.archive12.hash); // L: 2369
 				var5.packetBuffer.method5587(ItemContainer.archive11.hash); // L: 2370
@@ -3056,7 +3058,7 @@ public final class Client extends GameShell implements Usernamed {
 				var5.packetBuffer.method5718(Messages.archive8.hash); // L: 2380
 				var5.packetBuffer.method5587(DynamicObject.archive2.hash); // L: 2381
 				var5.packetBuffer.method5718(class330.archive3.hash); // L: 2382
-				var5.packetBuffer.method5587(TilePaint.archive0.hash); // L: 2383
+				var5.packetBuffer.method5587(SceneTilePaint.archive0.hash); // L: 2383
 				var5.packetBuffer.writeInt(class227.archive4.hash); // L: 2384
 				var5.packetBuffer.method5587(0); // L: 2385
 				var5.packetBuffer.method5588(BuddyRankComparator.archive7.hash); // L: 2386
@@ -3162,7 +3164,7 @@ public final class Client extends GameShell implements Usernamed {
 
 			if (loginState == 13) { // L: 2493
 				field892 = 0; // L: 2494
-				GameShell.setLoginResponseString("You have only just left another world.", "Your profile will be transferred in:", field682 / 60 + " seconds."); // L: 2495
+				GameEngine.setLoginResponseString("You have only just left another world.", "Your profile will be transferred in:", field682 / 60 + " seconds."); // L: 2495
 				if (--field682 <= 0) { // L: 2496
 					loginState = 0;
 				}
@@ -3268,7 +3270,7 @@ public final class Client extends GameShell implements Usernamed {
 						String var25 = var2.readStringCp1252NullTerminated(); // L: 2591
 						String var33 = var2.readStringCp1252NullTerminated(); // L: 2592
 						String var27 = var2.readStringCp1252NullTerminated(); // L: 2593
-						GameShell.setLoginResponseString(var25, var33, var27); // L: 2594
+						GameEngine.setLoginResponseString(var25, var33, var27); // L: 2594
 						WorldMapCacheName.updateGameState(10); // L: 2595
 					}
 
@@ -3613,9 +3615,9 @@ public final class Client extends GameShell implements Usernamed {
 							}
 						}
 
-						Widget var35 = EnumDefinition.mousedOverWidgetIf1; // L: 3201
+						Widget var35 = EnumComposition.mousedOverWidgetIf1; // L: 3201
 						Widget var37 = CollisionMap.field2092; // L: 3202
-						EnumDefinition.mousedOverWidgetIf1 = null; // L: 3203
+						EnumComposition.mousedOverWidgetIf1 = null; // L: 3203
 						CollisionMap.field2092 = null; // L: 3204
 						draggedOnWidget = null; // L: 3205
 						field829 = false; // L: 3206
@@ -3641,16 +3643,16 @@ public final class Client extends GameShell implements Usernamed {
 
 						boolean var31 = staffModLevel >= 2; // L: 3235
 						if (var31 && KeyHandler.KeyHandler_pressedKeys[82] && KeyHandler.KeyHandler_pressedKeys[81] && mouseWheelRotation != 0) { // L: 3237
-							var4 = PlayerAppearance.localPlayer.plane - mouseWheelRotation; // L: 3238
+							var4 = PlayerComposition.localPlayer.plane - mouseWheelRotation; // L: 3238
 							if (var4 < 0) { // L: 3239
 								var4 = 0;
 							} else if (var4 > 3) { // L: 3240
 								var4 = 3;
 							}
 
-							if (var4 != PlayerAppearance.localPlayer.plane) { // L: 3241
-								var5 = PlayerAppearance.localPlayer.pathX[0] + NetFileRequest.baseX; // L: 3242
-								var6 = PlayerAppearance.localPlayer.pathY[0] + class41.baseY; // L: 3243
+							if (var4 != PlayerComposition.localPlayer.plane) { // L: 3241
+								var5 = PlayerComposition.localPlayer.pathX[0] + NetFileRequest.baseX; // L: 3242
+								var6 = PlayerComposition.localPlayer.pathY[0] + class41.baseY; // L: 3243
 								PacketBufferNode var27 = ItemContainer.getPacketBufferNode(ClientPacket.field2269, packetWriter.isaacCipher); // L: 3246
 								var27.packetBuffer.method5578(var5); // L: 3247
 								var27.packetBuffer.method5587(0); // L: 3248
@@ -3685,7 +3687,7 @@ public final class Client extends GameShell implements Usernamed {
 														if (var41 == null) { // L: 3284
 															this.menu(); // L: 3294
 															if (WorldMapRectangle.worldMap != null) { // L: 3296
-																WorldMapRectangle.worldMap.method6370(GameObject.Client_plane, (PlayerAppearance.localPlayer.x >> 7) + NetFileRequest.baseX, (PlayerAppearance.localPlayer.y >> 7) + class41.baseY, false); // L: 3297
+																WorldMapRectangle.worldMap.method6370(GameObject.Client_plane, (PlayerComposition.localPlayer.x >> 7) + NetFileRequest.baseX, (PlayerComposition.localPlayer.y >> 7) + class41.baseY, false); // L: 3297
 																WorldMapRectangle.worldMap.loadCache(); // L: 3298
 															}
 
@@ -3775,13 +3777,13 @@ public final class Client extends GameShell implements Usernamed {
 																destinationY = var5; // L: 3387
 															}
 
-															if (var35 != EnumDefinition.mousedOverWidgetIf1) { // L: 3389
+															if (var35 != EnumComposition.mousedOverWidgetIf1) { // L: 3389
 																if (var35 != null) { // L: 3390
 																	CollisionMap.invalidateWidget(var35);
 																}
 
-																if (EnumDefinition.mousedOverWidgetIf1 != null) { // L: 3391
-																	CollisionMap.invalidateWidget(EnumDefinition.mousedOverWidgetIf1);
+																if (EnumComposition.mousedOverWidgetIf1 != null) { // L: 3391
+																	CollisionMap.invalidateWidget(EnumComposition.mousedOverWidgetIf1);
 																}
 															}
 
@@ -3808,8 +3810,8 @@ public final class Client extends GameShell implements Usernamed {
 
 															int var28;
 															if (oculusOrbState == 0) { // L: 3405
-																var4 = PlayerAppearance.localPlayer.x; // L: 3406
-																var5 = PlayerAppearance.localPlayer.y; // L: 3407
+																var4 = PlayerComposition.localPlayer.x; // L: 3406
+																var5 = PlayerComposition.localPlayer.y; // L: 3407
 																if (SecureRandomFuture.oculusOrbFocalPointX - var4 < -500 || SecureRandomFuture.oculusOrbFocalPointX - var4 > 500 || Decimator.oculusOrbFocalPointY - var5 < -500 || Decimator.oculusOrbFocalPointY - var5 > 500) { // L: 3408
 																	SecureRandomFuture.oculusOrbFocalPointX = var4; // L: 3409
 																	Decimator.oculusOrbFocalPointY = var5; // L: 3410
@@ -3858,19 +3860,19 @@ public final class Client extends GameShell implements Usernamed {
 																	field918 += (var10 - field918) / 80; // L: 3432
 																}
 
-																PacketWriter.field1341 = SecureRandomFuture.getTileHeight(PlayerAppearance.localPlayer.x, PlayerAppearance.localPlayer.y, GameObject.Client_plane) - camFollowHeight; // L: 3433
+																PacketWriter.field1341 = SecureRandomFuture.getTileHeight(PlayerComposition.localPlayer.x, PlayerComposition.localPlayer.y, GameObject.Client_plane) - camFollowHeight; // L: 3433
 															} else if (oculusOrbState == 1) { // L: 3435
-																if (field649 && PlayerAppearance.localPlayer != null) { // L: 3437
-																	var4 = PlayerAppearance.localPlayer.pathX[0]; // L: 3438
-																	var5 = PlayerAppearance.localPlayer.pathY[0]; // L: 3439
+																if (field649 && PlayerComposition.localPlayer != null) { // L: 3437
+																	var4 = PlayerComposition.localPlayer.pathX[0]; // L: 3438
+																	var5 = PlayerComposition.localPlayer.pathY[0]; // L: 3439
 																	if (var4 >= 0 && var5 >= 0 && var4 < 104 && var5 < 104) { // L: 3440
-																		SecureRandomFuture.oculusOrbFocalPointX = PlayerAppearance.localPlayer.x; // L: 3441
-																		var6 = SecureRandomFuture.getTileHeight(PlayerAppearance.localPlayer.x, PlayerAppearance.localPlayer.y, GameObject.Client_plane) - camFollowHeight; // L: 3442
+																		SecureRandomFuture.oculusOrbFocalPointX = PlayerComposition.localPlayer.x; // L: 3441
+																		var6 = SecureRandomFuture.getTileHeight(PlayerComposition.localPlayer.x, PlayerComposition.localPlayer.y, GameObject.Client_plane) - camFollowHeight; // L: 3442
 																		if (var6 < PacketWriter.field1341) { // L: 3443
 																			PacketWriter.field1341 = var6;
 																		}
 
-																		Decimator.oculusOrbFocalPointY = PlayerAppearance.localPlayer.y; // L: 3444
+																		Decimator.oculusOrbFocalPointY = PlayerComposition.localPlayer.y; // L: 3444
 																		field649 = false; // L: 3445
 																	}
 																}
@@ -4036,7 +4038,7 @@ public final class Client extends GameShell implements Usernamed {
 																}
 
 																var4 = WorldMapData_0.field112 * 128 + 64; // L: 3552
-																var5 = EnumDefinition.field3340 * 128 + 64; // L: 3553
+																var5 = EnumComposition.field3340 * 128 + 64; // L: 3553
 																var6 = SecureRandomFuture.getTileHeight(var4, var5, GameObject.Client_plane) - class25.field128; // L: 3554
 																var7 = var4 - Player.cameraX; // L: 3555
 																var8 = var6 - KeyHandler.cameraY; // L: 3556
@@ -4205,7 +4207,7 @@ public final class Client extends GameShell implements Usernamed {
 	@Export("drawLoggedIn")
 	final void drawLoggedIn() {
 		if (rootInterface != -1) { // L: 4224
-			NPCDefinition.method4759(rootInterface);
+			NPCComposition.method4759(rootInterface);
 		}
 
 		int var1;
@@ -4278,7 +4280,7 @@ public final class Client extends GameShell implements Usernamed {
 			}
 		}
 
-		FriendsList.method5222(GameObject.Client_plane, PlayerAppearance.localPlayer.x, PlayerAppearance.localPlayer.y, field850); // L: 4280
+		FriendsList.method5222(GameObject.Client_plane, PlayerComposition.localPlayer.x, PlayerComposition.localPlayer.y, field850); // L: 4280
 		field850 = 0; // L: 4281
 	} // L: 4282
 
@@ -4416,7 +4418,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					class195.method3681(); // L: 5700
-					field835 += 32; // L: 5701
+					changedVarpCount += 32; // L: 5701
 					var1.serverPacket = null; // L: 5702
 					return true; // L: 5703
 				}
@@ -4503,7 +4505,7 @@ public final class Client extends GameShell implements Usernamed {
 					var16 = var3.readInt(); // L: 5768
 					var51 = CollisionMap.getWidget(var16); // L: 5769
 					var51.modelType = 3; // L: 5770
-					var51.modelId = PlayerAppearance.localPlayer.appearance.getChatHeadId(); // L: 5771
+					var51.modelId = PlayerComposition.localPlayer.appearance.getChatHeadId(); // L: 5771
 					CollisionMap.invalidateWidget(var51); // L: 5772
 					var1.serverPacket = null; // L: 5773
 					return true; // L: 5774
@@ -4914,7 +4916,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					var58 = CollisionMap.getWidget(var16); // L: 6079
-					ItemDefinition var42;
+					ItemComposition var42;
 					if (!var58.isIf3) { // L: 6080
 						if (var18 == -1) { // L: 6081
 							var58.modelType = 0; // L: 6082
@@ -4982,7 +4984,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					Script.changeGameOptions(var5); // L: 6129
-					field834[++field835 - 1 & 31] = var5; // L: 6130
+					changedVarps[++changedVarpCount - 1 & 31] = var5; // L: 6130
 					var1.serverPacket = null; // L: 6131
 					return true; // L: 6132
 				}
@@ -5007,7 +5009,7 @@ public final class Client extends GameShell implements Usernamed {
 						if (Varps.Varps_main[var16] != Varps.Varps_temp[var16]) { // L: 6144
 							Varps.Varps_main[var16] = Varps.Varps_temp[var16]; // L: 6145
 							Script.changeGameOptions(var16); // L: 6146
-							field834[++field835 - 1 & 31] = var16; // L: 6147
+							changedVarps[++changedVarpCount - 1 & 31] = var16; // L: 6147
 						}
 					}
 
@@ -5096,9 +5098,9 @@ public final class Client extends GameShell implements Usernamed {
 						field707 = (field707 + 1) % 100; // L: 6209
 						String var34 = AbstractFont.escapeBrackets(ServerPacket.method3663(AttackOption.method2135(var3))); // L: 6210
 						if (var60.modIcon != -1) { // L: 6211
-							UserComparator10.addChatMessage(9, class25.method248(var60.modIcon) + var38, var34, ParamDefinition.base37DecodeLong(var22));
+							UserComparator10.addChatMessage(9, class25.method248(var60.modIcon) + var38, var34, ParamComposition.base37DecodeLong(var22));
 						} else {
-							UserComparator10.addChatMessage(9, var38, var34, ParamDefinition.base37DecodeLong(var22)); // L: 6212
+							UserComparator10.addChatMessage(9, var38, var34, ParamComposition.base37DecodeLong(var22)); // L: 6212
 						}
 					}
 
@@ -5206,7 +5208,7 @@ public final class Client extends GameShell implements Usernamed {
 					}
 
 					Script.changeGameOptions(var5); // L: 6297
-					field834[++field835 - 1 & 31] = var5; // L: 6298
+					changedVarps[++changedVarpCount - 1 & 31] = var5; // L: 6298
 					var1.serverPacket = null; // L: 6299
 					return true; // L: 6300
 				}
@@ -5331,7 +5333,7 @@ public final class Client extends GameShell implements Usernamed {
 					var57.packetBuffer.method5569(var18); // L: 6401
 					var57.packetBuffer.method5718(var16); // L: 6402
 					var57.packetBuffer.method5587(var5); // L: 6403
-					var57.packetBuffer.method5568(GameShell.fps); // L: 6404
+					var57.packetBuffer.method5568(GameEngine.fps); // L: 6404
 					packetWriter.addNode(var57); // L: 6405
 					var1.serverPacket = null; // L: 6406
 					return true; // L: 6407
@@ -5347,13 +5349,13 @@ public final class Client extends GameShell implements Usernamed {
 				if (ServerPacket.field2163 == var1.serverPacket) { // L: 6415
 					isCameraLocked = true; // L: 6416
 					WorldMapData_0.field112 = var3.readUnsignedByte(); // L: 6417
-					EnumDefinition.field3340 = var3.readUnsignedByte(); // L: 6418
+					EnumComposition.field3340 = var3.readUnsignedByte(); // L: 6418
 					class25.field128 = var3.readUnsignedShort(); // L: 6419
 					Players.field1267 = var3.readUnsignedByte(); // L: 6420
 					ModeWhere.field2405 = var3.readUnsignedByte(); // L: 6421
 					if (ModeWhere.field2405 >= 100) { // L: 6422
 						var16 = WorldMapData_0.field112 * 128 + 64; // L: 6423
-						var5 = EnumDefinition.field3340 * 128 + 64; // L: 6424
+						var5 = EnumComposition.field3340 * 128 + 64; // L: 6424
 						var18 = SecureRandomFuture.getTileHeight(var16, var5, GameObject.Client_plane) - class25.field128; // L: 6425
 						var7 = var16 - Player.cameraX; // L: 6426
 						var19 = var18 - KeyHandler.cameraY; // L: 6427
@@ -5637,18 +5639,18 @@ public final class Client extends GameShell implements Usernamed {
 					return true; // L: 6629
 				}
 
-				PlayerAppearance.RunException_sendStackTrace("" + (var1.serverPacket != null ? var1.serverPacket.id * 1148115103 * -61586593 : -1) + "," + (var1.field1336 != null ? var1.field1336.id * 1148115103 * -61586593 : -1) + "," + (var1.field1337 != null ? var1.field1337.id * 1148115103 * -61586593 : -1) + "," + var1.serverPacketLength, (Throwable)null); // L: 6631
+				PlayerComposition.RunException_sendStackTrace("" + (var1.serverPacket != null ? var1.serverPacket.id * 1148115103 * -61586593 : -1) + "," + (var1.field1336 != null ? var1.field1336.id * 1148115103 * -61586593 : -1) + "," + (var1.field1337 != null ? var1.field1337.id * 1148115103 * -61586593 : -1) + "," + var1.serverPacketLength, (Throwable)null); // L: 6631
 				WorldMapRectangle.logOut(); // L: 6632
 			} catch (IOException var35) { // L: 6634
 				LoginScreenAnimation.method1903(); // L: 6635
 			} catch (Exception var36) {
-				var17 = "" + (var1.serverPacket != null ? var1.serverPacket.id * 1148115103 * -61586593 : -1) + "," + (var1.field1336 != null ? var1.field1336.id * 1148115103 * -61586593 : -1) + "," + (var1.field1337 != null ? var1.field1337.id * 1148115103 * -61586593 : -1) + "," + var1.serverPacketLength + "," + (PlayerAppearance.localPlayer.pathX[0] + NetFileRequest.baseX) + "," + (PlayerAppearance.localPlayer.pathY[0] + class41.baseY) + ","; // L: 6638
+				var17 = "" + (var1.serverPacket != null ? var1.serverPacket.id * 1148115103 * -61586593 : -1) + "," + (var1.field1336 != null ? var1.field1336.id * 1148115103 * -61586593 : -1) + "," + (var1.field1337 != null ? var1.field1337.id * 1148115103 * -61586593 : -1) + "," + var1.serverPacketLength + "," + (PlayerComposition.localPlayer.pathX[0] + NetFileRequest.baseX) + "," + (PlayerComposition.localPlayer.pathY[0] + class41.baseY) + ","; // L: 6638
 
 				for (var18 = 0; var18 < var1.serverPacketLength && var18 < 50; ++var18) { // L: 6639
 					var17 = var17 + var3.array[var18] + ",";
 				}
 
-				PlayerAppearance.RunException_sendStackTrace(var17, var36); // L: 6640
+				PlayerComposition.RunException_sendStackTrace(var17, var36); // L: 6640
 				WorldMapRectangle.logOut(); // L: 6641
 			}
 
@@ -5943,7 +5945,7 @@ public final class Client extends GameShell implements Usernamed {
 	)
 	@Export("username")
 	public Username username() {
-		return PlayerAppearance.localPlayer != null ? PlayerAppearance.localPlayer.username : null; // L: 11178
+		return PlayerComposition.localPlayer != null ? PlayerComposition.localPlayer.username : null; // L: 11178
 	}
 
 	@ObfuscatedName("x")

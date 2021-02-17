@@ -24,18 +24,15 @@
  */
 package net.runelite.client.events;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import net.runelite.api.events.Event;
+import lombok.Value;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 
 /**
  * Event fired when an overlay menu entry is clicked.
  */
-@Data
-@AllArgsConstructor
-public class OverlayMenuClicked implements Event
+@Value
+public class OverlayMenuClicked
 {
 	private OverlayMenuEntry entry;
 	private Overlay overlay;

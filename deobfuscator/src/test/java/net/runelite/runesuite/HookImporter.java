@@ -75,7 +75,7 @@ public class HookImporter
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(properties.getRsClient()));
+		group = JarUtil.load(new File(properties.getRsClient()));
 
 		InputStream is = getClass().getResourceAsStream("hooks.json");
 		Gson gson = new Gson();
@@ -87,7 +87,7 @@ public class HookImporter
 	public void after() throws IOException
 	{
 		File out = folder.newFile("client.jar");
-		JarUtil.saveJar(group, out);
+		JarUtil.save(group, out);
 		logger.info("Wrote to {}", out);
 	}
 

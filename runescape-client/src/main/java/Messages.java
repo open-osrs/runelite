@@ -63,7 +63,7 @@ public class Messages {
 		garbageValue = "-729014462"
 	)
 	static int method2283(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1012
+		Widget var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 1012
 		if (var0 == ScriptOpcodes.CC_GETX) { // L: 1013
 			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.x; // L: 1014
 			return 1; // L: 1015
@@ -94,6 +94,6 @@ public class Messages {
 	)
 	static void method2285() {
 		Login.loginIndex = 24; // L: 1517
-		GameShell.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", ""); // L: 1518
+		GameEngine.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", ""); // L: 1518
 	} // L: 1519
 }

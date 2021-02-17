@@ -11,7 +11,7 @@ public class class25 {
 		descriptor = "Llm;"
 	)
 	@Export("sceneMinimapSprite")
-	static Sprite sceneMinimapSprite;
+	static SpritePixels sceneMinimapSprite;
 	@ObfuscatedName("rf")
 	@ObfuscatedGetter(
 		intValue = 487407289
@@ -22,7 +22,7 @@ public class class25 {
 		descriptor = "Llm;"
 	)
 	@Export("leftTitleSprite")
-	static Sprite leftTitleSprite;
+	static SpritePixels leftTitleSprite;
 	@ObfuscatedName("al")
 	@Export("garbageCollector")
 	static GarbageCollectorMXBean garbageCollector;
@@ -191,7 +191,7 @@ public class class25 {
 		garbageValue = "-1541467427"
 	)
 	@Export("drawSpriteOnMinimap")
-	static final void drawSpriteOnMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
+	static final void drawSpriteOnMinimap(int var0, int var1, int var2, int var3, SpritePixels var4, SpriteMask var5) {
 		if (var4 != null) { // L: 10982
 			int var6 = Client.camAngleY & 2047; // L: 10983
 			int var7 = var3 * var3 + var2 * var2; // L: 10984

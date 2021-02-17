@@ -42,13 +42,13 @@ public final class BoundaryObject {
 		descriptor = "Ler;"
 	)
 	@Export("entity1")
-	public Entity entity1;
+	public Renderable renderable1;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Ler;"
 	)
 	@Export("entity2")
-	public Entity entity2;
+	public Renderable renderable2;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
 		longValue = 6107262315709824135L

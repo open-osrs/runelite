@@ -43,15 +43,32 @@ public interface Preferences
 	 */
 	void setRememberedUsername(String username);
 
-	int getSoundEffectsVolume();
+	/**
+	 * Gets the sound effect volume
+	 * @return volume 0-127 inclusive
+	 */
+	int getSoundEffectVolume();
 
-	void setSoundEffectsVolume(int i);
+	/**
+	 * Sets the sound effect volume
+	 * @param volume 0-127 inclusive
+	 */
+	void setSoundEffectVolume(int volume);
 
-	int getAreaSoundEffectsVolume();
+	/**
+	 * Gets the area sound effect volume
+	 * @return volume 0-127 inclusive
+	 */
+	int getAreaSoundEffectVolume();
 
-	void setAreaSoundEffectsVolume(int i);
+	/**
+	 * Sets the area sound effect volume
+	 * @param volume 0-127 inclusive
+	 */
+	void setAreaSoundEffectVolume(int volume);
 
-	int getMusicVolume();
-
-	void setClientMusicVolume(int i);
+	/**
+	 * Gets if the login name should be replaced with asterisks
+	 */
+	boolean getHideUsername();
 }

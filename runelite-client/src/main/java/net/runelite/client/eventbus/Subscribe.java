@@ -38,7 +38,5 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Subscribe
 {
-	int takeUntil() default -1;
-	EventScheduler subscribe() default EventScheduler.DEFAULT;
-	EventScheduler observe() default EventScheduler.DEFAULT;
+	float priority() default 0;
 }

@@ -25,7 +25,6 @@
 package net.runelite.http.api.osbuddy;
 
 import com.google.gson.JsonParseException;
-import io.reactivex.rxjava3.core.Observable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -44,7 +43,7 @@ public class OSBGrandExchangeClient
 {
 	private final OkHttpClient client;
 
-	public Observable<OSBGrandExchangeResult> lookupItem(int itemId)
+	public OSBGrandExchangeResult lookupItem(int itemId) throws IOException
 	{
 		final HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
 			.addPathSegment("osb")
@@ -54,26 +53,23 @@ public class OSBGrandExchangeClient
 
 		log.debug("Built URI: {}", url);
 
-		return Observable.defer(() ->
+		final Request request = new Request.Builder()
+			.url(url)
+			.build();
+
+		try (final Response response = client.newCall(request).execute())
 		{
-			final Request request = new Request.Builder()
-				.url(url)
-				.build();
-				
-			try (final Response response = client.newCall(request).execute())
+			if (!response.isSuccessful())
 			{
-				if (!response.isSuccessful())
-				{
-					return Observable.error(new IOException("Error looking up item id: " + response));
-				}
-				
-				final InputStream in = response.body().byteStream();
-				return Observable.just(RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), OSBGrandExchangeResult.class));
+				throw new IOException("Error looking up item id: " + response);
 			}
-			catch (JsonParseException ex)
-			{
-				return Observable.error(ex);
-			}
-		});
+
+			final InputStream in = response.body().byteStream();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), OSBGrandExchangeResult.class);
+		}
+		catch (JsonParseException ex)
+		{
+			throw new IOException(ex);
+		}
 	}
 }

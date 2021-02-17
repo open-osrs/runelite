@@ -26,24 +26,17 @@ package net.runelite.client.plugins.info;
 
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginType;
-import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
+import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.util.ImageUtil;
 
 @PluginDescriptor(
 	name = "Info Panel",
 	description = "Enable the Info panel",
-	tags = {"info", "github", "patreon", "dir", "discord"},
-	loadWhenOutdated = true,
-	type = PluginType.MISCELLANEOUS
+	loadWhenOutdated = true
 )
-@Singleton
 public class InfoPlugin extends Plugin
 {
 	@Inject
@@ -51,21 +44,13 @@ public class InfoPlugin extends Plugin
 
 	private NavigationButton navButton;
 
-	@Subscribe
-	private void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals("info"))
-		{
-			return;
-		}
-	}
-
 	@Override
-	protected void startUp()
+	protected void startUp() throws Exception
 	{
-		InfoPanel panel = injector.getInstance(InfoPanel.class);
+		final InfoPanel panel = injector.getInstance(InfoPanel.class);
+		panel.init();
 
-		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "info_icon.png");
+		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "info_icon.png");
 
 		navButton = NavigationButton.builder()
 			.tooltip("Info")

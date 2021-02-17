@@ -1,10 +1,9 @@
 package net.runelite.api.events;
 
 import lombok.Data;
-import net.runelite.api.events.Event;
 
 @Data
-public class ConfigButtonClicked implements Event
+public class ConfigButtonClicked
 {
 	private String group, key;
 }

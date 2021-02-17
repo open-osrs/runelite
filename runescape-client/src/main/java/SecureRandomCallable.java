@@ -27,13 +27,13 @@ public class SecureRandomCallable implements Callable {
 		garbageValue = "97561494"
 	)
 	@Export("ItemDefinition_get")
-	public static ItemDefinition ItemDefinition_get(int var0) {
-		ItemDefinition var1 = (ItemDefinition)ItemDefinition.ItemDefinition_cached.get((long)var0); // L: 92
+	public static ItemComposition ItemDefinition_get(int var0) {
+		ItemComposition var1 = (ItemComposition) ItemComposition.ItemDefinition_cached.get((long)var0); // L: 92
 		if (var1 != null) { // L: 93
 			return var1;
 		} else {
 			byte[] var2 = NPC.ItemDefinition_archive.takeFile(10, var0); // L: 94
-			var1 = new ItemDefinition(); // L: 95
+			var1 = new ItemComposition(); // L: 95
 			var1.id = var0; // L: 96
 			if (var2 != null) { // L: 97
 				var1.decode(new Buffer(var2));
@@ -52,7 +52,7 @@ public class SecureRandomCallable implements Callable {
 				var1.genPlaceholder(ItemDefinition_get(var1.placeholderTemplate), ItemDefinition_get(var1.placeholder));
 			}
 
-			if (!ItemDefinition.ItemDefinition_inMembersWorld && var1.isMembersOnly) { // L: 102
+			if (!ItemComposition.ItemDefinition_inMembersWorld && var1.isMembersOnly) { // L: 102
 				var1.name = "Members object"; // L: 103
 				var1.isTradable = false; // L: 104
 				var1.groundActions = null; // L: 105
@@ -63,7 +63,7 @@ public class SecureRandomCallable implements Callable {
 					boolean var3 = false; // L: 110
 
 					for (Node var4 = var1.params.first(); var4 != null; var4 = var1.params.next()) { // L: 111
-						ParamDefinition var5 = ChatChannel.getParamDefinition((int)var4.key); // L: 112
+						ParamComposition var5 = ChatChannel.getParamDefinition((int)var4.key); // L: 112
 						if (var5.autoDisable) { // L: 113
 							var4.remove();
 						} else {
@@ -77,7 +77,7 @@ public class SecureRandomCallable implements Callable {
 				}
 			}
 
-			ItemDefinition.ItemDefinition_cached.put(var1, (long)var0); // L: 119
+			ItemComposition.ItemDefinition_cached.put(var1, (long)var0); // L: 119
 			return var1; // L: 120
 		}
 	}

@@ -40,7 +40,7 @@ public class class200 {
 		garbageValue = "101"
 	)
 	public static void method3712(AbstractArchive var0) {
-		VarbitDefinition.VarbitDefinition_archive = var0; // L: 17
+		VarbitComposition.VarbitDefinition_archive = var0; // L: 17
 	} // L: 18
 
 	@ObfuscatedName("t")
@@ -56,7 +56,7 @@ public class class200 {
 			var3 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 503
 			var4 = CollisionMap.getWidget(var3); // L: 504
 		} else {
-			var4 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 506
+			var4 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 506
 		}
 
 		if (var0 == ScriptOpcodes.CC_SETPOSITION) { // L: 507

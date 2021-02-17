@@ -109,7 +109,7 @@ public class Skeleton extends Node {
 			Widget var3 = var0[var2]; // L: 10597
 			if (var3 != null && var3.parentId == var1 && (!var3.isIf3 || !DevicePcmPlayerProvider.isComponentHidden(var3))) { // L: 10598 10599 10600
 				if (var3.type == 0) { // L: 10601
-					if (!var3.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var3) && var3 != EnumDefinition.mousedOverWidgetIf1) { // L: 10602
+					if (!var3.isIf3 && DevicePcmPlayerProvider.isComponentHidden(var3) && var3 != EnumComposition.mousedOverWidgetIf1) { // L: 10602
 						continue;
 					}
 
@@ -120,7 +120,7 @@ public class Skeleton extends Node {
 
 					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 10605
 					if (var4 != null) { // L: 10606
-						NPCDefinition.method4759(var4.group);
+						NPCComposition.method4759(var4.group);
 					}
 				}
 
@@ -135,7 +135,7 @@ public class Skeleton extends Node {
 						}
 
 						if (var5 != -1) { // L: 10614
-							SequenceDefinition var6 = ParamDefinition.SequenceDefinition_get(var5); // L: 10615
+							SequenceDefinition var6 = ParamComposition.SequenceDefinition_get(var5); // L: 10615
 
 							for (var3.modelFrameCycle += Client.field850; var3.modelFrameCycle > var6.frameLengths[var3.modelFrame]; CollisionMap.invalidateWidget(var3)) { // L: 10616 10617 10624
 								var3.modelFrameCycle -= var6.frameLengths[var3.modelFrame]; // L: 10618

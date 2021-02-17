@@ -28,7 +28,7 @@ package net.runelite.rs.api;
 import net.runelite.api.Actor;
 import net.runelite.mapping.Import;
 
-public interface RSActor extends RSEntity, Actor
+public interface RSActor extends RSRenderable, Actor
 {
 	@Import("targetIndex")
 	@Override
@@ -84,18 +84,18 @@ public interface RSActor extends RSEntity, Actor
 
 	@Import("spotAnimation")
 	@Override
-	int getSpotAnimation();
+	int getGraphic();
 
 	@Import("spotAnimation")
 	@Override
-	void setSpotAnimation(int id);
+	void setGraphic(int id);
 
 	@Import("spotAnimationFrame")
 	int getSpotAnimationFrame();
 
 	@Import("spotAnimationFrame")
 	@Override
-	void setSpotAnimationFrame(int id);
+	void setSpotAnimFrame(int id);
 
 	@Import("spotAnimationFrameCycle")
 	int getSpotAnimationFrameCycle();
@@ -184,4 +184,7 @@ public interface RSActor extends RSEntity, Actor
 	int getRunAnimation();
 
 	void setDead(boolean dead);
+
+	@Import("pathLength")
+	int getPathLength();
 }

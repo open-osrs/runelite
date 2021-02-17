@@ -6,7 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cu")
 @Implements("Projectile")
-public final class Projectile extends Entity {
+public final class Projectile extends Renderable
+{
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = -1007905183
@@ -149,7 +150,7 @@ public final class Projectile extends Entity {
 		this.isMoving = false; // L: 47
 		int var12 = TileItem.SpotAnimationDefinition_get(this.id).sequence; // L: 48
 		if (var12 != -1) { // L: 49
-			this.sequenceDefinition = ParamDefinition.SequenceDefinition_get(var12);
+			this.sequenceDefinition = ParamComposition.SequenceDefinition_get(var12);
 		} else {
 			this.sequenceDefinition = null; // L: 50
 		}

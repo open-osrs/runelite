@@ -288,7 +288,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 				break;
 			}
 		} catch (Exception var12) { // L: 154
-			PlayerAppearance.RunException_sendStackTrace((String)null, var12); // L: 155
+			PlayerComposition.RunException_sendStackTrace((String)null, var12); // L: 155
 		}
 
 	} // L: 157

@@ -29,7 +29,7 @@ import lombok.Builder;
 import lombok.Value;
 
 @Value
-@Builder(builderClassName = "Builder")
+@Builder
 public class ItemEquipmentStats
 {
 	private int slot;

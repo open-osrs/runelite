@@ -31,7 +31,7 @@ import lombok.Value;
  * An event where a new {@link GraphicsObject} has been created.
  */
 @Value
-public class GraphicsObjectCreated implements Event
+public class GraphicsObjectCreated
 {
 	/**
 	 * The newly created graphics object.

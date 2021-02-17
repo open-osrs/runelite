@@ -1,28 +1,37 @@
 /*
- * Copyright (c) 2019. PKLite  - All Rights Reserved
- * Unauthorized modification, distribution, or possession of this source file, via any medium is strictly prohibited.
- * Proprietary and confidential. Refer to PKLite License file for more information on
- * full terms of this copyright and to determine what constitutes authorized use.
- * Written by PKLite(ST0NEWALL, others) <stonewall@thots.cc.usa>, 2019
+ * Copyright (c) 2019, PKLite
+ * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
+ * All rights reserved.
  *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package net.runelite.client.util;
 
+import java.awt.Polygon;
 import net.runelite.api.Client;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemDefinition;
 import net.runelite.api.Player;
 import net.runelite.api.Varbits;
 import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.geometry.Cuboid;
-import net.runelite.client.game.ItemManager;
-import org.apache.commons.lang3.ArrayUtils;
-import java.awt.Polygon;
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.TreeMap;
 
 public class PvPUtil
 {
@@ -92,43 +101,5 @@ public class PvPUtil
 			wildernessLevel += getWildernessLevelFrom(client.getLocalPlayer().getWorldLocation());
 		}
 		return wildernessLevel != 0 && Math.abs(client.getLocalPlayer().getCombatLevel() - player.getCombatLevel()) <= wildernessLevel;
-	}
-
-	public static int calculateRisk(Client client, ItemManager itemManager)
-	{
-		if (client.getItemContainer(InventoryID.EQUIPMENT) == null)
-		{
-			return 0;
-		}
-		if (client.getItemContainer(InventoryID.INVENTORY).getItems() == null)
-		{
-			return 0;
-		}
-		Item[] items = ArrayUtils.addAll(Objects.requireNonNull(client.getItemContainer(InventoryID.EQUIPMENT)).getItems(),
-			Objects.requireNonNull(client.getItemContainer(InventoryID.INVENTORY)).getItems());
-		TreeMap<Integer, Item> priceMap = new TreeMap<>(Comparator.comparingInt(Integer::intValue));
-		int wealth = 0;
-		for (Item i : items)
-		{
-			int value = (itemManager.getItemPrice(i.getId()) * i.getQuantity());
-
-			final ItemDefinition itemComposition = itemManager.getItemDefinition(i.getId());
-			if (!itemComposition.isTradeable() && value == 0)
-			{
-				value = itemComposition.getPrice() * i.getQuantity();
-				priceMap.put(value, i);
-			}
-			else
-			{
-				value = itemManager.getItemPrice(i.getId()) * i.getQuantity();
-				if (i.getId() > 0 && value > 0)
-				{
-					priceMap.put(value, i);
-				}
-			}
-			wealth += value;
-		}
-		return Integer.parseInt(QuantityFormatter.quantityToRSDecimalStack(priceMap.keySet().stream().mapToInt(Integer::intValue).sum()));
-
 	}
 }

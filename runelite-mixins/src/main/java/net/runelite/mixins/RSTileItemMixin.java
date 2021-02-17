@@ -66,7 +66,7 @@ public abstract class RSTileItemMixin implements RSTileItem
 			client.getLogger().debug("Item quantity changed: {} ({} -> {})", getId(), getQuantity(), quantity);
 
 			ItemQuantityChanged itemQuantityChanged = new ItemQuantityChanged(this, getTile(), getQuantity(), quantity);
-			client.getCallbacks().post(ItemQuantityChanged.class, itemQuantityChanged);
+			client.getCallbacks().post(itemQuantityChanged);
 		}
 	}
 

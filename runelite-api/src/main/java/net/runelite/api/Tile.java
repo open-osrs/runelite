@@ -50,7 +50,7 @@ public interface Tile extends TileObject
 	 *
 	 * @return the item
 	 */
-	TileItemPile getItemLayer();
+	ItemLayer getItemLayer();
 
 	/**
 	 * Gets the object on the ground layer of the tile.
@@ -58,6 +58,13 @@ public interface Tile extends TileObject
 	 * @return the ground object
 	 */
 	GroundObject getGroundObject();
+
+	/**
+	 * Sets the object on the ground layer of the tile.
+	 *
+	 * @param groundObject the ground object
+	 */
+	void setGroundObject(GroundObject groundObject);
 
 	/**
 	 * Gets the wall of the tile.
@@ -71,14 +78,14 @@ public interface Tile extends TileObject
 	 *
 	 * @return the paint
 	 */
-	TilePaint getTilePaint();
+	SceneTilePaint getSceneTilePaint();
 
 	/**
 	 * Gets the model of the tile in the scene.
 	 *
 	 * @return the tile model
 	 */
-	TileModel getTileModel();
+	SceneTileModel getSceneTileModel();
 
 	/**
 	 * Gets the location coordinate of the tile in scene coords

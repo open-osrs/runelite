@@ -17,7 +17,7 @@ public class class224 {
 		descriptor = "Llm;"
 	)
 	@Export("rightTitleSprite")
-	static Sprite rightTitleSprite;
+	static SpritePixels rightTitleSprite;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "Llo;"

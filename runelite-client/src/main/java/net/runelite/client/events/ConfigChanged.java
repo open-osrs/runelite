@@ -24,15 +24,15 @@
  */
 package net.runelite.client.events;
 
-import java.io.Serializable;
+import javax.annotation.Nullable;
 import lombok.Data;
-import net.runelite.api.events.Event;
+import net.runelite.client.config.RuneScapeProfile;
 
 /**
  * An event where a configuration entry has been modified.
  */
 @Data
-public class ConfigChanged implements Event, Serializable
+public class ConfigChanged
 {
 	/**
 	 * The parent group for the key.
@@ -41,6 +41,14 @@ public class ConfigChanged implements Event, Serializable
 	 * between other key values that may have the same name.
 	 */
 	private String group;
+
+	/**
+	 * The profile that has changed, if any
+	 *
+	 * @see RuneScapeProfile#getKey()
+	 */
+	@Nullable
+	private String profile;
 	/**
 	 * The configuration key that has been modified.
 	 */
@@ -53,12 +61,4 @@ public class ConfigChanged implements Event, Serializable
 	 * The new value of the entry, null if the entry has been unset.
 	 */
 	private String newValue;
-	/**
-	 * The client where the config value was changed from
-	 */
-	private String origin;
-	/**
-	 * Path of the current config file
-	 */
-	private String path;
 }

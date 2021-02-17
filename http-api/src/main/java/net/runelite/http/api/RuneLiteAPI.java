@@ -25,6 +25,16 @@
 package net.runelite.http.api;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.awt.Color;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.Instant;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import net.runelite.http.api.gson.ColorTypeAdapter;
+import net.runelite.http.api.gson.InstantTypeAdapter;
+import net.runelite.http.api.gson.IllegalReflectionExclusion;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -33,21 +43,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 public class RuneLiteAPI
 {
@@ -57,43 +52,34 @@ public class RuneLiteAPI
 	public static final String RUNELITE_MACHINEID = "RUNELITE-MACHINEID";
 
 	public static final OkHttpClient CLIENT;
-	public static final Gson GSON = new Gson();
+	public static final Gson GSON;
 	public static final MediaType JSON = MediaType.parse("application/json");
 	public static String userAgent;
 
 	private static final String BASE = "https://api.runelite.net";
 	private static final String WSBASE = "https://api.runelite.net/ws";
 	private static final String STATICBASE = "https://static.runelite.net";
-
-	private static final String OPENOSRS_SESSION = "http://session.openosrs.dev";
-	private static final String OPENOSRS_XTEA = "http://xtea.openosrs.dev";
-	private static final String MAVEN_METADATA = "https://repo.runelite.net/net/runelite/runelite-parent/maven-metadata.xml";
-
 	private static final Properties properties = new Properties();
 	private static String version;
-	private static String upstreamVersion;
 	private static int rsVersion;
 
 	static
 	{
-		try (InputStream in = RuneLiteAPI.class.getResourceAsStream("/runelite.properties"))
+		try
 		{
+			InputStream in = RuneLiteAPI.class.getResourceAsStream("/runelite.properties");
 			properties.load(in);
 
 			version = properties.getProperty("runelite.version");
+			rsVersion = Integer.parseInt(properties.getProperty("rs.version"));
 			String commit = properties.getProperty("runelite.commit");
 			boolean dirty = Boolean.parseBoolean(properties.getProperty("runelite.dirty"));
 
-			userAgent = "OpenOSRS/" + version + "-" + commit + (dirty ? "+" : "");
-
-			rsVersion = Integer.parseInt(properties.getProperty("rs.version"));
-
-			parseMavenVersion();
+			userAgent = "RuneLite/" + version + "-" + commit + (dirty ? "+" : "");
 		}
 		catch (NumberFormatException e)
 		{
-			e.printStackTrace();
-			throw new RuntimeException("Version string has not been substituted; Re-run Gradle");
+			throw new RuntimeException("Version string has not been substituted; Re-run maven");
 		}
 		catch (IOException ex)
 		{
@@ -104,6 +90,7 @@ public class RuneLiteAPI
 			.pingInterval(30, TimeUnit.SECONDS)
 			.addNetworkInterceptor(new Interceptor()
 			{
+
 				@Override
 				public Response intercept(Chain chain) throws IOException
 				{
@@ -115,16 +102,35 @@ public class RuneLiteAPI
 				}
 			})
 			.build();
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+
+		gsonBuilder
+			.registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+			.registerTypeAdapter(Color.class, new ColorTypeAdapter());
+
+		boolean assertionsEnabled = false;
+		assert assertionsEnabled = true;
+		if (assertionsEnabled)
+		{
+			IllegalReflectionExclusion jbe = new IllegalReflectionExclusion();
+			gsonBuilder.addSerializationExclusionStrategy(jbe);
+			gsonBuilder.addDeserializationExclusionStrategy(jbe);
+		}
+
+		GSON = gsonBuilder.create();
 	}
 
 	public static HttpUrl getSessionBase()
 	{
-		return HttpUrl.parse(OPENOSRS_SESSION);
-	}
+		final String prop = System.getProperty("runelite.session.url");
 
-	public static HttpUrl getXteaBase()
-	{
-		return HttpUrl.parse(OPENOSRS_XTEA);
+		if (prop != null && !prop.isEmpty())
+		{
+			return HttpUrl.parse(prop);
+		}
+
+		return HttpUrl.parse(BASE + "/session");
 	}
 
 	public static HttpUrl getApiBase()
@@ -165,7 +171,12 @@ public class RuneLiteAPI
 
 	public static String getVersion()
 	{
-		return upstreamVersion;
+		return version;
+	}
+
+	public static void setVersion(String version)
+	{
+		RuneLiteAPI.version = version;
 	}
 
 	public static int getRsVersion()
@@ -173,60 +184,4 @@ public class RuneLiteAPI
 		return rsVersion;
 	}
 
-	public static String getRlpVersion()
-	{
-		return version;
-	}
-
-	private static byte[] downloadUrl(URL toDownload)
-	{
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		InputStream stream;
-		try
-		{
-			byte[] chunk = new byte[4096];
-			int bytesRead;
-			URLConnection conn = toDownload.openConnection();
-			conn.setRequestProperty("User-Agent", userAgent);
-			stream = conn.getInputStream();
-
-			while ((bytesRead = stream.read(chunk)) > 0)
-			{
-				outputStream.write(chunk, 0, bytesRead);
-			}
-			stream.close();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-
-		return outputStream.toByteArray();
-	}
-
-	private static void parseMavenVersion()
-	{
-		try (ByteArrayInputStream fis = new ByteArrayInputStream(downloadUrl(new URL(MAVEN_METADATA))))
-		{
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			factory.setValidating(false);
-			factory.setIgnoringElementContentWhitespace(true);
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(fis);
-			NodeList versionList = doc.getElementsByTagName("version");
-			for (int i = 0; i != versionList.getLength(); i++)
-			{
-				Node node = versionList.item(i);
-				if (node.getTextContent() != null && !node.getTextContent().endsWith("SNAPSHOT"))
-				{
-					upstreamVersion = node.getTextContent();
-				}
-			}
-		}
-		catch (ParserConfigurationException | IOException | SAXException ex)
-		{
-			logger.error(null, ex);
-		}
-	}
 }

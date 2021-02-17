@@ -132,7 +132,7 @@ public class MouseRecorder implements Runnable {
 
 			TileItem var6;
 			for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) { // L: 7036 7037 7045
-				ItemDefinition var7 = SecureRandomCallable.ItemDefinition_get(var6.id); // L: 7038
+				ItemComposition var7 = SecureRandomCallable.ItemDefinition_get(var6.id); // L: 7038
 				long var11 = (long)var7.price; // L: 7039
 				if (var7.isStackable == 1) { // L: 7040
 					var11 *= (long)(var6.quantity + 1);

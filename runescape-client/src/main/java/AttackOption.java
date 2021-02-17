@@ -394,7 +394,7 @@ public enum AttackOption implements Enumerated {
 					}
 
 					var24.append("").append(var7); // L: 376
-					PlayerAppearance.RunException_sendStackTrace(var24.toString(), var27); // L: 377
+					PlayerComposition.RunException_sendStackTrace(var24.toString(), var27); // L: 377
 				}
 			} finally {
 				if (Interpreter.field1104) { // L: 381
@@ -438,7 +438,7 @@ public enum AttackOption implements Enumerated {
 		garbageValue = "1150447373"
 	)
 	static void method2138() {
-		if (PlayerAppearance.localPlayer.x >> 7 == Client.destinationX && PlayerAppearance.localPlayer.y >> 7 == Client.destinationY) { // L: 4702
+		if (PlayerComposition.localPlayer.x >> 7 == Client.destinationX && PlayerComposition.localPlayer.y >> 7 == Client.destinationY) { // L: 4702
 			Client.destinationX = 0; // L: 4703
 		}
 

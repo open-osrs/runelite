@@ -31,7 +31,7 @@ package net.runelite.rs.api;
 import net.runelite.api.Projectile;
 import net.runelite.mapping.Import;
 
-public interface RSProjectile extends RSEntity, Projectile
+public interface RSProjectile extends RSRenderable, Projectile
 {
 	@Import("id")
 	@Override

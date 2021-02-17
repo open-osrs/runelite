@@ -25,13 +25,12 @@
 package net.runelite.client.discord.events;
 
 import lombok.Value;
-import net.runelite.api.events.Event;
 
 /**
  * Called when the logged in user joined a game
  */
 @Value
-public class DiscordJoinGame implements Event
+public class DiscordJoinGame
 {
 	/**
 	 * Obfuscated data of your choosing used as join secret

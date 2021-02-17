@@ -36,7 +36,6 @@ buildscript {
     dependencies {
         classpath("org.ajoberstar.grgit:grgit-core:4.1.0")
         classpath("com.github.ben-manes:gradle-versions-plugin:0.36.0")
-        classpath("com.openosrs:injector-plugin:1.1.7")
     }
 }
 
@@ -45,7 +44,6 @@ plugins {
     id("com.github.ben-manes.versions") version "0.36.0"
     id("se.patrikerdes.use-latest-versions") version "0.2.15"
     id("org.ajoberstar.grgit") version "4.1.0"
-    id("com.simonharrer.modernizer") version "2.1.0-1" apply false
 
     application
 }
@@ -139,9 +137,6 @@ subprojects {
             isShowViolations = true
             isIgnoreFailures = false
         }
-    }
-    if (this.name == "runelite-client" || this.name == "runelite-api") {
-        apply(plugin = "com.simonharrer.modernizer")
     }
 
     configure<PublishingExtension> {

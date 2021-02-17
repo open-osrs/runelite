@@ -33,6 +33,7 @@ import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.GameState;
+import net.runelite.api.TileItem;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.NPC;
@@ -40,7 +41,6 @@ import net.runelite.api.Node;
 import net.runelite.api.Player;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
-import net.runelite.api.TileItem;
 import net.runelite.api.events.DecorativeObjectSpawned;
 import net.runelite.api.events.GameObjectSpawned;
 import net.runelite.api.events.GroundObjectSpawned;
@@ -110,7 +110,7 @@ public class GameEventManager
 		clientThread.invoke(() ->
 		{
 
-			// eventBus.register(subscriber);
+			eventBus.register(subscriber);
 
 			for (final InventoryID inventory : InventoryID.values())
 			{
@@ -118,7 +118,7 @@ public class GameEventManager
 
 				if (itemContainer != null)
 				{
-					eventBus.post(ItemContainerChanged.class, new ItemContainerChanged(inventory.getId(), itemContainer));
+					eventBus.post(new ItemContainerChanged(inventory.getId(), itemContainer));
 				}
 			}
 
@@ -127,7 +127,7 @@ public class GameEventManager
 				if (npc != null)
 				{
 					final NpcSpawned npcSpawned = new NpcSpawned(npc);
-					eventBus.post(NpcSpawned.class, npcSpawned);
+					eventBus.post(npcSpawned);
 				}
 			}
 
@@ -136,7 +136,7 @@ public class GameEventManager
 				if (player != null)
 				{
 					final PlayerSpawned playerSpawned = new PlayerSpawned(player);
-					eventBus.post(PlayerSpawned.class, playerSpawned);
+					eventBus.post(playerSpawned);
 				}
 			}
 
@@ -147,7 +147,7 @@ public class GameEventManager
 					final WallObjectSpawned objectSpawned = new WallObjectSpawned();
 					objectSpawned.setTile(tile);
 					objectSpawned.setWallObject(object);
-					eventBus.post(WallObjectSpawned.class, objectSpawned);
+					eventBus.post(objectSpawned);
 				});
 
 				Optional.ofNullable(tile.getDecorativeObject()).ifPresent(object ->
@@ -155,7 +155,7 @@ public class GameEventManager
 					final DecorativeObjectSpawned objectSpawned = new DecorativeObjectSpawned();
 					objectSpawned.setTile(tile);
 					objectSpawned.setDecorativeObject(object);
-					eventBus.post(DecorativeObjectSpawned.class, objectSpawned);
+					eventBus.post(objectSpawned);
 				});
 
 				Optional.ofNullable(tile.getGroundObject()).ifPresent(object ->
@@ -163,15 +163,17 @@ public class GameEventManager
 					final GroundObjectSpawned objectSpawned = new GroundObjectSpawned();
 					objectSpawned.setTile(tile);
 					objectSpawned.setGroundObject(object);
-					eventBus.post(GroundObjectSpawned.class, objectSpawned);
+					eventBus.post(objectSpawned);
 				});
 
 				Arrays.stream(tile.getGameObjects())
 					.filter(Objects::nonNull)
 					.forEach(object ->
 					{
-						final GameObjectSpawned objectSpawned = new GameObjectSpawned(tile, object);
-						eventBus.post(GameObjectSpawned.class, objectSpawned);
+						final GameObjectSpawned objectSpawned = new GameObjectSpawned();
+						objectSpawned.setTile(tile);
+						objectSpawned.setGameObject(object);
+						eventBus.post(objectSpawned);
 					});
 
 				Optional.ofNullable(tile.getItemLayer()).ifPresent(itemLayer ->
@@ -185,10 +187,12 @@ public class GameEventManager
 						current = current.getNext();
 
 						final ItemSpawned itemSpawned = new ItemSpawned(tile, item);
-						eventBus.post(ItemSpawned.class, itemSpawned);
+						eventBus.post(itemSpawned);
 					}
 				});
 			});
+
+			eventBus.unregister(subscriber);
 		});
 	}
 }

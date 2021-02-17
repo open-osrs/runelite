@@ -15,7 +15,7 @@ public class Message extends DualNode {
 		descriptor = "[Llm;"
 	)
 	@Export("headIconPkSprites")
-	static Sprite[] headIconPkSprites;
+	static SpritePixels[] headIconPkSpritePixels;
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = -1661930895

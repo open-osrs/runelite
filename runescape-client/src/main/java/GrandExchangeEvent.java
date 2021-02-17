@@ -132,11 +132,11 @@ public class GrandExchangeEvent {
 
 		int var0;
 		for (var0 = 0; var0 < 32; ++var0) { // L: 422
-			GameShell.graphicsTickTimes[var0] = 0L;
+			GameEngine.graphicsTickTimes[var0] = 0L;
 		}
 
 		for (var0 = 0; var0 < 32; ++var0) { // L: 423
-			GameShell.clientTickTimes[var0] = 0L;
+			GameEngine.clientTickTimes[var0] = 0L;
 		}
 
 		class8.gameCyclesToDo = 0; // L: 424

@@ -148,7 +148,7 @@ public enum HorizontalAlignment implements Enumerated {
 						return 1; // L: 3442
 					} else {
 						int var4;
-						ParamDefinition var5;
+						ParamComposition var5;
 						if (var0 == ScriptOpcodes.NC_PARAM) { // L: 3444
 							VarcInt.Interpreter_intStackSize -= 2; // L: 3445
 							var3 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize]; // L: 3446

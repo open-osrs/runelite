@@ -36,13 +36,13 @@ public final class Tile extends Node {
 		descriptor = "Lew;"
 	)
 	@Export("paint")
-	TilePaint paint;
+	SceneTilePaint paint;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "Leq;"
 	)
 	@Export("model")
-	TileModel model;
+	SceneTileModel model;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Lev;"
@@ -65,8 +65,8 @@ public final class Tile extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Ldz;"
 	)
-	@Export("tileItemPile")
-	TileItemPile tileItemPile;
+	@Export("itemLayer")
+	ItemLayer itemLayer;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
 		intValue = 418075799

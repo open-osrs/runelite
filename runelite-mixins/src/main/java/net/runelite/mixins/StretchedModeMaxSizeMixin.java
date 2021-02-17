@@ -6,10 +6,10 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSGameShell;
+import net.runelite.rs.api.RSGameEngine;
 
-@Mixin(RSGameShell.class)
-public abstract class StretchedModeMaxSizeMixin implements RSGameShell
+@Mixin(RSGameEngine.class)
+public abstract class StretchedModeMaxSizeMixin implements RSGameEngine
 {
 	@Shadow("client")
 	private static RSClient client;

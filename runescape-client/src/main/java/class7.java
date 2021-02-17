@@ -58,7 +58,7 @@ public enum class7 implements Enumerated {
 				Tiles.Tiles_minPlane = var0;
 			}
 
-			ObjectDefinition var8 = WorldMapDecoration.getObjectDefinition(var3); // L: 234
+			ObjectComposition var8 = WorldMapDecoration.getObjectDefinition(var3); // L: 234
 			int var9;
 			int var10;
 			if (var4 != 1 && var4 != 3) { // L: 237
@@ -137,10 +137,10 @@ public enum class7 implements Enumerated {
 					if (var8.animationId == -1 && var8.transforms == null) { // L: 300
 						var34 = var8.getEntity(22, var4, var15, var17, var16, var18);
 					} else {
-						var34 = new DynamicObject(var3, 22, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 301
+						var34 = new DynamicObject(var3, 22, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 301
 					}
 
-					var6.newFloorDecoration(var0, var1, var2, var16, (Entity)var34, var19, var21); // L: 302
+					var6.newFloorDecoration(var0, var1, var2, var16, (Renderable)var34, var19, var21); // L: 302
 					if (var8.interactType == 1 && var7 != null) { // L: 303
 						var7.setBlockedByFloorDec(var1, var2);
 					}
@@ -152,10 +152,10 @@ public enum class7 implements Enumerated {
 					if (var8.animationId == -1 && var8.transforms == null) { // L: 329
 						var34 = var8.getEntity(var5, var4, var15, var17, var16, var18);
 					} else {
-						var34 = new DynamicObject(var3, var5, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 330
+						var34 = new DynamicObject(var3, var5, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 330
 					}
 
-					var6.method3160(var0, var1, var2, var16, 1, 1, (Entity)var34, 0, var19, var21); // L: 331
+					var6.method3160(var0, var1, var2, var16, 1, 1, (Renderable)var34, 0, var19, var21); // L: 331
 					if (var5 >= 12 && var5 <= 17 && var5 != 13 && var0 > 0) { // L: 332
 						var10000 = GrandExchangeOfferWorldComparator.field52[var0][var1];
 						var10000[var2] |= 2340;
@@ -169,10 +169,10 @@ public enum class7 implements Enumerated {
 					if (var8.animationId == -1 && var8.transforms == null) { // L: 338
 						var34 = var8.getEntity(0, var4, var15, var17, var16, var18);
 					} else {
-						var34 = new DynamicObject(var3, 0, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 339
+						var34 = new DynamicObject(var3, 0, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 339
 					}
 
-					var6.newBoundaryObject(var0, var1, var2, var16, (Entity)var34, (Entity)null, Tiles.field512[var4], 0, var19, var21); // L: 340
+					var6.newBoundaryObject(var0, var1, var2, var16, (Renderable)var34, (Renderable)null, Tiles.field512[var4], 0, var19, var21); // L: 340
 					if (var4 == 0) { // L: 341
 						if (var8.clipped) { // L: 342
 							Tiles.field511[var0][var1][var2] = 50; // L: 343
@@ -227,10 +227,10 @@ public enum class7 implements Enumerated {
 					if (var8.animationId == -1 && var8.transforms == null) { // L: 375
 						var34 = var8.getEntity(1, var4, var15, var17, var16, var18);
 					} else {
-						var34 = new DynamicObject(var3, 1, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 376
+						var34 = new DynamicObject(var3, 1, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 376
 					}
 
-					var6.newBoundaryObject(var0, var1, var2, var16, (Entity)var34, (Entity)null, Tiles.field513[var4], 0, var19, var21); // L: 377
+					var6.newBoundaryObject(var0, var1, var2, var16, (Renderable)var34, (Renderable)null, Tiles.field513[var4], 0, var19, var21); // L: 377
 					if (var8.clipped) { // L: 378
 						if (var4 == 0) { // L: 379
 							Tiles.field511[var0][var1][var2 + 1] = 50;
@@ -257,11 +257,11 @@ public enum class7 implements Enumerated {
 							var31 = var8.getEntity(2, var4 + 4, var15, var17, var16, var18); // L: 392
 							var32 = var8.getEntity(2, var28, var15, var17, var16, var18); // L: 393
 						} else {
-							var31 = new DynamicObject(var3, 2, var4 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 396
-							var32 = new DynamicObject(var3, 2, var28, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 397
+							var31 = new DynamicObject(var3, 2, var4 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 396
+							var32 = new DynamicObject(var3, 2, var28, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 397
 						}
 
-						var6.newBoundaryObject(var0, var1, var2, var16, (Entity)var31, (Entity)var32, Tiles.field512[var4], Tiles.field512[var28], var19, var21); // L: 399
+						var6.newBoundaryObject(var0, var1, var2, var16, (Renderable)var31, (Renderable)var32, Tiles.field512[var4], Tiles.field512[var28], var19, var21); // L: 399
 						if (var8.modelClipped) { // L: 400
 							if (var4 == 0) { // L: 401
 								var10000 = GrandExchangeOfferWorldComparator.field52[var0][var1]; // L: 402
@@ -298,10 +298,10 @@ public enum class7 implements Enumerated {
 						if (var8.animationId == -1 && var8.transforms == null) { // L: 424
 							var34 = var8.getEntity(3, var4, var15, var17, var16, var18);
 						} else {
-							var34 = new DynamicObject(var3, 3, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 425
+							var34 = new DynamicObject(var3, 3, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 425
 						}
 
-						var6.newBoundaryObject(var0, var1, var2, var16, (Entity)var34, (Entity)null, Tiles.field513[var4], 0, var19, var21); // L: 426
+						var6.newBoundaryObject(var0, var1, var2, var16, (Renderable)var34, (Renderable)null, Tiles.field513[var4], 0, var19, var21); // L: 426
 						if (var8.clipped) { // L: 427
 							if (var4 == 0) { // L: 428
 								Tiles.field511[var0][var1][var2 + 1] = 50;
@@ -322,10 +322,10 @@ public enum class7 implements Enumerated {
 						if (var8.animationId == -1 && var8.transforms == null) { // L: 438
 							var34 = var8.getEntity(var5, var4, var15, var17, var16, var18);
 						} else {
-							var34 = new DynamicObject(var3, var5, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 439
+							var34 = new DynamicObject(var3, var5, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 439
 						}
 
-						var6.method3160(var0, var1, var2, var16, 1, 1, (Entity)var34, 0, var19, var21); // L: 440
+						var6.method3160(var0, var1, var2, var16, 1, 1, (Renderable)var34, 0, var19, var21); // L: 440
 						if (var8.interactType != 0 && var7 != null) { // L: 441
 							var7.addGameObject(var1, var2, var9, var10, var8.boolean1);
 						}
@@ -338,10 +338,10 @@ public enum class7 implements Enumerated {
 						if (var8.animationId == -1 && var8.transforms == null) { // L: 447
 							var34 = var8.getEntity(4, var4, var15, var17, var16, var18);
 						} else {
-							var34 = new DynamicObject(var3, 4, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 448
+							var34 = new DynamicObject(var3, 4, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 448
 						}
 
-						var6.newWallDecoration(var0, var1, var2, var16, (Entity)var34, (Entity)null, Tiles.field512[var4], 0, 0, 0, var19, var21); // L: 449
+						var6.newWallDecoration(var0, var1, var2, var16, (Renderable)var34, (Renderable)null, Tiles.field512[var4], 0, 0, 0, var19, var21); // L: 449
 					} else {
 						Object var25;
 						long var29;
@@ -355,10 +355,10 @@ public enum class7 implements Enumerated {
 							if (var8.animationId == -1 && var8.transforms == null) { // L: 457
 								var25 = var8.getEntity(4, var4, var15, var17, var16, var18);
 							} else {
-								var25 = new DynamicObject(var3, 4, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 458
+								var25 = new DynamicObject(var3, 4, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 458
 							}
 
-							var6.newWallDecoration(var0, var1, var2, var16, (Entity)var25, (Entity)null, Tiles.field512[var4], 0, var28 * Tiles.field518[var4], var28 * Tiles.field515[var4], var19, var21); // L: 459
+							var6.newWallDecoration(var0, var1, var2, var16, (Renderable)var25, (Renderable)null, Tiles.field512[var4], 0, var28 * Tiles.field518[var4], var28 * Tiles.field515[var4], var19, var21); // L: 459
 						} else if (var5 == 6) { // L: 462
 							var28 = 8; // L: 463
 							var29 = var6.getBoundaryObjectTag(var0, var1, var2); // L: 464
@@ -369,19 +369,19 @@ public enum class7 implements Enumerated {
 							if (var8.animationId == -1 && var8.transforms == null) { // L: 467
 								var25 = var8.getEntity(4, var4 + 4, var15, var17, var16, var18);
 							} else {
-								var25 = new DynamicObject(var3, 4, var4 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 468
+								var25 = new DynamicObject(var3, 4, var4 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 468
 							}
 
-							var6.newWallDecoration(var0, var1, var2, var16, (Entity)var25, (Entity)null, 256, var4, var28 * Tiles.field509[var4], var28 * Tiles.field517[var4], var19, var21); // L: 469
+							var6.newWallDecoration(var0, var1, var2, var16, (Renderable)var25, (Renderable)null, 256, var4, var28 * Tiles.field509[var4], var28 * Tiles.field517[var4], var19, var21); // L: 469
 						} else if (var5 == 7) { // L: 472
 							var23 = var4 + 2 & 3; // L: 474
 							if (var8.animationId == -1 && var8.transforms == null) { // L: 475
 								var34 = var8.getEntity(4, var23 + 4, var15, var17, var16, var18);
 							} else {
-								var34 = new DynamicObject(var3, 4, var23 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 476
+								var34 = new DynamicObject(var3, 4, var23 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 476
 							}
 
-							var6.newWallDecoration(var0, var1, var2, var16, (Entity)var34, (Entity)null, 256, var23, 0, 0, var19, var21); // L: 477
+							var6.newWallDecoration(var0, var1, var2, var16, (Renderable)var34, (Renderable)null, 256, var23, 0, 0, var19, var21); // L: 477
 						} else if (var5 == 8) { // L: 480
 							var28 = 8; // L: 481
 							var29 = var6.getBoundaryObjectTag(var0, var1, var2); // L: 482
@@ -395,11 +395,11 @@ public enum class7 implements Enumerated {
 								var25 = var8.getEntity(4, var4 + 4, var15, var17, var16, var18); // L: 488
 								var26 = var8.getEntity(4, var27 + 4, var15, var17, var16, var18); // L: 489
 							} else {
-								var25 = new DynamicObject(var3, 4, var4 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 492
-								var26 = new DynamicObject(var3, 4, var27 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 493
+								var25 = new DynamicObject(var3, 4, var4 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 492
+								var26 = new DynamicObject(var3, 4, var27 + 4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 493
 							}
 
-							var6.newWallDecoration(var0, var1, var2, var16, (Entity)var25, (Entity)var26, 256, var4, var28 * Tiles.field509[var4], var28 * Tiles.field517[var4], var19, var21); // L: 495
+							var6.newWallDecoration(var0, var1, var2, var16, (Renderable)var25, (Renderable)var26, 256, var4, var28 * Tiles.field509[var4], var28 * Tiles.field517[var4], var19, var21); // L: 495
 						}
 					}
 				}
@@ -407,10 +407,10 @@ public enum class7 implements Enumerated {
 				if (var8.animationId == -1 && var8.transforms == null) { // L: 308
 					var34 = var8.getEntity(10, var4, var15, var17, var16, var18);
 				} else {
-					var34 = new DynamicObject(var3, 10, var4, var0, var1, var2, var8.animationId, var8.field3429, (Entity)null); // L: 309
+					var34 = new DynamicObject(var3, 10, var4, var0, var1, var2, var8.animationId, var8.field3429, (Renderable)null); // L: 309
 				}
 
-				if (var34 != null && var6.method3160(var0, var1, var2, var16, var9, var10, (Entity)var34, var5 == 11 ? 256 : 0, var19, var21) && var8.clipped) { // L: 310 311
+				if (var34 != null && var6.method3160(var0, var1, var2, var16, var9, var10, (Renderable)var34, var5 == 11 ? 256 : 0, var19, var21) && var8.clipped) { // L: 310 311
 					var23 = 15; // L: 312
 					if (var34 instanceof Model) { // L: 313
 						var23 = ((Model)var34).method2991() / 4; // L: 314
@@ -444,7 +444,7 @@ public enum class7 implements Enumerated {
 	static void method83() {
 		Login.Login_username = Login.Login_username.trim(); // L: 896
 		if (Login.Login_username.length() == 0) { // L: 897
-			GameShell.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 898
+			GameEngine.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 898
 		} else {
 			long var1;
 			try {
@@ -488,23 +488,23 @@ public enum class7 implements Enumerated {
 
 			switch(var0) { // L: 936
 			case 2:
-				GameShell.setLoginResponseString(Strings.field3053, Strings.field3054, Strings.field3055); // L: 941
+				GameEngine.setLoginResponseString(Strings.field3053, Strings.field3054, Strings.field3055); // L: 941
 				Login.loginIndex = 6; // L: 942
 				break; // L: 943
 			case 3:
-				GameShell.setLoginResponseString("", "Error connecting to server.", ""); // L: 954
+				GameEngine.setLoginResponseString("", "Error connecting to server.", ""); // L: 954
 				break;
 			case 4:
-				GameShell.setLoginResponseString("The part of the website you are trying", "to connect to is offline at the moment.", "Please try again later."); // L: 951
+				GameEngine.setLoginResponseString("The part of the website you are trying", "to connect to is offline at the moment.", "Please try again later."); // L: 951
 				break; // L: 952
 			case 5:
-				GameShell.setLoginResponseString("Sorry, there was an error trying to", "log you in to this part of the website.", "Please try again later."); // L: 938
+				GameEngine.setLoginResponseString("Sorry, there was an error trying to", "log you in to this part of the website.", "Please try again later."); // L: 938
 				break; // L: 939
 			case 6:
-				GameShell.setLoginResponseString("", "Error connecting to server.", ""); // L: 948
+				GameEngine.setLoginResponseString("", "Error connecting to server.", ""); // L: 948
 				break; // L: 949
 			case 7:
-				GameShell.setLoginResponseString("You must enter a valid login to proceed. For accounts", "created after 24th November 2010, please use your", "email address. Otherwise please use your username."); // L: 945
+				GameEngine.setLoginResponseString("You must enter a valid login to proceed. For accounts", "created after 24th November 2010, please use your", "email address. Otherwise please use your username."); // L: 945
 			}
 
 		}
@@ -636,7 +636,7 @@ public enum class7 implements Enumerated {
 		garbageValue = "1516995220"
 	)
 	@Export("addWidgetItemMenuItem")
-	static final void addWidgetItemMenuItem(Widget var0, ItemDefinition var1, int var2, int var3, boolean var4) {
+	static final void addWidgetItemMenuItem(Widget var0, ItemComposition var1, int var2, int var3, boolean var4) {
 		String[] var5 = var1.inventoryActions; // L: 9686
 		byte var6 = -1; // L: 9687
 		String var7 = null; // L: 9688

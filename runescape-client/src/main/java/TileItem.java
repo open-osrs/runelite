@@ -7,7 +7,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ct")
 @Implements("TileItem")
-public final class TileItem extends Entity {
+public final class TileItem extends Renderable
+{
 	@ObfuscatedName("h")
 	@ObfuscatedGetter(
 		intValue = 1316978929
@@ -154,9 +155,9 @@ public final class TileItem extends Entity {
 		garbageValue = "-1747466644"
 	)
 	public static void method2187() {
-		ItemDefinition.ItemDefinition_cached.clear(); // L: 565
-		ItemDefinition.ItemDefinition_cachedModels.clear(); // L: 566
-		ItemDefinition.ItemDefinition_cachedSprites.clear(); // L: 567
+		ItemComposition.ItemDefinition_cached.clear(); // L: 565
+		ItemComposition.ItemDefinition_cachedModels.clear(); // L: 566
+		ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 567
 	} // L: 568
 
 	@ObfuscatedName("jl")
@@ -165,7 +166,7 @@ public final class TileItem extends Entity {
 		garbageValue = "9349"
 	)
 	@Export("addNpcToMenu")
-	static final void addNpcToMenu(NPCDefinition var0, int var1, int var2, int var3) {
+	static final void addNpcToMenu(NPCComposition var0, int var1, int var2, int var3) {
 		if (Client.menuOptionsCount < 400) { // L: 8719
 			if (var0.transforms != null) { // L: 8720
 				var0 = var0.transform();
@@ -179,7 +180,7 @@ public final class TileItem extends Entity {
 						int var8;
 						if (var0.combatLevel != 0) { // L: 8725
 							var7 = var0.combatLevel; // L: 8728
-							var8 = PlayerAppearance.localPlayer.combatLevel; // L: 8729
+							var8 = PlayerComposition.localPlayer.combatLevel; // L: 8729
 							int var9 = var8 - var7; // L: 8731
 							String var6;
 							if (var9 < -9) { // L: 8732
@@ -252,7 +253,7 @@ public final class TileItem extends Entity {
 									if (var11[var7] != null && var11[var7].equalsIgnoreCase("Attack")) { // L: 8801
 										short var12 = 0; // L: 8802
 										if (AttackOption.AttackOption_hidden != Client.npcAttackOption) { // L: 8803
-											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.npcAttackOption && var0.combatLevel > PlayerAppearance.localPlayer.combatLevel) { // L: 8804
+											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.npcAttackOption && var0.combatLevel > PlayerComposition.localPlayer.combatLevel) { // L: 8804
 												var12 = 2000; // L: 8805
 											}
 

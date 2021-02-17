@@ -7,7 +7,7 @@ public interface RSNPC extends RSActor, NPC
 {
 	@Import("definition")
 	@Override
-	RSNPCDefinition getDefinition();
+	RSNPCComposition getComposition();
 
 	@Override
 	int getIndex();

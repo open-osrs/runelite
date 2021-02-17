@@ -112,7 +112,7 @@ public class UserComparator4 implements Comparator {
 			var9 = var1.method5572(); // L: 6657
 			if (var4 >= 0 && var5 >= 0 && var4 < 104 && var5 < 104) { // L: 6658
 				var10 = var7 + 1; // L: 6659
-				if (PlayerAppearance.localPlayer.pathX[0] >= var4 - var10 && PlayerAppearance.localPlayer.pathX[0] <= var10 + var4 && PlayerAppearance.localPlayer.pathY[0] >= var5 - var10 && PlayerAppearance.localPlayer.pathY[0] <= var5 + var10 && Timer.clientPreferences.areaSoundEffectsVolume != 0 && var8 > 0 && Client.soundEffectCount < 50) { // L: 6660 6661
+				if (PlayerComposition.localPlayer.pathX[0] >= var4 - var10 && PlayerComposition.localPlayer.pathX[0] <= var10 + var4 && PlayerComposition.localPlayer.pathY[0] >= var5 - var10 && PlayerComposition.localPlayer.pathY[0] <= var5 + var10 && Timer.clientPreferences.areaSoundEffectsVolume != 0 && var8 > 0 && Client.soundEffectCount < 50) { // L: 6660 6661
 					Client.soundEffectIds[Client.soundEffectCount] = var2; // L: 6662
 					Client.queuedSoundEffectLoops[Client.soundEffectCount] = var8; // L: 6663
 					Client.queuedSoundEffectDelays[Client.soundEffectCount] = var9; // L: 6664
@@ -259,10 +259,10 @@ public class UserComparator4 implements Comparator {
 							if (var31 != null) { // L: 6801
 								var11 = Occluder.Entity_unpackID(var31.tag); // L: 6802
 								if (var3 == 2) { // L: 6803
-									var31.entity1 = new DynamicObject(var11, 2, var4 + 4, GameObject.Client_plane, var8, var9, var6, false, var31.entity1); // L: 6804
-									var31.entity2 = new DynamicObject(var11, 2, var4 + 1 & 3, GameObject.Client_plane, var8, var9, var6, false, var31.entity2); // L: 6805
+									var31.renderable1 = new DynamicObject(var11, 2, var4 + 4, GameObject.Client_plane, var8, var9, var6, false, var31.renderable1); // L: 6804
+									var31.renderable2 = new DynamicObject(var11, 2, var4 + 1 & 3, GameObject.Client_plane, var8, var9, var6, false, var31.renderable2); // L: 6805
 								} else {
-									var31.entity1 = new DynamicObject(var11, var3, var4, GameObject.Client_plane, var8, var9, var6, false, var31.entity1); // L: 6807
+									var31.renderable1 = new DynamicObject(var11, var3, var4, GameObject.Client_plane, var8, var9, var6, false, var31.renderable1); // L: 6807
 								}
 							}
 						}
@@ -273,15 +273,15 @@ public class UserComparator4 implements Comparator {
 								var11 = Occluder.Entity_unpackID(var42.tag); // L: 6813
 								if (var3 != 4 && var3 != 5) { // L: 6814
 									if (var3 == 6) { // L: 6815
-										var42.entity1 = new DynamicObject(var11, 4, var4 + 4, GameObject.Client_plane, var8, var9, var6, false, var42.entity1);
+										var42.renderable1 = new DynamicObject(var11, 4, var4 + 4, GameObject.Client_plane, var8, var9, var6, false, var42.renderable1);
 									} else if (var3 == 7) { // L: 6816
-										var42.entity1 = new DynamicObject(var11, 4, (var4 + 2 & 3) + 4, GameObject.Client_plane, var8, var9, var6, false, var42.entity1);
+										var42.renderable1 = new DynamicObject(var11, 4, (var4 + 2 & 3) + 4, GameObject.Client_plane, var8, var9, var6, false, var42.renderable1);
 									} else if (var3 == 8) { // L: 6817
-										var42.entity1 = new DynamicObject(var11, 4, var4 + 4, GameObject.Client_plane, var8, var9, var6, false, var42.entity1); // L: 6818
-										var42.entity2 = new DynamicObject(var11, 4, (var4 + 2 & 3) + 4, GameObject.Client_plane, var8, var9, var6, false, var42.entity2); // L: 6819
+										var42.renderable1 = new DynamicObject(var11, 4, var4 + 4, GameObject.Client_plane, var8, var9, var6, false, var42.renderable1); // L: 6818
+										var42.renderable2 = new DynamicObject(var11, 4, (var4 + 2 & 3) + 4, GameObject.Client_plane, var8, var9, var6, false, var42.renderable2); // L: 6819
 									}
 								} else {
-									var42.entity1 = new DynamicObject(var11, 4, var4, GameObject.Client_plane, var8, var9, var6, false, var42.entity1);
+									var42.renderable1 = new DynamicObject(var11, 4, var4, GameObject.Client_plane, var8, var9, var6, false, var42.renderable1);
 								}
 							}
 						}
@@ -293,14 +293,14 @@ public class UserComparator4 implements Comparator {
 							}
 
 							if (var43 != null) { // L: 6826
-								var43.entity = new DynamicObject(Occluder.Entity_unpackID(var43.tag), var3, var4, GameObject.Client_plane, var8, var9, var6, false, var43.entity);
+								var43.renderable = new DynamicObject(Occluder.Entity_unpackID(var43.tag), var3, var4, GameObject.Client_plane, var8, var9, var6, false, var43.renderable);
 							}
 						}
 
 						if (var5 == 3) { // L: 6828
 							FloorDecoration var44 = ArchiveLoader.scene.getFloorDecoration(GameObject.Client_plane, var8, var9); // L: 6829
 							if (var44 != null) { // L: 6830
-								var44.entity = new DynamicObject(Occluder.Entity_unpackID(var44.tag), 22, var4, GameObject.Client_plane, var8, var9, var6, false, var44.entity);
+								var44.renderable = new DynamicObject(Occluder.Entity_unpackID(var44.tag), 22, var4, GameObject.Client_plane, var8, var9, var6, false, var44.renderable);
 							}
 						}
 					}
@@ -324,13 +324,13 @@ public class UserComparator4 implements Comparator {
 						byte var16 = var1.readByte(); // L: 6850
 						Player var17;
 						if (var13 == Client.localPlayerIndex) { // L: 6852
-							var17 = PlayerAppearance.localPlayer;
+							var17 = PlayerComposition.localPlayer;
 						} else {
 							var17 = Client.players[var13]; // L: 6853
 						}
 
 						if (var17 != null) { // L: 6854
-							ObjectDefinition var18 = WorldMapDecoration.getObjectDefinition(var14); // L: 6855
+							ObjectComposition var18 = WorldMapDecoration.getObjectDefinition(var14); // L: 6855
 							int var19;
 							int var20;
 							if (var5 != 1 && var5 != 3) { // L: 6858

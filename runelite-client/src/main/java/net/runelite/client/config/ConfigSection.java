@@ -30,79 +30,22 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(ElementType.FIELD)
 public @interface ConfigSection
 {
-	/**
-	 * Displayed position of the section.
-	 *
-	 * @return The index of the section.
-	 */
-	int position();
-
-	/**
-	 * This is not visible to users
-	 *
-	 * @return name used for finding the config section
-	 * from the properties map. Hence, KEY name.
-	 */
-	String keyName();
-
-	/**
-	 * This is the name that is shown to users when looking
-	 * at the config panel.
-	 * <p>
-	 * Choose a name carefully, as there is a maximum width
-	 * that depends on the users DPI scaling. Short is best.
-	 *
-	 * @return display name for the config section.
-	 */
 	String name();
 
-	/**
-	 * This will be shown to the user if they are hovering
-	 * the config item in the config panel.
-	 *
-	 * @return the description of the config item.
-	 */
 	String description();
 
-	/**
-	 * Setting this will tell the panel
-	 * that this section should be placed beneath
-	 * said section.
-	 *
-	 * @return parent section.
+	int position();
+
+	boolean closedByDefault() default false;
+
+	/*
+	OpenOSRS Lazy Helpers tm
 	 */
+	String keyName() default "";
 	String section() default "";
-
-	/**
-	 * NOT USED.
-	 */
-	String titleSection() default "";
-
-	/**
-	 * NOT USED.
-	 */
 	boolean hidden() default false;
-
-	/**
-	 * NOT USED.
-	 */
 	String unhide() default "";
-
-	/**
-	 * NOT USED.
-	 */
-	String unhideValue() default "";
-
-	/**
-	 * NOT USED.
-	 */
-	String hide() default "";
-
-	/**
-	 * NOT USED.
-	 */
-	String hideValue() default "";
 }

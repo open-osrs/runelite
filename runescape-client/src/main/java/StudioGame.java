@@ -81,7 +81,7 @@ public enum StudioGame implements Enumerated {
 		garbageValue = "1020902177"
 	)
 	public static void method4185() {
-		ParamDefinition.ParamDefinition_cached.clear(); // L: 72
+		ParamComposition.ParamDefinition_cached.clear(); // L: 72
 	} // L: 73
 
 	@ObfuscatedName("ak")
@@ -97,7 +97,7 @@ public enum StudioGame implements Enumerated {
 			return 1; // L: 2797
 		} else {
 			int var4;
-			ItemDefinition var5;
+			ItemComposition var5;
 			if (var0 == ScriptOpcodes.OC_OP) { // L: 2799
 				VarcInt.Interpreter_intStackSize -= 2; // L: 2800
 				var6 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize]; // L: 2801
@@ -131,7 +131,7 @@ public enum StudioGame implements Enumerated {
 				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = SecureRandomCallable.ItemDefinition_get(var6).isStackable == 1 ? 1 : 0; // L: 2824
 				return 1; // L: 2825
 			} else {
-				ItemDefinition var7;
+				ItemComposition var7;
 				if (var0 == ScriptOpcodes.OC_CERT) { // L: 2827
 					var6 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 2828
 					var7 = SecureRandomCallable.ItemDefinition_get(var6); // L: 2829

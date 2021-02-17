@@ -25,18 +25,20 @@
 package net.runelite.client.plugins.config;
 
 import javax.annotation.Nullable;
+import javax.swing.JMenuItem;
 import lombok.Value;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigDescriptor;
+import net.runelite.client.externalplugins.ExternalPluginManager;
+import net.runelite.client.externalplugins.ExternalPluginManifest;
 import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginType;
+import net.runelite.client.util.LinkBrowser;
 
 @Value
-public class PluginConfigurationDescriptor
+class PluginConfigurationDescriptor
 {
 	private final String name;
 	private final String description;
-	private final PluginType pluginType;
 	private final String[] tags;
 
 	// Can be null if its not an actual plugin (RuneLite / ChatColors)
@@ -53,5 +55,42 @@ public class PluginConfigurationDescriptor
 	boolean hasConfigurables()
 	{
 		return configDescriptor != null && !configDescriptor.getItems().stream().allMatch(item -> item.getItem().hidden());
+	}
+
+	/**
+	 * Creates a menu item for linking to a support page for the plugin
+	 *
+	 * @return A {@link JMenuItem} which opens the plugin's wiki page URL in the browser when clicked
+	 */
+	@Nullable
+	JMenuItem createSupportMenuItem()
+	{
+		ExternalPluginManifest mf = getExternalPluginManifest();
+		if (mf != null)
+		{
+			if (mf.getSupport() == null)
+			{
+				return null;
+			}
+
+			JMenuItem menuItem = new JMenuItem("Support");
+			menuItem.addActionListener(e -> LinkBrowser.browse(mf.getSupport().toString()));
+			return menuItem;
+		}
+
+		JMenuItem menuItem = new JMenuItem("Wiki");
+		menuItem.addActionListener(e -> LinkBrowser.browse("https://github.com/runelite/runelite/wiki/" + name.replace(' ', '-')));
+		return menuItem;
+	}
+
+	@Nullable
+	ExternalPluginManifest getExternalPluginManifest()
+	{
+		if (plugin == null)
+		{
+			return null;
+		}
+
+		return ExternalPluginManager.getExternalPluginManifest(plugin.getClass());
 	}
 }

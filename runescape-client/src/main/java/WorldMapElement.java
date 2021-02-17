@@ -277,7 +277,7 @@ public class WorldMapElement extends DualNode {
 		garbageValue = "-375882692"
 	)
 	@Export("getSpriteBool")
-	public Sprite getSpriteBool(boolean var1) {
+	public SpritePixels getSpriteBool(boolean var1) {
 		int var2 = this.sprite1; // L: 161
 		return this.getSprite(var2); // L: 162
 	}
@@ -288,11 +288,11 @@ public class WorldMapElement extends DualNode {
 		garbageValue = "954144981"
 	)
 	@Export("getSprite")
-	Sprite getSprite(int var1) {
+	SpritePixels getSprite(int var1) {
 		if (var1 < 0) { // L: 166
 			return null;
 		} else {
-			Sprite var2 = (Sprite)WorldMapElement_cachedSprites.get((long)var1); // L: 167
+			SpritePixels var2 = (SpritePixels)WorldMapElement_cachedSprites.get((long)var1); // L: 167
 			if (var2 != null) { // L: 168
 				return var2;
 			} else {

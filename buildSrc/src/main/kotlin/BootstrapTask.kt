@@ -1,3 +1,4 @@
+import groovy.json.JsonOutput
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.*
@@ -6,6 +7,7 @@ import org.gradle.kotlin.dsl.get
 import java.io.File
 import java.security.MessageDigest
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultTask() {
 
@@ -42,8 +44,7 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             val version = splat[2]
             lateinit var path: String
 
-            if (it.file.name.contains("injected-client") ||
-                    it.file.name.contains("runelite-client") ||
+            if (it.file.name.contains("runelite-client") ||
                     it.file.name.contains("http-api") ||
                     it.file.name.contains("runescape-api") ||
                     it.file.name.contains("runelite-api")) {
@@ -63,6 +64,21 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                 }
                 path += "${name}/$version/${name}-$version.jar"
             }
+            else if (it.file.name.contains("gluegen"))
+            {
+                path = "http://repo.runelite.net/net/runelite/gluegen/gluegen-rt/" + version + "/" + it.file.name
+            }
+            else if (it.file.name.contains("jogl"))
+            {
+                path = "http://repo.runelite.net/net/runelite/jogl/jogl-all/" + version + "/" + it.file.name
+            }
+            else
+            {
+                println("ERROR: " + it.file.name + " has no download path!")
+                exitProcess(-1)
+            }
+
+
 
             val filePath = it.file.absolutePath
             val artifactFile = File(filePath)
@@ -102,11 +118,13 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                 "artifacts" to getArtifacts()
         ).toString()
 
+        val prettyJson = JsonOutput.prettyPrint(json)
+
         val bootstrapDir = File("${project.buildDir}/bootstrap")
         bootstrapDir.mkdirs()
 
         File(bootstrapDir, "bootstrap-${type}.json").printWriter().use { out ->
-            out.println(json)
+            out.println(prettyJson)
         }
     }
 }

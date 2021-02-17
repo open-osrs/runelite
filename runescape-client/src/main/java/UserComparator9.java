@@ -64,7 +64,7 @@ public class UserComparator9 extends AbstractUserComparator {
 			var0 -= 1000; // L: 735
 			var3 = CollisionMap.getWidget(Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]); // L: 736
 		} else {
-			var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 738
+			var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 738
 		}
 
 		CollisionMap.invalidateWidget(var3); // L: 739
@@ -75,7 +75,7 @@ public class UserComparator9 extends AbstractUserComparator {
 				return 1; // L: 763
 			} else if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) { // L: 765
 				var3.modelType = 3; // L: 766
-				var3.modelId = PlayerAppearance.localPlayer.appearance.getChatHeadId(); // L: 767
+				var3.modelId = PlayerComposition.localPlayer.appearance.getChatHeadId(); // L: 767
 				return 1; // L: 768
 			} else {
 				return 2; // L: 770
@@ -86,7 +86,7 @@ public class UserComparator9 extends AbstractUserComparator {
 			int var5 = Interpreter.Interpreter_intStack[VarcInt.Interpreter_intStackSize + 1]; // L: 743
 			var3.itemId = var4; // L: 744
 			var3.itemQuantity = var5; // L: 745
-			ItemDefinition var6 = SecureRandomCallable.ItemDefinition_get(var4); // L: 746
+			ItemComposition var6 = SecureRandomCallable.ItemDefinition_get(var4); // L: 746
 			var3.modelAngleX = var6.xan2d; // L: 747
 			var3.modelAngleY = var6.yan2d; // L: 748
 			var3.modelAngleZ = var6.zan2d; // L: 749

@@ -157,11 +157,11 @@ public class HealthBarDefinition extends DualNode {
 		garbageValue = "-1946834755"
 	)
 	@Export("getFrontSprite")
-	public Sprite getFrontSprite() {
+	public SpritePixels getFrontSprite() {
 		if (this.frontSpriteID < 0) { // L: 74
 			return null;
 		} else {
-			Sprite var1 = (Sprite)HealthBarDefinition_cachedSprites.get((long)this.frontSpriteID);
+			SpritePixels var1 = (SpritePixels)HealthBarDefinition_cachedSprites.get((long)this.frontSpriteID);
 			if (var1 != null) {
 				return var1;
 			} else {
@@ -181,11 +181,11 @@ public class HealthBarDefinition extends DualNode {
 		garbageValue = "-8563"
 	)
 	@Export("getBackSprite")
-	public Sprite getBackSprite() {
+	public SpritePixels getBackSprite() {
 		if (this.backSpriteID < 0) { // L: 84
 			return null;
 		} else {
-			Sprite var1 = (Sprite)HealthBarDefinition_cachedSprites.get((long)this.backSpriteID); // L: 85
+			SpritePixels var1 = (SpritePixels)HealthBarDefinition_cachedSprites.get((long)this.backSpriteID); // L: 85
 			if (var1 != null) {
 				return var1; // L: 86
 			} else {
@@ -342,7 +342,7 @@ public class HealthBarDefinition extends DualNode {
 					}
 
 					if (var6 == 8) { // L: 9634
-						var7 = PlayerAppearance.localPlayer.combatLevel;
+						var7 = PlayerComposition.localPlayer.combatLevel;
 					}
 
 					if (var6 == 9) { // L: 9635
@@ -400,11 +400,11 @@ public class HealthBarDefinition extends DualNode {
 					}
 
 					if (var6 == 18) { // L: 9668
-						var7 = (PlayerAppearance.localPlayer.x >> 7) + NetFileRequest.baseX;
+						var7 = (PlayerComposition.localPlayer.x >> 7) + NetFileRequest.baseX;
 					}
 
 					if (var6 == 19) { // L: 9669
-						var7 = (PlayerAppearance.localPlayer.y >> 7) + class41.baseY;
+						var7 = (PlayerComposition.localPlayer.y >> 7) + class41.baseY;
 					}
 
 					if (var6 == 20) { // L: 9670

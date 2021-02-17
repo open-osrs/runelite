@@ -112,13 +112,13 @@ public class DiskStorage implements Storage
 	public byte[] readIndex(int indexId) throws IOException
 	{
 		IndexEntry entry = index255.read(indexId);
-		if (entry != null)
+		if (entry == null)
 		{
-			byte[] indexData = data.read(index255.getIndexFileId(), entry.getId(), entry.getSector(), entry.getLength());
-			return indexData;
+			return null;
 		}
 
-		return null;
+		byte[] indexData = data.read(index255.getIndexFileId(), entry.getId(), entry.getSector(), entry.getLength());
+		return indexData;
 	}
 
 	private void loadIndex(Index index) throws IOException
@@ -126,7 +126,6 @@ public class DiskStorage implements Storage
 		logger.trace("Loading index {}", index.getId());
 
 		byte[] indexData = readIndex(index.getId());
-
 		if (indexData == null)
 		{
 			return;

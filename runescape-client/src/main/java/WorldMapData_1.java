@@ -188,7 +188,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 			var4 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 553
 			var3 = CollisionMap.getWidget(var4); // L: 554
 		} else {
-			var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 556
+			var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 556
 		}
 
 		if (var0 == ScriptOpcodes.CC_SETSCROLLPOS) { // L: 557
@@ -402,7 +402,7 @@ public class WorldMapData_1 extends AbstractWorldMapData {
 				int var14 = Occluder.Entity_unpackID(var7); // L: 6999
 				int var15 = var12 & 31; // L: 7000
 				int var16 = var12 >> 6 & 3; // L: 7001
-				ObjectDefinition var13;
+				ObjectComposition var13;
 				if (var1 == 0) { // L: 7002
 					ArchiveLoader.scene.removeBoundaryObject(var0, var2, var3); // L: 7003
 					var13 = WorldMapDecoration.getObjectDefinition(var14); // L: 7004

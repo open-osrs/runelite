@@ -34,7 +34,7 @@ import lombok.Value;
  * all item piles are implicitly despawned, and despawn events will not be sent.
  */
 @Value
-public class ItemDespawned implements Event
+public class ItemDespawned
 {
 	Tile tile;
 	TileItem item;

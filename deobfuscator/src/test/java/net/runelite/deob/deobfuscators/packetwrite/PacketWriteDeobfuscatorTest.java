@@ -51,14 +51,14 @@ public class PacketWriteDeobfuscatorTest
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(properties.getRsClient()));
+		group = JarUtil.load(new File(properties.getRsClient()));
 		group.removeClass(group.findClass("net/runelite/rs/Reflection"));
 	}
 
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group, folder.newFile());
+		JarUtil.save(group, folder.newFile());
 	}
 
 	@Test

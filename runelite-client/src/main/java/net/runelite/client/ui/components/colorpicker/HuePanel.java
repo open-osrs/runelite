@@ -25,6 +25,7 @@
  */
 package net.runelite.client.ui.components.colorpicker;
 
+import com.google.common.primitives.Ints;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -35,7 +36,6 @@ import java.util.function.Consumer;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
-import net.runelite.client.util.MiscUtils;
 
 public class HuePanel extends JPanel
 {
@@ -94,7 +94,7 @@ public class HuePanel extends JPanel
 	 */
 	private void moveSelector(int y)
 	{
-		y = MiscUtils.clamp(y, 0, height - 1);
+		y = Ints.constrainToRange(y, 0, height - 1);
 		if (y == this.selectedY)
 		{
 			return;

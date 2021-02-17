@@ -33,7 +33,6 @@ import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
-import okhttp3.CacheControl;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -55,7 +54,6 @@ public class WorldClient
 
 		Request request = new Request.Builder()
 			.url(url)
-			.cacheControl(CacheControl.FORCE_NETWORK)
 			.build();
 
 		try (Response response = client.newCall(request).execute())

@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 import net.runelite.api.annotations.VisibleForExternalPlugins;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.events.PlayerAppearanceChanged;
+import net.runelite.api.events.PlayerChanged;
 import net.runelite.api.hooks.Callbacks;
 import net.runelite.api.hooks.DrawCallbacks;
 import net.runelite.api.vars.AccountType;
@@ -47,7 +47,7 @@ import org.slf4j.Logger;
 /**
  * Represents the RuneScape client.
  */
-public interface Client extends GameShell
+public interface Client extends GameEngine
 {
 	/**
 	 * The injected client invokes these callbacks to send events to us
@@ -67,6 +67,8 @@ public interface Client extends GameShell
 	 * This is most useful for mixins which can't have their own.
 	 */
 	Logger getLogger();
+
+	String getBuildID();
 
 	/**
 	 * Gets a list of all valid players from the player cache.
@@ -122,12 +124,25 @@ public interface Client extends GameShell
 	/**
 	 * Adds a new chat message to the chatbox.
 	 *
-	 * @param type    the type of message
-	 * @param name    the name of the player that sent the message
+	 * @param type the type of message
+	 * @param name the name of the player that sent the message
 	 * @param message the message contents
-	 * @param sender  the sender/channel name
+	 * @param sender the sender/channel name
+	 * @return the message node for the message
 	 */
-	void addChatMessage(ChatMessageType type, String name, String message, String sender);
+	MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender);
+
+	/**
+	 * Adds a new chat message to the chatbox.
+	 *
+	 * @param type the type of message
+	 * @param name the name of the player that sent the message
+	 * @param message the message contents
+	 * @param sender the sender/channel name
+	 * @param postEvent whether to post the chat message event
+	 * @return the message node for the message
+	 */
+	MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender, boolean postEvent);
 
 	/**
 	 * Gets the current game state.
@@ -386,7 +401,7 @@ public interface Client extends GameShell
 	 * @see ItemID
 	 */
 	@Nonnull
-	ItemDefinition getItemDefinition(int id);
+	ItemComposition getItemDefinition(int id);
 
 	/**
 	 * Creates an item icon sprite with passed variables.
@@ -401,7 +416,7 @@ public interface Client extends GameShell
 	 * @return the created sprite
 	 */
 	@Nullable
-	Sprite createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale);
+	SpritePixels createItemSprite(int itemId, int quantity, int border, int shadowColor, int stackable, boolean noted, int scale);
 
 	/**
 	 * Loads and creates the sprite images of the passed archive and file IDs.
@@ -412,7 +427,7 @@ public interface Client extends GameShell
 	 * @return the sprite image of the file
 	 */
 	@Nullable
-	Sprite[] getSprites(IndexDataBase source, int archiveId, int fileId);
+	SpritePixels[] getSprites(IndexDataBase source, int archiveId, int fileId);
 
 	/**
 	 * Gets the sprite index.
@@ -457,7 +472,7 @@ public interface Client extends GameShell
 	int getMouseCurrentButton();
 
 	/**
-	 * Gets the currently selected tile (ie. last right clicked tile).
+	 * Gets the currently selected tile. (ie. last right clicked tile)
 	 *
 	 * @return the selected tile
 	 */
@@ -525,6 +540,16 @@ public interface Client extends GameShell
 	 */
 	@Nullable
 	Widget getWidget(int groupId, int childId);
+
+	/**
+	 * Gets a widget by it's packed ID.
+	 *
+	 * <p>
+	 * Note: Use {@link #getWidget(WidgetInfo)} or {@link #getWidget(int, int)} for
+	 * a more readable version of this method.
+	 */
+	@Nullable
+	Widget getWidget(int packedID);
 
 	/**
 	 * Gets an array containing the x-axis canvas positions
@@ -740,15 +765,6 @@ public interface Client extends GameShell
 	String getVar(VarClientStr varClientStr);
 
 	/**
-	 * Gets the value of a given VarPlayer.
-	 *
-	 * @param varpId the VarPlayer id
-	 * @return the value
-	 */
-	@VisibleForExternalPlugins
-	int getVarpValue(int varpId);
-
-	/**
 	 * Gets the value of a given Varbit.
 	 *
 	 * @param varbitId the varbit id
@@ -794,6 +810,15 @@ public interface Client extends GameShell
 	void setVarbit(Varbits varbit, int value);
 
 	/**
+	 * Gets the varbit composition for a given varbit id
+	 *
+	 * @param id
+	 * @return
+	 */
+	@Nullable
+	VarbitComposition getVarbit(int id);
+
+	/**
 	 * Gets the value of a given variable.
 	 *
 	 * @param varps    passed varbits
@@ -809,19 +834,11 @@ public interface Client extends GameShell
 	 * @param varps  passed varps
 	 * @param varpId the VarpPlayer id
 	 * @return the value
-	 * @see VarPlayer#id
+	 * @see VarPlayer#getId()
 	 */
 	int getVarpValue(int[] varps, int varpId);
 
-	/**
-	 * Sets the value of a given VarPlayer.
-	 *
-	 * @param varps  passed varps
-	 * @param varpId the VarpPlayer id
-	 * @param value  the value
-	 * @see VarPlayer#id
-	 */
-	void setVarpValue(int[] varps, int varpId, int value);
+	int getVarpValue(int i);
 
 	/**
 	 * Sets the value of a given variable.
@@ -834,10 +851,11 @@ public interface Client extends GameShell
 	void setVarbitValue(int[] varps, int varbit, int value);
 
 	/**
-	 * Gets the varbit composition for a given varbit id
+	 * Mark the given varp as changed, causing var listeners to be
+	 * triggered next tick
+	 * @param varp
 	 */
-	@Nullable
-	VarbitDefinition getVarbitDefinition(int id);
+	void queueChangedVarp(int varp);
 
 	/**
 	 * Gets the widget flags table.
@@ -916,23 +934,13 @@ public interface Client extends GameShell
 	IterableHashTable<MessageNode> getMessages();
 
 	/**
-	 * Gets the viewport widget.
-	 * <p>
-	 * The viewport is the area of the game above the chatbox
-	 * and to the left of the mini-map.
-	 *
-	 * @return the viewport widget
-	 */
-	Widget getViewportWidget();
-
-	/**
 	 * Gets the object composition corresponding to an objects ID.
 	 *
 	 * @param objectId the object ID
 	 * @return the corresponding object composition
 	 * @see ObjectID
 	 */
-	ObjectDefinition getObjectDefinition(int objectId);
+	ObjectComposition getObjectDefinition(int objectId);
 
 	/**
 	 * Gets the NPC composition corresponding to an NPCs ID.
@@ -941,7 +949,19 @@ public interface Client extends GameShell
 	 * @return the corresponding NPC composition
 	 * @see NpcID
 	 */
-	NPCDefinition getNpcDefinition(int npcId);
+	NPCComposition getNpcDefinition(int npcId);
+
+	/**
+	 * Gets the {@link StructComposition} for a given struct ID
+	 *
+	 * @see StructID
+	 */
+	StructComposition getStructComposition(int structID);
+
+	/**
+	 * Gets the client's cache of in memory struct compositions
+	 */
+	NodeCache getStructCompositionCache();
 
 	/**
 	 * Gets an array of all world areas
@@ -962,7 +982,7 @@ public interface Client extends GameShell
 	 *
 	 * @return all mini-map dots
 	 */
-	Sprite[] getMapDots();
+	SpritePixels[] getMapDots();
 
 	/**
 	 * Gets the local clients game cycle.
@@ -978,7 +998,7 @@ public interface Client extends GameShell
 	 *
 	 * @return the map icons
 	 */
-	Sprite[] getMapIcons();
+	SpritePixels[] getMapIcons();
 
 	/**
 	 * Gets an array of mod icon sprites.
@@ -1010,7 +1030,7 @@ public interface Client extends GameShell
 	 * @param height the height
 	 * @return the sprite image
 	 */
-	Sprite createSprite(int[] pixels, int width, int height);
+	SpritePixels createSpritePixels(int[] pixels, int width, int height);
 
 	/**
 	 * Gets the location of the local player.
@@ -1033,6 +1053,18 @@ public interface Client extends GameShell
 	 * @return all graphics objects
 	 */
 	List<GraphicsObject> getGraphicsObjects();
+
+	/**
+	 * Gets the music volume
+	 * @return volume 0-255 inclusive
+	 */
+	int getMusicVolume();
+
+	/**
+	 * Sets the music volume
+	 * @param volume 0-255 inclusive
+	 */
+	void setMusicVolume(int volume);
 
 	/**
 	 * Play a sound effect at the player's current location. This is how UI,
@@ -1176,6 +1208,20 @@ public interface Client extends GameShell
 	 * Gets the cs2 vm's string stack
 	 */
 	String[] getStringStack();
+
+	/**
+	 * Gets the cs2 vm's active widget
+	 *
+	 * This is used for all {@code cc_*} operations with a {@code 0} operand
+	 */
+	Widget getScriptActiveWidget();
+
+	/**
+	 * Gets the cs2 vm's "dot" widget
+	 *
+	 * This is used for all {@code .cc_*} operations with a {@code 1} operand
+	 */
+	Widget getScriptDotWidget();
 
 	/**
 	 * Checks whether a player is on the friends list.
@@ -1339,17 +1385,27 @@ public interface Client extends GameShell
 	 * @param z the plane
 	 * @return the map sprite
 	 */
-	Sprite drawInstanceMap(int z);
+	SpritePixels drawInstanceMap(int z);
 
 	/**
 	 * Executes a client script from the cache
 	 * <p>
 	 * This method must be ran on the client thread and is not reentrant
 	 *
+	 * This method is shorthand for {@code client.createScriptEvent(args).run()}
+	 *
 	 * @param args the script id, then any additional arguments to execute the script with
 	 * @see ScriptID
 	 */
 	void runScript(Object... args);
+
+	/**
+	 * Creates a blank ScriptEvent for executing a ClientScript2 script
+	 *
+	 * @param args the script id, then any additional arguments to execute the script with
+	 * @see ScriptID
+	 */
+	ScriptEvent createScriptEvent(Object ...args);
 
 	/**
 	 * Checks whether or not there is any active hint arrow.
@@ -1499,15 +1555,15 @@ public interface Client extends GameShell
 	 *
 	 * @param state the new player hidden state
 	 */
-	void setPlayersHidden(boolean state);
+	void setOthersHidden(boolean state);
 
 	/**
-	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
-	 * the other players are hidden.
+	 * Sets whether 2D sprites related to the other players are hidden.
+	 * (ie. overhead prayers, PK skull)
 	 *
 	 * @param state the new player 2D hidden state
 	 */
-	void setPlayersHidden2D(boolean state);
+	void setOthersHidden2D(boolean state);
 
 	/**
 	 * Sets whether or not friends are hidden.
@@ -1524,6 +1580,13 @@ public interface Client extends GameShell
 	void setFriendsChatMembersHidden(boolean state);
 
 	/**
+	 * Sets whether or not ignored players are hidden.
+	 *
+	 * @param state the new ignored player hidden state
+	 */
+	void setIgnoresHidden(boolean state);
+
+	/**
 	 * Sets whether the local player is hidden.
 	 *
 	 * @param state new local player hidden state
@@ -1531,8 +1594,8 @@ public interface Client extends GameShell
 	void setLocalPlayerHidden(boolean state);
 
 	/**
-	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
-	 * the local player are hidden.
+	 * Sets whether 2D sprites related to the local player are hidden.
+	 * (ie. overhead prayers, PK skull)
 	 *
 	 * @param state new local player 2D hidden state
 	 */
@@ -1544,48 +1607,6 @@ public interface Client extends GameShell
 	 * @param state new NPC hidden state
 	 */
 	void setNPCsHidden(boolean state);
-
-	/**
-	 * Increments the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void addHiddenNpcName(String name);
-
-	/**
-	 * Decrements the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void removeHiddenNpcName(String name);
-
-	/**
-	 * Forcibly unhides an npc by setting its counter to zero
-	 *
-	 * @param name npc name
-	 */
-	void forciblyUnhideNpcName(String name);
-
-	/**
-	 * Increments the counter for how many times this npc has been selected to be hidden on death
-	 *
-	 * @param name npc name
-	 */
-	void addHiddenNpcDeath(String name);
-
-	/**
-	 * Decrements the counter for how many times this npc has been selected to be hidden on death
-	 *
-	 * @param name npc name
-	 */
-	void removeHiddenNpcDeath(String name);
-
-	/**
-	 * Forcibly unhides a hidden-while-dead npc by setting its counter to zero
-	 *
-	 * @param name npc name
-	 */
-	void forciblyUnhideNpcDeath(String name);
 
 	/**
 	 * Sets whether 2D sprites (ie. overhead prayers) related to
@@ -1662,7 +1683,7 @@ public interface Client extends GameShell
 	 * The key value in the map corresponds to the ID of the sprite,
 	 * and the value the sprite to replace it with.
 	 */
-	Map<Integer, Sprite> getSpriteOverrides();
+	Map<Integer, SpritePixels> getSpriteOverrides();
 
 	/**
 	 * Gets a mapping of widget sprites to override.
@@ -1670,14 +1691,14 @@ public interface Client extends GameShell
 	 * The key value in the map corresponds to the packed widget ID,
 	 * and the value the sprite to replace the widgets sprite with.
 	 */
-	Map<Integer, Sprite> getWidgetSpriteOverrides();
+	Map<Integer, SpritePixels> getWidgetSpriteOverrides();
 
 	/**
 	 * Sets the compass sprite.
 	 *
-	 * @param Sprite the new sprite
+	 * @param SpritePixels the new sprite
 	 */
-	void setCompass(Sprite Sprite);
+	void setCompass(SpritePixels SpritePixels);
 
 	/**
 	 * Sets whether inventory quantity is verbose.
@@ -1824,14 +1845,14 @@ public interface Client extends GameShell
 	/**
 	 * Returns client item composition cache
 	 */
-	NodeCache getItemDefinitionCache();
+	NodeCache getItemCompositionCache();
 
 	/**
 	 * Returns the array of cross sprites that appear and animate when left-clicking
 	 */
-	Sprite[] getCrossSprites();
+	SpritePixels[] getCrossSprites();
 
-	EnumDefinition getEnum(int id);
+	EnumComposition getEnum(int id);
 
 	/**
 	 * Draws a menu in the 2010 interface style.
@@ -1863,7 +1884,7 @@ public interface Client extends GameShell
 
 	void setSelectedSpellName(String name);
 
-	boolean isSpellSelected();
+	boolean getSpellSelected();
 
 	String getSelectedSpellActionName();
 
@@ -1954,7 +1975,7 @@ public interface Client extends GameShell
 	 * @param pixelWidth   pretty much horizontal scale
 	 * @param pixelHeight  pretty much vertical scale
 	 * @param oldWidth     old width
-	 * @see net.runelite.client.util.ImageUtil#resizeSprite(Client, Sprite, int, int)
+	 * @see net.runelite.client.util.ImageUtil#resizeSprite(Client, SpritePixels, int, int)
 	 */
 	void scaleSprite(int[] canvas, int[] pixels, int color, int pixelX, int pixelY, int canvasIdx, int canvasOffset, int newWidth, int newHeight, int pixelWidth, int pixelHeight, int oldWidth);
 
@@ -2037,7 +2058,7 @@ public interface Client extends GameShell
 	/**
 	 * Setting this to true will allow the client to compare
 	 * player appearance hashes and dispatch when one changes
-	 * via the {@link PlayerAppearanceChanged} event.
+	 * via the {@link PlayerChanged} event.
 	 * <p>
 	 * WARNING - THIS METHOD IS CPU-INTENSE.
 	 */
@@ -2048,7 +2069,7 @@ public interface Client extends GameShell
 	 * If the image is larger than half the width of fixed mode,
 	 * it won't get mirrored to the other side of the screen
 	 */
-	void setLoginScreen(Sprite pixels);
+	void setLoginScreen(SpritePixels pixels);
 
 	/**
 	 * Sets whether the flames on the login screen should be rendered
@@ -2080,4 +2101,34 @@ public interface Client extends GameShell
 	void setOutdatedScript(String outdatedScript);
 
 	List<String> getOutdatedScripts();
+
+	/**
+	 * various archives you might want to use for reading data from cache
+	 */
+	AbstractArchive getSequenceDefinition_skeletonsArchive();
+
+	AbstractArchive getSequenceDefinition_archive();
+
+	AbstractArchive getSequenceDefinition_animationsArchive();
+
+	AbstractArchive getNpcDefinition_archive();
+
+	AbstractArchive getObjectDefinition_modelsArchive();
+
+	AbstractArchive getObjectDefinition_archive();
+
+	AbstractArchive getItemDefinition_archive();
+
+	AbstractArchive getKitDefinition_archive();
+
+	AbstractArchive getKitDefinition_modelsArchive();
+
+	AbstractArchive getSpotAnimationDefinition_archive();
+
+	AbstractArchive getSpotAnimationDefinition_modelArchive();
+
+	/**
+	 * use createBuffer to create a new byte buffer
+	 */
+	Buffer createBuffer(byte[] initialBytes);
 }

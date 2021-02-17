@@ -182,7 +182,7 @@ public class WorldMapSection1 implements WorldMapSection {
 		switch(var0) { // L: 2941
 		case 1:
 			Login.loginIndex = 24; // L: 2950
-			GameShell.setLoginResponseString("", "You were disconnected from the server.", ""); // L: 2951
+			GameEngine.setLoginResponseString("", "You were disconnected from the server.", ""); // L: 2951
 			break;
 		case 2:
 			Messages.method2285(); // L: 2944
@@ -203,7 +203,7 @@ public class WorldMapSection1 implements WorldMapSection {
 	static final void method626(double var0) {
 		Rasterizer3D.Rasterizer3D_setBrightness(var0); // L: 10642
 		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).setBrightness(var0); // L: 10643
-		ItemDefinition.ItemDefinition_cachedSprites.clear(); // L: 10645
+		ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 10645
 		Timer.clientPreferences.field1057 = var0; // L: 10647
 		GrandExchangeOffer.savePreferences(); // L: 10648
 	} // L: 10649
@@ -220,7 +220,7 @@ public class WorldMapSection1 implements WorldMapSection {
 		int var3 = 0; // L: 11104
 
 		for (int var4 = 0; var4 < Varcs.ItemDefinition_fileCount; ++var4) { // L: 11105
-			ItemDefinition var9 = SecureRandomCallable.ItemDefinition_get(var4); // L: 11106
+			ItemComposition var9 = SecureRandomCallable.ItemDefinition_get(var4); // L: 11106
 			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) { // L: 11107 11108 11109
 				if (var3 >= 250) { // L: 11110
 					PacketBufferNode.foundItemIdCount = -1; // L: 11111

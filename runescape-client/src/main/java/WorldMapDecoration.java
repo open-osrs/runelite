@@ -39,13 +39,13 @@ public class WorldMapDecoration {
 		garbageValue = "-671846279"
 	)
 	@Export("getObjectDefinition")
-	public static ObjectDefinition getObjectDefinition(int var0) {
-		ObjectDefinition var1 = (ObjectDefinition)ObjectDefinition.ObjectDefinition_cached.get((long)var0); // L: 73
+	public static ObjectComposition getObjectDefinition(int var0) {
+		ObjectComposition var1 = (ObjectComposition) ObjectComposition.ObjectDefinition_cached.get((long)var0); // L: 73
 		if (var1 != null) { // L: 74
 			return var1;
 		} else {
-			byte[] var2 = ObjectDefinition.ObjectDefinition_archive.takeFile(6, var0); // L: 75
-			var1 = new ObjectDefinition(); // L: 76
+			byte[] var2 = ObjectComposition.ObjectDefinition_archive.takeFile(6, var0); // L: 75
+			var1 = new ObjectComposition(); // L: 76
 			var1.id = var0; // L: 77
 			if (var2 != null) { // L: 78
 				var1.decode(new Buffer(var2));
@@ -57,7 +57,7 @@ public class WorldMapDecoration {
 				var1.boolean1 = false; // L: 82
 			}
 
-			ObjectDefinition.ObjectDefinition_cached.put(var1, (long)var0); // L: 84
+			ObjectComposition.ObjectDefinition_cached.put(var1, (long)var0); // L: 84
 			return var1; // L: 85
 		}
 	}

@@ -1,5 +1,6 @@
 package net.runelite.client.plugins.openosrs.externals;
 
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -21,7 +22,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.plugins.ExternalPluginManager;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
@@ -46,12 +46,12 @@ public class ExternalPluginManagerPanel extends PluginPanel
 		ADD_HOVER_ICON_GH = new ImageIcon(ImageUtil.alphaOffset(addIconGh, 0.53f));
 	}
 
-	private final ExternalPluginManager externalPluginManager;
+	private final OPRSExternalPluginManager externalPluginManager;
 	private final ScheduledExecutorService executor;
 	private final EventBus eventBus;
 
 	@Inject
-	private ExternalPluginManagerPanel(ExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
+	private ExternalPluginManagerPanel(OPRSExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
 	{
 		super(false);
 
@@ -134,7 +134,7 @@ public class ExternalPluginManagerPanel extends PluginPanel
 					return;
 				}
 
-				if (ExternalPluginManager.testGHRepository(owner.getText(), name.getText()))
+				if (OPRSExternalPluginManager.testGHRepository(owner.getText(), name.getText()))
 				{
 					JOptionPane.showMessageDialog(ClientUI.getFrame(), "This doesn't appear to be a valid repository.", "Error!",
 						JOptionPane.ERROR_MESSAGE);
@@ -222,7 +222,7 @@ public class ExternalPluginManagerPanel extends PluginPanel
 					return;
 				}
 
-				if (ExternalPluginManager.testRepository(urlActual))
+				if (OPRSExternalPluginManager.testRepository(urlActual))
 				{
 					JOptionPane.showMessageDialog(ClientUI.getFrame(), "This doesn't appear to be a valid repository.", "Error!",
 						JOptionPane.ERROR_MESSAGE);

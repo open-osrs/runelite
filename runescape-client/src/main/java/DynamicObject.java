@@ -6,7 +6,8 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cn")
 @Implements("DynamicObject")
-public class DynamicObject extends Entity {
+public class DynamicObject extends Renderable
+{
 	@ObfuscatedName("rl")
 	@ObfuscatedGetter(
 		intValue = 2126595663
@@ -84,7 +85,7 @@ public class DynamicObject extends Entity {
 	@ObfuscatedSignature(
 		descriptor = "(IIIIIIIZLer;)V"
 	)
-	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Entity var9) {
+	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Renderable var9) {
 		this.id = var1;
 		this.type = var2; // L: 21
 		this.orientation = var3; // L: 22
@@ -92,7 +93,7 @@ public class DynamicObject extends Entity {
 		this.x = var5; // L: 24
 		this.y = var6; // L: 25
 		if (var7 != -1) { // L: 26
-			this.sequenceDefinition = ParamDefinition.SequenceDefinition_get(var7); // L: 27
+			this.sequenceDefinition = ParamComposition.SequenceDefinition_get(var7); // L: 27
 			this.frame = 0; // L: 28
 			this.cycleStart = Client.cycle - 1; // L: 29
 			if (this.sequenceDefinition.field3548 == 0 && var9 != null && var9 instanceof DynamicObject) { // L: 30
@@ -145,7 +146,7 @@ public class DynamicObject extends Entity {
 			this.cycleStart = Client.cycle - var1; // L: 60
 		}
 
-		ObjectDefinition var12 = WorldMapDecoration.getObjectDefinition(this.id); // L: 62
+		ObjectComposition var12 = WorldMapDecoration.getObjectDefinition(this.id); // L: 62
 		if (var12.transforms != null) { // L: 63
 			var12 = var12.transform();
 		}

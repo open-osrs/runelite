@@ -42,13 +42,13 @@ public class AnnotationRenamerTest
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(JAR));
+		group = JarUtil.load(new File(JAR));
 	}
 
 	@After
 	public void after() throws IOException
 	{
-		JarUtil.saveJar(group, new File(OUT));
+		JarUtil.save(group, new File(OUT));
 	}
 
 	//@Test

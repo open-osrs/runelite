@@ -1,23 +1,28 @@
 package net.runelite.client.plugins.openosrs.externals;
 
+import net.runelite.client.plugins.OPRSExternalPluginManager;
+import com.openosrs.client.events.OPRSRepositoryChanged;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import javax.inject.Inject;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.events.ExternalRepositoryChanged;
-import net.runelite.client.plugins.ExternalPluginManager;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.ui.ColorScheme;
 import org.pf4j.update.UpdateRepository;
 
 public class RepositoryPanel extends JPanel
 {
-	private final ExternalPluginManager externalPluginManager;
+	@Inject
+	public EventBus eventBus;
+
+	private final OPRSExternalPluginManager externalPluginManager;
 
 	private final GridBagConstraints c = new GridBagConstraints();
 
-	RepositoryPanel(ExternalPluginManager externalPluginManager, EventBus eventBus)
+	RepositoryPanel(OPRSExternalPluginManager externalPluginManager, EventBus eventBus)
 	{
 		this.externalPluginManager = externalPluginManager;
 
@@ -25,12 +30,13 @@ public class RepositoryPanel extends JPanel
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
 		setBorder(new EmptyBorder(0, 10, 0, 10));
 
-		createPanel();
+		onExternalRepositoryChanged(null);
 
-		eventBus.subscribe(ExternalRepositoryChanged.class, this, (e) -> createPanel());
+		eventBus.register(this);
 	}
 
-	private void createPanel()
+	@Subscribe
+	private void onExternalRepositoryChanged(OPRSRepositoryChanged event)
 	{
 		removeAll();
 

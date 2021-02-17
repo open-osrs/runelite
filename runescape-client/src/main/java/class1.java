@@ -85,7 +85,7 @@ final class class1 implements class0 {
 			int[] var11 = class25.sceneMinimapSprite.pixels; // L: 5496
 			var12 = var1 * 4 + (103 - var2) * 2048 + 24624; // L: 5497
 			var13 = Occluder.Entity_unpackID(var5); // L: 5498
-			ObjectDefinition var14 = WorldMapDecoration.getObjectDefinition(var13); // L: 5499
+			ObjectComposition var14 = WorldMapDecoration.getObjectDefinition(var13); // L: 5499
 			if (var14.mapSceneId != -1) { // L: 5500
 				IndexedSprite var15 = WorldMapRegion.mapSceneSprites[var14.mapSceneId]; // L: 5501
 				if (var15 != null) { // L: 5502
@@ -162,7 +162,7 @@ final class class1 implements class0 {
 			var8 = var7 >> 6 & 3; // L: 5572
 			var9 = var7 & 31; // L: 5573
 			var10 = Occluder.Entity_unpackID(var5); // L: 5574
-			ObjectDefinition var24 = WorldMapDecoration.getObjectDefinition(var10); // L: 5575
+			ObjectComposition var24 = WorldMapDecoration.getObjectDefinition(var10); // L: 5575
 			int var19;
 			if (var24.mapSceneId != -1) { // L: 5576
 				IndexedSprite var20 = WorldMapRegion.mapSceneSprites[var24.mapSceneId]; // L: 5577
@@ -196,7 +196,7 @@ final class class1 implements class0 {
 		var5 = ArchiveLoader.scene.getFloorDecorationTag(var0, var1, var2); // L: 5603
 		if (0L != var5) { // L: 5604
 			var7 = Occluder.Entity_unpackID(var5); // L: 5605
-			ObjectDefinition var21 = WorldMapDecoration.getObjectDefinition(var7); // L: 5606
+			ObjectComposition var21 = WorldMapDecoration.getObjectDefinition(var7); // L: 5606
 			if (var21.mapSceneId != -1) { // L: 5607
 				IndexedSprite var22 = WorldMapRegion.mapSceneSprites[var21.mapSceneId]; // L: 5608
 				if (var22 != null) { // L: 5609

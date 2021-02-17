@@ -39,7 +39,7 @@ public class class58 {
 	)
 	public static File method917(String var0, String var1, int var2) {
 		String var3 = var2 == 0 ? "" : "" + var2; // L: 40
-		JagexCache.JagexCache_locationFile = new File(TileItemPile.userHomeDirectory, "jagex_cl_" + var0 + "_" + var1 + var3 + ".dat"); // L: 41
+		JagexCache.JagexCache_locationFile = new File(ItemLayer.userHomeDirectory, "jagex_cl_" + var0 + "_" + var1 + var3 + ".dat"); // L: 41
 		String var4 = null; // L: 42
 		String var5 = null; // L: 43
 		boolean var6 = false; // L: 44
@@ -149,7 +149,7 @@ public class class58 {
 		}
 
 		if (var4 == null) { // L: 133
-			var4 = TileItemPile.userHomeDirectory + File.separatorChar + "jagexcache" + var3 + File.separatorChar + var0 + File.separatorChar + var1 + File.separatorChar; // L: 134
+			var4 = ItemLayer.userHomeDirectory + File.separatorChar + "jagexcache" + var3 + File.separatorChar + var0 + File.separatorChar + var1 + File.separatorChar; // L: 134
 			var6 = true; // L: 135
 		}
 

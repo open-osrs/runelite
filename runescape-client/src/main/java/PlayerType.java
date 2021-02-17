@@ -90,9 +90,9 @@ public enum PlayerType implements Enumerated {
 		descriptor = "(IIII)Llm;",
 		garbageValue = "-320192439"
 	)
-	static Sprite method4170(int var0, int var1, int var2) {
+	static SpritePixels method4170(int var0, int var1, int var2) {
 		DemotingHashTable var3 = WorldMapRegion.WorldMapRegion_cachedSprites; // L: 38
 		long var4 = (long)(var2 << 16 | var0 << 8 | var1); // L: 41
-		return (Sprite)var3.get(var4); // L: 43
+		return (SpritePixels)var3.get(var4); // L: 43
 	}
 }

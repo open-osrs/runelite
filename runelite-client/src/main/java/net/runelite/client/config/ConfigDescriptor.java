@@ -24,22 +24,20 @@
  */
 package net.runelite.client.config;
 
-import java.util.Collection;
 import lombok.Getter;
+import java.util.Collection;
 
 @Getter
 public class ConfigDescriptor
 {
 	private final ConfigGroup group;
-	private final Collection<ConfigSection> sections;
-	private final Collection<ConfigTitleSection> titleSections;
+	private final Collection<ConfigSectionDescriptor> sections;
 	private final Collection<ConfigItemDescriptor> items;
 
-	public ConfigDescriptor(ConfigGroup group, Collection<ConfigSection> sections, Collection<ConfigTitleSection> titleSections, Collection<ConfigItemDescriptor> items)
+	public ConfigDescriptor(ConfigGroup group, Collection<ConfigSectionDescriptor> sections, Collection<ConfigItemDescriptor> items)
 	{
 		this.group = group;
 		this.sections = sections;
-		this.titleSections = titleSections;
 		this.items = items;
 	}
 }

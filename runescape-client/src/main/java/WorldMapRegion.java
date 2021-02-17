@@ -95,7 +95,7 @@ public class WorldMapRegion {
 		garbageValue = "-1252499183"
 	)
 	void method534(int var1, int var2, int var3) {
-		Sprite var4 = PlayerType.method4170(this.regionX, this.regionY, this.pixelsPerTile); // L: 61
+		SpritePixels var4 = PlayerType.method4170(this.regionX, this.regionY, this.pixelsPerTile); // L: 61
 		if (var4 != null) { // L: 62
 			if (var3 == this.pixelsPerTile * 64) { // L: 63
 				var4.drawAt(var1, var2); // L: 64
@@ -154,7 +154,7 @@ public class WorldMapRegion {
 						WorldMapDecoration[] var10 = var9; // L: 99
 
 						for (int var11 = 0; var11 < var10.length; ++var11) { // L: 100
-							ObjectDefinition var13;
+							ObjectComposition var13;
 							boolean var14;
 							label66: {
 								WorldMapDecoration var12 = var10[var11]; // L: 101
@@ -164,7 +164,7 @@ public class WorldMapRegion {
 
 									for (int var16 = 0; var16 < var15.length; ++var16) { // L: 109
 										int var17 = var15[var16]; // L: 110
-										ObjectDefinition var18 = WorldMapDecoration.getObjectDefinition(var17); // L: 112
+										ObjectComposition var18 = WorldMapDecoration.getObjectDefinition(var17); // L: 112
 										if (var18.mapIconId != -1) { // L: 113
 											var14 = true; // L: 114
 											break label66;
@@ -196,7 +196,7 @@ public class WorldMapRegion {
 		garbageValue = "1801137136"
 	)
 	@Export("getIcon")
-	void getIcon(ObjectDefinition var1, int var2, int var3, int var4, AbstractWorldMapData var5) {
+	void getIcon(ObjectComposition var1, int var2, int var3, int var4, AbstractWorldMapData var5) {
 		Coord var6 = new Coord(var2, var3 + this.regionX * 64, this.regionY * 64 + var4); // L: 141
 		Coord var7 = null; // L: 142
 		if (this.worldMapData_0 != null) { // L: 143
@@ -340,7 +340,7 @@ public class WorldMapRegion {
 				if (var6) { // L: 254
 					byte[] var7 = var5.takeFileFlat(var8); // L: 255
 					WorldMapSprite var9 = DynamicObject.method2300(var7); // L: 256
-					Sprite var10 = new Sprite(this.pixelsPerTile * 64, this.pixelsPerTile * 64); // L: 257
+					SpritePixels var10 = new SpritePixels(this.pixelsPerTile * 64, this.pixelsPerTile * 64); // L: 257
 					var10.setRaster(); // L: 258
 					if (this.worldMapData_0 != null) { // L: 259
 						this.method471(var2, var3, var9); // L: 260
@@ -541,7 +541,7 @@ public class WorldMapRegion {
 					int var11 = var9.decoration; // L: 402
 					boolean var10 = var11 >= WorldMapDecorationType.field2764.id && var11 <= WorldMapDecorationType.field2755.id; // L: 404
 					if (var10 || BoundaryObject.method3342(var9.decoration)) { // L: 406
-						ObjectDefinition var12 = WorldMapDecoration.getObjectDefinition(var9.objectDefinitionId); // L: 407
+						ObjectComposition var12 = WorldMapDecoration.getObjectDefinition(var9.objectDefinitionId); // L: 407
 						if (var12.mapSceneId != -1) { // L: 408
 							if (var12.mapSceneId != 46 && var12.mapSceneId != 52) { // L: 409
 								var4[var12.mapSceneId].method6141(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile * 2, this.pixelsPerTile * 2); // L: 413
@@ -570,7 +570,7 @@ public class WorldMapRegion {
 				for (int var7 = 0; var7 < var6.length; ++var7) { // L: 431
 					WorldMapDecoration var8 = var6[var7]; // L: 432
 					if (FriendLoginUpdate.method5290(var8.decoration)) { // L: 434
-						ObjectDefinition var9 = WorldMapDecoration.getObjectDefinition(var8.objectDefinitionId); // L: 435
+						ObjectComposition var9 = WorldMapDecoration.getObjectDefinition(var8.objectDefinitionId); // L: 435
 						int var10 = var9.int1 != 0 ? -3407872 : -3355444; // L: 436
 						if (var8.decoration == WorldMapDecorationType.field2761.id) { // L: 437
 							this.method503(var1, var2, var8.rotation, var10); // L: 438
@@ -675,7 +675,7 @@ public class WorldMapRegion {
 	)
 	@Export("drawBackgroundCircle")
 	void drawBackgroundCircle(WorldMapElement var1, int var2, int var3, int var4, int var5) {
-		Sprite var6 = var1.getSpriteBool(false); // L: 506
+		SpritePixels var6 = var1.getSpriteBool(false); // L: 506
 		if (var6 != null) { // L: 507
 			var6.drawTransBgAt(var2 - var6.subWidth / 2, var3 - var6.subHeight / 2); // L: 510
 			if (var4 % var5 < var5 / 2) { // L: 511
@@ -703,7 +703,7 @@ public class WorldMapRegion {
 		garbageValue = "0"
 	)
 	void method494(WorldMapElement var1, int var2, int var3) {
-		Sprite var4 = var1.getSpriteBool(false); // L: 524
+		SpritePixels var4 = var1.getSpriteBool(false); // L: 524
 		if (var4 != null) { // L: 525
 			int var5 = this.method497(var4, var1.horizontalAlignment); // L: 526
 			int var6 = this.method498(var4, var1.verticalAlignment); // L: 527
@@ -757,7 +757,7 @@ public class WorldMapRegion {
 		descriptor = "(Llm;Ljt;I)I",
 		garbageValue = "-1268952607"
 	)
-	int method497(Sprite var1, HorizontalAlignment var2) {
+	int method497(SpritePixels var1, HorizontalAlignment var2) {
 		switch(var2.value) { // L: 563
 		case 1:
 			return -var1.subWidth / 2; // L: 570
@@ -773,7 +773,7 @@ public class WorldMapRegion {
 		descriptor = "(Llm;Lit;S)I",
 		garbageValue = "-11626"
 	)
-	int method498(Sprite var1, VerticalAlignment var2) {
+	int method498(SpritePixels var1, VerticalAlignment var2) {
 		switch(var2.value) { // L: 580
 		case 1:
 			return 0; // L: 583
@@ -951,7 +951,7 @@ public class WorldMapRegion {
 			var4 = "_wip";
 		}
 
-		File var5 = new File(TileItemPile.userHomeDirectory, "jagex_" + var1 + "_preferences" + var0 + var4 + ".dat"); // L: 194
+		File var5 = new File(ItemLayer.userHomeDirectory, "jagex_" + var1 + "_preferences" + var0 + var4 + ".dat"); // L: 194
 		AccessFile var6;
 		if (!var2 && var5.exists()) { // L: 195
 			try {
@@ -1046,7 +1046,7 @@ public class WorldMapRegion {
 						Client.dragItemSlotDestination = var15; // L: 9747
 						Occluder.hoveredItemContainer = var0; // L: 9748
 						if (var0.itemIds[var15] > 0) { // L: 9749
-							ItemDefinition var8 = SecureRandomCallable.ItemDefinition_get(var0.itemIds[var15] - 1); // L: 9750
+							ItemComposition var8 = SecureRandomCallable.ItemDefinition_get(var0.itemIds[var15] - 1); // L: 9750
 							if (Client.isItemSelected == 1 && class52.method844(FaceNormal.getWidgetFlags(var0))) { // L: 9751
 								if (var0.id != WorldMapLabelSize.selectedItemWidget || var15 != ChatChannel.selectedItemSlot) { // L: 9752
 									insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + class23.colorStartTag(16748608) + var8.name, 31, var8.id, var15, var0.id); // L: 9753

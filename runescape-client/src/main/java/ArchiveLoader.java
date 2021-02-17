@@ -142,8 +142,8 @@ public class ArchiveLoader {
 		int var32;
 		int var39;
 		if (Login.worldSelectOpen) { // L: 963
-			if (class301.worldSelectBackSprites == null) { // L: 965
-				class301.worldSelectBackSprites = class280.method5008(Messages.archive8, "sl_back", "");
+			if (class301.worldSelectBackSpritePixels == null) { // L: 965
+				class301.worldSelectBackSpritePixels = class280.method5008(Messages.archive8, "sl_back", "");
 			}
 
 			if (class90.worldSelectFlagSprites == null) { // L: 966
@@ -240,7 +240,7 @@ public class ArchiveLoader {
 			Rasterizer2D.Rasterizer2D_fillRectangle(Login.xPadding + 708, 4, 50, 16, 0); // L: 1007
 			var1.drawCentered("Cancel", Login.xPadding + 708 + 25, 16, 16777215, -1); // L: 1008
 			Login.hoveredWorldIndex = -1; // L: 1009
-			if (class301.worldSelectBackSprites != null) { // L: 1010
+			if (class301.worldSelectBackSpritePixels != null) { // L: 1010
 				var3 = 88; // L: 1011
 				byte var34 = 19; // L: 1012
 				var40 = 765 / (var3 + 1) - 1; // L: 1013
@@ -338,10 +338,10 @@ public class ArchiveLoader {
 
 					if (MouseHandler.MouseHandler_x >= var13 && MouseHandler.MouseHandler_y >= var36 && MouseHandler.MouseHandler_x < var13 + var3 && MouseHandler.MouseHandler_y < var34 + var36 && var19) { // L: 1080
 						Login.hoveredWorldIndex = var17; // L: 1081
-						class301.worldSelectBackSprites[var21].drawTransOverlayAt(var13, var36, 128, 16777215); // L: 1082
+						class301.worldSelectBackSpritePixels[var21].drawTransOverlayAt(var13, var36, 128, 16777215); // L: 1082
 						var15 = true; // L: 1083
 					} else {
-						class301.worldSelectBackSprites[var21].drawAt(var13, var36); // L: 1085
+						class301.worldSelectBackSpritePixels[var21].drawAt(var13, var36); // L: 1085
 					}
 
 					if (class90.worldSelectFlagSprites != null) { // L: 1086
@@ -526,7 +526,7 @@ public class ArchiveLoader {
 							class22.field107 = "Can't login? Click here."; // L: 1256
 						}
 
-						GameShell.field481 = new Bounds(Login.loginBoxCenter, var31, var1.stringWidth(class22.field107), 11); // L: 1259
+						GameEngine.field481 = new Bounds(Login.loginBoxCenter, var31, var1.stringWidth(class22.field107), 11); // L: 1259
 						GrandExchangeOfferOwnWorldComparator.field643 = new Bounds(Login.loginBoxCenter, var31, var1.stringWidth("Still having trouble logging in?"), 11); // L: 1260
 						var1.drawCentered(class22.field107, Login.loginBoxCenter, var31, 16777215, 0); // L: 1261
 					} else if (Login.loginIndex == 3) { // L: 1263

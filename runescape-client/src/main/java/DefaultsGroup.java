@@ -52,7 +52,7 @@ public class DefaultsGroup {
 			Client.players[var0] = null;
 		}
 
-		PlayerAppearance.localPlayer = null; // L: 2774
+		PlayerComposition.localPlayer = null; // L: 2774
 
 		for (var0 = 0; var0 < Client.npcs.length; ++var0) { // L: 2775
 			NPC var1 = Client.npcs[var0]; // L: 2776

@@ -29,7 +29,8 @@ public class VarcInt extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lhe;"
 	)
-	static Widget field3264;
+	@Export("scriptActiveWidget")
+	static Widget scriptActiveWidget;
 	@ObfuscatedName("x")
 	@Export("persist")
 	public boolean persist;

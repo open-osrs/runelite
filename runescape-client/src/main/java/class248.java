@@ -62,7 +62,7 @@ public class class248 {
 			}
 		}
 
-		Sprite var11 = new Sprite(var6, var2, var2); // L: 59
+		SpritePixels var11 = new SpritePixels(var6, var2, var2); // L: 59
 		this.spriteMap.put(var1, var11); // L: 60
 	} // L: 61
 
@@ -71,12 +71,12 @@ public class class248 {
 		descriptor = "(II)Llm;",
 		garbageValue = "-2015707218"
 	)
-	Sprite method4343(int var1) {
+	SpritePixels method4343(int var1) {
 		if (!this.spriteMap.containsKey(var1)) { // L: 64
 			this.method4342(var1); // L: 65
 		}
 
-		return (Sprite)this.spriteMap.get(var1); // L: 67
+		return (SpritePixels)this.spriteMap.get(var1); // L: 67
 	}
 
 	@ObfuscatedName("w")
@@ -106,9 +106,9 @@ public class class248 {
 		descriptor = "(IILlm;FB)V",
 		garbageValue = "-62"
 	)
-	public final void method4346(int var1, int var2, Sprite var3, float var4) {
+	public final void method4346(int var1, int var2, SpritePixels var3, float var4) {
 		int var5 = (int)(var4 * 18.0F); // L: 82
-		Sprite var6 = this.method4343(var5); // L: 83
+		SpritePixels var6 = this.method4343(var5); // L: 83
 		int var7 = var5 * 2 + 1; // L: 84
 		Bounds var8 = new Bounds(0, 0, var3.subWidth, var3.subHeight); // L: 85
 		Bounds var9 = new Bounds(0, 0); // L: 86
@@ -157,7 +157,7 @@ public class class248 {
 		descriptor = "(Llm;Llm;Llc;B)V",
 		garbageValue = "36"
 	)
-	void method4347(Sprite var1, Sprite var2, Bounds var3) {
+	void method4347(SpritePixels var1, SpritePixels var2, Bounds var3) {
 		if (var3.highX != 0 && var3.highY != 0) { // L: 118
 			int var4 = 0; // L: 119
 			int var5 = 0; // L: 120

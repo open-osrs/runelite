@@ -24,3 +24,4 @@ runelite-client/dependencies.txt
 .vscode
 .factorypath
 hs_err_pid*.log
+/runelite-client/src/main/resources/net/runelite/client/injected-client.oprs

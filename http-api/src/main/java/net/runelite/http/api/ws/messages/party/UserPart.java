@@ -27,12 +27,11 @@ package net.runelite.http.api.ws.messages.party;
 import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import net.runelite.api.events.Event;
 import net.runelite.http.api.ws.WebsocketMessage;
 
 @Value
 @EqualsAndHashCode(callSuper = true)
-public class UserPart extends WebsocketMessage implements Event
+public class UserPart extends WebsocketMessage
 {
 	private final UUID memberId;
 }

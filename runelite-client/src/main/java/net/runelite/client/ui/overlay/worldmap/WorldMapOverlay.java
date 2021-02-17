@@ -39,6 +39,7 @@ import net.runelite.api.Point;
 import net.runelite.api.RenderOverview;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.widgets.Widget;
+import net.runelite.api.widgets.WidgetID;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.ui.FontManager;
@@ -73,7 +74,8 @@ public class WorldMapOverlay extends Overlay
 		this.worldMapPointManager = worldMapPointManager;
 		setPosition(OverlayPosition.DYNAMIC);
 		setPriority(OverlayPriority.HIGHEST);
-		setLayer(OverlayLayer.ABOVE_MAP);
+		setLayer(OverlayLayer.MANUAL);
+		drawAfterInterface(WidgetID.WORLD_MAP_GROUP_ID);
 		mouseManager.registerMouseListener(worldMapOverlayMouseListener);
 	}
 
@@ -183,7 +185,6 @@ public class WorldMapOverlay extends Overlay
 
 	/**
 	 * Get the screen coordinates for a WorldPoint on the world map
-	 *
 	 * @param worldPoint WorldPoint to get screen coordinates of
 	 * @return Point of screen coordinates of the center of the world point
 	 */
@@ -196,7 +197,7 @@ public class WorldMapOverlay extends Overlay
 			return null;
 		}
 
-		float pixelsPerTile = ro.getWorldMapZoom();
+		Float pixelsPerTile = ro.getWorldMapZoom();
 
 		Widget map = client.getWidget(WidgetInfo.WORLD_MAP_VIEW);
 		if (map != null)
@@ -233,8 +234,8 @@ public class WorldMapOverlay extends Overlay
 	 * Gets a clip area which excludes the area of widgets which overlay the world map.
 	 *
 	 * @param baseRectangle The base area to clip from
-	 * @return An {@link Area} representing <code>baseRectangle</code>, with the area
-	 * of visible widgets overlaying the world map clipped from it.
+	 * @return              An {@link Area} representing <code>baseRectangle</code>, with the area
+	 *                      of visible widgets overlaying the world map clipped from it.
 	 */
 	private Area getWorldMapClipArea(Rectangle baseRectangle)
 	{
@@ -288,6 +289,7 @@ public class WorldMapOverlay extends Overlay
 
 		graphics.setColor(JagexColors.TOOLTIP_BORDER);
 		graphics.drawRect((int) tooltipRect.getX(), (int) tooltipRect.getY(), (int) tooltipRect.getWidth(), (int) tooltipRect.getHeight());
+
 		graphics.setColor(JagexColors.TOOLTIP_TEXT);
 		for (int i = 0; i < rows.size(); i++)
 		{

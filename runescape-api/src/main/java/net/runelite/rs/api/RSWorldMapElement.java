@@ -7,5 +7,5 @@ public interface RSWorldMapElement extends RSDualNode, MapElementConfig
 {
 	@Import("getSpriteBool")
 	@Override
-	RSSprite getMapIcon(boolean var1);
+	RSSpritePixels getMapIcon(boolean var1);
 }

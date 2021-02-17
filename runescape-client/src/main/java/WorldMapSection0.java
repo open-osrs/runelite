@@ -219,7 +219,7 @@ public class WorldMapSection0 implements WorldMapSection {
 		garbageValue = "1856556337"
 	)
 	@Export("convertJpgToSprite")
-	public static final Sprite convertJpgToSprite(byte[] var0) {
+	public static final SpritePixels convertJpgToSprite(byte[] var0) {
 		BufferedImage var1 = null; // L: 20
 
 		try {
@@ -229,12 +229,12 @@ public class WorldMapSection0 implements WorldMapSection {
 			int[] var4 = new int[var2 * var3]; // L: 25
 			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2); // L: 26
 			var5.grabPixels(); // L: 27
-			return new Sprite(var4, var2, var3); // L: 28
+			return new SpritePixels(var4, var2, var3); // L: 28
 		} catch (IOException var7) { // L: 30
 		} catch (InterruptedException var8) { // L: 31
 		}
 
-		return new Sprite(0, 0); // L: 32
+		return new SpritePixels(0, 0); // L: 32
 	}
 
 	@ObfuscatedName("j")

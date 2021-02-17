@@ -10,7 +10,7 @@ public class class277 {
 		garbageValue = "-1829984749"
 	)
 	static int method5005(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1106
+		Widget var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 1106
 		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) { // L: 1107
 			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.itemId; // L: 1108
 			return 1; // L: 1109

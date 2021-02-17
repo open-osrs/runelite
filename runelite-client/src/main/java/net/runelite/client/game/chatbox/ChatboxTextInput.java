@@ -25,6 +25,7 @@
 package net.runelite.client.game.chatbox;
 
 import com.google.common.base.Strings;
+import com.google.common.primitives.Ints;
 import com.google.inject.Inject;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -48,7 +49,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.FontID;
 import net.runelite.api.FontTypeFace;
-import net.runelite.api.util.Text;
 import net.runelite.api.widgets.JavaScriptCallback;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetPositionMode;
@@ -58,7 +58,7 @@ import net.runelite.api.widgets.WidgetType;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.MouseListener;
-import net.runelite.client.util.MiscUtils;
+import net.runelite.client.util.Text;
 
 @Slf4j
 public class ChatboxTextInput extends ChatboxInput implements KeyListener, MouseListener
@@ -67,7 +67,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 	private static final Pattern BREAK_MATCHER = Pattern.compile("[^a-zA-Z0-9']");
 
 	private final ChatboxPanelManager chatboxPanelManager;
-	final ClientThread clientThread;
+	protected final ClientThread clientThread;
 
 	private static IntPredicate getDefaultCharValidator()
 	{
@@ -88,7 +88,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 	@Getter
 	private int lines;
 
-	private StringBuilder value = new StringBuilder();
+	private StringBuffer value = new StringBuffer();
 
 	@Getter
 	private int cursorStart = 0;
@@ -135,7 +135,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 		return this;
 	}
 
-	protected ChatboxTextInput lines(int lines)
+	public ChatboxTextInput lines(int lines)
 	{
 		this.lines = lines;
 		if (built)
@@ -157,7 +157,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 
 	public ChatboxTextInput value(String value)
 	{
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 		for (char c : value.toCharArray())
 		{
 			if (charValidator.test(c))
@@ -170,12 +170,12 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 		return this;
 	}
 
-	private ChatboxTextInput cursorAt(int index)
+	public ChatboxTextInput cursorAt(int index)
 	{
 		return cursorAt(index, index);
 	}
 
-	private ChatboxTextInput cursorAt(int indexA, int indexB)
+	public ChatboxTextInput cursorAt(int indexA, int indexB)
 	{
 		if (indexA < 0)
 		{
@@ -377,8 +377,8 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 
 			if (isStartLine || isEndLine || (cursorEnd > line.end && cursorStart < line.start))
 			{
-				final int cIdx = MiscUtils.clamp(cursorStart - line.start, 0, len);
-				final int ceIdx = MiscUtils.clamp(cursorEnd - line.start, 0, len);
+				final int cIdx = Ints.constrainToRange(cursorStart - line.start, 0, len);
+				final int ceIdx = Ints.constrainToRange(cursorEnd - line.start, 0, len);
 
 				lt = Text.escapeJagex(text.substring(0, cIdx));
 				mt = Text.escapeJagex(text.substring(cIdx, ceIdx));
@@ -480,7 +480,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 			int cx = p.x - ccl.getX() - ox;
 			int cy = p.y - ccl.getY() - oy;
 
-			int currentLine = MiscUtils.clamp(cy / oh, 0, editLines.size() - 1);
+			int currentLine = Ints.constrainToRange(cy / oh, 0, editLines.size() - 1);
 
 			final Line line = editLines.get(currentLine);
 			final String tsValue = line.text;
@@ -517,7 +517,7 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 				break;
 			}
 
-			charIndex = MiscUtils.clamp(charIndex, 0, tsValue.length());
+			charIndex = Ints.constrainToRange(charIndex, 0, tsValue.length());
 			return line.start + charIndex;
 		};
 
@@ -689,6 +689,11 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 						log.warn("Unable to get clipboard", ex);
 					}
 					return;
+				case KeyEvent.VK_A:
+					selectionStart = 0;
+					selectionEnd = value.length();
+					cursorAt(0, selectionEnd);
+					return;
 			}
 			return;
 		}
@@ -753,13 +758,30 @@ public class ChatboxTextInput extends ChatboxInput implements KeyListener, Mouse
 				return;
 			case KeyEvent.VK_LEFT:
 				ev.consume();
-				newPos--;
+				if (cursorStart != cursorEnd)
+				{
+					newPos = cursorStart;
+				}
+				else
+				{
+					newPos--;
+				}
 				break;
 			case KeyEvent.VK_RIGHT:
 				ev.consume();
-				newPos++;
+				if (cursorStart != cursorEnd)
+				{
+					newPos = cursorEnd;
+				}
+				else
+				{
+					newPos++;
+				}
 				break;
 			case KeyEvent.VK_UP:
+				ev.consume();
+				newPos = getLineOffset.applyAsInt(code);
+				break;
 			case KeyEvent.VK_DOWN:
 				ev.consume();
 				newPos = getLineOffset.applyAsInt(code);

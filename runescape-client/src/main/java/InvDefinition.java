@@ -111,7 +111,7 @@ public class InvDefinition extends DualNode {
 					int var19 = Occluder.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var8]); // L: 8590
 					int var20 = var19; // L: 8592
 					if (var17 == 2 && ArchiveLoader.scene.getObjectFlags(GameObject.Client_plane, var15, var16, var27) >= 0) { // L: 8593 8594
-						ObjectDefinition var21 = WorldMapDecoration.getObjectDefinition(var19); // L: 8595
+						ObjectComposition var21 = WorldMapDecoration.getObjectDefinition(var19); // L: 8595
 						if (var21.transforms != null) { // L: 8596
 							var21 = var21.transform();
 						}
@@ -230,7 +230,7 @@ public class InvDefinition extends DualNode {
 						NodeDeque var36 = Client.groundItems[GameObject.Client_plane][var15][var16]; // L: 8665
 						if (var36 != null) { // L: 8666
 							for (TileItem var35 = (TileItem)var36.first(); var35 != null; var35 = (TileItem)var36.next()) { // L: 8667 8668 8701
-								ItemDefinition var39 = SecureRandomCallable.ItemDefinition_get(var35.id); // L: 8669
+								ItemComposition var39 = SecureRandomCallable.ItemDefinition_get(var35.id); // L: 8669
 								if (Client.isItemSelected == 1) { // L: 8670
 									WorldMapRegion.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + class23.colorStartTag(16748608) + var39.name, 16, var35.id, var15, var16); // L: 8671
 								} else if (Client.isSpellSelected) { // L: 8674

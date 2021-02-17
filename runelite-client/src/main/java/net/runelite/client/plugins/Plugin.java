@@ -24,30 +24,15 @@
  */
 package net.runelite.client.plugins;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.inject.Binder;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import io.reactivex.rxjava3.functions.Consumer;
-import java.lang.reflect.Method;
-import java.util.Set;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.events.Event;
-import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.eventbus.EventScheduler;
-import net.runelite.client.eventbus.Subscribe;
 import org.pf4j.ExtensionPoint;
 
-@Slf4j
 public abstract class Plugin implements Module, ExtensionPoint
 {
-	private final Set<Subscription> annotatedSubscriptions = findSubscriptions();
-	private final Object annotatedSubsLock = new Object();
-
-	@Getter(AccessLevel.PROTECTED)
+	@Getter
 	protected Injector injector;
 
 	@Override
@@ -61,61 +46,6 @@ public abstract class Plugin implements Module, ExtensionPoint
 
 	protected void shutDown() throws Exception
 	{
-	}
-
-	@SuppressWarnings("unchecked")
-	final void addAnnotatedSubscriptions(EventBus eventBus)
-	{
-		annotatedSubscriptions.forEach(sub -> eventBus.subscribe(sub.type, annotatedSubsLock, sub.method, sub.takeUntil, sub.subscribe, sub.observe));
-	}
-
-	final void removeAnnotatedSubscriptions(EventBus eventBus)
-	{
-		eventBus.unregister(annotatedSubsLock);
-	}
-
-	private Set<Subscription> findSubscriptions()
-	{
-		ImmutableSet.Builder<Subscription> builder = ImmutableSet.builder();
-
-		for (Method method : this.getClass().getDeclaredMethods())
-		{
-			Subscribe annotation = method.getAnnotation(Subscribe.class);
-			if (annotation == null)
-			{
-				continue;
-			}
-
-			assert method.getParameterCount() == 1 : "Methods annotated with @Subscribe should have only one parameter";
-
-			Class<?> type = method.getParameterTypes()[0];
-
-			assert Event.class.isAssignableFrom(type) : "Parameters of methods annotated with @Subscribe should implement net.runelite.api.events.Event";
-			assert method.getReturnType() == void.class : "Methods annotated with @Subscribe should have a void return type";
-			if (method.getExceptionTypes().length != 0)
-			{
-				log.warn("Event handlers should handle all checked exceptions themselves " + method.toString());
-			}
-
-			method.setAccessible(true);
-
-			Subscription sub = new Subscription(type.asSubclass(Event.class), event -> method.invoke(this, event), annotation.takeUntil(), annotation.subscribe(), annotation.observe());
-
-			builder.add(sub);
-		}
-
-		return builder.build();
-	}
-
-	@Value
-	@SuppressWarnings("rawtypes")
-	private static class Subscription
-	{
-		Class type;
-		Consumer method;
-		int takeUntil;
-		EventScheduler subscribe;
-		EventScheduler observe;
 	}
 
 	public void resetConfiguration()
