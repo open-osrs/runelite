@@ -290,4 +290,6 @@ public interface Actor extends Renderable, Locatable
 	 * @return
 	 */
 	boolean isDead();
+
+	boolean isMoving();
 }

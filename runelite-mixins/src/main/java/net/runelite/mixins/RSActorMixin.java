@@ -292,4 +292,11 @@ public abstract class RSActorMixin implements RSActor
 		event.setHitsplat(hitsplat);
 		client.getCallbacks().post(event);
 	}
+
+	@Inject
+	@Override
+	public boolean isMoving()
+	{
+		return getPathLength() > 0;
+	}
 }
