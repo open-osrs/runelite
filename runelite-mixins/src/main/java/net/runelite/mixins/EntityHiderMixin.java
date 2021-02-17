@@ -25,22 +25,10 @@
  */
 package net.runelite.mixins;
 
-import java.util.HashMap;
+import net.runelite.api.mixins.*;
+import net.runelite.rs.api.*;
+
 import java.util.List;
-import java.util.Set;
-import net.runelite.api.mixins.Copy;
-import net.runelite.api.mixins.Inject;
-import net.runelite.api.mixins.Mixin;
-import net.runelite.api.mixins.Replace;
-import net.runelite.api.mixins.Shadow;
-import net.runelite.api.util.Text;
-import net.runelite.rs.api.RSActor;
-import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSNPC;
-import net.runelite.rs.api.RSPlayer;
-import net.runelite.rs.api.RSProjectile;
-import net.runelite.rs.api.RSRenderable;
-import net.runelite.rs.api.RSScene;
 
 @Mixin(RSScene.class)
 public abstract class EntityHiderMixin implements RSScene

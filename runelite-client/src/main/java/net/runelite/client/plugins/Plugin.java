@@ -29,7 +29,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import lombok.Getter;
 import org.pf4j.ExtensionPoint;
-import net.runelite.client.RuneLite;
 
 public abstract class Plugin implements Module, ExtensionPoint
 {

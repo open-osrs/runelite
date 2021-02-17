@@ -295,7 +295,8 @@ public abstract class RSActorMixin implements RSActor
 
 	@Inject
 	@Override
-	public boolean isMoving() {
+	public boolean isMoving()
+	{
 		return getPathLength() > 0;
 	}
 }
