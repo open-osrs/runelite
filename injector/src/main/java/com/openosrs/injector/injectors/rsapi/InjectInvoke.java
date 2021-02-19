@@ -43,6 +43,7 @@ import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.instructions.ALoad;
 import net.runelite.asm.attributes.code.instructions.BiPush;
 import net.runelite.asm.attributes.code.instructions.CheckCast;
+import net.runelite.asm.attributes.code.instructions.InvokeInterface;
 import net.runelite.asm.attributes.code.instructions.InvokeStatic;
 import net.runelite.asm.attributes.code.instructions.InvokeVirtual;
 import net.runelite.asm.attributes.code.instructions.LDC;
@@ -130,6 +131,10 @@ public class InjectInvoke
 		if (vanillaMethod.isStatic())
 		{
 			ins.add(new InvokeStatic(instructions, vanillaMethod.getPoolMethod()));
+		}
+		else if (vanillaMethod.getClassFile().isInterface())
+		{
+			ins.add(new InvokeInterface(instructions, vanillaMethod.getPoolMethod()));
 		}
 		else
 		{
