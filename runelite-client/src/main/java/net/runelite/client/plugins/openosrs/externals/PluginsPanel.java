@@ -45,6 +45,7 @@ import net.runelite.client.ui.components.IconTextField;
 import net.runelite.client.ui.components.shadowlabel.JShadowedLabel;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
+import org.pf4j.VersionManager;
 import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateManager;
 import org.pf4j.update.UpdateRepository;
@@ -83,6 +84,7 @@ public class PluginsPanel extends JPanel
 	}
 
 	private final OPRSExternalPluginManager externalPluginManager;
+	private final VersionManager versionManager;
 	private final UpdateManager updateManager;
 	private final ScheduledExecutorService executor;
 	private final EventBus eventBus;
@@ -100,6 +102,7 @@ public class PluginsPanel extends JPanel
 	PluginsPanel(OPRSExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
 	{
 		this.externalPluginManager = externalPluginManager;
+		this.versionManager = externalPluginManager.getExternalPluginManager().getVersionManager();
 		this.updateManager = externalPluginManager.getUpdateManager();
 		this.executor = executor;
 		this.eventBus = eventBus;
@@ -410,6 +413,13 @@ public class PluginsPanel extends JPanel
 
 		for (PluginInfo pluginInfo : availablePluginsList)
 		{
+			if (pluginInfo.releases
+				.stream()
+				.noneMatch((pluginRelease) -> versionManager.checkVersionConstraint(externalPluginManager.getExternalPluginManager().getSystemVersion(), pluginRelease.requires)))
+			{
+				continue;
+			}
+
 			if (!search.equals("") && mismatchesSearchTerms(search, pluginInfo))
 			{
 				continue;
