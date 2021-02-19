@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This code is licensed under GPL3, see the complete license in
- * the LICENSE file in the root directory of this source tree.
+ * the LICENSE file in the root directory of this submodule.
  *
  * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
