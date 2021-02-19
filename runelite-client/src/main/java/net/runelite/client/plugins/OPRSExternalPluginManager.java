@@ -34,7 +34,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import static com.openosrs.client.OpenOSRS.EXTERNALPLUGIN_DIR;
-import static com.openosrs.client.OpenOSRS.SYSTEM_VERSION;
+import static com.openosrs.client.OpenOSRS.SYSTEM_API_VERSION;
 import com.openosrs.client.config.OpenOSRSConfig;
 import com.openosrs.client.events.OPRSPluginChanged;
 import com.openosrs.client.events.OPRSRepositoryChanged;
@@ -143,7 +143,7 @@ public class OPRSExternalPluginManager
 	private void initPluginManager()
 	{
 		externalPluginManager = new OPRSExternalPf4jPluginManager(this);
-		externalPluginManager.setSystemVersion(SYSTEM_VERSION);
+		externalPluginManager.setSystemVersion(SYSTEM_API_VERSION);
 	}
 
 	public boolean doesGhRepoExist(String owner, String name)
