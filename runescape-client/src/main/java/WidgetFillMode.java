@@ -1,10 +1,12 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("lj")
-public enum class333 implements Enumerated {
+@Implements("WidgetFillMode")
+public enum WidgetFillMode implements Enumerated {
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "Llj;"
@@ -33,7 +35,7 @@ public enum class333 implements Enumerated {
 	)
 	final int field3900;
 
-	class333(int var3, int var4) {
+	WidgetFillMode(int var3, int var4) {
 		this.field3902 = var3; // L: 19
 		this.field3900 = var4; // L: 20
 	} // L: 21

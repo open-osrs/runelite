@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This code is licensed under GPL3, see the complete license in
- * the LICENSE file in the root directory of this source tree.
+ * the LICENSE file in the root directory of this submodule.
  */
 package com.openosrs.injector;
 
@@ -23,6 +23,7 @@ import com.openosrs.injector.injectors.raw.RenderDraw;
 import com.openosrs.injector.injectors.raw.ScriptVM;
 import com.openosrs.injector.rsapi.RSApi;
 import com.openosrs.injector.transformers.InjectTransformer;
+import com.openosrs.injector.transformers.Java8Ifier;
 import com.openosrs.injector.transformers.SourceChanger;
 import static net.runelite.deob.util.JarUtil.load;
 import static net.runelite.deob.util.JarUtil.save;
@@ -56,6 +57,8 @@ public class Injector extends InjectData implements InjectTaskHandler
 	public void injectVanilla()
 	{
 		log.debug("[DEBUG] Starting injection");
+
+		transform(new Java8Ifier(this));
 
 		inject(new CreateAnnotations(this));
 
