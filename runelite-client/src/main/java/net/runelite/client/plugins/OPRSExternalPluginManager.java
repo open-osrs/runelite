@@ -98,6 +98,7 @@ public class OPRSExternalPluginManager
 
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
 	private final PluginManager runelitePluginManager;
+	@Getter(AccessLevel.PUBLIC)
 	private org.pf4j.PluginManager externalPluginManager;
 	@Getter(AccessLevel.PUBLIC)
 	private final List<UpdateRepository> repositories = new ArrayList<>();
