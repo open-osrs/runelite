@@ -30,6 +30,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.openosrs.client.graphics.ModelOutlineRenderer;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -73,6 +74,7 @@ import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.ClientUpdateCheckMode;
+import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.DrawManager;
 import net.runelite.client.ui.FatalErrorDialog;
@@ -172,6 +174,9 @@ public class RuneLite
 	private Provider<WorldMapOverlay> worldMapOverlay;
 
 	@Inject
+	private Provider<ModelOutlineRenderer> modelOutlineRenderer;
+
+	@Inject
 	private Provider<LootManager> lootManager;
 
 	@Inject
@@ -183,6 +188,9 @@ public class RuneLite
 	@Inject
 	@Nullable
 	private Client client;
+
+	@Inject
+	private Scheduler scheduler;
 
 	public static void main(String[] args) throws Exception
 	{
@@ -396,6 +404,12 @@ public class RuneLite
 
 		// Start plugins
 		pluginManager.startPlugins();
+
+		// Register additional schedulers
+		if (this.client != null)
+		{
+			scheduler.registerObject(modelOutlineRenderer.get());
+		}
 
 		SplashScreen.stop();
 
