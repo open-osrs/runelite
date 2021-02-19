@@ -72,6 +72,10 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             {
                 path = "http://repo.runelite.net/net/runelite/jogl/jogl-all/" + version + "/" + it.file.name
             }
+            else if (it.file.name.contains("jocl"))
+            {
+                path = "http://repo.runelite.net/net/runelite/jocl/jocl/" + version + "/" + it.file.name
+            }
             else
             {
                 println("ERROR: " + it.file.name + " has no download path!")
