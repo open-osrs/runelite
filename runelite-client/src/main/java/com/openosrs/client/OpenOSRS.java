@@ -26,7 +26,7 @@ public class OpenOSRS
 			e.printStackTrace();
 		}
 		SYSTEM_VERSION = properties.getProperty("oprs.version", "0.0.0");
-		SYSTEM_API_VERSION = properties.getProperty("oprs.api.version", "1.0.0");
+		SYSTEM_API_VERSION = properties.getProperty("oprs.api.version");
 	}
 
 	public static void preload()
