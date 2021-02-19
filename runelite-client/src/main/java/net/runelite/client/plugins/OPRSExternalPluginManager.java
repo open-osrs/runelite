@@ -339,17 +339,11 @@ public class OPRSExternalPluginManager
 
 	private void saveConfig()
 	{
-		StringBuilder config = new StringBuilder();
+		String config = updateManager.getRepositories().stream()
+			.map(r -> r.getId() + "|" + urlToStringEncoded(r.getUrl()))
+			.collect(Collectors.joining(";"));
 
-		for (UpdateRepository repository : updateManager.getRepositories())
-		{
-			config.append(repository.getId());
-			config.append("|");
-			config.append(urlToStringEncoded(repository.getUrl()));
-			config.append(";");
-		}
-		config.deleteCharAt(config.lastIndexOf(";"));
-		openOSRSConfig.setExternalRepositories(config.toString());
+		openOSRSConfig.setExternalRepositories(config);
 	}
 
 	public void setWarning(boolean val)
@@ -530,8 +524,7 @@ public class OPRSExternalPluginManager
 	}
 
 	@SuppressWarnings("unchecked")
-	private Plugin instantiate(List<Plugin> scannedPlugins, Class<Plugin> clazz, boolean init, boolean initConfig)
-		throws PluginInstantiationException
+	private Plugin instantiate(List<Plugin> scannedPlugins, Class<Plugin> clazz, boolean init, boolean initConfig) throws PluginInstantiationException
 	{
 		net.runelite.client.plugins.PluginDependency[] pluginDependencies =
 			clazz.getAnnotationsByType(net.runelite.client.plugins.PluginDependency.class);
