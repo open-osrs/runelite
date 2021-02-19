@@ -87,7 +87,8 @@ public abstract class RSGameEngineMixin implements RSGameEngine
 		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
 		if (drawCallbacks != null)
 		{
-			drawCallbacks.draw(-viewportColor);
+			drawCallbacks.draw(viewportColor);
+			viewportColor = 0;
 		}
 	}
 

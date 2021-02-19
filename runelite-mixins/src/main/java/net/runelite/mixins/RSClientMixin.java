@@ -1575,7 +1575,7 @@ public abstract class RSClientMixin implements RSClient
 					int vpc = viewportColor;
 					int c1 = (alpha * (tc & 0xff00ff) >> 8 & 0xFF00FF) + (alpha * (tc & 0x00FF00) >> 8 & 0x00FF00);
 					int c2 = (inverseAlpha * (vpc & 0xff00ff) >> 8 & 0xFF00FF) + (inverseAlpha * (vpc & 0x00FF00) >> 8 & 0x00FF00);
-					int outAlpha = alpha + ((vpc >>> 24) * (255 - alpha) * 0x8081 >>> 23);
+					int outAlpha = inverseAlpha + ((vpc >>> 24) * (255 - alpha) * 0x8081 >>> 23);
 					viewportColor = outAlpha << 24 | c1 + c2;
 					widget.setHidden(true);
 					hiddenWidgets.add(widget);
