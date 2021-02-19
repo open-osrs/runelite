@@ -1559,11 +1559,7 @@ public abstract class RSClientMixin implements RSClient
 			widget.setRenderX(renderX);
 			widget.setRenderY(renderY);
 
-			if (widget.getContentType() == WidgetType.VIEWPORT)
-			{
-				viewportColor = 0;
-			}
-			else if (widget.getType() == WidgetType.RECTANGLE)
+			if (widget.getType() == WidgetType.RECTANGLE)
 			{
 				if (renderX == client.getViewportXOffset() && renderY == client.getViewportYOffset()
 					&& widget.getWidth() == client.getViewportWidth() && widget.getHeight() == client.getViewportHeight()
