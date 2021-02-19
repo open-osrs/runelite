@@ -91,7 +91,7 @@ public class OpenOSRSPlugin extends Plugin
 	{
 		ExternalPluginManagerPanel panel = injector.getInstance(ExternalPluginManagerPanel.class);
 
-		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "externalmanager_icon.png");
+		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "externalmanager_icon.png");
 
 		navButton = NavigationButton.builder()
 			.tooltip("External Plugin Manager")

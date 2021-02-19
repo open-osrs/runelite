@@ -37,7 +37,7 @@ public class RepositoryBox extends JPanel
 		final BufferedImage deleteImg =
 			ImageUtil.recolorImage(
 				ImageUtil.resizeCanvas(
-					ImageUtil.getResourceStreamFromClass(ExternalPluginManagerPanel.class, "delete_icon.png"), 14, 14
+					ImageUtil.loadImageResource(ExternalPluginManagerPanel.class, "delete_icon.png"), 14, 14
 				), ColorScheme.BRAND_BLUE
 			);
 		DELETE_ICON = new ImageIcon(deleteImg);
@@ -46,7 +46,7 @@ public class RepositoryBox extends JPanel
 		final BufferedImage discordImg =
 			ImageUtil.recolorImage(
 				ImageUtil.resizeCanvas(
-					ImageUtil.getResourceStreamFromClass(ExternalPluginManagerPanel.class, "discord_icon.png"), 14, 14
+					ImageUtil.loadImageResource(ExternalPluginManagerPanel.class, "discord_icon.png"), 14, 14
 				), Color.WHITE
 			);
 		DISCORD_ICON = new ImageIcon(discordImg);
