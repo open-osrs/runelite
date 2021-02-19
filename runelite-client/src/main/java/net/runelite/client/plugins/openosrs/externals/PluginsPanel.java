@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -64,7 +63,7 @@ public class PluginsPanel extends JPanel
 	{
 		final BufferedImage addIcon =
 			ImageUtil.recolorImage(
-				ImageUtil.getResourceStreamFromClass(PluginsPanel.class, "add_icon.png"), ColorScheme.BRAND_BLUE
+				ImageUtil.loadImageResource(PluginsPanel.class, "add_icon.png"), ColorScheme.BRAND_BLUE
 			);
 		ADD_ICON = new ImageIcon(addIcon);
 		ADD_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(addIcon, 0.53f));
@@ -72,7 +71,7 @@ public class PluginsPanel extends JPanel
 		final BufferedImage deleteImg =
 			ImageUtil.recolorImage(
 				ImageUtil.resizeCanvas(
-					ImageUtil.getResourceStreamFromClass(PluginsPanel.class, "delete_icon.png"), 14, 14
+					ImageUtil.loadImageResource(PluginsPanel.class, "delete_icon.png"), 14, 14
 				), ColorScheme.BRAND_BLUE
 			);
 		DELETE_ICON = new ImageIcon(deleteImg);
@@ -84,8 +83,6 @@ public class PluginsPanel extends JPanel
 
 	private final OPRSExternalPluginManager externalPluginManager;
 	private final UpdateManager updateManager;
-	private final ScheduledExecutorService executor;
-	private final EventBus eventBus;
 
 	private final IconTextField searchBar = new IconTextField();
 	private final JPanel filterwrapper = new JPanel(new BorderLayout(0, 10));
@@ -97,12 +94,10 @@ public class PluginsPanel extends JPanel
 	private JComboBox<String> filterComboBox;
 	private Set<String> deps;
 
-	PluginsPanel(OPRSExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
+	PluginsPanel(OPRSExternalPluginManager externalPluginManager, EventBus eventBus)
 	{
 		this.externalPluginManager = externalPluginManager;
 		this.updateManager = externalPluginManager.getUpdateManager();
-		this.executor = executor;
-		this.eventBus = eventBus;
 
 		setLayout(new BorderLayout(0, 10));
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
