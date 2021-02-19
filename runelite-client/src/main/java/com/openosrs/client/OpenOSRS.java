@@ -10,6 +10,7 @@ public class OpenOSRS
 	public static final File OPENOSRS_DIR = new File(System.getProperty("user.home"), ".openosrs");
 	public static final File EXTERNALPLUGIN_DIR = new File(OPENOSRS_DIR, "plugins");
 	public static final String SYSTEM_VERSION;
+	public static final String SYSTEM_API_VERSION;
 
 	public static String uuid = UUID.randomUUID().toString();
 
@@ -25,6 +26,7 @@ public class OpenOSRS
 			e.printStackTrace();
 		}
 		SYSTEM_VERSION = properties.getProperty("oprs.version", "0.0.0");
+		SYSTEM_API_VERSION = properties.getProperty("oprs.api.version", "1.0.0");
 	}
 
 	public static void preload()
