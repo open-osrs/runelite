@@ -193,15 +193,6 @@ public abstract class RSActorMixin implements RSActor
 		client.getCallbacks().post(animationChange);
 	}
 
-	@FieldHook("movementSequence")
-	@Inject
-	public void movementAnimationChanged(int idx)
-	{
-		AnimationChanged animationChange = new AnimationChanged();
-		animationChange.setActor(this);
-		client.getCallbacks().post(animationChange);
-	}
-
 	@FieldHook("spotAnimation")
 	@Inject
 	public void spotAnimationChanged(int idx)
