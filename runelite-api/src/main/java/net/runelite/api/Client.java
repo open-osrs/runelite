@@ -376,8 +376,6 @@ public interface Client extends GameEngine
 	 */
 	int getPlane();
 
-	void setPlane(int plane);
-
 	/**
 	 * Gets the current scene
 	 */
@@ -2113,6 +2111,8 @@ public interface Client extends GameEngine
 	 * Gets a Frames object. File Ids for animations frames are grouped together into a Frames object. getFrames will get the group of frames that the frameId belongs to.
 	 */
 	Frames getFrames(int frameId);
+
+	SequenceDefinition getSequenceDefinition(int id);
 
 	/**
 	 * various archives you might want to use for reading data from cache
