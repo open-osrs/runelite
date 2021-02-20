@@ -110,6 +110,16 @@ public interface Actor extends Renderable, Locatable
 	void setPoseAnimation(int animation);
 
 	/**
+	 * Get the index of the PoseFrame (the index as it appears in the sequenceDefinition "frames" array).
+	 */
+	int getPoseFrame();
+
+	/**
+	 * Get the number of cycles the pose frame has been displayed for.
+	 */
+	int getPoseFrameCycle();
+
+	/**
 	 * Gets the orientation of the actor.
 	 *
 	 * @return the orientation
@@ -169,7 +179,14 @@ public interface Actor extends Renderable, Locatable
 
 	void setGraphic(int graphic);
 
+	int getSpotAnimationFrame();
+
 	void setSpotAnimFrame(int spotAnimFrame);
+
+	/**
+	 * Get the number of cycles the SpotAnimation frame has been displayed for.
+	 */
+	int getSpotAnimationFrameCycle();
 
 	/**
 	 * Gets the canvas area of the current tile the actor is standing on.
