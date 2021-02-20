@@ -1862,6 +1862,11 @@ public interface Client extends GameEngine
 	void draw2010Menu(int alpha);
 
 	/**
+	 * Get client pixels. Each integer represents an ARGB colored pixel.
+	 */
+	int[] getGraphicsPixels();
+
+	/**
 	 * Draws a menu in the OSRS interface style.
 	 *
 	 * @param alpha background transparency of the menu
@@ -2101,6 +2106,13 @@ public interface Client extends GameEngine
 	void setOutdatedScript(String outdatedScript);
 
 	List<String> getOutdatedScripts();
+
+	/**
+	 * Gets a Frames object. File Ids for animations frames are grouped together into a Frames object. getFrames will get the group of frames that the frameId belongs to.
+	 */
+	Frames getFrames(int frameId);
+
+	SequenceDefinition getSequenceDefinition(int id);
 
 	/**
 	 * various archives you might want to use for reading data from cache
