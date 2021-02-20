@@ -2112,6 +2112,8 @@ public interface Client extends GameEngine
 	 */
 	Frames getFrames(int frameId);
 
+	SequenceDefinition getSequenceDefinition(int id);
+
 	/**
 	 * various archives you might want to use for reading data from cache
 	 */
