@@ -1,8 +1,9 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.SequenceDefinition;
 import net.runelite.mapping.Import;
 
-public interface RSSequenceDefinition extends RSNode
+public interface RSSequenceDefinition extends SequenceDefinition
 {
 //	@Import("stretches")
 //	boolean getStretches();
@@ -20,11 +21,14 @@ public interface RSSequenceDefinition extends RSNode
 //	int[] getInterleaveLeave();
 
 	@Import("frameIds")
+	@Override
 	int[] getFrameIDs();
 
 	@Import("frameLengths")
+	@Override
 	int[] getFrameLengths();
 
 	@Import("chatFrameIds")
+	@Override
 	int[] getChatFrameIds();
 }

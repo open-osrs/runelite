@@ -376,8 +376,6 @@ public interface Client extends GameEngine
 	 */
 	int getPlane();
 
-	void setPlane(int plane);
-
 	/**
 	 * Gets the current scene
 	 */
