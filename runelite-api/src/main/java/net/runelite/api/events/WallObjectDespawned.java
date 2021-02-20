@@ -32,7 +32,7 @@ import lombok.Data;
  * An event where a {@link WallObject} on a {@link Tile} has been removed.
  */
 @Data
-public class WallObjectDespawned implements Event
+public class WallObjectDespawned
 {
 	/**
 	 * The affected tile.

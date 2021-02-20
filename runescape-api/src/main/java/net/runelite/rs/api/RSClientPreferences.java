@@ -34,4 +34,7 @@ public interface RSClientPreferences extends Preferences
 
 	@Import("musicVolume")
 	void setMusicVolume(int i);
+
+	@Import("hideUsername")
+	boolean getHideUsername();
 }

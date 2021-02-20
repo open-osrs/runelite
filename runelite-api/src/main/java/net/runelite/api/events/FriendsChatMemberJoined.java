@@ -28,7 +28,7 @@ import lombok.Value;
 import net.runelite.api.FriendsChatMember;
 
 @Value
-public class FriendsChatMemberJoined implements Event
+public class FriendsChatMemberJoined
 {
 	/**
 	 * The member that joined

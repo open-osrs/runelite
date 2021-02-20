@@ -124,12 +124,25 @@ public interface Client extends GameEngine
 	/**
 	 * Adds a new chat message to the chatbox.
 	 *
-	 * @param type    the type of message
-	 * @param name    the name of the player that sent the message
+	 * @param type the type of message
+	 * @param name the name of the player that sent the message
 	 * @param message the message contents
-	 * @param sender  the sender/channel name
+	 * @param sender the sender/channel name
+	 * @return the message node for the message
 	 */
-	void addChatMessage(ChatMessageType type, String name, String message, String sender);
+	MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender);
+
+	/**
+	 * Adds a new chat message to the chatbox.
+	 *
+	 * @param type the type of message
+	 * @param name the name of the player that sent the message
+	 * @param message the message contents
+	 * @param sender the sender/channel name
+	 * @param postEvent whether to post the chat message event
+	 * @return the message node for the message
+	 */
+	MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender, boolean postEvent);
 
 	/**
 	 * Gets the current game state.
@@ -821,7 +834,7 @@ public interface Client extends GameEngine
 	 * @param varps  passed varps
 	 * @param varpId the VarpPlayer id
 	 * @return the value
-	 * @see VarPlayer#id
+	 * @see VarPlayer#getId()
 	 */
 	int getVarpValue(int[] varps, int varpId);
 
@@ -1542,7 +1555,7 @@ public interface Client extends GameEngine
 	 *
 	 * @param state the new player hidden state
 	 */
-	void setPlayersHidden(boolean state);
+	void setOthersHidden(boolean state);
 
 	/**
 	 * Sets whether 2D sprites related to the other players are hidden.
@@ -1550,7 +1563,7 @@ public interface Client extends GameEngine
 	 *
 	 * @param state the new player 2D hidden state
 	 */
-	void setPlayersHidden2D(boolean state);
+	void setOthersHidden2D(boolean state);
 
 	/**
 	 * Sets whether or not friends are hidden.
@@ -1565,6 +1578,13 @@ public interface Client extends GameEngine
 	 * @param state the new friends chat member hidden state
 	 */
 	void setFriendsChatMembersHidden(boolean state);
+
+	/**
+	 * Sets whether or not ignored players are hidden.
+	 *
+	 * @param state the new ignored player hidden state
+	 */
+	void setIgnoresHidden(boolean state);
 
 	/**
 	 * Sets whether the local player is hidden.
@@ -1587,62 +1607,6 @@ public interface Client extends GameEngine
 	 * @param state new NPC hidden state
 	 */
 	void setNPCsHidden(boolean state);
-
-	/**
-	 * Increments the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void addHiddenNpcName(String name);
-
-	/**
-	 * Decrements the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void removeHiddenNpcName(String name);
-
-	/**
-	 * Forcibly unhides an npc by setting its counter to zero
-	 *
-	 * @param name npc name
-	 */
-	void forciblyUnhideNpcName(String name);
-
-	/**
-	 * Get the list of NPC indices that are currently hidden
-	 *
-	 * @return all of the current hidden NPC Indices
-	 */
-	List<Integer> getHiddenNpcIndices();
-
-	/**
-	 * If an NPC index is in this List then do not render it
-	 *
-	 * @param npcIndices the npc indices to hide
-	 */
-	void setHiddenNpcIndices(List<Integer> npcIndices);
-
-	/**
-	 * Increments the counter for how many times this npc has been selected to be hidden on death
-	 *
-	 * @param name npc name
-	 */
-	void addHiddenNpcDeath(String name);
-
-	/**
-	 * Decrements the counter for how many times this npc has been selected to be hidden on death
-	 *
-	 * @param name npc name
-	 */
-	void removeHiddenNpcDeath(String name);
-
-	/**
-	 * Forcibly unhides a hidden-while-dead npc by setting its counter to zero
-	 *
-	 * @param name npc name
-	 */
-	void forciblyUnhideNpcDeath(String name);
 
 	/**
 	 * Sets whether 2D sprites (ie. overhead prayers) related to

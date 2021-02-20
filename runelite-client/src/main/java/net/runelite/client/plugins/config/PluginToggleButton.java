@@ -29,8 +29,8 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
-import com.openosrs.client.util.ImageUtil;
 import net.runelite.client.ui.ColorScheme;
+import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
 
 class PluginToggleButton extends JToggleButton

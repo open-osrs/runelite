@@ -334,6 +334,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		swap("bury", "use", config::swapBones);
 
+		swap("wield", "battlestaff", "use", config::swapBattlestaves);
+
 		swap("clean", "use", config::swapHerbs);
 
 		swap("read", "recite-prayer", config::swapPrayerBook);
@@ -361,22 +363,22 @@ public class MenuEntrySwapperPlugin extends Plugin
 		swap("eat", "guzzle", config::swapRockCake);
 	}
 
-	private void swap(String option, String swappedOption, Supplier<Boolean> enabled)
+	public void swap(String option, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swap(option, alwaysTrue(), swappedOption, enabled);
 	}
 
-	private void swap(String option, String target, String swappedOption, Supplier<Boolean> enabled)
+	public void swap(String option, String target, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swap(option, equalTo(target), swappedOption, enabled);
 	}
 
-	private void swap(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
+	public void swap(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swaps.put(option, new Swap(alwaysTrue(), targetPredicate, swappedOption, enabled, true));
 	}
 
-	private void swapContains(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
+	public void swapContains(String option, Predicate<String> targetPredicate, String swappedOption, Supplier<Boolean> enabled)
 	{
 		swaps.put(option, new Swap(alwaysTrue(), targetPredicate, swappedOption, enabled, false));
 	}

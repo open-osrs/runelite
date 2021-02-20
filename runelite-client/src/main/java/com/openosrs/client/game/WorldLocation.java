@@ -1,13 +1,28 @@
-/*******************************************************************************
- * Copyright (c) 2019 openosrs
- * Redistributions and modifications of this software are permitted as long as this notice remains in its original unmodified state at the top of this file.
- * If there are any questions comments, or feedback about this software, please direct all inquiries directly to the file authors:
- * ST0NEWALL#9112
- * Macweese#1169 UID 159941566994186240, macweese@pm.me
- * openosrs Discord: https://discord.gg/Q7wFtCe
- * openosrs website: https://openosrs.com
- ******************************************************************************/
-
+/*
+ * Copyright (c) 2019, ST0NEWALL
+ * Copyright (c) 2020, Macweese <Macweese#1169 159941566994186240, macweese@pm.me>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package com.openosrs.client.game;
 
 import com.google.common.collect.ImmutableMap;
@@ -18,9 +33,9 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import net.runelite.api.coords.WorldArea;
 import net.runelite.api.coords.WorldPoint;
-import com.openosrs.client.util.PvPUtil;
+import net.runelite.client.util.PvPUtil;
 
-	/*
+/*
 	 * Enums sorted alphabetically by main regions (Kingdoms) and then their sub-regions or notable features
 	 * Example:
 	 * 	Wilderness

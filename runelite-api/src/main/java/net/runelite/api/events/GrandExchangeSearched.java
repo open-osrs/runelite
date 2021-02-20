@@ -31,7 +31,7 @@ import lombok.Data;
  * An event where the Grand Exchange has been searched.
  */
 @Data
-public class GrandExchangeSearched implements Event
+public class GrandExchangeSearched
 {
 	/**
 	 * Whether or not the event has been consumed by a subscriber.

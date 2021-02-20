@@ -52,6 +52,8 @@ import net.runelite.api.IndexedSprite;
 import net.runelite.api.IntegerNode;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemComposition;
+import net.runelite.api.MenuAction;
+import static net.runelite.api.MenuAction.*;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MenuAction;
 import static net.runelite.api.MenuAction.PLAYER_EIGTH_OPTION;
@@ -536,17 +538,36 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
-	public void addChatMessage(int type, String name, String message, String sender)
+	public MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender, boolean postEvent)
 	{
 		assert this.isClientThread() : "addChatMessage must be called on client thread";
-		addRSChatMessage(type, name, message, sender);
+		copy$addChatMessage(type.getType(), name, message, sender);
+
+		Logger logger = client.getLogger();
+		if (logger.isDebugEnabled())
+		{
+			logger.debug("Chat message type {}: {}", type.name(), message);
+		}
+
+		// Get the message node which was added
+		@SuppressWarnings("unchecked") Map<Integer, RSChatChannel> chatLineMap = client.getChatLineMap();
+		RSChatChannel chatLineBuffer = chatLineMap.get(type.getType());
+		MessageNode messageNode = chatLineBuffer.getLines()[0];
+
+		if (postEvent)
+		{
+			final ChatMessage chatMessage = new ChatMessage(messageNode, type, name, message, sender, messageNode.getTimestamp());
+			client.getCallbacks().post(chatMessage);
+		}
+
+		return messageNode;
 	}
 
 	@Inject
 	@Override
-	public void addChatMessage(ChatMessageType type, String name, String message, String sender)
+	public MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender)
 	{
-		addChatMessage(type.getType(), name, message, sender);
+		return addChatMessage(type, name, message, sender, true);
 	}
 
 	@Inject
@@ -1388,13 +1409,6 @@ public abstract class RSClientMixin implements RSClient
 	@Replace("menuAction")
 	static void copy$menuAction(int param0, int param1, int opcode, int id, String option, String target, int canvasX, int canvasY)
 	{
-		boolean authentic = true;
-		if (target != null && target.startsWith("!AUTHENTIC"))
-		{
-			authentic = false;
-			target = target.substring(10);
-		}
-
 		/* Along the way, the RuneScape client may change a menuAction by incrementing it with 2000.
 		 * I have no idea why, but it does. Their code contains the same conditional statement.
 		 */
@@ -1403,17 +1417,13 @@ public abstract class RSClientMixin implements RSClient
 			opcode -= 2000;
 		}
 
-		final MenuOptionClicked menuOptionClicked = new MenuOptionClicked(
-			option,
-			target,
-			id,
-			opcode,
-			param0,
-			param1,
-			false,
-			authentic,
-			client.getMouseCurrentButton()
-		);
+		final MenuOptionClicked menuOptionClicked = new MenuOptionClicked();
+		menuOptionClicked.setActionParam(param0);
+		menuOptionClicked.setMenuOption(option);
+		menuOptionClicked.setMenuTarget(target);
+		menuOptionClicked.setMenuAction(MenuAction.of(opcode));
+		menuOptionClicked.setId(id);
+		menuOptionClicked.setWidgetId(param1);
 
 		client.getCallbacks().post(menuOptionClicked);
 
@@ -1425,15 +1435,15 @@ public abstract class RSClientMixin implements RSClient
 		if (printMenuActions)
 		{
 			client.getLogger().info(
-				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={} Authentic={}",
-				menuOptionClicked.getOption(), menuOptionClicked.getTarget(), menuOptionClicked.getIdentifier(),
-				menuOptionClicked.getOpcode(), menuOptionClicked.getActionParam(), menuOptionClicked.getActionParam1(),
-				canvasX, canvasY, authentic
+				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={}",
+				menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), menuOptionClicked.getId(),
+				menuOptionClicked.getMenuAction(), menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(),
+				canvasX, canvasY
 			);
 		}
 
-		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getActionParam1(), menuOptionClicked.getOpcode(),
-			menuOptionClicked.getIdentifier(), menuOptionClicked.getOption(), menuOptionClicked.getTarget(), canvasX, canvasY);
+		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(), menuOptionClicked.getMenuAction().getId(),
+			menuOptionClicked.getId(), menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), canvasX, canvasY);
 	}
 
 	@Override
@@ -1442,7 +1452,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		assert isClientThread();
 
-		client.sendMenuAction(param0, param1, opcode, identifier, option, "!AUTHENTIC" + target, 658, 384);
+		client.sendMenuAction(param0, param1, opcode, identifier, option, target, 658, 384);
 	}
 
 	@FieldHook("Login_username")
@@ -1495,14 +1505,18 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().updateNpcs();
 	}
 
-	@Inject
-	@MethodHook(value = "addChatMessage", end = true)
-	public static void onAddChatMessage(int type, String name, String message, String sender)
+	@SuppressWarnings("InfiniteRecursion")
+	@Copy("addChatMessage")
+	@Replace("addChatMessage")
+	public static void copy$addChatMessage(int type, String name, String message, String sender)
 	{
+		copy$addChatMessage(type, name, message, sender);
+
 		Logger logger = client.getLogger();
 		if (logger.isDebugEnabled())
 		{
-			logger.debug("Chat message type {}: {}", ChatMessageType.of(type), message);
+			ChatMessageType msgType = ChatMessageType.of(type);
+			logger.debug("Chat message type {}: {}", msgType == ChatMessageType.UNKNOWN ? String.valueOf(type) : msgType.name(), message);
 		}
 
 		// Get the message node which was added
@@ -1526,12 +1540,11 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public static void preRenderWidgetLayer(Widget[] widgets, int parentId, int minX, int minY, int maxX, int maxY, int x, int y, int var8)
 	{
-		Callbacks callbacks = client.getCallbacks();
 		@SuppressWarnings("unchecked") HashTable<WidgetNode> componentTable = client.getComponentTable();
 
-		for (Widget rlWidget : widgets)
+		for (int i = 0; i < widgets.length; i++)
 		{
-			RSWidget widget = (RSWidget) rlWidget;
+			RSWidget widget = (RSWidget) widgets[i];
 			if (widget == null || widget.getRSParentId() != parentId || widget.isSelfHidden())
 			{
 				continue;
@@ -1547,42 +1560,36 @@ public abstract class RSClientMixin implements RSClient
 			widget.setRenderX(renderX);
 			widget.setRenderY(renderY);
 
-			if (widget.getContentType() == WidgetType.VIEWPORT)
+			if (widget.getType() == WidgetType.RECTANGLE && renderX == client.getViewportXOffset() && renderY == client.getViewportYOffset()
+				&& widget.getWidth() == client.getViewportWidth() && widget.getHeight() == client.getViewportHeight()
+				&& widget.getOpacity() > 0 && widget.isFilled() && widget.getFillMode().getOrdinal() == 0 && client.isGpu())
 			{
-				viewportColor = 0;
+				int tc = widget.getTextColor();
+				int alpha = widget.getOpacity() & 0xFF;
+				int inverseAlpha = 256 - alpha;
+				int vpc = viewportColor;
+				int c1 = (inverseAlpha * (tc & 0xFF00FF) >> 8 & 0xFF00FF) + (inverseAlpha * (tc & 0x00FF00) >> 8 & 0x00FF00);
+				int c2 = (alpha * (vpc & 0xFF00FF) >> 8 & 0xFF00FF) + (alpha * (vpc & 0x00FF00) >> 8 & 0x00FF00);
+				int outAlpha = inverseAlpha + ((vpc >>> 24) * (255 - inverseAlpha) * 0x8081 >>> 23);
+				viewportColor = outAlpha << 24 | c1 + c2;
+				widget.setHidden(true);
+				hiddenWidgets.add(widget);
 			}
-			else if (widget.getType() == WidgetType.RECTANGLE)
+			else
 			{
-				if (renderX == client.getViewportXOffset() && renderY == client.getViewportYOffset()
-					&& widget.getWidth() == client.getViewportWidth() && widget.getHeight() == client.getViewportHeight()
-					&& widget.getOpacity() > 0 && widget.isFilled() && client.isGpu())
+				WidgetNode childNode = componentTable.get(widget.getId());
+				if (childNode != null)
 				{
-					int tc = widget.getTextColor();
-					int alpha = widget.getOpacity() & 0xFF;
-					int inverseAlpha = 256 - alpha;
-					int vpc = viewportColor;
-					int c1 = (alpha * (tc & 0xff00ff) >> 8 & 0xFF00FF) + (alpha * (tc & 0x00FF00) >> 8 & 0x00FF00);
-					int c2 = (inverseAlpha * (vpc & 0xff00ff) >> 8 & 0xFF00FF) + (inverseAlpha * (vpc & 0x00FF00) >> 8 & 0x00FF00);
-					int outAlpha = alpha + ((vpc >>> 24) * (255 - alpha) * 0x8081 >>> 23);
-					viewportColor = outAlpha << 24 | c1 + c2;
-					widget.setHidden(true);
-					hiddenWidgets.add(widget);
-					continue;
-				}
-			}
+					int widgetId = widget.getId();
+					int groupId = childNode.getId();
+					RSWidget[] children = client.getWidgets()[groupId];
 
-			WidgetNode childNode = componentTable.get(widget.getId());
-			if (childNode != null)
-			{
-				int widgetId = widget.getId();
-				int groupId = childNode.getId();
-				RSWidget[] children = client.getWidgets()[groupId];
-
-				for (RSWidget child : children)
-				{
-					if (child.getRSParentId() == -1)
+					for (RSWidget child : children)
 					{
-						child.setRenderParentId(widgetId);
+						if (child.getRSParentId() == -1)
+						{
+							child.setRenderParentId(widgetId);
+						}
 					}
 				}
 			}

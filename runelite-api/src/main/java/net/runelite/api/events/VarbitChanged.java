@@ -37,7 +37,7 @@ import lombok.Data;
  * if the VarPlayer has special engine behavior assigned to it.
  */
 @Data
-public class VarbitChanged implements Event
+public class VarbitChanged
 {
 	/**
 	 * Index in the varp array that was changed.

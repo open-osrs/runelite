@@ -38,13 +38,7 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import java.io.IOException;
-import java.lang.invoke.CallSite;
-import java.lang.invoke.LambdaMetafactory;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -72,12 +66,9 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
-import net.runelite.client.task.Schedule;
-import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.SplashScreen;
 import net.runelite.client.util.GameEventManager;
-import net.runelite.client.util.ReflectUtil;
 
 @Singleton
 @Slf4j
@@ -87,7 +78,6 @@ public class PluginManager
 	 * Base package where the core plugins are
 	 */
 	private static final String PLUGIN_PACKAGE = "net.runelite.client.plugins";
-	private static final String OPENOSRS_PACKAGE = "com.openosrs.client.plugins";
 
 	private final boolean developerMode;
 	private final boolean safeMode;
@@ -164,8 +154,21 @@ public class PluginManager
 	{
 		try
 		{
-			final Injector injector = plugin.getInjector();
-
+			Injector injector = plugin.getInjector();
+			if (injector == null)
+			{
+				// Create injector for the module
+				Module pluginModule = (Binder binder) ->
+				{
+					// Since the plugin itself is a module, it won't bind itself, so we'll bind it here
+					binder.bind((Class<Plugin>) plugin.getClass()).toInstance(plugin);
+					binder.install(plugin);
+				};
+				Injector pluginInjector = RuneLite.getInjector().createChildInjector(pluginModule);
+				pluginInjector.injectMembers(plugin);
+				plugin.injector = pluginInjector;
+				injector = pluginInjector;
+			}
 			for (Key<?> key : injector.getBindings().keySet())
 			{
 				Class<?> type = key.getTypeLiteral().getRawType();
@@ -290,10 +293,6 @@ public class PluginManager
 		List<Class<?>> plugins = classPath.getTopLevelClassesRecursive(PLUGIN_PACKAGE).stream()
 			.map(ClassInfo::load)
 			.collect(Collectors.toList());
-
-		plugins.addAll(classPath.getTopLevelClassesRecursive(OPENOSRS_PACKAGE).stream()
-			.map(ClassInfo::load)
-			.collect(Collectors.toList()));
 
 		loadPlugins(plugins, (loaded, total) ->
 			SplashScreen.stage(.60, .70, null, "Loading Plugins", loaded, total, false));
@@ -628,59 +627,14 @@ public class PluginManager
 
 	private void schedule(Plugin plugin)
 	{
-		for (Method method : plugin.getClass().getMethods())
-		{
-			Schedule schedule = method.getAnnotation(Schedule.class);
-
-			if (schedule == null)
-			{
-				continue;
-			}
-
-			Runnable runnable = null;
-			try
-			{
-				final Class<?> clazz = method.getDeclaringClass();
-				final MethodHandles.Lookup caller = ReflectUtil.privateLookupIn(clazz);
-				final MethodType subscription = MethodType.methodType(method.getReturnType(), method.getParameterTypes());
-				final MethodHandle target = caller.findVirtual(clazz, method.getName(), subscription);
-				final CallSite site = LambdaMetafactory.metafactory(
-					caller,
-					"run",
-					MethodType.methodType(Runnable.class, clazz),
-					subscription,
-					target,
-					subscription);
-
-				final MethodHandle factory = site.getTarget();
-				runnable = (Runnable) factory.bindTo(plugin).invokeExact();
-			}
-			catch (Throwable e)
-			{
-				log.warn("Unable to create lambda for method {}", method, e);
-			}
-
-			ScheduledMethod scheduledMethod = new ScheduledMethod(schedule, method, plugin, runnable);
-			log.debug("Scheduled task {}", scheduledMethod);
-
-			scheduler.addScheduledMethod(scheduledMethod);
-		}
+		// note to devs: this method will almost certainly merge conflict in the future, just apply the changes in the scheduler instead
+		scheduler.registerObject(plugin);
 	}
 
 	private void unschedule(Plugin plugin)
 	{
-		List<ScheduledMethod> methods = new ArrayList<>(scheduler.getScheduledMethods());
-
-		for (ScheduledMethod method : methods)
-		{
-			if (method.getObject() != plugin)
-			{
-				continue;
-			}
-
-			log.debug("Removing scheduled task {}", method);
-			scheduler.removeScheduledMethod(method);
-		}
+		// note to devs: this method will almost certainly merge conflict in the future, just apply the changes in the scheduler instead
+		scheduler.unregisterObject(plugin);
 	}
 
 	/**

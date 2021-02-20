@@ -31,7 +31,7 @@ import lombok.Value;
  * an event posted when a cannonball is fired
  */
 @Value
-public class CannonChanged implements Event
+public class CannonChanged
 {
 	/**
 	 * The projectile id.

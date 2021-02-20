@@ -184,4 +184,7 @@ public interface RSActor extends RSRenderable, Actor
 	int getRunAnimation();
 
 	void setDead(boolean dead);
+
+	@Import("pathLength")
+	int getPathLength();
 }

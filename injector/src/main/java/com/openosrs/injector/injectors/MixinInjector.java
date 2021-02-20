@@ -3,7 +3,7 @@
  * All rights reserved.
  *
  * This code is licensed under GPL3, see the complete license in
- * the LICENSE file in the root directory of this source tree.
+ * the LICENSE file in the root directory of this submodule.
  *
  * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
@@ -438,7 +438,7 @@ public class MixinInjector extends AbstractInjector
 				else if (hasInject)
 				{
 					// Make sure the method doesn't invoke copied methods
-					for (Instruction i : mixinMethod.getCode().getInstructions())
+					/*for (Instruction i : mixinMethod.getCode().getInstructions())
 					{
 						if (i instanceof InvokeInstruction)
 						{
@@ -446,10 +446,10 @@ public class MixinInjector extends AbstractInjector
 
 							if (copiedMethods.containsKey(ii.getMethod()))
 							{
-								throw new InjectException("Injected methods cannot invoke copied methods");
+								throw new InjectException("Injected methods cannot invoke copied methods " + ii.toString());
 							}
 						}
-					}
+					}*/
 
 					Method copy = new Method(targetClass, mixinMethod.getName(), mixinMethod.getDescriptor());
 					moveCode(copy, mixinMethod.getCode());

@@ -1,3 +1,4 @@
+import groovy.json.JsonOutput
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.*
@@ -71,6 +72,10 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             {
                 path = "http://repo.runelite.net/net/runelite/jogl/jogl-all/" + version + "/" + it.file.name
             }
+            else if (it.file.name.contains("jocl"))
+            {
+                path = "http://repo.runelite.net/net/runelite/jocl/jocl/" + version + "/" + it.file.name
+            }
             else
             {
                 println("ERROR: " + it.file.name + " has no download path!")
@@ -117,11 +122,13 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                 "artifacts" to getArtifacts()
         ).toString()
 
+        val prettyJson = JsonOutput.prettyPrint(json)
+
         val bootstrapDir = File("${project.buildDir}/bootstrap")
         bootstrapDir.mkdirs()
 
         File(bootstrapDir, "bootstrap-${type}.json").printWriter().use { out ->
-            out.println(json)
+            out.println(prettyJson)
         }
     }
 }
