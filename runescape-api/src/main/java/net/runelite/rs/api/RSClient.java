@@ -774,6 +774,7 @@ public interface RSClient extends RSGameEngine, Client
 	void setAnimOffsetZ(int animOffsetZ);
 
 	@Import("getFrames")
+	@Override
 	RSFrames getFrames(int frameId);
 
 	@Import("sceneMinimapSprite")
@@ -962,6 +963,7 @@ public interface RSClient extends RSGameEngine, Client
 	boolean getViewportContainsMouse();
 
 	@Import("Rasterizer2D_pixels")
+	@Override
 	int[] getGraphicsPixels();
 
 	@Import("Rasterizer2D_width")
@@ -1340,6 +1342,9 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("getParamDefinition")
 	RSParamComposition getRSParamComposition(int id);
+
+	@Import("SequenceDefinition_get")
+	RSSequenceDefinition getSequenceDefinition(int id);
 
 	@Construct
 	RSIntegerNode newIntegerNode(int contents);
