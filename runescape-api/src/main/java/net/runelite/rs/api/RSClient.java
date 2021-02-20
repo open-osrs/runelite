@@ -1343,7 +1343,6 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("getParamDefinition")
 	RSParamComposition getRSParamComposition(int id);
 
-	@Override
 	@Import("SequenceDefinition_get")
 	@Override
 	RSSequenceDefinition getSequenceDefinition(int id);
