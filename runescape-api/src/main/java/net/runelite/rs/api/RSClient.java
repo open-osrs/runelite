@@ -774,6 +774,7 @@ public interface RSClient extends RSGameEngine, Client
 	void setAnimOffsetZ(int animOffsetZ);
 
 	@Import("getFrames")
+	@Override
 	RSFrames getFrames(int frameId);
 
 	@Import("sceneMinimapSprite")

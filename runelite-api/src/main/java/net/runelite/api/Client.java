@@ -2105,6 +2105,11 @@ public interface Client extends GameEngine
 	List<String> getOutdatedScripts();
 
 	/**
+	 * Gets a Frames object. File Ids for animations frames are grouped together into a Frames object. getFrames will get the group of frames that the frameId belongs to.
+	 */
+	Frames getFrames(int frameId);
+
+	/**
 	 * various archives you might want to use for reading data from cache
 	 */
 	AbstractArchive getSequenceDefinition_skeletonsArchive();
