@@ -1864,7 +1864,7 @@ public interface Client extends GameEngine
 	void draw2010Menu(int alpha);
 
 	/**
-	 * Get client pixels. each int represents and ARGB colored pixel.
+	 * Get client pixels. Each integer represents an ARGB colored pixel.
 	 */
 	int[] getGraphicsPixels();
 
