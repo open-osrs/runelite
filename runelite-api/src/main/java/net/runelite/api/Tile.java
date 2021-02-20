@@ -102,6 +102,16 @@ public interface Tile extends TileObject
 	int getRenderLevel();
 
 	/**
+	 * Get the minimum plane this tile will be rendered on.
+	 * Example: This tile is on plane 1. The local player is on plane 0, and hide roofs option is turned on.
+	 * If minPlane is 0, this tile will not be rendered.
+	 * If minPlane is 1, this tile will be rendered.
+	 *
+	 * @return the minPlane
+	 */
+	int getPhysicalLevel();
+
+	/**
 	 * Computes and returns whether this tile has line of sight to another.
 	 *
 	 * @param other the other tile
