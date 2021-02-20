@@ -963,6 +963,7 @@ public interface RSClient extends RSGameEngine, Client
 	boolean getViewportContainsMouse();
 
 	@Import("Rasterizer2D_pixels")
+	@Override
 	int[] getGraphicsPixels();
 
 	@Import("Rasterizer2D_width")

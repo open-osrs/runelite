@@ -1864,6 +1864,11 @@ public interface Client extends GameEngine
 	void draw2010Menu(int alpha);
 
 	/**
+	 * Get client pixels. each int represents and ARGB colored pixel.
+	 */
+	int[] getGraphicsPixels();
+
+	/**
 	 * Draws a menu in the OSRS interface style.
 	 *
 	 * @param alpha background transparency of the menu
