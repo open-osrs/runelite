@@ -31,11 +31,11 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${user.home}/.runelite/logs/client.log</file>
+        <file>${user.home}/.openosrs/logs/client.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${user.home}/.runelite/logs/client_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${user.home}/.openosrs/logs/client_%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
             <!-- when file size is larger than defined, roll to new file -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
