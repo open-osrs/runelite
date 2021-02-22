@@ -26,25 +26,3 @@ jobs:
           body: This is an auto-generated PR with an updated gradle version
           labels: automated-pull-request, gradle
           signoff: false
-
-  update-dependencies:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2.3.4
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-      - name: Update Gradle Dependencies
-        run: ./gradlew useLatestVersions --console=plain
-      - name: Create Gradle dependencies update Pull Request
-        uses: peter-evans/create-pull-request@v3.4.1
-        with:
-          token: ${{ secrets.OpenOSRS }}
-          author: OpenOSRS <openosrs.github@gmail.com>
-          committer: OpenOSRS <openosrs.github@gmail.com>
-          branch: GRADLE-DEPS-UPDATE
-          commit-message: 'gradle: Update gradle dependencies'
-          title: 'gradle: Update gradle dependencies'
-          body: This is an auto-generated PR with an updated gradle dependencies
-          labels: automated-pull-request, gradle
-          signoff: false
