@@ -3,7 +3,6 @@ package com.openosrs.client.events;
 import lombok.Value;
 import net.runelite.api.Player;
 import com.openosrs.client.game.AttackStyle;
-import net.runelite.api.events.Event;
 
 /**
  * This will fire when {@link com.openosrs.client.game.PlayerManager} detects
@@ -11,7 +10,7 @@ import net.runelite.api.events.Event;
  * For example, ranged str went to 0, but melee str went to 108.
  */
 @Value
-public class AttackStyleChanged implements Event
+public class AttackStyleChanged
 {
 	/**
 	 * The player that changed styles.
