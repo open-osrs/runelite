@@ -51,6 +51,7 @@ import net.runelite.api.TileObject;
 import net.runelite.api.WallObject;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.task.Schedule;
+import net.runelite.client.task.Scheduler;
 
 @Singleton
 public class ModelOutlineRenderer
@@ -101,9 +102,10 @@ public class ModelOutlineRenderer
 	private List<List<PixelDistanceAlpha>> precomputedDistancePriorities;
 
 	@Inject
-	private ModelOutlineRenderer(Client client)
+	private ModelOutlineRenderer(Client client, Scheduler scheduler)
 	{
 		this.client = client;
+		scheduler.registerObject(this);
 
 		reset();
 	}

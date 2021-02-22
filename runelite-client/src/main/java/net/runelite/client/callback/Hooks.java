@@ -24,7 +24,6 @@
  */
 package net.runelite.client.callback;
 
-import com.google.inject.Injector;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -60,7 +59,6 @@ import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetInfo.WORLD_MAP_VIEW;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.Notifier;
-import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
@@ -70,7 +68,6 @@ import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.DrawManager;
 import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.DeferredEventBus;
@@ -90,44 +87,19 @@ public class Hooks implements Callbacks
 	private static final GameTick GAME_TICK = new GameTick();
 	private static final BeforeRender BEFORE_RENDER = new BeforeRender();
 
-	private static final Injector injector = RuneLite.getInjector();
-	private static final Client client = injector.getInstance(Client.class);
-
-	public static final OverlayRenderer renderer = injector.getInstance(OverlayRenderer.class);
-	private static final OverlayManager overlayManager = injector.getInstance(OverlayManager.class);
-
-	@Inject
-	private EventBus eventBus;
-
-	@Inject
-	private DeferredEventBus deferredEventBus;
-
-	@Inject
-	private Scheduler scheduler;
-
-	@Inject
-	private InfoBoxManager infoBoxManager;
-
-	@Inject
-	private ChatMessageManager chatMessageManager;
-
-	@Inject
-	private MouseManager mouseManager;
-
-	@Inject
-	private KeyManager keyManager;
-
-	@Inject
-	private ClientThread clientThread;
-
-	@Inject
-	private DrawManager drawManager;
-
-	@Inject
-	private Notifier notifier;
-
-	@Inject
-	private ClientUI clientUi;
+	private static Client client;
+	private final OverlayRenderer renderer;
+	private final EventBus eventBus;
+	private final DeferredEventBus deferredEventBus;
+	private final Scheduler scheduler;
+	private final InfoBoxManager infoBoxManager;
+	private final ChatMessageManager chatMessageManager;
+	private final MouseManager mouseManager;
+	private final KeyManager keyManager;
+	private final ClientThread clientThread;
+	private final DrawManager drawManager;
+	private final Notifier notifier;
+	private final ClientUI clientUi;
 
 	private Dimension lastStretchedDimensions;
 	private VolatileImage stretchedImage;
@@ -160,6 +132,39 @@ public class Hooks implements Callbacks
 			lastGraphics = (Graphics2D) mainBufferProvider.getImage().getGraphics();
 		}
 		return lastGraphics;
+	}
+
+	@Inject
+	private Hooks(
+		Client client,
+		OverlayRenderer renderer,
+		EventBus eventBus,
+		DeferredEventBus deferredEventBus,
+		Scheduler scheduler,
+		InfoBoxManager infoBoxManager,
+		ChatMessageManager chatMessageManager,
+		MouseManager mouseManager,
+		KeyManager keyManager,
+		ClientThread clientThread,
+		DrawManager drawManager,
+		Notifier notifier,
+		ClientUI clientUi
+	)
+	{
+		this.client = client;
+		this.renderer = renderer;
+		this.eventBus = eventBus;
+		this.deferredEventBus = deferredEventBus;
+		this.scheduler = scheduler;
+		this.infoBoxManager = infoBoxManager;
+		this.chatMessageManager = chatMessageManager;
+		this.mouseManager = mouseManager;
+		this.keyManager = keyManager;
+		this.clientThread = clientThread;
+		this.drawManager = drawManager;
+		this.notifier = notifier;
+		this.clientUi = clientUi;
+		eventBus.register(this);
 	}
 
 	@Override
