@@ -28,6 +28,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableMap;
+import com.openosrs.client.game.ItemReclaimCost;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -347,6 +348,41 @@ public class ItemManager
 		}
 
 		return price;
+	}
+
+	public int getAlchValue(ItemComposition composition)
+	{
+		if (composition.getId() == COINS_995)
+		{
+			return 1;
+		}
+		if (composition.getId() == PLATINUM_TOKEN)
+		{
+			return 1000;
+		}
+
+		return Math.max(1, composition.getHaPrice());
+	}
+
+	public int getRepairValue(int itemId)
+	{
+		return getRepairValue(itemId, false);
+	}
+
+	private int getRepairValue(int itemId, boolean fullValue)
+	{
+		final ItemReclaimCost b = ItemReclaimCost.of(itemId);
+
+		if (b != null)
+		{
+			if (fullValue || b.getItemID() == GRANITE_MAUL_24225 || b.getItemID() == GRANITE_MAUL_24227)
+			{
+				return b.getValue();
+			}
+			return (int) (b.getValue() * (75.0f / 100.0f));
+		}
+
+		return 0;
 	}
 
 	/**

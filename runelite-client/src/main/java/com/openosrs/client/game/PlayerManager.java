@@ -1,5 +1,6 @@
 package com.openosrs.client.game;
 
+import com.openosrs.client.events.AttackStyleChanged;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,18 +20,20 @@ import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Actor;
 import net.runelite.api.Client;
-import net.runelite.api.ItemDefinition;
+import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
 import net.runelite.api.WorldType;
 import net.runelite.api.events.AnimationChanged;
-import net.runelite.api.events.PlayerAppearanceChanged;
+import net.runelite.api.events.PlayerCompositionChanged;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.AttackStyleChanged;
+import net.runelite.client.game.FriendChatManager;
+import net.runelite.client.game.ItemManager;
+import net.runelite.client.game.ItemMapping;
 import net.runelite.client.util.PvPUtil;
 import net.runelite.http.api.hiscore.HiscoreClient;
 import net.runelite.http.api.hiscore.HiscoreResult;
@@ -211,7 +214,7 @@ public class PlayerManager
 	}
 
 	@Subscribe
-	private void onAppearenceChanged(PlayerAppearanceChanged event)
+	private void onAppearenceChanged(PlayerCompositionChanged event)
 	{
 		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
 		update(player);
@@ -268,7 +271,7 @@ public class PlayerManager
 	{
 		final Map<Integer, Integer> prices = new HashMap<>();
 
-		if (player.getPlayer().getPlayerAppearance() == null)
+		if (player.getPlayer().getPlayerComposition() == null)
 		{
 			return;
 		}
@@ -295,7 +298,7 @@ public class PlayerManager
 				continue;
 			}
 
-			final int id = player.getPlayer().getPlayerAppearance().getEquipmentId(kitType);
+			final int id = player.getPlayer().getPlayerComposition().getEquipmentId(kitType);
 
 			if (id == -1)
 			{
@@ -343,7 +346,7 @@ public class PlayerManager
 			}
 
 			final ItemStats item = itemManager.getItemStats(id, false);
-			final ItemDefinition itemDefinition = itemManager.getItemDefinition(id);
+			final ItemComposition itemComposition = itemManager.getItemComposition(id);
 
 			if (item == null)
 			{
@@ -375,11 +378,11 @@ public class PlayerManager
 				continue;
 			}
 
-			if (!itemDefinition.isTradeable() && !ItemMapping.isMapped(id))
+			if (!itemComposition.isTradeable() && !ItemMapping.isMapped(id))
 			{
-				prices.put(id, itemDefinition.getPrice());
+				prices.put(id, itemComposition.getPrice());
 			}
-			else if (itemDefinition.isTradeable())
+			else if (itemComposition.isTradeable())
 			{
 				prices.put(id, itemManager.getItemPrice(id, false));
 			}
@@ -464,13 +467,13 @@ public class PlayerManager
 
 		for (int id : player.getGear().keySet())
 		{
-			ItemDefinition def = itemManager.getItemDefinition(id);
+			ItemComposition def = itemManager.getItemComposition(id);
 			if (def.getName().toLowerCase().contains("staff"))
 			{
 				player.setAttackStyle(AttackStyle.MAGE);
 				if (oldStyle != player.getAttackStyle())
 				{
-					eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
+					eventBus.post(new AttackStyleChanged(
 						player.getPlayer(), oldStyle, player.getAttackStyle())
 					);
 				}
@@ -495,7 +498,7 @@ public class PlayerManager
 
 		if (oldStyle != player.getAttackStyle())
 		{
-			eventBus.post(AttackStyleChanged.class, new AttackStyleChanged(
+			eventBus.post(new AttackStyleChanged(
 				player.getPlayer(), oldStyle, player.getAttackStyle())
 			);
 		}

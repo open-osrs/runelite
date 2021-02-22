@@ -369,4 +369,9 @@ public enum ItemMapping
 
 		return mapping;
 	}
+
+	public static boolean isMapped(int itemId)
+	{
+		return MAPPINGS.containsValue(itemId);
+	}
 }
