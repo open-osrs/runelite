@@ -33,6 +33,7 @@ import com.google.inject.CreationException;
 import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
+import com.openosrs.client.OpenOSRS;
 import static com.openosrs.client.OpenOSRS.EXTERNALPLUGIN_DIR;
 import static com.openosrs.client.OpenOSRS.SYSTEM_API_VERSION;
 import com.openosrs.client.config.OpenOSRSConfig;
@@ -108,6 +109,8 @@ public class OPRSExternalPluginManager
 	private final ConfigManager configManager;
 	private final Map<String, String> pluginsMap = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
+	private static final boolean developmentMode = OpenOSRS.getPluginDevelopmentPath().length > 0;
+	@Getter(AccessLevel.PUBLIC)
 	private final Map<String, Map<String, String>> pluginsInfoMap = new HashMap<>();
 	private final Groups groups;
 	@Getter(AccessLevel.PUBLIC)
@@ -143,7 +146,7 @@ public class OPRSExternalPluginManager
 
 	private void initPluginManager()
 	{
-		externalPluginManager = new OPRSExternalPf4jPluginManager(this);
+		externalPluginManager = new OPRSExternalPf4jPluginManager();
 		externalPluginManager.setSystemVersion(SYSTEM_API_VERSION);
 	}
 
@@ -826,29 +829,39 @@ public class OPRSExternalPluginManager
 
 		try
 		{
-			PluginInfo.PluginRelease latest = updateManager.getLastPluginRelease(pluginId);
-
-			// Null version returns the last release version of this plugin for given system version
-			if (latest == null)
+			if (!developmentMode)
 			{
-				try
+				PluginInfo.PluginRelease latest = updateManager.getLastPluginRelease(pluginId);
+
+				// Null version returns the last release version of this plugin for given system version
+				if (latest == null)
 				{
-					SwingUtil.syncExec(() ->
-						JOptionPane.showMessageDialog(ClientUI.getFrame(),
-							pluginId + " is outdated and cannot be installed",
-							"Installation error",
-							JOptionPane.ERROR_MESSAGE));
-				}
-				catch (InvocationTargetException | InterruptedException ignored)
-				{
-					return false;
+					try
+					{
+						SwingUtil.syncExec(() ->
+							JOptionPane.showMessageDialog(ClientUI.getFrame(),
+								pluginId + " is outdated and cannot be installed",
+								"Installation error",
+								JOptionPane.ERROR_MESSAGE));
+					}
+					catch (InvocationTargetException | InterruptedException ignored)
+					{
+						return false;
+					}
+
+					return true;
 				}
 
-				return true;
+				updateManager.installPlugin(pluginId, null);
+				scanAndInstantiate(loadPlugin(pluginId), true, true);
+			}
+			else
+			{
+				// In development mode our plugin will already be present in a repository, so we can just load it
+				externalPluginManager.loadPlugins();
+				externalPluginManager.startPlugin(pluginId);
 			}
 
-			updateManager.installPlugin(pluginId, null);
-			scanAndInstantiate(loadPlugin(pluginId), true, true);
 			ExternalPluginsChanged event = new ExternalPluginsChanged(null);
 			eventBus.post(event);
 			groups.broadcastSring("STARTEXTERNAL;" + pluginId);
@@ -906,6 +919,11 @@ public class OPRSExternalPluginManager
 		{
 			// Do not update when there is more than one client open -> api might contain changes
 			log.info("Not updating external plugins since there is more than 1 client open");
+			return;
+		}
+		else if (developmentMode)
+		{
+			log.info("Not updating because we're running in developer mode");
 			return;
 		}
 

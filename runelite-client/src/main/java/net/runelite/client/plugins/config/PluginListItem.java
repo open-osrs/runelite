@@ -37,17 +37,23 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.border.EmptyBorder;
 import lombok.Getter;
+import net.runelite.client.RuneLiteProperties;
 import net.runelite.client.externalplugins.ExternalPluginManifest;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
+import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.util.ImageUtil;
@@ -57,6 +63,8 @@ class PluginListItem extends JPanel implements SearchablePlugin
 {
 	private static final ImageIcon CONFIG_ICON;
 	private static final ImageIcon CONFIG_ICON_HOVER;
+	private static final ImageIcon REFRESH_ICON;
+	private static final ImageIcon REFRESH_ICON_HOVER;
 	private static final ImageIcon ON_STAR;
 	private static final ImageIcon OFF_STAR;
 
@@ -74,10 +82,13 @@ class PluginListItem extends JPanel implements SearchablePlugin
 	static
 	{
 		BufferedImage configIcon = ImageUtil.loadImageResource(ConfigPanel.class, "config_edit_icon.png");
+		BufferedImage refreshIcon = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "refresh.png");
 		BufferedImage onStar = ImageUtil.loadImageResource(ConfigPanel.class, "star_on.png");
 		CONFIG_ICON = new ImageIcon(configIcon);
+		REFRESH_ICON = new ImageIcon(refreshIcon);
 		ON_STAR = new ImageIcon(onStar);
 		CONFIG_ICON_HOVER = new ImageIcon(ImageUtil.luminanceOffset(configIcon, -100));
+		REFRESH_ICON_HOVER = new ImageIcon(ImageUtil.luminanceOffset(refreshIcon, -100));
 
 		BufferedImage offStar = ImageUtil.luminanceScale(
 			ImageUtil.grayscaleImage(onStar),
@@ -86,7 +97,7 @@ class PluginListItem extends JPanel implements SearchablePlugin
 		OFF_STAR = new ImageIcon(offStar);
 	}
 
-	PluginListItem(PluginListPanel pluginListPanel, PluginConfigurationDescriptor pluginConfig)
+	PluginListItem(PluginListPanel pluginListPanel, PluginConfigurationDescriptor pluginConfig, OPRSExternalPluginManager oprsExternalPluginManager)
 	{
 		this.pluginListPanel = pluginListPanel;
 		this.pluginConfig = pluginConfig;
@@ -132,6 +143,60 @@ class PluginListItem extends JPanel implements SearchablePlugin
 		final JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		add(buttonPanel, BorderLayout.LINE_END);
+
+		Map<String, Map<String, String>> pluginsInfoMap = oprsExternalPluginManager.getPluginsInfoMap();
+
+		if ((OPRSExternalPluginManager.isDevelopmentMode() || RuneLiteProperties.getLauncherVersion() == null) && pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName()))
+		{
+			JButton hotSwapButton = new JButton(REFRESH_ICON);
+			hotSwapButton.setRolloverIcon(REFRESH_ICON_HOVER);
+			SwingUtil.removeButtonDecorations(hotSwapButton);
+			hotSwapButton.setPreferredSize(new Dimension(25, 0));
+			hotSwapButton.setVisible(false);
+			buttonPanel.add(hotSwapButton);
+
+			hotSwapButton.addActionListener(e ->
+			{
+				Map<String, String> pluginInfo = pluginsInfoMap.get(pluginConfig.getPlugin().getClass().getSimpleName());
+				String pluginId = pluginInfo.get("id");
+
+				hotSwapButton.setIcon(REFRESH_ICON);
+
+				new SwingWorker<>()
+				{
+					@Override
+					protected Boolean doInBackground()
+					{
+						return oprsExternalPluginManager.uninstall(pluginId);
+					}
+
+					@Override
+					protected void done()
+					{
+						// In development mode our plugins will be loaded directly from sources, so we don't need to prompt
+						if (!OPRSExternalPluginManager.isDevelopmentMode())
+						{
+							JOptionPane.showMessageDialog(ClientUI.getFrame(),
+								pluginId + " is unloaded, put the new jar file in the externalmanager folder and click `ok`",
+								"Hotswap " + pluginId,
+								JOptionPane.INFORMATION_MESSAGE);
+						}
+
+						new SwingWorker<>()
+						{
+							@Override
+							protected Boolean doInBackground()
+							{
+								return oprsExternalPluginManager.reloadStart(pluginId);
+							}
+						}.execute();
+					}
+				}.execute();
+			});
+
+			hotSwapButton.setVisible(true);
+			hotSwapButton.setToolTipText("Hotswap plugin");
+		}
 
 		JMenuItem configMenuItem = null;
 		if (pluginConfig.hasConfigurables())

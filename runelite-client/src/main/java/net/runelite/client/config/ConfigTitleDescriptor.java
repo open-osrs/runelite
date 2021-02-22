@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,36 +24,29 @@
  */
 package net.runelite.client.config;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import lombok.Value;
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface ConfigItem
+@Value
+public class ConfigTitleDescriptor implements ConfigObject
 {
-	int position() default -1;
+	private final String key;
+	private final ConfigTitle title;
 
-	String keyName();
+	@Override
+	public String key()
+	{
+		return key;
+	}
 
-	String name();
+	@Override
+	public String name()
+	{
+		return title.name();
+	}
 
-	String description();
-
-	boolean hidden() default false;
-
-	String warning() default "";
-
-	boolean secret() default false;
-
-	String section() default "";
-
-	String title() default "";
-
-	boolean parse() default false;
-
-	Class<?> clazz() default void.class;
-
-	String method() default "";
+	@Override
+	public int position()
+	{
+		return title.position();
+	}
 }

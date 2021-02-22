@@ -5,6 +5,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ import org.pf4j.CompoundPluginLoader;
 import org.pf4j.CompoundPluginRepository;
 import org.pf4j.DefaultPluginManager;
 import org.pf4j.DependencyResolver;
+import org.pf4j.DevelopmentPluginRepository;
 import org.pf4j.JarPluginLoader;
 import org.pf4j.JarPluginRepository;
 import org.pf4j.ManifestPluginDescriptorFinder;
@@ -35,12 +37,9 @@ import org.pf4j.RuntimeMode;
 @Slf4j
 class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 {
-	private final OPRSExternalPluginManager externalPluginManager;
-
-	public OPRSExternalPf4jPluginManager(OPRSExternalPluginManager externalPluginManager)
+	public OPRSExternalPf4jPluginManager()
 	{
 		super(OpenOSRS.EXTERNALPLUGIN_DIR.toPath());
-		this.externalPluginManager = externalPluginManager;
 	}
 
 	@Override
@@ -68,8 +67,30 @@ class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 	{
 		CompoundPluginRepository compoundPluginRepository = new CompoundPluginRepository();
 
-		JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot());
-		compoundPluginRepository.add(jarPluginRepository);
+		if (isNotDevelopment())
+		{
+			JarPluginRepository jarPluginRepository = new JarPluginRepository(getPluginsRoot());
+			compoundPluginRepository.add(jarPluginRepository);
+		}
+
+		if (isDevelopment())
+		{
+			for (String developmentPluginPath : OpenOSRS.getPluginDevelopmentPath())
+			{
+				DevelopmentPluginRepository developmentPluginRepository = new DevelopmentPluginRepository(Paths.get(developmentPluginPath))
+				{
+					@Override
+					public boolean deletePluginPath(Path pluginPath)
+					{
+						// Do nothing, because we'd be deleting our sources!
+						return filter.accept(pluginPath.toFile());
+					}
+				};
+
+				developmentPluginRepository.setFilter(new OPRSExternalPluginFileFilter());
+				compoundPluginRepository.add(developmentPluginRepository);
+			}
+		}
 
 		return compoundPluginRepository;
 	}
@@ -121,6 +142,12 @@ class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 			{
 				if (!(e instanceof PluginAlreadyLoadedException))
 				{
+					if (!OPRSExternalPluginManager.isDevelopmentMode())
+					{
+						String plugin = pluginPath.toString().substring(pluginsRoots.get(0).toString().length() + 1);
+						duplicatePlugins.add(plugin);
+					}
+
 					log.error("Could not load plugin {}", pluginPath, e);
 				}
 			}
@@ -220,7 +247,7 @@ class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 	@Override
 	public RuntimeMode getRuntimeMode()
 	{
-		return RuntimeMode.DEPLOYMENT;
+		return OPRSExternalPluginManager.isDevelopmentMode() ? RuntimeMode.DEVELOPMENT : RuntimeMode.DEPLOYMENT;
 	}
 
 	@Override
