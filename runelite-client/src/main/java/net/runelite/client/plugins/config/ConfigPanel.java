@@ -27,10 +27,15 @@ package net.runelite.client.plugins.config;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.primitives.Ints;
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
@@ -54,6 +59,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -86,6 +92,7 @@ import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 import net.runelite.client.externalplugins.ExternalPluginManifest;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.ui.ColorScheme;
@@ -98,6 +105,7 @@ import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.client.util.ImageUtil;
+import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.SwingUtil;
 import net.runelite.client.util.Text;
 
@@ -129,6 +137,9 @@ class ConfigPanel extends PluginPanel
 
 	@Inject
 	private ExternalPluginManager externalPluginManager;
+
+	@Inject
+	private OPRSExternalPluginManager oprsExternalPluginManager;
 
 	@Inject
 	private ColorPickerManager colorPickerManager;
@@ -254,6 +265,53 @@ class ConfigPanel extends PluginPanel
 		mainPanel.removeAll();
 
 		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
+
+		Map<String, Map<String, String>> pluginsInfoMap = oprsExternalPluginManager.getPluginsInfoMap();
+
+		if (pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName()))
+		{
+
+			JPanel infoPanel = new JPanel();
+			infoPanel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+			infoPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+			infoPanel.setLayout(new GridLayout(0, 1));
+
+			final Font smallFont = FontManager.getRunescapeSmallFont();
+
+			Map<String, String> pluginInfo = pluginsInfoMap.get(pluginConfig.getPlugin().getClass().getSimpleName());
+
+			JLabel idLabel = new JLabel(htmlLabel("id", pluginInfo.get("id")));
+			idLabel.setFont(smallFont);
+			infoPanel.add(idLabel);
+
+			JLabel versionLabel = new JLabel(htmlLabel("version", pluginInfo.get("version")));
+			versionLabel.setFont(smallFont);
+			infoPanel.add(versionLabel);
+
+			JLabel providerLabel = new JLabel(htmlLabel("provider", pluginInfo.get("provider")));
+			providerLabel.setFont(smallFont);
+			infoPanel.add(providerLabel);
+
+			JButton button = new JButton("Support");
+			button.addActionListener(e -> LinkBrowser.browse(pluginInfo.get("support")));
+
+			JSeparator separator = new JSeparator()
+			{
+				@Override
+				protected void paintComponent(Graphics g)
+				{
+					int width = this.getSize().width;
+					Graphics2D g2 = (Graphics2D) g;
+					g2.setStroke(new BasicStroke(2));
+					g2.setColor(ColorScheme.BRAND_BLUE);
+					g2.drawLine(0, 0, width, 0);
+				}
+			};
+
+			mainPanel.add(infoPanel);
+			mainPanel.add(button);
+			mainPanel.add(separator);
+		}
 
 		final Map<String, JPanel> sectionWidgets = new HashMap<>();
 		final Map<ConfigObject, JPanel> topLevelPanels = new TreeMap<>((a, b) ->
@@ -703,5 +761,10 @@ class ConfigPanel extends PluginPanel
 			rebuild();
 		});
 		return menuItem;
+	}
+
+	private static String htmlLabel(String key, String value)
+	{
+		return "<html><body style = 'color:#a5a5a5'>" + key + ": <span style = 'color:white'>" + value + "</span></body></html>";
 	}
 }
