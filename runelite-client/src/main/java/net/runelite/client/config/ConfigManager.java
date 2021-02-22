@@ -162,9 +162,6 @@ public class ConfigManager
 
 	public final void switchSession(AccountSession session)
 	{
-		// Ensure existing config is saved
-		sendConfig();
-
 		if (session == null)
 		{
 			this.session = null;
@@ -173,7 +170,6 @@ public class ConfigManager
 		else
 		{
 			this.session = session;
-			this.configClient = new ConfigClient(okHttpClient, session.getUuid());
 		}
 
 		this.propertiesFile = getPropertiesFile();
@@ -202,51 +198,7 @@ public class ConfigManager
 
 	public void load()
 	{
-		if (configClient == null)
-		{
-			loadFromFile();
-			return;
-		}
-
-		Configuration configuration;
-
-		try
-		{
-			configuration = configClient.get();
-		}
-		catch (IOException ex)
-		{
-			log.debug("Unable to load configuration from client, using saved configuration from disk", ex);
-			loadFromFile();
-			return;
-		}
-
-		if (configuration.getConfig() == null || configuration.getConfig().isEmpty())
-		{
-			log.debug("No configuration from client, using saved configuration on disk");
-			loadFromFile();
-			return;
-		}
-
-		Properties newProperties = new Properties();
-		for (ConfigEntry entry : configuration.getConfig())
-		{
-			newProperties.setProperty(entry.getKey(), entry.getValue());
-		}
-
-		log.debug("Loading in config from server");
-		swapProperties(newProperties, false);
-
-		try
-		{
-			saveToFile(propertiesFile);
-
-			log.debug("Updated configuration on disk with the latest version");
-		}
-		catch (IOException ex)
-		{
-			log.warn("Unable to update configuration on disk", ex);
-		}
+		loadFromFile();
 	}
 
 	private void swapProperties(Properties newProperties, boolean saveToServer)
