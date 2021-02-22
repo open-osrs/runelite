@@ -238,6 +238,10 @@ public class MenuEntrySwapperPlugin extends Plugin
 		swap("big net", "harpoon", config::swapHarpoon);
 		swap("net", "harpoon", config::swapHarpoon);
 
+		swap("lure", "bait", config::swapBait);
+		swap("net", "bait", config::swapBait);
+		swap("small net", "bait", config::swapBait);
+
 		swap("enter", "portal", "home", () -> config.swapHomePortal() == HouseMode.HOME);
 		swap("enter", "portal", "build mode", () -> config.swapHomePortal() == HouseMode.BUILD_MODE);
 		swap("enter", "portal", "friend's house", () -> config.swapHomePortal() == HouseMode.FRIENDS_HOUSE);
@@ -304,6 +308,14 @@ public class MenuEntrySwapperPlugin extends Plugin
 		swap("teleport menu", "draynor village", config::swapJewelleryBox);
 		swap("teleport menu", "al kharid", config::swapJewelleryBox);
 
+		Arrays.asList(
+			"annakarl", "ape atoll dungeon", "ardougne", "barrows", "battlefront", "camelot", "carrallangar",
+			"catherby", "cemetery", "draynor manor", "falador", "fenkenstrain's castle", "fishing guild", "ghorrock",
+			"grand exchange", "great kourend", "harmony island", "kharyrll", "lumbridge", "lumbridge graveyard",
+			"lunar isle", "marim", "mind altar", "salve graveyard", "seers' village", "senntisten", "troll stronghold",
+			"varrock", "watchtower", "waterbirth island", "weiss", "west ardougne", "yanille"
+		).forEach(location -> swap(location, "portal nexus", "teleport menu", config::swapPortalNexus));
+
 		swap("shared", "private", config::swapPrivate);
 
 		swap("pick", "pick-lots", config::swapPick);
@@ -361,6 +373,8 @@ public class MenuEntrySwapperPlugin extends Plugin
 		swapTeleport("teleport to house", "outside");
 
 		swap("eat", "guzzle", config::swapRockCake);
+
+		swap("travel", "dive", config::swapRowboatDive);
 	}
 
 	public void swap(String option, String swappedOption, Supplier<Boolean> enabled)
