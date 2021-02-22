@@ -48,4 +48,10 @@ public @interface ConfigItem
 	boolean secret() default false;
 
 	String section() default "";
+
+	boolean parse() default false;
+
+	Class<?> clazz() default void.class;
+
+	String method() default "";
 }
