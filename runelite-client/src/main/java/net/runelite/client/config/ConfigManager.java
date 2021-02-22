@@ -647,6 +647,30 @@ public class ConfigManager
 				.result())
 			.collect(Collectors.toList());
 
+		final List<ConfigTitleDescriptor> titles = Arrays.stream(inter.getDeclaredFields())
+			.filter(m -> m.isAnnotationPresent(ConfigTitle.class) && m.getType() == String.class)
+			.map(m ->
+			{
+				try
+				{
+					return new ConfigTitleDescriptor(
+						String.valueOf(m.get(inter)),
+						m.getDeclaredAnnotation(ConfigTitle.class)
+					);
+				}
+				catch (IllegalAccessException e)
+				{
+					log.warn("Unable to load title {}::{}", inter.getSimpleName(), m.getName());
+					return null;
+				}
+			})
+			.filter(Objects::nonNull)
+			.sorted((a, b) -> ComparisonChain.start()
+				.compare(a.getTitle().position(), b.getTitle().position())
+				.compare(a.getTitle().name(), b.getTitle().name())
+				.result())
+			.collect(Collectors.toList());
+
 		final List<ConfigItemDescriptor> items = Arrays.stream(inter.getMethods())
 			.filter(m -> m.getParameterCount() == 0 && m.isAnnotationPresent(ConfigItem.class))
 			.map(m -> new ConfigItemDescriptor(
@@ -662,7 +686,7 @@ public class ConfigManager
 				.result())
 			.collect(Collectors.toList());
 
-		return new ConfigDescriptor(group, sections, items);
+		return new ConfigDescriptor(group, sections, titles, items);
 	}
 
 	/**

@@ -82,6 +82,8 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.config.ConfigObject;
 import net.runelite.client.config.ConfigSection;
 import net.runelite.client.config.ConfigSectionDescriptor;
+import net.runelite.client.config.ConfigTitle;
+import net.runelite.client.config.ConfigTitleDescriptor;
 import net.runelite.client.config.Keybind;
 import net.runelite.client.config.ModifierlessKeybind;
 import net.runelite.client.config.Range;
@@ -314,6 +316,7 @@ class ConfigPanel extends PluginPanel
 		}
 
 		final Map<String, JPanel> sectionWidgets = new HashMap<>();
+		final Map<String, JPanel> titleWidgets = new HashMap<>();
 		final Map<ConfigObject, JPanel> topLevelPanels = new TreeMap<>((a, b) ->
 			ComparisonChain.start()
 			.compare(a.position(), b.position())
@@ -379,6 +382,53 @@ class ConfigPanel extends PluginPanel
 			sectionWidgets.put(csd.getKey(), sectionContents);
 
 			topLevelPanels.put(csd, section);
+		}
+
+		for (ConfigTitleDescriptor ctd : cd.getTitles())
+		{
+			ConfigTitle ct = ctd.getTitle();
+			final JPanel title = new JPanel();
+			title.setLayout(new BoxLayout(title, BoxLayout.Y_AXIS));
+			title.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
+
+			final JPanel sectionHeader = new JPanel();
+			sectionHeader.setLayout(new BorderLayout());
+			sectionHeader.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
+
+			title.add(sectionHeader, BorderLayout.NORTH);
+
+			String name = ct.name();
+			final JLabel sectionName = new JLabel(name);
+			sectionName.setForeground(ColorScheme.BRAND_ORANGE);
+			sectionName.setFont(FontManager.getRunescapeBoldFont());
+			sectionName.setToolTipText("<html>" + name + ":<br>" + ct.description() + "</html>");
+			sectionName.setBorder(new EmptyBorder(0, 0, 3, 1));
+			sectionHeader.add(sectionName, BorderLayout.CENTER);
+
+			final JPanel sectionContents = new JPanel();
+			sectionContents.setLayout(new DynamicGridLayout(0, 1, 0, 5));
+			sectionContents.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
+			sectionContents.setBorder(new EmptyBorder(0, 5, 0, 0));
+			title.add(sectionContents, BorderLayout.SOUTH);
+
+			titleWidgets.put(ctd.getKey(), sectionContents);
+
+			// Allow for sub-sections
+			JPanel section = sectionWidgets.get(ct.section());
+			JPanel titleSection = titleWidgets.get(ct.title());
+
+			if (section != null)
+			{
+				section.add(title);
+			}
+			else if (titleSection != null)
+			{
+				titleSection.add(title);
+			}
+			else
+			{
+				topLevelPanels.put(ctd, title);
+			}
 		}
 
 		for (ConfigItemDescriptor cid : cd.getItems())
@@ -625,13 +675,19 @@ class ConfigPanel extends PluginPanel
 			}
 
 			JPanel section = sectionWidgets.get(cid.getItem().section());
-			if (section == null)
+			JPanel title = titleWidgets.get(cid.getItem().title());
+
+			if (section != null)
 			{
-				topLevelPanels.put(cid, item);
+				section.add(item);
+			}
+			else if (title != null)
+			{
+				title.add(item);
 			}
 			else
 			{
-				section.add(item);
+				topLevelPanels.put(cid, item);
 			}
 		}
 

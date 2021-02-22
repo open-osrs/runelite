@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,22 +24,29 @@
  */
 package net.runelite.client.config;
 
-import lombok.Getter;
-import java.util.Collection;
+import lombok.Value;
 
-@Getter
-public class ConfigDescriptor
+@Value
+public class ConfigTitleDescriptor implements ConfigObject
 {
-	private final ConfigGroup group;
-	private final Collection<ConfigSectionDescriptor> sections;
-	private final Collection<ConfigTitleDescriptor> titles;
-	private final Collection<ConfigItemDescriptor> items;
+	private final String key;
+	private final ConfigTitle title;
 
-	public ConfigDescriptor(ConfigGroup group, Collection<ConfigSectionDescriptor> sections, Collection<ConfigTitleDescriptor> titles, Collection<ConfigItemDescriptor> items)
+	@Override
+	public String key()
 	{
-		this.group = group;
-		this.sections = sections;
-		this.titles = titles;
-		this.items = items;
+		return key;
+	}
+
+	@Override
+	public String name()
+	{
+		return title.name();
+	}
+
+	@Override
+	public int position()
+	{
+		return title.position();
 	}
 }
