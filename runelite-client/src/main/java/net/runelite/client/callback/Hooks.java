@@ -24,7 +24,6 @@
  */
 package net.runelite.client.callback;
 
-import com.google.inject.Injector;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -60,7 +59,6 @@ import net.runelite.api.widgets.Widget;
 import static net.runelite.api.widgets.WidgetInfo.WORLD_MAP_VIEW;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.Notifier;
-import net.runelite.client.RuneLite;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
@@ -70,7 +68,6 @@ import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.DrawManager;
 import net.runelite.client.ui.overlay.OverlayLayer;
-import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.OverlayRenderer;
 import net.runelite.client.ui.overlay.infobox.InfoBoxManager;
 import net.runelite.client.util.DeferredEventBus;
