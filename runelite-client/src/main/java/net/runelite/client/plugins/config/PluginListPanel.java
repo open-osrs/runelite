@@ -57,6 +57,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.externalplugins.ExternalPluginManager;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.PluginInstantiationException;
@@ -93,6 +94,7 @@ class PluginListPanel extends PluginPanel
 
 	@Getter
 	private final ExternalPluginManager externalPluginManager;
+	private final OPRSExternalPluginManager oprsExternalPluginManager;
 
 	@Getter
 	private final MultiplexingPluginPanel muxer;
@@ -107,6 +109,7 @@ class PluginListPanel extends PluginPanel
 		ConfigManager configManager,
 		PluginManager pluginManager,
 		ExternalPluginManager externalPluginManager,
+		OPRSExternalPluginManager oprsExternalPluginManager,
 		EventBus eventBus,
 		Provider<ConfigPanel> configPanelProvider,
 		Provider<PluginHubPanel> pluginHubPanelProvider)
@@ -116,6 +119,7 @@ class PluginListPanel extends PluginPanel
 		this.configManager = configManager;
 		this.pluginManager = pluginManager;
 		this.externalPluginManager = externalPluginManager;
+		this.oprsExternalPluginManager = oprsExternalPluginManager;
 		this.configPanelProvider = configPanelProvider;
 
 		muxer = new MultiplexingPluginPanel(this)
@@ -215,7 +219,7 @@ class PluginListPanel extends PluginPanel
 		)
 			.map(desc ->
 			{
-				PluginListItem listItem = new PluginListItem(this, desc);
+				PluginListItem listItem = new PluginListItem(this, desc, oprsExternalPluginManager);
 				listItem.setPinned(pinnedPlugins.contains(desc.getName()));
 				return listItem;
 			})
