@@ -90,7 +90,7 @@ public class Hooks implements Callbacks
 	private static final GameTick GAME_TICK = new GameTick();
 	private static final BeforeRender BEFORE_RENDER = new BeforeRender();
 
-	private final Client client;
+	private static Client client;
 	private final OverlayRenderer renderer;
 	private final EventBus eventBus;
 	private final DeferredEventBus deferredEventBus;
