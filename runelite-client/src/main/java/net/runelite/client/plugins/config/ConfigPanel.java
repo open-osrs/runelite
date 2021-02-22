@@ -44,7 +44,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.inject.Inject;
@@ -702,6 +705,37 @@ class ConfigPanel extends PluginPanel
 				item.add(button, BorderLayout.EAST);
 			}
 
+			if (cid.getType() == EnumSet.class)
+			{
+				Class enumType = cid.getItem().enumClass();
+
+				EnumSet enumSet = configManager.getConfiguration(cd.getGroup().value(),
+					cid.getItem().keyName(), EnumSet.class);
+				if (enumSet == null || enumSet.contains(null))
+				{
+					enumSet = EnumSet.noneOf(enumType);
+				}
+
+				JPanel enumsetLayout = new JPanel(new GridLayout(0, 2));
+				List<JCheckBox> jcheckboxes = new ArrayList<>();
+
+				for (Object obj : enumType.getEnumConstants())
+				{
+					String option = String.valueOf(obj).toLowerCase().replace("_", " ");
+
+					JCheckBox checkbox = new JCheckBox(option);
+					checkbox.setBackground(ColorScheme.LIGHT_GRAY_COLOR);
+					checkbox.setSelected(enumSet.contains(obj));
+					jcheckboxes.add(checkbox);
+
+					enumsetLayout.add(checkbox);
+				}
+
+				jcheckboxes.forEach(checkbox -> checkbox.addActionListener(ae -> changeConfiguration(jcheckboxes, cd, cid)));
+
+				item.add(enumsetLayout, BorderLayout.SOUTH);
+			}
+
 			JPanel section = sectionWidgets.get(cid.getItem().section());
 			JPanel title = titleWidgets.get(cid.getItem().title());
 
@@ -786,6 +820,32 @@ class ConfigPanel extends PluginPanel
 			label.setForeground(Color.RED);
 			label.setText("Invalid input");
 		}
+	}
+
+	private void changeConfiguration(List<JCheckBox> components, ConfigDescriptor cd, ConfigItemDescriptor cid)
+	{
+		Class<? extends Enum> enumType = cid.getItem().enumClass();
+		EnumSet enumSet = configManager.getConfiguration(cd.getGroup().value(),
+			cid.getItem().keyName(), EnumSet.class);
+		if (enumSet == null)
+		{
+			//noinspection unchecked
+			enumSet = EnumSet.noneOf(enumType);
+		}
+		enumSet.clear();
+
+		EnumSet finalEnumSet = enumSet;
+
+		//noinspection unchecked
+		components.forEach(value ->
+		{
+			if (value.isSelected())
+			{
+				finalEnumSet.add(Enum.valueOf(cid.getItem().enumClass(), String.valueOf(value.getText()).toUpperCase().replace(" ", "_")));
+			}
+		});
+
+		configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), finalEnumSet);
 	}
 
 	private void changeConfiguration(Component component, ConfigDescriptor cd, ConfigItemDescriptor cid)
