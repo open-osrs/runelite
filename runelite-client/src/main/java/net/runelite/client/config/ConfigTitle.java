@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,22 +24,28 @@
  */
 package net.runelite.client.config;
 
-import lombok.Getter;
-import java.util.Collection;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@Getter
-public class ConfigDescriptor
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface ConfigTitle
 {
-	private final ConfigGroup group;
-	private final Collection<ConfigSectionDescriptor> sections;
-	private final Collection<ConfigTitleDescriptor> titles;
-	private final Collection<ConfigItemDescriptor> items;
+	String name();
 
-	public ConfigDescriptor(ConfigGroup group, Collection<ConfigSectionDescriptor> sections, Collection<ConfigTitleDescriptor> titles, Collection<ConfigItemDescriptor> items)
-	{
-		this.group = group;
-		this.sections = sections;
-		this.titles = titles;
-		this.items = items;
-	}
+	String description();
+
+	int position();
+
+	String title() default "";
+
+	/*
+	OpenOSRS Lazy Helpers tm
+	 */
+	String keyName() default "";
+	String section() default "";
+	boolean hidden() default false;
+	String unhide() default "";
 }
