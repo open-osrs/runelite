@@ -13,18 +13,21 @@ plugins {
 dependencies {
     vanillaDep(group = "net.runelite.rs", name = "vanilla", version = rsversion.toString())
 
-    implementation(gradleApi())
-    annotationProcessor("org.projectlombok:lombok:1.18.12")
-    compileOnly("org.projectlombok:lombok:1.18.12")
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.4")
 
-    implementation("org.ow2.asm:asm:8.0.1")
-    implementation("org.ow2.asm:asm-util:8.0.1")
-    implementation("org.jetbrains:annotations:19.0.0")
-    implementation("com.google.guava:guava:29.0-jre")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+
+    implementation(gradleApi())
+
     implementation(project(":deobfuscator"))
     implementation(project(":runescape-api"))
     implementation(project(":runescape-client"))
     implementation(project(":runelite-mixins"))
+
+    implementation(group = "org.ow2.asm", name = "asm", version = "8.0.1")
+    implementation(group = "org.ow2.asm", name = "asm-util", version = "8.0.1")
+    implementation(group = "org.jetbrains", name = "annotations", version = "19.0.0")
+    implementation(group = "com.google.guava", name = "guava", version = "23.2-jre")
 }
 
 tasks.register<JavaExec>("inject") {
