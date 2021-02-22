@@ -42,6 +42,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -65,6 +67,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -106,6 +109,7 @@ import net.runelite.client.ui.components.ComboBoxListRenderer;
 import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ColorUtil;
+import net.runelite.client.util.DeferredDocumentChangedListener;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.SwingUtil;
@@ -539,7 +543,31 @@ class ConfigPanel extends PluginPanel
 					}
 				});
 
-				item.add(textField, BorderLayout.SOUTH);
+				if (cid.getItem().parse())
+				{
+					JLabel parsingLabel = new JLabel();
+					parsingLabel.setHorizontalAlignment(SwingConstants.CENTER);
+					parsingLabel.setPreferredSize(new Dimension(PANEL_WIDTH, 15));
+
+					DeferredDocumentChangedListener listener = new DeferredDocumentChangedListener();
+					listener.addChangeListener(e ->
+					{
+						if (cid.getItem().parse())
+						{
+							parseLabel(cid.getItem(), parsingLabel, textField.getText());
+						}
+					});
+					textField.getDocument().addDocumentListener(listener);
+
+					item.add(textField, BorderLayout.CENTER);
+
+					parseLabel(cid.getItem(), parsingLabel, textField.getText());
+					item.add(parsingLabel, BorderLayout.SOUTH);
+				}
+				else
+				{
+					item.add(textField, BorderLayout.SOUTH);
+				}
 			}
 
 			if (cid.getType() == Color.class)
@@ -721,6 +749,43 @@ class ConfigPanel extends PluginPanel
 		mainPanel.add(backButton);
 
 		revalidate();
+	}
+
+	private Boolean parse(ConfigItem item, String value)
+	{
+		try
+		{
+			Method parse = item.clazz().getMethod(item.method(), String.class);
+
+			return (boolean) parse.invoke(null, value);
+		}
+		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex)
+		{
+			log.error("Parsing failed: {}", ex.getMessage());
+		}
+
+		return null;
+	}
+
+	private void parseLabel(ConfigItem item, JLabel label, String value)
+	{
+		Boolean result = parse(item, value);
+
+		if (result == null)
+		{
+			label.setForeground(Color.RED);
+			label.setText("Parsing failed");
+		}
+		else if (result)
+		{
+			label.setForeground(Color.GREEN);
+			label.setText("Valid input");
+		}
+		else
+		{
+			label.setForeground(Color.RED);
+			label.setText("Invalid input");
+		}
 	}
 
 	private void changeConfiguration(Component component, ConfigDescriptor cd, ConfigItemDescriptor cid)

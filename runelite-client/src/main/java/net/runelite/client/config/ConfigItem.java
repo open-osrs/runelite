@@ -50,4 +50,10 @@ public @interface ConfigItem
 	String section() default "";
 
 	String title() default "";
+
+	boolean parse() default false;
+
+	Class<?> clazz() default void.class;
+
+	String method() default "";
 }
