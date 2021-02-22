@@ -83,6 +83,7 @@ public class WidgetID
 	public static final int BA_DEFENDER_GROUP_ID = 487;
 	public static final int BA_HEALER_GROUP_ID = 488;
 	public static final int BA_REWARD_GROUP_ID = 497;
+	public static final int BA_HORN_OF_GLORY = 484;
 	public static final int LEVEL_UP_GROUP_ID = 233;
 	public static final int DIALOG_SPRITE_GROUP_ID = 193;
 	public static final int QUEST_COMPLETED_GROUP_ID = 153;
@@ -91,6 +92,7 @@ public class WidgetID
 	public static final int RAIDS_GROUP_ID = 513;
 	public static final int TOB_PARTY_GROUP_ID = 28;
 	public static final int MOTHERLODE_MINE_GROUP_ID = 382;
+	public static final int MOTHERLODE_MINE_FULL_INVENTORY_GROUP_ID = 229;
 	public static final int EXPERIENCE_DROP_GROUP_ID = 122;
 	public static final int PUZZLE_BOX_GROUP_ID = 306;
 	public static final int LIGHT_BOX_GROUP_ID = 322;
@@ -178,6 +180,8 @@ public class WidgetID
 	public static final int DIALOG_NOTIFICATION_GROUP_ID = 229;
 	public static final int DIALOG_SPRITE2_ID = 11;
 	public static final int MULTISKILL_MENU_GROUP_ID = 270;
+	public static final int PERFORMERS_FOR_THE_THEATRE_GROUPS_GROUP_ID = 364;
+	public static final int PERFORMERS_FOR_THE_THEATRE_PLAYERS_GROUP_ID = 50;
 
 	static class WorldMap
 	{
