@@ -74,6 +74,13 @@ public interface Tile extends TileObject
 	WallObject getWallObject();
 
 	/**
+	 * Sets the object on the wall layer of the tile.
+	 *
+	 * @param wallObject the ground object
+	 */
+	void setWallObject(WallObject wallObject);
+
+	/**
 	 * Gets the scene paint of the tile.
 	 *
 	 * @return the paint
