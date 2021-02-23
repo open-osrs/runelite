@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.config;
 
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
 import com.google.common.primitives.Ints;
@@ -31,6 +32,7 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -440,11 +442,6 @@ class ConfigPanel extends PluginPanel
 
 		for (ConfigItemDescriptor cid : cd.getItems())
 		{
-			if (cid.getItem().hidden())
-			{
-				continue;
-			}
-
 			JPanel item = new JPanel();
 			item.setLayout(new BorderLayout());
 			item.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
@@ -454,6 +451,7 @@ class ConfigPanel extends PluginPanel
 			configEntryName.setToolTipText("<html>" + name + ":<br>" + cid.getItem().description() + "</html>");
 			PluginListItem.addLabelPopupMenu(configEntryName, createResetMenuItem(pluginConfig, cid));
 			item.add(configEntryName, BorderLayout.CENTER);
+			item.setName(cid.getItem().keyName());
 
 			if (cid.getType() == Button.class)
 			{
@@ -782,7 +780,7 @@ class ConfigPanel extends PluginPanel
 		backButton.addActionListener(e -> pluginList.getMuxer().popState());
 		mainPanel.add(backButton);
 
-		revalidate();
+		hideUnhide();
 	}
 
 	private Boolean parse(ConfigItem item, String value)
@@ -846,6 +844,8 @@ class ConfigPanel extends PluginPanel
 		});
 
 		configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), finalEnumSet);
+
+		hideUnhide();
 	}
 
 	private void changeConfiguration(Component component, ConfigDescriptor cd, ConfigItemDescriptor cid)
@@ -895,6 +895,8 @@ class ConfigPanel extends PluginPanel
 			HotkeyButton hotkeyButton = (HotkeyButton) component;
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), hotkeyButton.getValue());
 		}
+
+		hideUnhide();
 	}
 
 	@Override
@@ -944,8 +946,110 @@ class ConfigPanel extends PluginPanel
 		return menuItem;
 	}
 
+	private void hideUnhide()
+	{
+		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
+
+		for (ConfigItemDescriptor cid : cd.getItems())
+		{
+			boolean unhide = cid.getItem().hidden();
+			boolean hide = !cid.getItem().hide().isEmpty();
+
+			if (unhide || hide)
+			{
+				boolean show = false;
+
+				List<String> itemHide = Splitter
+					.onPattern("\\|\\|")
+					.trimResults()
+					.omitEmptyStrings()
+					.splitToList(String.format("%s || %s", cid.getItem().unhide(), cid.getItem().hide()));
+
+				for (ConfigItemDescriptor cid2 : cd.getItems())
+				{
+					if (itemHide.contains(cid2.getItem().keyName()))
+					{
+						if (cid2.getType() == boolean.class)
+						{
+							show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+						}
+						else if (cid2.getType().isEnum())
+						{
+							Class<? extends Enum> type = (Class<? extends Enum>) cid2.getType();
+							try
+							{
+								Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+								if (!cid.getItem().unhideValue().equals(""))
+								{
+									List<String> unhideValue = Splitter
+										.onPattern("\\|\\|")
+										.trimResults()
+										.omitEmptyStrings()
+										.splitToList(cid.getItem().unhideValue());
+
+									show = unhideValue.contains(selectedItem.toString());
+								}
+								else if (!cid.getItem().hideValue().equals(""))
+								{
+									List<String> hideValue = Splitter
+										.onPattern("\\|\\|")
+										.trimResults()
+										.omitEmptyStrings()
+										.splitToList(cid.getItem().hideValue());
+
+									show = !hideValue.contains(selectedItem.toString());
+								}
+							}
+							catch (IllegalArgumentException ignored)
+							{
+							}
+						}
+					}
+				}
+
+				Component comp = findComponentByName(mainPanel, cid.getItem().keyName());
+
+				if (comp != null)
+				{
+					comp.setVisible((!unhide || show) && (!hide || !show));
+				}
+			}
+		}
+
+		revalidate();
+		repaint();
+	}
+
 	private static String htmlLabel(String key, String value)
 	{
 		return "<html><body style = 'color:#a5a5a5'>" + key + ": <span style = 'color:white'>" + value + "</span></body></html>";
+	}
+
+	public static Component findComponentByName(Component component, String componentName)
+	{
+		if (component == null)
+		{
+			return null;
+		}
+
+		if (component.getName() != null && component.getName().equalsIgnoreCase(componentName))
+		{
+			return component;
+		}
+
+		if (component instanceof Container)
+		{
+			Component[] children = ((Container) component).getComponents();
+			for (Component child : children)
+			{
+				Component found = findComponentByName(child, componentName);
+				if (found != null)
+				{
+					return found;
+				}
+			}
+		}
+
+		return null;
 	}
 }
