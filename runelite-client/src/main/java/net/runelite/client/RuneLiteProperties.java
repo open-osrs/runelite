@@ -34,6 +34,7 @@ import okhttp3.HttpUrl;
 
 public class RuneLiteProperties
 {
+	private static final String RUNELITE_TITLE = "runelite.title";
 	private static final String RUNELITE_VERSION = "runelite.version";
 	private static final String DISCORD_INVITE = "runelite.discord.invite";
 	private static final String LAUNCHER_VERSION_PROPERTY = "runelite.launcher.version";
@@ -59,6 +60,17 @@ public class RuneLiteProperties
 		{
 			throw new RuntimeException(ex);
 		}
+	}
+
+	public static String getTitle()
+	{
+		final StringBuilder sb = new StringBuilder(properties.getProperty(RUNELITE_TITLE));
+		String proxy;
+		if ((proxy = System.getProperty("socksProxyHost")) != null)
+		{
+			sb.append(String.format(" (%s)", proxy));
+		}
+		return sb.toString();
 	}
 
 	public static String getVersion()

@@ -33,12 +33,15 @@ import com.google.inject.Injector;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.nio.file.Paths;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.Locale;
+import java.util.Optional;
 import javax.annotation.Nullable;
 import javax.inject.Provider;
 import javax.inject.Singleton;
@@ -62,6 +65,7 @@ import net.runelite.client.config.ConfigManager;
 import net.runelite.client.discord.DiscordService;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.externalplugins.ExternalPluginManager;
+import net.runelite.client.game.WorldService;
 import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.ClientUpdateCheckMode;
@@ -73,7 +77,10 @@ import net.runelite.client.ui.overlay.OverlayManager;
 import net.runelite.client.ui.overlay.WidgetOverlay;
 import net.runelite.client.ui.overlay.tooltip.TooltipOverlay;
 import net.runelite.client.ui.overlay.worldmap.WorldMapOverlay;
+import net.runelite.client.util.WorldUtil;
 import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.worlds.World;
+import net.runelite.http.api.worlds.WorldResult;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import org.slf4j.LoggerFactory;
@@ -133,6 +140,9 @@ public class RuneLite
 	private Provider<WorldMapOverlay> worldMapOverlay;
 
 	@Inject
+	private WorldService worldService;
+
+	@Inject
 	@Nullable
 	private Client client;
 
@@ -150,6 +160,14 @@ public class RuneLite
 			.withRequiredArg()
 			.withValuesConvertedBy(new ConfigFileConverter())
 			.defaultsTo(DEFAULT_SESSION_FILE);
+
+		final ArgumentAcceptingOptionSpec<String> proxyInfo = parser
+			.accepts("proxy")
+			.withRequiredArg().ofType(String.class);
+
+		final ArgumentAcceptingOptionSpec<Integer> worldInfo = parser
+			.accepts("world")
+			.withRequiredArg().ofType(Integer.class);
 
 		final ArgumentAcceptingOptionSpec<File> configfile = parser.accepts("config", "Use a specified config file")
 			.withRequiredArg()
@@ -183,6 +201,42 @@ public class RuneLite
 		{
 			final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
 			logger.setLevel(Level.DEBUG);
+		}
+
+		if (options.has("proxy"))
+		{
+			String[] proxy = options.valueOf(proxyInfo).split(":");
+
+			if (proxy.length >= 2)
+			{
+				System.setProperty("socksProxyHost", proxy[0]);
+				System.setProperty("socksProxyPort", proxy[1]);
+			}
+
+			if (proxy.length >= 4)
+			{
+				System.setProperty("java.net.socks.username", proxy[2]);
+				System.setProperty("java.net.socks.password", proxy[3]);
+
+				final String user = proxy[2];
+				final char[] pass = proxy[3].toCharArray();
+
+				Authenticator.setDefault(new Authenticator()
+				{
+					private final PasswordAuthentication auth = new PasswordAuthentication(user, pass);
+
+					protected PasswordAuthentication getPasswordAuthentication()
+					{
+						return auth;
+					}
+				});
+			}
+		}
+
+		if (options.has("world"))
+		{
+			int world = options.valueOf(worldInfo);
+			System.setProperty("cli.world", String.valueOf(world));
 		}
 
 		Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
@@ -336,6 +390,10 @@ public class RuneLite
 		SplashScreen.stop();
 
 		clientUI.show();
+
+		//Set the world if specified via CLI args - will not work until clientUI.init is called
+		Optional<Integer> worldArg = Optional.ofNullable(System.getProperty("cli.world")).map(Integer::parseInt);
+		worldArg.ifPresent(this::setWorld);
 	}
 
 	@VisibleForTesting
@@ -380,6 +438,44 @@ public class RuneLite
 		public String valuePattern()
 		{
 			return null;
+		}
+	}
+
+	private void setWorld(int cliWorld)
+	{
+		int correctedWorld = cliWorld < 300 ? cliWorld + 300 : cliWorld;
+
+		if (correctedWorld <= 300 || client.getWorld() == correctedWorld)
+		{
+			return;
+		}
+
+		final WorldResult worldResult = worldService.getWorlds();
+
+		if (worldResult == null)
+		{
+			log.warn("Failed to lookup worlds.");
+			return;
+		}
+
+		final World world = worldResult.findWorld(correctedWorld);
+
+		if (world != null)
+		{
+			final net.runelite.api.World rsWorld = client.createWorld();
+			rsWorld.setActivity(world.getActivity());
+			rsWorld.setAddress(world.getAddress());
+			rsWorld.setId(world.getId());
+			rsWorld.setPlayerCount(world.getPlayers());
+			rsWorld.setLocation(world.getLocation());
+			rsWorld.setTypes(WorldUtil.toWorldTypes(world.getTypes()));
+
+			client.changeWorld(rsWorld);
+			log.debug("Applied new world {}", correctedWorld);
+		}
+		else
+		{
+			log.warn("World {} not found.", correctedWorld);
 		}
 	}
 

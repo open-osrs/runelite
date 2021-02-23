@@ -152,6 +152,11 @@ public class DefaultWorldPlugin extends Plugin
 			log.debug("Stored old world {}", worldCache);
 		}
 
+		if (System.getProperty("cli.world") != null)
+		{
+			return;
+		}
+
 		final int newWorld = !config.useLastWorld() ? config.getWorld() : config.lastWorld();
 		changeWorld(newWorld);
 	}
