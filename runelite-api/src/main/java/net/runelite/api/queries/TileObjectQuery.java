@@ -74,6 +74,42 @@ public abstract class TileObjectQuery<EntityType extends TileObject, QueryType> 
 		return (QueryType) this;
 	}
 
+	public QueryType nameEquals(String... names)
+	{
+		predicate = and(object ->
+		{
+			for (String name : names)
+			{
+				String objectName = object.getName();
+				if (objectName != null && objectName.equals(name))
+				{
+					return true;
+				}
+			}
+			return false;
+		});
+		return (QueryType) this;
+	}
+
+	public QueryType actionEquals(String... actions)
+	{
+		predicate = and(object ->
+		{
+			for (String action : actions)
+			{
+				String[] objectActions = object.getActions();
+				for (String objectAction : objectActions)
+				{
+					if (objectAction != null && objectAction.equals(action))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		});
+		return (QueryType) this;
+	}
 
 	@SuppressWarnings("unchecked")
 	public QueryType idEquals(Collection<Integer> ids)

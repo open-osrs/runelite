@@ -37,6 +37,20 @@ public abstract class RSTileObjectMixin implements TileObject
 		long hash = getHash();
 		return (int) (hash >>> 17 & 4294967295L);
 	}
+	
+	@Override
+	@Inject
+	public String getName()
+	{
+		return client.getObjectDefinition(getId()).getName();
+	}
+
+	@Override
+	@Inject
+	public String[] getActions()
+	{
+		return client.getObjectDefinition(getId()).getActions();
+	}
 
 	@Override
 	@Inject
