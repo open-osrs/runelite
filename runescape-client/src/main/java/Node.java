@@ -3,39 +3,39 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gu")
+@ObfuscatedName("ga")
 @Implements("Node")
 public class Node {
-	@ObfuscatedName("cu")
-	@Export("key")
-	public long key;
-	@ObfuscatedName("ct")
-	@ObfuscatedSignature(
-		descriptor = "Lgu;"
-	)
-	@Export("previous")
-	public Node previous;
-	@ObfuscatedName("ck")
-	@ObfuscatedSignature(
-		descriptor = "Lgu;"
-	)
-	@Export("next")
-	public Node next;
+   @ObfuscatedName("cm")
+   @Export("key")
+   public long key;
+   @ObfuscatedName("cc")
+   @ObfuscatedSignature(
+      descriptor = "Lga;"
+   )
+   @Export("previous")
+   public Node previous;
+   @ObfuscatedName("co")
+   @ObfuscatedSignature(
+      descriptor = "Lga;"
+   )
+   @Export("next")
+   public Node next;
 
-	@ObfuscatedName("fg")
-	@Export("remove")
-	public void remove() {
-		if (this.next != null) { // L: 9
-			this.next.previous = this.previous; // L: 10
-			this.previous.next = this.next; // L: 11
-			this.previous = null; // L: 12
-			this.next = null; // L: 13
-		}
-	} // L: 14
+   @ObfuscatedName("ea")
+   @Export("remove")
+   public void remove() {
+      if (this.next != null) {
+         this.next.previous = this.previous;
+         this.previous.next = this.next;
+         this.previous = null;
+         this.next = null;
+      }
+   }
 
-	@ObfuscatedName("fd")
-	@Export("hasNext")
-	public boolean hasNext() {
-		return this.next != null; // L: 17
-	}
+   @ObfuscatedName("eu")
+   @Export("hasNext")
+   public boolean hasNext() {
+      return this.next != null;
+   }
 }

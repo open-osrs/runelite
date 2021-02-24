@@ -4,246 +4,161 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("co")
+@ObfuscatedName("ct")
 @Implements("ChatChannel")
 public class ChatChannel {
-	@ObfuscatedName("mf")
-	@ObfuscatedGetter(
-		intValue = 29773269
-	)
-	@Export("selectedItemSlot")
-	static int selectedItemSlot;
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "[Lbg;"
-	)
-	@Export("messages")
-	Message[] messages;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -259879771
-	)
-	@Export("count")
-	int count;
+   @ObfuscatedName("hr")
+   @ObfuscatedSignature(
+      descriptor = "[Llm;"
+   )
+   @Export("mapDotSprites")
+   static Sprite[] mapDotSprites;
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "[Lbd;"
+   )
+   @Export("messages")
+   Message[] messages = new Message[100];
+   @ObfuscatedName("d")
+   @ObfuscatedGetter(
+      intValue = 1722504417
+   )
+   @Export("count")
+   int count;
 
-	ChatChannel() {
-		this.messages = new Message[100];
-	}
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lbd;",
+      garbageValue = "1561043824"
+   )
+   @Export("addMessage")
+   Message addMessage(int var1, String var2, String var3, String var4) {
+      Message var5 = this.messages[99];
 
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lbg;",
-		garbageValue = "2065978922"
-	)
-	@Export("addMessage")
-	Message addMessage(int var1, String var2, String var3, String var4) {
-		Message var5 = this.messages[99];
+      for(int var6 = this.count; var6 > 0; --var6) {
+         if (var6 != 100) {
+            this.messages[var6] = this.messages[var6 - 1];
+         }
+      }
 
-		for (int var6 = this.count; var6 > 0; --var6) {
-			if (var6 != 100) { // L: 93
-				this.messages[var6] = this.messages[var6 - 1]; // L: 94
-			}
-		}
+      if (var5 == null) {
+         var5 = new Message(var1, var2, var4, var3);
+      } else {
+         var5.remove();
+         var5.removeDual();
+         var5.set(var1, var2, var4, var3);
+      }
 
-		if (var5 == null) {
-			var5 = new Message(var1, var2, var4, var3);
-		} else {
-			var5.remove(); // L: 98
-			var5.removeDual();
-			var5.set(var1, var2, var4, var3);
-		}
+      this.messages[0] = var5;
+      if (this.count < 100) {
+         ++this.count;
+      }
 
-		this.messages[0] = var5;
-		if (this.count < 100) {
-			++this.count;
-		}
+      return var5;
+   }
 
-		return var5; // L: 104
-	}
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "(II)Lbd;",
+      garbageValue = "-55839716"
+   )
+   @Export("getMessage")
+   Message getMessage(int var1) {
+      return var1 >= 0 && var1 < this.count ? this.messages[var1] : null;
+   }
 
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lbg;",
-		garbageValue = "-52136333"
-	)
-	@Export("getMessage")
-	Message getMessage(int var1) {
-		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null; // L: 108 109
-	}
+   @ObfuscatedName("d")
+   @ObfuscatedSignature(
+      descriptor = "(I)I",
+      garbageValue = "-2110362731"
+   )
+   @Export("size")
+   int size() {
+      return this.count;
+   }
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-845683507"
-	)
-	@Export("size")
-	int size() {
-		return this.count;
-	}
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "(Ljava/lang/Object;ZI)[B",
+      garbageValue = "488468248"
+   )
+   public static byte[] method2405(Object var0, boolean var1) {
+      if (var0 == null) {
+         return null;
+      } else if (var0 instanceof byte[]) {
+         byte[] var3 = (byte[])((byte[])var0);
+         return var1 ? UrlRequester.method3460(var3) : var3;
+      } else if (var0 instanceof AbstractByteArrayCopier) {
+         AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0;
+         return var2.get();
+      } else {
+         throw new IllegalArgumentException();
+      }
+   }
 
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lcs;",
-		garbageValue = "1674386327"
-	)
-	@Export("getScript")
-	static Script getScript(int var0) {
-		Script var1 = (Script)Script.Script_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = PacketBufferNode.archive12.takeFile(var0, 0);
-			if (var2 == null) {
-				return null;
-			} else {
-				var1 = Actor.newScript(var2);
-				Script.Script_cached.put(var1, (long)var0);
-				return var1; // L: 33
-			}
-		}
-	}
+   @ObfuscatedName("y")
+   @ObfuscatedSignature(
+      descriptor = "(Lig;Ljava/lang/String;Ljava/lang/String;I)Lly;",
+      garbageValue = "591050656"
+   )
+   @Export("SpriteBuffer_getIndexedSpriteByName")
+   public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
+      int var3 = var0.getGroupId(var1);
+      int var4 = var0.getFileId(var3, var2);
+      byte[] var7 = var0.takeFile(var3, var4);
+      boolean var6;
+      if (var7 == null) {
+         var6 = false;
+      } else {
+         GrandExchangeOfferNameComparator.SpriteBuffer_decode(var7);
+         var6 = true;
+      }
 
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljl;",
-		garbageValue = "1207819240"
-	)
-	@Export("getParamDefinition")
-	public static ParamDefinition getParamDefinition(int var0) {
-		ParamDefinition var1 = (ParamDefinition)ParamDefinition.ParamDefinition_cached.get((long)var0); // L: 25
-		if (var1 != null) { // L: 26
-			return var1;
-		} else {
-			byte[] var2 = ParamDefinition.ParamDefinition_archive.takeFile(11, var0); // L: 27
-			var1 = new ParamDefinition(); // L: 28
-			if (var2 != null) { // L: 29
-				var1.decode(new Buffer(var2));
-			}
+      IndexedSprite var5;
+      if (!var6) {
+         var5 = null;
+      } else {
+         var5 = ApproximateRouteStrategy.method1304();
+      }
 
-			var1.postDecode(); // L: 30
-			ParamDefinition.ParamDefinition_cached.put(var1, (long)var0); // L: 31
-			return var1; // L: 32
-		}
-	}
+      return var5;
+   }
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "([Lcj;II[I[II)V",
-		garbageValue = "-740794716"
-	)
-	@Export("sortWorlds")
-	static void sortWorlds(World[] var0, int var1, int var2, int[] var3, int[] var4) {
-		if (var1 < var2) { // L: 81
-			int var5 = var1 - 1; // L: 82
-			int var6 = var2 + 1; // L: 83
-			int var7 = (var2 + var1) / 2; // L: 84
-			World var8 = var0[var7]; // L: 85
-			var0[var7] = var0[var1]; // L: 86
-			var0[var1] = var8; // L: 87
+   @ObfuscatedName("k")
+   @ObfuscatedSignature(
+      descriptor = "(Lcq;I)V",
+      garbageValue = "291320616"
+   )
+   @Export("changeWorld")
+   static void changeWorld(World var0) {
+      if (var0.isMembersOnly() != Client.isMembersWorld) {
+         Client.isMembersWorld = var0.isMembersOnly();
+         boolean var1 = var0.isMembersOnly();
+         if (var1 != Bounds.ItemDefinition_inMembersWorld) {
+            ItemDefinition.ItemDefinition_cached.clear();
+            ItemDefinition.ItemDefinition_cachedModels.clear();
+            ItemDefinition.ItemDefinition_cachedSprites.clear();
+            Bounds.ItemDefinition_inMembersWorld = var1;
+         }
+      }
 
-			while (var5 < var6) { // L: 88
-				boolean var9 = true; // L: 89
+      if (var0.properties != Client.worldProperties) {
+         Archive var3 = ModeWhere.archive8;
+         int var2 = var0.properties;
+         if ((var2 & 536870912) != 0) {
+            Login.logoSprite = SpriteBuffer_getIndexedSpriteByName(var3, "logo_deadman_mode", "");
+         } else if ((var2 & 1073741824) != 0) {
+            Login.logoSprite = SpriteBuffer_getIndexedSpriteByName(var3, "logo_seasonal_mode", "");
+         } else {
+            Login.logoSprite = SpriteBuffer_getIndexedSpriteByName(var3, "logo", "");
+         }
+      }
 
-				int var10;
-				int var11;
-				int var12;
-				do {
-					--var6; // L: 91
-
-					for (var10 = 0; var10 < 4; ++var10) { // L: 92
-						if (var3[var10] == 2) { // L: 95
-							var11 = var0[var6].index; // L: 96
-							var12 = var8.index; // L: 97
-						} else if (var3[var10] == 1) { // L: 99
-							var11 = var0[var6].population; // L: 100
-							var12 = var8.population; // L: 101
-							if (var11 == -1 && var4[var10] == 1) { // L: 102
-								var11 = 2001;
-							}
-
-							if (var12 == -1 && var4[var10] == 1) { // L: 103
-								var12 = 2001;
-							}
-						} else if (var3[var10] == 3) { // L: 105
-							var11 = var0[var6].isMembersOnly() ? 1 : 0; // L: 106
-							var12 = var8.isMembersOnly() ? 1 : 0; // L: 107
-						} else {
-							var11 = var0[var6].id; // L: 110
-							var12 = var8.id; // L: 111
-						}
-
-						if (var11 != var12) { // L: 113
-							if ((var4[var10] != 1 || var11 <= var12) && (var4[var10] != 0 || var11 >= var12)) { // L: 116 117
-								var9 = false; // L: 119
-							}
-							break;
-						}
-
-						if (var10 == 3) { // L: 114
-							var9 = false;
-						}
-					}
-				} while(var9);
-
-				var9 = true; // L: 124
-
-				do {
-					++var5; // L: 126
-
-					for (var10 = 0; var10 < 4; ++var10) { // L: 127
-						if (var3[var10] == 2) { // L: 130
-							var11 = var0[var5].index; // L: 131
-							var12 = var8.index; // L: 132
-						} else if (var3[var10] == 1) { // L: 134
-							var11 = var0[var5].population; // L: 135
-							var12 = var8.population; // L: 136
-							if (var11 == -1 && var4[var10] == 1) { // L: 137
-								var11 = 2001;
-							}
-
-							if (var12 == -1 && var4[var10] == 1) { // L: 138
-								var12 = 2001;
-							}
-						} else if (var3[var10] == 3) { // L: 140
-							var11 = var0[var5].isMembersOnly() ? 1 : 0; // L: 141
-							var12 = var8.isMembersOnly() ? 1 : 0; // L: 142
-						} else {
-							var11 = var0[var5].id; // L: 145
-							var12 = var8.id; // L: 146
-						}
-
-						if (var11 != var12) { // L: 148
-							if ((var4[var10] != 1 || var11 >= var12) && (var4[var10] != 0 || var11 <= var12)) { // L: 151 152
-								var9 = false; // L: 154
-							}
-							break;
-						}
-
-						if (var10 == 3) { // L: 149
-							var9 = false;
-						}
-					}
-				} while(var9);
-
-				if (var5 < var6) { // L: 159
-					World var13 = var0[var5]; // L: 160
-					var0[var5] = var0[var6]; // L: 161
-					var0[var6] = var13; // L: 162
-				}
-			}
-
-			sortWorlds(var0, var1, var6, var3, var4); // L: 165
-			sortWorlds(var0, var6 + 1, var2, var3, var4); // L: 166
-		}
-
-	} // L: 168
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "57"
-	)
-	public static void method2317(int var0) {
-		MouseHandler.MouseHandler_idleCycles = var0; // L: 63
-	} // L: 64
+      MusicPatchNode.worldHost = var0.host;
+      Client.worldId = var0.id;
+      Client.worldProperties = var0.properties;
+      MouseRecorder.port1 = Client.gameBuild == 0 ? 'ꩊ' : var0.id + '鱀';
+      class171.port2 = Client.gameBuild == 0 ? 443 : var0.id + '썐';
+      DynamicObject.port3 = MouseRecorder.port1;
+   }
 }

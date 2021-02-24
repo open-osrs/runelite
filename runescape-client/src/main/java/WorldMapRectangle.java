@@ -1,206 +1,192 @@
+import java.awt.Desktop;
+import java.awt.Desktop.Action;
+import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import javax.imageio.ImageIO;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("as")
+@ObfuscatedName("aq")
 @Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
-	@ObfuscatedName("sa")
-	@ObfuscatedSignature(
-		descriptor = "Lma;"
-	)
-	@Export("worldMap")
-	static WorldMap worldMap;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = 841729037
-	)
-	@Export("width")
-	int width;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = 618067361
-	)
-	@Export("height")
-	int height;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -1268324115
-	)
-	@Export("x")
-	int x;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = 235337233
-	)
-	@Export("y")
-	int y;
-	// $FF: synthetic field
-	@ObfuscatedSignature(
-		descriptor = "Lai;"
-	)
-	final WorldMapManager this$0;
+   @ObfuscatedName("n")
+   @ObfuscatedGetter(
+      intValue = -1552197653
+   )
+   @Export("width")
+   int width;
+   @ObfuscatedName("v")
+   @ObfuscatedGetter(
+      intValue = 522429537
+   )
+   @Export("height")
+   int height;
+   @ObfuscatedName("d")
+   @ObfuscatedGetter(
+      intValue = 1426976537
+   )
+   @Export("x")
+   int x;
+   @ObfuscatedName("c")
+   @ObfuscatedGetter(
+      intValue = -1260779731
+   )
+   @Export("y")
+   int y;
+   // $FF: synthetic field
+   @ObfuscatedSignature(
+      descriptor = "Lai;"
+   )
+   final WorldMapManager this$0;
 
-	@ObfuscatedSignature(
-		descriptor = "(Lai;)V"
-	)
-	WorldMapRectangle(WorldMapManager var1) {
-		this.this$0 = var1; // L: 303
-	}
+   @ObfuscatedSignature(
+      descriptor = "(Lai;)V"
+   )
+   WorldMapRectangle(WorldMapManager var1) {
+      this.this$0 = var1;
+   }
 
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(ILcs;ZI)I",
-		garbageValue = "470419605"
-	)
-	static int method331(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerAppearance.field2561 : VarcInt.field3264; // L: 1124
-		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1125
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = ServerPacket.Widget_unpackTargetMask(FaceNormal.getWidgetFlags(var3)); // L: 1126
-			return 1; // L: 1127
-		} else if (var0 != ScriptOpcodes.CC_GETOP) { // L: 1129
-			if (var0 == ScriptOpcodes.CC_GETOPBASE) { // L: 1136
-				if (var3.dataText == null) { // L: 1137
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
-				} else {
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1138
-				}
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "([BI)Llm;",
+      garbageValue = "-1825283733"
+   )
+   @Export("convertJpgToSprite")
+   public static final Sprite convertJpgToSprite(byte[] var0) {
+      BufferedImage var1 = null;
 
-				return 1; // L: 1139
-			} else {
-				return 2; // L: 1141
-			}
-		} else {
-			int var4 = Interpreter.Interpreter_intStack[--VarcInt.Interpreter_intStackSize]; // L: 1130
-			--var4; // L: 1131
-			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1132
-				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1133
-			} else {
-				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
-			}
+      try {
+         var1 = ImageIO.read(new ByteArrayInputStream(var0));
+         int var2 = var1.getWidth();
+         int var3 = var1.getHeight();
+         int[] var4 = new int[var3 * var2];
+         PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2);
+         var5.grabPixels();
+         return new Sprite(var4, var2, var3);
+      } catch (IOException var7) {
+         ;
+      } catch (InterruptedException var8) {
+         ;
+      }
 
-			return 1; // L: 1134
-		}
-	}
+      return new Sprite(0, 0);
+   }
 
-	@ObfuscatedName("ab")
-	@ObfuscatedSignature(
-		descriptor = "([BIII)I",
-		garbageValue = "-738122321"
-	)
-	static int method334(byte[] var0, int var1, int var2) {
-		int var3 = -1; // L: 45
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "(Ljava/lang/String;ZZI)V",
+      garbageValue = "1269350728"
+   )
+   @Export("openURL")
+   public static void openURL(String var0, boolean var1, boolean var2) {
+      if (var1) {
+         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Action.BROWSE)) {
+            try {
+               Desktop.getDesktop().browse(new URI(var0));
+               return;
+            } catch (Exception var4) {
+               ;
+            }
+         }
 
-		for (int var4 = var1; var4 < var2; ++var4) { // L: 46
-			var3 = var3 >>> 8 ^ Buffer.crc32Table[(var3 ^ var0[var4]) & 255]; // L: 47
-		}
+         if (class60.field454.startsWith("win")) {
+            ClientPreferences.method1972(var0, 0);
+         } else if (class60.field454.startsWith("mac")) {
+            class204.method3888(var0, 1, "openjs");
+         } else {
+            ClientPreferences.method1972(var0, 2);
+         }
+      } else {
+         ClientPreferences.method1972(var0, 3);
+      }
 
-		var3 = ~var3; // L: 49
-		return var3; // L: 50
-	}
+   }
 
-	@ObfuscatedName("fu")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1843949362"
-	)
-	@Export("logOut")
-	static final void logOut() {
-		Client.packetWriter.close(); // L: 2860
-		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear(); // L: 2863
-		MusicPatchPcmStream.method3953(); // L: 2865
-		UserComparator2.method5959(); // L: 2866
-		ObjectDefinition.ObjectDefinition_cached.clear(); // L: 2868
-		ObjectDefinition.ObjectDefinition_cachedModelData.clear(); // L: 2869
-		ObjectDefinition.ObjectDefinition_cachedEntities.clear(); // L: 2870
-		ObjectDefinition.ObjectDefinition_cachedModels.clear(); // L: 2871
-		WorldMapIcon_1.method339(); // L: 2873
-		TileItem.method2187(); // L: 2874
-		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 2876
-		SequenceDefinition.SequenceDefinition_cachedFrames.clear(); // L: 2877
-		WallDecoration.method3379(); // L: 2879
-		VarbitDefinition.VarbitDefinition_cached.clear(); // L: 2881
-		WorldMapID.method601(); // L: 2883
-		HealthBarDefinition.method4509(); // L: 2884
-		VarcInt.method4426(); // L: 2885
-		StructDefinition.StructDefinition_cached.clear(); // L: 2887
-		StudioGame.method4185(); // L: 2889
-		WorldMapElement.WorldMapElement_cachedSprites.clear(); // L: 2891
-		PlayerAppearance.PlayerAppearance_cachedModels.clear(); // L: 2894
-		Widget.Widget_cachedSprites.clear(); // L: 2897
-		Widget.Widget_cachedModels.clear(); // L: 2898
-		Widget.Widget_cachedFonts.clear(); // L: 2899
-		Widget.Widget_cachedSpriteMasks.clear(); // L: 2900
-		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear(); // L: 2902
-		Script.Script_cached.clear(); // L: 2903
-		TilePaint.archive0.clearFiles(); // L: 2904
-		WorldMapSprite.archive1.clearFiles(); // L: 2905
-		class330.archive3.clearFiles(); // L: 2906
-		class227.archive4.clearFiles(); // L: 2907
-		GameShell.archive5.clearFiles(); // L: 2908
-		class217.archive6.clearFiles(); // L: 2909
-		BuddyRankComparator.archive7.clearFiles(); // L: 2910
-		Messages.archive8.clearFiles(); // L: 2911
-		GrandExchangeOfferUnitPriceComparator.archive9.clearFiles(); // L: 2912
-		class92.archive10.clearFiles(); // L: 2913
-		ItemContainer.archive11.clearFiles(); // L: 2914
-		PacketBufferNode.archive12.clearFiles(); // L: 2915
-		ArchiveLoader.scene.clear(); // L: 2917
+   @ObfuscatedName("d")
+   @ObfuscatedSignature(
+      descriptor = "(Ljava/lang/String;Ljava/lang/String;ZI)Lmc;",
+      garbageValue = "59696754"
+   )
+   @Export("getPreferencesFile")
+   public static AccessFile getPreferencesFile(String var0, String var1, boolean var2) {
+      File var3 = new File(JagexCache.cacheDir, "preferences" + var0 + ".dat");
+      if (var3.exists()) {
+         try {
+            AccessFile var10 = new AccessFile(var3, "rw", 10000L);
+            return var10;
+         } catch (IOException var9) {
+            ;
+         }
+      }
 
-		for (int var0 = 0; var0 < 4; ++var0) { // L: 2918
-			Client.collisionMaps[var0].clear();
-		}
+      String var4 = "";
+      if (JagexCache.cacheGamebuild == 33) {
+         var4 = "_rc";
+      } else if (JagexCache.cacheGamebuild == 34) {
+         var4 = "_wip";
+      }
 
-		System.gc(); // L: 2919
-		SecureRandomCallable.method1220(2); // L: 2920
-		Client.currentTrackGroupId = -1; // L: 2921
-		Client.field883 = false; // L: 2922
+      File var5 = new File(JagexCache.userHomeDirectory, "jagex_" + var1 + "_preferences" + var0 + var4 + ".dat");
+      AccessFile var6;
+      if (!var2 && var5.exists()) {
+         try {
+            var6 = new AccessFile(var5, "rw", 10000L);
+            return var6;
+         } catch (IOException var8) {
+            ;
+         }
+      }
 
-		for (ObjectSound var1 = (ObjectSound)ObjectSound.objectSounds.last(); var1 != null; var1 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 2924
-			if (var1.stream1 != null) { // L: 2925
-				WorldMapManager.pcmStreamMixer.removeSubStream(var1.stream1); // L: 2926
-				var1.stream1 = null; // L: 2927
-			}
+      try {
+         var6 = new AccessFile(var3, "rw", 10000L);
+         return var6;
+      } catch (IOException var7) {
+         throw new RuntimeException();
+      }
+   }
 
-			if (var1.stream2 != null) { // L: 2929
-				WorldMapManager.pcmStreamMixer.removeSubStream(var1.stream2); // L: 2930
-				var1.stream2 = null; // L: 2931
-			}
-		}
+   @ObfuscatedName("fo")
+   @ObfuscatedSignature(
+      descriptor = "(I)V",
+      garbageValue = "-1194982929"
+   )
+   static final void method354() {
+      int var0 = Players.Players_count;
+      int[] var1 = Players.Players_indices;
 
-		ObjectSound.objectSounds.clear(); // L: 2934
-		WorldMapCacheName.updateGameState(10); // L: 2936
-	} // L: 2937
+      for(int var2 = 0; var2 < var0; ++var2) {
+         Player var3 = Client.players[var1[var2]];
+         if (var3 != null) {
+            class171.updateActorSequence(var3, 1);
+         }
+      }
 
-	@ObfuscatedName("hn")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1899321298"
-	)
-	static void method332() {
-		int var0 = Players.Players_count; // L: 4714
-		int[] var1 = Players.Players_indices; // L: 4715
+   }
 
-		for (int var2 = 0; var2 < var0; ++var2) { // L: 4716
-			if (var1[var2] != Client.combatTargetPlayerIndex && var1[var2] != Client.localPlayerIndex) { // L: 4717
-				ClientPreferences.addPlayerToScene(Client.players[var1[var2]], true); // L: 4718
-			}
-		}
+   @ObfuscatedName("ij")
+   @ObfuscatedSignature(
+      descriptor = "(II)Ljava/lang/String;",
+      garbageValue = "-1726408780"
+   )
+   @Export("formatItemStacks")
+   static final String formatItemStacks(int var0) {
+      String var1 = Integer.toString(var0);
 
-	} // L: 4720
+      for(int var2 = var1.length() - 3; var2 > 0; var2 -= 3) {
+         var1 = var1.substring(0, var2) + "," + var1.substring(var2);
+      }
 
-	@ObfuscatedName("kb")
-	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-159412455"
-	)
-	@Export("runIntfCloseListeners")
-	static final void runIntfCloseListeners(int var0, int var1) {
-		if (class41.loadInterface(var0)) { // L: 10371
-			class51.runComponentCloseListeners(class9.Widget_interfaceComponents[var0], var1); // L: 10372
-		}
-	} // L: 10373
+      if (var1.length() > 9) {
+         return " " + FileSystem.colorStartTag(65408) + var1.substring(0, var1.length() - 8) + "M" + " " + " (" + var1 + ")" + "</col>";
+      } else {
+         return var1.length() > 6 ? " " + FileSystem.colorStartTag(16777215) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + FileSystem.colorStartTag(16776960) + var1 + "</col>";
+      }
+   }
 }

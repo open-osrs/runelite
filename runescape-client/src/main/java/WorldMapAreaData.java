@@ -6,102 +6,134 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ay")
+@ObfuscatedName("au")
 @Implements("WorldMapAreaData")
 public class WorldMapAreaData extends WorldMapArea {
-	@ObfuscatedName("m")
-	@Export("worldMapData0Set")
-	HashSet worldMapData0Set;
-	@ObfuscatedName("c")
-	@Export("worldMapData1Set")
-	HashSet worldMapData1Set;
-	@ObfuscatedName("i")
-	@Export("iconList")
-	List iconList;
+   @ObfuscatedName("nz")
+   @ObfuscatedSignature(
+      descriptor = "[Lhz;"
+   )
+   static Widget[] field362;
+   @ObfuscatedName("a")
+   @Export("worldMapData0Set")
+   HashSet worldMapData0Set;
+   @ObfuscatedName("w")
+   @Export("worldMapData1Set")
+   HashSet worldMapData1Set;
+   @ObfuscatedName("k")
+   @Export("iconList")
+   List iconList;
 
-	WorldMapAreaData() {
-	} // L: 14
+   @ObfuscatedName("cn")
+   @ObfuscatedSignature(
+      descriptor = "(Lkx;Lkx;IZI)V",
+      garbageValue = "1841942277"
+   )
+   @Export("init")
+   void init(Buffer var1, Buffer var2, int var3, boolean var4) {
+      this.read(var1, var3);
+      int var5 = var2.readUnsignedShort();
+      this.worldMapData0Set = new HashSet(var5);
 
-	@ObfuscatedName("cm")
-	@ObfuscatedSignature(
-		descriptor = "(Lkj;Lkj;IZI)V",
-		garbageValue = "-303993957"
-	)
-	@Export("init")
-	void init(Buffer var1, Buffer var2, int var3, boolean var4) {
-		this.read(var1, var3); // L: 17
-		int var5 = var2.readUnsignedShort(); // L: 18
-		this.worldMapData0Set = new HashSet(var5); // L: 19
+      int var6;
+      for(var6 = 0; var6 < var5; ++var6) {
+         WorldMapData_0 var7 = new WorldMapData_0();
 
-		int var6;
-		for (var6 = 0; var6 < var5; ++var6) { // L: 20
-			WorldMapData_0 var7 = new WorldMapData_0(); // L: 21
+         try {
+            var7.init(var2);
+         } catch (IllegalStateException var12) {
+            continue;
+         }
 
-			try {
-				var7.init(var2); // L: 23
-			} catch (IllegalStateException var12) { // L: 25
-				continue; // L: 26
-			}
+         this.worldMapData0Set.add(var7);
+      }
 
-			this.worldMapData0Set.add(var7); // L: 28
-		}
+      var6 = var2.readUnsignedShort();
+      this.worldMapData1Set = new HashSet(var6);
 
-		var6 = var2.readUnsignedShort(); // L: 30
-		this.worldMapData1Set = new HashSet(var6); // L: 31
+      for(int var10 = 0; var10 < var6; ++var10) {
+         WorldMapData_1 var8 = new WorldMapData_1();
 
-		for (int var10 = 0; var10 < var6; ++var10) { // L: 32
-			WorldMapData_1 var8 = new WorldMapData_1(); // L: 33
+         try {
+            var8.init(var2);
+         } catch (IllegalStateException var11) {
+            continue;
+         }
 
-			try {
-				var8.init(var2); // L: 35
-			} catch (IllegalStateException var11) { // L: 37
-				continue; // L: 38
-			}
+         this.worldMapData1Set.add(var8);
+      }
 
-			this.worldMapData1Set.add(var8); // L: 40
-		}
+      this.initIconsList(var2, var4);
+   }
 
-		this.initIconsList(var2, var4); // L: 42
-	} // L: 43
+   @ObfuscatedName("cj")
+   @ObfuscatedSignature(
+      descriptor = "(Lkx;ZI)V",
+      garbageValue = "-1098628565"
+   )
+   @Export("initIconsList")
+   void initIconsList(Buffer var1, boolean var2) {
+      this.iconList = new LinkedList();
+      int var3 = var1.readUnsignedShort();
 
-	@ObfuscatedName("cz")
-	@ObfuscatedSignature(
-		descriptor = "(Lkj;ZB)V",
-		garbageValue = "54"
-	)
-	@Export("initIconsList")
-	void initIconsList(Buffer var1, boolean var2) {
-		this.iconList = new LinkedList(); // L: 46
-		int var3 = var1.readUnsignedShort(); // L: 47
+      for(int var4 = 0; var4 < var3; ++var4) {
+         int var5 = var1.method5833();
+         Coord var6 = new Coord(var1.readInt());
+         boolean var7 = var1.readUnsignedByte() == 1;
+         if (var2 || !var7) {
+            this.iconList.add(new WorldMapIcon_0((Coord)null, var6, var5, (WorldMapLabel)null));
+         }
+      }
 
-		for (int var4 = 0; var4 < var3; ++var4) { // L: 48
-			int var5 = var1.method5559(); // L: 49
-			Coord var6 = new Coord(var1.readInt()); // L: 50
-			boolean var7 = var1.readUnsignedByte() == 1; // L: 51
-			if (var2 || !var7) { // L: 52
-				this.iconList.add(new WorldMapIcon_0((Coord)null, var6, var5, (WorldMapLabel)null)); // L: 53
-			}
-		}
+   }
 
-	} // L: 56
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "(II)Ljg;",
+      garbageValue = "1068014822"
+   )
+   @Export("getObjectDefinition")
+   public static ObjectDefinition getObjectDefinition(int var0) {
+      ObjectDefinition var1 = (ObjectDefinition)ObjectDefinition.ObjectDefinition_cached.get((long)var0);
+      if (var1 != null) {
+         return var1;
+      } else {
+         byte[] var2 = ObjectDefinition.ObjectDefinition_archive.takeFile(6, var0);
+         var1 = new ObjectDefinition();
+         var1.id = var0;
+         if (var2 != null) {
+            var1.decode(new Buffer(var2));
+         }
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(CLgi;I)I",
-		garbageValue = "-2004067316"
-	)
-	@Export("lowercaseChar")
-	static int lowercaseChar(char var0, Language var1) {
-		int var2 = var0 << 4; // L: 143
-		if (Character.isUpperCase(var0) || Character.isTitleCase(var0)) { // L: 144
-			var0 = Character.toLowerCase(var0); // L: 145
-			var2 = (var0 << 4) + 1; // L: 146
-		}
+         var1.postDecode();
+         if (var1.isSolid) {
+            var1.interactType = 0;
+            var1.boolean1 = false;
+         }
 
-		if (var0 == 241 && var1 == Language.Language_ES) { // L: 148
-			var2 = 1762;
-		}
+         ObjectDefinition.ObjectDefinition_cached.put(var1, (long)var0);
+         return var1;
+      }
+   }
 
-		return var2; // L: 149
-	}
+   @ObfuscatedName("c")
+   @ObfuscatedSignature(
+      descriptor = "(B)V",
+      garbageValue = "-91"
+   )
+   public static void method782() {
+      if (class297.NetCache_socket != null) {
+         class297.NetCache_socket.close();
+      }
+
+   }
+
+   @ObfuscatedName("b")
+   @ObfuscatedSignature(
+      descriptor = "(B)V",
+      garbageValue = "1"
+   )
+   static final void method781() {
+      class300.method5473("Your ignore list is full. Max of 100 for free users, and 400 for members");
+   }
 }
