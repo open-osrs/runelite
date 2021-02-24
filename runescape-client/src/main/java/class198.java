@@ -1,26 +1,26 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ga")
+@ObfuscatedName("gi")
 public class class198 {
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lje;",
-		garbageValue = "1390109728"
-	)
-	public static HitSplatDefinition method3697(int var0) {
-		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0); // L: 52
-		if (var1 != null) { // L: 53
-			return var1;
-		} else {
-			byte[] var2 = HitSplatDefinition.HitSplatDefinition_archive.takeFile(32, var0); // L: 54
-			var1 = new HitSplatDefinition(); // L: 55
-			if (var2 != null) { // L: 56
-				var1.decode(new Buffer(var2));
-			}
+   @ObfuscatedName("c")
+   @ObfuscatedSignature(
+      descriptor = "(Lkd;I)I",
+      garbageValue = "832734688"
+   )
+   static int method3851(PacketBuffer var0) {
+      int var1 = var0.readBits(2);
+      int var2;
+      if (var1 == 0) {
+         var2 = 0;
+      } else if (var1 == 1) {
+         var2 = var0.readBits(5);
+      } else if (var1 == 2) {
+         var2 = var0.readBits(8);
+      } else {
+         var2 = var0.readBits(11);
+      }
 
-			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0); // L: 57
-			return var1; // L: 58
-		}
-	}
+      return var2;
+   }
 }

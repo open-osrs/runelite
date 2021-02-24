@@ -67,11 +67,9 @@ public class Deob
 
 	public static void main(String[] args) throws IOException
 	{
-		if (args == null || args.length < 2)
-		{
-			System.err.println("Syntax: input_jar output_jar");
-			System.exit(-1);
-		}
+		args = new String[2];
+		args[0] = "./osrs-194-vanilla.jar";
+		args[1] = "./osrs-194-deob.jar";
 
 		logger.info("Deobfuscator revision {}", DeobProperties.getRevision());
 
