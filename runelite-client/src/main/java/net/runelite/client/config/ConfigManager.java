@@ -74,6 +74,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -97,6 +98,7 @@ import net.runelite.client.events.ClientShutdown;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.RuneScapeProfileChanged;
 import net.runelite.client.plugins.OPRSExternalPluginManager;
+import net.runelite.client.plugins.Plugin;
 import net.runelite.client.util.ColorUtil;
 import net.runelite.http.api.config.ConfigClient;
 import net.runelite.http.api.config.ConfigEntry;
@@ -133,6 +135,7 @@ public class ConfigManager
 
 	private final ConfigInvocationHandler handler = new ConfigInvocationHandler(this);
 	private final Map<String, String> pendingChanges = new HashMap<>();
+	private final Map<String, Consumer<? super Plugin>> consumers = new HashMap<>();
 
 	private Properties properties = new Properties();
 
@@ -304,6 +307,8 @@ public class ConfigManager
 
 	private synchronized void loadFromFile()
 	{
+		consumers.clear();
+
 		Properties newProperties = new Properties();
 		try (FileInputStream in = new FileInputStream(propertiesFile))
 		{
@@ -484,6 +489,12 @@ public class ConfigManager
 
 	public void setConfiguration(String groupName, String key, Object value)
 	{
+		// do not save consumers for buttons, they cannot be changed anyway
+		if (value instanceof Consumer)
+		{
+			return;
+		}
+
 		setConfiguration(groupName, null, key, value);
 	}
 
@@ -671,55 +682,74 @@ public class ConfigManager
 				continue;
 			}
 
-			if (!method.isDefault())
+			if (method.getReturnType().isAssignableFrom(Consumer.class))
 			{
-				if (override)
+				Object defaultValue;
+				try
 				{
-					String current = getConfiguration(group.value(), item.keyName());
-					// only unset if already set
+					defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
+				}
+				catch (Throwable ex)
+				{
+					log.warn(null, ex);
+					continue;
+				}
+
+				log.debug("Registered consumer: {}.{}", group.value(), item.keyName());
+				consumers.put(group.value() + "." + item.keyName(), (Consumer) defaultValue);
+			}
+			else
+			{
+				if (!method.isDefault())
+				{
+					if (override)
+					{
+						String current = getConfiguration(group.value(), item.keyName());
+						// only unset if already set
+						if (current != null)
+						{
+							unsetConfiguration(group.value(), item.keyName());
+						}
+					}
+					continue;
+				}
+
+				if (!override)
+				{
+					// This checks if it is set and is also unmarshallable to the correct type; so
+					// we will overwrite invalid config values with the default
+					Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
 					if (current != null)
 					{
-						unsetConfiguration(group.value(), item.keyName());
+						continue; // something else is already set
 					}
 				}
-				continue;
-			}
 
-			if (!override)
-			{
-				// This checks if it is set and is also unmarshallable to the correct type; so
-				// we will overwrite invalid config values with the default
-				Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
-				if (current != null)
+				Object defaultValue;
+				try
 				{
-					continue; // something else is already set
+					defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
 				}
-			}
+				catch (Throwable ex)
+				{
+					log.warn(null, ex);
+					continue;
+				}
 
-			Object defaultValue;
-			try
-			{
-				defaultValue = ConfigInvocationHandler.callDefaultMethod(proxy, method, null);
-			}
-			catch (Throwable ex)
-			{
-				log.warn(null, ex);
-				continue;
-			}
+				String current = getConfiguration(group.value(), item.keyName());
+				String valueString = objectToString(defaultValue);
+				// null and the empty string are treated identically in sendConfig and treated as an unset
+				// If a config value defaults to "" and the current value is null, it will cause an extra
+				// unset to be sent, so treat them as equal
+				if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
+				{
+					continue; // already set to the default value
+				}
 
-			String current = getConfiguration(group.value(), item.keyName());
-			String valueString = objectToString(defaultValue);
-			// null and the empty string are treated identically in sendConfig and treated as an unset
-			// If a config value defaults to "" and the current value is null, it will cause an extra
-			// unset to be sent, so treat them as equal
-			if (Objects.equals(current, valueString) || (Strings.isNullOrEmpty(current) && Strings.isNullOrEmpty(valueString)))
-			{
-				continue; // already set to the default value
+				log.debug("Setting default configuration value for {}.{} to {}", group.value(), item.keyName(), defaultValue);
+
+				setConfiguration(group.value(), item.keyName(), valueString);
 			}
-
-			log.debug("Setting default configuration value for {}.{} to {}", group.value(), item.keyName(), defaultValue);
-
-			setConfiguration(group.value(), item.keyName(), valueString);
 		}
 	}
 
@@ -1285,5 +1315,13 @@ public class ConfigManager
 			log.info("migrated {} config keys", changes);
 		}
 		setConfiguration("runelite", migrationKey, 1);
+	}
+
+	/**
+	 * Retrieves a consumer from config group and key name
+	 */
+	public Consumer<? super Plugin> getConsumer(final String configGroup, final String keyName)
+	{
+		return consumers.getOrDefault(configGroup + "." + keyName, (p) -> log.error("Failed to retrieve consumer with name {}.{}", configGroup, keyName));
 	}
 }
