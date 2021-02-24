@@ -137,17 +137,12 @@ public class DynamicGridLayout extends GridLayout
 				{
 					int i = r * ncols + c;
 
-					Component component = parent.getComponent(i);
-
-					if (component.isVisible())
+					if (i < ncomponents)
 					{
-						if (i < ncomponents)
-						{
-							component.setBounds(x, y, w[c], h[r]);
-						}
-
-						y += h[r] + vgap;
+						parent.getComponent(i).setBounds(x, y, w[c], h[r]);
 					}
+
+					y += h[r] + vgap;
 				}
 
 				x += w[c] + hgap;
@@ -163,7 +158,7 @@ public class DynamicGridLayout extends GridLayout
 	 */
 	private Dimension calculateSize(final Container parent, final Function<Component, Dimension> sizer)
 	{
-		final int ncomponents = getVisibleComponents(parent);;
+		final int ncomponents = parent.getComponentCount();
 		int nrows = getRows();
 		int ncols = getColumns();
 
@@ -219,20 +214,5 @@ public class DynamicGridLayout extends GridLayout
 		return new Dimension(
 			insets.left + insets.right + nw + (ncols - 1) * getHgap(),
 			insets.top + insets.bottom + nh + (nrows - 1) * getVgap());
-	}
-
-	private int getVisibleComponents(Container parent)
-	{
-		int visible = 0;
-
-		for (Component c : parent.getComponents())
-		{
-			if (c.isVisible())
-			{
-				visible++;
-			}
-		}
-
-		return visible;
 	}
 }

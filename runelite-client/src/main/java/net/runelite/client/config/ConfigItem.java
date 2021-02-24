@@ -65,6 +65,14 @@ public @interface ConfigItem
 
 	String hideValue() default "";
 
+	String enabledBy() default "";
+
+	String enabledByValue() default "";
+
+	String disabledBy() default "";
+
+	String disabledByValue() default "";
+
 	/**
 	 * Use this to indicate the enum class that is going to be used in the multiple select config.
 	 * This implementation made debugging problems with multiple selects a lot easier

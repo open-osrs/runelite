@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -442,6 +443,11 @@ class ConfigPanel extends PluginPanel
 
 		for (ConfigItemDescriptor cid : cd.getItems())
 		{
+			if (!hideUnhide(cid))
+			{
+				continue;
+			}
+
 			JPanel item = new JPanel();
 			item.setLayout(new BorderLayout());
 			item.setMinimumSize(new Dimension(PANEL_WIDTH, 0));
@@ -483,6 +489,20 @@ class ConfigPanel extends PluginPanel
 				checkbox.addActionListener(ae -> changeConfiguration(checkbox, cd, cid));
 
 				item.add(checkbox, BorderLayout.EAST);
+			}
+
+			if (cid.getType().isAssignableFrom(Consumer.class))
+			{
+				item.remove(configEntryName);
+
+				JButton button = new JButton(cid.getItem().name());
+				button.addActionListener((e) ->
+				{
+					log.debug("Running consumer: {}.{}", cd.getGroup().value(), cid.getItem().keyName());
+					configManager.getConsumer(cd.getGroup().value(), cid.getItem().keyName()).accept(pluginConfig.getPlugin());
+				});
+
+				item.add(button, BorderLayout.CENTER);
 			}
 
 			if (cid.getType() == int.class)
@@ -780,7 +800,7 @@ class ConfigPanel extends PluginPanel
 		backButton.addActionListener(e -> pluginList.getMuxer().popState());
 		mainPanel.add(backButton);
 
-		hideUnhide();
+		revalidate();
 	}
 
 	private Boolean parse(ConfigItem item, String value)
@@ -845,7 +865,7 @@ class ConfigPanel extends PluginPanel
 
 		configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), finalEnumSet);
 
-		hideUnhide();
+		rebuild();
 	}
 
 	private void changeConfiguration(Component component, ConfigDescriptor cd, ConfigItemDescriptor cid)
@@ -896,7 +916,8 @@ class ConfigPanel extends PluginPanel
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), hotkeyButton.getValue());
 		}
 
-		hideUnhide();
+		enableDisable(component, cid);
+		rebuild();
 	}
 
 	@Override
@@ -946,78 +967,112 @@ class ConfigPanel extends PluginPanel
 		return menuItem;
 	}
 
-	private void hideUnhide()
+	private boolean hideUnhide(ConfigItemDescriptor cid)
 	{
 		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
 
-		for (ConfigItemDescriptor cid : cd.getItems())
+		boolean unhide = cid.getItem().hidden();
+		boolean hide = !cid.getItem().hide().isEmpty();
+
+		if (unhide || hide)
 		{
-			boolean unhide = cid.getItem().hidden();
-			boolean hide = !cid.getItem().hide().isEmpty();
+			boolean show = false;
 
-			if (unhide || hide)
+			List<String> itemHide = Splitter
+				.onPattern("\\|\\|")
+				.trimResults()
+				.omitEmptyStrings()
+				.splitToList(String.format("%s || %s", cid.getItem().unhide(), cid.getItem().hide()));
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
 			{
-				boolean show = false;
-
-				List<String> itemHide = Splitter
-					.onPattern("\\|\\|")
-					.trimResults()
-					.omitEmptyStrings()
-					.splitToList(String.format("%s || %s", cid.getItem().unhide(), cid.getItem().hide()));
-
-				for (ConfigItemDescriptor cid2 : cd.getItems())
+				if (itemHide.contains(cid2.getItem().keyName()))
 				{
-					if (itemHide.contains(cid2.getItem().keyName()))
+					if (cid2.getType() == boolean.class)
 					{
-						if (cid2.getType() == boolean.class)
+						show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+					}
+					else if (cid2.getType().isEnum())
+					{
+						Class<? extends Enum> type = (Class<? extends Enum>) cid2.getType();
+						try
 						{
-							show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+							Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
+							if (!cid.getItem().unhideValue().equals(""))
+							{
+								List<String> unhideValue = Splitter
+									.onPattern("\\|\\|")
+									.trimResults()
+									.omitEmptyStrings()
+									.splitToList(cid.getItem().unhideValue());
+
+								show = unhideValue.contains(selectedItem.toString());
+							}
+							else if (!cid.getItem().hideValue().equals(""))
+							{
+								List<String> hideValue = Splitter
+									.onPattern("\\|\\|")
+									.trimResults()
+									.omitEmptyStrings()
+									.splitToList(cid.getItem().hideValue());
+
+								show = !hideValue.contains(selectedItem.toString());
+							}
 						}
-						else if (cid2.getType().isEnum())
+						catch (IllegalArgumentException ignored)
 						{
-							Class<? extends Enum> type = (Class<? extends Enum>) cid2.getType();
-							try
-							{
-								Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
-								if (!cid.getItem().unhideValue().equals(""))
-								{
-									List<String> unhideValue = Splitter
-										.onPattern("\\|\\|")
-										.trimResults()
-										.omitEmptyStrings()
-										.splitToList(cid.getItem().unhideValue());
-
-									show = unhideValue.contains(selectedItem.toString());
-								}
-								else if (!cid.getItem().hideValue().equals(""))
-								{
-									List<String> hideValue = Splitter
-										.onPattern("\\|\\|")
-										.trimResults()
-										.omitEmptyStrings()
-										.splitToList(cid.getItem().hideValue());
-
-									show = !hideValue.contains(selectedItem.toString());
-								}
-							}
-							catch (IllegalArgumentException ignored)
-							{
-							}
 						}
 					}
 				}
+			}
 
-				Component comp = findComponentByName(mainPanel, cid.getItem().keyName());
+			return (!unhide || show) && (!hide || !show);
+		}
 
-				if (comp != null)
+		return true;
+	}
+
+	private void enableDisable(Component component, ConfigItemDescriptor cid)
+	{
+		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
+
+		if (component instanceof JCheckBox)
+		{
+			JCheckBox checkbox = (JCheckBox) component;
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				if (checkbox.isSelected())
 				{
-					comp.setVisible((!unhide || show) && (!hide || !show));
+					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()))
+					{
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+					}
+					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()))
+					{
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+					}
 				}
 			}
 		}
+		else if (component instanceof JComboBox)
+		{
+			JComboBox jComboBox = (JComboBox) component;
 
-		revalidate();
-		repaint();
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				String changedVal = ((Enum) jComboBox.getSelectedItem()).name();
+
+				if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
+				{
+					configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+				}
+				else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()) && cid2.getItem().disabledByValue().equals(changedVal))
+				{
+					configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+				}
+			}
+		}
 	}
 
 	private static String htmlLabel(String key, String value)
