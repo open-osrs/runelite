@@ -82,11 +82,11 @@ class PluginListItem extends JPanel implements SearchablePlugin
 	static
 	{
 		BufferedImage configIcon = ImageUtil.loadImageResource(ConfigPanel.class, "config_edit_icon.png");
-		BufferedImage refreshIcon = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "refresh.png");
+		BufferedImage refreshIcon = ImageUtil.loadImageResource(ConfigPanel.class, "refresh.png");
 		BufferedImage onStar = ImageUtil.loadImageResource(ConfigPanel.class, "star_on.png");
 		CONFIG_ICON = new ImageIcon(configIcon);
 		REFRESH_ICON = new ImageIcon(refreshIcon);
-		ON_STAR = new ImageIcon(onStar);
+		ON_STAR = new ImageIcon(ImageUtil.recolorImage(onStar, ColorScheme.BRAND_BLUE));
 		CONFIG_ICON_HOVER = new ImageIcon(ImageUtil.luminanceOffset(configIcon, -100));
 		REFRESH_ICON_HOVER = new ImageIcon(ImageUtil.luminanceOffset(refreshIcon, -100));
 
