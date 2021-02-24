@@ -1,171 +1,202 @@
+import java.io.File;
+import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cj")
 @Implements("GraphicsObject")
-public final class GraphicsObject extends Renderable
-{
-	@ObfuscatedName("a")
-	public static String[] field1117;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = 1733253917
-	)
-	@Export("id")
-	int id;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -561629891
-	)
-	@Export("cycleStart")
-	int cycleStart;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = 843078799
-	)
-	@Export("y")
-	int y;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = -391213595
-	)
-	@Export("plane")
-	int plane;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = 1438235689
-	)
-	@Export("x")
-	int x;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = 697288519
-	)
-	@Export("height")
-	int height;
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Ljy;"
-	)
-	@Export("sequenceDefinition")
-	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("p")
-	@ObfuscatedGetter(
-		intValue = -737281837
-	)
-	@Export("frame")
-	int frame;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -2023288775
-	)
-	@Export("frameCycle")
-	int frameCycle;
-	@ObfuscatedName("z")
-	@Export("isFinished")
-	boolean isFinished;
+public final class GraphicsObject extends Renderable {
+   @ObfuscatedName("t")
+   @ObfuscatedGetter(
+      intValue = 910565899
+   )
+   @Export("loginBoxCenter")
+   static int loginBoxCenter;
+   @ObfuscatedName("n")
+   @ObfuscatedGetter(
+      intValue = -1864450081
+   )
+   @Export("id")
+   int id;
+   @ObfuscatedName("v")
+   @ObfuscatedGetter(
+      intValue = 505711675
+   )
+   @Export("cycleStart")
+   int cycleStart;
+   @ObfuscatedName("d")
+   @ObfuscatedGetter(
+      intValue = -1431922107
+   )
+   @Export("plane")
+   int plane;
+   @ObfuscatedName("c")
+   @ObfuscatedGetter(
+      intValue = -1205773017
+   )
+   @Export("x")
+   int x;
+   @ObfuscatedName("y")
+   @ObfuscatedSignature(
+      descriptor = "Ljs;"
+   )
+   @Export("sequenceDefinition")
+   SequenceDefinition sequenceDefinition;
+   @ObfuscatedName("h")
+   @ObfuscatedGetter(
+      intValue = -2064393717
+   )
+   @Export("y")
+   int y;
+   @ObfuscatedName("z")
+   @ObfuscatedGetter(
+      intValue = -1686573995
+   )
+   @Export("height")
+   int height;
+   @ObfuscatedName("e")
+   @ObfuscatedGetter(
+      intValue = -1959033933
+   )
+   @Export("frame")
+   int frame = 0;
+   @ObfuscatedName("q")
+   @ObfuscatedGetter(
+      intValue = 230901949
+   )
+   @Export("frameCycle")
+   int frameCycle = 0;
+   @ObfuscatedName("l")
+   @Export("isFinished")
+   boolean isFinished = false;
 
-	GraphicsObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		this.frame = 0; // L: 16
-		this.frameCycle = 0; // L: 17
-		this.isFinished = false; // L: 18
-		this.id = var1; // L: 21
-		this.plane = var2; // L: 22
-		this.x = var3; // L: 23
-		this.y = var4; // L: 24
-		this.height = var5; // L: 25
-		this.cycleStart = var7 + var6; // L: 26
-		int var8 = TileItem.SpotAnimationDefinition_get(this.id).sequence; // L: 27
-		if (var8 != -1) { // L: 28
-			this.isFinished = false; // L: 29
-			this.sequenceDefinition = ParamComposition.SequenceDefinition_get(var8); // L: 30
-		} else {
-			this.isFinished = true; // L: 32
-		}
+   GraphicsObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+      this.id = var1;
+      this.plane = var2;
+      this.x = var3;
+      this.y = var4;
+      this.height = var5;
+      this.cycleStart = var7 + var6;
+      int var8 = AbstractUserComparator.SpotAnimationDefinition_get(this.id).sequence;
+      if (var8 != -1) {
+         this.isFinished = false;
+         this.sequenceDefinition = InterfaceParent.SequenceDefinition_get(var8);
+      } else {
+         this.isFinished = true;
+      }
 
-	} // L: 33
+   }
 
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1007700617"
-	)
-	@Export("advance")
-	final void advance(int var1) {
-		if (!this.isFinished) { // L: 36
-			this.frameCycle += var1; // L: 37
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "(II)V",
+      garbageValue = "-83388372"
+   )
+   @Export("advance")
+   final void advance(int var1) {
+      if (!this.isFinished) {
+         this.frameCycle += var1;
 
-			while (this.frameCycle > this.sequenceDefinition.frameLengths[this.frame]) { // L: 38
-				this.frameCycle -= this.sequenceDefinition.frameLengths[this.frame]; // L: 39
-				++this.frame; // L: 40
-				if (this.frame >= this.sequenceDefinition.frameIds.length) { // L: 41
-					this.isFinished = true; // L: 42
-					break;
-				}
-			}
+         while(this.frameCycle > this.sequenceDefinition.frameLengths[this.frame]) {
+            this.frameCycle -= this.sequenceDefinition.frameLengths[this.frame];
+            ++this.frame;
+            if (this.frame >= this.sequenceDefinition.frameIds.length) {
+               this.isFinished = true;
+               break;
+            }
+         }
 
-		}
-	} // L: 46
+      }
+   }
 
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(I)Leh;",
-		garbageValue = "-1814248977"
-	)
-	@Export("getModel")
-	protected final Model getModel() {
-		SpotAnimationDefinition var1 = TileItem.SpotAnimationDefinition_get(this.id); // L: 49
-		Model var2;
-		if (!this.isFinished) { // L: 51
-			var2 = var1.getModel(this.frame);
-		} else {
-			var2 = var1.getModel(-1); // L: 52
-		}
+   @ObfuscatedName("q")
+   @ObfuscatedSignature(
+      descriptor = "(B)Lef;",
+      garbageValue = "127"
+   )
+   @Export("getModel")
+   protected final Model getModel() {
+      SpotAnimationDefinition var1 = AbstractUserComparator.SpotAnimationDefinition_get(this.id);
+      Model var2;
+      if (!this.isFinished) {
+         var2 = var1.getModel(this.frame);
+      } else {
+         var2 = var1.getModel(-1);
+      }
 
-		return var2 == null ? null : var2; // L: 53
-	}
+      return var2 == null ? null : var2;
+   }
 
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "14"
-	)
-	public static void method2090() {
-		synchronized(KeyHandler.KeyHandler_instance) { // L: 164
-			++KeyHandler.KeyHandler_idleCycles; // L: 165
-			KeyHandler.field415 = KeyHandler.field417; // L: 166
-			KeyHandler.field414 = 0; // L: 167
-			int var1;
-			if (KeyHandler.field410 < 0) { // L: 168
-				for (var1 = 0; var1 < 112; ++var1) { // L: 169
-					KeyHandler.KeyHandler_pressedKeys[var1] = false;
-				}
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "(II)Z",
+      garbageValue = "-531258942"
+   )
+   public static boolean method2153(int var0) {
+      return var0 >= WorldMapDecorationType.field2765.id && var0 <= WorldMapDecorationType.field2750.id || var0 == WorldMapDecorationType.field2760.id;
+   }
 
-				KeyHandler.field410 = KeyHandler.field401; // L: 170
-			} else {
-				while (KeyHandler.field401 != KeyHandler.field410) { // L: 173
-					var1 = KeyHandler.field408[KeyHandler.field401]; // L: 174
-					KeyHandler.field401 = KeyHandler.field401 + 1 & 127; // L: 175
-					if (var1 < 0) { // L: 176
-						KeyHandler.KeyHandler_pressedKeys[~var1] = false;
-					} else {
-						if (!KeyHandler.KeyHandler_pressedKeys[var1] && KeyHandler.field414 < KeyHandler.field413.length - 1) { // L: 178
-							KeyHandler.field413[++KeyHandler.field414 - 1] = var1; // L: 179
-						}
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "(Ljava/lang/String;B)Ljava/io/File;",
+      garbageValue = "0"
+   )
+   @Export("getFile")
+   static File getFile(String var0) {
+      if (!FileSystem.FileSystem_hasPermissions) {
+         throw new RuntimeException("");
+      } else {
+         File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0);
+         if (var1 != null) {
+            return var1;
+         } else {
+            File var2 = new File(FileSystem.FileSystem_cacheDir, var0);
+            RandomAccessFile var3 = null;
 
-						KeyHandler.KeyHandler_pressedKeys[var1] = true; // L: 181
-					}
-				}
-			}
+            try {
+               File var4 = new File(var2.getParent());
+               if (!var4.exists()) {
+                  throw new RuntimeException("");
+               } else {
+                  var3 = new RandomAccessFile(var2, "rw");
+                  int var5 = var3.read();
+                  var3.seek(0L);
+                  var3.write(var5);
+                  var3.seek(0L);
+                  var3.close();
+                  FileSystem.FileSystem_cacheFiles.put(var0, var2);
+                  return var2;
+               }
+            } catch (Exception var8) {
+               try {
+                  if (var3 != null) {
+                     var3.close();
+                     var3 = null;
+                  }
+               } catch (Exception var7) {
+                  ;
+               }
 
-			if (KeyHandler.field414 > 0) { // L: 185
-				KeyHandler.KeyHandler_idleCycles = 0;
-			}
+               throw new RuntimeException();
+            }
+         }
+      }
+   }
 
-			KeyHandler.field417 = KeyHandler.field419; // L: 186
-		}
-	} // L: 188
+   @ObfuscatedName("ai")
+   @ObfuscatedSignature(
+      descriptor = "(ILhd;ZI)V",
+      garbageValue = "956374800"
+   )
+   static void method2154(int var0, Coord var1, boolean var2) {
+      WorldMapArea var3 = WorldMapSection0.getWorldMap().getMapArea(var0);
+      int var4 = UserComparator9.localPlayer.plane;
+      int var5 = GrandExchangeOfferNameComparator.baseX * 64 + (UserComparator9.localPlayer.x >> 7);
+      int var6 = NetCache.baseY * 64 + (UserComparator9.localPlayer.y >> 7);
+      Coord var7 = new Coord(var4, var5, var6);
+      WorldMapSection0.getWorldMap().method6536(var3, var7, var1, var2);
+   }
 }

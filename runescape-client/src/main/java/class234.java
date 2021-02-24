@@ -4,63 +4,49 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("iq")
 public class class234 {
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(B)[Lin;",
-		garbageValue = "34"
-	)
-	@Export("PlayerType_values")
-	public static PlayerType[] PlayerType_values() {
-		return new PlayerType[]{PlayerType.field3124, PlayerType.PlayerType_ultimateIronman, PlayerType.PlayerType_ironman, PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_playerModerator, PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_normal}; // L: 20
-	}
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "(Lkd;I)V",
+      garbageValue = "-756253803"
+   )
+   @Export("updatePlayer")
+   static final void updatePlayer(PacketBuffer var0) {
+      var0.importIndex();
+      int var1 = Client.localPlayerIndex;
+      Player var2 = UserComparator9.localPlayer = Client.players[var1] = new Player();
+      var2.index = var1;
+      int var3 = var0.readBits(30);
+      byte var4 = (byte)(var3 >> 28);
+      int var5 = var3 >> 14 & 16383;
+      int var6 = var3 & 16383;
+      var2.pathX[0] = var5 - GrandExchangeOfferNameComparator.baseX * 64;
+      var2.x = (var2.pathX[0] << 7) + (var2.transformedSize() << 6);
+      var2.pathY[0] = var6 - NetCache.baseY * 64;
+      var2.y = (var2.pathY[0] << 7) + (var2.transformedSize() << 6);
+      class90.Client_plane = var2.plane = var4;
+      if (Players.field1269[var1] != null) {
+         var2.read(Players.field1269[var1]);
+      }
 
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;B)V",
-		garbageValue = "-30"
-	)
-	@Export("addGameMessage")
-	static void addGameMessage(int var0, String var1, String var2) {
-		UserComparator10.addChatMessage(var0, var1, var2, (String)null); // L: 23
-	} // L: 24
+      Players.Players_count = 0;
+      Players.Players_indices[++Players.Players_count - 1] = var1;
+      Players.field1275[var1] = 0;
+      Players.Players_emptyIdxCount = 0;
 
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "(III)Z",
-		garbageValue = "1847408099"
-	)
-	static final boolean method4159(int var0, int var1) {
-		ObjectComposition var2 = WorldMapDecoration.getObjectDefinition(var0); // L: 892
-		if (var1 == 11) { // L: 893
-			var1 = 10;
-		}
+      for(int var7 = 1; var7 < 2048; ++var7) {
+         if (var1 != var7) {
+            int var8 = var0.readBits(18);
+            int var9 = var8 >> 16;
+            int var10 = var8 >> 8 & 597;
+            int var11 = var8 & 597;
+            Players.Players_regions[var7] = (var10 << 14) + var11 + (var9 << 28);
+            Players.Players_orientations[var7] = 0;
+            Players.Players_targetIndices[var7] = -1;
+            Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var7;
+            Players.field1275[var7] = 0;
+         }
+      }
 
-		if (var1 >= 5 && var1 <= 8) {
-			var1 = 4; // L: 894
-		}
-
-		return var2.method4614(var1); // L: 895
-	}
-
-	@ObfuscatedName("jq")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Lhe;I)Ljava/lang/String;",
-		garbageValue = "-1574592106"
-	)
-	static String method4160(String var0, Widget var1) {
-		if (var0.indexOf("%") != -1) { // L: 9424
-			for (int var2 = 1; var2 <= 5; ++var2) { // L: 9425
-				while (true) {
-					int var3 = var0.indexOf("%" + var2); // L: 9427
-					if (var3 == -1) { // L: 9428
-						break;
-					}
-
-					var0 = var0.substring(0, var3) + ModelData0.method3329(HealthBarDefinition.method4512(var1, var2 - 1)) + var0.substring(var3 + 2); // L: 9429
-				}
-			}
-		}
-
-		return var0; // L: 9433
-	}
+      var0.exportIndex();
+   }
 }

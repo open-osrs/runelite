@@ -7,177 +7,137 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("jl")
 @Implements("ParamComposition")
 public class ParamComposition extends DualNode {
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "Lib;"
-	)
-	@Export("ParamDefinition_archive")
-	static AbstractArchive ParamDefinition_archive;
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "Lez;"
-	)
-	@Export("ParamDefinition_cached")
-	static EvictingDualNodeHashTable ParamDefinition_cached;
-	@ObfuscatedName("x")
-	@Export("type")
-	char type;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = -1005886373
-	)
-	@Export("defaultInt")
-	public int defaultInt;
-	@ObfuscatedName("t")
-	@Export("defaultStr")
-	public String defaultStr;
-	@ObfuscatedName("j")
-	@Export("autoDisable")
-	boolean autoDisable;
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "Lig;"
+   )
+   @Export("ParamDefinition_archive")
+   static AbstractArchive ParamDefinition_archive;
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "Lex;"
+   )
+   @Export("ParamDefinition_cached")
+   public static EvictingDualNodeHashTable ParamDefinition_cached = new EvictingDualNodeHashTable(64);
+   @ObfuscatedName("d")
+   @Export("type")
+   char type;
+   @ObfuscatedName("c")
+   @ObfuscatedGetter(
+      intValue = -551037179
+   )
+   @Export("defaultInt")
+   public int defaultInt;
+   @ObfuscatedName("y")
+   @Export("defaultStr")
+   public String defaultStr;
+   @ObfuscatedName("h")
+   @Export("autoDisable")
+   boolean autoDisable = true;
 
-	static {
-		ParamDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
-	}
+   @ObfuscatedName("d")
+   @ObfuscatedSignature(
+      descriptor = "(I)V",
+      garbageValue = "-1000046844"
+   )
+   @Export("postDecode")
+   void postDecode() {
+   }
 
-	ParamComposition() {
-		this.autoDisable = true; // L: 16
-	} // L: 18
+   @ObfuscatedName("c")
+   @ObfuscatedSignature(
+      descriptor = "(Lkx;I)V",
+      garbageValue = "1362546091"
+   )
+   @Export("decode")
+   void decode(Buffer var1) {
+      while(true) {
+         int var2 = var1.readUnsignedByte();
+         if (var2 == 0) {
+            return;
+         }
 
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "10"
-	)
-	@Export("postDecode")
-	void postDecode() {
-	} // L: 35
+         this.decodeNext(var1, var2);
+      }
+   }
 
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(Lkj;I)V",
-		garbageValue = "65535"
-	)
-	@Export("decode")
-	void decode(Buffer var1) {
-		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 39
-			if (var2 == 0) { // L: 40
-				return;
-			}
+   @ObfuscatedName("y")
+   @ObfuscatedSignature(
+      descriptor = "(Lkx;II)V",
+      garbageValue = "1500921565"
+   )
+   @Export("decodeNext")
+   void decodeNext(Buffer var1, int var2) {
+      if (var2 == 1) {
+         byte var4 = var1.readByte();
+         int var5 = var4 & 255;
+         if (var5 == 0) {
+            throw new IllegalArgumentException("" + Integer.toString(var5, 16));
+         }
 
-			this.decodeNext(var1, var2);
-		}
-	}
+         if (var5 >= 128 && var5 < 160) {
+            char var6 = class298.cp1252AsciiExtension[var5 - 128];
+            if (var6 == 0) {
+               var6 = '?';
+            }
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(Lkj;II)V",
-		garbageValue = "1000544289"
-	)
-	@Export("decodeNext")
-	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) {
-			byte var4 = var1.readByte();
-			int var5 = var4 & 255;
-			if (var5 == 0) {
-				throw new IllegalArgumentException("" + Integer.toString(var5, 16));
-			}
+            var5 = var6;
+         }
 
-			if (var5 >= 128 && var5 < 160) {
-				char var6 = class298.cp1252AsciiExtension[var5 - 128];
-				if (var6 == 0) {
-					var6 = '?';
-				}
+         char var3 = (char)var5;
+         this.type = var3;
+      } else if (var2 == 2) {
+         this.defaultInt = var1.readInt();
+      } else if (var2 == 4) {
+         this.autoDisable = false;
+      } else if (var2 == 5) {
+         this.defaultStr = var1.readStringCp1252NullTerminated();
+      }
 
-				var5 = var6;
-			}
+   }
 
-			char var3 = (char)var5;
-			this.type = var3;
-		} else if (var2 == 2) {
-			this.defaultInt = var1.readInt();
-		} else if (var2 == 4) {
-			this.autoDisable = false;
-		} else if (var2 == 5) {
-			this.defaultStr = var1.readStringCp1252NullTerminated();
-		}
+   @ObfuscatedName("h")
+   @ObfuscatedSignature(
+      descriptor = "(S)Z",
+      garbageValue = "31310"
+   )
+   @Export("isString")
+   public boolean isString() {
+      return this.type == 's';
+   }
 
-	}
+   @ObfuscatedName("gc")
+   @ObfuscatedSignature(
+      descriptor = "(IIII)V",
+      garbageValue = "-1478943473"
+   )
+   @Export("worldToScreen")
+   static final void worldToScreen(int var0, int var1, int var2) {
+      if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) {
+         int var3 = WorldMapRegion.getTileHeight(var0, var1, class90.Client_plane) - var2;
+         var0 -= SecureRandomFuture.cameraX;
+         var3 -= ArchiveLoader.cameraY;
+         var1 -= ObjectSound.cameraZ;
+         int var4 = Rasterizer3D.Rasterizer3D_sine[KeyHandler.cameraPitch];
+         int var5 = Rasterizer3D.Rasterizer3D_cosine[KeyHandler.cameraPitch];
+         int var6 = Rasterizer3D.Rasterizer3D_sine[class39.cameraYaw];
+         int var7 = Rasterizer3D.Rasterizer3D_cosine[class39.cameraYaw];
+         int var8 = var6 * var1 + var0 * var7 >> 16;
+         var1 = var7 * var1 - var0 * var6 >> 16;
+         var0 = var8;
+         var8 = var5 * var3 - var4 * var1 >> 16;
+         var1 = var5 * var1 + var3 * var4 >> 16;
+         if (var1 >= 50) {
+            Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2;
+            Client.viewportTempY = var8 * Client.viewportZoom / var1 + Client.viewportHeight / 2;
+         } else {
+            Client.viewportTempX = -1;
+            Client.viewportTempY = -1;
+         }
 
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "0"
-	)
-	@Export("isString")
-	public boolean isString() {
-		return this.type == 's'; // L: 68
-	}
-
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(Lib;I)V",
-		garbageValue = "1899658312"
-	)
-	public static void method4526(AbstractArchive var0) {
-		StructComposition.StructDefinition_archive = var0; // L: 19
-	} // L: 20
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljy;",
-		garbageValue = "-1708661851"
-	)
-	@Export("SequenceDefinition_get")
-	public static SequenceDefinition SequenceDefinition_get(int var0) {
-		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0); // L: 41
-		if (var1 != null) { // L: 42
-			return var1;
-		} else {
-			byte[] var2 = SequenceDefinition.SequenceDefinition_archive.takeFile(12, var0); // L: 43
-			var1 = new SequenceDefinition(); // L: 44
-			if (var2 != null) { // L: 45
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode(); // L: 46
-			SequenceDefinition.SequenceDefinition_cached.put(var1, (long)var0); // L: 47
-			return var1; // L: 48
-		}
-	}
-
-	@ObfuscatedName("x")
-	@Export("base37DecodeLong")
-	public static String base37DecodeLong(long var0) {
-		if (var0 > 0L && var0 < 6582952005840035281L) { // L: 49
-			if (var0 % 37L == 0L) { // L: 50
-				return null;
-			} else {
-				int var2 = 0; // L: 51
-
-				for (long var3 = var0; var3 != 0L; var3 /= 37L) { // L: 52 53 55
-					++var2; // L: 54
-				}
-
-				StringBuilder var5;
-				char var8;
-				for (var5 = new StringBuilder(var2); 0L != var0; var5.append(var8)) { // L: 57 58 67
-					long var6 = var0; // L: 59
-					var0 /= 37L; // L: 60
-					var8 = class299.base37Table[(int)(var6 - var0 * 37L)]; // L: 61
-					if (var8 == '_') { // L: 62
-						int var9 = var5.length() - 1; // L: 63
-						var5.setCharAt(var9, Character.toUpperCase(var5.charAt(var9))); // L: 64
-						var8 = 160; // L: 65
-					}
-				}
-
-				var5.reverse(); // L: 69
-				var5.setCharAt(0, Character.toUpperCase(var5.charAt(0))); // L: 70
-				return var5.toString(); // L: 71
-			}
-		} else {
-			return null;
-		}
-	}
+      } else {
+         Client.viewportTempX = -1;
+         Client.viewportTempY = -1;
+      }
+   }
 }

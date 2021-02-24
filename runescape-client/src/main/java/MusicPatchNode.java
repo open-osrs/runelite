@@ -4,152 +4,130 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hn")
+@ObfuscatedName("hq")
 @Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = -780037221
-	)
-	int field2477;
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "Lha;"
-	)
-	@Export("patch")
-	MusicPatch patch;
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "Ldf;"
-	)
-	@Export("rawSound")
-	RawSound rawSound;
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "Lgy;"
-	)
-	MusicPatchNode2 field2459;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = -988921205
-	)
-	int field2460;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = 1698248805
-	)
-	int field2461;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = -1639163759
-	)
-	int field2462;
-	@ObfuscatedName("p")
-	@ObfuscatedGetter(
-		intValue = -239406377
-	)
-	int field2463;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -1040186295
-	)
-	int field2476;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = -1414126871
-	)
-	int field2464;
-	@ObfuscatedName("u")
-	@ObfuscatedGetter(
-		intValue = -907348397
-	)
-	int field2466;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = 1674863125
-	)
-	int field2467;
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = -72116075
-	)
-	int field2465;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = -8690283
-	)
-	int field2472;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -1112640035
-	)
-	int field2470;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = -1473586889
-	)
-	int field2471;
-	@ObfuscatedName("a")
-	@ObfuscatedGetter(
-		intValue = 1781294933
-	)
-	int field2468;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = -1965880629
-	)
-	int field2469;
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "Ldj;"
-	)
-	@Export("stream")
-	RawPcmStream stream;
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = -1121296603
-	)
-	int field2475;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = -865267785
-	)
-	int field2456;
+   @ObfuscatedName("ey")
+   @Export("worldHost")
+   static String worldHost;
+   @ObfuscatedName("n")
+   @ObfuscatedGetter(
+      intValue = 550011447
+   )
+   int field2471;
+   @ObfuscatedName("v")
+   @ObfuscatedSignature(
+      descriptor = "Lha;"
+   )
+   @Export("patch")
+   MusicPatch patch;
+   @ObfuscatedName("d")
+   @ObfuscatedSignature(
+      descriptor = "Ldm;"
+   )
+   @Export("rawSound")
+   RawSound rawSound;
+   @ObfuscatedName("c")
+   @ObfuscatedSignature(
+      descriptor = "Lgy;"
+   )
+   MusicPatchNode2 field2473;
+   @ObfuscatedName("y")
+   @ObfuscatedGetter(
+      intValue = 2110028369
+   )
+   int field2474;
+   @ObfuscatedName("h")
+   @ObfuscatedGetter(
+      intValue = -96343197
+   )
+   int field2475;
+   @ObfuscatedName("z")
+   @ObfuscatedGetter(
+      intValue = -1440668291
+   )
+   int field2476;
+   @ObfuscatedName("e")
+   @ObfuscatedGetter(
+      intValue = 1716873171
+   )
+   int field2477;
+   @ObfuscatedName("q")
+   @ObfuscatedGetter(
+      intValue = 1965253533
+   )
+   int field2478;
+   @ObfuscatedName("l")
+   @ObfuscatedGetter(
+      intValue = -323457353
+   )
+   int field2472;
+   @ObfuscatedName("s")
+   @ObfuscatedGetter(
+      intValue = -1000773439
+   )
+   int field2480;
+   @ObfuscatedName("b")
+   @ObfuscatedGetter(
+      intValue = 715997184
+   )
+   int field2481;
+   @ObfuscatedName("a")
+   @ObfuscatedGetter(
+      intValue = -720324353
+   )
+   int field2491;
+   @ObfuscatedName("w")
+   @ObfuscatedGetter(
+      intValue = -1839598813
+   )
+   int field2483;
+   @ObfuscatedName("k")
+   @ObfuscatedGetter(
+      intValue = -378867617
+   )
+   int field2486;
+   @ObfuscatedName("i")
+   @ObfuscatedGetter(
+      intValue = -898261362
+   )
+   int field2482;
+   @ObfuscatedName("x")
+   @ObfuscatedGetter(
+      intValue = 1114388965
+   )
+   int field2488;
+   @ObfuscatedName("f")
+   @ObfuscatedGetter(
+      intValue = 1049905099
+   )
+   int field2487;
+   @ObfuscatedName("g")
+   @ObfuscatedSignature(
+      descriptor = "Ldt;"
+   )
+   @Export("stream")
+   RawPcmStream stream;
+   @ObfuscatedName("u")
+   @ObfuscatedGetter(
+      intValue = -2011885117
+   )
+   int field2484;
+   @ObfuscatedName("p")
+   @ObfuscatedGetter(
+      intValue = -1908320753
+   )
+   int field2479;
 
-	MusicPatchNode() {
-	}
-
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2082654889"
-	)
-	void method3860() {
-		this.patch = null;
-		this.rawSound = null;
-		this.field2459 = null; // L: 36
-		this.stream = null; // L: 37
-	} // L: 38
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljx;",
-		garbageValue = "-621121394"
-	)
-	@Export("getEnum")
-	public static EnumComposition getEnum(int var0) {
-		EnumComposition var1 = (EnumComposition) EnumComposition.EnumDefinition_cached.get((long)var0); // L: 29
-		if (var1 != null) { // L: 30
-			return var1;
-		} else {
-			byte[] var2 = EnumComposition.EnumDefinition_archive.takeFile(8, var0); // L: 31
-			var1 = new EnumComposition(); // L: 32
-			if (var2 != null) { // L: 33
-				var1.decode(new Buffer(var2));
-			}
-
-			EnumComposition.EnumDefinition_cached.put(var1, (long)var0); // L: 34
-			return var1; // L: 35
-		}
-	}
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "(B)V",
+      garbageValue = "71"
+   )
+   void method4032() {
+      this.patch = null;
+      this.rawSound = null;
+      this.field2473 = null;
+      this.stream = null;
+   }
 }

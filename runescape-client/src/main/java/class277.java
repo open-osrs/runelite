@@ -1,32 +1,39 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jh")
+@ObfuscatedName("jm")
 public class class277 {
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "(ILcs;ZI)I",
-		garbageValue = "-1829984749"
-	)
-	static int method5005(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PlayerComposition.scriptDotWidget : VarcInt.scriptActiveWidget; // L: 1106
-		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) { // L: 1107
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.itemId; // L: 1108
-			return 1; // L: 1109
-		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) { // L: 1111
-			if (var3.itemId != -1) { // L: 1112
-				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.itemQuantity;
-			} else {
-				Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = 0; // L: 1113
-			}
+   @ObfuscatedName("i")
+   @ObfuscatedSignature(
+      descriptor = "Lhz;"
+   )
+   @Export("scriptDotWidget")
+   static Widget scriptDotWidget;
 
-			return 1; // L: 1114
-		} else if (var0 == ScriptOpcodes.CC_GETID) { // L: 1116
-			Interpreter.Interpreter_intStack[++VarcInt.Interpreter_intStackSize - 1] = var3.childIndex; // L: 1117
-			return 1; // L: 1118
-		} else {
-			return 2; // L: 1120
-		}
-	}
+   @ObfuscatedName("n")
+   @ObfuscatedSignature(
+      descriptor = "([BILjava/lang/CharSequence;I)I",
+      garbageValue = "1470841417"
+   )
+   public static int method5192(byte[] var0, int var1, CharSequence var2) {
+      int var3 = var2.length();
+      int var4 = var1;
+
+      for(int var5 = 0; var5 < var3; ++var5) {
+         char var6 = var2.charAt(var5);
+         if (var6 <= 127) {
+            var0[var4++] = (byte)var6;
+         } else if (var6 <= 2047) {
+            var0[var4++] = (byte)(192 | var6 >> 6);
+            var0[var4++] = (byte)(128 | var6 & 63);
+         } else {
+            var0[var4++] = (byte)(224 | var6 >> 12);
+            var0[var4++] = (byte)(128 | var6 >> 6 & 63);
+            var0[var4++] = (byte)(128 | var6 & 63);
+         }
+      }
+
+      return var4 - var1;
+   }
 }
