@@ -35,6 +35,10 @@ public interface RSTile extends Tile
 	@Import("boundaryObject")
 	@Override
 	WallObject getWallObject();
+	
+	@Import("boundaryObject")
+	@Override
+	void setWallObject(WallObject object);
 
 	@Import("paint")
 	@Override
