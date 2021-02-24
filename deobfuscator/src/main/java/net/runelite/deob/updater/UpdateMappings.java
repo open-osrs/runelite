@@ -87,10 +87,10 @@ public class UpdateMappings
 
 	public static void main(String[] args) throws IOException
 	{
-		args = new String[3];
-		args[0] = "./rs-client-193.jar";
-		args[1] = "./osrs-194-deob.jar";
-		args[2] = "./rs-client-194.jar";
+		if (args.length < 3)
+		{
+			System.exit(-1);
+		}
 
 		UpdateMappings u = new UpdateMappings(
 			JarUtil.loadJar(new File(args[0])),
