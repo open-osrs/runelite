@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,13 +22,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.worldhopper.ping;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.1"
+import com.sun.jna.Structure;
+import java.util.Arrays;
+import java.util.List;
 
-    const val openosrsVersion = "4.0.0"
+public class Timeval extends Structure
+{
+	public long tv_sec;
+	public long tv_usec;
 
-    const val rsversion = 194
-    const val cacheversion = 165
+	@Override
+	protected List<String> getFieldOrder()
+	{
+		return Arrays.asList("tv_sec", "tv_usec");
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,13 +22,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.worldhopper.ping;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.1"
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
+import com.sun.jna.platform.unix.LibC;
 
-    const val openosrsVersion = "4.0.0"
+interface RLLibC extends LibC
+{
+	RLLibC INSTANCE = Native.loadLibrary(NAME, RLLibC.class);
 
-    const val rsversion = 194
-    const val cacheversion = 165
+	int AF_INET = 2;
+	int SOCK_DGRAM = 2;
+	int SOL_SOCKET = 1;
+	int IPPROTO_ICMP = 1;
+	int SO_RCVTIMEO = 20;
+
+	int socket(int domain, int type, int protocol);
+
+	void close(int socket);
+
+	int sendto(int sockfd, byte[] buf, int len, int flags, byte[] dest_addr, int addrlen);
+
+	int recvfrom(int sockfd, Pointer buf, int len, int flags, Pointer src_addr, Pointer addrlen);
+
+	int setsockopt(int sockfd, int level, int optname, Pointer optval, int optlen);
 }
