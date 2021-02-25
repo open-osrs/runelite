@@ -60,6 +60,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.components.CustomScrollBarUI;
+import net.runelite.client.ui.components.SliderUI;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 
 /**
@@ -90,6 +91,7 @@ public class SwingUtil
 		UIManager.put("FormattedTextField.selectionForeground", Color.WHITE);
 		UIManager.put("TextArea.selectionBackground", ColorScheme.BRAND_BLUE_TRANSPARENT);
 		UIManager.put("TextArea.selectionForeground", Color.WHITE);
+		UIManager.put("SliderUI", SliderUI.class.getName());
 
 		// Do not render shadows under popups/tooltips.
 		// Fixes black boxes under popups that are above the game applet.
