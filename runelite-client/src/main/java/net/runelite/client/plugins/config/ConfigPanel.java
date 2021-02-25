@@ -68,8 +68,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -79,6 +81,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.events.ConfigButtonClicked;
@@ -509,6 +512,7 @@ class ConfigPanel extends PluginPanel
 			{
 				int value = Integer.parseInt(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName()));
 
+				Units units = cid.getUnits();
 				Range range = cid.getRange();
 				int min = 0, max = Integer.MAX_VALUE;
 				if (range != null)
@@ -520,20 +524,122 @@ class ConfigPanel extends PluginPanel
 				// Config may previously have been out of range
 				value = Ints.constrainToRange(value, min, max);
 
-				SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
-				JSpinner spinner = new JSpinner(model);
-				Component editor = spinner.getEditor();
-				JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
-				spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
-				spinner.addChangeListener(ce -> changeConfiguration(spinner, cd, cid));
-
-				Units units = cid.getUnits();
-				if (units != null)
+				if (max < Integer.MAX_VALUE)
 				{
-					spinnerTextField.setFormatterFactory(new UnitFormatterFactory(units));
-				}
+					JLabel sliderValueLabel = new JLabel();
+					JSlider slider = new JSlider(min, max, value);
+					slider.setBackground(ColorScheme.DARK_GRAY_COLOR);
+					if (units != null)
+					{
+						sliderValueLabel.setText(slider.getValue() + units.value());
+					}
+					else
+					{
+						sliderValueLabel.setText(String.valueOf(slider.getValue()));
+					}
+					slider.setPreferredSize(new Dimension(80, 25));
+					slider.addChangeListener((l) ->
+						{
+							if (units != null)
+							{
+								sliderValueLabel.setText(slider.getValue() + units.value());
+							}
+							else
+							{
+								sliderValueLabel.setText(String.valueOf(slider.getValue()));
+							}
 
-				item.add(spinner, BorderLayout.EAST);
+							if (!slider.getValueIsAdjusting())
+							{
+								changeConfiguration(slider, cd, cid);
+							}
+						}
+					);
+
+					SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
+					JSpinner spinner = new JSpinner(model);
+					Component editor = spinner.getEditor();
+					JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+					spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
+					spinner.setUI(new BasicSpinnerUI()
+					{
+						protected Component createNextButton()
+						{
+							return null;
+						}
+
+						protected Component createPreviousButton()
+						{
+							return null;
+						}
+					});
+
+					JPanel subPanel = new JPanel();
+					subPanel.setPreferredSize(new Dimension(110, 25));
+					subPanel.setLayout(new BorderLayout());
+
+					spinner.addChangeListener((ce) ->
+					{
+						changeConfiguration(spinner, cd, cid);
+
+						if (units != null)
+						{
+							sliderValueLabel.setText(spinner.getValue() + units.value());
+						}
+						else
+						{
+							sliderValueLabel.setText(String.valueOf(spinner.getValue()));
+						}
+						slider.setValue((Integer) spinner.getValue());
+
+						subPanel.add(sliderValueLabel, BorderLayout.WEST);
+						subPanel.add(slider, BorderLayout.EAST);
+						subPanel.remove(spinner);
+
+						validate();
+						repaint();
+					});
+
+					sliderValueLabel.addMouseListener(new MouseAdapter()
+					{
+						public void mouseClicked(MouseEvent e)
+						{
+							spinner.setValue(slider.getValue());
+
+							subPanel.remove(sliderValueLabel);
+							subPanel.remove(slider);
+							subPanel.add(spinner, BorderLayout.EAST);
+
+							validate();
+							repaint();
+
+							final JTextField tf = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
+							tf.requestFocusInWindow();
+							SwingUtilities.invokeLater(tf::selectAll);
+						}
+					});
+
+					subPanel.add(sliderValueLabel, BorderLayout.WEST);
+					subPanel.add(slider, BorderLayout.EAST);
+
+					item.add(subPanel, BorderLayout.EAST);
+				}
+				else
+				{
+					SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
+					JSpinner spinner = new JSpinner(model);
+					Component editor = spinner.getEditor();
+					JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+					spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
+					spinner.addChangeListener(ce -> changeConfiguration(spinner, cd, cid));
+
+					if (units != null)
+					{
+						spinnerTextField.setFormatterFactory(new UnitFormatterFactory(units));
+					}
+
+					item.add(spinner, BorderLayout.EAST);
+				}
 			}
 
 			if (cid.getType() == String.class)
@@ -894,6 +1000,11 @@ class ConfigPanel extends PluginPanel
 		{
 			JSpinner spinner = (JSpinner) component;
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), "" + spinner.getValue());
+		}
+		else if (component instanceof JSlider)
+		{
+			JSlider slider = (JSlider) component;
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), slider.getValue());
 		}
 		else if (component instanceof JTextComponent)
 		{
