@@ -470,7 +470,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.TRAILBLAZER_CANE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TRAILBLAZER_DRAGON_TROPHY, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TRAILBLAZER_HARPOON, WeaponStyle.MELEE);
-		tyleMap.put(ItemID.TRAILBLAZER_IRON_TROPHY, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.TRAILBLAZER_IRON_TROPHY, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TRAILBLAZER_MITHRIL_TROPHY, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TRAILBLAZER_PICKAXE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.TRAILBLAZER_RUNE_TROPHY, WeaponStyle.MELEE);
