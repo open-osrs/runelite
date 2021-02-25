@@ -94,7 +94,7 @@ public class Text
 			int levelIdx =  StringUtils.lastIndexOf(str, "  (level");
 			if (levelIdx >= 0)
 			{
-				strLen = levelIdx;
+				strLen = levelIdx + 1;
 			}
 		}
 
