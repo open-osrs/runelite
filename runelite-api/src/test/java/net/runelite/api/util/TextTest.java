@@ -41,6 +41,7 @@ public class TextTest
 		assertEquals("a < b", Text.removeTags("a < b"));
 		assertEquals("Remove no tags", Text.removeTags("Remove no tags"));
 		assertEquals("Zezima", Text.removeTags("<col=ffffff><img=2>Zezima<col=00ffff>  (level-126)", true));
+		assertEquals("Zezima", Text.removeTags("Zezima  (level-126)", true));
 		assertEquals("", Text.removeTags("<col=ffffff><img=2><col=00ffff>  (level-126)", true));
 	}
 
