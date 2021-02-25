@@ -80,7 +80,7 @@ public abstract class RSProjectileMixin implements RSProjectile
 		{
 			int idx = -interactingIndex - 1;
 
-			if (idx == client.getLocalInteractingIndex())
+			if (idx == client.getLocalPlayerIndex())
 			{
 				return client.getLocalPlayer();
 			}
