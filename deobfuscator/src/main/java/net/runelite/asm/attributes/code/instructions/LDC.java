@@ -34,6 +34,7 @@ import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.Stack;
 import net.runelite.asm.execution.StackContext;
 import net.runelite.asm.execution.Value;
+import net.runelite.asm.pool.Class;
 import org.objectweb.asm.MethodVisitor;
 import static org.objectweb.asm.Opcodes.DCONST_0;
 import static org.objectweb.asm.Opcodes.DCONST_1;
@@ -180,5 +181,18 @@ public class LDC extends Instruction implements PushConstantInstruction
 	public Number getNumber()
 	{
 		return (Number) value;
+	}
+
+	@Override
+	public void renameClass(String oldName, String newName)
+	{
+		Object object = getConstant();
+		if (object instanceof net.runelite.asm.pool.Class)
+		{
+			if (((Class) object).getName().equals(oldName))
+			{
+				value = new Class(newName);
+			}
+		}
 	}
 }
