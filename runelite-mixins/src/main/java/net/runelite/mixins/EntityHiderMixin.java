@@ -25,7 +25,10 @@
  */
 package net.runelite.mixins;
 
+import java.util.HashMap;
+import java.util.Set;
 import net.runelite.api.mixins.*;
+import net.runelite.api.util.Text;
 import net.runelite.rs.api.*;
 
 import java.util.List;
@@ -38,6 +41,12 @@ public abstract class EntityHiderMixin implements RSScene
 
 	@Shadow("isHidingEntities")
 	private static boolean isHidingEntities;
+
+	@Shadow("hidePlayers")
+	private static boolean hidePlayers;
+
+	@Shadow("hidePlayers2D")
+	private static boolean hidePlayers2D;
 
 	@Shadow("hideOthers")
 	private static boolean hideOthers;
@@ -63,8 +72,17 @@ public abstract class EntityHiderMixin implements RSScene
 	@Shadow("hideNPCs")
 	private static boolean hideNPCs;
 
+	@Shadow("hiddenNpcsName")
+	private static HashMap<String, Integer> hiddenNpcsName;
+
+	@Shadow("hiddenNpcsDeath")
+	private static HashMap<String, Integer> hiddenNpcsDeath;
+
 	@Shadow("hideSpecificPlayers")
 	private static List<String> hideSpecificPlayers;
+
+	@Shadow("blacklistDeadNpcs")
+	private static Set<Integer> blacklistDeadNpcs;
 
 	@Shadow("hideNPCs2D")
 	private static boolean hideNPCs2D;
@@ -80,6 +98,9 @@ public abstract class EntityHiderMixin implements RSScene
 
 	@Shadow("hideDeadNPCs")
 	private static boolean hideDeadNPCs;
+
+	@Shadow("hiddenNpcIndices")
+	private static List<Integer> hiddenNpcIndices;
 
 	@Copy("newGameObject")
 	@Replace("newGameObject")
@@ -122,17 +143,10 @@ public abstract class EntityHiderMixin implements RSScene
 
 		if (entity instanceof RSPlayer)
 		{
+			boolean local = drawingUI ? hideLocalPlayer2D : hideLocalPlayer;
+			boolean other = drawingUI ? hidePlayers2D : hidePlayers;
+			boolean isLocalPlayer = entity == client.getLocalPlayer();
 			RSPlayer player = (RSPlayer) entity;
-			RSPlayer local = client.getLocalPlayer();
-			if (player.getName() == null)
-			{
-				return true;
-			}
-
-			if (player == local)
-			{
-				return drawingUI ? !hideLocalPlayer2D : !hideLocalPlayer;
-			}
 
 			for (String name : hideSpecificPlayers)
 			{
@@ -145,33 +159,37 @@ public abstract class EntityHiderMixin implements RSScene
 				}
 			}
 
-			if (hideAttackers && player.getInteracting() == local)
+			if (isLocalPlayer ? local : other)
 			{
-				return false;
-			}
+				if (!hideAttackers)
+				{
+					if (player.getInteracting() == client.getLocalPlayer())
+					{
+						return true;
+					}
+				}
 
-			if (player.isFriend())
-			{
-				return !hideFriends;
-			}
+				if (player.getName() == null)
+				{
+					// player.isFriend() and player.isClanMember() npe when the player has a null name
+					return false;
+				}
 
-			if (player.isFriendsChatMember())
-			{
-				return !hideClanMates;
+				return (!hideFriends && player.isFriend()) ||
+					(!isLocalPlayer && !hideClanMates && player.isFriendsChatMember());
 			}
-
+			
 			if (client.getFriendManager().isIgnored(player.getRsName()))
 			{
 				return !hideIgnores;
 			}
-
-			return drawingUI ? !hideOthers2D : !hideOthers;
+			
 		}
 		else if (entity instanceof RSNPC)
 		{
 			RSNPC npc = (RSNPC) entity;
 
-			if (npc.isDead() && hideDeadNPCs)
+			if (npc.getInteracting() == client.getLocalPlayer() && hideAttackers)
 			{
 				return false;
 			}
@@ -181,9 +199,29 @@ public abstract class EntityHiderMixin implements RSScene
 				return false;
 			}
 
-			if (npc.getInteracting() == client.getLocalPlayer() && hideAttackers)
+			if (hideDeadNPCs && npc.getHealthRatio() == 0 && !blacklistDeadNpcs.contains(npc.getId()))
 			{
 				return false;
+			}
+
+			if (npc.getName() != null &&
+				hiddenNpcsName.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
+			{
+				return false;
+			}
+
+			if (npc.getName() != null && npc.getHealthRatio() == 0 &&
+				hiddenNpcsDeath.getOrDefault(Text.standardize(npc.getName().toLowerCase()), 0) > 0)
+			{
+				return false;
+			}
+
+			for (Integer index : hiddenNpcIndices)
+			{
+				if (index != null && npc.getIndex() == index)
+				{
+					return false;
+				}
 			}
 
 			return drawingUI ? !hideNPCs2D : !hideNPCs;
