@@ -66,6 +66,7 @@ import net.runelite.client.discord.DiscordService;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.externalplugins.ExternalPluginManager;
 import net.runelite.client.game.WorldService;
+import net.runelite.client.game.XpDropManager;
 import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.rs.ClientLoader;
 import net.runelite.client.rs.ClientUpdateCheckMode;
@@ -138,6 +139,9 @@ public class RuneLite
 
 	@Inject
 	private Provider<WorldMapOverlay> worldMapOverlay;
+
+	@Inject
+	private Provider<XpDropManager> xpDropManager;
 
 	@Inject
 	private WorldService worldService;
@@ -382,6 +386,9 @@ public class RuneLite
 			WidgetOverlay.createOverlays(client).forEach(overlayManager::add);
 			overlayManager.add(worldMapOverlay.get());
 			overlayManager.add(tooltipOverlay.get());
+
+			// legacy method, i cant figure out how to make it work without garbage
+			eventBus.register(xpDropManager.get());
 		}
 
 		// Start plugins
