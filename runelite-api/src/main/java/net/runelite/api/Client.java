@@ -1638,6 +1638,49 @@ public interface Client extends GameEngine
 	void setHideSpecificPlayers(List<String> names);
 
 	/**
+	 * Get the list of NPC indices that are currently hidden
+	 *
+	 * @return all of the current hidden NPC Indices
+	 */
+	List<Integer> getHiddenNpcIndices();
+
+	/**
+	 * If an NPC index is in this List then do not render it
+	 *
+	 * @param npcIndices the npc indices to hide
+	 */
+	void setHiddenNpcIndices(List<Integer> npcIndices);
+
+	/**
+	 * Increments the counter for how many times this npc has been selected to be hidden on death
+	 *
+	 * @param name npc name
+	 */
+	void addHiddenNpcDeath(String name);
+
+	/**
+	 * Decrements the counter for how many times this npc has been selected to be hidden on death
+	 *
+	 * @param name npc name
+	 */
+	void removeHiddenNpcDeath(String name);
+
+	/**
+	 * Sets whether or not other players are hidden.
+	 *
+	 * @param state the new player hidden state
+	 */
+	void setPlayersHidden(boolean state);
+
+	/**
+	 * Sets whether 2D sprites (ie. overhead prayers, PK skull) related to
+	 * the other players are hidden.
+	 *
+	 * @param state the new player 2D hidden state
+	 */
+	void setPlayersHidden2D(boolean state);
+
+	/**
 	 * Sets whether projectiles are hidden.
 	 *
 	 * @param state new projectile hidden state
