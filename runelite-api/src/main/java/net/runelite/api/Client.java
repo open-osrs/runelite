@@ -1666,6 +1666,20 @@ public interface Client extends GameEngine
 	void removeHiddenNpcDeath(String name);
 
 	/**
+	 * Increments the counter for how many times this npc has been selected to be hidden
+	 *
+	 * @param name npc name
+	 */
+	void addHiddenNpcName(String name);
+
+	/**
+	 * Decrements the counter for how many times this npc has been selected to be hidden
+	 *
+	 * @param name npc name
+	 */
+	void removeHiddenNpcName(String name);
+
+	/**
 	 * Sets whether or not other players are hidden.
 	 *
 	 * @param state the new player hidden state

@@ -96,6 +96,12 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public static HashMap<String, Integer> hiddenNpcsDeath = new HashMap<>();
 
 	@Inject
+	public static HashMap<String, Integer> hiddenNpcsName = new HashMap<>();
+
+	@Inject
+	public static List<Integer> hiddenNpcIndices = new ArrayList<>();
+
+	@Inject
 	@Override
 	public void setIsHidingEntities(boolean state)
 	{
@@ -237,6 +243,34 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	@Override
+	public void addHiddenNpcName(String npc)
+	{
+		npc = npc.toLowerCase();
+		int i = hiddenNpcsName.getOrDefault(npc, 0);
+		if (i == Integer.MAX_VALUE)
+		{
+			throw new RuntimeException("NPC name " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
+		}
+
+		hiddenNpcsName.put(npc, ++i);
+	}
+
+	@Inject
+	@Override
+	public void removeHiddenNpcName(String npc)
+	{
+		npc = npc.toLowerCase();
+		int i = hiddenNpcsName.getOrDefault(npc, 0);
+		if (i == 0)
+		{
+			return;
+		}
+
+		hiddenNpcsName.put(npc, --i);
+	}
+
+	@Inject
+	@Override
 	public void setPlayersHidden(boolean state)
 	{
 		hidePlayers = state;
@@ -247,5 +281,19 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public void setPlayersHidden2D(boolean state)
 	{
 		hidePlayers2D = state;
+	}
+
+	@Inject
+	@Override
+	public void setHiddenNpcIndices(List<Integer> npcIndices)
+	{
+		hiddenNpcIndices = npcIndices;
+	}
+
+	@Inject
+	@Override
+	public List<Integer> getHiddenNpcIndices()
+	{
+		return hiddenNpcIndices;
 	}
 }
