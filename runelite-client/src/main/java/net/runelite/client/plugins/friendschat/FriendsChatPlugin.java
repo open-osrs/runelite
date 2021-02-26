@@ -39,7 +39,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 import javax.inject.Inject;
 import net.runelite.api.ChatLineBuffer;
 import net.runelite.api.ChatMessageType;
@@ -131,14 +130,6 @@ public class FriendsChatPlugin extends Plugin
 	private int joinedTick;
 
 	private boolean kickConfirmed = false;
-	
-	private static final CopyOnWriteArrayList<Player> clanMembers = new CopyOnWriteArrayList<>();
-
-	@SuppressWarnings("unchecked")
-	public static CopyOnWriteArrayList<Player> getClanMembers()
-	{
-		return (CopyOnWriteArrayList<Player>) clanMembers.clone();
-	}
 
 	@Provides
 	FriendsChatConfig getConfig(ConfigManager configManager)
