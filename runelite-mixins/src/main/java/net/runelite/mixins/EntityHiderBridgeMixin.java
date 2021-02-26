@@ -42,6 +42,12 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public static boolean isHidingEntities;
 
 	@Inject
+	public static boolean hidePlayers;
+
+	@Inject
+	public static boolean hidePlayers2D;
+
+	@Inject
 	public static boolean hideOthers;
 
 	@Inject
@@ -227,5 +233,19 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public void setBlacklistDeadNpcs(Set<Integer> blacklist)
 	{
 		blacklistDeadNpcs = blacklist;
+	}
+
+	@Inject
+	@Override
+	public void setPlayersHidden(boolean state)
+	{
+		hidePlayers = state;
+	}
+
+	@Inject
+	@Override
+	public void setPlayersHidden2D(boolean state)
+	{
+		hidePlayers2D = state;
 	}
 }
