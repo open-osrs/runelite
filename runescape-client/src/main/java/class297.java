@@ -4,10 +4,10 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kw")
 public class class297 {
-   @ObfuscatedName("n")
-   @ObfuscatedSignature(
-      descriptor = "Lls;"
-   )
-   @Export("NetCache_socket")
-   public static AbstractSocket NetCache_socket;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lls;"
+	)
+	@Export("NetCache_socket")
+	public static AbstractSocket NetCache_socket;
 }

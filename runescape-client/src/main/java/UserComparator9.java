@@ -6,51 +6,51 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("fs")
 @Implements("UserComparator9")
 public class UserComparator9 extends AbstractUserComparator {
-   @ObfuscatedName("l")
-   @ObfuscatedSignature(
-      descriptor = "Lei;"
-   )
-   @Export("World_request")
-   static UrlRequest World_request;
-   @ObfuscatedName("ka")
-   @ObfuscatedSignature(
-      descriptor = "Lbk;"
-   )
-   @Export("localPlayer")
-   static Player localPlayer;
-   @ObfuscatedName("n")
-   @Export("reversed")
-   final boolean reversed;
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Lei;"
+	)
+	@Export("World_request")
+	static UrlRequest World_request;
+	@ObfuscatedName("ka")
+	@ObfuscatedSignature(
+		descriptor = "Lbk;"
+	)
+	@Export("localPlayer")
+	static Player localPlayer;
+	@ObfuscatedName("n")
+	@Export("reversed")
+	final boolean reversed;
 
-   public UserComparator9(boolean var1) {
-      this.reversed = var1;
-   }
+	public UserComparator9(boolean var1) {
+		this.reversed = var1; // L: 11
+	} // L: 12
 
-   @ObfuscatedName("n")
-   @ObfuscatedSignature(
-      descriptor = "(Lky;Lky;B)I",
-      garbageValue = "53"
-   )
-   @Export("compareBuddy")
-   int compareBuddy(Buddy var1, Buddy var2) {
-      if (Client.worldId == var1.world && var2.world == Client.worldId) {
-         return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername());
-      } else {
-         return this.compareUser(var1, var2);
-      }
-   }
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(Lky;Lky;B)I",
+		garbageValue = "53"
+	)
+	@Export("compareBuddy")
+	int compareBuddy(Buddy var1, Buddy var2) {
+		if (Client.worldId == var1.world && var2.world == Client.worldId) { // L: 15
+			return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername()); // L: 16
+		} else {
+			return this.compareUser(var1, var2); // L: 18
+		}
+	}
 
-   public int compare(Object var1, Object var2) {
-      return this.compareBuddy((Buddy)var1, (Buddy)var2);
-   }
+	public int compare(Object var1, Object var2) {
+		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 22
+	}
 
-   @ObfuscatedName("n")
-   @ObfuscatedSignature(
-      descriptor = "(Lig;Lig;I)V",
-      garbageValue = "-1134565802"
-   )
-   public static void method3562(AbstractArchive var0, AbstractArchive var1) {
-      HealthBarDefinition.HealthBarDefinition_archive = var0;
-      HealthBarDefinition.HitSplatDefinition_spritesArchive = var1;
-   }
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(Lig;Lig;I)V",
+		garbageValue = "-1134565802"
+	)
+	public static void method3562(AbstractArchive var0, AbstractArchive var1) {
+		HealthBarDefinition.HealthBarDefinition_archive = var0; // L: 30
+		HealthBarDefinition.HitSplatDefinition_spritesArchive = var1; // L: 31
+	} // L: 32
 }

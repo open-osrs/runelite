@@ -590,7 +590,7 @@ public interface RSWidget extends Widget
 	void setOnVarTransmitListener(Object[] o);
 
 	@Import("fillMode")
-	RSWidgetFillMode getFillMode();
+	RSFillMode getFillMode();
 
 	void broadcastHidden(boolean hidden);
 }

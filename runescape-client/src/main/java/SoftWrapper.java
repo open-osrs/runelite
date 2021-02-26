@@ -6,24 +6,24 @@ import net.runelite.mapping.ObfuscatedName;
 @ObfuscatedName("ft")
 @Implements("SoftWrapper")
 public class SoftWrapper extends Wrapper {
-   @ObfuscatedName("n")
-   @Export("ref")
-   SoftReference ref;
+	@ObfuscatedName("n")
+	@Export("ref")
+	SoftReference ref;
 
-   SoftWrapper(Object var1, int var2) {
-      super(var2);
-      this.ref = new SoftReference(var1);
-   }
+	SoftWrapper(Object var1, int var2) {
+		super(var2); // L: 10
+		this.ref = new SoftReference(var1); // L: 11
+	} // L: 12
 
-   @ObfuscatedName("n")
-   @Export("get")
-   Object get() {
-      return this.ref.get();
-   }
+	@ObfuscatedName("n")
+	@Export("get")
+	Object get() {
+		return this.ref.get(); // L: 15
+	}
 
-   @ObfuscatedName("v")
-   @Export("isSoft")
-   boolean isSoft() {
-      return true;
-   }
+	@ObfuscatedName("v")
+	@Export("isSoft")
+	boolean isSoft() {
+		return true; // L: 19
+	}
 }

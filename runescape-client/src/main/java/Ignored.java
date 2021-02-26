@@ -7,34 +7,37 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ke")
 @Implements("Ignored")
 public class Ignored extends User {
-   @ObfuscatedName("n")
-   @ObfuscatedGetter(
-      intValue = -1743470609
-   )
-   @Export("id")
-   int id;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -1743470609
+	)
+	@Export("id")
+	int id;
 
-   @ObfuscatedName("n")
-   @ObfuscatedSignature(
-      descriptor = "(Lke;I)I",
-      garbageValue = "1892855432"
-   )
-   @Export("compareTo_ignored")
-   int compareTo_ignored(Ignored var1) {
-      return this.id - var1.id;
-   }
+	Ignored() {
+	} // L: 6
 
-   @ObfuscatedName("at")
-   @ObfuscatedSignature(
-      descriptor = "(Ljn;I)I",
-      garbageValue = "642739557"
-   )
-   @Export("compareTo_user")
-   public int compareTo_user(User var1) {
-      return this.compareTo_ignored((Ignored)var1);
-   }
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(Lke;I)I",
+		garbageValue = "1892855432"
+	)
+	@Export("compareTo_ignored")
+	int compareTo_ignored(Ignored var1) {
+		return this.id - var1.id; // L: 9
+	}
 
-   public int compareTo(Object var1) {
-      return this.compareTo_ignored((Ignored)var1);
-   }
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "(Ljn;I)I",
+		garbageValue = "642739557"
+	)
+	@Export("compareTo_user")
+	public int compareTo_user(User var1) {
+		return this.compareTo_ignored((Ignored)var1); // L: 13
+	}
+
+	public int compareTo(Object var1) {
+		return this.compareTo_ignored((Ignored)var1); // L: 17
+	}
 }
