@@ -26,7 +26,6 @@
 package net.runelite.mixins;
 
 import java.util.HashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSClient;
