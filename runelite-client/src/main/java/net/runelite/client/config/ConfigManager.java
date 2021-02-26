@@ -41,6 +41,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
@@ -591,7 +592,7 @@ public class ConfigManager
 			throw new IllegalArgumentException("Not a config group");
 		}
 
-		final List<ConfigSectionDescriptor> sections = Arrays.stream(inter.getDeclaredFields())
+		final List<ConfigSectionDescriptor> sections = getAllDeclaredInterfaceFields(inter).stream()
 			.filter(m -> m.isAnnotationPresent(ConfigSection.class) && m.getType() == String.class)
 			.map(m ->
 			{
@@ -615,7 +616,7 @@ public class ConfigManager
 				.result())
 			.collect(Collectors.toList());
 
-		final List<ConfigTitleDescriptor> titles = Arrays.stream(inter.getDeclaredFields())
+		final List<ConfigTitleDescriptor> titles = getAllDeclaredInterfaceFields(inter).stream()
 			.filter(m -> m.isAnnotationPresent(ConfigTitle.class) && m.getType() == String.class)
 			.map(m ->
 			{
@@ -925,19 +926,38 @@ public class ConfigManager
 	}
 
 	/**
+	 * Does DFS on a class's interfaces to find all of its implemented fields.
+	 */
+	private Collection<Field> getAllDeclaredInterfaceFields(Class<?> clazz)
+	{
+		Collection<Field> methods = new HashSet<>();
+		Stack<Class<?>> interfaces = new Stack<>();
+		interfaces.push(clazz);
+
+		while (!interfaces.isEmpty())
+		{
+			Class<?> interfaze = interfaces.pop();
+			Collections.addAll(methods, interfaze.getDeclaredFields());
+			Collections.addAll(interfaces, interfaze.getInterfaces());
+		}
+
+		return methods;
+	}
+
+	/**
 	 * Does DFS on a class's interfaces to find all of its implemented methods.
 	 */
 	private Collection<Method> getAllDeclaredInterfaceMethods(Class<?> clazz)
 	{
 		Collection<Method> methods = new HashSet<>();
-		Stack<Class<?>> interfazes = new Stack<>();
-		interfazes.push(clazz);
+		Stack<Class<?>> interfaces = new Stack<>();
+		interfaces.push(clazz);
 
-		while (!interfazes.isEmpty())
+		while (!interfaces.isEmpty())
 		{
-			Class<?> interfaze = interfazes.pop();
+			Class<?> interfaze = interfaces.pop();
 			Collections.addAll(methods, interfaze.getDeclaredMethods());
-			Collections.addAll(interfazes, interfaze.getInterfaces());
+			Collections.addAll(interfaces, interfaze.getInterfaces());
 		}
 
 		return methods;
