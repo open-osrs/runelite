@@ -137,12 +137,6 @@ public class EventBus
 					}
 				}
 
-				final String preferredName = "on" + parameterClazz.getSimpleName();
-				if (!method.getName().equals(preferredName))
-				{
-					log.warn("Subscribed method {} should be named {}", method, preferredName);
-				}
-
 				method.setAccessible(true);
 				SubscriberMethod lambda = null;
 
