@@ -30,7 +30,7 @@ import com.sun.jna.platform.unix.LibC;
 
 interface RLLibC extends LibC
 {
-	RLLibC INSTANCE = Native.loadLibrary(NAME, RLLibC.class);
+	RLLibC INSTANCE = Native.load(NAME, RLLibC.class);
 
 	int AF_INET = 2;
 	int SOCK_DGRAM = 2;
@@ -40,7 +40,7 @@ interface RLLibC extends LibC
 
 	int socket(int domain, int type, int protocol);
 
-	void close(int socket);
+	int close(int socket);
 
 	int sendto(int sockfd, byte[] buf, int len, int flags, byte[] dest_addr, int addrlen);
 
