@@ -67,7 +67,7 @@ public class MultipleOfItemRequirement implements ItemRequirement
 	@Override
 	public String getCollectiveName(Client client)
 	{
-		ItemComposition definition = client.getItemDefinition(itemId);
+		ItemComposition definition = client.getItemComposition(itemId);
 
 		if (definition == null)
 		{
