@@ -401,7 +401,7 @@ public interface Client extends GameEngine
 	 * @see ItemID
 	 */
 	@Nonnull
-	ItemComposition getItemDefinition(int id);
+	ItemComposition getItemComposition(int id);
 
 	/**
 	 * Creates an item icon sprite with passed variables.

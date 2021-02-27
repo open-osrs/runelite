@@ -200,7 +200,7 @@ public class ItemManager
 				@Override
 				public ItemComposition load(Integer key) throws Exception
 				{
-					return client.getItemDefinition(key);
+					return client.getItemComposition(key);
 				}
 			});
 
