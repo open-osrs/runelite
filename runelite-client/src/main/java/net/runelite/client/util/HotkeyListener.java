@@ -91,4 +91,8 @@ public abstract class HotkeyListener implements KeyListener
 	public void hotkeyPressed()
 	{
 	}
+	
+	protected void hotkeyReleased()
+	{
+	}
 }
