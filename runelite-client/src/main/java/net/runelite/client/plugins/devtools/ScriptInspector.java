@@ -145,7 +145,7 @@ public class ScriptInspector extends JFrame
 		this.client = client;
 		this.configManager = configManager;
 
-		setTitle("RuneLite Script Inspector");
+		setTitle("OpenOSRS Script Inspector");
 		setIconImage(ClientUI.ICON);
 
 		setLayout(new BorderLayout());

@@ -112,7 +112,7 @@ class VarInspector extends JFrame
 		this.clientThread = clientThread;
 		this.eventBus = eventBus;
 
-		setTitle("RuneLite Var Inspector");
+		setTitle("OpenOSRS Var Inspector");
 		setIconImage(ClientUI.ICON);
 
 		setLayout(new BorderLayout());

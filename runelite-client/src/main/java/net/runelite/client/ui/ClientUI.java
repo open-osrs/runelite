@@ -581,9 +581,9 @@ public class ClientUI
 		if (client != null && !(client instanceof Client))
 		{
 			SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(frame,
-				"RuneLite has not yet been updated to work with the latest\n"
+				"OpenOSRS has not yet been updated to work with the latest\n"
 					+ "game update, it will work with reduced functionality until then.",
-				"RuneLite is outdated", INFORMATION_MESSAGE));
+				"OpenOSRS is outdated", INFORMATION_MESSAGE));
 		}
 	}
 
@@ -656,7 +656,7 @@ public class ClientUI
 				}
 			}
 			System.exit(0);
-		}, "RuneLite Shutdown").start();
+		}, "OpenOSRS Shutdown").start();
 	}
 
 	/**

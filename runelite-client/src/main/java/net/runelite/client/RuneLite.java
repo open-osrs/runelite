@@ -283,7 +283,7 @@ public class RuneLite
 
 			PROFILES_DIR.mkdirs();
 
-			log.info("RuneLite {} (launcher version {}) starting up, args: {}",
+			log.info("OpenOSRS {} (launcher version {}) starting up, args: {}",
 				RuneLiteProperties.getVersion(), RuneLiteProperties.getLauncherVersion() == null ? "unknown" : RuneLiteProperties.getLauncherVersion(),
 				args.length == 0 ? "none" : String.join(" ", args));
 
@@ -308,7 +308,7 @@ public class RuneLite
 		{
 			log.error("Failure during startup", e);
 			SwingUtilities.invokeLater(() ->
-				new FatalErrorDialog("RuneLite has encountered an unexpected error during startup.")
+				new FatalErrorDialog("OpenOSRS has encountered an unexpected error during startup.")
 					.open());
 		}
 		finally

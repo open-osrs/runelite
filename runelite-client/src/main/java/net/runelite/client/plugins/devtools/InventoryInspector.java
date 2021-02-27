@@ -89,7 +89,7 @@ class InventoryInspector extends JFrame
 		this.deltaPanel = new InventoryDeltaPanel(itemManager);
 
 		setLayout(new BorderLayout());
-		setTitle("RuneLite Inventory Inspector");
+		setTitle("OpenOSRS Inventory Inspector");
 		setIconImage(ClientUI.ICON);
 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
