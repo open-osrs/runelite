@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2019, whs
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,77 +22,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.util;
+package net.runelite.client.plugins.thieving;
 
-import java.awt.event.KeyEvent;
-import java.util.function.Supplier;
+import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import net.runelite.client.config.Keybind;
-import net.runelite.client.input.KeyListener;
+import net.runelite.api.coords.WorldPoint;
 
 @RequiredArgsConstructor
-public abstract class HotkeyListener implements KeyListener
+@Getter(AccessLevel.PACKAGE)
+class ChestRespawn
 {
-	private final Supplier<Keybind> keybind;
+	private final Chest chest;
+	private final WorldPoint worldPoint;
+	private final Instant endTime;
+	private final int world;
 
-	private boolean isPressed = false;
+	private long respawnTime = -1;
 
-	private boolean isConsumingTyped = false;
-
-	@Setter
-	private boolean enabledOnLoginScreen;
-
-	@Override
-	public boolean isEnabledOnLoginScreen()
+	long getRespawnTime()
 	{
-		return enabledOnLoginScreen;
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		if (isConsumingTyped)
+		if (respawnTime != -1)
 		{
-			e.consume();
+			return respawnTime;
 		}
-	}
 
-	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
-			boolean wasPressed = isPressed;
-			isPressed = true;
-			if (!wasPressed)
-			{
-				hotkeyPressed();
-			}
-			if (Keybind.getModifierForKeyCode(e.getKeyCode()) == null)
-			{
-				isConsumingTyped = true;
-				// Only consume non modifier keys
-				e.consume();
-			}
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		if (keybind.get().matches(e))
-		{
-			isPressed = false;
-			isConsumingTyped = false;
-		}
-	}
-
-	public void hotkeyPressed()
-	{
-	}
-	
-	protected void hotkeyReleased()
-	{
+		respawnTime = chest.getRespawnTime().toMillis();
+		return respawnTime;
 	}
 }

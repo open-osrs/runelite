@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2018 Abex
+ * Copyright (c) 2018, Joris K <kjorisje@gmail.com>
+ * Copyright (c) 2018, Lasse <cronick@zytex.dk>
+ * Copyright (c) 2019, ermalsh <github.com/ermalsh>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,77 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.util;
+package net.runelite.client.plugins.thieving;
 
-import java.awt.event.KeyEvent;
-import java.util.function.Supplier;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import net.runelite.client.config.Keybind;
-import net.runelite.client.input.KeyListener;
+import java.time.Instant;
+import lombok.AccessLevel;
+import lombok.Getter;
 
-@RequiredArgsConstructor
-public abstract class HotkeyListener implements KeyListener
+class ThievingSession
 {
-	private final Supplier<Keybind> keybind;
+	@Getter(AccessLevel.PACKAGE)
+	private Instant lastThievingAction;
+	@Getter(AccessLevel.PACKAGE)
+	private int successful;
+	@Getter(AccessLevel.PACKAGE)
+	private int failed;
 
-	private boolean isPressed = false;
-
-	private boolean isConsumingTyped = false;
-
-	@Setter
-	private boolean enabledOnLoginScreen;
-
-	@Override
-	public boolean isEnabledOnLoginScreen()
+	void updateLastThievingAction()
 	{
-		return enabledOnLoginScreen;
+		this.lastThievingAction = Instant.now();
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e)
+	void hasSucceeded()
 	{
-		if (isConsumingTyped)
-		{
-			e.consume();
-		}
+		this.successful++;
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e)
+	void hasFailed()
 	{
-		if (keybind.get().matches(e))
-		{
-			boolean wasPressed = isPressed;
-			isPressed = true;
-			if (!wasPressed)
-			{
-				hotkeyPressed();
-			}
-			if (Keybind.getModifierForKeyCode(e.getKeyCode()) == null)
-			{
-				isConsumingTyped = true;
-				// Only consume non modifier keys
-				e.consume();
-			}
-		}
+		this.failed++;
 	}
 
-	@Override
-	public void keyReleased(KeyEvent e)
+	double getSuccessRate()
 	{
-		if (keybind.get().matches(e))
-		{
-			isPressed = false;
-			isConsumingTyped = false;
-		}
-	}
-
-	public void hotkeyPressed()
-	{
-	}
-	
-	protected void hotkeyReleased()
-	{
+		return ((double) getFailed() / (getSuccessful() + getFailed())) * 100;
 	}
 }
