@@ -76,7 +76,7 @@ dependencies {
         exclude(group = "org.slf4j")
     }
     implementation(group = "org.pf4j", name = "pf4j-update", version = "2.3.0")
-    implementation(group = "com.google.archivepatcher", name = "archive-patch-applier", version= "1.0.4")
+    // implementation(group = "com.google.archivepatcher", name = "archive-patch-applier", version= "1.0.4")
     implementation(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20200429")
     implementation(group = "net.runelite.jogl", name = "jogl-all", version = "2.4.0-rc-20200429")
     implementation(group = "net.runelite.jocl", name = "jocl", version = "1.0")

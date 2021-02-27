@@ -26,7 +26,6 @@
  */
 package net.runelite.client.rs;
 
-import com.google.archivepatcher.applier.FileByFileV1DeltaApplier;
 import com.google.common.base.Strings;
 import com.google.common.hash.Hashing;
 import com.google.common.hash.HashingOutputStream;
@@ -389,6 +388,7 @@ public class ClientLoader implements Supplier<Applet>
 
 	private void applyPatch() throws IOException
 	{
+		/*
 		byte[] vanillaHash = new byte[64];
 		byte[] appliedPatchHash = new byte[64];
 
@@ -449,6 +449,7 @@ public class ClientLoader implements Supplier<Applet>
 			updateCheckMode = VANILLA;
 			return;
 		}
+		 */
 	}
 
 	private ClassLoader createJarClassLoader(File jar) throws IOException, ClassNotFoundException
