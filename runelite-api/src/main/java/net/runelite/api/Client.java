@@ -404,6 +404,16 @@ public interface Client extends GameEngine
 	ItemComposition getItemComposition(int id);
 
 	/**
+	 * Gets the item composition corresponding to an items ID.
+	 *
+	 * @param id the item ID
+	 * @return the corresponding item composition
+	 * @see ItemID
+	 */
+	@Nonnull
+	ItemComposition getItemDefinition(int id);
+
+	/**
 	 * Creates an item icon sprite with passed variables.
 	 *
 	 * @param itemId      the item ID
