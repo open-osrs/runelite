@@ -45,11 +45,14 @@ import java.util.Queue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.inject.Inject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
@@ -120,6 +123,7 @@ public class GroundItemsPlugin extends Plugin
 	private static final int FIFTH_OPTION = MenuAction.GROUND_ITEM_FIFTH_OPTION.getId();
 	private static final int EXAMINE_ITEM = MenuAction.EXAMINE_ITEM_GROUND.getId();
 	private static final int CAST_ON_ITEM = MenuAction.SPELL_CAST_ON_GROUND_ITEM.getId();
+	private static final int WALK = MenuAction.WALK.getId();
 
 	private static final String TELEGRAB_TEXT = ColorUtil.wrapWithColorTag("Telekinetic Grab", Color.GREEN) + ColorUtil.prependColorTag(" -> ", Color.WHITE);
 
@@ -316,11 +320,6 @@ public class GroundItemsPlugin extends Plugin
 	@Subscribe
 	public void onClientTick(ClientTick event)
 	{
-		if (!config.collapseEntries())
-		{
-			return;
-		}
-
 		final MenuEntry[] menuEntries = client.getMenuEntries();
 		final List<MenuEntryWithCount> newEntries = new ArrayList<>(menuEntries.length);
 
@@ -348,13 +347,43 @@ public class GroundItemsPlugin extends Plugin
 
 		Collections.reverse(newEntries);
 
+		newEntries.sort((a, b) -> {
+			int aMenuType = a.getEntry().getOpcode();
+			if (aMenuType == FIRST_OPTION || aMenuType == SECOND_OPTION || aMenuType == THIRD_OPTION || aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM || aMenuType == WALK) {
+				int bMenuType = b.getEntry().getOpcode();
+				if (bMenuType == FIRST_OPTION || bMenuType == SECOND_OPTION || bMenuType == THIRD_OPTION || bMenuType == FOURTH_OPTION || bMenuType == FIFTH_OPTION || bMenuType == EXAMINE_ITEM || bMenuType == WALK) {
+					MenuEntry aEntry = a.getEntry();
+					int aId = aEntry.getIdentifier();
+					int aQuantity = getCollapsedItemQuantity(aId, aEntry.getTarget());
+					boolean aHidden = isItemIdHidden(aId, aQuantity);
+					MenuEntry bEntry = b.getEntry();
+					int bId = bEntry.getIdentifier();
+					int bQuantity = getCollapsedItemQuantity(bId, bEntry.getTarget());
+					boolean bHidden = isItemIdHidden(bId, bQuantity);
+					if (config.rightClickHidden()) {
+						if (aHidden && bMenuType == WALK)
+							return -1;
+						if (bHidden && aMenuType == WALK)
+							return 1;
+					}
+					if (aHidden && !bHidden && bMenuType != WALK)
+						return -1;
+					if (bHidden && !aHidden && aMenuType != WALK)
+						return 1;
+					if (config.sortByGEPrice())
+						return getGePriceFromItemId(aId) * aQuantity - getGePriceFromItemId(bId) * bQuantity;
+				}
+			}
+			return 0;
+		});
+
 		client.setMenuEntries(newEntries.stream().map(e ->
 		{
 			final MenuEntry entry = e.getEntry();
-			final int count = e.getCount();
-			if (count > 1)
-			{
-				entry.setTarget(entry.getTarget() + " x " + count);
+			if (config.collapseEntries()) {
+				final int count = e.getCount();
+				if (count > 1)
+					entry.setTarget(entry.getTarget() + " x " + count);
 			}
 
 			return entry;
@@ -593,6 +622,35 @@ public class GroundItemsPlugin extends Plugin
 		return isExplicitHidden || (!isExplicitHighlight && canBeHidden && underGe && underHa)
 			? config.hiddenColor()
 			: null;
+	}
+
+
+	private int getGePriceFromItemId(int itemId) {
+		ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		int realItemId = (itemComposition.getNote() != -1) ? itemComposition.getLinkedNoteId() : itemId;
+		return itemManager.getItemPrice(realItemId);
+	}
+
+	private boolean isItemIdHidden(int itemId, int quantity) {
+		ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		int realItemId = (itemComposition.getNote() != -1) ? itemComposition.getLinkedNoteId() : itemId;
+		int alchPrice = itemManager.getAlchValue(itemComposition) * quantity;
+		int gePrice = itemManager.getItemPrice(realItemId) * quantity;
+		return (getHidden(new NamedQuantity(itemComposition.getName(), quantity), gePrice, alchPrice, itemComposition.isTradeable()) != null);
+	}
+
+	private int getCollapsedItemQuantity(int itemId, String item) {
+		ItemComposition itemComposition = itemManager.getItemComposition(itemId);
+		boolean itemNameIncludesQuantity = Pattern.compile("\\(\\d+\\)").matcher(itemComposition.getName()).find();
+		Matcher matcher = Pattern.compile("\\((\\d+)\\)").matcher(item);
+		int matches = 0;
+		String lastMatch = "1";
+		while (matcher.find()) {
+			if (!itemNameIncludesQuantity || matches >= 1)
+				lastMatch = matcher.group(1);
+			matches++;
+		}
+		return Integer.parseInt(lastMatch);
 	}
 
 	Color getItemColor(Color highlighted, Color hidden)

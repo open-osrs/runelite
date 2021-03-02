@@ -34,11 +34,8 @@ import java.awt.Rectangle;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.Perspective;
@@ -184,7 +181,12 @@ public class GroundItemsOverlay extends Overlay
 		final DespawnTimerMode groundItemTimers = config.groundItemTimers();
 		final boolean outline = config.textOutline();
 
-		for (GroundItem item : groundItemList)
+		List<GroundItem> groundItemListAsList = new ArrayList<>(groundItemList);
+		Comparator<GroundItem> compareByHaPrice = Comparator.comparingInt(GroundItem::getHaPrice);
+		Comparator<GroundItem> compareByGePrice = Comparator.comparingInt(GroundItem::getGePrice);
+		groundItemListAsList.sort(config.sortByGEPrice() ? compareByGePrice : compareByHaPrice);
+
+		for (GroundItem item : groundItemListAsList)
 		{
 			final LocalPoint groundPoint = LocalPoint.fromWorld(client, item.getLocation());
 
