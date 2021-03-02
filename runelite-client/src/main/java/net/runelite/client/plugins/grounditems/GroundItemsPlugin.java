@@ -52,7 +52,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Value;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.InventoryID;
@@ -349,9 +348,11 @@ public class GroundItemsPlugin extends Plugin
 
 		newEntries.sort((a, b) -> {
 			int aMenuType = a.getEntry().getOpcode();
-			if (aMenuType == FIRST_OPTION || aMenuType == SECOND_OPTION || aMenuType == THIRD_OPTION || aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM || aMenuType == WALK) {
+			if (aMenuType == FIRST_OPTION || aMenuType == SECOND_OPTION || aMenuType == THIRD_OPTION || aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM || aMenuType == WALK)
+			{
 				int bMenuType = b.getEntry().getOpcode();
-				if (bMenuType == FIRST_OPTION || bMenuType == SECOND_OPTION || bMenuType == THIRD_OPTION || bMenuType == FOURTH_OPTION || bMenuType == FIFTH_OPTION || bMenuType == EXAMINE_ITEM || bMenuType == WALK) {
+				if (bMenuType == FIRST_OPTION || bMenuType == SECOND_OPTION || bMenuType == THIRD_OPTION || bMenuType == FOURTH_OPTION || bMenuType == FIFTH_OPTION || bMenuType == EXAMINE_ITEM || bMenuType == WALK)
+				{
 					MenuEntry aEntry = a.getEntry();
 					int aId = aEntry.getIdentifier();
 					int aQuantity = getCollapsedItemQuantity(aId, aEntry.getTarget());
@@ -360,7 +361,8 @@ public class GroundItemsPlugin extends Plugin
 					int bId = bEntry.getIdentifier();
 					int bQuantity = getCollapsedItemQuantity(bId, bEntry.getTarget());
 					boolean bHidden = isItemIdHidden(bId, bQuantity);
-					if (config.rightClickHidden()) {
+					if (config.rightClickHidden())
+					{
 						if (aHidden && bMenuType == WALK)
 							return -1;
 						if (bHidden && aMenuType == WALK)
@@ -380,7 +382,8 @@ public class GroundItemsPlugin extends Plugin
 		client.setMenuEntries(newEntries.stream().map(e ->
 		{
 			final MenuEntry entry = e.getEntry();
-			if (config.collapseEntries()) {
+			if (config.collapseEntries())
+			{
 				final int count = e.getCount();
 				if (count > 1)
 					entry.setTarget(entry.getTarget() + " x " + count);
@@ -625,13 +628,15 @@ public class GroundItemsPlugin extends Plugin
 	}
 
 
-	private int getGePriceFromItemId(int itemId) {
+	private int getGePriceFromItemId(int itemId)
+	{
 		ItemComposition itemComposition = itemManager.getItemComposition(itemId);
 		int realItemId = (itemComposition.getNote() != -1) ? itemComposition.getLinkedNoteId() : itemId;
 		return itemManager.getItemPrice(realItemId);
 	}
 
-	private boolean isItemIdHidden(int itemId, int quantity) {
+	private boolean isItemIdHidden(int itemId, int quantity)
+	{
 		ItemComposition itemComposition = itemManager.getItemComposition(itemId);
 		int realItemId = (itemComposition.getNote() != -1) ? itemComposition.getLinkedNoteId() : itemId;
 		int alchPrice = itemManager.getAlchValue(itemComposition) * quantity;
@@ -639,13 +644,15 @@ public class GroundItemsPlugin extends Plugin
 		return (getHidden(new NamedQuantity(itemComposition.getName(), quantity), gePrice, alchPrice, itemComposition.isTradeable()) != null);
 	}
 
-	private int getCollapsedItemQuantity(int itemId, String item) {
+	private int getCollapsedItemQuantity(int itemId, String item)
+	{
 		ItemComposition itemComposition = itemManager.getItemComposition(itemId);
 		boolean itemNameIncludesQuantity = Pattern.compile("\\(\\d+\\)").matcher(itemComposition.getName()).find();
 		Matcher matcher = Pattern.compile("\\((\\d+)\\)").matcher(item);
 		int matches = 0;
 		String lastMatch = "1";
-		while (matcher.find()) {
+		while (matcher.find())
+		{
 			if (!itemNameIncludesQuantity || matches >= 1)
 				lastMatch = matcher.group(1);
 			matches++;
