@@ -421,7 +421,8 @@ public interface GroundItemsConfig extends Config
 			description = "Places hidden items below the 'Walk here' option, making it so that you need to right click to pick them up",
 			position = 31
 	)
-	default boolean rightClickHidden() {
+	default boolean rightClickHidden()
+	{
 		return false;
 	}
 
