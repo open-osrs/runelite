@@ -346,7 +346,8 @@ public class GroundItemsPlugin extends Plugin
 
 		Collections.reverse(newEntries);
 
-		newEntries.sort((a, b) -> {
+		newEntries.sort((a, b) ->
+		{
 			int aMenuType = a.getEntry().getOpcode();
 			if (aMenuType == FIRST_OPTION || aMenuType == SECOND_OPTION || aMenuType == THIRD_OPTION || aMenuType == FOURTH_OPTION || aMenuType == FIFTH_OPTION || aMenuType == EXAMINE_ITEM || aMenuType == WALK)
 			{
