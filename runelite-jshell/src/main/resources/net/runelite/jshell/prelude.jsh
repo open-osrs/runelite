@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,38 +23,46 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "OpenOSRS"
+import java.util.function.Consumer;
+import net.runelite.client.callback.ClientThread;
+import net.runelite.client.config.ConfigManager;
+import org.slf4j.Logger;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
+import java.util.*;
+import java.util.stream.*;
+import net.runelite.api.*;
+import net.runelite.api.coords.*;
+import net.runelite.api.events.*;
+import net.runelite.api.widgets.*;
+import net.runelite.client.events.*;
+import net.runelite.client.game.*;
+
+var $PANEL = net.runelite.jshell.ShellPanel.INSTANCE;
+Logger log = $PANEL.getShellLogger();
+
+static <T> T inject(Class<T> clazz)
+{
+	return $PANEL.inject(clazz);
 }
 
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
-    }
+static void cleanup(Runnable r)
+{
+	$PANEL.cleanup(r);
 }
-include(":cache")
-include(":deobfuscator")
-include(":http-api")
-include(":injection-annotations")
-include(":injector")
-include(":runelite-api")
-include(":runelite-client")
-include(":runelite-jshell")
-include(":runelite-mixins")
-include(":runelite-script-assembler-plugin")
-include(":runescape-api")
-include(":runescape-client")
-include(":wiki-scraper")
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+var $EVENT_BUS = inject(net.runelite.client.eventbus.EventBus.class);
+static <T> void subscribe(Class<T> eventType, Consumer<T> subscriber, float priority)
+{
+	var sub = $EVENT_BUS.register(eventType, subscriber, priority);
+	cleanup(() -> $EVENT_BUS.unregister(sub));
 }
+static <T> void subscribe(Class<T> eventType, Consumer<T> subscriber)
+{
+	var sub = $EVENT_BUS.register(eventType, subscriber, 0.f);
+	cleanup(() -> $EVENT_BUS.unregister(sub));
+}
+
+var client = inject(Client.class);
+var clientThread = inject(ClientThread.class);
+var configManager = inject(ConfigManager.class);
+

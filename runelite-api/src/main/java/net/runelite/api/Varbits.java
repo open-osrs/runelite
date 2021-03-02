@@ -395,10 +395,15 @@ public enum Varbits
 	MULTICOMBAT_AREA(4605),
 
 	/**
-	 * Kingdom Management
+	 * Kingdom of Miscellania Management
+	 * Kingdom Approval is represented as a 7-bit unsigned integer; 127 corresponds to 100% approval
 	 */
-	KINGDOM_FAVOR(72),
+	KINGDOM_APPROVAL(72),
 	KINGDOM_COFFER(74),
+
+	// TODO: Remove next major
+	@Deprecated
+	KINGDOM_FAVOR(72),
 
 	/**
 	 * The Hand in the Sand quest status

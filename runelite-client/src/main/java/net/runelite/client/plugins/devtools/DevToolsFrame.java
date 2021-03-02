@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,45 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.devtools;
 
-rootProject.name = "OpenOSRS"
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
+import lombok.AccessLevel;
+import lombok.Setter;
+import net.runelite.client.ui.ClientUI;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class DevToolsFrame extends JFrame
+{
+	@Setter(AccessLevel.PACKAGE)
+	protected DevToolsButton devToolsButton;
 
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
-    }
-}
-include(":cache")
-include(":deobfuscator")
-include(":http-api")
-include(":injection-annotations")
-include(":injector")
-include(":runelite-api")
-include(":runelite-client")
-include(":runelite-jshell")
-include(":runelite-mixins")
-include(":runelite-script-assembler-plugin")
-include(":runescape-api")
-include(":runescape-client")
-include(":wiki-scraper")
+	public DevToolsFrame()
+	{
+		setIconImage(ClientUI.ICON);
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter()
+		{
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				close();
+				devToolsButton.setActive(false);
+			}
+		});
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	public void open()
+	{
+		setVisible(true);
+		toFront();
+		repaint();
+	}
+
+	public void close()
+	{
+		setVisible(false);
+	}
 }

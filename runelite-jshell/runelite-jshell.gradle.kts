@@ -23,38 +23,16 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "OpenOSRS"
+description = "RuneLite JShell"
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+dependencies {
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.4")
 
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
-    }
-}
-include(":cache")
-include(":deobfuscator")
-include(":http-api")
-include(":injection-annotations")
-include(":injector")
-include(":runelite-api")
-include(":runelite-client")
-include(":runelite-jshell")
-include(":runelite-mixins")
-include(":runelite-script-assembler-plugin")
-include(":runescape-api")
-include(":runescape-client")
-include(":wiki-scraper")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.4")
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+    implementation(group = "com.google.code.findbugs", name = "jsr305", version = "3.0.2")
+    implementation(group = "com.google.inject", name = "guice", version = "4.1.0", classifier = "no_aop")
+    implementation(group = "com.fifesoft", name = "rsyntaxtextarea", version = "3.1.2")
+    implementation(group = "com.fifesoft", name = "autocomplete", version = "3.1.1")
+    implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.12")
 }

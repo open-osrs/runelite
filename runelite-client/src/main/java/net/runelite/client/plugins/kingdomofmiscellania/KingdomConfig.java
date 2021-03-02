@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2020, Brandt Hill <https://github.com/BrandtHill>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,56 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.kingdomofmiscellania;
 
-rootProject.name = "OpenOSRS"
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+import net.runelite.client.config.Range;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+@ConfigGroup(KingdomConfig.CONFIG_GROUP_NAME)
+public interface KingdomConfig extends Config
+{
+	String CONFIG_GROUP_NAME = "kingdomofmiscellania";
+	int MAX_COFFER = 7_500_000;
+	int MAX_APPROVAL_PERCENT = 100;
 
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
-    }
-}
-include(":cache")
-include(":deobfuscator")
-include(":http-api")
-include(":injection-annotations")
-include(":injector")
-include(":runelite-api")
-include(":runelite-client")
-include(":runelite-jshell")
-include(":runelite-mixins")
-include(":runelite-script-assembler-plugin")
-include(":runescape-api")
-include(":runescape-client")
-include(":wiki-scraper")
+	@ConfigItem(
+		position = 1,
+		keyName = "sendNotifications",
+		name = "Send Notifications",
+		description = "Send chat notifications upon login showing current estimated coffer and approval"
+	)
+	default boolean shouldSendNotifications()
+	{
+		return false;
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
+	@Range(
+		max = MAX_COFFER
+	)
+	@ConfigItem(
+		position = 2,
+		keyName = "cofferThreshold",
+		name = "Coffer Threshold",
+		description = "Send notifications if coffer is below this value"
+	)
+	default int getCofferThreshold()
+	{
+		return MAX_COFFER;
+	}
 
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	@Range(
+		max = MAX_APPROVAL_PERCENT
+	)
+	@ConfigItem(
+		position = 3,
+		keyName = "approvalThreshold",
+		name = "Approval Threshold",
+		description = "Send notifications if approval percentage is below this value"
+	)
+	default int getApprovalThreshold()
+	{
+		return MAX_APPROVAL_PERCENT;
+	}
 }

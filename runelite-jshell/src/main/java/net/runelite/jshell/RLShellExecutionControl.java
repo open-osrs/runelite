@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,39 +22,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.jshell;
 
-rootProject.name = "OpenOSRS"
+import java.util.Map;
+import jdk.jshell.execution.DirectExecutionControl;
+import jdk.jshell.spi.ExecutionControl;
+import jdk.jshell.spi.ExecutionControlProvider;
+import jdk.jshell.spi.ExecutionEnv;
 
-plugins {
-    id("com.gradle.enterprise").version("3.0")
-}
+public class RLShellExecutionControl extends DirectExecutionControl implements ExecutionControlProvider
+{
+	public RLShellExecutionControl()
+	{
+	}
 
-gradleEnterprise {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
-    }
-}
-include(":cache")
-include(":deobfuscator")
-include(":http-api")
-include(":injection-annotations")
-include(":injector")
-include(":runelite-api")
-include(":runelite-client")
-include(":runelite-jshell")
-include(":runelite-mixins")
-include(":runelite-script-assembler-plugin")
-include(":runescape-api")
-include(":runescape-client")
-include(":wiki-scraper")
+	@Override
+	public String name()
+	{
+		return getClass().getName();
+	}
 
-for (project in rootProject.children) {
-    project.apply {
-        projectDir = file(name)
-        buildFileName = "$name.gradle.kts"
-
-        require(projectDir.isDirectory) { "Project '${project.path} must have a $projectDir directory" }
-        require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
-    }
+	@Override
+	public ExecutionControl generate(ExecutionEnv env, Map<String, String> parameters) throws Throwable
+	{
+		return this;
+	}
 }

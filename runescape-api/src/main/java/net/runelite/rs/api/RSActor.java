@@ -167,17 +167,35 @@ public interface RSActor extends RSRenderable, Actor
 	@Override
 	int getWalkAnimation();
 
+	// TODO: Remove next major
+	@Deprecated
 	@Import("walkBackSequence")
 	@Override
 	int getWalkBackAnimation();
 
+	@Import("walkBackSequence")
+	@Override
+	int getWalkRotate180();
+
+	// TODO: Remove next major
+	@Deprecated
 	@Import("walkLeftSequence")
 	@Override
 	int getWalkLeftAnimation();
 
+	@Import("walkLeftSequence")
+	@Override
+	int getWalkRotateLeft();
+
+	// TODO: Remove next major
+	@Deprecated
 	@Import("walkRightSequence")
 	@Override
 	int getWalkRightAnimation();
+
+	@Import("walkRightSequence")
+	@Override
+	int getWalkRotateRight();
 
 	@Import("runSequence")
 	@Override
