@@ -1,38 +1,16 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iz")
+@ObfuscatedName("ir")
 public class class235 {
-	@ObfuscatedName("hb")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "[Llp;"
+		descriptor = "(Lig;Lig;I)V",
+		garbageValue = "-1015609755"
 	)
-	@Export("mapDotSprites")
-	static Sprite[] mapDotSprites;
-
-	@ObfuscatedName("ad")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "1"
-	)
-	@Export("runWidgetOnLoadListener")
-	static void runWidgetOnLoadListener(int var0) {
-		if (var0 != -1) { // L: 3836
-			if (WorldMapSprite.loadInterface(var0)) { // L: 3837
-				Widget[] var1 = Widget.Widget_interfaceComponents[var0]; // L: 3838
-
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 3839
-					Widget var3 = var1[var2]; // L: 3840
-					if (var3.onLoad != null) { // L: 3841
-						ScriptEvent var4 = new ScriptEvent(); // L: 3842
-						var4.widget = var3; // L: 3843
-						var4.args = var3.onLoad; // L: 3844
-						class280.runScript(var4, 5000000); // L: 3845
-					}
-				}
-
-			}
-		}
-	} // L: 3848
+	public static void method4331(AbstractArchive var0, AbstractArchive var1) {
+		KitDefinition.KitDefinition_archive = var0; // L: 27
+		KitDefinition.KitDefinition_modelsArchive = var1; // L: 28
+		KitDefinition.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3); // L: 29
+	} // L: 30
 }

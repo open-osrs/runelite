@@ -4,24 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iq")
+@ObfuscatedName("ij")
 @Implements("InvDefinition")
 public class InvDefinition extends DualNode {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lig;"
 	)
 	@Export("InvDefinition_archive")
 	static AbstractArchive InvDefinition_archive;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lel;"
+		descriptor = "Lex;"
 	)
 	@Export("InvDefinition_cached")
 	static EvictingDualNodeHashTable InvDefinition_cached;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1545647129
+		intValue = 2039181525
 	)
 	@Export("size")
 	public int size;
@@ -34,10 +34,10 @@ public class InvDefinition extends DualNode {
 		this.size = 0; // L: 12
 	} // L: 14
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;I)V",
-		garbageValue = "-1963217868"
+		descriptor = "(Lkx;B)V",
+		garbageValue = "-26"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -51,10 +51,10 @@ public class InvDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;II)V",
-		garbageValue = "-1931159207"
+		descriptor = "(Lkx;II)V",
+		garbageValue = "-667990593"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -64,27 +64,25 @@ public class InvDefinition extends DualNode {
 
 	} // L: 41
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lls;",
-		garbageValue = "-1532284396"
+		descriptor = "(IB)Lic;",
+		garbageValue = "63"
 	)
-	public static IndexedSprite method4448() {
-		IndexedSprite var0 = new IndexedSprite(); // L: 178
-		var0.width = class335.SpriteBuffer_spriteWidth; // L: 179
-		var0.height = class335.SpriteBuffer_spriteHeight; // L: 180
-		var0.xOffset = Username.SpriteBuffer_xOffsets[0]; // L: 181
-		var0.yOffset = class335.SpriteBuffer_yOffsets[0]; // L: 182
-		var0.subWidth = class335.SpriteBuffer_spriteWidths[0]; // L: 183
-		var0.subHeight = class335.SpriteBuffer_spriteHeights[0]; // L: 184
-		var0.palette = TaskHandler.SpriteBuffer_spritePalette; // L: 185
-		var0.pixels = class92.SpriteBuffer_pixels[0]; // L: 186
-		Username.SpriteBuffer_xOffsets = null; // L: 188
-		class335.SpriteBuffer_yOffsets = null; // L: 189
-		class335.SpriteBuffer_spriteWidths = null; // L: 190
-		class335.SpriteBuffer_spriteHeights = null; // L: 191
-		TaskHandler.SpriteBuffer_spritePalette = null; // L: 192
-		class92.SpriteBuffer_pixels = null; // L: 193
-		return var0; // L: 195
+	@Export("WorldMapElement_get")
+	public static WorldMapElement WorldMapElement_get(int var0) {
+		return var0 >= 0 && var0 < WorldMapElement.WorldMapElement_cached.length && WorldMapElement.WorldMapElement_cached[var0] != null ? WorldMapElement.WorldMapElement_cached[var0] : new WorldMapElement(var0); // L: 44 45
 	}
+
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "1853243794"
+	)
+	@Export("setLoginResponseString")
+	static void setLoginResponseString(String var0, String var1, String var2) {
+		Login.Login_response1 = var0; // L: 1447
+		Login.Login_response2 = var1; // L: 1448
+		Login.Login_response3 = var2; // L: 1449
+	} // L: 1450
 }

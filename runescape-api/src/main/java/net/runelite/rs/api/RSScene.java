@@ -1,5 +1,6 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.GameObject;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
 import net.runelite.mapping.Import;
@@ -44,5 +45,11 @@ public interface RSScene extends Scene
 	int getMinLevel();
 
 	@Import("newGroundItemPile")
-	void newGroundItemPile(int plane, int x, int y, int hash, RSEntity var5, long var6, RSEntity var7, RSEntity var8);
+	void newGroundItemPile(int plane, int x, int y, int hash, RSRenderable var5, long var6, RSRenderable var7, RSRenderable var8);
+
+	@Import("newGameObject")
+	boolean newGameObject(int plane, int startX, int startY, int var4, int var5, int centerX, int centerY, int height, RSRenderable entity, int orientation, boolean tmp, long tag, int flags);
+
+	@Import("removeGameObject")
+	void removeGameObject(GameObject gameObject);
 }

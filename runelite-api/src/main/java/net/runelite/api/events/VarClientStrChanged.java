@@ -32,7 +32,7 @@ import lombok.Value;
  * @see net.runelite.api.VarClientStr
  */
 @Value
-public class VarClientStrChanged implements Event
+public class VarClientStrChanged
 {
 	int index;
 }

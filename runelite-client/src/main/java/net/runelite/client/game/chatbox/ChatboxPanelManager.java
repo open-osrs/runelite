@@ -41,6 +41,7 @@ import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.input.MouseListener;
@@ -66,8 +67,8 @@ public class ChatboxPanelManager
 
 	@Inject
 	private ChatboxPanelManager(EventBus eventBus, Client client, ClientThread clientThread,
-								KeyManager keyManager, MouseManager mouseManager,
-								Provider<ChatboxTextMenuInput> chatboxTextMenuInputProvider, Provider<ChatboxTextInput> chatboxTextInputProvider)
+		KeyManager keyManager, MouseManager mouseManager,
+		Provider<ChatboxTextMenuInput> chatboxTextMenuInputProvider, Provider<ChatboxTextInput> chatboxTextInputProvider)
 	{
 		this.client = client;
 		this.clientThread = clientThread;
@@ -79,9 +80,7 @@ public class ChatboxPanelManager
 		this.chatboxTextMenuInputProvider = chatboxTextMenuInputProvider;
 		this.chatboxTextInputProvider = chatboxTextInputProvider;
 
-
-		eventBus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
-		eventBus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
+		eventBus.register(this);
 	}
 
 	public void close()
@@ -106,7 +105,7 @@ public class ChatboxPanelManager
 	{
 		client.runScript(ScriptID.MESSAGE_LAYER_OPEN, 0);
 
-		// eventBus.register(input);
+		eventBus.register(input);
 		if (input instanceof KeyListener)
 		{
 			keyManager.registerKeyListener((KeyListener) input);
@@ -153,7 +152,8 @@ public class ChatboxPanelManager
 			.prompt(prompt);
 	}
 
-	private void onScriptCallbackEvent(ScriptCallbackEvent ev)
+	@Subscribe
+	public void onScriptCallbackEvent(ScriptCallbackEvent ev)
 	{
 		if (currentInput != null && "resetChatboxInput".equals(ev.getEventName()))
 		{
@@ -161,6 +161,7 @@ public class ChatboxPanelManager
 		}
 	}
 
+	@Subscribe
 	private void onGameStateChanged(GameStateChanged ev)
 	{
 		if (currentInput != null && ev.getGameState() == GameState.LOGIN_SCREEN)

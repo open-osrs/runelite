@@ -2,47 +2,35 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bo")
+@ObfuscatedName("bb")
 @Implements("MouseRecorder")
 public class MouseRecorder implements Runnable {
-	@ObfuscatedName("rc")
+	@ObfuscatedName("em")
 	@ObfuscatedGetter(
-		intValue = 829134311
+		intValue = -1626344665
 	)
-	static int field609;
-	@ObfuscatedName("eu")
-	@ObfuscatedSignature(
-		descriptor = "Liw;"
-	)
-	@Export("archive18")
-	static Archive archive18;
-	@ObfuscatedName("fc")
-	@ObfuscatedSignature(
-		descriptor = "Lfl;"
-	)
-	@Export("socketTask")
-	static Task socketTask;
-	@ObfuscatedName("z")
+	@Export("port1")
+	static int port1;
+	@ObfuscatedName("n")
 	@Export("isRunning")
 	boolean isRunning;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@Export("lock")
 	Object lock;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -587598223
+		intValue = 1370756697
 	)
 	@Export("index")
 	int index;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("xs")
 	int[] xs;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@Export("ys")
 	int[] ys;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@Export("millis")
 	long[] millis;
 
@@ -56,7 +44,7 @@ public class MouseRecorder implements Runnable {
 	} // L: 14
 
 	public void run() {
-		for (; this.isRunning; class227.sleepExact(50L)) { // L: 17 26
+		for (; this.isRunning; ApproximateRouteStrategy.sleepExact(50L)) { // L: 17 26
 			synchronized(this.lock) { // L: 18
 				if (this.index < 500) { // L: 19
 					this.xs[this.index] = MouseHandler.MouseHandler_x; // L: 20
@@ -68,50 +56,4 @@ public class MouseRecorder implements Runnable {
 		}
 
 	} // L: 28
-
-	@ObfuscatedName("id")
-	@ObfuscatedSignature(
-		descriptor = "(Lhq;IIZS)V",
-		garbageValue = "338"
-	)
-	@Export("alignWidgetSize")
-	static void alignWidgetSize(Widget var0, int var1, int var2, boolean var3) {
-		int var4 = var0.width; // L: 9242
-		int var5 = var0.height; // L: 9243
-		if (var0.widthAlignment == 0) { // L: 9244
-			var0.width = var0.rawWidth;
-		} else if (var0.widthAlignment == 1) { // L: 9245
-			var0.width = var1 - var0.rawWidth;
-		} else if (var0.widthAlignment == 2) { // L: 9246
-			var0.width = var0.rawWidth * var1 >> 14;
-		}
-
-		if (var0.heightAlignment == 0) { // L: 9247
-			var0.height = var0.rawHeight;
-		} else if (var0.heightAlignment == 1) { // L: 9248
-			var0.height = var2 - var0.rawHeight;
-		} else if (var0.heightAlignment == 2) {
-			var0.height = var2 * var0.rawHeight >> 14; // L: 9249
-		}
-
-		if (var0.widthAlignment == 4) { // L: 9250
-			var0.width = var0.height * var0.field2622 / var0.field2623;
-		}
-
-		if (var0.heightAlignment == 4) { // L: 9251
-			var0.height = var0.field2623 * var0.width / var0.field2622;
-		}
-
-		if (var0.contentType == 1337) { // L: 9252
-			Client.viewportWidget = var0;
-		}
-
-		if (var3 && var0.onResize != null && (var4 != var0.width || var5 != var0.height)) { // L: 9253
-			ScriptEvent var6 = new ScriptEvent(); // L: 9254
-			var6.widget = var0; // L: 9255
-			var6.args = var0.onResize; // L: 9256
-			Client.scriptEvents.addFirst(var6); // L: 9257
-		}
-
-	} // L: 9259
 }

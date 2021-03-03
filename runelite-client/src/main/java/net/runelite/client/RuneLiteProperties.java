@@ -24,37 +24,35 @@
  */
 package net.runelite.client;
 
-import com.google.common.base.Strings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.annotation.Nullable;
+import lombok.AccessLevel;
+import lombok.Getter;
+import okhttp3.HttpUrl;
 
 public class RuneLiteProperties
 {
-	private static final String RUNELITE_TITLE = "open.osrs.title";
+	private static final String RUNELITE_TITLE = "runelite.title";
 	private static final String RUNELITE_VERSION = "runelite.version";
-	private static final String RUNELITE_PLUS_VERSION = "open.osrs.version";
-	private static final String RUNELITE_PLUS_DATE = "open.osrs.builddate";
-	private static final String RUNESCAPE_VERSION = "runescape.version";
-	private static final String DISCORD_APP_ID = "open.osrs.discord.appid";
 	private static final String DISCORD_INVITE = "runelite.discord.invite";
-	private static final String GITHUB_LINK = "runelite.github.link";
-	private static final String WIKI_LINK = "runelite.wiki.link";
-	private static final String PATREON_LINK = "runelite.patreon.link";
-	private static final String LAUNCHER_VERSION_PROPERTY = "launcher.version";
-	private static final String PLUGIN_PATH = "plugin.path";
-	private static final String PLUGIN_DEVELOPMENT_PATH = "plugin.development.path";
+	private static final String LAUNCHER_VERSION_PROPERTY = "runelite.launcher.version";
+	private static final String INSECURE_SKIP_TLS_VERIFICATION_PROPERTY = "runelite.insecure-skip-tls-verification";
 	private static final String TROUBLESHOOTING_LINK = "runelite.wiki.troubleshooting.link";
 	private static final String BUILDING_LINK = "runelite.wiki.building.link";
 	private static final String DNS_CHANGE_LINK = "runelite.dnschange.link";
-	private static final String IMGUR_CLIENT_ID = "runelite.imgur.client.id";
+	private static final String JAV_CONFIG = "runelite.jav_config";
+	private static final String JAV_CONFIG_BACKUP = "runelite.jav_config_backup";
+	private static final String PLUGINHUB_BASE = "runelite.pluginhub.url";
+	private static final String PLUGINHUB_VERSION = "runelite.pluginhub.version";
 
+	@Getter(AccessLevel.PACKAGE)
 	private static final Properties properties = new Properties();
 
 	static
 	{
-		try (InputStream in = RuneLiteProperties.class.getResourceAsStream("open.osrs.properties"))
+		try (InputStream in = RuneLiteProperties.class.getResourceAsStream("runelite.properties"))
 		{
 			properties.load(in);
 		}
@@ -80,44 +78,20 @@ public class RuneLiteProperties
 		return properties.getProperty(RUNELITE_VERSION);
 	}
 
-	public static String getPlusVersion()
-	{
-		return properties.getProperty(RUNELITE_PLUS_VERSION);
-	}
-
-	public static String getPlusDate()
-	{
-		return properties.getProperty(RUNELITE_PLUS_DATE);
-	}
-
-	public static String getRunescapeVersion()
-	{
-		return properties.getProperty(RUNESCAPE_VERSION);
-	}
-
-	public static String getDiscordAppId()
-	{
-		return properties.getProperty(DISCORD_APP_ID);
-	}
-
 	public static String getDiscordInvite()
 	{
 		return properties.getProperty(DISCORD_INVITE);
 	}
 
-	public static String getGithubLink()
+	@Nullable
+	public static String getLauncherVersion()
 	{
-		return properties.getProperty(GITHUB_LINK);
+		return System.getProperty(LAUNCHER_VERSION_PROPERTY);
 	}
 
-	public static String getWikiLink()
+	public static boolean isInsecureSkipTlsVerification()
 	{
-		return properties.getProperty(WIKI_LINK);
-	}
-
-	public static String getPatreonLink()
-	{
-		return properties.getProperty(PATREON_LINK);
+		return Boolean.getBoolean(INSECURE_SKIP_TLS_VERIFICATION_PROPERTY);
 	}
 
 	public static String getTroubleshootingLink()
@@ -135,35 +109,19 @@ public class RuneLiteProperties
 		return properties.getProperty(DNS_CHANGE_LINK);
 	}
 
-	@Nullable
-	public static String getLauncherVersion()
+	public static String getJavConfig()
 	{
-		return System.getProperty(LAUNCHER_VERSION_PROPERTY);
+		return properties.getProperty(JAV_CONFIG);
 	}
 
-	@Nullable
-	public static String getPluginPath()
+	public static String getJavConfigBackup()
 	{
-		String pluginPath = properties.getProperty(PLUGIN_PATH);
-		return pluginPath.equals("") ? null : pluginPath;
+		return properties.getProperty(JAV_CONFIG_BACKUP);
 	}
 
-	public static String[] getPluginDevelopmentPath()
+	public static HttpUrl getPluginHubBase()
 	{
-		// First check if property supplied as environment variable PLUGIN_DEVELOPMENT_PATHS
-		String developmentPluginPaths = System.getenv(PLUGIN_DEVELOPMENT_PATH.replace('.', '_').toUpperCase());
-
-		if (Strings.isNullOrEmpty(developmentPluginPaths))
-		{
-			// Otherwise check the property file
-			developmentPluginPaths = properties.getProperty(PLUGIN_DEVELOPMENT_PATH);
-		}
-
-		return Strings.isNullOrEmpty(developmentPluginPaths) ? new String[0] : developmentPluginPaths.split(";");
-	}
-
-	public static String getImgurClientId()
-	{
-		return properties.getProperty(IMGUR_CLIENT_ID);
+		String version = System.getProperty(PLUGINHUB_VERSION, properties.getProperty(PLUGINHUB_VERSION));
+		return HttpUrl.parse(properties.get(PLUGINHUB_BASE) + "/" + version);
 	}
 }

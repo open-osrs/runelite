@@ -45,6 +45,7 @@ public class MultiplexingPluginPanel extends PluginPanel
 	{
 		for (int i = getComponentCount() - 1; i > 0; i--)
 		{
+			onRemove((PluginPanel) getComponent(i));
 			remove(i);
 		}
 	}
@@ -80,6 +81,7 @@ public class MultiplexingPluginPanel extends PluginPanel
 		else
 		{
 			add(subpanel, name);
+			onAdd(subpanel);
 		}
 
 		layout.show(this, name);
@@ -103,8 +105,17 @@ public class MultiplexingPluginPanel extends PluginPanel
 			current = subpanel;
 		}
 		layout.show(this, System.identityHashCode(subpanel) + "");
+		onRemove((PluginPanel) getComponent(count - 1));
 		remove(count - 1);
 		revalidate();
+	}
+
+	protected void onAdd(PluginPanel p)
+	{
+	}
+
+	protected void onRemove(PluginPanel p)
+	{
 	}
 
 	@Override

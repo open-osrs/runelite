@@ -49,7 +49,7 @@ public class JarUtil
 {
 	private static final Logger logger = LoggerFactory.getLogger(JarUtil.class);
 
-	public static ClassGroup loadJar(File jarfile) throws IOException
+	public static ClassGroup load(File jarfile)
 	{
 		ClassGroup group = new ClassGroup();
 
@@ -73,6 +73,10 @@ public class JarUtil
 
 				group.addClass(cv.getClassFile());
 			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 
 		group.initialize();
@@ -115,7 +119,7 @@ public class JarUtil
 		return group;
 	}
 
-	public static void saveJar(ClassGroup group, File jarfile) throws IOException
+	public static void save(ClassGroup group, File jarfile)
 	{
 		try (JarOutputStream jout = new JarOutputStream(new FileOutputStream(jarfile)))
 		{
@@ -130,6 +134,10 @@ public class JarUtil
 				jout.write(data);
 				jout.closeEntry();
 			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 	}
 

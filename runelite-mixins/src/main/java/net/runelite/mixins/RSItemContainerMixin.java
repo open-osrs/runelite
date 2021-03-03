@@ -138,13 +138,13 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 			if (changedContainer != null)
 			{
 				ItemContainerChanged event = new ItemContainerChanged(containerId, changedContainer);
-				client.getCallbacks().postDeferred(ItemContainerChanged.class, event);
+				client.getCallbacks().postDeferred(event);
 			}
 			
 			if (changedContainerInvOther != null)
 			{
 				ItemContainerChanged event = new ItemContainerChanged(containerId | 0x8000, changedContainerInvOther);
-				client.getCallbacks().postDeferred(ItemContainerChanged.class, event);
+				client.getCallbacks().postDeferred(event);
 			}
 		}
 	}

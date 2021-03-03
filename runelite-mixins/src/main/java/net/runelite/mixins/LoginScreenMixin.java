@@ -25,7 +25,7 @@
 package net.runelite.mixins;
 
 import net.runelite.api.GameState;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -42,7 +42,7 @@ public abstract class LoginScreenMixin implements RSClient
 	private static boolean shouldRenderLoginScreenFire = true;
 
 	@Inject
-	private static Sprite loginScreenBackground;
+	private static SpritePixels loginScreenBackground;
 
 	@Inject
 	public void setShouldRenderLoginScreenFire(boolean shouldRender)
@@ -57,7 +57,7 @@ public abstract class LoginScreenMixin implements RSClient
 	}
 
 	@Inject
-	public void setLoginScreen(Sprite background)
+	public void setLoginScreen(SpritePixels background)
 	{
 		assert client.isClientThread() : "setLoginScreen must be called on client thread";
 
@@ -80,7 +80,7 @@ public abstract class LoginScreenMixin implements RSClient
 	@FieldHook("leftTitleSprite")
 	static void setLeftTitleSprite(int idx)
 	{
-		Sprite loginscreen = loginScreenBackground;
+		SpritePixels loginscreen = loginScreenBackground;
 
 		if (loginscreen != null)
 		{
@@ -92,11 +92,11 @@ public abstract class LoginScreenMixin implements RSClient
 	@FieldHook("rightTitleSprite")
 	static void setRightTitleSprite(int idx)
 	{
-		Sprite loginscreen = loginScreenBackground;
+		SpritePixels loginscreen = loginScreenBackground;
 
 		if (loginscreen != null && loginscreen.getWidth() > 383)
 		{
-			client.setRightTitleSprite(client.createSprite(new int[]{loginscreen.getPixels()[383]}, 1, 1));
+			client.setRightTitleSprite(client.createSpritePixels(new int[]{loginscreen.getPixels()[383]}, 1, 1));
 		}
 	}
 }

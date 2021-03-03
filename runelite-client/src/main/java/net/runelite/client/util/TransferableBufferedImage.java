@@ -32,7 +32,6 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
 
 @AllArgsConstructor
 class TransferableBufferedImage implements Transferable
@@ -40,7 +39,6 @@ class TransferableBufferedImage implements Transferable
 	@NonNull
 	private final BufferedImage image;
 
-	@NotNull
 	@Override
 	public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException
 	{

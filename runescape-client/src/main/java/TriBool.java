@@ -3,33 +3,30 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("km")
+@ObfuscatedName("ka")
 @Implements("TriBool")
 public class TriBool {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lka;"
 	)
 	@Export("TriBool_unknown")
 	public static final TriBool TriBool_unknown;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lka;"
 	)
 	@Export("TriBool_true")
 	public static final TriBool TriBool_true;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lka;"
 	)
 	@Export("TriBool_false")
 	public static final TriBool TriBool_false;
-	@ObfuscatedName("lj")
-	@ObfuscatedSignature(
-		descriptor = "Lhq;"
-	)
-	@Export("mousedOverWidgetIf1")
-	static Widget mousedOverWidgetIf1;
+	@ObfuscatedName("z")
+	@Export("ByteArrayPool_alternativeSizes")
+	static int[] ByteArrayPool_alternativeSizes;
 
 	static {
 		TriBool_unknown = new TriBool(); // L: 4
@@ -39,4 +36,13 @@ public class TriBool {
 
 	TriBool() {
 	} // L: 8
+
+	@ObfuscatedName("kx")
+	@ObfuscatedSignature(
+		descriptor = "(B)Z",
+		garbageValue = "-107"
+	)
+	public static boolean method5372() {
+		return Client.staffModLevel >= 2; // L: 11616
+	}
 }

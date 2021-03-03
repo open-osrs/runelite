@@ -1,67 +1,59 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kz")
+@ObfuscatedName("kq")
 @Implements("FontName")
 public class FontName {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Lkq;"
 	)
 	@Export("FontName_plain11")
 	public static final FontName FontName_plain11;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Lkq;"
 	)
 	@Export("FontName_plain12")
 	public static final FontName FontName_plain12;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Lkq;"
 	)
 	@Export("FontName_bold12")
 	public static final FontName FontName_bold12;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Lkq;"
 	)
 	@Export("FontName_verdana11")
 	public static final FontName FontName_verdana11;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Lkq;"
 	)
 	@Export("FontName_verdana13")
 	public static final FontName FontName_verdana13;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Lkq;"
 	)
 	@Export("FontName_verdana15")
 	public static final FontName FontName_verdana15;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = 334630663
-	)
-	@Export("clientTickTimeIdx")
-	static int clientTickTimeIdx;
-	@ObfuscatedName("eo")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Lig;"
 	)
-	@Export("archive20")
-	static Archive archive20;
-	@ObfuscatedName("gg")
+	@Export("Widget_archive")
+	public static AbstractArchive Widget_archive;
+	@ObfuscatedName("br")
 	@ObfuscatedSignature(
-		descriptor = "Llp;"
+		descriptor = "Lim;"
 	)
-	@Export("redHintArrowSprite")
-	static Sprite redHintArrowSprite;
-	@ObfuscatedName("x")
+	static StudioGame field3699;
+	@ObfuscatedName("z")
 	@Export("name")
 	String name;
 
@@ -75,59 +67,26 @@ public class FontName {
 	}
 
 	FontName(String var1) {
-		this.name = var1; // L: 20
-	} // L: 21
+		this.name = var1; // L: 16
+	} // L: 17
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lkz;",
-		garbageValue = "1417653903"
+		descriptor = "(II)I",
+		garbageValue = "-1321910935"
 	)
-	public static FontName[] method5439() {
-		return new FontName[]{FontName_verdana13, FontName_verdana15, FontName_verdana11, FontName_plain12, FontName_plain11, FontName_bold12}; // L: 16
+	@Export("getVarbit")
+	public static int getVarbit(int var0) {
+		VarbitComposition var1 = Tiles.method1219(var0); // L: 24
+		int var2 = var1.baseVar; // L: 25
+		int var3 = var1.startBit; // L: 26
+		int var4 = var1.endBit; // L: 27
+		int var5 = Varps.Varps_masks[var4 - var3]; // L: 28
+		return Varps.Varps_main[var2] >> var3 & var5; // L: 29
 	}
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;II)Z",
-		garbageValue = "-1097380872"
-	)
-	static boolean method5444(String var0, int var1) {
-		return WorldMapIcon_1.method380(var0, var1, "openjs"); // L: 57
+	@ObfuscatedName("e")
+	public static int method5502(long var0) {
+		return (int)(var0 >>> 14 & 3L); // L: 72
 	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
-		garbageValue = "1161805725"
-	)
-	public static String method5445(CharSequence var0) {
-		return ScriptEvent.method1236('*', var0.length()); // L: 179
-	}
-
-	@ObfuscatedName("fo")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1773491987"
-	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field890 = 0L; // L: 3866
-		if (var0 >= 2) { // L: 3867
-			Client.isResizable = true;
-		} else {
-			Client.isResizable = false; // L: 3868
-		}
-
-		if (class39.getWindowedMode() == 1) { // L: 3869
-			class2.client.setMaxCanvasSize(765, 503); // L: 3870
-		} else {
-			class2.client.setMaxCanvasSize(7680, 2160); // L: 3873
-		}
-
-		if (Client.gameState >= 25) { // L: 3875
-			GrandExchangeEvent.method160();
-		}
-
-	} // L: 3876
 }

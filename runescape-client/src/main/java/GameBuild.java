@@ -3,44 +3,43 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ij")
+@ObfuscatedName("iu")
 @Implements("GameBuild")
 public class GameBuild {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lij;"
+		descriptor = "Liu;"
 	)
 	@Export("LIVE")
 	static final GameBuild LIVE;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lij;"
+		descriptor = "Liu;"
 	)
 	@Export("BUILDLIVE")
 	static final GameBuild BUILDLIVE;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lij;"
+		descriptor = "Liu;"
 	)
 	@Export("RC")
 	static final GameBuild RC;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lij;"
+		descriptor = "Liu;"
 	)
 	@Export("WIP")
 	static final GameBuild WIP;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@Export("name")
 	public final String name;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1493317811
+		intValue = 627083657
 	)
 	@Export("buildId")
-	final int buildId;
+	public final int buildId;
 
 	static {
 		LIVE = new GameBuild("LIVE", 0); // L: 5
@@ -54,200 +53,177 @@ public class GameBuild {
 		this.buildId = var2; // L: 18
 	} // L: 19
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("gf")
 	@ObfuscatedSignature(
-		descriptor = "(Lic;III)[Llp;",
-		garbageValue = "-1533970303"
+		descriptor = "(II)V",
+		garbageValue = "1767980909"
 	)
-	public static Sprite[] method4214(AbstractArchive var0, int var1, int var2) {
-		byte[] var4 = var0.takeFile(var1, var2); // L: 55
-		boolean var3;
-		if (var4 == null) { // L: 56
-			var3 = false; // L: 57
+	@Export("setWindowedMode")
+	static void setWindowedMode(int var0) {
+		Client.field938 = 0L; // L: 3811
+		if (var0 >= 2) { // L: 3812
+			Client.isResizable = true;
 		} else {
-			Occluder.SpriteBuffer_decode(var4); // L: 60
-			var3 = true; // L: 61
+			Client.isResizable = false; // L: 3813
 		}
 
-		if (!var3) { // L: 63
-			return null;
+		if (BoundaryObject.getWindowedMode() == 1) { // L: 3814
+			class1.client.setMaxCanvasSize(765, 503); // L: 3815
 		} else {
-			Sprite[] var5 = new Sprite[class335.SpriteBuffer_spriteCount]; // L: 66
-
-			for (int var6 = 0; var6 < class335.SpriteBuffer_spriteCount; ++var6) { // L: 67
-				Sprite var7 = var5[var6] = new Sprite(); // L: 68
-				var7.width = class335.SpriteBuffer_spriteWidth; // L: 69
-				var7.height = class335.SpriteBuffer_spriteHeight; // L: 70
-				var7.xOffset = Username.SpriteBuffer_xOffsets[var6]; // L: 71
-				var7.yOffset = class335.SpriteBuffer_yOffsets[var6]; // L: 72
-				var7.subWidth = class335.SpriteBuffer_spriteWidths[var6]; // L: 73
-				var7.subHeight = class335.SpriteBuffer_spriteHeights[var6]; // L: 74
-				int var8 = var7.subWidth * var7.subHeight; // L: 75
-				byte[] var9 = class92.SpriteBuffer_pixels[var6]; // L: 76
-				var7.pixels = new int[var8]; // L: 77
-
-				for (int var10 = 0; var10 < var8; ++var10) { // L: 78
-					var7.pixels[var10] = TaskHandler.SpriteBuffer_spritePalette[var9[var10] & 255];
-				}
-			}
-
-			Username.SpriteBuffer_xOffsets = null; // L: 81
-			class335.SpriteBuffer_yOffsets = null; // L: 82
-			class335.SpriteBuffer_spriteWidths = null; // L: 83
-			class335.SpriteBuffer_spriteHeights = null; // L: 84
-			TaskHandler.SpriteBuffer_spritePalette = null; // L: 85
-			class92.SpriteBuffer_pixels = null; // L: 86
-			return var5; // L: 90
+			class1.client.setMaxCanvasSize(7680, 2160); // L: 3818
 		}
+
+		if (Client.gameState >= 25) { // L: 3820
+			PacketBufferNode var1 = WorldMapSprite.getPacketBufferNode(ClientPacket.field2290, Client.packetWriter.isaacCipher); // L: 3822
+			var1.packetBuffer.writeByte(BoundaryObject.getWindowedMode()); // L: 3823
+			var1.packetBuffer.writeShort(GrandExchangeOfferTotalQuantityComparator.canvasWidth); // L: 3824
+			var1.packetBuffer.writeShort(class25.canvasHeight); // L: 3825
+			Client.packetWriter.addNode(var1); // L: 3826
+		}
+
+	} // L: 3828
+
+	@ObfuscatedName("gp")
+	@ObfuscatedSignature(
+		descriptor = "(B)Z",
+		garbageValue = "44"
+	)
+	static boolean method4350() {
+		return (Client.drawPlayerNames & 4) != 0; // L: 4418
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("ig")
 	@ObfuscatedSignature(
-		descriptor = "(ILcy;ZI)I",
-		garbageValue = "-1136402672"
+		descriptor = "(Ljy;IIII)V",
+		garbageValue = "2014518085"
 	)
-	static int method4218(int var0, Script var1, boolean var2) {
-		int var3 = -1; // L: 497
-		Widget var4;
-		if (var0 >= 2000) { // L: 499
-			var0 -= 1000; // L: 500
-			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 501
-			var4 = TileItem.getWidget(var3); // L: 502
-		} else {
-			var4 = var2 ? Canvas.field438 : class3.field12; // L: 504
-		}
-
-		if (var0 == ScriptOpcodes.CC_SETPOSITION) { // L: 505
-			Interpreter.Interpreter_intStackSize -= 4; // L: 506
-			var4.rawX = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 507
-			var4.rawY = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 508
-			var4.xAlignment = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 2]; // L: 509
-			var4.yAlignment = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 3]; // L: 510
-			class52.invalidateWidget(var4); // L: 511
-			class2.client.alignWidget(var4); // L: 512
-			if (var3 != -1 && var4.type == 0) { // L: 513
-				class4.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
+	@Export("addNpcToMenu")
+	static final void addNpcToMenu(NPCComposition var0, int var1, int var2, int var3) {
+		if (Client.menuOptionsCount < 400) { // L: 9186
+			if (var0.transforms != null) { // L: 9187
+				var0 = var0.transform();
 			}
 
-			return 1; // L: 514
-		} else if (var0 == ScriptOpcodes.CC_SETSIZE) { // L: 516
-			Interpreter.Interpreter_intStackSize -= 4; // L: 517
-			var4.rawWidth = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 518
-			var4.rawHeight = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 519
-			var4.widthAlignment = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 2]; // L: 520
-			var4.heightAlignment = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 3]; // L: 521
-			class52.invalidateWidget(var4); // L: 522
-			class2.client.alignWidget(var4); // L: 523
-			if (var3 != -1 && var4.type == 0) { // L: 524
-				class4.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var3 >> 16], var4, false);
-			}
+			if (var0 != null) { // L: 9188
+				if (var0.isInteractable) { // L: 9189
+					if (!var0.isFollower || Client.followerIndex == var1) { // L: 9190
+						String var4 = var0.name; // L: 9191
+						int var7;
+						int var8;
+						if (var0.combatLevel != 0) { // L: 9192
+							var7 = var0.combatLevel; // L: 9195
+							var8 = UserComparator9.localPlayer.combatLevel; // L: 9196
+							int var9 = var8 - var7; // L: 9198
+							String var6;
+							if (var9 < -9) { // L: 9199
+								var6 = FileSystem.colorStartTag(16711680); // L: 9200
+							} else if (var9 < -6) { // L: 9203
+								var6 = FileSystem.colorStartTag(16723968); // L: 9204
+							} else if (var9 < -3) { // L: 9207
+								var6 = FileSystem.colorStartTag(16740352); // L: 9208
+							} else if (var9 < 0) { // L: 9211
+								var6 = FileSystem.colorStartTag(16756736); // L: 9212
+							} else if (var9 > 9) { // L: 9215
+								var6 = FileSystem.colorStartTag(65280); // L: 9216
+							} else if (var9 > 6) { // L: 9219
+								var6 = FileSystem.colorStartTag(4259584); // L: 9220
+							} else if (var9 > 3) { // L: 9223
+								var6 = FileSystem.colorStartTag(8453888); // L: 9224
+							} else if (var9 > 0) { // L: 9227
+								var6 = FileSystem.colorStartTag(12648192); // L: 9228
+							} else {
+								var6 = FileSystem.colorStartTag(16776960); // L: 9231
+							}
 
-			return 1; // L: 525
-		} else if (var0 == ScriptOpcodes.CC_SETHIDE) { // L: 527
-			boolean var5 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1; // L: 528
-			if (var5 != var4.isHidden) { // L: 529
-				var4.isHidden = var5; // L: 530
-				class52.invalidateWidget(var4); // L: 531
-			}
+							var4 = var4 + var6 + " " + " (" + "level-" + var0.combatLevel + ")"; // L: 9233
+						}
 
-			return 1; // L: 533
-		} else if (var0 == ScriptOpcodes.CC_SETNOCLICKTHROUGH) { // L: 535
-			var4.noClickThrough = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1; // L: 536
-			return 1; // L: 537
-		} else if (var0 == ScriptOpcodes.CC_SETNOSCROLLTHROUGH) { // L: 539
-			var4.noScrollThrough = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize] == 1; // L: 540
-			return 1; // L: 541
-		} else {
-			return 2; // L: 543
-		}
-	}
+						if (var0.isFollower && Client.followerOpsLowPriority) { // L: 9235
+							WorldMapManager.insertMenuItemNoShift("Examine", FileSystem.colorStartTag(16776960) + var4, 1003, var1, var2, var3); // L: 9236
+						}
 
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(Lbw;B)V",
-		garbageValue = "30"
-	)
-	static void method4217(GameShell var0) {
-		while (class60.isKeyDown()) { // L: 1647
-			if (PlayerAppearance.field2581 == 13) { // L: 1648
-				PacketBufferNode.method3726(); // L: 1649
-				return; // L: 1650
-			}
+						if (Client.isItemSelected == 1) { // L: 9239
+							WorldMapManager.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + FileSystem.colorStartTag(16776960) + var4, 7, var1, var2, var3); // L: 9240
+						} else if (Client.isSpellSelected) { // L: 9243
+							if ((GrandExchangeOfferNameComparator.selectedSpellFlags & 2) == 2) { // L: 9244
+								WorldMapManager.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + FileSystem.colorStartTag(16776960) + var4, 8, var1, var2, var3); // L: 9245
+							}
+						} else {
+							int var10 = var0.isFollower && Client.followerOpsLowPriority ? 2000 : 0; // L: 9250
+							String[] var11 = var0.actions; // L: 9251
+							if (var11 != null) { // L: 9252
+								for (var7 = 4; var7 >= 0; --var7) { // L: 9253
+									if (var11[var7] != null && !var11[var7].equalsIgnoreCase("Attack")) { // L: 9254
+										var8 = 0; // L: 9255
+										if (var7 == 0) { // L: 9256
+											var8 = var10 + 9;
+										}
 
-			if (PlayerAppearance.field2581 == 96) { // L: 1652
-				if (Login.worldSelectPage > 0 && WorldMapIcon_0.worldSelectLeftSprite != null) { // L: 1653
-					--Login.worldSelectPage; // L: 1654
+										if (var7 == 1) { // L: 9257
+											var8 = var10 + 10;
+										}
+
+										if (var7 == 2) { // L: 9258
+											var8 = var10 + 11;
+										}
+
+										if (var7 == 3) { // L: 9259
+											var8 = var10 + 12;
+										}
+
+										if (var7 == 4) { // L: 9260
+											var8 = var10 + 13;
+										}
+
+										WorldMapManager.insertMenuItemNoShift(var11[var7], FileSystem.colorStartTag(16776960) + var4, var8, var1, var2, var3); // L: 9261
+									}
+								}
+							}
+
+							if (var11 != null) { // L: 9266
+								for (var7 = 4; var7 >= 0; --var7) { // L: 9267
+									if (var11[var7] != null && var11[var7].equalsIgnoreCase("Attack")) { // L: 9268
+										short var12 = 0; // L: 9269
+										if (AttackOption.AttackOption_hidden != Client.npcAttackOption) { // L: 9270
+											if (Client.npcAttackOption == AttackOption.AttackOption_alwaysRightClick || AttackOption.AttackOption_dependsOnCombatLevels == Client.npcAttackOption && var0.combatLevel > UserComparator9.localPlayer.combatLevel) { // L: 9271
+												var12 = 2000; // L: 9272
+											}
+
+											var8 = 0; // L: 9274
+											if (var7 == 0) { // L: 9275
+												var8 = var12 + 9;
+											}
+
+											if (var7 == 1) { // L: 9276
+												var8 = var12 + 10;
+											}
+
+											if (var7 == 2) { // L: 9277
+												var8 = var12 + 11;
+											}
+
+											if (var7 == 3) { // L: 9278
+												var8 = var12 + 12;
+											}
+
+											if (var7 == 4) { // L: 9279
+												var8 = var12 + 13;
+											}
+
+											WorldMapManager.insertMenuItemNoShift(var11[var7], FileSystem.colorStartTag(16776960) + var4, var8, var1, var2, var3); // L: 9280
+										}
+									}
+								}
+							}
+
+							if (!var0.isFollower || !Client.followerOpsLowPriority) { // L: 9285
+								WorldMapManager.insertMenuItemNoShift("Examine", FileSystem.colorStartTag(16776960) + var4, 1003, var1, var2, var3); // L: 9286
+							}
+						}
+
+					}
 				}
-			} else if (PlayerAppearance.field2581 == 97 && Login.worldSelectPage < Login.worldSelectPagesCount && ArchiveDiskActionHandler.worldSelectRightSprite != null) { // L: 1657 1658
-				++Login.worldSelectPage; // L: 1659
 			}
 		}
-
-		if (MouseHandler.MouseHandler_lastButton == 1 || !ScriptEvent.mouseCam && MouseHandler.MouseHandler_lastButton == 4) { // L: 1663
-			int var1 = Login.xPadding + 280; // L: 1664
-			if (MouseHandler.MouseHandler_lastPressedX >= var1 && MouseHandler.MouseHandler_lastPressedX <= var1 + 14 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1665
-				AbstractWorldMapData.changeWorldSelectSorting(0, 0); // L: 1666
-				return; // L: 1667
-			}
-
-			if (MouseHandler.MouseHandler_lastPressedX >= var1 + 15 && MouseHandler.MouseHandler_lastPressedX <= var1 + 80 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1669
-				AbstractWorldMapData.changeWorldSelectSorting(0, 1); // L: 1670
-				return; // L: 1671
-			}
-
-			int var2 = Login.xPadding + 390; // L: 1673
-			if (MouseHandler.MouseHandler_lastPressedX >= var2 && MouseHandler.MouseHandler_lastPressedX <= var2 + 14 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1674
-				AbstractWorldMapData.changeWorldSelectSorting(1, 0); // L: 1675
-				return; // L: 1676
-			}
-
-			if (MouseHandler.MouseHandler_lastPressedX >= var2 + 15 && MouseHandler.MouseHandler_lastPressedX <= var2 + 80 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1678
-				AbstractWorldMapData.changeWorldSelectSorting(1, 1); // L: 1679
-				return; // L: 1680
-			}
-
-			int var3 = Login.xPadding + 500; // L: 1682
-			if (MouseHandler.MouseHandler_lastPressedX >= var3 && MouseHandler.MouseHandler_lastPressedX <= var3 + 14 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1683
-				AbstractWorldMapData.changeWorldSelectSorting(2, 0); // L: 1684
-				return; // L: 1685
-			}
-
-			if (MouseHandler.MouseHandler_lastPressedX >= var3 + 15 && MouseHandler.MouseHandler_lastPressedX <= var3 + 80 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1687
-				AbstractWorldMapData.changeWorldSelectSorting(2, 1); // L: 1688
-				return; // L: 1689
-			}
-
-			int var4 = Login.xPadding + 610; // L: 1691
-			if (MouseHandler.MouseHandler_lastPressedX >= var4 && MouseHandler.MouseHandler_lastPressedX <= var4 + 14 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1692
-				AbstractWorldMapData.changeWorldSelectSorting(3, 0); // L: 1693
-				return; // L: 1694
-			}
-
-			if (MouseHandler.MouseHandler_lastPressedX >= var4 + 15 && MouseHandler.MouseHandler_lastPressedX <= var4 + 80 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedY <= 18) { // L: 1696
-				AbstractWorldMapData.changeWorldSelectSorting(3, 1); // L: 1697
-				return; // L: 1698
-			}
-
-			if (MouseHandler.MouseHandler_lastPressedX >= Login.xPadding + 708 && MouseHandler.MouseHandler_lastPressedY >= 4 && MouseHandler.MouseHandler_lastPressedX <= Login.xPadding + 708 + 50 && MouseHandler.MouseHandler_lastPressedY <= 20) { // L: 1700
-				PacketBufferNode.method3726(); // L: 1701
-				return; // L: 1702
-			}
-
-			if (Login.hoveredWorldIndex != -1) { // L: 1704
-				World var5 = AbstractByteArrayCopier.World_worlds[Login.hoveredWorldIndex]; // L: 1705
-				Canvas.changeWorld(var5); // L: 1706
-				PacketBufferNode.method3726(); // L: 1707
-				return; // L: 1708
-			}
-
-			if (Login.worldSelectPage > 0 && WorldMapIcon_0.worldSelectLeftSprite != null && MouseHandler.MouseHandler_lastPressedX >= 0 && MouseHandler.MouseHandler_lastPressedX <= WorldMapIcon_0.worldSelectLeftSprite.subWidth && MouseHandler.MouseHandler_lastPressedY >= GameShell.canvasHeight / 2 - 50 && MouseHandler.MouseHandler_lastPressedY <= GameShell.canvasHeight / 2 + 50) { // L: 1710
-				--Login.worldSelectPage; // L: 1711
-			}
-
-			if (Login.worldSelectPage < Login.worldSelectPagesCount && ArchiveDiskActionHandler.worldSelectRightSprite != null && MouseHandler.MouseHandler_lastPressedX >= FloorDecoration.canvasWidth - ArchiveDiskActionHandler.worldSelectRightSprite.subWidth - 5 && MouseHandler.MouseHandler_lastPressedX <= FloorDecoration.canvasWidth && MouseHandler.MouseHandler_lastPressedY >= GameShell.canvasHeight / 2 - 50 && MouseHandler.MouseHandler_lastPressedY <= GameShell.canvasHeight / 2 + 50) { // L: 1713
-				++Login.worldSelectPage; // L: 1714
-			}
-		}
-
-	} // L: 1717
+	} // L: 9290
 }

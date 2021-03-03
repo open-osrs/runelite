@@ -4,61 +4,61 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kw")
+@ObfuscatedName("km")
 @Implements("FriendsList")
 public class FriendsList extends UserList {
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lmu;"
+		descriptor = "Lml;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
-	@ObfuscatedName("m")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1472429845
+		intValue = -2002671207
 	)
-	int field3641;
-	@ObfuscatedName("n")
+	int field3655;
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ljb;"
+		descriptor = "Ljw;"
 	)
 	@Export("friendLoginUpdates")
 	public LinkDeque friendLoginUpdates;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lmu;)V"
+		descriptor = "(Lml;)V"
 	)
 	public FriendsList(LoginType var1) {
 		super(400); // L: 17
-		this.field3641 = 1; // L: 13
+		this.field3655 = 1; // L: 13
 		this.friendLoginUpdates = new LinkDeque(); // L: 14
 		this.loginType = var1; // L: 18
 	} // L: 19
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljc;",
-		garbageValue = "35"
+		descriptor = "(I)Ljn;",
+		garbageValue = "-315842787"
 	)
 	@Export("newInstance")
 	User newInstance() {
 		return new Friend(); // L: 22
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IB)[Ljc;",
-		garbageValue = "-19"
+		descriptor = "(II)[Ljn;",
+		garbageValue = "1723641195"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
 		return new Friend[var1]; // L: 26
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(Lku;ZI)Z",
-		garbageValue = "-1059654626"
+		descriptor = "(Lkk;ZI)Z",
+		garbageValue = "-117027707"
 	)
 	@Export("isFriended")
 	public boolean isFriended(Username var1, boolean var2) {
@@ -70,10 +70,10 @@ public class FriendsList extends UserList {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("bk")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;II)V",
-		garbageValue = "-233603151"
+		descriptor = "(Lkx;II)V",
+		garbageValue = "277533413"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
@@ -137,17 +137,17 @@ public class FriendsList extends UserList {
 					}
 
 					if (var6 != var11.world) { // L: 88
-						var11.int2 = ++this.field3641 - 1; // L: 89
+						var11.int2 = ++this.field3655 - 1; // L: 89
 						if (var11.world == -1 && var6 == 0) { // L: 90
-							var11.int2 = -(var11.int2 * 1706616033) * -224698591;
+							var11.int2 = -(var11.int2 * 1612943523) * 975938315;
 						}
 
 						var11.world = var6; // L: 91
 					}
 
 					var11.rank = var7; // L: 93
-					var11.field3651 = var9; // L: 94
-					var11.field3652 = var10; // L: 95
+					var11.field3663 = var9; // L: 94
+					var11.field3661 = var10; // L: 95
 					continue; // L: 96
 				}
 
@@ -158,4 +158,23 @@ public class FriendsList extends UserList {
 			return; // L: 98
 		}
 	}
+
+	@ObfuscatedName("ls")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-22"
+	)
+	static void method5386() {
+		if (HealthBarUpdate.field1016 != null) { // L: 11661
+			Client.field674 = Client.cycle; // L: 11662
+			HealthBarUpdate.field1016.method4510(); // L: 11663
+
+			for (int var0 = 0; var0 < Client.players.length; ++var0) { // L: 11664
+				if (Client.players[var0] != null) { // L: 11665
+					HealthBarUpdate.field1016.method4509((Client.players[var0].x >> 7) + GrandExchangeOfferNameComparator.baseX, (Client.players[var0].y >> 7) + NetCache.baseY); // L: 11666
+				}
+			}
+		}
+
+	} // L: 11670
 }

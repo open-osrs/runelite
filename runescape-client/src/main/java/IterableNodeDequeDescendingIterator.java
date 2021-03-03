@@ -4,23 +4,23 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jo")
+@ObfuscatedName("ja")
 @Implements("IterableNodeDequeDescendingIterator")
 public class IterableNodeDequeDescendingIterator implements Iterator {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Ljv;"
 	)
 	@Export("deque")
 	IterableNodeDeque deque;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lgw;"
+		descriptor = "Lga;"
 	)
-	Node field3562;
-	@ObfuscatedName("s")
+	Node field3578;
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lgw;"
+		descriptor = "Lga;"
 	)
 	@Export("last")
 	Node last;
@@ -33,7 +33,7 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 		this.setDeque(var1); // L: 12
 	} // L: 13
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "(Ljv;)V"
 	)
@@ -43,20 +43,20 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 		this.start(); // L: 17
 	} // L: 18
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("q")
 	@Export("start")
 	void start() {
-		this.field3562 = this.deque != null ? this.deque.sentinel.previous : null; // L: 21
+		this.field3578 = this.deque != null ? this.deque.sentinel.previous : null; // L: 21
 		this.last = null; // L: 22
 	} // L: 23
 
 	public Object next() {
-		Node var1 = this.field3562; // L: 26
+		Node var1 = this.field3578; // L: 26
 		if (var1 == this.deque.sentinel) { // L: 27
 			var1 = null; // L: 28
-			this.field3562 = null; // L: 29
+			this.field3578 = null; // L: 29
 		} else {
-			this.field3562 = var1.previous; // L: 31
+			this.field3578 = var1.previous; // L: 31
 		}
 
 		this.last = var1; // L: 32
@@ -64,7 +64,7 @@ public class IterableNodeDequeDescendingIterator implements Iterator {
 	}
 
 	public boolean hasNext() {
-		return this.deque.sentinel != this.field3562; // L: 37
+		return this.deque.sentinel != this.field3578; // L: 37
 	}
 
 	public void remove() {

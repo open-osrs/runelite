@@ -25,11 +25,9 @@
 package net.runelite.client.util;
 
 import java.awt.AWTException;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
@@ -48,34 +46,21 @@ import java.util.function.BiConsumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.swing.AbstractButton;
-import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 import javax.swing.plaf.FontUIResource;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.components.CustomScrollBarUI;
 import net.runelite.client.ui.components.SliderUI;
-import net.runelite.client.ui.skin.SubstanceRuneLiteLookAndFeel;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 
 /**
@@ -84,13 +69,11 @@ import org.pushingpixels.substance.internal.SubstanceSynapse;
 @Slf4j
 public class SwingUtil
 {
-	private static boolean lookAndFeelIsSet = false;
-
 	/**
 	 * Sets some sensible defaults for swing.
 	 * IMPORTANT! Needs to be called before main frame creation
 	 */
-	private static void setupDefaults()
+	public static void setupDefaults()
 	{
 		// Force heavy-weight popups/tooltips.
 		// Prevents them from being obscured by the game applet.
@@ -108,14 +91,6 @@ public class SwingUtil
 		UIManager.put("FormattedTextField.selectionForeground", Color.WHITE);
 		UIManager.put("TextArea.selectionBackground", ColorScheme.BRAND_BLUE_TRANSPARENT);
 		UIManager.put("TextArea.selectionForeground", Color.WHITE);
-		UIManager.put("ProgressBar.background", ColorScheme.BRAND_BLUE_TRANSPARENT.darker());
-		UIManager.put("ProgressBar.foreground", ColorScheme.BRAND_BLUE);
-		UIManager.put("ProgressBar.selectionBackground", ColorScheme.BRAND_BLUE);
-		UIManager.put("ProgressBar.selectionForeground", Color.BLACK);
-		UIManager.put("ProgressBar.border", new EmptyBorder(0, 0, 0, 0));
-		UIManager.put("ProgressBar.verticalSize", new Dimension(12, 10));
-		UIManager.put("ProgressBar.horizontalSize", new Dimension(10, 12));
-		UIManager.put("ProgressBarUI", BasicProgressBarUI.class.getName());
 		UIManager.put("SliderUI", SliderUI.class.getName());
 
 		// Do not render shadows under popups/tooltips.
@@ -132,7 +107,7 @@ public class SwingUtil
 	 *
 	 * @param laf the swing look and feel
 	 */
-	private static void setTheme(@Nonnull final LookAndFeel laf)
+	public static void setTheme(@Nonnull final LookAndFeel laf)
 	{
 		try
 		{
@@ -150,7 +125,7 @@ public class SwingUtil
 	 *
 	 * @param font the new font to use
 	 */
-	private static void setFont(@Nonnull final Font font)
+	public static void setFont(@Nonnull final Font font)
 	{
 		final FontUIResource f = new FontUIResource(font);
 		final Enumeration keys = UIManager.getDefaults().keys();
@@ -266,160 +241,6 @@ public class SwingUtil
 		return button;
 	}
 
-	/**
-	 * Creates a custom {@link JButton} with a flat design for use inside {@link JOptionPane}.
-	 * The button will display the passed {@code text} and set the value of the pane to {@code buttonOption} on click
-	 *
-	 * @param text         text to be displayed inside the button
-	 * @param buttonOption the code to be set via {@link JOptionPane#setValue(Object)}
-	 * @return newly created {@link JButton}
-	 */
-	public static JButton createFlatButton(final String text, final int buttonOption)
-	{
-		final Border BUTTON_BORDER = new EmptyBorder(5, 17, 5, 17);
-		final Border BORDERED_BUTTON_BORDER = new CompoundBorder(
-			new MatteBorder(1, 1, 1, 1, Color.BLACK),
-			new EmptyBorder(4, 16, 4, 16)
-		);
-
-		final JButton button = new JButton(text);
-		button.setForeground(Color.WHITE);
-		button.setBackground(Color.BLACK);
-		button.setFont(FontManager.getRunescapeFont());
-		button.setBorder(BUTTON_BORDER);
-
-		button.setBorderPainted(false);
-		button.setFocusPainted(false);
-		button.setContentAreaFilled(false);
-		button.setOpaque(true);
-
-		// Selecting the button option requires us to determine which parent element is the JOptionPane
-		button.addActionListener(e ->
-		{
-			JComponent component = (JComponent) e.getSource();
-			while (component != null)
-			{
-				if (component instanceof JOptionPane)
-				{
-					((JOptionPane) component).setValue(buttonOption);
-					component = null;
-				}
-				else
-				{
-					component = component.getParent() == null ? null : (JComponent) component.getParent();
-				}
-			}
-		});
-
-		// Use change listener instead of mouse listener for buttons
-		button.getModel().addChangeListener(e ->
-		{
-			final ButtonModel model = (ButtonModel) e.getSource();
-			button.setBackground(model.isRollover() ? ColorScheme.DARKER_GRAY_HOVER_COLOR : Color.BLACK);
-			button.setBorderPainted(model.isPressed());
-			button.setBorder(model.isPressed() ? BORDERED_BUTTON_BORDER : BUTTON_BORDER);
-		});
-
-		return button;
-	}
-
-	/**
-	 * Opens a {@link JDialog} with a stylized {@link JOptionPane} ignoring UIManager defaults.
-	 * The buttons should be created via the {@link #createFlatButton(String, int)} function to look correctly
-	 *
-	 * @param component  The frame the dialog should be attached to. nullable
-	 * @param content    The string content to be added to the content pane
-	 * @param optionType The JOptionPane option type of dialog pane to create
-	 * @param buttons    Buttons to display, created via {@link #createFlatButton(String, int)}
-	 * @return The Integer value representing the button selected
-	 */
-	public static int showRuneLiteOptionPane(final JComponent component, final String content, final int optionType, final JButton[] buttons)
-	{
-		final JLabel contentLabel = new JLabel(content);
-		contentLabel.setFont(FontManager.getRunescapeFont());
-		contentLabel.setForeground(Color.WHITE);
-		contentLabel.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-
-		final JPanel p = new JPanel(new BorderLayout());
-		p.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		p.setForeground(Color.WHITE);
-		p.add(contentLabel, BorderLayout.NORTH);
-
-		final JOptionPane pane = new JOptionPane(p,
-			JOptionPane.ERROR_MESSAGE,
-			optionType,
-			null,
-			buttons,
-			buttons[1]);
-		pane.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-		pane.setForeground(Color.WHITE);
-		stylizeJPanels(pane);
-
-		final Frame frame = component == null ? JOptionPane.getRootFrame() : JOptionPane.getFrameForComponent(component);
-		final JDialog dialog = new JDialog(frame, "OpenOSRS Error", true);
-		dialog.setContentPane(pane);
-		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		dialog.setAlwaysOnTop(true);
-		dialog.setAutoRequestFocus(true);
-		dialog.setLocationRelativeTo(null);
-		dialog.setIconImage(ImageUtil.getResourceStreamFromClass(SwingUtil.class, "/openosrs.png"));
-
-		// Listen for value changes and close dialog when necessary
-		pane.addPropertyChangeListener(e ->
-		{
-			String prop = e.getPropertyName();
-
-			if (dialog.isVisible()
-				&& (e.getSource() == pane)
-				&& (prop.equals(JOptionPane.VALUE_PROPERTY)))
-			{
-				dialog.setVisible(false);
-			}
-		});
-
-		dialog.pack();
-		// Try to center dialog based on its size
-		dialog.setLocation(dialog.getX() - dialog.getSize().width / 2, dialog.getY() - dialog.getSize().height / 2);
-		dialog.setVisible(true);
-
-		return (Integer) pane.getValue();
-	}
-
-	private static void stylizeJPanels(final JComponent component)
-	{
-		for (final Component c : component.getComponents())
-		{
-			if (c instanceof JPanel)
-			{
-				c.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-				c.setForeground(Color.WHITE);
-				stylizeJPanels((JComponent) c);
-			}
-		}
-	}
-
-	/**
-	 * Sets up the RuneLite look and feel. Checks to see if the look and feel
-	 * was already set up before running in case the splash screen has already
-	 * set up the theme.
-	 * This must be run inside the Swing Event Dispatch thread.
-	 */
-	public static void setupRuneLiteLookAndFeel()
-	{
-		if (!lookAndFeelIsSet)
-		{
-			lookAndFeelIsSet = true;
-			// Set some sensible swing defaults
-			SwingUtil.setupDefaults();
-			// Use substance look and feel
-			SwingUtil.setTheme(new SubstanceRuneLiteLookAndFeel());
-			// Use custom UI font
-			//TODO : SUPPORT CUSTOM FONT?
-			//SwingUtil.setFont(FontManager.getFontOrDefault(config.clientFont()));
-			SwingUtil.setFont(FontManager.getRunescapeFont());
-		}
-	}
-
 	public static void removeButtonDecorations(AbstractButton button)
 	{
 		button.setBorderPainted(false);
@@ -433,18 +254,6 @@ public class SwingUtil
 	{
 		button.setToolTipText(button.isSelected() ? on : off);
 		button.addItemListener(l -> button.setToolTipText(button.isSelected() ? on : off));
-	}
-
-	public static void syncExec(final Runnable r) throws InvocationTargetException, InterruptedException
-	{
-		if (EventQueue.isDispatchThread())
-		{
-			r.run();
-		}
-		else
-		{
-			EventQueue.invokeAndWait(r);
-		}
 	}
 
 	/**
@@ -494,6 +303,21 @@ public class SwingUtil
 			SecondaryLoop l = eq.createSecondaryLoop();
 			SwingUtilities.invokeLater(l::exit);
 			l.enter();
+		}
+	}
+
+	/**
+	 * Executes a runnable on the EDT, blocking until it finishes.
+	 */
+	public static void syncExec(final Runnable r) throws InvocationTargetException, InterruptedException
+	{
+		if (EventQueue.isDispatchThread())
+		{
+			r.run();
+		}
+		else
+		{
+			EventQueue.invokeAndWait(r);
 		}
 	}
 }

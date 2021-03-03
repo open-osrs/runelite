@@ -24,8 +24,10 @@
  */
 package net.runelite.client.chat;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import java.awt.Color;
 import java.util.Arrays;
@@ -37,7 +39,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.api.ChatLineBuffer;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.MessageNode;
@@ -50,14 +51,16 @@ import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ChatColorConfig;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.ui.JagexColors;
 import net.runelite.client.util.ColorUtil;
+import net.runelite.client.util.Text;
 
 @Singleton
 public class ChatMessageManager
 {
-	private static final Set<Integer> TUTORIAL_ISLAND_REGIONS = Set.of(12336, 12335, 12592, 12080, 12079, 12436);
+	private static final Set<Integer> TUTORIAL_ISLAND_REGIONS = ImmutableSet.of(12336, 12335, 12592, 12080, 12079, 12436);
 
 	private final Multimap<ChatMessageType, ChatColor> colorCache = HashMultimap.create();
 	private final Client client;
@@ -68,23 +71,20 @@ public class ChatMessageManager
 
 	@Inject
 	private ChatMessageManager(
-		final Client client,
-		final ChatColorConfig chatColorConfig,
-		final ClientThread clientThread,
-		final EventBus eventbus)
+		Client client,
+		ChatColorConfig chatColorConfig,
+		ClientThread clientThread,
+		EventBus eventBus)
 	{
 		this.client = client;
 		this.chatColorConfig = chatColorConfig;
 		this.clientThread = clientThread;
-
-		eventbus.subscribe(VarbitChanged.class, this, this::onVarbitChanged);
-		eventbus.subscribe(ResizeableChanged.class, this, this::onResizeableChanged);
-		eventbus.subscribe(ConfigChanged.class, this, this::onConfigChanged);
-		eventbus.subscribe(ChatMessage.class, this, this::onChatMessage);
-		eventbus.subscribe(ScriptCallbackEvent.class, this, this::onScriptCallbackEvent);
+		eventBus.register(this);
+		loadColors();
 	}
 
-	private void onVarbitChanged(VarbitChanged event)
+	@Subscribe
+	public void onVarbitChanged(VarbitChanged event)
 	{
 		int setting = client.getVar(Varbits.TRANSPARENT_CHATBOX);
 
@@ -95,12 +95,14 @@ public class ChatMessageManager
 		}
 	}
 
-	private void onResizeableChanged(ResizeableChanged event)
+	@Subscribe
+	public void onResizeableChanged(ResizeableChanged event)
 	{
 		refreshAll();
 	}
 
-	private void onConfigChanged(ConfigChanged event)
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
 	{
 		if (event.getGroup().equals("textrecolor"))
 		{
@@ -109,7 +111,8 @@ public class ChatMessageManager
 		}
 	}
 
-	void onChatMessage(ChatMessage chatMessage)
+	@Subscribe(priority = -1) // run after all plugins
+	public void onChatMessage(ChatMessage chatMessage)
 	{
 		MessageNode messageNode = chatMessage.getMessageNode();
 		ChatMessageType chatMessageType = chatMessage.getType();
@@ -127,7 +130,8 @@ public class ChatMessageManager
 			case PUBLICCHAT:
 			case MODCHAT:
 			{
-				boolean isFriend = client.isFriended(chatMessage.getName(), true) && !client.getLocalPlayer().getName().equals(chatMessage.getName());
+				String sanitizedUsername = Text.removeTags(chatMessage.getName());
+				boolean isFriend = client.isFriended(sanitizedUsername, true) && !client.getLocalPlayer().getName().equals(sanitizedUsername);
 
 				if (isFriend)
 				{
@@ -174,7 +178,8 @@ public class ChatMessageManager
 		}
 	}
 
-	private void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
+	@Subscribe
+	public void onScriptCallbackEvent(ScriptCallbackEvent scriptCallbackEvent)
 	{
 		final String eventName = scriptCallbackEvent.getEventName();
 
@@ -253,7 +258,7 @@ public class ChatMessageManager
 	/**
 	 * Load all configured colors
 	 */
-	public void loadColors()
+	private void loadColors()
 	{
 		colorCache.clear();
 
@@ -571,59 +576,54 @@ public class ChatMessageManager
 			return;
 		}
 
-		//guard case for google MoreObjects#firstNonNull
-		if (message.getValue() == null && message.getRuneLiteFormattedMessage() == null)
-		{
-			return;
-		}
+		final String formattedMessage = formatRuneLiteMessage(message.getRuneLiteFormattedMessage(), message.getType());
 
 		// this updates chat cycle
-		client.addChatMessage(
+		final MessageNode line = client.addChatMessage(
 			message.getType(),
-			Objects.requireNonNullElse(message.getName(), ""),
-			Objects.requireNonNullElse(message.getValue(), message.getRuneLiteFormattedMessage()),
+			MoreObjects.firstNonNull(message.getName(), ""),
+			MoreObjects.firstNonNull(formattedMessage, message.getValue()),
 			message.getSender());
-
-		// Get last message from line buffer (the one we just added)
-		final ChatLineBuffer chatLineBuffer = client.getChatLineMap().get(message.getType().getType());
-		final MessageNode[] lines = chatLineBuffer.getLines();
-		final MessageNode line = lines[0];
 
 		// Update the message with RuneLite additions
 		line.setRuneLiteFormatMessage(message.getRuneLiteFormattedMessage());
-
+		
 		if (message.getTimestamp() != 0)
 		{
 			line.setTimestamp(message.getTimestamp());
 		}
-
-		update(line);
 	}
 
-	public void update(final MessageNode target)
+	/**
+	 * Rebuild the message node message from the RuneLite format message
+	 *
+	 * @param messageNode message node
+	 */
+	public void update(final MessageNode messageNode)
 	{
-		if (Strings.isNullOrEmpty(target.getRuneLiteFormatMessage()))
+		String message = formatRuneLiteMessage(messageNode.getRuneLiteFormatMessage(), messageNode.getType());
+		if (message != null)
 		{
-			return;
+			messageNode.setValue(message);
+		}
+	}
+
+	private String formatRuneLiteMessage(String runeLiteFormatMessage, ChatMessageType type)
+	{
+		if (Strings.isNullOrEmpty(runeLiteFormatMessage))
+		{
+			return null;
 		}
 
 		final boolean transparent = client.isResized() && transparencyVarbit != 0;
-		final Collection<ChatColor> chatColors = colorCache.get(target.getType());
+		final Collection<ChatColor> chatColors = colorCache.get(type);
 
-		// If we do not have any colors cached, simply set clean message
 		if (chatColors == null || chatColors.isEmpty())
 		{
-			target.setValue(target.getRuneLiteFormatMessage());
-			return;
+			return runeLiteFormatMessage;
 		}
 
-		target.setValue(recolorMessage(transparent, target.getRuneLiteFormatMessage(), target.getType()));
-	}
-
-	private String recolorMessage(boolean transparent, String message, ChatMessageType messageType)
-	{
-		final Collection<ChatColor> chatColors = colorCache.get(messageType);
-		final AtomicReference<String> resultMessage = new AtomicReference<>(message);
+		final AtomicReference<String> resultMessage = new AtomicReference<>(runeLiteFormatMessage);
 
 		// Replace custom formatting with actual colors
 		chatColors.stream()

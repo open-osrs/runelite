@@ -29,4 +29,4 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here, e.g. logs. Your client logs can usually be found in
-`C:\Users\<your_user_name>\.runelite\logs` on Windows and `~/.runelite/logs` on Linux and macOS.
+`C:\Users\<your_user_name>\.openosrs\logs` on Windows and `~/.openosrs/logs` on Linux and macOS.

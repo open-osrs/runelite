@@ -1,25 +1,13 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("fm")
+@ObfuscatedName("fy")
 @Implements("BuddyRankComparator")
 public class BuddyRankComparator extends AbstractUserComparator {
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = 841228159
-	)
-	@Export("musicTrackGroupId")
-	public static int musicTrackGroupId;
-	@ObfuscatedName("jo")
-	@ObfuscatedSignature(
-		descriptor = "Lhq;"
-	)
-	@Export("dragInventoryWidget")
-	static Widget dragInventoryWidget;
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -27,10 +15,10 @@ public class BuddyRankComparator extends AbstractUserComparator {
 		this.reversed = var1; // L: 10
 	} // L: 11
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lko;Lko;I)I",
-		garbageValue = "-895598946"
+		descriptor = "(Lky;Lky;B)I",
+		garbageValue = "-42"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -47,51 +35,85 @@ public class BuddyRankComparator extends AbstractUserComparator {
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "([BIILec;[Lft;B)V",
-		garbageValue = "52"
+		descriptor = "(ILcl;ZB)I",
+		garbageValue = "1"
 	)
-	static final void method3524(byte[] var0, int var1, int var2, Scene var3, CollisionMap[] var4) {
-		Buffer var5 = new Buffer(var0); // L: 205
-		int var6 = -1; // L: 206
-
-		while (true) {
-			int var7 = var5.method5632(); // L: 208
-			if (var7 == 0) { // L: 209
-				return; // L: 233
+	static int method3622(int var0, Script var1, boolean var2) {
+		Widget var6;
+		if (var0 != ScriptOpcodes.CC_CALLONRESIZE && var0 != ScriptOpcodes.IF_CALLONRESIZE) { // L: 1146
+			int var4;
+			if (var0 == 1928) { // L: 1163
+				var6 = var2 ? class277.scriptDotWidget : Interpreter.scriptActiveWidget; // L: 1164
+				var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 1165
+				if (var4 >= 1 && var4 <= 10) { // L: 1166
+					ApproximateRouteStrategy.widgetDefaultMenuAction(var4, var6.id, var6.childIndex, var6.itemId, ""); // L: 1169
+					return 1; // L: 1170
+				} else {
+					throw new RuntimeException(); // L: 1167
+				}
+			} else if (var0 == 2928) { // L: 1172
+				Interpreter.Interpreter_intStackSize -= 3; // L: 1173
+				int var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 1174
+				var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 1175
+				int var5 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 2]; // L: 1176
+				if (var5 >= 1 && var5 <= 10) { // L: 1177
+					ApproximateRouteStrategy.widgetDefaultMenuAction(var5, var3, var4, class237.getWidget(var3).itemId, ""); // L: 1180
+					return 1; // L: 1181
+				} else {
+					throw new RuntimeException(); // L: 1178
+				}
+			} else {
+				return 2; // L: 1183
+			}
+		} else if (Interpreter.field1123 >= 10) { // L: 1147
+			throw new RuntimeException(); // L: 1148
+		} else {
+			if (var0 >= 2000) { // L: 1151
+				var6 = class237.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]); // L: 1152
+			} else {
+				var6 = var2 ? class277.scriptDotWidget : Interpreter.scriptActiveWidget; // L: 1154
 			}
 
-			var6 += var7; // L: 210
-			int var8 = 0; // L: 211
-
-			while (true) {
-				int var9 = var5.readUShortSmart(); // L: 213
-				if (var9 == 0) { // L: 214
-					break;
-				}
-
-				var8 += var9 - 1; // L: 215
-				int var10 = var8 & 63; // L: 216
-				int var11 = var8 >> 6 & 63; // L: 217
-				int var12 = var8 >> 12; // L: 218
-				int var13 = var5.readUnsignedByte(); // L: 219
-				int var14 = var13 >> 2; // L: 220
-				int var15 = var13 & 3; // L: 221
-				int var16 = var11 + var1; // L: 222
-				int var17 = var10 + var2; // L: 223
-				if (var16 > 0 && var17 > 0 && var16 < 103 && var17 < 103) { // L: 224
-					int var18 = var12; // L: 225
-					if ((Tiles.Tiles_renderFlags[1][var16][var17] & 2) == 2) { // L: 226
-						var18 = var12 - 1;
-					}
-
-					CollisionMap var19 = null; // L: 227
-					if (var18 >= 0) { // L: 228
-						var19 = var4[var18];
-					}
-
-					GrandExchangeOfferWorldComparator.method137(var12, var16, var17, var6, var15, var14, var3, var19); // L: 229
-				}
+			if (var6.onResize == null) { // L: 1155
+				return 0;
+			} else {
+				ScriptEvent var7 = new ScriptEvent(); // L: 1156
+				var7.widget = var6; // L: 1157
+				var7.args = var6.onResize; // L: 1158
+				var7.field593 = Interpreter.field1123 + 1; // L: 1159
+				Client.scriptEvents.addFirst(var7); // L: 1160
+				return 1; // L: 1161
 			}
+		}
+	}
+
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "(ILcl;ZI)I",
+		garbageValue = "-866624945"
+	)
+	static int method3621(int var0, Script var1, boolean var2) {
+		Widget var3 = class237.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]); // L: 1187
+		if (var0 == ScriptOpcodes.IF_GETX) { // L: 1188
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.x; // L: 1189
+			return 1; // L: 1190
+		} else if (var0 == ScriptOpcodes.IF_GETY) { // L: 1192
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.y; // L: 1193
+			return 1; // L: 1194
+		} else if (var0 == ScriptOpcodes.IF_GETWIDTH) { // L: 1196
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.width; // L: 1197
+			return 1; // L: 1198
+		} else if (var0 == ScriptOpcodes.IF_GETHEIGHT) { // L: 1200
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.height; // L: 1201
+			return 1; // L: 1202
+		} else if (var0 == ScriptOpcodes.IF_GETHIDE) { // L: 1204
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1205
+			return 1; // L: 1206
+		} else if (var0 == ScriptOpcodes.IF_GETLAYER) { // L: 1208
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.parentId; // L: 1209
+			return 1; // L: 1210
+		} else {
+			return 2; // L: 1212
 		}
 	}
 }

@@ -24,18 +24,14 @@
  */
 package net.runelite.http.api.item;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonParseException;
-import com.google.gson.stream.JsonReader;
-import io.reactivex.rxjava3.core.Observable;
-import java.awt.image.BufferedImage;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import javax.imageio.ImageIO;
-import javax.naming.directory.SearchResult;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
@@ -50,13 +46,13 @@ public class ItemClient
 {
 	private final OkHttpClient client;
 
-	public ItemPrice lookupItemPrice(int itemId) throws IOException
+	public ItemPrice[] getPrices() throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
+		HttpUrl.Builder urlBuilder = RuneLiteAPI.getApiBase().newBuilder()
 			.addPathSegment("item")
-			.addPathSegment("" + itemId)
-			.addPathSegment("price")
-			.build();
+			.addPathSegment("prices.js");
+
+		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
@@ -68,43 +64,7 @@ public class ItemClient
 		{
 			if (!response.isSuccessful())
 			{
-				log.debug("Error looking up item {}: {}", itemId, response);
-				return null;
-			}
-
-			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), ItemPrice.class);
-		}
-		catch (JsonParseException ex)
-		{
-			throw new IOException(ex);
-		}
-	}
-
-	public ItemPrice[] lookupItemPrice(Integer[] itemIds) throws IOException
-	{
-		HttpUrl.Builder urlBuilder = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("item")
-				.addPathSegment("price");
-
-		for (int itemId : itemIds)
-		{
-			urlBuilder.addQueryParameter("id", String.valueOf(itemId));
-		}
-
-		HttpUrl url = urlBuilder.build();
-
-		log.debug("Built URI: {}", url);
-
-		Request request = new Request.Builder()
-				.url(url)
-				.build();
-
-		try (Response response = client.newCall(request).execute())
-		{
-			if (!response.isSuccessful())
-			{
-				log.debug("Error looking up items {}: {}", Arrays.toString(itemIds), response);
+				log.warn("Error looking up prices: {}", response);
 				return null;
 			}
 
@@ -117,13 +77,14 @@ public class ItemClient
 		}
 	}
 
-	public Observable<BufferedImage> getIcon(int itemId)
+	public Map<Integer, ItemStats> getStats() throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
+		HttpUrl.Builder urlBuilder = RuneLiteAPI.getStaticBase().newBuilder()
 			.addPathSegment("item")
-			.addPathSegment("" + itemId)
-			.addPathSegment("icon")
-			.build();
+			// TODO: Change this to stats.min.json later after release is undeployed
+			.addPathSegment("stats.ids.min.json");
+
+		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
@@ -131,128 +92,23 @@ public class ItemClient
 			.url(url)
 			.build();
 
-		return Observable.defer(() ->
+		try (Response response = client.newCall(request).execute())
 		{
-			try (Response response = client.newCall(request).execute())
+			if (!response.isSuccessful())
 			{
-				if (!response.isSuccessful())
-				{
-					log.debug("Error grabbing icon {}: {}", itemId, response);
-					return Observable.just(null);
-				}
-
-				InputStream in = response.body().byteStream();
-				synchronized (ImageIO.class)
-				{
-					return Observable.just(ImageIO.read(in));
-				}
+				log.warn("Error looking up item stats: {}", response);
+				return null;
 			}
-		});
-	}
 
-	public Observable<SearchResult> search(String itemName)
-	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("item")
-			.addPathSegment("search")
-			.addQueryParameter("query", itemName)
-			.build();
-
-		log.debug("Built URI: {}", url);
-
-		return Observable.defer(() ->
+			InputStream in = response.body().byteStream();
+			final Type typeToken = new TypeToken<Map<Integer, ItemStats>>()
+			{
+			}.getType();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), typeToken);
+		}
+		catch (JsonParseException ex)
 		{
-			Request request = new Request.Builder()
-				.url(url)
-				.build();
-
-			try (Response response = client.newCall(request).execute())
-			{
-				if (!response.isSuccessful())
-				{
-					log.debug("Error looking up item {}: {}", itemName, response);
-					return Observable.just(null);
-				}
-
-				InputStream in = response.body().byteStream();
-				return Observable.just(RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), SearchResult.class));
-			}
-			catch (JsonParseException ex)
-			{
-				return Observable.error(ex);
-			}
-		});
-	}
-
-	public Observable<ImmutableMap<Integer, ItemPrice>> getPrices()
-	{
-		HttpUrl.Builder urlBuilder = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("item")
-			.addPathSegment("prices.js");
-
-		HttpUrl url = urlBuilder.build();
-
-		log.debug("Built URI: {}", url);
-
-		return Observable.fromCallable(() ->
-		{
-			Request request = new Request.Builder()
-				.url(url)
-				.build();
-
-			try (JsonReader reader = new JsonReader(client.newCall(request).execute().body().charStream()))
-			{
-				ImmutableMap.Builder<Integer, ItemPrice> builder = ImmutableMap.builderWithExpectedSize(3666);
-				reader.beginArray();
-
-				while (reader.hasNext())
-				{
-					ItemPrice price = RuneLiteAPI.GSON.fromJson(reader, ItemPrice.class);
-
-					builder.put(
-						price.getId(),
-						price
-					);
-				}
-
-				reader.endArray();
-				return builder.build();
-			}
-		});
-	}
-
-	public Observable<ImmutableMap<Integer, ItemStats>> getStats()
-	{
-		HttpUrl url = RuneLiteAPI.getStaticBase()
-			.newBuilder()
-			.addPathSegment("item")
-			.addPathSegment("stats.ids.min.json")
-			.build();
-
-		log.debug("Built URI {}", url);
-		return Observable.fromCallable(() ->
-		{
-			Request request = new Request.Builder()
-				.url(url)
-				.build();
-
-			try (JsonReader reader = new JsonReader(client.newCall(request).execute().body().charStream()))
-			{
-				// This is the size the items are as I wrote this. the builder gets increased by 1 every time otherwise
-				ImmutableMap.Builder<Integer, ItemStats> builder = ImmutableMap.builderWithExpectedSize(7498);
-				reader.beginObject();
-
-				while (reader.hasNext())
-				{
-					builder.put(
-						Integer.parseInt(reader.nextName()),
-						RuneLiteAPI.GSON.fromJson(reader, ItemStats.class)
-					);
-				}
-
-				reader.endObject();
-				return builder.build();
-			}
-		});
+			throw new IOException(ex);
+		}
 	}
 }

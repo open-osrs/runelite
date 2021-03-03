@@ -1,153 +1,96 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.Reflection;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("gp")
+@ObfuscatedName("gr")
 public class class197 {
-	@ObfuscatedName("z")
-	static int[] field2380;
+	@ObfuscatedName("qv")
+	@ObfuscatedSignature(
+		descriptor = "Ldh;"
+	)
+	@Export("pcmPlayer0")
+	static PcmPlayer pcmPlayer0;
+	@ObfuscatedName("n")
+	static int[] field2375;
 
 	static {
 		new Object();
-		field2380 = new int[33]; // L: 8
-		field2380[0] = 0; // L: 11
+		field2375 = new int[33]; // L: 8
+		field2375[0] = 0; // L: 11
 		int var0 = 2; // L: 12
 
 		for (int var1 = 1; var1 < 33; ++var1) { // L: 13
-			field2380[var1] = var0 - 1; // L: 14
+			field2375[var1] = var0 - 1; // L: 14
 			var0 += var0; // L: 15
 		}
 
 	} // L: 17
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "1"
-	)
-	static void method3743(int var0, int var1, int var2, int var3) {
-		for (ObjectSound var4 = (ObjectSound)ObjectSound.objectSounds.last(); var4 != null; var4 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 93
-			if (var4.soundEffectId != -1 || var4.soundEffectIds != null) { // L: 94
-				int var5 = 0; // L: 95
-				if (var1 > var4.field1106) { // L: 96
-					var5 += var1 - var4.field1106;
-				} else if (var1 < var4.x) { // L: 97
-					var5 += var4.x - var1;
-				}
-
-				if (var2 > var4.field1117) { // L: 98
-					var5 += var2 - var4.field1117;
-				} else if (var2 < var4.y) { // L: 99
-					var5 += var4.y - var2;
-				}
-
-				if (var5 - 64 <= var4.field1108 && Client.areaSoundEffectVolume != 0 && var0 == var4.plane) { // L: 100
-					var5 -= 64; // L: 111
-					if (var5 < 0) { // L: 112
-						var5 = 0;
-					}
-
-					int var6 = (var4.field1108 - var5) * Client.areaSoundEffectVolume / var4.field1108; // L: 113
-					if (var4.stream1 == null) { // L: 114
-						if (var4.soundEffectId >= 0) { // L: 115
-							SoundEffect var7 = SoundEffect.readSoundEffect(GrandExchangeOfferUnitPriceComparator.archive4, var4.soundEffectId, 0); // L: 116
-							if (var7 != null) { // L: 117
-								RawSound var8 = var7.toRawSound().resample(class9.decimator); // L: 118
-								RawPcmStream var9 = RawPcmStream.createRawPcmStream(var8, 100, var6); // L: 119
-								var9.setNumLoops(-1); // L: 120
-								Players.pcmStreamMixer.addSubStream(var9); // L: 121
-								var4.stream1 = var9; // L: 122
-							}
-						}
-					} else {
-						var4.stream1.method2641(var6); // L: 126
-					}
-
-					if (var4.stream2 == null) { // L: 127
-						if (var4.soundEffectIds != null && (var4.field1118 -= var3) <= 0) { // L: 128
-							int var11 = (int)(Math.random() * (double)var4.soundEffectIds.length); // L: 129
-							SoundEffect var12 = SoundEffect.readSoundEffect(GrandExchangeOfferUnitPriceComparator.archive4, var4.soundEffectIds[var11], 0); // L: 130
-							if (var12 != null) { // L: 131
-								RawSound var13 = var12.toRawSound().resample(class9.decimator); // L: 132
-								RawPcmStream var10 = RawPcmStream.createRawPcmStream(var13, 100, var6); // L: 133
-								var10.setNumLoops(0); // L: 134
-								Players.pcmStreamMixer.addSubStream(var10); // L: 135
-								var4.stream2 = var10; // L: 136
-								var4.field1118 = var4.field1109 + (int)(Math.random() * (double)(var4.field1115 - var4.field1109)); // L: 137
-							}
-						}
-					} else {
-						var4.stream2.method2641(var6); // L: 142
-						if (!var4.stream2.hasNext()) { // L: 143
-							var4.stream2 = null; // L: 144
-						}
-					}
-				} else {
-					if (var4.stream1 != null) { // L: 101
-						Players.pcmStreamMixer.removeSubStream(var4.stream1); // L: 102
-						var4.stream1 = null; // L: 103
-					}
-
-					if (var4.stream2 != null) { // L: 105
-						Players.pcmStreamMixer.removeSubStream(var4.stream2); // L: 106
-						var4.stream2 = null; // L: 107
-					}
-				}
-			}
-		}
-
-	} // L: 148
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)Ljava/lang/Class;",
-		garbageValue = "432871093"
-	)
-	@Export("loadClassFromDescriptor")
-	static Class loadClassFromDescriptor(String var0) throws ClassNotFoundException {
-		if (var0.equals("B")) { // L: 216
-			return Byte.TYPE;
-		} else if (var0.equals("I")) { // L: 217
-			return Integer.TYPE;
-		} else if (var0.equals("S")) { // L: 218
-			return Short.TYPE;
-		} else if (var0.equals("J")) { // L: 219
-			return Long.TYPE;
-		} else if (var0.equals("Z")) { // L: 220
-			return Boolean.TYPE;
-		} else if (var0.equals("F")) { // L: 221
-			return Float.TYPE;
-		} else if (var0.equals("D")) {
-			return Double.TYPE;
-		} else if (var0.equals("C")) {
-			return Character.TYPE;
-		} else {
-			return var0.equals("void") ? Void.TYPE : Reflection.findClass(var0);
-		}
-	}
-
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lic;IB)Z",
-		garbageValue = "1"
+		descriptor = "(Lig;B)V",
+		garbageValue = "52"
 	)
-	public static boolean method3742(AbstractArchive var0, int var1) {
-		byte[] var2 = var0.takeFileFlat(var1); // L: 222
-		if (var2 == null) { // L: 223
-			return false;
-		} else {
-			Occluder.SpriteBuffer_decode(var2); // L: 224
-			return true; // L: 225
-		}
-	}
+	public static void method3828(AbstractArchive var0) {
+		ParamComposition.ParamDefinition_archive = var0; // L: 21
+	} // L: 22
 
-	@ObfuscatedName("ah")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-822542722"
+		descriptor = "(ILcl;ZI)I",
+		garbageValue = "1647502"
 	)
-	static int method3741(int var0) {
-		return (int)Math.pow(2.0D, (double)((float)var0 / 256.0F + 7.0F)); // L: 3193
+	static int method3844(int var0, Script var1, boolean var2) {
+		Widget var3;
+		if (var0 >= 2000) { // L: 735
+			var0 -= 1000; // L: 736
+			var3 = class237.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]); // L: 737
+		} else {
+			var3 = var2 ? class277.scriptDotWidget : Interpreter.scriptActiveWidget; // L: 739
+		}
+
+		IsaacCipher.invalidateWidget(var3); // L: 740
+		if (var0 != ScriptOpcodes.CC_SETOBJECT && var0 != ScriptOpcodes.CC_SETOBJECT_NONUM && var0 != ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM) { // L: 741
+			if (var0 == ScriptOpcodes.CC_SETNPCHEAD) { // L: 761
+				var3.modelType = 2; // L: 762
+				var3.modelId = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 763
+				return 1; // L: 764
+			} else if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) { // L: 766
+				var3.modelType = 3; // L: 767
+				var3.modelId = UserComparator9.localPlayer.appearance.getChatHeadId(); // L: 768
+				return 1; // L: 769
+			} else {
+				return 2; // L: 771
+			}
+		} else {
+			Interpreter.Interpreter_intStackSize -= 2; // L: 742
+			int var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 743
+			int var5 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 744
+			var3.itemId = var4; // L: 745
+			var3.itemQuantity = var5; // L: 746
+			ItemComposition var6 = class281.ItemDefinition_get(var4); // L: 747
+			var3.modelAngleX = var6.xan2d; // L: 748
+			var3.modelAngleY = var6.yan2d; // L: 749
+			var3.modelAngleZ = var6.zan2d; // L: 750
+			var3.modelOffsetX = var6.offsetX2d; // L: 751
+			var3.modelOffsetY = var6.offsetY2d; // L: 752
+			var3.modelZoom = var6.zoom2d; // L: 753
+			if (var0 == ScriptOpcodes.CC_SETOBJECT_NONUM) { // L: 754
+				var3.itemQuantityMode = 0;
+			} else if (var0 == ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM | 1 == var6.isStackable) { // L: 755
+				var3.itemQuantityMode = 1;
+			} else {
+				var3.itemQuantityMode = 2; // L: 756
+			}
+
+			if (var3.field2648 > 0) { // L: 757
+				var3.modelZoom = var3.modelZoom * 32 / var3.field2648;
+			} else if (var3.rawWidth > 0) { // L: 758
+				var3.modelZoom = var3.modelZoom * 32 / var3.rawWidth;
+			}
+
+			return 1; // L: 759
+		}
 	}
 }

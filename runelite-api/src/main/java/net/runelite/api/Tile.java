@@ -50,7 +50,7 @@ public interface Tile extends TileObject
 	 *
 	 * @return the item
 	 */
-	TileItemPile getItemLayer();
+	ItemLayer getItemLayer();
 
 	/**
 	 * Gets the object on the ground layer of the tile.
@@ -60,6 +60,13 @@ public interface Tile extends TileObject
 	GroundObject getGroundObject();
 
 	/**
+	 * Sets the object on the ground layer of the tile.
+	 *
+	 * @param groundObject the ground object
+	 */
+	void setGroundObject(GroundObject groundObject);
+
+	/**
 	 * Gets the wall of the tile.
 	 *
 	 * @return the wall object
@@ -67,18 +74,25 @@ public interface Tile extends TileObject
 	WallObject getWallObject();
 
 	/**
+	 * Sets the object on the wall layer of the tile.
+	 *
+	 * @param wallObject the ground object
+	 */
+	void setWallObject(WallObject wallObject);
+
+	/**
 	 * Gets the scene paint of the tile.
 	 *
 	 * @return the paint
 	 */
-	TilePaint getTilePaint();
+	SceneTilePaint getSceneTilePaint();
 
 	/**
 	 * Gets the model of the tile in the scene.
 	 *
 	 * @return the tile model
 	 */
-	TileModel getTileModel();
+	SceneTileModel getSceneTileModel();
 
 	/**
 	 * Gets the location coordinate of the tile in scene coords
@@ -93,6 +107,16 @@ public interface Tile extends TileObject
 	 * @return
 	 */
 	int getRenderLevel();
+
+	/**
+	 * Get the minimum plane this tile will be rendered on.
+	 * Example: This tile is on plane 1. The local player is on plane 0, and hide roofs option is turned on.
+	 * If minPlane is 0, this tile will not be rendered.
+	 * If minPlane is 1, this tile will be rendered.
+	 *
+	 * @return the minPlane
+	 */
+	int getPhysicalLevel();
 
 	/**
 	 * Computes and returns whether this tile has line of sight to another.

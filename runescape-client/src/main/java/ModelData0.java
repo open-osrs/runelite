@@ -1,71 +1,65 @@
-import java.io.IOException;
-import java.net.Socket;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ej")
+@ObfuscatedName("ey")
 @Implements("ModelData0")
 public class ModelData0 {
-	@ObfuscatedName("sl")
-	@ObfuscatedSignature(
-		descriptor = "Lid;"
+	@ObfuscatedName("ib")
+	@ObfuscatedGetter(
+		intValue = -1948740643
 	)
-	public static class247 field1901;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Lic;"
-	)
-	@Export("soundEffectsArchive")
-	static AbstractArchive soundEffectsArchive;
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lls;"
-	)
-	@Export("titlebuttonSprite")
-	static IndexedSprite titlebuttonSprite;
-	@ObfuscatedName("au")
-	static String field1904;
+	static int field1882;
 
 	ModelData0() {
 	} // L: 4
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lct;Lct;IZIZB)I",
-		garbageValue = "73"
+		descriptor = "(Lkd;II)V",
+		garbageValue = "-1780574680"
 	)
-	static int method3376(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
-		int var6 = class2.compareWorlds(var0, var1, var2, var3); // L: 199
-		if (var6 != 0) { // L: 200
-			return var3 ? -var6 : var6; // L: 201
-		} else if (var4 == -1) { // L: 204
-			return 0;
-		} else {
-			int var7 = class2.compareWorlds(var0, var1, var4, var5); // L: 205
-			return var5 ? -var7 : var7; // L: 206
+	@Export("updatePlayers")
+	static final void updatePlayers(PacketBuffer var0, int var1) {
+		int var2 = var0.offset; // L: 71
+		Players.Players_pendingUpdateCount = 0; // L: 72
+		WorldMapDecoration.method404(var0); // L: 73
+		MusicPatch.method4095(var0); // L: 74
+		if (var0.offset - var2 != var1) { // L: 75
+			throw new RuntimeException(var0.offset - var2 + " " + var1); // L: 76
 		}
-	}
+	} // L: 78
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "1145056768"
+		descriptor = "([BIIII[Lfe;I)V",
+		garbageValue = "255234267"
 	)
-	static final void method3377(String var0) {
-		StringBuilder var10000 = (new StringBuilder()).append(var0);
-		Object var10001 = null;
-		String var1 = var10000.append(" is already on your friend list").toString(); // L: 112
-		WorldMapRectangle.addGameMessage(30, "", var1); // L: 114
-	} // L: 116
+	static final void method3411(byte[] var0, int var1, int var2, int var3, int var4, CollisionMap[] var5) {
+		int var7;
+		int var8;
+		for (int var6 = 0; var6 < 4; ++var6) { // L: 93
+			for (var7 = 0; var7 < 64; ++var7) { // L: 94
+				for (var8 = 0; var8 < 64; ++var8) { // L: 95
+					if (var7 + var1 > 0 && var7 + var1 < 103 && var8 + var2 > 0 && var8 + var2 < 103) { // L: 96
+						int[] var10000 = var5[var6].flags[var7 + var1];
+						var10000[var8 + var2] &= -16777217;
+					}
+				}
+			}
+		}
 
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/Socket;IIB)Lln;",
-		garbageValue = "14"
-	)
-	public static AbstractSocket method3375(Socket var0, int var1, int var2) throws IOException {
-		return new BufferedNetSocket(var0, var1, var2); // L: 10
-	}
+		Buffer var10 = new Buffer(var0); // L: 100
+
+		for (var7 = 0; var7 < 4; ++var7) { // L: 101
+			for (var8 = 0; var8 < 64; ++var8) { // L: 102
+				for (int var9 = 0; var9 < 64; ++var9) { // L: 103
+					KeyHandler.loadTerrain(var10, var7, var8 + var1, var9 + var2, var3, var4, 0); // L: 104
+				}
+			}
+		}
+
+	} // L: 108
 }

@@ -4,58 +4,58 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ie")
+@ObfuscatedName("it")
 @Implements("KitDefinition")
 public class KitDefinition extends DualNode {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lig;"
 	)
 	@Export("KitDefinition_archive")
 	static AbstractArchive KitDefinition_archive;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lig;"
 	)
 	@Export("KitDefinition_modelsArchive")
 	static AbstractArchive KitDefinition_modelsArchive;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 12947469
+		intValue = -1172594075
 	)
 	@Export("KitDefinition_fileCount")
 	public static int KitDefinition_fileCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lel;"
+		descriptor = "Lex;"
 	)
 	@Export("KitDefinition_cached")
 	public static EvictingDualNodeHashTable KitDefinition_cached;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -346028961
+		intValue = -765113367
 	)
 	@Export("bodypartID")
 	public int bodypartID;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@Export("models2")
 	int[] models2;
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@Export("recolorFrom")
 	short[] recolorFrom;
-	@ObfuscatedName("w")
+	@ObfuscatedName("e")
 	@Export("recolorTo")
 	short[] recolorTo;
-	@ObfuscatedName("g")
+	@ObfuscatedName("q")
 	@Export("retextureFrom")
 	short[] retextureFrom;
-	@ObfuscatedName("m")
+	@ObfuscatedName("l")
 	@Export("retextureTo")
 	short[] retextureTo;
-	@ObfuscatedName("n")
+	@ObfuscatedName("s")
 	@Export("models")
 	int[] models;
-	@ObfuscatedName("d")
+	@ObfuscatedName("b")
 	@Export("nonSelectable")
 	public boolean nonSelectable;
 
@@ -69,10 +69,10 @@ public class KitDefinition extends DualNode {
 		this.nonSelectable = false; // L: 22
 	} // L: 24
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;I)V",
-		garbageValue = "-861511508"
+		descriptor = "(Lkx;I)V",
+		garbageValue = "-1001378689"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -86,10 +86,10 @@ public class KitDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;IB)V",
-		garbageValue = "36"
+		descriptor = "(Lkx;II)V",
+		garbageValue = "1463228330"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -132,10 +132,10 @@ public class KitDefinition extends DualNode {
 
 	} // L: 78
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "(B)Z",
-		garbageValue = "-62"
+		garbageValue = "-48"
 	)
 	@Export("ready")
 	public boolean ready() {
@@ -154,10 +154,10 @@ public class KitDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lee;",
-		garbageValue = "-1978614087"
+		descriptor = "(B)Lek;",
+		garbageValue = "-41"
 	)
 	@Export("getModelData")
 	public ModelData getModelData() {
@@ -194,12 +194,12 @@ public class KitDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "(B)Z",
-		garbageValue = "-57"
+		garbageValue = "-121"
 	)
-	public boolean method4543() {
+	public boolean method4640() {
 		boolean var1 = true; // L: 108
 
 		for (int var2 = 0; var2 < 5; ++var2) { // L: 109
@@ -211,10 +211,10 @@ public class KitDefinition extends DualNode {
 		return var1; // L: 112
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lee;",
-		garbageValue = "16"
+		descriptor = "(I)Lek;",
+		garbageValue = "2061268949"
 	)
 	@Export("getKitDefinitionModels")
 	public ModelData getKitDefinitionModels() {
@@ -243,18 +243,4 @@ public class KitDefinition extends DualNode {
 
 		return var5; // L: 132
 	}
-
-	@ObfuscatedName("jc")
-	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "1024"
-	)
-	@Export("FriendSystem_invalidateIgnoreds")
-	static final void FriendSystem_invalidateIgnoreds() {
-		UserComparator8.method3497(); // L: 10675
-		if (Entity.clanChat != null) { // L: 10676
-			Entity.clanChat.invalidateIgnoreds(); // L: 10677
-		}
-
-	} // L: 10679
 }

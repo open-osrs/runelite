@@ -12,4 +12,9 @@ public interface WidgetNode extends Node
 	 * @see net.runelite.api.widgets.Widget
 	 */
 	int getId();
+
+	/**
+	 * @see net.runelite.api.widgets.WidgetModalMode
+	 */
+	int getModalMode();
 }

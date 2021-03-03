@@ -34,6 +34,6 @@ public abstract class RSUserMixin implements RSUser
 	@Inject
 	public void onPrevNameChanged(int idx)
 	{
-		client.getCallbacks().post(NameableNameChanged.class, new NameableNameChanged(this));
+		client.getCallbacks().post(new NameableNameChanged(this));
 	}
 }

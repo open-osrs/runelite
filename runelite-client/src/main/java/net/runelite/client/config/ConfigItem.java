@@ -49,7 +49,13 @@ public @interface ConfigItem
 
 	String section() default "";
 
-	String titleSection() default "";
+	String title() default "";
+
+	boolean parse() default false;
+
+	Class<?> clazz() default void.class;
+
+	String method() default "";
 
 	String unhide() default "";
 
@@ -67,12 +73,6 @@ public @interface ConfigItem
 
 	String disabledByValue() default "";
 
-	boolean parse() default false;
-
-	Class<?> clazz() default void.class;
-
-	String method() default "";
-
 	/**
 	 * Use this to indicate the enum class that is going to be used in the multiple select config.
 	 * This implementation made debugging problems with multiple selects a lot easier
@@ -80,5 +80,4 @@ public @interface ConfigItem
 	 * @return The Enum that will be used for the multiple select
 	 */
 	Class<? extends Enum> enumClass() default Enum.class;
-
 }

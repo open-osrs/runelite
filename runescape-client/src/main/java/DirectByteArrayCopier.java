@@ -4,31 +4,26 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hi")
+@ObfuscatedName("hf")
 @Implements("DirectByteArrayCopier")
 public class DirectByteArrayCopier extends AbstractByteArrayCopier {
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lig;"
 	)
-	@Export("ObjectDefinition_modelsArchive")
-	public static AbstractArchive ObjectDefinition_modelsArchive;
-	@ObfuscatedName("bz")
-	@ObfuscatedSignature(
-		descriptor = "Lij;"
-	)
-	static GameBuild field2525;
-	@ObfuscatedName("z")
+	@Export("Widget_modelsArchive")
+	static AbstractArchive Widget_modelsArchive;
+	@ObfuscatedName("n")
 	@Export("directBuffer")
 	ByteBuffer directBuffer;
 
 	DirectByteArrayCopier() {
 	} // L: 10
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)[B",
-		garbageValue = "-1021172953"
+		garbageValue = "1361682252"
 	)
 	@Export("get")
 	byte[] get() {
@@ -38,52 +33,24 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		return var1; // L: 16
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "([BI)V",
-		garbageValue = "-1366071744"
+		garbageValue = "262833794"
 	)
 	@Export("set")
 	void set(byte[] var1) {
-		this.directBuffer = ByteBuffer.allocateDirect(var1.length); // L: 20
+		this.directBuffer = ByteBuffer.allocateDirect(var1.length);
 		this.directBuffer.position(0); // L: 21
 		this.directBuffer.put(var1); // L: 22
 	} // L: 23
 
-	@ObfuscatedName("it")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lhq;IIB)V",
-		garbageValue = "47"
+		descriptor = "(Lig;I)V",
+		garbageValue = "292233920"
 	)
-	@Export("alignWidgetPosition")
-	static void alignWidgetPosition(Widget var0, int var1, int var2) {
-		if (var0.xAlignment == 0) { // L: 9262
-			var0.x = var0.rawX;
-		} else if (var0.xAlignment == 1) { // L: 9263
-			var0.x = var0.rawX + (var1 - var0.width) / 2;
-		} else if (var0.xAlignment == 2) { // L: 9264
-			var0.x = var1 - var0.width - var0.rawX;
-		} else if (var0.xAlignment == 3) { // L: 9265
-			var0.x = var0.rawX * var1 >> 14;
-		} else if (var0.xAlignment == 4) { // L: 9266
-			var0.x = (var1 - var0.width) / 2 + (var0.rawX * var1 >> 14);
-		} else {
-			var0.x = var1 - var0.width - (var0.rawX * var1 >> 14); // L: 9267
-		}
-
-		if (var0.yAlignment == 0) { // L: 9268
-			var0.y = var0.rawY;
-		} else if (var0.yAlignment == 1) { // L: 9269
-			var0.y = (var2 - var0.height) / 2 + var0.rawY;
-		} else if (var0.yAlignment == 2) { // L: 9270
-			var0.y = var2 - var0.height - var0.rawY;
-		} else if (var0.yAlignment == 3) {
-			var0.y = var2 * var0.rawY >> 14; // L: 9271
-		} else if (var0.yAlignment == 4) { // L: 9272
-			var0.y = (var2 * var0.rawY >> 14) + (var2 - var0.height) / 2;
-		} else {
-			var0.y = var2 - var0.height - (var2 * var0.rawY >> 14); // L: 9273
-		}
-
-	} // L: 9274
+	public static void method4147(AbstractArchive var0) {
+		StructComposition.StructDefinition_archive = var0; // L: 19
+	} // L: 20
 }

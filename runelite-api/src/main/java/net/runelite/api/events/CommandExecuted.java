@@ -42,7 +42,7 @@ import lombok.Value;
  * will set command to "" and arguments to ["hello", "world!"].
  */
 @Value
-public class CommandExecuted implements Event
+public class CommandExecuted
 {
 	/**
 	 * The name of the command entered.

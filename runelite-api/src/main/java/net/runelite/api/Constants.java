@@ -83,6 +83,11 @@ public class Constants
 	public static final int TILE_FLAG_BRIDGE = 2;
 
 	/**
+	 * The height of the overworld, in tiles. Coordinates above this are in caves and other such zones.
+	 */
+	public static final int OVERWORLD_MAX_Y = 4160;
+
+	/**
 	 * The number of milliseconds in a client tick.
 	 * <p>
 	 * This is the length of a single frame when the client is running at
@@ -101,7 +106,7 @@ public class Constants
 	/**
 	 * High alchemy = shop price * HIGH_ALCHEMY_MULTIPLIER
 	 *
-	 * @see ItemDefinition#getPrice
+	 * @see ItemComposition#getPrice
 	 */
 	public static final float HIGH_ALCHEMY_MULTIPLIER = 0.6f;
 

@@ -32,7 +32,7 @@ import lombok.Data;
  * An event where the game has changed from fixed to resizable mode or vice versa.
  */
 @Data
-public class ResizeableChanged implements Event
+public class ResizeableChanged
 {
 	/**
 	 * Whether the game is in resizable mode.

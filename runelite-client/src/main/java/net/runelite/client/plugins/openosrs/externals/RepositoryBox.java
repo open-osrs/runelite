@@ -1,5 +1,7 @@
 package net.runelite.client.plugins.openosrs.externals;
 
+import net.runelite.client.plugins.OPRSExternalPluginManager;
+import com.openosrs.client.ui.JMultilineLabel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,10 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import net.runelite.client.plugins.ExternalPluginManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
-import net.runelite.client.ui.JMultilineLabel;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import org.pf4j.update.PluginInfo;
@@ -37,7 +37,7 @@ public class RepositoryBox extends JPanel
 		final BufferedImage deleteImg =
 			ImageUtil.recolorImage(
 				ImageUtil.resizeCanvas(
-					ImageUtil.getResourceStreamFromClass(ExternalPluginManagerPanel.class, "delete_icon.png"), 14, 14
+					ImageUtil.loadImageResource(ExternalPluginManagerPanel.class, "delete_icon.png"), 14, 14
 				), ColorScheme.BRAND_BLUE
 			);
 		DELETE_ICON = new ImageIcon(deleteImg);
@@ -46,14 +46,14 @@ public class RepositoryBox extends JPanel
 		final BufferedImage discordImg =
 			ImageUtil.recolorImage(
 				ImageUtil.resizeCanvas(
-					ImageUtil.getResourceStreamFromClass(ExternalPluginManagerPanel.class, "discord_icon.png"), 14, 14
+					ImageUtil.loadImageResource(ExternalPluginManagerPanel.class, "discord_icon.png"), 14, 14
 				), Color.WHITE
 			);
 		DISCORD_ICON = new ImageIcon(discordImg);
 		DISCORD_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(discordImg, 0.53f));
 	}
 
-	RepositoryBox(ExternalPluginManager externalPluginManager, UpdateRepository updateRepository)
+	RepositoryBox(OPRSExternalPluginManager externalPluginManager, UpdateRepository updateRepository)
 	{
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARKER_GRAY_COLOR);

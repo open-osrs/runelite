@@ -68,9 +68,17 @@ public interface GameObject extends TileObject
 	 */
 	Angle getOrientation();
 
-	Entity getEntity();
+	Renderable getRenderable();
 
 	int getRsOrientation();
 
 	Model getModel();
+
+	/**
+	 * A bitfield containing various flags:
+	 * object type id = bits & 0x20
+	 * orientation (0-3) = bits >>> 6 & 3
+	 * the bitfield may contain other flags in addition to those mentioned above
+	 */
+	int getFlags();
 }

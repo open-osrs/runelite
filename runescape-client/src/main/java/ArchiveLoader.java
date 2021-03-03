@@ -4,36 +4,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bd")
+@ObfuscatedName("bm")
 @Implements("ArchiveLoader")
 public class ArchiveLoader {
-	@ObfuscatedName("hx")
+	@ObfuscatedName("pq")
 	@ObfuscatedSignature(
-		descriptor = "[Llp;"
+		descriptor = "Lld;"
 	)
-	@Export("crossSprites")
-	static Sprite[] crossSprites;
-	@ObfuscatedName("k")
+	@Export("privateChatMode")
+	static PrivateChatMode privateChatMode;
+	@ObfuscatedName("en")
 	@ObfuscatedSignature(
-		descriptor = "Liw;"
+		descriptor = "Liy;"
+	)
+	@Export("archive19")
+	static Archive archive19;
+	@ObfuscatedName("hn")
+	@ObfuscatedGetter(
+		intValue = -1907995143
+	)
+	@Export("cameraY")
+	static int cameraY;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Liy;"
 	)
 	@Export("archive")
 	final Archive archive;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -412619053
+		intValue = 265251349
 	)
 	@Export("groupCount")
 	final int groupCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 486257523
+		intValue = 134465937
 	)
 	@Export("loadedCount")
 	int loadedCount;
 
 	@ObfuscatedSignature(
-		descriptor = "(Liw;Ljava/lang/String;)V"
+		descriptor = "(Liy;Ljava/lang/String;)V"
 	)
 	ArchiveLoader(Archive var1, String var2) {
 		this.loadedCount = 0; // L: 9
@@ -41,17 +53,17 @@ public class ArchiveLoader {
 		this.groupCount = var1.getGroupCount(); // L: 13
 	} // L: 14
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1957084823"
+		garbageValue = "979008130"
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
 		this.loadedCount = 0; // L: 17
 
 		for (int var1 = 0; var1 < this.groupCount; ++var1) { // L: 18
-			if (!this.archive.method4350(var1) || this.archive.method4349(var1)) {
+			if (!this.archive.method4471(var1) || this.archive.method4470(var1)) {
 				++this.loadedCount; // L: 19
 			}
 		}
@@ -59,44 +71,35 @@ public class ArchiveLoader {
 		return this.loadedCount >= this.groupCount; // L: 21
 	}
 
-	@ObfuscatedName("fp")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2074712023"
+		descriptor = "(III)Lhz;",
+		garbageValue = "-326621995"
 	)
-	static final void method1208() {
-		if (Client.logoutTimer > 0) { // L: 2585
-			ViewportMouse.logOut(); // L: 2586
+	@Export("getWidgetChild")
+	public static Widget getWidgetChild(int var0, int var1) {
+		Widget var2 = class237.getWidget(var0); // L: 205
+		if (var1 == -1) { // L: 206
+			return var2;
 		} else {
-			Client.timer.method5098(); // L: 2589
-			CollisionMap.updateGameState(40); // L: 2590
-			MouseHandler.field508 = Client.packetWriter.getSocket(); // L: 2591
-			Client.packetWriter.removeSocket(); // L: 2592
+			return var2 != null && var2.children != null && var1 < var2.children.length ? var2.children[var1] : null; // L: 207 208
 		}
-	} // L: 2587 2593
+	}
 
-	@ObfuscatedName("gp")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-513803575"
+		descriptor = "(III)I",
+		garbageValue = "2065603382"
 	)
-	@Export("getTileHeight")
-	static final int getTileHeight(int var0, int var1, int var2) {
-		int var3 = var0 >> 7; // L: 4975
-		int var4 = var1 >> 7; // L: 4976
-		if (var3 >= 0 && var4 >= 0 && var3 <= 103 && var4 <= 103) { // L: 4977
-			int var5 = var2; // L: 4978
-			if (var2 < 3 && (Tiles.Tiles_renderFlags[1][var3][var4] & 2) == 2) { // L: 4979
-				var5 = var2 + 1;
-			}
-
-			int var6 = var0 & 127; // L: 4980
-			int var7 = var1 & 127; // L: 4981
-			int var8 = (128 - var6) * Tiles.Tiles_heights[var5][var3][var4] + Tiles.Tiles_heights[var5][var3 + 1][var4] * var6 >> 7; // L: 4982
-			int var9 = Tiles.Tiles_heights[var5][var3][var4 + 1] * (128 - var6) + Tiles.Tiles_heights[var5][var3 + 1][var4 + 1] * var6 >> 7; // L: 4983
-			return var8 * (128 - var7) + var9 * var7 >> 7; // L: 4984
-		} else {
-			return 0;
+	static final int method1237(int var0, int var1) {
+		int var2 = class60.method972(var0 + 45365, 91923 + var1, 4) - 128 + (class60.method972(10294 + var0, var1 + 37821, 2) - 128 >> 1) + (class60.method972(var0, var1, 1) - 128 >> 2); // L: 514
+		var2 = (int)(0.3D * (double)var2) + 35; // L: 515
+		if (var2 < 10) { // L: 516
+			var2 = 10;
+		} else if (var2 > 60) { // L: 517
+			var2 = 60;
 		}
+
+		return var2; // L: 518
 	}
 }

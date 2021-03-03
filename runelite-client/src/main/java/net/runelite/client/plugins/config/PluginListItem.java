@@ -26,8 +26,11 @@ package net.runelite.client.plugins.config;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -38,21 +41,25 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
+import javax.swing.border.EmptyBorder;
 import lombok.Getter;
 import net.runelite.client.RuneLiteProperties;
-import net.runelite.client.plugins.ExternalPluginManager;
-import net.runelite.client.plugins.PluginType;
+import net.runelite.client.externalplugins.ExternalPluginManifest;
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
 
-public class PluginListItem extends JPanel
+class PluginListItem extends JPanel implements SearchablePlugin
 {
 	private static final ImageIcon CONFIG_ICON;
 	private static final ImageIcon CONFIG_ICON_HOVER;
@@ -69,17 +76,14 @@ public class PluginListItem extends JPanel
 	@Getter
 	private final List<String> keywords = new ArrayList<>();
 
-	public JLabel nameLabel;
 	private final JToggleButton pinButton;
 	private final JToggleButton onOffToggle;
 
-	private Color color = null;
-
 	static
 	{
-		BufferedImage configIcon = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "config_edit_icon.png");
-		BufferedImage refreshIcon = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "refresh.png");
-		BufferedImage onStar = ImageUtil.getResourceStreamFromClass(ConfigPanel.class, "star_on.png");
+		BufferedImage configIcon = ImageUtil.loadImageResource(ConfigPanel.class, "config_edit_icon.png");
+		BufferedImage refreshIcon = ImageUtil.loadImageResource(ConfigPanel.class, "refresh.png");
+		BufferedImage onStar = ImageUtil.loadImageResource(ConfigPanel.class, "star_on.png");
 		CONFIG_ICON = new ImageIcon(configIcon);
 		REFRESH_ICON = new ImageIcon(refreshIcon);
 		ON_STAR = new ImageIcon(ImageUtil.recolorImage(onStar, ColorScheme.BRAND_BLUE));
@@ -93,7 +97,7 @@ public class PluginListItem extends JPanel
 		OFF_STAR = new ImageIcon(offStar);
 	}
 
-	PluginListItem(PluginListPanel pluginListPanel, PluginConfigurationDescriptor pluginConfig, ExternalPluginManager externalPluginManager)
+	PluginListItem(PluginListPanel pluginListPanel, PluginConfigurationDescriptor pluginConfig, OPRSExternalPluginManager oprsExternalPluginManager)
 	{
 		this.pluginListPanel = pluginListPanel;
 		this.pluginConfig = pluginConfig;
@@ -101,11 +105,21 @@ public class PluginListItem extends JPanel
 		Collections.addAll(keywords, pluginConfig.getName().toLowerCase().split(" "));
 		Collections.addAll(keywords, pluginConfig.getDescription().toLowerCase().split(" "));
 		Collections.addAll(keywords, pluginConfig.getTags());
+		ExternalPluginManifest mf = pluginConfig.getExternalPluginManifest();
+		if (mf != null)
+		{
+			keywords.add("pluginhub");
+			keywords.add(mf.getInternalName());
+		}
+		else
+		{
+			keywords.add("plugin"); // we don't want searching plugin to only show hub plugins
+		}
 
 		setLayout(new BorderLayout(3, 0));
 		setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH, 20));
 
-		nameLabel = new JLabel(pluginConfig.getName());
+		JLabel nameLabel = new JLabel(pluginConfig.getName());
 		nameLabel.setForeground(Color.WHITE);
 
 		if (!pluginConfig.getDescription().isEmpty())
@@ -130,10 +144,9 @@ public class PluginListItem extends JPanel
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		add(buttonPanel, BorderLayout.LINE_END);
 
-		Map<String, Map<String, String>> pluginsInfoMap = externalPluginManager.getPluginsInfoMap();
+		Map<String, Map<String, String>> pluginsInfoMap = oprsExternalPluginManager.getPluginsInfoMap();
 
-		if (ExternalPluginManager.isDevelopmentMode() ||
-			(RuneLiteProperties.getLauncherVersion() == null && pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName())))
+		if ((OPRSExternalPluginManager.isDevelopmentMode() || RuneLiteProperties.getLauncherVersion() == null) && pluginConfig.getPlugin() != null && pluginsInfoMap.containsKey(pluginConfig.getPlugin().getClass().getSimpleName()))
 		{
 			JButton hotSwapButton = new JButton(REFRESH_ICON);
 			hotSwapButton.setRolloverIcon(REFRESH_ICON_HOVER);
@@ -154,14 +167,14 @@ public class PluginListItem extends JPanel
 					@Override
 					protected Boolean doInBackground()
 					{
-						return externalPluginManager.uninstall(pluginId);
+						return oprsExternalPluginManager.uninstall(pluginId);
 					}
 
 					@Override
 					protected void done()
 					{
 						// In development mode our plugins will be loaded directly from sources, so we don't need to prompt
-						if (!ExternalPluginManager.isDevelopmentMode())
+						if (!OPRSExternalPluginManager.isDevelopmentMode())
 						{
 							JOptionPane.showMessageDialog(ClientUI.getFrame(),
 								pluginId + " is unloaded, put the new jar file in the externalmanager folder and click `ok`",
@@ -174,7 +187,7 @@ public class PluginListItem extends JPanel
 							@Override
 							protected Boolean doInBackground()
 							{
-								return externalPluginManager.reloadStart(pluginId);
+								return oprsExternalPluginManager.reloadStart(pluginId);
 							}
 						}.execute();
 					}
@@ -185,6 +198,7 @@ public class PluginListItem extends JPanel
 			hotSwapButton.setToolTipText("Hotswap plugin");
 		}
 
+		JMenuItem configMenuItem = null;
 		if (pluginConfig.hasConfigurables())
 		{
 			JButton configButton = new JButton(CONFIG_ICON);
@@ -202,9 +216,19 @@ public class PluginListItem extends JPanel
 
 			configButton.setVisible(true);
 			configButton.setToolTipText("Edit plugin configuration");
+
+			configMenuItem = new JMenuItem("Configure");
+			configMenuItem.addActionListener(e -> openGroupConfigPanel());
 		}
 
-		addLabelMouseOver(nameLabel);
+		JMenuItem uninstallItem = null;
+		if (mf != null)
+		{
+			uninstallItem = new JMenuItem("Uninstall");
+			uninstallItem.addActionListener(ev -> pluginListPanel.getExternalPluginManager().remove(mf.getInternalName()));
+		}
+
+		addLabelPopupMenu(nameLabel, configMenuItem, pluginConfig.createSupportMenuItem(), uninstallItem);
 		add(nameLabel, BorderLayout.CENTER);
 
 		onOffToggle = new PluginToggleButton();
@@ -229,7 +253,14 @@ public class PluginListItem extends JPanel
 		}
 	}
 
-	boolean isPinned()
+	@Override
+	public String getSearchableName()
+	{
+		return pluginConfig.getName();
+	}
+
+	@Override
+	public boolean isPinned()
 	{
 		return pinButton.isSelected();
 	}
@@ -237,27 +268,6 @@ public class PluginListItem extends JPanel
 	void setPinned(boolean pinned)
 	{
 		pinButton.setSelected(pinned);
-	}
-
-	public PluginType getPluginType()
-	{
-		return pluginConfig.getPluginType();
-	}
-
-	public Color getColor()
-	{
-		return this.color == null ? Color.WHITE : this.color;
-	}
-
-	public void setColor(Color color)
-	{
-		if (color == null)
-		{
-			return;
-		}
-
-		this.color = color;
-		this.nameLabel.setForeground(color);
 	}
 
 	void setPluginEnabled(boolean enabled)
@@ -271,21 +281,49 @@ public class PluginListItem extends JPanel
 	}
 
 	/**
-	 * Adds a mouseover effect to change the text of the passed label to {@link ColorScheme#BRAND_BLUE} color
+	 * Adds a mouseover effect to change the text of the passed label to {@link ColorScheme#BRAND_ORANGE} color, and
+	 * adds the passed menu items to a popup menu shown when the label is clicked.
 	 *
-	 * @param label The label to attach the mouseover and click effects to
+	 * @param label     The label to attach the mouseover and click effects to
+	 * @param menuItems The menu items to be shown when the label is clicked
 	 */
-	static void addLabelMouseOver(final JLabel label)
+	static void addLabelPopupMenu(JLabel label, JMenuItem... menuItems)
 	{
+		final JPopupMenu menu = new JPopupMenu();
+		final Color labelForeground = label.getForeground();
+		menu.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		for (final JMenuItem menuItem : menuItems)
+		{
+			if (menuItem == null)
+			{
+				continue;
+			}
+
+			// Some machines register mouseEntered through a popup menu, and do not register mouseExited when a popup
+			// menu item is clicked, so reset the label's color when we click one of these options.
+			menuItem.addActionListener(e -> label.setForeground(labelForeground));
+			menu.add(menuItem);
+		}
+
 		label.addMouseListener(new MouseAdapter()
 		{
 			private Color lastForeground;
 
 			@Override
+			public void mouseClicked(MouseEvent mouseEvent)
+			{
+				Component source = (Component) mouseEvent.getSource();
+				Point location = MouseInfo.getPointerInfo().getLocation();
+				SwingUtilities.convertPointFromScreen(location, source);
+				menu.show(source, location.x, location.y);
+			}
+
+			@Override
 			public void mouseEntered(MouseEvent mouseEvent)
 			{
 				lastForeground = label.getForeground();
-				label.setForeground(ColorScheme.BRAND_BLUE);
+				label.setForeground(ColorScheme.BRAND_ORANGE);
 			}
 
 			@Override

@@ -59,7 +59,6 @@ public class GrandExchangeClient
 			.addPathSegment("ge")
 			.build();
 
-		RequestBody body = RequestBody.Companion.create(GSON.toJson(grandExchangeTrade), JSON);
 		Request.Builder builder = new Request.Builder();
 		if (uuid != null)
 		{
@@ -71,7 +70,7 @@ public class GrandExchangeClient
 		}
 
 		Request request = builder
-			.post(body)
+			.post(RequestBody.create(JSON, GSON.toJson(grandExchangeTrade)))
 			.url(url)
 			.build();
 

@@ -3,84 +3,107 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ad")
+@ObfuscatedName("an")
 @Implements("WorldMapCacheName")
 public class WorldMapCacheName {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lad;"
+		descriptor = "Lan;"
 	)
-	public static final WorldMapCacheName field322;
-	@ObfuscatedName("k")
+	public static final WorldMapCacheName field333;
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lad;"
+		descriptor = "Lan;"
 	)
-	public static final WorldMapCacheName field318;
-	@ObfuscatedName("s")
+	public static final WorldMapCacheName field323;
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lad;"
+		descriptor = "Lan;"
 	)
-	public static final WorldMapCacheName field327;
-	@ObfuscatedName("t")
+	public static final WorldMapCacheName field324;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lad;"
+		descriptor = "Lan;"
 	)
-	static final WorldMapCacheName field319;
-	@ObfuscatedName("i")
+	static final WorldMapCacheName field325;
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lad;"
+		descriptor = "Lan;"
 	)
-	public static final WorldMapCacheName field321;
-	@ObfuscatedName("o")
+	public static final WorldMapCacheName field326;
+	@ObfuscatedName("dc")
+	@ObfuscatedSignature(
+		descriptor = "Liy;"
+	)
+	@Export("archive4")
+	static Archive archive4;
+	@ObfuscatedName("h")
 	@Export("name")
 	public final String name;
 
 	static {
-		field322 = new WorldMapCacheName("details"); // L: 4
-		field318 = new WorldMapCacheName("compositemap"); // L: 5
-		field327 = new WorldMapCacheName("compositetexture"); // L: 6
-		field319 = new WorldMapCacheName("area"); // L: 7
-		field321 = new WorldMapCacheName("labels"); // L: 8
+		field333 = new WorldMapCacheName("details"); // L: 4
+		field323 = new WorldMapCacheName("compositemap"); // L: 5
+		field324 = new WorldMapCacheName("compositetexture"); // L: 6
+		field325 = new WorldMapCacheName("area"); // L: 7
+		field326 = new WorldMapCacheName("labels"); // L: 8
 	}
 
 	WorldMapCacheName(String var1) {
 		this.name = var1; // L: 12
 	} // L: 13
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)Lbk;",
-		garbageValue = "-87"
+		descriptor = "(II)Z",
+		garbageValue = "1996576804"
 	)
-	@Export("Messages_getByChannelAndID")
-	static Message Messages_getByChannelAndID(int var0, int var1) {
-		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 35
-		return var2.getMessage(var1); // L: 36
+	@Export("loadInterface")
+	public static boolean loadInterface(int var0) {
+		if (Widget.Widget_loadedInterfaces[var0]) { // L: 212
+			return true;
+		} else if (!FontName.Widget_archive.tryLoadGroup(var0)) { // L: 213
+			return false;
+		} else {
+			int var1 = FontName.Widget_archive.getGroupFileCount(var0); // L: 214
+			if (var1 == 0) { // L: 215
+				Widget.Widget_loadedInterfaces[var0] = true; // L: 216
+				return true; // L: 217
+			} else {
+				if (DefaultsGroup.Widget_interfaceComponents[var0] == null) { // L: 219
+					DefaultsGroup.Widget_interfaceComponents[var0] = new Widget[var1];
+				}
+
+				for (int var2 = 0; var2 < var1; ++var2) { // L: 220
+					if (DefaultsGroup.Widget_interfaceComponents[var0][var2] == null) { // L: 221
+						byte[] var3 = FontName.Widget_archive.takeFile(var0, var2); // L: 222
+						if (var3 != null) { // L: 223
+							DefaultsGroup.Widget_interfaceComponents[var0][var2] = new Widget(); // L: 224
+							DefaultsGroup.Widget_interfaceComponents[var0][var2].id = var2 + (var0 << 16); // L: 225
+							if (var3[0] == -1) { // L: 226
+								DefaultsGroup.Widget_interfaceComponents[var0][var2].decode(new Buffer(var3));
+							} else {
+								DefaultsGroup.Widget_interfaceComponents[var0][var2].decodeLegacy(new Buffer(var3)); // L: 227
+							}
+						}
+					}
+				}
+
+				Widget.Widget_loadedInterfaces[var0] = true; // L: 231
+				return true; // L: 232
+			}
+		}
 	}
 
-	@ObfuscatedName("fe")
+	@ObfuscatedName("lk")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1002606295"
+		descriptor = "(S)V",
+		garbageValue = "-11688"
 	)
-	@Export("playSong")
-	static void playSong(int var0) {
-		if (var0 == -1 && !Client.field704) { // L: 3288
-			class206.midiPcmStream.clear(); // L: 3290
-			class206.musicPlayerStatus = 1; // L: 3291
-			class204.musicTrackArchive = null; // L: 3292
-		} else if (var0 != -1 && var0 != Client.currentTrackGroupId && Client.musicVolume != 0 && !Client.field704) { // L: 3295
-			Archive var1 = CollisionMap.archive6; // L: 3296
-			int var2 = Client.musicVolume; // L: 3297
-			class206.musicPlayerStatus = 1; // L: 3299
-			class204.musicTrackArchive = var1; // L: 3300
-			BuddyRankComparator.musicTrackGroupId = var0; // L: 3301
-			class206.musicTrackFileId = 0; // L: 3302
-			Tiles.musicTrackVolume = var2; // L: 3303
-			class206.musicTrackBoolean = false; // L: 3304
-			FaceNormal.pcmSampleLength = 2; // L: 3305
+	static void method715() {
+		if (Client.oculusOrbState == 1) { // L: 11624
+			Client.field747 = true; // L: 11625
 		}
 
-		Client.currentTrackGroupId = var0; // L: 3308
-	} // L: 3309
+	} // L: 11627
 }

@@ -25,13 +25,12 @@
 package net.runelite.client.discord.events;
 
 import lombok.Value;
-import net.runelite.api.events.Event;
 
 /**
  * Called when the RPC connection has been severed
  */
 @Value
-public class DiscordDisconnected implements Event
+public class DiscordDisconnected
 {
 	/**
 	 * Discord error code

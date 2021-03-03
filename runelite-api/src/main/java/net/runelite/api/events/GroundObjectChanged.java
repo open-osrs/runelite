@@ -32,7 +32,7 @@ import lombok.Data;
  * An event where the {@link GroundObject} on a {@link Tile} has been changed.
  */
 @Data
-public class GroundObjectChanged implements Event
+public class GroundObjectChanged
 {
 	/**
 	 * The affected tile.

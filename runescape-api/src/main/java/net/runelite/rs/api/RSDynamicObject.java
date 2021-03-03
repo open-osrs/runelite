@@ -1,10 +1,10 @@
 package net.runelite.rs.api;
 
 import net.runelite.api.DynamicObject;
-import net.runelite.api.Entity;
+import net.runelite.api.Renderable;
 import net.runelite.mapping.Import;
 
-public interface RSDynamicObject extends RSEntity, DynamicObject, Entity
+public interface RSDynamicObject extends RSRenderable, DynamicObject, Renderable
 {
 	@Import("id")
 	int getId();
@@ -17,4 +17,7 @@ public interface RSDynamicObject extends RSEntity, DynamicObject, Entity
 
 	@Import("cycleStart")
 	int getAnimCycleCount();
+
+	@Import("sequenceDefinition")
+	RSSequenceDefinition getSequenceDefinition();
 }

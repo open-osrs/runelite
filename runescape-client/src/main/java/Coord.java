@@ -4,30 +4,32 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hg")
+@ObfuscatedName("hd")
 @Implements("Coord")
 public class Coord {
-	@ObfuscatedName("k")
+	@ObfuscatedName("q")
+	static int[] field2560;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -877871317
+		intValue = 1010419141
 	)
 	@Export("plane")
 	public int plane;
-	@ObfuscatedName("s")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1594066417
+		intValue = 1636543291
 	)
 	@Export("x")
 	public int x;
-	@ObfuscatedName("t")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1889586591
+		intValue = -1486415971
 	)
 	@Export("y")
 	public int y;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lhg;)V"
+		descriptor = "(Lhd;)V"
 	)
 	public Coord(Coord var1) {
 		this.plane = var1.plane; // L: 15
@@ -52,20 +54,20 @@ public class Coord {
 
 	} // L: 27
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-78"
+		descriptor = "(I)I",
+		garbageValue = "71745539"
 	)
 	@Export("packed")
 	public int packed() {
 		return this.plane << 28 | this.x << 14 | this.y; // L: 30
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lhg;I)Z",
-		garbageValue = "24386397"
+		descriptor = "(Lhd;S)Z",
+		garbageValue = "144"
 	)
 	@Export("equalsCoord")
 	boolean equalsCoord(Coord var1) {
@@ -78,14 +80,14 @@ public class Coord {
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "0"
+		garbageValue = "31"
 	)
 	@Export("toString")
 	String toString(String var1) {
-		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63); // L: 55
+		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63);
 	}
 
 	public boolean equals(Object var1) {
@@ -104,81 +106,39 @@ public class Coord {
 		return this.toString(","); // L: 51
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-34"
+		descriptor = "(II)I",
+		garbageValue = "1310695522"
 	)
-	static final int method4083(int var0, int var1) {
-		if (var0 == -2) { // L: 871
-			return 12345678;
-		} else if (var0 == -1) { // L: 872
-			if (var1 < 2) { // L: 873
-				var1 = 2;
-			} else if (var1 > 126) { // L: 874
-				var1 = 126;
-			}
-
-			return var1; // L: 875
-		} else {
-			var1 = (var0 & 127) * var1 / 128; // L: 877
-			if (var1 < 2) { // L: 878
-				var1 = 2;
-			} else if (var1 > 126) { // L: 879
-				var1 = 126;
-			}
-
-			return (var0 & 65408) + var1; // L: 880
+	@Export("iLog")
+	public static int iLog(int var0) {
+		int var1 = 0; // L: 54
+		if (var0 < 0 || var0 >= 65536) { // L: 55
+			var0 >>>= 16; // L: 56
+			var1 += 16; // L: 57
 		}
+
+		if (var0 >= 256) { // L: 59
+			var0 >>>= 8; // L: 60
+			var1 += 8; // L: 61
+		}
+
+		if (var0 >= 16) { // L: 63
+			var0 >>>= 4; // L: 64
+			var1 += 4; // L: 65
+		}
+
+		if (var0 >= 4) { // L: 67
+			var0 >>>= 2; // L: 68
+			var1 += 2; // L: 69
+		}
+
+		if (var0 >= 1) { // L: 71
+			var0 >>>= 1; // L: 72
+			++var1; // L: 73
+		}
+
+		return var0 + var1; // L: 75
 	}
-
-	@ObfuscatedName("fy")
-	@ObfuscatedSignature(
-		descriptor = "(Lcg;B)V",
-		garbageValue = "115"
-	)
-	static final void method4084(Actor var0) {
-		int var1 = Math.max(1, var0.field1026 - Client.cycle); // L: 3829
-		int var2 = var0.field1014 * 64 + var0.field997 * 128; // L: 3830
-		int var3 = var0.field1014 * 64 + var0.field1016 * 128; // L: 3831
-		var0.x += (var2 - var0.x) / var1; // L: 3832
-		var0.y += (var3 - var0.y) / var1; // L: 3833
-		var0.field1032 = 0; // L: 3834
-		var0.orientation = var0.field1027; // L: 3835
-	} // L: 3836
-
-	@ObfuscatedName("gz")
-	@ObfuscatedSignature(
-		descriptor = "(Lcg;IB)V",
-		garbageValue = "-77"
-	)
-	static final void method4086(Actor var0, int var1) {
-		class89.worldToScreen(var0.x, var0.y, var1); // L: 4941
-	} // L: 4942
-
-	@ObfuscatedName("jz")
-	@ObfuscatedSignature(
-		descriptor = "(IIIILlp;Lhz;I)V",
-		garbageValue = "-334370993"
-	)
-	@Export("worldToMinimap")
-	static final void worldToMinimap(int var0, int var1, int var2, int var3, Sprite var4, SpriteMask var5) {
-		int var6 = var3 * var3 + var2 * var2; // L: 10644
-		if (var6 > 4225 && var6 < 90000) { // L: 10645
-			int var7 = Client.camAngleY & 2047; // L: 10646
-			int var8 = Rasterizer3D.Rasterizer3D_sine[var7]; // L: 10647
-			int var9 = Rasterizer3D.Rasterizer3D_cosine[var7]; // L: 10648
-			int var10 = var9 * var2 + var3 * var8 >> 16; // L: 10649
-			int var11 = var3 * var9 - var8 * var2 >> 16; // L: 10650
-			double var12 = Math.atan2((double)var10, (double)var11); // L: 10651
-			int var14 = var5.width / 2 - 25; // L: 10652
-			int var15 = (int)(Math.sin(var12) * (double)var14); // L: 10653
-			int var16 = (int)(Math.cos(var12) * (double)var14); // L: 10654
-			byte var17 = 20; // L: 10655
-			FontName.redHintArrowSprite.method6264(var15 + (var0 + var5.width / 2 - var17 / 2), var5.height / 2 + var1 - var17 / 2 - var16 - 10, var17, var17, 15, 15, var12, 256); // L: 10656
-		} else {
-			HealthBar.drawSpriteOnMinimap(var0, var1, var2, var3, var4, var5); // L: 10658
-		}
-
-	} // L: 10659
 }

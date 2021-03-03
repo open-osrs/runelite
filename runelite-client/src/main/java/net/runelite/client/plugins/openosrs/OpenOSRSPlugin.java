@@ -27,26 +27,19 @@
 package net.runelite.client.plugins.openosrs;
 
 import ch.qos.logback.classic.Logger;
-import java.awt.event.KeyEvent;
+import com.openosrs.client.config.OpenOSRSConfig;
+import net.runelite.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
-import static net.runelite.api.ScriptID.BANK_PIN_OP;
-import net.runelite.api.events.ScriptCallbackEvent;
-import net.runelite.api.widgets.WidgetID;
-import static net.runelite.api.widgets.WidgetInfo.*;
-import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.Keybind;
-import net.runelite.client.config.OpenOSRSConfig;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
-import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.HotkeyListener;
@@ -62,8 +55,6 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class OpenOSRSPlugin extends Plugin
 {
-	private final openosrsKeyListener keyListener = new openosrsKeyListener();
-
 	@Inject
 	private OpenOSRSConfig config;
 
@@ -72,9 +63,6 @@ public class OpenOSRSPlugin extends Plugin
 
 	@Inject
 	private Client client;
-
-	@Inject
-	private ClientThread clientThread;
 
 	@Inject
 	private ClientToolbar clientToolbar;
@@ -86,14 +74,15 @@ public class OpenOSRSPlugin extends Plugin
 		@Override
 		public void hotkeyPressed()
 		{
+			if (client == null)
+			{
+				return;
+			}
 			detach = !detach;
 			client.setOculusOrbState(detach ? 1 : 0);
 			client.setOculusOrbNormalSpeed(detach ? 36 : 12);
 		}
 	};
-	private int entered = -1;
-	private int enterIdx;
-	private boolean expectInput;
 	private boolean detach;
 	private Keybind keybind;
 
@@ -102,7 +91,7 @@ public class OpenOSRSPlugin extends Plugin
 	{
 		ExternalPluginManagerPanel panel = injector.getInstance(ExternalPluginManagerPanel.class);
 
-		final BufferedImage icon = ImageUtil.getResourceStreamFromClass(getClass(), "externalmanager_icon.png");
+		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "externalmanager_icon.png");
 
 		navButton = NavigationButton.builder()
 			.tooltip("External Plugin Manager")
@@ -112,9 +101,6 @@ public class OpenOSRSPlugin extends Plugin
 			.build();
 		clientToolbar.addNavigation(navButton);
 
-		entered = -1;
-		enterIdx = 0;
-		expectInput = false;
 		this.keybind = config.detachHotkey();
 		keyManager.registerKeyListener(hotkeyListener);
 	}
@@ -123,12 +109,6 @@ public class OpenOSRSPlugin extends Plugin
 	protected void shutDown()
 	{
 		clientToolbar.removeNavigation(navButton);
-
-		entered = 0;
-		enterIdx = 0;
-		expectInput = false;
-		keyManager.unregisterKeyListener(keyListener);
-		keyManager.unregisterKeyListener(hotkeyListener);
 	}
 
 	@Subscribe
@@ -141,14 +121,6 @@ public class OpenOSRSPlugin extends Plugin
 
 		this.keybind = config.detachHotkey();
 
-		if (!config.keyboardPin())
-		{
-			entered = 0;
-			enterIdx = 0;
-			expectInput = false;
-			keyManager.unregisterKeyListener(keyListener);
-		}
-
 		if (event.getKey().equals("shareLogs") && !config.shareLogs())
 		{
 			final Logger logger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
@@ -156,118 +128,4 @@ public class OpenOSRSPlugin extends Plugin
 		}
 	}
 
-	@Subscribe
-	private void onScriptCallbackEvent(ScriptCallbackEvent e)
-	{
-		if (!config.keyboardPin())
-		{
-			return;
-		}
-
-		if (e.getEventName().equals("bankpin"))
-		{
-			int[] intStack = client.getIntStack();
-			int intStackSize = client.getIntStackSize();
-
-			// This'll be anywhere from -1 to 3
-			// 0 = first number, 1 second, etc
-			// Anything other than 0123 means the bankpin interface closes
-			int enterIdx = intStack[intStackSize - 1];
-
-			if (enterIdx < 0 || enterIdx > 3)
-			{
-				keyManager.unregisterKeyListener(keyListener);
-				this.enterIdx = 0;
-				this.entered = 0;
-				expectInput = false;
-				return;
-			}
-			else if (enterIdx == 0)
-			{
-				keyManager.registerKeyListener(keyListener);
-			}
-
-			this.enterIdx = enterIdx;
-			expectInput = true;
-		}
-	}
-
-	private void handleKey(char c)
-	{
-		if (client.getWidget(WidgetID.BANK_PIN_GROUP_ID, BANK_PIN_INSTRUCTION_TEXT.getChildId()) == null
-			|| !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("First click the FIRST digit.")
-			&& !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("Now click the SECOND digit.")
-			&& !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("Time for the THIRD digit.")
-			&& !client.getWidget(BANK_PIN_INSTRUCTION_TEXT).getText().equals("Finally, the FOURTH digit."))
-
-		{
-			entered = 0;
-			enterIdx = 0;
-			expectInput = false;
-			keyManager.unregisterKeyListener(keyListener);
-			return;
-		}
-
-		if (!expectInput)
-		{
-			return;
-		}
-
-		int num = Character.getNumericValue(c);
-
-		// We gotta copy this cause enteridx changes while the script is executing
-		int oldEnterIdx = enterIdx;
-
-		// Script 685 will call 653, which in turn will set expectInput to true
-		expectInput = false;
-		client.runScript(BANK_PIN_OP, num, enterIdx, entered, BANK_PIN_EXIT_BUTTON.getId(), BANK_PIN_FORGOT_BUTTON.getId(), BANK_PIN_1.getId(), BANK_PIN_2.getId(), BANK_PIN_3.getId(), BANK_PIN_4.getId(), BANK_PIN_5.getId(), BANK_PIN_6.getId(), BANK_PIN_7.getId(), BANK_PIN_8.getId(), BANK_PIN_9.getId(), BANK_PIN_10.getId(), BANK_PIN_FIRST_ENTERED.getId(), BANK_PIN_SECOND_ENTERED.getId(), BANK_PIN_THIRD_ENTERED.getId(), BANK_PIN_FOURTH_ENTERED.getId(), BANK_PIN_INSTRUCTION_TEXT.getId());
-
-		if (oldEnterIdx == 0)
-		{
-			entered = num * 1000;
-		}
-		else if (oldEnterIdx == 1)
-		{
-			entered += num * 100;
-		}
-		else if (oldEnterIdx == 2)
-		{
-			entered += num * 10;
-		}
-	}
-
-	private class openosrsKeyListener implements KeyListener
-	{
-		private int lastKeyCycle;
-
-		@Override
-		public void keyTyped(KeyEvent keyEvent)
-		{
-			if (!Character.isDigit(keyEvent.getKeyChar()))
-			{
-				return;
-			}
-
-			if (client.getGameCycle() - lastKeyCycle <= 5)
-			{
-				keyEvent.consume();
-				return;
-			}
-
-			lastKeyCycle = client.getGameCycle();
-
-			clientThread.invoke(() -> handleKey(keyEvent.getKeyChar()));
-			keyEvent.consume();
-		}
-
-		@Override
-		public void keyPressed(KeyEvent keyEvent)
-		{
-		}
-
-		@Override
-		public void keyReleased(KeyEvent keyEvent)
-		{
-		}
-	}
 }

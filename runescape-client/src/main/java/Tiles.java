@@ -3,185 +3,280 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bu")
+@ObfuscatedName("bh")
 @Implements("Tiles")
 public final class Tiles {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@Export("Tiles_heights")
 	static int[][][] Tiles_heights;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@Export("Tiles_renderFlags")
 	static byte[][][] Tiles_renderFlags;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 210424451
+		intValue = -968243809
 	)
 	@Export("Tiles_minPlane")
 	static int Tiles_minPlane;
-	@ObfuscatedName("t")
-	static byte[][][] field528;
-	@ObfuscatedName("i")
-	static byte[][][] field521;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = -1682339213
-	)
-	@Export("musicTrackVolume")
-	public static int musicTrackVolume;
-	@ObfuscatedName("m")
-	@Export("Tiles_hue")
-	static int[] Tiles_hue;
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
+	static byte[][][] field517;
+	@ObfuscatedName("h")
+	static byte[][][] field530;
+	@ObfuscatedName("s")
 	@Export("Tiles_saturation")
 	static int[] Tiles_saturation;
-	@ObfuscatedName("v")
-	static final int[] field524;
-	@ObfuscatedName("j")
+	@ObfuscatedName("g")
+	static final int[] field521;
+	@ObfuscatedName("u")
+	static final int[] field514;
+	@ObfuscatedName("t")
+	static final int[] field523;
+	@ObfuscatedName("p")
+	static final int[] field527;
+	@ObfuscatedName("m")
 	static final int[] field525;
 	@ObfuscatedName("r")
-	static final int[] field517;
-	@ObfuscatedName("u")
-	static final int[] field527;
-	@ObfuscatedName("p")
-	static final int[] field534;
-	@ObfuscatedName("b")
-	static final int[] field529;
-	@ObfuscatedName("l")
+	static final int[] field526;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1084049787
+		intValue = -1953607333
 	)
-	static int field535;
-	@ObfuscatedName("e")
+	static int field518;
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 96867879
+		intValue = -2108936291
 	)
-	static int field520;
-	@ObfuscatedName("bh")
+	static int field528;
+	@ObfuscatedName("ek")
 	@ObfuscatedSignature(
-		descriptor = "Lis;"
+		descriptor = "Liy;"
 	)
-	static StudioGame field532;
+	@Export("archive14")
+	static Archive archive14;
 
 	static {
-		Tiles_heights = new int[4][105][105]; // L: 16
+		Tiles_heights = new int[4][105][105];
 		Tiles_renderFlags = new byte[4][104][104]; // L: 17
-		Tiles_minPlane = 99; // L: 18
-		field524 = new int[]{1, 2, 4, 8};
-		field525 = new int[]{16, 32, 64, 128};
-		field517 = new int[]{1, 0, -1, 0};
+		Tiles_minPlane = 99;
+		field521 = new int[]{1, 2, 4, 8};
+		field514 = new int[]{16, 32, 64, 128}; // L: 35
+		field523 = new int[]{1, 0, -1, 0}; // L: 36
 		field527 = new int[]{0, -1, 0, 1};
-		field534 = new int[]{1, -1, -1, 1};
-		field529 = new int[]{-1, -1, 1, 1};
-		field535 = (int)(Math.random() * 17.0D) - 8; // L: 40
-		field520 = (int)(Math.random() * 33.0D) - 16; // L: 41
+		field525 = new int[]{1, -1, -1, 1}; // L: 38
+		field526 = new int[]{-1, -1, 1, 1}; // L: 39
+		field518 = (int)(Math.random() * 17.0D) - 8; // L: 40
+		field528 = (int)(Math.random() * 33.0D) - 16; // L: 41
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(I)J",
+		garbageValue = "-1552906826"
+	)
+	@Export("currentTimeMillis")
+	public static final synchronized long currentTimeMillis() {
+		long var0 = System.currentTimeMillis(); // L: 14
+		if (var0 < class307.field3734) { // L: 15
+			class307.field3735 += class307.field3734 - var0; // L: 16
+		}
+
+		class307.field3734 = var0;
+		return class307.field3735 + var0;
+	}
+
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(II)Lih;",
-		garbageValue = "1036194944"
+		garbageValue = "-2101793788"
 	)
-	@Export("SpotAnimationDefinition_get")
-	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
-		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0); // L: 32
-		if (var1 != null) { // L: 33
+	public static VarbitComposition method1219(int var0) {
+		VarbitComposition var1 = (VarbitComposition)VarbitComposition.VarbitDefinition_cached.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0); // L: 34
-			var1 = new SpotAnimationDefinition(); // L: 35
-			var1.id = var0; // L: 36
-			if (var2 != null) { // L: 37
+			byte[] var2 = VarbitComposition.VarbitDefinition_archive.takeFile(14, var0);
+			var1 = new VarbitComposition();
+			if (var2 != null) {
 				var1.decode(new Buffer(var2));
 			}
 
-			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0); // L: 38
-			return var1; // L: 39
+			VarbitComposition.VarbitDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
 	}
 
-	@ObfuscatedName("z")
-	static boolean method1191(long var0) {
-		int var2 = (int)(var0 >>> 14 & 3L); // L: 46
-		return var2 == 2; // L: 48
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(ILlu;Liy;B)V",
+		garbageValue = "1"
+	)
+	static void method1218(int var0, ArchiveDisk var1, Archive var2) {
+		ArchiveDiskAction var3 = new ArchiveDiskAction(); // L: 18
+		var3.type = 1; // L: 19
+		var3.key = (long)var0; // L: 20
+		var3.archiveDisk = var1; // L: 21
+		var3.archive = var2;
+		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) { // L: 23
+			ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.addFirst(var3); // L: 24
+		} // L: 25
+
+		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) { // L: 27
+			if (ArchiveDiskActionHandler.field3187 == 0) { // L: 28
+				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler()); // L: 29
+				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setDaemon(true); // L: 30
+				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.start(); // L: 31
+				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setPriority(5); // L: 32
+			}
+
+			ArchiveDiskActionHandler.field3187 = 600; // L: 34
+		}
+	} // L: 37
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lgv;",
+		garbageValue = "-2100535609"
+	)
+	static LoginPacket[] method1217() {
+		return new LoginPacket[]{LoginPacket.field2340, LoginPacket.field2339, LoginPacket.field2342, LoginPacket.field2338, LoginPacket.field2336, LoginPacket.field2337}; // L: 22
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(Lky;S)I",
-		garbageValue = "5748"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-1993341504"
 	)
-	static int method1186(PacketBuffer var0) {
-		int var1 = var0.readBits(2); // L: 179
-		int var2;
-		if (var1 == 0) { // L: 181
-			var2 = 0;
-		} else if (var1 == 1) { // L: 182
-			var2 = var0.readBits(5);
-		} else if (var1 == 2) { // L: 183
-			var2 = var0.readBits(8);
+	static final void method1209(String var0) {
+		class300.method5473("Please remove " + var0 + " from your friend list first"); // L: 158
+	} // L: 159
+
+	@ObfuscatedName("ax")
+	@ObfuscatedSignature(
+		descriptor = "(ILcl;ZI)I",
+		garbageValue = "1872094164"
+	)
+	static int method1215(int var0, Script var1, boolean var2) {
+		int var6;
+		if (var0 == ScriptOpcodes.OC_NAME) { // L: 2808
+			var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2809
+			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = class281.ItemDefinition_get(var6).name; // L: 2810
+			return 1; // L: 2811
 		} else {
-			var2 = var0.readBits(11); // L: 184
-		}
+			int var4;
+			ItemComposition var5;
+			if (var0 == ScriptOpcodes.OC_OP) { // L: 2813
+				Interpreter.Interpreter_intStackSize -= 2; // L: 2814
+				var6 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 2815
+				var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 2816
+				var5 = class281.ItemDefinition_get(var6); // L: 2817
+				if (var4 >= 1 && var4 <= 5 && var5.groundActions[var4 - 1] != null) { // L: 2818
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var5.groundActions[var4 - 1];
+				} else {
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = ""; // L: 2819
+				}
 
-		return var2; // L: 185
-	}
+				return 1; // L: 2820
+			} else if (var0 == ScriptOpcodes.OC_IOP) { // L: 2822
+				Interpreter.Interpreter_intStackSize -= 2; // L: 2823
+				var6 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 2824
+				var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 2825
+				var5 = class281.ItemDefinition_get(var6); // L: 2826
+				if (var4 >= 1 && var4 <= 5 && var5.inventoryActions[var4 - 1] != null) { // L: 2827
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var5.inventoryActions[var4 - 1];
+				} else {
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = ""; // L: 2828
+				}
 
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "-877871317"
-	)
-	public static boolean method1187(char var0) {
-		if ((var0 < ' ' || var0 >= 127) && (var0 <= 127 || var0 >= 160) && (var0 <= 160 || var0 > 255)) { // L: 61
-			if (var0 != 0) { // L: 62
-				char[] var1 = class297.cp1252AsciiExtension; // L: 64
-
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 65
-					char var3 = var1[var2]; // L: 66
-					if (var0 == var3) { // L: 68
-						return true; // L: 69
+				return 1; // L: 2829
+			} else if (var0 == ScriptOpcodes.OC_COST) { // L: 2831
+				var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2832
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class281.ItemDefinition_get(var6).price; // L: 2833
+				return 1; // L: 2834
+			} else if (var0 == ScriptOpcodes.OC_STACKABLE) { // L: 2836
+				var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2837
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class281.ItemDefinition_get(var6).isStackable == 1 ? 1 : 0; // L: 2838
+				return 1; // L: 2839
+			} else {
+				ItemComposition var7;
+				if (var0 == ScriptOpcodes.OC_CERT) { // L: 2841
+					var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2842
+					var7 = class281.ItemDefinition_get(var6); // L: 2843
+					if (var7.noteTemplate == -1 && var7.note >= 0) { // L: 2844
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.note;
+					} else {
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var6; // L: 2845
 					}
+
+					return 1; // L: 2846
+				} else if (var0 == ScriptOpcodes.OC_UNCERT) { // L: 2848
+					var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2849
+					var7 = class281.ItemDefinition_get(var6); // L: 2850
+					if (var7.noteTemplate >= 0 && var7.note >= 0) { // L: 2851
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.note;
+					} else {
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var6; // L: 2852
+					}
+
+					return 1; // L: 2853
+				} else if (var0 == ScriptOpcodes.OC_MEMBERS) { // L: 2855
+					var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2856
+					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class281.ItemDefinition_get(var6).isMembersOnly ? 1 : 0; // L: 2857
+					return 1; // L: 2858
+				} else if (var0 == ScriptOpcodes.OC_PLACEHOLDER) { // L: 2860
+					var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2861
+					var7 = class281.ItemDefinition_get(var6); // L: 2862
+					if (var7.placeholderTemplate == -1 && var7.placeholder >= 0) { // L: 2863
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.placeholder;
+					} else {
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var6; // L: 2864
+					}
+
+					return 1; // L: 2865
+				} else if (var0 == ScriptOpcodes.OC_UNPLACEHOLDER) { // L: 2867
+					var6 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2868
+					var7 = class281.ItemDefinition_get(var6); // L: 2869
+					if (var7.placeholderTemplate >= 0 && var7.placeholder >= 0) { // L: 2870
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.placeholder;
+					} else {
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var6; // L: 2871
+					}
+
+					return 1; // L: 2872
+				} else if (var0 == ScriptOpcodes.OC_FIND) { // L: 2874
+					String var3 = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]; // L: 2875
+					var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2876
+					PendingSpawn.findItemDefinitions(var3, var4 == 1); // L: 2877
+					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = NPC.foundItemIdCount; // L: 2878
+					return 1; // L: 2879
+				} else if (var0 != ScriptOpcodes.OC_FINDNEXT) { // L: 2881
+					if (var0 == ScriptOpcodes.OC_FINDRESET) { // L: 2886
+						WorldMapLabelSize.foundItemIndex = 0; // L: 2887
+						return 1; // L: 2888
+					} else {
+						return 2; // L: 2890
+					}
+				} else {
+					if (class52.foundItemIds != null && WorldMapLabelSize.foundItemIndex < NPC.foundItemIdCount) { // L: 2882
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = class52.foundItemIds[++WorldMapLabelSize.foundItemIndex - 1] & '\uffff'; // L: 2883
+					} else {
+						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
+					}
+
+					return 1; // L: 2884
 				}
 			}
-
-			return false; // L: 75
-		} else {
-			return true;
 		}
 	}
 
-	@ObfuscatedName("gk")
+	@ObfuscatedName("jg")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1367737542"
+		descriptor = "(ZI)V",
+		garbageValue = "739507935"
 	)
-	static void method1177() {
-		if (Client.combatTargetPlayerIndex >= 0 && Client.players[Client.combatTargetPlayerIndex] != null) { // L: 4254
-			VarpDefinition.addPlayerToScene(Client.players[Client.combatTargetPlayerIndex], false); // L: 4255
-		}
-
-	} // L: 4257
-
-	@ObfuscatedName("hd")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
-		garbageValue = "-1"
-	)
-	@Export("insertMenuItem")
-	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
-		if (!Client.isMenuOpen) { // L: 8240
-			if (Client.menuOptionsCount < 500) { // L: 8241
-				Client.menuActions[Client.menuOptionsCount] = var0; // L: 8242
-				Client.menuTargets[Client.menuOptionsCount] = var1; // L: 8243
-				Client.menuOpcodes[Client.menuOptionsCount] = var2; // L: 8244
-				Client.menuIdentifiers[Client.menuOptionsCount] = var3; // L: 8245
-				Client.menuArguments1[Client.menuOptionsCount] = var4; // L: 8246
-				Client.menuArguments2[Client.menuOptionsCount] = var5; // L: 8247
-				Client.menuShiftClick[Client.menuOptionsCount] = var6; // L: 8248
-				++Client.menuOptionsCount; // L: 8249
-			}
-
-		}
-	} // L: 8251
+	@Export("setTapToDrop")
+	static void setTapToDrop(boolean var0) {
+		Client.tapToDrop = var0; // L: 10361
+	} // L: 10362
 }

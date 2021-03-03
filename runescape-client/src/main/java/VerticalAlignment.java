@@ -4,57 +4,51 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("it")
+@ObfuscatedName("ie")
 @Implements("VerticalAlignment")
 public enum VerticalAlignment implements Enumerated {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lit;"
+		descriptor = "Lie;"
 	)
-	field3221(1, 0),
-	@ObfuscatedName("k")
+	field3236(0, 0),
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lit;"
+		descriptor = "Lie;"
 	)
 	@Export("VerticalAlignment_centered")
-	VerticalAlignment_centered(0, 1),
-	@ObfuscatedName("s")
+	VerticalAlignment_centered(2, 1),
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lit;"
+		descriptor = "Lie;"
 	)
-	field3225(2, 2);
+	field3234(1, 2);
 
-	@ObfuscatedName("jh")
-	@ObfuscatedSignature(
-		descriptor = "Lhq;"
-	)
-	@Export("hoveredItemContainer")
-	static Widget hoveredItemContainer;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1300403611
+		intValue = -876494083
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -496509631
+		intValue = 405688727
 	)
 	@Export("id")
 	final int id;
 
 	VerticalAlignment(int var3, int var4) {
-		this.value = var3; // L: 14
-		this.id = var4; // L: 15
-	} // L: 16
+		this.value = var3; // L: 18
+		this.id = var4; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "385513888"
+		descriptor = "(B)I",
+		garbageValue = "63"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 19
+		return this.id; // L: 23
 	}
 }

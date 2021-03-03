@@ -1,34 +1,19 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ht")
+@ObfuscatedName("hp")
 @Implements("Huffman")
 public class Huffman {
-	@ObfuscatedName("o")
-	@Export("ArchiveDiskActionHandler_thread")
-	static Thread ArchiveDiskActionHandler_thread;
-	@ObfuscatedName("du")
-	@ObfuscatedSignature(
-		descriptor = "Liw;"
-	)
-	@Export("archive8")
-	static Archive archive8;
-	@ObfuscatedName("kk")
-	@ObfuscatedGetter(
-		intValue = 360288727
-	)
-	@Export("Client_plane")
-	static int Client_plane;
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@Export("masks")
 	int[] masks;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@Export("bits")
 	byte[] bits;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@Export("keys")
 	int[] keys;
 
@@ -42,10 +27,10 @@ public class Huffman {
 
 		for (int var5 = 0; var5 < var2; ++var5) { // L: 15
 			byte var6 = var1[var5]; // L: 16
-			if (var6 != 0) {
-				int var7 = 1 << 32 - var6;
-				int var8 = var3[var6];
-				this.masks[var5] = var8;
+			if (var6 != 0) { // L: 17
+				int var7 = 1 << 32 - var6; // L: 18
+				int var8 = var3[var6]; // L: 19
+				this.masks[var5] = var8; // L: 20
 				int var9;
 				int var10;
 				int var11;
@@ -67,14 +52,14 @@ public class Huffman {
 							break;
 						}
 
-						var3[var10] = var11 | var12;
+						var3[var10] = var11 | var12; // L: 33
 					}
 				}
 
-				var3[var6] = var9;
+				var3[var6] = var9; // L: 38
 
-				for (var10 = var6 + 1; var10 <= 32; ++var10) {
-					if (var8 == var3[var10]) {
+				for (var10 = var6 + 1; var10 <= 32; ++var10) { // L: 39
+					if (var8 == var3[var10]) { // L: 40
 						var3[var10] = var9;
 					}
 				}
@@ -115,10 +100,10 @@ public class Huffman {
 
 	} // L: 60
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "([BII[BII)I",
-		garbageValue = "-141428387"
+		descriptor = "([BII[BIB)I",
+		garbageValue = "-79"
 	)
 	@Export("compress")
 	int compress(byte[] var1, int var2, int var3, byte[] var4, int var5) {
@@ -166,10 +151,10 @@ public class Huffman {
 		return (var7 + 7 >> 3) - var5; // L: 97
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "([BI[BIII)I",
-		garbageValue = "-238004531"
+		garbageValue = "1393765026"
 	)
 	@Export("decompress")
 	int decompress(byte[] var1, int var2, byte[] var3, int var4, int var5) {
@@ -281,26 +266,26 @@ public class Huffman {
 
 				if ((var9 = this.keys[var6]) < 0) { // L: 152
 					var3[var4++] = (byte)(~var9); // L: 153
-					if (var4 >= var5) {
+					if (var4 >= var5) { // L: 154
 						break;
 					}
 
-					var6 = 0;
+					var6 = 0; // L: 155
 				}
 
-				if ((var8 & 1) != 0) {
+				if ((var8 & 1) != 0) { // L: 157
 					var6 = this.keys[var6];
 				} else {
-					++var6;
+					++var6; // L: 158
 				}
 
-				if ((var9 = this.keys[var6]) < 0) {
-					var3[var4++] = (byte)(~var9);
-					if (var4 >= var5) {
+				if ((var9 = this.keys[var6]) < 0) { // L: 159
+					var3[var4++] = (byte)(~var9); // L: 160
+					if (var4 >= var5) { // L: 161
 						break;
 					}
 
-					var6 = 0;
+					var6 = 0; // L: 162
 				}
 
 				++var7; // L: 105
@@ -310,76 +295,38 @@ public class Huffman {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-1277930744"
+		descriptor = "(ILcl;ZB)I",
+		garbageValue = "124"
 	)
-	public static void method4047(int var0, int var1) {
-		VarbitDefinition var2 = TaskHandler.method3567(var0); // L: 33
-		int var3 = var2.baseVar; // L: 34
-		int var4 = var2.startBit; // L: 35
-		int var5 = var2.endBit; // L: 36
-		int var6 = Varps.Varps_masks[var5 - var4]; // L: 37
-		if (var1 < 0 || var1 > var6) { // L: 38
-			var1 = 0;
-		}
-
-		var6 <<= var4; // L: 39
-		Varps.Varps_main[var3] = Varps.Varps_main[var3] & ~var6 | var1 << var4 & var6; // L: 40
-	} // L: 41
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)I",
-		garbageValue = "81"
-	)
-	public static int method4041(int var0, int var1, int var2) {
-		var2 &= 3; // L: 17
-		if (var2 == 0) { // L: 18
-			return var1;
-		} else if (var2 == 1) { // L: 19
-			return 7 - var0;
-		} else {
-			return var2 == 2 ? 7 - var1 : var0; // L: 20
-		}
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "2"
-	)
-	public static String method4049(String var0) {
-		int var1 = var0.length(); // L: 154
-		char[] var2 = new char[var1]; // L: 155
-		byte var3 = 2; // L: 156
-
-		for (int var4 = 0; var4 < var1; ++var4) { // L: 157
-			char var5 = var0.charAt(var4); // L: 158
-			if (var3 == 0) { // L: 159
-				var5 = Character.toLowerCase(var5);
-			} else if (var3 == 2 || Character.isUpperCase(var5)) { // L: 160
-				var5 = UserList.method5199(var5);
-			}
-
-			if (Character.isLetter(var5)) { // L: 161
-				var3 = 0;
-			} else if (var5 != '.' && var5 != '?' && var5 != '!') { // L: 162
-				if (Character.isSpaceChar(var5)) { // L: 163
-					if (var3 != 2) { // L: 164
-						var3 = 1;
-					}
+	static int method4157(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class277.scriptDotWidget : Interpreter.scriptActiveWidget; // L: 1125
+		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1126
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = MusicPatch.Widget_unpackTargetMask(class60.getWidgetFlags(var3)); // L: 1127
+			return 1; // L: 1128
+		} else if (var0 != ScriptOpcodes.CC_GETOP) { // L: 1130
+			if (var0 == ScriptOpcodes.CC_GETOPBASE) { // L: 1137
+				if (var3.dataText == null) { // L: 1138
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
 				} else {
-					var3 = 1; // L: 166
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1139
 				}
+
+				return 1; // L: 1140
 			} else {
-				var3 = 2;
+				return 2; // L: 1142
+			}
+		} else {
+			int var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 1131
+			--var4; // L: 1132
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1133
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1134
+			} else {
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
 			}
 
-			var2[var4] = var5; // L: 167
+			return 1; // L: 1135
 		}
-
-		return new String(var2); // L: 169
 	}
 }

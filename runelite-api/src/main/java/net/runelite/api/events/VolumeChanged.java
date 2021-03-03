@@ -28,7 +28,7 @@ package net.runelite.api.events;
 import lombok.Value;
 
 @Value
-public class VolumeChanged implements Event
+public class VolumeChanged
 {
 	public enum Type
 	{

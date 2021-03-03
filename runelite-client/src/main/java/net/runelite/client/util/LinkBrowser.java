@@ -36,7 +36,6 @@ import javax.inject.Singleton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.ui.ClientUI;
 
 /**
  * Utility class used for web and file browser navigation
@@ -72,7 +71,7 @@ public class LinkBrowser
 				log.debug("Opened url through xdg-open to {}", url);
 				return;
 			}
-
+			
 			log.warn("LinkBrowser.browse() could not open {}", url);
 			showMessageBox("Unable to open link. Press 'OK' and the link will be copied to your clipboard.", url);
 		}).start();
@@ -80,7 +79,6 @@ public class LinkBrowser
 
 	/**
 	 * Tries to open a directory in the OS native file manager.
-	 *
 	 * @param directory directory to open
 	 */
 	public static void open(final String directory)
@@ -104,7 +102,7 @@ public class LinkBrowser
 				log.debug("Opened directory through xdg-open to {}", directory);
 				return;
 			}
-
+			
 			log.warn("LinkBrowser.open() could not open {}", directory);
 			showMessageBox("Unable to open folder. Press 'OK' and the folder directory will be copied to your clipboard.", directory);
 		}).start();
@@ -192,6 +190,25 @@ public class LinkBrowser
 	}
 
 	/**
+	 * Open swing message box with specified message and copy data to clipboard
+	 * @param message message to show
+	 */
+	private static void showMessageBox(final String message, final String data)
+	{
+		SwingUtilities.invokeLater(() ->
+		{
+			final int result = JOptionPane.showConfirmDialog(null, message, "Message",
+				JOptionPane.OK_CANCEL_OPTION);
+
+			if (result == JOptionPane.OK_OPTION)
+			{
+				final StringSelection stringSelection = new StringSelection(data);
+				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+			}
+		});
+	}
+
+	/**
 	 * Tries to open the specified {@code File} with the systems default text editor. If operation fails
 	 * an error message is displayed with the option to copy the absolute file path to clipboard.
 	 *
@@ -207,11 +224,11 @@ public class LinkBrowser
 
 		if (attemptOpenLocalFile(file))
 		{
-			log.debug("Opened log file through Desktop#edit to {}", file);
+			log.debug("Opened log file through Desktop#open to {}", file);
 			return true;
 		}
 
-		showMessageBox("Unable to open log file. Press 'OK' and the file path will be copied to your clipboard", file.getAbsolutePath());
+		showMessageBox("Unable to open file. Press 'OK' and the file path will be copied to your clipboard", file.getAbsolutePath());
 		return false;
 	}
 
@@ -236,28 +253,8 @@ public class LinkBrowser
 		}
 		catch (IOException ex)
 		{
-			log.warn("Failed to open Desktop#edit {}", file, ex);
+			log.warn("Failed to open Desktop#open {}", file, ex);
 			return false;
 		}
-	}
-
-	/**
-	 * Open swing message box with specified message and copy data to clipboard
-	 *
-	 * @param message message to show
-	 */
-	private static void showMessageBox(final String message, final String data)
-	{
-		SwingUtilities.invokeLater(() ->
-		{
-			final int result = JOptionPane.showConfirmDialog(ClientUI.getFrame(), message, "Message",
-				JOptionPane.OK_CANCEL_OPTION);
-
-			if (result == JOptionPane.OK_OPTION)
-			{
-				final StringSelection stringSelection = new StringSelection(data);
-				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-			}
-		});
 	}
 }

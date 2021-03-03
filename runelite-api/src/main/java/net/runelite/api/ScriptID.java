@@ -225,7 +225,7 @@ public final class ScriptID
 	 * </ul>
 	 */
 	@ScriptArguments(string = 1)
-	public static final int FRIENDS_CHAT_SEND_KICK = 215;
+	public static final int FRIENDS_CHAT_SEND_KICK = 3764;
 
 	/**
 	 * Toggles the bank search
@@ -347,4 +347,27 @@ public final class ScriptID
 
 	@ScriptArguments()
 	public static final int BANKMAIN_SEARCHING = 514;
+
+	/**
+	 * Chooses the click handler for a {@link ParamID#SETTING_SLIDER_CUSTOM_ONOP} = 1 settings slider
+	 *
+	 * The active widget is set to the track created by {@link ParamID#SETTING_FOREGROUND_CLICKZONE}
+	 * <ul>
+	 * <li>int {@link ParamID#SETTING_ID}</li>
+	 * <li>int (WidgetID) Slider handle ID</li>
+	 * <li>int (widget index) Slider handle index</li>
+	 * <li>int track width</li>
+	 * <li>int y offset</li>
+	 * <li>int x offset</li>
+	 * <li>int (WidgetID) drag parent</li>
+	 * </ul>
+	 */
+	@ScriptArguments(integer = 8, string = 1)
+	public static final int SETTINGS_SLIDER_CHOOSE_ONOP = 3885;
+
+	/**
+	 * Position and size the wiki button, as well as hide/unhide it
+	 */
+	@ScriptArguments(integer = 4)
+	public static final int WIKI_ICON_UPDATE = 3306;
 }

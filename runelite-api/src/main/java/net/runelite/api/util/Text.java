@@ -88,15 +88,16 @@ public class Text
 	 */
 	public static String removeTags(String str, boolean removeLevels)
 	{
-		int strLen = str.length();
 		if (removeLevels)
 		{
 			int levelIdx =  StringUtils.lastIndexOf(str, "  (level");
 			if (levelIdx >= 0)
 			{
-				strLen = levelIdx;
+				str = str.substring(0, levelIdx);
 			}
 		}
+
+		int strLen = str.length();
 
 		int open, close;
 		if ((open = StringUtils.indexOf(str, '<')) == -1
@@ -328,7 +329,7 @@ public class Text
 	 *
 	 * @return true if all search terms matches at least one keyword, or false if otherwise.
 	 */
-	public static boolean matchesSearchTerms(String[] searchTerms, final Collection<String> keywords)
+	public static boolean matchesSearchTerms(Iterable<String> searchTerms, final Collection<String> keywords)
 	{
 		for (String term : searchTerms)
 		{

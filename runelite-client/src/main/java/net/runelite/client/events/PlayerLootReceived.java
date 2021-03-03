@@ -27,12 +27,11 @@ package net.runelite.client.events;
 import java.util.Collection;
 import lombok.Value;
 import net.runelite.api.Player;
-import net.runelite.api.events.Event;
 import net.runelite.client.game.ItemStack;
 
 @Value
-public class PlayerLootReceived implements Event
+public class PlayerLootReceived
 {
-	Player player;
-	Collection<ItemStack> items;
+	private final Player player;
+	private final Collection<ItemStack> items;
 }

@@ -3,7 +3,7 @@ import net.runelite.api.Tile;
 import net.runelite.api.TileItem;
 import net.runelite.mapping.Import;
 
-public interface RSTileItem extends RSEntity, TileItem
+public interface RSTileItem extends RSRenderable, TileItem
 {
 	@Import("id")
 	@Override

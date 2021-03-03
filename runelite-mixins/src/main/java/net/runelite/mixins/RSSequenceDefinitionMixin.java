@@ -76,7 +76,7 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 
 		RSModel animatedModel = model.toSharedModel(!frames.getFrames()[frameIdx].isShowing());
 		animatedModel.interpolateFrames(frames, frameIdx, nextFrames, nextFrameIdx, interval,
-			getFrameLenths()[frame]);
+			getFrameLengths()[frame]);
 		return animatedModel;
 	}
 
@@ -136,7 +136,7 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 			animatedModel.rotateY90Ccw();
 		}
 		animatedModel.interpolateFrames(frames, frameIdx, nextFrames, nextFrameIdx, interval,
-			getFrameLenths()[frame]);
+			getFrameLengths()[frame]);
 		// reapply rotation after animating
 		if (rotation == 1)
 		{
@@ -194,7 +194,7 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 
 		RSModel animatedModel = model.toSharedSpotAnimModel(!frames.getFrames()[frameIdx].isShowing());
 		animatedModel.interpolateFrames(frames, frameIdx, nextFrames, nextFrameIdx, interval,
-			getFrameLenths()[frame]);
+			getFrameLengths()[frame]);
 		return animatedModel;
 	}
 
@@ -264,15 +264,15 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 			RSModel animatedModel = model.toSharedModel(!frames.getFrames()[frameIdx].isShowing()
 				& !chatFrames.getFrames()[chatFrameIdx].isShowing());
 			animatedModel.interpolateFrames(frames, frameIdx, nextFrames, nextFrameIdx, interval,
-				getFrameLenths()[frame]);
+				getFrameLengths()[frame]);
 			animatedModel.interpolateFrames(chatFrames, chatFrameIdx, nextChatFrames, nextChatFrameIdx,
-				interval, getFrameLenths()[frame]);
+				interval, getFrameLengths()[frame]);
 			return animatedModel;
 		}
 
 		RSModel animatedModel = model.toSharedModel(!frames.getFrames()[frameIdx].isShowing());
 		animatedModel.interpolateFrames(frames, frameIdx, nextFrames, nextFrameIdx, interval,
-			getFrameLenths()[frame]);
+			getFrameLengths()[frame]);
 		return animatedModel;
 	}
 }

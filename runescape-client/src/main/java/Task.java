@@ -7,28 +7,28 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("fl")
 @Implements("Task")
 public class Task {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Lfl;"
 	)
 	@Export("next")
 	Task next;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@Export("status")
 	public volatile int status;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1774016279
+		intValue = -710231709
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@Export("intArgument")
 	public int intArgument;
-	@ObfuscatedName("w")
+	@ObfuscatedName("e")
 	@Export("objectArgument")
 	Object objectArgument;
-	@ObfuscatedName("g")
+	@ObfuscatedName("q")
 	@Export("result")
 	public volatile Object result;
 

@@ -3,58 +3,58 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import netscape.javascript.JSObject;
 
-@ObfuscatedName("ep")
+@ObfuscatedName("eb")
 @Implements("ViewportMouse")
 public class ViewportMouse {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@Export("ViewportMouse_isInViewport")
-	static boolean ViewportMouse_isInViewport;
-	@ObfuscatedName("k")
+	public static boolean ViewportMouse_isInViewport;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1355902097
+		intValue = -174867873
 	)
 	@Export("ViewportMouse_x")
 	static int ViewportMouse_x;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1743017163
+		intValue = 1503136055
 	)
 	@Export("ViewportMouse_y")
 	static int ViewportMouse_y;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("ViewportMouse_false0")
 	static boolean ViewportMouse_false0;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1199867819
+		intValue = -1632949407
 	)
-	static int field1768;
-	@ObfuscatedName("x")
+	static int field1757;
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1371000863
+		intValue = -1445923815
 	)
-	static int field1769;
-	@ObfuscatedName("m")
+	static int field1758;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1954448985
+		intValue = -822732275
 	)
-	static int field1770;
-	@ObfuscatedName("h")
+	static int field1759;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 91913629
-	)
-	static int field1771;
-	@ObfuscatedName("a")
-	@ObfuscatedGetter(
-		intValue = 1953465913
+		intValue = -1825654461
 	)
 	@Export("ViewportMouse_entityCount")
 	public static int ViewportMouse_entityCount;
-	@ObfuscatedName("q")
+	@ObfuscatedName("k")
 	@Export("ViewportMouse_entityTags")
 	public static long[] ViewportMouse_entityTags;
+	@ObfuscatedName("dz")
+	@ObfuscatedSignature(
+		descriptor = "Liy;"
+	)
+	@Export("archive9")
+	static Archive archive9;
 
 	static {
 		ViewportMouse_isInViewport = false; // L: 4
@@ -65,76 +65,64 @@ public class ViewportMouse {
 		ViewportMouse_entityTags = new long[1000]; // L: 18
 	}
 
-	@ObfuscatedName("ey")
+	@ObfuscatedName("fi")
 	@ObfuscatedSignature(
-		descriptor = "(Liw;Ljava/lang/String;B)V",
-		garbageValue = "-71"
+		descriptor = "(I)I",
+		garbageValue = "598296470"
 	)
-	static void method3082(Archive var0, String var1) {
-		ArchiveLoader var2 = new ArchiveLoader(var0, var1); // L: 1421
-		Client.archiveLoaders.add(var2); // L: 1422
-		Client.field949 += var2.groupCount; // L: 1423
-	} // L: 1424
+	static int method3161() {
+		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) { // L: 1399
+			int var0 = 0; // L: 1400
 
-	@ObfuscatedName("ea")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "173237024"
-	)
-	@Export("logOut")
-	static final void logOut() {
-		Client.packetWriter.close(); // L: 2485
-		Actor.method1805(); // L: 2486
-		ScriptEvent.scene.clear(); // L: 2487
-
-		for (int var0 = 0; var0 < 4; ++var0) { // L: 2488
-			Client.collisionMaps[var0].clear();
-		}
-
-		System.gc(); // L: 2489
-		class58.method915(2); // L: 2490
-		Client.currentTrackGroupId = -1; // L: 2491
-		Client.field704 = false; // L: 2492
-
-		for (ObjectSound var1 = (ObjectSound)ObjectSound.objectSounds.last(); var1 != null; var1 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 2494
-			if (var1.stream1 != null) { // L: 2495
-				Players.pcmStreamMixer.removeSubStream(var1.stream1); // L: 2496
-				var1.stream1 = null; // L: 2497
+			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) { // L: 1401
+				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount; // L: 1402
 			}
 
-			if (var1.stream2 != null) { // L: 2499
-				Players.pcmStreamMixer.removeSubStream(var1.stream2); // L: 2500
-				var1.stream2 = null; // L: 2501
-			}
+			return var0 * 10000 / Client.field934; // L: 1404
+		} else {
+			return 10000;
+		}
+	}
+
+	@ObfuscatedName("fh")
+	@ObfuscatedSignature(
+		descriptor = "(IZZZI)Liy;",
+		garbageValue = "1822401208"
+	)
+	@Export("newArchive")
+	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
+		ArchiveDisk var4 = null; // L: 1789
+		if (JagexCache.JagexCache_dat2File != null) { // L: 1790
+			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, WorldMapEvent.JagexCache_idxFiles[var0], 1000000);
 		}
 
-		ObjectSound.objectSounds.clear(); // L: 2504
-		CollisionMap.updateGameState(10); // L: 2506
-	} // L: 2507
+		return new Archive(var4, WorldMapScaleHandler.masterDisk, var0, var1, var2, var3); // L: 1791
+	}
 
-	@ObfuscatedName("kx")
+	@ObfuscatedName("iy")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "323383255"
+		descriptor = "(IIIIIIIII)V",
+		garbageValue = "-1069741089"
 	)
-	static void method3098(String var0) {
-		class200.field2403 = var0; // L: 10765
+	@Export("drawWidgets")
+	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+		if (WorldMapCacheName.loadInterface(var0)) { // L: 9381
+			WorldMapAreaData.field362 = null; // L: 9388
+			class41.drawInterface(DefaultsGroup.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7); // L: 9389
+			if (WorldMapAreaData.field362 != null) { // L: 9390
+				class41.drawInterface(WorldMapAreaData.field362, -1412584499, var1, var2, var3, var4, WorldMapIcon_1.field218, GrandExchangeOfferOwnWorldComparator.field656, var7); // L: 9391
+				WorldMapAreaData.field362 = null; // L: 9392
+			}
 
-		try {
-			String var1 = class2.client.getParameter(Integer.toString(18)); // L: 10767
-			String var2 = class2.client.getParameter(Integer.toString(13)); // L: 10768
-			String var3 = var1 + "settings=" + var0 + "; version=1; path=/; domain=" + var2; // L: 10769
-			if (var0.length() == 0) { // L: 10770
-				var3 = var3 + "; Expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0";
+		} else {
+			if (var7 != -1) { // L: 9382
+				Client.field816[var7] = true;
 			} else {
-				var3 = var3 + "; Expires=" + WorldMapSection1.method650(PacketWriter.currentTimeMillis() + 94608000000L) + "; Max-Age=" + 94608000L; // L: 10771
+				for (int var8 = 0; var8 < 100; ++var8) { // L: 9384
+					Client.field816[var8] = true;
+				}
 			}
 
-			Client var4 = class2.client; // L: 10772
-			String var5 = "document.cookie=\"" + var3 + "\""; // L: 10773
-			JSObject.getWindow(var4).eval(var5); // L: 10776
-		} catch (Throwable var6) { // L: 10779
 		}
-
-	} // L: 10780
+	} // L: 9386 9394
 }

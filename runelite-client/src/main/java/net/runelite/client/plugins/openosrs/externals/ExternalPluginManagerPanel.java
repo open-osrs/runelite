@@ -1,5 +1,6 @@
 package net.runelite.client.plugins.openosrs.externals;
 
+import net.runelite.client.plugins.OPRSExternalPluginManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.ScheduledExecutorService;
 import javax.inject.Inject;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -21,7 +21,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.eventbus.EventBus;
-import net.runelite.client.plugins.ExternalPluginManager;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
@@ -37,26 +36,24 @@ public class ExternalPluginManagerPanel extends PluginPanel
 	static
 	{
 		final BufferedImage addIconRaw =
-			ImageUtil.getResourceStreamFromClass(ExternalPluginManagerPanel.class, "add_raw_icon.png");
+			ImageUtil.loadImageResource(ExternalPluginManagerPanel.class, "add_raw_icon.png");
 		final BufferedImage addIconGh = ImageUtil
-			.resizeImage(ImageUtil.getResourceStreamFromClass(ExternalPluginManagerPanel.class, "gh_icon.png"), 14, 14);
+			.resizeImage(ImageUtil.loadImageResource(ExternalPluginManagerPanel.class, "gh_icon.png"), 14, 14);
 		ADD_ICON_RAW = new ImageIcon(addIconRaw);
 		ADD_HOVER_ICON_RAW = new ImageIcon(ImageUtil.alphaOffset(addIconRaw, 0.53f));
 		ADD_ICON_GH = new ImageIcon(addIconGh);
 		ADD_HOVER_ICON_GH = new ImageIcon(ImageUtil.alphaOffset(addIconGh, 0.53f));
 	}
 
-	private final ExternalPluginManager externalPluginManager;
-	private final ScheduledExecutorService executor;
+	private final OPRSExternalPluginManager externalPluginManager;
 	private final EventBus eventBus;
 
 	@Inject
-	private ExternalPluginManagerPanel(ExternalPluginManager externalPluginManager, ScheduledExecutorService executor, EventBus eventBus)
+	private ExternalPluginManagerPanel(OPRSExternalPluginManager externalPluginManager, EventBus eventBus)
 	{
 		super(false);
 
 		this.externalPluginManager = externalPluginManager;
-		this.executor = executor;
 		this.eventBus = eventBus;
 
 		buildPanel();
@@ -134,7 +131,7 @@ public class ExternalPluginManagerPanel extends PluginPanel
 					return;
 				}
 
-				if (ExternalPluginManager.testGHRepository(owner.getText(), name.getText()))
+				if (OPRSExternalPluginManager.testGHRepository(owner.getText(), name.getText()))
 				{
 					JOptionPane.showMessageDialog(ClientUI.getFrame(), "This doesn't appear to be a valid repository.", "Error!",
 						JOptionPane.ERROR_MESSAGE);
@@ -222,7 +219,7 @@ public class ExternalPluginManagerPanel extends PluginPanel
 					return;
 				}
 
-				if (ExternalPluginManager.testRepository(urlActual))
+				if (OPRSExternalPluginManager.testRepository(urlActual))
 				{
 					JOptionPane.showMessageDialog(ClientUI.getFrame(), "This doesn't appear to be a valid repository.", "Error!",
 						JOptionPane.ERROR_MESSAGE);
@@ -258,7 +255,7 @@ public class ExternalPluginManagerPanel extends PluginPanel
 	{
 		JTabbedPane mainTabPane = new JTabbedPane();
 
-		PluginsPanel pluginPanel = new PluginsPanel(this.externalPluginManager, this.executor, this.eventBus);
+		PluginsPanel pluginPanel = new PluginsPanel(this.externalPluginManager, this.eventBus);
 		JScrollPane repositoryPanel = wrapContainer(new RepositoryPanel(this.externalPluginManager, this.eventBus));
 
 		mainTabPane.add("Plugins", pluginPanel);

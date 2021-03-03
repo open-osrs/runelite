@@ -72,7 +72,6 @@ public class MaterialTab extends JLabel
 	{
 		super(string);
 
-		/* The tab's containing group */
 		this.content = content;
 
 		if (selected)

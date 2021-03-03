@@ -32,7 +32,7 @@ import lombok.Data;
  * An event where a {@link GameObject} on a {@link Tile} is removed.
  */
 @Data
-public class GameObjectDespawned implements Event
+public class GameObjectDespawned
 {
 	/**
 	 * The affected tile.

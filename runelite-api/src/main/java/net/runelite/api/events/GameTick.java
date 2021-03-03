@@ -41,11 +41,11 @@ package net.runelite.api.events;
  * Note that occurrences that take place purely on the client, such as right
  * click menus, are independent of the game tick.
  */
-public class GameTick implements Event
+public class GameTick
 {
 	public static final GameTick INSTANCE = new GameTick();
 
-	private GameTick()
+	public GameTick()
 	{
 		// noop
 	}

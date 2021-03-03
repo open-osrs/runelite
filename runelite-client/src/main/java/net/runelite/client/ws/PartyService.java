@@ -34,13 +34,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
-import static net.runelite.api.util.Text.JAGEX_PRINTABLE_CHAR_MATCHER;
 import net.runelite.client.account.AccountSession;
 import net.runelite.client.account.SessionManager;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PartyChanged;
+import static net.runelite.client.util.Text.JAGEX_PRINTABLE_CHAR_MATCHER;
 import net.runelite.http.api.ws.messages.party.Join;
 import net.runelite.http.api.ws.messages.party.Part;
 import net.runelite.http.api.ws.messages.party.PartyChatMessage;
@@ -77,10 +78,7 @@ public class PartyService
 		this.sessionManager = sessionManager;
 		this.eventBus = eventBus;
 		this.chat = chat;
-
-		eventBus.subscribe(UserJoin.class, this, this::onUserJoin);
-		eventBus.subscribe(UserPart.class, this, this::onUserPart);
-		eventBus.subscribe(PartyChatMessage.class, this, this::onPartyChatMessage);
+		eventBus.register(this);
 	}
 
 	public void changeParty(UUID newParty)
@@ -104,7 +102,7 @@ public class PartyService
 				wsClient.changeSession(null);
 			}
 
-			eventBus.post(PartyChanged.class, new PartyChanged(partyId));
+			eventBus.post(new PartyChanged(partyId));
 			return;
 		}
 
@@ -117,10 +115,11 @@ public class PartyService
 			wsClient.changeSession(uuid);
 		}
 
-		eventBus.post(PartyChanged.class, new PartyChanged(partyId));
+		eventBus.post(new PartyChanged(partyId));
 		wsClient.send(new Join(partyId, username));
 	}
 
+	@Subscribe(priority = 1) // run prior to plugins so that the member is joined by the time the plugins see it.
 	public void onUserJoin(final UserJoin message)
 	{
 		if (!partyId.equals(message.getPartyId()))
@@ -144,12 +143,14 @@ public class PartyService
 		}
 	}
 
-	private void onUserPart(final UserPart message)
+	@Subscribe
+	public void onUserPart(final UserPart message)
 	{
 		members.removeIf(member -> member.getMemberId().equals(message.getMemberId()));
 	}
 
-	private void onPartyChatMessage(final PartyChatMessage message)
+	@Subscribe
+	public void onPartyChatMessage(final PartyChatMessage message)
 	{
 		// Remove non-printable characters, and <img> tags from message
 		String sentMesage = JAGEX_PRINTABLE_CHAR_MATCHER.retainFrom(message.getValue())
@@ -187,7 +188,7 @@ public class PartyService
 		return null;
 	}
 
-	private PartyMember getMemberByName(final String name)
+	public PartyMember getMemberByName(final String name)
 	{
 		for (PartyMember member : members)
 		{

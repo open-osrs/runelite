@@ -1,89 +1,118 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dv")
+@ObfuscatedName("du")
 @Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
-	@ObfuscatedName("aw")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1592667411
-	)
-	static int field1364;
-	@ObfuscatedName("go")
-	@ObfuscatedSignature(
-		descriptor = "[Lls;"
-	)
-	@Export("mapSceneSprites")
-	static IndexedSprite[] mapSceneSprites;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = -1209180911
+		intValue = -566421309
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -2142089503
+		intValue = -941337557
 	)
 	@Export("size")
 	int size;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@Export("operations")
 	int[] operations;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("creationErrors")
 	int[] creationErrors;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@Export("fields")
 	Field[] fields;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@Export("intReplaceValues")
 	int[] intReplaceValues;
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@Export("methods")
 	Method[] methods;
-	@ObfuscatedName("w")
+	@ObfuscatedName("e")
 	@Export("arguments")
 	byte[][][] arguments;
 
 	ReflectionCheck() {
 	} // L: 17
 
-	@ObfuscatedName("jn")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "947123708"
+		descriptor = "(Ljava/lang/String;B)Z",
+		garbageValue = "-84"
 	)
-	static final void method2380() {
-		Client.field871 = Client.cycleCntr; // L: 10682
-		class8.ClanChat_inClanChat = true; // L: 10683
-	} // L: 10684
-
-	@ObfuscatedName("kp")
-	@ObfuscatedSignature(
-		descriptor = "(Lhq;I)Lhq;",
-		garbageValue = "-697509377"
-	)
-	static Widget method2381(Widget var0) {
-		int var2 = WorldMapIcon_0.getWidgetFlags(var0); // L: 10718
-		int var1 = var2 >> 17 & 7; // L: 10720
-		int var3 = var1; // L: 10722
-		if (var1 == 0) { // L: 10723
-			return null;
+	static boolean method2452(String var0) {
+		if (var0 == null) {
+			return false;
 		} else {
-			for (int var4 = 0; var4 < var3; ++var4) { // L: 10724
-				var0 = TileItem.getWidget(var0.parentId); // L: 10725
-				if (var0 == null) { // L: 10726
-					return null;
-				}
+			try {
+				new URL(var0);
+				return true; // L: 42
+			} catch (MalformedURLException var2) {
+				return false;
 			}
-
-			return var0; // L: 10728
 		}
 	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(Lig;IIIZB)V",
+		garbageValue = "-111"
+	)
+	public static void method2450(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
+		class206.musicPlayerStatus = 1; // L: 34
+		class206.musicTrackArchive = var0; // L: 35
+		class206.musicTrackGroupId = var1; // L: 36
+		SoundSystem.musicTrackFileId = var2; // L: 37
+		DevicePcmPlayerProvider.musicTrackVolume = var3; // L: 38
+		class206.musicTrackBoolean = var4; // L: 39
+		class7.pcmSampleLength = 10000; // L: 40
+	} // L: 41
+
+	@ObfuscatedName("y")
+	public static int method2451(long var0) {
+		return (int)(var0 >>> 0 & 127L); // L: 60
+	}
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(CII)Ljava/lang/String;",
+		garbageValue = "71351387"
+	)
+	static String method2449(char var0, int var1) {
+		char[] var2 = new char[var1]; // L: 178
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 179
+			var2[var3] = var0;
+		}
+
+		return new String(var2); // L: 180
+	}
+
+	@ObfuscatedName("ax")
+	@ObfuscatedSignature(
+		descriptor = "(Ldw;I)V",
+		garbageValue = "-1934858738"
+	)
+	@Export("PcmStream_disable")
+	static final void PcmStream_disable(PcmStream var0) {
+		var0.active = false; // L: 259
+		if (var0.sound != null) { // L: 260
+			var0.sound.position = 0;
+		}
+
+		for (PcmStream var1 = var0.firstSubStream(); var1 != null; var1 = var0.nextSubStream()) {
+			PcmStream_disable(var1); // L: 261
+		}
+
+	} // L: 262
 }

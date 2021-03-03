@@ -24,6 +24,8 @@
  */
 package net.runelite.mixins;
 
+import net.runelite.api.DialogOption;
+import net.runelite.api.events.DialogProcessed;
 import net.runelite.api.events.DynamicObjectAnimationChanged;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
@@ -34,7 +36,7 @@ import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSDynamicObject;
-import net.runelite.rs.api.RSEntity;
+import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSModel;
 
 @Mixin(RSDynamicObject.class)
@@ -42,9 +44,6 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 {
 	@Shadow("client")
 	private static RSClient client;
-
-	@Inject
-	public int animationID;
 
 	@SuppressWarnings("InfiniteRecursion")
 	@Copy("getModel")
@@ -86,16 +85,14 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 
 	@MethodHook(value = "<init>", end = true)
 	@Inject
-	public void rl$init(int id, int type, int orientation, int plane, int x, int y, int animationID, boolean var8, RSEntity var9)
+	public void rl$init(int id, int type, int orientation, int plane, int x, int y, int animationID, boolean var8, RSRenderable var9)
 	{
-		this.animationID = animationID;
-
 		if (animationID != -1)
 		{
 			DynamicObjectAnimationChanged dynamicObjectAnimationChanged = new DynamicObjectAnimationChanged();
 			dynamicObjectAnimationChanged.setObject(id);
 			dynamicObjectAnimationChanged.setAnimation(animationID);
-			client.getCallbacks().post(DynamicObjectAnimationChanged.class, dynamicObjectAnimationChanged);
+			client.getCallbacks().post(dynamicObjectAnimationChanged);
 		}
 	}
 
@@ -103,6 +100,25 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	@Override
 	public int getAnimationID()
 	{
-		return animationID;
+		return (int) (getSequenceDefinition() == null ? -1 : getSequenceDefinition().getHash());
+	}
+
+	@Inject
+	@MethodHook("resumePauseWidget")
+	public static void onDialogProcessed(int widgetUid, int menuIndex)
+	{
+		DialogOption dialogOption = DialogOption.of(widgetUid, menuIndex);
+		if (dialogOption != null)
+		{
+			client.getCallbacks().post(new DialogProcessed(dialogOption));
+		}
+		else
+		{
+			client.getLogger().debug(
+					"Unknown or unmapped dialog option for widgetUid: {} and menuIndex {}",
+					widgetUid,
+					menuIndex
+			);
+		}
 	}
 }

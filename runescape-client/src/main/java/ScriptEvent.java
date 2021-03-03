@@ -7,91 +7,71 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("by")
 @Implements("ScriptEvent")
 public class ScriptEvent extends Node {
-	@ObfuscatedName("sz")
-	@ObfuscatedGetter(
-		intValue = 1903848297
-	)
-	@Export("foundItemIndex")
-	static int foundItemIndex;
-	@ObfuscatedName("h")
+	@ObfuscatedName("fj")
 	@ObfuscatedSignature(
-		descriptor = "Lkr;"
+		descriptor = "Lkl;"
 	)
-	@Export("ItemDefinition_fontPlain11")
-	static Font ItemDefinition_fontPlain11;
-	@ObfuscatedName("dq")
-	@Export("mouseCam")
-	static boolean mouseCam;
-	@ObfuscatedName("gb")
-	@ObfuscatedSignature(
-		descriptor = "Lec;"
-	)
-	@Export("scene")
-	static Scene scene;
-	@ObfuscatedName("gy")
-	@ObfuscatedGetter(
-		intValue = -1883417759
-	)
-	static int field597;
-	@ObfuscatedName("z")
+	@Export("fontBold12")
+	static Font fontBold12;
+	@ObfuscatedName("n")
 	@Export("args")
 	Object[] args;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lhq;"
+		descriptor = "Lhz;"
 	)
 	@Export("widget")
 	Widget widget;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -2100516553
+		intValue = 1697635159
 	)
 	@Export("mouseX")
 	int mouseX;
-	@ObfuscatedName("i")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1832434813
+		intValue = 734230281
 	)
 	@Export("mouseY")
 	int mouseY;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -720675073
+		intValue = 944694965
 	)
 	@Export("opIndex")
 	int opIndex;
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lhq;"
+		descriptor = "Lhz;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
-	@ObfuscatedName("w")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1621651451
+		intValue = -905189557
 	)
 	@Export("keyTyped")
 	int keyTyped;
-	@ObfuscatedName("g")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -582654831
+		intValue = 220260505
 	)
 	@Export("keyPressed")
 	int keyPressed;
-	@ObfuscatedName("m")
+	@ObfuscatedName("l")
 	@Export("targetName")
 	String targetName;
-	@ObfuscatedName("n")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -735061669
+		intValue = -1071641047
 	)
 	int field593;
-	@ObfuscatedName("d")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 926169729
+		intValue = 1196618585
 	)
 	@Export("type")
 	int type;
@@ -100,62 +80,43 @@ public class ScriptEvent extends Node {
 		this.type = 76; // L: 19
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "([Ljava/lang/Object;I)V",
-		garbageValue = "-1399912972"
+		garbageValue = "807576822"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
 		this.args = var1; // L: 22
 	} // L: 23
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-802645814"
+		descriptor = "(IB)V",
+		garbageValue = "-67"
 	)
 	@Export("setType")
 	public void setType(int var1) {
-		this.type = var1;
-	}
+		this.type = var1; // L: 26
+	} // L: 27
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;B)Ljava/lang/String;",
-		garbageValue = "-64"
+		descriptor = "(B)V",
+		garbageValue = "1"
 	)
-	public static String method1235(Buffer var0) {
-		String var1;
-		try {
-			int var2 = var0.readUShortSmart(); // L: 25
-			if (var2 > 32767) { // L: 26
-				var2 = 32767;
-			}
+	public static void method1271() {
+		class105.reflectionChecks = new IterableNodeDeque(); // L: 24
+	} // L: 25
 
-			byte[] var3 = new byte[var2]; // L: 27
-			var0.offset += class219.huffman.decompress(var0.array, var0.offset, var3, 0, var2); // L: 28
-			String var4 = SpotAnimationDefinition.decodeStringCp1252(var3, 0, var2); // L: 29
-			var1 = var4; // L: 30
-		} catch (Exception var6) { // L: 32
-			var1 = "Cabbage"; // L: 33
-		}
-
-		return var1; // L: 36
-	}
-
-	@ObfuscatedName("h")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(CII)Ljava/lang/String;",
-		garbageValue = "-1474859384"
+		descriptor = "(I)V",
+		garbageValue = "-1068960678"
 	)
-	static String method1236(char var0, int var1) {
-		char[] var2 = new char[var1]; // L: 173
-
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 174
-			var2[var3] = var0;
-		}
-
-		return new String(var2); // L: 175
-	}
+	public static void method1272() {
+		VertexNormal.midiPcmStream.clear(); // L: 44
+		class206.musicPlayerStatus = 1; // L: 45
+		class206.musicTrackArchive = null; // L: 46
+	} // L: 47
 }

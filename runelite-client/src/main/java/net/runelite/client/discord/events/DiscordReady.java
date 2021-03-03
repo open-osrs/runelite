@@ -25,13 +25,12 @@
 package net.runelite.client.discord.events;
 
 import lombok.Value;
-import net.runelite.api.events.Event;
 
 /**
  * Called when the RPC connection has been established
  */
 @Value
-public class DiscordReady implements Event
+public class DiscordReady
 {
 	/**
 	 * The userId for the active user

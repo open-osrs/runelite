@@ -36,18 +36,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import net.runelite.api.Client;
-import net.runelite.api.FriendsChatManager;
 import net.runelite.api.FriendsChatMember;
+import net.runelite.api.FriendsChatManager;
 import net.runelite.api.FriendsChatRank;
+import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.IndexedSprite;
 import net.runelite.api.SpriteID;
 import net.runelite.api.events.FriendsChatChanged;
 import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.util.Text;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.util.ImageUtil;
+import net.runelite.client.util.Text;
 
 @Singleton
 public class FriendChatManager
@@ -74,7 +75,7 @@ public class FriendChatManager
 	private final LoadingCache<String, FriendsChatRank> ranksCache = CacheBuilder.newBuilder()
 		.maximumSize(100)
 		.expireAfterWrite(1, TimeUnit.MINUTES)
-		.build(new CacheLoader<>()
+		.build(new CacheLoader<String, FriendsChatRank>()
 		{
 			@Override
 			public FriendsChatRank load(@Nonnull String key)
@@ -93,15 +94,11 @@ public class FriendChatManager
 	private int offset;
 
 	@Inject
-	private FriendChatManager(final Client client,
-							final SpriteManager spriteManager,
-							final EventBus eventbus)
+	private FriendChatManager(Client client, SpriteManager spriteManager, EventBus eventBus)
 	{
 		this.client = client;
 		this.spriteManager = spriteManager;
-
-		eventbus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventbus.subscribe(FriendsChatChanged.class, this, this::onFriendsChatChanged);
+		eventBus.register(this);
 	}
 
 	public boolean isMember(String name)
@@ -131,14 +128,16 @@ public class FriendChatManager
 		return offset + friendsChatRank.ordinal() - 1;
 	}
 
-	private void onGameStateChanged(GameStateChanged gameStateChanged)
+	@Subscribe
+	public void onGameStateChanged(GameStateChanged gameStateChanged)
 	{
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN && offset == 0)
+		if (gameStateChanged.getGameState() == GameState.LOGIN_SCREEN && offset == 0)
 		{
 			loadRankIcons();
 		}
 	}
 
+	@Subscribe
 	public void onFriendsChatChanged(FriendsChatChanged friendsChatChanged)
 	{
 		ranksCache.invalidateAll();

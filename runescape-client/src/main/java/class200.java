@@ -1,41 +1,41 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gl")
+@ObfuscatedName("gx")
 public class class200 {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lgl;"
-	)
-	static final class200 field2402;
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Lgl;"
-	)
-	static final class200 field2399;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Lgl;"
+		descriptor = "Lgx;"
 	)
 	static final class200 field2401;
-	@ObfuscatedName("bw")
-	static String field2403;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lgx;"
+	)
+	static final class200 field2398;
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		descriptor = "Lgx;"
+	)
+	static final class200 field2397;
+	@ObfuscatedName("y")
+	static byte[][][] field2399;
 
 	static {
-		field2402 = new class200(); // L: 4
-		field2399 = new class200(); // L: 5
-		field2401 = new class200(); // L: 6
+		field2401 = new class200(); // L: 4
+		field2398 = new class200(); // L: 5
+		field2397 = new class200(); // L: 6
 	}
 
 	class200() {
 	} // L: 8
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-1315253613"
+		descriptor = "(II)I",
+		garbageValue = "1474141491"
 	)
-	static final boolean method3760() {
-		return ViewportMouse.ViewportMouse_isInViewport; // L: 103
+	public static int method3865(int var0) {
+		return ReflectionCheck.method2451(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 56
 	}
 }

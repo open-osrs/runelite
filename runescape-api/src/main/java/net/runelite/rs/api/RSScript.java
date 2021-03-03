@@ -12,4 +12,10 @@ public interface RSScript extends Script, RSDualNode
 	@Import("opcodes")
 	@Override
 	int[] getInstructions();
+
+	@Import("intArgumentCount")
+	int getIntArgumentCount();
+
+	@Import("stringArgumentCount")
+	int getStringArgumentCount();
 }

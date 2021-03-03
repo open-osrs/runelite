@@ -66,11 +66,7 @@ public enum VarClientInt
 
 	MEMBERSHIP_STATUS(103),
 
-	/**
-	 * The currently open interface tab
-	 * @see net.runelite.api.vars.InterfaceTab
-	 */
-	INTERFACE_TAB(171),
+	INVENTORY_TAB(171),
 
 	WORLD_MAP_SEARCH_FOCUSED(190);
 

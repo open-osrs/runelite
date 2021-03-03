@@ -28,7 +28,7 @@ public abstract class RSClanChatMixin implements RSClanChat
 		}
 
 		FriendsChatMemberJoined event = new FriendsChatMemberJoined(member);
-		client.getCallbacks().postDeferred(FriendsChatMemberJoined.class, event);
+		client.getCallbacks().postDeferred(event);
 	}
 
 	@Inject
@@ -42,6 +42,6 @@ public abstract class RSClanChatMixin implements RSClanChat
 		}
 
 		FriendsChatMemberLeft event = new FriendsChatMemberLeft(member);
-		client.getCallbacks().postDeferred(FriendsChatMemberLeft.class, event);
+		client.getCallbacks().postDeferred(event);
 	}
 }

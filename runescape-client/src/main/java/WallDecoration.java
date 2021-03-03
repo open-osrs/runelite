@@ -4,97 +4,145 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ex")
+@ObfuscatedName("eu")
 @Implements("WallDecoration")
 public final class WallDecoration {
-	@ObfuscatedName("z")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1170791361
+		intValue = 964756049
 	)
-	@Export("orientation")
-	int orientation;
-	@ObfuscatedName("k")
+	@Export("clientTickTimeIdx")
+	static int clientTickTimeIdx;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 85116123
+		intValue = 719575047
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("s")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 841011539
+		intValue = -920611555
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("t")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 321574291
+		intValue = -730740551
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -429102155
+		intValue = 333766323
+	)
+	@Export("orientation")
+	int orientation;
+	@ObfuscatedName("y")
+	@ObfuscatedGetter(
+		intValue = 1617230319
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -978448895
+		intValue = 2092861143
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 2017479075
+		intValue = 1518269047
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("w")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lez;"
+		descriptor = "Lem;"
 	)
-	@Export("entity1")
-	public Entity entity1;
-	@ObfuscatedName("g")
+	@Export("renderable1")
+	public Renderable renderable1;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lez;"
+		descriptor = "Lem;"
 	)
-	@Export("entity2")
-	public Entity entity2;
-	@ObfuscatedName("m")
+	@Export("renderable2")
+	public Renderable renderable2;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		longValue = -8703832368131294063L
+		longValue = 1249498855339190201L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("n")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -2069520015
+		intValue = -1390179163
 	)
 	@Export("flags")
 	int flags;
 
 	WallDecoration() {
-		this.tag = 0L; // L: 13
-		this.flags = 0; // L: 14
-	} // L: 16
+		this.tag = 0L;
+		this.flags = 0;
+	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-807916273"
+		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
+		garbageValue = "699816166"
 	)
-	public static void method3409() {
-		synchronized(MouseHandler.MouseHandler_instance) { // L: 58
-			MouseHandler.MouseHandler_currentButton = MouseHandler.MouseHandler_currentButtonVolatile; // L: 59
-			MouseHandler.MouseHandler_x = MouseHandler.MouseHandler_xVolatile; // L: 60
-			MouseHandler.MouseHandler_y = MouseHandler.MouseHandler_yVolatile; // L: 61
-			MouseHandler.MouseHandler_millis = MouseHandler.MouseHandler_lastMovedVolatile; // L: 62
-			MouseHandler.MouseHandler_lastButton = MouseHandler.MouseHandler_lastButtonVolatile; // L: 63
-			MouseHandler.MouseHandler_lastPressedX = MouseHandler.MouseHandler_lastPressedXVolatile; // L: 64
-			MouseHandler.MouseHandler_lastPressedY = MouseHandler.MouseHandler_lastPressedYVolatile; // L: 65
-			MouseHandler.MouseHandler_lastPressedTimeMillis = MouseHandler.MouseHandler_lastPressedTimeMillisVolatile; // L: 66
-			MouseHandler.MouseHandler_lastButtonVolatile = 0; // L: 67
+	public static String method3450(CharSequence var0) {
+		int var1 = var0.length(); // L: 11
+		StringBuilder var2 = new StringBuilder(var1); // L: 12
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 13
+			char var4 = var0.charAt(var3); // L: 14
+			if ((var4 < 'a' || var4 > 'z') && (var4 < 'A' || var4 > 'Z') && (var4 < '0' || var4 > '9') && var4 != '.' && var4 != '-' && var4 != '*' && var4 != '_') { // L: 15
+				if (var4 == ' ') { // L: 16
+					var2.append('+');
+				} else {
+					byte var5 = LoginPacket.charToByteCp1252(var4); // L: 18
+					var2.append('%'); // L: 19
+					int var6 = var5 >> 4 & 15; // L: 20
+					if (var6 >= 10) { // L: 21
+						var2.append((char)(var6 + 55));
+					} else {
+						var2.append((char)(var6 + 48)); // L: 22
+					}
+
+					var6 = var5 & 15; // L: 23
+					if (var6 >= 10) { // L: 24
+						var2.append((char)(var6 + 55));
+					} else {
+						var2.append((char)(var6 + 48));
+					}
+				}
+			} else {
+				var2.append(var4); // L: 25
+			}
 		}
-	} // L: 69
+
+		return var2.toString(); // L: 28
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(II)Ljo;",
+		garbageValue = "1862361389"
+	)
+	public static FloorOverlayDefinition method3449(int var0) {
+		FloorOverlayDefinition var1 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var0); // L: 30
+		if (var1 != null) { // L: 31
+			return var1;
+		} else {
+			byte[] var2 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var0); // L: 32
+			var1 = new FloorOverlayDefinition(); // L: 33
+			if (var2 != null) { // L: 34
+				var1.decode(new Buffer(var2), var0);
+			}
+
+			var1.postDecode(); // L: 35
+			FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var1, (long)var0); // L: 36
+			return var1; // L: 37
+		}
+	}
 }

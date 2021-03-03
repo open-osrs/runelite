@@ -25,13 +25,12 @@
 package net.runelite.client.events;
 
 import lombok.Value;
-import net.runelite.api.events.Event;
 import net.runelite.client.ui.overlay.OverlayMenuEntry;
 import net.runelite.client.ui.overlay.infobox.InfoBox;
 
 @Value
-public class InfoBoxMenuClicked implements Event
+public class InfoBoxMenuClicked
 {
-	OverlayMenuEntry entry;
-	InfoBox infoBox;
+	private OverlayMenuEntry entry;
+	private InfoBox infoBox;
 }

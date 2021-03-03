@@ -31,7 +31,6 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executor;
 import java.util.function.BooleanSupplier;
-import javax.annotation.Nullable;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -43,14 +42,20 @@ public class ClientThread implements Executor
 {
 	private final ConcurrentLinkedQueue<BooleanSupplier> invokes = new ConcurrentLinkedQueue<>();
 
-	@Inject
-	@Nullable
-	private Client client;
+	private final Client client;
 
 	@Inject
-	private ClientThread()
+	private ClientThread(Client client)
 	{
+		this.client = client;
+		
 		RxJavaPlugins.setSingleSchedulerHandler(old -> Schedulers.from(this));
+	}
+
+	@Override
+	public void execute(@NotNull Runnable r)
+	{
+		invoke(r);
 	}
 
 	public void invoke(Runnable r)
@@ -102,7 +107,7 @@ public class ClientThread implements Executor
 	{
 		assert client.isClientThread();
 		Iterator<BooleanSupplier> ir = invokes.iterator();
-		for (; ir.hasNext(); )
+		while (ir.hasNext())
 		{
 			BooleanSupplier r = ir.next();
 			boolean remove = true;
@@ -123,15 +128,5 @@ public class ClientThread implements Executor
 				ir.remove();
 			}
 		}
-	}
-
-	@Override
-	public void execute(@NotNull Runnable r)
-	{
-		invoke(() ->
-		{
-			r.run();
-			return true;
-		});
 	}
 }

@@ -4,36 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("et")
+@ObfuscatedName("er")
 @Implements("FaceNormal")
 public class FaceNormal {
-	@ObfuscatedName("m")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1856660121
-	)
-	@Export("pcmSampleLength")
-	public static int pcmSampleLength;
-	@ObfuscatedName("ha")
-	@ObfuscatedGetter(
-		intValue = 1637295417
-	)
-	@Export("cameraY")
-	static int cameraY;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = -364011515
+		intValue = -687013303
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("s")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1271035903
+		intValue = -1872981457
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("t")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1616346001
+		intValue = -522101521
 	)
 	@Export("z")
 	int z;
@@ -41,21 +29,27 @@ public class FaceNormal {
 	FaceNormal() {
 	} // L: 8
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(ILlz;Liw;B)V",
-		garbageValue = "81"
+		descriptor = "(CI)Z",
+		garbageValue = "-1093535932"
 	)
-	static void method3388(int var0, ArchiveDisk var1, Archive var2) {
-		ArchiveDiskAction var3 = new ArchiveDiskAction(); // L: 30
-		var3.type = 1; // L: 31
-		var3.key = (long)var0; // L: 32
-		var3.archiveDisk = var1; // L: 33
-		var3.archive = var2; // L: 34
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) { // L: 35
-			ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.addFirst(var3); // L: 36
-		} // L: 37
+	public static boolean method3421(char var0) {
+		if ((var0 <= 0 || var0 >= 128) && (var0 < 160 || var0 > 255)) { // L: 45
+			if (var0 != 0) { // L: 46
+				char[] var1 = class298.cp1252AsciiExtension; // L: 48
 
-		WorldMapArea.method415(); // L: 38
-	} // L: 39
+				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 49
+					char var3 = var1[var2]; // L: 50
+					if (var0 == var3) { // L: 52
+						return true;
+					}
+				}
+			}
+
+			return false; // L: 57
+		} else {
+			return true;
+		}
+	}
 }

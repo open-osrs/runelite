@@ -28,10 +28,12 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableMap;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import com.openosrs.client.game.ItemReclaimCost;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -48,19 +50,18 @@ import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import static net.runelite.api.Constants.CLIENT_DEFAULT_ZOOM;
 import net.runelite.api.GameState;
-import net.runelite.api.ItemDefinition;
-import net.runelite.api.ItemID;
+import net.runelite.api.ItemComposition;
 import static net.runelite.api.ItemID.*;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 import net.runelite.api.events.GameStateChanged;
-import net.runelite.api.events.PostItemDefinition;
+import net.runelite.api.events.PostItemComposition;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.eventbus.EventBus;
+import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.util.AsyncBufferedImage;
 import net.runelite.http.api.item.ItemClient;
 import net.runelite.http.api.item.ItemPrice;
 import net.runelite.http.api.item.ItemStats;
-import org.jetbrains.annotations.NotNull;
 import okhttp3.OkHttpClient;
 
 @Singleton
@@ -90,7 +91,7 @@ public class ItemManager
 	private Map<Integer, ItemPrice> itemPrices = Collections.emptyMap();
 	private Map<Integer, ItemStats> itemStats = Collections.emptyMap();
 	private final LoadingCache<ImageKey, AsyncBufferedImage> itemImages;
-	private final LoadingCache<Integer, ItemDefinition> itemDefinitions;
+	private final LoadingCache<Integer, ItemComposition> itemCompositions;
 	private final LoadingCache<OutlineKey, BufferedImage> itemOutlines;
 
 	// Worn items with weight reducing property have a different worn and inventory ItemID
@@ -152,6 +153,12 @@ public class ItemManager
 		put(GRACEFUL_LEGS_24754, GRACEFUL_LEGS_24752).
 		put(GRACEFUL_GLOVES_24757, GRACEFUL_GLOVES_24755).
 		put(GRACEFUL_BOOTS_24760, GRACEFUL_BOOTS_24758).
+		put(GRACEFUL_HOOD_25071, GRACEFUL_HOOD_25069).
+		put(GRACEFUL_CAPE_25074, GRACEFUL_CAPE_25072).
+		put(GRACEFUL_TOP_25077, GRACEFUL_TOP_25075).
+		put(GRACEFUL_LEGS_25080, GRACEFUL_LEGS_25078).
+		put(GRACEFUL_GLOVES_25083, GRACEFUL_GLOVES_25081).
+		put(GRACEFUL_BOOTS_25086, GRACEFUL_BOOTS_25084).
 
 		put(MAX_CAPE_13342, MAX_CAPE).
 
@@ -163,19 +170,15 @@ public class ItemManager
 		build();
 
 	@Inject
-	public ItemManager(
-		Client client,
-		ScheduledExecutorService executor,
-		ClientThread clientThread,
-		EventBus eventbus,
-		OkHttpClient okHttpClient)
+	public ItemManager(Client client, ScheduledExecutorService scheduledExecutorService, ClientThread clientThread,
+		OkHttpClient okHttpClient, EventBus eventBus)
 	{
 		this.client = client;
 		this.clientThread = clientThread;
 		this.itemClient = new ItemClient(okHttpClient);
 
-		executor.scheduleWithFixedDelay(this::loadPrices, 0, 30, TimeUnit.MINUTES);
-		executor.submit(this::loadStats);
+		scheduledExecutorService.scheduleWithFixedDelay(this::loadPrices, 0, 30, TimeUnit.MINUTES);
+		scheduledExecutorService.submit(this::loadStats);
 
 		itemImages = CacheBuilder.newBuilder()
 			.maximumSize(128L)
@@ -183,21 +186,21 @@ public class ItemManager
 			.build(new CacheLoader<ImageKey, AsyncBufferedImage>()
 			{
 				@Override
-				public AsyncBufferedImage load(@NotNull ImageKey key)
+				public AsyncBufferedImage load(ImageKey key) throws Exception
 				{
 					return loadImage(key.itemId, key.itemQuantity, key.stackable);
 				}
 			});
 
-		itemDefinitions = CacheBuilder.newBuilder()
+		itemCompositions = CacheBuilder.newBuilder()
 			.maximumSize(1024L)
 			.expireAfterAccess(1, TimeUnit.HOURS)
-			.build(new CacheLoader<Integer, ItemDefinition>()
+			.build(new CacheLoader<Integer, ItemComposition>()
 			{
 				@Override
-				public ItemDefinition load(@NotNull Integer key)
+				public ItemComposition load(Integer key) throws Exception
 				{
-					return client.getItemDefinition(key);
+					return client.getItemComposition(key);
 				}
 			});
 
@@ -207,59 +210,79 @@ public class ItemManager
 			.build(new CacheLoader<OutlineKey, BufferedImage>()
 			{
 				@Override
-				public BufferedImage load(@NotNull OutlineKey key)
+				public BufferedImage load(OutlineKey key) throws Exception
 				{
 					return loadItemOutline(key.itemId, key.itemQuantity, key.outlineColor);
 				}
 			});
 
-		eventbus.subscribe(GameStateChanged.class, this, this::onGameStateChanged);
-		eventbus.subscribe(PostItemDefinition.class, this, this::onPostItemDefinition);
+		eventBus.register(this);
 	}
 
 	private void loadPrices()
 	{
-		itemClient.getPrices()
-			.subscribeOn(Schedulers.io())
-			.subscribe(
-				m -> itemPrices = m,
-				e -> log.warn("Error loading prices", e),
-				() -> log.debug("Loaded {} prices", itemPrices.size())
-			);
+		try
+		{
+			ItemPrice[] prices = itemClient.getPrices();
+			if (prices != null)
+			{
+				ImmutableMap.Builder<Integer, ItemPrice> map = ImmutableMap.builderWithExpectedSize(prices.length);
+				for (ItemPrice price : prices)
+				{
+					map.put(price.getId(), price);
+				}
+				itemPrices = map.build();
+			}
+
+			log.debug("Loaded {} prices", itemPrices.size());
+		}
+		catch (IOException e)
+		{
+			log.warn("error loading prices!", e);
+		}
 	}
 
 	private void loadStats()
 	{
-		itemClient.getStats()
-			.subscribeOn(Schedulers.io())
-			.subscribe(
-				m -> itemStats = m,
-				e -> log.warn("Error fetching stats", e),
-				() -> log.debug("Loaded {} stats", itemStats.size())
-			);
-	}
-
-	private void onGameStateChanged(final GameStateChanged event)
-	{
-		if (event.getGameState() == GameState.HOPPING || event.getGameState() == GameState.LOGIN_SCREEN)
+		try
 		{
-			itemDefinitions.invalidateAll();
+			final Map<Integer, ItemStats> stats = itemClient.getStats();
+			if (stats != null)
+			{
+				itemStats = ImmutableMap.copyOf(stats);
+			}
+
+			log.debug("Loaded {} stats", itemStats.size());
+		}
+		catch (IOException e)
+		{
+			log.warn("error loading stats!", e);
 		}
 	}
 
-	private void onPostItemDefinition(PostItemDefinition event)
+
+	@Subscribe
+	public void onGameStateChanged(final GameStateChanged event)
 	{
-		itemDefinitions.put(event.getItemDefinition().getId(), event.getItemDefinition());
+		if (event.getGameState() == GameState.HOPPING || event.getGameState() == GameState.LOGIN_SCREEN)
+		{
+			itemCompositions.invalidateAll();
+		}
+	}
+
+	@Subscribe
+	public void onPostItemComposition(PostItemComposition event)
+	{
+		itemCompositions.put(event.getItemComposition().getId(), event.getItemComposition());
 	}
 
 	/**
 	 * Invalidates internal item manager item composition cache (but not client item composition cache)
-	 *
-	 * @see Client#getItemDefinitionCache()
+	 * @see Client#getItemCompositionCache()
 	 */
-	public void invalidateItemDefinitionCache()
+	public void invalidateItemCompositionCache()
 	{
-		itemDefinitions.invalidateAll();
+		itemCompositions.invalidateAll();
 	}
 
 	/**
@@ -276,76 +299,69 @@ public class ItemManager
 	/**
 	 * Look up an item's price
 	 *
-	 * @param itemID               item id
-	 * @param ignoreUntradeableMap should the price returned ignore the {@link UntradeableItemMapping}
+	 * @param itemID item id
+	 * @param ignoreUntradeableMap should the price returned ignore items that are not tradeable for coins in regular way
 	 * @return item price
 	 */
 	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
 	{
-		if (itemID == ItemID.COINS_995)
+		if (itemID == COINS_995)
 		{
 			return 1;
 		}
-		if (itemID == ItemID.PLATINUM_TOKEN)
+		if (itemID == PLATINUM_TOKEN)
 		{
 			return 1000;
 		}
 
-		ItemDefinition itemComposition = getItemDefinition(itemID);
+		ItemComposition itemComposition = getItemComposition(itemID);
 		if (itemComposition.getNote() != -1)
 		{
 			itemID = itemComposition.getLinkedNoteId();
 		}
 		itemID = WORN_ITEMS.getOrDefault(itemID, itemID);
 
-		if (!ignoreUntradeableMap)
-		{
-			UntradeableItemMapping p = UntradeableItemMapping.map(ItemVariationMapping.map(itemID));
-			if (p != null)
-			{
-				return getItemPrice(p.getPriceID()) * p.getQuantity();
-			}
-		}
-
 		int price = 0;
-		for (int mappedID : ItemMapping.map(itemID))
+
+		final Collection<ItemMapping> mappedItems = ItemMapping.map(itemID);
+
+		if (mappedItems == null)
 		{
-			ItemPrice ip = itemPrices.get(mappedID);
+			final ItemPrice ip = itemPrices.get(itemID);
+
 			if (ip != null)
 			{
 				price += ip.getPrice();
+			}
+		}
+		else
+		{
+			for (final ItemMapping mappedItem : mappedItems)
+			{
+				if (ignoreUntradeableMap && mappedItem.isUntradeable())
+				{
+					continue;
+				}
+
+				price += getItemPrice(mappedItem.getTradeableItem(), ignoreUntradeableMap) * mappedItem.getQuantity();
 			}
 		}
 
 		return price;
 	}
 
-	public int getAlchValue(ItemDefinition composition)
+	public int getAlchValue(ItemComposition composition)
 	{
-		if (composition.getId() == ItemID.COINS_995)
+		if (composition.getId() == COINS_995)
 		{
 			return 1;
 		}
-		if (composition.getId() == ItemID.PLATINUM_TOKEN)
+		if (composition.getId() == PLATINUM_TOKEN)
 		{
 			return 1000;
 		}
 
 		return Math.max(1, composition.getHaPrice());
-	}
-
-	public int getAlchValue(int itemID)
-	{
-		if (itemID == ItemID.COINS_995)
-		{
-			return 1;
-		}
-		if (itemID == ItemID.PLATINUM_TOKEN)
-		{
-			return 1000;
-		}
-
-		return Math.max(1, getItemDefinition(itemID).getHaPrice());
 	}
 
 	public int getRepairValue(int itemId)
@@ -371,16 +387,15 @@ public class ItemManager
 
 	/**
 	 * Look up an item's stats
-	 *
 	 * @param itemId item id
 	 * @return item stats
 	 */
 	@Nullable
 	public ItemStats getItemStats(int itemId, boolean allowNote)
 	{
-		ItemDefinition itemDefinition = getItemDefinition(itemId);
+		ItemComposition itemComposition = getItemComposition(itemId);
 
-		if (!allowNote && itemDefinition.getNote() != -1)
+		if (itemComposition == null || itemComposition.getName() == null || (!allowNote && itemComposition.getNote() != -1))
 		{
 			return null;
 		}
@@ -417,10 +432,10 @@ public class ItemManager
 	 * @return item composition
 	 */
 	@Nonnull
-	public ItemDefinition getItemDefinition(int itemId)
+	public ItemComposition getItemComposition(int itemId)
 	{
-		assert client.isClientThread() : "getItemDefinition must be called on client thread";
-		return itemDefinitions.getUnchecked(itemId);
+		assert client.isClientThread() : "getItemComposition must be called on client thread";
+		return itemCompositions.getUnchecked(itemId);
 	}
 
 	/**
@@ -428,16 +443,16 @@ public class ItemManager
 	 */
 	public int canonicalize(int itemID)
 	{
-		ItemDefinition itemDefinition = getItemDefinition(itemID);
+		ItemComposition itemComposition = getItemComposition(itemID);
 
-		if (itemDefinition.getNote() != -1)
+		if (itemComposition.getNote() != -1)
 		{
-			return itemDefinition.getLinkedNoteId();
+			return itemComposition.getLinkedNoteId();
 		}
 
-		if (itemDefinition.getPlaceholderTemplateId() != -1)
+		if (itemComposition.getPlaceholderTemplateId() != -1)
 		{
-			return itemDefinition.getPlaceholderId();
+			return itemComposition.getPlaceholderId();
 		}
 
 		return WORN_ITEMS.getOrDefault(itemID, itemID);
@@ -458,7 +473,7 @@ public class ItemManager
 			{
 				return false;
 			}
-			Sprite sprite = client.createItemSprite(itemId, quantity, 1, Sprite.DEFAULT_SHADOW_COLOR,
+			SpritePixels sprite = client.createItemSprite(itemId, quantity, 1, SpritePixels.DEFAULT_SHADOW_COLOR,
 				stackable ? 1 : 0, false, CLIENT_DEFAULT_ZOOM);
 			if (sprite == null)
 			{
@@ -512,21 +527,21 @@ public class ItemManager
 	/**
 	 * Create item sprite and applies an outline.
 	 *
-	 * @param itemId       item id
+	 * @param itemId item id
 	 * @param itemQuantity item quantity
 	 * @param outlineColor outline color
 	 * @return image
 	 */
 	private BufferedImage loadItemOutline(final int itemId, final int itemQuantity, final Color outlineColor)
 	{
-		final Sprite itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, true, 710);
+		final SpritePixels itemSprite = client.createItemSprite(itemId, itemQuantity, 1, 0, 0, false, CLIENT_DEFAULT_ZOOM);
 		return itemSprite.toBufferedOutline(outlineColor);
 	}
 
 	/**
 	 * Get item outline with a specific color.
 	 *
-	 * @param itemId       item id
+	 * @param itemId item id
 	 * @param itemQuantity item quantity
 	 * @param outlineColor outline color
 	 * @return image

@@ -29,10 +29,12 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import javax.annotation.Nullable;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 import net.runelite.api.Point;
 import net.runelite.api.coords.WorldPoint;
 
 @Data
+@SuperBuilder
 public class WorldMapPoint
 {
 	private BufferedImage image;

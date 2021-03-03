@@ -23,7 +23,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.ajoberstar.grgit.Grgit
 
 buildscript {
@@ -34,29 +33,21 @@ buildscript {
         maven(url = "https://raw.githubusercontent.com/open-osrs/hosting/master")
     }
     dependencies {
-        classpath("org.ajoberstar.grgit:grgit-core:4.0.2")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.33.0")
-        classpath("com.openosrs:injector-plugin:1.1.5")
+        classpath("org.ajoberstar.grgit:grgit-core:4.1.0")
     }
 }
 
 plugins {
-    id("com.adarshr.test-logger") version "2.1.0" apply false
-    id("com.github.ben-manes.versions") version "0.33.0"
-    id("se.patrikerdes.use-latest-versions") version "0.2.14"
-    id("org.ajoberstar.grgit") version "4.0.2"
-    id("com.simonharrer.modernizer") version "2.1.0-1" apply false
+    id("org.ajoberstar.grgit") version "4.1.0"
 
     application
 }
 
-val grgit = Grgit.open(mapOf("dir" to rootProject.projectDir.absolutePath))
-val localGitCommit = grgit.head().id
-
-fun isNonStable(version: String): Boolean {
-    return listOf("ALPHA", "BETA", "RC").any {
-        version.toUpperCase().contains(it)
-    }
+val localGitCommit = try {
+    val projectPath = rootProject.projectDir.absolutePath
+    Grgit.open(mapOf("dir" to projectPath)).head().id
+} catch (_: Exception) {
+    "n/a"
 }
 
 allprojects {
@@ -110,7 +101,6 @@ subprojects {
             }
             filter {
                 includeModule("net.runelite", "fernflower")
-                includeModule("com.openosrs.rxrelay3", "rxrelay")
             }
         }
 
@@ -119,9 +109,6 @@ subprojects {
 
     apply<JavaLibraryPlugin>()
     //apply<MavenPublishPlugin>()
-    apply(plugin = "com.adarshr.test-logger")
-    apply(plugin = "com.github.ben-manes.versions")
-    apply(plugin = "se.patrikerdes.use-latest-versions")
 
     project.extra["gitCommit"] = localGitCommit
     project.extra["rootPath"] = rootDir.toString().replace("\\", "/")
@@ -135,9 +122,6 @@ subprojects {
             isShowViolations = true
             isIgnoreFailures = false
         }
-    }
-    if (this.name == "runelite-client" || this.name == "runelite-api") {
-        apply(plugin = "com.simonharrer.modernizer")
     }
 
     configure<PublishingExtension> {
@@ -186,27 +170,13 @@ subprojects {
             exclude("**/LayoutSolver.java")
             exclude("**/RoomType.java")
         }
-
-        named<DependencyUpdatesTask>("dependencyUpdates") {
-            checkForGradleUpdate = false
-
-            resolutionStrategy {
-                componentSelection {
-                    all {
-                        if (candidate.displayName.contains("fernflower") || isNonStable(candidate.version)) {
-                            reject("Non stable")
-                        }
-                    }
-                }
-            }
-        }
     }
 
     configurations["compileOnly"].extendsFrom(configurations["annotationProcessor"])
 }
 
 application {
-    mainClassName = "net.runelite.client.RuneLite"
+    mainClass.set("net.runelite.client.RuneLite")
 }
 
 tasks {
@@ -215,19 +185,5 @@ tasks {
 
         classpath = project(":runelite-client").sourceSets.main.get().runtimeClasspath
         enableAssertions = true
-    }
-
-    named<DependencyUpdatesTask>("dependencyUpdates") {
-        checkForGradleUpdate = false
-
-        resolutionStrategy {
-            componentSelection {
-                all {
-                    if (candidate.displayName.contains("fernflower") || isNonStable(candidate.version)) {
-                        reject("Non stable")
-                    }
-                }
-            }
-        }
     }
 }

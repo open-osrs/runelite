@@ -15,14 +15,14 @@ import net.runelite.rs.api.RSBoundaryObject;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSFloorDecoration;
 import net.runelite.rs.api.RSGameObject;
-import net.runelite.rs.api.RSTileItemPile;
+import net.runelite.rs.api.RSItemLayer;
 import net.runelite.rs.api.RSWallDecoration;
 
 @Mixins({
 	@Mixin(RSWallDecoration.class),
 	@Mixin(RSGameObject.class),
 	@Mixin(RSFloorDecoration.class),
-	@Mixin(RSTileItemPile.class),
+	@Mixin(RSItemLayer.class),
 	@Mixin(RSBoundaryObject.class)
 })
 public abstract class RSTileObjectMixin implements TileObject
@@ -36,6 +36,20 @@ public abstract class RSTileObjectMixin implements TileObject
 	{
 		long hash = getHash();
 		return (int) (hash >>> 17 & 4294967295L);
+	}
+	
+	@Override
+	@Inject
+	public String getName()
+	{
+		return client.getObjectDefinition(getId()).getName();
+	}
+
+	@Override
+	@Inject
+	public String[] getActions()
+	{
+		return client.getObjectDefinition(getId()).getActions();
 	}
 
 	@Override

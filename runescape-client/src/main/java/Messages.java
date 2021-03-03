@@ -6,39 +6,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cz")
+@ObfuscatedName("ch")
 @Implements("Messages")
 public class Messages {
-	@ObfuscatedName("sb")
-	@Export("foundItemIds")
-	static short[] foundItemIds;
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@Export("Messages_channels")
 	static final Map Messages_channels;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Llg;"
 	)
 	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljf;"
 	)
 	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 785090077
+		intValue = -2111099267
 	)
 	@Export("Messages_count")
 	static int Messages_count;
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lic;"
-	)
-	@Export("Widget_spritesArchive")
-	public static AbstractArchive Widget_spritesArchive;
 
 	static {
 		Messages_channels = new HashMap(); // L: 9
@@ -47,23 +38,47 @@ public class Messages {
 		Messages_count = 0; // L: 12
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("n")
+	@Export("base37DecodeLong")
+	public static String base37DecodeLong(long var0) {
+		if (var0 > 0L && var0 < 6582952005840035281L) { // L: 16
+			if (var0 % 37L == 0L) { // L: 17
+				return null;
+			} else {
+				int var2 = 0; // L: 18
+
+				for (long var3 = var0; var3 != 0L; var3 /= 37L) { // L: 19 20 22
+					++var2; // L: 21
+				}
+
+				StringBuilder var5;
+				char var8;
+				for (var5 = new StringBuilder(var2); 0L != var0; var5.append(var8)) { // L: 24 25 34
+					long var6 = var0; // L: 26
+					var0 /= 37L; // L: 27
+					var8 = class299.base37Table[(int)(var6 - 37L * var0)]; // L: 28
+					if (var8 == '_') { // L: 29
+						int var9 = var5.length() - 1; // L: 30
+						var5.setCharAt(var9, Character.toUpperCase(var5.charAt(var9))); // L: 31
+						var8 = 160; // L: 32
+					}
+				}
+
+				var5.reverse(); // L: 36
+				var5.setCharAt(0, Character.toUpperCase(var5.charAt(0))); // L: 37
+				return var5.toString(); // L: 38
+			}
+		} else {
+			return null;
+		}
+	}
+
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-80"
+		descriptor = "(I)V",
+		garbageValue = "618047929"
 	)
-	static void method2288() {
-		Tiles.field528 = null; // L: 64
-		Tiles.field521 = null; // L: 65
-		class297.field3668 = null; // L: 66
-		class171.field2049 = null; // L: 67
-		class204.field2421 = null; // L: 68
-		class22.field122 = null; // L: 69
-		class39.field282 = null; // L: 70
-		Tiles.Tiles_hue = null; // L: 71
-		Tiles.Tiles_saturation = null; // L: 72
-		WorldMapRectangle.Tiles_lightness = null; // L: 73
-		WorldMapScaleHandler.Tiles_hueMultiplier = null; // L: 74
-		class60.field453 = null; // L: 75
-	} // L: 76
+	static void method2372() {
+		WorldMapRegion.WorldMapRegion_cachedSprites.clear(); // L: 50
+	} // L: 51
 }

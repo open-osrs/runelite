@@ -4,53 +4,49 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lm")
+@ObfuscatedName("lp")
 @Implements("FillMode")
 public enum FillMode implements Enumerated {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Llm;"
+		descriptor = "Llp;"
 	)
 	@Export("SOLID")
 	SOLID(0, 0),
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Llm;"
+		descriptor = "Llp;"
 	)
-	@Export("GRADIENT")
-	GRADIENT(1, 1),
-	@ObfuscatedName("s")
+	field3896(1, 1),
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Llm;"
+		descriptor = "Llp;"
 	)
-	@Export("GRADIENT_ALPHA")
-	GRADIENT_ALPHA(2, 2);
+	field3897(2, 2);
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1262740687
+		intValue = 981795357
 	)
-	@Export("id")
-	public final int id;
-	@ObfuscatedName("i")
+	public final int field3898;
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1489188623
+		intValue = -1459508057
 	)
-	@Export("index")
-	final int index;
+	final int field3895;
 
 	FillMode(int var3, int var4) {
-		this.id = var3; // L: 19
-		this.index = var4; // L: 20
+		this.field3898 = var3; // L: 19
+		this.field3895 = var4; // L: 20
 	} // L: 21
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "385513888"
+		descriptor = "(B)I",
+		garbageValue = "63"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.index; // L: 24
+		return this.field3895; // L: 24
 	}
 }

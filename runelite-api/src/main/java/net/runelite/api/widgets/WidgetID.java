@@ -41,12 +41,10 @@ public class WidgetID
 	public static final int LOGOUT_PANEL_ID = 182;
 	public static final int BANK_GROUP_ID = 12;
 	public static final int BANK_INVENTORY_GROUP_ID = 15;
-	public static final int BANK_PIN_GROUP_ID = 213;
 	public static final int GRAND_EXCHANGE_INVENTORY_GROUP_ID = 467;
 	public static final int GRAND_EXCHANGE_GROUP_ID = 465;
 	public static final int DEPOSIT_BOX_GROUP_ID = 192;
 	public static final int INVENTORY_GROUP_ID = 149;
-	public static final int PLAYER_TRADE_CONFIRM_GROUP_ID = 334;
 	public static final int PLAYER_TRADE_SCREEN_GROUP_ID = 335;
 	public static final int PLAYER_TRADE_INVENTORY_GROUP_ID = 336;
 	public static final int FRIENDS_LIST_GROUP_ID = 429;
@@ -59,8 +57,6 @@ public class WidgetID
 	public static final int ACHIEVEMENT_DIARY_GROUP_ID = 259;
 	public static final int PEST_CONTROL_BOAT_GROUP_ID = 407;
 	public static final int PEST_CONTROL_GROUP_ID = 408;
-	public static final int PEST_CONTROL_EXCHANGE_WINDOW_GROUP_ID = 243;
-	public static final int DIALOG_MINIGAME_GROUP_ID = 229;
 	public static final int FRIENDS_CHAT_GROUP_ID = 7;
 	public static final int MINIMAP_GROUP_ID = 160;
 	public static final int LOGIN_CLICK_TO_PLAY_GROUP_ID = 378;
@@ -87,20 +83,19 @@ public class WidgetID
 	public static final int BA_DEFENDER_GROUP_ID = 487;
 	public static final int BA_HEALER_GROUP_ID = 488;
 	public static final int BA_REWARD_GROUP_ID = 497;
-	public static final int BA_HORN_OF_GLORY = 484;
 	public static final int LEVEL_UP_GROUP_ID = 233;
 	public static final int DIALOG_SPRITE_GROUP_ID = 193;
-	public static final int QUEST_COMPLETED_GROUP_ID = 277;
+	public static final int QUEST_COMPLETED_GROUP_ID = 153;
 	public static final int CLUE_SCROLL_REWARD_GROUP_ID = 73;
 	public static final int BARROWS_REWARD_GROUP_ID = 155;
 	public static final int RAIDS_GROUP_ID = 513;
 	public static final int TOB_PARTY_GROUP_ID = 28;
 	public static final int MOTHERLODE_MINE_GROUP_ID = 382;
-	public static final int MOTHERLODE_MINE_FULL_INVENTORY_GROUP_ID = 229;
 	public static final int EXPERIENCE_DROP_GROUP_ID = 122;
 	public static final int PUZZLE_BOX_GROUP_ID = 306;
 	public static final int LIGHT_BOX_GROUP_ID = 322;
 	public static final int NIGHTMARE_ZONE_GROUP_ID = 202;
+	public static final int NIGHTMARE_PILLAR_HEALTH_GROUP_ID = 413;
 	public static final int BLAST_FURNACE_GROUP_ID = 474;
 	public static final int WORLD_MAP_GROUP_ID = 595;
 	public static final int PYRAMID_PLUNDER_GROUP_ID = 428;
@@ -108,7 +103,7 @@ public class WidgetID
 	public static final int THEATRE_OF_BLOOD_REWARD_GROUP_ID = 23;
 	public static final int EXPERIENCE_TRACKER_GROUP_ID = 122;
 	public static final int TITHE_FARM_GROUP_ID = 241;
-	public static final int KINGDOM_GROUP_ID = 392;
+	public static final int KINGDOM_GROUP_ID = 616;
 	public static final int BARROWS_GROUP_ID = 24;
 	public static final int BLAST_MINE_GROUP_ID = 598;
 	public static final int MTA_ALCHEMY_GROUP_ID = 194;
@@ -120,19 +115,15 @@ public class WidgetID
 	public static final int VARROCK_MUSEUM_QUIZ_GROUP_ID = 533;
 	public static final int KILL_LOGS_GROUP_ID = 549;
 	public static final int DIARY_QUEST_GROUP_ID = 119;
-	public static final int THEATRE_OF_BLOOD_GROUP_ID = 28;
+	public static final int THEATRE_OF_BLOOD_GROUP_ID = 23;
 	public static final int WORLD_SWITCHER_GROUP_ID = 69;
-	public static final int DIALOG_PLAYER_GROUP_ID = 217;
 	public static final int DIALOG_OPTION_GROUP_ID = 219;
-	public static final int DIALOG_NOTIFICATION_GROUP_ID = 229;
-	public static final int FOSSIL_ISLAND_MUSHROOM_TELE_GROUP_ID = 608;
+	public static final int DIALOG_PLAYER_GROUP_ID = 217;
 	public static final int DRIFT_NET_FISHING_REWARD_GROUP_ID = 607;
 	public static final int FOSSIL_ISLAND_OXYGENBAR_ID = 609;
 	public static final int MINIGAME_TAB_ID = 76;
 	public static final int SPELLBOOK_GROUP_ID = 218;
 	public static final int PVP_GROUP_ID = 90;
-	public static final int PERFORMERS_FOR_THE_THEATRE_GROUPS_GROUP_ID = 364;
-	public static final int PERFORMERS_FOR_THE_THEATRE_PLAYERS_GROUP_ID = 50;
 	public static final int FISHING_TRAWLER_GROUP_ID = 366;
 	public static final int FISHING_TRAWLER_REWARD_GROUP_ID = 367;
 	public static final int ZEAH_MESS_HALL_GROUP_ID = 235;
@@ -140,14 +131,10 @@ public class WidgetID
 	public static final int LOOTING_BAG_GROUP_ID = 81;
 	public static final int SKOTIZO_GROUP_ID = 308;
 	public static final int ENTERING_HOUSE_GROUP_ID = 71;
-	public static final int FULLSCREEN_MAP_GROUP_ID = 165;
+	public static final int FULLSCREEN_CONTAINER_TLI = 165;
 	public static final int QUESTLIST_GROUP_ID = 399;
 	public static final int SKILLS_GROUP_ID = 320;
-	public static final int DIALOG_SPRITE2_ID = 11;
-	public static final int EQUIPMENT_PAGE_GROUP_ID = 84;
-	public static final int QUESTTAB_GROUP_ID = 629;
 	public static final int MUSIC_GROUP_ID = 239;
-	public static final int MUSICTAB_GROUP_ID = 239;
 	public static final int BARROWS_PUZZLE_GROUP_ID = 25;
 	public static final int KEPT_ON_DEATH_GROUP_ID = 4;
 	public static final int GUIDE_PRICE_GROUP_ID = 464;
@@ -160,19 +147,37 @@ public class WidgetID
 	public static final int SEED_BOX_GROUP_ID = 128;
 	public static final int SEED_VAULT_GROUP_ID = 631;
 	public static final int EXPLORERS_RING_ALCH_GROUP_ID = 483;
+	public static final int SETTINGS_SIDE_GROUP_ID = 116;
+	public static final int SETTINGS_GROUP_ID = 134;
+	public static final int GWD_KC_GROUP_ID = 406;
 	public static final int LMS_GROUP_ID = 333;
 	public static final int LMS_INGAME_GROUP_ID = 328;
-	public static final int JEWELLERY_BOX_GROUP_ID = 590;
-	public static final int OPTIONS_GROUP_ID = 261;
-	public static final int MULTISKILL_MENU_GROUP_ID = 270;
-	public static final int THEATRE_OF_BLOOD_PARTY_GROUP_ID = 28;
-	public static final int GWD_KC_GROUP_ID = 406;
 	public static final int ADVENTURE_LOG_ID = 187;
 	public static final int GENERIC_SCROLL_GROUP_ID = 625;
 	public static final int GAUNTLET_TIMER_GROUP_ID = 637;
-	public static final int GAUNTLET_MAP_GROUP_ID = 638;
 	public static final int HALLOWED_SEPULCHRE_TIMER_GROUP_ID = 668;
+	public static final int BANK_PIN_GROUP_ID = 213;
 	public static final int HEALTH_OVERLAY_BAR_GROUP_ID = 303;
+	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_PRIVATE_GROUP_ID = 271;
+	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_SHARED_GROUP_ID = 550;
+	public static final int CHAMBERS_OF_XERIC_STORAGE_UNIT_INVENTORY_GROUP_ID = 551;
+	public static final int DUEL_INVENTORY_GROUP_ID = 421;
+	public static final int DUEL_INVENTORY_OTHER_GROUP_ID = 481;
+	public static final int TRAILBLAZER_AREAS_GROUP_ID = 512;
+	public static final int DIALOG_MINIGAME_GROUP_ID = 229;
+	public static final int PEST_CONTROL_EXCHANGE_WINDOW_GROUP_ID = 243;
+	public static final int GAUNTLET_MAP_GROUP_ID = 638;
+	public static final int PLAYER_TRADE_CONFIRM_GROUP_ID = 334;
+	public static final int OPTIONS_GROUP_ID = 261;
+	public static final int JEWELLERY_BOX_GROUP_ID = 590;
+	public static final int EQUIPMENT_PAGE_GROUP_ID = 84;
+	public static final int QUESTTAB_GROUP_ID = 629;
+	public static final int MUSICTAB_GROUP_ID = 239;
+	public static final int FOSSIL_ISLAND_MUSHROOM_TELE_GROUP_ID = 608;
+	public static final int THEATRE_OF_BLOOD_PARTY_GROUP_ID = 28;
+	public static final int DIALOG_NOTIFICATION_GROUP_ID = 229;
+	public static final int DIALOG_SPRITE2_ID = 11;
+	public static final int MULTISKILL_MENU_GROUP_ID = 270;
 
 	static class WorldMap
 	{
@@ -197,31 +202,6 @@ public class WidgetID
 		static final int TEXT = 4;
 	}
 
-
-	static class DialogPlayer
-	{
-		static final int HEAD_MODEL = 1;
-		static final int NAME = 2;
-		static final int CONTINUE = 3;
-		static final int TEXT = 4;
-	}
-
-	static class DialogNotification
-	{
-		static final int TEXT = 0;
-		static final int CONTINUE = 1;
-	}
-
-	static class DialogOption
-	{
-		static final int TEXT = 0;
-		static final int OPTION1 = 1;
-		static final int OPTION2 = 2;
-		static final int OPTION3 = 3;
-		static final int OPTION4 = 4;
-		static final int OPTION5 = 5;
-	}
-
 	static class LogoutPanel
 	{
 		static final int WORLD_SWITCHER_BUTTON = 3;
@@ -235,20 +215,6 @@ public class WidgetID
 		static final int NEXT_DEPARTURE = 4;
 		static final int PLAYERS_READY = 5;
 		static final int POINTS = 6;
-	}
-
-	static class PestControlExchangeWindow
-	{
-		static final int ITEM_LIST = 2;
-		static final int BOTTOM = 5;
-		static final int POINTS = 8;
-		static final int CONFIRM_BUTTON = 6;
-	}
-
-	static class MinigameDialog
-	{
-		static final int TEXT = 1;
-		static final int CONTINUE = 2;
 	}
 
 	static class PestControl
@@ -323,6 +289,8 @@ public class WidgetID
 		static final int TAB_CONTAINER = 10;
 		static final int ITEM_CONTAINER = 12;
 		static final int SCROLLBAR = 13;
+		static final int UNNOTED_BUTTON = 21;
+		static final int NOTED_BUTTON = 23;
 		static final int SEARCH_BUTTON_BACKGROUND = 39;
 		static final int DEPOSIT_INVENTORY = 41;
 		static final int DEPOSIT_EQUIPMENT = 43;
@@ -339,6 +307,14 @@ public class WidgetID
 		static final int WINDOW_BORDERS = 2;
 		static final int HISTORY_BUTTON = 3;
 		static final int BACK_BUTTON = 4;
+		static final int OFFER1 = 7;
+		static final int OFFER2 = 8;
+		static final int OFFER3 = 9;
+		static final int OFFER4 = 10;
+		static final int OFFER5 = 11;
+		static final int OFFER6 = 12;
+		static final int OFFER7 = 13;
+		static final int OFFER8 = 14;
 		static final int OFFER_CONTAINER = 24;
 		static final int OFFER_DESCRIPTION = 25;
 		static final int OFFER_PRICE = 26;
@@ -467,11 +443,11 @@ public class WidgetID
 		static final int RESIZABLE_VIEWPORT_BOTTOM_LINE = 14;
 	}
 
-	static class FixedViewport
+	public static class FixedViewport
 	{
 		static final int MINIMAP = 3;
 		static final int MINIMAP_DRAW_AREA = 8;
-		static final int MULTICOMBAT_INDICATOR = 21;
+		public static final int MULTICOMBAT_INDICATOR = 21;
 		static final int FRIENDS_CHAT_TAB = 34;
 		static final int FRIENDS_TAB = 36;
 		static final int IGNORES_TAB = 35;
@@ -506,9 +482,9 @@ public class WidgetID
 		static final int INVENTORY_CONTAINER = 72;
 	}
 
-	static class ResizableViewport
+	public static class ResizableViewport
 	{
-		static final int MULTICOMBAT_INDICATOR = 17;
+		public static final int MULTICOMBAT_INDICATOR = 18;
 		static final int FRIENDS_CHAT_TAB = 38;
 		static final int FRIENDS_TAB = 40;
 		static final int IGNORES_TAB = 39;
@@ -541,7 +517,7 @@ public class WidgetID
 		static final int INVENTORY_CONTAINER = 74;
 	}
 
-	static class ResizableViewportBottomLine
+	public static class ResizableViewportBottomLine
 	{
 		static final int LOGOUT_BUTTON_OVERLAY = 32;
 		static final int CMB_TAB = 50;
@@ -556,7 +532,7 @@ public class WidgetID
 		static final int EQUIP_ICON = 64;
 		static final int PRAYER_TAB = 58;
 		static final int PRAYER_ICON = 65;
-		static final int SPELL_TAB = 56;
+		public static final int SPELL_TAB = 56;
 		static final int SPELL_ICON = 53;
 		static final int FC_TAB = 35;
 		static final int FC_ICON = 44;
@@ -695,7 +671,8 @@ public class WidgetID
 		static final int POINTS = 10;
 		static final int STABILITY = 12;
 		static final int PLAYER_COUNT = 14;
-		static final int VENTS_INFOBOX_GROUP_ID = 15;
+		static final int STABILITY_INFOBOX_GROUP_ID = 5;
+		static final int VENTS_INFOBOX_GROUP_ID = 16;
 		static final int VENT_A_PERCENTAGE = 19;
 		static final int VENT_B_PERCENTAGE = 20;
 		static final int VENT_C_PERCENTAGE = 21;
@@ -708,19 +685,15 @@ public class WidgetID
 	{
 		static class ATK
 		{
-			static final int LISTEN_TOP = 7;
-			static final int LISTEN_BOTTOM = 8;
-			static final int TO_CALL_WIDGET = 9;
-			static final int TO_CALL = 10;
-			static final int ROLE_SPRITE = 11;
-			static final int ROLE = 12;
+			static final int ROLE_SPRITE = 12;
+			static final int ROLE = 13;
 		}
 		static class HLR
 		{
-			static final int TEAMMATE1 = 18;
-			static final int TEAMMATE2 = 22;
-			static final int TEAMMATE3 = 26;
-			static final int TEAMMATE4 = 30;
+			static final int TEAMMATE1 = 19;
+			static final int TEAMMATE2 = 23;
+			static final int TEAMMATE3 = 27;
+			static final int TEAMMATE4 = 31;
 		}
 		static class HORN_GLORY
 		{
@@ -748,15 +721,9 @@ public class WidgetID
 			static final int BASE_POINTS = 33;
 			static final int HONOUR_POINTS_REWARD = 49;
 		}
-		static final int GAME_WIDGET = 3;
-		static final int CURRENT_WAVE_WIDGET = 4;
-		static final int CURRENT_WAVE = 5;
-		static final int LISTEN_WIDGET = 6;
-		static final int LISTEN = 7;
-		static final int TO_CALL_WIDGET = 8;
-		static final int TO_CALL = 9;
-		static final int ROLE_SPRITE = 10;
-		static final int ROLE = 11;
+		static final int ROLE_SPRITE = 11;
+		static final int ROLE = 12;
+
 		static final int REWARD_TEXT = 57;
 	}
 
@@ -769,28 +736,17 @@ public class WidgetID
 	{
 		static final int SKILL = 1;
 		static final int LEVEL = 2;
+		static final int CONTINUE = 3;
 	}
 
 	static class QuestCompleted
 	{
-		static final int NAME_TEXT = 2;
+		static final int NAME_TEXT = 4;
 	}
 
 	static class Raids
 	{
 		static final int POINTS_INFOBOX = 7;
-	}
-
-	static class TheatreOfBlood
-	{
-		static final int RAIDING_PARTY = 9;
-		static final int ORB_BOX = 10;
-		static final int BOSS_HEALTH_BAR = 35;
-	}
-
-	static class TheatreOfBloodParty
-	{
-		static final int CONTAINER = 10;
 	}
 
 	static class Tob
@@ -799,15 +755,15 @@ public class WidgetID
 		static final int PARTY_STATS = 10;
 	}
 
-	static class ExperienceDrop
+	public static class ExperienceDrop
 	{
-		static final int DROP_1 = 15;
-		static final int DROP_2 = 16;
-		static final int DROP_3 = 17;
-		static final int DROP_4 = 18;
-		static final int DROP_5 = 19;
-		static final int DROP_6 = 20;
-		static final int DROP_7 = 21;
+		public static final int DROP_1 = 15;
+		public static final int DROP_2 = 16;
+		public static final int DROP_3 = 17;
+		public static final int DROP_4 = 18;
+		public static final int DROP_5 = 19;
+		public static final int DROP_6 = 20;
+		public static final int DROP_7 = 21;
 	}
 
 	static class PuzzleBox
@@ -888,6 +844,288 @@ public class WidgetID
 		static final int DESTROY_ITEM_NO = 3;
 	}
 
+	static class VarrockMuseum
+	{
+		static final int VARROCK_MUSEUM_QUESTION = 28;
+		static final int VARROCK_MUSEUM_FIRST_ANSWER = 29;
+		static final int VARROCK_MUSEUM_SECOND_ANSWER = 30;
+		static final int VARROCK_MUSEUM_THIRD_ANSWER = 31;
+	}
+
+	static class KillLog
+	{
+		static final int TITLE = 3;
+		static final int MONSTER = 13;
+		static final int KILLS = 14;
+		static final int STREAK = 15;
+	}
+
+	static class WorldSwitcher
+	{
+		static final int CONTAINER = 1;
+		static final int WORLD_LIST = 16;
+		static final int LOGOUT_BUTTON = 23;
+	}
+
+	static class FossilOxygen
+	{
+		static final int FOSSIL_ISLAND_OXYGEN_BAR = 4;
+	}
+
+	static class Minigames
+	{
+		static final int TELEPORT_BUTTON = 26;
+	}
+
+	public static class StandardSpellBook
+	{
+		static final int LUMBRIDGE_HOME_TELEPORT = 5;
+		public static final int KOUREND_HOME_TELEPORT = 4;
+	}
+
+	static class AncientSpellBook
+	{
+		static final int EDGEVILLE_HOME_TELEPORT = 99;
+	}
+
+	static class LunarSpellBook
+	{
+		static final int LUNAR_HOME_TELEPORT = 100;
+	}
+
+	static class ArceuusSpellBook
+	{
+		static final int ARCEUUS_HOME_TELEPORT = 144;
+	}
+
+	static class Pvp
+	{
+		static final int FOG_OVERLAY = 1;
+		static final int PVP_WIDGET_CONTAINER = 54;  // OUTDATED?
+		static final int SKULL = 56;  // OUTDATED?
+		static final int ATTACK_RANGE = 59;  // OUTDATED?
+		static final int BOUNTY_HUNTER_INFO = 6;
+		static final int KILLDEATH_RATIO = 28;
+		static final int SKULL_CONTAINER = 48;
+		static final int SAFE_ZONE = 50;
+		static final int WILDERNESS_LEVEL = 53; // this can also be the Deadman Mode "Protection" text
+	}
+
+	static class KourendFavour
+	{
+		static final int KOUREND_FAVOUR_OVERLAY = 1;
+	}
+
+	static class Zeah
+	{
+		static final int MESS_HALL_COOKING_DISPLAY = 3;
+	}
+
+	static class LootingBag
+	{
+		static final int LOOTING_BAG_INVENTORY = 5;
+	}
+
+	static class Skotizo
+	{
+		static final int CONTAINER = 3;
+	}
+
+	public static class FullScreenMap
+	{
+		public static final int ROOT = 27;
+	}
+
+	static class QuestList
+	{
+		static final int BOX = 0;
+		static final int SCROLLBAR = 4;
+		static final int CONTAINER = 5;
+		static final int FREE_CONTAINER = 6;
+		static final int MEMBERS_CONTAINER = 7;
+		static final int MINIQUEST_CONTAINER = 8;
+	}
+
+	static class Music
+	{
+		static final int CONTAINER = 0;
+		static final int LIST = 3;
+		static final int SCROLLBAR = 4;
+	}
+
+	static class Barrows_Puzzle
+	{
+		static final int PARENT = 0;
+		static final int CONTAINER = 1;
+		static final int TOP_ROW_PUZZLE = 2;
+		static final int SEQUENCE_1 = 3;
+		static final int SEQUENCE_1_TEXT = 4;
+		static final int SEQUENCE_2 = 5;
+		static final int SEQUENCE_2_TEXT = 6;
+		static final int SEQUENCE_3 = 7;
+		static final int SEQUENCE_3_TEXT = 8;
+		static final int SEQUENCE_4 = 9;
+		static final int SEQUENCE_4_TEXT = 10;
+		static final int NEXT_SHAPE_TEXT = 11;
+		static final int ANSWER1_CONTAINER = 12;
+		static final int ANSWER1 = 13;
+		static final int ANSWER2_CONTAINER = 14;
+		static final int ANSWER2 = 15;
+		static final int ANSWER3_CONTAINER = 16;
+		static final int ANSWER3 = 17;
+	}
+
+	static class SeedVault
+	{
+		static final int INVENTORY_ITEM_CONTAINER = 1;
+		static final int TITLE_CONTAINER = 2;
+		static final int ITEM_CONTAINER = 15;
+		static final int ITEM_TEXT = 16;
+	}
+
+	static class ExplorersRing
+	{
+		static final int INVENTORY = 7;
+	}
+
+	static class SettingsSide
+	{
+		static final int CAMERA_ZOOM_SLIDER_TRACK = 59;
+		static final int MUSIC_SLIDER = 13;
+		static final int SOUND_EFFECT_SLIDER = 17;
+		static final int AREA_SOUND_SLIDER = 21;
+	}
+
+	static class Settings
+	{
+		static final int INIT = 1;
+	}
+
+	static class AchievementDiary
+	{
+		static final int CONTAINER = 2;
+	}
+
+	static class Skills
+	{
+		static final int CONTAINER = 0;
+	}
+
+	static class Lms
+	{
+		static final int INFO = 3;
+	}
+
+	static class LmsKDA
+	{
+		static final int INFO = 6;
+	}
+
+	static class AdventureLog
+	{
+		static final int CONTAINER = 0;
+	}
+
+	static class GenericScroll
+	{
+		static final int TEXT = 7;
+	}
+
+	static class GauntletTimer
+	{
+		static final int CONTAINER = 2;
+	}
+
+	static class HallowedSepulchreTimer
+	{
+		static final int CONTAINER = 2;
+	}
+
+	// Also used for many other interfaces!
+	static class BankPin
+	{
+		static final int CONTAINER = 0;
+		static final int TOP_LEFT_TEXT = 2;
+		static final int FIRST_ENTERED = 3;
+		static final int SECOND_ENTERED = 4;
+		static final int THIRD_ENTERED = 5;
+		static final int FOURTH_ENTERED = 6;
+		static final int INSTRUCTION_TEXT = 10;
+		static final int EXIT_BUTTON = 13;
+		static final int FORGOT_BUTTON = 15;
+		static final int BUTTON_1 = 16;
+		static final int BUTTON_2 = 18;
+		static final int BUTTON_3 = 20;
+		static final int BUTTON_4 = 22;
+		static final int BUTTON_5 = 24;
+		static final int BUTTON_6 = 26;
+		static final int BUTTON_7 = 28;
+		static final int BUTTON_8 = 30;
+		static final int BUTTON_9 = 32;
+		static final int BUTTON_10 = 34;
+	}
+
+	static class EncounterHealthBar
+	{
+		static final int CONTAINER = 6;
+	}
+
+	static class TrailblazerAreas
+	{
+		static final int TELEPORT = 59;
+	}
+
+
+	static class DialogPlayer
+	{
+		static final int HEAD_MODEL = 1;
+		static final int NAME = 2;
+		static final int CONTINUE = 3;
+		static final int TEXT = 4;
+	}
+
+	static class DialogNotification
+	{
+		static final int TEXT = 0;
+		static final int CONTINUE = 1;
+	}
+
+	static class DialogOption
+	{
+		static final int TEXT = 0;
+		static final int OPTION1 = 1;
+		static final int OPTION2 = 2;
+		static final int OPTION3 = 3;
+		static final int OPTION4 = 4;
+		static final int OPTION5 = 5;
+	}
+
+	static class PestControlExchangeWindow
+	{
+		static final int ITEM_LIST = 2;
+		static final int BOTTOM = 5;
+		static final int POINTS = 8;
+		static final int CONFIRM_BUTTON = 6;
+	}
+
+	static class MinigameDialog
+	{
+		static final int TEXT = 1;
+		static final int CONTINUE = 2;
+	}
+
+	static class TheatreOfBlood
+	{
+		static final int RAIDING_PARTY = 9;
+		static final int ORB_BOX = 10;
+		static final int BOSS_HEALTH_BAR = 35;
+	}
+
+	static class TheatreOfBloodParty
+	{
+		static final int CONTAINER = 10;
+	}
+
 	static class EquipmentWidgetIdentifiers
 	{
 		static final int EQUIP_YOUR_CHARACTER = 3;
@@ -910,32 +1148,6 @@ public class WidgetID
 		static final int WEIGHT = 49;
 	}
 
-	static class VarrockMuseum
-	{
-		static final int VARROCK_MUSEUM_QUESTION = 28;
-		static final int VARROCK_MUSEUM_FIRST_ANSWER = 29;
-		static final int VARROCK_MUSEUM_SECOND_ANSWER = 30;
-		static final int VARROCK_MUSEUM_THIRD_ANSWER = 31;
-	}
-
-	static class KillLog
-	{
-		static final int TITLE = 3;
-		static final int MONSTER = 13;
-		static final int KILLS = 14;
-		static final int STREAK = 15;
-	}
-
-	static class WorldSwitcher
-	{
-		static final int WORLD_LIST = 16;
-	}
-
-	static class FossilOxygen
-	{
-		static final int FOSSIL_ISLAND_OXYGEN_BAR = 4;
-	}
-
 	static class FossilMushroomTeleport
 	{
 		static final int ROOT = 2;
@@ -943,11 +1155,6 @@ public class WidgetID
 		static final int VERDANT_VALLEY = 8;
 		static final int SWAMP = 12;
 		static final int MUSHROOM_MEADOW = 16;
-	}
-
-	static class Minigames
-	{
-		static final int TELEPORT_BUTTON = 26;
 	}
 
 	static class SpellBook
@@ -1129,75 +1336,6 @@ public class WidgetID
 
 	}
 
-	static class StandardSpellBook
-	{
-		static final int LUMBRIDGE_HOME_TELEPORT = 5;
-		static final int KOUREND_HOME_TELEPORT = 4;
-	}
-
-	static class AncientSpellBook
-	{
-		static final int EDGEVILLE_HOME_TELEPORT = 99;
-	}
-
-	static class LunarSpellBook
-	{
-		static final int LUNAR_HOME_TELEPORT = 100;
-	}
-
-	static class ArceuusSpellBook
-	{
-		static final int ARCEUUS_HOME_TELEPORT = 144;
-	}
-
-	static class Pvp
-	{
-		static final int FOG_OVERLAY = 1;
-		static final int PVP_WIDGET_CONTAINER = 54;  // OUTDATED?
-		static final int SKULL = 56;  // OUTDATED?
-		static final int ATTACK_RANGE = 59;  // OUTDATED?
-		static final int BOUNTY_HUNTER_INFO = 6;
-		static final int KILLDEATH_RATIO = 28;
-		static final int SKULL_CONTAINER = 48;
-		static final int SAFE_ZONE = 50;
-		static final int WILDERNESS_LEVEL = 53; // this can also be the Deadman Mode "Protection" text
-	}
-
-	static class KourendFavour
-	{
-		static final int KOUREND_FAVOUR_OVERLAY = 1;
-	}
-
-	static class Zeah
-	{
-		static final int MESS_HALL_COOKING_DISPLAY = 3;
-	}
-
-	static class LootingBag
-	{
-		static final int LOOTING_BAG_INVENTORY = 5;
-	}
-
-	static class Skotizo
-	{
-		static final int CONTAINER = 3;
-	}
-
-	static class FullScreenMap
-	{
-		static final int ROOT = 27;
-	}
-
-	static class QuestList
-	{
-		static final int BOX = 0;
-		static final int SCROLLBAR = 3;
-		static final int CONTAINER = 5;
-		static final int FREE_CONTAINER = 6;
-		static final int MEMBERS_CONTAINER = 7;
-		static final int MINIQUEST_CONTAINER = 8;
-	}
-
 	static class DialogSprite2
 	{
 		static final int SPRITE1 = 1;
@@ -1209,35 +1347,6 @@ public class WidgetID
 	static class QuestTab
 	{
 		static final int QUEST_TAB = 3;
-	}
-
-	static class Music
-	{
-		static final int CONTAINER = 0;
-		static final int LIST = 3;
-		static final int SCROLLBAR = 4;
-	}
-
-	static class Barrows_Puzzle
-	{
-		static final int PARENT = 0;
-		static final int CONTAINER = 1;
-		static final int TOP_ROW_PUZZLE = 2;
-		static final int SEQUENCE_1 = 3;
-		static final int SEQUENCE_1_TEXT = 4;
-		static final int SEQUENCE_2 = 5;
-		static final int SEQUENCE_2_TEXT = 6;
-		static final int SEQUENCE_3 = 7;
-		static final int SEQUENCE_3_TEXT = 8;
-		static final int SEQUENCE_4 = 9;
-		static final int SEQUENCE_4_TEXT = 10;
-		static final int NEXT_SHAPE_TEXT = 11;
-		static final int ANSWER1_CONTAINER = 12;
-		static final int ANSWER1 = 13;
-		static final int ANSWER2_CONTAINER = 14;
-		static final int ANSWER2 = 15;
-		static final int ANSWER3_CONTAINER = 16;
-		static final int ANSWER3 = 17;
 	}
 
 	public static class TradeScreen
@@ -1273,44 +1382,6 @@ public class WidgetID
 		public static final int WINNINGS = 40;
 	}
 
-	// Also used for many other interfaces!
-	static class BankPin
-	{
-		static final int CONTAINER = 0;
-		static final int TOP_LEFT_TEXT = 2;
-		static final int FIRST_ENTERED = 3;
-		static final int SECOND_ENTERED = 4;
-		static final int THIRD_ENTERED = 5;
-		static final int FOURTH_ENTERED = 6;
-		static final int INSTRUCTION_TEXT = 10;
-		static final int EXIT_BUTTON = 13;
-		static final int FORGOT_BUTTON = 15;
-		static final int BUTTON_1 = 16;
-		static final int BUTTON_2 = 18;
-		static final int BUTTON_3 = 20;
-		static final int BUTTON_4 = 22;
-		static final int BUTTON_5 = 24;
-		static final int BUTTON_6 = 26;
-		static final int BUTTON_7 = 28;
-		static final int BUTTON_8 = 30;
-		static final int BUTTON_9 = 32;
-		static final int BUTTON_10 = 34;
-	}
-
-	static class SeedVault
-	{
-		static final int INVENTORY_ITEM_CONTAINER = 1;
-		static final int TITLE_CONTAINER = 2;
-		static final int ITEM_CONTAINER = 15;
-		static final int ITEM_TEXT = 16;
-	}
-
-	static class ExplorersRing
-	{
-		static final int INVENTORY = 7;
-	}
-
-
 	static class JewelBox
 	{
 		static final int DUEL_RING = 2;
@@ -1329,53 +1400,8 @@ public class WidgetID
 		static final int AREA_SOUND_SLIDER = 49;
 	}
 
-	static class AchievementDiary
-	{
-		static final int CONTAINER = 2;
-	}
-
-	static class Skills
-	{
-		static final int CONTAINER = 0;
-	}
-
-	static class Lms
-	{
-		static final int INFO = 3;
-	}
-
-	static class LmsKDA
-	{
-		static final int INFO = 5;
-	}
-
-	static class AdventureLog
-	{
-		static final int CONTAINER = 0;
-	}
-
-	static class GenericScroll
-	{
-		static final int TEXT = 6;
-	}
-
-	static class GauntletTimer
-	{
-		static final int CONTAINER = 2;
-	}
-
 	static class GauntletMap
 	{
 		static final int CONTAINER = 4;
-	}
-
-	static class HallowedSepulchreTimer
-	{
-		static final int CONTAINER = 2;
-	}
-
-	static class EncounterHealthBar
-	{
-		static final int CONTAINER = 6;
 	}
 }

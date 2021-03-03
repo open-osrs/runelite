@@ -33,6 +33,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -108,13 +109,17 @@ public class Scheduler
 
 	public void unregisterObject(Object obj)
 	{
-		for (ScheduledMethod sm : scheduledMethods)
+		List<ScheduledMethod> methods = new ArrayList<>(getScheduledMethods());
+
+		for (ScheduledMethod method : methods)
 		{
-			if (sm.getObject() == obj)
+			if (method.getObject() != obj)
 			{
-				removeScheduledMethod(sm);
-				break;
+				continue;
 			}
+
+			log.debug("Removing scheduled task {}", method);
+			removeScheduledMethod(method);
 		}
 	}
 
@@ -166,7 +171,7 @@ public class Scheduler
 		}
 		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex)
 		{
-			//log.warn("error invoking scheduled task", ex);
+			log.warn("error invoking scheduled task", ex);
 		}
 		catch (Exception ex)
 		{

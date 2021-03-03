@@ -32,31 +32,41 @@ import net.runelite.api.Constants;
 import net.runelite.client.Notifier;
 import net.runelite.client.ui.ContainableFrame;
 import net.runelite.client.ui.overlay.components.ComponentConstants;
+import net.runelite.client.util.OSType;
 
 @ConfigGroup(RuneLiteConfig.GROUP_NAME)
 public interface RuneLiteConfig extends Config
 {
 	String GROUP_NAME = "runelite";
 
-	@ConfigTitleSection(
-		keyName = "uiTitle",
-		name = "User interface",
-		description = "",
+	@ConfigSection(
+		name = "Window Settings",
+		description = "Settings relating to the client's window and frame",
+		position = 0
+	)
+	String windowSettings = "windowSettings";
+
+	@ConfigSection(
+		name = "Notification Settings",
+		description = "Settings relating to notifications",
 		position = 1
 	)
-	default Title uiTitle()
-	{
-		return new Title();
-	}
+	String notificationSettings = "notificationSettings";
+
+	@ConfigSection(
+		name = "Overlay Settings",
+		description = "Settings relating to fonts",
+		position = 2
+	)
+	String overlaySettings = "overlaySettings";
 
 	@ConfigItem(
 		keyName = "gameSize",
 		name = "Game size",
 		description = "The game will resize to this resolution upon starting the client",
-		position = 2,
-		titleSection = "uiTitle"
+		position = 10,
+		section = windowSettings
 	)
-	@Units(Units.PIXELS)
 	default Dimension gameSize()
 	{
 		return Constants.GAME_FIXED_SIZE;
@@ -66,8 +76,8 @@ public interface RuneLiteConfig extends Config
 		keyName = "automaticResizeType",
 		name = "Resize type",
 		description = "Choose how the window should resize when opening and closing panels",
-		position = 3,
-		titleSection = "uiTitle"
+		position = 11,
+		section = windowSettings
 	)
 	default ExpandResizeType automaticResizeType()
 	{
@@ -78,8 +88,8 @@ public interface RuneLiteConfig extends Config
 		keyName = "lockWindowSize",
 		name = "Lock window size",
 		description = "Determines if the window resizing is allowed or not",
-		position = 4,
-		titleSection = "uiTitle"
+		position = 12,
+		section = windowSettings
 	)
 	default boolean lockWindowSize()
 	{
@@ -90,70 +100,20 @@ public interface RuneLiteConfig extends Config
 		keyName = "containInScreen2",
 		name = "Contain in screen",
 		description = "Makes the client stay contained in the screen when attempted to move out of it.<br>Note: 'Always' only works if custom chrome is enabled.",
-		position = 5,
-		titleSection = "uiTitle"
+		position = 13,
+		section = windowSettings
 	)
 	default ContainableFrame.Mode containInScreen()
 	{
 		return ContainableFrame.Mode.RESIZING;
 	}
 
-
-	@ConfigItem(
-		keyName = "uiEnableCustomChrome",
-		name = "Enable custom window chrome",
-		description = "Use Runelite's custom window title and borders.",
-		warning = "Please restart your client after changing this setting.",
-		position = 6,
-		titleSection = "uiTitle"
-	)
-	default boolean enableCustomChrome()
-	{
-		return true;
-	}
-
-	@ConfigItem(
-		keyName = "borderless",
-		name = "Windowed borderless",
-		description = "Use windowed borderless mode",
-		warning = "Please restart your client after changing this setting.",
-		position = 7,
-		titleSection = "uiTitle"
-	)
-	default boolean borderless()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		keyName = "usernameInTitle",
-		name = "Show display name in title",
-		description = "Toggles displaying of local player's display name in client title",
-		position = 8,
-		titleSection = "uiTitle"
-	)
-	default boolean usernameInTitle()
-	{
-		return true;
-	}
-
-	@ConfigTitleSection(
-		keyName = "miscTitle",
-		name = "Miscellaneous",
-		description = "",
-		position = 9
-	)
-	default Title miscTitle()
-	{
-		return new Title();
-	}
-
 	@ConfigItem(
 		keyName = "rememberScreenBounds",
 		name = "Remember client position",
 		description = "Save the position and size of the client after exiting",
-		position = 10,
-		titleSection = "miscTitle"
+		position = 14,
+		section = windowSettings
 	)
 	default boolean rememberScreenBounds()
 	{
@@ -161,11 +121,40 @@ public interface RuneLiteConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "uiEnableCustomChrome",
+		name = "Enable custom window chrome",
+		description = "Use RuneLite's custom window title and borders.",
+		warning = "Please restart your client after changing this setting",
+		position = 15,
+		section = windowSettings
+	)
+	default boolean enableCustomChrome()
+	{
+		return OSType.getOSType() == OSType.Windows;
+	}
+
+	@Range(
+		min = 10,
+		max = 100
+	)
+	@ConfigItem(
+		keyName = "uiWindowOpacity",
+		name = "Window opacity",
+		description = "Set the windows opacity. Requires \"Enable custom window chrome\" to be enabled.",
+		position = 16,
+		section = windowSettings
+	)
+	default int windowOpacity()
+	{
+		return 100;
+	}
+
+	@ConfigItem(
 		keyName = "gameAlwaysOnTop",
-		name = "Enable client always on top",
+		name = "Always on top",
 		description = "The game will always be on the top of the screen",
-		position = 11,
-		titleSection = "miscTitle"
+		position = 17,
+		section = windowSettings
 	)
 	default boolean gameAlwaysOnTop()
 	{
@@ -174,59 +163,34 @@ public interface RuneLiteConfig extends Config
 
 	@ConfigItem(
 		keyName = "warningOnExit",
-		name = "Display warning on exit",
-		description = "Toggles a warning popup when trying to exit the client",
-		position = 12,
-		titleSection = "miscTitle"
+		name = "Exit warning",
+		description = "Shows a warning popup when trying to exit the client",
+		position = 18,
+		section = windowSettings
 	)
 	default WarningOnExit warningOnExit()
 	{
 		return WarningOnExit.LOGGED_IN;
 	}
 
-	@Range(max = 100, min = 0)
 	@ConfigItem(
-		keyName = "volume",
-		name = "Runelite Volume",
-		description = "Sets the volume of custom Runelite sounds (not the client sounds)",
-		position = 13,
-		titleSection = "miscTitle"
+		keyName = "usernameInTitle",
+		name = "Show display name in title",
+		description = "Toggles displaying of local player's display name in client title",
+		position = 19,
+		section = windowSettings
 	)
-	@Units(Units.PERCENT)
-	default int volume()
+	default boolean usernameInTitle()
 	{
-		return 100;
-	}
-
-	@ConfigItem(
-		keyName = "tooltipPosition",
-		name = "Tooltip Position",
-		description = "Configures whether to show the tooltip above or under the cursor",
-		position = 14,
-		titleSection = "miscTitle"
-	)
-	default TooltipPositionType tooltipPosition()
-	{
-		return TooltipPositionType.UNDER_CURSOR;
-	}
-
-	@ConfigTitleSection(
-		keyName = "notificationsTitle",
-		name = "Notifications",
-		description = "",
-		position = 15
-	)
-	default Title notificationsTitle()
-	{
-		return new Title();
+		return true;
 	}
 
 	@ConfigItem(
 		keyName = "notificationTray",
 		name = "Enable tray notifications",
 		description = "Enables tray notifications",
-		position = 16,
-		titleSection = "notificationsTitle"
+		position = 20,
+		section = notificationSettings
 	)
 	default boolean enableTrayNotifications()
 	{
@@ -235,10 +199,10 @@ public interface RuneLiteConfig extends Config
 
 	@ConfigItem(
 		keyName = "notificationRequestFocus",
-		name = "Request focus on notification",
+		name = "Request focus",
 		description = "Configures the window focus request type on notification",
-		position = 17,
-		titleSection = "notificationsTitle"
+		position = 21,
+		section = notificationSettings
 	)
 	default RequestFocusType notificationRequestFocus()
 	{
@@ -249,8 +213,8 @@ public interface RuneLiteConfig extends Config
 		keyName = "notificationSound",
 		name = "Notification sound",
 		description = "Enables the playing of a beep sound when notifications are displayed",
-		position = 18,
-		titleSection = "notificationsTitle"
+		position = 22,
+		section = notificationSettings
 	)
 	default Notifier.NativeCustomOff notificationSound()
 	{
@@ -259,10 +223,10 @@ public interface RuneLiteConfig extends Config
 
 	@ConfigItem(
 		keyName = "notificationGameMessage",
-		name = "Enable game message notifications",
-		description = "Puts a notification message in the chatbox",
-		position = 19,
-		titleSection = "notificationsTitle"
+		name = "Game message notifications",
+		description = "Adds a notification message to the chatbox",
+		position = 23,
+		section = notificationSettings
 	)
 	default boolean enableGameMessageNotification()
 	{
@@ -270,11 +234,11 @@ public interface RuneLiteConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "notificationFlash",
-		name = "Enable flash notification",
+		keyName = "flashNotification",
+		name = "Flash",
 		description = "Flashes the game frame as a notification",
-		position = 20,
-		titleSection = "notificationsTitle"
+		position = 24,
+		section = notificationSettings
 	)
 	default FlashNotification flashNotification()
 	{
@@ -285,8 +249,8 @@ public interface RuneLiteConfig extends Config
 		keyName = "notificationFocused",
 		name = "Send notifications when focused",
 		description = "Toggles all notifications for when the client is focused",
-		position = 21,
-		titleSection = "notificationsTitle"
+		position = 25,
+		section = notificationSettings
 	)
 	default boolean sendNotificationsWhenFocused()
 	{
@@ -296,33 +260,22 @@ public interface RuneLiteConfig extends Config
 	@Alpha
 	@ConfigItem(
 		keyName = "notificationFlashColor",
-		name = "Notification Flash Color",
+		name = "Notification Flash",
 		description = "Sets the color of the notification flashes.",
-		position = 22,
-		titleSection = "notificationsTitle"
+		position = 26,
+		section = notificationSettings
 	)
 	default Color notificationFlashColor()
 	{
 		return new Color(255, 0, 0, 70);
 	}
 
-	@ConfigTitleSection(
-		keyName = "fontTitle",
-		name = "Font",
-		description = "",
-		position = 23
-	)
-	default Title fontTitle()
-	{
-		return new Title();
-	}
-
 	@ConfigItem(
 		keyName = "fontType",
 		name = "Dynamic Overlay Font",
 		description = "Configures what font type is used for in-game overlays such as player name, ground items, etc.",
-		position = 24,
-		titleSection = "fontTitle"
+		position = 30,
+		section = overlaySettings
 	)
 	default FontType fontType()
 	{
@@ -333,8 +286,8 @@ public interface RuneLiteConfig extends Config
 		keyName = "tooltipFontType",
 		name = "Tooltip Font",
 		description = "Configures what font type is used for in-game tooltips such as food stats, NPC names, etc.",
-		position = 25,
-		titleSection = "fontTitle"
+		position = 31,
+		section = overlaySettings
 	)
 	default FontType tooltipFontType()
 	{
@@ -343,33 +296,22 @@ public interface RuneLiteConfig extends Config
 
 	@ConfigItem(
 		keyName = "interfaceFontType",
-		name = "Interface Overlay Font",
+		name = "Interface Font",
 		description = "Configures what font type is used for in-game interface overlays such as panels, opponent info, clue scrolls etc.",
-		position = 26,
-		titleSection = "fontTitle"
+		position = 32,
+		section = overlaySettings
 	)
 	default FontType interfaceFontType()
 	{
 		return FontType.REGULAR;
 	}
 
-	@ConfigTitleSection(
-		keyName = "overlayTitle",
-		name = "Overlays",
-		description = "",
-		position = 27
-	)
-	default Title overlayTitle()
-	{
-		return new Title();
-	}
-
 	@ConfigItem(
 		keyName = "menuEntryShift",
 		name = "Require Shift for overlay menu",
 		description = "Overlay right-click menu will require shift to be added",
-		position = 28,
-		titleSection = "overlayTitle"
+		position = 33,
+		section = overlaySettings
 	)
 	default boolean menuEntryShift()
 	{
@@ -377,35 +319,24 @@ public interface RuneLiteConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "overlayBackgroundColor",
-		name = "Overlay Color",
-		description = "Configures the background color of infoboxes and overlays",
-		position = 29,
-		titleSection = "overlayTitle"
+		keyName = "tooltipPosition",
+		name = "Tooltip Position",
+		description = "Configures whether to show the tooltip above or under the cursor",
+		position = 35,
+		section = overlaySettings
 	)
-	@Alpha
-	default Color overlayBackgroundColor()
+	default TooltipPositionType tooltipPosition()
 	{
-		return ComponentConstants.STANDARD_BACKGROUND_COLOR;
-	}
-
-	@ConfigTitleSection(
-		keyName = "infoboxTitle",
-		name = "Infoboxes",
-		description = "",
-		position = 30
-	)
-	default Title infoboxTitle()
-	{
-		return new Title();
+		return TooltipPositionType.UNDER_CURSOR;
 	}
 
 	@ConfigItem(
 		keyName = "infoBoxVertical",
 		name = "Display infoboxes vertically",
 		description = "Toggles the infoboxes to display vertically",
-		position = 31,
-		titleSection = "infoboxTitle"
+		position = 40,
+		section = overlaySettings,
+		hidden = true
 	)
 	default boolean infoBoxVertical()
 	{
@@ -416,8 +347,8 @@ public interface RuneLiteConfig extends Config
 		keyName = "infoBoxSize",
 		name = "Infobox size",
 		description = "Configures the size of each infobox in pixels",
-		position = 32,
-		titleSection = "infoboxTitle"
+		position = 42,
+		section = overlaySettings
 	)
 	@Units(Units.PIXELS)
 	default int infoBoxSize()
@@ -425,23 +356,48 @@ public interface RuneLiteConfig extends Config
 		return 35;
 	}
 
-	@ConfigTitleSection(
-		keyName = "keybindsTitle",
-		name = "Key binds",
-		description = "",
-		position = 33
+	@ConfigItem(
+		keyName = "infoBoxTextOutline",
+		name = "Outline infobox text",
+		description = "Draw a full outline instead of a simple shadow for infobox text",
+		position = 43,
+		section = overlaySettings
 	)
-	default Title keybindsTitle()
+	default boolean infoBoxTextOutline()
 	{
-		return new Title();
+		return false;
+	}
+
+	@Alpha
+	@ConfigItem(
+		keyName = "overlayBackgroundColor",
+		name = "Overlay Color",
+		description = "Configures the background color of infoboxes and overlays",
+		position = 44,
+		section = overlaySettings
+	)
+	default Color overlayBackgroundColor()
+	{
+		return ComponentConstants.STANDARD_BACKGROUND_COLOR;
+	}
+
+	@ConfigItem(
+		keyName = "blockExtraMouseButtons",
+		name = "Block Extra Mouse Buttons",
+		description = "Blocks extra mouse buttons (4 and above)",
+		position = 44
+	)
+	default boolean blockExtraMouseButtons()
+	{
+		return true;
 	}
 
 	@ConfigItem(
 		keyName = "sidebarToggleKey",
 		name = "Sidebar Toggle Key",
 		description = "The key that will toggle the sidebar (accepts modifiers)",
-		position = 34,
-		titleSection = "keybindsTitle"
+		position = 45,
+		section = windowSettings
 	)
 	default Keybind sidebarToggleKey()
 	{
@@ -452,23 +408,11 @@ public interface RuneLiteConfig extends Config
 		keyName = "panelToggleKey",
 		name = "Plugin Panel Toggle Key",
 		description = "The key that will toggle the current or last opened plugin panel (accepts modifiers)",
-		position = 35,
-		titleSection = "keybindsTitle"
+		position = 46,
+		section = windowSettings
 	)
 	default Keybind panelToggleKey()
 	{
 		return new Keybind(KeyEvent.VK_F12, InputEvent.CTRL_DOWN_MASK);
-	}
-
-	@ConfigItem(
-		keyName = "blockExtraMouseButtons",
-		name = "Block Extra Mouse Buttons",
-		description = "Blocks extra mouse buttons (4 and above)",
-		position = 36,
-		titleSection = "keybindsTitle"
-	)
-	default boolean blockExtraMouseButtons()
-	{
-		return false;
 	}
 }

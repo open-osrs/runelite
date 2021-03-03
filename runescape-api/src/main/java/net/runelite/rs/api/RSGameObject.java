@@ -5,8 +5,8 @@ import net.runelite.mapping.Import;
 
 public interface RSGameObject extends GameObject
 {
-	@Import("entity")
-	RSEntity getEntity();
+	@Import("renderable")
+	RSRenderable getRenderable();
 
 	@Import("plane")
 	int getPlane();
@@ -43,5 +43,6 @@ public interface RSGameObject extends GameObject
 	long getHash();
 
 	@Import("flags")
+	@Override
 	int getFlags();
 }

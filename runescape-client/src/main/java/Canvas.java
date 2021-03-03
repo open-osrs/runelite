@@ -2,18 +2,25 @@ import java.awt.Component;
 import java.awt.Graphics;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bi")
+@ObfuscatedName("bq")
 @Implements("Canvas")
 public final class Canvas extends java.awt.Canvas {
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "Lhq;"
+	@ObfuscatedName("ao")
+	@ObfuscatedGetter(
+		intValue = 2077405845
 	)
-	static Widget field438;
-	@ObfuscatedName("z")
+	static int field439;
+	@ObfuscatedName("lz")
+	@ObfuscatedSignature(
+		descriptor = "Lhz;"
+	)
+	@Export("mousedOverWidgetIf1")
+	static Widget mousedOverWidgetIf1;
+	@ObfuscatedName("n")
 	@Export("component")
 	Component component;
 
@@ -21,115 +28,65 @@ public final class Canvas extends java.awt.Canvas {
 		this.component = var1; // L: 11
 	} // L: 12
 
-	public final void paint(Graphics var1) {
-		this.component.paint(var1); // L: 19
-	} // L: 20
-
 	public final void update(Graphics var1) {
 		this.component.update(var1); // L: 15
 	} // L: 16
 
-	@ObfuscatedName("k")
+	public final void paint(Graphics var1) {
+		this.component.paint(var1); // L: 19
+	} // L: 20
+
+	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		descriptor = "(IB)I",
-		garbageValue = "-36"
+		descriptor = "(II)I",
+		garbageValue = "-866196004"
 	)
-	public static int method905(int var0) {
-		var0 = (var0 & 1431655765) + (var0 >>> 1 & 1431655765); // L: 35
-		var0 = (var0 >>> 2 & 858993459) + (var0 & 858993459); // L: 36
-		var0 = var0 + (var0 >>> 4) & 252645135; // L: 37
-		var0 += var0 >>> 8; // L: 38
-		var0 += var0 >>> 16; // L: 39
-		return var0 & 255; // L: 40
+	static int method935(int var0) {
+		return (int)Math.pow(2.0D, (double)(7.0F + (float)var0 / 256.0F)); // L: 3273
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("hc")
 	@ObfuscatedSignature(
-		descriptor = "([BI)V",
-		garbageValue = "1073407655"
+		descriptor = "(IIIIIIIIII)V",
+		garbageValue = "-614885261"
 	)
-	@Export("ByteArrayPool_release")
-	public static synchronized void ByteArrayPool_release(byte[] var0) {
-		if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < 1000) { // L: 76
-			ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0; // L: 77
-		} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < 250) { // L: 80
-			ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0; // L: 81
-		} else if (var0.length == 30000 && ByteArrayPool.ByteArrayPool_largeCount < 50) { // L: 84
-			ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0; // L: 85
-		} else {
-			if (ByteArrayPool.ByteArrayPool_arrays != null) { // L: 88
-				for (int var1 = 0; var1 < ByteArrayPool.ByteArrayPool_alternativeSizes.length; ++var1) { // L: 89
-					if (var0.length == ByteArrayPool.ByteArrayPool_alternativeSizes[var1] && ByteArrayPool.ByteArrayPool_altSizeArrayCounts[var1] < ByteArrayPool.ByteArrayPool_arrays[var1].length) { // L: 90
-						ByteArrayPool.ByteArrayPool_arrays[var1][ByteArrayPool.ByteArrayPool_altSizeArrayCounts[var1]++] = var0; // L: 91
-						return; // L: 92
-					}
-				}
+	@Export("updatePendingSpawn")
+	static final void updatePendingSpawn(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+		PendingSpawn var9 = null; // L: 7245
+
+		for (PendingSpawn var10 = (PendingSpawn)Client.pendingSpawns.last(); var10 != null; var10 = (PendingSpawn)Client.pendingSpawns.previous()) { // L: 7246 7247 7252
+			if (var0 == var10.plane && var10.x == var1 && var2 == var10.y && var3 == var10.type) { // L: 7248
+				var9 = var10; // L: 7249
+				break;
 			}
-
-		}
-	} // L: 78 82 86 96
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(Lct;B)V",
-		garbageValue = "-37"
-	)
-	@Export("changeWorld")
-	static void changeWorld(World var0) {
-		if (var0.isMembersOnly() != Client.isMembersWorld) { // L: 1720
-			Client.isMembersWorld = var0.isMembersOnly(); // L: 1721
-			WorldMapManager.method726(var0.isMembersOnly()); // L: 1722
 		}
 
-		ItemContainer.worldHost = var0.host; // L: 1724
-		Client.worldId = var0.id; // L: 1725
-		Client.worldProperties = var0.properties; // L: 1726
-		Client.port1 = Client.gameBuild == 0 ? 43594 : var0.id + 40000; // L: 1727
-		class23.port2 = Client.gameBuild == 0 ? 443 : var0.id + 50000; // L: 1728
-		WorldMapScaleHandler.port3 = Client.port1; // L: 1729
-	} // L: 1730
-
-	@ObfuscatedName("jo")
-	@ObfuscatedSignature(
-		descriptor = "(Lhq;I)V",
-		garbageValue = "-580678135"
-	)
-	static final void method903(Widget var0) {
-		int var1 = var0.contentType; // L: 10437
-		if (var1 == 324) { // L: 10438
-			if (Client.field937 == -1) { // L: 10439
-				Client.field937 = var0.spriteId2; // L: 10440
-				Client.field942 = var0.spriteId; // L: 10441
-			}
-
-			if (Client.playerAppearance.isFemale) { // L: 10443
-				var0.spriteId2 = Client.field937;
-			} else {
-				var0.spriteId2 = Client.field942; // L: 10444
-			}
-
-		} else if (var1 == 325) { // L: 10447
-			if (Client.field937 == -1) { // L: 10448
-				Client.field937 = var0.spriteId2; // L: 10449
-				Client.field942 = var0.spriteId; // L: 10450
-			}
-
-			if (Client.playerAppearance.isFemale) { // L: 10452
-				var0.spriteId2 = Client.field942;
-			} else {
-				var0.spriteId2 = Client.field937; // L: 10453
-			}
-
-		} else if (var1 == 327) { // L: 10456
-			var0.modelAngleX = 150; // L: 10457
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047; // L: 10458
-			var0.modelType = 5; // L: 10459
-			var0.modelId = 0; // L: 10460
-		} else if (var1 == 328) { // L: 10463
-			var0.modelAngleX = 150; // L: 10464
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047; // L: 10465
-			var0.modelType = 5; // L: 10466
-			var0.modelId = 1; // L: 10467
+		if (var9 == null) { // L: 7254
+			var9 = new PendingSpawn(); // L: 7255
+			var9.plane = var0; // L: 7256
+			var9.type = var3; // L: 7257
+			var9.x = var1; // L: 7258
+			var9.y = var2; // L: 7259
+			WorldMapElement.method4592(var9); // L: 7260
+			Client.pendingSpawns.addFirst(var9); // L: 7261
 		}
-	} // L: 10445 10454 10461 10468 10470
+
+		var9.id = var4; // L: 7263
+		var9.field948 = var5; // L: 7264
+		var9.orientation = var6; // L: 7265
+		var9.delay = var7; // L: 7266
+		var9.hitpoints = var8; // L: 7267
+	} // L: 7268
+
+	@ObfuscatedName("kb")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-54323362"
+	)
+	@Export("Clan_leaveChat")
+	static final void Clan_leaveChat() {
+		PacketBufferNode var0 = WorldMapSprite.getPacketBufferNode(ClientPacket.field2270, Client.packetWriter.isaacCipher); // L: 11468
+		var0.packetBuffer.writeByte(0); // L: 11469
+		Client.packetWriter.addNode(var0); // L: 11470
+	} // L: 11471
 }

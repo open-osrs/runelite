@@ -1,33 +1,34 @@
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gk")
+@ObfuscatedName("gz")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1047579843
+		intValue = -1648093549
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1846311175
+		intValue = 845943469
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1025962081
+		intValue = 1266527917
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -881860999
+		intValue = 1498688541
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -35,65 +36,38 @@ public abstract class RouteStrategy {
 	protected RouteStrategy() {
 	} // L: 9
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(IIILft;I)Z",
-		garbageValue = "-1274441547"
+		descriptor = "(IIILfe;I)Z",
+		garbageValue = "1148121553"
 	)
 	@Export("hasArrived")
-	protected abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
+	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lic;Lic;III)Lkr;",
-		garbageValue = "87805054"
+		descriptor = "(B)V",
+		garbageValue = "-69"
 	)
-	public static Font method3688(AbstractArchive var0, AbstractArchive var1, int var2, int var3) {
-		byte[] var5 = var0.takeFile(var2, var3); // L: 111
-		boolean var4;
-		if (var5 == null) { // L: 112
-			var4 = false; // L: 113
-		} else {
-			Occluder.SpriteBuffer_decode(var5); // L: 116
-			var4 = true; // L: 117
+	static void method3795() {
+		Iterator var0 = Messages.Messages_hashTable.iterator(); // L: 50
+
+		while (var0.hasNext()) { // L: 55
+			Message var1 = (Message)var0.next(); // L: 51
+			var1.clearIsFromFriend(); // L: 53
 		}
 
-		if (!var4) { // L: 119
-			return null;
-		} else {
-			byte[] var6 = var1.takeFile(var2, var3); // L: 121
-			Font var8;
-			if (var6 == null) { // L: 123
-				var8 = null; // L: 124
-			} else {
-				Font var7 = new Font(var6, Username.SpriteBuffer_xOffsets, class335.SpriteBuffer_yOffsets, class335.SpriteBuffer_spriteWidths, class335.SpriteBuffer_spriteHeights, TaskHandler.SpriteBuffer_spritePalette, class92.SpriteBuffer_pixels); // L: 127
-				Username.SpriteBuffer_xOffsets = null; // L: 129
-				class335.SpriteBuffer_yOffsets = null; // L: 130
-				class335.SpriteBuffer_spriteWidths = null; // L: 131
-				class335.SpriteBuffer_spriteHeights = null; // L: 132
-				TaskHandler.SpriteBuffer_spritePalette = null; // L: 133
-				class92.SpriteBuffer_pixels = null; // L: 134
-				var8 = var7; // L: 136
-			}
+	} // L: 56
 
-			return var8; // L: 138
-		}
-	}
-
-	@ObfuscatedName("fv")
+	@ObfuscatedName("gd")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1480468521"
+		garbageValue = "-1059430259"
 	)
-	@Export("playPcmPlayers")
-	static final void playPcmPlayers() {
-		if (IntHashTable.pcmPlayer1 != null) { // L: 3254
-			IntHashTable.pcmPlayer1.run();
+	static void method3794() {
+		if (Client.combatTargetPlayerIndex >= 0 && Client.players[Client.combatTargetPlayerIndex] != null) { // L: 4258
+			WorldMapScaleHandler.addPlayerToScene(Client.players[Client.combatTargetPlayerIndex], false); // L: 4259
 		}
 
-		if (WorldMapManager.pcmPlayer0 != null) { // L: 3255
-			WorldMapManager.pcmPlayer0.run();
-		}
-
-	} // L: 3256
+	} // L: 4261
 }

@@ -1,56 +1,50 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("js")
+@ObfuscatedName("kp")
 @Implements("IgnoreList")
 public class IgnoreList extends UserList {
-	@ObfuscatedName("rj")
-	@ObfuscatedGetter(
-		intValue = -1974595173
-	)
-	static int field3620;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lmu;"
+		descriptor = "Lml;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lmu;)V"
+		descriptor = "(Lml;)V"
 	)
 	public IgnoreList(LoginType var1) {
 		super(400); // L: 12
-		this.loginType = var1;
+		this.loginType = var1; // L: 13
 	} // L: 14
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljc;",
-		garbageValue = "35"
+		descriptor = "(I)Ljn;",
+		garbageValue = "-315842787"
 	)
 	@Export("newInstance")
 	User newInstance() {
 		return new Ignored(); // L: 17
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IB)[Ljc;",
-		garbageValue = "-19"
+		descriptor = "(II)[Ljn;",
+		garbageValue = "1723641195"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
 		return new Ignored[var1]; // L: 21
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;IB)V",
-		garbageValue = "-55"
+		descriptor = "(Lkx;II)V",
+		garbageValue = "-631264277"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
@@ -92,14 +86,5 @@ public class IgnoreList extends UserList {
 
 			return; // L: 54
 		}
-	}
-
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lij;",
-		garbageValue = "1485577751"
-	)
-	static GameBuild[] method5182() {
-		return new GameBuild[]{GameBuild.LIVE, GameBuild.WIP, GameBuild.RC, GameBuild.BUILDLIVE}; // L: 13
 	}
 }

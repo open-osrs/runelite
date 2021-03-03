@@ -43,7 +43,7 @@ import javax.swing.text.DocumentFilter;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.ColorUtil;
 
-class ColorValuePanel extends JPanel
+public class ColorValuePanel extends JPanel
 {
 	private static final int DEFAULT_VALUE = ColorUtil.MAX_RGB_VALUE;
 

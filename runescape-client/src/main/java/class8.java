@@ -4,78 +4,84 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("g")
+@ObfuscatedName("q")
 public class class8 implements Callable {
-	@ObfuscatedName("rf")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 796418753
+		intValue = 880738975
 	)
-	static int field43;
-	@ObfuscatedName("pv")
-	@Export("ClanChat_inClanChat")
-	static boolean ClanChat_inClanChat;
+	static int field45;
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lkf;"
+		descriptor = "Lig;"
 	)
-	final Buffer field45;
-	@ObfuscatedName("k")
+	@Export("ItemDefinition_modelArchive")
+	public static AbstractArchive ItemDefinition_modelArchive;
+	@ObfuscatedName("du")
+	@Export("mouseCam")
+	static boolean mouseCam;
+	@ObfuscatedName("dq")
 	@ObfuscatedSignature(
-		descriptor = "Lh;"
+		descriptor = "Liy;"
 	)
-	final class12 field42;
+	@Export("archive5")
+	static Archive archive5;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lkx;"
+	)
+	final Buffer field48;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "La;"
+	)
+	final class12 field44;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lm;"
+		descriptor = "Ll;"
 	)
 	final class9 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lm;Lkf;Lh;)V"
+		descriptor = "(Ll;Lkx;La;)V"
 	)
 	class8(class9 var1, Buffer var2, class12 var3) {
 		this.this$0 = var1; // L: 47
-		this.field45 = var2; // L: 48
-		this.field42 = var3; // L: 49
+		this.field48 = var2; // L: 48
+		this.field44 = var3; // L: 49
 	} // L: 50
 
 	public Object call() {
-		return this.field42.vmethod127(this.field45); // L: 53
+		return this.field44.vmethod120(this.field48); // L: 53
 	}
 
 	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-552632511"
+		garbageValue = "-1606674389"
 	)
-	static void method105() {
-		if (TaskHandler.javaVendor.toLowerCase().indexOf("microsoft") != -1) { // L: 119
-			KeyHandler.KeyHandler_keyCodes[186] = 57; // L: 120
-			KeyHandler.KeyHandler_keyCodes[187] = 27; // L: 121
-			KeyHandler.KeyHandler_keyCodes[188] = 71; // L: 122
-			KeyHandler.KeyHandler_keyCodes[189] = 26; // L: 123
-			KeyHandler.KeyHandler_keyCodes[190] = 72; // L: 124
-			KeyHandler.KeyHandler_keyCodes[191] = 73; // L: 125
-			KeyHandler.KeyHandler_keyCodes[192] = 58; // L: 126
-			KeyHandler.KeyHandler_keyCodes[219] = 42; // L: 127
-			KeyHandler.KeyHandler_keyCodes[220] = 74; // L: 128
-			KeyHandler.KeyHandler_keyCodes[221] = 43; // L: 129
-			KeyHandler.KeyHandler_keyCodes[222] = 59; // L: 130
-			KeyHandler.KeyHandler_keyCodes[223] = 28; // L: 131
+	static void method88() {
+		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) { // L: 245
+			Login.currentLoginField = 1; // L: 246
 		} else {
-			KeyHandler.KeyHandler_keyCodes[44] = 71; // L: 134
-			KeyHandler.KeyHandler_keyCodes[45] = 26; // L: 135
-			KeyHandler.KeyHandler_keyCodes[46] = 72; // L: 136
-			KeyHandler.KeyHandler_keyCodes[47] = 73; // L: 137
-			KeyHandler.KeyHandler_keyCodes[59] = 57; // L: 138
-			KeyHandler.KeyHandler_keyCodes[61] = 27; // L: 139
-			KeyHandler.KeyHandler_keyCodes[91] = 42; // L: 140
-			KeyHandler.KeyHandler_keyCodes[92] = 74; // L: 141
-			KeyHandler.KeyHandler_keyCodes[93] = 43; // L: 142
-			KeyHandler.KeyHandler_keyCodes[192] = 28; // L: 143
-			KeyHandler.KeyHandler_keyCodes[222] = 58; // L: 144
-			KeyHandler.KeyHandler_keyCodes[520] = 59; // L: 145
+			Login.currentLoginField = 0; // L: 249
 		}
 
-	} // L: 147
+	} // L: 251
+
+	@ObfuscatedName("fc")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1683075564"
+	)
+	static final void method90() {
+		if (Client.logoutTimer > 0) { // L: 2639
+			SecureRandomCallable.logOut(); // L: 2640
+		} else {
+			Client.timer.method5206(); // L: 2643
+			ItemContainer.updateGameState(40); // L: 2644
+			UserComparator6.field2008 = Client.packetWriter.getSocket(); // L: 2645
+			Client.packetWriter.removeSocket(); // L: 2646
+		}
+	} // L: 2641 2647
 }

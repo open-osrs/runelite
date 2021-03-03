@@ -4,139 +4,81 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bp")
+@ObfuscatedName("bw")
 public class class60 {
-	@ObfuscatedName("sa")
-	@ObfuscatedSignature(
-		descriptor = "Lcr;"
-	)
-	@Export("friendSystem")
-	public static FriendSystem friendSystem;
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@Export("applet")
 	static Applet applet;
-	@ObfuscatedName("k")
-	static String field451;
-	@ObfuscatedName("a")
-	static int[] field453;
-	@ObfuscatedName("ah")
-	@Export("null_string")
-	protected static String null_string;
-	@ObfuscatedName("ef")
+	@ObfuscatedName("v")
+	static String field454;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1192539033
+		intValue = 1207214855
 	)
-	static int field456;
+	@Export("graphicsTickTimeIdx")
+	static int graphicsTickTimeIdx;
+	@ObfuscatedName("eb")
+	@ObfuscatedSignature(
+		descriptor = "Llv;"
+	)
+	@Export("spriteIds")
+	static GraphicsDefaults spriteIds;
 
 	static {
 		applet = null; // L: 10
-		field451 = ""; // L: 11
+		field454 = ""; // L: 11
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-14"
+		descriptor = "(B)V",
+		garbageValue = "-125"
 	)
-	@Export("isKeyDown")
-	public static final boolean isKeyDown() {
-		synchronized(KeyHandler.KeyHandler_instance) { // L: 164
-			if (KeyHandler.field423 == KeyHandler.field399) { // L: 165
-				return false;
-			} else {
-				PlayerAppearance.field2581 = KeyHandler.field420[KeyHandler.field423]; // L: 166
-				PacketWriter.field1350 = KeyHandler.field419[KeyHandler.field423]; // L: 167
-				KeyHandler.field423 = KeyHandler.field423 + 1 & 127; // L: 168
-				return true; // L: 169
-			}
+	public static void method967() {
+		synchronized(MouseHandler.MouseHandler_instance) { // L: 43
+			MouseHandler.MouseHandler_currentButton = MouseHandler.MouseHandler_currentButtonVolatile; // L: 44
+			MouseHandler.MouseHandler_x = MouseHandler.MouseHandler_xVolatile; // L: 45
+			MouseHandler.MouseHandler_y = MouseHandler.MouseHandler_yVolatile; // L: 46
+			MouseHandler.MouseHandler_millis = MouseHandler.MouseHandler_lastMovedVolatile; // L: 47
+			MouseHandler.MouseHandler_lastButton = MouseHandler.MouseHandler_lastButtonVolatile; // L: 48
+			MouseHandler.MouseHandler_lastPressedX = MouseHandler.MouseHandler_lastPressedXVolatile; // L: 49
+			MouseHandler.MouseHandler_lastPressedY = MouseHandler.MouseHandler_lastPressedYVolatile; // L: 50
+			MouseHandler.MouseHandler_lastPressedTimeMillis = MouseHandler.MouseHandler_lastPressedTimeMillisVolatile; // L: 51
+			MouseHandler.MouseHandler_lastButtonVolatile = 0; // L: 52
 		}
-	}
+	} // L: 54
 
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)I",
-		garbageValue = "-34"
-	)
-	static final int method947(int var0, int var1, int var2) {
-		int var3 = var0 / var2; // L: 825
-		int var4 = var0 & var2 - 1; // L: 826
-		int var5 = var1 / var2; // L: 827
-		int var6 = var1 & var2 - 1; // L: 828
-		int var7 = TileItem.method2206(var3, var5); // L: 829
-		int var8 = TileItem.method2206(var3 + 1, var5); // L: 830
-		int var9 = TileItem.method2206(var3, var5 + 1); // L: 831
-		int var10 = TileItem.method2206(var3 + 1, var5 + 1); // L: 832
-		int var11 = ArchiveDisk.method5991(var7, var8, var4, var2); // L: 833
-		int var12 = ArchiveDisk.method5991(var9, var10, var4, var2); // L: 834
-		int var14 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var6 * 1024 / var2] >> 1; // L: 837
-		int var13 = ((65536 - var14) * var11 >> 16) + (var14 * var12 >> 16); // L: 838
-		return var13; // L: 840
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(Lhq;IS)V",
-		garbageValue = "15262"
-	)
-	@Export("Widget_setKeyIgnoreHeld")
-	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
-		if (var0.field2626 == null) { // L: 934
-			throw new RuntimeException(); // L: 935
-		} else {
-			if (var0.field2661 == null) { // L: 937
-				var0.field2661 = new int[var0.field2626.length]; // L: 938
-			}
-
-			var0.field2661[var1] = Integer.MAX_VALUE; // L: 940
-		}
-	} // L: 941
-
-	@ObfuscatedName("c")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(IIII)I",
-		garbageValue = "877979774"
+		garbageValue = "-291804616"
 	)
-	@Export("hslToRgb")
-	static final int hslToRgb(int var0, int var1, int var2) {
-		if (var2 > 179) { // L: 884
-			var1 /= 2;
-		}
-
-		if (var2 > 192) { // L: 885
-			var1 /= 2;
-		}
-
-		if (var2 > 217) { // L: 886
-			var1 /= 2;
-		}
-
-		if (var2 > 243) { // L: 887
-			var1 /= 2;
-		}
-
-		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2; // L: 888
-		return var3; // L: 889
+	static final int method972(int var0, int var1, int var2) {
+		int var3 = var0 / var2; // L: 522
+		int var4 = var0 & var2 - 1; // L: 523
+		int var5 = var1 / var2; // L: 524
+		int var6 = var1 & var2 - 1; // L: 525
+		int var7 = class69.method1259(var3, var5); // L: 526
+		int var8 = class69.method1259(var3 + 1, var5); // L: 527
+		int var9 = class69.method1259(var3, var5 + 1); // L: 528
+		int var10 = class69.method1259(var3 + 1, var5 + 1); // L: 529
+		int var12 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 532
+		int var11 = ((65536 - var12) * var7 >> 16) + (var12 * var8 >> 16); // L: 533
+		int var14 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 538
+		int var13 = ((65536 - var14) * var9 >> 16) + (var14 * var10 >> 16); // L: 539
+		int var16 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var6 * 1024 / var2] >> 1; // L: 544
+		int var15 = ((65536 - var16) * var11 >> 16) + (var13 * var16 >> 16); // L: 545
+		return var15; // L: 547
 	}
 
-	@ObfuscatedName("kh")
+	@ObfuscatedName("kr")
 	@ObfuscatedSignature(
-		descriptor = "(Lkf;II)V",
-		garbageValue = "-1719664383"
+		descriptor = "(Lhz;B)I",
+		garbageValue = "81"
 	)
-	static void method937(Buffer var0, int var1) {
-		byte[] var2 = var0.array; // L: 10815
-		if (Client.randomDatData == null) { // L: 10817
-			Client.randomDatData = new byte[24];
-		}
-
-		class310.writeRandomDat(var2, var1, Client.randomDatData, 0, 24); // L: 10818
-		if (JagexCache.JagexCache_randomDat != null) { // L: 10821
-			try {
-				JagexCache.JagexCache_randomDat.seek(0L); // L: 10823
-				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24); // L: 10824
-			} catch (Exception var4) { // L: 10826
-			}
-		}
-
-	} // L: 10829
+	@Export("getWidgetFlags")
+	static int getWidgetFlags(Widget var0) {
+		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get((long)var0.childIndex + ((long)var0.id << 32)); // L: 11482
+		return var1 != null ? var1.integer : var0.flags; // L: 11483 11484
+	}
 }

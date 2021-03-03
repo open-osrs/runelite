@@ -31,6 +31,8 @@ import com.google.gson.JsonObject;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
+import net.runelite.asm.Annotation;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -57,7 +59,7 @@ public class MappingDumper
 	@Before
 	public void before() throws IOException
 	{
-		group = JarUtil.loadJar(new File(properties.getRsClient()));
+		group = JarUtil.load(new File(properties.getRsClient()));
 	}
 
 	@Test
@@ -70,7 +72,7 @@ public class MappingDumper
 	@Test
 	public void dump() throws IOException
 	{
-		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));
+		ClassGroup group = JarUtil.load(new File(properties.getRsClient()));
 
 		final String GAP = "%-40s";
 		int classes = 0, methods = 0, fields = 0;
@@ -317,9 +319,67 @@ public class MappingDumper
 	}
 
 	@Test
+	public void dumpTiny() throws IOException
+	{
+		ClassGroup group = JarUtil.load(new File(properties.getRsClient()));
+		System.out.println("v1\tofficial\tintermediary");
+		for (ClassFile clazz : group.getClasses())
+		{
+			// CLASS obbed_name new_name
+			String implName = clazz.getName();
+			String className = DeobAnnotations.getObfuscatedName(clazz);
+			if (className == null)
+			{
+				continue;
+			}
+
+			System.out.println("CLASS\t" + className + "\t" + implName);
+
+			for (Method method : clazz.getMethods())
+			{
+				Annotation sig = method.findAnnotation(DeobAnnotations.OBFUSCATED_SIGNATURE);
+				Signature asmType = sig == null ? method.getDescriptor() : new Signature((String) sig.get("descriptor"));
+
+				if (DeobAnnotations.getObfuscatedName(method) == null)
+				{
+					continue;
+				}
+
+				if (sig != null)
+				{
+					Object val = sig.get("garbageValue");
+					if (val != null && !val.equals(""))
+					{
+						ArrayList<Type> newArgs = new ArrayList<>(asmType.getArguments());
+						newArgs.remove(newArgs.size() - 1);
+						asmType = new Signature(newArgs, asmType.getReturnValue());
+					}
+				}
+
+				// METHOD obbed_owner obbed_desc obbed_name new_name
+				System.out.println("METHOD\t" + className + "\t" + asmType.toString() + "\t" + DeobAnnotations.getObfuscatedName(method) + "\t" + method.getName());
+			}
+
+			for (Field field : clazz.getFields())
+			{
+				Annotation sig = field.findAnnotation(DeobAnnotations.OBFUSCATED_SIGNATURE);
+				Type asmType = sig == null ? field.getType() : new Type((String) sig.get("descriptor"));
+
+				if (DeobAnnotations.getObfuscatedName(field) == null)
+				{
+					continue;
+				}
+
+				// FIELD obbed_owner obbed_desc obbed_name new_name
+				System.out.println("FIELD\t" + className + "\t" + asmType.toString() + "\t" + DeobAnnotations.getObfuscatedName(field) + "\t" + field.getName());
+			}
+		}
+	}
+
+	@Test
 	public void dumpJson() throws IOException
 	{
-		ClassGroup group = JarUtil.loadJar(new File(properties.getRsClient()));
+		ClassGroup group = JarUtil.load(new File(properties.getRsClient()));
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonObject jObject = new JsonObject();

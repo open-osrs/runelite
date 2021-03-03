@@ -26,14 +26,15 @@ package net.runelite.rs.api;
 
 import java.math.BigInteger;
 import java.util.Map;
+import net.runelite.api.AbstractArchive;
 import net.runelite.api.Client;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 import net.runelite.api.World;
 import net.runelite.api.widgets.Widget;
 import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
 
-public interface RSClient extends RSGameShell, Client
+public interface RSClient extends RSGameEngine, Client
 {
 	@Import("cameraX")
 	@Override
@@ -138,6 +139,7 @@ public interface RSClient extends RSGameShell, Client
 	void setChangedSkillsCount(int i);
 
 	@Import("gameState")
+	@Override
 	int getRSGameState();
 
 	@Import("updateGameState")
@@ -337,10 +339,10 @@ public interface RSClient extends RSGameShell, Client
 	void addRSChatMessage(int type, String name, String message, String sender);
 
 	@Import("getObjectDefinition")
-	RSObjectDefinition getRSObjectDefinition(int objectId);
+	RSObjectComposition getRSObjectComposition(int objectId);
 
 	@Import("getNpcDefinition")
-	RSNPCDefinition getRSNpcDefinition(int npcId);
+	RSNPCComposition getRSNpcComposition(int npcId);
 
 	@Import("viewportZoom")
 	@Override
@@ -401,10 +403,10 @@ public interface RSClient extends RSGameShell, Client
 	RSNodeHashTable getItemContainers();
 
 	@Import("ItemDefinition_get")
-	RSItemDefinition getRSItemDefinition(int itemId);
+	RSItemComposition getRSItemDefinition(int itemId);
 
 	@Import("getItemSprite")
-	RSSprite createRSItemSprite(int itemId, int quantity, int thickness, int borderColor, int stackable, boolean noted);
+	RSSpritePixels createRSItemSprite(int itemId, int quantity, int thickness, int borderColor, int stackable, boolean noted);
 
 	@Import("menuAction")
 	void sendMenuAction(int n2, int n3, int n4, int n5, String string, String string2, int n6, int n7);
@@ -558,10 +560,10 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("mapIcons")
 	@Override
-	RSSprite[] getMapIcons();
+	RSSpritePixels[] getMapIcons();
 
 	@Import("mapDotSprites")
-	RSSprite[] getMapDots();
+	RSSpritePixels[] getMapDots();
 
 	@Import("AbstractFont_modIconSprites")
 	@Override
@@ -576,7 +578,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Construct
 	@Override
-	RSSprite createSprite(int[] pixels, int width, int height);
+	RSSpritePixels createSpritePixels(int[] pixels, int width, int height);
 
 	@Import("destinationX")
 	int getDestinationX();
@@ -685,7 +687,7 @@ public interface RSClient extends RSGameShell, Client
 	RSUsername createName(String name, RSLoginType type);
 
 	@Import("getVarbit")
-	int getVarbit(int varbitId);
+	int rs$getVarbit(int varbitId);
 
 	@Import("VarbitDefinition_cached")
 	RSEvictingDualNodeHashTable getVarbitCache();
@@ -772,13 +774,14 @@ public interface RSClient extends RSGameShell, Client
 	void setAnimOffsetZ(int animOffsetZ);
 
 	@Import("getFrames")
+	@Override
 	RSFrames getFrames(int frameId);
 
 	@Import("sceneMinimapSprite")
-	RSSprite getMinimapSprite();
+	RSSpritePixels getMinimapSprite();
 
 	@Import("sceneMinimapSprite")
-	void setMinimapSprite(Sprite spritePixels);
+	void setMinimapSprite(SpritePixels spritePixels);
 
 	@Import("drawObject")
 	void drawObject(int z, int x, int y, int randomColor1, int randomColor2);
@@ -840,7 +843,7 @@ public interface RSClient extends RSGameShell, Client
 	int getFlags();
 
 	@Import("compass")
-	void setCompass(Sprite spritePixels);
+	void setCompass(SpritePixels spritePixels);
 
 	@Import("Widget_cachedSprites")
 	@Override
@@ -848,7 +851,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("ItemDefinition_cached")
 	@Override
-	RSEvictingDualNodeHashTable getItemDefinitionCache();
+	RSEvictingDualNodeHashTable getItemCompositionCache();
 
 	@Import("oculusOrbState")
 	@Override
@@ -960,6 +963,7 @@ public interface RSClient extends RSGameShell, Client
 	boolean getViewportContainsMouse();
 
 	@Import("Rasterizer2D_pixels")
+	@Override
 	int[] getGraphicsPixels();
 
 	@Import("Rasterizer2D_width")
@@ -996,7 +1000,7 @@ public interface RSClient extends RSGameShell, Client
 	void setSpellSelected(boolean selected);
 
 	@Import("getEnum")
-	RSEnumDefinition getRsEnum(int id);
+	RSEnumComposition getRsEnum(int id);
 
 	@Import("menuX")
 	int getMenuX();
@@ -1079,7 +1083,7 @@ public interface RSClient extends RSGameShell, Client
 	int getSelectedSpellFlags();
 
 	@Import("isSpellSelected")
-	boolean isSpellSelected();
+	boolean getSpellSelected();
 
 	@Import("readSoundEffect")
 	RSSoundEffect getTrack(RSAbstractArchive indexData, int id, int var0);
@@ -1095,29 +1099,6 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("decimator")
 	RSDecimator getSoundEffectResampler();
-
-	@Import("musicVolume")
-	@Override
-	int getMusicVolume();
-
-	@Import("musicVolume")
-	void setClientMusicVolume(int volume);
-
-	@Import("areaSoundEffectVolume")
-	@Override
-	int getAreaSoundEffectVolume();
-
-	@Import("areaSoundEffectVolume")
-	@Override
-	void setAreaSoundEffectVolume(int volume);
-
-	@Import("soundEffectVolume")
-	@Override
-	int getSoundEffectVolume();
-
-	@Import("soundEffectVolume")
-	@Override
-	void setSoundEffectVolume(int volume);
 
 	@Import("musicTrackVolume")
 	void setMusicTrackVolume(int volume);
@@ -1135,7 +1116,7 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("crossSprites")
 	@Override
-	RSSprite[] getCrossSprites();
+	RSSpritePixels[] getCrossSprites();
 
 	void setModulus(BigInteger modulus);
 
@@ -1287,16 +1268,16 @@ public interface RSClient extends RSGameShell, Client
 	void clearLoginScreen(boolean shouldClear);
 
 	@Import("leftTitleSprite")
-	void setLeftTitleSprite(Sprite background);
+	void setLeftTitleSprite(SpritePixels background);
 
 	@Import("rightTitleSprite")
-	void setRightTitleSprite(Sprite background);
+	void setRightTitleSprite(SpritePixels background);
 
 	@Construct
 	RSBuffer newBuffer(byte[] bytes);
 
 	@Construct
-	RSVarbitDefinition newVarbitDefinition();
+	RSVarbitComposition newVarbitDefinition();
 
 	@Override
 	@Import("followerIndex")
@@ -1330,4 +1311,97 @@ public interface RSClient extends RSGameShell, Client
 
 	@Import("pcmSampleLength")
 	void setPcmSampleLength(int var0);
+
+	@Import("changedVarps")
+	int[] getChangedVarps();
+
+	@Import("changedVarpCount")
+	int getChangedVarpCount();
+
+	@Import("changedVarpCount")
+	void setChangedVarpCount(int changedVarpCount);
+
+	@Import("scriptActiveWidget")
+	RSWidget getScriptActiveWidget();
+
+	@Import("scriptDotWidget")
+	RSWidget getScriptDotWidget();
+
+	RSScriptEvent createRSScriptEvent(Object... args);
+
+	void runScriptEvent(RSScriptEvent event);
+
+	@Import("Script_cached")
+	RSEvictingDualNodeHashTable getScriptCache();
+
+	@Import("StructDefinition_cached")
+	RSEvictingDualNodeHashTable getRSStructCompositionCache();
+
+	@Import("StructDefinition_getStructDefinition")
+	RSStructComposition getRSStructComposition(int id);
+
+	@Import("getParamDefinition")
+	RSParamComposition getRSParamComposition(int id);
+
+	@Import("SequenceDefinition_get")
+	@Override
+	RSSequenceDefinition getSequenceDefinition(int id);
+
+	@Construct
+	RSIntegerNode newIntegerNode(int contents);
+
+	@Construct
+	RSObjectNode newObjectNode(Object contents);
+
+	@Construct
+	RSIterableNodeHashTable newIterableNodeHashTable(int size);
+
+	RSVarbitComposition getVarbitComposition(int id);
+
+	@Override
+	@Import("SequenceDefinition_skeletonsArchive")
+	RSAbstractArchive getSequenceDefinition_skeletonsArchive();
+
+	@Override
+	@Import("SequenceDefinition_archive")
+	RSAbstractArchive getSequenceDefinition_archive();
+
+	@Override
+	@Import("SequenceDefinition_animationsArchive")
+	RSAbstractArchive getSequenceDefinition_animationsArchive();
+
+	@Override
+	@Import("NpcDefinition_archive")
+	AbstractArchive getNpcDefinition_archive();
+
+	@Override
+	@Import("ObjectDefinition_modelsArchive")
+	AbstractArchive getObjectDefinition_modelsArchive();
+
+	@Override
+	@Import("ObjectDefinition_archive")
+	RSAbstractArchive getObjectDefinition_archive();
+
+	@Override
+	@Import("ItemDefinition_archive")
+	RSAbstractArchive getItemDefinition_archive();
+
+	@Override
+	@Import("KitDefinition_archive")
+	AbstractArchive getKitDefinition_archive();
+
+	@Override
+	@Import("KitDefinition_modelsArchive")
+	AbstractArchive getKitDefinition_modelsArchive();
+
+	@Override
+	@Import("SpotAnimationDefinition_archive")
+	AbstractArchive getSpotAnimationDefinition_archive();
+
+	@Override
+	@Import("SpotAnimationDefinition_modelArchive")
+	AbstractArchive getSpotAnimationDefinition_modelArchive();
+
+	@Construct
+	RSBuffer createBuffer(byte[] bytes);
 }

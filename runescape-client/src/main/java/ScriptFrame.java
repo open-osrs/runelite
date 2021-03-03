@@ -1,29 +1,35 @@
-import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ba")
+@ObfuscatedName("bz")
 @Implements("ScriptFrame")
 public class ScriptFrame {
-	@ObfuscatedName("z")
+	@ObfuscatedName("fl")
 	@ObfuscatedSignature(
-		descriptor = "Lcy;"
+		descriptor = "Led;"
+	)
+	@Export("urlRequester")
+	static UrlRequester urlRequester;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lcl;"
 	)
 	@Export("script")
 	Script script;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 394588123
+		intValue = -1121255489
 	)
 	@Export("pc")
 	int pc;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@Export("intLocals")
 	int[] intLocals;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("stringLocals")
 	String[] stringLocals;
 
@@ -31,60 +37,64 @@ public class ScriptFrame {
 		this.pc = -1; // L: 5
 	} // L: 9
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-1817871528"
+		descriptor = "(IB)Ljz;",
+		garbageValue = "0"
 	)
-	@Export("loadWorlds")
-	static boolean loadWorlds() {
-		try {
-			if (WorldMapScaleHandler.World_request == null) { // L: 31
-				WorldMapScaleHandler.World_request = UserComparator4.urlRequester.request(new URL(BZip2State.worldListURL));
-			} else if (WorldMapScaleHandler.World_request.isDone()) { // L: 33
-				byte[] var0 = WorldMapScaleHandler.World_request.getResponse(); // L: 34
-				Buffer var1 = new Buffer(var0); // L: 35
-				var1.readInt(); // L: 36
-				World.World_count = var1.readUnsignedShort(); // L: 37
-				AbstractByteArrayCopier.World_worlds = new World[World.World_count]; // L: 38
-
-				World var3;
-				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) { // L: 39 47
-					var3 = AbstractByteArrayCopier.World_worlds[var2] = new World(); // L: 40
-					var3.id = var1.readUnsignedShort(); // L: 41
-					var3.properties = var1.readInt(); // L: 42
-					var3.host = var1.readStringCp1252NullTerminated(); // L: 43
-					var3.activity = var1.readStringCp1252NullTerminated(); // L: 44
-					var3.location = var1.readUnsignedByte(); // L: 45
-					var3.population = var1.readShort(); // L: 46
-				}
-
-				FloorDecoration.sortWorlds(AbstractByteArrayCopier.World_worlds, 0, AbstractByteArrayCopier.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2); // L: 49
-				WorldMapScaleHandler.World_request = null; // L: 50
-				return true; // L: 51
+	public static HitSplatDefinition method1222(int var0) {
+		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0); // L: 52
+		if (var1 != null) { // L: 53
+			return var1;
+		} else {
+			byte[] var2 = HitSplatDefinition.HitSplatDefinition_archive.takeFile(32, var0); // L: 54
+			var1 = new HitSplatDefinition(); // L: 55
+			if (var2 != null) { // L: 56
+				var1.decode(new Buffer(var2));
 			}
-		} catch (Exception var4) { // L: 55
-			var4.printStackTrace(); // L: 56
-			WorldMapScaleHandler.World_request = null; // L: 57
-		}
 
-		return false; // L: 59
+			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0); // L: 57
+			return var1; // L: 58
+		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "75"
+		descriptor = "(ILcl;ZI)I",
+		garbageValue = "461265882"
 	)
-	static void method1192() {
-		if (Login.Login_username == null || Login.Login_username.length() <= 0) { // L: 217
-			if (Tile.clientPreferences.rememberedUsername != null) { // L: 218
-				Login.Login_username = Tile.clientPreferences.rememberedUsername; // L: 219
-				Client.Login_isUsernameRemembered = true; // L: 220
-			} else {
-				Client.Login_isUsernameRemembered = false; // L: 222
-			}
+	static int method1221(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.GETWINDOWMODE) { // L: 3196
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = BoundaryObject.getWindowedMode(); // L: 3197
+			return 1; // L: 3198
+		} else {
+			int var3;
+			if (var0 == ScriptOpcodes.SETWINDOWMODE) { // L: 3200
+				var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3201
+				if (var3 == 1 || var3 == 2) { // L: 3202
+					GameBuild.setWindowedMode(var3);
+				}
 
+				return 1; // L: 3203
+			} else if (var0 == ScriptOpcodes.GETDEFAULTWINDOWMODE) { // L: 3205
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = WorldMapSectionType.clientPreferences.windowMode; // L: 3206
+				return 1; // L: 3207
+			} else if (var0 != ScriptOpcodes.SETDEFAULTWINDOWMODE) { // L: 3209
+				if (var0 == 5310) { // L: 3217
+					--Interpreter.Interpreter_intStackSize; // L: 3218
+					return 1; // L: 3219
+				} else {
+					return 2; // L: 3221
+				}
+			} else {
+				var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3210
+				if (var3 == 1 || var3 == 2) { // L: 3211
+					WorldMapSectionType.clientPreferences.windowMode = var3; // L: 3212
+					class23.savePreferences(); // L: 3213
+				}
+
+				return 1; // L: 3215
+			}
 		}
-	} // L: 223
+	}
 }

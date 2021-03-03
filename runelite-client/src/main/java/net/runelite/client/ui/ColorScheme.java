@@ -37,6 +37,12 @@ public class ColorScheme
 	/* The blue color used for the branding's accents, with lowered opacity */
 	public static final Color BRAND_BLUE_TRANSPARENT = new Color(25, 194, 255, 120);
 
+	/* The orange color used for the branding's accents */
+	public static final Color BRAND_ORANGE = BRAND_BLUE;
+
+	/* The orange color used for the branding's accents, with lowered opacity */
+	public static final Color BRAND_ORANGE_TRANSPARENT = BRAND_BLUE_TRANSPARENT;
+
 	public static final Color DARKER_GRAY_COLOR = new Color(30, 30, 30);
 	public static final Color DARK_GRAY_COLOR = new Color(40, 40, 40);
 	public static final Color MEDIUM_GRAY_COLOR = new Color(77, 77, 77);
@@ -51,8 +57,8 @@ public class ColorScheme
 	/* The color for the red progress bar (used in ge offers, farming tracker, etc)*/
 	public static final Color PROGRESS_ERROR_COLOR = new Color(230, 30, 30);
 
-	/* The color for the blue progress bar (used in ge offers, farming tracker, etc)*/
-	public static final Color PROGRESS_INPROGRESS_COLOR = new Color(0, 106, 221);
+	/* The color for the orange progress bar (used in ge offers, farming tracker, etc)*/
+	public static final Color PROGRESS_INPROGRESS_COLOR = new Color(230, 150, 30);
 
 	/* The color for the price indicator in the ge search results */
 	public static final Color GRAND_EXCHANGE_PRICE = new Color(110, 225, 110);

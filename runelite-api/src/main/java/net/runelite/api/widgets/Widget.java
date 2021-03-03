@@ -28,7 +28,7 @@ import java.awt.Rectangle;
 import java.util.Collection;
 import net.runelite.api.FontTypeFace;
 import net.runelite.api.Point;
-import net.runelite.api.Sprite;
+import net.runelite.api.SpritePixels;
 
 /**
  * Represents an on-screen UI element that is drawn on the canvas.
@@ -67,8 +67,6 @@ public interface Widget
 	 * @see WidgetType
 	 */
 	void setType(int type);
-
-	int getButtonType();
 
 	/**
 	 * Gets the type of content displayed by the widget.
@@ -181,18 +179,6 @@ public interface Widget
 	@Deprecated
 	void setRelativeY(int y);
 
-	String getSpellName();
-
-	/**
-	 * You probably want {@link Widget#getText()} instead
-	 */
-	String getRSButtonText();
-
-	/**
-	 * You probably want {@link Widget#getText()} instead
-	 */
-	String getButtonText();
-
 	/**
 	 * Gets the text displayed on this widget.
 	 *
@@ -250,12 +236,6 @@ public interface Widget
 	String getName();
 
 	/**
-	 * Gets the internal field returned by getName unfiltered
-	 * @return the unfiltered name
-	 */
-	String getRSName();
-
-	/**
 	 * Sets the name of the widget.
 	 *
 	 * @param name the new name
@@ -263,10 +243,113 @@ public interface Widget
 	void setName(String name);
 
 	/**
+	 * Gets the Model/NPC/Item ID displayed in the widget.
+	 *
+	 * @see WidgetModelType
+	 */
+	int getModelId();
+
+	/**
+	 * Sets the Model/NPC/Item ID displayed in the widget.
+	 *
+	 * @see WidgetModelType
+	 */
+	void setModelId(int id);
+
+	/**
+	 * Gets the model type of the widget.
+	 *
+	 * @see WidgetModelType
+	 */
+	int getModelType();
+
+	/**
+	 * Sets the model type of the widget.
+	 *
+	 * @param type the new model type
+	 * @see WidgetModelType
+	 */
+	void setModelType(int type);
+
+	/**
+	 * Gets the sequence ID used to animate the model in the widget
+	 *
+	 * @see net.runelite.api.AnimationID
+	 */
+	int getAnimationId();
+
+	/**
+	 * Sets the sequence ID used to animate the model in the widget
+	 *
+	 * @see net.runelite.api.AnimationID
+	 */
+	void setAnimationId(int animationId);
+
+	/**
+	 * Gets the x rotation of the model displayed in the widget.
+	 * 0 = no rotation, 2047 = full rotation
+	 */
+	int getRotationX();
+
+	/**
+	 * Sets the x rotation of the model displayed in the widget.
+	 * <br>
+	 * Note: Setting this value outside of the input range defined by {@link Widget#getRotationX()} will cause a client
+	 *       crash.
+	 *
+	 * @param modelX the new model x rotation value
+	 */
+	void setRotationX(int modelX);
+
+	/**
+	 * Gets the y rotation of the model displayed in the widget.
+	 * 0 = no rotation, 2047 = full rotation
+	 */
+	int getRotationY();
+
+	/**
+	 * Sets the y rotation of the model displayed in the widget.
+	 * <br>
+	 * Note: Setting this value outside of the input range defined by {@link Widget#getRotationY()} will cause a client
+	 *       crash.
+	 *
+	 * @param modelY the new model y rotation value
+	 */
+	void setRotationY(int modelY);
+
+	/**
+	 * Gets the z rotation of the model displayed in the widget.
+	 * 0 = no rotation, 2047 = full rotation
+	 */
+	int getRotationZ();
+
+	/**
+	 * Sets the z rotation of the model displayed in the widget.
+	 * <br>
+	 * Note: Setting this value outside of the input range defined by {@link Widget#getRotationZ()} will cause a client
+	 *       crash.
+	 *
+	 * @param modelZ the new model z rotation value
+	 */
+	void setRotationZ(int modelZ);
+
+	/**
+	 * Gets the amount zoomed in on the model displayed in the widget.
+	 */
+	int getModelZoom();
+
+	/**
+	 * Sets the amount zoomed in on the model displayed in the widget.
+	 *
+	 * @param modelZoom the new model zoom value
+	 */
+	void setModelZoom(int modelZoom);
+
+	/**
 	 * Gets the sprite ID displayed in the widget.
 	 *
 	 * @return the sprite ID
-	 * SpriteID
+	 * @see net.runelite.api.SpriteID
 	 */
 	int getSpriteId();
 
@@ -284,7 +367,7 @@ public interface Widget
 	 * Sets the sprite ID displayed in the widget.
 	 *
 	 * @param spriteId the sprite ID
-	 * SpriteID
+	 * @see net.runelite.api.SpriteID
 	 */
 	void setSpriteId(int spriteId);
 
@@ -318,105 +401,6 @@ public interface Widget
 	int getIndex();
 
 	/**
-	 * Gets the Model/NPC/Item ID displayed in the widget.
-	 *
-	 * @see WidgetModelType
-	 */
-	int getModelId();
-
-	/**
-	 * Sets the Model/NPC/Item ID displayed in the widget.
-	 *
-	 * @see WidgetModelType
-	 */
-	void setModelId(int id);
-	
-	/**
-	 * Gets the model type of the widget.
-	 *
-	 * @see WidgetModelType
-	 */
-	int getModelType();
-
-	/**
-	 * Sets the model type of the widget.
-	 *
-	 * @param type the new model type
-	 * @see WidgetModelType
-	 */
-	void setModelType(int type);
-
-	/**
-	 * Gets the sequence ID used to animate the model in the widget
-	 *
-	 * @see net.runelite.api.AnimationID
-	 */
-	int getAnimationId();
-
-	/**
-	 * Sets the sequence ID used to animate the model in the widget
-	 *
-	 * @see net.runelite.api.AnimationID
-	 */
-	void setAnimationId(int animationId);
-
-	/**
-	 * Gets the x rotation of the model displayed in the widget
-	 *
-	 * @return the x rotation
-	 */
-	int getRotationX();
-
-	/**
-	 * Sets the x rotation of the model displayed in the widget
-	 *
-	 * @param rotationX 0 = no rotation, 2047 = full rotation, outside range = crash
-	 */
-	void setRotationX(int rotationX);
-
-	/**
-	 * Gets the y rotation of the model displayed in the widget
-	 *
-	 * @return the y rotation
-	 */
-	int getRotationY();
-
-	/**
-	 * Sets the y rotation of the model displayed in the widget
-	 *
-	 * @param rotationY 0 = no rotation, 2047 = full rotation, outside range = crash
-	 */
-	void setRotationY(int rotationY);
-
-	/**
-	 * Gets the z rotation of the model displayed in the widget
-	 *
-	 * @return the z rotation
-	 */
-	int getRotationZ();
-
-	/**
-	 * Sets the z rotation of the model displayed in the widget
-	 *
-	 * @param rotationZ 0 = no rotation, 2047 = full rotation, outside range = crash
-	 */
-	void setRotationZ(int rotationZ);
-
-	/**
-	 * Gets the amount zoomed in on the model displayed in the widget
-	 *
-	 * @return the amount zoomed in
-	 */
-	int getModelZoom();
-
-	/**
-	 * Sets the amount zoomed in on the model displayed in the widget
-	 * 
-	 * @param modelZoom the new zoom amount
-	 */
-	void setModelZoom(int modelZoom);
-
-	/**
 	 * Gets the location the widget is being drawn on the canvas.
 	 * <p>
 	 * This method accounts for the relative coordinates and bounds
@@ -429,7 +413,7 @@ public interface Widget
 	/**
 	 * Gets the width of the widget.
 	 * <p>
-	 * If this widget is storing any {@link // WidgetItem}s, this value is
+	 * If this widget is storing any {@link WidgetItem}s, this value is
 	 * used to store the number of item slot columns.
 	 *
 	 * @return the width
@@ -625,8 +609,6 @@ public interface Widget
 	 */
 	String[] getActions();
 
-	String[] getItemActions();
-
 	/**
 	 * Creates a dynamic widget child
 	 *
@@ -758,7 +740,12 @@ public interface Widget
 	 */
 	Object[] getOnLoadListener();
 
-	Object[] getOnInvTransmit();
+	/**
+	 * Gets the script and arguments to be ran when one of the listened for inventories changes.
+	 *
+	 * @return
+	 */
+	Object[] getOnInvTransmitListener();
 
 	/**
 	 * Returns the archive id of the font used
@@ -961,6 +948,92 @@ public interface Widget
 	void setNoScrollThrough(boolean noScrollThrough);
 
 	/**
+	 * {@link net.runelite.api.VarPlayer}s that triggers this widgets varTransmitListener
+	 */
+	void setVarTransmitTrigger(int ...trigger);
+
+	/**
+	 * Sets a script to be ran the first client tick the mouse is held ontop of this widget
+	 *
+	 * @param args A ScriptID, then the args for the script
+	 */
+	void setOnClickListener(Object ...args);
+
+	/**
+	 * Sets a script to be ran the every client tick the mouse is held ontop of this widget,
+	 * except the first client tick.
+	 *
+	 * @param args A ScriptID, then the args for the script
+	 */
+	void setOnHoldListener(Object ...args);
+
+	/**
+	 * Sets a script to be ran the first client tick the mouse is not held ontop of this widget
+	 *
+	 * @param args A ScriptID, then the args for the script
+	 */
+	void setOnReleaseListener(Object ...args);
+
+	/**
+	 * Sets a script to be ran when a drag operation is finished on this widget
+	 *
+	 * @param args A ScriptID, then the args for the script
+	 */
+	void setOnDragCompleteListener(Object ...args);
+
+	/**
+	 * Sets a script to be ran when this widget moves due to a drag
+	 *
+	 * @param args A ScriptID, then the args for the script
+	 */
+	void setOnDragListener(Object ...args);
+
+	/**
+	 * Container this can be dragged in
+	 */
+	Widget getDragParent();
+
+	/**
+	 * Container this can be dragged in
+	 */
+	void setDragParent(Widget dragParent);
+
+	/**
+	 * Sets a script to be ran when a varplayer changes
+	 *
+	 * @param args A ScriptID, then the args for the script
+	 */
+	void setOnVarTransmitListener(Object ...args);
+
+	//////////////////////////////////// OPRS
+
+	int getButtonType();
+
+	boolean isWidgetItemDragged(int index);
+
+	Point getWidgetItemDragOffsets();
+
+	String getSpellName();
+
+	/**
+	 * You probably want {@link Widget#getText()} instead
+	 */
+	String getRSButtonText();
+
+	/**
+	 * You probably want {@link Widget#getText()} instead
+	 */
+	String getButtonText();
+
+	/**
+	 * Gets the internal field returned by getName unfiltered
+	 * @return the unfiltered name
+	 */
+	String getRSName();
+
+	String[] getItemActions();
+
+	/**
 	 * Changes the parent ID for the widget
 	 */
 	void setParentId(int id);
@@ -988,36 +1061,5 @@ public interface Widget
 	/**
 	 * Gets the image which is (or should be) drawn on this widget
 	 */
-	Sprite getSprite();
-
-	/**
-	 * {@link net.runelite.api.VarPlayer}s that triggers this widgets varTransmitListener
-	 */
-	void setVarTransmitTrigger(int ...trigger);
-
-	/**
-	 * Sets a script to be ran the first client tick the mouse is held ontop of this widget
-	 *
-	 * @param args A ScriptID, then the args for the script
-	 */
-	void setOnClickListener(Object ...args);
-
-	/**
-	 * Sets a script to be ran the every client tick the mouse is held ontop of this widget,
-	 * except the first client tick.
-	 *
-	 * @param args A ScriptID, then the args for the script
-	 */
-	void setOnHoldListener(Object ...args);
-
-	/**
-	 * Sets a script to be ran the first client tick the mouse is not held ontop of this widget
-	 *
-	 * @param args A ScriptID, then the args for the script
-	 */
-	void setOnReleaseListener(Object ...args);
-
-	boolean isWidgetItemDragged(int index);
-
-	Point getWidgetItemDragOffsets();
+	SpritePixels getSprite();
 }

@@ -1,18 +1,24 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fv")
+@ObfuscatedName("fs")
 @Implements("UserComparator9")
 public class UserComparator9 extends AbstractUserComparator {
-	@ObfuscatedName("rn")
-	@ObfuscatedGetter(
-		intValue = 1726851723
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Lei;"
 	)
-	static int field2013;
-	@ObfuscatedName("z")
+	@Export("World_request")
+	static UrlRequest World_request;
+	@ObfuscatedName("ka")
+	@ObfuscatedSignature(
+		descriptor = "Lbk;"
+	)
+	@Export("localPlayer")
+	static Player localPlayer;
+	@ObfuscatedName("n")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -20,10 +26,10 @@ public class UserComparator9 extends AbstractUserComparator {
 		this.reversed = var1; // L: 11
 	} // L: 12
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lko;Lko;B)I",
-		garbageValue = "6"
+		descriptor = "(Lky;Lky;B)I",
+		garbageValue = "53"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -38,34 +44,13 @@ public class UserComparator9 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 22
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lic;Lic;ZLkr;I)V",
-		garbageValue = "-766510730"
+		descriptor = "(Lig;Lig;I)V",
+		garbageValue = "-1134565802"
 	)
-	public static void method3487(AbstractArchive var0, AbstractArchive var1, boolean var2, Font var3) {
-		class231.ItemDefinition_archive = var0; // L: 84
-		ItemDefinition.ItemDefinition_modelArchive = var1; // L: 85
-		ItemDefinition.ItemDefinition_inMembersWorld = var2; // L: 86
-		class227.ItemDefinition_fileCount = class231.ItemDefinition_archive.getGroupFileCount(10); // L: 87
-		ScriptEvent.ItemDefinition_fontPlain11 = var3; // L: 88
-	} // L: 89
-
-	@ObfuscatedName("o")
-	@Export("Entity_unpackID")
-	public static int Entity_unpackID(long var0) {
-		return (int)(var0 >>> 17 & 4294967295L); // L: 76
-	}
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-773772836"
-	)
-	static final void method3492(String var0) {
-		PacketBufferNode var1 = Client.getPacketBufferNode(ClientPacket.field2315, Client.packetWriter.isaacCipher); // L: 134
-		var1.packetBuffer.writeByte(Decimator.stringCp1252NullTerminatedByteSize(var0)); // L: 135
-		var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 136
-		Client.packetWriter.addNode(var1); // L: 137
-	} // L: 138
+	public static void method3562(AbstractArchive var0, AbstractArchive var1) {
+		HealthBarDefinition.HealthBarDefinition_archive = var0; // L: 30
+		HealthBarDefinition.HitSplatDefinition_spritesArchive = var1; // L: 31
+	} // L: 32
 }

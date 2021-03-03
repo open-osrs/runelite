@@ -30,28 +30,22 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(ElementType.FIELD)
 public @interface ConfigSection
 {
-	int position();
-
-	String keyName();
-
 	String name();
 
 	String description();
 
+	int position();
+
+	boolean closedByDefault() default false;
+
+	/*
+	OpenOSRS Lazy Helpers tm
+	 */
+	String keyName() default "";
 	String section() default "";
-
-	String titleSection() default "";
-
 	boolean hidden() default false;
-
 	String unhide() default "";
-
-	String unhideValue() default "";
-
-	String hide() default "";
-
-	String hideValue() default "";
 }

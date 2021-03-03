@@ -1,45 +1,38 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ds")
+@ObfuscatedName("dy")
 @Implements("SoundCache")
 public class SoundCache {
-	@ObfuscatedName("rp")
-	@ObfuscatedGetter(
-		intValue = 1426340781
-	)
-	static int field1472;
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lig;"
 	)
 	@Export("soundEffectIndex")
 	AbstractArchive soundEffectIndex;
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lig;"
 	)
 	@Export("musicSampleIndex")
 	AbstractArchive musicSampleIndex;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Llc;"
+		descriptor = "Llq;"
 	)
 	@Export("musicSamples")
 	NodeHashTable musicSamples;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Llc;"
+		descriptor = "Llq;"
 	)
 	@Export("rawSounds")
 	NodeHashTable rawSounds;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lic;Lic;)V"
+		descriptor = "(Lig;Lig;)V"
 	)
 	public SoundCache(AbstractArchive var1, AbstractArchive var2) {
 		this.musicSamples = new NodeHashTable(256); // L: 9
@@ -48,10 +41,10 @@ public class SoundCache {
 		this.musicSampleIndex = var2; // L: 14
 	} // L: 15
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(II[II)Lde;",
-		garbageValue = "-484042119"
+		descriptor = "(II[II)Ldm;",
+		garbageValue = "-166733310"
 	)
 	@Export("getSoundEffect0")
 	RawSound getSoundEffect0(int var1, int var2, int[] var3) {
@@ -61,8 +54,8 @@ public class SoundCache {
 		RawSound var7 = (RawSound)this.rawSounds.get(var5); // L: 21
 		if (var7 != null) { // L: 22
 			return var7;
-		} else if (var3 != null && var3[0] <= 0) { // L: 23
-			return null;
+		} else if (var3 != null && var3[0] <= 0) {
+			return null; // L: 23
 		} else {
 			SoundEffect var8 = SoundEffect.readSoundEffect(this.soundEffectIndex, var1, var2); // L: 24
 			if (var8 == null) { // L: 25
@@ -79,10 +72,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II[IS)Lde;",
-		garbageValue = "-29447"
+		descriptor = "(II[IS)Ldm;",
+		garbageValue = "-10083"
 	)
 	@Export("getMusicSample0")
 	RawSound getMusicSample0(int var1, int var2, int[] var3) {
@@ -116,10 +109,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(I[IB)Lde;",
-		garbageValue = "-94"
+		descriptor = "(I[IB)Ldm;",
+		garbageValue = "15"
 	)
 	@Export("getSoundEffect")
 	public RawSound getSoundEffect(int var1, int[] var2) {
@@ -132,10 +125,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I[II)Lde;",
-		garbageValue = "-1455606991"
+		descriptor = "(I[II)Ldm;",
+		garbageValue = "-1589130009"
 	)
 	@Export("getMusicSample")
 	public RawSound getMusicSample(int var1, int[] var2) {
@@ -148,42 +141,26 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("aq")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(ILcy;ZB)I",
-		garbageValue = "115"
+		descriptor = "(II)Ljava/lang/String;",
+		garbageValue = "1989438161"
 	)
-	static int method2607(int var0, Script var1, boolean var2) {
-		int var3;
-		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) { // L: 3153
-			Interpreter.Interpreter_intStackSize -= 2; // L: 3154
-			var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 3155
-			int var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 3156
-			if (!Client.isCameraLocked) { // L: 3157
-				Client.camAngleX = var3; // L: 3158
-				Client.camAngleY = var4; // L: 3159
-			}
-
-			return 1; // L: 3161
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) { // L: 3163
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleX; // L: 3164
-			return 1; // L: 3165
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) { // L: 3167
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleY; // L: 3168
-			return 1; // L: 3169
-		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) { // L: 3171
-			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3172
-			if (var3 < 0) { // L: 3173
-				var3 = 0;
-			}
-
-			Client.camFollowHeight = var3; // L: 3174
-			return 1; // L: 3175
-		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) { // L: 3177
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camFollowHeight; // L: 3178
-			return 1; // L: 3179
+	@Export("inventoryQuantityFormat")
+	static final String inventoryQuantityFormat(int var0) {
+		if (var0 < 100000) { // L: 413
+			return "<col=ffff00>" + var0 + "</col>";
 		} else {
-			return 2; // L: 3181
+			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>"; // L: 414 415
 		}
 	}
+
+	@ObfuscatedName("gh")
+	@ObfuscatedSignature(
+		descriptor = "(Lcv;II)V",
+		garbageValue = "-701578069"
+	)
+	static final void method2689(Actor var0, int var1) {
+		ParamComposition.worldToScreen(var0.x, var0.y, var1); // L: 4879
+	} // L: 4880
 }

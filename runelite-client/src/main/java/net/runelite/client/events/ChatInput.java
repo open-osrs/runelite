@@ -24,18 +24,7 @@
  */
 package net.runelite.client.events;
 
-import lombok.Getter;
-import net.runelite.api.events.Event;
-
-public abstract class ChatInput implements Event
+public abstract class ChatInput
 {
-	@Getter
-	private boolean stop = false;
-
-	public void setStop()
-	{
-		this.stop = true;
-	}
-
 	public abstract void resume();
 }
