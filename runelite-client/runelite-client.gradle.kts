@@ -53,6 +53,7 @@ dependencies {
     compileOnly(group = "net.runelite", name = "orange-extensions", version = "1.0")
 
     implementation(project(":http-api"))
+    implementation(project(":runelite-jshell"))
     implementation(group = "ch.qos.logback", name = "logback-classic", version = "1.2.3")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
     implementation(group = "com.google.guava", name = "guava", version = "23.2-jre")
