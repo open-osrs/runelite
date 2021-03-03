@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import net.runelite.http.api.RuneLiteAPI;
