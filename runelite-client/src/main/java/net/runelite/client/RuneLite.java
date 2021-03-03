@@ -30,6 +30,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.openosrs.client.game.PlayerManager;
 import java.io.File;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -142,6 +143,9 @@ public class RuneLite
 
 	@Inject
 	private Provider<XpDropManager> xpDropManager;
+
+	@Inject
+	private Provider<PlayerManager> playerManager;
 
 	@Inject
 	private WorldService worldService;
@@ -386,6 +390,8 @@ public class RuneLite
 			WidgetOverlay.createOverlays(client).forEach(overlayManager::add);
 			overlayManager.add(worldMapOverlay.get());
 			overlayManager.add(tooltipOverlay.get());
+
+			playerManager.get();
 
 			// legacy method, i cant figure out how to make it work without garbage
 			eventBus.register(xpDropManager.get());
