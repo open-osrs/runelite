@@ -59,6 +59,9 @@ public class RuneLiteAPI
 	private static final String BASE = "https://api.runelite.net";
 	private static final String WSBASE = "https://api.runelite.net/ws";
 	private static final String STATICBASE = "https://static.runelite.net";
+
+	private static final String OPENOSRS_SESSION = "https://session.openosrs.dev";
+
 	private static final Properties properties = new Properties();
 	private static String version;
 	private static int rsVersion;
@@ -123,14 +126,7 @@ public class RuneLiteAPI
 
 	public static HttpUrl getSessionBase()
 	{
-		final String prop = System.getProperty("runelite.session.url");
-
-		if (prop != null && !prop.isEmpty())
-		{
-			return HttpUrl.parse(prop);
-		}
-
-		return HttpUrl.parse(BASE + "/session");
+		return HttpUrl.parse(OPENOSRS_SESSION);
 	}
 
 	public static HttpUrl getApiBase()

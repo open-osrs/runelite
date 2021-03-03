@@ -35,6 +35,7 @@ import static net.runelite.api.SkullIcon.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.OverheadPrayerChanged;
 import net.runelite.api.events.PlayerChanged;
+import net.runelite.api.events.PlayerCompositionChanged;
 import net.runelite.api.events.PlayerSkullChanged;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.FieldHook;
@@ -267,5 +268,20 @@ public abstract class RSPlayerMixin implements RSPlayer
 	void postRead(RSBuffer var1)
 	{
 		client.getCallbacks().post(new PlayerChanged(this));
+	}
+	
+	@Copy("read")
+	@Replace("read")
+	@SuppressWarnings("InfiniteRecursion")
+	public void copy$read(RSBuffer buffer)
+	{
+		final long appearanceHash = getPlayerComposition() == null ? 0 : getPlayerComposition().getHash();
+
+		this.copy$read(buffer);
+
+		if (client.isComparingAppearance() && getPlayerComposition().getHash() != appearanceHash)
+		{
+			client.getCallbacks().post(new PlayerCompositionChanged(this));
+		}
 	}
 }
