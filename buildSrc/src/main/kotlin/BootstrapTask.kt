@@ -47,7 +47,8 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             if (it.file.name.contains("runelite-client") ||
                     it.file.name.contains("http-api") ||
                     it.file.name.contains("runescape-api") ||
-                    it.file.name.contains("runelite-api")) {
+                    it.file.name.contains("runelite-api") ||
+                    it.file.name.contains("runelite-jshell")) {
                 path = "https://github.com/open-osrs/hosting/raw/master/${type}/${it.file.name}"
             } else if (it.file.name.contains("injection-annotations")) {
                 path = "https://github.com/open-osrs/hosting/raw/master/" + group.replace(".", "/") + "/${name}/$version/${it.file.name}"

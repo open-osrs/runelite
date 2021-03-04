@@ -23,6 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+group = "com.openosrs"
 description = "RuneLite JShell"
 
 dependencies {
