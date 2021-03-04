@@ -37,10 +37,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
-import net.runelite.api.events.MenuEntryAdded;
-import net.runelite.api.events.MenuOptionClicked;
-import net.runelite.api.events.PlayerMenuOptionsChanged;
-import net.runelite.api.events.WidgetMenuOptionClicked;
+import net.runelite.api.events.*;
+import net.runelite.api.util.Text;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
@@ -191,7 +189,7 @@ public class MenuManager
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getMenuAction() != MenuAction.RUNELITE)
+		if (event.getMenuAction() != MenuAction.RUNELITE && event.getMenuAction() != MenuAction.RUNELITE_PLAYER)
 		{
 			return;
 		}
@@ -212,6 +210,14 @@ public class MenuManager
 				return;
 			}
 		}
+
+		String username = Text.removeTags(event.getMenuTarget(), true);
+
+		PlayerMenuOptionClicked playerMenuOptionClicked = new PlayerMenuOptionClicked();
+		playerMenuOptionClicked.setMenuOption(event.getMenuOption());
+		playerMenuOptionClicked.setMenuTarget(username);
+
+		eventBus.post(playerMenuOptionClicked);
 	}
 
 	private void addPlayerMenuItem(int playerOptionIndex, String menuText)
