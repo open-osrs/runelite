@@ -98,4 +98,20 @@ public class MenuOptionClicked
 		this.setActionParam(entry.getActionParam());
 		this.setWidgetId(entry.getActionParam1());
 	}
+
+	public int getActionParam0(){
+		return this.actionParam;
+	}
+
+	public void setActionParam0(int i){
+		this.actionParam = i;
+	}
+
+	public int getActionParam1(){
+		return this.widgetId;
+	}
+
+	public void setActionParam1(int i){
+		this.widgetId = i;
+	}
 }

@@ -70,11 +70,11 @@ public class MenuEntry implements Cloneable
 	 */
 	private boolean forceLeftClick;
 
-	public MenuEntry(String option, String target, int type, int opcode, int actionParam, int actionParam1, boolean forceLeftClick)
+	public MenuEntry(String option, String target, int id, int opcode, int actionParam, int actionParam1, boolean forceLeftClick)
 	{
 		this.option = option;
 		this.target = target;
-		this.identifier = type;
+		this.identifier = id;
 		this.opcode = opcode;
 		this.actionParam = actionParam;
 		this.actionParam1 = actionParam1;
