@@ -39,9 +39,3 @@ tasks.register<JavaExec>("inject") {
     }
 }
 
-tasks {
-    build {
-        finalizedBy("inject")
-    }
-}
-
