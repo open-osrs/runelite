@@ -125,9 +125,12 @@ tasks {
         finalizedBy("shadowJar")
     }
 
+    compileJava {
+        dependsOn("packInjectedClient")
+    }
+
     processResources {
-        dependsOn(":injector:build")
-        finalizedBy("filterResources", "packInjectedClient")
+        finalizedBy("filterResources")
     }
 
     register<Copy>("filterResources") {
@@ -150,6 +153,8 @@ tasks {
     }
 
     register<Copy>("packInjectedClient") {
+        dependsOn(":injector:inject")
+
         from("src/main/resources/")
         include("**/injected-client.oprs")
         into("${buildDir}/resources/main")
