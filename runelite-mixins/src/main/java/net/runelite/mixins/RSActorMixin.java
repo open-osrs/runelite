@@ -38,6 +38,7 @@ import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.ActorDeath;
 import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.HitsplatApplied;
+import net.runelite.api.events.HealthBarUpdated;
 import net.runelite.api.events.GraphicChanged;
 import net.runelite.api.events.InteractingChanged;
 import net.runelite.api.events.OverheadTextChanged;
@@ -268,6 +269,11 @@ public abstract class RSActorMixin implements RSActor
 
 			this.setDead(true);
 		}
+
+		final HealthBarUpdated event = new HealthBarUpdated();
+		event.setActor(this);
+		event.setHealthRatio(healthRatio);
+		client.getCallbacks().post(event);
 	}
 
 	/**
