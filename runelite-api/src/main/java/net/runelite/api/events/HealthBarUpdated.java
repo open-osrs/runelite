@@ -24,9 +24,9 @@
  */
 package net.runelite.api.events;
 
+import lombok.Data;
 import net.runelite.api.Actor;
 import net.runelite.api.Hitsplat;
-import lombok.Data;
 
 /**
  * An event called when an {@link Actor} health bar is updated from a {@link Hitsplat}.
@@ -34,12 +34,12 @@ import lombok.Data;
 @Data
 public class HealthBarUpdated
 {
-    /**
-     * The actor the hitsplat was applied to.
-     */
-    private Actor actor;
-    /**
-     * The updated health ratio.
-     */
-    private int healthRatio;
+	/**
+	 * The actor the hitsplat was applied to.
+	 */
+	private Actor actor;
+	/**
+	 * The updated health ratio.
+	 */
+	private int healthRatio;
 }
