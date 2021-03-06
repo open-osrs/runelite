@@ -109,8 +109,13 @@ public class InjectHook extends AbstractInjector
 					continue;
 				}
 
-				final String hookName = fieldHook.getValueString();
 				final boolean before = isBefore(fieldHook);
+				if (!before && !mixinMethod.getDescriptor().toString().equals("(I)V"))
+				{
+					throw new InjectException(String.format("FieldHook method `%s` has a bad signature `%s` (expected `(I)V`)", mixinMethod.getName(), mixinMethod.getDescriptor().rsApiToRsClient()));
+				}
+
+				final String hookName = fieldHook.getValueString();
 
 				final ClassFile deobTarget = inject.toDeob(targetClass.getName());
 				final Field deobField;
