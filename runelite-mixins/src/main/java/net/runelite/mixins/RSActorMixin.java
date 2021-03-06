@@ -270,9 +270,7 @@ public abstract class RSActorMixin implements RSActor
 			this.setDead(true);
 		}
 
-		final HealthBarUpdated event = new HealthBarUpdated();
-		event.setActor(this);
-		event.setHealthRatio(healthRatio);
+		final HealthBarUpdated event = new HealthBarUpdated(this, healthRatio);
 		client.getCallbacks().post(event);
 	}
 

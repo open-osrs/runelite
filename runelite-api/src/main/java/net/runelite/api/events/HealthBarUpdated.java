@@ -24,22 +24,26 @@
  */
 package net.runelite.api.events;
 
-import lombok.Data;
+import lombok.Value;
 import net.runelite.api.Actor;
 import net.runelite.api.Hitsplat;
 
 /**
  * An event called when an {@link Actor} health bar is updated from a {@link Hitsplat}.
+ * <p>
+ * This event is called when the health bar first appears and when the client gets new information
+ * about the health bar of the actor. It does not fire when the health bar disappears.
+ * The event will still fire even if the health ratio did not change for example from a 0 hitsplat.
  */
-@Data
+@Value
 public class HealthBarUpdated
 {
 	/**
 	 * The actor the hitsplat was applied to.
 	 */
-	private Actor actor;
+	Actor actor;
 	/**
 	 * The updated health ratio.
 	 */
-	private int healthRatio;
+	int healthRatio;
 }
