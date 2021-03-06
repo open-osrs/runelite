@@ -39,13 +39,6 @@ public interface Tile extends TileObject
 	DecorativeObject getDecorativeObject();
 
 	/**
-	 * Sets the object on the ground layer of the tile.
-	 *
-	 * @param decorativeObject the ground object
-	 */
-	void setDecorativeObject(DecorativeObject decorativeObject);
-
-	/**
 	 * Gets all game objects on the tile.
 	 *
 	 * @return the game objects
