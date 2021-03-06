@@ -25,9 +25,8 @@
 package net.runelite.client.plugins.config;
 
 import com.google.common.collect.ImmutableList;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -57,11 +56,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.externalplugins.ExternalPluginManager;
-import net.runelite.client.plugins.OPRSExternalPluginManager;
-import net.runelite.client.plugins.Plugin;
-import net.runelite.client.plugins.PluginDescriptor;
-import net.runelite.client.plugins.PluginInstantiationException;
-import net.runelite.client.plugins.PluginManager;
+import net.runelite.client.plugins.*;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.ui.MultiplexingPluginPanel;
@@ -94,8 +89,8 @@ class PluginListPanel extends PluginPanel
 
 	@Getter
 	private final ExternalPluginManager externalPluginManager;
-	private final OPRSExternalPluginManager oprsExternalPluginManager;
 
+	private final OPRSExternalPluginManager oprsExternalPluginManager;
 	@Getter
 	private final MultiplexingPluginPanel muxer;
 
@@ -103,6 +98,8 @@ class PluginListPanel extends PluginPanel
 	private final JScrollPane scrollPane;
 	private final FixedWidthPanel mainPanel;
 	private List<PluginListItem> pluginList;
+
+	private List<Plugin> stoppedPlugins = new ArrayList<>();
 
 	@Inject
 	public PluginListPanel(
@@ -178,11 +175,45 @@ class PluginListPanel extends PluginPanel
 		mainPanel.setLayout(new DynamicGridLayout(0, 1, 0, 5));
 		mainPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		JButton externalPluginButton = new JButton("Plugin Hub");
-		externalPluginButton.setBorder(new EmptyBorder(5, 5, 5, 5));
-		externalPluginButton.setLayout(new BorderLayout(0, BORDER_OFFSET));
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setLayout(new GridLayout(0, 3, 3, 3));
+		add(bottomPanel, BorderLayout.SOUTH);
+
+		JButton externalPluginButton = new JButton("PH");
 		externalPluginButton.addActionListener(l -> muxer.pushState(pluginHubPanelProvider.get()));
-		add(externalPluginButton, BorderLayout.SOUTH);
+		//add(externalPluginButton, BorderLayout.NORTH);
+
+		JButton stopAllButton = new JButton("StopAll");
+        stopAllButton.addActionListener(l ->
+			pluginManager.getPlugins().forEach(p -> {
+				if (pluginManager.isPluginEnabled(p) && !p.getClass().getAnnotation(PluginDescriptor.class).hidden()) {
+
+					try {
+						pluginManager.setPluginEnabled(p, false);
+						pluginManager.stopPlugin(p);
+						stoppedPlugins.add(p);
+					} catch (PluginInstantiationException e) {
+						e.printStackTrace();
+					}
+				}
+			})
+        );
+		bottomPanel.add(externalPluginButton);
+		bottomPanel.add(stopAllButton);
+
+		JButton restartStoppedButton = new JButton("Restart");
+		restartStoppedButton.addActionListener(l ->
+			new ArrayList<>(stoppedPlugins).forEach(p -> {
+					try {
+						pluginManager.setPluginEnabled(p, true);
+						pluginManager.startPlugin(p);
+						stoppedPlugins.remove(p);
+					} catch (PluginInstantiationException e) {
+						e.printStackTrace();
+					}
+			})
+		);
+		bottomPanel.add(restartStoppedButton);
 
 		JPanel northPanel = new FixedWidthPanel();
 		northPanel.setLayout(new BorderLayout());
