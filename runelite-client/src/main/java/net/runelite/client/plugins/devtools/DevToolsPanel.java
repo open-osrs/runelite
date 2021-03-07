@@ -131,6 +131,9 @@ class DevToolsPanel extends PluginPanel
 			client.setOculusOrbNormalSpeed(!plugin.getDetachedCamera().isActive() ? 36 : 12);
 		});
 
+		container.add(plugin.getLogMenuActions());
+		plugin.getLogMenuActions().addActionListener((ev) -> client.setPrintMenuActions(!plugin.getLogMenuActions().isActive()));
+
 		container.add(plugin.getWidgetInspector());
 		plugin.getWidgetInspector().addFrame(widgetInspector);
 
