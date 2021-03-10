@@ -84,6 +84,7 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
@@ -445,7 +446,7 @@ public class ConfigManager
 		setConfiguration(groupName, null, key, value);
 	}
 
-	public void setConfiguration(String groupName, String profile, String key, String value)
+	public void setConfiguration(String groupName, String profile, String key, @NonNull String value)
 	{
 		if (Strings.isNullOrEmpty(groupName) || Strings.isNullOrEmpty(key))
 		{
@@ -565,6 +566,7 @@ public class ConfigManager
 
 		ConfigChanged configChanged = new ConfigChanged();
 		configChanged.setGroup(groupName);
+		configChanged.setProfile(profile);
 		configChanged.setKey(key);
 		configChanged.setOldValue(oldValue);
 
