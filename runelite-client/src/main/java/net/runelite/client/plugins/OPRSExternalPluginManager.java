@@ -48,6 +48,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -693,14 +694,14 @@ public class OPRSExternalPluginManager
 
 		if (groups.getInstanceCount() > 1)
 		{
-			for (String pluginId : getDisabledPlugins())
+			for (String pluginId : getDisabledPluginIds())
 			{
 				groups.sendString("STOPEXTERNAL;" + pluginId);
 			}
 		}
 		else
 		{
-			for (String pluginId : getDisabledPlugins())
+			for (String pluginId : getDisabledPluginIds())
 			{
 				externalPluginManager.enablePlugin(pluginId);
 				externalPluginManager.deletePlugin(pluginId);
@@ -809,7 +810,7 @@ public class OPRSExternalPluginManager
 
 	public boolean install(String pluginId)
 	{
-		if (getDisabledPlugins().contains(pluginId))
+		if (getDisabledPluginIds().contains(pluginId))
 		{
 			externalPluginManager.enablePlugin(pluginId);
 			externalPluginManager.startPlugin(pluginId);
@@ -984,11 +985,18 @@ public class OPRSExternalPluginManager
 		return deps;
 	}
 
-	public List<String> getDisabledPlugins()
+	public List<PluginWrapper> getDisabledPlugins()
 	{
 		return externalPluginManager.getResolvedPlugins()
 			.stream()
 			.filter(not(externalPluginManager.getStartedPlugins()::contains))
+			.collect(Collectors.toList());
+	}
+
+	public List<String> getDisabledPluginIds()
+	{
+		return getDisabledPlugins()
+			.stream()
 			.map(PluginWrapper::getPluginId)
 			.collect(Collectors.toList());
 	}
@@ -1004,17 +1012,20 @@ public class OPRSExternalPluginManager
 		externalPluginManager.startPlugin(pluginId);
 
 		List<PluginWrapper> startedPlugins = List.copyOf(getStartedPlugins());
+		List<PluginWrapper> disabledPlugins = List.copyOf(getDisabledPlugins());
+		List<PluginWrapper> combinedList = Stream.of(startedPlugins, disabledPlugins).flatMap(Collection::stream).collect(Collectors.toList());
 		List<Plugin> scannedPlugins = new ArrayList<>();
 
-		for (PluginWrapper pluginWrapper : startedPlugins)
+		for (PluginWrapper pluginWrapper : combinedList)
 		{
 			if (!pluginId.equals(pluginWrapper.getDescriptor().getPluginId()))
 			{
 				continue;
 			}
 
-			checkDepsAndStart(startedPlugins, scannedPlugins, pluginWrapper);
+			checkDepsAndStart(combinedList, scannedPlugins, pluginWrapper);
 		}
+
 
 		scanAndInstantiate(scannedPlugins, true, false);
 

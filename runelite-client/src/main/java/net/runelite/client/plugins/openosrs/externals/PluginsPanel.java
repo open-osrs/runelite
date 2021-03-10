@@ -244,7 +244,7 @@ public class PluginsPanel extends JPanel
 	{
 		List<PluginInfo> availablePlugins = null;
 		List<PluginInfo> plugins = null;
-		List<String> disabledPlugins = externalPluginManager.getDisabledPlugins();
+		List<String> disabledPlugins = externalPluginManager.getDisabledPluginIds();
 
 		try
 		{
