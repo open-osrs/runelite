@@ -61,6 +61,7 @@ public class RuneLiteAPI
 	private static final String STATICBASE = "https://static.runelite.net";
 
 	private static final String OPENOSRS_SESSION = "https://session.openosrs.dev";
+	private static final String OPENOSRS_XTEA = "https://xtea.openosrs.dev";
 
 	private static final Properties properties = new Properties();
 	private static String version;
@@ -163,6 +164,11 @@ public class RuneLiteAPI
 		}
 
 		return HttpUrl.parse(WSBASE);
+	}
+
+	public static HttpUrl getXteaBase()
+	{
+		return HttpUrl.parse(OPENOSRS_XTEA);
 	}
 
 	public static String getVersion()
