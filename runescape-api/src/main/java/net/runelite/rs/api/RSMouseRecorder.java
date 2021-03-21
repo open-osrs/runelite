@@ -21,5 +21,5 @@ public interface RSMouseRecorder extends MouseRecorder
 	int getWorldPort();
 	
 	@Import("worldPort")
-	void setWorldPort();
+	void setWorldPort(int worldPort);
 }

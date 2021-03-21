@@ -25,5 +25,5 @@ public interface RSDynamicObject extends RSRenderable, DynamicObject, Renderable
 	int getCurrentPort();
 	
 	@Import("currentPort")
-	void setCurrentPort();
+	void setCurrentPort(int currentPort);
 }

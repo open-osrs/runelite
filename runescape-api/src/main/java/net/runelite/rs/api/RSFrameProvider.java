@@ -8,5 +8,5 @@ public interface RSFrameProvider {
 	int getJs5Port();
 	
 	@Import("js5Port")
-	void setJs5Port();
+	void setJs5Port(int js5Port);
 }
