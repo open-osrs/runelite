@@ -13,4 +13,6 @@ public interface DynamicObject extends Renderable
 	 * Get the number of cycles that have elapsed in the whole animation.
 	 */
 	int getAnimCycleCount();
+	
+	int getCurrentPort();
 }
