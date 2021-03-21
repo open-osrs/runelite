@@ -9,8 +9,8 @@ public class class171 implements class170 {
 	@ObfuscatedGetter(
 		intValue = -853566565
 	)
-	@Export("port2")
-	static int port2;
+	@Export("js5Port")
+	static int js5Port;
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(

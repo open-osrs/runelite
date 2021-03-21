@@ -1566,9 +1566,9 @@ public final class Client extends GameEngine implements Usernamed {
 	@Export("setUp")
 	protected final void setUp() {
 		Strings.method4329(new int[]{20, 260, 10000}, new int[]{1000, 100, 500}); // L: 791
-		MouseRecorder.port1 = gameBuild == 0 ? 43594 : worldId + 40000; // L: 792
-		class171.port2 = gameBuild == 0 ? 443 : worldId + 50000; // L: 793
-		DynamicObject.port3 = MouseRecorder.port1; // L: 794
+		MouseRecorder.worldPort = gameBuild == 0 ? 43594 : worldId + 40000; // L: 792
+		class171.js5Port = gameBuild == 0 ? 443 : worldId + 50000; // L: 793
+		DynamicObject.currentPort = MouseRecorder.worldPort; // L: 794
 		PlayerComposition.field2565 = class224.field2577; // L: 795
 		class105.field1339 = class224.field2573; // L: 796
 		HealthBar.field1143 = class224.field2575; // L: 797
@@ -2274,7 +2274,7 @@ public final class Client extends GameEngine implements Usernamed {
 			if (--field761 + 1 <= 0) { // L: 1249
 				try {
 					if (js5ConnectState == 0) { // L: 1251
-						TaskHandler.js5SocketTask = GameEngine.taskHandler.newSocketTask(MusicPatchNode.worldHost, DynamicObject.port3); // L: 1252
+						TaskHandler.js5SocketTask = GameEngine.taskHandler.newSocketTask(MusicPatchNode.worldHost, DynamicObject.currentPort); // L: 1252
 						++js5ConnectState; // L: 1253
 					}
 
@@ -2401,10 +2401,10 @@ public final class Client extends GameEngine implements Usernamed {
 		TaskHandler.js5SocketTask = null; // L: 1356
 		WorldMapArea.js5Socket = null; // L: 1357
 		js5ConnectState = 0; // L: 1358
-		if (DynamicObject.port3 == MouseRecorder.port1) { // L: 1359
-			DynamicObject.port3 = class171.port2;
+		if (DynamicObject.currentPort == MouseRecorder.worldPort) { // L: 1359
+			DynamicObject.currentPort = class171.js5Port;
 		} else {
-			DynamicObject.port3 = MouseRecorder.port1; // L: 1360
+			DynamicObject.currentPort = MouseRecorder.worldPort; // L: 1360
 		}
 
 		++js5Errors; // L: 1361
@@ -2462,7 +2462,7 @@ public final class Client extends GameEngine implements Usernamed {
 
 			if (loginState == 1) { // L: 1815
 				if (NetSocket.socketTask == null) { // L: 1816
-					NetSocket.socketTask = GameEngine.taskHandler.newSocketTask(MusicPatchNode.worldHost, DynamicObject.port3); // L: 1817
+					NetSocket.socketTask = GameEngine.taskHandler.newSocketTask(MusicPatchNode.worldHost, DynamicObject.currentPort); // L: 1817
 				}
 
 				if (NetSocket.socketTask.status == 2) { // L: 1819
@@ -2908,10 +2908,10 @@ public final class Client extends GameEngine implements Usernamed {
 						++field696; // L: 2395
 						if (field696 > 2000) { // L: 2396
 							if (field786 < 1) { // L: 2397
-								if (MouseRecorder.port1 == DynamicObject.port3) { // L: 2398
-									DynamicObject.port3 = class171.port2;
+								if (MouseRecorder.worldPort == DynamicObject.currentPort) { // L: 2398
+									DynamicObject.currentPort = class171.js5Port;
 								} else {
-									DynamicObject.port3 = MouseRecorder.port1; // L: 2399
+									DynamicObject.currentPort = MouseRecorder.worldPort; // L: 2399
 								}
 
 								++field786; // L: 2400
@@ -3070,10 +3070,10 @@ public final class Client extends GameEngine implements Usernamed {
 			}
 		} catch (IOException var22) { // L: 2408
 			if (field786 < 1) { // L: 2409
-				if (MouseRecorder.port1 == DynamicObject.port3) { // L: 2410
-					DynamicObject.port3 = class171.port2;
+				if (MouseRecorder.worldPort == DynamicObject.currentPort) { // L: 2410
+					DynamicObject.currentPort = class171.js5Port;
 				} else {
-					DynamicObject.port3 = MouseRecorder.port1; // L: 2411
+					DynamicObject.currentPort = MouseRecorder.worldPort; // L: 2411
 				}
 
 				++field786; // L: 2412
