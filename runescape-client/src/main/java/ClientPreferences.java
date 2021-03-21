@@ -192,7 +192,7 @@ public class ClientPreferences {
 		if (var1 != null) { // L: 188
 			return var1;
 		} else {
-			var1 = class171.method3642(SequenceDefinition.SequenceDefinition_animationsArchive, SequenceDefinition.SequenceDefinition_skeletonsArchive, var0, false); // L: 189
+			var1 = FrameProvider.loadFrames(SequenceDefinition.SequenceDefinition_animationsArchive, SequenceDefinition.SequenceDefinition_skeletonsArchive, var0, false); // L: 189
 			if (var1 != null) { // L: 190
 				SequenceDefinition.SequenceDefinition_cachedFrames.put(var1, (long)var0);
 			}

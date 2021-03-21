@@ -1,3 +1,13 @@
 package net.runelite.rs.api;
 
-public interface RSTimer {}
+import net.runelite.mapping.Import;
+
+public interface RSTimer {
+	
+	@Import("cacheSubPaths")
+	String[] getCacheSubPaths();
+	
+	@Import("cacheSubPaths")
+	void setCacheSubPaths(String[] cacheSubPaths);
+	
+}

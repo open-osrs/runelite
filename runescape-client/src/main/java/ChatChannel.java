@@ -162,7 +162,7 @@ public class ChatChannel {
 		Client.worldId = var0.id; // L: 1556
 		Client.worldProperties = var0.properties; // L: 1557
 		MouseRecorder.worldPort = Client.gameBuild == 0 ? 43594 : var0.id + 40000; // L: 1558
-		class171.js5Port = Client.gameBuild == 0 ? 443 : var0.id + 50000; // L: 1559
+		FrameProvider.js5Port = Client.gameBuild == 0 ? 443 : var0.id + 50000; // L: 1559
 		DynamicObject.currentPort = MouseRecorder.worldPort; // L: 1560
 	} // L: 1561
 }

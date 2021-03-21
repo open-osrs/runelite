@@ -1567,12 +1567,12 @@ public final class Client extends GameEngine implements Usernamed {
 	protected final void setUp() {
 		Strings.method4329(new int[]{20, 260, 10000}, new int[]{1000, 100, 500}); // L: 791
 		MouseRecorder.worldPort = gameBuild == 0 ? 43594 : worldId + 40000; // L: 792
-		class171.js5Port = gameBuild == 0 ? 443 : worldId + 50000; // L: 793
+		FrameProvider.js5Port = gameBuild == 0 ? 443 : worldId + 50000; // L: 793
 		DynamicObject.currentPort = MouseRecorder.worldPort; // L: 794
-		PlayerComposition.field2565 = class224.field2577; // L: 795
-		class105.field1339 = class224.field2573; // L: 796
-		HealthBar.field1143 = class224.field2575; // L: 797
-		WorldMapSprite.field259 = class224.field2574; // L: 798
+		PlayerComposition.field2565 = MinimapRenderer.field2577; // L: 795
+		class105.field1339 = MinimapRenderer.field2573; // L: 796
+		HealthBar.field1143 = MinimapRenderer.field2575; // L: 797
+		WorldMapSprite.field259 = MinimapRenderer.field2574; // L: 798
 		ScriptFrame.urlRequester = new UrlRequester(); // L: 799
 		this.setUpKeyboard(); // L: 800
 		this.setUpMouse(); // L: 801
@@ -2402,7 +2402,7 @@ public final class Client extends GameEngine implements Usernamed {
 		WorldMapArea.js5Socket = null; // L: 1357
 		js5ConnectState = 0; // L: 1358
 		if (DynamicObject.currentPort == MouseRecorder.worldPort) { // L: 1359
-			DynamicObject.currentPort = class171.js5Port;
+			DynamicObject.currentPort = FrameProvider.js5Port;
 		} else {
 			DynamicObject.currentPort = MouseRecorder.worldPort; // L: 1360
 		}
@@ -2909,7 +2909,7 @@ public final class Client extends GameEngine implements Usernamed {
 						if (field696 > 2000) { // L: 2396
 							if (field786 < 1) { // L: 2397
 								if (MouseRecorder.worldPort == DynamicObject.currentPort) { // L: 2398
-									DynamicObject.currentPort = class171.js5Port;
+									DynamicObject.currentPort = FrameProvider.js5Port;
 								} else {
 									DynamicObject.currentPort = MouseRecorder.worldPort; // L: 2399
 								}
@@ -3071,7 +3071,7 @@ public final class Client extends GameEngine implements Usernamed {
 		} catch (IOException var22) { // L: 2408
 			if (field786 < 1) { // L: 2409
 				if (MouseRecorder.worldPort == DynamicObject.currentPort) { // L: 2410
-					DynamicObject.currentPort = class171.js5Port;
+					DynamicObject.currentPort = FrameProvider.js5Port;
 				} else {
 					DynamicObject.currentPort = MouseRecorder.worldPort; // L: 2411
 				}
@@ -3358,7 +3358,7 @@ public final class Client extends GameEngine implements Usernamed {
 							var2 = npcIndices[var1]; // L: 2873
 							NPC var23 = npcs[var2]; // L: 2874
 							if (var23 != null) { // L: 2875
-								class171.updateActorSequence(var23, var23.definition.size); // L: 2876
+								FrameProvider.updateActorSequence(var23, var23.definition.size); // L: 2876
 							}
 						}
 

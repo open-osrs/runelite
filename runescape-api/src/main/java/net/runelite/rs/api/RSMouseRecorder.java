@@ -16,4 +16,10 @@ public interface RSMouseRecorder extends MouseRecorder
 
 	@Import("index")
 	int getIndex();
+	
+	@Import("worldPort")
+	int getWorldPort();
+	
+	@Import("worldPort")
+	void setWorldPort();
 }

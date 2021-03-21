@@ -121,7 +121,7 @@ public class ApproximateRouteStrategy extends RouteStrategy {
 				return 1; // L: 1758
 			} else if (var0 == 3205) { // L: 1760
 				var3 = Math.min(Math.max(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize], 0), 100); // L: 1761
-				class171.method3641(Math.round(1.27F * (float)var3)); // L: 1762
+				FrameProvider.updateSoundEffectVolume(Math.round(1.27F * (float)var3)); // L: 1762
 				return 1; // L: 1763
 			} else if (var0 == 3206) { // L: 1765
 				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Math.round((float)WorldMapSectionType.clientPreferences.soundEffectsVolume / 1.27F); // L: 1766

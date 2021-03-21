@@ -1,10 +1,12 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fd")
-public class class171 implements class170 {
+@Implements("FrameProvider")
+public class FrameProvider implements FrameLoader {
 	@ObfuscatedName("ee")
 	@ObfuscatedGetter(
 		intValue = -853566565
@@ -17,7 +19,8 @@ public class class171 implements class170 {
 		descriptor = "(Lig;Lig;IZI)Lel;",
 		garbageValue = "-2064266261"
 	)
-	public static Frames method3642(AbstractArchive var0, AbstractArchive var1, int var2, boolean var3) {
+	@Export("loadFrames")
+	public static Frames loadFrames(AbstractArchive var0, AbstractArchive var1, int var2, boolean var3) {
 		boolean var4 = true; // L: 11
 		int[] var5 = var0.getGroupFileIds(var2); // L: 12
 
@@ -281,7 +284,8 @@ public class class171 implements class170 {
 		descriptor = "(IB)V",
 		garbageValue = "0"
 	)
-	static final void method3641(int var0) {
+	@Export("updateSoundEffectVolume")
+	static final void updateSoundEffectVolume(int var0) {
 		var0 = Math.min(Math.max(var0, 0), 127); // L: 11112
 		WorldMapSectionType.clientPreferences.soundEffectsVolume = var0; // L: 11113
 		class23.savePreferences(); // L: 11114
