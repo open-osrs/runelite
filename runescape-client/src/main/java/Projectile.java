@@ -439,7 +439,7 @@ public final class Projectile extends Renderable {
 			break;
 		}
 
-		class3.assetCacheDirExists(JagexCache.cacheDir); // L: 194
+		class3.assertCacheDirExists(JagexCache.cacheDir); // L: 194
 		Varcs.findOrCreateRandomDatFile(); // L: 195
 		JagexCache.JagexCache_dat2File = new BufferedFile(new AccessFile(GraphicsObject.getFile("main_file_cache.dat2"), "rw", 1048576000L), 5200, 0); // L: 196
 		JagexCache.JagexCache_idx255File = new BufferedFile(new AccessFile(GraphicsObject.getFile("main_file_cache.idx255"), "rw", 1048576L), 6000, 0); // L: 197
