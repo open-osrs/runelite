@@ -13,7 +13,8 @@ public class class23 {
 		descriptor = "(Ljava/io/File;ZI)Z",
 		garbageValue = "-1646838359"
 	)
-	static boolean method235(File var0, boolean var1) {
+	@Export("isWriteable")
+	static boolean isWriteable(File var0, boolean deleteAfterWrite) {
 		try {
 			RandomAccessFile var2 = new RandomAccessFile(var0, "rw"); // L: 206
 			int var3 = var2.read(); // L: 207
@@ -21,7 +22,7 @@ public class class23 {
 			var2.write(var3); // L: 209
 			var2.seek(0L); // L: 210
 			var2.close(); // L: 211
-			if (var1) { // L: 212
+			if (deleteAfterWrite) { // L: 212
 				var0.delete();
 			}
 

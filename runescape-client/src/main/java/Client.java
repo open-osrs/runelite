@@ -2000,7 +2000,7 @@ public final class Client extends GameEngine implements Usernamed {
 				byte var9 = 0; // L: 775
 
 				try {
-					Projectile.method2255("oldschool", var8, var9, 21); // L: 777
+					Projectile.findAndLoadCache("oldschool", var8, var9, 21); // L: 777
 				} catch (Exception var10) { // L: 779
 					SequenceDefinition.RunException_sendStackTrace((String)null, var10); // L: 780
 				}

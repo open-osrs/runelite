@@ -398,7 +398,8 @@ public class Varcs {
 		descriptor = "(B)V",
 		garbageValue = "0"
 	)
-	static void method2346() {
+	@Export("findOrCreateRandomDatFile")
+	static void findOrCreateRandomDatFile() {
 		try {
 			File var0 = new File(JagexCache.userHomeDirectory, "random.dat"); // L: 250
 			int var2;
@@ -406,9 +407,9 @@ public class Varcs {
 				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0); // L: 252
 			} else {
 				label39:
-				for (int var1 = 0; var1 < Timer.field3621.length; ++var1) { // L: 255
-					for (var2 = 0; var2 < class224.field2576.length; ++var2) { // L: 256
-						File var3 = new File(class224.field2576[var2] + Timer.field3621[var1] + File.separatorChar + "random.dat"); // L: 257
+				for (int var1 = 0; var1 < Timer.cacheSubPaths.length; ++var1) { // L: 255
+					for (var2 = 0; var2 < class224.cacheParentPaths.length; ++var2) { // L: 256
+						File var3 = new File(class224.cacheParentPaths[var2] + Timer.cacheSubPaths[var1] + File.separatorChar + "random.dat"); // L: 257
 						if (var3.exists()) { // L: 258
 							JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var3, "rw", 25L), 24, 0); // L: 259
 							break label39; // L: 260

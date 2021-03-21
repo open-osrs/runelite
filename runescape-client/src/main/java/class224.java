@@ -1,3 +1,4 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -12,7 +13,8 @@ public class class224 {
 	@ObfuscatedName("c")
 	public static final short[][] field2574;
 	@ObfuscatedName("x")
-	static String[] field2576;
+	@Export("cacheParentPaths")
+	static String[] cacheParentPaths;
 
 	static {
 		field2577 = new short[]{6798, 8741, 25238, 4626, 4550}; // L: 4
