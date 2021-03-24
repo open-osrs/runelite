@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Represents a tile in the game.
  */
-public interface Tile extends TileObject
+public interface Tile extends Locatable
 {
 	/**
 	 * Gets the decoration on the tile.
@@ -107,6 +107,13 @@ public interface Tile extends TileObject
 	 * @return the scene location
 	 */
 	Point getSceneLocation();
+
+	/**
+	 * Gets the plane that this tile is on.
+	 *
+	 * @return the plane
+	 */
+	int getPlane();
 
 	/**
 	 * Get the plane this tile is rendered on, which is where the tile heights are from.

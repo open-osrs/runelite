@@ -24,14 +24,41 @@
  */
 package net.runelite.api.queries;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import net.runelite.api.Client;
+import net.runelite.api.Constants;
 import net.runelite.api.LocatableQueryResults;
+import net.runelite.api.Scene;
 import net.runelite.api.Tile;
 
-public class TileQuery extends TileObjectQuery<Tile, TileQuery>
+@Deprecated(since = "4.2.1", forRemoval = true)
+public class TileQuery extends LocatableQuery<Tile, TileQuery>
 {
+	private List<Tile> getTiles(Client client)
+	{
+		List<Tile> tilesList = new ArrayList<>();
+		Scene scene = client.getScene();
+		Tile[][][] tiles = scene.getTiles();
+		int z = client.getPlane();
+		for (int x = 0; x < Constants.SCENE_SIZE; ++x)
+		{
+			for (int y = 0; y < Constants.SCENE_SIZE; ++y)
+			{
+				Tile tile = tiles[z][x][y];
+				if (tile == null)
+				{
+					continue;
+				}
+				tilesList.add(tile);
+			}
+		}
+		return tilesList;
+	}
+
+	@Deprecated(since = "4.2.1", forRemoval = true)
 	@Override
 	public LocatableQueryResults<Tile> result(Client client)
 	{
