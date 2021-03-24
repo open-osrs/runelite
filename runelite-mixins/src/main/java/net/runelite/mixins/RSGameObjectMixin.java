@@ -47,14 +47,14 @@ public abstract class RSGameObjectMixin implements RSGameObject
 	@Override
 	public Point getSceneMinLocation()
 	{
-		return new Point(getRelativeX(), getRelativeY());
+		return new Point(getStartX(), getStartY());
 	}
 
 	@Inject
 	@Override
 	public Point getSceneMaxLocation()
 	{
-		return new Point(getOffsetX(), getOffsetY());
+		return new Point(getEndX(), getEndY());
 	}
 
 	@Inject
@@ -107,5 +107,19 @@ public abstract class RSGameObjectMixin implements RSGameObject
 		int orientation = getRsOrientation();
 		int rotation = (getFlags() >> 6) & 3;
 		return new Angle(rotation * 512 + orientation);
+	}
+
+	@Override
+	@Inject
+	public int sizeX()
+	{
+		return getEndX() - getStartX() + 1;
+	}
+
+	@Override
+	@Inject
+	public int sizeY()
+	{
+		return getEndY() - getStartY() + 1;
 	}
 }

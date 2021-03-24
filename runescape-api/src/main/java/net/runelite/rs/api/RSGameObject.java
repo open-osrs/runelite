@@ -12,16 +12,16 @@ public interface RSGameObject extends GameObject
 	int getPlane();
 
 	@Import("startX")
-	int getRelativeX();
+	int getStartX();
 
 	@Import("startY")
-	int getRelativeY();
+	int getStartY();
 
 	@Import("endX")
-	int getOffsetX();
+	int getEndX();
 
 	@Import("endY")
-	int getOffsetY();
+	int getEndY();
 
 	@Import("centerX")
 	@Override

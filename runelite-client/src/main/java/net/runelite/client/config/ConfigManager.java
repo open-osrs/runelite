@@ -766,6 +766,10 @@ public class ConfigManager
 		{
 			return Integer.parseInt(str);
 		}
+		if (type == double.class || type == Double.class)
+		{
+			return Double.parseDouble(str);
+		}
 		if (type == Color.class)
 		{
 			return ColorUtil.fromString(str);
