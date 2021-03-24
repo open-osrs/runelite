@@ -56,7 +56,19 @@ public abstract class RSTileObjectMixin implements TileObject
 	@Inject
 	public WorldPoint getWorldLocation()
 	{
-		return WorldPoint.fromLocal(client, getX(), getY(), getPlane());
+		if (this instanceof RSGameObject)
+		{
+			RSGameObject gameObject = (RSGameObject) this;
+			int startX = gameObject.getStartX();
+			int startY = gameObject.getStartY();
+			int diffX = gameObject.getEndX() - startX;
+			int diffY = gameObject.getEndY() - startY;
+			return WorldPoint.fromScene(client, startX + diffX / 2, startY + diffY / 2, getPlane());
+		}
+		else
+		{
+			return WorldPoint.fromLocal(client, getX(), getY(), getPlane());
+		}
 	}
 
 	@Override
