@@ -502,10 +502,10 @@ public class PacketWriter {
 										var37 = var30; // L: 7233
 									}
 
-									var17.field641 = var10 + var15; // L: 7235
-									var17.field640 = var10 + var13; // L: 7236
-									var17.field642 = var11 + var16; // L: 7237
-									var17.field644 = var11 + var37; // L: 7238
+									var17.minX = var10 + var15; // L: 7235
+									var17.maxX = var10 + var13; // L: 7236
+									var17.minY = var11 + var16; // L: 7237
+									var17.maxY = var11 + var37; // L: 7238
 								}
 							}
 						}

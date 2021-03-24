@@ -1409,11 +1409,14 @@ public abstract class RSClientMixin implements RSClient
 	@Replace("menuAction")
 	static void copy$menuAction(int param0, int param1, int opcode, int id, String option, String target, int canvasX, int canvasY)
 	{
-		/* Along the way, the RuneScape client may change a menuAction by incrementing it with 2000.
-		 * I have no idea why, but it does. Their code contains the same conditional statement.
+		/*
+		 * The RuneScape client may deprioritize an action in the menu by incrementing the opcode with 2000,
+		 * undo it here so we can get the correct opcode
 		 */
+		boolean decremented = false;
 		if (opcode >= 2000)
 		{
+			decremented = true;
 			opcode -= 2000;
 		}
 
@@ -1435,15 +1438,16 @@ public abstract class RSClientMixin implements RSClient
 		if (printMenuActions)
 		{
 			client.getLogger().info(
-				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={} Param0={} Param1={} CanvasX={} CanvasY={}",
+				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={}/{} Param0={} Param1={} CanvasX={} CanvasY={}",
 				menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), menuOptionClicked.getId(),
-				menuOptionClicked.getMenuAction(), menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(),
-				canvasX, canvasY
+				menuOptionClicked.getMenuAction(), opcode + (decremented ? 2000 : 0),
+				menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(), canvasX, canvasY
 			);
 		}
 
-		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(), menuOptionClicked.getMenuAction().getId(),
-			menuOptionClicked.getId(), menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), canvasX, canvasY);
+		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(),
+			menuOptionClicked.getMenuAction().getId(), menuOptionClicked.getId(),
+			menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), canvasX, canvasY);
 	}
 
 	@Override

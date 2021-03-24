@@ -661,7 +661,7 @@ public class WorldMapScaleHandler {
 					var0.isUnanimated = false; // L: 4274
 					var0.tileHeight = WorldMapRegion.getTileHeight(var0.x, var0.y, class90.Client_plane); // L: 4275
 					var0.playerCycle = Client.cycle; // L: 4276
-					MilliClock.scene.addNullableObject(class90.Client_plane, var0.x, var0.y, var0.tileHeight, 60, var0, var0.rotation, var4, var0.field641, var0.field642, var0.field640, var0.field644); // L: 4277
+					MilliClock.scene.addNullableObject(class90.Client_plane, var0.x, var0.y, var0.tileHeight, 60, var0, var0.rotation, var4, var0.minX, var0.minY, var0.maxX, var0.maxY); // L: 4277
 				} else {
 					if ((var0.x & 127) == 64 && (var0.y & 127) == 64) { // L: 4280
 						if (Client.tileLastDrawnActor[var2][var3] == Client.viewportDrawCount) { // L: 4281
