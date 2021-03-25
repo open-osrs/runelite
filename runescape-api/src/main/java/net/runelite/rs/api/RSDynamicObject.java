@@ -20,10 +20,4 @@ public interface RSDynamicObject extends RSRenderable, DynamicObject, Renderable
 
 	@Import("sequenceDefinition")
 	RSSequenceDefinition getSequenceDefinition();
-	
-	@Import("currentPort")
-	int getCurrentPort();
-	
-	@Import("currentPort")
-	void setCurrentPort(int currentPort);
 }
