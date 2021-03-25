@@ -408,8 +408,8 @@ public class Varcs {
 			} else {
 				label39:
 				for (int var1 = 0; var1 < Timer.cacheSubPaths.length; ++var1) { // L: 255
-					for (var2 = 0; var2 < MinimapRenderer.cacheParentPaths.length; ++var2) { // L: 256
-						File var3 = new File(MinimapRenderer.cacheParentPaths[var2] + Timer.cacheSubPaths[var1] + File.separatorChar + "random.dat"); // L: 257
+					for (var2 = 0; var2 < class224.cacheParentPaths.length; ++var2) { // L: 256
+						File var3 = new File(class224.cacheParentPaths[var2] + Timer.cacheSubPaths[var1] + File.separatorChar + "random.dat"); // L: 257
 						if (var3.exists()) { // L: 258
 							JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var3, "rw", 25L), 24, 0); // L: 259
 							break label39; // L: 260

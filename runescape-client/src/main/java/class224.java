@@ -4,8 +4,7 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hn")
-@Implements("MinimapRenderer")
-public class MinimapRenderer {
+public class class224 {
 	@ObfuscatedName("n")
 	public static final short[] field2577;
 	@ObfuscatedName("v")

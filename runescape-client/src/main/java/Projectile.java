@@ -286,7 +286,7 @@ public final class Projectile extends Renderable {
 			JagexCache.userHomeDirectory = "~/";
 		}
 
-		MinimapRenderer.cacheParentPaths = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", JagexCache.userHomeDirectory, "/tmp/", ""}; // L: 65
+		class224.cacheParentPaths = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", JagexCache.userHomeDirectory, "/tmp/", ""}; // L: 65
 		Timer.cacheSubPaths = new String[]{".jagex_cache_" + JagexCache.cacheGamebuild, ".file_store_" + JagexCache.cacheGamebuild}; // L: 66
 		int var18 = 0;
 
@@ -357,8 +357,8 @@ public final class Projectile extends Renderable {
 			if (var7 == null && var18 == 0) { // L: 116
 				label225:
 				for (int var19 = 0; var19 < Timer.cacheSubPaths.length; ++var19) { // L: 117
-					for (int var20 = 0; var20 < MinimapRenderer.cacheParentPaths.length; ++var20) { // L: 118
-						File var21 = new File(MinimapRenderer.cacheParentPaths[var20] + Timer.cacheSubPaths[var19] + File.separatorChar + var0 + File.separatorChar); // L: 119
+					for (int var20 = 0; var20 < class224.cacheParentPaths.length; ++var20) { // L: 118
+						File var21 = new File(class224.cacheParentPaths[var20] + Timer.cacheSubPaths[var19] + File.separatorChar + var0 + File.separatorChar); // L: 119
 						if (var21.exists() && class23.isWriteable(new File(var21, "test.dat"), true)) { // L: 120 121
 							var7 = var21.toString(); // L: 122
 							var9 = true; // L: 123

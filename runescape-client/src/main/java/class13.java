@@ -71,7 +71,7 @@ public final class class13 {
 		if (!Client.isCameraLocked) { // L: 4014
 			var4 = AbstractWorldMapIcon.method712();
 		} else {
-			var4 = FrameProvider.method3639(); // L: 4015
+			var4 = class171.method3639(); // L: 4015
 		}
 
 		var28 = SecureRandomFuture.cameraX; // L: 4016

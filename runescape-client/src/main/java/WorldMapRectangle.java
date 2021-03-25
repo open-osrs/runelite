@@ -159,7 +159,7 @@ public final class WorldMapRectangle {
 		for (int var2 = 0; var2 < var0; ++var2) { // L: 3495
 			Player var3 = Client.players[var1[var2]]; // L: 3496
 			if (var3 != null) { // L: 3497
-				FrameProvider.updateActorSequence(var3, 1); // L: 3498
+				class171.updateActorSequence(var3, 1); // L: 3498
 			}
 		}
 

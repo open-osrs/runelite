@@ -1188,23 +1188,23 @@ public abstract class AbstractWorldMapIcon {
 
 			if (var3 == 4) { // L: 11146
 				if (var2 == 0) { // L: 11147
-					FrameProvider.updateSoundEffectVolume(127);
+					class171.updateSoundEffectVolume(127);
 				}
 
 				if (var2 == 1) { // L: 11148
-					FrameProvider.updateSoundEffectVolume(96);
+					class171.updateSoundEffectVolume(96);
 				}
 
 				if (var2 == 2) { // L: 11149
-					FrameProvider.updateSoundEffectVolume(64);
+					class171.updateSoundEffectVolume(64);
 				}
 
 				if (var2 == 3) { // L: 11150
-					FrameProvider.updateSoundEffectVolume(32);
+					class171.updateSoundEffectVolume(32);
 				}
 
 				if (var2 == 4) { // L: 11151
-					FrameProvider.updateSoundEffectVolume(0);
+					class171.updateSoundEffectVolume(0);
 				}
 			}
 

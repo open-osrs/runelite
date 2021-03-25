@@ -1,12 +1,11 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fd")
-@Implements("FrameProvider")
-public class FrameProvider implements FrameLoader {
+public class class171 implements class170
+{
 	@ObfuscatedName("ee")
 	@ObfuscatedGetter(
 		intValue = -853566565

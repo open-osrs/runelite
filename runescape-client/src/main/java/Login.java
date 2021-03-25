@@ -182,7 +182,7 @@ public class Login {
 		worldSelectPage = 0; // L: 103
 		worldSelectPagesCount = 0; // L: 104
 		new DecimalFormat("##0.00"); // L: 107
-		new FrameProvider();
+		new class171();
 		field1213 = -1L; // L: 115
 		field1226 = -1L; // L: 116
 	}
