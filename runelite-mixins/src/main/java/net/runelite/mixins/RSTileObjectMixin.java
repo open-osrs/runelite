@@ -96,7 +96,16 @@ public abstract class RSTileObjectMixin implements TileObject
 	@Inject
 	public Polygon getCanvasTilePoly()
 	{
-		return Perspective.getCanvasTilePoly(client, getLocalLocation());
+		int sizeX = 1;
+		int sizeY = 1;
+
+		if (this instanceof RSGameObject)
+		{
+			sizeX = ((RSGameObject) this).sizeX();
+			sizeY = ((RSGameObject) this).sizeY();
+		}
+
+		return Perspective.getCanvasTileAreaPoly(client, getLocalLocation(), sizeX, sizeY, getPlane(), 0);
 	}
 
 	@Override
