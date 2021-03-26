@@ -4,8 +4,7 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("fd")
-public class class171 implements class170
-{
+public class class171 implements class170 {
 	@ObfuscatedName("ee")
 	@ObfuscatedGetter(
 		intValue = -853566565

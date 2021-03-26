@@ -47,7 +47,7 @@ public abstract class Renderable extends DualNode {
 	static final void method3417() {
 		if (Client.field889 != class90.Client_plane) { // L: 3402
 			Client.field889 = class90.Client_plane; // L: 3403
-			class224.redrawMiniMapIcons(class90.Client_plane); // L: 3404
+			class224.createMinimapSprite(class90.Client_plane); // L: 3404
 		}
 
 	} // L: 3406

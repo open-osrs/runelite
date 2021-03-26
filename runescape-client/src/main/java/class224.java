@@ -29,8 +29,8 @@ public class class224 {
 		descriptor = "(II)V",
 		garbageValue = "2091444199"
 	)
-	@Export("redrawMiniMapIcons")
-	static final void redrawMiniMapIcons(int plane) {
+	@Export("createMinimapSprite")
+	static final void createMinimapSprite(int plane) {
 		int[] var1 = GrandExchangeOfferAgeComparator.sceneMinimapSprite.pixels; // L: 5775
 		int var2 = var1.length; // L: 5776
 
