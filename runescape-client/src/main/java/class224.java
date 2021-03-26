@@ -1,3 +1,5 @@
+import net.runelite.mapping.Export;
+import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -12,7 +14,8 @@ public class class224 {
 	@ObfuscatedName("c")
 	public static final short[][] field2574;
 	@ObfuscatedName("x")
-	static String[] field2576;
+	@Export("cacheParentPaths")
+	static String[] cacheParentPaths;
 
 	static {
 		field2577 = new short[]{6798, 8741, 25238, 4626, 4550}; // L: 4
@@ -26,7 +29,8 @@ public class class224 {
 		descriptor = "(II)V",
 		garbageValue = "2091444199"
 	)
-	static final void method4232(int var0) {
+	@Export("createMinimapSprite")
+	static final void createMinimapSprite(int plane) {
 		int[] var1 = GrandExchangeOfferAgeComparator.sceneMinimapSprite.pixels; // L: 5775
 		int var2 = var1.length; // L: 5776
 
@@ -41,12 +45,12 @@ public class class224 {
 			var4 = (103 - var3) * 2048 + 24628; // L: 5779
 
 			for (var5 = 1; var5 < 103; ++var5) { // L: 5780
-				if ((Tiles.Tiles_renderFlags[var0][var5][var3] & 24) == 0) { // L: 5781
-					MilliClock.scene.drawTileMinimap(var1, var4, 512, var0, var5, var3);
+				if ((Tiles.Tiles_renderFlags[plane][var5][var3] & 24) == 0) { // L: 5781
+					MilliClock.scene.drawTileMinimap(var1, var4, 512, plane, var5, var3);
 				}
 
-				if (var0 < 3 && (Tiles.Tiles_renderFlags[var0 + 1][var5][var3] & 8) != 0) { // L: 5782
-					MilliClock.scene.drawTileMinimap(var1, var4, 512, var0 + 1, var5, var3);
+				if (plane < 3 && (Tiles.Tiles_renderFlags[plane + 1][var5][var3] & 8) != 0) { // L: 5782
+					MilliClock.scene.drawTileMinimap(var1, var4, 512, plane + 1, var5, var3);
 				}
 
 				var4 += 4; // L: 5783
@@ -60,12 +64,12 @@ public class class224 {
 		int var6;
 		for (var5 = 1; var5 < 103; ++var5) { // L: 5789
 			for (var6 = 1; var6 < 103; ++var6) { // L: 5790
-				if ((Tiles.Tiles_renderFlags[var0][var6][var5] & 24) == 0) { // L: 5791
-					Username.drawObject(var0, var6, var5, var3, var4);
+				if ((Tiles.Tiles_renderFlags[plane][var6][var5] & 24) == 0) { // L: 5791
+					Username.drawObject(plane, var6, var5, var3, var4);
 				}
 
-				if (var0 < 3 && (Tiles.Tiles_renderFlags[var0 + 1][var6][var5] & 8) != 0) { // L: 5792
-					Username.drawObject(var0 + 1, var6, var5, var3, var4);
+				if (plane < 3 && (Tiles.Tiles_renderFlags[plane + 1][var6][var5] & 8) != 0) { // L: 5792
+					Username.drawObject(plane + 1, var6, var5, var3, var4);
 				}
 			}
 		}

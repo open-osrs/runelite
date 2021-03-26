@@ -246,17 +246,18 @@ public final class Projectile extends Renderable {
 		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIB)V",
 		garbageValue = "23"
 	)
-	public static void method2255(String var0, String var1, int var2, int var3) throws IOException {
+	@Export("findAndLoadCache")
+	public static void findAndLoadCache(String var0, String var1, int var2, int var3) throws IOException {
 		JagexCache.idxCount = var3; // L: 40
 		JagexCache.cacheGamebuild = var2; // L: 41
 
 		try {
-			JagexCache.field2065 = System.getProperty("os.name"); // L: 43
+			JagexCache.operatingSystemName = System.getProperty("os.name"); // L: 43
 		} catch (Exception var28) { // L: 45
-			JagexCache.field2065 = "Unknown"; // L: 46
+			JagexCache.operatingSystemName = "Unknown"; // L: 46
 		}
 
-		GZipDecompressor.field4046 = JagexCache.field2065.toLowerCase(); // L: 48
+		GZipDecompressor.formattedOperatingSystemName = JagexCache.operatingSystemName.toLowerCase(); // L: 48
 
 		try {
 			JagexCache.userHomeDirectory = System.getProperty("user.home"); // L: 50
@@ -267,7 +268,7 @@ public final class Projectile extends Renderable {
 		}
 
 		try {
-			if (GZipDecompressor.field4046.startsWith("win")) { // L: 55
+			if (GZipDecompressor.formattedOperatingSystemName.startsWith("win")) { // L: 55
 				if (JagexCache.userHomeDirectory == null) { // L: 56
 					JagexCache.userHomeDirectory = System.getenv("USERPROFILE");
 				}
@@ -285,8 +286,8 @@ public final class Projectile extends Renderable {
 			JagexCache.userHomeDirectory = "~/";
 		}
 
-		class224.field2576 = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", JagexCache.userHomeDirectory, "/tmp/", ""}; // L: 65
-		Timer.field3621 = new String[]{".jagex_cache_" + JagexCache.cacheGamebuild, ".file_store_" + JagexCache.cacheGamebuild}; // L: 66
+		class224.cacheParentPaths = new String[]{"c:/rscache/", "/rscache/", "c:/windows/", "c:/winnt/", "c:/", JagexCache.userHomeDirectory, "/tmp/", ""}; // L: 65
+		Timer.cacheSubPaths = new String[]{".jagex_cache_" + JagexCache.cacheGamebuild, ".file_store_" + JagexCache.cacheGamebuild}; // L: 66
 		int var18 = 0;
 
 		label250:
@@ -347,7 +348,7 @@ public final class Projectile extends Renderable {
 
 				if (var7 != null) { // L: 109
 					var33 = new File(var7, "test.dat"); // L: 110
-					if (!class23.method235(var33, true)) { // L: 111
+					if (!class23.isWriteable(var33, true)) { // L: 111
 						var7 = null; // L: 112
 					}
 				}
@@ -355,10 +356,10 @@ public final class Projectile extends Renderable {
 
 			if (var7 == null && var18 == 0) { // L: 116
 				label225:
-				for (int var19 = 0; var19 < Timer.field3621.length; ++var19) { // L: 117
-					for (int var20 = 0; var20 < class224.field2576.length; ++var20) { // L: 118
-						File var21 = new File(class224.field2576[var20] + Timer.field3621[var19] + File.separatorChar + var0 + File.separatorChar); // L: 119
-						if (var21.exists() && class23.method235(new File(var21, "test.dat"), true)) { // L: 120 121
+				for (int var19 = 0; var19 < Timer.cacheSubPaths.length; ++var19) { // L: 117
+					for (int var20 = 0; var20 < class224.cacheParentPaths.length; ++var20) { // L: 118
+						File var21 = new File(class224.cacheParentPaths[var20] + Timer.cacheSubPaths[var19] + File.separatorChar + var0 + File.separatorChar); // L: 119
+						if (var21.exists() && class23.isWriteable(new File(var21, "test.dat"), true)) { // L: 120 121
 							var7 = var21.toString(); // L: 122
 							var9 = true; // L: 123
 							break label225; // L: 124
@@ -429,7 +430,7 @@ public final class Projectile extends Renderable {
 
 				for (int var23 = 0; var23 < var34.length; ++var23) { // L: 184
 					File var24 = var34[var23]; // L: 185
-					if (!class23.method235(var24, false)) { // L: 187
+					if (!class23.isWriteable(var24, false)) { // L: 187
 						++var18; // L: 67
 						continue label250;
 					}
@@ -438,8 +439,8 @@ public final class Projectile extends Renderable {
 			break;
 		}
 
-		class3.method36(JagexCache.cacheDir); // L: 194
-		Varcs.method2346(); // L: 195
+		class3.assertCacheDirExists(JagexCache.cacheDir); // L: 194
+		Varcs.findOrCreateRandomDatFile(); // L: 195
 		JagexCache.JagexCache_dat2File = new BufferedFile(new AccessFile(GraphicsObject.getFile("main_file_cache.dat2"), "rw", 1048576000L), 5200, 0); // L: 196
 		JagexCache.JagexCache_idx255File = new BufferedFile(new AccessFile(GraphicsObject.getFile("main_file_cache.idx255"), "rw", 1048576L), 6000, 0); // L: 197
 		WorldMapEvent.JagexCache_idxFiles = new BufferedFile[JagexCache.idxCount]; // L: 198

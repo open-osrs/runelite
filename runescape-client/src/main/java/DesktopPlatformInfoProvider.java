@@ -31,11 +31,11 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 	@Export("get")
 	public PlatformInfo get() {
 		byte var1;
-		if (GZipDecompressor.field4046.startsWith("win")) { // L: 15
+		if (GZipDecompressor.formattedOperatingSystemName.startsWith("win")) { // L: 15
 			var1 = 1;
-		} else if (GZipDecompressor.field4046.startsWith("mac")) { // L: 16
+		} else if (GZipDecompressor.formattedOperatingSystemName.startsWith("mac")) { // L: 16
 			var1 = 2;
-		} else if (GZipDecompressor.field4046.startsWith("linux")) {
+		} else if (GZipDecompressor.formattedOperatingSystemName.startsWith("linux")) {
 			var1 = 3;
 		} else {
 			var1 = 4; // L: 18
