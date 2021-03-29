@@ -27,6 +27,7 @@ package net.runelite.client.plugins.config;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
+import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -528,6 +529,140 @@ class ConfigPanel extends PluginPanel
 				{
 					JLabel sliderValueLabel = new JLabel();
 					JSlider slider = new JSlider(min, max, value);
+					slider.setBackground(ColorScheme.DARK_GRAY_COLOR);
+					if (units != null)
+					{
+						sliderValueLabel.setText(slider.getValue() + units.value());
+					}
+					else
+					{
+						sliderValueLabel.setText(String.valueOf(slider.getValue()));
+					}
+					slider.setPreferredSize(new Dimension(80, 25));
+					slider.addChangeListener((l) ->
+						{
+							if (units != null)
+							{
+								sliderValueLabel.setText(slider.getValue() + units.value());
+							}
+							else
+							{
+								sliderValueLabel.setText(String.valueOf(slider.getValue()));
+							}
+
+							if (!slider.getValueIsAdjusting())
+							{
+								changeConfiguration(slider, cd, cid);
+							}
+						}
+					);
+
+					SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
+					JSpinner spinner = new JSpinner(model);
+					Component editor = spinner.getEditor();
+					JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+					spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
+					spinner.setUI(new BasicSpinnerUI()
+					{
+						protected Component createNextButton()
+						{
+							return null;
+						}
+
+						protected Component createPreviousButton()
+						{
+							return null;
+						}
+					});
+
+					JPanel subPanel = new JPanel();
+					subPanel.setPreferredSize(new Dimension(110, 25));
+					subPanel.setLayout(new BorderLayout());
+
+					spinner.addChangeListener((ce) ->
+					{
+						changeConfiguration(spinner, cd, cid);
+
+						if (units != null)
+						{
+							sliderValueLabel.setText(spinner.getValue() + units.value());
+						}
+						else
+						{
+							sliderValueLabel.setText(String.valueOf(spinner.getValue()));
+						}
+						slider.setValue((Integer) spinner.getValue());
+
+						subPanel.add(sliderValueLabel, BorderLayout.WEST);
+						subPanel.add(slider, BorderLayout.EAST);
+						subPanel.remove(spinner);
+
+						validate();
+						repaint();
+					});
+
+					sliderValueLabel.addMouseListener(new MouseAdapter()
+					{
+						public void mouseClicked(MouseEvent e)
+						{
+							spinner.setValue(slider.getValue());
+
+							subPanel.remove(sliderValueLabel);
+							subPanel.remove(slider);
+							subPanel.add(spinner, BorderLayout.EAST);
+
+							validate();
+							repaint();
+
+							final JTextField tf = ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField();
+							tf.requestFocusInWindow();
+							SwingUtilities.invokeLater(tf::selectAll);
+						}
+					});
+
+					subPanel.add(sliderValueLabel, BorderLayout.WEST);
+					subPanel.add(slider, BorderLayout.EAST);
+
+					item.add(subPanel, BorderLayout.EAST);
+				}
+				else
+				{
+					SpinnerModel model = new SpinnerNumberModel(value, min, max, 1);
+					JSpinner spinner = new JSpinner(model);
+					Component editor = spinner.getEditor();
+					JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
+					spinnerTextField.setColumns(SPINNER_FIELD_WIDTH);
+					spinner.addChangeListener(ce -> changeConfiguration(spinner, cd, cid));
+
+					if (units != null)
+					{
+						spinnerTextField.setFormatterFactory(new UnitFormatterFactory(units));
+					}
+
+					item.add(spinner, BorderLayout.EAST);
+				}
+			}
+
+			if (cid.getType() == double.class)
+			{
+				double value = Double.parseDouble(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName()));
+
+				Units units = cid.getUnits();
+				Range range = cid.getRange();
+				int min = 0, max = Integer.MAX_VALUE;
+				if (range != null)
+				{
+					min = range.min();
+					max = range.max();
+				}
+
+				// Config may previously have been out of range
+				value = Doubles.constrainToRange(value, min, max);
+
+				if (max < Integer.MAX_VALUE)
+				{
+					JLabel sliderValueLabel = new JLabel();
+					JSlider slider = new JSlider(min, max, (int) value);
 					slider.setBackground(ColorScheme.DARK_GRAY_COLOR);
 					if (units != null)
 					{
