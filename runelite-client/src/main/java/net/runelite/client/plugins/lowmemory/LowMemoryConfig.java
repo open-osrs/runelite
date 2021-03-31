@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,52 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.lowmemory;
 
-import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-/**
- * Represents the entire 3D scene
- */
-public interface Scene
+@ConfigGroup(LowMemoryConfig.GROUP)
+public interface LowMemoryConfig extends Config
 {
-	/**
-	 * Gets the tiles in the scene
-	 *
-	 * @return the tiles in [plane][x][y]
-	 */
-	Tile[][][] getTiles();
+	String GROUP = "lowmemory";
 
-	/**
-	 * Adds an item to the scene
-	 */
-	void addItem(int id, int quantity, WorldPoint point);
+	@ConfigItem(
+		keyName = "lowDetail",
+		name = "Low detail",
+		description = "Hides ground detail and simplifies textures.",
+		position = 0
+	)
+	default boolean lowDetail()
+	{
+		return true;
+	}
 
-	/**
-	 * Removes an item from the scene
-	 */
-	void removeItem(int id, int quantity, WorldPoint point);
-
-	int getDrawDistance();
-	void setDrawDistance(int drawDistance);
-
-	/**
-	 * Get the minimum scene level which will be rendered
-	 *
-	 * @return the plane of the minimum level
-	 */
-	int getMinLevel();
-
-	/**
-	 * Set the minimum scene level which will be rendered
-	 *
-	 * @param minLevel the plane of the minimum level
-	 */
-	void setMinLevel(int minLevel);
-
-	/**
-	 * Remove a game object from the scene
-	 * @param gameObject
-	 */
-	void removeGameObject(GameObject gameObject);
+	@ConfigItem(
+		keyName = "hideLowerPlanes",
+		name = "Hide lower planes",
+		description = "Only renders the current plane you are on.",
+		position = 1
+	)
+	default boolean hideLowerPlanes()
+	{
+		return false;
+	}
 }

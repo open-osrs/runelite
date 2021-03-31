@@ -178,6 +178,7 @@ public class WidgetID
 	public static final int DIALOG_NOTIFICATION_GROUP_ID = 229;
 	public static final int DIALOG_SPRITE2_ID = 11;
 	public static final int MULTISKILL_MENU_GROUP_ID = 270;
+	public static final int TEMPOROSS_GROUP_ID = 437;
 
 	static class WorldMap
 	{
@@ -1076,6 +1077,10 @@ public class WidgetID
 		static final int TELEPORT = 59;
 	}
 
+	static class TemporossStatus
+	{
+		static final int STATUS_INDICATOR = 4;
+	}
 
 	static class DialogPlayer
 	{
