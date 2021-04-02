@@ -67,7 +67,11 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                     it.file.name.contains("jocl")
             ) {
                 path = "https://repo.runelite.net/"
-                path += "${group.replace(".", "/")}/${name}/$version/${name}-$version.jar"
+                path += "${group.replace(".", "/")}/${name}/$version/${name}-$version"
+                if (it.classifier != null && it.classifier != "no_aop") {
+                    path += "-${it.classifier}"
+                }
+                path += ".jar"
             }
             else
             {
