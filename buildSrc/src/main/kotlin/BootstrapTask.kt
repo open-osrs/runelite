@@ -67,9 +67,6 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                     it.file.name.contains("jocl")
             ) {
                 path = "https://repo.runelite.net/"
-                if (!it.file.name.contains("discord")) {
-                    path += "pushingpixels/"
-                }
                 path += "${group.replace(".", "/")}/${name}/$version/${name}-$version.jar"
             }
             else
