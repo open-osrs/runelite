@@ -58,24 +58,19 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                     path += "-${it.classifier}"
                 }
                 path += ".jar"
-            } else if (it.file.name.contains("trident") || it.file.name.contains("discord") || it.file.name.contains("substance")) {
-                path = "https://repo.runelite.net/net/runelite/"
+            } else if (
+                    it.file.name.contains("trident") ||
+                    it.file.name.contains("discord") ||
+                    it.file.name.contains("substance") ||
+                    it.file.name.contains("gluegen") ||
+                    it.file.name.contains("jogl") ||
+                    it.file.name.contains("jocl")
+            ) {
+                path = "https://repo.runelite.net/"
                 if (!it.file.name.contains("discord")) {
                     path += "pushingpixels/"
                 }
-                path += "${name}/$version/${name}-$version.jar"
-            }
-            else if (it.file.name.contains("gluegen"))
-            {
-                path = "http://repo.runelite.net/net/runelite/gluegen/gluegen-rt/" + version + "/" + it.file.name
-            }
-            else if (it.file.name.contains("jogl"))
-            {
-                path = "http://repo.runelite.net/net/runelite/jogl/jogl-all/" + version + "/" + it.file.name
-            }
-            else if (it.file.name.contains("jocl"))
-            {
-                path = "http://repo.runelite.net/net/runelite/jocl/jocl/" + version + "/" + it.file.name
+                path += "${group.replace(".", "/")}/${name}/$version/${name}-$version.jar"
             }
             else
             {
