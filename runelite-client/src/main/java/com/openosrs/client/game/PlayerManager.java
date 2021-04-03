@@ -29,6 +29,7 @@ import net.runelite.api.events.AnimationChanged;
 import net.runelite.api.events.PlayerCompositionChanged;
 import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.kit.KitType;
+import net.runelite.client.config.RuneLiteConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.game.FriendChatManager;
@@ -54,6 +55,7 @@ public class PlayerManager
 	private final Map<String, PlayerContainer> playerMap = new ConcurrentHashMap<>();
 	private final Map<String, HiscoreResult> resultCache = new ConcurrentHashMap<>();
 	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
+	private final RuneLiteConfig runeLiteConfig;
 
 	@Inject
 	PlayerManager(
@@ -61,7 +63,8 @@ public class PlayerManager
 		final EventBus eventBus,
 		final ItemManager itemManager,
 		final FriendChatManager friendChatManager,
-		final OkHttpClient okHttpClient
+		final OkHttpClient okHttpClient,
+		final RuneLiteConfig runeLiteConfig
 	)
 	{
 		this.client = client;
@@ -69,6 +72,7 @@ public class PlayerManager
 		this.eventBus = eventBus;
 		this.friendChatManager = friendChatManager;
 		this.hiscoreClient = new HiscoreClient(okHttpClient);
+		this.runeLiteConfig = runeLiteConfig;
 
 		eventBus.register(this);
 	}
@@ -384,7 +388,7 @@ public class PlayerManager
 			}
 			else if (itemComposition.isTradeable())
 			{
-				prices.put(id, itemManager.getItemPrice(id, false));
+				prices.put(id, itemManager.getItemPriceWithSource(id, runeLiteConfig.useWikiItemPrices()));
 			}
 		}
 
