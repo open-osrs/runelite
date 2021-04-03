@@ -222,24 +222,59 @@ public interface Actor extends Renderable, Locatable
 	void setAnimation(int animation);
 
 	/**
-	 * Sets the frame of the animation the actor is performing.
+	 * Get the frame of the animation the actor is performing
 	 *
-	 * @param actionFrame the animation frame
+	 * @return the frame
 	 */
-	void setActionFrame(int actionFrame);
+	int getAnimationFrame();
 
 	/**
-	 * Gets the graphic that is currently on the player.
+	 * Sets the frame of the animation the actor is performing.
 	 *
-	 * @return the graphic of the actor
+	 * @param frame the animation frame
+	 * @deprecated use setAnimationFrame
+	 */
+	@Deprecated(since = "4.3.0", forRemoval = true)
+	void setActionFrame(int frame);
+
+	/**
+	 * Sets the frame of the animation the actor is performing.
+	 *
+	 * @param frame the animation frame
+	 */
+	void setAnimationFrame(int frame);
+
+	/**
+	 * Get the graphic/spotanim that is currently on the actor.
+	 *
+	 * @return the spotanim of the actor
 	 * @see GraphicID
 	 */
 	int getGraphic();
 
+	/**
+	 * Set the graphic/spotanim that is currently on the actor.
+	 *
+	 * @param graphic The spotanim id
+	 * @see GraphicID
+	 */
 	void setGraphic(int graphic);
 
+	@Deprecated(since = "4.3.0", forRemoval = true)
 	int getSpotAnimationFrame();
 
+	/**
+	 * Get the frame of the currently playing spotanim
+	 *
+	 * @return
+	 */
+	int getSpotAnimFrame();
+
+	/**
+	 * Set the frame of the currently playing spotanim
+	 *
+	 * @param spotAnimFrame
+	 */
 	void setSpotAnimFrame(int spotAnimFrame);
 
 	/**
@@ -351,15 +386,15 @@ public interface Actor extends Renderable, Locatable
 	int getTurnRightAnimation();
 
 	// TODO: Remove next major
-	@Deprecated
+	@Deprecated(since = "4.1.0", forRemoval = true)
 	int getWalkBackAnimation();
 
 	// TODO: Remove next major
-	@Deprecated
+	@Deprecated(since = "4.1.0", forRemoval = true)
 	int getWalkLeftAnimation();
 
 	// TODO: Remove next major
-	@Deprecated
+	@Deprecated(since = "4.1.0", forRemoval = true)
 	int getWalkRightAnimation();
 
 	/**

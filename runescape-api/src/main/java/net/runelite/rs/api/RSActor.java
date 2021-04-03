@@ -68,13 +68,25 @@ public interface RSActor extends RSRenderable, Actor
 	@Override
 	void setAnimation(int animation);
 
+	// TODO: Remove next major
+	@Deprecated
 	@Import("sequenceFrame")
 	@Override
 	int getActionFrame();
 
+	// TODO: Remove next major
+	@Deprecated
 	@Import("sequenceFrame")
 	@Override
 	void setActionFrame(int frame);
+
+	@Import("sequenceFrame")
+	@Override
+	int getAnimationFrame();
+
+	@Import("sequenceFrame")
+	@Override
+	void setAnimationFrame(int frame);
 
 	@Import("sequenceFrameCycle")
 	@Override
@@ -90,8 +102,13 @@ public interface RSActor extends RSRenderable, Actor
 	@Override
 	void setGraphic(int id);
 
+	// TODO: Remove next major
+	@Deprecated
 	@Import("spotAnimationFrame")
 	int getSpotAnimationFrame();
+
+	@Import("spotAnimationFrame")
+	int getSpotAnimFrame();
 
 	@Import("spotAnimationFrame")
 	@Override
