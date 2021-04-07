@@ -232,10 +232,10 @@ public class RSApiInjector extends AbstractInjector
 
 			matched.removeIf(RSApiMethod::isInjected);
 
-			if (matched.size() > 2)
+			/*if (matched.size() > 2)
 			{
 				throw new InjectException("More than 2 imported api methods for field " + deobField.getPoolField());
-			}
+			}*/
 
 			final Field vanillaField = inject.toVanilla(deobField);
 			final Number getter = DeobAnnotations.getObfuscatedGetter(deobField);

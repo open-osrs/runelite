@@ -303,29 +303,10 @@ public class ItemManager
 	 * Look up an item's price
 	 *
 	 * @param itemID item id
-	 * @param ignoreUntradeableMap skip untradeables
-	 * @return item price
-	 */
-	@Deprecated(since = "4.1.0", forRemoval = true)
-	public int getItemPrice(int itemID, boolean ignoreUntradeableMap)
-	{
-		return getItemPriceWithSource(itemID, runeLiteConfig.useWikiItemPrices(), ignoreUntradeableMap);
-	}
-
-	/**
-	 * Look up an item's price
-	 *
-	 * @param itemID item id
 	 * @param useWikiPrice use the actively traded/wiki price
 	 * @return item price
 	 */
 	public int getItemPriceWithSource(int itemID, boolean useWikiPrice)
-	{
-		return getItemPriceWithSource(itemID, useWikiPrice, false);
-	}
-
-	// TODO: inline this back to getItemPriceWithSource(int, boolean) next minor ver
-	private int getItemPriceWithSource(int itemID, boolean useWikiPrice, boolean ignoreUntradeableMap)
 	{
 		if (itemID == COINS_995)
 		{
@@ -360,11 +341,6 @@ public class ItemManager
 		{
 			for (final ItemMapping mappedItem : mappedItems)
 			{
-				if (ignoreUntradeableMap && mappedItem.isUntradeable())
-				{
-					continue;
-				}
-
 				price += getItemPriceWithSource(mappedItem.getTradeableItem(), useWikiPrice) * mappedItem.getQuantity();
 			}
 		}

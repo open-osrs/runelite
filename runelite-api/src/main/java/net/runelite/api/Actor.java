@@ -222,30 +222,62 @@ public interface Actor extends Renderable, Locatable
 	void setAnimation(int animation);
 
 	/**
-	 * Sets the frame of the animation the actor is performing.
+	 * Get the frame of the animation the actor is performing
 	 *
-	 * @param actionFrame the animation frame
+	 * @return the frame
 	 */
-	void setActionFrame(int actionFrame);
+	int getAnimationFrame();
 
 	/**
-	 * Gets the graphic that is currently on the player.
+	 * Sets the frame of the animation the actor is performing.
 	 *
-	 * @return the graphic of the actor
+	 * @param frame the animation frame
+	 * @deprecated use setAnimationFrame
+	 */
+	@Deprecated(since = "5.0.0", forRemoval = false) // deprecated upstream
+	void setActionFrame(int frame);
+
+	/**
+	 * Sets the frame of the animation the actor is performing.
+	 *
+	 * @param frame the animation frame
+	 */
+	void setAnimationFrame(int frame);
+
+	/**
+	 * Get the graphic/spotanim that is currently on the actor.
+	 *
+	 * @return the spotanim of the actor
 	 * @see GraphicID
 	 */
 	int getGraphic();
 
+	/**
+	 * Set the graphic/spotanim that is currently on the actor.
+	 *
+	 * @param graphic The spotanim id
+	 * @see GraphicID
+	 */
 	void setGraphic(int graphic);
 
-	int getSpotAnimationFrame();
+	/**
+	 * Get the frame of the currently playing spotanim
+	 *
+	 * @return
+	 */
+	int getSpotAnimFrame();
 
+	/**
+	 * Set the frame of the currently playing spotanim
+	 *
+	 * @param spotAnimFrame
+	 */
 	void setSpotAnimFrame(int spotAnimFrame);
 
 	/**
 	 * Get the number of cycles the SpotAnimation frame has been displayed for.
 	 */
-	int getSpotAnimationFrameCycle();
+	int getSpotAnimFrameCycle();
 
 	/**
 	 * Gets the canvas area of the current tile the actor is standing on.
@@ -281,11 +313,11 @@ public interface Actor extends Renderable, Locatable
 	 * Gets the point at which a sprite should be drawn, relative to the
 	 * current location with the given z-axis offset.
 	 *
-	 * @param spritePixels the sprite to draw
+	 * @param sprite the sprite to draw
 	 * @param zOffset the z-axis offset
 	 * @return the sprite drawing location
 	 */
-	Point getCanvasSpriteLocation(SpritePixels spritePixels, int zOffset);
+	Point getCanvasSpriteLocation(SpritePixels sprite, int zOffset);
 
 	/**
 	 * Gets a point on the canvas of where this actors mini-map indicator
@@ -349,18 +381,6 @@ public interface Actor extends Renderable, Locatable
 	int getTurnLeftAnimation();
 
 	int getTurnRightAnimation();
-
-	// TODO: Remove next major
-	@Deprecated
-	int getWalkBackAnimation();
-
-	// TODO: Remove next major
-	@Deprecated
-	int getWalkLeftAnimation();
-
-	// TODO: Remove next major
-	@Deprecated
-	int getWalkRightAnimation();
 
 	/**
 	 * Returns true if this NPC has died
