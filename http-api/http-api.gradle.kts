@@ -28,9 +28,9 @@ import org.apache.tools.ant.filters.ReplaceTokens
 description = "Web API"
 
 dependencies {
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
-    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
     implementation(project(":runelite-api"))
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")

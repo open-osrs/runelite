@@ -43,13 +43,13 @@ apply<BootstrapPlugin>()
 description = "RuneLite Client"
 
 dependencies {
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
     annotationProcessor(group = "org.pf4j", name = "pf4j", version = "3.5.0")
 
     api(project(":runelite-api"))
 
     compileOnly(group = "javax.annotation", name = "javax.annotation-api", version = "1.3.2")
-    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
     compileOnly(group = "net.runelite", name = "orange-extensions", version = "1.0")
 
     implementation(project(":http-api"))
@@ -95,9 +95,9 @@ dependencies {
     runtimeOnly(group = "net.runelite.jocl", name = "jocl", version = "1.0", classifier = "macos-x64")
     runtimeOnly(group = "net.runelite.jocl", name = "jocl", version = "1.0", classifier = "macos-arm64")
 
-    testAnnotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    testAnnotationProcessor(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
-    testCompileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    testCompileOnly(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
     testImplementation(group = "com.google.inject.extensions", name = "guice-grapher", version = "4.1.0")
     testImplementation(group = "com.google.inject.extensions", name = "guice-testlib", version = "4.1.0")

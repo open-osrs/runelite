@@ -26,9 +26,9 @@
 description = "RuneLite API"
 
 dependencies {
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    annotationProcessor(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
-    compileOnly(group = "org.projectlombok", name = "lombok", version = "1.18.4")
+    compileOnly(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
     implementation(group = "com.google.code.findbugs", name = "jsr305", version = "3.0.2")
     implementation(group = "com.google.guava", name = "guava", version = "23.2-jre")
