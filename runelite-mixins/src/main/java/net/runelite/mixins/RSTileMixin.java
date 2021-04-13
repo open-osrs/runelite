@@ -270,10 +270,14 @@ public abstract class RSTileMixin implements RSTile
 
 		if (current != null)
 		{
+			int plane = getRenderLevel();
+
 			if ((client.getTileSettings()[1][getX()][getY()] & 2) == 2)
 			{
-				current.setPlane(getRenderLevel() - 1);
+				plane--;
 			}
+
+			current.setPlane(plane);
 		}
 
 		if (current == null && previous != null)
@@ -311,10 +315,14 @@ public abstract class RSTileMixin implements RSTile
 
 		if (current != null)
 		{
+			int plane = getRenderLevel();
+
 			if ((client.getTileSettings()[1][getX()][getY()] & 2) == 2)
 			{
-				current.setPlane(getRenderLevel() - 1);
+				plane--;
 			}
+
+			current.setPlane(plane);
 		}
 
 		if (current == null && previous != null)
@@ -352,10 +360,14 @@ public abstract class RSTileMixin implements RSTile
 
 		if (current != null)
 		{
+			int plane = getRenderLevel();
+
 			if ((client.getTileSettings()[1][getX()][getY()] & 2) == 2)
 			{
-				current.setPlane(getRenderLevel() - 1);
+				plane--;
 			}
+
+			current.setPlane(plane);
 		}
 
 		if (current == null && previous != null)
@@ -407,10 +419,14 @@ public abstract class RSTileMixin implements RSTile
 
 		if (current != null)
 		{
+			int plane = getRenderLevel();
+
 			if ((client.getTileSettings()[1][getX()][getY()] & 2) == 2)
 			{
-				current.setPlane(getRenderLevel() - 1);
+				plane--;
 			}
+
+			current.setPlane(plane);
 		}
 
 		// Duplicate event, return
