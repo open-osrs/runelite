@@ -8,9 +8,6 @@ public interface RSGameObject extends GameObject
 	@Import("renderable")
 	RSRenderable getRenderable();
 
-	@Import("plane")
-	int getPlane();
-
 	@Import("startX")
 	int getStartX();
 
@@ -45,4 +42,8 @@ public interface RSGameObject extends GameObject
 	@Import("flags")
 	@Override
 	int getFlags();
+
+	int getPlane();
+
+	void setPlane(int plane);
 }

@@ -33,15 +33,32 @@ import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSRenderable;
 import net.runelite.rs.api.RSGameObject;
 import net.runelite.rs.api.RSModel;
+import net.runelite.rs.api.RSRenderable;
 
 @Mixin(RSGameObject.class)
 public abstract class RSGameObjectMixin implements RSGameObject
 {
 	@Shadow("client")
 	private static RSClient client;
+
+	@Inject
+	private int gameObjectPlane;
+
+	@Inject
+	@Override
+	public int getPlane()
+	{
+		return gameObjectPlane;
+	}
+
+	@Inject
+	@Override
+	public void setPlane(int plane)
+	{
+		this.gameObjectPlane = plane;
+	}
 
 	@Inject
 	@Override
