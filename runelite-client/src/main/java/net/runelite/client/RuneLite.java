@@ -287,9 +287,9 @@ public class RuneLite
 
 			PROFILES_DIR.mkdirs();
 
-			log.info("OpenOSRS {} (launcher version {}) starting up, args: {}",
-				RuneLiteProperties.getVersion(), RuneLiteProperties.getLauncherVersion() == null ? "unknown" : RuneLiteProperties.getLauncherVersion(),
-				args.length == 0 ? "none" : String.join(" ", args));
+			log.info("OpenOSRS {} (RuneLite version {}, launcher version {}) starting up, args: {}",
+				OpenOSRS.SYSTEM_VERSION, RuneLiteProperties.getVersion() == null ? "unknown" : RuneLiteProperties.getVersion(),
+				RuneLiteProperties.getLauncherVersion(), args.length == 0 ? "none" : String.join(" ", args));
 
 			final long start = System.currentTimeMillis();
 
@@ -530,6 +530,7 @@ public class RuneLite
 		//Fixes win10 scaling when not 100% while using Anti-Aliasing with GPU
 		System.setProperty("sun.java2d.uiScale", "1.0");
 
-		System.setProperty("runelite.launcher.version", "" + RuneLiteAPI.getVersion());
+		String launcherVersion = System.getProperty("launcher.version");
+		System.setProperty("runelite.launcher.version", launcherVersion == null ? "unknown" : launcherVersion);
 	}
 }
