@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,47 +22,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.hiscore;
 
-package net.runelite.cache.definitions;
+import static net.runelite.client.plugins.hiscore.HiscorePanel.formatLevel;
+import net.runelite.http.api.hiscore.HiscoreEndpoint;
+import okhttp3.OkHttpClient;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import java.util.Map;
-import lombok.Data;
-
-@Data
-public class NpcDefinition
+public class HiscorePanelTest
 {
-	public final int id;
-	public String name = "null";
-	public int size = 1;
-	public int[] models;
-	public int[] chatheadModels;
-	public int standingAnimation = -1;
-	public int rotateLeftAnimation = -1;
-	public int rotateRightAnimation = -1;
-	public int walkingAnimation = -1;
-	public int rotate180Animation = -1;
-	public int rotate90RightAnimation = -1;
-	public int rotate90LeftAnimation = -1;
-	public short[] recolorToFind;
-	public short[] recolorToReplace;
-	public short[] retextureToFind;
-	public short[] retextureToReplace;
-	public String[] actions = new String[5];
-	public boolean isMinimapVisible = true;
-	public int combatLevel = -1;
-	public int widthScale = 128;
-	public int heightScale = 128;
-	public boolean hasRenderPriority;
-	public int ambient;
-	public int contrast;
-	public int headIcon = -1;
-	public int rotationSpeed = 32;
-	public int[] configs;
-	public int varbitId = -1;
-	public int varpIndex = -1;
-	public boolean isInteractable = true;
-	public boolean rotationFlag = true;
-	public boolean isPet;
-	public Map<Integer, Object> params;
-	public int category;
+	@Test
+	public void testConstructor()
+	{
+		HiscorePlugin plugin = mock(HiscorePlugin.class);
+		when(plugin.getWorldEndpoint()).thenReturn(HiscoreEndpoint.NORMAL);
+		new HiscorePanel(null, plugin, mock(HiscoreConfig.class),
+			mock(NameAutocompleter.class), mock(OkHttpClient.class));
+	}
+
+	@Test
+	public void testFormatLevel()
+	{
+		assertEquals("398", formatLevel(398));
+		assertEquals("5000", formatLevel(5000));
+		assertEquals("7682", formatLevel(7682));
+		assertEquals("12k", formatLevel(12398));
+		assertEquals("219k", formatLevel(219824));
+	}
 }
