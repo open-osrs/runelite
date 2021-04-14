@@ -4,97 +4,88 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ih")
+@ObfuscatedName("kl")
 @Implements("VarbitComposition")
 public class VarbitComposition extends DualNode {
-	@ObfuscatedName("qo")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Ldi;"
-	)
-	@Export("pcmStreamMixer")
-	static PcmStreamMixer pcmStreamMixer;
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
+		descriptor = "Lir;"
 	)
 	@Export("VarbitDefinition_archive")
 	public static AbstractArchive VarbitDefinition_archive;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Lgf;"
 	)
 	@Export("VarbitDefinition_cached")
 	public static EvictingDualNodeHashTable VarbitDefinition_cached;
-	@ObfuscatedName("d")
+	@ObfuscatedName("e")
+	static final int[] field3549;
+	@ObfuscatedName("id")
 	@ObfuscatedGetter(
-		intValue = 1019712225
+		intValue = 979490587
+	)
+	static int field3544;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = 909782819
 	)
 	@Export("baseVar")
 	public int baseVar;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 832067477
+		intValue = -1000839247
 	)
 	@Export("startBit")
 	public int startBit;
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1230578517
+		intValue = 1799765893
 	)
 	@Export("endBit")
 	public int endBit;
 
 	static {
 		VarbitDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
-	}
+		field3549 = new int[32]; // L: 15
+		int var0 = 2; // L: 18
 
-	VarbitComposition() {
-	} // L: 16
+		for (int var1 = 0; var1 < 32; ++var1) { // L: 19
+			field3549[var1] = var0 - 1; // L: 20
+			var0 += var0; // L: 21
+		}
 
-	@ObfuscatedName("v")
+	} // L: 23
+
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;B)V",
-		garbageValue = "1"
+		descriptor = "(Lnu;I)V",
+		garbageValue = "44894085"
 	)
 	@Export("decode")
-	void decode(Buffer var1) {
+	public void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 30
-			if (var2 == 0) { // L: 31
-				return; // L: 34
+			int var2 = var1.readUnsignedByte(); // L: 27
+			if (var2 == 0) { // L: 28
+				return; // L: 31
 			}
 
-			this.decodeNext(var1, var2); // L: 32
+			this.decodeNext(var1, var2); // L: 29
 		}
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;II)V",
-		garbageValue = "-1952270730"
+		descriptor = "(Lnu;II)V",
+		garbageValue = "-1491405636"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) { // L: 37
-			this.baseVar = var1.readUnsignedShort(); // L: 38
-			this.startBit = var1.readUnsignedByte(); // L: 39
-			this.endBit = var1.readUnsignedByte(); // L: 40
+		if (var2 == 1) { // L: 34
+			this.baseVar = var1.readUnsignedShort(); // L: 35
+			this.startBit = var1.readUnsignedByte(); // L: 36
+			this.endBit = var1.readUnsignedByte(); // L: 37
 		}
 
-	} // L: 43
-
-	@ObfuscatedName("kw")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-1439525339"
-	)
-	@Export("Clan_joinChat")
-	static final void Clan_joinChat(String var0) {
-		if (!var0.equals("")) { // L: 11458
-			PacketBufferNode var1 = WorldMapSprite.getPacketBufferNode(ClientPacket.field2270, Client.packetWriter.isaacCipher); // L: 11460
-			var1.packetBuffer.writeByte(WorldMapLabelSize.stringCp1252NullTerminatedByteSize(var0)); // L: 11461
-			var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 11462
-			Client.packetWriter.addNode(var1); // L: 11463
-		}
-	} // L: 11464
+	} // L: 40
 }

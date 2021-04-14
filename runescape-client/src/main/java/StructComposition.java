@@ -1,32 +1,26 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jp")
+@ObfuscatedName("ka")
 @Implements("StructComposition")
 public class StructComposition extends DualNode {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lig;"
+		descriptor = "Lir;"
 	)
 	@Export("StructDefinition_archive")
-	static AbstractArchive StructDefinition_archive;
-	@ObfuscatedName("v")
+	public static AbstractArchive StructDefinition_archive;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Lgf;"
 	)
 	@Export("StructDefinition_cached")
-	public static EvictingDualNodeHashTable StructDefinition_cached;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = -1581798947
-	)
-	public static int field3338;
-	@ObfuscatedName("d")
+	static EvictingDualNodeHashTable StructDefinition_cached;
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Llg;"
+		descriptor = "Lme;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -38,86 +32,75 @@ public class StructComposition extends DualNode {
 	StructComposition() {
 	} // L: 16
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-61"
+		descriptor = "(I)V",
+		garbageValue = "-51783205"
 	)
 	@Export("postDecode")
 	void postDecode() {
-	} // L: 33
+	} // L: 29
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;I)V",
-		garbageValue = "-1222397412"
+		descriptor = "(Lnu;I)V",
+		garbageValue = "1597477180"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 37
-			if (var2 == 0) { // L: 38
-				return; // L: 41
+			int var2 = var1.readUnsignedByte(); // L: 33
+			if (var2 == 0) { // L: 34
+				return; // L: 37
 			}
 
-			this.decodeNext(var1, var2); // L: 39
+			this.decodeNext(var1, var2); // L: 35
 		}
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;II)V",
-		garbageValue = "1068696099"
+		descriptor = "(Lnu;II)V",
+		garbageValue = "414960674"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 249) {
-			this.params = TextureProvider.readStringIntParameters(var1, this.params); // L: 44
+			this.params = class105.readStringIntParameters(var1, this.params); // L: 40
 		}
 
-	}
+	} // L: 42
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "1838065399"
+		garbageValue = "-981552906"
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
-		IterableNodeHashTable var4 = this.params; // L: 50
+		IterableNodeHashTable var4 = this.params; // L: 46
 		int var3;
-		if (var4 == null) { // L: 52
-			var3 = var2; // L: 53
+		if (var4 == null) { // L: 48
+			var3 = var2; // L: 49
 		} else {
-			IntegerNode var5 = (IntegerNode)var4.get((long)var1); // L: 56
-			if (var5 == null) { // L: 57
-				var3 = var2; // L: 58
+			IntegerNode var5 = (IntegerNode)var4.get((long)var1); // L: 52
+			if (var5 == null) { // L: 53
+				var3 = var2; // L: 54
 			} else {
-				var3 = var5.integer; // L: 61
+				var3 = var5.integer; // L: 57
 			}
 		}
 
-		return var3; // L: 63
+		return var3; // L: 59
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;S)Ljava/lang/String;",
-		garbageValue = "-15071"
+		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "429267652"
 	)
 	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
-		return class69.method1258(this.params, var1, var2); // L: 67
+		return MouseHandler.method725(this.params, var1, var2); // L: 63
 	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(Lig;Lig;Lig;B)V",
-		garbageValue = "76"
-	)
-	public static void method4734(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2) {
-		HitSplatDefinition.HitSplatDefinition_archive = var0; // L: 46
-		Frames.field1904 = var1; // L: 47
-		HitSplatDefinition.HitSplatDefinition_fontsArchive = var2; // L: 48
-	} // L: 49
 }

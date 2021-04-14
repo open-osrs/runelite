@@ -1,137 +1,136 @@
+import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hw")
+@ObfuscatedName("hl")
 @Implements("WorldMapDecorationType")
 public enum WorldMapDecorationType implements Enumerated {
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2765(0, 0),
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2748(1, 0),
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2749(2, 0),
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2750(3, 0),
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2760(9, 2),
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2752(4, 1),
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2768(5, 1),
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2754(6, 1),
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2755(7, 1),
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2751(8, 1),
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2757(12, 2),
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2767(13, 2),
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2758(14, 2),
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2756(15, 2),
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2761(16, 2),
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2762(17, 2),
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2763(18, 2),
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lhw;"
+		descriptor = "Lhl;"
 	)
-	field2764(19, 2),
-	@ObfuscatedName("g")
+	field2820(0, 0),
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lhw;"
+		descriptor = "Lhl;"
 	)
-	field2769(20, 2),
+	field2830(1, 0),
 	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lhw;"
+		descriptor = "Lhl;"
 	)
-	field2766(21, 2),
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "Lhw;"
-	)
-	field2747(10, 2),
+	field2816(2, 0),
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lhw;"
+		descriptor = "Lhl;"
 	)
-	field2753(11, 2),
+	field2817(3, 0),
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2818(9, 2),
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2819(4, 1),
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2821(5, 1),
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2815(6, 1),
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2829(7, 1),
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2823(8, 1),
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2827(12, 2),
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lhw;"
+		descriptor = "Lhl;"
 	)
-	field2759(22, 3);
-
-	@ObfuscatedName("qe")
+	field2825(13, 2),
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Lhl;"
 	)
-	@Export("pcmPlayer1")
-	static PcmPlayer pcmPlayer1;
+	field2831(14, 2),
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2836(15, 2),
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2828(16, 2),
 	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2832(17, 2),
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2824(18, 2),
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2814(19, 2),
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2826(20, 2),
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2833(21, 2),
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2834(10, 2),
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2835(11, 2),
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "Lhl;"
+	)
+	field2837(22, 3);
+
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -129094329
+		intValue = 1464574759
 	)
 	@Export("id")
 	public final int id;
@@ -144,46 +143,51 @@ public enum WorldMapDecorationType implements Enumerated {
 		this.id = var3; // L: 34
 	} // L: 35
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "63"
+		descriptor = "(I)I",
+		garbageValue = "-1000839247"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 38
 	}
 
-	@ObfuscatedName("at")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "([BB)[B",
-		garbageValue = "98"
+		descriptor = "([BB)Loh;",
+		garbageValue = "-38"
 	)
-	@Export("decompressBytes")
-	static final byte[] decompressBytes(byte[] var0) {
-		Buffer var1 = new Buffer(var0); // L: 370
-		int var2 = var1.readUnsignedByte(); // L: 371
-		int var3 = var1.readInt(); // L: 372
-		if (var3 < 0 || AbstractArchive.field3171 != 0 && var3 > AbstractArchive.field3171) { // L: 373
-			throw new RuntimeException(); // L: 374
-		} else if (var2 == 0) { // L: 376
-			byte[] var6 = new byte[var3]; // L: 377
-			var1.readBytes(var6, 0, var3); // L: 378
-			return var6; // L: 379
-		} else {
-			int var4 = var1.readInt(); // L: 382
-			if (var4 >= 0 && (AbstractArchive.field3171 == 0 || var4 <= AbstractArchive.field3171)) { // L: 383
-				byte[] var5 = new byte[var4]; // L: 386
-				if (var2 == 1) { // L: 387
-					BZip2Decompressor.BZip2Decompressor_decompress(var5, var4, var0, var3, 9);
-				} else {
-					AbstractArchive.gzipDecompressor.decompress(var1, var5); // L: 388
-				}
+	@Export("convertJpgToSprite")
+	public static final SpritePixels convertJpgToSprite(byte[] var0) {
+		BufferedImage var1 = null; // L: 20
 
-				return var5; // L: 389
-			} else {
-				throw new RuntimeException(); // L: 384
-			}
+		try {
+			var1 = ImageIO.read(new ByteArrayInputStream(var0)); // L: 22
+			int var2 = var1.getWidth(); // L: 23
+			int var3 = var1.getHeight(); // L: 24
+			int[] var4 = new int[var3 * var2]; // L: 25
+			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2); // L: 26
+			var5.grabPixels(); // L: 27
+			return new SpritePixels(var4, var2, var3); // L: 28
+		} catch (IOException var7) { // L: 30
+		} catch (InterruptedException var8) { // L: 31
 		}
+
+		return new SpritePixels(0, 0); // L: 32
 	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "32"
+	)
+	static void method4370() {
+		class0.SpriteBuffer_xOffsets = null; // L: 261
+		Interpreter.SpriteBuffer_yOffsets = null; // L: 262
+		class395.SpriteBuffer_spriteWidths = null; // L: 263
+		class157.SpriteBuffer_spriteHeights = null; // L: 264
+		Varps.SpriteBuffer_spritePalette = null; // L: 265
+		class223.SpriteBuffer_pixels = null; // L: 266
+	} // L: 267
 }

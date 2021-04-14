@@ -4,145 +4,135 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eu")
+@ObfuscatedName("gh")
 @Implements("WallDecoration")
 public final class WallDecoration {
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 964756049
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "Lho;"
 	)
-	@Export("clientTickTimeIdx")
-	static int clientTickTimeIdx;
-	@ObfuscatedName("n")
+	@Export("musicTrack")
+	public static MusicTrack musicTrack;
+	@ObfuscatedName("ny")
+	@ObfuscatedSignature(
+		descriptor = "[Lhu;"
+	)
+	static Widget[] field2179;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 719575047
+		intValue = 1866984259
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -920611555
+		intValue = -1233523215
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -730740551
+		intValue = 1569724115
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 333766323
+		intValue = -1106091565
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1617230319
+		intValue = -790495867
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 2092861143
+		intValue = 1527389689
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("z")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1518269047
+		intValue = 221325297
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lem;"
+		descriptor = "Lfm;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("q")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lem;"
+		descriptor = "Lfm;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
-	@ObfuscatedName("l")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		longValue = 1249498855339190201L
+		longValue = -7920256203386986359L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1390179163
+		intValue = -1583095637
 	)
 	@Export("flags")
 	int flags;
 
 	WallDecoration() {
-		this.tag = 0L;
-		this.flags = 0;
-	}
+		this.tag = 0L; // L: 13
+		this.flags = 0; // L: 14
+	} // L: 16
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
-		garbageValue = "699816166"
+		descriptor = "(IIII)I",
+		garbageValue = "89979729"
 	)
-	public static String method3450(CharSequence var0) {
-		int var1 = var0.length(); // L: 11
-		StringBuilder var2 = new StringBuilder(var1); // L: 12
-
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 13
-			char var4 = var0.charAt(var3); // L: 14
-			if ((var4 < 'a' || var4 > 'z') && (var4 < 'A' || var4 > 'Z') && (var4 < '0' || var4 > '9') && var4 != '.' && var4 != '-' && var4 != '*' && var4 != '_') { // L: 15
-				if (var4 == ' ') { // L: 16
-					var2.append('+');
-				} else {
-					byte var5 = LoginPacket.charToByteCp1252(var4); // L: 18
-					var2.append('%'); // L: 19
-					int var6 = var5 >> 4 & 15; // L: 20
-					if (var6 >= 10) { // L: 21
-						var2.append((char)(var6 + 55));
-					} else {
-						var2.append((char)(var6 + 48)); // L: 22
-					}
-
-					var6 = var5 & 15; // L: 23
-					if (var6 >= 10) { // L: 24
-						var2.append((char)(var6 + 55));
-					} else {
-						var2.append((char)(var6 + 48));
-					}
-				}
-			} else {
-				var2.append(var4); // L: 25
-			}
+	static int method3808(int var0, int var1, int var2) {
+		if (var2 > 179) { // L: 55
+			var1 /= 2;
 		}
 
-		return var2.toString(); // L: 28
+		if (var2 > 192) { // L: 56
+			var1 /= 2;
+		}
+
+		if (var2 > 217) { // L: 57
+			var1 /= 2;
+		}
+
+		if (var2 > 243) { // L: 58
+			var1 /= 2;
+		}
+
+		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2; // L: 59
+		return var3; // L: 60
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljo;",
-		garbageValue = "1862361389"
+		descriptor = "(I)[Lit;",
+		garbageValue = "-1357735054"
 	)
-	public static FloorOverlayDefinition method3449(int var0) {
-		FloorOverlayDefinition var1 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var0); // L: 30
-		if (var1 != null) { // L: 31
-			return var1;
-		} else {
-			byte[] var2 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var0); // L: 32
-			var1 = new FloorOverlayDefinition(); // L: 33
-			if (var2 != null) { // L: 34
-				var1.decode(new Buffer(var2), var0);
-			}
+	@Export("PlayerType_values")
+	public static PlayerType[] PlayerType_values() {
+		return new PlayerType[]{PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_ultimateIronman, PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_playerModerator, PlayerType.PlayerType_ironman, PlayerType.field3226, PlayerType.PlayerType_normal}; // L: 20
+	}
 
-			var1.postDecode(); // L: 35
-			FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var1, (long)var0); // L: 36
-			return var1; // L: 37
-		}
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(IZI)Ljava/lang/String;",
+		garbageValue = "-1850423672"
+	)
+	@Export("intToString")
+	public static String intToString(int var0, boolean var1) {
+		return var1 && var0 >= 0 ? class44.method521(var0, 10, var1) : Integer.toString(var0); // L: 135 136
 	}
 }

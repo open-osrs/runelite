@@ -6,40 +6,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lt")
+@ObfuscatedName("ld")
 @Implements("BufferedSink")
 public class BufferedSink implements Runnable {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1750886899
+		intValue = -1717513047
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1446346341
+		intValue = 1985311889
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -51603125
+		intValue = -123700751
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("z")
+	@ObfuscatedName("k")
 	@Export("exception")
 	IOException exception;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@Export("closed")
 	boolean closed;
 
@@ -54,10 +54,10 @@ public class BufferedSink implements Runnable {
 		this.thread.start(); // L: 197
 	} // L: 198
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1300767817"
+		garbageValue = "1952078918"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -79,10 +79,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)V",
-		garbageValue = "52"
+		descriptor = "([BIII)V",
+		garbageValue = "-1726130817"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
@@ -98,8 +98,8 @@ public class BufferedSink implements Runnable {
 						var5 = this.position - this.limit - 1; // L: 266
 					}
 
-					if (var5 < var3) {
-						throw new IOException(""); // L: 267
+					if (var5 < var3) { // L: 267
+						throw new IOException("");
 					} else {
 						if (var3 + this.limit <= this.capacity) { // L: 268
 							System.arraycopy(var1, var2, this.buffer, this.limit, var3); // L: 269
@@ -119,10 +119,10 @@ public class BufferedSink implements Runnable {
 		}
 	} // L: 279
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1796941473"
+		garbageValue = "-40216394"
 	)
 	@Export("close")
 	void close() {

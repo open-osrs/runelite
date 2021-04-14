@@ -1,80 +1,112 @@
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("z")
-public class class6 implements class11 {
-	@ObfuscatedName("n")
-	final MessageDigest field34;
+@ObfuscatedName("k")
+public class class6 extends class14 {
+	@ObfuscatedName("bo")
+	@ObfuscatedSignature(
+		descriptor = "[Low;"
+	)
+	@Export("worldSelectArrows")
+	static IndexedSprite[] worldSelectArrows;
+	@ObfuscatedName("ii")
+	@ObfuscatedGetter(
+		intValue = 1971024859
+	)
+	@Export("oculusOrbFocalPointX")
+	static int oculusOrbFocalPointX;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = -394718965
+	)
+	int field49;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 1266108419
+	)
+	int field46;
+	// $FF: synthetic field
+	@ObfuscatedSignature(
+		descriptor = "Lu;"
+	)
+	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ls;)V"
+		descriptor = "(Lu;)V"
 	)
-	class6(class10 var1) {
-		this.field34 = this.method70(); // L: 14
-	} // L: 15
-
-	@ObfuscatedName("n")
-	boolean method64(int var1, String var2, long var3) {
-		byte[] var5 = this.method68(var2, var3); // L: 18
-		return method65(var5) >= var1; // L: 19
+	class6(class2 var1) {
+		this.this$0 = var1; // L: 271
 	}
 
-	@ObfuscatedName("c")
-	byte[] method68(String var1, long var2) {
-		StringBuilder var4 = new StringBuilder(); // L: 56
-		var4.append(var1).append(Long.toHexString(var2)); // L: 57
-		this.field34.reset(); // L: 58
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(Lnu;I)V",
+		garbageValue = "-1383981708"
+	)
+	void vmethod371(Buffer var1) {
+		this.field49 = var1.readInt(); // L: 274
+		this.field46 = var1.readInt(); // L: 275
+	} // L: 276
 
-		try {
-			this.field34.update(var4.toString().getBytes("UTF-8")); // L: 60
-		} catch (UnsupportedEncodingException var6) { // L: 62
-			var6.printStackTrace(); // L: 63
-		}
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(Lm;I)V",
+		garbageValue = "-1475503816"
+	)
+	void vmethod376(class11 var1) {
+		var1.method178(this.field49, this.field46); // L: 279
+	} // L: 280
 
-		return this.field34.digest(); // L: 65
-	}
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(Lir;I)V",
+		garbageValue = "620748591"
+	)
+	public static void method97(AbstractArchive var0) {
+		ParamComposition.ParamDefinition_archive = var0; // L: 21
+	} // L: 22
 
-	@ObfuscatedName("y")
-	MessageDigest method70() {
-		try {
-			return MessageDigest.getInstance("SHA-256"); // L: 70
-		} catch (NoSuchAlgorithmException var2) { // L: 72
-			var2.printStackTrace(); // L: 73
-			return null; // L: 74
-		}
-	}
-
-	@ObfuscatedName("v")
-	static int method65(byte[] var0) {
-		int var1 = 0; // L: 23
-		byte[] var2 = var0; // L: 25
-
-		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 26
-			byte var4 = var2[var3]; // L: 27
-			int var5 = method66(var4); // L: 29
-			var1 += var5; // L: 30
-			if (var5 != 8) { // L: 31
-				break;
-			}
-		}
-
-		return var1; // L: 37
-	}
-
-	@ObfuscatedName("d")
-	static int method66(byte var0) {
-		int var1 = 0; // L: 41
-		if (var0 == 0) { // L: 42
-			var1 = 8; // L: 43
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "(I)Lgy;",
+		garbageValue = "629458679"
+	)
+	public static PacketBufferNode method98() {
+		PacketBufferNode var0;
+		if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) { // L: 44
+			var0 = new PacketBufferNode(); // L: 45
 		} else {
-			for (int var2 = var0 & 255; (var2 & 128) == 0; var2 <<= 1) { // L: 46 47 49
-				++var1; // L: 48
-			}
+			var0 = PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount]; // L: 48
 		}
 
-		return var1; // L: 52
+		var0.clientPacket = null; // L: 51
+		var0.clientPacketLength = 0; // L: 52
+		var0.packetBuffer = new PacketBuffer(5000); // L: 53
+		return var0; // L: 54
+	}
+
+	@ObfuscatedName("ax")
+	@ObfuscatedSignature(
+		descriptor = "(ILcc;ZB)I",
+		garbageValue = "1"
+	)
+	static int method96(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.LOGOUT) { // L: 3445
+			Client.logoutTimer = 250; // L: 3446
+			return 1; // L: 3447
+		} else if (var0 != 5631 && var0 != 5633) { // L: 3449
+			if (var0 == 5632) { // L: 3453
+				Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = 26; // L: 3454
+				return 1; // L: 3455
+			} else {
+				return 2; // L: 3457
+			}
+		} else {
+			Interpreter.Interpreter_stringStackSize -= 2; // L: 3450
+			return 1; // L: 3451
+		}
 	}
 }

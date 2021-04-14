@@ -4,42 +4,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("en")
+@ObfuscatedName("fz")
 @Implements("FloorDecoration")
 public final class FloorDecoration {
-	@ObfuscatedName("n")
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Lir;"
+	)
+	@Export("Widget_archive")
+	public static AbstractArchive Widget_archive;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1598532417
+		intValue = 41501185
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 142791141
+		intValue = 969764679
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 319839389
+		intValue = 1466324567
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lem;"
+		descriptor = "Lfm;"
 	)
 	@Export("renderable")
 	public Renderable renderable;
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		longValue = 5699265069963851797L
+		longValue = 1931928399249517797L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -641786975
+		intValue = 1857453107
 	)
 	@Export("flags")
 	int flags;

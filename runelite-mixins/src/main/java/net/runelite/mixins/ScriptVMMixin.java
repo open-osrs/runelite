@@ -138,7 +138,7 @@ public abstract class ScriptVMMixin implements RSClient
 
 	@Copy("runScript")
 	@Replace("runScript")
-	static void copy$runScript(RSScriptEvent event, int maxExecutionTime)
+	static void copy$runScript(RSScriptEvent event, int maxExecutionTime, int var2)
 	{
 		Object[] arguments = event.getArguments();
 		assert arguments != null && arguments.length > 0;
@@ -158,7 +158,7 @@ public abstract class ScriptVMMixin implements RSClient
 			try
 			{
 				rootScriptEvent = event;
-				copy$runScript(event, maxExecutionTime);
+				copy$runScript(event, maxExecutionTime, var2);
 			}
 			finally
 			{
@@ -180,7 +180,7 @@ public abstract class ScriptVMMixin implements RSClient
 	{
 		assert isClientThread() : "runScriptEvent must be called on client thread";
 		assert currentScript == null : "scripts are not reentrant";
-		runScript(event, 5000000);
+		runScript(event, 5000000, 0);
 		boolean assertionsEnabled = false;
 		assert assertionsEnabled = true;
 

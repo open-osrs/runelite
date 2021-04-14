@@ -1,34 +1,33 @@
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gz")
+@ObfuscatedName("eb")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1648093549
+		intValue = 997501595
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 845943469
+		intValue = -502030217
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 1266527917
+		intValue = -1934250883
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1498688541
+		intValue = 1021808117
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -36,38 +35,20 @@ public abstract class RouteStrategy {
 	protected RouteStrategy() {
 	} // L: 9
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IIILfe;I)Z",
-		garbageValue = "1148121553"
+		descriptor = "(IIILel;I)Z",
+		garbageValue = "120127354"
 	)
 	@Export("hasArrived")
 	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("id")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-69"
+		descriptor = "(IB)Z",
+		garbageValue = "95"
 	)
-	static void method3795() {
-		Iterator var0 = Messages.Messages_hashTable.iterator(); // L: 50
-
-		while (var0.hasNext()) { // L: 55
-			Message var1 = (Message)var0.next(); // L: 51
-			var1.clearIsFromFriend(); // L: 53
-		}
-
-	} // L: 56
-
-	@ObfuscatedName("gd")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1059430259"
-	)
-	static void method3794() {
-		if (Client.combatTargetPlayerIndex >= 0 && Client.players[Client.combatTargetPlayerIndex] != null) { // L: 4258
-			WorldMapScaleHandler.addPlayerToScene(Client.players[Client.combatTargetPlayerIndex], false); // L: 4259
-		}
-
-	} // L: 4261
+	static boolean method2653(int var0) {
+		return var0 == 57 || var0 == 58 || var0 == 1007 || var0 == 25 || var0 == 30; // L: 9045
+	}
 }

@@ -1,65 +1,61 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ey")
+@ObfuscatedName("gk")
 @Implements("ModelData0")
 public class ModelData0 {
-	@ObfuscatedName("ib")
-	@ObfuscatedGetter(
-		intValue = -1948740643
-	)
-	static int field1882;
-
 	ModelData0() {
 	} // L: 4
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(Lkd;II)V",
-		garbageValue = "-1780574680"
+		descriptor = "(Lir;III)Loh;",
+		garbageValue = "-2108875586"
 	)
-	@Export("updatePlayers")
-	static final void updatePlayers(PacketBuffer var0, int var1) {
-		int var2 = var0.offset; // L: 71
-		Players.Players_pendingUpdateCount = 0; // L: 72
-		WorldMapDecoration.method404(var0); // L: 73
-		MusicPatch.method4095(var0); // L: 74
-		if (var0.offset - var2 != var1) { // L: 75
-			throw new RuntimeException(var0.offset - var2 + " " + var1); // L: 76
+	@Export("SpriteBuffer_getSprite")
+	public static SpritePixels SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
+		byte[] var4 = var0.takeFile(var1, var2); // L: 91
+		boolean var3;
+		if (var4 == null) { // L: 92
+			var3 = false; // L: 93
+		} else {
+			class244.SpriteBuffer_decode(var4); // L: 96
+			var3 = true; // L: 97
 		}
-	} // L: 78
 
-	@ObfuscatedName("c")
+		if (!var3) { // L: 99
+			return null;
+		} else {
+			SpritePixels var5 = new SpritePixels(); // L: 102
+			var5.width = class395.SpriteBuffer_spriteWidth; // L: 103
+			var5.height = class395.SpriteBuffer_spriteHeight; // L: 104
+			var5.xOffset = class0.SpriteBuffer_xOffsets[0]; // L: 105
+			var5.yOffset = Interpreter.SpriteBuffer_yOffsets[0]; // L: 106
+			var5.subWidth = class395.SpriteBuffer_spriteWidths[0]; // L: 107
+			var5.subHeight = class157.SpriteBuffer_spriteHeights[0]; // L: 108
+			int var6 = var5.subWidth * var5.subHeight; // L: 109
+			byte[] var7 = class223.SpriteBuffer_pixels[0]; // L: 110
+			var5.pixels = new int[var6]; // L: 111
+
+			for (int var8 = 0; var8 < var6; ++var8) { // L: 112
+				var5.pixels[var8] = Varps.SpriteBuffer_spritePalette[var7[var8] & 255];
+			}
+
+			WorldMapDecorationType.method4370(); // L: 113
+			return var5; // L: 116
+		}
+	}
+
+	@ObfuscatedName("ig")
 	@ObfuscatedSignature(
-		descriptor = "([BIIII[Lfe;I)V",
-		garbageValue = "255234267"
+		descriptor = "(IIIZI)V",
+		garbageValue = "-1135384010"
 	)
-	static final void method3411(byte[] var0, int var1, int var2, int var3, int var4, CollisionMap[] var5) {
-		int var7;
-		int var8;
-		for (int var6 = 0; var6 < 4; ++var6) { // L: 93
-			for (var7 = 0; var7 < 64; ++var7) { // L: 94
-				for (var8 = 0; var8 < 64; ++var8) { // L: 95
-					if (var7 + var1 > 0 && var7 + var1 < 103 && var8 + var2 > 0 && var8 + var2 < 103) { // L: 96
-						int[] var10000 = var5[var6].flags[var7 + var1];
-						var10000[var8 + var2] &= -16777217;
-					}
-				}
-			}
+	static final void method3784(int var0, int var1, int var2, boolean var3) {
+		if (class15.loadInterface(var0)) { // L: 9976
+			Message.resizeInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3); // L: 9977
 		}
-
-		Buffer var10 = new Buffer(var0); // L: 100
-
-		for (var7 = 0; var7 < 4; ++var7) { // L: 101
-			for (var8 = 0; var8 < 64; ++var8) { // L: 102
-				for (int var9 = 0; var9 < 64; ++var9) { // L: 103
-					KeyHandler.loadTerrain(var10, var7, var8 + var1, var9 + var2, var3, var4, 0); // L: 104
-				}
-			}
-		}
-
-	} // L: 108
+	} // L: 9978
 }

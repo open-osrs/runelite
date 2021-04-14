@@ -1,80 +1,70 @@
-import java.awt.Component;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("iv")
+@ObfuscatedName("it")
 @Implements("PlayerType")
 public enum PlayerType implements Enumerated {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lit;"
 	)
 	@Export("PlayerType_normal")
 	PlayerType_normal(0, -1, true, false, true),
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lit;"
 	)
 	@Export("PlayerType_playerModerator")
 	PlayerType_playerModerator(1, 0, true, true, true),
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lit;"
 	)
 	@Export("PlayerType_jagexModerator")
 	PlayerType_jagexModerator(2, 1, true, true, false),
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lit;"
 	)
 	@Export("PlayerType_ironman")
 	PlayerType_ironman(3, 2, false, false, true),
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lit;"
 	)
 	@Export("PlayerType_ultimateIronman")
 	PlayerType_ultimateIronman(4, 3, false, false, true),
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lit;"
 	)
 	@Export("PlayerType_hardcoreIronman")
 	PlayerType_hardcoreIronman(5, 10, false, false, true),
-	@ObfuscatedName("z")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lit;"
 	)
-	field3132(6, 22, false, false, true);
+	field3226(6, 22, false, false, true);
 
-	@ObfuscatedName("oa")
-	@ObfuscatedSignature(
-		descriptor = "Lfo;"
-	)
-	@Export("mouseWheel")
-	static MouseWheel mouseWheel;
-	@ObfuscatedName("a")
-	public static boolean field3137;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -765581079
+		intValue = 1018159087
 	)
 	@Export("id")
 	final int id;
-	@ObfuscatedName("q")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1093542945
+		intValue = 210736671
 	)
 	@Export("modIcon")
 	public final int modIcon;
-	@ObfuscatedName("l")
+	@ObfuscatedName("n")
 	@Export("isPrivileged")
 	public final boolean isPrivileged;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@Export("isUser")
 	public final boolean isUser;
 
@@ -85,81 +75,73 @@ public enum PlayerType implements Enumerated {
 		this.isUser = var7; // L: 27
 	} // L: 28
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "63"
+		descriptor = "(I)I",
+		garbageValue = "-1000839247"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 31
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/awt/Component;I)V",
-		garbageValue = "2124061265"
+		descriptor = "(B)V",
+		garbageValue = "58"
 	)
-	static void method4345(Component var0) {
-		var0.removeKeyListener(KeyHandler.KeyHandler_instance); // L: 119
-		var0.removeFocusListener(KeyHandler.KeyHandler_instance); // L: 120
-		KeyHandler.field417 = -1; // L: 121
-	} // L: 122
-
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "(ILcl;ZI)I",
-		garbageValue = "373518150"
-	)
-	static int method4346(int var0, Script var1, boolean var2) {
-		Widget var3 = class237.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]); // L: 1216
-		if (var0 == ScriptOpcodes.IF_GETSCROLLX) { // L: 1217
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollX; // L: 1218
-			return 1; // L: 1219
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLY) { // L: 1221
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollY; // L: 1222
-			return 1; // L: 1223
-		} else if (var0 == ScriptOpcodes.IF_GETTEXT) { // L: 1225
-			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.text; // L: 1226
-			return 1; // L: 1227
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLWIDTH) { // L: 1229
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollWidth; // L: 1230
-			return 1; // L: 1231
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLHEIGHT) { // L: 1233
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.scrollHeight; // L: 1234
-			return 1; // L: 1235
-		} else if (var0 == ScriptOpcodes.IF_GETMODELZOOM) { // L: 1237
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelZoom; // L: 1238
-			return 1; // L: 1239
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_X) { // L: 1241
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelAngleX; // L: 1242
-			return 1; // L: 1243
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Z) { // L: 1245
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelAngleZ; // L: 1246
-			return 1; // L: 1247
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Y) { // L: 1249
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelAngleY; // L: 1250
-			return 1; // L: 1251
-		} else if (var0 == ScriptOpcodes.IF_GETTRANSTOP) { // L: 1253
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.transparencyTop; // L: 1254
-			return 1; // L: 1255
-		} else if (var0 == ScriptOpcodes.IF_GETTRANSBOT) { // L: 1257
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.transparencyBot; // L: 1258
-			return 1; // L: 1259
-		} else if (var0 == ScriptOpcodes.IF_GETCOLOUR) { // L: 1261
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.color; // L: 1262
-			return 1; // L: 1263
-		} else if (var0 == ScriptOpcodes.IF_GETFILLCOLOUR) { // L: 1265
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.color2; // L: 1266
-			return 1; // L: 1267
-		} else if (var0 == ScriptOpcodes.IF_GETFILLMODE) { // L: 1269
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal(); // L: 1270
-			return 1; // L: 1271
-		} else if (var0 == ScriptOpcodes.IF_GETMODELTRANSPARENT) { // L: 1273
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0; // L: 1274
-			return 1; // L: 1275
-		} else {
-			return 2; // L: 1277
+	public static void method4414() {
+		synchronized(MouseHandler.MouseHandler_instance) { // L: 58
+			MouseHandler.MouseHandler_currentButton = MouseHandler.MouseHandler_currentButtonVolatile; // L: 59
+			MouseHandler.MouseHandler_x = MouseHandler.MouseHandler_xVolatile; // L: 60
+			MouseHandler.MouseHandler_y = MouseHandler.MouseHandler_yVolatile; // L: 61
+			MouseHandler.MouseHandler_millis = MouseHandler.MouseHandler_lastMovedVolatile; // L: 62
+			MouseHandler.MouseHandler_lastButton = MouseHandler.MouseHandler_lastButtonVolatile; // L: 63
+			MouseHandler.MouseHandler_lastPressedX = MouseHandler.MouseHandler_lastPressedXVolatile; // L: 64
+			MouseHandler.MouseHandler_lastPressedY = MouseHandler.MouseHandler_lastPressedYVolatile; // L: 65
+			MouseHandler.MouseHandler_lastPressedTimeMillis = MouseHandler.MouseHandler_lastPressedTimeMillisVolatile; // L: 66
+			MouseHandler.MouseHandler_lastButtonVolatile = 0; // L: 67
 		}
-	}
+	} // L: 69
+
+	@ObfuscatedName("hm")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-96"
+	)
+	static final void method4410() {
+		boolean var0 = false; // L: 8967
+
+		while (!var0) { // L: 8968
+			var0 = true; // L: 8969
+
+			for (int var1 = 0; var1 < Client.menuOptionsCount - 1; ++var1) { // L: 8970
+				if (Client.menuOpcodes[var1] < 1000 && Client.menuOpcodes[var1 + 1] > 1000) { // L: 8971
+					String var2 = Client.menuTargets[var1]; // L: 8972
+					Client.menuTargets[var1] = Client.menuTargets[var1 + 1]; // L: 8973
+					Client.menuTargets[var1 + 1] = var2; // L: 8974
+					String var3 = Client.menuActions[var1]; // L: 8975
+					Client.menuActions[var1] = Client.menuActions[var1 + 1]; // L: 8976
+					Client.menuActions[var1 + 1] = var3; // L: 8977
+					int var4 = Client.menuOpcodes[var1]; // L: 8978
+					Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1]; // L: 8979
+					Client.menuOpcodes[var1 + 1] = var4; // L: 8980
+					var4 = Client.menuArguments1[var1]; // L: 8981
+					Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1]; // L: 8982
+					Client.menuArguments1[var1 + 1] = var4; // L: 8983
+					var4 = Client.menuArguments2[var1]; // L: 8984
+					Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1]; // L: 8985
+					Client.menuArguments2[var1 + 1] = var4; // L: 8986
+					var4 = Client.menuIdentifiers[var1]; // L: 8987
+					Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1]; // L: 8988
+					Client.menuIdentifiers[var1 + 1] = var4; // L: 8989
+					boolean var5 = Client.menuShiftClick[var1]; // L: 8990
+					Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1]; // L: 8991
+					Client.menuShiftClick[var1 + 1] = var5; // L: 8992
+					var0 = false; // L: 8993
+				}
+			}
+		}
+
+	} // L: 8997
 }

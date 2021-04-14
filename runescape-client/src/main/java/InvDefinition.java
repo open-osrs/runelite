@@ -1,27 +1,28 @@
+import java.io.File;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ij")
+@ObfuscatedName("js")
 @Implements("InvDefinition")
 public class InvDefinition extends DualNode {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lig;"
+		descriptor = "Lir;"
 	)
 	@Export("InvDefinition_archive")
-	static AbstractArchive InvDefinition_archive;
-	@ObfuscatedName("v")
+	public static AbstractArchive InvDefinition_archive;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Lgf;"
 	)
 	@Export("InvDefinition_cached")
 	static EvictingDualNodeHashTable InvDefinition_cached;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 2039181525
+		intValue = 651568811
 	)
 	@Export("size")
 	public int size;
@@ -34,55 +35,48 @@ public class InvDefinition extends DualNode {
 		this.size = 0; // L: 12
 	} // L: 14
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;B)V",
-		garbageValue = "-26"
+		descriptor = "(Lnu;B)V",
+		garbageValue = "86"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 32
-			if (var2 == 0) { // L: 33
-				return; // L: 36
+			int var2 = var1.readUnsignedByte(); // L: 28
+			if (var2 == 0) { // L: 29
+				return; // L: 32
 			}
 
-			this.decodeNext(var1, var2); // L: 34
+			this.decodeNext(var1, var2); // L: 30
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;II)V",
-		garbageValue = "-667990593"
+		descriptor = "(Lnu;IB)V",
+		garbageValue = "46"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 2) { // L: 39
+		if (var2 == 2) { // L: 35
 			this.size = var1.readUnsignedShort();
 		}
 
-	} // L: 41
+	} // L: 37
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lic;",
-		garbageValue = "63"
+		descriptor = "(Ljava/io/File;I)V",
+		garbageValue = "1853362286"
 	)
-	@Export("WorldMapElement_get")
-	public static WorldMapElement WorldMapElement_get(int var0) {
-		return var0 >= 0 && var0 < WorldMapElement.WorldMapElement_cached.length && WorldMapElement.WorldMapElement_cached[var0] != null ? WorldMapElement.WorldMapElement_cached[var0] : new WorldMapElement(var0); // L: 44 45
-	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "1853243794"
-	)
-	@Export("setLoginResponseString")
-	static void setLoginResponseString(String var0, String var1, String var2) {
-		Login.Login_response1 = var0; // L: 1447
-		Login.Login_response2 = var1; // L: 1448
-		Login.Login_response3 = var2; // L: 1449
-	} // L: 1450
+	@Export("assertCacheDirExists")
+	static void assertCacheDirExists(File var0) {
+		FileSystem.FileSystem_cacheDir = var0; // L: 16
+		if (!FileSystem.FileSystem_cacheDir.exists()) { // L: 17
+			throw new RuntimeException("");
+		} else {
+			FileSystem.FileSystem_hasPermissions = true; // L: 18
+		}
+	} // L: 19
 }

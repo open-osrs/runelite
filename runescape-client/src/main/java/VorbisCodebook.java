@@ -2,23 +2,23 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("dd")
+@ObfuscatedName("bo")
 @Implements("VorbisCodebook")
 public class VorbisCodebook {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@Export("dimensions")
 	int dimensions;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@Export("entries")
 	int entries;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@Export("lengthMap")
 	int[] lengthMap;
-	@ObfuscatedName("c")
-	int[] field1359;
-	@ObfuscatedName("y")
-	float[][] field1358;
-	@ObfuscatedName("h")
+	@ObfuscatedName("p")
+	int[] field461;
+	@ObfuscatedName("b")
+	float[][] field466;
+	@ObfuscatedName("e")
 	@Export("keys")
 	int[] keys;
 
@@ -35,7 +35,7 @@ public class VorbisCodebook {
 			var2 = 0; // L: 28
 
 			for (var3 = VorbisSample.readBits(5) + 1; var2 < this.entries; ++var3) { // L: 29 30 33
-				int var4 = VorbisSample.readBits(Coord.iLog(this.entries - var2)); // L: 31
+				int var4 = VorbisSample.readBits(GrandExchangeEvent.iLog(this.entries - var2)); // L: 31
 
 				for (var5 = 0; var5 < var4; ++var5) { // L: 32
 					this.lengthMap[var2++] = var3;
@@ -53,7 +53,7 @@ public class VorbisCodebook {
 			}
 		}
 
-		this.method2524(); // L: 43
+		this.method1067(); // L: 43
 		var2 = VorbisSample.readBits(4); // L: 44
 		if (var2 > 0) { // L: 45
 			float var15 = VorbisSample.float32Unpack(VorbisSample.readBits(32)); // L: 46
@@ -67,14 +67,14 @@ public class VorbisCodebook {
 				var7 = this.entries * this.dimensions; // L: 52
 			}
 
-			this.field1359 = new int[var7]; // L: 53
+			this.field461 = new int[var7]; // L: 53
 
 			int var8;
 			for (var8 = 0; var8 < var7; ++var8) { // L: 54
-				this.field1359[var8] = VorbisSample.readBits(var5);
+				this.field461[var8] = VorbisSample.readBits(var5);
 			}
 
-			this.field1358 = new float[this.entries][this.dimensions]; // L: 55
+			this.field466 = new float[this.entries][this.dimensions]; // L: 55
 			float var9;
 			int var10;
 			int var11;
@@ -85,8 +85,8 @@ public class VorbisCodebook {
 
 					for (var11 = 0; var11 < this.dimensions; ++var11) { // L: 60
 						int var12 = var8 / var10 % var7; // L: 61
-						float var13 = (float)this.field1359[var12] * var16 + var15 + var9; // L: 62
-						this.field1358[var8][var11] = var13; // L: 63
+						float var13 = (float)this.field461[var12] * var16 + var15 + var9; // L: 62
+						this.field466[var8][var11] = var13; // L: 63
 						if (var6) { // L: 64
 							var9 = var13;
 						}
@@ -100,8 +100,8 @@ public class VorbisCodebook {
 					var10 = var8 * this.dimensions; // L: 72
 
 					for (var11 = 0; var11 < this.dimensions; ++var11) { // L: 73
-						float var17 = (float)this.field1359[var10] * var16 + var15 + var9; // L: 74
-						this.field1358[var8][var11] = var17; // L: 75
+						float var17 = (float)this.field461[var10] * var16 + var15 + var9; // L: 74
+						this.field466[var8][var11] = var17; // L: 75
 						if (var6) { // L: 76
 							var9 = var17;
 						}
@@ -114,8 +114,8 @@ public class VorbisCodebook {
 
 	} // L: 82
 
-	@ObfuscatedName("v")
-	void method2524() {
+	@ObfuscatedName("o")
+	void method1067() {
 		int[] var1 = new int[this.entries]; // L: 85
 		int[] var2 = new int[33]; // L: 87
 
@@ -208,8 +208,8 @@ public class VorbisCodebook {
 
 	} // L: 148
 
-	@ObfuscatedName("d")
-	int method2510() {
+	@ObfuscatedName("u")
+	int method1068() {
 		int var1;
 		for (var1 = 0; this.keys[var1] >= 0; var1 = VorbisSample.readBit() != 0 ? this.keys[var1] : var1 + 1) { // L: 151 152
 		}
@@ -217,16 +217,16 @@ public class VorbisCodebook {
 		return ~this.keys[var1]; // L: 153
 	}
 
-	@ObfuscatedName("c")
-	float[] method2511() {
-		return this.field1358[this.method2510()]; // L: 157
+	@ObfuscatedName("p")
+	float[] method1069() {
+		return this.field466[this.method1068()]; // L: 157
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@Export("mapType1QuantValues")
 	static int mapType1QuantValues(int var0, int var1) {
 		int var2;
-		for (var2 = (int)Math.pow((double)var0, 1.0D / (double)var1) + 1; class39.method644(var2, var1) > var0; --var2) { // L: 16 17
+		for (var2 = (int)Math.pow((double)var0, 1.0D / (double)var1) + 1; Skeleton.method3431(var2, var1) > var0; --var2) { // L: 16 17
 		}
 
 		return var2; // L: 18

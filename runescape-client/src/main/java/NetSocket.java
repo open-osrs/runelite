@@ -9,72 +9,68 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fr")
+@ObfuscatedName("ek")
 @Implements("NetSocket")
 public final class NetSocket extends AbstractSocket implements Runnable {
-	@ObfuscatedName("fy")
-	@ObfuscatedSignature(
-		descriptor = "Lfl;"
-	)
-	@Export("socketTask")
-	static Task socketTask;
-	@ObfuscatedName("n")
+	@ObfuscatedName("d")
+	static boolean field1498;
+	@ObfuscatedName("f")
 	@Export("inputStream")
 	InputStream inputStream;
-	@ObfuscatedName("v")
-	@Export("outputStream")
-	OutputStream outputStream;
-	@ObfuscatedName("d")
+	@ObfuscatedName("o")
 	@Export("socket")
 	Socket socket;
-	@ObfuscatedName("c")
+	@ObfuscatedName("u")
+	@Export("outputStream")
+	OutputStream outputStream;
+	@ObfuscatedName("p")
 	@Export("isClosed")
 	boolean isClosed;
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lfu;"
+		descriptor = "Ldt;"
 	)
 	@Export("taskHandler")
 	TaskHandler taskHandler;
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Lep;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("z")
+	@ObfuscatedName("k")
 	@Export("outBuffer")
 	byte[] outBuffer;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -80175503
+		intValue = 1893029663
 	)
 	@Export("outLength")
 	int outLength;
-	@ObfuscatedName("q")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -502445773
+		intValue = -1275635837
 	)
 	@Export("outOffset")
 	int outOffset;
-	@ObfuscatedName("l")
+	@ObfuscatedName("n")
 	@Export("exceptionWriting")
 	boolean exceptionWriting;
-	@ObfuscatedName("s")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1447892009
+		intValue = -1698435769
 	)
 	@Export("bufferLength")
 	final int bufferLength;
-	@ObfuscatedName("b")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1889811971
+		intValue = 190776071
 	)
 	@Export("maxPacketLength")
 	final int maxPacketLength;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/Socket;Lfu;I)V"
+		descriptor = "(Ljava/net/Socket;Ldt;I)V"
 	)
 	public NetSocket(Socket var1, TaskHandler var2, int var3) throws IOException {
 		this.isClosed = false; // L: 16
@@ -93,10 +89,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		this.outputStream = this.socket.getOutputStream(); // L: 37
 	} // L: 38
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "136255387"
+		garbageValue = "-1705512918"
 	)
 	@Export("close")
 	public void close() {
@@ -108,7 +104,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 			if (this.task != null) { // L: 46
 				while (this.task.status == 0) { // L: 47
-					ApproximateRouteStrategy.sleepExact(1L); // L: 48
+					GrandExchangeEvent.sleepExact(1L); // L: 48
 				}
 
 				if (this.task.status == 1) { // L: 50
@@ -123,30 +119,30 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	} // L: 58
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "-29"
+		garbageValue = "-75"
 	)
 	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.read(); // L: 65 66
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "1"
+		garbageValue = "-65"
 	)
 	@Export("available")
 	public int available() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.available(); // L: 70 71
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "1621767276"
+		garbageValue = "1604537239"
 	)
 	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
@@ -157,10 +153,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "([BIIB)I",
-		garbageValue = "-127"
+		garbageValue = "121"
 	)
 	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
@@ -182,10 +178,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "-2045267371"
+		garbageValue = "277239733"
 	)
 	@Export("write0")
 	void write0(byte[] var1, int var2, int var3) throws IOException {
@@ -217,10 +213,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	} // L: 111
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "1032488862"
+		garbageValue = "199608149"
 	)
 	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
@@ -238,7 +234,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 					int var1;
 					int var2;
 					synchronized(this) { // L: 118
-						if (this.outOffset == this.outLength) { // L: 119
+						if (this.outLength == this.outOffset) { // L: 119
 							if (this.isClosed) { // L: 120
 								break label84;
 							}
@@ -298,17 +294,21 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 				break;
 			}
 		} catch (Exception var12) { // L: 154
-			SequenceDefinition.RunException_sendStackTrace((String)null, var12); // L: 155
+			class223.RunException_sendStackTrace((String)null, var12); // L: 155
 		}
 
 	} // L: 157
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "-3619"
+		descriptor = "(II)I",
+		garbageValue = "1850245175"
 	)
-	static final void method3748() {
-		class300.method5473("You can't add yourself to your own ignore list"); // L: 162
-	} // L: 163
+	public static int method2587(int var0) {
+		if (var0 > 0) { // L: 206
+			return 1;
+		} else {
+			return var0 < 0 ? -1 : 0; // L: 207 208
+		}
+	}
 }

@@ -330,6 +330,13 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public String getBuildID()
+	{
+		return "OpenOSRS";
+	}
+
+	@Inject
+	@Override
 	public Callbacks getCallbacks()
 	{
 		return callbacks;
@@ -1504,7 +1511,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@MethodHook("updateNpcs")
-	public static void updateNpcs(boolean var0, RSPacketBuffer var1)
+	public static void updateNpcs(boolean var0, RSPacketBuffer var1, boolean var2)
 	{
 		client.getCallbacks().updateNpcs();
 	}

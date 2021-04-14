@@ -4,12 +4,12 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ke")
+@ObfuscatedName("lz")
 @Implements("Ignored")
 public class Ignored extends User {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1743470609
+		intValue = 2054928513
 	)
 	@Export("id")
 	int id;
@@ -17,20 +17,20 @@ public class Ignored extends User {
 	Ignored() {
 	} // L: 6
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lke;I)I",
-		garbageValue = "1892855432"
+		descriptor = "(Llz;S)I",
+		garbageValue = "-7783"
 	)
 	@Export("compareTo_ignored")
 	int compareTo_ignored(Ignored var1) {
 		return this.id - var1.id; // L: 9
 	}
 
-	@ObfuscatedName("at")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Ljn;I)I",
-		garbageValue = "642739557"
+		descriptor = "(Llt;I)I",
+		garbageValue = "1200801892"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {

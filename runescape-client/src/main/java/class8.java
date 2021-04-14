@@ -1,87 +1,58 @@
-import java.util.concurrent.Callable;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("q")
-public class class8 implements Callable {
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = 880738975
-	)
-	static int field45;
-	@ObfuscatedName("z")
+@ObfuscatedName("h")
+public class class8 extends class14 {
+	@ObfuscatedName("dv")
 	@ObfuscatedSignature(
 		descriptor = "Lig;"
 	)
-	@Export("ItemDefinition_modelArchive")
-	public static AbstractArchive ItemDefinition_modelArchive;
-	@ObfuscatedName("du")
-	@Export("mouseCam")
-	static boolean mouseCam;
-	@ObfuscatedName("dq")
-	@ObfuscatedSignature(
-		descriptor = "Liy;"
+	@Export("archive6")
+	static Archive archive6;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		longValue = -996189269817114369L
 	)
-	@Export("archive5")
-	static Archive archive5;
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lkx;"
-	)
-	final Buffer field48;
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "La;"
-	)
-	final class12 field44;
+	long field58;
+	@ObfuscatedName("o")
+	String field60;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ll;"
+		descriptor = "Lu;"
 	)
-	final class9 this$0;
+	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ll;Lkx;La;)V"
+		descriptor = "(Lu;)V"
 	)
-	class8(class9 var1, Buffer var2, class12 var3) {
-		this.this$0 = var1; // L: 47
-		this.field48 = var2; // L: 48
-		this.field44 = var3; // L: 49
-	} // L: 50
+	class8(class2 var1) {
+		this.this$0 = var1;
+		this.field58 = -1L; // L: 74
+		this.field60 = null; // L: 75
+	} // L: 77
 
-	public Object call() {
-		return this.field44.vmethod120(this.field48); // L: 53
-	}
-
-	@ObfuscatedName("z")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1606674389"
+		descriptor = "(Lnu;I)V",
+		garbageValue = "-1383981708"
 	)
-	static void method88() {
-		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) { // L: 245
-			Login.currentLoginField = 1; // L: 246
-		} else {
-			Login.currentLoginField = 0; // L: 249
+	void vmethod371(Buffer var1) {
+		if (var1.readUnsignedByte() != 255) { // L: 80
+			--var1.offset; // L: 81
+			this.field58 = var1.readLong(); // L: 82
 		}
 
-	} // L: 251
+		this.field60 = var1.readStringCp1252NullTerminatedOrNull(); // L: 84
+	} // L: 85
 
-	@ObfuscatedName("fc")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1683075564"
+		descriptor = "(Lm;I)V",
+		garbageValue = "-1475503816"
 	)
-	static final void method90() {
-		if (Client.logoutTimer > 0) { // L: 2639
-			SecureRandomCallable.logOut(); // L: 2640
-		} else {
-			Client.timer.method5206(); // L: 2643
-			ItemContainer.updateGameState(40); // L: 2644
-			UserComparator6.field2008 = Client.packetWriter.getSocket(); // L: 2645
-			Client.packetWriter.removeSocket(); // L: 2646
-		}
-	} // L: 2641 2647
+	void vmethod376(class11 var1) {
+		var1.method146(this.field58, this.field60, 0); // L: 88
+	} // L: 89
 }

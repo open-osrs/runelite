@@ -4,32 +4,35 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hd")
+@ObfuscatedName("hk")
 @Implements("Coord")
 public class Coord {
-	@ObfuscatedName("q")
-	static int[] field2560;
-	@ObfuscatedName("n")
+	@ObfuscatedName("ov")
+	@ObfuscatedSignature(
+		descriptor = "Lmk;"
+	)
+	static class338 field2591;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1010419141
+		intValue = -227225909
 	)
 	@Export("plane")
 	public int plane;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1636543291
+		intValue = -2147189971
 	)
 	@Export("x")
 	public int x;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1486415971
+		intValue = 5380173
 	)
 	@Export("y")
 	public int y;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lhd;)V"
+		descriptor = "(Lhk;)V"
 	)
 	public Coord(Coord var1) {
 		this.plane = var1.plane; // L: 15
@@ -54,20 +57,20 @@ public class Coord {
 
 	} // L: 27
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "71745539"
+		garbageValue = "-1365130911"
 	)
 	@Export("packed")
 	public int packed() {
 		return this.plane << 28 | this.x << 14 | this.y; // L: 30
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lhd;S)Z",
-		garbageValue = "144"
+		descriptor = "(Lhk;I)Z",
+		garbageValue = "-1711331725"
 	)
 	@Export("equalsCoord")
 	boolean equalsCoord(Coord var1) {
@@ -80,14 +83,18 @@ public class Coord {
 		}
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "31"
+		garbageValue = "-9"
 	)
 	@Export("toString")
 	String toString(String var1) {
-		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63);
+		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63); // L: 55
+	}
+
+	public int hashCode() {
+		return this.packed(); // L: 47
 	}
 
 	public boolean equals(Object var1) {
@@ -98,47 +105,7 @@ public class Coord {
 		}
 	}
 
-	public int hashCode() {
-		return this.packed(); // L: 47
-	}
-
 	public String toString() {
 		return this.toString(","); // L: 51
-	}
-
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "1310695522"
-	)
-	@Export("iLog")
-	public static int iLog(int var0) {
-		int var1 = 0; // L: 54
-		if (var0 < 0 || var0 >= 65536) { // L: 55
-			var0 >>>= 16; // L: 56
-			var1 += 16; // L: 57
-		}
-
-		if (var0 >= 256) { // L: 59
-			var0 >>>= 8; // L: 60
-			var1 += 8; // L: 61
-		}
-
-		if (var0 >= 16) { // L: 63
-			var0 >>>= 4; // L: 64
-			var1 += 4; // L: 65
-		}
-
-		if (var0 >= 4) { // L: 67
-			var0 >>>= 2; // L: 68
-			var1 += 2; // L: 69
-		}
-
-		if (var0 >= 1) { // L: 71
-			var0 >>>= 1; // L: 72
-			++var1; // L: 73
-		}
-
-		return var0 + var1; // L: 75
 	}
 }

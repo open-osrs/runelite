@@ -1,12 +1,24 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fn")
+@ObfuscatedName("db")
 @Implements("UserComparator10")
 public class UserComparator10 extends AbstractUserComparator {
-	@ObfuscatedName("n")
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = 1931551411
+	)
+	static int field1439;
+	@ObfuscatedName("mm")
+	@ObfuscatedGetter(
+		intValue = 1081078287
+	)
+	@Export("selectedSpellFlags")
+	static int selectedSpellFlags;
+	@ObfuscatedName("f")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -14,17 +26,17 @@ public class UserComparator10 extends AbstractUserComparator {
 		this.reversed = var1; // L: 11
 	} // L: 12
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lky;Lky;I)I",
-		garbageValue = "899318279"
+		descriptor = "(Llg;Llg;I)I",
+		garbageValue = "-1459911395"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
 		if (Client.worldId == var1.world && var2.world == Client.worldId) { // L: 15
 			return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2; // L: 16
 		} else {
-			return this.compareUser(var1, var2);
+			return this.compareUser(var1, var2); // L: 18
 		}
 	}
 
@@ -32,24 +44,20 @@ public class UserComparator10 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 22
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "77103650"
+		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lor;"
 	)
-	static String method3580(int var0) {
-		return "<img=" + var0 + ">"; // L: 18
-	}
+	@Export("newRunException")
+	public static RunException newRunException(Throwable var0, String var1) {
+		RunException var2;
+		if (var0 instanceof RunException) { // L: 57
+			var2 = (RunException)var0; // L: 58
+			var2.message = var2.message + ' ' + var1; // L: 59
+		} else {
+			var2 = new RunException(var0, var1); // L: 61
+		}
 
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1892343700"
-	)
-	static void method3573() {
-		Login.worldSelectOpen = false; // L: 1577
-		Login.leftTitleSprite.drawAt(Login.xPadding, 0); // L: 1578
-		Login.rightTitleSprite.drawAt(Login.xPadding + 382, 0); // L: 1579
-		Login.logoSprite.drawAt(Login.xPadding + 382 - Login.logoSprite.subWidth / 2, 18); // L: 1580
-	} // L: 1581
+		return var2; // L: 62
+	}
 }

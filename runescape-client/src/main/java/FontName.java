@@ -1,59 +1,55 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kq")
+@ObfuscatedName("mv")
 @Implements("FontName")
 public class FontName {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lkq;"
+		descriptor = "Lmv;"
 	)
 	@Export("FontName_plain11")
 	public static final FontName FontName_plain11;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lkq;"
+		descriptor = "Lmv;"
 	)
 	@Export("FontName_plain12")
 	public static final FontName FontName_plain12;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lkq;"
+		descriptor = "Lmv;"
 	)
 	@Export("FontName_bold12")
 	public static final FontName FontName_bold12;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lkq;"
+		descriptor = "Lmv;"
 	)
 	@Export("FontName_verdana11")
 	public static final FontName FontName_verdana11;
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lkq;"
+		descriptor = "Lmv;"
 	)
 	@Export("FontName_verdana13")
 	public static final FontName FontName_verdana13;
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lkq;"
+		descriptor = "Lmv;"
 	)
 	@Export("FontName_verdana15")
 	public static final FontName FontName_verdana15;
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
+	@ObfuscatedName("lb")
+	@ObfuscatedGetter(
+		intValue = 1196232611
 	)
-	@Export("Widget_archive")
-	public static AbstractArchive Widget_archive;
-	@ObfuscatedName("br")
-	@ObfuscatedSignature(
-		descriptor = "Lim;"
-	)
-	static StudioGame field3699;
-	@ObfuscatedName("z")
+	@Export("menuY")
+	static int menuY;
+	@ObfuscatedName("k")
 	@Export("name")
 	String name;
 
@@ -70,23 +66,31 @@ public class FontName {
 		this.name = var1; // L: 16
 	} // L: 17
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("kn")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-1321910935"
+		descriptor = "(Ljava/lang/String;ZB)Ljava/lang/String;",
+		garbageValue = "72"
 	)
-	@Export("getVarbit")
-	public static int getVarbit(int var0) {
-		VarbitComposition var1 = Tiles.method1219(var0); // L: 24
-		int var2 = var1.baseVar; // L: 25
-		int var3 = var1.startBit; // L: 26
-		int var4 = var1.endBit; // L: 27
-		int var5 = Varps.Varps_masks[var4 - var3]; // L: 28
-		return Varps.Varps_main[var2] >> var3 & var5; // L: 29
-	}
+	static String method6285(String var0, boolean var1) {
+		String var2 = var1 ? "https://" : "http://"; // L: 11607
+		if (Client.gameBuild == 1) { // L: 11608
+			var0 = var0 + "-wtrc";
+		} else if (Client.gameBuild == 2) { // L: 11609
+			var0 = var0 + "-wtqa";
+		} else if (Client.gameBuild == 3) { // L: 11610
+			var0 = var0 + "-wtwip";
+		} else if (Client.gameBuild == 5) { // L: 11611
+			var0 = var0 + "-wti";
+		} else if (Client.gameBuild == 4) { // L: 11612
+			var0 = "local";
+		}
 
-	@ObfuscatedName("e")
-	public static int method5502(long var0) {
-		return (int)(var0 >>> 14 & 3L); // L: 72
+		String var3 = ""; // L: 11613
+		if (class0.field4 != null) { // L: 11614
+			var3 = "/p=" + class0.field4;
+		}
+
+		String var4 = "runescape.com"; // L: 11615
+		return var2 + var0 + "." + var4 + "/l=" + class35.clientLanguage + "/a=" + FaceNormal.field2002 + var3 + "/"; // L: 11616
 	}
 }

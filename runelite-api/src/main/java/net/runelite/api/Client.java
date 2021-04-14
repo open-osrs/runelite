@@ -1739,13 +1739,6 @@ public interface Client extends GameEngine
 	void setCompass(SpritePixels SpritePixels);
 
 	/**
-	 * Sets whether inventory quantity is verbose.
-	 *
-	 * @param state verbose state
-	 */
-	void setItemQuantitiesVerbose(boolean state);
-
-	/**
 	 * Returns widget sprite cache, to be used with {@link Client#getSpriteOverrides()}
 	 *
 	 * @return the cache

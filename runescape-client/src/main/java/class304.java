@@ -1,90 +1,140 @@
+import java.util.Arrays;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kn")
-public class class304 {
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "(ILcl;ZI)I",
-		garbageValue = "-1784292523"
-	)
-	static int method5507(int var0, Script var1, boolean var2) {
-		if (var0 < 1000) { // L: 391
-			return class228.method4309(var0, var1, var2);
-		} else if (var0 < 1100) { // L: 392
-			return class4.method53(var0, var1, var2);
-		} else if (var0 < 1200) { // L: 393
-			return class90.method2193(var0, var1, var2);
-		} else if (var0 < 1300) { // L: 394
-			return class197.method3844(var0, var1, var2);
-		} else if (var0 < 1400) { // L: 395
-			return AbstractWorldMapData.method350(var0, var1, var2);
-		} else if (var0 < 1500) { // L: 396
-			return WorldMapSection1.method679(var0, var1, var2);
-		} else if (var0 < 1600) { // L: 397
-			return AbstractWorldMapIcon.method713(var0, var1, var2);
-		} else if (var0 < 1700) { // L: 398
-			return class9.method98(var0, var1, var2);
-		} else if (var0 < 1800) { // L: 399
-			return PendingSpawn.method1845(var0, var1, var2);
-		} else if (var0 < 1900) { // L: 400
-			return Huffman.method4157(var0, var1, var2);
-		} else if (var0 < 2000) { // L: 401
-			return BuddyRankComparator.method3622(var0, var1, var2);
-		} else if (var0 < 2100) { // L: 402
-			return class4.method53(var0, var1, var2);
-		} else if (var0 < 2200) { // L: 403
-			return class90.method2193(var0, var1, var2);
-		} else if (var0 < 2300) { // L: 404
-			return class197.method3844(var0, var1, var2);
-		} else if (var0 < 2400) { // L: 405
-			return AbstractWorldMapData.method350(var0, var1, var2);
-		} else if (var0 < 2500) {
-			return WorldMapSection1.method679(var0, var1, var2); // L: 406
-		} else if (var0 < 2600) { // L: 407
-			return BuddyRankComparator.method3621(var0, var1, var2);
-		} else if (var0 < 2700) { // L: 408
-			return PlayerType.method4346(var0, var1, var2);
-		} else if (var0 < 2800) { // L: 409
-			return MouseHandler.method1174(var0, var1, var2);
-		} else if (var0 < 2900) { // L: 410
-			return Login.method2223(var0, var1, var2);
-		} else if (var0 < 3000) { // L: 411
-			return BuddyRankComparator.method3622(var0, var1, var2);
-		} else if (var0 < 3200) { // L: 412
-			return MusicPatchPcmStream.method4118(var0, var1, var2);
-		} else if (var0 < 3300) { // L: 413
-			return ApproximateRouteStrategy.method1313(var0, var1, var2);
-		} else if (var0 < 3400) { // L: 414
-			return Strings.method4326(var0, var1, var2);
-		} else if (var0 < 3500) { // L: 415
-			return WorldMapManager.method746(var0, var1, var2);
-		} else if (var0 < 3700) { // L: 416
-			return Occluder.method3447(var0, var1, var2);
-		} else if (var0 < 3800) { // L: 417
-			return class2.method25(var0, var1, var2);
-		} else if (var0 < 4000) { // L: 418
-			return class219.method4173(var0, var1, var2);
-		} else if (var0 < 4100) { // L: 419
-			return JagexCache.method3686(var0, var1, var2);
-		} else if (var0 < 4200) { // L: 420
-			return HorizontalAlignment.method4924(var0, var1, var2);
-		} else if (var0 < 4300) { // L: 421
-			return Tiles.method1215(var0, var1, var2);
-		} else if (var0 < 5100) {
-			return PendingSpawn.method1846(var0, var1, var2); // L: 422
-		} else if (var0 < 5400) { // L: 423
-			return ScriptFrame.method1221(var0, var1, var2);
-		} else if (var0 < 5600) { // L: 424
-			return WorldMapIcon_0.method285(var0, var1, var2);
-		} else if (var0 < 5700) { // L: 425
-			return Widget.method4292(var0, var1, var2);
-		} else if (var0 < 6300) { // L: 426
-			return ApproximateRouteStrategy.method1315(var0, var1, var2);
-		} else if (var0 < 6600) { // L: 427
-			return Client.method1839(var0, var1, var2);
-		} else {
-			return var0 < 6700 ? class195.method3821(var0, var1, var2) : 2; // L: 428 429
+@ObfuscatedName("kv")
+public final class class304 {
+	@ObfuscatedName("f")
+	@Export("base37Table")
+	static final char[] base37Table;
+	@ObfuscatedName("o")
+	static long[] field3761;
+
+	static {
+		base37Table = new char[]{'_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; // L: 4
+		field3761 = new long[12]; // L: 5
+
+		for (int var0 = 0; var0 < field3761.length; ++var0) { // L: 8
+			field3761[var0] = (long)Math.pow(37.0D, (double)var0);
 		}
-	}
+
+	} // L: 9
+
+	@ObfuscatedName("eo")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1745033175"
+	)
+	static void method5536() {
+		Client.mouseLastLastPressedTimeMillis = -1L; // L: 2181
+		Language.mouseRecorder.index = 0; // L: 2182
+		GrandExchangeOfferAgeComparator.hasFocus = true; // L: 2183
+		Client.hadFocus = true; // L: 2184
+		Client.field678 = -1L; // L: 2185
+		class69.reflectionChecks = new IterableNodeDeque(); // L: 2187
+		Client.packetWriter.clearBuffer(); // L: 2189
+		Client.packetWriter.packetBuffer.offset = 0; // L: 2190
+		Client.packetWriter.serverPacket = null; // L: 2191
+		Client.packetWriter.field1381 = null; // L: 2192
+		Client.packetWriter.field1392 = null; // L: 2193
+		Client.packetWriter.field1393 = null; // L: 2194
+		Client.packetWriter.serverPacketLength = 0; // L: 2195
+		Client.packetWriter.field1391 = 0; // L: 2196
+		Client.rebootTimer = 0; // L: 2197
+		Client.logoutTimer = 0; // L: 2198
+		Client.hintArrowType = 0; // L: 2199
+		Client.menuOptionsCount = 0; // L: 2201
+		Client.isMenuOpen = false; // L: 2202
+		MouseHandler.MouseHandler_idleCycles = 0; // L: 2205
+		Script.method2010(); // L: 2207
+		Client.isItemSelected = 0; // L: 2208
+		Client.isSpellSelected = false; // L: 2209
+		Client.soundEffectCount = 0; // L: 2210
+		Client.camAngleY = 0; // L: 2211
+		Client.oculusOrbState = 0; // L: 2212
+		class105.field1331 = null; // L: 2213
+		Client.minimapState = 0; // L: 2214
+		Client.field833 = -1; // L: 2215
+		Client.destinationX = 0; // L: 2216
+		Client.destinationY = 0; // L: 2217
+		Client.playerAttackOption = AttackOption.AttackOption_hidden; // L: 2218
+		Client.npcAttackOption = AttackOption.AttackOption_hidden; // L: 2219
+		Client.npcCount = 0; // L: 2220
+		TaskHandler.method2524(); // L: 2221
+
+		int var0;
+		for (var0 = 0; var0 < 2048; ++var0) { // L: 2222
+			Client.players[var0] = null;
+		}
+
+		for (var0 = 0; var0 < 32768; ++var0) { // L: 2223
+			Client.npcs[var0] = null;
+		}
+
+		Client.combatTargetPlayerIndex = -1; // L: 2224
+		Client.projectiles.clear(); // L: 2225
+		Client.graphicsObjects.clear(); // L: 2226
+
+		for (var0 = 0; var0 < 4; ++var0) { // L: 2227
+			for (int var4 = 0; var4 < 104; ++var4) { // L: 2228
+				for (int var2 = 0; var2 < 104; ++var2) { // L: 2229
+					Client.groundItems[var0][var4][var2] = null; // L: 2230
+				}
+			}
+		}
+
+		Client.pendingSpawns = new NodeDeque(); // L: 2234
+		class13.friendSystem.clear(); // L: 2235
+
+		for (var0 = 0; var0 < VarpDefinition.VarpDefinition_fileCount; ++var0) { // L: 2236
+			VarpDefinition var1 = class303.VarpDefinition_get(var0); // L: 2237
+			if (var1 != null) { // L: 2238
+				Varps.Varps_temp[var0] = 0; // L: 2239
+				Varps.Varps_main[var0] = 0; // L: 2240
+			}
+		}
+
+		TextureProvider.varcs.clearTransient(); // L: 2243
+		Client.followerIndex = -1; // L: 2244
+		if (Client.rootInterface != -1) { // L: 2245
+			WorldMapRegion.method2929(Client.rootInterface);
+		}
+
+		for (InterfaceParent var3 = (InterfaceParent)Client.interfaceParents.first(); var3 != null; var3 = (InterfaceParent)Client.interfaceParents.next()) { // L: 2246
+			WorldMapData_1.closeInterface(var3, true); // L: 2247
+		}
+
+		Client.rootInterface = -1; // L: 2249
+		Client.interfaceParents = new NodeHashTable(8); // L: 2250
+		Client.meslayerContinueWidget = null; // L: 2251
+		Client.menuOptionsCount = 0; // L: 2253
+		Client.isMenuOpen = false; // L: 2254
+		Client.playerAppearance.update((int[])null, new int[]{0, 0, 0, 0, 0}, false, -1); // L: 2256
+
+		for (var0 = 0; var0 < 8; ++var0) { // L: 2257
+			Client.playerMenuActions[var0] = null; // L: 2258
+			Client.playerOptionsPriorities[var0] = false; // L: 2259
+		}
+
+		ItemContainer.itemContainers = new NodeHashTable(32); // L: 2262
+		Client.isLoading = true; // L: 2264
+
+		for (var0 = 0; var0 < 100; ++var0) { // L: 2265
+			Client.field811[var0] = true;
+		}
+
+		ItemContainer.method2093(); // L: 2266
+		InterfaceParent.clanChat = null; // L: 2267
+		ObjectSound.field928 = null; // L: 2268
+		Arrays.fill(Client.field831, (Object)null); // L: 2269
+		IsaacCipher.field4266 = null; // L: 2270
+		Arrays.fill(Client.field820, (Object)null); // L: 2271
+
+		for (var0 = 0; var0 < 8; ++var0) { // L: 2272
+			Client.grandExchangeOffers[var0] = new GrandExchangeOffer();
+		}
+
+		Calendar.grandExchangeEvents = null; // L: 2273
+	} // L: 2274
 }

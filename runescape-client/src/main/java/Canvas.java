@@ -1,26 +1,27 @@
 import java.awt.Component;
 import java.awt.Graphics;
+import java.security.SecureRandom;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bq")
+@ObfuscatedName("ai")
 @Implements("Canvas")
 public final class Canvas extends java.awt.Canvas {
-	@ObfuscatedName("ao")
-	@ObfuscatedGetter(
-		intValue = 2077405845
-	)
-	static int field439;
-	@ObfuscatedName("lz")
+	@ObfuscatedName("pj")
 	@ObfuscatedSignature(
-		descriptor = "Lhz;"
+		descriptor = "Lln;"
 	)
-	@Export("mousedOverWidgetIf1")
-	static Widget mousedOverWidgetIf1;
-	@ObfuscatedName("n")
+	@Export("privateChatMode")
+	static PrivateChatMode privateChatMode;
+	@ObfuscatedName("a")
+	@Export("userHomeDirectory")
+	static String userHomeDirectory;
+	@ObfuscatedName("eo")
+	@Export("secureRandom")
+	static SecureRandom secureRandom;
+	@ObfuscatedName("f")
 	@Export("component")
 	Component component;
 
@@ -36,57 +37,76 @@ public final class Canvas extends java.awt.Canvas {
 		this.component.paint(var1); // L: 19
 	} // L: 20
 
-	@ObfuscatedName("aw")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-866196004"
+		descriptor = "(Lig;IIIBZI)V",
+		garbageValue = "-501107063"
 	)
-	static int method935(int var0) {
-		return (int)Math.pow(2.0D, (double)(7.0F + (float)var0 / 256.0F)); // L: 3273
-	}
+	@Export("requestNetFile")
+	static void requestNetFile(Archive var0, int var1, int var2, int var3, byte var4, boolean var5) {
+		long var6 = (long)((var1 << 16) + var2); // L: 223
+		NetFileRequest var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityWrites.get(var6); // L: 224
+		if (var8 == null) { // L: 225
+			var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.get(var6); // L: 226
+			if (var8 == null) { // L: 227
+				var8 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var6); // L: 228
+				if (var8 != null) { // L: 229
+					if (var5) { // L: 230
+						var8.removeDual(); // L: 231
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 232
+						--NetCache.NetCache_pendingWritesCount; // L: 233
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 234
+					}
 
-	@ObfuscatedName("hc")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIIII)V",
-		garbageValue = "-614885261"
-	)
-	@Export("updatePendingSpawn")
-	static final void updatePendingSpawn(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-		PendingSpawn var9 = null; // L: 7245
+				} else {
+					if (!var5) { // L: 238
+						var8 = (NetFileRequest)NetCache.NetCache_pendingResponses.get(var6); // L: 239
+						if (var8 != null) { // L: 240
+							return;
+						}
+					}
 
-		for (PendingSpawn var10 = (PendingSpawn)Client.pendingSpawns.last(); var10 != null; var10 = (PendingSpawn)Client.pendingSpawns.previous()) { // L: 7246 7247 7252
-			if (var0 == var10.plane && var10.x == var1 && var2 == var10.y && var3 == var10.type) { // L: 7248
-				var9 = var10; // L: 7249
-				break;
+					var8 = new NetFileRequest(); // L: 242
+					var8.archive = var0; // L: 243
+					var8.crc = var3; // L: 244
+					var8.padding = var4; // L: 245
+					if (var5) { // L: 246
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 247
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 248
+					} else {
+						NetCache.NetCache_pendingWritesQueue.addFirst(var8); // L: 251
+						NetCache.NetCache_pendingWrites.put(var8, var6); // L: 252
+						++NetCache.NetCache_pendingWritesCount; // L: 253
+					}
+
+				}
 			}
 		}
+	} // L: 236 255
 
-		if (var9 == null) { // L: 7254
-			var9 = new PendingSpawn(); // L: 7255
-			var9.plane = var0; // L: 7256
-			var9.type = var3; // L: 7257
-			var9.x = var1; // L: 7258
-			var9.y = var2; // L: 7259
-			WorldMapElement.method4592(var9); // L: 7260
-			Client.pendingSpawns.addFirst(var9); // L: 7261
-		}
-
-		var9.id = var4; // L: 7263
-		var9.field948 = var5; // L: 7264
-		var9.orientation = var6; // L: 7265
-		var9.delay = var7; // L: 7266
-		var9.hitpoints = var8; // L: 7267
-	} // L: 7268
-
-	@ObfuscatedName("kb")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-54323362"
+		garbageValue = "-1588134058"
 	)
-	@Export("Clan_leaveChat")
-	static final void Clan_leaveChat() {
-		PacketBufferNode var0 = WorldMapSprite.getPacketBufferNode(ClientPacket.field2270, Client.packetWriter.isaacCipher); // L: 11468
-		var0.packetBuffer.writeByte(0); // L: 11469
-		Client.packetWriter.addNode(var0); // L: 11470
-	} // L: 11471
+	static void method481() {
+		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) { // L: 208
+			Login.currentLoginField = 1; // L: 209
+		} else {
+			Login.currentLoginField = 0; // L: 212
+		}
+
+	} // L: 214
+
+	@ObfuscatedName("jy")
+	@ObfuscatedSignature(
+		descriptor = "(IB)V",
+		garbageValue = "113"
+	)
+	@Export("updateSoundEffectVolume")
+	static final void updateSoundEffectVolume(int var0) {
+		var0 = Math.min(Math.max(var0, 0), 127); // L: 11175
+		Login.clientPreferences.soundEffectsVolume = var0; // L: 11176
+		Message.savePreferences(); // L: 11177
+	} // L: 11178
 }

@@ -3,53 +3,43 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("am")
+@ObfuscatedName("es")
 @Implements("WorldMapIcon_0")
 public class WorldMapIcon_0 extends AbstractWorldMapIcon {
-	@ObfuscatedName("ae")
-	@Export("fontHelvetica13")
-	static java.awt.Font fontHelvetica13;
-	@ObfuscatedName("dv")
-	@ObfuscatedSignature(
-		descriptor = "Liy;"
-	)
-	@Export("archive2")
-	static Archive archive2;
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 309353729
+		intValue = 1471201003
 	)
 	@Export("element")
 	final int element;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Laa;"
+		descriptor = "Lfi;"
 	)
 	@Export("label")
 	final WorldMapLabel label;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1945919631
+		intValue = 1556775175
 	)
 	@Export("subWidth")
 	final int subWidth;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1219873699
+		intValue = 142982873
 	)
 	@Export("subHeight")
 	final int subHeight;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lhd;Lhd;ILaa;)V"
+		descriptor = "(Lhk;Lhk;ILfi;)V"
 	)
 	WorldMapIcon_0(Coord var1, Coord var2, int var3, WorldMapLabel var4) {
 		super(var1, var2); // L: 14
 		this.element = var3; // L: 15
 		this.label = var4; // L: 16
-		WorldMapElement var5 = InvDefinition.WorldMapElement_get(this.getElement()); // L: 17
+		WorldMapElement var5 = ByteArrayPool.WorldMapElement_get(this.getElement()); // L: 17
 		SpritePixels var6 = var5.getSpriteBool(false); // L: 18
 		if (var6 != null) { // L: 19
 			this.subWidth = var6.subWidth; // L: 20
@@ -61,109 +51,43 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	} // L: 27
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "7"
+		garbageValue = "-52"
 	)
 	@Export("getElement")
 	public int getElement() {
 		return this.element; // L: 30
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(S)Laa;",
-		garbageValue = "31041"
+		descriptor = "(I)Lfi;",
+		garbageValue = "634413820"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
 		return this.label; // L: 34
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-413607837"
+		garbageValue = "-1975622360"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
 		return this.subWidth; // L: 38
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1875187157"
+		garbageValue = "-1420825097"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
 		return this.subHeight; // L: 42
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-344987914"
-	)
-	static int method286() {
-		return 12; // L: 123
-	}
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(Lhz;II)V",
-		garbageValue = "18479210"
-	)
-	@Export("Widget_setKeyIgnoreHeld")
-	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
-		if (var0.field2668 == null) { // L: 937
-			throw new RuntimeException(); // L: 938
-		} else {
-			if (var0.field2660 == null) { // L: 940
-				var0.field2660 = new int[var0.field2668.length]; // L: 941
-			}
-
-			var0.field2660[var1] = Integer.MAX_VALUE; // L: 943
-		}
-	} // L: 944
-
-	@ObfuscatedName("aa")
-	@ObfuscatedSignature(
-		descriptor = "(ILcl;ZI)I",
-		garbageValue = "1727285517"
-	)
-	static int method285(int var0, Script var1, boolean var2) {
-		int var3;
-		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) { // L: 3225
-			Interpreter.Interpreter_intStackSize -= 2; // L: 3226
-			var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 3227
-			int var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 3228
-			if (!Client.isCameraLocked) { // L: 3229
-				Client.camAngleX = var3; // L: 3230
-				Client.camAngleY = var4; // L: 3231
-			}
-
-			return 1; // L: 3233
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) { // L: 3235
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleX; // L: 3236
-			return 1; // L: 3237
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) { // L: 3239
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleY; // L: 3240
-			return 1; // L: 3241
-		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) { // L: 3243
-			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3244
-			if (var3 < 0) { // L: 3245
-				var3 = 0;
-			}
-
-			Client.camFollowHeight = var3; // L: 3246
-			return 1; // L: 3247
-		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) { // L: 3249
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camFollowHeight; // L: 3250
-			return 1; // L: 3251
-		} else {
-			return 2; // L: 3253
-		}
 	}
 }

@@ -3,33 +3,38 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bz")
+@ObfuscatedName("bg")
 @Implements("ScriptFrame")
 public class ScriptFrame {
-	@ObfuscatedName("fl")
+	@ObfuscatedName("e")
+	@Export("Interpreter_intLocals")
+	static int[] Interpreter_intLocals;
+	@ObfuscatedName("h")
+	@Export("ByteArrayPool_arrays")
+	static byte[][][] ByteArrayPool_arrays;
+	@ObfuscatedName("jw")
 	@ObfuscatedSignature(
-		descriptor = "Led;"
+		descriptor = "Lhu;"
 	)
-	@Export("urlRequester")
-	static UrlRequester urlRequester;
-	@ObfuscatedName("n")
+	@Export("hoveredItemContainer")
+	static Widget hoveredItemContainer;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lcl;"
+		descriptor = "Lcc;"
 	)
 	@Export("script")
 	Script script;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1121255489
+		intValue = 264975789
 	)
 	@Export("pc")
 	int pc;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@Export("intLocals")
 	int[] intLocals;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@Export("stringLocals")
 	String[] stringLocals;
 
@@ -37,64 +42,34 @@ public class ScriptFrame {
 		this.pc = -1; // L: 5
 	} // L: 9
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Ljz;",
-		garbageValue = "0"
+		descriptor = "([BI)[B",
+		garbageValue = "-13856825"
 	)
-	public static HitSplatDefinition method1222(int var0) {
-		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0); // L: 52
-		if (var1 != null) { // L: 53
-			return var1;
-		} else {
-			byte[] var2 = HitSplatDefinition.HitSplatDefinition_archive.takeFile(32, var0); // L: 54
-			var1 = new HitSplatDefinition(); // L: 55
-			if (var2 != null) { // L: 56
-				var1.decode(new Buffer(var2));
-			}
-
-			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0); // L: 57
-			return var1; // L: 58
-		}
+	public static byte[] method1175(byte[] var0) {
+		int var1 = var0.length; // L: 22
+		byte[] var2 = new byte[var1]; // L: 23
+		System.arraycopy(var0, 0, var2, 0, var1); // L: 24
+		return var2; // L: 25
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(ILcl;ZI)I",
-		garbageValue = "461265882"
+		descriptor = "(B)Lbu;",
+		garbageValue = "86"
 	)
-	static int method1221(int var0, Script var1, boolean var2) {
-		if (var0 == ScriptOpcodes.GETWINDOWMODE) { // L: 3196
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = BoundaryObject.getWindowedMode(); // L: 3197
-			return 1; // L: 3198
-		} else {
-			int var3;
-			if (var0 == ScriptOpcodes.SETWINDOWMODE) { // L: 3200
-				var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3201
-				if (var3 == 1 || var3 == 2) { // L: 3202
-					GameBuild.setWindowedMode(var3);
-				}
-
-				return 1; // L: 3203
-			} else if (var0 == ScriptOpcodes.GETDEFAULTWINDOWMODE) { // L: 3205
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = WorldMapSectionType.clientPreferences.windowMode; // L: 3206
-				return 1; // L: 3207
-			} else if (var0 != ScriptOpcodes.SETDEFAULTWINDOWMODE) { // L: 3209
-				if (var0 == 5310) { // L: 3217
-					--Interpreter.Interpreter_intStackSize; // L: 3218
-					return 1; // L: 3219
-				} else {
-					return 2; // L: 3221
-				}
-			} else {
-				var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3210
-				if (var3 == 1 || var3 == 2) { // L: 3211
-					WorldMapSectionType.clientPreferences.windowMode = var3; // L: 3212
-					class23.savePreferences(); // L: 3213
-				}
-
-				return 1; // L: 3215
-			}
-		}
+	@Export("getNextWorldListWorld")
+	static World getNextWorldListWorld() {
+		return World.World_listCount < World.World_count ? class9.World_worlds[++World.World_listCount - 1] : null; // L: 252 253
 	}
+
+	@ObfuscatedName("gq")
+	@ObfuscatedSignature(
+		descriptor = "(Lcd;II)V",
+		garbageValue = "-395421228"
+	)
+	static final void method1173(Actor var0, int var1) {
+		class14.worldToScreen(var0.x, var0.y, var1); // L: 4604
+	} // L: 4605
 }

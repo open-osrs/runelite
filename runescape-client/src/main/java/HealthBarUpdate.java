@@ -4,41 +4,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cd")
+@ObfuscatedName("cl")
 @Implements("HealthBarUpdate")
 public class HealthBarUpdate extends Node {
-	@ObfuscatedName("se")
-	@ObfuscatedSignature(
-		descriptor = "Lio;"
-	)
-	public static class248 field1016;
-	@ObfuscatedName("id")
+	@ObfuscatedName("sy")
 	@ObfuscatedGetter(
-		intValue = -871307957
+		longValue = 6142810320644924851L
 	)
-	@Export("oculusOrbFocalPointX")
-	static int oculusOrbFocalPointX;
-	@ObfuscatedName("n")
+	static long field1272;
+	@ObfuscatedName("fp")
 	@ObfuscatedGetter(
-		intValue = -1783692297
+		longValue = 4363745212267804777L
+	)
+	static long field1277;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 1723297803
 	)
 	@Export("cycle")
 	int cycle;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -2047753623
+		intValue = -802786453
 	)
 	@Export("health")
 	int health;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1943828551
+		intValue = -1934136823
 	)
 	@Export("health2")
 	int health2;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1709538301
+		intValue = 1369623823
 	)
 	@Export("cycleOffset")
 	int cycleOffset;
@@ -50,62 +49,57 @@ public class HealthBarUpdate extends Node {
 		this.cycleOffset = var4; // L: 15
 	} // L: 16
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "72"
+		descriptor = "(IIIII)V",
+		garbageValue = "-2137849778"
 	)
 	@Export("set")
 	void set(int var1, int var2, int var3, int var4) {
 		this.cycle = var1; // L: 19
 		this.health = var2; // L: 20
-		this.health2 = var3;
-		this.cycleOffset = var4;
-	}
+		this.health2 = var3; // L: 21
+		this.cycleOffset = var4; // L: 22
+	} // L: 23
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/String;[SB)V",
-		garbageValue = "1"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "1311777255"
 	)
-	public static void method1873(String[] var0, short[] var1) {
-		AbstractSocket.sortItemsByName(var0, var1, 0, var0.length - 1); // L: 9
-	} // L: 10
+	static final void method2180(String var0) {
+		StringBuilder var10000 = (new StringBuilder()).append(var0);
+		Object var10001 = null;
+		String var1 = var10000.append(" is already on your ignore list").toString(); // L: 182
+		class69.addGameMessage(30, "", var1); // L: 184
+	} // L: 186
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("fo")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lij;",
-		garbageValue = "-64"
+		descriptor = "(I)V",
+		garbageValue = "-481083146"
 	)
-	@Export("getInvDefinition")
-	public static InvDefinition getInvDefinition(int var0) {
-		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0); // L: 21
-		if (var1 != null) { // L: 22
-			return var1;
+	static final void method2181() {
+		if (Client.logoutTimer > 0) { // L: 2438
+			class23.logOut(); // L: 2439
 		} else {
-			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0); // L: 23
-			var1 = new InvDefinition(); // L: 24
-			if (var2 != null) { // L: 25
-				var1.decode(new Buffer(var2));
-			}
-
-			InvDefinition.InvDefinition_cached.put(var1, (long)var0); // L: 26
-			return var1; // L: 27
+			Client.timer.method5578(); // L: 2442
+			class20.updateGameState(40); // L: 2443
+			Client.field686 = Client.packetWriter.getSocket(); // L: 2444
+			Client.packetWriter.removeSocket(); // L: 2445
 		}
-	}
+	} // L: 2440 2446
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("fw")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-698681386"
+		descriptor = "(IIB)V",
+		garbageValue = "59"
 	)
-	@Export("Messages_getLastChatID")
-	static int Messages_getLastChatID(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0); // L: 68
-		if (var1 == null) { // L: 69
-			return -1;
-		} else {
-			return var1.nextDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.nextDual).count; // L: 70 71
+	static void method2175(int var0, int var1) {
+		if (Login.clientPreferences.musicVolume != 0 && var0 != -1) { // L: 3103
+			PacketBufferNode.method3898(class10.archive11, var0, 0, Login.clientPreferences.musicVolume, false); // L: 3104
+			Client.field842 = true; // L: 3105
 		}
-	}
+
+	} // L: 3107
 }

@@ -4,133 +4,130 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hq")
+@ObfuscatedName("hj")
 @Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
-	@ObfuscatedName("ey")
-	@Export("worldHost")
-	static String worldHost;
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 550011447
+		intValue = 923209033
 	)
-	int field2471;
-	@ObfuscatedName("v")
+	int field2554;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lha;"
+		descriptor = "Lhc;"
 	)
 	@Export("patch")
 	MusicPatch patch;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Ldm;"
+		descriptor = "Lah;"
 	)
 	@Export("rawSound")
 	RawSound rawSound;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lgy;"
+		descriptor = "Lha;"
 	)
-	MusicPatchNode2 field2473;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = 2110028369
-	)
-	int field2474;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = -96343197
-	)
-	int field2475;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = -1440668291
-	)
-	int field2476;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = 1716873171
-	)
-	int field2477;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = 1965253533
-	)
-	int field2478;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -323457353
-	)
-	int field2472;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -1000773439
-	)
-	int field2480;
+	MusicPatchNode2 field2550;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1349292389
+		intValue = -645577827
 	)
-	int field2481;
-	@ObfuscatedName("a")
+	int field2551;
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -720324353
+		intValue = -1425204299
 	)
-	int field2491;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = -1839598813
-	)
-	int field2483;
+	int field2547;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -378867617
+		intValue = -1052221875
 	)
-	int field2486;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -449130681
-	)
-	int field2482;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = 1114388965
-	)
-	int field2488;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = 1049905099
-	)
-	int field2487;
+	int field2553;
 	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -59060905
+	)
+	int field2557;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = -990038091
+	)
+	int field2555;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = 1971126449
+	)
+	int field2556;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -1100690869
+	)
+	int field2552;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -978602639
+	)
+	int field2568;
+	@ObfuscatedName("d")
+	@ObfuscatedGetter(
+		intValue = 1970474251
+	)
+	int field2559;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = -874480547
+	)
+	int field2560;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = 741885295
+	)
+	int field2561;
+	@ObfuscatedName("r")
+	@ObfuscatedGetter(
+		intValue = -1928199641
+	)
+	int field2562;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 463873485
+	)
+	int field2563;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = 372649253
+	)
+	int field2564;
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ldt;"
+		descriptor = "Lbk;"
 	)
 	@Export("stream")
 	RawPcmStream stream;
-	@ObfuscatedName("u")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -2011885117
+		intValue = 987730343
 	)
-	int field2484;
-	@ObfuscatedName("p")
+	int field2566;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1908320753
+		intValue = -1210964927
 	)
-	int field2479;
+	int field2567;
 
 	MusicPatchNode() {
 	} // L: 31
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "71"
+		descriptor = "(I)V",
+		garbageValue = "1071892920"
 	)
-	void method4032() {
+	void method4163() {
 		this.patch = null; // L: 34
 		this.rawSound = null; // L: 35
-		this.field2473 = null; // L: 36
+		this.field2550 = null; // L: 36
 		this.stream = null; // L: 37
 	} // L: 38
 }

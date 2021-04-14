@@ -4,34 +4,34 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jl")
+@ObfuscatedName("kz")
 @Implements("ParamComposition")
 public class ParamComposition extends DualNode {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lig;"
+		descriptor = "Lir;"
 	)
 	@Export("ParamDefinition_archive")
 	static AbstractArchive ParamDefinition_archive;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Lgf;"
 	)
 	@Export("ParamDefinition_cached")
 	public static EvictingDualNodeHashTable ParamDefinition_cached;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@Export("type")
 	char type;
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -551037179
+		intValue = 1078497239
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@Export("autoDisable")
 	boolean autoDisable;
 
@@ -43,19 +43,19 @@ public class ParamComposition extends DualNode {
 		this.autoDisable = true; // L: 16
 	} // L: 18
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1000046844"
+		garbageValue = "-1223154324"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	} // L: 35
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;I)V",
-		garbageValue = "1362546091"
+		descriptor = "(Lnu;B)V",
+		garbageValue = "-36"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -69,10 +69,10 @@ public class ParamComposition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;II)V",
-		garbageValue = "1500921565"
+		descriptor = "(Lnu;II)V",
+		garbageValue = "1477627389"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -84,7 +84,7 @@ public class ParamComposition extends DualNode {
 			}
 
 			if (var5 >= 128 && var5 < 160) { // L: 52
-				char var6 = class298.cp1252AsciiExtension[var5 - 128]; // L: 53
+				char var6 = class300.cp1252AsciiExtension[var5 - 128]; // L: 53
 				if (var6 == 0) { // L: 54
 					var6 = '?';
 				}
@@ -104,48 +104,22 @@ public class ParamComposition extends DualNode {
 
 	} // L: 65
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(S)Z",
-		garbageValue = "31310"
+		descriptor = "(I)Z",
+		garbageValue = "206427050"
 	)
 	@Export("isString")
 	public boolean isString() {
-		return this.type == 's'; // L: 68
+		return this.type == 's';
 	}
 
-	@ObfuscatedName("gc")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)V",
-		garbageValue = "-1478943473"
+		descriptor = "(I)V",
+		garbageValue = "1027659488"
 	)
-	@Export("worldToScreen")
-	static final void worldToScreen(int var0, int var1, int var2) {
-		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) { // L: 4883
-			int var3 = WorldMapRegion.getTileHeight(var0, var1, class90.Client_plane) - var2; // L: 4888
-			var0 -= SecureRandomFuture.cameraX; // L: 4889
-			var3 -= ArchiveLoader.cameraY; // L: 4890
-			var1 -= ObjectSound.cameraZ; // L: 4891
-			int var4 = Rasterizer3D.Rasterizer3D_sine[KeyHandler.cameraPitch]; // L: 4892
-			int var5 = Rasterizer3D.Rasterizer3D_cosine[KeyHandler.cameraPitch]; // L: 4893
-			int var6 = Rasterizer3D.Rasterizer3D_sine[class39.cameraYaw]; // L: 4894
-			int var7 = Rasterizer3D.Rasterizer3D_cosine[class39.cameraYaw]; // L: 4895
-			int var8 = var6 * var1 + var0 * var7 >> 16; // L: 4896
-			var1 = var7 * var1 - var0 * var6 >> 16; // L: 4897
-			var0 = var8; // L: 4898
-			var8 = var5 * var3 - var4 * var1 >> 16; // L: 4899
-			var1 = var5 * var1 + var3 * var4 >> 16; // L: 4900
-			if (var1 >= 50) { // L: 4902
-				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2; // L: 4903
-				Client.viewportTempY = var8 * Client.viewportZoom / var1 + Client.viewportHeight / 2; // L: 4904
-			} else {
-				Client.viewportTempX = -1; // L: 4907
-				Client.viewportTempY = -1; // L: 4908
-			}
-
-		} else {
-			Client.viewportTempX = -1; // L: 4884
-			Client.viewportTempY = -1; // L: 4885
-		}
-	} // L: 4886 4910
+	public static void method5096() {
+		StructComposition.StructDefinition_cached.clear(); // L: 67
+	} // L: 68
 }

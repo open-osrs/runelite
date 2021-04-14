@@ -4,30 +4,30 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ju")
+@ObfuscatedName("jm")
 @Implements("IterableDualNodeQueueIterator")
 public class IterableDualNodeQueueIterator implements Iterator {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Ljf;"
+		descriptor = "Ljw;"
 	)
 	@Export("queue")
 	IterableDualNodeQueue queue;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lgj;"
+		descriptor = "Lmz;"
 	)
 	@Export("head")
 	DualNode head;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lgj;"
+		descriptor = "Lmz;"
 	)
 	@Export("last")
 	DualNode last;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljf;)V"
+		descriptor = "(Ljw;)V"
 	)
 	IterableDualNodeQueueIterator(IterableDualNodeQueue var1) {
 		this.last = null; // L: 9
@@ -50,8 +50,12 @@ public class IterableDualNodeQueueIterator implements Iterator {
 	}
 
 	public void remove() {
-		this.last.removeDual(); // L: 34
-		this.last = null; // L: 35
+		if (this.last == null) { // L: 33
+			throw new IllegalStateException();
+		} else {
+			this.last.removeDual(); // L: 34
+			this.last = null; // L: 35
+		}
 	} // L: 36
 
 	public boolean hasNext() {

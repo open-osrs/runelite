@@ -1,17 +1,19 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fk")
+@ObfuscatedName("dv")
 @Implements("UserComparator6")
 public class UserComparator6 extends AbstractUserComparator {
-	@ObfuscatedName("fw")
-	@ObfuscatedSignature(
-		descriptor = "Lls;"
+	@ObfuscatedName("ix")
+	@ObfuscatedGetter(
+		intValue = -1429066911
 	)
-	static AbstractSocket field2008;
-	@ObfuscatedName("n")
+	@Export("selectedItemWidget")
+	static int selectedItemWidget;
+	@ObfuscatedName("f")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -19,10 +21,10 @@ public class UserComparator6 extends AbstractUserComparator {
 		this.reversed = var1; // L: 10
 	} // L: 11
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lky;Lky;I)I",
-		garbageValue = "-441882539"
+		descriptor = "(Llg;Llg;I)I",
+		garbageValue = "-1442699949"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {

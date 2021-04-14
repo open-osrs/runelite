@@ -1,20 +1,38 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hj")
+@ObfuscatedName("hw")
 @Implements("Varps")
 public class Varps {
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@Export("Varps_masks")
 	static int[] Varps_masks;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@Export("Varps_temp")
 	public static int[] Varps_temp;
-	@ObfuscatedName("d")
+	@ObfuscatedName("u")
 	@Export("Varps_main")
 	public static int[] Varps_main;
+	@ObfuscatedName("g")
+	@Export("SpriteBuffer_spritePalette")
+	static int[] SpriteBuffer_spritePalette;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = 998373993
+	)
+	static int field2580;
+	@ObfuscatedName("i")
+	@Export("operatingSystemName")
+	static String operatingSystemName;
+	@ObfuscatedName("lq")
+	@ObfuscatedSignature(
+		descriptor = "Lhu;"
+	)
+	@Export("mousedOverWidgetIf1")
+	static Widget mousedOverWidgetIf1;
 
 	static {
 		Varps_masks = new int[32]; // L: 6
@@ -29,16 +47,26 @@ public class Varps {
 		Varps_main = new int[4000]; // L: 17
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IZIZI)V",
-		garbageValue = "1823742662"
+		descriptor = "(II)Lkb;",
+		garbageValue = "1594101631"
 	)
-	@Export("sortWorldList")
-	static void sortWorldList(int var0, boolean var1, int var2, boolean var3) {
-		if (World.World_worlds != null) { // L: 171
-			WorldMapLabelSize.doWorldSorting(0, World.World_worlds.length - 1, var0, var1, var2, var3); // L: 172
-		}
+	@Export("SpotAnimationDefinition_get")
+	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
+		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0); // L: 32
+		if (var1 != null) { // L: 33
+			return var1;
+		} else {
+			byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0); // L: 34
+			var1 = new SpotAnimationDefinition(); // L: 35
+			var1.id = var0; // L: 36
+			if (var2 != null) { // L: 37
+				var1.decode(new Buffer(var2));
+			}
 
-	} // L: 174
+			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0); // L: 38
+			return var1; // L: 39
+		}
+	}
 }
