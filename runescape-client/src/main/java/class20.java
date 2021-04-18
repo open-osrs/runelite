@@ -143,14 +143,14 @@ public class class20 extends class16 {
 		++Client.packetWriter.pendingWrites; // L: 4872
 		if (Client.packetWriter.pendingWrites >= 50 || var0) { // L: 4873
 			Client.packetWriter.pendingWrites = 0; // L: 4874
-			if (!Client.field737 && Client.packetWriter.getSocket() != null) { // L: 4875
+			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) { // L: 4875
 				PacketBufferNode var1 = ObjectComposition.getPacketBufferNode(ClientPacket.field2271, Client.packetWriter.isaacCipher); // L: 4877
 				Client.packetWriter.addNode(var1); // L: 4878
 
 				try {
 					Client.packetWriter.flush(); // L: 4880
 				} catch (IOException var3) { // L: 4882
-					Client.field737 = true; // L: 4883
+					Client.hadNetworkError = true; // L: 4883
 				}
 			}
 

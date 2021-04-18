@@ -594,7 +594,8 @@ public final class Client extends GameEngine implements Usernamed {
 	@Export("logoutTimer")
 	static int logoutTimer;
 	@ObfuscatedName("ft")
-	static boolean field737;
+	@Export("hadNetworkError")
+	static boolean hadNetworkError;
 	@ObfuscatedName("fx")
 	@Export("useBufferedSocket")
 	static boolean useBufferedSocket;
@@ -1359,7 +1360,7 @@ public final class Client extends GameEngine implements Usernamed {
 		field646 = new int[250]; // L: 307
 		packetWriter = new PacketWriter(); // L: 310
 		logoutTimer = 0; // L: 312
-		field737 = false; // L: 313
+		hadNetworkError = false; // L: 313
 		useBufferedSocket = true; // L: 314
 		timer = new Timer(); // L: 315
 		fontsMap = new HashMap(); // L: 321
@@ -2266,7 +2267,7 @@ public final class Client extends GameEngine implements Usernamed {
 					}
 
 					socketTask = null; // L: 1694
-					field737 = false; // L: 1695
+					hadNetworkError = false; // L: 1695
 					field633 = 0; // L: 1696
 					loginState = 1; // L: 1697
 				}
@@ -2794,8 +2795,8 @@ public final class Client extends GameEngine implements Usernamed {
 			--logoutTimer;
 		}
 
-		if (field737) { // L: 2469
-			field737 = false; // L: 2470
+		if (hadNetworkError) { // L: 2469
+			hadNetworkError = false; // L: 2470
 			HealthBarUpdate.method2181(); // L: 2471
 		} else {
 			if (!isMenuOpen) { // L: 2474
