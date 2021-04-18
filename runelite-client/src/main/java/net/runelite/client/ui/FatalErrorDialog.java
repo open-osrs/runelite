@@ -114,7 +114,7 @@ public class FatalErrorDialog extends JDialog
 		leftPane.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		leftPane.setLayout(new BorderLayout());
 
-		JLabel title = new JLabel("There was a fatal error starting OpenOSRS");
+		JLabel title = new JLabel("There was a fatal error starting OpenOSRS probably from external plugins try removing them");
 		title.setForeground(Color.WHITE);
 		title.setFont(font.deriveFont(16.f));
 		title.setBorder(new EmptyBorder(10, 10, 10, 10));
