@@ -25,6 +25,7 @@
 package net.runelite.client.plugins;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.Graphs;
 import com.google.common.graph.MutableGraph;
@@ -205,15 +206,25 @@ public class OPRSExternalPluginManager
 		}
 		catch (Exception ex)
 		{
-			if (ex instanceof DependencyResolver.DependenciesNotFoundException)
+			if (ex instanceof MissingDependenciesException)
 			{
-				List<String> deps = ((DependencyResolver.DependenciesNotFoundException) ex).getDependencies();
+				List<String> deps = ((MissingDependenciesException) ex).getDependencies();
+				Multimap<String, String> reverseDepMap = ((MissingDependenciesException) ex).getReverseDependencyMap();
 
-				log.error("The following dependencies are missing: {}", deps);
-
-				for (String dep : deps)
+				for (String dependency : deps)
 				{
-					updateManager.installPlugin(dep, null);
+					Collection<String> dependentPlugins = reverseDepMap.get(dependency);
+
+					log.error("Dependency {} is missing, but is required by {}, attempting install.", dependency, dependentPlugins);
+					try
+					{
+						updateManager.installPlugin(dependency, null);
+					}
+					catch (PluginRuntimeException ex2)
+					{
+						log.error("Dependency {} is missing and couldn't be installed. Disabling loading of {} as they depend on it.", dependency, dependentPlugins);
+						dependentPlugins.forEach(s -> ((OPRSExternalPf4jPluginManager) externalPluginManager).disableLoading(s));
+					}
 				}
 
 				startExternalPluginManager();
