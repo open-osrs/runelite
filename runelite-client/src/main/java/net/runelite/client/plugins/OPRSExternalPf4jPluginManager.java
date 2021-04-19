@@ -1,5 +1,7 @@
 package net.runelite.client.plugins;
 
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import com.openosrs.client.OpenOSRS;
 import java.io.Closeable;
 import java.io.IOException;
@@ -25,6 +27,8 @@ import org.pf4j.JarPluginLoader;
 import org.pf4j.JarPluginRepository;
 import org.pf4j.ManifestPluginDescriptorFinder;
 import org.pf4j.PluginAlreadyLoadedException;
+import org.pf4j.PluginDependency;
+import org.pf4j.PluginDescriptor;
 import org.pf4j.PluginDescriptorFinder;
 import org.pf4j.PluginLoader;
 import org.pf4j.PluginRepository;
@@ -37,6 +41,8 @@ import org.pf4j.RuntimeMode;
 @Slf4j
 class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 {
+	private final Set<String> disabledPlugins = new HashSet<>();
+
 	public OPRSExternalPf4jPluginManager()
 	{
 		super(OpenOSRS.EXTERNALPLUGIN_DIR.toPath());
@@ -186,15 +192,26 @@ class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 	{
 		// retrieves the plugins descriptors
 		List<org.pf4j.PluginDescriptor> descriptors = new ArrayList<>();
+		Multimap<String, String> reverseDepMap = MultimapBuilder.hashKeys().hashSetValues().build();
 		for (PluginWrapper plugin : plugins.values())
 		{
 			descriptors.add(plugin.getDescriptor());
+
+			for (PluginDependency dependency : plugin.getDescriptor().getDependencies())
+			{
+				reverseDepMap.put(dependency.getPluginId(), plugin.getPluginId());
+			}
 		}
 
 		// retrieves the plugins descriptors from the resolvedPlugins list. This allows to load plugins that have already loaded dependencies.
 		for (PluginWrapper plugin : resolvedPlugins)
 		{
 			descriptors.add(plugin.getDescriptor());
+
+			for (PluginDependency dependency : plugin.getDescriptor().getDependencies())
+			{
+				reverseDepMap.put(dependency.getPluginId(), plugin.getPluginId());
+			}
 		}
 
 		DependencyResolver.Result result = dependencyResolver.resolve(descriptors);
@@ -207,7 +224,7 @@ class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 		List<String> notFoundDependencies = result.getNotFoundDependencies();
 		if (!notFoundDependencies.isEmpty())
 		{
-			throw new DependencyResolver.DependenciesNotFoundException(notFoundDependencies);
+			throw new MissingDependenciesException(notFoundDependencies, reverseDepMap);
 		}
 
 		List<DependencyResolver.WrongDependencyVersion> wrongVersionDependencies = result.getWrongVersionDependencies();
@@ -364,6 +381,92 @@ class OPRSExternalPf4jPluginManager extends DefaultPluginManager
 		Path pluginPath = pluginWrapper.getPluginPath();
 
 		return pluginRepository.deletePluginPath(pluginPath);
+	}
+
+	@Override
+	protected PluginWrapper loadPluginFromPath(Path pluginPath)
+	{
+		// Test for plugin path duplication
+		String pluginId = idForPath(pluginPath);
+		if (pluginId != null)
+		{
+			throw new PluginAlreadyLoadedException(pluginId, pluginPath);
+		}
+
+		// Retrieve and validate the plugin descriptor
+		PluginDescriptorFinder pluginDescriptorFinder = getPluginDescriptorFinder();
+		log.debug("Use '{}' to find plugins descriptors", pluginDescriptorFinder);
+		log.debug("Finding plugin descriptor for plugin '{}'", pluginPath);
+		PluginDescriptor pluginDescriptor = pluginDescriptorFinder.find(pluginPath);
+		validatePluginDescriptor(pluginDescriptor);
+
+		// OPRS START - don't load plugins that failed dependency resolution
+		if (disabledPlugins.contains(pluginDescriptor.getPluginId()))
+		{
+			log.debug("Skipping loading {}, was previously disabled.", pluginDescriptor.getPluginId());
+			return null;
+		}
+		// OPRS END
+
+		// Check there are no loaded plugins with the retrieved id
+		pluginId = pluginDescriptor.getPluginId();
+		if (plugins.containsKey(pluginId))
+		{
+			PluginWrapper loadedPlugin = getPlugin(pluginId);
+			throw new PluginRuntimeException("There is an already loaded plugin ({}) "
+				+ "with the same id ({}) as the plugin at path '{}'. Simultaneous loading "
+				+ "of plugins with the same PluginId is not currently supported.\n"
+				+ "As a workaround you may include PluginVersion and PluginProvider "
+				+ "in PluginId.",
+				loadedPlugin, pluginId, pluginPath);
+		}
+
+		log.debug("Found descriptor {}", pluginDescriptor);
+		String pluginClassName = pluginDescriptor.getPluginClass();
+		log.debug("Class '{}' for plugin '{}'", pluginClassName, pluginPath);
+
+		// load plugin
+		log.debug("Loading plugin '{}'", pluginPath);
+		ClassLoader pluginClassLoader = getPluginLoader().loadPlugin(pluginPath, pluginDescriptor);
+		log.debug("Loaded plugin '{}' with class loader '{}'", pluginPath, pluginClassLoader);
+
+		// create the plugin wrapper
+		log.debug("Creating wrapper for plugin '{}'", pluginPath);
+		PluginWrapper pluginWrapper = new PluginWrapper(this, pluginDescriptor, pluginPath, pluginClassLoader);
+		pluginWrapper.setPluginFactory(getPluginFactory());
+
+		// test for disabled plugin
+		if (isPluginDisabled(pluginDescriptor.getPluginId()))
+		{
+			log.info("Plugin '{}' is disabled", pluginPath);
+			pluginWrapper.setPluginState(PluginState.DISABLED);
+		}
+
+		// validate the plugin
+		if (!isPluginValid(pluginWrapper))
+		{
+			log.warn("Plugin '{}' is invalid and it will be disabled", pluginPath);
+			pluginWrapper.setPluginState(PluginState.DISABLED);
+		}
+
+		log.debug("Created wrapper '{}' for plugin '{}'", pluginWrapper, pluginPath);
+
+		pluginId = pluginDescriptor.getPluginId();
+
+		// add plugin to the list with plugins
+		plugins.put(pluginId, pluginWrapper);
+		getUnresolvedPlugins().add(pluginWrapper);
+
+		// add plugin class loader to the list with class loaders
+		getPluginClassLoaders().put(pluginId, pluginClassLoader);
+
+		return pluginWrapper;
+	}
+
+	void disableLoading(String pluginId)
+	{
+		unloadPlugin(pluginId);
+		disabledPlugins.add(pluginId);
 	}
 
 	private boolean isPluginEligibleForLoading(Path path)
