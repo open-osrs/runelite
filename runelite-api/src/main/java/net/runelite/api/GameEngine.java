@@ -24,7 +24,6 @@
  */
 package net.runelite.api;
 
-import net.runelite.api.hooks.DrawCallbacks;
 import java.awt.Canvas;
 
 /**
@@ -52,8 +51,6 @@ public interface GameEngine
 	 * @return true if on the main thread, false otherwise
 	 */
 	boolean isClientThread();
-
-	DrawCallbacks getDrawCallbacks();
 
 	void resizeCanvas();
 

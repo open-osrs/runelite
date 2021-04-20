@@ -38,4 +38,20 @@ public interface IndexDataBase
 	 * Get the child file ids for a given group
 	 */
 	int[] getFileIds(int group);
+
+	/*
+	 * the methods bellow are usefull for reading byte data from the cache
+	 */
+
+	int getGroupCount();
+
+	byte[] getConfigData(int archiveId, int fileId);
+
+	int[][] getFileIds();
+
+	byte[] getFile(int groupId, int fileId);
+
+	int getGroupFileCount(int groupId);
+
+	int[] getFileCounts();
 }

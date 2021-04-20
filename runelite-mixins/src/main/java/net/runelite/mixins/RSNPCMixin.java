@@ -138,7 +138,7 @@ public abstract class RSNPCMixin implements RSNPC
 		}
 		int actionFrame = getActionFrame();
 		int poseFrame = getPoseFrame();
-		int spotAnimFrame = getSpotAnimationFrame();
+		int spotAnimFrame = getSpotAnimFrame();
 		try
 		{
 			// combine the frames with the frame cycle so we can access this information in the sequence methods

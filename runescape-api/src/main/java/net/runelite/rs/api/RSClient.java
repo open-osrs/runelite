@@ -26,7 +26,6 @@ package net.runelite.rs.api;
 
 import java.math.BigInteger;
 import java.util.Map;
-import net.runelite.api.AbstractArchive;
 import net.runelite.api.Client;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.World;
@@ -1372,11 +1371,11 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Override
 	@Import("NpcDefinition_archive")
-	AbstractArchive getNpcDefinition_archive();
+	RSAbstractArchive getNpcDefinition_archive();
 
 	@Override
 	@Import("ObjectDefinition_modelsArchive")
-	AbstractArchive getObjectDefinition_modelsArchive();
+	RSAbstractArchive getObjectDefinition_modelsArchive();
 
 	@Override
 	@Import("ObjectDefinition_archive")
@@ -1388,19 +1387,19 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Override
 	@Import("KitDefinition_archive")
-	AbstractArchive getKitDefinition_archive();
+	RSAbstractArchive getKitDefinition_archive();
 
 	@Override
 	@Import("KitDefinition_modelsArchive")
-	AbstractArchive getKitDefinition_modelsArchive();
+	RSAbstractArchive getKitDefinition_modelsArchive();
 
 	@Override
 	@Import("SpotAnimationDefinition_archive")
-	AbstractArchive getSpotAnimationDefinition_archive();
+	RSAbstractArchive getSpotAnimationDefinition_archive();
 
 	@Override
 	@Import("SpotAnimationDefinition_modelArchive")
-	AbstractArchive getSpotAnimationDefinition_modelArchive();
+	RSAbstractArchive getSpotAnimationDefinition_modelArchive();
 
 	@Construct
 	RSBuffer createBuffer(byte[] bytes);

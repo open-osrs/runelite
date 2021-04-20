@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Noodleeater <noodleeater4@gmail.com>
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,27 +22,10 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package com.openosrs.injector;
 
-/**
- * Represents an archive of data, which is ordered into "groups" of "files".
- */
-public interface AbstractArchive extends IndexDataBase
+public enum OutputMode
 {
-	/**
-	 * the methods bellow are usefull for reading byte data from the cache
-	 */
-	int getGroupCount();
-
-	byte[] getConfigData(int archiveId, int fileId);
-
-	int[] getFileIds(int groupId);
-
-	int[][] getFileIds();
-
-	byte[] getFile(int groupId, int fileId);
-
-	int getGroupFileCount(int groupId);
-
-	int[] getFileCounts();
+	FILES,
+	JAR
 }

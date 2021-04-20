@@ -99,7 +99,7 @@ public interface RSActor extends RSRenderable, Actor
 	void setGraphic(int id);
 
 	@Import("spotAnimationFrame")
-	int getSpotAnimationFrame();
+	int getSpotAnimFrame();
 
 	@Import("spotAnimationFrame")
 	@Override
@@ -165,11 +165,11 @@ public interface RSActor extends RSRenderable, Actor
 
 	@Import("turnLeftSequence")
 	@Override
-	int getTurnLeftAnimation();
+	int getIdleRotateLeft();
 
 	@Import("turnRightSequence")
 	@Override
-	int getTurnRightAnimation();
+	int getIdleRotateRight();
 
 	@Import("walkSequence")
 	@Override

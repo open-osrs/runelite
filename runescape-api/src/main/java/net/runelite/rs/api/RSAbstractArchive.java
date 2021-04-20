@@ -1,10 +1,9 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.AbstractArchive;
 import net.runelite.api.IndexDataBase;
 import net.runelite.mapping.Import;
 
-public interface RSAbstractArchive extends IndexDataBase, AbstractArchive
+public interface RSAbstractArchive extends IndexDataBase
 {
 	@Import("takeFile")
 	@Override
