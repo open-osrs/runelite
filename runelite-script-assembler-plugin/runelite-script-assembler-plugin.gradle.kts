@@ -42,7 +42,7 @@ dependencies {
 tasks {
     register<JavaExec>("assembleMojo") {
         outputs.cacheIf { true }
-        val inp = "${project.extra["rootPath"]}/runelite-client/src/main/resources/scripts"
+        val inp = "${project.extra["rootPath"]}/runelite-client/src/main/scripts"
         val out = "${project.extra["rootPath"]}/runelite-client/build/scripts/runelite"
         inputs.dir(inp)
         outputs.dir(out)

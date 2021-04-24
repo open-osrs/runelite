@@ -275,11 +275,6 @@ public interface Actor extends Renderable, Locatable
 	void setSpotAnimFrame(int spotAnimFrame);
 
 	/**
-	 * Get the number of cycles the SpotAnimation frame has been displayed for.
-	 */
-	int getSpotAnimFrameCycle();
-
-	/**
 	 * Gets the canvas area of the current tile the actor is standing on.
 	 *
 	 * @return the current tile canvas area
@@ -371,16 +366,6 @@ public interface Actor extends Renderable, Locatable
 	 */
 	int getActionFrame();
 	int getActionFrameCycle();
-
-	/*
-	 This collection of methods gets extended debug information about the actor
-
-	 Used by dev tools
-	 */
-
-	int getTurnLeftAnimation();
-
-	int getTurnRightAnimation();
 
 	/**
 	 * Returns true if this NPC has died

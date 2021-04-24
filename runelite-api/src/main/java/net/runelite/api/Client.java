@@ -2148,27 +2148,27 @@ public interface Client extends GameEngine
 	/**
 	 * various archives you might want to use for reading data from cache
 	 */
-	AbstractArchive getSequenceDefinition_skeletonsArchive();
+	IndexDataBase getSequenceDefinition_skeletonsArchive();
 
-	AbstractArchive getSequenceDefinition_archive();
+	IndexDataBase getSequenceDefinition_archive();
 
-	AbstractArchive getSequenceDefinition_animationsArchive();
+	IndexDataBase getSequenceDefinition_animationsArchive();
 
-	AbstractArchive getNpcDefinition_archive();
+	IndexDataBase getNpcDefinition_archive();
 
-	AbstractArchive getObjectDefinition_modelsArchive();
+	IndexDataBase getObjectDefinition_modelsArchive();
 
-	AbstractArchive getObjectDefinition_archive();
+	IndexDataBase getObjectDefinition_archive();
 
-	AbstractArchive getItemDefinition_archive();
+	IndexDataBase getItemDefinition_archive();
 
-	AbstractArchive getKitDefinition_archive();
+	IndexDataBase getKitDefinition_archive();
 
-	AbstractArchive getKitDefinition_modelsArchive();
+	IndexDataBase getKitDefinition_modelsArchive();
 
-	AbstractArchive getSpotAnimationDefinition_archive();
+	IndexDataBase getSpotAnimationDefinition_archive();
 
-	AbstractArchive getSpotAnimationDefinition_modelArchive();
+	IndexDataBase getSpotAnimationDefinition_modelArchive();
 
 	/**
 	 * use createBuffer to create a new byte buffer
