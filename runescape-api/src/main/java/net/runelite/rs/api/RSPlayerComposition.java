@@ -9,7 +9,7 @@ public interface RSPlayerComposition extends PlayerComposition
 	boolean isFemale();
 
 	@Import("bodyColors")
-	int[] getBodyPartColours();
+	int[] getColors();
 
 	@Import("hash")
 	long getHash();
