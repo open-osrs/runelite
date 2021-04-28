@@ -484,42 +484,42 @@ public class WidgetID
 		static final int INVENTORY_CONTAINER = 72;
 	}
 
-	public static class ResizableViewport
+	static class ResizableViewport
 	{
-		public static final int MULTICOMBAT_INDICATOR = 18;
-		static final int FRIENDS_CHAT_TAB = 38;
-		static final int FRIENDS_TAB = 40;
-		static final int IGNORES_TAB = 39;
-		static final int LOGOUT_TAB = 41;
-		static final int OPTIONS_TAB = 42;
-		static final int EMOTES_TAB = 43;
-		static final int MUSIC_TAB = 44;
-		static final int FRIENDS_CHAT_ICON = 45;
-		static final int FRIENDS_ICON = 47;
-		static final int IGNORES_ICON = 46;
-		static final int LOGOUT_ICON = 48;
-		static final int OPTIONS_ICON = 49;
-		static final int EMOTES_ICON = 50;
-		static final int MUSIC_ICON = 51;
-		static final int COMBAT_TAB = 54;
-		static final int STATS_TAB = 55;
-		static final int QUESTS_TAB = 56;
-		static final int INVENTORY_TAB = 57;
-		static final int EQUIPMENT_TAB = 58;
-		static final int PRAYER_TAB = 59;
-		static final int MAGIC_TAB = 60;
-		static final int COMBAT_ICON = 61;
-		static final int STATS_ICON = 62;
-		static final int QUESTS_ICON = 63;
-		static final int INVENTORY_ICON = 64;
-		static final int EQUIPMENT_ICON = 65;
-		static final int PRAYER_ICON = 66;
-		static final int MAGIC_ICON = 67;
-		static final int INTERFACE_CONTAINER = 68;
-		static final int INVENTORY_CONTAINER = 74;
+		static final int MULTICOMBAT_INDICATOR = 18;
+		static final int FRIENDS_CHAT_TAB = 39;
+		static final int FRIENDS_TAB = 41;
+		static final int IGNORES_TAB = 40;
+		static final int LOGOUT_TAB = 42;
+		static final int OPTIONS_TAB = 43;
+		static final int EMOTES_TAB = 44;
+		static final int MUSIC_TAB = 45;
+		static final int FRIENDS_CHAT_ICON = 46;
+		static final int FRIENDS_ICON = 48;
+		static final int IGNORES_ICON = 47;
+		static final int LOGOUT_ICON = 49;
+		static final int OPTIONS_ICON = 50;
+		static final int EMOTES_ICON = 51;
+		static final int MUSIC_ICON = 52;
+		static final int COMBAT_TAB = 55;
+		static final int STATS_TAB = 56;
+		static final int QUESTS_TAB = 57;
+		static final int INVENTORY_TAB = 58;
+		static final int EQUIPMENT_TAB = 59;
+		static final int PRAYER_TAB = 60;
+		static final int MAGIC_TAB = 61;
+		static final int COMBAT_ICON = 62;
+		static final int STATS_ICON = 63;
+		static final int QUESTS_ICON = 64;
+		static final int INVENTORY_ICON = 65;
+		static final int EQUIPMENT_ICON = 66;
+		static final int PRAYER_ICON = 67;
+		static final int MAGIC_ICON = 68;
+		static final int INTERFACE_CONTAINER = 69;
+		static final int INVENTORY_CONTAINER = 75;
 	}
 
-	public static class ResizableViewportBottomLine
+	static class ResizableViewportBottomLine
 	{
 		static final int LOGOUT_BUTTON_OVERLAY = 32;
 		static final int CMB_TAB = 50;
@@ -534,7 +534,7 @@ public class WidgetID
 		static final int EQUIP_ICON = 64;
 		static final int PRAYER_TAB = 58;
 		static final int PRAYER_ICON = 65;
-		public static final int SPELL_TAB = 56;
+		static final int SPELL_TAB = 56;
 		static final int SPELL_ICON = 53;
 		static final int FC_TAB = 35;
 		static final int FC_ICON = 44;
