@@ -104,7 +104,7 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
 			// Check if hash is correct first, so we don't have to load the overlay file if it doesn't match
 			if (!overlayHash.equalsIgnoreCase(originalHash))
 			{
-				log.error("Script " + scriptNames.get(overlayHash) + " is invalid, and will not be overlaid. This will break plugin(s)!");
+				log.error("Script " + groupId + " is invalid, and will not be overlaid. This will break plugin(s)!");
 				client.setOutdatedScript(scriptNames.get(overlayHash));
 				overlayOutdated = true;
 				return rsData;
