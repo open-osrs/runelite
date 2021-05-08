@@ -111,7 +111,7 @@ public class NpcIndicatorsPluginTest
 		when(client.getCachedNPCs()).thenReturn(new NPC[]{npc}); // id 0
 
 		when(client.getMenuEntries()).thenReturn(new MenuEntry[]{new MenuEntry()});
-		MenuEntryAdded menuEntryAdded = new MenuEntryAdded("", "Goblin", MenuAction.NPC_FIRST_OPTION.getId(), 0, -1, -1, false);
+		MenuEntryAdded menuEntryAdded = new MenuEntryAdded("", "Goblin", MenuAction.NPC_FIRST_OPTION.getId(), 0, -1, -1);
 		npcIndicatorsPlugin.onMenuEntryAdded(menuEntryAdded);
 
 		MenuEntry target = new MenuEntry();
@@ -136,7 +136,7 @@ public class NpcIndicatorsPluginTest
 		when(client.getCachedNPCs()).thenReturn(new NPC[]{npc}); // id 0
 
 		when(client.getMenuEntries()).thenReturn(new MenuEntry[]{new MenuEntry()});
-		MenuEntryAdded menuEntryAdded = new MenuEntryAdded("", "Goblin", MenuAction.NPC_FIRST_OPTION.getId(), 0, -1, -1, false);
+		MenuEntryAdded menuEntryAdded = new MenuEntryAdded("", "Goblin", MenuAction.NPC_FIRST_OPTION.getId(), 0, -1, -1);
 		npcIndicatorsPlugin.onMenuEntryAdded(menuEntryAdded);
 
 		MenuEntry target = new MenuEntry();

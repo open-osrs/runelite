@@ -32,6 +32,12 @@ import net.runelite.api.MenuEntry;
  */
 public class MenuEntryAdded extends MenuEntry
 {
+	// Here for RuneLite compatibility (different parameter order)
+	public MenuEntryAdded(String option, String target, int type, int identifier, int actionParam0, int actionParam1)
+	{
+		super(option, target, identifier, type, actionParam0, actionParam1, false);
+	}
+
 	public MenuEntryAdded(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
 	{
 		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
