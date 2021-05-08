@@ -77,7 +77,7 @@ public abstract class VarbitMixin implements RSClient
 	@Override
 	public int getVarbitValue(int[] varps, int varbitId)
 	{
-		assert client.isClientThread();
+		assert client.isClientThread() : "getVarbitValue must be called on client thread";
 
 		RSVarbitComposition v = getVarbitComposition(varbitId);
 		if (v == null)

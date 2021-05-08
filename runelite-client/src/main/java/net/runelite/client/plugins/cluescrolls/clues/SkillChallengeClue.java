@@ -87,7 +87,8 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		item(ItemID.INFERNAL_PICKAXE_UNCHARGED_25369),
 		item(ItemID.GILDED_PICKAXE),
 		item(ItemID._3RD_AGE_PICKAXE),
-		item(ItemID.CRYSTAL_PICKAXE)
+		item(ItemID.CRYSTAL_PICKAXE),
+		item(ItemID.CRYSTAL_PICKAXE_INACTIVE)
 	);
 
 	private static final AnyRequirementCollection ANY_AXE = any("Any Axe",
@@ -106,7 +107,8 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		item(ItemID.INFERNAL_AXE_UNCHARGED_25371),
 		item(ItemID.GILDED_AXE),
 		item(ItemID._3RD_AGE_AXE),
-		item(ItemID.CRYSTAL_AXE)
+		item(ItemID.CRYSTAL_AXE),
+		item(ItemID.CRYSTAL_AXE_INACTIVE)
 	);
 
 	private static final AnyRequirementCollection ANY_HARPOON = any("Harpoon",
@@ -118,7 +120,8 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		item(ItemID.INFERNAL_HARPOON_OR),
 		item(ItemID.INFERNAL_HARPOON_UNCHARGED),
 		item(ItemID.INFERNAL_HARPOON_UNCHARGED_25367),
-		item(ItemID.CRYSTAL_HARPOON)
+		item(ItemID.CRYSTAL_HARPOON),
+		item(ItemID.CRYSTAL_HARPOON_INACTIVE)
 	);
 
 	private static final Set<SkillChallengeClue> CLUES = ImmutableSet.of(
@@ -202,7 +205,10 @@ public class SkillChallengeClue extends ClueScroll implements NpcClueScroll, Nam
 		new SkillChallengeClue("Chop a redwood log.", "chop a redwood log whilst sporting the finest lumberjack gear.", true, ANY_AXE, all("Lumberjack outfit", item(ItemID.LUMBERJACK_HAT), item(ItemID.LUMBERJACK_TOP), item(ItemID.LUMBERJACK_LEGS), item(ItemID.LUMBERJACK_BOOTS))),
 		new SkillChallengeClue("Craft a light orb in the Dorgesh-Kaan bank.", item(ItemID.CAVE_GOBLIN_WIRE), item(ItemID.EMPTY_LIGHT_ORB)),
 		new SkillChallengeClue("Kill a reanimated Abyssal Demon.", "kill a reanimated abyssal.", xOfItem(ItemID.SOUL_RUNE, 4), xOfItem(ItemID.BLOOD_RUNE, 2), any("Nature Rune x4", xOfItem(ItemID.NATURE_RUNE, 4), item(ItemID.BRYOPHYTAS_STAFF)), range("Ensouled abyssal head", ItemID.ENSOULED_ABYSSAL_HEAD, ItemID.ENSOULED_ABYSSAL_HEAD_13508)),
-		new SkillChallengeClue("Kill a Fiyr shade inside Mort'tons shade catacombs.", any("Any Silver Shade Key",  item(ItemID.SILVER_KEY_RED), item(ItemID.SILVER_KEY_BROWN), item(ItemID.SILVER_KEY_CRIMSON), item(ItemID.SILVER_KEY_BLACK), item(ItemID.SILVER_KEY_PURPLE)))
+		new SkillChallengeClue("Kill a Fiyr shade inside Mort'tons shade catacombs.",
+			any("Any Gold or Silver Shade Key",
+				item(ItemID.GOLD_KEY_RED), item(ItemID.GOLD_KEY_BROWN), item(ItemID.GOLD_KEY_CRIMSON), item(ItemID.GOLD_KEY_BLACK), item(ItemID.GOLD_KEY_PURPLE),
+				item(ItemID.SILVER_KEY_RED), item(ItemID.SILVER_KEY_BROWN), item(ItemID.SILVER_KEY_CRIMSON), item(ItemID.SILVER_KEY_BLACK), item(ItemID.SILVER_KEY_PURPLE)))
 	);
 
 	private final ChallengeType type;

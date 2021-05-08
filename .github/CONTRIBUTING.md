@@ -14,7 +14,7 @@ Here are the guidelines we'd like you to follow:
 
 ## <a name="question"></a> Got a Question or Problem?
 
-If you have questions about how to contribute to runelite, please join our [Discord](https://discord.gg/HN5gf3m) server.
+If you have questions about how to contribute to runelite, please join our [Discord](https://discord.gg/r287wN6bkc) server.
 
 ## <a name="issue"></a> Found an Issue?
 
@@ -130,5 +130,5 @@ from the main (upstream) repository:
 To ensure consistency throughout the source code, review our [code conventions](https://github.com/runelite/runelite/wiki/Code-Conventions).
 
 
-[github]: https://github.com/runelite-extended/runelite
-[discord]: https://discord.gg/HN5gf3m
+[github]: https://github.com/open-osrs/runelite
+[discord]: https://discord.gg/r287wN6bkc
