@@ -31,6 +31,8 @@ import com.google.common.primitives.Ints;
 import com.google.inject.Provides;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.inject.Inject;
@@ -113,6 +115,20 @@ public class ItemChargePlugin extends Plugin
 	private static final String CHRONICLE_ONE_CHARGE_TEXT = "You have one charge left in your book.";
 	private static final String CHRONICLE_EMPTY_TEXT = "Your book has run out of charges.";
 	private static final String CHRONICLE_NO_CHARGES_TEXT = "Your book does not have any charges. Purchase some Teleport Cards from Diango.";
+	private static final Pattern BRACELET_OF_SLAUGHTER_ACTIVATE_PATTERN = Pattern.compile(
+		"Your bracelet of slaughter prevents your slayer count from decreasing. (?:(?:It has (\\d{1,2}) charges? left)|(It then crumbles to dust))\\."
+	);
+	private static final Pattern BRACELET_OF_SLAUGHTER_CHECK_PATTERN = Pattern.compile(
+		"Your bracelet of slaughter has (\\d{1,2}) charges? left\\."
+	);
+	private static final String BRACELET_OF_SLAUGHTER_BREAK_TEXT = "Your Bracelet of Slaughter has crumbled to dust.";
+	private static final Pattern EXPEDITIOUS_BRACELET_ACTIVATE_PATTERN = Pattern.compile(
+		"Your expeditious bracelet helps you progress your slayer (?:task )?faster. (?:(?:It has (\\d{1,2}) charges? left)|(It then crumbles to dust))\\."
+	);
+	private static final Pattern EXPEDITIOUS_BRACELET_CHECK_PATTERN = Pattern.compile(
+		"Your expeditious bracelet has (\\d{1,2}) charges? left\\."
+	);
+	private static final String EXPEDITIOUS_BRACELET_BREAK_TEXT = "Your Expeditious Bracelet has crumbled to dust.";
 
 	private static final int MAX_DODGY_CHARGES = 10;
 	private static final int MAX_BINDING_CHARGES = 16;
@@ -120,6 +136,7 @@ public class ItemChargePlugin extends Plugin
 	private static final int MAX_RING_OF_FORGING_CHARGES = 140;
 	private static final int MAX_AMULET_OF_CHEMISTRY_CHARGES = 5;
 	private static final int MAX_AMULET_OF_BOUNTY_CHARGES = 10;
+	private static final int MAX_SLAYER_BRACELET_CHARGES = 30;
 
 	private int lastExplorerRingCharge = -1;
 
@@ -152,6 +169,7 @@ public class ItemChargePlugin extends Plugin
 
 	// Limits destroy callback to once per tick
 	private int lastCheckTick;
+	private final Map<EquipmentInventorySlot, ItemChargeInfobox> infoboxes = new EnumMap<>(EquipmentInventorySlot.class);
 
 	@Provides
 	ItemChargeConfig getConfig(ConfigManager configManager)
@@ -170,6 +188,7 @@ public class ItemChargePlugin extends Plugin
 	{
 		overlayManager.remove(overlay);
 		infoBoxManager.removeIf(ItemChargeInfobox.class::isInstance);
+		infoboxes.clear();
 		lastCheckTick = -1;
 	}
 
@@ -181,51 +200,7 @@ public class ItemChargePlugin extends Plugin
 			return;
 		}
 
-		if (!config.showInfoboxes())
-		{
-			infoBoxManager.removeIf(ItemChargeInfobox.class::isInstance);
-			return;
-		}
-
-		if (!config.showTeleportCharges())
-		{
-			removeInfobox(ItemWithSlot.TELEPORT);
-		}
-
-		if (!config.showAmuletOfChemistryCharges())
-		{
-			removeInfobox(ItemWithSlot.AMULET_OF_CHEMISTY);
-		}
-
-		if (!config.showAmuletOfBountyCharges())
-		{
-			removeInfobox(ItemWithSlot.AMULET_OF_BOUNTY);
-		}
-
-		if (!config.showAbyssalBraceletCharges())
-		{
-			removeInfobox(ItemWithSlot.ABYSSAL_BRACELET);
-		}
-
-		if (!config.showDodgyCount())
-		{
-			removeInfobox(ItemWithSlot.DODGY_NECKLACE);
-		}
-
-		if (!config.showBindingNecklaceCharges())
-		{
-			removeInfobox(ItemWithSlot.BINDING_NECKLACE);
-		}
-
-		if (!config.showExplorerRingCharges())
-		{
-			removeInfobox(ItemWithSlot.EXPLORER_RING);
-		}
-
-		if (!config.showRingOfForgingCount())
-		{
-			removeInfobox(ItemWithSlot.RING_OF_FORGING);
-		}
+		clientThread.invoke(this::updateInfoboxes);
 	}
 
 	@Subscribe
@@ -247,6 +222,10 @@ public class ItemChargePlugin extends Plugin
 			Matcher amuletOfBountyUsedMatcher = AMULET_OF_BOUNTY_USED_PATTERN.matcher(message);
 			Matcher chronicleAddMatcher = CHRONICLE_ADD_PATTERN.matcher(message);
 			Matcher chronicleUseAndCheckMatcher = CHRONICLE_USE_AND_CHECK_PATTERN.matcher(message);
+			Matcher slaughterActivateMatcher = BRACELET_OF_SLAUGHTER_ACTIVATE_PATTERN.matcher(message);
+			Matcher slaughterCheckMatcher = BRACELET_OF_SLAUGHTER_CHECK_PATTERN.matcher(message);
+			Matcher expeditiousActivateMatcher = EXPEDITIOUS_BRACELET_ACTIVATE_PATTERN.matcher(message);
+			Matcher expeditiousCheckMatcher = EXPEDITIOUS_BRACELET_CHECK_PATTERN.matcher(message);
 
 			if (config.recoilNotification() && message.contains(RING_OF_RECOIL_BREAK_MESSAGE))
 			{
@@ -392,58 +371,58 @@ public class ItemChargePlugin extends Plugin
 			{
 				setItemCharges(ItemChargeConfig.KEY_CHRONICLE, 1000);
 			}
+			else if (slaughterActivateMatcher.find())
+			{
+				final String found = slaughterActivateMatcher.group(1);
+				if (found == null)
+				{
+					updateBraceletOfSlaughterCharges(MAX_SLAYER_BRACELET_CHARGES);
+					if (config.slaughterNotification())
+					{
+						notifier.notify(BRACELET_OF_SLAUGHTER_BREAK_TEXT);
+					}
+				}
+				else
+				{
+					updateBraceletOfSlaughterCharges(Integer.parseInt(found));
+				}
+			}
+			else if (slaughterCheckMatcher.find())
+			{
+				updateBraceletOfSlaughterCharges(Integer.parseInt(slaughterCheckMatcher.group(1)));
+			}
+			else if (expeditiousActivateMatcher.find())
+			{
+				final String found = expeditiousActivateMatcher.group(1);
+				if (found == null)
+				{
+					updateExpeditiousBraceletCharges(MAX_SLAYER_BRACELET_CHARGES);
+					if (config.expeditiousNotification())
+					{
+						notifier.notify(EXPEDITIOUS_BRACELET_BREAK_TEXT);
+					}
+				}
+				else
+				{
+					updateExpeditiousBraceletCharges(Integer.parseInt(found));
+				}
+			}
+			else if (expeditiousCheckMatcher.find())
+			{
+				updateExpeditiousBraceletCharges(Integer.parseInt(expeditiousCheckMatcher.group(1)));
+			}
 		}
 	}
 
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged event)
 	{
-		if (event.getItemContainer() != client.getItemContainer(InventoryID.EQUIPMENT) || !config.showInfoboxes())
+		if (event.getContainerId() != InventoryID.EQUIPMENT.getId())
 		{
 			return;
 		}
 
-		final Item[] items = event.getItemContainer().getItems();
-
-		if (config.showTeleportCharges())
-		{
-			updateJewelleryInfobox(ItemWithSlot.TELEPORT, items);
-		}
-
-		if (config.showDodgyCount())
-		{
-			updateJewelleryInfobox(ItemWithSlot.DODGY_NECKLACE, items);
-		}
-
-		if (config.showAbyssalBraceletCharges())
-		{
-			updateJewelleryInfobox(ItemWithSlot.ABYSSAL_BRACELET, items);
-		}
-
-		if (config.showBindingNecklaceCharges())
-		{
-			updateJewelleryInfobox(ItemWithSlot.BINDING_NECKLACE, items);
-		}
-
-		if (config.showExplorerRingCharges())
-		{
-			updateJewelleryInfobox(ItemWithSlot.EXPLORER_RING, items);
-		}
-
-		if (config.showRingOfForgingCount())
-		{
-			updateJewelleryInfobox(ItemWithSlot.RING_OF_FORGING, items);
-		}
-
-		if (config.showAmuletOfChemistryCharges())
-		{
-			updateJewelleryInfobox(ItemWithSlot.AMULET_OF_CHEMISTY, items);
-		}
-
-		if (config.showAmuletOfBountyCharges())
-		{
-			updateJewelleryInfobox(ItemWithSlot.AMULET_OF_BOUNTY, items);
-		}
+		updateInfoboxes();
 	}
 
 	@Subscribe
@@ -496,6 +475,14 @@ public class ItemChargePlugin extends Plugin
 							log.debug("Reset amulet of chemistry");
 							updateAmuletOfChemistryCharges(MAX_AMULET_OF_CHEMISTRY_CHARGES);
 							break;
+						case ItemID.BRACELET_OF_SLAUGHTER:
+							log.debug("Reset bracelet of slaughter");
+							updateBraceletOfSlaughterCharges(MAX_SLAYER_BRACELET_CHARGES);
+							break;
+						case ItemID.EXPEDITIOUS_BRACELET:
+							log.debug("Reset expeditious bracelet");
+							updateExpeditiousBraceletCharges(MAX_SLAYER_BRACELET_CHARGES);
+							break;
 					}
 				}
 			});
@@ -505,104 +492,50 @@ public class ItemChargePlugin extends Plugin
 	private void updateDodgyNecklaceCharges(final int value)
 	{
 		setItemCharges(ItemChargeConfig.KEY_DODGY_NECKLACE, value);
-
-		if (config.showInfoboxes() && config.showDodgyCount())
-		{
-			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-
-			if (itemContainer == null)
-			{
-				return;
-			}
-
-			updateJewelleryInfobox(ItemWithSlot.DODGY_NECKLACE, itemContainer.getItems());
-		}
+		updateInfoboxes();
 	}
 
 	private void updateAmuletOfChemistryCharges(final int value)
 	{
 		setItemCharges(ItemChargeConfig.KEY_AMULET_OF_CHEMISTRY, value);
-
-		if (config.showInfoboxes() && config.showAmuletOfChemistryCharges())
-		{
-			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-
-			if (itemContainer == null)
-			{
-				return;
-			}
-
-			updateJewelleryInfobox(ItemWithSlot.AMULET_OF_CHEMISTY, itemContainer.getItems());
-		}
+		updateInfoboxes();
 	}
 
 	private void updateAmuletOfBountyCharges(final int value)
 	{
 		setItemCharges(ItemChargeConfig.KEY_AMULET_OF_BOUNTY, value);
-
-		if (config.showInfoboxes() && config.showAmuletOfBountyCharges())
-		{
-			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-
-			if (itemContainer == null)
-			{
-				return;
-			}
-
-			updateJewelleryInfobox(ItemWithSlot.AMULET_OF_BOUNTY, itemContainer.getItems());
-		}
+		updateInfoboxes();
 	}
 
 	private void updateBindingNecklaceCharges(final int value)
 	{
 		setItemCharges(ItemChargeConfig.KEY_BINDING_NECKLACE, value);
-
-		if (config.showInfoboxes() && config.showBindingNecklaceCharges())
-		{
-			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-
-			if (itemContainer == null)
-			{
-				return;
-			}
-
-			updateJewelleryInfobox(ItemWithSlot.BINDING_NECKLACE, itemContainer.getItems());
-		}
+		updateInfoboxes();
 	}
 
 	private void updateExplorerRingCharges(final int value)
 	{
 		// Note: Varbit counts upwards. We count down from the maximum charges.
 		setItemCharges(ItemChargeConfig.KEY_EXPLORERS_RING, MAX_EXPLORER_RING_CHARGES - value);
-
-		if (config.showInfoboxes() && config.showExplorerRingCharges())
-		{
-			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
-
-			if (itemContainer == null)
-			{
-				return;
-			}
-
-			updateJewelleryInfobox(ItemWithSlot.EXPLORER_RING, itemContainer.getItems());
-		}
+		updateInfoboxes();
 	}
 
 	private void updateRingOfForgingCharges(final int value)
 	{
 		setItemCharges(ItemChargeConfig.KEY_RING_OF_FORGING, value);
+		updateInfoboxes();
+	}
 
-		if (config.showInfoboxes() && config.showRingOfForgingCount())
-		{
-			final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
+	private void updateBraceletOfSlaughterCharges(final int value)
+	{
+		setItemCharges(ItemChargeConfig.KEY_BRACELET_OF_SLAUGHTER, value);
+		updateInfoboxes();
+	}
 
-			if (itemContainer == null)
-			{
-				return;
-			}
-
-			updateJewelleryInfobox(ItemWithSlot.RING_OF_FORGING, itemContainer.getItems());
-		}
+	private void updateExpeditiousBraceletCharges(final int value)
+	{
+		setItemCharges(ItemChargeConfig.KEY_EXPEDITIOUS_BRACELET, value);
+		updateInfoboxes();
 	}
 
 	private void checkDestroyWidget()
@@ -627,73 +560,85 @@ public class ItemChargePlugin extends Plugin
 		}
 	}
 
-	private void updateJewelleryInfobox(ItemWithSlot item, Item[] items)
+	private void updateInfoboxes()
 	{
-		for (final EquipmentInventorySlot equipmentInventorySlot : item.getSlots())
-		{
-			updateJewelleryInfobox(item, items, equipmentInventorySlot);
-		}
-	}
+		final ItemContainer itemContainer = client.getItemContainer(InventoryID.EQUIPMENT);
 
-	private void updateJewelleryInfobox(ItemWithSlot type, Item[] items, EquipmentInventorySlot slot)
-	{
-		removeInfobox(type, slot);
-
-		if (slot.getSlotIdx() >= items.length)
+		if (itemContainer == null)
 		{
 			return;
 		}
 
-		final int id = items[slot.getSlotIdx()].getId();
-		if (id < 0)
+		final Item[] items = itemContainer.getItems();
+		boolean showInfoboxes = config.showInfoboxes();
+		for (EquipmentInventorySlot slot : EquipmentInventorySlot.values())
 		{
-			return;
-		}
+			if (slot.getSlotIdx() >= items.length)
+			{
+				break;
+			}
 
-		final ItemWithCharge itemWithCharge = ItemWithCharge.findItem(id);
-		int charges = -1;
+			Item i = items[slot.getSlotIdx()];
+			int id = i.getId();
+			ItemChargeType type = null;
+			int charges = -1;
 
-		if (itemWithCharge == null)
-		{
-			if (id == ItemID.DODGY_NECKLACE && type == ItemWithSlot.DODGY_NECKLACE)
+			final ItemWithCharge itemWithCharge = ItemWithCharge.findItem(id);
+			if (itemWithCharge != null)
 			{
-				charges = getItemCharges(ItemChargeConfig.KEY_DODGY_NECKLACE);
+				type = itemWithCharge.getType();
+				charges = itemWithCharge.getCharges();
 			}
-			else if (id == ItemID.BINDING_NECKLACE && type == ItemWithSlot.BINDING_NECKLACE)
+			else
 			{
-				charges = getItemCharges(ItemChargeConfig.KEY_BINDING_NECKLACE);
+				final ItemWithConfig itemWithConfig = ItemWithConfig.findItem(id);
+				if (itemWithConfig != null)
+				{
+					type = itemWithConfig.getType();
+					charges = getItemCharges(itemWithConfig.getConfigKey());
+				}
 			}
-			else if ((id >= ItemID.EXPLORERS_RING_1 && id <= ItemID.EXPLORERS_RING_4) && type == ItemWithSlot.EXPLORER_RING)
+
+			boolean enabled = type != null && type.getEnabled().test(config);
+
+			if (showInfoboxes && enabled && charges > 0)
 			{
-				charges = getItemCharges(ItemChargeConfig.KEY_EXPLORERS_RING);
+				ItemChargeInfobox infobox = infoboxes.get(slot);
+				if (infobox != null)
+				{
+					if (infobox.getItem() == id)
+					{
+						if (infobox.getCount() == charges)
+						{
+							continue;
+						}
+
+						log.debug("Updating infobox count for {}", infobox);
+						infobox.setCount(charges);
+						continue;
+					}
+
+					log.debug("Rebuilding infobox {}", infobox);
+					infoBoxManager.removeInfoBox(infobox);
+					infoboxes.remove(slot);
+				}
+
+				final String name = itemManager.getItemComposition(id).getName();
+				final BufferedImage image = itemManager.getImage(id);
+				infobox = new ItemChargeInfobox(this, image, name, charges, id, slot);
+				infoBoxManager.addInfoBox(infobox);
+				infoboxes.put(slot, infobox);
 			}
-			else if (id == ItemID.RING_OF_FORGING && type == ItemWithSlot.RING_OF_FORGING)
+			else
 			{
-				charges = getItemCharges(ItemChargeConfig.KEY_RING_OF_FORGING);
-			}
-			else if (id == ItemID.AMULET_OF_CHEMISTRY && type == ItemWithSlot.AMULET_OF_CHEMISTY)
-			{
-				charges = getItemCharges(ItemChargeConfig.KEY_AMULET_OF_CHEMISTRY);
-			}
-			else if (id == ItemID.AMULET_OF_BOUNTY && type == ItemWithSlot.AMULET_OF_BOUNTY)
-			{
-				charges = getItemCharges(ItemChargeConfig.KEY_AMULET_OF_BOUNTY);
+				ItemChargeInfobox infobox = infoboxes.remove(slot);
+				if (infobox != null)
+				{
+					log.debug("Removing infobox {}", infobox);
+					infoBoxManager.removeInfoBox(infobox);
+				}
 			}
 		}
-		else if (itemWithCharge.getType() == type.getType())
-		{
-			charges = itemWithCharge.getCharges();
-		}
-
-		if (charges <= 0)
-		{
-			return;
-		}
-
-		final String name = itemManager.getItemComposition(id).getName();
-		final BufferedImage image = itemManager.getImage(id);
-		final ItemChargeInfobox infobox = new ItemChargeInfobox(this, image, name, charges, type, slot);
-		infoBoxManager.addInfoBox(infobox);
 	}
 
 	int getItemCharges(String key)
@@ -714,25 +659,6 @@ public class ItemChargePlugin extends Plugin
 	private void setItemCharges(String key, int value)
 	{
 		configManager.setRSProfileConfiguration(ItemChargeConfig.GROUP, key, value);
-	}
-
-	private void removeInfobox(final ItemWithSlot item)
-	{
-		infoBoxManager.removeIf(t -> t instanceof ItemChargeInfobox && ((ItemChargeInfobox) t).getItem() == item);
-	}
-
-	private void removeInfobox(final ItemWithSlot item, final EquipmentInventorySlot slot)
-	{
-		infoBoxManager.removeIf(t ->
-		{
-			if (!(t instanceof ItemChargeInfobox))
-			{
-				return false;
-			}
-
-			final ItemChargeInfobox i = (ItemChargeInfobox) t;
-			return i.getItem() == item && i.getSlot() == slot;
-		});
 	}
 
 	Color getColor(int charges)

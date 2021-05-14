@@ -380,7 +380,7 @@ public class ClientLoader implements Supplier<Applet>
 					log.warn("Failed to download gamepack from \"{}\"", url, e);
 
 					// With fallback config do 1 attempt (there are no additional urls to try)
-					if (config.isFallback() || attempt >= NUM_ATTEMPTS)
+					if (!javConfigUrl.equals(RuneLiteProperties.getJavConfig()) || config.isFallback() || attempt >= NUM_ATTEMPTS)
 					{
 						throw e;
 					}

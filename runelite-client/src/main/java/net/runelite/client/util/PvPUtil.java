@@ -25,13 +25,9 @@
  */
 package net.runelite.client.util;
 
-import java.awt.Polygon;
 import net.runelite.api.Client;
 import net.runelite.api.Player;
-import net.runelite.api.Varbits;
-import net.runelite.api.WorldType;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.geometry.Cuboid;
 
 public class PvPUtil
 {
