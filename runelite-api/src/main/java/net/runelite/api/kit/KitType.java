@@ -51,7 +51,10 @@ public enum KitType
 	HANDS("Hands"),
 	BOOTS("Boots"),
 	JAW("Jaw"),
+	// When removing these, make sure you also remove the type.ordinal() > 11 checks in RSPlayerCompositionMixin
+	@Deprecated(since = "4.6.2", forRemoval = true)
 	RING("Ring"),
+	@Deprecated(since = "4.6.2", forRemoval = true)
 	AMMUNITION("Ammo");
 
 	private final String name;

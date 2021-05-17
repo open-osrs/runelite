@@ -12,6 +12,11 @@ public abstract class RSPlayerCompositionMixin implements RSPlayerComposition
 	@Override
 	public int getEquipmentId(KitType type)
 	{
+		if (type.ordinal() > 11)
+		{
+			return -1;
+		}
+
 		int id = getEquipmentIds()[type.getIndex()];
 		if (id < 512)
 		{
@@ -24,6 +29,11 @@ public abstract class RSPlayerCompositionMixin implements RSPlayerComposition
 	@Override
 	public int getKitId(KitType type)
 	{
+		if (type.ordinal() > 11)
+		{
+			return -1;
+		}
+
 		int id = getEquipmentIds()[type.getIndex()];
 		if (id < 256 || id >= 512)
 		{
