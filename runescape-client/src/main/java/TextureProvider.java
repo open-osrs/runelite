@@ -21,7 +21,7 @@ public class TextureProvider implements TextureLoader {
 	NodeDeque deque;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -381189571
+		intValue = -687495915
 	)
 	@Export("capacity")
 	int capacity;
