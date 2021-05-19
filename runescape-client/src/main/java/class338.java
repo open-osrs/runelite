@@ -1,34 +1,54 @@
+import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mk")
-public class class338 implements class343 {
-	@ObfuscatedName("f")
+@ObfuscatedName("me")
+public enum class338 implements Enumerated {
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lmt;"
+		descriptor = "Lme;"
 	)
-	public final class361 field3926;
+	field3927(0, 1),
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
+	)
+	field3925(1, 2),
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
+	)
+	field3926(3, 3),
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "Lme;"
+	)
+	field3928(2, 10);
 
-	@ObfuscatedSignature(
-		descriptor = "(Lmu;)V"
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -1369051619
 	)
-	class338(class362 var1) {
-		this.field3926 = var1; // L: 14
-	} // L: 15
+	final int field3924;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = 2077999929
+	)
+	final int field3929;
 
-	@ObfuscatedSignature(
-		descriptor = "(Lms;)V"
-	)
-	public class338(class339 var1) {
-		this(new class362(var1)); // L: 10
-	} // L: 11
+	class338(int var3, int var4) {
+		this.field3924 = var3; // L: 20
+		this.field3929 = var4; // L: 21
+	} // L: 22
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-527387396"
+		descriptor = "(I)I",
+		garbageValue = "-708237537"
 	)
-	public int method5988(int var1) {
-		return this.field3926.vmethod6335(var1); // L: 18
+	@Export("rsOrdinal")
+	public int rsOrdinal() {
+		return this.field3929; // L: 25
 	}
 }

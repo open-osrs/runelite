@@ -4,36 +4,26 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lh")
+@ObfuscatedName("lz")
 @Implements("DefaultsGroup")
 public class DefaultsGroup {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Llh;"
+		descriptor = "Llz;"
 	)
-	static final DefaultsGroup field3896;
-	@ObfuscatedName("o")
+	static final DefaultsGroup field3903;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1622336411
+		intValue = 1585130707
 	)
 	@Export("group")
 	final int group;
 
 	static {
-		field3896 = new DefaultsGroup(3); // L: 4
+		field3903 = new DefaultsGroup(3); // L: 4
 	}
 
 	DefaultsGroup(int var1) {
 		this.group = var1; // L: 8
 	} // L: 9
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "-1657945115"
-	)
-	@Export("colorStartTag")
-	static String colorStartTag(int var0) {
-		return "<col=" + Integer.toHexString(var0) + ">"; // L: 22
-	}
 }

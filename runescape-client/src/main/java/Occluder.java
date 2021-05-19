@@ -2,112 +2,147 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fd")
+@ObfuscatedName("ga")
 @Implements("Occluder")
 public final class Occluder {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 231812381
+		intValue = 1689903637
 	)
 	@Export("minTileX")
 	int minTileX;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 897356107
+		intValue = -1260940049
 	)
 	@Export("maxTileX")
 	int maxTileX;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1764781541
+		intValue = -117710629
 	)
 	@Export("minTileY")
 	int minTileY;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1759651047
+		intValue = -1407439953
 	)
 	@Export("maxTileY")
 	int maxTileY;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 418466411
+		intValue = 2009142717
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -419810531
+		intValue = -1177929287
 	)
 	@Export("minX")
 	int minX;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1880707225
+		intValue = 1697237449
 	)
 	@Export("maxX")
 	int maxX;
-	@ObfuscatedName("g")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 327372073
+		intValue = 1873689371
 	)
 	@Export("minZ")
 	int minZ;
-	@ObfuscatedName("h")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1759977967
+		intValue = 20317203
 	)
 	@Export("maxZ")
 	int maxZ;
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -129815607
+		intValue = -1660830247
 	)
 	@Export("minY")
 	int minY;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 2058617869
+		intValue = -1623185181
 	)
 	@Export("maxY")
 	int maxY;
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1358030565
+		intValue = 1102414179
 	)
-	int field2021;
-	@ObfuscatedName("d")
+	int field2374;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 2087386633
+		intValue = -1992323793
 	)
-	int field2019;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = -263403349
-	)
-	int field2023;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = 151544725
-	)
-	int field2024;
+	int field2380;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 1510098795
+		intValue = -1961407493
 	)
-	int field2016;
-	@ObfuscatedName("q")
+	int field2376;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -546604535
+		intValue = 1190526879
 	)
-	int field2012;
-	@ObfuscatedName("t")
+	int field2377;
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1373604239
+		intValue = 897436961
 	)
-	int field2026;
+	int field2368;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = 1480308041
+	)
+	int field2378;
+	@ObfuscatedName("d")
+	@ObfuscatedGetter(
+		intValue = -1837563395
+	)
+	int field2363;
 
 	Occluder() {
 	} // L: 23
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Lnk;Ljava/lang/String;I)I",
+		garbageValue = "1064465292"
+	)
+	public static int method4089(Buffer var0, String var1) {
+		int var2 = var0.offset; // L: 18
+		byte[] var3 = Language.method5070(var1); // L: 19
+		var0.writeSmartByteShort(var3.length); // L: 20
+		var0.offset += class377.huffman.compress(var3, 0, var3.length, var0.array, var0.offset); // L: 21
+		return var0.offset - var2; // L: 22
+	}
+
+	@ObfuscatedName("hc")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "281084501"
+	)
+	static void method4090() {
+		Client.menuOptionsCount = 0; // L: 7822
+		Client.isMenuOpen = false; // L: 7823
+	} // L: 7824
+
+	@ObfuscatedName("kd")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "-128058403"
+	)
+	static final void method4088(int var0) {
+		var0 = Math.min(Math.max(var0, 0), 127); // L: 11209
+		class12.clientPreferences.areaSoundEffectsVolume = var0; // L: 11210
+		KeyHandler.savePreferences(); // L: 11211
+	} // L: 11212
 }

@@ -4,82 +4,69 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("li")
+@ObfuscatedName("lc")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
 	protected AbstractSocket() {
 	} // L: 7
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1705512918"
+		descriptor = "(B)V",
+		garbageValue = "-36"
 	)
 	@Export("close")
 	public abstract void close();
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-75"
+		descriptor = "(I)I",
+		garbageValue = "-2027143758"
 	)
 	@Export("readUnsignedByte")
 	public abstract int readUnsignedByte() throws IOException;
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-65"
+		descriptor = "(I)I",
+		garbageValue = "-640327653"
 	)
 	@Export("available")
 	public abstract int available() throws IOException;
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "1604537239"
+		garbageValue = "-1880004365"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)I",
-		garbageValue = "121"
+		descriptor = "([BIII)I",
+		garbageValue = "-1936066161"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "199608149"
+		garbageValue = "1752522959"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("ar")
+	@ObfuscatedName("lj")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-1917773732"
+		descriptor = "(B)V",
+		garbageValue = "8"
 	)
-	@Export("runWidgetOnLoadListener")
-	static void runWidgetOnLoadListener(int var0) {
-		if (var0 != -1) { // L: 4271
-			if (class15.loadInterface(var0)) { // L: 4272
-				Widget[] var1 = Widget.Widget_interfaceComponents[var0]; // L: 4273
-
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 4274
-					Widget var3 = var1[var2]; // L: 4275
-					if (var3.onLoad != null) { // L: 4276
-						ScriptEvent var4 = new ScriptEvent(); // L: 4277
-						var4.widget = var3; // L: 4278
-						var4.args = var3.onLoad; // L: 4279
-						FaceNormal.runScript(var4, 5000000, 0); // L: 4280
-					}
-				}
-
-			}
-		}
-	} // L: 4283
+	@Export("Clan_leaveChat")
+	static final void Clan_leaveChat() {
+		PacketBufferNode var0 = HealthBarDefinition.getPacketBufferNode(ClientPacket.field2658, Client.packetWriter.isaacCipher); // L: 11545
+		var0.packetBuffer.writeByte(0); // L: 11546
+		Client.packetWriter.addNode(var0); // L: 11547
+	} // L: 11548
 }

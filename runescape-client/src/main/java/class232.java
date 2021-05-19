@@ -2,117 +2,90 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("hm")
-public enum class232 implements Enumerated {
-	@ObfuscatedName("f")
+@ObfuscatedName("hc")
+public class class232 {
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lhm;"
+		descriptor = "Ljp;"
 	)
-	field2809(0),
-	@ObfuscatedName("o")
+	@Export("musicPatchesArchive")
+	static AbstractArchive musicPatchesArchive;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lhm;"
+		descriptor = "Ljp;"
 	)
-	field2805(1),
-	@ObfuscatedName("u")
+	@Export("musicSamplesArchive")
+	static AbstractArchive musicSamplesArchive;
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lhm;"
+		descriptor = "Lhp;"
 	)
-	field2807(2),
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "Lhm;"
-	)
-	field2808(3),
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Lhm;"
-	)
-	field2811(4);
-
-	@ObfuscatedName("k")
+	@Export("midiPcmStream")
+	public static MidiPcmStream midiPcmStream;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1140153863
+		intValue = 459547131
 	)
-	@Export("gameCyclesToDo")
-	protected static int gameCyclesToDo;
-	@ObfuscatedName("e")
+	@Export("musicPlayerStatus")
+	public static int musicPlayerStatus;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1125471863
+		intValue = -557844945
 	)
-	final int field2810;
-
-	class232(int var3) {
-		this.field2810 = var3; // L: 14
-	} // L: 15
-
-	@ObfuscatedName("f")
+	@Export("musicTrackGroupId")
+	static int musicTrackGroupId;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = 1204207413
+	)
+	@Export("musicTrackFileId")
+	static int musicTrackFileId;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = -2028429341
+	)
+	@Export("pcmSampleLength")
+	static int pcmSampleLength;
+	@ObfuscatedName("ei")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1000839247"
+		descriptor = "Lji;"
 	)
-	@Export("rsOrdinal")
-	public int rsOrdinal() {
-		return this.field2810; // L: 18
+	@Export("archive19")
+	static Archive archive19;
+
+	static {
+		musicPlayerStatus = 0; // L: 11
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-692759541"
+		descriptor = "(ILci;ZI)I",
+		garbageValue = "788282461"
 	)
-	public static void method4360() {
-		class210.midiPcmStream.clear(); // L: 36
-		class210.musicPlayerStatus = 1; // L: 37
-		class210.musicTrackArchive = null; // L: 38
-	} // L: 39
-
-	@ObfuscatedName("fl")
-	@ObfuscatedSignature(
-		descriptor = "(Lkw;IIII)V",
-		garbageValue = "393437031"
-	)
-	static void method4364(SequenceDefinition var0, int var1, int var2, int var3) {
-		if (Client.soundEffectCount < 50 && Login.clientPreferences.areaSoundEffectsVolume != 0) { // L: 3064
-			if (var0.soundEffects != null && var1 < var0.soundEffects.length) { // L: 3065
-				int var4 = var0.soundEffects[var1]; // L: 3066
-				if (var4 != 0) { // L: 3067
-					int var5 = var4 >> 8; // L: 3068
-					int var6 = var4 >> 4 & 7; // L: 3069
-					int var7 = var4 & 15; // L: 3070
-					Client.soundEffectIds[Client.soundEffectCount] = var5; // L: 3071
-					Client.queuedSoundEffectLoops[Client.soundEffectCount] = var6; // L: 3072
-					Client.queuedSoundEffectDelays[Client.soundEffectCount] = 0; // L: 3073
-					Client.soundEffects[Client.soundEffectCount] = null; // L: 3074
-					int var8 = (var2 - 64) / 128; // L: 3075
-					int var9 = (var3 - 64) / 128; // L: 3076
-					Client.soundLocations[Client.soundEffectCount] = var7 + (var9 << 8) + (var8 << 16); // L: 3077
-					++Client.soundEffectCount; // L: 3078
-				}
-			}
+	static int method4357(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class308.scriptDotWidget : class24.scriptActiveWidget; // L: 1074
+		if (var0 == ScriptOpcodes.CC_GETX) { // L: 1075
+			Interpreter.Interpreter_intStack[++WorldMapCacheName.Interpreter_intStackSize - 1] = var3.x; // L: 1076
+			return 1; // L: 1077
+		} else if (var0 == ScriptOpcodes.CC_GETY) { // L: 1079
+			Interpreter.Interpreter_intStack[++WorldMapCacheName.Interpreter_intStackSize - 1] = var3.y; // L: 1080
+			return 1; // L: 1081
+		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) { // L: 1083
+			Interpreter.Interpreter_intStack[++WorldMapCacheName.Interpreter_intStackSize - 1] = var3.width; // L: 1084
+			return 1; // L: 1085
+		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) { // L: 1087
+			Interpreter.Interpreter_intStack[++WorldMapCacheName.Interpreter_intStackSize - 1] = var3.height; // L: 1088
+			return 1; // L: 1089
+		} else if (var0 == ScriptOpcodes.CC_GETHIDE) { // L: 1091
+			Interpreter.Interpreter_intStack[++WorldMapCacheName.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1092
+			return 1; // L: 1093
+		} else if (var0 == ScriptOpcodes.CC_GETLAYER) { // L: 1095
+			Interpreter.Interpreter_intStack[++WorldMapCacheName.Interpreter_intStackSize - 1] = var3.parentId; // L: 1096
+			return 1; // L: 1097
+		} else {
+			return 2; // L: 1099
 		}
-	} // L: 3079
-
-	@ObfuscatedName("ih")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Lhu;I)Ljava/lang/String;",
-		garbageValue = "-2066634190"
-	)
-	static String method4363(String var0, Widget var1) {
-		if (var0.indexOf("%") != -1) { // L: 9917
-			for (int var2 = 1; var2 <= 5; ++var2) { // L: 9918
-				while (true) {
-					int var3 = var0.indexOf("%" + var2); // L: 9920
-					if (var3 == -1) { // L: 9921
-						break;
-					}
-
-					var0 = var0.substring(0, var3) + WorldMapSection2.method2726(WorldMapSection0.method3036(var1, var2 - 1)) + var0.substring(var3 + 2); // L: 9922
-				}
-			}
-		}
-
-		return var0; // L: 9926
 	}
 }

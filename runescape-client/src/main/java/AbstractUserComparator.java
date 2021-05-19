@@ -3,28 +3,21 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ll")
+@ObfuscatedName("lr")
 @Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
-	@ObfuscatedName("bk")
-	@ObfuscatedSignature(
-		descriptor = "Lmf;"
-	)
-	@Export("loginType")
-	static LoginType loginType;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("nextComparator")
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
 	} // L: 8
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/util/Comparator;I)V",
-		garbageValue = "-1553050282"
+		garbageValue = "-1938939594"
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
@@ -36,10 +29,10 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	} // L: 17
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Llt;Llt;I)I",
-		garbageValue = "833589834"
+		descriptor = "(Llm;Llm;B)I",
+		garbageValue = "-41"
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
@@ -50,43 +43,32 @@ public abstract class AbstractUserComparator implements Comparator {
 		return super.equals(var1); // L: 25
 	}
 
-	@ObfuscatedName("f")
-	static double method5714(double var0) {
-		return Math.exp(-var0 * var0 / 2.0D) / Math.sqrt(6.283185307179586D); // L: 9
-	}
-
-	@ObfuscatedName("z")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(ILcc;ZI)I",
-		garbageValue = "1686681071"
+		descriptor = "(III)I",
+		garbageValue = "-246385012"
 	)
-	static int method5710(int var0, Script var1, boolean var2) {
-		Widget var3 = class139.getWidget(Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]); // L: 1375
-		if (var0 == ScriptOpcodes.IF_GETTARGETMASK) { // L: 1376
-			Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = class223.Widget_unpackTargetMask(DirectByteArrayCopier.getWidgetFlags(var3)); // L: 1377
-			return 1; // L: 1378
-		} else if (var0 != ScriptOpcodes.IF_GETOP) { // L: 1380
-			if (var0 == ScriptOpcodes.IF_GETOPBASE) { // L: 1387
-				if (var3.dataText == null) { // L: 1388
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
-				} else {
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1389
-				}
-
-				return 1; // L: 1390
-			} else {
-				return 2; // L: 1392
+	static int method5592(int var0, int var1) {
+		if (var0 == -2) { // L: 37
+			return 12345678;
+		} else if (var0 == -1) { // L: 38
+			if (var1 < 0) { // L: 39
+				var1 = 0; // L: 40
+			} else if (var1 > 127) { // L: 42
+				var1 = 127; // L: 43
 			}
+
+			var1 = 127 - var1; // L: 45
+			return var1; // L: 46
 		} else {
-			int var4 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 1381
-			--var4; // L: 1382
-			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1383
-				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1384
-			} else {
-				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
+			var1 = (var0 & 127) * var1 / 128; // L: 48
+			if (var1 < 2) { // L: 49
+				var1 = 2;
+			} else if (var1 > 126) { // L: 50
+				var1 = 126;
 			}
 
-			return 1; // L: 1385
+			return (var0 & 65408) + var1; // L: 51
 		}
 	}
 }

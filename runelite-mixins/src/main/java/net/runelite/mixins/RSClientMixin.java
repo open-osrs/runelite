@@ -1509,7 +1509,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@MethodHook("updateNpcs")
-	public static void updateNpcs(boolean var0, RSPacketBuffer var1, boolean var2)
+	public static void updateNpcs(boolean var0, RSPacketBuffer var1)
 	{
 		client.getCallbacks().updateNpcs();
 	}

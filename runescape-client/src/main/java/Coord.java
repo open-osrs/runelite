@@ -4,35 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hk")
+@ObfuscatedName("ia")
 @Implements("Coord")
 public class Coord {
-	@ObfuscatedName("ov")
-	@ObfuscatedSignature(
-		descriptor = "Lmk;"
-	)
-	static class338 field2591;
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -227225909
+		intValue = -1443965225
 	)
 	@Export("plane")
 	public int plane;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -2147189971
+		intValue = 463916309
 	)
 	@Export("x")
 	public int x;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 5380173
+		intValue = 759274921
 	)
 	@Export("y")
 	public int y;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lhk;)V"
+		descriptor = "(Lia;)V"
 	)
 	public Coord(Coord var1) {
 		this.plane = var1.plane; // L: 15
@@ -57,20 +52,20 @@ public class Coord {
 
 	} // L: 27
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1365130911"
+		garbageValue = "-1657786881"
 	)
 	@Export("packed")
 	public int packed() {
 		return this.plane << 28 | this.x << 14 | this.y; // L: 30
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lhk;I)Z",
-		garbageValue = "-1711331725"
+		descriptor = "(Lia;S)Z",
+		garbageValue = "-559"
 	)
 	@Export("equalsCoord")
 	boolean equalsCoord(Coord var1) {
@@ -83,18 +78,14 @@ public class Coord {
 		}
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "-9"
+		garbageValue = "64"
 	)
 	@Export("toString")
 	String toString(String var1) {
 		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63); // L: 55
-	}
-
-	public int hashCode() {
-		return this.packed(); // L: 47
 	}
 
 	public boolean equals(Object var1) {
@@ -103,6 +94,10 @@ public class Coord {
 		} else {
 			return !(var1 instanceof Coord) ? false : this.equalsCoord((Coord)var1); // L: 35 36
 		}
+	}
+
+	public int hashCode() {
+		return this.packed(); // L: 47
 	}
 
 	public String toString() {

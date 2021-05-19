@@ -4,30 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eb")
+@ObfuscatedName("fx")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 997501595
+		intValue = -917143075
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -502030217
+		intValue = 939054465
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1934250883
+		intValue = -2136918663
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1021808117
+		intValue = 2032814193
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -35,20 +35,28 @@ public abstract class RouteStrategy {
 	protected RouteStrategy() {
 	} // L: 9
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(IIILel;I)Z",
-		garbageValue = "120127354"
+		descriptor = "(IIILfa;B)Z",
+		garbageValue = "2"
 	)
 	@Export("hasArrived")
 	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 
-	@ObfuscatedName("id")
+	@ObfuscatedName("la")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "95"
+		descriptor = "(Lnk;IB)V",
+		garbageValue = "8"
 	)
-	static boolean method2653(int var0) {
-		return var0 == 57 || var0 == 58 || var0 == 1007 || var0 == 25 || var0 == 30; // L: 9045
-	}
+	static void method3134(Buffer var0, int var1) {
+		VarbitComposition.method2818(var0.array, var1); // L: 11719
+		if (JagexCache.JagexCache_randomDat != null) { // L: 11721
+			try {
+				JagexCache.JagexCache_randomDat.seek(0L); // L: 11723
+				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24); // L: 11724
+			} catch (Exception var3) { // L: 11726
+			}
+		}
+
+	} // L: 11729
 }

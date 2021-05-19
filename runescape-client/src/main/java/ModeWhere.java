@@ -5,293 +5,177 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jb")
+@ObfuscatedName("kb")
 @Implements("ModeWhere")
 public enum ModeWhere implements Enumerated {
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3373("", 0, new class264[]{class264.field3339}),
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3361("", 1, new class264[]{class264.field3340, class264.field3339}),
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3362("", 2, new class264[]{class264.field3340, class264.field3341, class264.field3339}),
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3363("", 3, new class264[]{class264.field3340}),
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3360("", 4),
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3365("", 5, new class264[]{class264.field3340, class264.field3339}),
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3366("", 6, new class264[]{class264.field3339}),
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "Ljb;"
-	)
-	field3367("", 8, new class264[]{class264.field3340, class264.field3339}),
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Ljb;"
+		descriptor = "Lkb;"
 	)
-	field3364("", 9, new class264[]{class264.field3340, class264.field3341}),
-	@ObfuscatedName("n")
+	field3710("", 0, new class286[]{class286.field3686}),
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Ljb;"
+		descriptor = "Lkb;"
 	)
-	field3369("", 10, new class264[]{class264.field3340}),
+	field3708("", 1, new class286[]{class286.field3687, class286.field3686}),
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3726("", 2, new class286[]{class286.field3687, class286.field3684, class286.field3686}),
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3717("", 3, new class286[]{class286.field3687}),
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ljb;"
+		descriptor = "Lkb;"
 	)
-	field3376("", 11, new class264[]{class264.field3340}),
-	@ObfuscatedName("m")
+	field3711("", 4),
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Ljb;"
+		descriptor = "Lkb;"
 	)
-	field3374("", 12, new class264[]{class264.field3340, class264.field3339}),
-	@ObfuscatedName("d")
+	field3718("", 5, new class286[]{class286.field3687, class286.field3686}),
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Ljb;"
+		descriptor = "Lkb;"
 	)
-	field3372("", 13, new class264[]{class264.field3340});
+	field3720("", 6, new class286[]{class286.field3686}),
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3714("", 8, new class286[]{class286.field3687, class286.field3686}),
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3715("", 9, new class286[]{class286.field3687, class286.field3684}),
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3716("", 10, new class286[]{class286.field3687}),
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3709("", 11, new class286[]{class286.field3687}),
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3707("", 12, new class286[]{class286.field3687, class286.field3686}),
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Lkb;"
+	)
+	field3719("", 13, new class286[]{class286.field3687});
 
-	@ObfuscatedName("rv")
-	@ObfuscatedGetter(
-		intValue = 351433671
-	)
-	static int field3368;
-	@ObfuscatedName("ax")
+	@ObfuscatedName("ai")
+	@Export("null_string")
+	protected static String null_string;
+	@ObfuscatedName("bk")
 	@ObfuscatedSignature(
-		descriptor = "Llj;"
+		descriptor = "Lnj;"
 	)
-	static Bounds field3378;
-	@ObfuscatedName("hi")
-	@ObfuscatedGetter(
-		intValue = 243649969
+	@Export("loginType")
+	static LoginType loginType;
+	@ObfuscatedName("ou")
+	@ObfuscatedSignature(
+		descriptor = "Lno;"
 	)
-	@Export("cameraX")
-	static int cameraX;
-	@ObfuscatedName("c")
+	@Export("HitSplatDefinition_cachedSprites")
+	static class369 HitSplatDefinition_cachedSprites;
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 2114323867
+		intValue = -1167949463
 	)
 	@Export("id")
 	final int id;
-	@ObfuscatedName("j")
-	final Set field3371;
+	@ObfuscatedName("p")
+	final Set field3721;
+
+	static {
+		method5073(); // L: 28
+	} // L: 29
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I[Ljj;)V"
+		descriptor = "(Ljava/lang/String;I[Lkl;)V"
 	)
-	ModeWhere(String var3, int var4, class264[] var5) {
-		this.field3371 = new HashSet();
-		this.id = var4; // L: 39
-		class264[] var6 = var5; // L: 41
+	ModeWhere(String var3, int var4, class286[] var5) {
+		this.field3721 = new HashSet();
+		this.id = var4; // L: 43
+		class286[] var6 = var5; // L: 45
 
-		for (int var7 = 0; var7 < var6.length; ++var7) { // L: 42
-			class264 var8 = var6[var7]; // L: 43
-			this.field3371.add(var8); // L: 44
+		for (int var7 = 0; var7 < var6.length; ++var7) { // L: 46
+			class286 var8 = var6[var7]; // L: 47
+			this.field3721.add(var8); // L: 48
 		}
 
-	} // L: 47
+	} // L: 51
 
 	ModeWhere(String var3, int var4) {
-		this.field3371 = new HashSet(); // L: 32
-		this.id = var4; // L: 35
-	} // L: 36
+		this.field3721 = new HashSet(); // L: 32
+		this.id = var4; // L: 39
+	} // L: 40
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1000839247"
+		garbageValue = "-708237537"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 50
+		return this.id; // L: 54
+	}
+
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lhs;",
+		garbageValue = "-1050476944"
+	)
+	@Export("ServerPacket_values")
+	public static ServerPacket[] ServerPacket_values() {
+		return new ServerPacket[]{ServerPacket.field2774, ServerPacket.field2750, ServerPacket.field2744, ServerPacket.field2711, ServerPacket.field2703, ServerPacket.field2704, ServerPacket.field2738, ServerPacket.field2762, ServerPacket.field2707, ServerPacket.field2708, ServerPacket.field2709, ServerPacket.field2710, ServerPacket.field2742, ServerPacket.field2712, ServerPacket.field2713, ServerPacket.field2714, ServerPacket.field2715, ServerPacket.field2716, ServerPacket.field2729, ServerPacket.field2787, ServerPacket.field2767, ServerPacket.field2720, ServerPacket.field2721, ServerPacket.field2699, ServerPacket.field2723, ServerPacket.field2724, ServerPacket.field2771, ServerPacket.field2726, ServerPacket.field2727, ServerPacket.field2725, ServerPacket.field2700, ServerPacket.field2730, ServerPacket.field2731, ServerPacket.field2732, ServerPacket.field2722, ServerPacket.field2737, ServerPacket.field2735, ServerPacket.field2736, ServerPacket.field2734, ServerPacket.field2757, ServerPacket.field2739, ServerPacket.field2741, ServerPacket.field2740, ServerPacket.field2781, ServerPacket.field2743, ServerPacket.field2702, ServerPacket.field2745, ServerPacket.field2772, ServerPacket.field2747, ServerPacket.field2748, ServerPacket.field2749, ServerPacket.field2746, ServerPacket.field2733, ServerPacket.field2719, ServerPacket.field2753, ServerPacket.field2754, ServerPacket.field2755, ServerPacket.field2756, ServerPacket.field2769, ServerPacket.field2758, ServerPacket.field2759, ServerPacket.field2763, ServerPacket.field2761, ServerPacket.field2718, ServerPacket.field2752, ServerPacket.field2764, ServerPacket.field2765, ServerPacket.field2766, ServerPacket.field2701, ServerPacket.field2768, ServerPacket.field2728, ServerPacket.field2770, ServerPacket.field2795, ServerPacket.field2794, ServerPacket.field2773, ServerPacket.field2780, ServerPacket.field2775, ServerPacket.field2776, ServerPacket.field2777, ServerPacket.field2778, ServerPacket.field2779, ServerPacket.field2760, ServerPacket.field2705, ServerPacket.field2782, ServerPacket.field2783, ServerPacket.field2784, ServerPacket.field2785, ServerPacket.field2786, ServerPacket.field2751, ServerPacket.field2788, ServerPacket.field2789, ServerPacket.field2790, ServerPacket.field2791, ServerPacket.field2792, ServerPacket.field2793}; // L: 104
 	}
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(ILcc;ZI)I",
-		garbageValue = "1792039900"
+		descriptor = "(B)[Lkb;",
+		garbageValue = "62"
 	)
-	static int method4705(int var0, Script var1, boolean var2) {
-		boolean var3 = true; // L: 833
-		Widget var4;
-		if (var0 >= 2000) { // L: 835
-			var0 -= 1000; // L: 836
-			var4 = class139.getWidget(Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]); // L: 837
-			var3 = false; // L: 838
-		} else {
-			var4 = var2 ? FriendSystem.scriptDotWidget : class4.scriptActiveWidget; // L: 840
-		}
-
-		int var11;
-		if (var0 == ScriptOpcodes.CC_SETOP) { // L: 841
-			var11 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize] - 1; // L: 842
-			if (var11 >= 0 && var11 <= 9) { // L: 843
-				var4.setAction(var11, Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]); // L: 847
-				return 1; // L: 848
-			} else {
-				--Interpreter.Interpreter_stringStackSize; // L: 844
-				return 1; // L: 845
-			}
-		} else {
-			int var6;
-			if (var0 == ScriptOpcodes.CC_SETDRAGGABLE) { // L: 850
-				class16.Interpreter_intStackSize -= 2; // L: 851
-				var11 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize]; // L: 852
-				var6 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 1]; // L: 853
-				var4.parent = class231.getWidgetChild(var11, var6); // L: 854
-				return 1; // L: 855
-			} else if (var0 == ScriptOpcodes.CC_SETDRAGGABLEBEHAVIOR) { // L: 857
-				var4.isScrollBar = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize] == 1; // L: 858
-				return 1; // L: 859
-			} else if (var0 == ScriptOpcodes.CC_SETDRAGDEADZONE) { // L: 861
-				var4.dragZoneSize = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 862
-				return 1; // L: 863
-			} else if (var0 == ScriptOpcodes.CC_SETDRAGDEADTIME) { // L: 865
-				var4.dragThreshold = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 866
-				return 1; // L: 867
-			} else if (var0 == ScriptOpcodes.CC_SETOPBASE) { // L: 869
-				var4.dataText = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]; // L: 870
-				return 1; // L: 871
-			} else if (var0 == ScriptOpcodes.CC_SETTARGETVERB) { // L: 873
-				var4.spellActionName = Interpreter.Interpreter_stringStack[--Interpreter.Interpreter_stringStackSize]; // L: 874
-				return 1; // L: 875
-			} else if (var0 == ScriptOpcodes.CC_CLEAROPS) { // L: 877
-				var4.actions = null; // L: 878
-				return 1; // L: 879
-			} else if (var0 == 1308) { // L: 881
-				var4.prioritizeMenuEntry = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize] == 1; // L: 882
-				return 1; // L: 883
-			} else if (var0 == 1309) { // L: 885
-				--class16.Interpreter_intStackSize; // L: 886
-				return 1; // L: 887
-			} else {
-				int var7;
-				byte[] var8;
-				if (var0 != ScriptOpcodes.CC_SETOPKEY) { // L: 889
-					byte var5;
-					if (var0 == ScriptOpcodes.CC_SETOPTKEY) { // L: 919
-						class16.Interpreter_intStackSize -= 2; // L: 920
-						var5 = 10; // L: 921
-						var8 = new byte[]{(byte)Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize]}; // L: 922
-						byte[] var9 = new byte[]{(byte)Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 1]}; // L: 923
-						ApproximateRouteStrategy.Widget_setKey(var4, var5, var8, var9); // L: 924
-						return 1; // L: 925
-					} else if (var0 == ScriptOpcodes.CC_SETOPKEYRATE) { // L: 927
-						class16.Interpreter_intStackSize -= 3; // L: 928
-						var11 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize] - 1; // L: 929
-						var6 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 1]; // L: 930
-						var7 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 2]; // L: 931
-						if (var11 >= 0 && var11 <= 9) { // L: 932
-							class2.Widget_setKeyRate(var4, var11, var6, var7); // L: 935
-							return 1; // L: 936
-						} else {
-							throw new RuntimeException(); // L: 933
-						}
-					} else if (var0 == ScriptOpcodes.CC_SETOPTKEYRATE) { // L: 938
-						var5 = 10; // L: 939
-						var6 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 940
-						var7 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 941
-						class2.Widget_setKeyRate(var4, var5, var6, var7); // L: 942
-						return 1; // L: 943
-					} else if (var0 == ScriptOpcodes.CC_SETOPKEYIGNOREHELD) { // L: 945
-						--class16.Interpreter_intStackSize; // L: 946
-						var11 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize] - 1; // L: 947
-						if (var11 >= 0 && var11 <= 9) { // L: 948
-							class244.Widget_setKeyIgnoreHeld(var4, var11); // L: 951
-							return 1; // L: 952
-						} else {
-							throw new RuntimeException(); // L: 949
-						}
-					} else if (var0 == ScriptOpcodes.CC_SETOPTKEYIGNOREHELD) { // L: 954
-						var5 = 10; // L: 955
-						class244.Widget_setKeyIgnoreHeld(var4, var5); // L: 956
-						return 1; // L: 957
-					} else {
-						return 2; // L: 959
-					}
-				} else {
-					byte[] var10 = null; // L: 890
-					var8 = null; // L: 891
-					if (var3) { // L: 892
-						class16.Interpreter_intStackSize -= 10; // L: 893
-
-						for (var7 = 0; var7 < 10 && Interpreter.Interpreter_intStack[var7 + class16.Interpreter_intStackSize] >= 0; var7 += 2) { // L: 895 896
-						}
-
-						if (var7 > 0) { // L: 898
-							var10 = new byte[var7 / 2]; // L: 899
-							var8 = new byte[var7 / 2]; // L: 900
-
-							for (var7 -= 2; var7 >= 0; var7 -= 2) { // L: 901
-								var10[var7 / 2] = (byte)Interpreter.Interpreter_intStack[var7 + class16.Interpreter_intStackSize]; // L: 902
-								var8[var7 / 2] = (byte)Interpreter.Interpreter_intStack[var7 + class16.Interpreter_intStackSize + 1]; // L: 903
-							}
-						}
-					} else {
-						class16.Interpreter_intStackSize -= 2; // L: 908
-						var10 = new byte[]{(byte)Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize]}; // L: 909
-						var8 = new byte[]{(byte)Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 1]}; // L: 910
-					}
-
-					var7 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize] - 1; // L: 912
-					if (var7 >= 0 && var7 <= 9) { // L: 913
-						ApproximateRouteStrategy.Widget_setKey(var4, var7, var10, var8); // L: 916
-						return 1; // L: 917
-					} else {
-						throw new RuntimeException(); // L: 914
-					}
-				}
-			}
-		}
+	static ModeWhere[] method5073() {
+		return new ModeWhere[]{field3711, field3714, field3718, field3710, field3707, field3726, field3709, field3719, field3717, field3720, field3715, field3708, field3716}; // L: 35
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("ib")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIII)Z",
-		garbageValue = "-1545527286"
+		descriptor = "(IIIIIIIIB)V",
+		garbageValue = "1"
 	)
-	static final boolean method4704(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		int var7 = ViewportMouse.ViewportMouse_y + var6; // L: 131
-		if (var7 < var0 && var7 < var1 && var7 < var2) { // L: 132
-			return false;
+	@Export("drawWidgets")
+	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+		if (UserComparator8.loadInterface(var0)) { // L: 9488
+			Ignored.field3859 = null; // L: 9495
+			class44.drawInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7); // L: 9496
+			if (Ignored.field3859 != null) { // L: 9497
+				class44.drawInterface(Ignored.field3859, -1412584499, var1, var2, var3, var4, VarcInt.field1576, class230.field2812, var7); // L: 9498
+				Ignored.field3859 = null; // L: 9499
+			}
+
 		} else {
-			var7 = ViewportMouse.ViewportMouse_y - var6; // L: 133
-			if (var7 > var0 && var7 > var1 && var7 > var2) { // L: 134
-				return false;
+			if (var7 != -1) { // L: 9489
+				Client.field825[var7] = true;
 			} else {
-				var7 = ViewportMouse.ViewportMouse_x + var6; // L: 135
-				if (var7 < var3 && var7 < var4 && var7 < var5) { // L: 136
-					return false;
-				} else {
-					var7 = ViewportMouse.ViewportMouse_x - var6; // L: 137
-					return var7 <= var3 || var7 <= var4 || var7 <= var5; // L: 138
+				for (int var8 = 0; var8 < 100; ++var8) { // L: 9491
+					Client.field825[var8] = true;
 				}
 			}
+
 		}
-	}
+	} // L: 9493 9501
 }

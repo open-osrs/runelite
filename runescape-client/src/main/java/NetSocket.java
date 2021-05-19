@@ -8,69 +8,79 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ek")
+@ObfuscatedName("ec")
 @Implements("NetSocket")
 public final class NetSocket extends AbstractSocket implements Runnable {
-	@ObfuscatedName("d")
-	static boolean field1498;
-	@ObfuscatedName("f")
+	@ObfuscatedName("ty")
+	@ObfuscatedSignature(
+		descriptor = "Lmv;"
+	)
+	@Export("worldMap")
+	static WorldMap worldMap;
+	@ObfuscatedName("bb")
+	@ObfuscatedSignature(
+		descriptor = "Ljr;"
+	)
+	static StudioGame field1492;
+	@ObfuscatedName("h")
 	@Export("inputStream")
 	InputStream inputStream;
+	@ObfuscatedName("c")
+	@Export("outputStream")
+	OutputStream outputStream;
 	@ObfuscatedName("o")
 	@Export("socket")
 	Socket socket;
-	@ObfuscatedName("u")
-	@Export("outputStream")
-	OutputStream outputStream;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@Export("isClosed")
 	boolean isClosed;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ldt;"
+		descriptor = "Ldk;"
 	)
 	@Export("taskHandler")
 	TaskHandler taskHandler;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lep;"
+		descriptor = "Lek;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@Export("outBuffer")
 	byte[] outBuffer;
-	@ObfuscatedName("g")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1893029663
+		intValue = -911833781
 	)
 	@Export("outLength")
 	int outLength;
-	@ObfuscatedName("h")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1275635837
+		intValue = -1776922823
 	)
 	@Export("outOffset")
 	int outOffset;
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@Export("exceptionWriting")
 	boolean exceptionWriting;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1698435769
+		intValue = -341311153
 	)
 	@Export("bufferLength")
 	final int bufferLength;
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 190776071
+		intValue = 772156429
 	)
 	@Export("maxPacketLength")
 	final int maxPacketLength;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/Socket;Ldt;I)V"
+		descriptor = "(Ljava/net/Socket;Ldk;I)V"
 	)
 	public NetSocket(Socket var1, TaskHandler var2, int var3) throws IOException {
 		this.isClosed = false; // L: 16
@@ -89,10 +99,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		this.outputStream = this.socket.getOutputStream(); // L: 37
 	} // L: 38
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1705512918"
+		descriptor = "(B)V",
+		garbageValue = "-36"
 	)
 	@Export("close")
 	public void close() {
@@ -104,7 +114,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 			if (this.task != null) { // L: 46
 				while (this.task.status == 0) { // L: 47
-					GrandExchangeEvent.sleepExact(1L); // L: 48
+					UrlRequest.sleepExact(1L); // L: 48
 				}
 
 				if (this.task.status == 1) { // L: 50
@@ -119,30 +129,30 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	} // L: 58
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-75"
+		descriptor = "(I)I",
+		garbageValue = "-2027143758"
 	)
 	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.read(); // L: 65 66
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-65"
+		descriptor = "(I)I",
+		garbageValue = "-640327653"
 	)
 	@Export("available")
 	public int available() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.available(); // L: 70 71
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "1604537239"
+		garbageValue = "-1880004365"
 	)
 	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
@@ -153,10 +163,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)I",
-		garbageValue = "121"
+		descriptor = "([BIII)I",
+		garbageValue = "-1936066161"
 	)
 	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
@@ -178,10 +188,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "277239733"
+		garbageValue = "-1940944682"
 	)
 	@Export("write0")
 	void write0(byte[] var1, int var2, int var3) throws IOException {
@@ -213,10 +223,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	} // L: 111
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "199608149"
+		garbageValue = "1752522959"
 	)
 	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
@@ -294,21 +304,43 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 				break;
 			}
 		} catch (Exception var12) { // L: 154
-			class223.RunException_sendStackTrace((String)null, var12); // L: 155
+			class27.RunException_sendStackTrace((String)null, var12); // L: 155
 		}
 
 	} // L: 157
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "1850245175"
+		descriptor = "(ILci;ZI)I",
+		garbageValue = "1636570408"
 	)
-	public static int method2587(int var0) {
-		if (var0 > 0) { // L: 206
-			return 1;
+	static int method2570(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class308.scriptDotWidget : class24.scriptActiveWidget; // L: 1190
+		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1191
+			Interpreter.Interpreter_intStack[++WorldMapCacheName.Interpreter_intStackSize - 1] = AttackOption.Widget_unpackTargetMask(class26.getWidgetFlags(var3)); // L: 1192
+			return 1; // L: 1193
+		} else if (var0 != ScriptOpcodes.CC_GETOP) { // L: 1195
+			if (var0 == ScriptOpcodes.CC_GETOPBASE) { // L: 1202
+				if (var3.dataText == null) { // L: 1203
+					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = "";
+				} else {
+					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1204
+				}
+
+				return 1; // L: 1205
+			} else {
+				return 2; // L: 1207
+			}
 		} else {
-			return var0 < 0 ? -1 : 0; // L: 207 208
+			int var4 = Interpreter.Interpreter_intStack[--WorldMapCacheName.Interpreter_intStackSize]; // L: 1196
+			--var4; // L: 1197
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1198
+				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1199
+			} else {
+				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = "";
+			}
+
+			return 1; // L: 1200
 		}
 	}
 }

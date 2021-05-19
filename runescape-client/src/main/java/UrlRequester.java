@@ -10,21 +10,16 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("de")
+@ObfuscatedName("dz")
 @Implements("UrlRequester")
 public class UrlRequester implements Runnable {
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Low;"
-	)
-	static IndexedSprite field1400;
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("thread")
 	final Thread thread;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("isClosed")
 	volatile boolean isClosed;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@Export("requests")
 	Queue requests;
 
@@ -35,25 +30,25 @@ public class UrlRequester implements Runnable {
 		this.thread.start(); // L: 20
 	} // L: 21
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;I)Lda;",
-		garbageValue = "-1899831036"
+		descriptor = "(Ljava/net/URL;I)Ldh;",
+		garbageValue = "-1471411357"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
 		UrlRequest var2 = new UrlRequest(var1); // L: 71
-		synchronized(this) { // L: 72
-			this.requests.add(var2); // L: 73
+		synchronized(this) {
+			this.requests.add(var2);
 			this.notify(); // L: 74
 			return var2; // L: 76
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1618502581"
+		garbageValue = "-1011517268"
 	)
 	@Export("close")
 	public void close() {
@@ -64,11 +59,11 @@ public class UrlRequester implements Runnable {
 				this.notify(); // L: 83
 			} // L: 84
 
-			this.thread.join(); // L: 85
-		} catch (InterruptedException var4) { // L: 87
+			this.thread.join();
+		} catch (InterruptedException var4) {
 		}
 
-	} // L: 88
+	}
 
 	public void run() {
 		while (!this.isClosed) { // L: 24
@@ -116,18 +111,33 @@ public class UrlRequester implements Runnable {
 
 				}
 			} catch (Exception var17) { // L: 64
-				class223.RunException_sendStackTrace((String)null, var17); // L: 65
+				class27.RunException_sendStackTrace((String)null, var17); // L: 65
 			}
 		}
 
 	} // L: 68
 
-	@ObfuscatedName("ar")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)I",
-		garbageValue = "-694005791"
+		descriptor = "(III)I",
+		garbageValue = "2060167605"
 	)
-	public static int method2388(String var0) {
-		return var0.length() + 2; // L: 126
+	public static int method2421(int var0, int var1) {
+		int var2;
+		for (var2 = 0; var1 > 0; --var1) { // L: 85 86 89
+			var2 = var2 << 1 | var0 & 1; // L: 87
+			var0 >>>= 1; // L: 88
+		}
+
+		return var2; // L: 91
 	}
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1026203280"
+	)
+	public static void method2422() {
+		ParamComposition.ParamDefinition_cached.clear(); // L: 72
+	} // L: 73
 }

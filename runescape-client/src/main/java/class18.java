@@ -1,197 +1,160 @@
-import java.io.File;
-import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("v")
+@ObfuscatedName("u")
 public class class18 extends class14 {
-	@ObfuscatedName("gq")
-	@Export("regionLandArchiveIds")
-	static int[] regionLandArchiveIds;
-	@ObfuscatedName("gt")
-	@ObfuscatedGetter(
-		intValue = -1941852289
-	)
-	static int field145;
-	@ObfuscatedName("gc")
+	@ObfuscatedName("tw")
 	@ObfuscatedSignature(
-		descriptor = "[Low;"
+		descriptor = "Ljn;"
 	)
-	@Export("mapSceneSprites")
-	static IndexedSprite[] mapSceneSprites;
-	@ObfuscatedName("hn")
-	@ObfuscatedSignature(
-		descriptor = "[Loh;"
-	)
-	@Export("crossSprites")
-	static SpritePixels[] crossSprites;
-	@ObfuscatedName("f")
+	public static class285 field154;
+	@ObfuscatedName("rg")
 	@ObfuscatedGetter(
-		intValue = -1821299355
+		intValue = -1740704291
 	)
-	int field140;
-	@ObfuscatedName("o")
-	boolean field141;
+	static int field157;
+	@ObfuscatedName("ap")
+	@ObfuscatedSignature(
+		descriptor = "Lle;"
+	)
+	static Bounds field155;
+	@ObfuscatedName("db")
+	@ObfuscatedSignature(
+		descriptor = "Lji;"
+	)
+	@Export("archive13")
+	static Archive archive13;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = 91445281
+	)
+	int field152;
+	@ObfuscatedName("c")
+	boolean field151;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lu;"
+		descriptor = "Lo;"
 	)
 	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lu;)V"
+		descriptor = "(Lo;)V"
 	)
 	class18(class2 var1) {
 		this.this$0 = var1;
-		this.field140 = -1; // L: 178
+		this.field152 = -1; // L: 178
 	} // L: 181
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Lnu;I)V",
-		garbageValue = "-1383981708"
-	)
-	void vmethod371(Buffer var1) {
-		this.field140 = var1.readUnsignedShort(); // L: 184
-		this.field141 = var1.readUnsignedByte() == 1; // L: 185
-	} // L: 186
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(Lm;I)V",
-		garbageValue = "-1475503816"
-	)
-	void vmethod376(class11 var1) {
-		var1.method153(this.field140, this.field141); // L: 189
-	} // L: 190
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Lir;Lir;I)Z",
-		garbageValue = "1246242383"
-	)
-	public static boolean method280(AbstractArchive var0, AbstractArchive var1) {
-		WorldMapElement.WorldMapElement_archive = var1; // L: 44
-		if (!var0.isFullyLoaded()) { // L: 45
-			return false;
-		} else {
-			class370.WorldMapElement_count = var0.getGroupFileCount(35);
-			GrandExchangeOfferNameComparator.WorldMapElement_cached = new WorldMapElement[class370.WorldMapElement_count]; // L: 49
-
-			for (int var2 = 0; var2 < class370.WorldMapElement_count; ++var2) { // L: 50
-				byte[] var3 = var0.takeFile(35, var2); // L: 51
-				GrandExchangeOfferNameComparator.WorldMapElement_cached[var2] = new WorldMapElement(var2); // L: 52
-				if (var3 != null) { // L: 53
-					GrandExchangeOfferNameComparator.WorldMapElement_cached[var2].decode(new Buffer(var3)); // L: 54
-					GrandExchangeOfferNameComparator.WorldMapElement_cached[var2].method4907(); // L: 55
-				}
-			}
-
-			return true; // L: 58
-		}
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)Ljava/io/File;",
-		garbageValue = "-608674034"
-	)
-	@Export("getFile")
-	static File getFile(String var0) {
-		if (!FileSystem.FileSystem_hasPermissions) { // L: 22
-			throw new RuntimeException("");
-		} else {
-			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0); // L: 23
-			if (var1 != null) { // L: 24
-				return var1;
-			} else {
-				File var2 = new File(FileSystem.FileSystem_cacheDir, var0); // L: 25
-				RandomAccessFile var3 = null; // L: 26
-
-				try {
-					File var4 = new File(var2.getParent()); // L: 28
-					if (!var4.exists()) { // L: 29
-						throw new RuntimeException("");
-					} else {
-						var3 = new RandomAccessFile(var2, "rw"); // L: 30
-						int var5 = var3.read(); // L: 31
-						var3.seek(0L); // L: 32
-						var3.write(var5); // L: 33
-						var3.seek(0L); // L: 34
-						var3.close(); // L: 35
-						FileSystem.FileSystem_cacheFiles.put(var0, var2); // L: 36
-						return var2; // L: 37
-					}
-				} catch (Exception var8) {
-					try {
-						if (var3 != null) { // L: 41
-							var3.close(); // L: 42
-							var3 = null; // L: 43
-						}
-					} catch (Exception var7) { // L: 46
-					}
-
-					throw new RuntimeException(); // L: 48
-				}
-			}
-		}
-	}
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-17"
+		descriptor = "(Lnk;I)V",
+		garbageValue = "110401227"
 	)
-	static void method282() {
-		Login.Login_username = Login.Login_username.trim(); // L: 700
-		if (Login.Login_username.length() == 0) { // L: 701
-			class9.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 702
-		} else {
-			long var1 = ObjectSound.method1798(); // L: 706
-			int var0;
-			if (0L == var1) { // L: 707
-				var0 = 5;
-			} else {
-				var0 = class19.method297(var1, Login.Login_username); // L: 708
-			}
+	void vmethod339(Buffer var1) {
+		this.field152 = var1.readUnsignedShort(); // L: 184
+		this.field151 = var1.readUnsignedByte() == 1; // L: 185
+	} // L: 186
 
-			switch(var0) { // L: 709
-			case 2:
-				class9.setLoginResponseString(Strings.field2961, Strings.field2955, Strings.field3183); // L: 711
-				Login.loginIndex = 6; // L: 712
-				break;
-			case 3:
-				class9.setLoginResponseString("", "Error connecting to server.", ""); // L: 721
-				break; // L: 722
-			case 4:
-				class9.setLoginResponseString("The part of the website you are trying", "to connect to is offline at the moment.", "Please try again later."); // L: 715
-				break; // L: 716
-			case 5:
-				class9.setLoginResponseString("Sorry, there was an error trying to", "log you in to this part of the website.", "Please try again later."); // L: 718
-				break; // L: 719
-			case 6:
-				class9.setLoginResponseString("", "Error connecting to server.", ""); // L: 727
-				break;
-			case 7:
-				class9.setLoginResponseString("You must enter a valid login to proceed. For accounts", "created after 24th November 2010, please use your", "email address. Otherwise please use your username."); // L: 724
-			}
-
-		}
-	} // L: 703 730
-
-	@ObfuscatedName("j")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "11"
+		descriptor = "(Lx;I)V",
+		garbageValue = "-1535989118"
 	)
-	static void method283() {
-		if (WorldMapAreaData.loadWorlds()) { // L: 1383
-			Login.worldSelectOpen = true; // L: 1384
-			Login.worldSelectPage = 0; // L: 1385
-			Login.worldSelectPagesCount = 0; // L: 1386
+	void vmethod338(class11 var1) {
+		var1.method133(this.field152, this.field151); // L: 189
+	} // L: 190
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;IZB)I",
+		garbageValue = "114"
+	)
+	static int method255(CharSequence var0, int var1, boolean var2) {
+		if (var1 >= 2 && var1 <= 36) { // L: 84
+			boolean var3 = false; // L: 85
+			boolean var4 = false; // L: 86
+			int var5 = 0; // L: 87
+			int var6 = var0.length(); // L: 88
+
+			for (int var7 = 0; var7 < var6; ++var7) { // L: 89
+				char var8 = var0.charAt(var7); // L: 90
+				if (var7 == 0) { // L: 91
+					if (var8 == '-') { // L: 92
+						var3 = true; // L: 93
+						continue;
+					}
+
+					if (var8 == '+') { // L: 96
+						continue;
+					}
+				}
+
+				int var10;
+				if (var8 >= '0' && var8 <= '9') { // L: 98
+					var10 = var8 - '0';
+				} else if (var8 >= 'A' && var8 <= 'Z') { // L: 99
+					var10 = var8 - '7';
+				} else {
+					if (var8 < 'a' || var8 > 'z') { // L: 100
+						throw new NumberFormatException(); // L: 101
+					}
+
+					var10 = var8 - 'W';
+				}
+
+				if (var10 >= var1) { // L: 102
+					throw new NumberFormatException();
+				}
+
+				if (var3) { // L: 103
+					var10 = -var10;
+				}
+
+				int var9 = var5 * var1 + var10; // L: 104
+				if (var9 / var1 != var5) { // L: 105
+					throw new NumberFormatException();
+				}
+
+				var5 = var9; // L: 106
+				var4 = true; // L: 107
+			}
+
+			if (!var4) { // L: 109
+				throw new NumberFormatException();
+			} else {
+				return var5; // L: 110
+			}
+		} else {
+			throw new IllegalArgumentException("" + var1);
+		}
+	}
+
+	@ObfuscatedName("kv")
+	@ObfuscatedSignature(
+		descriptor = "(Lcl;ZI)V",
+		garbageValue = "-1411385437"
+	)
+	@Export("closeInterface")
+	static final void closeInterface(InterfaceParent var0, boolean var1) {
+		int var2 = var0.group; // L: 11340
+		int var3 = (int)var0.key; // L: 11341
+		var0.remove(); // L: 11342
+		if (var1) { // L: 11343
+			WallDecoration.method4234(var2);
 		}
 
-	} // L: 1388
+		TaskHandler.method2515(var2); // L: 11344
+		Widget var4 = DevicePcmPlayerProvider.getWidget(var3); // L: 11345
+		if (var4 != null) { // L: 11346
+			VerticalAlignment.invalidateWidget(var4);
+		}
+
+		GrandExchangeOfferOwnWorldComparator.method1212(); // L: 11347
+		if (Client.rootInterface != -1) { // L: 11348
+			LoginType.runIntfCloseListeners(Client.rootInterface, 1);
+		}
+
+	} // L: 11349
 }

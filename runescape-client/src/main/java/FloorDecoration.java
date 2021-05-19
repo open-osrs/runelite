@@ -4,52 +4,61 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fz")
+@ObfuscatedName("gd")
 @Implements("FloorDecoration")
 public final class FloorDecoration {
-	@ObfuscatedName("h")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lir;"
+		descriptor = "Ljp;"
 	)
-	@Export("Widget_archive")
-	public static AbstractArchive Widget_archive;
-	@ObfuscatedName("f")
+	@Export("ItemDefinition_modelArchive")
+	static AbstractArchive ItemDefinition_modelArchive;
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 41501185
+		intValue = 1666950009
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 969764679
+		intValue = 2121076865
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1466324567
+		intValue = -1721468405
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lfm;"
+		descriptor = "Lge;"
 	)
 	@Export("renderable")
 	public Renderable renderable;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		longValue = 1931928399249517797L
+		longValue = -1483946918703188851L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1857453107
+		intValue = -895600119
 	)
 	@Export("flags")
 	int flags;
 
 	FloorDecoration() {
 	} // L: 11
+
+	@ObfuscatedName("hd")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "296096631"
+	)
+	static boolean method3799() {
+		return (Client.drawPlayerNames & 1) != 0; // L: 4834
+	}
 }

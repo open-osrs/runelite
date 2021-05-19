@@ -2,12 +2,12 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cb")
+@ObfuscatedName("cz")
 public class class93 {
-	@ObfuscatedName("hv")
+	@ObfuscatedName("rv")
 	@ObfuscatedSignature(
-		descriptor = "[Low;"
+		descriptor = "Lbd;"
 	)
-	@Export("modIconSprites")
-	static IndexedSprite[] modIconSprites;
+	@Export("pcmPlayer1")
+	static PcmPlayer pcmPlayer1;
 }

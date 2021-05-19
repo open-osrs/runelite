@@ -3,92 +3,92 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fq")
+@ObfuscatedName("gu")
 @Implements("Rasterizer3D")
 public class Rasterizer3D extends Rasterizer2D {
-	@ObfuscatedName("f")
-	static boolean field1899;
+	@ObfuscatedName("h")
+	static boolean field2260;
+	@ObfuscatedName("c")
+	static boolean field2270;
 	@ObfuscatedName("o")
-	static boolean field1921;
-	@ObfuscatedName("u")
 	@Export("Rasterizer3D_isLowDetailTexture")
 	static boolean Rasterizer3D_isLowDetailTexture;
-	@ObfuscatedName("p")
-	public static boolean field1903;
-	@ObfuscatedName("b")
+	@ObfuscatedName("g")
+	public static boolean field2254;
+	@ObfuscatedName("l")
 	@Export("Rasterizer3D_alpha")
 	static int Rasterizer3D_alpha;
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@Export("Rasterizer3D_zoom")
 	public static int Rasterizer3D_zoom;
-	@ObfuscatedName("d")
+	@ObfuscatedName("k")
 	@Export("Rasterizer3D_clipMidX")
 	static int Rasterizer3D_clipMidX;
-	@ObfuscatedName("c")
+	@ObfuscatedName("r")
 	@Export("Rasterizer3D_clipMidY")
 	static int Rasterizer3D_clipMidY;
-	@ObfuscatedName("j")
+	@ObfuscatedName("p")
 	@Export("Rasterizer3D_clipWidth")
 	static int Rasterizer3D_clipWidth;
-	@ObfuscatedName("r")
+	@ObfuscatedName("a")
 	@Export("Rasterizer3D_clipHeight")
 	static int Rasterizer3D_clipHeight;
-	@ObfuscatedName("q")
+	@ObfuscatedName("e")
 	@Export("Rasterizer3D_clipNegativeMidX")
 	static int Rasterizer3D_clipNegativeMidX;
-	@ObfuscatedName("t")
+	@ObfuscatedName("d")
 	@Export("Rasterizer3D_clipMidX2")
 	static int Rasterizer3D_clipMidX2;
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@Export("Rasterizer3D_clipNegativeMidY")
 	static int Rasterizer3D_clipNegativeMidY;
-	@ObfuscatedName("x")
+	@ObfuscatedName("m")
 	@Export("Rasterizer3D_clipMidY2")
 	static int Rasterizer3D_clipMidY2;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@Export("Rasterizer3D_rowOffsets")
 	static int[] Rasterizer3D_rowOffsets;
-	@ObfuscatedName("i")
+	@ObfuscatedName("f")
 	@Export("Rasterizer3D_colorPalette")
 	public static int[] Rasterizer3D_colorPalette;
-	@ObfuscatedName("a")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lgn;"
+		descriptor = "Lhn;"
 	)
 	@Export("Rasterizer3D_textureLoader")
 	public static TextureLoader Rasterizer3D_textureLoader;
-	@ObfuscatedName("w")
-	static int[] field1919;
-	@ObfuscatedName("s")
-	static int[] field1922;
 	@ObfuscatedName("y")
+	static int[] field2252;
+	@ObfuscatedName("w")
+	static int[] field2275;
+	@ObfuscatedName("n")
 	@Export("Rasterizer3D_sine")
 	public static int[] Rasterizer3D_sine;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ag")
 	@Export("Rasterizer3D_cosine")
 	public static int[] Rasterizer3D_cosine;
 
 	static {
-		field1899 = false; // L: 8
-		field1921 = false; // L: 9
+		field2260 = false; // L: 8
+		field2270 = false; // L: 9
 		Rasterizer3D_isLowDetailTexture = false; // L: 10
-		field1903 = true; // L: 11
+		field2254 = true; // L: 11
 		Rasterizer3D_alpha = 0; // L: 12
 		Rasterizer3D_zoom = 512; // L: 19
 		Rasterizer3D_rowOffsets = new int[1024]; // L: 28
 		Rasterizer3D_colorPalette = new int[65536]; // L: 29
-		field1919 = new int[512]; // L: 31
-		field1922 = new int[2048]; // L: 32
+		field2252 = new int[512]; // L: 31
+		field2275 = new int[2048]; // L: 32
 		Rasterizer3D_sine = new int[2048]; // L: 33
 		Rasterizer3D_cosine = new int[2048]; // L: 34
 
 		int var0;
 		for (var0 = 1; var0 < 512; ++var0) { // L: 37
-			field1919[var0] = 32768 / var0; // L: 38
+			field2252[var0] = 32768 / var0; // L: 38
 		}
 
 		for (var0 = 1; var0 < 2048; ++var0) { // L: 40
-			field1922[var0] = 65536 / var0; // L: 41
+			field2275[var0] = 65536 / var0; // L: 41
 		}
 
 		for (var0 = 0; var0 < 2048; ++var0) { // L: 43
@@ -98,678 +98,668 @@ public class Rasterizer3D extends Rasterizer2D {
 
 	} // L: 47
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("Rasterizer3D_setClipFromRasterizer2D")
 	public static final void Rasterizer3D_setClipFromRasterizer2D() {
 		Rasterizer3D_setClip(Rasterizer2D.Rasterizer2D_xClipStart, Rasterizer2D.Rasterizer2D_yClipStart, Rasterizer2D.Rasterizer2D_xClipEnd, Rasterizer2D.Rasterizer2D_yClipEnd); // L: 54
 	} // L: 55
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("Rasterizer3D_setClip")
 	static final void Rasterizer3D_setClip(int var0, int var1, int var2, int var3) {
 		Rasterizer3D_clipWidth = var2 - var0; // L: 58
 		Rasterizer3D_clipHeight = var3 - var1; // L: 59
 		Rasterizer3D_method3(); // L: 60
-		int var4;
-		int var5;
 		if (Rasterizer3D_rowOffsets.length < Rasterizer3D_clipHeight) { // L: 61
-			var5 = Rasterizer3D_clipHeight; // L: 63
-			--var5; // L: 65
-			var5 |= var5 >>> 1; // L: 66
-			var5 |= var5 >>> 2; // L: 67
-			var5 |= var5 >>> 4; // L: 68
-			var5 |= var5 >>> 8; // L: 69
-			var5 |= var5 >>> 16; // L: 70
-			var4 = var5 + 1; // L: 71
-			Rasterizer3D_rowOffsets = new int[var4]; // L: 73
+			Rasterizer3D_rowOffsets = new int[MouseRecorder.method2126(Rasterizer3D_clipHeight)];
 		}
 
-		var4 = var0 + Rasterizer2D.Rasterizer2D_width * var1; // L: 75
+		int var4 = var0 + Rasterizer2D.Rasterizer2D_width * var1; // L: 62
 
-		for (var5 = 0; var5 < Rasterizer3D_clipHeight; ++var5) { // L: 76
-			Rasterizer3D_rowOffsets[var5] = var4; // L: 77
-			var4 += Rasterizer2D.Rasterizer2D_width; // L: 78
+		for (int var5 = 0; var5 < Rasterizer3D_clipHeight; ++var5) { // L: 63
+			Rasterizer3D_rowOffsets[var5] = var4; // L: 64
+			var4 += Rasterizer2D.Rasterizer2D_width; // L: 65
 		}
 
-	} // L: 80
+	} // L: 67
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@Export("Rasterizer3D_method3")
 	public static final void Rasterizer3D_method3() {
-		Rasterizer3D_clipMidX = Rasterizer3D_clipWidth / 2; // L: 83
-		Rasterizer3D_clipMidY = Rasterizer3D_clipHeight / 2; // L: 84
-		Rasterizer3D_clipNegativeMidX = -Rasterizer3D_clipMidX; // L: 85
-		Rasterizer3D_clipMidX2 = Rasterizer3D_clipWidth - Rasterizer3D_clipMidX; // L: 86
-		Rasterizer3D_clipNegativeMidY = -Rasterizer3D_clipMidY; // L: 87
-		Rasterizer3D_clipMidY2 = Rasterizer3D_clipHeight - Rasterizer3D_clipMidY; // L: 88
-	} // L: 89
+		Rasterizer3D_clipMidX = Rasterizer3D_clipWidth / 2; // L: 70
+		Rasterizer3D_clipMidY = Rasterizer3D_clipHeight / 2; // L: 71
+		Rasterizer3D_clipNegativeMidX = -Rasterizer3D_clipMidX; // L: 72
+		Rasterizer3D_clipMidX2 = Rasterizer3D_clipWidth - Rasterizer3D_clipMidX; // L: 73
+		Rasterizer3D_clipNegativeMidY = -Rasterizer3D_clipMidY; // L: 74
+		Rasterizer3D_clipMidY2 = Rasterizer3D_clipHeight - Rasterizer3D_clipMidY; // L: 75
+	} // L: 76
 
-	@ObfuscatedName("p")
-	public static final void method3411(int var0, int var1) {
-		int var2 = Rasterizer3D_rowOffsets[0]; // L: 92
-		int var3 = var2 / Rasterizer2D.Rasterizer2D_width; // L: 93
-		int var4 = var2 - var3 * Rasterizer2D.Rasterizer2D_width; // L: 94
-		Rasterizer3D_clipMidX = var0 - var4; // L: 95
-		Rasterizer3D_clipMidY = var1 - var3; // L: 96
-		Rasterizer3D_clipNegativeMidX = -Rasterizer3D_clipMidX; // L: 97
-		Rasterizer3D_clipMidX2 = Rasterizer3D_clipWidth - Rasterizer3D_clipMidX; // L: 98
-		Rasterizer3D_clipNegativeMidY = -Rasterizer3D_clipMidY; // L: 99
-		Rasterizer3D_clipMidY2 = Rasterizer3D_clipHeight - Rasterizer3D_clipMidY; // L: 100
-	} // L: 101
+	@ObfuscatedName("g")
+	public static final void method3818(int var0, int var1) {
+		int var2 = Rasterizer3D_rowOffsets[0]; // L: 79
+		int var3 = var2 / Rasterizer2D.Rasterizer2D_width; // L: 80
+		int var4 = var2 - var3 * Rasterizer2D.Rasterizer2D_width; // L: 81
+		Rasterizer3D_clipMidX = var0 - var4; // L: 82
+		Rasterizer3D_clipMidY = var1 - var3; // L: 83
+		Rasterizer3D_clipNegativeMidX = -Rasterizer3D_clipMidX; // L: 84
+		Rasterizer3D_clipMidX2 = Rasterizer3D_clipWidth - Rasterizer3D_clipMidX; // L: 85
+		Rasterizer3D_clipNegativeMidY = -Rasterizer3D_clipMidY; // L: 86
+		Rasterizer3D_clipMidY2 = Rasterizer3D_clipHeight - Rasterizer3D_clipMidY; // L: 87
+	} // L: 88
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lgn;)V"
+		descriptor = "(Lhn;)V"
 	)
 	@Export("Rasterizer3D_setTextureLoader")
 	public static final void Rasterizer3D_setTextureLoader(TextureLoader var0) {
-		Rasterizer3D_textureLoader = var0; // L: 104
-	} // L: 105
+		Rasterizer3D_textureLoader = var0; // L: 91
+	} // L: 92
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@Export("Rasterizer3D_setBrightness")
 	public static final void Rasterizer3D_setBrightness(double var0) {
-		Rasterizer3D_buildPalette(var0, 0, 512); // L: 108
-	} // L: 109
+		Rasterizer3D_buildPalette(var0, 0, 512); // L: 95
+	} // L: 96
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@Export("Rasterizer3D_buildPalette")
 	static final void Rasterizer3D_buildPalette(double var0, int var2, int var3) {
-		int var4 = var2 * 128; // L: 112
+		int var4 = var2 * 128; // L: 99
 
-		for (int var5 = var2; var5 < var3; ++var5) { // L: 113
-			double var6 = (double)(var5 >> 3) / 64.0D + 0.0078125D; // L: 114
-			double var8 = (double)(var5 & 7) / 8.0D + 0.0625D; // L: 115
+		for (int var5 = var2; var5 < var3; ++var5) { // L: 100
+			double var6 = (double)(var5 >> 3) / 64.0D + 0.0078125D; // L: 101
+			double var8 = (double)(var5 & 7) / 8.0D + 0.0625D; // L: 102
 
-			for (int var10 = 0; var10 < 128; ++var10) { // L: 116
-				double var11 = (double)var10 / 128.0D; // L: 117
-				double var13 = var11; // L: 118
-				double var15 = var11; // L: 119
-				double var17 = var11; // L: 120
-				if (var8 != 0.0D) { // L: 121
+			for (int var10 = 0; var10 < 128; ++var10) { // L: 103
+				double var11 = (double)var10 / 128.0D; // L: 104
+				double var13 = var11; // L: 105
+				double var15 = var11; // L: 106
+				double var17 = var11; // L: 107
+				if (var8 != 0.0D) { // L: 108
 					double var19;
-					if (var11 < 0.5D) { // L: 123
+					if (var11 < 0.5D) { // L: 110
 						var19 = var11 * (1.0D + var8);
 					} else {
-						var19 = var11 + var8 - var11 * var8; // L: 124
+						var19 = var11 + var8 - var11 * var8; // L: 111
 					}
 
-					double var21 = 2.0D * var11 - var19; // L: 125
-					double var23 = var6 + 0.3333333333333333D; // L: 126
-					if (var23 > 1.0D) { // L: 127
+					double var21 = 2.0D * var11 - var19; // L: 112
+					double var23 = var6 + 0.3333333333333333D; // L: 113
+					if (var23 > 1.0D) { // L: 114
 						--var23;
 					}
 
-					double var27 = var6 - 0.3333333333333333D; // L: 129
-					if (var27 < 0.0D) { // L: 130
+					double var27 = var6 - 0.3333333333333333D; // L: 116
+					if (var27 < 0.0D) { // L: 117
 						++var27;
 					}
 
-					if (6.0D * var23 < 1.0D) { // L: 131
+					if (6.0D * var23 < 1.0D) { // L: 118
 						var13 = var21 + (var19 - var21) * 6.0D * var23;
-					} else if (2.0D * var23 < 1.0D) { // L: 132
+					} else if (2.0D * var23 < 1.0D) { // L: 119
 						var13 = var19;
-					} else if (3.0D * var23 < 2.0D) { // L: 133
+					} else if (3.0D * var23 < 2.0D) { // L: 120
 						var13 = var21 + (var19 - var21) * (0.6666666666666666D - var23) * 6.0D;
 					} else {
-						var13 = var21; // L: 134
+						var13 = var21; // L: 121
 					}
 
-					if (6.0D * var6 < 1.0D) { // L: 135
+					if (6.0D * var6 < 1.0D) { // L: 122
 						var15 = var21 + (var19 - var21) * 6.0D * var6;
-					} else if (2.0D * var6 < 1.0D) { // L: 136
+					} else if (2.0D * var6 < 1.0D) { // L: 123
 						var15 = var19;
-					} else if (3.0D * var6 < 2.0D) { // L: 137
+					} else if (3.0D * var6 < 2.0D) { // L: 124
 						var15 = var21 + (var19 - var21) * (0.6666666666666666D - var6) * 6.0D;
 					} else {
-						var15 = var21; // L: 138
+						var15 = var21; // L: 125
 					}
 
-					if (6.0D * var27 < 1.0D) { // L: 139
+					if (6.0D * var27 < 1.0D) { // L: 126
 						var17 = var21 + (var19 - var21) * 6.0D * var27;
-					} else if (2.0D * var27 < 1.0D) { // L: 140
+					} else if (2.0D * var27 < 1.0D) { // L: 127
 						var17 = var19;
-					} else if (3.0D * var27 < 2.0D) { // L: 141
+					} else if (3.0D * var27 < 2.0D) { // L: 128
 						var17 = var21 + (var19 - var21) * (0.6666666666666666D - var27) * 6.0D;
 					} else {
-						var17 = var21; // L: 142
+						var17 = var21; // L: 129
 					}
 				}
 
-				int var29 = (int)(var13 * 256.0D); // L: 144
-				int var20 = (int)(var15 * 256.0D); // L: 145
-				int var30 = (int)(var17 * 256.0D); // L: 146
-				int var22 = var30 + (var20 << 8) + (var29 << 16); // L: 147
-				var22 = Rasterizer3D_brighten(var22, var0); // L: 148
-				if (var22 == 0) { // L: 149
+				int var29 = (int)(var13 * 256.0D); // L: 131
+				int var20 = (int)(var15 * 256.0D); // L: 132
+				int var30 = (int)(var17 * 256.0D); // L: 133
+				int var22 = var30 + (var20 << 8) + (var29 << 16); // L: 134
+				var22 = Rasterizer3D_brighten(var22, var0); // L: 135
+				if (var22 == 0) { // L: 136
 					var22 = 1;
 				}
 
-				Rasterizer3D_colorPalette[var4++] = var22; // L: 150
+				Rasterizer3D_colorPalette[var4++] = var22; // L: 137
 			}
 		}
 
-	} // L: 153
+	} // L: 140
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("v")
 	@Export("Rasterizer3D_brighten")
 	static int Rasterizer3D_brighten(int var0, double var1) {
-		double var3 = (double)(var0 >> 16) / 256.0D; // L: 156
-		double var5 = (double)(var0 >> 8 & 255) / 256.0D; // L: 157
-		double var7 = (double)(var0 & 255) / 256.0D; // L: 158
-		var3 = Math.pow(var3, var1); // L: 159
-		var5 = Math.pow(var5, var1); // L: 160
-		var7 = Math.pow(var7, var1); // L: 161
-		int var9 = (int)(var3 * 256.0D); // L: 162
-		int var10 = (int)(var5 * 256.0D); // L: 163
-		int var11 = (int)(var7 * 256.0D); // L: 164
-		return var11 + (var10 << 8) + (var9 << 16); // L: 165
+		double var3 = (double)(var0 >> 16) / 256.0D; // L: 143
+		double var5 = (double)(var0 >> 8 & 255) / 256.0D; // L: 144
+		double var7 = (double)(var0 & 255) / 256.0D; // L: 145
+		var3 = Math.pow(var3, var1); // L: 146
+		var5 = Math.pow(var5, var1); // L: 147
+		var7 = Math.pow(var7, var1); // L: 148
+		int var9 = (int)(var3 * 256.0D); // L: 149
+		int var10 = (int)(var5 * 256.0D); // L: 150
+		int var11 = (int)(var7 * 256.0D); // L: 151
+		return var11 + (var10 << 8) + (var9 << 16); // L: 152
 	}
 
-	@ObfuscatedName("h")
-	public static void method3389(int var0, int var1, int var2) {
-		field1899 = var0 < 0 || var0 > Rasterizer3D_clipWidth || var1 < 0 || var1 > Rasterizer3D_clipWidth || var2 < 0 || var2 > Rasterizer3D_clipWidth; // L: 169
-	} // L: 170
+	@ObfuscatedName("b")
+	public static void method3823(int var0, int var1, int var2) {
+		field2260 = var0 < 0 || var0 > Rasterizer3D_clipWidth || var1 < 0 || var1 > Rasterizer3D_clipWidth || var2 < 0 || var2 > Rasterizer3D_clipWidth; // L: 156
+	} // L: 157
 
-	@ObfuscatedName("n")
-	static final void method3383(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-		int var9 = var4 - var3; // L: 173
-		int var10 = var1 - var0; // L: 174
-		int var11 = var5 - var3; // L: 175
-		int var12 = var2 - var0; // L: 176
-		int var13 = var7 - var6; // L: 177
-		int var14 = var8 - var6; // L: 178
+	@ObfuscatedName("q")
+	static final void method3824(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+		int var9 = var4 - var3; // L: 160
+		int var10 = var1 - var0; // L: 161
+		int var11 = var5 - var3; // L: 162
+		int var12 = var2 - var0; // L: 163
+		int var13 = var7 - var6; // L: 164
+		int var14 = var8 - var6; // L: 165
 		int var15;
-		if (var2 != var1) { // L: 180
+		if (var2 != var1) { // L: 167
 			var15 = (var5 - var4 << 14) / (var2 - var1);
 		} else {
-			var15 = 0; // L: 181
+			var15 = 0; // L: 168
 		}
 
 		int var16;
-		if (var0 != var1) { // L: 183
+		if (var0 != var1) { // L: 170
 			var16 = (var9 << 14) / var10;
 		} else {
-			var16 = 0; // L: 184
+			var16 = 0; // L: 171
 		}
 
 		int var17;
-		if (var0 != var2) { // L: 186
+		if (var0 != var2) { // L: 173
 			var17 = (var11 << 14) / var12;
 		} else {
-			var17 = 0; // L: 187
+			var17 = 0; // L: 174
 		}
 
-		int var18 = var9 * var12 - var11 * var10; // L: 188
-		if (var18 != 0) { // L: 189
-			int var19 = (var13 * var12 - var14 * var10 << 8) / var18; // L: 190
-			int var20 = (var14 * var9 - var13 * var11 << 8) / var18; // L: 191
-			if (var0 <= var1 && var0 <= var2) { // L: 192
-				if (var0 < Rasterizer3D_clipHeight) { // L: 193
-					if (var1 > Rasterizer3D_clipHeight) { // L: 194
+		int var18 = var9 * var12 - var11 * var10; // L: 175
+		if (var18 != 0) { // L: 176
+			int var19 = (var13 * var12 - var14 * var10 << 8) / var18; // L: 177
+			int var20 = (var14 * var9 - var13 * var11 << 8) / var18; // L: 178
+			if (var0 <= var1 && var0 <= var2) { // L: 179
+				if (var0 < Rasterizer3D_clipHeight) { // L: 180
+					if (var1 > Rasterizer3D_clipHeight) { // L: 181
 						var1 = Rasterizer3D_clipHeight;
 					}
 
-					if (var2 > Rasterizer3D_clipHeight) { // L: 195
+					if (var2 > Rasterizer3D_clipHeight) { // L: 182
 						var2 = Rasterizer3D_clipHeight;
 					}
 
-					var6 = var19 + ((var6 << 8) - var3 * var19); // L: 196
-					if (var1 < var2) { // L: 197
-						var5 = var3 <<= 14; // L: 198
-						if (var0 < 0) { // L: 199
-							var5 -= var0 * var17; // L: 200
-							var3 -= var0 * var16; // L: 201
-							var6 -= var0 * var20; // L: 202
-							var0 = 0; // L: 203
+					var6 = var19 + ((var6 << 8) - var3 * var19); // L: 183
+					if (var1 < var2) { // L: 184
+						var5 = var3 <<= 14; // L: 185
+						if (var0 < 0) { // L: 186
+							var5 -= var0 * var17; // L: 187
+							var3 -= var0 * var16; // L: 188
+							var6 -= var0 * var20; // L: 189
+							var0 = 0; // L: 190
 						}
 
-						var4 <<= 14; // L: 205
-						if (var1 < 0) { // L: 206
-							var4 -= var15 * var1; // L: 207
-							var1 = 0; // L: 208
+						var4 <<= 14; // L: 192
+						if (var1 < 0) { // L: 193
+							var4 -= var15 * var1; // L: 194
+							var1 = 0; // L: 195
 						}
 
-						if ((var0 == var1 || var17 >= var16) && (var0 != var1 || var17 <= var15)) { // L: 210
-							var2 -= var1; // L: 231
-							var1 -= var0; // L: 232
-							var0 = Rasterizer3D_rowOffsets[var0]; // L: 233
+						if ((var0 == var1 || var17 >= var16) && (var0 != var1 || var17 <= var15)) { // L: 197
+							var2 -= var1; // L: 218
+							var1 -= var0; // L: 219
+							var0 = Rasterizer3D_rowOffsets[var0]; // L: 220
 
 							while (true) {
-								--var1; // L: 234
+								--var1; // L: 221
 								if (var1 < 0) {
 									while (true) {
-										--var2; // L: 241
+										--var2; // L: 228
 										if (var2 < 0) {
-											return; // L: 248
+											return; // L: 235
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var4 >> 14, var5 >> 14, var6, var19); // L: 242
-										var5 += var17; // L: 243
-										var4 += var15; // L: 244
-										var6 += var20; // L: 245
-										var0 += Rasterizer2D.Rasterizer2D_width; // L: 246
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var4 >> 14, var5 >> 14, var6, var19); // L: 229
+										var5 += var17; // L: 230
+										var4 += var15; // L: 231
+										var6 += var20; // L: 232
+										var0 += Rasterizer2D.Rasterizer2D_width; // L: 233
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19); // L: 235
-								var5 += var17; // L: 236
-								var3 += var16; // L: 237
-								var6 += var20; // L: 238
-								var0 += Rasterizer2D.Rasterizer2D_width; // L: 239
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19); // L: 222
+								var5 += var17; // L: 223
+								var3 += var16; // L: 224
+								var6 += var20; // L: 225
+								var0 += Rasterizer2D.Rasterizer2D_width; // L: 226
 							}
 						} else {
-							var2 -= var1; // L: 211
-							var1 -= var0; // L: 212
-							var0 = Rasterizer3D_rowOffsets[var0]; // L: 213
+							var2 -= var1; // L: 198
+							var1 -= var0; // L: 199
+							var0 = Rasterizer3D_rowOffsets[var0]; // L: 200
 
 							while (true) {
-								--var1; // L: 214
+								--var1; // L: 201
 								if (var1 < 0) {
 									while (true) {
-										--var2; // L: 221
+										--var2; // L: 208
 										if (var2 < 0) {
-											return; // L: 228
+											return; // L: 215
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var5 >> 14, var4 >> 14, var6, var19); // L: 222
-										var5 += var17; // L: 223
-										var4 += var15; // L: 224
-										var6 += var20; // L: 225
-										var0 += Rasterizer2D.Rasterizer2D_width; // L: 226
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var5 >> 14, var4 >> 14, var6, var19); // L: 209
+										var5 += var17; // L: 210
+										var4 += var15; // L: 211
+										var6 += var20; // L: 212
+										var0 += Rasterizer2D.Rasterizer2D_width; // L: 213
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19); // L: 215
-								var5 += var17; // L: 216
-								var3 += var16; // L: 217
-								var6 += var20; // L: 218
-								var0 += Rasterizer2D.Rasterizer2D_width; // L: 219
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19); // L: 202
+								var5 += var17; // L: 203
+								var3 += var16; // L: 204
+								var6 += var20; // L: 205
+								var0 += Rasterizer2D.Rasterizer2D_width; // L: 206
 							}
 						}
 					} else {
-						var4 = var3 <<= 14; // L: 252
-						if (var0 < 0) { // L: 253
-							var4 -= var0 * var17; // L: 254
-							var3 -= var0 * var16; // L: 255
-							var6 -= var0 * var20; // L: 256
-							var0 = 0; // L: 257
+						var4 = var3 <<= 14; // L: 239
+						if (var0 < 0) { // L: 240
+							var4 -= var0 * var17; // L: 241
+							var3 -= var0 * var16; // L: 242
+							var6 -= var0 * var20; // L: 243
+							var0 = 0; // L: 244
 						}
 
-						var5 <<= 14; // L: 259
-						if (var2 < 0) { // L: 260
-							var5 -= var15 * var2; // L: 261
-							var2 = 0; // L: 262
+						var5 <<= 14; // L: 246
+						if (var2 < 0) { // L: 247
+							var5 -= var15 * var2; // L: 248
+							var2 = 0; // L: 249
 						}
 
-						if (var0 != var2 && var17 < var16 || var0 == var2 && var15 > var16) { // L: 264
-							var1 -= var2; // L: 265
-							var2 -= var0; // L: 266
-							var0 = Rasterizer3D_rowOffsets[var0]; // L: 267
+						if (var0 != var2 && var17 < var16 || var0 == var2 && var15 > var16) { // L: 251
+							var1 -= var2; // L: 252
+							var2 -= var0; // L: 253
+							var0 = Rasterizer3D_rowOffsets[var0]; // L: 254
 
 							while (true) {
-								--var2; // L: 268
+								--var2; // L: 255
 								if (var2 < 0) {
 									while (true) {
-										--var1; // L: 275
+										--var1; // L: 262
 										if (var1 < 0) {
-											return; // L: 282
+											return; // L: 269
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19); // L: 276
-										var5 += var15; // L: 277
-										var3 += var16; // L: 278
-										var6 += var20; // L: 279
-										var0 += Rasterizer2D.Rasterizer2D_width; // L: 280
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var5 >> 14, var3 >> 14, var6, var19); // L: 263
+										var5 += var15; // L: 264
+										var3 += var16; // L: 265
+										var6 += var20; // L: 266
+										var0 += Rasterizer2D.Rasterizer2D_width; // L: 267
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var4 >> 14, var3 >> 14, var6, var19); // L: 269
-								var4 += var17; // L: 270
-								var3 += var16; // L: 271
-								var6 += var20; // L: 272
-								var0 += Rasterizer2D.Rasterizer2D_width; // L: 273
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var4 >> 14, var3 >> 14, var6, var19); // L: 256
+								var4 += var17; // L: 257
+								var3 += var16; // L: 258
+								var6 += var20; // L: 259
+								var0 += Rasterizer2D.Rasterizer2D_width; // L: 260
 							}
 						} else {
-							var1 -= var2; // L: 285
-							var2 -= var0; // L: 286
-							var0 = Rasterizer3D_rowOffsets[var0]; // L: 287
+							var1 -= var2; // L: 272
+							var2 -= var0; // L: 273
+							var0 = Rasterizer3D_rowOffsets[var0]; // L: 274
 
 							while (true) {
-								--var2; // L: 288
+								--var2; // L: 275
 								if (var2 < 0) {
 									while (true) {
-										--var1; // L: 295
+										--var1; // L: 282
 										if (var1 < 0) {
-											return; // L: 302
+											return; // L: 289
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19); // L: 296
-										var5 += var15; // L: 297
-										var3 += var16; // L: 298
-										var6 += var20; // L: 299
-										var0 += Rasterizer2D.Rasterizer2D_width; // L: 300
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var3 >> 14, var5 >> 14, var6, var19); // L: 283
+										var5 += var15; // L: 284
+										var3 += var16; // L: 285
+										var6 += var20; // L: 286
+										var0 += Rasterizer2D.Rasterizer2D_width; // L: 287
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var3 >> 14, var4 >> 14, var6, var19); // L: 289
-								var4 += var17; // L: 290
-								var3 += var16; // L: 291
-								var6 += var20; // L: 292
-								var0 += Rasterizer2D.Rasterizer2D_width; // L: 293
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, 0, 0, var3 >> 14, var4 >> 14, var6, var19); // L: 276
+								var4 += var17; // L: 277
+								var3 += var16; // L: 278
+								var6 += var20; // L: 279
+								var0 += Rasterizer2D.Rasterizer2D_width; // L: 280
 							}
 						}
 					}
 				}
-			} else if (var1 <= var2) { // L: 306
-				if (var1 < Rasterizer3D_clipHeight) { // L: 307
-					if (var2 > Rasterizer3D_clipHeight) { // L: 308
+			} else if (var1 <= var2) { // L: 293
+				if (var1 < Rasterizer3D_clipHeight) { // L: 294
+					if (var2 > Rasterizer3D_clipHeight) { // L: 295
 						var2 = Rasterizer3D_clipHeight;
 					}
 
-					if (var0 > Rasterizer3D_clipHeight) { // L: 309
+					if (var0 > Rasterizer3D_clipHeight) { // L: 296
 						var0 = Rasterizer3D_clipHeight;
 					}
 
-					var7 = var19 + ((var7 << 8) - var19 * var4); // L: 310
-					if (var2 < var0) { // L: 311
-						var3 = var4 <<= 14; // L: 312
-						if (var1 < 0) { // L: 313
-							var3 -= var16 * var1; // L: 314
-							var4 -= var15 * var1; // L: 315
-							var7 -= var20 * var1; // L: 316
-							var1 = 0; // L: 317
+					var7 = var19 + ((var7 << 8) - var19 * var4); // L: 297
+					if (var2 < var0) { // L: 298
+						var3 = var4 <<= 14; // L: 299
+						if (var1 < 0) { // L: 300
+							var3 -= var16 * var1; // L: 301
+							var4 -= var15 * var1; // L: 302
+							var7 -= var20 * var1; // L: 303
+							var1 = 0; // L: 304
 						}
 
-						var5 <<= 14; // L: 319
-						if (var2 < 0) { // L: 320
-							var5 -= var17 * var2; // L: 321
-							var2 = 0; // L: 322
+						var5 <<= 14; // L: 306
+						if (var2 < 0) { // L: 307
+							var5 -= var17 * var2; // L: 308
+							var2 = 0; // L: 309
 						}
 
-						if ((var2 == var1 || var16 >= var15) && (var2 != var1 || var16 <= var17)) { // L: 324
-							var0 -= var2; // L: 345
-							var2 -= var1; // L: 346
-							var1 = Rasterizer3D_rowOffsets[var1]; // L: 347
+						if ((var2 == var1 || var16 >= var15) && (var2 != var1 || var16 <= var17)) { // L: 311
+							var0 -= var2; // L: 332
+							var2 -= var1; // L: 333
+							var1 = Rasterizer3D_rowOffsets[var1]; // L: 334
 
 							while (true) {
-								--var2; // L: 348
+								--var2; // L: 335
 								if (var2 < 0) {
 									while (true) {
-										--var0; // L: 355
+										--var0; // L: 342
 										if (var0 < 0) {
-											return; // L: 362
+											return; // L: 349
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var5 >> 14, var3 >> 14, var7, var19); // L: 356
-										var3 += var16; // L: 357
-										var5 += var17; // L: 358
-										var7 += var20; // L: 359
-										var1 += Rasterizer2D.Rasterizer2D_width; // L: 360
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var5 >> 14, var3 >> 14, var7, var19); // L: 343
+										var3 += var16; // L: 344
+										var5 += var17; // L: 345
+										var7 += var20; // L: 346
+										var1 += Rasterizer2D.Rasterizer2D_width; // L: 347
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19); // L: 349
-								var3 += var16; // L: 350
-								var4 += var15; // L: 351
-								var7 += var20; // L: 352
-								var1 += Rasterizer2D.Rasterizer2D_width; // L: 353
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19); // L: 336
+								var3 += var16; // L: 337
+								var4 += var15; // L: 338
+								var7 += var20; // L: 339
+								var1 += Rasterizer2D.Rasterizer2D_width; // L: 340
 							}
 						} else {
-							var0 -= var2; // L: 325
-							var2 -= var1; // L: 326
-							var1 = Rasterizer3D_rowOffsets[var1]; // L: 327
+							var0 -= var2; // L: 312
+							var2 -= var1; // L: 313
+							var1 = Rasterizer3D_rowOffsets[var1]; // L: 314
 
 							while (true) {
-								--var2; // L: 328
+								--var2; // L: 315
 								if (var2 < 0) {
 									while (true) {
-										--var0; // L: 335
+										--var0; // L: 322
 										if (var0 < 0) {
-											return; // L: 342
+											return; // L: 329
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var3 >> 14, var5 >> 14, var7, var19); // L: 336
-										var3 += var16; // L: 337
-										var5 += var17; // L: 338
-										var7 += var20; // L: 339
-										var1 += Rasterizer2D.Rasterizer2D_width; // L: 340
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var3 >> 14, var5 >> 14, var7, var19); // L: 323
+										var3 += var16; // L: 324
+										var5 += var17; // L: 325
+										var7 += var20; // L: 326
+										var1 += Rasterizer2D.Rasterizer2D_width; // L: 327
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19); // L: 329
-								var3 += var16; // L: 330
-								var4 += var15; // L: 331
-								var7 += var20; // L: 332
-								var1 += Rasterizer2D.Rasterizer2D_width; // L: 333
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19); // L: 316
+								var3 += var16; // L: 317
+								var4 += var15; // L: 318
+								var7 += var20; // L: 319
+								var1 += Rasterizer2D.Rasterizer2D_width; // L: 320
 							}
 						}
 					} else {
-						var5 = var4 <<= 14; // L: 366
-						if (var1 < 0) { // L: 367
-							var5 -= var16 * var1; // L: 368
-							var4 -= var15 * var1; // L: 369
-							var7 -= var20 * var1; // L: 370
-							var1 = 0; // L: 371
+						var5 = var4 <<= 14; // L: 353
+						if (var1 < 0) { // L: 354
+							var5 -= var16 * var1; // L: 355
+							var4 -= var15 * var1; // L: 356
+							var7 -= var20 * var1; // L: 357
+							var1 = 0; // L: 358
 						}
 
-						var3 <<= 14; // L: 373
-						if (var0 < 0) { // L: 374
-							var3 -= var0 * var17; // L: 375
-							var0 = 0; // L: 376
+						var3 <<= 14; // L: 360
+						if (var0 < 0) { // L: 361
+							var3 -= var0 * var17; // L: 362
+							var0 = 0; // L: 363
 						}
 
-						if (var16 < var15) { // L: 378
-							var2 -= var0; // L: 379
-							var0 -= var1; // L: 380
-							var1 = Rasterizer3D_rowOffsets[var1]; // L: 381
+						if (var16 < var15) { // L: 365
+							var2 -= var0; // L: 366
+							var0 -= var1; // L: 367
+							var1 = Rasterizer3D_rowOffsets[var1]; // L: 368
 
 							while (true) {
-								--var0; // L: 382
+								--var0; // L: 369
 								if (var0 < 0) {
 									while (true) {
-										--var2; // L: 389
+										--var2; // L: 376
 										if (var2 < 0) {
-											return; // L: 396
+											return; // L: 383
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19); // L: 390
-										var3 += var17; // L: 391
-										var4 += var15; // L: 392
-										var7 += var20; // L: 393
-										var1 += Rasterizer2D.Rasterizer2D_width; // L: 394
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var3 >> 14, var4 >> 14, var7, var19); // L: 377
+										var3 += var17; // L: 378
+										var4 += var15; // L: 379
+										var7 += var20; // L: 380
+										var1 += Rasterizer2D.Rasterizer2D_width; // L: 381
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var5 >> 14, var4 >> 14, var7, var19); // L: 383
-								var5 += var16; // L: 384
-								var4 += var15; // L: 385
-								var7 += var20; // L: 386
-								var1 += Rasterizer2D.Rasterizer2D_width; // L: 387
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var5 >> 14, var4 >> 14, var7, var19); // L: 370
+								var5 += var16; // L: 371
+								var4 += var15; // L: 372
+								var7 += var20; // L: 373
+								var1 += Rasterizer2D.Rasterizer2D_width; // L: 374
 							}
 						} else {
-							var2 -= var0; // L: 399
-							var0 -= var1; // L: 400
-							var1 = Rasterizer3D_rowOffsets[var1]; // L: 401
+							var2 -= var0; // L: 386
+							var0 -= var1; // L: 387
+							var1 = Rasterizer3D_rowOffsets[var1]; // L: 388
 
 							while (true) {
-								--var0; // L: 402
+								--var0; // L: 389
 								if (var0 < 0) {
 									while (true) {
-										--var2; // L: 409
+										--var2; // L: 396
 										if (var2 < 0) {
-											return; // L: 416
+											return; // L: 403
 										}
 
-										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19); // L: 410
-										var3 += var17; // L: 411
-										var4 += var15; // L: 412
-										var7 += var20; // L: 413
-										var1 += Rasterizer2D.Rasterizer2D_width; // L: 414
+										Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var4 >> 14, var3 >> 14, var7, var19); // L: 397
+										var3 += var17; // L: 398
+										var4 += var15; // L: 399
+										var7 += var20; // L: 400
+										var1 += Rasterizer2D.Rasterizer2D_width; // L: 401
 									}
 								}
 
-								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var4 >> 14, var5 >> 14, var7, var19); // L: 403
-								var5 += var16; // L: 404
-								var4 += var15; // L: 405
-								var7 += var20; // L: 406
-								var1 += Rasterizer2D.Rasterizer2D_width; // L: 407
+								Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, 0, 0, var4 >> 14, var5 >> 14, var7, var19); // L: 390
+								var5 += var16; // L: 391
+								var4 += var15; // L: 392
+								var7 += var20; // L: 393
+								var1 += Rasterizer2D.Rasterizer2D_width; // L: 394
 							}
 						}
 					}
 				}
-			} else if (var2 < Rasterizer3D_clipHeight) { // L: 421
-				if (var0 > Rasterizer3D_clipHeight) { // L: 422
+			} else if (var2 < Rasterizer3D_clipHeight) { // L: 408
+				if (var0 > Rasterizer3D_clipHeight) { // L: 409
 					var0 = Rasterizer3D_clipHeight;
 				}
 
-				if (var1 > Rasterizer3D_clipHeight) { // L: 423
+				if (var1 > Rasterizer3D_clipHeight) { // L: 410
 					var1 = Rasterizer3D_clipHeight;
 				}
 
-				var8 = var19 + ((var8 << 8) - var5 * var19); // L: 424
-				if (var0 < var1) { // L: 425
-					var4 = var5 <<= 14; // L: 426
-					if (var2 < 0) { // L: 427
-						var4 -= var15 * var2; // L: 428
-						var5 -= var17 * var2; // L: 429
-						var8 -= var20 * var2; // L: 430
-						var2 = 0; // L: 431
+				var8 = var19 + ((var8 << 8) - var5 * var19); // L: 411
+				if (var0 < var1) { // L: 412
+					var4 = var5 <<= 14; // L: 413
+					if (var2 < 0) { // L: 414
+						var4 -= var15 * var2; // L: 415
+						var5 -= var17 * var2; // L: 416
+						var8 -= var20 * var2; // L: 417
+						var2 = 0; // L: 418
 					}
 
-					var3 <<= 14; // L: 433
-					if (var0 < 0) { // L: 434
-						var3 -= var0 * var16; // L: 435
-						var0 = 0; // L: 436
+					var3 <<= 14; // L: 420
+					if (var0 < 0) { // L: 421
+						var3 -= var0 * var16; // L: 422
+						var0 = 0; // L: 423
 					}
 
-					if (var15 < var17) { // L: 438
-						var1 -= var0; // L: 439
-						var0 -= var2; // L: 440
-						var2 = Rasterizer3D_rowOffsets[var2]; // L: 441
+					if (var15 < var17) { // L: 425
+						var1 -= var0; // L: 426
+						var0 -= var2; // L: 427
+						var2 = Rasterizer3D_rowOffsets[var2]; // L: 428
 
 						while (true) {
-							--var0; // L: 442
+							--var0; // L: 429
 							if (var0 < 0) {
 								while (true) {
-									--var1; // L: 449
+									--var1; // L: 436
 									if (var1 < 0) {
-										return; // L: 456
+										return; // L: 443
 									}
 
-									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var4 >> 14, var3 >> 14, var8, var19); // L: 450
-									var4 += var15; // L: 451
-									var3 += var16; // L: 452
-									var8 += var20; // L: 453
-									var2 += Rasterizer2D.Rasterizer2D_width; // L: 454
+									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var4 >> 14, var3 >> 14, var8, var19); // L: 437
+									var4 += var15; // L: 438
+									var3 += var16; // L: 439
+									var8 += var20; // L: 440
+									var2 += Rasterizer2D.Rasterizer2D_width; // L: 441
 								}
 							}
 
-							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19); // L: 443
-							var4 += var15; // L: 444
-							var5 += var17; // L: 445
-							var8 += var20; // L: 446
-							var2 += Rasterizer2D.Rasterizer2D_width; // L: 447
+							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19); // L: 430
+							var4 += var15; // L: 431
+							var5 += var17; // L: 432
+							var8 += var20; // L: 433
+							var2 += Rasterizer2D.Rasterizer2D_width; // L: 434
 						}
 					} else {
-						var1 -= var0; // L: 459
-						var0 -= var2; // L: 460
-						var2 = Rasterizer3D_rowOffsets[var2]; // L: 461
+						var1 -= var0; // L: 446
+						var0 -= var2; // L: 447
+						var2 = Rasterizer3D_rowOffsets[var2]; // L: 448
 
 						while (true) {
-							--var0; // L: 462
+							--var0; // L: 449
 							if (var0 < 0) {
 								while (true) {
-									--var1; // L: 469
+									--var1; // L: 456
 									if (var1 < 0) {
-										return; // L: 476
+										return; // L: 463
 									}
 
-									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var3 >> 14, var4 >> 14, var8, var19); // L: 470
-									var4 += var15; // L: 471
-									var3 += var16; // L: 472
-									var8 += var20; // L: 473
-									var2 += Rasterizer2D.Rasterizer2D_width; // L: 474
+									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var3 >> 14, var4 >> 14, var8, var19); // L: 457
+									var4 += var15; // L: 458
+									var3 += var16; // L: 459
+									var8 += var20; // L: 460
+									var2 += Rasterizer2D.Rasterizer2D_width; // L: 461
 								}
 							}
 
-							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19); // L: 463
-							var4 += var15; // L: 464
-							var5 += var17; // L: 465
-							var8 += var20; // L: 466
-							var2 += Rasterizer2D.Rasterizer2D_width; // L: 467
+							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19); // L: 450
+							var4 += var15; // L: 451
+							var5 += var17; // L: 452
+							var8 += var20; // L: 453
+							var2 += Rasterizer2D.Rasterizer2D_width; // L: 454
 						}
 					}
 				} else {
-					var3 = var5 <<= 14; // L: 480
-					if (var2 < 0) { // L: 481
-						var3 -= var15 * var2; // L: 482
-						var5 -= var17 * var2; // L: 483
-						var8 -= var20 * var2; // L: 484
-						var2 = 0; // L: 485
+					var3 = var5 <<= 14; // L: 467
+					if (var2 < 0) { // L: 468
+						var3 -= var15 * var2; // L: 469
+						var5 -= var17 * var2; // L: 470
+						var8 -= var20 * var2; // L: 471
+						var2 = 0; // L: 472
 					}
 
-					var4 <<= 14; // L: 487
-					if (var1 < 0) { // L: 488
-						var4 -= var16 * var1; // L: 489
-						var1 = 0; // L: 490
+					var4 <<= 14; // L: 474
+					if (var1 < 0) { // L: 475
+						var4 -= var16 * var1; // L: 476
+						var1 = 0; // L: 477
 					}
 
-					if (var15 < var17) { // L: 492
-						var0 -= var1; // L: 493
-						var1 -= var2; // L: 494
-						var2 = Rasterizer3D_rowOffsets[var2]; // L: 495
+					if (var15 < var17) { // L: 479
+						var0 -= var1; // L: 480
+						var1 -= var2; // L: 481
+						var2 = Rasterizer3D_rowOffsets[var2]; // L: 482
 
 						while (true) {
-							--var1; // L: 496
+							--var1; // L: 483
 							if (var1 < 0) {
 								while (true) {
-									--var0; // L: 503
+									--var0; // L: 490
 									if (var0 < 0) {
-										return; // L: 510
+										return; // L: 497
 									}
 
-									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19); // L: 504
-									var4 += var16; // L: 505
-									var5 += var17; // L: 506
-									var8 += var20; // L: 507
-									var2 += Rasterizer2D.Rasterizer2D_width; // L: 508
+									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var4 >> 14, var5 >> 14, var8, var19); // L: 491
+									var4 += var16; // L: 492
+									var5 += var17; // L: 493
+									var8 += var20; // L: 494
+									var2 += Rasterizer2D.Rasterizer2D_width; // L: 495
 								}
 							}
 
-							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var3 >> 14, var5 >> 14, var8, var19); // L: 497
-							var3 += var15; // L: 498
-							var5 += var17; // L: 499
-							var8 += var20; // L: 500
-							var2 += Rasterizer2D.Rasterizer2D_width; // L: 501
+							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var3 >> 14, var5 >> 14, var8, var19); // L: 484
+							var3 += var15; // L: 485
+							var5 += var17; // L: 486
+							var8 += var20; // L: 487
+							var2 += Rasterizer2D.Rasterizer2D_width; // L: 488
 						}
 					} else {
-						var0 -= var1; // L: 513
-						var1 -= var2; // L: 514
-						var2 = Rasterizer3D_rowOffsets[var2]; // L: 515
+						var0 -= var1; // L: 500
+						var1 -= var2; // L: 501
+						var2 = Rasterizer3D_rowOffsets[var2]; // L: 502
 
 						while (true) {
-							--var1; // L: 516
+							--var1; // L: 503
 							if (var1 < 0) {
 								while (true) {
-									--var0; // L: 523
+									--var0; // L: 510
 									if (var0 < 0) {
-										return; // L: 530
+										return; // L: 517
 									}
 
-									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19); // L: 524
-									var4 += var16; // L: 525
-									var5 += var17; // L: 526
-									var8 += var20; // L: 527
-									var2 += Rasterizer2D.Rasterizer2D_width; // L: 528
+									Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var5 >> 14, var4 >> 14, var8, var19); // L: 511
+									var4 += var16; // L: 512
+									var5 += var17; // L: 513
+									var8 += var20; // L: 514
+									var2 += Rasterizer2D.Rasterizer2D_width; // L: 515
 								}
 							}
 
-							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var5 >> 14, var3 >> 14, var8, var19); // L: 517
-							var3 += var15; // L: 518
-							var5 += var17; // L: 519
-							var8 += var20; // L: 520
-							var2 += Rasterizer2D.Rasterizer2D_width; // L: 521
+							Rasterizer3D_vertAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, 0, 0, var5 >> 14, var3 >> 14, var8, var19); // L: 504
+							var3 += var15; // L: 505
+							var5 += var17; // L: 506
+							var8 += var20; // L: 507
+							var2 += Rasterizer2D.Rasterizer2D_width; // L: 508
 						}
 					}
 				}
@@ -777,1298 +767,1298 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@Export("Rasterizer3D_vertAlpha")
 	static final void Rasterizer3D_vertAlpha(int[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		if (field1899) { // L: 537
-			if (var5 > Rasterizer3D_clipWidth) { // L: 538
+		if (field2260) { // L: 524
+			if (var5 > Rasterizer3D_clipWidth) { // L: 525
 				var5 = Rasterizer3D_clipWidth;
 			}
 
-			if (var4 < 0) { // L: 539
+			if (var4 < 0) { // L: 526
 				var4 = 0;
 			}
 		}
 
-		if (var4 < var5) { // L: 541
-			var1 += var4; // L: 542
-			var6 += var4 * var7; // L: 543
+		if (var4 < var5) { // L: 528
+			var1 += var4; // L: 529
+			var6 += var4 * var7; // L: 530
 			int var8;
 			int var9;
 			int var10;
-			if (field1903) { // L: 544
-				var3 = var5 - var4 >> 2; // L: 545
-				var7 <<= 2; // L: 546
-				if (Rasterizer3D_alpha == 0) { // L: 547
-					if (var3 > 0) { // L: 548
+			if (field2254) { // L: 531
+				var3 = var5 - var4 >> 2; // L: 532
+				var7 <<= 2; // L: 533
+				if (Rasterizer3D_alpha == 0) { // L: 534
+					if (var3 > 0) { // L: 535
 						do {
-							var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 550
-							var6 += var7; // L: 551
-							var0[var1++] = var2; // L: 552
-							var0[var1++] = var2; // L: 553
-							var0[var1++] = var2; // L: 554
-							var0[var1++] = var2; // L: 555
-							--var3; // L: 556
+							var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 537
+							var6 += var7; // L: 538
+							var0[var1++] = var2; // L: 539
+							var0[var1++] = var2; // L: 540
+							var0[var1++] = var2; // L: 541
+							var0[var1++] = var2; // L: 542
+							--var3; // L: 543
 						} while(var3 > 0);
 					}
 
-					var3 = var5 - var4 & 3; // L: 558
-					if (var3 > 0) { // L: 559
-						var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 560
+					var3 = var5 - var4 & 3; // L: 545
+					if (var3 > 0) { // L: 546
+						var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 547
 
 						do {
-							var0[var1++] = var2; // L: 562
-							--var3; // L: 563
+							var0[var1++] = var2; // L: 549
+							--var3; // L: 550
 						} while(var3 > 0);
 					}
 				} else {
-					var8 = Rasterizer3D_alpha; // L: 567
-					var9 = 256 - Rasterizer3D_alpha; // L: 568
-					if (var3 > 0) { // L: 569
+					var8 = Rasterizer3D_alpha; // L: 554
+					var9 = 256 - Rasterizer3D_alpha; // L: 555
+					if (var3 > 0) { // L: 556
 						do {
-							var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 571
-							var6 += var7; // L: 572
-							var2 = (var9 * (var2 & 65280) >> 8 & 65280) + (var9 * (var2 & 16711935) >> 8 & 16711935); // L: 573
-							var10 = var0[var1]; // L: 574
-							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 575
-							var10 = var0[var1]; // L: 576
-							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 577
-							var10 = var0[var1]; // L: 578
-							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 579
-							var10 = var0[var1]; // L: 580
-							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 581
-							--var3; // L: 582
+							var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 558
+							var6 += var7; // L: 559
+							var2 = (var9 * (var2 & 65280) >> 8 & 65280) + (var9 * (var2 & 16711935) >> 8 & 16711935); // L: 560
+							var10 = var0[var1]; // L: 561
+							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 562
+							var10 = var0[var1]; // L: 563
+							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 564
+							var10 = var0[var1]; // L: 565
+							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 566
+							var10 = var0[var1]; // L: 567
+							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 568
+							--var3; // L: 569
 						} while(var3 > 0);
 					}
 
-					var3 = var5 - var4 & 3; // L: 584
-					if (var3 > 0) { // L: 585
-						var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 586
-						var2 = (var9 * (var2 & 65280) >> 8 & 65280) + (var9 * (var2 & 16711935) >> 8 & 16711935); // L: 587
+					var3 = var5 - var4 & 3; // L: 571
+					if (var3 > 0) { // L: 572
+						var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 573
+						var2 = (var9 * (var2 & 65280) >> 8 & 65280) + (var9 * (var2 & 16711935) >> 8 & 16711935); // L: 574
 
 						do {
-							var10 = var0[var1]; // L: 589
-							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 590
-							--var3; // L: 591
+							var10 = var0[var1]; // L: 576
+							var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 577
+							--var3; // L: 578
 						} while(var3 > 0);
 					}
 				}
 
 			} else {
-				var3 = var5 - var4; // L: 597
-				if (Rasterizer3D_alpha == 0) { // L: 598
+				var3 = var5 - var4; // L: 584
+				if (Rasterizer3D_alpha == 0) { // L: 585
 					do {
-						var0[var1++] = Rasterizer3D_colorPalette[var6 >> 8]; // L: 600
-						var6 += var7; // L: 601
-						--var3; // L: 602
+						var0[var1++] = Rasterizer3D_colorPalette[var6 >> 8]; // L: 587
+						var6 += var7; // L: 588
+						--var3; // L: 589
 					} while(var3 > 0);
 				} else {
-					var8 = Rasterizer3D_alpha; // L: 605
-					var9 = 256 - Rasterizer3D_alpha; // L: 606
+					var8 = Rasterizer3D_alpha; // L: 592
+					var9 = 256 - Rasterizer3D_alpha; // L: 593
 
 					do {
-						var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 608
-						var6 += var7; // L: 609
-						var2 = (var9 * (var2 & 65280) >> 8 & 65280) + (var9 * (var2 & 16711935) >> 8 & 16711935); // L: 610
-						var10 = var0[var1]; // L: 611
-						var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 612
-						--var3; // L: 613
+						var2 = Rasterizer3D_colorPalette[var6 >> 8]; // L: 595
+						var6 += var7; // L: 596
+						var2 = (var9 * (var2 & 65280) >> 8 & 65280) + (var9 * (var2 & 16711935) >> 8 & 16711935); // L: 597
+						var10 = var0[var1]; // L: 598
+						var0[var1++] = ((var10 & 16711935) * var8 >> 8 & 16711935) + var2 + (var8 * (var10 & 65280) >> 8 & 65280); // L: 599
+						--var3; // L: 600
 					} while(var3 > 0);
 				}
 
 			}
 		}
-	} // L: 594 615
+	} // L: 581 602
 
-	@ObfuscatedName("m")
-	public static final void method3370(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		int var7 = 0; // L: 620
-		if (var0 != var1) { // L: 621
+	@ObfuscatedName("x")
+	public static final void method3826(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		int var7 = 0; // L: 607
+		if (var0 != var1) { // L: 608
 			var7 = (var4 - var3 << 14) / (var1 - var0);
 		}
 
-		int var8 = 0; // L: 622
-		if (var2 != var1) { // L: 623
+		int var8 = 0; // L: 609
+		if (var2 != var1) { // L: 610
 			var8 = (var5 - var4 << 14) / (var2 - var1);
 		}
 
-		int var9 = 0; // L: 624
-		if (var0 != var2) { // L: 625
+		int var9 = 0; // L: 611
+		if (var0 != var2) { // L: 612
 			var9 = (var3 - var5 << 14) / (var0 - var2);
 		}
 
-		if (var0 <= var1 && var0 <= var2) { // L: 626
-			if (var0 < Rasterizer3D_clipHeight) { // L: 627
-				if (var1 > Rasterizer3D_clipHeight) { // L: 628
+		if (var0 <= var1 && var0 <= var2) { // L: 613
+			if (var0 < Rasterizer3D_clipHeight) { // L: 614
+				if (var1 > Rasterizer3D_clipHeight) { // L: 615
 					var1 = Rasterizer3D_clipHeight;
 				}
 
-				if (var2 > Rasterizer3D_clipHeight) { // L: 629
+				if (var2 > Rasterizer3D_clipHeight) { // L: 616
 					var2 = Rasterizer3D_clipHeight;
 				}
 
-				if (var1 < var2) { // L: 630
-					var5 = var3 <<= 14; // L: 631
-					if (var0 < 0) { // L: 632
-						var5 -= var0 * var9; // L: 633
-						var3 -= var0 * var7; // L: 634
-						var0 = 0; // L: 635
+				if (var1 < var2) { // L: 617
+					var5 = var3 <<= 14; // L: 618
+					if (var0 < 0) { // L: 619
+						var5 -= var0 * var9; // L: 620
+						var3 -= var0 * var7; // L: 621
+						var0 = 0; // L: 622
 					}
 
-					var4 <<= 14; // L: 637
-					if (var1 < 0) { // L: 638
-						var4 -= var8 * var1; // L: 639
-						var1 = 0; // L: 640
+					var4 <<= 14; // L: 624
+					if (var1 < 0) { // L: 625
+						var4 -= var8 * var1; // L: 626
+						var1 = 0; // L: 627
 					}
 
-					if (var0 != var1 && var9 < var7 || var0 == var1 && var9 > var8) { // L: 642
-						var2 -= var1; // L: 643
-						var1 -= var0; // L: 644
-						var0 = Rasterizer3D_rowOffsets[var0]; // L: 645
+					if (var0 != var1 && var9 < var7 || var0 == var1 && var9 > var8) { // L: 629
+						var2 -= var1; // L: 630
+						var1 -= var0; // L: 631
+						var0 = Rasterizer3D_rowOffsets[var0]; // L: 632
 
 						while (true) {
-							--var1; // L: 646
+							--var1; // L: 633
 							if (var1 < 0) {
 								while (true) {
-									--var2; // L: 652
+									--var2; // L: 639
 									if (var2 < 0) {
-										return; // L: 658
+										return; // L: 645
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var5 >> 14, var4 >> 14); // L: 653
-									var5 += var9; // L: 654
-									var4 += var8; // L: 655
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 656
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var5 >> 14, var4 >> 14); // L: 640
+									var5 += var9; // L: 641
+									var4 += var8; // L: 642
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 643
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var5 >> 14, var3 >> 14); // L: 647
-							var5 += var9; // L: 648
-							var3 += var7; // L: 649
-							var0 += Rasterizer2D.Rasterizer2D_width; // L: 650
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var5 >> 14, var3 >> 14); // L: 634
+							var5 += var9; // L: 635
+							var3 += var7; // L: 636
+							var0 += Rasterizer2D.Rasterizer2D_width; // L: 637
 						}
 					} else {
-						var2 -= var1; // L: 661
-						var1 -= var0; // L: 662
-						var0 = Rasterizer3D_rowOffsets[var0]; // L: 663
+						var2 -= var1; // L: 648
+						var1 -= var0; // L: 649
+						var0 = Rasterizer3D_rowOffsets[var0]; // L: 650
 
 						while (true) {
-							--var1; // L: 664
+							--var1; // L: 651
 							if (var1 < 0) {
 								while (true) {
-									--var2; // L: 670
+									--var2; // L: 657
 									if (var2 < 0) {
-										return; // L: 676
+										return; // L: 663
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var4 >> 14, var5 >> 14); // L: 671
-									var5 += var9; // L: 672
-									var4 += var8; // L: 673
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 674
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var4 >> 14, var5 >> 14); // L: 658
+									var5 += var9; // L: 659
+									var4 += var8; // L: 660
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 661
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var3 >> 14, var5 >> 14); // L: 665
-							var5 += var9; // L: 666
-							var3 += var7; // L: 667
-							var0 += Rasterizer2D.Rasterizer2D_width; // L: 668
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var3 >> 14, var5 >> 14); // L: 652
+							var5 += var9; // L: 653
+							var3 += var7; // L: 654
+							var0 += Rasterizer2D.Rasterizer2D_width; // L: 655
 						}
 					}
 				} else {
-					var4 = var3 <<= 14; // L: 680
-					if (var0 < 0) { // L: 681
-						var4 -= var0 * var9; // L: 682
-						var3 -= var0 * var7; // L: 683
-						var0 = 0; // L: 684
+					var4 = var3 <<= 14; // L: 667
+					if (var0 < 0) { // L: 668
+						var4 -= var0 * var9; // L: 669
+						var3 -= var0 * var7; // L: 670
+						var0 = 0; // L: 671
 					}
 
-					var5 <<= 14; // L: 686
-					if (var2 < 0) { // L: 687
-						var5 -= var8 * var2; // L: 688
-						var2 = 0; // L: 689
+					var5 <<= 14; // L: 673
+					if (var2 < 0) { // L: 674
+						var5 -= var8 * var2; // L: 675
+						var2 = 0; // L: 676
 					}
 
-					if ((var0 == var2 || var9 >= var7) && (var0 != var2 || var8 <= var7)) { // L: 691
-						var1 -= var2; // L: 710
-						var2 -= var0; // L: 711
-						var0 = Rasterizer3D_rowOffsets[var0]; // L: 712
+					if (var0 != var2 && var9 < var7 || var0 == var2 && var8 > var7) { // L: 678
+						var1 -= var2; // L: 679
+						var2 -= var0; // L: 680
+						var0 = Rasterizer3D_rowOffsets[var0]; // L: 681
 
 						while (true) {
-							--var2; // L: 713
+							--var2; // L: 682
 							if (var2 < 0) {
 								while (true) {
-									--var1; // L: 719
+									--var1; // L: 688
 									if (var1 < 0) {
-										return; // L: 725
+										return; // L: 694
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var3 >> 14, var5 >> 14); // L: 720
-									var5 += var8; // L: 721
-									var3 += var7; // L: 722
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 723
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var5 >> 14, var3 >> 14); // L: 689
+									var5 += var8; // L: 690
+									var3 += var7; // L: 691
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 692
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var3 >> 14, var4 >> 14); // L: 714
-							var4 += var9; // L: 715
-							var3 += var7; // L: 716
-							var0 += Rasterizer2D.Rasterizer2D_width; // L: 717
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var4 >> 14, var3 >> 14); // L: 683
+							var4 += var9; // L: 684
+							var3 += var7; // L: 685
+							var0 += Rasterizer2D.Rasterizer2D_width; // L: 686
 						}
 					} else {
-						var1 -= var2; // L: 692
-						var2 -= var0; // L: 693
-						var0 = Rasterizer3D_rowOffsets[var0]; // L: 694
+						var1 -= var2; // L: 697
+						var2 -= var0; // L: 698
+						var0 = Rasterizer3D_rowOffsets[var0]; // L: 699
 
 						while (true) {
-							--var2; // L: 695
+							--var2; // L: 700
 							if (var2 < 0) {
 								while (true) {
-									--var1; // L: 701
+									--var1; // L: 706
 									if (var1 < 0) {
-										return; // L: 707
+										return; // L: 712
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var5 >> 14, var3 >> 14); // L: 702
-									var5 += var8; // L: 703
-									var3 += var7; // L: 704
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 705
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var3 >> 14, var5 >> 14); // L: 707
+									var5 += var8; // L: 708
+									var3 += var7; // L: 709
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 710
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var4 >> 14, var3 >> 14); // L: 696
-							var4 += var9; // L: 697
-							var3 += var7; // L: 698
-							var0 += Rasterizer2D.Rasterizer2D_width; // L: 699
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var6, 0, var3 >> 14, var4 >> 14); // L: 701
+							var4 += var9; // L: 702
+							var3 += var7; // L: 703
+							var0 += Rasterizer2D.Rasterizer2D_width; // L: 704
 						}
 					}
 				}
 			}
-		} else if (var1 <= var2) { // L: 729
-			if (var1 < Rasterizer3D_clipHeight) { // L: 730
-				if (var2 > Rasterizer3D_clipHeight) { // L: 731
+		} else if (var1 <= var2) { // L: 716
+			if (var1 < Rasterizer3D_clipHeight) { // L: 717
+				if (var2 > Rasterizer3D_clipHeight) { // L: 718
 					var2 = Rasterizer3D_clipHeight;
 				}
 
-				if (var0 > Rasterizer3D_clipHeight) { // L: 732
+				if (var0 > Rasterizer3D_clipHeight) { // L: 719
 					var0 = Rasterizer3D_clipHeight;
 				}
 
-				if (var2 < var0) { // L: 733
-					var3 = var4 <<= 14; // L: 734
-					if (var1 < 0) { // L: 735
-						var3 -= var7 * var1; // L: 736
-						var4 -= var8 * var1; // L: 737
-						var1 = 0; // L: 738
+				if (var2 < var0) { // L: 720
+					var3 = var4 <<= 14; // L: 721
+					if (var1 < 0) { // L: 722
+						var3 -= var7 * var1; // L: 723
+						var4 -= var8 * var1; // L: 724
+						var1 = 0; // L: 725
 					}
 
-					var5 <<= 14; // L: 740
-					if (var2 < 0) { // L: 741
-						var5 -= var9 * var2; // L: 742
-						var2 = 0; // L: 743
+					var5 <<= 14; // L: 727
+					if (var2 < 0) { // L: 728
+						var5 -= var9 * var2; // L: 729
+						var2 = 0; // L: 730
 					}
 
-					if (var2 != var1 && var7 < var8 || var2 == var1 && var7 > var9) { // L: 745
-						var0 -= var2; // L: 746
-						var2 -= var1; // L: 747
-						var1 = Rasterizer3D_rowOffsets[var1]; // L: 748
+					if (var2 != var1 && var7 < var8 || var2 == var1 && var7 > var9) { // L: 732
+						var0 -= var2; // L: 733
+						var2 -= var1; // L: 734
+						var1 = Rasterizer3D_rowOffsets[var1]; // L: 735
 
 						while (true) {
-							--var2; // L: 749
+							--var2; // L: 736
 							if (var2 < 0) {
 								while (true) {
-									--var0; // L: 755
+									--var0; // L: 742
 									if (var0 < 0) {
-										return; // L: 761
+										return; // L: 748
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var3 >> 14, var5 >> 14); // L: 756
-									var3 += var7; // L: 757
-									var5 += var9; // L: 758
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 759
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var3 >> 14, var5 >> 14); // L: 743
+									var3 += var7; // L: 744
+									var5 += var9; // L: 745
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 746
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var3 >> 14, var4 >> 14); // L: 750
-							var3 += var7; // L: 751
-							var4 += var8; // L: 752
-							var1 += Rasterizer2D.Rasterizer2D_width; // L: 753
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var3 >> 14, var4 >> 14); // L: 737
+							var3 += var7; // L: 738
+							var4 += var8; // L: 739
+							var1 += Rasterizer2D.Rasterizer2D_width; // L: 740
 						}
 					} else {
-						var0 -= var2; // L: 764
-						var2 -= var1; // L: 765
-						var1 = Rasterizer3D_rowOffsets[var1]; // L: 766
+						var0 -= var2; // L: 751
+						var2 -= var1; // L: 752
+						var1 = Rasterizer3D_rowOffsets[var1]; // L: 753
 
 						while (true) {
-							--var2; // L: 767
+							--var2; // L: 754
 							if (var2 < 0) {
 								while (true) {
-									--var0; // L: 773
+									--var0; // L: 760
 									if (var0 < 0) {
-										return; // L: 779
+										return; // L: 766
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var5 >> 14, var3 >> 14); // L: 774
-									var3 += var7; // L: 775
-									var5 += var9; // L: 776
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 777
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var5 >> 14, var3 >> 14); // L: 761
+									var3 += var7; // L: 762
+									var5 += var9; // L: 763
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 764
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var4 >> 14, var3 >> 14); // L: 768
-							var3 += var7; // L: 769
-							var4 += var8; // L: 770
-							var1 += Rasterizer2D.Rasterizer2D_width; // L: 771
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var4 >> 14, var3 >> 14); // L: 755
+							var3 += var7; // L: 756
+							var4 += var8; // L: 757
+							var1 += Rasterizer2D.Rasterizer2D_width; // L: 758
 						}
 					}
 				} else {
-					var5 = var4 <<= 14; // L: 783
-					if (var1 < 0) { // L: 784
-						var5 -= var7 * var1; // L: 785
-						var4 -= var8 * var1; // L: 786
-						var1 = 0; // L: 787
+					var5 = var4 <<= 14; // L: 770
+					if (var1 < 0) { // L: 771
+						var5 -= var7 * var1; // L: 772
+						var4 -= var8 * var1; // L: 773
+						var1 = 0; // L: 774
 					}
 
-					var3 <<= 14; // L: 789
-					if (var0 < 0) { // L: 790
-						var3 -= var0 * var9; // L: 791
-						var0 = 0; // L: 792
+					var3 <<= 14; // L: 776
+					if (var0 < 0) { // L: 777
+						var3 -= var0 * var9; // L: 778
+						var0 = 0; // L: 779
 					}
 
-					if (var7 < var8) { // L: 794
-						var2 -= var0; // L: 795
-						var0 -= var1; // L: 796
-						var1 = Rasterizer3D_rowOffsets[var1]; // L: 797
+					if (var7 < var8) { // L: 781
+						var2 -= var0; // L: 782
+						var0 -= var1; // L: 783
+						var1 = Rasterizer3D_rowOffsets[var1]; // L: 784
 
 						while (true) {
-							--var0; // L: 798
+							--var0; // L: 785
 							if (var0 < 0) {
 								while (true) {
-									--var2; // L: 804
+									--var2; // L: 791
 									if (var2 < 0) {
-										return; // L: 810
+										return; // L: 797
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var3 >> 14, var4 >> 14); // L: 805
-									var3 += var9; // L: 806
-									var4 += var8; // L: 807
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 808
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var3 >> 14, var4 >> 14); // L: 792
+									var3 += var9; // L: 793
+									var4 += var8; // L: 794
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 795
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var5 >> 14, var4 >> 14); // L: 799
-							var5 += var7; // L: 800
-							var4 += var8; // L: 801
-							var1 += Rasterizer2D.Rasterizer2D_width; // L: 802
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var5 >> 14, var4 >> 14); // L: 786
+							var5 += var7; // L: 787
+							var4 += var8; // L: 788
+							var1 += Rasterizer2D.Rasterizer2D_width; // L: 789
 						}
 					} else {
-						var2 -= var0; // L: 813
-						var0 -= var1; // L: 814
-						var1 = Rasterizer3D_rowOffsets[var1]; // L: 815
+						var2 -= var0; // L: 800
+						var0 -= var1; // L: 801
+						var1 = Rasterizer3D_rowOffsets[var1]; // L: 802
 
 						while (true) {
-							--var0; // L: 816
+							--var0; // L: 803
 							if (var0 < 0) {
 								while (true) {
-									--var2; // L: 822
+									--var2; // L: 809
 									if (var2 < 0) {
-										return; // L: 828
+										return; // L: 815
 									}
 
-									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var4 >> 14, var3 >> 14); // L: 823
-									var3 += var9; // L: 824
-									var4 += var8; // L: 825
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 826
+									Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var4 >> 14, var3 >> 14); // L: 810
+									var3 += var9; // L: 811
+									var4 += var8; // L: 812
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 813
 								}
 							}
 
-							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var4 >> 14, var5 >> 14); // L: 817
-							var5 += var7; // L: 818
-							var4 += var8; // L: 819
-							var1 += Rasterizer2D.Rasterizer2D_width; // L: 820
+							Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var1, var6, 0, var4 >> 14, var5 >> 14); // L: 804
+							var5 += var7; // L: 805
+							var4 += var8; // L: 806
+							var1 += Rasterizer2D.Rasterizer2D_width; // L: 807
 						}
 					}
 				}
 			}
-		} else if (var2 < Rasterizer3D_clipHeight) { // L: 833
-			if (var0 > Rasterizer3D_clipHeight) { // L: 834
+		} else if (var2 < Rasterizer3D_clipHeight) { // L: 820
+			if (var0 > Rasterizer3D_clipHeight) { // L: 821
 				var0 = Rasterizer3D_clipHeight;
 			}
 
-			if (var1 > Rasterizer3D_clipHeight) { // L: 835
+			if (var1 > Rasterizer3D_clipHeight) { // L: 822
 				var1 = Rasterizer3D_clipHeight;
 			}
 
-			if (var0 < var1) { // L: 836
-				var4 = var5 <<= 14; // L: 837
-				if (var2 < 0) { // L: 838
-					var4 -= var8 * var2; // L: 839
-					var5 -= var9 * var2; // L: 840
-					var2 = 0; // L: 841
+			if (var0 < var1) { // L: 823
+				var4 = var5 <<= 14; // L: 824
+				if (var2 < 0) { // L: 825
+					var4 -= var8 * var2; // L: 826
+					var5 -= var9 * var2; // L: 827
+					var2 = 0; // L: 828
 				}
 
-				var3 <<= 14; // L: 843
-				if (var0 < 0) { // L: 844
-					var3 -= var0 * var7; // L: 845
-					var0 = 0; // L: 846
+				var3 <<= 14; // L: 830
+				if (var0 < 0) { // L: 831
+					var3 -= var0 * var7; // L: 832
+					var0 = 0; // L: 833
 				}
 
-				if (var8 < var9) { // L: 848
-					var1 -= var0; // L: 849
-					var0 -= var2; // L: 850
-					var2 = Rasterizer3D_rowOffsets[var2]; // L: 851
+				if (var8 < var9) { // L: 835
+					var1 -= var0; // L: 836
+					var0 -= var2; // L: 837
+					var2 = Rasterizer3D_rowOffsets[var2]; // L: 838
 
 					while (true) {
-						--var0; // L: 852
+						--var0; // L: 839
 						if (var0 < 0) {
 							while (true) {
-								--var1; // L: 858
+								--var1; // L: 845
 								if (var1 < 0) {
-									return; // L: 864
+									return; // L: 851
 								}
 
-								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var4 >> 14, var3 >> 14); // L: 859
-								var4 += var8; // L: 860
-								var3 += var7; // L: 861
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 862
+								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var4 >> 14, var3 >> 14); // L: 846
+								var4 += var8; // L: 847
+								var3 += var7; // L: 848
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 849
 							}
 						}
 
-						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var4 >> 14, var5 >> 14); // L: 853
-						var4 += var8; // L: 854
-						var5 += var9; // L: 855
-						var2 += Rasterizer2D.Rasterizer2D_width; // L: 856
+						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var4 >> 14, var5 >> 14); // L: 840
+						var4 += var8; // L: 841
+						var5 += var9; // L: 842
+						var2 += Rasterizer2D.Rasterizer2D_width; // L: 843
 					}
 				} else {
-					var1 -= var0; // L: 867
-					var0 -= var2; // L: 868
-					var2 = Rasterizer3D_rowOffsets[var2]; // L: 869
+					var1 -= var0; // L: 854
+					var0 -= var2; // L: 855
+					var2 = Rasterizer3D_rowOffsets[var2]; // L: 856
 
 					while (true) {
-						--var0; // L: 870
+						--var0; // L: 857
 						if (var0 < 0) {
 							while (true) {
-								--var1; // L: 876
+								--var1; // L: 863
 								if (var1 < 0) {
-									return; // L: 882
+									return; // L: 869
 								}
 
-								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var3 >> 14, var4 >> 14); // L: 877
-								var4 += var8; // L: 878
-								var3 += var7; // L: 879
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 880
+								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var3 >> 14, var4 >> 14); // L: 864
+								var4 += var8; // L: 865
+								var3 += var7; // L: 866
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 867
 							}
 						}
 
-						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var5 >> 14, var4 >> 14); // L: 871
-						var4 += var8; // L: 872
-						var5 += var9; // L: 873
-						var2 += Rasterizer2D.Rasterizer2D_width; // L: 874
+						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var5 >> 14, var4 >> 14); // L: 858
+						var4 += var8; // L: 859
+						var5 += var9; // L: 860
+						var2 += Rasterizer2D.Rasterizer2D_width; // L: 861
 					}
 				}
 			} else {
-				var3 = var5 <<= 14; // L: 886
-				if (var2 < 0) { // L: 887
-					var3 -= var8 * var2; // L: 888
-					var5 -= var9 * var2; // L: 889
-					var2 = 0; // L: 890
+				var3 = var5 <<= 14; // L: 873
+				if (var2 < 0) { // L: 874
+					var3 -= var8 * var2; // L: 875
+					var5 -= var9 * var2; // L: 876
+					var2 = 0; // L: 877
 				}
 
-				var4 <<= 14; // L: 892
-				if (var1 < 0) { // L: 893
-					var4 -= var7 * var1; // L: 894
-					var1 = 0; // L: 895
+				var4 <<= 14; // L: 879
+				if (var1 < 0) { // L: 880
+					var4 -= var7 * var1; // L: 881
+					var1 = 0; // L: 882
 				}
 
-				if (var8 < var9) { // L: 897
-					var0 -= var1; // L: 898
-					var1 -= var2; // L: 899
-					var2 = Rasterizer3D_rowOffsets[var2]; // L: 900
+				if (var8 < var9) { // L: 884
+					var0 -= var1; // L: 885
+					var1 -= var2; // L: 886
+					var2 = Rasterizer3D_rowOffsets[var2]; // L: 887
 
 					while (true) {
-						--var1; // L: 901
+						--var1; // L: 888
 						if (var1 < 0) {
 							while (true) {
-								--var0; // L: 907
+								--var0; // L: 894
 								if (var0 < 0) {
-									return; // L: 913
+									return; // L: 900
 								}
 
-								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var4 >> 14, var5 >> 14); // L: 908
-								var4 += var7; // L: 909
-								var5 += var9; // L: 910
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 911
+								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var4 >> 14, var5 >> 14); // L: 895
+								var4 += var7; // L: 896
+								var5 += var9; // L: 897
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 898
 							}
 						}
 
-						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var3 >> 14, var5 >> 14); // L: 902
-						var3 += var8; // L: 903
-						var5 += var9; // L: 904
-						var2 += Rasterizer2D.Rasterizer2D_width; // L: 905
+						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var3 >> 14, var5 >> 14); // L: 889
+						var3 += var8; // L: 890
+						var5 += var9; // L: 891
+						var2 += Rasterizer2D.Rasterizer2D_width; // L: 892
 					}
 				} else {
-					var0 -= var1; // L: 916
-					var1 -= var2; // L: 917
-					var2 = Rasterizer3D_rowOffsets[var2]; // L: 918
+					var0 -= var1; // L: 903
+					var1 -= var2; // L: 904
+					var2 = Rasterizer3D_rowOffsets[var2]; // L: 905
 
 					while (true) {
-						--var1; // L: 919
+						--var1; // L: 906
 						if (var1 < 0) {
 							while (true) {
-								--var0; // L: 925
+								--var0; // L: 912
 								if (var0 < 0) {
-									return; // L: 931
+									return; // L: 918
 								}
 
-								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var5 >> 14, var4 >> 14); // L: 926
-								var4 += var7; // L: 927
-								var5 += var9; // L: 928
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 929
+								Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var5 >> 14, var4 >> 14); // L: 913
+								var4 += var7; // L: 914
+								var5 += var9; // L: 915
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 916
 							}
 						}
 
-						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var5 >> 14, var3 >> 14); // L: 920
-						var3 += var8; // L: 921
-						var5 += var9; // L: 922
-						var2 += Rasterizer2D.Rasterizer2D_width; // L: 923
+						Rasterizer3D_horizAlpha(Rasterizer2D.Rasterizer2D_pixels, var2, var6, 0, var5 >> 14, var3 >> 14); // L: 907
+						var3 += var8; // L: 908
+						var5 += var9; // L: 909
+						var2 += Rasterizer2D.Rasterizer2D_width; // L: 910
 					}
 				}
 			}
 		}
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("k")
 	@Export("Rasterizer3D_horizAlpha")
 	static final void Rasterizer3D_horizAlpha(int[] var0, int var1, int var2, int var3, int var4, int var5) {
-		if (field1899) { // L: 938
-			if (var5 > Rasterizer3D_clipWidth) { // L: 939
+		if (field2260) { // L: 925
+			if (var5 > Rasterizer3D_clipWidth) { // L: 926
 				var5 = Rasterizer3D_clipWidth;
 			}
 
-			if (var4 < 0) { // L: 940
+			if (var4 < 0) { // L: 927
 				var4 = 0;
 			}
 		}
 
-		if (var4 < var5) { // L: 942
-			var1 += var4; // L: 943
-			var3 = var5 - var4 >> 2; // L: 944
-			if (Rasterizer3D_alpha != 0) { // L: 945
-				if (Rasterizer3D_alpha == 254) { // L: 957
+		if (var4 < var5) { // L: 929
+			var1 += var4; // L: 930
+			var3 = var5 - var4 >> 2; // L: 931
+			if (Rasterizer3D_alpha != 0) { // L: 932
+				if (Rasterizer3D_alpha == 254) { // L: 944
 					while (true) {
-						--var3; // L: 958
+						--var3; // L: 945
 						if (var3 < 0) {
-							var3 = var5 - var4 & 3; // L: 964
+							var3 = var5 - var4 & 3; // L: 951
 
 							while (true) {
-								--var3; // L: 965
+								--var3; // L: 952
 								if (var3 < 0) {
-									return; // L: 989
+									return; // L: 976
 								}
 
-								var0[var1++] = var0[var1]; // L: 966
+								var0[var1++] = var0[var1]; // L: 953
 							}
 						}
 
-						var0[var1++] = var0[var1]; // L: 959
-						var0[var1++] = var0[var1]; // L: 960
-						var0[var1++] = var0[var1]; // L: 961
-						var0[var1++] = var0[var1]; // L: 962
+						var0[var1++] = var0[var1]; // L: 946
+						var0[var1++] = var0[var1]; // L: 947
+						var0[var1++] = var0[var1]; // L: 948
+						var0[var1++] = var0[var1]; // L: 949
 					}
 				} else {
-					int var6 = Rasterizer3D_alpha; // L: 970
-					int var7 = 256 - Rasterizer3D_alpha; // L: 971
-					var2 = (var7 * (var2 & 65280) >> 8 & 65280) + (var7 * (var2 & 16711935) >> 8 & 16711935); // L: 972
+					int var6 = Rasterizer3D_alpha; // L: 957
+					int var7 = 256 - Rasterizer3D_alpha; // L: 958
+					var2 = (var7 * (var2 & 65280) >> 8 & 65280) + (var7 * (var2 & 16711935) >> 8 & 16711935); // L: 959
 
 					while (true) {
-						--var3; // L: 973
+						--var3; // L: 960
 						int var8;
 						if (var3 < 0) {
-							var3 = var5 - var4 & 3; // L: 983
+							var3 = var5 - var4 & 3; // L: 970
 
 							while (true) {
-								--var3; // L: 984
+								--var3; // L: 971
 								if (var3 < 0) {
 									return;
 								}
 
-								var8 = var0[var1]; // L: 985
-								var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 986
+								var8 = var0[var1]; // L: 972
+								var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 973
 							}
 						}
 
-						var8 = var0[var1]; // L: 974
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 975
-						var8 = var0[var1]; // L: 976
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 977
-						var8 = var0[var1]; // L: 978
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 979
-						var8 = var0[var1]; // L: 980
-						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 981
+						var8 = var0[var1]; // L: 961
+						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 962
+						var8 = var0[var1]; // L: 963
+						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 964
+						var8 = var0[var1]; // L: 965
+						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 966
+						var8 = var0[var1]; // L: 967
+						var0[var1++] = ((var8 & 16711935) * var6 >> 8 & 16711935) + var2 + (var6 * (var8 & 65280) >> 8 & 65280); // L: 968
 					}
 				}
 			} else {
 				while (true) {
-					--var3; // L: 946
+					--var3; // L: 933
 					if (var3 < 0) {
-						var3 = var5 - var4 & 3; // L: 952
+						var3 = var5 - var4 & 3; // L: 939
 
 						while (true) {
-							--var3; // L: 953
+							--var3; // L: 940
 							if (var3 < 0) {
 								return;
 							}
 
-							var0[var1++] = var2; // L: 954
+							var0[var1++] = var2; // L: 941
 						}
 					}
 
-					var0[var1++] = var2; // L: 947
-					var0[var1++] = var2; // L: 948
-					var0[var1++] = var2; // L: 949
-					var0[var1++] = var2; // L: 950
+					var0[var1++] = var2; // L: 934
+					var0[var1++] = var2; // L: 935
+					var0[var1++] = var2; // L: 936
+					var0[var1++] = var2; // L: 937
 				}
 			}
 		}
 	}
 
-	@ObfuscatedName("c")
-	static final void method3372(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18) {
-		int[] var19 = Rasterizer3D_textureLoader.getTexturePixels(var18); // L: 992
+	@ObfuscatedName("r")
+	static final void method3843(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18) {
+		int[] var19 = Rasterizer3D_textureLoader.getTexturePixels(var18); // L: 979
 		int var20;
-		if (var19 == null) { // L: 993
-			var20 = Rasterizer3D_textureLoader.getAverageTextureRGB(var18); // L: 994
-			method3383(var0, var1, var2, var3, var4, var5, method3415(var20, var6), method3415(var20, var7), method3415(var20, var8)); // L: 995
+		if (var19 == null) { // L: 980
+			var20 = Rasterizer3D_textureLoader.getAverageTextureRGB(var18); // L: 981
+			method3824(var0, var1, var2, var3, var4, var5, method3887(var20, var6), method3887(var20, var7), method3887(var20, var8)); // L: 982
 		} else {
-			Rasterizer3D_isLowDetailTexture = Rasterizer3D_textureLoader.isLowDetail(var18); // L: 998
-			field1921 = Rasterizer3D_textureLoader.vmethod3790(var18); // L: 999
-			var20 = var4 - var3; // L: 1000
-			int var21 = var1 - var0; // L: 1001
-			int var22 = var5 - var3; // L: 1002
-			int var23 = var2 - var0; // L: 1003
-			int var24 = var7 - var6; // L: 1004
-			int var25 = var8 - var6; // L: 1005
-			int var26 = 0; // L: 1006
-			if (var0 != var1) { // L: 1007
+			Rasterizer3D_isLowDetailTexture = Rasterizer3D_textureLoader.isLowDetail(var18); // L: 985
+			field2270 = Rasterizer3D_textureLoader.vmethod4224(var18); // L: 986
+			var20 = var4 - var3; // L: 987
+			int var21 = var1 - var0; // L: 988
+			int var22 = var5 - var3; // L: 989
+			int var23 = var2 - var0; // L: 990
+			int var24 = var7 - var6; // L: 991
+			int var25 = var8 - var6; // L: 992
+			int var26 = 0; // L: 993
+			if (var0 != var1) { // L: 994
 				var26 = (var4 - var3 << 14) / (var1 - var0);
 			}
 
-			int var27 = 0; // L: 1008
-			if (var2 != var1) { // L: 1009
+			int var27 = 0; // L: 995
+			if (var2 != var1) { // L: 996
 				var27 = (var5 - var4 << 14) / (var2 - var1);
 			}
 
-			int var28 = 0; // L: 1010
-			if (var0 != var2) { // L: 1011
+			int var28 = 0; // L: 997
+			if (var0 != var2) { // L: 998
 				var28 = (var3 - var5 << 14) / (var0 - var2);
 			}
 
-			int var29 = var20 * var23 - var22 * var21; // L: 1012
-			if (var29 != 0) { // L: 1013
-				int var30 = (var24 * var23 - var25 * var21 << 9) / var29; // L: 1014
-				int var31 = (var25 * var20 - var24 * var22 << 9) / var29; // L: 1015
-				var10 = var9 - var10; // L: 1016
-				var13 = var12 - var13; // L: 1017
-				var16 = var15 - var16; // L: 1018
-				var11 -= var9; // L: 1019
-				var14 -= var12; // L: 1020
-				var17 -= var15; // L: 1021
-				int var32 = var11 * var12 - var9 * var14 << 14; // L: 1022
-				int var33 = (int)(((long)(var15 * var14 - var17 * var12) << 3 << 14) / (long)Rasterizer3D_zoom); // L: 1023
-				int var34 = (int)(((long)(var17 * var9 - var11 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1024
-				int var35 = var10 * var12 - var13 * var9 << 14; // L: 1025
-				int var36 = (int)(((long)(var13 * var15 - var16 * var12) << 3 << 14) / (long)Rasterizer3D_zoom); // L: 1026
-				int var37 = (int)(((long)(var16 * var9 - var10 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1027
-				int var38 = var13 * var11 - var10 * var14 << 14; // L: 1028
-				int var39 = (int)(((long)(var16 * var14 - var13 * var17) << 3 << 14) / (long)Rasterizer3D_zoom); // L: 1029
-				int var40 = (int)(((long)(var17 * var10 - var11 * var16) << 14) / (long)Rasterizer3D_zoom); // L: 1030
+			int var29 = var20 * var23 - var22 * var21; // L: 999
+			if (var29 != 0) { // L: 1000
+				int var30 = (var24 * var23 - var25 * var21 << 9) / var29; // L: 1001
+				int var31 = (var25 * var20 - var24 * var22 << 9) / var29; // L: 1002
+				var10 = var9 - var10; // L: 1003
+				var13 = var12 - var13; // L: 1004
+				var16 = var15 - var16; // L: 1005
+				var11 -= var9; // L: 1006
+				var14 -= var12; // L: 1007
+				var17 -= var15; // L: 1008
+				int var32 = var11 * var12 - var9 * var14 << 14; // L: 1009
+				int var33 = (int)(((long)(var15 * var14 - var17 * var12) << 3 << 14) / (long)Rasterizer3D_zoom); // L: 1010
+				int var34 = (int)(((long)(var17 * var9 - var11 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1011
+				int var35 = var10 * var12 - var13 * var9 << 14; // L: 1012
+				int var36 = (int)(((long)(var13 * var15 - var16 * var12) << 3 << 14) / (long)Rasterizer3D_zoom); // L: 1013
+				int var37 = (int)(((long)(var16 * var9 - var10 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1014
+				int var38 = var13 * var11 - var10 * var14 << 14; // L: 1015
+				int var39 = (int)(((long)(var16 * var14 - var13 * var17) << 3 << 14) / (long)Rasterizer3D_zoom); // L: 1016
+				int var40 = (int)(((long)(var17 * var10 - var11 * var16) << 14) / (long)Rasterizer3D_zoom); // L: 1017
 				int var41;
-				if (var0 <= var1 && var0 <= var2) { // L: 1031
-					if (var0 < Rasterizer3D_clipHeight) { // L: 1032
-						if (var1 > Rasterizer3D_clipHeight) { // L: 1033
+				if (var0 <= var1 && var0 <= var2) { // L: 1018
+					if (var0 < Rasterizer3D_clipHeight) { // L: 1019
+						if (var1 > Rasterizer3D_clipHeight) { // L: 1020
 							var1 = Rasterizer3D_clipHeight;
 						}
 
-						if (var2 > Rasterizer3D_clipHeight) { // L: 1034
+						if (var2 > Rasterizer3D_clipHeight) { // L: 1021
 							var2 = Rasterizer3D_clipHeight;
 						}
 
-						var6 = var30 + ((var6 << 9) - var3 * var30); // L: 1035
-						if (var1 < var2) { // L: 1036
-							var5 = var3 <<= 14; // L: 1037
-							if (var0 < 0) { // L: 1038
-								var5 -= var0 * var28; // L: 1039
-								var3 -= var0 * var26; // L: 1040
-								var6 -= var0 * var31; // L: 1041
-								var0 = 0; // L: 1042
+						var6 = var30 + ((var6 << 9) - var3 * var30); // L: 1022
+						if (var1 < var2) { // L: 1023
+							var5 = var3 <<= 14; // L: 1024
+							if (var0 < 0) { // L: 1025
+								var5 -= var0 * var28; // L: 1026
+								var3 -= var0 * var26; // L: 1027
+								var6 -= var0 * var31; // L: 1028
+								var0 = 0; // L: 1029
 							}
 
-							var4 <<= 14; // L: 1044
-							if (var1 < 0) { // L: 1045
-								var4 -= var27 * var1; // L: 1046
-								var1 = 0; // L: 1047
+							var4 <<= 14; // L: 1031
+							if (var1 < 0) { // L: 1032
+								var4 -= var27 * var1; // L: 1033
+								var1 = 0; // L: 1034
 							}
 
-							var41 = var0 - Rasterizer3D_clipMidY; // L: 1049
-							var32 += var34 * var41; // L: 1050
-							var35 += var37 * var41; // L: 1051
-							var38 += var40 * var41; // L: 1052
-							if (var0 != var1 && var28 < var26 || var0 == var1 && var28 > var27) { // L: 1053
-								var2 -= var1; // L: 1054
-								var1 -= var0; // L: 1055
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1056
+							var41 = var0 - Rasterizer3D_clipMidY; // L: 1036
+							var32 += var34 * var41; // L: 1037
+							var35 += var37 * var41; // L: 1038
+							var38 += var40 * var41; // L: 1039
+							if ((var0 == var1 || var28 >= var26) && (var0 != var1 || var28 <= var27)) { // L: 1040
+								var2 -= var1; // L: 1067
+								var1 -= var0; // L: 1068
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1069
 
 								while (true) {
-									--var1; // L: 1057
+									--var1; // L: 1070
 									if (var1 < 0) {
 										while (true) {
-											--var2; // L: 1067
+											--var2; // L: 1080
 											if (var2 < 0) {
-												return; // L: 1077
+												return; // L: 1090
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1068
-											var5 += var28; // L: 1069
-											var4 += var27; // L: 1070
-											var6 += var31; // L: 1071
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1072
-											var32 += var34; // L: 1073
-											var35 += var37; // L: 1074
-											var38 += var40; // L: 1075
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1081
+											var5 += var28; // L: 1082
+											var4 += var27; // L: 1083
+											var6 += var31; // L: 1084
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1085
+											var32 += var34; // L: 1086
+											var35 += var37; // L: 1087
+											var38 += var40; // L: 1088
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1058
-									var5 += var28; // L: 1059
-									var3 += var26; // L: 1060
-									var6 += var31; // L: 1061
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1062
-									var32 += var34; // L: 1063
-									var35 += var37; // L: 1064
-									var38 += var40; // L: 1065
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1071
+									var5 += var28; // L: 1072
+									var3 += var26; // L: 1073
+									var6 += var31; // L: 1074
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1075
+									var32 += var34; // L: 1076
+									var35 += var37; // L: 1077
+									var38 += var40; // L: 1078
 								}
 							} else {
-								var2 -= var1; // L: 1080
-								var1 -= var0; // L: 1081
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1082
+								var2 -= var1; // L: 1041
+								var1 -= var0; // L: 1042
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1043
 
 								while (true) {
-									--var1; // L: 1083
+									--var1; // L: 1044
 									if (var1 < 0) {
 										while (true) {
-											--var2; // L: 1093
+											--var2; // L: 1054
 											if (var2 < 0) {
-												return; // L: 1103
+												return; // L: 1064
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1094
-											var5 += var28; // L: 1095
-											var4 += var27; // L: 1096
-											var6 += var31; // L: 1097
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1098
-											var32 += var34; // L: 1099
-											var35 += var37; // L: 1100
-											var38 += var40; // L: 1101
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1055
+											var5 += var28; // L: 1056
+											var4 += var27; // L: 1057
+											var6 += var31; // L: 1058
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1059
+											var32 += var34; // L: 1060
+											var35 += var37; // L: 1061
+											var38 += var40; // L: 1062
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1084
-									var5 += var28; // L: 1085
-									var3 += var26; // L: 1086
-									var6 += var31; // L: 1087
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1088
-									var32 += var34; // L: 1089
-									var35 += var37; // L: 1090
-									var38 += var40; // L: 1091
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1045
+									var5 += var28; // L: 1046
+									var3 += var26; // L: 1047
+									var6 += var31; // L: 1048
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1049
+									var32 += var34; // L: 1050
+									var35 += var37; // L: 1051
+									var38 += var40; // L: 1052
 								}
 							}
 						} else {
-							var4 = var3 <<= 14; // L: 1107
-							if (var0 < 0) { // L: 1108
-								var4 -= var0 * var28; // L: 1109
-								var3 -= var0 * var26; // L: 1110
-								var6 -= var0 * var31; // L: 1111
-								var0 = 0; // L: 1112
+							var4 = var3 <<= 14; // L: 1094
+							if (var0 < 0) { // L: 1095
+								var4 -= var0 * var28; // L: 1096
+								var3 -= var0 * var26; // L: 1097
+								var6 -= var0 * var31; // L: 1098
+								var0 = 0; // L: 1099
 							}
 
-							var5 <<= 14; // L: 1114
-							if (var2 < 0) { // L: 1115
-								var5 -= var27 * var2; // L: 1116
-								var2 = 0; // L: 1117
+							var5 <<= 14; // L: 1101
+							if (var2 < 0) { // L: 1102
+								var5 -= var27 * var2; // L: 1103
+								var2 = 0; // L: 1104
 							}
 
-							var41 = var0 - Rasterizer3D_clipMidY; // L: 1119
-							var32 += var34 * var41; // L: 1120
-							var35 += var37 * var41; // L: 1121
-							var38 += var40 * var41; // L: 1122
-							if ((var0 == var2 || var28 >= var26) && (var0 != var2 || var27 <= var26)) { // L: 1123
-								var1 -= var2; // L: 1150
-								var2 -= var0; // L: 1151
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1152
+							var41 = var0 - Rasterizer3D_clipMidY; // L: 1106
+							var32 += var34 * var41; // L: 1107
+							var35 += var37 * var41; // L: 1108
+							var38 += var40 * var41; // L: 1109
+							if ((var0 == var2 || var28 >= var26) && (var0 != var2 || var27 <= var26)) { // L: 1110
+								var1 -= var2; // L: 1137
+								var2 -= var0; // L: 1138
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1139
 
 								while (true) {
-									--var2; // L: 1153
+									--var2; // L: 1140
 									if (var2 < 0) {
 										while (true) {
-											--var1; // L: 1163
+											--var1; // L: 1150
 											if (var1 < 0) {
-												return; // L: 1173
+												return; // L: 1160
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1164
-											var5 += var27; // L: 1165
-											var3 += var26; // L: 1166
-											var6 += var31; // L: 1167
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1168
-											var32 += var34; // L: 1169
-											var35 += var37; // L: 1170
-											var38 += var40; // L: 1171
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1151
+											var5 += var27; // L: 1152
+											var3 += var26; // L: 1153
+											var6 += var31; // L: 1154
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1155
+											var32 += var34; // L: 1156
+											var35 += var37; // L: 1157
+											var38 += var40; // L: 1158
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1154
-									var4 += var28; // L: 1155
-									var3 += var26; // L: 1156
-									var6 += var31; // L: 1157
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1158
-									var32 += var34; // L: 1159
-									var35 += var37; // L: 1160
-									var38 += var40; // L: 1161
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1141
+									var4 += var28; // L: 1142
+									var3 += var26; // L: 1143
+									var6 += var31; // L: 1144
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1145
+									var32 += var34; // L: 1146
+									var35 += var37; // L: 1147
+									var38 += var40; // L: 1148
 								}
 							} else {
-								var1 -= var2; // L: 1124
-								var2 -= var0; // L: 1125
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1126
+								var1 -= var2; // L: 1111
+								var2 -= var0; // L: 1112
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1113
 
 								while (true) {
-									--var2; // L: 1127
+									--var2; // L: 1114
 									if (var2 < 0) {
 										while (true) {
-											--var1; // L: 1137
+											--var1; // L: 1124
 											if (var1 < 0) {
-												return; // L: 1147
+												return; // L: 1134
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1138
-											var5 += var27; // L: 1139
-											var3 += var26; // L: 1140
-											var6 += var31; // L: 1141
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1142
-											var32 += var34; // L: 1143
-											var35 += var37; // L: 1144
-											var38 += var40; // L: 1145
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1125
+											var5 += var27; // L: 1126
+											var3 += var26; // L: 1127
+											var6 += var31; // L: 1128
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1129
+											var32 += var34; // L: 1130
+											var35 += var37; // L: 1131
+											var38 += var40; // L: 1132
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1128
-									var4 += var28; // L: 1129
-									var3 += var26; // L: 1130
-									var6 += var31; // L: 1131
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1132
-									var32 += var34; // L: 1133
-									var35 += var37; // L: 1134
-									var38 += var40; // L: 1135
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1115
+									var4 += var28; // L: 1116
+									var3 += var26; // L: 1117
+									var6 += var31; // L: 1118
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1119
+									var32 += var34; // L: 1120
+									var35 += var37; // L: 1121
+									var38 += var40; // L: 1122
 								}
 							}
 						}
 					}
-				} else if (var1 <= var2) { // L: 1177
-					if (var1 < Rasterizer3D_clipHeight) { // L: 1178
-						if (var2 > Rasterizer3D_clipHeight) { // L: 1179
+				} else if (var1 <= var2) { // L: 1164
+					if (var1 < Rasterizer3D_clipHeight) { // L: 1165
+						if (var2 > Rasterizer3D_clipHeight) { // L: 1166
 							var2 = Rasterizer3D_clipHeight;
 						}
 
-						if (var0 > Rasterizer3D_clipHeight) { // L: 1180
+						if (var0 > Rasterizer3D_clipHeight) { // L: 1167
 							var0 = Rasterizer3D_clipHeight;
 						}
 
-						var7 = var30 + ((var7 << 9) - var30 * var4); // L: 1181
-						if (var2 < var0) { // L: 1182
-							var3 = var4 <<= 14; // L: 1183
-							if (var1 < 0) { // L: 1184
-								var3 -= var26 * var1; // L: 1185
-								var4 -= var27 * var1; // L: 1186
-								var7 -= var31 * var1; // L: 1187
-								var1 = 0; // L: 1188
+						var7 = var30 + ((var7 << 9) - var30 * var4); // L: 1168
+						if (var2 < var0) { // L: 1169
+							var3 = var4 <<= 14; // L: 1170
+							if (var1 < 0) { // L: 1171
+								var3 -= var26 * var1; // L: 1172
+								var4 -= var27 * var1; // L: 1173
+								var7 -= var31 * var1; // L: 1174
+								var1 = 0; // L: 1175
 							}
 
-							var5 <<= 14; // L: 1190
-							if (var2 < 0) { // L: 1191
-								var5 -= var28 * var2; // L: 1192
-								var2 = 0; // L: 1193
+							var5 <<= 14; // L: 1177
+							if (var2 < 0) { // L: 1178
+								var5 -= var28 * var2; // L: 1179
+								var2 = 0; // L: 1180
 							}
 
-							var41 = var1 - Rasterizer3D_clipMidY; // L: 1195
-							var32 += var34 * var41; // L: 1196
-							var35 += var37 * var41; // L: 1197
-							var38 += var40 * var41; // L: 1198
-							if (var2 != var1 && var26 < var27 || var2 == var1 && var26 > var28) { // L: 1199
-								var0 -= var2; // L: 1200
-								var2 -= var1; // L: 1201
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1202
+							var41 = var1 - Rasterizer3D_clipMidY; // L: 1182
+							var32 += var34 * var41; // L: 1183
+							var35 += var37 * var41; // L: 1184
+							var38 += var40 * var41; // L: 1185
+							if (var2 != var1 && var26 < var27 || var2 == var1 && var26 > var28) { // L: 1186
+								var0 -= var2; // L: 1187
+								var2 -= var1; // L: 1188
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1189
 
 								while (true) {
-									--var2; // L: 1203
+									--var2; // L: 1190
 									if (var2 < 0) {
 										while (true) {
-											--var0; // L: 1213
+											--var0; // L: 1200
 											if (var0 < 0) {
-												return; // L: 1223
+												return; // L: 1210
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1214
-											var3 += var26; // L: 1215
-											var5 += var28; // L: 1216
-											var7 += var31; // L: 1217
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1218
-											var32 += var34; // L: 1219
-											var35 += var37; // L: 1220
-											var38 += var40; // L: 1221
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1201
+											var3 += var26; // L: 1202
+											var5 += var28; // L: 1203
+											var7 += var31; // L: 1204
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1205
+											var32 += var34; // L: 1206
+											var35 += var37; // L: 1207
+											var38 += var40; // L: 1208
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1204
-									var3 += var26; // L: 1205
-									var4 += var27; // L: 1206
-									var7 += var31; // L: 1207
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1208
-									var32 += var34; // L: 1209
-									var35 += var37; // L: 1210
-									var38 += var40; // L: 1211
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1191
+									var3 += var26; // L: 1192
+									var4 += var27; // L: 1193
+									var7 += var31; // L: 1194
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1195
+									var32 += var34; // L: 1196
+									var35 += var37; // L: 1197
+									var38 += var40; // L: 1198
 								}
 							} else {
-								var0 -= var2; // L: 1226
-								var2 -= var1; // L: 1227
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1228
+								var0 -= var2; // L: 1213
+								var2 -= var1; // L: 1214
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1215
 
 								while (true) {
-									--var2; // L: 1229
+									--var2; // L: 1216
 									if (var2 < 0) {
 										while (true) {
-											--var0; // L: 1239
+											--var0; // L: 1226
 											if (var0 < 0) {
-												return; // L: 1249
+												return; // L: 1236
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1240
-											var3 += var26; // L: 1241
-											var5 += var28; // L: 1242
-											var7 += var31; // L: 1243
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1244
-											var32 += var34; // L: 1245
-											var35 += var37; // L: 1246
-											var38 += var40; // L: 1247
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1227
+											var3 += var26; // L: 1228
+											var5 += var28; // L: 1229
+											var7 += var31; // L: 1230
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1231
+											var32 += var34; // L: 1232
+											var35 += var37; // L: 1233
+											var38 += var40; // L: 1234
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1230
-									var3 += var26; // L: 1231
-									var4 += var27; // L: 1232
-									var7 += var31; // L: 1233
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1234
-									var32 += var34; // L: 1235
-									var35 += var37; // L: 1236
-									var38 += var40; // L: 1237
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1217
+									var3 += var26; // L: 1218
+									var4 += var27; // L: 1219
+									var7 += var31; // L: 1220
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1221
+									var32 += var34; // L: 1222
+									var35 += var37; // L: 1223
+									var38 += var40; // L: 1224
 								}
 							}
 						} else {
-							var5 = var4 <<= 14; // L: 1253
-							if (var1 < 0) { // L: 1254
-								var5 -= var26 * var1; // L: 1255
-								var4 -= var27 * var1; // L: 1256
-								var7 -= var31 * var1; // L: 1257
-								var1 = 0; // L: 1258
+							var5 = var4 <<= 14; // L: 1240
+							if (var1 < 0) { // L: 1241
+								var5 -= var26 * var1; // L: 1242
+								var4 -= var27 * var1; // L: 1243
+								var7 -= var31 * var1; // L: 1244
+								var1 = 0; // L: 1245
 							}
 
-							var3 <<= 14; // L: 1260
-							if (var0 < 0) { // L: 1261
-								var3 -= var0 * var28; // L: 1262
-								var0 = 0; // L: 1263
+							var3 <<= 14; // L: 1247
+							if (var0 < 0) { // L: 1248
+								var3 -= var0 * var28; // L: 1249
+								var0 = 0; // L: 1250
 							}
 
-							var41 = var1 - Rasterizer3D_clipMidY; // L: 1265
-							var32 += var34 * var41; // L: 1266
-							var35 += var37 * var41; // L: 1267
-							var38 += var40 * var41; // L: 1268
-							if (var26 < var27) { // L: 1269
-								var2 -= var0; // L: 1270
-								var0 -= var1; // L: 1271
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1272
+							var41 = var1 - Rasterizer3D_clipMidY; // L: 1252
+							var32 += var34 * var41; // L: 1253
+							var35 += var37 * var41; // L: 1254
+							var38 += var40 * var41; // L: 1255
+							if (var26 < var27) { // L: 1256
+								var2 -= var0; // L: 1257
+								var0 -= var1; // L: 1258
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1259
 
 								while (true) {
-									--var0; // L: 1273
+									--var0; // L: 1260
 									if (var0 < 0) {
 										while (true) {
-											--var2; // L: 1283
+											--var2; // L: 1270
 											if (var2 < 0) {
-												return; // L: 1293
+												return; // L: 1280
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1284
-											var3 += var28; // L: 1285
-											var4 += var27; // L: 1286
-											var7 += var31; // L: 1287
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1288
-											var32 += var34; // L: 1289
-											var35 += var37; // L: 1290
-											var38 += var40; // L: 1291
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1271
+											var3 += var28; // L: 1272
+											var4 += var27; // L: 1273
+											var7 += var31; // L: 1274
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1275
+											var32 += var34; // L: 1276
+											var35 += var37; // L: 1277
+											var38 += var40; // L: 1278
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1274
-									var5 += var26; // L: 1275
-									var4 += var27; // L: 1276
-									var7 += var31; // L: 1277
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1278
-									var32 += var34; // L: 1279
-									var35 += var37; // L: 1280
-									var38 += var40; // L: 1281
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1261
+									var5 += var26; // L: 1262
+									var4 += var27; // L: 1263
+									var7 += var31; // L: 1264
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1265
+									var32 += var34; // L: 1266
+									var35 += var37; // L: 1267
+									var38 += var40; // L: 1268
 								}
 							} else {
-								var2 -= var0; // L: 1296
-								var0 -= var1; // L: 1297
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1298
+								var2 -= var0; // L: 1283
+								var0 -= var1; // L: 1284
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1285
 
 								while (true) {
-									--var0; // L: 1299
+									--var0; // L: 1286
 									if (var0 < 0) {
 										while (true) {
-											--var2; // L: 1309
+											--var2; // L: 1296
 											if (var2 < 0) {
-												return; // L: 1319
+												return; // L: 1306
 											}
 
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1310
-											var3 += var28; // L: 1311
-											var4 += var27; // L: 1312
-											var7 += var31; // L: 1313
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1314
-											var32 += var34; // L: 1315
-											var35 += var37; // L: 1316
-											var38 += var40; // L: 1317
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1297
+											var3 += var28; // L: 1298
+											var4 += var27; // L: 1299
+											var7 += var31; // L: 1300
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1301
+											var32 += var34; // L: 1302
+											var35 += var37; // L: 1303
+											var38 += var40; // L: 1304
 										}
 									}
 
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1300
-									var5 += var26; // L: 1301
-									var4 += var27; // L: 1302
-									var7 += var31; // L: 1303
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1304
-									var32 += var34; // L: 1305
-									var35 += var37; // L: 1306
-									var38 += var40; // L: 1307
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1287
+									var5 += var26; // L: 1288
+									var4 += var27; // L: 1289
+									var7 += var31; // L: 1290
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1291
+									var32 += var34; // L: 1292
+									var35 += var37; // L: 1293
+									var38 += var40; // L: 1294
 								}
 							}
 						}
 					}
-				} else if (var2 < Rasterizer3D_clipHeight) { // L: 1324
-					if (var0 > Rasterizer3D_clipHeight) { // L: 1325
+				} else if (var2 < Rasterizer3D_clipHeight) { // L: 1311
+					if (var0 > Rasterizer3D_clipHeight) { // L: 1312
 						var0 = Rasterizer3D_clipHeight;
 					}
 
-					if (var1 > Rasterizer3D_clipHeight) { // L: 1326
+					if (var1 > Rasterizer3D_clipHeight) { // L: 1313
 						var1 = Rasterizer3D_clipHeight;
 					}
 
-					var8 = (var8 << 9) - var5 * var30 + var30; // L: 1327
-					if (var0 < var1) { // L: 1328
-						var4 = var5 <<= 14; // L: 1329
-						if (var2 < 0) { // L: 1330
-							var4 -= var27 * var2; // L: 1331
-							var5 -= var28 * var2; // L: 1332
-							var8 -= var31 * var2; // L: 1333
-							var2 = 0; // L: 1334
+					var8 = (var8 << 9) - var5 * var30 + var30; // L: 1314
+					if (var0 < var1) { // L: 1315
+						var4 = var5 <<= 14; // L: 1316
+						if (var2 < 0) { // L: 1317
+							var4 -= var27 * var2; // L: 1318
+							var5 -= var28 * var2; // L: 1319
+							var8 -= var31 * var2; // L: 1320
+							var2 = 0; // L: 1321
 						}
 
-						var3 <<= 14; // L: 1336
-						if (var0 < 0) { // L: 1337
-							var3 -= var0 * var26; // L: 1338
-							var0 = 0; // L: 1339
+						var3 <<= 14; // L: 1323
+						if (var0 < 0) { // L: 1324
+							var3 -= var0 * var26; // L: 1325
+							var0 = 0; // L: 1326
 						}
 
-						var41 = var2 - Rasterizer3D_clipMidY; // L: 1341
-						var32 += var34 * var41; // L: 1342
-						var35 += var37 * var41; // L: 1343
-						var38 += var40 * var41; // L: 1344
-						if (var27 < var28) { // L: 1345
-							var1 -= var0; // L: 1346
-							var0 -= var2; // L: 1347
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1348
+						var41 = var2 - Rasterizer3D_clipMidY; // L: 1328
+						var32 += var34 * var41; // L: 1329
+						var35 += var37 * var41; // L: 1330
+						var38 += var40 * var41; // L: 1331
+						if (var27 < var28) { // L: 1332
+							var1 -= var0; // L: 1333
+							var0 -= var2; // L: 1334
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1335
 
 							while (true) {
-								--var0; // L: 1349
+								--var0; // L: 1336
 								if (var0 < 0) {
 									while (true) {
-										--var1; // L: 1359
+										--var1; // L: 1346
 										if (var1 < 0) {
-											return; // L: 1369
+											return; // L: 1356
 										}
 
-										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1360
-										var4 += var27; // L: 1361
-										var3 += var26; // L: 1362
-										var8 += var31; // L: 1363
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1364
-										var32 += var34; // L: 1365
-										var35 += var37; // L: 1366
-										var38 += var40; // L: 1367
+										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1347
+										var4 += var27; // L: 1348
+										var3 += var26; // L: 1349
+										var8 += var31; // L: 1350
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1351
+										var32 += var34; // L: 1352
+										var35 += var37; // L: 1353
+										var38 += var40; // L: 1354
 									}
 								}
 
-								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1350
-								var4 += var27; // L: 1351
-								var5 += var28; // L: 1352
-								var8 += var31; // L: 1353
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1354
-								var32 += var34; // L: 1355
-								var35 += var37; // L: 1356
-								var38 += var40; // L: 1357
+								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1337
+								var4 += var27; // L: 1338
+								var5 += var28; // L: 1339
+								var8 += var31; // L: 1340
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1341
+								var32 += var34; // L: 1342
+								var35 += var37; // L: 1343
+								var38 += var40; // L: 1344
 							}
 						} else {
-							var1 -= var0; // L: 1372
-							var0 -= var2; // L: 1373
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1374
+							var1 -= var0; // L: 1359
+							var0 -= var2; // L: 1360
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1361
 
 							while (true) {
-								--var0; // L: 1375
+								--var0; // L: 1362
 								if (var0 < 0) {
 									while (true) {
-										--var1; // L: 1385
+										--var1; // L: 1372
 										if (var1 < 0) {
-											return; // L: 1395
+											return; // L: 1382
 										}
 
-										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1386
-										var4 += var27; // L: 1387
-										var3 += var26; // L: 1388
-										var8 += var31; // L: 1389
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1390
-										var32 += var34; // L: 1391
-										var35 += var37; // L: 1392
-										var38 += var40; // L: 1393
+										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1373
+										var4 += var27; // L: 1374
+										var3 += var26; // L: 1375
+										var8 += var31; // L: 1376
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1377
+										var32 += var34; // L: 1378
+										var35 += var37; // L: 1379
+										var38 += var40; // L: 1380
 									}
 								}
 
-								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1376
-								var4 += var27; // L: 1377
-								var5 += var28; // L: 1378
-								var8 += var31; // L: 1379
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1380
-								var32 += var34; // L: 1381
-								var35 += var37; // L: 1382
-								var38 += var40; // L: 1383
+								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1363
+								var4 += var27; // L: 1364
+								var5 += var28; // L: 1365
+								var8 += var31; // L: 1366
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1367
+								var32 += var34; // L: 1368
+								var35 += var37; // L: 1369
+								var38 += var40; // L: 1370
 							}
 						}
 					} else {
-						var3 = var5 <<= 14; // L: 1399
-						if (var2 < 0) { // L: 1400
-							var3 -= var27 * var2; // L: 1401
-							var5 -= var28 * var2; // L: 1402
-							var8 -= var31 * var2; // L: 1403
-							var2 = 0; // L: 1404
+						var3 = var5 <<= 14; // L: 1386
+						if (var2 < 0) { // L: 1387
+							var3 -= var27 * var2; // L: 1388
+							var5 -= var28 * var2; // L: 1389
+							var8 -= var31 * var2; // L: 1390
+							var2 = 0; // L: 1391
 						}
 
-						var4 <<= 14; // L: 1406
-						if (var1 < 0) { // L: 1407
-							var4 -= var26 * var1; // L: 1408
-							var1 = 0; // L: 1409
+						var4 <<= 14; // L: 1393
+						if (var1 < 0) { // L: 1394
+							var4 -= var26 * var1; // L: 1395
+							var1 = 0; // L: 1396
 						}
 
-						var41 = var2 - Rasterizer3D_clipMidY; // L: 1411
-						var32 += var34 * var41; // L: 1412
-						var35 += var37 * var41; // L: 1413
-						var38 += var40 * var41; // L: 1414
-						if (var27 < var28) { // L: 1415
-							var0 -= var1; // L: 1416
-							var1 -= var2; // L: 1417
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1418
+						var41 = var2 - Rasterizer3D_clipMidY; // L: 1398
+						var32 += var34 * var41; // L: 1399
+						var35 += var37 * var41; // L: 1400
+						var38 += var40 * var41; // L: 1401
+						if (var27 < var28) { // L: 1402
+							var0 -= var1; // L: 1403
+							var1 -= var2; // L: 1404
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1405
 
 							while (true) {
-								--var1; // L: 1419
+								--var1; // L: 1406
 								if (var1 < 0) {
 									while (true) {
-										--var0; // L: 1429
+										--var0; // L: 1416
 										if (var0 < 0) {
-											return; // L: 1439
+											return; // L: 1426
 										}
 
-										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1430
-										var4 += var26; // L: 1431
-										var5 += var28; // L: 1432
-										var8 += var31; // L: 1433
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1434
-										var32 += var34; // L: 1435
-										var35 += var37; // L: 1436
-										var38 += var40; // L: 1437
+										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1417
+										var4 += var26; // L: 1418
+										var5 += var28; // L: 1419
+										var8 += var31; // L: 1420
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1421
+										var32 += var34; // L: 1422
+										var35 += var37; // L: 1423
+										var38 += var40; // L: 1424
 									}
 								}
 
-								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1420
-								var3 += var27; // L: 1421
-								var5 += var28; // L: 1422
-								var8 += var31; // L: 1423
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1424
-								var32 += var34; // L: 1425
-								var35 += var37; // L: 1426
-								var38 += var40; // L: 1427
+								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1407
+								var3 += var27; // L: 1408
+								var5 += var28; // L: 1409
+								var8 += var31; // L: 1410
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1411
+								var32 += var34; // L: 1412
+								var35 += var37; // L: 1413
+								var38 += var40; // L: 1414
 							}
 						} else {
-							var0 -= var1; // L: 1442
-							var1 -= var2; // L: 1443
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1444
+							var0 -= var1; // L: 1429
+							var1 -= var2; // L: 1430
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 1431
 
 							while (true) {
-								--var1; // L: 1445
+								--var1; // L: 1432
 								if (var1 < 0) {
 									while (true) {
-										--var0; // L: 1455
+										--var0; // L: 1442
 										if (var0 < 0) {
-											return; // L: 1465
+											return; // L: 1452
 										}
 
-										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1456
-										var4 += var26; // L: 1457
-										var5 += var28; // L: 1458
-										var8 += var31; // L: 1459
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1460
-										var32 += var34; // L: 1461
-										var35 += var37; // L: 1462
-										var38 += var40; // L: 1463
+										Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1443
+										var4 += var26; // L: 1444
+										var5 += var28; // L: 1445
+										var8 += var31; // L: 1446
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 1447
+										var32 += var34; // L: 1448
+										var35 += var37; // L: 1449
+										var38 += var40; // L: 1450
 									}
 								}
 
-								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1446
-								var3 += var27; // L: 1447
-								var5 += var28; // L: 1448
-								var8 += var31; // L: 1449
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1450
-								var32 += var34; // L: 1451
-								var35 += var37; // L: 1452
-								var38 += var40; // L: 1453
+								Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 1433
+								var3 += var27; // L: 1434
+								var5 += var28; // L: 1435
+								var8 += var31; // L: 1436
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 1437
+								var32 += var34; // L: 1438
+								var35 += var37; // L: 1439
+								var38 += var40; // L: 1440
 							}
 						}
 					}
 				}
 			}
 		}
-	} // L: 996
+	} // L: 983
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("p")
 	@Export("Rasterizer3D_iDontKnow")
 	static final void Rasterizer3D_iDontKnow(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14) {
-		if (field1899) { // L: 1474
-			if (var6 > Rasterizer3D_clipWidth) { // L: 1475
+		if (field2260) { // L: 1461
+			if (var6 > Rasterizer3D_clipWidth) { // L: 1462
 				var6 = Rasterizer3D_clipWidth;
 			}
 
-			if (var5 < 0) { // L: 1476
+			if (var5 < 0) { // L: 1463
 				var5 = 0;
 			}
 		}
 
-		if (var5 < var6) { // L: 1478
-			var4 += var5; // L: 1479
-			var7 += var5 * var8; // L: 1480
-			int var17 = var6 - var5; // L: 1481
+		if (var5 < var6) { // L: 1465
+			var4 += var5; // L: 1466
+			var7 += var5 * var8; // L: 1467
+			int var17 = var6 - var5; // L: 1468
 			int var15;
 			int var16;
 			int var10000;
@@ -2078,1040 +2068,1040 @@ public class Rasterizer3D extends Rasterizer2D {
 			int var21;
 			int var22;
 			int var23;
-			if (Rasterizer3D_isLowDetailTexture) { // L: 1482
-				var23 = var5 - Rasterizer3D_clipMidX; // L: 1488
-				var9 += var23 * (var12 >> 3); // L: 1489
-				var10 += (var13 >> 3) * var23; // L: 1490
-				var11 += var23 * (var14 >> 3); // L: 1491
-				var22 = var11 >> 12; // L: 1492
-				if (var22 != 0) { // L: 1493
-					var18 = var9 / var22; // L: 1494
-					var19 = var10 / var22; // L: 1495
-					if (var18 < 0) { // L: 1496
+			if (Rasterizer3D_isLowDetailTexture) { // L: 1469
+				var23 = var5 - Rasterizer3D_clipMidX; // L: 1475
+				var9 += var23 * (var12 >> 3); // L: 1476
+				var10 += (var13 >> 3) * var23; // L: 1477
+				var11 += var23 * (var14 >> 3); // L: 1478
+				var22 = var11 >> 12; // L: 1479
+				if (var22 != 0) { // L: 1480
+					var18 = var9 / var22; // L: 1481
+					var19 = var10 / var22; // L: 1482
+					if (var18 < 0) { // L: 1483
 						var18 = 0;
-					} else if (var18 > 4032) { // L: 1497
+					} else if (var18 > 4032) { // L: 1484
 						var18 = 4032;
 					}
 				} else {
-					var18 = 0; // L: 1500
-					var19 = 0; // L: 1501
+					var18 = 0; // L: 1487
+					var19 = 0; // L: 1488
 				}
 
-				var9 += var12; // L: 1503
-				var10 += var13; // L: 1504
-				var11 += var14; // L: 1505
-				var22 = var11 >> 12; // L: 1506
-				if (var22 != 0) { // L: 1507
-					var20 = var9 / var22; // L: 1508
-					var21 = var10 / var22; // L: 1509
-					if (var20 < 0) { // L: 1510
+				var9 += var12; // L: 1490
+				var10 += var13; // L: 1491
+				var11 += var14; // L: 1492
+				var22 = var11 >> 12; // L: 1493
+				if (var22 != 0) { // L: 1494
+					var20 = var9 / var22; // L: 1495
+					var21 = var10 / var22; // L: 1496
+					if (var20 < 0) { // L: 1497
 						var20 = 0;
-					} else if (var20 > 4032) { // L: 1511
+					} else if (var20 > 4032) { // L: 1498
 						var20 = 4032;
 					}
 				} else {
-					var20 = 0; // L: 1514
-					var21 = 0; // L: 1515
+					var20 = 0; // L: 1501
+					var21 = 0; // L: 1502
 				}
 
-				var2 = (var18 << 20) + var19; // L: 1517
-				var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 20); // L: 1518
-				var17 >>= 3; // L: 1519
-				var8 <<= 3; // L: 1520
-				var15 = var7 >> 8; // L: 1521
-				if (field1921) { // L: 1522
-					if (var17 > 0) { // L: 1523
+				var2 = (var18 << 20) + var19; // L: 1504
+				var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 20); // L: 1505
+				var17 >>= 3; // L: 1506
+				var8 <<= 3; // L: 1507
+				var15 = var7 >> 8; // L: 1508
+				if (field2270) { // L: 1509
+					if (var17 > 0) { // L: 1510
 						do {
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1525
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1526
-							var2 += var16; // L: 1527
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1528
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1529
-							var2 += var16; // L: 1530
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1531
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1532
-							var2 += var16; // L: 1533
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1534
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1535
-							var2 += var16; // L: 1536
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1537
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1538
-							var2 += var16; // L: 1539
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1540
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1541
-							var2 += var16; // L: 1542
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1543
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1544
-							var2 += var16; // L: 1545
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1546
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1547
-							var10000 = var16 + var2; // L: 1548
-							var18 = var20; // L: 1549
-							var19 = var21; // L: 1550
-							var9 += var12; // L: 1551
-							var10 += var13; // L: 1552
-							var11 += var14; // L: 1553
-							var22 = var11 >> 12; // L: 1554
-							if (var22 != 0) { // L: 1555
-								var20 = var9 / var22; // L: 1556
-								var21 = var10 / var22; // L: 1557
-								if (var20 < 0) { // L: 1558
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1512
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1513
+							var2 += var16; // L: 1514
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1515
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1516
+							var2 += var16; // L: 1517
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1518
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1519
+							var2 += var16; // L: 1520
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1521
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1522
+							var2 += var16; // L: 1523
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1524
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1525
+							var2 += var16; // L: 1526
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1527
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1528
+							var2 += var16; // L: 1529
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1530
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1531
+							var2 += var16; // L: 1532
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1533
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1534
+							var10000 = var16 + var2; // L: 1535
+							var18 = var20; // L: 1536
+							var19 = var21; // L: 1537
+							var9 += var12; // L: 1538
+							var10 += var13; // L: 1539
+							var11 += var14; // L: 1540
+							var22 = var11 >> 12; // L: 1541
+							if (var22 != 0) { // L: 1542
+								var20 = var9 / var22; // L: 1543
+								var21 = var10 / var22; // L: 1544
+								if (var20 < 0) { // L: 1545
 									var20 = 0;
-								} else if (var20 > 4032) { // L: 1559
+								} else if (var20 > 4032) { // L: 1546
 									var20 = 4032;
 								}
 							} else {
-								var20 = 0; // L: 1562
-								var21 = 0; // L: 1563
+								var20 = 0; // L: 1549
+								var21 = 0; // L: 1550
 							}
 
-							var2 = (var18 << 20) + var19; // L: 1565
-							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 20); // L: 1566
-							var7 += var8; // L: 1567
-							var15 = var7 >> 8; // L: 1568
-							--var17; // L: 1569
+							var2 = (var18 << 20) + var19; // L: 1552
+							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 20); // L: 1553
+							var7 += var8; // L: 1554
+							var15 = var7 >> 8; // L: 1555
+							--var17; // L: 1556
 						} while(var17 > 0);
 					}
 
-					var17 = var6 - var5 & 7; // L: 1571
-					if (var17 > 0) { // L: 1572
+					var17 = var6 - var5 & 7; // L: 1558
+					if (var17 > 0) { // L: 1559
 						do {
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1574
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1575
-							var2 += var16; // L: 1576
-							--var17; // L: 1577
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1561
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1562
+							var2 += var16; // L: 1563
+							--var17; // L: 1564
 						} while(var17 > 0);
 					}
 				} else {
-					if (var17 > 0) { // L: 1581
+					if (var17 > 0) { // L: 1568
 						do {
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1583
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1584
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1570
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1571
 							}
 
-							++var4; // L: 1586
-							var2 += var16; // L: 1587
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1588
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1589
+							++var4; // L: 1573
+							var2 += var16; // L: 1574
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1575
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1576
 							}
 
-							++var4; // L: 1591
-							var2 += var16; // L: 1592
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1593
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1594
+							++var4; // L: 1578
+							var2 += var16; // L: 1579
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1580
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1581
 							}
 
-							++var4; // L: 1596
-							var2 += var16; // L: 1597
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1598
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1599
+							++var4; // L: 1583
+							var2 += var16; // L: 1584
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1585
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1586
 							}
 
-							++var4; // L: 1601
-							var2 += var16; // L: 1602
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1603
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1604
+							++var4; // L: 1588
+							var2 += var16; // L: 1589
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1590
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1591
 							}
 
-							++var4; // L: 1606
-							var2 += var16; // L: 1607
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1608
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1609
+							++var4; // L: 1593
+							var2 += var16; // L: 1594
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1595
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1596
 							}
 
-							++var4; // L: 1611
-							var2 += var16; // L: 1612
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1613
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1614
+							++var4; // L: 1598
+							var2 += var16; // L: 1599
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1600
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1601
 							}
 
-							++var4; // L: 1616
-							var2 += var16; // L: 1617
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1618
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1619
+							++var4; // L: 1603
+							var2 += var16; // L: 1604
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1605
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1606
 							}
 
-							++var4; // L: 1621
-							var10000 = var16 + var2; // L: 1622
-							var18 = var20; // L: 1623
-							var19 = var21; // L: 1624
-							var9 += var12; // L: 1625
-							var10 += var13; // L: 1626
-							var11 += var14; // L: 1627
-							var22 = var11 >> 12; // L: 1628
-							if (var22 != 0) { // L: 1629
-								var20 = var9 / var22; // L: 1630
-								var21 = var10 / var22; // L: 1631
-								if (var20 < 0) { // L: 1632
+							++var4; // L: 1608
+							var10000 = var16 + var2; // L: 1609
+							var18 = var20; // L: 1610
+							var19 = var21; // L: 1611
+							var9 += var12; // L: 1612
+							var10 += var13; // L: 1613
+							var11 += var14; // L: 1614
+							var22 = var11 >> 12; // L: 1615
+							if (var22 != 0) { // L: 1616
+								var20 = var9 / var22; // L: 1617
+								var21 = var10 / var22; // L: 1618
+								if (var20 < 0) { // L: 1619
 									var20 = 0;
-								} else if (var20 > 4032) { // L: 1633
+								} else if (var20 > 4032) { // L: 1620
 									var20 = 4032;
 								}
 							} else {
-								var20 = 0; // L: 1636
-								var21 = 0; // L: 1637
+								var20 = 0; // L: 1623
+								var21 = 0; // L: 1624
 							}
 
-							var2 = (var18 << 20) + var19; // L: 1639
-							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 20); // L: 1640
-							var7 += var8; // L: 1641
-							var15 = var7 >> 8; // L: 1642
-							--var17; // L: 1643
+							var2 = (var18 << 20) + var19; // L: 1626
+							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 20); // L: 1627
+							var7 += var8; // L: 1628
+							var15 = var7 >> 8; // L: 1629
+							--var17; // L: 1630
 						} while(var17 > 0);
 					}
 
-					var17 = var6 - var5 & 7; // L: 1645
-					if (var17 > 0) { // L: 1646
+					var17 = var6 - var5 & 7; // L: 1632
+					if (var17 > 0) { // L: 1633
 						do {
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1648
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1649
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 1635
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1636
 							}
 
-							++var4; // L: 1651
-							var2 += var16; // L: 1652
-							--var17; // L: 1653
+							++var4; // L: 1638
+							var2 += var16; // L: 1639
+							--var17; // L: 1640
 						} while(var17 > 0);
 					}
 				}
 			} else {
-				var23 = var5 - Rasterizer3D_clipMidX; // L: 1663
-				var9 += var23 * (var12 >> 3); // L: 1664
-				var10 += (var13 >> 3) * var23; // L: 1665
-				var11 += var23 * (var14 >> 3); // L: 1666
-				var22 = var11 >> 14; // L: 1667
-				if (var22 != 0) { // L: 1668
-					var18 = var9 / var22; // L: 1669
-					var19 = var10 / var22; // L: 1670
-					if (var18 < 0) { // L: 1671
+				var23 = var5 - Rasterizer3D_clipMidX; // L: 1650
+				var9 += var23 * (var12 >> 3); // L: 1651
+				var10 += (var13 >> 3) * var23; // L: 1652
+				var11 += var23 * (var14 >> 3); // L: 1653
+				var22 = var11 >> 14; // L: 1654
+				if (var22 != 0) { // L: 1655
+					var18 = var9 / var22; // L: 1656
+					var19 = var10 / var22; // L: 1657
+					if (var18 < 0) { // L: 1658
 						var18 = 0;
-					} else if (var18 > 16256) { // L: 1672
+					} else if (var18 > 16256) { // L: 1659
 						var18 = 16256;
 					}
 				} else {
-					var18 = 0; // L: 1675
-					var19 = 0; // L: 1676
+					var18 = 0; // L: 1662
+					var19 = 0; // L: 1663
 				}
 
-				var9 += var12; // L: 1678
-				var10 += var13; // L: 1679
-				var11 += var14; // L: 1680
-				var22 = var11 >> 14; // L: 1681
-				if (var22 != 0) { // L: 1682
-					var20 = var9 / var22; // L: 1683
-					var21 = var10 / var22; // L: 1684
-					if (var20 < 0) { // L: 1685
+				var9 += var12; // L: 1665
+				var10 += var13; // L: 1666
+				var11 += var14; // L: 1667
+				var22 = var11 >> 14; // L: 1668
+				if (var22 != 0) { // L: 1669
+					var20 = var9 / var22; // L: 1670
+					var21 = var10 / var22; // L: 1671
+					if (var20 < 0) { // L: 1672
 						var20 = 0;
-					} else if (var20 > 16256) { // L: 1686
+					} else if (var20 > 16256) { // L: 1673
 						var20 = 16256;
 					}
 				} else {
-					var20 = 0; // L: 1689
-					var21 = 0; // L: 1690
+					var20 = 0; // L: 1676
+					var21 = 0; // L: 1677
 				}
 
-				var2 = (var18 << 18) + var19; // L: 1692
-				var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 18); // L: 1693
-				var17 >>= 3; // L: 1694
-				var8 <<= 3; // L: 1695
-				var15 = var7 >> 8; // L: 1696
-				if (field1921) { // L: 1697
-					if (var17 > 0) { // L: 1698
+				var2 = (var18 << 18) + var19; // L: 1679
+				var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 18); // L: 1680
+				var17 >>= 3; // L: 1681
+				var8 <<= 3; // L: 1682
+				var15 = var7 >> 8; // L: 1683
+				if (field2270) { // L: 1684
+					if (var17 > 0) { // L: 1685
 						do {
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1700
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1701
-							var2 += var16; // L: 1702
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1703
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1704
-							var2 += var16; // L: 1705
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1706
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1707
-							var2 += var16; // L: 1708
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1709
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1710
-							var2 += var16; // L: 1711
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1712
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1713
-							var2 += var16; // L: 1714
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1715
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1716
-							var2 += var16; // L: 1717
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1718
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1719
-							var2 += var16; // L: 1720
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1721
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1722
-							var10000 = var16 + var2; // L: 1723
-							var18 = var20; // L: 1724
-							var19 = var21; // L: 1725
-							var9 += var12; // L: 1726
-							var10 += var13; // L: 1727
-							var11 += var14; // L: 1728
-							var22 = var11 >> 14; // L: 1729
-							if (var22 != 0) { // L: 1730
-								var20 = var9 / var22; // L: 1731
-								var21 = var10 / var22; // L: 1732
-								if (var20 < 0) { // L: 1733
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1687
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1688
+							var2 += var16; // L: 1689
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1690
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1691
+							var2 += var16; // L: 1692
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1693
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1694
+							var2 += var16; // L: 1695
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1696
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1697
+							var2 += var16; // L: 1698
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1699
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1700
+							var2 += var16; // L: 1701
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1702
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1703
+							var2 += var16; // L: 1704
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1705
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1706
+							var2 += var16; // L: 1707
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1708
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1709
+							var10000 = var16 + var2; // L: 1710
+							var18 = var20; // L: 1711
+							var19 = var21; // L: 1712
+							var9 += var12; // L: 1713
+							var10 += var13; // L: 1714
+							var11 += var14; // L: 1715
+							var22 = var11 >> 14; // L: 1716
+							if (var22 != 0) { // L: 1717
+								var20 = var9 / var22; // L: 1718
+								var21 = var10 / var22; // L: 1719
+								if (var20 < 0) { // L: 1720
 									var20 = 0;
-								} else if (var20 > 16256) { // L: 1734
+								} else if (var20 > 16256) { // L: 1721
 									var20 = 16256;
 								}
 							} else {
-								var20 = 0; // L: 1737
-								var21 = 0; // L: 1738
+								var20 = 0; // L: 1724
+								var21 = 0; // L: 1725
 							}
 
-							var2 = (var18 << 18) + var19; // L: 1740
-							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 18); // L: 1741
-							var7 += var8; // L: 1742
-							var15 = var7 >> 8; // L: 1743
-							--var17; // L: 1744
+							var2 = (var18 << 18) + var19; // L: 1727
+							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 18); // L: 1728
+							var7 += var8; // L: 1729
+							var15 = var7 >> 8; // L: 1730
+							--var17; // L: 1731
 						} while(var17 > 0);
 					}
 
-					var17 = var6 - var5 & 7; // L: 1746
-					if (var17 > 0) { // L: 1747
+					var17 = var6 - var5 & 7; // L: 1733
+					if (var17 > 0) { // L: 1734
 						do {
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1749
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1750
-							var2 += var16; // L: 1751
-							--var17; // L: 1752
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1736
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1737
+							var2 += var16; // L: 1738
+							--var17; // L: 1739
 						} while(var17 > 0);
 					}
 				} else {
-					if (var17 > 0) { // L: 1756
+					if (var17 > 0) { // L: 1743
 						do {
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1758
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1759
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1745
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1746
 							}
 
-							++var4; // L: 1761
-							var2 += var16; // L: 1762
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1763
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1764
+							++var4; // L: 1748
+							var2 += var16; // L: 1749
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1750
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1751
 							}
 
-							++var4; // L: 1766
-							var2 += var16; // L: 1767
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1768
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1769
+							++var4; // L: 1753
+							var2 += var16; // L: 1754
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1755
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1756
 							}
 
-							++var4; // L: 1771
-							var2 += var16; // L: 1772
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1773
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1774
+							++var4; // L: 1758
+							var2 += var16; // L: 1759
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1760
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1761
 							}
 
-							++var4; // L: 1776
-							var2 += var16; // L: 1777
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1778
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1779
+							++var4; // L: 1763
+							var2 += var16; // L: 1764
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1765
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1766
 							}
 
-							++var4; // L: 1781
-							var2 += var16; // L: 1782
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1783
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1784
+							++var4; // L: 1768
+							var2 += var16; // L: 1769
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1770
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1771
 							}
 
-							++var4; // L: 1786
-							var2 += var16; // L: 1787
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1788
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1789
+							++var4; // L: 1773
+							var2 += var16; // L: 1774
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1775
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1776
 							}
 
-							++var4; // L: 1791
-							var2 += var16; // L: 1792
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1793
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1794
+							++var4; // L: 1778
+							var2 += var16; // L: 1779
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1780
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1781
 							}
 
-							++var4; // L: 1796
-							var10000 = var16 + var2; // L: 1797
-							var18 = var20; // L: 1798
-							var19 = var21; // L: 1799
-							var9 += var12; // L: 1800
-							var10 += var13; // L: 1801
-							var11 += var14; // L: 1802
-							var22 = var11 >> 14; // L: 1803
-							if (var22 != 0) { // L: 1804
-								var20 = var9 / var22; // L: 1805
-								var21 = var10 / var22; // L: 1806
-								if (var20 < 0) { // L: 1807
+							++var4; // L: 1783
+							var10000 = var16 + var2; // L: 1784
+							var18 = var20; // L: 1785
+							var19 = var21; // L: 1786
+							var9 += var12; // L: 1787
+							var10 += var13; // L: 1788
+							var11 += var14; // L: 1789
+							var22 = var11 >> 14; // L: 1790
+							if (var22 != 0) { // L: 1791
+								var20 = var9 / var22; // L: 1792
+								var21 = var10 / var22; // L: 1793
+								if (var20 < 0) { // L: 1794
 									var20 = 0;
-								} else if (var20 > 16256) { // L: 1808
+								} else if (var20 > 16256) { // L: 1795
 									var20 = 16256;
 								}
 							} else {
-								var20 = 0; // L: 1811
-								var21 = 0; // L: 1812
+								var20 = 0; // L: 1798
+								var21 = 0; // L: 1799
 							}
 
-							var2 = (var18 << 18) + var19; // L: 1814
-							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 18); // L: 1815
-							var7 += var8; // L: 1816
-							var15 = var7 >> 8; // L: 1817
-							--var17; // L: 1818
+							var2 = (var18 << 18) + var19; // L: 1801
+							var16 = (var21 - var19 >> 3) + (var20 - var18 >> 3 << 18); // L: 1802
+							var7 += var8; // L: 1803
+							var15 = var7 >> 8; // L: 1804
+							--var17; // L: 1805
 						} while(var17 > 0);
 					}
 
-					var17 = var6 - var5 & 7; // L: 1820
-					if (var17 > 0) { // L: 1821
+					var17 = var6 - var5 & 7; // L: 1807
+					if (var17 > 0) { // L: 1808
 						do {
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1823
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1824
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 1810
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 1811
 							}
 
-							++var4; // L: 1826
-							var2 += var16; // L: 1827
-							--var17; // L: 1828
+							++var4; // L: 1813
+							var2 += var16; // L: 1814
+							--var17; // L: 1815
 						} while(var17 > 0);
 					}
 				}
 			}
 
 		}
-	} // L: 1832
+	} // L: 1819
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("a")
 	@Export("drawTexturedTile")
 	static final void drawTexturedTile(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18) {
-		int[] var19 = Rasterizer3D_textureLoader.getTexturePixels(var18); // L: 1835
+		int[] var19 = Rasterizer3D_textureLoader.getTexturePixels(var18); // L: 1822
 		int var20;
-		if (var19 == null) { // L: 1836
-			var20 = Rasterizer3D_textureLoader.getAverageTextureRGB(var18); // L: 1837
-			method3383(var0, var1, var2, var3, var4, var5, method3415(var20, var6), method3415(var20, var7), method3415(var20, var8)); // L: 1838
+		if (var19 == null) { // L: 1823
+			var20 = Rasterizer3D_textureLoader.getAverageTextureRGB(var18); // L: 1824
+			method3824(var0, var1, var2, var3, var4, var5, method3887(var20, var6), method3887(var20, var7), method3887(var20, var8)); // L: 1825
 		} else {
-			Rasterizer3D_isLowDetailTexture = Rasterizer3D_textureLoader.isLowDetail(var18); // L: 1841
-			field1921 = Rasterizer3D_textureLoader.vmethod3790(var18); // L: 1842
-			var20 = var4 - var3; // L: 1843
-			int var21 = var1 - var0; // L: 1844
-			int var22 = var5 - var3; // L: 1845
-			int var23 = var2 - var0; // L: 1846
-			int var24 = var7 - var6; // L: 1847
-			int var25 = var8 - var6; // L: 1848
-			int var26 = 0; // L: 1849
-			if (var0 != var1) { // L: 1850
+			Rasterizer3D_isLowDetailTexture = Rasterizer3D_textureLoader.isLowDetail(var18); // L: 1828
+			field2270 = Rasterizer3D_textureLoader.vmethod4224(var18); // L: 1829
+			var20 = var4 - var3; // L: 1830
+			int var21 = var1 - var0; // L: 1831
+			int var22 = var5 - var3; // L: 1832
+			int var23 = var2 - var0; // L: 1833
+			int var24 = var7 - var6; // L: 1834
+			int var25 = var8 - var6; // L: 1835
+			int var26 = 0; // L: 1836
+			if (var0 != var1) { // L: 1837
 				var26 = (var4 - var3 << 14) / (var1 - var0);
 			}
 
-			int var27 = 0; // L: 1851
-			if (var2 != var1) { // L: 1852
+			int var27 = 0; // L: 1838
+			if (var2 != var1) { // L: 1839
 				var27 = (var5 - var4 << 14) / (var2 - var1);
 			}
 
-			int var28 = 0; // L: 1853
-			if (var0 != var2) { // L: 1854
+			int var28 = 0; // L: 1840
+			if (var0 != var2) { // L: 1841
 				var28 = (var3 - var5 << 14) / (var0 - var2);
 			}
 
-			int var29 = var20 * var23 - var22 * var21; // L: 1855
-			if (var29 != 0) { // L: 1856
-				int var30 = (var24 * var23 - var25 * var21 << 9) / var29; // L: 1857
-				int var31 = (var25 * var20 - var24 * var22 << 9) / var29; // L: 1858
-				var10 = var9 - var10; // L: 1859
-				var13 = var12 - var13; // L: 1860
-				var16 = var15 - var16; // L: 1861
-				var11 -= var9; // L: 1862
-				var14 -= var12; // L: 1863
-				var17 -= var15; // L: 1864
-				int var32 = var11 * var12 - var9 * var14 << 14; // L: 1865
-				int var33 = (int)(((long)(var15 * var14 - var17 * var12) << 14) / (long)Rasterizer3D_zoom); // L: 1866
-				int var34 = (int)(((long)(var17 * var9 - var11 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1867
-				int var35 = var10 * var12 - var13 * var9 << 14; // L: 1868
-				int var36 = (int)(((long)(var13 * var15 - var16 * var12) << 14) / (long)Rasterizer3D_zoom); // L: 1869
-				int var37 = (int)(((long)(var16 * var9 - var10 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1870
-				int var38 = var13 * var11 - var10 * var14 << 14; // L: 1871
-				int var39 = (int)(((long)(var16 * var14 - var13 * var17) << 14) / (long)Rasterizer3D_zoom); // L: 1872
-				int var40 = (int)(((long)(var17 * var10 - var11 * var16) << 14) / (long)Rasterizer3D_zoom); // L: 1873
+			int var29 = var20 * var23 - var22 * var21; // L: 1842
+			if (var29 != 0) { // L: 1843
+				int var30 = (var24 * var23 - var25 * var21 << 9) / var29; // L: 1844
+				int var31 = (var25 * var20 - var24 * var22 << 9) / var29; // L: 1845
+				var10 = var9 - var10; // L: 1846
+				var13 = var12 - var13; // L: 1847
+				var16 = var15 - var16; // L: 1848
+				var11 -= var9; // L: 1849
+				var14 -= var12; // L: 1850
+				var17 -= var15; // L: 1851
+				int var32 = var11 * var12 - var9 * var14 << 14; // L: 1852
+				int var33 = (int)(((long)(var15 * var14 - var17 * var12) << 14) / (long)Rasterizer3D_zoom); // L: 1853
+				int var34 = (int)(((long)(var17 * var9 - var11 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1854
+				int var35 = var10 * var12 - var13 * var9 << 14; // L: 1855
+				int var36 = (int)(((long)(var13 * var15 - var16 * var12) << 14) / (long)Rasterizer3D_zoom); // L: 1856
+				int var37 = (int)(((long)(var16 * var9 - var10 * var15) << 14) / (long)Rasterizer3D_zoom); // L: 1857
+				int var38 = var13 * var11 - var10 * var14 << 14; // L: 1858
+				int var39 = (int)(((long)(var16 * var14 - var13 * var17) << 14) / (long)Rasterizer3D_zoom); // L: 1859
+				int var40 = (int)(((long)(var17 * var10 - var11 * var16) << 14) / (long)Rasterizer3D_zoom); // L: 1860
 				int var41;
-				if (var0 <= var1 && var0 <= var2) { // L: 1874
-					if (var0 < Rasterizer3D_clipHeight) { // L: 1875
-						if (var1 > Rasterizer3D_clipHeight) { // L: 1876
+				if (var0 <= var1 && var0 <= var2) { // L: 1861
+					if (var0 < Rasterizer3D_clipHeight) { // L: 1862
+						if (var1 > Rasterizer3D_clipHeight) { // L: 1863
 							var1 = Rasterizer3D_clipHeight;
 						}
 
-						if (var2 > Rasterizer3D_clipHeight) { // L: 1877
+						if (var2 > Rasterizer3D_clipHeight) { // L: 1864
 							var2 = Rasterizer3D_clipHeight;
 						}
 
-						var6 = var30 + ((var6 << 9) - var3 * var30); // L: 1878
-						if (var1 < var2) { // L: 1879
-							var5 = var3 <<= 14; // L: 1880
-							if (var0 < 0) { // L: 1881
-								var5 -= var0 * var28; // L: 1882
-								var3 -= var0 * var26; // L: 1883
-								var6 -= var0 * var31; // L: 1884
-								var0 = 0; // L: 1885
+						var6 = var30 + ((var6 << 9) - var3 * var30); // L: 1865
+						if (var1 < var2) { // L: 1866
+							var5 = var3 <<= 14; // L: 1867
+							if (var0 < 0) { // L: 1868
+								var5 -= var0 * var28; // L: 1869
+								var3 -= var0 * var26; // L: 1870
+								var6 -= var0 * var31; // L: 1871
+								var0 = 0; // L: 1872
 							}
 
-							var4 <<= 14; // L: 1887
-							if (var1 < 0) { // L: 1888
-								var4 -= var27 * var1; // L: 1889
-								var1 = 0; // L: 1890
+							var4 <<= 14; // L: 1874
+							if (var1 < 0) { // L: 1875
+								var4 -= var27 * var1; // L: 1876
+								var1 = 0; // L: 1877
 							}
 
-							var41 = var0 - Rasterizer3D_clipMidY; // L: 1892
-							var32 += var34 * var41; // L: 1893
-							var35 += var37 * var41; // L: 1894
-							var38 += var40 * var41; // L: 1895
-							if ((var0 == var1 || var28 >= var26) && (var0 != var1 || var28 <= var27)) { // L: 1896
-								var2 -= var1; // L: 1923
-								var1 -= var0; // L: 1924
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1925
+							var41 = var0 - Rasterizer3D_clipMidY; // L: 1879
+							var32 += var34 * var41; // L: 1880
+							var35 += var37 * var41; // L: 1881
+							var38 += var40 * var41; // L: 1882
+							if (var0 != var1 && var28 < var26 || var0 == var1 && var28 > var27) { // L: 1883
+								var2 -= var1; // L: 1884
+								var1 -= var0; // L: 1885
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1886
 
 								while (true) {
-									--var1; // L: 1926
+									--var1; // L: 1887
 									if (var1 < 0) {
 										while (true) {
-											--var2; // L: 1936
+											--var2; // L: 1897
 											if (var2 < 0) {
-												return; // L: 1946
+												return; // L: 1907
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1937
-											var5 += var28; // L: 1938
-											var4 += var27; // L: 1939
-											var6 += var31; // L: 1940
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1941
-											var32 += var34; // L: 1942
-											var35 += var37; // L: 1943
-											var38 += var40; // L: 1944
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1898
+											var5 += var28; // L: 1899
+											var4 += var27; // L: 1900
+											var6 += var31; // L: 1901
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1902
+											var32 += var34; // L: 1903
+											var35 += var37; // L: 1904
+											var38 += var40; // L: 1905
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1927
-									var5 += var28; // L: 1928
-									var3 += var26; // L: 1929
-									var6 += var31; // L: 1930
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1931
-									var32 += var34; // L: 1932
-									var35 += var37; // L: 1933
-									var38 += var40; // L: 1934
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1888
+									var5 += var28; // L: 1889
+									var3 += var26; // L: 1890
+									var6 += var31; // L: 1891
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1892
+									var32 += var34; // L: 1893
+									var35 += var37; // L: 1894
+									var38 += var40; // L: 1895
 								}
 							} else {
-								var2 -= var1; // L: 1897
-								var1 -= var0; // L: 1898
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1899
+								var2 -= var1; // L: 1910
+								var1 -= var0; // L: 1911
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1912
 
 								while (true) {
-									--var1; // L: 1900
+									--var1; // L: 1913
 									if (var1 < 0) {
 										while (true) {
-											--var2; // L: 1910
+											--var2; // L: 1923
 											if (var2 < 0) {
-												return; // L: 1920
+												return; // L: 1933
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1911
-											var5 += var28; // L: 1912
-											var4 += var27; // L: 1913
-											var6 += var31; // L: 1914
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1915
-											var32 += var34; // L: 1916
-											var35 += var37; // L: 1917
-											var38 += var40; // L: 1918
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1924
+											var5 += var28; // L: 1925
+											var4 += var27; // L: 1926
+											var6 += var31; // L: 1927
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1928
+											var32 += var34; // L: 1929
+											var35 += var37; // L: 1930
+											var38 += var40; // L: 1931
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1901
-									var5 += var28; // L: 1902
-									var3 += var26; // L: 1903
-									var6 += var31; // L: 1904
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1905
-									var32 += var34; // L: 1906
-									var35 += var37; // L: 1907
-									var38 += var40; // L: 1908
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1914
+									var5 += var28; // L: 1915
+									var3 += var26; // L: 1916
+									var6 += var31; // L: 1917
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1918
+									var32 += var34; // L: 1919
+									var35 += var37; // L: 1920
+									var38 += var40; // L: 1921
 								}
 							}
 						} else {
-							var4 = var3 <<= 14; // L: 1950
-							if (var0 < 0) { // L: 1951
-								var4 -= var0 * var28; // L: 1952
-								var3 -= var0 * var26; // L: 1953
-								var6 -= var0 * var31; // L: 1954
-								var0 = 0; // L: 1955
+							var4 = var3 <<= 14; // L: 1937
+							if (var0 < 0) { // L: 1938
+								var4 -= var0 * var28; // L: 1939
+								var3 -= var0 * var26; // L: 1940
+								var6 -= var0 * var31; // L: 1941
+								var0 = 0; // L: 1942
 							}
 
-							var5 <<= 14; // L: 1957
-							if (var2 < 0) { // L: 1958
-								var5 -= var27 * var2; // L: 1959
-								var2 = 0; // L: 1960
+							var5 <<= 14; // L: 1944
+							if (var2 < 0) { // L: 1945
+								var5 -= var27 * var2; // L: 1946
+								var2 = 0; // L: 1947
 							}
 
-							var41 = var0 - Rasterizer3D_clipMidY; // L: 1962
-							var32 += var34 * var41; // L: 1963
-							var35 += var37 * var41; // L: 1964
-							var38 += var40 * var41; // L: 1965
-							if (var0 != var2 && var28 < var26 || var0 == var2 && var27 > var26) { // L: 1966
-								var1 -= var2; // L: 1967
-								var2 -= var0; // L: 1968
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1969
+							var41 = var0 - Rasterizer3D_clipMidY; // L: 1949
+							var32 += var34 * var41; // L: 1950
+							var35 += var37 * var41; // L: 1951
+							var38 += var40 * var41; // L: 1952
+							if (var0 != var2 && var28 < var26 || var0 == var2 && var27 > var26) { // L: 1953
+								var1 -= var2; // L: 1954
+								var2 -= var0; // L: 1955
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1956
 
 								while (true) {
-									--var2; // L: 1970
+									--var2; // L: 1957
 									if (var2 < 0) {
 										while (true) {
-											--var1; // L: 1980
+											--var1; // L: 1967
 											if (var1 < 0) {
-												return; // L: 1990
+												return; // L: 1977
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1981
-											var5 += var27; // L: 1982
-											var3 += var26; // L: 1983
-											var6 += var31; // L: 1984
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1985
-											var32 += var34; // L: 1986
-											var35 += var37; // L: 1987
-											var38 += var40; // L: 1988
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1968
+											var5 += var27; // L: 1969
+											var3 += var26; // L: 1970
+											var6 += var31; // L: 1971
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1972
+											var32 += var34; // L: 1973
+											var35 += var37; // L: 1974
+											var38 += var40; // L: 1975
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1971
-									var4 += var28; // L: 1972
-									var3 += var26; // L: 1973
-									var6 += var31; // L: 1974
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1975
-									var32 += var34; // L: 1976
-									var35 += var37; // L: 1977
-									var38 += var40; // L: 1978
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1958
+									var4 += var28; // L: 1959
+									var3 += var26; // L: 1960
+									var6 += var31; // L: 1961
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1962
+									var32 += var34; // L: 1963
+									var35 += var37; // L: 1964
+									var38 += var40; // L: 1965
 								}
 							} else {
-								var1 -= var2; // L: 1993
-								var2 -= var0; // L: 1994
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1995
+								var1 -= var2; // L: 1980
+								var2 -= var0; // L: 1981
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1982
 
 								while (true) {
-									--var2; // L: 1996
+									--var2; // L: 1983
 									if (var2 < 0) {
 										while (true) {
-											--var1; // L: 2006
+											--var1; // L: 1993
 											if (var1 < 0) {
-												return; // L: 2016
+												return; // L: 2003
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 2007
-											var5 += var27; // L: 2008
-											var3 += var26; // L: 2009
-											var6 += var31; // L: 2010
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 2011
-											var32 += var34; // L: 2012
-											var35 += var37; // L: 2013
-											var38 += var40; // L: 2014
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1994
+											var5 += var27; // L: 1995
+											var3 += var26; // L: 1996
+											var6 += var31; // L: 1997
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1998
+											var32 += var34; // L: 1999
+											var35 += var37; // L: 2000
+											var38 += var40; // L: 2001
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1997
-									var4 += var28; // L: 1998
-									var3 += var26; // L: 1999
-									var6 += var31; // L: 2000
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 2001
-									var32 += var34; // L: 2002
-									var35 += var37; // L: 2003
-									var38 += var40; // L: 2004
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1984
+									var4 += var28; // L: 1985
+									var3 += var26; // L: 1986
+									var6 += var31; // L: 1987
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1988
+									var32 += var34; // L: 1989
+									var35 += var37; // L: 1990
+									var38 += var40; // L: 1991
 								}
 							}
 						}
 					}
-				} else if (var1 <= var2) { // L: 2020
-					if (var1 < Rasterizer3D_clipHeight) { // L: 2021
-						if (var2 > Rasterizer3D_clipHeight) { // L: 2022
+				} else if (var1 <= var2) { // L: 2007
+					if (var1 < Rasterizer3D_clipHeight) { // L: 2008
+						if (var2 > Rasterizer3D_clipHeight) { // L: 2009
 							var2 = Rasterizer3D_clipHeight;
 						}
 
-						if (var0 > Rasterizer3D_clipHeight) { // L: 2023
+						if (var0 > Rasterizer3D_clipHeight) { // L: 2010
 							var0 = Rasterizer3D_clipHeight;
 						}
 
-						var7 = var30 + ((var7 << 9) - var30 * var4); // L: 2024
-						if (var2 < var0) { // L: 2025
-							var3 = var4 <<= 14; // L: 2026
-							if (var1 < 0) { // L: 2027
-								var3 -= var26 * var1; // L: 2028
-								var4 -= var27 * var1; // L: 2029
-								var7 -= var31 * var1; // L: 2030
-								var1 = 0; // L: 2031
+						var7 = var30 + ((var7 << 9) - var30 * var4); // L: 2011
+						if (var2 < var0) { // L: 2012
+							var3 = var4 <<= 14; // L: 2013
+							if (var1 < 0) { // L: 2014
+								var3 -= var26 * var1; // L: 2015
+								var4 -= var27 * var1; // L: 2016
+								var7 -= var31 * var1; // L: 2017
+								var1 = 0; // L: 2018
 							}
 
-							var5 <<= 14; // L: 2033
-							if (var2 < 0) { // L: 2034
-								var5 -= var28 * var2; // L: 2035
-								var2 = 0; // L: 2036
+							var5 <<= 14; // L: 2020
+							if (var2 < 0) { // L: 2021
+								var5 -= var28 * var2; // L: 2022
+								var2 = 0; // L: 2023
 							}
 
-							var41 = var1 - Rasterizer3D_clipMidY; // L: 2038
-							var32 += var34 * var41; // L: 2039
-							var35 += var37 * var41; // L: 2040
-							var38 += var40 * var41; // L: 2041
-							if ((var2 == var1 || var26 >= var27) && (var2 != var1 || var26 <= var28)) { // L: 2042
-								var0 -= var2; // L: 2069
-								var2 -= var1; // L: 2070
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2071
+							var41 = var1 - Rasterizer3D_clipMidY; // L: 2025
+							var32 += var34 * var41; // L: 2026
+							var35 += var37 * var41; // L: 2027
+							var38 += var40 * var41; // L: 2028
+							if ((var2 == var1 || var26 >= var27) && (var2 != var1 || var26 <= var28)) { // L: 2029
+								var0 -= var2; // L: 2056
+								var2 -= var1; // L: 2057
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2058
 
 								while (true) {
-									--var2; // L: 2072
+									--var2; // L: 2059
 									if (var2 < 0) {
 										while (true) {
-											--var0; // L: 2082
+											--var0; // L: 2069
 											if (var0 < 0) {
-												return; // L: 2092
+												return; // L: 2079
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2083
-											var3 += var26; // L: 2084
-											var5 += var28; // L: 2085
-											var7 += var31; // L: 2086
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2087
-											var32 += var34; // L: 2088
-											var35 += var37; // L: 2089
-											var38 += var40; // L: 2090
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2070
+											var3 += var26; // L: 2071
+											var5 += var28; // L: 2072
+											var7 += var31; // L: 2073
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2074
+											var32 += var34; // L: 2075
+											var35 += var37; // L: 2076
+											var38 += var40; // L: 2077
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2073
-									var3 += var26; // L: 2074
-									var4 += var27; // L: 2075
-									var7 += var31; // L: 2076
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2077
-									var32 += var34; // L: 2078
-									var35 += var37; // L: 2079
-									var38 += var40; // L: 2080
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2060
+									var3 += var26; // L: 2061
+									var4 += var27; // L: 2062
+									var7 += var31; // L: 2063
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2064
+									var32 += var34; // L: 2065
+									var35 += var37; // L: 2066
+									var38 += var40; // L: 2067
 								}
 							} else {
-								var0 -= var2; // L: 2043
-								var2 -= var1; // L: 2044
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2045
+								var0 -= var2; // L: 2030
+								var2 -= var1; // L: 2031
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2032
 
 								while (true) {
-									--var2; // L: 2046
+									--var2; // L: 2033
 									if (var2 < 0) {
 										while (true) {
-											--var0; // L: 2056
+											--var0; // L: 2043
 											if (var0 < 0) {
-												return; // L: 2066
+												return; // L: 2053
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2057
-											var3 += var26; // L: 2058
-											var5 += var28; // L: 2059
-											var7 += var31; // L: 2060
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2061
-											var32 += var34; // L: 2062
-											var35 += var37; // L: 2063
-											var38 += var40; // L: 2064
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2044
+											var3 += var26; // L: 2045
+											var5 += var28; // L: 2046
+											var7 += var31; // L: 2047
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2048
+											var32 += var34; // L: 2049
+											var35 += var37; // L: 2050
+											var38 += var40; // L: 2051
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2047
-									var3 += var26; // L: 2048
-									var4 += var27; // L: 2049
-									var7 += var31; // L: 2050
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2051
-									var32 += var34; // L: 2052
-									var35 += var37; // L: 2053
-									var38 += var40; // L: 2054
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2034
+									var3 += var26; // L: 2035
+									var4 += var27; // L: 2036
+									var7 += var31; // L: 2037
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2038
+									var32 += var34; // L: 2039
+									var35 += var37; // L: 2040
+									var38 += var40; // L: 2041
 								}
 							}
 						} else {
-							var5 = var4 <<= 14; // L: 2096
-							if (var1 < 0) { // L: 2097
-								var5 -= var26 * var1; // L: 2098
-								var4 -= var27 * var1; // L: 2099
-								var7 -= var31 * var1; // L: 2100
-								var1 = 0; // L: 2101
+							var5 = var4 <<= 14; // L: 2083
+							if (var1 < 0) { // L: 2084
+								var5 -= var26 * var1; // L: 2085
+								var4 -= var27 * var1; // L: 2086
+								var7 -= var31 * var1; // L: 2087
+								var1 = 0; // L: 2088
 							}
 
-							var3 <<= 14; // L: 2103
-							if (var0 < 0) { // L: 2104
-								var3 -= var0 * var28; // L: 2105
-								var0 = 0; // L: 2106
+							var3 <<= 14; // L: 2090
+							if (var0 < 0) { // L: 2091
+								var3 -= var0 * var28; // L: 2092
+								var0 = 0; // L: 2093
 							}
 
-							var41 = var1 - Rasterizer3D_clipMidY; // L: 2108
-							var32 += var34 * var41; // L: 2109
-							var35 += var37 * var41; // L: 2110
-							var38 += var40 * var41; // L: 2111
-							if (var26 < var27) { // L: 2112
-								var2 -= var0; // L: 2113
-								var0 -= var1; // L: 2114
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2115
+							var41 = var1 - Rasterizer3D_clipMidY; // L: 2095
+							var32 += var34 * var41; // L: 2096
+							var35 += var37 * var41; // L: 2097
+							var38 += var40 * var41; // L: 2098
+							if (var26 < var27) { // L: 2099
+								var2 -= var0; // L: 2100
+								var0 -= var1; // L: 2101
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2102
 
 								while (true) {
-									--var0; // L: 2116
+									--var0; // L: 2103
 									if (var0 < 0) {
 										while (true) {
-											--var2; // L: 2126
+											--var2; // L: 2113
 											if (var2 < 0) {
-												return; // L: 2136
+												return; // L: 2123
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2127
-											var3 += var28; // L: 2128
-											var4 += var27; // L: 2129
-											var7 += var31; // L: 2130
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2131
-											var32 += var34; // L: 2132
-											var35 += var37; // L: 2133
-											var38 += var40; // L: 2134
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2114
+											var3 += var28; // L: 2115
+											var4 += var27; // L: 2116
+											var7 += var31; // L: 2117
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2118
+											var32 += var34; // L: 2119
+											var35 += var37; // L: 2120
+											var38 += var40; // L: 2121
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2117
-									var5 += var26; // L: 2118
-									var4 += var27; // L: 2119
-									var7 += var31; // L: 2120
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2121
-									var32 += var34; // L: 2122
-									var35 += var37; // L: 2123
-									var38 += var40; // L: 2124
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2104
+									var5 += var26; // L: 2105
+									var4 += var27; // L: 2106
+									var7 += var31; // L: 2107
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2108
+									var32 += var34; // L: 2109
+									var35 += var37; // L: 2110
+									var38 += var40; // L: 2111
 								}
 							} else {
-								var2 -= var0; // L: 2139
-								var0 -= var1; // L: 2140
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2141
+								var2 -= var0; // L: 2126
+								var0 -= var1; // L: 2127
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2128
 
 								while (true) {
-									--var0; // L: 2142
+									--var0; // L: 2129
 									if (var0 < 0) {
 										while (true) {
-											--var2; // L: 2152
+											--var2; // L: 2139
 											if (var2 < 0) {
-												return; // L: 2162
+												return; // L: 2149
 											}
 
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2153
-											var3 += var28; // L: 2154
-											var4 += var27; // L: 2155
-											var7 += var31; // L: 2156
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2157
-											var32 += var34; // L: 2158
-											var35 += var37; // L: 2159
-											var38 += var40; // L: 2160
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2140
+											var3 += var28; // L: 2141
+											var4 += var27; // L: 2142
+											var7 += var31; // L: 2143
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2144
+											var32 += var34; // L: 2145
+											var35 += var37; // L: 2146
+											var38 += var40; // L: 2147
 										}
 									}
 
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2143
-									var5 += var26; // L: 2144
-									var4 += var27; // L: 2145
-									var7 += var31; // L: 2146
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2147
-									var32 += var34; // L: 2148
-									var35 += var37; // L: 2149
-									var38 += var40; // L: 2150
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2130
+									var5 += var26; // L: 2131
+									var4 += var27; // L: 2132
+									var7 += var31; // L: 2133
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2134
+									var32 += var34; // L: 2135
+									var35 += var37; // L: 2136
+									var38 += var40; // L: 2137
 								}
 							}
 						}
 					}
-				} else if (var2 < Rasterizer3D_clipHeight) { // L: 2167
-					if (var0 > Rasterizer3D_clipHeight) { // L: 2168
+				} else if (var2 < Rasterizer3D_clipHeight) { // L: 2154
+					if (var0 > Rasterizer3D_clipHeight) { // L: 2155
 						var0 = Rasterizer3D_clipHeight;
 					}
 
-					if (var1 > Rasterizer3D_clipHeight) { // L: 2169
+					if (var1 > Rasterizer3D_clipHeight) { // L: 2156
 						var1 = Rasterizer3D_clipHeight;
 					}
 
-					var8 = (var8 << 9) - var5 * var30 + var30; // L: 2170
-					if (var0 < var1) { // L: 2171
-						var4 = var5 <<= 14; // L: 2172
-						if (var2 < 0) { // L: 2173
-							var4 -= var27 * var2; // L: 2174
-							var5 -= var28 * var2; // L: 2175
-							var8 -= var31 * var2; // L: 2176
-							var2 = 0; // L: 2177
+					var8 = (var8 << 9) - var5 * var30 + var30; // L: 2157
+					if (var0 < var1) { // L: 2158
+						var4 = var5 <<= 14; // L: 2159
+						if (var2 < 0) { // L: 2160
+							var4 -= var27 * var2; // L: 2161
+							var5 -= var28 * var2; // L: 2162
+							var8 -= var31 * var2; // L: 2163
+							var2 = 0; // L: 2164
 						}
 
-						var3 <<= 14; // L: 2179
-						if (var0 < 0) { // L: 2180
-							var3 -= var0 * var26; // L: 2181
-							var0 = 0; // L: 2182
+						var3 <<= 14; // L: 2166
+						if (var0 < 0) { // L: 2167
+							var3 -= var0 * var26; // L: 2168
+							var0 = 0; // L: 2169
 						}
 
-						var41 = var2 - Rasterizer3D_clipMidY; // L: 2184
-						var32 += var34 * var41; // L: 2185
-						var35 += var37 * var41; // L: 2186
-						var38 += var40 * var41; // L: 2187
-						if (var27 < var28) { // L: 2188
-							var1 -= var0; // L: 2189
-							var0 -= var2; // L: 2190
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2191
+						var41 = var2 - Rasterizer3D_clipMidY; // L: 2171
+						var32 += var34 * var41; // L: 2172
+						var35 += var37 * var41; // L: 2173
+						var38 += var40 * var41; // L: 2174
+						if (var27 < var28) { // L: 2175
+							var1 -= var0; // L: 2176
+							var0 -= var2; // L: 2177
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2178
 
 							while (true) {
-								--var0; // L: 2192
+								--var0; // L: 2179
 								if (var0 < 0) {
 									while (true) {
-										--var1; // L: 2202
+										--var1; // L: 2189
 										if (var1 < 0) {
-											return; // L: 2212
+											return; // L: 2199
 										}
 
-										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2203
-										var4 += var27; // L: 2204
-										var3 += var26; // L: 2205
-										var8 += var31; // L: 2206
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2207
-										var32 += var34; // L: 2208
-										var35 += var37; // L: 2209
-										var38 += var40; // L: 2210
+										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2190
+										var4 += var27; // L: 2191
+										var3 += var26; // L: 2192
+										var8 += var31; // L: 2193
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2194
+										var32 += var34; // L: 2195
+										var35 += var37; // L: 2196
+										var38 += var40; // L: 2197
 									}
 								}
 
-								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2193
-								var4 += var27; // L: 2194
-								var5 += var28; // L: 2195
-								var8 += var31; // L: 2196
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2197
-								var32 += var34; // L: 2198
-								var35 += var37; // L: 2199
-								var38 += var40; // L: 2200
+								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2180
+								var4 += var27; // L: 2181
+								var5 += var28; // L: 2182
+								var8 += var31; // L: 2183
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2184
+								var32 += var34; // L: 2185
+								var35 += var37; // L: 2186
+								var38 += var40; // L: 2187
 							}
 						} else {
-							var1 -= var0; // L: 2215
-							var0 -= var2; // L: 2216
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2217
+							var1 -= var0; // L: 2202
+							var0 -= var2; // L: 2203
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2204
 
 							while (true) {
-								--var0; // L: 2218
+								--var0; // L: 2205
 								if (var0 < 0) {
 									while (true) {
-										--var1; // L: 2228
+										--var1; // L: 2215
 										if (var1 < 0) {
-											return; // L: 2238
+											return; // L: 2225
 										}
 
-										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2229
-										var4 += var27; // L: 2230
-										var3 += var26; // L: 2231
-										var8 += var31; // L: 2232
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2233
-										var32 += var34; // L: 2234
-										var35 += var37; // L: 2235
-										var38 += var40; // L: 2236
+										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2216
+										var4 += var27; // L: 2217
+										var3 += var26; // L: 2218
+										var8 += var31; // L: 2219
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2220
+										var32 += var34; // L: 2221
+										var35 += var37; // L: 2222
+										var38 += var40; // L: 2223
 									}
 								}
 
-								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2219
-								var4 += var27; // L: 2220
-								var5 += var28; // L: 2221
-								var8 += var31; // L: 2222
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2223
-								var32 += var34; // L: 2224
-								var35 += var37; // L: 2225
-								var38 += var40; // L: 2226
+								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2206
+								var4 += var27; // L: 2207
+								var5 += var28; // L: 2208
+								var8 += var31; // L: 2209
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2210
+								var32 += var34; // L: 2211
+								var35 += var37; // L: 2212
+								var38 += var40; // L: 2213
 							}
 						}
 					} else {
-						var3 = var5 <<= 14; // L: 2242
-						if (var2 < 0) { // L: 2243
-							var3 -= var27 * var2; // L: 2244
-							var5 -= var28 * var2; // L: 2245
-							var8 -= var31 * var2; // L: 2246
-							var2 = 0; // L: 2247
+						var3 = var5 <<= 14; // L: 2229
+						if (var2 < 0) { // L: 2230
+							var3 -= var27 * var2; // L: 2231
+							var5 -= var28 * var2; // L: 2232
+							var8 -= var31 * var2; // L: 2233
+							var2 = 0; // L: 2234
 						}
 
-						var4 <<= 14; // L: 2249
-						if (var1 < 0) { // L: 2250
-							var4 -= var26 * var1; // L: 2251
-							var1 = 0; // L: 2252
+						var4 <<= 14; // L: 2236
+						if (var1 < 0) { // L: 2237
+							var4 -= var26 * var1; // L: 2238
+							var1 = 0; // L: 2239
 						}
 
-						var41 = var2 - Rasterizer3D_clipMidY; // L: 2254
-						var32 += var34 * var41; // L: 2255
-						var35 += var37 * var41; // L: 2256
-						var38 += var40 * var41; // L: 2257
-						if (var27 < var28) { // L: 2258
-							var0 -= var1; // L: 2259
-							var1 -= var2; // L: 2260
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2261
+						var41 = var2 - Rasterizer3D_clipMidY; // L: 2241
+						var32 += var34 * var41; // L: 2242
+						var35 += var37 * var41; // L: 2243
+						var38 += var40 * var41; // L: 2244
+						if (var27 < var28) { // L: 2245
+							var0 -= var1; // L: 2246
+							var1 -= var2; // L: 2247
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2248
 
 							while (true) {
-								--var1; // L: 2262
+								--var1; // L: 2249
 								if (var1 < 0) {
 									while (true) {
-										--var0; // L: 2272
+										--var0; // L: 2259
 										if (var0 < 0) {
-											return; // L: 2282
+											return; // L: 2269
 										}
 
-										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2273
-										var4 += var26; // L: 2274
-										var5 += var28; // L: 2275
-										var8 += var31; // L: 2276
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2277
-										var32 += var34; // L: 2278
-										var35 += var37; // L: 2279
-										var38 += var40; // L: 2280
+										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var4 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2260
+										var4 += var26; // L: 2261
+										var5 += var28; // L: 2262
+										var8 += var31; // L: 2263
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2264
+										var32 += var34; // L: 2265
+										var35 += var37; // L: 2266
+										var38 += var40; // L: 2267
 									}
 								}
 
-								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2263
-								var3 += var27; // L: 2264
-								var5 += var28; // L: 2265
-								var8 += var31; // L: 2266
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2267
-								var32 += var34; // L: 2268
-								var35 += var37; // L: 2269
-								var38 += var40; // L: 2270
+								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var3 >> 14, var5 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2250
+								var3 += var27; // L: 2251
+								var5 += var28; // L: 2252
+								var8 += var31; // L: 2253
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2254
+								var32 += var34; // L: 2255
+								var35 += var37; // L: 2256
+								var38 += var40; // L: 2257
 							}
 						} else {
-							var0 -= var1; // L: 2285
-							var1 -= var2; // L: 2286
-							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2287
+							var0 -= var1; // L: 2272
+							var1 -= var2; // L: 2273
+							var2 = Rasterizer3D_rowOffsets[var2]; // L: 2274
 
 							while (true) {
-								--var1; // L: 2288
+								--var1; // L: 2275
 								if (var1 < 0) {
 									while (true) {
-										--var0; // L: 2298
+										--var0; // L: 2285
 										if (var0 < 0) {
-											return; // L: 2308
+											return; // L: 2295
 										}
 
-										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2299
-										var4 += var26; // L: 2300
-										var5 += var28; // L: 2301
-										var8 += var31; // L: 2302
-										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2303
-										var32 += var34; // L: 2304
-										var35 += var37; // L: 2305
-										var38 += var40; // L: 2306
+										Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var4 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2286
+										var4 += var26; // L: 2287
+										var5 += var28; // L: 2288
+										var8 += var31; // L: 2289
+										var2 += Rasterizer2D.Rasterizer2D_width; // L: 2290
+										var32 += var34; // L: 2291
+										var35 += var37; // L: 2292
+										var38 += var40; // L: 2293
 									}
 								}
 
-								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2289
-								var3 += var27; // L: 2290
-								var5 += var28; // L: 2291
-								var8 += var31; // L: 2292
-								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2293
-								var32 += var34; // L: 2294
-								var35 += var37; // L: 2295
-								var38 += var40; // L: 2296
+								Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var2, var5 >> 14, var3 >> 14, var8, var30, var32, var35, var38, var33, var36, var39); // L: 2276
+								var3 += var27; // L: 2277
+								var5 += var28; // L: 2278
+								var8 += var31; // L: 2279
+								var2 += Rasterizer2D.Rasterizer2D_width; // L: 2280
+								var32 += var34; // L: 2281
+								var35 += var37; // L: 2282
+								var38 += var40; // L: 2283
 							}
 						}
 					}
 				}
 			}
 		}
-	} // L: 1839
+	} // L: 1826
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("e")
 	@Export("Rasterizer3D_textureAlpha")
 	static final void Rasterizer3D_textureAlpha(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14) {
-		if (field1899) { // L: 2317
-			if (var6 > Rasterizer3D_clipWidth) { // L: 2318
+		if (field2260) { // L: 2304
+			if (var6 > Rasterizer3D_clipWidth) { // L: 2305
 				var6 = Rasterizer3D_clipWidth;
 			}
 
-			if (var5 < 0) { // L: 2319
+			if (var5 < 0) { // L: 2306
 				var5 = 0;
 			}
 		}
 
-		if (var5 < var6) { // L: 2321
-			var4 += var5; // L: 2322
-			var7 += var5 * var8; // L: 2323
-			int var17 = var6 - var5; // L: 2324
+		if (var5 < var6) { // L: 2308
+			var4 += var5; // L: 2309
+			var7 += var5 * var8; // L: 2310
+			int var17 = var6 - var5; // L: 2311
 			int var15;
 			int var16;
 			int var18;
@@ -3120,336 +3110,336 @@ public class Rasterizer3D extends Rasterizer2D {
 			int var21;
 			int var22;
 			int var23;
-			if (Rasterizer3D_isLowDetailTexture) { // L: 2325
-				var23 = var5 - Rasterizer3D_clipMidX; // L: 2332
-				var9 += var23 * var12; // L: 2333
-				var10 += var13 * var23; // L: 2334
-				var11 += var23 * var14; // L: 2335
-				var22 = var11 >> 12; // L: 2336
-				if (var22 != 0) { // L: 2337
-					var18 = var9 / var22; // L: 2338
-					var19 = var10 / var22; // L: 2339
+			if (Rasterizer3D_isLowDetailTexture) { // L: 2312
+				var23 = var5 - Rasterizer3D_clipMidX; // L: 2319
+				var9 += var23 * var12; // L: 2320
+				var10 += var13 * var23; // L: 2321
+				var11 += var23 * var14; // L: 2322
+				var22 = var11 >> 12; // L: 2323
+				if (var22 != 0) { // L: 2324
+					var18 = var9 / var22; // L: 2325
+					var19 = var10 / var22; // L: 2326
 				} else {
-					var18 = 0; // L: 2342
-					var19 = 0; // L: 2343
+					var18 = 0; // L: 2329
+					var19 = 0; // L: 2330
 				}
 
-				var9 += var17 * var12; // L: 2345
-				var10 += var13 * var17; // L: 2346
-				var11 += var17 * var14; // L: 2347
-				var22 = var11 >> 12; // L: 2348
-				if (var22 != 0) { // L: 2349
-					var20 = var9 / var22; // L: 2350
-					var21 = var10 / var22; // L: 2351
+				var9 += var17 * var12; // L: 2332
+				var10 += var13 * var17; // L: 2333
+				var11 += var17 * var14; // L: 2334
+				var22 = var11 >> 12; // L: 2335
+				if (var22 != 0) { // L: 2336
+					var20 = var9 / var22; // L: 2337
+					var21 = var10 / var22; // L: 2338
 				} else {
-					var20 = 0; // L: 2354
-					var21 = 0; // L: 2355
+					var20 = 0; // L: 2341
+					var21 = 0; // L: 2342
 				}
 
-				var2 = (var18 << 20) + var19; // L: 2357
-				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 20); // L: 2358
-				var17 >>= 3; // L: 2359
-				var8 <<= 3; // L: 2360
-				var15 = var7 >> 8; // L: 2361
-				if (field1921) { // L: 2363
-					if (var17 > 0) { // L: 2364
+				var2 = (var18 << 20) + var19; // L: 2344
+				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 20); // L: 2345
+				var17 >>= 3; // L: 2346
+				var8 <<= 3; // L: 2347
+				var15 = var7 >> 8; // L: 2348
+				if (field2270) { // L: 2350
+					if (var17 > 0) { // L: 2351
 						do {
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2366
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2367
-							var2 += var16; // L: 2368
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2369
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2370
-							var2 += var16; // L: 2371
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2372
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2373
-							var2 += var16; // L: 2374
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2375
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2376
-							var2 += var16; // L: 2377
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2378
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2379
-							var2 += var16; // L: 2380
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2381
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2382
-							var2 += var16; // L: 2383
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2353
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2354
+							var2 += var16; // L: 2355
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2356
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2357
+							var2 += var16; // L: 2358
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2359
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2360
+							var2 += var16; // L: 2361
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2362
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2363
+							var2 += var16; // L: 2364
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2365
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2366
+							var2 += var16; // L: 2367
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2368
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2369
+							var2 += var16; // L: 2370
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2371
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2372
+							var2 += var16; // L: 2373
+							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2374
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2375
+							var2 += var16; // L: 2376
+							var7 += var8; // L: 2377
+							var15 = var7 >> 8; // L: 2378
+							--var17; // L: 2379
+						} while(var17 > 0);
+					}
+
+					var17 = var6 - var5 & 7; // L: 2381
+					if (var17 > 0) { // L: 2382
+						do {
 							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2384
 							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2385
 							var2 += var16; // L: 2386
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2387
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2388
-							var2 += var16; // L: 2389
-							var7 += var8; // L: 2390
-							var15 = var7 >> 8; // L: 2391
-							--var17; // L: 2392
-						} while(var17 > 0);
-					}
-
-					var17 = var6 - var5 & 7; // L: 2394
-					if (var17 > 0) { // L: 2395
-						do {
-							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2397
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2398
-							var2 += var16; // L: 2399
-							--var17; // L: 2400
+							--var17; // L: 2387
 						} while(var17 > 0);
 					}
 				} else {
-					if (var17 > 0) { // L: 2404
+					if (var17 > 0) { // L: 2391
 						do {
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2406
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2407
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2393
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2394
 							}
 
-							++var4; // L: 2409
-							var2 += var16; // L: 2410
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2411
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2412
+							++var4; // L: 2396
+							var2 += var16; // L: 2397
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2398
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2399
 							}
 
-							++var4; // L: 2414
-							var2 += var16; // L: 2415
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2416
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2417
+							++var4; // L: 2401
+							var2 += var16; // L: 2402
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2403
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2404
 							}
 
-							++var4; // L: 2419
-							var2 += var16; // L: 2420
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2421
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2422
+							++var4; // L: 2406
+							var2 += var16; // L: 2407
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2408
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2409
 							}
 
-							++var4; // L: 2424
-							var2 += var16; // L: 2425
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2426
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2427
+							++var4; // L: 2411
+							var2 += var16; // L: 2412
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2413
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2414
 							}
 
-							++var4; // L: 2429
-							var2 += var16; // L: 2430
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2431
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2432
+							++var4; // L: 2416
+							var2 += var16; // L: 2417
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2418
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2419
 							}
 
-							++var4; // L: 2434
-							var2 += var16; // L: 2435
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2436
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2437
+							++var4; // L: 2421
+							var2 += var16; // L: 2422
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2423
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2424
 							}
 
-							++var4; // L: 2439
-							var2 += var16; // L: 2440
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2441
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2442
+							++var4; // L: 2426
+							var2 += var16; // L: 2427
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2428
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2429
 							}
 
-							++var4; // L: 2444
-							var2 += var16; // L: 2445
-							var7 += var8; // L: 2446
-							var15 = var7 >> 8; // L: 2447
-							--var17; // L: 2448
+							++var4; // L: 2431
+							var2 += var16; // L: 2432
+							var7 += var8; // L: 2433
+							var15 = var7 >> 8; // L: 2434
+							--var17; // L: 2435
 						} while(var17 > 0);
 					}
 
-					var17 = var6 - var5 & 7; // L: 2450
-					if (var17 > 0) { // L: 2451
+					var17 = var6 - var5 & 7; // L: 2437
+					if (var17 > 0) { // L: 2438
 						do {
-							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2453
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2454
+							if ((var3 = var1[(var2 >>> 26) + (var2 & 4032)]) != 0) { // L: 2440
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2441
 							}
 
-							++var4; // L: 2456
-							var2 += var16; // L: 2457
-							--var17; // L: 2458
+							++var4; // L: 2443
+							var2 += var16; // L: 2444
+							--var17; // L: 2445
 						} while(var17 > 0);
 					}
 				}
 			} else {
-				var23 = var5 - Rasterizer3D_clipMidX; // L: 2469
-				var9 += var23 * var12; // L: 2470
-				var10 += var13 * var23; // L: 2471
-				var11 += var23 * var14; // L: 2472
-				var22 = var11 >> 14; // L: 2473
-				if (var22 != 0) { // L: 2474
-					var18 = var9 / var22; // L: 2475
-					var19 = var10 / var22; // L: 2476
+				var23 = var5 - Rasterizer3D_clipMidX; // L: 2456
+				var9 += var23 * var12; // L: 2457
+				var10 += var13 * var23; // L: 2458
+				var11 += var23 * var14; // L: 2459
+				var22 = var11 >> 14; // L: 2460
+				if (var22 != 0) { // L: 2461
+					var18 = var9 / var22; // L: 2462
+					var19 = var10 / var22; // L: 2463
 				} else {
-					var18 = 0; // L: 2479
-					var19 = 0; // L: 2480
+					var18 = 0; // L: 2466
+					var19 = 0; // L: 2467
 				}
 
-				var9 += var17 * var12; // L: 2482
-				var10 += var13 * var17; // L: 2483
-				var11 += var17 * var14; // L: 2484
-				var22 = var11 >> 14; // L: 2485
-				if (var22 != 0) { // L: 2486
-					var20 = var9 / var22; // L: 2487
-					var21 = var10 / var22; // L: 2488
+				var9 += var17 * var12; // L: 2469
+				var10 += var13 * var17; // L: 2470
+				var11 += var17 * var14; // L: 2471
+				var22 = var11 >> 14; // L: 2472
+				if (var22 != 0) { // L: 2473
+					var20 = var9 / var22; // L: 2474
+					var21 = var10 / var22; // L: 2475
 				} else {
-					var20 = 0; // L: 2491
-					var21 = 0; // L: 2492
+					var20 = 0; // L: 2478
+					var21 = 0; // L: 2479
 				}
 
-				var2 = (var18 << 18) + var19; // L: 2494
-				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 18); // L: 2495
-				var17 >>= 3; // L: 2496
-				var8 <<= 3; // L: 2497
-				var15 = var7 >> 8; // L: 2498
-				if (field1921) { // L: 2500
-					if (var17 > 0) { // L: 2501
+				var2 = (var18 << 18) + var19; // L: 2481
+				var16 = (var21 - var19) / var17 + ((var20 - var18) / var17 << 18); // L: 2482
+				var17 >>= 3; // L: 2483
+				var8 <<= 3; // L: 2484
+				var15 = var7 >> 8; // L: 2485
+				if (field2270) { // L: 2487
+					if (var17 > 0) { // L: 2488
 						do {
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2503
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2504
-							var2 += var16; // L: 2505
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2506
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2507
-							var2 += var16; // L: 2508
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2509
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2510
-							var2 += var16; // L: 2511
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2512
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2513
-							var2 += var16; // L: 2514
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2515
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2516
-							var2 += var16; // L: 2517
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2518
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2519
-							var2 += var16; // L: 2520
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2490
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2491
+							var2 += var16; // L: 2492
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2493
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2494
+							var2 += var16; // L: 2495
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2496
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2497
+							var2 += var16; // L: 2498
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2499
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2500
+							var2 += var16; // L: 2501
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2502
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2503
+							var2 += var16; // L: 2504
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2505
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2506
+							var2 += var16; // L: 2507
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2508
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2509
+							var2 += var16; // L: 2510
+							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2511
+							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2512
+							var2 += var16; // L: 2513
+							var7 += var8; // L: 2514
+							var15 = var7 >> 8; // L: 2515
+							--var17; // L: 2516
+						} while(var17 > 0);
+					}
+
+					var17 = var6 - var5 & 7; // L: 2518
+					if (var17 > 0) { // L: 2519
+						do {
 							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2521
 							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2522
 							var2 += var16; // L: 2523
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2524
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2525
-							var2 += var16; // L: 2526
-							var7 += var8; // L: 2527
-							var15 = var7 >> 8; // L: 2528
-							--var17; // L: 2529
-						} while(var17 > 0);
-					}
-
-					var17 = var6 - var5 & 7; // L: 2531
-					if (var17 > 0) { // L: 2532
-						do {
-							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2534
-							var0[var4++] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2535
-							var2 += var16; // L: 2536
-							--var17; // L: 2537
+							--var17; // L: 2524
 						} while(var17 > 0);
 					}
 				} else {
-					if (var17 > 0) { // L: 2541
+					if (var17 > 0) { // L: 2528
 						do {
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2543
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2544
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2530
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2531
 							}
 
-							++var4; // L: 2546
-							var2 += var16; // L: 2547
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2548
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2549
+							++var4; // L: 2533
+							var2 += var16; // L: 2534
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2535
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2536
 							}
 
-							++var4; // L: 2551
-							var2 += var16; // L: 2552
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2553
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2554
+							++var4; // L: 2538
+							var2 += var16; // L: 2539
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2540
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2541
 							}
 
-							++var4; // L: 2556
-							var2 += var16; // L: 2557
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2558
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2559
+							++var4; // L: 2543
+							var2 += var16; // L: 2544
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2545
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2546
 							}
 
-							++var4; // L: 2561
-							var2 += var16; // L: 2562
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2563
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2564
+							++var4; // L: 2548
+							var2 += var16; // L: 2549
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2550
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2551
 							}
 
-							++var4; // L: 2566
-							var2 += var16; // L: 2567
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2568
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2569
+							++var4; // L: 2553
+							var2 += var16; // L: 2554
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2555
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2556
 							}
 
-							++var4; // L: 2571
-							var2 += var16; // L: 2572
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2573
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2574
+							++var4; // L: 2558
+							var2 += var16; // L: 2559
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2560
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2561
 							}
 
-							++var4; // L: 2576
-							var2 += var16; // L: 2577
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2578
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2579
+							++var4; // L: 2563
+							var2 += var16; // L: 2564
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2565
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2566
 							}
 
-							++var4; // L: 2581
-							var2 += var16; // L: 2582
-							var7 += var8; // L: 2583
-							var15 = var7 >> 8; // L: 2584
-							--var17; // L: 2585
+							++var4; // L: 2568
+							var2 += var16; // L: 2569
+							var7 += var8; // L: 2570
+							var15 = var7 >> 8; // L: 2571
+							--var17; // L: 2572
 						} while(var17 > 0);
 					}
 
-					var17 = var6 - var5 & 7; // L: 2587
-					if (var17 > 0) { // L: 2588
+					var17 = var6 - var5 & 7; // L: 2574
+					if (var17 > 0) { // L: 2575
 						do {
-							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2590
-								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2591
+							if ((var3 = var1[(var2 & 16256) + (var2 >>> 25)]) != 0) { // L: 2577
+								var0[var4] = (var15 * (var3 & 65280) & 16711680) + ((var3 & 16711935) * var15 & -16711936) >> 8; // L: 2578
 							}
 
-							++var4; // L: 2593
-							var2 += var16; // L: 2594
-							--var17; // L: 2595
+							++var4; // L: 2580
+							var2 += var16; // L: 2581
+							--var17; // L: 2582
 						} while(var17 > 0);
 					}
 				}
 			}
 
 		}
-	} // L: 2599
+	} // L: 2586
 
-	@ObfuscatedName("t")
-	static final int method3415(int var0, int var1) {
-		var1 = (var0 & 127) * var1 >> 7; // L: 2602
-		if (var1 < 2) { // L: 2603
+	@ObfuscatedName("d")
+	static final int method3887(int var0, int var1) {
+		var1 = (var0 & 127) * var1 >> 7; // L: 2589
+		if (var1 < 2) { // L: 2590
 			var1 = 2;
-		} else if (var1 > 126) { // L: 2604
+		} else if (var1 > 126) { // L: 2591
 			var1 = 126;
 		}
 
-		return (var0 & 65408) + var1; // L: 2605
+		return (var0 & 65408) + var1; // L: 2592
 	}
 
-	@ObfuscatedName("v")
-	static final int method3377(int var0, int var1, int var2, int var3) {
-		return var0 * var2 + var3 * var1 >> 16; // L: 2609
+	@ObfuscatedName("u")
+	static final int method3833(int var0, int var1, int var2, int var3) {
+		return var0 * var2 + var3 * var1 >> 16; // L: 2596
 	}
 
-	@ObfuscatedName("x")
-	static final int method3378(int var0, int var1, int var2, int var3) {
-		return var2 * var1 - var3 * var0 >> 16; // L: 2613
+	@ObfuscatedName("m")
+	static final int method3834(int var0, int var1, int var2, int var3) {
+		return var2 * var1 - var3 * var0 >> 16; // L: 2600
 	}
 
-	@ObfuscatedName("z")
-	static final int method3379(int var0, int var1, int var2, int var3) {
-		return var0 * var2 - var3 * var1 >> 16; // L: 2617
+	@ObfuscatedName("j")
+	static final int method3835(int var0, int var1, int var2, int var3) {
+		return var0 * var2 - var3 * var1 >> 16; // L: 2604
 	}
 
-	@ObfuscatedName("i")
-	static final int method3380(int var0, int var1, int var2, int var3) {
-		return var3 * var0 + var2 * var1 >> 16; // L: 2621
+	@ObfuscatedName("f")
+	static final int method3890(int var0, int var1, int var2, int var3) {
+		return var3 * var0 + var2 * var1 >> 16; // L: 2608
 	}
 
-	@ObfuscatedName("a")
-	static final int method3400(int var0, int var1, int var2, int var3) {
-		return var0 * var2 + var3 * var1 >> 16; // L: 2625
+	@ObfuscatedName("s")
+	static final int method3837(int var0, int var1, int var2, int var3) {
+		return var0 * var2 + var3 * var1 >> 16; // L: 2612
 	}
 
-	@ObfuscatedName("w")
-	static final int method3367(int var0, int var1, int var2, int var3) {
-		return var2 * var1 - var3 * var0 >> 16; // L: 2629
+	@ObfuscatedName("y")
+	static final int method3842(int var0, int var1, int var2, int var3) {
+		return var2 * var1 - var3 * var0 >> 16; // L: 2616
 	}
 }

@@ -4,17 +4,20 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hb")
+@ObfuscatedName("ie")
 @Implements("DirectByteArrayCopier")
 public class DirectByteArrayCopier extends AbstractByteArrayCopier {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("directBuffer")
 	ByteBuffer directBuffer;
 
-	@ObfuscatedName("u")
+	DirectByteArrayCopier() {
+	} // L: 10
+
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(I)[B",
-		garbageValue = "-1722490231"
+		garbageValue = "-1778746914"
 	)
 	@Export("get")
 	byte[] get() {
@@ -24,138 +27,88 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		return var1;
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "([BI)V",
-		garbageValue = "1564375073"
+		garbageValue = "973811650"
 	)
 	@Export("set")
-	public void set(byte[] var1) {
+	void set(byte[] var1) {
 		this.directBuffer = ByteBuffer.allocateDirect(var1.length);
-		this.directBuffer.position(0); // L: 21
-		this.directBuffer.put(var1); // L: 22
+		this.directBuffer.position(0);
+		this.directBuffer.put(var1);
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1136750578"
+		descriptor = "(CI)B",
+		garbageValue = "-277042529"
 	)
-	static int method4354() {
-		return 12; // L: 123
-	}
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;Ljava/lang/CharSequence;Ljh;B)I",
-		garbageValue = "98"
-	)
-	@Export("compareStrings")
-	public static int compareStrings(CharSequence var0, CharSequence var1, Language var2) {
-		int var3 = var0.length(); // L: 11
-		int var4 = var1.length(); // L: 12
-		int var5 = 0; // L: 13
-		int var6 = 0; // L: 14
-		char var7 = 0; // L: 15
-		char var8 = 0; // L: 16
-
-		while (var5 - var7 < var3 || var6 - var8 < var4) { // L: 18
-			if (var5 - var7 >= var3) { // L: 19
-				return -1;
-			}
-
-			if (var6 - var8 >= var4) { // L: 20
-				return 1;
-			}
-
-			char var9;
-			if (var7 != 0) { // L: 23
-				var9 = var7; // L: 24
-				boolean var14 = false; // L: 25
+	@Export("charToByteCp1252")
+	public static byte charToByteCp1252(char var0) {
+		byte var1;
+		if ((var0 <= 0 || var0 >= 128) && (var0 < 160 || var0 > 255)) { // L: 12
+			if (var0 == 8364) { // L: 13
+				var1 = -128;
+			} else if (var0 == 8218) { // L: 14
+				var1 = -126;
+			} else if (var0 == 402) { // L: 15
+				var1 = -125;
+			} else if (var0 == 8222) { // L: 16
+				var1 = -124;
+			} else if (var0 == 8230) { // L: 17
+				var1 = -123;
+			} else if (var0 == 8224) { // L: 18
+				var1 = -122;
+			} else if (var0 == 8225) { // L: 19
+				var1 = -121;
+			} else if (var0 == 710) { // L: 20
+				var1 = -120;
+			} else if (var0 == 8240) { // L: 21
+				var1 = -119;
+			} else if (var0 == 352) { // L: 22
+				var1 = -118;
+			} else if (var0 == 8249) { // L: 23
+				var1 = -117;
+			} else if (var0 == 338) { // L: 24
+				var1 = -116;
+			} else if (var0 == 381) { // L: 25
+				var1 = -114;
+			} else if (var0 == 8216) {
+				var1 = -111; // L: 26
+			} else if (var0 == 8217) { // L: 27
+				var1 = -110;
+			} else if (var0 == 8220) { // L: 28
+				var1 = -109;
+			} else if (var0 == 8221) { // L: 29
+				var1 = -108;
+			} else if (var0 == 8226) { // L: 30
+				var1 = -107;
+			} else if (var0 == 8211) { // L: 31
+				var1 = -106;
+			} else if (var0 == 8212) { // L: 32
+				var1 = -105;
+			} else if (var0 == 732) { // L: 33
+				var1 = -104;
+			} else if (var0 == 8482) { // L: 34
+				var1 = -103;
+			} else if (var0 == 353) { // L: 35
+				var1 = -102;
+			} else if (var0 == 8250) { // L: 36
+				var1 = -101;
+			} else if (var0 == 339) { // L: 37
+				var1 = -100;
+			} else if (var0 == 382) { // L: 38
+				var1 = -98;
+			} else if (var0 == 376) { // L: 39
+				var1 = -97;
 			} else {
-				var9 = var0.charAt(var5++); // L: 27
+				var1 = 63; // L: 40
 			}
-
-			char var10;
-			if (var8 != 0) { // L: 28
-				var10 = var8; // L: 29
-				boolean var15 = false; // L: 30
-			} else {
-				var10 = var1.charAt(var6++); // L: 32
-			}
-
-			var7 = WorldMapSection1.method3154(var9); // L: 33
-			var8 = WorldMapSection1.method3154(var10); // L: 34
-			var9 = GrandExchangeOfferNameComparator.standardizeChar(var9, var2); // L: 35
-			var10 = GrandExchangeOfferNameComparator.standardizeChar(var10, var2); // L: 36
-			if (var9 != var10 && Character.toUpperCase(var9) != Character.toUpperCase(var10)) { // L: 37
-				var9 = Character.toLowerCase(var9); // L: 38
-				var10 = Character.toLowerCase(var10); // L: 39
-				if (var9 != var10) { // L: 40
-					return class124.lowercaseChar(var9, var2) - class124.lowercaseChar(var10, var2);
-				}
-			}
-		}
-
-		int var16 = Math.min(var3, var4); // L: 43
-
-		char var12;
-		int var17;
-		for (var17 = 0; var17 < var16; ++var17) {
-			if (var2 == Language.Language_FR) {
-				var5 = var3 - 1 - var17;
-				var6 = var4 - 1 - var17; // L: 47
-			} else {
-				var6 = var17; // L: 49
-				var5 = var17;
-			}
-
-			char var11 = var0.charAt(var5); // L: 50
-			var12 = var1.charAt(var6); // L: 51
-			if (var12 != var11 && Character.toUpperCase(var11) != Character.toUpperCase(var12)) { // L: 52
-				var11 = Character.toLowerCase(var11); // L: 53
-				var12 = Character.toLowerCase(var12); // L: 54
-				if (var12 != var11) {
-					return class124.lowercaseChar(var11, var2) - class124.lowercaseChar(var12, var2); // L: 55
-				}
-			}
-		}
-
-		var17 = var3 - var4; // L: 58
-		if (var17 != 0) { // L: 59
-			return var17;
 		} else {
-			for (int var18 = 0; var18 < var16; ++var18) { // L: 60
-				var12 = var0.charAt(var18); // L: 61
-				char var13 = var1.charAt(var18); // L: 62
-				if (var13 != var12) { // L: 63
-					return class124.lowercaseChar(var12, var2) - class124.lowercaseChar(var13, var2);
-				}
-			}
-
-			return 0; // L: 65
+			var1 = (byte)var0;
 		}
-	}
 
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "1742399139"
-	)
-	@Export("Messages_getHistorySize")
-	static int Messages_getHistorySize(int var0) {
-		ChatChannel var1 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 44
-		return var1 == null ? 0 : var1.size(); // L: 45 46
-	}
-
-	@ObfuscatedName("ku")
-	@ObfuscatedSignature(
-		descriptor = "(Lhu;B)I",
-		garbageValue = "-62"
-	)
-	@Export("getWidgetFlags")
-	static int getWidgetFlags(Widget var0) {
-		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get((long)var0.childIndex + ((long)var0.id << 32)); // L: 11589
-		return var1 != null ? var1.integer : var0.flags; // L: 11590 11591
+		return var1; // L: 41
 	}
 }

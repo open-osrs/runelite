@@ -4,35 +4,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kf")
+@ObfuscatedName("ex")
 @Implements("VerticalAlignment")
 public enum VerticalAlignment implements Enumerated {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lkf;"
+		descriptor = "Lex;"
 	)
-	field3517(1, 0),
-	@ObfuscatedName("o")
+	field1676(1, 0),
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lkf;"
+		descriptor = "Lex;"
 	)
 	@Export("VerticalAlignment_centered")
 	VerticalAlignment_centered(0, 1),
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lkf;"
+		descriptor = "Lex;"
 	)
-	field3514(2, 2);
+	field1675(2, 2);
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 5650729
+		intValue = 1077695001
+	)
+	static int field1680;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = 715110919
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -974816521
+		intValue = -1292564375
 	)
 	@Export("id")
 	final int id;
@@ -42,29 +47,26 @@ public enum VerticalAlignment implements Enumerated {
 		this.id = var4; // L: 15
 	} // L: 16
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1000839247"
+		garbageValue = "-708237537"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 19
 	}
 
-	@ObfuscatedName("hj")
+	@ObfuscatedName("kr")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1799855349"
+		descriptor = "(Liv;I)V",
+		garbageValue = "-1728613752"
 	)
-	@Export("addCancelMenuEntry")
-	static void addCancelMenuEntry() {
-		Client.menuOptionsCount = 0; // L: 7769
-		Client.isMenuOpen = false; // L: 7770
-		Client.menuActions[0] = "Cancel"; // L: 7772
-		Client.menuTargets[0] = ""; // L: 7773
-		Client.menuOpcodes[0] = 1006; // L: 7774
-		Client.menuShiftClick[0] = false; // L: 7775
-		Client.menuOptionsCount = 1; // L: 7776
-	} // L: 7777
+	@Export("invalidateWidget")
+	static void invalidateWidget(Widget var0) {
+		if (var0.cycle == Client.field824) { // L: 11077
+			Client.field825[var0.rootIndex] = true; // L: 11078
+		}
+
+	} // L: 11080
 }

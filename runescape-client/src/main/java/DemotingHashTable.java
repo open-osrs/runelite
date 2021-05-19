@@ -3,155 +3,163 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("go")
+@ObfuscatedName("hl")
 @Implements("DemotingHashTable")
 public final class DemotingHashTable {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("remaining")
 	int remaining;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lme;"
+		descriptor = "Lmo;"
 	)
 	@Export("hashTable")
 	IterableNodeHashTable hashTable;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Ljw;"
+		descriptor = "Lkd;"
 	)
 	@Export("queue")
 	IterableDualNodeQueue queue;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgu;"
+		descriptor = "Lhq;"
 	)
-	class195 field2204;
+	class217 field2553;
 
 	public DemotingHashTable(int var1, int var2) {
 		this.queue = new IterableDualNodeQueue(); // L: 11
-		this.capacity = var1; // L: 15
-		this.remaining = var1; // L: 16
+		this.capacity = var1; // L: 19
+		this.remaining = var1; // L: 20
 
 		int var3;
-		for (var3 = 1; var3 + var3 < var1 && var3 < var2; var3 += var3) { // L: 17 18
+		for (var3 = 1; var3 + var3 < var1 && var3 < var2; var3 += var3) { // L: 21 22
 		}
 
-		this.hashTable = new IterableNodeHashTable(var3); // L: 19
-	} // L: 20
+		this.hashTable = new IterableNodeHashTable(var3); // L: 23
+	} // L: 24
 
-	@ObfuscatedName("f")
+	public DemotingHashTable(int var1) {
+		this(var1, var1); // L: 15
+	} // L: 16
+
+	@ObfuscatedName("h")
 	@Export("get")
 	public Object get(long var1) {
-		Wrapper var3 = (Wrapper)this.hashTable.get(var1); // L: 23
-		if (var3 == null) { // L: 24
+		Wrapper var3 = (Wrapper)this.hashTable.get(var1); // L: 27
+		if (var3 == null) { // L: 28
 			return null;
 		} else {
-			Object var4 = var3.get(); // L: 25
-			if (var4 == null) { // L: 26
-				var3.remove(); // L: 27
-				var3.removeDual(); // L: 28
-				this.remaining += var3.size; // L: 29
-				return null; // L: 30
+			Object var4 = var3.get(); // L: 29
+			if (var4 == null) { // L: 30
+				var3.remove(); // L: 31
+				var3.removeDual(); // L: 32
+				this.remaining += var3.size; // L: 33
+				return null; // L: 34
 			} else {
-				if (var3.isSoft()) { // L: 32
-					DirectWrapper var5 = new DirectWrapper(var4, var3.size); // L: 33
-					this.hashTable.put(var5, var3.key); // L: 34
-					this.queue.add(var5); // L: 35
-					var5.keyDual = 0L; // L: 36
-					var3.remove(); // L: 37
-					var3.removeDual(); // L: 38
+				if (var3.isSoft()) { // L: 36
+					DirectWrapper var5 = new DirectWrapper(var4, var3.size); // L: 37
+					this.hashTable.put(var5, var3.key); // L: 38
+					this.queue.add(var5); // L: 39
+					var5.keyDual = 0L; // L: 40
+					var3.remove(); // L: 41
+					var3.removeDual(); // L: 42
 				} else {
-					this.queue.add(var3); // L: 41
-					var3.keyDual = 0L; // L: 42
+					this.queue.add(var3); // L: 45
+					var3.keyDual = 0L; // L: 46
 				}
 
-				return var4; // L: 44
+				return var4; // L: 48
 			}
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("remove")
 	void remove(long var1) {
-		Wrapper var3 = (Wrapper)this.hashTable.get(var1); // L: 48
-		this.removeWrapper(var3); // L: 49
-	} // L: 50
+		Wrapper var3 = (Wrapper)this.hashTable.get(var1); // L: 52
+		this.removeWrapper(var3); // L: 53
+	} // L: 54
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lgm;)V"
+		descriptor = "(Lhx;)V"
 	)
 	@Export("removeWrapper")
 	void removeWrapper(Wrapper var1) {
-		if (var1 != null) { // L: 53
-			var1.remove(); // L: 54
-			var1.removeDual(); // L: 55
-			this.remaining += var1.size; // L: 56
+		if (var1 != null) { // L: 57
+			var1.remove(); // L: 58
+			var1.removeDual(); // L: 59
+			this.remaining += var1.size; // L: 60
 		}
 
-	} // L: 58
-
-	@ObfuscatedName("p")
-	public void method3825(Object var1, long var2) {
-		this.put(var1, var2, 1); // L: 61
 	} // L: 62
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("g")
+	public void method4249(Object var1, long var2) {
+		this.put(var1, var2, 1); // L: 65
+	} // L: 66
+
+	@ObfuscatedName("l")
 	@Export("put")
 	public void put(Object var1, long var2, int var4) {
-		this.remove(var2); // L: 66
-		this.remaining -= var4; // L: 67
+		if (var4 > this.capacity) { // L: 69
+			throw new IllegalStateException();
+		} else {
+			this.remove(var2); // L: 70
+			this.remaining -= var4; // L: 71
 
-		while (this.remaining < 0) { // L: 68
-			Wrapper var5 = (Wrapper)this.queue.removeLast(); // L: 69
-			if (var5 == null) { // L: 70
-				throw new RuntimeException(""); // L: 71
+			while (this.remaining < 0) { // L: 72
+				Wrapper var5 = (Wrapper)this.queue.removeLast(); // L: 73
+				if (var5 == null) { // L: 74
+					throw new RuntimeException(""); // L: 75
+				}
+
+				if (!var5.isSoft()) { // L: 77
+				}
+
+				this.removeWrapper(var5); // L: 78
+				if (this.field2553 != null) { // L: 79
+					this.field2553.method4244(var5.get()); // L: 80
+				}
 			}
 
-			if (!var5.isSoft()) { // L: 73
-			}
-
-			this.removeWrapper(var5); // L: 74
-			if (this.field2204 != null) { // L: 75
-				this.field2204.method3814(var5.get()); // L: 76
-			}
+			DirectWrapper var6 = new DirectWrapper(var1, var4); // L: 83
+			this.hashTable.put(var6, var2); // L: 84
+			this.queue.add(var6); // L: 85
+			var6.keyDual = 0L; // L: 86
 		}
+	} // L: 87
 
-		DirectWrapper var6 = new DirectWrapper(var1, var4); // L: 79
-		this.hashTable.put(var6, var2); // L: 80
-		this.queue.add(var6); // L: 81
-		var6.keyDual = 0L; // L: 82
-	} // L: 83
-
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@Export("demote")
 	public void demote(int var1) {
-		for (Wrapper var2 = (Wrapper)this.queue.last(); var2 != null; var2 = (Wrapper)this.queue.previous()) { // L: 86
-			if (var2.isSoft()) { // L: 87
-				if (var2.get() == null) { // L: 88
-					var2.remove(); // L: 89
-					var2.removeDual(); // L: 90
-					this.remaining += var2.size; // L: 91
+		for (Wrapper var2 = (Wrapper)this.queue.last(); var2 != null; var2 = (Wrapper)this.queue.previous()) { // L: 90
+			if (var2.isSoft()) { // L: 91
+				if (var2.get() == null) { // L: 92
+					var2.remove(); // L: 93
+					var2.removeDual(); // L: 94
+					this.remaining += var2.size; // L: 95
 				}
-			} else if (++var2.keyDual > (long)var1) { // L: 96
-				SoftWrapper var3 = new SoftWrapper(var2.get(), var2.size); // L: 97
-				this.hashTable.put(var3, var2.key); // L: 98
-				IterableDualNodeQueue.DualNodeDeque_addBefore(var3, var2); // L: 99
-				var2.remove(); // L: 100
-				var2.removeDual(); // L: 101
+			} else if (++var2.keyDual > (long)var1) { // L: 100
+				SoftWrapper var3 = new SoftWrapper(var2.get(), var2.size); // L: 101
+				this.hashTable.put(var3, var2.key); // L: 102
+				IterableDualNodeQueue.DualNodeDeque_addBefore(var3, var2); // L: 103
+				var2.remove(); // L: 104
+				var2.removeDual(); // L: 105
 			}
 		}
 
-	} // L: 105
+	} // L: 109
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@Export("clear")
 	public void clear() {
-		this.queue.clear(); // L: 108
-		this.hashTable.clear(); // L: 109
-		this.remaining = this.capacity; // L: 110
-	} // L: 111
+		this.queue.clear(); // L: 112
+		this.hashTable.clear(); // L: 113
+		this.remaining = this.capacity; // L: 114
+	} // L: 115
 }

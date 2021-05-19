@@ -5,172 +5,208 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jh")
+@ObfuscatedName("kr")
 @Implements("Language")
 public class Language implements Enumerated {
-	@ObfuscatedName("f")
+	@ObfuscatedName("rf")
+	@ObfuscatedGetter(
+		intValue = -430967817
+	)
+	static int field3704;
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lkr;"
 	)
 	@Export("Language_EN")
 	public static final Language Language_EN;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lkr;"
 	)
 	@Export("Language_DE")
 	static final Language Language_DE;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lkr;"
 	)
 	@Export("Language_FR")
 	public static final Language Language_FR;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lkr;"
 	)
 	@Export("Language_PT")
 	static final Language Language_PT;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lkr;"
 	)
 	@Export("Language_NL")
 	static final Language Language_NL;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lkr;"
 	)
 	@Export("Language_ES")
 	public static final Language Language_ES;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lkr;"
 	)
 	@Export("Language_ES_MX")
 	static final Language Language_ES_MX;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "[Ljh;"
+		descriptor = "[Lkr;"
 	)
 	@Export("Language_valuesOrdered")
-	static final Language[] Language_valuesOrdered;
-	@ObfuscatedName("ck")
-	@ObfuscatedSignature(
-		descriptor = "Lcy;"
-	)
-	@Export("mouseRecorder")
-	static MouseRecorder mouseRecorder;
-	@ObfuscatedName("gr")
-	@ObfuscatedGetter(
-		intValue = 2000557037
-	)
-	static int field3357;
-	@ObfuscatedName("g")
-	final String field3352;
-	@ObfuscatedName("h")
+	public static final Language[] Language_valuesOrdered;
+	@ObfuscatedName("v")
+	final String field3701;
+	@ObfuscatedName("b")
 	@Export("language")
 	final String language;
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 862102775
+		intValue = -2016416161
 	)
 	@Export("id")
 	final int id;
 
 	static {
-		Language_EN = new Language("EN", "en", "English", ModeWhere.field3373, 0, "GB"); // L: 10
-		Language_DE = new Language("DE", "de", "German", ModeWhere.field3373, 1, "DE"); // L: 11
-		Language_FR = new Language("FR", "fr", "French", ModeWhere.field3373, 2, "FR"); // L: 12
-		Language_PT = new Language("PT", "pt", "Portuguese", ModeWhere.field3373, 3, "BR"); // L: 13
-		Language_NL = new Language("NL", "nl", "Dutch", ModeWhere.field3363, 4, "NL"); // L: 14
-		Language_ES = new Language("ES", "es", "Spanish", ModeWhere.field3363, 5, "ES"); // L: 15
-		Language_ES_MX = new Language("ES_MX", "es-mx", "Spanish (Latin American)", ModeWhere.field3373, 6, "MX"); // L: 16
-		Language[] var0 = method4693();
-		Language_valuesOrdered = new Language[var0.length];
-		Language[] var1 = var0; // L: 26
+		Language_EN = new Language("EN", "en", "English", ModeWhere.field3710, 0, "GB"); // L: 10
+		Language_DE = new Language("DE", "de", "German", ModeWhere.field3710, 1, "DE"); // L: 11
+		Language_FR = new Language("FR", "fr", "French", ModeWhere.field3710, 2, "FR"); // L: 12
+		Language_PT = new Language("PT", "pt", "Portuguese", ModeWhere.field3710, 3, "BR"); // L: 13
+		Language_NL = new Language("NL", "nl", "Dutch", ModeWhere.field3717, 4, "NL"); // L: 14
+		Language_ES = new Language("ES", "es", "Spanish", ModeWhere.field3717, 5, "ES"); // L: 15
+		Language_ES_MX = new Language("ES_MX", "es-mx", "Spanish (Latin American)", ModeWhere.field3710, 6, "MX"); // L: 16
+		Language[] var0 = new Language[]{Language_DE, Language_NL, Language_FR, Language_ES_MX, Language_EN, Language_PT, Language_ES}; // L: 25
+		Language_valuesOrdered = new Language[var0.length]; // L: 28
+		Language[] var2 = var0; // L: 30
 
-		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 27
-			Language var3 = var1[var2]; // L: 28
-			if (Language_valuesOrdered[var3.id] != null) { // L: 30
-				throw new IllegalStateException(); // L: 31
+		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 31
+			Language var4 = var2[var3]; // L: 32
+			if (Language_valuesOrdered[var4.id] != null) { // L: 34
+				throw new IllegalStateException(); // L: 35
 			}
 
-			Language_valuesOrdered[var3.id] = var3; // L: 33
+			Language_valuesOrdered[var4.id] = var4; // L: 37
 		}
 
-	} // L: 37
+	} // L: 41
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljb;ILjava/lang/String;)V"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkb;ILjava/lang/String;)V"
 	)
 	Language(String var1, String var2, String var3, ModeWhere var4, int var5, String var6) {
-		this.field3352 = var1; // L: 44
-		this.language = var2; // L: 45
-		this.id = var5; // L: 46
-		if (var6 != null) { // L: 47
-			new Locale(var2.substring(0, 2), var6); // L: 48
+		this.field3701 = var1; // L: 44
+		this.language = var2;
+		this.id = var5;
+		if (var6 != null) {
+			new Locale(var2.substring(0, 2), var6);
 		} else {
-			new Locale(var2.substring(0, 2)); // L: 51
+			new Locale(var2.substring(0, 2));
 		}
 
-	} // L: 53
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1000839247"
+		garbageValue = "-708237537"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 60
+		return this.id;
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-429051103"
+		descriptor = "(B)Ljava/lang/String;",
+		garbageValue = "-65"
 	)
 	@Export("getLanguage")
 	String getLanguage() {
-		return this.language; // L: 56
+		return this.language;
 	}
 
 	public String toString() {
-		return this.getLanguage().toLowerCase(Locale.ENGLISH); // L: 69
+		return this.getLanguage().toLowerCase(Locale.ENGLISH);
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "31"
+		descriptor = "(Ljava/lang/CharSequence;B)[B",
+		garbageValue = "21"
 	)
-	@Export("ItemContainer_getCount")
-	static int ItemContainer_getCount(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 21
-		if (var2 == null) { // L: 22
-			return 0;
-		} else {
-			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0; // L: 23 24
+	public static byte[] method5070(CharSequence var0) {
+		int var1 = var0.length(); // L: 45
+		byte[] var2 = new byte[var1]; // L: 46
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 47
+			char var4 = var0.charAt(var3); // L: 48
+			if (var4 > 0 && var4 < 128 || var4 >= 160 && var4 <= 255) { // L: 49
+				var2[var3] = (byte)var4;
+			} else if (var4 == 8364) { // L: 50
+				var2[var3] = -128;
+			} else if (var4 == 8218) { // L: 51
+				var2[var3] = -126;
+			} else if (var4 == 402) { // L: 52
+				var2[var3] = -125;
+			} else if (var4 == 8222) { // L: 53
+				var2[var3] = -124;
+			} else if (var4 == 8230) { // L: 54
+				var2[var3] = -123;
+			} else if (var4 == 8224) { // L: 55
+				var2[var3] = -122;
+			} else if (var4 == 8225) { // L: 56
+				var2[var3] = -121;
+			} else if (var4 == 710) { // L: 57
+				var2[var3] = -120;
+			} else if (var4 == 8240) { // L: 58
+				var2[var3] = -119;
+			} else if (var4 == 352) { // L: 59
+				var2[var3] = -118;
+			} else if (var4 == 8249) { // L: 60
+				var2[var3] = -117;
+			} else if (var4 == 338) { // L: 61
+				var2[var3] = -116;
+			} else if (var4 == 381) { // L: 62
+				var2[var3] = -114;
+			} else if (var4 == 8216) { // L: 63
+				var2[var3] = -111;
+			} else if (var4 == 8217) { // L: 64
+				var2[var3] = -110;
+			} else if (var4 == 8220) { // L: 65
+				var2[var3] = -109;
+			} else if (var4 == 8221) { // L: 66
+				var2[var3] = -108;
+			} else if (var4 == 8226) { // L: 67
+				var2[var3] = -107;
+			} else if (var4 == 8211) { // L: 68
+				var2[var3] = -106;
+			} else if (var4 == 8212) { // L: 69
+				var2[var3] = -105;
+			} else if (var4 == 732) { // L: 70
+				var2[var3] = -104;
+			} else if (var4 == 8482) { // L: 71
+				var2[var3] = -103;
+			} else if (var4 == 353) { // L: 72
+				var2[var3] = -102;
+			} else if (var4 == 8250) { // L: 73
+				var2[var3] = -101;
+			} else if (var4 == 339) { // L: 74
+				var2[var3] = -100;
+			} else if (var4 == 382) { // L: 75
+				var2[var3] = -98;
+			} else if (var4 == 376) { // L: 76
+				var2[var3] = -97;
+			} else {
+				var2[var3] = 63; // L: 77
+			}
 		}
-	}
 
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(B)[Ljh;",
-		garbageValue = "-79"
-	)
-	static Language[] method4693() {
-		return new Language[]{Language_EN, Language_PT, Language_DE, Language_ES_MX, Language_NL, Language_FR, Language_ES}; // L: 40
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(IB)Ljh;",
-		garbageValue = "13"
-	)
-	public static Language method4691(int var0) {
-		return var0 >= 0 && var0 < Language_valuesOrdered.length ? Language_valuesOrdered[var0] : null; // L: 64 65
+		return var2; // L: 79
 	}
 }

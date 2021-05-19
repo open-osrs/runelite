@@ -2,208 +2,119 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("f")
+@ObfuscatedName("h")
 public class class0 extends class14 {
-	@ObfuscatedName("rd")
+	@ObfuscatedName("rq")
 	@ObfuscatedGetter(
-		intValue = 1748086525
+		intValue = 629327497
 	)
-	static int field6;
-	@ObfuscatedName("p")
-	@Export("SpriteBuffer_xOffsets")
-	static int[] SpriteBuffer_xOffsets;
-	@ObfuscatedName("n")
+	static int field5;
+	@ObfuscatedName("da")
 	@ObfuscatedSignature(
-		descriptor = "Lbn;"
+		descriptor = "Lji;"
 	)
-	@Export("soundSystem")
-	static SoundSystem soundSystem;
-	@ObfuscatedName("bp")
-	static String field4;
-	@ObfuscatedName("el")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
-	)
-	@Export("archive17")
-	static Archive archive17;
-	@ObfuscatedName("fm")
-	@ObfuscatedSignature(
-		descriptor = "Lkq;"
-	)
-	@Export("fontPlain11")
-	static Font fontPlain11;
-	@ObfuscatedName("f")
+	@Export("archive1")
+	static Archive archive1;
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -962316939
+		intValue = 1994958491
 	)
-	int field0;
-	@ObfuscatedName("o")
+	int field4;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		longValue = 1307131140437744357L
+		longValue = 872492133547765079L
 	)
-	long field2;
+	long field3;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lu;"
+		descriptor = "Lo;"
 	)
 	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lu;)V"
+		descriptor = "(Lo;)V"
 	)
 	class0(class2 var1) {
 		this.this$0 = var1; // L: 307
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lnu;I)V",
-		garbageValue = "-1383981708"
+		descriptor = "(Lnk;I)V",
+		garbageValue = "110401227"
 	)
-	void vmethod371(Buffer var1) {
-		this.field0 = var1.readInt(); // L: 310
-		this.field2 = var1.readLong(); // L: 311
+	void vmethod339(Buffer var1) {
+		this.field4 = var1.readInt(); // L: 310
+		this.field3 = var1.readLong(); // L: 311
 	} // L: 312
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Lx;I)V",
+		garbageValue = "-1535989118"
+	)
+	void vmethod338(class11 var1) {
+		var1.method128(this.field4, this.field3); // L: 315
+	} // L: 316
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lm;I)V",
-		garbageValue = "-1475503816"
+		descriptor = "(III)I",
+		garbageValue = "875989902"
 	)
-	void vmethod376(class11 var1) {
-		var1.method157(this.field0, this.field2); // L: 315
-	} // L: 316
+	static int method6(int var0, int var1) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 28
+		if (var2 == null) { // L: 29
+			return 0;
+		} else if (var1 == -1) { // L: 30
+			return 0;
+		} else {
+			int var3 = 0; // L: 31
 
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "([I[II)V",
-		garbageValue = "-1322537982"
-	)
-	public static void method12(int[] var0, int[] var1) {
-		if (var0 != null && var1 != null) {
-			UserComparator3.ByteArrayPool_alternativeSizes = var0; // L: 25
-			class221.ByteArrayPool_altSizeArrayCounts = new int[var0.length]; // L: 26
-			ScriptFrame.ByteArrayPool_arrays = new byte[var0.length][][]; // L: 27
-
-			for (int var2 = 0; var2 < UserComparator3.ByteArrayPool_alternativeSizes.length; ++var2) { // L: 28
-				ScriptFrame.ByteArrayPool_arrays[var2] = new byte[var1[var2]][]; // L: 29
+			for (int var4 = 0; var4 < var2.quantities.length; ++var4) { // L: 32
+				if (var2.ids[var4] == var1) {
+					var3 += var2.quantities[var4]; // L: 33
+				}
 			}
 
-		} else {
-			UserComparator3.ByteArrayPool_alternativeSizes = null;
-			class221.ByteArrayPool_altSizeArrayCounts = null; // L: 21
-			ScriptFrame.ByteArrayPool_arrays = null; // L: 22
-		}
-	} // L: 23 31
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Object;ZB)[B",
-		garbageValue = "69"
-	)
-	public static byte[] method11(Object var0, boolean var1) {
-		if (var0 == null) { // L: 8
-			return null;
-		} else if (var0 instanceof byte[]) { // L: 9
-			byte[] var3 = (byte[])((byte[])var0); // L: 10
-			return var1 ? ScriptFrame.method1175(var3) : var3; // L: 11
-		} else if (var0 instanceof AbstractByteArrayCopier) { // L: 14
-			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0; // L: 15
-			return var2.get(); // L: 16
-		} else {
-			throw new IllegalArgumentException(); // L: 18
+			return var3; // L: 35
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("ik")
 	@ObfuscatedSignature(
-		descriptor = "(Lir;I)V",
-		garbageValue = "1509718075"
+		descriptor = "(IIB)V",
+		garbageValue = "14"
 	)
-	public static void method13(AbstractArchive var0) {
-		FloorUnderlayDefinition.FloorUnderlayDefinition_archive = var0; // L: 19
-	} // L: 20
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(ILcc;ZI)I",
-		garbageValue = "-2075885468"
-	)
-	static int method10(int var0, Script var1, boolean var2) {
-		int var3;
-		int var6;
-		int var9;
-		if (var0 == ScriptOpcodes.ENUM_STRING) { // L: 2000
-			class16.Interpreter_intStackSize -= 2; // L: 2001
-			var3 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize]; // L: 2002
-			var9 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 1]; // L: 2003
-			EnumComposition var10 = class159.getEnum(var3); // L: 2004
-			if (var10.outputType != 's') { // L: 2005
-			}
-
-			for (var6 = 0; var6 < var10.outputCount; ++var6) { // L: 2006
-				if (var9 == var10.keys[var6]) { // L: 2007
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var10.strVals[var6]; // L: 2008
-					var10 = null; // L: 2009
-					break;
-				}
-			}
-
-			if (var10 != null) { // L: 2013
-				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var10.defaultStr;
-			}
-
-			return 1; // L: 2014
-		} else if (var0 != ScriptOpcodes.ENUM) { // L: 2016
-			if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) { // L: 2042
-				var3 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 2043
-				EnumComposition var4 = class159.getEnum(var3); // L: 2044
-				Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = var4.size(); // L: 2045
-				return 1; // L: 2046
-			} else {
-				return 2; // L: 2048
-			}
-		} else {
-			class16.Interpreter_intStackSize -= 4; // L: 2017
-			var3 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize]; // L: 2018
-			var9 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 1]; // L: 2019
-			int var5 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 2]; // L: 2020
-			var6 = Interpreter.Interpreter_intStack[class16.Interpreter_intStackSize + 3]; // L: 2021
-			EnumComposition var7 = class159.getEnum(var5); // L: 2022
-			if (var3 == var7.inputType && var9 == var7.outputType) { // L: 2023
-				for (int var8 = 0; var8 < var7.outputCount; ++var8) { // L: 2028
-					if (var6 == var7.keys[var8]) { // L: 2029
-						if (var9 == 115) { // L: 2030
-							Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var7.strVals[var8];
-						} else {
-							Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = var7.intVals[var8]; // L: 2031
-						}
-
-						var7 = null; // L: 2032
-						break;
-					}
-				}
-
-				if (var7 != null) { // L: 2036
-					if (var9 == 115) { // L: 2037
-						Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var7.defaultStr;
-					} else {
-						Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = var7.defaultInt; // L: 2038
-					}
-				}
-
-				return 1; // L: 2040
-			} else {
-				if (var9 == 115) { // L: 2024
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "null";
+	static final void method0(int var0, int var1) {
+		if (Client.menuOptionsCount >= 2 || Client.isItemSelected != 0 || Client.isSpellSelected) { // L: 7836
+			if (Client.showMouseOverText) { // L: 7837
+				int var2 = AttackOption.method2285(); // L: 7838
+				String var3;
+				if (Client.isItemSelected == 1 && Client.menuOptionsCount < 2) { // L: 7840
+					var3 = "Use" + " " + Client.selectedItemName + " " + "->";
+				} else if (Client.isSpellSelected && Client.menuOptionsCount < 2) { // L: 7841
+					var3 = Client.selectedSpellActionName + " " + Client.selectedSpellName + " " + "->";
 				} else {
-					Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = 0; // L: 2025
+					String var4;
+					if (var2 < 0) { // L: 7845
+						var4 = ""; // L: 7846
+					} else if (Client.menuTargets[var2].length() > 0) { // L: 7849
+						var4 = Client.menuActions[var2] + " " + Client.menuTargets[var2];
+					} else {
+						var4 = Client.menuActions[var2]; // L: 7850
+					}
+
+					var3 = var4; // L: 7852
 				}
 
-				return 1; // L: 2026
+				if (Client.menuOptionsCount > 2) { // L: 7854
+					var3 = var3 + HorizontalAlignment.colorStartTag(16777215) + " " + '/' + " " + (Client.menuOptionsCount - 2) + " more options";
+				}
+
+				WorldMapArea.fontBold12.drawRandomAlphaAndSpacing(var3, var0 + 4, var1 + 15, 16777215, 0, Client.cycle / 1000); // L: 7855
 			}
 		}
-	}
+	} // L: 7856
 }

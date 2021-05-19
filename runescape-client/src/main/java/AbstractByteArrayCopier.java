@@ -1,49 +1,69 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hd")
+@ObfuscatedName("iw")
 @Implements("AbstractByteArrayCopier")
 public abstract class AbstractByteArrayCopier {
+	@ObfuscatedName("r")
+	static int[] field3115;
+	@ObfuscatedName("lt")
+	@ObfuscatedGetter(
+		intValue = -1508140937
+	)
+	@Export("menuX")
+	static int menuX;
+
 	AbstractByteArrayCopier() {
 	} // L: 4
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(I)[B",
-		garbageValue = "-1722490231"
+		garbageValue = "-1778746914"
 	)
 	@Export("get")
 	abstract byte[] get();
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "([BI)V",
-		garbageValue = "1564375073"
+		garbageValue = "973811650"
 	)
 	@Export("set")
-	public abstract void set(byte[] var1);
+	abstract void set(byte[] var1);
 
-	@ObfuscatedName("ie")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZI)V",
-		garbageValue = "-1232233436"
+		descriptor = "(Ljp;I)V",
+		garbageValue = "-1461595719"
 	)
-	@Export("insertMenuItem")
-	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
-		if (!Client.isMenuOpen) { // L: 9004
-			if (Client.menuOptionsCount < 500) { // L: 9005
-				Client.menuActions[Client.menuOptionsCount] = var0; // L: 9006
-				Client.menuTargets[Client.menuOptionsCount] = var1; // L: 9007
-				Client.menuOpcodes[Client.menuOptionsCount] = var2; // L: 9008
-				Client.menuIdentifiers[Client.menuOptionsCount] = var3; // L: 9009
-				Client.menuArguments1[Client.menuOptionsCount] = var4; // L: 9010
-				Client.menuArguments2[Client.menuOptionsCount] = var5; // L: 9011
-				Client.menuShiftClick[Client.menuOptionsCount] = var6; // L: 9012
-				++Client.menuOptionsCount; // L: 9013
-			}
+	public static void method4756(AbstractArchive var0) {
+		VarcInt.VarcInt_archive = var0; // L: 17
+	} // L: 18
 
-		}
-	} // L: 9015
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "583032704"
+	)
+	static final int method4754(int var0, int var1) {
+		int var2 = var0 + var1 * 57; // L: 485
+		var2 ^= var2 << 13; // L: 486
+		int var3 = (var2 * var2 * 15731 + 789221) * var2 + 1376312589 & Integer.MAX_VALUE; // L: 487
+		return var3 >> 19 & 255; // L: 488
+	}
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-331498963"
+	)
+	static final void method4738() {
+		Object var10000 = null; // L: 128
+		String var0 = "Your friend list is full. Max of 200 for free users, and 400 for members";
+		WorldMapScaleHandler.addGameMessage(30, "", var0); // L: 130
+	} // L: 132
 }

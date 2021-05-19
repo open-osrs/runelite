@@ -4,49 +4,58 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jz")
+@ObfuscatedName("eq")
 @Implements("EnumComposition")
 public class EnumComposition extends DualNode {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lir;"
+		descriptor = "Ljp;"
 	)
 	@Export("EnumDefinition_archive")
 	public static AbstractArchive EnumDefinition_archive;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lgf;"
+		descriptor = "Lho;"
 	)
 	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
-	@ObfuscatedName("u")
+	@ObfuscatedName("j")
+	@Export("formattedOperatingSystemName")
+	public static String formattedOperatingSystemName;
+	@ObfuscatedName("dy")
+	@ObfuscatedSignature(
+		descriptor = "Lji;"
+	)
+	@Export("archive3")
+	static Archive archive3;
+	@ObfuscatedName("o")
 	@Export("inputType")
 	public char inputType;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@Export("outputType")
 	public char outputType;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1791938445
+		intValue = -1421097463
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1639426453
+		intValue = 1998953015
 	)
 	@Export("outputCount")
 	public int outputCount;
-	@ObfuscatedName("g")
+	@ObfuscatedName("v")
 	@Export("keys")
 	public int[] keys;
-	@ObfuscatedName("h")
+	@ObfuscatedName("b")
 	@Export("intVals")
 	public int[] intVals;
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@Export("strVals")
 	public String[] strVals;
 
@@ -57,12 +66,12 @@ public class EnumComposition extends DualNode {
 	EnumComposition() {
 		this.defaultStr = "null"; // L: 15
 		this.outputCount = 0; // L: 17
-	} // L: 22
+	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lnu;I)V",
-		garbageValue = "1691183927"
+		descriptor = "(Lnk;I)V",
+		garbageValue = "967216263"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -76,10 +85,10 @@ public class EnumComposition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lnu;II)V",
-		garbageValue = "-440567835"
+		descriptor = "(Lnk;IS)V",
+		garbageValue = "249"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -116,13 +125,31 @@ public class EnumComposition extends DualNode {
 
 	} // L: 66
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "765918269"
+		garbageValue = "713399938"
 	)
 	@Export("size")
 	public int size() {
 		return this.outputCount; // L: 69
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(IB)Lll;",
+		garbageValue = "3"
+	)
+	public static PrivateChatMode method2727(int var0) {
+		PrivateChatMode[] var1 = WorldMapRegion.method3351(); // L: 20
+
+		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 21
+			PrivateChatMode var3 = var1[var2]; // L: 22
+			if (var0 == var3.field3898) {
+				return var3; // L: 24
+			}
+		}
+
+		return null; // L: 28
 	}
 }

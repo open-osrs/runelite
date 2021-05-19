@@ -1,94 +1,132 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("et")
+@ObfuscatedName("ee")
 @Implements("Clock")
 public abstract class Clock {
+	@ObfuscatedName("eo")
+	@ObfuscatedGetter(
+		intValue = 7166595
+	)
+	static int field1522;
+
 	Clock() {
 	} // L: 4
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "-629"
+		descriptor = "(I)V",
+		garbageValue = "2109522039"
 	)
 	@Export("mark")
 	public abstract void mark();
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "1172254968"
+		garbageValue = "665432073"
 	)
 	@Export("wait")
 	public abstract int wait(int var1, int var2);
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1662768639"
+		descriptor = "(S)Lhm;",
+		garbageValue = "5230"
 	)
-	public static void method2600() {
-		HitSplatDefinition.HitSplatDefinition_cached.clear(); // L: 177
-		HitSplatDefinition.HitSplatDefinition_cachedSprites.clear(); // L: 178
-		HitSplatDefinition.HitSplatDefinition_cachedFonts.clear(); // L: 179
-	} // L: 180
+	public static PacketBufferNode method2590() {
+		return PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0 ? new PacketBufferNode() : PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount]; // L: 22 23
+	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "765268969"
+		descriptor = "(I)Lee;",
+		garbageValue = "-74631623"
 	)
-	public static void method2610() {
-		ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 578
-	} // L: 579
+	public static Clock method2597() {
+		try {
+			return new NanoClock(); // L: 8
+		} catch (Throwable var1) { // L: 10
+			return new MilliClock(); // L: 11
+		}
+	}
 
-	@ObfuscatedName("jh")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "([Lhu;II)V",
-		garbageValue = "974266875"
+		descriptor = "(Ljava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "-1967334125"
 	)
-	@Export("runComponentCloseListeners")
-	static final void runComponentCloseListeners(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 10884
-			Widget var3 = var0[var2]; // L: 10885
-			if (var3 != null) { // L: 10886
-				if (var3.type == 0) { // L: 10887
-					if (var3.children != null) { // L: 10888
-						runComponentCloseListeners(var3.children, var1);
-					}
+	public static String method2592(String var0) {
+		int var1 = var0.length(); // L: 163
+		char[] var2 = new char[var1]; // L: 164
+		byte var3 = 2; // L: 165
 
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 10889
-					if (var4 != null) { // L: 10890
-						class379.runIntfCloseListeners(var4.group, var1);
-					}
+		for (int var4 = 0; var4 < var1; ++var4) { // L: 166
+			char var5 = var0.charAt(var4); // L: 167
+			if (var3 == 0) { // L: 168
+				var5 = Character.toLowerCase(var5);
+			} else if (var3 == 2 || Character.isUpperCase(var5)) { // L: 169
+				char var6;
+				if (var5 != 181 && var5 != 402) { // L: 172
+					var6 = Character.toTitleCase(var5); // L: 176
+				} else {
+					var6 = var5; // L: 173
 				}
 
-				ScriptEvent var5;
-				if (var1 == 0 && var3.onDialogAbort != null) { // L: 10892
-					var5 = new ScriptEvent(); // L: 10893
-					var5.widget = var3; // L: 10894
-					var5.args = var3.onDialogAbort; // L: 10895
-					class19.runScriptEvent(var5); // L: 10896
-				}
+				var5 = var6; // L: 178
+			}
 
-				if (var1 == 1 && var3.onSubChange != null) { // L: 10898
-					if (var3.childIndex >= 0) { // L: 10899
-						Widget var6 = class139.getWidget(var3.id); // L: 10900
-						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) { // L: 10901
-							continue;
-						}
+			if (Character.isLetter(var5)) { // L: 180
+				var3 = 0;
+			} else if (var5 != '.' && var5 != '?' && var5 != '!') { // L: 181
+				if (Character.isSpaceChar(var5)) { // L: 182
+					if (var3 != 2) { // L: 183
+						var3 = 1;
 					}
+				} else {
+					var3 = 1; // L: 185
+				}
+			} else {
+				var3 = 2;
+			}
 
-					var5 = new ScriptEvent(); // L: 10905
-					var5.widget = var3; // L: 10906
-					var5.args = var3.onSubChange; // L: 10907
-					class19.runScriptEvent(var5); // L: 10908
+			var2[var4] = var5; // L: 186
+		}
+
+		return new String(var2); // L: 188
+	}
+
+	@ObfuscatedName("je")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIIII)V",
+		garbageValue = "2056453136"
+	)
+	@Export("updateRootInterface")
+	static final void updateRootInterface(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		if (UserComparator8.loadInterface(var0)) { // L: 10463
+			class32.updateInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6); // L: 10464
+		}
+	} // L: 10465
+
+	@ObfuscatedName("ll")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1034595766"
+	)
+	static void method2583() {
+		if (class18.field154 != null) { // L: 11774
+			Client.field687 = Client.cycle; // L: 11775
+			class18.field154.method5048(); // L: 11776
+
+			for (int var0 = 0; var0 < Client.players.length; ++var0) { // L: 11777
+				if (Client.players[var0] != null) { // L: 11778
+					class18.field154.method5037((Client.players[var0].x >> 7) + JagexCache.baseX, (Client.players[var0].y >> 7) + Messages.baseY); // L: 11779
 				}
 			}
 		}
 
-	} // L: 10911
+	} // L: 11783
 }

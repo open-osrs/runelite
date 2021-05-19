@@ -1,56 +1,108 @@
 import java.util.concurrent.Callable;
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ag")
+@ObfuscatedName("aj")
 public class class29 implements Callable {
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = 254933769
-	)
-	@Export("clientTickTimeIdx")
-	static int clientTickTimeIdx;
-	@ObfuscatedName("f")
+	@ObfuscatedName("sg")
 	@ObfuscatedSignature(
-		descriptor = "Lnu;"
+		descriptor = "Ljw;"
 	)
-	final Buffer field216;
-	@ObfuscatedName("o")
+	@Export("grandExchangeEvents")
+	static GrandExchangeEvents grandExchangeEvents;
+	@ObfuscatedName("df")
+	@ObfuscatedSignature(
+		descriptor = "Lji;"
+	)
+	@Export("archive6")
+	static Archive archive6;
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Lnk;"
+	)
+	final Buffer field228;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "Lat;"
 	)
-	final class31 field215;
+	final class31 field231;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lax;"
+		descriptor = "Lam;"
 	)
 	final class35 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lax;Lnu;Lat;)V"
+		descriptor = "(Lam;Lnk;Lat;)V"
 	)
 	class29(class35 var1, Buffer var2, class31 var3) {
 		this.this$0 = var1; // L: 47
-		this.field216 = var2; // L: 48
-		this.field215 = var3; // L: 49
+		this.field228 = var2; // L: 48
+		this.field231 = var3; // L: 49
 	} // L: 50
 
 	public Object call() {
-		return this.field215.vmethod389(this.field216); // L: 53
+		return this.field231.vmethod358(this.field228); // L: 53
 	}
 
-	@ObfuscatedName("ju")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lhu;I)V",
-		garbageValue = "1142852074"
+		descriptor = "(B)V",
+		garbageValue = "11"
 	)
-	@Export("invalidateWidget")
-	static void invalidateWidget(Widget var0) {
-		if (var0.cycle == Client.field810) { // L: 11035
-			Client.field811[var0.rootIndex] = true; // L: 11036
+	public static void method354() {
+		if (KeyHandler.KeyHandler_instance != null) { // L: 156
+			synchronized(KeyHandler.KeyHandler_instance) { // L: 157
+				KeyHandler.KeyHandler_instance = null; // L: 158
+			} // L: 159
 		}
 
-	} // L: 11038
+	} // L: 161
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "([BIIIIIII[Lfa;I)V",
+		garbageValue = "1513429119"
+	)
+	static final void method355(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, CollisionMap[] var8) {
+		int var10;
+		for (int var9 = 0; var9 < 8; ++var9) { // L: 77
+			for (var10 = 0; var10 < 8; ++var10) { // L: 78
+				if (var9 + var2 > 0 && var9 + var2 < 103 && var3 + var10 > 0 && var3 + var10 < 103) { // L: 79
+					int[] var10000 = var8[var1].flags[var9 + var2];
+					var10000[var3 + var10] &= -16777217;
+				}
+			}
+		}
+
+		Buffer var20 = new Buffer(var0); // L: 82
+
+		for (var10 = 0; var10 < 4; ++var10) { // L: 83
+			for (int var11 = 0; var11 < 64; ++var11) { // L: 84
+				for (int var12 = 0; var12 < 64; ++var12) { // L: 85
+					if (var10 == var4 && var11 >= var5 && var11 < var5 + 8 && var12 >= var6 && var12 < var6 + 8) { // L: 86
+						int var17 = var11 & 7; // L: 91
+						int var18 = var12 & 7; // L: 92
+						int var19 = var7 & 3; // L: 95
+						int var16;
+						if (var19 == 0) { // L: 96
+							var16 = var17; // L: 97
+						} else if (var19 == 1) { // L: 100
+							var16 = var18; // L: 101
+						} else if (var19 == 2) { // L: 104
+							var16 = 7 - var17; // L: 105
+						} else {
+							var16 = 7 - var18; // L: 108
+						}
+
+						AbstractWorldMapData.loadTerrain(var20, var1, var2 + var16, var3 + ReflectionCheck.method1159(var11 & 7, var12 & 7, var7), 0, 0, var7); // L: 110
+					} else {
+						AbstractWorldMapData.loadTerrain(var20, 0, -1, -1, 0, 0, 0); // L: 112
+					}
+				}
+			}
+		}
+
+	} // L: 116
 }

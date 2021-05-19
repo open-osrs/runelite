@@ -1,140 +1,112 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("bz")
+@ObfuscatedName("bl")
 @Implements("GrandExchangeOfferOwnWorldComparator")
 public class GrandExchangeOfferOwnWorldComparator implements Comparator {
-	@ObfuscatedName("o")
+	@ObfuscatedName("gm")
 	@ObfuscatedSignature(
-		descriptor = "Lir;"
+		descriptor = "Low;"
 	)
-	@Export("SequenceDefinition_animationsArchive")
-	public static AbstractArchive SequenceDefinition_animationsArchive;
-	@ObfuscatedName("d")
-	@Export("Tiles_hueMultiplier")
-	static int[] Tiles_hueMultiplier;
-	@ObfuscatedName("f")
+	@Export("redHintArrowSprite")
+	static SpritePixels redHintArrowSprite;
+	@ObfuscatedName("lk")
+	@ObfuscatedGetter(
+		intValue = -1477191609
+	)
+	@Export("menuHeight")
+	static int menuHeight;
+	@ObfuscatedName("h")
 	@Export("filterWorlds")
 	boolean filterWorlds;
 
 	GrandExchangeOfferOwnWorldComparator() {
-	} // L: 11779
+	} // L: 11820
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Ljt;Ljt;I)I",
-		garbageValue = "-1018432181"
+		descriptor = "(Ljz;Ljz;B)I",
+		garbageValue = "-64"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		if (var2.world == var1.world) { // L: 11782
+		if (var2.world == var1.world) { // L: 11823
 			return 0;
 		} else {
-			if (this.filterWorlds) { // L: 11783
-				if (Client.worldId == var1.world) { // L: 11784
+			if (this.filterWorlds) { // L: 11824
+				if (Client.worldId == var1.world) { // L: 11825
 					return -1;
 				}
 
-				if (var2.world == Client.worldId) { // L: 11785
+				if (var2.world == Client.worldId) { // L: 11826
 					return 1;
 				}
 			}
 
-			return var1.world < var2.world ? -1 : 1; // L: 11787
+			return var1.world < var2.world ? -1 : 1; // L: 11828
 		}
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 11795
+		return super.equals(var1); // L: 11836
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 11791
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 11832
 	}
 
-	@ObfuscatedName("aw")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(ILcc;ZB)I",
-		garbageValue = "20"
+		descriptor = "(I)V",
+		garbageValue = "836817261"
 	)
-	static int method1217(int var0, Script var1, boolean var2) {
-		if (var0 == ScriptOpcodes.GETWINDOWMODE) { // L: 3375
-			Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = WorldMapScaleHandler.getWindowedMode(); // L: 3376
-			return 1; // L: 3377
+	static void method1213() {
+		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) { // L: 242
+			Login.currentLoginField = 1; // L: 243
 		} else {
-			int var3;
-			if (var0 == ScriptOpcodes.SETWINDOWMODE) { // L: 3379
-				var3 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 3380
-				if (var3 == 1 || var3 == 2) { // L: 3381
-					Tile.setWindowedMode(var3);
-				}
-
-				return 1; // L: 3382
-			} else if (var0 == ScriptOpcodes.GETDEFAULTWINDOWMODE) { // L: 3384
-				Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = Login.clientPreferences.windowMode; // L: 3385
-				return 1; // L: 3386
-			} else if (var0 != ScriptOpcodes.SETDEFAULTWINDOWMODE) { // L: 3388
-				if (var0 == 5310) { // L: 3396
-					--class16.Interpreter_intStackSize; // L: 3397
-					return 1; // L: 3398
-				} else if (var0 == 5350) { // L: 3400
-					Interpreter.Interpreter_stringStackSize -= 2; // L: 3401
-					--class16.Interpreter_intStackSize; // L: 3402
-					return 1; // L: 3403
-				} else if (var0 == 5351) { // L: 3405
-					--Interpreter.Interpreter_stringStackSize; // L: 3406
-					return 1; // L: 3407
-				} else {
-					return 2; // L: 3409
-				}
-			} else {
-				var3 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 3389
-				if (var3 == 1 || var3 == 2) { // L: 3390
-					Login.clientPreferences.windowMode = var3; // L: 3391
-					Message.savePreferences(); // L: 3392
-				}
-
-				return 1; // L: 3394
-			}
+			Login.currentLoginField = 0; // L: 246
 		}
-	}
 
-	@ObfuscatedName("av")
+	} // L: 248
+
+	@ObfuscatedName("im")
 	@ObfuscatedSignature(
-		descriptor = "(ILcc;ZB)I",
-		garbageValue = "73"
+		descriptor = "(I)V",
+		garbageValue = "-1470000440"
 	)
-	static int method1216(int var0, Script var1, boolean var2) {
-		if (var0 != 6700 && var0 != 6702 && var0 != 6704 && var0 != 6706 && var0 != 6708) { // L: 4108
-			if (var0 != 6701 && var0 != 6703 && var0 != 6705 && var0 != 6707 && var0 != 6709) { // L: 4113
-				if (var0 == 6750) { // L: 4117
-					++Interpreter.Interpreter_stringStackSize; // L: 4118
-					return 1; // L: 4119
-				} else if (var0 != 6751 && var0 != 6752 && var0 != 6753) { // L: 4121
-					if (var0 == 6754) { // L: 4125
-						int var3 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 4126
-						NPCComposition var4 = GraphicsObject.getNpcDefinition(var3); // L: 4127
-						Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var4 != null ? var4.name : ""; // L: 4128
-						return 1; // L: 4129
-					} else {
-						return 2; // L: 4131
+	static void method1212() {
+		for (int var0 = 0; var0 < Client.menuOptionsCount; ++var0) { // L: 9105
+			if (class44.method499(Client.menuOpcodes[var0])) { // L: 9106
+				if (var0 < Client.menuOptionsCount - 1) { // L: 9107
+					for (int var1 = var0; var1 < Client.menuOptionsCount - 1; ++var1) { // L: 9108
+						Client.menuActions[var1] = Client.menuActions[var1 + 1]; // L: 9109
+						Client.menuTargets[var1] = Client.menuTargets[var1 + 1]; // L: 9110
+						Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1]; // L: 9111
+						Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1]; // L: 9112
+						Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1]; // L: 9113
+						Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1]; // L: 9114
+						Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1]; // L: 9115
 					}
-				} else {
-					++class16.Interpreter_intStackSize; // L: 4122
-					return 1; // L: 4123
 				}
-			} else {
-				--class16.Interpreter_intStackSize; // L: 4114
-				return 1; // L: 4115
+
+				--var0; // L: 9118
+				--Client.menuOptionsCount; // L: 9119
 			}
-		} else {
-			class16.Interpreter_intStackSize -= 2; // L: 4109
-			--Interpreter.Interpreter_stringStackSize; // L: 4110
-			return 1; // L: 4111
 		}
+
+		WorldMapRegion.method3317(SoundCache.menuWidth / 2 + AbstractByteArrayCopier.menuX, HitSplatDefinition.menuY); // L: 9123
+	} // L: 9125
+
+	@ObfuscatedName("ji")
+	@ObfuscatedSignature(
+		descriptor = "(IB)Ljava/lang/String;",
+		garbageValue = "117"
+	)
+	static final String method1214(int var0) {
+		return var0 < 999999999 ? Integer.toString(var0) : "*"; // L: 10156 10157
 	}
 }

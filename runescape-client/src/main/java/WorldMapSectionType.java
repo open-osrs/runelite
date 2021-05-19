@@ -4,78 +4,74 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ed")
+@ObfuscatedName("fp")
 @Implements("WorldMapSectionType")
 public enum WorldMapSectionType implements Enumerated {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Led;"
+		descriptor = "Lfp;"
 	)
 	@Export("WORLDMAPSECTIONTYPE0")
 	WORLDMAPSECTIONTYPE0(2, (byte)0),
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Led;"
+		descriptor = "Lfp;"
 	)
 	@Export("WORLDMAPSECTIONTYPE1")
-	WORLDMAPSECTIONTYPE1(1, (byte)1),
-	@ObfuscatedName("u")
+	WORLDMAPSECTIONTYPE1(3, (byte)1),
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Led;"
+		descriptor = "Lfp;"
 	)
 	@Export("WORLDMAPSECTIONTYPE2")
-	WORLDMAPSECTIONTYPE2(3, (byte)2),
-	@ObfuscatedName("p")
+	WORLDMAPSECTIONTYPE2(1, (byte)2),
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Led;"
+		descriptor = "Lfp;"
 	)
 	@Export("WORLDMAPSECTIONTYPE3")
 	WORLDMAPSECTIONTYPE3(0, (byte)3);
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 624022127
+		intValue = 829502387
 	)
 	@Export("type")
 	final int type;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@Export("id")
 	final byte id;
 
 	WorldMapSectionType(int var3, byte var4) {
-		this.type = var3; // L: 17
-		this.id = var4; // L: 18
-	} // L: 19
+		this.type = var3; // L: 21
+		this.id = var4; // L: 22
+	} // L: 23
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1000839247"
+		garbageValue = "-708237537"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 22
+		return this.id; // L: 26
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(IZIZI)V",
-		garbageValue = "-998879160"
+		descriptor = "([BI)Lfu;",
+		garbageValue = "-1740492560"
 	)
-	@Export("sortWorldList")
-	static void sortWorldList(int var0, boolean var1, int var2, boolean var3) {
-		if (class9.World_worlds != null) { // L: 171
-			class368.doWorldSorting(0, class9.World_worlds.length - 1, var0, var1, var2, var3); // L: 172
-		}
+	static WorldMapSprite method3540(byte[] var0) {
+		return var0 == null ? new WorldMapSprite() : new WorldMapSprite(WorldMapAreaData.convertJpgToSprite(var0).pixels); // L: 19 20
+	}
 
-	} // L: 174
-
-	@ObfuscatedName("b")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "583371585"
+		descriptor = "(I)[Lfp;",
+		garbageValue = "-998055644"
 	)
-	public static boolean method3066(int var0) {
-		return var0 >= WorldMapDecorationType.field2834.id && var0 <= WorldMapDecorationType.field2835.id; // L: 42
+	static WorldMapSectionType[] method3537() {
+		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE2}; // L: 17
 	}
 }

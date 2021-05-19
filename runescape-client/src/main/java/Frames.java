@@ -1,26 +1,20 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fb")
+@ObfuscatedName("gi")
 @Implements("Frames")
 public class Frames extends DualNode {
 	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = -560796659
-	)
-	public static int field2007;
-	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "[Lft;"
+		descriptor = "[Lgx;"
 	)
 	@Export("frames")
 	Animation[] frames;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lir;Lir;IZ)V"
+		descriptor = "(Ljp;Ljp;IZ)V"
 	)
 	Frames(AbstractArchive var1, AbstractArchive var2, int var3, boolean var4) {
 		NodeDeque var5 = new NodeDeque(); // L: 35
@@ -57,32 +51,13 @@ public class Frames extends DualNode {
 
 	} // L: 60
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "394513826"
+		garbageValue = "1252473140"
 	)
 	@Export("hasAlphaTransform")
 	public boolean hasAlphaTransform(int var1) {
 		return this.frames[var1].hasAlphaTransform; // L: 63
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(DDII)[D",
-		garbageValue = "-880318163"
-	)
-	public static double[] method3639(double var0, double var2, int var4) {
-		int var5 = var4 * 2 + 1; // L: 13
-		double[] var6 = new double[var5]; // L: 14
-		int var7 = -var4;
-
-		for (int var8 = 0; var7 <= var4; ++var8) {
-			double var11 = AbstractUserComparator.method5714(((double)var7 - var0) / var2) / var2; // L: 20
-			var6[var8] = var11; // L: 22
-			++var7; // L: 15
-		}
-
-		return var6; // L: 24
 	}
 }

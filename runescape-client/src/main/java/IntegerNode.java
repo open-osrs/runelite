@@ -2,10 +2,10 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("mp")
+@ObfuscatedName("mb")
 @Implements("IntegerNode")
 public class IntegerNode extends Node {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("integer")
 	public int integer;
 

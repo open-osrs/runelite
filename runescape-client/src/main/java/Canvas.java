@@ -1,27 +1,29 @@
 import java.awt.Component;
 import java.awt.Graphics;
-import java.security.SecureRandom;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ai")
+@ObfuscatedName("aa")
 @Implements("Canvas")
 public final class Canvas extends java.awt.Canvas {
-	@ObfuscatedName("pj")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lln;"
+		descriptor = "Low;"
 	)
-	@Export("privateChatMode")
-	static PrivateChatMode privateChatMode;
-	@ObfuscatedName("a")
-	@Export("userHomeDirectory")
-	static String userHomeDirectory;
-	@ObfuscatedName("eo")
-	@Export("secureRandom")
-	static SecureRandom secureRandom;
-	@ObfuscatedName("f")
+	@Export("leftTitleSprite")
+	static SpritePixels leftTitleSprite;
+	@ObfuscatedName("q")
+	public static short[][] field295;
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "Lg;"
+	)
+	static class3 field292;
+	@ObfuscatedName("br")
+	static String field291;
+	@ObfuscatedName("h")
 	@Export("component")
 	Component component;
 
@@ -37,76 +39,46 @@ public final class Canvas extends java.awt.Canvas {
 		this.component.paint(var1); // L: 19
 	} // L: 20
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("gh")
 	@ObfuscatedSignature(
-		descriptor = "(Lig;IIIBZI)V",
-		garbageValue = "-501107063"
+		descriptor = "(I)Z",
+		garbageValue = "-1733422772"
 	)
-	@Export("requestNetFile")
-	static void requestNetFile(Archive var0, int var1, int var2, int var3, byte var4, boolean var5) {
-		long var6 = (long)((var1 << 16) + var2); // L: 223
-		NetFileRequest var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityWrites.get(var6); // L: 224
-		if (var8 == null) { // L: 225
-			var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.get(var6); // L: 226
-			if (var8 == null) { // L: 227
-				var8 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var6); // L: 228
-				if (var8 != null) { // L: 229
-					if (var5) { // L: 230
-						var8.removeDual(); // L: 231
-						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 232
-						--NetCache.NetCache_pendingWritesCount; // L: 233
-						++NetCache.NetCache_pendingPriorityWritesCount; // L: 234
-					}
+	static boolean method469() {
+		return (Client.drawPlayerNames & 4) != 0; // L: 4830
+	}
 
-				} else {
-					if (!var5) { // L: 238
-						var8 = (NetFileRequest)NetCache.NetCache_pendingResponses.get(var6); // L: 239
-						if (var8 != null) { // L: 240
-							return;
-						}
-					}
-
-					var8 = new NetFileRequest(); // L: 242
-					var8.archive = var0; // L: 243
-					var8.crc = var3; // L: 244
-					var8.padding = var4; // L: 245
-					if (var5) { // L: 246
-						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 247
-						++NetCache.NetCache_pendingPriorityWritesCount; // L: 248
-					} else {
-						NetCache.NetCache_pendingWritesQueue.addFirst(var8); // L: 251
-						NetCache.NetCache_pendingWrites.put(var8, var6); // L: 252
-						++NetCache.NetCache_pendingWritesCount; // L: 253
-					}
-
-				}
+	@ObfuscatedName("jz")
+	@ObfuscatedSignature(
+		descriptor = "(II)Z",
+		garbageValue = "-1799291119"
+	)
+	static boolean method467(int var0) {
+		for (int var1 = 0; var1 < Client.field842; ++var1) { // L: 10935
+			if (Client.field844[var1] == var0) { // L: 10936
+				return true;
 			}
 		}
-	} // L: 236 255
 
-	@ObfuscatedName("b")
+		return false; // L: 10938
+	}
+
+	@ObfuscatedName("lw")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1588134058"
+		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
+		garbageValue = "1"
 	)
-	static void method481() {
-		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) { // L: 208
-			Login.currentLoginField = 1; // L: 209
-		} else {
-			Login.currentLoginField = 0; // L: 212
+	static String method468(String var0) {
+		PlayerType[] var1 = class249.PlayerType_values(); // L: 11757
+
+		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 11758
+			PlayerType var3 = var1[var2]; // L: 11759
+			if (var3.modIcon != -1 && var0.startsWith(class169.method3495(var3.modIcon))) { // L: 11761 11762
+				var0 = var0.substring(6 + Integer.toString(var3.modIcon).length()); // L: 11763
+				break;
+			}
 		}
 
-	} // L: 214
-
-	@ObfuscatedName("jy")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "113"
-	)
-	@Export("updateSoundEffectVolume")
-	static final void updateSoundEffectVolume(int var0) {
-		var0 = Math.min(Math.max(var0, 0), 127); // L: 11175
-		Login.clientPreferences.soundEffectsVolume = var0; // L: 11176
-		Message.savePreferences(); // L: 11177
-	} // L: 11178
+		return var0; // L: 11770
+	}
 }

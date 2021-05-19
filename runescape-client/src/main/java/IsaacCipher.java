@@ -7,74 +7,69 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("oy")
 @Implements("IsaacCipher")
 public final class IsaacCipher {
-	@ObfuscatedName("qo")
-	@ObfuscatedSignature(
-		descriptor = "Lp;"
-	)
-	static class3 field4266;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 140655543
+		intValue = 1255372445
 	)
 	@Export("valuesRemaining")
 	int valuesRemaining;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@Export("results")
 	int[] results;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@Export("mm")
 	int[] mm;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 112204363
+		intValue = -1713890931
 	)
 	@Export("aa")
 	int aa;
-	@ObfuscatedName("g")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1322370453
+		intValue = -113768935
 	)
 	@Export("bb")
 	int bb;
-	@ObfuscatedName("h")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1470929015
+		intValue = -1917238977
 	)
 	@Export("cc")
 	int cc;
 
 	public IsaacCipher(int[] var1) {
-		this.mm = new int[256]; // L: 15
-		this.results = new int[256]; // L: 16
+		this.mm = new int[256];
+		this.results = new int[256];
 
 		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 17
 			this.results[var2] = var1[var2]; // L: 18
 		}
 
-		this.method7102(); // L: 20
-	} // L: 21
+		this.method7017(); // L: 20
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1779543758"
+		descriptor = "(S)I",
+		garbageValue = "-4327"
 	)
 	@Export("nextInt")
 	public final int nextInt() {
 		if (this.valuesRemaining == 0) { // L: 24
-			this.generateMoreResults(); // L: 25
+			this.generateMoreResults();
 			this.valuesRemaining = 256; // L: 26
 		}
 
 		return this.results[--this.valuesRemaining]; // L: 28
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "493852824"
+		garbageValue = "-1246307592"
 	)
-	public final int method7100() {
+	public final int method7019() {
 		if (this.valuesRemaining == 0) { // L: 32
 			this.generateMoreResults(); // L: 33
 			this.valuesRemaining = 256; // L: 34
@@ -83,10 +78,10 @@ public final class IsaacCipher {
 		return this.results[this.valuesRemaining - 1]; // L: 36
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "56"
+		descriptor = "(I)V",
+		garbageValue = "-477539920"
 	)
 	@Export("generateMoreResults")
 	final void generateMoreResults() {
@@ -106,7 +101,7 @@ public final class IsaacCipher {
 				this.aa ^= this.aa >>> 16; // L: 52
 			}
 
-			this.aa += this.mm[var1 + 128 & 255]; // L: 54
+			this.aa += this.mm[128 + var1 & 255]; // L: 54
 			int var3;
 			this.mm[var1] = var3 = this.mm[(var2 & 1020) >> 2] + this.aa + this.bb; // L: 55
 			this.results[var1] = this.bb = this.mm[(var3 >> 8 & 1020) >> 2] + var2; // L: 56
@@ -114,12 +109,12 @@ public final class IsaacCipher {
 
 	} // L: 58
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "966648246"
+		descriptor = "(B)V",
+		garbageValue = "0"
 	)
-	final void method7102() {
+	final void method7017() {
 		int var9 = -1640531527; // L: 70
 		int var8 = -1640531527; // L: 71
 		int var7 = -1640531527; // L: 72
@@ -246,4 +241,44 @@ public final class IsaacCipher {
 		this.generateMoreResults(); // L: 188
 		this.valuesRemaining = 256; // L: 189
 	} // L: 190
+
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(Ljp;Ljp;IZB)Lgi;",
+		garbageValue = "5"
+	)
+	@Export("loadFrames")
+	public static Frames loadFrames(AbstractArchive var0, AbstractArchive var1, int var2, boolean var3) {
+		boolean var4 = true; // L: 11
+		int[] var5 = var0.getGroupFileIds(var2); // L: 12
+
+		for (int var6 = 0; var6 < var5.length; ++var6) { // L: 13
+			byte[] var7 = var0.getFile(var2, var5[var6]); // L: 14
+			if (var7 == null) { // L: 15
+				var4 = false; // L: 16
+			} else {
+				int var8 = (var7[0] & 255) << 8 | var7[1] & 255; // L: 19
+				byte[] var9;
+				if (var3) { // L: 21
+					var9 = var1.getFile(0, var8);
+				} else {
+					var9 = var1.getFile(var8, 0); // L: 22
+				}
+
+				if (var9 == null) { // L: 23
+					var4 = false;
+				}
+			}
+		}
+
+		if (!var4) { // L: 25
+			return null;
+		} else {
+			try {
+				return new Frames(var0, var1, var2, var3); // L: 27
+			} catch (Exception var11) { // L: 29
+				return null; // L: 30
+			}
+		}
+	}
 }

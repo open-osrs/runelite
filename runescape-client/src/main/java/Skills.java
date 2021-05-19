@@ -3,13 +3,13 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ie")
+@ObfuscatedName("id")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
 
@@ -27,15 +27,20 @@ public class Skills {
 
 	} // L: 16
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1387857562"
+		descriptor = "(II)V",
+		garbageValue = "-2107390696"
 	)
-	public static void method4377() {
-		if (class303.NetCache_socket != null) { // L: 271
-			class303.NetCache_socket.close();
-		}
+	@Export("clearItemContainer")
+	static void clearItemContainer(int var0) {
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 63
+		if (var1 != null) { // L: 64
+			for (int var2 = 0; var2 < var1.ids.length; ++var2) { // L: 65
+				var1.ids[var2] = -1; // L: 66
+				var1.quantities[var2] = 0; // L: 67
+			}
 
-	} // L: 272
+		}
+	} // L: 69
 }

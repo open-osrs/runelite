@@ -5,39 +5,45 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dd")
+@ObfuscatedName("dc")
 @Implements("JagexCache")
 public class JagexCache {
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@Export("JagexCache_locationFile")
 	static File JagexCache_locationFile;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@Export("cacheDir")
 	static File cacheDir;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = 502349843
-	)
-	@Export("idxCount")
-	static int idxCount;
-	@ObfuscatedName("m")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lnx;"
+		descriptor = "Ljp;"
+	)
+	@Export("musicTrackArchive")
+	public static AbstractArchive musicTrackArchive;
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "Lne;"
 	)
 	@Export("JagexCache_randomDat")
 	public static BufferedFile JagexCache_randomDat;
-	@ObfuscatedName("d")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lnx;"
+		descriptor = "Lne;"
 	)
 	@Export("JagexCache_dat2File")
 	public static BufferedFile JagexCache_dat2File;
-	@ObfuscatedName("c")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Lnx;"
+		descriptor = "Lne;"
 	)
 	@Export("JagexCache_idx255File")
 	public static BufferedFile JagexCache_idx255File;
+	@ObfuscatedName("go")
+	@ObfuscatedGetter(
+		intValue = 1374549723
+	)
+	@Export("baseX")
+	static int baseX;
 
 	static {
 		JagexCache_randomDat = null; // L: 22
@@ -45,12 +51,13 @@ public class JagexCache {
 		JagexCache_idx255File = null; // L: 24
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1018942980"
+		descriptor = "(B)V",
+		garbageValue = "104"
 	)
-	static final int method2541() {
-		return ViewportMouse.ViewportMouse_y; // L: 91
-	}
+	public static void method2538() {
+		NPCComposition.NpcDefinition_cached.clear(); // L: 255
+		NPCComposition.NpcDefinition_cachedModels.clear(); // L: 256
+	} // L: 257
 }

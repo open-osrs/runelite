@@ -1,54 +1,80 @@
-import java.awt.Image;
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ib")
+@ObfuscatedName("jl")
 @Implements("GrandExchangeOfferWorldComparator")
 final class GrandExchangeOfferWorldComparator implements Comparator {
-	@ObfuscatedName("ap")
-	static Image field3318;
-
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Ljt;Ljt;B)I",
-		garbageValue = "30"
+		descriptor = "(Ljz;Ljz;I)I",
+		garbageValue = "54151939"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
 		return var1.world < var2.world ? -1 : (var2.world == var1.world ? 0 : 1); // L: 28
 	}
 
-	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 36
-	}
-
 	public int compare(Object var1, Object var2) {
 		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 32
 	}
 
-	@ObfuscatedName("m")
+	public boolean equals(Object var1) {
+		return super.equals(var1); // L: 36
+	}
+
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-1074102228"
+		descriptor = "(III)I",
+		garbageValue = "-1109160711"
 	)
-	static final int method4609(int var0, int var1, int var2) {
-		int var3 = var0 / var2; // L: 948
-		int var4 = var0 & var2 - 1; // L: 949
-		int var5 = var1 / var2; // L: 950
-		int var6 = var1 & var2 - 1; // L: 951
-		int var7 = class5.method83(var3, var5); // L: 952
-		int var8 = class5.method83(var3 + 1, var5); // L: 953
-		int var9 = class5.method83(var3, var5 + 1); // L: 954
-		int var10 = class5.method83(var3 + 1, var5 + 1); // L: 955
-		int var12 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 958
-		int var11 = ((65536 - var12) * var7 >> 16) + (var8 * var12 >> 16); // L: 959
-		int var14 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 964
-		int var13 = ((65536 - var14) * var9 >> 16) + (var10 * var14 >> 16); // L: 965
-		int var16 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var6 * 1024 / var2] >> 1; // L: 970
-		int var15 = ((65536 - var16) * var11 >> 16) + (var16 * var13 >> 16); // L: 971
-		return var15; // L: 973
+	@Export("ItemContainer_getCount")
+	static int ItemContainer_getCount(int var0, int var1) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 21
+		if (var2 == null) { // L: 22
+			return 0;
+		} else {
+			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0; // L: 23 24
+		}
+	}
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "-514625373"
+	)
+	@Export("isDigit")
+	public static boolean isDigit(char var0) {
+		return var0 >= '0' && var0 <= '9'; // L: 155
+	}
+
+	@ObfuscatedName("kq")
+	@ObfuscatedSignature(
+		descriptor = "(IIII)Lcl;",
+		garbageValue = "-1358292624"
+	)
+	static final InterfaceParent method5010(int var0, int var1, int var2) {
+		InterfaceParent var3 = new InterfaceParent(); // L: 11321
+		var3.group = var1; // L: 11322
+		var3.type = var2; // L: 11323
+		Client.interfaceParents.put(var3, (long)var0); // L: 11324
+		ApproximateRouteStrategy.Widget_resetModelFrames(var1); // L: 11325
+		Widget var4 = DevicePcmPlayerProvider.getWidget(var0); // L: 11326
+		VerticalAlignment.invalidateWidget(var4); // L: 11327
+		if (Client.meslayerContinueWidget != null) { // L: 11328
+			VerticalAlignment.invalidateWidget(Client.meslayerContinueWidget); // L: 11329
+			Client.meslayerContinueWidget = null; // L: 11330
+		}
+
+		GrandExchangeOfferOwnWorldComparator.method1212(); // L: 11332
+		ApproximateRouteStrategy.revalidateWidgetScroll(Widget.Widget_interfaceComponents[var0 >> 16], var4, false); // L: 11333
+		HealthBar.runWidgetOnLoadListener(var1); // L: 11334
+		if (Client.rootInterface != -1) { // L: 11335
+			LoginType.runIntfCloseListeners(Client.rootInterface, 1);
+		}
+
+		return var3; // L: 11336
 	}
 }

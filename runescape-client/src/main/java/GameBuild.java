@@ -4,39 +4,45 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("im")
+@ObfuscatedName("jh")
 @Implements("GameBuild")
 public class GameBuild {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Ljh;"
 	)
 	@Export("LIVE")
 	static final GameBuild LIVE;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Ljh;"
 	)
 	@Export("BUILDLIVE")
 	static final GameBuild BUILDLIVE;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Ljh;"
 	)
 	@Export("RC")
 	static final GameBuild RC;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Ljh;"
 	)
 	@Export("WIP")
 	static final GameBuild WIP;
-	@ObfuscatedName("b")
+	@ObfuscatedName("dv")
+	@ObfuscatedSignature(
+		descriptor = "Lji;"
+	)
+	@Export("archive9")
+	static Archive archive9;
+	@ObfuscatedName("l")
 	@Export("name")
 	public final String name;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 597489609
+		intValue = 1611941383
 	)
 	@Export("buildId")
 	final int buildId;
@@ -49,31 +55,7 @@ public class GameBuild {
 	}
 
 	GameBuild(String var1, int var2) {
-		this.name = var1; // L: 17
-		this.buildId = var2; // L: 18
-	} // L: 19
-
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-107"
-	)
-	static int method4386(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 28
-		if (var2 == null) { // L: 29
-			return 0;
-		} else if (var1 == -1) { // L: 30
-			return 0;
-		} else {
-			int var3 = 0; // L: 31
-
-			for (int var4 = 0; var4 < var2.quantities.length; ++var4) { // L: 32
-				if (var2.ids[var4] == var1) {
-					var3 += var2.quantities[var4]; // L: 33
-				}
-			}
-
-			return var3; // L: 35
-		}
-	}
+		this.name = var1; // L: 13
+		this.buildId = var2; // L: 14
+	} // L: 15
 }

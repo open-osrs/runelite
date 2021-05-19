@@ -4,69 +4,74 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fo")
+@ObfuscatedName("ff")
 @Implements("WorldMapID")
 public class WorldMapID {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lfo;"
+		descriptor = "Lff;"
 	)
-	static final WorldMapID field1741;
+	static final WorldMapID field2099;
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "Lff;"
+	)
+	static final WorldMapID field2100;
 	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lfo;"
-	)
-	static final WorldMapID field1744;
-	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1654868251
-	)
-	@Export("musicTrackFileId")
-	public static int musicTrackFileId;
-	@ObfuscatedName("u")
-	@ObfuscatedGetter(
-		intValue = -1211698009
+		intValue = 1258140299
 	)
 	@Export("value")
 	final int value;
 
 	static {
-		field1741 = new WorldMapID(0); // L: 4
-		field1744 = new WorldMapID(1); // L: 5
+		field2099 = new WorldMapID(0); // L: 4
+		field2100 = new WorldMapID(1); // L: 5
 	}
 
 	WorldMapID(int var1) {
 		this.value = var1; // L: 9
 	} // L: 10
 
-	@ObfuscatedName("er")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "1238552841"
+		descriptor = "(I)Z",
+		garbageValue = "490999200"
 	)
-	static int method3116(int var0) {
-		return var0 * 3 + 600; // L: 1277
-	}
+	public static boolean method3587() {
+		try {
+			if (class232.musicPlayerStatus == 2) { // L: 110
+				if (NPC.musicTrack == null) { // L: 111
+					NPC.musicTrack = MusicTrack.readTrack(JagexCache.musicTrackArchive, class232.musicTrackGroupId, class232.musicTrackFileId); // L: 112
+					if (NPC.musicTrack == null) { // L: 113
+						return false;
+					}
+				}
 
-	@ObfuscatedName("hf")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "397252901"
-	)
-	@Export("Widget_runOnTargetLeave")
-	static void Widget_runOnTargetLeave() {
-		if (Client.isSpellSelected) { // L: 8840
-			Widget var0 = class231.getWidgetChild(class148.selectedSpellWidget, Client.selectedSpellChildIndex); // L: 8841
-			if (var0 != null && var0.onTargetLeave != null) { // L: 8842
-				ScriptEvent var1 = new ScriptEvent(); // L: 8843
-				var1.widget = var0; // L: 8844
-				var1.args = var0.onTargetLeave; // L: 8845
-				class19.runScriptEvent(var1); // L: 8846
+				if (class268.soundCache == null) { // L: 115
+					class268.soundCache = new SoundCache(UserComparator10.soundEffectsArchive, class232.musicSamplesArchive);
+				}
+
+				if (class232.midiPcmStream.loadMusicTrack(NPC.musicTrack, class232.musicPatchesArchive, class268.soundCache, 22050)) { // L: 116
+					class232.midiPcmStream.clearAll(); // L: 117
+					class232.midiPcmStream.setPcmStreamVolume(LoginPacket.musicTrackVolume); // L: 118
+					class232.midiPcmStream.setMusicTrack(NPC.musicTrack, VarpDefinition.musicTrackBoolean); // L: 119
+					class232.musicPlayerStatus = 0; // L: 120
+					NPC.musicTrack = null; // L: 121
+					class268.soundCache = null; // L: 122
+					JagexCache.musicTrackArchive = null; // L: 123
+					return true; // L: 124
+				}
 			}
-
-			Client.field874 = -1; // L: 8848
-			Client.isSpellSelected = false; // L: 8849
-			class29.invalidateWidget(var0); // L: 8850
+		} catch (Exception var1) { // L: 128
+			var1.printStackTrace(); // L: 129
+			class232.midiPcmStream.clear(); // L: 130
+			class232.musicPlayerStatus = 0; // L: 131
+			NPC.musicTrack = null; // L: 132
+			class268.soundCache = null; // L: 133
+			JagexCache.musicTrackArchive = null; // L: 134
 		}
-	} // L: 8851
+
+		return false; // L: 136
+	}
 }

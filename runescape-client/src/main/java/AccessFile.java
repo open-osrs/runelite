@@ -9,21 +9,27 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ni")
+@ObfuscatedName("ng")
 @Implements("AccessFile")
 public final class AccessFile {
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
+	@Export("SpriteBuffer_spritePalette")
+	public static int[] SpriteBuffer_spritePalette;
+	@ObfuscatedName("s")
+	@Export("userHomeDirectory")
+	static String userHomeDirectory;
+	@ObfuscatedName("h")
 	@Export("file")
 	RandomAccessFile file;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		longValue = 4897243031854950465L
+		longValue = -6951669664321612267L
 	)
 	@Export("maxSize")
 	final long maxSize;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		longValue = 8129143810943449499L
+		longValue = 976098540501799607L
 	)
 	@Export("offset")
 	long offset;
@@ -49,84 +55,84 @@ public final class AccessFile {
 		this.file.seek(0L); // L: 23
 	} // L: 24
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("seek")
 	final void seek(long var1) throws IOException {
 		this.file.seek(var1); // L: 27
 		this.offset = var1; // L: 28
 	} // L: 29
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "-206730487"
+		garbageValue = "-1544506184"
 	)
 	@Export("write")
 	public final void write(byte[] var1, int var2, int var3) throws IOException {
-		if ((long)var3 + this.offset > this.maxSize) { // L: 32
+		if (this.offset + (long)var3 > this.maxSize) { // L: 32
 			this.file.seek(this.maxSize); // L: 33
 			this.file.write(1); // L: 34
 			throw new EOFException(); // L: 35
 		} else {
-			this.file.write(var1, var2, var3);
-			this.offset += (long)var3;
+			this.file.write(var1, var2, var3); // L: 37
+			this.offset += (long)var3; // L: 38
 		}
-	}
+	} // L: 39
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1330619520"
+		descriptor = "(B)V",
+		garbageValue = "68"
 	)
 	@Export("close")
 	public final void close() throws IOException {
-		this.closeSync(false);
-	}
+		this.closeSync(false); // L: 42
+	} // L: 43
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "-696399409"
+		descriptor = "(ZS)V",
+		garbageValue = "295"
 	)
 	@Export("closeSync")
 	public final void closeSync(boolean var1) throws IOException {
-		if (this.file != null) {
-			if (var1) {
+		if (this.file != null) { // L: 46
+			if (var1) { // L: 47
 				try {
-					this.file.getFD().sync();
-				} catch (SyncFailedException var3) {
+					this.file.getFD().sync(); // L: 49
+				} catch (SyncFailedException var3) { // L: 51
 				}
 			}
 
-			this.file.close();
-			this.file = null;
+			this.file.close(); // L: 53
+			this.file = null; // L: 54
 		}
 
-	}
+	} // L: 56
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)J",
-		garbageValue = "1218940771"
+		garbageValue = "-1034631213"
 	)
 	@Export("length")
 	public final long length() throws IOException {
-		return this.file.length();
+		return this.file.length(); // L: 59
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "([BIIB)I",
-		garbageValue = "120"
+		garbageValue = "45"
 	)
 	@Export("read")
 	public final int read(byte[] var1, int var2, int var3) throws IOException {
-		int var4 = this.file.read(var1, var2, var3);
+		int var4 = this.file.read(var1, var2, var3); // L: 63
 		if (var4 > 0) {
-			this.offset += (long)var4;
+			this.offset += (long)var4; // L: 64
 		}
 
-		return var4;
+		return var4; // L: 65
 	}
 
 	protected void finalize() throws Throwable {
@@ -136,73 +142,4 @@ public final class AccessFile {
 		}
 
 	} // L: 73
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Lnk;B)V",
-		garbageValue = "54"
-	)
-	@Export("updatePlayer")
-	static final void updatePlayer(PacketBuffer var0) {
-		var0.importIndex(); // L: 37
-		int var1 = Client.localPlayerIndex; // L: 38
-		Player var2 = Varcs.localPlayer = Client.players[var1] = new Player(); // L: 39
-		var2.index = var1; // L: 40
-		int var3 = var0.readBits(30); // L: 41
-		byte var4 = (byte)(var3 >> 28); // L: 42
-		int var5 = var3 >> 14 & 16383; // L: 43
-		int var6 = var3 & 16383; // L: 44
-		var2.pathX[0] = var5 - ItemLayer.baseX; // L: 45
-		var2.x = (var2.pathX[0] << 7) + (var2.transformedSize() << 6); // L: 46
-		var2.pathY[0] = var6 - Tile.baseY; // L: 47
-		var2.y = (var2.pathY[0] << 7) + (var2.transformedSize() << 6); // L: 48
-		class26.Client_plane = var2.plane = var4; // L: 49
-		if (Players.field1352[var1] != null) { // L: 50
-			var2.read(Players.field1352[var1]);
-		}
-
-		Players.Players_count = 0; // L: 51
-		Players.Players_indices[++Players.Players_count - 1] = var1; // L: 52
-		Players.field1350[var1] = 0; // L: 53
-		Players.Players_emptyIdxCount = 0; // L: 54
-
-		for (int var7 = 1; var7 < 2048; ++var7) { // L: 55
-			if (var7 != var1) { // L: 56
-				int var8 = var0.readBits(18); // L: 57
-				int var9 = var8 >> 16; // L: 58
-				int var10 = var8 >> 8 & 597; // L: 59
-				int var11 = var8 & 597; // L: 60
-				Players.Players_regions[var7] = (var10 << 14) + var11 + (var9 << 28); // L: 61
-				Players.Players_orientations[var7] = 0; // L: 62
-				Players.Players_targetIndices[var7] = -1; // L: 63
-				Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var7; // L: 64
-				Players.field1350[var7] = 0; // L: 65
-			}
-		}
-
-		var0.exportIndex(); // L: 67
-	} // L: 68
-
-	@ObfuscatedName("gk")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-696757994"
-	)
-	static final void method6382() {
-		for (GraphicsObject var0 = (GraphicsObject)Client.graphicsObjects.last(); var0 != null; var0 = (GraphicsObject)Client.graphicsObjects.previous()) { // L: 3975 3976 3983
-			if (var0.plane == class26.Client_plane && !var0.isFinished) { // L: 3977
-				if (Client.cycle >= var0.cycleStart) { // L: 3978
-					var0.advance(Client.field799); // L: 3979
-					if (var0.isFinished) { // L: 3980
-						var0.remove();
-					} else {
-						WorldMapArea.scene.drawEntity(var0.plane, var0.x, var0.y, var0.height, 60, var0, 0, -1L, false); // L: 3981
-					}
-				}
-			} else {
-				var0.remove();
-			}
-		}
-
-	} // L: 3985
 }

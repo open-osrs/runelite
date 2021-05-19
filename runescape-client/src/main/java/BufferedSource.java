@@ -7,37 +7,37 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lm")
+@ObfuscatedName("ld")
 @Implements("BufferedSource")
 public class BufferedSource implements Runnable {
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("inputStream")
 	InputStream inputStream;
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1895389513
+		intValue = 1528491691
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 552004767
+		intValue = -1476530643
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1147375927
+		intValue = 810063119
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@Export("exception")
 	IOException exception;
 
@@ -52,10 +52,10 @@ public class BufferedSource implements Runnable {
 		this.thread.start(); // L: 69
 	} // L: 70
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "-36"
+		descriptor = "(II)Z",
+		garbageValue = "1912163084"
 	)
 	@Export("isAvailable")
 	boolean isAvailable(int var1) throws IOException {
@@ -86,10 +86,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "-28"
+		garbageValue = "0"
 	)
 	@Export("available")
 	int available() throws IOException {
@@ -110,10 +110,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1857294674"
+		descriptor = "(B)I",
+		garbageValue = "-91"
 	)
 	@Export("readUnsignedByte")
 	int readUnsignedByte() throws IOException {
@@ -133,10 +133,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)I",
-		garbageValue = "123"
+		descriptor = "([BIII)I",
+		garbageValue = "1470851684"
 	)
 	@Export("read")
 	int read(byte[] var1, int var2, int var3) throws IOException {
@@ -174,10 +174,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(B)V",
-		garbageValue = "-28"
+		garbageValue = "-95"
 	)
 	@Export("close")
 	void close() {
@@ -244,60 +244,12 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "([BILjava/lang/CharSequence;I)I",
-		garbageValue = "689227004"
+		descriptor = "(Ljp;B)V",
+		garbageValue = "-18"
 	)
-	public static int method5917(byte[] var0, int var1, CharSequence var2) {
-		int var3 = var2.length(); // L: 21
-		int var4 = var1; // L: 22
-
-		for (int var5 = 0; var5 < var3; ++var5) { // L: 23
-			char var6 = var2.charAt(var5); // L: 24
-			if (var6 <= 127) { // L: 25
-				var0[var4++] = (byte)var6; // L: 26
-			} else if (var6 <= 2047) { // L: 28
-				var0[var4++] = (byte)(192 | var6 >> 6); // L: 29
-				var0[var4++] = (byte)(128 | var6 & '?'); // L: 30
-			} else {
-				var0[var4++] = (byte)(224 | var6 >> '\f'); // L: 33
-				var0[var4++] = (byte)(128 | var6 >> 6 & 63); // L: 34
-				var0[var4++] = (byte)(128 | var6 & '?'); // L: 35
-			}
-		}
-
-		return var4 - var1; // L: 38
-	}
-
-	@ObfuscatedName("hh")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "519434496"
-	)
-	static final void method5918() {
-		int var0 = class16.menuX; // L: 7792
-		int var1 = FontName.menuY; // L: 7793
-		int var2 = Player.menuWidth; // L: 7794
-		int var3 = class11.menuHeight; // L: 7795
-		int var4 = 6116423; // L: 7796
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var3, var4); // L: 7797
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0 + 1, var1 + 1, var2 - 2, 16, 0); // L: 7798
-		Rasterizer2D.Rasterizer2D_drawRectangle(var0 + 1, var1 + 18, var2 - 2, var3 - 19, 0); // L: 7799
-		class368.fontBold12.draw("Choose Option", var0 + 3, var1 + 14, var4, -1); // L: 7800
-		int var5 = MouseHandler.MouseHandler_x; // L: 7801
-		int var6 = MouseHandler.MouseHandler_y; // L: 7802
-
-		for (int var7 = 0; var7 < Client.menuOptionsCount; ++var7) { // L: 7803
-			int var8 = var1 + (Client.menuOptionsCount - 1 - var7) * 15 + 31; // L: 7804
-			int var9 = 16777215; // L: 7805
-			if (var5 > var0 && var5 < var0 + var2 && var6 > var8 - 13 && var6 < var8 + 3) { // L: 7806
-				var9 = 16776960;
-			}
-
-			class368.fontBold12.draw(class69.method1164(var7), var0 + 3, var8, var9, 0); // L: 7807
-		}
-
-		LoginScreenAnimation.method2198(class16.menuX, FontName.menuY, Player.menuWidth, class11.menuHeight); // L: 7809
-	} // L: 7810
+	public static void method5782(AbstractArchive var0) {
+		class288.FloorOverlayDefinition_archive = var0; // L: 26
+	} // L: 27
 }

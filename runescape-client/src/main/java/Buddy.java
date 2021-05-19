@@ -1,34 +1,29 @@
+import java.io.File;
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("lg")
+@ObfuscatedName("lq")
 @Implements("Buddy")
 public class Buddy extends User {
-	@ObfuscatedName("ek")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
-	)
-	@Export("archive15")
-	static Archive archive15;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -410155545
+		intValue = 1876506073
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("e")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1237996835
+		intValue = 1660852993
 	)
 	@Export("int2")
 	public int int2;
-	@ObfuscatedName("k")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 213892793
+		intValue = 278975133
 	)
 	@Export("rank")
 	public int rank;
@@ -37,10 +32,10 @@ public class Buddy extends User {
 		this.world = -1; // L: 4
 	} // L: 8
 
-	@ObfuscatedName("ax")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "2093335339"
+		descriptor = "(IIB)V",
+		garbageValue = "45"
 	)
 	@Export("set")
 	void set(int var1, int var2) {
@@ -48,61 +43,64 @@ public class Buddy extends User {
 		this.int2 = var2; // L: 12
 	} // L: 13
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("am")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1570510971"
+		garbageValue = "-1247009443"
 	)
 	@Export("getWorld")
 	public int getWorld() {
 		return this.world; // L: 16
 	}
 
-	@ObfuscatedName("ad")
+	@ObfuscatedName("ax")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1660177096"
+		garbageValue = "731832682"
 	)
 	@Export("hasWorld")
 	public boolean hasWorld() {
 		return this.world > 0; // L: 20
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(ILcc;ZI)I",
-		garbageValue = "1725299355"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;ZI)Lng;",
+		garbageValue = "2145866234"
 	)
-	static int method5815(int var0, Script var1, boolean var2) {
-		Widget var5;
-		if (var0 == ScriptOpcodes.IF_GETINVOBJECT) { // L: 1349
-			var5 = class139.getWidget(Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]); // L: 1350
-			Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = var5.itemId; // L: 1351
-			return 1; // L: 1352
-		} else if (var0 == ScriptOpcodes.IF_GETINVCOUNT) { // L: 1354
-			var5 = class139.getWidget(Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]); // L: 1355
-			if (var5.itemId != -1) { // L: 1356
-				Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = var5.itemQuantity;
-			} else {
-				Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = 0; // L: 1357
+	@Export("getPreferencesFile")
+	public static AccessFile getPreferencesFile(String var0, String var1, boolean var2) {
+		File var3 = new File(JagexCache.cacheDir, "preferences" + var0 + ".dat"); // L: 254
+		if (var3.exists()) { // L: 255
+			try {
+				AccessFile var10 = new AccessFile(var3, "rw", 10000L); // L: 257
+				return var10; // L: 258
+			} catch (IOException var9) { // L: 260
 			}
+		}
 
-			return 1; // L: 1358
-		} else if (var0 == ScriptOpcodes.IF_HASSUB) { // L: 1360
-			int var3 = Interpreter.Interpreter_intStack[--class16.Interpreter_intStackSize]; // L: 1361
-			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3); // L: 1362
-			if (var4 != null) { // L: 1363
-				Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = 1;
-			} else {
-				Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = 0; // L: 1364
+		String var4 = ""; // L: 262
+		if (class310.cacheGamebuild == 33) { // L: 263
+			var4 = "_rc";
+		} else if (class310.cacheGamebuild == 34) { // L: 264
+			var4 = "_wip";
+		}
+
+		File var5 = new File(AccessFile.userHomeDirectory, "jagex_" + var1 + "_preferences" + var0 + var4 + ".dat"); // L: 265
+		AccessFile var6;
+		if (!var2 && var5.exists()) { // L: 266
+			try {
+				var6 = new AccessFile(var5, "rw", 10000L); // L: 268
+				return var6; // L: 269
+			} catch (IOException var8) { // L: 271
 			}
+		}
 
-			return 1; // L: 1365
-		} else if (var0 == ScriptOpcodes.IF_GETTOP) { // L: 1367
-			Interpreter.Interpreter_intStack[++class16.Interpreter_intStackSize - 1] = Client.rootInterface; // L: 1368
-			return 1; // L: 1369
-		} else {
-			return 2; // L: 1371
+		try {
+			var6 = new AccessFile(var3, "rw", 10000L); // L: 274
+			return var6; // L: 275
+		} catch (IOException var7) { // L: 277
+			throw new RuntimeException(); // L: 278
 		}
 	}
 }

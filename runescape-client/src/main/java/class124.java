@@ -3,72 +3,72 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("df")
+@ObfuscatedName("dg")
 public class class124 implements class123 {
-	@ObfuscatedName("f")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1858583893
+		intValue = -1093598325
 	)
-	@Export("SpriteBuffer_spriteCount")
-	static int SpriteBuffer_spriteCount;
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1284583399"
-	)
-	public static int method2490() {
-		return ViewportMouse.ViewportMouse_entityCount; // L: 44
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "2146818180"
-	)
-	public static int method2489(int var0, int var1) {
-		return (-3 - var0 << 8) + var1; // L: 17
-	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(CLjh;B)I",
-		garbageValue = "3"
-	)
-	@Export("lowercaseChar")
-	static int lowercaseChar(char var0, Language var1) {
-		int var2 = var0 << 4; // L: 104
-		if (Character.isUpperCase(var0) || Character.isTitleCase(var0)) { // L: 105
-			var0 = Character.toLowerCase(var0); // L: 106
-			var2 = (var0 << 4) + 1; // L: 107
-		}
-
-		if (var0 == 241 && var1 == Language.Language_ES) { // L: 109
-			var2 = 1762;
-		}
-
-		return var2; // L: 110
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(Lir;Ljava/lang/String;Ljava/lang/String;I)[Loh;",
-		garbageValue = "-64813696"
-	)
-	public static SpritePixels[] method2492(AbstractArchive var0, String var1, String var2) {
-		int var3 = var0.getGroupId(var1); // L: 176
-		int var4 = var0.getFileId(var3, var2); // L: 177
-		return class337.method5985(var0, var3, var4); // L: 178
-	}
+	@Export("idxCount")
+	public static int idxCount;
+	@ObfuscatedName("az")
+	@Export("hasFocus")
+	protected static boolean hasFocus;
 
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1303478774"
+		descriptor = "(B)[Lhh;",
+		garbageValue = "-98"
 	)
-	static final void method2488() {
-		Object var10000 = null; // L: 118
-		String var0 = "Your friend list is full. Max of 200 for free users, and 400 for members";
-		class69.addGameMessage(30, "", var0); // L: 120
-	} // L: 122
+	public static class225[] method2501() {
+		return new class225[]{class225.field2679, class225.field2674, class225.field2673, class225.field2678, class225.field2675, class225.field2687, class225.field2677, class225.field2680, class225.field2681, class225.field2682}; // L: 17
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "([Ljava/lang/String;[IIIB)V",
+		garbageValue = "64"
+	)
+	public static void method2500(String[] var0, int[] var1, int var2, int var3) {
+		if (var2 < var3) { // L: 39
+			int var4 = (var3 + var2) / 2; // L: 40
+			int var5 = var2; // L: 41
+			String var6 = var0[var4]; // L: 42
+			var0[var4] = var0[var3]; // L: 43
+			var0[var3] = var6; // L: 44
+			int var7 = var1[var4]; // L: 45
+			var1[var4] = var1[var3]; // L: 46
+			var1[var3] = var7; // L: 47
+
+			for (int var8 = var2; var8 < var3; ++var8) { // L: 48
+				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) { // L: 49
+					String var9 = var0[var8]; // L: 50
+					var0[var8] = var0[var5]; // L: 51
+					var0[var5] = var9; // L: 52
+					int var10 = var1[var8]; // L: 53
+					var1[var8] = var1[var5]; // L: 54
+					var1[var5++] = var10; // L: 55
+				}
+			}
+
+			var0[var3] = var0[var5]; // L: 59
+			var0[var5] = var6; // L: 60
+			var1[var3] = var1[var5]; // L: 61
+			var1[var5] = var7; // L: 62
+			method2500(var0, var1, var2, var5 - 1); // L: 63
+			method2500(var0, var1, var5 + 1, var3); // L: 64
+		}
+
+	} // L: 66
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(IIB)Lbv;",
+		garbageValue = "111"
+	)
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 35
+		return var2.getMessage(var1); // L: 36
+	}
 }
