@@ -44,9 +44,9 @@ public abstract class RSTextureProviderMixin implements RSTextureProvider
 	{
 		// the client's max size is 20, however there are many scenes with >20 textures,
 		// which causes continuous alloc/free of textures with the gl. There are
-		// only ~57 textures in total.
-		setMaxSize(64);
-		setSize(64);
+		// only ~90 textures in total.
+		setMaxSize(128);
+		setSize(128);
 	}
 
 	@MethodHook(value = "animate", end = true)
