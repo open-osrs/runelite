@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Trevor <https://github.com/TrevorMartz>
+ * Copyright (c) 2021, Jonathan Rousseau <https://github.com/JoRouss>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,33 +22,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.cluescrolls.clues;
+package net.runelite.client.events;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import java.awt.image.BufferedImage;
+import java.util.UUID;
+import lombok.Value;
 
-@AllArgsConstructor
-@Getter
-public enum Enemy
+@Value
+public class PartyMemberAvatar
 {
-	//appears in hard clue emote steps in the wilderness
-	DOUBLE_AGENT_65("Double Agent level 65"),
-	//appears in hard clue emote steps not in the wilderness
-	DOUBLE_AGENT_108("Double Agent level 108"),
-	//appears for master clue emote steps all areas
-	DOUBLE_AGENT_141("Double Agent level 141"),
-	//appears for hard clue coordinate steps in the wilderness
-	ZAMORAK_WIZARD("Zamorak Wizard"),
-	//appears for hard clue coordinate steps not in the wilderness
-	SARADOMIN_WIZARD("Saradomin Wizard"),
-	//appears for elite clue coordinate steps all areas
-	ARMADYLEAN_OR_BANDOSIAN_GUARD("Armadylean OR Bandosian Guard"),
-	//appears for master clue coordinate and hot cold clues when single-way combat
-	BRASSICAN_MAGE("Brassican Mage"),
-	//appears for master clue coordinate and hot cold clues when multi-way combat
-	ANCIENT_WIZARDS("Ancient Wizard Trio"),
-	//There is a master hot cold step that overlaps the border of multi and single according to the wiki.
-	BRASSICAN_OR_WIZARDS("Brassican Mage OR Ancient Wizards");
-
-	private final String text;
+	private final UUID memberId;
+	private final BufferedImage image;
 }

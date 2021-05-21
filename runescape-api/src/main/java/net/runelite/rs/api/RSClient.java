@@ -547,7 +547,7 @@ public interface RSClient extends RSGameEngine, Client
 	 * parentId -1, which are the widget roots.
 	 */
 	@Import("rootInterface")
-	int getWidgetRoot();
+	int getTopLevelInterfaceId();
 
 	@Import("WorldMapElement_cached")
 	@Override
