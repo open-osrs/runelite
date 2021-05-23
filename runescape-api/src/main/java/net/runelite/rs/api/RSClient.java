@@ -1412,4 +1412,13 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("crossWorldMessageIdsIndex")
 	int getCrossWorldMessageIdsIndex();
+
+	@Import("isCameraLocked")
+	boolean getIsCameraLocked();
+
+	@Import("sceneRenderLevelCameraLocked")
+	int sceneRenderLevelCameraLocked();
+
+	@Import("sceneRenderLevel")
+	int sceneRenderLevel();
 }

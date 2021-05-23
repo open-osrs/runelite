@@ -140,9 +140,9 @@ public class class44 {
 		}
 
 		if (!Client.isCameraLocked) { // L: 4526
-			var4 = Message.method1174();
+			var4 = Message.sceneRenderLevel();
 		} else {
-			var4 = FontName.method6161(); // L: 4527
+			var4 = FontName.sceneRenderLevelCameraLocked(); // L: 4527
 		}
 
 		var18 = class20.cameraX; // L: 4528

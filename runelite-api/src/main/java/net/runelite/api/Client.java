@@ -2194,4 +2194,11 @@ public interface Client extends GameEngine
 	 * @return
 	 */
 	int getCrossWorldMessageIdsIndex();
+
+	/**
+	 * Get the max level/plane the client can render. When the camera or player position causes roofs visibility to change, this variable changes.
+	 *
+	 * @return
+	 */
+	int getSceneRenderLevel();
 }
