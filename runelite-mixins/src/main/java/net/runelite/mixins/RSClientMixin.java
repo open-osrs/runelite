@@ -1049,7 +1049,7 @@ public abstract class RSClientMixin implements RSClient
 		}
 	}
 
-	@FieldHook("currentLevels")
+	@FieldHook("changedSkills")
 	@Inject
 	public static void boostedSkillLevelsChanged(int idx)
 	{
