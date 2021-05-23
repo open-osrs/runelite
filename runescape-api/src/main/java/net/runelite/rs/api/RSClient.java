@@ -938,7 +938,12 @@ public interface RSClient extends RSGameEngine, Client
 	void setScreenCenterZ(int screenCenterZ); // <-- This is correct!
 
 	@Import("Scene_plane")
+	@Override
 	void setScenePlane(int scenePlane);
+
+	@Import("Scene_plane")
+	@Override
+	int getScenePlane();
 
 	@Import("Scene_cameraXTileMin")
 	void setMinTileX(int i);
@@ -1412,13 +1417,4 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("crossWorldMessageIdsIndex")
 	int getCrossWorldMessageIdsIndex();
-
-	@Import("isCameraLocked")
-	boolean getIsCameraLocked();
-
-	@Import("sceneRenderLevelCameraLocked")
-	int sceneRenderLevelCameraLocked();
-
-	@Import("sceneRenderLevel")
-	int sceneRenderLevel();
 }

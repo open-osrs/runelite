@@ -2200,19 +2200,5 @@ public abstract class RSClientMixin implements RSClient
 	{
 		client.getCallbacks().post(new WidgetClosed(iface.getId(), iface.getModalMode(), willUnload));
 	}
-
-	@Inject
-	@Override
-	public int getSceneRenderLevel()
-	{
-		if (!client.getIsCameraLocked())
-		{ // L: 4526
-			return client.sceneRenderLevel();
-		}
-		else
-		{
-			return client.sceneRenderLevelCameraLocked();
-		}
-	}
 }
 
