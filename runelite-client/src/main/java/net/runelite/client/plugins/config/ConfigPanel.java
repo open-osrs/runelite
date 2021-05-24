@@ -821,7 +821,9 @@ class ConfigPanel extends PluginPanel
 					});
 					textField.getDocument().addDocumentListener(listener);
 
+					item.add(configEntryName, BorderLayout.NORTH);
 					item.add(textField, BorderLayout.CENTER);
+					
 
 					parseLabel(cid.getItem(), parsingLabel, textField.getText());
 					item.add(parsingLabel, BorderLayout.SOUTH);
