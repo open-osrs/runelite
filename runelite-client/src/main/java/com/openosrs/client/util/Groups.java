@@ -1,7 +1,10 @@
 package com.openosrs.client.util;
 
 import com.openosrs.client.OpenOSRS;
+import com.openosrs.client.config.OpenOSRSConfig;
+import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import io.reactivex.rxjava3.subjects.PublishSubject;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +18,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.RuneLite;
-import com.openosrs.client.config.OpenOSRSConfig;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ClientShutdown;
 import net.runelite.client.events.ConfigChanged;
-import com.openosrs.client.ui.OpenOSRSSplashScreen;
 import org.jgroups.Address;
 import org.jgroups.JChannel;
 import org.jgroups.Message;
@@ -33,8 +34,11 @@ import org.jgroups.util.Util;
 @Singleton
 public class Groups implements Receiver
 {
-	private final OpenOSRSConfig openOSRSConfig;
-	private final JChannel channel;
+	@Inject
+	private OpenOSRSConfig openOSRSConfig;
+	@Inject
+	private EventBus eventBus;
+	private JChannel channel;
 
 	@Getter(AccessLevel.PUBLIC)
 	private int instanceCount;
@@ -47,31 +51,49 @@ public class Groups implements Receiver
 	@Getter(AccessLevel.PUBLIC)
 	private final PublishSubject<Message> messageObjectSubject = PublishSubject.create();
 
-	@Inject
-	public Groups(OpenOSRSConfig openOSRSConfig, EventBus eventBus) throws Exception
+	public boolean init()
 	{
-		this.openOSRSConfig = openOSRSConfig;
-
 		try (final InputStream is = RuneLite.class.getResourceAsStream("/udp-openosrs.xml"))
 		{
-			this.channel = new JChannel(is)
+			channel = new JChannel(is)
 				.setName(OpenOSRS.uuid)
 				.setReceiver(this)
 				.setDiscardOwnMessages(true)
 				.connect("openosrs");
+
+			eventBus.register(this);
+		}
+		catch (IOException ex)
+		{
+			log.error("Failed to initialize groups, disabling so we don't crash.", ex);
+			// just in case the event bus was the thing that threw the error
+			eventBus.unregister(this);
+			channel = null;
+			return false;
+		}
+		catch (Exception ex)
+		{
+			log.error("Unforeseen exception while initializing groups, disabling.", ex);
+			eventBus.unregister(this);
+			channel = null;
+			return false;
 		}
 
-		eventBus.register(this);
+		return true;
 	}
 
 	@Subscribe
 	public void onClientShutdown(ClientShutdown event)
 	{
 		Future<Void> f = close();
-		event.waitFor(f);
+
+		if (f != null)
+		{
+			event.waitFor(f);
+		}
 	}
 
-	public void broadcastSring(String command)
+	public void broadcastString(String command)
 	{
 		send(null, command);
 	}
@@ -119,7 +141,7 @@ public class Groups implements Receiver
 
 	public void send(Address destination, String command)
 	{
-		if (!openOSRSConfig.localSync() || OpenOSRSSplashScreen.showing() || instanceCount < 2)
+		if (!openOSRSConfig.localSync() || OpenOSRSSplashScreen.showing() || instanceCount < 2 || channel == null)
 		{
 			return;
 		}
@@ -162,6 +184,11 @@ public class Groups implements Receiver
 
 	private CompletableFuture<Void> close()
 	{
+		if (channel == null)
+		{
+			return null;
+		}
+
 		CompletableFuture<Void> future = new CompletableFuture<>();
 		try
 		{

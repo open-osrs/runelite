@@ -347,6 +347,7 @@ public class RuneLite
 		pluginManager.setOutdated(isOutdated);
 
 		// Load external plugin manager
+		oprsExternalPluginManager.setupInstance();
 		oprsExternalPluginManager.startExternalUpdateManager();
 		oprsExternalPluginManager.startExternalPluginManager();
 
