@@ -92,6 +92,7 @@ import org.pf4j.update.PluginInfo;
 import org.pf4j.update.UpdateManager;
 import org.pf4j.update.UpdateRepository;
 
+@SuppressWarnings("UnstableApiUsage")
 @Slf4j
 @Singleton
 public class OPRSExternalPluginManager
@@ -100,50 +101,48 @@ public class OPRSExternalPluginManager
 	static final String DEVELOPMENT_MANIFEST_PATH = "build/tmp/jar/MANIFEST.MF";
 
 	public static ArrayList<ClassLoader> pluginClassLoaders = new ArrayList<>();
-	private final PluginManager runelitePluginManager;
+	@Inject
+	private PluginManager runelitePluginManager;
 	@Getter(AccessLevel.PUBLIC)
 	private org.pf4j.PluginManager externalPluginManager;
 	@Getter(AccessLevel.PUBLIC)
 	private final List<UpdateRepository> repositories = new ArrayList<>();
-	private final OpenOSRSConfig openOSRSConfig;
-	private final EventBus eventBus;
-	private final ExecutorService executorService;
-	private final ConfigManager configManager;
+	@Inject
+	private OpenOSRSConfig openOSRSConfig;
+	@Inject
+	private EventBus eventBus;
+	@Inject
+	private ExecutorService executorService;
+	@Inject
+	private ConfigManager configManager;
 	private final Map<String, String> pluginsMap = new HashMap<>();
 	@Getter(AccessLevel.PUBLIC)
 	private static final boolean developmentMode = OpenOSRS.getPluginDevelopmentPath().length > 0;
 	@Getter(AccessLevel.PUBLIC)
 	private final Map<String, Map<String, String>> pluginsInfoMap = new HashMap<>();
-	private final Groups groups;
+	@Inject
+	private Groups groups;
 	@Getter(AccessLevel.PUBLIC)
 	private UpdateManager updateManager;
-	private final boolean safeMode;
-
 	@Inject
-	public OPRSExternalPluginManager(
-		@Named("safeMode") final boolean safeMode,
-		PluginManager pluginManager,
-		OpenOSRSConfig openOSRSConfig,
-		EventBus eventBus,
-		ExecutorService executorService,
-		ConfigManager configManager,
-		Groups groups)
-	{
-		this.safeMode = safeMode;
-		this.runelitePluginManager = pluginManager;
-		this.openOSRSConfig = openOSRSConfig;
-		this.eventBus = eventBus;
-		this.executorService = executorService;
-		this.configManager = configManager;
-		this.groups = groups;
+	@Named("safeMode")
+	private boolean safeMode;
 
+	public void setupInstance()
+	{
 		//noinspection ResultOfMethodCallIgnored
 		EXTERNALPLUGIN_DIR.mkdirs();
 
 		initPluginManager();
 
-		groups.getMessageStringSubject()
-			.subscribe(this::receive);
+		if (!groups.init())
+		{
+			groups = null;
+		}
+		else
+		{
+			groups.getMessageStringSubject().subscribe(this::receive);
+		}
 	}
 
 	private void initPluginManager()
@@ -478,7 +477,7 @@ public class OPRSExternalPluginManager
 			{
 				if (graph.nodes().contains(pluginDependency.value()))
 				{
-					graph.putEdge(pluginClazz, (Class<? extends Plugin>) pluginDependency.value());
+					graph.putEdge(pluginClazz, pluginDependency.value());
 				}
 			}
 		}
@@ -555,7 +554,7 @@ public class OPRSExternalPluginManager
 				throw new PluginInstantiationException(
 					"Unmet dependency for " + clazz.getSimpleName() + ": " + pluginDependency.value().getSimpleName());
 			}
-			deps.add((Plugin) dependency.get());
+			deps.add(dependency.get());
 		}
 
 		log.info("Loading plugin {}", clazz.getSimpleName());
@@ -703,7 +702,7 @@ public class OPRSExternalPluginManager
 
 		scanAndInstantiate(scannedPlugins, false, false);
 
-		if (groups.getInstanceCount() > 1)
+		if (groups != null && groups.getInstanceCount() > 1)
 		{
 			for (String pluginId : getDisabledPluginIds())
 			{
@@ -826,7 +825,10 @@ public class OPRSExternalPluginManager
 			externalPluginManager.enablePlugin(pluginId);
 			externalPluginManager.startPlugin(pluginId);
 
-			groups.broadcastSring("STARTEXTERNAL;" + pluginId);
+			if (groups != null)
+			{
+				groups.broadcastString("STARTEXTERNAL;" + pluginId);
+			}
 			scanAndInstantiate(loadPlugin(pluginId), true, false);
 			ExternalPluginsChanged event = new ExternalPluginsChanged(null);
 			eventBus.post(event);
@@ -876,7 +878,10 @@ public class OPRSExternalPluginManager
 
 			ExternalPluginsChanged event = new ExternalPluginsChanged(null);
 			eventBus.post(event);
-			groups.broadcastSring("STARTEXTERNAL;" + pluginId);
+			if (groups != null)
+			{
+				groups.broadcastString("STARTEXTERNAL;" + pluginId);
+			}
 		}
 		catch (DependencyResolver.DependenciesNotFoundException ex)
 		{
@@ -913,7 +918,7 @@ public class OPRSExternalPluginManager
 			return true;
 		}
 
-		if (groups.getInstanceCount() > 1)
+		if (groups != null && groups.getInstanceCount() > 1)
 		{
 			groups.sendString("STOPEXTERNAL;" + pluginId);
 		}
@@ -927,7 +932,7 @@ public class OPRSExternalPluginManager
 
 	public void update()
 	{
-		if (groups.getInstanceCount() > 1)
+		if (groups != null && groups.getInstanceCount() > 1)
 		{
 			// Do not update when there is more than one client open -> api might contain changes
 			log.info("Not updating external plugins since there is more than 1 client open");
@@ -1037,10 +1042,12 @@ public class OPRSExternalPluginManager
 			checkDepsAndStart(combinedList, scannedPlugins, pluginWrapper);
 		}
 
-
 		scanAndInstantiate(scannedPlugins, true, false);
 
-		groups.broadcastSring("STARTEXTERNAL;" + pluginId);
+		if (groups != null)
+		{
+			groups.broadcastString("STARTEXTERNAL;" + pluginId);
+		}
 
 		return true;
 	}
@@ -1049,6 +1056,12 @@ public class OPRSExternalPluginManager
 	{
 		if (message.getObject() instanceof ConfigChanged)
 		{
+			return;
+		}
+
+		if (groups == null)
+		{
+			// Can't receive messages if groups is null anyway, but IntelliJ will complain about potential NPE
 			return;
 		}
 
