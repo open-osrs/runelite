@@ -587,6 +587,10 @@ public interface RSWidget extends Widget
 
 	@Import("onVarTransmit")
 	@Override
+	Object[] getOnVarTransmitListener();
+
+	@Import("onVarTransmit")
+	@Override
 	void setOnVarTransmitListener(Object[] o);
 
 	@Import("fillMode")
