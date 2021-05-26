@@ -1695,6 +1695,20 @@ public interface Client extends GameEngine
 	void setDeadNPCsHidden(boolean state);
 
 	/**
+	 * Increments the counter for how many times this npc has been selected to be hidden on death
+	 *
+	 * @param name npc name
+	 */
+	void addHiddenNpcDeath(String name);
+
+	/**
+	 * Decrements the counter for how many times this npc has been selected to be hidden on death
+	 *
+	 * @param name npc name
+	 */
+	void removeHiddenNpcDeath(String name);
+
+	/**
 	 * The provided ids will not be hidden when the
 	 * entity-hider attempts to hide dead {@link NPC}'s.
 	 *

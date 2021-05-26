@@ -25,13 +25,15 @@
  */
 package net.runelite.mixins;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.rs.api.RSClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Mixin(RSClient.class)
 public abstract class EntityHiderBridgeMixin implements RSClient
@@ -86,6 +88,12 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 
 	@Inject
 	public static List<Integer> hiddenNpcIndices = new ArrayList<>();
+
+	@Inject
+	public static HashMap<String, Integer> hiddenNpcsDeath = new HashMap<>();
+
+	@Inject
+	public static Set<Integer> blacklistDeadNpcs = new HashSet<>();
 
 	@Inject
 	@Override
@@ -232,5 +240,40 @@ public abstract class EntityHiderBridgeMixin implements RSClient
 	public List<Integer> getHiddenNpcIndices()
 	{
 		return new ArrayList<>(hiddenNpcIndices);
+	}
+
+	@Inject
+	@Override
+	public void addHiddenNpcDeath(String npc)
+	{
+		npc = npc.toLowerCase();
+		int i = hiddenNpcsDeath.getOrDefault(npc, 0);
+		if (i == Integer.MAX_VALUE)
+		{
+			throw new RuntimeException("NPC death " + npc + " has been hidden Integer.MAX_VALUE times, is something wrong?");
+		}
+
+		hiddenNpcsDeath.put(npc, ++i);
+	}
+
+	@Inject
+	@Override
+	public void removeHiddenNpcDeath(String npc)
+	{
+		npc = npc.toLowerCase();
+		int i = hiddenNpcsDeath.getOrDefault(npc, 0);
+		if (i == 0)
+		{
+			return;
+		}
+
+		hiddenNpcsDeath.put(npc, --i);
+	}
+
+	@Inject
+	@Override
+	public void setBlacklistDeadNpcs(Set<Integer> blacklist)
+	{
+		blacklistDeadNpcs = blacklist;
 	}
 }
