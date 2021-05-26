@@ -31,7 +31,6 @@ import net.runelite.api.events.PlayerDespawned;
 import net.runelite.api.kit.KitType;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.game.FriendChatManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemMapping;
 import net.runelite.client.util.PvPUtil;
@@ -50,7 +49,6 @@ public class PlayerManager
 	private final Client client;
 	private final ItemManager itemManager;
 	private final EventBus eventBus;
-	private final FriendChatManager friendChatManager;
 	private final Map<String, PlayerContainer> playerMap = new ConcurrentHashMap<>();
 	private final Map<String, HiscoreResult> resultCache = new ConcurrentHashMap<>();
 	private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
@@ -60,14 +58,12 @@ public class PlayerManager
 		final Client client,
 		final EventBus eventBus,
 		final ItemManager itemManager,
-		final FriendChatManager friendChatManager,
 		final OkHttpClient okHttpClient
 	)
 	{
 		this.client = client;
 		this.itemManager = itemManager;
 		this.eventBus = eventBus;
-		this.friendChatManager = friendChatManager;
 		this.hiscoreClient = new HiscoreClient(okHttpClient);
 
 		eventBus.register(this);
@@ -219,7 +215,7 @@ public class PlayerManager
 		PlayerContainer player = playerMap.computeIfAbsent(event.getPlayer().getName(), s -> new PlayerContainer(event.getPlayer()));
 		update(player);
 		player.setFriend(client.isFriended(player.getName(), false));
-		player.setClan(friendChatManager.isMember(player.getName()));
+		player.setClan(event.getPlayer().isFriendsChatMember());
 	}
 
 	@Subscribe

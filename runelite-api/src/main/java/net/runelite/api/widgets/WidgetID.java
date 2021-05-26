@@ -271,6 +271,8 @@ public class WidgetID
 
 	static class FriendsChat
 	{
+		static final int ROOT = 0;
+		static final int TITLE = 1;
 		static final int OWNER = 2;
 		static final int LIST = 12;
 	}
@@ -558,7 +560,8 @@ public class WidgetID
 		static final int TAB_ALL = 4;
 		static final int TAB_GAME = 7;
 		static final int TAB_PUBLIC = 11;
-		static final int TAB_PRIVATE = 19;
+		static final int TAB_PRIVATE = 15;
+		static final int TAB_CHANNEL = 19;
 		static final int TAB_CLAN = 23;
 		static final int TAB_TRADE = 27;
 		static final int REPORT_TEXT = 33;

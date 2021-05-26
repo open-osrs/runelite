@@ -76,7 +76,7 @@ import net.runelite.client.config.ChatColorConfig;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
-import net.runelite.client.game.FriendChatManager;
+import net.runelite.client.game.ChatIconManager;
 import net.runelite.client.game.SpriteManager;
 import net.runelite.client.game.chatbox.ChatboxPanelManager;
 import net.runelite.client.plugins.Plugin;
@@ -96,13 +96,14 @@ import net.runelite.client.util.Text;
 public class FriendsChatPlugin extends Plugin
 {
 	private static final int MAX_CHATS = 10;
+	private static final String RECENT_TITLE = "Recent FCs";
 	private static final int MESSAGE_DELAY = 10;
 
 	@Inject
 	private Client client;
 
 	@Inject
-	private FriendChatManager friendChatManager;
+	private ChatIconManager chatIconManager;
 
 	@Inject
 	private FriendsChatConfig config;
@@ -157,7 +158,7 @@ public class FriendsChatPlugin extends Plugin
 		clientThread.invoke(() -> colorIgnoredPlayers(Color.WHITE));
 		members.clear();
 		resetCounter();
-		resetChats();
+		rebuildFriendsChat();
 	}
 
 	@Subscribe
@@ -167,7 +168,7 @@ public class FriendsChatPlugin extends Plugin
 		{
 			if (!config.recentChats())
 			{
-				resetChats();
+				rebuildFriendsChat();
 			}
 
 			if (config.showCounter())
@@ -397,7 +398,7 @@ public class FriendsChatPlugin extends Plugin
 
 		if (config.chatIcons() && rank != null && rank != FriendsChatRank.UNRANKED)
 		{
-			rankIcon = friendChatManager.getIconNumber(rank);
+			rankIcon = chatIconManager.getIconNumber(rank);
 		}
 
 		ChatMessageBuilder message = new ChatMessageBuilder()
@@ -556,9 +557,19 @@ public class FriendsChatPlugin extends Plugin
 	@Subscribe
 	public void onScriptPostFired(ScriptPostFired event)
 	{
-		if (event.getScriptId() == ScriptID.FRIENDS_CHAT_CHANNEL_REBUILD && config.showIgnores())
+		if (event.getScriptId() == ScriptID.FRIENDS_CHAT_CHANNEL_REBUILD)
 		{
-			colorIgnoredPlayers(config.showIgnoresColor());
+			if (config.showIgnores())
+			{
+				colorIgnoredPlayers(config.showIgnoresColor());
+			}
+
+			FriendsChatManager friendsChatManager = client.getFriendsChatManager();
+			Widget chatTitle = client.getWidget(WidgetInfo.FRIENDS_CHAT_TITLE);
+			if (friendsChatManager != null && friendsChatManager.getCount() > 0 && chatTitle != null)
+			{
+				chatTitle.setText(chatTitle.getText() + " (" + friendsChatManager.getCount() + "/100)");
+			}
 		}
 	}
 
@@ -569,11 +580,11 @@ public class FriendsChatPlugin extends Plugin
 
 	private void insertRankIcon(final ChatMessage message)
 	{
-		final FriendsChatRank rank = friendChatManager.getRank(message.getName());
+		final FriendsChatRank rank = getRank(message.getName());
 
 		if (rank != null && rank != FriendsChatRank.UNRANKED)
 		{
-			int iconNumber = friendChatManager.getIconNumber(rank);
+			int iconNumber = chatIconManager.getIconNumber(rank);
 			final String img = "<img=" + iconNumber + ">";
 			if (message.getType() == ChatMessageType.FRIENDSCHAT)
 			{
@@ -589,29 +600,40 @@ public class FriendsChatPlugin extends Plugin
 		}
 	}
 
-	private void resetChats()
+	private FriendsChatRank getRank(String playerName)
 	{
-		Widget chatList = client.getWidget(WidgetInfo.FRIENDS_CHAT_LIST);
+		final FriendsChatManager friendsChatManager = client.getFriendsChatManager();
+		if (friendsChatManager == null)
+		{
+			return FriendsChatRank.UNRANKED;
+		}
 
-		if (chatList == null)
+		FriendsChatMember friendsChatMember = friendsChatManager.findByName(playerName);
+		return friendsChatMember != null ? friendsChatMember.getRank() : FriendsChatRank.UNRANKED;
+	}
+
+	private void rebuildFriendsChat()
+	{
+		Widget chat = client.getWidget(WidgetInfo.FRIENDS_CHAT_ROOT);
+		if (chat == null)
 		{
 			return;
 		}
 
-		FriendsChatManager friendsChatManager = client.getFriendsChatManager();
-		if (friendsChatManager == null || friendsChatManager.getCount() == 0)
-		{
-			chatList.setChildren(null);
-		}
+		Object[] args = chat.getOnVarTransmitListener();
+		clientThread.invokeLater(() -> client.runScript(args));
 	}
 
 	private void loadFriendsChats()
 	{
+		Widget chatOwner = client.getWidget(WidgetInfo.FRIENDS_CHAT_OWNER);
 		Widget chatList = client.getWidget(WidgetInfo.FRIENDS_CHAT_LIST);
-		if (chatList == null)
+		if (chatList == null || chatOwner == null)
 		{
 			return;
 		}
+
+		chatOwner.setText(RECENT_TITLE);
 
 		int y = 2;
 		chatList.setChildren(null);

@@ -5,6 +5,10 @@ import net.runelite.mapping.Import;
 
 public interface RSEnumComposition extends EnumComposition, RSDualNode
 {
+	@Import("size")
+	@Override
+	int size();
+
 	@Import("keys")
 	@Override
 	int[] getKeys();
