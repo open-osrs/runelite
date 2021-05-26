@@ -214,7 +214,8 @@ public class Message extends DualNode {
 		descriptor = "(I)I",
 		garbageValue = "2128922058"
 	)
-	static final int method1174() {
+	@Export("sceneRenderLevel")
+	static final int sceneRenderLevel() {
 		if (class12.clientPreferences.roofsHidden) { // L: 4754
 			return ParamComposition.Client_plane;
 		} else {

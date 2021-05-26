@@ -152,7 +152,8 @@ public class FontName {
 		descriptor = "(B)I",
 		garbageValue = "91"
 	)
-	static final int method6161() {
+	@Export("sceneRenderLevelCameraLocked")
+	static final int sceneRenderLevelCameraLocked() {
 		if (class12.clientPreferences.roofsHidden) { // L: 4817
 			return ParamComposition.Client_plane;
 		} else {

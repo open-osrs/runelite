@@ -2194,4 +2194,13 @@ public interface Client extends GameEngine
 	 * @return
 	 */
 	int getCrossWorldMessageIdsIndex();
+
+	/**
+	 * Get the max level/plane the client can render.
+	 *
+	 * @return
+	 */
+	int getScenePlane();
+
+	void setScenePlane(int scenePlane);
 }
