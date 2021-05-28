@@ -1,123 +1,95 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jo")
+@ObfuscatedName("jt")
 @Implements("GrandExchangeOfferAgeComparator")
 final class GrandExchangeOfferAgeComparator implements Comparator {
-	@ObfuscatedName("h")
+	@ObfuscatedName("dl")
 	@ObfuscatedSignature(
-		descriptor = "(Ljz;Ljz;I)I",
-		garbageValue = "698282162"
+		descriptor = "Ljp;"
+	)
+	@Export("archive8")
+	static Archive archive8;
+	@ObfuscatedName("fq")
+	@ObfuscatedGetter(
+		longValue = 172020438683337197L
+	)
+	static long field3634;
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(Ljs;Ljs;I)I",
+		garbageValue = "119350129"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
 		return var1.age < var2.age ? -1 : (var2.age == var1.age ? 0 : 1); // L: 13
 	}
 
-	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 21
-	}
-
 	public int compare(Object var1, Object var2) {
 		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 17
 	}
 
-	@ObfuscatedName("c")
+	public boolean equals(Object var1) {
+		return super.equals(var1); // L: 21
+	}
+
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;B)Z",
-		garbageValue = "-33"
+		descriptor = "(Ljv;IB)V",
+		garbageValue = "26"
 	)
-	@Export("isNumber")
-	public static boolean isNumber(CharSequence var0) {
-		boolean var2 = false; // L: 37
-		boolean var3 = false; // L: 38
-		int var4 = 0; // L: 39
-		int var5 = var0.length(); // L: 40
-		int var6 = 0;
-
-		boolean var1;
-		while (true) {
-			if (var6 >= var5) {
-				var1 = var3; // L: 70
-				break;
-			}
-
-			label84: {
-				char var7 = var0.charAt(var6); // L: 42
-				if (var6 == 0) { // L: 43
-					if (var7 == '-') { // L: 44
-						var2 = true; // L: 45
-						break label84;
-					}
-
-					if (var7 == '+') { // L: 48
-						break label84;
-					}
-				}
-
-				int var9;
-				if (var7 >= '0' && var7 <= '9') { // L: 50
-					var9 = var7 - '0';
-				} else if (var7 >= 'A' && var7 <= 'Z') { // L: 51
-					var9 = var7 - '7';
-				} else {
-					if (var7 < 'a' || var7 > 'z') { // L: 52
-						var1 = false; // L: 54
-						break;
-					}
-
-					var9 = var7 - 'W';
-				}
-
-				if (var9 >= 10) { // L: 57
-					var1 = false; // L: 58
-					break; // L: 59
-				}
-
-				if (var2) { // L: 61
-					var9 = -var9;
-				}
-
-				int var8 = var4 * 10 + var9; // L: 62
-				if (var4 != var8 / 10) { // L: 63
-					var1 = false; // L: 64
-					break; // L: 65
-				}
-
-				var4 = var8; // L: 67
-				var3 = true; // L: 68
-			}
-
-			++var6; // L: 41
+	static void method5068(AbstractArchive var0, int var1) {
+		if ((var1 & 536870912) != 0) { // L: 192
+			Fonts.logoSprite = EnumComposition.SpriteBuffer_getIndexedSpriteByName(var0, "logo_deadman_mode", ""); // L: 193
+		} else if ((var1 & 1073741824) != 0) { // L: 195
+			Fonts.logoSprite = EnumComposition.SpriteBuffer_getIndexedSpriteByName(var0, "logo_seasonal_mode", ""); // L: 196
+		} else {
+			Fonts.logoSprite = EnumComposition.SpriteBuffer_getIndexedSpriteByName(var0, "logo", ""); // L: 199
 		}
 
-		return var1; // L: 72
+	} // L: 201
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "-324437873"
+	)
+	static final int method5067(int var0, int var1) {
+		int var2 = var1 * 57 + var0; // L: 840
+		var2 ^= var2 << 13; // L: 841
+		int var3 = (var2 * var2 * 15731 + 789221) * var2 + 1376312589 & Integer.MAX_VALUE; // L: 842
+		return var3 >> 19 & 255; // L: 843
 	}
 
-	@ObfuscatedName("em")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lmv;",
-		garbageValue = "0"
+		descriptor = "(ILcf;ZI)I",
+		garbageValue = "918594995"
 	)
-	@Export("getWorldMap")
-	static WorldMap getWorldMap() {
-		return NetSocket.worldMap; // L: 686
-	}
+	static int method5064(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class13.scriptDotWidget : Interpreter.scriptActiveWidget; // L: 1172
+		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) { // L: 1173
+			Interpreter.Interpreter_intStack[++class44.Interpreter_intStackSize - 1] = var3.itemId; // L: 1174
+			return 1; // L: 1175
+		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) { // L: 1177
+			if (var3.itemId != -1) { // L: 1178
+				Interpreter.Interpreter_intStack[++class44.Interpreter_intStackSize - 1] = var3.itemQuantity;
+			} else {
+				Interpreter.Interpreter_intStack[++class44.Interpreter_intStackSize - 1] = 0; // L: 1179
+			}
 
-	@ObfuscatedName("ke")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1853647691"
-	)
-	static void method4989(int var0) {
-		class9.tempMenuAction = new MenuAction(); // L: 11060
-		class9.tempMenuAction.param0 = Client.menuArguments1[var0]; // L: 11061
-		class9.tempMenuAction.param1 = Client.menuArguments2[var0]; // L: 11062
-		class9.tempMenuAction.opcode = Client.menuOpcodes[var0]; // L: 11063
-		class9.tempMenuAction.identifier = Client.menuIdentifiers[var0]; // L: 11064
-		class9.tempMenuAction.action = Client.menuActions[var0]; // L: 11065
-	} // L: 11066
+			return 1; // L: 1180
+		} else if (var0 == ScriptOpcodes.CC_GETID) { // L: 1182
+			Interpreter.Interpreter_intStack[++class44.Interpreter_intStackSize - 1] = var3.childIndex; // L: 1183
+			return 1; // L: 1184
+		} else {
+			return 2; // L: 1186
+		}
+	}
 }

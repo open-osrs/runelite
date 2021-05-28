@@ -1,10 +1,13 @@
-import java.util.concurrent.ScheduledExecutorService;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("li")
+@ObfuscatedName("ld")
 public class class337 {
-	@ObfuscatedName("v")
-	@Export("soundSystemExecutor")
-	static ScheduledExecutorService soundSystemExecutor;
+	@ObfuscatedName("bz")
+	@ObfuscatedSignature(
+		descriptor = "[Loh;"
+	)
+	@Export("worldSelectBackSprites")
+	static SpritePixels[] worldSelectBackSprites;
 }

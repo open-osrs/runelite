@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Sebastiaan <https://github.com/SebastiaanVanspauwen>
+ * Copyright (c) 2021, ThatGamerBlue <thatgamerblue@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,37 +22,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.friendschat;
+package net.runelite.rs.api;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import net.runelite.client.ui.overlay.infobox.Counter;
+import net.runelite.api.clan.ClanChannelMember;
+import net.runelite.mapping.Import;
 
-class MembersIndicator extends Counter
+public interface RSClanChannelMember extends ClanChannelMember
 {
-	private final FriendsChatPlugin plugin;
+	@Import("rank")
+	byte getRSRank();
 
-	MembersIndicator(BufferedImage image, FriendsChatPlugin plugin)
-	{
-		super(image, plugin, plugin.getMembersSize());
-		this.plugin = plugin;
-	}
-
+	@Import("world")
 	@Override
-	public int getCount()
-	{
-		return plugin.getMembersSize();
-	}
+	int getWorld();
 
+	@Import("name")
 	@Override
-	public String getTooltip()
-	{
-		return plugin.getMembersSize() + " friends chat member(s) near you";
-	}
-
-	@Override
-	public Color getTextColor()
-	{
-		return Color.WHITE;
-	}
+	String getName();
 }

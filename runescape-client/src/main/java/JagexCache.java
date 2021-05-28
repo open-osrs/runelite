@@ -1,49 +1,29 @@
-import java.io.File;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dc")
+@ObfuscatedName("dm")
 @Implements("JagexCache")
 public class JagexCache {
-	@ObfuscatedName("g")
-	@Export("JagexCache_locationFile")
-	static File JagexCache_locationFile;
 	@ObfuscatedName("l")
-	@Export("cacheDir")
-	static File cacheDir;
-	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
-	)
-	@Export("musicTrackArchive")
-	public static AbstractArchive musicTrackArchive;
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "Lne;"
+		descriptor = "Lnf;"
 	)
 	@Export("JagexCache_randomDat")
 	public static BufferedFile JagexCache_randomDat;
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lne;"
+		descriptor = "Lnf;"
 	)
 	@Export("JagexCache_dat2File")
 	public static BufferedFile JagexCache_dat2File;
-	@ObfuscatedName("r")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lne;"
+		descriptor = "Lnf;"
 	)
 	@Export("JagexCache_idx255File")
 	public static BufferedFile JagexCache_idx255File;
-	@ObfuscatedName("go")
-	@ObfuscatedGetter(
-		intValue = 1374549723
-	)
-	@Export("baseX")
-	static int baseX;
 
 	static {
 		JagexCache_randomDat = null; // L: 22
@@ -51,13 +31,34 @@ public class JagexCache {
 		JagexCache_idx255File = null; // L: 24
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("iw")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "104"
+		descriptor = "(Ljava/lang/String;Lio;B)Ljava/lang/String;",
+		garbageValue = "109"
 	)
-	public static void method2538() {
-		NPCComposition.NpcDefinition_cached.clear(); // L: 255
-		NPCComposition.NpcDefinition_cachedModels.clear(); // L: 256
-	} // L: 257
+	static String method2540(String var0, Widget var1) {
+		if (var0.indexOf("%") != -1) { // L: 9703
+			for (int var2 = 1; var2 <= 5; ++var2) { // L: 9704
+				while (true) {
+					int var3 = var0.indexOf("%" + var2); // L: 9706
+					if (var3 == -1) { // L: 9707
+						break;
+					}
+
+					String var4 = var0.substring(0, var3); // L: 9708
+					int var6 = ModeWhere.method5160(var1, var2 - 1); // L: 9710
+					String var5;
+					if (var6 < 999999999) { // L: 9712
+						var5 = Integer.toString(var6); // L: 9713
+					} else {
+						var5 = "*"; // L: 9716
+					}
+
+					var0 = var4 + var5 + var0.substring(var3 + 2); // L: 9718
+				}
+			}
+		}
+
+		return var0; // L: 9722
+	}
 }

@@ -4,69 +4,84 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lc")
+@ObfuscatedName("ls")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
+	@ObfuscatedName("gt")
+	@ObfuscatedSignature(
+		descriptor = "Lgt;"
+	)
+	@Export("scene")
+	static Scene scene;
+
 	protected AbstractSocket() {
 	} // L: 7
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-36"
+		descriptor = "(I)V",
+		garbageValue = "1654713390"
 	)
 	@Export("close")
 	public abstract void close();
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-2027143758"
+		garbageValue = "479468921"
 	)
 	@Export("readUnsignedByte")
 	public abstract int readUnsignedByte() throws IOException;
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-640327653"
+		garbageValue = "1659206769"
 	)
 	@Export("available")
 	public abstract int available() throws IOException;
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "-1880004365"
+		garbageValue = "-211935081"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)I",
-		garbageValue = "-1936066161"
+		garbageValue = "-2041736219"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "1752522959"
+		garbageValue = "263213011"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("lj")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "8"
+		descriptor = "(I)I",
+		garbageValue = "-1943221493"
 	)
-	@Export("Clan_leaveChat")
-	static final void Clan_leaveChat() {
-		PacketBufferNode var0 = HealthBarDefinition.getPacketBufferNode(ClientPacket.field2658, Client.packetWriter.isaacCipher); // L: 11545
-		var0.packetBuffer.writeByte(0); // L: 11546
-		Client.packetWriter.addNode(var0); // L: 11547
-	} // L: 11548
+	static int method5901() {
+		return 12;
+	}
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(Ljv;Ljv;Ljava/lang/String;Ljava/lang/String;B)Lkt;",
+		garbageValue = "88"
+	)
+	public static Font method5900(AbstractArchive var0, AbstractArchive var1, String var2, String var3) {
+		int var4 = var0.getGroupId(var2); // L: 121
+		int var5 = var0.getFileId(var4, var3); // L: 122
+		return AbstractArchive.method5018(var0, var1, var4, var5); // L: 123
+	}
 }

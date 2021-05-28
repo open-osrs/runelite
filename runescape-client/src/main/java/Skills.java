@@ -3,15 +3,21 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("id")
+@ObfuscatedName("iw")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
+	@ObfuscatedName("ck")
+	@ObfuscatedSignature(
+		descriptor = "Lcb;"
+	)
+	@Export("mouseRecorder")
+	static MouseRecorder mouseRecorder;
 
 	static {
 		Skills_enabled = new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false}; // L: 5
@@ -26,21 +32,4 @@ public class Skills {
 		}
 
 	} // L: 16
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-2107390696"
-	)
-	@Export("clearItemContainer")
-	static void clearItemContainer(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 63
-		if (var1 != null) { // L: 64
-			for (int var2 = 0; var2 < var1.ids.length; ++var2) { // L: 65
-				var1.ids[var2] = -1; // L: 66
-				var1.quantities[var2] = 0; // L: 67
-			}
-
-		}
-	} // L: 69
 }

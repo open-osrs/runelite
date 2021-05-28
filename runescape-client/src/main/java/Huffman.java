@@ -1,24 +1,22 @@
+import java.util.concurrent.ScheduledExecutorService;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ix")
+@ObfuscatedName("id")
 @Implements("Huffman")
 public class Huffman {
-	@ObfuscatedName("el")
-	@ObfuscatedSignature(
-		descriptor = "Lji;"
-	)
-	@Export("archive14")
-	static Archive archive14;
-	@ObfuscatedName("h")
+	@ObfuscatedName("b")
+	@Export("soundSystemExecutor")
+	static ScheduledExecutorService soundSystemExecutor;
+	@ObfuscatedName("v")
 	@Export("masks")
 	int[] masks;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@Export("bits")
 	byte[] bits;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@Export("keys")
 	int[] keys;
 
@@ -105,10 +103,10 @@ public class Huffman {
 
 	} // L: 60
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "([BII[BII)I",
-		garbageValue = "509657550"
+		garbageValue = "-1771956050"
 	)
 	@Export("compress")
 	int compress(byte[] var1, int var2, int var3, byte[] var4, int var5) {
@@ -156,10 +154,10 @@ public class Huffman {
 		return (var7 + 7 >> 3) - var5; // L: 97
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "([BI[BIII)I",
-		garbageValue = "2101223048"
+		garbageValue = "2146568122"
 	)
 	@Export("decompress")
 	int decompress(byte[] var1, int var2, byte[] var3, int var4, int var5) {

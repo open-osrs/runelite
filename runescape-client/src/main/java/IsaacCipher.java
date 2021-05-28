@@ -7,69 +7,69 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("oy")
 @Implements("IsaacCipher")
 public final class IsaacCipher {
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1255372445
+		intValue = -21857667
 	)
 	@Export("valuesRemaining")
 	int valuesRemaining;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@Export("results")
 	int[] results;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@Export("mm")
 	int[] mm;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1713890931
+		intValue = 2044871249
 	)
 	@Export("aa")
 	int aa;
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -113768935
+		intValue = 1090157991
 	)
 	@Export("bb")
 	int bb;
-	@ObfuscatedName("b")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1917238977
+		intValue = 1872182579
 	)
 	@Export("cc")
 	int cc;
 
 	public IsaacCipher(int[] var1) {
-		this.mm = new int[256];
-		this.results = new int[256];
+		this.mm = new int[256]; // L: 15
+		this.results = new int[256]; // L: 16
 
 		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 17
 			this.results[var2] = var1[var2]; // L: 18
 		}
 
-		this.method7017(); // L: 20
-	}
+		this.method7098(); // L: 20
+	} // L: 21
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(S)I",
-		garbageValue = "-4327"
+		descriptor = "(B)I",
+		garbageValue = "81"
 	)
 	@Export("nextInt")
 	public final int nextInt() {
 		if (this.valuesRemaining == 0) { // L: 24
-			this.generateMoreResults();
+			this.generateMoreResults(); // L: 25
 			this.valuesRemaining = 256; // L: 26
 		}
 
 		return this.results[--this.valuesRemaining]; // L: 28
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1246307592"
+		descriptor = "(B)I",
+		garbageValue = "-58"
 	)
-	public final int method7019() {
+	public final int method7096() {
 		if (this.valuesRemaining == 0) { // L: 32
 			this.generateMoreResults(); // L: 33
 			this.valuesRemaining = 256; // L: 34
@@ -78,10 +78,10 @@ public final class IsaacCipher {
 		return this.results[this.valuesRemaining - 1]; // L: 36
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-477539920"
+		garbageValue = "-2083438988"
 	)
 	@Export("generateMoreResults")
 	final void generateMoreResults() {
@@ -109,12 +109,12 @@ public final class IsaacCipher {
 
 	} // L: 58
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "0"
+		descriptor = "(S)V",
+		garbageValue = "128"
 	)
-	final void method7017() {
+	final void method7098() {
 		int var9 = -1640531527; // L: 70
 		int var8 = -1640531527; // L: 71
 		int var7 = -1640531527; // L: 72
@@ -242,43 +242,18 @@ public final class IsaacCipher {
 		this.valuesRemaining = 256; // L: 189
 	} // L: 190
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;Ljp;IZB)Lgi;",
-		garbageValue = "5"
+		descriptor = "(Lio;IIIB)V",
+		garbageValue = "-43"
 	)
-	@Export("loadFrames")
-	public static Frames loadFrames(AbstractArchive var0, AbstractArchive var1, int var2, boolean var3) {
-		boolean var4 = true; // L: 11
-		int[] var5 = var0.getGroupFileIds(var2); // L: 12
-
-		for (int var6 = 0; var6 < var5.length; ++var6) { // L: 13
-			byte[] var7 = var0.getFile(var2, var5[var6]); // L: 14
-			if (var7 == null) { // L: 15
-				var4 = false; // L: 16
-			} else {
-				int var8 = (var7[0] & 255) << 8 | var7[1] & 255; // L: 19
-				byte[] var9;
-				if (var3) { // L: 21
-					var9 = var1.getFile(0, var8);
-				} else {
-					var9 = var1.getFile(var8, 0); // L: 22
-				}
-
-				if (var9 == null) { // L: 23
-					var4 = false;
-				}
-			}
-		}
-
-		if (!var4) { // L: 25
-			return null;
+	@Export("Widget_setKeyRate")
+	static final void Widget_setKeyRate(Widget var0, int var1, int var2, int var3) {
+		if (var0.field3035 == null) { // L: 988
+			throw new RuntimeException(); // L: 989
 		} else {
-			try {
-				return new Frames(var0, var1, var2, var3); // L: 27
-			} catch (Exception var11) { // L: 29
-				return null; // L: 30
-			}
+			var0.field3035[var1] = var2; // L: 991
+			var0.field3079[var1] = var3; // L: 992
 		}
-	}
+	} // L: 993
 }

@@ -29,6 +29,7 @@ import java.util.Map;
 import net.runelite.api.Client;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.World;
+import net.runelite.api.clan.ClanRank;
 import net.runelite.api.widgets.Widget;
 import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
@@ -676,8 +677,8 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("friendSystem")
 	RSFriendSystem getFriendManager();
 
-	@Import("clanChat")
-	RSClanChat getFriendsChatManager();
+	@Import("friendsChat")
+	RSFriendsChat getFriendsChatManager();
 
 	@Import("loginType")
 	RSLoginType getLoginType();
@@ -1412,4 +1413,20 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("crossWorldMessageIdsIndex")
 	int getCrossWorldMessageIdsIndex();
+
+	@Import("currentClanChannels")
+	RSClanChannel[] getCurrentClanChannels();
+
+	@Import("currentClanSettings")
+	RSClanSettings[] getCurrentClanSettingsAry();
+
+	@Import("guestClanChannel")
+	@Override
+	RSClanChannel getGuestClanChannel();
+
+	@Import("guestClanSettings")
+	@Override
+	RSClanSettings getGuestClanSettings();
+
+	ClanRank getClanRankFromRs(int rank);
 }

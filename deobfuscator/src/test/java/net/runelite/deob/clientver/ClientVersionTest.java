@@ -40,7 +40,7 @@ public class ClientVersionTest
 	public void test() throws IOException
 	{
 		ClientVersion ver = new ClientVersion(new File(properties.getVanillaClient()));
-		Assert.assertEquals(properties.getRsVersion(), ver.getVersion());
+		Assert.assertEquals((int) Math.floor(properties.getRsVersion()), ver.getVersion());
 	}
 
 }

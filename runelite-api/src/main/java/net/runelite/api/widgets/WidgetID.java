@@ -179,6 +179,8 @@ public class WidgetID
 	public static final int DIALOG_SPRITE2_ID = 11;
 	public static final int MULTISKILL_MENU_GROUP_ID = 270;
 	public static final int TEMPOROSS_GROUP_ID = 437;
+	public static final int CLAN_GROUP_ID = 701;
+	public static final int CLAN_GUEST_GROUP_ID = 702;
 
 	static class WorldMap
 	{
@@ -1411,5 +1413,15 @@ public class WidgetID
 	static class GauntletMap
 	{
 		static final int CONTAINER = 4;
+	}
+
+	static class Clan
+	{
+		static final int MEMBERS = 8;
+	}
+
+	static class ClanGuest
+	{
+		static final int MEMBERS = 8;
 	}
 }

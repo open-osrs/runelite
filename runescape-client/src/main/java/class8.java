@@ -3,80 +3,105 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("b")
+@ObfuscatedName("d")
 public class class8 extends class14 {
-	@ObfuscatedName("iz")
-	@ObfuscatedGetter(
-		intValue = -1034378325
+	@ObfuscatedName("o")
+	public static boolean field75;
+	@ObfuscatedName("dx")
+	@ObfuscatedSignature(
+		descriptor = "Ljp;"
 	)
-	@Export("selectedItemId")
-	static int selectedItemId;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		longValue = 1767734013338974575L
+	@Export("archive2")
+	static Archive archive2;
+	@ObfuscatedName("ed")
+	@ObfuscatedSignature(
+		descriptor = "Ljp;"
 	)
-	long field69;
-	@ObfuscatedName("c")
-	String field68;
+	@Export("archive17")
+	static Archive archive17;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		longValue = 5988895091532737889L
+	)
+	long field77;
+	@ObfuscatedName("n")
+	String field71;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lo;"
+		descriptor = "Lf;"
 	)
 	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lo;)V"
+		descriptor = "(Lf;)V"
 	)
 	class8(class2 var1) {
 		this.this$0 = var1;
-		this.field69 = -1L; // L: 74
-		this.field68 = null; // L: 75
+		this.field77 = -1L; // L: 74
+		this.field71 = null; // L: 75
 	} // L: 77
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;I)V",
-		garbageValue = "110401227"
+		descriptor = "(Lnd;I)V",
+		garbageValue = "-1281352827"
 	)
-	void vmethod339(Buffer var1) {
+	void vmethod276(Buffer var1) {
 		if (var1.readUnsignedByte() != 255) { // L: 80
 			--var1.offset; // L: 81
-			this.field69 = var1.readLong(); // L: 82
+			this.field77 = var1.readLong(); // L: 82
 		}
 
-		this.field68 = var1.readStringCp1252NullTerminatedOrNull(); // L: 84
+		this.field71 = var1.readStringCp1252NullTerminatedOrNull(); // L: 84
 	} // L: 85
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lx;I)V",
-		garbageValue = "-1535989118"
+		descriptor = "(Ll;B)V",
+		garbageValue = "29"
 	)
-	void vmethod338(class11 var1) {
-		var1.method117(this.field69, this.field68, 0); // L: 88
+	void vmethod281(ClanSettings var1) {
+		var1.method103(this.field77, this.field71, 0); // L: 88
 	} // L: 89
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("aw")
 	@ObfuscatedSignature(
-		descriptor = "(IS)Ley;",
-		garbageValue = "788"
+		descriptor = "(ILcf;ZB)I",
+		garbageValue = "-51"
 	)
-	@Export("getNpcDefinition")
-	public static NPCComposition getNpcDefinition(int var0) {
-		NPCComposition var1 = (NPCComposition)NPCComposition.NpcDefinition_cached.get((long)var0); // L: 57
-		if (var1 != null) { // L: 58
-			return var1;
-		} else {
-			byte[] var2 = NPCComposition.NpcDefinition_archive.takeFile(9, var0); // L: 59
-			var1 = new NPCComposition(); // L: 60
-			var1.id = var0; // L: 61
-			if (var2 != null) { // L: 62
-				var1.decode(new Buffer(var2));
+	static int method82(int var0, Script var1, boolean var2) {
+		if (var0 == 7100) { // L: 4262
+			++class44.Interpreter_intStackSize; // L: 4263
+			return 1; // L: 4264
+		} else if (var0 == 7101) { // L: 4266
+			Interpreter.Interpreter_stringStackSize += 2; // L: 4267
+			return 1; // L: 4268
+		} else if (var0 != 7102 && var0 != 7103 && var0 != 7104 && var0 != 7105 && var0 != 7109) { // L: 4270
+			if (var0 == 7106) { // L: 4274
+				++class44.Interpreter_intStackSize; // L: 4275
+				return 1; // L: 4276
+			} else if (var0 == 7107) { // L: 4278
+				++class44.Interpreter_intStackSize; // L: 4279
+				return 1; // L: 4280
+			} else if (var0 == 7108) { // L: 4282
+				Interpreter.Interpreter_intStack[++class44.Interpreter_intStackSize - 1] = WorldMapIcon_1.method3235() ? 1 : 0; // L: 4283
+				return 1; // L: 4284
+			} else {
+				return 2; // L: 4286
 			}
-
-			var1.postDecode(); // L: 63
-			NPCComposition.NpcDefinition_cached.put(var1, (long)var0); // L: 64
-			return var1; // L: 65
+		} else {
+			++class44.Interpreter_intStackSize; // L: 4271
+			return 1; // L: 4272
 		}
+	}
+
+	@ObfuscatedName("jp")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "-1387423967"
+	)
+	@Export("getTapToDrop")
+	static boolean getTapToDrop() {
+		return Client.tapToDrop; // L: 10176
 	}
 }

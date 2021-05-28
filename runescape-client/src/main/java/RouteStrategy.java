@@ -4,30 +4,36 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fx")
+@ObfuscatedName("fc")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("h")
+	@ObfuscatedName("ih")
 	@ObfuscatedGetter(
-		intValue = -917143075
+		intValue = -1113352723
+	)
+	@Export("oculusOrbFocalPointX")
+	static int oculusOrbFocalPointX;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -1931856815
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 939054465
+		intValue = -2132337773
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -2136918663
+		intValue = 203403193
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 2032814193
+		intValue = 308023697
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -35,28 +41,11 @@ public abstract class RouteStrategy {
 	protected RouteStrategy() {
 	} // L: 9
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IIILfa;B)Z",
-		garbageValue = "2"
+		descriptor = "(IIILfz;I)Z",
+		garbageValue = "496202097"
 	)
 	@Export("hasArrived")
-	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
-
-	@ObfuscatedName("la")
-	@ObfuscatedSignature(
-		descriptor = "(Lnk;IB)V",
-		garbageValue = "8"
-	)
-	static void method3134(Buffer var0, int var1) {
-		VarbitComposition.method2818(var0.array, var1); // L: 11719
-		if (JagexCache.JagexCache_randomDat != null) { // L: 11721
-			try {
-				JagexCache.JagexCache_randomDat.seek(0L); // L: 11723
-				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24); // L: 11724
-			} catch (Exception var3) { // L: 11726
-			}
-		}
-
-	} // L: 11729
+	protected abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 }

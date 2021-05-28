@@ -3,170 +3,138 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nz")
+@ObfuscatedName("np")
 public class class374 implements Enumerated {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lnz;"
+		descriptor = "Lnp;"
 	)
-	public static final class374 field4141;
-	@ObfuscatedName("c")
+	public static final class374 field4131;
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lnz;"
+		descriptor = "Lnp;"
 	)
-	public static final class374 field4135;
-	@ObfuscatedName("o")
+	public static final class374 field4128;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lnz;"
+		descriptor = "Lnp;"
 	)
-	public static final class374 field4136;
-	@ObfuscatedName("g")
+	public static final class374 field4129;
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1912726257
+		intValue = -1536498237
 	)
-	final int field4139;
-	@ObfuscatedName("l")
+	final int field4130;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1030005029
+		intValue = 618578037
 	)
-	public final int field4138;
-	@ObfuscatedName("z")
-	public final Class field4134;
-	@ObfuscatedName("t")
+	public final int field4135;
+	@ObfuscatedName("j")
+	public final Class field4127;
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Lnt;"
+		descriptor = "Lnv;"
 	)
-	final class370 field4137;
+	final class370 field4133;
 
 	static {
-		field4141 = new class374(2, 0, Integer.class, new class371()); // L: 10
-		field4135 = new class374(0, 1, Long.class, new class373()); // L: 23
-		field4136 = new class374(1, 2, String.class, new class375()); // L: 36
+		field4131 = new class374(2, 0, Integer.class, new class371()); // L: 10
+		field4128 = new class374(0, 1, Long.class, new class373()); // L: 23
+		field4129 = new class374(1, 2, String.class, new class375()); // L: 36
 	}
 
 	@ObfuscatedSignature(
-		descriptor = "(IILjava/lang/Class;Lnt;)V"
+		descriptor = "(IILjava/lang/Class;Lnv;)V"
 	)
 	class374(int var1, int var2, Class var3, class370 var4) {
-		this.field4139 = var1;
-		this.field4138 = var2;
-		this.field4134 = var3; // L: 61
-		this.field4137 = var4; // L: 62
+		this.field4130 = var1; // L: 59
+		this.field4135 = var2; // L: 60
+		this.field4127 = var3; // L: 61
+		this.field4133 = var4; // L: 62
 	} // L: 63
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-708237537"
+		garbageValue = "-907662946"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field4138; // L: 88
+		return this.field4135; // L: 90
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;B)Ljava/lang/Object;",
-		garbageValue = "-8"
+		descriptor = "(Lnd;I)Ljava/lang/Object;",
+		garbageValue = "-2104172776"
 	)
-	public Object method6351(Buffer var1) {
-		return this.field4137.vmethod6362(var1); // L: 92
+	public Object method6480(Buffer var1) {
+		return this.field4133.vmethod6500(var1); // L: 94
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-225266091"
+		descriptor = "(Lax;B)Lai;",
+		garbageValue = "-46"
 	)
-	static int method6359(int var0, int var1, int var2) {
-		if (var2 > 179) {
-			var1 /= 2;
+	public static class31 method6477(class34 var0) {
+		switch(var0.field252) { // L: 9
+		case 0:
+			return new class28(); // L: 16
+		default:
+			throw new IllegalArgumentException(); // L: 12
 		}
-
-		if (var2 > 192) { // L: 56
-			var1 /= 2;
-		}
-
-		if (var2 > 217) { // L: 57
-			var1 /= 2;
-		}
-
-		if (var2 > 243) { // L: 58
-			var1 /= 2;
-		}
-
-		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2; // L: 59
-		return var3; // L: 60
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lnz;",
-		garbageValue = "2122701602"
+		descriptor = "(I)[Lnp;",
+		garbageValue = "-72158502"
 	)
-	public static class374[] method6356() {
-		return new class374[]{field4141, field4136, field4135}; // L: 55
+	public static class374[] method6476() {
+		return new class374[]{field4131, field4128, field4129}; // L: 55
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Class;I)Lnt;",
-		garbageValue = "-1426815547"
+		descriptor = "(Ljava/lang/Class;B)Lnp;",
+		garbageValue = "-16"
 	)
-	public static class370 method6350(Class var0) {
-		class374[] var2 = method6356(); // L: 69
-		int var3 = 0;
+	public static class374 method6479(Class var0) {
+		class374[] var1 = method6476(); // L: 67
 
-		class374 var1;
-		while (true) {
-			if (var3 >= var2.length) {
-				var1 = null; // L: 80
-				break;
+		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 68
+			class374 var3 = var1[var2]; // L: 69
+			if (var3.field4127 == var0) {
+				return var3; // L: 71
 			}
-
-			class374 var4 = var2[var3]; // L: 71
-			if (var4.field4134 == var0) { // L: 73
-				var1 = var4; // L: 74
-				break;
-			}
-
-			++var3; // L: 70
 		}
 
-		if (var1 == null) { // L: 83
-			throw new IllegalArgumentException();
-		} else {
-			return var1.field4137; // L: 84
-		}
+		return null; // L: 75
 	}
 
-	@ObfuscatedName("gr")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-312092894"
+		descriptor = "(Ljava/lang/Object;Lnd;I)V",
+		garbageValue = "-926534106"
 	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field833 = 0L; // L: 4340
-		if (var0 >= 2) { // L: 4341
-			Client.isResizable = true;
+	public static void method6475(Object var0, Buffer var1) {
+		class370 var2 = method6478(var0.getClass()); // L: 79
+		var2.vmethod6493(var0, var1); // L: 80
+	} // L: 81
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Class;S)Lnv;",
+		garbageValue = "-2594"
+	)
+	static class370 method6478(Class var0) {
+		class374 var1 = method6479(var0); // L: 84
+		if (var1 == null) {
+			throw new IllegalArgumentException(); // L: 85
 		} else {
-			Client.isResizable = false; // L: 4342
+			return var1.field4133; // L: 86
 		}
-
-		if (HitSplatDefinition.getWindowedMode() == 1) { // L: 4343
-			class303.client.setMaxCanvasSize(765, 503); // L: 4344
-		} else {
-			class303.client.setMaxCanvasSize(7680, 2160); // L: 4347
-		}
-
-		if (Client.gameState >= 25) { // L: 4349
-			PacketBufferNode var1 = HealthBarDefinition.getPacketBufferNode(ClientPacket.field2655, Client.packetWriter.isaacCipher); // L: 4351
-			var1.packetBuffer.writeByte(HitSplatDefinition.getWindowedMode()); // L: 4352
-			var1.packetBuffer.writeShort(GameEngine.canvasWidth); // L: 4353
-			var1.packetBuffer.writeShort(HealthBarDefinition.canvasHeight); // L: 4354
-			Client.packetWriter.addNode(var1); // L: 4355
-		}
-
-	} // L: 4357
+	}
 }

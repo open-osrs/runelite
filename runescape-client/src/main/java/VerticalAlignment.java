@@ -4,69 +4,73 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ex")
+@ObfuscatedName("em")
 @Implements("VerticalAlignment")
 public enum VerticalAlignment implements Enumerated {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Lem;"
 	)
-	field1676(1, 0),
-	@ObfuscatedName("c")
+	field1672(0, 0),
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Lem;"
 	)
 	@Export("VerticalAlignment_centered")
-	VerticalAlignment_centered(0, 1),
-	@ObfuscatedName("o")
+	VerticalAlignment_centered(1, 1),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Lem;"
 	)
-	field1675(2, 2);
+	field1670(2, 2);
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1077695001
-	)
-	static int field1680;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 715110919
+		intValue = -1918765839
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1292564375
+		intValue = 76672001
 	)
 	@Export("id")
 	final int id;
 
 	VerticalAlignment(int var3, int var4) {
-		this.value = var3; // L: 14
-		this.id = var4; // L: 15
-	} // L: 16
+		this.value = var3; // L: 18
+		this.id = var4; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-708237537"
+		garbageValue = "-907662946"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 19
+		return this.id;
 	}
 
-	@ObfuscatedName("kr")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Liv;I)V",
-		garbageValue = "-1728613752"
+		descriptor = "(Ljv;III)[Lop;",
+		garbageValue = "-178534371"
 	)
-	@Export("invalidateWidget")
-	static void invalidateWidget(Widget var0) {
-		if (var0.cycle == Client.field824) { // L: 11077
-			Client.field825[var0.rootIndex] = true; // L: 11078
-		}
+	public static IndexedSprite[] method2799(AbstractArchive var0, int var1, int var2) {
+		return !class339.method6015(var0, var1, var2) ? null : class24.method262(); // L: 23 24
+	}
 
-	} // L: 11080
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;II)V",
+		garbageValue = "1083454679"
+	)
+	static final void method2796(String var0, int var1) {
+		PacketBufferNode var2 = class21.getPacketBufferNode(ClientPacket.field2621, Client.packetWriter.isaacCipher); // L: 222
+		var2.packetBuffer.writeByte(Tiles.stringCp1252NullTerminatedByteSize(var0) + 1); // L: 223
+		var2.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 224
+		var2.packetBuffer.method6584(var1); // L: 225
+		Client.packetWriter.addNode(var2); // L: 226
+	} // L: 227
 }

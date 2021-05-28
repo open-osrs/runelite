@@ -3,23 +3,23 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mg")
+@ObfuscatedName("mz")
 @Implements("Link")
 public class Link {
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lmg;"
+		descriptor = "Lmz;"
 	)
 	@Export("previous")
 	public Link previous;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lmg;"
+		descriptor = "Lmz;"
 	)
 	@Export("next")
 	public Link next;
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@Export("remove")
 	public void remove() {
 		if (this.next != null) { // L: 8

@@ -34,6 +34,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.runelite.api.annotations.VisibleForExternalPlugins;
+import net.runelite.api.clan.ClanChannel;
+import net.runelite.api.clan.ClanSettings;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.PlayerChanged;
@@ -2194,4 +2196,32 @@ public interface Client extends GameEngine
 	 * @return
 	 */
 	int getCrossWorldMessageIdsIndex();
+
+	/**
+	 * Get the primary clan channel the player is in.
+	 * @return
+	 */
+	@Nullable
+	ClanChannel getClanChannel();
+
+	/**
+	 * Get the guest clan channel the player is in.
+	 * @return
+	 */
+	@Nullable
+	ClanChannel getGuestClanChannel();
+
+	/**
+	 * Get clan settings for the clan the user is in.
+	 * @return
+	 */
+	@Nullable
+	ClanSettings getClanSettings();
+
+	/**
+	 * Get the guest clan's settings.
+	 * @return
+	 */
+	@Nullable
+	ClanSettings getGuestClanSettings();
 }

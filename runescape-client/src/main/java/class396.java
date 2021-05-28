@@ -2,30 +2,24 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("od")
+@ObfuscatedName("ox")
 public class class396 {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 97362057
+		intValue = -522791973
 	)
 	@Export("SpriteBuffer_spriteCount")
 	static int SpriteBuffer_spriteCount;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1206663989
+		intValue = -1099363635
 	)
 	@Export("SpriteBuffer_spriteWidth")
 	static int SpriteBuffer_spriteWidth;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 1874373077
-	)
-	@Export("SpriteBuffer_spriteHeight")
-	static int SpriteBuffer_spriteHeight;
-	@ObfuscatedName("l")
-	@Export("SpriteBuffer_yOffsets")
-	public static int[] SpriteBuffer_yOffsets;
-	@ObfuscatedName("b")
+	@ObfuscatedName("j")
+	@Export("SpriteBuffer_spriteWidths")
+	public static int[] SpriteBuffer_spriteWidths;
+	@ObfuscatedName("d")
 	@Export("SpriteBuffer_pixels")
 	public static byte[][] SpriteBuffer_pixels;
 }

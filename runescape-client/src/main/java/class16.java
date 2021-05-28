@@ -2,32 +2,26 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("e")
+@ObfuscatedName("a")
 public abstract class class16 extends Node {
-	@ObfuscatedName("bd")
-	@Export("otp")
-	static String otp;
-	@ObfuscatedName("ec")
-	@ObfuscatedSignature(
-		descriptor = "Lji;"
-	)
-	@Export("archive15")
-	static Archive archive15;
+	@ObfuscatedName("gf")
+	@Export("regionMapArchiveIds")
+	static int[] regionMapArchiveIds;
 
 	class16() {
 	} // L: 48
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;S)V",
-		garbageValue = "4095"
+		descriptor = "(Lnd;I)V",
+		garbageValue = "68071115"
 	)
-	abstract void vmethod326(Buffer var1);
+	abstract void vmethod266(Buffer var1);
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lg;B)V",
-		garbageValue = "-61"
+		descriptor = "(Ly;I)V",
+		garbageValue = "-1846892157"
 	)
-	abstract void vmethod314(class3 var1);
+	abstract void vmethod264(ClanChannel var1);
 }

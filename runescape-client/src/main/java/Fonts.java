@@ -4,32 +4,33 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mw")
+@ObfuscatedName("mu")
 @Implements("Fonts")
 public class Fonts {
-	@ObfuscatedName("bf")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Lop;"
 	)
-	static GameBuild field4063;
-	@ObfuscatedName("h")
+	@Export("logoSprite")
+	static IndexedSprite logoSprite;
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Ljv;"
 	)
 	@Export("spritesArchive")
 	AbstractArchive spritesArchive;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Ljv;"
 	)
 	@Export("fontsArchive")
 	AbstractArchive fontsArchive;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@Export("map")
 	HashMap map;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;Ljp;)V"
+		descriptor = "(Ljv;Ljv;)V"
 	)
 	public Fonts(AbstractArchive var1, AbstractArchive var2) {
 		this.spritesArchive = var1; // L: 14
@@ -37,10 +38,10 @@ public class Fonts {
 		this.map = new HashMap(); // L: 16
 	} // L: 17
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "([Lmx;I)Ljava/util/HashMap;",
-		garbageValue = "489474"
+		descriptor = "([Lmv;I)Ljava/util/HashMap;",
+		garbageValue = "-1349307579"
 	)
 	@Export("createMap")
 	public HashMap createMap(FontName[] var1) {
@@ -52,7 +53,7 @@ public class Fonts {
 			if (this.map.containsKey(var5)) { // L: 26
 				var2.put(var5, this.map.get(var5)); // L: 27
 			} else {
-				Font var6 = InvDefinition.method2609(this.spritesArchive, this.fontsArchive, var5.name, ""); // L: 30
+				Font var6 = AbstractSocket.method5900(this.spritesArchive, this.fontsArchive, var5.name, ""); // L: 30
 				if (var6 != null) { // L: 31
 					this.map.put(var5, var6); // L: 32
 					var2.put(var5, var6); // L: 33
@@ -61,15 +62,5 @@ public class Fonts {
 		}
 
 		return var2; // L: 39
-	}
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lbv;",
-		garbageValue = "-2048173545"
-	)
-	@Export("Messages_getMessage")
-	static Message Messages_getMessage(int var0) {
-		return (Message)Messages.Messages_hashTable.get((long)var0); // L: 40
 	}
 }

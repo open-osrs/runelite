@@ -1,28 +1,16 @@
 import java.util.HashMap;
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kj")
+@ObfuscatedName("kh")
 public class class288 {
-	@ObfuscatedName("h")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lkt;"
 	)
-	@Export("FloorOverlayDefinition_archive")
-	static AbstractArchive FloorOverlayDefinition_archive;
-	@ObfuscatedName("bn")
-	@ObfuscatedSignature(
-		descriptor = "Lof;"
-	)
-	static IndexedSprite field3691;
-	@ObfuscatedName("nr")
-	@ObfuscatedGetter(
-		intValue = 1165287201
-	)
-	@Export("widgetDragDuration")
-	static int widgetDragDuration;
+	@Export("ItemDefinition_fontPlain11")
+	public static Font ItemDefinition_fontPlain11;
 
 	static {
 		new HashMap();

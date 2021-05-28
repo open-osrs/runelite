@@ -5,15 +5,21 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dn")
+@ObfuscatedName("dv")
 @Implements("UserComparator4")
 public class UserComparator4 implements Comparator {
-	@ObfuscatedName("rr")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 650908415
+		intValue = 2097206533
 	)
-	static int field1403;
-	@ObfuscatedName("h")
+	@Export("loginBoxCenter")
+	static int loginBoxCenter;
+	@ObfuscatedName("gi")
+	@ObfuscatedGetter(
+		intValue = -845013717
+	)
+	static int field1427;
+	@ObfuscatedName("v")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -21,10 +27,10 @@ public class UserComparator4 implements Comparator {
 		this.reversed = var1; // L: 10
 	} // L: 11
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Llq;Llq;I)I",
-		garbageValue = "-1160366364"
+		descriptor = "(Llv;Llv;I)I",
+		garbageValue = "-903246659"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(Buddy var1, Buddy var2) {
@@ -32,29 +38,20 @@ public class UserComparator4 implements Comparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((Buddy)var1, (Buddy)var2);
+		return this.compare_bridged((Buddy)var1, (Buddy)var2); // L: 18
 	}
 
 	public boolean equals(Object var1) {
 		return super.equals(var1); // L: 22
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("jg")
 	@ObfuscatedSignature(
-		descriptor = "([Lke;II)Lke;",
-		garbageValue = "-1507017848"
+		descriptor = "(ZB)V",
+		garbageValue = "0"
 	)
-	@Export("findEnumerated")
-	public static Enumerated findEnumerated(Enumerated[] var0, int var1) {
-		Enumerated[] var2 = var0; // L: 17
-
-		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 18
-			Enumerated var4 = var2[var3]; // L: 19
-			if (var1 == var4.rsOrdinal()) {
-				return var4; // L: 21
-			}
-		}
-
-		return null; // L: 25
-	}
+	@Export("setTapToDrop")
+	static void setTapToDrop(boolean var0) {
+		Client.tapToDrop = var0; // L: 10172
+	} // L: 10173
 }

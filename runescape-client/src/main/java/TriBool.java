@@ -3,32 +3,27 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ls")
+@ObfuscatedName("lu")
 @Implements("TriBool")
 public class TriBool {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lls;"
+		descriptor = "Llu;"
 	)
 	@Export("TriBool_unknown")
 	public static final TriBool TriBool_unknown;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lls;"
+		descriptor = "Llu;"
 	)
 	@Export("TriBool_true")
 	public static final TriBool TriBool_true;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lls;"
+		descriptor = "Llu;"
 	)
 	@Export("TriBool_false")
 	public static final TriBool TriBool_false;
-	@ObfuscatedName("fy")
-	@ObfuscatedSignature(
-		descriptor = "Llc;"
-	)
-	static AbstractSocket field3866;
 
 	static {
 		TriBool_unknown = new TriBool(); // L: 4
@@ -38,13 +33,4 @@ public class TriBool {
 
 	TriBool() {
 	} // L: 8
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(B)[Lme;",
-		garbageValue = "60"
-	)
-	static class338[] method5690() {
-		return new class338[]{class338.field3927, class338.field3925, class338.field3926, class338.field3928}; // L: 16
-	}
 }

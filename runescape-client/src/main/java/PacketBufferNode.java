@@ -4,183 +4,116 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hm")
+@ObfuscatedName("hq")
 @Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "[Lhm;"
+		descriptor = "[Lhq;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 916049887
+		intValue = -227614929
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
 	static int PacketBufferNode_packetBufferNodeCount;
-	@ObfuscatedName("h")
+	@ObfuscatedName("hw")
 	@ObfuscatedSignature(
-		descriptor = "Lha;"
+		descriptor = "[Loh;"
+	)
+	@Export("headIconHintSprites")
+	static SpritePixels[] headIconHintSprites;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lhs;"
 	)
 	@Export("clientPacket")
-	public ClientPacket clientPacket;
-	@ObfuscatedName("c")
+	ClientPacket clientPacket;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 22124575
+		intValue = 1934863547
 	)
 	@Export("clientPacketLength")
-	public int clientPacketLength;
-	@ObfuscatedName("o")
+	int clientPacketLength;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lnm;"
+		descriptor = "Lnb;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 564962157
+		intValue = -2120774193
 	)
 	@Export("index")
 	public int index;
 
 	static {
-		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300]; // L: 13
-		PacketBufferNode_packetBufferNodeCount = 0; // L: 14
+		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300];
+		PacketBufferNode_packetBufferNodeCount = 0;
 	}
 
 	PacketBufferNode() {
-	} // L: 19
+	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "584072698"
+		descriptor = "(B)V",
+		garbageValue = "100"
 	)
 	@Export("release")
 	public void release() {
-		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 42
-			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 43
+		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 61
+			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 62
 		}
-	} // L: 44
+	} // L: 63
 
-	@ObfuscatedName("kk")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Liv;IIII)V",
-		garbageValue = "-476832840"
+		descriptor = "([Ljava/lang/String;[SIII)V",
+		garbageValue = "1137110463"
 	)
-	@Export("drawMinimap")
-	static final void drawMinimap(Widget var0, int var1, int var2, int var3) {
-		WorldMapIcon_1.playPcmPlayers(); // L: 11380
-		SpriteMask var4 = var0.getSpriteMask(false); // L: 11381
-		if (var4 != null) { // L: 11382
-			Rasterizer2D.Rasterizer2D_setClip(var1, var2, var4.width + var1, var2 + var4.height); // L: 11383
-			if (Client.minimapState != 2 && Client.minimapState != 5) { // L: 11384
-				int var5 = Client.camAngleY & 2047; // L: 11385
-				int var6 = class35.localPlayer.x / 32 + 48; // L: 11386
-				int var7 = 464 - class35.localPlayer.y / 32; // L: 11387
-				UserComparator8.sceneMinimapSprite.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, var6, var7, var5, 256, var4.xStarts, var4.xWidths); // L: 11388
+	@Export("sortItemsByName")
+	public static void sortItemsByName(String[] var0, short[] var1, int var2, int var3) {
+		if (var2 < var3) { // L: 9
+			int var4 = (var3 + var2) / 2; // L: 10
+			int var5 = var2; // L: 11
+			String var6 = var0[var4]; // L: 12
+			var0[var4] = var0[var3]; // L: 13
+			var0[var3] = var6; // L: 14
+			short var7 = var1[var4]; // L: 15
+			var1[var4] = var1[var3]; // L: 16
+			var1[var3] = var7; // L: 17
 
-				int var8;
-				int var10;
-				int var16;
-				for (var8 = 0; var8 < Client.mapIconCount; ++var8) { // L: 11389
-					var16 = Client.mapIconXs[var8] * 4 + 2 - class35.localPlayer.x / 32; // L: 11390
-					var10 = Client.mapIconYs[var8] * 4 + 2 - class35.localPlayer.y / 32; // L: 11391
-					class10.drawSpriteOnMinimap(var1, var2, var16, var10, Client.mapIcons[var8], var4); // L: 11392
+			for (int var8 = var2; var8 < var3; ++var8) { // L: 18
+				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) { // L: 19
+					String var9 = var0[var8]; // L: 20
+					var0[var8] = var0[var5]; // L: 21
+					var0[var5] = var9; // L: 22
+					short var10 = var1[var8]; // L: 23
+					var1[var8] = var1[var5]; // L: 24
+					var1[var5++] = var10; // L: 25
 				}
-
-				int var11;
-				int var12;
-				for (var8 = 0; var8 < 104; ++var8) { // L: 11394
-					for (var16 = 0; var16 < 104; ++var16) { // L: 11395
-						NodeDeque var14 = Client.groundItems[ParamComposition.Client_plane][var8][var16]; // L: 11396
-						if (var14 != null) { // L: 11397
-							var11 = var8 * 4 + 2 - class35.localPlayer.x / 32; // L: 11398
-							var12 = var16 * 4 + 2 - class35.localPlayer.y / 32; // L: 11399
-							class10.drawSpriteOnMinimap(var1, var2, var11, var12, class341.mapDotSprites[0], var4); // L: 11400
-						}
-					}
-				}
-
-				for (var8 = 0; var8 < Client.npcCount; ++var8) { // L: 11404
-					NPC var9 = Client.npcs[Client.npcIndices[var8]]; // L: 11405
-					if (var9 != null && var9.isVisible()) { // L: 11406
-						NPCComposition var18 = var9.definition; // L: 11407
-						if (var18 != null && var18.transforms != null) { // L: 11408
-							var18 = var18.transform();
-						}
-
-						if (var18 != null && var18.drawMapDot && var18.isInteractable) { // L: 11409
-							var11 = var9.x / 32 - class35.localPlayer.x / 32; // L: 11410
-							var12 = var9.y / 32 - class35.localPlayer.y / 32; // L: 11411
-							class10.drawSpriteOnMinimap(var1, var2, var11, var12, class341.mapDotSprites[1], var4); // L: 11412
-						}
-					}
-				}
-
-				var8 = Players.Players_count; // L: 11416
-				int[] var17 = Players.Players_indices; // L: 11417
-
-				for (var10 = 0; var10 < var8; ++var10) { // L: 11418
-					Player var15 = Client.players[var17[var10]]; // L: 11419
-					if (var15 != null && var15.isVisible() && !var15.isHidden && var15 != class35.localPlayer) { // L: 11420
-						var12 = var15.x / 32 - class35.localPlayer.x / 32; // L: 11421
-						int var13 = var15.y / 32 - class35.localPlayer.y / 32; // L: 11422
-						if (var15.isFriend()) { // L: 11423
-							class10.drawSpriteOnMinimap(var1, var2, var12, var13, class341.mapDotSprites[3], var4);
-						} else if (class35.localPlayer.team != 0 && var15.team != 0 && var15.team == class35.localPlayer.team) { // L: 11424
-							class10.drawSpriteOnMinimap(var1, var2, var12, var13, class341.mapDotSprites[4], var4);
-						} else if (var15.isClanMember()) { // L: 11425
-							class10.drawSpriteOnMinimap(var1, var2, var12, var13, class341.mapDotSprites[5], var4);
-						} else if (var15.method2137()) { // L: 11426
-							class10.drawSpriteOnMinimap(var1, var2, var12, var13, class341.mapDotSprites[6], var4);
-						} else {
-							class10.drawSpriteOnMinimap(var1, var2, var12, var13, class341.mapDotSprites[2], var4); // L: 11427
-						}
-					}
-				}
-
-				if (Client.hintArrowType != 0 && Client.cycle % 20 < 10) { // L: 11430
-					if (Client.hintArrowType == 1 && Client.hintArrowNpcIndex >= 0 && Client.hintArrowNpcIndex < Client.npcs.length) { // L: 11431
-						NPC var19 = Client.npcs[Client.hintArrowNpcIndex]; // L: 11432
-						if (var19 != null) { // L: 11433
-							var11 = var19.x / 32 - class35.localPlayer.x / 32; // L: 11434
-							var12 = var19.y / 32 - class35.localPlayer.y / 32; // L: 11435
-							class20.worldToMinimap(var1, var2, var11, var12, ObjectComposition.mapMarkerSprites[1], var4); // L: 11436
-						}
-					}
-
-					if (Client.hintArrowType == 2) { // L: 11439
-						var10 = Client.hintArrowX * 4 - JagexCache.baseX * 4 + 2 - class35.localPlayer.x / 32; // L: 11440
-						var11 = Client.hintArrowY * 4 - Messages.baseY * 4 + 2 - class35.localPlayer.y / 32; // L: 11441
-						class20.worldToMinimap(var1, var2, var10, var11, ObjectComposition.mapMarkerSprites[1], var4); // L: 11442
-					}
-
-					if (Client.hintArrowType == 10 && Client.hintArrowPlayerIndex >= 0 && Client.hintArrowPlayerIndex < Client.players.length) { // L: 11444
-						Player var20 = Client.players[Client.hintArrowPlayerIndex]; // L: 11445
-						if (var20 != null) { // L: 11446
-							var11 = var20.x / 32 - class35.localPlayer.x / 32; // L: 11447
-							var12 = var20.y / 32 - class35.localPlayer.y / 32; // L: 11448
-							class20.worldToMinimap(var1, var2, var11, var12, ObjectComposition.mapMarkerSprites[1], var4); // L: 11449
-						}
-					}
-				}
-
-				if (Client.destinationX != 0) { // L: 11453
-					var10 = Client.destinationX * 4 + 2 - class35.localPlayer.x / 32; // L: 11454
-					var11 = Client.destinationY * 4 + 2 - class35.localPlayer.y / 32; // L: 11455
-					class10.drawSpriteOnMinimap(var1, var2, var10, var11, ObjectComposition.mapMarkerSprites[0], var4); // L: 11456
-				}
-
-				if (!class35.localPlayer.isHidden) { // L: 11458
-					Rasterizer2D.Rasterizer2D_fillRectangle(var4.width / 2 + var1 - 1, var4.height / 2 + var2 - 1, 3, 3, 16777215);
-				}
-			} else {
-				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths); // L: 11460
 			}
 
-			Client.field826[var3] = true; // L: 11461
+			var0[var3] = var0[var5]; // L: 29
+			var0[var5] = var6; // L: 30
+			var1[var3] = var1[var5]; // L: 31
+			var1[var5] = var7; // L: 32
+			sortItemsByName(var0, var1, var2, var5 - 1); // L: 33
+			sortItemsByName(var0, var1, var5 + 1, var3); // L: 34
 		}
-	} // L: 11462
+
+	} // L: 36
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(II)Z",
+		garbageValue = "-250082153"
+	)
+	public static boolean method4367(int var0) {
+		return var0 >= WorldMapDecorationType.field3162.id && var0 <= WorldMapDecorationType.field3144.id; // L: 46
+	}
 }

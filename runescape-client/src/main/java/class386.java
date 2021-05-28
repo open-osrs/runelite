@@ -3,80 +3,84 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nw")
+@ObfuscatedName("na")
 public enum class386 implements Enumerated {
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "Lnw;"
-	)
-	field4213(2, 0),
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Lnw;"
-	)
-	field4210(0, 2),
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lnw;"
-	)
-	field4211(5, 5),
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "Lnw;"
-	)
-	field4215(3, 6),
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "Lnw;"
-	)
-	field4212(4, 7),
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "Lnw;"
-	)
-	field4214(1, 8);
-
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = 2074320091
-	)
-	final int field4216;
 	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -2114016559
+	@ObfuscatedSignature(
+		descriptor = "Lna;"
 	)
-	final int field4209;
+	field4210(0, 0),
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lna;"
+	)
+	field4207(3, 2),
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "Lna;"
+	)
+	field4208(5, 5),
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "Lna;"
+	)
+	field4209(2, 6),
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "Lna;"
+	)
+	field4213(1, 7),
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lna;"
+	)
+	field4211(4, 8);
+
+	@ObfuscatedName("r")
+	@ObfuscatedGetter(
+		intValue = -1819892595
+	)
+	final int field4212;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = -1356390723
+	)
+	final int field4206;
 
 	class386(int var3, int var4) {
-		this.field4216 = var3; // L: 18
-		this.field4209 = var4; // L: 19
+		this.field4212 = var3; // L: 18
+		this.field4206 = var4; // L: 19
 	} // L: 20
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-708237537"
+		garbageValue = "-907662946"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field4209; // L: 23
+		return this.field4206; // L: 23
 	}
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lbt;B)V",
-		garbageValue = "104"
+		descriptor = "(IIB)I",
+		garbageValue = "-6"
 	)
-	@Export("PcmStream_disable")
-	static final void PcmStream_disable(PcmStream var0) {
-		var0.active = false; // L: 270
-		if (var0.sound != null) { // L: 271
-			var0.sound.position = 0;
+	public static int method6818(int var0, int var1) {
+		int var2;
+		if (var1 > var0) { // L: 24
+			var2 = var0; // L: 25
+			var0 = var1; // L: 26
+			var1 = var2; // L: 27
 		}
 
-		for (PcmStream var1 = var0.firstSubStream(); var1 != null; var1 = var0.nextSubStream()) {
-			PcmStream_disable(var1); // L: 272
+		while (var1 != 0) { // L: 29
+			var2 = var0 % var1; // L: 30
+			var0 = var1; // L: 31
+			var1 = var2; // L: 32
 		}
 
-	} // L: 273
+		return var0; // L: 34
+	}
 }

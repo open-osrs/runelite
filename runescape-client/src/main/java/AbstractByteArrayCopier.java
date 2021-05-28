@@ -4,66 +4,54 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iw")
+@ObfuscatedName("im")
 @Implements("AbstractByteArrayCopier")
 public abstract class AbstractByteArrayCopier {
-	@ObfuscatedName("r")
-	static int[] field3115;
-	@ObfuscatedName("lt")
+	@ObfuscatedName("ry")
 	@ObfuscatedGetter(
-		intValue = -1508140937
+		intValue = -941868037
 	)
-	@Export("menuX")
-	static int menuX;
+	static int field3119;
 
 	AbstractByteArrayCopier() {
 	} // L: 4
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)[B",
-		garbageValue = "-1778746914"
+		descriptor = "(B)[B",
+		garbageValue = "74"
 	)
 	@Export("get")
 	abstract byte[] get();
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "([BI)V",
-		garbageValue = "973811650"
+		descriptor = "([BB)V",
+		garbageValue = "43"
 	)
 	@Export("set")
 	abstract void set(byte[] var1);
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;I)V",
-		garbageValue = "-1461595719"
+		descriptor = "(Ljv;III)Lop;",
+		garbageValue = "1690865732"
 	)
-	public static void method4756(AbstractArchive var0) {
-		VarcInt.VarcInt_archive = var0; // L: 17
-	} // L: 18
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "583032704"
-	)
-	static final int method4754(int var0, int var1) {
-		int var2 = var0 + var1 * 57; // L: 485
-		var2 ^= var2 << 13; // L: 486
-		int var3 = (var2 * var2 * 15731 + 789221) * var2 + 1376312589 & Integer.MAX_VALUE; // L: 487
-		return var3 >> 19 & 255; // L: 488
+	static IndexedSprite method4802(AbstractArchive var0, int var1, int var2) {
+		if (!class339.method6015(var0, var1, var2)) { // L: 28
+			return null;
+		} else {
+			IndexedSprite var4 = new IndexedSprite(); // L: 31
+			var4.width = class396.SpriteBuffer_spriteWidth; // L: 32
+			var4.height = UserComparator2.SpriteBuffer_spriteHeight; // L: 33
+			var4.xOffset = WorldMapDecoration.SpriteBuffer_xOffsets[0]; // L: 34
+			var4.yOffset = Calendar.SpriteBuffer_yOffsets[0]; // L: 35
+			var4.subWidth = class396.SpriteBuffer_spriteWidths[0]; // L: 36
+			var4.subHeight = class302.SpriteBuffer_spriteHeights[0]; // L: 37
+			var4.palette = MilliClock.SpriteBuffer_spritePalette; // L: 38
+			var4.pixels = class396.SpriteBuffer_pixels[0]; // L: 39
+			MilliClock.method2587(); // L: 40
+			return var4; // L: 43
+		}
 	}
-
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-331498963"
-	)
-	static final void method4738() {
-		Object var10000 = null; // L: 128
-		String var0 = "Your friend list is full. Max of 200 for free users, and 400 for members";
-		WorldMapScaleHandler.addGameMessage(30, "", var0); // L: 130
-	} // L: 132
 }

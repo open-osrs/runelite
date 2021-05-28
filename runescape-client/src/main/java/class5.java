@@ -1,178 +1,139 @@
-import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import netscape.javascript.JSObject;
 
-@ObfuscatedName("z")
+@ObfuscatedName("j")
 public class class5 extends class16 {
-	@ObfuscatedName("v")
-	@Export("Widget_loadedInterfaces")
-	static boolean[] Widget_loadedInterfaces;
-	@ObfuscatedName("gz")
-	@ObfuscatedSignature(
-		descriptor = "Lgz;"
-	)
-	@Export("scene")
-	static Scene scene;
-	@ObfuscatedName("h")
+	@ObfuscatedName("an")
 	@ObfuscatedGetter(
-		intValue = 1793437277
+		intValue = 1071759603
 	)
-	int field45;
+	static int field53;
+	@ObfuscatedName("ez")
+	@ObfuscatedSignature(
+		descriptor = "Ljp;"
+	)
+	@Export("archive20")
+	static Archive archive20;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -625073017
+	)
+	int field56;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lm;"
+		descriptor = "Lx;"
 	)
 	final class19 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lm;)V"
+		descriptor = "(Lx;)V"
 	)
 	class5(class19 var1) {
 		this.this$0 = var1;
-		this.field45 = -1; // L: 81
-	}
+		this.field56 = -1; // L: 81
+	} // L: 83
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;S)V",
-		garbageValue = "4095"
+		descriptor = "(Lnd;I)V",
+		garbageValue = "68071115"
 	)
-	void vmethod326(Buffer var1) {
-		this.field45 = var1.readUnsignedShort(); // L: 86
+	void vmethod266(Buffer var1) {
+		this.field56 = var1.readUnsignedShort(); // L: 86
 		var1.readUnsignedByte(); // L: 87
 		if (var1.readUnsignedByte() != 255) { // L: 88
 			--var1.offset; // L: 89
-			var1.readLong();
+			var1.readLong(); // L: 90
 		}
 
 	} // L: 92
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lg;B)V",
-		garbageValue = "-61"
+		descriptor = "(Ly;I)V",
+		garbageValue = "-1846892157"
 	)
-	void vmethod314(class3 var1) {
-		var1.method33(this.field45); // L: 95
+	void vmethod264(ClanChannel var1) {
+		var1.removeMember(this.field56); // L: 95
 	} // L: 96
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(CB)C",
-		garbageValue = "19"
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "1508723564"
 	)
-	public static char method68(char var0) {
-		switch(var0) { // L: 48
-		case ' ':
-		case '-':
-		case '_':
-		case ' ':
-			return '_'; // L: 106
-		case '#':
-		case '[':
-		case ']':
-			return var0; // L: 74
-		case 'À':
-		case 'Á':
-		case 'Â':
-		case 'Ã':
-		case 'Ä':
-		case 'à':
-		case 'á':
-		case 'â':
-		case 'ã':
-		case 'ä':
-			return 'a'; // L: 101
-		case 'Ç':
-		case 'ç':
-			return 'c'; // L: 68
-		case 'È':
-		case 'É':
-		case 'Ê':
-		case 'Ë':
-		case 'è':
-		case 'é':
-		case 'ê':
-		case 'ë':
-			return 'e'; // L: 83
-		case 'Í':
-		case 'Î':
-		case 'Ï':
-		case 'í':
-		case 'î':
-		case 'ï':
-			return 'i'; // L: 90
-		case 'Ñ':
-		case 'ñ':
-			return 'n'; // L: 51
-		case 'Ò':
-		case 'Ó':
-		case 'Ô':
-		case 'Õ':
-		case 'Ö':
-		case 'ò':
-		case 'ó':
-		case 'ô':
-		case 'õ':
-		case 'ö':
-			return 'o'; // L: 117
-		case 'Ù':
-		case 'Ú':
-		case 'Û':
-		case 'Ü':
-		case 'ù':
-		case 'ú':
-		case 'û':
-		case 'ü':
-			return 'u'; // L: 63
-		case 'ß':
-			return 'b'; // L: 65
-		case 'ÿ':
-		case 'Ÿ':
-			return 'y'; // L: 54
-		default:
-			return Character.toLowerCase(var0); // L: 70
+	@Export("addChatMessage")
+	static void addChatMessage(int var0, String var1, String var2, String var3) {
+		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 23
+		if (var4 == null) { // L: 24
+			var4 = new ChatChannel(); // L: 25
+			Messages.Messages_channels.put(var0, var4); // L: 26
+		}
+
+		Message var5 = var4.addMessage(var0, var1, var2, var3); // L: 28
+		Messages.Messages_hashTable.put(var5, (long)var5.count); // L: 29
+		Messages.Messages_queue.add(var5); // L: 30
+		Client.chatCycle = Client.cycleCntr; // L: 31
+	} // L: 32
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(IS)[B",
+		garbageValue = "3296"
+	)
+	@Export("ByteArrayPool_getArray")
+	public static synchronized byte[] ByteArrayPool_getArray(int var0) {
+		return ByteArrayPool.ByteArrayPool_getArrayBool(var0, false); // L: 72
+	}
+
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "(IB)I",
+		garbageValue = "30"
+	)
+	public static int method58(int var0) {
+		return VarpDefinition.method2630(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 60
+	}
+
+	@ObfuscatedName("ih")
+	@ObfuscatedSignature(
+		descriptor = "(IB)Z",
+		garbageValue = "113"
+	)
+	static final boolean method51(int var0) {
+		if (var0 < 0) { // L: 7764
+			return false;
+		} else {
+			int var1 = Client.menuOpcodes[var0]; // L: 7765
+			if (var1 >= 2000) { // L: 7766
+				var1 -= 2000;
+			}
+
+			return var1 == 1007; // L: 7767
 		}
 	}
 
-	@ObfuscatedName("lo")
+	@ObfuscatedName("ik")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-1466168379"
+		descriptor = "(I)V",
+		garbageValue = "-1850055815"
 	)
-	static void method64(String var0) {
-		class253.field3136 = var0; // L: 11648
-
-		try {
-			String var1 = class303.client.getParameter(Integer.toString(18)); // L: 11650
-			String var2 = class303.client.getParameter(Integer.toString(13)); // L: 11651
-			String var3 = var1 + "settings=" + var0 + "; version=1; path=/; domain=" + var2; // L: 11652
-			String var5;
-			if (var0.length() == 0) { // L: 11653
-				var3 = var3 + "; Expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0";
-			} else {
-				String var4 = var3 + "; Expires="; // L: 11655
-				long var6 = Archive.currentTimeMillis() + 94608000000L; // L: 11657
-				Calendar.Calendar_calendar.setTime(new Date(var6)); // L: 11659
-				int var8 = Calendar.Calendar_calendar.get(7); // L: 11660
-				int var9 = Calendar.Calendar_calendar.get(5); // L: 11661
-				int var10 = Calendar.Calendar_calendar.get(2); // L: 11662
-				int var11 = Calendar.Calendar_calendar.get(1); // L: 11663
-				int var12 = Calendar.Calendar_calendar.get(11); // L: 11664
-				int var13 = Calendar.Calendar_calendar.get(12); // L: 11665
-				int var14 = Calendar.Calendar_calendar.get(13); // L: 11666
-				var5 = Calendar.DAYS_OF_THE_WEEK[var8 - 1] + ", " + var9 / 10 + var9 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var10] + "-" + var11 + " " + var12 / 10 + var12 % 10 + ":" + var13 / 10 + var13 % 10 + ":" + var14 / 10 + var14 % 10 + " GMT"; // L: 11667
-				var3 = var4 + var5 + "; Max-Age=" + 94608000L; // L: 11669
+	@Export("Widget_runOnTargetLeave")
+	static void Widget_runOnTargetLeave() {
+		if (Client.isSpellSelected) { // L: 8647
+			Widget var0 = ModeWhere.getWidgetChild(Decimator.selectedSpellWidget, Client.selectedSpellChildIndex); // L: 8648
+			if (var0 != null && var0.onTargetLeave != null) { // L: 8649
+				ScriptEvent var1 = new ScriptEvent(); // L: 8650
+				var1.widget = var0; // L: 8651
+				var1.args = var0.onTargetLeave; // L: 8652
+				PacketWriter.runScriptEvent(var1); // L: 8653
 			}
 
-			Client var16 = class303.client; // L: 11671
-			var5 = "document.cookie=\"" + var3 + "\""; // L: 11672
-			JSObject.getWindow(var16).eval(var5); // L: 11675
-		} catch (Throwable var15) { // L: 11678
+			Client.field788 = -1; // L: 8655
+			Client.isSpellSelected = false; // L: 8656
+			WorldMapCacheName.invalidateWidget(var0); // L: 8657
 		}
-
-	} // L: 11679
+	} // L: 8658
 }

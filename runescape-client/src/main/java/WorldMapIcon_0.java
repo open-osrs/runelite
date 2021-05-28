@@ -4,42 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fk")
+@ObfuscatedName("fi")
 @Implements("WorldMapIcon_0")
 public class WorldMapIcon_0 extends AbstractWorldMapIcon {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 931727703
+		intValue = -1937738349
 	)
 	@Export("element")
 	final int element;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Lfv;"
 	)
 	@Export("label")
 	final WorldMapLabel label;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -318802111
+		intValue = 520142189
 	)
 	@Export("subWidth")
 	final int subWidth;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1518104295
+		intValue = 960204223
 	)
 	@Export("subHeight")
 	final int subHeight;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lia;Lia;ILfl;)V"
+		descriptor = "(Lii;Lii;ILfv;)V"
 	)
 	WorldMapIcon_0(Coord var1, Coord var2, int var3, WorldMapLabel var4) {
 		super(var1, var2); // L: 14
 		this.element = var3; // L: 15
 		this.label = var4; // L: 16
-		WorldMapElement var5 = WorldMapAreaData.WorldMapElement_get(this.getElement()); // L: 17
+		WorldMapElement var5 = class6.WorldMapElement_get(this.getElement()); // L: 17
 		SpritePixels var6 = var5.getSpriteBool(false); // L: 18
 		if (var6 != null) { // L: 19
 			this.subWidth = var6.subWidth; // L: 20
@@ -51,52 +51,43 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	} // L: 27
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "14"
+		descriptor = "(I)I",
+		garbageValue = "2145882550"
 	)
 	@Export("getElement")
 	public int getElement() {
 		return this.element; // L: 30
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(S)Lfl;",
-		garbageValue = "-7317"
+		descriptor = "(I)Lfv;",
+		garbageValue = "39460369"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
 		return this.label; // L: 34
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-1"
+		descriptor = "(I)I",
+		garbageValue = "-1949510660"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
 		return this.subWidth; // L: 38
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "1"
+		garbageValue = "-85"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
 		return this.subHeight; // L: 42
-	}
-
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "1744342572"
-	)
-	public static boolean method3509(int var0) {
-		return (var0 >> 31 & 1) != 0; // L: 29
 	}
 }

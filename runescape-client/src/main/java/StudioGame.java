@@ -1,61 +1,56 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jr")
+@ObfuscatedName("jd")
 @Implements("StudioGame")
 public enum StudioGame implements Enumerated {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ljr;"
+		descriptor = "Ljd;"
 	)
 	@Export("runescape")
 	runescape("runescape", "RuneScape", 0),
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljr;"
+		descriptor = "Ljd;"
 	)
 	@Export("stellardawn")
 	stellardawn("stellardawn", "Stellar Dawn", 1),
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Ljr;"
+		descriptor = "Ljd;"
 	)
 	@Export("game3")
 	game3("game3", "Game 3", 2),
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Ljr;"
+		descriptor = "Ljd;"
 	)
 	@Export("game4")
 	game4("game4", "Game 4", 3),
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Ljr;"
+		descriptor = "Ljd;"
 	)
 	@Export("game5")
 	game5("game5", "Game 5", 4),
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Ljr;"
+		descriptor = "Ljd;"
 	)
 	@Export("oldscape")
 	oldscape("oldscape", "RuneScape 2007", 5);
 
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Lkc;"
-	)
-	@Export("ItemDefinition_fontPlain11")
-	static Font ItemDefinition_fontPlain11;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@Export("name")
 	public final String name;
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -2033006109
+		intValue = 1213598965
 	)
 	@Export("id")
 	final int id;
@@ -65,13 +60,38 @@ public enum StudioGame implements Enumerated {
 		this.id = var5; // L: 18
 	} // L: 19
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-708237537"
+		garbageValue = "-907662946"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 22
 	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(ZB)V",
+		garbageValue = "31"
+	)
+	public static void method4847(boolean var0) {
+		if (NetCache.NetCache_socket != null) { // L: 42
+			try {
+				Buffer var1 = new Buffer(4); // L: 44
+				var1.writeByte(var0 ? 2 : 3); // L: 45
+				var1.writeMedium(0); // L: 46
+				NetCache.NetCache_socket.write(var1.array, 0, 4); // L: 47
+			} catch (IOException var4) {
+				try {
+					NetCache.NetCache_socket.close(); // L: 51
+				} catch (Exception var3) { // L: 53
+				}
+
+				++NetCache.NetCache_ioExceptions; // L: 54
+				NetCache.NetCache_socket = null; // L: 55
+			}
+
+		}
+	} // L: 57
 }

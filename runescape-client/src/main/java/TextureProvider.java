@@ -1,57 +1,64 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gv")
+@ObfuscatedName("gh")
 @Implements("TextureProvider")
 public class TextureProvider implements TextureLoader {
-	@ObfuscatedName("h")
+	@ObfuscatedName("hy")
 	@ObfuscatedSignature(
-		descriptor = "[Lgr;"
+		descriptor = "[Loh;"
+	)
+	@Export("headIconPrayerSprites")
+	static SpritePixels[] headIconPrayerSprites;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "[Lgf;"
 	)
 	@Export("textures")
 	Texture[] textures;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lka;"
+		descriptor = "Lkx;"
 	)
 	@Export("deque")
 	NodeDeque deque;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -381189571
+		intValue = 117958777
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1463275439
+		intValue = 530672939
 	)
 	@Export("remaining")
 	int remaining;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@Export("brightness")
 	double brightness;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 409309163
+		intValue = 861354963
 	)
 	@Export("textureSize")
 	int textureSize;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Ljv;"
 	)
 	@Export("archive")
 	AbstractArchive archive;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;Ljp;IDI)V"
+		descriptor = "(Ljv;Ljv;IDI)V"
 	)
 	public TextureProvider(AbstractArchive var1, AbstractArchive var2, int var3, double var4, int var6) {
-		this.deque = new NodeDeque(); // L: 9
+		this.deque = new NodeDeque();
 		this.remaining = 0; // L: 11
 		this.brightness = 1.0D; // L: 12
 		this.textureSize = 128; // L: 13
@@ -71,10 +78,10 @@ public class TextureProvider implements TextureLoader {
 
 	} // L: 29
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1560998589"
+		garbageValue = "1596585605"
 	)
 	@Export("getLoadedPercentage")
 	public int getLoadedPercentage() {
@@ -90,7 +97,7 @@ public class TextureProvider implements TextureLoader {
 
 				for (int var7 = 0; var7 < var6.length; ++var7) { // L: 43
 					int var8 = var6[var7]; // L: 44
-					if (this.archive.method4953(var8)) { // L: 46
+					if (this.archive.method4963(var8)) { // L: 46
 						++var2; // L: 47
 					}
 				}
@@ -104,17 +111,17 @@ public class TextureProvider implements TextureLoader {
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@Export("setBrightness")
 	public void setBrightness(double var1) {
 		this.brightness = var1; // L: 60
 		this.clear(); // L: 61
 	} // L: 62
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(II)[I",
-		garbageValue = "1529017761"
+		garbageValue = "-455909856"
 	)
 	@Export("getTexturePixels")
 	public int[] getTexturePixels(int var1) {
@@ -144,39 +151,39 @@ public class TextureProvider implements TextureLoader {
 		return null; // L: 84
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "(II)I",
-		garbageValue = "1590086448"
+		garbageValue = "-33912050"
 	)
 	@Export("getAverageTextureRGB")
 	public int getAverageTextureRGB(int var1) {
 		return this.textures[var1] != null ? this.textures[var1].averageRGB : 0; // L: 88 89
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "476826726"
+		descriptor = "(IB)Z",
+		garbageValue = "28"
 	)
-	public boolean vmethod4224(int var1) {
-		return this.textures[var1].field2214; // L: 93
+	public boolean vmethod4276(int var1) {
+		return this.textures[var1].field2220; // L: 93
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "68842111"
+		garbageValue = "1780944645"
 	)
 	@Export("isLowDetail")
 	public boolean isLowDetail(int var1) {
 		return this.textureSize == 64; // L: 97
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "47"
+		descriptor = "(S)V",
+		garbageValue = "128"
 	)
 	@Export("clear")
 	public void clear() {
@@ -190,10 +197,10 @@ public class TextureProvider implements TextureLoader {
 		this.remaining = this.capacity; // L: 105
 	} // L: 106
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(IS)V",
-		garbageValue = "-4339"
+		descriptor = "(II)V",
+		garbageValue = "-451757246"
 	)
 	@Export("animate")
 	public void animate(int var1) {
@@ -207,19 +214,36 @@ public class TextureProvider implements TextureLoader {
 
 	} // L: 116
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "592968067"
+		descriptor = "(III)Z",
+		garbageValue = "-2085550538"
 	)
-	@Export("isCharPrintable")
-	public static boolean isCharPrintable(char var0) {
-		if (var0 >= ' ' && var0 <= '~') { // L: 203
-			return true;
-		} else if (var0 >= 160 && var0 <= 255) {
-			return true; // L: 204
-		} else {
-			return var0 == 8364 || var0 == 338 || var0 == 8212 || var0 == 339 || var0 == 376; // L: 205
-		}
+	public static boolean method4141(int var0, int var1) {
+		return (var0 >> var1 + 1 & 1) != 0; // L: 9
 	}
+
+	@ObfuscatedName("hg")
+	@ObfuscatedSignature(
+		descriptor = "(ZI)V",
+		garbageValue = "-148617531"
+	)
+	static final void method4142(boolean var0) {
+		HealthBarUpdate.playPcmPlayers(); // L: 5224
+		++Client.packetWriter.pendingWrites; // L: 5225
+		if (Client.packetWriter.pendingWrites >= 50 || var0) { // L: 5226
+			Client.packetWriter.pendingWrites = 0; // L: 5227
+			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) { // L: 5228
+				PacketBufferNode var1 = class21.getPacketBufferNode(ClientPacket.field2590, Client.packetWriter.isaacCipher); // L: 5230
+				Client.packetWriter.addNode(var1); // L: 5231
+
+				try {
+					Client.packetWriter.flush(); // L: 5233
+				} catch (IOException var3) { // L: 5235
+					Client.hadNetworkError = true; // L: 5236
+				}
+			}
+
+		}
+	} // L: 5239
 }

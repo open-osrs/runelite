@@ -2,24 +2,24 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mr")
+@ObfuscatedName("mq")
 public class class341 extends class342 {
-	@ObfuscatedName("hz")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "[Low;"
+		descriptor = "Ljv;"
 	)
-	@Export("mapDotSprites")
-	static SpritePixels[] mapDotSprites;
+	@Export("ItemDefinition_archive")
+	public static AbstractArchive ItemDefinition_archive;
 
 	public class341(int var1) {
 		super(var1); // L: 7
 	} // L: 8
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;II)V",
-		garbageValue = "1226667893"
+		descriptor = "(Lnd;II)V",
+		garbageValue = "-1773936298"
 	)
-	void vmethod5880(Buffer var1, int var2) {
+	void vmethod6036(Buffer var1, int var2) {
 	} // L: 11
 }

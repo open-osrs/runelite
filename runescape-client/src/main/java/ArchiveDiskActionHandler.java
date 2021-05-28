@@ -7,42 +7,34 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("jg")
 @Implements("ArchiveDiskActionHandler")
 public class ArchiveDiskActionHandler implements Runnable {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lka;"
+		descriptor = "Lkx;"
 	)
 	@Export("ArchiveDiskActionHandler_requestQueue")
-	static NodeDeque ArchiveDiskActionHandler_requestQueue;
-	@ObfuscatedName("c")
+	public static NodeDeque ArchiveDiskActionHandler_requestQueue;
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lka;"
+		descriptor = "Lkx;"
 	)
 	@Export("ArchiveDiskActionHandler_responseQueue")
-	static NodeDeque ArchiveDiskActionHandler_responseQueue;
-	@ObfuscatedName("o")
+	public static NodeDeque ArchiveDiskActionHandler_responseQueue;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1281764183
+		intValue = 2106150539
 	)
-	public static int field3574;
-	@ObfuscatedName("g")
+	static int field3562;
+	@ObfuscatedName("y")
 	@Export("ArchiveDiskActionHandler_lock")
-	public static Object ArchiveDiskActionHandler_lock;
-	@ObfuscatedName("l")
+	static Object ArchiveDiskActionHandler_lock;
+	@ObfuscatedName("p")
 	@Export("ArchiveDiskActionHandler_thread")
 	static Thread ArchiveDiskActionHandler_thread;
-	@ObfuscatedName("z")
-	@Export("SpriteBuffer_spriteWidths")
-	public static int[] SpriteBuffer_spriteWidths;
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "Lx;"
-	)
-	static class11 field3575;
 
 	static {
 		ArchiveDiskActionHandler_requestQueue = new NodeDeque(); // L: 9
 		ArchiveDiskActionHandler_responseQueue = new NodeDeque(); // L: 10
-		field3574 = 0; // L: 11
+		field3562 = 0; // L: 11
 		ArchiveDiskActionHandler_lock = new Object();
 	} // L: 12
 
@@ -53,47 +45,67 @@ public class ArchiveDiskActionHandler implements Runnable {
 		try {
 			while (true) {
 				ArchiveDiskAction var1;
-				synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 56
-					var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last(); // L: 57
-				} // L: 58
+				synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 21
+					var1 = (ArchiveDiskAction)ArchiveDiskActionHandler_requestQueue.last(); // L: 22
+				} // L: 23
 
-				if (var1 != null) { // L: 59
-					if (var1.type == 0) { // L: 60
-						var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length); // L: 61
-						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 62
-							var1.remove(); // L: 63
-						} // L: 64
-					} else if (var1.type == 1) { // L: 66
-						var1.data = var1.archiveDisk.read((int)var1.key); // L: 67
-						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 68
-							ArchiveDiskActionHandler_responseQueue.addFirst(var1); // L: 69
-						} // L: 70
+				if (var1 != null) { // L: 24
+					if (var1.type == 0) { // L: 25
+						var1.archiveDisk.write((int)var1.key, var1.data, var1.data.length); // L: 26
+						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 27
+							var1.remove(); // L: 28
+						} // L: 29
+					} else if (var1.type == 1) { // L: 31
+						var1.data = var1.archiveDisk.read((int)var1.key); // L: 32
+						synchronized(ArchiveDiskActionHandler_requestQueue) { // L: 33
+							ArchiveDiskActionHandler_responseQueue.addFirst(var1); // L: 34
+						} // L: 35
 					}
 
-					synchronized(ArchiveDiskActionHandler_lock) { // L: 72
-						if (field3574 <= 1) { // L: 73
-							field3574 = 0; // L: 74
-							ArchiveDiskActionHandler_lock.notifyAll(); // L: 75
-							return; // L: 76
+					synchronized(ArchiveDiskActionHandler_lock) { // L: 37
+						if (field3562 <= 1) { // L: 38
+							field3562 = 0; // L: 39
+							ArchiveDiskActionHandler_lock.notifyAll(); // L: 40
+							return; // L: 41
 						}
 
-						field3574 = 600; // L: 78
+						field3562 = 600; // L: 43
 					}
 				} else {
-					UrlRequest.sleepExact(100L); // L: 82
-					synchronized(ArchiveDiskActionHandler_lock) { // L: 83
-						if (field3574 <= 1) { // L: 84
-							field3574 = 0; // L: 85
-							ArchiveDiskActionHandler_lock.notifyAll(); // L: 86
-							return; // L: 87
+					long var8 = 99L; // L: 50
+
+					try {
+						Thread.sleep(var8); // L: 53
+					} catch (InterruptedException var15) { // L: 55
+					}
+
+					try {
+						Thread.sleep(1L); // L: 59
+					} catch (InterruptedException var14) { // L: 61
+					}
+
+					synchronized(ArchiveDiskActionHandler_lock) { // L: 71
+						if (field3562 <= 1) { // L: 72
+							field3562 = 0; // L: 73
+							ArchiveDiskActionHandler_lock.notifyAll(); // L: 74
+							return; // L: 75
 						}
 
-						--field3574; // L: 89
+						--field3562; // L: 77
 					}
 				}
 			}
-		} catch (Exception var13) { // L: 94
-			class27.RunException_sendStackTrace((String)null, var13); // L: 95
+		} catch (Exception var17) { // L: 82
+			class266.RunException_sendStackTrace((String)null, var17); // L: 83
 		}
-	} // L: 97
+	} // L: 85
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(IB)V",
+		garbageValue = "13"
+	)
+	public static void method4867(int var0) {
+		MouseHandler.MouseHandler_idleCycles = var0; // L: 51
+	} // L: 52
 }

@@ -6,13 +6,13 @@ import net.runelite.api.events.FriendsChatMemberLeft;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
-import net.runelite.rs.api.RSClanChat;
+import net.runelite.rs.api.RSFriendsChat;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSUser;
 import net.runelite.rs.api.RSUsername;
 
-@Mixin(RSClanChat.class)
-public abstract class RSClanChatMixin implements RSClanChat
+@Mixin(RSFriendsChat.class)
+public abstract class RSFriendsChatMixin implements RSFriendsChat
 {
 	@Shadow("client")
 	private static RSClient client;

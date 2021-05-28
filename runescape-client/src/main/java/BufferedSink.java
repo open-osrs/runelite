@@ -6,40 +6,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ly")
+@ObfuscatedName("le")
 @Implements("BufferedSink")
 public class BufferedSink implements Runnable {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1589128659
+		intValue = 255745785
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -831388653
+		intValue = -1232062539
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -846688281
+		intValue = 956656333
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@Export("exception")
 	IOException exception;
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@Export("closed")
 	boolean closed;
 
@@ -54,10 +54,10 @@ public class BufferedSink implements Runnable {
 		this.thread.start(); // L: 197
 	} // L: 198
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(B)Z",
-		garbageValue = "0"
+		garbageValue = "1"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -79,10 +79,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)V",
-		garbageValue = "57"
+		descriptor = "([BIII)V",
+		garbageValue = "1271901026"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
@@ -119,10 +119,10 @@ public class BufferedSink implements Runnable {
 		}
 	} // L: 279
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2030103699"
+		descriptor = "(B)V",
+		garbageValue = "21"
 	)
 	@Export("close")
 	void close() {
@@ -197,23 +197,4 @@ public class BufferedSink implements Runnable {
 		} while(!this.isClosed()); // L: 256
 
 	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(ZB)V",
-		garbageValue = "-50"
-	)
-	@Export("Login_promptCredentials")
-	static void Login_promptCredentials(boolean var0) {
-		Login.Login_response1 = ""; // L: 983
-		Login.Login_response2 = "Enter your username/email & password."; // L: 984
-		Login.Login_response3 = ""; // L: 985
-		Login.loginIndex = 2; // L: 986
-		if (var0) { // L: 987
-			Login.Login_password = "";
-		}
-
-		ReflectionCheck.method1157(); // L: 988
-		GrandExchangeOfferOwnWorldComparator.method1213(); // L: 989
-	} // L: 990
 }

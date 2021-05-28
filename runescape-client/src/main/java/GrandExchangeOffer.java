@@ -4,45 +4,45 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jm")
+@ObfuscatedName("ju")
 @Implements("GrandExchangeOffer")
 public class GrandExchangeOffer {
-	@ObfuscatedName("b")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lop;"
 	)
-	@Export("Widget_archive")
-	static AbstractArchive Widget_archive;
-	@ObfuscatedName("h")
+	@Export("options_buttons_2Sprite")
+	static IndexedSprite options_buttons_2Sprite;
+	@ObfuscatedName("v")
 	@Export("state")
 	byte state;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -60064091
+		intValue = -1898711
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -975130915
+		intValue = 1229494071
 	)
 	@Export("unitPrice")
 	public int unitPrice;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1629352851
+		intValue = -822093809
 	)
 	@Export("totalQuantity")
 	public int totalQuantity;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -65467077
+		intValue = -1567060795
 	)
 	@Export("currentQuantity")
 	public int currentQuantity;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1657421715
+		intValue = 176369301
 	)
 	@Export("currentPrice")
 	public int currentPrice;
@@ -51,7 +51,7 @@ public class GrandExchangeOffer {
 	} // L: 13
 
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;Z)V",
+		descriptor = "(Lnd;Z)V",
 		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
@@ -63,85 +63,46 @@ public class GrandExchangeOffer {
 		this.currentPrice = var1.readInt(); // L: 21
 	} // L: 22
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-90"
+		descriptor = "(I)I",
+		garbageValue = "184180839"
 	)
 	@Export("status")
 	public int status() {
-		return this.state & 7;
+		return this.state & 7; // L: 50
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1415242363"
+		garbageValue = "-1399016532"
 	)
 	@Export("type")
 	public int type() {
 		return (this.state & 8) == 8 ? 1 : 0; // L: 54
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "-17191535"
+		garbageValue = "1177781475"
 	)
-	void method5018(int var1) {
+	void method5092(int var1) {
 		this.state &= -8; // L: 58
 		this.state = (byte)(this.state | var1 & 7); // L: 59
 	} // L: 60
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-704513201"
+		descriptor = "(IB)V",
+		garbageValue = "110"
 	)
-	void method5019(int var1) {
+	void method5102(int var1) {
 		this.state &= -9; // L: 63
 		if (var1 == 1) {
 			this.state = (byte)(this.state | 8); // L: 64
 		}
 
 	} // L: 65
-
-	@ObfuscatedName("ak")
-	@ObfuscatedSignature(
-		descriptor = "([BIIB)I",
-		garbageValue = "-21"
-	)
-	public static int method5017(byte[] var0, int var1, int var2) {
-		int var3 = -1; // L: 45
-
-		for (int var4 = var1; var4 < var2; ++var4) { // L: 46
-			var3 = var3 >>> 8 ^ Buffer.crc32Table[(var3 ^ var0[var4]) & 255]; // L: 47
-		}
-
-		var3 = ~var3; // L: 49
-		return var3; // L: 50
-	}
-
-	@ObfuscatedName("ip")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "-28"
-	)
-	@Export("selectSpell")
-	static void selectSpell(int var0, int var1, int var2, int var3) {
-		Widget var4 = PacketWriter.getWidgetChild(var0, var1); // L: 8913
-		if (var4 != null && var4.onTargetEnter != null) { // L: 8914
-			ScriptEvent var5 = new ScriptEvent(); // L: 8915
-			var5.widget = var4; // L: 8916
-			var5.args = var4.onTargetEnter; // L: 8917
-			class259.runScriptEvent(var5); // L: 8918
-		}
-
-		Client.field773 = var3; // L: 8920
-		Client.isSpellSelected = true; // L: 8921
-		class6.selectedSpellWidget = var0; // L: 8922
-		Client.selectedSpellChildIndex = var1; // L: 8923
-		GrandExchangeOfferUnitPriceComparator.selectedSpellFlags = var2; // L: 8924
-		VerticalAlignment.invalidateWidget(var4); // L: 8925
-	} // L: 8926
 }

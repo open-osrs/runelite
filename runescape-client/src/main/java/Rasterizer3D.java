@@ -3,92 +3,92 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gu")
+@ObfuscatedName("gj")
 @Implements("Rasterizer3D")
 public class Rasterizer3D extends Rasterizer2D {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
+	static boolean field2262;
+	@ObfuscatedName("n")
 	static boolean field2260;
-	@ObfuscatedName("c")
-	static boolean field2270;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@Export("Rasterizer3D_isLowDetailTexture")
 	static boolean Rasterizer3D_isLowDetailTexture;
-	@ObfuscatedName("g")
-	public static boolean field2254;
-	@ObfuscatedName("l")
+	@ObfuscatedName("y")
+	public static boolean field2282;
+	@ObfuscatedName("p")
 	@Export("Rasterizer3D_alpha")
 	static int Rasterizer3D_alpha;
-	@ObfuscatedName("x")
+	@ObfuscatedName("l")
 	@Export("Rasterizer3D_zoom")
 	public static int Rasterizer3D_zoom;
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@Export("Rasterizer3D_clipMidX")
 	static int Rasterizer3D_clipMidX;
-	@ObfuscatedName("r")
+	@ObfuscatedName("c")
 	@Export("Rasterizer3D_clipMidY")
 	static int Rasterizer3D_clipMidY;
-	@ObfuscatedName("p")
+	@ObfuscatedName("e")
 	@Export("Rasterizer3D_clipWidth")
 	static int Rasterizer3D_clipWidth;
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@Export("Rasterizer3D_clipHeight")
 	static int Rasterizer3D_clipHeight;
-	@ObfuscatedName("e")
+	@ObfuscatedName("a")
 	@Export("Rasterizer3D_clipNegativeMidX")
 	static int Rasterizer3D_clipNegativeMidX;
-	@ObfuscatedName("d")
+	@ObfuscatedName("k")
 	@Export("Rasterizer3D_clipMidX2")
 	static int Rasterizer3D_clipMidX2;
-	@ObfuscatedName("u")
+	@ObfuscatedName("m")
 	@Export("Rasterizer3D_clipNegativeMidY")
 	static int Rasterizer3D_clipNegativeMidY;
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@Export("Rasterizer3D_clipMidY2")
 	static int Rasterizer3D_clipMidY2;
-	@ObfuscatedName("j")
+	@ObfuscatedName("z")
 	@Export("Rasterizer3D_rowOffsets")
 	static int[] Rasterizer3D_rowOffsets;
-	@ObfuscatedName("f")
+	@ObfuscatedName("w")
 	@Export("Rasterizer3D_colorPalette")
 	public static int[] Rasterizer3D_colorPalette;
-	@ObfuscatedName("s")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lhn;"
+		descriptor = "Lhb;"
 	)
 	@Export("Rasterizer3D_textureLoader")
 	public static TextureLoader Rasterizer3D_textureLoader;
-	@ObfuscatedName("y")
-	static int[] field2252;
-	@ObfuscatedName("w")
-	static int[] field2275;
-	@ObfuscatedName("n")
+	@ObfuscatedName("h")
+	static int[] field2284;
+	@ObfuscatedName("q")
+	static int[] field2283;
+	@ObfuscatedName("i")
 	@Export("Rasterizer3D_sine")
 	public static int[] Rasterizer3D_sine;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ae")
 	@Export("Rasterizer3D_cosine")
 	public static int[] Rasterizer3D_cosine;
 
 	static {
-		field2260 = false; // L: 8
-		field2270 = false; // L: 9
+		field2262 = false; // L: 8
+		field2260 = false; // L: 9
 		Rasterizer3D_isLowDetailTexture = false; // L: 10
-		field2254 = true; // L: 11
+		field2282 = true; // L: 11
 		Rasterizer3D_alpha = 0; // L: 12
 		Rasterizer3D_zoom = 512; // L: 19
 		Rasterizer3D_rowOffsets = new int[1024]; // L: 28
 		Rasterizer3D_colorPalette = new int[65536]; // L: 29
-		field2252 = new int[512]; // L: 31
-		field2275 = new int[2048]; // L: 32
+		field2284 = new int[512]; // L: 31
+		field2283 = new int[2048]; // L: 32
 		Rasterizer3D_sine = new int[2048]; // L: 33
 		Rasterizer3D_cosine = new int[2048]; // L: 34
 
 		int var0;
 		for (var0 = 1; var0 < 512; ++var0) { // L: 37
-			field2252[var0] = 32768 / var0; // L: 38
+			field2284[var0] = 32768 / var0; // L: 38
 		}
 
 		for (var0 = 1; var0 < 2048; ++var0) { // L: 40
-			field2275[var0] = 65536 / var0; // L: 41
+			field2283[var0] = 65536 / var0; // L: 41
 		}
 
 		for (var0 = 0; var0 < 2048; ++var0) { // L: 43
@@ -98,20 +98,20 @@ public class Rasterizer3D extends Rasterizer2D {
 
 	} // L: 47
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@Export("Rasterizer3D_setClipFromRasterizer2D")
 	public static final void Rasterizer3D_setClipFromRasterizer2D() {
 		Rasterizer3D_setClip(Rasterizer2D.Rasterizer2D_xClipStart, Rasterizer2D.Rasterizer2D_yClipStart, Rasterizer2D.Rasterizer2D_xClipEnd, Rasterizer2D.Rasterizer2D_yClipEnd); // L: 54
 	} // L: 55
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@Export("Rasterizer3D_setClip")
 	static final void Rasterizer3D_setClip(int var0, int var1, int var2, int var3) {
 		Rasterizer3D_clipWidth = var2 - var0; // L: 58
 		Rasterizer3D_clipHeight = var3 - var1; // L: 59
 		Rasterizer3D_method3(); // L: 60
 		if (Rasterizer3D_rowOffsets.length < Rasterizer3D_clipHeight) { // L: 61
-			Rasterizer3D_rowOffsets = new int[MouseRecorder.method2126(Rasterizer3D_clipHeight)];
+			Rasterizer3D_rowOffsets = new int[Player.method2128(Rasterizer3D_clipHeight)];
 		}
 
 		int var4 = var0 + Rasterizer2D.Rasterizer2D_width * var1; // L: 62
@@ -123,7 +123,7 @@ public class Rasterizer3D extends Rasterizer2D {
 
 	} // L: 67
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@Export("Rasterizer3D_method3")
 	public static final void Rasterizer3D_method3() {
 		Rasterizer3D_clipMidX = Rasterizer3D_clipWidth / 2; // L: 70
@@ -134,8 +134,8 @@ public class Rasterizer3D extends Rasterizer2D {
 		Rasterizer3D_clipMidY2 = Rasterizer3D_clipHeight - Rasterizer3D_clipMidY; // L: 75
 	} // L: 76
 
-	@ObfuscatedName("g")
-	public static final void method3818(int var0, int var1) {
+	@ObfuscatedName("y")
+	public static final void method3848(int var0, int var1) {
 		int var2 = Rasterizer3D_rowOffsets[0]; // L: 79
 		int var3 = var2 / Rasterizer2D.Rasterizer2D_width; // L: 80
 		int var4 = var2 - var3 * Rasterizer2D.Rasterizer2D_width; // L: 81
@@ -147,22 +147,22 @@ public class Rasterizer3D extends Rasterizer2D {
 		Rasterizer3D_clipMidY2 = Rasterizer3D_clipHeight - Rasterizer3D_clipMidY; // L: 87
 	} // L: 88
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Lhn;)V"
+		descriptor = "(Lhb;)V"
 	)
 	@Export("Rasterizer3D_setTextureLoader")
 	public static final void Rasterizer3D_setTextureLoader(TextureLoader var0) {
 		Rasterizer3D_textureLoader = var0; // L: 91
 	} // L: 92
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@Export("Rasterizer3D_setBrightness")
 	public static final void Rasterizer3D_setBrightness(double var0) {
 		Rasterizer3D_buildPalette(var0, 0, 512); // L: 95
 	} // L: 96
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@Export("Rasterizer3D_buildPalette")
 	static final void Rasterizer3D_buildPalette(double var0, int var2, int var3) {
 		int var4 = var2 * 128; // L: 99
@@ -241,7 +241,7 @@ public class Rasterizer3D extends Rasterizer2D {
 
 	} // L: 140
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@Export("Rasterizer3D_brighten")
 	static int Rasterizer3D_brighten(int var0, double var1) {
 		double var3 = (double)(var0 >> 16) / 256.0D; // L: 143
@@ -256,13 +256,13 @@ public class Rasterizer3D extends Rasterizer2D {
 		return var11 + (var10 << 8) + (var9 << 16); // L: 152
 	}
 
-	@ObfuscatedName("b")
-	public static void method3823(int var0, int var1, int var2) {
-		field2260 = var0 < 0 || var0 > Rasterizer3D_clipWidth || var1 < 0 || var1 > Rasterizer3D_clipWidth || var2 < 0 || var2 > Rasterizer3D_clipWidth; // L: 156
+	@ObfuscatedName("d")
+	public static void method3856(int var0, int var1, int var2) {
+		field2262 = var0 < 0 || var0 > Rasterizer3D_clipWidth || var1 < 0 || var1 > Rasterizer3D_clipWidth || var2 < 0 || var2 > Rasterizer3D_clipWidth; // L: 156
 	} // L: 157
 
-	@ObfuscatedName("q")
-	static final void method3824(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+	@ObfuscatedName("s")
+	static final void method3854(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		int var9 = var4 - var3; // L: 160
 		int var10 = var1 - var0; // L: 161
 		int var11 = var5 - var3; // L: 162
@@ -767,10 +767,10 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("u")
 	@Export("Rasterizer3D_vertAlpha")
 	static final void Rasterizer3D_vertAlpha(int[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		if (field2260) { // L: 524
+		if (field2262) { // L: 524
 			if (var5 > Rasterizer3D_clipWidth) { // L: 525
 				var5 = Rasterizer3D_clipWidth;
 			}
@@ -786,7 +786,7 @@ public class Rasterizer3D extends Rasterizer2D {
 			int var8;
 			int var9;
 			int var10;
-			if (field2254) { // L: 531
+			if (field2282) { // L: 531
 				var3 = var5 - var4 >> 2; // L: 532
 				var7 <<= 2; // L: 533
 				if (Rasterizer3D_alpha == 0) { // L: 534
@@ -870,8 +870,8 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	} // L: 581 602
 
-	@ObfuscatedName("x")
-	public static final void method3826(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+	@ObfuscatedName("l")
+	public static final void method3919(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
 		int var7 = 0; // L: 607
 		if (var0 != var1) { // L: 608
 			var7 = (var4 - var3 << 14) / (var1 - var0);
@@ -1326,10 +1326,10 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@Export("Rasterizer3D_horizAlpha")
 	static final void Rasterizer3D_horizAlpha(int[] var0, int var1, int var2, int var3, int var4, int var5) {
-		if (field2260) { // L: 925
+		if (field2262) { // L: 925
 			if (var5 > Rasterizer3D_clipWidth) { // L: 926
 				var5 = Rasterizer3D_clipWidth;
 			}
@@ -1421,16 +1421,16 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	}
 
-	@ObfuscatedName("r")
-	static final void method3843(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18) {
+	@ObfuscatedName("c")
+	static final void method3877(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18) {
 		int[] var19 = Rasterizer3D_textureLoader.getTexturePixels(var18); // L: 979
 		int var20;
 		if (var19 == null) { // L: 980
 			var20 = Rasterizer3D_textureLoader.getAverageTextureRGB(var18); // L: 981
-			method3824(var0, var1, var2, var3, var4, var5, method3887(var20, var6), method3887(var20, var7), method3887(var20, var8)); // L: 982
+			method3854(var0, var1, var2, var3, var4, var5, method3881(var20, var6), method3881(var20, var7), method3881(var20, var8)); // L: 982
 		} else {
 			Rasterizer3D_isLowDetailTexture = Rasterizer3D_textureLoader.isLowDetail(var18); // L: 985
-			field2270 = Rasterizer3D_textureLoader.vmethod4224(var18); // L: 986
+			field2260 = Rasterizer3D_textureLoader.vmethod4276(var18); // L: 986
 			var20 = var4 - var3; // L: 987
 			int var21 = var1 - var0; // L: 988
 			int var22 = var5 - var3; // L: 989
@@ -1590,41 +1590,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var32 += var34 * var41; // L: 1107
 							var35 += var37 * var41; // L: 1108
 							var38 += var40 * var41; // L: 1109
-							if ((var0 == var2 || var28 >= var26) && (var0 != var2 || var27 <= var26)) { // L: 1110
-								var1 -= var2; // L: 1137
-								var2 -= var0; // L: 1138
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1139
-
-								while (true) {
-									--var2; // L: 1140
-									if (var2 < 0) {
-										while (true) {
-											--var1; // L: 1150
-											if (var1 < 0) {
-												return; // L: 1160
-											}
-
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1151
-											var5 += var27; // L: 1152
-											var3 += var26; // L: 1153
-											var6 += var31; // L: 1154
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1155
-											var32 += var34; // L: 1156
-											var35 += var37; // L: 1157
-											var38 += var40; // L: 1158
-										}
-									}
-
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1141
-									var4 += var28; // L: 1142
-									var3 += var26; // L: 1143
-									var6 += var31; // L: 1144
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1145
-									var32 += var34; // L: 1146
-									var35 += var37; // L: 1147
-									var38 += var40; // L: 1148
-								}
-							} else {
+							if (var0 != var2 && var28 < var26 || var0 == var2 && var27 > var26) { // L: 1110
 								var1 -= var2; // L: 1111
 								var2 -= var0; // L: 1112
 								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1113
@@ -1657,6 +1623,40 @@ public class Rasterizer3D extends Rasterizer2D {
 									var32 += var34; // L: 1120
 									var35 += var37; // L: 1121
 									var38 += var40; // L: 1122
+								}
+							} else {
+								var1 -= var2; // L: 1137
+								var2 -= var0; // L: 1138
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1139
+
+								while (true) {
+									--var2; // L: 1140
+									if (var2 < 0) {
+										while (true) {
+											--var1; // L: 1150
+											if (var1 < 0) {
+												return; // L: 1160
+											}
+
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var5 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1151
+											var5 += var27; // L: 1152
+											var3 += var26; // L: 1153
+											var6 += var31; // L: 1154
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1155
+											var32 += var34; // L: 1156
+											var35 += var37; // L: 1157
+											var38 += var40; // L: 1158
+										}
+									}
+
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var3 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1141
+									var4 += var28; // L: 1142
+									var3 += var26; // L: 1143
+									var6 += var31; // L: 1144
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1145
+									var32 += var34; // L: 1146
+									var35 += var37; // L: 1147
+									var38 += var40; // L: 1148
 								}
 							}
 						}
@@ -1691,41 +1691,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var32 += var34 * var41; // L: 1183
 							var35 += var37 * var41; // L: 1184
 							var38 += var40 * var41; // L: 1185
-							if (var2 != var1 && var26 < var27 || var2 == var1 && var26 > var28) { // L: 1186
-								var0 -= var2; // L: 1187
-								var2 -= var1; // L: 1188
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1189
-
-								while (true) {
-									--var2; // L: 1190
-									if (var2 < 0) {
-										while (true) {
-											--var0; // L: 1200
-											if (var0 < 0) {
-												return; // L: 1210
-											}
-
-											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1201
-											var3 += var26; // L: 1202
-											var5 += var28; // L: 1203
-											var7 += var31; // L: 1204
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1205
-											var32 += var34; // L: 1206
-											var35 += var37; // L: 1207
-											var38 += var40; // L: 1208
-										}
-									}
-
-									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1191
-									var3 += var26; // L: 1192
-									var4 += var27; // L: 1193
-									var7 += var31; // L: 1194
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1195
-									var32 += var34; // L: 1196
-									var35 += var37; // L: 1197
-									var38 += var40; // L: 1198
-								}
-							} else {
+							if ((var2 == var1 || var26 >= var27) && (var2 != var1 || var26 <= var28)) { // L: 1186
 								var0 -= var2; // L: 1213
 								var2 -= var1; // L: 1214
 								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1215
@@ -1758,6 +1724,40 @@ public class Rasterizer3D extends Rasterizer2D {
 									var32 += var34; // L: 1222
 									var35 += var37; // L: 1223
 									var38 += var40; // L: 1224
+								}
+							} else {
+								var0 -= var2; // L: 1187
+								var2 -= var1; // L: 1188
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 1189
+
+								while (true) {
+									--var2; // L: 1190
+									if (var2 < 0) {
+										while (true) {
+											--var0; // L: 1200
+											if (var0 < 0) {
+												return; // L: 1210
+											}
+
+											Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var5 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1201
+											var3 += var26; // L: 1202
+											var5 += var28; // L: 1203
+											var7 += var31; // L: 1204
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 1205
+											var32 += var34; // L: 1206
+											var35 += var37; // L: 1207
+											var38 += var40; // L: 1208
+										}
+									}
+
+									Rasterizer3D_iDontKnow(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var3 >> 14, var4 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 1191
+									var3 += var26; // L: 1192
+									var4 += var27; // L: 1193
+									var7 += var31; // L: 1194
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 1195
+									var32 += var34; // L: 1196
+									var35 += var37; // L: 1197
+									var38 += var40; // L: 1198
 								}
 							}
 						} else {
@@ -2042,10 +2042,10 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	} // L: 983
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("e")
 	@Export("Rasterizer3D_iDontKnow")
 	static final void Rasterizer3D_iDontKnow(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14) {
-		if (field2260) { // L: 1461
+		if (field2262) { // L: 1461
 			if (var6 > Rasterizer3D_clipWidth) { // L: 1462
 				var6 = Rasterizer3D_clipWidth;
 			}
@@ -2109,7 +2109,7 @@ public class Rasterizer3D extends Rasterizer2D {
 				var17 >>= 3; // L: 1506
 				var8 <<= 3; // L: 1507
 				var15 = var7 >> 8; // L: 1508
-				if (field2270) { // L: 1509
+				if (field2260) { // L: 1509
 					if (var17 > 0) { // L: 1510
 						do {
 							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 1512
@@ -2304,7 +2304,7 @@ public class Rasterizer3D extends Rasterizer2D {
 				var17 >>= 3; // L: 1681
 				var8 <<= 3; // L: 1682
 				var15 = var7 >> 8; // L: 1683
-				if (field2270) { // L: 1684
+				if (field2260) { // L: 1684
 					if (var17 > 0) { // L: 1685
 						do {
 							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 1687
@@ -2463,17 +2463,17 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	} // L: 1819
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@Export("drawTexturedTile")
 	static final void drawTexturedTile(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18) {
 		int[] var19 = Rasterizer3D_textureLoader.getTexturePixels(var18); // L: 1822
 		int var20;
 		if (var19 == null) { // L: 1823
 			var20 = Rasterizer3D_textureLoader.getAverageTextureRGB(var18); // L: 1824
-			method3824(var0, var1, var2, var3, var4, var5, method3887(var20, var6), method3887(var20, var7), method3887(var20, var8)); // L: 1825
+			method3854(var0, var1, var2, var3, var4, var5, method3881(var20, var6), method3881(var20, var7), method3881(var20, var8)); // L: 1825
 		} else {
 			Rasterizer3D_isLowDetailTexture = Rasterizer3D_textureLoader.isLowDetail(var18); // L: 1828
-			field2270 = Rasterizer3D_textureLoader.vmethod4224(var18); // L: 1829
+			field2260 = Rasterizer3D_textureLoader.vmethod4276(var18); // L: 1829
 			var20 = var4 - var3; // L: 1830
 			int var21 = var1 - var0; // L: 1831
 			int var22 = var5 - var3; // L: 1832
@@ -2545,41 +2545,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var32 += var34 * var41; // L: 1880
 							var35 += var37 * var41; // L: 1881
 							var38 += var40 * var41; // L: 1882
-							if (var0 != var1 && var28 < var26 || var0 == var1 && var28 > var27) { // L: 1883
-								var2 -= var1; // L: 1884
-								var1 -= var0; // L: 1885
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1886
-
-								while (true) {
-									--var1; // L: 1887
-									if (var1 < 0) {
-										while (true) {
-											--var2; // L: 1897
-											if (var2 < 0) {
-												return; // L: 1907
-											}
-
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1898
-											var5 += var28; // L: 1899
-											var4 += var27; // L: 1900
-											var6 += var31; // L: 1901
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1902
-											var32 += var34; // L: 1903
-											var35 += var37; // L: 1904
-											var38 += var40; // L: 1905
-										}
-									}
-
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1888
-									var5 += var28; // L: 1889
-									var3 += var26; // L: 1890
-									var6 += var31; // L: 1891
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1892
-									var32 += var34; // L: 1893
-									var35 += var37; // L: 1894
-									var38 += var40; // L: 1895
-								}
-							} else {
+							if ((var0 == var1 || var28 >= var26) && (var0 != var1 || var28 <= var27)) { // L: 1883
 								var2 -= var1; // L: 1910
 								var1 -= var0; // L: 1911
 								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1912
@@ -2613,6 +2579,40 @@ public class Rasterizer3D extends Rasterizer2D {
 									var35 += var37; // L: 1920
 									var38 += var40; // L: 1921
 								}
+							} else {
+								var2 -= var1; // L: 1884
+								var1 -= var0; // L: 1885
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1886
+
+								while (true) {
+									--var1; // L: 1887
+									if (var1 < 0) {
+										while (true) {
+											--var2; // L: 1897
+											if (var2 < 0) {
+												return; // L: 1907
+											}
+
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var4 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1898
+											var5 += var28; // L: 1899
+											var4 += var27; // L: 1900
+											var6 += var31; // L: 1901
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1902
+											var32 += var34; // L: 1903
+											var35 += var37; // L: 1904
+											var38 += var40; // L: 1905
+										}
+									}
+
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1888
+									var5 += var28; // L: 1889
+									var3 += var26; // L: 1890
+									var6 += var31; // L: 1891
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1892
+									var32 += var34; // L: 1893
+									var35 += var37; // L: 1894
+									var38 += var40; // L: 1895
+								}
 							}
 						} else {
 							var4 = var3 <<= 14; // L: 1937
@@ -2633,41 +2633,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var32 += var34 * var41; // L: 1950
 							var35 += var37 * var41; // L: 1951
 							var38 += var40 * var41; // L: 1952
-							if (var0 != var2 && var28 < var26 || var0 == var2 && var27 > var26) { // L: 1953
-								var1 -= var2; // L: 1954
-								var2 -= var0; // L: 1955
-								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1956
-
-								while (true) {
-									--var2; // L: 1957
-									if (var2 < 0) {
-										while (true) {
-											--var1; // L: 1967
-											if (var1 < 0) {
-												return; // L: 1977
-											}
-
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1968
-											var5 += var27; // L: 1969
-											var3 += var26; // L: 1970
-											var6 += var31; // L: 1971
-											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1972
-											var32 += var34; // L: 1973
-											var35 += var37; // L: 1974
-											var38 += var40; // L: 1975
-										}
-									}
-
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1958
-									var4 += var28; // L: 1959
-									var3 += var26; // L: 1960
-									var6 += var31; // L: 1961
-									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1962
-									var32 += var34; // L: 1963
-									var35 += var37; // L: 1964
-									var38 += var40; // L: 1965
-								}
-							} else {
+							if ((var0 == var2 || var28 >= var26) && (var0 != var2 || var27 <= var26)) { // L: 1953
 								var1 -= var2; // L: 1980
 								var2 -= var0; // L: 1981
 								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1982
@@ -2700,6 +2666,40 @@ public class Rasterizer3D extends Rasterizer2D {
 									var32 += var34; // L: 1989
 									var35 += var37; // L: 1990
 									var38 += var40; // L: 1991
+								}
+							} else {
+								var1 -= var2; // L: 1954
+								var2 -= var0; // L: 1955
+								var0 = Rasterizer3D_rowOffsets[var0]; // L: 1956
+
+								while (true) {
+									--var2; // L: 1957
+									if (var2 < 0) {
+										while (true) {
+											--var1; // L: 1967
+											if (var1 < 0) {
+												return; // L: 1977
+											}
+
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var5 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1968
+											var5 += var27; // L: 1969
+											var3 += var26; // L: 1970
+											var6 += var31; // L: 1971
+											var0 += Rasterizer2D.Rasterizer2D_width; // L: 1972
+											var32 += var34; // L: 1973
+											var35 += var37; // L: 1974
+											var38 += var40; // L: 1975
+										}
+									}
+
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var0, var4 >> 14, var3 >> 14, var6, var30, var32, var35, var38, var33, var36, var39); // L: 1958
+									var4 += var28; // L: 1959
+									var3 += var26; // L: 1960
+									var6 += var31; // L: 1961
+									var0 += Rasterizer2D.Rasterizer2D_width; // L: 1962
+									var32 += var34; // L: 1963
+									var35 += var37; // L: 1964
+									var38 += var40; // L: 1965
 								}
 							}
 						}
@@ -2734,41 +2734,7 @@ public class Rasterizer3D extends Rasterizer2D {
 							var32 += var34 * var41; // L: 2026
 							var35 += var37 * var41; // L: 2027
 							var38 += var40 * var41; // L: 2028
-							if ((var2 == var1 || var26 >= var27) && (var2 != var1 || var26 <= var28)) { // L: 2029
-								var0 -= var2; // L: 2056
-								var2 -= var1; // L: 2057
-								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2058
-
-								while (true) {
-									--var2; // L: 2059
-									if (var2 < 0) {
-										while (true) {
-											--var0; // L: 2069
-											if (var0 < 0) {
-												return; // L: 2079
-											}
-
-											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2070
-											var3 += var26; // L: 2071
-											var5 += var28; // L: 2072
-											var7 += var31; // L: 2073
-											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2074
-											var32 += var34; // L: 2075
-											var35 += var37; // L: 2076
-											var38 += var40; // L: 2077
-										}
-									}
-
-									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2060
-									var3 += var26; // L: 2061
-									var4 += var27; // L: 2062
-									var7 += var31; // L: 2063
-									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2064
-									var32 += var34; // L: 2065
-									var35 += var37; // L: 2066
-									var38 += var40; // L: 2067
-								}
-							} else {
+							if (var2 != var1 && var26 < var27 || var2 == var1 && var26 > var28) { // L: 2029
 								var0 -= var2; // L: 2030
 								var2 -= var1; // L: 2031
 								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2032
@@ -2801,6 +2767,40 @@ public class Rasterizer3D extends Rasterizer2D {
 									var32 += var34; // L: 2039
 									var35 += var37; // L: 2040
 									var38 += var40; // L: 2041
+								}
+							} else {
+								var0 -= var2; // L: 2056
+								var2 -= var1; // L: 2057
+								var1 = Rasterizer3D_rowOffsets[var1]; // L: 2058
+
+								while (true) {
+									--var2; // L: 2059
+									if (var2 < 0) {
+										while (true) {
+											--var0; // L: 2069
+											if (var0 < 0) {
+												return; // L: 2079
+											}
+
+											Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var5 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2070
+											var3 += var26; // L: 2071
+											var5 += var28; // L: 2072
+											var7 += var31; // L: 2073
+											var1 += Rasterizer2D.Rasterizer2D_width; // L: 2074
+											var32 += var34; // L: 2075
+											var35 += var37; // L: 2076
+											var38 += var40; // L: 2077
+										}
+									}
+
+									Rasterizer3D_textureAlpha(Rasterizer2D.Rasterizer2D_pixels, var19, 0, 0, var1, var4 >> 14, var3 >> 14, var7, var30, var32, var35, var38, var33, var36, var39); // L: 2060
+									var3 += var26; // L: 2061
+									var4 += var27; // L: 2062
+									var7 += var31; // L: 2063
+									var1 += Rasterizer2D.Rasterizer2D_width; // L: 2064
+									var32 += var34; // L: 2065
+									var35 += var37; // L: 2066
+									var38 += var40; // L: 2067
 								}
 							}
 						} else {
@@ -3085,10 +3085,10 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	} // L: 1826
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("a")
 	@Export("Rasterizer3D_textureAlpha")
 	static final void Rasterizer3D_textureAlpha(int[] var0, int[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14) {
-		if (field2260) { // L: 2304
+		if (field2262) { // L: 2304
 			if (var6 > Rasterizer3D_clipWidth) { // L: 2305
 				var6 = Rasterizer3D_clipWidth;
 			}
@@ -3141,7 +3141,7 @@ public class Rasterizer3D extends Rasterizer2D {
 				var17 >>= 3; // L: 2346
 				var8 <<= 3; // L: 2347
 				var15 = var7 >> 8; // L: 2348
-				if (field2270) { // L: 2350
+				if (field2260) { // L: 2350
 					if (var17 > 0) { // L: 2351
 						do {
 							var3 = var1[(var2 >>> 26) + (var2 & 4032)]; // L: 2353
@@ -3284,7 +3284,7 @@ public class Rasterizer3D extends Rasterizer2D {
 				var17 >>= 3; // L: 2483
 				var8 <<= 3; // L: 2484
 				var15 = var7 >> 8; // L: 2485
-				if (field2270) { // L: 2487
+				if (field2260) { // L: 2487
 					if (var17 > 0) { // L: 2488
 						do {
 							var3 = var1[(var2 & 16256) + (var2 >>> 25)]; // L: 2490
@@ -3401,8 +3401,8 @@ public class Rasterizer3D extends Rasterizer2D {
 		}
 	} // L: 2586
 
-	@ObfuscatedName("d")
-	static final int method3887(int var0, int var1) {
+	@ObfuscatedName("k")
+	static final int method3881(int var0, int var1) {
 		var1 = (var0 & 127) * var1 >> 7; // L: 2589
 		if (var1 < 2) { // L: 2590
 			var1 = 2;
@@ -3413,33 +3413,33 @@ public class Rasterizer3D extends Rasterizer2D {
 		return (var0 & 65408) + var1; // L: 2592
 	}
 
-	@ObfuscatedName("u")
-	static final int method3833(int var0, int var1, int var2, int var3) {
+	@ObfuscatedName("m")
+	static final int method3863(int var0, int var1, int var2, int var3) {
 		return var0 * var2 + var3 * var1 >> 16; // L: 2596
 	}
 
-	@ObfuscatedName("m")
-	static final int method3834(int var0, int var1, int var2, int var3) {
+	@ObfuscatedName("x")
+	static final int method3864(int var0, int var1, int var2, int var3) {
 		return var2 * var1 - var3 * var0 >> 16; // L: 2600
 	}
 
-	@ObfuscatedName("j")
-	static final int method3835(int var0, int var1, int var2, int var3) {
+	@ObfuscatedName("z")
+	static final int method3865(int var0, int var1, int var2, int var3) {
 		return var0 * var2 - var3 * var1 >> 16; // L: 2604
 	}
 
-	@ObfuscatedName("f")
-	static final int method3890(int var0, int var1, int var2, int var3) {
+	@ObfuscatedName("w")
+	static final int method3866(int var0, int var1, int var2, int var3) {
 		return var3 * var0 + var2 * var1 >> 16; // L: 2608
 	}
 
-	@ObfuscatedName("s")
-	static final int method3837(int var0, int var1, int var2, int var3) {
+	@ObfuscatedName("t")
+	static final int method3867(int var0, int var1, int var2, int var3) {
 		return var0 * var2 + var3 * var1 >> 16; // L: 2612
 	}
 
-	@ObfuscatedName("y")
-	static final int method3842(int var0, int var1, int var2, int var3) {
+	@ObfuscatedName("h")
+	static final int method3897(int var0, int var1, int var2, int var3) {
 		return var2 * var1 - var3 * var0 >> 16; // L: 2616
 	}
 }

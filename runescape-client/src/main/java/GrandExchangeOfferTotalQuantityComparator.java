@@ -1,23 +1,24 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ja")
+@ObfuscatedName("jr")
 @Implements("GrandExchangeOfferTotalQuantityComparator")
 final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
-	@ObfuscatedName("hj")
-	@ObfuscatedSignature(
-		descriptor = "[Lof;"
+	@ObfuscatedName("ef")
+	@ObfuscatedGetter(
+		intValue = 1162087447
 	)
-	@Export("scrollBarSprites")
-	static IndexedSprite[] scrollBarSprites;
+	@Export("js5Port")
+	static int js5Port;
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Ljz;Ljz;B)I",
-		garbageValue = "-64"
+		descriptor = "(Ljs;Ljs;I)I",
+		garbageValue = "1946951772"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -30,36 +31,5 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 
 	public boolean equals(Object var1) {
 		return super.equals(var1); // L: 77
-	}
-
-	@ObfuscatedName("hi")
-	@ObfuscatedSignature(
-		descriptor = "(Lcj;II)V",
-		garbageValue = "1442681811"
-	)
-	static final void method4972(Actor var0, int var1) {
-		PcmPlayer.worldToScreen(var0.x, var0.y, var1); // L: 5414
-	} // L: 5415
-
-	@ObfuscatedName("jq")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Liv;B)Ljava/lang/String;",
-		garbageValue = "12"
-	)
-	static String method4979(String var0, Widget var1) {
-		if (var0.indexOf("%") != -1) { // L: 9998
-			for (int var2 = 1; var2 <= 5; ++var2) { // L: 9999
-				while (true) {
-					int var3 = var0.indexOf("%" + var2); // L: 10001
-					if (var3 == -1) { // L: 10002
-						break;
-					}
-
-					var0 = var0.substring(0, var3) + GrandExchangeOfferOwnWorldComparator.method1214(class161.method3150(var1, var2 - 1)) + var0.substring(var3 + 2); // L: 10003
-				}
-			}
-		}
-
-		return var0; // L: 10007
 	}
 }

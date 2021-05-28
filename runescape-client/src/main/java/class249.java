@@ -1,33 +1,30 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("io")
+@ObfuscatedName("il")
 public class class249 {
-	@ObfuscatedName("g")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Ljx;",
-		garbageValue = "1095870927"
+		descriptor = "Lid;"
 	)
-	@Export("PlayerType_values")
-	public static PlayerType[] PlayerType_values() {
-		return new PlayerType[]{PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_ultimateIronman, PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_normal, PlayerType.field3551, PlayerType.PlayerType_playerModerator, PlayerType.PlayerType_ironman}; // L: 20
-	}
+	@Export("huffman")
+	static Huffman huffman;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = -288783387
+	)
+	static int field3118;
+	@ObfuscatedName("cs")
+	public static char field3116;
 
-	@ObfuscatedName("ad")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(ILci;ZB)I",
-		garbageValue = "59"
+		descriptor = "(Ljava/lang/String;IB)Z",
+		garbageValue = "0"
 	)
-	static int method4732(int var0, Script var1, boolean var2) {
-		if (var0 == 6900) { // L: 4205
-			++class13.Interpreter_stringStackSize; // L: 4206
-			return 1; // L: 4207
-		} else if (var0 == 6950) { // L: 4209
-			++WorldMapCacheName.Interpreter_intStackSize; // L: 4210
-			return 1; // L: 4211
-		} else {
-			return 2; // L: 4213
-		}
+	static boolean method4792(String var0, int var1) {
+		return Script.method1996(var0, var1, "openjs"); // L: 50
 	}
 }

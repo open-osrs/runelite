@@ -1,99 +1,107 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jt")
+@ObfuscatedName("jo")
 @Implements("Strings")
 public class Strings {
 	@ObfuscatedName("bu")
-	public static String field3295;
-	@ObfuscatedName("cl")
-	public static String field3334;
-	@ObfuscatedName("jj")
-	public static String field3439;
-	@ObfuscatedName("jg")
+	public static String field3306;
+	@ObfuscatedName("cu")
+	public static String field3327;
+	@ObfuscatedName("jy")
 	public static String field3503;
-	@ObfuscatedName("ji")
-	public static String field3512;
+	@ObfuscatedName("jg")
+	public static String field3504;
+	@ObfuscatedName("jp")
+	public static String field3505;
 
 	static {
-		field3295 = "Please visit the support page for assistance."; // L: 60
-		field3334 = "Please visit the support page for assistance.";
-		field3439 = ""; // L: 275
-		field3503 = "Page has opened in a new window."; // L: 276
-		field3512 = "(Please check your popup blocker.)"; // L: 277
+		field3306 = "Please visit the support page for assistance."; // L: 60
+		field3327 = "Please visit the support page for assistance."; // L: 99
+		field3503 = ""; // L: 275
+		field3504 = "Page has opened in a new window."; // L: 276
+		field3505 = "(Please check your popup blocker.)"; // L: 277
 	} // L: 307
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("gw")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lez;",
-		garbageValue = "1535423962"
+		descriptor = "(Lcy;I)V",
+		garbageValue = "-1661416870"
 	)
-	@Export("ItemDefinition_get")
-	public static ItemComposition ItemDefinition_get(int var0) {
-		ItemComposition var1 = (ItemComposition)ItemComposition.ItemDefinition_cached.get((long)var0); // L: 92
-		if (var1 != null) { // L: 93
-			return var1;
-		} else {
-			byte[] var2 = ItemComposition.ItemDefinition_archive.takeFile(10, var0); // L: 94
-			var1 = new ItemComposition(); // L: 95
-			var1.id = var0; // L: 96
-			if (var2 != null) { // L: 97
-				var1.decode(new Buffer(var2));
-			}
+	static final void method4850(Actor var0) {
+		if (var0.field1289 != 0) { // L: 3758
+			if (var0.targetIndex != -1) { // L: 3759
+				Object var1 = null; // L: 3760
+				if (var0.targetIndex < 32768) { // L: 3761
+					var1 = Client.npcs[var0.targetIndex];
+				} else if (var0.targetIndex >= 32768) { // L: 3762
+					var1 = Client.players[var0.targetIndex - 32768];
+				}
 
-			var1.post(); // L: 98
-			if (var1.noteTemplate != -1) { // L: 99
-				var1.genCert(ItemDefinition_get(var1.noteTemplate), ItemDefinition_get(var1.note));
-			}
-
-			if (var1.notedId != -1) { // L: 100
-				var1.genBought(ItemDefinition_get(var1.notedId), ItemDefinition_get(var1.unnotedId));
-			}
-
-			if (var1.placeholderTemplate != -1) { // L: 101
-				var1.genPlaceholder(ItemDefinition_get(var1.placeholderTemplate), ItemDefinition_get(var1.placeholder));
-			}
-
-			if (!BufferedNetSocket.ItemDefinition_inMembersWorld && var1.isMembersOnly) { // L: 102
-				var1.name = "Members object"; // L: 103
-				var1.isTradable = false; // L: 104
-				var1.groundActions = null; // L: 105
-				var1.inventoryActions = null; // L: 106
-				var1.shiftClickIndex = -1; // L: 107
-				var1.team = 0; // L: 108
-				if (var1.params != null) { // L: 109
-					boolean var3 = false; // L: 110
-
-					for (Node var4 = var1.params.first(); var4 != null; var4 = var1.params.next()) { // L: 111
-						ParamComposition var5 = WorldMapElement.getParamDefinition((int)var4.key); // L: 112
-						if (var5.autoDisable) { // L: 113
-							var4.remove();
-						} else {
-							var3 = true; // L: 114
-						}
+				if (var1 != null) { // L: 3763
+					int var2 = var0.x - ((Actor)var1).x; // L: 3764
+					int var3 = var0.y - ((Actor)var1).y; // L: 3765
+					if (var2 != 0 || var3 != 0) { // L: 3766
+						var0.orientation = (int)(Math.atan2((double)var2, (double)var3) * 325.949D) & 2047;
 					}
-
-					if (!var3) { // L: 116
-						var1.params = null;
-					}
+				} else if (var0.false0) { // L: 3768
+					var0.targetIndex = -1; // L: 3769
+					var0.false0 = false; // L: 3770
 				}
 			}
 
-			ItemComposition.ItemDefinition_cached.put(var1, (long)var0); // L: 119
-			return var1; // L: 120
-		}
-	}
+			if (var0.field1264 != -1 && (var0.pathLength == 0 || var0.field1294 > 0)) { // L: 3773
+				var0.orientation = var0.field1264; // L: 3774
+				var0.field1264 = -1; // L: 3775
+			}
 
-	@ObfuscatedName("jf")
-	@ObfuscatedSignature(
-		descriptor = "(IIIZI)V",
-		garbageValue = "-1449127026"
-	)
-	static final void method4801(int var0, int var1, int var2, boolean var3) {
-		if (UserComparator8.loadInterface(var0)) { // L: 10051
-			Login.resizeInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3); // L: 10052
+			int var4 = var0.orientation - var0.rotation & 2047; // L: 3777
+			if (var4 == 0 && var0.false0) { // L: 3778
+				var0.targetIndex = -1; // L: 3779
+				var0.false0 = false; // L: 3780
+			}
+
+			if (var4 != 0) { // L: 3782
+				++var0.field1282; // L: 3783
+				boolean var6;
+				if (var4 > 1024) { // L: 3784
+					var0.rotation -= var0.field1289; // L: 3785
+					var6 = true; // L: 3786
+					if (var4 < var0.field1289 || var4 > 2048 - var0.field1289) { // L: 3787
+						var0.rotation = var0.orientation; // L: 3788
+						var6 = false; // L: 3789
+					}
+
+					if (var0.idleSequence == var0.movementSequence && (var0.field1282 > 25 || var6)) { // L: 3791
+						if (var0.turnLeftSequence != -1) { // L: 3792
+							var0.movementSequence = var0.turnLeftSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence; // L: 3793
+						}
+					}
+				} else {
+					var0.rotation += var0.field1289; // L: 3797
+					var6 = true; // L: 3798
+					if (var4 < var0.field1289 || var4 > 2048 - var0.field1289) { // L: 3799
+						var0.rotation = var0.orientation; // L: 3800
+						var6 = false; // L: 3801
+					}
+
+					if (var0.movementSequence == var0.idleSequence && (var0.field1282 > 25 || var6)) { // L: 3803
+						if (var0.turnRightSequence != -1) { // L: 3804
+							var0.movementSequence = var0.turnRightSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence; // L: 3805
+						}
+					}
+				}
+
+				var0.rotation &= 2047; // L: 3809
+			} else {
+				var0.field1282 = 0; // L: 3811
+			}
+
 		}
-	} // L: 10053
+	} // L: 3812
 }

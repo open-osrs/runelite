@@ -5,108 +5,108 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fw")
+@ObfuscatedName("fm")
 @Implements("AbstractWorldMapData")
 public abstract class AbstractWorldMapData {
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1996552339
+		intValue = -1347091631
 	)
 	@Export("regionXLow")
 	int regionXLow;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -2059198725
+		intValue = -868813013
 	)
 	@Export("regionYLow")
 	int regionYLow;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 2081682071
+		intValue = 1253594293
 	)
 	@Export("regionX")
 	int regionX;
-	@ObfuscatedName("v")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1016035147
+		intValue = 174092143
 	)
 	@Export("regionY")
 	int regionY;
-	@ObfuscatedName("b")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 639511485
+		intValue = -1260242687
 	)
 	@Export("minPlane")
 	int minPlane;
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 441540085
+		intValue = -1482547443
 	)
 	@Export("planes")
 	int planes;
-	@ObfuscatedName("i")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 1726818165
+		intValue = -630921225
 	)
 	@Export("groupId")
 	int groupId;
-	@ObfuscatedName("x")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1111164981
+		intValue = -373998791
 	)
 	@Export("fileId")
 	int fileId;
-	@ObfuscatedName("k")
+	@ObfuscatedName("o")
 	@Export("floorUnderlayIds")
 	short[][][] floorUnderlayIds;
-	@ObfuscatedName("r")
+	@ObfuscatedName("c")
 	@Export("floorOverlayIds")
 	short[][][] floorOverlayIds;
-	@ObfuscatedName("p")
-	byte[][][] field2063;
-	@ObfuscatedName("a")
-	byte[][][] field2064;
 	@ObfuscatedName("e")
+	byte[][][] field2067;
+	@ObfuscatedName("g")
+	byte[][][] field2065;
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "[[[[Lfg;"
+		descriptor = "[[[[Lfh;"
 	)
 	@Export("decorations")
 	WorldMapDecoration[][][][] decorations;
-	@ObfuscatedName("d")
-	boolean field2066;
-	@ObfuscatedName("u")
-	boolean field2067;
+	@ObfuscatedName("k")
+	boolean field2068;
+	@ObfuscatedName("m")
+	boolean field2069;
 
 	AbstractWorldMapData() {
 		this.groupId = -1; // L: 14
 		this.fileId = -1; // L: 15
 		new LinkedList();
-		this.field2066 = false; // L: 26
-		this.field2067 = false; // L: 27
+		this.field2068 = false; // L: 26
+		this.field2069 = false; // L: 27
 	} // L: 29
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;I)V",
-		garbageValue = "1915938242"
+		descriptor = "(Lnd;I)V",
+		garbageValue = "1223315238"
 	)
 	@Export("readGeography")
 	abstract void readGeography(Buffer var1);
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-2052268063"
+		descriptor = "(B)Z",
+		garbageValue = "25"
 	)
 	@Export("isFullyLoaded")
 	boolean isFullyLoaded() {
-		return this.field2066 && this.field2067; // L: 32
+		return this.field2068 && this.field2069; // L: 32
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;B)V",
-		garbageValue = "56"
+		descriptor = "(Ljv;I)V",
+		garbageValue = "-1881595992"
 	)
 	@Export("loadGeography")
 	void loadGeography(AbstractArchive var1) {
@@ -114,53 +114,53 @@ public abstract class AbstractWorldMapData {
 			byte[] var2 = var1.takeFile(this.groupId, this.fileId); // L: 37
 			if (var2 != null) { // L: 38
 				this.readGeography(new Buffer(var2)); // L: 39
-				this.field2066 = true; // L: 40
-				this.field2067 = true; // L: 41
+				this.field2068 = true; // L: 40
+				this.field2069 = true; // L: 41
 			}
 
 		}
 	} // L: 43
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-39"
+		descriptor = "(I)V",
+		garbageValue = "244458309"
 	)
 	@Export("reset")
 	void reset() {
 		this.floorUnderlayIds = null; // L: 46
 		this.floorOverlayIds = null; // L: 47
-		this.field2063 = null; // L: 48
-		this.field2064 = null; // L: 49
+		this.field2067 = null; // L: 48
+		this.field2065 = null; // L: 49
 		this.decorations = null; // L: 50
-		this.field2066 = false; // L: 51
-		this.field2067 = false; // L: 52
+		this.field2068 = false; // L: 51
+		this.field2069 = false; // L: 52
 	} // L: 53
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		descriptor = "(IILnk;I)V",
-		garbageValue = "-1976219247"
+		descriptor = "(IILnd;I)V",
+		garbageValue = "-570193983"
 	)
 	@Export("readTile")
 	void readTile(int var1, int var2, Buffer var3) {
 		int var4 = var3.readUnsignedByte(); // L: 56
 		if (var4 != 0) { // L: 57
 			if ((var4 & 1) != 0) { // L: 60
-				this.method3546(var1, var2, var3, var4); // L: 61
+				this.method3602(var1, var2, var3, var4); // L: 61
 			} else {
-				this.method3547(var1, var2, var3, var4); // L: 64
+				this.method3622(var1, var2, var3, var4); // L: 64
 			}
 
 		}
 	} // L: 58 66
 
-	@ObfuscatedName("ae")
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		descriptor = "(IILnk;IB)V",
-		garbageValue = "13"
+		descriptor = "(IILnd;II)V",
+		garbageValue = "-300212411"
 	)
-	void method3546(int var1, int var2, Buffer var3, int var4) {
+	void method3602(int var1, int var2, Buffer var3, int var4) {
 		boolean var5 = (var4 & 2) != 0; // L: 69
 		if (var5) { // L: 70
 			this.floorOverlayIds[0][var1][var2] = (short)var3.readUnsignedByte(); // L: 71
@@ -169,12 +169,12 @@ public abstract class AbstractWorldMapData {
 		this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte(); // L: 73
 	} // L: 74
 
-	@ObfuscatedName("ao")
+	@ObfuscatedName("ai")
 	@ObfuscatedSignature(
-		descriptor = "(IILnk;II)V",
-		garbageValue = "158678327"
+		descriptor = "(IILnd;II)V",
+		garbageValue = "-2123814102"
 	)
-	void method3547(int var1, int var2, Buffer var3, int var4) {
+	void method3622(int var1, int var2, Buffer var3, int var4) {
 		int var5 = ((var4 & 24) >> 3) + 1; // L: 77
 		boolean var6 = (var4 & 2) != 0; // L: 78
 		boolean var7 = (var4 & 4) != 0; // L: 79
@@ -190,8 +190,8 @@ public abstract class AbstractWorldMapData {
 				if (var14 != 0) { // L: 85
 					this.floorOverlayIds[var9][var1][var2] = (short)var14; // L: 86
 					var11 = var3.readUnsignedByte(); // L: 87
-					this.field2063[var9][var1][var2] = (byte)(var11 >> 2); // L: 88
-					this.field2064[var9][var1][var2] = (byte)(var11 & 3); // L: 89
+					this.field2067[var9][var1][var2] = (byte)(var11 >> 2); // L: 88
+					this.field2065[var9][var1][var2] = (byte)(var11 & 3); // L: 89
 				}
 			}
 		}
@@ -203,7 +203,7 @@ public abstract class AbstractWorldMapData {
 					WorldMapDecoration[] var10 = this.decorations[var8][var1][var2] = new WorldMapDecoration[var9]; // L: 99
 
 					for (var11 = 0; var11 < var9; ++var11) { // L: 100
-						int var12 = var3.method6464(); // L: 101
+						int var12 = var3.method6583(); // L: 101
 						int var13 = var3.readUnsignedByte(); // L: 102
 						var10[var11] = new WorldMapDecoration(var12, var13 >> 2, var13 & 3); // L: 103
 					}
@@ -213,100 +213,23 @@ public abstract class AbstractWorldMapData {
 
 	} // L: 107
 
-	@ObfuscatedName("aj")
+	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1248548419"
+		garbageValue = "-802989109"
 	)
 	@Export("getRegionX")
 	int getRegionX() {
 		return this.regionX; // L: 112
 	}
 
-	@ObfuscatedName("aw")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1357886281"
+		descriptor = "(B)I",
+		garbageValue = "-49"
 	)
 	@Export("getRegionY")
 	int getRegionY() {
 		return this.regionY; // L: 116
 	}
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(Lnk;IIIIIII)V",
-		garbageValue = "-186517338"
-	)
-	@Export("loadTerrain")
-	static final void loadTerrain(Buffer var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		int var7;
-		if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) { // L: 119
-			Tiles.Tiles_renderFlags[var1][var2][var3] = 0; // L: 120
-
-			while (true) {
-				var7 = var0.readUnsignedByte(); // L: 122
-				if (var7 == 0) { // L: 123
-					if (var1 == 0) { // L: 124
-						int[] var14 = Tiles.Tiles_heights[0][var2]; // L: 125
-						int var11 = var2 + var4 + 932731; // L: 128
-						int var12 = var3 + var5 + 556238; // L: 129
-						int var13 = FontName.method6160(var11 + 45365, 91923 + var12, 4) - 128 + (FontName.method6160(var11 + 10294, 37821 + var12, 2) - 128 >> 1) + (FontName.method6160(var11, var12, 1) - 128 >> 2); // L: 131
-						var13 = (int)((double)var13 * 0.3D) + 35; // L: 132
-						if (var13 < 10) { // L: 133
-							var13 = 10;
-						} else if (var13 > 60) { // L: 134
-							var13 = 60;
-						}
-
-						var14[var3] = -var13 * 8; // L: 137
-					} else {
-						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - 240; // L: 139
-					}
-					break;
-				}
-
-				if (var7 == 1) { // L: 142
-					int var8 = var0.readUnsignedByte(); // L: 143
-					if (var8 == 1) { // L: 144
-						var8 = 0;
-					}
-
-					if (var1 == 0) { // L: 145
-						Tiles.Tiles_heights[0][var2][var3] = -var8 * 8;
-					} else {
-						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - var8 * 8; // L: 146
-					}
-					break;
-				}
-
-				if (var7 <= 49) { // L: 149
-					class9.field71[var1][var2][var3] = var0.readByte(); // L: 150
-					Tiles.field1088[var1][var2][var3] = (byte)((var7 - 2) / 4); // L: 151
-					Tiles.field1086[var1][var2][var3] = (byte)(var7 - 2 + var6 & 3); // L: 152
-				} else if (var7 <= 81) { // L: 155
-					Tiles.Tiles_renderFlags[var1][var2][var3] = (byte)(var7 - 49); // L: 156
-				} else {
-					Tiles.field1097[var1][var2][var3] = (byte)(var7 - 81); // L: 159
-				}
-			}
-		} else {
-			while (true) {
-				var7 = var0.readUnsignedByte(); // L: 164
-				if (var7 == 0) { // L: 165
-					break;
-				}
-
-				if (var7 == 1) { // L: 166
-					var0.readUnsignedByte(); // L: 167
-					break;
-				}
-
-				if (var7 <= 49) { // L: 170
-					var0.readUnsignedByte();
-				}
-			}
-		}
-
-	} // L: 173
 }

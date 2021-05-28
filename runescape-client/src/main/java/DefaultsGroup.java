@@ -1,26 +1,32 @@
+import java.awt.FontMetrics;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lz")
+@ObfuscatedName("lf")
 @Implements("DefaultsGroup")
 public class DefaultsGroup {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Llz;"
+		descriptor = "Llf;"
 	)
-	static final DefaultsGroup field3903;
+	static final DefaultsGroup field3892;
 	@ObfuscatedName("c")
+	static int[] field3894;
+	@ObfuscatedName("ad")
+	@Export("loginScreenFontMetrics")
+	static FontMetrics loginScreenFontMetrics;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1585130707
+		intValue = -1567646551
 	)
 	@Export("group")
 	final int group;
 
 	static {
-		field3903 = new DefaultsGroup(3); // L: 4
+		field3892 = new DefaultsGroup(3); // L: 4
 	}
 
 	DefaultsGroup(int var1) {

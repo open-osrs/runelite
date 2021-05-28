@@ -4,152 +4,191 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iz")
+@ObfuscatedName("iq")
 @Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1463975921
+		intValue = -1025207361
 	)
-	int field2908;
-	@ObfuscatedName("c")
+	int field2905;
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Lin;"
 	)
 	@Export("patch")
 	MusicPatch patch;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Laf;"
+		descriptor = "Lau;"
 	)
 	@Export("rawSound")
 	RawSound rawSound;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lhe;"
+		descriptor = "Lhk;"
 	)
-	MusicPatchNode2 field2915;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = 526262157
-	)
-	int field2907;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = -6114463
-	)
-	int field2902;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = -970161773
-	)
-	int field2903;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -339875115
-	)
-	int field2904;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = -749236091
-	)
-	int field2905;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = 421352965
-	)
-	int field2906;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -1907989053
-	)
-	int field2900;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -585821047
-	)
-	int field2911;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = 1406585343
-	)
-	int field2909;
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = 1645733579
-	)
-	int field2910;
+	MusicPatchNode2 field2894;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1129661053
+		intValue = -2143225367
+	)
+	int field2893;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = -723940785
+	)
+	int field2896;
+	@ObfuscatedName("r")
+	@ObfuscatedGetter(
+		intValue = 1566640151
+	)
+	int field2897;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = 970092925
 	)
 	int field2898;
-	@ObfuscatedName("a")
-	@ObfuscatedGetter(
-		intValue = -304660997
-	)
-	int field2912;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = -1833594555
-	)
-	int field2913;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 2087137619
+		intValue = 215164221
+	)
+	int field2900;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -1146128297
+	)
+	int field2899;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = 1897214019
 	)
 	int field2901;
-	@ObfuscatedName("u")
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -955818271
+	)
+	int field2902;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 370154707
+	)
+	int field2903;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = 939918277
+	)
+	int field2911;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = 1951740649
+	)
+	int field2895;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -292962099
+	)
+	int field2906;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = 726334989
+	)
+	int field2907;
+	@ObfuscatedName("k")
+	@ObfuscatedGetter(
+		intValue = 1237883869
+	)
+	int field2908;
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lbk;"
+		descriptor = "Lbv;"
 	)
 	@Export("stream")
 	RawPcmStream stream;
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 987956441
+		intValue = 730487289
 	)
-	int field2916;
-	@ObfuscatedName("f")
+	int field2891;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -218831321
+		intValue = -576530835
 	)
-	int field2917;
+	int field2904;
 
 	MusicPatchNode() {
 	} // L: 31
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1154138933"
+		descriptor = "(B)V",
+		garbageValue = "-88"
 	)
-	void method4575() {
+	void method4634() {
 		this.patch = null; // L: 34
 		this.rawSound = null; // L: 35
-		this.field2915 = null; // L: 36
+		this.field2894 = null; // L: 36
 		this.stream = null; // L: 37
-	} // L: 38
+	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Led;",
-		garbageValue = "-24"
+		descriptor = "(Ljava/lang/CharSequence;IZI)Z",
+		garbageValue = "-387650050"
 	)
-	@Export("VarpDefinition_get")
-	public static VarpDefinition VarpDefinition_get(int var0) {
-		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0); // L: 18
-		if (var1 != null) { // L: 19
-			return var1;
-		} else {
-			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0); // L: 20
-			var1 = new VarpDefinition(); // L: 21
-			if (var2 != null) { // L: 22
-				var1.decode(new Buffer(var2));
+	static boolean method4638(CharSequence var0, int var1, boolean var2) {
+		if (var1 >= 2 && var1 <= 36) { // L: 38
+			boolean var3 = false; // L: 39
+			boolean var4 = false; // L: 40
+			int var5 = 0; // L: 41
+			int var6 = var0.length(); // L: 42
+
+			for (int var7 = 0; var7 < var6; ++var7) { // L: 43
+				char var8 = var0.charAt(var7); // L: 44
+				if (var7 == 0) { // L: 45
+					if (var8 == '-') { // L: 46
+						var3 = true; // L: 47
+						continue;
+					}
+
+					if (var8 == '+') { // L: 50
+						continue;
+					}
+				}
+
+				int var10;
+				if (var8 >= '0' && var8 <= '9') { // L: 52
+					var10 = var8 - '0';
+				} else if (var8 >= 'A' && var8 <= 'Z') { // L: 53
+					var10 = var8 - '7';
+				} else {
+					if (var8 < 'a' || var8 > 'z') { // L: 54
+						return false; // L: 55
+					}
+
+					var10 = var8 - 'W';
+				}
+
+				if (var10 >= var1) { // L: 56
+					return false;
+				}
+
+				if (var3) { // L: 57
+					var10 = -var10;
+				}
+
+				int var9 = var10 + var5 * var1; // L: 58
+				if (var9 / var1 != var5) { // L: 59
+					return false;
+				}
+
+				var5 = var9; // L: 60
+				var4 = true; // L: 61
 			}
 
-			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0); // L: 23
-			return var1; // L: 24
+			return var4; // L: 63
+		} else {
+			throw new IllegalArgumentException("" + var1);
 		}
 	}
 }

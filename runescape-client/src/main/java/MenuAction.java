@@ -4,68 +4,63 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cp")
 @Implements("MenuAction")
 public class MenuAction {
-	@ObfuscatedName("cs")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1383560021
-	)
-	public static int field982;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = 38468049
+		intValue = 1908566839
 	)
 	@Export("param0")
 	int param0;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 871574221
+		intValue = 213019407
 	)
 	@Export("param1")
 	int param1;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1494499467
+		intValue = -187586953
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1225362571
+		intValue = 651752445
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@Export("action")
 	String action;
 
 	MenuAction() {
-	} // L: 11814
+	} // L: 11577
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("kg")
 	@ObfuscatedSignature(
-		descriptor = "(Lap;B)Lat;",
-		garbageValue = "7"
+		descriptor = "(IIIILoh;Lit;I)V",
+		garbageValue = "836097385"
 	)
-	public static class31 method1944(class34 var0) {
-		switch(var0.field238) { // L: 9
-		case 0:
-			return new class28(); // L: 16
-		default:
-			throw new IllegalArgumentException(); // L: 12
+	@Export("worldToMinimap")
+	static final void worldToMinimap(int var0, int var1, int var2, int var3, SpritePixels var4, SpriteMask var5) {
+		int var6 = var3 * var3 + var2 * var2; // L: 11213
+		if (var6 > 4225 && var6 < 90000) { // L: 11214
+			int var7 = Client.camAngleY & 2047; // L: 11215
+			int var8 = Rasterizer3D.Rasterizer3D_sine[var7]; // L: 11216
+			int var9 = Rasterizer3D.Rasterizer3D_cosine[var7]; // L: 11217
+			int var10 = var3 * var8 + var9 * var2 >> 16; // L: 11218
+			int var11 = var3 * var9 - var8 * var2 >> 16; // L: 11219
+			double var12 = Math.atan2((double)var10, (double)var11); // L: 11220
+			int var14 = var5.width / 2 - 25; // L: 11221
+			int var15 = (int)(Math.sin(var12) * (double)var14); // L: 11222
+			int var16 = (int)(Math.cos(var12) * (double)var14); // L: 11223
+			byte var17 = 20; // L: 11224
+			Interpreter.redHintArrowSprite.method6990(var15 + (var0 + var5.width / 2 - var17 / 2), var5.height / 2 + var1 - var17 / 2 - var16 - 10, var17, var17, 15, 15, var12, 256); // L: 11225
+		} else {
+			ObjectComposition.drawSpriteOnMinimap(var0, var1, var2, var3, var4, var5); // L: 11227
 		}
-	}
 
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(Ljp;Ljava/lang/String;Ljava/lang/String;I)Lof;",
-		garbageValue = "48725768"
-	)
-	@Export("SpriteBuffer_getIndexedSpriteByName")
-	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
-		int var3 = var0.getGroupId(var1); // L: 122
-		int var4 = var0.getFileId(var3, var2); // L: 123
-		return SequenceDefinition.method3091(var0, var3, var4); // L: 124
-	}
+	} // L: 11228
 }

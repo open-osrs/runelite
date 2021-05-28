@@ -2,12 +2,12 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ig")
-public class class257 {
-	@ObfuscatedName("s")
+@ObfuscatedName("nr")
+public class class378 {
+	@ObfuscatedName("bh")
 	@ObfuscatedSignature(
-		descriptor = "Lgs;"
+		descriptor = "Lkk;"
 	)
-	@Export("worldMapEvent")
-	static WorldMapEvent worldMapEvent;
+	@Export("clientLanguage")
+	static Language clientLanguage;
 }

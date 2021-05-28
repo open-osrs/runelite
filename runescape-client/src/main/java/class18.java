@@ -3,158 +3,111 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("u")
+@ObfuscatedName("m")
 public class class18 extends class14 {
-	@ObfuscatedName("tw")
-	@ObfuscatedSignature(
-		descriptor = "Ljn;"
-	)
-	public static class285 field154;
-	@ObfuscatedName("rg")
+	@ObfuscatedName("rf")
 	@ObfuscatedGetter(
-		intValue = -1740704291
+		intValue = -1469899117
 	)
-	static int field157;
-	@ObfuscatedName("ap")
-	@ObfuscatedSignature(
-		descriptor = "Lle;"
-	)
-	static Bounds field155;
-	@ObfuscatedName("db")
-	@ObfuscatedSignature(
-		descriptor = "Lji;"
-	)
-	@Export("archive13")
-	static Archive archive13;
-	@ObfuscatedName("h")
+	static int field153;
+	@ObfuscatedName("re")
 	@ObfuscatedGetter(
-		intValue = 91445281
+		intValue = 1439588607
 	)
-	int field152;
-	@ObfuscatedName("c")
-	boolean field151;
+	static int field156;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		longValue = -6310115608975141981L
+	)
+	public static long field159;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = 393303047
+	)
+	@Export("musicTrackFileId")
+	public static int musicTrackFileId;
+	@ObfuscatedName("br")
+	@ObfuscatedSignature(
+		descriptor = "[Lop;"
+	)
+	@Export("worldSelectStars")
+	static IndexedSprite[] worldSelectStars;
+	@ObfuscatedName("gj")
+	@Export("regionLandArchives")
+	static byte[][] regionLandArchives;
+	@ObfuscatedName("jm")
+	@ObfuscatedSignature(
+		descriptor = "Lio;"
+	)
+	@Export("hoveredItemContainer")
+	static Widget hoveredItemContainer;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -918629571
+	)
+	int field157;
+	@ObfuscatedName("n")
+	boolean field150;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lo;"
+		descriptor = "Lf;"
 	)
 	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lo;)V"
+		descriptor = "(Lf;)V"
 	)
 	class18(class2 var1) {
 		this.this$0 = var1;
-		this.field152 = -1; // L: 178
+		this.field157 = -1; // L: 178
 	} // L: 181
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;I)V",
-		garbageValue = "110401227"
+		descriptor = "(Lnd;I)V",
+		garbageValue = "-1281352827"
 	)
-	void vmethod339(Buffer var1) {
-		this.field152 = var1.readUnsignedShort(); // L: 184
-		this.field151 = var1.readUnsignedByte() == 1; // L: 185
+	void vmethod276(Buffer var1) {
+		this.field157 = var1.readUnsignedShort(); // L: 184
+		this.field150 = var1.readUnsignedByte() == 1; // L: 185
 	} // L: 186
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lx;I)V",
-		garbageValue = "-1535989118"
+		descriptor = "(Ll;B)V",
+		garbageValue = "29"
 	)
-	void vmethod338(class11 var1) {
-		var1.method133(this.field152, this.field151); // L: 189
+	void vmethod281(ClanSettings var1) {
+		var1.method110(this.field157, this.field150); // L: 189
 	} // L: 190
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;IZB)I",
-		garbageValue = "114"
+		descriptor = "(IB)I",
+		garbageValue = "-52"
 	)
-	static int method255(CharSequence var0, int var1, boolean var2) {
-		if (var1 >= 2 && var1 <= 36) { // L: 84
-			boolean var3 = false; // L: 85
-			boolean var4 = false; // L: 86
-			int var5 = 0; // L: 87
-			int var6 = var0.length(); // L: 88
-
-			for (int var7 = 0; var7 < var6; ++var7) { // L: 89
-				char var8 = var0.charAt(var7); // L: 90
-				if (var7 == 0) { // L: 91
-					if (var8 == '-') { // L: 92
-						var3 = true; // L: 93
-						continue;
-					}
-
-					if (var8 == '+') { // L: 96
-						continue;
-					}
-				}
-
-				int var10;
-				if (var8 >= '0' && var8 <= '9') { // L: 98
-					var10 = var8 - '0';
-				} else if (var8 >= 'A' && var8 <= 'Z') { // L: 99
-					var10 = var8 - '7';
-				} else {
-					if (var8 < 'a' || var8 > 'z') { // L: 100
-						throw new NumberFormatException(); // L: 101
-					}
-
-					var10 = var8 - 'W';
-				}
-
-				if (var10 >= var1) { // L: 102
-					throw new NumberFormatException();
-				}
-
-				if (var3) { // L: 103
-					var10 = -var10;
-				}
-
-				int var9 = var5 * var1 + var10; // L: 104
-				if (var9 / var1 != var5) { // L: 105
-					throw new NumberFormatException();
-				}
-
-				var5 = var9; // L: 106
-				var4 = true; // L: 107
-			}
-
-			if (!var4) { // L: 109
-				throw new NumberFormatException();
-			} else {
-				return var5; // L: 110
-			}
-		} else {
-			throw new IllegalArgumentException("" + var1);
-		}
+	public static int method213(int var0) {
+		return var0 >> 17 & 7; // L: 17
 	}
 
-	@ObfuscatedName("kv")
+	@ObfuscatedName("kn")
 	@ObfuscatedSignature(
-		descriptor = "(Lcl;ZI)V",
-		garbageValue = "-1411385437"
+		descriptor = "(IIZB)V",
+		garbageValue = "-41"
 	)
-	@Export("closeInterface")
-	static final void closeInterface(InterfaceParent var0, boolean var1) {
-		int var2 = var0.group; // L: 11340
-		int var3 = (int)var0.key; // L: 11341
-		var0.remove(); // L: 11342
-		if (var1) { // L: 11343
-			WallDecoration.method4234(var2);
+	static final void method216(int var0, int var1, boolean var2) {
+		if (Client.currentClanChannels[var0] != null) { // L: 11343
+			if (var1 >= 0 && var1 < Client.currentClanChannels[var0].method27()) { // L: 11344
+				ClanChannelMember var3 = (ClanChannelMember)Client.currentClanChannels[var0].members.get(var1); // L: 11345
+				PacketWriter var4 = Client.packetWriter; // L: 11346
+				PacketBufferNode var5 = class21.getPacketBufferNode(ClientPacket.field2607, var4.isaacCipher); // L: 11347
+				var5.packetBuffer.writeByte(4 + Tiles.stringCp1252NullTerminatedByteSize(var3.name)); // L: 11348
+				var5.packetBuffer.writeByte(var0); // L: 11349
+				var5.packetBuffer.writeShort(var1); // L: 11350
+				var5.packetBuffer.writeBoolean(var2); // L: 11351
+				var5.packetBuffer.writeStringCp1252NullTerminated(var3.name); // L: 11352
+				var4.addNode(var5); // L: 11353
+			}
 		}
-
-		TaskHandler.method2515(var2); // L: 11344
-		Widget var4 = DevicePcmPlayerProvider.getWidget(var3); // L: 11345
-		if (var4 != null) { // L: 11346
-			VerticalAlignment.invalidateWidget(var4);
-		}
-
-		GrandExchangeOfferOwnWorldComparator.method1212(); // L: 11347
-		if (Client.rootInterface != -1) { // L: 11348
-			LoginType.runIntfCloseListeners(Client.rootInterface, 1);
-		}
-
-	} // L: 11349
+	} // L: 11354
 }

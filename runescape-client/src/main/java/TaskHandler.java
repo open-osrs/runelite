@@ -4,40 +4,40 @@ import java.net.Socket;
 import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dk")
+@ObfuscatedName("dp")
 @Implements("TaskHandler")
 public class TaskHandler implements Runnable {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@Export("javaVendor")
 	public static String javaVendor;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@Export("javaVersion")
 	public static String javaVersion;
-	@ObfuscatedName("ab")
-	@ObfuscatedGetter(
-		intValue = 458627189
-	)
-	static int field1466;
-	@ObfuscatedName("o")
+	@ObfuscatedName("ex")
 	@ObfuscatedSignature(
-		descriptor = "Lek;"
+		descriptor = "Llz;"
+	)
+	@Export("spriteIds")
+	static GraphicsDefaults spriteIds;
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "Leu;"
 	)
 	@Export("current")
 	Task current;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lek;"
+		descriptor = "Leu;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@Export("isClosed")
 	boolean isClosed;
 
@@ -61,10 +61,10 @@ public class TaskHandler implements Runnable {
 		this.thread.start(); // L: 31
 	} // L: 32
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(B)V",
-		garbageValue = "92"
+		garbageValue = "57"
 	)
 	@Export("close")
 	public final void close() {
@@ -78,12 +78,12 @@ public class TaskHandler implements Runnable {
 		} catch (InterruptedException var3) { // L: 42
 		}
 
-	} // L: 43
+	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(IIILjava/lang/Object;I)Lek;",
-		garbageValue = "684176071"
+		descriptor = "(IIILjava/lang/Object;I)Leu;",
+		garbageValue = "-46619903"
 	)
 	@Export("newTask")
 	final Task newTask(int var1, int var2, int var3, Object var4) {
@@ -104,20 +104,20 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;IB)Lek;",
-		garbageValue = "-33"
+		descriptor = "(Ljava/lang/String;IB)Leu;",
+		garbageValue = "90"
 	)
 	@Export("newSocketTask")
 	public final Task newSocketTask(String var1, int var2) {
 		return this.newTask(1, var2, 0, var1); // L: 108
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Runnable;II)Lek;",
-		garbageValue = "523573283"
+		descriptor = "(Ljava/lang/Runnable;IB)Leu;",
+		garbageValue = "20"
 	)
 	@Export("newThreadTask")
 	public final Task newThreadTask(Runnable var1, int var2) {
@@ -127,35 +127,35 @@ public class TaskHandler implements Runnable {
 	public final void run() {
 		while (true) {
 			Task var1;
-			synchronized(this) { // L: 48
+			synchronized(this) {
 				while (true) {
-					if (this.isClosed) { // L: 50
+					if (this.isClosed) {
 						return;
 					}
 
-					if (this.current != null) { // L: 51
-						var1 = this.current; // L: 52
-						this.current = this.current.next; // L: 53
-						if (this.current == null) { // L: 54
+					if (this.current != null) {
+						var1 = this.current;
+						this.current = this.current.next;
+						if (this.current == null) {
 							this.task = null;
 						}
 						break;
 					}
 
 					try {
-						this.wait(); // L: 58
+						this.wait();
 					} catch (InterruptedException var8) { // L: 60
 					}
 				}
 			}
 
 			try {
-				int var5 = var1.type; // L: 64
-				if (var5 == 1) { // L: 65
-					var1.result = new Socket(InetAddress.getByName((String)var1.objectArgument), var1.intArgument); // L: 66
-				} else if (var5 == 2) { // L: 68
+				int var5 = var1.type;
+				if (var5 == 1) {
+					var1.result = new Socket(InetAddress.getByName((String)var1.objectArgument), var1.intArgument);
+				} else if (var5 == 2) {
 					Thread var3 = new Thread((Runnable)var1.objectArgument); // L: 69
-					var3.setDaemon(true); // L: 70
+					var3.setDaemon(true);
 					var3.start(); // L: 71
 					var3.setPriority(var1.intArgument); // L: 72
 					var1.result = var3; // L: 73
@@ -172,17 +172,40 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("lk")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-822022696"
+		descriptor = "([Ljava/lang/String;[IIIB)V",
+		garbageValue = "121"
 	)
-	static void method2515(int var0) {
-		for (IntegerNode var1 = (IntegerNode)Client.widgetFlags.first(); var1 != null; var1 = (IntegerNode)Client.widgetFlags.next()) { // L: 11594
-			if ((long)var0 == (var1.key >> 48 & 65535L)) { // L: 11595
-				var1.remove(); // L: 11596
+	static void method2518(String[] var0, int[] var1, int var2, int var3) {
+		if (var2 < var3) { // L: 43
+			int var4 = (var3 + var2) / 2; // L: 44
+			int var5 = var2; // L: 45
+			String var6 = var0[var4]; // L: 46
+			var0[var4] = var0[var3]; // L: 47
+			var0[var3] = var6; // L: 48
+			int var7 = var1[var4]; // L: 49
+			var1[var4] = var1[var3]; // L: 50
+			var1[var3] = var7; // L: 51
+
+			for (int var8 = var2; var8 < var3; ++var8) { // L: 52
+				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) { // L: 53
+					String var9 = var0[var8]; // L: 54
+					var0[var8] = var0[var5]; // L: 55
+					var0[var5] = var9; // L: 56
+					int var10 = var1[var8]; // L: 57
+					var1[var8] = var1[var5]; // L: 58
+					var1[var5++] = var10; // L: 59
+				}
 			}
+
+			var0[var3] = var0[var5]; // L: 63
+			var0[var5] = var6; // L: 64
+			var1[var3] = var1[var5]; // L: 65
+			var1[var5] = var7; // L: 66
+			method2518(var0, var1, var2, var5 - 1); // L: 67
+			method2518(var0, var1, var5 + 1, var3); // L: 68
 		}
 
-	} // L: 11599
+	} // L: 70
 }

@@ -3,127 +3,130 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("be")
+@ObfuscatedName("bn")
 public class class69 {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lki;"
 	)
 	@Export("reflectionChecks")
 	static IterableNodeDeque reflectionChecks;
-	@ObfuscatedName("ct")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lcr;"
+		descriptor = "Lgs;"
 	)
-	@Export("mouseRecorder")
-	static MouseRecorder mouseRecorder;
-	@ObfuscatedName("eg")
+	@Export("worldMapEvent")
+	static WorldMapEvent worldMapEvent;
+	@ObfuscatedName("bf")
+	@ObfuscatedSignature(
+		descriptor = "Lop;"
+	)
+	static IndexedSprite field597;
+	@ObfuscatedName("gh")
 	@ObfuscatedGetter(
-		intValue = 593449975
+		intValue = -1125497563
 	)
-	@Export("worldPort")
-	static int worldPort;
+	static int field596;
 
 	static {
 		reflectionChecks = new IterableNodeDeque(); // L: 17
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;Ljp;I)V",
-		garbageValue = "739362816"
+		descriptor = "(II)Lgd;",
+		garbageValue = "-910296846"
 	)
-	public static void method1153(AbstractArchive var0, AbstractArchive var1) {
-		SpotAnimationDefinition.SpotAnimationDefinition_archive = var0;
-		SpotAnimationDefinition.SpotAnimationDefinition_modelArchive = var1; // L: 33
-	} // L: 34
+	@Export("getFrames")
+	static Frames getFrames(int var0) {
+		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0); // L: 181
+		if (var1 != null) { // L: 182
+			return var1;
+		} else {
+			AbstractArchive var3 = SequenceDefinition.SequenceDefinition_animationsArchive; // L: 184
+			AbstractArchive var4 = SequenceDefinition.SequenceDefinition_skeletonsArchive; // L: 185
+			boolean var5 = true; // L: 187
+			int[] var6 = var3.getGroupFileIds(var0); // L: 188
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;B)V",
-		garbageValue = "0"
-	)
-	@Export("addChatMessage")
-	static void addChatMessage(int var0, String var1, String var2, String var3) {
-		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 23
-		if (var4 == null) { // L: 24
-			var4 = new ChatChannel(); // L: 25
-			Messages.Messages_channels.put(var0, var4); // L: 26
+			for (int var7 = 0; var7 < var6.length; ++var7) { // L: 189
+				byte[] var8 = var3.getFile(var0, var6[var7]); // L: 190
+				if (var8 == null) { // L: 191
+					var5 = false; // L: 192
+				} else {
+					int var9 = (var8[0] & 255) << 8 | var8[1] & 255; // L: 195
+					byte[] var10 = var4.getFile(var9, 0); // L: 198
+					if (var10 == null) { // L: 199
+						var5 = false;
+					}
+				}
+			}
+
+			Frames var2;
+			if (!var5) { // L: 201
+				var2 = null; // L: 202
+			} else {
+				try {
+					var2 = new Frames(var3, var4, var0, false); // L: 206
+				} catch (Exception var12) { // L: 208
+					var2 = null; // L: 209
+				}
+			}
+
+			if (var2 != null) { // L: 213
+				SequenceDefinition.SequenceDefinition_cachedFrames.put(var2, (long)var0);
+			}
+
+			return var2; // L: 214
 		}
-
-		Message var5 = var4.addMessage(var0, var1, var2, var3); // L: 28
-		Messages.Messages_hashTable.put(var5, (long)var5.count); // L: 29
-		Messages.Messages_queue.add(var5); // L: 30
-		Client.chatCycle = Client.cycleCntr; // L: 31
-	} // L: 32
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(B)[Loq;",
-		garbageValue = "0"
-	)
-	@Export("FillMode_values")
-	public static FillMode[] FillMode_values() {
-		return new FillMode[]{FillMode.field4234, FillMode.field4235, FillMode.SOLID}; // L: 15
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("fd")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1229986351"
+		descriptor = "(Lio;III)V",
+		garbageValue = "1981003125"
 	)
-	static void method1151() {
-		Login.worldSelectOpen = false; // L: 1554
-		Canvas.leftTitleSprite.drawAt(Login.xPadding, 0); // L: 1555
-		class12.rightTitleSprite.drawAt(Login.xPadding + 382, 0); // L: 1556
-		FontName.logoSprite.drawAt(Login.xPadding + 382 - FontName.logoSprite.subWidth / 2, 18); // L: 1557
-	} // L: 1558
+	@Export("checkIfMinimapClicked")
+	static final void checkIfMinimapClicked(Widget var0, int var1, int var2) {
+		if (Client.minimapState == 0 || Client.minimapState == 3) { // L: 3420
+			if (!Client.isMenuOpen && (MouseHandler.MouseHandler_lastButton == 1 || !Client.mouseCam && MouseHandler.MouseHandler_lastButton == 4)) { // L: 3421
+				SpriteMask var3 = var0.getSpriteMask(true); // L: 3422
+				if (var3 == null) { // L: 3423
+					return;
+				}
 
-	@ObfuscatedName("fg")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)V",
-		garbageValue = "-1642265887"
-	)
-	@Export("queueSoundEffect")
-	static void queueSoundEffect(int var0, int var1, int var2) {
-		if (class12.clientPreferences.soundEffectsVolume != 0 && var1 != 0 && Client.soundEffectCount < 50) { // L: 3770
-			Client.soundEffectIds[Client.soundEffectCount] = var0; // L: 3771
-			Client.queuedSoundEffectLoops[Client.soundEffectCount] = var1; // L: 3772
-			Client.queuedSoundEffectDelays[Client.soundEffectCount] = var2; // L: 3773
-			Client.soundEffects[Client.soundEffectCount] = null; // L: 3774
-			Client.soundLocations[Client.soundEffectCount] = 0; // L: 3775
-			++Client.soundEffectCount; // L: 3776
-		}
-
-	} // L: 3778
-
-	@ObfuscatedName("gk")
-	@ObfuscatedSignature(
-		descriptor = "(Lcg;IIB)V",
-		garbageValue = "77"
-	)
-	@Export("performPlayerAnimation")
-	static void performPlayerAnimation(Player var0, int var1, int var2) {
-		if (var0.sequence == var1 && var1 != -1) { // L: 4313
-			int var3 = Player.SequenceDefinition_get(var1).field1900; // L: 4314
-			if (var3 == 1) { // L: 4315
-				var0.sequenceFrame = 0; // L: 4316
-				var0.sequenceFrameCycle = 0; // L: 4317
-				var0.sequenceDelay = var2; // L: 4318
-				var0.field1244 = 0; // L: 4319
+				int var4 = MouseHandler.MouseHandler_lastPressedX - var1; // L: 3424
+				int var5 = MouseHandler.MouseHandler_lastPressedY - var2; // L: 3425
+				if (var3.contains(var4, var5)) { // L: 3426
+					var4 -= var3.width / 2; // L: 3427
+					var5 -= var3.height / 2; // L: 3428
+					int var6 = Client.camAngleY & 2047; // L: 3429
+					int var7 = Rasterizer3D.Rasterizer3D_sine[var6]; // L: 3430
+					int var8 = Rasterizer3D.Rasterizer3D_cosine[var6]; // L: 3431
+					int var9 = var8 * var4 + var5 * var7 >> 11; // L: 3432
+					int var10 = var5 * var8 - var7 * var4 >> 11; // L: 3433
+					int var11 = var9 + class93.localPlayer.x >> 7; // L: 3434
+					int var12 = class93.localPlayer.y - var10 >> 7; // L: 3435
+					PacketBufferNode var13 = class21.getPacketBufferNode(ClientPacket.field2589, Client.packetWriter.isaacCipher); // L: 3437
+					var13.packetBuffer.writeByte(18); // L: 3438
+					var13.packetBuffer.method6584(KeyHandler.KeyHandler_pressedKeys[82] ? (KeyHandler.KeyHandler_pressedKeys[81] ? 2 : 1) : 0); // L: 3439
+					var13.packetBuffer.writeShort(var12 + SoundSystem.baseY); // L: 3440
+					var13.packetBuffer.writeShort(var11 + VertexNormal.baseX); // L: 3441
+					var13.packetBuffer.writeByte(var4); // L: 3442
+					var13.packetBuffer.writeByte(var5); // L: 3443
+					var13.packetBuffer.writeShort(Client.camAngleY); // L: 3444
+					var13.packetBuffer.writeByte(57); // L: 3445
+					var13.packetBuffer.writeByte(0); // L: 3446
+					var13.packetBuffer.writeByte(0); // L: 3447
+					var13.packetBuffer.writeByte(89); // L: 3448
+					var13.packetBuffer.writeShort(class93.localPlayer.x); // L: 3449
+					var13.packetBuffer.writeShort(class93.localPlayer.y); // L: 3450
+					var13.packetBuffer.writeByte(63); // L: 3451
+					Client.packetWriter.addNode(var13); // L: 3452
+					Client.destinationX = var11; // L: 3453
+					Client.destinationY = var12; // L: 3454
+				}
 			}
 
-			if (var3 == 2) { // L: 4321
-				var0.field1244 = 0; // L: 4322
-			}
-		} else if (var1 == -1 || var0.sequence == -1 || Player.SequenceDefinition_get(var1).field1894 >= Player.SequenceDefinition_get(var0.sequence).field1894) { // L: 4325
-			var0.sequence = var1; // L: 4326
-			var0.sequenceFrame = 0; // L: 4327
-			var0.sequenceFrameCycle = 0; // L: 4328
-			var0.sequenceDelay = var2; // L: 4329
-			var0.field1244 = 0; // L: 4330
-			var0.field1215 = var0.pathLength; // L: 4331
 		}
-
-	} // L: 4333
+	} // L: 3457
 }

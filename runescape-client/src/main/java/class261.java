@@ -2,49 +2,47 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jq")
+@ObfuscatedName("jw")
 public class class261 {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ljq;"
+		descriptor = "Ljw;"
 	)
-	static final class261 field3203;
-	@ObfuscatedName("c")
+	static final class261 field3201;
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljq;"
+		descriptor = "Ljw;"
 	)
-	static final class261 field3206;
-	@ObfuscatedName("o")
+	static final class261 field3200;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 857756693
+		intValue = 310151433
 	)
-	final int field3205;
-	@ObfuscatedName("g")
+	final int field3199;
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -712840455
+		intValue = -715016481
 	)
-	final int field3204;
+	final int field3202;
 
 	static {
-		field3203 = new class261(51, 27, 800, 0, 16, 16); // L: 33
-		field3206 = new class261(25, 28, 800, 656, 40, 40); // L: 34
+		field3201 = new class261(51, 27, 800, 0, 16, 16); // L: 29
+		field3200 = new class261(25, 28, 800, 656, 40, 40); // L: 30
 	}
 
 	class261(int var1, int var2, int var3, int var4, int var5, int var6) {
-		this.field3205 = var5; // L: 39
-		this.field3204 = var6; // L: 40
+		this.field3199 = var5; // L: 39
+		this.field3202 = var6; // L: 40
 	} // L: 41
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "1466191460"
+		descriptor = "(IB)I",
+		garbageValue = "0"
 	)
-	static final String method4790(int var0) {
-		if (var0 < 100000) { // L: 421
-			return "<col=ffff00>" + var0 + "</col>";
-		} else {
-			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>"; // L: 422 423
-		}
+	public static int method4842(int var0) {
+		long var2 = ViewportMouse.ViewportMouse_entityTags[var0]; // L: 77
+		int var1 = (int)(var2 >>> 14 & 3L); // L: 79
+		return var1; // L: 81
 	}
 }

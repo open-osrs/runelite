@@ -1,24 +1,28 @@
+import java.io.File;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ol")
+@ObfuscatedName("oc")
 public class class390 {
-	@ObfuscatedName("h")
+	@ObfuscatedName("y")
+	@Export("JagexCache_locationFile")
+	static File JagexCache_locationFile;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -223258731
+		intValue = 1815237159
 	)
-	public final int field4222;
-	@ObfuscatedName("c")
-	public Object field4221;
+	public final int field4219;
+	@ObfuscatedName("n")
+	public Object field4218;
 
 	public class390(int var1) {
-		this.field4222 = var1; // L: 8
+		this.field4219 = var1; // L: 8
 	} // L: 9
 
 	public class390(int var1, Object var2) {
-		this.field4222 = var1; // L: 12
-		this.field4221 = var2; // L: 13
+		this.field4219 = var1; // L: 12
+		this.field4218 = var2; // L: 13
 	} // L: 14
 
 	public int hashCode() {
@@ -30,28 +34,13 @@ public class class390 {
 			return false;
 		} else {
 			class390 var2 = (class390)var1; // L: 22
-			if (var2.field4221 == null && this.field4221 != null) { // L: 23
+			if (var2.field4218 == null && this.field4218 != null) { // L: 23
 				return false;
-			} else if (this.field4221 == null && var2.field4221 != null) { // L: 24
+			} else if (this.field4218 == null && var2.field4218 != null) { // L: 24
 				return false;
 			} else {
-				return this.field4222 == var2.field4222 && var2.field4221.equals(this.field4221); // L: 25
+				return var2.field4219 == this.field4219 && var2.field4218.equals(this.field4218); // L: 25
 			}
 		}
 	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "40"
-	)
-	public static void method6744(int var0) {
-		class232.musicPlayerStatus = 1; // L: 71
-		JagexCache.musicTrackArchive = null; // L: 72
-		class232.musicTrackGroupId = -1; // L: 73
-		class232.musicTrackFileId = -1; // L: 74
-		LoginPacket.musicTrackVolume = 0; // L: 75
-		VarpDefinition.musicTrackBoolean = false; // L: 76
-		class232.pcmSampleLength = var0; // L: 77
-	} // L: 78
 }

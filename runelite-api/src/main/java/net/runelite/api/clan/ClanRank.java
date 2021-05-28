@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, trimbe <github.com/trimbe>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,10 +22,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.friendschat;
+package net.runelite.api.clan;
 
-enum ActivityType
+/**
+ * The ranks in a clan. Clan ranks 1-14 are mapped to corresponding titles via
+ * the clan settings.
+ */
+public enum ClanRank
 {
-	JOINED,
-	LEFT
+	GUEST,
+	CLAN_RANK_1,
+	CLAN_RANK_2,
+	CLAN_RANK_3,
+	CLAN_RANK_4,
+	CLAN_RANK_5,
+	CLAN_RANK_6,
+	CLAN_RANK_7,
+	CLAN_RANK_8,
+	CLAN_RANK_9,
+	CLAN_RANK_10,
+	ADMINISTRATOR,
+	CLAN_RANK_11,
+	CLAN_RANK_12,
+	CLAN_RANK_13,
+	CLAN_RANK_14,
+	DEPUTY_OWNER,
+	OWNER,
+	JMOD;
 }

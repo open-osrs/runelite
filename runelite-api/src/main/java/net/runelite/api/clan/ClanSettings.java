@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,42 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.friendschat;
+package net.runelite.api.clan;
 
-import lombok.Value;
-import net.runelite.api.MessageNode;
+import java.util.List;
+import javax.annotation.Nullable;
 
-@Value
-class MemberJoinMessage
+/**
+ * A clan's settings.
+ */
+public interface ClanSettings
 {
-	private final MessageNode messageNode;
-	private final int getMessageId;
-	private final int tick;
+	/**
+	 * The clan name
+	 * @return
+	 */
+	String getName();
+
+	/**
+	 * The members of the clan. This includes all members, whether online or offline.
+	 * @return
+	 */
+	List<ClanMember> getMembers();
+
+	/**
+	 * Find a member of the clan.
+	 * @param name
+	 * @return
+	 */
+	@Nullable
+	ClanMember findMember(String name);
+
+	/**
+	 * Get the clan title for a clan rank.
+	 * @param clanRank the rank
+	 * @see ClanRank
+	 * @return
+	 */
+	@Nullable
+	ClanTitle titleForRank(ClanRank clanRank);
 }

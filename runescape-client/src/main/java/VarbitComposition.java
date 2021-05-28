@@ -1,197 +1,143 @@
+import java.util.LinkedHashMap;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eu")
+@ObfuscatedName("ee")
 @Implements("VarbitComposition")
 public class VarbitComposition extends DualNode {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Ljv;"
 	)
 	@Export("VarbitDefinition_archive")
 	public static AbstractArchive VarbitDefinition_archive;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lho;"
+		descriptor = "Lhz;"
 	)
 	@Export("VarbitDefinition_cached")
 	public static EvictingDualNodeHashTable VarbitDefinition_cached;
-	@ObfuscatedName("z")
-	static final int[] field1711;
-	@ObfuscatedName("t")
+	@ObfuscatedName("j")
+	static final int[] field1702;
+	@ObfuscatedName("l")
+	public static short[][] field1708;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 2064389097
-	)
-	static int field1710;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 632538905
+		intValue = -2059144841
 	)
 	@Export("baseVar")
 	public int baseVar;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 195506189
+		intValue = -1506226221
 	)
 	@Export("startBit")
 	public int startBit;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 891667147
+		intValue = -354172645
 	)
 	@Export("endBit")
 	public int endBit;
 
 	static {
 		VarbitDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
-		field1711 = new int[32]; // L: 15
+		field1702 = new int[32]; // L: 15
 		int var0 = 2; // L: 18
 
 		for (int var1 = 0; var1 < 32; ++var1) { // L: 19
-			field1711[var1] = var0 - 1; // L: 20
+			field1702[var1] = var0 - 1; // L: 20
 			var0 += var0; // L: 21
 		}
 
 	} // L: 23
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;I)V",
-		garbageValue = "812293859"
+		descriptor = "(Lnd;I)V",
+		garbageValue = "-683331130"
 	)
 	@Export("decode")
 	public void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 27
-			if (var2 == 0) { // L: 28
-				return; // L: 31
+			int var2 = var1.readUnsignedByte(); // L: 41
+			if (var2 == 0) { // L: 42
+				return; // L: 45
 			}
 
-			this.decodeNext(var1, var2); // L: 29
+			this.decodeNext(var1, var2); // L: 43
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(Lnk;IS)V",
-		garbageValue = "21911"
+		descriptor = "(Lnd;II)V",
+		garbageValue = "375304564"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) { // L: 34
-			this.baseVar = var1.readUnsignedShort(); // L: 35
-			this.startBit = var1.readUnsignedByte(); // L: 36
-			this.endBit = var1.readUnsignedByte(); // L: 37
+		if (var2 == 1) { // L: 48
+			this.baseVar = var1.readUnsignedShort(); // L: 49
+			this.startBit = var1.readUnsignedByte(); // L: 50
+			this.endBit = var1.readUnsignedByte(); // L: 51
 		}
 
-	} // L: 40
+	} // L: 54
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(IS)I",
-		garbageValue = "-15726"
+		descriptor = "(I)V",
+		garbageValue = "-1858038859"
 	)
-	public static int method2813(int var0) {
-		return PacketWriter.method2409(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 66
-	}
+	static void method2859() {
+		if (SoundSystem.loadWorlds()) { // L: 1640
+			Login.worldSelectOpen = true; // L: 1641
+			Login.worldSelectPage = 0; // L: 1642
+			Login.worldSelectPagesCount = 0; // L: 1643
+		}
 
-	@ObfuscatedName("gz")
+	} // L: 1645
+
+	@ObfuscatedName("fj")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIZS)V",
-		garbageValue = "-20141"
+		descriptor = "(ZB)V",
+		garbageValue = "-21"
 	)
-	@Export("setViewportShape")
-	static final void setViewportShape(int var0, int var1, int var2, int var3, boolean var4) {
-		if (var2 < 1) { // L: 4597
-			var2 = 1;
-		}
-
-		if (var3 < 1) { // L: 4598
-			var3 = 1;
-		}
-
-		int var5 = var3 - 334; // L: 4599
-		int var6;
-		if (var5 < 0) { // L: 4601
-			var6 = Client.field820;
-		} else if (var5 >= 100) { // L: 4602
-			var6 = Client.field872;
+	static final void method2849(boolean var0) {
+		if (var0) { // L: 2698
+			Client.field676 = Login.field1043 ? class125.field1469 : class125.field1471; // L: 2699
 		} else {
-			var6 = (Client.field872 - Client.field820) * var5 / 100 + Client.field820; // L: 4603
-		}
+			LinkedHashMap var1 = ObjectComposition.clientPreferences.parameters; // L: 2702
+			String var3 = Login.Login_username; // L: 2704
+			int var4 = var3.length(); // L: 2706
+			int var5 = 0; // L: 2707
 
-		int var7 = var3 * var6 * 512 / (var2 * 334); // L: 4604
-		int var8;
-		int var9;
-		short var14;
-		if (var7 < Client.field877) { // L: 4605
-			var14 = Client.field877; // L: 4606
-			var6 = var14 * var2 * 334 / (var3 * 512); // L: 4607
-			if (var6 > Client.field738) { // L: 4608
-				var6 = Client.field738; // L: 4609
-				var8 = var3 * var6 * 512 / (var14 * 334); // L: 4610
-				var9 = (var2 - var8) / 2; // L: 4611
-				if (var4) { // L: 4612
-					Rasterizer2D.Rasterizer2D_resetClip(); // L: 4613
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var9, var3, -16777216); // L: 4614
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0 + var2 - var9, var1, var9, var3, -16777216); // L: 4615
-				}
-
-				var0 += var9; // L: 4617
-				var2 -= var9 * 2; // L: 4618
-			}
-		} else if (var7 > Client.field878) { // L: 4621
-			var14 = Client.field878; // L: 4622
-			var6 = var14 * var2 * 334 / (var3 * 512); // L: 4623
-			if (var6 < Client.field875) { // L: 4624
-				var6 = Client.field875; // L: 4625
-				var8 = var14 * var2 * 334 / (var6 * 512); // L: 4626
-				var9 = (var3 - var8) / 2; // L: 4627
-				if (var4) { // L: 4628
-					Rasterizer2D.Rasterizer2D_resetClip(); // L: 4629
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var9, -16777216); // L: 4630
-					Rasterizer2D.Rasterizer2D_fillRectangle(var0, var3 + var1 - var9, var2, var9, -16777216); // L: 4631
-				}
-
-				var1 += var9; // L: 4633
-				var3 -= var9 * 2; // L: 4634
-			}
-		}
-
-		Client.viewportZoom = var3 * var6 / 334; // L: 4637
-		if (var2 != Client.viewportWidth || var3 != Client.viewportHeight) { // L: 4638
-			int[] var13 = new int[9]; // L: 4640
-
-			for (var9 = 0; var9 < var13.length; ++var9) { // L: 4641
-				int var10 = var9 * 32 + 15 + 128; // L: 4642
-				int var11 = class21.method281(var10); // L: 4643
-				int var12 = Rasterizer3D.Rasterizer3D_sine[var10]; // L: 4644
-				var11 = PlayerComposition.method4640(var11, var3); // L: 4645
-				var13[var9] = var12 * var11 >> 16; // L: 4646
+			for (int var6 = 0; var6 < var4; ++var6) { // L: 2708
+				var5 = (var5 << 5) - var5 + var3.charAt(var6);
 			}
 
-			Scene.Scene_buildVisiblityMap(var13, 500, 800, var2 * 334 / var3, 334); // L: 4648
+			Client.field676 = var1.containsKey(var5) ? class125.field1470 : class125.field1468; // L: 2711
 		}
 
-		Client.viewportOffsetX = var0; // L: 4651
-		Client.viewportOffsetY = var1; // L: 4652
-		Client.viewportWidth = var2; // L: 4653
-		Client.viewportHeight = var3; // L: 4654
-	} // L: 4655
+	} // L: 2713
 
-	@ObfuscatedName("ls")
+	@ObfuscatedName("fh")
 	@ObfuscatedSignature(
-		descriptor = "([BIB)V",
-		garbageValue = "7"
+		descriptor = "(I)V",
+		garbageValue = "-1518032135"
 	)
-	static void method2818(byte[] var0, int var1) {
-		if (Client.randomDatData == null) { // L: 11714
-			Client.randomDatData = new byte[24];
+	static final void method2846() {
+		if (class21.field190) { // L: 3408
+			for (int var0 = 0; var0 < Players.Players_count; ++var0) { // L: 3410
+				Player var1 = Client.players[Players.Players_indices[var0]]; // L: 3411
+				var1.method2147(); // L: 3412
+			}
+
+			class21.field190 = false; // L: 3415
 		}
 
-		class306.writeRandomDat(var0, var1, Client.randomDatData, 0, 24); // L: 11715
-	} // L: 11716
+	} // L: 3417
 }

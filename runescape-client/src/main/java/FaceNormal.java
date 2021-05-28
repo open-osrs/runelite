@@ -1,28 +1,39 @@
-import java.io.IOException;
+import java.io.File;
+import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gt")
+@ObfuscatedName("gk")
 @Implements("FaceNormal")
 public class FaceNormal {
-	@ObfuscatedName("h")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1370299305
+		intValue = -311250571
+	)
+	static int field2363;
+	@ObfuscatedName("bq")
+	@ObfuscatedSignature(
+		descriptor = "Ljk;"
+	)
+	static GameBuild field2365;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = 771770075
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 937419017
+		intValue = -1803245333
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1295456613
+		intValue = -1870263719
 	)
 	@Export("z")
 	int z;
@@ -30,84 +41,27 @@ public class FaceNormal {
 	FaceNormal() {
 	} // L: 8
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Llc;ZI)V",
-		garbageValue = "273969388"
+		descriptor = "(Ljava/io/File;ZI)Z",
+		garbageValue = "-920183026"
 	)
-	public static void method4081(AbstractSocket var0, boolean var1) {
-		if (NetCache.NetCache_socket != null) { // L: 193
-			try {
-				NetCache.NetCache_socket.close(); // L: 195
-			} catch (Exception var8) { // L: 197
+	@Export("isWriteable")
+	public static boolean isWriteable(File var0, boolean var1) {
+		try {
+			RandomAccessFile var2 = new RandomAccessFile(var0, "rw"); // L: 151
+			int var3 = var2.read(); // L: 152
+			var2.seek(0L); // L: 153
+			var2.write(var3); // L: 154
+			var2.seek(0L); // L: 155
+			var2.close(); // L: 156
+			if (var1) { // L: 157
+				var0.delete();
 			}
 
-			NetCache.NetCache_socket = null; // L: 198
-		}
-
-		NetCache.NetCache_socket = var0; // L: 200
-		Buffer var2;
-		if (NetCache.NetCache_socket != null) { // L: 202
-			try {
-				var2 = new Buffer(4); // L: 204
-				var2.writeByte(var1 ? 2 : 3); // L: 205
-				var2.writeMedium(0); // L: 206
-				NetCache.NetCache_socket.write(var2.array, 0, 4); // L: 207
-			} catch (IOException var7) {
-				try {
-					NetCache.NetCache_socket.close(); // L: 211
-				} catch (Exception var6) { // L: 213
-				}
-
-				++NetCache.NetCache_ioExceptions; // L: 214
-				NetCache.NetCache_socket = null; // L: 215
-			}
-		}
-
-		NetCache.NetCache_responseHeaderBuffer.offset = 0; // L: 218
-		class7.NetCache_currentResponse = null; // L: 219
-		NetCache.NetCache_responseArchiveBuffer = null; // L: 220
-		NetCache.field3626 = 0; // L: 221
-
-		while (true) {
-			NetFileRequest var9 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.first(); // L: 223
-			if (var9 == null) { // L: 224
-				while (true) {
-					var9 = (NetFileRequest)NetCache.NetCache_pendingResponses.first(); // L: 230
-					if (var9 == null) { // L: 231
-						if (NetCache.field3629 != 0) { // L: 237
-							try {
-								var2 = new Buffer(4); // L: 239
-								var2.writeByte(4); // L: 240
-								var2.writeByte(NetCache.field3629); // L: 241
-								var2.writeShort(0); // L: 242
-								NetCache.NetCache_socket.write(var2.array, 0, 4); // L: 243
-							} catch (IOException var5) {
-								try {
-									NetCache.NetCache_socket.close(); // L: 247
-								} catch (Exception var4) { // L: 249
-								}
-
-								++NetCache.NetCache_ioExceptions; // L: 250
-								NetCache.NetCache_socket = null; // L: 251
-							}
-						}
-
-						NetCache.NetCache_loadTime = 0; // L: 254
-						SecureRandomCallable.field1108 = Archive.currentTimeMillis(); // L: 255
-						return; // L: 256
-					}
-
-					NetCache.NetCache_pendingWritesQueue.addLast(var9); // L: 232
-					NetCache.NetCache_pendingWrites.put(var9, var9.key); // L: 233
-					++NetCache.NetCache_pendingWritesCount; // L: 234
-					--NetCache.NetCache_pendingResponsesCount; // L: 235
-				}
-			}
-
-			NetCache.NetCache_pendingPriorityWrites.put(var9, var9.key); // L: 225
-			++NetCache.NetCache_pendingPriorityWritesCount; // L: 226
-			--NetCache.NetCache_pendingPriorityResponsesCount; // L: 227
+			return true; // L: 158
+		} catch (Exception var4) { // L: 160
+			return false; // L: 161
 		}
 	}
 }

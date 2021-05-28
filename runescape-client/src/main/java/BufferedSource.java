@@ -7,37 +7,37 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ld")
+@ObfuscatedName("lw")
 @Implements("BufferedSource")
 public class BufferedSource implements Runnable {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@Export("inputStream")
 	InputStream inputStream;
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1528491691
+		intValue = 1742068389
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1476530643
+		intValue = -189496199
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 810063119
+		intValue = -1909735131
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@Export("exception")
 	IOException exception;
 
@@ -52,10 +52,10 @@ public class BufferedSource implements Runnable {
 		this.thread.start(); // L: 69
 	} // L: 70
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "1912163084"
+		descriptor = "(IB)Z",
+		garbageValue = "6"
 	)
 	@Export("isAvailable")
 	boolean isAvailable(int var1) throws IOException {
@@ -86,10 +86,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "0"
+		descriptor = "(I)I",
+		garbageValue = "-2046252752"
 	)
 	@Export("available")
 	int available() throws IOException {
@@ -110,10 +110,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-91"
+		descriptor = "(I)I",
+		garbageValue = "963599553"
 	)
 	@Export("readUnsignedByte")
 	int readUnsignedByte() throws IOException {
@@ -133,10 +133,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)I",
-		garbageValue = "1470851684"
+		garbageValue = "-989264976"
 	)
 	@Export("read")
 	int read(byte[] var1, int var2, int var3) throws IOException {
@@ -174,10 +174,10 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-95"
+		descriptor = "(I)V",
+		garbageValue = "715878078"
 	)
 	@Export("close")
 	void close() {
@@ -244,12 +244,21 @@ public class BufferedSource implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("fx")
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;B)V",
-		garbageValue = "-18"
+		descriptor = "(IIII)V",
+		garbageValue = "1648779145"
 	)
-	public static void method5782(AbstractArchive var0) {
-		class288.FloorOverlayDefinition_archive = var0; // L: 26
-	} // L: 27
+	@Export("queueSoundEffect")
+	static void queueSoundEffect(int var0, int var1, int var2) {
+		if (ObjectComposition.clientPreferences.soundEffectsVolume != 0 && var1 != 0 && Client.soundEffectCount < 50) { // L: 3376
+			Client.soundEffectIds[Client.soundEffectCount] = var0; // L: 3377
+			Client.queuedSoundEffectLoops[Client.soundEffectCount] = var1; // L: 3378
+			Client.queuedSoundEffectDelays[Client.soundEffectCount] = var2; // L: 3379
+			Client.soundEffects[Client.soundEffectCount] = null; // L: 3380
+			Client.soundLocations[Client.soundEffectCount] = 0; // L: 3381
+			++Client.soundEffectCount; // L: 3382
+		}
+
+	} // L: 3384
 }

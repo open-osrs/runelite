@@ -3,10 +3,10 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dq")
+@ObfuscatedName("dd")
 @Implements("UserComparator7")
 public class UserComparator7 extends AbstractUserComparator {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -14,10 +14,10 @@ public class UserComparator7 extends AbstractUserComparator {
 		this.reversed = var1; // L: 10
 	} // L: 11
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Llq;Llq;I)I",
-		garbageValue = "-540043560"
+		descriptor = "(Llv;Llv;I)I",
+		garbageValue = "-1880914380"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -31,23 +31,4 @@ public class UserComparator7 extends AbstractUserComparator {
 	public int compare(Object var1, Object var2) {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
 	}
-
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(Ljp;B)V",
-		garbageValue = "-10"
-	)
-	public static void method2453(AbstractArchive var0) {
-		StructComposition.StructDefinition_archive = var0; // L: 19
-	} // L: 20
-
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "27"
-	)
-	static void method2455(int var0) {
-		Login.loginIndex = 12; // L: 1541
-		Login.field996 = var0; // L: 1542
-	} // L: 1543
 }

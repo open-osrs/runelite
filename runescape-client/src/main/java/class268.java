@@ -3,52 +3,82 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jd")
+@ObfuscatedName("jn")
 public enum class268 implements Enumerated {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljn;"
 	)
-	field3550(-1),
-	@ObfuscatedName("c")
+	field3537(-1),
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljn;"
 	)
-	field3544(0),
-	@ObfuscatedName("o")
+	field3540(0),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljn;"
 	)
-	field3545(1),
-	@ObfuscatedName("g")
+	field3538(1),
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljn;"
 	)
-	field3543(2);
+	field3539(2);
 
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Lbu;"
-	)
-	@Export("soundCache")
-	static SoundCache soundCache;
-	@ObfuscatedName("l")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 163548653
+		intValue = -1451177967
 	)
-	final int field3547;
+	final int field3536;
 
 	class268(int var3) {
-		this.field3547 = var3; // L: 15
-	} // L: 16
+		this.field3536 = var3; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-708237537"
+		garbageValue = "-907662946"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field3547; // L: 19
+		return this.field3536; // L: 23
 	}
+
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "(IIILeg;IB)V",
+		garbageValue = "2"
+	)
+	static void method4851(int var0, int var1, int var2, ObjectComposition var3, int var4) {
+		ObjectSound var5 = new ObjectSound(); // L: 73
+		var5.plane = var0; // L: 74
+		var5.x = var1 * 128; // L: 75
+		var5.y = var2 * 128; // L: 76
+		int var6 = var3.sizeX; // L: 77
+		int var7 = var3.sizeY; // L: 78
+		if (var4 == 1 || var4 == 3) { // L: 79
+			var6 = var3.sizeY; // L: 80
+			var7 = var3.sizeX; // L: 81
+		}
+
+		var5.field956 = (var6 + var1) * 128; // L: 83
+		var5.field957 = (var7 + var2) * 128; // L: 84
+		var5.soundEffectId = var3.ambientSoundId; // L: 85
+		var5.field958 = var3.int4 * 128; // L: 86
+		var5.field961 = var3.int5; // L: 87
+		var5.field964 = var3.int6; // L: 88
+		var5.soundEffectIds = var3.soundEffectIds; // L: 89
+		if (var3.transforms != null) { // L: 90
+			var5.obj = var3; // L: 91
+			var5.set(); // L: 92
+		}
+
+		ObjectSound.objectSounds.addFirst(var5); // L: 94
+		if (var5.soundEffectIds != null) { // L: 95
+			var5.field954 = var5.field961 + (int)(Math.random() * (double)(var5.field964 - var5.field961));
+		}
+
+	} // L: 96
 }

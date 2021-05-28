@@ -31,7 +31,7 @@ import org.junit.rules.ExternalResource;
 public class DeobTestProperties extends ExternalResource
 {
 	private String rsClient;
-	private int rsVersion;
+	private double rsVersion;
 	private String vanillaClient;
 
 	@Override
@@ -42,7 +42,7 @@ public class DeobTestProperties extends ExternalResource
 		properties.load(resourceAsStream);
 
 		rsClient = (String) properties.get("rs.client");
-		rsVersion = Integer.parseInt((String) properties.get("rs.version"));
+		rsVersion = Double.parseDouble((String) properties.get("rs.version"));
 		vanillaClient = (String) properties.get("vanilla.client");
 	}
 
@@ -51,7 +51,7 @@ public class DeobTestProperties extends ExternalResource
 		return rsClient;
 	}
 
-	public int getRsVersion()
+	public double getRsVersion()
 	{
 		return rsVersion;
 	}

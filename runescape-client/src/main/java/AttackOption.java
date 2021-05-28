@@ -7,25 +7,25 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("dj")
 @Implements("AttackOption")
 public enum AttackOption implements Enumerated {
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "Ldj;"
 	)
 	@Export("AttackOption_dependsOnCombatLevels")
 	AttackOption_dependsOnCombatLevels(0),
-	@ObfuscatedName("c")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "Ldj;"
 	)
 	@Export("AttackOption_alwaysRightClick")
 	AttackOption_alwaysRightClick(1),
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "Ldj;"
 	)
 	@Export("AttackOption_leftClickWhereAvailable")
 	AttackOption_leftClickWhereAvailable(2),
-	@ObfuscatedName("g")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "Ldj;"
 	)
@@ -33,89 +33,33 @@ public enum AttackOption implements Enumerated {
 	AttackOption_hidden(3);
 
 	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "Lcb;"
-	)
-	@Export("loginScreenRunesAnimation")
-	static LoginScreenAnimation loginScreenRunesAnimation;
-	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1870134493
+		intValue = 198709193
 	)
 	@Export("id")
 	final int id;
 
 	AttackOption(int var3) {
-		this.id = var3; // L: 11799
-	} // L: 11800
+		this.id = var3; // L: 11562
+	} // L: 11563
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-708237537"
+		garbageValue = "-907662946"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 11803
+		return this.id; // L: 11566
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lem;",
-		garbageValue = "-1875014155"
-	)
-	@Export("getObjectDefinition")
-	public static ObjectComposition getObjectDefinition(int var0) {
-		ObjectComposition var1 = (ObjectComposition)ObjectComposition.ObjectDefinition_cached.get((long)var0); // L: 73
-		if (var1 != null) { // L: 74
-			return var1;
-		} else {
-			byte[] var2 = ObjectComposition.ObjectDefinition_archive.takeFile(6, var0); // L: 75
-			var1 = new ObjectComposition(); // L: 76
-			var1.id = var0; // L: 77
-			if (var2 != null) { // L: 78
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode(); // L: 79
-			if (var1.isSolid) { // L: 80
-				var1.interactType = 0; // L: 81
-				var1.boolean1 = false; // L: 82
-			}
-
-			ObjectComposition.ObjectDefinition_cached.put(var1, (long)var0); // L: 84
-			return var1; // L: 85
-		}
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "1497706067"
+		descriptor = "(IB)I",
+		garbageValue = "-114"
 	)
 	@Export("Widget_unpackTargetMask")
 	public static int Widget_unpackTargetMask(int var0) {
-		return var0 >> 11 & 63; // L: 17
-	}
-
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1033303884"
-	)
-	static void method2286() {
-		Messages.Messages_channels.clear(); // L: 50
-		Messages.Messages_hashTable.clear(); // L: 51
-		Messages.Messages_queue.clear(); // L: 52
-		Messages.Messages_count = 0; // L: 53
-	} // L: 54
-
-	@ObfuscatedName("ie")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-918339029"
-	)
-	static final int method2285() {
-		return Client.menuOptionsCount - 1; // L: 9101
+		return var0 >> 11 & 63; // L: 13
 	}
 }
