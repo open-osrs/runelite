@@ -29,7 +29,6 @@ buildscript {
     repositories {
         mavenLocal()
         gradlePluginPortal()
-        maven(url = "https://repo.openosrs.com/repository/maven/")
         maven(url = "https://raw.githubusercontent.com/open-osrs/hosting/master")
     }
     dependencies {
