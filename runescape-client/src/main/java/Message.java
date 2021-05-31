@@ -215,7 +215,7 @@ public class Message extends DualNode {
 		garbageValue = "2128922058"
 	)
 	@Export("sceneRenderLevel")
-	static final int sceneRenderLevel() {
+	static final int calculateMaxScenePlane() {
 		if (class12.clientPreferences.roofsHidden) { // L: 4754
 			return ParamComposition.Client_plane;
 		} else {

@@ -938,12 +938,11 @@ public interface RSClient extends RSGameEngine, Client
 	void setScreenCenterZ(int screenCenterZ); // <-- This is correct!
 
 	@Import("Scene_plane")
-	@Override
 	void setScenePlane(int scenePlane);
 
 	@Import("Scene_plane")
 	@Override
-	int getScenePlane();
+	int getMaxScenePlane();
 
 	@Import("Scene_cameraXTileMin")
 	void setMinTileX(int i);

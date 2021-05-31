@@ -153,7 +153,7 @@ public class FontName {
 		garbageValue = "91"
 	)
 	@Export("sceneRenderLevelCameraLocked")
-	static final int sceneRenderLevelCameraLocked() {
+	static final int calculateMaxScenePlaneCameraLocked() {
 		if (class12.clientPreferences.roofsHidden) { // L: 4817
 			return ParamComposition.Client_plane;
 		} else {

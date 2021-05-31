@@ -2200,7 +2200,5 @@ public interface Client extends GameEngine
 	 *
 	 * @return
 	 */
-	int getScenePlane();
-
-	void setScenePlane(int scenePlane);
+	int getMaxScenePlane();
 }
