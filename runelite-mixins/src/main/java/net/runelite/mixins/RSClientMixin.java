@@ -82,6 +82,7 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.events.CanvasSizeChanged;
 import net.runelite.api.events.ChatMessage;
+import net.runelite.api.events.ClanChannelChanged;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.DraggingWidgetChanged;
 import net.runelite.api.events.FriendsChatChanged;
@@ -2263,6 +2264,26 @@ public abstract class RSClientMixin implements RSClient
 			default:
 				return ClanRank.CLAN_RANK_1;
 		}
+	}
+
+	@Inject
+	@FieldHook("guestClanChannel")
+	public static void onGuestClanChannelChanged(int idx)
+	{
+		client.getCallbacks().post(new ClanChannelChanged(client.getGuestClanChannel(), true));
+	}
+
+	@Inject
+	@FieldHook("currentClanChannels")
+	public static void onCurrentClanChannelsChanged(int idx)
+	{
+		if (idx == -1)
+		{
+			// don't fire on array field itself being set
+			return;
+		}
+
+		client.getCallbacks().post(new ClanChannelChanged(client.getClanChannel(), false));
 	}
 }
 

@@ -285,6 +285,7 @@ public final class Client extends GameEngine implements Usernamed {
 	@ObfuscatedSignature(
 		descriptor = "[Ly;"
 	)
+	@Export("currentClanChannels")
 	static ClanChannel[] currentClanChannels;
 	@ObfuscatedName("pi")
 	static int[] field867;

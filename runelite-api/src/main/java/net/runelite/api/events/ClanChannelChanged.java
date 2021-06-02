@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Sebastiaan <https://github.com/SebastiaanVanspauwen>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,37 +22,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.chatchannel;
+package net.runelite.api.events;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import net.runelite.client.ui.overlay.infobox.Counter;
+import javax.annotation.Nullable;
+import lombok.Value;
+import net.runelite.api.clan.ClanChannel;
 
-class MembersIndicator extends Counter
+/**
+ * An event fired when the local player joins or leaves a clan channel.
+ */
+@Value
+public class ClanChannelChanged
 {
-	private final ChatChannelPlugin plugin;
-
-	MembersIndicator(BufferedImage image, ChatChannelPlugin plugin)
-	{
-		super(image, plugin, plugin.getMembersSize());
-		this.plugin = plugin;
-	}
-
-	@Override
-	public int getCount()
-	{
-		return plugin.getMembersSize();
-	}
-
-	@Override
-	public String getTooltip()
-	{
-		return plugin.getMembersSize() + " friends chat member(s) near you";
-	}
-
-	@Override
-	public Color getTextColor()
-	{
-		return Color.WHITE;
-	}
+	/**
+	 * The clan channel
+	 */
+	@Nullable
+	private final ClanChannel clanChannel;
+	/**
+	 * Whether or not this was the guest clan channel
+	 */
+	private boolean guest;
 }
