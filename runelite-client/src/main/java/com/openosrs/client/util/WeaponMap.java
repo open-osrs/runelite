@@ -272,6 +272,9 @@ public class WeaponMap
 		StyleMap.put(ItemID.HAND_FAN, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HILL_GIANT_CLUB, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HOLY_HANDEGG, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.HOLY_GHRAZI_RAPIER, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.HOLY_SCYTHE_OF_VITUR, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.HOLY_SCYTHE_OF_VITUR_UNCHARGED, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.HOSIDIUS_BANNER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.INFERNAL_AXE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.INFERNAL_AXE_UNCHARGED, WeaponStyle.MELEE);
@@ -408,6 +411,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.RUNE_SPEARP_5728, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_WARHAMMER, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SANGUINE_SCYTHE_OF_VITUR, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SANGUINE_SCYTHE_OF_VITUR_UNCHARGED, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SARADOMINS_BLESSED_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SARADOMIN_GODSWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SARADOMIN_GODSWORD_OR, WeaponStyle.MELEE);
@@ -747,6 +752,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.GUTHIX_CROZIER, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.GUTHIX_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.HARMONISED_NIGHTMARE_STAFF, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.HOLY_SANGUINESTI_STAFF, WeaponStyle.MAGIC);
+		StyleMap.put(ItemID.HOLY_SANGUINESTI_STAFF_UNCHARGED, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.IBANS_STAFF, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.IBANS_STAFF_1410, WeaponStyle.MAGIC);
 		StyleMap.put(ItemID.IBANS_STAFF_U, WeaponStyle.MAGIC);
