@@ -782,7 +782,17 @@ public class OPRSExternalPluginManager
 
 			for (net.runelite.client.plugins.Plugin plugin : runelitePluginManager.getPlugins())
 			{
-				if (!extensions.get(0).getClass().getName().equals(plugin.getClass().getName()))
+				boolean found = false;
+				for (Plugin extension : extensions)
+				{
+					if (extension.getClass().getName().equals(plugin.getClass().getName()))
+					{
+						found = true;
+						break;
+					}
+				}
+
+				if (!found)
 				{
 					continue;
 				}
