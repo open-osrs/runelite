@@ -63,6 +63,9 @@ public abstract class Overlay implements LayoutableRenderableEntity
 	@Setter(AccessLevel.PROTECTED)
 	private boolean dragTargetable;
 
+	@Setter(AccessLevel.PROTECTED)
+	private boolean hasFocus;
+
 	protected Overlay()
 	{
 		plugin = null;
@@ -94,6 +97,14 @@ public abstract class Overlay implements LayoutableRenderableEntity
 	}
 
 	public void onMouseOver()
+	{
+	}
+
+	public void onMouseEnter()
+	{
+	}
+
+	public void onMouseExit()
 	{
 	}
 

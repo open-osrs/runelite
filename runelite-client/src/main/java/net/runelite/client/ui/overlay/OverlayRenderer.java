@@ -271,6 +271,8 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 				final Rectangle bounds = overlay.getBounds();
 				final Dimension dimension = bounds.getSize();
 				final Point preferredLocation = overlay.getPreferredLocation();
+				final boolean hadFocus = overlay.isHasFocus();
+				boolean hasFocus = false;
 				Point location;
 
 				// If the final position is not modified, layout it
@@ -352,8 +354,22 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 							menuEntries = createRightClickMenuEntries(overlay);
 						}
 
+						hasFocus = true;
+
+						if (!hadFocus)
+						{
+							overlay.setHasFocus(true);
+							overlay.onMouseEnter();
+						}
+
 						overlay.onMouseOver();
 					}
+				}
+
+				if (hadFocus && !hasFocus)
+				{
+					overlay.setHasFocus(false);
+					overlay.onMouseExit();
 				}
 			}
 		}
