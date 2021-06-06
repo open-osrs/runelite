@@ -1404,6 +1404,8 @@ public interface Client extends GameEngine
 	 */
 	SpritePixels drawInstanceMap(int z);
 
+	void setMinimapReceivesClicks(boolean minimapReceivesClicks);
+
 	/**
 	 * Executes a client script from the cache
 	 * <p>
