@@ -25,8 +25,11 @@
 package net.runelite.mixins;
 
 import static net.runelite.api.Perspective.SCENE_SIZE;
+import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
+import net.runelite.api.mixins.Replace;
+import net.runelite.api.widgets.Widget;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSScene;
 import net.runelite.rs.api.RSSpritePixels;
@@ -34,6 +37,28 @@ import net.runelite.rs.api.RSSpritePixels;
 @Mixin(RSClient.class)
 public abstract class MinimapMixin implements RSClient
 {
+	@Inject
+	private static boolean rl$minimapReceivesClicks = true;
+
+	@Copy("checkIfMinimapClicked")
+	@Replace("checkIfMinimapClicked")
+	public static void copy$checkIfMinimapClicked(Widget var0, int var1, int var2)
+	{
+		if (!rl$minimapReceivesClicks)
+		{
+			return;
+		}
+
+		copy$checkIfMinimapClicked(var0, var1, var2);
+	}
+
+	@Inject
+	@Override
+	public void setMinimapReceivesClicks(boolean minimapReceivesClicks)
+	{
+		rl$minimapReceivesClicks = minimapReceivesClicks;
+	}
+
 	@Inject
 	@Override
 	public RSSpritePixels drawInstanceMap(int z)
