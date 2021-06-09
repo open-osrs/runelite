@@ -107,6 +107,10 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private boolean isResizeable;
 	private OverlayBounds emptySnapCorners, snapCorners;
 
+	// focused overlay
+	private Overlay focusedOverlay;
+	private Overlay prevFocusedOverlay;
+
 	@Inject
 	private OverlayRenderer(
 		final Client client,
@@ -173,6 +177,14 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	public void onBeforeRender(BeforeRender event)
 	{
 		menuEntries = null;
+
+		if (focusedOverlay == null && prevFocusedOverlay != null)
+		{
+			prevFocusedOverlay.onMouseExit();
+		}
+
+		prevFocusedOverlay = focusedOverlay;
+		focusedOverlay = null;
 
 		if (client.getGameState() == GameState.LOGGED_IN)
 		{
@@ -350,6 +362,20 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 						if (menuEntries == null)
 						{
 							menuEntries = createRightClickMenuEntries(overlay);
+						}
+
+						if (focusedOverlay == null)
+						{
+							focusedOverlay = overlay;
+							if (focusedOverlay != prevFocusedOverlay)
+							{
+								if (prevFocusedOverlay != null)
+								{
+									prevFocusedOverlay.onMouseExit();
+								}
+
+								overlay.onMouseEnter();
+							}
 						}
 
 						overlay.onMouseOver();
