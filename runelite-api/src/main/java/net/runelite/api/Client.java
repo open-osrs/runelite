@@ -250,7 +250,7 @@ public interface Client extends GameEngine
 	 *
 	 * @return the camera x coordinate
 	 */
-	int getCameraX();
+	int api$getCameraX();
 
 	/**
 	 * Gets the y-axis coordinate of the camera.
@@ -260,7 +260,7 @@ public interface Client extends GameEngine
 	 *
 	 * @return the camera y coordinate
 	 */
-	int getCameraY();
+	int api$getCameraY();
 
 	/**
 	 * Gets the z-axis coordinate of the camera.
@@ -270,7 +270,7 @@ public interface Client extends GameEngine
 	 *
 	 * @return the camera z coordinate
 	 */
-	int getCameraZ();
+	int api$getCameraZ();
 
 	/**
 	 * Gets the actual pitch of the camera.

@@ -28,5 +28,5 @@ description = "RuneScape API"
 
 dependencies {
     api(project(":runelite-api"))
-    api(project(":injection-annotations"))
+    api(project(":runelite-annotations"))
 }

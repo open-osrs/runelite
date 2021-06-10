@@ -38,14 +38,14 @@ public interface RSClient extends Client
 {
 	@Import("cameraX")
 	@Override
-	int getCameraX();
+	int api$getCameraX();
 
 	@Import("cameraZ") // <--- This is correct!
 	@Override
-	int getCameraY();
+	int api$getCameraY();
 
 	@Import("cameraY") // <--- This is correct!
 	@Override
-	int getCameraZ();
+	int api$getCameraZ();
 
 }

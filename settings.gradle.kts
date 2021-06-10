@@ -23,7 +23,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-rootProject.name = "OpenOSRS"
+rootProject.name = "SpongeOSRS"
 
 plugins {
     id("com.gradle.enterprise").version("3.0")
@@ -32,20 +32,20 @@ plugins {
 gradleEnterprise {
     buildScan {
         termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED")?: "no"
+        termsOfServiceAgree = System.getenv("SCAN_TOS_ACCEPTED") ?: "no"
     }
 }
-include(":cache")
-include(":deobfuscator")
-include(":http-api")
-include(":injection-annotations")
-include(":injector")
+include(":runelite-cache")
+include(":runelite-deobfuscator")
+include(":runelite-http-api")
+include(":runelite-annotations")
+include(":openosrs-injector")
 include(":runelite-api")
-include(":runelite-client")
-include(":runelite-jshell")
 include(":runelite-mixins")
 include(":runescape-api")
 include(":runescape-client")
+include(":sponge-agent")
+include(":sponge-client")
 
 for (project in rootProject.children) {
     project.apply {
@@ -56,3 +56,4 @@ for (project in rootProject.children) {
         require(buildFile.isFile) { "Project '${project.path} must have a $buildFile build script" }
     }
 }
+include("sponge-agent")

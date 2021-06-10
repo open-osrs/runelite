@@ -13,9 +13,8 @@ class BootstrapPlugin : Plugin<Project> {
         dependencies {
             bootstrapDependencies(project(":runelite-api"))
             bootstrapDependencies(project(":runescape-api"))
-            bootstrapDependencies(project(":http-api"))
-            bootstrapDependencies(project(":runelite-client"))
-            bootstrapDependencies(project(":runelite-jshell"))
+            bootstrapDependencies(project(":runelite-http-api"))
+            bootstrapDependencies(project(":sponge-client"))
         }
 
         tasks.register<BootstrapTask>("bootstrapStaging", "staging")
@@ -30,8 +29,7 @@ class BootstrapPlugin : Plugin<Project> {
             dependsOn("publish")
             dependsOn(project(":runelite-api").tasks["publish"])
             dependsOn(project(":runescape-api").tasks["publish"])
-            dependsOn(project(":http-api").tasks["publish"])
-            dependsOn(project(":runelite-jshell").tasks["publish"])
+            dependsOn(project(":runelite-http-api").tasks["publish"])
 
             doLast {
                 copy {
@@ -42,9 +40,8 @@ class BootstrapPlugin : Plugin<Project> {
                     from(
                             "${buildDir}/repo/.",
                             "${parent?.projectDir}/runelite-api/build/repo/.",
-                            "${parent?.projectDir}/http-api/build/repo/.",
-                            "${parent?.projectDir}/runescape-api/build/repo/.",
-                            "${parent?.projectDir}/runelite-jshell/build/repo/."
+                            "${parent?.projectDir}/runelite-http-api/build/repo/.",
+                            "${parent?.projectDir}/runescape-api/build/repo/."
                     )
                     into("${buildDir}/bootstrap/repo/${type}")
                 }

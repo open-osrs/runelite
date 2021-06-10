@@ -119,9 +119,9 @@ public class Perspective
 	{
 		if (x >= 128 && y >= 128 && x <= 13056 && y <= 13056)
 		{
-			x -= client.getCameraX();
-			y -= client.getCameraY();
-			z -= client.getCameraZ();
+			x -= client.api$getCameraX();
+			y -= client.api$getCameraY();
+			z -= client.api$getCameraZ();
 
 			int cameraPitch = client.getCameraPitch();
 			int cameraYaw = client.getCameraYaw();
@@ -166,9 +166,9 @@ public class Perspective
 			rotateSin = SINE[rotate],
 			rotateCos = COSINE[rotate],
 
-			cx = x3dCenter - client.getCameraX(),
-			cy = y3dCenter - client.getCameraY(),
-			cz = z3dCenter - client.getCameraZ(),
+			cx = x3dCenter - client.api$getCameraX(),
+			cy = y3dCenter - client.api$getCameraY(),
+			cz = z3dCenter - client.api$getCameraZ(),
 
 			viewportXMiddle = client.getViewportWidth() / 2,
 			viewportYMiddle = client.getViewportHeight() / 2,
