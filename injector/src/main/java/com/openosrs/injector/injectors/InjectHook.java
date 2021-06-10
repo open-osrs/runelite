@@ -117,7 +117,7 @@ public class InjectHook extends AbstractInjector
 
 				final String hookName = fieldHook.getValueString();
 
-				final ClassFile deobTarget = inject.toDeob(targetClass.getName());
+				final ClassFile deobTarget = inject.deobfuscated.findClass(targetClass.getName());
 				final Field deobField;
 
 				if (mixinMethod.isStatic())

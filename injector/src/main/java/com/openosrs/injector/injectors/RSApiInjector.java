@@ -284,7 +284,7 @@ public class RSApiInjector extends AbstractInjector
 					targetClass,
 					apiMethod,
 					targetField,
-					getter
+					null
 				);
 			}
 			else
@@ -295,7 +295,7 @@ public class RSApiInjector extends AbstractInjector
 					targetClass,
 					apiMethod,
 					targetField,
-					getter
+					null
 				);
 			}
 		}

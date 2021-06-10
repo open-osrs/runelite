@@ -59,7 +59,7 @@ public class JarUtil
 			{
 				JarEntry entry = it.nextElement();
 
-				if (!entry.getName().endsWith(".class"))
+				if (!entry.getName().endsWith(".class") || entry.getName().contains("net/runelite/rs/Reflection"))
 				{
 					continue;
 				}

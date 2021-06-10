@@ -14,6 +14,7 @@ import com.openosrs.injector.injectors.InjectConstruct;
 import com.openosrs.injector.injectors.InterfaceInjector;
 import com.openosrs.injector.injectors.MixinInjector;
 import com.openosrs.injector.injectors.RSApiInjector;
+import com.openosrs.injector.injectors.RemoveAnnotations;
 import com.openosrs.injector.injectors.raw.AddPlayerToMenu;
 import com.openosrs.injector.injectors.raw.ClearColorBuffer;
 import com.openosrs.injector.injectors.raw.DrawMenu;
@@ -78,7 +79,8 @@ public class Injector extends InjectData implements InjectTaskHandler
 		OptionSet options = parser.parse(args);
 		String oprsVer = options.valueOf(oprsVerOption);
 
-		injector.vanilla = load(options.valueOf(vanillaFileOption));
+		injector.vanilla = load(
+				new File("../runescape-client/build/libs/runescape-client-" + oprsVer + ".jar"));
 		injector.deobfuscated = load(
 			new File("../runescape-client/build/libs/runescape-client-" + oprsVer + ".jar"));
 		injector.rsApi = new RSApi(Objects.requireNonNull(
@@ -106,9 +108,10 @@ public class Injector extends InjectData implements InjectTaskHandler
 
 		inject(new CreateAnnotations(this));
 
+		//Injects initial RSAPI
 		inject(new InterfaceInjector(this));
 
-		inject(new RasterizerAlpha(this));
+		//inject(new RasterizerAlpha(this));
 
 		inject(new MixinInjector(this));
 
@@ -118,26 +121,29 @@ public class Injector extends InjectData implements InjectTaskHandler
 
 		inject(new InjectConstruct(this));
 
+		//Requires InterfaceInjector
 		inject(new RSApiInjector(this));
+
+		inject(new RemoveAnnotations(this));
 
 		//inject(new DrawAfterWidgets(this));
 
-		inject(new ScriptVM(this));
+		//inject(new ScriptVM(this));
 
 		// All GPU raw injectors should probably be combined, especially RenderDraw and Occluder
-		inject(new ClearColorBuffer(this));
+		//inject(new ClearColorBuffer(this));
 
-		inject(new RenderDraw(this));
+		//inject(new RenderDraw(this));
 
-		inject(new Occluder(this));
+		//inject(new Occluder(this));
 
-		inject(new DrawMenu(this));
+		//inject(new DrawMenu(this));
 
-		inject(new AddPlayerToMenu(this));
+		//inject(new AddPlayerToMenu(this));
 
-		validate(new InjectorValidator(this));
+		//validate(new InjectorValidator(this));
 
-		transform(new SourceChanger(this));
+		//transform(new SourceChanger(this));
 	}
 
 	private void inject(com.openosrs.injector.injectors.Injector injector)

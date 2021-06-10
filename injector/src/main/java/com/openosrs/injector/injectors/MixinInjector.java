@@ -109,10 +109,11 @@ public class MixinInjector extends AbstractInjector
 	{
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
 		{
+			System.out.println(entry.getKey() + ":" + entry.getValue());
 			injectInterfaces(entry.getKey(), entry.getValue());
 		}
 
-		log.info("[INFO] Injected {} interfaces", injectedInterfaces);
+		log.error("[INFO] Injected {} interfaces", injectedInterfaces);
 
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
 		{
@@ -120,21 +121,21 @@ public class MixinInjector extends AbstractInjector
 			injectFields(entry.getKey(), entry.getValue());
 		}
 
-		log.info("[INFO] Injected {} fields", injectedFields.size());
+		log.error("[INFO] Injected {} fields", injectedFields.size());
 
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
 		{
 			findShadowFields(entry.getKey());
 		}
 
-		log.info("[INFO] Shadowed {} fields", shadowFields.size());
+		log.error("[INFO] Shadowed {} fields", shadowFields.size());
 
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
 		{
 			injectMethods(entry.getKey(), entry.getValue());
 		}
 
-		log.info("[INFO] Injected {}, copied {}, replaced {} methods", injected, copied, replaced);
+		log.error("[INFO] Injected {}, copied {}, replaced {} methods", injected, copied, replaced);
 
 		inject.runChildInjector(new InjectHook(inject, mixinTargets));
 
@@ -300,7 +301,10 @@ public class MixinInjector extends AbstractInjector
 				Signature deobSig = InjectUtil.apiToDeob(inject, mixinMethod.getDescriptor());
 				boolean notStat = !mixinMethod.isStatic();
 
-				Method deobSourceMethod = InjectUtil.findMethod(inject, copiedName, inject.toDeob(targetClass.getName()).getName(), deobSig::equals, notStat, true);
+				System.out.println(targetClass.getName());
+
+				String s = inject.deobfuscated.findClass(targetClass.getName()).getName();
+				Method deobSourceMethod = InjectUtil.findMethod(inject, copiedName, s, deobSig::equals, notStat, true);
 
 				if (mixinMethod.isStatic() != deobSourceMethod.isStatic())
 				{
@@ -469,7 +473,7 @@ public class MixinInjector extends AbstractInjector
 					Annotation replaceAnnotation = mixinMethod.findAnnotation(REPLACE);
 					String replacedName = replaceAnnotation.getValueString();
 
-					ClassFile deobClass = inject.toDeob(targetClass.getName());
+					ClassFile deobClass = inject.deobfuscated.findClass(targetClass.getName());
 					Method deobMethod = findDeobMatching(deobClass, mixinMethod, replacedName);
 
 					if (deobMethod == null)
@@ -483,8 +487,8 @@ public class MixinInjector extends AbstractInjector
 							+ (deobMethod.isStatic() ? "static" : "non-static"));
 					}
 
-					String obReplacedName = InjectUtil.getObfuscatedName(deobMethod);
-					Signature obMethodSignature = deobMethod.getObfuscatedSignature();
+					String obReplacedName = deobMethod.getName();
+					Signature obMethodSignature = deobMethod.getDescriptor();
 
 					// Find the vanilla class where the method to copy is in
 					ClassFile obCf = inject.toVanilla(deobMethod.getClassFile());

@@ -94,7 +94,7 @@ public class InjectHookMethod extends AbstractInjector
 				final String hookName = methodHook.getValueString();
 				final boolean end = isEnd(methodHook);
 
-				final ClassFile deobTarget = inject.toDeob(targetClass.getName());
+				final ClassFile deobTarget = inject.deobfuscated.findClass(targetClass.getName());
 				final Signature deobSig = InjectUtil.apiToDeob(inject, mixinMethod.getDescriptor());
 				final boolean notStatic = !mixinMethod.isStatic();
 				final Method targetMethod = InjectUtil.findMethod(inject, hookName, deobTarget.getName(), sig -> InjectUtil.argsMatch(sig, deobSig), notStatic, false);

@@ -74,7 +74,7 @@ public abstract class InjectData
 				toDeob.put(obName, deobClass);
 
 				// Can't be null
-				final ClassFile obClass = this.vanilla.findClass(obName);
+				final ClassFile obClass = this.vanilla.findClass(deobClass.getName());
 				toVanillaB.put(deobClass, obClass);
 			}
 		}
@@ -96,15 +96,11 @@ public abstract class InjectData
 	 */
 	public Method toVanilla(Method deobMeth)
 	{
-		final ClassFile obC = toVanilla(deobMeth.getClassFile());
+		final ClassFile obC = vanilla.findClass(deobMeth.getClassFile().getName());
 
-		String name = InjectUtil.getObfuscatedName(deobMeth);
+		String name = deobMeth.getName();
 
-		Signature sig = deobMeth.getObfuscatedSignature();
-		if (sig == null)
-		{
-			sig = deobMeth.getDescriptor();
-		}
+		Signature sig = deobMeth.getDescriptor();
 
 		return obC.findMethod(name, sig);
 	}
@@ -114,11 +110,11 @@ public abstract class InjectData
 	 */
 	public Field toVanilla(Field deobField)
 	{
-		final ClassFile obC = toVanilla(deobField.getClassFile());
+		final ClassFile obC = vanilla.findClass(deobField.getClassFile().getName());
 
-		String name = InjectUtil.getObfuscatedName(deobField);
+		String name = deobField.getName();
 
-		Type type = deobField.getObfuscatedType();
+		Type type = deobField.getType();
 
 		return obC.findField(name, type);
 	}
