@@ -16,6 +16,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+import com.google.common.io.ByteStreams;
 import net.runelite.mapping.ObfuscatedName;
 
 import javax.swing.JFrame;
@@ -50,24 +51,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 
 @SuppressWarnings("deprecation")
 public final class Launcher implements AppletStub, AppletContext {
     static ClassLoader classLoader;
-
-    static
-    {
-        classLoader = null;
-        try {
-            classLoader = classLoader(gamepackUrl());
-            Thread.currentThread().setContextClassLoader(classLoader);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 
     public static void main(String[] args) throws Exception {
         System.setProperty("sun.awt.noerasebackground", "true"); // fixes resize flickering
@@ -127,7 +116,7 @@ public final class Launcher implements AppletStub, AppletContext {
     }
 
     public Applet loadApplet() throws Exception {
-        Applet applet = (Applet) classLoader.loadClass(initialClass()).newInstance();
+        Applet applet = (Applet) Class.forName("Client").getConstructor().newInstance();
 
         applet.setStub(this);
         applet.setMaximumSize(appletMaxSize());
@@ -230,16 +219,5 @@ public final class Launcher implements AppletStub, AppletContext {
 
     @Override public Iterator<String> getStreamKeys() {
         throw new UnsupportedOperationException();
-    }
-
-    private static ClassLoader classLoader(URL jarUrl) throws IOException {
-        Map<String, byte[]> files = new HashMap<>();
-        try (JarInputStream jar = new JarInputStream(new BufferedInputStream(jarUrl.openStream()))) {
-            JarEntry entry;
-            while ((entry = jar.getNextJarEntry()) != null) {
-                files.put('/' + entry.getName(), jar.readAllBytes());
-            }
-        }
-        return new URLClassLoader(new URL[]{new File("./build/injected/injected-client.jar").toURL()});
     }
 }

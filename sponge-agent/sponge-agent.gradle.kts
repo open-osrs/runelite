@@ -30,6 +30,10 @@ repositories {
     maven(url = "https://maven.gegy1000.net/")
 }
 
+plugins {
+    java
+}
+
 dependencies {
     implementation(project(":runescape-api"))
     implementation(group = "org.spongepowered", name = "mixin-bare", version = "0.7.11-SNAPSHOT")

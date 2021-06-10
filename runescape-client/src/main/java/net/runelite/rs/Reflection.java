@@ -46,7 +46,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 public class Reflection
 {
-	private static final boolean PRINT_DEBUG_MESSAGES = true;
+	private static final boolean PRINT_DEBUG_MESSAGES = false;
 	public static Enumeration<URL> systemResources;
 
 	public static Map<String, Class<?>> classes = new HashMap<>();
@@ -69,7 +69,6 @@ public class Reflection
 
 						try
 						{
-							System.out.println(className);
 							Class<?> clazz = Class.forName(className);
 
 							ObfuscatedName obfuscatedName = clazz

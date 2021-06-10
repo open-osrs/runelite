@@ -32,15 +32,20 @@ repositories {
     maven(url = "https://maven.gegy1000.net/")
 }
 
+plugins {
+    java
+}
+
 dependencies {
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.20")
     implementation(project(":runelite-annotations"))
     implementation(project(":runescape-api"))
+    implementation(project(":sponge-agent"))
+    implementation(files("./build/injected/injected-client.jar"))
     implementation(group = "org.spongepowered", name = "mixin-bare", version = "0.7.11-SNAPSHOT")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.5")
     implementation(group = "com.google.guava", name = "guava", version = "23.2-jre")
     implementation(group = "org.projectlombok", name = "lombok", version = "1.18.20")
-    compileOnly(project(":runescape-client"))
     testImplementation(group = "junit", name = "junit", version = "4.12")
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.12")
     testImplementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.12")

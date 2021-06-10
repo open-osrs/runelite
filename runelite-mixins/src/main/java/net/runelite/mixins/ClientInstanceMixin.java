@@ -5,6 +5,7 @@ import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
+import sponge.logger.Logger;
 
 @Mixin(RSClient.class)
 public abstract class ClientInstanceMixin implements RSClient{
@@ -12,9 +13,12 @@ public abstract class ClientInstanceMixin implements RSClient{
     public static RSClient client;
 
     @Inject
+    public static Logger logger = new Logger();
+
+    @Inject
     @FieldHook("gameState")
     public static void onGameStateChanged(int idx)
     {
-        System.out.println(client.api$getRSGameState());
+        logger.debug("GameState: " + client.api$getRSGameState());
     }
 }
