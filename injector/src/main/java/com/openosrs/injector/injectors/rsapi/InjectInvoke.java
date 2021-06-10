@@ -54,12 +54,12 @@ public class InjectInvoke
 {
 	public static void inject(ClassFile targetClass, RSApiMethod apiMethod, Method vanillaMethod, String garbage)
 	{
-		if (targetClass.findMethod("api" + apiMethod.getName(), apiMethod.getSignature()) != null)
+		if (targetClass.findMethod(apiMethod.getName(), apiMethod.getSignature()) != null)
 		{
 			throw new InjectException("Duplicate invoker method " + apiMethod.getMethod().toString());
 		}
 
-		final Method method = new Method(targetClass, "api" + apiMethod.getName(), apiMethod.getSignature());
+		final Method method = new Method(targetClass, apiMethod.getName(), apiMethod.getSignature());
 		method.setPublic();
 
 		final Code code = new Code(method);

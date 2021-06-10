@@ -49,12 +49,12 @@ public class InjectGetter
 {
 	public static void inject(ClassFile targetClass, RSApiMethod apiMethod, Field field, Number getter)
 	{
-		if (targetClass.findMethod("api$" + apiMethod.getName(), apiMethod.getSignature()) != null)
+		if (targetClass.findMethod(apiMethod.getName(), apiMethod.getSignature()) != null)
 		{
 			throw new InjectException("Duplicate getter method " + apiMethod.getMethod().toString());
 		}
 
-		final String name = "api$" + apiMethod.getName();
+		final String name = apiMethod.getName();
 		final Signature sig = apiMethod.getSignature();
 
 		final Method method = new Method(targetClass, name, sig);
