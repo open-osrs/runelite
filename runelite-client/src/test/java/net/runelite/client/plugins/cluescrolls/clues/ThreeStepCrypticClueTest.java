@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2020, Jordan Atwood <jordan.atwood423@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.cluescrolls.clues;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.11.2"
+import com.google.common.base.Joiner;
+import net.runelite.api.coords.WorldPoint;
+import net.runelite.client.util.Text;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import org.junit.Test;
 
-    const val openosrsVersion = "4.8.1"
+public class ThreeStepCrypticClueTest
+{
+	@Test
+	public void forTextEmptyString()
+	{
+		assertNull(ThreeStepCrypticClue.forText("", ""));
+	}
 
-    const val rsversion = 196.2
-    const val cacheversion = 165
+	@Test
+	public void nonNullLocations()
+	{
+		final String clueText = Joiner.on("<br><br>").join(CrypticClue.CLUES.stream().map(CrypticClue::getText).toArray());
+		final ThreeStepCrypticClue clue = ThreeStepCrypticClue.forText(Text.sanitizeMultilineText(clueText).toLowerCase(), clueText);
 
-    const val lombokVersion = "1.18.20"
+		assertNotNull(clue);
+		for (final WorldPoint location : clue.getLocations())
+		{
+			assertNotNull(location);
+		}
+	}
 }

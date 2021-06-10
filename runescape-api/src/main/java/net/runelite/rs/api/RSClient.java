@@ -86,6 +86,10 @@ public interface RSClient extends RSGameEngine, Client
 	@Override
 	int getMapAngle();
 
+	@Import("camAngleY")
+	@Override
+	void setCameraYawTarget(int cameraYawTarget);
+
 	@Import("Tiles_heights")
 	@Override
 	int[][][] getTileHeights();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.config;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.11.2"
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
+import static org.junit.Assert.fail;
+import org.junit.Test;
 
-    const val openosrsVersion = "4.8.1"
+public class ChatColorConfigTest
+{
+	@Test
+	public void testUniqueKeys()
+	{
+		final Set<String> configKeyNames = new HashSet<>();
 
-    const val rsversion = 196.2
-    const val cacheversion = 165
+		for (Method method : ChatColorConfig.class.getMethods())
+		{
+			final ConfigItem annotation = method.getAnnotation(ConfigItem.class);
+			if (annotation == null)
+			{
+				continue;
+			}
 
-    const val lombokVersion = "1.18.20"
+			final String configKeyName = annotation.keyName();
+			if (configKeyNames.contains(configKeyName))
+			{
+				fail("keyName " + configKeyName + " is duplicated in " + ChatColorConfig.class);
+			}
+
+			configKeyNames.add(configKeyName);
+		}
+	}
 }
