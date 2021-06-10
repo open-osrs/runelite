@@ -1,3 +1,5 @@
+import ProjectVersions.openosrsVersion
+
 /*
  * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
  * All rights reserved.
@@ -32,9 +34,13 @@ repositories {
 
 dependencies {
     annotationProcessor(group = "org.projectlombok", name = "lombok", version = "1.18.20")
+    implementation(project(":runelite-annotations"))
+    implementation(project(":runescape-api"))
+    implementation(group = "org.spongepowered", name = "mixin-bare", version = "0.7.11-SNAPSHOT")
     implementation(group = "org.apache.logging.log4j", name = "log4j-core", version = "2.5")
     implementation(group = "com.google.guava", name = "guava", version = "23.2-jre")
     implementation(group = "org.projectlombok", name = "lombok", version = "1.18.20")
+    compileOnly(project(":runescape-client"))
     testImplementation(group = "junit", name = "junit", version = "4.12")
     testImplementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.12")
     testImplementation(group = "org.slf4j", name = "slf4j-simple", version = "1.7.12")
@@ -43,8 +49,8 @@ dependencies {
 tasks {
     java {
         // Needs 1.8 because of lambdas in reflection
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
         disableAutoTargetJvm()
     }
     withType<JavaCompile> {
@@ -70,5 +76,13 @@ tasks {
         into("${buildDir}/resources/main")
 
         outputs.upToDateWhen { false }
+    }
+    register<JavaExec>("SpongeMain") {
+
+        enableAssertions = true
+
+        main = "Launcher"
+        classpath = sourceSets["main"].runtimeClasspath
+        jvmArgs("-javaagent:../sponge-agent/build/libs/sponge-agent-" + openosrsVersion + ".jar=agent.MixinAgentBootstrap","-noverify")
     }
 }

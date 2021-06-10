@@ -36,16 +36,7 @@ import net.runelite.mapping.Import;
 
 public interface RSClient extends Client
 {
-	@Import("cameraX")
+	@Import("gameState")
 	@Override
-	int api$getCameraX();
-
-	@Import("cameraZ") // <--- This is correct!
-	@Override
-	int api$getCameraY();
-
-	@Import("cameraY") // <--- This is correct!
-	@Override
-	int api$getCameraZ();
-
+	int api$getRSGameState();
 }

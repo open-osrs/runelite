@@ -39,7 +39,7 @@ tasks.register<JavaExec>("inject") {
     enableAssertions = true
 
     main = "com.openosrs.injector.Injector"
-    val out = "${project.extra["rootPath"]}/sponge-client/build/injected/injected-client.oprs"
+    val out = "${project.extra["rootPath"]}/sponge-client/build/injected/injected-client.jar"
     outputs.file(out)
     classpath = sourceSets["main"].runtimeClasspath
     args("--outmode", "jar", "--vanilla", vanillaDep.singleFile, "--version", openosrsVersion, "--output", out)

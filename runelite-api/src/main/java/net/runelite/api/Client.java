@@ -158,7 +158,7 @@ public interface Client extends GameEngine
 	 *
 	 * @return the game state
 	 */
-	int getRSGameState();
+	int api$getRSGameState();
 
 	/**
 	 * Sets the current game state

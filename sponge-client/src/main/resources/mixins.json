@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "agent.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": 0.1,
+  "mixins": [
+    "ClientInstanceMixin"
+  ]
+}

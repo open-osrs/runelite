@@ -39,6 +39,7 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
@@ -46,46 +47,33 @@ import net.runelite.mapping.ObfuscatedSignature;
 public class Reflection
 {
 	private static final boolean PRINT_DEBUG_MESSAGES = true;
+	public static Enumeration<URL> systemResources;
 
-	private static Map<String, Class<?>> classes = new HashMap<>();
+	public static Map<String, Class<?>> classes = new HashMap<>();
 
 	static
 	{
 		try
 		{
-			Enumeration<URL> systemResources = ClassLoader.getSystemResources("");
+			Path path = new File("../runescape-client/build/classes/java/main/")
+					.toPath();
 
-			while (systemResources.hasMoreElements())
-			{
-				URL url = systemResources.nextElement();
-
-				Path path;
-				try
-				{
-					path = new File(url.toURI())
-						.toPath();
-				}
-				catch (URISyntaxException e)
-				{
-					path = new File(url.getPath())
-						.toPath();
-				}
-
-				Files.walk(path)
+			Files.walk(path)
 					.filter(Files::isRegularFile)
 					.forEach(f ->
 					{
 						String className = f
-							.getName(f.getNameCount() - 1)
-							.toString()
-							.replace(".class", "");
+								.getName(f.getNameCount() - 1)
+								.toString()
+								.replace(".class", "");
 
 						try
 						{
+							System.out.println(className);
 							Class<?> clazz = Class.forName(className);
 
 							ObfuscatedName obfuscatedName = clazz
-								.getAnnotation(ObfuscatedName.class);
+									.getAnnotation(ObfuscatedName.class);
 
 							if (obfuscatedName != null)
 							{
@@ -96,9 +84,8 @@ public class Reflection
 						{
 						}
 					});
-			}
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
