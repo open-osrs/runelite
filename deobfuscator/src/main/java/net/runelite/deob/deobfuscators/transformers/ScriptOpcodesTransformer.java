@@ -1,6 +1,9 @@
 package net.runelite.deob.deobfuscators.transformers;
 
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.ListIterator;
+import java.util.Map;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -20,7 +23,6 @@ import net.runelite.asm.attributes.code.instructions.VReturn;
 import net.runelite.asm.pool.Class;
 import net.runelite.asm.signature.Signature;
 import net.runelite.deob.Transformer;
-import net.runelite.deob.deobfuscators.transformers.scriptopcodes.ScriptOpcode;
 import org.objectweb.asm.Opcodes;
 import static org.objectweb.asm.Opcodes.ACC_FINAL;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
@@ -29,6 +31,32 @@ import static org.objectweb.asm.Opcodes.ACC_STATIC;
 public class ScriptOpcodesTransformer implements Transformer // robots in disguise
 {
 	private static final String SCRIPT_OPCODES = "net/runelite/rs/ScriptOpcodes";
+	private static final HashMap<Integer, String> OPCODE_MAP = new HashMap<>();
+
+	static
+	{
+		for (java.lang.reflect.Field opcodeField : net.runelite.cache.script.Opcodes.class.getDeclaredFields())
+		{
+			if (opcodeField.getType() != int.class || !opcodeField.canAccess(null))
+			{
+				continue;
+			}
+
+			String opcodeName = opcodeField.getName();
+			int opcode;
+
+			try
+			{
+				opcode = opcodeField.getInt(null);
+			}
+			catch (IllegalAccessException e)
+			{
+				throw new RuntimeException(e);
+			}
+
+			OPCODE_MAP.put(opcode, opcodeName);
+		}
+	}
 
 	@Override
 	public void transform(ClassGroup group)
@@ -79,7 +107,7 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 					}
 
 					int val = ((Number) ((PushConstantInstruction) i).getConstant()).intValue();
-					String name = ScriptOpcode.nameFromID(val);
+					String name = OPCODE_MAP.get(val);
 
 					i = it.next();
 
@@ -113,6 +141,7 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 			scriptOpcodes.setName(SCRIPT_OPCODES);
 			scriptOpcodes.setSuperName(Type.OBJECT.getInternalName());
 			scriptOpcodes.setAccess(Opcodes.ACC_PUBLIC);
+			scriptOpcodes.setVersion(Opcodes.V1_8);
 			group.addClass(scriptOpcodes);
 		}
 		else
@@ -134,18 +163,22 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 		Code code = clinit.getCode();
 		Instructions ins = code.getInstructions();
 
-		for (ScriptOpcode opcode : ScriptOpcode.values())
+		ClassFile finalScriptOpcodes = scriptOpcodes;
+		OPCODE_MAP.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getKey)).forEach((entry) ->
 		{
-			Field field = new Field(scriptOpcodes, opcode.name(), Type.INT);
-			field.setAccessFlags(ACC_PUBLIC | ACC_STATIC | ACC_FINAL);
-			field.setValue(opcode.opcode);
-			scriptOpcodes.addField(field);
+			Integer opcode = entry.getKey();
+			String opcodeName = entry.getValue();
 
-			LDC ldc = new LDC(ins, opcode.opcode);
+			Field field = new Field(finalScriptOpcodes, opcodeName, Type.INT);
+			field.setAccessFlags(ACC_PUBLIC | ACC_STATIC | ACC_FINAL);
+			field.setValue(opcode);
+			finalScriptOpcodes.addField(field);
+
+			LDC ldc = new LDC(ins, opcode);
 			PutStatic put = new PutStatic(ins, field);
 			ins.addInstruction(0, ldc);
 			ins.addInstruction(1, put);
-		}
+		});
 
 		ins.addInstruction(new VReturn(ins));
 	}
