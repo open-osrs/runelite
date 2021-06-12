@@ -97,6 +97,14 @@ public abstract class Overlay implements LayoutableRenderableEntity
 	{
 	}
 
+	public void onMouseEnter()
+	{
+	}
+
+	public void onMouseExit()
+	{
+	}
+
 	/**
 	 * Called when an overlay is dragged onto this, if dragTargetable is true.
 	 * Return true to consume the mouse event and prevent the other
