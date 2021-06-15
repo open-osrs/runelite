@@ -28,8 +28,8 @@ package net.runelite.client.plugins.openosrs;
 
 import ch.qos.logback.classic.Logger;
 import com.openosrs.client.config.OpenOSRSConfig;
-import net.runelite.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import java.awt.image.BufferedImage;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +40,7 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.HotkeyListener;
@@ -61,6 +62,7 @@ public class OpenOSRSPlugin extends Plugin
 	@Inject
 	private KeyManager keyManager;
 
+	@Nullable
 	@Inject
 	private Client client;
 
@@ -89,6 +91,11 @@ public class OpenOSRSPlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
+		if (client == null)
+		{
+			return;
+		}
+
 		ExternalPluginManagerPanel panel = injector.getInstance(ExternalPluginManagerPanel.class);
 
 		final BufferedImage icon = ImageUtil.loadImageResource(getClass(), "externalmanager_icon.png");
@@ -108,7 +115,10 @@ public class OpenOSRSPlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
-		clientToolbar.removeNavigation(navButton);
+		if (navButton != null)
+		{
+			clientToolbar.removeNavigation(navButton);
+		}
 	}
 
 	@Subscribe

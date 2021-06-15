@@ -351,6 +351,7 @@ public class RuneLite
 		oprsExternalPluginManager.setupInstance();
 		oprsExternalPluginManager.startExternalUpdateManager();
 		oprsExternalPluginManager.startExternalPluginManager();
+		oprsExternalPluginManager.setOutdated(isOutdated);
 
 		// Update external plugins
 		oprsExternalPluginManager.update(); //TODO: Re-enable after fixing actions for new repo
@@ -400,6 +401,10 @@ public class RuneLite
 
 			// legacy method, i cant figure out how to make it work without garbage
 			eventBus.register(xpDropManager.get());
+
+			//Set the world if specified via CLI args - will not work until clientUI.init is called
+			Optional<Integer> worldArg = Optional.ofNullable(System.getProperty("cli.world")).map(Integer::parseInt);
+			worldArg.ifPresent(this::setWorld);
 		}
 
 		// Start plugins
@@ -408,10 +413,6 @@ public class RuneLite
 		SplashScreen.stop();
 
 		clientUI.show();
-
-		//Set the world if specified via CLI args - will not work until clientUI.init is called
-		Optional<Integer> worldArg = Optional.ofNullable(System.getProperty("cli.world")).map(Integer::parseInt);
-		worldArg.ifPresent(this::setWorld);
 	}
 
 	@VisibleForTesting

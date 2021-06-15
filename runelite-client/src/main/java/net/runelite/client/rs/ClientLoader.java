@@ -27,7 +27,9 @@
 package net.runelite.client.rs;
 
 import com.google.common.base.Strings;
+import com.google.common.hash.Hashing;
 import com.google.common.io.ByteStreams;
+import com.openosrs.client.OpenOSRS;
 import java.applet.Applet;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -37,6 +39,8 @@ import java.io.OutputStream;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
@@ -57,6 +61,7 @@ import net.runelite.client.RuneLite;
 import net.runelite.client.RuneLiteProperties;
 import static net.runelite.client.rs.ClientUpdateCheckMode.AUTO;
 import static net.runelite.client.rs.ClientUpdateCheckMode.NONE;
+import static net.runelite.client.rs.ClientUpdateCheckMode.VANILLA;
 import net.runelite.client.ui.FatalErrorDialog;
 import net.runelite.client.ui.SplashScreen;
 import net.runelite.client.util.CountingInputStream;
@@ -66,7 +71,6 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.apache.commons.io.FileUtils;
 
 @Slf4j
 @SuppressWarnings("deprecation")
@@ -130,18 +134,44 @@ public class ClientLoader implements Supplier<Applet>
 				StandardOpenOption.CREATE, StandardOpenOption.READ, StandardOpenOption.WRITE);
 				FileLock flock = lockfile.lock())
 			{
-				SplashScreen.stage(.40, null, "Loading client");
-				File jarFile = updateCheckMode == AUTO ? PATCHED_CACHE : VANILLA_CACHE;
-				// create the classloader for the jar while we hold the lock, and eagerly load and link all classes
-				// in the jar. Otherwise the jar can change on disk and can break future classloads.
-				File oprsInjected = new File(System.getProperty("user.home") + "/.openosrs/cache/injected-client.jar");
-				InputStream initialStream = RuneLite.class.getResourceAsStream(INJECTED_CLIENT_NAME);
-				if (!oprsInjected.exists() || oprsInjected.length() != RuneLite.class.getResource(INJECTED_CLIENT_NAME).getFile().length())
+				SplashScreen.stage(.15, null, "Downloading Old School RuneScape");
+				try
 				{
-					FileUtils.copyInputStreamToFile(initialStream, oprsInjected);
+					updateVanilla(config);
+				}
+				catch (IOException ex)
+				{
+					// try again with the fallback config and gamepack
+					if (javConfigUrl.equals(RuneLiteProperties.getJavConfig()) && !config.isFallback())
+					{
+						log.warn("Unable to download game client, attempting to use fallback config", ex);
+						config = downloadFallbackConfig();
+						updateVanilla(config);
+					}
+					else
+					{
+						throw ex;
+					}
 				}
 
-				classLoader = createJarClassLoader(oprsInjected);
+				if (!checkVanillaHash())
+				{
+					log.error("Injected client vanilla hash doesn't match, loading vanilla client.");
+					updateCheckMode = VANILLA;
+				}
+
+				SplashScreen.stage(.40, null, "Loading client");
+
+				File oprsInjected = new File(System.getProperty("user.home") + "/.openosrs/cache/injected-client.jar");
+				if (updateCheckMode == AUTO)
+				{
+					writeInjectedClient(oprsInjected);
+				}
+
+				File jarFile = updateCheckMode == AUTO ? oprsInjected : VANILLA_CACHE;
+				// create the classloader for the jar while we hold the lock, and eagerly load and link all classes
+				// in the jar. Otherwise the jar can change on disk and can break future classloads.
+				classLoader = createJarClassLoader(jarFile);
 			}
 
 			SplashScreen.stage(.465, "Starting", "Starting Old School RuneScape");
@@ -153,7 +183,7 @@ public class ClientLoader implements Supplier<Applet>
 			return rs;
 		}
 		catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException
-			| SecurityException e)
+			| VerificationException | SecurityException e)
 		{
 			log.error("Error loading RS!", e);
 
@@ -457,6 +487,48 @@ public class ClientLoader implements Supplier<Applet>
 		 */
 	}
 
+	private boolean checkVanillaHash()
+	{
+		try (InputStream is = ClientLoader.class.getResourceAsStream("/client.hash"))
+		{
+			String storedHash = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+			String vanillaHash = Hashing.sha256().hashBytes(Files.readAllBytes(VANILLA_CACHE.toPath())).toString();
+			log.debug("Stored vanilla hash: {}", storedHash);
+			log.debug("Actual vanilla hash: {}", vanillaHash);
+
+			return vanillaHash.equals(storedHash);
+		}
+		catch (IOException ex)
+		{
+			log.error("Failed to compare vanilla hashes, loading vanilla", ex);
+		}
+
+		return false;
+	}
+
+	private void writeInjectedClient(File cachedInjected) throws IOException
+	{
+		String cachedHash = "";
+		try
+		{
+			cachedHash = com.google.common.io.Files.asByteSource(cachedInjected).hash(Hashing.sha256()).toString();
+		}
+		catch (IOException ex)
+		{
+			log.error("Failed to calculate hash for cached file, falling back to vanilla", ex);
+			updateCheckMode = VANILLA;
+			return;
+		}
+
+		byte[] currentInjected = ByteStreams.toByteArray(ClientLoader.class.getResourceAsStream(INJECTED_CLIENT_NAME));
+		String currentHash = Hashing.sha256().hashBytes(currentInjected).toString();
+
+		if (!cachedInjected.exists() || !currentHash.equals(cachedHash))
+		{
+			Files.write(cachedInjected.toPath(), currentInjected);
+		}
+	}
+
 	private ClassLoader createJarClassLoader(File jar) throws IOException, ClassNotFoundException
 	{
 		try (JarFile jarFile = new JarFile(jar))
@@ -529,7 +601,7 @@ public class ClientLoader implements Supplier<Applet>
 
 		if (rs instanceof Client)
 		{
-			//.info("client-patch {}", ((Client) rs).getBuildID());
+			log.info("injected-client {}", OpenOSRS.SYSTEM_VERSION);
 		}
 
 		return rs;
