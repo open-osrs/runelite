@@ -24,7 +24,6 @@
  */
 package net.runelite.mixins;
 
-import net.runelite.api.Renderable;
 import net.runelite.api.Perspective;
 import net.runelite.api.Tile;
 import net.runelite.api.SceneTileModel;
@@ -37,16 +36,12 @@ import net.runelite.api.mixins.MethodHook;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
-import net.runelite.rs.api.RSBoundaryObject;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSFloorDecoration;
 import net.runelite.rs.api.RSNodeDeque;
 import net.runelite.rs.api.RSScene;
 import net.runelite.rs.api.RSTile;
 import net.runelite.rs.api.RSTileItem;
-import net.runelite.rs.api.RSItemLayer;
 import net.runelite.rs.api.RSSceneTileModel;
-import net.runelite.rs.api.RSWallDecoration;
 
 @Mixin(RSScene.class)
 public abstract class RSSceneMixin implements RSScene
@@ -407,74 +402,6 @@ public abstract class RSSceneMixin implements RSScene
 		if (client.getDrawCallbacks() != null)
 		{
 			client.getDrawCallbacks().postDrawScene();
-		}
-	}
-
-	@Copy("newWallDecoration")
-	@Replace("newWallDecoration")
-	@SuppressWarnings("InfiniteRecursion")
-	public void copy$addBoundaryDecoration(int plane, int x, int y, int floor, Renderable var5, Renderable var6, int var7, int var8, int var9, int var10, long hash, int var12)
-	{
-		copy$addBoundaryDecoration(plane, x, y, floor, var5, var6, var7, var8, var9, var10, hash, var12);
-		Tile tile = getTiles()[plane][x][y];
-		if (tile != null)
-		{
-			RSWallDecoration object = (RSWallDecoration) tile.getDecorativeObject();
-			if (object != null)
-			{
-				object.setPlane(plane);
-			}
-		}
-	}
-
-	@Copy("newGroundItemPile")
-	@Replace("newGroundItemPile")
-	@SuppressWarnings("InfiniteRecursion")
-	public void copy$addItemPile(int plane, int x, int y, int hash, Renderable var5, long var6, Renderable var7, Renderable var8)
-	{
-		copy$addItemPile(plane, x, y, hash, var5, var6, var7, var8);
-		Tile tile = getTiles()[plane][x][y];
-		if (tile != null)
-		{
-			RSItemLayer itemLayer = (RSItemLayer) tile.getItemLayer();
-			if (itemLayer != null)
-			{
-				itemLayer.setPlane(plane);
-			}
-		}
-	}
-
-	@Copy("newFloorDecoration")
-	@Replace("newFloorDecoration")
-	@SuppressWarnings("InfiniteRecursion")
-	public void copy$groundObjectSpawned(int plane, int x, int y, int floor, Renderable var5, long hash, int var7)
-	{
-		copy$groundObjectSpawned(plane, x, y, floor, var5, hash, var7);
-		Tile tile = getTiles()[plane][x][y];
-		if (tile != null)
-		{
-			RSFloorDecoration groundObject = (RSFloorDecoration) tile.getGroundObject();
-			if (groundObject != null)
-			{
-				groundObject.setPlane(plane);
-			}
-		}
-	}
-
-	@Copy("newBoundaryObject")
-	@Replace("newBoundaryObject")
-	@SuppressWarnings("InfiniteRecursion")
-	public void copy$addBoundary(int plane, int x, int y, int floor, Renderable var5, Renderable var6, int var7, int var8, long hash, int var10)
-	{
-		copy$addBoundary(plane, x, y, floor, var5, var6, var7, var8, hash, var10);
-		Tile tile = getTiles()[plane][x][y];
-		if (tile != null)
-		{
-			RSBoundaryObject wallObject = (RSBoundaryObject) tile.getWallObject();
-			if (wallObject != null)
-			{
-				wallObject.setPlane(plane);
-			}
 		}
 	}
 
