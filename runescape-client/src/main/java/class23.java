@@ -3,112 +3,79 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("h")
+@ObfuscatedName("l")
 public class class23 extends class14 {
-	@ObfuscatedName("u")
-	@Export("Tiles_saturation")
-	static int[] Tiles_saturation;
-	@ObfuscatedName("au")
-	@Export("client")
-	@ObfuscatedSignature(
-		descriptor = "Lclient;"
-	)
-	static Client client;
-	@ObfuscatedName("v")
+	@ObfuscatedName("c")
+	@Export("operatingSystemName")
+	public static String operatingSystemName;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1071704973
+		intValue = 339931933
 	)
-	int field199;
-	@ObfuscatedName("n")
-	byte field198;
+	int field190;
+	@ObfuscatedName("e")
+	byte field189;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lf;"
+		descriptor = "Lv;"
 	)
 	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lf;)V"
+		descriptor = "(Lv;)V"
 	)
 	class23(class2 var1) {
 		this.this$0 = var1;
-		this.field199 = -1; // L: 128
+		this.field190 = -1; // L: 128
 	} // L: 131
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;I)V",
-		garbageValue = "-1281352827"
+		descriptor = "(Lnt;I)V",
+		garbageValue = "73833784"
 	)
-	void vmethod276(Buffer var1) {
-		this.field199 = var1.readUnsignedShort(); // L: 134
-		this.field198 = var1.readByte(); // L: 135
+	void vmethod363(Buffer var1) {
+		this.field190 = var1.readUnsignedShort(); // L: 134
+		this.field189 = var1.readByte(); // L: 135
 	} // L: 136
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Ll;B)V",
-		garbageValue = "29"
+		descriptor = "(Lb;I)V",
+		garbageValue = "1885623446"
 	)
-	void vmethod281(ClanSettings var1) {
-		var1.method112(this.field199, this.field198); // L: 139
+	void vmethod354(ClanSettings var1) {
+		var1.method131(this.field190, this.field189); // L: 139
 	} // L: 140
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(II)Leg;",
-		garbageValue = "-1295127026"
+		descriptor = "(II)Ler;",
+		garbageValue = "202044265"
 	)
-	@Export("getObjectDefinition")
-	public static ObjectComposition getObjectDefinition(int var0) {
-		ObjectComposition var1 = (ObjectComposition)ObjectComposition.ObjectDefinition_cached.get((long)var0); // L: 73
-		if (var1 != null) { // L: 74
+	@Export("KitDefinition_get")
+	public static KitDefinition KitDefinition_get(int var0) {
+		KitDefinition var1 = (KitDefinition)KitDefinition.KitDefinition_cached.get((long)var0); // L: 27
+		if (var1 != null) { // L: 28
 			return var1;
 		} else {
-			byte[] var2 = ObjectComposition.ObjectDefinition_archive.takeFile(6, var0); // L: 75
-			var1 = new ObjectComposition(); // L: 76
-			var1.id = var0; // L: 77
-			if (var2 != null) { // L: 78
+			byte[] var2 = class125.KitDefinition_archive.takeFile(3, var0); // L: 29
+			var1 = new KitDefinition(); // L: 30
+			if (var2 != null) { // L: 31
 				var1.decode(new Buffer(var2));
 			}
 
-			var1.postDecode(); // L: 79
-			if (var1.isSolid) { // L: 80
-				var1.interactType = 0; // L: 81
-				var1.boolean1 = false; // L: 82
-			}
-
-			ObjectComposition.ObjectDefinition_cached.put(var1, (long)var0); // L: 84
-			return var1; // L: 85
+			KitDefinition.KitDefinition_cached.put(var1, (long)var0); // L: 32
+			return var1; // L: 33
 		}
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-686141430"
+		descriptor = "(I)[Lhl;",
+		garbageValue = "-2126823269"
 	)
-	@Export("Messages_getHistorySize")
-	static int Messages_getHistorySize(int var0) {
-		ChatChannel var1 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 44
-		return var1 == null ? 0 : var1.size(); // L: 45 46
+	static LoginPacket[] method318() {
+		return new LoginPacket[]{LoginPacket.field2809, LoginPacket.field2804, LoginPacket.field2802, LoginPacket.field2801, LoginPacket.field2806, LoginPacket.field2803}; // L: 22
 	}
-
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "(Lio;IB)V",
-		garbageValue = "-43"
-	)
-	@Export("Widget_setKeyIgnoreHeld")
-	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
-		if (var0.field3033 == null) { // L: 996
-			throw new RuntimeException(); // L: 997
-		} else {
-			if (var0.field3012 == null) { // L: 999
-				var0.field3012 = new int[var0.field3033.length]; // L: 1000
-			}
-
-			var0.field3012[var1] = Integer.MAX_VALUE; // L: 1002
-		}
-	} // L: 1003
 }

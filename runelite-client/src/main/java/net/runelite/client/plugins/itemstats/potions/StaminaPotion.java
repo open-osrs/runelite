@@ -23,57 +23,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-<<<<<<< HEAD:deobfuscator/src/main/java/net/runelite/deob/deobfuscators/lvt/MapKey.java
-package net.runelite.deob.deobfuscators.lvt;
-
-import java.util.Objects;
-
-public class MapKey
-{
-	private final int idx;
-	private final LVTType type;
-
-	public MapKey(int idx, LVTType type)
-	{
-		this.idx = idx;
-		this.type = type;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		int hash = 7;
-		hash = 89 * hash + this.idx;
-		hash = 89 * hash + Objects.hashCode(this.type);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-		{
-			return true;
-		}
-		if (obj == null)
-		{
-			return false;
-		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		final MapKey other = (MapKey) obj;
-		if (this.idx != other.idx)
-		{
-			return false;
-		}
-		if (this.type != other.type)
-		{
-			return false;
-		}
-		return true;
-=======
 package net.runelite.client.plugins.itemstats.potions;
 
 import net.runelite.api.Client;
@@ -105,6 +54,5 @@ public class StaminaPotion extends StatBoost
 			}
 		}
 		return 20;
->>>>>>> upstream/master:runelite-client/src/main/java/net/runelite/client/plugins/itemstats/potions/StaminaPotion.java
 	}
 }

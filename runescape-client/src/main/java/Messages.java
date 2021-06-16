@@ -6,36 +6,38 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dk")
+@ObfuscatedName("dg")
 @Implements("Messages")
 public class Messages {
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@Export("Messages_channels")
 	static final Map Messages_channels;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lmr;"
+		descriptor = "Lmo;"
 	)
 	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lks;"
 	)
 	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 543094313
+		intValue = -993232851
 	)
 	@Export("Messages_count")
 	static int Messages_count;
-	@ObfuscatedName("o")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lbu;"
+		descriptor = "Lof;"
 	)
-	@Export("soundCache")
-	public static SoundCache soundCache;
+	@Export("logoSprite")
+	static IndexedSprite logoSprite;
+	@ObfuscatedName("br")
+	static String field1397;
 
 	static {
 		Messages_channels = new HashMap(); // L: 9
@@ -44,22 +46,18 @@ public class Messages {
 		Messages_count = 0; // L: 12
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("gg")
 	@ObfuscatedSignature(
-		descriptor = "([Lkj;II)Lkj;",
-		garbageValue = "-611336247"
+		descriptor = "(Lcl;I)V",
+		garbageValue = "2067592428"
 	)
-	@Export("findEnumerated")
-	public static Enumerated findEnumerated(Enumerated[] var0, int var1) {
-		Enumerated[] var2 = var0; // L: 17
-
-		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 18
-			Enumerated var4 = var2[var3]; // L: 19
-			if (var1 == var4.rsOrdinal()) {
-				return var4; // L: 21
-			}
-		}
-
-		return null; // L: 25
-	}
+	static final void method2461(Actor var0) {
+		int var1 = Math.max(1, var0.field1276 - Client.cycle); // L: 4172
+		int var2 = var0.field1225 * 64 + var0.field1264 * 128; // L: 4173
+		int var3 = var0.field1225 * 64 + var0.field1268 * 128; // L: 4174
+		var0.x += (var2 - var0.x) / var1; // L: 4175
+		var0.y += (var3 - var0.y) / var1; // L: 4176
+		var0.field1242 = 0; // L: 4177
+		var0.orientation = var0.field1270; // L: 4178
+	} // L: 4179
 }

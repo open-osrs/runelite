@@ -2,76 +2,89 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ch")
+@ObfuscatedName("cr")
 @Implements("PendingSpawn")
 public final class PendingSpawn extends Node {
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "Lck;"
+	)
+	@Export("loginScreenRunesAnimation")
+	static LoginScreenAnimation loginScreenRunesAnimation;
+	@ObfuscatedName("lj")
 	@ObfuscatedGetter(
-		intValue = -28991277
+		intValue = 957608349
+	)
+	@Export("menuHeight")
+	static int menuHeight;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 857968295
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1769235093
+		intValue = -460142403
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1813016497
+		intValue = -1653690201
 	)
 	@Export("x")
 	int x;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -396145343
+		intValue = 821820447
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -558546627
+		intValue = -299162955
 	)
 	@Export("objectId")
 	int objectId;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1965670795
+		intValue = -1733340657
 	)
-	int field1225;
+	int field1209;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -857810119
+	)
+	int field1210;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 1054712157
-	)
-	int field1229;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = 56083045
+		intValue = 1775664849
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 343995201
+		intValue = -1304592611
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -990188279
+		intValue = 1665765945
 	)
-	int field1232;
-	@ObfuscatedName("u")
+	int field1213;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -870224069
+		intValue = -259916535
 	)
 	@Export("delay")
 	int delay;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 2028634435
+		intValue = -2001874623
 	)
 	@Export("hitpoints")
 	int hitpoints;
@@ -80,4 +93,38 @@ public final class PendingSpawn extends Node {
 		this.delay = 0; // L: 16
 		this.hitpoints = -1; // L: 17
 	} // L: 19
+
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(ILla;Ljf;I)V",
+		garbageValue = "1024177105"
+	)
+	static void method2261(int var0, ArchiveDisk var1, Archive var2) {
+		byte[] var3 = null; // L: 40
+		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) { // L: 41
+			for (ArchiveDiskAction var5 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.last(); var5 != null; var5 = (ArchiveDiskAction)ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.previous()) { // L: 42
+				if ((long)var0 == var5.key && var1 == var5.archiveDisk && var5.type == 0) { // L: 43
+					var3 = var5.data; // L: 44
+					break; // L: 45
+				}
+			}
+		}
+
+		if (var3 != null) { // L: 49
+			var2.load(var1, var0, var3, true); // L: 50
+		} else {
+			byte[] var4 = var1.read(var0); // L: 53
+			var2.load(var1, var0, var4, true); // L: 54
+		}
+	} // L: 51 55
+
+	@ObfuscatedName("jk")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "450155015"
+	)
+	@Export("getTapToDrop")
+	static boolean getTapToDrop() {
+		return Client.tapToDrop; // L: 10361
+	}
 }

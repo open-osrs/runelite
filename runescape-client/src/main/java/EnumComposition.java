@@ -1,52 +1,59 @@
+import java.net.MalformedURLException;
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("er")
+@ObfuscatedName("ep")
 @Implements("EnumComposition")
 public class EnumComposition extends DualNode {
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Ljv;"
+		descriptor = "Ljp;"
 	)
 	@Export("EnumDefinition_archive")
 	static AbstractArchive EnumDefinition_archive;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lhz;"
+		descriptor = "Lht;"
 	)
 	@Export("EnumDefinition_cached")
 	static EvictingDualNodeHashTable EnumDefinition_cached;
-	@ObfuscatedName("f")
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = 422415445
+	)
+	static int field1629;
+	@ObfuscatedName("v")
 	@Export("inputType")
 	public char inputType;
 	@ObfuscatedName("y")
 	@Export("outputType")
 	public char outputType;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 865656165
+		intValue = -883966701
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -2113237229
+		intValue = 691082953
 	)
 	@Export("outputCount")
 	public int outputCount;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("keys")
 	public int[] keys;
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@Export("intVals")
 	public int[] intVals;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@Export("strVals")
 	public String[] strVals;
 
@@ -59,10 +66,10 @@ public class EnumComposition extends DualNode {
 		this.outputCount = 0; // L: 17
 	} // L: 22
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;I)V",
-		garbageValue = "1467910885"
+		descriptor = "(Lnt;I)V",
+		garbageValue = "1541381103"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -78,8 +85,8 @@ public class EnumComposition extends DualNode {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;IB)V",
-		garbageValue = "-60"
+		descriptor = "(Lnt;II)V",
+		garbageValue = "1108617782"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -108,33 +115,58 @@ public class EnumComposition extends DualNode {
 				this.intVals = new int[this.outputCount]; // L: 63
 
 				for (var3 = 0; var3 < this.outputCount; ++var3) { // L: 64
-					this.keys[var3] = var1.readInt(); // L: 65
+					this.keys[var3] = var1.readInt();
 					this.intVals[var3] = var1.readInt(); // L: 66
 				}
 			}
 		}
 
-	} // L: 70
+	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-149949948"
+		garbageValue = "1940899899"
 	)
 	@Export("size")
 	public int size() {
 		return this.outputCount; // L: 73
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Ljv;Ljava/lang/String;Ljava/lang/String;I)Lop;",
-		garbageValue = "-1892718374"
+		descriptor = "(Ljava/lang/String;I)Z",
+		garbageValue = "-1376417697"
 	)
-	@Export("SpriteBuffer_getIndexedSpriteByName")
-	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
-		int var3 = var0.getGroupId(var1); // L: 109
-		int var4 = var0.getFileId(var3, var2); // L: 110
-		return AbstractByteArrayCopier.method4802(var0, var3, var4); // L: 111
+	static boolean method2831(String var0) {
+		if (var0 == null) { // L: 65
+			return false;
+		} else {
+			try {
+				new URL(var0);
+				return true; // L: 72
+			} catch (MalformedURLException var2) { // L: 69
+				return false; // L: 70
+			}
+		}
 	}
+
+	@ObfuscatedName("lx")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "49"
+	)
+	static void method2827() {
+		if (LoginPacket.field2800 != null) { // L: 11702
+			Client.field798 = Client.cycle; // L: 11703
+			LoginPacket.field2800.method5246(); // L: 11704
+
+			for (int var0 = 0; var0 < Client.players.length; ++var0) { // L: 11705
+				if (Client.players[var0] != null) { // L: 11706
+					LoginPacket.field2800.method5245((Client.players[var0].x >> 7) + class15.baseX, (Client.players[var0].y >> 7) + WorldMapSprite.baseY); // L: 11707
+				}
+			}
+		}
+
+	} // L: 11711
 }

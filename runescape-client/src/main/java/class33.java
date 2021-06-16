@@ -6,39 +6,39 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ag")
 public class class33 implements class30 {
-	@ObfuscatedName("v")
-	final MessageDigest field249;
+	@ObfuscatedName("f")
+	final MessageDigest field230;
 
 	@ObfuscatedSignature(
-		descriptor = "(Laj;)V"
+		descriptor = "(Lae;)V"
 	)
 	class33(class36 var1) {
-		this.field249 = this.method321(); // L: 14
+		this.field230 = this.method393(); // L: 14
 	} // L: 15
 
-	@ObfuscatedName("v")
-	boolean method307(int var1, String var2, long var3) {
-		byte[] var5 = this.method310(var2, var3); // L: 18
-		return method308(var5) >= var1; // L: 19
+	@ObfuscatedName("f")
+	boolean method389(int var1, String var2, long var3) {
+		byte[] var5 = this.method388(var2, var3); // L: 18
+		return method392(var5) >= var1; // L: 19
 	}
 
 	@ObfuscatedName("y")
-	byte[] method310(String var1, long var2) {
+	byte[] method388(String var1, long var2) {
 		StringBuilder var4 = new StringBuilder(); // L: 56
 		var4.append(var1).append(Long.toHexString(var2)); // L: 57
-		this.field249.reset(); // L: 58
+		this.field230.reset(); // L: 58
 
 		try {
-			this.field249.update(var4.toString().getBytes("UTF-8")); // L: 60
+			this.field230.update(var4.toString().getBytes("UTF-8")); // L: 60
 		} catch (UnsupportedEncodingException var6) { // L: 62
 			var6.printStackTrace(); // L: 63
 		}
 
-		return this.field249.digest(); // L: 65
+		return this.field230.digest(); // L: 65
 	}
 
-	@ObfuscatedName("p")
-	MessageDigest method321() {
+	@ObfuscatedName("j")
+	MessageDigest method393() {
 		try {
 			return MessageDigest.getInstance("SHA-256"); // L: 70
 		} catch (NoSuchAlgorithmException var2) { // L: 72
@@ -47,14 +47,14 @@ public class class33 implements class30 {
 		}
 	}
 
-	@ObfuscatedName("n")
-	static int method308(byte[] var0) {
+	@ObfuscatedName("e")
+	static int method392(byte[] var0) {
 		int var1 = 0; // L: 23
 		byte[] var2 = var0; // L: 25
 
 		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 26
 			byte var4 = var2[var3]; // L: 27
-			int var5 = method309(var4); // L: 29
+			int var5 = method391(var4); // L: 29
 			var1 += var5; // L: 30
 			if (var5 != 8) { // L: 31
 				break;
@@ -64,8 +64,8 @@ public class class33 implements class30 {
 		return var1; // L: 37
 	}
 
-	@ObfuscatedName("f")
-	static int method309(byte var0) {
+	@ObfuscatedName("v")
+	static int method391(byte var0) {
 		int var1 = 0; // L: 41
 		if (var0 == 0) { // L: 42
 			var1 = 8; // L: 43

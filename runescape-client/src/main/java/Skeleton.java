@@ -4,27 +4,22 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ge")
+@ObfuscatedName("gb")
 @Implements("Skeleton")
 public class Skeleton extends Node {
-	@ObfuscatedName("ak")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1049112805
-	)
-	static int field2287;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -2039033351
+		intValue = 1170142713
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1780750535
+		intValue = 213807601
 	)
 	@Export("count")
 	int count;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@Export("transformTypes")
 	int[] transformTypes;
 	@ObfuscatedName("y")
@@ -55,63 +50,44 @@ public class Skeleton extends Node {
 
 	} // L: 23
 
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-651931102"
-	)
-	@Export("getVarbit")
-	public static int getVarbit(int var0) {
-		VarbitComposition var1 = FontName.method6299(var0); // L: 24
-		int var2 = var1.baseVar; // L: 25
-		int var3 = var1.startBit; // L: 26
-		int var4 = var1.endBit; // L: 27
-		int var5 = Varps.Varps_masks[var4 - var3]; // L: 28
-		return Varps.Varps_main[var2] >> var3 & var5; // L: 29
-	}
-
-	@ObfuscatedName("r")
+	@ObfuscatedName("ia")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2037150007"
+		garbageValue = "-913891462"
 	)
-	static void method3921() {
-		ItemContainer.itemContainers = new NodeHashTable(32); // L: 78
-	} // L: 79
+	static final void method4034() {
+		boolean var0 = false; // L: 8917
 
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-698896598"
-	)
-	static final int method3920(int var0, int var1, int var2) {
-		int var3 = var0 / var2; // L: 804
-		int var4 = var0 & var2 - 1; // L: 805
-		int var5 = var1 / var2; // L: 806
-		int var6 = var1 & var2 - 1; // L: 807
-		int var7 = Occluder.method4109(var3, var5); // L: 808
-		int var8 = Occluder.method4109(var3 + 1, var5); // L: 809
-		int var9 = Occluder.method4109(var3, var5 + 1); // L: 810
-		int var10 = Occluder.method4109(var3 + 1, var5 + 1); // L: 811
-		int var12 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 814
-		int var11 = ((65536 - var12) * var7 >> 16) + (var12 * var8 >> 16); // L: 815
-		int var13 = SoundSystem.method806(var9, var10, var4, var2); // L: 818
-		int var15 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var6 * 1024 / var2] >> 1; // L: 821
-		int var14 = ((65536 - var15) * var11 >> 16) + (var13 * var15 >> 16); // L: 822
-		return var14; // L: 824
-	}
+		while (!var0) { // L: 8918
+			var0 = true; // L: 8919
 
-	@ObfuscatedName("ay")
-	@ObfuscatedSignature(
-		descriptor = "(ILii;ZI)V",
-		garbageValue = "1737731022"
-	)
-	static void method3922(int var0, Coord var1, boolean var2) {
-		WorldMapArea var3 = HealthBarUpdate.getWorldMap().getMapArea(var0); // L: 4336
-		int var4 = class93.localPlayer.plane; // L: 4337
-		int var5 = (class93.localPlayer.x >> 7) + VertexNormal.baseX; // L: 4338
-		int var6 = (class93.localPlayer.y >> 7) + SoundSystem.baseY; // L: 4339
-		Coord var7 = new Coord(var4, var5, var6); // L: 4340
-		HealthBarUpdate.getWorldMap().method6291(var3, var7, var1, var2); // L: 4341
-	} // L: 4342
+			for (int var1 = 0; var1 < Client.menuOptionsCount - 1; ++var1) { // L: 8920
+				if (Client.menuOpcodes[var1] < 1000 && Client.menuOpcodes[var1 + 1] > 1000) { // L: 8921
+					String var2 = Client.menuTargets[var1]; // L: 8922
+					Client.menuTargets[var1] = Client.menuTargets[var1 + 1]; // L: 8923
+					Client.menuTargets[var1 + 1] = var2; // L: 8924
+					String var3 = Client.menuActions[var1]; // L: 8925
+					Client.menuActions[var1] = Client.menuActions[var1 + 1]; // L: 8926
+					Client.menuActions[var1 + 1] = var3; // L: 8927
+					int var4 = Client.menuOpcodes[var1]; // L: 8928
+					Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1]; // L: 8929
+					Client.menuOpcodes[var1 + 1] = var4; // L: 8930
+					var4 = Client.menuArguments1[var1]; // L: 8931
+					Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1]; // L: 8932
+					Client.menuArguments1[var1 + 1] = var4; // L: 8933
+					var4 = Client.menuArguments2[var1]; // L: 8934
+					Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1]; // L: 8935
+					Client.menuArguments2[var1 + 1] = var4; // L: 8936
+					var4 = Client.menuIdentifiers[var1]; // L: 8937
+					Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1]; // L: 8938
+					Client.menuIdentifiers[var1 + 1] = var4; // L: 8939
+					boolean var5 = Client.menuShiftClick[var1]; // L: 8940
+					Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1]; // L: 8941
+					Client.menuShiftClick[var1 + 1] = var5; // L: 8942
+					var0 = false; // L: 8943
+				}
+			}
+		}
+
+	} // L: 8947
 }

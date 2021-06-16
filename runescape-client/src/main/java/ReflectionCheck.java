@@ -6,147 +6,108 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bo")
+@ObfuscatedName("bn")
 @Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
-	@ObfuscatedName("q")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1538307343
+		intValue = 1718223303
 	)
-	@Export("canvasHeight")
-	public static int canvasHeight;
-	@ObfuscatedName("lz")
-	@ObfuscatedSignature(
-		descriptor = "Lcp;"
-	)
-	@Export("tempMenuAction")
-	static MenuAction tempMenuAction;
-	@ObfuscatedName("ld")
-	@ObfuscatedSignature(
-		descriptor = "Lio;"
-	)
-	static Widget field609;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -848582505
-	)
-	@Export("id")
-	int id;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = -637285787
-	)
-	@Export("size")
-	int size;
+	@Export("graphicsTickTimeIdx")
+	static int graphicsTickTimeIdx;
 	@ObfuscatedName("f")
 	@Export("intReplaceValues")
 	int[] intReplaceValues;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = -1554436787
+	)
+	@Export("id")
+	int id;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = 1579568443
+	)
+	@Export("size")
+	int size;
 	@ObfuscatedName("y")
 	@Export("operations")
 	int[] operations;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@Export("creationErrors")
 	int[] creationErrors;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@Export("fields")
 	Field[] fields;
+	@ObfuscatedName("m")
+	@Export("arguments")
+	byte[][][] arguments;
 	@ObfuscatedName("r")
 	@Export("methods")
 	Method[] methods;
-	@ObfuscatedName("b")
-	@Export("arguments")
-	byte[][][] arguments;
 
 	ReflectionCheck() {
 	} // L: 17
 
-	@ObfuscatedName("in")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-372153509"
+		descriptor = "(II)Ljs;",
+		garbageValue = "1563707266"
 	)
-	static void method1126(int var0, int var1) {
-		int var2 = Widget.fontBold12.stringWidth("Choose Option"); // L: 7744
+	public static GameBuild method1228(int var0) {
+		GameBuild[] var1 = UserComparator8.method2538(); // L: 23
 
-		int var3;
-		int var4;
-		for (var3 = 0; var3 < Client.menuOptionsCount; ++var3) { // L: 7745
-			var4 = Widget.fontBold12.stringWidth(MouseRecorder.method2098(var3)); // L: 7746
-			if (var4 > var2) { // L: 7747
-				var2 = var4;
+		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 24
+			GameBuild var3 = var1[var2]; // L: 25
+			if (var0 == var3.buildId) {
+				return var3; // L: 27
 			}
 		}
 
-		var2 += 8; // L: 7749
-		var3 = Client.menuOptionsCount * 15 + 22; // L: 7750
-		var4 = var0 - var2 / 2; // L: 7751
-		if (var2 + var4 > class32.canvasWidth) { // L: 7752
-			var4 = class32.canvasWidth - var2;
-		}
+		return null; // L: 31
+	}
 
-		if (var4 < 0) { // L: 7753
-			var4 = 0;
-		}
-
-		int var5 = var1; // L: 7754
-		if (var1 + var3 > canvasHeight) { // L: 7755
-			var5 = canvasHeight - var3;
-		}
-
-		if (var5 < 0) { // L: 7756
-			var5 = 0;
-		}
-
-		class14.menuX = var4; // L: 7757
-		class243.menuY = var5; // L: 7758
-		class29.menuWidth = var2; // L: 7759
-		class24.menuHeight = Client.menuOptionsCount * 15 + 22; // L: 7760
-	} // L: 7761
-
-	@ObfuscatedName("jr")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([Lio;II)V",
-		garbageValue = "2064427541"
+		descriptor = "(Lbk;Lbk;IZIZB)I",
+		garbageValue = "88"
 	)
-	@Export("runComponentCloseListeners")
-	static final void runComponentCloseListeners(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 10664
-			Widget var3 = var0[var2]; // L: 10665
-			if (var3 != null) { // L: 10666
-				if (var3.type == 0) { // L: 10667
-					if (var3.children != null) { // L: 10668
-						runComponentCloseListeners(var3.children, var1);
-					}
+	static int method1227(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
+		int var6 = WorldMapRectangle.compareWorlds(var0, var1, var2, var3); // L: 199
+		if (var6 != 0) { // L: 200
+			return var3 ? -var6 : var6; // L: 201
+		} else if (var4 == -1) { // L: 204
+			return 0;
+		} else {
+			int var7 = WorldMapRectangle.compareWorlds(var0, var1, var4, var5); // L: 205
+			return var5 ? -var7 : var7; // L: 206
+		}
+	}
 
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 10669
-					if (var4 != null) { // L: 10670
-						Login.runIntfCloseListeners(var4.group, var1);
-					}
-				}
+	@ObfuscatedName("fk")
+	@ObfuscatedSignature(
+		descriptor = "(IIB)V",
+		garbageValue = "111"
+	)
+	static void method1230(int var0, int var1) {
+		if (class4.clientPreferences.musicVolume != 0 && var0 != -1) { // L: 3795
+			class105.method2357(class160.archive11, var0, 0, class4.clientPreferences.musicVolume, false); // L: 3796
+			Client.field862 = true; // L: 3797
+		}
 
-				ScriptEvent var5;
-				if (var1 == 0 && var3.onDialogAbort != null) { // L: 10672
-					var5 = new ScriptEvent(); // L: 10673
-					var5.widget = var3; // L: 10674
-					var5.args = var3.onDialogAbort; // L: 10675
-					PacketWriter.runScriptEvent(var5); // L: 10676
-				}
+	} // L: 3799
 
-				if (var1 == 1 && var3.onSubChange != null) { // L: 10678
-					if (var3.childIndex >= 0) { // L: 10679
-						Widget var6 = Frames.getWidget(var3.id); // L: 10680
-						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) { // L: 10681
-							continue;
-						}
-					}
-
-					var5 = new ScriptEvent(); // L: 10685
-					var5.widget = var3; // L: 10686
-					var5.args = var3.onSubChange; // L: 10687
-					PacketWriter.runScriptEvent(var5); // L: 10688
-				}
+	@ObfuscatedName("il")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIB)V",
+		garbageValue = "0"
+	)
+	static final void method1229(int var0, int var1, int var2, int var3) {
+		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) { // L: 7766
+			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetHeights[var4] + Client.rootWidgetYs[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) { // L: 7767
+				Client.field712[var4] = true;
 			}
 		}
 
-	} // L: 10691
+	} // L: 7769
 }

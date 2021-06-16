@@ -4,36 +4,36 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("oy")
+@ObfuscatedName("od")
 @Implements("IsaacCipher")
 public final class IsaacCipher {
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -21857667
+		intValue = 52014609
 	)
 	@Export("valuesRemaining")
 	int valuesRemaining;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@Export("results")
 	int[] results;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@Export("mm")
 	int[] mm;
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 2044871249
+		intValue = 125685661
 	)
 	@Export("aa")
 	int aa;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 1090157991
+		intValue = 1381780371
 	)
 	@Export("bb")
 	int bb;
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1872182579
+		intValue = 2057052317
 	)
 	@Export("cc")
 	int cc;
@@ -46,13 +46,13 @@ public final class IsaacCipher {
 			this.results[var2] = var1[var2]; // L: 18
 		}
 
-		this.method7098(); // L: 20
+		this.method7180(); // L: 20
 	} // L: 21
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "81"
+		descriptor = "(S)I",
+		garbageValue = "24118"
 	)
 	@Export("nextInt")
 	public final int nextInt() {
@@ -64,12 +64,12 @@ public final class IsaacCipher {
 		return this.results[--this.valuesRemaining]; // L: 28
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-58"
+		descriptor = "(I)I",
+		garbageValue = "1910986529"
 	)
-	public final int method7096() {
+	public final int method7168() {
 		if (this.valuesRemaining == 0) { // L: 32
 			this.generateMoreResults(); // L: 33
 			this.valuesRemaining = 256; // L: 34
@@ -78,10 +78,10 @@ public final class IsaacCipher {
 		return this.results[this.valuesRemaining - 1]; // L: 36
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2083438988"
+		garbageValue = "1295369465"
 	)
 	@Export("generateMoreResults")
 	final void generateMoreResults() {
@@ -103,7 +103,7 @@ public final class IsaacCipher {
 
 			this.aa += this.mm[128 + var1 & 255]; // L: 54
 			int var3;
-			this.mm[var1] = var3 = this.mm[(var2 & 1020) >> 2] + this.aa + this.bb; // L: 55
+			this.mm[var1] = var3 = this.mm[(var2 & 1020) >> 2] + this.bb + this.aa; // L: 55
 			this.results[var1] = this.bb = this.mm[(var3 >> 8 & 1020) >> 2] + var2; // L: 56
 		}
 
@@ -111,10 +111,10 @@ public final class IsaacCipher {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "128"
+		descriptor = "(I)V",
+		garbageValue = "1132518043"
 	)
-	final void method7098() {
+	final void method7180() {
 		int var9 = -1640531527; // L: 70
 		int var8 = -1640531527; // L: 71
 		int var7 = -1640531527; // L: 72
@@ -242,18 +242,21 @@ public final class IsaacCipher {
 		this.valuesRemaining = 256; // L: 189
 	} // L: 190
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("ko")
 	@ObfuscatedSignature(
-		descriptor = "(Lio;IIIB)V",
-		garbageValue = "-43"
+		descriptor = "(Liv;IIII)V",
+		garbageValue = "-719453937"
 	)
-	@Export("Widget_setKeyRate")
-	static final void Widget_setKeyRate(Widget var0, int var1, int var2, int var3) {
-		if (var0.field3035 == null) { // L: 988
-			throw new RuntimeException(); // L: 989
-		} else {
-			var0.field3035[var1] = var2; // L: 991
-			var0.field3079[var1] = var3; // L: 992
+	@Export("drawCompass")
+	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
+		SpriteMask var4 = var0.getSpriteMask(false); // L: 11398
+		if (var4 != null) { // L: 11399
+			if (Client.minimapState < 3) { // L: 11400
+				Friend.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
+			} else {
+				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths); // L: 11401
+			}
+
 		}
-	} // L: 993
+	} // L: 11402
 }

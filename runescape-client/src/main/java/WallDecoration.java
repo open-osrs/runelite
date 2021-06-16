@@ -4,72 +4,72 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ho")
+@ObfuscatedName("hd")
 @Implements("WallDecoration")
 public final class WallDecoration {
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1988235731
+		intValue = -2070337173
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1511932377
+		intValue = -303392399
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 750074813
+		intValue = 1106759041
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1760283661
+		intValue = -220475681
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1111812521
+		intValue = -954278973
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -2026318183
+		intValue = 249572435
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1292762417
+		intValue = -354762285
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Lgl;"
+		descriptor = "Lgr;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lgl;"
+		descriptor = "Lgr;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		longValue = 3146556658035252985L
+		longValue = 1545388647907384621L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("u")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -740686461
+		intValue = 423325183
 	)
 	@Export("flags")
 	int flags;
@@ -78,4 +78,9 @@ public final class WallDecoration {
 		this.tag = 0L; // L: 13
 		this.flags = 0; // L: 14
 	} // L: 16
+
+	@ObfuscatedName("f")
+	static double method4429(double var0) {
+		return Math.exp(var0 * -var0 / 2.0D) / Math.sqrt(6.283185307179586D); // L: 9
+	}
 }

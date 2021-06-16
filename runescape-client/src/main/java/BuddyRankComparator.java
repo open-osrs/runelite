@@ -3,83 +3,55 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dt")
+@ObfuscatedName("dk")
 @Implements("BuddyRankComparator")
 public class BuddyRankComparator extends AbstractUserComparator {
-	@ObfuscatedName("sq")
+	@ObfuscatedName("hr")
 	@ObfuscatedSignature(
-		descriptor = "Ljm;"
+		descriptor = "[Loa;"
 	)
-	@Export("grandExchangeEvents")
-	static GrandExchangeEvents grandExchangeEvents;
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Ljf;"
-	)
-	@Export("NetCache_currentResponse")
-	public static NetFileRequest NetCache_currentResponse;
-	@ObfuscatedName("v")
+	@Export("mapMarkerSprites")
+	static SpritePixels[] mapMarkerSprites;
+	@ObfuscatedName("f")
 	@Export("reversed")
 	final boolean reversed;
 
 	public BuddyRankComparator(boolean var1) {
 		this.reversed = var1; // L: 10
-	}
+	} // L: 11
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Llv;Llv;B)I",
-		garbageValue = "17"
+		descriptor = "(Lly;Lly;I)I",
+		garbageValue = "1922516179"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
-		if (var2.rank != var1.rank) {
-			return this.reversed ? var1.rank - var2.rank : var2.rank - var1.rank;
+		if (var2.rank != var1.rank) { // L: 14
+			return this.reversed ? var1.rank - var2.rank : var2.rank - var1.rank; // L: 15
 		} else {
-			return this.compareUser(var1, var2);
+			return this.compareUser(var1, var2); // L: 17
 		}
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2);
+		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("fd")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/CharSequence;III)Ljava/lang/String;",
-		garbageValue = "2136518609"
+		descriptor = "(I)V",
+		garbageValue = "-16777217"
 	)
-	public static String method2484(CharSequence[] var0, int var1, int var2) {
-		if (var2 == 0) { // L: 11
-			return "";
-		} else if (var2 == 1) { // L: 12
-			CharSequence var10 = var0[var1]; // L: 13
-			return var10 == null ? "null" : var10.toString(); // L: 14 15
-		} else {
-			int var3 = var2 + var1; // L: 17
-			int var4 = 0; // L: 18
-
-			for (int var5 = var1; var5 < var3; ++var5) { // L: 19
-				CharSequence var9 = var0[var5]; // L: 20
-				if (var9 == null) { // L: 21
-					var4 += 4;
-				} else {
-					var4 += var9.length(); // L: 22
-				}
+	static final void method2579() {
+		if (class26.ClanChat_inClanChat) { // L: 3802
+			if (class289.friendsChat != null) { // L: 3803
+				class289.friendsChat.sort(); // L: 3804
 			}
 
-			StringBuilder var8 = new StringBuilder(var4); // L: 24
-
-			for (int var6 = var1; var6 < var3; ++var6) { // L: 25
-				CharSequence var7 = var0[var6]; // L: 26
-				if (var7 == null) { // L: 27
-					var8.append("null");
-				} else {
-					var8.append(var7); // L: 28
-				}
-			}
-
-			return var8.toString(); // L: 30
+			WorldMapCacheName.method3788(); // L: 3806
+			class26.ClanChat_inClanChat = false; // L: 3807
 		}
-	}
+
+	} // L: 3809
 }

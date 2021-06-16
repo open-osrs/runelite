@@ -4,76 +4,76 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kc")
+@ObfuscatedName("kr")
 @Implements("AbstractFont")
 public abstract class AbstractFont extends Rasterizer2D {
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "[Lop;"
+		descriptor = "[Lof;"
 	)
 	@Export("AbstractFont_modIconSprites")
 	public static IndexedSprite[] AbstractFont_modIconSprites;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@Export("AbstractFont_strike")
 	static int AbstractFont_strike;
-	@ObfuscatedName("o")
+	@ObfuscatedName("i")
 	@Export("AbstractFont_underline")
 	static int AbstractFont_underline;
-	@ObfuscatedName("c")
+	@ObfuscatedName("k")
 	@Export("AbstractFont_previousShadow")
 	static int AbstractFont_previousShadow;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@Export("AbstractFont_shadow")
 	static int AbstractFont_shadow;
-	@ObfuscatedName("g")
+	@ObfuscatedName("t")
 	@Export("AbstractFont_previousColor")
 	static int AbstractFont_previousColor;
-	@ObfuscatedName("a")
+	@ObfuscatedName("x")
 	@Export("AbstractFont_color")
 	static int AbstractFont_color;
-	@ObfuscatedName("k")
+	@ObfuscatedName("u")
 	@Export("AbstractFont_alpha")
 	static int AbstractFont_alpha;
-	@ObfuscatedName("m")
+	@ObfuscatedName("q")
 	@Export("AbstractFont_justificationTotal")
 	static int AbstractFont_justificationTotal;
-	@ObfuscatedName("x")
+	@ObfuscatedName("s")
 	@Export("AbstractFont_justificationCurrent")
 	static int AbstractFont_justificationCurrent;
-	@ObfuscatedName("z")
+	@ObfuscatedName("p")
 	@Export("AbstractFont_random")
 	static Random AbstractFont_random;
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@Export("AbstractFont_lines")
 	static String[] AbstractFont_lines;
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@Export("pixels")
 	byte[][] pixels;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@Export("advances")
 	int[] advances;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@Export("widths")
 	int[] widths;
 	@ObfuscatedName("y")
 	@Export("heights")
 	int[] heights;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@Export("leftBearings")
 	int[] leftBearings;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@Export("topBearings")
 	int[] topBearings;
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@Export("ascent")
 	public int ascent;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("maxAscent")
 	public int maxAscent;
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@Export("maxDescent")
 	public int maxDescent;
-	@ObfuscatedName("u")
+	@ObfuscatedName("z")
 	@Export("kerning")
 	byte[] kerning;
 
@@ -91,15 +91,9 @@ public abstract class AbstractFont extends Rasterizer2D {
 		AbstractFont_lines = new String[100]; // L: 33
 	}
 
-	AbstractFont(byte[] var1) {
+	AbstractFont(byte[] var1, int[] var2, int[] var3, int[] var4, int[] var5, int[] var6, byte[][] var7) {
 		this.pixels = new byte[256][];
 		this.ascent = 0;
-		this.readMetrics(var1); // L: 53
-	} // L: 54
-
-	AbstractFont(byte[] var1, int[] var2, int[] var3, int[] var4, int[] var5, int[] var6, byte[][] var7) {
-		this.pixels = new byte[256][]; // L: 12
-		this.ascent = 0; // L: 18
 		this.leftBearings = var2; // L: 36
 		this.topBearings = var3; // L: 37
 		this.widths = var4; // L: 38
@@ -123,15 +117,21 @@ public abstract class AbstractFont extends Rasterizer2D {
 		this.maxDescent = var9 - this.ascent; // L: 49
 	} // L: 50
 
-	@ObfuscatedName("v")
+	AbstractFont(byte[] var1) {
+		this.pixels = new byte[256][]; // L: 12
+		this.ascent = 0; // L: 18
+		this.readMetrics(var1); // L: 53
+	} // L: 54
+
+	@ObfuscatedName("f")
 	@Export("drawGlyph")
 	abstract void drawGlyph(byte[] var1, int var2, int var3, int var4, int var5, int var6);
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@Export("drawGlyphAlpha")
 	abstract void drawGlyphAlpha(byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7);
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("r")
 	@Export("readMetrics")
 	void readMetrics(byte[] var1) {
 		this.advances = new int[256]; // L: 57
@@ -193,7 +193,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 				if (var13 != 32 && var13 != 160) { // L: 89
 					for (var8 = 0; var8 < 256; ++var8) { // L: 90
 						if (var8 != 32 && var8 != 160) { // L: 91
-							this.kerning[var8 + (var13 << 8)] = (byte)method5350(var11, var12, var4, this.advances, var10, var13, var8); // L: 92
+							this.kerning[var8 + (var13 << 8)] = (byte)method5476(var11, var12, var4, this.advances, var10, var13, var8); // L: 92
 						}
 					}
 				}
@@ -204,17 +204,17 @@ public abstract class AbstractFont extends Rasterizer2D {
 
 	} // L: 97
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("d")
 	@Export("charWidth")
 	int charWidth(char var1) {
 		if (var1 == 160) { // L: 122
 			var1 = ' ';
 		}
 
-		return this.advances[ServerPacket.charToByteCp1252(var1) & 255]; // L: 123
+		return this.advances[class125.charToByteCp1252(var1) & 255]; // L: 123
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("z")
 	@Export("stringWidth")
 	public int stringWidth(String var1) {
 		if (var1 == null) { // L: 127
@@ -238,7 +238,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 							if (!var7.equals("gt")) { // L: 141
 								if (var7.startsWith("img=")) { // L: 142
 									try {
-										int var8 = class82.method1908(var7.substring(4)); // L: 144
+										int var8 = FontName.method6335(var7.substring(4)); // L: 144
 										var4 += AbstractFont_modIconSprites[var8].width; // L: 145
 										var3 = -1; // L: 146
 									} catch (Exception var10) { // L: 148
@@ -256,7 +256,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 					}
 
 					if (var2 == -1) { // L: 154
-						var4 += this.advances[(char)(ServerPacket.charToByteCp1252(var6) & 255)]; // L: 155
+						var4 += this.advances[(char)(class125.charToByteCp1252(var6) & 255)]; // L: 155
 						if (this.kerning != null && var3 != -1) { // L: 156
 							var4 += this.kerning[var6 + (var3 << 8)];
 						}
@@ -270,7 +270,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("b")
 	@Export("breakLines")
 	public int breakLines(String var1, int[] var2, String[] var3) {
 		if (var1 == null) { // L: 164
@@ -321,7 +321,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 							var11 = '>'; // L: 203
 						} else if (var16.startsWith("img=")) { // L: 205
 							try {
-								int var17 = class82.method1908(var16.substring(4)); // L: 207
+								int var17 = FontName.method6335(var16.substring(4)); // L: 207
 								var4 += AbstractFont_modIconSprites[var17].width; // L: 208
 								var11 = 0; // L: 209
 							} catch (Exception var20) { // L: 211
@@ -375,7 +375,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("i")
 	@Export("lineWidth")
 	public int lineWidth(String var1, int var2) {
 		int var3 = this.breakLines(var1, new int[]{var2}, AbstractFont_lines); // L: 248
@@ -391,13 +391,13 @@ public abstract class AbstractFont extends Rasterizer2D {
 		return var4; // L: 254
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("k")
 	@Export("lineCount")
 	public int lineCount(String var1, int var2) {
 		return this.breakLines(var1, new int[]{var2}, AbstractFont_lines); // L: 258
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("t")
 	@Export("draw")
 	public void draw(String var1, int var2, int var3, int var4, int var5) {
 		if (var1 != null) { // L: 279
@@ -406,7 +406,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 282
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("x")
 	@Export("drawAlpha")
 	public void drawAlpha(String var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var1 != null) { // L: 285
@@ -416,7 +416,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 289
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("u")
 	@Export("drawRightAligned")
 	public void drawRightAligned(String var1, int var2, int var3, int var4, int var5) {
 		if (var1 != null) { // L: 292
@@ -425,7 +425,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 295
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("q")
 	@Export("drawCentered")
 	public void drawCentered(String var1, int var2, int var3, int var4, int var5) {
 		if (var1 != null) { // L: 298
@@ -434,7 +434,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 301
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("s")
 	@Export("drawLines")
 	public int drawLines(String var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10) {
 		if (var1 == null) { // L: 304
@@ -495,7 +495,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@Export("drawCenteredWave")
 	public void drawCenteredWave(String var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var1 != null) { // L: 339
@@ -510,7 +510,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 344
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("drawCenteredWave2")
 	public void drawCenteredWave2(String var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var1 != null) { // L: 347
@@ -527,7 +527,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 356
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("n")
 	@Export("drawCenteredShake")
 	public void drawCenteredShake(String var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		if (var1 != null) { // L: 359
@@ -547,7 +547,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 366
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("l")
 	@Export("drawRandomAlphaAndSpacing")
 	public void drawRandomAlphaAndSpacing(String var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var1 != null) { // L: 369
@@ -568,7 +568,7 @@ public abstract class AbstractFont extends Rasterizer2D {
 		}
 	} // L: 380
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("w")
 	@Export("reset")
 	void reset(int var1, int var2) {
 		AbstractFont_strike = -1; // L: 383
@@ -582,105 +582,95 @@ public abstract class AbstractFont extends Rasterizer2D {
 		AbstractFont_justificationCurrent = 0; // L: 389
 	} // L: 390
 
-	@ObfuscatedName("ae")
+	@ObfuscatedName("a")
 	@Export("decodeTag")
 	void decodeTag(String var1) {
 		try {
-			int var2;
-			String var3;
 			if (var1.startsWith("col=")) { // L: 394
-				var3 = var1.substring(4); // L: 396
-				var2 = class24.method260(var3, 16, true); // L: 398
-				AbstractFont_color = var2; // L: 400
-			} else if (var1.equals("/col")) { // L: 402
+				AbstractFont_color = ItemContainer.method2183(var1.substring(4), 16);
+			} else if (var1.equals("/col")) { // L: 395
 				AbstractFont_color = AbstractFont_previousColor;
-			} else if (var1.startsWith("str=")) { // L: 403
-				var3 = var1.substring(4); // L: 405
-				var2 = class24.method260(var3, 16, true); // L: 407
-				AbstractFont_strike = var2; // L: 409
-			} else if (var1.equals("str")) { // L: 411
+			} else if (var1.startsWith("str=")) { // L: 396
+				AbstractFont_strike = ItemContainer.method2183(var1.substring(4), 16);
+			} else if (var1.equals("str")) { // L: 397
 				AbstractFont_strike = 8388608;
-			} else if (var1.equals("/str")) { // L: 412
+			} else if (var1.equals("/str")) { // L: 398
 				AbstractFont_strike = -1;
-			} else if (var1.startsWith("u=")) { // L: 413
-				var3 = var1.substring(2); // L: 415
-				var2 = class24.method260(var3, 16, true); // L: 417
-				AbstractFont_underline = var2; // L: 419
-			} else if (var1.equals("u")) { // L: 421
+			} else if (var1.startsWith("u=")) { // L: 399
+				AbstractFont_underline = ItemContainer.method2183(var1.substring(2), 16);
+			} else if (var1.equals("u")) { // L: 400
 				AbstractFont_underline = 0;
-			} else if (var1.equals("/u")) { // L: 422
+			} else if (var1.equals("/u")) { // L: 401
 				AbstractFont_underline = -1;
-			} else if (var1.startsWith("shad=")) { // L: 423
-				var3 = var1.substring(5); // L: 425
-				var2 = class24.method260(var3, 16, true); // L: 427
-				AbstractFont_shadow = var2; // L: 429
-			} else if (var1.equals("shad")) { // L: 431
+			} else if (var1.startsWith("shad=")) { // L: 402
+				AbstractFont_shadow = ItemContainer.method2183(var1.substring(5), 16);
+			} else if (var1.equals("shad")) { // L: 403
 				AbstractFont_shadow = 0;
-			} else if (var1.equals("/shad")) { // L: 432
+			} else if (var1.equals("/shad")) { // L: 404
 				AbstractFont_shadow = AbstractFont_previousShadow;
-			} else if (var1.equals("br")) {
-				this.reset(AbstractFont_previousColor, AbstractFont_previousShadow); // L: 433
+			} else if (var1.equals("br")) { // L: 405
+				this.reset(AbstractFont_previousColor, AbstractFont_previousShadow);
 			}
-		} catch (Exception var5) { // L: 435
+		} catch (Exception var3) { // L: 407
 		}
 
-	} // L: 436
+	} // L: 408
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("aw")
 	@Export("calculateLineJustification")
 	void calculateLineJustification(String var1, int var2) {
-		int var3 = 0; // L: 439
-		boolean var4 = false; // L: 440
+		int var3 = 0; // L: 411
+		boolean var4 = false; // L: 412
 
-		for (int var5 = 0; var5 < var1.length(); ++var5) { // L: 441
-			char var6 = var1.charAt(var5); // L: 442
-			if (var6 == '<') { // L: 443
+		for (int var5 = 0; var5 < var1.length(); ++var5) { // L: 413
+			char var6 = var1.charAt(var5); // L: 414
+			if (var6 == '<') { // L: 415
 				var4 = true;
-			} else if (var6 == '>') { // L: 444
+			} else if (var6 == '>') { // L: 416
 				var4 = false;
-			} else if (!var4 && var6 == ' ') { // L: 445
+			} else if (!var4 && var6 == ' ') { // L: 417
 				++var3;
 			}
 		}
 
-		if (var3 > 0) { // L: 447
+		if (var3 > 0) { // L: 419
 			AbstractFont_justificationTotal = (var2 - this.stringWidth(var1) << 8) / var3;
 		}
 
-	} // L: 448
+	} // L: 420
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("ak")
 	@Export("draw0")
 	void draw0(String var1, int var2, int var3) {
-		var3 -= this.ascent; // L: 451
-		int var4 = -1; // L: 452
-		int var5 = -1; // L: 453
+		var3 -= this.ascent; // L: 423
+		int var4 = -1; // L: 424
+		int var5 = -1; // L: 425
 
-		for (int var6 = 0; var6 < var1.length(); ++var6) { // L: 454
-			if (var1.charAt(var6) != 0) { // L: 455
-				char var7 = (char)(ServerPacket.charToByteCp1252(var1.charAt(var6)) & 255); // L: 456
-				if (var7 == '<') { // L: 457
-					var4 = var6; // L: 458
+		for (int var6 = 0; var6 < var1.length(); ++var6) { // L: 426
+			if (var1.charAt(var6) != 0) { // L: 427
+				char var7 = (char)(class125.charToByteCp1252(var1.charAt(var6)) & 255); // L: 428
+				if (var7 == '<') { // L: 429
+					var4 = var6; // L: 430
 				} else {
 					int var9;
-					if (var7 == '>' && var4 != -1) { // L: 461
-						String var8 = var1.substring(var4 + 1, var6); // L: 462
-						var4 = -1; // L: 463
-						if (var8.equals("lt")) { // L: 464
+					if (var7 == '>' && var4 != -1) { // L: 433
+						String var8 = var1.substring(var4 + 1, var6); // L: 434
+						var4 = -1; // L: 435
+						if (var8.equals("lt")) { // L: 436
 							var7 = '<';
 						} else {
-							if (!var8.equals("gt")) { // L: 465
-								if (var8.startsWith("img=")) { // L: 466
+							if (!var8.equals("gt")) { // L: 437
+								if (var8.startsWith("img=")) { // L: 438
 									try {
-										var9 = class82.method1908(var8.substring(4)); // L: 468
-										IndexedSprite var10 = AbstractFont_modIconSprites[var9]; // L: 469
-										var10.drawAt(var2, var3 + this.ascent - var10.height); // L: 470
-										var2 += var10.width; // L: 471
-										var5 = -1; // L: 472
-									} catch (Exception var14) { // L: 474
+										var9 = FontName.method6335(var8.substring(4)); // L: 440
+										IndexedSprite var10 = AbstractFont_modIconSprites[var9]; // L: 441
+										var10.drawAt(var2, var3 + this.ascent - var10.height); // L: 442
+										var2 += var10.width; // L: 443
+										var5 = -1; // L: 444
+									} catch (Exception var14) { // L: 446
 									}
 								} else {
-									this.decodeTag(var8); // L: 478
+									this.decodeTag(var8); // L: 450
 								}
 								continue;
 							}
@@ -689,103 +679,103 @@ public abstract class AbstractFont extends Rasterizer2D {
 						}
 					}
 
-					if (var7 == 160) { // L: 482
+					if (var7 == 160) { // L: 454
 						var7 = ' ';
 					}
 
-					if (var4 == -1) { // L: 483
-						if (this.kerning != null && var5 != -1) { // L: 484
+					if (var4 == -1) { // L: 455
+						if (this.kerning != null && var5 != -1) { // L: 456
 							var2 += this.kerning[var7 + (var5 << 8)];
 						}
 
-						int var12 = this.widths[var7]; // L: 485
-						var9 = this.heights[var7]; // L: 486
-						if (var7 != ' ') { // L: 487
-							if (AbstractFont_alpha == 256) { // L: 488
-								if (AbstractFont_shadow != -1) { // L: 489
+						int var12 = this.widths[var7]; // L: 457
+						var9 = this.heights[var7]; // L: 458
+						if (var7 != ' ') { // L: 459
+							if (AbstractFont_alpha == 256) { // L: 460
+								if (AbstractFont_shadow != -1) { // L: 461
 									AbstractFont_drawGlyph(this.pixels[var7], var2 + this.leftBearings[var7] + 1, var3 + this.topBearings[var7] + 1, var12, var9, AbstractFont_shadow);
 								}
 
-								this.drawGlyph(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color); // L: 490
+								this.drawGlyph(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color); // L: 462
 							} else {
-								if (AbstractFont_shadow != -1) { // L: 493
+								if (AbstractFont_shadow != -1) { // L: 465
 									AbstractFont_drawGlyphAlpha(this.pixels[var7], var2 + this.leftBearings[var7] + 1, var3 + this.topBearings[var7] + 1, var12, var9, AbstractFont_shadow, AbstractFont_alpha);
 								}
 
-								this.drawGlyphAlpha(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color, AbstractFont_alpha); // L: 494
+								this.drawGlyphAlpha(this.pixels[var7], var2 + this.leftBearings[var7], var3 + this.topBearings[var7], var12, var9, AbstractFont_color, AbstractFont_alpha); // L: 466
 							}
-						} else if (AbstractFont_justificationTotal > 0) { // L: 498
-							AbstractFont_justificationCurrent += AbstractFont_justificationTotal; // L: 499
-							var2 += AbstractFont_justificationCurrent >> 8; // L: 500
-							AbstractFont_justificationCurrent &= 255; // L: 501
+						} else if (AbstractFont_justificationTotal > 0) { // L: 470
+							AbstractFont_justificationCurrent += AbstractFont_justificationTotal; // L: 471
+							var2 += AbstractFont_justificationCurrent >> 8; // L: 472
+							AbstractFont_justificationCurrent &= 255; // L: 473
 						}
 
-						int var13 = this.advances[var7]; // L: 504
-						if (AbstractFont_strike != -1) { // L: 505
+						int var13 = this.advances[var7]; // L: 476
+						if (AbstractFont_strike != -1) { // L: 477
 							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var13, AbstractFont_strike);
 						}
 
-						if (AbstractFont_underline != -1) { // L: 506
+						if (AbstractFont_underline != -1) { // L: 478
 							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + this.ascent + 1, var13, AbstractFont_underline);
 						}
 
-						var2 += var13; // L: 507
-						var5 = var7; // L: 508
+						var2 += var13; // L: 479
+						var5 = var7; // L: 480
 					}
 				}
 			}
 		}
 
-	} // L: 511
+	} // L: 483
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("ad")
 	@Export("drawWithOffsets0")
 	void drawWithOffsets0(String var1, int var2, int var3, int[] var4, int[] var5) {
-		var3 -= this.ascent; // L: 514
-		int var6 = -1; // L: 515
-		int var7 = -1; // L: 516
-		int var8 = 0; // L: 517
+		var3 -= this.ascent; // L: 486
+		int var6 = -1; // L: 487
+		int var7 = -1; // L: 488
+		int var8 = 0; // L: 489
 
-		for (int var9 = 0; var9 < var1.length(); ++var9) { // L: 518
-			if (var1.charAt(var9) != 0) { // L: 519
-				char var10 = (char)(ServerPacket.charToByteCp1252(var1.charAt(var9)) & 255); // L: 520
-				if (var10 == '<') { // L: 521
-					var6 = var9; // L: 522
+		for (int var9 = 0; var9 < var1.length(); ++var9) { // L: 490
+			if (var1.charAt(var9) != 0) { // L: 491
+				char var10 = (char)(class125.charToByteCp1252(var1.charAt(var9)) & 255); // L: 492
+				if (var10 == '<') { // L: 493
+					var6 = var9; // L: 494
 				} else {
 					int var12;
 					int var13;
 					int var14;
-					if (var10 == '>' && var6 != -1) { // L: 525
-						String var11 = var1.substring(var6 + 1, var9); // L: 526
-						var6 = -1; // L: 527
-						if (var11.equals("lt")) { // L: 528
+					if (var10 == '>' && var6 != -1) { // L: 497
+						String var11 = var1.substring(var6 + 1, var9); // L: 498
+						var6 = -1; // L: 499
+						if (var11.equals("lt")) { // L: 500
 							var10 = '<';
 						} else {
-							if (!var11.equals("gt")) { // L: 529
-								if (var11.startsWith("img=")) { // L: 530
+							if (!var11.equals("gt")) { // L: 501
+								if (var11.startsWith("img=")) { // L: 502
 									try {
-										if (var4 != null) { // L: 533
+										if (var4 != null) { // L: 505
 											var12 = var4[var8];
 										} else {
-											var12 = 0; // L: 534
+											var12 = 0; // L: 506
 										}
 
-										if (var5 != null) { // L: 536
+										if (var5 != null) { // L: 508
 											var13 = var5[var8];
 										} else {
-											var13 = 0; // L: 537
+											var13 = 0; // L: 509
 										}
 
-										++var8; // L: 538
-										var14 = class82.method1908(var11.substring(4)); // L: 539
-										IndexedSprite var15 = AbstractFont_modIconSprites[var14]; // L: 540
-										var15.drawAt(var12 + var2, var13 + (var3 + this.ascent - var15.height)); // L: 541
-										var2 += var15.width; // L: 542
-										var7 = -1; // L: 543
-									} catch (Exception var19) { // L: 545
+										++var8; // L: 510
+										var14 = FontName.method6335(var11.substring(4)); // L: 511
+										IndexedSprite var15 = AbstractFont_modIconSprites[var14]; // L: 512
+										var15.drawAt(var12 + var2, var13 + (var3 + this.ascent - var15.height)); // L: 513
+										var2 += var15.width; // L: 514
+										var7 = -1; // L: 515
+									} catch (Exception var19) { // L: 517
 									}
 								} else {
-									this.decodeTag(var11); // L: 549
+									this.decodeTag(var11); // L: 521
 								}
 								continue;
 							}
@@ -794,70 +784,70 @@ public abstract class AbstractFont extends Rasterizer2D {
 						}
 					}
 
-					if (var10 == 160) { // L: 553
+					if (var10 == 160) { // L: 525
 						var10 = ' ';
 					}
 
-					if (var6 == -1) { // L: 554
-						if (this.kerning != null && var7 != -1) { // L: 555
+					if (var6 == -1) { // L: 526
+						if (this.kerning != null && var7 != -1) { // L: 527
 							var2 += this.kerning[var10 + (var7 << 8)];
 						}
 
-						int var17 = this.widths[var10]; // L: 556
-						var12 = this.heights[var10]; // L: 557
-						if (var4 != null) { // L: 559
+						int var17 = this.widths[var10]; // L: 528
+						var12 = this.heights[var10]; // L: 529
+						if (var4 != null) { // L: 531
 							var13 = var4[var8];
 						} else {
-							var13 = 0; // L: 560
+							var13 = 0; // L: 532
 						}
 
-						if (var5 != null) { // L: 562
+						if (var5 != null) { // L: 534
 							var14 = var5[var8];
 						} else {
-							var14 = 0; // L: 563
+							var14 = 0; // L: 535
 						}
 
-						++var8; // L: 564
-						if (var10 != ' ') { // L: 565
-							if (AbstractFont_alpha == 256) { // L: 566
-								if (AbstractFont_shadow != -1) { // L: 567
+						++var8; // L: 536
+						if (var10 != ' ') { // L: 537
+							if (AbstractFont_alpha == 256) { // L: 538
+								if (AbstractFont_shadow != -1) { // L: 539
 									AbstractFont_drawGlyph(this.pixels[var10], var13 + var2 + this.leftBearings[var10] + 1, var3 + var14 + this.topBearings[var10] + 1, var17, var12, AbstractFont_shadow);
 								}
 
-								this.drawGlyph(this.pixels[var10], var13 + var2 + this.leftBearings[var10], var3 + var14 + this.topBearings[var10], var17, var12, AbstractFont_color); // L: 568
+								this.drawGlyph(this.pixels[var10], var13 + var2 + this.leftBearings[var10], var3 + var14 + this.topBearings[var10], var17, var12, AbstractFont_color); // L: 540
 							} else {
-								if (AbstractFont_shadow != -1) { // L: 571
+								if (AbstractFont_shadow != -1) { // L: 543
 									AbstractFont_drawGlyphAlpha(this.pixels[var10], var13 + var2 + this.leftBearings[var10] + 1, var3 + var14 + this.topBearings[var10] + 1, var17, var12, AbstractFont_shadow, AbstractFont_alpha);
 								}
 
-								this.drawGlyphAlpha(this.pixels[var10], var13 + var2 + this.leftBearings[var10], var3 + var14 + this.topBearings[var10], var17, var12, AbstractFont_color, AbstractFont_alpha); // L: 572
+								this.drawGlyphAlpha(this.pixels[var10], var13 + var2 + this.leftBearings[var10], var3 + var14 + this.topBearings[var10], var17, var12, AbstractFont_color, AbstractFont_alpha); // L: 544
 							}
-						} else if (AbstractFont_justificationTotal > 0) { // L: 576
-							AbstractFont_justificationCurrent += AbstractFont_justificationTotal; // L: 577
-							var2 += AbstractFont_justificationCurrent >> 8; // L: 578
-							AbstractFont_justificationCurrent &= 255; // L: 579
+						} else if (AbstractFont_justificationTotal > 0) { // L: 548
+							AbstractFont_justificationCurrent += AbstractFont_justificationTotal; // L: 549
+							var2 += AbstractFont_justificationCurrent >> 8; // L: 550
+							AbstractFont_justificationCurrent &= 255; // L: 551
 						}
 
-						int var18 = this.advances[var10]; // L: 582
-						if (AbstractFont_strike != -1) { // L: 583
+						int var18 = this.advances[var10]; // L: 554
+						if (AbstractFont_strike != -1) { // L: 555
 							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + (int)((double)this.ascent * 0.7D), var18, AbstractFont_strike);
 						}
 
-						if (AbstractFont_underline != -1) { // L: 584
+						if (AbstractFont_underline != -1) { // L: 556
 							Rasterizer2D.Rasterizer2D_drawHorizontalLine(var2, var3 + this.ascent, var18, AbstractFont_underline);
 						}
 
-						var2 += var18; // L: 585
-						var7 = var10; // L: 586
+						var2 += var18; // L: 557
+						var7 = var10; // L: 558
 					}
 				}
 			}
 		}
 
-	} // L: 589
+	} // L: 561
 
-	@ObfuscatedName("s")
-	static int method5350(byte[][] var0, byte[][] var1, int[] var2, int[] var3, int[] var4, int var5, int var6) {
+	@ObfuscatedName("h")
+	static int method5476(byte[][] var0, byte[][] var1, int[] var2, int[] var3, int[] var4, int var5, int var6) {
 		int var7 = var2[var5]; // L: 100
 		int var8 = var7 + var4[var5]; // L: 101
 		int var9 = var2[var6]; // L: 102
@@ -921,157 +911,157 @@ public abstract class AbstractFont extends Rasterizer2D {
 		return var6.toString(); // L: 275
 	}
 
-	@ObfuscatedName("ad")
+	@ObfuscatedName("at")
 	@Export("AbstractFont_drawGlyph")
 	static void AbstractFont_drawGlyph(byte[] var0, int var1, int var2, int var3, int var4, int var5) {
-		int var6 = var1 + var2 * Rasterizer2D.Rasterizer2D_width; // L: 595
-		int var7 = Rasterizer2D.Rasterizer2D_width - var3; // L: 596
-		int var8 = 0; // L: 597
-		int var9 = 0; // L: 598
+		int var6 = var1 + var2 * Rasterizer2D.Rasterizer2D_width; // L: 567
+		int var7 = Rasterizer2D.Rasterizer2D_width - var3; // L: 568
+		int var8 = 0; // L: 569
+		int var9 = 0; // L: 570
 		int var10;
-		if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) { // L: 599
-			var10 = Rasterizer2D.Rasterizer2D_yClipStart - var2; // L: 600
-			var4 -= var10; // L: 601
-			var2 = Rasterizer2D.Rasterizer2D_yClipStart; // L: 602
-			var9 += var3 * var10; // L: 603
-			var6 += var10 * Rasterizer2D.Rasterizer2D_width; // L: 604
+		if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) { // L: 571
+			var10 = Rasterizer2D.Rasterizer2D_yClipStart - var2; // L: 572
+			var4 -= var10; // L: 573
+			var2 = Rasterizer2D.Rasterizer2D_yClipStart; // L: 574
+			var9 += var3 * var10; // L: 575
+			var6 += var10 * Rasterizer2D.Rasterizer2D_width; // L: 576
 		}
 
-		if (var2 + var4 > Rasterizer2D.Rasterizer2D_yClipEnd) { // L: 606
+		if (var2 + var4 > Rasterizer2D.Rasterizer2D_yClipEnd) { // L: 578
 			var4 -= var2 + var4 - Rasterizer2D.Rasterizer2D_yClipEnd;
 		}
 
-		if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) { // L: 607
-			var10 = Rasterizer2D.Rasterizer2D_xClipStart - var1; // L: 608
-			var3 -= var10; // L: 609
-			var1 = Rasterizer2D.Rasterizer2D_xClipStart; // L: 610
-			var9 += var10; // L: 611
-			var6 += var10; // L: 612
-			var8 += var10; // L: 613
-			var7 += var10; // L: 614
+		if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) { // L: 579
+			var10 = Rasterizer2D.Rasterizer2D_xClipStart - var1; // L: 580
+			var3 -= var10; // L: 581
+			var1 = Rasterizer2D.Rasterizer2D_xClipStart; // L: 582
+			var9 += var10; // L: 583
+			var6 += var10; // L: 584
+			var8 += var10; // L: 585
+			var7 += var10; // L: 586
 		}
 
-		if (var3 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) { // L: 616
-			var10 = var3 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd; // L: 617
-			var3 -= var10; // L: 618
-			var8 += var10; // L: 619
-			var7 += var10; // L: 620
+		if (var3 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) { // L: 588
+			var10 = var3 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd; // L: 589
+			var3 -= var10; // L: 590
+			var8 += var10; // L: 591
+			var7 += var10; // L: 592
 		}
 
-		if (var3 > 0 && var4 > 0) { // L: 622
-			AbstractFont_placeGlyph(Rasterizer2D.Rasterizer2D_pixels, var0, var5, var9, var6, var3, var4, var7, var8); // L: 623
+		if (var3 > 0 && var4 > 0) { // L: 594
+			AbstractFont_placeGlyph(Rasterizer2D.Rasterizer2D_pixels, var0, var5, var9, var6, var3, var4, var7, var8); // L: 595
 		}
-	} // L: 624
+	} // L: 596
 
-	@ObfuscatedName("ai")
+	@ObfuscatedName("ah")
 	@Export("AbstractFont_placeGlyph")
 	static void AbstractFont_placeGlyph(int[] var0, byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-		int var9 = -(var5 >> 2); // L: 627
-		var5 = -(var5 & 3); // L: 628
+		int var9 = -(var5 >> 2); // L: 599
+		var5 = -(var5 & 3); // L: 600
 
-		for (int var10 = -var6; var10 < 0; ++var10) { // L: 629
+		for (int var10 = -var6; var10 < 0; ++var10) { // L: 601
 			int var11;
-			for (var11 = var9; var11 < 0; ++var11) { // L: 630
-				if (var1[var3++] != 0) { // L: 631
+			for (var11 = var9; var11 < 0; ++var11) { // L: 602
+				if (var1[var3++] != 0) { // L: 603
 					var0[var4++] = var2;
 				} else {
-					++var4; // L: 632
+					++var4; // L: 604
 				}
 
-				if (var1[var3++] != 0) { // L: 633
+				if (var1[var3++] != 0) { // L: 605
 					var0[var4++] = var2;
 				} else {
-					++var4; // L: 634
+					++var4; // L: 606
 				}
 
-				if (var1[var3++] != 0) { // L: 635
+				if (var1[var3++] != 0) { // L: 607
 					var0[var4++] = var2;
 				} else {
-					++var4; // L: 636
+					++var4; // L: 608
 				}
 
-				if (var1[var3++] != 0) { // L: 637
+				if (var1[var3++] != 0) { // L: 609
 					var0[var4++] = var2;
 				} else {
-					++var4; // L: 638
-				}
-			}
-
-			for (var11 = var5; var11 < 0; ++var11) { // L: 640
-				if (var1[var3++] != 0) { // L: 641
-					var0[var4++] = var2;
-				} else {
-					++var4; // L: 642
+					++var4; // L: 610
 				}
 			}
 
-			var4 += var7; // L: 644
-			var3 += var8; // L: 645
+			for (var11 = var5; var11 < 0; ++var11) { // L: 612
+				if (var1[var3++] != 0) { // L: 613
+					var0[var4++] = var2;
+				} else {
+					++var4; // L: 614
+				}
+			}
+
+			var4 += var7; // L: 616
+			var3 += var8; // L: 617
 		}
 
-	} // L: 647
+	} // L: 619
 
-	@ObfuscatedName("ar")
+	@ObfuscatedName("az")
 	@Export("AbstractFont_drawGlyphAlpha")
 	static void AbstractFont_drawGlyphAlpha(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		int var7 = var1 + var2 * Rasterizer2D.Rasterizer2D_width; // L: 650
-		int var8 = Rasterizer2D.Rasterizer2D_width - var3; // L: 651
-		int var9 = 0; // L: 652
-		int var10 = 0; // L: 653
+		int var7 = var1 + var2 * Rasterizer2D.Rasterizer2D_width; // L: 622
+		int var8 = Rasterizer2D.Rasterizer2D_width - var3; // L: 623
+		int var9 = 0; // L: 624
+		int var10 = 0; // L: 625
 		int var11;
-		if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) { // L: 654
-			var11 = Rasterizer2D.Rasterizer2D_yClipStart - var2; // L: 655
-			var4 -= var11; // L: 656
-			var2 = Rasterizer2D.Rasterizer2D_yClipStart; // L: 657
-			var10 += var3 * var11; // L: 658
-			var7 += var11 * Rasterizer2D.Rasterizer2D_width; // L: 659
+		if (var2 < Rasterizer2D.Rasterizer2D_yClipStart) { // L: 626
+			var11 = Rasterizer2D.Rasterizer2D_yClipStart - var2; // L: 627
+			var4 -= var11; // L: 628
+			var2 = Rasterizer2D.Rasterizer2D_yClipStart; // L: 629
+			var10 += var3 * var11; // L: 630
+			var7 += var11 * Rasterizer2D.Rasterizer2D_width; // L: 631
 		}
 
-		if (var2 + var4 > Rasterizer2D.Rasterizer2D_yClipEnd) { // L: 661
+		if (var2 + var4 > Rasterizer2D.Rasterizer2D_yClipEnd) { // L: 633
 			var4 -= var2 + var4 - Rasterizer2D.Rasterizer2D_yClipEnd;
 		}
 
-		if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) { // L: 662
-			var11 = Rasterizer2D.Rasterizer2D_xClipStart - var1; // L: 663
-			var3 -= var11; // L: 664
-			var1 = Rasterizer2D.Rasterizer2D_xClipStart; // L: 665
-			var10 += var11; // L: 666
-			var7 += var11; // L: 667
-			var9 += var11; // L: 668
-			var8 += var11; // L: 669
+		if (var1 < Rasterizer2D.Rasterizer2D_xClipStart) { // L: 634
+			var11 = Rasterizer2D.Rasterizer2D_xClipStart - var1; // L: 635
+			var3 -= var11; // L: 636
+			var1 = Rasterizer2D.Rasterizer2D_xClipStart; // L: 637
+			var10 += var11; // L: 638
+			var7 += var11; // L: 639
+			var9 += var11; // L: 640
+			var8 += var11; // L: 641
 		}
 
-		if (var3 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) { // L: 671
-			var11 = var3 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd; // L: 672
-			var3 -= var11; // L: 673
-			var9 += var11; // L: 674
-			var8 += var11; // L: 675
+		if (var3 + var1 > Rasterizer2D.Rasterizer2D_xClipEnd) { // L: 643
+			var11 = var3 + var1 - Rasterizer2D.Rasterizer2D_xClipEnd; // L: 644
+			var3 -= var11; // L: 645
+			var9 += var11; // L: 646
+			var8 += var11; // L: 647
 		}
 
-		if (var3 > 0 && var4 > 0) { // L: 677
-			AbstractFont_placeGlyphAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var5, var10, var7, var3, var4, var8, var9, var6); // L: 678
+		if (var3 > 0 && var4 > 0) { // L: 649
+			AbstractFont_placeGlyphAlpha(Rasterizer2D.Rasterizer2D_pixels, var0, var5, var10, var7, var3, var4, var8, var9, var6); // L: 650
 		}
-	} // L: 679
+	} // L: 651
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ap")
 	@Export("AbstractFont_placeGlyphAlpha")
 	static void AbstractFont_placeGlyphAlpha(int[] var0, byte[] var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9) {
-		var2 = ((var2 & 65280) * var9 & 16711680) + (var9 * (var2 & 16711935) & -16711936) >> 8; // L: 682
-		var9 = 256 - var9; // L: 683
+		var2 = ((var2 & 65280) * var9 & 16711680) + (var9 * (var2 & 16711935) & -16711936) >> 8; // L: 654
+		var9 = 256 - var9; // L: 655
 
-		for (int var10 = -var6; var10 < 0; ++var10) { // L: 684
-			for (int var11 = -var5; var11 < 0; ++var11) { // L: 685
-				if (var1[var3++] != 0) { // L: 686
-					int var12 = var0[var4]; // L: 687
-					var0[var4++] = (((var12 & 65280) * var9 & 16711680) + ((var12 & 16711935) * var9 & -16711936) >> 8) + var2; // L: 688
+		for (int var10 = -var6; var10 < 0; ++var10) { // L: 656
+			for (int var11 = -var5; var11 < 0; ++var11) { // L: 657
+				if (var1[var3++] != 0) { // L: 658
+					int var12 = var0[var4]; // L: 659
+					var0[var4++] = (((var12 & 65280) * var9 & 16711680) + ((var12 & 16711935) * var9 & -16711936) >> 8) + var2; // L: 660
 				} else {
-					++var4; // L: 690
+					++var4; // L: 662
 				}
 			}
 
-			var4 += var7; // L: 692
-			var3 += var8; // L: 693
+			var4 += var7; // L: 664
+			var3 += var8; // L: 665
 		}
 
-	} // L: 695
+	} // L: 667
 }

@@ -1,74 +1,76 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cn")
+@ObfuscatedName("cb")
 @Implements("DynamicObject")
 public class DynamicObject extends Renderable {
-	@ObfuscatedName("ax")
+	@ObfuscatedName("dk")
 	@ObfuscatedSignature(
-		descriptor = "Lli;"
+		descriptor = "Ljf;"
 	)
-	static Bounds field1107;
-	@ObfuscatedName("v")
+	@Export("archive6")
+	static Archive archive6;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -335258197
+		intValue = -560532763
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1002371349
+		intValue = 1091706599
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1337909425
+		intValue = 973044997
 	)
 	@Export("orientation")
 	int orientation;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1976431629
+		intValue = 950758231
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1710957787
+		intValue = 1091816693
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1005968135
+		intValue = -1250349999
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Lfm;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1176341893
+		intValue = 238064293
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1918179577
+		intValue = 1153448059
 	)
 	@Export("cycleStart")
 	int cycleStart;
 
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIZLgl;)V"
+		descriptor = "(IIIIIIIZLgr;)V"
 	)
 	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Renderable var9) {
 		this.id = var1; // L: 20
@@ -78,12 +80,12 @@ public class DynamicObject extends Renderable {
 		this.x = var5; // L: 24
 		this.y = var6; // L: 25
 		if (var7 != -1) { // L: 26
-			this.sequenceDefinition = LoginScreenAnimation.SequenceDefinition_get(var7); // L: 27
-			this.frame = 0; // L: 28
-			this.cycleStart = Client.cycle - 1; // L: 29
-			if (this.sequenceDefinition.field1891 == 0 && var9 != null && var9 instanceof DynamicObject) { // L: 30
+			this.sequenceDefinition = WorldMapScaleHandler.SequenceDefinition_get(var7); // L: 27
+			this.frame = 0;
+			this.cycleStart = Client.cycle - 1;
+			if (this.sequenceDefinition.field1894 == 0 && var9 != null && var9 instanceof DynamicObject) { // L: 30
 				DynamicObject var10 = (DynamicObject)var9; // L: 31
-				if (this.sequenceDefinition == var10.sequenceDefinition) { // L: 32
+				if (var10.sequenceDefinition == this.sequenceDefinition) { // L: 32
 					this.frame = var10.frame; // L: 33
 					this.cycleStart = var10.cycleStart; // L: 34
 					return; // L: 35
@@ -98,10 +100,10 @@ public class DynamicObject extends Renderable {
 
 	} // L: 43
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lgr;",
-		garbageValue = "-76"
+		descriptor = "(I)Lgd;",
+		garbageValue = "326918784"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
@@ -131,7 +133,7 @@ public class DynamicObject extends Renderable {
 			this.cycleStart = Client.cycle - var1; // L: 60
 		}
 
-		ObjectComposition var12 = class23.getObjectDefinition(this.id); // L: 62
+		ObjectComposition var12 = Tiles.getObjectDefinition(this.id); // L: 62
 		if (var12.transforms != null) { // L: 63
 			var12 = var12.transform();
 		}
@@ -141,98 +143,103 @@ public class DynamicObject extends Renderable {
 		} else {
 			int var2;
 			int var3;
-			if (this.orientation != 1 && this.orientation != 3) {
-				var2 = var12.sizeX;
-				var3 = var12.sizeY;
+			if (this.orientation != 1 && this.orientation != 3) { // L: 67
+				var2 = var12.sizeX; // L: 72
+				var3 = var12.sizeY; // L: 73
 			} else {
-				var2 = var12.sizeY;
-				var3 = var12.sizeX;
+				var2 = var12.sizeY; // L: 68
+				var3 = var12.sizeX; // L: 69
 			}
 
-			int var4 = (var2 >> 1) + this.x;
-			int var5 = (var2 + 1 >> 1) + this.x;
-			int var6 = (var3 >> 1) + this.y;
-			int var7 = (var3 + 1 >> 1) + this.y;
-			int[][] var8 = Tiles.Tiles_heights[this.plane];
-			int var9 = var8[var4][var6] + var8[var5][var6] + var8[var4][var7] + var8[var5][var7] >> 2;
-			int var10 = (this.x << 7) + (var2 << 6);
-			int var11 = (this.y << 7) + (var3 << 6);
-			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame);
+			int var4 = (var2 >> 1) + this.x; // L: 75
+			int var5 = (var2 + 1 >> 1) + this.x; // L: 76
+			int var6 = (var3 >> 1) + this.y; // L: 77
+			int var7 = (var3 + 1 >> 1) + this.y; // L: 78
+			int[][] var8 = Tiles.Tiles_heights[this.plane]; // L: 79
+			int var9 = var8[var4][var7] + var8[var4][var6] + var8[var5][var6] + var8[var5][var7] >> 2; // L: 80
+			int var10 = (this.x << 7) + (var2 << 6); // L: 81
+			int var11 = (this.y << 7) + (var3 << 6); // L: 82
+			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame); // L: 83
 		}
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;B)[B",
-		garbageValue = "1"
+		descriptor = "(I)Z",
+		garbageValue = "-593608457"
 	)
-	public static byte[] method2004(CharSequence var0) {
-		int var1 = var0.length(); // L: 66
-		byte[] var2 = new byte[var1]; // L: 67
+	public static boolean method2103() {
+		ReflectionCheck var0 = (ReflectionCheck)class69.reflectionChecks.last(); // L: 28
+		return var0 != null; // L: 29
+	}
 
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 68
-			char var4 = var0.charAt(var3); // L: 69
-			if (var4 > 0 && var4 < 128 || var4 >= 160 && var4 <= 255) { // L: 70
-				var2[var3] = (byte)var4;
-			} else if (var4 == 8364) { // L: 71
-				var2[var3] = -128;
-			} else if (var4 == 8218) { // L: 72
-				var2[var3] = -126;
-			} else if (var4 == 402) { // L: 73
-				var2[var3] = -125;
-			} else if (var4 == 8222) { // L: 74
-				var2[var3] = -124;
-			} else if (var4 == 8230) { // L: 75
-				var2[var3] = -123;
-			} else if (var4 == 8224) { // L: 76
-				var2[var3] = -122;
-			} else if (var4 == 8225) { // L: 77
-				var2[var3] = -121;
-			} else if (var4 == 710) { // L: 78
-				var2[var3] = -120;
-			} else if (var4 == 8240) { // L: 79
-				var2[var3] = -119;
-			} else if (var4 == 352) {
-				var2[var3] = -118; // L: 80
-			} else if (var4 == 8249) { // L: 81
-				var2[var3] = -117;
-			} else if (var4 == 338) { // L: 82
-				var2[var3] = -116;
-			} else if (var4 == 381) { // L: 83
-				var2[var3] = -114;
-			} else if (var4 == 8216) { // L: 84
-				var2[var3] = -111;
-			} else if (var4 == 8217) { // L: 85
-				var2[var3] = -110;
-			} else if (var4 == 8220) { // L: 86
-				var2[var3] = -109;
-			} else if (var4 == 8221) { // L: 87
-				var2[var3] = -108;
-			} else if (var4 == 8226) { // L: 88
-				var2[var3] = -107;
-			} else if (var4 == 8211) { // L: 89
-				var2[var3] = -106;
-			} else if (var4 == 8212) { // L: 90
-				var2[var3] = -105;
-			} else if (var4 == 732) { // L: 91
-				var2[var3] = -104;
-			} else if (var4 == 8482) { // L: 92
-				var2[var3] = -103;
-			} else if (var4 == 353) { // L: 93
-				var2[var3] = -102;
-			} else if (var4 == 8250) { // L: 94
-				var2[var3] = -101;
-			} else if (var4 == 339) { // L: 95
-				var2[var3] = -100;
-			} else if (var4 == 382) { // L: 96
-				var2[var3] = -98;
-			} else if (var4 == 376) { // L: 97
-				var2[var3] = -97;
-			} else {
-				var2[var3] = 63; // L: 98
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(CS)Z",
+		garbageValue = "17436"
+	)
+	@Export("isAlphaNumeric")
+	public static boolean isAlphaNumeric(char var0) {
+		return var0 >= '0' && var0 <= '9' || var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z'; // L: 166
+	}
+
+	@ObfuscatedName("hm")
+	@ObfuscatedSignature(
+		descriptor = "(ZI)V",
+		garbageValue = "1180457180"
+	)
+	static final void method2099(boolean var0) {
+		class233.playPcmPlayers(); // L: 5702
+		++Client.packetWriter.pendingWrites; // L: 5703
+		if (Client.packetWriter.pendingWrites >= 50 || var0) { // L: 5704
+			Client.packetWriter.pendingWrites = 0; // L: 5705
+			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) { // L: 5706
+				PacketBufferNode var1 = InterfaceParent.getPacketBufferNode(ClientPacket.field2647, Client.packetWriter.isaacCipher); // L: 5708
+				Client.packetWriter.addNode(var1); // L: 5709
+
+				try {
+					Client.packetWriter.flush(); // L: 5711
+				} catch (IOException var3) { // L: 5713
+					Client.hadNetworkError = true; // L: 5714
+				}
+			}
+
+		}
+	} // L: 5717
+
+	@ObfuscatedName("jd")
+	@ObfuscatedSignature(
+		descriptor = "([Liv;IIIZI)V",
+		garbageValue = "466452320"
+	)
+	@Export("resizeInterface")
+	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
+		for (int var5 = 0; var5 < var0.length; ++var5) { // L: 9951
+			Widget var6 = var0[var5]; // L: 9952
+			if (var6 != null && var6.parentId == var1) { // L: 9953 9954
+				FontName.alignWidgetSize(var6, var2, var3, var4); // L: 9955
+				class43.alignWidgetPosition(var6, var2, var3); // L: 9956
+				if (var6.scrollX > var6.scrollWidth - var6.width) { // L: 9957
+					var6.scrollX = var6.scrollWidth - var6.width;
+				}
+
+				if (var6.scrollX < 0) { // L: 9958
+					var6.scrollX = 0;
+				}
+
+				if (var6.scrollY > var6.scrollHeight - var6.height) { // L: 9959
+					var6.scrollY = var6.scrollHeight - var6.height;
+				}
+
+				if (var6.scrollY < 0) { // L: 9960
+					var6.scrollY = 0;
+				}
+
+				if (var6.type == 0) { // L: 9961
+					WorldMapLabelSize.revalidateWidgetScroll(var0, var6, var4);
+				}
 			}
 		}
 
-		return var2; // L: 100
-	}
+	} // L: 9963
 }

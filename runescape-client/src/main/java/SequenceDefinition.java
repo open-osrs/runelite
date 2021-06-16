@@ -4,98 +4,98 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fl")
+@ObfuscatedName("fm")
 @Implements("SequenceDefinition")
 public class SequenceDefinition extends DualNode {
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Ljv;"
+		descriptor = "Ljp;"
 	)
 	@Export("SequenceDefinition_archive")
 	public static AbstractArchive SequenceDefinition_archive;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Ljv;"
+		descriptor = "Ljp;"
 	)
 	@Export("SequenceDefinition_animationsArchive")
 	public static AbstractArchive SequenceDefinition_animationsArchive;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ljv;"
+		descriptor = "Ljp;"
 	)
 	@Export("SequenceDefinition_skeletonsArchive")
 	public static AbstractArchive SequenceDefinition_skeletonsArchive;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lhz;"
+		descriptor = "Lht;"
 	)
 	@Export("SequenceDefinition_cached")
-	static EvictingDualNodeHashTable SequenceDefinition_cached;
-	@ObfuscatedName("p")
+	public static EvictingDualNodeHashTable SequenceDefinition_cached;
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lhz;"
+		descriptor = "Lht;"
 	)
 	@Export("SequenceDefinition_cachedFrames")
-	static EvictingDualNodeHashTable SequenceDefinition_cachedFrames;
-	@ObfuscatedName("j")
+	public static EvictingDualNodeHashTable SequenceDefinition_cachedFrames;
+	@ObfuscatedName("o")
 	@Export("frameIds")
 	public int[] frameIds;
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@Export("chatFrameIds")
 	int[] chatFrameIds;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("frameLengths")
 	public int[] frameLengths;
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@Export("soundEffects")
 	public int[] soundEffects;
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 729318423
+		intValue = 403704851
 	)
 	@Export("frameCount")
 	public int frameCount;
-	@ObfuscatedName("u")
-	int[] field1884;
-	@ObfuscatedName("l")
-	public boolean field1882;
-	@ObfuscatedName("o")
+	@ObfuscatedName("z")
+	int[] field1886;
+	@ObfuscatedName("b")
+	public boolean field1888;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 213844623
+		intValue = -1860367517
 	)
-	public int field1885;
-	@ObfuscatedName("c")
+	public int field1892;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1368426299
+		intValue = -1677443273
 	)
 	@Export("shield")
 	public int shield;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -234609209
+		intValue = -757910463
 	)
 	@Export("weapon")
 	public int weapon;
-	@ObfuscatedName("g")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 692165837
+		intValue = -374777757
 	)
-	public int field1888;
-	@ObfuscatedName("a")
+	public int field1896;
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1960140293
+		intValue = -302620765
 	)
-	public int field1883;
-	@ObfuscatedName("k")
+	public int field1895;
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -263393733
+		intValue = 317689877
 	)
-	public int field1890;
-	@ObfuscatedName("m")
+	public int field1893;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1161864623
+		intValue = -2048501497
 	)
-	public int field1891;
+	public int field1894;
 
 	static {
 		SequenceDefinition_cached = new EvictingDualNodeHashTable(64); // L: 15
@@ -104,25 +104,25 @@ public class SequenceDefinition extends DualNode {
 
 	SequenceDefinition() {
 		this.frameCount = -1; // L: 21
-		this.field1882 = false; // L: 23
-		this.field1885 = 5; // L: 24
+		this.field1888 = false; // L: 23
+		this.field1892 = 5; // L: 24
 		this.shield = -1; // L: 25
 		this.weapon = -1; // L: 26
-		this.field1888 = 99; // L: 27
-		this.field1883 = -1; // L: 28
-		this.field1890 = -1; // L: 29
-		this.field1891 = 2; // L: 30
+		this.field1896 = 99; // L: 27
+		this.field1895 = -1; // L: 28
+		this.field1893 = -1; // L: 29
+		this.field1894 = 2; // L: 30
 	} // L: 32
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;B)V",
-		garbageValue = "11"
+		descriptor = "(Lnt;I)V",
+		garbageValue = "-1823528439"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
+			int var2 = var1.readUnsignedByte(); // L: 47
 			if (var2 == 0) { // L: 48
 				return; // L: 51
 			}
@@ -131,10 +131,10 @@ public class SequenceDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;II)V",
-		garbageValue = "-1165284602"
+		descriptor = "(Lnt;IB)V",
+		garbageValue = "48"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -157,34 +157,34 @@ public class SequenceDefinition extends DualNode {
 			for (var4 = 0; var4 < var3; ++var4) { // L: 60
 				this.frameIds[var4] += var1.readUnsignedShort() << 16;
 			}
-		} else if (var2 == 2) { // L: 62
+		} else if (var2 == 2) {
 			this.frameCount = var1.readUnsignedShort();
-		} else if (var2 == 3) { // L: 63
+		} else if (var2 == 3) {
 			var3 = var1.readUnsignedByte(); // L: 64
-			this.field1884 = new int[var3 + 1]; // L: 65
+			this.field1886 = new int[var3 + 1];
 
-			for (var4 = 0; var4 < var3; ++var4) { // L: 66
-				this.field1884[var4] = var1.readUnsignedByte();
+			for (var4 = 0; var4 < var3; ++var4) {
+				this.field1886[var4] = var1.readUnsignedByte();
 			}
 
-			this.field1884[var3] = 9999999; // L: 67
-		} else if (var2 == 4) { // L: 69
-			this.field1882 = true;
-		} else if (var2 == 5) { // L: 70
-			this.field1885 = var1.readUnsignedByte();
-		} else if (var2 == 6) { // L: 71
+			this.field1886[var3] = 9999999;
+		} else if (var2 == 4) {
+			this.field1888 = true;
+		} else if (var2 == 5) {
+			this.field1892 = var1.readUnsignedByte();
+		} else if (var2 == 6) {
 			this.shield = var1.readUnsignedShort();
 		} else if (var2 == 7) { // L: 72
 			this.weapon = var1.readUnsignedShort();
-		} else if (var2 == 8) { // L: 73
-			this.field1888 = var1.readUnsignedByte();
-		} else if (var2 == 9) { // L: 74
-			this.field1883 = var1.readUnsignedByte();
-		} else if (var2 == 10) { // L: 75
-			this.field1890 = var1.readUnsignedByte();
-		} else if (var2 == 11) { // L: 76
-			this.field1891 = var1.readUnsignedByte();
-		} else if (var2 == 12) { // L: 77
+		} else if (var2 == 8) {
+			this.field1896 = var1.readUnsignedByte();
+		} else if (var2 == 9) {
+			this.field1895 = var1.readUnsignedByte();
+		} else if (var2 == 10) {
+			this.field1893 = var1.readUnsignedByte();
+		} else if (var2 == 11) {
+			this.field1894 = var1.readUnsignedByte();
+		} else if (var2 == 12) {
 			var3 = var1.readUnsignedByte(); // L: 78
 			this.chatFrameIds = new int[var3]; // L: 79
 
@@ -192,7 +192,7 @@ public class SequenceDefinition extends DualNode {
 				this.chatFrameIds[var4] = var1.readUnsignedShort();
 			}
 
-			for (var4 = 0; var4 < var3; ++var4) { // L: 81
+			for (var4 = 0; var4 < var3; ++var4) {
 				this.chatFrameIds[var4] += var1.readUnsignedShort() << 16;
 			}
 		} else if (var2 == 13) { // L: 83
@@ -209,32 +209,32 @@ public class SequenceDefinition extends DualNode {
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1519522081"
+		garbageValue = "-1961662829"
 	)
 	@Export("postDecode")
 	void postDecode() {
-		if (this.field1883 == -1) { // L: 92
-			if (this.field1884 != null) { // L: 93
-				this.field1883 = 2;
+		if (this.field1895 == -1) { // L: 92
+			if (this.field1886 != null) { // L: 93
+				this.field1895 = 2;
 			} else {
-				this.field1883 = 0; // L: 94
+				this.field1895 = 0; // L: 94
 			}
 		}
 
-		if (this.field1890 == -1) { // L: 96
-			if (this.field1884 != null) { // L: 97
-				this.field1890 = 2;
+		if (this.field1893 == -1) { // L: 96
+			if (this.field1886 != null) { // L: 97
+				this.field1893 = 2;
 			} else {
-				this.field1890 = 0; // L: 98
+				this.field1893 = 0; // L: 98
 			}
 		}
 
 	} // L: 100
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(Lgr;II)Lgr;",
-		garbageValue = "-2056462779"
+		descriptor = "(Lgd;II)Lgd;",
+		garbageValue = "-237449426"
 	)
 	@Export("transformActorModel")
 	public Model transformActorModel(Model var1, int var2) {
@@ -250,10 +250,10 @@ public class SequenceDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lgr;IIB)Lgr;",
-		garbageValue = "-63"
+		descriptor = "(Lgd;III)Lgd;",
+		garbageValue = "-188678867"
 	)
 	@Export("transformObjectModel")
 	Model transformObjectModel(Model var1, int var2, int var3) {
@@ -265,8 +265,8 @@ public class SequenceDefinition extends DualNode {
 		} else {
 			Model var5 = var1.toSharedSequenceModel(!var4.hasAlphaTransform(var2)); // L: 117
 			var3 &= 3; // L: 118
-			if (var3 == 1) {
-				var5.rotateY270Ccw(); // L: 119
+			if (var3 == 1) { // L: 119
+				var5.rotateY270Ccw();
 			} else if (var3 == 2) { // L: 120
 				var5.rotateY180();
 			} else if (var3 == 3) { // L: 121
@@ -286,10 +286,10 @@ public class SequenceDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lgr;II)Lgr;",
-		garbageValue = "1547720783"
+		descriptor = "(Lgd;IB)Lgd;",
+		garbageValue = "-1"
 	)
 	@Export("transformSpotAnimationModel")
 	Model transformSpotAnimationModel(Model var1, int var2) {
@@ -305,10 +305,10 @@ public class SequenceDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "(Lgr;ILfl;II)Lgr;",
-		garbageValue = "-924612466"
+		descriptor = "(Lgd;ILfm;II)Lgd;",
+		garbageValue = "-1179378305"
 	)
 	@Export("applyTransformations")
 	public Model applyTransformations(Model var1, int var2, SequenceDefinition var3, int var4) {
@@ -328,16 +328,16 @@ public class SequenceDefinition extends DualNode {
 				return var7; // L: 150
 			} else {
 				var7 = var1.toSharedSequenceModel(!var5.hasAlphaTransform(var2) & !var6.hasAlphaTransform(var4)); // L: 152
-				var7.animate2(var5, var2, var6, var4, this.field1884); // L: 153
+				var7.animate2(var5, var2, var6, var4, this.field1886); // L: 153
 				return var7; // L: 154
 			}
 		}
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lgr;II)Lgr;",
-		garbageValue = "1569515982"
+		descriptor = "(Lgd;II)Lgd;",
+		garbageValue = "-23683496"
 	)
 	@Export("transformWidgetModel")
 	public Model transformWidgetModel(Model var1, int var2) {
@@ -369,61 +369,29 @@ public class SequenceDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "2003025544"
+		descriptor = "([BB)V",
+		garbageValue = "-88"
 	)
-	public static int method3149(int var0) {
-		var0 = (var0 & 1431655765) + (var0 >>> 1 & 1431655765); // L: 42
-		var0 = (var0 >>> 2 & 858993459) + (var0 & 858993459); // L: 43
-		var0 = var0 + (var0 >>> 4) & 252645135; // L: 44
-		var0 += var0 >>> 8; // L: 45
-		var0 += var0 >>> 16; // L: 46
-		return var0 & 255; // L: 47
-	}
-
-	@ObfuscatedName("kq")
-	@ObfuscatedSignature(
-		descriptor = "(Lio;I)Z",
-		garbageValue = "376048815"
-	)
-	static final boolean method3148(Widget var0) {
-		int var1 = var0.contentType; // L: 11093
-		if (var1 == 205) { // L: 11094
-			Client.logoutTimer = 250; // L: 11095
-			return true; // L: 11096
+	@Export("ByteArrayPool_release")
+	public static synchronized void ByteArrayPool_release(byte[] var0) {
+		if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < 1000) { // L: 61
+			ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0; // L: 62
+		} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < 250) { // L: 65
+			ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0; // L: 66
+		} else if (var0.length == 30000 && ByteArrayPool.ByteArrayPool_largeCount < 50) { // L: 69
+			ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0; // L: 70
 		} else {
-			int var2;
-			int var3;
-			if (var1 >= 300 && var1 <= 313) { // L: 11098
-				var2 = (var1 - 300) / 2; // L: 11099
-				var3 = var1 & 1; // L: 11100
-				Client.playerAppearance.changeAppearance(var2, var3 == 1); // L: 11101
+			if (Tiles.ByteArrayPool_arrays != null) { // L: 73
+				for (int var1 = 0; var1 < class372.ByteArrayPool_alternativeSizes.length; ++var1) { // L: 74
+					if (var0.length == class372.ByteArrayPool_alternativeSizes[var1] && WorldMapScaleHandler.ByteArrayPool_altSizeArrayCounts[var1] < Tiles.ByteArrayPool_arrays[var1].length) { // L: 75
+						Tiles.ByteArrayPool_arrays[var1][WorldMapScaleHandler.ByteArrayPool_altSizeArrayCounts[var1]++] = var0; // L: 76
+						return; // L: 77
+					}
+				}
 			}
 
-			if (var1 >= 314 && var1 <= 323) { // L: 11103
-				var2 = (var1 - 314) / 2; // L: 11104
-				var3 = var1 & 1; // L: 11105
-				Client.playerAppearance.method4703(var2, var3 == 1); // L: 11106
-			}
-
-			if (var1 == 324) { // L: 11108
-				Client.playerAppearance.changeSex(false);
-			}
-
-			if (var1 == 325) { // L: 11109
-				Client.playerAppearance.changeSex(true);
-			}
-
-			if (var1 == 326) { // L: 11110
-				PacketBufferNode var4 = class21.getPacketBufferNode(ClientPacket.field2674, Client.packetWriter.isaacCipher); // L: 11112
-				Client.playerAppearance.write(var4.packetBuffer); // L: 11113
-				Client.packetWriter.addNode(var4); // L: 11114
-				return true; // L: 11115
-			} else {
-				return false; // L: 11117
-			}
 		}
-	}
+	} // L: 63 67 71 81
 }

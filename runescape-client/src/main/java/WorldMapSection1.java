@@ -4,45 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gg")
+@ObfuscatedName("gk")
 @Implements("WorldMapSection1")
 public class WorldMapSection1 implements WorldMapSection {
-	@ObfuscatedName("aw")
-	@Export("hasFocus")
-	protected static boolean hasFocus;
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1722297591
+		intValue = -2120559769
 	)
 	@Export("minPlane")
 	int minPlane;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1533702617
+		intValue = 20308873
 	)
 	@Export("planes")
 	int planes;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 51994539
+		intValue = -1110742467
 	)
 	@Export("regionStartX")
 	int regionStartX;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1997271109
+		intValue = -109322199
 	)
 	@Export("regionStartY")
 	int regionStartY;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1700415935
+		intValue = -705603633
 	)
 	@Export("regionEndX")
 	int regionEndX;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -61887781
+		intValue = -2092573819
 	)
 	@Export("regionEndY")
 	int regionEndY;
@@ -50,10 +47,10 @@ public class WorldMapSection1 implements WorldMapSection {
 	WorldMapSection1() {
 	} // L: 14
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lfo;I)V",
-		garbageValue = "1120913212"
+		descriptor = "(Lfa;B)V",
+		garbageValue = "120"
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
@@ -75,24 +72,24 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	} // L: 21
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "(IIII)Z",
-		garbageValue = "264048682"
+		garbageValue = "-2105423832"
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
-		if (var1 >= this.minPlane && var1 < this.planes + this.minPlane) { // L: 24
+		if (var1 >= this.minPlane && var1 < this.minPlane + this.planes) { // L: 24
 			return var2 >> 6 == this.regionStartX && var3 >> 6 == this.regionStartY; // L: 27
 		} else {
 			return false; // L: 25
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)Z",
-		garbageValue = "-11"
+		descriptor = "(III)Z",
+		garbageValue = "-173753307"
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
@@ -102,7 +99,7 @@ public class WorldMapSection1 implements WorldMapSection {
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "(IIII)[I",
-		garbageValue = "1943891890"
+		garbageValue = "2086451205"
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
@@ -114,10 +111,10 @@ public class WorldMapSection1 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(III)Lii;",
-		garbageValue = "691158162"
+		descriptor = "(IIB)Liw;",
+		garbageValue = "-36"
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
@@ -130,10 +127,10 @@ public class WorldMapSection1 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;I)V",
-		garbageValue = "-1138667895"
+		descriptor = "(Lnt;I)V",
+		garbageValue = "1313413902"
 	)
 	@Export("read")
 	public void read(Buffer var1) {
@@ -146,12 +143,22 @@ public class WorldMapSection1 implements WorldMapSection {
 		this.postRead(); // L: 60
 	} // L: 61
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1321456868"
+		garbageValue = "-533258975"
 	)
 	@Export("postRead")
 	void postRead() {
 	} // L: 63
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(Lcs;I)V",
+		garbageValue = "-360609536"
+	)
+	@Export("runScriptEvent")
+	public static void runScriptEvent(ScriptEvent var0) {
+		Varcs.runScript(var0, 500000, 475000); // L: 109
+	} // L: 110
 }

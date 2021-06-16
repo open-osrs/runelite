@@ -7,42 +7,36 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("ju")
 @Implements("GrandExchangeOffer")
 public class GrandExchangeOffer {
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lop;"
-	)
-	@Export("options_buttons_2Sprite")
-	static IndexedSprite options_buttons_2Sprite;
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@Export("state")
 	byte state;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1898711
+		intValue = -1583312423
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1229494071
+		intValue = 1337068893
 	)
 	@Export("unitPrice")
 	public int unitPrice;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -822093809
+		intValue = 85465659
 	)
 	@Export("totalQuantity")
 	public int totalQuantity;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1567060795
+		intValue = -631103109
 	)
 	@Export("currentQuantity")
 	public int currentQuantity;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 176369301
+		intValue = 1719757481
 	)
 	@Export("currentPrice")
 	public int currentPrice;
@@ -51,7 +45,7 @@ public class GrandExchangeOffer {
 	} // L: 13
 
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;Z)V",
+		descriptor = "(Lnt;Z)V",
 		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
@@ -63,20 +57,20 @@ public class GrandExchangeOffer {
 		this.currentPrice = var1.readInt(); // L: 21
 	} // L: 22
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "184180839"
+		descriptor = "(B)I",
+		garbageValue = "10"
 	)
 	@Export("status")
 	public int status() {
 		return this.state & 7; // L: 50
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1399016532"
+		descriptor = "(B)I",
+		garbageValue = "48"
 	)
 	@Export("type")
 	public int type() {
@@ -85,20 +79,20 @@ public class GrandExchangeOffer {
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1177781475"
+		descriptor = "(IB)V",
+		garbageValue = "-59"
 	)
-	void method5092(int var1) {
+	void method5224(int var1) {
 		this.state &= -8; // L: 58
 		this.state = (byte)(this.state | var1 & 7); // L: 59
 	} // L: 60
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "110"
+		descriptor = "(II)V",
+		garbageValue = "-1688062511"
 	)
-	void method5102(int var1) {
+	void method5229(int var1) {
 		this.state &= -9; // L: 63
 		if (var1 == 1) {
 			this.state = (byte)(this.state | 8); // L: 64

@@ -4,41 +4,39 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ck")
+@ObfuscatedName("ce")
 @Implements("ArchiveLoader")
 public class ArchiveLoader {
-	@ObfuscatedName("m")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Ly;"
+		descriptor = "Lio;"
 	)
-	static ClanChannel field1147;
-	@ObfuscatedName("ho")
+	@Export("musicTrack")
+	static MusicTrack musicTrack;
+	@ObfuscatedName("x")
+	@Export("cacheParentPaths")
+	public static String[] cacheParentPaths;
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "[Loh;"
-	)
-	@Export("crossSprites")
-	static SpritePixels[] crossSprites;
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Ljf;"
 	)
 	@Export("archive")
 	final Archive archive;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 605141689
+		intValue = -1724172575
 	)
 	@Export("groupCount")
 	final int groupCount;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1897441913
+		intValue = -1090866547
 	)
 	@Export("loadedCount")
 	int loadedCount;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;Ljava/lang/String;)V"
+		descriptor = "(Ljf;Ljava/lang/String;)V"
 	)
 	ArchiveLoader(Archive var1, String var2) {
 		this.loadedCount = 0; // L: 9
@@ -46,17 +44,17 @@ public class ArchiveLoader {
 		this.groupCount = var1.getGroupCount(); // L: 13
 	} // L: 14
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "14"
+		descriptor = "(I)Z",
+		garbageValue = "1253534662"
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
 		this.loadedCount = 0; // L: 17
 
 		for (int var1 = 0; var1 < this.groupCount; ++var1) { // L: 18
-			if (!this.archive.method4887(var1) || this.archive.method4884(var1)) {
+			if (!this.archive.method5031(var1) || this.archive.method5030(var1)) {
 				++this.loadedCount; // L: 19
 			}
 		}
@@ -64,51 +62,16 @@ public class ArchiveLoader {
 		return this.loadedCount >= this.groupCount; // L: 21
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lei;",
-		garbageValue = "598444391"
+		descriptor = "(I)Lhg;",
+		garbageValue = "-283445178"
 	)
-	@Export("StructDefinition_getStructDefinition")
-	public static StructComposition StructDefinition_getStructDefinition(int var0) {
-		StructComposition var1 = (StructComposition)StructComposition.StructDefinition_cached.get((long)var0); // L: 23
-		if (var1 != null) { // L: 24
-			return var1;
-		} else {
-			byte[] var2 = StructComposition.StructDefinition_archive.takeFile(34, var0); // L: 25
-			var1 = new StructComposition(); // L: 26
-			if (var2 != null) { // L: 27
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode(); // L: 28
-			StructComposition.StructDefinition_cached.put(var1, (long)var0); // L: 29
-			return var1; // L: 30
-		}
-	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIIIII)Z",
-		garbageValue = "1961168244"
-	)
-	static final boolean method2059(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		int var7 = ViewportMouse.ViewportMouse_y + var6; // L: 156
-		if (var7 < var0 && var7 < var1 && var7 < var2) { // L: 157
-			return false;
-		} else {
-			var7 = ViewportMouse.ViewportMouse_y - var6; // L: 158
-			if (var7 > var0 && var7 > var1 && var7 > var2) {
-				return false; // L: 159
-			} else {
-				var7 = ViewportMouse.ViewportMouse_x + var6; // L: 160
-				if (var7 < var3 && var7 < var4 && var7 < var5) { // L: 161
-					return false;
-				} else {
-					var7 = ViewportMouse.ViewportMouse_x - var6; // L: 162
-					return var7 <= var3 || var7 <= var4 || var7 <= var5; // L: 163
-				}
-			}
-		}
+	public static PacketBufferNode method2162() {
+		PacketBufferNode var0 = WorldMapData_1.method3583(); // L: 50
+		var0.clientPacket = null; // L: 51
+		var0.clientPacketLength = 0; // L: 52
+		var0.packetBuffer = new PacketBuffer(5000); // L: 53
+		return var0; // L: 54
 	}
 }

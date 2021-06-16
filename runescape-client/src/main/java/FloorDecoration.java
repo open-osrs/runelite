@@ -4,80 +4,52 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("go")
+@ObfuscatedName("gq")
 @Implements("FloorDecoration")
 public final class FloorDecoration {
-	@ObfuscatedName("v")
+	@ObfuscatedName("gx")
+	@ObfuscatedSignature(
+		descriptor = "[Lof;"
+	)
+	@Export("mapSceneSprites")
+	static IndexedSprite[] mapSceneSprites;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 859770957
+		intValue = -1077391881
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1864149275
+		intValue = -1797231219
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1474470851
+		intValue = -1767125369
 	)
 	@Export("y")
 	int y;
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lgl;"
+		descriptor = "Lgr;"
 	)
 	@Export("renderable")
 	public Renderable renderable;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		longValue = 5096767537878498943L
+		longValue = -640480651195446405L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -383801797
+		intValue = -1116841185
 	)
 	@Export("flags")
 	int flags;
 
 	FloorDecoration() {
 	} // L: 11
-
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lmi;",
-		garbageValue = "-71321726"
-	)
-	static class338[] method3834() {
-		return new class338[]{class338.field3914, class338.field3916, class338.field3915, class338.field3917}; // L: 16
-	}
-
-	@ObfuscatedName("ak")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "-15"
-	)
-	@Export("runWidgetOnLoadListener")
-	static void runWidgetOnLoadListener(int var0) {
-		if (var0 != -1) { // L: 4321
-			if (Clock.loadInterface(var0)) { // L: 4322
-				Widget[] var1 = Widget.Widget_interfaceComponents[var0]; // L: 4323
-
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 4324
-					Widget var3 = var1[var2]; // L: 4325
-					if (var3.onLoad != null) { // L: 4326
-						ScriptEvent var4 = new ScriptEvent(); // L: 4327
-						var4.widget = var3; // L: 4328
-						var4.args = var3.onLoad; // L: 4329
-						World.runScript(var4, 5000000, 0); // L: 4330
-					}
-				}
-
-			}
-		}
-	} // L: 4333
 }

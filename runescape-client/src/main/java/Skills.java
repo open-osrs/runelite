@@ -3,21 +3,23 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iw")
+@ObfuscatedName("ij")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
-	@ObfuscatedName("ck")
+	@ObfuscatedName("b")
+	public static short[][] field3175;
+	@ObfuscatedName("he")
 	@ObfuscatedSignature(
-		descriptor = "Lcb;"
+		descriptor = "[Loa;"
 	)
-	@Export("mouseRecorder")
-	static MouseRecorder mouseRecorder;
+	@Export("headIconHintSprites")
+	static SpritePixels[] headIconHintSprites;
 
 	static {
 		Skills_enabled = new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false}; // L: 5

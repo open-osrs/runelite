@@ -1,39 +1,34 @@
-import java.io.File;
-import java.io.RandomAccessFile;
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gk")
+@ObfuscatedName("gy")
 @Implements("FaceNormal")
 public class FaceNormal {
-	@ObfuscatedName("j")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -311250571
+		intValue = 1056687123
 	)
-	static int field2363;
-	@ObfuscatedName("bq")
-	@ObfuscatedSignature(
-		descriptor = "Ljk;"
-	)
-	static GameBuild field2365;
-	@ObfuscatedName("v")
+	@Export("pcmSampleLength")
+	static int pcmSampleLength;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 771770075
+		intValue = -1204882397
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1803245333
+		intValue = 126335521
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1870263719
+		intValue = -301502337
 	)
 	@Export("z")
 	int z;
@@ -41,27 +36,74 @@ public class FaceNormal {
 	FaceNormal() {
 	} // L: 8
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/io/File;ZI)Z",
-		garbageValue = "-920183026"
+		descriptor = "(Ljp;I)V",
+		garbageValue = "-1897650462"
 	)
-	@Export("isWriteable")
-	public static boolean isWriteable(File var0, boolean var1) {
-		try {
-			RandomAccessFile var2 = new RandomAccessFile(var0, "rw"); // L: 151
-			int var3 = var2.read(); // L: 152
-			var2.seek(0L); // L: 153
-			var2.write(var3); // L: 154
-			var2.seek(0L); // L: 155
-			var2.close(); // L: 156
-			if (var1) { // L: 157
-				var0.delete();
-			}
+	public static void method4252(AbstractArchive var0) {
+		GrandExchangeOfferUnitPriceComparator.FloorOverlayDefinition_archive = var0; // L: 26
+	} // L: 27
 
-			return true; // L: 158
-		} catch (Exception var4) { // L: 160
-			return false; // L: 161
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(B)Z",
+		garbageValue = "67"
+	)
+	@Export("loadWorlds")
+	static boolean loadWorlds() {
+		try {
+			if (World.World_request == null) { // L: 31
+				World.World_request = ArchiveDiskActionHandler.urlRequester.request(new URL(class162.field1936));
+			} else if (World.World_request.isDone()) { // L: 33
+				byte[] var0 = World.World_request.getResponse(); // L: 34
+				Buffer var1 = new Buffer(var0); // L: 35
+				var1.readInt(); // L: 36
+				World.World_count = var1.readUnsignedShort(); // L: 37
+				World.World_worlds = new World[World.World_count];
+
+				World var3;
+				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) { // L: 47
+					var3 = World.World_worlds[var2] = new World();
+					var3.id = var1.readUnsignedShort();
+					var3.properties = var1.readInt(); // L: 42
+					var3.host = var1.readStringCp1252NullTerminated();
+					var3.activity = var1.readStringCp1252NullTerminated();
+					var3.location = var1.readUnsignedByte();
+					var3.population = var1.readShort();
+				}
+
+				FileSystem.sortWorlds(World.World_worlds, 0, World.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2); // L: 49
+				World.World_request = null; // L: 50
+				return true; // L: 51
+			}
+		} catch (Exception var4) { // L: 55
+			var4.printStackTrace(); // L: 56
+			World.World_request = null; // L: 57
+		}
+
+		return false; // L: 59
+	}
+
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIII)I",
+		garbageValue = "1748496485"
+	)
+	public static int method4253(int var0, int var1, int var2, int var3, int var4, int var5) {
+		if ((var5 & 1) == 1) { // L: 38
+			int var6 = var3; // L: 39
+			var3 = var4; // L: 40
+			var4 = var6; // L: 41
+		}
+
+		var2 &= 3; // L: 43
+		if (var2 == 0) { // L: 44
+			return var1;
+		} else if (var2 == 1) { // L: 45
+			return 7 - var0 - (var3 - 1);
+		} else {
+			return var2 == 2 ? 7 - var1 - (var4 - 1) : var0; // L: 46
 		}
 	}
 }

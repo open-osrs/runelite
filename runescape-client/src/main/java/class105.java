@@ -1,54 +1,57 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dz")
+@ObfuscatedName("db")
 public class class105 {
-	@ObfuscatedName("ha")
-	@ObfuscatedGetter(
-		intValue = -2115685501
-	)
-	@Export("cameraZ")
-	static int cameraZ;
-
-	@ObfuscatedName("hw")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-1492762721"
+		descriptor = "(ZI)V",
+		garbageValue = "-1657910779"
 	)
-	@Export("getTileHeight")
-	static final int getTileHeight(int var0, int var1, int var2) {
-		int var3 = var0 >> 7; // L: 5027
-		int var4 = var1 >> 7; // L: 5028
-		if (var3 >= 0 && var4 >= 0 && var3 <= 103 && var4 <= 103) { // L: 5029
-			int var5 = var2; // L: 5030
-			if (var2 < 3 && (Tiles.Tiles_renderFlags[1][var3][var4] & 2) == 2) { // L: 5031
-				var5 = var2 + 1;
+	public static void method2358(boolean var0) {
+		if (NetCache.NetCache_socket != null) { // L: 42
+			try {
+				Buffer var1 = new Buffer(4); // L: 44
+				var1.writeByte(var0 ? 2 : 3); // L: 45
+				var1.writeMedium(0); // L: 46
+				NetCache.NetCache_socket.write(var1.array, 0, 4); // L: 47
+			} catch (IOException var4) {
+				try {
+					NetCache.NetCache_socket.close(); // L: 51
+				} catch (Exception var3) { // L: 53
+				}
+
+				++NetCache.NetCache_ioExceptions; // L: 54
+				NetCache.NetCache_socket = null; // L: 55
 			}
 
-			int var6 = var0 & 127; // L: 5032
-			int var7 = var1 & 127; // L: 5033
-			int var8 = (128 - var6) * Tiles.Tiles_heights[var5][var3][var4] + Tiles.Tiles_heights[var5][var3 + 1][var4] * var6 >> 7; // L: 5034
-			int var9 = Tiles.Tiles_heights[var5][var3][var4 + 1] * (128 - var6) + var6 * Tiles.Tiles_heights[var5][var3 + 1][var4 + 1] >> 7; // L: 5035
-			return var9 * var7 + var8 * (128 - var7) >> 7; // L: 5036
-		} else {
-			return 0;
 		}
-	}
+	} // L: 57
 
-	@ObfuscatedName("ku")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "1444494320"
+		descriptor = "(Ljp;IIIZI)V",
+		garbageValue = "1271786262"
 	)
-	@Export("clanKickUser")
-	static final void clanKickUser(String var0) {
-		if (WorldMapRegion.friendsChat != null) { // L: 11290
-			PacketBufferNode var1 = class21.getPacketBufferNode(ClientPacket.field2665, Client.packetWriter.isaacCipher); // L: 11291
-			var1.packetBuffer.writeByte(Tiles.stringCp1252NullTerminatedByteSize(var0)); // L: 11292
-			var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 11293
-			Client.packetWriter.addNode(var1); // L: 11294
-		}
-	} // L: 11295
+	public static void method2357(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
+		class233.musicPlayerStatus = 1; // L: 34
+		InvDefinition.musicTrackArchive = var0; // L: 35
+		class233.musicTrackGroupId = var1; // L: 36
+		class233.musicTrackFileId = var2; // L: 37
+		class233.musicTrackVolume = var3; // L: 38
+		GrandExchangeOfferUnitPriceComparator.musicTrackBoolean = var4; // L: 39
+		FaceNormal.pcmSampleLength = 10000; // L: 40
+	} // L: 41
+
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "1162856506"
+	)
+	@Export("isDigit")
+	public static boolean isDigit(char var0) {
+		return var0 >= '0' && var0 <= '9'; // L: 162
+	}
 }

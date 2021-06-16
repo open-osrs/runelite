@@ -1,102 +1,104 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("n")
+@ObfuscatedName("e")
 public class class1 extends class14 {
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = 920679423
+	@ObfuscatedName("ar")
+	@Export("client")
+	@ObfuscatedSignature(
+		descriptor = "Lclient;"
 	)
-	int field5;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = -2074698601
-	)
-	int field6;
+	static Client client;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1666414987
+		intValue = -790224169
+	)
+	int field6;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = -1595809253
+	)
+	int field7;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -864477031
 	)
 	int field8;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1361309885
+		intValue = 1618165123
 	)
 	int field9;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lf;"
+		descriptor = "Lv;"
 	)
 	final class2 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lf;)V"
+		descriptor = "(Lv;)V"
 	)
 	class1(class2 var1) {
 		this.this$0 = var1; // L: 289
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lnd;I)V",
-		garbageValue = "-1281352827"
+		descriptor = "(Lnt;I)V",
+		garbageValue = "73833784"
 	)
-	void vmethod276(Buffer var1) {
-		this.field5 = var1.readInt(); // L: 292
+	void vmethod363(Buffer var1) {
+		this.field6 = var1.readInt(); // L: 292
 		this.field9 = var1.readInt(); // L: 293
-		this.field6 = var1.readUnsignedByte(); // L: 294
+		this.field7 = var1.readUnsignedByte(); // L: 294
 		this.field8 = var1.readUnsignedByte(); // L: 295
 	} // L: 296
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Ll;B)V",
-		garbageValue = "29"
+		descriptor = "(Lb;I)V",
+		garbageValue = "1885623446"
 	)
-	void vmethod281(ClanSettings var1) {
-		var1.method113(this.field5, this.field9, this.field6, this.field8); // L: 299
+	void vmethod354(ClanSettings var1) {
+		var1.method136(this.field6, this.field9, this.field7, this.field8); // L: 299
 	} // L: 300
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Ljv;Ljv;B)V",
-		garbageValue = "10"
+		descriptor = "(II)Leb;",
+		garbageValue = "2027222445"
 	)
-	public static void method13(AbstractArchive var0, AbstractArchive var1) {
-		SpotAnimationDefinition.SpotAnimationDefinition_archive = var0; // L: 32
-		SpotAnimationDefinition.SpotAnimationDefinition_modelArchive = var1; // L: 33
-	} // L: 34
-
-	@ObfuscatedName("hq")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "22"
-	)
-	static void method11() {
-		Client.menuOptionsCount = 0; // L: 7585
-		Client.isMenuOpen = false; // L: 7586
-	} // L: 7587
-
-	@ObfuscatedName("kf")
-	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-375078554"
-	)
-	static final void method7(int var0, int var1) {
-		ClanChannel var2 = var0 >= 0 ? Client.currentClanChannels[var0] : ApproximateRouteStrategy.guestClanChannel; // L: 11314
-		if (var2 != null && var1 >= 0 && var1 < var2.method27()) { // L: 11315
-			ClanChannelMember var3 = (ClanChannelMember)var2.members.get(var1); // L: 11316
-			if (var3.rank == -1) { // L: 11317
-				String var4 = var3.name; // L: 11318
-				PacketWriter var5 = Client.packetWriter; // L: 11319
-				PacketBufferNode var6 = class21.getPacketBufferNode(ClientPacket.field2651, var5.isaacCipher); // L: 11320
-				var6.packetBuffer.writeByte(3 + Tiles.stringCp1252NullTerminatedByteSize(var4)); // L: 11321
-				var6.packetBuffer.writeByte(var0); // L: 11322
-				var6.packetBuffer.writeShort(var1); // L: 11323
-				var6.packetBuffer.writeStringCp1252NullTerminated(var4); // L: 11324
-				var5.addNode(var6); // L: 11325
+	@Export("VarpDefinition_get")
+	public static VarpDefinition VarpDefinition_get(int var0) {
+		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0); // L: 23
+		if (var1 != null) { // L: 24
+			return var1;
+		} else {
+			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0); // L: 25
+			var1 = new VarpDefinition(); // L: 26
+			if (var2 != null) { // L: 27
+				var1.decode(new Buffer(var2));
 			}
+
+			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0); // L: 28
+			return var1; // L: 29
 		}
-	} // L: 11326
+	}
+
+	@ObfuscatedName("kv")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;B)V",
+		garbageValue = "-72"
+	)
+	@Export("clanKickUser")
+	static final void clanKickUser(String var0) {
+		if (class289.friendsChat != null) { // L: 11471
+			PacketBufferNode var1 = InterfaceParent.getPacketBufferNode(ClientPacket.field2606, Client.packetWriter.isaacCipher); // L: 11472
+			var1.packetBuffer.writeByte(class44.stringCp1252NullTerminatedByteSize(var0)); // L: 11473
+			var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 11474
+			Client.packetWriter.addNode(var1); // L: 11475
+		}
+	} // L: 11476
 }

@@ -5,41 +5,42 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("le")
+@ObfuscatedName("lv")
 @Implements("BufferedSink")
 public class BufferedSink implements Runnable {
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 255745785
+		intValue = 992988875
 	)
 	@Export("capacity")
 	int capacity;
 	@ObfuscatedName("y")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("p")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1232062539
+		intValue = 1280134095
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 956656333
+		intValue = -1968641393
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("r")
+	@ObfuscatedName("m")
 	@Export("exception")
 	IOException exception;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("closed")
 	boolean closed;
 
@@ -54,10 +55,10 @@ public class BufferedSink implements Runnable {
 		this.thread.start(); // L: 197
 	} // L: 198
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "1"
+		descriptor = "(I)Z",
+		garbageValue = "-1288409472"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -79,10 +80,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "1271901026"
+		garbageValue = "-765694644"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
@@ -119,10 +120,10 @@ public class BufferedSink implements Runnable {
 		}
 	} // L: 279
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(B)V",
-		garbageValue = "21"
+		garbageValue = "70"
 	)
 	@Export("close")
 	void close() {
@@ -197,4 +198,75 @@ public class BufferedSink implements Runnable {
 		} while(!this.isClosed()); // L: 256
 
 	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(ILcf;ZB)I",
+		garbageValue = "14"
+	)
+	static int method5990(int var0, Script var1, boolean var2) {
+		Widget var3;
+		if (var0 >= 2000) { // L: 804
+			var0 -= 1000; // L: 805
+			var3 = WorldMapData_1.getWidget(Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize]); // L: 806
+		} else {
+			var3 = var2 ? UserComparator5.scriptDotWidget : User.scriptActiveWidget; // L: 808
+		}
+
+		Script.invalidateWidget(var3); // L: 809
+		if (var0 != ScriptOpcodes.CC_SETOBJECT && var0 != ScriptOpcodes.CC_SETOBJECT_NONUM && var0 != ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM) { // L: 810
+			if (var0 == ScriptOpcodes.CC_SETNPCHEAD) { // L: 830
+				var3.modelType = 2; // L: 831
+				var3.modelId = Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize]; // L: 832
+				return 1; // L: 833
+			} else if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) { // L: 835
+				var3.modelType = 3; // L: 836
+				var3.modelId = class262.localPlayer.appearance.getChatHeadId(); // L: 837
+				return 1; // L: 838
+			} else {
+				return 2; // L: 840
+			}
+		} else {
+			ChatChannel.Interpreter_intStackSize -= 2; // L: 811
+			int var4 = Interpreter.Interpreter_intStack[ChatChannel.Interpreter_intStackSize]; // L: 812
+			int var5 = Interpreter.Interpreter_intStack[ChatChannel.Interpreter_intStackSize + 1]; // L: 813
+			var3.itemId = var4; // L: 814
+			var3.itemQuantity = var5; // L: 815
+			ItemComposition var6 = class250.ItemDefinition_get(var4); // L: 816
+			var3.modelAngleX = var6.xan2d; // L: 817
+			var3.modelAngleY = var6.yan2d; // L: 818
+			var3.modelAngleZ = var6.zan2d; // L: 819
+			var3.modelOffsetX = var6.offsetX2d; // L: 820
+			var3.modelOffsetY = var6.offsetY2d; // L: 821
+			var3.modelZoom = var6.zoom2d; // L: 822
+			if (var0 == ScriptOpcodes.CC_SETOBJECT_NONUM) { // L: 823
+				var3.itemQuantityMode = 0;
+			} else if (var0 == ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM | 1 == var6.isStackable) { // L: 824
+				var3.itemQuantityMode = 1;
+			} else {
+				var3.itemQuantityMode = 2; // L: 825
+			}
+
+			if (var3.field3011 > 0) { // L: 826
+				var3.modelZoom = var3.modelZoom * 32 / var3.field3011;
+			} else if (var3.rawWidth > 0) { // L: 827
+				var3.modelZoom = var3.modelZoom * 32 / var3.rawWidth;
+			}
+
+			return 1; // L: 828
+		}
+	}
+
+	@ObfuscatedName("gf")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-452745506"
+	)
+	static void method5992() {
+		PacketBufferNode var0 = InterfaceParent.getPacketBufferNode(ClientPacket.field2656, Client.packetWriter.isaacCipher); // L: 4412
+		var0.packetBuffer.writeByte(class302.getWindowedMode()); // L: 4413
+		var0.packetBuffer.writeShort(AttackOption.canvasWidth); // L: 4414
+		var0.packetBuffer.writeShort(class0.canvasHeight); // L: 4415
+		Client.packetWriter.addNode(var0); // L: 4416
+	} // L: 4417
 }

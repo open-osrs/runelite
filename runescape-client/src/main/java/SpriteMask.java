@@ -4,28 +4,22 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("it")
+@ObfuscatedName("iq")
 @Implements("SpriteMask")
 public class SpriteMask extends DualNode {
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Ljv;"
-	)
-	@Export("Widget_modelsArchive")
-	public static AbstractArchive Widget_modelsArchive;
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1279799405
+		intValue = 833712115
 	)
 	@Export("width")
 	public final int width;
-	@ObfuscatedName("n")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1973837741
+		intValue = 1197266213
 	)
 	@Export("height")
 	public final int height;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@Export("xWidths")
 	public final int[] xWidths;
 	@ObfuscatedName("y")
@@ -33,26 +27,35 @@ public class SpriteMask extends DualNode {
 	public final int[] xStarts;
 
 	SpriteMask(int var1, int var2, int[] var3, int[] var4, int var5) {
-		this.width = var1; // L: 691
-		this.height = var2; // L: 692
-		this.xWidths = var3; // L: 693
-		this.xStarts = var4; // L: 694
-	} // L: 695
+		this.width = var1; // L: 718
+		this.height = var2; // L: 719
+		this.xWidths = var3; // L: 720
+		this.xStarts = var4; // L: 721
+	} // L: 722
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(III)Z",
-		garbageValue = "-1353633749"
+		garbageValue = "-1133848125"
 	)
 	@Export("contains")
 	public boolean contains(int var1, int var2) {
-		if (var2 >= 0 && var2 < this.xStarts.length) { // L: 698
-			int var3 = this.xStarts[var2]; // L: 699
-			if (var1 >= var3 && var1 <= var3 + this.xWidths[var2]) { // L: 700
+		if (var2 >= 0 && var2 < this.xStarts.length) { // L: 725
+			int var3 = this.xStarts[var2]; // L: 726
+			if (var1 >= var3 && var1 <= var3 + this.xWidths[var2]) { // L: 727
 				return true;
 			}
 		}
 
-		return false; // L: 702
+		return false; // L: 729
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(CB)Z",
+		garbageValue = "-99"
+	)
+	public static final boolean method4777(char var0) {
+		return var0 == 160 || var0 == ' ' || var0 == '_' || var0 == '-'; // L: 48
 	}
 }
