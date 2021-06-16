@@ -118,17 +118,34 @@ public class ScreenshotPlugin extends Plugin
 		WidgetID.FIXED_VIEWPORT_GROUP_ID,
 		WidgetID.RESIZABLE_VIEWPORT_OLD_SCHOOL_BOX_GROUP_ID,
 		WidgetID.RESIZABLE_VIEWPORT_BOTTOM_LINE_GROUP_ID);
+	private static final String SD_KINGDOM_REWARDS = "Kingdom Rewards";
+	private static final String SD_BOSS_KILLS = "Boss Kills";
+	private static final String SD_CLUE_SCROLL_REWARDS = "Clue Scroll Rewards";
+	private static final String SD_FRIENDS_CHAT_KICKS = "Friends Chat Kicks";
+	private static final String SD_PETS = "Pets";
+	private static final String SD_CHEST_LOOT = "Chest Loot";
+	private static final String SD_VALUABLE_DROPS = "Valuable Drops";
+	private static final String SD_UNTRADEABLE_DROPS = "Untradeable Drops";
+	private static final String SD_DUELS = "Duels";
+	private static final String SD_COLLECTION_LOG = "Collection Log";
+	private static final String SD_PVP_KILLS = "PvP Kills";
+	private static final String SD_DEATHS = "Deaths";
 
 	private String clueType;
 	private Integer clueNumber;
 
-	private Integer barrowsNumber;
+	enum KillType
+	{
+		BARROWS,
+		COX,
+		COX_CM,
+		TOB,
+		TOB_SM,
+		TOB_HM
+	}
 
-	private Integer chambersOfXericNumber;
-
-	private Integer chambersOfXericChallengeNumber;
-
-	private Integer theatreOfBloodNumber;
+	private KillType killType;
+	private Integer killCountNumber;
 
 	private boolean shouldTakeScreenshot;
 
@@ -283,11 +300,11 @@ public class ScreenshotPlugin extends Plugin
 			Player player = (Player) actor;
 			if (player == client.getLocalPlayer() && config.screenshotPlayerDeath())
 			{
-				takeScreenshot("Death", "Deaths");
+				takeScreenshot("Death", SD_DEATHS);
 			}
 			else if (player != client.getLocalPlayer() && (player.isFriendsChatMember() || player.isFriend()) && config.screenshotFriendDeath() && player.getCanvasTilePoly() != null)
 			{
-				takeScreenshot("Death " + player.getName(), "Deaths");
+				takeScreenshot("Death " + player.getName(), SD_DEATHS);
 			}
 		}
 	}
@@ -300,7 +317,7 @@ public class ScreenshotPlugin extends Plugin
 			final Player player = playerLootReceived.getPlayer();
 			final String name = player.getName();
 			String fileName = "Kill " + name;
-			takeScreenshot(fileName, "PvP Kills");
+			takeScreenshot(fileName, SD_PVP_KILLS);
 		}
 	}
 
@@ -346,7 +363,8 @@ public class ScreenshotPlugin extends Plugin
 			Matcher m = NUMBER_PATTERN.matcher(Text.removeTags(chatMessage));
 			if (m.find())
 			{
-				barrowsNumber = Integer.valueOf(m.group());
+				killType = KillType.BARROWS;
+				killCountNumber = Integer.valueOf(m.group());
 				return;
 			}
 		}
@@ -356,7 +374,8 @@ public class ScreenshotPlugin extends Plugin
 			Matcher m = NUMBER_PATTERN.matcher(Text.removeTags(chatMessage));
 			if (m.find())
 			{
-				chambersOfXericNumber = Integer.valueOf(m.group());
+				killType = KillType.COX;
+				killCountNumber = Integer.valueOf(m.group());
 				return;
 			}
 		}
@@ -366,17 +385,19 @@ public class ScreenshotPlugin extends Plugin
 			Matcher m = NUMBER_PATTERN.matcher(Text.removeTags(chatMessage));
 			if (m.find())
 			{
-				chambersOfXericChallengeNumber = Integer.valueOf(m.group());
+				killType = KillType.COX_CM;
+				killCountNumber = Integer.valueOf(m.group());
 				return;
 			}
 		}
 
-		if (chatMessage.startsWith("Your completed Theatre of Blood count is:"))
+		if (chatMessage.startsWith("Your completed Theatre of Blood"))
 		{
 			Matcher m = NUMBER_PATTERN.matcher(Text.removeTags(chatMessage));
 			if (m.find())
 			{
-				theatreOfBloodNumber = Integer.valueOf(m.group());
+				killType = chatMessage.contains("Hard Mode") ? KillType.TOB_HM : (chatMessage.contains("Story Mode") ? KillType.TOB_SM : KillType.TOB);
+				killCountNumber = Integer.valueOf(m.group());
 				return;
 			}
 		}
@@ -388,14 +409,14 @@ public class ScreenshotPlugin extends Plugin
 				return;
 			}
 
-			takeScreenshot("Kick " + kickPlayerName, "Friends Chat Kicks");
+			takeScreenshot("Kick " + kickPlayerName, SD_FRIENDS_CHAT_KICKS);
 			kickPlayerName = null;
 		}
 
 		if (config.screenshotPet() && PET_MESSAGES.stream().anyMatch(chatMessage::contains))
 		{
 			String fileName = "Pet";
-			takeScreenshot(fileName, "Pets");
+			takeScreenshot(fileName, SD_PETS);
 		}
 
 		if (config.screenshotBossKills())
@@ -406,7 +427,7 @@ public class ScreenshotPlugin extends Plugin
 				String bossName = m.group(1);
 				String bossKillcount = m.group(2);
 				String fileName = bossName + "(" + bossKillcount + ")";
-				takeScreenshot(fileName, "Boss Kills");
+				takeScreenshot(fileName, SD_BOSS_KILLS);
 			}
 		}
 
@@ -416,7 +437,7 @@ public class ScreenshotPlugin extends Plugin
 			String eventName = CHEST_LOOT_EVENTS.get(regionID);
 			if (eventName != null)
 			{
-				takeScreenshot(eventName, "Chest Loot");
+				takeScreenshot(eventName, SD_CHEST_LOOT);
 			}
 		}
 
@@ -430,7 +451,7 @@ public class ScreenshotPlugin extends Plugin
 				{
 					String valuableDropName = m.group(1);
 					String fileName = "Valuable drop " + valuableDropName;
-					takeScreenshot(fileName, "Valuable Drops");
+					takeScreenshot(fileName, SD_VALUABLE_DROPS);
 				}
 			}
 		}
@@ -442,7 +463,7 @@ public class ScreenshotPlugin extends Plugin
 			{
 				String untradeableDropName = m.group(1);
 				String fileName = "Untradeable drop " + untradeableDropName;
-				takeScreenshot(fileName, "Untradeable Drops");
+				takeScreenshot(fileName, SD_UNTRADEABLE_DROPS);
 			}
 		}
 
@@ -454,7 +475,7 @@ public class ScreenshotPlugin extends Plugin
 				String result = m.group(1);
 				String count = m.group(2);
 				String fileName = "Duel " + result + " (" + count + ")";
-				takeScreenshot(fileName, "Duels");
+				takeScreenshot(fileName, SD_DUELS);
 			}
 		}
 
@@ -462,7 +483,7 @@ public class ScreenshotPlugin extends Plugin
 		{
 			String entry = Text.removeTags(chatMessage).substring(COLLECTION_LOG_TEXT.length());
 			String fileName = "Collection log (" + entry + ")";
-			takeScreenshot(fileName, "Collection Log");
+			takeScreenshot(fileName, SD_COLLECTION_LOG);
 		}
 	}
 
@@ -510,52 +531,67 @@ public class ScreenshotPlugin extends Plugin
 			case KINGDOM_GROUP_ID:
 			{
 				fileName = "Kingdom " + LocalDate.now();
-				screenshotSubDir = "Kingdom Rewards";
+				screenshotSubDir = SD_KINGDOM_REWARDS;
 				break;
 			}
 			case CHAMBERS_OF_XERIC_REWARD_GROUP_ID:
 			{
-				if (chambersOfXericNumber != null)
+				if (killType == KillType.COX)
 				{
-					fileName = "Chambers of Xeric(" + chambersOfXericNumber + ")";
-					screenshotSubDir = "Boss Kills";
-					chambersOfXericNumber = null;
+					fileName = "Chambers of Xeric(" + killCountNumber + ")";
+					screenshotSubDir = SD_BOSS_KILLS;
+					killType = null;
+					killCountNumber = 0;
 					break;
 				}
-				else if (chambersOfXericChallengeNumber != null)
+				else if (killType == KillType.COX_CM)
 				{
-					fileName = "Chambers of Xeric Challenge Mode(" + chambersOfXericChallengeNumber + ")";
-					screenshotSubDir = "Boss Kills";
-					chambersOfXericChallengeNumber = null;
+					fileName = "Chambers of Xeric Challenge Mode(" + killCountNumber + ")";
+					screenshotSubDir = SD_BOSS_KILLS;
+					killType = null;
+					killCountNumber = 0;
 					break;
 				}
-				else
-				{
-					return;
-				}
+				return;
 			}
 			case THEATRE_OF_BLOOD_REWARD_GROUP_ID:
 			{
-				if (theatreOfBloodNumber == null)
+				if (killType != KillType.TOB && killType != KillType.TOB_SM && killType != KillType.TOB_HM)
 				{
 					return;
 				}
 
-				fileName = "Theatre of Blood(" + theatreOfBloodNumber + ")";
-				screenshotSubDir = "Boss Kills";
-				theatreOfBloodNumber = null;
+				switch (killType)
+				{
+					case TOB:
+						fileName = "Theatre of Blood(" + killCountNumber + ")";
+						break;
+					case TOB_SM:
+						fileName = "Theatre of Blood Story Mode(" + killCountNumber + ")";
+						break;
+					case TOB_HM:
+						fileName = "Theatre of Blood Hard Mode(" + killCountNumber + ")";
+						break;
+					default:
+						throw new IllegalStateException();
+				}
+
+				screenshotSubDir = SD_BOSS_KILLS;
+				killType = null;
+				killCountNumber = 0;
 				break;
 			}
 			case BARROWS_REWARD_GROUP_ID:
 			{
-				if (barrowsNumber == null)
+				if (killType != KillType.BARROWS)
 				{
 					return;
 				}
 
-				fileName = "Barrows(" + barrowsNumber + ")";
-				screenshotSubDir = "Boss Kills";
-				barrowsNumber = null;
+				fileName = "Barrows(" + killCountNumber + ")";
+				screenshotSubDir = SD_BOSS_KILLS;
+				killType = null;
+				killCountNumber = 0;
 				break;
 			}
 			case LEVEL_UP_GROUP_ID:
@@ -574,7 +610,7 @@ public class ScreenshotPlugin extends Plugin
 				}
 
 				fileName = Character.toUpperCase(clueType.charAt(0)) + clueType.substring(1) + "(" + clueNumber + ")";
-				screenshotSubDir = "Clue Scroll Rewards";
+				screenshotSubDir = SD_CLUE_SCROLL_REWARDS;
 				clueType = null;
 				clueNumber = null;
 				break;
@@ -769,26 +805,14 @@ public class ScreenshotPlugin extends Plugin
 	}
 
 	@VisibleForTesting
-	int getBarrowsNumber()
+	KillType getKillType()
 	{
-		return barrowsNumber;
+		return killType;
 	}
 
 	@VisibleForTesting
-	int getChambersOfXericNumber()
+	int getKillCountNumber()
 	{
-		return chambersOfXericNumber;
-	}
-
-	@VisibleForTesting
-	int getChambersOfXericChallengeNumber()
-	{
-		return chambersOfXericChallengeNumber;
-	}
-
-	@VisibleForTesting
-	int gettheatreOfBloodNumber()
-	{
-		return theatreOfBloodNumber;
+		return killCountNumber;
 	}
 }

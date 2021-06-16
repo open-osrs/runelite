@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,46 +22,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+<<<<<<< HEAD:deobfuscator/src/test/java/net/runelite/deob/deobfuscators/unusedclass/EmptyInterface.java
+package net.runelite.deob.deobfuscators.unusedclass;
 
-package net.runelite.client.plugins.objectindicators;
+public interface EmptyInterface {}
+=======
+package net.runelite.client.plugins.cluescrolls.clues.hotcold;
 
-import java.awt.Color;
-import net.runelite.client.config.Alpha;
-import net.runelite.client.config.Config;
-import net.runelite.client.config.ConfigGroup;
-import net.runelite.client.config.ConfigItem;
+import org.junit.Test;
 
-@ConfigGroup("objectindicators")
-public interface ObjectIndicatorsConfig extends Config
+public class HotColdLocationTest
 {
-	@Alpha
-	@ConfigItem(
-		keyName = "markerColor",
-		name = "Marker color",
-		description = "Configures the color of object marker"
-	)
-	default Color markerColor()
+	@Test
+	public void test()
 	{
-		return Color.YELLOW;
-	}
-
-	@ConfigItem(
-		keyName = "rememberObjectColors",
-		name = "Remember color per object",
-		description = "Color objects using the color from time of marking"
-	)
-	default boolean rememberObjectColors()
-	{
-		return false;
-	}
-
-	@ConfigItem(
-		keyName = "borderWidth",
-		name = "Border Width",
-		description = "Width of the marked object border"
-	)
-	default double borderWidth()
-	{
-		return 2;
+		HotColdLocation.values(); // test clinit
 	}
 }
+>>>>>>> upstream/master:runelite-api/src/main/java/net/runelite/api/queries/HotColdLocationTest.java
