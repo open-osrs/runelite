@@ -33,6 +33,7 @@ import com.openosrs.client.OpenOSRS;
 import java.applet.Applet;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -515,9 +516,12 @@ public class ClientLoader implements Supplier<Applet>
 		}
 		catch (IOException ex)
 		{
-			log.error("Failed to calculate hash for cached file, falling back to vanilla", ex);
-			updateCheckMode = VANILLA;
-			return;
+			if (!(ex instanceof FileNotFoundException))
+			{
+				log.error("Failed to calculate hash for cached file, falling back to vanilla", ex);
+				updateCheckMode = VANILLA;
+				return;
+			}
 		}
 
 		byte[] currentInjected = ByteStreams.toByteArray(ClientLoader.class.getResourceAsStream(INJECTED_CLIENT_NAME));
@@ -525,6 +529,7 @@ public class ClientLoader implements Supplier<Applet>
 
 		if (!cachedInjected.exists() || !currentHash.equals(cachedHash))
 		{
+			cachedInjected.getParentFile().mkdirs();
 			Files.write(cachedInjected.toPath(), currentInjected);
 		}
 	}
