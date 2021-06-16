@@ -27,7 +27,6 @@ package net.runelite.client.plugins.config;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
-import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
