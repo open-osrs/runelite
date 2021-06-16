@@ -92,6 +92,10 @@ public class ItemLoader
 				def.yOffset2d -= 65536;
 			}
 		}
+		else if (opcode == 9)
+		{
+			def.unknown1 = stream.readString();
+		}
 		else if (opcode == 11)
 		{
 			def.stackable = 1;
@@ -191,6 +195,10 @@ public class ItemLoader
 		else if (opcode == 93)
 		{
 			def.femaleHeadModel2 = stream.readUnsignedShort();
+		}
+		else if (opcode == 94)
+		{
+			def.category = stream.readUnsignedShort();
 		}
 		else if (opcode == 95)
 		{
