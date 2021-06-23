@@ -667,9 +667,9 @@ public class OPRSExternalPluginManager
 		{
 			throw new PluginInstantiationException(ex);
 		}
-		catch (NoClassDefFoundError ex)
+		catch (NoClassDefFoundError | NoSuchFieldError | NoSuchMethodError ex)
 		{
-			log.error("Plugin {} is outdated", clazz.getSimpleName());
+			log.error("Plugin {} is outdated", clazz.getSimpleName(), ex);
 			return null;
 		}
 
