@@ -61,13 +61,6 @@ subprojects {
             mavenLocal()
         }
 
-        jcenter {
-            content {
-                excludeGroupByRegex("com\\.openosrs.*")
-                excludeGroupByRegex("com\\.runelite.*")
-            }
-        }
-
         exclusiveContent {
             forRepository {
                 maven {
@@ -103,7 +96,7 @@ subprojects {
             }
         }
 
-        maven(url = "https://mvnrepository.com/artifact")
+        mavenCentral();
     }
 
     apply<JavaLibraryPlugin>()
