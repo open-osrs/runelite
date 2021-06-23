@@ -368,7 +368,21 @@ public interface Actor extends Renderable, Locatable
 	int getActionFrameCycle();
 
 	/**
-	 * Returns true if this NPC has died
+	 * Get the number of cycles/client ticks remaining before the overhead text is timed out
+	 *
+	 * @return
+	 */
+	int getOverheadCycle();
+
+	/**
+	 * Set the number of cycles/client ticks before the overhead text is timed out
+	 *
+	 * @param cycles
+	 */
+	void setOverheadCycle(int cycles);
+
+	/**
+	 * Returns true if this actor has died
 	 *
 	 * @return
 	 */

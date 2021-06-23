@@ -195,4 +195,10 @@ public interface RSActor extends RSRenderable, Actor
 
 	@Import("pathLength")
 	int getPathLength();
+
+	@Import("overheadTextCyclesRemaining")
+	int getOverheadCycle();
+
+	@Import("overheadTextCyclesRemaining")
+	void setOverheadCycle(int cycle);
 }
