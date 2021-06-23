@@ -215,8 +215,10 @@ public class EventBus
 			{
 				subscriber.invoke(event);
 			}
-			catch (Exception e)
+			catch (Throwable e)
 			{
+				// here i'd really like to disable the bad plugin,
+				// but failing that i can't do much...
 				exceptionHandler.accept(e);
 			}
 		}
