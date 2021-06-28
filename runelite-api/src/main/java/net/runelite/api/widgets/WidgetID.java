@@ -1212,31 +1212,49 @@ public class WidgetID
 
 		// ARCEUUS SPELLS
 		static final int ARCEUUS_HOME_TELEPORT = 144;
-		static final int BATTLEFRONT_TELEPORT = 179;
-		// HEADS
-		static final int REANIMATE_GOBLIN = 145;
-		static final int REANIMATE_MONKEY = 147;
-		static final int REANIMATE_IMP = 148;
-		static final int REANIMATE_MINOTAUR = 149;
-		static final int REANIMATE_SCORPION = 151;
-		static final int REANIMATE_BEAR = 152;
-		static final int REANIMATE_UNICORN = 153;
-		static final int REANIMATE_DOG = 154;
-		static final int REANIMATE_CHAOS_DRUID = 156;
-		static final int REANIMATE_GIANT = 158;
-		static final int REANIMATE_OGRE = 160;
-		static final int REANIMATE_ELF = 161;
-		static final int REANIMATE_TROLL = 162;
-		static final int REANIMATE_HORROR = 164;
-		static final int REANIMATE_KALPHITE = 165;
-		static final int REANIMATE_DAGANNOTH = 167;
-		static final int REANIMATE_BLOODVELD = 168;
-		static final int REANIMATE_TZHAAR = 170;
-		static final int REANIMATE_DEMON = 172;
-		static final int REANIMATE_AVIANSIE = 173;
-		static final int REANIMATE_ABYSSAL = 176;
-		static final int REANIMATE_DRAGON = 178;
-
+		static final int BASIC_REANIMATION = 145;
+		static final int ARCEUUS_LIBRARY_TELEPORT = 146;
+		static final int ADEPT_REANIMATION = 147;
+		static final int EXPERT_REANIMATION = 148;
+		static final int MASTER_REANIMATION = 149;
+		static final int DRAYNOR_MANOR_TELEPORT = 150;
+		static final int MIND_ALTAR_TELEPORT = 152;
+		static final int RESPAWN_TELEPORT = 153;
+		static final int SALVE_GRAVEYARD_TELEPORT = 154;
+		static final int FENKENSTRAINS_CASTLE_TELEPORT = 155;
+		static final int WEST_ARDOUGNE_TELEPORT = 156;
+		static final int HARMONY_ISLAND_TELEPORT = 157;
+		static final int CEMETERY_TELEPORT = 158;
+		static final int RESURRECT_CROPS = 159;
+		static final int BARROWS_TELEPORT = 160;
+		static final int APE_ATOLL_TELEPORT = 161;
+		static final int BATTLEFRONT_TELEPORT = 162;
+		static final int INFERIOR_DEMONBANE = 163;
+		static final int SUPERIOR_DEMONBANE = 164;
+		static final int DARK_DEMONBANE = 165;
+		static final int MARK_OF_DARKNESS = 166;
+		static final int GHOSTLY_GRASP = 167;
+		static final int SKELETAL_GRASP = 168;
+		static final int UNDEAD_GRASP = 169;
+		static final int WARD_OF_ARCEUUS = 170;
+		static final int LESSER_CORRUPTION = 171;
+		static final int GREATER_CORRUPTION = 172;
+		static final int DEMONIC_OFFERING = 173;
+		static final int SINISTER_OFFERING = 174;
+		static final int DEGRIME = 175;
+		static final int SHADOW_VEIL = 176;
+		static final int VILE_VIGOUR = 177;
+		static final int DARK_LURE = 178;
+		static final int DEATH_CHARGE = 179;
+		static final int RESURRECT_LESSER_GHOST = 180;
+		static final int RESURRECT_LESSER_SKELETON = 181;
+		static final int RESURRECT_LESSER_ZOMBIE = 182;
+		static final int RESURRECT_SUPERIOR_GHOST = 183;
+		static final int RESURRECT_SUPERIOR_SKELETON = 184;
+		static final int RESURRECT_SUPERIOR_ZOMBIE = 185;
+		static final int RESURRECT_GREATER_GHOST = 186;
+		static final int RESURRECT_GREATER_SKELETON = 187;
+		static final int RESURRECT_GREATER_ZOMBIE = 188;
 	}
 
 	static class DialogSprite2
