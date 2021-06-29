@@ -132,11 +132,13 @@ public class ClientUI
 	@Getter
 	public static ContainableFrame frame;
 	private JPanel navContainer;
+	@Getter
 	private PluginPanel pluginPanel;
 	private ClientPluginToolbar pluginToolbar;
 	private ClientTitleToolbar titleToolbar;
 	private JButton currentButton;
 	private NavigationButton currentNavButton;
+	@Getter
 	private boolean sidebarOpen;
 	private JPanel container;
 	private NavigationButton sidebarNavigationButton;
