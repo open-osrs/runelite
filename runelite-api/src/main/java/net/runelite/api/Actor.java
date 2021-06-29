@@ -117,13 +117,19 @@ public interface Actor extends Renderable, Locatable
 	int getPoseFrameCycle();
 
 	/**
-	 * Gets the orientation of the actor.
+	 * Gets the target orientation of the actor.
 	 *
 	 * @return the orientation
 	 * @see net.runelite.api.coords.Angle
 	 */
 	int getOrientation();
 
+	/**
+	 * Gets the current orientation of the actor.
+	 *
+	 * @return the orientation
+	 * @see net.runelite.api.coords.Angle
+	 */
 	int getCurrentOrientation();
 
 	/**

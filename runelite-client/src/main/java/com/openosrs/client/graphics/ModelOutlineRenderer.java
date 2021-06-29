@@ -33,26 +33,27 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import net.runelite.api.Client;
 import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameObject;
 import net.runelite.api.GroundObject;
+import net.runelite.api.ItemLayer;
 import net.runelite.api.MainBufferProvider;
 import net.runelite.api.Model;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Player;
-import net.runelite.api.ItemLayer;
+import net.runelite.api.Renderable;
 import net.runelite.api.TileObject;
 import net.runelite.api.WallObject;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.client.task.Schedule;
 import net.runelite.client.task.Scheduler;
 
+@Deprecated(forRemoval = true, since = "4.9.2")
 @Singleton
 public class ModelOutlineRenderer
 {
@@ -929,11 +930,13 @@ public class ModelOutlineRenderer
 		renderOutline(image, outlineWidth, innerColor, outerColor);
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(NPC npc, int outlineWidth, Color color)
 	{
 		drawOutline(npc, outlineWidth, color, color);
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(NPC npc, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		int size = 1;
@@ -957,11 +960,13 @@ public class ModelOutlineRenderer
 		}
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(Player player, int outlineWidth, Color color)
 	{
 		drawOutline(player, outlineWidth, color, color);
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(Player player, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = player.getLocalLocation();
@@ -973,17 +978,25 @@ public class ModelOutlineRenderer
 		}
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(GameObject gameObject, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = gameObject.getLocalLocation();
 		if (lp != null)
 		{
-			drawModelOutline(gameObject.getModel(), lp.getX(), lp.getY(),
+			Renderable renderable = gameObject.getRenderable();
+			if (renderable == null)
+			{
+				return;
+			}
+
+			drawModelOutline(renderable instanceof Model ? (Model) renderable : renderable.getModel(), lp.getX(), lp.getY(),
 				Perspective.getTileHeight(client, lp, gameObject.getPlane()),
-				gameObject.getRsOrientation(), outlineWidth, innerColor, outerColor);
+				gameObject.getModelOrientation(), outlineWidth, innerColor, outerColor);
 		}
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(GroundObject groundObject, int outlineWidth, Color innerColor, Color outerColor)
 	{
 		LocalPoint lp = groundObject.getLocalLocation();
@@ -1031,23 +1044,31 @@ public class ModelOutlineRenderer
 		LocalPoint lp = decorativeObject.getLocalLocation();
 		if (lp != null)
 		{
-			Model model = decorativeObject.getModel1();
-			if (model != null)
+			Renderable renderable1 = decorativeObject.getRenderable();
+			if (renderable1 != null)
 			{
-				drawModelOutline(model,
-					lp.getX() + decorativeObject.getXOffset(),
-					lp.getY() + decorativeObject.getYOffset(),
-					Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
-					decorativeObject.getOrientation(), outlineWidth, innerColor, outerColor);
+				Model model = renderable1 instanceof Model ? (Model) renderable1 : renderable1.getModel();
+				if (model != null)
+				{
+					drawModelOutline(model,
+						lp.getX() + decorativeObject.getXOffset(),
+						lp.getY() + decorativeObject.getYOffset(),
+						Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
+						0, outlineWidth, innerColor, outerColor);
+				}
 			}
 
-			model = decorativeObject.getModel2();
-			if (model != null)
+			Renderable renderable2 = decorativeObject.getRenderable2();
+			if (renderable2 != null)
 			{
-				// Offset is not used for the second model
-				drawModelOutline(model, lp.getX(), lp.getY(),
-					Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
-					decorativeObject.getOrientation(), outlineWidth, innerColor, outerColor);
+				Model model = renderable2 instanceof Model ? (Model) renderable2 : renderable2.getModel();
+				if (model != null)
+				{
+					// Offset is not used for the second model
+					drawModelOutline(model, lp.getX(), lp.getY(),
+						Perspective.getTileHeight(client, lp, decorativeObject.getPlane()),
+						0, outlineWidth, innerColor, outerColor);
+				}
 			}
 		}
 	}
@@ -1075,11 +1096,13 @@ public class ModelOutlineRenderer
 		}
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(TileObject tileObject, int outlineWidth, Color color)
 	{
 		drawOutline(tileObject, outlineWidth, color, color);
 	}
 
+	@Deprecated(forRemoval = true, since = "4.9.2")
 	public void drawOutline(TileObject tileObject,
 							int outlineWidth, Color innerColor, Color outerColor)
 	{
@@ -1107,9 +1130,9 @@ public class ModelOutlineRenderer
 
 	@Value
 	@RequiredArgsConstructor
-	class PixelDistanceAlpha
+	static class PixelDistanceAlpha
 	{
-		private final int outerAlpha;
-		private final int distArrayPos;
+		int outerAlpha;
+		int distArrayPos;
 	}
 }

@@ -32,7 +32,6 @@ public interface RSGameObject extends GameObject
 	int getHeight();
 
 	@Import("orientation")
-	@Override
 	int getRsOrientation();
 
 	@Import("tag")
@@ -40,7 +39,6 @@ public interface RSGameObject extends GameObject
 	long getHash();
 
 	@Import("flags")
-	@Override
 	int getFlags();
 
 	int getPlane();

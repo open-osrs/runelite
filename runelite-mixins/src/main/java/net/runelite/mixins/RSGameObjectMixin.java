@@ -75,7 +75,6 @@ public abstract class RSGameObjectMixin implements RSGameObject
 	}
 
 	@Inject
-	@Override
 	public RSModel getModel()
 	{
 		RSRenderable renderable = getRenderable();

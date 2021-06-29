@@ -37,7 +37,6 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration
 	}
 
 	@Inject
-	@Override
 	public RSModel getModel1()
 	{
 		RSRenderable renderable = getRenderable();
@@ -61,7 +60,6 @@ public abstract class RSWallDecorationMixin implements RSWallDecoration
 	}
 
 	@Inject
-	@Override
 	public RSModel getModel2()
 	{
 		RSRenderable renderable = getRenderable2();

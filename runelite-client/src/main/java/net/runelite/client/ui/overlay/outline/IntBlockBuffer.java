@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021, Woox <https://github.com/wooxsolo>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,36 +22,64 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.ui.overlay.outline;
 
-import java.awt.Shape;
+import java.util.Arrays;
 
 /**
- * Represents a decorative object, such as an object on a wall.
+ * A class which manages 1024-sized blocks of memory.
  */
-public interface DecorativeObject extends TileObject
+class IntBlockBuffer
 {
+	public static final int BLOCK_BITS = 10;
+	public static final int BLOCK_SIZE = 1 << BLOCK_BITS;
+
+	private int[] memory = new int[0];
+	private int[] unusedBlockIndices = new int[0];
+	private int unusedBlockIndicesLength;
+
+	private void increaseBlockCount()
+	{
+		int currBlockCount = memory.length >> BLOCK_BITS;
+		int newBlockCount = Math.max(1, currBlockCount * 2);
+		memory = Arrays.copyOf(memory, newBlockCount * BLOCK_SIZE);
+		unusedBlockIndices = Arrays.copyOf(unusedBlockIndices, newBlockCount);
+		for (int i = currBlockCount; i < newBlockCount; i++)
+		{
+			unusedBlockIndices[unusedBlockIndicesLength++] = i;
+		}
+	}
+
 	/**
-	 * Gets the convex hull of the objects model.
+	 * Retrieves the whole memory buffer.
+	 */
+	public int[] getMemory()
+	{
+		return memory;
+	}
+
+	/**
+	 * Marks a new block as used.
 	 *
-	 * @return the convex hull
-	 * @see net.runelite.api.model.Jarvis
+	 * @return The index of the block.
 	 */
-	Shape getConvexHull();
-	Shape getConvexHull2();
+	public int useNewBlock()
+	{
+		if (unusedBlockIndicesLength == 0)
+		{
+			increaseBlockCount();
+		}
 
-	Renderable getRenderable();
-	Renderable getRenderable2();
-
-	/**
-	 * Decorative object x offset. This is added to the x position of the object, and is used to
-	 * account for walls of varying widths.
-	 */
-	int getXOffset();
+		return unusedBlockIndices[--unusedBlockIndicesLength];
+	}
 
 	/**
-	 * Decorative object y offset. This is added to the z position of the object, and is used to
-	 * account for walls of varying widths.
+	 * Marks a block as unused.
+	 *
+	 * @param index The index of the block. The block should be in use before calling this method.
 	 */
-	int getYOffset();
+	public void freeBlock(int index)
+	{
+		unusedBlockIndices[unusedBlockIndicesLength++] = index;
+	}
 }

@@ -1435,6 +1435,7 @@ public abstract class RSClientMixin implements RSClient
 		menuOptionClicked.setMenuAction(MenuAction.of(opcode));
 		menuOptionClicked.setId(id);
 		menuOptionClicked.setWidgetId(param1);
+		menuOptionClicked.setSelectedItemIndex(client.getSelectedItemSlot());
 
 		client.getCallbacks().post(menuOptionClicked);
 

@@ -83,15 +83,14 @@ public interface GameObject extends TileObject
 
 	Renderable getRenderable();
 
-	int getRsOrientation();
-
-	Model getModel();
-
 	/**
-	 * A bitfield containing various flags:
-	 * object type id = bits & 0x20
-	 * orientation (0-3) = bits >>> 6 & 3
-	 * the bitfield may contain other flags in addition to those mentioned above
+	 * Gets the orientation of the model in JAU.
+	 * This is typically 0 for non-actors, since
+	 * most object's models are oriented prior to
+	 * lighting during scene loading. See {@link #getOrientation()}
+	 * instead for object orientation.
+	 *
+	 * @see net.runelite.api.coords.Angle
 	 */
-	int getFlags();
+	int getModelOrientation();
 }
