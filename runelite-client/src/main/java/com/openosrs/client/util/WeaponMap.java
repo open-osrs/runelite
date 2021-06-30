@@ -630,7 +630,6 @@ public class WeaponMap
 		StyleMap.put(ItemID.IRON_CROSSBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.IRON_DART, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.IRON_DARTP, WeaponStyle.RANGE);
-		StyleMap.put(ItemID.IRON_DARTP_5629, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.IRON_DARTP_5636, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.IRON_KNIFE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.IRON_KNIFEP, WeaponStyle.RANGE);

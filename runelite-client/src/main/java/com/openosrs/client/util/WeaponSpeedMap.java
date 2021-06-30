@@ -608,7 +608,6 @@ public class WeaponSpeedMap
 		SpeedMap.put(ItemID.IRON_CROSSBOW, 6);
 		SpeedMap.put(ItemID.IRON_DART, 3);
 		SpeedMap.put(ItemID.IRON_DARTP, 3);
-		SpeedMap.put(ItemID.IRON_DARTP_5629, 3);
 		SpeedMap.put(ItemID.IRON_DARTP_5636, 3);
 		SpeedMap.put(ItemID.IRON_KNIFE, 3);
 		SpeedMap.put(ItemID.IRON_KNIFEP, 3);
