@@ -97,7 +97,7 @@ public abstract class RSGameObjectMixin implements RSGameObject
 	@Override
 	public Shape getClickbox()
 	{
-		return Perspective.getClickbox(client, getModel(), getRsOrientation(), getLocalLocation());
+		return Perspective.getClickbox(client, getModel(), getModelOrientation(), getLocalLocation());
 	}
 
 	@Inject
@@ -113,14 +113,14 @@ public abstract class RSGameObjectMixin implements RSGameObject
 
 		int tileHeight = Perspective.getTileHeight(client, new LocalPoint(getX(), getY()), client.getPlane());
 
-		return model.getConvexHull(getX(), getY(), getRsOrientation(), tileHeight);
+		return model.getConvexHull(getX(), getY(), getModelOrientation(), tileHeight);
 	}
 
 	@Override
 	@Inject
 	public Angle getOrientation()
 	{
-		int orientation = getRsOrientation();
+		int orientation = getModelOrientation();
 		int rotation = (getFlags() >> 6) & 3;
 		return new Angle(rotation * 512 + orientation);
 	}
