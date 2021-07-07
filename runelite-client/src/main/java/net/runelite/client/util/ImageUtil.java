@@ -36,6 +36,7 @@ import java.awt.image.PixelGrabber;
 import java.awt.image.RescaleOp;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -384,11 +385,11 @@ public class ImageUtil
 	 */
 	public static BufferedImage loadImageResource(final Class<?> c, final String path)
 	{
-		try
+		try (InputStream in = c.getResourceAsStream(path))
 		{
 			synchronized (ImageIO.class)
 			{
-				return ImageIO.read(c.getResourceAsStream(path));
+				return ImageIO.read(in);
 			}
 		}
 		catch (IllegalArgumentException e)

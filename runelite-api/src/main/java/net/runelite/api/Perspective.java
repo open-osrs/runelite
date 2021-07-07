@@ -411,21 +411,14 @@ public class Perspective
 		int plane,
 		int zOffset)
 	{
-		final int swX = localLocation.getX() - (sizeX * LOCAL_TILE_SIZE / 2);
-		final int swY = localLocation.getY() - (sizeY * LOCAL_TILE_SIZE / 2);
-
-		final int neX = localLocation.getX() + (sizeX * LOCAL_TILE_SIZE / 2);
-		final int neY = localLocation.getY() + (sizeY * LOCAL_TILE_SIZE / 2);
-
-		final byte[][][] tileSettings = client.getTileSettings();
-
-		final int sceneX = localLocation.getSceneX();
-		final int sceneY = localLocation.getSceneY();
-
-		if (sceneX < 0 || sceneY < 0 || sceneX >= SCENE_SIZE || sceneY >= SCENE_SIZE)
+		if (!localLocation.isInScene())
 		{
 			return null;
 		}
+
+		final byte[][][] tileSettings = client.getTileSettings();
+		final int sceneX = localLocation.getSceneX();
+		final int sceneY = localLocation.getSceneY();
 
 		int tilePlane = plane;
 		if (plane < Constants.MAX_Z - 1 && (tileSettings[1][sceneX][sceneY] & TILE_FLAG_BRIDGE) == TILE_FLAG_BRIDGE)
@@ -433,15 +426,27 @@ public class Perspective
 			tilePlane = plane + 1;
 		}
 
+		final int swX = localLocation.getX() - (sizeX * LOCAL_TILE_SIZE / 2);
+		final int swY = localLocation.getY() - (sizeY * LOCAL_TILE_SIZE / 2);
+
+		final int neX = localLocation.getX() + (sizeX * LOCAL_TILE_SIZE / 2);
+		final int neY = localLocation.getY() + (sizeY * LOCAL_TILE_SIZE / 2);
+
+		final int seX = swX;
+		final int seY = neY;
+
+		final int nwX = neX;
+		final int nwY = swY;
+
 		final int swHeight = getHeight(client, swX, swY, tilePlane) - zOffset;
-		final int nwHeight = getHeight(client, neX, swY, tilePlane) - zOffset;
+		final int nwHeight = getHeight(client, nwX, nwY, tilePlane) - zOffset;
 		final int neHeight = getHeight(client, neX, neY, tilePlane) - zOffset;
-		final int seHeight = getHeight(client, swX, neY, tilePlane) - zOffset;
+		final int seHeight = getHeight(client, seX, seY, tilePlane) - zOffset;
 
 		Point p1 = localToCanvas(client, swX, swY, swHeight);
-		Point p2 = localToCanvas(client, neX, swY, nwHeight);
+		Point p2 = localToCanvas(client, nwX, nwY, nwHeight);
 		Point p3 = localToCanvas(client, neX, neY, neHeight);
-		Point p4 = localToCanvas(client, swX, neY, seHeight);
+		Point p4 = localToCanvas(client, seX, seY, seHeight);
 
 		if (p1 == null || p2 == null || p3 == null || p4 == null)
 		{
