@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, Trevor <https://github.com/Trevor159>
+ * Copyright (c) 2021 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +23,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.17"
+import net.runelite.api.coords.LocalPoint;
 
-    const val openosrsVersion = "4.9.6"
+/**
+ * Represents a modified {@link GraphicsObject}
+ */
+public interface RuneLiteObject extends GraphicsObject
+{
+	/**
+	 * Sets the model of the RuneLiteObject
+	 */
+	void setModel(Model model);
 
-    const val rsversion = 197
-    const val cacheversion = 165
+	/**
+	 * Sets the animation of the RuneLiteObject
+	 * If animation is null model will be static
+	 */
+	void setAnimation(Sequence animation);
 
-    const val lombokVersion = "1.18.20"
+	/**
+	 * Sets whether the animation of the RuneLiteObject should loop when the animation ends.
+	 * If this is false the object will despawn when the animation ends.
+	 * Does nothing if the animation is null.
+	 */
+	void setShouldLoop(boolean shouldLoop);
+
+	/**
+	 * Sets the location in the scene for the RuneLiteObject
+	 */
+	void setLocation(LocalPoint point, int plane);
+
+	/**
+	 * Sets the state of the RuneLiteObject
+	 * Set to true to spawn the object
+	 * Set to false to despawn the object
+	 */
+	void setActive(boolean active);
+
+	/**
+	 * Gets the state of the RuneLiteObject
+	 *
+	 * @return true if the RuneLiteObject is added to the scene
+	 */
+	boolean isActive();
 }

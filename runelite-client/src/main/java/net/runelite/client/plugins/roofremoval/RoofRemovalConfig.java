@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,54 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.roofremoval;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.17"
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
 
-    const val openosrsVersion = "4.9.6"
+@ConfigGroup(RoofRemovalConfig.CONFIG_GROUP)
+public interface RoofRemovalConfig extends Config
+{
+	String CONFIG_GROUP = "roofremoval";
 
-    const val rsversion = 197
-    const val cacheversion = 165
+	@ConfigItem(
+		keyName = "removePosition",
+		name = "Player's position",
+		description = "Remove roofs above the player's position"
+	)
+	default boolean removePosition()
+	{
+		return true;
+	}
 
-    const val lombokVersion = "1.18.20"
+	@ConfigItem(
+		keyName = "removeHovered",
+		name = "Hovered tile",
+		description = "Remove roofs above the hovered tile"
+	)
+	default boolean removeHovered()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "removeDestination",
+		name = "Destination tile",
+		description = "Remove roofs above the destination tile"
+	)
+	default boolean removeDestination()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "removeBetween",
+		name = "Between camera & player",
+		description = "Remove roofs between the camera and the player at low camera angles"
+	)
+	default boolean removeBetween()
+	{
+		return true;
+	}
 }

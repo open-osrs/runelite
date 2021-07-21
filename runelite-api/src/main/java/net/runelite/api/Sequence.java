@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, Trevor <https://github.com/Trevor159>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.17"
-
-    const val openosrsVersion = "4.9.6"
-
-    const val rsversion = 197
-    const val cacheversion = 165
-
-    const val lombokVersion = "1.18.20"
+/**
+ * Represents an animation of a renderable
+ */
+public interface Sequence
+{
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021, Trevor <https://github.com/Trevor159>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,56 +22,58 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.grounditems;
 
+import net.runelite.api.AnimationID;
+import net.runelite.api.Client;
+import net.runelite.api.JagexColor;
+import net.runelite.api.RuneLiteObject;
+import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
+import java.awt.Color;
 
-/**
- * Represents the entire 3D scene
- */
-public interface Scene
+class Lootbeam
 {
-	/**
-	 * Gets the tiles in the scene
-	 *
-	 * @return the tiles in [plane][x][y]
-	 */
-	Tile[][][] getTiles();
+	private static final int RAID_LIGHT_MODEL = 5809;
+	private static final short RAID_LIGHT_FIND_COLOR = 6371;
 
-	/**
-	 * Adds an item to the scene
-	 */
-	void addItem(int id, int quantity, WorldPoint point);
+	private final RuneLiteObject runeLiteObject;
+	private final Client client;
+	private Color color;
 
-	/**
-	 * Removes an item from the scene
-	 */
-	void removeItem(int id, int quantity, WorldPoint point);
+	public Lootbeam(Client client, WorldPoint worldPoint, Color color)
+	{
+		this.client = client;
+		runeLiteObject = client.createRuneLiteObject();
 
-	int getDrawDistance();
-	void setDrawDistance(int drawDistance);
+		setColor(color);
+		runeLiteObject.setAnimation(client.loadAnimation(AnimationID.RAID_LIGHT_ANIMATION));
+		runeLiteObject.setShouldLoop(true);
 
-	/**
-	 * Get the minimum scene level which will be rendered
-	 *
-	 * @return the plane of the minimum level
-	 */
-	int getMinLevel();
+		LocalPoint lp = LocalPoint.fromWorld(client, worldPoint);
+		runeLiteObject.setLocation(lp, client.getPlane());
 
-	/**
-	 * Set the minimum scene level which will be rendered
-	 *
-	 * @param minLevel the plane of the minimum level
-	 */
-	void setMinLevel(int minLevel);
+		runeLiteObject.setActive(true);
+	}
 
-	/**
-	 * Remove a game object from the scene
-	 * @param gameObject
-	 */
-	void removeGameObject(GameObject gameObject);
+	public void setColor(Color color)
+	{
+		if (this.color != null && this.color.equals(color))
+		{
+			return;
+		}
 
-	void generateHouses();
+		this.color = color;
+		runeLiteObject.setModel(client.loadModel(
+			RAID_LIGHT_MODEL,
+			new short[]{RAID_LIGHT_FIND_COLOR},
+			new short[]{JagexColor.rgbToHSL(color.getRGB(), 1.0d)}
+		));
+	}
 
-	void setRoofRemovalMode(int flags);
+	public void remove()
+	{
+		runeLiteObject.setActive(false);
+	}
+
 }

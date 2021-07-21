@@ -82,6 +82,7 @@ public class WidgetID
 	public static final int BA_DEFENDER_GROUP_ID = 487;
 	public static final int BA_HEALER_GROUP_ID = 488;
 	public static final int BA_REWARD_GROUP_ID = 497;
+	public static final int BA_TEAM_GROUP_ID = 256;
 	public static final int LEVEL_UP_GROUP_ID = 233;
 	public static final int DIALOG_SPRITE_GROUP_ID = 193;
 	public static final int QUEST_COMPLETED_GROUP_ID = 153;
@@ -152,6 +153,7 @@ public class WidgetID
 	public static final int LMS_GROUP_ID = 333;
 	public static final int LMS_INGAME_GROUP_ID = 328;
 	public static final int ADVENTURE_LOG_ID = 187;
+	public static final int COLLECTION_LOG_ID = 621;
 	public static final int GENERIC_SCROLL_GROUP_ID = 625;
 	public static final int GAUNTLET_TIMER_GROUP_ID = 637;
 	public static final int HALLOWED_SEPULCHRE_TIMER_GROUP_ID = 668;
@@ -684,11 +686,14 @@ public class WidgetID
 
 		static class HLR
 		{
+			static final int TEAMMATES = 13;
 			static final int TEAMMATE1 = 18;
 			static final int TEAMMATE2 = 22;
 			static final int TEAMMATE3 = 26;
 			static final int TEAMMATE4 = 30;
 		}
+
+		static final int TEAM = 2;
 
 		static final int ROLE_SPRITE = 10;
 		static final int ROLE = 11;
@@ -952,6 +957,15 @@ public class WidgetID
 	static class AdventureLog
 	{
 		static final int CONTAINER = 0;
+	}
+
+	static class CollectionLog
+	{
+		static final int CONTAINER = 0;
+		static final int TABS = 3;
+		static final int ENTRY = 17;
+		static final int ENTRY_HEADER = 19;
+		static final int ENTRY_ITEMS = 36;
 	}
 
 	static class GenericScroll

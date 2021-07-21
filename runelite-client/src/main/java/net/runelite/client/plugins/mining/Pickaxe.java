@@ -25,7 +25,10 @@
 package net.runelite.client.plugins.mining;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import static net.runelite.api.AnimationID.MINING_3A_PICKAXE;
 import static net.runelite.api.AnimationID.MINING_ADAMANT_PICKAXE;
@@ -134,5 +137,12 @@ enum Pickaxe
 	static Pickaxe fromAnimation(int animId)
 	{
 		return PICKAXE_ANIM_IDS.get(animId);
+	}
+
+	public static Set<Integer> all()
+	{
+		return Arrays.stream(values())
+			.map(pickaxe -> pickaxe.itemId)
+			.collect(Collectors.toSet());
 	}
 }

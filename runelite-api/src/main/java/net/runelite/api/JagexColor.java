@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2019 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.api;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.17"
+import java.awt.Color;
 
-    const val openosrsVersion = "4.9.6"
+public final class JagexColor
+{
+	public static short packHSL(int hue, int saturation, int luminance)
+	{
+		return (short) ((short) (hue & 63) << 10
+			| (short) (saturation & 7) << 7
+			| (short) (luminance & 127));
+	}
 
-    const val rsversion = 197
-    const val cacheversion = 165
+	public static short rgbToHSL(int rgb, double brightness)
+	{
+		if (rgb == 1)
+		{
+			return 0;
+		}
 
-    const val lombokVersion = "1.18.20"
+		brightness = 1.D / brightness;
+
+		double r = (double) (rgb >> 16 & 255) / 256.0D;
+		double g = (double) (rgb >> 8 & 255) / 256.0D;
+		double b = (double) (rgb & 255) / 256.0D;
+
+		r = Math.pow(r, brightness);
+		g = Math.pow(g, brightness);
+		b = Math.pow(b, brightness);
+
+		float[] hsv = Color.RGBtoHSB((int) (r * 256.D), (int) (g * 256.D), (int) (b * 256.D), null);
+		double hue = hsv[0];
+		double luminance = hsv[2] - ((hsv[2] * hsv[1]) / 2.F);
+		double saturation = (hsv[2] - luminance) / Math.min(luminance, 1 - luminance);
+
+		return packHSL((int) (Math.ceil(hue * 64.D) % 63.D),
+			(int) Math.ceil(saturation * 7.D),
+			(int) Math.ceil(luminance * 127.D));
+	}
 }
