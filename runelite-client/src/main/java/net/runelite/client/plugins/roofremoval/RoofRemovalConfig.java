@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Cameron <https://github.com/noremac201>
+ * Copyright (c) 2021, Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,30 +22,54 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.reportbutton;
+package net.runelite.client.plugins.roofremoval;
 
-public enum TimeStyle
+import net.runelite.client.config.Config;
+import net.runelite.client.config.ConfigGroup;
+import net.runelite.client.config.ConfigItem;
+
+@ConfigGroup(RoofRemovalConfig.CONFIG_GROUP)
+public interface RoofRemovalConfig extends Config
 {
-	OFF("Off"),
-	DATE("Date"),
-	LOGIN_TIME("Login Timer"),
-	UTC("UTC Time"),
-	JAGEX("Jagex HQ Time"),
-	LOCAL_TIME("Local Time"),
-	GAME_TICKS("Game Ticks"),
-	IDLE_TIME("Idle Time");
+	String CONFIG_GROUP = "roofremoval";
 
-	private final String name;
-
-	TimeStyle(String name)
+	@ConfigItem(
+		keyName = "removePosition",
+		name = "Player's position",
+		description = "Remove roofs above the player's position"
+	)
+	default boolean removePosition()
 	{
-		this.name = name;
+		return true;
 	}
 
-	@Override
-	public String toString()
+	@ConfigItem(
+		keyName = "removeHovered",
+		name = "Hovered tile",
+		description = "Remove roofs above the hovered tile"
+	)
+	default boolean removeHovered()
 	{
-		return name;
+		return true;
 	}
 
+	@ConfigItem(
+		keyName = "removeDestination",
+		name = "Destination tile",
+		description = "Remove roofs above the destination tile"
+	)
+	default boolean removeDestination()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = "removeBetween",
+		name = "Between camera & player",
+		description = "Remove roofs between the camera and the player at low camera angles"
+	)
+	default boolean removeBetween()
+	{
+		return true;
+	}
 }

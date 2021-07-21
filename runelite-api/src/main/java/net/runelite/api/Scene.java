@@ -70,4 +70,8 @@ public interface Scene
 	 * @param gameObject
 	 */
 	void removeGameObject(GameObject gameObject);
+
+	void generateHouses();
+
+	void setRoofRemovalMode(int flags);
 }
