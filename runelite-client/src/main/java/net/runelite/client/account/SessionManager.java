@@ -162,7 +162,9 @@ public class SessionManager
 		{
 			// Initialize config for new session
 			// If the session isn't logged in yet, don't switch to the new config
-			configManager.switchSession(session);
+
+			//This switches to a config context that can't be uploaded/downloaded, "resetting" every startup
+			//configManager.switchSession(session);
 		}
 
 		eventBus.post(new SessionOpen());
