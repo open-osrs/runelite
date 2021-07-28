@@ -6,108 +6,131 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bn")
+@ObfuscatedName("af")
 @Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1718223303
-	)
-	@Export("graphicsTickTimeIdx")
-	static int graphicsTickTimeIdx;
-	@ObfuscatedName("f")
-	@Export("intReplaceValues")
-	int[] intReplaceValues;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = -1554436787
+		intValue = 445083465
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("v")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1579568443
+		intValue = -580526265
 	)
 	@Export("size")
 	int size;
-	@ObfuscatedName("y")
+	@ObfuscatedName("v")
 	@Export("operations")
 	int[] operations;
 	@ObfuscatedName("j")
 	@Export("creationErrors")
 	int[] creationErrors;
-	@ObfuscatedName("o")
+	@ObfuscatedName("l")
 	@Export("fields")
 	Field[] fields;
-	@ObfuscatedName("m")
-	@Export("arguments")
-	byte[][][] arguments;
-	@ObfuscatedName("r")
+	@ObfuscatedName("n")
+	@Export("intReplaceValues")
+	int[] intReplaceValues;
+	@ObfuscatedName("w")
 	@Export("methods")
 	Method[] methods;
+	@ObfuscatedName("f")
+	@Export("arguments")
+	byte[][][] arguments;
 
 	ReflectionCheck() {
-	} // L: 17
-
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljs;",
-		garbageValue = "1563707266"
-	)
-	public static GameBuild method1228(int var0) {
-		GameBuild[] var1 = UserComparator8.method2538(); // L: 23
-
-		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 24
-			GameBuild var3 = var1[var2]; // L: 25
-			if (var0 == var3.buildId) {
-				return var3; // L: 27
-			}
-		}
-
-		return null; // L: 31
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("gb")
 	@ObfuscatedSignature(
-		descriptor = "(Lbk;Lbk;IZIZB)I",
-		garbageValue = "88"
+		descriptor = "(Lbx;I)V",
+		garbageValue = "152789303"
 	)
-	static int method1227(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
-		int var6 = WorldMapRectangle.compareWorlds(var0, var1, var2, var3); // L: 199
-		if (var6 != 0) { // L: 200
-			return var3 ? -var6 : var6; // L: 201
-		} else if (var4 == -1) { // L: 204
-			return 0;
-		} else {
-			int var7 = WorldMapRectangle.compareWorlds(var0, var1, var4, var5); // L: 205
-			return var5 ? -var7 : var7; // L: 206
+	static final void method848(Actor var0) {
+		if (var0.field1074 != 0) {
+			if (var0.targetIndex != -1) {
+				Object var1 = null;
+				if (var0.targetIndex < 32768) {
+					var1 = Client.npcs[var0.targetIndex];
+				} else if (var0.targetIndex >= 32768) {
+					var1 = Client.players[var0.targetIndex - 32768];
+				}
+
+				if (var1 != null) {
+					int var2 = var0.x - ((Actor)var1).x;
+					int var3 = var0.y - ((Actor)var1).y;
+					if (var2 != 0 || var3 != 0) {
+						var0.orientation = (int)(Math.atan2((double)var2, (double)var3) * 325.949D) & 2047;
+					}
+				} else if (var0.false0) {
+					var0.targetIndex = -1;
+					var0.false0 = false;
+				}
+			}
+
+			if (var0.field1048 != -1 && (var0.pathLength == 0 || var0.field1078 > 0)) {
+				var0.orientation = var0.field1048;
+				var0.field1048 = -1;
+			}
+
+			int var4 = var0.orientation - var0.rotation & 2047;
+			if (var4 == 0 && var0.false0) {
+				var0.targetIndex = -1;
+				var0.false0 = false;
+			}
+
+			if (var4 != 0) {
+				++var0.field1072;
+				boolean var6;
+				if (var4 > 1024) {
+					var0.rotation -= var0.field1074;
+					var6 = true;
+					if (var4 < var0.field1074 || var4 > 2048 - var0.field1074) {
+						var0.rotation = var0.orientation;
+						var6 = false;
+					}
+
+					if (var0.movementSequence == var0.idleSequence && (var0.field1072 > 25 || var6)) {
+						if (var0.turnLeftSequence != -1) {
+							var0.movementSequence = var0.turnLeftSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence;
+						}
+					}
+				} else {
+					var0.rotation += var0.field1074;
+					var6 = true;
+					if (var4 < var0.field1074 || var4 > 2048 - var0.field1074) {
+						var0.rotation = var0.orientation;
+						var6 = false;
+					}
+
+					if (var0.idleSequence == var0.movementSequence && (var0.field1072 > 25 || var6)) {
+						if (var0.turnRightSequence != -1) {
+							var0.movementSequence = var0.turnRightSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence;
+						}
+					}
+				}
+
+				var0.rotation &= 2047;
+			} else {
+				var0.field1072 = 0;
+			}
+
 		}
 	}
 
-	@ObfuscatedName("fk")
+	@ObfuscatedName("jo")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "111"
+		descriptor = "(I)Z",
+		garbageValue = "1463309122"
 	)
-	static void method1230(int var0, int var1) {
-		if (class4.clientPreferences.musicVolume != 0 && var0 != -1) { // L: 3795
-			class105.method2357(class160.archive11, var0, 0, class4.clientPreferences.musicVolume, false); // L: 3796
-			Client.field862 = true; // L: 3797
-		}
-
-	} // L: 3799
-
-	@ObfuscatedName("il")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "0"
-	)
-	static final void method1229(int var0, int var1, int var2, int var3) {
-		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) { // L: 7766
-			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetHeights[var4] + Client.rootWidgetYs[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) { // L: 7767
-				Client.field712[var4] = true;
-			}
-		}
-
-	} // L: 7769
+	@Export("getTapToDrop")
+	static boolean getTapToDrop() {
+		return Client.tapToDrop;
+	}
 }

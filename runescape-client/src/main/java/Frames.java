@@ -3,102 +3,78 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gi")
+@ObfuscatedName("ga")
 @Implements("Frames")
 public class Frames extends DualNode {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "[Lgz;"
+		descriptor = "[Lgp;"
 	)
 	@Export("frames")
 	Animation[] frames;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;Ljp;IZ)V"
+		descriptor = "(Ljy;Ljy;IZ)V"
 	)
 	Frames(AbstractArchive var1, AbstractArchive var2, int var3, boolean var4) {
-		NodeDeque var5 = new NodeDeque(); // L: 35
-		int var6 = var1.getGroupFileCount(var3); // L: 36
-		this.frames = new Animation[var6]; // L: 37
-		int[] var7 = var1.getGroupFileIds(var3); // L: 38
+		NodeDeque var5 = new NodeDeque();
+		int var6 = var1.getGroupFileCount(var3);
+		this.frames = new Animation[var6];
+		int[] var7 = var1.getGroupFileIds(var3);
 
-		for (int var8 = 0; var8 < var7.length; ++var8) { // L: 39
-			byte[] var9 = var1.takeFile(var3, var7[var8]); // L: 40
-			Skeleton var10 = null; // L: 41
-			int var11 = (var9[0] & 255) << 8 | var9[1] & 255; // L: 42
+		for (int var8 = 0; var8 < var7.length; ++var8) {
+			byte[] var9 = var1.takeFile(var3, var7[var8]);
+			Skeleton var10 = null;
+			int var11 = (var9[0] & 255) << 8 | var9[1] & 255;
 
-			for (Skeleton var12 = (Skeleton)var5.last(); var12 != null; var12 = (Skeleton)var5.previous()) { // L: 43 44 49
-				if (var11 == var12.id) { // L: 45
-					var10 = var12; // L: 46
+			for (Skeleton var12 = (Skeleton)var5.last(); var12 != null; var12 = (Skeleton)var5.previous()) {
+				if (var11 == var12.id) {
+					var10 = var12;
 					break;
 				}
 			}
 
-			if (var10 == null) { // L: 51
+			if (var10 == null) {
 				byte[] var13;
-				if (var4) { // L: 53
+				if (var4) {
 					var13 = var2.getFile(0, var11);
 				} else {
-					var13 = var2.getFile(var11, 0); // L: 54
+					var13 = var2.getFile(var11, 0);
 				}
 
-				var10 = new Skeleton(var11, var13); // L: 55
-				var5.addFirst(var10); // L: 56
+				var10 = new Skeleton(var11, var13);
+				var5.addFirst(var10);
 			}
 
-			this.frames[var7[var8]] = new Animation(var9, var10); // L: 58
+			this.frames[var7[var8]] = new Animation(var9, var10);
 		}
 
-	} // L: 60
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "1512659835"
+		descriptor = "(IB)Z",
+		garbageValue = "-13"
 	)
 	@Export("hasAlphaTransform")
 	public boolean hasAlphaTransform(int var1) {
-		return this.frames[var1].hasAlphaTransform; // L: 63
+		return this.frames[var1].hasAlphaTransform;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
+	static boolean method4174(long var0) {
+		return class266.method4916(var0) == 2;
+	}
+
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "-9614"
+		descriptor = "(II)V",
+		garbageValue = "1644626137"
 	)
-	public static void method4257() {
-		try {
-			if (class233.musicPlayerStatus == 1) { // L: 76
-				int var0 = class233.midiPcmStream.method4660(); // L: 77
-				if (var0 > 0 && class233.midiPcmStream.isReady()) { // L: 78
-					var0 -= FaceNormal.pcmSampleLength; // L: 79
-					if (var0 < 0) { // L: 80
-						var0 = 0;
-					}
-
-					class233.midiPcmStream.setPcmStreamVolume(var0); // L: 81
-					return; // L: 82
-				}
-
-				class233.midiPcmStream.clear(); // L: 84
-				class233.midiPcmStream.removeAll(); // L: 85
-				if (InvDefinition.musicTrackArchive != null) { // L: 86
-					class233.musicPlayerStatus = 2;
-				} else {
-					class233.musicPlayerStatus = 0; // L: 87
-				}
-
-				ArchiveLoader.musicTrack = null; // L: 88
-				class215.soundCache = null; // L: 89
-			}
-		} catch (Exception var2) { // L: 92
-			var2.printStackTrace(); // L: 93
-			class233.midiPcmStream.clear(); // L: 94
-			class233.musicPlayerStatus = 0; // L: 95
-			ArchiveLoader.musicTrack = null; // L: 96
-			class215.soundCache = null; // L: 97
-			InvDefinition.musicTrackArchive = null; // L: 98
+	static void method4169(int var0) {
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var1 != null) {
+			var1.remove();
 		}
-
-	} // L: 100
+	}
 }

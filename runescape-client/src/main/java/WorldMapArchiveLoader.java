@@ -4,106 +4,112 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mx")
+@ObfuscatedName("mp")
 @Implements("WorldMapArchiveLoader")
 public class WorldMapArchiveLoader {
-	@ObfuscatedName("j")
+	@ObfuscatedName("hm")
+	@ObfuscatedGetter(
+		intValue = -1743864695
+	)
+	@Export("cameraZ")
+	static int cameraZ;
+	@ObfuscatedName("l")
 	@Export("cacheName")
 	String cacheName;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Ljy;"
 	)
 	@Export("archive")
 	AbstractArchive archive;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 470808673
+		intValue = -1673386275
 	)
 	@Export("percentLoaded")
 	int percentLoaded;
-	@ObfuscatedName("r")
+	@ObfuscatedName("f")
 	@Export("loaded")
 	boolean loaded;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;)V"
+		descriptor = "(Ljy;)V"
 	)
 	WorldMapArchiveLoader(AbstractArchive var1) {
-		this.percentLoaded = 0; // L: 13
-		this.loaded = false; // L: 14
-		this.archive = var1; // L: 17
-	} // L: 18
+		this.percentLoaded = 0;
+		this.loaded = false;
+		this.archive = var1;
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-1390594183"
+		garbageValue = "798378546"
 	)
 	@Export("reset")
 	void reset(String var1) {
-		if (var1 != null && !var1.isEmpty()) { // L: 21
-			if (var1 != this.cacheName) { // L: 24
-				this.cacheName = var1; // L: 27
-				this.percentLoaded = 0; // L: 28
-				this.loaded = false; // L: 29
-				this.load(); // L: 30
+		if (var1 != null && !var1.isEmpty()) {
+			if (var1 != this.cacheName) {
+				this.cacheName = var1;
+				this.percentLoaded = 0;
+				this.loaded = false;
+				this.load();
 			}
 		}
-	} // L: 22 25 31
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1812007653"
+		garbageValue = "2123469742"
 	)
 	@Export("load")
 	int load() {
-		if (this.percentLoaded < 33) { // L: 34
-			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field2134.name, this.cacheName)) { // L: 35
-				return this.percentLoaded; // L: 36
+		if (this.percentLoaded < 33) {
+			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field2115.name, this.cacheName)) {
+				return this.percentLoaded;
 			}
 
-			this.percentLoaded = 33; // L: 38
+			this.percentLoaded = 33;
 		}
 
-		if (this.percentLoaded == 33) { // L: 40
-			if (this.archive.isValidFileName(WorldMapCacheName.field2130.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.field2130.name, this.cacheName)) { // L: 41 42
-				return this.percentLoaded; // L: 43
+		if (this.percentLoaded == 33) {
+			if (this.archive.isValidFileName(WorldMapCacheName.field2114.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.field2114.name, this.cacheName)) {
+				return this.percentLoaded;
 			}
 
-			this.percentLoaded = 66; // L: 46
+			this.percentLoaded = 66;
 		}
 
-		if (this.percentLoaded == 66) { // L: 48
-			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.field2129.name)) { // L: 49
-				return this.percentLoaded; // L: 50
+		if (this.percentLoaded == 66) {
+			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.field2116.name)) {
+				return this.percentLoaded;
 			}
 
-			this.percentLoaded = 100; // L: 52
-			this.loaded = true; // L: 53
+			this.percentLoaded = 100;
+			this.loaded = true;
 		}
 
-		return this.percentLoaded; // L: 55
+		return this.percentLoaded;
 	}
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1542978500"
+		garbageValue = "1463629324"
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
-		return this.loaded; // L: 59
+		return this.loaded;
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1748006282"
+		garbageValue = "-1908493453"
 	)
 	@Export("getPercentLoaded")
 	int getPercentLoaded() {
-		return this.percentLoaded; // L: 63
+		return this.percentLoaded;
 	}
 }

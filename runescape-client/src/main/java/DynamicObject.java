@@ -1,245 +1,169 @@
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cb")
+@ObfuscatedName("bg")
 @Implements("DynamicObject")
 public class DynamicObject extends Renderable {
-	@ObfuscatedName("dk")
-	@ObfuscatedSignature(
-		descriptor = "Ljf;"
-	)
-	@Export("archive6")
-	static Archive archive6;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -560532763
+		intValue = 1118110485
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1091706599
+		intValue = 1905429005
 	)
 	@Export("type")
 	int type;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 973044997
+		intValue = -1513156089
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 950758231
+		intValue = -548694859
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1091816693
+		intValue = -2044490333
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1250349999
+		intValue = -220951267
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lfm;"
+		descriptor = "Lfz;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("r")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 238064293
+		intValue = -116239835
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("h")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1153448059
+		intValue = -763316459
 	)
 	@Export("cycleStart")
 	int cycleStart;
 
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIZLgr;)V"
+		descriptor = "(IIIIIIIZLgy;)V"
 	)
 	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Renderable var9) {
-		this.id = var1; // L: 20
-		this.type = var2; // L: 21
-		this.orientation = var3; // L: 22
-		this.plane = var4; // L: 23
-		this.x = var5; // L: 24
-		this.y = var6; // L: 25
-		if (var7 != -1) { // L: 26
-			this.sequenceDefinition = WorldMapScaleHandler.SequenceDefinition_get(var7); // L: 27
+		this.id = var1;
+		this.type = var2;
+		this.orientation = var3;
+		this.plane = var4;
+		this.x = var5;
+		this.y = var6;
+		if (var7 != -1) {
+			this.sequenceDefinition = World.SequenceDefinition_get(var7);
 			this.frame = 0;
 			this.cycleStart = Client.cycle - 1;
-			if (this.sequenceDefinition.field1894 == 0 && var9 != null && var9 instanceof DynamicObject) { // L: 30
-				DynamicObject var10 = (DynamicObject)var9; // L: 31
-				if (var10.sequenceDefinition == this.sequenceDefinition) { // L: 32
-					this.frame = var10.frame; // L: 33
-					this.cycleStart = var10.cycleStart; // L: 34
-					return; // L: 35
+			if (this.sequenceDefinition.field1875 == 0 && var9 != null && var9 instanceof DynamicObject) {
+				DynamicObject var10 = (DynamicObject)var9;
+				if (var10.sequenceDefinition == this.sequenceDefinition) {
+					this.frame = var10.frame;
+					this.cycleStart = var10.cycleStart;
+					return;
 				}
 			}
 
-			if (var8 && this.sequenceDefinition.frameCount != -1) { // L: 38
-				this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length); // L: 39
-				this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]); // L: 40
+			if (var8 && this.sequenceDefinition.frameCount != -1) {
+				this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length);
+				this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]);
 			}
 		}
 
-	} // L: 43
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lgd;",
-		garbageValue = "326918784"
+		descriptor = "(I)Lgl;",
+		garbageValue = "1291603774"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		if (this.sequenceDefinition != null) { // L: 46
-			int var1 = Client.cycle - this.cycleStart; // L: 47
-			if (var1 > 100 && this.sequenceDefinition.frameCount > 0) { // L: 48
+		if (this.sequenceDefinition != null) {
+			int var1 = Client.cycle - this.cycleStart;
+			if (var1 > 100 && this.sequenceDefinition.frameCount > 0) {
 				var1 = 100;
 			}
 
-			label56: {
+			label55: {
 				do {
 					do {
-						if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) { // L: 49
-							break label56;
+						if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) {
+							break label55;
 						}
 
-						var1 -= this.sequenceDefinition.frameLengths[this.frame]; // L: 50
-						++this.frame; // L: 51
-					} while(this.frame < this.sequenceDefinition.frameIds.length); // L: 52
+						var1 -= this.sequenceDefinition.frameLengths[this.frame];
+						++this.frame;
+					} while(this.frame < this.sequenceDefinition.frameIds.length);
 
-					this.frame -= this.sequenceDefinition.frameCount; // L: 53
-				} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length); // L: 54
+					this.frame -= this.sequenceDefinition.frameCount;
+				} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length);
 
-				this.sequenceDefinition = null; // L: 55
+				this.sequenceDefinition = null;
 			}
 
-			this.cycleStart = Client.cycle - var1; // L: 60
+			this.cycleStart = Client.cycle - var1;
 		}
 
-		ObjectComposition var12 = Tiles.getObjectDefinition(this.id); // L: 62
-		if (var12.transforms != null) { // L: 63
+		ObjectComposition var12 = ClanChannel.getObjectDefinition(this.id);
+		if (var12.transforms != null) {
 			var12 = var12.transform();
 		}
 
-		if (var12 == null) { // L: 64
+		if (var12 == null) {
 			return null;
 		} else {
 			int var2;
 			int var3;
-			if (this.orientation != 1 && this.orientation != 3) { // L: 67
-				var2 = var12.sizeX; // L: 72
-				var3 = var12.sizeY; // L: 73
+			if (this.orientation != 1 && this.orientation != 3) {
+				var2 = var12.sizeX;
+				var3 = var12.sizeY;
 			} else {
-				var2 = var12.sizeY; // L: 68
-				var3 = var12.sizeX; // L: 69
+				var2 = var12.sizeY;
+				var3 = var12.sizeX;
 			}
 
-			int var4 = (var2 >> 1) + this.x; // L: 75
-			int var5 = (var2 + 1 >> 1) + this.x; // L: 76
-			int var6 = (var3 >> 1) + this.y; // L: 77
-			int var7 = (var3 + 1 >> 1) + this.y; // L: 78
-			int[][] var8 = Tiles.Tiles_heights[this.plane]; // L: 79
-			int var9 = var8[var4][var7] + var8[var4][var6] + var8[var5][var6] + var8[var5][var7] >> 2; // L: 80
-			int var10 = (this.x << 7) + (var2 << 6); // L: 81
-			int var11 = (this.y << 7) + (var3 << 6); // L: 82
-			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame); // L: 83
+			int var4 = (var2 >> 1) + this.x;
+			int var5 = (var2 + 1 >> 1) + this.x;
+			int var6 = (var3 >> 1) + this.y;
+			int var7 = (var3 + 1 >> 1) + this.y;
+			int[][] var8 = Tiles.Tiles_heights[this.plane];
+			int var9 = var8[var5][var6] + var8[var4][var6] + var8[var4][var7] + var8[var5][var7] >> 2;
+			int var10 = (this.x << 7) + (var2 << 6);
+			int var11 = (this.y << 7) + (var3 << 6);
+			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame);
 		}
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-593608457"
+		descriptor = "(I)V",
+		garbageValue = "-1405315336"
 	)
-	public static boolean method2103() {
-		ReflectionCheck var0 = (ReflectionCheck)class69.reflectionChecks.last(); // L: 28
-		return var0 != null; // L: 29
+	public static void method1727() {
+		class234.midiPcmStream.clear();
+		class234.musicPlayerStatus = 1;
+		class234.musicTrackArchive = null;
 	}
-
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(CS)Z",
-		garbageValue = "17436"
-	)
-	@Export("isAlphaNumeric")
-	public static boolean isAlphaNumeric(char var0) {
-		return var0 >= '0' && var0 <= '9' || var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z'; // L: 166
-	}
-
-	@ObfuscatedName("hm")
-	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "1180457180"
-	)
-	static final void method2099(boolean var0) {
-		class233.playPcmPlayers(); // L: 5702
-		++Client.packetWriter.pendingWrites; // L: 5703
-		if (Client.packetWriter.pendingWrites >= 50 || var0) { // L: 5704
-			Client.packetWriter.pendingWrites = 0; // L: 5705
-			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) { // L: 5706
-				PacketBufferNode var1 = InterfaceParent.getPacketBufferNode(ClientPacket.field2647, Client.packetWriter.isaacCipher); // L: 5708
-				Client.packetWriter.addNode(var1); // L: 5709
-
-				try {
-					Client.packetWriter.flush(); // L: 5711
-				} catch (IOException var3) { // L: 5713
-					Client.hadNetworkError = true; // L: 5714
-				}
-			}
-
-		}
-	} // L: 5717
-
-	@ObfuscatedName("jd")
-	@ObfuscatedSignature(
-		descriptor = "([Liv;IIIZI)V",
-		garbageValue = "466452320"
-	)
-	@Export("resizeInterface")
-	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
-		for (int var5 = 0; var5 < var0.length; ++var5) { // L: 9951
-			Widget var6 = var0[var5]; // L: 9952
-			if (var6 != null && var6.parentId == var1) { // L: 9953 9954
-				FontName.alignWidgetSize(var6, var2, var3, var4); // L: 9955
-				class43.alignWidgetPosition(var6, var2, var3); // L: 9956
-				if (var6.scrollX > var6.scrollWidth - var6.width) { // L: 9957
-					var6.scrollX = var6.scrollWidth - var6.width;
-				}
-
-				if (var6.scrollX < 0) { // L: 9958
-					var6.scrollX = 0;
-				}
-
-				if (var6.scrollY > var6.scrollHeight - var6.height) { // L: 9959
-					var6.scrollY = var6.scrollHeight - var6.height;
-				}
-
-				if (var6.scrollY < 0) { // L: 9960
-					var6.scrollY = 0;
-				}
-
-				if (var6.type == 0) { // L: 9961
-					WorldMapLabelSize.revalidateWidgetScroll(var0, var6, var4);
-				}
-			}
-		}
-
-	} // L: 9963
 }

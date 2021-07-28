@@ -3,55 +3,50 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dk")
+@ObfuscatedName("cv")
 @Implements("BuddyRankComparator")
 public class BuddyRankComparator extends AbstractUserComparator {
-	@ObfuscatedName("hr")
+	@ObfuscatedName("u")
+	@Export("cacheParentPaths")
+	static String[] cacheParentPaths;
+	@ObfuscatedName("bl")
 	@ObfuscatedSignature(
-		descriptor = "[Loa;"
+		descriptor = "Lof;"
 	)
-	@Export("mapMarkerSprites")
-	static SpritePixels[] mapMarkerSprites;
-	@ObfuscatedName("f")
+	@Export("worldSelectRightSprite")
+	static IndexedSprite worldSelectRightSprite;
+	@ObfuscatedName("s")
 	@Export("reversed")
 	final boolean reversed;
 
 	public BuddyRankComparator(boolean var1) {
-		this.reversed = var1; // L: 10
-	} // L: 11
+		this.reversed = var1;
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lly;Lly;I)I",
-		garbageValue = "1922516179"
+		descriptor = "(Llr;Llr;I)I",
+		garbageValue = "1581905870"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
-		if (var2.rank != var1.rank) { // L: 14
-			return this.reversed ? var1.rank - var2.rank : var2.rank - var1.rank; // L: 15
+		if (var2.rank != var1.rank) {
+			return this.reversed ? var1.rank - var2.rank : var2.rank - var1.rank;
 		} else {
-			return this.compareUser(var1, var2); // L: 17
+			return this.compareUser(var1, var2);
 		}
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
+		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("fd")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-16777217"
-	)
-	static final void method2579() {
-		if (class26.ClanChat_inClanChat) { // L: 3802
-			if (class289.friendsChat != null) { // L: 3803
-				class289.friendsChat.sort(); // L: 3804
-			}
-
-			WorldMapCacheName.method3788(); // L: 3806
-			class26.ClanChat_inClanChat = false; // L: 3807
-		}
-
-	} // L: 3809
+	@ObfuscatedName("jx")
+	static final void method2200(double var0) {
+		Rasterizer3D.Rasterizer3D_setBrightness(var0);
+		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).setBrightness(var0);
+		ItemComposition.ItemDefinition_cachedSprites.clear();
+		Decimator.clientPreferences.field1117 = var0;
+		MilliClock.savePreferences();
+	}
 }

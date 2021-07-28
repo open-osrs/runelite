@@ -58,4 +58,11 @@ public abstract class RSClanChannelMemberMixin implements RSClanChannelMember
 	{
 		return client.getClanRankFromRs(getRSRank());
 	}
+
+	@Override
+	@Inject
+	public String getName()
+	{
+		return getUsername().getName();
+	}
 }

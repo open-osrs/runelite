@@ -4,105 +4,90 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("co")
+@ObfuscatedName("bn")
 @Implements("MouseRecorder")
 public class MouseRecorder implements Runnable {
-	@ObfuscatedName("eq")
-	@ObfuscatedGetter(
-		intValue = -107969121
+	@ObfuscatedName("qu")
+	@ObfuscatedSignature(
+		descriptor = "Llf;"
 	)
-	@Export("js5Port")
-	static int js5Port;
-	@ObfuscatedName("f")
+	@Export("friendsChat")
+	static FriendsChat friendsChat;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = -1994254709
+	)
+	@Export("canvasWidth")
+	public static int canvasWidth;
+	@ObfuscatedName("bv")
+	@ObfuscatedSignature(
+		descriptor = "Ljr;"
+	)
+	static StudioGame field975;
+	@ObfuscatedName("nw")
+	@ObfuscatedGetter(
+		intValue = -2054144083
+	)
+	static int field976;
+	@ObfuscatedName("s")
 	@Export("isRunning")
 	boolean isRunning;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@Export("lock")
 	Object lock;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -123388215
+		intValue = -385453715
 	)
 	@Export("index")
 	int index;
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@Export("xs")
 	int[] xs;
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@Export("ys")
 	int[] ys;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@Export("millis")
 	long[] millis;
 
 	MouseRecorder() {
-		this.isRunning = true; // L: 7
-		this.lock = new Object(); // L: 8
-		this.index = 0; // L: 9
-		this.xs = new int[500]; // L: 10
+		this.isRunning = true;
+		this.lock = new Object();
+		this.index = 0;
+		this.xs = new int[500];
 		this.ys = new int[500];
 		this.millis = new long[500];
 	}
 
 	public void run() {
-		for (; this.isRunning; class18.method272(50L)) {
+		for (; this.isRunning; SceneTilePaint.method4322(50L)) {
 			synchronized(this.lock) {
 				if (this.index < 500) {
 					this.xs[this.index] = MouseHandler.MouseHandler_x;
 					this.ys[this.index] = MouseHandler.MouseHandler_y;
 					this.millis[this.index] = MouseHandler.MouseHandler_millis;
-					++this.index; // L: 23
+					++this.index;
 				}
 			}
 		}
 
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/CharSequence;IIB)Ljava/lang/String;",
-		garbageValue = "0"
+		descriptor = "(ILbd;ZI)I",
+		garbageValue = "-190219841"
 	)
-	public static String method2203(CharSequence[] var0, int var1, int var2) {
-		if (var2 == 0) { // L: 11
-			return "";
-		} else if (var2 == 1) { // L: 12
-			CharSequence var10 = var0[var1]; // L: 13
-			return var10 == null ? "null" : var10.toString(); // L: 14 15
+	static int method1811(int var0, Script var1, boolean var2) {
+		if (var0 == 6900) {
+			Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = "";
+			return 1;
+		} else if (var0 == 6950) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
+			return 1;
 		} else {
-			int var3 = var2 + var1; // L: 17
-			int var4 = 0; // L: 18
-
-			for (int var5 = var1; var5 < var3; ++var5) { // L: 19
-				CharSequence var9 = var0[var5]; // L: 20
-				if (var9 == null) { // L: 21
-					var4 += 4;
-				} else {
-					var4 += var9.length(); // L: 22
-				}
-			}
-
-			StringBuilder var8 = new StringBuilder(var4); // L: 24
-
-			for (int var6 = var1; var6 < var3; ++var6) { // L: 25
-				CharSequence var7 = var0[var6]; // L: 26
-				if (var7 == null) { // L: 27
-					var8.append("null");
-				} else {
-					var8.append(var7); // L: 28
-				}
-			}
-
-			return var8.toString(); // L: 30
+			return 2;
 		}
 	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2020302651"
-	)
-	public static void method2202() {
-		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear(); // L: 98
-	} // L: 99
 }

@@ -6,58 +6,124 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dg")
+@ObfuscatedName("cq")
 @Implements("Messages")
 public class Messages {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@Export("Messages_channels")
 	static final Map Messages_channels;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lmo;"
+		descriptor = "Lmc;"
 	)
 	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lks;"
+		descriptor = "Lkc;"
 	)
 	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -993232851
+		intValue = -237431523
 	)
 	@Export("Messages_count")
 	static int Messages_count;
 	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lof;"
+		descriptor = "Lee;"
 	)
-	@Export("logoSprite")
-	static IndexedSprite logoSprite;
-	@ObfuscatedName("br")
-	static String field1397;
+	@Export("clock")
+	protected static Clock clock;
+	@ObfuscatedName("da")
+	@ObfuscatedSignature(
+		descriptor = "Llp;"
+	)
+	@Export("js5Socket")
+	static AbstractSocket js5Socket;
 
 	static {
-		Messages_channels = new HashMap(); // L: 9
-		Messages_hashTable = new IterableNodeHashTable(1024); // L: 10
-		Messages_queue = new IterableDualNodeQueue(); // L: 11
-		Messages_count = 0; // L: 12
+		Messages_channels = new HashMap();
+		Messages_hashTable = new IterableNodeHashTable(1024);
+		Messages_queue = new IterableDualNodeQueue();
+		Messages_count = 0;
 	}
 
-	@ObfuscatedName("gg")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Lcl;I)V",
-		garbageValue = "2067592428"
+		descriptor = "(III)I",
+		garbageValue = "460801171"
 	)
-	static final void method2461(Actor var0) {
-		int var1 = Math.max(1, var0.field1276 - Client.cycle); // L: 4172
-		int var2 = var0.field1225 * 64 + var0.field1264 * 128; // L: 4173
-		int var3 = var0.field1225 * 64 + var0.field1268 * 128; // L: 4174
-		var0.x += (var2 - var0.x) / var1; // L: 4175
-		var0.y += (var3 - var0.y) / var1; // L: 4176
-		var0.field1242 = 0; // L: 4177
-		var0.orientation = var0.field1270; // L: 4178
-	} // L: 4179
+	static int method2072(int var0, int var1) {
+		if (var0 == -2) {
+			return 12345678;
+		} else if (var0 == -1) {
+			if (var1 < 0) {
+				var1 = 0;
+			} else if (var1 > 127) {
+				var1 = 127;
+			}
+
+			var1 = 127 - var1;
+			return var1;
+		} else {
+			var1 = (var0 & 127) * var1 / 128;
+			if (var1 < 2) {
+				var1 = 2;
+			} else if (var1 > 126) {
+				var1 = 126;
+			}
+
+			return (var0 & 65408) + var1;
+		}
+	}
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(B)[Ljh;",
+		garbageValue = "-120"
+	)
+	@Export("PlayerType_values")
+	public static PlayerType[] PlayerType_values() {
+		return new PlayerType[]{PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_normal, PlayerType.PlayerType_ironman, PlayerType.PlayerType_jagexModerator, PlayerType.field3540, PlayerType.PlayerType_ultimateIronman, PlayerType.PlayerType_playerModerator};
+	}
+
+	@ObfuscatedName("hk")
+	@ObfuscatedSignature(
+		descriptor = "(Lbs;B)V",
+		garbageValue = "3"
+	)
+	static final void method2094(PendingSpawn var0) {
+		long var1 = 0L;
+		int var3 = -1;
+		int var4 = 0;
+		int var5 = 0;
+		if (var0.type == 0) {
+			var1 = WorldMapIcon_1.scene.getBoundaryObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 1) {
+			var1 = WorldMapIcon_1.scene.getWallDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 2) {
+			var1 = WorldMapIcon_1.scene.getGameObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 3) {
+			var1 = WorldMapIcon_1.scene.getFloorDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (0L != var1) {
+			int var6 = WorldMapIcon_1.scene.getObjectFlags(var0.plane, var0.x, var0.y, var1);
+			var3 = class78.Entity_unpackID(var1);
+			var4 = var6 & 31;
+			var5 = var6 >> 6 & 3;
+		}
+
+		var0.objectId = var3;
+		var0.field1009 = var4;
+		var0.field1012 = var5;
+	}
 }

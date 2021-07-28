@@ -4,115 +4,150 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lb")
+@ObfuscatedName("lq")
 @Implements("GraphicsDefaults")
 public class GraphicsDefaults {
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Lof;"
+	)
+	static IndexedSprite field3919;
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -1984805427
+		intValue = -725671069
 	)
 	@Export("compass")
 	public int compass;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1191054589
+		intValue = 281871837
 	)
-	public int field3892;
+	public int field3915;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 269750755
+		intValue = -714909153
 	)
 	@Export("mapScenes")
 	public int mapScenes;
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -109749595
+		intValue = 359740853
 	)
 	@Export("headIconsPk")
 	public int headIconsPk;
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1879938001
+		intValue = -1827053533
 	)
-	public int field3903;
+	public int field3910;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -1525663871
+	)
+	public int field3912;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = 1041444647
+	)
+	public int field3908;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = -1591959495
+	)
+	public int field3914;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 616409549
+		intValue = -262798545
 	)
-	public int field3902;
-	@ObfuscatedName("m")
+	public int field3913;
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 854150451
+		intValue = 1828601193
 	)
-	public int field3897;
+	public int field3911;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -901027001
+		intValue = -1968587229
 	)
-	public int field3899;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = 2096329335
-	)
-	public int field3900;
-	@ObfuscatedName("d")
-	@ObfuscatedGetter(
-		intValue = 1403628021
-	)
-	public int field3901;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = 1431986937
-	)
-	public int field3896;
+	public int field3917;
 
 	public GraphicsDefaults() {
-		this.compass = -1; // L: 7
-		this.field3892 = -1; // L: 8
-		this.mapScenes = -1; // L: 9
-		this.headIconsPk = -1; // L: 10
-		this.field3903 = -1; // L: 11
-		this.field3902 = -1; // L: 12
-		this.field3897 = -1; // L: 13
-		this.field3899 = -1; // L: 14
-		this.field3900 = -1; // L: 15
-		this.field3901 = -1; // L: 16
-		this.field3896 = -1; // L: 17
+		this.compass = -1;
+		this.field3915 = -1;
+		this.mapScenes = -1;
+		this.headIconsPk = -1;
+		this.field3910 = -1;
+		this.field3912 = -1;
+		this.field3908 = -1;
+		this.field3914 = -1;
+		this.field3913 = -1;
+		this.field3911 = -1;
+		this.field3917 = -1;
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Ljp;I)V",
-		garbageValue = "1205783534"
+		descriptor = "(Ljy;I)V",
+		garbageValue = "2124642870"
 	)
 	@Export("decode")
 	public void decode(AbstractArchive var1) {
-		byte[] var2 = var1.takeFileFlat(DefaultsGroup.field3890.group); // L: 20
-		Buffer var3 = new Buffer(var2); // L: 21
+		byte[] var2 = var1.takeFileFlat(DefaultsGroup.field3904.group);
+		Buffer var3 = new Buffer(var2);
 
 		while (true) {
-			int var4 = var3.readUnsignedByte(); // L: 23
-			if (var4 == 0) { // L: 24
-				return; // L: 51
+			int var4 = var3.readUnsignedByte();
+			if (var4 == 0) {
+				return;
 			}
 
-			switch(var4) { // L: 25
+			switch(var4) {
 			case 1:
-				var3.readMedium(); // L: 31
-				break; // L: 32
+				var3.readMedium();
+				break;
 			case 2:
-				this.compass = var3.method6630(); // L: 36
-				this.field3892 = var3.method6630(); // L: 37
-				this.mapScenes = var3.method6630(); // L: 38
-				this.headIconsPk = var3.method6630(); // L: 39
-				this.field3903 = var3.method6630(); // L: 40
-				this.field3902 = var3.method6630(); // L: 41
-				this.field3897 = var3.method6630(); // L: 42
-				this.field3899 = var3.method6630(); // L: 43
-				this.field3900 = var3.method6630(); // L: 44
-				this.field3901 = var3.method6630(); // L: 45
-				this.field3896 = var3.method6630(); // L: 46
+				this.compass = var3.method6674();
+				this.field3915 = var3.method6674();
+				this.mapScenes = var3.method6674();
+				this.headIconsPk = var3.method6674();
+				this.field3910 = var3.method6674();
+				this.field3912 = var3.method6674();
+				this.field3908 = var3.method6674();
+				this.field3914 = var3.method6674();
+				this.field3913 = var3.method6674();
+				this.field3911 = var3.method6674();
+				this.field3917 = var3.method6674();
 			}
+		}
+	}
+
+	@ObfuscatedName("ar")
+	@ObfuscatedSignature(
+		descriptor = "(ILbd;ZI)I",
+		garbageValue = "315603069"
+	)
+	static int method6024(int var0, Script var1, boolean var2) {
+		if (var0 == 6800) {
+			Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = "";
+			return 1;
+		} else if (var0 != 6801 && var0 != 6802) {
+			if (var0 == 6850) {
+				Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = "";
+				return 1;
+			} else if (var0 != 6851 && var0 != 6852) {
+				if (var0 == 6853) {
+					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
+					return 1;
+				} else {
+					return 2;
+				}
+			} else {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
+				return 1;
+			}
+		} else {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
+			return 1;
 		}
 	}
 }

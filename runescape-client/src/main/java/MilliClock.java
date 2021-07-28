@@ -1,152 +1,154 @@
-import java.awt.Image;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ec")
+@ObfuscatedName("ev")
 @Implements("MilliClock")
 public class MilliClock extends Clock {
-	@ObfuscatedName("z")
+	@ObfuscatedName("s")
+	long[] field1501;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1292974499
+		intValue = 1604146545
 	)
-	static int field1523;
-	@ObfuscatedName("ab")
-	static Image field1527;
-	@ObfuscatedName("f")
-	long[] field1518;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = -1121640641
-	)
-	int field1519;
+	int field1499;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1291175111
+		intValue = 297982951
 	)
-	int field1521;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		longValue = 6157496358684260999L
-	)
-	long field1520;
+	int field1500;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -15673867
+		longValue = 6545994804951437021L
 	)
-	int field1522;
-	@ObfuscatedName("o")
+	long field1502;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -668116803
+		intValue = 955506643
 	)
-	int field1525;
+	int field1504;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -1688753709
+	)
+	int field1503;
 
 	public MilliClock() {
-		this.field1518 = new long[10]; // L: 7
-		this.field1519 = 256; // L: 15
-		this.field1521 = 1; // L: 16
-		this.field1522 = 0; // L: 17
-		this.field1520 = ClientPacket.currentTimeMillis(); // L: 18
+		this.field1501 = new long[10];
+		this.field1499 = 256;
+		this.field1500 = 1;
+		this.field1504 = 0;
+		this.field1502 = UrlRequester.method2125();
 
-		for (int var1 = 0; var1 < 10; ++var1) { // L: 19
-			this.field1518[var1] = this.field1520; // L: 20
+		for (int var1 = 0; var1 < 10; ++var1) {
+			this.field1501[var1] = this.field1502;
 		}
 
-	} // L: 22
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-111"
+		descriptor = "(I)V",
+		garbageValue = "-296506208"
 	)
 	@Export("mark")
 	public void mark() {
-		for (int var1 = 0; var1 < 10; ++var1) { // L: 25
-			this.field1518[var1] = 0L; // L: 26
+		for (int var1 = 0; var1 < 10; ++var1) {
+			this.field1501[var1] = 0L;
 		}
 
-	} // L: 28
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-104"
+		descriptor = "(III)I",
+		garbageValue = "2079435375"
 	)
 	@Export("wait")
 	public int wait(int var1, int var2) {
-		int var3 = this.field1519; // L: 31
-		int var4 = this.field1521; // L: 32
-		this.field1519 = 300; // L: 33
-		this.field1521 = 1; // L: 34
-		this.field1520 = ClientPacket.currentTimeMillis(); // L: 35
-		if (this.field1518[this.field1525] == 0L) { // L: 36
-			this.field1519 = var3; // L: 37
-			this.field1521 = var4; // L: 38
-		} else if (this.field1520 > this.field1518[this.field1525]) { // L: 40
-			this.field1519 = (int)((long)(var1 * 2560) / (this.field1520 - this.field1518[this.field1525]));
+		int var3 = this.field1499;
+		int var4 = this.field1500;
+		this.field1499 = 300;
+		this.field1500 = 1;
+		this.field1502 = UrlRequester.method2125();
+		if (this.field1501[this.field1503] == 0L) {
+			this.field1499 = var3;
+			this.field1500 = var4;
+		} else if (this.field1502 > this.field1501[this.field1503]) {
+			this.field1499 = (int)((long)(var1 * 2560) / (this.field1502 - this.field1501[this.field1503]));
 		}
 
-		if (this.field1519 < 25) { // L: 41
-			this.field1519 = 25;
+		if (this.field1499 < 25) {
+			this.field1499 = 25;
 		}
 
-		if (this.field1519 > 256) { // L: 42
-			this.field1519 = 256; // L: 43
-			this.field1521 = (int)((long)var1 - (this.field1520 - this.field1518[this.field1525]) / 10L); // L: 44
+		if (this.field1499 > 256) {
+			this.field1499 = 256;
+			this.field1500 = (int)((long)var1 - (this.field1502 - this.field1501[this.field1503]) / 10L);
 		}
 
-		if (this.field1521 > var1) { // L: 46
-			this.field1521 = var1;
+		if (this.field1500 > var1) {
+			this.field1500 = var1;
 		}
 
-		this.field1518[this.field1525] = this.field1520; // L: 47
-		this.field1525 = (this.field1525 + 1) % 10; // L: 48
+		this.field1501[this.field1503] = this.field1502;
+		this.field1503 = (this.field1503 + 1) % 10;
 		int var5;
-		if (this.field1521 > 1) { // L: 49
-			for (var5 = 0; var5 < 10; ++var5) { // L: 50
-				if (this.field1518[var5] != 0L) { // L: 51
-					this.field1518[var5] += (long)this.field1521;
+		if (this.field1500 > 1) {
+			for (var5 = 0; var5 < 10; ++var5) {
+				if (0L != this.field1501[var5]) {
+					this.field1501[var5] += (long)this.field1500;
 				}
 			}
 		}
 
-		if (this.field1521 < var2) { // L: 54
-			this.field1521 = var2;
+		if (this.field1500 < var2) {
+			this.field1500 = var2;
 		}
 
-		class18.method272((long)this.field1521); // L: 55
+		SceneTilePaint.method4322((long)this.field1500);
 
-		for (var5 = 0; this.field1522 < 256; this.field1522 += this.field1519) { // L: 56 57 59
-			++var5; // L: 58
+		for (var5 = 0; this.field1504 < 256; this.field1504 += this.field1499) {
+			++var5;
 		}
 
-		this.field1522 &= 255; // L: 61
-		return var5; // L: 62
+		this.field1504 &= 255;
+		return var5;
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(ILcf;ZB)I",
-		garbageValue = "70"
+		descriptor = "(I)V",
+		garbageValue = "1037668761"
 	)
-	static int method2685(int var0, Script var1, boolean var2) {
-		int var3;
-		if (var0 == 3500) { // L: 2067
-			var3 = Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize]; // L: 2068
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = class18.method271(var3) ? 1 : 0; // L: 2069
-			return 1; // L: 2070
-		} else if (var0 == 3501) { // L: 2072
-			var3 = Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize]; // L: 2073
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = ClanChannelMember.method108(var3) ? 1 : 0; // L: 2074
-			return 1; // L: 2075
-		} else if (var0 == 3502) { // L: 2077
-			var3 = Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize]; // L: 2078
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = KitDefinition.method2778(var3) ? 1 : 0; // L: 2079
-			return 1; // L: 2080
-		} else {
-			return 2; // L: 2082
+	@Export("savePreferences")
+	static void savePreferences() {
+		AccessFile var0 = null;
+
+		try {
+			var0 = NPC.getPreferencesFile("", MouseRecorder.field975.name, true);
+			Buffer var1 = Decimator.clientPreferences.toBuffer();
+			var0.write(var1.array, 0, var1.offset);
+		} catch (Exception var3) {
 		}
+
+		try {
+			if (var0 != null) {
+				var0.closeSync(true);
+			}
+		} catch (Exception var2) {
+		}
+
+	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-59"
+	)
+	public static void method2671() {
+		StructComposition.StructDefinition_cached.clear();
 	}
 }

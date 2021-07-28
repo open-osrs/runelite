@@ -1,146 +1,187 @@
-import java.awt.Desktop;
-import java.awt.Desktop.Action;
-import java.net.URI;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("dh")
+@ObfuscatedName("ce")
 @Implements("AttackOption")
-public enum AttackOption implements Enumerated
-{
-	@ObfuscatedName("f")
+public enum AttackOption implements Enumerated {
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Lce;"
 	)
 	@Export("AttackOption_dependsOnCombatLevels")
 	AttackOption_dependsOnCombatLevels(0),
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Lce;"
 	)
 	@Export("AttackOption_alwaysRightClick")
 	AttackOption_alwaysRightClick(1),
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Lce;"
 	)
-	@Export("AttackOption_leftClickWhereAvailable")
-	AttackOption_leftClickWhereAvailable(2),
-	@ObfuscatedName("y")
+	field1156(2),
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Lce;"
 	)
 	@Export("AttackOption_hidden")
-	AttackOption_hidden(3);
+	AttackOption_hidden(3),
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Lce;"
+	)
+	field1157(4);
 
-	@ObfuscatedName("rp")
+	@ObfuscatedName("k")
+	static int[] field1161;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -31458981
+		intValue = 1465894369
 	)
-	static int field1351;
-	@ObfuscatedName("qv")
-	@ObfuscatedSignature(
-		descriptor = "Ly;"
-	)
-	@Export("guestClanChannel")
-	static ClanChannel guestClanChannel;
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "Ljp;"
-	)
-	@Export("Widget_archive")
-	static AbstractArchive Widget_archive;
+	@Export("cacheGamebuild")
+	static int cacheGamebuild;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 2122478907
-	)
-	@Export("canvasWidth")
-	public static int canvasWidth;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = -183653165
+		intValue = -641800473
 	)
 	@Export("id")
 	final int id;
 
 	AttackOption(int var3) {
-		this.id = var3; // L: 11723
-	} // L: 11724
+		this.id = var3;
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1154679040"
+		garbageValue = "-1806959663"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 11727
+		return this.id;
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;ZZB)V",
-		garbageValue = "98"
+		descriptor = "(II)I",
+		garbageValue = "-474179746"
 	)
-	@Export("openURL")
-	public static void openURL(String var0, boolean var1, boolean var2) {
-		if (var1) { // L: 28
-			if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Action.BROWSE)) { // L: 29
-				try {
-					Desktop.getDesktop().browse(new URI(var0)); // L: 31
-					return; // L: 52
-				} catch (Exception var4) { // L: 34
-				}
+	public static int method2006(int var0) {
+		return class345.field3941[var0 & 16383];
+	}
+
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-191139997"
+	)
+	static void method2005() {
+		if (Login.Login_username == null || Login.Login_username.length() <= 0) {
+			if (Decimator.clientPreferences.rememberedUsername != null) {
+				Login.Login_username = Decimator.clientPreferences.rememberedUsername;
+				Client.Login_isUsernameRemembered = true;
+			} else {
+				Client.Login_isUsernameRemembered = false;
 			}
 
-			if (class44.field309.startsWith("win")) { // L: 36
-				StudioGame.method4982(var0, 0); // L: 38
-			} else if (class44.field309.startsWith("mac")) { // L: 42
-				HealthBarUpdate.method2284(var0, 1, "openjs"); // L: 43
-			} else {
-				StudioGame.method4982(var0, 2); // L: 46
-			}
+		}
+	}
+
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(ILbd;ZI)I",
+		garbageValue = "148408733"
+	)
+	static int method1994(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? GrandExchangeOffer.scriptDotWidget : Interpreter.scriptActiveWidget;
+		if (var0 == ScriptOpcodes.CC_GETX) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.x;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETY) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.y;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.width;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.height;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETHIDE) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETLAYER) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3.parentId;
+			return 1;
 		} else {
-			StudioGame.method4982(var0, 3); // L: 49
+			return 2;
+		}
+	}
+
+	@ObfuscatedName("ab")
+	@ObfuscatedSignature(
+		descriptor = "(Lem;I)Z",
+		garbageValue = "-1661175610"
+	)
+	static boolean method2003(ObjectComposition var0) {
+		if (var0.transforms != null) {
+			int[] var1 = var0.transforms;
+
+			for (int var2 = 0; var2 < var1.length; ++var2) {
+				int var3 = var1[var2];
+				ObjectComposition var4 = ClanChannel.getObjectDefinition(var3);
+				if (var4.mapIconId != -1) {
+					return true;
+				}
+			}
+		} else if (var0.mapIconId != -1) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@ObfuscatedName("im")
+	@ObfuscatedSignature(
+		descriptor = "([Lio;Lio;ZI)V",
+		garbageValue = "-262719970"
+	)
+	@Export("revalidateWidgetScroll")
+	static void revalidateWidgetScroll(Widget[] var0, Widget var1, boolean var2) {
+		int var3 = var1.scrollWidth != 0 ? var1.scrollWidth * 1852896115 * 13396411 : var1.width * 1408116923 * -396764045;
+		int var4 = var1.scrollHeight != 0 ? var1.scrollHeight * 1927321653 * -2086667747 : var1.height * 1272528565 * 1874739101;
+		FaceNormal.resizeInterface(var0, var1.id, var3, var4, var2);
+		if (var1.children != null) {
+			FaceNormal.resizeInterface(var1.children, var1.id, var3, var4, var2);
+		}
+
+		InterfaceParent var5 = (InterfaceParent)Client.interfaceParents.get((long)var1.id);
+		if (var5 != null) {
+			int var6 = var5.group;
+			if (Huffman.loadInterface(var6)) {
+				FaceNormal.resizeInterface(Widget.Widget_interfaceComponents[var6], -1, var3, var4, var2);
+			}
+		}
+
+		if (var1.contentType == 1337) {
 		}
 
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("jp")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-1819864841"
+		descriptor = "(Lio;I)V",
+		garbageValue = "1411916800"
 	)
-	static final int method2382(int var0, int var1, int var2) {
-		int var3 = var0 / var2; // L: 801
-		int var4 = var0 & var2 - 1; // L: 802
-		int var5 = var1 / var2; // L: 803
-		int var6 = var1 & var2 - 1; // L: 804
-		int var7 = UrlRequester.method2509(var3, var5); // L: 805
-		int var8 = UrlRequester.method2509(var3 + 1, var5); // L: 806
-		int var9 = UrlRequester.method2509(var3, var5 + 1); // L: 807
-		int var10 = UrlRequester.method2509(var3 + 1, var5 + 1); // L: 808
-		int var12 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 811
-		int var11 = ((65536 - var12) * var7 >> 16) + (var8 * var12 >> 16); // L: 812
-		int var14 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 817
-		int var13 = ((65536 - var14) * var9 >> 16) + (var14 * var10 >> 16); // L: 818
-		int var16 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var6 * 1024 / var2] >> 1; // L: 823
-		int var15 = ((65536 - var16) * var11 >> 16) + (var13 * var16 >> 16); // L: 824
-		return var15; // L: 826
-	}
+	@Export("invalidateWidget")
+	static void invalidateWidget(Widget var0) {
+		if (var0.cycle == Client.field615) {
+			Client.field616[var0.rootIndex] = true;
+		}
 
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "-2129644810"
-	)
-	static final int method2378(int var0, int var1) {
-		int var2 = var1 * 57 + var0; // L: 837
-		var2 ^= var2 << 13; // L: 838
-		int var3 = (var2 * var2 * 15731 + 789221) * var2 + 1376312589 & Integer.MAX_VALUE; // L: 839
-		return var3 >> 19 & 255; // L: 840
 	}
 }

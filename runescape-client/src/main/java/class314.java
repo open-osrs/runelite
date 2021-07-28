@@ -1,25 +1,25 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("le")
+@ObfuscatedName("ll")
 public class class314 {
-	@ObfuscatedName("fy")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "Lmk;"
+		descriptor = "([BB)Lkt;",
+		garbageValue = "53"
 	)
-	@Export("WorldMapElement_fonts")
-	static Fonts WorldMapElement_fonts;
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "1476009263"
-	)
-	static final void method5693(String var0) {
-		StringBuilder var10000 = (new StringBuilder()).append(var0);
-		Object var10001 = null;
-		String var1 = var10000.append(" is already on your ignore list").toString(); // L: 183
-		UserComparator10.addGameMessage(30, "", var1); // L: 185
-	} // L: 187
+	static Font method5680(byte[] var0) {
+		if (var0 == null) {
+			return null;
+		} else {
+			Font var1 = new Font(var0, class398.SpriteBuffer_xOffsets, class398.SpriteBuffer_yOffsets, ClanChannelMember.SpriteBuffer_spriteWidths, class374.SpriteBuffer_spriteHeights, class118.SpriteBuffer_spritePalette, class398.SpriteBuffer_pixels);
+			class398.SpriteBuffer_xOffsets = null;
+			class398.SpriteBuffer_yOffsets = null;
+			ClanChannelMember.SpriteBuffer_spriteWidths = null;
+			class374.SpriteBuffer_spriteHeights = null;
+			class118.SpriteBuffer_spritePalette = null;
+			class398.SpriteBuffer_pixels = null;
+			return var1;
+		}
+	}
 }

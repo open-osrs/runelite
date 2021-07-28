@@ -1,104 +1,147 @@
+import java.util.concurrent.Callable;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("e")
-public class class1 extends class14 {
-	@ObfuscatedName("ar")
-	@Export("client")
+@ObfuscatedName("t")
+public class class1 implements Callable {
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = -136395951
+	)
+	@Export("Interpreter_stringStackSize")
+	static int Interpreter_stringStackSize;
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lclient;"
+		descriptor = "Lnv;"
 	)
-	static Client client;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = -790224169
+	final Buffer field1;
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "Lj;"
 	)
-	int field6;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = -1595809253
-	)
-	int field7;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -864477031
-	)
-	int field8;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = 1618165123
-	)
-	int field9;
+	final class3 field0;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lv;"
+		descriptor = "Lf;"
 	)
-	final class2 this$0;
+	final class7 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lv;)V"
+		descriptor = "(Lf;Lnv;Lj;)V"
 	)
-	class1(class2 var1) {
-		this.this$0 = var1; // L: 289
+	class1(class7 var1, Buffer var2, class3 var3) {
+		this.this$0 = var1;
+		this.field1 = var2;
+		this.field0 = var3;
 	}
 
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Lnt;I)V",
-		garbageValue = "73833784"
-	)
-	void vmethod363(Buffer var1) {
-		this.field6 = var1.readInt(); // L: 292
-		this.field9 = var1.readInt(); // L: 293
-		this.field7 = var1.readUnsignedByte(); // L: 294
-		this.field8 = var1.readUnsignedByte(); // L: 295
-	} // L: 296
+	public Object call() {
+		return this.field0.vmethod15(this.field1);
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(Lb;I)V",
-		garbageValue = "1885623446"
+		descriptor = "(III)Lay;",
+		garbageValue = "938063245"
 	)
-	void vmethod354(ClanSettings var1) {
-		var1.method136(this.field6, this.field9, this.field7, this.field8); // L: 299
-	} // L: 300
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0);
+		return var2.getMessage(var1);
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("ie")
 	@ObfuscatedSignature(
-		descriptor = "(II)Leb;",
-		garbageValue = "2027222445"
+		descriptor = "(Lbb;IIII)V",
+		garbageValue = "2142643215"
 	)
-	@Export("VarpDefinition_get")
-	public static VarpDefinition VarpDefinition_get(int var0) {
-		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0); // L: 23
-		if (var1 != null) { // L: 24
-			return var1;
-		} else {
-			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0); // L: 25
-			var1 = new VarpDefinition(); // L: 26
-			if (var2 != null) { // L: 27
-				var1.decode(new Buffer(var2));
+	@Export("addPlayerToMenu")
+	static final void addPlayerToMenu(Player var0, int var1, int var2, int var3) {
+		if (MouseHandler.localPlayer != var0) {
+			if (Client.menuOptionsCount < 400) {
+				String var4;
+				int var7;
+				if (var0.skillLevel == 0) {
+					String var5 = var0.actions[0] + var0.username + var0.actions[1];
+					var7 = var0.combatLevel;
+					int var8 = MouseHandler.localPlayer.combatLevel;
+					int var9 = var8 - var7;
+					String var6;
+					if (var9 < -9) {
+						var6 = ScriptFrame.colorStartTag(16711680);
+					} else if (var9 < -6) {
+						var6 = ScriptFrame.colorStartTag(16723968);
+					} else if (var9 < -3) {
+						var6 = ScriptFrame.colorStartTag(16740352);
+					} else if (var9 < 0) {
+						var6 = ScriptFrame.colorStartTag(16756736);
+					} else if (var9 > 9) {
+						var6 = ScriptFrame.colorStartTag(65280);
+					} else if (var9 > 6) {
+						var6 = ScriptFrame.colorStartTag(4259584);
+					} else if (var9 > 3) {
+						var6 = ScriptFrame.colorStartTag(8453888);
+					} else if (var9 > 0) {
+						var6 = ScriptFrame.colorStartTag(12648192);
+					} else {
+						var6 = ScriptFrame.colorStartTag(16776960);
+					}
+
+					var4 = var5 + var6 + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2];
+				} else {
+					var4 = var0.actions[0] + var0.username + var0.actions[1] + " " + " (" + "skill-" + var0.skillLevel + ")" + var0.actions[2];
+				}
+
+				int var10;
+				if (Client.isItemSelected == 1) {
+					class7.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ScriptFrame.colorStartTag(16777215) + var4, 14, var1, var2, var3);
+				} else if (Client.isSpellSelected) {
+					if ((ViewportMouse.selectedSpellFlags & 8) == 8) {
+						class7.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ScriptFrame.colorStartTag(16777215) + var4, 15, var1, var2, var3);
+					}
+				} else {
+					for (var10 = 7; var10 >= 0; --var10) {
+						if (Client.playerMenuActions[var10] != null) {
+							short var11 = 0;
+							if (Client.playerMenuActions[var10].equalsIgnoreCase("Attack")) {
+								if (AttackOption.AttackOption_hidden == Client.playerAttackOption) {
+									continue;
+								}
+
+								if (AttackOption.AttackOption_alwaysRightClick == Client.playerAttackOption || AttackOption.AttackOption_dependsOnCombatLevels == Client.playerAttackOption && var0.combatLevel > MouseHandler.localPlayer.combatLevel) {
+									var11 = 2000;
+								}
+
+								if (MouseHandler.localPlayer.team != 0 && var0.team != 0) {
+									if (var0.team == MouseHandler.localPlayer.team) {
+										var11 = 2000;
+									} else {
+										var11 = 0;
+									}
+								} else if (AttackOption.field1157 == Client.playerAttackOption && var0.isClanMember()) {
+									var11 = 2000;
+								}
+							} else if (Client.playerOptionsPriorities[var10]) {
+								var11 = 2000;
+							}
+
+							boolean var12 = false;
+							var7 = Client.playerMenuOpcodes[var10] + var11;
+							class7.insertMenuItemNoShift(Client.playerMenuActions[var10], ScriptFrame.colorStartTag(16777215) + var4, var7, var1, var2, var3);
+						}
+					}
+				}
+
+				for (var10 = 0; var10 < Client.menuOptionsCount; ++var10) {
+					if (Client.menuOpcodes[var10] == 23) {
+						Client.menuTargets[var10] = ScriptFrame.colorStartTag(16777215) + var4;
+						break;
+					}
+				}
+
 			}
-
-			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0); // L: 28
-			return var1; // L: 29
 		}
 	}
-
-	@ObfuscatedName("kv")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)V",
-		garbageValue = "-72"
-	)
-	@Export("clanKickUser")
-	static final void clanKickUser(String var0) {
-		if (class289.friendsChat != null) { // L: 11471
-			PacketBufferNode var1 = InterfaceParent.getPacketBufferNode(ClientPacket.field2606, Client.packetWriter.isaacCipher); // L: 11472
-			var1.packetBuffer.writeByte(class44.stringCp1252NullTerminatedByteSize(var0)); // L: 11473
-			var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 11474
-			Client.packetWriter.addNode(var1); // L: 11475
-		}
-	} // L: 11476
 }

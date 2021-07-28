@@ -4,165 +4,233 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ib")
+@ObfuscatedName("iu")
 @Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
-	@ObfuscatedName("lb")
-	@ObfuscatedSignature(
-		descriptor = "Liv;"
-	)
-	@Export("mousedOverWidgetIf1")
-	static Widget mousedOverWidgetIf1;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -830745709
+		intValue = -1874854043
 	)
-	int field2898;
-	@ObfuscatedName("e")
+	int field2902;
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lid;"
+		descriptor = "Lif;"
 	)
 	@Export("patch")
 	MusicPatch patch;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lar;"
+		descriptor = "Lz;"
 	)
 	@Export("rawSound")
 	RawSound rawSound;
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "Lho;"
-	)
-	MusicPatchNode2 field2904;
 	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = 461020611
+	@ObfuscatedSignature(
+		descriptor = "Lhd;"
 	)
-	int field2897;
+	MusicPatchNode2 field2885;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -48173435
+	)
+	int field2887;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = 75053875
+	)
+	int field2893;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = -1488956187
+	)
+	int field2888;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 2005146559
+	)
+	int field2889;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -127033357
+		intValue = 471656565
 	)
-	int field2910;
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = -259364835
-	)
-	int field2900;
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = -465046883
-	)
-	int field2902;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = -1421225285
-	)
-	int field2907;
-	@ObfuscatedName("d")
-	@ObfuscatedGetter(
-		intValue = -1943082417
-	)
-	int field2901;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = 903145849
-	)
-	int field2914;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = -1537236139
-	)
-	int field2894;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -920697405
-	)
-	int field2906;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = 1809682869
-	)
-	int field2905;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 997505503
-	)
-	int field2903;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = 725888983
-	)
-	int field2909;
+	int field2882;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1407978861
+		intValue = 509100341
 	)
-	int field2908;
+	int field2891;
+	@ObfuscatedName("r")
+	@ObfuscatedGetter(
+		intValue = 278878597
+	)
+	int field2892;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		intValue = 1333282019
+	)
+	int field2883;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = 458384481
+	)
+	int field2899;
+	@ObfuscatedName("k")
+	@ObfuscatedGetter(
+		intValue = 1998786171
+	)
+	int field2895;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = 2084962731
+	)
+	int field2896;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 1291835317
+	)
+	int field2897;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 2142706347
+		intValue = 1301679329
 	)
-	int field2911;
-	@ObfuscatedName("q")
+	int field2886;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = -154309947
+	)
+	int field2894;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lbv;"
+		descriptor = "Lal;"
 	)
 	@Export("stream")
 	RawPcmStream stream;
-	@ObfuscatedName("s")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1220588121
+		intValue = -1589222961
 	)
-	int field2913;
-	@ObfuscatedName("c")
+	int field2901;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1263258455
+		intValue = 1653433433
 	)
-	int field2899;
+	int field2898;
 
 	MusicPatchNode() {
-	} // L: 31
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-818920920"
-	)
-	void method4772() {
-		this.patch = null; // L: 34
-		this.rawSound = null; // L: 35
-		this.field2904 = null; // L: 36
-		this.stream = null; // L: 37
-	} // L: 38
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "-1957500664"
-	)
-	public static int method4776(int var0, int var1) {
-		return (var0 << 8) + var1; // L: 13
 	}
 
-	@ObfuscatedName("ji")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Ljava/lang/String;",
-		garbageValue = "-68"
+		descriptor = "(I)V",
+		garbageValue = "-2112668994"
 	)
-	@Export("formatItemStacks")
-	static final String formatItemStacks(int var0) {
-		String var1 = Integer.toString(var0); // L: 9906
+	void method4686() {
+		this.patch = null;
+		this.rawSound = null;
+		this.field2885 = null;
+		this.stream = null;
+	}
 
-		for (int var2 = var1.length() - 3; var2 > 0; var2 -= 3) { // L: 9907
-			var1 = var1.substring(0, var2) + "," + var1.substring(var2); // L: 9908
-		}
-
-		if (var1.length() > 9) { // L: 9910
-			return " " + SecureRandomFuture.colorStartTag(65408) + var1.substring(0, var1.length() - 8) + "M" + " " + " (" + var1 + ")" + "</col>";
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Object;ZI)[B",
+		garbageValue = "-2130267956"
+	)
+	public static byte[] method4683(Object var0, boolean var1) {
+		if (var0 == null) {
+			return null;
+		} else if (var0 instanceof byte[]) {
+			byte[] var3 = (byte[])((byte[])var0);
+			return var1 ? TextureProvider.method4203(var3) : var3;
+		} else if (var0 instanceof AbstractByteArrayCopier) {
+			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0;
+			return var2.get();
 		} else {
-			return var1.length() > 6 ? " " + SecureRandomFuture.colorStartTag(16777215) + var1.substring(0, var1.length() - 4) + "K" + " " + " (" + var1 + ")" + "</col>" : " " + SecureRandomFuture.colorStartTag(16776960) + var1 + "</col>"; // L: 9911 9912
+			throw new IllegalArgumentException();
 		}
+	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "(IZI)Ljava/lang/String;",
+		garbageValue = "277375642"
+	)
+	@Export("intToString")
+	public static String intToString(int var0, boolean var1) {
+		if (var1 && var0 >= 0) {
+			int var3 = var0;
+			String var2;
+			if (var1 && var0 >= 0) {
+				int var4 = 2;
+
+				for (int var5 = var0 / 10; var5 != 0; ++var4) {
+					var5 /= 10;
+				}
+
+				char[] var6 = new char[var4];
+				var6[0] = '+';
+
+				for (int var7 = var4 - 1; var7 > 0; --var7) {
+					int var8 = var3;
+					var3 /= 10;
+					int var9 = var8 - var3 * 10;
+					if (var9 >= 10) {
+						var6[var7] = (char)(var9 + 87);
+					} else {
+						var6[var7] = (char)(var9 + 48);
+					}
+				}
+
+				var2 = new String(var6);
+			} else {
+				var2 = Integer.toString(var0, 10);
+			}
+
+			return var2;
+		} else {
+			return Integer.toString(var0);
+		}
+	}
+
+	@ObfuscatedName("he")
+	@ObfuscatedSignature(
+		descriptor = "(Lbx;II)V",
+		garbageValue = "456956891"
+	)
+	static final void method4684(Actor var0, int var1) {
+		FriendLoginUpdate.worldToScreen(var0.x, var0.y, var1);
+	}
+
+	@ObfuscatedName("km")
+	@ObfuscatedSignature(
+		descriptor = "(IIB)V",
+		garbageValue = "-6"
+	)
+	static final void method4685(int var0, int var1) {
+		ClanChannel var2 = var0 >= 0 ? Client.currentClanChannels[var0] : FriendLoginUpdate.guestClanChannel;
+		if (var2 != null && var1 >= 0 && var1 < var2.method2520()) {
+			ClanChannelMember var3 = (ClanChannelMember)var2.members.get(var1);
+			if (var3.rank == -1) {
+				String var4 = var3.username.getName();
+				PacketWriter var5 = Client.packetWriter;
+				PacketBufferNode var6 = VerticalAlignment.getPacketBufferNode(ClientPacket.field2671, var5.isaacCipher);
+				var6.packetBuffer.writeByte(3 + GrandExchangeOfferNameComparator.stringCp1252NullTerminatedByteSize(var4));
+				var6.packetBuffer.writeByte(var0);
+				var6.packetBuffer.writeShort(var1);
+				var6.packetBuffer.writeStringCp1252NullTerminated(var4);
+				var5.addNode(var6);
+			}
+		}
+	}
+
+	@ObfuscatedName("kg")
+	@ObfuscatedSignature(
+		descriptor = "(Lio;B)I",
+		garbageValue = "100"
+	)
+	@Export("getWidgetFlags")
+	static int getWidgetFlags(Widget var0) {
+		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get(((long)var0.id << 32) + (long)var0.childIndex);
+		return var1 != null ? var1.integer : var0.flags;
 	}
 }

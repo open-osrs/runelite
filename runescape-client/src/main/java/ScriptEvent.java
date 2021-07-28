@@ -4,93 +4,149 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cs")
+@ObfuscatedName("bq")
 @Implements("ScriptEvent")
 public class ScriptEvent extends Node {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@Export("args")
 	Object[] args;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lio;"
 	)
 	@Export("widget")
 	Widget widget;
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 666010529
+		intValue = -721069241
 	)
 	@Export("mouseX")
 	int mouseX;
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1253492813
+		intValue = -1085248063
 	)
 	@Export("mouseY")
 	int mouseY;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1848842303
+		intValue = 119023005
 	)
 	@Export("opIndex")
 	int opIndex;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lio;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
-	@ObfuscatedName("r")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1390259441
+		intValue = 1436810095
 	)
 	@Export("keyTyped")
 	int keyTyped;
-	@ObfuscatedName("h")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 156564383
+		intValue = 1067398595
 	)
 	@Export("keyPressed")
 	int keyPressed;
-	@ObfuscatedName("d")
+	@ObfuscatedName("x")
 	@Export("targetName")
 	String targetName;
-	@ObfuscatedName("z")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1428737731
+		intValue = 372026329
 	)
-	int field1154;
-	@ObfuscatedName("b")
+	int field961;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1474025505
+		intValue = 1624043465
 	)
 	@Export("type")
 	int type;
 
 	public ScriptEvent() {
-		this.type = 76; // L: 19
+		this.type = 76;
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/Object;I)V",
-		garbageValue = "-1554075021"
+		descriptor = "([Ljava/lang/Object;B)V",
+		garbageValue = "-28"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
-		this.args = var1; // L: 22
-	} // L: 23
+		this.args = var1;
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-1915392065"
+		descriptor = "(IB)V",
+		garbageValue = "-38"
 	)
 	@Export("setType")
 	public void setType(int var1) {
-		this.type = var1; // L: 26
-	} // L: 27
+		this.type = var1;
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "([Ljava/lang/String;[IIII)V",
+		garbageValue = "1503065357"
+	)
+	static void method1809(String[] var0, int[] var1, int var2, int var3) {
+		if (var2 < var3) {
+			int var4 = (var3 + var2) / 2;
+			int var5 = var2;
+			String var6 = var0[var4];
+			var0[var4] = var0[var3];
+			var0[var3] = var6;
+			int var7 = var1[var4];
+			var1[var4] = var1[var3];
+			var1[var3] = var7;
+
+			for (int var8 = var2; var8 < var3; ++var8) {
+				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) {
+					String var9 = var0[var8];
+					var0[var8] = var0[var5];
+					var0[var5] = var9;
+					int var10 = var1[var8];
+					var1[var8] = var1[var5];
+					var1[var5++] = var10;
+				}
+			}
+
+			var0[var3] = var0[var5];
+			var0[var5] = var6;
+			var1[var3] = var1[var5];
+			var1[var5] = var7;
+			method1809(var0, var1, var2, var5 - 1);
+			method1809(var0, var1, var5 + 1, var3);
+		}
+
+	}
+
+	@ObfuscatedName("fz")
+	@ObfuscatedSignature(
+		descriptor = "(I)I",
+		garbageValue = "467893323"
+	)
+	static int method1807() {
+		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
+			int var0 = 0;
+
+			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) {
+				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount;
+			}
+
+			return var0 * 10000 / Client.field682;
+		} else {
+			return 10000;
+		}
+	}
 }

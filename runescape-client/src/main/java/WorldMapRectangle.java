@@ -4,113 +4,140 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fh")
+@ObfuscatedName("fo")
 @Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
-	@ObfuscatedName("f")
+	@ObfuscatedName("sd")
 	@ObfuscatedGetter(
-		intValue = -1826737113
+		longValue = 6362986280713500467L
+	)
+	static long field2066;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -1221403027
 	)
 	@Export("width")
 	int width;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 813874845
+		intValue = -1042567567
 	)
 	@Export("height")
 	int height;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1282834747
+		intValue = -1743568477
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 568186345
+		intValue = 737503149
 	)
 	@Export("y")
 	int y;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lft;"
+		descriptor = "Lfx;"
 	)
 	final WorldMapManager this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lft;)V"
+		descriptor = "(Lfx;)V"
 	)
 	WorldMapRectangle(WorldMapManager var1) {
-		this.this$0 = var1; // L: 303
+		this.this$0 = var1;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lbk;Lbk;IZI)I",
-		garbageValue = "1719503771"
+		descriptor = "(III)I",
+		garbageValue = "-1440200962"
 	)
-	@Export("compareWorlds")
-	static int compareWorlds(World var0, World var1, int var2, boolean var3) {
-		if (var2 == 1) { // L: 211
-			int var4 = var0.population; // L: 212
-			int var5 = var1.population; // L: 213
-			if (!var3) { // L: 214
-				if (var4 == -1) { // L: 215
-					var4 = 2001;
-				}
+	public static int method3644(int var0, int var1) {
+		int var2;
+		if (var1 > var0) {
+			var2 = var0;
+			var0 = var1;
+			var1 = var2;
+		}
 
-				if (var5 == -1) { // L: 216
-					var5 = 2001;
-				}
+		while (var1 != 0) {
+			var2 = var0 % var1;
+			var0 = var1;
+			var1 = var2;
+		}
+
+		return var0;
+	}
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "1249174439"
+	)
+	static boolean method3643(char var0) {
+		for (int var1 = 0; var1 < "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".length(); ++var1) {
+			if (var0 == "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"£$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(var1)) {
+				return true;
 			}
+		}
 
-			return var4 - var5; // L: 218
-		} else if (var2 == 2) { // L: 220
-			return var0.location - var1.location;
-		} else if (var2 == 3) { // L: 221
-			if (var0.activity.equals("-")) { // L: 222
-				if (var1.activity.equals("-")) { // L: 223
-					return 0;
-				} else {
-					return var3 ? -1 : 1; // L: 224
-				}
-			} else if (var1.activity.equals("-")) { // L: 226
-				return var3 ? 1 : -1;
+		return false;
+	}
+
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "(ILbd;ZI)I",
+		garbageValue = "1409868397"
+	)
+	static int method3645(int var0, Script var1, boolean var2) {
+		if (var0 == 7100) {
+			++Interpreter.Interpreter_intStackSize;
+			return 1;
+		} else if (var0 == 7101) {
+			class1.Interpreter_stringStackSize += 2;
+			return 1;
+		} else if (var0 != 7102 && var0 != 7103 && var0 != 7104 && var0 != 7105 && var0 != 7109) {
+			if (var0 == 7106) {
+				++Interpreter.Interpreter_intStackSize;
+				return 1;
+			} else if (var0 == 7107) {
+				++Interpreter.Interpreter_intStackSize;
+				return 1;
+			} else if (var0 == 7108) {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = ModeWhere.method5252() ? 1 : 0;
+				return 1;
+			} else if (var0 == 7110) {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
+				return 1;
+			} else if (var0 == 7120) {
+				--Interpreter.Interpreter_intStackSize;
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
+				return 1;
+			} else if (var0 == 7121) {
+				Interpreter.Interpreter_intStackSize -= 2;
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
+				return 1;
+			} else if (var0 == 7122) {
+				Interpreter.Interpreter_intStackSize -= 2;
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
+				return 1;
 			} else {
-				return var0.activity.compareTo(var1.activity); // L: 227
+				return 2;
 			}
-		} else if (var2 == 4) { // L: 229
-			return var0.method1757() ? (var1.method1757() ? 0 : 1) : (var1.method1757() ? -1 : 0);
-		} else if (var2 == 5) { // L: 230
-			return var0.method1749() ? (var1.method1749() ? 0 : 1) : (var1.method1749() ? -1 : 0);
-		} else if (var2 == 6) { // L: 231
-			return var0.isPvp() ? (var1.isPvp() ? 0 : 1) : (var1.isPvp() ? -1 : 0);
-		} else if (var2 == 7) { // L: 232
-			return var0.isMembersOnly() ? (var1.isMembersOnly() ? 0 : 1) : (var1.isMembersOnly() ? -1 : 0);
 		} else {
-			return var0.id - var1.id; // L: 233
+			++Interpreter.Interpreter_intStackSize;
+			return 1;
 		}
 	}
 
-	@ObfuscatedName("lq")
+	@ObfuscatedName("lm")
 	@ObfuscatedSignature(
-		descriptor = "(Lnt;IB)V",
-		garbageValue = "-36"
+		descriptor = "(II)V",
+		garbageValue = "-1832697259"
 	)
-	static void method3709(Buffer var0, int var1) {
-		byte[] var2 = var0.array; // L: 11648
-		if (Client.randomDatData == null) { // L: 11650
-			Client.randomDatData = new byte[24];
-		}
-
-		class307.writeRandomDat(var2, var1, Client.randomDatData, 0, 24); // L: 11651
-		if (JagexCache.JagexCache_randomDat != null) { // L: 11654
-			try {
-				JagexCache.JagexCache_randomDat.seek(0L); // L: 11656
-				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24); // L: 11657
-			} catch (Exception var4) { // L: 11659
-			}
-		}
-
-	} // L: 11662
+	static void method3646(int var0) {
+		Client.oculusOrbState = var0;
+	}
 }

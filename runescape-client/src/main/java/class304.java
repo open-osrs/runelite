@@ -1,31 +1,97 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kt")
-public final class class304 {
-	@ObfuscatedName("f")
+@ObfuscatedName("kx")
+public class class304 {
+	@ObfuscatedName("s")
+	public static char[] field3755;
+	@ObfuscatedName("t")
+	static char[] field3756;
+	@ObfuscatedName("v")
+	static char[] field3757;
+	@ObfuscatedName("j")
+	static int[] field3760;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Object;ZI)[B",
-		garbageValue = "-238084679"
+		descriptor = "Lof;"
 	)
-	public static byte[] method5597(Object var0, boolean var1) {
-		if (var0 == null) { // L: 8
-			return null;
-		} else if (var0 instanceof byte[]) { // L: 9
-			byte[] var6 = (byte[])((byte[])var0); // L: 10
-			if (var1) { // L: 11
-				int var4 = var6.length; // L: 14
-				byte[] var5 = new byte[var4]; // L: 15
-				System.arraycopy(var6, 0, var5, 0, var4); // L: 16
-				return var5; // L: 19
-			} else {
-				return var6; // L: 21
-			}
-		} else if (var0 instanceof AbstractByteArrayCopier) { // L: 23
-			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0; // L: 24
-			return var2.get(); // L: 25
-		} else {
-			throw new IllegalArgumentException(); // L: 27
+	@Export("titleboxSprite")
+	static IndexedSprite titleboxSprite;
+
+	static {
+		field3755 = new char[64];
+
+		int var0;
+		for (var0 = 0; var0 < 26; ++var0) {
+			field3755[var0] = (char)(var0 + 65);
 		}
+
+		for (var0 = 26; var0 < 52; ++var0) {
+			field3755[var0] = (char)(var0 + 97 - 26);
+		}
+
+		for (var0 = 52; var0 < 62; ++var0) {
+			field3755[var0] = (char)(var0 + 48 - 52);
+		}
+
+		field3755[62] = '+';
+		field3755[63] = '/';
+		field3756 = new char[64];
+
+		for (var0 = 0; var0 < 26; ++var0) {
+			field3756[var0] = (char)(var0 + 65);
+		}
+
+		for (var0 = 26; var0 < 52; ++var0) {
+			field3756[var0] = (char)(var0 + 97 - 26);
+		}
+
+		for (var0 = 52; var0 < 62; ++var0) {
+			field3756[var0] = (char)(var0 + 48 - 52);
+		}
+
+		field3756[62] = '*';
+		field3756[63] = '-';
+		field3757 = new char[64];
+
+		for (var0 = 0; var0 < 26; ++var0) {
+			field3757[var0] = (char)(var0 + 65);
+		}
+
+		for (var0 = 26; var0 < 52; ++var0) {
+			field3757[var0] = (char)(var0 + 97 - 26);
+		}
+
+		for (var0 = 52; var0 < 62; ++var0) {
+			field3757[var0] = (char)(var0 + 48 - 52);
+		}
+
+		field3757[62] = '-';
+		field3757[63] = '_';
+		field3760 = new int[128];
+
+		for (var0 = 0; var0 < field3760.length; ++var0) {
+			field3760[var0] = -1;
+		}
+
+		for (var0 = 65; var0 <= 90; ++var0) {
+			field3760[var0] = var0 - 65;
+		}
+
+		for (var0 = 97; var0 <= 122; ++var0) {
+			field3760[var0] = var0 - 97 + 26;
+		}
+
+		for (var0 = 48; var0 <= 57; ++var0) {
+			field3760[var0] = var0 - 48 + 52;
+		}
+
+		int[] var2 = field3760;
+		field3760[43] = 62;
+		var2[42] = 62;
+		int[] var1 = field3760;
+		field3760[47] = 63;
+		var1[45] = 63;
 	}
 }
