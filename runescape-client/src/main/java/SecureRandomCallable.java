@@ -1,73 +1,119 @@
 import java.io.File;
+import java.io.RandomAccessFile;
+import java.security.SecureRandom;
 import java.util.concurrent.Callable;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cd")
+@ObfuscatedName("bm")
 @Implements("SecureRandomCallable")
 public class SecureRandomCallable implements Callable {
-	@ObfuscatedName("y")
-	@Export("JagexCache_locationFile")
-	static File JagexCache_locationFile;
-
 	SecureRandomCallable() {
-	} // L: 36
-
-	public Object call() {
-		return GrandExchangeOfferOwnWorldComparator.method1271(); // L: 45
 	}
 
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;B)V",
-		garbageValue = "0"
-	)
-	@Export("addChatMessage")
-	static void addChatMessage(int var0, String var1, String var2, String var3) {
-		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 23
-		if (var4 == null) { // L: 24
-			var4 = new ChatChannel(); // L: 25
-			Messages.Messages_channels.put(var0, var4); // L: 26
-		}
+	public Object call() {
+		SecureRandom var2 = new SecureRandom();
+		var2.nextInt();
+		return var2;
+	}
 
-		Message var5 = var4.addMessage(var0, var1, var2, var3); // L: 28
-		Messages.Messages_hashTable.put(var5, (long)var5.count); // L: 29
-		Messages.Messages_queue.add(var5); // L: 30
-		Client.chatCycle = Client.cycleCntr; // L: 31
-	} // L: 32
-
-	@ObfuscatedName("y")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-2065815479"
+		descriptor = "(Ljava/lang/String;B)Ljava/io/File;",
+		garbageValue = "-61"
 	)
-	@Export("isKeyDown")
-	public static final boolean isKeyDown() {
-		synchronized(KeyHandler.KeyHandler_instance) { // L: 167
-			if (KeyHandler.field276 == KeyHandler.field277) { // L: 168
-				return false;
+	@Export("getFile")
+	static File getFile(String var0) {
+		if (!FileSystem.FileSystem_hasPermissions) {
+			throw new RuntimeException("");
+		} else {
+			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0);
+			if (var1 != null) {
+				return var1;
 			} else {
-				SoundCache.field446 = KeyHandler.field270[KeyHandler.field276]; // L: 169
-				Timer.field3780 = KeyHandler.field269[KeyHandler.field276]; // L: 170
-				KeyHandler.field276 = KeyHandler.field276 + 1 & 127; // L: 171
-				return true; // L: 172
+				File var2 = new File(FileSystem.FileSystem_cacheDir, var0);
+				RandomAccessFile var3 = null;
+
+				try {
+					File var4 = new File(var2.getParent());
+					if (!var4.exists()) {
+						throw new RuntimeException("");
+					} else {
+						var3 = new RandomAccessFile(var2, "rw");
+						int var5 = var3.read();
+						var3.seek(0L);
+						var3.write(var5);
+						var3.seek(0L);
+						var3.close();
+						FileSystem.FileSystem_cacheFiles.put(var0, var2);
+						return var2;
+					}
+				} catch (Exception var8) {
+					try {
+						if (var3 != null) {
+							var3.close();
+							var3 = null;
+						}
+					} catch (Exception var7) {
+					}
+
+					throw new RuntimeException();
+				}
 			}
 		}
 	}
 
-	@ObfuscatedName("lt")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Liv;S)Ljava/lang/String;",
-		garbageValue = "32547"
+		descriptor = "(IIII)I",
+		garbageValue = "863729241"
 	)
-	@Export("Widget_getSpellActionName")
-	static String Widget_getSpellActionName(Widget var0) {
-		if (ModelData0.Widget_unpackTargetMask(class22.getWidgetFlags(var0)) == 0) { // L: 11566
-			return null;
-		} else {
-			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null; // L: 11567 11568 11570
+	@Export("hslToRgb")
+	static final int hslToRgb(int var0, int var1, int var2) {
+		if (var2 > 179) {
+			var1 /= 2;
 		}
+
+		if (var2 > 192) {
+			var1 /= 2;
+		}
+
+		if (var2 > 217) {
+			var1 /= 2;
+		}
+
+		if (var2 > 243) {
+			var1 /= 2;
+		}
+
+		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2;
+		return var3;
+	}
+
+	@ObfuscatedName("ky")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "1188208671"
+	)
+	@Export("clanKickUser")
+	static final void clanKickUser(String var0) {
+		if (MouseRecorder.friendsChat != null) {
+			PacketBufferNode var1 = VerticalAlignment.getPacketBufferNode(ClientPacket.field2632, Client.packetWriter.isaacCipher);
+			var1.packetBuffer.writeByte(GrandExchangeOfferNameComparator.stringCp1252NullTerminatedByteSize(var0));
+			var1.packetBuffer.writeStringCp1252NullTerminated(var0);
+			Client.packetWriter.addNode(var1);
+		}
+	}
+
+	@ObfuscatedName("ld")
+	@ObfuscatedSignature(
+		descriptor = "(Lnv;IB)V",
+		garbageValue = "-10"
+	)
+	static void method1776(Buffer var0, int var1) {
+		class144.method2802(var0.array, var1);
+		InterfaceParent.method1798(var0, var1);
 	}
 }

@@ -4,59 +4,41 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ci")
+@ObfuscatedName("bj")
 @Implements("InterfaceParent")
 public class InterfaceParent extends Node {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1079839403
+		intValue = 1898626955
 	)
 	@Export("group")
 	int group;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1640096453
+		intValue = -1929991669
 	)
 	@Export("type")
 	int type;
 	@ObfuscatedName("v")
-	boolean field1148;
+	boolean field947;
 
 	InterfaceParent() {
-		this.field1148 = false; // L: 8
-	} // L: 10
+		this.field947 = false;
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lhw;Lod;I)Lhg;",
-		garbageValue = "-1864429367"
+		descriptor = "(Lnv;II)V",
+		garbageValue = "-1906984930"
 	)
-	@Export("getPacketBufferNode")
-	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {
-		PacketBufferNode var2;
-		if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) { // L: 29
-			var2 = new PacketBufferNode(); // L: 30
-		} else {
-			var2 = PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount]; // L: 33
+	public static void method1798(Buffer var0, int var1) {
+		if (JagexCache.JagexCache_randomDat != null) {
+			try {
+				JagexCache.JagexCache_randomDat.seek(0L);
+				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24);
+			} catch (Exception var3) {
+			}
 		}
 
-		var2.clientPacket = var0; // L: 36
-		var2.clientPacketLength = var0.length; // L: 37
-		if (var2.clientPacketLength == -1) {
-			var2.packetBuffer = new PacketBuffer(260); // L: 38
-		} else if (var2.clientPacketLength == -2) { // L: 39
-			var2.packetBuffer = new PacketBuffer(10000);
-		} else if (var2.clientPacketLength <= 18) { // L: 40
-			var2.packetBuffer = new PacketBuffer(20);
-		} else if (var2.clientPacketLength <= 98) { // L: 41
-			var2.packetBuffer = new PacketBuffer(100);
-		} else {
-			var2.packetBuffer = new PacketBuffer(260); // L: 42
-		}
-
-		var2.packetBuffer.setIsaacCipher(var1); // L: 43
-		var2.packetBuffer.writeByteIsaac(var2.clientPacket.id); // L: 44
-		var2.index = 0; // L: 45
-		return var2; // L: 46
 	}
 }

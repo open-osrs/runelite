@@ -36,7 +36,6 @@ public interface RSClanChannelMember extends ClanChannelMember
 	@Override
 	int getWorld();
 
-	@Import("name")
-	@Override
-	String getName();
+	@Import("username")
+	RSUsername getUsername();
 }

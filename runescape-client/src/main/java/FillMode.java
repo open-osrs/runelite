@@ -1,58 +1,53 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
-import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.mapping.*;
 
-@ObfuscatedName("oj")
+@ObfuscatedName("ou")
 @Implements("FillMode")
-public enum FillMode implements Enumerated
-{
-	@ObfuscatedName("f")
+public enum FillMode implements Enumerated {
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Loj;"
+		descriptor = "Lou;"
 	)
 	@Export("SOLID")
 	SOLID(0, 0),
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Loj;"
+		descriptor = "Lou;"
 	)
-	field4241(1, 1),
+	field4255(1, 1),
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Loj;"
+		descriptor = "Lou;"
 	)
-	field4239(2, 2);
+	field4256(2, 2);
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 2014293349
+		intValue = -839032429
 	)
-	static int field4244;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = -1583860177
-	)
-	public final int field4242;
+	static int field4259;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -76883829
+		intValue = 698833695
 	)
-	final int field4243;
+	public final int field4257;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -1768437689
+	)
+	final int field4258;
 
 	FillMode(int var3, int var4) {
-		this.field4242 = var3; // L: 19
-		this.field4243 = var4; // L: 20
-	} // L: 21
+		this.field4257 = var3;
+		this.field4258 = var4;
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1154679040"
+		garbageValue = "-1806959663"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field4243; // L: 24
+		return this.field4258;
 	}
 }

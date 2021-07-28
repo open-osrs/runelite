@@ -4,42 +4,59 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lr")
+@ObfuscatedName("ly")
 @Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
-	@ObfuscatedName("e")
+	@ObfuscatedName("n")
+	@Export("Interpreter_intLocals")
+	static int[] Interpreter_intLocals;
+	@ObfuscatedName("t")
 	@Export("nextComparator")
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
-	} // L: 8
+	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/Comparator;I)V",
-		garbageValue = "809923869"
+		descriptor = "(Ljava/util/Comparator;B)V",
+		garbageValue = "118"
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
-		if (this.nextComparator == null) { // L: 11
-			this.nextComparator = var1; // L: 12
-		} else if (this.nextComparator instanceof AbstractUserComparator) { // L: 14
-			((AbstractUserComparator)this.nextComparator).addComparator(var1); // L: 15
+		if (this.nextComparator == null) {
+			this.nextComparator = var1;
+		} else if (this.nextComparator instanceof AbstractUserComparator) {
+			((AbstractUserComparator)this.nextComparator).addComparator(var1);
 		}
 
-	} // L: 17
+	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Llf;Llf;B)I",
-		garbageValue = "62"
+		descriptor = "(Llm;Llm;I)I",
+		garbageValue = "1954626737"
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
-		return this.nextComparator == null ? 0 : this.nextComparator.compare(var1, var2); // L: 20 21
+		return this.nextComparator == null ? 0 : this.nextComparator.compare(var1, var2);
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 25
+		return super.equals(var1);
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
+		garbageValue = "427246269"
+	)
+	public static String method5813(CharSequence var0) {
+		String var1 = Varcs.base37DecodeLong(class287.method5201(var0));
+		if (var1 == null) {
+			var1 = "";
+		}
+
+		return var1;
 	}
 }

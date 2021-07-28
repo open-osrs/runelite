@@ -10,31 +10,13 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dz")
+@ObfuscatedName("cn")
 @Implements("UrlRequester")
 public class UrlRequester implements Runnable {
-	@ObfuscatedName("ri")
-	@ObfuscatedSignature(
-		descriptor = "Lbq;"
-	)
-	@Export("pcmPlayer1")
-	static PcmPlayer pcmPlayer1;
-	@ObfuscatedName("m")
-	@Export("Interpreter_stringLocals")
-	static String[] Interpreter_stringLocals;
-	@ObfuscatedName("ce")
-	@ObfuscatedSignature(
-		descriptor = "Lco;"
-	)
-	@Export("mouseRecorder")
-	static MouseRecorder mouseRecorder;
-	@ObfuscatedName("gq")
-	@Export("regionMapArchiveIds")
-	static int[] regionMapArchiveIds;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@Export("thread")
 	final Thread thread;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@Export("isClosed")
 	volatile boolean isClosed;
 	@ObfuscatedName("v")
@@ -42,123 +24,139 @@ public class UrlRequester implements Runnable {
 	Queue requests;
 
 	public UrlRequester() {
-		this.requests = new LinkedList(); // L: 15
-		this.thread = new Thread(this); // L: 18
-		this.thread.setPriority(1); // L: 19
-		this.thread.start(); // L: 20
-	} // L: 21
+		this.requests = new LinkedList();
+		this.thread = new Thread(this);
+		this.thread.setPriority(1);
+		this.thread.start();
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;I)Ldc;",
-		garbageValue = "-1779738307"
+		descriptor = "(Ljava/net/URL;I)Lcd;",
+		garbageValue = "797764563"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
-		UrlRequest var2 = new UrlRequest(var1); // L: 71
-		synchronized(this) { // L: 72
-			this.requests.add(var2); // L: 73
-			this.notify(); // L: 74
-			return var2; // L: 76
+		UrlRequest var2 = new UrlRequest(var1);
+		synchronized(this) {
+			this.requests.add(var2);
+			this.notify();
+			return var2;
 		}
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "256"
+		descriptor = "(B)V",
+		garbageValue = "-71"
 	)
 	@Export("close")
 	public void close() {
-		this.isClosed = true; // L: 80
+		this.isClosed = true;
 
 		try {
-			synchronized(this) { // L: 82
-				this.notify(); // L: 83
-			} // L: 84
+			synchronized(this) {
+				this.notify();
+			}
 
-			this.thread.join(); // L: 85
-		} catch (InterruptedException var4) { // L: 87
+			this.thread.join();
+		} catch (InterruptedException var4) {
 		}
 
-	} // L: 88
+	}
 
 	public void run() {
-		while (!this.isClosed) { // L: 24
+		while (!this.isClosed) {
 			try {
 				UrlRequest var1;
-				synchronized(this) { // L: 27
-					var1 = (UrlRequest)this.requests.poll(); // L: 28
-					if (var1 == null) { // L: 29
+				synchronized(this) {
+					var1 = (UrlRequest)this.requests.poll();
+					if (var1 == null) {
 						try {
-							this.wait(); // L: 31
-						} catch (InterruptedException var13) { // L: 33
+							this.wait();
+						} catch (InterruptedException var13) {
 						}
 						continue;
 					}
 				}
 
-				DataInputStream var2 = null; // L: 37
-				URLConnection var3 = null; // L: 38
+				DataInputStream var2 = null;
+				URLConnection var3 = null;
 
 				try {
-					var3 = var1.url.openConnection(); // L: 40
-					var3.setConnectTimeout(5000); // L: 41
-					var3.setReadTimeout(5000); // L: 42
-					var3.setUseCaches(false); // L: 43
-					var3.setRequestProperty("Connection", "close"); // L: 44
-					int var7 = var3.getContentLength(); // L: 45
-					if (var7 >= 0) { // L: 46
-						byte[] var5 = new byte[var7]; // L: 47
-						var2 = new DataInputStream(var3.getInputStream()); // L: 48
-						var2.readFully(var5); // L: 49
-						var1.response0 = var5; // L: 50
+					var3 = var1.url.openConnection();
+					var3.setConnectTimeout(5000);
+					var3.setReadTimeout(5000);
+					var3.setUseCaches(false);
+					var3.setRequestProperty("Connection", "close");
+					int var7 = var3.getContentLength();
+					if (var7 >= 0) {
+						byte[] var5 = new byte[var7];
+						var2 = new DataInputStream(var3.getInputStream());
+						var2.readFully(var5);
+						var1.response0 = var5;
 					}
 
-					var1.isDone0 = true; // L: 52
-				} catch (IOException var14) { // L: 54
-					var1.isDone0 = true; // L: 55
+					var1.isDone0 = true;
+				} catch (IOException var14) {
+					var1.isDone0 = true;
 				} finally {
-					if (var2 != null) { // L: 58
+					if (var2 != null) {
 						var2.close();
 					}
 
-					if (var3 != null && var3 instanceof HttpURLConnection) { // L: 59
-						((HttpURLConnection)var3).disconnect(); // L: 60
+					if (var3 != null && var3 instanceof HttpURLConnection) {
+						((HttpURLConnection)var3).disconnect();
 					}
 
 				}
 			} catch (Exception var17) {
-				FriendsChat.RunException_sendStackTrace((String)null, var17);
+				BufferedSink.RunException_sendStackTrace((String)null, var17);
 			}
 		}
 
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(IB)I",
-		garbageValue = "117"
+		descriptor = "(B)J",
+		garbageValue = "-60"
 	)
-	public static int method2504(int var0) {
-		--var0; // L: 64
-		var0 |= var0 >>> 1; // L: 65
-		var0 |= var0 >>> 2; // L: 66
-		var0 |= var0 >>> 4; // L: 67
-		var0 |= var0 >>> 8; // L: 68
-		var0 |= var0 >>> 16; // L: 69
-		return var0 + 1; // L: 70
+	public static final synchronized long method2125() {
+		long var0 = System.currentTimeMillis();
+		if (var0 < GrandExchangeOfferNameComparator.field3625) {
+			class381.field4173 += GrandExchangeOfferNameComparator.field3625 - var0;
+		}
+
+		GrandExchangeOfferNameComparator.field3625 = var0;
+		return class381.field4173 + var0;
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "216480272"
+		descriptor = "(IB)Lio;",
+		garbageValue = "57"
 	)
-	static final int method2509(int var0, int var1) {
-		int var2 = AttackOption.method2378(var0 - 1, var1 - 1) + AttackOption.method2378(var0 + 1, var1 - 1) + AttackOption.method2378(var0 - 1, var1 + 1) + AttackOption.method2378(1 + var0, 1 + var1); // L: 830
-		int var3 = AttackOption.method2378(var0 - 1, var1) + AttackOption.method2378(1 + var0, var1) + AttackOption.method2378(var0, var1 - 1) + AttackOption.method2378(var0, var1 + 1); // L: 831
-		int var4 = AttackOption.method2378(var0, var1); // L: 832
-		return var2 / 16 + var3 / 8 + var4 / 4; // L: 833
+	@Export("getWidget")
+	public static Widget getWidget(int var0) {
+		int var1 = var0 >> 16;
+		int var2 = var0 & 65535;
+		if (Widget.Widget_interfaceComponents[var1] == null || Widget.Widget_interfaceComponents[var1][var2] == null) {
+			boolean var3 = Huffman.loadInterface(var1);
+			if (!var3) {
+				return null;
+			}
+		}
+
+		return Widget.Widget_interfaceComponents[var1][var2];
+	}
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-24"
+	)
+	public static void method2126() {
+		PlayerComposition.PlayerAppearance_cachedModels.clear();
 	}
 }

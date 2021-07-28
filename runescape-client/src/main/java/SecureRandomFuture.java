@@ -4,82 +4,111 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cv")
+@ObfuscatedName("bf")
 @Implements("SecureRandomFuture")
 public class SecureRandomFuture {
-	@ObfuscatedName("dl")
-	@ObfuscatedSignature(
-		descriptor = "Ljf;"
+	@ObfuscatedName("ga")
+	@ObfuscatedGetter(
+		intValue = -505968065
 	)
-	@Export("archive2")
-	static Archive archive2;
-	@ObfuscatedName("f")
+	static int field858;
+	@ObfuscatedName("s")
 	@Export("executor")
 	ExecutorService executor;
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@Export("future")
 	Future future;
 
 	SecureRandomFuture() {
-		this.executor = Executors.newSingleThreadExecutor(); // L: 10
-		this.future = this.executor.submit(new SecureRandomCallable()); // L: 14
-	} // L: 15
+		this.executor = Executors.newSingleThreadExecutor();
+		this.future = this.executor.submit(new SecureRandomCallable());
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "96"
+		descriptor = "(I)V",
+		garbageValue = "-658220043"
 	)
 	@Export("shutdown")
 	void shutdown() {
-		this.executor.shutdown(); // L: 18
-		this.executor = null; // L: 19
-	} // L: 20
+		this.executor.shutdown();
+		this.executor = null;
+	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1235169435"
+		garbageValue = "-1251057070"
 	)
 	@Export("isDone")
 	boolean isDone() {
-		return this.future.isDone(); // L: 23
+		return this.future.isDone();
 	}
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/security/SecureRandom;",
-		garbageValue = "-455615969"
+		descriptor = "(S)Ljava/security/SecureRandom;",
+		garbageValue = "-12481"
 	)
 	@Export("get")
 	SecureRandom get() {
 		try {
-			return (SecureRandom)this.future.get(); // L: 28
-		} catch (Exception var2) { // L: 30
-			return GrandExchangeOfferOwnWorldComparator.method1271(); // L: 31
+			return (SecureRandom)this.future.get();
+		} catch (Exception var4) {
+			SecureRandom var3 = new SecureRandom();
+			var3.nextInt();
+			return var3;
 		}
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "-687753348"
+		descriptor = "(IB)Lep;",
+		garbageValue = "-50"
 	)
-	@Export("colorStartTag")
-	static String colorStartTag(int var0) {
-		return "<col=" + Integer.toHexString(var0) + ">"; // L: 22
+	public static VarcInt method1705(int var0) {
+		VarcInt var1 = (VarcInt)VarcInt.VarcInt_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = VarcInt.VarcInt_archive.takeFile(19, var0);
+			var1 = new VarcInt();
+			if (var2 != null) {
+				var1.method2752(new Buffer(var2));
+			}
+
+			VarcInt.VarcInt_cached.put(var1, (long)var0);
+			return var1;
+		}
 	}
 
-	@ObfuscatedName("ki")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-758448635"
+		descriptor = "(Lag;Lag;IZIZB)I",
+		garbageValue = "31"
 	)
-	static final void method2085() {
-		Client.field819 = Client.cycleCntr; // L: 11466
-		class170.field2016 = true; // L: 11467
-	} // L: 11468
+	static int method1713(World var0, World var1, int var2, boolean var3, int var4, boolean var5) {
+		int var6 = class137.compareWorlds(var0, var1, var2, var3);
+		if (var6 != 0) {
+			return var3 ? -var6 : var6;
+		} else if (var4 == -1) {
+			return 0;
+		} else {
+			int var7 = class137.compareWorlds(var0, var1, var4, var5);
+			return var5 ? -var7 : var7;
+		}
+	}
+
+	@ObfuscatedName("hd")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-110"
+	)
+	static void method1711() {
+		FloorUnderlayDefinition.method2884(DevicePcmPlayerProvider.menuWidth / 2 + SpotAnimationDefinition.menuX, DefaultsGroup.menuY);
+	}
 }

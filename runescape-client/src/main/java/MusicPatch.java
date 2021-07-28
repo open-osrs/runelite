@@ -1,330 +1,331 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("id")
+@ObfuscatedName("if")
 @Implements("MusicPatch")
 public class MusicPatch extends Node {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 835733951
+		intValue = -793096347
 	)
-	int field2885;
-	@ObfuscatedName("e")
+	int field2870;
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "[Lar;"
+		descriptor = "[Lz;"
 	)
 	@Export("rawSounds")
 	RawSound[] rawSounds;
 	@ObfuscatedName("v")
-	short[] field2882;
-	@ObfuscatedName("y")
-	byte[] field2883;
+	short[] field2868;
 	@ObfuscatedName("j")
-	byte[] field2880;
-	@ObfuscatedName("o")
+	byte[] field2873;
+	@ObfuscatedName("l")
+	byte[] field2867;
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "[Lho;"
+		descriptor = "[Lhd;"
 	)
-	MusicPatchNode2[] field2884;
-	@ObfuscatedName("m")
-	byte[] field2886;
-	@ObfuscatedName("r")
-	int[] field2887;
+	MusicPatchNode2[] field2871;
+	@ObfuscatedName("w")
+	byte[] field2872;
+	@ObfuscatedName("f")
+	int[] field2874;
 
 	MusicPatch(byte[] var1) {
-		this.rawSounds = new RawSound[128]; // L: 21
-		this.field2882 = new short[128]; // L: 22
-		this.field2883 = new byte[128]; // L: 23
-		this.field2880 = new byte[128]; // L: 24
-		this.field2884 = new MusicPatchNode2[128]; // L: 25
-		this.field2886 = new byte[128]; // L: 26
-		this.field2887 = new int[128]; // L: 27
-		Buffer var2 = new Buffer(var1); // L: 28
+		this.rawSounds = new RawSound[128];
+		this.field2868 = new short[128];
+		this.field2873 = new byte[128];
+		this.field2867 = new byte[128];
+		this.field2871 = new MusicPatchNode2[128];
+		this.field2872 = new byte[128];
+		this.field2874 = new int[128];
+		Buffer var2 = new Buffer(var1);
 
 		int var3;
-		for (var3 = 0; var2.array[var3 + var2.offset] != 0; ++var3) { // L: 29 30
+		for (var3 = 0; var2.array[var3 + var2.offset] != 0; ++var3) {
 		}
 
-		byte[] var4 = new byte[var3]; // L: 31
+		byte[] var4 = new byte[var3];
 
 		int var5;
-		for (var5 = 0; var5 < var3; ++var5) { // L: 32
+		for (var5 = 0; var5 < var3; ++var5) {
 			var4[var5] = var2.readByte();
 		}
 
-		++var2.offset; // L: 33
-		++var3; // L: 34
-		var5 = var2.offset; // L: 35
-		var2.offset += var3; // L: 36
+		++var2.offset;
+		++var3;
+		var5 = var2.offset;
+		var2.offset += var3;
 
 		int var6;
-		for (var6 = 0; var2.array[var6 + var2.offset] != 0; ++var6) { // L: 37 38
+		for (var6 = 0; var2.array[var6 + var2.offset] != 0; ++var6) {
 		}
 
-		byte[] var7 = new byte[var6]; // L: 39
+		byte[] var7 = new byte[var6];
 
 		int var8;
-		for (var8 = 0; var8 < var6; ++var8) { // L: 40
+		for (var8 = 0; var8 < var6; ++var8) {
 			var7[var8] = var2.readByte();
 		}
 
-		++var2.offset; // L: 41
-		++var6; // L: 42
-		var8 = var2.offset; // L: 43
-		var2.offset += var6; // L: 44
+		++var2.offset;
+		++var6;
+		var8 = var2.offset;
+		var2.offset += var6;
 
 		int var9;
-		for (var9 = 0; var2.array[var9 + var2.offset] != 0; ++var9) { // L: 45 46
+		for (var9 = 0; var2.array[var9 + var2.offset] != 0; ++var9) {
 		}
 
-		byte[] var10 = new byte[var9]; // L: 47
+		byte[] var10 = new byte[var9];
 
-		for (int var11 = 0; var11 < var9; ++var11) { // L: 48
+		for (int var11 = 0; var11 < var9; ++var11) {
 			var10[var11] = var2.readByte();
 		}
 
-		++var2.offset; // L: 49
-		++var9; // L: 50
-		byte[] var36 = new byte[var9]; // L: 51
+		++var2.offset;
+		++var9;
+		byte[] var36 = new byte[var9];
 		int var12;
 		int var14;
-		if (var9 > 1) { // L: 53
-			var36[1] = 1; // L: 54
-			int var13 = 1; // L: 55
-			var12 = 2; // L: 56
+		if (var9 > 1) {
+			var36[1] = 1;
+			int var13 = 1;
+			var12 = 2;
 
-			for (var14 = 2; var14 < var9; ++var14) { // L: 57
-				int var41 = var2.readUnsignedByte(); // L: 58
-				if (var41 == 0) { // L: 59
+			for (var14 = 2; var14 < var9; ++var14) {
+				int var41 = var2.readUnsignedByte();
+				if (var41 == 0) {
 					var13 = var12++;
 				} else {
-					if (var41 <= var13) { // L: 61
+					if (var41 <= var13) {
 						--var41;
 					}
 
-					var13 = var41; // L: 62
+					var13 = var41;
 				}
 
-				var36[var14] = (byte)var13; // L: 64
+				var36[var14] = (byte)var13;
 			}
 		} else {
-			var12 = var9; // L: 67
+			var12 = var9;
 		}
 
-		MusicPatchNode2[] var37 = new MusicPatchNode2[var12]; // L: 68
+		MusicPatchNode2[] var37 = new MusicPatchNode2[var12];
 
 		MusicPatchNode2 var15;
-		for (var14 = 0; var14 < var37.length; ++var14) { // L: 69
-			var15 = var37[var14] = new MusicPatchNode2(); // L: 70
-			int var40 = var2.readUnsignedByte(); // L: 71
-			if (var40 > 0) { // L: 72
-				var15.field2821 = new byte[var40 * 2];
+		for (var14 = 0; var14 < var37.length; ++var14) {
+			var15 = var37[var14] = new MusicPatchNode2();
+			int var40 = var2.readUnsignedByte();
+			if (var40 > 0) {
+				var15.field2808 = new byte[var40 * 2];
 			}
 
-			var40 = var2.readUnsignedByte(); // L: 73
-			if (var40 > 0) { // L: 74
-				var15.field2828 = new byte[var40 * 2 + 2]; // L: 75
-				var15.field2828[1] = 64; // L: 76
+			var40 = var2.readUnsignedByte();
+			if (var40 > 0) {
+				var15.field2811 = new byte[var40 * 2 + 2];
+				var15.field2811[1] = 64;
 			}
 		}
 
-		var14 = var2.readUnsignedByte(); // L: 79
-		byte[] var42 = var14 > 0 ? new byte[var14 * 2] : null; // L: 80
-		var14 = var2.readUnsignedByte(); // L: 81
-		byte[] var16 = var14 > 0 ? new byte[var14 * 2] : null; // L: 82
+		var14 = var2.readUnsignedByte();
+		byte[] var42 = var14 > 0 ? new byte[var14 * 2] : null;
+		var14 = var2.readUnsignedByte();
+		byte[] var16 = var14 > 0 ? new byte[var14 * 2] : null;
 
 		int var17;
-		for (var17 = 0; var2.array[var17 + var2.offset] != 0; ++var17) { // L: 83 84
+		for (var17 = 0; var2.array[var17 + var2.offset] != 0; ++var17) {
 		}
 
-		byte[] var18 = new byte[var17]; // L: 85
+		byte[] var18 = new byte[var17];
 
 		int var19;
-		for (var19 = 0; var19 < var17; ++var19) { // L: 86
+		for (var19 = 0; var19 < var17; ++var19) {
 			var18[var19] = var2.readByte();
 		}
 
-		++var2.offset; // L: 87
-		++var17; // L: 88
-		var19 = 0; // L: 89
+		++var2.offset;
+		++var17;
+		var19 = 0;
 
 		int var20;
-		for (var20 = 0; var20 < 128; ++var20) { // L: 90
-			var19 += var2.readUnsignedByte(); // L: 91
-			this.field2882[var20] = (short)var19; // L: 92
+		for (var20 = 0; var20 < 128; ++var20) {
+			var19 += var2.readUnsignedByte();
+			this.field2868[var20] = (short)var19;
 		}
 
-		var19 = 0; // L: 94
+		var19 = 0;
 
 		short[] var48;
-		for (var20 = 0; var20 < 128; ++var20) { // L: 95
-			var19 += var2.readUnsignedByte(); // L: 96
-			var48 = this.field2882; // L: 97
+		for (var20 = 0; var20 < 128; ++var20) {
+			var19 += var2.readUnsignedByte();
+			var48 = this.field2868;
 			var48[var20] = (short)(var48[var20] + (var19 << 8));
 		}
 
-		var20 = 0; // L: 99
-		int var21 = 0; // L: 100
-		int var22 = 0; // L: 101
+		var20 = 0;
+		int var21 = 0;
+		int var22 = 0;
 
 		int var23;
-		for (var23 = 0; var23 < 128; ++var23) { // L: 102
-			if (var20 == 0) { // L: 103
-				if (var21 < var18.length) { // L: 104
+		for (var23 = 0; var23 < 128; ++var23) {
+			if (var20 == 0) {
+				if (var21 < var18.length) {
 					var20 = var18[var21++];
 				} else {
-					var20 = -1; // L: 105
+					var20 = -1;
 				}
 
-				var22 = var2.readVarInt(); // L: 106
+				var22 = var2.readVarInt();
 			}
 
-			var48 = this.field2882; // L: 108
+			var48 = this.field2868;
 			var48[var23] = (short)(var48[var23] + ((var22 - 1 & 2) << 14));
-			this.field2887[var23] = var22; // L: 109
-			--var20; // L: 110
+			this.field2874[var23] = var22;
+			--var20;
 		}
 
-		var20 = 0; // L: 112
-		var21 = 0; // L: 113
-		var23 = 0; // L: 114
+		var20 = 0;
+		var21 = 0;
+		var23 = 0;
 
 		int var24;
-		for (var24 = 0; var24 < 128; ++var24) { // L: 115
-			if (this.field2887[var24] != 0) { // L: 116
-				if (var20 == 0) { // L: 117
-					if (var21 < var4.length) { // L: 118
+		for (var24 = 0; var24 < 128; ++var24) {
+			if (this.field2874[var24] != 0) {
+				if (var20 == 0) {
+					if (var21 < var4.length) {
 						var20 = var4[var21++];
 					} else {
-						var20 = -1; // L: 119
+						var20 = -1;
 					}
 
-					var23 = var2.array[var5++] - 1; // L: 120
+					var23 = var2.array[var5++] - 1;
 				}
 
-				this.field2886[var24] = (byte)var23; // L: 122
-				--var20; // L: 123
+				this.field2872[var24] = (byte)var23;
+				--var20;
 			}
 		}
 
-		var20 = 0; // L: 125
-		var21 = 0; // L: 126
-		var24 = 0; // L: 127
+		var20 = 0;
+		var21 = 0;
+		var24 = 0;
 
-		for (int var25 = 0; var25 < 128; ++var25) { // L: 128
-			if (this.field2887[var25] != 0) { // L: 129
-				if (var20 == 0) { // L: 130
-					if (var21 < var7.length) { // L: 131
+		for (int var25 = 0; var25 < 128; ++var25) {
+			if (this.field2874[var25] != 0) {
+				if (var20 == 0) {
+					if (var21 < var7.length) {
 						var20 = var7[var21++];
 					} else {
-						var20 = -1; // L: 132
+						var20 = -1;
 					}
 
-					var24 = var2.array[var8++] + 16 << 2; // L: 133
+					var24 = var2.array[var8++] + 16 << 2;
 				}
 
-				this.field2880[var25] = (byte)var24; // L: 135
-				--var20; // L: 136
+				this.field2867[var25] = (byte)var24;
+				--var20;
 			}
 		}
 
-		var20 = 0; // L: 138
-		var21 = 0; // L: 139
-		MusicPatchNode2 var38 = null; // L: 140
+		var20 = 0;
+		var21 = 0;
+		MusicPatchNode2 var38 = null;
 
 		int var26;
-		for (var26 = 0; var26 < 128; ++var26) { // L: 141
-			if (this.field2887[var26] != 0) { // L: 142
-				if (var20 == 0) { // L: 143
-					var38 = var37[var36[var21]]; // L: 144
-					if (var21 < var10.length) { // L: 145
+		for (var26 = 0; var26 < 128; ++var26) {
+			if (this.field2874[var26] != 0) {
+				if (var20 == 0) {
+					var38 = var37[var36[var21]];
+					if (var21 < var10.length) {
 						var20 = var10[var21++];
 					} else {
-						var20 = -1; // L: 146
+						var20 = -1;
 					}
 				}
 
-				this.field2884[var26] = var38; // L: 148
-				--var20; // L: 149
+				this.field2871[var26] = var38;
+				--var20;
 			}
 		}
 
-		var20 = 0; // L: 151
-		var21 = 0; // L: 152
-		var26 = 0; // L: 153
+		var20 = 0;
+		var21 = 0;
+		var26 = 0;
 
 		int var27;
-		for (var27 = 0; var27 < 128; ++var27) { // L: 154
-			if (var20 == 0) { // L: 155
-				if (var21 < var18.length) { // L: 156
+		for (var27 = 0; var27 < 128; ++var27) {
+			if (var20 == 0) {
+				if (var21 < var18.length) {
 					var20 = var18[var21++];
 				} else {
-					var20 = -1; // L: 157
+					var20 = -1;
 				}
 
-				if (this.field2887[var27] > 0) { // L: 158
+				if (this.field2874[var27] > 0) {
 					var26 = var2.readUnsignedByte() + 1;
 				}
 			}
 
-			this.field2883[var27] = (byte)var26; // L: 160
-			--var20; // L: 161
+			this.field2873[var27] = (byte)var26;
+			--var20;
 		}
 
-		this.field2885 = var2.readUnsignedByte() + 1; // L: 163
+		this.field2870 = var2.readUnsignedByte() + 1;
 
 		int var29;
 		MusicPatchNode2 var39;
-		for (var27 = 0; var27 < var12; ++var27) { // L: 164
-			var39 = var37[var27]; // L: 165
-			if (var39.field2821 != null) { // L: 166
-				for (var29 = 1; var29 < var39.field2821.length; var29 += 2) { // L: 167
-					var39.field2821[var29] = var2.readByte();
+		for (var27 = 0; var27 < var12; ++var27) {
+			var39 = var37[var27];
+			if (var39.field2808 != null) {
+				for (var29 = 1; var29 < var39.field2808.length; var29 += 2) {
+					var39.field2808[var29] = var2.readByte();
 				}
 			}
 
-			if (var39.field2828 != null) { // L: 169
-				for (var29 = 3; var29 < var39.field2828.length - 2; var29 += 2) { // L: 170
-					var39.field2828[var29] = var2.readByte();
+			if (var39.field2811 != null) {
+				for (var29 = 3; var29 < var39.field2811.length - 2; var29 += 2) {
+					var39.field2811[var29] = var2.readByte();
 				}
 			}
 		}
 
-		if (var42 != null) { // L: 173
-			for (var27 = 1; var27 < var42.length; var27 += 2) { // L: 174
+		if (var42 != null) {
+			for (var27 = 1; var27 < var42.length; var27 += 2) {
 				var42[var27] = var2.readByte();
 			}
 		}
 
-		if (var16 != null) { // L: 176
-			for (var27 = 1; var27 < var16.length; var27 += 2) { // L: 177
+		if (var16 != null) {
+			for (var27 = 1; var27 < var16.length; var27 += 2) {
 				var16[var27] = var2.readByte();
 			}
 		}
 
-		for (var27 = 0; var27 < var12; ++var27) { // L: 179
-			var39 = var37[var27]; // L: 180
-			if (var39.field2828 != null) { // L: 181
-				var19 = 0; // L: 182
+		for (var27 = 0; var27 < var12; ++var27) {
+			var39 = var37[var27];
+			if (var39.field2811 != null) {
+				var19 = 0;
 
-				for (var29 = 2; var29 < var39.field2828.length; var29 += 2) { // L: 183
-					var19 = 1 + var19 + var2.readUnsignedByte(); // L: 184
-					var39.field2828[var29] = (byte)var19; // L: 185
+				for (var29 = 2; var29 < var39.field2811.length; var29 += 2) {
+					var19 = 1 + var19 + var2.readUnsignedByte();
+					var39.field2811[var29] = (byte)var19;
 				}
 			}
 		}
 
-		for (var27 = 0; var27 < var12; ++var27) { // L: 189
-			var39 = var37[var27]; // L: 190
-			if (var39.field2821 != null) { // L: 191
-				var19 = 0; // L: 192
+		for (var27 = 0; var27 < var12; ++var27) {
+			var39 = var37[var27];
+			if (var39.field2808 != null) {
+				var19 = 0;
 
-				for (var29 = 2; var29 < var39.field2821.length; var29 += 2) { // L: 193
-					var19 = var19 + 1 + var2.readUnsignedByte(); // L: 194
-					var39.field2821[var29] = (byte)var19; // L: 195
+				for (var29 = 2; var29 < var39.field2808.length; var29 += 2) {
+					var19 = var19 + 1 + var2.readUnsignedByte();
+					var39.field2808[var29] = (byte)var19;
 				}
 			}
 		}
@@ -335,194 +336,295 @@ public class MusicPatch extends Node {
 		int var34;
 		int var45;
 		byte var47;
-		if (var42 != null) { // L: 199
-			var19 = var2.readUnsignedByte(); // L: 200
-			var42[0] = (byte)var19; // L: 201
+		if (var42 != null) {
+			var19 = var2.readUnsignedByte();
+			var42[0] = (byte)var19;
 
-			for (var27 = 2; var27 < var42.length; var27 += 2) { // L: 202
-				var19 = var19 + 1 + var2.readUnsignedByte(); // L: 203
-				var42[var27] = (byte)var19; // L: 204
+			for (var27 = 2; var27 < var42.length; var27 += 2) {
+				var19 = var19 + 1 + var2.readUnsignedByte();
+				var42[var27] = (byte)var19;
 			}
 
-			var47 = var42[0]; // L: 206
-			byte var28 = var42[1]; // L: 207
+			var47 = var42[0];
+			byte var28 = var42[1];
 
-			for (var29 = 0; var29 < var47; ++var29) { // L: 208
-				this.field2883[var29] = (byte)(var28 * this.field2883[var29] + 32 >> 6);
+			for (var29 = 0; var29 < var47; ++var29) {
+				this.field2873[var29] = (byte)(var28 * this.field2873[var29] + 32 >> 6);
 			}
 
-			for (var29 = 2; var29 < var42.length; var29 += 2) { // L: 209 210 221
-				var30 = var42[var29]; // L: 211
-				byte var31 = var42[var29 + 1]; // L: 212
-				var32 = var28 * (var30 - var47) + (var30 - var47) / 2; // L: 213
+			for (var29 = 2; var29 < var42.length; var29 += 2) {
+				var30 = var42[var29];
+				byte var31 = var42[var29 + 1];
+				var32 = var28 * (var30 - var47) + (var30 - var47) / 2;
 
-				for (var33 = var47; var33 < var30; ++var33) { // L: 214
-					var34 = NPCComposition.method2841(var32, var30 - var47); // L: 215
-					this.field2883[var33] = (byte)(var34 * this.field2883[var33] + 32 >> 6); // L: 216
-					var32 += var31 - var28; // L: 217
+				for (var33 = var47; var33 < var30; ++var33) {
+					var34 = Login.method1658(var32, var30 - var47);
+					this.field2873[var33] = (byte)(var34 * this.field2873[var33] + 32 >> 6);
+					var32 += var31 - var28;
 				}
 
-				var47 = var30; // L: 219
-				var28 = var31; // L: 220
+				var47 = var30;
+				var28 = var31;
 			}
 
-			for (var45 = var47; var45 < 128; ++var45) { // L: 223
-				this.field2883[var45] = (byte)(var28 * this.field2883[var45] + 32 >> 6);
+			for (var45 = var47; var45 < 128; ++var45) {
+				this.field2873[var45] = (byte)(var28 * this.field2873[var45] + 32 >> 6);
 			}
 
-			var15 = null; // L: 224
+			var15 = null;
 		}
 
-		if (var16 != null) { // L: 226
-			var19 = var2.readUnsignedByte(); // L: 227
-			var16[0] = (byte)var19; // L: 228
+		if (var16 != null) {
+			var19 = var2.readUnsignedByte();
+			var16[0] = (byte)var19;
 
-			for (var27 = 2; var27 < var16.length; var27 += 2) { // L: 229
-				var19 = var19 + 1 + var2.readUnsignedByte(); // L: 230
-				var16[var27] = (byte)var19; // L: 231
+			for (var27 = 2; var27 < var16.length; var27 += 2) {
+				var19 = var19 + 1 + var2.readUnsignedByte();
+				var16[var27] = (byte)var19;
 			}
 
-			var47 = var16[0]; // L: 233
-			int var44 = var16[1] << 1; // L: 234
+			var47 = var16[0];
+			int var44 = var16[1] << 1;
 
-			for (var29 = 0; var29 < var47; ++var29) { // L: 235
-				var45 = var44 + (this.field2880[var29] & 255); // L: 236
-				if (var45 < 0) { // L: 237
+			for (var29 = 0; var29 < var47; ++var29) {
+				var45 = var44 + (this.field2867[var29] & 255);
+				if (var45 < 0) {
 					var45 = 0;
 				}
 
-				if (var45 > 128) { // L: 238
+				if (var45 > 128) {
 					var45 = 128;
 				}
 
-				this.field2880[var29] = (byte)var45; // L: 239
+				this.field2867[var29] = (byte)var45;
 			}
 
 			int var46;
-			for (var29 = 2; var29 < var16.length; var29 += 2) { // L: 241 242 256
-				var30 = var16[var29]; // L: 243
-				var46 = var16[var29 + 1] << 1; // L: 244
-				var32 = var44 * (var30 - var47) + (var30 - var47) / 2; // L: 245
+			for (var29 = 2; var29 < var16.length; var29 += 2) {
+				var30 = var16[var29];
+				var46 = var16[var29 + 1] << 1;
+				var32 = var44 * (var30 - var47) + (var30 - var47) / 2;
 
-				for (var33 = var47; var33 < var30; ++var33) { // L: 246
-					var34 = NPCComposition.method2841(var32, var30 - var47); // L: 247
-					int var35 = var34 + (this.field2880[var33] & 255); // L: 248
-					if (var35 < 0) { // L: 249
+				for (var33 = var47; var33 < var30; ++var33) {
+					var34 = Login.method1658(var32, var30 - var47);
+					int var35 = var34 + (this.field2867[var33] & 255);
+					if (var35 < 0) {
 						var35 = 0;
 					}
 
-					if (var35 > 128) { // L: 250
+					if (var35 > 128) {
 						var35 = 128;
 					}
 
-					this.field2880[var33] = (byte)var35; // L: 251
-					var32 += var46 - var44; // L: 252
+					this.field2867[var33] = (byte)var35;
+					var32 += var46 - var44;
 				}
 
-				var47 = var30; // L: 254
-				var44 = var46; // L: 255
+				var47 = var30;
+				var44 = var46;
 			}
 
-			for (var45 = var47; var45 < 128; ++var45) { // L: 258
-				var46 = var44 + (this.field2880[var45] & 255); // L: 259
-				if (var46 < 0) { // L: 260
+			for (var45 = var47; var45 < 128; ++var45) {
+				var46 = var44 + (this.field2867[var45] & 255);
+				if (var46 < 0) {
 					var46 = 0;
 				}
 
-				if (var46 > 128) { // L: 261
+				if (var46 > 128) {
 					var46 = 128;
 				}
 
-				this.field2880[var45] = (byte)var46; // L: 262
+				this.field2867[var45] = (byte)var46;
 			}
 
-			Object var43 = null; // L: 264
+			Object var43 = null;
 		}
 
-		for (var27 = 0; var27 < var12; ++var27) { // L: 266
-			var37[var27].field2823 = var2.readUnsignedByte();
+		for (var27 = 0; var27 < var12; ++var27) {
+			var37[var27].field2806 = var2.readUnsignedByte();
 		}
 
-		for (var27 = 0; var27 < var12; ++var27) { // L: 267
-			var39 = var37[var27]; // L: 268
-			if (var39.field2821 != null) { // L: 269
-				var39.field2824 = var2.readUnsignedByte();
+		for (var27 = 0; var27 < var12; ++var27) {
+			var39 = var37[var27];
+			if (var39.field2808 != null) {
+				var39.field2807 = var2.readUnsignedByte();
 			}
 
-			if (var39.field2828 != null) { // L: 270
-				var39.field2825 = var2.readUnsignedByte();
+			if (var39.field2811 != null) {
+				var39.field2805 = var2.readUnsignedByte();
 			}
 
-			if (var39.field2823 > 0) { // L: 271
-				var39.field2822 = var2.readUnsignedByte();
-			}
-		}
-
-		for (var27 = 0; var27 < var12; ++var27) { // L: 273
-			var37[var27].field2827 = var2.readUnsignedByte();
-		}
-
-		for (var27 = 0; var27 < var12; ++var27) { // L: 274
-			var39 = var37[var27]; // L: 275
-			if (var39.field2827 > 0) { // L: 276
-				var39.field2826 = var2.readUnsignedByte();
+			if (var39.field2806 > 0) {
+				var39.field2809 = var2.readUnsignedByte();
 			}
 		}
 
-		for (var27 = 0; var27 < var12; ++var27) { // L: 278
-			var39 = var37[var27]; // L: 279
-			if (var39.field2826 > 0) { // L: 280
-				var39.field2829 = var2.readUnsignedByte();
+		for (var27 = 0; var27 < var12; ++var27) {
+			var37[var27].field2810 = var2.readUnsignedByte();
+		}
+
+		for (var27 = 0; var27 < var12; ++var27) {
+			var39 = var37[var27];
+			if (var39.field2810 > 0) {
+				var39.field2804 = var2.readUnsignedByte();
 			}
 		}
 
-	} // L: 282
+		for (var27 = 0; var27 < var12; ++var27) {
+			var39 = var37[var27];
+			if (var39.field2804 > 0) {
+				var39.field2812 = var2.readUnsignedByte();
+			}
+		}
 
-	@ObfuscatedName("f")
+	}
+
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Lbz;[B[II)Z",
-		garbageValue = "-1683954246"
+		descriptor = "(Lan;[B[II)Z",
+		garbageValue = "782174668"
 	)
-	boolean method4731(SoundCache var1, byte[] var2, int[] var3) {
-		boolean var4 = true; // L: 285
-		int var5 = 0; // L: 286
-		RawSound var6 = null; // L: 287
+	boolean method4635(SoundCache var1, byte[] var2, int[] var3) {
+		boolean var4 = true;
+		int var5 = 0;
+		RawSound var6 = null;
 
-		for (int var7 = 0; var7 < 128; ++var7) { // L: 288
-			if (var2 == null || var2[var7] != 0) { // L: 289
-				int var8 = this.field2887[var7]; // L: 290
-				if (var8 != 0) { // L: 291
-					if (var8 != var5) { // L: 292
-						var5 = var8--; // L: 293 294
-						if ((var8 & 1) == 0) { // L: 295
+		for (int var7 = 0; var7 < 128; ++var7) {
+			if (var2 == null || var2[var7] != 0) {
+				int var8 = this.field2874[var7];
+				if (var8 != 0) {
+					if (var5 != var8) {
+						var5 = var8--;
+						if ((var8 & 1) == 0) {
 							var6 = var1.getSoundEffect(var8 >> 2, var3);
 						} else {
-							var6 = var1.getMusicSample(var8 >> 2, var3); // L: 296
+							var6 = var1.getMusicSample(var8 >> 2, var3);
 						}
 
-						if (var6 == null) { // L: 297
+						if (var6 == null) {
 							var4 = false;
 						}
 					}
 
-					if (var6 != null) { // L: 299
-						this.rawSounds[var7] = var6; // L: 300
-						this.field2887[var7] = 0; // L: 301
+					if (var6 != null) {
+						this.rawSounds[var7] = var6;
+						this.field2874[var7] = 0;
 					}
 				}
 			}
 		}
 
-		return var4; // L: 305
+		return var4;
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "18"
+		descriptor = "(I)V",
+		garbageValue = "-57490262"
 	)
 	@Export("clear")
 	void clear() {
-		this.field2887 = null; // L: 309
-	} // L: 310
+		this.field2874 = null;
+	}
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(Ljy;Ljy;ZII)V",
+		garbageValue = "100696029"
+	)
+	static void method4636(AbstractArchive var0, AbstractArchive var1, boolean var2, int var3) {
+		if (Login.clearLoginScreen) {
+			if (var3 == 4) {
+				Login.loginIndex = 4;
+			}
+
+		} else {
+			Login.loginIndex = var3;
+			Rasterizer2D.Rasterizer2D_clear();
+			byte[] var4 = var0.takeFileByNames("title.jpg", "");
+			Login.leftTitleSprite = ClientPreferences.convertJpgToSprite(var4);
+			Login.rightTitleSprite = Login.leftTitleSprite.mirrorHorizontally();
+			int var5 = Client.worldProperties;
+			if ((var5 & 536870912) != 0) {
+				UserComparator4.logoSprite = class117.SpriteBuffer_getIndexedSpriteByName(var1, "logo_deadman_mode", "");
+			} else if ((var5 & 1073741824) != 0) {
+				UserComparator4.logoSprite = class117.SpriteBuffer_getIndexedSpriteByName(var1, "logo_seasonal_mode", "");
+			} else {
+				UserComparator4.logoSprite = class117.SpriteBuffer_getIndexedSpriteByName(var1, "logo", "");
+			}
+
+			class304.titleboxSprite = class117.SpriteBuffer_getIndexedSpriteByName(var1, "titlebox", "");
+			Login.titlebuttonSprite = class117.SpriteBuffer_getIndexedSpriteByName(var1, "titlebutton", "");
+			int var7 = var1.getGroupId("runes");
+			int var8 = var1.getFileId(var7, "");
+			IndexedSprite[] var6 = FileSystem.method2628(var1, var7, var8);
+			Login.runesSprite = var6;
+			var8 = var1.getGroupId("title_mute");
+			int var9 = var1.getFileId(var8, "");
+			IndexedSprite[] var10 = FileSystem.method2628(var1, var8, var9);
+			FileSystem.title_muteSprite = var10;
+			GrandExchangeOfferOwnWorldComparator.options_buttons_0Sprite = class117.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,0", "");
+			UserComparator5.field1239 = class117.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,4", "");
+			class172.options_buttons_2Sprite = class117.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,2", "");
+			GraphicsDefaults.field3919 = class117.SpriteBuffer_getIndexedSpriteByName(var1, "options_radio_buttons,6", "");
+			ClanSettings.field1386 = GrandExchangeOfferOwnWorldComparator.options_buttons_0Sprite.subWidth;
+			World.field704 = GrandExchangeOfferOwnWorldComparator.options_buttons_0Sprite.subHeight;
+			class6.loginScreenRunesAnimation = new LoginScreenAnimation(Login.runesSprite);
+			if (var2) {
+				Login.Login_username = "";
+				Login.Login_password = "";
+			}
+
+			class282.field3639 = 0;
+			HorizontalAlignment.otp = "";
+			Login.field820 = true;
+			Login.worldSelectOpen = false;
+			if (!Decimator.clientPreferences.titleMusicDisabled) {
+				SpotAnimationDefinition.method2875(2, class108.archive6, "scape main", "", 255, false);
+			} else {
+				class234.musicPlayerStatus = 1;
+				class234.musicTrackArchive = null;
+				class234.musicTrackGroupId = -1;
+				UserComparator6.musicTrackFileId = -1;
+				HorizontalAlignment.musicTrackVolume = 0;
+				EnumComposition.musicTrackBoolean = false;
+				ClanChannel.pcmSampleLength = 2;
+			}
+
+			if (NetCache.NetCache_socket != null) {
+				try {
+					Buffer var11 = new Buffer(4);
+					var11.writeByte(3);
+					var11.writeMedium(0);
+					NetCache.NetCache_socket.write(var11.array, 0, 4);
+				} catch (IOException var14) {
+					try {
+						NetCache.NetCache_socket.close();
+					} catch (Exception var13) {
+					}
+
+					++NetCache.NetCache_ioExceptions;
+					NetCache.NetCache_socket = null;
+				}
+			}
+
+			Login.clearLoginScreen = true;
+			Login.xPadding = (MouseRecorder.canvasWidth - 765) / 2;
+			Login.loginBoxX = Login.xPadding + 202;
+			WorldMapSection2.loginBoxCenter = Login.loginBoxX + 180;
+			Login.leftTitleSprite.drawAt(Login.xPadding, 0);
+			Login.rightTitleSprite.drawAt(Login.xPadding + 382, 0);
+			UserComparator4.logoSprite.drawAt(Login.xPadding + 382 - UserComparator4.logoSprite.subWidth / 2, 18);
+		}
+	}
+
+	@ObfuscatedName("gz")
+	@ObfuscatedSignature(
+		descriptor = "(B)I",
+		garbageValue = "8"
+	)
+	@Export("getWindowedMode")
+	static int getWindowedMode() {
+		return Client.isResizable ? 2 : 1;
+	}
 }

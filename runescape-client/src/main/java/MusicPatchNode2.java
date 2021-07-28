@@ -1,63 +1,50 @@
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ho")
+@ObfuscatedName("hd")
 @Implements("MusicPatchNode2")
 public class MusicPatchNode2 {
-	@ObfuscatedName("f")
-	byte[] field2821;
-	@ObfuscatedName("e")
-	byte[] field2828;
+	@ObfuscatedName("s")
+	byte[] field2808;
+	@ObfuscatedName("t")
+	byte[] field2811;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 660158301
+		intValue = 1588389919
 	)
-	int field2823;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = -1122289667
-	)
-	int field2824;
+	int field2806;
 	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1506593887
+		intValue = -561843993
 	)
-	int field2825;
+	int field2807;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 2024434103
+	)
+	int field2805;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = 642207547
+	)
+	int field2809;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = -1981052655
+	)
+	int field2804;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 704049347
+	)
+	int field2810;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1063297041
+		intValue = 515822455
 	)
-	int field2822;
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = -1150913277
-	)
-	int field2826;
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = 1271826479
-	)
-	int field2827;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = -12467387
-	)
-	int field2829;
+	int field2812;
 
 	MusicPatchNode2() {
-	} // L: 14
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "1118422723"
-	)
-	static final void method4537(String var0) {
-		StringBuilder var10000 = (new StringBuilder()).append(var0);
-		Object var10001 = null;
-		String var1 = var10000.append(" is already on your friend list").toString(); // L: 114
-		UserComparator10.addGameMessage(30, "", var1); // L: 116
-	} // L: 118
+	}
 }

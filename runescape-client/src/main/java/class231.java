@@ -1,24 +1,30 @@
-import net.runelite.mapping.Export;
+import java.io.IOException;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hb")
+@ObfuscatedName("hr")
 public class class231 {
-	@ObfuscatedName("f")
-	static int[] field2817;
-	@ObfuscatedName("o")
-	@Export("Interpreter_intLocals")
-	static int[] Interpreter_intLocals;
+	@ObfuscatedName("hh")
+	@ObfuscatedSignature(
+		descriptor = "(ZB)V",
+		garbageValue = "24"
+	)
+	static final void method4431(boolean var0) {
+		class262.playPcmPlayers();
+		++Client.packetWriter.pendingWrites;
+		if (Client.packetWriter.pendingWrites >= 50 || var0) {
+			Client.packetWriter.pendingWrites = 0;
+			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) {
+				PacketBufferNode var1 = VerticalAlignment.getPacketBufferNode(ClientPacket.field2573, Client.packetWriter.isaacCipher);
+				Client.packetWriter.addNode(var1);
 
-	static {
-		new Object();
-		field2817 = new int[33]; // L: 8
-		field2817[0] = 0; // L: 11
-		int var0 = 2; // L: 12
+				try {
+					Client.packetWriter.flush();
+				} catch (IOException var3) {
+					Client.hadNetworkError = true;
+				}
+			}
 
-		for (int var1 = 1; var1 < 33; ++var1) { // L: 13
-			field2817[var1] = var0 - 1; // L: 14
-			var0 += var0; // L: 15
 		}
-
-	} // L: 17
+	}
 }

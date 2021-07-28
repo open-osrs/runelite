@@ -1,18 +1,27 @@
+import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("cy")
+@ObfuscatedName("bu")
 @Implements("ItemContainer")
 public class ItemContainer extends Node {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lmn;"
+		descriptor = "Lmi;"
 	)
 	@Export("itemContainers")
 	static NodeHashTable itemContainers;
-	@ObfuscatedName("e")
+	@ObfuscatedName("hz")
+	@ObfuscatedGetter(
+		intValue = -1760343017
+	)
+	@Export("cameraX")
+	static int cameraX;
+	@ObfuscatedName("t")
 	@Export("ids")
 	int[] ids;
 	@ObfuscatedName("v")
@@ -20,100 +29,208 @@ public class ItemContainer extends Node {
 	int[] quantities;
 
 	static {
-		itemContainers = new NodeHashTable(32); // L: 7
+		itemContainers = new NodeHashTable(32);
 	}
 
 	ItemContainer() {
-		this.ids = new int[]{-1}; // L: 8
-		this.quantities = new int[]{0}; // L: 9
-	} // L: 11
+		this.ids = new int[]{-1};
+		this.quantities = new int[]{0};
+	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("s")
+	public static String method1792(long var0) {
+		Calendar.Calendar_calendar.setTime(new Date(var0));
+		int var2 = Calendar.Calendar_calendar.get(7);
+		int var3 = Calendar.Calendar_calendar.get(5);
+		int var4 = Calendar.Calendar_calendar.get(2);
+		int var5 = Calendar.Calendar_calendar.get(1);
+		int var6 = Calendar.Calendar_calendar.get(11);
+		int var7 = Calendar.Calendar_calendar.get(12);
+		int var8 = Calendar.Calendar_calendar.get(13);
+		return Calendar.DAYS_OF_THE_WEEK[var2 - 1] + ", " + var3 / 10 + var3 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var4] + "-" + var5 + " " + var6 / 10 + var6 % 10 + ":" + var7 / 10 + var7 % 10 + ":" + var8 / 10 + var8 % 10 + " GMT";
+	}
+
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(CB)Z",
-		garbageValue = "0"
+		descriptor = "(ILbd;ZB)I",
+		garbageValue = "8"
 	)
-	public static boolean method2181(char var0) {
-		if (var0 >= ' ' && var0 < 127 || var0 > 127 && var0 < 160 || var0 > 160 && var0 <= 255) { // L: 61
-			return true;
+	static int method1785(int var0, Script var1, boolean var2) {
+		Widget var3;
+		if (var0 >= 2000) {
+			var0 -= 1000;
+			var3 = UrlRequester.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
 		} else {
-			if (var0 != 0) { // L: 62
-				char[] var1 = class302.cp1252AsciiExtension; // L: 64
+			var3 = var2 ? GrandExchangeOffer.scriptDotWidget : Interpreter.scriptActiveWidget;
+		}
 
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 65
-					char var3 = var1[var2]; // L: 66
-					if (var0 == var3) { // L: 68
-						return true; // L: 69
+		AttackOption.invalidateWidget(var3);
+		if (var0 != ScriptOpcodes.CC_SETOBJECT && var0 != ScriptOpcodes.CC_SETOBJECT_NONUM && var0 != ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM) {
+			if (var0 == ScriptOpcodes.CC_SETNPCHEAD) {
+				var3.modelType = 2;
+				var3.modelId = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
+				return 1;
+			} else if (var0 == ScriptOpcodes.CC_SETPLAYERHEAD_SELF) {
+				var3.modelType = 3;
+				var3.modelId = MouseHandler.localPlayer.appearance.getChatHeadId();
+				return 1;
+			} else {
+				return 2;
+			}
+		} else {
+			Interpreter.Interpreter_intStackSize -= 2;
+			int var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
+			int var5 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
+			var3.itemId = var4;
+			var3.itemQuantity = var5;
+			ItemComposition var6 = KeyHandler.ItemDefinition_get(var4);
+			var3.modelAngleX = var6.xan2d;
+			var3.modelAngleY = var6.yan2d;
+			var3.modelAngleZ = var6.zan2d;
+			var3.modelOffsetX = var6.offsetX2d;
+			var3.modelOffsetY = var6.offsetY2d;
+			var3.modelZoom = var6.zoom2d;
+			if (var0 == ScriptOpcodes.CC_SETOBJECT_NONUM) {
+				var3.itemQuantityMode = 0;
+			} else if (var0 == ScriptOpcodes.CC_SETOBJECT_ALWAYS_NUM | 1 == var6.isStackable) {
+				var3.itemQuantityMode = 1;
+			} else {
+				var3.itemQuantityMode = 2;
+			}
+
+			if (var3.field3012 > 0) {
+				var3.modelZoom = var3.modelZoom * 32 / var3.field3012;
+			} else if (var3.rawWidth > 0) {
+				var3.modelZoom = var3.modelZoom * 32 / var3.rawWidth;
+			}
+
+			return 1;
+		}
+	}
+
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1974764293"
+	)
+	public static final void method1783() {
+		ViewportMouse.ViewportMouse_isInViewport = false;
+		ViewportMouse.ViewportMouse_entityCount = 0;
+	}
+
+	@ObfuscatedName("ga")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "4"
+	)
+	static final void method1793() {
+		for (Projectile var0 = (Projectile)Client.projectiles.last(); var0 != null; var0 = (Projectile)Client.projectiles.previous()) {
+			if (var0.plane == GrandExchangeEvent.Client_plane && Client.cycle <= var0.cycleEnd) {
+				if (Client.cycle >= var0.cycleStart) {
+					if (var0.targetIndex > 0) {
+						NPC var1 = Client.npcs[var0.targetIndex - 1];
+						if (var1 != null && var1.x >= 0 && var1.x < 13312 && var1.y >= 0 && var1.y < 13312) {
+							var0.setDestination(var1.x, var1.y, class122.getTileHeight(var1.x, var1.y, var0.plane) - var0.endHeight, Client.cycle);
+						}
 					}
+
+					if (var0.targetIndex < 0) {
+						int var2 = -var0.targetIndex - 1;
+						Player var3;
+						if (var2 == Client.localPlayerIndex) {
+							var3 = MouseHandler.localPlayer;
+						} else {
+							var3 = Client.players[var2];
+						}
+
+						if (var3 != null && var3.x >= 0 && var3.x < 13312 && var3.y >= 0 && var3.y < 13312) {
+							var0.setDestination(var3.x, var3.y, class122.getTileHeight(var3.x, var3.y, var0.plane) - var0.endHeight, Client.cycle);
+						}
+					}
+
+					var0.advance(Client.field555);
+					WorldMapIcon_1.scene.drawEntity(GrandExchangeEvent.Client_plane, (int)var0.x, (int)var0.y, (int)var0.z, 60, var0, var0.yaw, -1L, false);
+				}
+			} else {
+				var0.remove();
+			}
+		}
+
+	}
+
+	@ObfuscatedName("hy")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIIIIII)V",
+		garbageValue = "868741263"
+	)
+	@Export("updatePendingSpawn")
+	static final void updatePendingSpawn(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+		PendingSpawn var9 = null;
+
+		for (PendingSpawn var10 = (PendingSpawn)Client.pendingSpawns.last(); var10 != null; var10 = (PendingSpawn)Client.pendingSpawns.previous()) {
+			if (var0 == var10.plane && var10.x == var1 && var2 == var10.y && var3 == var10.type) {
+				var9 = var10;
+				break;
+			}
+		}
+
+		if (var9 == null) {
+			var9 = new PendingSpawn();
+			var9.plane = var0;
+			var9.type = var3;
+			var9.x = var1;
+			var9.y = var2;
+			Messages.method2094(var9);
+			Client.pendingSpawns.addFirst(var9);
+		}
+
+		var9.id = var4;
+		var9.field1016 = var5;
+		var9.orientation = var6;
+		var9.delay = var7;
+		var9.hitpoints = var8;
+	}
+
+	@ObfuscatedName("jb")
+	@ObfuscatedSignature(
+		descriptor = "(Lio;III)V",
+		garbageValue = "1354989071"
+	)
+	@Export("clickWidget")
+	static final void clickWidget(Widget var0, int var1, int var2) {
+		if (Client.clickedWidget == null && !Client.isMenuOpen) {
+			if (var0 != null) {
+				Widget var4 = class122.method2505(var0);
+				if (var4 == null) {
+					var4 = var0.parent;
+				}
+
+				if (var4 != null) {
+					Client.clickedWidget = var0;
+					var4 = class122.method2505(var0);
+					if (var4 == null) {
+						var4 = var0.parent;
+					}
+
+					Client.clickedWidgetParent = var4;
+					Client.widgetClickX = var1;
+					Client.widgetClickY = var2;
+					class106.widgetDragDuration = 0;
+					Client.isDraggingWidget = false;
+					int var5 = CollisionMap.method3204();
+					if (var5 != -1) {
+						ClanChannelMember.tempMenuAction = new MenuAction();
+						ClanChannelMember.tempMenuAction.param0 = Client.menuArguments1[var5];
+						ClanChannelMember.tempMenuAction.param1 = Client.menuArguments2[var5];
+						ClanChannelMember.tempMenuAction.opcode = Client.menuOpcodes[var5];
+						ClanChannelMember.tempMenuAction.identifier = Client.menuIdentifiers[var5];
+						ClanChannelMember.tempMenuAction.action = Client.menuActions[var5];
+					}
+
+					return;
 				}
 			}
 
-			return false; // L: 75
 		}
-	}
-
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;II)I",
-		garbageValue = "-1214579938"
-	)
-	public static int method2183(CharSequence var0, int var1) {
-		return class8.method105(var0, var1, true); // L: 80
-	}
-
-	@ObfuscatedName("hi")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)I",
-		garbageValue = "2"
-	)
-	@Export("getTileHeight")
-	static final int getTileHeight(int var0, int var1, int var2) {
-		int var3 = var0 >> 7; // L: 5461
-		int var4 = var1 >> 7; // L: 5462
-		if (var3 >= 0 && var4 >= 0 && var3 <= 103 && var4 <= 103) { // L: 5463
-			int var5 = var2; // L: 5464
-			if (var2 < 3 && (Tiles.Tiles_renderFlags[1][var3][var4] & 2) == 2) { // L: 5465
-				var5 = var2 + 1;
-			}
-
-			int var6 = var0 & 127; // L: 5466
-			int var7 = var1 & 127; // L: 5467
-			int var8 = (128 - var6) * Tiles.Tiles_heights[var5][var3][var4] + var6 * Tiles.Tiles_heights[var5][var3 + 1][var4] >> 7; // L: 5468
-			int var9 = Tiles.Tiles_heights[var5][var3 + 1][var4 + 1] * var6 + Tiles.Tiles_heights[var5][var3][var4 + 1] * (128 - var6) >> 7; // L: 5469
-			return var8 * (128 - var7) + var7 * var9 >> 7; // L: 5470
-		} else {
-			return 0;
-		}
-	}
-
-	@ObfuscatedName("jj")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Liv;I)Ljava/lang/String;",
-		garbageValue = "2065897018"
-	)
-	static String method2184(String var0, Widget var1) {
-		if (var0.indexOf("%") != -1) { // L: 9883
-			for (int var2 = 1; var2 <= 5; ++var2) { // L: 9884
-				while (true) {
-					int var3 = var0.indexOf("%" + var2); // L: 9886
-					if (var3 == -1) { // L: 9887
-						break;
-					}
-
-					String var4 = var0.substring(0, var3); // L: 9888
-					int var6 = class27.method355(var1, var2 - 1); // L: 9890
-					String var5;
-					if (var6 < 999999999) { // L: 9892
-						var5 = Integer.toString(var6); // L: 9893
-					} else {
-						var5 = "*"; // L: 9896
-					}
-
-					var0 = var4 + var5 + var0.substring(var3 + 2); // L: 9898
-				}
-			}
-		}
-
-		return var0; // L: 9902
 	}
 }

@@ -3,122 +3,110 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ly")
+@ObfuscatedName("lr")
 @Implements("Buddy")
 public class Buddy extends User {
-	@ObfuscatedName("dg")
-	@ObfuscatedSignature(
-		descriptor = "Lel;"
-	)
-	@Export("js5SocketTask")
-	static Task js5SocketTask;
-	@ObfuscatedName("iz")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -1354630149
+		intValue = -762727507
 	)
-	@Export("selectedItemId")
-	static int selectedItemId;
-	@ObfuscatedName("j")
+	static int field3863;
+	@ObfuscatedName("ew")
 	@ObfuscatedGetter(
-		intValue = -1822382333
+		intValue = 1158141189
+	)
+	static int field3869;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 1892581067
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -286288271
+		intValue = -2065584103
 	)
 	@Export("int2")
 	public int int2;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -2998287
+		intValue = -1763927129
 	)
 	@Export("rank")
 	public int rank;
 
 	Buddy() {
-		this.world = -1; // L: 4
-	} // L: 8
+		this.world = -1;
+	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("az")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "-1543137847"
+		garbageValue = "-1547943293"
 	)
 	@Export("set")
 	void set(int var1, int var2) {
-		this.world = var1; // L: 11
-		this.int2 = var2; // L: 12
-	} // L: 13
+		this.world = var1;
+		this.int2 = var2;
+	}
 
-	@ObfuscatedName("aj")
+	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "27"
+		descriptor = "(I)I",
+		garbageValue = "-270823036"
 	)
 	@Export("getWorld")
 	public int getWorld() {
-		return this.world; // L: 16
+		return this.world;
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1186976863"
+		garbageValue = "-2044352564"
 	)
 	@Export("hasWorld")
 	public boolean hasWorld() {
-		return this.world > 0; // L: 20
+		return this.world > 0;
 	}
 
-	@ObfuscatedName("fy")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lfm;IIIB)V",
-		garbageValue = "-89"
+		descriptor = "(ILbd;ZB)I",
+		garbageValue = "-1"
 	)
-	static void method5896(SequenceDefinition var0, int var1, int var2, int var3) {
-		if (Client.soundEffectCount < 50 && class4.clientPreferences.areaSoundEffectsVolume != 0) { // L: 3756
-			if (var0.soundEffects != null && var1 < var0.soundEffects.length) { // L: 3757
-				int var4 = var0.soundEffects[var1]; // L: 3758
-				if (var4 != 0) { // L: 3759
-					int var5 = var4 >> 8; // L: 3760
-					int var6 = var4 >> 4 & 7; // L: 3761
-					int var7 = var4 & 15; // L: 3762
-					Client.soundEffectIds[Client.soundEffectCount] = var5; // L: 3763
-					Client.queuedSoundEffectLoops[Client.soundEffectCount] = var6; // L: 3764
-					Client.queuedSoundEffectDelays[Client.soundEffectCount] = 0; // L: 3765
-					Client.soundEffects[Client.soundEffectCount] = null; // L: 3766
-					int var8 = (var2 - 64) / 128; // L: 3767
-					int var9 = (var3 - 64) / 128; // L: 3768
-					Client.soundLocations[Client.soundEffectCount] = var7 + (var9 << 8) + (var8 << 16); // L: 3769
-					++Client.soundEffectCount; // L: 3770
-				}
+	static int method5914(int var0, Script var1, boolean var2) {
+		Widget var5;
+		if (var0 == ScriptOpcodes.IF_GETINVOBJECT) {
+			var5 = UrlRequester.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var5.itemId;
+			return 1;
+		} else if (var0 == ScriptOpcodes.IF_GETINVCOUNT) {
+			var5 = UrlRequester.getWidget(Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]);
+			if (var5.itemId != -1) {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var5.itemQuantity;
+			} else {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
 			}
-		}
-	} // L: 3771
 
-	@ObfuscatedName("hd")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-589209298"
-	)
-	static final void method5892() {
-		Client.field629 = 0; // L: 5422
-		int var0 = (class262.localPlayer.x >> 7) + class15.baseX; // L: 5423
-		int var1 = (class262.localPlayer.y >> 7) + WorldMapSprite.baseY; // L: 5424
-		if (var0 >= 3053 && var0 <= 3156 && var1 >= 3056 && var1 <= 3136) { // L: 5425
-			Client.field629 = 1;
-		}
+			return 1;
+		} else if (var0 == ScriptOpcodes.IF_HASSUB) {
+			int var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
+			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3);
+			if (var4 != null) {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 1;
+			} else {
+				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0;
+			}
 
-		if (var0 >= 3072 && var0 <= 3118 && var1 >= 9492 && var1 <= 9535) { // L: 5426
-			Client.field629 = 1;
+			return 1;
+		} else if (var0 == ScriptOpcodes.IF_GETTOP) {
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.rootInterface;
+			return 1;
+		} else {
+			return 2;
 		}
-
-		if (Client.field629 == 1 && var0 >= 3139 && var0 <= 3199 && var1 >= 3008 && var1 <= 3062) { // L: 5427
-			Client.field629 = 0;
-		}
-
-	} // L: 5428
+	}
 }

@@ -1,5 +1,5 @@
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("mu")
-public interface class344 {
+@ObfuscatedName("mq")
+public interface class344 extends class343 {
 }

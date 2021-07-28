@@ -4,206 +4,179 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("jb")
 @Implements("NetCache")
 public class NetCache {
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "Llk;"
-	)
-	@Export("NetCache_socket")
-	public static AbstractSocket NetCache_socket;
-	@ObfuscatedName("e")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -371422605
+		intValue = -1518348987
 	)
 	@Export("NetCache_loadTime")
 	public static int NetCache_loadTime;
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "Llp;"
+	)
+	@Export("NetCache_socket")
+	public static AbstractSocket NetCache_socket;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		longValue = -6267907732532608685L
+		longValue = -6196624692712558443L
 	)
-	public static long field3604;
-	@ObfuscatedName("y")
+	public static long field3596;
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lmn;"
+		descriptor = "Lmi;"
 	)
 	@Export("NetCache_pendingPriorityWrites")
 	public static NodeHashTable NetCache_pendingPriorityWrites;
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 786077645
+		intValue = 339430119
 	)
 	@Export("NetCache_pendingPriorityWritesCount")
 	public static int NetCache_pendingPriorityWritesCount;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lmn;"
+		descriptor = "Lmi;"
 	)
 	@Export("NetCache_pendingPriorityResponses")
 	public static NodeHashTable NetCache_pendingPriorityResponses;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1874437275
+		intValue = -181649067
 	)
 	@Export("NetCache_pendingPriorityResponsesCount")
 	public static int NetCache_pendingPriorityResponsesCount;
-	@ObfuscatedName("r")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lke;"
+		descriptor = "Lks;"
 	)
 	@Export("NetCache_pendingWritesQueue")
 	public static DualNodeDeque NetCache_pendingWritesQueue;
-	@ObfuscatedName("h")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lmn;"
+		descriptor = "Lmi;"
 	)
 	@Export("NetCache_pendingWrites")
 	static NodeHashTable NetCache_pendingWrites;
-	@ObfuscatedName("d")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 470761029
+		intValue = -1394799651
 	)
 	@Export("NetCache_pendingWritesCount")
 	public static int NetCache_pendingWritesCount;
-	@ObfuscatedName("z")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Lmn;"
+		descriptor = "Lmi;"
 	)
 	@Export("NetCache_pendingResponses")
 	public static NodeHashTable NetCache_pendingResponses;
-	@ObfuscatedName("b")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -535814739
+		intValue = -1172502871
 	)
 	@Export("NetCache_pendingResponsesCount")
 	public static int NetCache_pendingResponsesCount;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lnt;"
+		descriptor = "Ljm;"
+	)
+	@Export("NetCache_currentResponse")
+	public static NetFileRequest NetCache_currentResponse;
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "Lnv;"
 	)
 	@Export("NetCache_responseHeaderBuffer")
 	public static Buffer NetCache_responseHeaderBuffer;
-	@ObfuscatedName("x")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 1970079707
+		intValue = 2062741245
 	)
-	public static int field3615;
-	@ObfuscatedName("q")
+	public static int field3608;
+	@ObfuscatedName("c")
 	@Export("NetCache_crc")
 	public static CRC32 NetCache_crc;
-	@ObfuscatedName("p")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "[Ljf;"
+		descriptor = "Lnv;"
+	)
+	@Export("NetCache_reference")
+	public static Buffer NetCache_reference;
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "[Ljs;"
 	)
 	@Export("NetCache_archives")
 	public static Archive[] NetCache_archives;
-	@ObfuscatedName("c")
-	public static byte field3618;
-	@ObfuscatedName("n")
+	@ObfuscatedName("b")
+	public static byte field3612;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1816313081
+		intValue = -1207728323
 	)
 	@Export("NetCache_crcMismatches")
 	public static int NetCache_crcMismatches;
-	@ObfuscatedName("l")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1810903915
+		intValue = 461247647
 	)
 	@Export("NetCache_ioExceptions")
 	public static int NetCache_ioExceptions;
-	@ObfuscatedName("by")
-	@ObfuscatedSignature(
-		descriptor = "Lof;"
-	)
-	@Export("worldSelectLeftSprite")
-	static IndexedSprite worldSelectLeftSprite;
 
 	static {
-		NetCache_loadTime = 0; // L: 13
-		NetCache_pendingPriorityWrites = new NodeHashTable(4096); // L: 15
-		NetCache_pendingPriorityWritesCount = 0; // L: 16
-		NetCache_pendingPriorityResponses = new NodeHashTable(32); // L: 17
-		NetCache_pendingPriorityResponsesCount = 0; // L: 18
-		NetCache_pendingWritesQueue = new DualNodeDeque(); // L: 19
-		NetCache_pendingWrites = new NodeHashTable(4096); // L: 20
-		NetCache_pendingWritesCount = 0; // L: 21
-		NetCache_pendingResponses = new NodeHashTable(4096); // L: 22
-		NetCache_pendingResponsesCount = 0; // L: 23
-		NetCache_responseHeaderBuffer = new Buffer(8); // L: 26
-		field3615 = 0; // L: 28
-		NetCache_crc = new CRC32(); // L: 30
-		NetCache_archives = new Archive[256]; // L: 32
-		field3618 = 0; // L: 33
-		NetCache_crcMismatches = 0; // L: 34
-		NetCache_ioExceptions = 0; // L: 35
+		NetCache_loadTime = 0;
+		NetCache_pendingPriorityWrites = new NodeHashTable(4096);
+		NetCache_pendingPriorityWritesCount = 0;
+		NetCache_pendingPriorityResponses = new NodeHashTable(32);
+		NetCache_pendingPriorityResponsesCount = 0;
+		NetCache_pendingWritesQueue = new DualNodeDeque();
+		NetCache_pendingWrites = new NodeHashTable(4096);
+		NetCache_pendingWritesCount = 0;
+		NetCache_pendingResponses = new NodeHashTable(4096);
+		NetCache_pendingResponsesCount = 0;
+		NetCache_responseHeaderBuffer = new Buffer(8);
+		field3608 = 0;
+		NetCache_crc = new CRC32();
+		NetCache_archives = new Archive[256];
+		field3612 = 0;
+		NetCache_crcMismatches = 0;
+		NetCache_ioExceptions = 0;
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2090121313"
+		descriptor = "(Ljava/lang/CharSequence;I)I",
+		garbageValue = "-2098377035"
 	)
-	static void method5177() {
-		if (TaskHandler.javaVendor.toLowerCase().indexOf("microsoft") != -1) { // L: 124
-			KeyHandler.KeyHandler_keyCodes[186] = 57; // L: 125
-			KeyHandler.KeyHandler_keyCodes[187] = 27; // L: 126
-			KeyHandler.KeyHandler_keyCodes[188] = 71; // L: 127
-			KeyHandler.KeyHandler_keyCodes[189] = 26; // L: 128
-			KeyHandler.KeyHandler_keyCodes[190] = 72; // L: 129
-			KeyHandler.KeyHandler_keyCodes[191] = 73; // L: 130
-			KeyHandler.KeyHandler_keyCodes[192] = 58; // L: 131
-			KeyHandler.KeyHandler_keyCodes[219] = 42; // L: 132
-			KeyHandler.KeyHandler_keyCodes[220] = 74; // L: 133
-			KeyHandler.KeyHandler_keyCodes[221] = 43; // L: 134
-			KeyHandler.KeyHandler_keyCodes[222] = 59; // L: 135
-			KeyHandler.KeyHandler_keyCodes[223] = 28; // L: 136
-		} else {
-			KeyHandler.KeyHandler_keyCodes[44] = 71; // L: 139
-			KeyHandler.KeyHandler_keyCodes[45] = 26; // L: 140
-			KeyHandler.KeyHandler_keyCodes[46] = 72; // L: 141
-			KeyHandler.KeyHandler_keyCodes[47] = 73; // L: 142
-			KeyHandler.KeyHandler_keyCodes[59] = 57; // L: 143
-			KeyHandler.KeyHandler_keyCodes[61] = 27; // L: 144
-			KeyHandler.KeyHandler_keyCodes[91] = 42; // L: 145
-			KeyHandler.KeyHandler_keyCodes[92] = 74; // L: 146
-			KeyHandler.KeyHandler_keyCodes[93] = 43; // L: 147
-			KeyHandler.KeyHandler_keyCodes[192] = 28; // L: 148
-			KeyHandler.KeyHandler_keyCodes[222] = 58; // L: 149
-			KeyHandler.KeyHandler_keyCodes[520] = 59; // L: 150
-		}
+	public static int method5088(CharSequence var0) {
+		return ScriptFrame.method852(var0, 10, true);
+	}
 
-	} // L: 152
-
-	@ObfuscatedName("u")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(ILcf;ZB)I",
-		garbageValue = "71"
+		descriptor = "(IIIIIIII)Z",
+		garbageValue = "1812279831"
 	)
-	static int method5178(int var0, Script var1, boolean var2) {
-		Widget var3 = WorldMapData_1.getWidget(Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize]); // L: 1266
-		if (var0 == ScriptOpcodes.IF_GETX) { // L: 1267
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = var3.x; // L: 1268
-			return 1; // L: 1269
-		} else if (var0 == ScriptOpcodes.IF_GETY) { // L: 1271
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = var3.y; // L: 1272
-			return 1; // L: 1273
-		} else if (var0 == ScriptOpcodes.IF_GETWIDTH) { // L: 1275
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = var3.width; // L: 1276
-			return 1; // L: 1277
-		} else if (var0 == ScriptOpcodes.IF_GETHEIGHT) { // L: 1279
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = var3.height; // L: 1280
-			return 1; // L: 1281
-		} else if (var0 == ScriptOpcodes.IF_GETHIDE) { // L: 1283
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1284
-			return 1; // L: 1285
-		} else if (var0 == ScriptOpcodes.IF_GETLAYER) { // L: 1287
-			Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = var3.parentId; // L: 1288
-			return 1; // L: 1289
+	static final boolean method5089(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		int var7 = ViewportMouse.ViewportMouse_y + var6;
+		if (var7 < var0 && var7 < var1 && var7 < var2) {
+			return false;
 		} else {
-			return 2; // L: 1291
+			var7 = ViewportMouse.ViewportMouse_y - var6;
+			if (var7 > var0 && var7 > var1 && var7 > var2) {
+				return false;
+			} else {
+				var7 = ViewportMouse.ViewportMouse_x + var6;
+				if (var7 < var3 && var7 < var4 && var7 < var5) {
+					return false;
+				} else {
+					var7 = ViewportMouse.ViewportMouse_x - var6;
+					return var7 <= var3 || var7 <= var4 || var7 <= var5;
+				}
+			}
 		}
 	}
 }

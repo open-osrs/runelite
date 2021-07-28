@@ -3,126 +3,188 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jl")
+@ObfuscatedName("jr")
 @Implements("StudioGame")
-public enum StudioGame implements Enumerated
-{
-	@ObfuscatedName("f")
+public enum StudioGame implements Enumerated {
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ljl;"
+		descriptor = "Ljr;"
 	)
 	@Export("runescape")
 	runescape("runescape", "RuneScape", 0),
-	@ObfuscatedName("e")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Ljl;"
+		descriptor = "Ljr;"
 	)
 	@Export("stellardawn")
 	stellardawn("stellardawn", "Stellar Dawn", 1),
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Ljl;"
+		descriptor = "Ljr;"
 	)
 	@Export("game3")
 	game3("game3", "Game 3", 2),
-	@ObfuscatedName("y")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Ljl;"
+		descriptor = "Ljr;"
 	)
 	@Export("game4")
 	game4("game4", "Game 4", 3),
-	@ObfuscatedName("j")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ljl;"
+		descriptor = "Ljr;"
 	)
 	@Export("game5")
 	game5("game5", "Game 5", 4),
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljl;"
+		descriptor = "Ljr;"
 	)
 	@Export("oldscape")
 	oldscape("oldscape", "RuneScape 2007", 5);
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("fa")
+	@ObfuscatedSignature(
+		descriptor = "Lex;"
+	)
+	@Export("socketTask")
+	static Task socketTask;
+	@ObfuscatedName("hf")
+	@ObfuscatedSignature(
+		descriptor = "[Lom;"
+	)
+	@Export("headIconPrayerSprites")
+	static SpritePixels[] headIconPrayerSprites;
+	@ObfuscatedName("w")
 	@Export("name")
 	public final String name;
-	@ObfuscatedName("r")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 698335859
+		intValue = -840829897
 	)
 	@Export("id")
 	final int id;
 
 	StudioGame(String var3, String var4, int var5) {
-		this.name = var3; // L: 17
-		this.id = var5; // L: 18
-	} // L: 19
+		this.name = var3;
+		this.id = var5;
+	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1154679040"
+		garbageValue = "-1806959663"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 22
+		return this.id;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;IS)Z",
-		garbageValue = "14714"
+		descriptor = "(IIIB)Lom;",
+		garbageValue = "-5"
 	)
-	static boolean method4982(String var0, int var1) {
-		return HealthBarUpdate.method2284(var0, var1, "openjs"); // L: 55
+	static SpritePixels method4914(int var0, int var1, int var2) {
+		return (SpritePixels)WorldMapRegion.WorldMapRegion_cachedSprites.get(HitSplatDefinition.method2988(var0, var1, var2));
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("fv")
 	@ObfuscatedSignature(
-		descriptor = "(ILcf;ZB)I",
-		garbageValue = "1"
+		descriptor = "(IS)V",
+		garbageValue = "6409"
 	)
-	static int method4983(int var0, Script var1, boolean var2) {
-		if (var0 == ScriptOpcodes.SOUND_SYNTH) { // L: 1824
-			ChatChannel.Interpreter_intStackSize -= 3; // L: 1825
-			ClanSettings.queueSoundEffect(Interpreter.Interpreter_intStack[ChatChannel.Interpreter_intStackSize], Interpreter.Interpreter_intStack[ChatChannel.Interpreter_intStackSize + 1], Interpreter.Interpreter_intStack[ChatChannel.Interpreter_intStackSize + 2]); // L: 1826
-			return 1; // L: 1827
-		} else if (var0 == ScriptOpcodes.SOUND_SONG) { // L: 1829
-			class6.playSong(Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize]); // L: 1830
-			return 1; // L: 1831
-		} else if (var0 == ScriptOpcodes.SOUND_JINGLE) { // L: 1833
-			ChatChannel.Interpreter_intStackSize -= 2; // L: 1834
-			ReflectionCheck.method1230(Interpreter.Interpreter_intStack[ChatChannel.Interpreter_intStackSize], Interpreter.Interpreter_intStack[ChatChannel.Interpreter_intStackSize + 1]); // L: 1835
-			return 1; // L: 1836
-		} else {
-			int var3;
-			if (var0 == 3203) { // L: 1838
-				var3 = Math.min(Math.max(Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize], 0), 100); // L: 1839
-				class0.method0(Math.round(2.55F * (float)var3)); // L: 1840
-				return 1; // L: 1841
-			} else if (var0 == 3204) { // L: 1843
-				Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = Math.round((float)class4.clientPreferences.musicVolume / 2.55F); // L: 1844
-				return 1; // L: 1845
-			} else if (var0 == 3205) { // L: 1847
-				var3 = Math.min(Math.max(Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize], 0), 100); // L: 1848
-				class226.updateSoundEffectVolume(Math.round((float)var3 * 1.27F)); // L: 1849
-				return 1; // L: 1850
-			} else if (var0 == 3206) { // L: 1852
-				Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = Math.round((float)class4.clientPreferences.soundEffectsVolume / 1.27F); // L: 1853
-				return 1; // L: 1854
-			} else if (var0 == 3207) { // L: 1856
-				var3 = Math.min(Math.max(Interpreter.Interpreter_intStack[--ChatChannel.Interpreter_intStackSize], 0), 100); // L: 1857
-				NPCComposition.method2882(Math.round(1.27F * (float)var3)); // L: 1858
-				return 1; // L: 1859
-			} else if (var0 == 3208) { // L: 1861
-				Interpreter.Interpreter_intStack[++ChatChannel.Interpreter_intStackSize - 1] = Math.round((float)class4.clientPreferences.areaSoundEffectsVolume / 1.27F); // L: 1862
-				return 1; // L: 1863
+	@Export("getLoginError")
+	static void getLoginError(int var0) {
+		if (var0 == -3) {
+			Client.setLoginResponseString("Connection timed out.", "Please try using a different world.", "");
+		} else if (var0 == -2) {
+			Client.setLoginResponseString("Error connecting to server.", "Please try using a different world.", "");
+		} else if (var0 == -1) {
+			Client.setLoginResponseString("No response from server.", "Please try using a different world.", "");
+		} else if (var0 == 3) {
+			Login.loginIndex = 3;
+			Login.field809 = 1;
+		} else if (var0 == 4) {
+			Login.loginIndex = 12;
+			Login.field804 = 0;
+		} else if (var0 == 5) {
+			Login.field809 = 2;
+			Client.setLoginResponseString("Your account has not logged out from its last", "session or the server is too busy right now.", "Please try again in a few minutes.");
+		} else if (var0 != 68 && (Client.onMobile || var0 != 6)) {
+			if (var0 == 7) {
+				Client.setLoginResponseString("This world is full.", "Please use a different world.", "");
+			} else if (var0 == 8) {
+				Client.setLoginResponseString("Unable to connect.", "Login server offline.", "");
+			} else if (var0 == 9) {
+				Client.setLoginResponseString("Login limit exceeded.", "Too many connections from your address.", "");
+			} else if (var0 == 10) {
+				Client.setLoginResponseString("Unable to connect.", "Bad session id.", "");
+			} else if (var0 == 11) {
+				Client.setLoginResponseString("We suspect someone knows your password.", "Press 'change your password' on front page.", "");
+			} else if (var0 == 12) {
+				Client.setLoginResponseString("You need a members account to login to this world.", "Please subscribe, or use a different world.", "");
+			} else if (var0 == 13) {
+				Client.setLoginResponseString("Could not complete login.", "Please try using a different world.", "");
+			} else if (var0 == 14) {
+				Client.setLoginResponseString("The server is being updated.", "Please wait 1 minute and try again.", "");
+			} else if (var0 == 16) {
+				Client.setLoginResponseString("Too many login attempts.", "Please wait a few minutes before trying again.", "");
+			} else if (var0 == 17) {
+				Client.setLoginResponseString("You are standing in a members-only area.", "To play on this world move to a free area first", "");
+			} else if (var0 == 18) {
+				Login.loginIndex = 12;
+				Login.field804 = 1;
+			} else if (var0 == 19) {
+				Client.setLoginResponseString("This world is running a closed Beta.", "Sorry invited players only.", "Please use a different world.");
+			} else if (var0 == 20) {
+				Client.setLoginResponseString("Invalid loginserver requested.", "Please try using a different world.", "");
+			} else if (var0 == 22) {
+				Client.setLoginResponseString("Malformed login packet.", "Please try again.", "");
+			} else if (var0 == 23) {
+				Client.setLoginResponseString("No reply from loginserver.", "Please wait 1 minute and try again.", "");
+			} else if (var0 == 24) {
+				Client.setLoginResponseString("Error loading your profile.", "Please contact customer support.", "");
+			} else if (var0 == 25) {
+				Client.setLoginResponseString("Unexpected loginserver response.", "Please try using a different world.", "");
+			} else if (var0 == 26) {
+				Client.setLoginResponseString("This computers address has been blocked", "as it was used to break our rules.", "");
+			} else if (var0 == 27) {
+				Client.setLoginResponseString("", "Service unavailable.", "");
+			} else if (var0 == 31) {
+				Client.setLoginResponseString("Your account must have a displayname set", "in order to play the game.  Please set it", "via the website, or the main game.");
+			} else if (var0 == 32) {
+				Client.setLoginResponseString("Your attempt to log into your account was", "unsuccessful.  Don't worry, you can sort", "this out by visiting the billing system.");
+			} else if (var0 == 37) {
+				Client.setLoginResponseString("Your account is currently inaccessible.", "Please try again in a few minutes.", "");
+			} else if (var0 == 38) {
+				Client.setLoginResponseString("You need to vote to play!", "Visit runescape.com and vote,", "and then come back here!");
+			} else if (var0 == 55) {
+				Login.loginIndex = 8;
 			} else {
-				return 2; // L: 1865
+				if (var0 == 56) {
+					Client.setLoginResponseString("Enter the 6-digit code generated by your", "authenticator app.", "");
+					class16.updateGameState(11);
+					return;
+				}
+
+				if (var0 == 57) {
+					Client.setLoginResponseString("The code you entered was incorrect.", "Please try again.", "");
+					class16.updateGameState(11);
+					return;
+				}
+
+				if (var0 == 61) {
+					Login.loginIndex = 7;
+				} else {
+					Client.setLoginResponseString("Unexpected server response", "Please try using a different world.", "");
+				}
 			}
+		} else {
+			Client.setLoginResponseString("RuneScape has been updated!", "Please reload this page.", "");
 		}
+
+		class16.updateGameState(10);
 	}
 }
