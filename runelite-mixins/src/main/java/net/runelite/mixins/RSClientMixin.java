@@ -123,29 +123,7 @@ import net.runelite.api.widgets.WidgetConfig;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.api.widgets.WidgetType;
-import net.runelite.rs.api.RSAbstractArchive;
-import net.runelite.rs.api.RSChatChannel;
-import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSEnumComposition;
-import net.runelite.rs.api.RSFriendSystem;
-import net.runelite.rs.api.RSIndexedSprite;
-import net.runelite.rs.api.RSInterfaceParent;
-import net.runelite.rs.api.RSItemContainer;
-import net.runelite.rs.api.RSNPC;
-import net.runelite.rs.api.RSNode;
-import net.runelite.rs.api.RSNodeDeque;
-import net.runelite.rs.api.RSNodeHashTable;
-import net.runelite.rs.api.RSPacketBuffer;
-import net.runelite.rs.api.RSPlayer;
-import net.runelite.rs.api.RSScene;
-import net.runelite.rs.api.RSScriptEvent;
-import net.runelite.rs.api.RSSpritePixels;
-import net.runelite.rs.api.RSStructComposition;
-import net.runelite.rs.api.RSTile;
-import net.runelite.rs.api.RSTileItem;
-import net.runelite.rs.api.RSUsername;
-import net.runelite.rs.api.RSWidget;
-import net.runelite.rs.api.RSWorld;
+import net.runelite.rs.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -2286,5 +2264,8 @@ public abstract class RSClientMixin implements RSClient
 
 		client.getCallbacks().post(new ClanChannelChanged(client.getClanChannel(), false));
 	}
+
+	@Inject
+	public static RSArchive[] archives = new RSArchive[21];
 }
 
