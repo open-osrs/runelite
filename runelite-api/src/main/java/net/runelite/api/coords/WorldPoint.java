@@ -482,7 +482,7 @@ public class WorldPoint
 		List<WorldPoint> checkpointWPs = new ArrayList<>();
 		for (Tile checkpointTile : checkpointTiles)
 		{
-			if (checkpointTile == null) 
+			if (checkpointTile == null)
 			{
 				break;
 			}
