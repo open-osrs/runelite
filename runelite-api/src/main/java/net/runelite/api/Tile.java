@@ -141,6 +141,14 @@ public interface Tile extends Locatable
 	boolean hasLineOfSightTo(Tile other);
 
 	/**
+	 * Computes and returns the path from this tile to another.
+	 *
+	 * @param other the other tile
+	 * @return the checkpoint tiles of the path, or null if no path found
+	 */
+	List<Tile> pathTo(Tile other);
+
+	/**
 	 * Get all the ground items for this tile
 	 *
 	 * @return the ground items
