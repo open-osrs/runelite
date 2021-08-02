@@ -66,6 +66,8 @@ import net.runelite.client.input.MouseAdapter;
 import net.runelite.client.input.MouseManager;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.JagexColors;
+import net.runelite.client.ui.overlay.tooltip.Tooltip;
+import net.runelite.client.ui.overlay.tooltip.TooltipManager;
 import net.runelite.client.util.ColorUtil;
 
 @Singleton
@@ -85,6 +87,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 	private static final Color MOVING_OVERLAY_RESIZING_COLOR = new Color(255, 0, 255, 200);
 	private final Client client;
 	private final OverlayManager overlayManager;
+	private final TooltipManager tooltipManager;
 	private final RuneLiteConfig runeLiteConfig;
 	private final ClientUI clientUI;
 
@@ -118,6 +121,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		final RuneLiteConfig runeLiteConfig,
 		final MouseManager mouseManager,
 		final KeyManager keyManager,
+		final TooltipManager tooltipManager,
 		final ClientUI clientUI,
 		final EventBus eventBus)
 	{
@@ -125,6 +129,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		this.overlayManager = overlayManager;
 		this.runeLiteConfig = runeLiteConfig;
 		this.clientUI = clientUI;
+		this.tooltipManager = tooltipManager;
 		keyManager.registerKeyListener(this);
 		mouseManager.registerMouseListener(this);
 		eventBus.register(this);
@@ -364,6 +369,12 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 							menuEntries = createRightClickMenuEntries(overlay);
 						}
 
+						if (inOverlayManagingMode)
+						{
+							String tooltipText = overlay.getPlugin() == null ? overlay.getName() : overlay.getPlugin().getName();
+							tooltipManager.add(new Tooltip(tooltipText));
+						}
+
 						if (focusedOverlay == null)
 						{
 							focusedOverlay = overlay;
@@ -493,6 +504,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 	/**
 	 * Find an overlay to manage which is under the given mouse point
+	 *
 	 * @param mousePoint
 	 * @return
 	 */
@@ -912,7 +924,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			bottomLeftPoint.y) : bottomRightPoint;
 
 		final Point canvasTopRightPoint = isResizeable ? new Point(
-			(int)client.getRealDimensions().getWidth(),
+			(int) client.getRealDimensions().getWidth(),
 			0) : topRightPoint;
 
 		return new OverlayBounds(
