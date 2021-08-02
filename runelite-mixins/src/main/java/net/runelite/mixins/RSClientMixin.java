@@ -123,6 +123,7 @@ import net.runelite.api.widgets.WidgetConfig;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.api.widgets.WidgetType;
+import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSAbstractArchive;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClient;
@@ -2286,5 +2287,8 @@ public abstract class RSClientMixin implements RSClient
 
 		client.getCallbacks().post(new ClanChannelChanged(client.getClanChannel(), false));
 	}
+
+	@Inject
+	public static RSArchive[] archives = new RSArchive[21];
 }
 
