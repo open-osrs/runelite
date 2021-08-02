@@ -369,7 +369,8 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 							menuEntries = createRightClickMenuEntries(overlay);
 						}
 
-						if (inOverlayManagingMode) {
+						if (inOverlayManagingMode)
+						{
 							String tooltipText = overlay.getPlugin() == null ? overlay.getName() : overlay.getPlugin().getName();
 							tooltipManager.add(new Tooltip(tooltipText));
 						}
@@ -503,6 +504,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 
 	/**
 	 * Find an overlay to manage which is under the given mouse point
+	 *
 	 * @param mousePoint
 	 * @return
 	 */
@@ -922,7 +924,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 			bottomLeftPoint.y) : bottomRightPoint;
 
 		final Point canvasTopRightPoint = isResizeable ? new Point(
-			(int)client.getRealDimensions().getWidth(),
+			(int) client.getRealDimensions().getWidth(),
 			0) : topRightPoint;
 
 		return new OverlayBounds(
