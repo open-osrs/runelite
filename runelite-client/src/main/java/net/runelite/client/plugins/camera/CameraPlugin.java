@@ -209,7 +209,7 @@ public class CameraPlugin extends Plugin implements KeyListener, MouseListener
 		m.setIdentifier(identifier);
 		m.setType(MenuAction.CC_OP.getId());
 		m.setParam0(lookNorth.getActionParam0());
-		m.setParam1(lookNorth.getActionParam1());
+		m.setParam1(lookNorth.getParam1());
 		return m;
 	}
 

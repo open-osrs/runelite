@@ -254,7 +254,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 		// The menu option for clear history is "<col=ffff00>Public:</col> Clear history"
 		if (menuOption.endsWith(CLEAR_HISTORY))
 		{
-			clearChatboxHistory(ChatboxTab.of(event.getWidgetId()));
+			clearChatboxHistory(ChatboxTab.of(event.getParam1()));
 		}
 		else if (COPY_TO_CLIPBOARD.equals(menuOption) && !Strings.isNullOrEmpty(currentMessage))
 		{
@@ -266,7 +266,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded entry)
 	{
-		final ChatboxTab tab = ChatboxTab.of(entry.getActionParam1());
+		final ChatboxTab tab = ChatboxTab.of(entry.getParam1());
 
 		if (tab == null || tab.getAfter() == null || !config.clearHistory() || !Text.removeTags(entry.getOption()).equals(tab.getAfter()))
 		{
@@ -277,7 +277,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 		clearEntry.setTarget("");
 		clearEntry.setType(MenuAction.RUNELITE.getId());
 		clearEntry.setParam0(entry.getActionParam0());
-		clearEntry.setParam1(entry.getActionParam1());
+		clearEntry.setParam1(entry.getParam1());
 
 		if (tab == ChatboxTab.GAME)
 		{

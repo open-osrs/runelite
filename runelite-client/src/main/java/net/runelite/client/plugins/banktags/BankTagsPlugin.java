@@ -339,7 +339,7 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener
 	{
 		MenuEntry[] entries = client.getMenuEntries();
 
-		if (event.getActionParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+		if (event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getOption().equals("Examine"))
 		{
 			Widget container = client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER);
@@ -355,7 +355,7 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener
 
 			MenuEntry editTags = new MenuEntry();
 			editTags.setParam0(event.getActionParam0());
-			editTags.setParam1(event.getActionParam1());
+			editTags.setParam1(event.getParam1());
 			editTags.setTarget(event.getTarget());
 			editTags.setOption(text);
 			editTags.setType(MenuAction.RUNELITE.getId());
@@ -371,12 +371,12 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getWidgetId() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
+		if (event.getParam1() == WidgetInfo.BANK_ITEM_CONTAINER.getId()
 			&& event.getMenuAction() == MenuAction.RUNELITE
 			&& event.getMenuOption().startsWith(EDIT_TAGS_MENU_OPTION))
 		{
 			event.consume();
-			int inventoryIndex = event.getActionParam();
+			int inventoryIndex = event.getParam0();
 			ItemContainer bankContainer = client.getItemContainer(InventoryID.BANK);
 			if (bankContainer == null)
 			{

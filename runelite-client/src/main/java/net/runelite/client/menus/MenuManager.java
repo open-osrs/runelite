@@ -113,7 +113,7 @@ public class MenuManager
 			return;
 		}
 
-		int widgetId = event.getActionParam1();
+		int widgetId = event.getParam1();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 		if (options.isEmpty())
 		{
@@ -206,7 +206,7 @@ public class MenuManager
 			return;
 		}
 
-		int widgetId = event.getWidgetId();
+		int widgetId = event.getParam1();
 		Collection<WidgetMenuOption> options = managedMenuOptions.get(widgetId);
 
 		for (WidgetMenuOption curMenuOption : options)

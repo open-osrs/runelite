@@ -508,7 +508,7 @@ public class XpTrackerPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(final MenuEntryAdded event)
 	{
-		int widgetID = event.getActionParam1();
+		int widgetID = event.getParam1();
 
 		if (TO_GROUP(widgetID) != WidgetID.SKILLS_GROUP_ID
 			|| !event.getOption().startsWith("View")
@@ -538,7 +538,7 @@ public class XpTrackerPlugin extends Plugin
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
 		if (event.getMenuAction().getId() != MenuAction.RUNELITE.getId()
-			|| TO_GROUP(event.getWidgetId()) != WidgetID.SKILLS_GROUP_ID)
+			|| TO_GROUP(event.getParam1()) != WidgetID.SKILLS_GROUP_ID)
 		{
 			return;
 		}
