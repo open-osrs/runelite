@@ -222,7 +222,7 @@ public class ObjectIndicatorsPlugin extends Plugin
 			return;
 		}
 
-		final Tile tile = client.getScene().getTiles()[client.getPlane()][event.getActionParam0()][event.getActionParam1()];
+		final Tile tile = client.getScene().getTiles()[client.getPlane()][event.getActionParam0()][event.getParam1()];
 		final TileObject tileObject = findTileObject(tile, event.getIdentifier());
 
 		if (tileObject == null)
@@ -236,7 +236,7 @@ public class ObjectIndicatorsPlugin extends Plugin
 		menuEntry.setOption(objects.stream().anyMatch(o -> o.getTileObject() == tileObject) ? UNMARK : MARK);
 		menuEntry.setTarget(event.getTarget());
 		menuEntry.setParam0(event.getActionParam0());
-		menuEntry.setParam1(event.getActionParam1());
+		menuEntry.setParam1(event.getParam1());
 		menuEntry.setIdentifier(event.getIdentifier());
 		menuEntry.setType(MenuAction.RUNELITE.getId());
 		client.setMenuEntries(menuEntries);
@@ -253,8 +253,8 @@ public class ObjectIndicatorsPlugin extends Plugin
 
 		Scene scene = client.getScene();
 		Tile[][][] tiles = scene.getTiles();
-		final int x = event.getActionParam();
-		final int y = event.getWidgetId();
+		final int x = event.getParam0();
+		final int y = event.getParam1();
 		final int z = client.getPlane();
 		final Tile tile = tiles[z][x][y];
 

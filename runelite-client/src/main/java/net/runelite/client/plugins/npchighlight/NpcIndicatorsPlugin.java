@@ -296,7 +296,7 @@ public class NpcIndicatorsPlugin extends Plugin
 				tagAllEntry.setOption(highlights.stream().anyMatch(npcName::equalsIgnoreCase) ? UNTAG_ALL : TAG_ALL);
 				tagAllEntry.setTarget(event.getTarget());
 				tagAllEntry.setParam0(event.getActionParam0());
-				tagAllEntry.setParam1(event.getActionParam1());
+				tagAllEntry.setParam1(event.getParam1());
 				tagAllEntry.setIdentifier(event.getIdentifier());
 				tagAllEntry.setType(MenuAction.RUNELITE.getId());
 			}
@@ -309,7 +309,7 @@ public class NpcIndicatorsPlugin extends Plugin
 			tagEntry.setOption(npcTags.contains(npc.getIndex()) ? UNTAG : TAG);
 			tagEntry.setTarget(event.getTarget());
 			tagEntry.setParam0(event.getActionParam0());
-			tagEntry.setParam1(event.getActionParam1());
+			tagEntry.setParam1(event.getParam1());
 			tagEntry.setIdentifier(event.getIdentifier());
 			tagEntry.setType(MenuAction.RUNELITE.getId());
 

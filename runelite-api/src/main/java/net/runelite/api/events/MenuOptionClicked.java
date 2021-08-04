@@ -43,9 +43,13 @@ import net.runelite.api.MenuEntry;
 public class MenuOptionClicked
 {
 	/**
-	 * The action parameter used in the click.
+	 * Action parameter 0. Its value depends on the menuAction.
 	 */
-	private int actionParam;
+	private int param0;
+	/**
+	 * Action parameter 1. Its value depends on the menuAction.
+	 */
+	private int param1;
 	/**
 	 * The option text added to the menu.
 	 */
@@ -62,12 +66,6 @@ public class MenuOptionClicked
 	 * The ID of the object, actor, or item that the interaction targets.
 	 */
 	private int id;
-	/**
-	 * The ID of the widget where the menu was clicked.
-	 *
-	 * @see net.runelite.api.widgets.WidgetID
-	 */
-	private int widgetId;
 	/**
 	 * The selected item index at the time of the option click.
 	 */
@@ -95,7 +93,31 @@ public class MenuOptionClicked
 		this.setMenuTarget(entry.getTarget());
 		this.setId(entry.getId());
 		this.setMenuAction(MenuAction.of(entry.getOpcode()));
-		this.setActionParam(entry.getActionParam());
-		this.setWidgetId(entry.getActionParam1());
+		this.setParam0(entry.getParam0());
+		this.setParam1(entry.getParam1());
+	}
+
+	@Deprecated
+	public int getActionParam()
+	{
+		return param0;
+	}
+
+	@Deprecated
+	public void setActionParam(int i)
+	{
+		param0 = i;
+	}
+
+	@Deprecated
+	public int getWidgetId()
+	{
+		return param1;
+	}
+
+	@Deprecated
+	public void setWidgetId(int i)
+	{
+		param1 = i;
 	}
 }

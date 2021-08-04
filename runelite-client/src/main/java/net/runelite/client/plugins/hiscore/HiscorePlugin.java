@@ -158,7 +158,7 @@ public class HiscorePlugin extends Plugin
 			return;
 		}
 
-		final int componentId = event.getActionParam1();
+		final int componentId = event.getParam1();
 		int groupId = WidgetInfo.TO_GROUP(componentId);
 		String option = event.getOption();
 
@@ -178,7 +178,7 @@ public class HiscorePlugin extends Plugin
 			lookup.setTarget(event.getTarget());
 			lookup.setType(MenuAction.RUNELITE.getId());
 			lookup.setParam0(event.getActionParam0());
-			lookup.setParam1(event.getActionParam1());
+			lookup.setParam1(event.getParam1());
 			lookup.setIdentifier(event.getIdentifier());
 
 			insertMenuEntry(lookup, client.getMenuEntries());

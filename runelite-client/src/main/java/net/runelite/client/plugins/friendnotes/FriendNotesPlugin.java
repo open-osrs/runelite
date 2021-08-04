@@ -235,7 +235,7 @@ public class FriendNotesPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		final int groupId = WidgetInfo.TO_GROUP(event.getActionParam1());
+		final int groupId = WidgetInfo.TO_GROUP(event.getParam1());
 
 		// Look for "Message" on friends list
 		if ((groupId == WidgetInfo.FRIENDS_LIST.getGroupId() && event.getOption().equals("Message")) ||
@@ -250,7 +250,7 @@ public class FriendNotesPlugin extends Plugin
 			addNote.setType(MenuAction.RUNELITE.getId());
 			addNote.setTarget(event.getTarget()); //Preserve color codes here
 			addNote.setParam0(event.getActionParam0());
-			addNote.setParam1(event.getActionParam1());
+			addNote.setParam1(event.getParam1());
 
 			// Add menu entry
 			final MenuEntry[] menuEntries = ObjectArrays.concat(client.getMenuEntries(), addNote);
@@ -265,7 +265,7 @@ public class FriendNotesPlugin extends Plugin
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		final int groupId = WidgetInfo.TO_GROUP(event.getWidgetId());
+		final int groupId = WidgetInfo.TO_GROUP(event.getParam1());
 
 		if (groupId == WidgetInfo.FRIENDS_LIST.getGroupId() || groupId == WidgetInfo.IGNORE_LIST.getGroupId())
 		{

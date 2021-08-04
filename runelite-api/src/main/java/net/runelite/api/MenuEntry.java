@@ -57,11 +57,11 @@ public class MenuEntry implements Cloneable
 	/**
 	 * An additional parameter for the action.
 	 */
-	private int actionParam;
+	private int param0;
 	/**
 	 * A second additional parameter for the action.
 	 */
-	private int actionParam1;
+	private int param1;
 	/**
 	 * If this field is true and you have single mouse button on and this entry is
 	 * the top entry the right click menu will not be opened when you left click
@@ -70,14 +70,14 @@ public class MenuEntry implements Cloneable
 	 */
 	private boolean forceLeftClick;
 
-	public MenuEntry(String option, String target, int type, int opcode, int actionParam, int actionParam1, boolean forceLeftClick)
+	public MenuEntry(String option, String target, int type, int opcode, int param0, int param1, boolean forceLeftClick)
 	{
 		this.option = option;
 		this.target = target;
 		this.identifier = type;
 		this.opcode = opcode;
-		this.actionParam = actionParam;
-		this.actionParam1 = actionParam1;
+		this.param0 = param0;
+		this.param1 = param1;
 		this.forceLeftClick = forceLeftClick;
 	}
 
@@ -96,32 +96,42 @@ public class MenuEntry implements Cloneable
 
 	public void setActionParam0(int i)
 	{
-		this.actionParam = i;
+		this.param0 = i;
 	}
 
 	public int getActionParam0()
 	{
-		return this.actionParam;
+		return this.param0;
 	}
 
 	public int getParam0()
 	{
-		return this.actionParam;
+		return this.param0;
 	}
 
 	public void setParam0(int i)
 	{
-		this.actionParam = i;
+		this.param0 = i;
 	}
 
 	public void setParam1(int i)
 	{
-		this.actionParam1 = i;
+		this.param1 = i;
 	}
 
 	public int getParam1()
 	{
-		return this.actionParam1;
+		return this.param1;
+	}
+
+	public void setActionParam1(int i)
+	{
+		this.param1 = i;
+	}
+
+	public int getActionParam1()
+	{
+		return this.param1;
 	}
 
 	public void setType(int i)

@@ -498,7 +498,7 @@ public class GroundItemsPlugin extends Plugin
 
 			final int itemId = event.getIdentifier();
 			final int sceneX = event.getActionParam0();
-			final int sceneY = event.getActionParam1();
+			final int sceneY = event.getParam1();
 
 			MenuEntry[] menuEntries = client.getMenuEntries();
 			MenuEntry lastEntry = menuEntries[menuEntries.length - 1];

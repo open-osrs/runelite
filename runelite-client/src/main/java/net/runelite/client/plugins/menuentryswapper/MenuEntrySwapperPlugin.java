@@ -600,7 +600,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			&& (menuEntryAdded.getOption().startsWith("Deposit-") || menuEntryAdded.getOption().startsWith("Store") || menuEntryAdded.getOption().startsWith("Donate")))
 		{
 			ShiftDepositMode shiftDepositMode = config.bankDepositShiftClick();
-			final int widgetGroupId = WidgetInfo.TO_GROUP(menuEntryAdded.getActionParam1());
+			final int widgetGroupId = WidgetInfo.TO_GROUP(menuEntryAdded.getParam1());
 			final int opId = widgetGroupId == WidgetID.DEPOSIT_BOX_GROUP_ID ? shiftDepositMode.getIdentifierDepositBox()
 				: widgetGroupId == WidgetID.CHAMBERS_OF_XERIC_STORAGE_UNIT_INVENTORY_GROUP_ID ? shiftDepositMode.getIdentifierChambersStorageUnit()
 				: shiftDepositMode.getIdentifier();
@@ -615,7 +615,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			&& menuEntryAdded.getOption().startsWith("Withdraw"))
 		{
 			ShiftWithdrawMode shiftWithdrawMode = config.bankWithdrawShiftClick();
-			final int widgetGroupId = WidgetInfo.TO_GROUP(menuEntryAdded.getActionParam1());
+			final int widgetGroupId = WidgetInfo.TO_GROUP(menuEntryAdded.getParam1());
 			final int actionId, opId;
 			if (widgetGroupId == WidgetID.CHAMBERS_OF_XERIC_STORAGE_UNIT_PRIVATE_GROUP_ID || widgetGroupId == WidgetID.CHAMBERS_OF_XERIC_STORAGE_UNIT_SHARED_GROUP_ID)
 			{
@@ -656,7 +656,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		if (event.getMenuAction() != MenuAction.RUNELITE || event.getWidgetId() != WidgetInfo.INVENTORY.getId())
+		if (event.getMenuAction() != MenuAction.RUNELITE || event.getParam1() != WidgetInfo.INVENTORY.getId())
 		{
 			return;
 		}

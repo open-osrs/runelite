@@ -355,7 +355,7 @@ public class WorldHopperPlugin extends Plugin
 			return;
 		}
 
-		final int componentId = event.getActionParam1();
+		final int componentId = event.getParam1();
 		int groupId = WidgetInfo.TO_GROUP(componentId);
 		String option = event.getOption();
 
@@ -401,7 +401,7 @@ public class WorldHopperPlugin extends Plugin
 			hopTo.setTarget(event.getTarget());
 			hopTo.setType(MenuAction.RUNELITE.getId());
 			hopTo.setParam0(event.getActionParam0());
-			hopTo.setParam1(event.getActionParam1());
+			hopTo.setParam1(event.getParam1());
 
 			insertMenuEntry(hopTo, client.getMenuEntries(), after);
 		}
