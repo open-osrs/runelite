@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.npchighlight;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.20-SNAPSHOT"
+import java.util.function.Predicate;
+import net.runelite.api.NPC;
 
-    const val openosrsVersion = "4.9.10"
-
-    const val rsversion = 198
-    const val cacheversion = 165
-
-    const val lombokVersion = "1.18.20"
+public interface NpcIndicatorsService
+{
+	void registerHighlighter(Predicate<NPC> p);
+	void unregisterHighlighter(Predicate<NPC> p);
+	void rebuild();
 }
