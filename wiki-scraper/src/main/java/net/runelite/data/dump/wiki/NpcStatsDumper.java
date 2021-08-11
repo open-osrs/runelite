@@ -99,7 +99,7 @@ public class NpcStatsDumper
 	 * Looks for and parses the `Switch infobox` into a {@link MediaWikiTemplate} and then iterates over the `item#` values.
 	 * Attempts to parse each `item#` value via `parseWikiText`, matching the `name` attribute. null values are ignored
 	 *
-	 * @param name only parses MediaWikiTemplates from `Switch infobox` if matches this value. (case insensitive)
+	 * @param name         only parses MediaWikiTemplates from `Switch infobox` if matches this value. (case insensitive)
 	 * @param baseTemplate the {@link MediaWikiTemplate} representation of the `Switch infobox` to parse from
 	 * @return List of all valid {@link MediaWikiTemplate}s matching `name` from `baseTemplate`s `item#` values
 	 */
@@ -218,7 +218,9 @@ public class NpcStatsDumper
 					}
 
 					final Set<Integer> ids = Arrays.stream(wikiIdString.split(","))
-						.map(s -> Integer.parseInt(s.replaceAll("[^0-9]", "").trim()))
+						.map(s -> s.replaceAll("[^0-9]", "").trim())
+						.filter(s -> !s.isEmpty())
+						.map(Integer::parseInt)
 						.collect(Collectors.toSet());
 
 					final NpcStats stats = buildNpcStats(base, variantKey);
