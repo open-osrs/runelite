@@ -101,7 +101,7 @@ public class NpcIndicatorsPluginTest
 		when(npcIndicatorsConfig.getNpcToHighlight()).thenReturn("goblin");
 		when(npcIndicatorsConfig.deadNpcMenuColor()).thenReturn(Color.RED);
 
-		npcIndicatorsPlugin.rebuildAllNpcs();
+		npcIndicatorsPlugin.rebuild();
 
 		NPC npc = mock(NPC.class);
 		when(npc.getName()).thenReturn("Goblin");
@@ -127,7 +127,7 @@ public class NpcIndicatorsPluginTest
 		when(npcIndicatorsConfig.highlightMenuNames()).thenReturn(true);
 		when(npcIndicatorsConfig.getHighlightColor()).thenReturn(Color.BLUE);
 
-		npcIndicatorsPlugin.rebuildAllNpcs();
+		npcIndicatorsPlugin.rebuild();
 
 		NPC npc = mock(NPC.class);
 		when(npc.getName()).thenReturn("Goblin");
@@ -149,7 +149,7 @@ public class NpcIndicatorsPluginTest
 	{
 		when(npcIndicatorsConfig.getNpcToHighlight()).thenReturn("Joseph");
 
-		npcIndicatorsPlugin.rebuildAllNpcs();
+		npcIndicatorsPlugin.rebuild();
 
 		NPC npc = mock(NPC.class);
 		when(npc.getName()).thenReturn("Joseph");
@@ -168,7 +168,7 @@ public class NpcIndicatorsPluginTest
 	{
 		when(npcIndicatorsConfig.getNpcToHighlight()).thenReturn("Werewolf");
 
-		npcIndicatorsPlugin.rebuildAllNpcs();
+		npcIndicatorsPlugin.rebuild();
 
 		NPC npc = mock(NPC.class);
 		when(npc.getName()).thenReturn("Joseph");
