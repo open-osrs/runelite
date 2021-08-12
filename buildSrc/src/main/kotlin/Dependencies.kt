@@ -25,7 +25,7 @@
 
 object ProjectVersions {
     const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.7.20-SNAPSHOT"
+    const val rlVersion = "1.7.19"
 
     const val openosrsVersion = "4.9.10"
 
