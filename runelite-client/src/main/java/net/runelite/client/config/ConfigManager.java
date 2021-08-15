@@ -45,6 +45,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.AtomicMoveNotSupportedException;
 import java.nio.file.Files;
@@ -337,11 +338,14 @@ public class ConfigManager
 
 		File tempFile = File.createTempFile("runelite", null, parent);
 
-		try (FileOutputStream out = new FileOutputStream(tempFile))
+		try (FileOutputStream out = new FileOutputStream(tempFile);
+			FileChannel channel = out.getChannel();
+			OutputStreamWriter writer = new OutputStreamWriter(out, StandardCharsets.UTF_8))
 		{
-			out.getChannel().lock();
-			properties.store(new OutputStreamWriter(out, StandardCharsets.UTF_8), "RuneLite configuration");
-			// FileOutputStream.close() closes the associated channel, which frees the lock
+			channel.lock();
+			properties.store(writer, "RuneLite configuration");
+			channel.force(true);
+			// FileChannel.close() frees the lock
 		}
 
 		try
