@@ -211,34 +211,7 @@ public class Text
 	 */
 	public static String toJagexName(String str)
 	{
-		char[] chars = str.toCharArray();
-		int newIdx = 0;
-
-		for (int oldIdx = 0, strLen = str.length(); oldIdx < strLen; oldIdx++)
-		{
-			char c = chars[oldIdx];
-
-			// take care of replacing and trimming in 1 go
-			if (c == '\u00A0' || c == '-' || c == '_' || c == ' ')
-			{
-				if (oldIdx == strLen - 1 || newIdx == 0 || chars[newIdx - 1] == ' ')
-				{
-					continue;
-				}
-
-				c = ' ';
-			}
-
-			// 0 - 127 is valid ascii
-			if (c > 127)
-			{
-				continue;
-			}
-
-			chars[newIdx++] = c;
-		}
-
-		return new String(chars, 0, newIdx);
+		return CharMatcher.ascii().retainFrom(str.replaceAll("[\u00A0_-]", " ")).trim();
 	}
 
 	/**
