@@ -24,6 +24,7 @@
  */
 package net.runelite.mixins;
 
+import net.runelite.api.Nameable;
 import net.runelite.api.clan.ClanRank;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -39,9 +40,9 @@ public abstract class RSClanChannelMemberMixin implements RSClanChannelMember
 
 	@Inject
 	@Override
-	public int compareTo(Object other)
+	public int compareTo(Nameable other)
 	{
-		return getName().compareTo(((RSClanChannelMember) other).getName());
+		return getName().compareTo(other.getName());
 	}
 
 	@Inject
