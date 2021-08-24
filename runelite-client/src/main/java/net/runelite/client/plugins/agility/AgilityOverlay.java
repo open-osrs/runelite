@@ -177,8 +177,7 @@ class AgilityOverlay extends Overlay
 		if (tile.getPlane() == client.getPlane() && tile.getItemLayer() != null
 			&& tile.getLocalLocation().distanceTo(playerLocation) < MAX_DISTANCE)
 		{
-			final Polygon poly = tile.getItemLayer().getCanvasTilePoly();
-
+			final Polygon poly = Perspective.getCanvasTilePoly(client, tile.getLocalLocation(), tile.getPlane());
 			if (poly != null)
 			{
 				OverlayUtil.renderPolygon(graphics, poly, color);
