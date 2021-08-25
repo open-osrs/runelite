@@ -1,23 +1,17 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("im")
+@ObfuscatedName("jl")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = -74287869
-	)
-	@Export("gameCyclesToDo")
-	protected static int gameCyclesToDo;
 
 	static {
 		Skills_enabled = new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false};
@@ -31,5 +25,18 @@ public class Skills {
 			Skills_experienceTable[var1] = var0 / 4;
 		}
 
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "708900627"
+	)
+	static void method5063(int var0, int var1) {
+		long var2 = (long)((var0 << 16) + var1);
+		NetFileRequest var4 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var2);
+		if (var4 != null) {
+			NetCache.NetCache_pendingWritesQueue.addLast(var4);
+		}
 	}
 }

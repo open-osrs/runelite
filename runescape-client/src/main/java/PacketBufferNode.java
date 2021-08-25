@@ -4,42 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hg")
+@ObfuscatedName("il")
 @Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "[Lhg;"
+		descriptor = "[Lil;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 245617369
+		intValue = 881537125
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
 	static int PacketBufferNode_packetBufferNodeCount;
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lhx;"
+		descriptor = "Lix;"
 	)
 	@Export("clientPacket")
-	public ClientPacket clientPacket;
-	@ObfuscatedName("t")
+	ClientPacket clientPacket;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1553896473
+		intValue = 1180228705
 	)
 	@Export("clientPacketLength")
-	public int clientPacketLength;
-	@ObfuscatedName("v")
+	int clientPacketLength;
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lnu;"
+		descriptor = "Loq;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 394733649
+		intValue = -1171592885
 	)
 	@Export("index")
 	public int index;
@@ -52,10 +52,10 @@ public class PacketBufferNode extends Node {
 	PacketBufferNode() {
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-872816135"
+		garbageValue = "981374716"
 	)
 	@Export("release")
 	public void release() {
@@ -64,12 +64,12 @@ public class PacketBufferNode extends Node {
 		}
 	}
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([BIB)I",
-		garbageValue = "-82"
+		descriptor = "(I)V",
+		garbageValue = "16776960"
 	)
-	public static int method4418(byte[] var0, int var1) {
-		return ClientPacket.method4408(var0, 0, var1);
+	public static void method4564() {
+		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear();
 	}
 }

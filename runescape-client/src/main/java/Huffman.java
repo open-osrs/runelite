@@ -3,21 +3,19 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ie")
+@ObfuscatedName("jc")
 @Implements("Huffman")
 public class Huffman {
-	@ObfuscatedName("f")
-	static byte[][][] field3113;
-	@ObfuscatedName("gz")
-	@Export("regionMapArchiveIds")
-	static int[] regionMapArchiveIds;
-	@ObfuscatedName("s")
+	@ObfuscatedName("a")
+	@Export("ItemDefinition_inMembersWorld")
+	public static boolean ItemDefinition_inMembersWorld;
+	@ObfuscatedName("n")
 	@Export("masks")
 	int[] masks;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("bits")
 	byte[] bits;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("keys")
 	int[] keys;
 
@@ -46,7 +44,7 @@ public class Huffman {
 
 					for (var10 = var6 - 1; var10 >= 1; --var10) {
 						var11 = var3[var10];
-						if (var11 != var8) {
+						if (var8 != var11) {
 							break;
 						}
 
@@ -104,10 +102,10 @@ public class Huffman {
 
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "([BII[BII)I",
-		garbageValue = "-2001454460"
+		garbageValue = "743911469"
 	)
 	@Export("compress")
 	int compress(byte[] var1, int var2, int var3, byte[] var4, int var5) {
@@ -125,7 +123,7 @@ public class Huffman {
 			int var11 = var7 >> 3;
 			int var12 = var7 & 7;
 			var6 &= -var12 >> 31;
-			int var13 = (var10 + var12 - 1 >> 3) + var11;
+			int var13 = (var12 + var10 - 1 >> 3) + var11;
 			var12 += 24;
 			var4[var11] = (byte)(var6 |= var9 >>> var12);
 			if (var11 < var13) {
@@ -155,10 +153,10 @@ public class Huffman {
 		return (var7 + 7 >> 3) - var5;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "([BI[BIII)I",
-		garbageValue = "-2100484345"
+		garbageValue = "141033837"
 	)
 	@Export("decompress")
 	int decompress(byte[] var1, int var2, byte[] var3, int var4, int var5) {
@@ -299,74 +297,97 @@ public class Huffman {
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "([Lkf;II)Lkf;",
-		garbageValue = "-498785884"
+		descriptor = "(Ljc;B)V",
+		garbageValue = "-78"
 	)
-	@Export("findEnumerated")
-	public static Enumerated findEnumerated(Enumerated[] var0, int var1) {
-		Enumerated[] var2 = var0;
-
-		for (int var3 = 0; var3 < var2.length; ++var3) {
-			Enumerated var4 = var2[var3];
-			if (var1 == var4.rsOrdinal()) {
-				return var4;
-			}
-		}
-
-		return null;
+	public static void method5007(Huffman var0) {
+		class264.huffman = var0;
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("hy")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "-69"
+		descriptor = "(ZLoq;I)V",
+		garbageValue = "-1535090949"
 	)
-	@Export("loadInterface")
-	public static boolean loadInterface(int var0) {
-		if (class100.Widget_loadedInterfaces[var0]) {
-			return true;
-		} else if (!Widget.Widget_archive.tryLoadGroup(var0)) {
-			return false;
-		} else {
-			int var1 = Widget.Widget_archive.getGroupFileCount(var0);
-			if (var1 == 0) {
-				class100.Widget_loadedInterfaces[var0] = true;
-				return true;
-			} else {
-				if (Widget.Widget_interfaceComponents[var0] == null) {
-					Widget.Widget_interfaceComponents[var0] = new Widget[var1];
-				}
+	static final void method5011(boolean var0, PacketBuffer var1) {
+		while (true) {
+			if (var1.bitsRemaining(Client.packetWriter.serverPacketLength) >= 27) {
+				int var2 = var1.readBits(15);
+				if (var2 != 32767) {
+					boolean var3 = false;
+					if (Client.npcs[var2] == null) {
+						Client.npcs[var2] = new NPC();
+						var3 = true;
+					}
 
-				for (int var2 = 0; var2 < var1; ++var2) {
-					if (Widget.Widget_interfaceComponents[var0][var2] == null) {
-						byte[] var3 = Widget.Widget_archive.takeFile(var0, var2);
-						if (var3 != null) {
-							Widget.Widget_interfaceComponents[var0][var2] = new Widget();
-							Widget.Widget_interfaceComponents[var0][var2].id = var2 + (var0 << 16);
-							if (var3[0] == -1) {
-								Widget.Widget_interfaceComponents[var0][var2].decode(new Buffer(var3));
-							} else {
-								Widget.Widget_interfaceComponents[var0][var2].decodeLegacy(new Buffer(var3));
-							}
+					NPC var4 = Client.npcs[var2];
+					Client.npcIndices[++Client.npcCount - 1] = var2;
+					var4.npcCycle = Client.cycle;
+					int var6;
+					if (var0) {
+						var6 = var1.readBits(8);
+						if (var6 > 127) {
+							var6 -= 256;
+						}
+					} else {
+						var6 = var1.readBits(5);
+						if (var6 > 15) {
+							var6 -= 32;
 						}
 					}
+
+					int var8 = Client.defaultRotations[var1.readBits(3)];
+					if (var3) {
+						var4.orientation = var4.rotation = var8;
+					}
+
+					int var5 = var1.readBits(1);
+					int var9 = var1.readBits(1);
+					if (var9 == 1) {
+						Client.field533[++Client.field560 - 1] = var2;
+					}
+
+					int var7;
+					if (var0) {
+						var7 = var1.readBits(8);
+						if (var7 > 127) {
+							var7 -= 256;
+						}
+					} else {
+						var7 = var1.readBits(5);
+						if (var7 > 15) {
+							var7 -= 32;
+						}
+					}
+
+					var4.definition = ScriptEvent.getNpcDefinition(var1.readBits(14));
+					boolean var10 = var1.readBits(1) == 1;
+					if (var10) {
+						var1.readBits(32);
+					}
+
+					var4.field1137 = var4.definition.size;
+					var4.field1146 = var4.definition.rotation;
+					if (var4.field1146 == 0) {
+						var4.rotation = 0;
+					}
+
+					var4.walkSequence = var4.definition.walkSequence;
+					var4.walkBackSequence = var4.definition.walkBackSequence;
+					var4.walkLeftSequence = var4.definition.walkLeftSequence;
+					var4.walkRightSequence = var4.definition.walkRightSequence;
+					var4.idleSequence = var4.definition.idleSequence;
+					var4.turnLeftSequence = var4.definition.turnLeftSequence;
+					var4.turnRightSequence = var4.definition.turnRightSequence;
+					var4.method2224(class129.localPlayer.pathX[0] + var6, class129.localPlayer.pathY[0] + var7, var5 == 1);
+					continue;
 				}
-
-				class100.Widget_loadedInterfaces[var0] = true;
-				return true;
 			}
-		}
-	}
 
-	@ObfuscatedName("ec")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "311556641"
-	)
-	static final void method4834() {
-		Scene.Scene_isLowDetail = false;
-		Client.isLowDetail = false;
+			var1.exportIndex();
+			return;
+		}
 	}
 }

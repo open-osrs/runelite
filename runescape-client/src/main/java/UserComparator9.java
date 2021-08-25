@@ -1,18 +1,18 @@
+import java.security.SecureRandom;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cp")
+@ObfuscatedName("ds")
 @Implements("UserComparator9")
 public class UserComparator9 extends AbstractUserComparator {
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Lnv;"
-	)
-	@Export("NetCache_responseArchiveBuffer")
-	public static Buffer NetCache_responseArchiveBuffer;
-	@ObfuscatedName("s")
+	@ObfuscatedName("y")
+	public static short[][] field1330;
+	@ObfuscatedName("fp")
+	@Export("secureRandom")
+	static SecureRandom secureRandom;
+	@ObfuscatedName("n")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -20,10 +20,10 @@ public class UserComparator9 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Llr;Llr;B)I",
-		garbageValue = "-90"
+		descriptor = "(Lmm;Lmm;I)I",
+		garbageValue = "-1109317659"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -38,13 +38,18 @@ public class UserComparator9 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "1216220848"
+		descriptor = "(Lot;J)V"
 	)
-	@Export("isCharAlphabetic")
-	public static boolean isCharAlphabetic(char var0) {
-		return var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z';
+	static void method2439(Buffer var0, long var1) {
+		var1 /= 10L;
+		if (var1 < 0L) {
+			var1 = 0L;
+		} else if (var1 > 65535L) {
+			var1 = 65535L;
+		}
+
+		var0.writeShort((int)var1);
 	}
 }

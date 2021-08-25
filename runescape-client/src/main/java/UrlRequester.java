@@ -10,16 +10,16 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cn")
+@ObfuscatedName("ca")
 @Implements("UrlRequester")
 public class UrlRequester implements Runnable {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("thread")
 	final Thread thread;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("isClosed")
 	volatile boolean isClosed;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("requests")
 	Queue requests;
 
@@ -30,10 +30,10 @@ public class UrlRequester implements Runnable {
 		this.thread.start();
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;I)Lcd;",
-		garbageValue = "797764563"
+		descriptor = "(Ljava/net/URL;I)Lcj;",
+		garbageValue = "-1855579414"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
@@ -45,10 +45,10 @@ public class UrlRequester implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-71"
+		descriptor = "(I)V",
+		garbageValue = "980851259"
 	)
 	@Export("close")
 	public void close() {
@@ -111,52 +111,18 @@ public class UrlRequester implements Runnable {
 
 				}
 			} catch (Exception var17) {
-				BufferedSink.RunException_sendStackTrace((String)null, var17);
+				class4.RunException_sendStackTrace((String)null, var17);
 			}
 		}
 
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(B)J",
-		garbageValue = "-60"
+		descriptor = "(Lac;I)V",
+		garbageValue = "-1774214308"
 	)
-	public static final synchronized long method2125() {
-		long var0 = System.currentTimeMillis();
-		if (var0 < GrandExchangeOfferNameComparator.field3625) {
-			class381.field4173 += GrandExchangeOfferNameComparator.field3625 - var0;
-		}
-
-		GrandExchangeOfferNameComparator.field3625 = var0;
-		return class381.field4173 + var0;
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(IB)Lio;",
-		garbageValue = "57"
-	)
-	@Export("getWidget")
-	public static Widget getWidget(int var0) {
-		int var1 = var0 >> 16;
-		int var2 = var0 & 65535;
-		if (Widget.Widget_interfaceComponents[var1] == null || Widget.Widget_interfaceComponents[var1][var2] == null) {
-			boolean var3 = Huffman.loadInterface(var1);
-			if (!var3) {
-				return null;
-			}
-		}
-
-		return Widget.Widget_interfaceComponents[var1][var2];
-	}
-
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-24"
-	)
-	public static void method2126() {
-		PlayerComposition.PlayerAppearance_cachedModels.clear();
+	public static final void method2368(class45 var0) {
+		class91.pcmPlayerProvider = var0;
 	}
 }

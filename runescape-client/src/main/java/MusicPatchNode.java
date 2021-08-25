@@ -4,233 +4,255 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iu")
+@ObfuscatedName("id")
 @Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1874854043
+		intValue = 1145827779
 	)
-	int field2902;
-	@ObfuscatedName("t")
+	int field2970;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lif;"
+		descriptor = "Liz;"
 	)
 	@Export("patch")
 	MusicPatch patch;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lz;"
+		descriptor = "Lak;"
 	)
 	@Export("rawSound")
 	RawSound rawSound;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lhd;"
+		descriptor = "Lib;"
 	)
-	MusicPatchNode2 field2885;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -48173435
-	)
-	int field2887;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = 75053875
-	)
-	int field2893;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = -1488956187
-	)
-	int field2888;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = 2005146559
-	)
-	int field2889;
+	MusicPatchNode2 field2972;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 471656565
+		intValue = 1760015417
 	)
-	int field2882;
-	@ObfuscatedName("x")
+	int field2971;
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 509100341
+		intValue = -967389441
 	)
-	int field2891;
-	@ObfuscatedName("r")
+	int field2986;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 278878597
+		intValue = -1294952877
 	)
-	int field2892;
-	@ObfuscatedName("p")
-	@ObfuscatedGetter(
-		intValue = 1333282019
-	)
-	int field2883;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = 458384481
-	)
-	int field2899;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = 1998786171
-	)
-	int field2895;
+	int field2973;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 2084962731
+		intValue = -1778257623
 	)
-	int field2896;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = 1291835317
-	)
-	int field2897;
+	int field2979;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 1301679329
+		intValue = 263964623
 	)
-	int field2886;
+	int field2975;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -154309947
+		intValue = -614430191
 	)
-	int field2894;
-	@ObfuscatedName("c")
+	int field2976;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -871521907
+	)
+	int field2977;
+	@ObfuscatedName("y")
+	@ObfuscatedGetter(
+		intValue = -105685889
+	)
+	int field2978;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -323480327
+	)
+	int field2987;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 252790825
+	)
+	int field2980;
+	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -875778091
+	)
+	int field2985;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = -2005976257
+	)
+	int field2981;
+	@ObfuscatedName("d")
+	@ObfuscatedGetter(
+		intValue = -1168824453
+	)
+	int field2983;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = -1881024645
+	)
+	int field2984;
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lal;"
+		descriptor = "Laj;"
 	)
 	@Export("stream")
 	RawPcmStream stream;
-	@ObfuscatedName("i")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1589222961
+		intValue = -2041811507
 	)
-	int field2901;
-	@ObfuscatedName("b")
+	int field2982;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1653433433
+		intValue = 1634328239
 	)
-	int field2898;
+	int field2988;
 
 	MusicPatchNode() {
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2112668994"
+		garbageValue = "290970770"
 	)
-	void method4686() {
+	void method4850() {
 		this.patch = null;
 		this.rawSound = null;
-		this.field2885 = null;
+		this.field2972 = null;
 		this.stream = null;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Object;ZI)[B",
-		garbageValue = "-2130267956"
+		descriptor = "(Loq;II)Z",
+		garbageValue = "1821740156"
 	)
-	public static byte[] method4683(Object var0, boolean var1) {
-		if (var0 == null) {
-			return null;
-		} else if (var0 instanceof byte[]) {
-			byte[] var3 = (byte[])((byte[])var0);
-			return var1 ? TextureProvider.method4203(var3) : var3;
-		} else if (var0 instanceof AbstractByteArrayCopier) {
-			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0;
-			return var2.get();
-		} else {
-			throw new IllegalArgumentException();
-		}
-	}
+	@Export("updateExternalPlayer")
+	static boolean updateExternalPlayer(PacketBuffer var0, int var1) {
+		int var2 = var0.readBits(2);
+		int var3;
+		int var4;
+		int var7;
+		int var8;
+		int var9;
+		int var10;
+		if (var2 == 0) {
+			if (var0.readBits(1) != 0) {
+				updateExternalPlayer(var0, var1);
+			}
 
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(IZI)Ljava/lang/String;",
-		garbageValue = "277375642"
-	)
-	@Export("intToString")
-	public static String intToString(int var0, boolean var1) {
-		if (var1 && var0 >= 0) {
-			int var3 = var0;
-			String var2;
-			if (var1 && var0 >= 0) {
-				int var4 = 2;
+			var3 = var0.readBits(13);
+			var4 = var0.readBits(13);
+			boolean var12 = var0.readBits(1) == 1;
+			if (var12) {
+				Players.Players_pendingUpdateIndices[++Players.Players_pendingUpdateCount - 1] = var1;
+			}
 
-				for (int var5 = var0 / 10; var5 != 0; ++var4) {
-					var5 /= 10;
-				}
-
-				char[] var6 = new char[var4];
-				var6[0] = '+';
-
-				for (int var7 = var4 - 1; var7 > 0; --var7) {
-					int var8 = var3;
-					var3 /= 10;
-					int var9 = var8 - var3 * 10;
-					if (var9 >= 10) {
-						var6[var7] = (char)(var9 + 87);
-					} else {
-						var6[var7] = (char)(var9 + 48);
-					}
-				}
-
-				var2 = new String(var6);
+			if (Client.players[var1] != null) {
+				throw new RuntimeException();
 			} else {
-				var2 = Integer.toString(var0, 10);
-			}
+				Player var11 = Client.players[var1] = new Player();
+				var11.index = var1;
+				if (Players.field1246[var1] != null) {
+					var11.read(Players.field1246[var1]);
+				}
 
-			return var2;
+				var11.orientation = Players.Players_orientations[var1];
+				var11.targetIndex = Players.Players_targetIndices[var1];
+				var7 = Players.Players_regions[var1];
+				var8 = var7 >> 28;
+				var9 = var7 >> 14 & 255;
+				var10 = var7 & 255;
+				var11.pathTraversed[0] = Players.field1245[var1];
+				var11.plane = (byte)var8;
+				var11.resetPath((var9 << 13) + var3 - FloorOverlayDefinition.baseX, (var10 << 13) + var4 - class320.baseY);
+				var11.field1074 = false;
+				return true;
+			}
+		} else if (var2 == 1) {
+			var3 = var0.readBits(2);
+			var4 = Players.Players_regions[var1];
+			Players.Players_regions[var1] = (var4 & 268435455) + (((var4 >> 28) + var3 & 3) << 28);
+			return false;
 		} else {
-			return Integer.toString(var0);
-		}
-	}
+			int var5;
+			int var6;
+			if (var2 == 2) {
+				var3 = var0.readBits(5);
+				var4 = var3 >> 3;
+				var5 = var3 & 7;
+				var6 = Players.Players_regions[var1];
+				var7 = (var6 >> 28) + var4 & 3;
+				var8 = var6 >> 14 & 255;
+				var9 = var6 & 255;
+				if (var5 == 0) {
+					--var8;
+					--var9;
+				}
 
-	@ObfuscatedName("he")
-	@ObfuscatedSignature(
-		descriptor = "(Lbx;II)V",
-		garbageValue = "456956891"
-	)
-	static final void method4684(Actor var0, int var1) {
-		FriendLoginUpdate.worldToScreen(var0.x, var0.y, var1);
-	}
+				if (var5 == 1) {
+					--var9;
+				}
 
-	@ObfuscatedName("km")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "-6"
-	)
-	static final void method4685(int var0, int var1) {
-		ClanChannel var2 = var0 >= 0 ? Client.currentClanChannels[var0] : FriendLoginUpdate.guestClanChannel;
-		if (var2 != null && var1 >= 0 && var1 < var2.method2520()) {
-			ClanChannelMember var3 = (ClanChannelMember)var2.members.get(var1);
-			if (var3.rank == -1) {
-				String var4 = var3.username.getName();
-				PacketWriter var5 = Client.packetWriter;
-				PacketBufferNode var6 = VerticalAlignment.getPacketBufferNode(ClientPacket.field2671, var5.isaacCipher);
-				var6.packetBuffer.writeByte(3 + GrandExchangeOfferNameComparator.stringCp1252NullTerminatedByteSize(var4));
-				var6.packetBuffer.writeByte(var0);
-				var6.packetBuffer.writeShort(var1);
-				var6.packetBuffer.writeStringCp1252NullTerminated(var4);
-				var5.addNode(var6);
+				if (var5 == 2) {
+					++var8;
+					--var9;
+				}
+
+				if (var5 == 3) {
+					--var8;
+				}
+
+				if (var5 == 4) {
+					++var8;
+				}
+
+				if (var5 == 5) {
+					--var8;
+					++var9;
+				}
+
+				if (var5 == 6) {
+					++var9;
+				}
+
+				if (var5 == 7) {
+					++var8;
+					++var9;
+				}
+
+				Players.Players_regions[var1] = (var8 << 14) + var9 + (var7 << 28);
+				return false;
+			} else {
+				var3 = var0.readBits(18);
+				var4 = var3 >> 16;
+				var5 = var3 >> 8 & 255;
+				var6 = var3 & 255;
+				var7 = Players.Players_regions[var1];
+				var8 = (var7 >> 28) + var4 & 3;
+				var9 = var5 + (var7 >> 14) & 255;
+				var10 = var7 + var6 & 255;
+				Players.Players_regions[var1] = (var9 << 14) + var10 + (var8 << 28);
+				return false;
 			}
 		}
 	}
 
-	@ObfuscatedName("kg")
+	@ObfuscatedName("au")
 	@ObfuscatedSignature(
-		descriptor = "(Lio;B)I",
-		garbageValue = "100"
+		descriptor = "(II)I",
+		garbageValue = "1415302167"
 	)
-	@Export("getWidgetFlags")
-	static int getWidgetFlags(Widget var0) {
-		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get(((long)var0.id << 32) + (long)var0.childIndex);
-		return var1 != null ? var1.integer : var0.flags;
+	static int method4849(int var0) {
+		return (int)((Math.log((double)var0) / Interpreter.field831 - 7.0D) * 256.0D);
 	}
 }

@@ -4,21 +4,22 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cd")
+@ObfuscatedName("cj")
 @Implements("UrlRequest")
 public class UrlRequest {
-	@ObfuscatedName("np")
+	@ObfuscatedName("gr")
 	@ObfuscatedSignature(
-		descriptor = "[Lio;"
+		descriptor = "Lnd;"
 	)
-	static Widget[] field1224;
-	@ObfuscatedName("s")
+	@Export("WorldMapElement_fonts")
+	static Fonts WorldMapElement_fonts;
+	@ObfuscatedName("n")
 	@Export("url")
 	final URL url;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("isDone0")
 	volatile boolean isDone0;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("response0")
 	volatile byte[] response0;
 
@@ -26,45 +27,68 @@ public class UrlRequest {
 		this.url = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1069253032"
+		garbageValue = "-359181104"
 	)
 	@Export("isDone")
 	public boolean isDone() {
 		return this.isDone0;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)[B",
-		garbageValue = "1904791034"
+		garbageValue = "-476051940"
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {
 		return this.response0;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("ii")
 	@ObfuscatedSignature(
-		descriptor = "(Ljy;Ljy;I)V",
-		garbageValue = "-909646221"
+		descriptor = "(Ljd;IIZI)V",
+		garbageValue = "-1338340677"
 	)
-	public static void method2141(AbstractArchive var0, AbstractArchive var1) {
-		SpotAnimationDefinition.SpotAnimationDefinition_archive = var0;
-		class406.SpotAnimationDefinition_modelArchive = var1;
-	}
+	@Export("alignWidgetSize")
+	static void alignWidgetSize(Widget var0, int var1, int var2, boolean var3) {
+		int var4 = var0.width;
+		int var5 = var0.height;
+		if (var0.widthAlignment == 0) {
+			var0.width = var0.rawWidth;
+		} else if (var0.widthAlignment == 1) {
+			var0.width = var1 - var0.rawWidth;
+		} else if (var0.widthAlignment == 2) {
+			var0.width = var0.rawWidth * var1 >> 14;
+		}
 
-	@ObfuscatedName("fo")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "0"
-	)
-	static void method2136(int var0, int var1) {
-		if (Decimator.clientPreferences.musicVolume != 0 && var0 != -1) {
-			Players.method2022(class339.archive11, var0, 0, Decimator.clientPreferences.musicVolume, false);
-			Client.field647 = true;
+		if (var0.heightAlignment == 0) {
+			var0.height = var0.rawHeight;
+		} else if (var0.heightAlignment == 1) {
+			var0.height = var2 - var0.rawHeight;
+		} else if (var0.heightAlignment == 2) {
+			var0.height = var2 * var0.rawHeight >> 14;
+		}
+
+		if (var0.widthAlignment == 4) {
+			var0.width = var0.height * var0.field3062 / var0.field3116;
+		}
+
+		if (var0.heightAlignment == 4) {
+			var0.height = var0.field3116 * var0.width / var0.field3062;
+		}
+
+		if (var0.contentType == 1337) {
+			Client.viewportWidget = var0;
+		}
+
+		if (var3 && var0.onResize != null && (var4 != var0.width || var5 != var0.height)) {
+			ScriptEvent var6 = new ScriptEvent();
+			var6.widget = var0;
+			var6.args = var0.onResize;
+			Client.scriptEvents.addFirst(var6);
 		}
 
 	}

@@ -4,67 +4,67 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jh")
+@ObfuscatedName("jx")
 @Implements("PlayerType")
-public enum PlayerType implements Enumerated {
-	@ObfuscatedName("s")
+public enum PlayerType implements MouseWheel {
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljx;"
 	)
 	@Export("PlayerType_normal")
 	PlayerType_normal(0, -1, true, false, true),
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljx;"
 	)
 	@Export("PlayerType_playerModerator")
 	PlayerType_playerModerator(1, 0, true, true, true),
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljx;"
 	)
 	@Export("PlayerType_jagexModerator")
 	PlayerType_jagexModerator(2, 1, true, true, false),
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljx;"
 	)
 	@Export("PlayerType_ironman")
 	PlayerType_ironman(3, 2, false, false, true),
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljx;"
 	)
 	@Export("PlayerType_ultimateIronman")
 	PlayerType_ultimateIronman(4, 3, false, false, true),
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljx;"
 	)
 	@Export("PlayerType_hardcoreIronman")
 	PlayerType_hardcoreIronman(5, 10, false, false, true),
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Ljh;"
+		descriptor = "Ljx;"
 	)
-	field3540(6, 22, false, false, true);
+	field3668(6, 22, false, false, true);
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 54331325
+		intValue = -846617789
 	)
 	@Export("id")
 	final int id;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -103099681
+		intValue = -559637127
 	)
 	@Export("modIcon")
 	public final int modIcon;
-	@ObfuscatedName("x")
+	@ObfuscatedName("e")
 	@Export("isPrivileged")
 	public final boolean isPrivileged;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@Export("isUser")
 	public final boolean isUser;
 
@@ -75,13 +75,26 @@ public enum PlayerType implements Enumerated {
 		this.isUser = var7;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1806959663"
+		garbageValue = "-1665712539"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
+	}
+
+	@ObfuscatedName("n")
+	public static final void method5099(long var0) {
+		if (var0 > 0L) {
+			if (0L == var0 % 10L) {
+				WorldMapRegion.method3602(var0 - 1L);
+				WorldMapRegion.method3602(1L);
+			} else {
+				WorldMapRegion.method3602(var0);
+			}
+
+		}
 	}
 }

@@ -2,18 +2,17 @@ import java.util.TimeZone;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("id")
+@ObfuscatedName("ja")
 @Implements("Calendar")
 public class Calendar {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("MONTH_NAMES_ENGLISH_GERMAN")
 	static final String[][] MONTH_NAMES_ENGLISH_GERMAN;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("DAYS_OF_THE_WEEK")
 	static final String[] DAYS_OF_THE_WEEK;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("Calendar_calendar")
 	static java.util.Calendar Calendar_calendar;
 
@@ -22,15 +21,5 @@ public class Calendar {
 		DAYS_OF_THE_WEEK = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 		java.util.Calendar.getInstance();
 		Calendar_calendar = java.util.Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "0"
-	)
-	static void method4863() {
-		Login.loginIndex = 24;
-		Client.setLoginResponseString("", "You were disconnected from the server.", "");
 	}
 }

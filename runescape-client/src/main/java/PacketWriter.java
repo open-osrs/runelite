@@ -5,85 +5,91 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cj")
+@ObfuscatedName("cs")
 @Implements("PacketWriter")
 public class PacketWriter {
-	@ObfuscatedName("s")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Llp;"
+		descriptor = "Ljd;"
+	)
+	@Export("scriptDotWidget")
+	static Widget scriptDotWidget;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lmv;"
 	)
 	@Export("socket")
 	AbstractSocket socket;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lkk;"
+		descriptor = "Lkz;"
 	)
 	@Export("packetBufferNodes")
 	IterableNodeDeque packetBufferNodes;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -592223771
+		intValue = 494517725
 	)
 	@Export("bufferSize")
 	int bufferSize;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lnv;"
+		descriptor = "Lot;"
 	)
 	@Export("buffer")
 	Buffer buffer;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Log;"
+		descriptor = "Loe;"
 	)
 	@Export("isaacCipher")
 	public IsaacCipher isaacCipher;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lnu;"
+		descriptor = "Loq;"
 	)
 	@Export("packetBuffer")
 	PacketBuffer packetBuffer;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lit;"
 	)
 	@Export("serverPacket")
 	ServerPacket serverPacket;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 664186129
+		intValue = -527684957
 	)
 	@Export("serverPacketLength")
 	int serverPacketLength;
-	@ObfuscatedName("o")
-	boolean field1210;
-	@ObfuscatedName("x")
+	@ObfuscatedName("u")
+	boolean field1285;
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 642893305
+		intValue = 1308451043
 	)
-	int field1209;
-	@ObfuscatedName("r")
+	int field1279;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1015319725
+		intValue = 318973305
 	)
 	@Export("pendingWrites")
 	int pendingWrites;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lit;"
 	)
-	ServerPacket field1211;
-	@ObfuscatedName("h")
+	ServerPacket field1288;
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lit;"
 	)
-	ServerPacket field1213;
-	@ObfuscatedName("k")
+	ServerPacket field1289;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lit;"
 	)
-	ServerPacket field1212;
+	ServerPacket field1290;
 
 	PacketWriter() {
 		this.packetBufferNodes = new IterableNodeDeque();
@@ -92,15 +98,15 @@ public class PacketWriter {
 		this.packetBuffer = new PacketBuffer(40000);
 		this.serverPacket = null;
 		this.serverPacketLength = 0;
-		this.field1210 = true;
-		this.field1209 = 0;
+		this.field1285 = true;
+		this.field1279 = 0;
 		this.pendingWrites = 0;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-626526349"
+		descriptor = "(B)V",
+		garbageValue = "-118"
 	)
 	@Export("clearBuffer")
 	final void clearBuffer() {
@@ -108,10 +114,10 @@ public class PacketWriter {
 		this.bufferSize = 0;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "-26503"
+		descriptor = "(B)V",
+		garbageValue = "6"
 	)
 	@Export("flush")
 	final void flush() throws IOException {
@@ -136,10 +142,10 @@ public class PacketWriter {
 
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lhg;I)V",
-		garbageValue = "1438482653"
+		descriptor = "(Lil;I)V",
+		garbageValue = "45336817"
 	)
 	@Export("addNode")
 	public final void addNode(PacketBufferNode var1) {
@@ -149,20 +155,20 @@ public class PacketWriter {
 		this.bufferSize += var1.index;
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Llp;I)V",
-		garbageValue = "-1647707364"
+		descriptor = "(Lmv;I)V",
+		garbageValue = "-1644269631"
 	)
 	@Export("setSocket")
 	void setSocket(AbstractSocket var1) {
 		this.socket = var1;
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "355652466"
+		garbageValue = "2058963217"
 	)
 	@Export("close")
 	void close() {
@@ -173,32 +179,67 @@ public class PacketWriter {
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1757409709"
+		garbageValue = "-1672369616"
 	)
 	@Export("removeSocket")
 	void removeSocket() {
 		this.socket = null;
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(I)Llp;",
-		garbageValue = "-1467862512"
+		descriptor = "(B)Lmv;",
+		garbageValue = "57"
 	)
 	@Export("getSocket")
 	AbstractSocket getSocket() {
 		return this.socket;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-330695328"
+		descriptor = "(III)I",
+		garbageValue = "1600925897"
 	)
-	public static int method2117(int var0) {
-		return class345.field3945[var0 & 16383];
+	static int method2358(int var0, int var1) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var2 == null) {
+			return -1;
+		} else {
+			return var1 >= 0 && var1 < var2.ids.length ? var2.ids[var1] : -1;
+		}
+	}
+
+	@ObfuscatedName("gt")
+	@ObfuscatedSignature(
+		descriptor = "(Lco;III)V",
+		garbageValue = "-454761472"
+	)
+	@Export("performPlayerAnimation")
+	static void performPlayerAnimation(Player var0, int var1, int var2) {
+		if (var0.sequence == var1 && var1 != -1) {
+			int var3 = class17.SequenceDefinition_get(var1).field1961;
+			if (var3 == 1) {
+				var0.sequenceFrame = 0;
+				var0.sequenceFrameCycle = 0;
+				var0.sequenceDelay = var2;
+				var0.field1099 = 0;
+			}
+
+			if (var3 == 2) {
+				var0.field1099 = 0;
+			}
+		} else if (var1 == -1 || var0.sequence == -1 || class17.SequenceDefinition_get(var1).field1955 >= class17.SequenceDefinition_get(var0.sequence).field1955) {
+			var0.sequence = var1;
+			var0.sequenceFrame = 0;
+			var0.sequenceFrameCycle = 0;
+			var0.sequenceDelay = var2;
+			var0.field1099 = 0;
+			var0.field1152 = var0.pathLength;
+		}
+
 	}
 }

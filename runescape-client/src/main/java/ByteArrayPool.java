@@ -4,44 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kp")
+@ObfuscatedName("ld")
 @Implements("ByteArrayPool")
 public class ByteArrayPool {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -711959023
+		intValue = 1332805501
 	)
 	@Export("ByteArrayPool_smallCount")
 	static int ByteArrayPool_smallCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 802134257
+		intValue = 1733522365
 	)
 	@Export("ByteArrayPool_mediumCount")
 	static int ByteArrayPool_mediumCount;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -326255735
+		intValue = -1476651715
 	)
 	@Export("ByteArrayPool_largeCount")
 	static int ByteArrayPool_largeCount;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("ByteArrayPool_small")
 	static byte[][] ByteArrayPool_small;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@Export("ByteArrayPool_medium")
 	static byte[][] ByteArrayPool_medium;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@Export("ByteArrayPool_large")
 	static byte[][] ByteArrayPool_large;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("ByteArrayPool_alternativeSizes")
 	public static int[] ByteArrayPool_alternativeSizes;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@Export("ByteArrayPool_arrays")
 	public static byte[][][] ByteArrayPool_arrays;
-	@ObfuscatedName("bo")
-	static String field3775;
 
 	static {
 		ByteArrayPool_smallCount = 0;
@@ -52,10 +50,10 @@ public class ByteArrayPool {
 		ByteArrayPool_large = new byte[50][];
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(IZB)[B",
-		garbageValue = "55"
+		garbageValue = "36"
 	)
 	@Export("ByteArrayPool_getArrayBool")
 	static synchronized byte[] ByteArrayPool_getArrayBool(int var0, boolean var1) {
@@ -92,14 +90,27 @@ public class ByteArrayPool {
 				if (ByteArrayPool_alternativeSizes[var2] != var0) {
 					if (var0 < ByteArrayPool_alternativeSizes[var2]) {
 					}
-				} else if (class127.ByteArrayPool_altSizeArrayCounts[var2] > 0) {
-					byte[] var3 = ByteArrayPool_arrays[var2][--class127.ByteArrayPool_altSizeArrayCounts[var2]];
-					ByteArrayPool_arrays[var2][class127.ByteArrayPool_altSizeArrayCounts[var2]] = null;
+				} else if (TileItem.ByteArrayPool_altSizeArrayCounts[var2] > 0) {
+					byte[] var3 = ByteArrayPool_arrays[var2][--TileItem.ByteArrayPool_altSizeArrayCounts[var2]];
+					ByteArrayPool_arrays[var2][TileItem.ByteArrayPool_altSizeArrayCounts[var2]] = null;
 					return var3;
 				}
 			}
 		}
 
 		return new byte[var0];
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Lot;Ljava/lang/String;B)I",
+		garbageValue = "0"
+	)
+	public static int method5814(Buffer var0, String var1) {
+		int var2 = var0.offset;
+		byte[] var3 = Clock.method2797(var1);
+		var0.writeSmartByteShort(var3.length);
+		var0.offset += class264.huffman.compress(var3, 0, var3.length, var0.array, var0.offset);
+		return var0.offset - var2;
 	}
 }

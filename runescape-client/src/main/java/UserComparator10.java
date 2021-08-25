@@ -1,19 +1,18 @@
-import java.awt.FontMetrics;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cs")
+@ObfuscatedName("df")
 @Implements("UserComparator10")
 public class UserComparator10 extends AbstractUserComparator {
-	@ObfuscatedName("aq")
-	@Export("loginScreenFontMetrics")
-	static FontMetrics loginScreenFontMetrics;
-	@ObfuscatedName("ak")
-	@Export("null_string")
-	protected static String null_string;
-	@ObfuscatedName("s")
+	@ObfuscatedName("rh")
+	@ObfuscatedSignature(
+		descriptor = "Lab;"
+	)
+	@Export("pcmPlayer0")
+	static PcmPlayer pcmPlayer0;
+	@ObfuscatedName("n")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -21,10 +20,10 @@ public class UserComparator10 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Llr;Llr;I)I",
-		garbageValue = "-2024062782"
+		descriptor = "(Lmm;Lmm;B)I",
+		garbageValue = "-50"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -39,13 +38,16 @@ public class UserComparator10 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lbq;I)V",
-		garbageValue = "519737207"
+		descriptor = "(Lkk;Lkk;ZLlu;B)V",
+		garbageValue = "64"
 	)
-	@Export("runScriptEvent")
-	public static void runScriptEvent(ScriptEvent var0) {
-		class78.runScript(var0, 500000, 475000);
+	public static void method2444(AbstractArchive var0, AbstractArchive var1, boolean var2, Font var3) {
+		class262.ItemDefinition_archive = var0;
+		class393.ItemDefinition_modelArchive = var1;
+		Huffman.ItemDefinition_inMembersWorld = var2;
+		ItemComposition.ItemDefinition_fileCount = class262.ItemDefinition_archive.getGroupFileCount(10);
+		class300.ItemDefinition_fontPlain11 = var3;
 	}
 }

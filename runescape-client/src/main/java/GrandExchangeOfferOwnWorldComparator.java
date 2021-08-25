@@ -1,35 +1,41 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ah")
+@ObfuscatedName("bw")
 @Implements("GrandExchangeOfferOwnWorldComparator")
 public class GrandExchangeOfferOwnWorldComparator implements Comparator {
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		descriptor = "Lof;"
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = -1422085105
 	)
-	@Export("options_buttons_0Sprite")
-	static IndexedSprite options_buttons_0Sprite;
-	@ObfuscatedName("fk")
+	@Export("musicTrackFileId")
+	public static int musicTrackFileId;
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lkt;"
+		descriptor = "Lkk;"
 	)
-	@Export("fontPlain11")
-	static Font fontPlain11;
-	@ObfuscatedName("s")
+	@Export("Widget_modelsArchive")
+	public static AbstractArchive Widget_modelsArchive;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 414005331
+	)
+	static int field475;
+	@ObfuscatedName("n")
 	@Export("filterWorlds")
 	boolean filterWorlds;
 
 	GrandExchangeOfferOwnWorldComparator() {
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljj;Ljj;I)I",
-		garbageValue = "702454082"
+		descriptor = "(Lko;Lko;I)I",
+		garbageValue = "-1867608440"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -58,61 +64,42 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 		return super.equals(var1);
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(IIIII)I",
-		garbageValue = "1440909835"
+		descriptor = "(I)V",
+		garbageValue = "1707101499"
 	)
-	static final int method890(int var0, int var1, int var2, int var3) {
-		int var4 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var2 * 1024 / var3] >> 1;
-		return ((65536 - var4) * var0 >> 16) + (var4 * var1 >> 16);
+	public static void method1133() {
+		FloorUnderlayDefinition.FloorUnderlayDefinition_cached.clear();
 	}
 
-	@ObfuscatedName("bj")
+	@ObfuscatedName("gq")
 	@ObfuscatedSignature(
-		descriptor = "([BI)[B",
-		garbageValue = "2121777325"
+		descriptor = "(I)V",
+		garbageValue = "1733564900"
 	)
-	@Export("decompressBytes")
-	static final byte[] decompressBytes(byte[] var0) {
-		Buffer var1 = new Buffer(var0);
-		int var2 = var1.readUnsignedByte();
-		int var3 = var1.readInt();
-		if (var3 < 0 || AbstractArchive.field3591 != 0 && var3 > AbstractArchive.field3591) {
-			throw new RuntimeException();
-		} else if (var2 == 0) {
-			byte[] var6 = new byte[var3];
-			var1.readBytes(var6, 0, var3);
-			return var6;
-		} else {
-			int var4 = var1.readInt();
-			if (var4 >= 0 && (AbstractArchive.field3591 == 0 || var4 <= AbstractArchive.field3591)) {
-				byte[] var5 = new byte[var4];
-				if (var2 == 1) {
-					BZip2Decompressor.BZip2Decompressor_decompress(var5, var4, var0, var3, 9);
-				} else {
-					AbstractArchive.gzipDecompressor.decompress(var1, var5);
-				}
-
-				return var5;
-			} else {
-				throw new RuntimeException();
-			}
+	static void method1134() {
+		if (Client.combatTargetPlayerIndex >= 0 && Client.players[Client.combatTargetPlayerIndex] != null) {
+			class114.addPlayerToScene(Client.players[Client.combatTargetPlayerIndex], false);
 		}
+
 	}
 
-	@ObfuscatedName("kx")
+	@ObfuscatedName("hx")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-1148986120"
+		descriptor = "(IB)Z",
+		garbageValue = "10"
 	)
-	@Export("Clan_joinChat")
-	static final void Clan_joinChat(String var0) {
-		if (!var0.equals("")) {
-			PacketBufferNode var1 = VerticalAlignment.getPacketBufferNode(ClientPacket.field2654, Client.packetWriter.isaacCipher);
-			var1.packetBuffer.writeByte(GrandExchangeOfferNameComparator.stringCp1252NullTerminatedByteSize(var0));
-			var1.packetBuffer.writeStringCp1252NullTerminated(var0);
-			Client.packetWriter.addNode(var1);
+	static final boolean method1132(int var0) {
+		if (var0 < 0) {
+			return false;
+		} else {
+			int var1 = Client.menuOpcodes[var0];
+			if (var1 >= 2000) {
+				var1 -= 2000;
+			}
+
+			return var1 == 1007;
 		}
 	}
 }

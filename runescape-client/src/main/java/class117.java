@@ -1,84 +1,70 @@
+import java.awt.Component;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dv")
-public class class117 extends class103 {
-	@ObfuscatedName("hv")
-	@ObfuscatedGetter(
-		intValue = -372121489
+@ObfuscatedName("dy")
+public class class117 extends class116 {
+	@ObfuscatedName("ph")
+	@ObfuscatedSignature(
+		descriptor = "Lmb;"
 	)
-	@Export("cameraYaw")
-	static int cameraYaw;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -249649709
+	static class352 field1388;
+	@ObfuscatedName("te")
+	@ObfuscatedSignature(
+		descriptor = "Lkm;"
 	)
-	int field1401;
+	@Export("grandExchangeEvents")
+	static GrandExchangeEvents grandExchangeEvents;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -952735657
+	)
+	int field1390;
+	@ObfuscatedName("c")
+	boolean field1389;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldn;"
+		descriptor = "Ldc;"
 	)
-	final class106 this$0;
+	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldn;)V"
+		descriptor = "(Ldc;)V"
 	)
-	class117(class106 var1) {
+	class117(class119 var1) {
 		this.this$0 = var1;
-		this.field1401 = -1;
+		this.field1390 = -1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;B)V",
-		garbageValue = "0"
+		descriptor = "(Lot;I)V",
+		garbageValue = "-1413895325"
 	)
-	void vmethod2562(Buffer var1) {
-		this.field1401 = var1.readUnsignedShort();
+	void vmethod2711(Buffer var1) {
+		this.field1390 = var1.readUnsignedShort();
+		this.field1389 = var1.readUnsignedByte() == 1;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ldj;I)V",
-		garbageValue = "1598392944"
+		descriptor = "(Ldi;I)V",
+		garbageValue = "697483856"
 	)
-	void vmethod2567(ClanSettings var1) {
-		var1.method2366(this.field1401);
+	void vmethod2712(ClanSettings var1) {
+		var1.method2590(this.field1390, this.field1389);
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljy;Ljava/lang/String;Ljava/lang/String;I)Lof;",
-		garbageValue = "1355330323"
+		descriptor = "(Ljava/awt/Component;I)V",
+		garbageValue = "1371116054"
 	)
-	@Export("SpriteBuffer_getIndexedSpriteByName")
-	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
-		int var3 = var0.getGroupId(var1);
-		int var4 = var0.getFileId(var3, var2);
-		IndexedSprite var5;
-		if (!class290.method5208(var0, var3, var4)) {
-			var5 = null;
-		} else {
-			IndexedSprite var7 = new IndexedSprite();
-			var7.width = class398.SpriteBuffer_spriteWidth;
-			var7.height = class398.SpriteBuffer_spriteHeight;
-			var7.xOffset = class398.SpriteBuffer_xOffsets[0];
-			var7.yOffset = class398.SpriteBuffer_yOffsets[0];
-			var7.subWidth = ClanChannelMember.SpriteBuffer_spriteWidths[0];
-			var7.subHeight = class374.SpriteBuffer_spriteHeights[0];
-			var7.palette = class118.SpriteBuffer_spritePalette;
-			var7.pixels = class398.SpriteBuffer_pixels[0];
-			class398.SpriteBuffer_xOffsets = null;
-			class398.SpriteBuffer_yOffsets = null;
-			ClanChannelMember.SpriteBuffer_spriteWidths = null;
-			class374.SpriteBuffer_spriteHeights = null;
-			class118.SpriteBuffer_spritePalette = null;
-			class398.SpriteBuffer_pixels = null;
-			var5 = var7;
-		}
-
-		return var5;
+	static void method2501(Component var0) {
+		var0.addMouseListener(MouseHandler.MouseHandler_instance);
+		var0.addMouseMotionListener(MouseHandler.MouseHandler_instance);
+		var0.addFocusListener(MouseHandler.MouseHandler_instance);
 	}
 }

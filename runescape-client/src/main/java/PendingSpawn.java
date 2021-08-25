@@ -1,88 +1,78 @@
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InvalidClassException;
-import java.io.ObjectInputStream;
-import java.io.OptionalDataException;
-import java.io.StreamCorruptedException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.Reflection;
 
-@ObfuscatedName("bs")
+@ObfuscatedName("cb")
 @Implements("PendingSpawn")
 public final class PendingSpawn extends Node {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1928345957
+		intValue = 798136439
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1684112959
+		intValue = 277556061
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 981259417
+		intValue = 510316027
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1975705293
+		intValue = 928364177
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 497729085
+		intValue = 1051559985
 	)
 	@Export("objectId")
 	int objectId;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -423905645
+		intValue = 1704984919
 	)
-	int field1012;
-	@ObfuscatedName("w")
+	int field1088;
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 1021389473
+		intValue = -643946929
 	)
-	int field1009;
-	@ObfuscatedName("f")
+	int field1083;
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1539938369
+		intValue = -1287186215
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1875091383
+		intValue = 1547375193
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("x")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -121105651
+		intValue = 516398745
 	)
-	int field1016;
-	@ObfuscatedName("r")
+	int field1087;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -188021995
+		intValue = 409571987
 	)
 	@Export("delay")
 	int delay;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -338685381
+		intValue = 1484794423
 	)
 	@Export("hitpoints")
 	int hitpoints;
@@ -92,170 +82,74 @@ public final class PendingSpawn extends Node {
 		this.hitpoints = -1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lea;",
-		garbageValue = "-1376516853"
+		descriptor = "(Lkk;Lkk;I)V",
+		garbageValue = "1900075173"
 	)
-	@Export("KitDefinition_get")
-	public static KitDefinition KitDefinition_get(int var0) {
-		KitDefinition var1 = (KitDefinition)KitDefinition.KitDefinition_cached.get((long)var0);
+	public static void method2121(AbstractArchive var0, AbstractArchive var1) {
+		KitDefinition.KitDefinition_archive = var0;
+		GrandExchangeOfferUnitPriceComparator.KitDefinition_modelsArchive = var1;
+		DirectByteArrayCopier.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3);
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(IB)Lfe;",
+		garbageValue = "24"
+	)
+	public static HitSplatDefinition method2120(int var0) {
+		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
-			byte[] var2 = KitDefinition.KitDefinition_archive.takeFile(3, var0);
-			var1 = new KitDefinition();
+			byte[] var2 = HitSplatDefinition.HitSplatDefinition_archive.takeFile(32, var0);
+			var1 = new HitSplatDefinition();
 			if (var2 != null) {
 				var1.decode(new Buffer(var2));
 			}
 
-			KitDefinition.KitDefinition_cached.put(var1, (long)var0);
+			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0);
 			return var1;
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(Lnu;I)V",
-		garbageValue = "1585811889"
+		descriptor = "(CI)Z",
+		garbageValue = "-238397190"
 	)
-	@Export("performReflectionCheck")
-	public static void performReflectionCheck(PacketBuffer var0) {
-		ReflectionCheck var1 = (ReflectionCheck)class41.reflectionChecks.last();
-		if (var1 != null) {
-			int var2 = var0.offset;
-			var0.writeInt(var1.id);
-
-			for (int var3 = 0; var3 < var1.size; ++var3) {
-				if (var1.creationErrors[var3] != 0) {
-					var0.writeByte(var1.creationErrors[var3]);
-				} else {
-					try {
-						int var4 = var1.operations[var3];
-						Field var5;
-						int var6;
-						if (var4 == 0) {
-							var5 = var1.fields[var3];
-							var6 = Reflection.getInt(var5, (Object)null);
-							var0.writeByte(0);
-							var0.writeInt(var6);
-						} else if (var4 == 1) {
-							var5 = var1.fields[var3];
-							Reflection.setInt(var5, (Object)null, var1.intReplaceValues[var3]);
-							var0.writeByte(0);
-						} else if (var4 == 2) {
-							var5 = var1.fields[var3];
-							var6 = var5.getModifiers();
-							var0.writeByte(0);
-							var0.writeInt(var6);
-						}
-
-						Method var25;
-						if (var4 != 3) {
-							if (var4 == 4) {
-								var25 = var1.methods[var3];
-								var6 = var25.getModifiers();
-								var0.writeByte(0);
-								var0.writeInt(var6);
-							}
-						} else {
-							var25 = var1.methods[var3];
-							byte[][] var10 = var1.arguments[var3];
-							Object[] var7 = new Object[var10.length];
-
-							for (int var8 = 0; var8 < var10.length; ++var8) {
-								ObjectInputStream var9 = new ObjectInputStream(new ByteArrayInputStream(var10[var8]));
-								var7[var8] = var9.readObject();
-							}
-
-							Object var11 = Reflection.invoke(var25, (Object)null, var7);
-							if (var11 == null) {
-								var0.writeByte(0);
-							} else if (var11 instanceof Number) {
-								var0.writeByte(1);
-								var0.writeLong(((Number)var11).longValue());
-							} else if (var11 instanceof String) {
-								var0.writeByte(2);
-								var0.writeStringCp1252NullTerminated((String)var11);
-							} else {
-								var0.writeByte(4);
-							}
-						}
-					} catch (ClassNotFoundException var13) {
-						var0.writeByte(-10);
-					} catch (InvalidClassException var14) {
-						var0.writeByte(-11);
-					} catch (StreamCorruptedException var15) {
-						var0.writeByte(-12);
-					} catch (OptionalDataException var16) {
-						var0.writeByte(-13);
-					} catch (IllegalAccessException var17) {
-						var0.writeByte(-14);
-					} catch (IllegalArgumentException var18) {
-						var0.writeByte(-15);
-					} catch (InvocationTargetException var19) {
-						var0.writeByte(-16);
-					} catch (SecurityException var20) {
-						var0.writeByte(-17);
-					} catch (IOException var21) {
-						var0.writeByte(-18);
-					} catch (NullPointerException var22) {
-						var0.writeByte(-19);
-					} catch (Exception var23) {
-						var0.writeByte(-20);
-					} catch (Throwable var24) {
-						var0.writeByte(-21);
-					}
-				}
-			}
-
-			var0.writeCrc(var2);
-			var1.remove();
-		}
+	static boolean method2118(char var0) {
+		return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"ï¿½$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".indexOf(var0) != -1;
 	}
 
-	@ObfuscatedName("id")
+	@ObfuscatedName("it")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIB)V",
-		garbageValue = "115"
+		descriptor = "(I)V",
+		garbageValue = "-984867343"
 	)
-	static final void method1868(int var0, int var1, int var2, int var3, int var4, int var5) {
-		int var6 = var2 - var0;
-		int var7 = var3 - var1;
-		int var8 = var6 >= 0 ? var6 : -var6;
-		int var9 = var7 >= 0 ? var7 : -var7;
-		int var10 = var8;
-		if (var8 < var9) {
-			var10 = var9;
-		}
+	static void method2119() {
+		for (int var0 = 0; var0 < Client.menuOptionsCount; ++var0) {
+			int var2 = Client.menuOpcodes[var0];
+			boolean var1 = var2 == 57 || var2 == 58 || var2 == 1007 || var2 == 25 || var2 == 30;
+			if (var1) {
+				if (var0 < Client.menuOptionsCount - 1) {
+					for (int var3 = var0; var3 < Client.menuOptionsCount - 1; ++var3) {
+						Client.menuActions[var3] = Client.menuActions[var3 + 1];
+						Client.menuTargets[var3] = Client.menuTargets[var3 + 1];
+						Client.menuOpcodes[var3] = Client.menuOpcodes[var3 + 1];
+						Client.menuIdentifiers[var3] = Client.menuIdentifiers[var3 + 1];
+						Client.menuArguments1[var3] = Client.menuArguments1[var3 + 1];
+						Client.menuArguments2[var3] = Client.menuArguments2[var3 + 1];
+						Client.menuShiftClick[var3] = Client.menuShiftClick[var3 + 1];
+					}
+				}
 
-		if (var10 != 0) {
-			int var11 = (var6 << 16) / var10;
-			int var12 = (var7 << 16) / var10;
-			if (var12 <= var11) {
-				var11 = -var11;
-			} else {
-				var12 = -var12;
+				--var0;
+				--Client.menuOptionsCount;
 			}
-
-			int var13 = var5 * var12 >> 17;
-			int var14 = var5 * var12 + 1 >> 17;
-			int var15 = var5 * var11 >> 17;
-			int var16 = var5 * var11 + 1 >> 17;
-			var0 -= Rasterizer2D.Rasterizer2D_xClipStart;
-			var1 -= Rasterizer2D.Rasterizer2D_yClipStart;
-			int var17 = var0 + var13;
-			int var18 = var0 - var14;
-			int var19 = var0 + var6 - var14;
-			int var20 = var0 + var13 + var6;
-			int var21 = var15 + var1;
-			int var22 = var1 - var16;
-			int var23 = var7 + var1 - var16;
-			int var24 = var15 + var7 + var1;
-			Rasterizer3D.method3900(var17, var18, var19);
-			Rasterizer3D.method3903(var21, var22, var23, var17, var18, var19, var4);
-			Rasterizer3D.method3900(var17, var19, var20);
-			Rasterizer3D.method3903(var21, var23, var24, var17, var19, var20, var4);
 		}
+
+		NPC.method2214(VarcInt.menuWidth / 2 + WorldMapRegion.menuX, ApproximateRouteStrategy.menuY);
 	}
 }

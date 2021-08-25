@@ -1,68 +1,45 @@
-import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dy")
-public class class126 extends class119 {
-	@ObfuscatedName("ct")
-	public static char field1449;
-	@ObfuscatedName("dg")
-	@ObfuscatedSignature(
-		descriptor = "Ljs;"
+@ObfuscatedName("da")
+public class class126 extends class116 {
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = 633150417
 	)
-	@Export("archive9")
-	static Archive archive9;
-	@ObfuscatedName("hp")
-	@ObfuscatedSignature(
-		descriptor = "[Lom;"
-	)
-	@Export("mapDotSprites")
-	static SpritePixels[] mapDotSprites;
-	@ObfuscatedName("s")
-	String field1452;
-	@ObfuscatedName("t")
-	byte field1454;
-	@ObfuscatedName("v")
-	byte field1450;
+	int field1442;
+	@ObfuscatedName("c")
+	String field1446;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldi;"
+		descriptor = "Ldc;"
 	)
-	final class120 this$0;
+	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldi;)V"
+		descriptor = "(Ldc;)V"
 	)
-	class126(class120 var1) {
+	class126(class119 var1) {
 		this.this$0 = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;I)V",
-		garbageValue = "1209873443"
+		descriptor = "(Lot;I)V",
+		garbageValue = "-1413895325"
 	)
-	void vmethod2558(Buffer var1) {
-		this.field1452 = var1.readStringCp1252NullTerminatedOrNull();
-		if (this.field1452 != null) {
-			var1.readUnsignedByte();
-			this.field1454 = var1.readByte();
-			this.field1450 = var1.readByte();
-		}
-
+	void vmethod2711(Buffer var1) {
+		this.field1442 = var1.readInt();
+		this.field1446 = var1.readStringCp1252NullTerminated();
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ldt;B)V",
-		garbageValue = "-7"
+		descriptor = "(Ldi;I)V",
+		garbageValue = "697483856"
 	)
-	void vmethod2555(ClanChannel var1) {
-		var1.name = this.field1452;
-		if (this.field1452 != null) {
-			var1.field1430 = this.field1454;
-			var1.field1436 = this.field1450;
-		}
-
+	void vmethod2712(ClanSettings var1) {
+		var1.method2571(this.field1442, this.field1446);
 	}
 }

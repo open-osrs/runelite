@@ -1,64 +1,62 @@
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bo")
+@ObfuscatedName("bi")
 @Implements("Tiles")
 public final class Tiles {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("Tiles_heights")
 	static int[][][] Tiles_heights;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("Tiles_renderFlags")
 	static byte[][][] Tiles_renderFlags;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1321271985
+		intValue = 1850190327
 	)
 	@Export("Tiles_minPlane")
 	static int Tiles_minPlane;
-	@ObfuscatedName("n")
-	static byte[][][] field915;
-	@ObfuscatedName("w")
-	static byte[][][] field909;
 	@ObfuscatedName("o")
-	static int[][] field904;
-	@ObfuscatedName("r")
-	@Export("Tiles_saturation")
-	static int[] Tiles_saturation;
-	@ObfuscatedName("c")
-	static final int[] field907;
-	@ObfuscatedName("i")
-	static final int[] field908;
-	@ObfuscatedName("m")
-	static final int[] field905;
-	@ObfuscatedName("b")
-	static final int[] field912;
-	@ObfuscatedName("z")
-	static final int[] field903;
-	@ObfuscatedName("d")
-	static final int[] field914;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = -1747716653
-	)
-	static int field913;
+	static byte[][][] field974;
 	@ObfuscatedName("g")
+	static byte[][][] field978;
+	@ObfuscatedName("z")
+	static byte[][][] field977;
+	@ObfuscatedName("y")
+	@Export("Tiles_lightness")
+	static int[] Tiles_lightness;
+	@ObfuscatedName("v")
+	@Export("Tiles_hueMultiplier")
+	static int[] Tiles_hueMultiplier;
+	@ObfuscatedName("j")
+	static final int[] field980;
+	@ObfuscatedName("x")
+	static final int[] field982;
+	@ObfuscatedName("b")
+	static final int[] field972;
+	@ObfuscatedName("t")
+	static final int[] field984;
+	@ObfuscatedName("r")
+	static final int[] field985;
+	@ObfuscatedName("p")
+	static final int[] field973;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -589771949
+		intValue = -416490741
 	)
-	static int field899;
-	@ObfuscatedName("eo")
-	@ObfuscatedSignature(
-		descriptor = "Ljs;"
+	static int field987;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = -2134339611
 	)
-	@Export("archive15")
-	static Archive archive15;
+	static int field988;
 	@ObfuscatedName("ix")
 	@ObfuscatedGetter(
-		intValue = 1644626137
+		intValue = 1521226335
 	)
 	@Export("selectedItemWidget")
 	static int selectedItemWidget;
@@ -67,159 +65,28 @@ public final class Tiles {
 		Tiles_heights = new int[4][105][105];
 		Tiles_renderFlags = new byte[4][104][104];
 		Tiles_minPlane = 99;
-		field907 = new int[]{1, 2, 4, 8};
-		field908 = new int[]{16, 32, 64, 128};
-		field905 = new int[]{1, 0, -1, 0};
-		field912 = new int[]{0, -1, 0, 1};
-		field903 = new int[]{1, -1, -1, 1};
-		field914 = new int[]{-1, -1, 1, 1};
-		field913 = (int)(Math.random() * 17.0D) - 8;
-		field899 = (int)(Math.random() * 33.0D) - 16;
+		field980 = new int[]{1, 2, 4, 8};
+		field982 = new int[]{16, 32, 64, 128};
+		field972 = new int[]{1, 0, -1, 0};
+		field984 = new int[]{0, -1, 0, 1};
+		field985 = new int[]{1, -1, -1, 1};
+		field973 = new int[]{-1, -1, 1, 1};
+		field987 = (int)(Math.random() * 17.0D) - 8;
+		field988 = (int)(Math.random() * 33.0D) - 16;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lja;",
-		garbageValue = "853934177"
+		descriptor = "(I)V",
+		garbageValue = "1608755247"
 	)
-	public static GameBuild[] method1769() {
-		return new GameBuild[]{GameBuild.BUILDLIVE, GameBuild.RC, GameBuild.LIVE, GameBuild.WIP};
-	}
+	static void method2005() {
+		Iterator var0 = Messages.Messages_hashTable.iterator();
 
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(Lnu;I)V",
-		garbageValue = "2117423398"
-	)
-	static final void method1747(PacketBuffer var0) {
-		int var1 = 0;
-		var0.importIndex();
-
-		byte[] var10000;
-		int var2;
-		int var4;
-		int var5;
-		for (var2 = 0; var2 < Players.Players_count; ++var2) {
-			var5 = Players.Players_indices[var2];
-			if ((Players.field1174[var5] & 1) == 0) {
-				if (var1 > 0) {
-					--var1;
-					var10000 = Players.field1174;
-					var10000[var5] = (byte)(var10000[var5] | 2);
-				} else {
-					var4 = var0.readBits(1);
-					if (var4 == 0) {
-						var1 = class249.method4826(var0);
-						var10000 = Players.field1174;
-						var10000[var5] = (byte)(var10000[var5] | 2);
-					} else {
-						Renderable.readPlayerUpdate(var0, var5);
-					}
-				}
-			}
+		while (var0.hasNext()) {
+			Message var1 = (Message)var0.next();
+			var1.clearIsFromIgnored();
 		}
 
-		var0.exportIndex();
-		if (var1 != 0) {
-			throw new RuntimeException();
-		} else {
-			var0.importIndex();
-
-			for (var2 = 0; var2 < Players.Players_count; ++var2) {
-				var5 = Players.Players_indices[var2];
-				if ((Players.field1174[var5] & 1) != 0) {
-					if (var1 > 0) {
-						--var1;
-						var10000 = Players.field1174;
-						var10000[var5] = (byte)(var10000[var5] | 2);
-					} else {
-						var4 = var0.readBits(1);
-						if (var4 == 0) {
-							var1 = class249.method4826(var0);
-							var10000 = Players.field1174;
-							var10000[var5] = (byte)(var10000[var5] | 2);
-						} else {
-							Renderable.readPlayerUpdate(var0, var5);
-						}
-					}
-				}
-			}
-
-			var0.exportIndex();
-			if (var1 != 0) {
-				throw new RuntimeException();
-			} else {
-				var0.importIndex();
-
-				for (var2 = 0; var2 < Players.Players_emptyIdxCount; ++var2) {
-					var5 = Players.Players_emptyIndices[var2];
-					if ((Players.field1174[var5] & 1) != 0) {
-						if (var1 > 0) {
-							--var1;
-							var10000 = Players.field1174;
-							var10000[var5] = (byte)(var10000[var5] | 2);
-						} else {
-							var4 = var0.readBits(1);
-							if (var4 == 0) {
-								var1 = class249.method4826(var0);
-								var10000 = Players.field1174;
-								var10000[var5] = (byte)(var10000[var5] | 2);
-							} else if (class102.updateExternalPlayer(var0, var5)) {
-								var10000 = Players.field1174;
-								var10000[var5] = (byte)(var10000[var5] | 2);
-							}
-						}
-					}
-				}
-
-				var0.exportIndex();
-				if (var1 != 0) {
-					throw new RuntimeException();
-				} else {
-					var0.importIndex();
-
-					for (var2 = 0; var2 < Players.Players_emptyIdxCount; ++var2) {
-						var5 = Players.Players_emptyIndices[var2];
-						if ((Players.field1174[var5] & 1) == 0) {
-							if (var1 > 0) {
-								--var1;
-								var10000 = Players.field1174;
-								var10000[var5] = (byte)(var10000[var5] | 2);
-							} else {
-								var4 = var0.readBits(1);
-								if (var4 == 0) {
-									var1 = class249.method4826(var0);
-									var10000 = Players.field1174;
-									var10000[var5] = (byte)(var10000[var5] | 2);
-								} else if (class102.updateExternalPlayer(var0, var5)) {
-									var10000 = Players.field1174;
-									var10000[var5] = (byte)(var10000[var5] | 2);
-								}
-							}
-						}
-					}
-
-					var0.exportIndex();
-					if (var1 != 0) {
-						throw new RuntimeException();
-					} else {
-						Players.Players_count = 0;
-						Players.Players_emptyIdxCount = 0;
-
-						for (var2 = 1; var2 < 2048; ++var2) {
-							var10000 = Players.field1174;
-							var10000[var2] = (byte)(var10000[var2] >> 1);
-							Player var3 = Client.players[var2];
-							if (var3 != null) {
-								Players.Players_indices[++Players.Players_count - 1] = var2;
-							} else {
-								Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var2;
-							}
-						}
-
-					}
-				}
-			}
-		}
 	}
 }

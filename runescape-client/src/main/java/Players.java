@@ -4,66 +4,64 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cw")
+@ObfuscatedName("cp")
 @Implements("Players")
 public class Players {
-	@ObfuscatedName("qc")
-	static boolean field1182;
-	@ObfuscatedName("v")
-	static byte[] field1174;
-	@ObfuscatedName("j")
-	static byte[] field1170;
-	@ObfuscatedName("l")
+	@ObfuscatedName("m")
+	static byte[] field1244;
+	@ObfuscatedName("k")
+	static byte[] field1245;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "[Lnv;"
+		descriptor = "[Lot;"
 	)
-	static Buffer[] field1167;
-	@ObfuscatedName("n")
+	static Buffer[] field1246;
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1053067897
+		intValue = -398895759
 	)
 	@Export("Players_count")
 	static int Players_count;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("Players_indices")
 	static int[] Players_indices;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 298853217
+		intValue = -491206921
 	)
 	@Export("Players_emptyIdxCount")
 	static int Players_emptyIdxCount;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@Export("Players_emptyIndices")
 	static int[] Players_emptyIndices;
-	@ObfuscatedName("x")
+	@ObfuscatedName("e")
 	@Export("Players_regions")
 	static int[] Players_regions;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@Export("Players_orientations")
 	static int[] Players_orientations;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@Export("Players_targetIndices")
 	static int[] Players_targetIndices;
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -408351623
+		intValue = 91202637
 	)
 	@Export("Players_pendingUpdateCount")
 	static int Players_pendingUpdateCount;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@Export("Players_pendingUpdateIndices")
 	static int[] Players_pendingUpdateIndices;
-	@ObfuscatedName("a")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lnv;"
+		descriptor = "Lot;"
 	)
-	static Buffer field1181;
+	static Buffer field1255;
 
 	static {
-		field1174 = new byte[2048];
-		field1170 = new byte[2048];
-		field1167 = new Buffer[2048];
+		field1244 = new byte[2048];
+		field1245 = new byte[2048];
+		field1246 = new Buffer[2048];
 		Players_count = 0;
 		Players_indices = new int[2048];
 		Players_emptyIdxCount = 0;
@@ -73,30 +71,47 @@ public class Players {
 		Players_targetIndices = new int[2048];
 		Players_pendingUpdateCount = 0;
 		Players_pendingUpdateIndices = new int[2048];
-		field1181 = new Buffer(new byte[5000]);
-	}
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(Ljy;IIIZI)V",
-		garbageValue = "-1034711419"
-	)
-	public static void method2022(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
-		class234.musicPlayerStatus = 1;
-		class234.musicTrackArchive = var0;
-		class234.musicTrackGroupId = var1;
-		UserComparator6.musicTrackFileId = var2;
-		HorizontalAlignment.musicTrackVolume = var3;
-		EnumComposition.musicTrackBoolean = var4;
-		ClanChannel.pcmSampleLength = 10000;
+		field1255 = new Buffer(new byte[5000]);
 	}
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-701145156"
+		descriptor = "(II)Ljava/lang/String;",
+		garbageValue = "-1886800204"
 	)
-	public static boolean method2021(int var0) {
-		return (var0 >> 20 & 1) != 0;
+	static final String method2260(int var0) {
+		if (var0 < 100000) {
+			return "<col=ffff00>" + var0 + "</col>";
+		} else {
+			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>";
+		}
+	}
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "-286848897"
+	)
+	@Export("isCharPrintable")
+	public static boolean isCharPrintable(char var0) {
+		if (var0 >= ' ' && var0 <= '~') {
+			return true;
+		} else if (var0 >= 160 && var0 <= 255) {
+			return true;
+		} else {
+			return var0 == 8364 || var0 == 338 || var0 == 8212 || var0 == 339 || var0 == 376;
+		}
+	}
+
+	@ObfuscatedName("ko")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1654335904"
+	)
+	@Export("Clan_leaveChat")
+	static final void Clan_leaveChat() {
+		PacketBufferNode var0 = FriendSystem.getPacketBufferNode(ClientPacket.field2727, Client.packetWriter.isaacCipher);
+		var0.packetBuffer.writeByte(0);
+		Client.packetWriter.addNode(var0);
 	}
 }

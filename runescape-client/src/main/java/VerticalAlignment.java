@@ -4,35 +4,35 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ey")
+@ObfuscatedName("fc")
 @Implements("VerticalAlignment")
-public enum VerticalAlignment implements Enumerated {
-	@ObfuscatedName("s")
+public enum VerticalAlignment implements MouseWheel {
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ley;"
+		descriptor = "Lfc;"
 	)
-	field1652(1, 0),
-	@ObfuscatedName("t")
+	field1746(2, 0),
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Ley;"
+		descriptor = "Lfc;"
 	)
 	@Export("VerticalAlignment_centered")
 	VerticalAlignment_centered(0, 1),
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Ley;"
+		descriptor = "Lfc;"
 	)
-	field1654(2, 2);
+	field1741(1, 2);
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 218657569
+		intValue = 680576733
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -149934733
+		intValue = -504909775
 	)
 	@Export("id")
 	final int id;
@@ -42,41 +42,40 @@ public enum VerticalAlignment implements Enumerated {
 		this.id = var4;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1806959663"
+		garbageValue = "-1665712539"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("id")
 	@ObfuscatedSignature(
-		descriptor = "(Lhx;Log;I)Lhg;",
-		garbageValue = "1190419968"
+		descriptor = "([Ljd;Ljd;ZB)V",
+		garbageValue = "121"
 	)
-	@Export("getPacketBufferNode")
-	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {
-		PacketBufferNode var2 = CollisionMap.method3205();
-		var2.clientPacket = var0;
-		var2.clientPacketLength = var0.length;
-		if (var2.clientPacketLength == -1) {
-			var2.packetBuffer = new PacketBuffer(260);
-		} else if (var2.clientPacketLength == -2) {
-			var2.packetBuffer = new PacketBuffer(10000);
-		} else if (var2.clientPacketLength <= 18) {
-			var2.packetBuffer = new PacketBuffer(20);
-		} else if (var2.clientPacketLength <= 98) {
-			var2.packetBuffer = new PacketBuffer(100);
-		} else {
-			var2.packetBuffer = new PacketBuffer(260);
+	@Export("revalidateWidgetScroll")
+	static void revalidateWidgetScroll(Widget[] var0, Widget var1, boolean var2) {
+		int var3 = var1.scrollWidth != 0 ? var1.scrollWidth * 1186027877 * 1882337389 : var1.width * 2073696861 * -159544843;
+		int var4 = var1.scrollHeight != 0 ? var1.scrollHeight * -129679387 * -351476243 : var1.height * -1187557111 * -555381447;
+		Coord.resizeInterface(var0, var1.id, var3, var4, var2);
+		if (var1.children != null) {
+			Coord.resizeInterface(var1.children, var1.id, var3, var4, var2);
 		}
 
-		var2.packetBuffer.setIsaacCipher(var1);
-		var2.packetBuffer.writeByteIsaac(var2.clientPacket.id);
-		var2.index = 0;
-		return var2;
+		InterfaceParent var5 = (InterfaceParent)Client.interfaceParents.get((long)var1.id);
+		if (var5 != null) {
+			int var6 = var5.group;
+			if (class317.loadInterface(var6)) {
+				Coord.resizeInterface(class139.Widget_interfaceComponents[var6], -1, var3, var4, var2);
+			}
+		}
+
+		if (var1.contentType == 1337) {
+		}
+
 	}
 }

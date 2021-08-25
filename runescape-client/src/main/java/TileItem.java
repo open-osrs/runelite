@@ -4,30 +4,21 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cf")
+@ObfuscatedName("cy")
 @Implements("TileItem")
 public final class TileItem extends Renderable {
-	@ObfuscatedName("qt")
-	@ObfuscatedSignature(
-		descriptor = "Lm;"
-	)
-	@Export("pcmStreamMixer")
-	static PcmStreamMixer pcmStreamMixer;
-	@ObfuscatedName("to")
+	@ObfuscatedName("a")
+	@Export("ByteArrayPool_altSizeArrayCounts")
+	public static int[] ByteArrayPool_altSizeArrayCounts;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 847821177
-	)
-	@Export("foundItemIndex")
-	static int foundItemIndex;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = 2137823175
+		intValue = 632536851
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1588847929
+		intValue = -417320715
 	)
 	@Export("quantity")
 	int quantity;
@@ -35,39 +26,13 @@ public final class TileItem extends Renderable {
 	TileItem() {
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lgl;",
-		garbageValue = "1291603774"
+		descriptor = "(B)Lhg;",
+		garbageValue = "18"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		return KeyHandler.ItemDefinition_get(this.id).getModel(this.quantity);
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(IIIS)I",
-		garbageValue = "-1509"
-	)
-	static int method2007(int var0, int var1, int var2) {
-		if (var2 > 179) {
-			var1 /= 2;
-		}
-
-		if (var2 > 192) {
-			var1 /= 2;
-		}
-
-		if (var2 > 217) {
-			var1 /= 2;
-		}
-
-		if (var2 > 243) {
-			var1 /= 2;
-		}
-
-		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2;
-		return var3;
+		return class65.ItemDefinition_get(this.id).getModel(this.quantity);
 	}
 }

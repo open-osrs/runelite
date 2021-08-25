@@ -1,33 +1,15 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cg")
+@ObfuscatedName("dn")
 @Implements("UserComparator6")
 public class UserComparator6 extends AbstractUserComparator {
-	@ObfuscatedName("rv")
-	@ObfuscatedGetter(
-		intValue = 149785585
-	)
-	static int field1265;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = 353948357
-	)
-	@Export("clientType")
-	public static int clientType;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = 404387991
-	)
-	@Export("musicTrackFileId")
-	public static int musicTrackFileId;
-	@ObfuscatedName("gn")
+	@ObfuscatedName("hd")
 	@Export("regionLandArchiveIds")
 	static int[] regionLandArchiveIds;
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -35,10 +17,10 @@ public class UserComparator6 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Llr;Llr;I)I",
-		garbageValue = "941348089"
+		descriptor = "(Lmm;Lmm;I)I",
+		garbageValue = "-1100404002"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -51,29 +33,5 @@ public class UserComparator6 extends AbstractUserComparator {
 
 	public int compare(Object var1, Object var2) {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
-	}
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lej;",
-		garbageValue = "624161398"
-	)
-	@Export("getNpcDefinition")
-	public static NPCComposition getNpcDefinition(int var0) {
-		NPCComposition var1 = (NPCComposition)NPCComposition.NpcDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = NPCComposition.NpcDefinition_archive.takeFile(9, var0);
-			var1 = new NPCComposition();
-			var1.id = var0;
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			NPCComposition.NpcDefinition_cached.put(var1, (long)var0);
-			return var1;
-		}
 	}
 }

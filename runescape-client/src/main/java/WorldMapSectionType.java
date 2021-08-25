@@ -1,45 +1,55 @@
-import java.awt.Component;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fs")
+@ObfuscatedName("gu")
 @Implements("WorldMapSectionType")
-public enum WorldMapSectionType implements Enumerated {
-	@ObfuscatedName("s")
+public enum WorldMapSectionType implements MouseWheel {
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lfs;"
+		descriptor = "Lgu;"
 	)
 	@Export("WORLDMAPSECTIONTYPE0")
-	WORLDMAPSECTIONTYPE0(1, (byte)0),
-	@ObfuscatedName("t")
+	WORLDMAPSECTIONTYPE0(3, (byte)0),
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lfs;"
+		descriptor = "Lgu;"
 	)
 	@Export("WORLDMAPSECTIONTYPE1")
-	WORLDMAPSECTIONTYPE1(3, (byte)1),
-	@ObfuscatedName("v")
+	WORLDMAPSECTIONTYPE1(0, (byte)1),
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lfs;"
+		descriptor = "Lgu;"
 	)
 	@Export("WORLDMAPSECTIONTYPE2")
-	WORLDMAPSECTIONTYPE2(2, (byte)2),
-	@ObfuscatedName("j")
+	WORLDMAPSECTIONTYPE2(1, (byte)2),
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lfs;"
+		descriptor = "Lgu;"
 	)
 	@Export("WORLDMAPSECTIONTYPE3")
-	WORLDMAPSECTIONTYPE3(0, (byte)3);
+	WORLDMAPSECTIONTYPE3(2, (byte)3);
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("rl")
+	@ObfuscatedSignature(
+		descriptor = "Leb;"
+	)
+	@Export("guestClanChannel")
+	static ClanChannel guestClanChannel;
+	@ObfuscatedName("ar")
+	@ObfuscatedSignature(
+		descriptor = "Lmt;"
+	)
+	static Bounds field2125;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1831029213
+		intValue = 944556803
 	)
 	@Export("type")
 	final int type;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@Export("id")
 	final byte id;
 
@@ -48,73 +58,78 @@ public enum WorldMapSectionType implements Enumerated {
 		this.id = var4;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1806959663"
+		garbageValue = "-1665712539"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/awt/Component;I)V",
-		garbageValue = "-1710409785"
-	)
-	static void method3607(Component var0) {
-		var0.removeMouseListener(MouseHandler.MouseHandler_instance);
-		var0.removeMouseMotionListener(MouseHandler.MouseHandler_instance);
-		var0.removeFocusListener(MouseHandler.MouseHandler_instance);
-		MouseHandler.MouseHandler_currentButtonVolatile = 0;
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(Lnv;I)Ljava/lang/String;",
-		garbageValue = "-458958166"
-	)
-	public static String method3608(Buffer var0) {
-		String var1;
-		try {
-			int var2 = var0.readUShortSmart();
-			if (var2 > 32767) {
-				var2 = 32767;
-			}
-
-			byte[] var3 = new byte[var2];
-			var0.offset += class251.huffman.decompress(var0.array, var0.offset, var3, 0, var2);
-			String var4 = ModeWhere.decodeStringCp1252(var3, 0, var2);
-			var1 = var4;
-		} catch (Exception var6) {
-			var1 = "Cabbage";
-		}
-
-		return var1;
-	}
-
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(B)[Lfs;",
-		garbageValue = "-12"
+		descriptor = "(B)[Lgu;",
+		garbageValue = "0"
 	)
-	static WorldMapSectionType[] method3600() {
-		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE1};
+	static WorldMapSectionType[] method3770() {
+		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE3};
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
-		descriptor = "(Lio;IIIB)V",
-		garbageValue = "59"
+		descriptor = "(ILbg;ZI)I",
+		garbageValue = "1892784316"
 	)
-	@Export("Widget_setKeyRate")
-	static final void Widget_setKeyRate(Widget var0, int var1, int var2, int var3) {
-		if (var0.field2993 == null) {
-			throw new RuntimeException();
+	static int method3769(int var0, Script var1, boolean var2) {
+		if (var0 != 7000 && var0 != 7005 && var0 != 7010 && var0 != 7015 && var0 != 7020 && var0 != 7025 && var0 != 7030 && var0 != 7035) {
+			if (var0 != 7001 && var0 != 7002 && var0 != 7011 && var0 != 7012 && var0 != 7021 && var0 != 7022) {
+				if (var0 != 7003 && var0 != 7013 && var0 != 7023) {
+					if (var0 != 7006 && var0 != 7007 && var0 != 7016 && var0 != 7017 && var0 != 7026 && var0 != 7027) {
+						if (var0 != 7008 && var0 != 7018 && var0 != 7028) {
+							if (var0 != 7031 && var0 != 7032) {
+								if (var0 == 7033) {
+									--Interpreter.Interpreter_stringStackSize;
+									return 1;
+								} else if (var0 != 7036 && var0 != 7037) {
+									if (var0 == 7038) {
+										--class240.Interpreter_intStackSize;
+										return 1;
+									} else if (var0 != 7004 && var0 != 7009 && var0 != 7014 && var0 != 7019 && var0 != 7024 && var0 != 7029 && var0 != 7034 && var0 != 7039) {
+										return 2;
+									} else {
+										--class240.Interpreter_intStackSize;
+										return 1;
+									}
+								} else {
+									class240.Interpreter_intStackSize -= 2;
+									return 1;
+								}
+							} else {
+								--Interpreter.Interpreter_stringStackSize;
+								--class240.Interpreter_intStackSize;
+								return 1;
+							}
+						} else {
+							--class240.Interpreter_intStackSize;
+							return 1;
+						}
+					} else {
+						class240.Interpreter_intStackSize -= 2;
+						return 1;
+					}
+				} else {
+					class240.Interpreter_intStackSize -= 2;
+					return 1;
+				}
+			} else {
+				class240.Interpreter_intStackSize -= 3;
+				return 1;
+			}
 		} else {
-			var0.field2993[var1] = var2;
-			var0.field3035[var1] = var3;
+			class240.Interpreter_intStackSize -= 5;
+			return 1;
 		}
 	}
 }

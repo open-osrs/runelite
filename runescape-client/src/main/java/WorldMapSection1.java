@@ -4,42 +4,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gu")
+@ObfuscatedName("gr")
 @Implements("WorldMapSection1")
 public class WorldMapSection1 implements WorldMapSection {
-	@ObfuscatedName("s")
+	@ObfuscatedName("bv")
+	@ObfuscatedSignature(
+		descriptor = "[Loi;"
+	)
+	@Export("worldSelectFlagSprites")
+	static IndexedSprite[] worldSelectFlagSprites;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -2065646499
+		intValue = 656001719
 	)
 	@Export("minPlane")
 	int minPlane;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 441565143
+		intValue = -525945557
 	)
 	@Export("planes")
 	int planes;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 567637101
+		intValue = 2035585677
 	)
 	@Export("regionStartX")
 	int regionStartX;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1449496779
+		intValue = -1305061549
 	)
 	@Export("regionStartY")
 	int regionStartY;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1810027609
+		intValue = -1689577501
 	)
 	@Export("regionEndX")
 	int regionEndX;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1535884331
+		intValue = 1713119819
 	)
 	@Export("regionEndY")
 	int regionEndY;
@@ -47,10 +53,10 @@ public class WorldMapSection1 implements WorldMapSection {
 	WorldMapSection1() {
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lfa;I)V",
-		garbageValue = "206142404"
+		descriptor = "(Lfr;I)V",
+		garbageValue = "1411488256"
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
@@ -72,10 +78,10 @@ public class WorldMapSection1 implements WorldMapSection {
 
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIIB)Z",
-		garbageValue = "1"
+		descriptor = "(IIII)Z",
+		garbageValue = "899981978"
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
@@ -86,20 +92,20 @@ public class WorldMapSection1 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(III)Z",
-		garbageValue = "2136306285"
+		garbageValue = "-1579388425"
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
 		return var1 >> 6 == this.regionEndX && var2 >> 6 == this.regionEndY;
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "(IIII)[I",
-		garbageValue = "634207470"
+		garbageValue = "-1605422008"
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
@@ -111,10 +117,10 @@ public class WorldMapSection1 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)Lij;",
-		garbageValue = "43"
+		descriptor = "(III)Liy;",
+		garbageValue = "1389329989"
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
@@ -127,10 +133,10 @@ public class WorldMapSection1 implements WorldMapSection {
 		}
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;I)V",
-		garbageValue = "342058266"
+		descriptor = "(Lot;I)V",
+		garbageValue = "-2069607106"
 	)
 	@Export("read")
 	public void read(Buffer var1) {
@@ -143,59 +149,21 @@ public class WorldMapSection1 implements WorldMapSection {
 		this.postRead();
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "201853491"
+		garbageValue = "-100803461"
 	)
 	@Export("postRead")
 	void postRead() {
 	}
 
-	@ObfuscatedName("lu")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;ZI)V",
-		garbageValue = "-1245791653"
+		descriptor = "(IIB)I",
+		garbageValue = "33"
 	)
-	@Export("findItemDefinitions")
-	static void findItemDefinitions(String var0, boolean var1) {
-		var0 = var0.toLowerCase();
-		short[] var2 = new short[16];
-		int var3 = 0;
-
-		for (int var4 = 0; var4 < FloorUnderlayDefinition.ItemDefinition_fileCount; ++var4) {
-			ItemComposition var9 = KeyHandler.ItemDefinition_get(var4);
-			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) {
-				if (var3 >= 250) {
-					BoundaryObject.foundItemIdCount = -1;
-					NPC.foundItemIds = null;
-					return;
-				}
-
-				if (var3 >= var2.length) {
-					short[] var6 = new short[var2.length * 2];
-
-					for (int var7 = 0; var7 < var3; ++var7) {
-						var6[var7] = var2[var7];
-					}
-
-					var2 = var6;
-				}
-
-				var2[var3++] = (short)var4;
-			}
-		}
-
-		NPC.foundItemIds = var2;
-		TileItem.foundItemIndex = 0;
-		BoundaryObject.foundItemIdCount = var3;
-		String[] var8 = new String[BoundaryObject.foundItemIdCount];
-
-		for (int var5 = 0; var5 < BoundaryObject.foundItemIdCount; ++var5) {
-			var8[var5] = KeyHandler.ItemDefinition_get(var2[var5]).name;
-		}
-
-		short[] var10 = NPC.foundItemIds;
-		Language.sortItemsByName(var8, var10, 0, var8.length - 1);
+	public static int method3843(int var0, int var1) {
+		return (var0 << 8) + var1;
 	}
 }
