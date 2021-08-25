@@ -4,36 +4,21 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("df")
+@ObfuscatedName("dr")
 @Implements("ClanChannelMember")
 public class ClanChannelMember {
 	@ObfuscatedName("n")
-	@Export("SpriteBuffer_spriteWidths")
-	static int[] SpriteBuffer_spriteWidths;
-	@ObfuscatedName("dy")
-	@ObfuscatedSignature(
-		descriptor = "Ljs;"
-	)
-	@Export("archive10")
-	static Archive archive10;
-	@ObfuscatedName("lq")
-	@ObfuscatedSignature(
-		descriptor = "Lbk;"
-	)
-	@Export("tempMenuAction")
-	static MenuAction tempMenuAction;
-	@ObfuscatedName("s")
 	@Export("rank")
 	public byte rank;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1633534337
+		intValue = -588092421
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Loh;"
+		descriptor = "Lpp;"
 	)
 	@Export("username")
 	public Username username;

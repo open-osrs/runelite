@@ -3,26 +3,32 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("iy")
+@ObfuscatedName("ii")
 @Implements("SpriteMask")
 public class SpriteMask extends DualNode {
-	@ObfuscatedName("s")
+	@ObfuscatedName("cq")
 	@ObfuscatedGetter(
-		intValue = -1651182107
+		intValue = -1841156599
+	)
+	public static int field2994;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -1956871857
 	)
 	@Export("width")
 	public final int width;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 2104957101
+		intValue = 881293847
 	)
 	@Export("height")
 	public final int height;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("xWidths")
 	public final int[] xWidths;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("xStarts")
 	public final int[] xStarts;
 
@@ -33,10 +39,10 @@ public class SpriteMask extends DualNode {
 		this.xStarts = var4;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(III)Z",
-		garbageValue = "1977979545"
+		garbageValue = "2131041476"
 	)
 	@Export("contains")
 	public boolean contains(int var1, int var2) {
@@ -50,30 +56,61 @@ public class SpriteMask extends DualNode {
 		return false;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;Ljava/lang/String;I)I",
-		garbageValue = "672319355"
+		descriptor = "(Ljava/lang/CharSequence;I)I",
+		garbageValue = "830903438"
 	)
-	public static int method4690(Buffer var0, String var1) {
-		int var2 = var0.offset;
-		byte[] var3 = class104.method2265(var1);
-		var0.writeSmartByteShort(var3.length);
-		var0.offset += class251.huffman.compress(var3, 0, var3.length, var0.array, var0.offset);
-		return var0.offset - var2;
+	public static int method4855(CharSequence var0) {
+		int var1 = var0.length();
+		int var2 = 0;
+
+		for (int var3 = 0; var3 < var1; ++var3) {
+			char var4 = var0.charAt(var3);
+			if (var4 <= 127) {
+				++var2;
+			} else if (var4 <= 2047) {
+				var2 += 2;
+			} else {
+				var2 += 3;
+			}
+		}
+
+		return var2;
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-1881481613"
+		descriptor = "(ILbg;ZI)I",
+		garbageValue = "-1156554268"
 	)
-	static int method4691(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
-		if (var1 == null) {
-			return -1;
+	static int method4856(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? PacketWriter.scriptDotWidget : class9.scriptActiveWidget;
+		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) {
+			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = class138.Widget_unpackTargetMask(Decimator.getWidgetFlags(var3));
+			return 1;
+		} else if (var0 != ScriptOpcodes.CC_GETOP) {
+			if (var0 == ScriptOpcodes.CC_GETOPBASE) {
+				if (var3.dataText == null) {
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
+				} else {
+					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.dataText;
+				}
+
+				return 1;
+			} else {
+				return 2;
+			}
 		} else {
-			return var1.nextDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.nextDual).count;
+			int var4 = Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize];
+			--var4;
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) {
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.actions[var4];
+			} else {
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
+			}
+
+			return 1;
 		}
 	}
 }

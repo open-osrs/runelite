@@ -4,68 +4,68 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bq")
+@ObfuscatedName("cl")
 @Implements("ScriptEvent")
 public class ScriptEvent extends Node {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("args")
 	Object[] args;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lio;"
+		descriptor = "Ljd;"
 	)
 	@Export("widget")
 	Widget widget;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -721069241
+		intValue = -1052798577
 	)
 	@Export("mouseX")
 	int mouseX;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1085248063
+		intValue = -1252343399
 	)
 	@Export("mouseY")
 	int mouseY;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 119023005
+		intValue = 384034427
 	)
 	@Export("opIndex")
 	int opIndex;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lio;"
+		descriptor = "Ljd;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1436810095
+		intValue = -250292993
 	)
 	@Export("keyTyped")
 	int keyTyped;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 1067398595
+		intValue = 708606643
 	)
 	@Export("keyPressed")
 	int keyPressed;
-	@ObfuscatedName("x")
+	@ObfuscatedName("e")
 	@Export("targetName")
 	String targetName;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 372026329
+		intValue = 858415665
 	)
-	int field961;
-	@ObfuscatedName("p")
+	int field1035;
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1624043465
+		intValue = -895151869
 	)
 	@Export("type")
 	int type;
@@ -74,79 +74,74 @@ public class ScriptEvent extends Node {
 		this.type = 76;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/Object;B)V",
-		garbageValue = "-28"
+		descriptor = "([Ljava/lang/Object;I)V",
+		garbageValue = "-1935974464"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
 		this.args = var1;
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(IB)V",
-		garbageValue = "-38"
+		garbageValue = "-68"
 	)
 	@Export("setType")
 	public void setType(int var1) {
 		this.type = var1;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/String;[IIII)V",
-		garbageValue = "1503065357"
+		descriptor = "(II)Lfq;",
+		garbageValue = "-763198319"
 	)
-	static void method1809(String[] var0, int[] var1, int var2, int var3) {
-		if (var2 < var3) {
-			int var4 = (var3 + var2) / 2;
-			int var5 = var2;
-			String var6 = var0[var4];
-			var0[var4] = var0[var3];
-			var0[var3] = var6;
-			int var7 = var1[var4];
-			var1[var4] = var1[var3];
-			var1[var3] = var7;
-
-			for (int var8 = var2; var8 < var3; ++var8) {
-				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) {
-					String var9 = var0[var8];
-					var0[var8] = var0[var5];
-					var0[var5] = var9;
-					int var10 = var1[var8];
-					var1[var8] = var1[var5];
-					var1[var5++] = var10;
-				}
+	@Export("getNpcDefinition")
+	public static NPCComposition getNpcDefinition(int var0) {
+		NPCComposition var1 = (NPCComposition)NPCComposition.NpcDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = NPCComposition.NpcDefinition_archive.takeFile(9, var0);
+			var1 = new NPCComposition();
+			var1.id = var0;
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
 			}
 
-			var0[var3] = var0[var5];
-			var0[var5] = var6;
-			var1[var3] = var1[var5];
-			var1[var5] = var7;
-			method1809(var0, var1, var2, var5 - 1);
-			method1809(var0, var1, var5 + 1, var3);
+			var1.postDecode();
+			NPCComposition.NpcDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
-
 	}
 
-	@ObfuscatedName("fz")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "467893323"
+		descriptor = "(Lkk;I)V",
+		garbageValue = "1025358410"
 	)
-	static int method1807() {
-		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
-			int var0 = 0;
+	public static void method2056(AbstractArchive var0) {
+		EnumComposition.EnumDefinition_archive = var0;
+	}
 
-			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) {
-				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount;
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Ljd;II)V",
+		garbageValue = "851372469"
+	)
+	@Export("Widget_setKeyIgnoreHeld")
+	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
+		if (var0.field3100 == null) {
+			throw new RuntimeException();
+		} else {
+			if (var0.field3188 == null) {
+				var0.field3188 = new int[var0.field3100.length];
 			}
 
-			return var0 * 10000 / Client.field682;
-		} else {
-			return 10000;
+			var0.field3188[var1] = Integer.MAX_VALUE;
 		}
 	}
 }

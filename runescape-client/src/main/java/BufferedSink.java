@@ -1,50 +1,45 @@
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("le")
+@ObfuscatedName("mj")
 @Implements("BufferedSink")
 public class BufferedSink implements Runnable {
-	@ObfuscatedName("y")
-	@Export("BZip2Decompressor_block")
-	static int[] BZip2Decompressor_block;
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 815941805
+		intValue = -382364831
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 606679557
+		intValue = -1612352925
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 217020143
+		intValue = 842191613
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("exception")
 	IOException exception;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@Export("closed")
 	boolean closed;
 
@@ -59,10 +54,10 @@ public class BufferedSink implements Runnable {
 		this.thread.start();
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1408116923"
+		garbageValue = "1810125841"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -84,10 +79,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)V",
-		garbageValue = "0"
+		descriptor = "([BIII)V",
+		garbageValue = "315466326"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
@@ -124,10 +119,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-811100713"
+		descriptor = "(B)V",
+		garbageValue = "25"
 	)
 	@Export("close")
 	void close() {
@@ -203,46 +198,35 @@ public class BufferedSink implements Runnable {
 
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/Throwable;I)V",
-		garbageValue = "1118692057"
+		descriptor = "(III)I",
+		garbageValue = "148906173"
 	)
-	@Export("RunException_sendStackTrace")
-	public static void RunException_sendStackTrace(String var0, Throwable var1) {
-		if (var1 != null) {
-			var1.printStackTrace();
-		} else {
-			try {
-				String var2 = "";
-				if (var1 != null) {
-					var2 = class398.method7217(var1);
-				}
-
-				if (var0 != null) {
-					if (var1 != null) {
-						var2 = var2 + " | ";
-					}
-
-					var2 = var2 + var0;
-				}
-
-				System.out.println("Error: " + var2);
-				var2 = var2.replace(':', '.');
-				var2 = var2.replace('@', '_');
-				var2 = var2.replace('&', '_');
-				var2 = var2.replace('#', '_');
-				if (RunException.RunException_applet == null) {
-					return;
-				}
-
-				URL var3 = new URL(RunException.RunException_applet.getCodeBase(), "clienterror.ws?c=" + RunException.RunException_revision + "&u=" + RunException.localPlayerName + "&v1=" + TaskHandler.javaVendor + "&v2=" + TaskHandler.javaVersion + "&ct=" + UserComparator6.clientType + "&e=" + var2);
-				DataInputStream var4 = new DataInputStream(var3.openStream());
-				var4.read();
-				var4.close();
-			} catch (Exception var5) {
-			}
-
+	public static int method6167(int var0, int var1) {
+		int var2;
+		if (var1 > var0) {
+			var2 = var0;
+			var0 = var1;
+			var1 = var2;
 		}
+
+		while (var1 != 0) {
+			var2 = var0 % var1;
+			var0 = var1;
+			var1 = var2;
+		}
+
+		return var0;
+	}
+
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)I",
+		garbageValue = "-2019684203"
+	)
+	@Export("stringCp1252NullTerminatedByteSize")
+	public static int stringCp1252NullTerminatedByteSize(String var0) {
+		return var0.length() + 1;
 	}
 }

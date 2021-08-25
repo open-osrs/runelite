@@ -4,12 +4,12 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dd")
+@ObfuscatedName("ej")
 @Implements("NanoClock")
 public class NanoClock extends Clock {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		longValue = 9166610774773850729L
+		longValue = -5383324702252343885L
 	)
 	@Export("lastTimeNano")
 	long lastTimeNano;
@@ -18,34 +18,34 @@ public class NanoClock extends Clock {
 		this.lastTimeNano = System.nanoTime();
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-296506208"
+		garbageValue = "2146592699"
 	)
 	@Export("mark")
 	public void mark() {
 		this.lastTimeNano = System.nanoTime();
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "2079435375"
+		garbageValue = "-1080855684"
 	)
 	@Export("wait")
 	public int wait(int var1, int var2) {
-		long var3 = (long)var2 * 1000000L;
+		long var3 = 1000000L * (long)var2;
 		long var5 = this.lastTimeNano - System.nanoTime();
 		if (var5 < var3) {
 			var5 = var3;
 		}
 
-		SceneTilePaint.method4322(var5 / 1000000L);
+		PlayerType.method5099(var5 / 1000000L);
 		long var7 = System.nanoTime();
 
 		int var9;
-		for (var9 = 0; var9 < 10 && (var9 < 1 || this.lastTimeNano < var7); this.lastTimeNano += (long)var1 * 1000000L) {
+		for (var9 = 0; var9 < 10 && (var9 < 1 || this.lastTimeNano < var7); this.lastTimeNano += 1000000L * (long)var1) {
 			++var9;
 		}
 

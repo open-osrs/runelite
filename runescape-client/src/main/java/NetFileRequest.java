@@ -4,30 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jm")
+@ObfuscatedName("kl")
 @Implements("NetFileRequest")
 public class NetFileRequest extends DualNode {
-	@ObfuscatedName("gl")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "[Lof;"
-	)
-	@Export("mapSceneSprites")
-	static IndexedSprite[] mapSceneSprites;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Ljs;"
+		descriptor = "Lkx;"
 	)
 	@Export("archive")
-	public Archive archive;
-	@ObfuscatedName("t")
+	Archive archive;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1308436771
+		intValue = 2088693695
 	)
 	@Export("crc")
-	public int crc;
-	@ObfuscatedName("v")
+	int crc;
+	@ObfuscatedName("m")
 	@Export("padding")
-	public byte padding;
+	byte padding;
 
 	NetFileRequest() {
 	}

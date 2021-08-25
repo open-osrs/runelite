@@ -3,21 +3,25 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fj")
+@ObfuscatedName("fd")
 @Implements("WorldMapData_0")
 public class WorldMapData_0 extends AbstractWorldMapData {
+	@ObfuscatedName("hp")
+	@Export("regionLandArchives")
+	static byte[][] regionLandArchives;
+
 	WorldMapData_0() {
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;I)V",
-		garbageValue = "-1866643170"
+		descriptor = "(Lot;B)V",
+		garbageValue = "-98"
 	)
 	@Export("init")
 	void init(Buffer var1) {
 		int var2 = var1.readUnsignedByte();
-		if (var2 != WorldMapID.field2095.value) {
+		if (var2 != WorldMapID.field2175.value) {
 			throw new IllegalStateException("");
 		} else {
 			super.minPlane = var1.readUnsignedByte();
@@ -26,26 +30,26 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 			super.regionYLow = var1.readUnsignedShort();
 			super.regionX = var1.readUnsignedShort();
 			super.regionY = var1.readUnsignedShort();
-			super.groupId = var1.method6674();
-			super.fileId = var1.method6674();
+			super.groupId = var1.method6985();
+			super.fileId = var1.method6985();
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;I)V",
-		garbageValue = "-1489554607"
+		descriptor = "(Lot;B)V",
+		garbageValue = "2"
 	)
 	@Export("readGeography")
 	void readGeography(Buffer var1) {
 		super.planes = Math.min(super.planes, 4);
 		super.floorUnderlayIds = new short[1][64][64];
 		super.floorOverlayIds = new short[super.planes][64][64];
-		super.field2056 = new byte[super.planes][64][64];
-		super.field2057 = new byte[super.planes][64][64];
+		super.field2143 = new byte[super.planes][64][64];
+		super.field2144 = new byte[super.planes][64][64];
 		super.decorations = new WorldMapDecoration[super.planes][64][64][];
 		int var2 = var1.readUnsignedByte();
-		if (var2 != class181.field2090.value) {
+		if (var2 != class194.field2173.value) {
 			throw new IllegalStateException("");
 		} else {
 			int var3 = var1.readUnsignedByte();
@@ -63,60 +67,67 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 		}
 	}
 
+	public int hashCode() {
+		return super.regionX | super.regionY << 8;
+	}
+
 	public boolean equals(Object var1) {
 		if (!(var1 instanceof WorldMapData_0)) {
 			return false;
 		} else {
 			WorldMapData_0 var2 = (WorldMapData_0)var1;
-			return var2.regionX == super.regionX && super.regionY == var2.regionY;
+			return super.regionX == var2.regionX && super.regionY == var2.regionY;
 		}
 	}
 
-	public int hashCode() {
-		return super.regionX | super.regionY << 8;
-	}
-
-	@ObfuscatedName("ag")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(ILbd;ZB)I",
-		garbageValue = "100"
+		descriptor = "(IB)I",
+		garbageValue = "3"
 	)
-	static int method3227(int var0, Script var1, boolean var2) {
-		if (var0 >= 7200 && var0 < 7204) {
-			Interpreter.Interpreter_intStackSize -= 5;
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 == 7204) {
-			Interpreter.Interpreter_intStackSize -= 6;
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 >= 7205 && var0 < 7209) {
-			Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 == 7209) {
-			Interpreter.Interpreter_intStackSize -= 2;
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 >= 7210 && var0 < 7214) {
-			--Interpreter.Interpreter_intStackSize;
-			return 1;
-		} else if (var0 == 7214) {
-			Interpreter.Interpreter_intStackSize -= 2;
-			return 1;
-		} else {
-			return 2;
+	@Export("iLog")
+	public static int iLog(int var0) {
+		int var1 = 0;
+		if (var0 < 0 || var0 >= 65536) {
+			var0 >>>= 16;
+			var1 += 16;
 		}
+
+		if (var0 >= 256) {
+			var0 >>>= 8;
+			var1 += 8;
+		}
+
+		if (var0 >= 16) {
+			var0 >>>= 4;
+			var1 += 4;
+		}
+
+		if (var0 >= 4) {
+			var0 >>>= 2;
+			var1 += 2;
+		}
+
+		if (var0 >= 1) {
+			var0 >>>= 1;
+			++var1;
+		}
+
+		return var0 + var1;
 	}
 
-	@ObfuscatedName("jm")
+	@ObfuscatedName("kf")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "-68"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "80464683"
 	)
-	@Export("runIntfCloseListeners")
-	static final void runIntfCloseListeners(int var0, int var1) {
-		if (Huffman.loadInterface(var0)) {
-			HealthBar.runComponentCloseListeners(Widget.Widget_interfaceComponents[var0], var1);
+	@Export("clanKickUser")
+	static final void clanKickUser(String var0) {
+		if (class78.friendsChat != null) {
+			PacketBufferNode var1 = FriendSystem.getPacketBufferNode(ClientPacket.field2714, Client.packetWriter.isaacCipher);
+			var1.packetBuffer.writeByte(BufferedSink.stringCp1252NullTerminatedByteSize(var0));
+			var1.packetBuffer.writeStringCp1252NullTerminated(var0);
+			Client.packetWriter.addNode(var1);
 		}
 	}
 }

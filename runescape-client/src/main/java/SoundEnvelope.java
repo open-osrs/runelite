@@ -3,40 +3,40 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("g")
+@ObfuscatedName("au")
 @Implements("SoundEnvelope")
 public class SoundEnvelope {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("segments")
 	int segments;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("durations")
 	int[] durations;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("phases")
 	int[] phases;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("start")
 	int start;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@Export("end")
 	int end;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@Export("form")
 	int form;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("ticks")
 	int ticks;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@Export("phaseIndex")
 	int phaseIndex;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@Export("step")
 	int step;
-	@ObfuscatedName("r")
+	@ObfuscatedName("e")
 	@Export("amplitude")
 	int amplitude;
-	@ObfuscatedName("p")
+	@ObfuscatedName("l")
 	@Export("max")
 	int max;
 
@@ -50,9 +50,9 @@ public class SoundEnvelope {
 		this.phases[1] = 65535;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;)V"
+		descriptor = "(Lot;)V"
 	)
 	@Export("decode")
 	final void decode(Buffer var1) {
@@ -62,9 +62,9 @@ public class SoundEnvelope {
 		this.decodeSegments(var1);
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;)V"
+		descriptor = "(Lot;)V"
 	)
 	@Export("decodeSegments")
 	final void decodeSegments(Buffer var1) {
@@ -79,7 +79,7 @@ public class SoundEnvelope {
 
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("reset")
 	final void reset() {
 		this.ticks = 0;
@@ -89,7 +89,7 @@ public class SoundEnvelope {
 		this.max = 0;
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("doStep")
 	final int doStep(int var1) {
 		if (this.max >= this.ticks) {

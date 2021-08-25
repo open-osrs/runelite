@@ -2,26 +2,43 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ii")
+@ObfuscatedName("if")
 public class class245 {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
+	static int[] field2885;
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "2002807406"
+		descriptor = "Lkk;"
 	)
-	public static int method4716(int var0, int var1) {
-		return (int)Math.round(Math.atan2((double)var0, (double)var1) * 2607.5945876176133D) & 16383;
+	@Export("HitSplatDefinition_fontsArchive")
+	static AbstractArchive HitSplatDefinition_fontsArchive;
+
+	static {
+		new Object();
+		field2885 = new int[33];
+		field2885[0] = 0;
+		int var0 = 2;
+
+		for (int var1 = 1; var1 < 33; ++var1) {
+			field2885[var1] = var0 - 1;
+			var0 += var0;
+		}
+
 	}
 
-	@ObfuscatedName("ji")
+	@ObfuscatedName("fl")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIII)V",
-		garbageValue = "535012743"
+		descriptor = "(I)V",
+		garbageValue = "-1083617881"
 	)
-	@Export("updateRootInterface")
-	static final void updateRootInterface(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		if (Huffman.loadInterface(var0)) {
-			class270.updateInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6);
+	static final void method4590() {
+		if (Client.logoutTimer > 0) {
+			class16.logOut();
+		} else {
+			Client.timer.method5822();
+			HealthBarUpdate.updateGameState(40);
+			NetCache.field3738 = Client.packetWriter.getSocket();
+			Client.packetWriter.removeSocket();
 		}
 	}
 }

@@ -1,26 +1,26 @@
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ly")
+@ObfuscatedName("lc")
 @Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
-	@ObfuscatedName("n")
-	@Export("Interpreter_intLocals")
-	static int[] Interpreter_intLocals;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("nextComparator")
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/Comparator;B)V",
-		garbageValue = "118"
+		descriptor = "(Ljava/util/Comparator;I)V",
+		garbageValue = "-1701811503"
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
@@ -32,10 +32,10 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(Llm;Llm;I)I",
-		garbageValue = "1954626737"
+		descriptor = "(Lle;Lle;S)I",
+		garbageValue = "161"
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
@@ -46,17 +46,41 @@ public abstract class AbstractUserComparator implements Comparator {
 		return super.equals(var1);
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
-		garbageValue = "427246269"
+		descriptor = "(B)V",
+		garbageValue = "115"
 	)
-	public static String method5813(CharSequence var0) {
-		String var1 = Varcs.base37DecodeLong(class287.method5201(var0));
-		if (var1 == null) {
-			var1 = "";
+	public static void method5977() {
+		try {
+			File var0 = new File(ItemContainer.userHomeDirectory, "random.dat");
+			int var2;
+			if (var0.exists()) {
+				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0);
+			} else {
+				label38:
+				for (int var1 = 0; var1 < ChatChannel.cacheSubPaths.length; ++var1) {
+					for (var2 = 0; var2 < Varcs.cacheParentPaths.length; ++var2) {
+						File var3 = new File(Varcs.cacheParentPaths[var2] + ChatChannel.cacheSubPaths[var1] + File.separatorChar + "random.dat");
+						if (var3.exists()) {
+							JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var3, "rw", 25L), 24, 0);
+							break label38;
+						}
+					}
+				}
+			}
+
+			if (JagexCache.JagexCache_randomDat == null) {
+				RandomAccessFile var4 = new RandomAccessFile(var0, "rw");
+				var2 = var4.read();
+				var4.seek(0L);
+				var4.write(var2);
+				var4.seek(0L);
+				var4.close();
+				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0);
+			}
+		} catch (IOException var5) {
 		}
 
-		return var1;
 	}
 }

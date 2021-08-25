@@ -1,25 +1,16 @@
+import java.io.IOException;
+import java.net.Socket;
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("co")
+@ObfuscatedName("ct")
 @Implements("UserComparator4")
 public class UserComparator4 implements Comparator {
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lof;"
-	)
-	@Export("logoSprite")
-	static IndexedSprite logoSprite;
-	@ObfuscatedName("gd")
-	@ObfuscatedSignature(
-		descriptor = "[Lom;"
-	)
-	@Export("headIconPkSprites")
-	static SpritePixels[] headIconPkSprites;
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -27,10 +18,10 @@ public class UserComparator4 implements Comparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Llr;Llr;I)I",
-		garbageValue = "1546969977"
+		descriptor = "(Lmm;Lmm;I)I",
+		garbageValue = "-672050093"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(Buddy var1, Buddy var2) {
@@ -45,150 +36,85 @@ public class UserComparator4 implements Comparator {
 		return super.equals(var1);
 	}
 
-	@ObfuscatedName("fh")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Ljs;Ljava/lang/String;I)V",
-		garbageValue = "1444277374"
+		descriptor = "(II)V",
+		garbageValue = "1687929303"
 	)
-	static void method2143(Archive var0, String var1) {
-		ArchiveLoader var2 = new ArchiveLoader(var0, var1);
-		Client.archiveLoaders.add(var2);
-		Client.field682 += var2.groupCount;
-	}
-
-	@ObfuscatedName("gw")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1734558786"
-	)
-	static void method2149() {
-		if (Client.renderSelf) {
-			ApproximateRouteStrategy.addPlayerToScene(MouseHandler.localPlayer, false);
-		}
-
-	}
-
-	@ObfuscatedName("gm")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "70378358"
-	)
-	static final int method2150() {
-		if (Decimator.clientPreferences.roofsHidden) {
-			return GrandExchangeEvent.Client_plane;
-		} else {
-			int var0 = 3;
-			if (class116.cameraPitch < 310) {
-				int var1;
-				int var2;
-				if (Client.oculusOrbState == 1) {
-					var1 = KeyHandler.oculusOrbFocalPointX >> 7;
-					var2 = ArchiveDiskAction.oculusOrbFocalPointY >> 7;
-				} else {
-					var1 = MouseHandler.localPlayer.x >> 7;
-					var2 = MouseHandler.localPlayer.y >> 7;
-				}
-
-				int var3 = ItemContainer.cameraX >> 7;
-				int var4 = WorldMapArchiveLoader.cameraZ >> 7;
-				if (var3 < 0 || var4 < 0 || var3 >= 104 || var4 >= 104) {
-					return GrandExchangeEvent.Client_plane;
-				}
-
-				if (var1 < 0 || var2 < 0 || var1 >= 104 || var2 >= 104) {
-					return GrandExchangeEvent.Client_plane;
-				}
-
-				if ((Tiles.Tiles_renderFlags[GrandExchangeEvent.Client_plane][var3][var4] & 4) != 0) {
-					var0 = GrandExchangeEvent.Client_plane;
-				}
-
-				int var5;
-				if (var1 > var3) {
-					var5 = var1 - var3;
-				} else {
-					var5 = var3 - var1;
-				}
-
-				int var6;
-				if (var2 > var4) {
-					var6 = var2 - var4;
-				} else {
-					var6 = var4 - var2;
-				}
-
-				int var7;
-				int var8;
-				if (var5 > var6) {
-					var7 = var6 * 65536 / var5;
-					var8 = 32768;
-
-					while (var3 != var1) {
-						if (var3 < var1) {
-							++var3;
-						} else if (var3 > var1) {
-							--var3;
-						}
-
-						if ((Tiles.Tiles_renderFlags[GrandExchangeEvent.Client_plane][var3][var4] & 4) != 0) {
-							var0 = GrandExchangeEvent.Client_plane;
-						}
-
-						var8 += var7;
-						if (var8 >= 65536) {
-							var8 -= 65536;
-							if (var4 < var2) {
-								++var4;
-							} else if (var4 > var2) {
-								--var4;
-							}
-
-							if ((Tiles.Tiles_renderFlags[GrandExchangeEvent.Client_plane][var3][var4] & 4) != 0) {
-								var0 = GrandExchangeEvent.Client_plane;
-							}
-						}
-					}
-				} else if (var6 > 0) {
-					var7 = var5 * 65536 / var6;
-					var8 = 32768;
-
-					while (var4 != var2) {
-						if (var4 < var2) {
-							++var4;
-						} else if (var4 > var2) {
-							--var4;
-						}
-
-						if ((Tiles.Tiles_renderFlags[GrandExchangeEvent.Client_plane][var3][var4] & 4) != 0) {
-							var0 = GrandExchangeEvent.Client_plane;
-						}
-
-						var8 += var7;
-						if (var8 >= 65536) {
-							var8 -= 65536;
-							if (var3 < var1) {
-								++var3;
-							} else if (var3 > var1) {
-								--var3;
-							}
-
-							if ((Tiles.Tiles_renderFlags[GrandExchangeEvent.Client_plane][var3][var4] & 4) != 0) {
-								var0 = GrandExchangeEvent.Client_plane;
-							}
-						}
-					}
-				}
+	@Export("clearItemContainer")
+	static void clearItemContainer(int var0) {
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var1 != null) {
+			for (int var2 = 0; var2 < var1.ids.length; ++var2) {
+				var1.ids[var2] = -1;
+				var1.quantities[var2] = 0;
 			}
 
-			if (MouseHandler.localPlayer.x >= 0 && MouseHandler.localPlayer.y >= 0 && MouseHandler.localPlayer.x < 13312 && MouseHandler.localPlayer.y < 13312) {
-				if ((Tiles.Tiles_renderFlags[GrandExchangeEvent.Client_plane][MouseHandler.localPlayer.x >> 7][MouseHandler.localPlayer.y >> 7] & 4) != 0) {
-					var0 = GrandExchangeEvent.Client_plane;
-				}
+		}
+	}
 
-				return var0;
+	@ObfuscatedName("d")
+	@ObfuscatedSignature(
+		descriptor = "(ILbg;ZI)I",
+		garbageValue = "1655549224"
+	)
+	static int method2388(int var0, Script var1, boolean var2) {
+		Widget var7;
+		if (var0 != ScriptOpcodes.CC_CALLONRESIZE && var0 != ScriptOpcodes.IF_CALLONRESIZE) {
+			int var4;
+			if (var0 == ScriptOpcodes.CC_TRIGGEROP) {
+				var7 = var2 ? PacketWriter.scriptDotWidget : class9.scriptActiveWidget;
+				var4 = Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize];
+				if (var4 >= 1 && var4 <= 10) {
+					class92 var8 = new class92(var4, var7.id, var7.childIndex, var7.itemId);
+					Interpreter.field818.add(var8);
+					return 1;
+				} else {
+					throw new RuntimeException();
+				}
+			} else if (var0 == ScriptOpcodes.IF_TRIGGEROP) {
+				class240.Interpreter_intStackSize -= 3;
+				int var3 = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize];
+				var4 = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 1];
+				int var5 = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 2];
+				if (var5 >= 1 && var5 <= 10) {
+					class92 var6 = new class92(var5, var3, var4, class87.getWidget(var3).itemId);
+					Interpreter.field818.add(var6);
+					return 1;
+				} else {
+					throw new RuntimeException();
+				}
 			} else {
-				return GrandExchangeEvent.Client_plane;
+				return 2;
+			}
+		} else if (Interpreter.field813 >= 10) {
+			throw new RuntimeException();
+		} else {
+			if (var0 >= 2000) {
+				var7 = class87.getWidget(Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize]);
+			} else {
+				var7 = var2 ? PacketWriter.scriptDotWidget : class9.scriptActiveWidget;
+			}
+
+			if (var7.onResize == null) {
+				return 0;
+			} else {
+				ScriptEvent var9 = new ScriptEvent();
+				var9.widget = var7;
+				var9.args = var7.onResize;
+				var9.field1035 = Interpreter.field813 + 1;
+				Client.scriptEvents.addFirst(var9);
+				return 1;
 			}
 		}
+	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/net/Socket;III)Lmv;",
+		garbageValue = "-1484666434"
+	)
+	public static AbstractSocket method2379(Socket var0, int var1, int var2) throws IOException {
+		return new BufferedNetSocket(var0, var1, var2);
 	}
 }

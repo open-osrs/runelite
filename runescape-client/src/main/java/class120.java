@@ -3,110 +3,98 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("di")
-public class class120 {
-	@ObfuscatedName("ch")
-	@ObfuscatedGetter(
-		intValue = 1039431283
-	)
-	public static int field1417;
-	@ObfuscatedName("du")
+@ObfuscatedName("dm")
+public class class120 extends class116 {
+	@ObfuscatedName("el")
 	@ObfuscatedSignature(
-		descriptor = "Ljs;"
+		descriptor = "Lkx;"
 	)
-	@Export("archive0")
-	static Archive archive0;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		longValue = -5578461861884698391L
-	)
-	long field1418;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		longValue = 8528346205656473465L
-	)
-	long field1412;
-	@ObfuscatedName("v")
+	@Export("archive18")
+	static Archive archive18;
+	@ObfuscatedName("ea")
 	@ObfuscatedSignature(
-		descriptor = "Lkk;"
+		descriptor = "Lkx;"
 	)
-	IterableNodeDeque field1410;
+	@Export("archive17")
+	static Archive archive17;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = 571132071
+	)
+	int field1409;
+	@ObfuscatedName("c")
+	byte field1408;
+	// $FF: synthetic field
+	@ObfuscatedSignature(
+		descriptor = "Ldc;"
+	)
+	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;)V"
+		descriptor = "(Ldc;)V"
 	)
-	public class120(Buffer var1) {
-		this.field1412 = -1L;
-		this.field1410 = new IterableNodeDeque();
-		this.method2483(var1);
+	class120(class119 var1) {
+		this.this$0 = var1;
+		this.field1409 = -1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;B)V",
-		garbageValue = "1"
+		descriptor = "(Lot;I)V",
+		garbageValue = "-1413895325"
 	)
-	void method2483(Buffer var1) {
-		this.field1418 = var1.readLong();
-		this.field1412 = var1.readLong();
+	void vmethod2711(Buffer var1) {
+		this.field1409 = var1.readUnsignedShort();
+		this.field1408 = var1.readByte();
+	}
 
-		for (int var2 = var1.readUnsignedByte(); var2 != 0; var2 = var1.readUnsignedByte()) {
-			Object var3;
-			if (var2 == 1) {
-				var3 = new class115(this);
-			} else if (var2 == 4) {
-				var3 = new class126(this);
-			} else if (var2 == 3) {
-				var3 = new class111(this);
-			} else if (var2 == 2) {
-				var3 = new class109(this);
-			} else {
-				if (var2 != 5) {
-					throw new RuntimeException("");
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Ldi;I)V",
+		garbageValue = "697483856"
+	)
+	void vmethod2712(ClanSettings var1) {
+		var1.method2581(this.field1409, this.field1408);
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(II)I",
+		garbageValue = "-1710039893"
+	)
+	public static int method2512(int var0) {
+		return class245.field2885[var0];
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(IB)V",
+		garbageValue = "4"
+	)
+	public static void method2516(int var0) {
+		if (var0 != -1) {
+			if (Widget.Widget_loadedInterfaces[var0]) {
+				Widget.Widget_archive.clearFilesGroup(var0);
+				if (class139.Widget_interfaceComponents[var0] != null) {
+					boolean var1 = true;
+
+					for (int var2 = 0; var2 < class139.Widget_interfaceComponents[var0].length; ++var2) {
+						if (class139.Widget_interfaceComponents[var0][var2] != null) {
+							if (class139.Widget_interfaceComponents[var0][var2].type != 2) {
+								class139.Widget_interfaceComponents[var0][var2] = null;
+							} else {
+								var1 = false;
+							}
+						}
+					}
+
+					if (var1) {
+						class139.Widget_interfaceComponents[var0] = null;
+					}
+
+					Widget.Widget_loadedInterfaces[var0] = false;
 				}
-
-				var3 = new class116(this);
 			}
-
-			((class119)var3).vmethod2558(var1);
-			this.field1410.addFirst((Node)var3);
 		}
-
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(Ldt;I)V",
-		garbageValue = "1046798651"
-	)
-	public void method2475(ClanChannel var1) {
-		if (var1.key == this.field1418 && var1.field1433 == this.field1412) {
-			for (class119 var2 = (class119)this.field1410.last(); var2 != null; var2 = (class119)this.field1410.previous()) {
-				var2.vmethod2555(var1);
-			}
-
-			++var1.field1433;
-		} else {
-			throw new RuntimeException("");
-		}
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;B)V",
-		garbageValue = "2"
-	)
-	@Export("addGameMessage")
-	static void addGameMessage(int var0, String var1, String var2) {
-		TaskHandler.addChatMessage(var0, var1, var2, (String)null);
-	}
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1217280037"
-	)
-	public static boolean method2484(int var0) {
-		return var0 >= 0 && var0 < 112 ? KeyHandler.field38[var0] : false;
 	}
 }

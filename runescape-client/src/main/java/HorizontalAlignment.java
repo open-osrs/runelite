@@ -4,49 +4,35 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eh")
+@ObfuscatedName("fs")
 @Implements("HorizontalAlignment")
-public enum HorizontalAlignment implements Enumerated {
-	@ObfuscatedName("s")
+public enum HorizontalAlignment implements MouseWheel {
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Leh;"
+		descriptor = "Lfs;"
 	)
-	field1612(2, 0),
-	@ObfuscatedName("t")
+	field1697(0, 0),
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Leh;"
+		descriptor = "Lfs;"
 	)
 	@Export("HorizontalAlignment_centered")
-	HorizontalAlignment_centered(0, 1),
-	@ObfuscatedName("v")
+	HorizontalAlignment_centered(1, 1),
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Leh;"
+		descriptor = "Lfs;"
 	)
-	field1608(1, 2);
+	field1699(2, 2);
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 408090273
-	)
-	@Export("musicTrackVolume")
-	public static int musicTrackVolume;
-	@ObfuscatedName("bt")
-	@Export("otp")
-	static String otp;
-	@ObfuscatedName("dm")
-	@ObfuscatedGetter(
-		longValue = 2624473618268498173L
-	)
-	static long field1609;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = -1196948591
+		intValue = 514684703
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -491897209
+		intValue = 1489596043
 	)
 	@Export("id")
 	final int id;
@@ -56,22 +42,63 @@ public enum HorizontalAlignment implements Enumerated {
 		this.id = var4;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1806959663"
+		garbageValue = "-1665712539"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "1899123482"
+		descriptor = "(I)[Lfc;",
+		garbageValue = "164653806"
 	)
-	public static boolean method2816(int var0) {
-		return (var0 >> 28 & 1) != 0;
+	static VerticalAlignment[] method2943() {
+		return new VerticalAlignment[]{VerticalAlignment.VerticalAlignment_centered, VerticalAlignment.field1741, VerticalAlignment.field1746};
+	}
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1870889270"
+	)
+	public static void method2949() {
+		class54.reflectionChecks = new IterableNodeDeque();
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(II)Lfz;",
+		garbageValue = "2060571057"
+	)
+	@Export("StructDefinition_getStructDefinition")
+	public static StructComposition StructDefinition_getStructDefinition(int var0) {
+		StructComposition var1 = (StructComposition)StructComposition.StructDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = StructComposition.StructDefinition_archive.takeFile(34, var0);
+			var1 = new StructComposition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
+			}
+
+			var1.postDecode();
+			StructComposition.StructDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
+	}
+
+	@ObfuscatedName("gw")
+	@ObfuscatedSignature(
+		descriptor = "(Lcf;II)V",
+		garbageValue = "-1815882612"
+	)
+	static final void method2947(Actor var0, int var1) {
+		Login.worldToScreen(var0.x, var0.y, var1);
 	}
 }

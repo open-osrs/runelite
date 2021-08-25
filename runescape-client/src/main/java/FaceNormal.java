@@ -4,29 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gf")
+@ObfuscatedName("hi")
 @Implements("FaceNormal")
 public class FaceNormal {
-	@ObfuscatedName("br")
-	@ObfuscatedSignature(
-		descriptor = "Lja;"
-	)
-	static GameBuild field2349;
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1621904451
+		intValue = -401677395
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1108401493
+		intValue = 1245481
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -78767847
+		intValue = 1613056851
 	)
 	@Export("z")
 	int z;
@@ -34,39 +29,23 @@ public class FaceNormal {
 	FaceNormal() {
 	}
 
-	@ObfuscatedName("iw")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "([Lio;IIIZI)V",
-		garbageValue = "-1098219782"
+		descriptor = "(IS)Z",
+		garbageValue = "13608"
 	)
-	@Export("resizeInterface")
-	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
-		for (int var5 = 0; var5 < var0.length; ++var5) {
-			Widget var6 = var0[var5];
-			if (var6 != null && var6.parentId == var1) {
-				GrandExchangeOfferUnitPriceComparator.alignWidgetSize(var6, var2, var3, var4);
-				SoundCache.alignWidgetPosition(var6, var2, var3);
-				if (var6.scrollX > var6.scrollWidth - var6.width) {
-					var6.scrollX = var6.scrollWidth - var6.width;
-				}
+	@Export("isWorldMapEvent")
+	public static boolean isWorldMapEvent(int var0) {
+		return var0 == 10 || var0 == 11 || var0 == 12 || var0 == 13 || var0 == 14 || var0 == 15 || var0 == 16 || var0 == 17;
+	}
 
-				if (var6.scrollX < 0) {
-					var6.scrollX = 0;
-				}
-
-				if (var6.scrollY > var6.scrollHeight - var6.height) {
-					var6.scrollY = var6.scrollHeight - var6.height;
-				}
-
-				if (var6.scrollY < 0) {
-					var6.scrollY = 0;
-				}
-
-				if (var6.type == 0) {
-					AttackOption.revalidateWidgetScroll(var0, var6, var4);
-				}
-			}
-		}
-
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "-1523765132"
+	)
+	@Export("isDigit")
+	public static boolean isDigit(char var0) {
+		return var0 >= '0' && var0 <= '9';
 	}
 }

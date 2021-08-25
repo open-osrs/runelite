@@ -3,36 +3,42 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("an")
+@ObfuscatedName("ao")
 @Implements("SoundCache")
 public class SoundCache {
-	@ObfuscatedName("s")
+	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
-		descriptor = "Ljy;"
+		descriptor = "Lnf;"
+	)
+	@Export("loginType")
+	static LoginType loginType;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lkk;"
 	)
 	@Export("soundEffectIndex")
 	AbstractArchive soundEffectIndex;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Ljy;"
+		descriptor = "Lkk;"
 	)
 	@Export("musicSampleIndex")
 	AbstractArchive musicSampleIndex;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lmi;"
+		descriptor = "Lnk;"
 	)
 	@Export("musicSamples")
 	NodeHashTable musicSamples;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lmi;"
+		descriptor = "Lnk;"
 	)
 	@Export("rawSounds")
 	NodeHashTable rawSounds;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljy;Ljy;)V"
+		descriptor = "(Lkk;Lkk;)V"
 	)
 	public SoundCache(AbstractArchive var1, AbstractArchive var2) {
 		this.musicSamples = new NodeHashTable(256);
@@ -41,10 +47,10 @@ public class SoundCache {
 		this.musicSampleIndex = var2;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(II[II)Lz;",
-		garbageValue = "137643816"
+		descriptor = "(II[II)Lak;",
+		garbageValue = "704676393"
 	)
 	@Export("getSoundEffect0")
 	RawSound getSoundEffect0(int var1, int var2, int[] var3) {
@@ -72,10 +78,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(II[II)Lz;",
-		garbageValue = "220994032"
+		descriptor = "(II[II)Lak;",
+		garbageValue = "835426895"
 	)
 	@Export("getMusicSample0")
 	RawSound getMusicSample0(int var1, int var2, int[] var3) {
@@ -109,10 +115,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I[IS)Lz;",
-		garbageValue = "13775"
+		descriptor = "(I[II)Lak;",
+		garbageValue = "1745934175"
 	)
 	@Export("getSoundEffect")
 	public RawSound getSoundEffect(int var1, int[] var2) {
@@ -125,10 +131,10 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(I[II)Lz;",
-		garbageValue = "1621022899"
+		descriptor = "(I[IB)Lak;",
+		garbageValue = "-39"
 	)
 	@Export("getMusicSample")
 	public RawSound getMusicSample(int var1, int[] var2) {
@@ -141,49 +147,12 @@ public class SoundCache {
 		}
 	}
 
-	@ObfuscatedName("ic")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Lbk;III)V",
-		garbageValue = "-7347311"
+		descriptor = "(B)[Lcm;",
+		garbageValue = "60"
 	)
-	static final void method542(MenuAction var0, int var1, int var2) {
-		class121.menuAction(var0.param0, var0.param1, var0.opcode, var0.identifier, var0.action, var0.action, var1, var2);
-	}
-
-	@ObfuscatedName("je")
-	@ObfuscatedSignature(
-		descriptor = "(Lio;IIB)V",
-		garbageValue = "23"
-	)
-	@Export("alignWidgetPosition")
-	static void alignWidgetPosition(Widget var0, int var1, int var2) {
-		if (var0.xAlignment == 0) {
-			var0.x = var0.rawX;
-		} else if (var0.xAlignment == 1) {
-			var0.x = var0.rawX + (var1 - var0.width) / 2;
-		} else if (var0.xAlignment == 2) {
-			var0.x = var1 - var0.width - var0.rawX;
-		} else if (var0.xAlignment == 3) {
-			var0.x = var0.rawX * var1 >> 14;
-		} else if (var0.xAlignment == 4) {
-			var0.x = (var1 - var0.width) / 2 + (var0.rawX * var1 >> 14);
-		} else {
-			var0.x = var1 - var0.width - (var0.rawX * var1 >> 14);
-		}
-
-		if (var0.yAlignment == 0) {
-			var0.y = var0.rawY;
-		} else if (var0.yAlignment == 1) {
-			var0.y = (var2 - var0.height) / 2 + var0.rawY;
-		} else if (var0.yAlignment == 2) {
-			var0.y = var2 - var0.height - var0.rawY;
-		} else if (var0.yAlignment == 3) {
-			var0.y = var2 * var0.rawY >> 14;
-		} else if (var0.yAlignment == 4) {
-			var0.y = (var2 - var0.height) / 2 + (var2 * var0.rawY >> 14);
-		} else {
-			var0.y = var2 - var0.height - (var2 * var0.rawY >> 14);
-		}
-
+	static AttackOption[] method789() {
+		return new AttackOption[]{AttackOption.field1236, AttackOption.AttackOption_hidden, AttackOption.AttackOption_dependsOnCombatLevels, AttackOption.AttackOption_alwaysRightClick, AttackOption.field1238};
 	}
 }

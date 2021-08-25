@@ -3,16 +3,13 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fn")
+@ObfuscatedName("ga")
 @Implements("WorldMapSprite")
 public final class WorldMapSprite {
-	@ObfuscatedName("jj")
-	@ObfuscatedSignature(
-		descriptor = "Lgm;"
-	)
-	@Export("textureProvider")
-	static TextureProvider textureProvider;
-	@ObfuscatedName("t")
+	@ObfuscatedName("l")
+	@Export("Tiles_saturation")
+	static int[] Tiles_saturation;
+	@ObfuscatedName("c")
 	@Export("tileColors")
 	final int[] tileColors;
 
@@ -24,22 +21,13 @@ public final class WorldMapSprite {
 		this.tileColors = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "679149457"
+		garbageValue = "1715930440"
 	)
 	@Export("getTileColor")
 	final int getTileColor(int var1, int var2) {
 		return this.tileColors[var2 * 64 + var1];
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Ljo;",
-		garbageValue = "170681777"
-	)
-	public static class270[] method3649() {
-		return new class270[]{class270.field3536, class270.field3533, class270.field3530, class270.field3531};
 	}
 }

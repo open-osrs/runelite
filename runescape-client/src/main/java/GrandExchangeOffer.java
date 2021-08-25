@@ -4,45 +4,41 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jk")
+@ObfuscatedName("kq")
 @Implements("GrandExchangeOffer")
 public class GrandExchangeOffer {
 	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "Lio;"
-	)
-	@Export("scriptDotWidget")
-	static Widget scriptDotWidget;
-	@ObfuscatedName("s")
+	static int[] field3769;
+	@ObfuscatedName("n")
 	@Export("state")
 	byte state;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -738417027
+		intValue = 1885544773
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 902744841
+		intValue = -1068501763
 	)
 	@Export("unitPrice")
 	public int unitPrice;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1486444339
+		intValue = -691773445
 	)
 	@Export("totalQuantity")
 	public int totalQuantity;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -445380121
+		intValue = 65758811
 	)
 	@Export("currentQuantity")
 	public int currentQuantity;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -421297425
+		intValue = 358624203
 	)
 	@Export("currentPrice")
 	public int currentPrice;
@@ -51,7 +47,7 @@ public class GrandExchangeOffer {
 	}
 
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;Z)V",
+		descriptor = "(Lot;Z)V",
 		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
@@ -63,42 +59,42 @@ public class GrandExchangeOffer {
 		this.currentPrice = var1.readInt();
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1580532327"
+		garbageValue = "-165905974"
 	)
 	@Export("status")
 	public int status() {
 		return this.state & 7;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "-51"
+		garbageValue = "1"
 	)
 	@Export("type")
 	public int type() {
 		return (this.state & 8) == 8 ? 1 : 0;
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "2117063899"
+		descriptor = "(IB)V",
+		garbageValue = "-29"
 	)
-	void method5157(int var1) {
+	void method5332(int var1) {
 		this.state &= -8;
 		this.state = (byte)(this.state | var1 & 7);
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "1"
+		descriptor = "(II)V",
+		garbageValue = "-347764080"
 	)
-	void method5158(int var1) {
+	void method5333(int var1) {
 		this.state &= -9;
 		if (var1 == 1) {
 			this.state = (byte)(this.state | 8);
@@ -106,53 +102,71 @@ public class GrandExchangeOffer {
 
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-240867466"
+		descriptor = "(IB)Len;",
+		garbageValue = "3"
 	)
-	static void method5168() {
-		Messages.Messages_channels.clear();
-		Messages.Messages_hashTable.clear();
-		Messages.Messages_queue.clear();
-		Messages.Messages_count = 0;
+	@Export("getInvDefinition")
+	public static InvDefinition getInvDefinition(int var0) {
+		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0);
+			var1 = new InvDefinition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
+			}
+
+			InvDefinition.InvDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("ag")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "77"
+		descriptor = "(ILbg;ZB)I",
+		garbageValue = "108"
 	)
-	public static String method5167(String var0) {
-		int var1 = var0.length();
-		char[] var2 = new char[var1];
-		byte var3 = 2;
-
-		for (int var4 = 0; var4 < var1; ++var4) {
-			char var5 = var0.charAt(var4);
-			if (var3 == 0) {
-				var5 = Character.toLowerCase(var5);
-			} else if (var3 == 2 || Character.isUpperCase(var5)) {
-				var5 = Clock.method2679(var5);
-			}
-
-			if (Character.isLetter(var5)) {
-				var3 = 0;
-			} else if (var5 != '.' && var5 != '?' && var5 != '!') {
-				if (Character.isSpaceChar(var5)) {
-					if (var3 != 2) {
-						var3 = 1;
-					}
-				} else {
-					var3 = 1;
-				}
+	static int method5345(int var0, Script var1, boolean var2) {
+		if (var0 == 7100) {
+			++class240.Interpreter_intStackSize;
+			return 1;
+		} else if (var0 == 7101) {
+			Interpreter.Interpreter_stringStackSize += 2;
+			return 1;
+		} else if (var0 != 7102 && var0 != 7103 && var0 != 7104 && var0 != 7105 && var0 != 7109) {
+			if (var0 == 7106) {
+				++class240.Interpreter_intStackSize;
+				return 1;
+			} else if (var0 == 7107) {
+				++class240.Interpreter_intStackSize;
+				return 1;
+			} else if (var0 == 7108) {
+				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = class258.method4892() ? 1 : 0;
+				return 1;
+			} else if (var0 == 7110) {
+				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 0;
+				return 1;
+			} else if (var0 == 7120) {
+				--class240.Interpreter_intStackSize;
+				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 0;
+				return 1;
+			} else if (var0 == 7121) {
+				class240.Interpreter_intStackSize -= 2;
+				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = -1;
+				return 1;
+			} else if (var0 == 7122) {
+				class240.Interpreter_intStackSize -= 2;
+				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 0;
+				return 1;
 			} else {
-				var3 = 2;
+				return 2;
 			}
-
-			var2[var4] = var5;
+		} else {
+			++class240.Interpreter_intStackSize;
+			return 1;
 		}
-
-		return new String(var2);
 	}
 }

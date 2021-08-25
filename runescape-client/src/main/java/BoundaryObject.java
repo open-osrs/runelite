@@ -4,72 +4,60 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hs")
+@ObfuscatedName("hn")
 @Implements("BoundaryObject")
 public final class BoundaryObject {
-	@ObfuscatedName("tr")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1924657947
-	)
-	@Export("foundItemIdCount")
-	static int foundItemIdCount;
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "Lae;"
-	)
-	@Export("soundSystem")
-	static SoundSystem soundSystem;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = 1178102363
+		intValue = -1585144359
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 2140931437
+		intValue = 615772211
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -691288565
+		intValue = -961076053
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -287218543
+		intValue = 697476863
 	)
 	@Export("orientationA")
 	int orientationA;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 780112513
+		intValue = -1786552595
 	)
 	@Export("orientationB")
 	int orientationB;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lgy;"
+		descriptor = "Lhr;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "Lgy;"
+		descriptor = "Lhr;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		longValue = -849579815865927251L
+		longValue = 570291309614965945L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1574259549
+		intValue = 1509654997
 	)
 	@Export("flags")
 	int flags;

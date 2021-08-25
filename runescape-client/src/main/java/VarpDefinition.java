@@ -4,24 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eg")
+@ObfuscatedName("ef")
 @Implements("VarpDefinition")
 public class VarpDefinition extends DualNode {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Ljy;"
+		descriptor = "Lkk;"
 	)
 	@Export("VarpDefinition_archive")
-	static AbstractArchive VarpDefinition_archive;
-	@ObfuscatedName("v")
+	public static AbstractArchive VarpDefinition_archive;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = 513865809
+	)
+	@Export("VarpDefinition_fileCount")
+	public static int VarpDefinition_fileCount;
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lhw;"
+		descriptor = "Lim;"
 	)
 	@Export("VarpDefinition_cached")
 	public static EvictingDualNodeHashTable VarpDefinition_cached;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1459599171
+		intValue = -1335094107
 	)
 	@Export("type")
 	public int type;
@@ -34,10 +40,10 @@ public class VarpDefinition extends DualNode {
 		this.type = 0;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;I)V",
-		garbageValue = "723580004"
+		descriptor = "(Lot;I)V",
+		garbageValue = "-1295539702"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -51,10 +57,10 @@ public class VarpDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;II)V",
-		garbageValue = "-1873217499"
+		descriptor = "(Lot;II)V",
+		garbageValue = "-2113751266"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -64,155 +70,71 @@ public class VarpDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(IILfg;Lfy;I)Z",
-		garbageValue = "823697752"
-	)
-	static final boolean method2715(int var0, int var1, RouteStrategy var2, CollisionMap var3) {
-		int var4 = var0;
-		int var5 = var1;
-		byte var6 = 64;
-		byte var7 = 64;
-		int var8 = var0 - var6;
-		int var9 = var1 - var7;
-		class161.directions[var6][var7] = 99;
-		class161.distances[var6][var7] = 0;
-		byte var10 = 0;
-		int var11 = 0;
-		class161.bufferX[var10] = var0;
-		byte var10001 = var10;
-		int var18 = var10 + 1;
-		class161.bufferY[var10001] = var1;
-		int[][] var12 = var3.flags;
-
-		while (var11 != var18) {
-			var4 = class161.bufferX[var11];
-			var5 = class161.bufferY[var11];
-			var11 = var11 + 1 & 4095;
-			int var16 = var4 - var8;
-			int var17 = var5 - var9;
-			int var13 = var4 - var3.xInset;
-			int var14 = var5 - var3.yInset;
-			if (var2.hasArrived(1, var4, var5, var3)) {
-				SoundSystem.field219 = var4;
-				class161.field1896 = var5;
-				return true;
-			}
-
-			int var15 = class161.distances[var16][var17] + 1;
-			if (var16 > 0 && class161.directions[var16 - 1][var17] == 0 && (var12[var13 - 1][var14] & 19136776) == 0) {
-				class161.bufferX[var18] = var4 - 1;
-				class161.bufferY[var18] = var5;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16 - 1][var17] = 2;
-				class161.distances[var16 - 1][var17] = var15;
-			}
-
-			if (var16 < 127 && class161.directions[var16 + 1][var17] == 0 && (var12[var13 + 1][var14] & 19136896) == 0) {
-				class161.bufferX[var18] = var4 + 1;
-				class161.bufferY[var18] = var5;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16 + 1][var17] = 8;
-				class161.distances[var16 + 1][var17] = var15;
-			}
-
-			if (var17 > 0 && class161.directions[var16][var17 - 1] == 0 && (var12[var13][var14 - 1] & 19136770) == 0) {
-				class161.bufferX[var18] = var4;
-				class161.bufferY[var18] = var5 - 1;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16][var17 - 1] = 1;
-				class161.distances[var16][var17 - 1] = var15;
-			}
-
-			if (var17 < 127 && class161.directions[var16][var17 + 1] == 0 && (var12[var13][var14 + 1] & 19136800) == 0) {
-				class161.bufferX[var18] = var4;
-				class161.bufferY[var18] = var5 + 1;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16][var17 + 1] = 4;
-				class161.distances[var16][var17 + 1] = var15;
-			}
-
-			if (var16 > 0 && var17 > 0 && class161.directions[var16 - 1][var17 - 1] == 0 && (var12[var13 - 1][var14 - 1] & 19136782) == 0 && (var12[var13 - 1][var14] & 19136776) == 0 && (var12[var13][var14 - 1] & 19136770) == 0) {
-				class161.bufferX[var18] = var4 - 1;
-				class161.bufferY[var18] = var5 - 1;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16 - 1][var17 - 1] = 3;
-				class161.distances[var16 - 1][var17 - 1] = var15;
-			}
-
-			if (var16 < 127 && var17 > 0 && class161.directions[var16 + 1][var17 - 1] == 0 && (var12[var13 + 1][var14 - 1] & 19136899) == 0 && (var12[var13 + 1][var14] & 19136896) == 0 && (var12[var13][var14 - 1] & 19136770) == 0) {
-				class161.bufferX[var18] = var4 + 1;
-				class161.bufferY[var18] = var5 - 1;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16 + 1][var17 - 1] = 9;
-				class161.distances[var16 + 1][var17 - 1] = var15;
-			}
-
-			if (var16 > 0 && var17 < 127 && class161.directions[var16 - 1][var17 + 1] == 0 && (var12[var13 - 1][var14 + 1] & 19136824) == 0 && (var12[var13 - 1][var14] & 19136776) == 0 && (var12[var13][var14 + 1] & 19136800) == 0) {
-				class161.bufferX[var18] = var4 - 1;
-				class161.bufferY[var18] = var5 + 1;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16 - 1][var17 + 1] = 6;
-				class161.distances[var16 - 1][var17 + 1] = var15;
-			}
-
-			if (var16 < 127 && var17 < 127 && class161.directions[var16 + 1][var17 + 1] == 0 && (var12[var13 + 1][var14 + 1] & 19136992) == 0 && (var12[var13 + 1][var14] & 19136896) == 0 && (var12[var13][var14 + 1] & 19136800) == 0) {
-				class161.bufferX[var18] = var4 + 1;
-				class161.bufferY[var18] = var5 + 1;
-				var18 = var18 + 1 & 4095;
-				class161.directions[var16 + 1][var17 + 1] = 12;
-				class161.distances[var16 + 1][var17 + 1] = var15;
-			}
-		}
-
-		SoundSystem.field219 = var4;
-		class161.field1896 = var5;
-		return false;
+	@ObfuscatedName("n")
+	static boolean method2826(long var0) {
+		int var2 = (int)(var0 >>> 14 & 3L);
+		return var2 == 2;
 	}
 
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2099813697"
-	)
-	static void method2713() {
-		WorldMapRegion.WorldMapRegion_cachedSprites.clear();
-	}
-
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "(IIIII)V",
-		garbageValue = "1467913465"
-	)
-	@Export("itemContainerSetItem")
-	static void itemContainerSetItem(int var0, int var1, int var2, int var3) {
-		ItemContainer var4 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var4 == null) {
-			var4 = new ItemContainer();
-			ItemContainer.itemContainers.put(var4, (long)var0);
-		}
-
-		if (var4.ids.length <= var1) {
-			int[] var5 = new int[var1 + 1];
-			int[] var6 = new int[var1 + 1];
-
-			int var7;
-			for (var7 = 0; var7 < var4.ids.length; ++var7) {
-				var5[var7] = var4.ids[var7];
-				var6[var7] = var4.quantities[var7];
+	@ObfuscatedName("n")
+	public static final int method2819(double var0, double var2, double var4) {
+		double var6 = var4;
+		double var8 = var4;
+		double var10 = var4;
+		if (var2 != 0.0D) {
+			double var12;
+			if (var4 < 0.5D) {
+				var12 = (var2 + 1.0D) * var4;
+			} else {
+				var12 = var4 + var2 - var2 * var4;
 			}
 
-			for (var7 = var4.ids.length; var7 < var1; ++var7) {
-				var5[var7] = -1;
-				var6[var7] = 0;
+			double var14 = var4 * 2.0D - var12;
+			double var16 = var0 + 0.3333333333333333D;
+			if (var16 > 1.0D) {
+				--var16;
 			}
 
-			var4.ids = var5;
-			var4.quantities = var6;
+			double var20 = var0 - 0.3333333333333333D;
+			if (var20 < 0.0D) {
+				++var20;
+			}
+
+			if (6.0D * var16 < 1.0D) {
+				var6 = var14 + (var12 - var14) * 6.0D * var16;
+			} else if (2.0D * var16 < 1.0D) {
+				var6 = var12;
+			} else if (var16 * 3.0D < 2.0D) {
+				var6 = var14 + (var12 - var14) * (0.6666666666666666D - var16) * 6.0D;
+			} else {
+				var6 = var14;
+			}
+
+			if (var0 * 6.0D < 1.0D) {
+				var8 = var14 + var0 * (var12 - var14) * 6.0D;
+			} else if (var0 * 2.0D < 1.0D) {
+				var8 = var12;
+			} else if (var0 * 3.0D < 2.0D) {
+				var8 = var14 + 6.0D * (var12 - var14) * (0.6666666666666666D - var0);
+			} else {
+				var8 = var14;
+			}
+
+			if (var20 * 6.0D < 1.0D) {
+				var10 = var20 * (var12 - var14) * 6.0D + var14;
+			} else if (var20 * 2.0D < 1.0D) {
+				var10 = var12;
+			} else if (3.0D * var20 < 2.0D) {
+				var10 = var14 + (var12 - var14) * (0.6666666666666666D - var20) * 6.0D;
+			} else {
+				var10 = var14;
+			}
 		}
 
-		var4.ids[var1] = var2;
-		var4.quantities[var1] = var3;
+		int var22 = (int)(256.0D * var6);
+		int var13 = (int)(var8 * 256.0D);
+		int var23 = (int)(var10 * 256.0D);
+		int var15 = var23 + (var13 << 8) + (var22 << 16);
+		return var15;
 	}
 }

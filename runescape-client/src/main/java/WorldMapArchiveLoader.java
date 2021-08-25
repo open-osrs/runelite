@@ -4,36 +4,36 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mp")
+@ObfuscatedName("nv")
 @Implements("WorldMapArchiveLoader")
 public class WorldMapArchiveLoader {
-	@ObfuscatedName("hm")
-	@ObfuscatedGetter(
-		intValue = -1743864695
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "Lcj;"
 	)
-	@Export("cameraZ")
-	static int cameraZ;
-	@ObfuscatedName("l")
+	@Export("World_request")
+	static UrlRequest World_request;
+	@ObfuscatedName("o")
 	@Export("cacheName")
 	String cacheName;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Ljy;"
+		descriptor = "Lkk;"
 	)
 	@Export("archive")
 	AbstractArchive archive;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1673386275
+		intValue = 978412683
 	)
 	@Export("percentLoaded")
 	int percentLoaded;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@Export("loaded")
 	boolean loaded;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljy;)V"
+		descriptor = "(Lkk;)V"
 	)
 	WorldMapArchiveLoader(AbstractArchive var1) {
 		this.percentLoaded = 0;
@@ -41,10 +41,10 @@ public class WorldMapArchiveLoader {
 		this.archive = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "798378546"
+		garbageValue = "-2042799835"
 	)
 	@Export("reset")
 	void reset(String var1) {
@@ -58,15 +58,15 @@ public class WorldMapArchiveLoader {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "2123469742"
+		garbageValue = "1193770615"
 	)
 	@Export("load")
 	int load() {
 		if (this.percentLoaded < 33) {
-			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field2115.name, this.cacheName)) {
+			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field2203.name, this.cacheName)) {
 				return this.percentLoaded;
 			}
 
@@ -74,7 +74,7 @@ public class WorldMapArchiveLoader {
 		}
 
 		if (this.percentLoaded == 33) {
-			if (this.archive.isValidFileName(WorldMapCacheName.field2114.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.field2114.name, this.cacheName)) {
+			if (this.archive.isValidFileName(WorldMapCacheName.field2201.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.field2201.name, this.cacheName)) {
 				return this.percentLoaded;
 			}
 
@@ -82,7 +82,7 @@ public class WorldMapArchiveLoader {
 		}
 
 		if (this.percentLoaded == 66) {
-			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.field2116.name)) {
+			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.field2200.name)) {
 				return this.percentLoaded;
 			}
 
@@ -93,23 +93,43 @@ public class WorldMapArchiveLoader {
 		return this.percentLoaded;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1463629324"
+		garbageValue = "1751001659"
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
 		return this.loaded;
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1908493453"
+		garbageValue = "-507892849"
 	)
 	@Export("getPercentLoaded")
 	int getPercentLoaded() {
 		return this.percentLoaded;
+	}
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "([BB)Llu;",
+		garbageValue = "-27"
+	)
+	static Font method6348(byte[] var0) {
+		if (var0 == null) {
+			return null;
+		} else {
+			Font var1 = new Font(var0, class413.SpriteBuffer_xOffsets, class413.SpriteBuffer_yOffsets, InvDefinition.SpriteBuffer_spriteWidths, class413.SpriteBuffer_spriteHeights, ItemContainer.SpriteBuffer_spritePalette, class283.SpriteBuffer_pixels);
+			class413.SpriteBuffer_xOffsets = null;
+			class413.SpriteBuffer_yOffsets = null;
+			InvDefinition.SpriteBuffer_spriteWidths = null;
+			class413.SpriteBuffer_spriteHeights = null;
+			ItemContainer.SpriteBuffer_spritePalette = null;
+			class283.SpriteBuffer_pixels = null;
+			return var1;
+		}
 	}
 }

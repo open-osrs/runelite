@@ -3,74 +3,72 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ek")
+@ObfuscatedName("ey")
 @Implements("NetSocket")
 public final class NetSocket extends AbstractSocket implements Runnable {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("inputStream")
 	InputStream inputStream;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("socket")
 	Socket socket;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("isClosed")
 	boolean isClosed;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ldz;"
+		descriptor = "Lei;"
 	)
 	@Export("taskHandler")
 	TaskHandler taskHandler;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lex;"
+		descriptor = "Led;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("outBuffer")
 	byte[] outBuffer;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 2140398327
+		intValue = -667333841
 	)
 	@Export("outLength")
 	int outLength;
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -430888233
+		intValue = -1790870427
 	)
 	@Export("outOffset")
 	int outOffset;
-	@ObfuscatedName("x")
+	@ObfuscatedName("e")
 	@Export("exceptionWriting")
 	boolean exceptionWriting;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1829022253
+		intValue = 1964059901
 	)
 	@Export("bufferLength")
 	final int bufferLength;
-	@ObfuscatedName("p")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1103416471
+		intValue = -1087306249
 	)
 	@Export("maxPacketLength")
 	final int maxPacketLength;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/Socket;Ldz;I)V"
+		descriptor = "(Ljava/net/Socket;Lei;I)V"
 	)
 	public NetSocket(Socket var1, TaskHandler var2, int var3) throws IOException {
 		this.isClosed = false;
@@ -89,10 +87,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		this.outputStream = this.socket.getOutputStream();
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(S)V",
-		garbageValue = "-27454"
+		garbageValue = "4535"
 	)
 	@Export("close")
 	public void close() {
@@ -104,7 +102,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 
 			if (this.task != null) {
 				while (this.task.status == 0) {
-					SceneTilePaint.method4322(1L);
+					PlayerType.method5099(1L);
 				}
 
 				if (this.task.status == 1) {
@@ -119,30 +117,30 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1311148246"
+		descriptor = "(B)I",
+		garbageValue = "61"
 	)
 	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.read();
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "88"
+		descriptor = "(I)I",
+		garbageValue = "-1430321597"
 	)
 	@Export("available")
 	public int available() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.available();
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "-60"
+		descriptor = "(II)Z",
+		garbageValue = "823949627"
 	)
 	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
@@ -153,10 +151,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)I",
-		garbageValue = "1814286008"
+		garbageValue = "593938417"
 	)
 	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
@@ -178,10 +176,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "1961891652"
+		garbageValue = "195666295"
 	)
 	@Export("write0")
 	void write0(byte[] var1, int var2, int var3) throws IOException {
@@ -198,7 +196,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 					for (int var5 = 0; var5 < var3; ++var5) {
 						this.outBuffer[this.outOffset] = var1[var5 + var2];
 						this.outOffset = (this.outOffset + 1) % this.bufferLength;
-						if ((this.outLength + this.maxPacketLength) % this.bufferLength == this.outOffset) {
+						if ((this.maxPacketLength + this.outLength) % this.bufferLength == this.outOffset) {
 							throw new IOException();
 						}
 					}
@@ -213,10 +211,10 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
 		descriptor = "([BIIB)V",
-		garbageValue = "-30"
+		garbageValue = "-4"
 	)
 	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
@@ -290,7 +288,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 				break;
 			}
 		} catch (Exception var12) {
-			BufferedSink.RunException_sendStackTrace((String)null, var12);
+			class4.RunException_sendStackTrace((String)null, var12);
 		}
 
 	}
@@ -299,113 +297,375 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		this.close();
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljs;IIIBZI)V",
-		garbageValue = "1569285753"
+		descriptor = "(Loq;II)V",
+		garbageValue = "-1829651268"
 	)
-	@Export("requestNetFile")
-	static void requestNetFile(Archive var0, int var1, int var2, int var3, byte var4, boolean var5) {
-		long var6 = (long)((var1 << 16) + var2);
-		NetFileRequest var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityWrites.get(var6);
-		if (var8 == null) {
-			var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.get(var6);
-			if (var8 == null) {
-				var8 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var6);
-				if (var8 != null) {
-					if (var5) {
-						var8.removeDual();
-						NetCache.NetCache_pendingPriorityWrites.put(var8, var6);
-						--NetCache.NetCache_pendingWritesCount;
-						++NetCache.NetCache_pendingPriorityWritesCount;
-					}
+	@Export("updatePlayers")
+	static final void updatePlayers(PacketBuffer var0, int var1) {
+		int var2 = var0.offset;
+		Players.Players_pendingUpdateCount = 0;
+		int var3 = 0;
+		var0.importIndex();
 
+		int var4;
+		int var6;
+		byte[] var10000;
+		int var19;
+		for (var4 = 0; var4 < Players.Players_count; ++var4) {
+			var19 = Players.Players_indices[var4];
+			if ((Players.field1244[var19] & 1) == 0) {
+				if (var3 > 0) {
+					--var3;
+					var10000 = Players.field1244;
+					var10000[var19] = (byte)(var10000[var19] | 2);
 				} else {
-					if (!var5) {
-						var8 = (NetFileRequest)NetCache.NetCache_pendingResponses.get(var6);
-						if (var8 != null) {
-							return;
+					var6 = var0.readBits(1);
+					if (var6 == 0) {
+						var3 = ReflectionCheck.method1083(var0);
+						var10000 = Players.field1244;
+						var10000[var19] = (byte)(var10000[var19] | 2);
+					} else {
+						NetCache.readPlayerUpdate(var0, var19);
+					}
+				}
+			}
+		}
+
+		var0.exportIndex();
+		if (var3 != 0) {
+			throw new RuntimeException();
+		} else {
+			var0.importIndex();
+
+			for (var4 = 0; var4 < Players.Players_count; ++var4) {
+				var19 = Players.Players_indices[var4];
+				if ((Players.field1244[var19] & 1) != 0) {
+					if (var3 > 0) {
+						--var3;
+						var10000 = Players.field1244;
+						var10000[var19] = (byte)(var10000[var19] | 2);
+					} else {
+						var6 = var0.readBits(1);
+						if (var6 == 0) {
+							var3 = ReflectionCheck.method1083(var0);
+							var10000 = Players.field1244;
+							var10000[var19] = (byte)(var10000[var19] | 2);
+						} else {
+							NetCache.readPlayerUpdate(var0, var19);
+						}
+					}
+				}
+			}
+
+			var0.exportIndex();
+			if (var3 != 0) {
+				throw new RuntimeException();
+			} else {
+				var0.importIndex();
+
+				for (var4 = 0; var4 < Players.Players_emptyIdxCount; ++var4) {
+					var19 = Players.Players_emptyIndices[var4];
+					if ((Players.field1244[var19] & 1) != 0) {
+						if (var3 > 0) {
+							--var3;
+							var10000 = Players.field1244;
+							var10000[var19] = (byte)(var10000[var19] | 2);
+						} else {
+							var6 = var0.readBits(1);
+							if (var6 == 0) {
+								var3 = ReflectionCheck.method1083(var0);
+								var10000 = Players.field1244;
+								var10000[var19] = (byte)(var10000[var19] | 2);
+							} else if (MusicPatchNode.updateExternalPlayer(var0, var19)) {
+								var10000 = Players.field1244;
+								var10000[var19] = (byte)(var10000[var19] | 2);
+							}
+						}
+					}
+				}
+
+				var0.exportIndex();
+				if (var3 != 0) {
+					throw new RuntimeException();
+				} else {
+					var0.importIndex();
+
+					for (var4 = 0; var4 < Players.Players_emptyIdxCount; ++var4) {
+						var19 = Players.Players_emptyIndices[var4];
+						if ((Players.field1244[var19] & 1) == 0) {
+							if (var3 > 0) {
+								--var3;
+								var10000 = Players.field1244;
+								var10000[var19] = (byte)(var10000[var19] | 2);
+							} else {
+								var6 = var0.readBits(1);
+								if (var6 == 0) {
+									var3 = ReflectionCheck.method1083(var0);
+									var10000 = Players.field1244;
+									var10000[var19] = (byte)(var10000[var19] | 2);
+								} else if (MusicPatchNode.updateExternalPlayer(var0, var19)) {
+									var10000 = Players.field1244;
+									var10000[var19] = (byte)(var10000[var19] | 2);
+								}
+							}
 						}
 					}
 
-					var8 = new NetFileRequest();
-					var8.archive = var0;
-					var8.crc = var3;
-					var8.padding = var4;
-					if (var5) {
-						NetCache.NetCache_pendingPriorityWrites.put(var8, var6);
-						++NetCache.NetCache_pendingPriorityWritesCount;
+					var0.exportIndex();
+					if (var3 != 0) {
+						throw new RuntimeException();
 					} else {
-						NetCache.NetCache_pendingWritesQueue.addFirst(var8);
-						NetCache.NetCache_pendingWrites.put(var8, var6);
-						++NetCache.NetCache_pendingWritesCount;
-					}
+						Players.Players_count = 0;
+						Players.Players_emptyIdxCount = 0;
 
+						Player var5;
+						for (var4 = 1; var4 < 2048; ++var4) {
+							var10000 = Players.field1244;
+							var10000[var4] = (byte)(var10000[var4] >> 1);
+							var5 = Client.players[var4];
+							if (var5 != null) {
+								Players.Players_indices[++Players.Players_count - 1] = var4;
+							} else {
+								Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var4;
+							}
+						}
+
+						for (var3 = 0; var3 < Players.Players_pendingUpdateCount; ++var3) {
+							var4 = Players.Players_pendingUpdateIndices[var3];
+							var5 = Client.players[var4];
+							var6 = var0.readUnsignedByte();
+							if ((var6 & 4) != 0) {
+								var6 += var0.readUnsignedByte() << 8;
+							}
+
+							byte var7 = -1;
+							if ((var6 & 512) != 0) {
+								var7 = var0.method6901();
+							}
+
+							if ((var6 & 256) != 0) {
+								var5.field1135 = var0.method6899();
+								var5.field1141 = var0.method6899();
+								var5.field1121 = var0.method6848();
+								var5.field1110 = var0.method6899();
+								var5.field1139 = var0.method6940() + Client.cycle;
+								var5.field1140 = var0.readUnsignedShort() + Client.cycle;
+								var5.field1101 = var0.readUnsignedShort();
+								if (var5.field1074) {
+									var5.field1135 += var5.tileX;
+									var5.field1141 += var5.tileY;
+									var5.field1121 += var5.tileX;
+									var5.field1110 += var5.tileY;
+									var5.pathLength = 0;
+								} else {
+									var5.field1135 += var5.pathX[0];
+									var5.field1141 += var5.pathY[0];
+									var5.field1121 += var5.pathX[0];
+									var5.field1110 += var5.pathY[0];
+									var5.pathLength = 1;
+								}
+
+								var5.field1152 = 0;
+							}
+
+							if ((var6 & 8192) != 0) {
+								Players.field1245[var4] = var0.method6899();
+							}
+
+							int var8;
+							int var9;
+							if ((var6 & 16) != 0) {
+								var8 = var0.method6940();
+								if (var8 == 65535) {
+									var8 = -1;
+								}
+
+								var9 = var0.method6844();
+								PacketWriter.performPlayerAnimation(var5, var8, var9);
+							}
+
+							if ((var6 & 32) != 0) {
+								var5.overheadText = var0.readStringCp1252NullTerminated();
+								if (var5.overheadText.charAt(0) == '~') {
+									var5.overheadText = var5.overheadText.substring(1);
+									SecureRandomCallable.addGameMessage(2, var5.username.getName(), var5.overheadText);
+								} else if (var5 == class129.localPlayer) {
+									SecureRandomCallable.addGameMessage(2, var5.username.getName(), var5.overheadText);
+								}
+
+								var5.isAutoChatting = false;
+								var5.overheadTextColor = 0;
+								var5.overheadTextEffect = 0;
+								var5.overheadTextCyclesRemaining = 150;
+							}
+
+							if ((var6 & 8) != 0) {
+								var5.targetIndex = var0.method6940();
+								if (var5.targetIndex == 65535) {
+									var5.targetIndex = -1;
+								}
+							}
+
+							int var11;
+							int var12;
+							int var15;
+							if ((var6 & 64) != 0) {
+								var8 = var0.method6940();
+								PlayerType var16 = (PlayerType)class260.findEnumerated(StructComposition.PlayerType_values(), var0.method6844());
+								boolean var10 = var0.readUnsignedByte() == 1;
+								var11 = var0.method6849();
+								var12 = var0.offset;
+								if (var5.username != null && var5.appearance != null) {
+									boolean var13 = false;
+									if (var16.isUser && class20.friendSystem.isIgnored(var5.username)) {
+										var13 = true;
+									}
+
+									if (!var13 && Client.field602 == 0 && !var5.isHidden) {
+										Players.field1255.offset = 0;
+										var0.method7010(Players.field1255.array, 0, var11);
+										Players.field1255.offset = 0;
+										String var14 = AbstractFont.escapeBrackets(class113.method2480(FloorDecoration.method4029(Players.field1255)));
+										var5.overheadText = var14.trim();
+										var5.overheadTextColor = var8 >> 8;
+										var5.overheadTextEffect = var8 & 255;
+										var5.overheadTextCyclesRemaining = 150;
+										var5.isAutoChatting = var10;
+										var5.field1108 = var5 != class129.localPlayer && var16.isUser && "" != Client.field647 && var14.toLowerCase().indexOf(Client.field647) == -1;
+										if (var16.isPrivileged) {
+											var15 = var10 ? 91 : 1;
+										} else {
+											var15 = var10 ? 90 : 2;
+										}
+
+										if (var16.modIcon != -1) {
+											SecureRandomCallable.addGameMessage(var15, ApproximateRouteStrategy.method1122(var16.modIcon) + var5.username.getName(), var14);
+										} else {
+											SecureRandomCallable.addGameMessage(var15, var5.username.getName(), var14);
+										}
+									}
+								}
+
+								var0.offset = var12 + var11;
+							}
+
+							if ((var6 & 2048) != 0) {
+								var5.spotAnimation = var0.method6853();
+								var8 = var0.readInt();
+								var5.field1134 = var8 >> 16;
+								var5.field1133 = (var8 & 65535) + Client.cycle;
+								var5.spotAnimationFrame = 0;
+								var5.spotAnimationFrameCycle = 0;
+								if (var5.field1133 > Client.cycle) {
+									var5.spotAnimationFrame = -1;
+								}
+
+								if (var5.spotAnimation == 65535) {
+									var5.spotAnimation = -1;
+								}
+							}
+
+							if ((var6 & 2) != 0) {
+								var8 = var0.readUnsignedByte();
+								byte[] var23 = new byte[var8];
+								Buffer var17 = new Buffer(var23);
+								var0.method7010(var23, 0, var8);
+								Players.field1246[var4] = var17;
+								var5.read(var17);
+							}
+
+							if ((var6 & 128) != 0) {
+								var5.field1096 = var0.method6853();
+								if (var5.pathLength == 0) {
+									var5.orientation = var5.field1096;
+									var5.field1096 = -1;
+								}
+							}
+
+							if ((var6 & 1) != 0) {
+								var8 = var0.method6844();
+								int var18;
+								int var20;
+								int var22;
+								if (var8 > 0) {
+									for (var9 = 0; var9 < var8; ++var9) {
+										var11 = -1;
+										var12 = -1;
+										var22 = -1;
+										var20 = var0.readUShortSmart();
+										if (var20 == 32767) {
+											var20 = var0.readUShortSmart();
+											var12 = var0.readUShortSmart();
+											var11 = var0.readUShortSmart();
+											var22 = var0.readUShortSmart();
+										} else if (var20 != 32766) {
+											var12 = var0.readUShortSmart();
+										} else {
+											var20 = -1;
+										}
+
+										var18 = var0.readUShortSmart();
+										var5.addHitSplat(var20, var12, var11, var22, Client.cycle, var18);
+									}
+								}
+
+								var9 = var0.readUnsignedByte();
+								if (var9 > 0) {
+									for (var20 = 0; var20 < var9; ++var20) {
+										var11 = var0.readUShortSmart();
+										var12 = var0.readUShortSmart();
+										if (var12 != 32767) {
+											var22 = var0.readUShortSmart();
+											var18 = var0.method6844();
+											var15 = var12 > 0 ? var0.method7007() : var18;
+											var5.addHealthBar(var11, Client.cycle, var12, var22, var18, var15);
+										} else {
+											var5.removeHealthBar(var11);
+										}
+									}
+								}
+							}
+
+							if ((var6 & 1024) != 0) {
+								for (var8 = 0; var8 < 3; ++var8) {
+									var5.actions[var8] = var0.readStringCp1252NullTerminated();
+								}
+							}
+
+							if (var5.field1074) {
+								if (var7 == 127) {
+									var5.resetPath(var5.tileX, var5.tileY);
+								} else {
+									byte var21;
+									if (var7 != -1) {
+										var21 = var7;
+									} else {
+										var21 = Players.field1245[var4];
+									}
+
+									var5.method2072(var5.tileX, var5.tileY, var21);
+								}
+							}
+						}
+
+						if (var0.offset - var2 != var1) {
+							throw new RuntimeException(var0.offset - var2 + " " + var1);
+						}
+					}
 				}
 			}
 		}
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("ew")
 	@ObfuscatedSignature(
-		descriptor = "(Ldz;III)Ly;",
-		garbageValue = "-1978264697"
+		descriptor = "(B)Lno;",
+		garbageValue = "14"
 	)
-	public static final PcmPlayer method2634(TaskHandler var0, int var1, int var2) {
-		if (GrandExchangeOfferAgeComparator.field3633 == 0) {
-			throw new IllegalStateException();
-		} else if (var1 >= 0 && var1 < 2) {
-			if (var2 < 256) {
-				var2 = 256;
-			}
-
-			try {
-				PcmPlayer var3 = class181.pcmPlayerProvider.player();
-				var3.samples = new int[256 * (PcmPlayer.PcmPlayer_stereo ? 2 : 1)];
-				var3.field180 = var2;
-				var3.init();
-				var3.capacity = (var2 & -1024) + 1024;
-				if (var3.capacity > 16384) {
-					var3.capacity = 16384;
-				}
-
-				var3.open(var3.capacity);
-				if (PcmPlayer.field181 > 0 && BoundaryObject.soundSystem == null) {
-					BoundaryObject.soundSystem = new SoundSystem();
-					ArchiveDisk.soundSystemExecutor = Executors.newScheduledThreadPool(1);
-					ArchiveDisk.soundSystemExecutor.scheduleAtFixedRate(BoundaryObject.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS);
-				}
-
-				if (BoundaryObject.soundSystem != null) {
-					if (BoundaryObject.soundSystem.players[var1] != null) {
-						throw new IllegalArgumentException();
-					}
-
-					BoundaryObject.soundSystem.players[var1] = var3;
-				}
-
-				return var3;
-			} catch (Throwable var4) {
-				return new PcmPlayer();
-			}
-		} else {
-			throw new IllegalArgumentException();
-		}
-	}
-
-	@ObfuscatedName("gu")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-873884067"
-	)
-	static final void method2629() {
-		for (int var0 = 0; var0 < Client.npcCount; ++var0) {
-			int var1 = Client.npcIndices[var0];
-			NPC var2 = Client.npcs[var1];
-			if (var2 != null) {
-				class16.updateActorSequence(var2, var2.definition.size);
-			}
-		}
-
+	@Export("getWorldMap")
+	static WorldMap getWorldMap() {
+		return class65.worldMap;
 	}
 }

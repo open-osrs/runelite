@@ -4,170 +4,159 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kv")
+@ObfuscatedName("lh")
 @Implements("Timer")
 public class Timer {
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		longValue = 68758219064422731L
-	)
-	long field3785;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		longValue = -9128845049846382831L
-	)
-	long field3780;
-	@ObfuscatedName("v")
-	public boolean field3781;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		longValue = -930718680271849775L
-	)
-	long field3782;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		longValue = -2186555360260394021L
-	)
-	long field3784;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		longValue = 8669267677054780603L
+		longValue = 1540868815319592249L
 	)
-	long field3788;
-	@ObfuscatedName("w")
+	long field3881;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1497157347
+		longValue = 8333490752624652511L
 	)
-	int field3786;
-	@ObfuscatedName("f")
+	long field3880;
+	@ObfuscatedName("m")
+	public boolean field3889;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1042800783
+		longValue = 7224061540558797345L
 	)
-	int field3779;
+	long field3882;
 	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1399840741
+		longValue = -3991034196053816945L
 	)
-	int field3787;
-	@ObfuscatedName("x")
+	long field3883;
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -626916419
+		longValue = -841860689116779547L
 	)
-	int field3783;
+	long field3885;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = 2006018083
+	)
+	int field3887;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = -312688473
+	)
+	int field3886;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = 1260355139
+	)
+	int field3884;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = -1879698479
+	)
+	int field3888;
 
 	public Timer() {
-		this.field3785 = -1L;
-		this.field3780 = -1L;
-		this.field3781 = false;
-		this.field3782 = 0L;
-		this.field3784 = 0L;
-		this.field3788 = 0L;
-		this.field3786 = 0;
-		this.field3779 = 0;
-		this.field3787 = 0;
-		this.field3783 = 0;
-	}
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1486512703"
-	)
-	public void method5657() {
-		this.field3785 = UrlRequester.method2125();
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1053887599"
-	)
-	public void method5658() {
-		if (this.field3785 != -1L) {
-			this.field3784 = UrlRequester.method2125() - this.field3785;
-			this.field3785 = -1L;
-		}
-
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-537573102"
-	)
-	public void method5662(int var1) {
-		this.field3780 = UrlRequester.method2125();
-		this.field3786 = var1;
-	}
-
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "337371050"
-	)
-	public void method5677() {
-		if (-1L != this.field3780) {
-			this.field3782 = UrlRequester.method2125() - this.field3780;
-			this.field3780 = -1L;
-		}
-
-		++this.field3787;
-		this.field3781 = true;
-	}
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "962935655"
-	)
-	public void method5661() {
-		this.field3781 = false;
-		this.field3779 = 0;
+		this.field3881 = -1L;
+		this.field3880 = -1L;
+		this.field3889 = false;
+		this.field3882 = 0L;
+		this.field3883 = 0L;
+		this.field3885 = 0L;
+		this.field3887 = 0;
+		this.field3886 = 0;
+		this.field3884 = 0;
+		this.field3888 = 0;
 	}
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1319729393"
+		garbageValue = "1453973445"
 	)
-	public void method5666() {
-		this.method5677();
+	public void method5821() {
+		this.field3881 = Occluder.method4335();
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;I)V",
-		garbageValue = "774902222"
+		descriptor = "(S)V",
+		garbageValue = "6922"
+	)
+	public void method5822() {
+		if (-1L != this.field3881) {
+			this.field3883 = Occluder.method4335() - this.field3881;
+			this.field3881 = -1L;
+		}
+
+	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "-1401008868"
+	)
+	public void method5827(int var1) {
+		this.field3880 = Occluder.method4335();
+		this.field3887 = var1;
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-995733299"
+	)
+	public void method5824() {
+		if (-1L != this.field3880) {
+			this.field3882 = Occluder.method4335() - this.field3880;
+			this.field3880 = -1L;
+		}
+
+		++this.field3884;
+		this.field3889 = true;
+	}
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "2079083311"
+	)
+	public void method5825() {
+		this.field3889 = false;
+		this.field3886 = 0;
+	}
+
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1675975914"
+	)
+	public void method5826() {
+		this.method5824();
+	}
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(Lot;I)V",
+		garbageValue = "-2016175702"
 	)
 	@Export("write")
 	public void write(Buffer var1) {
-		class262.method4896(var1, this.field3784);
-		class262.method4896(var1, this.field3782);
-		class262.method4896(var1, this.field3788);
-		var1.writeShort(this.field3786);
-		var1.writeShort(this.field3779);
-		var1.writeShort(this.field3787);
-		var1.writeShort(this.field3783);
+		UserComparator9.method2439(var1, this.field3883);
+		UserComparator9.method2439(var1, this.field3882);
+		UserComparator9.method2439(var1, this.field3885);
+		var1.writeShort(this.field3887);
+		var1.writeShort(this.field3886);
+		var1.writeShort(this.field3884);
+		var1.writeShort(this.field3888);
 	}
 
-	@ObfuscatedName("ju")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "24"
+		descriptor = "(Ljava/lang/CharSequence;I)Z",
+		garbageValue = "1156082253"
 	)
-	@Export("Widget_resetModelFrames")
-	static final void Widget_resetModelFrames(int var0) {
-		if (Huffman.loadInterface(var0)) {
-			Widget[] var1 = Widget.Widget_interfaceComponents[var0];
-
-			for (int var2 = 0; var2 < var1.length; ++var2) {
-				Widget var3 = var1[var2];
-				if (var3 != null) {
-					var3.modelFrame = 0;
-					var3.modelFrameCycle = 0;
-				}
-			}
-
-		}
+	@Export("isNumber")
+	public static boolean isNumber(CharSequence var0) {
+		return AttackOption.method2254(var0, 10, true);
 	}
 }

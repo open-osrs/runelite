@@ -1,13 +1,12 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ol")
-public class class406 {
-	@ObfuscatedName("t")
+@ObfuscatedName("of")
+public interface class406 {
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Ljy;"
+		descriptor = "(II)Ljava/lang/Object;",
+		garbageValue = "-469045059"
 	)
-	@Export("SpotAnimationDefinition_modelArchive")
-	static AbstractArchive SpotAnimationDefinition_modelArchive;
+	Object vmethod7113(int var1);
 }

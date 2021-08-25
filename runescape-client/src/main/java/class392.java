@@ -1,41 +1,32 @@
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ok")
-public class class392 {
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -11365389
+@ObfuscatedName("oo")
+final class class392 implements class387 {
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Object;Lot;I)V",
+		garbageValue = "-231265174"
 	)
-	public final int field4240;
-	@ObfuscatedName("t")
-	public Object field4241;
-
-	public class392(int var1) {
-		this.field4240 = var1;
+	public void vmethod6721(Object var1, Buffer var2) {
+		this.method6722((String)var1, var2);
 	}
 
-	public class392(int var1, Object var2) {
-		this.field4240 = var1;
-		this.field4241 = var2;
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Lot;I)Ljava/lang/Object;",
+		garbageValue = "103901566"
+	)
+	public Object vmethod6724(Buffer var1) {
+		return var1.readStringCp1252NullTerminated();
 	}
 
-	public boolean equals(Object var1) {
-		if (!(var1 instanceof class392)) {
-			return false;
-		} else {
-			class392 var2 = (class392)var1;
-			if (var2.field4241 == null && this.field4241 != null) {
-				return false;
-			} else if (this.field4241 == null && var2.field4241 != null) {
-				return false;
-			} else {
-				return this.field4240 == var2.field4240 && var2.field4241.equals(this.field4241);
-			}
-		}
-	}
-
-	public int hashCode() {
-		return super.hashCode();
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Lot;I)V",
+		garbageValue = "1729210108"
+	)
+	void method6722(String var1, Buffer var2) {
+		var2.writeStringCp1252NullTerminated(var1);
 	}
 }

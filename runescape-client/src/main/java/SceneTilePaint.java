@@ -3,47 +3,46 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("he")
+@ObfuscatedName("hw")
 @Implements("SceneTilePaint")
 public final class SceneTilePaint {
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -88650323
+		intValue = 625864189
 	)
 	@Export("swColor")
 	int swColor;
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1332576457
+		intValue = -373675019
 	)
 	@Export("seColor")
 	int seColor;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1142944653
+		intValue = -560012417
 	)
 	@Export("neColor")
 	int neColor;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1931362483
+		intValue = -37282275
 	)
 	@Export("nwColor")
 	int nwColor;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1331962247
+		intValue = -4240159
 	)
 	@Export("texture")
 	int texture;
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
 	@Export("isFlat")
 	boolean isFlat;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = 929370087
+		intValue = -53596681
 	)
 	@Export("rgb")
 	int rgb;
@@ -59,185 +58,127 @@ public final class SceneTilePaint {
 		this.isFlat = var7;
 	}
 
-	@ObfuscatedName("s")
-	public static final void method4322(long var0) {
-		if (var0 > 0L) {
-			if (0L == var0 % 10L) {
-				WorldMapDecorationType.method4881(var0 - 1L);
-				WorldMapDecorationType.method4881(1L);
-			} else {
-				WorldMapDecorationType.method4881(var0);
-			}
-
-		}
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;IB)V",
+		garbageValue = "-19"
+	)
+	static final void method4479(String var0, int var1) {
+		PacketBufferNode var2 = FriendSystem.getPacketBufferNode(ClientPacket.field2697, Client.packetWriter.isaacCipher);
+		var2.packetBuffer.writeByte(BufferedSink.stringCp1252NullTerminatedByteSize(var0) + 1);
+		var2.packetBuffer.writeStringCp1252NullTerminated(var0);
+		var2.packetBuffer.method6819(var1);
+		Client.packetWriter.addNode(var2);
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("fi")
 	@ObfuscatedSignature(
-		descriptor = "(ILbd;ZI)I",
-		garbageValue = "490227479"
+		descriptor = "(Lcf;IB)V",
+		garbageValue = "51"
 	)
-	static int method4323(int var0, Script var1, boolean var2) {
-		int var3;
-		if (var0 == ScriptOpcodes.OC_NAME) {
-			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-			Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = KeyHandler.ItemDefinition_get(var3).name;
-			return 1;
+	@Export("updateActorSequence")
+	static final void updateActorSequence(Actor var0, int var1) {
+		if (var0.field1139 >= Client.cycle) {
+			GameObject.method4495(var0);
+		} else if (var0.field1140 >= Client.cycle) {
+			class4.method21(var0);
 		} else {
-			int var4;
-			ItemComposition var5;
-			if (var0 == ScriptOpcodes.OC_OP) {
-				Interpreter.Interpreter_intStackSize -= 2;
-				var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
-				var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-				var5 = KeyHandler.ItemDefinition_get(var3);
-				if (var4 >= 1 && var4 <= 5 && var5.groundActions[var4 - 1] != null) {
-					Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = var5.groundActions[var4 - 1];
-				} else {
-					Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = "";
+			class157.method2918(var0);
+		}
+
+		if (var0.x < 128 || var0.y < 128 || var0.x >= 13184 || var0.y >= 13184) {
+			var0.sequence = -1;
+			var0.spotAnimation = -1;
+			var0.field1139 = 0;
+			var0.field1140 = 0;
+			var0.x = var0.field1137 * 64 + var0.pathX[0] * 128;
+			var0.y = var0.field1137 * 64 + var0.pathY[0] * 128;
+			var0.method2123();
+		}
+
+		if (class129.localPlayer == var0 && (var0.x < 1536 || var0.y < 1536 || var0.x >= 11776 || var0.y >= 11776)) {
+			var0.sequence = -1;
+			var0.spotAnimation = -1;
+			var0.field1139 = 0;
+			var0.field1140 = 0;
+			var0.x = var0.field1137 * 64 + var0.pathX[0] * 128;
+			var0.y = var0.field1137 * 64 + var0.pathY[0] * 128;
+			var0.method2123();
+		}
+
+		if (var0.field1146 != 0) {
+			if (var0.targetIndex != -1) {
+				Object var2 = null;
+				if (var0.targetIndex < 32768) {
+					var2 = Client.npcs[var0.targetIndex];
+				} else if (var0.targetIndex >= 32768) {
+					var2 = Client.players[var0.targetIndex - 32768];
 				}
 
-				return 1;
-			} else if (var0 == ScriptOpcodes.OC_IOP) {
-				Interpreter.Interpreter_intStackSize -= 2;
-				var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize];
-				var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1];
-				var5 = KeyHandler.ItemDefinition_get(var3);
-				if (var4 >= 1 && var4 <= 5 && var5.inventoryActions[var4 - 1] != null) {
-					Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = var5.inventoryActions[var4 - 1];
-				} else {
-					Interpreter.Interpreter_stringStack[++class1.Interpreter_stringStackSize - 1] = "";
+				if (var2 != null) {
+					int var3 = var0.x - ((Actor)var2).x;
+					int var4 = var0.y - ((Actor)var2).y;
+					if (var3 != 0 || var4 != 0) {
+						var0.orientation = (int)(Math.atan2((double)var3, (double)var4) * 325.949D) & 2047;
+					}
+				} else if (var0.false0) {
+					var0.targetIndex = -1;
+					var0.false0 = false;
 				}
+			}
 
-				return 1;
-			} else if (var0 == ScriptOpcodes.OC_COST) {
-				var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = KeyHandler.ItemDefinition_get(var3).price;
-				return 1;
-			} else if (var0 == ScriptOpcodes.OC_STACKABLE) {
-				var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = KeyHandler.ItemDefinition_get(var3).isStackable == 1 ? 1 : 0;
-				return 1;
-			} else {
-				ItemComposition var7;
-				if (var0 == ScriptOpcodes.OC_CERT) {
-					var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-					var7 = KeyHandler.ItemDefinition_get(var3);
-					if (var7.noteTemplate == -1 && var7.note >= 0) {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.note;
-					} else {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3;
+			if (var0.field1096 != -1 && (var0.pathLength == 0 || var0.field1151 > 0)) {
+				var0.orientation = var0.field1096;
+				var0.field1096 = -1;
+			}
+
+			int var5 = var0.orientation - var0.rotation & 2047;
+			if (var5 == 0 && var0.false0) {
+				var0.targetIndex = -1;
+				var0.false0 = false;
+			}
+
+			if (var5 != 0) {
+				++var0.field1145;
+				boolean var7;
+				if (var5 > 1024) {
+					var0.rotation -= var0.field1146;
+					var7 = true;
+					if (var5 < var0.field1146 || var5 > 2048 - var0.field1146) {
+						var0.rotation = var0.orientation;
+						var7 = false;
 					}
 
-					return 1;
-				} else if (var0 == ScriptOpcodes.OC_UNCERT) {
-					var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-					var7 = KeyHandler.ItemDefinition_get(var3);
-					if (var7.noteTemplate >= 0 && var7.note >= 0) {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.note;
-					} else {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3;
-					}
-
-					return 1;
-				} else if (var0 == ScriptOpcodes.OC_MEMBERS) {
-					var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = KeyHandler.ItemDefinition_get(var3).isMembersOnly ? 1 : 0;
-					return 1;
-				} else if (var0 == ScriptOpcodes.OC_PLACEHOLDER) {
-					var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-					var7 = KeyHandler.ItemDefinition_get(var3);
-					if (var7.placeholderTemplate == -1 && var7.placeholder >= 0) {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.placeholder;
-					} else {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3;
-					}
-
-					return 1;
-				} else if (var0 == ScriptOpcodes.OC_UNPLACEHOLDER) {
-					var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-					var7 = KeyHandler.ItemDefinition_get(var3);
-					if (var7.placeholderTemplate >= 0 && var7.placeholder >= 0) {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var7.placeholder;
-					} else {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var3;
-					}
-
-					return 1;
-				} else if (var0 == ScriptOpcodes.OC_FIND) {
-					String var6 = Interpreter.Interpreter_stringStack[--class1.Interpreter_stringStackSize];
-					var4 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-					WorldMapSection1.findItemDefinitions(var6, var4 == 1);
-					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = BoundaryObject.foundItemIdCount;
-					return 1;
-				} else if (var0 != ScriptOpcodes.OC_FINDNEXT) {
-					if (var0 == ScriptOpcodes.OC_FINDRESET) {
-						TileItem.foundItemIndex = 0;
-						return 1;
-					} else if (var0 == 4213) {
-						var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize];
-						var4 = KeyHandler.ItemDefinition_get(var3).getShiftClickIndex();
-						if (var4 == -1) {
-							Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4;
+					if (var0.idleSequence == var0.movementSequence && (var0.field1145 > 25 || var7)) {
+						if (var0.turnLeftSequence != -1) {
+							var0.movementSequence = var0.turnLeftSequence;
 						} else {
-							Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = var4 + 1;
+							var0.movementSequence = var0.walkSequence;
 						}
-
-						return 1;
-					} else {
-						return 2;
 					}
 				} else {
-					if (NPC.foundItemIds != null && TileItem.foundItemIndex < BoundaryObject.foundItemIdCount) {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = NPC.foundItemIds[++TileItem.foundItemIndex - 1] & '\uffff';
-					} else {
-						Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1;
+					var0.rotation += var0.field1146;
+					var7 = true;
+					if (var5 < var0.field1146 || var5 > 2048 - var0.field1146) {
+						var0.rotation = var0.orientation;
+						var7 = false;
 					}
 
-					return 1;
+					if (var0.idleSequence == var0.movementSequence && (var0.field1145 > 25 || var7)) {
+						if (var0.turnRightSequence != -1) {
+							var0.movementSequence = var0.turnRightSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence;
+						}
+					}
 				}
-			}
-		}
-	}
 
-	@ObfuscatedName("in")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "1"
-	)
-	static final void method4321() {
-		boolean var0 = false;
-
-		while (!var0) {
-			var0 = true;
-
-			for (int var1 = 0; var1 < Client.menuOptionsCount - 1; ++var1) {
-				if (Client.menuOpcodes[var1] < 1000 && Client.menuOpcodes[var1 + 1] > 1000) {
-					String var2 = Client.menuTargets[var1];
-					Client.menuTargets[var1] = Client.menuTargets[var1 + 1];
-					Client.menuTargets[var1 + 1] = var2;
-					String var3 = Client.menuActions[var1];
-					Client.menuActions[var1] = Client.menuActions[var1 + 1];
-					Client.menuActions[var1 + 1] = var3;
-					int var4 = Client.menuOpcodes[var1];
-					Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1];
-					Client.menuOpcodes[var1 + 1] = var4;
-					var4 = Client.menuArguments1[var1];
-					Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1];
-					Client.menuArguments1[var1 + 1] = var4;
-					var4 = Client.menuArguments2[var1];
-					Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1];
-					Client.menuArguments2[var1 + 1] = var4;
-					var4 = Client.menuIdentifiers[var1];
-					Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1];
-					Client.menuIdentifiers[var1 + 1] = var4;
-					boolean var5 = Client.menuShiftClick[var1];
-					Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1];
-					Client.menuShiftClick[var1 + 1] = var5;
-					var0 = false;
-				}
+				var0.rotation &= 2047;
+			} else {
+				var0.field1145 = 0;
 			}
 		}
 
+		Player.method2114(var0);
 	}
 }

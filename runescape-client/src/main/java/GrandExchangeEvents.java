@@ -7,22 +7,22 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jf")
+@ObfuscatedName("km")
 @Implements("GrandExchangeEvents")
 public class GrandExchangeEvents {
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@Export("GrandExchangeEvents_ageComparator")
 	public static Comparator GrandExchangeEvents_ageComparator;
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@Export("GrandExchangeEvents_priceComparator")
 	public static Comparator GrandExchangeEvents_priceComparator;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("GrandExchangeEvents_nameComparator")
 	public static Comparator GrandExchangeEvents_nameComparator;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@Export("GrandExchangeEvents_quantityComparator")
 	public static Comparator GrandExchangeEvents_quantityComparator;
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@Export("events")
 	public final List events;
 
@@ -35,7 +35,7 @@ public class GrandExchangeEvents {
 	}
 
 	@ObfuscatedSignature(
-		descriptor = "(Lnv;Z)V",
+		descriptor = "(Lot;Z)V",
 		garbageValue = "1"
 	)
 	public GrandExchangeEvents(Buffer var1, boolean var2) {
@@ -57,10 +57,10 @@ public class GrandExchangeEvents {
 
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/Comparator;ZI)V",
-		garbageValue = "1669193209"
+		descriptor = "(Ljava/util/Comparator;ZB)V",
+		garbageValue = "-93"
 	)
 	@Export("sort")
 	public void sort(Comparator var1, boolean var2) {
@@ -70,5 +70,27 @@ public class GrandExchangeEvents {
 			Collections.sort(this.events, Collections.reverseOrder(var1));
 		}
 
+	}
+
+	@ObfuscatedName("ip")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZI)V",
+		garbageValue = "1583510201"
+	)
+	@Export("insertMenuItem")
+	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
+		if (!Client.isMenuOpen) {
+			if (Client.menuOptionsCount < 500) {
+				Client.menuActions[Client.menuOptionsCount] = var0;
+				Client.menuTargets[Client.menuOptionsCount] = var1;
+				Client.menuOpcodes[Client.menuOptionsCount] = var2;
+				Client.menuIdentifiers[Client.menuOptionsCount] = var3;
+				Client.menuArguments1[Client.menuOptionsCount] = var4;
+				Client.menuArguments2[Client.menuOptionsCount] = var5;
+				Client.menuShiftClick[Client.menuOptionsCount] = var6;
+				++Client.menuOptionsCount;
+			}
+
+		}
 	}
 }

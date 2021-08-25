@@ -3,34 +3,40 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bh")
+@ObfuscatedName("cv")
 @Implements("HealthBar")
 public class HealthBar extends Node {
-	@ObfuscatedName("v")
+	@ObfuscatedName("dz")
 	@ObfuscatedSignature(
-		descriptor = "Leb;"
+		descriptor = "Led;"
+	)
+	@Export("js5SocketTask")
+	static Task js5SocketTask;
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "Lft;"
 	)
 	@Export("definition")
 	HealthBarDefinition definition;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lkk;"
+		descriptor = "Lkz;"
 	)
 	@Export("updates")
 	IterableNodeDeque updates;
 
 	@ObfuscatedSignature(
-		descriptor = "(Leb;)V"
+		descriptor = "(Lft;)V"
 	)
 	HealthBar(HealthBarDefinition var1) {
 		this.updates = new IterableNodeDeque();
 		this.definition = var1;
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(IIIII)V",
-		garbageValue = "-1687472084"
+		garbageValue = "-1738206630"
 	)
 	@Export("put")
 	void put(int var1, int var2, int var3, int var4) {
@@ -63,10 +69,10 @@ public class HealthBar extends Node {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lbz;",
-		garbageValue = "93"
+		descriptor = "(II)Lcc;",
+		garbageValue = "1300102488"
 	)
 	@Export("get")
 	HealthBarUpdate get(int var1) {
@@ -77,7 +83,7 @@ public class HealthBar extends Node {
 				var2 = var3;
 			}
 
-			if (this.definition.int5 + var2.cycle + var2.cycleOffset > var1) {
+			if (this.definition.int5 + var2.cycleOffset + var2.cycle > var1) {
 				return var2;
 			} else {
 				var2.remove();
@@ -88,69 +94,27 @@ public class HealthBar extends Node {
 		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-27"
+		descriptor = "(I)Z",
+		garbageValue = "-1972373384"
 	)
 	@Export("isEmpty")
 	boolean isEmpty() {
-		return this.updates.method5383();
+		return this.updates.method5517();
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "-971711054"
+		descriptor = "(II)I",
+		garbageValue = "-952267390"
 	)
-	static String method1945(int var0) {
-		return "<img=" + var0 + ">";
-	}
-
-	@ObfuscatedName("jy")
-	@ObfuscatedSignature(
-		descriptor = "([Lio;II)V",
-		garbageValue = "-166878609"
-	)
-	@Export("runComponentCloseListeners")
-	static final void runComponentCloseListeners(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) {
-			Widget var3 = var0[var2];
-			if (var3 != null) {
-				if (var3.type == 0) {
-					if (var3.children != null) {
-						runComponentCloseListeners(var3.children, var1);
-					}
-
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
-					if (var4 != null) {
-						WorldMapData_0.runIntfCloseListeners(var4.group, var1);
-					}
-				}
-
-				ScriptEvent var5;
-				if (var1 == 0 && var3.onDialogAbort != null) {
-					var5 = new ScriptEvent();
-					var5.widget = var3;
-					var5.args = var3.onDialogAbort;
-					UserComparator10.runScriptEvent(var5);
-				}
-
-				if (var1 == 1 && var3.onSubChange != null) {
-					if (var3.childIndex >= 0) {
-						Widget var6 = UrlRequester.getWidget(var3.id);
-						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) {
-							continue;
-						}
-					}
-
-					var5 = new ScriptEvent();
-					var5.widget = var3;
-					var5.args = var3.onSubChange;
-					UserComparator10.runScriptEvent(var5);
-				}
-			}
-		}
-
+	public static int method2205(int var0) {
+		var0 = (var0 & 1431655765) + (var0 >>> 1 & 1431655765);
+		var0 = (var0 >>> 2 & 858993459) + (var0 & 858993459);
+		var0 = var0 + (var0 >>> 4) & 252645135;
+		var0 += var0 >>> 8;
+		var0 += var0 >>> 16;
+		return var0 & 255;
 	}
 }
