@@ -188,7 +188,7 @@ public class SessionManager
 		}
 		catch (IOException ex)
 		{
-			log.warn("Unable to logout of session", ex);
+			log.warn("Unable to sign out of session", ex);
 		}
 
 		accountSession = null; // No more account
@@ -227,7 +227,7 @@ public class SessionManager
 	@Subscribe
 	public void onLoginResponse(LoginResponse loginResponse)
 	{
-		log.debug("Now logged in as {}", loginResponse.getUsername());
+		log.debug("Now signed in as {}", loginResponse.getUsername());
 
 		AccountSession session = getAccountSession();
 		session.setUsername(loginResponse.getUsername());
