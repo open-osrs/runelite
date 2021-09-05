@@ -1451,11 +1451,11 @@ public abstract class RSClientMixin implements RSClient
 				"|MenuAction|: MenuOption={} MenuTarget={} Id={} Opcode={}/{} Param0={} Param1={} CanvasX={} CanvasY={}",
 				menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(), menuOptionClicked.getId(),
 				menuOptionClicked.getMenuAction(), opcode + (decremented ? 2000 : 0),
-				menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(), canvasX, canvasY
+				menuOptionClicked.getParam0(), menuOptionClicked.getParam1(), canvasX, canvasY
 			);
 		}
 
-		copy$menuAction(menuOptionClicked.getActionParam(), menuOptionClicked.getWidgetId(),
+		copy$menuAction(menuOptionClicked.getParam0(), menuOptionClicked.getParam1(),
 			menuOptionClicked.getMenuAction() == UNKNOWN ? opcode : menuOptionClicked.getMenuAction().getId(),
 			menuOptionClicked.getId(), menuOptionClicked.getMenuOption(), menuOptionClicked.getMenuTarget(),
 			canvasX, canvasY);
