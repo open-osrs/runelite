@@ -35,6 +35,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
+import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
 import net.runelite.api.coords.LocalPoint;
