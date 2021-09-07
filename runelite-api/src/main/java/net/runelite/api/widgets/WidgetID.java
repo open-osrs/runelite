@@ -430,6 +430,7 @@ public class WidgetID
 		static final int SPEC_ORB = 29;
 		static final int SPEC_CLICKBOX = 31;
 		static final int WORLDMAP_ORB = 43;
+		static final int WIKI_BANNER_PARENT = 44;
 		static final int WIKI_BANNER = 45;
 		static final int WORLDMAP_OPTIONS = 48;
 	}

@@ -35,7 +35,6 @@ import java.util.Set;
 import javax.inject.Inject;
 import net.runelite.api.Client;
 import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
 import net.runelite.api.Perspective;
 import net.runelite.api.Point;
 import net.runelite.api.Tile;
@@ -157,11 +156,7 @@ class AgilityOverlay extends Overlay
 			Color color = config.sepulchreHighlightColor();
 			for (NPC npc : npcs)
 			{
-				NPCComposition npcComposition = npc.getComposition();
-				int size = npcComposition.getSize();
-				LocalPoint lp = npc.getLocalLocation();
-
-				Polygon tilePoly = Perspective.getCanvasTileAreaPoly(client, lp, size);
+				Polygon tilePoly = npc.getCanvasTilePoly();
 				if (tilePoly != null)
 				{
 					OverlayUtil.renderPolygon(graphics, tilePoly, color);

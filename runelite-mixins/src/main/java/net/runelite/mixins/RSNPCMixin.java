@@ -24,6 +24,7 @@
  */
 package net.runelite.mixins;
 
+import java.awt.Polygon;
 import java.awt.Shape;
 import net.runelite.api.AnimationID;
 import net.runelite.api.NPCComposition;
@@ -167,6 +168,22 @@ public abstract class RSNPCMixin implements RSNPC
 			composition = composition.transform();
 		}
 		return composition;
+	}
+
+	@Inject
+	@Override
+	public Polygon getCanvasTilePoly()
+	{
+		NPCComposition transformedComposition = this.getTransformedComposition();
+		if (transformedComposition == null)
+		{
+			return null;
+		}
+		else
+		{
+			int size = transformedComposition.getSize();
+			return Perspective.getCanvasTileAreaPoly(client, this.getLocalLocation(), size);
+		}
 	}
 
 	@Inject

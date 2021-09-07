@@ -41,10 +41,7 @@ public abstract class RSModelDataMixin implements RSModelData
 	private static RSClient client;
 
 	@Inject
-	private float[][] faceTextureUCoordinates;
-
-	@Inject
-	private float[][] faceTextureVCoordinates;
+	private float[] faceTextureUVCoordinates;
 
 	@Copy("toModel")
 	@Replace("toModel")
@@ -59,14 +56,13 @@ public abstract class RSModelDataMixin implements RSModelData
 			return null;
 		}
 
-		if (faceTextureUCoordinates == null)
+		if (faceTextureUVCoordinates == null)
 		{
 			computeTextureUVCoordinates();
 		}
 
 		RSModel rsModel = (RSModel) model;
-		rsModel.setFaceTextureUCoordinates(faceTextureUCoordinates);
-		rsModel.setFaceTextureVCoordinates(faceTextureVCoordinates);
+		rsModel.setFaceTextureUVCoordinates(faceTextureUVCoordinates);
 		return model;
 	}
 
@@ -94,39 +90,34 @@ public abstract class RSModelDataMixin implements RSModelData
 		final byte[] textureCoords = getTextureCoords();
 
 		int faceCount = getTriangleFaceCount();
-		this.faceTextureUCoordinates = new float[faceCount][];
-		this.faceTextureVCoordinates = new float[faceCount][];
+		float[] faceTextureUCoordinates = new float[faceCount * 6];
 
 		for (int i = 0; i < faceCount; i++)
 		{
 			int trianglePointX = trianglePointsX[i];
 			int trianglePointY = trianglePointsY[i];
 			int trianglePointZ = trianglePointsZ[i];
-			int textureCoordinate = textureCoords != null && textureCoords[i] != -1 ? textureCoords[i] & 255 : -1;
 
-			short textureIdx;
-			textureIdx = faceTextures[i];
+			short textureIdx = faceTextures[i];
 
 			if (textureIdx != -1)
 			{
-				float[] u = new float[3];
-				float[] v = new float[3];
-
 				int triangleVertexIdx1;
 				int triangleVertexIdx2;
 				int triangleVertexIdx3;
 
-				if (textureCoordinate == -1)
+				if (textureCoords != null && textureCoords[i] != -1)
+				{
+					int textureCoordinate = textureCoords[i] & 255;
+					triangleVertexIdx1 = texTriangleX[textureCoordinate];
+					triangleVertexIdx2 = texTriangleY[textureCoordinate];
+					triangleVertexIdx3 = texTriangleZ[textureCoordinate];
+				}
+				else
 				{
 					triangleVertexIdx1 = trianglePointX;
 					triangleVertexIdx2 = trianglePointY;
 					triangleVertexIdx3 = trianglePointZ;
-				}
-				else
-				{
-					triangleVertexIdx1 = texTriangleX[textureCoordinate];
-					triangleVertexIdx2 = texTriangleY[textureCoordinate];
-					triangleVertexIdx3 = texTriangleZ[textureCoordinate];
 				}
 
 				float triangleX = (float) vertexPositionsX[triangleVertexIdx1];
@@ -157,22 +148,29 @@ public abstract class RSModelDataMixin implements RSModelData
 				float f_902_ = f_885_ * f_898_ - f_886_ * f_897_;
 				float f_903_ = 1.0F / (f_900_ * f_882_ + f_901_ * f_883_ + f_902_ * f_884_);
 
-				u[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
-				u[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
-				u[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
+				float u0 = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+				float u1 = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+				float u2 = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
 
 				f_900_ = f_883_ * f_899_ - f_884_ * f_898_;
 				f_901_ = f_884_ * f_897_ - f_882_ * f_899_;
 				f_902_ = f_882_ * f_898_ - f_883_ * f_897_;
 				f_903_ = 1.0F / (f_900_ * f_885_ + f_901_ * f_886_ + f_902_ * f_887_);
 
-				v[0] = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
-				v[1] = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
-				v[2] = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
+				float v0 = (f_900_ * f_888_ + f_901_ * f_889_ + f_902_ * f_890_) * f_903_;
+				float v1 = (f_900_ * f_891_ + f_901_ * f_892_ + f_902_ * f_893_) * f_903_;
+				float v2 = (f_900_ * f_894_ + f_901_ * f_895_ + f_902_ * f_896_) * f_903_;
 
-				this.faceTextureUCoordinates[i] = u;
-				this.faceTextureVCoordinates[i] = v;
+				int idx = i * 6;
+				faceTextureUCoordinates[idx] = u0;
+				faceTextureUCoordinates[idx + 1] = v0;
+				faceTextureUCoordinates[idx + 2] = u1;
+				faceTextureUCoordinates[idx + 3] = v1;
+				faceTextureUCoordinates[idx + 4] = u2;
+				faceTextureUCoordinates[idx + 5] = v2;
 			}
 		}
+
+		this.faceTextureUVCoordinates = faceTextureUCoordinates;
 	}
 }

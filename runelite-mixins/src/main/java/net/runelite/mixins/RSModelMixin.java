@@ -61,51 +61,36 @@ public abstract class RSModelMixin implements RSModel
 	private int rl$uvBufferOffset;
 
 	@Inject
-	private float[][] rl$faceTextureUCoordinates;
-
-	@Inject
-	private float[][] rl$faceTextureVCoordinates;
+	private float[] rl$faceTextureUVCoordinates;
 
 	@MethodHook(value = "<init>", end = true)
 	@Inject
 	public void rl$init(RSModel[] models, int length)
 	{
-		int count = 0;
-		for (int i = 0; i < length; ++i)
+		if (this.getFaceTextures() != null)
 		{
-			RSModel model = models[i];
-			if (model != null)
+			int count = this.getTrianglesCount();
+			float[] uv = new float[count * 6];
+			int idx = 0;
+
+			for (int i = 0; i < length; ++i)
 			{
-				count += model.getTrianglesCount();
-			}
-		}
-
-		float[][] u = new float[count][];
-		float[][] v = new float[count][];
-		int idx = 0;
-
-		for (int i = 0; i < length; ++i)
-		{
-			RSModel model = models[i];
-			if (model != null)
-			{
-				float[][] modelU = model.getFaceTextureUCoordinates();
-				float[][] modelV = model.getFaceTextureVCoordinates();
-
-				for (int j = 0; j < model.getTrianglesCount(); ++j)
+				RSModel model = models[i];
+				if (model != null)
 				{
-					if (modelU != null && modelV != null)
+					float[] modelUV = model.getFaceTextureUVCoordinates();
+
+					if (modelUV != null)
 					{
-						u[idx] = modelU[j];
-						v[idx] = modelV[j];
+						System.arraycopy(modelUV, 0, uv, idx, model.getTrianglesCount() * 6);
 					}
-					++idx;
+
+					idx += model.getTrianglesCount() * 6;
 				}
 			}
-		}
 
-		setFaceTextureUCoordinates(u);
-		setFaceTextureVCoordinates(v);
+			setFaceTextureUVCoordinates(uv);
+		}
 	}
 
 	@Override
@@ -169,8 +154,7 @@ public abstract class RSModelMixin implements RSModel
 		if (model != null && model != this)
 		{
 			RSModel rsModel = (RSModel) model;
-			rsModel.setFaceTextureUCoordinates(rl$faceTextureUCoordinates);
-			rsModel.setFaceTextureVCoordinates(rl$faceTextureVCoordinates);
+			rsModel.setFaceTextureUVCoordinates(rl$faceTextureUVCoordinates);
 		}
 		return model;
 	}
@@ -192,8 +176,7 @@ public abstract class RSModelMixin implements RSModel
 	{
 		// Animated models are usually a shared Model instance that is global
 		RSModel rsModel = (RSModel) sharedModel;
-		rsModel.setFaceTextureUCoordinates(rl$faceTextureUCoordinates);
-		rsModel.setFaceTextureVCoordinates(rl$faceTextureVCoordinates);
+		rsModel.setFaceTextureUVCoordinates(rl$faceTextureUVCoordinates);
 	}
 
 	@Inject
@@ -385,29 +368,15 @@ public abstract class RSModelMixin implements RSModel
 
 	@Inject
 	@Override
-	public float[][] getFaceTextureUCoordinates()
+	public float[] getFaceTextureUVCoordinates()
 	{
-		return rl$faceTextureUCoordinates;
+		return rl$faceTextureUVCoordinates;
 	}
 
 	@Inject
 	@Override
-	public void setFaceTextureUCoordinates(float[][] faceTextureUCoordinates)
+	public void setFaceTextureUVCoordinates(float[] faceTextureUVCoordinates)
 	{
-		this.rl$faceTextureUCoordinates = faceTextureUCoordinates;
-	}
-
-	@Inject
-	@Override
-	public float[][] getFaceTextureVCoordinates()
-	{
-		return rl$faceTextureVCoordinates;
-	}
-
-	@Inject
-	@Override
-	public void setFaceTextureVCoordinates(float[][] faceTextureVCoordinates)
-	{
-		this.rl$faceTextureVCoordinates = faceTextureVCoordinates;
+		this.rl$faceTextureUVCoordinates = faceTextureUVCoordinates;
 	}
 }
