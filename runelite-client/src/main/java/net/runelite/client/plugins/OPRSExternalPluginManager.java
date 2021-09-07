@@ -297,7 +297,6 @@ public class OPRSExternalPluginManager
 					}
 				}
 
-				log.info("url: {}", url);
 				String pluginJson = null;
 				if (url.contains(".json"))
 				{
@@ -452,7 +451,7 @@ public class OPRSExternalPluginManager
 
 		if (!duplicates)
 		{
-			log.info("No duplicates found.");
+			log.debug("No duplicates found.");
 			return;
 		}
 
@@ -467,7 +466,7 @@ public class OPRSExternalPluginManager
 		sb.deleteCharAt(sb.lastIndexOf(";"));
 		String duplicateFix = sb.toString();
 
-		log.info("Duplicate Repos detected, setting them to: {}", duplicateFix);
+		log.debug("Duplicate Repos detected, setting them to: {}", duplicateFix);
 		openOSRSConfig.setExternalRepositories(duplicateFix);
 	}
 
@@ -1004,7 +1003,7 @@ public class OPRSExternalPluginManager
 		}
 		else if (developmentMode)
 		{
-			log.info("Not updating because we're running in developer mode");
+			log.debug("Not updating because we're running in developer mode");
 			return;
 		}
 
