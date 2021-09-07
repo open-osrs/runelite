@@ -208,9 +208,22 @@ public class ExternalPluginManagerPanel extends PluginPanel
 				}
 
 				URL urlActual;
+				String pluginJson = null;
 				try
 				{
-					urlActual = new URL(url.getText());
+					String urlText = url.getText();
+
+					if (urlText.contains(".json"))
+					{
+						urlText = urlText.replace(".json/", ".json");
+
+						URL urlObj = new URL(urlText);
+						String urlPath = urlObj.getPath();
+
+						pluginJson = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+					}
+
+					urlActual = new URL(urlText);
 				}
 				catch (MalformedURLException e)
 				{
@@ -219,14 +232,21 @@ public class ExternalPluginManagerPanel extends PluginPanel
 					return;
 				}
 
-				if (OPRSExternalPluginManager.testRepository(urlActual))
+				if ((pluginJson == null && OPRSExternalPluginManager.testRepository(urlActual)) || (pluginJson != null && OPRSExternalPluginManager.testRepository(urlActual, pluginJson)))
 				{
 					JOptionPane.showMessageDialog(ClientUI.getFrame(), "This doesn't appear to be a valid repository.", "Error!",
 						JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 
-				externalPluginManager.addRepository(id.getText(), urlActual);
+				if (pluginJson == null)
+				{
+					externalPluginManager.addRepository(id.getText(), urlActual);
+				}
+				else
+				{
+					externalPluginManager.addRepository(id.getText(), urlActual, pluginJson);
+				}
 			}
 
 			@Override

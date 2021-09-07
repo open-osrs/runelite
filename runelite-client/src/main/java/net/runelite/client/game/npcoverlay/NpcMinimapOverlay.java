@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2018, James Swindle <wilingua@gmail.com>
  * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
@@ -22,46 +23,70 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.corp;
+package net.runelite.client.game.npcoverlay;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
-import javax.inject.Inject;
+import java.util.Map;
+import java.util.function.Predicate;
 import net.runelite.api.NPC;
+import net.runelite.api.NPCComposition;
+import net.runelite.api.Point;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayUtil;
+import net.runelite.client.util.Text;
 
-class CoreOverlay extends Overlay
+class NpcMinimapOverlay extends Overlay
 {
-	private final CorpPlugin corpPlugin;
-	private final CorpConfig config;
+	private final Map<NPC, HighlightedNpc> highlightedNpcs;
 
-	@Inject
-	private CoreOverlay(CorpPlugin corpPlugin, CorpConfig corpConfig)
+	NpcMinimapOverlay(Map<NPC, HighlightedNpc> highlightedNpcs)
 	{
+		this.highlightedNpcs = highlightedNpcs;
 		setPosition(OverlayPosition.DYNAMIC);
-		setLayer(OverlayLayer.ABOVE_SCENE);
-		this.corpPlugin = corpPlugin;
-		this.config = corpConfig;
+		setLayer(OverlayLayer.ABOVE_WIDGETS);
 	}
 
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		NPC core = corpPlugin.getCore();
-		if (core != null && config.markDarkCore())
+		for (HighlightedNpc highlightedNpc : highlightedNpcs.values())
 		{
-			Polygon canvasTilePoly = core.getCanvasTilePoly();
-			if (canvasTilePoly != null)
-			{
-				OverlayUtil.renderPolygon(graphics, canvasTilePoly, Color.RED.brighter());
-			}
+			renderNpcOverlay(graphics, highlightedNpc);
 		}
 
 		return null;
+	}
+
+	private void renderNpcOverlay(Graphics2D graphics, HighlightedNpc highlightedNpc)
+	{
+		NPC actor = highlightedNpc.getNpc();
+		NPCComposition npcComposition = actor.getTransformedComposition();
+		if (npcComposition == null || !npcComposition.isInteractible())
+		{
+			return;
+		}
+
+		Predicate<NPC> render = highlightedNpc.getRender();
+		if (render != null && !render.test(actor))
+		{
+			return;
+		}
+
+		Point minimapLocation = actor.getMinimapLocation();
+		if (minimapLocation != null)
+		{
+			Color color = highlightedNpc.getHighlightColor();
+			OverlayUtil.renderMinimapLocation(graphics, minimapLocation, color.darker());
+
+			if (highlightedNpc.isNameOnMinimap() && actor.getName() != null)
+			{
+				String name = Text.removeTags(actor.getName());
+				OverlayUtil.renderTextLocation(graphics, minimapLocation, name, color);
+			}
+		}
 	}
 }

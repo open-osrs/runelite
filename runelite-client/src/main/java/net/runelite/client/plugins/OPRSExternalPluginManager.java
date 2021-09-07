@@ -187,8 +187,20 @@ public class OPRSExternalPluginManager
 
 	public static boolean testRepository(URL url)
 	{
+		return testRepository(url, null);
+	}
+
+	public static boolean testRepository(URL url, String pluginsJson)
+	{
 		final List<UpdateRepository> repositories = new ArrayList<>();
-		repositories.add(new DefaultUpdateRepository("repository-testing", url));
+		if (pluginsJson != null)
+		{
+			repositories.add(new DefaultUpdateRepository("repository-testing", url, pluginsJson));
+		}
+		else
+		{
+			repositories.add(new DefaultUpdateRepository("repository-testing", url));
+		}
 		DefaultPluginManager testPluginManager = new DefaultPluginManager(EXTERNALPLUGIN_DIR.toPath());
 		UpdateManager updateManager = new UpdateManager(testPluginManager, repositories);
 
@@ -285,7 +297,26 @@ public class OPRSExternalPluginManager
 					}
 				}
 
-				repositories.add(new DefaultUpdateRepository(id, new URL(url)));
+				log.info("url: {}", url);
+				String pluginJson = null;
+				if (url.contains(".json"))
+				{
+					url = url.replace(".json/", ".json");
+
+					URL urlObj = new URL(url);
+					String urlPath = urlObj.getPath();
+
+					pluginJson = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+				}
+
+				if (pluginJson == null)
+				{
+					repositories.add(new DefaultUpdateRepository(id, new URL(url)));
+				}
+				else
+				{
+					repositories.add(new DefaultUpdateRepository(id, new URL(url), pluginJson));
+				}
 			}
 		}
 		catch (ArrayIndexOutOfBoundsException | MalformedURLException e)
@@ -342,7 +373,22 @@ public class OPRSExternalPluginManager
 
 	public void addRepository(String key, URL url)
 	{
-		DefaultUpdateRepository respository = new DefaultUpdateRepository(key, url);
+		addRepository(key, url, null);
+	}
+
+	public void addRepository(String key, URL url, String pluginsJson)
+	{
+		DefaultUpdateRepository respository;
+
+		if (pluginsJson != null)
+		{
+			respository = new DefaultUpdateRepository(key, url, pluginsJson);
+		}
+		else
+		{
+			respository = new DefaultUpdateRepository(key, url);
+		}
+
 		updateManager.addRepository(respository);
 		eventBus.post(new OPRSRepositoryChanged(key, true));
 		saveConfig();
