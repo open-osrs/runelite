@@ -124,7 +124,7 @@ public class class7 {
 		var5.field806 = (var6 + var1) * 128;
 		var5.field801 = (var7 + var2) * 128;
 		var5.soundEffectId = var3.ambientSoundId;
-		var5.field804 = var3.field1864 * 128;
+		var5.field804 = var3.int7 * 128;
 		var5.field805 = var3.int5;
 		var5.field800 = var3.int6;
 		var5.soundEffectIds = var3.soundEffectIds;
