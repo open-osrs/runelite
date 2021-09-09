@@ -1433,4 +1433,7 @@ public interface RSClient extends RSGameEngine, Client
 	RSClanSettings getGuestClanSettings();
 
 	ClanRank getClanRankFromRs(int rank);
+
+	@Import("readStringIntParameters")
+	RSIterableNodeHashTable readStringIntParameters(RSBuffer buffer, RSIterableNodeHashTable table);
 }
