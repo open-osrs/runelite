@@ -243,6 +243,9 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("combatTargetPlayerIndex")
 	void setLocalInteractingIndex(int idx);
 
+	@Import("Scene_tilesDeque")
+	RSNodeDeque getTilesDeque();
+
 	@Import("groundItems")
 	RSNodeDeque[][][] getGroundItemDeque();
 
