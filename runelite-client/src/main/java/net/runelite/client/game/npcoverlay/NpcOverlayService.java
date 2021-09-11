@@ -33,7 +33,9 @@ import java.util.function.Function;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import net.runelite.api.Client;
+import net.runelite.api.GameState;
 import net.runelite.api.NPC;
+import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.NpcChanged;
 import net.runelite.api.events.NpcDespawned;
 import net.runelite.api.events.NpcSpawned;
@@ -62,6 +64,16 @@ public class NpcOverlayService
 		eventBus.register(this);
 	}
 
+	@Subscribe
+	private void onGameStateChanged(GameStateChanged event)
+	{
+		if (event.getGameState() == GameState.LOGIN_SCREEN ||
+			event.getGameState() == GameState.HOPPING)
+		{
+			highlightedNpcs.clear();
+		}
+	}
+
 	@Subscribe(
 		// Run after plugins, which typically capture NPCs on spawn and reference them in the highlight functions
 		priority = -1
@@ -81,14 +93,18 @@ public class NpcOverlayService
 		}
 	}
 
-	@Subscribe
+	@Subscribe(
+		priority = -1
+	)
 	private void onNpcDespawned(NpcDespawned npcDespawned)
 	{
 		final NPC npc = npcDespawned.getNpc();
 		highlightedNpcs.remove(npc);
 	}
 
-	@Subscribe
+	@Subscribe(
+		priority = -1
+	)
 	private void onNpcChanged(NpcChanged event)
 	{
 		final NPC npc = event.getNpc();
