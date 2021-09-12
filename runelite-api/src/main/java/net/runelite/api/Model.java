@@ -105,4 +105,8 @@ public interface Model extends Renderable
 	boolean isClickable();
 	
 	void drawFace(int face);
+
+	int[] getVertexNormalsX();
+	int[] getVertexNormalsY();
+	int[] getVertexNormalsZ();
 }
