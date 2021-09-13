@@ -12,7 +12,8 @@ public enum class6 implements MouseWheel {
 	field10(0, 0);
 
 	@ObfuscatedName("k")
-	static byte[][][] field13;
+	@Export("Tiles_underlays")
+	static byte[][][] Tiles_underlays;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
 		intValue = -607968475

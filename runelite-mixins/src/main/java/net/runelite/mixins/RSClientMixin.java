@@ -29,6 +29,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -2290,5 +2291,25 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	public static RSArchive[] archives = new RSArchive[21];
+
+	@Inject
+	@FieldHook("rndHue")
+	public static void rndHue(int idx)
+	{
+		int rndHue = client.getRndHue();
+
+		if (rndHue >= -8 && rndHue <= 8)
+		{
+			RSScene scene = client.getScene();
+
+			byte[][][] underlays = client.getTileUnderlays();
+			byte[][][] overlays = client.getTileOverlays();
+			byte[][][] tileShapes = client.getTileShapes();
+
+			scene.setUnderlayIds(Arrays.copyOf(underlays, underlays.length));
+			scene.setOverlayIds(Arrays.copyOf(overlays, overlays.length));
+			scene.setTileShapes(Arrays.copyOf(tileShapes, tileShapes.length));
+		}
+	}
 }
 

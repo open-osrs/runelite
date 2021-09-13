@@ -99,6 +99,15 @@ public abstract class RSSceneMixin implements RSScene
 	@Inject
 	private static int rl$hoverY = -1;
 
+	@Inject
+	private static byte[][][] rl$underlayIds;
+
+	@Inject
+	private static byte[][][] rl$overlayIds;
+
+	@Inject
+	private static byte[][][] rl$tileShapes;
+
 	@Replace("draw")
 	void drawScene(int cameraX, int cameraY, int cameraZ, int cameraPitch, int cameraYaw, int plane)
 	{
@@ -1120,7 +1129,7 @@ public abstract class RSSceneMixin implements RSScene
 					Tile tile = tiles[plane][x][y];
 					if (tile != null && rl$tiles[plane][x][y] == 0 && blocking(plane, x, y))
 					{
-						this.iterateDeque(tile, var2);
+						iterateDeque(tile, var2);
 						++var2;
 					}
 				}
@@ -1188,5 +1197,47 @@ public abstract class RSSceneMixin implements RSScene
 			rl$hoverX = x;
 			rl$hoverY = y;
 		}
+	}
+
+	@Inject
+	@Override
+	public byte[][][] getUnderlayIds()
+	{
+		return rl$underlayIds;
+	}
+
+	@Inject
+	@Override
+	public void setUnderlayIds(byte[][][] underlayIds)
+	{
+		rl$underlayIds = underlayIds;
+	}
+
+	@Inject
+	@Override
+	public byte[][][] getOverlayIds()
+	{
+		return rl$overlayIds;
+	}
+
+	@Inject
+	@Override
+	public void setOverlayIds(byte[][][] overlayIds)
+	{
+		rl$overlayIds = overlayIds;
+	}
+
+	@Inject
+	@Override
+	public byte[][][] getTileShapes()
+	{
+		return rl$tileShapes;
+	}
+
+	@Inject
+	@Override
+	public void setTileShapes(byte[][][] tileShapes)
+	{
+		rl$tileShapes = tileShapes;
 	}
 }

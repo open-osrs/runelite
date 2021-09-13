@@ -106,7 +106,8 @@ public class ModelData extends Renderable {
 	@ObfuscatedSignature(
 		descriptor = "[Lhc;"
 	)
-	VertexNormal[] field2257;
+	@Export("vertexVertices")
+	VertexNormal[] vertexVertices;
 	@ObfuscatedName("ad")
 	@Export("ambient")
 	public short ambient;
@@ -375,7 +376,7 @@ public class ModelData extends Renderable {
 		this.faceLabelsAlpha = var1.faceLabelsAlpha;
 		this.vertexNormals = var1.vertexNormals;
 		this.faceNormals = var1.faceNormals;
-		this.field2257 = var1.field2257;
+		this.vertexVertices = var1.vertexVertices;
 		this.ambient = var1.ambient;
 		this.contrast = var1.contrast;
 	}
@@ -1386,7 +1387,7 @@ public class ModelData extends Renderable {
 	@Export("invalidate")
 	void invalidate() {
 		this.vertexNormals = null;
-		this.field2257 = null;
+		this.vertexVertices = null;
 		this.faceNormals = null;
 		this.isBoundsCalculated = false;
 	}
@@ -1542,24 +1543,24 @@ public class ModelData extends Renderable {
 					}
 				} else {
 					int var15 = this.faceColors[var16] & '\uffff';
-					if (this.field2257 != null && this.field2257[this.indices1[var16]] != null) {
-						var13 = this.field2257[this.indices1[var16]];
+					if (this.vertexVertices != null && this.vertexVertices[this.indices1[var16]] != null) {
+						var13 = this.vertexVertices[this.indices1[var16]];
 					} else {
 						var13 = this.vertexNormals[this.indices1[var16]];
 					}
 
 					var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
 					var8.faceColors1[var16] = method3974(var15, var14);
-					if (this.field2257 != null && this.field2257[this.indices2[var16]] != null) {
-						var13 = this.field2257[this.indices2[var16]];
+					if (this.vertexVertices != null && this.vertexVertices[this.indices2[var16]] != null) {
+						var13 = this.vertexVertices[this.indices2[var16]];
 					} else {
 						var13 = this.vertexNormals[this.indices2[var16]];
 					}
 
 					var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
 					var8.faceColors2[var16] = method3974(var15, var14);
-					if (this.field2257 != null && this.field2257[this.indices3[var16]] != null) {
-						var13 = this.field2257[this.indices3[var16]];
+					if (this.vertexVertices != null && this.vertexVertices[this.indices3[var16]] != null) {
+						var13 = this.vertexVertices[this.indices3[var16]];
 					} else {
 						var13 = this.vertexNormals[this.indices3[var16]];
 					}
@@ -1577,24 +1578,24 @@ public class ModelData extends Renderable {
 					var8.faceColors3[var16] = -2;
 				}
 			} else {
-				if (this.field2257 != null && this.field2257[this.indices1[var16]] != null) {
-					var13 = this.field2257[this.indices1[var16]];
+				if (this.vertexVertices != null && this.vertexVertices[this.indices1[var16]] != null) {
+					var13 = this.vertexVertices[this.indices1[var16]];
 				} else {
 					var13 = this.vertexNormals[this.indices1[var16]];
 				}
 
 				var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
 				var8.faceColors1[var16] = method3975(var14);
-				if (this.field2257 != null && this.field2257[this.indices2[var16]] != null) {
-					var13 = this.field2257[this.indices2[var16]];
+				if (this.vertexVertices != null && this.vertexVertices[this.indices2[var16]] != null) {
+					var13 = this.vertexVertices[this.indices2[var16]];
 				} else {
 					var13 = this.vertexNormals[this.indices2[var16]];
 				}
 
 				var14 = (var4 * var13.y + var5 * var13.z + var3 * var13.x) / (var7 * var13.magnitude) + var1;
 				var8.faceColors2[var16] = method3975(var14);
-				if (this.field2257 != null && this.field2257[this.indices3[var16]] != null) {
-					var13 = this.field2257[this.indices3[var16]];
+				if (this.vertexVertices != null && this.vertexVertices[this.indices3[var16]] != null) {
+					var13 = this.vertexVertices[this.indices3[var16]];
 				} else {
 					var13 = this.vertexNormals[this.indices3[var16]];
 				}
@@ -1659,22 +1660,22 @@ public class ModelData extends Renderable {
 							for (int var14 = 0; var14 < var8; ++var14) {
 								VertexNormal var15 = var1.vertexNormals[var14];
 								if (var12 == var7[var14] && var13 == var1.verticesZ[var14] && var11 == var1.verticesY[var14] && var15.magnitude != 0) {
-									if (var0.field2257 == null) {
-										var0.field2257 = new VertexNormal[var0.verticesCount];
+									if (var0.vertexVertices == null) {
+										var0.vertexVertices = new VertexNormal[var0.verticesCount];
 									}
 
-									if (var1.field2257 == null) {
-										var1.field2257 = new VertexNormal[var8];
+									if (var1.vertexVertices == null) {
+										var1.vertexVertices = new VertexNormal[var8];
 									}
 
-									VertexNormal var16 = var0.field2257[var9];
+									VertexNormal var16 = var0.vertexVertices[var9];
 									if (var16 == null) {
-										var16 = var0.field2257[var9] = new VertexNormal(var10);
+										var16 = var0.vertexVertices[var9] = new VertexNormal(var10);
 									}
 
-									VertexNormal var17 = var1.field2257[var14];
+									VertexNormal var17 = var1.vertexVertices[var14];
 									if (var17 == null) {
-										var17 = var1.field2257[var14] = new VertexNormal(var15);
+										var17 = var1.vertexVertices[var14] = new VertexNormal(var15);
 									}
 
 									var16.x += var15.x;

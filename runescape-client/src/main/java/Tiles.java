@@ -21,9 +21,11 @@ public final class Tiles {
 	@Export("Tiles_minPlane")
 	static int Tiles_minPlane;
 	@ObfuscatedName("o")
-	static byte[][][] field974;
+	@Export("Tiles_overlays")
+	static byte[][][] Tiles_overlays;
 	@ObfuscatedName("g")
-	static byte[][][] field978;
+	@Export("Tiles_shapes")
+	static byte[][][] Tiles_shapes;
 	@ObfuscatedName("z")
 	static byte[][][] field977;
 	@ObfuscatedName("y")
@@ -48,12 +50,14 @@ public final class Tiles {
 	@ObfuscatedGetter(
 		intValue = -416490741
 	)
-	static int field987;
+	@Export("rndHue")
+	static int rndHue;
 	@ObfuscatedName("i")
 	@ObfuscatedGetter(
 		intValue = -2134339611
 	)
-	static int field988;
+	@Export("rndLightness")
+	static int rndLightness;
 	@ObfuscatedName("ix")
 	@ObfuscatedGetter(
 		intValue = 1521226335
@@ -71,8 +75,8 @@ public final class Tiles {
 		field984 = new int[]{0, -1, 0, 1};
 		field985 = new int[]{1, -1, -1, 1};
 		field973 = new int[]{-1, -1, 1, 1};
-		field987 = (int)(Math.random() * 17.0D) - 8;
-		field988 = (int)(Math.random() * 33.0D) - 16;
+		rndHue = (int)(Math.random() * 17.0D) - 8;
+		rndLightness = (int)(Math.random() * 33.0D) - 16;
 	}
 
 	@ObfuscatedName("a")
