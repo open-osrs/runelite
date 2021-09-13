@@ -177,13 +177,13 @@ public class StructComposition extends DualNode {
 				}
 
 				if (var7 <= 49) {
-					Tiles.field974[var1][var2][var3] = var0.readByte();
-					Tiles.field978[var1][var2][var3] = (byte)((var7 - 2) / 4);
+					Tiles.Tiles_overlays[var1][var2][var3] = var0.readByte();
+					Tiles.Tiles_shapes[var1][var2][var3] = (byte)((var7 - 2) / 4);
 					Tiles.field977[var1][var2][var3] = (byte)(var7 - 2 + var6 & 3);
 				} else if (var7 <= 81) {
 					Tiles.Tiles_renderFlags[var1][var2][var3] = (byte)(var7 - 49);
 				} else {
-					class6.field13[var1][var2][var3] = (byte)(var7 - 81);
+					class6.Tiles_underlays[var1][var2][var3] = (byte)(var7 - 81);
 				}
 			}
 		} else {

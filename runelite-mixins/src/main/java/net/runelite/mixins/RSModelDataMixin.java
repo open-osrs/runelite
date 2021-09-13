@@ -33,6 +33,7 @@ import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSModelData;
+import net.runelite.rs.api.RSVertexNormal;
 
 @Mixin(RSModelData.class)
 public abstract class RSModelDataMixin implements RSModelData
@@ -42,6 +43,15 @@ public abstract class RSModelDataMixin implements RSModelData
 
 	@Inject
 	private float[] faceTextureUVCoordinates;
+
+	@Inject
+	private int[] vertexNormalsX;
+
+	@Inject
+	private int[] vertexNormalsY;
+
+	@Inject
+	private int[] vertexNormalsZ;
 
 	@Copy("toModel")
 	@Replace("toModel")
@@ -61,9 +71,48 @@ public abstract class RSModelDataMixin implements RSModelData
 			computeTextureUVCoordinates();
 		}
 
+		vertexNormals();
+
 		RSModel rsModel = (RSModel) model;
+		rsModel.setVertexNormalsX(vertexNormalsX);
+		rsModel.setVertexNormalsY(vertexNormalsY);
+		rsModel.setVertexNormalsZ(vertexNormalsZ);
 		rsModel.setFaceTextureUVCoordinates(faceTextureUVCoordinates);
 		return model;
+	}
+
+	@Inject
+	public void vertexNormals()
+	{
+		RSVertexNormal[] vertexNormals = getVertexNormals();
+		RSVertexNormal[] vertexVertices = getVertexVertices();
+
+		if (vertexNormals != null && vertexNormalsX == null)
+		{
+			int verticesCount = getVerticesCount();
+
+			vertexNormalsX = new int[verticesCount];
+			vertexNormalsY = new int[verticesCount];
+			vertexNormalsZ = new int[verticesCount];
+
+			for (int i = 0; i < verticesCount; ++i)
+			{
+				RSVertexNormal vertexNormal;
+
+				if (vertexVertices != null && (vertexNormal = vertexVertices[i]) != null)
+				{
+					vertexNormalsX[i] = vertexNormal.getX();
+					vertexNormalsY[i] = vertexNormal.getY();
+					vertexNormalsZ[i] = vertexNormal.getZ();
+				}
+				else if ((vertexNormal = vertexNormals[i]) != null)
+				{
+					vertexNormalsX[i] = vertexNormal.getX();
+					vertexNormalsY[i] = vertexNormal.getY();
+					vertexNormalsZ[i] = vertexNormal.getZ();
+				}
+			}
+		}
 	}
 
 	@Inject
@@ -171,6 +220,6 @@ public abstract class RSModelDataMixin implements RSModelData
 			}
 		}
 
-		this.faceTextureUVCoordinates = faceTextureUCoordinates;
+		faceTextureUVCoordinates = faceTextureUCoordinates;
 	}
 }

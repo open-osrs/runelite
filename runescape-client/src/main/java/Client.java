@@ -1860,9 +1860,9 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 
 								class1.playPcmPlayers();
 								Tiles.Tiles_minPlane = 99;
-								class6.field13 = new byte[4][104][104];
-								Tiles.field974 = new byte[4][104][104];
-								Tiles.field978 = new byte[4][104][104];
+								class6.Tiles_underlays = new byte[4][104][104];
+								Tiles.Tiles_overlays = new byte[4][104][104];
+								Tiles.Tiles_shapes = new byte[4][104][104];
 								Tiles.field977 = new byte[4][104][104];
 								class113.field1367 = new int[4][105][105];
 								FloorUnderlayDefinition.field1769 = new byte[4][105][105];
@@ -2233,22 +2233,22 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 									}
 								}
 
-								Tiles.field987 += (int)(Math.random() * 5.0D) - 2;
-								if (Tiles.field987 < -8) {
-									Tiles.field987 = -8;
+								Tiles.rndHue += (int)(Math.random() * 5.0D) - 2;
+								if (Tiles.rndHue < -8) {
+									Tiles.rndHue = -8;
 								}
 
-								if (Tiles.field987 > 8) {
-									Tiles.field987 = 8;
+								if (Tiles.rndHue > 8) {
+									Tiles.rndHue = 8;
 								}
 
-								Tiles.field988 += (int)(Math.random() * 5.0D) - 2;
-								if (Tiles.field988 < -16) {
-									Tiles.field988 = -16;
+								Tiles.rndLightness += (int)(Math.random() * 5.0D) - 2;
+								if (Tiles.rndLightness < -16) {
+									Tiles.rndLightness = -16;
 								}
 
-								if (Tiles.field988 > 16) {
-									Tiles.field988 = 16;
+								if (Tiles.rndLightness > 16) {
+									Tiles.rndLightness = 16;
 								}
 
 								int var59;
@@ -2286,7 +2286,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 											var16 = var14 + 5;
 											int var10002;
 											if (var16 >= 0 && var16 < 104) {
-												var17 = class6.field13[var53][var16][var15] & 255;
+												var17 = class6.Tiles_underlays[var53][var16][var15] & 255;
 												if (var17 > 0) {
 													FloorUnderlayDefinition var76 = TaskHandler.method2740(var17 - 1);
 													var10000 = DirectByteArrayCopier.Tiles_hue;
@@ -2303,7 +2303,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 
 											var17 = var14 - 5;
 											if (var17 >= 0 && var17 < 104) {
-												var59 = class6.field13[var53][var17][var15] & 255;
+												var59 = class6.Tiles_underlays[var53][var17][var15] & 255;
 												if (var59 > 0) {
 													FloorUnderlayDefinition var77 = TaskHandler.method2740(var59 - 1);
 													var10000 = DirectByteArrayCopier.Tiles_hue;
@@ -2350,8 +2350,8 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 														Tiles.Tiles_minPlane = var53;
 													}
 
-													var23 = class6.field13[var53][var14][var61] & 255;
-													var24 = Tiles.field974[var53][var14][var61] & 255;
+													var23 = class6.Tiles_underlays[var53][var14][var61] & 255;
+													var24 = Tiles.Tiles_overlays[var53][var14][var61] & 255;
 													if (var23 > 0 || var24 > 0) {
 														var25 = Tiles.Tiles_heights[var53][var14][var61];
 														var26 = Tiles.Tiles_heights[var53][var14 + 1][var61];
@@ -2368,8 +2368,8 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 															var36 = var16 / var60;
 															var37 = var17 / var60;
 															var33 = PlatformInfo.hslToRgb(var35, var36, var37);
-															var35 = var35 + Tiles.field987 & 255;
-															var37 += Tiles.field988;
+															var35 = var35 + Tiles.rndHue & 255;
+															var37 += Tiles.rndLightness;
 															if (var37 < 0) {
 																var37 = 0;
 															} else if (var37 > 255) {
@@ -2382,7 +2382,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 														FloorOverlayDefinition var63;
 														if (var53 > 0) {
 															boolean var79 = true;
-															if (var23 == 0 && Tiles.field978[var53][var14][var61] != 0) {
+															if (var23 == 0 && Tiles.Tiles_shapes[var53][var14][var61] != 0) {
 																var79 = false;
 															}
 
@@ -2423,7 +2423,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 														if (var24 == 0) {
 															var72.addTile(var53, var14, var61, 0, 0, -1, var25, var26, var27, var28, WorldMapCacheName.method3873(var33, var29), WorldMapCacheName.method3873(var33, var30), WorldMapCacheName.method3873(var33, var62), WorldMapCacheName.method3873(var33, var32), 0, 0, 0, 0, var35, 0);
 														} else {
-															var36 = Tiles.field978[var53][var14][var61] + 1;
+															var36 = Tiles.Tiles_shapes[var53][var14][var61] + 1;
 															byte var80 = Tiles.field977[var53][var14][var61];
 															var39 = var24 - 1;
 															FloorOverlayDefinition var66 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var39);
@@ -2451,8 +2451,8 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 																var43 = -2;
 															} else {
 																var42 = PlatformInfo.hslToRgb(var63.hue, var63.saturation, var63.lightness);
-																var44 = var63.hue + Tiles.field987 & 255;
-																var45 = var63.lightness + Tiles.field988;
+																var44 = var63.hue + Tiles.rndHue & 255;
+																var45 = var63.lightness + Tiles.rndLightness;
 																if (var45 < 0) {
 																	var45 = 0;
 																} else if (var45 > 255) {
@@ -2468,8 +2468,8 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 															}
 
 															if (var63.secondaryRgb != -1) {
-																var45 = var63.secondaryHue + Tiles.field987 & 255;
-																var46 = var63.secondaryLightness + Tiles.field988;
+																var45 = var63.secondaryHue + Tiles.rndHue & 255;
+																var46 = var63.secondaryLightness + Tiles.rndLightness;
 																if (var46 < 0) {
 																	var46 = 0;
 																} else if (var46 > 255) {
@@ -2494,9 +2494,9 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 										}
 									}
 
-									class6.field13[var53] = null;
-									Tiles.field974[var53] = null;
-									Tiles.field978[var53] = null;
+									class6.Tiles_underlays[var53] = null;
+									Tiles.Tiles_overlays[var53] = null;
+									Tiles.Tiles_shapes[var53] = null;
 									Tiles.field977[var53] = null;
 									FloorUnderlayDefinition.field1769[var53] = null;
 								}
@@ -2727,9 +2727,9 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 
 								HealthBarUpdate.updateGameState(30);
 								class1.playPcmPlayers();
-								class6.field13 = null;
-								Tiles.field974 = null;
-								Tiles.field978 = null;
+								class6.Tiles_underlays = null;
+								Tiles.Tiles_overlays = null;
+								Tiles.Tiles_shapes = null;
 								Tiles.field977 = null;
 								class113.field1367 = null;
 								FloorUnderlayDefinition.field1769 = null;

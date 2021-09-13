@@ -42,4 +42,7 @@ public interface RSNodeDeque
 
 	@Import("addFirst")
 	void addFirst(RSNode val);
+
+	@Import("removeLast")
+	RSNode removeLast();
 }
