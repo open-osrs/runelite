@@ -24,22 +24,22 @@
  */
 package net.runelite.api.events;
 
-import lombok.Value;
+import lombok.Data;
 import net.runelite.api.ScriptEvent;
 
 /**
  * An event that is fired before the designated script is ran
  */
-@Value
+@Data
 public class ScriptPreFired
 {
 	/**
 	 * The script id of the invoked script
 	 */
-	int scriptId;
+	private final int scriptId;
 
 	/**
 	 * The input of the script invoke, this will be null unless it is the root script
 	 */
-	ScriptEvent scriptEvent;
+	private ScriptEvent scriptEvent;
 }

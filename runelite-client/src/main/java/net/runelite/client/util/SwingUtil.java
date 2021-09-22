@@ -62,6 +62,7 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.components.CustomScrollBarUI;
 import net.runelite.client.ui.components.SliderUI;
+import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 
 /**
@@ -217,7 +218,7 @@ public class SwingUtil
 		button.setSize(scaledImage.getWidth(), scaledImage.getHeight());
 		button.setToolTipText(navigationButton.getTooltip());
 		button.setIcon(new ImageIcon(scaledImage));
-		button.putClientProperty(SubstanceSynapse.FLAT_LOOK, Boolean.TRUE);
+		button.putClientProperty(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY, SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
 		button.setFocusable(false);
 		button.addActionListener(e ->
 		{

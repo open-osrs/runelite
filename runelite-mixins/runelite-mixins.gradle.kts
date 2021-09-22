@@ -25,9 +25,9 @@
 description = "RuneLite Mixins"
 
 dependencies {
-    compileOnly(group = "com.google.guava", name = "guava", version = "23.2-jre")
+    compileOnly(group = "com.google.guava", name = "guava", version = "30.1.1-jre")
     compileOnly(group = "javax.inject", name = "javax.inject", version = "1")
-    compileOnly(group = "org.slf4j", name = "slf4j-api", version = "1.7.12")
+    compileOnly(group = "org.slf4j", name = "slf4j-api", version = "1.7.32")
     compileOnly(group = "commons-io", name = "commons-io", version = "2.8.0")
     compileOnly(project(":injection-annotations"))
     compileOnly(project(":runescape-api"))

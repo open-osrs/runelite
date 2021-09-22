@@ -47,9 +47,9 @@ public class CommandExecuted
 	/**
 	 * The name of the command entered.
 	 */
-	String command;
+	private String command;
 	/**
 	 * The command arguments that have been entered.
 	 */
-	String[] arguments;
+	private String[] arguments;
 }

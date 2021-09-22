@@ -59,7 +59,7 @@ public class ObsidianSkin extends SubstanceSkin
 	ObsidianSkin()
 	{
 		final SubstanceSkin.ColorSchemes schemes = SubstanceSkin
-			.getColorSchemes(getClass().getResource(NAME + ".colorschemes"));
+			.getColorSchemes(getClass().getResourceAsStream(NAME + ".colorschemes"));
 		final SubstanceColorScheme activeScheme = schemes.get("RuneLite Active");
 		final SubstanceColorScheme enabledScheme = schemes.get("RuneLite Enabled");
 
@@ -119,7 +119,7 @@ public class ObsidianSkin extends SubstanceSkin
 			.get("RuneLite Decorations Watermark");
 
 		this.registerDecorationAreaSchemeBundle(decorationsSchemeBundle, decorationsWatermarkScheme,
-			DecorationAreaType.TOOLBAR, DecorationAreaType.GENERAL, DecorationAreaType.FOOTER);
+			DecorationAreaType.TOOLBAR, DecorationAreaType.CONTROL_PANE, DecorationAreaType.FOOTER);
 
 		final SubstanceColorSchemeBundle headerSchemeBundle = new SubstanceColorSchemeBundle(activeScheme,
 			enabledScheme, enabledScheme);
@@ -184,7 +184,6 @@ public class ObsidianSkin extends SubstanceSkin
 			}
 		};
 
-		this.watermark = null;
 		this.fillPainter = new FractionBasedFillPainter("RuneLite",
 			new float[]{0.0f, 0.5f, 1.0f},
 			new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,

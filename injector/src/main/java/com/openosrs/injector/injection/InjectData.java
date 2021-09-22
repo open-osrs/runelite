@@ -63,7 +63,7 @@ public abstract class InjectData
 
 		for (final ClassFile deobClass : deobfuscated)
 		{
-			if (deobClass.getName().startsWith("net/runelite/"))
+			if (deobClass.getName().startsWith("net/runelite/") || deobClass.getName().startsWith("netscape"))
 			{
 				continue;
 			}

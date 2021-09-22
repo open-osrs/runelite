@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,47 +22,57 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.util;
 
-import javax.swing.JFrame;
-import lombok.extern.slf4j.Slf4j;
-import org.madlonkay.desktopsupport.DesktopSupport;
+package net.runelite.client.ui.components;
 
-/**
- * A class with OSX-specific functions to improve integration.
- */
-@Slf4j
-public class OSXUtil
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import net.runelite.client.ui.ColorScheme;
+import net.runelite.client.util.ImageUtil;
+import net.runelite.client.util.SwingUtil;
+
+public class ToggleButton extends JCheckBox
 {
-	/**
-	 * Enables the osx native fullscreen if running on a mac.
-	 *
-	 * @param gui The gui to enable the fullscreen on.
-	 */
-	public static void tryEnableFullscreen(JFrame gui)
+	private static final ImageIcon ON_SWITCHER;
+	private static final ImageIcon OFF_SWITCHER;
+	private static final ImageIcon DISABLED_SWITCHER;
+
+	static
 	{
-		if (OSType.getOSType() == OSType.MacOS)
-		{
-			DesktopSupport.getSupport().setWindowCanFullScreen(gui, true);
-			log.debug("Enabled fullscreen on macOS");
-		}
+		BufferedImage onSwitcher = ImageUtil.loadImageResource(ToggleButton.class, "switcher_on.png");
+		ON_SWITCHER = new ImageIcon(ImageUtil.recolorImage(onSwitcher, ColorScheme.BRAND_BLUE));
+		OFF_SWITCHER = new ImageIcon(ImageUtil.flipImage(
+			ImageUtil.luminanceScale(
+				ImageUtil.grayscaleImage(onSwitcher),
+				0.61f
+			),
+			true,
+			false
+		));
+		DISABLED_SWITCHER = new ImageIcon(ImageUtil.flipImage(
+			ImageUtil.luminanceScale(
+				ImageUtil.grayscaleImage(onSwitcher),
+				0.4f
+			),
+			true,
+			false
+		));
 	}
 
-	/**
-	 * Request user attention on macOS
-	 */
-	public static void requestUserAttention()
+	public ToggleButton()
 	{
-		DesktopSupport.getSupport().requestUserAttention(true);
-		log.debug("Requested user attention on macOS");
+		super(OFF_SWITCHER);
+		setSelectedIcon(ON_SWITCHER);
+		setDisabledIcon(DISABLED_SWITCHER);
+		SwingUtil.removeButtonDecorations(this);
 	}
 
-	/**
-	 * Requests the foreground in a macOS friendly way.
-	 */
-	public static void requestForeground()
+	public ToggleButton(String text)
 	{
-		DesktopSupport.getSupport().requestForeground(true);
-		log.debug("Forced focus on macOS");
+		super(text, OFF_SWITCHER, false);
+		setSelectedIcon(ON_SWITCHER);
+		setDisabledIcon(DISABLED_SWITCHER);
+		SwingUtil.removeButtonDecorations(this);
 	}
 }
