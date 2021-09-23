@@ -13,8 +13,10 @@ public interface RSEvictingDualNodeHashTable extends NodeCache
 	void reset();
 
 	@Import("capacity")
+	@Override
 	void setCapacity(int capacity);
 
 	@Import("remainingCapacity")
+	@Override
 	void setRemainingCapacity(int remainingCapacity);
 }
