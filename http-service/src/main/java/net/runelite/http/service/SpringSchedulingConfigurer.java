@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Tomas Slusny <slusnucky@gmail.com>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.http.service;
 
-/**
- * Represents a doubly linked node cache.
- */
-public interface NodeCache
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+
+@Configuration
+public class SpringSchedulingConfigurer implements SchedulingConfigurer
 {
-	/**
-	 * Resets cache.
-	 */
-	void reset();
+	@Override
+	public void configureTasks(ScheduledTaskRegistrar taskRegistrar)
+	{
+		// this is from ScheduledTaskRegistrar.scheduleTasks() but modified to give the scheduler thread a
+		// recognizable name
+		ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor(
+			new ThreadFactoryBuilder()
+				.setNameFormat("scheduler-%d")
+				.build()
+		);
+		TaskScheduler scheduler = new ConcurrentTaskScheduler(scheduledExecutorService);
+		taskRegistrar.setTaskScheduler(scheduler);
+	}
 }
