@@ -224,10 +224,7 @@ public abstract class EntityHiderMixin implements RSScene
 		else if (entity instanceof RSGraphicsObject)
 		{
 			RSGraphicsObject graphicsObject = (RSGraphicsObject) entity;
-			if (hiddenGraphicsObjects.contains(graphicsObject.getId()))
-			{
-				return false;
-			}
+			return !hiddenGraphicsObjects.contains(graphicsObject.getId());
 		}
 
 		return true;
