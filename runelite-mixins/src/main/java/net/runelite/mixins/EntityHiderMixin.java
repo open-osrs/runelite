@@ -89,6 +89,9 @@ public abstract class EntityHiderMixin implements RSScene
 	@Shadow("hiddenNpcIndices")
 	private static List<Integer> hiddenNpcIndices;
 
+	@Shadow("hiddenGraphicsObjects")
+	private static List<Integer> hiddenGraphicsObjects;
+
 	@Copy("newGameObject")
 	@Replace("newGameObject")
 	boolean copy$addEntityMarker(int var1, int var2, int var3, int var4, int var5, int x, int y, int var8, RSRenderable entity, int var10, boolean var11, long var12, int var13)
@@ -217,6 +220,14 @@ public abstract class EntityHiderMixin implements RSScene
 		else if (entity instanceof RSProjectile)
 		{
 			return !hideProjectiles;
+		}
+		else if (entity instanceof RSGraphicsObject)
+		{
+			RSGraphicsObject graphicsObject = (RSGraphicsObject) entity;
+			if (hiddenGraphicsObjects.contains(graphicsObject.getId()))
+			{
+				return false;
+			}
 		}
 
 		return true;

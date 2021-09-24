@@ -1703,6 +1703,12 @@ public interface Client extends GameEngine
 	void setBlacklistDeadNpcs(Set<Integer> blacklist);
 
 	/**
+	 * Hides graphics objects
+	 * @param graphicsObject
+	 */
+	void setHiddenGraphicsObjects(List<Integer> graphicsObject);
+
+	/**
 	 * Gets an array of tile collision data.
 	 * <p>
 	 * The index into the array is the plane/z-axis coordinate.
