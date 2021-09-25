@@ -51,4 +51,16 @@ public interface RSModelData extends RSRenderable
 
 	@Import("vertexVertices")
 	RSVertexNormal[] getVertexVertices();
+
+	@Import("recolor")
+	void recolor(short var1, short var2);
+
+	@Import("toModel")
+	RSModel toModel(int var1, int var2, int var3, int var4, int var5);
+
+	@Import("ambient")
+	short getAmbient();
+
+	@Import("contrast")
+	short getContrast();
 }

@@ -109,7 +109,7 @@ public class BuddyRankComparator extends AbstractUserComparator {
 					}
 
 					if (var3 == 6) {
-						float var5 = ((float)VarbitComposition.clientPreferences.field1193 - 0.5F) * 200.0F;
+						float var5 = ((float)VarbitComposition.clientPreferences.brightness - 0.5F) * 200.0F;
 						var4 = 100 - Math.round(var5);
 					} else if (var3 == 7) {
 						var4 = Math.round((float)VarbitComposition.clientPreferences.musicVolume / 2.55F);

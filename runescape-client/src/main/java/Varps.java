@@ -95,7 +95,7 @@ public class Varps {
 		Rasterizer3D.Rasterizer3D_setBrightness(var0);
 		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).setBrightness(var0);
 		ItemComposition.ItemDefinition_cachedSprites.clear();
-		VarbitComposition.clientPreferences.field1193 = var0;
+		VarbitComposition.clientPreferences.brightness = var0;
 		DevicePcmPlayerProvider.savePreferences();
 	}
 }

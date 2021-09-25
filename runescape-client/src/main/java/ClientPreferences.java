@@ -43,7 +43,8 @@ public class ClientPreferences {
 	@Export("hideUsername")
 	boolean hideUsername;
 	@ObfuscatedName("a")
-	double field1193;
+	@Export("brightness")
+	double brightness;
 	@ObfuscatedName("u")
 	@ObfuscatedGetter(
 		intValue = -970652687
@@ -79,7 +80,7 @@ public class ClientPreferences {
 		this.windowMode = 1;
 		this.rememberedUsername = null;
 		this.hideUsername = false;
-		this.field1193 = 0.8D;
+		this.brightness = 0.8D;
 		this.musicVolume = 127;
 		this.soundEffectsVolume = 127;
 		this.areaSoundEffectsVolume = 127;
@@ -95,7 +96,7 @@ public class ClientPreferences {
 		this.windowMode = 1;
 		this.rememberedUsername = null;
 		this.hideUsername = false;
-		this.field1193 = 0.8D;
+		this.brightness = 0.8D;
 		this.musicVolume = 127;
 		this.soundEffectsVolume = 127;
 		this.areaSoundEffectsVolume = 127;
@@ -135,7 +136,7 @@ public class ClientPreferences {
 				}
 
 				if (var2 > 6) {
-					this.field1193 = (double)var1.readUnsignedByte() / 100.0D;
+					this.brightness = (double)var1.readUnsignedByte() / 100.0D;
 					this.musicVolume = var1.readUnsignedByte();
 					this.soundEffectsVolume = var1.readUnsignedByte();
 					this.areaSoundEffectsVolume = var1.readUnsignedByte();
@@ -184,7 +185,7 @@ public class ClientPreferences {
 
 		var1.writeStringCp1252NullTerminated(this.rememberedUsername != null ? this.rememberedUsername : "");
 		var1.writeBoolean(this.hideUsername);
-		var1.writeByte((int)(100.0D * this.field1193));
+		var1.writeByte((int)(100.0D * this.brightness));
 		var1.writeByte(this.musicVolume);
 		var1.writeByte(this.soundEffectsVolume);
 		var1.writeByte(this.areaSoundEffectsVolume);

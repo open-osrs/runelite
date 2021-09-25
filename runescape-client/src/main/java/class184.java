@@ -642,7 +642,7 @@ public class class184 implements WorldMapSection {
 							Varps.method4858((double)(0.5F + (float)var10 / 200.0F));
 							return 1;
 						} else if (var0 == 3182) {
-							float var3 = ((float)VarbitComposition.clientPreferences.field1193 - 0.5F) * 200.0F;
+							float var3 = ((float)VarbitComposition.clientPreferences.brightness - 0.5F) * 200.0F;
 							Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 100 - Math.round(var3);
 							return 1;
 						} else if (var0 != 3183 && var0 != 3184) {

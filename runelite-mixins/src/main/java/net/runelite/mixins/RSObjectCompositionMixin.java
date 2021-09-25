@@ -2,6 +2,7 @@ package net.runelite.mixins;
 
 import net.runelite.api.IterableHashTable;
 import net.runelite.api.Node;
+import net.runelite.api.NodeCache;
 import net.runelite.api.mixins.*;
 import net.runelite.rs.api.RSBuffer;
 import net.runelite.rs.api.RSClient;
@@ -15,6 +16,16 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 
 	@Inject
 	private int accessBitMask = 0;
+
+	@MethodHook(value = "<init>", end = true)
+	@Inject
+	public void rl$init()
+	{
+		NodeCache cachedModels2 = client.getCachedModels2();
+		cachedModels2.setCapacity(256);
+		cachedModels2.setRemainingCapacity(256);
+		cachedModels2.reset();
+	}
 
 	@Inject
 	@Override

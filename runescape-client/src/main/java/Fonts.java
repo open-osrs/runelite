@@ -525,9 +525,9 @@ public class Fonts {
 						Login.Login_loadingText = "Loading textures - " + "0%";
 						Login.Login_loadingPercent = 90;
 					} else {
-						MusicPatch.textureProvider = new TextureProvider(VarcInt.archive9, World.archive8, 20, VarbitComposition.clientPreferences.field1193, Client.isLowDetail ? 64 : 128);
+						MusicPatch.textureProvider = new TextureProvider(VarcInt.archive9, World.archive8, 20, VarbitComposition.clientPreferences.brightness, Client.isLowDetail ? 64 : 128);
 						Rasterizer3D.Rasterizer3D_setTextureLoader(MusicPatch.textureProvider);
-						Rasterizer3D.Rasterizer3D_setBrightness(VarbitComposition.clientPreferences.field1193);
+						Rasterizer3D.Rasterizer3D_setBrightness(VarbitComposition.clientPreferences.brightness);
 						Client.titleLoadingStage = 100;
 					}
 				} else if (Client.titleLoadingStage == 100) {
