@@ -44,6 +44,11 @@ public interface Node
 	Node getPrevious();
 
 	/**
+	 * Unlink.
+	 */
+	void unlink();
+
+	/**
 	 * Gets the hash value of the node.
 	 *
 	 * @return the hash value

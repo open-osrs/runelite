@@ -1,8 +1,11 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.DecorativeObject;
 import net.runelite.api.GameObject;
+import net.runelite.api.GroundObject;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
+import net.runelite.api.WallObject;
 import net.runelite.mapping.Import;
 
 public interface RSScene extends Scene
@@ -55,6 +58,24 @@ public interface RSScene extends Scene
 
 	@Import("removeGameObject")
 	void removeGameObject(GameObject gameObject);
+
+	@Import("removeGameObject")
+	void removeGameObject(int plane, int x, int y);
+
+	void removeWallObject(WallObject wallObject);
+
+	@Import("removeBoundaryObject")
+	void removeWallObject(int plane, int x, int y);
+
+	void removeDecorativeObject(DecorativeObject decorativeObject);
+
+	@Import("removeWallDecoration")
+	void removeDecorativeObject(int plane, int x, int y);
+
+	void removeGroundObject(GroundObject groundObject);
+
+	@Import("removeFloorDecoration")
+	void removeGroundObject(int plane, int x, int y);
 
 	byte[][][] getUnderlayIds();
 	void setUnderlayIds(byte[][][] underlayIds);

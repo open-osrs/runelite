@@ -30,10 +30,13 @@ import static net.runelite.api.Constants.ROOF_FLAG_BETWEEN;
 import static net.runelite.api.Constants.ROOF_FLAG_DESTINATION;
 import static net.runelite.api.Constants.ROOF_FLAG_HOVERED;
 import static net.runelite.api.Constants.ROOF_FLAG_POSITION;
+import net.runelite.api.DecorativeObject;
+import net.runelite.api.GroundObject;
 import net.runelite.api.Perspective;
 import net.runelite.api.SceneTileModel;
 import net.runelite.api.SceneTilePaint;
 import net.runelite.api.Tile;
+import net.runelite.api.WallObject;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.hooks.DrawCallbacks;
@@ -1239,5 +1242,62 @@ public abstract class RSSceneMixin implements RSScene
 	public void setTileShapes(byte[][][] tileShapes)
 	{
 		rl$tileShapes = tileShapes;
+	}
+
+	@Inject
+	@Override
+	public void removeWallObject(WallObject wallObject)
+	{
+		final Tile[][][] tiles = getTiles();
+
+		for (int y = 0; y < 104; ++y)
+		{
+			for (int x = 0; x < 104; ++x)
+			{
+				Tile tile = tiles[client.getPlane()][x][y];
+				if (tile != null && tile.getWallObject() == wallObject)
+				{
+					tile.setWallObject(null);
+				}
+			}
+		}
+	}
+
+	@Inject
+	@Override
+	public void removeDecorativeObject(DecorativeObject decorativeObject)
+	{
+		final Tile[][][] tiles = getTiles();
+
+		for (int y = 0; y < 104; ++y)
+		{
+			for (int x = 0; x < 104; ++x)
+			{
+				Tile tile = tiles[client.getPlane()][x][y];
+				if (tile != null && tile.getDecorativeObject() == decorativeObject)
+				{
+					tile.setDecorativeObject(null);
+				}
+			}
+		}
+	}
+
+	@Inject
+	@Override
+	public void removeGroundObject(GroundObject groundObject)
+	{
+		final Tile[][][] tiles = getTiles();
+
+		for (int y = 0; y < 104; ++y)
+		{
+			for (int x = 0; x < 104; ++x)
+			{
+				Tile tile = tiles[client.getPlane()][x][y];
+				if (tile != null && tile.getGroundObject() == groundObject)
+				{
+					tile.setGroundObject(null);
+				}
+			}
+		}
 	}
 }

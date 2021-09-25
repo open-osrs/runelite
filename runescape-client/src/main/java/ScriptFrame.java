@@ -412,7 +412,7 @@ public class ScriptFrame {
 					var9 = Client.field549[var7];
 					if (var3 >= 0 && var4 >= 0 && var3 < 103 && var4 < 103) {
 						if (var9 == 0) {
-							BoundaryObject var33 = CollisionMap.scene.method4155(class391.Client_plane, var3, var4);
+							BoundaryObject var33 = CollisionMap.scene.getBoundaryObject(class391.Client_plane, var3, var4);
 							if (var33 != null) {
 								var11 = HealthBarDefinition.Entity_unpackID(var33.tag);
 								if (var7 == 2) {
@@ -425,7 +425,7 @@ public class ScriptFrame {
 						}
 
 						if (var9 == 1) {
-							WallDecoration var43 = CollisionMap.scene.method4156(class391.Client_plane, var3, var4);
+							WallDecoration var43 = CollisionMap.scene.getWallDecoration(class391.Client_plane, var3, var4);
 							if (var43 != null) {
 								var11 = HealthBarDefinition.Entity_unpackID(var43.tag);
 								if (var7 != 4 && var7 != 5) {
@@ -444,7 +444,7 @@ public class ScriptFrame {
 						}
 
 						if (var9 == 2) {
-							GameObject var44 = CollisionMap.scene.method4180(class391.Client_plane, var3, var4);
+							GameObject var44 = CollisionMap.scene.getGameObject(class391.Client_plane, var3, var4);
 							if (var7 == 11) {
 								var7 = 10;
 							}
