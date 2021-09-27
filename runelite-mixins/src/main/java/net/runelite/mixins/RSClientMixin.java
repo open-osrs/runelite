@@ -1922,6 +1922,13 @@ public abstract class RSClientMixin implements RSClient
 		RSClientMixin.modulus = modulus;
 	}
 
+	@Inject
+	@Override
+	public BigInteger getModulus()
+	{
+		return RSClientMixin.modulus;
+	}
+
 	@Copy("forceDisconnect")
 	@Replace("forceDisconnect")
 	@SuppressWarnings("InfiniteRecursion")
