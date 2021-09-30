@@ -880,6 +880,14 @@ public interface RSClient extends RSGameEngine, Client
 	@Override
 	int getOculusOrbFocalPointY();
 
+	@Import("oculusOrbFocalPointX")
+	@Override
+	void setOculusOrbFocalPointX(int state);
+
+	@Import("oculusOrbFocalPointY")
+	@Override
+	void setOculusOrbFocalPointY(int state);
+
 	RSTileItem getLastItemDespawn();
 
 	void setLastItemDespawn(RSTileItem lastItemDespawn);
