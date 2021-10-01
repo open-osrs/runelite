@@ -2235,9 +2235,37 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public ClanChannel getClanChannel(int clanId)
+	{
+		ClanChannel[] clanChannels = client.getCurrentClanChannels();
+
+		if (clanId >= 0 && clanId < clanChannels.length)
+		{
+			return clanChannels[clanId];
+		}
+
+		return null;
+	}
+
+	@Inject
+	@Override
 	public ClanSettings getClanSettings()
 	{
 		return getCurrentClanSettingsAry()[0];
+	}
+
+	@Inject
+	@Override
+	public ClanSettings getClanSettings(int clanId)
+	{
+		ClanSettings[] clanSettings = getCurrentClanSettingsAry();
+
+		if (clanId >= 0 && clanId < clanSettings.length)
+		{
+			return clanSettings[clanId];
+		}
+
+		return null;
 	}
 
 	@Inject
@@ -2306,6 +2334,8 @@ public abstract class RSClientMixin implements RSClient
 
 		client.getCallbacks().post(new ClanChannelChanged(client.getClanChannel(), false));
 	}
+
+
 
 	@Inject
 	public static RSArchive[] archives = new RSArchive[21];
