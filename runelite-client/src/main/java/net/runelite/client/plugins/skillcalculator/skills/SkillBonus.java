@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Abex
+ * Copyright (c) 2021, Jordan Atwood <nightfirecat@protonmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,27 +22,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.client.plugins.skillcalculator.skills;
 
 /**
- * @see ParamHolder
+ * An object representing a skill bonus, such as from a skilling outfit or activity granting boosted xp.
  */
-public final class ParamID
+public interface SkillBonus
 {
 	/**
-	 * @see SettingID
+	 * Gets the name of this skill bonus.
+	 *
+	 * @return The name of this skill bonus.
 	 */
-	public static final int SETTING_ID = 1077;
-	// defaults to 5
-	// 1 is continuous
-	public static final int SETTING_SLIDER_STEPS = 1101;
-	public static final int SETTING_CUSTOM_TRANSMIT = 1085;
-	// defaults to true
-	// track is foreground
-	public static final int SETTING_FOREGROUND_CLICKZONE = 1105;
-	public static final int SETTING_SLIDER_CUSTOM_ONOP = 1106;
-	public static final int SETTING_SLIDER_CUSTOM_SETPOS = 1107;
-	public static final int SETTING_SLIDER_IS_DRAGGABLE = 1108;
-	public static final int SETTING_SLIDER_DEADZONE = 1109;
-	public static final int SETTING_SLIDER_DEADTIME = 1110;
+	String getName();
+
+	/**
+	 * Gets the multiplier for this skill bonus. When multiplied with the skill action XP value, it yields the amount of
+	 * additional xp granted for that action. (eg. {@code {@link SkillAction#getXp()} * (1 + {@link #getValue()}} yields
+	 * the full amount of xp gained)
+	 *
+	 * @return The skill bonus multiplier.
+	 */
+	float getValue();
 }
