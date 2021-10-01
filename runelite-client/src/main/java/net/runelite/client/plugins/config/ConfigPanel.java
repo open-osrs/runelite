@@ -489,6 +489,7 @@ class ConfigPanel extends PluginPanel
 			if (cid.getType() == boolean.class)
 			{
 				JCheckBox checkbox = new ToggleButton();
+				checkbox.setPreferredSize(new Dimension(26, 25));
 				checkbox.setSelected(Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName())));
 				checkbox.addActionListener(ae -> changeConfiguration(checkbox, cd, cid));
 

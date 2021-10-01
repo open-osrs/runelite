@@ -36,7 +36,7 @@ class PluginToggleButton extends ToggleButton
 	public PluginToggleButton()
 	{
 		super();
-		setPreferredSize(new Dimension(25, 0));
+		setPreferredSize(new Dimension(26, 25));
 
 		addItemListener(l -> updateTooltip());
 		updateTooltip();
