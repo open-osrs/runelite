@@ -2036,6 +2036,8 @@ public interface Client extends GameEngine
 
 	void setModulus(BigInteger modulus);
 
+	BigInteger getModulus();
+
 	/**
 	 * Returns the max item index + 1 from cache
 	 */
