@@ -1453,4 +1453,10 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("Tiles_shapes")
 	byte[][][] getTileShapes();
+
+	@Import("SpotAnimationDefinition_get")
+	RSSpotAnimationDefinition getSpotAnimationDefinition(int id);
+
+	@Import("ModelData_get")
+	RSModelData getModelData(RSAbstractArchive var0, int var1, int var2);
 }

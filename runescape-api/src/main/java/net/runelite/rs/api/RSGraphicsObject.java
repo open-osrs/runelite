@@ -9,6 +9,9 @@ public interface RSGraphicsObject extends GraphicsObject, RSRenderable
 	@Override
 	int getId();
 
+	@Import("id")
+	void setId(int id);
+
 	@Import("x")
 	int getX();
 
@@ -30,4 +33,37 @@ public interface RSGraphicsObject extends GraphicsObject, RSRenderable
 	@Import("isFinished")
 	@Override
 	boolean finished();
+
+	@Import("frame")
+	int getFrame();
+
+	@Import("frame")
+	void setFrame(int frame);
+
+	@Import("frameCycle")
+	int getFrameCycle();
+
+	@Import("frameCycle")
+	void setFrameCycle(int frameCycle);
+
+	@Import("isFinished")
+	void setFinished(boolean finished);
+
+	@Import("plane")
+	void setLevel(int level);
+
+	@Import("x")
+	void setX(int x);
+
+	@Import("y")
+	void setY(int y);
+
+	@Import("height")
+	void setHeight(int height);
+
+	@Import("sequenceDefinition")
+	RSSequenceDefinition getSequenceDefinition();
+
+	@Import("sequenceDefinition")
+	void setSequenceDefinition(RSSequenceDefinition sequenceDefinition);
 }

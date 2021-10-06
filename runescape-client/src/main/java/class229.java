@@ -2,32 +2,23 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ho")
+@ObfuscatedName("hf")
 public abstract class class229 implements class231 {
-	@ObfuscatedName("so")
+	@ObfuscatedName("dk")
 	@ObfuscatedGetter(
-		intValue = 601316141
+		longValue = -3046607098526418011L
 	)
-	static int field2624;
-	@ObfuscatedName("n")
+	static long field2643;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 305376963
+		intValue = 1504963209
 	)
-	protected int field2625;
+	protected int field2645;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lju;Lka;I)V"
+		descriptor = "(Ljz;Lkn;I)V"
 	)
 	protected class229(StudioGame var1, Language var2, int var3) {
-		this.field2625 = var3;
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "1720011828"
-	)
-	public static int method4497(int var0) {
-		return class360.field4033[var0 & 16383];
+		this.field2645 = var3;
 	}
 }

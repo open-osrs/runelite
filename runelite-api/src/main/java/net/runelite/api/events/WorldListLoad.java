@@ -24,8 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.World;
 import lombok.Value;
+import net.runelite.api.World;
 
 /**
  * Event when the world list is loaded for the world switcher
@@ -33,5 +33,5 @@ import lombok.Value;
 @Value
 public class WorldListLoad
 {
-	World[] worlds;
+	private final World[] worlds;
 }

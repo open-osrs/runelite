@@ -4,35 +4,35 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fs")
+@ObfuscatedName("fp")
 @Implements("HorizontalAlignment")
 public enum HorizontalAlignment implements MouseWheel {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lfs;"
+		descriptor = "Lfp;"
 	)
-	field1697(0, 0),
-	@ObfuscatedName("c")
+	field1708(0, 0),
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lfs;"
+		descriptor = "Lfp;"
 	)
 	@Export("HorizontalAlignment_centered")
-	HorizontalAlignment_centered(1, 1),
-	@ObfuscatedName("m")
+	HorizontalAlignment_centered(2, 1),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lfs;"
+		descriptor = "Lfp;"
 	)
-	field1699(2, 2);
+	field1707(1, 2);
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 514684703
+		intValue = -1382972063
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1489596043
+		intValue = 2031336539
 	)
 	@Export("id")
 	final int id;
@@ -42,63 +42,137 @@ public enum HorizontalAlignment implements MouseWheel {
 		this.id = var4;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1665712539"
+		garbageValue = "661199397"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lfc;",
-		garbageValue = "164653806"
+		descriptor = "(Lt;I)Lj;",
+		garbageValue = "177330026"
 	)
-	static VerticalAlignment[] method2943() {
-		return new VerticalAlignment[]{VerticalAlignment.VerticalAlignment_centered, VerticalAlignment.field1741, VerticalAlignment.field1746};
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1870889270"
-	)
-	public static void method2949() {
-		class54.reflectionChecks = new IterableNodeDeque();
-	}
-
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lfz;",
-		garbageValue = "2060571057"
-	)
-	@Export("StructDefinition_getStructDefinition")
-	public static StructComposition StructDefinition_getStructDefinition(int var0) {
-		StructComposition var1 = (StructComposition)StructComposition.StructDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = StructComposition.StructDefinition_archive.takeFile(34, var0);
-			var1 = new StructComposition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			StructComposition.StructDefinition_cached.put(var1, (long)var0);
-			return var1;
+	public static class3 method3014(class6 var0) {
+		switch(var0.field18) {
+		case 0:
+			return new class0();
+		default:
+			throw new IllegalArgumentException();
 		}
 	}
 
-	@ObfuscatedName("gw")
+	@ObfuscatedName("hy")
 	@ObfuscatedSignature(
-		descriptor = "(Lcf;II)V",
-		garbageValue = "-1815882612"
+		descriptor = "(I)V",
+		garbageValue = "1291496924"
 	)
-	static final void method2947(Actor var0, int var1) {
-		Login.worldToScreen(var0.x, var0.y, var1);
+	static final void method3008() {
+		for (PendingSpawn var0 = (PendingSpawn)Client.pendingSpawns.last(); var0 != null; var0 = (PendingSpawn)Client.pendingSpawns.previous()) {
+			if (var0.hitpoints > 0) {
+				--var0.hitpoints;
+			}
+
+			boolean var1;
+			int var2;
+			int var3;
+			ObjectComposition var4;
+			if (var0.hitpoints == 0) {
+				if (var0.objectId >= 0) {
+					var2 = var0.objectId;
+					var3 = var0.field1096;
+					var4 = class245.getObjectDefinition(var2);
+					if (var3 == 11) {
+						var3 = 10;
+					}
+
+					if (var3 >= 5 && var3 <= 8) {
+						var3 = 4;
+					}
+
+					var1 = var4.method3213(var3);
+					if (!var1) {
+						continue;
+					}
+				}
+
+				ServerPacket.addPendingSpawnToScene(var0.plane, var0.type, var0.x, var0.y, var0.objectId, var0.field1095, var0.field1096);
+				var0.remove();
+			} else {
+				if (var0.delay > 0) {
+					--var0.delay;
+				}
+
+				if (var0.delay == 0 && var0.x >= 1 && var0.y >= 1 && var0.x <= 102 && var0.y <= 102) {
+					if (var0.id >= 0) {
+						var2 = var0.id;
+						var3 = var0.field1104;
+						var4 = class245.getObjectDefinition(var2);
+						if (var3 == 11) {
+							var3 = 10;
+						}
+
+						if (var3 >= 5 && var3 <= 8) {
+							var3 = 4;
+						}
+
+						var1 = var4.method3213(var3);
+						if (!var1) {
+							continue;
+						}
+					}
+
+					ServerPacket.addPendingSpawnToScene(var0.plane, var0.type, var0.x, var0.y, var0.id, var0.orientation, var0.field1104);
+					var0.delay = -1;
+					if (var0.id == var0.objectId && var0.objectId == -1) {
+						var0.remove();
+					} else if (var0.id == var0.objectId && var0.field1095 == var0.orientation && var0.field1096 == var0.field1104) {
+						var0.remove();
+					}
+				}
+			}
+		}
+
+	}
+
+	@ObfuscatedName("iq")
+	@ObfuscatedSignature(
+		descriptor = "(Ljt;III)V",
+		garbageValue = "2115549302"
+	)
+	@Export("alignWidgetPosition")
+	static void alignWidgetPosition(Widget var0, int var1, int var2) {
+		if (var0.xAlignment == 0) {
+			var0.x = var0.rawX;
+		} else if (var0.xAlignment == 1) {
+			var0.x = var0.rawX + (var1 - var0.width) / 2;
+		} else if (var0.xAlignment == 2) {
+			var0.x = var1 - var0.width - var0.rawX;
+		} else if (var0.xAlignment == 3) {
+			var0.x = var0.rawX * var1 >> 14;
+		} else if (var0.xAlignment == 4) {
+			var0.x = (var1 - var0.width) / 2 + (var0.rawX * var1 >> 14);
+		} else {
+			var0.x = var1 - var0.width - (var0.rawX * var1 >> 14);
+		}
+
+		if (var0.yAlignment == 0) {
+			var0.y = var0.rawY;
+		} else if (var0.yAlignment == 1) {
+			var0.y = (var2 - var0.height) / 2 + var0.rawY;
+		} else if (var0.yAlignment == 2) {
+			var0.y = var2 - var0.height - var0.rawY;
+		} else if (var0.yAlignment == 3) {
+			var0.y = var2 * var0.rawY >> 14;
+		} else if (var0.yAlignment == 4) {
+			var0.y = (var2 * var0.rawY >> 14) + (var2 - var0.height) / 2;
+		} else {
+			var0.y = var2 - var0.height - (var2 * var0.rawY >> 14);
+		}
+
 	}
 }

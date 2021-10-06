@@ -3,90 +3,53 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gi")
+@ObfuscatedName("gp")
 @Implements("WorldMapCacheName")
 public class WorldMapCacheName {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgi;"
+		descriptor = "Lgp;"
 	)
-	public static final WorldMapCacheName field2199;
-	@ObfuscatedName("c")
+	public static final WorldMapCacheName field2220;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lgi;"
+		descriptor = "Lgp;"
 	)
-	public static final WorldMapCacheName field2203;
+	public static final WorldMapCacheName field2215;
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "Lgp;"
+	)
+	public static final WorldMapCacheName field2216;
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lgp;"
+	)
+	static final WorldMapCacheName field2217;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lgi;"
+		descriptor = "Lgp;"
 	)
-	public static final WorldMapCacheName field2201;
+	public static final WorldMapCacheName field2218;
+	@ObfuscatedName("br")
+	@ObfuscatedSignature(
+		descriptor = "Loz;"
+	)
+	@Export("worldSelectLeftSprite")
+	static IndexedSprite worldSelectLeftSprite;
 	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Lgi;"
-	)
-	static final WorldMapCacheName field2202;
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lgi;"
-	)
-	public static final WorldMapCacheName field2200;
-	@ObfuscatedName("g")
 	@Export("name")
 	public final String name;
 
 	static {
-		field2199 = new WorldMapCacheName("details");
-		field2203 = new WorldMapCacheName("compositemap");
-		field2201 = new WorldMapCacheName("compositetexture");
-		field2202 = new WorldMapCacheName("area");
-		field2200 = new WorldMapCacheName("labels");
+		field2220 = new WorldMapCacheName("details");
+		field2215 = new WorldMapCacheName("compositemap");
+		field2216 = new WorldMapCacheName("compositetexture");
+		field2217 = new WorldMapCacheName("area");
+		field2218 = new WorldMapCacheName("labels");
 	}
 
 	WorldMapCacheName(String var1) {
 		this.name = var1;
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1928602665"
-	)
-	public static boolean method3872(int var0) {
-		return var0 >= 0 && var0 < 112 ? KeyHandler.KeyHandler_pressedKeys[var0] : false;
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "1"
-	)
-	static final int method3873(int var0, int var1) {
-		if (var0 == -1) {
-			return 12345678;
-		} else {
-			var1 = (var0 & 127) * var1 / 128;
-			if (var1 < 2) {
-				var1 = 2;
-			} else if (var1 > 126) {
-				var1 = 126;
-			}
-
-			return (var0 & 65408) + var1;
-		}
-	}
-
-	@ObfuscatedName("ks")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "12"
-	)
-	@Export("FriendSystem_invalidateIgnoreds")
-	static final void FriendSystem_invalidateIgnoreds() {
-		Tiles.method2005();
-		if (class78.friendsChat != null) {
-			class78.friendsChat.invalidateIgnoreds();
-		}
-
 	}
 }

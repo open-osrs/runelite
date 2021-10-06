@@ -34,7 +34,7 @@ package net.runelite.api.widgets;
  * For a more direct group-child widget mapping, use the
  * {@link WidgetInfo} enum class.
  */
-public class WidgetID
+public final class WidgetID
 {
 	public static final int FAIRY_RING_PANEL_GROUP_ID = 381;
 	public static final int FAIRY_RING_GROUP_ID = 398;
@@ -182,6 +182,8 @@ public class WidgetID
 	public static final int TEMPOROSS_GROUP_ID = 437;
 	public static final int CLAN_GROUP_ID = 701;
 	public static final int CLAN_GUEST_GROUP_ID = 702;
+	public static final int GRAVESTONE_GROUP_ID = 672;
+	public static final int POH_TREASURE_CHEST_INVENTORY_GROUP_ID = 674;
 
 	static class WorldMap
 	{
@@ -290,20 +292,18 @@ public class WidgetID
 		static final int ITEM_COUNT_TOP = 5;
 		static final int ITEM_COUNT_BAR = 6;
 		static final int ITEM_COUNT_BOTTOM = 7;
-		static final int CONTENT_CONTAINER = 9;
-		static final int TAB_CONTAINER = 10;
-		static final int ITEM_CONTAINER = 12;
-		static final int SCROLLBAR = 13;
-		static final int UNNOTED_BUTTON = 21;
-		static final int NOTED_BUTTON = 23;
-		static final int SEARCH_BUTTON_BACKGROUND = 39;
-		static final int DEPOSIT_INVENTORY = 41;
-		static final int DEPOSIT_EQUIPMENT = 43;
-		static final int INCINERATOR = 45;
-		static final int INCINERATOR_CONFIRM = 46;
-		static final int EQUIPMENT_CONTENT_CONTAINER = 68;
-		static final int SETTINGS_BUTTON = 111;
-		static final int EQUIPMENT_BUTTON = 112;
+		static final int CONTENT_CONTAINER = 10;
+		static final int TAB_CONTAINER = 11;
+		static final int ITEM_CONTAINER = 13;
+		static final int SCROLLBAR = 14;
+		static final int SEARCH_BUTTON_BACKGROUND = 40;
+		static final int DEPOSIT_INVENTORY = 42;
+		static final int DEPOSIT_EQUIPMENT = 44;
+		static final int INCINERATOR = 46;
+		static final int INCINERATOR_CONFIRM = 47;
+		static final int EQUIPMENT_CONTENT_CONTAINER = 69;
+		static final int SETTINGS_BUTTON = 112;
+		static final int EQUIPMENT_BUTTON = 113;
 	}
 
 	static class GrandExchange

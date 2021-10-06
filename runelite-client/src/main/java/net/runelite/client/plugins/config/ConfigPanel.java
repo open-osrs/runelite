@@ -115,6 +115,7 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
 import net.runelite.client.ui.components.ColorJButton;
 import net.runelite.client.ui.components.ComboBoxListRenderer;
+import net.runelite.client.ui.components.ToggleButton;
 import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ColorUtil;
@@ -487,8 +488,8 @@ class ConfigPanel extends PluginPanel
 
 			if (cid.getType() == boolean.class)
 			{
-				JCheckBox checkbox = new JCheckBox();
-				checkbox.setBackground(ColorScheme.LIGHT_GRAY_COLOR);
+				JCheckBox checkbox = new ToggleButton();
+				checkbox.setPreferredSize(new Dimension(26, 25));
 				checkbox.setSelected(Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName())));
 				checkbox.addActionListener(ae -> changeConfiguration(checkbox, cd, cid));
 
@@ -864,8 +865,8 @@ class ConfigPanel extends PluginPanel
 				{
 					String option = String.valueOf(obj).toLowerCase().replace("_", " ");
 
-					JCheckBox checkbox = new JCheckBox(option);
-					checkbox.setBackground(ColorScheme.LIGHT_GRAY_COLOR);
+					JCheckBox checkbox = new ToggleButton(option);
+					checkbox.setBackground(ColorScheme.DARK_GRAY_COLOR);
 					checkbox.setSelected(enumSet.contains(obj));
 					jcheckboxes.add(checkbox);
 

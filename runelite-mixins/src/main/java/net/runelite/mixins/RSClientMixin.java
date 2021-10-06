@@ -53,9 +53,18 @@ import net.runelite.api.IntegerNode;
 import net.runelite.api.InventoryID;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.MenuAction;
-import static net.runelite.api.MenuAction.*;
+import static net.runelite.api.MenuAction.PLAYER_EIGTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FIFTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FIRST_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_FOURTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SECOND_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SEVENTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_SIXTH_OPTION;
+import static net.runelite.api.MenuAction.PLAYER_THIRD_OPTION;
+import static net.runelite.api.MenuAction.UNKNOWN;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MessageNode;
+import net.runelite.api.Model;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.NameableContainer;
@@ -68,6 +77,7 @@ import net.runelite.api.Point;
 import net.runelite.api.Prayer;
 import net.runelite.api.Projectile;
 import net.runelite.api.ScriptEvent;
+import net.runelite.api.Sequence;
 import net.runelite.api.Skill;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.StructComposition;
@@ -124,8 +134,8 @@ import net.runelite.api.widgets.WidgetConfig;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.api.widgets.WidgetType;
-import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSAbstractArchive;
+import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEnumComposition;
@@ -133,6 +143,7 @@ import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSInterfaceParent;
 import net.runelite.rs.api.RSItemContainer;
+import net.runelite.rs.api.RSModelData;
 import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSNode;
 import net.runelite.rs.api.RSNodeDeque;
@@ -2224,9 +2235,37 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public ClanChannel getClanChannel(int clanId)
+	{
+		ClanChannel[] clanChannels = client.getCurrentClanChannels();
+
+		if (clanId >= 0 && clanId < clanChannels.length)
+		{
+			return clanChannels[clanId];
+		}
+
+		return null;
+	}
+
+	@Inject
+	@Override
 	public ClanSettings getClanSettings()
 	{
 		return getCurrentClanSettingsAry()[0];
+	}
+
+	@Inject
+	@Override
+	public ClanSettings getClanSettings(int clanId)
+	{
+		ClanSettings[] clanSettings = getCurrentClanSettingsAry();
+
+		if (clanId >= 0 && clanId < clanSettings.length)
+		{
+			return clanSettings[clanId];
+		}
+
+		return null;
 	}
 
 	@Inject
@@ -2296,6 +2335,8 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().post(new ClanChannelChanged(client.getClanChannel(), false));
 	}
 
+
+
 	@Inject
 	public static RSArchive[] archives = new RSArchive[21];
 
@@ -2317,6 +2358,34 @@ public abstract class RSClientMixin implements RSClient
 			scene.setOverlayIds(Arrays.copyOf(overlays, overlays.length));
 			scene.setTileShapes(Arrays.copyOf(tileShapes, tileShapes.length));
 		}
+	}
+
+	@Inject
+	public Model loadModel(int id)
+	{
+		return loadModel(id, null, null);
+	}
+
+	@Inject
+	public Model loadModel(int id, short[] colorToFind, short[] colorToReplace)
+	{
+		RSModelData modeldata = client.getModelData(client.getObjectDefinition_modelsArchive(), id, 0);
+
+		if (colorToFind != null)
+		{
+			for (int i = 0; i < colorToFind.length; ++i)
+			{
+				modeldata.recolor(colorToFind[i], colorToReplace[i]);
+			}
+		}
+
+		return modeldata.toModel(modeldata.getAmbient() + 64, modeldata.getContrast() + 850, -30, -50, -30);
+	}
+
+	@Inject
+	public Sequence loadAnimation(int id)
+	{
+		return client.getSequenceDefinition(id);
 	}
 }
 

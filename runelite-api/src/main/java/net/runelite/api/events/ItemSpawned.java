@@ -25,9 +25,8 @@
 package net.runelite.api.events;
 
 import lombok.Value;
-import net.runelite.api.TileItem;
 import net.runelite.api.Tile;
-import lombok.Value;
+import net.runelite.api.TileItem;
 
 /**
  * Called when an item pile spawns on the ground. When the client loads a new scene,
@@ -36,6 +35,6 @@ import lombok.Value;
 @Value
 public class ItemSpawned
 {
-	Tile tile;
-	TileItem item;
+	private final Tile tile;
+	private final TileItem item;
 }

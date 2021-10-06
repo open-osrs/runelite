@@ -35,5 +35,5 @@ public class FriendsChatChanged
 	/**
 	 * Whether or not the client is now in a friends chat.
 	 */
-	boolean joined;
+	private boolean joined;
 }

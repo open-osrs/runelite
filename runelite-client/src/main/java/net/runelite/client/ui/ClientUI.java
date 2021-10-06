@@ -32,6 +32,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
@@ -362,6 +363,16 @@ public class ClientUI
 					{
 						shutdownClient();
 					}
+				}
+			});
+
+			frame.addWindowStateListener(l ->
+			{
+				if (l.getNewState() == Frame.NORMAL)
+				{
+					// Recompute minimum size after a restore.
+					// Invoking this immediately causes the minimum size to be 8px too small with custom chrome on.
+					SwingUtilities.invokeLater(frame::revalidateMinimumSize);
 				}
 			});
 
@@ -747,6 +758,7 @@ public class ClientUI
 
 	/**
 	 * Returns current cursor set on game container
+	 *
 	 * @return awt cursor
 	 */
 	public Cursor getCurrentCursor()
@@ -756,6 +768,7 @@ public class ClientUI
 
 	/**
 	 * Returns current custom cursor or default system cursor if cursor is not set
+	 *
 	 * @return awt cursor
 	 */
 	public Cursor getDefaultCursor()
@@ -766,6 +779,7 @@ public class ClientUI
 	/**
 	 * Changes cursor for client window. Requires ${@link ClientUI#init()} to be called first.
 	 * FIXME: This is working properly only on Windows, Linux and Mac are displaying cursor incorrectly
+	 *
 	 * @param image cursor image
 	 * @param name  cursor name
 	 */
@@ -784,6 +798,7 @@ public class ClientUI
 
 	/**
 	 * Changes cursor for client window. Requires ${@link ClientUI#init()} to be called first.
+	 *
 	 * @param cursor awt cursor
 	 */
 	public void setCursor(final Cursor cursor)
@@ -793,6 +808,7 @@ public class ClientUI
 
 	/**
 	 * Resets client window cursor to default one.
+	 *
 	 * @see ClientUI#setCursor(BufferedImage, String)
 	 */
 	public void resetCursor()
@@ -828,6 +844,7 @@ public class ClientUI
 
 	/**
 	 * Paint UI related overlays to target graphics
+	 *
 	 * @param graphics target graphics
 	 */
 	public void paintOverlays(final Graphics2D graphics)
@@ -1037,7 +1054,7 @@ public class ClientUI
 
 		if (config.usernameInTitle() && (client instanceof Client))
 		{
-			final Player player = ((Client)client).getLocalPlayer();
+			final Player player = ((Client) client).getLocalPlayer();
 
 			if (player != null && player.getName() != null)
 			{

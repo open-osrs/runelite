@@ -1,14 +1,14 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("u")
+@ObfuscatedName("e")
 public class class8 {
-	@ObfuscatedName("n")
-	final int field29;
-	@ObfuscatedName("c")
-	final int field28;
-	@ObfuscatedName("m")
-	final String field30;
+	@ObfuscatedName("l")
+	final int field33;
+	@ObfuscatedName("q")
+	final int field32;
+	@ObfuscatedName("f")
+	final String field34;
 
 	@ObfuscatedSignature(
 		descriptor = "(Lot;)V"
@@ -18,18 +18,18 @@ public class class8 {
 	}
 
 	class8(int var1, int var2, String var3) {
-		this.field29 = var1;
-		this.field28 = var2;
-		this.field30 = var3;
+		this.field33 = var1;
+		this.field32 = var2;
+		this.field34 = var3;
 	}
 
-	@ObfuscatedName("n")
-	String method65() {
-		return Integer.toHexString(this.field29) + Integer.toHexString(this.field28) + this.field30;
+	@ObfuscatedName("l")
+	String method67() {
+		return Integer.toHexString(this.field33) + Integer.toHexString(this.field32) + this.field34;
 	}
 
-	@ObfuscatedName("c")
-	int method67() {
-		return this.field28;
+	@ObfuscatedName("q")
+	int method68() {
+		return this.field32;
 	}
 }

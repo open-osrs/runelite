@@ -3,74 +3,74 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("z")
+@ObfuscatedName("t")
 public enum class6 implements MouseWheel {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lz;"
+		descriptor = "Lt;"
 	)
-	field10(0, 0);
+	field17(0, 0);
 
-	@ObfuscatedName("k")
-	@Export("Tiles_underlays")
-	static byte[][][] Tiles_underlays;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = -607968475
+	@ObfuscatedName("tm")
+	@ObfuscatedSignature(
+		descriptor = "Lkg;"
 	)
-	public final int field12;
-	@ObfuscatedName("m")
+	@Export("grandExchangeEvents")
+	static GrandExchangeEvents grandExchangeEvents;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1626436831
+		intValue = -610033617
 	)
-	final int field11;
+	final int field18;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 978789347
+	)
+	final int field19;
 
 	class6(int var3, int var4) {
-		this.field12 = var3;
-		this.field11 = var4;
+		this.field18 = var3;
+		this.field19 = var4;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1665712539"
+		garbageValue = "661199397"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field11;
+		return this.field19;
 	}
 
-	@ObfuscatedName("he")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "2047"
+		descriptor = "(I)V",
+		garbageValue = "2029085795"
 	)
-	static final void method44() {
-		for (PendingSpawn var0 = (PendingSpawn)Client.pendingSpawns.last(); var0 != null; var0 = (PendingSpawn)Client.pendingSpawns.previous()) {
-			if (var0.hitpoints > 0) {
-				--var0.hitpoints;
-			}
+	public static void method45() {
+		class54.reflectionChecks = new IterableNodeDeque();
+	}
 
-			if (var0.hitpoints == 0) {
-				if (var0.objectId < 0 || NPC.method2225(var0.objectId, var0.field1083)) {
-					class119.addPendingSpawnToScene(var0.plane, var0.type, var0.x, var0.y, var0.objectId, var0.field1088, var0.field1083);
-					var0.remove();
-				}
-			} else {
-				if (var0.delay > 0) {
-					--var0.delay;
-				}
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(II)Z",
+		garbageValue = "-728834449"
+	)
+	public static boolean method43(int var0) {
+		return var0 >= 0 && var0 < 112 ? KeyHandler.KeyHandler_pressedKeys[var0] : false;
+	}
 
-				if (var0.delay == 0 && var0.x >= 1 && var0.y >= 1 && var0.x <= 102 && var0.y <= 102 && (var0.id < 0 || NPC.method2225(var0.id, var0.field1087))) {
-					class119.addPendingSpawnToScene(var0.plane, var0.type, var0.x, var0.y, var0.id, var0.orientation, var0.field1087);
-					var0.delay = -1;
-					if (var0.id == var0.objectId && var0.objectId == -1) {
-						var0.remove();
-					} else if (var0.id == var0.objectId && var0.orientation == var0.field1088 && var0.field1083 == var0.field1087) {
-						var0.remove();
-					}
-				}
-			}
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1585134440"
+	)
+	static void method44() {
+		if (class174.loadWorlds()) {
+			Login.worldSelectOpen = true;
+			Login.worldSelectPage = 0;
+			Login.worldSelectPagesCount = 0;
 		}
 
 	}

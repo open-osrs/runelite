@@ -1,53 +1,50 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dt")
+@ObfuscatedName("ds")
 public class class125 extends class116 {
-	@ObfuscatedName("pb")
-	@ObfuscatedSignature(
-		descriptor = "Lni;"
-	)
-	@Export("HitSplatDefinition_cachedSprites")
-	static class386 HitSplatDefinition_cachedSprites;
-	@ObfuscatedName("ow")
-	@ObfuscatedGetter(
-		intValue = 478652981
-	)
-	@Export("widgetDragDuration")
-	static int widgetDragDuration;
-	@ObfuscatedName("n")
-	String field1436;
+	@ObfuscatedName("l")
+	String field1438;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldc;"
+		descriptor = "Ldg;"
 	)
 	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldc;)V"
+		descriptor = "(Ldg;)V"
 	)
 	class125(class119 var1) {
 		this.this$0 = var1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;I)V",
-		garbageValue = "-1413895325"
+		garbageValue = "-912681401"
 	)
-	void vmethod2711(Buffer var1) {
-		this.field1436 = var1.readStringCp1252NullTerminated();
+	void vmethod2767(Buffer var1) {
+		this.field1438 = var1.readStringCp1252NullTerminated();
 		var1.readInt();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ldi;I)V",
-		garbageValue = "697483856"
+		descriptor = "(Ldk;I)V",
+		garbageValue = "-1225074726"
 	)
-	void vmethod2712(ClanSettings var1) {
-		var1.name = this.field1436;
+	void vmethod2766(ClanSettings var1) {
+		var1.name = this.field1438;
+	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lob;",
+		garbageValue = "1776843311"
+	)
+	@Export("FillMode_values")
+	public static FillMode[] FillMode_values() {
+		return new FillMode[]{FillMode.SOLID, FillMode.field4368, FillMode.field4366};
 	}
 }

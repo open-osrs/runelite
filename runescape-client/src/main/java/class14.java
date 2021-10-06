@@ -2,168 +2,259 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
 @ObfuscatedName("s")
 public class class14 {
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "Loi;"
-	)
-	static IndexedSprite field69;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = 1162986903
-	)
-	final int field71;
-	@ObfuscatedName("c")
-	final String field67;
-	@ObfuscatedName("m")
-	final ThreadFactory field68;
 	@ObfuscatedName("k")
-	final ThreadPoolExecutor field70;
+	@Export("Tiles_shapes")
+	static byte[][][] Tiles_shapes;
+	@ObfuscatedName("ig")
+	@ObfuscatedGetter(
+		intValue = -2083803303
+	)
+	@Export("cameraY")
+	static int cameraY;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 1296080331
+	)
+	final int field82;
+	@ObfuscatedName("q")
+	final String field79;
+	@ObfuscatedName("f")
+	final ThreadFactory field84;
+	@ObfuscatedName("j")
+	final ThreadPoolExecutor field81;
 
 	public class14(String var1, int var2, int var3) {
-		this.field67 = var1;
-		this.field71 = var2;
-		this.field68 = new class16(this);
-		this.field70 = this.method182(var3);
+		this.field79 = var1;
+		this.field82 = var2;
+		this.field84 = new class16(this);
+		this.field81 = this.method169(var3);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(II)Ljava/util/concurrent/ThreadPoolExecutor;",
-		garbageValue = "6276176"
+		garbageValue = "1584843166"
 	)
-	final ThreadPoolExecutor method182(int var1) {
-		return new ThreadPoolExecutor(var1, var1, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue(this.field71), this.field68);
+	final ThreadPoolExecutor method169(int var1) {
+		return new ThreadPoolExecutor(var1, var1, 0L, TimeUnit.MILLISECONDS, new ArrayBlockingQueue(this.field82), this.field84);
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ll;I)Lx;",
-		garbageValue = "1026683688"
+		descriptor = "(Ly;I)Lz;",
+		garbageValue = "91554656"
 	)
-	public class19 method186(class10 var1) {
-		if (this.field70.getQueue().remainingCapacity() <= 0) {
-			System.err.println("REST thread pool queue is empty\r\nThread pool size " + this.field70.getCorePoolSize() + " Queue capacity " + this.field71);
+	public class19 method178(class10 var1) {
+		if (this.field81.getQueue().remainingCapacity() <= 0) {
+			System.err.println("REST thread pool queue is empty\r\nThread pool size " + this.field81.getCorePoolSize() + " Queue capacity " + this.field82);
 			return new class19("Queue full");
 		} else {
-			class19 var2 = new class19(this.field70.submit(new class20(this, var1)));
+			class19 var2 = new class19(this.field81.submit(new class20(this, var1)));
 			return var2;
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1134604933"
+		garbageValue = "-1427379154"
 	)
-	public final void method191() {
+	public final void method172() {
 		try {
-			this.field70.shutdown();
+			this.field81.shutdown();
 		} catch (Exception var2) {
 			System.err.println("Error shutting down RestRequestService\r\n" + var2);
 		}
 
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(ILbg;ZI)I",
-		garbageValue = "1662089462"
+		descriptor = "(IZI)Ljava/lang/String;",
+		garbageValue = "-1312384098"
 	)
-	static int method185(int var0, Script var1, boolean var2) {
-		int var3 = -1;
-		Widget var4;
-		if (var0 >= 2000) {
-			var0 -= 1000;
-			var3 = Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize];
-			var4 = class87.getWidget(var3);
+	@Export("intToString")
+	public static String intToString(int var0, boolean var1) {
+		if (var1 && var0 >= 0) {
+			int var3 = var0;
+			String var2;
+			if (var1 && var0 >= 0) {
+				int var4 = 2;
+
+				for (int var5 = var0 / 10; var5 != 0; ++var4) {
+					var5 /= 10;
+				}
+
+				char[] var6 = new char[var4];
+				var6[0] = '+';
+
+				for (int var7 = var4 - 1; var7 > 0; --var7) {
+					int var8 = var3;
+					var3 /= 10;
+					int var9 = var8 - var3 * 10;
+					if (var9 >= 10) {
+						var6[var7] = (char)(var9 + 87);
+					} else {
+						var6[var7] = (char)(var9 + 48);
+					}
+				}
+
+				var2 = new String(var6);
+			} else {
+				var2 = Integer.toString(var0, 10);
+			}
+
+			return var2;
 		} else {
-			var4 = var2 ? PacketWriter.scriptDotWidget : class9.scriptActiveWidget;
-		}
-
-		if (var0 == ScriptOpcodes.CC_SETPOSITION) {
-			class240.Interpreter_intStackSize -= 4;
-			var4.rawX = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize];
-			var4.rawY = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 1];
-			var4.xAlignment = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 2];
-			var4.yAlignment = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 3];
-			Actor.invalidateWidget(var4);
-			ArchiveDiskActionHandler.client.alignWidget(var4);
-			if (var3 != -1 && var4.type == 0) {
-				VerticalAlignment.revalidateWidgetScroll(class139.Widget_interfaceComponents[var3 >> 16], var4, false);
-			}
-
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETSIZE) {
-			class240.Interpreter_intStackSize -= 4;
-			var4.rawWidth = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize];
-			var4.rawHeight = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 1];
-			var4.widthAlignment = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 2];
-			var4.heightAlignment = Interpreter.Interpreter_intStack[class240.Interpreter_intStackSize + 3];
-			Actor.invalidateWidget(var4);
-			ArchiveDiskActionHandler.client.alignWidget(var4);
-			if (var3 != -1 && var4.type == 0) {
-				VerticalAlignment.revalidateWidgetScroll(class139.Widget_interfaceComponents[var3 >> 16], var4, false);
-			}
-
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETHIDE) {
-			boolean var5 = Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize] == 1;
-			if (var5 != var4.isHidden) {
-				var4.isHidden = var5;
-				Actor.invalidateWidget(var4);
-			}
-
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETNOCLICKTHROUGH) {
-			var4.noClickThrough = Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize] == 1;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_SETNOSCROLLTHROUGH) {
-			var4.noScrollThrough = Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize] == 1;
-			return 1;
-		} else {
-			return 2;
+			return Integer.toString(var0);
 		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(ILbg;ZI)I",
-		garbageValue = "-1305341703"
+		descriptor = "(I)V",
+		garbageValue = "-2085487227"
 	)
-	static int method190(int var0, Script var1, boolean var2) {
-		Widget var3 = class87.getWidget(Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize]);
-		if (var0 == ScriptOpcodes.IF_GETTARGETMASK) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = class138.Widget_unpackTargetMask(Decimator.getWidgetFlags(var3));
-			return 1;
-		} else if (var0 != ScriptOpcodes.IF_GETOP) {
-			if (var0 == ScriptOpcodes.IF_GETOPBASE) {
-				if (var3.dataText == null) {
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
+	static void method175() {
+		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) {
+			Login.currentLoginField = 1;
+		} else {
+			Login.currentLoginField = 0;
+		}
+
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Lhl;IIIB)Z",
+		garbageValue = "-89"
+	)
+	static final boolean method179(Model var0, int var1, int var2, int var3) {
+		if (!GameEngine.method510()) {
+			return false;
+		} else {
+			HealthBarUpdate.method2158();
+			int var4 = var0.xMid + var1;
+			int var5 = var2 + var0.yMid;
+			int var6 = var3 + var0.zMid;
+			int var7 = var0.xMidOffset;
+			int var8 = var0.yMidOffset;
+			int var9 = var0.zMidOffset;
+			int var10 = class122.field1426 - var4;
+			int var11 = ViewportMouse.field2585 - var5;
+			int var12 = DirectByteArrayCopier.field3212 - var6;
+			if (Math.abs(var10) > var7 + Interpreter.field829) {
+				return false;
+			} else if (Math.abs(var11) > var8 + ViewportMouse.field2580) {
+				return false;
+			} else if (Math.abs(var12) > var9 + class19.field98) {
+				return false;
+			} else if (Math.abs(var12 * ViewportMouse.field2579 - var11 * class121.field1412) > var8 * class19.field98 + var9 * ViewportMouse.field2580) {
+				return false;
+			} else if (Math.abs(var10 * class121.field1412 - var12 * MilliClock.field1588) > var7 * class19.field98 + var9 * Interpreter.field829) {
+				return false;
+			} else {
+				return Math.abs(var11 * MilliClock.field1588 - var10 * ViewportMouse.field2579) <= var7 * ViewportMouse.field2580 + var8 * Interpreter.field829;
+			}
+		}
+	}
+
+	@ObfuscatedName("ht")
+	@ObfuscatedSignature(
+		descriptor = "(ZLoy;I)V",
+		garbageValue = "2078480474"
+	)
+	@Export("updateNpcs")
+	static final void updateNpcs(boolean var0, PacketBuffer var1) {
+		Client.field611 = 0;
+		Client.field713 = 0;
+		PacketBuffer var2 = Client.packetWriter.packetBuffer;
+		var2.importIndex();
+		int var3 = var2.readBits(8);
+		int var4;
+		if (var3 < Client.npcCount) {
+			for (var4 = var3; var4 < Client.npcCount; ++var4) {
+				Client.field612[++Client.field611 - 1] = Client.npcIndices[var4];
+			}
+		}
+
+		if (var3 > Client.npcCount) {
+			throw new RuntimeException("");
+		} else {
+			Client.npcCount = 0;
+
+			for (var4 = 0; var4 < var3; ++var4) {
+				int var5 = Client.npcIndices[var4];
+				NPC var6 = Client.npcs[var5];
+				int var7 = var2.readBits(1);
+				if (var7 == 0) {
+					Client.npcIndices[++Client.npcCount - 1] = var5;
+					var6.npcCycle = Client.cycle;
 				} else {
-					Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.dataText;
+					int var8 = var2.readBits(2);
+					if (var8 == 0) {
+						Client.npcIndices[++Client.npcCount - 1] = var5;
+						var6.npcCycle = Client.cycle;
+						Client.field535[++Client.field713 - 1] = var5;
+					} else {
+						int var9;
+						int var10;
+						if (var8 == 1) {
+							Client.npcIndices[++Client.npcCount - 1] = var5;
+							var6.npcCycle = Client.cycle;
+							var9 = var2.readBits(3);
+							var6.method2223(var9, (byte)1);
+							var10 = var2.readBits(1);
+							if (var10 == 1) {
+								Client.field535[++Client.field713 - 1] = var5;
+							}
+						} else if (var8 == 2) {
+							Client.npcIndices[++Client.npcCount - 1] = var5;
+							var6.npcCycle = Client.cycle;
+							var9 = var2.readBits(3);
+							var6.method2223(var9, (byte)2);
+							var10 = var2.readBits(3);
+							var6.method2223(var10, (byte)2);
+							int var11 = var2.readBits(1);
+							if (var11 == 1) {
+								Client.field535[++Client.field713 - 1] = var5;
+							}
+						} else if (var8 == 3) {
+							Client.field612[++Client.field611 - 1] = var5;
+						}
+					}
+				}
+			}
+
+			MidiPcmStream.method4806(var0, var1);
+			class318.method5839(var1);
+
+			int var12;
+			for (var12 = 0; var12 < Client.field611; ++var12) {
+				var3 = Client.field612[var12];
+				if (Client.npcs[var3].npcCycle != Client.cycle) {
+					Client.npcs[var3].definition = null;
+					Client.npcs[var3] = null;
+				}
+			}
+
+			if (var1.offset != Client.packetWriter.serverPacketLength) {
+				throw new RuntimeException(var1.offset + "," + Client.packetWriter.serverPacketLength);
+			} else {
+				for (var12 = 0; var12 < Client.npcCount; ++var12) {
+					if (Client.npcs[Client.npcIndices[var12]] == null) {
+						throw new RuntimeException(var12 + "," + Client.npcCount);
+					}
 				}
 
-				return 1;
-			} else {
-				return 2;
 			}
-		} else {
-			int var4 = Interpreter.Interpreter_intStack[--class240.Interpreter_intStackSize];
-			--var4;
-			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) {
-				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = var3.actions[var4];
-			} else {
-				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = "";
-			}
-
-			return 1;
 		}
 	}
 }

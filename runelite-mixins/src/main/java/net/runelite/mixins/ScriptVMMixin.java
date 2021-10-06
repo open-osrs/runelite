@@ -65,7 +65,8 @@ public abstract class ScriptVMMixin implements RSClient
 		{
 			if (script != null)
 			{
-				ScriptPreFired event = new ScriptPreFired((int) script.getHash(), rootScriptEvent);
+				ScriptPreFired event = new ScriptPreFired((int) script.getHash());
+				event.setScriptEvent(rootScriptEvent);
 				client.getCallbacks().post(event);
 			}
 
@@ -127,7 +128,7 @@ public abstract class ScriptVMMixin implements RSClient
 				return true;
 			case INVOKE:
 				int scriptId = currentScript.getIntOperands()[currentScriptPC];
-				client.getCallbacks().post(new ScriptPreFired(scriptId, null));
+				client.getCallbacks().post(new ScriptPreFired(scriptId));
 				return false;
 			case RETURN:
 				client.getCallbacks().post(new ScriptPostFired((int) currentScript.getHash()));

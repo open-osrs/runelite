@@ -3,27 +3,38 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mq")
+@ObfuscatedName("mc")
 @Implements("TriBool")
 public class TriBool {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lmq;"
+		descriptor = "Lmc;"
 	)
 	@Export("TriBool_unknown")
 	public static final TriBool TriBool_unknown;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lmq;"
+		descriptor = "Lmc;"
 	)
 	@Export("TriBool_true")
 	public static final TriBool TriBool_true;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lmq;"
+		descriptor = "Lmc;"
 	)
 	@Export("TriBool_false")
 	public static final TriBool TriBool_false;
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "Lot;"
+	)
+	@Export("NetCache_reference")
+	public static Buffer NetCache_reference;
+	@ObfuscatedName("ps")
+	@ObfuscatedSignature(
+		descriptor = "Lnc;"
+	)
+	static class387 field3979;
 
 	static {
 		TriBool_unknown = new TriBool();
@@ -32,14 +43,5 @@ public class TriBool {
 	}
 
 	TriBool() {
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "-1385101768"
-	)
-	public static int method6080(int var0, int var1) {
-		return (int)Math.round(Math.atan2((double)var0, (double)var1) * 2607.5945876176133D) & 16383;
 	}
 }

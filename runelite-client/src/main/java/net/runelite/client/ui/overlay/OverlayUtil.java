@@ -46,7 +46,6 @@ import net.runelite.client.util.ColorUtil;
 public class OverlayUtil
 {
 	private static final int MINIMAP_DOT_RADIUS = 4;
-	private static final double UNIT = Math.PI / 1024.0d;
 
 	public static void renderPolygon(Graphics2D graphics, Shape poly, Color color)
 	{
@@ -55,11 +54,16 @@ public class OverlayUtil
 
 	public static void renderPolygon(Graphics2D graphics, Shape poly, Color color, Stroke borderStroke)
 	{
+		renderPolygon(graphics, poly, color, new Color(0, 0, 0, 50), borderStroke);
+	}
+
+	public static void renderPolygon(Graphics2D graphics, Shape poly, Color color, Color fillColor, Stroke borderStroke)
+	{
 		graphics.setColor(color);
 		final Stroke originalStroke = graphics.getStroke();
 		graphics.setStroke(borderStroke);
 		graphics.draw(poly);
-		graphics.setColor(new Color(0, 0, 0, 50));
+		graphics.setColor(fillColor);
 		graphics.fill(poly);
 		graphics.setStroke(originalStroke);
 	}
@@ -74,12 +78,12 @@ public class OverlayUtil
 
 	public static void renderMinimapRect(Client client, Graphics2D graphics, Point center, int width, int height, Color color)
 	{
-		double angle = client.getMapAngle() * UNIT;
+		double angle = client.getMapAngle() * Perspective.UNIT;
 
 		graphics.setColor(color);
 		graphics.rotate(angle, center.getX(), center.getY());
-		graphics.drawRect(center.getX() - width / 2, center.getY() - height / 2, width, height);
-		graphics.rotate(-angle , center.getX(), center.getY());
+		graphics.drawRect(center.getX() - width / 2, center.getY() - height / 2, width - 1, height - 1);
+		graphics.rotate(-angle, center.getX(), center.getY());
 	}
 
 	public static void renderTextLocation(Graphics2D graphics, Point txtLoc, String text, Color color)

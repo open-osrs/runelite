@@ -1,27 +1,28 @@
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fp")
+@ObfuscatedName("ft")
 public class class174 {
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("directions")
-	static int[][] directions;
-	@ObfuscatedName("k")
+	public static int[][] directions;
+	@ObfuscatedName("j")
 	@Export("distances")
-	static int[][] distances;
-	@ObfuscatedName("g")
+	public static int[][] distances;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 978490773
+		intValue = 1698208835
 	)
-	static int field1991;
+	public static int field1994;
 	@ObfuscatedName("a")
 	@Export("bufferX")
-	static int[] bufferX;
-	@ObfuscatedName("u")
+	public static int[] bufferX;
+	@ObfuscatedName("e")
 	@Export("bufferY")
-	static int[] bufferY;
+	public static int[] bufferY;
 
 	static {
 		directions = new int[128][128];
@@ -30,37 +31,59 @@ public class class174 {
 		bufferY = new int[4096];
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Loc;",
-		garbageValue = "-1552339754"
+		descriptor = "(I)Z",
+		garbageValue = "-44700481"
 	)
-	public static SpritePixels[] method3364() {
-		SpritePixels[] var0 = new SpritePixels[class413.SpriteBuffer_spriteCount];
+	@Export("loadWorlds")
+	static boolean loadWorlds() {
+		try {
+			if (class4.World_request == null) {
+				class4.World_request = WorldMapSection0.urlRequester.request(new URL(Messages.field1273));
+			} else if (class4.World_request.isDone()) {
+				byte[] var0 = class4.World_request.getResponse();
+				Buffer var1 = new Buffer(var0);
+				var1.readInt();
+				World.World_count = var1.readUnsignedShort();
+				class386.World_worlds = new World[World.World_count];
 
-		for (int var1 = 0; var1 < class413.SpriteBuffer_spriteCount; ++var1) {
-			SpritePixels var2 = var0[var1] = new SpritePixels();
-			var2.width = class413.SpriteBuffer_spriteWidth;
-			var2.height = class413.SpriteBuffer_spriteHeight;
-			var2.xOffset = class413.SpriteBuffer_xOffsets[var1];
-			var2.yOffset = class413.SpriteBuffer_yOffsets[var1];
-			var2.subWidth = InvDefinition.SpriteBuffer_spriteWidths[var1];
-			var2.subHeight = class413.SpriteBuffer_spriteHeights[var1];
-			int var3 = var2.subHeight * var2.subWidth;
-			byte[] var4 = class283.SpriteBuffer_pixels[var1];
-			var2.pixels = new int[var3];
+				World var3;
+				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) {
+					var3 = class386.World_worlds[var2] = new World();
+					var3.id = var1.readUnsignedShort();
+					var3.properties = var1.readInt();
+					var3.host = var1.readStringCp1252NullTerminated();
+					var3.activity = var1.readStringCp1252NullTerminated();
+					var3.location = var1.readUnsignedByte();
+					var3.population = var1.readShort();
+				}
 
-			for (int var5 = 0; var5 < var3; ++var5) {
-				var2.pixels[var5] = ItemContainer.SpriteBuffer_spritePalette[var4[var5] & 255];
+				class274.sortWorlds(class386.World_worlds, 0, class386.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2);
+				class4.World_request = null;
+				return true;
 			}
+		} catch (Exception var4) {
+			var4.printStackTrace();
+			class4.World_request = null;
 		}
 
-		class413.SpriteBuffer_xOffsets = null;
-		class413.SpriteBuffer_yOffsets = null;
-		InvDefinition.SpriteBuffer_spriteWidths = null;
-		class413.SpriteBuffer_spriteHeights = null;
-		ItemContainer.SpriteBuffer_spritePalette = null;
-		class283.SpriteBuffer_pixels = null;
-		return var0;
+		return false;
+	}
+
+	@ObfuscatedName("hl")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1701952628"
+	)
+	@Export("addCancelMenuEntry")
+	static void addCancelMenuEntry() {
+		Client.menuOptionsCount = 0;
+		Client.isMenuOpen = false;
+		Client.menuActions[0] = "Cancel";
+		Client.menuTargets[0] = "";
+		Client.menuOpcodes[0] = 1006;
+		Client.menuShiftClick[0] = false;
+		Client.menuOptionsCount = 1;
 	}
 }

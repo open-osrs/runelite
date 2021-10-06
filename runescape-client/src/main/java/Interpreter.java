@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
@@ -6,70 +5,69 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bq")
+@ObfuscatedName("bv")
 @Implements("Interpreter")
 public class Interpreter {
-	@ObfuscatedName("g")
-	@Export("Interpreter_intLocals")
-	static int[] Interpreter_intLocals;
-	@ObfuscatedName("z")
-	@Export("Interpreter_stringLocals")
-	static String[] Interpreter_stringLocals;
 	@ObfuscatedName("a")
 	@Export("Interpreter_arrayLengths")
 	static int[] Interpreter_arrayLengths;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@Export("Interpreter_arrays")
 	static int[][] Interpreter_arrays;
-	@ObfuscatedName("e")
+	@ObfuscatedName("i")
 	@Export("Interpreter_intStack")
 	static int[] Interpreter_intStack;
 	@ObfuscatedName("y")
+	@ObfuscatedGetter(
+		intValue = -784806353
+	)
+	static int field829;
+	@ObfuscatedName("w")
 	@Export("Interpreter_stringStack")
 	static String[] Interpreter_stringStack;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1992880187
-	)
-	@Export("Interpreter_stringStackSize")
-	static int Interpreter_stringStackSize;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = 667658721
+		intValue = -1089183027
 	)
 	@Export("Interpreter_frameDepth")
 	static int Interpreter_frameDepth;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "[Lbl;"
+		descriptor = "[Lbj;"
 	)
 	@Export("Interpreter_frames")
 	static ScriptFrame[] Interpreter_frames;
-	@ObfuscatedName("b")
+	@ObfuscatedName("h")
 	@Export("Interpreter_calendar")
 	static java.util.Calendar Interpreter_calendar;
-	@ObfuscatedName("t")
+	@ObfuscatedName("o")
 	@Export("Interpreter_MONTHS")
 	static final String[] Interpreter_MONTHS;
-	@ObfuscatedName("p")
-	static boolean field829;
-	@ObfuscatedName("w")
-	static boolean field827;
-	@ObfuscatedName("i")
-	static ArrayList field818;
-	@ObfuscatedName("aq")
+	@ObfuscatedName("n")
+	static boolean field828;
+	@ObfuscatedName("u")
+	static boolean field832;
+	@ObfuscatedName("d")
+	static ArrayList field830;
+	@ObfuscatedName("ab")
 	@ObfuscatedGetter(
-		intValue = -1057377187
+		intValue = 1390220385
 	)
-	static int field813;
-	@ObfuscatedName("aw")
-	static final double field831;
-	@ObfuscatedName("ew")
+	static int field818;
+	@ObfuscatedName("ah")
+	static final double field826;
+	@ObfuscatedName("ez")
 	@ObfuscatedSignature(
-		descriptor = "Lkx;"
+		descriptor = "Lky;"
 	)
-	@Export("archive19")
-	static Archive archive19;
+	@Export("archive9")
+	static Archive archive9;
+	@ObfuscatedName("gl")
+	@ObfuscatedSignature(
+		descriptor = "Llt;"
+	)
+	@Export("fontBold12")
+	static Font fontBold12;
 
 	static {
 		Interpreter_arrayLengths = new int[5];
@@ -80,55 +78,44 @@ public class Interpreter {
 		Interpreter_frames = new ScriptFrame[50];
 		Interpreter_calendar = java.util.Calendar.getInstance();
 		Interpreter_MONTHS = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-		field829 = false;
-		field827 = false;
-		field818 = new ArrayList();
-		field813 = 0;
-		field831 = Math.log(2.0D);
+		field828 = false;
+		field832 = false;
+		field830 = new ArrayList();
+		field818 = 0;
+		field826 = Math.log(2.0D);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;ZZI)V",
-		garbageValue = "1039315251"
+		descriptor = "(II)I",
+		garbageValue = "2021156049"
 	)
-	@Export("openURL")
-	public static void openURL(String var0, boolean var1, boolean var2) {
-		class12.method129(var0, var1, "openjs", var2);
+	@Export("Widget_unpackTargetMask")
+	public static int Widget_unpackTargetMask(int var0) {
+		return var0 >> 11 & 63;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lcx;",
-		garbageValue = "-72"
+		descriptor = "(ILbe;ZI)I",
+		garbageValue = "525192996"
 	)
-	static ClientPreferences method1861() {
-		AccessFile var0 = null;
-		ClientPreferences var1 = new ClientPreferences();
-
-		try {
-			var0 = class4.getPreferencesFile("", class16.field83.name, false);
-			byte[] var2 = new byte[(int)var0.length()];
-
-			int var4;
-			for (int var3 = 0; var3 < var2.length; var3 += var4) {
-				var4 = var0.read(var2, var3, var2.length - var3);
-				if (var4 == -1) {
-					throw new IOException();
-				}
-			}
-
-			var1 = new ClientPreferences(new Buffer(var2));
-		} catch (Exception var6) {
+	static int method1868(int var0, Script var1, boolean var2) {
+		int var3;
+		if (var0 == 3500) {
+			var3 = Interpreter_intStack[--AbstractByteArrayCopier.Interpreter_intStackSize];
+			Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = class6.method43(var3) ? 1 : 0;
+			return 1;
+		} else if (var0 == 3501) {
+			var3 = Interpreter_intStack[--AbstractByteArrayCopier.Interpreter_intStackSize];
+			Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = PacketBufferNode.method4654(var3) ? 1 : 0;
+			return 1;
+		} else if (var0 == 3502) {
+			var3 = Interpreter_intStack[--AbstractByteArrayCopier.Interpreter_intStackSize];
+			Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = Messages.method2350(var3) ? 1 : 0;
+			return 1;
+		} else {
+			return 2;
 		}
-
-		try {
-			if (var0 != null) {
-				var0.close();
-			}
-		} catch (Exception var5) {
-		}
-
-		return var1;
 	}
 }

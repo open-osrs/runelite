@@ -3,31 +3,38 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("mt")
+@ObfuscatedName("me")
 @Implements("Bounds")
 public class Bounds {
-	@ObfuscatedName("n")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -2576511
+		intValue = 381573943
+	)
+	@Export("idxCount")
+	public static int idxCount;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -1695480497
 	)
 	@Export("lowX")
 	public int lowX;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1191189267
+		intValue = -2043874087
 	)
 	@Export("lowY")
 	public int lowY;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1359495181
+		intValue = 1088708309
 	)
 	@Export("highX")
 	public int highX;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -18291391
+		intValue = 1526054429
 	)
 	@Export("highY")
 	public int highY;
@@ -41,10 +48,10 @@ public class Bounds {
 		this(0, 0, var1, var2);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "1032110275"
+		descriptor = "(IIB)V",
+		garbageValue = "-104"
 	)
 	@Export("setLow")
 	public void setLow(int var1, int var2) {
@@ -52,10 +59,10 @@ public class Bounds {
 		this.lowY = var2;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "1500851381"
+		garbageValue = "-1084787659"
 	)
 	@Export("setHigh")
 	public void setHigh(int var1, int var2) {
@@ -63,40 +70,40 @@ public class Bounds {
 		this.highY = var2;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(III)Z",
-		garbageValue = "-1261936501"
+		descriptor = "(IIB)Z",
+		garbageValue = "1"
 	)
-	public boolean method6186(int var1, int var2) {
+	public boolean method6252(int var1, int var2) {
 		return var1 >= this.lowX && var1 < this.lowX + this.highX && var2 >= this.lowY && var2 < this.highY + this.lowY;
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(Lmt;Lmt;I)V",
-		garbageValue = "1284684656"
+		descriptor = "(Lme;Lme;B)V",
+		garbageValue = "-83"
 	)
-	public void method6191(Bounds var1, Bounds var2) {
-		this.method6192(var1, var2);
-		this.method6196(var1, var2);
+	public void method6253(Bounds var1, Bounds var2) {
+		this.method6254(var1, var2);
+		this.method6255(var1, var2);
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lmt;Lmt;I)V",
-		garbageValue = "-1884423732"
+		descriptor = "(Lme;Lme;I)V",
+		garbageValue = "348652438"
 	)
-	void method6192(Bounds var1, Bounds var2) {
+	void method6254(Bounds var1, Bounds var2) {
 		var2.lowX = this.lowX;
 		var2.highX = this.highX;
 		if (this.lowX < var1.lowX) {
-			var2.highX = (var2.highX * 432140603 - (var1.lowX * 432140603 - this.lowX * 432140603)) * -1359495181;
+			var2.highX = (var2.highX * 1746135677 - (var1.lowX * 1746135677 - this.lowX * 1746135677)) * 1088708309;
 			var2.lowX = var1.lowX;
 		}
 
-		if (var2.method6195() > var1.method6195()) {
-			var2.highX -= var2.method6195() - var1.method6195();
+		if (var2.method6261() > var1.method6261()) {
+			var2.highX -= var2.method6261() - var1.method6261();
 		}
 
 		if (var2.highX < 0) {
@@ -105,21 +112,21 @@ public class Bounds {
 
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Lmt;Lmt;I)V",
-		garbageValue = "-2054192714"
+		descriptor = "(Lme;Lme;I)V",
+		garbageValue = "-1307701486"
 	)
-	void method6196(Bounds var1, Bounds var2) {
+	void method6255(Bounds var1, Bounds var2) {
 		var2.lowY = this.lowY;
 		var2.highY = this.highY;
 		if (this.lowY < var1.lowY) {
-			var2.highY = (var2.highY * 1487841985 - (var1.lowY * 1487841985 - this.lowY * 1487841985)) * -18291391;
+			var2.highY = (var2.highY * 98366517 - (var1.lowY * 98366517 - this.lowY * 98366517)) * 1526054429;
 			var2.lowY = var1.lowY;
 		}
 
-		if (var2.method6194() > var1.method6194()) {
-			var2.highY -= var2.method6194() - var1.method6194();
+		if (var2.method6257() > var1.method6257()) {
+			var2.highY -= var2.method6257() - var1.method6257();
 		}
 
 		if (var2.highY < 0) {
@@ -128,25 +135,85 @@ public class Bounds {
 
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1761528671"
+		garbageValue = "-1298580692"
 	)
-	int method6195() {
-		return this.lowX + this.highX;
+	int method6261() {
+		return this.highX + this.lowX;
 	}
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(S)I",
-		garbageValue = "16384"
+		descriptor = "(B)I",
+		garbageValue = "-108"
 	)
-	int method6194() {
-		return this.lowY + this.highY;
+	int method6257() {
+		return this.highY + this.lowY;
 	}
 
 	public String toString() {
 		return null;
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(ILbe;ZB)I",
+		garbageValue = "1"
+	)
+	static int method6262(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? WorldMapDecoration.scriptDotWidget : class245.scriptActiveWidget;
+		if (var0 == ScriptOpcodes.CC_GETSCROLLX) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.scrollX;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETSCROLLY) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.scrollY;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETTEXT) {
+			Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = var3.text;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETSCROLLWIDTH) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.scrollWidth;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETSCROLLHEIGHT) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.scrollHeight;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETMODELZOOM) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.modelZoom;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_X) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.modelAngleX;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Z) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.modelAngleZ;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Y) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.modelAngleY;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETTRANS) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.transparencyTop;
+			return 1;
+		} else if (var0 == 1610) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.transparencyBot;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETCOLOUR) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.color;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETFILLCOLOUR) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.color2;
+			return 1;
+		} else if (var0 == 1613) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal();
+			return 1;
+		} else if (var0 == ScriptOpcodes.CC_GETMODELTRANSPARENT) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0;
+			return 1;
+		} else if (var0 != 1615 && var0 != 1616) {
+			return 2;
+		} else {
+			++AbstractByteArrayCopier.Interpreter_intStackSize;
+			return 1;
+		}
 	}
 }

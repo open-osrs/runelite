@@ -4,87 +4,53 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bk")
+@ObfuscatedName("bb")
 @Implements("MenuAction")
 public class MenuAction {
-	@ObfuscatedName("tq")
-	@ObfuscatedGetter(
-		longValue = 4958938435301166591L
-	)
-	static long field861;
-	@ObfuscatedName("dq")
+	@ObfuscatedName("te")
 	@ObfuscatedSignature(
-		descriptor = "Lkx;"
+		descriptor = "Lnr;"
 	)
-	@Export("archive1")
-	static Archive archive1;
-	@ObfuscatedName("n")
+	@Export("platformInfo")
+	static PlatformInfo platformInfo;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -637923195
+		intValue = 441486123
 	)
 	@Export("param0")
 	int param0;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1711543003
+		intValue = -1041645519
 	)
 	@Export("param1")
 	int param1;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -699134669
+		intValue = 1414459793
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 208996553
+		intValue = 1513793095
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@Export("action")
 	String action;
 
 	MenuAction() {
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-1047578495"
+		descriptor = "(III)I",
+		garbageValue = "-68078688"
 	)
-	public static void method1875(int var0) {
-		MouseHandler.MouseHandler_idleCycles = var0;
-	}
-
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "-700660843"
-	)
-	static void method1876(boolean var0) {
-		byte var1;
-		if (ArchiveDiskActionHandler.client.method1139()) {
-			var1 = 10;
-		} else {
-			var1 = 0;
-		}
-
-		Message.method1113(var1);
-		if (var0) {
-			Login.Login_username = "";
-			Login.Login_password = "";
-			class274.field3274 = 0;
-			AbstractWorldMapIcon.otp = "";
-		}
-
-		class131.method2645();
-		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) {
-			Login.currentLoginField = 1;
-		} else {
-			Login.currentLoginField = 0;
-		}
-
+	public static int method1885(int var0, int var1) {
+		int var2 = var0 >>> 31;
+		return (var0 + var2) / var1 - var2;
 	}
 }

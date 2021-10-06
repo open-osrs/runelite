@@ -1,12 +1,19 @@
+import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dk")
+@ObfuscatedName("dx")
 @Implements("UserComparator3")
 public class UserComparator3 extends AbstractUserComparator {
-	@ObfuscatedName("n")
+	@ObfuscatedName("oq")
+	@ObfuscatedGetter(
+		intValue = -1476242405
+	)
+	static int field1338;
+	@ObfuscatedName("l")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -14,10 +21,10 @@ public class UserComparator3 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lmm;Lmm;B)I",
-		garbageValue = "55"
+		descriptor = "(Lmi;Lmi;I)I",
+		garbageValue = "972500816"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -32,50 +39,36 @@ public class UserComparator3 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("kn")
+	@ObfuscatedName("l")
+	public static String method2438(long var0) {
+		Calendar.Calendar_calendar.setTime(new Date(var0));
+		int var2 = Calendar.Calendar_calendar.get(7);
+		int var3 = Calendar.Calendar_calendar.get(5);
+		int var4 = Calendar.Calendar_calendar.get(2);
+		int var5 = Calendar.Calendar_calendar.get(1);
+		int var6 = Calendar.Calendar_calendar.get(11);
+		int var7 = Calendar.Calendar_calendar.get(12);
+		int var8 = Calendar.Calendar_calendar.get(13);
+		return Calendar.DAYS_OF_THE_WEEK[var2 - 1] + ", " + var3 / 10 + var3 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var4] + "-" + var5 + " " + var6 / 10 + var6 % 10 + ":" + var7 / 10 + var7 % 10 + ":" + var8 / 10 + var8 % 10 + " GMT";
+	}
+
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;ZI)V",
-		garbageValue = "1108711538"
+		descriptor = "(ILbe;ZI)I",
+		garbageValue = "485047246"
 	)
-	@Export("findItemDefinitions")
-	static void findItemDefinitions(String var0, boolean var1) {
-		var0 = var0.toLowerCase();
-		short[] var2 = new short[16];
-		int var3 = 0;
-
-		for (int var4 = 0; var4 < ItemComposition.ItemDefinition_fileCount; ++var4) {
-			ItemComposition var9 = class65.ItemDefinition_get(var4);
-			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) {
-				if (var3 >= 250) {
-					HealthBarUpdate.foundItemIdCount = -1;
-					class7.foundItemIds = null;
-					return;
-				}
-
-				if (var3 >= var2.length) {
-					short[] var6 = new short[var2.length * 2];
-
-					for (int var7 = 0; var7 < var3; ++var7) {
-						var6[var7] = var2[var7];
-					}
-
-					var2 = var6;
-				}
-
-				var2[var3++] = (short)var4;
+	static int method2436(int var0, Script var1, boolean var2) {
+		if (var0 != 3700 && var0 != 3701) {
+			if (var0 == 3702) {
+				++AbstractByteArrayCopier.Interpreter_intStackSize;
+				return 1;
+			} else {
+				return 2;
 			}
+		} else {
+			--AbstractByteArrayCopier.Interpreter_intStackSize;
+			--class54.Interpreter_stringStackSize;
+			return 1;
 		}
-
-		class7.foundItemIds = var2;
-		KeyHandler.foundItemIndex = 0;
-		HealthBarUpdate.foundItemIdCount = var3;
-		String[] var8 = new String[HealthBarUpdate.foundItemIdCount];
-
-		for (int var5 = 0; var5 < HealthBarUpdate.foundItemIdCount; ++var5) {
-			var8[var5] = class65.ItemDefinition_get(var2[var5]).name;
-		}
-
-		short[] var10 = class7.foundItemIds;
-		InterfaceParent.sortItemsByName(var8, var10, 0, var8.length - 1);
 	}
 }

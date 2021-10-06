@@ -5,35 +5,42 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("el")
+@ObfuscatedName("ei")
 @Implements("FileSystem")
 public class FileSystem {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@Export("FileSystem_hasPermissions")
-	public static boolean FileSystem_hasPermissions;
-	@ObfuscatedName("c")
+	static boolean FileSystem_hasPermissions;
+	@ObfuscatedName("q")
 	@Export("FileSystem_cacheDir")
-	public static File FileSystem_cacheDir;
-	@ObfuscatedName("m")
+	static File FileSystem_cacheDir;
+	@ObfuscatedName("f")
 	@Export("FileSystem_cacheFiles")
 	static Hashtable FileSystem_cacheFiles;
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Loz;"
+	)
+	@Export("options_buttons_2Sprite")
+	static IndexedSprite options_buttons_2Sprite;
 
 	static {
 		FileSystem_hasPermissions = false;
 		FileSystem_cacheFiles = new Hashtable(16);
 	}
 
-	@ObfuscatedName("ki")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(Ljd;I)Ljava/lang/String;",
-		garbageValue = "-1778934467"
+		descriptor = "(CI)Z",
+		garbageValue = "469084024"
 	)
-	@Export("Widget_getSpellActionName")
-	static String Widget_getSpellActionName(Widget var0) {
-		if (class138.Widget_unpackTargetMask(Decimator.getWidgetFlags(var0)) == 0) {
-			return null;
-		} else {
-			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null;
+	static boolean method2820(char var0) {
+		for (int var1 = 0; var1 < "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"ï¿½$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".length(); ++var1) {
+			if (var0 == "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!\"ï¿½$%^&*()-_=+[{]};:'@#~,<.>/?\\| ".charAt(var1)) {
+				return true;
+			}
 		}
+
+		return false;
 	}
 }

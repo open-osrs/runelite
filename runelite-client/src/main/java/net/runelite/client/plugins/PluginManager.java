@@ -39,7 +39,13 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import java.io.IOException;
+import java.lang.invoke.CallSite;
+import java.lang.invoke.LambdaMetafactory;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -69,9 +75,12 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
+import net.runelite.client.task.Schedule;
+import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.SplashScreen;
 import net.runelite.client.util.GameEventManager;
+import net.runelite.client.util.ReflectUtil;
 
 @Singleton
 @Slf4j
@@ -651,14 +660,59 @@ public class PluginManager
 
 	private void schedule(Plugin plugin)
 	{
-		// note to devs: this method will almost certainly merge conflict in the future, just apply the changes in the scheduler instead
-		scheduler.registerObject(plugin);
+		for (Method method : plugin.getClass().getMethods())
+		{
+			Schedule schedule = method.getAnnotation(Schedule.class);
+
+			if (schedule == null)
+			{
+				continue;
+			}
+
+			Runnable runnable = null;
+			try
+			{
+				final Class<?> clazz = method.getDeclaringClass();
+				final MethodHandles.Lookup caller = ReflectUtil.privateLookupIn(clazz);
+				final MethodType subscription = MethodType.methodType(method.getReturnType(), method.getParameterTypes());
+				final MethodHandle target = caller.findVirtual(clazz, method.getName(), subscription);
+				final CallSite site = LambdaMetafactory.metafactory(
+					caller,
+					"run",
+					MethodType.methodType(Runnable.class, clazz),
+					subscription,
+					target,
+					subscription);
+
+				final MethodHandle factory = site.getTarget();
+				runnable = (Runnable) factory.bindTo(plugin).invokeExact();
+			}
+			catch (Throwable e)
+			{
+				log.warn("Unable to create lambda for method {}", method, e);
+			}
+
+			ScheduledMethod scheduledMethod = new ScheduledMethod(schedule, method, plugin, runnable);
+			log.debug("Scheduled task {}", scheduledMethod);
+
+			scheduler.addScheduledMethod(scheduledMethod);
+		}
 	}
 
 	private void unschedule(Plugin plugin)
 	{
-		// note to devs: this method will almost certainly merge conflict in the future, just apply the changes in the scheduler instead
-		scheduler.unregisterObject(plugin);
+		List<ScheduledMethod> methods = new ArrayList<>(scheduler.getScheduledMethods());
+
+		for (ScheduledMethod method : methods)
+		{
+			if (method.getObject() != plugin)
+			{
+				continue;
+			}
+
+			log.debug("Removing scheduled task {}", method);
+			scheduler.removeScheduledMethod(method);
+		}
 	}
 
 	/**

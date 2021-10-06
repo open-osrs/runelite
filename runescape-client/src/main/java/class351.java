@@ -1,67 +1,49 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mx")
-public enum class351 implements MouseWheel {
-	@ObfuscatedName("n")
+@ObfuscatedName("ma")
+public class class351 {
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lmx;"
+		descriptor = "Lkl;"
 	)
-	field4021(2, 1),
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Lmx;"
-	)
-	field4017(1, 2),
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Lmx;"
-	)
-	field4018(0, 3),
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Lmx;"
-	)
-	field4019(3, 10);
+	@Export("VarpDefinition_archive")
+	public static AbstractArchive VarpDefinition_archive;
+	@ObfuscatedName("a")
+	@Export("SpriteBuffer_spritePalette")
+	public static int[] SpriteBuffer_spritePalette;
 
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = -177039405
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(Lot;IB)V",
+		garbageValue = "-49"
 	)
-	final int field4020;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 523466867
-	)
-	final int field4022;
+	public static void method6285(Buffer var0, int var1) {
+		if (JagexCache.JagexCache_randomDat != null) {
+			try {
+				JagexCache.JagexCache_randomDat.seek(0L);
+				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24);
+			} catch (Exception var3) {
+			}
+		}
 
-	class351(int var3, int var4) {
-		this.field4020 = var3;
-		this.field4022 = var4;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("lh")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1665712539"
+		descriptor = "(Ljava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "1301102242"
 	)
-	@Export("rsOrdinal")
-	public int rsOrdinal() {
-		return this.field4022;
-	}
+	static String method6286(String var0) {
+		PlayerType[] var1 = class19.PlayerType_values();
 
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(I)[I",
-		garbageValue = "2078126266"
-	)
-	public static int[] method6227() {
-		int[] var0 = new int[KeyHandler.field132];
-
-		for (int var1 = 0; var1 < KeyHandler.field132; ++var1) {
-			var0[var1] = KeyHandler.field139[var1];
+		for (int var2 = 0; var2 < var1.length; ++var2) {
+			PlayerType var3 = var1[var2];
+			if (var3.modIcon != -1 && var0.startsWith(ReflectionCheck.method1064(var3.modIcon))) {
+				var0 = var0.substring(6 + Integer.toString(var3.modIcon).length());
+				break;
+			}
 		}
 
 		return var0;

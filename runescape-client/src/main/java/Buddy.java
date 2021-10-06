@@ -1,27 +1,28 @@
+import java.security.SecureRandom;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mm")
+@ObfuscatedName("mi")
 @Implements("Buddy")
 public class Buddy extends User {
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 382223653
+		intValue = -977331453
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1852682519
+		intValue = 245467125
 	)
 	@Export("int2")
 	public int int2;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -775599793
+		intValue = -1269948007
 	)
 	@Export("rank")
 	public int rank;
@@ -30,10 +31,10 @@ public class Buddy extends User {
 		this.world = -1;
 	}
 
-	@ObfuscatedName("bd")
+	@ObfuscatedName("aq")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "-892218760"
+		garbageValue = "-1337027994"
 	)
 	@Export("set")
 	void set(int var1, int var2) {
@@ -41,23 +42,34 @@ public class Buddy extends User {
 		this.int2 = var2;
 	}
 
-	@ObfuscatedName("bt")
+	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1235616558"
+		garbageValue = "-932484289"
 	)
 	@Export("getWorld")
 	public int getWorld() {
 		return this.world;
 	}
 
-	@ObfuscatedName("bf")
+	@ObfuscatedName("ac")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-478268789"
+		garbageValue = "1790941818"
 	)
 	@Export("hasWorld")
 	public boolean hasWorld() {
 		return this.world > 0;
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(I)Ljava/security/SecureRandom;",
+		garbageValue = "-942544363"
+	)
+	static SecureRandom method6152() {
+		SecureRandom var0 = new SecureRandom();
+		var0.nextInt();
+		return var0;
 	}
 }

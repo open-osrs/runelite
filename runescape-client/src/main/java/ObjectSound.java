@@ -4,92 +4,87 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("be")
+@ObfuscatedName("bm")
 @Implements("ObjectSound")
 public final class ObjectSound extends Node {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lkn;"
+		descriptor = "Lkf;"
 	)
 	@Export("objectSounds")
 	static NodeDeque objectSounds;
-	@ObfuscatedName("fu")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1135350331
-	)
-	static int field811;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = 623460127
+		intValue = 12452185
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1356057799
+		intValue = -1536364883
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -506004711
+		intValue = -1658207689
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1721967971
+		intValue = -1738796741
 	)
-	int field806;
-	@ObfuscatedName("g")
+	int field807;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 2019735621
+		intValue = -1807311773
 	)
-	int field801;
-	@ObfuscatedName("z")
+	int field803;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1293883573
+		intValue = -568523691
 	)
 	int field804;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1271461183
+		intValue = -908511827
 	)
 	@Export("soundEffectId")
 	int soundEffectId;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Lan;"
 	)
 	@Export("stream1")
 	RawPcmStream stream1;
-	@ObfuscatedName("e")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1952974983
-	)
-	int field805;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -1623306055
-	)
-	int field800;
-	@ObfuscatedName("y")
-	@Export("soundEffectIds")
-	int[] soundEffectIds;
-	@ObfuscatedName("v")
-	@ObfuscatedGetter(
-		intValue = -1908724289
+		intValue = -623249431
 	)
 	int field808;
-	@ObfuscatedName("f")
+	@ObfuscatedName("y")
+	@ObfuscatedGetter(
+		intValue = -1245804267
+	)
+	int field809;
+	@ObfuscatedName("w")
+	@Export("soundEffectIds")
+	int[] soundEffectIds;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = 2138886061
+	)
+	int field811;
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Laj;"
+		descriptor = "Lan;"
 	)
 	@Export("stream2")
 	RawPcmStream stream2;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lff;"
+		descriptor = "Lfo;"
 	)
 	@Export("obj")
 	ObjectComposition obj;
@@ -101,10 +96,10 @@ public final class ObjectSound extends Node {
 	ObjectSound() {
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "434138079"
+		garbageValue = "926767071"
 	)
 	@Export("set")
 	void set() {
@@ -113,42 +108,107 @@ public final class ObjectSound extends Node {
 		if (var2 != null) {
 			this.soundEffectId = var2.ambientSoundId;
 			this.field804 = var2.int7 * 128;
-			this.field805 = var2.int5;
-			this.field800 = var2.int6;
+			this.field808 = var2.int5;
+			this.field809 = var2.int6;
 			this.soundEffectIds = var2.soundEffectIds;
 		} else {
 			this.soundEffectId = -1;
 			this.field804 = 0;
-			this.field805 = 0;
-			this.field800 = 0;
+			this.field808 = 0;
+			this.field809 = 0;
 			this.soundEffectIds = null;
 		}
 
 		if (var1 != this.soundEffectId && this.stream1 != null) {
-			MusicPatchPcmStream.pcmStreamMixer.removeSubStream(this.stream1);
+			ApproximateRouteStrategy.pcmStreamMixer.removeSubStream(this.stream1);
 			this.stream1 = null;
 		}
 
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "1676783295"
+		descriptor = "(I)V",
+		garbageValue = "2044677367"
 	)
-	public static int method1731(int var0, int var1, int var2) {
-		int var3 = class120.method2512(var2 - var1 + 1);
-		var3 <<= var1;
-		var0 |= var3;
-		return var0;
+	protected static final void method1719() {
+		LoginPacket.clock.mark();
+
+		int var0;
+		for (var0 = 0; var0 < 32; ++var0) {
+			GameEngine.graphicsTickTimes[var0] = 0L;
+		}
+
+		for (var0 = 0; var0 < 32; ++var0) {
+			GameEngine.clientTickTimes[var0] = 0L;
+		}
+
+		GameEngine.gameCyclesToDo = 0;
 	}
 
-	@ObfuscatedName("gm")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-60"
+		descriptor = "(ILbe;ZI)I",
+		garbageValue = "-2053759056"
 	)
-	static boolean method1734() {
-		return (Client.drawPlayerNames & 4) != 0;
+	static int method1730(int var0, Script var1, boolean var2) {
+		if (var0 != 7000 && var0 != 7005 && var0 != 7010 && var0 != 7015 && var0 != 7020 && var0 != 7025 && var0 != 7030 && var0 != 7035) {
+			if (var0 != 7001 && var0 != 7002 && var0 != 7011 && var0 != 7012 && var0 != 7021 && var0 != 7022) {
+				if (var0 != 7003 && var0 != 7013 && var0 != 7023) {
+					if (var0 != 7006 && var0 != 7007 && var0 != 7016 && var0 != 7017 && var0 != 7026 && var0 != 7027) {
+						if (var0 != 7008 && var0 != 7018 && var0 != 7028) {
+							if (var0 != 7031 && var0 != 7032) {
+								if (var0 == 7033) {
+									--class54.Interpreter_stringStackSize;
+									return 1;
+								} else if (var0 != 7036 && var0 != 7037) {
+									if (var0 == 7038) {
+										--AbstractByteArrayCopier.Interpreter_intStackSize;
+										return 1;
+									} else if (var0 != 7004 && var0 != 7009 && var0 != 7014 && var0 != 7019 && var0 != 7024 && var0 != 7029 && var0 != 7034 && var0 != 7039) {
+										return 2;
+									} else {
+										--AbstractByteArrayCopier.Interpreter_intStackSize;
+										return 1;
+									}
+								} else {
+									AbstractByteArrayCopier.Interpreter_intStackSize -= 2;
+									return 1;
+								}
+							} else {
+								--class54.Interpreter_stringStackSize;
+								--AbstractByteArrayCopier.Interpreter_intStackSize;
+								return 1;
+							}
+						} else {
+							--AbstractByteArrayCopier.Interpreter_intStackSize;
+							return 1;
+						}
+					} else {
+						AbstractByteArrayCopier.Interpreter_intStackSize -= 2;
+						return 1;
+					}
+				} else {
+					AbstractByteArrayCopier.Interpreter_intStackSize -= 2;
+					return 1;
+				}
+			} else {
+				AbstractByteArrayCopier.Interpreter_intStackSize -= 3;
+				return 1;
+			}
+		} else {
+			AbstractByteArrayCopier.Interpreter_intStackSize -= 5;
+			return 1;
+		}
+	}
+
+	@ObfuscatedName("kj")
+	@ObfuscatedSignature(
+		descriptor = "(Ljt;B)Z",
+		garbageValue = "-105"
+	)
+	@Export("isComponentHidden")
+	static boolean isComponentHidden(Widget var0) {
+		return var0.isHidden;
 	}
 }
