@@ -2,6 +2,7 @@ package net.runelite.client.plugins.a;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.Point;
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.GameTick;
@@ -17,6 +18,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.overlay.OverlayManager;
 
 import javax.inject.Inject;
+import java.awt.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -52,6 +54,10 @@ public class APlugin extends Plugin
 	@Getter
 	private Point minimapLocation;
 
+	private Player player;
+
+	private boolean keyboard = false;
+
 
 	// to execute things like key press and click -- new thread
 	private final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(1);
@@ -61,34 +67,63 @@ public class APlugin extends Plugin
 	@Override
 	protected void startUp()
 	{
-		this.utils = new ExtUtils(client);
+		if (keyboard)
+		{
+			try
+			{
+				this.utils = new ExtUtils(client, new Keyboard());
+			}
+			catch (AWTException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			this.utils = new ExtUtils(client);
+		}
 		overlayManager.add(aOverlay);
 	}
 
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		Player local = client.getLocalPlayer();
-
-		if (local == null)
+		if (keyboard)
 		{
-			return;
-		}
 
-		if (localLocation == null)
+			char cameraMovement;
+			if (ExtUtils.random(1, 100) > 75)
+			{
+				StringBuilder outcome = new StringBuilder();
+				int numberPressed = ExtUtils.random(5, 20);
+				switch (ExtUtils.random(1, 4))
+				{
+					case 1:
+						cameraMovement = Keyboard.LEFT_ARROW_KEY;
+						break;
+					case 2:
+						cameraMovement = Keyboard.RIGHT_ARROW_KEY;
+						break;
+					case 3:
+						cameraMovement = Keyboard.UP_ARROW_KEY;
+						break;
+					default:
+						cameraMovement = Keyboard.DOWN_ARROW_KEY;
+						break;
+				}
+				for (int i = 0; i < numberPressed; i++)
+				{
+					outcome.append(cameraMovement);
+				}
+				utils.robotType(outcome.toString());
+			}
+		}
+		player = client.getLocalPlayer();
+
+		if (updatePlayerLocation())
 		{
-			localLocation = local.getLocalLocation();
-			return;
+			sendChatMessage("Your character has moved.");
 		}
-
-		LocalPoint newLocation = local.getLocalLocation();
-		if (newLocation.distanceTo(localLocation) <= 0)
-		{
-			return;
-		}
-		localLocation = newLocation;
-
-		sendChatMessage("Your character has moved.");
 
 		GameObject object = utils.findNearestGameObject(10819);
 		if (object == null)
@@ -101,7 +136,7 @@ public class APlugin extends Plugin
 		{
 
 			sendChatMessage("nearest game object minimap information: " + minimapLocation);
-			sendChatMessage("This is the distance on minimap of " + local.getMinimapLocation().distanceTo(minimapLocation));
+			sendChatMessage("This is the distance on minimap of " + player.getMinimapLocation().distanceTo(minimapLocation));
 			object.getCanvasTilePoly().getBounds();
 		}
 		LocalPoint localDestinationLocation = client.getLocalDestinationLocation();
@@ -114,8 +149,32 @@ public class APlugin extends Plugin
 		{
 			sendChatMessage("Options for:" + object.getName());
 		}
-		sendChatMessage("This is the distance of " + local.getLocalLocation().distanceTo(localLocation));
+		sendChatMessage("This is the distance of " + player.getLocalLocation().distanceTo(localLocation));
 		sendChatMessage("Is it on the screen?: " + utils.isOnScreen(object));
+	}
+
+	private boolean updatePlayerLocation()
+	{
+		if (player == null)
+		{
+			return false;
+		}
+
+		if (localLocation == null)
+		{
+			localLocation = player.getLocalLocation();
+			return true;
+		}
+
+		LocalPoint newLocation = player.getLocalLocation();
+		if (newLocation.distanceTo(localLocation) <= 0)
+		{
+			return false;
+		}
+
+		localLocation = newLocation;
+
+		return true;
 	}
 
 	@Override

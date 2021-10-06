@@ -13,7 +13,8 @@ public class AOverlay extends Overlay
 	private final APlugin plugin;
 
 	@Inject
-	private AOverlay(Client client, APlugin plugin) {
+	private AOverlay(Client client, APlugin plugin)
+	{
 		this.client = client;
 		this.plugin = plugin;
 		setPosition(OverlayPosition.DYNAMIC);
@@ -24,7 +25,8 @@ public class AOverlay extends Overlay
 	@Override
 	public Dimension render(Graphics2D graphics)
 	{
-		if (plugin.getMinimapLocation() != null) {
+		if (plugin.getMinimapLocation() != null)
+		{
 			OverlayUtil.renderMinimapRect(client, graphics, plugin.getMinimapLocation(), 8, 8, Color.BLUE);
 		}
 		return null;

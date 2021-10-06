@@ -20,11 +20,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import javax.inject.Singleton;
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @SuppressWarnings("unused")
@@ -32,6 +34,13 @@ import java.util.List;
 public class ExtUtils
 {
 	final private Client client;
+	private Keyboard keyboard = null;
+
+	ExtUtils(Client client, Keyboard keyboard)
+	{
+		this.client = client;
+		this.keyboard = keyboard;
+	}
 
 	ExtUtils(Client client)
 	{
@@ -246,7 +255,8 @@ public class ExtUtils
 					}
 				}
 			}
-		} else
+		}
+		else
 		{
 			log.error("Children is Null!");
 		}
@@ -402,5 +412,30 @@ public class ExtUtils
 	public boolean isOnScreen(TileObject point)
 	{
 		return client.getCanvas().contains(point.getCanvasLocation().getX(), point.getCanvasLocation().getY());
+	}
+
+	private void robotClick() throws AWTException
+	{
+		Robot bot = new Robot();
+		bot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+		bot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
+	}
+
+	public void robotType(String something)
+	{
+		try
+		{
+			this.keyboard.type(something);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static int random(int min, int max)
+	{
+		return ThreadLocalRandom.current().nextInt(min, max);
 	}
 }
