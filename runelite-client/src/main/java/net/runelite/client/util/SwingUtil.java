@@ -218,7 +218,7 @@ public class SwingUtil
 		button.setSize(scaledImage.getWidth(), scaledImage.getHeight());
 		button.setToolTipText(navigationButton.getTooltip());
 		button.setIcon(new ImageIcon(scaledImage));
-		button.putClientProperty(SubstanceSynapse.BACKGROUND_APPEARANCE_STRATEGY, SubstanceSlices.BackgroundAppearanceStrategy.FLAT);
+		button.putClientProperty(SubstanceSynapse.FLAT_LOOK, Boolean.TRUE);
 		button.setFocusable(false);
 		button.addActionListener(e ->
 		{
