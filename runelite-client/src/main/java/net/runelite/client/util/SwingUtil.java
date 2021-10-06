@@ -62,7 +62,6 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.ui.components.CustomScrollBarUI;
 import net.runelite.client.ui.components.SliderUI;
-import org.pushingpixels.substance.api.SubstanceSlices;
 import org.pushingpixels.substance.internal.SubstanceSynapse;
 
 /**
