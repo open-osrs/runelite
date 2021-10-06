@@ -3,138 +3,107 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dw")
+@ObfuscatedName("dz")
 public class class128 extends class132 {
-	@ObfuscatedName("fv")
-	@ObfuscatedGetter(
-		intValue = 107804773
-	)
-	static int field1477;
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	String field1474;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -231777571
+		intValue = 1306318707
 	)
-	int field1475;
-	@ObfuscatedName("m")
-	byte field1476;
+	int field1471;
+	@ObfuscatedName("f")
+	byte field1472;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lec;"
+		descriptor = "Lee;"
 	)
 	final class133 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lec;)V"
+		descriptor = "(Lee;)V"
 	)
 	class128(class133 var1) {
 		this.this$0 = var1;
 		this.field1474 = null;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;I)V",
-		garbageValue = "3602154"
+		descriptor = "(Lot;B)V",
+		garbageValue = "35"
 	)
-	void vmethod2703(Buffer var1) {
+	void vmethod2760(Buffer var1) {
 		if (var1.readUnsignedByte() != 255) {
 			--var1.offset;
 			var1.readLong();
 		}
 
 		this.field1474 = var1.readStringCp1252NullTerminatedOrNull();
-		this.field1475 = var1.readUnsignedShort();
-		this.field1476 = var1.readByte();
+		this.field1471 = var1.readUnsignedShort();
+		this.field1472 = var1.readByte();
 		var1.readLong();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Leb;B)V",
-		garbageValue = "66"
+		descriptor = "(Leb;I)V",
+		garbageValue = "1634989707"
 	)
-	void vmethod2702(ClanChannel var1) {
+	void vmethod2759(ClanChannel var1) {
 		ClanChannelMember var2 = new ClanChannelMember();
 		var2.username = new Username(this.field1474);
-		var2.world = this.field1475;
-		var2.rank = this.field1476;
+		var2.world = this.field1471;
+		var2.rank = this.field1472;
 		var1.addMember(var2);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lkk;B)V",
-		garbageValue = "7"
+		descriptor = "([Lku;IB)Lku;",
+		garbageValue = "13"
 	)
-	public static void method2632(AbstractArchive var0) {
-		VarbitComposition.VarbitDefinition_archive = var0;
-	}
+	@Export("findEnumerated")
+	public static MouseWheel findEnumerated(MouseWheel[] var0, int var1) {
+		MouseWheel[] var2 = var0;
 
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "([BIII)Ljava/lang/String;",
-		garbageValue = "1309972992"
-	)
-	@Export("decodeStringCp1252")
-	public static String decodeStringCp1252(byte[] var0, int var1, int var2) {
-		char[] var3 = new char[var2];
-		int var4 = 0;
-
-		for (int var5 = 0; var5 < var2; ++var5) {
-			int var6 = var0[var5 + var1] & 255;
-			if (var6 != 0) {
-				if (var6 >= 128 && var6 < 160) {
-					char var7 = class316.cp1252AsciiExtension[var6 - 128];
-					if (var7 == 0) {
-						var7 = '?';
-					}
-
-					var6 = var7;
-				}
-
-				var3[var4++] = (char)var6;
+		for (int var3 = 0; var3 < var2.length; ++var3) {
+			MouseWheel var4 = var2[var3];
+			if (var1 == var4.rsOrdinal()) {
+				return var4;
 			}
 		}
 
-		return new String(var3, 0, var4);
+		return null;
 	}
 
-	@ObfuscatedName("ia")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljd;III)V",
-		garbageValue = "774918140"
+		descriptor = "(Lkl;Lkl;I)V",
+		garbageValue = "414172214"
 	)
-	@Export("alignWidgetPosition")
-	static void alignWidgetPosition(Widget var0, int var1, int var2) {
-		if (var0.xAlignment == 0) {
-			var0.x = var0.rawX;
-		} else if (var0.xAlignment == 1) {
-			var0.x = var0.rawX + (var1 - var0.width) / 2;
-		} else if (var0.xAlignment == 2) {
-			var0.x = var1 - var0.width - var0.rawX;
-		} else if (var0.xAlignment == 3) {
-			var0.x = var0.rawX * var1 >> 14;
-		} else if (var0.xAlignment == 4) {
-			var0.x = (var0.rawX * var1 >> 14) + (var1 - var0.width) / 2;
-		} else {
-			var0.x = var1 - var0.width - (var0.rawX * var1 >> 14);
-		}
+	public static void method2662(AbstractArchive var0, AbstractArchive var1) {
+		GrandExchangeOfferAgeComparator.NpcDefinition_archive = var0;
+		NPCComposition.NpcDefinition_modelArchive = var1;
+	}
 
-		if (var0.yAlignment == 0) {
-			var0.y = var0.rawY;
-		} else if (var0.yAlignment == 1) {
-			var0.y = (var2 - var0.height) / 2 + var0.rawY;
-		} else if (var0.yAlignment == 2) {
-			var0.y = var2 - var0.height - var0.rawY;
-		} else if (var0.yAlignment == 3) {
-			var0.y = var2 * var0.rawY >> 14;
-		} else if (var0.yAlignment == 4) {
-			var0.y = (var2 - var0.height) / 2 + (var2 * var0.rawY >> 14);
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "-236760725"
+	)
+	static final int method2663(int var0, int var1) {
+		if (var0 == -1) {
+			return 12345678;
 		} else {
-			var0.y = var2 - var0.height - (var2 * var0.rawY >> 14);
-		}
+			var1 = (var0 & 127) * var1 / 128;
+			if (var1 < 2) {
+				var1 = 2;
+			} else if (var1 > 126) {
+				var1 = 126;
+			}
 
+			return (var0 & 65408) + var1;
+		}
 	}
 }

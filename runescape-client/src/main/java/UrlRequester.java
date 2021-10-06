@@ -10,16 +10,26 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ca")
+@ObfuscatedName("cj")
 @Implements("UrlRequester")
 public class UrlRequester implements Runnable {
-	@ObfuscatedName("n")
+	@ObfuscatedName("g")
+	public static boolean field1301;
+	@ObfuscatedName("ac")
+	protected static String field1303;
+	@ObfuscatedName("gj")
+	@ObfuscatedSignature(
+		descriptor = "Lep;"
+	)
+	@Export("socketTask")
+	static Task socketTask;
+	@ObfuscatedName("l")
 	@Export("thread")
 	final Thread thread;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("isClosed")
 	volatile boolean isClosed;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("requests")
 	Queue requests;
 
@@ -30,10 +40,10 @@ public class UrlRequester implements Runnable {
 		this.thread.start();
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;I)Lcj;",
-		garbageValue = "-1855579414"
+		descriptor = "(Ljava/net/URL;I)Lco;",
+		garbageValue = "743927819"
 	)
 	@Export("request")
 	public UrlRequest request(URL var1) {
@@ -45,10 +55,10 @@ public class UrlRequester implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "980851259"
+		garbageValue = "1026366305"
 	)
 	@Export("close")
 	public void close() {
@@ -111,18 +121,9 @@ public class UrlRequester implements Runnable {
 
 				}
 			} catch (Exception var17) {
-				class4.RunException_sendStackTrace((String)null, var17);
+				Timer.RunException_sendStackTrace((String)null, var17);
 			}
 		}
 
-	}
-
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(Lac;I)V",
-		garbageValue = "-1774214308"
-	)
-	public static final void method2368(class45 var0) {
-		class91.pcmPlayerProvider = var0;
 	}
 }

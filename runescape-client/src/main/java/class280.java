@@ -1,49 +1,84 @@
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jk")
+@ObfuscatedName("jj")
 public class class280 {
-	@ObfuscatedName("bj")
-	@ObfuscatedGetter(
-		intValue = -480816967
-	)
-	static int field3323;
-
-	@ObfuscatedName("m")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "72"
+		descriptor = "(CI)C",
+		garbageValue = "2103763806"
 	)
-	static int method5081(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var2 == null) {
-			return 0;
-		} else if (var1 == -1) {
-			return 0;
-		} else {
-			int var3 = 0;
-
-			for (int var4 = 0; var4 < var2.quantities.length; ++var4) {
-				if (var2.ids[var4] == var1) {
-					var3 += var2.quantities[var4];
-				}
-			}
-
-			return var3;
+	static char method5139(char var0) {
+		switch(var0) {
+		case ' ':
+		case '-':
+		case '_':
+		case ' ':
+			return '_';
+		case '#':
+		case '[':
+		case ']':
+			return var0;
+		case 'À':
+		case 'Á':
+		case 'Â':
+		case 'Ã':
+		case 'Ä':
+		case 'à':
+		case 'á':
+		case 'â':
+		case 'ã':
+		case 'ä':
+			return 'a';
+		case 'Ç':
+		case 'ç':
+			return 'c';
+		case 'È':
+		case 'É':
+		case 'Ê':
+		case 'Ë':
+		case 'è':
+		case 'é':
+		case 'ê':
+		case 'ë':
+			return 'e';
+		case 'Í':
+		case 'Î':
+		case 'Ï':
+		case 'í':
+		case 'î':
+		case 'ï':
+			return 'i';
+		case 'Ñ':
+		case 'ñ':
+			return 'n';
+		case 'Ò':
+		case 'Ó':
+		case 'Ô':
+		case 'Õ':
+		case 'Ö':
+		case 'ò':
+		case 'ó':
+		case 'ô':
+		case 'õ':
+		case 'ö':
+			return 'o';
+		case 'Ù':
+		case 'Ú':
+		case 'Û':
+		case 'Ü':
+		case 'ù':
+		case 'ú':
+		case 'û':
+		case 'ü':
+			return 'u';
+		case 'ß':
+			return 'b';
+		case 'ÿ':
+		case 'Ÿ':
+			return 'y';
+		default:
+			return Character.toLowerCase(var0);
 		}
-	}
-
-	@ObfuscatedName("gj")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "36"
-	)
-	static void method5087() {
-		PacketBufferNode var0 = FriendSystem.getPacketBufferNode(ClientPacket.field2664, Client.packetWriter.isaacCipher);
-		var0.packetBuffer.writeByte(class12.getWindowedMode());
-		var0.packetBuffer.writeShort(InvDefinition.canvasWidth);
-		var0.packetBuffer.writeShort(GameEngine.canvasHeight);
-		Client.packetWriter.addNode(var0);
 	}
 }

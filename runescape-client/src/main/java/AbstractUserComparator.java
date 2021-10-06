@@ -1,26 +1,26 @@
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lc")
+@ObfuscatedName("mv")
 @Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
-	@ObfuscatedName("c")
+	@ObfuscatedName("u")
+	@Export("BZip2Decompressor_block")
+	static int[] BZip2Decompressor_block;
+	@ObfuscatedName("q")
 	@Export("nextComparator")
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/util/Comparator;I)V",
-		garbageValue = "-1701811503"
+		garbageValue = "-1038050583"
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
@@ -32,10 +32,10 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Lle;Lle;S)I",
-		garbageValue = "161"
+		descriptor = "(Llu;Llu;I)I",
+		garbageValue = "-2140544019"
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
@@ -46,41 +46,61 @@ public abstract class AbstractUserComparator implements Comparator {
 		return super.equals(var1);
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "115"
+		descriptor = "([BIIB)Ljava/lang/String;",
+		garbageValue = "6"
 	)
-	public static void method5977() {
-		try {
-			File var0 = new File(ItemContainer.userHomeDirectory, "random.dat");
-			int var2;
-			if (var0.exists()) {
-				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0);
-			} else {
-				label38:
-				for (int var1 = 0; var1 < ChatChannel.cacheSubPaths.length; ++var1) {
-					for (var2 = 0; var2 < Varcs.cacheParentPaths.length; ++var2) {
-						File var3 = new File(Varcs.cacheParentPaths[var2] + ChatChannel.cacheSubPaths[var1] + File.separatorChar + "random.dat");
-						if (var3.exists()) {
-							JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var3, "rw", 25L), 24, 0);
-							break label38;
-						}
-					}
-				}
-			}
+	public static String method6049(byte[] var0, int var1, int var2) {
+		char[] var3 = new char[var2];
+		int var4 = 0;
+		int var5 = var1;
 
-			if (JagexCache.JagexCache_randomDat == null) {
-				RandomAccessFile var4 = new RandomAccessFile(var0, "rw");
-				var2 = var4.read();
-				var4.seek(0L);
-				var4.write(var2);
-				var4.seek(0L);
-				var4.close();
-				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0);
+		int var8;
+		for (int var6 = var2 + var1; var5 < var6; var3[var4++] = (char)var8) {
+			int var7 = var0[var5++] & 255;
+			if (var7 < 128) {
+				if (var7 == 0) {
+					var8 = 65533;
+				} else {
+					var8 = var7;
+				}
+			} else if (var7 < 192) {
+				var8 = 65533;
+			} else if (var7 < 224) {
+				if (var5 < var6 && (var0[var5] & 192) == 128) {
+					var8 = (var7 & 31) << 6 | var0[var5++] & 63;
+					if (var8 < 128) {
+						var8 = 65533;
+					}
+				} else {
+					var8 = 65533;
+				}
+			} else if (var7 < 240) {
+				if (var5 + 1 < var6 && (var0[var5] & 192) == 128 && (var0[var5 + 1] & 192) == 128) {
+					var8 = (var7 & 15) << 12 | (var0[var5++] & 63) << 6 | var0[var5++] & 63;
+					if (var8 < 2048) {
+						var8 = 65533;
+					}
+				} else {
+					var8 = 65533;
+				}
+			} else if (var7 < 248) {
+				if (var5 + 2 < var6 && (var0[var5] & 192) == 128 && (var0[var5 + 1] & 192) == 128 && (var0[var5 + 2] & 192) == 128) {
+					var8 = (var7 & 7) << 18 | (var0[var5++] & 63) << 12 | (var0[var5++] & 63) << 6 | var0[var5++] & 63;
+					if (var8 >= 65536 && var8 <= 1114111) {
+						var8 = 65533;
+					} else {
+						var8 = 65533;
+					}
+				} else {
+					var8 = 65533;
+				}
+			} else {
+				var8 = 65533;
 			}
-		} catch (IOException var5) {
 		}
 
+		return new String(var3, 0, var4);
 	}
 }

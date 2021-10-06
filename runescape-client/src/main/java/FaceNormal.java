@@ -4,24 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hi")
+@ObfuscatedName("hx")
 @Implements("FaceNormal")
 public class FaceNormal {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -401677395
+		intValue = -976866649
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1245481
+		intValue = -1457506575
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1613056851
+		intValue = 2004790059
 	)
 	@Export("z")
 	int z;
@@ -29,23 +29,12 @@ public class FaceNormal {
 	FaceNormal() {
 	}
 
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(IS)Z",
-		garbageValue = "13608"
-	)
-	@Export("isWorldMapEvent")
-	public static boolean isWorldMapEvent(int var0) {
-		return var0 == 10 || var0 == 11 || var0 == 12 || var0 == 13 || var0 == 14 || var0 == 15 || var0 == 16 || var0 == 17;
-	}
-
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "-1523765132"
+		descriptor = "(III)I",
+		garbageValue = "859115015"
 	)
-	@Export("isDigit")
-	public static boolean isDigit(char var0) {
-		return var0 >= '0' && var0 <= '9';
+	public static int method4396(int var0, int var1) {
+		return (var0 << 8) + var1;
 	}
 }

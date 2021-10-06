@@ -6,32 +6,35 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cd")
+@ObfuscatedName("ch")
 @Implements("Messages")
 public class Messages {
-	@ObfuscatedName("rj")
-	static boolean field1275;
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@Export("Messages_channels")
 	static final Map Messages_channels;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "Lnz;"
 	)
 	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Llz;"
+		descriptor = "Llh;"
 	)
 	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1104839785
+		intValue = 1654217227
 	)
 	@Export("Messages_count")
 	static int Messages_count;
+	@ObfuscatedName("o")
+	@Export("operatingSystemName")
+	static String operatingSystemName;
+	@ObfuscatedName("ba")
+	static String field1273;
 
 	static {
 		Messages_channels = new HashMap();
@@ -40,21 +43,39 @@ public class Messages {
 		Messages_count = 0;
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Lkk;Ljava/lang/String;Ljava/lang/String;B)[Loc;",
-		garbageValue = "37"
+		descriptor = "(II)Z",
+		garbageValue = "-1980575358"
 	)
-	public static SpritePixels[] method2332(AbstractArchive var0, String var1, String var2) {
-		int var3 = var0.getGroupId(var1);
-		int var4 = var0.getFileId(var3, var2);
-		SpritePixels[] var5;
-		if (!VertexNormal.method4477(var0, var3, var4)) {
-			var5 = null;
-		} else {
-			var5 = class174.method3364();
+	public static boolean method2350(int var0) {
+		return var0 >= 0 && var0 < 112 ? KeyHandler.field129[var0] : false;
+	}
+
+	@ObfuscatedName("im")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIII)V",
+		garbageValue = "-1326528361"
+	)
+	@Export("drawScrollBar")
+	static final void drawScrollBar(int var0, int var1, int var2, int var3, int var4) {
+		WorldMapDecoration.scrollBarSprites[0].drawAt(var0, var1);
+		WorldMapDecoration.scrollBarSprites[1].drawAt(var0, var3 + var1 - 16);
+		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1 + 16, 16, var3 - 32, Client.field553);
+		int var5 = var3 * (var3 - 32) / var4;
+		if (var5 < 8) {
+			var5 = 8;
 		}
 
-		return var5;
+		int var6 = (var3 - 32 - var5) * var2 / (var4 - var3);
+		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var6 + var1 + 16, 16, var5, Client.field514);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0, var6 + var1 + 16, var5, Client.field697);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 1, var6 + var1 + 16, var5, Client.field697);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 16, 16, Client.field697);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 17, 16, Client.field697);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 15, var6 + var1 + 16, var5, Client.field555);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 14, var6 + var1 + 17, var5 - 1, Client.field555);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var5 + var1 + 15, 16, Client.field555);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0 + 1, var6 + var5 + var1 + 14, 15, Client.field555);
 	}
 }

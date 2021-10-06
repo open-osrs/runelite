@@ -7,13 +7,25 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ba")
+@ObfuscatedName("by")
 @Implements("SecureRandomFuture")
 public class SecureRandomFuture {
-	@ObfuscatedName("n")
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "Lkl;"
+	)
+	@Export("Widget_fontsArchive")
+	public static AbstractArchive Widget_fontsArchive;
+	@ObfuscatedName("hs")
+	@ObfuscatedSignature(
+		descriptor = "[Lon;"
+	)
+	@Export("crossSprites")
+	static SpritePixels[] crossSprites;
+	@ObfuscatedName("l")
 	@Export("executor")
 	ExecutorService executor;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("future")
 	Future future;
 
@@ -22,10 +34,10 @@ public class SecureRandomFuture {
 		this.future = this.executor.submit(new SecureRandomCallable());
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1169265574"
+		descriptor = "(B)V",
+		garbageValue = "104"
 	)
 	@Export("shutdown")
 	void shutdown() {
@@ -33,51 +45,73 @@ public class SecureRandomFuture {
 		this.executor = null;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-1889970762"
+		descriptor = "(B)Z",
+		garbageValue = "73"
 	)
 	@Export("isDone")
 	boolean isDone() {
 		return this.future.isDone();
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/security/SecureRandom;",
-		garbageValue = "593938417"
+		garbageValue = "-1230835583"
 	)
 	@Export("get")
 	SecureRandom get() {
 		try {
 			return (SecureRandom)this.future.get();
 		} catch (Exception var2) {
-			return FloorOverlayDefinition.method3272();
+			return Buddy.method6152();
 		}
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(ZB)V",
-		garbageValue = "103"
+		descriptor = "(Lot;I)Ljava/lang/String;",
+		garbageValue = "707406336"
 	)
-	@Export("Login_promptCredentials")
-	static void Login_promptCredentials(boolean var0) {
-		Login.Login_response1 = "";
-		Login.Login_response2 = "Enter your username/email & password.";
-		Login.Login_response3 = "";
-		Message.method1113(2);
-		if (var0) {
-			Login.Login_password = "";
+	public static String method1951(Buffer var0) {
+		String var1;
+		try {
+			int var2 = var0.readUShortSmart();
+			if (var2 > 32767) {
+				var2 = 32767;
+			}
+
+			byte[] var3 = new byte[var2];
+			var0.offset += class264.huffman.decompress(var0.array, var0.offset, var3, 0, var2);
+			String var4 = Fonts.decodeStringCp1252(var3, 0, var2);
+			var1 = var4;
+		} catch (Exception var6) {
+			var1 = "Cabbage";
 		}
 
-		class131.method2645();
-		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) {
-			Login.currentLoginField = 1;
-		} else {
-			Login.currentLoginField = 0;
+		return var1;
+	}
+
+	@ObfuscatedName("in")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Ljt;I)Ljava/lang/String;",
+		garbageValue = "-1891184957"
+	)
+	static String method1952(String var0, Widget var1) {
+		if (var0.indexOf("%") != -1) {
+			for (int var2 = 1; var2 <= 5; ++var2) {
+				while (true) {
+					int var3 = var0.indexOf("%" + var2);
+					if (var3 == -1) {
+						break;
+					}
+
+					var0 = var0.substring(0, var3) + class54.method1057(FriendsChat.method5992(var1, var2 - 1)) + var0.substring(var3 + 2);
+				}
+			}
 		}
 
+		return var0;
 	}
 }

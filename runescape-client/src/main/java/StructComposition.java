@@ -3,22 +3,16 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fz")
+@ObfuscatedName("fd")
 @Implements("StructComposition")
 public class StructComposition extends DualNode {
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lkk;"
-	)
-	@Export("StructDefinition_archive")
-	static AbstractArchive StructDefinition_archive;
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Lii;"
 	)
 	@Export("StructDefinition_cached")
-	public static EvictingDualNodeHashTable StructDefinition_cached;
-	@ObfuscatedName("m")
+	static EvictingDualNodeHashTable StructDefinition_cached;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "Lnz;"
 	)
@@ -32,19 +26,19 @@ public class StructComposition extends DualNode {
 	StructComposition() {
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-67692282"
+		garbageValue = "793806962"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;B)V",
-		garbageValue = "32"
+		garbageValue = "101"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -58,23 +52,23 @@ public class StructComposition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;II)V",
-		garbageValue = "-1398874377"
+		garbageValue = "-16711936"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 249) {
-			this.params = class123.readStringIntParameters(var1, this.params);
+			this.params = KeyHandler.readStringIntParameters(var1, this.params);
 		}
 
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "-2126697081"
+		descriptor = "(IIB)I",
+		garbageValue = "-24"
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
@@ -94,115 +88,104 @@ public class StructComposition extends DualNode {
 		return var3;
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "1174696299"
+		garbageValue = "975394033"
 	)
 	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
-		return class124.method2544(this.params, var1, var2);
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Ljx;",
-		garbageValue = "998218002"
-	)
-	@Export("PlayerType_values")
-	public static PlayerType[] PlayerType_values() {
-		return new PlayerType[]{PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_playerModerator, PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_normal, PlayerType.field3668, PlayerType.PlayerType_ironman, PlayerType.PlayerType_ultimateIronman};
-	}
-
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "-1928288192"
-	)
-	@Export("changeWorldSelectSorting")
-	static void changeWorldSelectSorting(int var0, int var1) {
-		int[] var2 = new int[4];
-		int[] var3 = new int[4];
-		var2[0] = var0;
-		var3[0] = var1;
-		int var4 = 1;
-
-		for (int var5 = 0; var5 < 4; ++var5) {
-			if (World.World_sortOption1[var5] != var0) {
-				var2[var4] = World.World_sortOption1[var5];
-				var3[var4] = World.World_sortOption2[var5];
-				++var4;
-			}
-		}
-
-		World.World_sortOption1 = var2;
-		World.World_sortOption2 = var3;
-		Coord.sortWorlds(class393.World_worlds, 0, class393.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2);
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(Lot;IIIIIII)V",
-		garbageValue = "-721980643"
-	)
-	@Export("loadTerrain")
-	static final void loadTerrain(Buffer var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		int var7;
-		if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) {
-			Tiles.Tiles_renderFlags[var1][var2][var3] = 0;
-
-			while (true) {
-				var7 = var0.readUnsignedByte();
-				if (var7 == 0) {
-					if (var1 == 0) {
-						Tiles.Tiles_heights[0][var2][var3] = -WorldMapElement.method2851(932731 + var2 + var4, var5 + var3 + 556238) * 8;
-					} else {
-						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - 240;
-					}
-					break;
-				}
-
-				if (var7 == 1) {
-					int var8 = var0.readUnsignedByte();
-					if (var8 == 1) {
-						var8 = 0;
-					}
-
-					if (var1 == 0) {
-						Tiles.Tiles_heights[0][var2][var3] = -var8 * 8;
-					} else {
-						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - var8 * 8;
-					}
-					break;
-				}
-
-				if (var7 <= 49) {
-					Tiles.Tiles_overlays[var1][var2][var3] = var0.readByte();
-					Tiles.Tiles_shapes[var1][var2][var3] = (byte)((var7 - 2) / 4);
-					Tiles.field977[var1][var2][var3] = (byte)(var7 - 2 + var6 & 3);
-				} else if (var7 <= 81) {
-					Tiles.Tiles_renderFlags[var1][var2][var3] = (byte)(var7 - 49);
-				} else {
-					class6.Tiles_underlays[var1][var2][var3] = (byte)(var7 - 81);
-				}
-			}
+		IterableNodeHashTable var4 = this.params;
+		String var3;
+		if (var4 == null) {
+			var3 = var2;
 		} else {
-			while (true) {
-				var7 = var0.readUnsignedByte();
-				if (var7 == 0) {
-					break;
-				}
-
-				if (var7 == 1) {
-					var0.readUnsignedByte();
-					break;
-				}
-
-				if (var7 <= 49) {
-					var0.readUnsignedByte();
-				}
+			ObjectNode var5 = (ObjectNode)var4.get((long)var1);
+			if (var5 == null) {
+				var3 = var2;
+			} else {
+				var3 = (String)var5.obj;
 			}
 		}
 
+		return var3;
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(Lkl;II)Loz;",
+		garbageValue = "1981380909"
+	)
+	public static IndexedSprite method3153(AbstractArchive var0, int var1) {
+		byte[] var3 = var0.takeFileFlat(var1);
+		boolean var2;
+		if (var3 == null) {
+			var2 = false;
+		} else {
+			class398.SpriteBuffer_decode(var3);
+			var2 = true;
+		}
+
+		if (!var2) {
+			return null;
+		} else {
+			IndexedSprite var4 = new IndexedSprite();
+			var4.width = class414.SpriteBuffer_spriteWidth;
+			var4.height = class408.SpriteBuffer_spriteHeight;
+			var4.xOffset = class135.SpriteBuffer_xOffsets[0];
+			var4.yOffset = class131.SpriteBuffer_yOffsets[0];
+			var4.subWidth = class414.SpriteBuffer_spriteWidths[0];
+			var4.subHeight = class16.SpriteBuffer_spriteHeights[0];
+			var4.palette = class351.SpriteBuffer_spritePalette;
+			var4.pixels = class414.SpriteBuffer_pixels[0];
+			StudioGame.method5130();
+			return var4;
+		}
+	}
+
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "(CIB)Ljava/lang/String;",
+		garbageValue = "16"
+	)
+	public static String method3152(char var0, int var1) {
+		char[] var2 = new char[var1];
+
+		for (int var3 = 0; var3 < var1; ++var3) {
+			var2[var3] = var0;
+		}
+
+		return new String(var2);
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(B)I",
+		garbageValue = "0"
+	)
+	static final int method3151() {
+		return ViewportMouse.ViewportMouse_y;
+	}
+
+	@ObfuscatedName("if")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZB)V",
+		garbageValue = "14"
+	)
+	@Export("insertMenuItem")
+	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
+		if (!Client.isMenuOpen) {
+			if (Client.menuOptionsCount < 500) {
+				Client.menuActions[Client.menuOptionsCount] = var0;
+				Client.menuTargets[Client.menuOptionsCount] = var1;
+				Client.menuOpcodes[Client.menuOptionsCount] = var2;
+				Client.menuIdentifiers[Client.menuOptionsCount] = var3;
+				Client.menuArguments1[Client.menuOptionsCount] = var4;
+				Client.menuArguments2[Client.menuOptionsCount] = var5;
+				Client.menuShiftClick[Client.menuOptionsCount] = var6;
+				++Client.menuOptionsCount;
+			}
+
+		}
 	}
 }

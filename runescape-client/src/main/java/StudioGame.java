@@ -4,52 +4,58 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ju")
+@ObfuscatedName("jz")
 @Implements("StudioGame")
 public enum StudioGame implements MouseWheel {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lju;"
+		descriptor = "Ljz;"
 	)
 	@Export("runescape")
 	runescape("runescape", "RuneScape", 0),
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lju;"
+		descriptor = "Ljz;"
 	)
 	@Export("stellardawn")
 	stellardawn("stellardawn", "Stellar Dawn", 1),
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lju;"
+		descriptor = "Ljz;"
 	)
 	@Export("game3")
 	game3("game3", "Game 3", 2),
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lju;"
+		descriptor = "Ljz;"
 	)
 	@Export("game4")
 	game4("game4", "Game 4", 3),
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lju;"
+		descriptor = "Ljz;"
 	)
 	@Export("game5")
 	game5("game5", "Game 5", 4),
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lju;"
+		descriptor = "Ljz;"
 	)
 	@Export("oldscape")
 	oldscape("oldscape", "RuneScape 2007", 5);
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "Lot;"
+	)
+	@Export("NetCache_responseArchiveBuffer")
+	public static Buffer NetCache_responseArchiveBuffer;
+	@ObfuscatedName("t")
 	@Export("name")
 	public final String name;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -689985923
+		intValue = 1358867387
 	)
 	@Export("id")
 	final int id;
@@ -59,13 +65,52 @@ public enum StudioGame implements MouseWheel {
 		this.id = var5;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1665712539"
+		garbageValue = "661199397"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
+	}
+
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-183027792"
+	)
+	public static void method5130() {
+		class135.SpriteBuffer_xOffsets = null;
+		class131.SpriteBuffer_yOffsets = null;
+		class414.SpriteBuffer_spriteWidths = null;
+		class16.SpriteBuffer_spriteHeights = null;
+		class351.SpriteBuffer_spritePalette = null;
+		class414.SpriteBuffer_pixels = null;
+	}
+
+	@ObfuscatedName("ks")
+	@ObfuscatedSignature(
+		descriptor = "(IIIILon;Liw;B)V",
+		garbageValue = "-74"
+	)
+	@Export("drawSpriteOnMinimap")
+	static final void drawSpriteOnMinimap(int var0, int var1, int var2, int var3, SpritePixels var4, SpriteMask var5) {
+		if (var4 != null) {
+			int var6 = Client.camAngleY & 2047;
+			int var7 = var3 * var3 + var2 * var2;
+			if (var7 <= 6400) {
+				int var8 = Rasterizer3D.Rasterizer3D_sine[var6];
+				int var9 = Rasterizer3D.Rasterizer3D_cosine[var6];
+				int var10 = var9 * var2 + var3 * var8 >> 16;
+				int var11 = var3 * var9 - var8 * var2 >> 16;
+				if (var7 > 2500) {
+					var4.method7318(var10 + var5.width / 2 - var4.width / 2, var5.height / 2 - var11 - var4.height / 2, var0, var1, var5.width, var5.height, var5.xStarts, var5.xWidths);
+				} else {
+					var4.drawTransBgAt(var0 + var10 + var5.width / 2 - var4.width / 2, var5.height / 2 + var1 - var11 - var4.height / 2);
+				}
+
+			}
+		}
 	}
 }

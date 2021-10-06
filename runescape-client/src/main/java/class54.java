@@ -1,46 +1,68 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bf")
+@ObfuscatedName("bg")
 public class class54 {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Lkt;"
 	)
 	@Export("reflectionChecks")
 	public static IterableNodeDeque reflectionChecks;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = 1918136037
+	)
+	@Export("Interpreter_stringStackSize")
+	static int Interpreter_stringStackSize;
+	@ObfuscatedName("ek")
+	@ObfuscatedSignature(
+		descriptor = "Lky;"
+	)
+	@Export("archive13")
+	static Archive archive13;
+	@ObfuscatedName("eq")
+	@ObfuscatedSignature(
+		descriptor = "Lky;"
+	)
+	@Export("archive20")
+	static Archive archive20;
 
 	static {
 		reflectionChecks = new IterableNodeDeque();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("gk")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ler;",
-		garbageValue = "-1682487437"
+		descriptor = "(S)V",
+		garbageValue = "2001"
 	)
-	@Export("WorldMapElement_get")
-	public static WorldMapElement WorldMapElement_get(int var0) {
-		return var0 >= 0 && var0 < WorldMapElement.WorldMapElement_cached.length && WorldMapElement.WorldMapElement_cached[var0] != null ? WorldMapElement.WorldMapElement_cached[var0] : new WorldMapElement(var0);
+	static final void method1055() {
+		for (GraphicsObject var0 = (GraphicsObject)Client.graphicsObjects.last(); var0 != null; var0 = (GraphicsObject)Client.graphicsObjects.previous()) {
+			if (var0.plane == VertexNormal.Client_plane && !var0.isFinished) {
+				if (Client.cycle >= var0.cycleStart) {
+					var0.advance(Client.field536);
+					if (var0.isFinished) {
+						var0.remove();
+					} else {
+						PlayerComposition.scene.drawEntity(var0.plane, var0.x, var0.y, var0.height, 60, var0, 0, -1L, false);
+					}
+				}
+			} else {
+				var0.remove();
+			}
+		}
+
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("ib")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Ljava/lang/String;",
-		garbageValue = "30"
+		descriptor = "(II)Ljava/lang/String;",
+		garbageValue = "1736232978"
 	)
-	@Export("colorStartTag")
-	static String colorStartTag(int var0) {
-		return "<col=" + Integer.toHexString(var0) + ">";
-	}
-
-	@ObfuscatedName("lz")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "2010472015"
-	)
-	static void method1078(int var0) {
-		Client.oculusOrbState = var0;
+	static final String method1057(int var0) {
+		return var0 < 999999999 ? Integer.toString(var0) : "*";
 	}
 }

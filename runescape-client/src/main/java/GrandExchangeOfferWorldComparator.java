@@ -4,13 +4,20 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kv")
+@ObfuscatedName("kx")
 @Implements("GrandExchangeOfferWorldComparator")
 final class GrandExchangeOfferWorldComparator implements Comparator {
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lko;Lko;I)I",
-		garbageValue = "16711680"
+		descriptor = "Lkl;"
+	)
+	@Export("musicSamplesArchive")
+	public static AbstractArchive musicSamplesArchive;
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Lkd;Lkd;S)I",
+		garbageValue = "-48"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
@@ -25,29 +32,16 @@ final class GrandExchangeOfferWorldComparator implements Comparator {
 		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("kh")
 	@ObfuscatedSignature(
-		descriptor = "(I)[I",
-		garbageValue = "-1164500663"
+		descriptor = "(Ljt;II)Ljava/lang/String;",
+		garbageValue = "-1694871012"
 	)
-	public static int[] method5320() {
-		int[] var0 = new int[KeyHandler.field114];
-
-		for (int var1 = 0; var1 < KeyHandler.field114; ++var1) {
-			var0[var1] = KeyHandler.field131[var1];
+	static String method5385(Widget var0, int var1) {
+		if (!class138.method2756(WorldMapRegion.getWidgetFlags(var0), var1) && var0.onOp == null) {
+			return null;
+		} else {
+			return var0.actions != null && var0.actions.length > var1 && var0.actions[var1] != null && var0.actions[var1].trim().length() != 0 ? var0.actions[var1] : null;
 		}
-
-		return var0;
-	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "(I)Lbh;",
-		garbageValue = "-994798359"
-	)
-	@Export("worldListStart")
-	static World worldListStart() {
-		World.World_listCount = 0;
-		return SequenceDefinition.getNextWorldListWorld();
 	}
 }

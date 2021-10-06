@@ -4,42 +4,30 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gf")
+@ObfuscatedName("go")
 @Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
-	@ObfuscatedName("dw")
-	@ObfuscatedSignature(
-		descriptor = "Lkx;"
-	)
-	@Export("archive0")
-	static Archive archive0;
-	@ObfuscatedName("jc")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1930442357
-	)
-	@Export("oculusOrbFocalPointY")
-	static int oculusOrbFocalPointY;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = 1925132623
+		intValue = 1169726605
 	)
 	@Export("width")
 	int width;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1411511191
+		intValue = -1795160043
 	)
 	@Export("height")
 	int height;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1007463057
+		intValue = 65148741
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1649439453
+		intValue = -1075815641
 	)
 	@Export("y")
 	int y;

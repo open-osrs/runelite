@@ -1,97 +1,34 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mi")
-public abstract class class355 implements class228 {
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Loa;"
-	)
-	class391 field4025;
-
-	class355(int var1) {
+@ObfuscatedName("mh")
+public class class355 extends class356 {
+	public class355(int var1) {
+		super(var1);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;II)V",
-		garbageValue = "-1018722476"
+		garbageValue = "-1820829801"
 	)
-	abstract void vmethod6259(Buffer var1, int var2);
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(Lot;I)V",
-		garbageValue = "-1944706150"
-	)
-	public void method6257(Buffer var1) {
-		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
-			}
-
-			class351[] var3 = new class351[]{class351.field4019, class351.field4021, class351.field4017, class351.field4018};
-			class351 var4 = (class351)class260.findEnumerated(var3, var2);
-			if (var4 != null) {
-				switch(var4.field4020) {
-				case 1:
-					class283[] var7 = new class283[]{class283.field3653, class283.field3651, class283.field3652, class283.field3650};
-					class260.findEnumerated(var7, var1.readUnsignedByte());
-					break;
-				case 2:
-					int var5 = var1.readUnsignedByte();
-					int var8 = class389.field4234[var5];
-					class391 var6;
-					if (var8 == 1) {
-						var6 = class391.field4240;
-					} else if (var8 == 2) {
-						var6 = class391.field4238;
-					} else if (var8 == 3) {
-						var6 = class391.field4241;
-					} else {
-						var6 = null;
-					}
-
-					this.field4025 = var6;
-					if (this.field4025 != null) {
-						break;
-					}
-
-					throw new IllegalStateException("Unknown ScriptVarType ID in VarType.decode: " + var5);
-				case 3:
-					var1.readStringCp1252NullCircumfixed();
-					break;
-				default:
-					throw new IllegalStateException("Unrecognised VarTypeEncodingKey - " + var4);
-				}
-			} else {
-				this.vmethod6259(var1, var2);
-			}
-		}
+	void vmethod6328(Buffer var1, int var2) {
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("gs")
 	@ObfuscatedSignature(
-		descriptor = "(S)Z",
-		garbageValue = "21515"
+		descriptor = "(B)V",
+		garbageValue = "-86"
 	)
-	boolean method6260() {
-		return this.field4025 != null;
-	}
+	static void method6311() {
+		int var0 = Players.Players_count;
+		int[] var1 = Players.Players_indices;
 
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/lang/Object;",
-		garbageValue = "26"
-	)
-	Object method6258() {
-		if (this.field4025 == class391.field4240) {
-			return 0;
-		} else if (this.field4025 == class391.field4241) {
-			return -1L;
-		} else {
-			return this.field4025 == class391.field4238 ? "" : null;
+		for (int var2 = 0; var2 < var0; ++var2) {
+			if (var1[var2] != Client.combatTargetPlayerIndex && var1[var2] != Client.localPlayerIndex) {
+				class21.addPlayerToScene(Client.players[var1[var2]], true);
+			}
 		}
+
 	}
 }

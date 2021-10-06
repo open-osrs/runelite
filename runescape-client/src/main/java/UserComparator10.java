@@ -1,18 +1,20 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("df")
+@ObfuscatedName("dp")
 @Implements("UserComparator10")
 public class UserComparator10 extends AbstractUserComparator {
-	@ObfuscatedName("rh")
-	@ObfuscatedSignature(
-		descriptor = "Lab;"
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = -633659883
 	)
-	@Export("pcmPlayer0")
-	static PcmPlayer pcmPlayer0;
-	@ObfuscatedName("n")
+	@Export("cacheGamebuild")
+	static int cacheGamebuild;
+	@ObfuscatedName("l")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -20,10 +22,10 @@ public class UserComparator10 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lmm;Lmm;B)I",
-		garbageValue = "-50"
+		descriptor = "(Lmi;Lmi;I)I",
+		garbageValue = "-1753345286"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -38,16 +40,38 @@ public class UserComparator10 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lkk;Lkk;ZLlu;B)V",
-		garbageValue = "64"
+		descriptor = "(ILbe;ZI)I",
+		garbageValue = "-1354304959"
 	)
-	public static void method2444(AbstractArchive var0, AbstractArchive var1, boolean var2, Font var3) {
-		class262.ItemDefinition_archive = var0;
-		class393.ItemDefinition_modelArchive = var1;
-		Huffman.ItemDefinition_inMembersWorld = var2;
-		ItemComposition.ItemDefinition_fileCount = class262.ItemDefinition_archive.getGroupFileCount(10);
-		class300.ItemDefinition_fontPlain11 = var3;
+	static int method2451(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? WorldMapDecoration.scriptDotWidget : class245.scriptActiveWidget;
+		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) {
+			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = Interpreter.Widget_unpackTargetMask(WorldMapRegion.getWidgetFlags(var3));
+			return 1;
+		} else if (var0 != ScriptOpcodes.CC_GETOP) {
+			if (var0 == ScriptOpcodes.CC_GETOPBASE) {
+				if (var3.dataText == null) {
+					Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = "";
+				} else {
+					Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = var3.dataText;
+				}
+
+				return 1;
+			} else {
+				return 2;
+			}
+		} else {
+			int var4 = Interpreter.Interpreter_intStack[--AbstractByteArrayCopier.Interpreter_intStackSize];
+			--var4;
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) {
+				Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = var3.actions[var4];
+			} else {
+				Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = "";
+			}
+
+			return 1;
+		}
 	}
 }

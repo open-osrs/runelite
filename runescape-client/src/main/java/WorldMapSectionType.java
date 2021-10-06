@@ -4,52 +4,58 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gu")
+@ObfuscatedName("gj")
 @Implements("WorldMapSectionType")
 public enum WorldMapSectionType implements MouseWheel {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgu;"
+		descriptor = "Lgj;"
 	)
 	@Export("WORLDMAPSECTIONTYPE0")
 	WORLDMAPSECTIONTYPE0(3, (byte)0),
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lgu;"
+		descriptor = "Lgj;"
 	)
 	@Export("WORLDMAPSECTIONTYPE1")
-	WORLDMAPSECTIONTYPE1(0, (byte)1),
-	@ObfuscatedName("m")
+	WORLDMAPSECTIONTYPE1(1, (byte)1),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lgu;"
+		descriptor = "Lgj;"
 	)
 	@Export("WORLDMAPSECTIONTYPE2")
-	WORLDMAPSECTIONTYPE2(1, (byte)2),
-	@ObfuscatedName("k")
+	WORLDMAPSECTIONTYPE2(2, (byte)2),
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lgu;"
+		descriptor = "Lgj;"
 	)
 	@Export("WORLDMAPSECTIONTYPE3")
-	WORLDMAPSECTIONTYPE3(2, (byte)3);
+	WORLDMAPSECTIONTYPE3(0, (byte)3);
 
-	@ObfuscatedName("rl")
+	@ObfuscatedName("qm")
+	@Export("ClanChat_inClanChat")
+	static boolean ClanChat_inClanChat;
+	@ObfuscatedName("bo")
 	@ObfuscatedSignature(
-		descriptor = "Leb;"
+		descriptor = "Lny;"
 	)
-	@Export("guestClanChannel")
-	static ClanChannel guestClanChannel;
-	@ObfuscatedName("ar")
-	@ObfuscatedSignature(
-		descriptor = "Lmt;"
-	)
-	static Bounds field2125;
-	@ObfuscatedName("o")
+	@Export("loginType")
+	static LoginType loginType;
+	@ObfuscatedName("fm")
+	static String field2140;
+	@ObfuscatedName("gn")
 	@ObfuscatedGetter(
-		intValue = 944556803
+		intValue = 356488237
+	)
+	@Export("baseX")
+	static int baseX;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = 1222085259
 	)
 	@Export("type")
 	final int type;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@Export("id")
 	final byte id;
 
@@ -58,78 +64,83 @@ public enum WorldMapSectionType implements MouseWheel {
 		this.id = var4;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1665712539"
+		garbageValue = "661199397"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("gv")
 	@ObfuscatedSignature(
-		descriptor = "(B)[Lgu;",
-		garbageValue = "0"
+		descriptor = "(II)V",
+		garbageValue = "104390740"
 	)
-	static WorldMapSectionType[] method3770() {
-		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE0, WORLDMAPSECTIONTYPE3};
-	}
+	static final void method3830(int var0) {
+		int[] var1 = class11.sceneMinimapSprite.pixels;
+		int var2 = var1.length;
 
-	@ObfuscatedName("ac")
-	@ObfuscatedSignature(
-		descriptor = "(ILbg;ZI)I",
-		garbageValue = "1892784316"
-	)
-	static int method3769(int var0, Script var1, boolean var2) {
-		if (var0 != 7000 && var0 != 7005 && var0 != 7010 && var0 != 7015 && var0 != 7020 && var0 != 7025 && var0 != 7030 && var0 != 7035) {
-			if (var0 != 7001 && var0 != 7002 && var0 != 7011 && var0 != 7012 && var0 != 7021 && var0 != 7022) {
-				if (var0 != 7003 && var0 != 7013 && var0 != 7023) {
-					if (var0 != 7006 && var0 != 7007 && var0 != 7016 && var0 != 7017 && var0 != 7026 && var0 != 7027) {
-						if (var0 != 7008 && var0 != 7018 && var0 != 7028) {
-							if (var0 != 7031 && var0 != 7032) {
-								if (var0 == 7033) {
-									--Interpreter.Interpreter_stringStackSize;
-									return 1;
-								} else if (var0 != 7036 && var0 != 7037) {
-									if (var0 == 7038) {
-										--class240.Interpreter_intStackSize;
-										return 1;
-									} else if (var0 != 7004 && var0 != 7009 && var0 != 7014 && var0 != 7019 && var0 != 7024 && var0 != 7029 && var0 != 7034 && var0 != 7039) {
-										return 2;
-									} else {
-										--class240.Interpreter_intStackSize;
-										return 1;
-									}
-								} else {
-									class240.Interpreter_intStackSize -= 2;
-									return 1;
-								}
-							} else {
-								--Interpreter.Interpreter_stringStackSize;
-								--class240.Interpreter_intStackSize;
-								return 1;
-							}
-						} else {
-							--class240.Interpreter_intStackSize;
-							return 1;
-						}
-					} else {
-						class240.Interpreter_intStackSize -= 2;
-						return 1;
-					}
-				} else {
-					class240.Interpreter_intStackSize -= 2;
-					return 1;
-				}
-			} else {
-				class240.Interpreter_intStackSize -= 3;
-				return 1;
-			}
-		} else {
-			class240.Interpreter_intStackSize -= 5;
-			return 1;
+		int var3;
+		for (var3 = 0; var3 < var2; ++var3) {
+			var1[var3] = 0;
 		}
+
+		int var4;
+		int var5;
+		for (var3 = 1; var3 < 103; ++var3) {
+			var4 = (103 - var3) * 2048 + 24628;
+
+			for (var5 = 1; var5 < 103; ++var5) {
+				if ((Tiles.Tiles_renderFlags[var0][var5][var3] & 24) == 0) {
+					PlayerComposition.scene.drawTileMinimap(var1, var4, 512, var0, var5, var3);
+				}
+
+				if (var0 < 3 && (Tiles.Tiles_renderFlags[var0 + 1][var5][var3] & 8) != 0) {
+					PlayerComposition.scene.drawTileMinimap(var1, var4, 512, var0 + 1, var5, var3);
+				}
+
+				var4 += 4;
+			}
+		}
+
+		var3 = (238 + (int)(Math.random() * 20.0D) - 10 << 16) + (238 + (int)(Math.random() * 20.0D) - 10 << 8) + (238 + (int)(Math.random() * 20.0D) - 10);
+		var4 = 238 + (int)(Math.random() * 20.0D) - 10 << 16;
+		class11.sceneMinimapSprite.setRaster();
+
+		int var6;
+		for (var5 = 1; var5 < 103; ++var5) {
+			for (var6 = 1; var6 < 103; ++var6) {
+				if ((Tiles.Tiles_renderFlags[var0][var6][var5] & 24) == 0) {
+					class138.drawObject(var0, var6, var5, var3, var4);
+				}
+
+				if (var0 < 3 && (Tiles.Tiles_renderFlags[var0 + 1][var6][var5] & 8) != 0) {
+					class138.drawObject(var0 + 1, var6, var5, var3, var4);
+				}
+			}
+		}
+
+		Client.mapIconCount = 0;
+
+		for (var5 = 0; var5 < 104; ++var5) {
+			for (var6 = 0; var6 < 104; ++var6) {
+				long var7 = PlayerComposition.scene.getFloorDecorationTag(VertexNormal.Client_plane, var5, var6);
+				if (0L != var7) {
+					int var9 = InterfaceParent.Entity_unpackID(var7);
+					int var10 = class245.getObjectDefinition(var9).mapIconId;
+					if (var10 >= 0 && class13.WorldMapElement_get(var10).field1634) {
+						Client.mapIcons[Client.mapIconCount] = class13.WorldMapElement_get(var10).getSpriteBool(false);
+						Client.mapIconXs[Client.mapIconCount] = var5;
+						Client.mapIconYs[Client.mapIconCount] = var6;
+						++Client.mapIconCount;
+					}
+				}
+			}
+		}
+
+		class244.rasterProvider.apply();
 	}
 }

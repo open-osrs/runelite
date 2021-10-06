@@ -1,133 +1,113 @@
-import java.awt.FontMetrics;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hq")
+@ObfuscatedName("hp")
 @Implements("Occluder")
 public final class Occluder {
-	@ObfuscatedName("aw")
-	@Export("loginScreenFontMetrics")
-	static FontMetrics loginScreenFontMetrics;
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -320150853
+		intValue = 1719542493
 	)
 	@Export("minTileX")
 	int minTileX;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 180770347
+		intValue = 1789010699
 	)
 	@Export("maxTileX")
 	int maxTileX;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1338738523
+		intValue = -1557432233
 	)
 	@Export("minTileY")
 	int minTileY;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1860315469
+		intValue = 817292531
 	)
 	@Export("maxTileY")
 	int maxTileY;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1852677063
+		intValue = 400749645
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -908029863
+		intValue = 502654349
 	)
 	@Export("minX")
 	int minX;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 510909857
+		intValue = -873671995
 	)
 	@Export("maxX")
 	int maxX;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 186412371
+		intValue = -922941329
 	)
 	@Export("minZ")
 	int minZ;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1957631521
+		intValue = -1363675319
 	)
 	@Export("maxZ")
 	int maxZ;
-	@ObfuscatedName("e")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1933521517
+		intValue = 468546867
 	)
 	@Export("minY")
 	int minY;
-	@ObfuscatedName("l")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1842578097
+		intValue = -1571319031
 	)
 	@Export("maxY")
 	int maxY;
-	@ObfuscatedName("y")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 146752915
+		intValue = -1978554207
 	)
-	int field2450;
+	int field2466;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = 1028665229
+	)
+	int field2467;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -220596823
+		intValue = -1892876933
 	)
-	int field2452;
-	@ObfuscatedName("f")
-	@ObfuscatedGetter(
-		intValue = 525415407
-	)
-	int field2453;
+	int field2468;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -985390885
+		intValue = 791479165
 	)
-	int field2456;
-	@ObfuscatedName("h")
+	int field2469;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -795788233
+		intValue = -1288534623
 	)
-	int field2440;
-	@ObfuscatedName("d")
+	int field2470;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1447654559
+		intValue = 1161578073
 	)
-	int field2459;
-	@ObfuscatedName("q")
+	int field2463;
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 105190927
+		intValue = 312083711
 	)
-	int field2451;
+	int field2472;
 
 	Occluder() {
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(B)J",
-		garbageValue = "1"
-	)
-	public static final synchronized long method4335() {
-		long var0 = System.currentTimeMillis();
-		if (var0 < class396.field4262) {
-			class396.field4261 += class396.field4262 - var0;
-		}
-
-		class396.field4262 = var0;
-		return var0 + class396.field4261;
 	}
 }

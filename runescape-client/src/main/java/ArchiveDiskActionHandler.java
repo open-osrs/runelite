@@ -4,43 +4,34 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ke")
+@ObfuscatedName("ks")
 @Implements("ArchiveDiskActionHandler")
 public class ArchiveDiskActionHandler implements Runnable {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lkn;"
+		descriptor = "Lkf;"
 	)
 	@Export("ArchiveDiskActionHandler_requestQueue")
 	public static NodeDeque ArchiveDiskActionHandler_requestQueue;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lkn;"
+		descriptor = "Lkf;"
 	)
 	@Export("ArchiveDiskActionHandler_responseQueue")
 	public static NodeDeque ArchiveDiskActionHandler_responseQueue;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1139239247
+		intValue = -490833597
 	)
-	public static int field3676;
-	@ObfuscatedName("k")
+	public static int field3671;
+	@ObfuscatedName("j")
 	@Export("ArchiveDiskActionHandler_lock")
 	public static Object ArchiveDiskActionHandler_lock;
-	@ObfuscatedName("o")
-	@Export("ArchiveDiskActionHandler_thread")
-	static Thread ArchiveDiskActionHandler_thread;
-	@ObfuscatedName("af")
-	@Export("client")
-	@ObfuscatedSignature(
-		descriptor = "Lclient;"
-	)
-	static Client client;
 
 	static {
 		ArchiveDiskActionHandler_requestQueue = new NodeDeque();
 		ArchiveDiskActionHandler_responseQueue = new NodeDeque();
-		field3676 = 0;
+		field3671 = 0;
 		ArchiveDiskActionHandler_lock = new Object();
 	}
 
@@ -69,29 +60,85 @@ public class ArchiveDiskActionHandler implements Runnable {
 					}
 
 					synchronized(ArchiveDiskActionHandler_lock) {
-						if (field3676 <= 1) {
-							field3676 = 0;
+						if (field3671 <= 1) {
+							field3671 = 0;
 							ArchiveDiskActionHandler_lock.notifyAll();
 							return;
 						}
 
-						field3676 = 600;
+						field3671 = 600;
 					}
 				} else {
-					PlayerType.method5099(100L);
+					class121.method2542(100L);
 					synchronized(ArchiveDiskActionHandler_lock) {
-						if (field3676 <= 1) {
-							field3676 = 0;
+						if (field3671 <= 1) {
+							field3671 = 0;
 							ArchiveDiskActionHandler_lock.notifyAll();
 							return;
 						}
 
-						--field3676;
+						--field3671;
 					}
 				}
 			}
 		} catch (Exception var13) {
-			class4.RunException_sendStackTrace((String)null, var13);
+			Timer.RunException_sendStackTrace((String)null, var13);
 		}
+	}
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Loy;B)V",
+		garbageValue = "-104"
+	)
+	@Export("updatePlayer")
+	static final void updatePlayer(PacketBuffer var0) {
+		var0.importIndex();
+		int var1 = Client.localPlayerIndex;
+		Player var2 = class67.localPlayer = Client.players[var1] = new Player();
+		var2.index = var1;
+		int var3 = var0.readBits(30);
+		byte var4 = (byte)(var3 >> 28);
+		int var5 = var3 >> 14 & 16383;
+		int var6 = var3 & 16383;
+		var2.pathX[0] = var5 - WorldMapSectionType.baseX;
+		var2.x = (var2.pathX[0] << 7) + (var2.transformedSize() << 6);
+		var2.pathY[0] = var6 - PlayerComposition.baseY;
+		var2.y = (var2.pathY[0] << 7) + (var2.transformedSize() << 6);
+		VertexNormal.Client_plane = var2.plane = var4;
+		if (Players.field1248[var1] != null) {
+			var2.read(Players.field1248[var1]);
+		}
+
+		Players.Players_count = 0;
+		Players.Players_indices[++Players.Players_count - 1] = var1;
+		Players.field1247[var1] = 0;
+		Players.Players_emptyIdxCount = 0;
+
+		for (int var7 = 1; var7 < 2048; ++var7) {
+			if (var7 != var1) {
+				int var8 = var0.readBits(18);
+				int var9 = var8 >> 16;
+				int var10 = var8 >> 8 & 597;
+				int var11 = var8 & 597;
+				Players.Players_regions[var7] = (var10 << 14) + var11 + (var9 << 28);
+				Players.Players_orientations[var7] = 0;
+				Players.Players_targetIndices[var7] = -1;
+				Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var7;
+				Players.field1247[var7] = 0;
+			}
+		}
+
+		var0.exportIndex();
+	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "-551096239"
+	)
+	static int method5168(int var0, int var1) {
+		long var2 = (long)((var0 << 16) + var1);
+		return ClanChannel.NetCache_currentResponse != null && ClanChannel.NetCache_currentResponse.key == var2 ? StudioGame.NetCache_responseArchiveBuffer.offset * 99 / (StudioGame.NetCache_responseArchiveBuffer.array.length - ClanChannel.NetCache_currentResponse.padding) + 1 : 0;
 	}
 }

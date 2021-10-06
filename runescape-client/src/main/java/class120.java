@@ -1,100 +1,98 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dm")
+@ObfuscatedName("dv")
 public class class120 extends class116 {
-	@ObfuscatedName("el")
-	@ObfuscatedSignature(
-		descriptor = "Lkx;"
-	)
-	@Export("archive18")
-	static Archive archive18;
-	@ObfuscatedName("ea")
-	@ObfuscatedSignature(
-		descriptor = "Lkx;"
-	)
-	@Export("archive17")
-	static Archive archive17;
-	@ObfuscatedName("n")
+	@ObfuscatedName("so")
 	@ObfuscatedGetter(
-		intValue = 571132071
+		intValue = -346097947
+	)
+	static int field1408;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -2132840675
 	)
 	int field1409;
-	@ObfuscatedName("c")
-	byte field1408;
+	@ObfuscatedName("q")
+	byte field1407;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldc;"
+		descriptor = "Ldg;"
 	)
 	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldc;)V"
+		descriptor = "(Ldg;)V"
 	)
 	class120(class119 var1) {
 		this.this$0 = var1;
 		this.field1409 = -1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;I)V",
-		garbageValue = "-1413895325"
+		garbageValue = "-912681401"
 	)
-	void vmethod2711(Buffer var1) {
+	void vmethod2767(Buffer var1) {
 		this.field1409 = var1.readUnsignedShort();
-		this.field1408 = var1.readByte();
+		this.field1407 = var1.readByte();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ldi;I)V",
-		garbageValue = "697483856"
+		descriptor = "(Ldk;I)V",
+		garbageValue = "-1225074726"
 	)
-	void vmethod2712(ClanSettings var1) {
-		var1.method2581(this.field1409, this.field1408);
+	void vmethod2766(ClanSettings var1) {
+		var1.method2619(this.field1409, this.field1407);
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("jl")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-1710039893"
+		descriptor = "(I)V",
+		garbageValue = "1261296688"
 	)
-	public static int method2512(int var0) {
-		return class245.field2885[var0];
-	}
+	static void method2530() {
+		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) {
+			int var1 = var0.group;
+			if (GrandExchangeOfferTotalQuantityComparator.loadInterface(var1)) {
+				boolean var2 = true;
+				Widget[] var3 = Widget.Widget_interfaceComponents[var1];
 
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "4"
-	)
-	public static void method2516(int var0) {
-		if (var0 != -1) {
-			if (Widget.Widget_loadedInterfaces[var0]) {
-				Widget.Widget_archive.clearFilesGroup(var0);
-				if (class139.Widget_interfaceComponents[var0] != null) {
-					boolean var1 = true;
-
-					for (int var2 = 0; var2 < class139.Widget_interfaceComponents[var0].length; ++var2) {
-						if (class139.Widget_interfaceComponents[var0][var2] != null) {
-							if (class139.Widget_interfaceComponents[var0][var2].type != 2) {
-								class139.Widget_interfaceComponents[var0][var2] = null;
-							} else {
-								var1 = false;
-							}
-						}
+				int var4;
+				for (var4 = 0; var4 < var3.length; ++var4) {
+					if (var3[var4] != null) {
+						var2 = var3[var4].isIf3;
+						break;
 					}
+				}
 
-					if (var1) {
-						class139.Widget_interfaceComponents[var0] = null;
+				if (!var2) {
+					var4 = (int)var0.key;
+					Widget var5 = HealthBarUpdate.getWidget(var4);
+					if (var5 != null) {
+						class16.invalidateWidget(var5);
 					}
-
-					Widget.Widget_loadedInterfaces[var0] = false;
 				}
 			}
 		}
+
+	}
+
+	@ObfuscatedName("ke")
+	@ObfuscatedSignature(
+		descriptor = "(Lot;II)V",
+		garbageValue = "-1468568304"
+	)
+	static void method2533(Buffer var0, int var1) {
+		byte[] var2 = var0.array;
+		if (Client.randomDatData == null) {
+			Client.randomDatData = new byte[24];
+		}
+
+		class321.writeRandomDat(var2, var1, Client.randomDatData, 0, 24);
+		class351.method6285(var0, var1);
 	}
 }

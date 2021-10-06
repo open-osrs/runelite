@@ -2,81 +2,56 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jz")
+@ObfuscatedName("jm")
 public enum class283 implements MouseWheel {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ljz;"
+		descriptor = "Ljm;"
 	)
-	field3651(-1),
-	@ObfuscatedName("c")
+	field3649(-1),
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Ljz;"
+		descriptor = "Ljm;"
 	)
-	field3653(0),
-	@ObfuscatedName("m")
+	field3646(0),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Ljz;"
+		descriptor = "Ljm;"
 	)
-	field3650(1),
-	@ObfuscatedName("k")
+	field3647(1),
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Ljz;"
+		descriptor = "Ljm;"
 	)
-	field3652(2);
+	field3648(2);
 
-	@ObfuscatedName("u")
-	@Export("SpriteBuffer_pixels")
-	public static byte[][] SpriteBuffer_pixels;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 69732641
+		intValue = -1834380199
 	)
-	final int field3654;
+	final int field3650;
 
 	class283(int var3) {
-		this.field3654 = var3;
+		this.field3650 = var3;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1665712539"
+		garbageValue = "661199397"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field3654;
+		return this.field3650;
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(ILbg;ZS)I",
-		garbageValue = "25842"
+		descriptor = "(II)I",
+		garbageValue = "-476402365"
 	)
-	static int method5093(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PacketWriter.scriptDotWidget : class9.scriptActiveWidget;
-		if (var0 == ScriptOpcodes.CC_GETX) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.x;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETY) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.y;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.width;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.height;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETHIDE) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETLAYER) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.parentId;
-			return 1;
-		} else {
-			return 2;
-		}
+	public static int method5141(int var0) {
+		return class361.field4054[var0 & 16383];
 	}
 }

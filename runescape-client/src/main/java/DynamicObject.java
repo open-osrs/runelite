@@ -4,72 +4,66 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bo")
+@ObfuscatedName("bw")
 @Implements("DynamicObject")
 public class DynamicObject extends Renderable {
-	@ObfuscatedName("io")
-	@ObfuscatedSignature(
-		descriptor = "[Loc;"
-	)
-	@Export("mapDotSprites")
-	static SpritePixels[] mapDotSprites;
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 5117713
+		intValue = 931990427
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -412707653
+		intValue = 1382537175
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 482248501
+		intValue = -2141422723
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 831891069
+		intValue = 322731869
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1304906077
+		intValue = -378065101
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 445952397
+		intValue = 1775120185
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lfa;"
+		descriptor = "Lfe;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1173893765
+		intValue = -1429370351
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1768826999
+		intValue = -369980751
 	)
 	@Export("cycleStart")
 	int cycleStart;
 
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIZLhr;)V"
+		descriptor = "(IIIIIIIZLhi;)V"
 	)
 	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Renderable var9) {
 		this.id = var1;
@@ -79,7 +73,7 @@ public class DynamicObject extends Renderable {
 		this.x = var5;
 		this.y = var6;
 		if (var7 != -1) {
-			this.sequenceDefinition = class17.SequenceDefinition_get(var7);
+			this.sequenceDefinition = KitDefinition.SequenceDefinition_get(var7);
 			this.frame = 0;
 			this.cycleStart = Client.cycle - 1;
 			if (this.sequenceDefinition.field1961 == 0 && var9 != null && var9 instanceof DynamicObject) {
@@ -99,10 +93,10 @@ public class DynamicObject extends Renderable {
 
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lhg;",
-		garbageValue = "18"
+		descriptor = "(B)Lhl;",
+		garbageValue = "126"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
@@ -112,11 +106,11 @@ public class DynamicObject extends Renderable {
 				var1 = 100;
 			}
 
-			label56: {
+			label55: {
 				do {
 					do {
 						if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) {
-							break label56;
+							break label55;
 						}
 
 						var1 -= this.sequenceDefinition.frameLengths[this.frame];
@@ -132,7 +126,7 @@ public class DynamicObject extends Renderable {
 			this.cycleStart = Client.cycle - var1;
 		}
 
-		ObjectComposition var12 = HitSplatDefinition.getObjectDefinition(this.id);
+		ObjectComposition var12 = class245.getObjectDefinition(this.id);
 		if (var12.transforms != null) {
 			var12 = var12.transform();
 		}
@@ -155,72 +149,10 @@ public class DynamicObject extends Renderable {
 			int var6 = (var3 >> 1) + this.y;
 			int var7 = (var3 + 1 >> 1) + this.y;
 			int[][] var8 = Tiles.Tiles_heights[this.plane];
-			int var9 = var8[var5][var7] + var8[var5][var6] + var8[var4][var6] + var8[var4][var7] >> 2;
+			int var9 = var8[var4][var7] + var8[var4][var6] + var8[var5][var6] + var8[var5][var7] >> 2;
 			int var10 = (this.x << 7) + (var2 << 6);
 			int var11 = (this.y << 7) + (var3 << 6);
 			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame);
 		}
-	}
-
-	@ObfuscatedName("fs")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1870319643"
-	)
-	static void method1956() {
-		Client.packetWriter.clearBuffer();
-		Client.packetWriter.packetBuffer.offset = 0;
-		Client.packetWriter.serverPacket = null;
-		Client.packetWriter.field1288 = null;
-		Client.packetWriter.field1289 = null;
-		Client.packetWriter.field1290 = null;
-		Client.packetWriter.serverPacketLength = 0;
-		Client.packetWriter.field1279 = 0;
-		Client.rebootTimer = 0;
-		Client.menuOptionsCount = 0;
-		Client.isMenuOpen = false;
-		Client.minimapState = 0;
-		Client.destinationX = 0;
-
-		int var0;
-		for (var0 = 0; var0 < 2048; ++var0) {
-			Client.players[var0] = null;
-		}
-
-		class129.localPlayer = null;
-
-		for (var0 = 0; var0 < Client.npcs.length; ++var0) {
-			NPC var1 = Client.npcs[var0];
-			if (var1 != null) {
-				var1.targetIndex = -1;
-				var1.false0 = false;
-			}
-		}
-
-		CollisionMap.method3351();
-		HealthBarUpdate.updateGameState(30);
-
-		for (var0 = 0; var0 < 100; ++var0) {
-			Client.field697[var0] = true;
-		}
-
-		class280.method5087();
-	}
-
-	@ObfuscatedName("gk")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1479639989"
-	)
-	static void method1955() {
-		int var0 = Players.Players_count;
-		int[] var1 = Players.Players_indices;
-
-		for (int var2 = 0; var2 < var0; ++var2) {
-			if (var1[var2] != Client.combatTargetPlayerIndex && var1[var2] != Client.localPlayerIndex) {
-				class114.addPlayerToScene(Client.players[var1[var2]], true);
-			}
-		}
-
 	}
 }

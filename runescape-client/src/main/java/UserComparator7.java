@@ -1,12 +1,20 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.Reflection;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cm")
 @Implements("UserComparator7")
 public class UserComparator7 extends AbstractUserComparator {
-	@ObfuscatedName("n")
+	@ObfuscatedName("mj")
+	@ObfuscatedGetter(
+		intValue = 1788791265
+	)
+	@Export("menuWidth")
+	static int menuWidth;
+	@ObfuscatedName("l")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -14,10 +22,10 @@ public class UserComparator7 extends AbstractUserComparator {
 		this.reversed = var1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lmm;Lmm;B)I",
-		garbageValue = "-31"
+		descriptor = "(Lmi;Lmi;B)I",
+		garbageValue = "31"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -32,69 +40,45 @@ public class UserComparator7 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lef;",
-		garbageValue = "-1162933530"
+		descriptor = "(III)I",
+		garbageValue = "2117353733"
 	)
-	@Export("VarpDefinition_get")
-	public static VarpDefinition VarpDefinition_get(int var0) {
-		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
+	static int method2421(int var0, int var1) {
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var2 == null) {
+			return -1;
 		} else {
-			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0);
-			var1 = new VarpDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0);
-			return var1;
+			return var1 >= 0 && var1 < var2.ids.length ? var2.ids[var1] : -1;
 		}
 	}
 
-	@ObfuscatedName("az")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-655513763"
+		descriptor = "(Ljava/lang/String;I)Ljava/lang/Class;",
+		garbageValue = "-412123539"
 	)
-	@Export("runWidgetOnLoadListener")
-	static void runWidgetOnLoadListener(int var0) {
-		if (var0 != -1) {
-			if (class317.loadInterface(var0)) {
-				Widget[] var1 = class139.Widget_interfaceComponents[var0];
-
-				for (int var2 = 0; var2 < var1.length; ++var2) {
-					Widget var3 = var1[var2];
-					if (var3.onLoad != null) {
-						ScriptEvent var4 = new ScriptEvent();
-						var4.widget = var3;
-						var4.args = var3.onLoad;
-						Skeleton.runScript(var4, 5000000, 0);
-					}
-				}
-
-			}
-		}
-	}
-
-	@ObfuscatedName("er")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1437933650"
-	)
-	static int method2409() {
-		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
-			int var0 = 0;
-
-			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) {
-				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount;
-			}
-
-			return var0 * 10000 / Client.field763;
+	@Export("loadClassFromDescriptor")
+	static Class loadClassFromDescriptor(String var0) throws ClassNotFoundException {
+		if (var0.equals("B")) {
+			return Byte.TYPE;
+		} else if (var0.equals("I")) {
+			return Integer.TYPE;
+		} else if (var0.equals("S")) {
+			return Short.TYPE;
+		} else if (var0.equals("J")) {
+			return Long.TYPE;
+		} else if (var0.equals("Z")) {
+			return Boolean.TYPE;
+		} else if (var0.equals("F")) {
+			return Float.TYPE;
+		} else if (var0.equals("D")) {
+			return Double.TYPE;
+		} else if (var0.equals("C")) {
+			return Character.TYPE;
 		} else {
-			return 10000;
+			return var0.equals("void") ? Void.TYPE : Reflection.findClass(var0);
 		}
 	}
 }

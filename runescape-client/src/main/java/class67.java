@@ -1,48 +1,87 @@
+import java.io.IOException;
 import java.math.BigInteger;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bm")
+@ObfuscatedName("bh")
 public class class67 {
-	@ObfuscatedName("n")
-	static final BigInteger field867;
-	@ObfuscatedName("c")
-	static final BigInteger field868;
+	@ObfuscatedName("l")
+	static final BigInteger field864;
+	@ObfuscatedName("q")
+	static final BigInteger field866;
+	@ObfuscatedName("lh")
+	@ObfuscatedSignature(
+		descriptor = "Lci;"
+	)
+	@Export("localPlayer")
+	static Player localPlayer;
 
 	static {
-		field867 = new BigInteger("10001", 16);
-		field868 = new BigInteger("c1aaa7d350601db3c5381df8617a53eb2fe4d4721cba83705fcfdbad54f29b5cf5f64ee667f82e2da6963f0b135a71fc7fcbcedbc8f4a12d3c7f4c491d4f475287407ae5bf979228329e2cad8336f35730db0122aac6d7676f2e14c0167b8db057a0d54266d96fc18189a4341292077e95d5304370e455fd441525ece98edad7", 16);
+		field864 = new BigInteger("10001", 16);
+		field866 = new BigInteger("af87d84e6c1040d7966e705070a42393ba8b386e15205b6fb3d688be49039c3fbcc13093eaef5b4f93aecdafa3f8d486196fe7d33ba78a1683eb448d22bd7b994189c9e52db6f532b86ddcc549b641f2ac0d0b411f3fa2c666c877cb7ab8091b2989a105f84cb69b27eacd98c19d098d6f36e6ba7bbf156c082b45f6aa7fd5db", 16);
 	}
 
-	@ObfuscatedName("jt")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1076008723"
+		descriptor = "(Lkl;IIIZB)V",
+		garbageValue = "4"
 	)
-	static void method1877() {
-		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) {
-			int var1 = var0.group;
-			if (class317.loadInterface(var1)) {
-				boolean var2 = true;
-				Widget[] var3 = class139.Widget_interfaceComponents[var1];
+	public static void method1886(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
+		class247.musicPlayerStatus = 1;
+		class113.musicTrackArchive = var0;
+		Skills.musicTrackGroupId = var1;
+		class137.musicTrackFileId = var2;
+		class247.musicTrackVolume = var3;
+		class247.musicTrackBoolean = var4;
+		class247.pcmSampleLength = 10000;
+	}
 
-				int var4;
-				for (var4 = 0; var4 < var3.length; ++var4) {
-					if (var3[var4] != null) {
-						var2 = var3[var4].isIf3;
-						break;
-					}
-				}
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(B)Lcq;",
+		garbageValue = "-21"
+	)
+	static ClientPreferences method1887() {
+		AccessFile var0 = null;
+		ClientPreferences var1 = new ClientPreferences();
 
-				if (!var2) {
-					var4 = (int)var0.key;
-					Widget var5 = class87.getWidget(var4);
-					if (var5 != null) {
-						Actor.invalidateWidget(var5);
-					}
+		try {
+			var0 = World.getPreferencesFile("", class392.field4267.name, false);
+			byte[] var2 = new byte[(int)var0.length()];
+
+			int var4;
+			for (int var3 = 0; var3 < var2.length; var3 += var4) {
+				var4 = var0.read(var2, var3, var2.length - var3);
+				if (var4 == -1) {
+					throw new IOException();
 				}
 			}
+
+			var1 = new ClientPreferences(new Buffer(var2));
+		} catch (Exception var6) {
 		}
 
+		try {
+			if (var0 != null) {
+				var0.close();
+			}
+		} catch (Exception var5) {
+		}
+
+		return var1;
+	}
+
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "843333300"
+	)
+	public static final void method1888(int var0, int var1) {
+		ViewportMouse.ViewportMouse_x = var0;
+		ViewportMouse.ViewportMouse_y = var1;
+		ViewportMouse.ViewportMouse_isInViewport = true;
+		ViewportMouse.ViewportMouse_entityCount = 0;
+		ViewportMouse.ViewportMouse_false0 = false;
 	}
 }

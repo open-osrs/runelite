@@ -1,62 +1,42 @@
 import java.io.File;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("et")
+@ObfuscatedName("eg")
 @Implements("JagexCache")
 public class JagexCache {
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lkk;"
-	)
-	@Export("ParamDefinition_archive")
-	public static AbstractArchive ParamDefinition_archive;
-	@ObfuscatedName("o")
+	@ObfuscatedName("j")
+	@Export("JagexCache_locationFile")
+	static File JagexCache_locationFile;
+	@ObfuscatedName("m")
 	@Export("cacheDir")
-	public static File cacheDir;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 244088611
-	)
-	@Export("idxCount")
-	public static int idxCount;
-	@ObfuscatedName("y")
+	static File cacheDir;
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lnm;"
+		descriptor = "Lnq;"
 	)
 	@Export("JagexCache_randomDat")
 	public static BufferedFile JagexCache_randomDat;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lnm;"
+		descriptor = "Lnq;"
 	)
 	@Export("JagexCache_dat2File")
 	public static BufferedFile JagexCache_dat2File;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lnm;"
+		descriptor = "Lnq;"
 	)
 	@Export("JagexCache_idx255File")
 	public static BufferedFile JagexCache_idx255File;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "[Lnm;"
+		descriptor = "[Lnq;"
 	)
 	@Export("JagexCache_idxFiles")
 	public static BufferedFile[] JagexCache_idxFiles;
-	@ObfuscatedName("di")
-	@ObfuscatedGetter(
-		longValue = 6281553513143992855L
-	)
-	static long field1558;
-	@ObfuscatedName("hy")
-	@ObfuscatedGetter(
-		intValue = -127022771
-	)
-	static int field1559;
 
 	static {
 		JagexCache_randomDat = null;
@@ -64,15 +44,12 @@ public class JagexCache {
 		JagexCache_idx255File = null;
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-159486076"
+		descriptor = "(I)I",
+		garbageValue = "-1155193506"
 	)
-	static void method2744(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var1 != null) {
-			var1.remove();
-		}
+	public static int method2815() {
+		return KeyHandler.KeyHandler_idleCycles;
 	}
 }
