@@ -66,7 +66,7 @@ dependencies {
     implementation(group = "net.java.dev.jna", name = "jna", version = "5.9.0")
     implementation(group = "net.java.dev.jna", name = "jna-platform", version = "5.9.0")
     implementation(group = "net.runelite", name = "discord", version = "1.4")
-    implementation(group = "org.pushing-pixels", name = "radiance-substance", version = "4.0.0")
+    implementation(group = "net.runelite.pushingpixels", name = "substance", version = "8.0.02")
     implementation(group = "net.sf.jopt-simple", name = "jopt-simple", version = "5.0.4")
     implementation(group = "org.madlonkay", name = "desktopsupport", version = "0.6.0")
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.9")
