@@ -1,154 +1,109 @@
+import java.awt.Component;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ep")
+@ObfuscatedName("ev")
 public class class131 extends class116 {
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		longValue = 8166807138723971967L
-	)
-	long field1494;
-	@ObfuscatedName("c")
-	String field1495;
 	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = -192832123
+	@Export("SpriteBuffer_yOffsets")
+	public static int[] SpriteBuffer_yOffsets;
+	@ObfuscatedName("en")
+	@ObfuscatedSignature(
+		descriptor = "Lmr;"
 	)
-	int field1493;
+	@Export("spriteIds")
+	static GraphicsDefaults spriteIds;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		longValue = -3900186400137069511L
+	)
+	long field1486;
+	@ObfuscatedName("q")
+	String field1484;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = 655775571
+	)
+	int field1487;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldc;"
+		descriptor = "Ldg;"
 	)
 	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldc;)V"
+		descriptor = "(Ldg;)V"
 	)
 	class131(class119 var1) {
 		this.this$0 = var1;
-		this.field1494 = -1L;
-		this.field1495 = null;
-		this.field1493 = 0;
+		this.field1486 = -1L;
+		this.field1484 = null;
+		this.field1487 = 0;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;I)V",
-		garbageValue = "-1413895325"
+		garbageValue = "-912681401"
 	)
-	void vmethod2711(Buffer var1) {
+	void vmethod2767(Buffer var1) {
 		if (var1.readUnsignedByte() != 255) {
 			--var1.offset;
-			this.field1494 = var1.readLong();
+			this.field1486 = var1.readLong();
 		}
 
-		this.field1495 = var1.readStringCp1252NullTerminatedOrNull();
-		this.field1493 = var1.readUnsignedShort();
+		this.field1484 = var1.readStringCp1252NullTerminatedOrNull();
+		this.field1487 = var1.readUnsignedShort();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ldi;I)V",
-		garbageValue = "697483856"
+		descriptor = "(Ldk;I)V",
+		garbageValue = "-1225074726"
 	)
-	void vmethod2712(ClanSettings var1) {
-		var1.method2559(this.field1494, this.field1495, this.field1493);
+	void vmethod2766(ClanSettings var1) {
+		var1.method2646(this.field1486, this.field1484, this.field1487);
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(CB)C",
-		garbageValue = "-71"
+		descriptor = "(Ljava/awt/Component;I)V",
+		garbageValue = "387235799"
 	)
-	public static char method2647(char var0) {
-		switch(var0) {
-		case ' ':
-		case '-':
-		case '_':
-		case ' ':
-			return '_';
-		case '#':
-		case '[':
-		case ']':
-			return var0;
-		case 'À':
-		case 'Á':
-		case 'Â':
-		case 'Ã':
-		case 'Ä':
-		case 'à':
-		case 'á':
-		case 'â':
-		case 'ã':
-		case 'ä':
-			return 'a';
-		case 'Ç':
-		case 'ç':
-			return 'c';
-		case 'È':
-		case 'É':
-		case 'Ê':
-		case 'Ë':
-		case 'è':
-		case 'é':
-		case 'ê':
-		case 'ë':
-			return 'e';
-		case 'Í':
-		case 'Î':
-		case 'Ï':
-		case 'í':
-		case 'î':
-		case 'ï':
-			return 'i';
-		case 'Ñ':
-		case 'ñ':
-			return 'n';
-		case 'Ò':
-		case 'Ó':
-		case 'Ô':
-		case 'Õ':
-		case 'Ö':
-		case 'ò':
-		case 'ó':
-		case 'ô':
-		case 'õ':
-		case 'ö':
-			return 'o';
-		case 'Ù':
-		case 'Ú':
-		case 'Û':
-		case 'Ü':
-		case 'ù':
-		case 'ú':
-		case 'û':
-		case 'ü':
-			return 'u';
-		case 'ß':
-			return 'b';
-		case 'ÿ':
-		case 'Ÿ':
-			return 'y';
-		default:
-			return Character.toLowerCase(var0);
+	static void method2690(Component var0) {
+		var0.addMouseListener(MouseHandler.MouseHandler_instance);
+		var0.addMouseMotionListener(MouseHandler.MouseHandler_instance);
+		var0.addFocusListener(MouseHandler.MouseHandler_instance);
+	}
+
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(Lkl;Ljava/lang/String;Ljava/lang/String;B)Loz;",
+		garbageValue = "-74"
+	)
+	@Export("SpriteBuffer_getIndexedSpriteByName")
+	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
+		int var3 = var0.getGroupId(var1);
+		int var4 = var0.getFileId(var3, var2);
+		IndexedSprite var5;
+		if (!VarbitComposition.method3102(var0, var3, var4)) {
+			var5 = null;
+		} else {
+			IndexedSprite var7 = new IndexedSprite();
+			var7.width = class414.SpriteBuffer_spriteWidth;
+			var7.height = class408.SpriteBuffer_spriteHeight;
+			var7.xOffset = class135.SpriteBuffer_xOffsets[0];
+			var7.yOffset = SpriteBuffer_yOffsets[0];
+			var7.subWidth = class414.SpriteBuffer_spriteWidths[0];
+			var7.subHeight = class16.SpriteBuffer_spriteHeights[0];
+			var7.palette = class351.SpriteBuffer_spritePalette;
+			var7.pixels = class414.SpriteBuffer_pixels[0];
+			StudioGame.method5130();
+			var5 = var7;
 		}
-	}
 
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1458369433"
-	)
-	static void method2645() {
-		if (Login.Login_username == null || Login.Login_username.length() <= 0) {
-			if (VarbitComposition.clientPreferences.rememberedUsername != null) {
-				Login.Login_username = VarbitComposition.clientPreferences.rememberedUsername;
-				Client.Login_isUsernameRemembered = true;
-			} else {
-				Client.Login_isUsernameRemembered = false;
-			}
-
-		}
+		return var5;
 	}
 }

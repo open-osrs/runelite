@@ -33,10 +33,8 @@ public class SoundEffectPlayed
 {
 	@Nullable
 	private final Actor source;
-
 	private int soundId;
 	private int delay;
-	private int npcid;
 
 	private boolean consumed;
 

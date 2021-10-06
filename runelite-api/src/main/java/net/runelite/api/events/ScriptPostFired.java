@@ -35,5 +35,5 @@ public class ScriptPostFired
 	/**
 	 * The script id of the invoked script
 	 */
-	int scriptId;
+	private final int scriptId;
 }

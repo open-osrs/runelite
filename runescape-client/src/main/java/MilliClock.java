@@ -4,319 +4,222 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ea")
+@ObfuscatedName("eh")
 @Implements("MilliClock")
 public class MilliClock extends Clock {
-	@ObfuscatedName("n")
-	long[] field1581;
-	@ObfuscatedName("c")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1926195219
+		intValue = 1652344105
 	)
-	int field1580;
+	static int field1588;
+	@ObfuscatedName("l")
+	long[] field1592;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 13513773
+	)
+	int field1587;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = -546197089
+	)
+	int field1589;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		longValue = 1648403741631593641L
+	)
+	long field1586;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1239703239
+		intValue = -2027949555
 	)
-	int field1582;
+	int field1590;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		longValue = 1838045088116559801L
+		intValue = -1944600771
 	)
-	long field1584;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = -434613237
-	)
-	int field1583;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = -1538511437
-	)
-	int field1585;
+	int field1591;
 
-	public MilliClock() {
-		this.field1581 = new long[10];
-		this.field1580 = 256;
-		this.field1582 = 1;
-		this.field1583 = 0;
-		this.field1584 = Occluder.method4335();
+	MilliClock() {
+		this.field1592 = new long[10];
+		this.field1587 = 256;
+		this.field1589 = 1;
+		this.field1590 = 0;
+		this.field1586 = UserComparator4.method2406();
 
 		for (int var1 = 0; var1 < 10; ++var1) {
-			this.field1581[var1] = this.field1584;
+			this.field1592[var1] = this.field1586;
 		}
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "2146592699"
+		garbageValue = "-973245062"
 	)
 	@Export("mark")
 	public void mark() {
 		for (int var1 = 0; var1 < 10; ++var1) {
-			this.field1581[var1] = 0L;
+			this.field1592[var1] = 0L;
 		}
 
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "-1080855684"
+		garbageValue = "904483746"
 	)
 	@Export("wait")
 	public int wait(int var1, int var2) {
-		int var3 = this.field1580;
-		int var4 = this.field1582;
-		this.field1580 = 300;
-		this.field1582 = 1;
-		this.field1584 = Occluder.method4335();
-		if (0L == this.field1581[this.field1585]) {
-			this.field1580 = var3;
-			this.field1582 = var4;
-		} else if (this.field1584 > this.field1581[this.field1585]) {
-			this.field1580 = (int)((long)(var1 * 2560) / (this.field1584 - this.field1581[this.field1585]));
+		int var3 = this.field1587;
+		int var4 = this.field1589;
+		this.field1587 = 300;
+		this.field1589 = 1;
+		this.field1586 = UserComparator4.method2406();
+		if (this.field1592[this.field1591] == 0L) {
+			this.field1587 = var3;
+			this.field1589 = var4;
+		} else if (this.field1586 > this.field1592[this.field1591]) {
+			this.field1587 = (int)((long)(var1 * 2560) / (this.field1586 - this.field1592[this.field1591]));
 		}
 
-		if (this.field1580 < 25) {
-			this.field1580 = 25;
+		if (this.field1587 < 25) {
+			this.field1587 = 25;
 		}
 
-		if (this.field1580 > 256) {
-			this.field1580 = 256;
-			this.field1582 = (int)((long)var1 - (this.field1584 - this.field1581[this.field1585]) / 10L);
+		if (this.field1587 > 256) {
+			this.field1587 = 256;
+			this.field1589 = (int)((long)var1 - (this.field1586 - this.field1592[this.field1591]) / 10L);
 		}
 
-		if (this.field1582 > var1) {
-			this.field1582 = var1;
+		if (this.field1589 > var1) {
+			this.field1589 = var1;
 		}
 
-		this.field1581[this.field1585] = this.field1584;
-		this.field1585 = (this.field1585 + 1) % 10;
+		this.field1592[this.field1591] = this.field1586;
+		this.field1591 = (this.field1591 + 1) % 10;
 		int var5;
-		if (this.field1582 > 1) {
+		if (this.field1589 > 1) {
 			for (var5 = 0; var5 < 10; ++var5) {
-				if (0L != this.field1581[var5]) {
-					this.field1581[var5] += (long)this.field1582;
+				if (0L != this.field1592[var5]) {
+					this.field1592[var5] += (long)this.field1589;
 				}
 			}
 		}
 
-		if (this.field1582 < var2) {
-			this.field1582 = var2;
+		if (this.field1589 < var2) {
+			this.field1589 = var2;
 		}
 
-		PlayerType.method5099((long)this.field1582);
+		class121.method2542((long)this.field1589);
 
-		for (var5 = 0; this.field1583 < 256; this.field1583 += this.field1580) {
+		for (var5 = 0; this.field1590 < 256; this.field1590 += this.field1587) {
 			++var5;
 		}
 
-		this.field1583 &= 255;
+		this.field1590 &= 255;
 		return var5;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "473424280"
+		descriptor = "(CI)B",
+		garbageValue = "1031571888"
 	)
-	public static int method2795(int var0, int var1, int var2) {
-		var2 &= 3;
-		if (var2 == 0) {
-			return var0;
-		} else if (var2 == 1) {
-			return var1;
+	@Export("charToByteCp1252")
+	public static byte charToByteCp1252(char var0) {
+		byte var1;
+		if (var0 > 0 && var0 < 128 || var0 >= 160 && var0 <= 255) {
+			var1 = (byte)var0;
+		} else if (var0 == 8364) {
+			var1 = -128;
+		} else if (var0 == 8218) {
+			var1 = -126;
+		} else if (var0 == 402) {
+			var1 = -125;
+		} else if (var0 == 8222) {
+			var1 = -124;
+		} else if (var0 == 8230) {
+			var1 = -123;
+		} else if (var0 == 8224) {
+			var1 = -122;
+		} else if (var0 == 8225) {
+			var1 = -121;
+		} else if (var0 == 710) {
+			var1 = -120;
+		} else if (var0 == 8240) {
+			var1 = -119;
+		} else if (var0 == 352) {
+			var1 = -118;
+		} else if (var0 == 8249) {
+			var1 = -117;
+		} else if (var0 == 338) {
+			var1 = -116;
+		} else if (var0 == 381) {
+			var1 = -114;
+		} else if (var0 == 8216) {
+			var1 = -111;
+		} else if (var0 == 8217) {
+			var1 = -110;
+		} else if (var0 == 8220) {
+			var1 = -109;
+		} else if (var0 == 8221) {
+			var1 = -108;
+		} else if (var0 == 8226) {
+			var1 = -107;
+		} else if (var0 == 8211) {
+			var1 = -106;
+		} else if (var0 == 8212) {
+			var1 = -105;
+		} else if (var0 == 732) {
+			var1 = -104;
+		} else if (var0 == 8482) {
+			var1 = -103;
+		} else if (var0 == 353) {
+			var1 = -102;
+		} else if (var0 == 8250) {
+			var1 = -101;
+		} else if (var0 == 339) {
+			var1 = -100;
+		} else if (var0 == 382) {
+			var1 = -98;
+		} else if (var0 == 376) {
+			var1 = -97;
 		} else {
-			return var2 == 2 ? 7 - var0 : 7 - var1;
+			var1 = 63;
 		}
+
+		return var1;
 	}
 
-	@ObfuscatedName("jh")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(Ljd;III)V",
-		garbageValue = "1765298455"
+		descriptor = "(I)V",
+		garbageValue = "152507441"
 	)
-	@Export("Widget_addToMenu")
-	static final void Widget_addToMenu(Widget var0, int var1, int var2) {
-		if (var0.buttonType == 1) {
-			ModelData0.insertMenuItemNoShift(var0.buttonText, "", 24, 0, 0, var0.id);
-		}
+	public static void method2858() {
+		WorldMapElement.WorldMapElement_cachedSprites.clear();
+	}
 
-		String var3;
-		if (var0.buttonType == 2 && !Client.isSpellSelected) {
-			var3 = FileSystem.Widget_getSpellActionName(var0);
-			if (var3 != null) {
-				ModelData0.insertMenuItemNoShift(var3, class54.colorStartTag(65280) + var0.spellName, 25, 0, -1, var0.id);
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "(II)Lht;",
+		garbageValue = "-1575464478"
+	)
+	@Export("getFrames")
+	static Frames getFrames(int var0) {
+		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			var1 = class124.method2560(class13.SequenceDefinition_animationsArchive, SequenceDefinition.SequenceDefinition_skeletonsArchive, var0, false);
+			if (var1 != null) {
+				SequenceDefinition.SequenceDefinition_cachedFrames.put(var1, (long)var0);
 			}
+
+			return var1;
 		}
-
-		if (var0.buttonType == 3) {
-			ModelData0.insertMenuItemNoShift("Close", "", 26, 0, 0, var0.id);
-		}
-
-		if (var0.buttonType == 4) {
-			ModelData0.insertMenuItemNoShift(var0.buttonText, "", 28, 0, 0, var0.id);
-		}
-
-		if (var0.buttonType == 5) {
-			ModelData0.insertMenuItemNoShift(var0.buttonText, "", 29, 0, 0, var0.id);
-		}
-
-		if (var0.buttonType == 6 && Client.meslayerContinueWidget == null) {
-			ModelData0.insertMenuItemNoShift(var0.buttonText, "", 30, 0, -1, var0.id);
-		}
-
-		int var4;
-		int var15;
-		if (var0.type == 2) {
-			var15 = 0;
-
-			for (var4 = 0; var4 < var0.height; ++var4) {
-				for (int var17 = 0; var17 < var0.width; ++var17) {
-					int var6 = (var0.paddingX + 32) * var17;
-					int var7 = (var0.paddingY + 32) * var4;
-					if (var15 < 20) {
-						var6 += var0.inventoryXOffsets[var15];
-						var7 += var0.inventoryYOffsets[var15];
-					}
-
-					if (var1 >= var6 && var2 >= var7 && var1 < var6 + 32 && var2 < var7 + 32) {
-						Client.dragItemSlotDestination = var15;
-						GameBuild.hoveredItemContainer = var0;
-						if (var0.itemIds[var15] > 0) {
-							ItemComposition var8 = class65.ItemDefinition_get(var0.itemIds[var15] - 1);
-							if (Client.isItemSelected == 1 && WorldMapEvent.method3947(Decimator.getWidgetFlags(var0))) {
-								if (var0.id != Tiles.selectedItemWidget || var15 != DesktopPlatformInfoProvider.selectedItemSlot) {
-									ModelData0.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + class54.colorStartTag(16748608) + var8.name, 31, var8.id, var15, var0.id);
-								}
-							} else {
-								label316: {
-									int var10;
-									if (Client.isSpellSelected) {
-										var10 = Decimator.getWidgetFlags(var0);
-										boolean var9 = (var10 >> 30 & 1) != 0;
-										if (var9) {
-											if ((ScriptFrame.selectedSpellFlags & 16) == 16) {
-												ModelData0.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + class54.colorStartTag(16748608) + var8.name, 32, var8.id, var15, var0.id);
-											}
-											break label316;
-										}
-									}
-
-									String[] var18 = var8.inventoryActions;
-									var10 = -1;
-									boolean var11;
-									if (Client.shiftClickDrop) {
-										var11 = Client.tapToDrop || KeyHandler.KeyHandler_pressedKeys[81];
-										if (var11) {
-											var10 = var8.getShiftClickIndex();
-										}
-									}
-
-									if (WorldMapEvent.method3947(Decimator.getWidgetFlags(var0))) {
-										for (int var19 = 4; var19 >= 3; --var19) {
-											if (var19 != var10) {
-												AbstractSocket.addWidgetItemMenuItem(var0, var8, var15, var19, false);
-											}
-										}
-									}
-
-									int var12 = Decimator.getWidgetFlags(var0);
-									var11 = (var12 >> 31 & 1) != 0;
-									if (var11) {
-										ModelData0.insertMenuItemNoShift("Use", class54.colorStartTag(16748608) + var8.name, 38, var8.id, var15, var0.id);
-									}
-
-									Object var10000 = null;
-									int var13;
-									if (WorldMapEvent.method3947(Decimator.getWidgetFlags(var0))) {
-										for (var13 = 2; var13 >= 0; --var13) {
-											if (var10 != var13) {
-												AbstractSocket.addWidgetItemMenuItem(var0, var8, var15, var13, false);
-											}
-										}
-
-										if (var10 >= 0) {
-											AbstractSocket.addWidgetItemMenuItem(var0, var8, var15, var10, true);
-										}
-									}
-
-									var18 = var0.itemActions;
-									if (var18 != null) {
-										for (var13 = 4; var13 >= 0; --var13) {
-											if (var18[var13] != null) {
-												byte var14 = 0;
-												if (var13 == 0) {
-													var14 = 39;
-												}
-
-												if (var13 == 1) {
-													var14 = 40;
-												}
-
-												if (var13 == 2) {
-													var14 = 41;
-												}
-
-												if (var13 == 3) {
-													var14 = 42;
-												}
-
-												if (var13 == 4) {
-													var14 = 43;
-												}
-
-												ModelData0.insertMenuItemNoShift(var18[var13], class54.colorStartTag(16748608) + var8.name, var14, var8.id, var15, var0.id);
-											}
-										}
-									}
-
-									ModelData0.insertMenuItemNoShift("Examine", class54.colorStartTag(16748608) + var8.name, 1005, var8.id, var15, var0.id);
-								}
-							}
-						}
-					}
-
-					++var15;
-				}
-			}
-		}
-
-		if (var0.isIf3) {
-			if (Client.isSpellSelected) {
-				var4 = Decimator.getWidgetFlags(var0);
-				boolean var20 = (var4 >> 21 & 1) != 0;
-				if (var20 && (ScriptFrame.selectedSpellFlags & 32) == 32) {
-					ModelData0.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + var0.dataText, 58, 0, var0.childIndex, var0.id);
-				}
-			} else {
-				for (var15 = 9; var15 >= 5; --var15) {
-					String var16 = class28.method405(var0, var15);
-					if (var16 != null) {
-						ModelData0.insertMenuItemNoShift(var16, var0.dataText, 1007, var15 + 1, var0.childIndex, var0.id);
-					}
-				}
-
-				var3 = FileSystem.Widget_getSpellActionName(var0);
-				if (var3 != null) {
-					ModelData0.insertMenuItemNoShift(var3, var0.dataText, 25, 0, var0.childIndex, var0.id);
-				}
-
-				for (var4 = 4; var4 >= 0; --var4) {
-					String var5 = class28.method405(var0, var4);
-					if (var5 != null) {
-						GrandExchangeEvents.insertMenuItem(var5, var0.dataText, 57, var4 + 1, var0.childIndex, var0.id, var0.prioritizeMenuEntry);
-					}
-				}
-
-				if (Varps.method4865(Decimator.getWidgetFlags(var0))) {
-					ModelData0.insertMenuItemNoShift("Continue", "", 30, 0, var0.childIndex, var0.id);
-				}
-			}
-		}
-
 	}
 }

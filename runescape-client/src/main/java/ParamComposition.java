@@ -3,35 +3,36 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("fn")
+@ObfuscatedName("ff")
 @Implements("ParamComposition")
 public class ParamComposition extends DualNode {
-	@ObfuscatedName("tp")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lnh;"
+		descriptor = "Lkl;"
 	)
-	@Export("platformInfo")
-	static PlatformInfo platformInfo;
-	@ObfuscatedName("c")
+	@Export("StructDefinition_archive")
+	static AbstractArchive StructDefinition_archive;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Lii;"
 	)
 	@Export("ParamDefinition_cached")
 	public static EvictingDualNodeHashTable ParamDefinition_cached;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("type")
 	char type;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 745031589
+		intValue = -344905889
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@Export("autoDisable")
 	boolean autoDisable;
 
@@ -43,19 +44,19 @@ public class ParamComposition extends DualNode {
 		this.autoDisable = true;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1027941323"
+		garbageValue = "-1043156770"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;S)V",
-		garbageValue = "3920"
+		descriptor = "(Lot;I)V",
+		garbageValue = "1816742030"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -69,31 +70,15 @@ public class ParamComposition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;II)V",
-		garbageValue = "310770628"
+		garbageValue = "1310353401"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 1) {
-			byte var4 = var1.readByte();
-			int var5 = var4 & 255;
-			if (var5 == 0) {
-				throw new IllegalArgumentException("" + Integer.toString(var5, 16));
-			}
-
-			if (var5 >= 128 && var5 < 160) {
-				char var6 = class316.cp1252AsciiExtension[var5 - 128];
-				if (var6 == 0) {
-					var6 = '?';
-				}
-
-				var5 = var6;
-			}
-
-			char var3 = (char)var5;
-			this.type = var3;
+			this.type = KitDefinition.method2959(var1.readByte());
 		} else if (var2 == 2) {
 			this.defaultInt = var1.readInt();
 		} else if (var2 == 4) {
@@ -104,93 +89,59 @@ public class ParamComposition extends DualNode {
 
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "625331841"
+		descriptor = "(S)Z",
+		garbageValue = "-14378"
 	)
 	@Export("isString")
 	public boolean isString() {
 		return this.type == 's';
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lps;"
+		descriptor = "(CB)Z",
+		garbageValue = "13"
 	)
-	@Export("newRunException")
-	public static RunException newRunException(Throwable var0, String var1) {
-		RunException var2;
-		if (var0 instanceof RunException) {
-			var2 = (RunException)var0;
-			var2.message = var2.message + ' ' + var1;
+	public static boolean method3128(char var0) {
+		if (var0 >= ' ' && var0 < 127 || var0 > 127 && var0 < 160 || var0 > 160 && var0 <= 255) {
+			return true;
 		} else {
-			var2 = new RunException(var0, var1);
-		}
+			if (var0 != 0) {
+				char[] var1 = class316.cp1252AsciiExtension;
 
-		return var2;
-	}
-
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(III)Ljd;",
-		garbageValue = "-1331542221"
-	)
-	@Export("getWidgetChild")
-	public static Widget getWidgetChild(int var0, int var1) {
-		Widget var2 = class87.getWidget(var0);
-		if (var1 == -1) {
-			return var2;
-		} else {
-			return var2 != null && var2.children != null && var1 < var2.children.length ? var2.children[var1] : null;
-		}
-	}
-
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-1984835425"
-	)
-	@Export("Messages_getLastChatID")
-	static int Messages_getLastChatID(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
-		if (var1 == null) {
-			return -1;
-		} else {
-			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.previousDual).count;
-		}
-	}
-
-	@ObfuscatedName("hd")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIIIB)V",
-		garbageValue = "74"
-	)
-	@Export("updatePendingSpawn")
-	static final void updatePendingSpawn(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-		PendingSpawn var9 = null;
-
-		for (PendingSpawn var10 = (PendingSpawn)Client.pendingSpawns.last(); var10 != null; var10 = (PendingSpawn)Client.pendingSpawns.previous()) {
-			if (var0 == var10.plane && var10.x == var1 && var2 == var10.y && var3 == var10.type) {
-				var9 = var10;
-				break;
+				for (int var2 = 0; var2 < var1.length; ++var2) {
+					char var3 = var1[var2];
+					if (var0 == var3) {
+						return true;
+					}
+				}
 			}
-		}
 
-		if (var9 == null) {
-			var9 = new PendingSpawn();
-			var9.plane = var0;
-			var9.type = var3;
-			var9.x = var1;
-			var9.y = var2;
-			InterfaceParent.method2044(var9);
-			Client.pendingSpawns.addFirst(var9);
+			return false;
 		}
+	}
 
-		var9.id = var4;
-		var9.field1087 = var5;
-		var9.orientation = var6;
-		var9.delay = var7;
-		var9.hitpoints = var8;
+	@ObfuscatedName("ag")
+	@ObfuscatedSignature(
+		descriptor = "(ILbe;ZB)I",
+		garbageValue = "81"
+	)
+	static int method3129(int var0, Script var1, boolean var2) {
+		if (var0 == ScriptOpcodes.LOGOUT) {
+			Client.logoutTimer = 250;
+			return 1;
+		} else if (var0 != 5631 && var0 != 5633) {
+			if (var0 == 5632) {
+				Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = 26;
+				return 1;
+			} else {
+				return 2;
+			}
+		} else {
+			class54.Interpreter_stringStackSize -= 2;
+			return 1;
+		}
 	}
 }

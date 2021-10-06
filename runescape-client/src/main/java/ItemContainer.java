@@ -3,25 +3,27 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bz")
+@ObfuscatedName("br")
 @Implements("ItemContainer")
 public class ItemContainer extends Node {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lnk;"
+		descriptor = "Lni;"
 	)
 	@Export("itemContainers")
 	static NodeHashTable itemContainers;
-	@ObfuscatedName("a")
-	@Export("SpriteBuffer_spritePalette")
-	public static int[] SpriteBuffer_spritePalette;
-	@ObfuscatedName("r")
-	@Export("userHomeDirectory")
-	public static String userHomeDirectory;
-	@ObfuscatedName("c")
+	@ObfuscatedName("bm")
+	static String field1009;
+	@ObfuscatedName("eh")
+	@ObfuscatedSignature(
+		descriptor = "Lky;"
+	)
+	@Export("archive17")
+	static Archive archive17;
+	@ObfuscatedName("q")
 	@Export("ids")
 	int[] ids;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("quantities")
 	int[] quantities;
 
@@ -34,56 +36,77 @@ public class ItemContainer extends Node {
 		this.quantities = new int[]{0};
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lkk;Lkk;B)Z",
-		garbageValue = "25"
+		descriptor = "(II)Lfn;",
+		garbageValue = "1889107784"
 	)
-	public static boolean method2025(AbstractArchive var0, AbstractArchive var1) {
-		WorldMapElement.WorldMapElement_archive = var1;
-		if (!var0.isFullyLoaded()) {
-			return false;
+	public static HitSplatDefinition method2057(int var0) {
+		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
 		} else {
-			Username.WorldMapElement_count = var0.getGroupFileCount(35);
-			WorldMapElement.WorldMapElement_cached = new WorldMapElement[Username.WorldMapElement_count];
-
-			for (int var2 = 0; var2 < Username.WorldMapElement_count; ++var2) {
-				byte[] var3 = var0.takeFile(35, var2);
-				WorldMapElement.WorldMapElement_cached[var2] = new WorldMapElement(var2);
-				if (var3 != null) {
-					WorldMapElement.WorldMapElement_cached[var2].decode(new Buffer(var3));
-					WorldMapElement.WorldMapElement_cached[var2].method2846();
-				}
+			byte[] var2 = HitSplatDefinition.HitSplatDefinition_archive.takeFile(32, var0);
+			var1 = new HitSplatDefinition();
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
 			}
 
-			return true;
+			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-569852185"
+		descriptor = "(III)I",
+		garbageValue = "159025977"
 	)
-	public static int method2041(int var0) {
-		--var0;
-		var0 |= var0 >>> 1;
-		var0 |= var0 >>> 2;
-		var0 |= var0 >>> 4;
-		var0 |= var0 >>> 8;
-		var0 |= var0 >>> 16;
-		return var0 + 1;
+	static int method2059(int var0, int var1) {
+		FloorOverlayDefinition var3 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var0);
+		FloorOverlayDefinition var2;
+		if (var3 != null) {
+			var2 = var3;
+		} else {
+			byte[] var4 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var0);
+			var3 = new FloorOverlayDefinition();
+			if (var4 != null) {
+				var3.decode(new Buffer(var4), var0);
+			}
+
+			var3.postDecode();
+			FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var3, (long)var0);
+			var2 = var3;
+		}
+
+		if (var2 == null) {
+			return var1;
+		} else if (var2.secondaryRgb >= 0) {
+			return var2.secondaryRgb | -16777216;
+		} else {
+			int var6;
+			if (var2.texture >= 0) {
+				var6 = Client.method1588(Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var2.texture), 96);
+				return Rasterizer3D.Rasterizer3D_colorPalette[var6] | -16777216;
+			} else if (var2.primaryRgb == 16711935) {
+				return var1;
+			} else {
+				var6 = class275.method5120(var2.hue, var2.saturation, var2.lightness);
+				int var5 = Client.method1588(var6, 96);
+				return Rasterizer3D.Rasterizer3D_colorPalette[var5] | -16777216;
+			}
+		}
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("jn")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-361869455"
+		descriptor = "(III)V",
+		garbageValue = "2066251620"
 	)
-	static void method2029() {
-		Messages.Messages_channels.clear();
-		Messages.Messages_hashTable.clear();
-		Messages.Messages_queue.clear();
-		Messages.Messages_count = 0;
+	@Export("runIntfCloseListeners")
+	static final void runIntfCloseListeners(int var0, int var1) {
+		if (GrandExchangeOfferTotalQuantityComparator.loadInterface(var0)) {
+			MouseHandler.runComponentCloseListeners(Widget.Widget_interfaceComponents[var0], var1);
+		}
 	}
 }

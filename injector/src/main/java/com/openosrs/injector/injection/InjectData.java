@@ -7,7 +7,6 @@
  */
 package com.openosrs.injector.injection;
 
-import com.google.common.collect.ImmutableMap;
 import com.openosrs.injector.InjectUtil;
 import com.openosrs.injector.injectors.Injector;
 import com.openosrs.injector.rsapi.RSApi;
@@ -45,7 +44,7 @@ public abstract class InjectData
 	/**
 	 * Deobfuscated ClassFiles -> Vanilla ClassFiles
 	 */
-	public Map<ClassFile, ClassFile> toVanilla;
+	public final Map<ClassFile, ClassFile> toVanilla = new HashMap<>();
 
 	/**
 	 * Strings -> Deobfuscated ClassFiles
@@ -53,17 +52,15 @@ public abstract class InjectData
 	 * - Obfuscated name
 	 * - RSApi implementing name
 	 */
-	private final Map<String, ClassFile> toDeob = new HashMap<>();
+	public final Map<String, ClassFile> toDeob = new HashMap<>();
 
 	public abstract void runChildInjector(Injector injector);
 
 	public void initToVanilla()
 	{
-		ImmutableMap.Builder<ClassFile, ClassFile> toVanillaB = ImmutableMap.builder();
-
 		for (final ClassFile deobClass : deobfuscated)
 		{
-			if (deobClass.getName().startsWith("net/runelite/"))
+			if (deobClass.getName().startsWith("net/runelite/") || deobClass.getName().startsWith("netscape"))
 			{
 				continue;
 			}
@@ -73,13 +70,14 @@ public abstract class InjectData
 			{
 				toDeob.put(obName, deobClass);
 
-				// Can't be null
 				final ClassFile obClass = this.vanilla.findClass(obName);
-				toVanillaB.put(deobClass, obClass);
+
+				if (obClass != null)
+				{
+					toVanilla.put(deobClass, obClass);
+				}
 			}
 		}
-
-		this.toVanilla = toVanillaB.build();
 	}
 
 	/**

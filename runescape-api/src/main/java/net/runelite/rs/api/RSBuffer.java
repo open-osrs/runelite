@@ -11,6 +11,9 @@ public interface RSBuffer extends Buffer, RSNode
 	@Import("offset")
 	int getOffset();
 
+	@Import("offset")
+	void setOffset(int offset);
+
 	@Import("writeByte")
 	@Override
 	void writeByte(int var1);
@@ -34,4 +37,22 @@ public interface RSBuffer extends Buffer, RSNode
 	@Import("writeStringCp1252NullTerminated")
 	@Override
 	void writeStringCp1252NullTerminated(String string);
+
+	@Import("readUnsignedByte")
+	int readUnsignedByte();
+
+	@Import("readByte")
+	byte readByte();
+
+	@Import("readUnsignedShort")
+	int readUnsignedShort();
+
+	@Import("readShort")
+	int readShort();
+
+	@Import("readInt")
+	int readInt();
+
+	@Import("readStringCp1252NullTerminated")
+	String readStringCp1252NullTerminated();
 }

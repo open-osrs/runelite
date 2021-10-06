@@ -33,5 +33,5 @@ public class FriendsChatMemberLeft
 	/**
 	 * The member that left
 	 */
-	FriendsChatMember member;
+	private FriendsChatMember member;
 }

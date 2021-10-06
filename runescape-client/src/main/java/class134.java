@@ -1,163 +1,220 @@
+import java.io.File;
+import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ev")
+@ObfuscatedName("ef")
 public class class134 extends class116 {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1400384309
+		intValue = -505118103
 	)
-	int field1504;
-	@ObfuscatedName("c")
+	int field1506;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 986864169
+		intValue = 1790631941
 	)
-	int field1505;
+	int field1503;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldc;"
+		descriptor = "Ldg;"
 	)
 	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldc;)V"
+		descriptor = "(Ldg;)V"
 	)
 	class134(class119 var1) {
 		this.this$0 = var1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;I)V",
-		garbageValue = "-1413895325"
+		garbageValue = "-912681401"
 	)
-	void vmethod2711(Buffer var1) {
-		this.field1504 = var1.readInt();
-		this.field1505 = var1.readInt();
+	void vmethod2767(Buffer var1) {
+		this.field1506 = var1.readInt();
+		this.field1503 = var1.readInt();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ldi;I)V",
-		garbageValue = "697483856"
+		descriptor = "(Ldk;I)V",
+		garbageValue = "-1225074726"
 	)
-	void vmethod2712(ClanSettings var1) {
-		var1.method2568(this.field1504, this.field1505);
+	void vmethod2766(ClanSettings var1) {
+		var1.method2597(this.field1506, this.field1503);
 	}
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "([BIIIIIII[Lfk;I)V",
-		garbageValue = "1098650008"
-	)
-	static final void method2665(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, CollisionMap[] var8) {
-		int var10;
-		for (int var9 = 0; var9 < 8; ++var9) {
-			for (var10 = 0; var10 < 8; ++var10) {
-				if (var9 + var2 > 0 && var9 + var2 < 103 && var3 + var10 > 0 && var3 + var10 < 103) {
-					int[] var10000 = var8[var1].flags[var9 + var2];
-					var10000[var10 + var3] &= -16777217;
-				}
-			}
-		}
-
-		Buffer var21 = new Buffer(var0);
-
-		for (var10 = 0; var10 < 4; ++var10) {
-			for (int var11 = 0; var11 < 64; ++var11) {
-				for (int var12 = 0; var12 < 64; ++var12) {
-					if (var10 == var4 && var11 >= var5 && var11 < var5 + 8 && var12 >= var6 && var12 < var6 + 8) {
-						int var15 = var2 + MilliClock.method2795(var11 & 7, var12 & 7, var7);
-						int var18 = var11 & 7;
-						int var19 = var12 & 7;
-						int var20 = var7 & 3;
-						int var17;
-						if (var20 == 0) {
-							var17 = var19;
-						} else if (var20 == 1) {
-							var17 = 7 - var18;
-						} else if (var20 == 2) {
-							var17 = 7 - var19;
-						} else {
-							var17 = var18;
-						}
-
-						StructComposition.loadTerrain(var21, var1, var15, var3 + var17, 0, 0, var7);
-					} else {
-						StructComposition.loadTerrain(var21, 0, -1, -1, 0, 0, 0);
-					}
-				}
-			}
-		}
-
-	}
-
-	@ObfuscatedName("bg")
-	@ObfuscatedSignature(
-		descriptor = "([BI)[B",
-		garbageValue = "-2109357205"
-	)
-	@Export("decompressBytes")
-	static final byte[] decompressBytes(byte[] var0) {
-		Buffer var1 = new Buffer(var0);
-		int var2 = var1.readUnsignedByte();
-		int var3 = var1.readInt();
-		if (var3 < 0 || AbstractArchive.field3717 != 0 && var3 > AbstractArchive.field3717) {
-			throw new RuntimeException();
-		} else if (var2 == 0) {
-			byte[] var6 = new byte[var3];
-			var1.readBytes(var6, 0, var3);
-			return var6;
-		} else {
-			int var4 = var1.readInt();
-			if (var4 >= 0 && (AbstractArchive.field3717 == 0 || var4 <= AbstractArchive.field3717)) {
-				byte[] var5 = new byte[var4];
-				if (var2 == 1) {
-					BZip2Decompressor.BZip2Decompressor_decompress(var5, var4, var0, var3, 9);
-				} else {
-					AbstractArchive.gzipDecompressor.decompress(var1, var5);
-				}
-
-				return var5;
+	@ObfuscatedName("l")
+	public static final int method2708(double var0, double var2, double var4) {
+		double var6 = var4;
+		double var8 = var4;
+		double var10 = var4;
+		if (0.0D != var2) {
+			double var12;
+			if (var4 < 0.5D) {
+				var12 = (1.0D + var2) * var4;
 			} else {
-				throw new RuntimeException();
+				var12 = var4 + var2 - var4 * var2;
+			}
+
+			double var14 = var4 * 2.0D - var12;
+			double var16 = 0.3333333333333333D + var0;
+			if (var16 > 1.0D) {
+				--var16;
+			}
+
+			double var20 = var0 - 0.3333333333333333D;
+			if (var20 < 0.0D) {
+				++var20;
+			}
+
+			if (var16 * 6.0D < 1.0D) {
+				var6 = var16 * 6.0D * (var12 - var14) + var14;
+			} else if (var16 * 2.0D < 1.0D) {
+				var6 = var12;
+			} else if (3.0D * var16 < 2.0D) {
+				var6 = var14 + (var12 - var14) * (0.6666666666666666D - var16) * 6.0D;
+			} else {
+				var6 = var14;
+			}
+
+			if (6.0D * var0 < 1.0D) {
+				var8 = var0 * (var12 - var14) * 6.0D + var14;
+			} else if (var0 * 2.0D < 1.0D) {
+				var8 = var12;
+			} else if (var0 * 3.0D < 2.0D) {
+				var8 = (var12 - var14) * (0.6666666666666666D - var0) * 6.0D + var14;
+			} else {
+				var8 = var14;
+			}
+
+			if (var20 * 6.0D < 1.0D) {
+				var10 = var14 + var20 * (var12 - var14) * 6.0D;
+			} else if (var20 * 2.0D < 1.0D) {
+				var10 = var12;
+			} else if (3.0D * var20 < 2.0D) {
+				var10 = 6.0D * (var12 - var14) * (0.6666666666666666D - var20) + var14;
+			} else {
+				var10 = var14;
+			}
+		}
+
+		int var22 = (int)(var6 * 256.0D);
+		int var13 = (int)(256.0D * var8);
+		int var23 = (int)(var10 * 256.0D);
+		int var15 = var23 + (var13 << 8) + (var22 << 16);
+		return var15;
+	}
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;S)Ljava/io/File;",
+		garbageValue = "-12819"
+	)
+	@Export("getFile")
+	static File getFile(String var0) {
+		if (!FileSystem.FileSystem_hasPermissions) {
+			throw new RuntimeException("");
+		} else {
+			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0);
+			if (var1 != null) {
+				return var1;
+			} else {
+				File var2 = new File(FileSystem.FileSystem_cacheDir, var0);
+				RandomAccessFile var3 = null;
+
+				try {
+					File var4 = new File(var2.getParent());
+					if (!var4.exists()) {
+						throw new RuntimeException("");
+					} else {
+						var3 = new RandomAccessFile(var2, "rw");
+						int var5 = var3.read();
+						var3.seek(0L);
+						var3.write(var5);
+						var3.seek(0L);
+						var3.close();
+						FileSystem.FileSystem_cacheFiles.put(var0, var2);
+						return var2;
+					}
+				} catch (Exception var8) {
+					try {
+						if (var3 != null) {
+							var3.close();
+							var3 = null;
+						}
+					} catch (Exception var7) {
+					}
+
+					throw new RuntimeException();
+				}
 			}
 		}
 	}
 
-	@ObfuscatedName("hc")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(ZLoq;I)V",
-		garbageValue = "637231009"
+		descriptor = "(Ljt;I[B[BI)V",
+		garbageValue = "676487330"
 	)
-	@Export("updateNpcs")
-	static final void updateNpcs(boolean var0, PacketBuffer var1) {
-		Client.field495 = 0;
-		Client.field560 = 0;
-		GameObject.method4496();
-		Huffman.method5011(var0, var1);
-		AttackOption.method2255(var1);
+	@Export("Widget_setKey")
+	static final void Widget_setKey(Widget var0, int var1, byte[] var2, byte[] var3) {
+		if (var0.field3115 == null) {
+			if (var2 == null) {
+				return;
+			}
 
-		int var2;
-		for (var2 = 0; var2 < Client.field495; ++var2) {
-			int var3 = Client.field610[var2];
-			if (Client.npcs[var3].npcCycle != Client.cycle) {
-				Client.npcs[var3].definition = null;
-				Client.npcs[var3] = null;
+			var0.field3115 = new byte[11][];
+			var0.field3123 = new byte[11][];
+			var0.field3147 = new int[11];
+			var0.field3066 = new int[11];
+		}
+
+		var0.field3115[var1] = var2;
+		if (var2 != null) {
+			var0.field3121 = true;
+		} else {
+			var0.field3121 = false;
+
+			for (int var4 = 0; var4 < var0.field3115.length; ++var4) {
+				if (var0.field3115[var4] != null) {
+					var0.field3121 = true;
+					break;
+				}
 			}
 		}
 
-		if (var1.offset != Client.packetWriter.serverPacketLength) {
-			throw new RuntimeException(var1.offset + "," + Client.packetWriter.serverPacketLength);
-		} else {
-			for (var2 = 0; var2 < Client.npcCount; ++var2) {
-				if (Client.npcs[Client.npcIndices[var2]] == null) {
-					throw new RuntimeException(var2 + "," + Client.npcCount);
+		var0.field3123[var1] = var3;
+	}
+
+	@ObfuscatedName("fh")
+	@ObfuscatedSignature(
+		descriptor = "(Lfe;IIII)V",
+		garbageValue = "1522146885"
+	)
+	static void method2716(SequenceDefinition var0, int var1, int var2, int var3) {
+		if (Client.soundEffectCount < 50 && WorldMapDecorationType.clientPreferences.areaSoundEffectsVolume != 0) {
+			if (var0.soundEffects != null && var1 < var0.soundEffects.length) {
+				int var4 = var0.soundEffects[var1];
+				if (var4 != 0) {
+					int var5 = var4 >> 8;
+					int var6 = var4 >> 4 & 7;
+					int var7 = var4 & 15;
+					Client.soundEffectIds[Client.soundEffectCount] = var5;
+					Client.queuedSoundEffectLoops[Client.soundEffectCount] = var6;
+					Client.queuedSoundEffectDelays[Client.soundEffectCount] = 0;
+					Client.soundEffects[Client.soundEffectCount] = null;
+					int var8 = (var2 - 64) / 128;
+					int var9 = (var3 - 64) / 128;
+					Client.soundLocations[Client.soundEffectCount] = var7 + (var9 << 8) + (var8 << 16);
+					++Client.soundEffectCount;
 				}
 			}
-
 		}
 	}
 }

@@ -35,7 +35,6 @@ import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSActor;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSNPC;
 import net.runelite.rs.api.RSPcmStream;
 import net.runelite.rs.api.RSRawPcmStream;
 import net.runelite.rs.api.RSRawSound;
@@ -53,18 +52,11 @@ public abstract class SoundEffectMixin implements RSClient
 	@Inject
 	private static RSActor lastSoundEffectSourceActor;
 
-	@Inject
-	private static int lastSoundEffectSourceNPCid;
-
 	@Copy("updateActorSequence")
 	@Replace("updateActorSequence")
 	@SuppressWarnings("InfiniteRecursion")
 	public static void copy$updateActorSequence(RSActor actor, int size)
 	{
-		if (actor instanceof RSNPC)
-		{
-			lastSoundEffectSourceNPCid = ((RSNPC) actor).getId();
-		}
 		lastSoundEffectSourceActor = actor;
 
 		copy$updateActorSequence(actor, size);
@@ -87,8 +79,6 @@ public abstract class SoundEffectMixin implements RSClient
 			{
 				// Regular sound effect
 				SoundEffectPlayed event = new SoundEffectPlayed(lastSoundEffectSourceActor);
-				event.setNpcid(lastSoundEffectSourceNPCid);
-				lastSoundEffectSourceNPCid = -1;
 				event.setSoundId(client.getQueuedSoundEffectIDs()[soundIndex]);
 				event.setDelay(client.getQueuedSoundEffectDelays()[soundIndex]);
 				client.getCallbacks().post(event);

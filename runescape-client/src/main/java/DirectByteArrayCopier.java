@@ -5,29 +5,22 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jm")
+@ObfuscatedName("jc")
 @Implements("DirectByteArrayCopier")
 public class DirectByteArrayCopier extends AbstractByteArrayCopier {
-	@ObfuscatedName("m")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1246567365
+		intValue = 77516077
 	)
-	@Export("KitDefinition_fileCount")
-	public static int KitDefinition_fileCount;
-	@ObfuscatedName("e")
-	@Export("Tiles_hue")
-	static int[] Tiles_hue;
-	@ObfuscatedName("n")
+	static int field3212;
+	@ObfuscatedName("l")
 	@Export("directBuffer")
 	ByteBuffer directBuffer;
 
-	DirectByteArrayCopier() {
-	}
-
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(S)[B",
-		garbageValue = "147"
+		descriptor = "(B)[B",
+		garbageValue = "-25"
 	)
 	@Export("get")
 	byte[] get() {
@@ -37,38 +30,29 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		return var1;
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "([BS)V",
-		garbageValue = "2048"
+		descriptor = "([BI)V",
+		garbageValue = "944891137"
 	)
 	@Export("set")
-	void set(byte[] var1) {
+	public void set(byte[] var1) {
 		this.directBuffer = ByteBuffer.allocateDirect(var1.length);
 		this.directBuffer.position(0);
 		this.directBuffer.put(var1);
 	}
 
-	@ObfuscatedName("im")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(IIIII)V",
-		garbageValue = "641314973"
+		descriptor = "(II)I",
+		garbageValue = "333873398"
 	)
-	@Export("selectSpell")
-	static void selectSpell(int var0, int var1, int var2, int var3) {
-		Widget var4 = ParamComposition.getWidgetChild(var0, var1);
-		if (var4 != null && var4.onTargetEnter != null) {
-			ScriptEvent var5 = new ScriptEvent();
-			var5.widget = var4;
-			var5.args = var4.onTargetEnter;
-			class139.runScriptEvent(var5);
+	static int method5102(int var0) {
+		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
+		if (var1 == null) {
+			return -1;
+		} else {
+			return var1.nextDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.nextDual).count;
 		}
-
-		Client.field645 = var3;
-		Client.isSpellSelected = true;
-		WorldMapEvent.selectedSpellWidget = var0;
-		Client.selectedSpellChildIndex = var1;
-		ScriptFrame.selectedSpellFlags = var2;
-		Actor.invalidateWidget(var4);
 	}
 }

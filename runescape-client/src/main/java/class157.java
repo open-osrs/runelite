@@ -2,184 +2,106 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fo")
+@ObfuscatedName("fi")
 public class class157 {
-	@ObfuscatedName("aa")
+	@ObfuscatedName("a")
+	@Export("Widget_loadedInterfaces")
+	public static boolean[] Widget_loadedInterfaces;
+
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lap;I)V",
-		garbageValue = "-781993603"
+		descriptor = "(Lkl;B)V",
+		garbageValue = "-40"
 	)
-	@Export("PcmStream_disable")
-	static final void PcmStream_disable(PcmStream var0) {
-		var0.active = false;
-		if (var0.sound != null) {
-			var0.sound.position = 0;
-		}
-
-		for (PcmStream var1 = var0.firstSubStream(); var1 != null; var1 = var0.nextSubStream()) {
-			PcmStream_disable(var1);
-		}
-
+	public static void method2982(AbstractArchive var0) {
+		ParamComposition.StructDefinition_archive = var0;
 	}
 
-	@ObfuscatedName("gd")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lcf;I)V",
-		garbageValue = "1730571171"
+		descriptor = "(Lot;Ljava/lang/String;I)I",
+		garbageValue = "2143395471"
 	)
-	static final void method2918(Actor var0) {
-		var0.movementSequence = var0.idleSequence;
-		if (var0.pathLength == 0) {
-			var0.field1151 = 0;
-		} else {
-			if (var0.sequence != -1 && var0.sequenceDelay == 0) {
-				SequenceDefinition var1 = class17.SequenceDefinition_get(var0.sequence);
-				if (var0.field1152 > 0 && var1.field1959 == 0) {
-					++var0.field1151;
-					return;
-				}
+	public static int method2985(Buffer var0, String var1) {
+		int var2 = var0.offset;
+		int var4 = var1.length();
+		byte[] var5 = new byte[var4];
 
-				if (var0.field1152 <= 0 && var1.field1960 == 0) {
-					++var0.field1151;
-					return;
-				}
-			}
-
-			int var10 = var0.x;
-			int var2 = var0.y;
-			int var3 = var0.field1137 * 64 + var0.pathX[var0.pathLength - 1] * 128;
-			int var4 = var0.field1137 * 64 + var0.pathY[var0.pathLength - 1] * 128;
-			if (var10 < var3) {
-				if (var2 < var4) {
-					var0.orientation = 1280;
-				} else if (var2 > var4) {
-					var0.orientation = 1792;
-				} else {
-					var0.orientation = 1536;
-				}
-			} else if (var10 > var3) {
-				if (var2 < var4) {
-					var0.orientation = 768;
-				} else if (var2 > var4) {
-					var0.orientation = 256;
-				} else {
-					var0.orientation = 512;
-				}
-			} else if (var2 < var4) {
-				var0.orientation = 1024;
-			} else if (var2 > var4) {
-				var0.orientation = 0;
-			}
-
-			byte var5 = var0.pathTraversed[var0.pathLength - 1];
-			if (var3 - var10 <= 256 && var3 - var10 >= -256 && var4 - var2 <= 256 && var4 - var2 >= -256) {
-				int var6 = var0.orientation - var0.rotation & 2047;
-				if (var6 > 1024) {
-					var6 -= 2048;
-				}
-
-				int var7 = var0.walkBackSequence;
-				if (var6 >= -256 && var6 <= 256) {
-					var7 = var0.walkSequence;
-				} else if (var6 >= 256 && var6 < 768) {
-					var7 = var0.walkRightSequence;
-				} else if (var6 >= -768 && var6 <= -256) {
-					var7 = var0.walkLeftSequence;
-				}
-
-				if (var7 == -1) {
-					var7 = var0.walkSequence;
-				}
-
-				var0.movementSequence = var7;
-				int var8 = 4;
-				boolean var9 = true;
-				if (var0 instanceof NPC) {
-					var9 = ((NPC)var0).definition.isClickable;
-				}
-
-				if (var9) {
-					if (var0.rotation != var0.orientation && var0.targetIndex == -1 && var0.field1146 != 0) {
-						var8 = 2;
-					}
-
-					if (var0.pathLength > 2) {
-						var8 = 6;
-					}
-
-					if (var0.pathLength > 3) {
-						var8 = 8;
-					}
-
-					if (var0.field1151 > 0 && var0.pathLength > 1) {
-						var8 = 8;
-						--var0.field1151;
-					}
-				} else {
-					if (var0.pathLength > 1) {
-						var8 = 6;
-					}
-
-					if (var0.pathLength > 2) {
-						var8 = 8;
-					}
-
-					if (var0.field1151 > 0 && var0.pathLength > 1) {
-						var8 = 8;
-						--var0.field1151;
-					}
-				}
-
-				if (var5 == 2) {
-					var8 <<= 1;
-				}
-
-				if (var8 >= 8 && var0.movementSequence == var0.walkSequence && var0.runSequence != -1) {
-					var0.movementSequence = var0.runSequence;
-				}
-
-				if (var10 != var3 || var4 != var2) {
-					if (var10 < var3) {
-						var0.x += var8;
-						if (var0.x > var3) {
-							var0.x = var3;
-						}
-					} else if (var10 > var3) {
-						var0.x -= var8;
-						if (var0.x < var3) {
-							var0.x = var3;
-						}
-					}
-
-					if (var2 < var4) {
-						var0.y += var8;
-						if (var0.y > var4) {
-							var0.y = var4;
-						}
-					} else if (var2 > var4) {
-						var0.y -= var8;
-						if (var0.y < var4) {
-							var0.y = var4;
-						}
-					}
-				}
-
-				if (var3 == var0.x && var4 == var0.y) {
-					--var0.pathLength;
-					if (var0.field1152 > 0) {
-						--var0.field1152;
-					}
-				}
-
+		for (int var6 = 0; var6 < var4; ++var6) {
+			char var7 = var1.charAt(var6);
+			if (var7 > 0 && var7 < 128 || var7 >= 160 && var7 <= 255) {
+				var5[var6] = (byte)var7;
+			} else if (var7 == 8364) {
+				var5[var6] = -128;
+			} else if (var7 == 8218) {
+				var5[var6] = -126;
+			} else if (var7 == 402) {
+				var5[var6] = -125;
+			} else if (var7 == 8222) {
+				var5[var6] = -124;
+			} else if (var7 == 8230) {
+				var5[var6] = -123;
+			} else if (var7 == 8224) {
+				var5[var6] = -122;
+			} else if (var7 == 8225) {
+				var5[var6] = -121;
+			} else if (var7 == 710) {
+				var5[var6] = -120;
+			} else if (var7 == 8240) {
+				var5[var6] = -119;
+			} else if (var7 == 352) {
+				var5[var6] = -118;
+			} else if (var7 == 8249) {
+				var5[var6] = -117;
+			} else if (var7 == 338) {
+				var5[var6] = -116;
+			} else if (var7 == 381) {
+				var5[var6] = -114;
+			} else if (var7 == 8216) {
+				var5[var6] = -111;
+			} else if (var7 == 8217) {
+				var5[var6] = -110;
+			} else if (var7 == 8220) {
+				var5[var6] = -109;
+			} else if (var7 == 8221) {
+				var5[var6] = -108;
+			} else if (var7 == 8226) {
+				var5[var6] = -107;
+			} else if (var7 == 8211) {
+				var5[var6] = -106;
+			} else if (var7 == 8212) {
+				var5[var6] = -105;
+			} else if (var7 == 732) {
+				var5[var6] = -104;
+			} else if (var7 == 8482) {
+				var5[var6] = -103;
+			} else if (var7 == 353) {
+				var5[var6] = -102;
+			} else if (var7 == 8250) {
+				var5[var6] = -101;
+			} else if (var7 == 339) {
+				var5[var6] = -100;
+			} else if (var7 == 382) {
+				var5[var6] = -98;
+			} else if (var7 == 376) {
+				var5[var6] = -97;
 			} else {
-				var0.x = var3;
-				var0.y = var4;
-				--var0.pathLength;
-				if (var0.field1152 > 0) {
-					--var0.field1152;
-				}
-
+				var5[var6] = 63;
 			}
 		}
+
+		var0.writeSmartByteShort(var5.length);
+		var0.offset += class264.huffman.compress(var5, 0, var5.length, var0.array, var0.offset);
+		return var0.offset - var2;
+	}
+
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIB)I",
+		garbageValue = "-14"
+	)
+	static final int method2986(int var0, int var1, int var2, int var3) {
+		int var4 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var2 * 1024 / var3] >> 1;
+		return ((65536 - var4) * var0 >> 16) + (var4 * var1 >> 16);
 	}
 }

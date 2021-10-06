@@ -1,56 +1,86 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lv")
+@ObfuscatedName("lf")
 public class class328 {
-	@ObfuscatedName("bj")
-	static String field3915;
-
-	@ObfuscatedName("io")
+	@ObfuscatedName("fj")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;I)V",
-		garbageValue = "-1519387336"
+		descriptor = "(Lcd;I)V",
+		garbageValue = "-1815544161"
 	)
-	static void method5845(int var0, String var1) {
-		int var2 = Players.Players_count;
-		int[] var3 = Players.Players_indices;
-		boolean var4 = false;
-		Username var5 = new Username(var1, SoundCache.loginType);
-
-		for (int var6 = 0; var6 < var2; ++var6) {
-			Player var7 = Client.players[var3[var6]];
-			if (var7 != null && var7 != class129.localPlayer && var7.username != null && var7.username.equals(var5)) {
-				PacketBufferNode var8;
-				if (var0 == 1) {
-					var8 = FriendSystem.getPacketBufferNode(ClientPacket.field2670, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.method6841(0);
-					var8.packetBuffer.method6851(var3[var6]);
-					Client.packetWriter.addNode(var8);
-				} else if (var0 == 4) {
-					var8 = FriendSystem.getPacketBufferNode(ClientPacket.field2715, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.method6851(var3[var6]);
-					var8.packetBuffer.method6819(0);
-					Client.packetWriter.addNode(var8);
-				} else if (var0 == 6) {
-					var8 = FriendSystem.getPacketBufferNode(ClientPacket.field2657, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.writeShort(var3[var6]);
-					var8.packetBuffer.method6841(0);
-					Client.packetWriter.addNode(var8);
-				} else if (var0 == 7) {
-					var8 = FriendSystem.getPacketBufferNode(ClientPacket.field2676, Client.packetWriter.isaacCipher);
-					var8.packetBuffer.method6951(var3[var6]);
-					var8.packetBuffer.method6819(0);
-					Client.packetWriter.addNode(var8);
+	static final void method5930(Actor var0) {
+		if (var0.field1146 != 0) {
+			if (var0.targetIndex != -1) {
+				Object var1 = null;
+				if (var0.targetIndex < 32768) {
+					var1 = Client.npcs[var0.targetIndex];
+				} else if (var0.targetIndex >= 32768) {
+					var1 = Client.players[var0.targetIndex - 32768];
 				}
 
-				var4 = true;
-				break;
+				if (var1 != null) {
+					int var2 = var0.x - ((Actor)var1).x;
+					int var3 = var0.y - ((Actor)var1).y;
+					if (var2 != 0 || var3 != 0) {
+						var0.orientation = (int)(Math.atan2((double)var2, (double)var3) * 325.949D) & 2047;
+					}
+				} else if (var0.false0) {
+					var0.targetIndex = -1;
+					var0.false0 = false;
+				}
 			}
-		}
 
-		if (!var4) {
-			SecureRandomCallable.addGameMessage(4, "", "Unable to find " + var1);
-		}
+			if (var0.field1134 != -1 && (var0.pathLength == 0 || var0.field1164 > 0)) {
+				var0.orientation = var0.field1134;
+				var0.field1134 = -1;
+			}
 
+			int var4 = var0.orientation - var0.rotation & 2047;
+			if (var4 == 0 && var0.false0) {
+				var0.targetIndex = -1;
+				var0.false0 = false;
+			}
+
+			if (var4 != 0) {
+				++var0.field1158;
+				boolean var6;
+				if (var4 > 1024) {
+					var0.rotation -= var0.field1146;
+					var6 = true;
+					if (var4 < var0.field1146 || var4 > 2048 - var0.field1146) {
+						var0.rotation = var0.orientation;
+						var6 = false;
+					}
+
+					if (var0.idleSequence == var0.movementSequence && (var0.field1158 > 25 || var6)) {
+						if (var0.turnLeftSequence != -1) {
+							var0.movementSequence = var0.turnLeftSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence;
+						}
+					}
+				} else {
+					var0.rotation += var0.field1146;
+					var6 = true;
+					if (var4 < var0.field1146 || var4 > 2048 - var0.field1146) {
+						var0.rotation = var0.orientation;
+						var6 = false;
+					}
+
+					if (var0.movementSequence == var0.idleSequence && (var0.field1158 > 25 || var6)) {
+						if (var0.turnRightSequence != -1) {
+							var0.movementSequence = var0.turnRightSequence;
+						} else {
+							var0.movementSequence = var0.walkSequence;
+						}
+					}
+				}
+
+				var0.rotation &= 2047;
+			} else {
+				var0.field1158 = 0;
+			}
+
+		}
 	}
 }

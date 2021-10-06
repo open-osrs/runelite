@@ -4,54 +4,56 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bg")
+@ObfuscatedName("be")
 @Implements("Script")
 public class Script extends DualNode {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Lii;"
 	)
 	@Export("Script_cached")
 	static EvictingDualNodeHashTable Script_cached;
-	@ObfuscatedName("dr")
-	@Export("mouseCam")
-	static boolean mouseCam;
-	@ObfuscatedName("c")
-	String field941;
-	@ObfuscatedName("m")
+	@ObfuscatedName("ox")
+	@ObfuscatedGetter(
+		intValue = 630113855
+	)
+	static int field954;
+	@ObfuscatedName("q")
+	String field956;
+	@ObfuscatedName("f")
 	@Export("opcodes")
 	int[] opcodes;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@Export("intOperands")
 	int[] intOperands;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@Export("stringOperands")
 	String[] stringOperands;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 970581103
+		intValue = 738752155
 	)
 	@Export("localIntCount")
 	int localIntCount;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -1044657775
+		intValue = -1783554177
 	)
 	@Export("localStringCount")
 	int localStringCount;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 930141117
+		intValue = -276096773
 	)
 	@Export("intArgumentCount")
 	int intArgumentCount;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1398121329
+		intValue = -1841585005
 	)
 	@Export("stringArgumentCount")
 	int stringArgumentCount;
-	@ObfuscatedName("e")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "[Lnz;"
 	)
@@ -65,49 +67,117 @@ public class Script extends DualNode {
 	Script() {
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(IB)[Lnz;",
-		garbageValue = "-37"
+		descriptor = "(II)[Lnz;",
+		garbageValue = "-287949117"
 	)
 	@Export("newIterableNodeHashTable")
 	IterableNodeHashTable[] newIterableNodeHashTable(int var1) {
 		return new IterableNodeHashTable[var1];
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IIIII)V",
-		garbageValue = "88717898"
+		descriptor = "(ZZI)Loz;",
+		garbageValue = "-1258113861"
 	)
-	@Export("itemContainerSetItem")
-	static void itemContainerSetItem(int var0, int var1, int var2, int var3) {
-		ItemContainer var4 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var4 == null) {
-			var4 = new ItemContainer();
-			ItemContainer.itemContainers.put(var4, (long)var0);
-		}
+	static IndexedSprite method1955(boolean var0, boolean var1) {
+		return var0 ? (var1 ? Login.field877 : FileSystem.options_buttons_2Sprite) : (var1 ? Login.field876 : class397.options_buttons_0Sprite);
+	}
 
-		if (var4.ids.length <= var1) {
-			int[] var5 = new int[var1 + 1];
-			int[] var6 = new int[var1 + 1];
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(Lkl;Ljava/lang/String;Ljava/lang/String;I)[Lon;",
+		garbageValue = "9795538"
+	)
+	public static SpritePixels[] method1970(AbstractArchive var0, String var1, String var2) {
+		int var3 = var0.getGroupId(var1);
+		int var4 = var0.getFileId(var3, var2);
+		SpritePixels[] var5;
+		if (!VarbitComposition.method3102(var0, var3, var4)) {
+			var5 = null;
+		} else {
+			SpritePixels[] var7 = new SpritePixels[class414.SpriteBuffer_spriteCount];
 
-			int var7;
-			for (var7 = 0; var7 < var4.ids.length; ++var7) {
-				var5[var7] = var4.ids[var7];
-				var6[var7] = var4.quantities[var7];
+			for (int var8 = 0; var8 < class414.SpriteBuffer_spriteCount; ++var8) {
+				SpritePixels var9 = var7[var8] = new SpritePixels();
+				var9.width = class414.SpriteBuffer_spriteWidth;
+				var9.height = class408.SpriteBuffer_spriteHeight;
+				var9.xOffset = class135.SpriteBuffer_xOffsets[var8];
+				var9.yOffset = class131.SpriteBuffer_yOffsets[var8];
+				var9.subWidth = class414.SpriteBuffer_spriteWidths[var8];
+				var9.subHeight = class16.SpriteBuffer_spriteHeights[var8];
+				int var10 = var9.subHeight * var9.subWidth;
+				byte[] var11 = class414.SpriteBuffer_pixels[var8];
+				var9.pixels = new int[var10];
+
+				for (int var12 = 0; var12 < var10; ++var12) {
+					var9.pixels[var12] = class351.SpriteBuffer_spritePalette[var11[var12] & 255];
+				}
 			}
 
-			for (var7 = var4.ids.length; var7 < var1; ++var7) {
-				var5[var7] = -1;
-				var6[var7] = 0;
-			}
-
-			var4.ids = var5;
-			var4.quantities = var6;
+			StudioGame.method5130();
+			var5 = var7;
 		}
 
-		var4.ids[var1] = var2;
-		var4.quantities[var1] = var3;
+		return var5;
+	}
+
+	@ObfuscatedName("em")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "-348336461"
+	)
+	@Export("forceDisconnect")
+	static final void forceDisconnect(int var0) {
+		AttackOption.logOut();
+		switch(var0) {
+		case 1:
+			class112.method2474(24);
+			class17.setLoginResponseString("", "You were disconnected from the server.", "");
+			break;
+		case 2:
+			NPC.method2233();
+		}
+
+	}
+
+	@ObfuscatedName("hg")
+	@ObfuscatedSignature(
+		descriptor = "(Lcx;I)V",
+		garbageValue = "379416409"
+	)
+	static final void method1969(PendingSpawn var0) {
+		long var1 = 0L;
+		int var3 = -1;
+		int var4 = 0;
+		int var5 = 0;
+		if (var0.type == 0) {
+			var1 = PlayerComposition.scene.getBoundaryObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 1) {
+			var1 = PlayerComposition.scene.getWallDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 2) {
+			var1 = PlayerComposition.scene.getGameObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 3) {
+			var1 = PlayerComposition.scene.getFloorDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var1 != 0L) {
+			int var6 = PlayerComposition.scene.getObjectFlags(var0.plane, var0.x, var0.y, var1);
+			var3 = InterfaceParent.Entity_unpackID(var1);
+			var4 = var6 & 31;
+			var5 = var6 >> 6 & 3;
+		}
+
+		var0.objectId = var3;
+		var0.field1096 = var4;
+		var0.field1095 = var5;
 	}
 }

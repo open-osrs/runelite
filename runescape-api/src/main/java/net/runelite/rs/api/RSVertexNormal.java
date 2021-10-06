@@ -1,3 +1,15 @@
 package net.runelite.rs.api;
 
-public interface RSVertexNormal {}
+import net.runelite.mapping.Import;
+
+public interface RSVertexNormal
+{
+	@Import("x")
+	int getX();
+
+	@Import("y")
+	int getY();
+
+	@Import("z")
+	int getZ();
+}

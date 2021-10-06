@@ -243,6 +243,17 @@ public class ContainableFrame extends JFrame
 		expandedClientOppositeDirection = false;
 	}
 
+	@Override
+	public void setExtendedState(int state)
+	{
+		if (OSType.getOSType() != OSType.MacOS)
+		{
+			super.setMaximizedBounds(getWindowAreaBounds());
+		}
+
+		super.setExtendedState(state);
+	}
+
 	/**
 	 * Due to Java bug JDK-4737788, maximizing an undecorated frame causes it to cover the taskbar.
 	 * As a workaround, Substance calls this method when the window is maximized to manually set the

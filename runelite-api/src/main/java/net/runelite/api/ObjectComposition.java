@@ -73,4 +73,10 @@ public interface ObjectComposition extends ParamHolder
 	 * @throws NullPointerException if {@link #getImpostorIds()} is null
 	 */
 	ObjectComposition getImpostor();
+
+	/**
+	 * Get the bitmask that contains information on which directions you can interact
+	 * with this object from.
+	 */
+	int getAccessBitMask();
 }

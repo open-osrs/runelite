@@ -37,11 +37,10 @@ public class NpcChanged
 	/**
 	 * The NPC of which the composition changed.
 	 */
-	NPC npc;
-
+	private final NPC npc;
 
 	/**
 	 * The old composition of the NPC
 	 */
-	NPCComposition old;
+	private final NPCComposition old;
 }

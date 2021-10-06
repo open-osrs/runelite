@@ -1,73 +1,76 @@
+import java.awt.image.BufferedImage;
+import java.awt.image.PixelGrabber;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ex")
+@ObfuscatedName("eu")
 public class class135 extends class116 {
-	@ObfuscatedName("pv")
-	@ObfuscatedSignature(
-		descriptor = "Lew;"
-	)
-	@Export("mouseWheel")
-	static class144 mouseWheel;
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "Liw;"
-	)
-	@Export("midiPcmStream")
-	public static MidiPcmStream midiPcmStream;
-	@ObfuscatedName("ex")
-	@ObfuscatedSignature(
-		descriptor = "Lkx;"
-	)
-	@Export("archive7")
-	static Archive archive7;
-	@ObfuscatedName("n")
+	@ObfuscatedName("j")
+	@Export("SpriteBuffer_xOffsets")
+	public static int[] SpriteBuffer_xOffsets;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 86371795
+		intValue = -1442996561
 	)
 	int field1508;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldc;"
+		descriptor = "Ldg;"
 	)
 	final class119 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldc;)V"
+		descriptor = "(Ldg;)V"
 	)
 	class135(class119 var1) {
 		this.this$0 = var1;
 		this.field1508 = -1;
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;I)V",
-		garbageValue = "-1413895325"
+		garbageValue = "-912681401"
 	)
-	void vmethod2711(Buffer var1) {
+	void vmethod2767(Buffer var1) {
 		this.field1508 = var1.readUnsignedShort();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ldi;I)V",
-		garbageValue = "697483856"
+		descriptor = "(Ldk;I)V",
+		garbageValue = "-1225074726"
 	)
-	void vmethod2712(ClanSettings var1) {
-		var1.method2565(this.field1508);
+	void vmethod2766(ClanSettings var1) {
+		var1.method2594(this.field1508);
 	}
 
-	@ObfuscatedName("lr")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IS)V",
-		garbageValue = "217"
+		descriptor = "([BS)Lon;",
+		garbageValue = "1536"
 	)
-	static void method2672(int var0) {
-		if (var0 != Client.loginState) {
-			Client.loginState = var0;
+	@Export("convertJpgToSprite")
+	public static final SpritePixels convertJpgToSprite(byte[] var0) {
+		BufferedImage var1 = null;
+
+		try {
+			var1 = ImageIO.read(new ByteArrayInputStream(var0));
+			int var2 = var1.getWidth();
+			int var3 = var1.getHeight();
+			int[] var4 = new int[var2 * var3];
+			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2);
+			var5.grabPixels();
+			return new SpritePixels(var4, var2, var3);
+		} catch (IOException var7) {
+		} catch (InterruptedException var8) {
 		}
+
+		return new SpritePixels(0, 0);
 	}
 }

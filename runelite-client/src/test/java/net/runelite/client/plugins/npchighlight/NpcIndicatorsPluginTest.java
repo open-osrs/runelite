@@ -79,6 +79,7 @@ public class NpcIndicatorsPluginTest
 	public void setUp()
 	{
 		Guice.createInjector(BoundFieldModule.of(this)).injectMembers(this);
+		when(npcIndicatorsConfig.highlightColor()).thenReturn(Color.RED);
 	}
 
 	@Test

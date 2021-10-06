@@ -4,79 +4,55 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ib")
+@ObfuscatedName("il")
 @Implements("MusicPatchNode2")
 public class MusicPatchNode2 {
-	@ObfuscatedName("n")
-	byte[] field2896;
-	@ObfuscatedName("c")
-	byte[] field2888;
+	@ObfuscatedName("qu")
+	@ObfuscatedSignature(
+		descriptor = "Lpa;"
+	)
+	@Export("privateChatMode")
+	static PrivateChatMode privateChatMode;
+	@ObfuscatedName("l")
+	byte[] field2903;
+	@ObfuscatedName("q")
+	byte[] field2901;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = -105556407
+	)
+	int field2902;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = 1269066503
+	)
+	int field2900;
 	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -384855677
+		intValue = -1246487845
 	)
-	int field2889;
+	int field2904;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 1941614975
+		intValue = -491530791
 	)
-	int field2895;
-	@ObfuscatedName("o")
+	int field2905;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 420962895
+		intValue = -1598765927
 	)
-	int field2891;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = -1489655771
-	)
-	int field2892;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = -1036239603
-	)
-	int field2893;
+	int field2906;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -367363133
+		intValue = -312422877
 	)
-	int field2890;
-	@ObfuscatedName("u")
+	int field2907;
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -765214951
+		intValue = -2091086913
 	)
-	int field2887;
+	int field2908;
 
 	MusicPatchNode2() {
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(IIIZIZB)V",
-		garbageValue = "-4"
-	)
-	@Export("doWorldSorting")
-	static void doWorldSorting(int var0, int var1, int var2, boolean var3, int var4, boolean var5) {
-		if (var0 < var1) {
-			int var6 = (var0 + var1) / 2;
-			int var7 = var0;
-			World var8 = class393.World_worlds[var6];
-			class393.World_worlds[var6] = class393.World_worlds[var1];
-			class393.World_worlds[var1] = var8;
-
-			for (int var9 = var0; var9 < var1; ++var9) {
-				if (InvDefinition.method2811(class393.World_worlds[var9], var8, var2, var3, var4, var5) <= 0) {
-					World var10 = class393.World_worlds[var9];
-					class393.World_worlds[var9] = class393.World_worlds[var7];
-					class393.World_worlds[var7++] = var10;
-				}
-			}
-
-			class393.World_worlds[var1] = class393.World_worlds[var7];
-			class393.World_worlds[var7] = var8;
-			doWorldSorting(var0, var7 - 1, var2, var3, var4, var5);
-			doWorldSorting(var7 + 1, var1, var2, var3, var4, var5);
-		}
-
 	}
 }

@@ -1,15 +1,14 @@
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cr")
+@ObfuscatedName("cw")
 @Implements("NPC")
 public final class NPC extends Actor {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lfq;"
+		descriptor = "Lfg;"
 	)
 	@Export("definition")
 	NPCComposition definition;
@@ -17,12 +16,12 @@ public final class NPC extends Actor {
 	NPC() {
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IBI)V",
-		garbageValue = "-1998383743"
+		descriptor = "(IBB)V",
+		garbageValue = "20"
 	)
-	final void method2212(int var1, byte var2) {
+	final void method2223(int var1, byte var2) {
 		int var3 = super.pathX[0];
 		int var4 = super.pathY[0];
 		if (var1 == 0) {
@@ -61,7 +60,7 @@ public final class NPC extends Actor {
 			--var4;
 		}
 
-		if (super.sequence != -1 && class17.SequenceDefinition_get(super.sequence).field1960 == 1) {
+		if (super.sequence != -1 && KitDefinition.SequenceDefinition_get(super.sequence).field1960 == 1) {
 			super.sequence = -1;
 		}
 
@@ -80,18 +79,18 @@ public final class NPC extends Actor {
 		super.pathTraversed[0] = var2;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lhg;",
-		garbageValue = "18"
+		descriptor = "(B)Lhl;",
+		garbageValue = "126"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
 		if (this.definition == null) {
 			return null;
 		} else {
-			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? class17.SequenceDefinition_get(super.sequence) : null;
-			SequenceDefinition var2 = super.movementSequence == -1 || super.idleSequence == super.movementSequence && var1 != null ? null : class17.SequenceDefinition_get(super.movementSequence);
+			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? KitDefinition.SequenceDefinition_get(super.sequence) : null;
+			SequenceDefinition var2 = super.movementSequence == -1 || super.idleSequence == super.movementSequence && var1 != null ? null : KitDefinition.SequenceDefinition_get(super.movementSequence);
 			Model var3 = this.definition.getModel(var1, super.sequenceFrame, var2, super.movementFrame);
 			if (var3 == null) {
 				return null;
@@ -99,9 +98,9 @@ public final class NPC extends Actor {
 				var3.calculateBoundsCylinder();
 				super.defaultHeight = var3.height;
 				if (super.spotAnimation != -1 && super.spotAnimationFrame != -1) {
-					Model var4 = TaskHandler.SpotAnimationDefinition_get(super.spotAnimation).getModel(super.spotAnimationFrame);
+					Model var4 = class21.SpotAnimationDefinition_get(super.spotAnimation).getModel(super.spotAnimationFrame);
 					if (var4 != null) {
-						var4.offsetBy(0, -super.field1134, 0);
+						var4.offsetBy(0, -super.field1147, 0);
 						Model[] var5 = new Model[]{var3, var4};
 						var3 = new Model(var5, 2);
 					}
@@ -116,13 +115,13 @@ public final class NPC extends Actor {
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(IIZI)V",
-		garbageValue = "866261786"
+		descriptor = "(IIZB)V",
+		garbageValue = "97"
 	)
-	final void method2224(int var1, int var2, boolean var3) {
-		if (super.sequence != -1 && class17.SequenceDefinition_get(super.sequence).field1960 == 1) {
+	final void method2234(int var1, int var2, boolean var3) {
+		if (super.sequence != -1 && KitDefinition.SequenceDefinition_get(super.sequence).field1960 == 1) {
 			super.sequence = -1;
 		}
 
@@ -148,115 +147,88 @@ public final class NPC extends Actor {
 		}
 
 		super.pathLength = 0;
-		super.field1152 = 0;
-		super.field1151 = 0;
+		super.field1129 = 0;
+		super.field1164 = 0;
 		super.pathX[0] = var1;
 		super.pathY[0] = var2;
-		super.x = super.field1137 * 64 + super.pathX[0] * 128;
-		super.y = super.field1137 * 64 + super.pathY[0] * 128;
+		super.x = super.pathX[0] * 128 + super.field1109 * 64;
+		super.y = super.field1109 * 64 + super.pathY[0] * 128;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1101417957"
+		garbageValue = "-1841514183"
 	)
 	@Export("isVisible")
 	final boolean isVisible() {
 		return this.definition != null;
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(III)Z",
-		garbageValue = "-351821257"
+		descriptor = "(S)I",
+		garbageValue = "-3271"
 	)
-	static final boolean method2225(int var0, int var1) {
-		ObjectComposition var2 = HitSplatDefinition.getObjectDefinition(var0);
-		if (var1 == 11) {
-			var1 = 10;
-		}
-
-		if (var1 >= 5 && var1 <= 8) {
-			var1 = 4;
-		}
-
-		return var2.method3128(var1);
+	static final int method2232() {
+		return ViewportMouse.ViewportMouse_x;
 	}
 
-	@ObfuscatedName("hm")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "-22305198"
+		descriptor = "(B)V",
+		garbageValue = "-57"
 	)
-	static final void method2221(boolean var0) {
-		class1.playPcmPlayers();
-		++Client.packetWriter.pendingWrites;
-		if (Client.packetWriter.pendingWrites >= 50 || var0) {
-			Client.packetWriter.pendingWrites = 0;
-			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) {
-				PacketBufferNode var1 = FriendSystem.getPacketBufferNode(ClientPacket.field2704, Client.packetWriter.isaacCipher);
-				Client.packetWriter.addNode(var1);
-
-				try {
-					Client.packetWriter.flush();
-				} catch (IOException var3) {
-					Client.hadNetworkError = true;
-				}
-			}
-
-		}
+	static void method2233() {
+		class112.method2474(24);
+		class17.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", "");
 	}
 
-	@ObfuscatedName("ha")
+	@ObfuscatedName("ex")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "18"
+		descriptor = "(S)V",
+		garbageValue = "-7381"
 	)
-	static void method2214(int var0, int var1) {
-		int var2 = class11.fontBold12.stringWidth("Choose Option");
+	static void method2235() {
+		Client.packetWriter.clearBuffer();
+		Client.packetWriter.packetBuffer.offset = 0;
+		Client.packetWriter.serverPacket = null;
+		Client.packetWriter.field1281 = null;
+		Client.packetWriter.field1293 = null;
+		Client.packetWriter.field1288 = null;
+		Client.packetWriter.serverPacketLength = 0;
+		Client.packetWriter.field1290 = 0;
+		Client.rebootTimer = 0;
+		class7.method46();
+		Client.minimapState = 0;
+		Client.destinationX = 0;
 
-		int var3;
-		for (var3 = 0; var3 < Client.menuOptionsCount; ++var3) {
-			Font var7 = class11.fontBold12;
-			String var8;
-			if (var3 < 0) {
-				var8 = "";
-			} else if (Client.menuTargets[var3].length() > 0) {
-				var8 = Client.menuActions[var3] + " " + Client.menuTargets[var3];
-			} else {
-				var8 = Client.menuActions[var3];
+		int var0;
+		for (var0 = 0; var0 < 2048; ++var0) {
+			Client.players[var0] = null;
+		}
+
+		class67.localPlayer = null;
+
+		for (var0 = 0; var0 < Client.npcs.length; ++var0) {
+			NPC var1 = Client.npcs[var0];
+			if (var1 != null) {
+				var1.targetIndex = -1;
+				var1.false0 = false;
 			}
-
-			int var6 = var7.stringWidth(var8);
-			if (var6 > var2) {
-				var2 = var6;
-			}
 		}
 
-		var2 += 8;
-		var3 = Client.menuOptionsCount * 15 + 22;
-		int var4 = var0 - var2 / 2;
-		if (var4 + var2 > InvDefinition.canvasWidth) {
-			var4 = InvDefinition.canvasWidth - var2;
+		ItemContainer.itemContainers = new NodeHashTable(32);
+		UserList.updateGameState(30);
+
+		for (var0 = 0; var0 < 100; ++var0) {
+			Client.field710[var0] = true;
 		}
 
-		if (var4 < 0) {
-			var4 = 0;
-		}
-
-		int var5 = var1;
-		if (var3 + var1 > GameEngine.canvasHeight) {
-			var5 = GameEngine.canvasHeight - var3;
-		}
-
-		if (var5 < 0) {
-			var5 = 0;
-		}
-
-		WorldMapRegion.menuX = var4;
-		ApproximateRouteStrategy.menuY = var5;
-		VarcInt.menuWidth = var2;
-		WorldMapLabelSize.menuHeight = Client.menuOptionsCount * 15 + 22;
+		PacketBufferNode var2 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2718, Client.packetWriter.isaacCipher);
+		var2.packetBuffer.writeByte(class12.getWindowedMode());
+		var2.packetBuffer.writeShort(Huffman.canvasWidth);
+		var2.packetBuffer.writeShort(MouseRecorder.canvasHeight);
+		Client.packetWriter.addNode(var2);
 	}
 }

@@ -1,17 +1,24 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jl")
+@ObfuscatedName("jb")
 @Implements("Skills")
 public class Skills {
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("Skills_enabled")
 	public static final boolean[] Skills_enabled;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("Skills_experienceTable")
 	public static int[] Skills_experienceTable;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = -83485713
+	)
+	@Export("musicTrackGroupId")
+	public static int musicTrackGroupId;
 
 	static {
 		Skills_enabled = new boolean[]{true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false};
@@ -27,16 +34,21 @@ public class Skills {
 
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("jd")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "708900627"
+		descriptor = "(Ljt;IIII)V",
+		garbageValue = "-618613054"
 	)
-	static void method5063(int var0, int var1) {
-		long var2 = (long)((var0 << 16) + var1);
-		NetFileRequest var4 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var2);
+	@Export("drawCompass")
+	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
+		SpriteMask var4 = var0.getSpriteMask(false);
 		if (var4 != null) {
-			NetCache.NetCache_pendingWritesQueue.addLast(var4);
+			if (Client.minimapState < 3) {
+				class4.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
+			} else {
+				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths);
+			}
+
 		}
 	}
 }

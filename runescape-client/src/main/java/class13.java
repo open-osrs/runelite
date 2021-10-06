@@ -8,28 +8,30 @@ import net.runelite.mapping.ObfuscatedSignature;
 import org.bouncycastle.crypto.tls.DefaultTlsClient;
 import org.bouncycastle.crypto.tls.TlsAuthentication;
 
-@ObfuscatedName("f")
+@ObfuscatedName("v")
 class class13 extends DefaultTlsClient {
-	@ObfuscatedName("hx")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "[Loc;"
+		descriptor = "Lkl;"
 	)
-	@Export("mapMarkerSprites")
-	static SpritePixels[] mapMarkerSprites;
-	@ObfuscatedName("hv")
+	@Export("SequenceDefinition_animationsArchive")
+	public static AbstractArchive SequenceDefinition_animationsArchive;
+	@ObfuscatedName("h")
+	@Export("formattedOperatingSystemName")
+	public static String formattedOperatingSystemName;
+	@ObfuscatedName("az")
 	@ObfuscatedSignature(
-		descriptor = "[Loc;"
+		descriptor = "Lme;"
 	)
-	@Export("crossSprites")
-	static SpritePixels[] crossSprites;
+	static Bounds field76;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lv;"
+		descriptor = "Lg;"
 	)
 	final class12 this$1;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lv;)V"
+		descriptor = "(Lg;)V"
 	)
 	class13(class12 var1) {
 		this.this$1 = var1;
@@ -57,65 +59,24 @@ class class13 extends DefaultTlsClient {
 		return new class11(this);
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "([BIILhz;[Lfk;I)V",
-		garbageValue = "-1888436323"
+		descriptor = "(IB)Leo;",
+		garbageValue = "-93"
 	)
-	static final void method180(byte[] var0, int var1, int var2, Scene var3, CollisionMap[] var4) {
-		Buffer var5 = new Buffer(var0);
-		int var6 = -1;
-
-		while (true) {
-			int var7 = var5.method7009();
-			if (var7 == 0) {
-				return;
-			}
-
-			var6 += var7;
-			int var8 = 0;
-
-			while (true) {
-				int var9 = var5.readUShortSmart();
-				if (var9 == 0) {
-					break;
-				}
-
-				var8 += var9 - 1;
-				int var10 = var8 & 63;
-				int var11 = var8 >> 6 & 63;
-				int var12 = var8 >> 12;
-				int var13 = var5.readUnsignedByte();
-				int var14 = var13 >> 2;
-				int var15 = var13 & 3;
-				int var16 = var11 + var1;
-				int var17 = var10 + var2;
-				if (var16 > 0 && var17 > 0 && var16 < 103 && var17 < 103) {
-					int var18 = var12;
-					if ((Tiles.Tiles_renderFlags[1][var16][var17] & 2) == 2) {
-						var18 = var12 - 1;
-					}
-
-					CollisionMap var19 = null;
-					if (var18 >= 0) {
-						var19 = var4[var18];
-					}
-
-					class140.method2715(var12, var16, var17, var6, var15, var14, var3, var19);
-				}
-			}
-		}
+	@Export("WorldMapElement_get")
+	public static WorldMapElement WorldMapElement_get(int var0) {
+		return var0 >= 0 && var0 < WorldMapElement.WorldMapElement_cached.length && WorldMapElement.WorldMapElement_cached[var0] != null ? WorldMapElement.WorldMapElement_cached[var0] : new WorldMapElement(var0);
 	}
 
-	@ObfuscatedName("jv")
+	@ObfuscatedName("eq")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "-10"
+		descriptor = "(Lky;Ljava/lang/String;I)V",
+		garbageValue = "1840812088"
 	)
-	@Export("runIntfCloseListeners")
-	static final void runIntfCloseListeners(int var0, int var1) {
-		if (class317.loadInterface(var0)) {
-			Skeleton.runComponentCloseListeners(class139.Widget_interfaceComponents[var0], var1);
-		}
+	static void method167(Archive var0, String var1) {
+		ArchiveLoader var2 = new ArchiveLoader(var0, var1);
+		Client.archiveLoaders.add(var2);
+		Client.field521 += var2.groupCount;
 	}
 }

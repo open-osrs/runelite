@@ -3,36 +3,50 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("t")
+@ObfuscatedName("o")
 public class class21 {
-	@ObfuscatedName("f")
+	@ObfuscatedName("ai")
+	@Export("client")
 	@ObfuscatedSignature(
-		descriptor = "Loi;"
+		descriptor = "Lclient;"
 	)
-	static IndexedSprite field107;
-	@ObfuscatedName("n")
+	static Client client;
+	@ObfuscatedName("hw")
+	@ObfuscatedSignature(
+		descriptor = "Lon;"
+	)
+	@Export("redHintArrowSprite")
+	static SpritePixels redHintArrowSprite;
+	@ObfuscatedName("hf")
+	@ObfuscatedSignature(
+		descriptor = "[Lon;"
+	)
+	@Export("headIconPkSprites")
+	static SpritePixels[] headIconPkSprites;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1947507319
+		intValue = -290366261
 	)
-	final int field105;
-	@ObfuscatedName("c")
-	final String field109;
+	final int field112;
+	@ObfuscatedName("q")
+	final String field107;
 
 	class21(String var1) {
-		this.field105 = 400;
-		this.field109 = "";
+		this.field112 = 400;
+		this.field107 = "";
 	}
 
 	class21(HttpURLConnection var1) throws IOException {
-		this.field105 = var1.getResponseCode();
+		this.field112 = var1.getResponseCode();
 		var1.getResponseMessage();
 		var1.getHeaderFields();
 		StringBuilder var2 = new StringBuilder();
-		InputStream var3 = this.field105 >= 300 ? var1.getErrorStream() : var1.getInputStream();
+		InputStream var3 = this.field112 >= 300 ? var1.getErrorStream() : var1.getInputStream();
 		if (var3 != null) {
 			InputStreamReader var4 = new InputStreamReader(var3);
 			BufferedReader var5 = new BufferedReader(var4);
@@ -45,35 +59,87 @@ public class class21 {
 			var3.close();
 		}
 
-		this.field109 = var2.toString();
+		this.field107 = var2.toString();
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "45126595"
+		garbageValue = "-1111587783"
 	)
 	public int method317() {
-		return this.field105;
+		return this.field112;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1396906157"
+		garbageValue = "637043556"
 	)
-	public String method316() {
-		return this.field109;
+	public String method312() {
+		return this.field107;
 	}
 
-	@ObfuscatedName("ef")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lkx;Ljava/lang/String;I)V",
-		garbageValue = "1344267675"
+		descriptor = "(II)Lfh;",
+		garbageValue = "-2146545092"
 	)
-	static void method323(Archive var0, String var1) {
-		ArchiveLoader var2 = new ArchiveLoader(var0, var1);
-		Client.archiveLoaders.add(var2);
-		Client.field763 += var2.groupCount;
+	@Export("SpotAnimationDefinition_get")
+	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
+		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0);
+		if (var1 != null) {
+			return var1;
+		} else {
+			byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0);
+			var1 = new SpotAnimationDefinition();
+			var1.id = var0;
+			if (var2 != null) {
+				var1.decode(new Buffer(var2));
+			}
+
+			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0);
+			return var1;
+		}
+	}
+
+	@ObfuscatedName("gj")
+	@ObfuscatedSignature(
+		descriptor = "(Lci;ZB)V",
+		garbageValue = "-27"
+	)
+	@Export("addPlayerToScene")
+	static void addPlayerToScene(Player var0, boolean var1) {
+		if (var0 != null && var0.isVisible() && !var0.isHidden) {
+			var0.isUnanimated = false;
+			if ((Client.isLowDetail && Players.Players_count > 50 || Players.Players_count > 200) && var1 && var0.idleSequence == var0.movementSequence) {
+				var0.isUnanimated = true;
+			}
+
+			int var2 = var0.x >> 7;
+			int var3 = var0.y >> 7;
+			if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) {
+				long var4 = class247.calculateTag(0, 0, 0, false, var0.index);
+				if (var0.model0 != null && Client.cycle >= var0.animationCycleStart && Client.cycle < var0.animationCycleEnd) {
+					var0.isUnanimated = false;
+					var0.tileHeight = MidiPcmStream.getTileHeight(var0.x, var0.y, VertexNormal.Client_plane);
+					var0.playerCycle = Client.cycle;
+					PlayerComposition.scene.addNullableObject(VertexNormal.Client_plane, var0.x, var0.y, var0.tileHeight, 60, var0, var0.rotation, var4, var0.minX, var0.minY, var0.maxX, var0.maxY);
+				} else {
+					if ((var0.x & 127) == 64 && (var0.y & 127) == 64) {
+						if (Client.tileLastDrawnActor[var2][var3] == Client.viewportDrawCount) {
+							return;
+						}
+
+						Client.tileLastDrawnActor[var2][var3] = Client.viewportDrawCount;
+					}
+
+					var0.tileHeight = MidiPcmStream.getTileHeight(var0.x, var0.y, VertexNormal.Client_plane);
+					var0.playerCycle = Client.cycle;
+					PlayerComposition.scene.drawEntity(VertexNormal.Client_plane, var0.x, var0.y, var0.tileHeight, 60, var0, var0.rotation, var4, var0.isWalking);
+				}
+			}
+		}
+
 	}
 }

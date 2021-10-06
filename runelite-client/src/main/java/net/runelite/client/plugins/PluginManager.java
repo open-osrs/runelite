@@ -39,10 +39,18 @@ import com.google.inject.Injector;
 import com.google.inject.Key;
 import com.google.inject.Module;
 import java.io.IOException;
+import java.lang.invoke.CallSite;
+import java.lang.invoke.LambdaMetafactory;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -67,9 +75,12 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.events.SessionClose;
 import net.runelite.client.events.SessionOpen;
+import net.runelite.client.task.Schedule;
+import net.runelite.client.task.ScheduledMethod;
 import net.runelite.client.task.Scheduler;
 import net.runelite.client.ui.SplashScreen;
 import net.runelite.client.util.GameEventManager;
+import net.runelite.client.util.ReflectUtil;
 
 @Singleton
 @Slf4j
@@ -405,6 +416,19 @@ public class PluginManager
 			return false;
 		}
 
+		List<Plugin> conflicts = conflictsForPlugin(plugin);
+		for (Plugin conflict : conflicts)
+		{
+			if (isPluginEnabled(conflict))
+			{
+				setPluginEnabled(conflict, false);
+			}
+			if (activePlugins.contains(conflict))
+			{
+				stopPlugin(conflict);
+			}
+		}
+
 		activePlugins.add(plugin);
 
 		try
@@ -470,6 +494,18 @@ public class PluginManager
 		final PluginDescriptor pluginDescriptor = plugin.getClass().getAnnotation(PluginDescriptor.class);
 		final String keyName = Strings.isNullOrEmpty(pluginDescriptor.configName()) ? plugin.getClass().getSimpleName() : pluginDescriptor.configName();
 		configManager.setConfiguration(RuneLiteConfig.GROUP_NAME, keyName.toLowerCase(), String.valueOf(enabled));
+
+		if (enabled)
+		{
+			List<Plugin> conflicts = conflictsForPlugin(plugin);
+			for (Plugin conflict : conflicts)
+			{
+				if (isPluginEnabled(conflict))
+				{
+					setPluginEnabled(conflict, false);
+				}
+			}
+		}
 	}
 
 	public boolean isPluginEnabled(Plugin plugin)
@@ -624,14 +660,59 @@ public class PluginManager
 
 	private void schedule(Plugin plugin)
 	{
-		// note to devs: this method will almost certainly merge conflict in the future, just apply the changes in the scheduler instead
-		scheduler.registerObject(plugin);
+		for (Method method : plugin.getClass().getMethods())
+		{
+			Schedule schedule = method.getAnnotation(Schedule.class);
+
+			if (schedule == null)
+			{
+				continue;
+			}
+
+			Runnable runnable = null;
+			try
+			{
+				final Class<?> clazz = method.getDeclaringClass();
+				final MethodHandles.Lookup caller = ReflectUtil.privateLookupIn(clazz);
+				final MethodType subscription = MethodType.methodType(method.getReturnType(), method.getParameterTypes());
+				final MethodHandle target = caller.findVirtual(clazz, method.getName(), subscription);
+				final CallSite site = LambdaMetafactory.metafactory(
+					caller,
+					"run",
+					MethodType.methodType(Runnable.class, clazz),
+					subscription,
+					target,
+					subscription);
+
+				final MethodHandle factory = site.getTarget();
+				runnable = (Runnable) factory.bindTo(plugin).invokeExact();
+			}
+			catch (Throwable e)
+			{
+				log.warn("Unable to create lambda for method {}", method, e);
+			}
+
+			ScheduledMethod scheduledMethod = new ScheduledMethod(schedule, method, plugin, runnable);
+			log.debug("Scheduled task {}", scheduledMethod);
+
+			scheduler.addScheduledMethod(scheduledMethod);
+		}
 	}
 
 	private void unschedule(Plugin plugin)
 	{
-		// note to devs: this method will almost certainly merge conflict in the future, just apply the changes in the scheduler instead
-		scheduler.unregisterObject(plugin);
+		List<ScheduledMethod> methods = new ArrayList<>(scheduler.getScheduledMethods());
+
+		for (ScheduledMethod method : methods)
+		{
+			if (method.getObject() != plugin)
+			{
+				continue;
+			}
+
+			log.debug("Removing scheduled task {}", method);
+			scheduler.removeScheduledMethod(method);
+		}
 	}
 
 	/**
@@ -670,5 +751,41 @@ public class PluginManager
 			throw new RuntimeException("Graph has at least one cycle");
 		}
 		return l;
+	}
+
+	public List<Plugin> conflictsForPlugin(Plugin plugin)
+	{
+		Set<String> conflicts;
+		{
+			PluginDescriptor desc = plugin.getClass().getAnnotation(PluginDescriptor.class);
+			conflicts = new HashSet<>(Arrays.asList(desc.conflicts()));
+			conflicts.add(desc.name());
+		}
+
+		return plugins.stream()
+			.filter(p ->
+			{
+				if (p == plugin)
+				{
+					return false;
+				}
+
+				PluginDescriptor desc = p.getClass().getAnnotation(PluginDescriptor.class);
+				if (conflicts.contains(desc.name()))
+				{
+					return true;
+				}
+
+				for (String conflict : desc.conflicts())
+				{
+					if (conflicts.contains(conflict))
+					{
+						return true;
+					}
+				}
+
+				return false;
+			})
+			.collect(Collectors.toList());
 	}
 }
