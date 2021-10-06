@@ -184,6 +184,7 @@ public class ObsidianSkin extends SubstanceSkin
 			}
 		};
 
+		this.watermark = null;
 		this.fillPainter = new FractionBasedFillPainter("RuneLite",
 			new float[]{0.0f, 0.5f, 1.0f},
 			new ColorSchemeSingleColorQuery[]{ColorSchemeSingleColorQuery.ULTRALIGHT,
