@@ -809,6 +809,12 @@ public class ExtUtils
 		return client.getCanvas().contains(point.getCanvasLocation().getX(), point.getCanvasLocation().getY());
 	}
 
+	public boolean isOnScreen(NPC actor)
+	{
+		Point point = Perspective.localToCanvas(client, actor.getLocalLocation(), client.getPlane());
+		return client.getCanvas().contains(actor.getCanvasTilePoly());
+	}
+
 	private void robotClick() throws AWTException
 	{
 		Robot bot = new Robot();
@@ -843,5 +849,12 @@ public class ExtUtils
 		for (WidgetItem o : items) {
 			isOnScreen(o);
 		}
+		NPC npc = findNearestNPC("");
+		NPCComposition composition = npc.getComposition();
+		composition.getActions();
+		npc.getMinimapLocation();
+		isOnScreen(npc);
+
+
 	}
 }

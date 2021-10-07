@@ -146,7 +146,6 @@ public class APlugin extends Plugin
 			}
 			Runnable typeWords = () ->
 			{
-
 				utils.robotType(outcome.toString());
 			};
 			executor.execute(typeWords);
