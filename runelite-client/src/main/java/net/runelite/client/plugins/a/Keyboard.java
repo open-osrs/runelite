@@ -15,11 +15,6 @@ public class Keyboard
 	public final static char DOWN_ARROW_KEY = 'ü';
 	public final static char ALT_KEY = '\f';
 
-	public static void main(String... args) throws Exception
-	{
-		Keyboard keyboard = new Keyboard();
-	}
-
 	public Keyboard() throws AWTException
 	{
 		this.robot = new Robot();

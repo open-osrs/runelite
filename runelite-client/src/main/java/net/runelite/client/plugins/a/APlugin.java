@@ -19,10 +19,7 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 import javax.inject.Inject;
 import java.awt.*;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 @PluginDescriptor(
 		name = "A Plugin",
@@ -56,71 +53,40 @@ public class APlugin extends Plugin
 
 	private Player player;
 
+
 	private boolean keyboard = true;
 
 
 	// to execute things like key press and click -- new thread
 	private final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(1);
-	private final ThreadPoolExecutor executorService = new ThreadPoolExecutor(1, 1, 25, TimeUnit.SECONDS, queue,
-			new ThreadPoolExecutor.DiscardPolicy());
+
+	private ExecutorService executor;
 
 	@Override
 	protected void startUp()
 	{
-		if (keyboard)
+		executor = Executors.newFixedThreadPool(1);
+
+		try
 		{
-			try
-			{
-				this.utils = new ExtUtils(client, new Keyboard());
-			}
-			catch (AWTException e)
-			{
-				e.printStackTrace();
-			}
+			this.utils = new ExtUtils(client, new Keyboard());
 		}
-		else
+		catch (AWTException e)
 		{
-			this.utils = new ExtUtils(client);
+			e.printStackTrace();
 		}
+
 		overlayManager.add(aOverlay);
 	}
 
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (keyboard)
-		{
+		randomCameraEvent();
 
-			char cameraMovement;
-			if (ExtUtils.random(1, 100) > 75)
-			{
-				StringBuilder outcome = new StringBuilder();
-				int numberPressed = ExtUtils.random(5, 20);
-				switch (ExtUtils.random(1, 4))
-				{
-					case 1:
-						cameraMovement = Keyboard.LEFT_ARROW_KEY;
-						break;
-					case 2:
-						cameraMovement = Keyboard.RIGHT_ARROW_KEY;
-						break;
-					case 3:
-						cameraMovement = Keyboard.UP_ARROW_KEY;
-						break;
-					default:
-						cameraMovement = Keyboard.DOWN_ARROW_KEY;
-						break;
-				}
-				for (int i = 0; i < numberPressed; i++)
-				{
-					outcome.append(cameraMovement);
-				}
-				utils.robotType(outcome.toString());
-			}
-		}
 		player = client.getLocalPlayer();
 
-		if (updatePlayerLocation())
+		if (isPlayerLocationChanged())
 		{
 			sendChatMessage("Your character has moved.");
 		}
@@ -134,7 +100,6 @@ public class APlugin extends Plugin
 		minimapLocation = object.getMinimapLocation();
 		if (minimapLocation != null)
 		{
-
 			sendChatMessage("nearest game object minimap information: " + minimapLocation);
 			sendChatMessage("This is the distance on minimap of " + player.getMinimapLocation().distanceTo(minimapLocation));
 			object.getCanvasTilePoly().getBounds();
@@ -153,7 +118,42 @@ public class APlugin extends Plugin
 		sendChatMessage("Is it on the screen?: " + utils.isOnScreen(object));
 	}
 
-	private boolean updatePlayerLocation()
+	private void randomCameraEvent()
+	{
+		char cameraMovement;
+		if (ExtUtils.random(1, 100) > 85)
+		{
+			StringBuilder outcome = new StringBuilder();
+			int numberPressed = ExtUtils.random(5, 20);
+			switch (ExtUtils.random(1, 5))
+			{
+				case 1:
+					cameraMovement = Keyboard.LEFT_ARROW_KEY;
+					break;
+				case 2:
+					cameraMovement = Keyboard.RIGHT_ARROW_KEY;
+					break;
+				case 3:
+					cameraMovement = Keyboard.UP_ARROW_KEY;
+					break;
+				default:
+					cameraMovement = Keyboard.DOWN_ARROW_KEY;
+					break;
+			}
+			for (int i = 0; i < numberPressed; i++)
+			{
+				outcome.append(cameraMovement);
+			}
+			Runnable typeWords = () ->
+			{
+
+				utils.robotType(outcome.toString());
+			};
+			executor.execute(typeWords);
+		}
+	}
+
+	private boolean isPlayerLocationChanged()
 	{
 		if (player == null)
 		{
@@ -180,6 +180,7 @@ public class APlugin extends Plugin
 	@Override
 	protected void shutDown()
 	{
+		executor.shutdown();
 		overlayManager.remove(aOverlay);
 	}
 
