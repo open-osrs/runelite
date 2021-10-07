@@ -24,8 +24,8 @@
  */
 package net.runelite.api.events;
 
-import net.runelite.api.HealthBar;
 import lombok.Data;
+import net.runelite.api.HealthBar;
 
 @Data
 public class PostHealthBar

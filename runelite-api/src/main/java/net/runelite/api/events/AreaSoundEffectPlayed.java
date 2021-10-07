@@ -33,7 +33,6 @@ public class AreaSoundEffectPlayed
 {
 	@Nullable
 	private final Actor source;
-
 	private int soundId;
 	private int sceneX;
 	private int sceneY;

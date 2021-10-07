@@ -1,78 +1,70 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ip")
+@ObfuscatedName("id")
 public class class240 {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Lid;"
 	)
-	public static final class240 field2755;
-	@ObfuscatedName("c")
+	public static final class240 field2767;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Lid;"
 	)
-	public static final class240 field2749;
+	public static final class240 field2768;
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "Lid;"
+	)
+	public static final class240 field2769;
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lid;"
+	)
+	public static final class240 field2770;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Lid;"
 	)
-	public static final class240 field2751;
+	public static final class240 field2775;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Lid;"
 	)
-	public static final class240 field2752;
-	@ObfuscatedName("o")
+	public static final class240 field2772;
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Lid;"
 	)
-	public static final class240 field2753;
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "Lip;"
-	)
-	public static final class240 field2760;
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "Lip;"
-	)
-	public static final class240 field2750;
+	public static final class240 field2773;
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Lid;"
 	)
-	public static final class240 field2756;
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "Lip;"
-	)
-	public static final class240 field2757;
+	public static final class240 field2774;
 	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Lid;"
 	)
-	public static final class240 field2758;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = 593938417
+	public static final class240 field2776;
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lid;"
 	)
-	@Export("Interpreter_intStackSize")
-	static int Interpreter_intStackSize;
+	public static final class240 field2771;
 
 	static {
-		field2755 = new class240(5);
-		field2749 = new class240(2);
-		field2751 = new class240(3);
-		field2752 = new class240(5);
-		field2753 = new class240(14);
-		field2760 = new class240(6);
-		field2750 = new class240(4);
-		field2756 = new class240(4);
-		field2757 = new class240(7);
-		field2758 = new class240(15);
+		field2767 = new class240(5);
+		field2768 = new class240(4);
+		field2769 = new class240(2);
+		field2770 = new class240(6);
+		field2775 = new class240(15);
+		field2772 = new class240(3);
+		field2773 = new class240(14);
+		field2774 = new class240(5);
+		field2776 = new class240(7);
+		field2771 = new class240(4);
 	}
 
 	@ObfuscatedSignature(

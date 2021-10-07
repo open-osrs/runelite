@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, HSJ <https://github.com/HSJ-OSRS>
+ * Copyright (c) 2018, Matthew Steglinski <https://github.com/sainttx>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,5 +33,5 @@ import net.runelite.api.Actor;
 @Value
 public class ActorDeath
 {
-	Actor actor;
+	private final Actor actor;
 }

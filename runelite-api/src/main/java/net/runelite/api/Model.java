@@ -90,8 +90,7 @@ public interface Model extends Renderable
 
 	short[] getFaceTextures();
 
-	float[][] getFaceTextureUCoordinates();
-	float[][] getFaceTextureVCoordinates();
+	float[] getFaceTextureUVCoordinates();
 
 	void calculateExtreme(int orientation);
 
@@ -106,4 +105,8 @@ public interface Model extends Renderable
 	boolean isClickable();
 	
 	void drawFace(int face);
+
+	int[] getVertexNormalsX();
+	int[] getVertexNormalsY();
+	int[] getVertexNormalsZ();
 }

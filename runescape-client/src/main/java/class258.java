@@ -2,31 +2,27 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ik")
+@ObfuscatedName("ia")
 public class class258 {
-	@ObfuscatedName("e")
+	@ObfuscatedName("he")
 	@ObfuscatedSignature(
-		descriptor = "Lam;"
+		descriptor = "(I)V",
+		garbageValue = "542029233"
 	)
-	@Export("soundSystem")
-	static SoundSystem soundSystem;
+	@Export("Widget_runOnTargetLeave")
+	static void Widget_runOnTargetLeave() {
+		if (Client.isSpellSelected) {
+			Widget var0 = ViewportMouse.getWidgetChild(ModelData0.selectedSpellWidget, Client.selectedSpellChildIndex);
+			if (var0 != null && var0.onTargetLeave != null) {
+				ScriptEvent var1 = new ScriptEvent();
+				var1.widget = var0;
+				var1.args = var0.onTargetLeave;
+				ViewportMouse.runScriptEvent(var1);
+			}
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(Lkk;IIB)Loc;",
-		garbageValue = "15"
-	)
-	@Export("SpriteBuffer_getSprite")
-	public static SpritePixels SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
-		return !VertexNormal.method4477(var0, var1, var2) ? null : AbstractSocket.method6108();
-	}
-
-	@ObfuscatedName("hj")
-	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "73"
-	)
-	static final boolean method4892() {
-		return Client.isMenuOpen;
+			Client.field647 = -1;
+			Client.isSpellSelected = false;
+			class16.invalidateWidget(var0);
+		}
 	}
 }

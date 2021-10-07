@@ -37,5 +37,5 @@ public class VolumeChanged
 		AREA
 	}
 
-	Type type;
+	private final Type type;
 }

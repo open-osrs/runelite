@@ -1,37 +1,44 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cu")
+@ObfuscatedName("cg")
 @Implements("MouseRecorder")
 public class MouseRecorder implements Runnable {
-	@ObfuscatedName("eq")
-	@ObfuscatedSignature(
-		descriptor = "Lkx;"
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = -1289779463
 	)
-	@Export("archive10")
-	static Archive archive10;
-	@ObfuscatedName("n")
+	@Export("canvasHeight")
+	public static int canvasHeight;
+	@ObfuscatedName("de")
+	@ObfuscatedSignature(
+		descriptor = "Lky;"
+	)
+	@Export("archive1")
+	static Archive archive1;
+	@ObfuscatedName("l")
 	@Export("isRunning")
 	boolean isRunning;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("lock")
 	Object lock;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 858657877
+		intValue = 70944461
 	)
 	@Export("index")
 	int index;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@Export("xs")
 	int[] xs;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@Export("ys")
 	int[] ys;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@Export("millis")
 	long[] millis;
 
@@ -45,7 +52,7 @@ public class MouseRecorder implements Runnable {
 	}
 
 	public void run() {
-		for (; this.isRunning; PlayerType.method5099(50L)) {
+		for (; this.isRunning; class121.method2542(50L)) {
 			synchronized(this.lock) {
 				if (this.index < 500) {
 					this.xs[this.index] = MouseHandler.MouseHandler_x;
@@ -58,60 +65,46 @@ public class MouseRecorder implements Runnable {
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "1522690177"
+		descriptor = "(III)V",
+		garbageValue = "-76927073"
 	)
-	static int method2058(int var0, int var1) {
-		FloorOverlayDefinition var3 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var0);
-		FloorOverlayDefinition var2;
-		if (var3 != null) {
-			var2 = var3;
-		} else {
-			byte[] var4 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var0);
-			var3 = new FloorOverlayDefinition();
-			if (var4 != null) {
-				var3.decode(new Buffer(var4), var0);
-			}
-
-			var3.postDecode();
-			FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var3, (long)var0);
-			var2 = var3;
+	public static void method2078(int var0, int var1) {
+		VarbitComposition var2 = AttackOption.method2263(var0);
+		int var3 = var2.baseVar;
+		int var4 = var2.startBit;
+		int var5 = var2.endBit;
+		int var6 = Varps.Varps_masks[var5 - var4];
+		if (var1 < 0 || var1 > var6) {
+			var1 = 0;
 		}
 
-		if (var2 == null) {
-			return var1;
-		} else if (var2.secondaryRgb >= 0) {
-			return var2.secondaryRgb | -16777216;
-		} else if (var2.texture >= 0) {
-			int var10 = class138.method2696(Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var2.texture), 96);
-			return Rasterizer3D.Rasterizer3D_colorPalette[var10] | -16777216;
-		} else if (var2.primaryRgb == 16711935) {
-			return var1;
-		} else {
-			int var5 = var2.hue;
-			int var6 = var2.saturation;
-			int var7 = var2.lightness;
-			if (var7 > 179) {
-				var6 /= 2;
+		var6 <<= var4;
+		Varps.Varps_main[var3] = Varps.Varps_main[var3] & ~var6 | var1 << var4 & var6;
+	}
+
+	@ObfuscatedName("gn")
+	@ObfuscatedSignature(
+		descriptor = "(ZB)V",
+		garbageValue = "0"
+	)
+	static final void method2075(boolean var0) {
+		class356.playPcmPlayers();
+		++Client.packetWriter.pendingWrites;
+		if (Client.packetWriter.pendingWrites >= 50 || var0) {
+			Client.packetWriter.pendingWrites = 0;
+			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) {
+				PacketBufferNode var1 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2706, Client.packetWriter.isaacCipher);
+				Client.packetWriter.addNode(var1);
+
+				try {
+					Client.packetWriter.flush();
+				} catch (IOException var3) {
+					Client.hadNetworkError = true;
+				}
 			}
 
-			if (var7 > 192) {
-				var6 /= 2;
-			}
-
-			if (var7 > 217) {
-				var6 /= 2;
-			}
-
-			if (var7 > 243) {
-				var6 /= 2;
-			}
-
-			int var8 = (var6 / 32 << 7) + var7 / 2 + (var5 / 4 << 10);
-			int var9 = class138.method2696(var8, 96);
-			return Rasterizer3D.Rasterizer3D_colorPalette[var9] | -16777216;
 		}
 	}
 }

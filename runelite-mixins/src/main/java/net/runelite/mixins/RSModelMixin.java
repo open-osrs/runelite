@@ -61,51 +61,47 @@ public abstract class RSModelMixin implements RSModel
 	private int rl$uvBufferOffset;
 
 	@Inject
-	private float[][] rl$faceTextureUCoordinates;
+	private float[] rl$faceTextureUVCoordinates;
 
 	@Inject
-	private float[][] rl$faceTextureVCoordinates;
+	private int[] rl$vertexNormalsX;
+
+	@Inject
+	private int[] rl$vertexNormalsY;
+
+	@Inject
+	private int[] rl$vertexNormalsZ;
 
 	@MethodHook(value = "<init>", end = true)
 	@Inject
 	public void rl$init(RSModel[] models, int length)
 	{
-		int count = 0;
-		for (int i = 0; i < length; ++i)
+		if (getFaceTextures() != null)
 		{
-			RSModel model = models[i];
-			if (model != null)
+			int count = getTrianglesCount();
+			float[] uv = new float[count * 6];
+			int idx = 0;
+
+			for (int i = 0; i < length; ++i)
 			{
-				count += model.getTrianglesCount();
-			}
-		}
-
-		float[][] u = new float[count][];
-		float[][] v = new float[count][];
-		int idx = 0;
-
-		for (int i = 0; i < length; ++i)
-		{
-			RSModel model = models[i];
-			if (model != null)
-			{
-				float[][] modelU = model.getFaceTextureUCoordinates();
-				float[][] modelV = model.getFaceTextureVCoordinates();
-
-				for (int j = 0; j < model.getTrianglesCount(); ++j)
+				RSModel model = models[i];
+				if (model != null)
 				{
-					if (modelU != null && modelV != null)
+					float[] modelUV = model.getFaceTextureUVCoordinates();
+
+					if (modelUV != null)
 					{
-						u[idx] = modelU[j];
-						v[idx] = modelV[j];
+						System.arraycopy(modelUV, 0, uv, idx, model.getTrianglesCount() * 6);
 					}
-					++idx;
+
+					idx += model.getTrianglesCount() * 6;
 				}
 			}
+
+			setFaceTextureUVCoordinates(uv);
 		}
 
-		setFaceTextureUCoordinates(u);
-		setFaceTextureVCoordinates(v);
+		vertexNormals();
 	}
 
 	@Override
@@ -169,8 +165,10 @@ public abstract class RSModelMixin implements RSModel
 		if (model != null && model != this)
 		{
 			RSModel rsModel = (RSModel) model;
-			rsModel.setFaceTextureUCoordinates(rl$faceTextureUCoordinates);
-			rsModel.setFaceTextureVCoordinates(rl$faceTextureVCoordinates);
+			rsModel.setVertexNormalsX(rl$vertexNormalsX);
+			rsModel.setVertexNormalsY(rl$vertexNormalsY);
+			rsModel.setVertexNormalsZ(rl$vertexNormalsZ);
+			rsModel.setFaceTextureUVCoordinates(rl$faceTextureUVCoordinates);
 		}
 		return model;
 	}
@@ -192,8 +190,10 @@ public abstract class RSModelMixin implements RSModel
 	{
 		// Animated models are usually a shared Model instance that is global
 		RSModel rsModel = (RSModel) sharedModel;
-		rsModel.setFaceTextureUCoordinates(rl$faceTextureUCoordinates);
-		rsModel.setFaceTextureVCoordinates(rl$faceTextureVCoordinates);
+		rsModel.setVertexNormalsX(rl$vertexNormalsX);
+		rsModel.setVertexNormalsY(rl$vertexNormalsY);
+		rsModel.setVertexNormalsZ(rl$vertexNormalsZ);
+		rsModel.setFaceTextureUVCoordinates(rl$faceTextureUVCoordinates);
 	}
 
 	@Inject
@@ -234,7 +234,7 @@ public abstract class RSModelMixin implements RSModel
 			for (int i = 0; i < frame.getTransformCount(); i++)
 			{
 				int type = frame.getTransformTypes()[i];
-				this.animate(skin.getTypes()[type], skin.getList()[type], frame.getTranslatorX()[i],
+				animate(skin.getTypes()[type], skin.getList()[type], frame.getTranslatorX()[i],
 					frame.getTranslatorY()[i], frame.getTranslatorZ()[i]);
 			}
 		}
@@ -333,10 +333,10 @@ public abstract class RSModelMixin implements RSModel
 	@Inject
 	public Shape getConvexHull(int localX, int localY, int orientation, int tileHeight)
 	{
-		int[] x2d = new int[this.getVerticesCount()];
-		int[] y2d = new int[this.getVerticesCount()];
+		int[] x2d = new int[getVerticesCount()];
+		int[] y2d = new int[getVerticesCount()];
 
-		Perspective.modelToCanvas(client, this.getVerticesCount(), localX, localY, tileHeight, orientation, this.getVerticesX(), this.getVerticesZ(), this.getVerticesY(), x2d, y2d);
+		Perspective.modelToCanvas(client, getVerticesCount(), localX, localY, tileHeight, orientation, getVerticesX(), getVerticesZ(), getVerticesY(), x2d, y2d);
 
 		return Jarvis.convexHull(x2d, y2d);
 	}
@@ -352,7 +352,7 @@ public abstract class RSModelMixin implements RSModel
 	@Override
 	public void setSceneId(int sceneId)
 	{
-		this.rl$sceneId = sceneId;
+		rl$sceneId = sceneId;
 	}
 
 	@Inject
@@ -385,29 +385,123 @@ public abstract class RSModelMixin implements RSModel
 
 	@Inject
 	@Override
-	public float[][] getFaceTextureUCoordinates()
+	public float[] getFaceTextureUVCoordinates()
 	{
-		return rl$faceTextureUCoordinates;
+		return rl$faceTextureUVCoordinates;
 	}
 
 	@Inject
 	@Override
-	public void setFaceTextureUCoordinates(float[][] faceTextureUCoordinates)
+	public void setFaceTextureUVCoordinates(float[] faceTextureUVCoordinates)
 	{
-		this.rl$faceTextureUCoordinates = faceTextureUCoordinates;
+		rl$faceTextureUVCoordinates = faceTextureUVCoordinates;
+	}
+
+	@Inject
+	public void vertexNormals()
+	{
+		if (rl$vertexNormalsX == null)
+		{
+			int verticesCount = getVerticesCount();
+
+			rl$vertexNormalsX = new int[verticesCount];
+			rl$vertexNormalsY = new int[verticesCount];
+			rl$vertexNormalsZ = new int[verticesCount];
+
+			int[] trianglesX = getTrianglesX();
+			int[] trianglesY = getTrianglesY();
+			int[] trianglesZ = getTrianglesZ();
+			int[] verticesX = getVerticesX();
+			int[] verticesY = getVerticesY();
+			int[] verticesZ = getVerticesZ();
+
+			for (int i = 0; i < getTrianglesCount(); ++i)
+			{
+				int var9 = trianglesX[i];
+				int var10 = trianglesY[i];
+				int var11 = trianglesZ[i];
+
+				int var12 = verticesX[var10] - verticesX[var9];
+				int var13 = verticesY[var10] - verticesY[var9];
+				int var14 = verticesZ[var10] - verticesZ[var9];
+				int var15 = verticesX[var11] - verticesX[var9];
+				int var16 = verticesY[var11] - verticesY[var9];
+				int var17 = verticesZ[var11] - verticesZ[var9];
+
+				int var18 = var13 * var17 - var16 * var14;
+				int var19 = var14 * var15 - var17 * var12;
+
+				int var20;
+				for (var20 = var12 * var16 - var15 * var13; var18 > 8192 || var19 > 8192 || var20 > 8192 || var18 < -8192 || var19 < -8192 || var20 < -8192; var20 >>= 1)
+				{
+					var18 >>= 1;
+					var19 >>= 1;
+				}
+
+				int var21 = (int) Math.sqrt(var18 * var18 + var19 * var19 + var20 * var20);
+				if (var21 <= 0)
+				{
+					var21 = 1;
+				}
+
+				var18 = var18 * 256 / var21;
+				var19 = var19 * 256 / var21;
+				var20 = var20 * 256 / var21;
+
+				rl$vertexNormalsX[var9] += var18;
+				rl$vertexNormalsY[var9] += var19;
+				rl$vertexNormalsZ[var9] += var20;
+
+				rl$vertexNormalsX[var10] += var18;
+				rl$vertexNormalsY[var10] += var19;
+				rl$vertexNormalsZ[var10] += var20;
+
+				rl$vertexNormalsX[var11] += var18;
+				rl$vertexNormalsY[var11] += var19;
+				rl$vertexNormalsZ[var11] += var20;
+			}
+		}
 	}
 
 	@Inject
 	@Override
-	public float[][] getFaceTextureVCoordinates()
+	public int[] getVertexNormalsX()
 	{
-		return rl$faceTextureVCoordinates;
+		return rl$vertexNormalsX;
 	}
 
 	@Inject
 	@Override
-	public void setFaceTextureVCoordinates(float[][] faceTextureVCoordinates)
+	public void setVertexNormalsX(int[] vertexNormalsX)
 	{
-		this.rl$faceTextureVCoordinates = faceTextureVCoordinates;
+		rl$vertexNormalsX = vertexNormalsX;
+	}
+
+	@Inject
+	@Override
+	public int[] getVertexNormalsY()
+	{
+		return rl$vertexNormalsY;
+	}
+
+	@Inject
+	@Override
+	public void setVertexNormalsY(int[] vertexNormalsY)
+	{
+		rl$vertexNormalsY = vertexNormalsY;
+	}
+
+	@Inject
+	@Override
+	public int[] getVertexNormalsZ()
+	{
+		return rl$vertexNormalsZ;
+	}
+
+	@Inject
+	@Override
+	public void setVertexNormalsZ(int[] vertexNormalsZ)
+	{
+		rl$vertexNormalsZ = vertexNormalsZ;
 	}
 }

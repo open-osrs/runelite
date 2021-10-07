@@ -3,188 +3,188 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hz")
+@ObfuscatedName("hy")
 @Implements("Scene")
 public class Scene {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@Export("Scene_isLowDetail")
 	public static boolean Scene_isLowDetail;
 	@ObfuscatedName("s")
 	@Export("tileUpdateCount")
 	static int tileUpdateCount;
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@Export("Scene_plane")
 	static int Scene_plane;
-	@ObfuscatedName("d")
+	@ObfuscatedName("b")
 	@Export("Scene_drawnCount")
 	static int Scene_drawnCount;
-	@ObfuscatedName("q")
+	@ObfuscatedName("x")
 	@Export("Scene_cameraXTileMin")
 	static int Scene_cameraXTileMin;
-	@ObfuscatedName("j")
+	@ObfuscatedName("p")
 	@Export("Scene_cameraXTileMax")
 	static int Scene_cameraXTileMax;
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@Export("Scene_cameraYTileMin")
 	static int Scene_cameraYTileMin;
-	@ObfuscatedName("b")
+	@ObfuscatedName("h")
 	@Export("Scene_cameraYTileMax")
 	static int Scene_cameraYTileMax;
-	@ObfuscatedName("t")
+	@ObfuscatedName("o")
 	@Export("Scene_cameraXTile")
 	static int Scene_cameraXTile;
 	@ObfuscatedName("r")
 	@Export("Scene_cameraYTile")
 	static int Scene_cameraYTile;
-	@ObfuscatedName("p")
+	@ObfuscatedName("n")
 	@Export("Scene_cameraX")
 	static int Scene_cameraX;
-	@ObfuscatedName("w")
+	@ObfuscatedName("u")
 	@Export("Scene_cameraY")
 	static int Scene_cameraY;
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@Export("Scene_cameraZ")
 	static int Scene_cameraZ;
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ab")
 	@Export("Scene_cameraPitchSine")
 	static int Scene_cameraPitchSine;
 	@ObfuscatedName("ad")
 	@Export("Scene_cameraPitchCosine")
 	static int Scene_cameraPitchCosine;
-	@ObfuscatedName("al")
+	@ObfuscatedName("as")
 	@Export("Scene_cameraYawSine")
 	static int Scene_cameraYawSine;
-	@ObfuscatedName("aa")
+	@ObfuscatedName("ak")
 	@Export("Scene_cameraYawCosine")
 	static int Scene_cameraYawCosine;
-	@ObfuscatedName("aw")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "[Lhj;"
+		descriptor = "[Lhw;"
 	)
 	@Export("gameObjects")
 	static GameObject[] gameObjects;
-	@ObfuscatedName("at")
+	@ObfuscatedName("ay")
 	@Export("checkClick")
 	static boolean checkClick;
-	@ObfuscatedName("as")
+	@ObfuscatedName("al")
 	@Export("Scene_selectedPlane")
 	static int Scene_selectedPlane;
-	@ObfuscatedName("ae")
+	@ObfuscatedName("ao")
 	@Export("Scene_selectedScreenX")
 	static int Scene_selectedScreenX;
-	@ObfuscatedName("av")
+	@ObfuscatedName("au")
 	@Export("Scene_selectedScreenY")
 	static int Scene_selectedScreenY;
-	@ObfuscatedName("ak")
+	@ObfuscatedName("aa")
 	@Export("Scene_selectedX")
 	public static int Scene_selectedX;
-	@ObfuscatedName("an")
+	@ObfuscatedName("ag")
 	@Export("Scene_selectedY")
 	public static int Scene_selectedY;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("aq")
 	@Export("viewportWalking")
 	static boolean viewportWalking;
-	@ObfuscatedName("ao")
+	@ObfuscatedName("at")
 	@Export("Scene_planesCount")
 	static int Scene_planesCount;
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ax")
 	@Export("Scene_planeOccluderCounts")
 	static int[] Scene_planeOccluderCounts;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		descriptor = "[[Lhq;"
+		descriptor = "[[Lhp;"
 	)
 	@Export("Scene_planeOccluders")
 	static Occluder[][] Scene_planeOccluders;
-	@ObfuscatedName("ap")
+	@ObfuscatedName("av")
 	@Export("Scene_currentOccludersCount")
 	static int Scene_currentOccludersCount;
-	@ObfuscatedName("ai")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "[Lhq;"
+		descriptor = "[Lhp;"
 	)
 	@Export("Scene_currentOccluders")
 	static Occluder[] Scene_currentOccluders;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("aj")
 	@ObfuscatedSignature(
-		descriptor = "Lkn;"
+		descriptor = "Lkf;"
 	)
 	@Export("Scene_tilesDeque")
 	static NodeDeque Scene_tilesDeque;
-	@ObfuscatedName("ag")
-	static final int[] field2365;
-	@ObfuscatedName("ar")
-	static final int[] field2408;
+	@ObfuscatedName("am")
+	static final int[] field2390;
+	@ObfuscatedName("aw")
+	static final int[] field2428;
 	@ObfuscatedName("az")
-	static final int[] field2409;
-	@ObfuscatedName("ah")
-	static final int[] field2410;
+	static final int[] field2425;
+	@ObfuscatedName("ae")
+	static final int[] field2419;
+	@ObfuscatedName("ai")
+	static final int[] field2433;
 	@ObfuscatedName("af")
-	static final int[] field2401;
-	@ObfuscatedName("ax")
-	static final int[] field2392;
-	@ObfuscatedName("bd")
-	static final int[] field2413;
-	@ObfuscatedName("bw")
+	static final int[] field2420;
+	@ObfuscatedName("bz")
+	static final int[] field2429;
+	@ObfuscatedName("bu")
 	@Export("visibilityMap")
 	static boolean[][][][] visibilityMap;
-	@ObfuscatedName("bh")
+	@ObfuscatedName("bc")
 	@Export("visibleTiles")
 	static boolean[][] visibleTiles;
-	@ObfuscatedName("bj")
+	@ObfuscatedName("ba")
 	@Export("Scene_viewportXCenter")
 	static int Scene_viewportXCenter;
-	@ObfuscatedName("be")
+	@ObfuscatedName("bm")
 	@Export("Scene_viewportYCenter")
 	static int Scene_viewportYCenter;
-	@ObfuscatedName("bq")
+	@ObfuscatedName("bv")
 	@Export("Scene_viewportXMin")
 	static int Scene_viewportXMin;
-	@ObfuscatedName("bu")
+	@ObfuscatedName("bs")
 	@Export("Scene_viewportYMin")
 	static int Scene_viewportYMin;
-	@ObfuscatedName("bn")
+	@ObfuscatedName("bd")
 	@Export("Scene_viewportXMax")
 	static int Scene_viewportXMax;
-	@ObfuscatedName("bk")
+	@ObfuscatedName("bb")
 	@Export("Scene_viewportYMax")
 	static int Scene_viewportYMax;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("planes")
 	int planes;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("xSize")
 	int xSize;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@Export("ySize")
 	int ySize;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@Export("tileHeights")
 	int[][][] tileHeights;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "[[[Lhs;"
+		descriptor = "[[[Lhz;"
 	)
 	@Export("tiles")
 	Tile[][][] tiles;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@Export("minPlane")
 	int minPlane;
 	@ObfuscatedName("a")
 	@Export("tempGameObjectsCount")
 	int tempGameObjectsCount;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "[Lhj;"
+		descriptor = "[Lhw;"
 	)
 	@Export("tempGameObjects")
 	GameObject[] tempGameObjects;
-	@ObfuscatedName("e")
-	int[][][] field2370;
-	@ObfuscatedName("bc")
+	@ObfuscatedName("i")
+	int[][][] field2439;
+	@ObfuscatedName("bo")
 	@Export("tileShape2D")
 	int[][] tileShape2D;
-	@ObfuscatedName("br")
+	@ObfuscatedName("bx")
 	@Export("tileRotation2D")
 	int[][] tileRotation2D;
 
@@ -206,13 +206,13 @@ public class Scene {
 		Scene_currentOccludersCount = 0;
 		Scene_currentOccluders = new Occluder[500];
 		Scene_tilesDeque = new NodeDeque();
-		field2365 = new int[]{19, 55, 38, 155, 255, 110, 137, 205, 76};
-		field2408 = new int[]{160, 192, 80, 96, 0, 144, 80, 48, 160};
-		field2409 = new int[]{76, 8, 137, 4, 0, 1, 38, 2, 19};
-		field2410 = new int[]{0, 0, 2, 0, 0, 2, 1, 1, 0};
-		field2401 = new int[]{2, 0, 0, 2, 0, 0, 0, 4, 4};
-		field2392 = new int[]{0, 4, 4, 8, 0, 0, 8, 0, 0};
-		field2413 = new int[]{1, 1, 0, 0, 0, 8, 0, 0, 8};
+		field2390 = new int[]{19, 55, 38, 155, 255, 110, 137, 205, 76};
+		field2428 = new int[]{160, 192, 80, 96, 0, 144, 80, 48, 160};
+		field2425 = new int[]{76, 8, 137, 4, 0, 1, 38, 2, 19};
+		field2419 = new int[]{0, 0, 2, 0, 0, 2, 1, 1, 0};
+		field2433 = new int[]{2, 0, 0, 2, 0, 0, 0, 4, 4};
+		field2420 = new int[]{0, 4, 4, 8, 0, 0, 8, 0, 0};
+		field2429 = new int[]{1, 1, 0, 0, 0, 8, 0, 0, 8};
 		visibilityMap = new boolean[8][32][51][51];
 	}
 
@@ -226,12 +226,12 @@ public class Scene {
 		this.xSize = var2;
 		this.ySize = var3;
 		this.tiles = new Tile[var1][var2][var3];
-		this.field2370 = new int[var1][var2 + 1][var3 + 1];
+		this.field2439 = new int[var1][var2 + 1][var3 + 1];
 		this.tileHeights = var4;
 		this.clear();
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@Export("clear")
 	public void clear() {
 		int var1;
@@ -264,7 +264,7 @@ public class Scene {
 
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("init")
 	public void init(int var1) {
 		this.minPlane = var1;
@@ -279,7 +279,7 @@ public class Scene {
 
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("setLinkBelow")
 	public void setLinkBelow(int var1, int var2) {
 		Tile var3 = this.tiles[0][var1][var2];
@@ -291,7 +291,7 @@ public class Scene {
 
 				for (int var6 = 0; var6 < var5.gameObjectsCount; ++var6) {
 					GameObject var7 = var5.gameObjects[var6];
-					if (VarpDefinition.method2826(var7.tag) && var7.startX == var1 && var2 == var7.startY) {
+					if (class78.method2061(var7.tag) && var7.startX == var1 && var2 == var7.startY) {
 						--var7.plane;
 					}
 				}
@@ -306,7 +306,7 @@ public class Scene {
 		this.tiles[3][var1][var2] = null;
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@Export("setTileMinPlane")
 	public void setTileMinPlane(int var1, int var2, int var3, int var4) {
 		Tile var5 = this.tiles[var1][var2][var3];
@@ -315,7 +315,7 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@Export("addTile")
 	public void addTile(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11, int var12, int var13, int var14, int var15, int var16, int var17, int var18, int var19, int var20) {
 		SceneTilePaint var21;
@@ -353,9 +353,9 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILhr;JI)V"
+		descriptor = "(IIIILhi;JI)V"
 	)
 	@Export("newFloorDecoration")
 	public void newFloorDecoration(int var1, int var2, int var3, int var4, Renderable var5, long var6, int var8) {
@@ -377,7 +377,7 @@ public class Scene {
 
 	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILhr;JLhr;Lhr;)V"
+		descriptor = "(IIIILhi;JLhi;Lhi;)V"
 	)
 	@Export("newGroundItemPile")
 	public void newGroundItemPile(int var1, int var2, int var3, int var4, Renderable var5, long var6, Renderable var8, Renderable var9) {
@@ -411,9 +411,9 @@ public class Scene {
 		this.tiles[var1][var2][var3].itemLayer = var10;
 	}
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILhr;Lhr;IIJI)V"
+		descriptor = "(IIIILhi;Lhi;IIJI)V"
 	)
 	@Export("newBoundaryObject")
 	public void newBoundaryObject(int var1, int var2, int var3, int var4, Renderable var5, Renderable var6, int var7, int var8, long var9, int var11) {
@@ -439,9 +439,9 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILhr;Lhr;IIIIJI)V"
+		descriptor = "(IIIILhi;Lhi;IIIIJI)V"
 	)
 	@Export("newWallDecoration")
 	public void newWallDecoration(int var1, int var2, int var3, int var4, Renderable var5, Renderable var6, int var7, int var8, int var9, int var10, long var11, int var13) {
@@ -469,11 +469,11 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIILhr;IJI)Z"
+		descriptor = "(IIIIIILhi;IJI)Z"
 	)
-	public boolean method4291(int var1, int var2, int var3, int var4, int var5, int var6, Renderable var7, int var8, long var9, int var11) {
+	public boolean method4208(int var1, int var2, int var3, int var4, int var5, int var6, Renderable var7, int var8, long var9, int var11) {
 		if (var7 == null) {
 			return true;
 		} else {
@@ -483,9 +483,9 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIILhr;IJZ)Z"
+		descriptor = "(IIIIILhi;IJZ)Z"
 	)
 	@Export("drawEntity")
 	public boolean drawEntity(int var1, int var2, int var3, int var4, int var5, Renderable var6, int var7, long var8, boolean var10) {
@@ -522,18 +522,18 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIILhr;IJIIII)Z"
+		descriptor = "(IIIIILhi;IJIIII)Z"
 	)
 	@Export("addNullableObject")
 	public boolean addNullableObject(int var1, int var2, int var3, int var4, int var5, Renderable var6, int var7, long var8, int var10, int var11, int var12, int var13) {
 		return var6 == null ? true : this.newGameObject(var1, var10, var11, var12 - var10 + 1, var13 - var11 + 1, var2, var3, var4, var6, var7, true, var8, 0);
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIILhr;IZJI)Z"
+		descriptor = "(IIIIIIIILhi;IZJI)Z"
 	)
 	@Export("newGameObject")
 	boolean newGameObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, Renderable var9, int var10, boolean var11, long var12, int var14) {
@@ -617,9 +617,9 @@ public class Scene {
 		this.tempGameObjectsCount = 0;
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lhj;)V"
+		descriptor = "(Lhw;)V"
 	)
 	@Export("removeGameObject")
 	void removeGameObject(GameObject var1) {
@@ -653,8 +653,8 @@ public class Scene {
 
 	}
 
-	@ObfuscatedName("d")
-	public void method4219(int var1, int var2, int var3, int var4) {
+	@ObfuscatedName("b")
+	public void method4214(int var1, int var2, int var3, int var4) {
 		Tile var5 = this.tiles[var1][var2][var3];
 		if (var5 != null) {
 			WallDecoration var6 = var5.wallDecoration;
@@ -665,7 +665,7 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("x")
 	@Export("removeBoundaryObject")
 	public void removeBoundaryObject(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -674,7 +674,7 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("p")
 	@Export("removeWallDecoration")
 	public void removeWallDecoration(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -683,14 +683,14 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@Export("removeGameObject")
 	public void removeGameObject(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
 		if (var4 != null) {
 			for (int var5 = 0; var5 < var4.gameObjectsCount; ++var5) {
 				GameObject var6 = var4.gameObjects[var5];
-				if (VarpDefinition.method2826(var6.tag) && var2 == var6.startX && var3 == var6.startY) {
+				if (class78.method2061(var6.tag) && var2 == var6.startX && var3 == var6.startY) {
 					this.removeGameObject(var6);
 					return;
 				}
@@ -699,7 +699,7 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("h")
 	@Export("removeFloorDecoration")
 	public void removeFloorDecoration(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -708,7 +708,7 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("o")
 	@Export("removeGroundItemPile")
 	public void removeGroundItemPile(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -721,32 +721,33 @@ public class Scene {
 	@ObfuscatedSignature(
 		descriptor = "(III)Lhn;"
 	)
-	public BoundaryObject method4155(int var1, int var2, int var3) {
+	public BoundaryObject method4219(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
 		return var4 == null ? null : var4.boundaryObject;
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(III)Lhh;"
+		descriptor = "(III)Lhk;"
 	)
-	public WallDecoration method4156(int var1, int var2, int var3) {
+	public WallDecoration method4316(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
 		return var4 == null ? null : var4.wallDecoration;
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(III)Lhj;"
+		descriptor = "(III)Lhw;"
 	)
-	public GameObject method4180(int var1, int var2, int var3) {
+	@Export("getGameObject")
+	public GameObject getGameObject(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
 		if (var4 == null) {
 			return null;
 		} else {
 			for (int var5 = 0; var5 < var4.gameObjectsCount; ++var5) {
 				GameObject var6 = var4.gameObjects[var5];
-				if (VarpDefinition.method2826(var6.tag) && var2 == var6.startX && var3 == var6.startY) {
+				if (class78.method2061(var6.tag) && var2 == var6.startX && var3 == var6.startY) {
 					return var6;
 				}
 			}
@@ -755,9 +756,9 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(III)Lgx;"
+		descriptor = "(III)Lgv;"
 	)
 	@Export("getFloorDecoration")
 	public FloorDecoration getFloorDecoration(int var1, int var2, int var3) {
@@ -765,7 +766,7 @@ public class Scene {
 		return var4 != null && var4.floorDecoration != null ? var4.floorDecoration : null;
 	}
 
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ab")
 	@Export("getBoundaryObjectTag")
 	public long getBoundaryObjectTag(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -779,7 +780,7 @@ public class Scene {
 		return var4 != null && var4.wallDecoration != null ? var4.wallDecoration.tag : 0L;
 	}
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("as")
 	@Export("getGameObjectTag")
 	public long getGameObjectTag(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
@@ -788,7 +789,7 @@ public class Scene {
 		} else {
 			for (int var5 = 0; var5 < var4.gameObjectsCount; ++var5) {
 				GameObject var6 = var4.gameObjects[var5];
-				if (VarpDefinition.method2826(var6.tag) && var2 == var6.startX && var3 == var6.startY) {
+				if (class78.method2061(var6.tag) && var2 == var6.startX && var3 == var6.startY) {
 					return var6.tag;
 				}
 			}
@@ -797,14 +798,14 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("aa")
+	@ObfuscatedName("ak")
 	@Export("getFloorDecorationTag")
 	public long getFloorDecorationTag(int var1, int var2, int var3) {
 		Tile var4 = this.tiles[var1][var2][var3];
 		return var4 != null && var4.floorDecoration != null ? var4.floorDecoration.tag : 0L;
 	}
 
-	@ObfuscatedName("aw")
+	@ObfuscatedName("ah")
 	@Export("getObjectFlags")
 	public int getObjectFlags(int var1, int var2, int var3, long var4) {
 		Tile var6 = this.tiles[var1][var2][var3];
@@ -827,8 +828,8 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("at")
-	public void method4290(int var1, int var2, int var3) {
+	@ObfuscatedName("ay")
+	public void method4228(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.planes; ++var4) {
 			for (int var5 = 0; var5 < this.xSize; ++var5) {
 				for (int var6 = 0; var6 < this.ySize; ++var6) {
@@ -838,11 +839,11 @@ public class Scene {
 						ModelData var10;
 						if (var8 != null && var8.renderable1 instanceof ModelData) {
 							ModelData var9 = (ModelData)var8.renderable1;
-							this.method4165(var9, var4, var5, var6, 1, 1);
+							this.method4230(var9, var4, var5, var6, 1, 1);
 							if (var8.renderable2 instanceof ModelData) {
 								var10 = (ModelData)var8.renderable2;
-								this.method4165(var10, var4, var5, var6, 1, 1);
-								ModelData.method3972(var9, var10, 0, 0, 0, false);
+								this.method4230(var10, var4, var5, var6, 1, 1);
+								ModelData.method4043(var9, var10, 0, 0, 0, false);
 								var8.renderable2 = var10.toModel(var10.ambient, var10.contrast, var1, var2, var3);
 							}
 
@@ -853,7 +854,7 @@ public class Scene {
 							GameObject var14 = var7.gameObjects[var12];
 							if (var14 != null && var14.renderable instanceof ModelData) {
 								ModelData var11 = (ModelData)var14.renderable;
-								this.method4165(var11, var4, var5, var6, var14.endX - var14.startX + 1, var14.endY - var14.startY + 1);
+								this.method4230(var11, var4, var5, var6, var14.endX - var14.startX + 1, var14.endY - var14.startY + 1);
 								var14.renderable = var11.toModel(var11.ambient, var11.contrast, var1, var2, var3);
 							}
 						}
@@ -861,7 +862,7 @@ public class Scene {
 						FloorDecoration var13 = var7.floorDecoration;
 						if (var13 != null && var13.renderable instanceof ModelData) {
 							var10 = (ModelData)var13.renderable;
-							this.method4164(var10, var4, var5, var6);
+							this.method4229(var10, var4, var5, var6);
 							var13.renderable = var10.toModel(var10.ambient, var10.contrast, var1, var2, var3);
 						}
 					}
@@ -871,18 +872,18 @@ public class Scene {
 
 	}
 
-	@ObfuscatedName("as")
+	@ObfuscatedName("al")
 	@ObfuscatedSignature(
-		descriptor = "(Lgl;III)V"
+		descriptor = "(Lgi;III)V"
 	)
-	void method4164(ModelData var1, int var2, int var3, int var4) {
+	void method4229(ModelData var1, int var2, int var3, int var4) {
 		Tile var5;
 		ModelData var6;
 		if (var3 < this.xSize) {
 			var5 = this.tiles[var2][var3 + 1][var4];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.renderable instanceof ModelData) {
 				var6 = (ModelData)var5.floorDecoration.renderable;
-				ModelData.method3972(var1, var6, 128, 0, 0, true);
+				ModelData.method4043(var1, var6, 128, 0, 0, true);
 			}
 		}
 
@@ -890,7 +891,7 @@ public class Scene {
 			var5 = this.tiles[var2][var3][var4 + 1];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.renderable instanceof ModelData) {
 				var6 = (ModelData)var5.floorDecoration.renderable;
-				ModelData.method3972(var1, var6, 0, 0, 128, true);
+				ModelData.method4043(var1, var6, 0, 0, 128, true);
 			}
 		}
 
@@ -898,7 +899,7 @@ public class Scene {
 			var5 = this.tiles[var2][var3 + 1][var4 + 1];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.renderable instanceof ModelData) {
 				var6 = (ModelData)var5.floorDecoration.renderable;
-				ModelData.method3972(var1, var6, 128, 0, 128, true);
+				ModelData.method4043(var1, var6, 128, 0, 128, true);
 			}
 		}
 
@@ -906,17 +907,17 @@ public class Scene {
 			var5 = this.tiles[var2][var3 + 1][var4 - 1];
 			if (var5 != null && var5.floorDecoration != null && var5.floorDecoration.renderable instanceof ModelData) {
 				var6 = (ModelData)var5.floorDecoration.renderable;
-				ModelData.method3972(var1, var6, 128, 0, -128, true);
+				ModelData.method4043(var1, var6, 128, 0, -128, true);
 			}
 		}
 
 	}
 
-	@ObfuscatedName("ae")
+	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		descriptor = "(Lgl;IIIII)V"
+		descriptor = "(Lgi;IIIII)V"
 	)
-	void method4165(ModelData var1, int var2, int var3, int var4, int var5, int var6) {
+	void method4230(ModelData var1, int var2, int var3, int var4, int var5, int var6) {
 		boolean var7 = true;
 		int var8 = var3;
 		int var9 = var3 + var5;
@@ -937,12 +938,12 @@ public class Scene {
 										ModelData var18;
 										if (var17.renderable1 instanceof ModelData) {
 											var18 = (ModelData)var17.renderable1;
-											ModelData.method3972(var1, var18, (1 - var5) * 64 + (var13 - var3) * 128, var16, (var14 - var4) * 128 + (1 - var6) * 64, var7);
+											ModelData.method4043(var1, var18, (1 - var5) * 64 + (var13 - var3) * 128, var16, (var14 - var4) * 128 + (1 - var6) * 64, var7);
 										}
 
 										if (var17.renderable2 instanceof ModelData) {
 											var18 = (ModelData)var17.renderable2;
-											ModelData.method3972(var1, var18, (1 - var5) * 64 + (var13 - var3) * 128, var16, (var14 - var4) * 128 + (1 - var6) * 64, var7);
+											ModelData.method4043(var1, var18, (1 - var5) * 64 + (var13 - var3) * 128, var16, (var14 - var4) * 128 + (1 - var6) * 64, var7);
 										}
 									}
 
@@ -952,7 +953,7 @@ public class Scene {
 											ModelData var20 = (ModelData)var19.renderable;
 											int var21 = var19.endX - var19.startX + 1;
 											int var22 = var19.endY - var19.startY + 1;
-											ModelData.method3972(var1, var20, (var21 - var5) * 64 + (var19.startX - var3) * 128, var16, (var19.startY - var4) * 128 + (var22 - var6) * 64, var7);
+											ModelData.method4043(var1, var20, (var21 - var5) * 64 + (var19.startX - var3) * 128, var16, (var19.startY - var4) * 128 + (var22 - var6) * 64, var7);
 										}
 									}
 								}
@@ -968,7 +969,7 @@ public class Scene {
 
 	}
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("au")
 	@Export("drawTileMinimap")
 	public void drawTileMinimap(int[] var1, int var2, int var3, int var4, int var5, int var6) {
 		Tile var7 = this.tiles[var4][var5][var6];
@@ -1033,7 +1034,7 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("ab")
+	@ObfuscatedName("aq")
 	@Export("menuOpen")
 	public void menuOpen(int var1, int var2, int var3, boolean var4) {
 		if (!shouldSendWalk() || var4) {
@@ -1047,13 +1048,13 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("ar")
 	@Export("setViewportWalking")
 	public void setViewportWalking() {
 		viewportWalking = true;
 	}
 
-	@ObfuscatedName("ay")
+	@ObfuscatedName("ax")
 	@Export("draw")
 	public void draw(int var1, int var2, int var3, int var4, int var5, int var6) {
 		if (var1 < 0) {
@@ -1120,11 +1121,7 @@ public class Scene {
 				for (var10 = Scene_cameraYTileMin; var10 < Scene_cameraYTileMax; ++var10) {
 					Tile var16 = var8[var9][var10];
 					if (var16 != null) {
-						if (var16.minPlane > var6 || !visibleTiles[var9 - Scene_cameraXTile + 25][var10 - Scene_cameraYTile + 25] && this.tileHeights[var7][var9][var10] - var2 < 2000) {
-							var16.drawPrimary = false;
-							var16.drawSecondary = false;
-							var16.drawGameObjectEdges = 0;
-						} else {
+						if (var16.minPlane <= var6 && (visibleTiles[var9 - Scene_cameraXTile + 25][var10 - Scene_cameraYTile + 25] || this.tileHeights[var7][var9][var10] - var2 >= 2000)) {
 							var16.drawPrimary = true;
 							var16.drawSecondary = true;
 							if (var16.gameObjectsCount > 0) {
@@ -1134,6 +1131,10 @@ public class Scene {
 							}
 
 							++tileUpdateCount;
+						} else {
+							var16.drawPrimary = false;
+							var16.drawSecondary = false;
+							var16.drawGameObjectEdges = 0;
 						}
 					}
 				}
@@ -1250,9 +1251,9 @@ public class Scene {
 		checkClick = false;
 	}
 
-	@ObfuscatedName("aj")
+	@ObfuscatedName("an")
 	@ObfuscatedSignature(
-		descriptor = "(Lhs;Z)V"
+		descriptor = "(Lhz;Z)V"
 	)
 	@Export("drawTile")
 	void drawTile(Tile var1, boolean var2) {
@@ -1346,10 +1347,10 @@ public class Scene {
 											if (var3.linkedBelowTile != null) {
 												var9 = var3.linkedBelowTile;
 												if (var9.paint != null) {
-													if (!this.method4315(0, var4, var5)) {
+													if (!this.method4245(0, var4, var5)) {
 														this.drawTileUnderlay(var9.paint, 0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var4, var5);
 													}
-												} else if (var9.model != null && !this.method4315(0, var4, var5)) {
+												} else if (var9.model != null && !this.method4245(0, var4, var5)) {
 													this.drawTileOverlay(var9.model, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var4, var5);
 												}
 
@@ -1368,13 +1369,13 @@ public class Scene {
 
 											var20 = false;
 											if (var3.paint != null) {
-												if (!this.method4315(var7, var4, var5)) {
+												if (!this.method4245(var7, var4, var5)) {
 													var20 = true;
 													if (var3.paint.neColor != 12345678 || checkClick && var6 <= Scene_selectedPlane) {
 														this.drawTileUnderlay(var3.paint, var7, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var4, var5);
 													}
 												}
-											} else if (var3.model != null && !this.method4315(var7, var4, var5)) {
+											} else if (var3.model != null && !this.method4245(var7, var4, var5)) {
 												var20 = true;
 												this.drawTileOverlay(var3.model, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var4, var5);
 											}
@@ -1396,43 +1397,43 @@ public class Scene {
 													var21 += 6;
 												}
 
-												var11 = field2365[var21];
-												var3.field2327 = field2409[var21];
+												var11 = field2390[var21];
+												var3.field2337 = field2425[var21];
 											}
 
 											if (var31 != null) {
-												if ((var31.orientationA & field2408[var21]) != 0) {
+												if ((var31.orientationA & field2428[var21]) != 0) {
 													if (var31.orientationA == 16) {
 														var3.drawGameObjectEdges = 3;
-														var3.field2309 = field2410[var21];
-														var3.field2326 = 3 - var3.field2309;
+														var3.field2323 = field2419[var21];
+														var3.field2336 = 3 - var3.field2323;
 													} else if (var31.orientationA == 32) {
 														var3.drawGameObjectEdges = 6;
-														var3.field2309 = field2401[var21];
-														var3.field2326 = 6 - var3.field2309;
+														var3.field2323 = field2433[var21];
+														var3.field2336 = 6 - var3.field2323;
 													} else if (var31.orientationA == 64) {
 														var3.drawGameObjectEdges = 12;
-														var3.field2309 = field2392[var21];
-														var3.field2326 = 12 - var3.field2309;
+														var3.field2323 = field2420[var21];
+														var3.field2336 = 12 - var3.field2323;
 													} else {
 														var3.drawGameObjectEdges = 9;
-														var3.field2309 = field2413[var21];
-														var3.field2326 = 9 - var3.field2309;
+														var3.field2323 = field2429[var21];
+														var3.field2336 = 9 - var3.field2323;
 													}
 												} else {
 													var3.drawGameObjectEdges = 0;
 												}
 
-												if ((var31.orientationA & var11) != 0 && !this.method4181(var7, var4, var5, var31.orientationA)) {
+												if ((var31.orientationA & var11) != 0 && !this.method4302(var7, var4, var5, var31.orientationA)) {
 													var31.renderable1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var31.x - Scene_cameraX, var31.tileHeight - Scene_cameraY, var31.y - Scene_cameraZ, var31.tag);
 												}
 
-												if ((var31.orientationB & var11) != 0 && !this.method4181(var7, var4, var5, var31.orientationB)) {
+												if ((var31.orientationB & var11) != 0 && !this.method4302(var7, var4, var5, var31.orientationB)) {
 													var31.renderable2.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var31.x - Scene_cameraX, var31.tileHeight - Scene_cameraY, var31.y - Scene_cameraZ, var31.tag);
 												}
 											}
 
-											if (var13 != null && !this.method4182(var7, var4, var5, var13.renderable1.height)) {
+											if (var13 != null && !this.method4247(var7, var4, var5, var13.renderable1.height)) {
 												if ((var13.orientation & var11) != 0) {
 													var13.renderable1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var13.x - Scene_cameraX + var13.xOffset, var13.tileHeight - Scene_cameraY, var13.y - Scene_cameraZ + var13.yOffset, var13.tag);
 												} else if (var13.orientation == 256) {
@@ -1520,7 +1521,7 @@ public class Scene {
 											var20 = true;
 
 											for (var21 = 0; var21 < var3.gameObjectsCount; ++var21) {
-												if (var3.gameObjects[var21].lastDrawn != Scene_drawnCount && (var3.gameObjectEdgeMasks[var21] & var3.drawGameObjectEdges) == var3.field2309) {
+												if (var3.gameObjects[var21].lastDrawn != Scene_drawnCount && (var3.gameObjectEdgeMasks[var21] & var3.drawGameObjectEdges) == var3.field2323) {
 													var20 = false;
 													break;
 												}
@@ -1528,7 +1529,7 @@ public class Scene {
 
 											if (var20) {
 												var10 = var3.boundaryObject;
-												if (!this.method4181(var7, var4, var5, var10.orientationA)) {
+												if (!this.method4302(var7, var4, var5, var10.orientationA)) {
 													var10.renderable1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var10.x - Scene_cameraX, var10.tileHeight - Scene_cameraY, var10.y - Scene_cameraZ, var10.tag);
 												}
 
@@ -1575,7 +1576,7 @@ public class Scene {
 																	var16 += 2;
 																}
 
-																if ((var16 & var36.drawGameObjectEdges) == var3.field2326) {
+																if ((var16 & var36.drawGameObjectEdges) == var3.field2336) {
 																	var3.drawGameObjects = true;
 																	continue label563;
 																}
@@ -1593,9 +1594,9 @@ public class Scene {
 													var15 = Scene_cameraYTile - var12.startY;
 													var16 = var12.endY - Scene_cameraYTile;
 													if (var16 > var15) {
-														var12.field2619 = var24 + var16;
+														var12.field2637 = var24 + var16;
 													} else {
-														var12.field2619 = var24 + var15;
+														var12.field2637 = var24 + var15;
 													}
 												}
 											}
@@ -1607,10 +1608,10 @@ public class Scene {
 												for (var24 = 0; var24 < var21; ++var24) {
 													GameObject var35 = gameObjects[var24];
 													if (var35.lastDrawn != Scene_drawnCount) {
-														if (var35.field2619 > var11) {
-															var11 = var35.field2619;
+														if (var35.field2637 > var11) {
+															var11 = var35.field2637;
 															var25 = var24;
-														} else if (var11 == var35.field2619) {
+														} else if (var11 == var35.field2637) {
 															var15 = var35.centerX - Scene_cameraX;
 															var16 = var35.centerY - Scene_cameraZ;
 															var17 = gameObjects[var25].centerX - Scene_cameraX;
@@ -1628,7 +1629,7 @@ public class Scene {
 
 												GameObject var33 = gameObjects[var25];
 												var33.lastDrawn = Scene_drawnCount;
-												if (!this.method4183(var7, var33.startX, var33.endX, var33.startY, var33.endY, var33.renderable.height)) {
+												if (!this.method4263(var7, var33.startX, var33.endX, var33.startY, var33.endY, var33.renderable.height)) {
 													var33.renderable.draw(var33.orientation, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var33.centerX - Scene_cameraX, var33.height - Scene_cameraY, var33.centerY - Scene_cameraZ, var33.tag);
 												}
 
@@ -1700,10 +1701,10 @@ public class Scene {
 				}
 			}
 
-			if (var3.field2327 != 0) {
+			if (var3.field2337 != 0) {
 				WallDecoration var29 = var3.wallDecoration;
-				if (var29 != null && !this.method4182(var7, var4, var5, var29.renderable1.height)) {
-					if ((var29.orientation & var3.field2327) != 0) {
+				if (var29 != null && !this.method4247(var7, var4, var5, var29.renderable1.height)) {
+					if ((var29.orientation & var3.field2337) != 0) {
 						var29.renderable1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var29.x - Scene_cameraX + var29.xOffset, var29.tileHeight - Scene_cameraY, var29.y - Scene_cameraZ + var29.yOffset, var29.tag);
 					} else if (var29.orientation == 256) {
 						var11 = var29.x - Scene_cameraX;
@@ -1732,11 +1733,11 @@ public class Scene {
 
 				BoundaryObject var27 = var3.boundaryObject;
 				if (var27 != null) {
-					if ((var27.orientationB & var3.field2327) != 0 && !this.method4181(var7, var4, var5, var27.orientationB)) {
+					if ((var27.orientationB & var3.field2337) != 0 && !this.method4302(var7, var4, var5, var27.orientationB)) {
 						var27.renderable2.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var27.x - Scene_cameraX, var27.tileHeight - Scene_cameraY, var27.y - Scene_cameraZ, var27.tag);
 					}
 
-					if ((var27.orientationA & var3.field2327) != 0 && !this.method4181(var7, var4, var5, var27.orientationA)) {
+					if ((var27.orientationA & var3.field2337) != 0 && !this.method4302(var7, var4, var5, var27.orientationA)) {
 						var27.renderable1.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var27.x - Scene_cameraX, var27.tileHeight - Scene_cameraY, var27.y - Scene_cameraZ, var27.tag);
 					}
 				}
@@ -1780,9 +1781,9 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		descriptor = "(Lhw;IIIIIII)V"
+		descriptor = "(Lhm;IIIIIII)V"
 	)
 	@Export("drawTileUnderlay")
 	void drawTileUnderlay(SceneTilePaint var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
@@ -1836,9 +1837,9 @@ public class Scene {
 						Rasterizer3D.Rasterizer3D_alpha = 0;
 						int var30;
 						if ((var26 - var28) * (var25 - var29) - (var27 - var29) * (var24 - var28) > 0) {
-							Rasterizer3D.field2352 = false;
+							Rasterizer3D.field2347 = false;
 							if (var26 < 0 || var28 < 0 || var24 < 0 || var26 > Rasterizer3D.Rasterizer3D_clipWidth || var28 > Rasterizer3D.Rasterizer3D_clipWidth || var24 > Rasterizer3D.Rasterizer3D_clipWidth) {
-								Rasterizer3D.field2352 = true;
+								Rasterizer3D.field2347 = true;
 							}
 
 							if (checkClick && containsBounds(Scene_selectedScreenX, Scene_selectedScreenY, var27, var29, var25, var26, var28, var24)) {
@@ -1848,7 +1849,7 @@ public class Scene {
 
 							if (var1.texture == -1) {
 								if (var1.neColor != 12345678) {
-									Rasterizer3D.method4055(var27, var29, var25, var26, var28, var24, var1.neColor, var1.nwColor, var1.seColor);
+									Rasterizer3D.method4128(var27, var29, var25, var26, var28, var24, var1.neColor, var1.nwColor, var1.seColor);
 								}
 							} else if (!Scene_isLowDetail) {
 								if (var1.isFlat) {
@@ -1858,14 +1859,14 @@ public class Scene {
 								}
 							} else {
 								var30 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var1.texture);
-								Rasterizer3D.method4055(var27, var29, var25, var26, var28, var24, method4177(var30, var1.neColor), method4177(var30, var1.nwColor), method4177(var30, var1.seColor));
+								Rasterizer3D.method4128(var27, var29, var25, var26, var28, var24, method4242(var30, var1.neColor), method4242(var30, var1.nwColor), method4242(var30, var1.seColor));
 							}
 						}
 
 						if ((var22 - var24) * (var29 - var25) - (var23 - var25) * (var28 - var24) > 0) {
-							Rasterizer3D.field2352 = false;
+							Rasterizer3D.field2347 = false;
 							if (var22 < 0 || var24 < 0 || var28 < 0 || var22 > Rasterizer3D.Rasterizer3D_clipWidth || var24 > Rasterizer3D.Rasterizer3D_clipWidth || var28 > Rasterizer3D.Rasterizer3D_clipWidth) {
-								Rasterizer3D.field2352 = true;
+								Rasterizer3D.field2347 = true;
 							}
 
 							if (checkClick && containsBounds(Scene_selectedScreenX, Scene_selectedScreenY, var23, var25, var29, var22, var24, var28)) {
@@ -1875,13 +1876,13 @@ public class Scene {
 
 							if (var1.texture == -1) {
 								if (var1.swColor != 12345678) {
-									Rasterizer3D.method4055(var23, var25, var29, var22, var24, var28, var1.swColor, var1.seColor, var1.nwColor);
+									Rasterizer3D.method4128(var23, var25, var29, var22, var24, var28, var1.swColor, var1.seColor, var1.nwColor);
 								}
 							} else if (!Scene_isLowDetail) {
 								Rasterizer3D.drawTexturedTile(var23, var25, var29, var22, var24, var28, var1.swColor, var1.seColor, var1.nwColor, var10, var14, var9, var17, var18, var21, var12, var11, var15, var1.texture);
 							} else {
 								var30 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var1.texture);
-								Rasterizer3D.method4055(var23, var25, var29, var22, var24, var28, method4177(var30, var1.swColor), method4177(var30, var1.seColor), method4177(var30, var1.nwColor));
+								Rasterizer3D.method4128(var23, var25, var29, var22, var24, var28, method4242(var30, var1.swColor), method4242(var30, var1.seColor), method4242(var30, var1.nwColor));
 							}
 						}
 
@@ -1891,9 +1892,9 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("ai")
+	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
-		descriptor = "(Lhe;IIIIII)V"
+		descriptor = "(Lhr;IIIIII)V"
 	)
 	@Export("drawTileOverlay")
 	void drawTileOverlay(SceneTileModel var1, int var2, int var3, int var4, int var5, int var6, int var7) {
@@ -1918,13 +1919,13 @@ public class Scene {
 			}
 
 			if (var1.triangleTextureId != null) {
-				SceneTileModel.field2488[var9] = var10;
-				SceneTileModel.field2485[var9] = var13;
-				SceneTileModel.field2475[var9] = var12;
+				SceneTileModel.field2499[var9] = var10;
+				SceneTileModel.field2500[var9] = var13;
+				SceneTileModel.field2484[var9] = var12;
 			}
 
-			SceneTileModel.field2486[var9] = var10 * Rasterizer3D.Rasterizer3D_zoom / var12 + Rasterizer3D.Rasterizer3D_clipMidX;
-			SceneTileModel.field2482[var9] = var13 * Rasterizer3D.Rasterizer3D_zoom / var12 + Rasterizer3D.Rasterizer3D_clipMidY;
+			SceneTileModel.field2497[var9] = var10 * Rasterizer3D.Rasterizer3D_zoom / var12 + Rasterizer3D.Rasterizer3D_clipMidX;
+			SceneTileModel.field2498[var9] = var13 * Rasterizer3D.Rasterizer3D_zoom / var12 + Rasterizer3D.Rasterizer3D_clipMidY;
 		}
 
 		Rasterizer3D.Rasterizer3D_alpha = 0;
@@ -1934,16 +1935,16 @@ public class Scene {
 			var10 = var1.faceX[var9];
 			var11 = var1.faceY[var9];
 			var12 = var1.faceZ[var9];
-			var13 = SceneTileModel.field2486[var10];
-			int var14 = SceneTileModel.field2486[var11];
-			int var15 = SceneTileModel.field2486[var12];
-			int var16 = SceneTileModel.field2482[var10];
-			int var17 = SceneTileModel.field2482[var11];
-			int var18 = SceneTileModel.field2482[var12];
+			var13 = SceneTileModel.field2497[var10];
+			int var14 = SceneTileModel.field2497[var11];
+			int var15 = SceneTileModel.field2497[var12];
+			int var16 = SceneTileModel.field2498[var10];
+			int var17 = SceneTileModel.field2498[var11];
+			int var18 = SceneTileModel.field2498[var12];
 			if ((var13 - var14) * (var18 - var17) - (var16 - var17) * (var15 - var14) > 0) {
-				Rasterizer3D.field2352 = false;
+				Rasterizer3D.field2347 = false;
 				if (var13 < 0 || var14 < 0 || var15 < 0 || var13 > Rasterizer3D.Rasterizer3D_clipWidth || var14 > Rasterizer3D.Rasterizer3D_clipWidth || var15 > Rasterizer3D.Rasterizer3D_clipWidth) {
-					Rasterizer3D.field2352 = true;
+					Rasterizer3D.field2347 = true;
 				}
 
 				if (checkClick && containsBounds(Scene_selectedScreenX, Scene_selectedScreenY, var16, var17, var18, var13, var14, var15)) {
@@ -1954,23 +1955,23 @@ public class Scene {
 				if (var1.triangleTextureId != null && var1.triangleTextureId[var9] != -1) {
 					if (!Scene_isLowDetail) {
 						if (var1.isFlat) {
-							Rasterizer3D.drawTexturedTile(var16, var17, var18, var13, var14, var15, var1.triangleColorA[var9], var1.triangleColorB[var9], var1.triangleColorC[var9], SceneTileModel.field2488[0], SceneTileModel.field2488[1], SceneTileModel.field2488[3], SceneTileModel.field2485[0], SceneTileModel.field2485[1], SceneTileModel.field2485[3], SceneTileModel.field2475[0], SceneTileModel.field2475[1], SceneTileModel.field2475[3], var1.triangleTextureId[var9]);
+							Rasterizer3D.drawTexturedTile(var16, var17, var18, var13, var14, var15, var1.triangleColorA[var9], var1.triangleColorB[var9], var1.triangleColorC[var9], SceneTileModel.field2499[0], SceneTileModel.field2499[1], SceneTileModel.field2499[3], SceneTileModel.field2500[0], SceneTileModel.field2500[1], SceneTileModel.field2500[3], SceneTileModel.field2484[0], SceneTileModel.field2484[1], SceneTileModel.field2484[3], var1.triangleTextureId[var9]);
 						} else {
-							Rasterizer3D.drawTexturedTile(var16, var17, var18, var13, var14, var15, var1.triangleColorA[var9], var1.triangleColorB[var9], var1.triangleColorC[var9], SceneTileModel.field2488[var10], SceneTileModel.field2488[var11], SceneTileModel.field2488[var12], SceneTileModel.field2485[var10], SceneTileModel.field2485[var11], SceneTileModel.field2485[var12], SceneTileModel.field2475[var10], SceneTileModel.field2475[var11], SceneTileModel.field2475[var12], var1.triangleTextureId[var9]);
+							Rasterizer3D.drawTexturedTile(var16, var17, var18, var13, var14, var15, var1.triangleColorA[var9], var1.triangleColorB[var9], var1.triangleColorC[var9], SceneTileModel.field2499[var10], SceneTileModel.field2499[var11], SceneTileModel.field2499[var12], SceneTileModel.field2500[var10], SceneTileModel.field2500[var11], SceneTileModel.field2500[var12], SceneTileModel.field2484[var10], SceneTileModel.field2484[var11], SceneTileModel.field2484[var12], var1.triangleTextureId[var9]);
 						}
 					} else {
 						int var19 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var1.triangleTextureId[var9]);
-						Rasterizer3D.method4055(var16, var17, var18, var13, var14, var15, method4177(var19, var1.triangleColorA[var9]), method4177(var19, var1.triangleColorB[var9]), method4177(var19, var1.triangleColorC[var9]));
+						Rasterizer3D.method4128(var16, var17, var18, var13, var14, var15, method4242(var19, var1.triangleColorA[var9]), method4242(var19, var1.triangleColorB[var9]), method4242(var19, var1.triangleColorC[var9]));
 					}
 				} else if (var1.triangleColorA[var9] != 12345678) {
-					Rasterizer3D.method4055(var16, var17, var18, var13, var14, var15, var1.triangleColorA[var9], var1.triangleColorB[var9], var1.triangleColorC[var9]);
+					Rasterizer3D.method4128(var16, var17, var18, var13, var14, var15, var1.triangleColorA[var9], var1.triangleColorB[var9], var1.triangleColorC[var9]);
 				}
 			}
 		}
 
 	}
 
-	@ObfuscatedName("ar")
+	@ObfuscatedName("aw")
 	@Export("occlude")
 	void occlude() {
 		int var1 = Scene_planeOccluderCounts[Scene_plane];
@@ -2009,20 +2010,20 @@ public class Scene {
 					if (var13) {
 						var9 = Scene_cameraX - var4.minX;
 						if (var9 > 32) {
-							var4.field2450 = 1;
+							var4.field2466 = 1;
 						} else {
 							if (var9 >= -32) {
 								continue;
 							}
 
-							var4.field2450 = 2;
+							var4.field2466 = 2;
 							var9 = -var9;
 						}
 
-						var4.field2456 = (var4.minZ - Scene_cameraZ << 8) / var9;
-						var4.field2440 = (var4.maxZ - Scene_cameraZ << 8) / var9;
-						var4.field2459 = (var4.minY - Scene_cameraY << 8) / var9;
-						var4.field2451 = (var4.maxY - Scene_cameraY << 8) / var9;
+						var4.field2469 = (var4.minZ - Scene_cameraZ << 8) / var9;
+						var4.field2470 = (var4.maxZ - Scene_cameraZ << 8) / var9;
+						var4.field2463 = (var4.minY - Scene_cameraY << 8) / var9;
+						var4.field2472 = (var4.maxY - Scene_cameraY << 8) / var9;
 						Scene_currentOccluders[Scene_currentOccludersCount++] = var4;
 					}
 				}
@@ -2051,20 +2052,20 @@ public class Scene {
 					if (var13) {
 						var9 = Scene_cameraZ - var4.minZ;
 						if (var9 > 32) {
-							var4.field2450 = 3;
+							var4.field2466 = 3;
 						} else {
 							if (var9 >= -32) {
 								continue;
 							}
 
-							var4.field2450 = 4;
+							var4.field2466 = 4;
 							var9 = -var9;
 						}
 
-						var4.field2452 = (var4.minX - Scene_cameraX << 8) / var9;
-						var4.field2453 = (var4.maxX - Scene_cameraX << 8) / var9;
-						var4.field2459 = (var4.minY - Scene_cameraY << 8) / var9;
-						var4.field2451 = (var4.maxY - Scene_cameraY << 8) / var9;
+						var4.field2467 = (var4.minX - Scene_cameraX << 8) / var9;
+						var4.field2468 = (var4.maxX - Scene_cameraX << 8) / var9;
+						var4.field2463 = (var4.minY - Scene_cameraY << 8) / var9;
+						var4.field2472 = (var4.maxY - Scene_cameraY << 8) / var9;
 						Scene_currentOccluders[Scene_currentOccludersCount++] = var4;
 					}
 				}
@@ -2105,11 +2106,11 @@ public class Scene {
 						}
 
 						if (var10) {
-							var4.field2450 = 5;
-							var4.field2452 = (var4.minX - Scene_cameraX << 8) / var5;
-							var4.field2453 = (var4.maxX - Scene_cameraX << 8) / var5;
-							var4.field2456 = (var4.minZ - Scene_cameraZ << 8) / var5;
-							var4.field2440 = (var4.maxZ - Scene_cameraZ << 8) / var5;
+							var4.field2466 = 5;
+							var4.field2467 = (var4.minX - Scene_cameraX << 8) / var5;
+							var4.field2468 = (var4.maxX - Scene_cameraX << 8) / var5;
+							var4.field2469 = (var4.minZ - Scene_cameraZ << 8) / var5;
+							var4.field2470 = (var4.maxZ - Scene_cameraZ << 8) / var5;
 							Scene_currentOccluders[Scene_currentOccludersCount++] = var4;
 						}
 					}
@@ -2120,8 +2121,8 @@ public class Scene {
 	}
 
 	@ObfuscatedName("az")
-	boolean method4315(int var1, int var2, int var3) {
-		int var4 = this.field2370[var1][var2][var3];
+	boolean method4245(int var1, int var2, int var3) {
+		int var4 = this.field2439[var1][var2][var3];
 		if (var4 == -Scene_drawnCount) {
 			return false;
 		} else if (var4 == Scene_drawnCount) {
@@ -2129,19 +2130,19 @@ public class Scene {
 		} else {
 			int var5 = var2 << 7;
 			int var6 = var3 << 7;
-			if (this.method4208(var5 + 1, this.tileHeights[var1][var2][var3], var6 + 1) && this.method4208(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3], var6 + 1) && this.method4208(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3 + 1], var6 + 128 - 1) && this.method4208(var5 + 1, this.tileHeights[var1][var2][var3 + 1], var6 + 128 - 1)) {
-				this.field2370[var1][var2][var3] = Scene_drawnCount;
+			if (this.method4249(var5 + 1, this.tileHeights[var1][var2][var3], var6 + 1) && this.method4249(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3], var6 + 1) && this.method4249(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3 + 1], var6 + 128 - 1) && this.method4249(var5 + 1, this.tileHeights[var1][var2][var3 + 1], var6 + 128 - 1)) {
+				this.field2439[var1][var2][var3] = Scene_drawnCount;
 				return true;
 			} else {
-				this.field2370[var1][var2][var3] = -Scene_drawnCount;
+				this.field2439[var1][var2][var3] = -Scene_drawnCount;
 				return false;
 			}
 		}
 	}
 
-	@ObfuscatedName("bd")
-	boolean method4181(int var1, int var2, int var3, int var4) {
-		if (!this.method4315(var1, var2, var3)) {
+	@ObfuscatedName("ae")
+	boolean method4302(int var1, int var2, int var3, int var4) {
+		if (!this.method4245(var1, var2, var3)) {
 			return false;
 		} else {
 			int var5 = var2 << 7;
@@ -2153,30 +2154,30 @@ public class Scene {
 			if (var4 < 16) {
 				if (var4 == 1) {
 					if (var5 > Scene_cameraX) {
-						if (!this.method4208(var5, var7, var6)) {
+						if (!this.method4249(var5, var7, var6)) {
 							return false;
 						}
 
-						if (!this.method4208(var5, var7, var6 + 128)) {
+						if (!this.method4249(var5, var7, var6 + 128)) {
 							return false;
 						}
 					}
 
 					if (var1 > 0) {
-						if (!this.method4208(var5, var8, var6)) {
+						if (!this.method4249(var5, var8, var6)) {
 							return false;
 						}
 
-						if (!this.method4208(var5, var8, var6 + 128)) {
+						if (!this.method4249(var5, var8, var6 + 128)) {
 							return false;
 						}
 					}
 
-					if (!this.method4208(var5, var9, var6)) {
+					if (!this.method4249(var5, var9, var6)) {
 						return false;
 					}
 
-					if (!this.method4208(var5, var9, var6 + 128)) {
+					if (!this.method4249(var5, var9, var6 + 128)) {
 						return false;
 					}
 
@@ -2185,30 +2186,30 @@ public class Scene {
 
 				if (var4 == 2) {
 					if (var6 < Scene_cameraZ) {
-						if (!this.method4208(var5, var7, var6 + 128)) {
+						if (!this.method4249(var5, var7, var6 + 128)) {
 							return false;
 						}
 
-						if (!this.method4208(var5 + 128, var7, var6 + 128)) {
+						if (!this.method4249(var5 + 128, var7, var6 + 128)) {
 							return false;
 						}
 					}
 
 					if (var1 > 0) {
-						if (!this.method4208(var5, var8, var6 + 128)) {
+						if (!this.method4249(var5, var8, var6 + 128)) {
 							return false;
 						}
 
-						if (!this.method4208(var5 + 128, var8, var6 + 128)) {
+						if (!this.method4249(var5 + 128, var8, var6 + 128)) {
 							return false;
 						}
 					}
 
-					if (!this.method4208(var5, var9, var6 + 128)) {
+					if (!this.method4249(var5, var9, var6 + 128)) {
 						return false;
 					}
 
-					if (!this.method4208(var5 + 128, var9, var6 + 128)) {
+					if (!this.method4249(var5 + 128, var9, var6 + 128)) {
 						return false;
 					}
 
@@ -2217,30 +2218,30 @@ public class Scene {
 
 				if (var4 == 4) {
 					if (var5 < Scene_cameraX) {
-						if (!this.method4208(var5 + 128, var7, var6)) {
+						if (!this.method4249(var5 + 128, var7, var6)) {
 							return false;
 						}
 
-						if (!this.method4208(var5 + 128, var7, var6 + 128)) {
+						if (!this.method4249(var5 + 128, var7, var6 + 128)) {
 							return false;
 						}
 					}
 
 					if (var1 > 0) {
-						if (!this.method4208(var5 + 128, var8, var6)) {
+						if (!this.method4249(var5 + 128, var8, var6)) {
 							return false;
 						}
 
-						if (!this.method4208(var5 + 128, var8, var6 + 128)) {
+						if (!this.method4249(var5 + 128, var8, var6 + 128)) {
 							return false;
 						}
 					}
 
-					if (!this.method4208(var5 + 128, var9, var6)) {
+					if (!this.method4249(var5 + 128, var9, var6)) {
 						return false;
 					}
 
-					if (!this.method4208(var5 + 128, var9, var6 + 128)) {
+					if (!this.method4249(var5 + 128, var9, var6 + 128)) {
 						return false;
 					}
 
@@ -2249,30 +2250,30 @@ public class Scene {
 
 				if (var4 == 8) {
 					if (var6 > Scene_cameraZ) {
-						if (!this.method4208(var5, var7, var6)) {
+						if (!this.method4249(var5, var7, var6)) {
 							return false;
 						}
 
-						if (!this.method4208(var5 + 128, var7, var6)) {
+						if (!this.method4249(var5 + 128, var7, var6)) {
 							return false;
 						}
 					}
 
 					if (var1 > 0) {
-						if (!this.method4208(var5, var8, var6)) {
+						if (!this.method4249(var5, var8, var6)) {
 							return false;
 						}
 
-						if (!this.method4208(var5 + 128, var8, var6)) {
+						if (!this.method4249(var5 + 128, var8, var6)) {
 							return false;
 						}
 					}
 
-					if (!this.method4208(var5, var9, var6)) {
+					if (!this.method4249(var5, var9, var6)) {
 						return false;
 					}
 
-					if (!this.method4208(var5 + 128, var9, var6)) {
+					if (!this.method4249(var5 + 128, var9, var6)) {
 						return false;
 					}
 
@@ -2280,49 +2281,49 @@ public class Scene {
 				}
 			}
 
-			if (!this.method4208(var5 + 64, var10, var6 + 64)) {
+			if (!this.method4249(var5 + 64, var10, var6 + 64)) {
 				return false;
 			} else if (var4 == 16) {
-				return this.method4208(var5, var9, var6 + 128);
+				return this.method4249(var5, var9, var6 + 128);
 			} else if (var4 == 32) {
-				return this.method4208(var5 + 128, var9, var6 + 128);
+				return this.method4249(var5 + 128, var9, var6 + 128);
 			} else if (var4 == 64) {
-				return this.method4208(var5 + 128, var9, var6);
+				return this.method4249(var5 + 128, var9, var6);
 			} else if (var4 == 128) {
-				return this.method4208(var5, var9, var6);
+				return this.method4249(var5, var9, var6);
 			} else {
 				return true;
 			}
 		}
 	}
 
-	@ObfuscatedName("bt")
-	boolean method4182(int var1, int var2, int var3, int var4) {
-		if (!this.method4315(var1, var2, var3)) {
+	@ObfuscatedName("ai")
+	boolean method4247(int var1, int var2, int var3, int var4) {
+		if (!this.method4245(var1, var2, var3)) {
 			return false;
 		} else {
 			int var5 = var2 << 7;
 			int var6 = var3 << 7;
-			return this.method4208(var5 + 1, this.tileHeights[var1][var2][var3] - var4, var6 + 1) && this.method4208(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3] - var4, var6 + 1) && this.method4208(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3 + 1] - var4, var6 + 128 - 1) && this.method4208(var5 + 1, this.tileHeights[var1][var2][var3 + 1] - var4, var6 + 128 - 1);
+			return this.method4249(var5 + 1, this.tileHeights[var1][var2][var3] - var4, var6 + 1) && this.method4249(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3] - var4, var6 + 1) && this.method4249(var5 + 128 - 1, this.tileHeights[var1][var2 + 1][var3 + 1] - var4, var6 + 128 - 1) && this.method4249(var5 + 1, this.tileHeights[var1][var2][var3 + 1] - var4, var6 + 128 - 1);
 		}
 	}
 
-	@ObfuscatedName("bf")
-	boolean method4183(int var1, int var2, int var3, int var4, int var5, int var6) {
+	@ObfuscatedName("bg")
+	boolean method4263(int var1, int var2, int var3, int var4, int var5, int var6) {
 		int var7;
 		int var8;
 		if (var3 == var2 && var5 == var4) {
-			if (!this.method4315(var1, var2, var4)) {
+			if (!this.method4245(var1, var2, var4)) {
 				return false;
 			} else {
 				var7 = var2 << 7;
 				var8 = var4 << 7;
-				return this.method4208(var7 + 1, this.tileHeights[var1][var2][var4] - var6, var8 + 1) && this.method4208(var7 + 128 - 1, this.tileHeights[var1][var2 + 1][var4] - var6, var8 + 1) && this.method4208(var7 + 128 - 1, this.tileHeights[var1][var2 + 1][var4 + 1] - var6, var8 + 128 - 1) && this.method4208(var7 + 1, this.tileHeights[var1][var2][var4 + 1] - var6, var8 + 128 - 1);
+				return this.method4249(var7 + 1, this.tileHeights[var1][var2][var4] - var6, var8 + 1) && this.method4249(var7 + 128 - 1, this.tileHeights[var1][var2 + 1][var4] - var6, var8 + 1) && this.method4249(var7 + 128 - 1, this.tileHeights[var1][var2 + 1][var4 + 1] - var6, var8 + 128 - 1) && this.method4249(var7 + 1, this.tileHeights[var1][var2][var4 + 1] - var6, var8 + 128 - 1);
 			}
 		} else {
 			for (var7 = var2; var7 <= var3; ++var7) {
 				for (var8 = var4; var8 <= var5; ++var8) {
-					if (this.field2370[var1][var7][var8] == -Scene_drawnCount) {
+					if (this.field2439[var1][var7][var8] == -Scene_drawnCount) {
 						return false;
 					}
 				}
@@ -2331,17 +2332,17 @@ public class Scene {
 			var7 = (var2 << 7) + 1;
 			var8 = (var4 << 7) + 2;
 			int var9 = this.tileHeights[var1][var2][var4] - var6;
-			if (!this.method4208(var7, var9, var8)) {
+			if (!this.method4249(var7, var9, var8)) {
 				return false;
 			} else {
 				int var10 = (var3 << 7) - 1;
-				if (!this.method4208(var10, var9, var8)) {
+				if (!this.method4249(var10, var9, var8)) {
 					return false;
 				} else {
 					int var11 = (var5 << 7) - 1;
-					if (!this.method4208(var7, var9, var11)) {
+					if (!this.method4249(var7, var9, var11)) {
 						return false;
-					} else if (!this.method4208(var10, var9, var11)) {
+					} else if (!this.method4249(var10, var9, var11)) {
 						return false;
 					} else {
 						return true;
@@ -2351,8 +2352,8 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("bp")
-	boolean method4208(int var1, int var2, int var3) {
+	@ObfuscatedName("bf")
+	boolean method4249(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < Scene_currentOccludersCount; ++var4) {
 			Occluder var5 = Scene_currentOccluders[var4];
 			int var6;
@@ -2360,57 +2361,57 @@ public class Scene {
 			int var8;
 			int var9;
 			int var10;
-			if (var5.field2450 == 1) {
+			if (var5.field2466 == 1) {
 				var6 = var5.minX - var1;
 				if (var6 > 0) {
-					var7 = (var6 * var5.field2456 >> 8) + var5.minZ;
-					var8 = (var6 * var5.field2440 >> 8) + var5.maxZ;
-					var9 = (var6 * var5.field2459 >> 8) + var5.minY;
-					var10 = (var6 * var5.field2451 >> 8) + var5.maxY;
+					var7 = (var6 * var5.field2469 >> 8) + var5.minZ;
+					var8 = (var6 * var5.field2470 >> 8) + var5.maxZ;
+					var9 = (var6 * var5.field2463 >> 8) + var5.minY;
+					var10 = (var6 * var5.field2472 >> 8) + var5.maxY;
 					if (var3 >= var7 && var3 <= var8 && var2 >= var9 && var2 <= var10) {
 						return true;
 					}
 				}
-			} else if (var5.field2450 == 2) {
+			} else if (var5.field2466 == 2) {
 				var6 = var1 - var5.minX;
 				if (var6 > 0) {
-					var7 = (var6 * var5.field2456 >> 8) + var5.minZ;
-					var8 = (var6 * var5.field2440 >> 8) + var5.maxZ;
-					var9 = (var6 * var5.field2459 >> 8) + var5.minY;
-					var10 = (var6 * var5.field2451 >> 8) + var5.maxY;
+					var7 = (var6 * var5.field2469 >> 8) + var5.minZ;
+					var8 = (var6 * var5.field2470 >> 8) + var5.maxZ;
+					var9 = (var6 * var5.field2463 >> 8) + var5.minY;
+					var10 = (var6 * var5.field2472 >> 8) + var5.maxY;
 					if (var3 >= var7 && var3 <= var8 && var2 >= var9 && var2 <= var10) {
 						return true;
 					}
 				}
-			} else if (var5.field2450 == 3) {
+			} else if (var5.field2466 == 3) {
 				var6 = var5.minZ - var3;
 				if (var6 > 0) {
-					var7 = (var6 * var5.field2452 >> 8) + var5.minX;
-					var8 = (var6 * var5.field2453 >> 8) + var5.maxX;
-					var9 = (var6 * var5.field2459 >> 8) + var5.minY;
-					var10 = (var6 * var5.field2451 >> 8) + var5.maxY;
+					var7 = (var6 * var5.field2467 >> 8) + var5.minX;
+					var8 = (var6 * var5.field2468 >> 8) + var5.maxX;
+					var9 = (var6 * var5.field2463 >> 8) + var5.minY;
+					var10 = (var6 * var5.field2472 >> 8) + var5.maxY;
 					if (var1 >= var7 && var1 <= var8 && var2 >= var9 && var2 <= var10) {
 						return true;
 					}
 				}
-			} else if (var5.field2450 == 4) {
+			} else if (var5.field2466 == 4) {
 				var6 = var3 - var5.minZ;
 				if (var6 > 0) {
-					var7 = (var6 * var5.field2452 >> 8) + var5.minX;
-					var8 = (var6 * var5.field2453 >> 8) + var5.maxX;
-					var9 = (var6 * var5.field2459 >> 8) + var5.minY;
-					var10 = (var6 * var5.field2451 >> 8) + var5.maxY;
+					var7 = (var6 * var5.field2467 >> 8) + var5.minX;
+					var8 = (var6 * var5.field2468 >> 8) + var5.maxX;
+					var9 = (var6 * var5.field2463 >> 8) + var5.minY;
+					var10 = (var6 * var5.field2472 >> 8) + var5.maxY;
 					if (var1 >= var7 && var1 <= var8 && var2 >= var9 && var2 <= var10) {
 						return true;
 					}
 				}
-			} else if (var5.field2450 == 5) {
+			} else if (var5.field2466 == 5) {
 				var6 = var2 - var5.minY;
 				if (var6 > 0) {
-					var7 = (var6 * var5.field2452 >> 8) + var5.minX;
-					var8 = (var6 * var5.field2453 >> 8) + var5.maxX;
-					var9 = (var6 * var5.field2456 >> 8) + var5.minZ;
-					var10 = (var6 * var5.field2440 >> 8) + var5.maxZ;
+					var7 = (var6 * var5.field2467 >> 8) + var5.minX;
+					var8 = (var6 * var5.field2468 >> 8) + var5.maxX;
+					var9 = (var6 * var5.field2469 >> 8) + var5.minZ;
+					var10 = (var6 * var5.field2470 >> 8) + var5.maxZ;
 					if (var1 >= var7 && var1 <= var8 && var3 >= var9 && var3 <= var10) {
 						return true;
 					}
@@ -2421,7 +2422,7 @@ public class Scene {
 		return false;
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@Export("Scene_addOccluder")
 	public static void Scene_addOccluder(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		Occluder var8 = new Occluder();
@@ -2439,7 +2440,7 @@ public class Scene {
 		Scene_planeOccluders[var0][Scene_planeOccluderCounts[var0]++] = var8;
 	}
 
-	@ObfuscatedName("ak")
+	@ObfuscatedName("aa")
 	@Export("Scene_buildVisiblityMap")
 	public static void Scene_buildVisiblityMap(int[] var0, int var1, int var2, int var3, int var4) {
 		Scene_viewportXMin = 0;
@@ -2472,7 +2473,7 @@ public class Scene {
 						boolean var14 = false;
 
 						for (int var15 = -var1; var15 <= var2; var15 += 128) {
-							if (method4168(var12, var0[var8] + var15, var13)) {
+							if (method4233(var12, var0[var8] + var15, var13)) {
 								var14 = true;
 								break;
 							}
@@ -2490,27 +2491,27 @@ public class Scene {
 					for (var9 = -25; var9 < 25; ++var9) {
 						boolean var16 = false;
 
-						label85:
+						label83:
 						for (var11 = -1; var11 <= 1; ++var11) {
 							for (var12 = -1; var12 <= 1; ++var12) {
 								if (var5[var6][var7][var8 + var11 + 1 + 25][var9 + var12 + 1 + 25]) {
 									var16 = true;
-									break label85;
+									break label83;
 								}
 
 								if (var5[var6][(var7 + 1) % 31][var8 + var11 + 1 + 25][var9 + var12 + 1 + 25]) {
 									var16 = true;
-									break label85;
+									break label83;
 								}
 
 								if (var5[var6 + 1][var7][var8 + var11 + 1 + 25][var9 + var12 + 1 + 25]) {
 									var16 = true;
-									break label85;
+									break label83;
 								}
 
 								if (var5[var6 + 1][(var7 + 1) % 31][var8 + var11 + 1 + 25][var9 + var12 + 1 + 25]) {
 									var16 = true;
-									break label85;
+									break label83;
 								}
 							}
 						}
@@ -2523,8 +2524,8 @@ public class Scene {
 
 	}
 
-	@ObfuscatedName("an")
-	static boolean method4168(int var0, int var1, int var2) {
+	@ObfuscatedName("ag")
+	static boolean method4233(int var0, int var1, int var2) {
 		int var3 = var0 * Scene_cameraYawCosine + var2 * Scene_cameraYawSine >> 16;
 		int var4 = var2 * Scene_cameraYawCosine - var0 * Scene_cameraYawSine >> 16;
 		int var5 = var4 * Scene_cameraPitchCosine + Scene_cameraPitchSine * var1 >> 16;
@@ -2538,20 +2539,20 @@ public class Scene {
 		}
 	}
 
-	@ObfuscatedName("am")
+	@ObfuscatedName("ac")
 	@Export("shouldSendWalk")
 	public static boolean shouldSendWalk() {
 		return viewportWalking && Scene_selectedX != -1;
 	}
 
-	@ObfuscatedName("ao")
-	public static void method4193() {
+	@ObfuscatedName("at")
+	public static void method4243() {
 		Scene_selectedX = -1;
 		viewportWalking = false;
 	}
 
-	@ObfuscatedName("ac")
-	static final int method4177(int var0, int var1) {
+	@ObfuscatedName("aj")
+	static final int method4242(int var0, int var1) {
 		var1 = (var0 & 127) * var1 >> 7;
 		if (var1 < 2) {
 			var1 = 2;
@@ -2562,7 +2563,7 @@ public class Scene {
 		return (var0 & 65408) + var1;
 	}
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("am")
 	@Export("containsBounds")
 	static boolean containsBounds(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
 		if (var1 < var2 && var1 < var3 && var1 < var4) {

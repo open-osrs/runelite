@@ -34,9 +34,9 @@ dependencies {
 
     implementation(project(":cache"))
     implementation(project(":runelite-api"))
-    implementation(group = "com.google.guava", name = "guava", version = "23.2-jre")
+    implementation(group = "com.google.guava", name = "guava", version = "30.1.1-jre")
     implementation(group = "org.apache.maven", name = "maven-plugin-api", version = "3.6.3")
-    implementation(group = "org.slf4j", name = "slf4j-nop", version = "1.7.12")
+    implementation(group = "org.slf4j", name = "slf4j-nop", version = "1.7.32")
 }
 
 tasks {

@@ -191,19 +191,19 @@ public interface RSWidget extends Widget
 	@Override
 	void setRotationX(int rotationX);
 
-	@Import("modelAngleY")
+	@Import("modelAngleZ") // Do not change
 	@Override
 	int getRotationY();
 
-	@Import("modelAngleY")
+	@Import("modelAngleZ") // Do not change
 	@Override
 	void setRotationY(int rotationY);
 
-	@Import("modelAngleZ")
+	@Import("modelAngleY") // Do not change
 	@Override
 	int getRotationZ();
 
-	@Import("modelAngleZ")
+	@Import("modelAngleY") // Do not change
 	@Override
 	void setRotationZ(int rotationZ);
 

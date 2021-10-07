@@ -1,13 +1,14 @@
+import java.applet.Applet;
 import java.util.zip.Inflater;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("pk")
+@ObfuscatedName("pt")
 @Implements("GZipDecompressor")
 public class GZipDecompressor {
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@Export("inflater")
 	Inflater inflater;
 
@@ -22,10 +23,10 @@ public class GZipDecompressor {
 		this(-1, 1000000, 1000000);
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;[BB)V",
-		garbageValue = "20"
+		descriptor = "(Lot;[BI)V",
+		garbageValue = "537396446"
 	)
 	@Export("decompress")
 	public void decompress(Buffer var1, byte[] var2) {
@@ -46,5 +47,18 @@ public class GZipDecompressor {
 		} else {
 			throw new RuntimeException("");
 		}
+	}
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/applet/Applet;Ljava/lang/String;B)V",
+		garbageValue = "-111"
+	)
+	public static void method7450(Applet var0, String var1) {
+		class29.field168 = var0;
+		if (var1 != null) {
+			class29.field165 = var1;
+		}
+
 	}
 }

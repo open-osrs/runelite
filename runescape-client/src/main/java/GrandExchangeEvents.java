@@ -7,22 +7,22 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("km")
+@ObfuscatedName("kg")
 @Implements("GrandExchangeEvents")
 public class GrandExchangeEvents {
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("GrandExchangeEvents_ageComparator")
 	public static Comparator GrandExchangeEvents_ageComparator;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@Export("GrandExchangeEvents_priceComparator")
 	public static Comparator GrandExchangeEvents_priceComparator;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@Export("GrandExchangeEvents_nameComparator")
 	public static Comparator GrandExchangeEvents_nameComparator;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@Export("GrandExchangeEvents_quantityComparator")
 	public static Comparator GrandExchangeEvents_quantityComparator;
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@Export("events")
 	public final List events;
 
@@ -57,10 +57,10 @@ public class GrandExchangeEvents {
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/Comparator;ZB)V",
-		garbageValue = "-93"
+		descriptor = "(Ljava/util/Comparator;ZI)V",
+		garbageValue = "-1787305699"
 	)
 	@Export("sort")
 	public void sort(Comparator var1, boolean var2) {
@@ -72,23 +72,98 @@ public class GrandExchangeEvents {
 
 	}
 
-	@ObfuscatedName("ip")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZI)V",
-		garbageValue = "1583510201"
+		descriptor = "(IIII)I",
+		garbageValue = "1446894624"
 	)
-	@Export("insertMenuItem")
-	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
-		if (!Client.isMenuOpen) {
-			if (Client.menuOptionsCount < 500) {
-				Client.menuActions[Client.menuOptionsCount] = var0;
-				Client.menuTargets[Client.menuOptionsCount] = var1;
-				Client.menuOpcodes[Client.menuOptionsCount] = var2;
-				Client.menuIdentifiers[Client.menuOptionsCount] = var3;
-				Client.menuArguments1[Client.menuOptionsCount] = var4;
-				Client.menuArguments2[Client.menuOptionsCount] = var5;
-				Client.menuShiftClick[Client.menuOptionsCount] = var6;
-				++Client.menuOptionsCount;
+	public static int method5348(int var0, int var1, int var2) {
+		int var3 = FloorOverlayDefinition.method3343(var2 - var1 + 1);
+		var3 <<= var1;
+		return var0 & ~var3;
+	}
+
+	@ObfuscatedName("jr")
+	@ObfuscatedSignature(
+		descriptor = "(Ljt;III)V",
+		garbageValue = "135210928"
+	)
+	@Export("clickWidget")
+	static final void clickWidget(Widget var0, int var1, int var2) {
+		if (Client.clickedWidget == null && !Client.isMenuOpen) {
+			if (var0 != null) {
+				Widget var5 = var0;
+				int var6 = Friend.method6003(WorldMapRegion.getWidgetFlags(var0));
+				Widget var4;
+				int var7;
+				if (var6 == 0) {
+					var4 = null;
+				} else {
+					var7 = 0;
+
+					while (true) {
+						if (var7 >= var6) {
+							var4 = var5;
+							break;
+						}
+
+						var5 = HealthBarUpdate.getWidget(var5.parentId);
+						if (var5 == null) {
+							var4 = null;
+							break;
+						}
+
+						++var7;
+					}
+				}
+
+				Widget var8 = var4;
+				if (var4 == null) {
+					var8 = var0.parent;
+				}
+
+				if (var8 != null) {
+					Client.clickedWidget = var0;
+					var5 = var0;
+					var6 = Friend.method6003(WorldMapRegion.getWidgetFlags(var0));
+					if (var6 == 0) {
+						var4 = null;
+					} else {
+						var7 = 0;
+
+						while (true) {
+							if (var7 >= var6) {
+								var4 = var5;
+								break;
+							}
+
+							var5 = HealthBarUpdate.getWidget(var5.parentId);
+							if (var5 == null) {
+								var4 = null;
+								break;
+							}
+
+							++var7;
+						}
+					}
+
+					var8 = var4;
+					if (var4 == null) {
+						var8 = var0.parent;
+					}
+
+					Client.clickedWidgetParent = var8;
+					Client.widgetClickX = var1;
+					Client.widgetClickY = var2;
+					MouseHandler.widgetDragDuration = 0;
+					Client.isDraggingWidget = false;
+					int var9 = Client.menuOptionsCount - 1;
+					if (var9 != -1) {
+						NetFileRequest.method5216(var9);
+					}
+
+					return;
+				}
 			}
 
 		}

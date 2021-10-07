@@ -31,7 +31,7 @@ package net.runelite.api.widgets;
  *
  * @see Widget#getClickMask()
  */
-public class WidgetConfig
+public final class WidgetConfig
 {
 	/**
 	 * Enables displaying a ninth option on a menu.

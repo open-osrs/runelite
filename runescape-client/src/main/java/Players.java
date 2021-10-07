@@ -4,64 +4,64 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cp")
+@ObfuscatedName("cn")
 @Implements("Players")
 public class Players {
-	@ObfuscatedName("m")
-	static byte[] field1244;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
+	static byte[] field1247;
+	@ObfuscatedName("j")
 	static byte[] field1245;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "[Lot;"
 	)
-	static Buffer[] field1246;
-	@ObfuscatedName("g")
+	static Buffer[] field1248;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -398895759
+		intValue = -929860441
 	)
 	@Export("Players_count")
 	static int Players_count;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@Export("Players_indices")
 	static int[] Players_indices;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -491206921
+		intValue = 1961381127
 	)
 	@Export("Players_emptyIdxCount")
 	static int Players_emptyIdxCount;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@Export("Players_emptyIndices")
 	static int[] Players_emptyIndices;
-	@ObfuscatedName("e")
+	@ObfuscatedName("i")
 	@Export("Players_regions")
 	static int[] Players_regions;
-	@ObfuscatedName("l")
+	@ObfuscatedName("y")
 	@Export("Players_orientations")
 	static int[] Players_orientations;
-	@ObfuscatedName("y")
+	@ObfuscatedName("w")
 	@Export("Players_targetIndices")
 	static int[] Players_targetIndices;
-	@ObfuscatedName("v")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 91202637
+		intValue = -1631297959
 	)
 	@Export("Players_pendingUpdateCount")
 	static int Players_pendingUpdateCount;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@Export("Players_pendingUpdateIndices")
 	static int[] Players_pendingUpdateIndices;
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Lot;"
 	)
-	static Buffer field1255;
+	static Buffer field1259;
 
 	static {
-		field1244 = new byte[2048];
+		field1247 = new byte[2048];
 		field1245 = new byte[2048];
-		field1246 = new Buffer[2048];
+		field1248 = new Buffer[2048];
 		Players_count = 0;
 		Players_indices = new int[2048];
 		Players_emptyIdxCount = 0;
@@ -71,47 +71,25 @@ public class Players {
 		Players_targetIndices = new int[2048];
 		Players_pendingUpdateCount = 0;
 		Players_pendingUpdateIndices = new int[2048];
-		field1255 = new Buffer(new byte[5000]);
+		field1259 = new Buffer(new byte[5000]);
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "-1886800204"
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "1246868543"
 	)
-	static final String method2260(int var0) {
-		if (var0 < 100000) {
-			return "<col=ffff00>" + var0 + "</col>";
-		} else {
-			return var0 < 10000000 ? "<col=ffffff>" + var0 / 1000 + "K" + "</col>" : "<col=00ff80>" + var0 / 1000000 + "M" + "</col>";
+	@Export("addChatMessage")
+	static void addChatMessage(int var0, String var1, String var2, String var3) {
+		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0);
+		if (var4 == null) {
+			var4 = new ChatChannel();
+			Messages.Messages_channels.put(var0, var4);
 		}
-	}
 
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "-286848897"
-	)
-	@Export("isCharPrintable")
-	public static boolean isCharPrintable(char var0) {
-		if (var0 >= ' ' && var0 <= '~') {
-			return true;
-		} else if (var0 >= 160 && var0 <= 255) {
-			return true;
-		} else {
-			return var0 == 8364 || var0 == 338 || var0 == 8212 || var0 == 339 || var0 == 376;
-		}
-	}
-
-	@ObfuscatedName("ko")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1654335904"
-	)
-	@Export("Clan_leaveChat")
-	static final void Clan_leaveChat() {
-		PacketBufferNode var0 = FriendSystem.getPacketBufferNode(ClientPacket.field2727, Client.packetWriter.isaacCipher);
-		var0.packetBuffer.writeByte(0);
-		Client.packetWriter.addNode(var0);
+		Message var5 = var4.addMessage(var0, var1, var2, var3);
+		Messages.Messages_hashTable.put(var5, (long)var5.count);
+		Messages.Messages_queue.add(var5);
+		Client.chatCycle = Client.cycleCntr;
 	}
 }

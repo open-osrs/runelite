@@ -1,44 +1,44 @@
+import java.net.MalformedURLException;
+import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kq")
+@ObfuscatedName("kp")
 @Implements("GrandExchangeOffer")
 public class GrandExchangeOffer {
-	@ObfuscatedName("u")
-	static int[] field3769;
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@Export("state")
 	byte state;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1885544773
+		intValue = 1281987013
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1068501763
+		intValue = -552663155
 	)
 	@Export("unitPrice")
 	public int unitPrice;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -691773445
+		intValue = -1035394057
 	)
 	@Export("totalQuantity")
 	public int totalQuantity;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 65758811
+		intValue = 8664505
 	)
 	@Export("currentQuantity")
 	public int currentQuantity;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 358624203
+		intValue = 1081967489
 	)
 	@Export("currentPrice")
 	public int currentPrice;
@@ -59,42 +59,42 @@ public class GrandExchangeOffer {
 		this.currentPrice = var1.readInt();
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-165905974"
+		garbageValue = "-756750295"
 	)
 	@Export("status")
 	public int status() {
 		return this.state & 7;
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "1"
+		descriptor = "(I)I",
+		garbageValue = "2063429375"
 	)
 	@Export("type")
 	public int type() {
 		return (this.state & 8) == 8 ? 1 : 0;
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "-29"
+		descriptor = "(II)V",
+		garbageValue = "1077740822"
 	)
-	void method5332(int var1) {
+	void method5407(int var1) {
 		this.state &= -8;
 		this.state = (byte)(this.state | var1 & 7);
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-347764080"
+		descriptor = "(IB)V",
+		garbageValue = "0"
 	)
-	void method5333(int var1) {
+	void method5405(int var1) {
 		this.state &= -9;
 		if (var1 == 1) {
 			this.state = (byte)(this.state | 8);
@@ -102,71 +102,46 @@ public class GrandExchangeOffer {
 
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Len;",
-		garbageValue = "3"
+		descriptor = "(Ljava/lang/String;I)Z",
+		garbageValue = "1182126654"
 	)
-	@Export("getInvDefinition")
-	public static InvDefinition getInvDefinition(int var0) {
-		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
+	static boolean method5406(String var0) {
+		if (var0 == null) {
+			return false;
 		} else {
-			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0);
-			var1 = new InvDefinition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
+			try {
+				new URL(var0);
+				return true;
+			} catch (MalformedURLException var2) {
+				return false;
 			}
-
-			InvDefinition.InvDefinition_cached.put(var1, (long)var0);
-			return var1;
 		}
 	}
 
-	@ObfuscatedName("ag")
+	@ObfuscatedName("le")
 	@ObfuscatedSignature(
-		descriptor = "(ILbg;ZB)I",
-		garbageValue = "108"
+		descriptor = "(I)V",
+		garbageValue = "-26148798"
 	)
-	static int method5345(int var0, Script var1, boolean var2) {
-		if (var0 == 7100) {
-			++class240.Interpreter_intStackSize;
-			return 1;
-		} else if (var0 == 7101) {
-			Interpreter.Interpreter_stringStackSize += 2;
-			return 1;
-		} else if (var0 != 7102 && var0 != 7103 && var0 != 7104 && var0 != 7105 && var0 != 7109) {
-			if (var0 == 7106) {
-				++class240.Interpreter_intStackSize;
-				return 1;
-			} else if (var0 == 7107) {
-				++class240.Interpreter_intStackSize;
-				return 1;
-			} else if (var0 == 7108) {
-				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = class258.method4892() ? 1 : 0;
-				return 1;
-			} else if (var0 == 7110) {
-				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 0;
-				return 1;
-			} else if (var0 == 7120) {
-				--class240.Interpreter_intStackSize;
-				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 0;
-				return 1;
-			} else if (var0 == 7121) {
-				class240.Interpreter_intStackSize -= 2;
-				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = -1;
-				return 1;
-			} else if (var0 == 7122) {
-				class240.Interpreter_intStackSize -= 2;
-				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 0;
-				return 1;
-			} else {
-				return 2;
+	static void method5422() {
+		if (Client.field573 && class67.localPlayer != null) {
+			int var0 = class67.localPlayer.pathX[0];
+			int var1 = class67.localPlayer.pathY[0];
+			if (var0 < 0 || var1 < 0 || var0 >= 104 || var1 >= 104) {
+				return;
 			}
-		} else {
-			++class240.Interpreter_intStackSize;
-			return 1;
+
+			class132.oculusOrbFocalPointX = class67.localPlayer.x;
+			int var2 = MidiPcmStream.getTileHeight(class67.localPlayer.x, class67.localPlayer.y, VertexNormal.Client_plane) - Client.camFollowHeight;
+			if (var2 < class194.field2186) {
+				class194.field2186 = var2;
+			}
+
+			LoginScreenAnimation.oculusOrbFocalPointY = class67.localPlayer.y;
+			Client.field573 = false;
 		}
+
 	}
 }

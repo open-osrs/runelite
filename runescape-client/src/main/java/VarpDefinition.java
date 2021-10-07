@@ -4,30 +4,36 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ef")
+@ObfuscatedName("ex")
 @Implements("VarpDefinition")
 public class VarpDefinition extends DualNode {
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lkk;"
-	)
-	@Export("VarpDefinition_archive")
-	public static AbstractArchive VarpDefinition_archive;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 513865809
+		intValue = -1515261229
 	)
 	@Export("VarpDefinition_fileCount")
 	public static int VarpDefinition_fileCount;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lim;"
+		descriptor = "Lii;"
 	)
 	@Export("VarpDefinition_cached")
-	public static EvictingDualNodeHashTable VarpDefinition_cached;
-	@ObfuscatedName("k")
+	static EvictingDualNodeHashTable VarpDefinition_cached;
+	@ObfuscatedName("ij")
 	@ObfuscatedGetter(
-		intValue = -1335094107
+		intValue = 1386974475
+	)
+	@Export("cameraZ")
+	static int cameraZ;
+	@ObfuscatedName("mg")
+	@ObfuscatedSignature(
+		descriptor = "Ljt;"
+	)
+	@Export("mousedOverWidgetIf1")
+	static Widget mousedOverWidgetIf1;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = 29710685
 	)
 	@Export("type")
 	public int type;
@@ -40,10 +46,10 @@ public class VarpDefinition extends DualNode {
 		this.type = 0;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;I)V",
-		garbageValue = "-1295539702"
+		descriptor = "(Lot;B)V",
+		garbageValue = "1"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -57,10 +63,10 @@ public class VarpDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(Lot;II)V",
-		garbageValue = "-2113751266"
+		garbageValue = "790486090"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -70,71 +76,80 @@ public class VarpDefinition extends DualNode {
 
 	}
 
-	@ObfuscatedName("n")
-	static boolean method2826(long var0) {
-		int var2 = (int)(var0 >>> 14 & 3L);
-		return var2 == 2;
-	}
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(Lot;IIIIIII)V",
+		garbageValue = "-280923816"
+	)
+	@Export("loadTerrain")
+	static final void loadTerrain(Buffer var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		int var7;
+		if (var2 >= 0 && var2 < 104 && var3 >= 0 && var3 < 104) {
+			Tiles.Tiles_renderFlags[var1][var2][var3] = 0;
 
-	@ObfuscatedName("n")
-	public static final int method2819(double var0, double var2, double var4) {
-		double var6 = var4;
-		double var8 = var4;
-		double var10 = var4;
-		if (var2 != 0.0D) {
-			double var12;
-			if (var4 < 0.5D) {
-				var12 = (var2 + 1.0D) * var4;
-			} else {
-				var12 = var4 + var2 - var2 * var4;
+			while (true) {
+				var7 = var0.readUnsignedByte();
+				if (var7 == 0) {
+					if (var1 == 0) {
+						int[] var14 = Tiles.Tiles_heights[0][var2];
+						int var11 = var2 + var4 + 932731;
+						int var12 = var3 + var5 + 556238;
+						int var13 = class20.method303(var11 + 45365, var12 + 91923, 4) - 128 + (class20.method303(var11 + 10294, 37821 + var12, 2) - 128 >> 1) + (class20.method303(var11, var12, 1) - 128 >> 2);
+						var13 = (int)((double)var13 * 0.3D) + 35;
+						if (var13 < 10) {
+							var13 = 10;
+						} else if (var13 > 60) {
+							var13 = 60;
+						}
+
+						var14[var3] = -var13 * 8;
+					} else {
+						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - 240;
+					}
+					break;
+				}
+
+				if (var7 == 1) {
+					int var8 = var0.readUnsignedByte();
+					if (var8 == 1) {
+						var8 = 0;
+					}
+
+					if (var1 == 0) {
+						Tiles.Tiles_heights[0][var2][var3] = -var8 * 8;
+					} else {
+						Tiles.Tiles_heights[var1][var2][var3] = Tiles.Tiles_heights[var1 - 1][var2][var3] - var8 * 8;
+					}
+					break;
+				}
+
+				if (var7 <= 49) {
+					Tiles.Tiles_overlays[var1][var2][var3] = var0.readByte();
+					class14.Tiles_shapes[var1][var2][var3] = (byte)((var7 - 2) / 4);
+					GrandExchangeEvent.field3760[var1][var2][var3] = (byte)(var7 - 2 + var6 & 3);
+				} else if (var7 <= 81) {
+					Tiles.Tiles_renderFlags[var1][var2][var3] = (byte)(var7 - 49);
+				} else {
+					Tiles.Tiles_underlays[var1][var2][var3] = (byte)(var7 - 81);
+				}
 			}
+		} else {
+			while (true) {
+				var7 = var0.readUnsignedByte();
+				if (var7 == 0) {
+					break;
+				}
 
-			double var14 = var4 * 2.0D - var12;
-			double var16 = var0 + 0.3333333333333333D;
-			if (var16 > 1.0D) {
-				--var16;
-			}
+				if (var7 == 1) {
+					var0.readUnsignedByte();
+					break;
+				}
 
-			double var20 = var0 - 0.3333333333333333D;
-			if (var20 < 0.0D) {
-				++var20;
-			}
-
-			if (6.0D * var16 < 1.0D) {
-				var6 = var14 + (var12 - var14) * 6.0D * var16;
-			} else if (2.0D * var16 < 1.0D) {
-				var6 = var12;
-			} else if (var16 * 3.0D < 2.0D) {
-				var6 = var14 + (var12 - var14) * (0.6666666666666666D - var16) * 6.0D;
-			} else {
-				var6 = var14;
-			}
-
-			if (var0 * 6.0D < 1.0D) {
-				var8 = var14 + var0 * (var12 - var14) * 6.0D;
-			} else if (var0 * 2.0D < 1.0D) {
-				var8 = var12;
-			} else if (var0 * 3.0D < 2.0D) {
-				var8 = var14 + 6.0D * (var12 - var14) * (0.6666666666666666D - var0);
-			} else {
-				var8 = var14;
-			}
-
-			if (var20 * 6.0D < 1.0D) {
-				var10 = var20 * (var12 - var14) * 6.0D + var14;
-			} else if (var20 * 2.0D < 1.0D) {
-				var10 = var12;
-			} else if (3.0D * var20 < 2.0D) {
-				var10 = var14 + (var12 - var14) * (0.6666666666666666D - var20) * 6.0D;
-			} else {
-				var10 = var14;
+				if (var7 <= 49) {
+					var0.readUnsignedByte();
+				}
 			}
 		}
 
-		int var22 = (int)(256.0D * var6);
-		int var13 = (int)(var8 * 256.0D);
-		int var23 = (int)(var10 * 256.0D);
-		int var15 = var23 + (var13 << 8) + (var22 << 16);
-		return var15;
 	}
 }

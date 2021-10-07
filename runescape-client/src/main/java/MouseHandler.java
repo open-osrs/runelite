@@ -3,130 +3,134 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Arrays;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("as")
+@ObfuscatedName("al")
 @Implements("MouseHandler")
 public class MouseHandler implements MouseListener, MouseMotionListener, FocusListener {
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lal;"
+	)
+	@Export("MouseHandler_instance")
+	static MouseHandler MouseHandler_instance;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -1516853091
+	)
+	@Export("MouseHandler_idleCycles")
+	public static volatile int MouseHandler_idleCycles;
 	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -849531271
+		intValue = 1104277309
 	)
 	@Export("MouseHandler_x")
 	public static int MouseHandler_x;
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Las;"
-	)
-	@Export("MouseHandler_instance")
-	public static MouseHandler MouseHandler_instance;
-	@ObfuscatedName("g")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -959364297
-	)
-	@Export("MouseHandler_idleCycles")
-	static volatile int MouseHandler_idleCycles;
-	@ObfuscatedName("z")
-	@ObfuscatedGetter(
-		intValue = 494054839
+		intValue = 894761523
 	)
 	@Export("MouseHandler_currentButtonVolatile")
-	public static volatile int MouseHandler_currentButtonVolatile;
+	static volatile int MouseHandler_currentButtonVolatile;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -623033765
+		intValue = -673069961
 	)
 	@Export("MouseHandler_xVolatile")
-	public static volatile int MouseHandler_xVolatile;
-	@ObfuscatedName("u")
-	@ObfuscatedGetter(
-		intValue = -1657666543
-	)
-	@Export("MouseHandler_yVolatile")
-	public static volatile int MouseHandler_yVolatile;
+	static volatile int MouseHandler_xVolatile;
 	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		longValue = 1124876643945758811L
+		intValue = 24690515
+	)
+	@Export("MouseHandler_yVolatile")
+	static volatile int MouseHandler_yVolatile;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		longValue = -740984488231653733L
 	)
 	@Export("MouseHandler_lastMovedVolatile")
-	public static volatile long MouseHandler_lastMovedVolatile;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = -1842444799
-	)
-	@Export("MouseHandler_currentButton")
-	public static int MouseHandler_currentButton;
+	static volatile long MouseHandler_lastMovedVolatile;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		longValue = 3980368663638216117L
+		longValue = -1355504992278167911L
 	)
 	@Export("MouseHandler_millis")
 	public static long MouseHandler_millis;
-	@ObfuscatedName("v")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1256288259
+		intValue = 683077407
+	)
+	@Export("MouseHandler_currentButton")
+	public static int MouseHandler_currentButton;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = 2082398241
 	)
 	@Export("MouseHandler_y")
 	public static int MouseHandler_y;
-	@ObfuscatedName("f")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -571396901
+		intValue = -1841633553
 	)
 	@Export("MouseHandler_lastButtonVolatile")
-	public static volatile int MouseHandler_lastButtonVolatile;
+	static volatile int MouseHandler_lastButtonVolatile;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 563759133
+		intValue = 1813524919
 	)
 	@Export("MouseHandler_lastPressedXVolatile")
-	public static volatile int MouseHandler_lastPressedXVolatile;
-	@ObfuscatedName("h")
+	static volatile int MouseHandler_lastPressedXVolatile;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1503595933
+		intValue = 1656092401
 	)
 	@Export("MouseHandler_lastPressedYVolatile")
-	public static volatile int MouseHandler_lastPressedYVolatile;
-	@ObfuscatedName("d")
+	static volatile int MouseHandler_lastPressedYVolatile;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		longValue = -1715075205804232797L
+		longValue = 9065721918317991793L
 	)
 	@Export("MouseHandler_lastPressedTimeMillisVolatile")
-	public static volatile long MouseHandler_lastPressedTimeMillisVolatile;
-	@ObfuscatedName("q")
+	static volatile long MouseHandler_lastPressedTimeMillisVolatile;
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1135852135
+		intValue = -1586364571
 	)
 	@Export("MouseHandler_lastButton")
 	public static int MouseHandler_lastButton;
-	@ObfuscatedName("j")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1511039305
+		intValue = 336686179
 	)
 	@Export("MouseHandler_lastPressedX")
 	public static int MouseHandler_lastPressedX;
-	@ObfuscatedName("x")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		intValue = -1644545991
+		intValue = -8907389
 	)
 	@Export("MouseHandler_lastPressedY")
 	public static int MouseHandler_lastPressedY;
-	@ObfuscatedName("b")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		longValue = 326534539443949415L
+		longValue = 1174004619361524505L
 	)
 	@Export("MouseHandler_lastPressedTimeMillis")
 	public static long MouseHandler_lastPressedTimeMillis;
-	@ObfuscatedName("hh")
-	@ObfuscatedSignature(
-		descriptor = "Loc;"
+	@ObfuscatedName("bs")
+	@ObfuscatedGetter(
+		intValue = -548135093
 	)
-	@Export("compass")
-	static SpritePixels compass;
+	static int field236;
+	@ObfuscatedName("ot")
+	@ObfuscatedGetter(
+		intValue = -820968183
+	)
+	@Export("widgetDragDuration")
+	static int widgetDragDuration;
 
 	static {
 		MouseHandler_instance = new MouseHandler();
@@ -152,10 +156,10 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 	MouseHandler() {
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/awt/event/MouseEvent;B)I",
-		garbageValue = "44"
+		descriptor = "(Ljava/awt/event/MouseEvent;S)I",
+		garbageValue = "961"
 	)
 	@Export("getButton")
 	final int getButton(MouseEvent var1) {
@@ -182,48 +186,13 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 			MouseHandler_idleCycles = 0;
 			MouseHandler_lastPressedXVolatile = var1.getX();
 			MouseHandler_lastPressedYVolatile = var1.getY();
-			MouseHandler_lastPressedTimeMillisVolatile = Occluder.method4335();
+			MouseHandler_lastPressedTimeMillisVolatile = UserComparator4.method2406();
 			MouseHandler_lastButtonVolatile = this.getButton(var1);
 			if (MouseHandler_lastButtonVolatile != 0) {
 				MouseHandler_currentButtonVolatile = MouseHandler_lastButtonVolatile;
 			}
 		}
 
-		if (var1.isPopupTrigger()) {
-			var1.consume();
-		}
-
-	}
-
-	public final synchronized void mouseEntered(MouseEvent var1) {
-		this.mouseMoved(var1);
-	}
-
-	public final void focusGained(FocusEvent var1) {
-	}
-
-	public final synchronized void mouseDragged(MouseEvent var1) {
-		this.mouseMoved(var1);
-	}
-
-	public final synchronized void mouseExited(MouseEvent var1) {
-		if (MouseHandler_instance != null) {
-			MouseHandler_idleCycles = 0;
-			MouseHandler_xVolatile = -1;
-			MouseHandler_yVolatile = -1;
-			MouseHandler_lastMovedVolatile = var1.getWhen();
-		}
-
-	}
-
-	public final synchronized void focusLost(FocusEvent var1) {
-		if (MouseHandler_instance != null) {
-			MouseHandler_currentButtonVolatile = 0;
-		}
-
-	}
-
-	public final void mouseClicked(MouseEvent var1) {
 		if (var1.isPopupTrigger()) {
 			var1.consume();
 		}
@@ -242,259 +211,192 @@ public class MouseHandler implements MouseListener, MouseMotionListener, FocusLi
 
 	}
 
-	@ObfuscatedName("n")
+	public final synchronized void mouseEntered(MouseEvent var1) {
+		this.mouseMoved(var1);
+	}
+
+	public final void focusGained(FocusEvent var1) {
+	}
+
+	public final void mouseClicked(MouseEvent var1) {
+		if (var1.isPopupTrigger()) {
+			var1.consume();
+		}
+
+	}
+
+	public final synchronized void focusLost(FocusEvent var1) {
+		if (MouseHandler_instance != null) {
+			MouseHandler_currentButtonVolatile = 0;
+		}
+
+	}
+
+	public final synchronized void mouseDragged(MouseEvent var1) {
+		this.mouseMoved(var1);
+	}
+
+	public final synchronized void mouseExited(MouseEvent var1) {
+		if (MouseHandler_instance != null) {
+			MouseHandler_idleCycles = 0;
+			MouseHandler_xVolatile = -1;
+			MouseHandler_yVolatile = -1;
+			MouseHandler_lastMovedVolatile = var1.getWhen();
+		}
+
+	}
+
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1959208295"
+		descriptor = "(Lkl;Lkl;I)I",
+		garbageValue = "-853265769"
 	)
-	static void method609() {
-		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) {
-			if (var0.obj != null) {
-				var0.set();
+	static int method614(AbstractArchive var0, AbstractArchive var1) {
+		int var2 = 0;
+		String[] var3 = Login.field890;
+
+		int var4;
+		String var5;
+		for (var4 = 0; var4 < var3.length; ++var4) {
+			var5 = var3[var4];
+			if (var0.tryLoadFileByNames(var5, "")) {
+				++var2;
 			}
 		}
 
+		var3 = Login.field907;
+
+		for (var4 = 0; var4 < var3.length; ++var4) {
+			var5 = var3[var4];
+			if (var1.tryLoadFileByNames(var5, "")) {
+				++var2;
+			}
+		}
+
+		return var2;
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/String;[II)V",
-		garbageValue = "1719094176"
+		descriptor = "(IIIII)V",
+		garbageValue = "1631875513"
 	)
-	public static void method580(String[] var0, int[] var1) {
-		GrandExchangeOfferUnitPriceComparator.method5348(var0, var1, 0, var0.length - 1);
-	}
+	static final void method586(int var0, int var1, int var2, int var3) {
+		for (int var4 = var1; var4 <= var3 + var1; ++var4) {
+			for (int var5 = var0; var5 <= var0 + var2; ++var5) {
+				if (var5 >= 0 && var5 < 104 && var4 >= 0 && var4 < 104) {
+					class281.field3323[0][var5][var4] = 127;
+					if (var0 == var5 && var5 > 0) {
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 - 1][var4];
+					}
 
-	@ObfuscatedName("fg")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "231950614"
-	)
-	static void method607() {
-		Client.mouseLastLastPressedTimeMillis = -1L;
-		class184.mouseRecorder.index = 0;
-		Archive.hasFocus = true;
-		Client.hadFocus = true;
-		Client.field716 = -1L;
-		HorizontalAlignment.method2949();
-		Client.packetWriter.clearBuffer();
-		Client.packetWriter.packetBuffer.offset = 0;
-		Client.packetWriter.serverPacket = null;
-		Client.packetWriter.field1288 = null;
-		Client.packetWriter.field1289 = null;
-		Client.packetWriter.field1290 = null;
-		Client.packetWriter.serverPacketLength = 0;
-		Client.packetWriter.field1279 = 0;
-		Client.rebootTimer = 0;
-		Client.logoutTimer = 0;
-		Client.hintArrowType = 0;
-		Client.menuOptionsCount = 0;
-		Client.isMenuOpen = false;
-		MenuAction.method1875(0);
-		ItemContainer.method2029();
-		Client.isItemSelected = 0;
-		Client.isSpellSelected = false;
-		Client.soundEffectCount = 0;
-		Client.camAngleY = 0;
-		Client.oculusOrbState = 0;
-		class16.field82 = null;
-		Client.minimapState = 0;
-		Client.field719 = -1;
-		Client.destinationX = 0;
-		Client.destinationY = 0;
-		Client.playerAttackOption = AttackOption.AttackOption_hidden;
-		Client.npcAttackOption = AttackOption.AttackOption_hidden;
-		Client.npcCount = 0;
-		Players.Players_count = 0;
+					if (var0 + var2 == var5 && var5 < 103) {
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 + 1][var4];
+					}
 
-		int var0;
-		for (var0 = 0; var0 < 2048; ++var0) {
-			Players.field1246[var0] = null;
-			Players.field1245[var0] = 1;
-		}
+					if (var4 == var1 && var4 > 0) {
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 - 1];
+					}
 
-		for (var0 = 0; var0 < 2048; ++var0) {
-			Client.players[var0] = null;
-		}
-
-		for (var0 = 0; var0 < 32768; ++var0) {
-			Client.npcs[var0] = null;
-		}
-
-		Client.combatTargetPlayerIndex = -1;
-		Client.projectiles.clear();
-		Client.graphicsObjects.clear();
-
-		for (var0 = 0; var0 < 4; ++var0) {
-			for (int var4 = 0; var4 < 104; ++var4) {
-				for (int var2 = 0; var2 < 104; ++var2) {
-					Client.groundItems[var0][var4][var2] = null;
+					if (var3 + var1 == var4 && var4 < 103) {
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 + 1];
+					}
 				}
 			}
 		}
 
-		Client.pendingSpawns = new NodeDeque();
-		class20.friendSystem.clear();
-
-		for (var0 = 0; var0 < VarpDefinition.VarpDefinition_fileCount; ++var0) {
-			VarpDefinition var1 = UserComparator7.VarpDefinition_get(var0);
-			if (var1 != null) {
-				Varps.Varps_temp[var0] = 0;
-				Varps.Varps_main[var0] = 0;
-			}
-		}
-
-		GrandExchangeEvent.varcs.clearTransient();
-		Client.followerIndex = -1;
-		if (Client.rootInterface != -1) {
-			class120.method2516(Client.rootInterface);
-		}
-
-		for (InterfaceParent var3 = (InterfaceParent)Client.interfaceParents.first(); var3 != null; var3 = (InterfaceParent)Client.interfaceParents.next()) {
-			WorldMapID.closeInterface(var3, true);
-		}
-
-		Client.rootInterface = -1;
-		Client.interfaceParents = new NodeHashTable(8);
-		Client.meslayerContinueWidget = null;
-		Client.menuOptionsCount = 0;
-		Client.isMenuOpen = false;
-		Client.playerAppearance.update((int[])null, new int[]{0, 0, 0, 0, 0}, false, -1);
-
-		for (var0 = 0; var0 < 8; ++var0) {
-			Client.playerMenuActions[var0] = null;
-			Client.playerOptionsPriorities[var0] = false;
-		}
-
-		CollisionMap.method3351();
-		Client.isLoading = true;
-
-		for (var0 = 0; var0 < 100; ++var0) {
-			Client.field697[var0] = true;
-		}
-
-		class280.method5087();
-		class78.friendsChat = null;
-		AttackOption.guestClanSettings = null;
-		Arrays.fill(Client.currentClanSettings, (Object)null);
-		WorldMapSectionType.guestClanChannel = null;
-		Arrays.fill(Client.currentClanChannels, (Object)null);
-
-		for (var0 = 0; var0 < 8; ++var0) {
-			Client.grandExchangeOffers[var0] = new GrandExchangeOffer();
-		}
-
-		class117.grandExchangeEvents = null;
 	}
 
-	@ObfuscatedName("ig")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILjava/lang/String;B)V",
-		garbageValue = "-31"
+		descriptor = "(III)I",
+		garbageValue = "-2114853000"
 	)
-	@Export("widgetDefaultMenuAction")
-	static void widgetDefaultMenuAction(int var0, int var1, int var2, int var3, String var4) {
-		Widget var5 = ParamComposition.getWidgetChild(var1, var2);
-		if (var5 != null) {
-			if (var5.onOp != null) {
-				ScriptEvent var6 = new ScriptEvent();
-				var6.widget = var5;
-				var6.opIndex = var0;
-				var6.targetName = var4;
-				var6.args = var5.onOp;
-				class139.runScriptEvent(var6);
+	static final int method612(int var0, int var1) {
+		if (var0 == -2) {
+			return 12345678;
+		} else if (var0 == -1) {
+			if (var1 < 2) {
+				var1 = 2;
+			} else if (var1 > 126) {
+				var1 = 126;
 			}
 
-			boolean var8 = true;
-			if (var5.contentType > 0) {
-				var8 = class119.method2508(var5);
+			return var1;
+		} else {
+			var1 = (var0 & 127) * var1 / 128;
+			if (var1 < 2) {
+				var1 = 2;
+			} else if (var1 > 126) {
+				var1 = 126;
 			}
 
-			if (var8) {
-				if (Decimator.method1050(Decimator.getWidgetFlags(var5), var0 - 1)) {
-					PacketBufferNode var7;
-					if (var0 == 1) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2679, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
+			return (var0 & 65408) + var1;
+		}
+	}
+
+	@ObfuscatedName("fe")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-74151640"
+	)
+	static final void method611() {
+		int var0 = Players.Players_count;
+		int[] var1 = Players.Players_indices;
+
+		for (int var2 = 0; var2 < var0; ++var2) {
+			Player var3 = Client.players[var1[var2]];
+			if (var3 != null) {
+				class116.updateActorSequence(var3, 1);
+			}
+		}
+
+	}
+
+	@ObfuscatedName("jo")
+	@ObfuscatedSignature(
+		descriptor = "([Ljt;II)V",
+		garbageValue = "-2051295556"
+	)
+	@Export("runComponentCloseListeners")
+	static final void runComponentCloseListeners(Widget[] var0, int var1) {
+		for (int var2 = 0; var2 < var0.length; ++var2) {
+			Widget var3 = var0[var2];
+			if (var3 != null) {
+				if (var3.type == 0) {
+					if (var3.children != null) {
+						runComponentCloseListeners(var3.children, var1);
 					}
 
-					if (var0 == 2) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2735, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
+					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
+					if (var4 != null) {
+						ItemContainer.runIntfCloseListeners(var4.group, var1);
+					}
+				}
+
+				ScriptEvent var5;
+				if (var1 == 0 && var3.onDialogAbort != null) {
+					var5 = new ScriptEvent();
+					var5.widget = var3;
+					var5.args = var3.onDialogAbort;
+					ViewportMouse.runScriptEvent(var5);
+				}
+
+				if (var1 == 1 && var3.onSubChange != null) {
+					if (var3.childIndex >= 0) {
+						Widget var6 = HealthBarUpdate.getWidget(var3.id);
+						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) {
+							continue;
+						}
 					}
 
-					if (var0 == 3) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2736, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 4) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2650, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 5) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2738, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 6) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2668, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 7) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2691, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 8) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2733, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 9) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2644, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 10) {
-						var7 = FriendSystem.getPacketBufferNode(ClientPacket.field2671, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
+					var5 = new ScriptEvent();
+					var5.widget = var3;
+					var5.args = var3.onSubChange;
+					ViewportMouse.runScriptEvent(var5);
 				}
 			}
 		}
+
 	}
 }

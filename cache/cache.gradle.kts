@@ -38,14 +38,14 @@ dependencies {
 
     compileOnly(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
-    implementation(group = "com.google.code.gson", name = "gson", version = "2.8.6")
-    implementation(group = "com.google.guava", name = "guava", version = "30.0-jre")
+    implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
+    implementation(group = "com.google.guava", name = "guava", version = "30.1.1-jre")
     implementation(group = "commons-cli", name = "commons-cli", version = "1.4")
     implementation(group = "io.netty", name = "netty-buffer", version = "4.1.54.Final")
-    implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.0")
+    implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.1")
     implementation(group = "org.antlr", name = "antlr4-runtime", version = "4.8-1")
-    implementation(group = "org.apache.commons", name = "commons-compress", version = "1.20")
-    implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.30")
+    implementation(group = "org.apache.commons", name = "commons-compress", version = "1.21")
+    implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.32")
 
     testAnnotationProcessor(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 

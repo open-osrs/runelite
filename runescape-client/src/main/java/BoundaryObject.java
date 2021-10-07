@@ -7,57 +7,63 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("hn")
 @Implements("BoundaryObject")
 public final class BoundaryObject {
-	@ObfuscatedName("n")
+	@ObfuscatedName("bw")
+	@ObfuscatedSignature(
+		descriptor = "[Lon;"
+	)
+	@Export("worldSelectBackSprites")
+	static SpritePixels[] worldSelectBackSprites;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1585144359
+		intValue = -1376484179
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 615772211
+		intValue = -604518039
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -961076053
+		intValue = -129447381
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 697476863
+		intValue = -1366610135
 	)
 	@Export("orientationA")
 	int orientationA;
-	@ObfuscatedName("o")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1786552595
+		intValue = -488074781
 	)
 	@Export("orientationB")
 	int orientationB;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lhr;"
+		descriptor = "Lhi;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lhr;"
+		descriptor = "Lhi;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
 	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		longValue = 570291309614965945L
+		longValue = -3701872394330512717L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1509654997
+		intValue = 1201244349
 	)
 	@Export("flags")
 	int flags;

@@ -1,42 +1,29 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("kf")
+@ObfuscatedName("ki")
 public class class295 {
-	@ObfuscatedName("s")
+	@ObfuscatedName("kn")
 	@ObfuscatedSignature(
-		descriptor = "(ILbg;ZB)I",
-		garbageValue = "-115"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-1052203633"
 	)
-	static int method5305(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? PacketWriter.scriptDotWidget : class9.scriptActiveWidget;
-		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.itemId;
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) {
-			if (var3.itemId != -1) {
-				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.itemQuantity;
+	static void method5382(String var0) {
+		ItemContainer.field1009 = var0;
+
+		try {
+			String var1 = class21.client.getParameter(Integer.toString(18));
+			String var2 = class21.client.getParameter(Integer.toString(13));
+			String var3 = var1 + "settings=" + var0 + "; version=1; path=/; domain=" + var2;
+			if (var0.length() == 0) {
+				var3 = var3 + "; Expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0";
 			} else {
-				Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = 0;
+				var3 = var3 + "; Expires=" + UserComparator3.method2438(UserComparator4.method2406() + 94608000000L) + "; Max-Age=" + 94608000L;
 			}
 
-			return 1;
-		} else if (var0 == ScriptOpcodes.CC_GETID) {
-			Interpreter.Interpreter_intStack[++class240.Interpreter_intStackSize - 1] = var3.childIndex;
-			return 1;
-		} else {
-			return 2;
+			class27.method405(class21.client, "document.cookie=\"" + var3 + "\"");
+		} catch (Throwable var4) {
 		}
-	}
 
-	@ObfuscatedName("lu")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "78"
-	)
-	static void method5306() {
-		Client.packetWriter.addNode(FriendSystem.getPacketBufferNode(ClientPacket.field2684, Client.packetWriter.isaacCipher));
-		Client.oculusOrbState = 0;
 	}
 }

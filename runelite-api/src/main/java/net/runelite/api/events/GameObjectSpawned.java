@@ -37,9 +37,9 @@ public class GameObjectSpawned
 	/**
 	 * The affected tile.
 	 */
-	Tile tile;
+	private Tile tile;
 	/**
 	 * The newly spawned game object.
 	 */
-	GameObject gameObject;
+	private GameObject gameObject;
 }

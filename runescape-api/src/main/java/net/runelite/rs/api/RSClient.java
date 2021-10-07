@@ -243,6 +243,9 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("combatTargetPlayerIndex")
 	void setLocalInteractingIndex(int idx);
 
+	@Import("Scene_tilesDeque")
+	RSNodeDeque getTilesDeque();
+
 	@Import("groundItems")
 	RSNodeDeque[][][] getGroundItemDeque();
 
@@ -1124,6 +1127,8 @@ public interface RSClient extends RSGameEngine, Client
 
 	void setModulus(BigInteger modulus);
 
+	BigInteger getModulus();
+
 	@Import("ItemDefinition_fileCount")
 	int getItemCount();
 
@@ -1433,4 +1438,25 @@ public interface RSClient extends RSGameEngine, Client
 	RSClanSettings getGuestClanSettings();
 
 	ClanRank getClanRankFromRs(int rank);
+
+	@Import("readStringIntParameters")
+	RSIterableNodeHashTable readStringIntParameters(RSBuffer buffer, RSIterableNodeHashTable table);
+
+	@Import("rndHue")
+	int getRndHue();
+
+	@Import("Tiles_underlays")
+	byte[][][] getTileUnderlays();
+
+	@Import("Tiles_overlays")
+	byte[][][] getTileOverlays();
+
+	@Import("Tiles_shapes")
+	byte[][][] getTileShapes();
+
+	@Import("SpotAnimationDefinition_get")
+	RSSpotAnimationDefinition getSpotAnimationDefinition(int id);
+
+	@Import("ModelData_get")
+	RSModelData getModelData(RSAbstractArchive var0, int var1, int var2);
 }

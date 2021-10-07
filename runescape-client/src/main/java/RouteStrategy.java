@@ -7,27 +7,45 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("fw")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("n")
+	@ObfuscatedName("st")
+	@ObfuscatedSignature(
+		descriptor = "Lai;"
+	)
+	@Export("decimator")
+	static Decimator decimator;
+	@ObfuscatedName("et")
+	@ObfuscatedSignature(
+		descriptor = "Lky;"
+	)
+	@Export("archive2")
+	static Archive archive2;
+	@ObfuscatedName("fp")
 	@ObfuscatedGetter(
-		intValue = -1629612849
+		intValue = -1344462217
+	)
+	@Export("currentPort")
+	static int currentPort;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = -1263236151
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1029926403
+		intValue = 213463867
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("m")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1686095429
+		intValue = -384519969
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("k")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -208649847
+		intValue = -1744940785
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
@@ -35,22 +53,11 @@ public abstract class RouteStrategy {
 	protected RouteStrategy() {
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IIILfk;S)Z",
-		garbageValue = "13398"
+		descriptor = "(IIILfy;I)Z",
+		garbageValue = "1728008342"
 	)
 	@Export("hasArrived")
-	protected abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
-
-	@ObfuscatedName("c")
-	public static boolean method3352(long var0) {
-		boolean var2 = 0L != var0;
-		if (var2) {
-			boolean var3 = (int)(var0 >>> 16 & 1L) == 1;
-			var2 = !var3;
-		}
-
-		return var2;
-	}
+	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);
 }
