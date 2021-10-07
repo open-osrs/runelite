@@ -37,3 +37,37 @@ dependencies {
 
     testImplementation(group = "junit", name = "junit", version = "4.12")
 }
+
+tasks {
+    jar {
+        exclude("net/runelite/api/widgets/ItemQuantityMode.class")
+        exclude("net/runelite/api/widgets/WidgetConfig.class")
+        exclude("net/runelite/api/widgets/WidgetID*.class")
+        exclude("net/runelite/api/widgets/WidgetModalMode.class")
+        exclude("net/runelite/api/widgets/WidgetModelType.class")
+        exclude("net/runelite/api/widgets/WidgetPositionMode.class")
+        exclude("net/runelite/api/widgets/WidgetSizeMode.class")
+        exclude("net/runelite/api/widgets/WidgetTextAlignment.class")
+        exclude("net/runelite/api/widgets/WidgetType.class")
+        exclude("net/runelite/api/clan/ClanID.class")
+        exclude("net/runelite/api/AnimationID.class")
+        exclude("net/runelite/api/EnumID.class")
+        exclude("net/runelite/api/FontID.class")
+        exclude("net/runelite/api/GraphicID.class")
+        exclude("net/runelite/api/ItemID.class")
+        exclude("net/runelite/api/NpcID.class")
+        exclude("net/runelite/api/NullItemID.class")
+        exclude("net/runelite/api/NullNpcID.class")
+        exclude("net/runelite/api/NullObjectID.class")
+        exclude("net/runelite/api/ObjectID.class")
+        exclude("net/runelite/api/Opcodes.class")
+        exclude("net/runelite/api/ParamID.class")
+        exclude("net/runelite/api/ProjectileID.class")
+        exclude("net/runelite/api/ScriptID.class")
+        exclude("net/runelite/api/SettingID.class")
+        exclude("net/runelite/api/SoundEffectID.class")
+        exclude("net/runelite/api/SoundEffectVolume.class")
+        exclude("net/runelite/api/SpriteID.class")
+        exclude("net/runelite/api/StructID.class")
+    }
+}
