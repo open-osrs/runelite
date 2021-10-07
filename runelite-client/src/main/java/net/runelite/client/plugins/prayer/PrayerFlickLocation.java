@@ -27,7 +27,7 @@
 package net.runelite.client.plugins.prayer;
 
 public enum PrayerFlickLocation
-{git stat
+{
 	NONE,
 	PRAYER_ORB,
 	PRAYER_BAR,

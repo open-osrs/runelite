@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Predicate;
 
 @Slf4j
 @SuppressWarnings("unused")
@@ -52,6 +53,8 @@ public class ExtUtils
 		return Arrays.stream(string.split(",")).map(String::trim).mapToInt(Integer::parseInt).toArray();
 	}
 
+	// find in game items
+
 	@Nullable
 	public GameObject findNearestGameObject(int... ids)
 	{
@@ -64,6 +67,38 @@ public class ExtUtils
 
 		return new GameObjectQuery()
 				.idEquals(ids)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public GameObject findNearestGameObject(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new GameObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public GameObject findNearestGameObject(Predicate<GameObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new GameObjectQuery()
+				.filter(filter)
 				.result(client)
 				.nearestTo(client.getLocalPlayer());
 	}
@@ -85,6 +120,38 @@ public class ExtUtils
 	}
 
 	@Nullable
+	public WallObject findNearestWallObject(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new WallObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public WallObject findNearestWallObject(Predicate<WallObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new WallObjectQuery()
+				.filter(filter)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
 	public DecorativeObject findNearestDecorObject(int... ids)
 	{
 		assert client.isClientThread();
@@ -96,6 +163,38 @@ public class ExtUtils
 
 		return new DecorativeObjectQuery()
 				.idEquals(ids)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public DecorativeObject findNearestDecorObject(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new DecorativeObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public DecorativeObject findNearestDecorObject(Predicate<DecorativeObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new DecorativeObjectQuery()
+				.filter(filter)
 				.result(client)
 				.nearestTo(client.getLocalPlayer());
 	}
@@ -117,6 +216,38 @@ public class ExtUtils
 	}
 
 	@Nullable
+	public GroundObject findNearestGroundObject(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new GroundObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public GroundObject findNearestGroundObject(Predicate<GroundObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new GroundObjectQuery()
+				.filter(filter)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
 	public NPC findNearestNPC(int... ids)
 	{
 		assert client.isClientThread();
@@ -128,6 +259,38 @@ public class ExtUtils
 
 		return new NPCQuery()
 				.idEquals(ids)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public NPC findNearestNPC(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new NPCQuery()
+				.nameEquals(names)
+				.result(client)
+				.nearestTo(client.getLocalPlayer());
+	}
+
+	@Nullable
+	public NPC findNearestNPC(Predicate<NPC> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return null;
+		}
+
+		return new NPCQuery()
+				.filter(filter)
 				.result(client)
 				.nearestTo(client.getLocalPlayer());
 	}
@@ -147,6 +310,36 @@ public class ExtUtils
 				.list;
 	}
 
+	public List<GameObject> getGameObjects(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new GameObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.list;
+	}
+
+	public List<GameObject> getGameObjects(Predicate<GameObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new GameObjectQuery()
+				.filter(filter)
+				.result(client)
+				.list;
+	}
+
 	public List<WallObject> getWallObjects(int... ids)
 	{
 		assert client.isClientThread();
@@ -158,6 +351,36 @@ public class ExtUtils
 
 		return new WallObjectQuery()
 				.idEquals(ids)
+				.result(client)
+				.list;
+	}
+
+	public List<WallObject> getWallObjects(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new WallObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.list;
+	}
+
+	public List<WallObject> getWallObjects(Predicate<WallObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new WallObjectQuery()
+				.filter(filter)
 				.result(client)
 				.list;
 	}
@@ -177,6 +400,36 @@ public class ExtUtils
 				.list;
 	}
 
+	public List<DecorativeObject> getDecorObjects(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new DecorativeObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.list;
+	}
+
+	public List<DecorativeObject> getDecorObjects(Predicate<DecorativeObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new DecorativeObjectQuery()
+				.filter(filter)
+				.result(client)
+				.list;
+	}
+
 	public List<GroundObject> getGroundObjects(int... ids)
 	{
 		assert client.isClientThread();
@@ -188,6 +441,36 @@ public class ExtUtils
 
 		return new GroundObjectQuery()
 				.idEquals(ids)
+				.result(client)
+				.list;
+	}
+
+	public List<GroundObject> getGroundObjects(String... names)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new GroundObjectQuery()
+				.nameEquals(names)
+				.result(client)
+				.list;
+	}
+
+	public List<GroundObject> getGroundObjects(Predicate<GroundObject> filter)
+	{
+		assert client.isClientThread();
+
+		if (client.getLocalPlayer() == null)
+		{
+			return new ArrayList<>();
+		}
+
+		return new GroundObjectQuery()
+				.filter(filter)
 				.result(client)
 				.list;
 	}
@@ -218,12 +501,65 @@ public class ExtUtils
 		return findNearestGroundObject(ids);
 	}
 
+	@Nullable
+	public TileObject findNearestObject(String... names)
+	{
+		GameObject gameObject = findNearestGameObject(names);
+
+		if (gameObject != null)
+		{
+			return gameObject;
+		}
+
+		WallObject wallObject = findNearestWallObject(names);
+
+		if (wallObject != null)
+		{
+			return wallObject;
+		}
+		DecorativeObject decorativeObject = findNearestDecorObject(names);
+
+		if (decorativeObject != null)
+		{
+			return decorativeObject;
+		}
+
+		return findNearestGroundObject(names);
+	}
+
+	// widget items
+
+
 	public List<WidgetItem> getItems(int... itemIDs)
 	{
 		assert client.isClientThread();
 
 		return new InventoryWidgetItemQuery()
 				.idEquals(itemIDs)
+				.result(client)
+				.list;
+	}
+
+	public List<WidgetItem> getItems(String... names)
+	{
+		assert client.isClientThread();
+
+		ArrayList<WidgetItem> items = new InventoryWidgetItemQuery()
+				.result(client)
+				.list;
+
+		new ArrayList<>(Arrays.asList(names)).forEach(inventoryItem ->
+				items.removeIf(item -> item.getWidget().getName().equals(inventoryItem)));
+
+		return items;
+	}
+
+	public List<WidgetItem> getItems(Predicate<WidgetItem> filter)
+	{
+		assert client.isClientThread();
+
+		return new InventoryWidgetItemQuery()
+				.filter(filter)
 				.result(client)
 				.list;
 	}
@@ -264,6 +600,62 @@ public class ExtUtils
 		return equipped;
 	}
 
+	public List<Widget> getEquippedItems(String[] names)
+	{
+		assert client.isClientThread();
+
+		Widget equipmentWidget = client.getWidget(WidgetInfo.EQUIPMENT);
+
+		List<String> equippedNames = new ArrayList<>(Arrays.asList(names));
+
+		List<Widget> equipped = new ArrayList<>();
+
+		assert equipmentWidget != null;
+		if (equipmentWidget.getStaticChildren() != null)
+		{
+			for (Widget widgets : equipmentWidget.getStaticChildren())
+			{
+				for (Widget items : widgets.getDynamicChildren())
+				{
+					if (equippedNames.contains(items.getName()))
+					{
+						equipped.add(items);
+					}
+				}
+			}
+		}
+		else
+		{
+			log.error("Children is Null!");
+		}
+
+		return equipped;
+	}
+
+	public List<Widget> getEquippedItems()
+	{
+		assert client.isClientThread();
+
+		Widget equipmentWidget = client.getWidget(WidgetInfo.EQUIPMENT);
+
+		List<Widget> equipped = new ArrayList<>();
+
+		assert equipmentWidget != null;
+		if (equipmentWidget.getStaticChildren() != null)
+		{
+			for (Widget widgets : equipmentWidget.getStaticChildren())
+			{
+				equipped.addAll(Arrays.asList(widgets.getDynamicChildren()));
+			}
+		}
+		else
+		{
+			log.error("Children is Null!");
+		}
+
+		return equipped;
+	}
+
 	public int getTabHotkey(Tab tab)
 	{
 		assert client.isClientThread();
@@ -289,7 +681,7 @@ public class ExtUtils
 			case 13:
 				return 27;
 			default:
-				return -1;
+				return - 1;
 		}
 	}
 
@@ -325,19 +717,17 @@ public class ExtUtils
 	 */
 	public void typeString(String string)
 	{
-		assert !client.isClientThread();
+		assert ! client.isClientThread();
 
-		for (char c : string.toCharArray())
+		try
 		{
-			pressKey(c);
+			keyboard.type(string);
 		}
-	}
-
-	public void pressKey(char key)
-	{
-		keyEvent(401, key);
-		keyEvent(402, key);
-		keyEvent(400, key);
+		catch (InterruptedException e)
+		{
+			log.debug(e.toString());
+			e.printStackTrace();
+		}
 	}
 
 	private void keyEvent(int id, char key)
@@ -358,14 +748,14 @@ public class ExtUtils
 	 */
 	public void click(Rectangle rectangle)
 	{
-		assert !client.isClientThread();
+		assert ! client.isClientThread();
 		Point point = getClickPoint(rectangle);
 		click(point);
 	}
 
 	public void click(Point p)
 	{
-		assert !client.isClientThread();
+		assert ! client.isClientThread();
 
 		if (client.isStretchedEnabled())
 		{
@@ -386,8 +776,8 @@ public class ExtUtils
 
 	public Point getClickPoint(@NotNull Rectangle rect)
 	{
-		final int x = (int) (rect.getX() + getRandomIntBetweenRange((int) rect.getWidth() / 6 * -1, (int) rect.getWidth() / 6) + rect.getWidth() / 2);
-		final int y = (int) (rect.getY() + getRandomIntBetweenRange((int) rect.getHeight() / 6 * -1, (int) rect.getHeight() / 6) + rect.getHeight() / 2);
+		final int x = (int) (rect.getX() + getRandomIntBetweenRange((int) rect.getWidth() / 6 * - 1, (int) rect.getWidth() / 6) + rect.getWidth() / 2);
+		final int y = (int) (rect.getY() + getRandomIntBetweenRange((int) rect.getHeight() / 6 * - 1, (int) rect.getHeight() / 6) + rect.getHeight() / 2);
 
 		return new Point(x, y);
 	}
@@ -410,6 +800,11 @@ public class ExtUtils
 	}
 
 	public boolean isOnScreen(TileObject point)
+	{
+		return client.getCanvas().contains(point.getCanvasLocation().getX(), point.getCanvasLocation().getY());
+	}
+
+	public boolean isOnScreen(WidgetItem point)
 	{
 		return client.getCanvas().contains(point.getCanvasLocation().getX(), point.getCanvasLocation().getY());
 	}
@@ -437,5 +832,16 @@ public class ExtUtils
 	public static int random(int min, int max)
 	{
 		return ThreadLocalRandom.current().nextInt(min, max);
+	}
+
+	public void testSomething() {
+		List<GameObject> gameObjects = getGameObjects("something");
+		for (GameObject o : gameObjects) {
+			isOnScreen(o);
+		}
+		List<WidgetItem> items = getItems("");
+		for (WidgetItem o : items) {
+			isOnScreen(o);
+		}
 	}
 }
