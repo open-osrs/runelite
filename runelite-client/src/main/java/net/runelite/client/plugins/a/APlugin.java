@@ -56,7 +56,7 @@ public class APlugin extends Plugin
 
 	private Player player;
 
-	private boolean keyboard = false;
+	private boolean keyboard = true;
 
 
 	// to execute things like key press and click -- new thread
