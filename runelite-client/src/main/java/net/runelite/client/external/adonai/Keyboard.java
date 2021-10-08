@@ -1,4 +1,4 @@
-package net.runelite.client.plugins.a;
+package net.runelite.client.external.adonai;
 
 import java.awt.*;
 import java.util.Random;

@@ -23,8 +23,7 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
@@ -277,6 +276,11 @@ public class ExtUtils
 				.nameEquals(names)
 				.result(client)
 				.nearestTo(client.getLocalPlayer());
+	}
+
+	public NPC findNpc(int id)
+	{
+		return client.getCachedNPCs()[id];
 	}
 
 	@Nullable
@@ -809,6 +813,26 @@ public class ExtUtils
 		return client.getCanvas().contains(point.getCanvasLocation().getX(), point.getCanvasLocation().getY());
 	}
 
+	public boolean isOnScreen(Actor actor)
+	{
+		// that was my last resort that worked
+		client.getCanvas().getLocationOnScreen();
+		client.getCanvas().isShowing();
+		client.getCanvas().getMousePosition();
+		client.getCanvasHeight();
+		client.getCanvasWidth();
+		Point actorPoint = Perspective.localToCanvas(client, actor.getLocalLocation(), client.getPlane());
+		assert actorPoint != null;
+		return isOnScreen(actorPoint);
+	}
+
+	public boolean isOnScreen(Point point)
+	{
+		return (point.getX() >= 0 && point.getX() <= client.getCanvasWidth() && point.getY() >= 0 &&
+				point.getY() <= client.getCanvasHeight());
+	}
+
+
 	private void robotClick() throws AWTException
 	{
 		Robot bot = new Robot();
@@ -834,14 +858,192 @@ public class ExtUtils
 		return ThreadLocalRandom.current().nextInt(min, max);
 	}
 
-	public void testSomething() {
+	public void testSomething()
+	{
 		List<GameObject> gameObjects = getGameObjects("something");
-		for (GameObject o : gameObjects) {
+		for (GameObject o : gameObjects)
+		{
 			isOnScreen(o);
 		}
 		List<WidgetItem> items = getItems("");
-		for (WidgetItem o : items) {
+		for (WidgetItem o : items)
+		{
 			isOnScreen(o);
 		}
+
 	}
+
+	public boolean isTabOpen(WidgetInfo info)
+	{
+		return Objects.requireNonNull(client.getWidget(info)).isHidden();
+	}
+
+	enum ToolbarTabs
+	{
+		COMBAT_OPTIONS,
+		SKILLS,
+		QUEST_LIST,
+		INVENTORY,
+		WORN_EQUIPMENT,
+		PRAYER,
+		MAGIC,
+		FRIENDS_LIST,
+		ACCOUNT_MANAGEMENT,
+		CHAT_CHANNEL,
+		SETTINGS,
+		EMOTES,
+		MUSIC_PLAYER
+	}
+
+	HashMap<ToolbarTabs, int[]> something = new HashMap<>()
+	{{
+		put(ToolbarTabs.COMBAT_OPTIONS, new int[]{164, 66});
+		put(ToolbarTabs.SKILLS, new int[]{164, 67});
+		put(ToolbarTabs.QUEST_LIST, new int[]{164, 68});
+		put(ToolbarTabs.INVENTORY, new int[]{164, 69});
+		put(ToolbarTabs.WORN_EQUIPMENT, new int[]{164, 70});
+		put(ToolbarTabs.PRAYER, new int[]{164, 71});
+		put(ToolbarTabs.MAGIC, new int[]{164, 72});
+
+		put(ToolbarTabs.FRIENDS_LIST, new int[]{164, 52});
+		put(ToolbarTabs.ACCOUNT_MANAGEMENT, new int[]{164, 51});
+		put(ToolbarTabs.CHAT_CHANNEL, new int[]{164, 50});
+		put(ToolbarTabs.SETTINGS, new int[]{164, 53});
+		put(ToolbarTabs.EMOTES, new int[]{164, 54});
+		put(ToolbarTabs.MUSIC_PLAYER, new int[]{164, 55});
+	}};
+
+	enum MapTabs
+	{
+		ACTIVATE_QUICK_PRAYERS,
+		TOGGLE_RUN,
+		SPECIAL_ATTACK,
+		WORLD_MAP
+	}
+
+	HashMap<MapTabs, int[]> mapTabs = new HashMap<>()
+	{{
+		put(MapTabs.ACTIVATE_QUICK_PRAYERS, new int[]{160, 17});
+		put(MapTabs.SPECIAL_ATTACK, new int[]{160, 33});
+		put(MapTabs.WORLD_MAP, new int[]{160, 48});
+		put(MapTabs.TOGGLE_RUN, new int[]{160, 25});
+	}};
+
+	boolean inventoryContains(String ... names)
+	{
+		if (isTabOpen(WidgetInfo.INVENTORY))
+		{
+			Widget widget = client.getWidget(15, 3);
+			if (widget != null)
+			{
+				Widget[] children = widget.getChildren();
+				assert children != null;
+				for (String name : names)
+				{
+					for( Widget child : children)
+					{
+						if (child.getName().contains(name))
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	List<Widget> getInventorySlots(String name)
+	{
+		List<Widget> widgets = new ArrayList<>();
+		if (isTabOpen(WidgetInfo.INVENTORY))
+		{
+			Widget widget = client.getWidget(15, 3);
+			if (widget != null)
+			{
+				Widget[] children = widget.getChildren();
+				assert children != null;
+				for( Widget child : children)
+				{
+					if (child.getName().contains(name))
+					{
+						widgets.add(child);
+					}
+				}
+			}
+		}
+		return widgets.size() > 0 ? widgets : null;
+	}
+
+	Widget getFirstInventorySlot(String name)
+	{
+		if (isTabOpen(WidgetInfo.INVENTORY))
+		{
+			Widget widget = client.getWidget(15, 3);
+			if (widget != null)
+			{
+				Widget[] children = widget.getChildren();
+				assert children != null;
+				for( Widget child : children)
+				{
+					if (child.getName().contains(name))
+					{
+						return child;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	WidgetItem getFirstInventorySlotContains(String name)
+	{
+		return new InventoryWidgetItemQuery()
+				.filter(item -> item.getWidget().getName().contains(name))
+				.result(client)
+				.first();
+	}
+
+	WidgetItem getRandomInventorySlotContains(String name)
+	{
+		List<WidgetItem> list = new InventoryWidgetItemQuery()
+				.filter(item -> item.getWidget().getName().contains(name))
+				.result(client)
+				.list;
+		return list.get(new Random().nextInt(list.size()));
+	}
+
+	List<WidgetItem> getInventorySlotsContains(String name)
+	{
+		return new InventoryWidgetItemQuery()
+				.filter(item -> item.getWidget().getName().contains(name))
+				.result(client)
+				.list;
+	}
+
+	List<WidgetItem> getInventorySlots(int ... ids)
+	{
+		return new InventoryWidgetItemQuery()
+				.idEquals(ids)
+				.result(client)
+				.list;
+	}
+
+	WidgetItem getRandomInventorySlot(int ... ids)
+	{
+		ArrayList<WidgetItem> list = new InventoryWidgetItemQuery()
+				.idEquals(ids)
+				.result(client)
+				.list;
+		return list.get(new Random().nextInt(list.size()));
+	}
+
+	WidgetItem getFirstInventorySlot(int ... ids)
+	{
+		return  new InventoryWidgetItemQuery()
+				.idEquals(ids)
+				.result(client)
+				.first();
+	}
+
 }

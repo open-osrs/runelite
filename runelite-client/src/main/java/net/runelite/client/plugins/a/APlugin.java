@@ -1,17 +1,19 @@
 package net.runelite.client.plugins.a;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Point;
 import net.runelite.api.*;
 import net.runelite.api.coords.LocalPoint;
-import net.runelite.api.events.GameTick;
-import net.runelite.api.events.ScriptPostFired;
+import net.runelite.api.events.*;
 import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.external.ExternalPlugins.OneClick.Comparables.skilling.Spell;
+import net.runelite.client.external.adonai.MenuMap;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -19,7 +21,9 @@ import net.runelite.client.ui.overlay.OverlayManager;
 
 import javax.inject.Inject;
 import java.awt.*;
+import java.util.Random;
 import java.util.concurrent.*;
+import java.util.stream.IntStream;
 
 @PluginDescriptor(
 		name = "A Plugin",
@@ -184,10 +188,53 @@ public class APlugin extends Plugin
 		overlayManager.remove(aOverlay);
 	}
 
-	@Subscribe
-	public void onScriptPostFired(ScriptPostFired event)
-	{
 
+	/**
+	 * gets the location of the menu items
+	 *
+	 * @param event
+	 */
+	@Subscribe
+	public void onMenuOpened(MenuOpened event)
+	{
+		MenuMap menuMap = new MenuMap(client, event);
+		menuMap.getMenuCanvasLocation(menuMap.menuItems[1]);
+	}
+
+	TileObject findTileObject(int x, int y, int id)
+	{
+		Scene scene = client.getScene();
+		Tile[][][] tiles = scene.getTiles();
+		Tile tile = tiles[client.getPlane()][x][y];
+		if (tile != null)
+		{
+			for (GameObject gameObject : tile.getGameObjects())
+			{
+				if (gameObject != null && gameObject.getId() == id)
+				{
+					return gameObject;
+				}
+			}
+
+			WallObject wallObject = tile.getWallObject();
+			if (wallObject != null && wallObject.getId() == id)
+			{
+				return wallObject;
+			}
+
+			DecorativeObject decorativeObject = tile.getDecorativeObject();
+			if (decorativeObject != null && decorativeObject.getId() == id)
+			{
+				return decorativeObject;
+			}
+
+			GroundObject groundObject = tile.getGroundObject();
+			if (groundObject != null && groundObject.getId() == id)
+			{
+				return groundObject;
+			}
+		}
+		return null;
 	}
 
 	private void sendChatMessage(String chatMessage)
