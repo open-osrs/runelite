@@ -1,6 +1,7 @@
 package net.runelite.rs.api;
 
 import net.runelite.api.ItemComposition;
+import net.runelite.api.IterableHashTable;
 import net.runelite.mapping.Import;
 
 public interface RSItemComposition extends ItemComposition
@@ -87,6 +88,9 @@ public interface RSItemComposition extends ItemComposition
 
 	@Import("params")
 	RSIterableNodeHashTable getParams();
+
+	@Import("params")
+	void setParams(IterableHashTable params);
 
 	@Import("params")
 	void setParams(RSIterableNodeHashTable params);
