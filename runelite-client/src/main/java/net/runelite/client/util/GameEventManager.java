@@ -33,6 +33,7 @@ import javax.inject.Singleton;
 import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.GameState;
+import net.runelite.api.InventoryID;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.NPC;
 import net.runelite.api.Node;
@@ -111,9 +112,14 @@ public class GameEventManager
 
 			eventBus.register(subscriber);
 
-			for (final ItemContainer itemContainer : client.getItemContainers())
+			for (final InventoryID inventory : InventoryID.values())
 			{
-				eventBus.post(new ItemContainerChanged(itemContainer.getId(), itemContainer));
+				final ItemContainer itemContainer = client.getItemContainer(inventory);
+
+				if (itemContainer != null)
+				{
+					eventBus.post(new ItemContainerChanged(inventory.getId(), itemContainer));
+				}
 			}
 
 			for (NPC npc : client.getCachedNPCs())
