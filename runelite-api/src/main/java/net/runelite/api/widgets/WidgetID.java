@@ -536,6 +536,7 @@ public final class WidgetID
 		static final int MUSIC_ICON = 48;
 		static final int INVENTORY_TAB = 54;
 		static final int PRAYER_TAB = 56;
+		static final int MAGIC_TAB = 57;
 		static final int CMB_ICON = 58;
 		static final int SKILLS_ICON = 59;
 		static final int QUESTS_ICON = 60;
