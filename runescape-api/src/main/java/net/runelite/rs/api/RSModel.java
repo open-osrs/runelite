@@ -157,6 +157,10 @@ public interface RSModel extends RSRenderable, Model
 	@Import("isSingleTile")
 	@Override
 	boolean isClickable();
+
+	@Import("bottomY")
+	@Override
+	int getBottomY();;
 	
 	@Import("drawFace")
 	@Override
