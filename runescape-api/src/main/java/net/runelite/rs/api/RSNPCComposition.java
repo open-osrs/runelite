@@ -1,6 +1,5 @@
 package net.runelite.rs.api;
 
-import net.runelite.api.IterableHashTable;
 import net.runelite.api.NPCComposition;
 import net.runelite.mapping.Import;
 
@@ -63,9 +62,6 @@ public interface RSNPCComposition extends NPCComposition
 
 	@Import("params")
 	RSIterableNodeHashTable getParams();
-
-	@Import("params")
-	void setParams(IterableHashTable params);
 
 	@Import("params")
 	void setParams(RSIterableNodeHashTable params);
