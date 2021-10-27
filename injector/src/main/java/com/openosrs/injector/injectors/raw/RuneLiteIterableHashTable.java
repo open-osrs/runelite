@@ -16,44 +16,46 @@ import net.runelite.asm.attributes.Code;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
+import net.runelite.asm.attributes.code.instructions.ALoad;
 import net.runelite.asm.attributes.code.instructions.Dup;
 import net.runelite.asm.attributes.code.instructions.InvokeSpecial;
 import net.runelite.asm.attributes.code.instructions.New;
 import net.runelite.asm.attributes.code.instructions.Return;
 import net.runelite.asm.signature.Signature;
 
-public class RuneliteObject extends AbstractInjector
+public class RuneLiteIterableHashTable extends AbstractInjector
 {
-	private static final String RUNELITE_OBJECT = "RuneLiteObject";
+	private static final String RUNELITE_ITERABLE_HASHTABLE = "RuneLiteIterableHashTable";
 
-	public RuneliteObject(InjectData inject)
+	public RuneLiteIterableHashTable(InjectData inject)
 	{
 		super(inject);
 	}
 
 	public void inject()
 	{
-		ClassFile runeliteObjectVanilla = inject.vanilla.findClass(RUNELITE_OBJECT);
+		ClassFile runeliteIterableHashTableVanilla = inject.vanilla.findClass(RUNELITE_ITERABLE_HASHTABLE);
 
-		final ClassFile clientVanilla = inject.toVanilla(
+		final ClassFile nodeHashTableVanilla = inject.toVanilla(
 			inject.getDeobfuscated()
-				.findClass("Client")
+				.findClass("NodeHashTable")
 		);
 
-		Method copy = new Method(clientVanilla, "createRuneLiteObject", new Signature("()Lnet/runelite/api/RuneLiteObject;"));
+		Method copy = new Method(nodeHashTableVanilla, "iterator", new Signature("()Ljava/util/Iterator;"));
 		copy.setPublic();
 
 		final Code code = new Code(copy);
-		code.setMaxStack(2);
+		code.setMaxStack(3);
 		copy.setCode(code);
-		clientVanilla.addMethod(copy);
+		nodeHashTableVanilla.addMethod(copy);
 
 		final Instructions instructions = code.getInstructions();
 		final List<Instruction> ins = instructions.getInstructions();
 
-		ins.add(new New(instructions, runeliteObjectVanilla.getPoolClass()));
+		ins.add(new New(instructions, runeliteIterableHashTableVanilla.getPoolClass()));
 		ins.add(new Dup(instructions));
-		ins.add(new InvokeSpecial(instructions, new net.runelite.asm.pool.Method(runeliteObjectVanilla.getPoolClass(), "<init>", new Signature("()V"))));
+		ins.add(new ALoad(instructions, 0));
+		ins.add(new InvokeSpecial(instructions, new net.runelite.asm.pool.Method(runeliteIterableHashTableVanilla.getPoolClass(), "<init>", new Signature("(L" + nodeHashTableVanilla.getName() + ";)V"))));
 		ins.add(new Return(instructions, InstructionType.ARETURN));
 	}
 }

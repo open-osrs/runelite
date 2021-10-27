@@ -56,6 +56,13 @@ public class GetStatic extends Instruction implements GetFieldInstruction
 		this.field = field;
 	}
 
+	public GetStatic(Instructions instructions, net.runelite.asm.Field field)
+	{
+		super(instructions, InstructionType.GETSTATIC);
+		this.field = field.getPoolField();
+		this.myField = field;
+	}
+
 	@Override
 	public String toString()
 	{

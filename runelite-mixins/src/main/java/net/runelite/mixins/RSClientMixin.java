@@ -137,6 +137,7 @@ import net.runelite.api.widgets.WidgetType;
 import net.runelite.rs.api.RSAbstractArchive;
 import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSChatChannel;
+import net.runelite.rs.api.RSClanChannel;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEnumComposition;
 import net.runelite.rs.api.RSFriendSystem;
@@ -2319,20 +2320,20 @@ public abstract class RSClientMixin implements RSClient
 	@FieldHook("guestClanChannel")
 	public static void onGuestClanChannelChanged(int idx)
 	{
-		client.getCallbacks().post(new ClanChannelChanged(client.getGuestClanChannel(), true));
+		client.getCallbacks().post(new ClanChannelChanged(client.getGuestClanChannel(), -1, true));
 	}
 
 	@Inject
 	@FieldHook("currentClanChannels")
 	public static void onCurrentClanChannelsChanged(int idx)
 	{
-		if (idx == -1)
-		{
-			// don't fire on array field itself being set
-			return;
-		}
+		RSClanChannel[] clanChannels = client.getCurrentClanChannels();
 
-		client.getCallbacks().post(new ClanChannelChanged(client.getClanChannel(), false));
+		if (idx >= 0 && idx < clanChannels.length)
+		{
+			RSClanChannel clanChannel = clanChannels[idx];
+			client.getCallbacks().post(new ClanChannelChanged(clanChannel, idx, false));
+		}
 	}
 
 

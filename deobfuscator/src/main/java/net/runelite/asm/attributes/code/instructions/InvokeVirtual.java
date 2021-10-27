@@ -66,6 +66,13 @@ public class InvokeVirtual extends Instruction implements InvokeInstruction
 		this.method = method;
 	}
 
+	public InvokeVirtual(Instructions instructions, net.runelite.asm.Method method)
+	{
+		super(instructions, InstructionType.INVOKEVIRTUAL);
+		this.method = method.getPoolMethod();
+		this.myMethod = method;
+	}
+
 	@Override
 	public void accept(MethodVisitor visitor)
 	{

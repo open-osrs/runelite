@@ -53,6 +53,12 @@ public class PutField extends Instruction implements SetFieldInstruction
 		super(instructions, type);
 	}
 
+	public PutField(Instructions instructions, Field field)
+	{
+		super(instructions, InstructionType.PUTFIELD);
+		this.field = field;
+	}
+
 	public PutField(Instructions instructions, net.runelite.asm.Field field)
 	{
 		super(instructions, InstructionType.PUTFIELD);
