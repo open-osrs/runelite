@@ -46,6 +46,13 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 
 	@Inject
 	@Override
+	public int getId()
+	{
+		return (int) this.getHash();
+	}
+
+	@Inject
+	@Override
 	public Item[] getItems()
 	{
 		int[] itemIds = getItemIds();
@@ -131,7 +138,7 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 			int containerId = changedItemContainers[changedId];
 
 			RSNodeHashTable itemContainers = client.getItemContainers();
-			
+
 			RSItemContainer changedContainer = (RSItemContainer) itemContainers.get(containerId);
 			RSItemContainer changedContainerInvOther = (RSItemContainer) itemContainers.get(containerId | 0x8000);
 
@@ -140,7 +147,7 @@ public abstract class RSItemContainerMixin implements RSItemContainer
 				ItemContainerChanged event = new ItemContainerChanged(containerId, changedContainer);
 				client.getCallbacks().postDeferred(event);
 			}
-			
+
 			if (changedContainerInvOther != null)
 			{
 				ItemContainerChanged event = new ItemContainerChanged(containerId | 0x8000, changedContainerInvOther);

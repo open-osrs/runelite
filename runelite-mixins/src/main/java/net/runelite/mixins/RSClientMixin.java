@@ -952,6 +952,25 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public RSItemContainer getItemContainer(int id)
+	{
+		RSNodeHashTable itemContainers = getItemContainers();
+
+		for (Object itemContainer : itemContainers)
+		{
+			RSItemContainer container = ((RSItemContainer) itemContainer);
+
+			if (((RSItemContainer) itemContainer).getId() == id)
+			{
+				return container;
+			}
+		}
+
+		return null;
+	}
+
+	@Inject
+	@Override
 	public boolean isFriended(String name, boolean mustBeLoggedIn)
 	{
 		RSUsername rsName = createName(name, getLoginType());
