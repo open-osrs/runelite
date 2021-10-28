@@ -88,140 +88,144 @@ public class CopyRuneLiteClasses extends AbstractInjector
 
 				for (Method method : runeLiteObjectDeob.getMethods())
 				{
-					method.setDescriptor(getObfuscatedSignature(method.getDescriptor()));
-
-					Code code = method.getCode();
-
-					if (code != null)
-					{
-						Instructions ins = code.getInstructions();
-						for (ListIterator<Instruction> iterator = ins.listIterator(); iterator.hasNext(); )
-						{
-							Instruction i = iterator.next();
-
-							if (i instanceof PutField)
-							{
-								net.runelite.asm.pool.Field field = ((PutField) i).getField();
-								Field vanilla = findField(field);
-
-								if (vanilla != null)
-								{
-									iterator.set(new PutField(ins, vanilla));
-								}
-								else
-								{
-									field.setType(getObfuscatedSignature(field.getType()));
-									iterator.set(new PutField(ins, field));
-								}
-							}
-							else if (i instanceof GetField)
-							{
-								net.runelite.asm.pool.Field field = ((GetField) i).getField();
-								Field vanilla = findField(field);
-
-								if (vanilla != null)
-								{
-									iterator.set(new GetField(ins, vanilla));
-								}
-								else
-								{
-									field.setType(getObfuscatedSignature(field.getType()));
-									iterator.set(new GetField(ins, field));
-								}
-							}
-							else if (i instanceof PutStatic)
-							{
-								net.runelite.asm.pool.Field field = ((PutStatic) i).getField();
-								Field vanilla = findField(field);
-
-								if (vanilla != null)
-								{
-									iterator.set(new PutStatic(ins, vanilla));
-								}
-								else
-								{
-									field.setType(getObfuscatedSignature(field.getType()));
-									iterator.set(new PutStatic(ins, field));
-								}
-							}
-							else if (i instanceof GetStatic)
-							{
-								net.runelite.asm.pool.Field field = ((GetStatic) i).getField();
-								Field vanilla = findField(field);
-
-								if (vanilla != null)
-								{
-									iterator.set(new GetStatic(ins, vanilla));
-								}
-								else
-								{
-									field.setType(getObfuscatedSignature(field.getType()));
-									iterator.set(new GetStatic(ins, field));
-								}
-							}
-							else if (i instanceof InvokeSpecial)
-							{
-								net.runelite.asm.pool.Method meth = ((InvokeSpecial) i).getMethod();
-								Method vanilla = findMethod(meth, true);
-
-								if (vanilla != null)
-								{
-									iterator.set(new InvokeSpecial(ins, vanilla));
-								}
-								else
-								{
-									meth.setType(getObfuscatedSignature(meth.getType()));
-									iterator.set(new InvokeSpecial(ins, meth));
-								}
-							}
-							else if (i instanceof InvokeStatic)
-							{
-								net.runelite.asm.pool.Method meth = ((InvokeStatic) i).getMethod();
-								Method vanilla = findMethod(meth, false);
-
-								if (vanilla != null)
-								{
-									iterator.set(new InvokeStatic(ins, vanilla));
-								}
-								else
-								{
-									meth.setType(getObfuscatedSignature(meth.getType()));
-									iterator.set(new InvokeStatic(ins, meth));
-								}
-							}
-							else if (i instanceof InvokeVirtual)
-							{
-								net.runelite.asm.pool.Method meth = ((InvokeVirtual) i).getMethod();
-								Method vanilla = findMethod(meth, true);
-
-								if (vanilla != null)
-								{
-									iterator.set(new InvokeVirtual(ins, vanilla));
-								}
-								else
-								{
-									meth.setType(getObfuscatedSignature(meth.getType()));
-									iterator.set(new InvokeVirtual(ins, meth));
-								}
-							}
-							else if (i instanceof New)
-							{
-
-								Class clazz = ((New) i).getNewClass();
-								ClassFile deobClass = inject.getDeobfuscated().findClass(clazz.getName());
-
-								if (deobClass != null)
-								{
-									iterator.set(new New(ins, inject.toVanilla(deobClass)));
-								}
-							}
-						}
-					}
-
+					transformMethod(method);
 					runeliteObjectVanilla.addMethod(method);
 				}
 
 				inject.vanilla.addClass(runeliteObjectVanilla);
+			}
+		}
+	}
+
+	private void transformMethod(Method method)
+	{
+		method.setDescriptor(getObfuscatedSignature(method.getDescriptor()));
+
+		Code code = method.getCode();
+
+		if (code != null)
+		{
+			Instructions ins = code.getInstructions();
+			for (ListIterator<Instruction> iterator = ins.listIterator(); iterator.hasNext(); )
+			{
+				Instruction i = iterator.next();
+
+				if (i instanceof PutField)
+				{
+					net.runelite.asm.pool.Field field = ((PutField) i).getField();
+					Field vanilla = findField(field);
+
+					if (vanilla != null)
+					{
+						iterator.set(new PutField(ins, vanilla));
+					}
+					else
+					{
+						field.setType(getObfuscatedSignature(field.getType()));
+						iterator.set(new PutField(ins, field));
+					}
+				}
+				else if (i instanceof GetField)
+				{
+					net.runelite.asm.pool.Field field = ((GetField) i).getField();
+					Field vanilla = findField(field);
+
+					if (vanilla != null)
+					{
+						iterator.set(new GetField(ins, vanilla));
+					}
+					else
+					{
+						field.setType(getObfuscatedSignature(field.getType()));
+						iterator.set(new GetField(ins, field));
+					}
+				}
+				else if (i instanceof PutStatic)
+				{
+					net.runelite.asm.pool.Field field = ((PutStatic) i).getField();
+					Field vanilla = findField(field);
+
+					if (vanilla != null)
+					{
+						iterator.set(new PutStatic(ins, vanilla));
+					}
+					else
+					{
+						field.setType(getObfuscatedSignature(field.getType()));
+						iterator.set(new PutStatic(ins, field));
+					}
+				}
+				else if (i instanceof GetStatic)
+				{
+					net.runelite.asm.pool.Field field = ((GetStatic) i).getField();
+					Field vanilla = findField(field);
+
+					if (vanilla != null)
+					{
+						iterator.set(new GetStatic(ins, vanilla));
+					}
+					else
+					{
+						field.setType(getObfuscatedSignature(field.getType()));
+						iterator.set(new GetStatic(ins, field));
+					}
+				}
+				else if (i instanceof InvokeSpecial)
+				{
+					net.runelite.asm.pool.Method meth = ((InvokeSpecial) i).getMethod();
+					Method vanilla = findMethod(meth, true);
+
+					if (vanilla != null)
+					{
+						iterator.set(new InvokeSpecial(ins, vanilla));
+					}
+					else
+					{
+						meth.setType(getObfuscatedSignature(meth.getType()));
+						iterator.set(new InvokeSpecial(ins, meth));
+					}
+				}
+				else if (i instanceof InvokeStatic)
+				{
+					net.runelite.asm.pool.Method meth = ((InvokeStatic) i).getMethod();
+					Method vanilla = findMethod(meth, false);
+
+					if (vanilla != null)
+					{
+						iterator.set(new InvokeStatic(ins, vanilla));
+					}
+					else
+					{
+						meth.setType(getObfuscatedSignature(meth.getType()));
+						iterator.set(new InvokeStatic(ins, meth));
+					}
+				}
+				else if (i instanceof InvokeVirtual)
+				{
+					net.runelite.asm.pool.Method meth = ((InvokeVirtual) i).getMethod();
+					Method vanilla = findMethod(meth, true);
+
+					if (vanilla != null)
+					{
+						iterator.set(new InvokeVirtual(ins, vanilla));
+					}
+					else
+					{
+						meth.setType(getObfuscatedSignature(meth.getType()));
+						iterator.set(new InvokeVirtual(ins, meth));
+					}
+				}
+				else if (i instanceof New)
+				{
+
+					Class clazz = ((New) i).getNewClass();
+					ClassFile deobClass = inject.getDeobfuscated().findClass(clazz.getName());
+
+					if (deobClass != null)
+					{
+						iterator.set(new New(ins, inject.toVanilla(deobClass)));
+					}
+				}
 			}
 		}
 	}
