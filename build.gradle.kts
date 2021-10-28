@@ -115,6 +115,30 @@ subprojects {
             isIgnoreFailures = false
         }
     }
+    
+    tasks.withType<Jar> {
+        doLast {
+            // sign jar
+            if (System.getProperty("signKeyStore") != null) {
+                // ensure ant is initialized so we can copy the project variable later
+                ant.invokeMethod("echo", mapOf("message" to "initializing ant"))
+
+                for (file in outputs.files) {
+                    org.apache.tools.ant.taskdefs.SignJar().apply {
+                        // why is this required
+                        project = ant.project
+
+                        setKeystore(System.getProperty("signKeyStore"))
+                        setStorepass(System.getProperty("signStorePass"))
+                        setAlias(System.getProperty("signAlias"))
+                        setJar(file)
+                        setSignedjar(file)
+                        execute()
+                    }
+                }
+            }
+        }
+    }
 
     configure<PublishingExtension> {
         repositories {
