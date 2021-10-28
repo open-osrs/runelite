@@ -272,19 +272,15 @@ class SkillCalculator extends JPanel
 
 	private void adjustCheckboxes(JCheckBox target, SkillBonus bonus)
 	{
-		adjustXPBonus(0);
-		bonusCheckBoxes.forEach(otherSelectedCheckbox ->
+		for (JCheckBox otherSelectedCheckbox : bonusCheckBoxes)
 		{
 			if (otherSelectedCheckbox != target)
 			{
 				otherSelectedCheckbox.setSelected(false);
 			}
-		});
-
-		if (target.isSelected())
-		{
-			adjustXPBonus(bonus.getValue());
 		}
+
+		adjustXPBonus(target.isSelected() ? bonus.getValue() : 0f);
 	}
 
 	private void renderActionSlots()
@@ -347,7 +343,8 @@ class SkillCalculator extends JPanel
 			int actionCount = 0;
 			int neededXP = targetXP - currentXP;
 			SkillAction action = slot.getAction();
-			double xp = (action.isIgnoreBonus()) ? action.getXp() : action.getXp() * xpFactor;
+			final float bonus = action.isIgnoreBonus() ? 1f : xpFactor;
+			final double xp = Math.round(action.getXp() * bonus * 10f) / 10d;
 
 			if (neededXP > 0)
 			{

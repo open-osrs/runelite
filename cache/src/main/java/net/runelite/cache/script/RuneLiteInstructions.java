@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,20 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.cache.script;
 
-description = "RuneLite API"
-
-dependencies {
-    annotationProcessor(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
-
-    compileOnly(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
-
-    api(project(":cache"))
-
-    implementation(group = "com.google.code.findbugs", name = "jsr305", version = "3.0.2")
-    implementation(group = "com.google.guava", name = "guava", version = "30.1.1-jre")
-    implementation(group = "org.apache.commons", name = "commons-text", version = "1.9")
-    implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.32")
-
-    testImplementation(group = "junit", name = "junit", version = "4.12")
+public class RuneLiteInstructions extends Instructions implements RuneLiteOpcodes
+{
+	@Override
+	public void init()
+	{
+		super.init();
+		add(RUNELITE_EXECUTE, "runelite_callback");
+	}
 }
