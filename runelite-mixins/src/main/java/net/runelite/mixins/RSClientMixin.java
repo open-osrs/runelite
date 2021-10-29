@@ -2435,7 +2435,8 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public void setUnlockedFps(boolean unlocked)
 	{
-		unlockedFps = unlocked;
+		// unlockedFps = unlocked;
+		unlockedFps = false;
 
 		if (unlocked)
 		{

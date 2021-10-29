@@ -31,6 +31,7 @@ dependencies {
     compileOnly(group = "commons-io", name = "commons-io", version = "2.8.0")
     compileOnly(project(":injection-annotations"))
     compileOnly(project(":runescape-api"))
+    compileOnly(project(":cache"))
 }
 
 tasks {
