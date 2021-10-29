@@ -1597,7 +1597,7 @@ public abstract class RSClientMixin implements RSClient
 	@MethodHook("draw")
 	public void draw(boolean var1)
 	{
-		callbacks.clientMainLoop();
+		callbacks.frame();
 		updateCamera();
 	}
 
@@ -2497,6 +2497,13 @@ public abstract class RSClientMixin implements RSClient
 	public static int toCameraPos(double var0)
 	{
 		return (int) (var0 / Perspective.UNIT) & 2047;
+	}
+
+	@Inject
+	@MethodHook("doCycle")
+	protected final void doCycle()
+	{
+		client.getCallbacks().tick();
 	}
 }
 
