@@ -43,22 +43,7 @@ public abstract class RuneLiteObjectMixin implements RSRuneLiteObject
 	private static RSClient client;
 
 	@Inject
-	private static boolean loop;
-
-	@Inject
 	private static RSModel model;
-
-	@Inject
-	RuneLiteObjectMixin()
-	{
-		setFinished(true);
-	}
-
-	@Inject
-	public void setModel(Model var1)
-	{
-		model = (RSModel) var1;
-	}
 
 	@Inject
 	public void setLocation(LocalPoint localPoint, int plane)
@@ -67,6 +52,14 @@ public abstract class RuneLiteObjectMixin implements RSRuneLiteObject
 		setY(localPoint.getY());
 		setLevel(plane);
 		setHeight(Perspective.getTileHeight(client, localPoint, plane));
+	}
+
+	@Inject
+	public void setAnimation(Sequence var1)
+	{
+		setFrame(0);
+		setFrameCycle(0);
+		setSequenceDefinition((RSSequenceDefinition) var1);
 	}
 
 	@Inject
@@ -90,7 +83,7 @@ public abstract class RuneLiteObjectMixin implements RSRuneLiteObject
 				}
 			}
 
-			if (loop && finished())
+			if (isLooping() && finished())
 			{
 				setFinished(false);
 				setFrame(0);
@@ -100,44 +93,9 @@ public abstract class RuneLiteObjectMixin implements RSRuneLiteObject
 	}
 
 	@Inject
-	public boolean isActive()
+	public void setModel(Model var1)
 	{
-		return !finished();
-	}
-
-	@Inject
-	public void setActive(boolean active)
-	{
-		if (finished() == active)
-		{
-			setFinished(!active);
-
-			if (active)
-			{
-				setFrame(0);
-				setFrameCycle(0);
-				client.getGraphicsObjectDeque().addFirst(this);
-			}
-			else
-			{
-				unlink();
-			}
-
-		}
-	}
-
-	@Inject
-	public void setShouldLoop(boolean var1)
-	{
-		loop = var1;
-	}
-
-	@Inject
-	public void setAnimation(Sequence var1)
-	{
-		setFrame(0);
-		setFrameCycle(0);
-		setSequenceDefinition((RSSequenceDefinition) var1);
+		model = (RSModel) var1;
 	}
 
 	@Inject

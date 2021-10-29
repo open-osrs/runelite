@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,89 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.cache.script;
 
-package net.runelite.asm.pool;
-
-import java.util.Objects;
-import net.runelite.asm.Type;
-
-public class Field
+public class RuneLiteInstructions extends Instructions implements RuneLiteOpcodes
 {
-	private final Class clazz;
-	private final String name;
-	private Type type;
-
-	public Field(Class clazz, String name, Type type)
-	{
-		this.clazz = clazz;
-		this.name = name;
-		this.type = type;
-	}
-
 	@Override
-	public String toString()
+	public void init()
 	{
-		return clazz.getName() + '.' + name + " " + type;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		int hash = 3;
-		hash = 97 * hash + Objects.hashCode(this.clazz);
-		hash = 97 * hash + Objects.hashCode(this.name);
-		hash = 97 * hash + Objects.hashCode(this.type);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-		{
-			return true;
-		}
-		if (obj == null)
-		{
-			return false;
-		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		final Field other = (Field) obj;
-		if (!Objects.equals(this.name, other.name))
-		{
-			return false;
-		}
-		if (!Objects.equals(this.clazz, other.clazz))
-		{
-			return false;
-		}
-		if (!Objects.equals(this.type, other.type))
-		{
-			return false;
-		}
-		return true;
-	}
-
-	public Class getClazz()
-	{
-		return clazz;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public Type getType()
-	{
-		return type;
-	}
-
-	public void setType(Type type)
-	{
-		this.type = type;
+		super.init();
+		add(RUNELITE_EXECUTE, "runelite_callback");
 	}
 }

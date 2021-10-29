@@ -64,6 +64,13 @@ public class InvokeStatic extends Instruction implements InvokeInstruction
 		this.method = method;
 	}
 
+	public InvokeStatic(Instructions instructions, net.runelite.asm.Method method)
+	{
+		super(instructions, InstructionType.INVOKESTATIC);
+		this.method = method.getPoolMethod();
+		this.myMethod = method;
+	}
+
 	@Override
 	public void accept(MethodVisitor visitor)
 	{

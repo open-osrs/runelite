@@ -30,6 +30,8 @@ dependencies {
 
     compileOnly(group = "org.projectlombok", name = "lombok", version = ProjectVersions.lombokVersion)
 
+    api(project(":cache"))
+
     implementation(group = "com.google.code.findbugs", name = "jsr305", version = "3.0.2")
     implementation(group = "com.google.guava", name = "guava", version = "30.1.1-jre")
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.9")

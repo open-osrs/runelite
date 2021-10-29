@@ -52,6 +52,12 @@ public class PutStatic extends Instruction implements SetFieldInstruction
 		super(instructions, type);
 	}
 
+	public PutStatic(Instructions instructions, Field field)
+	{
+		super(instructions, InstructionType.PUTSTATIC);
+		this.field = field;
+	}
+
 	public PutStatic(Instructions instructions, net.runelite.asm.Field field)
 	{
 		super(instructions, InstructionType.PUTSTATIC);

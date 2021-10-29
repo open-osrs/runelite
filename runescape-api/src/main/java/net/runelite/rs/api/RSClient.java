@@ -1467,4 +1467,13 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("ModelData_get")
 	RSModelData getModelData(RSAbstractArchive var0, int var1, int var2);
+
+	@Import("isCameraLocked")
+	boolean isCameraLocked();
+
+	boolean getCameraPitchRelaxerEnabled();
+
+	boolean isUnlockedFps();
+
+	void posToCameraAngle(int var0, int var1);
 }

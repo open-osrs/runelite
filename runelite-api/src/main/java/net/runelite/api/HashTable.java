@@ -6,7 +6,7 @@ import java.util.Collection;
  * A data structure that uses a hash function to compute an index into an
  * array of buckets from which node objects can be quickly obtained.
  */
-public interface HashTable<T extends Node>
+public interface HashTable<T extends Node> extends Iterable<T>
 {
 	/**
 	 * Gets a node by its hash value.

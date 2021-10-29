@@ -7,6 +7,10 @@ public class RuneLiteObject extends GraphicsObject
 		super.isFinished = true;
 	}
 
+	public boolean isLooping() {
+		return loop;
+	}
+
 	public boolean isActive() {
 		return !super.isFinished;
 	}
@@ -33,33 +37,6 @@ public class RuneLiteObject extends GraphicsObject
 
 	public void setShouldLoop(boolean var1) {
 		this.loop = var1;
-	}
-
-	@Override
-	public void advance(int var1)
-	{
-		if (super.sequenceDefinition != null) {
-			super.advance(var1);
-			if (this.loop && super.isFinished) {
-				super.isFinished = false;
-				super.frame = 0;
-				super.frameCycle = 0;
-			}
-
-		}
-	}
-
-	@Override
-	public Model getModel()
-	{
-		if (super.sequenceDefinition != null)
-		{
-			return super.sequenceDefinition.transformSpotAnimationModel(this.model, super.frame);
-		}
-		else
-		{
-			return this.model.toSharedSequenceModel(true);
-		}
 	}
 
 	public void setModel(Model var1) {

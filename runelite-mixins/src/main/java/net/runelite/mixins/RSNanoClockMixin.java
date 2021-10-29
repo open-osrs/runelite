@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,25 +22,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.mixins;
 
-/**
- * Utility class containing ASM opcodes used by the RuneLite client.
- */
-public class Opcodes
+import net.runelite.api.mixins.Copy;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.api.mixins.Replace;
+import net.runelite.api.mixins.Shadow;
+import net.runelite.rs.api.RSClient;
+import net.runelite.rs.api.RSNanoClock;
+
+@Mixin(RSNanoClock.class)
+public abstract class RSNanoClockMixin implements RSNanoClock
 {
-	/**
-	 * opcode used to return from scripts.
-	 */
-	public static final int RETURN = 21;
+	@Shadow("client")
+	private static RSClient client;
 
-	/**
-	 * opcode used to invoke scripts.
-	 */
-	public static final int INVOKE = 40;
+	@Copy("wait")
+	@Replace("wait")
+	public int copy$wait(int cycleDurationMillis, int var2)
+	{
+		if (!client.isUnlockedFps())
+		{
+			return copy$wait(cycleDurationMillis, var2);
+		}
+		else
+		{
+			long nanoTime = System.nanoTime();
+			if (nanoTime < getLastTimeNano())
+			{
+				setLastTimeNano(nanoTime);
+				return 1;
+			}
+			else
+			{
+				long cycleDuration = (long) cycleDurationMillis * 1000000L;
+				long diff = nanoTime - getLastTimeNano();
+				int cycles = (int) (diff / cycleDuration);
 
-	/**
-	 * RuneLite execution opcode used to inject scripts.
-	 */
-	public static final int RUNELITE_EXECUTE = 6599;
+				setLastTimeNano(getLastTimeNano() + (long) cycles * cycleDuration);
+
+				if (cycles > 10)
+				{
+					cycles = 10;
+				}
+
+				return cycles;
+			}
+		}
+	}
 }
