@@ -1,5 +1,6 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.IterableHashTable;
 import net.runelite.api.ObjectComposition;
 import net.runelite.mapping.Import;
 
@@ -38,6 +39,9 @@ public interface RSObjectComposition extends ObjectComposition
 
 	@Import("params")
 	RSIterableNodeHashTable getParams();
+
+	@Import("params")
+	void setParams(IterableHashTable params);
 
 	@Import("params")
 	void setParams(RSIterableNodeHashTable params);
