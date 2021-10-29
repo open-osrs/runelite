@@ -33,8 +33,9 @@ import net.runelite.rs.api.RSClient;
 @Mixin(RSClient.class)
 public abstract class CameraMixin implements RSClient
 {
-	private static final int STANDARD_PITCH_MAX = 383;
-	private static final int NEW_PITCH_MAX = 512;
+	public static final int STANDARD_PITCH_MIN = 128;
+	public static final int STANDARD_PITCH_MAX = 383;
+	public static final int NEW_PITCH_MAX = 512;
 
 	@Shadow("client")
 	static RSClient client;
@@ -47,6 +48,13 @@ public abstract class CameraMixin implements RSClient
 
 	@Inject
 	static int lastPitchTarget = 128;
+
+	@Inject
+	@Override
+	public boolean getCameraPitchRelaxerEnabled()
+	{
+		return pitchRelaxEnabled;
+	}
 
 	@Inject
 	public void setCameraPitchRelaxerEnabled(boolean enabled)

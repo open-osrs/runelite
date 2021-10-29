@@ -1,3 +1,12 @@
 package net.runelite.rs.api;
 
-public interface RSNanoClock {}
+import net.runelite.mapping.Import;
+
+public interface RSNanoClock
+{
+	@Import("lastTimeNano")
+	long getLastTimeNano();
+
+	@Import("lastTimeNano")
+	void setLastTimeNano(long lastNanoTime);
+}
