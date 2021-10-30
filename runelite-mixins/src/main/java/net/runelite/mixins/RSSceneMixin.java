@@ -122,28 +122,22 @@ public abstract class RSSceneMixin implements RSScene
 
 		final boolean isGpu = client.isGpu();
 		final boolean checkClick = client.isCheckClick();
-		if (!client.isMenuOpen())
+		final boolean menuOpen = client.isMenuOpen();
+
+		if (!menuOpen && !checkClick)
 		{
-			// Force check click to update the selected tile
-			client.setCheckClick(true);
-			final int mouseX = client.getMouseX();
-			final int mouseY = client.getMouseY();
-			client.setMouseCanvasHoverPositionX(mouseX - client.getViewportXOffset());
-			client.setMouseCanvasHoverPositionY(mouseY - client.getViewportYOffset());
+			client.getScene().menuOpen(client.getPlane(), client.getMouseX() - client.getViewportXOffset(), client.getMouseY() - client.getViewportYOffset(), false);
 		}
 
-		if (!isGpu)
+		if (!isGpu && skyboxColor != 0)
 		{
-			if (skyboxColor != 0)
-			{
-				client.rasterizerFillRectangle(
-					client.getViewportXOffset(),
-					client.getViewportYOffset(),
-					client.getViewportWidth(),
-					client.getViewportHeight(),
-					skyboxColor
-				);
-			}
+			client.rasterizerFillRectangle(
+				client.getViewportXOffset(),
+				client.getViewportYOffset(),
+				client.getViewportWidth(),
+				client.getViewportHeight(),
+				skyboxColor
+			);
 		}
 
 		final int maxX = getMaxX();
@@ -305,7 +299,7 @@ public abstract class RSSceneMixin implements RSScene
 			}
 		}
 
-		if (!client.isMenuOpen())
+		if (!menuOpen)
 		{
 			rl$hoverY = -1;
 			rl$hoverX = -1;
@@ -408,10 +402,6 @@ public abstract class RSSceneMixin implements RSScene
 								client.setEntitiesAtMouseCount(0);
 							}
 							client.setCheckClick(false);
-							if (!checkClick)
-							{
-								client.setViewportWalking(false);
-							}
 							client.getCallbacks().drawScene();
 
 							if (client.getDrawCallbacks() != null)
@@ -497,12 +487,6 @@ public abstract class RSSceneMixin implements RSScene
 			client.setEntitiesAtMouseCount(0);
 		}
 		client.setCheckClick(false);
-		if (!checkClick)
-		{
-			// If checkClick was false, then the selected tile wouldn't have existed next tick,
-			// so clear viewport walking in order to prevent it triggering a walk
-			client.setViewportWalking(false);
-		}
 		client.getCallbacks().drawScene();
 		if (client.getDrawCallbacks() != null)
 		{

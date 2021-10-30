@@ -51,6 +51,11 @@ public class JarUtil
 
 	public static ClassGroup load(File jarfile)
 	{
+		return load(jarfile, false);
+	}
+
+	public static ClassGroup load(File jarfile, boolean skip)
+	{
 		ClassGroup group = new ClassGroup();
 
 		try (JarFile jar = new JarFile(jarfile))
@@ -59,7 +64,7 @@ public class JarUtil
 			{
 				JarEntry entry = it.nextElement();
 
-				if (!entry.getName().endsWith(".class"))
+				if (!entry.getName().endsWith(".class") || (skip && entry.getName().contains("bouncycastle")))
 				{
 					continue;
 				}
@@ -94,11 +99,16 @@ public class JarUtil
 
 	public static ClassGroup loadClasses(Collection<File> files) throws IOException
 	{
+		return loadClasses(files, false);
+	}
+
+	public static ClassGroup loadClasses(Collection<File> files, boolean skip) throws IOException
+	{
 		final ClassGroup group = new ClassGroup();
 
 		for (File file : files)
 		{
-			if (!file.getName().endsWith(".class"))
+			if (!file.getName().endsWith(".class") || (skip && file.getName().contains("bouncycastle")))
 			{
 				continue;
 			}
