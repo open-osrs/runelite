@@ -77,7 +77,7 @@ public class Deob
 
 		Stopwatch stopwatch = Stopwatch.createStarted();
 
-		ClassGroup group = JarUtil.load(new File(args[0]));
+		ClassGroup group = JarUtil.load(new File(args[0]), true);
 
 		// remove except RuntimeException
 		run(group, new RuntimeExceptions());

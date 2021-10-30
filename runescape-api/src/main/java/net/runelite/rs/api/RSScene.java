@@ -85,4 +85,7 @@ public interface RSScene extends Scene
 
 	byte[][][] getTileShapes();
 	void setTileShapes(byte[][][] tileShapes);
+
+	@Import("menuOpen")
+	void menuOpen(int selectedPlane, int screenX, int screenY, boolean viewportWalking);
 }

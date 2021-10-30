@@ -48,15 +48,18 @@ public abstract class RSNanoClockMixin implements RSNanoClock
 		else
 		{
 			long nanoTime = System.nanoTime();
+
 			if (nanoTime < getLastTimeNano())
 			{
 				setLastTimeNano(nanoTime);
+
 				return 1;
 			}
 			else
 			{
 				long cycleDuration = (long) cycleDurationMillis * 1000000L;
 				long diff = nanoTime - getLastTimeNano();
+
 				int cycles = (int) (diff / cycleDuration);
 
 				setLastTimeNano(getLastTimeNano() + (long) cycles * cycleDuration);
