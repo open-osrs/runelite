@@ -5,7 +5,7 @@
 # OpenOSRS injected RuneLite 
 
 [![Build Status](https://github.com/open-osrs/runelite/workflows/OpenOSRS%20-%20CI%20(push)/badge.svg)](https://github.com/open-osrs/runelite/actions?query=workflow%3A%22OpenOSRS+-+CI+%28push%29%22)
-[![HitCount](http://hits.dwyl.io/open-osrs/runelite.svg)](http://hits.dwyl.io/open-osrs/runelite)  
+[![HitCount](http://hits.dwyl.com/open-osrs/runelite.svg?style=flat)](http://hits.dwyl.com/open-osrs/runelite)
 [OpenOSRS](https://openosrs.com) is a fully open-source client with no restrictions. We are not affiliated with Jagex or RuneLite.  
   
 This is a special branch that uses the upstream client (RuneLite) with the OpenOSRS injector. (bundled)  
@@ -19,7 +19,7 @@ This branch uses upstreams PlayerManager/OverlayManager etc so keep that in mind
 Contributions are welcome, but there should be no changes made to runelite-client unless necessary/minor. Mould the api around the client.
 ## Discord  
 
-[![Discord](https://img.shields.io/discord/373382904769675265.svg)](https://discord.gg/r287wN6bkc)
+[![Discord](https://img.shields.io/discord/373382904769675265.svg)](https://discord.gg/openosrs)
 
 ## Project Layout  
 
