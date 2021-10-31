@@ -97,12 +97,3 @@ jobs:
         run: ./gradlew assemble --console=plain
       - name: Checking code conventions
         run: ./gradlew checkstyleTest --console=plain
-
-  update_draft_release:
-    name: Draft release
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: ThatGamerBlue/release-drafter@v5.7.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
