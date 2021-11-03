@@ -17,11 +17,7 @@ import net.runelite.asm.attributes.code.instructions.GetStatic;
 import net.runelite.asm.attributes.code.instructions.ILoad;
 import net.runelite.asm.attributes.code.instructions.IfICmpEq;
 import net.runelite.asm.attributes.code.instructions.IfICmpNe;
-import net.runelite.asm.attributes.code.instructions.LDC;
-import net.runelite.asm.attributes.code.instructions.PutStatic;
-import net.runelite.asm.attributes.code.instructions.VReturn;
 import net.runelite.asm.pool.Class;
-import net.runelite.asm.signature.Signature;
 import net.runelite.deob.Transformer;
 import org.objectweb.asm.Opcodes;
 import static org.objectweb.asm.Opcodes.ACC_FINAL;
@@ -149,20 +145,6 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 			scriptOpcodes.getFields().clear();
 		}
 
-		Method clinit = scriptOpcodes.findMethod("<clinit>");
-		if (clinit == null)
-		{
-			clinit = new Method(scriptOpcodes, "<clinit>", new Signature("()V"));
-			clinit.setStatic(true);
-			Code code = new Code(clinit);
-			code.setMaxStack(1);
-			clinit.setCode(code);
-			scriptOpcodes.addMethod(clinit);
-		}
-
-		Code code = clinit.getCode();
-		Instructions ins = code.getInstructions();
-
 		ClassFile finalScriptOpcodes = scriptOpcodes;
 		OPCODE_MAP.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getKey)).forEach((entry) ->
 		{
@@ -173,13 +155,6 @@ public class ScriptOpcodesTransformer implements Transformer // robots in disgui
 			field.setAccessFlags(ACC_PUBLIC | ACC_STATIC | ACC_FINAL);
 			field.setValue(opcode);
 			finalScriptOpcodes.addField(field);
-
-			LDC ldc = new LDC(ins, opcode);
-			PutStatic put = new PutStatic(ins, field);
-			ins.addInstruction(0, ldc);
-			ins.addInstruction(1, put);
 		});
-
-		ins.addInstruction(new VReturn(ins));
 	}
 }
