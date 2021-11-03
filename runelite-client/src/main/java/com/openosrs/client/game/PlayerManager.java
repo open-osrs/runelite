@@ -289,11 +289,6 @@ public class PlayerManager
 
 		for (KitType kitType : KitType.values())
 		{
-			if (kitType.equals(KitType.RING) || kitType.equals(KitType.AMMUNITION))
-			{
-				continue;
-			}
-
 			final int id = player.getPlayer().getPlayerComposition().getEquipmentId(kitType);
 
 			if (id == -1)
@@ -319,7 +314,7 @@ public class PlayerManager
 					case ItemID.MAGIC_SHORTBOW:
 					case ItemID.MAGIC_SHORTBOW_20558:
 					case ItemID.MAGIC_SHORTBOW_I:
-						rangeStr += +55;
+						rangeStr += 55;
 						break;
 					case ItemID.DARK_BOW:
 					case ItemID.DARK_BOW_12765:
@@ -327,16 +322,16 @@ public class PlayerManager
 					case ItemID.DARK_BOW_12767:
 					case ItemID.DARK_BOW_12768:
 					case ItemID.DARK_BOW_20408:
-						rangeStr += +60;
+						rangeStr += 60;
 						break;
 					case ItemID.RUNE_CROSSBOW:
 					case ItemID.RUNE_CROSSBOW_23601:
-						rangeStr += +117;
+						rangeStr += 117;
 						break;
 					case ItemID.DRAGON_CROSSBOW:
 					case ItemID.ARMADYL_CROSSBOW:
 					case ItemID.ARMADYL_CROSSBOW_23611:
-						rangeStr += +122;
+						rangeStr += 122;
 						break;
 				}
 			}
