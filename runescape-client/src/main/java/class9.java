@@ -3,213 +3,179 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("i")
+@ObfuscatedName("b")
 public class class9 implements MouseWheel {
-	@ObfuscatedName("sh")
-	@ObfuscatedGetter(
-		intValue = 2032857847
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lb;"
 	)
-	static int field44;
+	static final class9 field31;
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "Lb;"
+	)
+	public static final class9 field27;
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Lb;"
+	)
+	static final class9 field28;
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "Lb;"
+	)
+	static final class9 field29;
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "Lb;"
+	)
+	static final class9 field30;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Li;"
+		descriptor = "Loe;"
 	)
-	static final class9 field46;
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Li;"
-	)
-	public static final class9 field43;
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "Li;"
-	)
-	static final class9 field42;
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "Li;"
-	)
-	static final class9 field38;
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Li;"
-	)
-	static final class9 field39;
-	@ObfuscatedName("k")
+	@Export("options_buttons_2Sprite")
+	static IndexedSprite options_buttons_2Sprite;
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -517250407
+		intValue = 1141093005
 	)
-	int field40;
-	@ObfuscatedName("t")
-	String field41;
-	@ObfuscatedName("a")
-	boolean field35;
+	int field33;
 	@ObfuscatedName("e")
-	boolean field36;
+	String field32;
+	@ObfuscatedName("p")
+	boolean field37;
+	@ObfuscatedName("j")
+	boolean field34;
 
 	static {
-		field46 = new class9(0, "POST", true, true);
-		field43 = new class9(1, "GET", true, false);
-		field42 = new class9(2, "PUT", false, true);
-		field38 = new class9(3, "PATCH", false, true);
-		field39 = new class9(4, "DELETE", false, true);
+		field31 = new class9(0, "POST", true, true); // L: 6
+		field27 = new class9(1, "GET", true, false); // L: 7
+		field28 = new class9(2, "PUT", false, true); // L: 8
+		field29 = new class9(3, "PATCH", false, true); // L: 9
+		field30 = new class9(4, "DELETE", false, true); // L: 10
 	}
 
 	class9(int var1, String var2, boolean var3, boolean var4) {
-		this.field40 = var1;
-		this.field41 = var2;
-		this.field35 = var3;
-		this.field36 = var4;
+		this.field33 = var1; // L: 17
+		this.field32 = var2; // L: 18
+		this.field37 = var3; // L: 19
+		this.field34 = var4; // L: 20
+	} // L: 21
+
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "488070367"
+	)
+	boolean method76() {
+		return this.field37; // L: 24
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "661199397"
+		garbageValue = "238732485"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field40;
+		return this.field33; // L: 36
 	}
 
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "1505605865"
-	)
-	boolean method74() {
-		return this.field35;
-	}
-
-	@ObfuscatedName("k")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-989360372"
+		garbageValue = "1536909535"
 	)
-	String method85() {
-		return this.field41;
+	String method78() {
+		return this.field32; // L: 28
+	}
+
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "(B)Z",
+		garbageValue = "4"
+	)
+	boolean method70() {
+		return this.field34; // L: 32
+	}
+
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "([BIIB)Z",
+		garbageValue = "6"
+	)
+	static final boolean method69(byte[] var0, int var1, int var2) {
+		boolean var3 = true; // L: 218
+		Buffer var4 = new Buffer(var0); // L: 219
+		int var5 = -1; // L: 220
+
+		label71:
+		while (true) {
+			int var6 = var4.method6981(); // L: 222
+			if (var6 == 0) { // L: 223
+				return var3; // L: 254
+			}
+
+			var5 += var6; // L: 224
+			int var7 = 0; // L: 225
+			boolean var8 = false; // L: 226
+
+			while (true) {
+				int var9;
+				while (!var8) { // L: 228
+					var9 = var4.readUShortSmart(); // L: 234
+					if (var9 == 0) { // L: 235
+						continue label71;
+					}
+
+					var7 += var9 - 1; // L: 236
+					int var10 = var7 & 63; // L: 237
+					int var11 = var7 >> 6 & 63; // L: 238
+					int var12 = var4.readUnsignedByte() >> 2; // L: 239
+					int var13 = var11 + var1; // L: 240
+					int var14 = var10 + var2; // L: 241
+					if (var13 > 0 && var14 > 0 && var13 < 103 && var14 < 103) { // L: 242
+						ObjectComposition var15 = KitDefinition.getObjectDefinition(var5); // L: 243
+						if (var12 != 22 || !Client.isLowDetail || var15.int1 != 0 || var15.interactType == 1 || var15.boolean2) { // L: 244
+							if (!var15.needsModelFiles()) { // L: 245
+								++Client.field523; // L: 246
+								var3 = false; // L: 247
+							}
+
+							var8 = true; // L: 249
+						}
+					}
+				}
+
+				var9 = var4.readUShortSmart(); // L: 229
+				if (var9 == 0) { // L: 230
+					break;
+				}
+
+				var4.readUnsignedByte(); // L: 231
+			}
+		}
 	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-83"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "435591094"
 	)
-	boolean method76() {
-		return this.field36;
-	}
+	static final void method82(String var0) {
+		PacketBufferNode var1 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2752, Client.packetWriter.isaacCipher); // L: 181
+		var1.packetBuffer.writeByte(Client.stringCp1252NullTerminatedByteSize(var0)); // L: 182
+		var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 183
+		Client.packetWriter.addNode(var1); // L: 184
+	} // L: 185
 
-	@ObfuscatedName("jq")
+	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
-		descriptor = "([Ljt;IB)V",
-		garbageValue = "1"
+		descriptor = "(IB)I",
+		garbageValue = "-79"
 	)
-	@Export("drawModelComponents")
-	static final void drawModelComponents(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) {
-			Widget var3 = var0[var2];
-			if (var3 != null && var3.parentId == var1 && (!var3.isIf3 || !ObjectSound.isComponentHidden(var3))) {
-				int var5;
-				if (var3.type == 0) {
-					if (!var3.isIf3 && ObjectSound.isComponentHidden(var3) && var3 != VarpDefinition.mousedOverWidgetIf1) {
-						continue;
-					}
-
-					drawModelComponents(var0, var3.id);
-					if (var3.children != null) {
-						drawModelComponents(var3.children, var3.id);
-					}
-
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id);
-					if (var4 != null) {
-						var5 = var4.group;
-						if (GrandExchangeOfferTotalQuantityComparator.loadInterface(var5)) {
-							drawModelComponents(Widget.Widget_interfaceComponents[var5], -1);
-						}
-					}
-				}
-
-				if (var3.type == 6) {
-					if (var3.sequenceId != -1 || var3.sequenceId2 != -1) {
-						boolean var7 = BufferedNetSocket.runCs1(var3);
-						if (var7) {
-							var5 = var3.sequenceId2;
-						} else {
-							var5 = var3.sequenceId;
-						}
-
-						if (var5 != -1) {
-							SequenceDefinition var6 = KitDefinition.SequenceDefinition_get(var5);
-
-							for (var3.modelFrameCycle += Client.field536; var3.modelFrameCycle > var6.frameLengths[var3.modelFrame]; class16.invalidateWidget(var3)) {
-								var3.modelFrameCycle -= var6.frameLengths[var3.modelFrame];
-								++var3.modelFrame;
-								if (var3.modelFrame >= var6.frameIds.length) {
-									var3.modelFrame -= var6.frameCount;
-									if (var3.modelFrame < 0 || var3.modelFrame >= var6.frameIds.length) {
-										var3.modelFrame = 0;
-									}
-								}
-							}
-						}
-					}
-
-					if (var3.field3038 != 0 && !var3.isIf3) {
-						int var8 = var3.field3038 >> 16;
-						var5 = var3.field3038 << 16 >> 16;
-						var8 *= Client.field536;
-						var5 *= Client.field536;
-						var3.modelAngleX = var8 + var3.modelAngleX & 2047;
-						var3.modelAngleY = var5 + var3.modelAngleY & 2047;
-						class16.invalidateWidget(var3);
-					}
-				}
-			}
-		}
-
-	}
-
-	@ObfuscatedName("jz")
-	@ObfuscatedSignature(
-		descriptor = "(Ljt;B)V",
-		garbageValue = "109"
-	)
-	static final void method87(Widget var0) {
-		int var1 = var0.contentType;
-		if (var1 == 324) {
-			if (Client.field758 == -1) {
-				Client.field758 = var0.spriteId2;
-				Client.field759 = var0.spriteId;
-			}
-
-			if (Client.playerAppearance.isFemale) {
-				var0.spriteId2 = Client.field758;
-			} else {
-				var0.spriteId2 = Client.field759;
-			}
-
-		} else if (var1 == 325) {
-			if (Client.field758 == -1) {
-				Client.field758 = var0.spriteId2;
-				Client.field759 = var0.spriteId;
-			}
-
-			if (Client.playerAppearance.isFemale) {
-				var0.spriteId2 = Client.field759;
-			} else {
-				var0.spriteId2 = Client.field758;
-			}
-
-		} else if (var1 == 327) {
-			var0.modelAngleX = 150;
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
-			var0.modelType = 5;
-			var0.modelId = 0;
-		} else if (var1 == 328) {
-			var0.modelAngleX = 150;
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
-			var0.modelType = 5;
-			var0.modelId = 1;
-		}
+	static int method83(int var0) {
+		return (int)Math.pow(2.0D, (double)(7.0F + (float)var0 / 256.0F)); // L: 3630
 	}
 }

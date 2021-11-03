@@ -6,203 +6,92 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bf")
+@ObfuscatedName("bd")
 @Implements("ReflectionCheck")
 public class ReflectionCheck extends Node {
-	@ObfuscatedName("bc")
-	@ObfuscatedSignature(
-		descriptor = "Lkn;"
-	)
-	@Export("clientLanguage")
-	static Language clientLanguage;
-	@ObfuscatedName("oe")
-	@ObfuscatedSignature(
-		descriptor = "[Ljt;"
-	)
-	static Widget[] field452;
-	@ObfuscatedName("l")
+	@ObfuscatedName("bo")
 	@ObfuscatedGetter(
-		intValue = -960883055
+		intValue = -740973297
+	)
+	static int field429;
+	@ObfuscatedName("nt")
+	@ObfuscatedGetter(
+		intValue = 999048453
+	)
+	@Export("selectedItemSlot")
+	static int selectedItemSlot;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = -467081415
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -947967161
+		intValue = 143972529
 	)
 	@Export("size")
 	int size;
-	@ObfuscatedName("f")
-	@Export("intReplaceValues")
-	int[] intReplaceValues;
-	@ObfuscatedName("j")
+	@ObfuscatedName("s")
 	@Export("operations")
 	int[] operations;
-	@ObfuscatedName("m")
-	@Export("arguments")
-	byte[][][] arguments;
-	@ObfuscatedName("k")
+	@ObfuscatedName("a")
 	@Export("creationErrors")
 	int[] creationErrors;
-	@ObfuscatedName("t")
+	@ObfuscatedName("o")
 	@Export("fields")
 	Field[] fields;
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
+	@Export("intReplaceValues")
+	int[] intReplaceValues;
+	@ObfuscatedName("e")
 	@Export("methods")
 	Method[] methods;
+	@ObfuscatedName("p")
+	@Export("arguments")
+	byte[][][] arguments;
 
 	ReflectionCheck() {
-	}
+	} // L: 17
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "-1468113087"
+		descriptor = "(IB)Les;",
+		garbageValue = "16"
 	)
-	static String method1064(int var0) {
-		return "<img=" + var0 + ">";
-	}
-
-	@ObfuscatedName("aw")
-	@ObfuscatedSignature(
-		descriptor = "(ILbe;ZB)I",
-		garbageValue = "-72"
-	)
-	static int method1063(int var0, Script var1, boolean var2) {
-		if (var0 >= 7200 && var0 < 7204) {
-			AbstractByteArrayCopier.Interpreter_intStackSize -= 5;
-			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 == 7204) {
-			AbstractByteArrayCopier.Interpreter_intStackSize -= 6;
-			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 >= 7205 && var0 < 7209) {
-			Interpreter.Interpreter_intStack[AbstractByteArrayCopier.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 == 7209) {
-			AbstractByteArrayCopier.Interpreter_intStackSize -= 2;
-			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = -1;
-			return 1;
-		} else if (var0 >= 7210 && var0 < 7214) {
-			--AbstractByteArrayCopier.Interpreter_intStackSize;
-			return 1;
-		} else if (var0 == 7214) {
-			AbstractByteArrayCopier.Interpreter_intStackSize -= 2;
-			return 1;
+	@Export("KitDefinition_get")
+	public static KitDefinition KitDefinition_get(int var0) {
+		KitDefinition var1 = (KitDefinition)KitDefinition.KitDefinition_cached.get((long)var0); // L: 27
+		if (var1 != null) { // L: 28
+			return var1;
 		} else {
-			return 2;
+			byte[] var2 = KitDefinition.KitDefinition_archive.takeFile(3, var0); // L: 29
+			var1 = new KitDefinition(); // L: 30
+			if (var2 != null) { // L: 31
+				var1.decode(new Buffer(var2));
+			}
+
+			KitDefinition.KitDefinition_cached.put(var1, (long)var0); // L: 32
+			return var1; // L: 33
 		}
 	}
 
-	@ObfuscatedName("hv")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILjava/lang/String;I)V",
-		garbageValue = "-1574145218"
+		descriptor = "(I)I",
+		garbageValue = "611566572"
 	)
-	@Export("widgetDefaultMenuAction")
-	static void widgetDefaultMenuAction(int var0, int var1, int var2, int var3, String var4) {
-		Widget var5 = ViewportMouse.getWidgetChild(var1, var2);
-		if (var5 != null) {
-			if (var5.onOp != null) {
-				ScriptEvent var6 = new ScriptEvent();
-				var6.widget = var5;
-				var6.opIndex = var0;
-				var6.targetName = var4;
-				var6.args = var5.onOp;
-				ViewportMouse.runScriptEvent(var6);
-			}
-
-			boolean var8 = true;
-			if (var5.contentType > 0) {
-				var8 = class244.method4661(var5);
-			}
-
-			if (var8) {
-				if (class138.method2756(WorldMapRegion.getWidgetFlags(var5), var0 - 1)) {
-					PacketBufferNode var7;
-					if (var0 == 1) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2688, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 2) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2760, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 3) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2752, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 4) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2698, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 5) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2743, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 6) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2766, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 7) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2730, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 8) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2670, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 9) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2705, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-					if (var0 == 10) {
-						var7 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2738, Client.packetWriter.isaacCipher);
-						var7.packetBuffer.writeInt(var1);
-						var7.packetBuffer.writeShort(var2);
-						var7.packetBuffer.writeShort(var3);
-						Client.packetWriter.addNode(var7);
-					}
-
-				}
-			}
-		}
+	static int method1115() {
+		return Login.field871.length + Login.field885.length; // L: 143
 	}
+
+	@ObfuscatedName("kz")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "2023329615"
+	)
+	static final void method1114() {
+		Client.field666 = Client.cycleCntr; // L: 11794
+		class6.ClanChat_inClanChat = true; // L: 11795
+	} // L: 11796
 }

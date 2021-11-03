@@ -4,141 +4,130 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ib")
+@ObfuscatedName("iu")
 @Implements("MusicPatchNode")
 public class MusicPatchNode extends Node {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 594812203
+		intValue = -765367779
 	)
-	int field2980;
-	@ObfuscatedName("q")
+	int field2996;
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Liq;"
+		descriptor = "Lif;"
+	)
+	MusicPatchNode2 field2988;
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Liy;"
 	)
 	@Export("patch")
 	MusicPatch patch;
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Laa;"
+		descriptor = "Laz;"
 	)
 	@Export("rawSound")
 	RawSound rawSound;
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "Lil;"
-	)
-	MusicPatchNode2 field2981;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 481741389
-	)
-	int field2985;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = -1319618045
-	)
-	int field2988;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = 754199743
-	)
-	int field2984;
-	@ObfuscatedName("a")
-	@ObfuscatedGetter(
-		intValue = -986353547
-	)
-	int field2982;
-	@ObfuscatedName("e")
-	@ObfuscatedGetter(
-		intValue = -1048231541
-	)
-	int field2986;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -40565163
-	)
-	int field2987;
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = -1800306941
-	)
-	int field2983;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = 1955629255
+		intValue = -1956432115
 	)
 	int field2989;
 	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 20741255
+		intValue = -25523701
 	)
 	int field2990;
-	@ObfuscatedName("v")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 723943993
+		intValue = -1073862623
 	)
 	int field2991;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 804975845
+		intValue = 483864743
 	)
-	int field2978;
-	@ObfuscatedName("c")
+	int field2992;
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -1338086521
+		intValue = -1449376121
 	)
 	int field2993;
 	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1413692333
+		intValue = 154374579
 	)
-	int field2994;
+	int field2997;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 306416011
+		intValue = 875004827
 	)
-	int field2995;
-	@ObfuscatedName("p")
+	int field2998;
+	@ObfuscatedName("y")
+	@ObfuscatedGetter(
+		intValue = -282874889
+	)
+	int field2986;
+	@ObfuscatedName("k")
+	@ObfuscatedGetter(
+		intValue = 1795067685
+	)
+	int field3004;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = -1488194149
+	)
+	int field2994;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 546562593
+	)
+	int field2999;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = -95307761
+	)
+	int field3000;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -828280659
+	)
+	int field3001;
+	@ObfuscatedName("z")
+	@ObfuscatedGetter(
+		intValue = -604585329
+	)
+	int field3002;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lan;"
+		descriptor = "Lax;"
 	)
 	@Export("stream")
 	RawPcmStream stream;
-	@ObfuscatedName("z")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -367314443
+		intValue = 630031751
 	)
-	int field2997;
-	@ObfuscatedName("o")
+	int field2995;
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1969010689
+		intValue = -848603207
 	)
-	int field2998;
+	int field3003;
 
 	MusicPatchNode() {
-	}
+	} // L: 31
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1742353306"
+		descriptor = "(B)V",
+		garbageValue = "0"
 	)
-	void method4913() {
-		this.patch = null;
-		this.rawSound = null;
-		this.field2981 = null;
-		this.stream = null;
-	}
-
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1553277832"
-	)
-	static final void method4912() {
-		Object var10000 = null;
-		String var0 = "You can't add yourself to your own friend list";
-		GraphicsDefaults.addGameMessage(30, "", var0);
-	}
+	void method4992() {
+		this.patch = null; // L: 34
+		this.rawSound = null; // L: 35
+		this.field2988 = null; // L: 36
+		this.stream = null; // L: 37
+	} // L: 38
 }

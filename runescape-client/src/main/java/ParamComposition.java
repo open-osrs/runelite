@@ -3,145 +3,133 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ff")
+@ObfuscatedName("fn")
 @Implements("ParamComposition")
 public class ParamComposition extends DualNode {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lkl;"
+		descriptor = "Lko;"
 	)
-	@Export("StructDefinition_archive")
-	static AbstractArchive StructDefinition_archive;
-	@ObfuscatedName("q")
+	@Export("ParamDefinition_archive")
+	static AbstractArchive ParamDefinition_archive;
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lii;"
+		descriptor = "Lig;"
 	)
 	@Export("ParamDefinition_cached")
 	public static EvictingDualNodeHashTable ParamDefinition_cached;
-	@ObfuscatedName("f")
+	@ObfuscatedName("eu")
+	@ObfuscatedSignature(
+		descriptor = "Lkd;"
+	)
+	@Export("archive3")
+	static Archive archive3;
+	@ObfuscatedName("fj")
+	@ObfuscatedGetter(
+		intValue = -1783961739
+	)
+	@Export("js5Port")
+	static int js5Port;
+	@ObfuscatedName("s")
 	@Export("type")
 	char type;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -344905889
+		intValue = 1115055465
 	)
 	@Export("defaultInt")
 	public int defaultInt;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("defaultStr")
 	public String defaultStr;
-	@ObfuscatedName("k")
+	@ObfuscatedName("g")
 	@Export("autoDisable")
 	boolean autoDisable;
 
 	static {
-		ParamDefinition_cached = new EvictingDualNodeHashTable(64);
+		ParamDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
 	}
 
 	ParamComposition() {
-		this.autoDisable = true;
-	}
+		this.autoDisable = true; // L: 16
+	} // L: 18
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1043156770"
+		garbageValue = "1854447416"
 	)
 	@Export("postDecode")
 	void postDecode() {
-	}
+	} // L: 35
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;I)V",
-		garbageValue = "1816742030"
+		descriptor = "(Lop;B)V",
+		garbageValue = "2"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
-				return;
+			int var2 = var1.readUnsignedByte(); // L: 39
+			if (var2 == 0) { // L: 40
+				return; // L: 43
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 41
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;II)V",
-		garbageValue = "1310353401"
+		descriptor = "(Lop;IB)V",
+		garbageValue = "-109"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) {
-			this.type = KitDefinition.method2959(var1.readByte());
-		} else if (var2 == 2) {
+		if (var2 == 1) { // L: 46
+			this.type = class274.method5199(var1.readByte()); // L: 47
+		} else if (var2 == 2) { // L: 49
 			this.defaultInt = var1.readInt();
 		} else if (var2 == 4) {
-			this.autoDisable = false;
-		} else if (var2 == 5) {
+			this.autoDisable = false; // L: 50
+		} else if (var2 == 5) { // L: 51
 			this.defaultStr = var1.readStringCp1252NullTerminated();
 		}
 
-	}
+	} // L: 53
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(S)Z",
-		garbageValue = "-14378"
+		descriptor = "(I)Z",
+		garbageValue = "1612444577"
 	)
 	@Export("isString")
 	public boolean isString() {
-		return this.type == 's';
+		return this.type == 's'; // L: 56
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(CB)Z",
-		garbageValue = "13"
+		descriptor = "(B)V",
+		garbageValue = "8"
 	)
-	public static boolean method3128(char var0) {
-		if (var0 >= ' ' && var0 < 127 || var0 > 127 && var0 < 160 || var0 > 160 && var0 <= 255) {
-			return true;
+	static void method3216() {
+		if (Client.Login_isUsernameRemembered && Login.Login_username != null && Login.Login_username.length() > 0) { // L: 313
+			Login.currentLoginField = 1; // L: 314
 		} else {
-			if (var0 != 0) {
-				char[] var1 = class316.cp1252AsciiExtension;
-
-				for (int var2 = 0; var2 < var1.length; ++var2) {
-					char var3 = var1[var2];
-					if (var0 == var3) {
-						return true;
-					}
-				}
-			}
-
-			return false;
+			Login.currentLoginField = 0; // L: 317
 		}
-	}
 
-	@ObfuscatedName("ag")
+	} // L: 319
+
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(ILbe;ZB)I",
-		garbageValue = "81"
+		descriptor = "(I)I",
+		garbageValue = "-329455950"
 	)
-	static int method3129(int var0, Script var1, boolean var2) {
-		if (var0 == ScriptOpcodes.LOGOUT) {
-			Client.logoutTimer = 250;
-			return 1;
-		} else if (var0 != 5631 && var0 != 5633) {
-			if (var0 == 5632) {
-				Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = 26;
-				return 1;
-			} else {
-				return 2;
-			}
-		} else {
-			class54.Interpreter_stringStackSize -= 2;
-			return 1;
-		}
+	static final int method3229() {
+		return ViewportMouse.ViewportMouse_y; // L: 103
 	}
 }

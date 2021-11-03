@@ -1,70 +1,30 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ir")
+@ObfuscatedName("il")
 public class class245 {
-	@ObfuscatedName("l")
-	static int[] field2899;
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Ljt;"
-	)
-	@Export("scriptActiveWidget")
-	static Widget scriptActiveWidget;
+	@ObfuscatedName("i")
+	static int[] field2908;
 
 	static {
 		new Object();
-		field2899 = new int[33];
-		field2899[0] = 0;
-		int var0 = 2;
+		field2908 = new int[33]; // L: 8
+		field2908[0] = 0; // L: 11
+		int var0 = 2; // L: 12
 
 		for (int var1 = 1; var1 < 33; ++var1) {
-			field2899[var1] = var0 - 1;
-			var0 += var0;
+			field2908[var1] = var0 - 1; // L: 14
+			var0 += var0; // L: 15
 		}
 
-	}
+	} // L: 17
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lfo;",
-		garbageValue = "-1547455637"
+		descriptor = "(S)[Ljk;",
+		garbageValue = "15748"
 	)
-	@Export("getObjectDefinition")
-	public static ObjectComposition getObjectDefinition(int var0) {
-		ObjectComposition var1 = (ObjectComposition)ObjectComposition.ObjectDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = ObjectComposition.ObjectDefinition_archive.takeFile(6, var0);
-			var1 = new ObjectComposition();
-			var1.id = var0;
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			if (var1.isSolid) {
-				var1.interactType = 0;
-				var1.boolean1 = false;
-			}
-
-			ObjectComposition.ObjectDefinition_cached.put(var1, (long)var0);
-			return var1;
-		}
-	}
-
-	@ObfuscatedName("kl")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2146798091"
-	)
-	static final void method4681() {
-		for (int var0 = 0; var0 < Players.Players_count; ++var0) {
-			Player var1 = Client.players[Players.Players_indices[var0]];
-			var1.method2127();
-		}
-
+	static GameBuild[] method4742() {
+		return new GameBuild[]{GameBuild.LIVE, GameBuild.WIP, GameBuild.RC, GameBuild.BUILDLIVE}; // L: 13
 	}
 }

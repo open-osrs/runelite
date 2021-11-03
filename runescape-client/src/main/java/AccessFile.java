@@ -3,157 +3,137 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.SyncFailedException;
-import java.lang.management.GarbageCollectorMXBean;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nj")
+@ObfuscatedName("nv")
 @Implements("AccessFile")
 public final class AccessFile {
-	@ObfuscatedName("pq")
-	@ObfuscatedSignature(
-		descriptor = "Lec;"
-	)
-	@Export("mouseWheel")
-	static class144 mouseWheel;
-	@ObfuscatedName("am")
-	@Export("garbageCollector")
-	static GarbageCollectorMXBean garbageCollector;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@Export("file")
 	RandomAccessFile file;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		longValue = -672899169781171493L
+		longValue = -1037204394665170999L
 	)
 	@Export("maxSize")
 	final long maxSize;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		longValue = 492034629015795711L
+		longValue = -743568297070171741L
 	)
 	@Export("offset")
 	long offset;
 
 	public AccessFile(File var1, String var2, long var3) throws IOException {
-		if (-1L == var3) {
+		if (-1L == var3) { // L: 11
 			var3 = Long.MAX_VALUE;
 		}
 
-		if (var1.length() > var3) {
-			var1.delete();
+		if (var1.length() > var3) { // L: 12
+			var1.delete(); // L: 13
 		}
 
-		this.file = new RandomAccessFile(var1, var2);
-		this.maxSize = var3;
-		this.offset = 0L;
-		int var5 = this.file.read();
-		if (var5 != -1 && !var2.equals("r")) {
-			this.file.seek(0L);
-			this.file.write(var5);
+		this.file = new RandomAccessFile(var1, var2); // L: 15
+		this.maxSize = var3; // L: 16
+		this.offset = 0L; // L: 17
+		int var5 = this.file.read(); // L: 18
+		if (var5 != -1 && !var2.equals("r")) { // L: 19
+			this.file.seek(0L); // L: 20
+			this.file.write(var5); // L: 21
 		}
 
-		this.file.seek(0L);
-	}
+		this.file.seek(0L); // L: 23
+	} // L: 24
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@Export("seek")
 	final void seek(long var1) throws IOException {
-		this.file.seek(var1);
-		this.offset = var1;
-	}
+		this.file.seek(var1); // L: 27
+		this.offset = var1; // L: 28
+	} // L: 29
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "([BIIS)V",
-		garbageValue = "-18286"
+		garbageValue = "-31371"
 	)
 	@Export("write")
 	public final void write(byte[] var1, int var2, int var3) throws IOException {
-		if ((long)var3 + this.offset > this.maxSize) {
-			this.file.seek(this.maxSize);
-			this.file.write(1);
-			throw new EOFException();
+		if ((long)var3 + this.offset > this.maxSize) { // L: 32
+			this.file.seek(this.maxSize); // L: 33
+			this.file.write(1); // L: 34
+			throw new EOFException(); // L: 35
 		} else {
-			this.file.write(var1, var2, var3);
-			this.offset += (long)var3;
+			this.file.write(var1, var2, var3); // L: 37
+			this.offset += (long)var3; // L: 38
 		}
-	}
+	} // L: 39
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(B)V",
-		garbageValue = "23"
+		garbageValue = "91"
 	)
 	@Export("close")
 	public final void close() throws IOException {
-		this.closeSync(false);
-	}
+		this.closeSync(false); // L: 42
+	} // L: 43
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "(ZB)V",
-		garbageValue = "1"
+		garbageValue = "-14"
 	)
 	@Export("closeSync")
 	public final void closeSync(boolean var1) throws IOException {
-		if (this.file != null) {
-			if (var1) {
+		if (this.file != null) { // L: 46
+			if (var1) { // L: 47
 				try {
-					this.file.getFD().sync();
-				} catch (SyncFailedException var3) {
+					this.file.getFD().sync(); // L: 49
+				} catch (SyncFailedException var3) { // L: 51
 				}
 			}
 
-			this.file.close();
-			this.file = null;
+			this.file.close(); // L: 53
+			this.file = null; // L: 54
 		}
 
-	}
+	} // L: 56
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(I)J",
-		garbageValue = "1317310270"
+		garbageValue = "-633440828"
 	)
 	@Export("length")
 	public final long length() throws IOException {
-		return this.file.length();
+		return this.file.length(); // L: 59
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)I",
-		garbageValue = "-1029557368"
+		garbageValue = "1378280482"
 	)
 	@Export("read")
 	public final int read(byte[] var1, int var2, int var3) throws IOException {
-		int var4 = this.file.read(var1, var2, var3);
+		int var4 = this.file.read(var1, var2, var3); // L: 63
 		if (var4 > 0) {
-			this.offset += (long)var4;
+			this.offset += (long)var4; // L: 64
 		}
 
-		return var4;
+		return var4; // L: 65
 	}
 
 	protected void finalize() throws Throwable {
-		if (this.file != null) {
-			System.out.println("");
-			this.close();
+		if (this.file != null) { // L: 69
+			System.out.println(""); // L: 70
+			this.close(); // L: 71
 		}
 
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "(Lkl;III)Lon;",
-		garbageValue = "-528990707"
-	)
-	@Export("SpriteBuffer_getSprite")
-	public static SpritePixels SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
-		return !VarbitComposition.method3102(var0, var1, var2) ? null : SoundCache.method784();
-	}
+	} // L: 73
 }

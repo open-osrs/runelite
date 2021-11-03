@@ -3,51 +3,93 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jp")
+@ObfuscatedName("je")
 public enum class269 implements MouseWheel {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lje;"
 	)
-	field3217(0),
-	@ObfuscatedName("q")
+	field3216(0),
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lje;"
 	)
-	field3220(1),
-	@ObfuscatedName("f")
+	field3217(1),
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lje;"
 	)
-	field3216(2),
-	@ObfuscatedName("j")
+	field3218(2),
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lje;"
 	)
-	field3219(3),
-	@ObfuscatedName("m")
+	field3220(3),
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ljp;"
+		descriptor = "Lje;"
 	)
-	field3224(4);
+	field3219(4);
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("sg")
 	@ObfuscatedGetter(
-		intValue = 659223025
+		intValue = 681305729
 	)
-	final int field3218;
+	static int field3221;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -833696691
+	)
+	final int field3215;
 
 	class269(int var3) {
-		this.field3218 = var3;
-	}
+		this.field3215 = var3; // L: 14
+	} // L: 15
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "661199397"
+		garbageValue = "238732485"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field3218;
+		return this.field3215; // L: 18
 	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "(IS)I",
+		garbageValue = "234"
+	)
+	public static int method5190(int var0) {
+		return class361.field4051[var0 & 16383];
+	}
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "-2127089164"
+	)
+	@Export("addChatMessage")
+	static void addChatMessage(int var0, String var1, String var2, String var3) {
+		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 27
+		if (var4 == null) { // L: 28
+			var4 = new ChatChannel(); // L: 29
+			Messages.Messages_channels.put(var0, var4); // L: 30
+		}
+
+		Message var5 = var4.addMessage(var0, var1, var2, var3); // L: 32
+		Messages.Messages_hashTable.put(var5, (long)var5.count); // L: 33
+		Messages.Messages_queue.add(var5); // L: 34
+		Client.chatCycle = Client.cycleCntr; // L: 35
+	} // L: 36
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "6"
+	)
+	public static void method5189() {
+		WorldMapRegion.WorldMapRegion_cachedSprites.demote(5); // L: 54
+	} // L: 55
 }

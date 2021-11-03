@@ -4,49 +4,47 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kd")
+@ObfuscatedName("kt")
 @Implements("GrandExchangeEvent")
 public class GrandExchangeEvent {
-	@ObfuscatedName("t")
-	static byte[][][] field3760;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 663278445
+		intValue = 1932555191
 	)
 	@Export("world")
 	public final int world;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		longValue = -5766229753192434851L
+		longValue = -3074264375035497163L
 	)
 	@Export("age")
 	public final long age;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lkp;"
+		descriptor = "Lkh;"
 	)
 	@Export("grandExchangeOffer")
 	public final GrandExchangeOffer grandExchangeOffer;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@Export("offerName")
 	String offerName;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("previousOfferName")
 	String previousOfferName;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lot;BI)V"
+		descriptor = "(Lop;BI)V"
 	)
 	GrandExchangeEvent(Buffer var1, byte var2, int var3) {
-		this.offerName = var1.readStringCp1252NullTerminated();
-		this.previousOfferName = var1.readStringCp1252NullTerminated();
-		this.world = var1.readUnsignedShort();
-		this.age = var1.readLong();
-		int var4 = var1.readInt();
-		int var5 = var1.readInt();
-		this.grandExchangeOffer = new GrandExchangeOffer();
-		this.grandExchangeOffer.method5407(2);
-		this.grandExchangeOffer.method5405(var2);
+		this.offerName = var1.readStringCp1252NullTerminated(); // L: 111
+		this.previousOfferName = var1.readStringCp1252NullTerminated(); // L: 112
+		this.world = var1.readUnsignedShort(); // L: 113
+		this.age = var1.readLong(); // L: 114
+		int var4 = var1.readInt(); // L: 115
+		int var5 = var1.readInt(); // L: 116
+		this.grandExchangeOffer = new GrandExchangeOffer(); // L: 117
+		this.grandExchangeOffer.method5454(2); // L: 118
+		this.grandExchangeOffer.method5455(var2);
 		this.grandExchangeOffer.unitPrice = var4;
 		this.grandExchangeOffer.totalQuantity = var5;
 		this.grandExchangeOffer.currentQuantity = 0;
@@ -54,54 +52,82 @@ public class GrandExchangeEvent {
 		this.grandExchangeOffer.id = var3;
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/lang/String;",
-		garbageValue = "-117"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "-1492995549"
 	)
 	@Export("getOfferName")
 	public String getOfferName() {
 		return this.offerName;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/lang/String;",
-		garbageValue = "7"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "-681990835"
 	)
 	@Export("getPreviousOfferName")
 	public String getPreviousOfferName() {
 		return this.previousOfferName;
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Loy;I)I",
-		garbageValue = "770443607"
+		descriptor = "(IIZI)Ljava/lang/String;",
+		garbageValue = "1279033906"
 	)
-	static int method5402(PacketBuffer var0) {
-		int var1 = var0.readBits(2);
-		int var2;
-		if (var1 == 0) {
-			var2 = 0;
-		} else if (var1 == 1) {
-			var2 = var0.readBits(5);
-		} else if (var1 == 2) {
-			var2 = var0.readBits(8);
-		} else {
-			var2 = var0.readBits(11);
-		}
+	static String method5448(int var0, int var1, boolean var2) {
+		if (var1 >= 2 && var1 <= 36) { // L: 119
+			if (var2 && var0 >= 0) { // L: 120
+				int var3 = 2; // L: 121
 
-		return var2;
+				for (int var4 = var0 / var1; var4 != 0; ++var3) { // L: 122 123 125
+					var4 /= var1; // L: 124
+				}
+
+				char[] var5 = new char[var3]; // L: 127
+				var5[0] = '+'; // L: 128
+
+				for (int var6 = var3 - 1; var6 > 0; --var6) { // L: 129
+					int var7 = var0; // L: 130
+					var0 /= var1; // L: 131
+					int var8 = var7 - var0 * var1; // L: 132
+					if (var8 >= 10) { // L: 133
+						var5[var6] = (char)(var8 + 87);
+					} else {
+						var5[var6] = (char)(var8 + 48); // L: 134
+					}
+				}
+
+				return new String(var5); // L: 136
+			} else {
+				return Integer.toString(var0, var1);
+			}
+		} else {
+			throw new IllegalArgumentException("" + var1);
+		}
 	}
 
-	@ObfuscatedName("ez")
+	@ObfuscatedName("iu")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lna;",
-		garbageValue = "192669944"
+		descriptor = "(Ljava/lang/String;Ljf;I)Ljava/lang/String;",
+		garbageValue = "-1477810111"
 	)
-	@Export("getWorldMap")
-	static WorldMap getWorldMap() {
-		return TileItem.worldMap;
+	static String method5449(String var0, Widget var1) {
+		if (var0.indexOf("%") != -1) { // L: 10186
+			for (int var2 = 1; var2 <= 5; ++var2) { // L: 10187
+				while (true) {
+					int var3 = var0.indexOf("%" + var2); // L: 10189
+					if (var3 == -1) { // L: 10190
+						break;
+					}
+
+					var0 = var0.substring(0, var3) + WorldMapLabelSize.method3534(class113.method2532(var1, var2 - 1)) + var0.substring(var3 + 2); // L: 10191
+				}
+			}
+		}
+
+		return var0; // L: 10195
 	}
 }

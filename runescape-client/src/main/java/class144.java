@@ -2,12 +2,12 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ec")
+@ObfuscatedName("eg")
 public interface class144 {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "459838731"
+		garbageValue = "-1160529550"
 	)
 	@Export("useRotation")
 	int useRotation();

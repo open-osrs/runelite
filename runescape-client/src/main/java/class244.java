@@ -1,80 +1,35 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("iu")
+@ObfuscatedName("ih")
 public class class244 {
-	@ObfuscatedName("at")
+	@ObfuscatedName("av")
 	@ObfuscatedSignature(
-		descriptor = "Lov;"
+		descriptor = "(ILbp;ZB)I",
+		garbageValue = "44"
 	)
-	@Export("rasterProvider")
-	public static AbstractRasterProvider rasterProvider;
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)I",
-		garbageValue = "2061618856"
-	)
-	public static int method4662(CharSequence var0) {
-		int var1 = var0.length();
-		int var2 = 0;
-
-		for (int var3 = 0; var3 < var1; ++var3) {
-			char var4 = var0.charAt(var3);
-			if (var4 <= 127) {
-				++var2;
-			} else if (var4 <= 2047) {
-				var2 += 2;
+	static int method4727(int var0, Script var1, boolean var2) {
+		if (var0 == 6800) { // L: 4304
+			Interpreter.Interpreter_stringStack[++class295.Interpreter_stringStackSize - 1] = ""; // L: 4305
+			return 1; // L: 4306
+		} else if (var0 != 6801 && var0 != 6802) { // L: 4308
+			if (var0 == 6850) { // L: 4312
+				Interpreter.Interpreter_stringStack[++class295.Interpreter_stringStackSize - 1] = ""; // L: 4313
+				return 1; // L: 4314
+			} else if (var0 != 6851 && var0 != 6852) { // L: 4316
+				if (var0 == 6853) { // L: 4320
+					Interpreter.Interpreter_intStack[++class14.Interpreter_intStackSize - 1] = 0; // L: 4321
+					return 1; // L: 4322
+				} else {
+					return 2; // L: 4324
+				}
 			} else {
-				var2 += 3;
+				Interpreter.Interpreter_intStack[++class14.Interpreter_intStackSize - 1] = -1; // L: 4317
+				return 1; // L: 4318
 			}
-		}
-
-		return var2;
-	}
-
-	@ObfuscatedName("jy")
-	@ObfuscatedSignature(
-		descriptor = "(Ljt;B)Z",
-		garbageValue = "-116"
-	)
-	static final boolean method4661(Widget var0) {
-		int var1 = var0.contentType;
-		if (var1 == 205) {
-			Client.logoutTimer = 250;
-			return true;
 		} else {
-			int var2;
-			int var3;
-			if (var1 >= 300 && var1 <= 313) {
-				var2 = (var1 - 300) / 2;
-				var3 = var1 & 1;
-				Client.playerAppearance.changeAppearance(var2, var3 == 1);
-			}
-
-			if (var1 >= 314 && var1 <= 323) {
-				var2 = (var1 - 314) / 2;
-				var3 = var1 & 1;
-				Client.playerAppearance.method4953(var2, var3 == 1);
-			}
-
-			if (var1 == 324) {
-				Client.playerAppearance.changeSex(false);
-			}
-
-			if (var1 == 325) {
-				Client.playerAppearance.changeSex(true);
-			}
-
-			if (var1 == 326) {
-				PacketBufferNode var4 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2675, Client.packetWriter.isaacCipher);
-				Client.playerAppearance.write(var4.packetBuffer);
-				Client.packetWriter.addNode(var4);
-				return true;
-			} else {
-				return false;
-			}
+			Interpreter.Interpreter_intStack[++class14.Interpreter_intStackSize - 1] = -1; // L: 4309
+			return 1; // L: 4310
 		}
 	}
 }

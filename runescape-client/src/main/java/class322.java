@@ -1,65 +1,36 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("la")
+@ObfuscatedName("lx")
 public class class322 {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 65308803
+		intValue = -902702553
 	)
-	int field3878;
-	@ObfuscatedName("q")
+	int field3872;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1163920539
+		intValue = -1387523435
 	)
-	int field3879;
-	@ObfuscatedName("f")
+	int field3874;
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -1995398165
+		intValue = 1669438009
 	)
-	int field3880;
-	@ObfuscatedName("j")
+	int field3870;
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1378321945
+		intValue = 1408638013
 	)
-	int field3881;
+	int field3871;
 
 	public String toString() {
-		int var2 = 10 - Integer.toString(this.field3878).length();
-		int var3 = 10 - Integer.toString(this.field3880).length();
-		int var4 = 10 - Integer.toString(this.field3879).length();
-		String var5 = "          ".substring(10 - var2);
-		String var6 = "          ".substring(10 - var3);
-		String var7 = "          ".substring(10 - var4);
-		return "    Size: " + this.field3878 + var5 + "Created: " + this.field3879 + var7 + "Total used: " + this.field3880 + var6 + "Max-In-Use: " + this.field3881;
-	}
-
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "(Ljt;IB)V",
-		garbageValue = "-7"
-	)
-	@Export("Widget_setKeyIgnoreHeld")
-	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
-		if (var0.field3115 == null) {
-			throw new RuntimeException();
-		} else {
-			if (var0.field3190 == null) {
-				var0.field3190 = new int[var0.field3115.length];
-			}
-
-			var0.field3190[var1] = Integer.MAX_VALUE;
-		}
-	}
-
-	@ObfuscatedName("ka")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "0"
-	)
-	static void method5894(int var0) {
-		Client.oculusOrbState = var0;
+		int var2 = 10 - Integer.toString(this.field3872).length(); // L: 15
+		int var3 = 10 - Integer.toString(this.field3870).length(); // L: 16
+		int var4 = 10 - Integer.toString(this.field3874).length(); // L: 17
+		String var5 = "          ".substring(10 - var2); // L: 18
+		String var6 = "          ".substring(10 - var3); // L: 19
+		String var7 = "          ".substring(10 - var4); // L: 20
+		return "    Size: " + this.field3872 + var5 + "Created: " + this.field3874 + var7 + "Total used: " + this.field3870 + var6 + "Max-In-Use: " + this.field3871; // L: 21
 	}
 }

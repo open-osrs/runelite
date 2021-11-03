@@ -1,101 +1,122 @@
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gn")
+@ObfuscatedName("gy")
 @Implements("ItemLayer")
 public final class ItemLayer {
-	@ObfuscatedName("l")
+	@ObfuscatedName("dd")
+	@ObfuscatedSignature(
+		descriptor = "Lmp;"
+	)
+	@Export("js5Socket")
+	static AbstractSocket js5Socket;
+	@ObfuscatedName("gc")
 	@ObfuscatedGetter(
-		intValue = 843492453
+		longValue = 8670349305611552211L
+	)
+	static long field2244;
+	@ObfuscatedName("gt")
+	@ObfuscatedGetter(
+		intValue = 1769768495
+	)
+	static int field2243;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = -1593426589
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1629429381
+		intValue = -631100007
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -549763557
+		intValue = -990530771
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lhj;"
 	)
 	@Export("first")
 	Renderable first;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lhj;"
 	)
 	@Export("second")
 	Renderable second;
-	@ObfuscatedName("k")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lhj;"
 	)
 	@Export("third")
 	Renderable third;
-	@ObfuscatedName("t")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		longValue = -4918137841721985399L
+		longValue = -5203954899972942883L
 	)
 	@Export("tag")
 	long tag;
-	@ObfuscatedName("a")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 844864059
+		intValue = 581220091
 	)
 	@Export("height")
 	int height;
 
 	ItemLayer() {
+	} // L: 13
+
+	@ObfuscatedName("i")
+	public static boolean method4106(long var0) {
+		boolean var2 = 0L != var0; // L: 44
+		if (var2) { // L: 45
+			boolean var3 = (int)(var0 >>> 16 & 1L) == 1; // L: 48
+			var2 = !var3; // L: 50
+		}
+
+		return var2; // L: 52
 	}
 
-	@ObfuscatedName("ed")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IZZZI)Lky;",
-		garbageValue = "-1474913181"
+		descriptor = "(Ljy;B)V",
+		garbageValue = "22"
 	)
-	@Export("newArchive")
-	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
-		ArchiveDisk var4 = null;
-		if (JagexCache.JagexCache_dat2File != null) {
-			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, JagexCache.JagexCache_idxFiles[var0], 1000000);
-		}
+	public static void method4108(Huffman var0) {
+		class264.huffman = var0; // L: 14
+	} // L: 15
 
-		return new Archive(var4, HealthBarUpdate.masterDisk, var0, var1, var2, var3);
-	}
-
-	@ObfuscatedName("ky")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1673843314"
+		descriptor = "(B)Low;",
+		garbageValue = "1"
 	)
-	static final void method4020() {
-		for (int var0 = 0; var0 < Players.Players_count; ++var0) {
-			Player var1 = Client.players[Players.Players_indices[var0]];
-			var1.clearIsFriend();
+	static SpritePixels method4107() {
+		SpritePixels var0 = new SpritePixels(); // L: 192
+		var0.width = class414.SpriteBuffer_spriteWidth; // L: 193
+		var0.height = class414.SpriteBuffer_spriteHeight; // L: 194
+		var0.xOffset = class414.SpriteBuffer_xOffsets[0]; // L: 195
+		var0.yOffset = class414.SpriteBuffer_yOffsets[0]; // L: 196
+		var0.subWidth = UrlRequester.SpriteBuffer_spriteWidths[0]; // L: 197
+		var0.subHeight = class414.SpriteBuffer_spriteHeights[0]; // L: 198
+		int var1 = var0.subWidth * var0.subHeight; // L: 199
+		byte[] var2 = class295.SpriteBuffer_pixels[0]; // L: 200
+		var0.pixels = new int[var1]; // L: 201
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 202
+			var0.pixels[var3] = HitSplatDefinition.SpriteBuffer_spritePalette[var2[var3] & 255];
 		}
 
-		Iterator var2 = Messages.Messages_hashTable.iterator();
-
-		while (var2.hasNext()) {
-			Message var3 = (Message)var2.next();
-			var3.clearIsFromFriend();
-		}
-
-		if (class264.friendsChat != null) {
-			class264.friendsChat.clearFriends();
-		}
-
+		PacketBuffer.method6913(); // L: 203
+		return var0; // L: 204
 	}
 }

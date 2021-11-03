@@ -2,18 +2,18 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ej")
+@ObfuscatedName("et")
 public class class140 extends class116 {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 745806175
+		intValue = 1541912545
 	)
-	int field1542;
-	@ObfuscatedName("q")
+	int field1536;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		longValue = 5393161811926100225L
+		longValue = -8264772663538436025L
 	)
-	long field1539;
+	long field1531;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
 		descriptor = "Ldg;"
@@ -24,34 +24,25 @@ public class class140 extends class116 {
 		descriptor = "(Ldg;)V"
 	)
 	class140(class119 var1) {
-		this.this$0 = var1;
+		this.this$0 = var1; // L: 307
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;I)V",
-		garbageValue = "-912681401"
+		descriptor = "(Lop;I)V",
+		garbageValue = "-2002779676"
 	)
-	void vmethod2767(Buffer var1) {
-		this.field1542 = var1.readInt();
-		this.field1539 = var1.readLong();
-	}
+	void vmethod2847(Buffer var1) {
+		this.field1536 = var1.readInt(); // L: 310
+		this.field1531 = var1.readLong(); // L: 311
+	} // L: 312
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Ldk;I)V",
-		garbageValue = "-1225074726"
+		descriptor = "(Ldm;I)V",
+		garbageValue = "-293908864"
 	)
-	void vmethod2766(ClanSettings var1) {
-		var1.method2599(this.field1542, this.field1539);
-	}
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(IIS)I",
-		garbageValue = "28594"
-	)
-	public static int method2770(int var0, int var1) {
-		return (int)Math.round(Math.atan2((double)var0, (double)var1) * 2607.5945876176133D) & 16383;
-	}
+	void vmethod2848(ClanSettings var1) {
+		var1.method2666(this.field1536, this.field1531); // L: 315
+	} // L: 316
 }

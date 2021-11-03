@@ -5,137 +5,103 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mn")
+@ObfuscatedName("mw")
 @Implements("BufferedNetSocket")
 public class BufferedNetSocket extends AbstractSocket {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@Export("socket")
 	Socket socket;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lmf;"
+		descriptor = "Lme;"
 	)
 	@Export("source")
 	BufferedSource source;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lmz;"
+		descriptor = "Lmb;"
 	)
 	@Export("sink")
 	BufferedSink sink;
 
-	public BufferedNetSocket(Socket var1, int var2, int var3) throws IOException {
-		this.socket = var1;
-		this.socket.setSoTimeout(30000);
-		this.socket.setTcpNoDelay(true);
-		this.socket.setReceiveBufferSize(65536);
-		this.socket.setSendBufferSize(65536);
-		this.source = new BufferedSource(this.socket.getInputStream(), var2);
-		this.sink = new BufferedSink(this.socket.getOutputStream(), var3);
-	}
+	BufferedNetSocket(Socket var1, int var2, int var3) throws IOException {
+		this.socket = var1; // L: 12
+		this.socket.setSoTimeout(30000); // L: 13
+		this.socket.setTcpNoDelay(true); // L: 14
+		this.socket.setReceiveBufferSize(65536); // L: 15
+		this.socket.setSendBufferSize(65536); // L: 16
+		this.source = new BufferedSource(this.socket.getInputStream(), var2); // L: 17
+		this.sink = new BufferedSink(this.socket.getOutputStream(), var3); // L: 18
+	} // L: 19
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "(B)V",
-		garbageValue = "82"
+		garbageValue = "1"
 	)
 	@Export("close")
 	public void close() {
-		this.sink.close();
+		this.sink.close(); // L: 42
 
 		try {
-			this.socket.close();
-		} catch (IOException var2) {
+			this.socket.close(); // L: 44
+		} catch (IOException var2) { // L: 46
 		}
 
-		this.source.close();
-	}
+		this.source.close(); // L: 47
+	} // L: 48
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1780579727"
+		garbageValue = "1953698452"
 	)
 	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
-		return this.source.readUnsignedByte();
+		return this.source.readUnsignedByte(); // L: 30
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-973037380"
+		garbageValue = "-1632705310"
 	)
 	@Export("available")
 	public int available() throws IOException {
-		return this.source.available();
+		return this.source.available(); // L: 26
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "1444896063"
+		garbageValue = "-1771919747"
 	)
 	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
-		return this.source.isAvailable(var1);
+		return this.source.isAvailable(var1); // L: 22
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)I",
-		garbageValue = "-95"
+		descriptor = "([BIII)I",
+		garbageValue = "-1246528305"
 	)
 	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
-		return this.source.read(var1, var2, var3);
+		return this.source.read(var1, var2, var3); // L: 34
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "34744814"
+		garbageValue = "-748791607"
 	)
 	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
-		this.sink.write(var1, var2, var3);
-	}
+		this.sink.write(var1, var2, var3); // L: 38
+	} // L: 39
 
 	protected void finalize() {
-		this.close();
-	}
-
-	@ObfuscatedName("ix")
-	@ObfuscatedSignature(
-		descriptor = "(Ljt;I)Z",
-		garbageValue = "217783620"
-	)
-	@Export("runCs1")
-	static final boolean runCs1(Widget var0) {
-		if (var0.cs1Comparisons == null) {
-			return false;
-		} else {
-			for (int var1 = 0; var1 < var0.cs1Comparisons.length; ++var1) {
-				int var2 = FriendsChat.method5992(var0, var1);
-				int var3 = var0.cs1ComparisonValues[var1];
-				if (var0.cs1Comparisons[var1] == 2) {
-					if (var2 >= var3) {
-						return false;
-					}
-				} else if (var0.cs1Comparisons[var1] == 3) {
-					if (var2 <= var3) {
-						return false;
-					}
-				} else if (var0.cs1Comparisons[var1] == 4) {
-					if (var2 == var3) {
-						return false;
-					}
-				} else if (var3 != var2) {
-					return false;
-				}
-			}
-
-			return true;
-		}
-	}
+		this.close(); // L: 51
+	} // L: 52
 }

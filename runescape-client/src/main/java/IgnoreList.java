@@ -3,104 +3,88 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ln")
+@ObfuscatedName("lr")
 @Implements("IgnoreList")
 public class IgnoreList extends UserList {
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lny;"
+		descriptor = "Lni;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lny;)V"
+		descriptor = "(Lni;)V"
 	)
 	public IgnoreList(LoginType var1) {
-		super(400);
-		this.loginType = var1;
-	}
+		super(400); // L: 13
+		this.loginType = var1; // L: 14
+	} // L: 15
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(I)Llu;",
-		garbageValue = "396333118"
+		descriptor = "(I)Lla;",
+		garbageValue = "-450730044"
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new Ignored();
+		return new Ignored(); // L: 18
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(II)[Llu;",
-		garbageValue = "1129798936"
+		descriptor = "(IB)[Lla;",
+		garbageValue = "91"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new Ignored[var1];
+		return new Ignored[var1]; // L: 22
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;II)V",
-		garbageValue = "2059632689"
+		descriptor = "(Lop;IB)V",
+		garbageValue = "-32"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
 		while (true) {
-			if (var1.offset < var2) {
-				int var3 = var1.readUnsignedByte();
-				boolean var4 = (var3 & 1) == 1;
-				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
-				var1.readStringCp1252NullTerminated();
-				if (var5 != null && var5.hasCleanName()) {
-					Ignored var7 = (Ignored)this.getByCurrentUsername(var5);
-					if (var4) {
-						Ignored var8 = (Ignored)this.getByCurrentUsername(var6);
-						if (var8 != null && var7 != var8) {
-							if (var7 != null) {
-								this.remove(var8);
+			if (var1.offset < var2) { // L: 26
+				int var3 = var1.readUnsignedByte(); // L: 27
+				boolean var4 = (var3 & 1) == 1; // L: 28
+				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 29
+				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 30
+				var1.readStringCp1252NullTerminated(); // L: 31
+				if (var5 != null && var5.hasCleanName()) { // L: 32
+					Ignored var7 = (Ignored)this.getByCurrentUsername(var5); // L: 33
+					if (var4) { // L: 34
+						Ignored var8 = (Ignored)this.getByCurrentUsername(var6); // L: 35
+						if (var8 != null && var8 != var7) { // L: 36
+							if (var7 != null) { // L: 37
+								this.remove(var8); // L: 38
 							} else {
-								var7 = var8;
+								var7 = var8; // L: 41
 							}
 						}
 					}
 
-					if (var7 != null) {
-						this.changeName(var7, var5, var6);
+					if (var7 != null) { // L: 45
+						this.changeName(var7, var5, var6); // L: 46
 						continue;
 					}
 
-					if (this.getSize() < 400) {
-						int var9 = this.getSize();
-						var7 = (Ignored)this.addLast(var5, var6);
-						var7.id = var9;
+					if (this.getSize() < 400) { // L: 48
+						int var9 = this.getSize(); // L: 49
+						var7 = (Ignored)this.addLast(var5, var6); // L: 50
+						var7.id = var9; // L: 51
 					}
 					continue;
 				}
 
-				throw new IllegalStateException();
+				throw new IllegalStateException(); // L: 54
 			}
 
-			return;
+			return; // L: 55
 		}
-	}
-
-	@ObfuscatedName("aa")
-	@ObfuscatedSignature(
-		descriptor = "([BIII)I",
-		garbageValue = "618832095"
-	)
-	static int method5946(byte[] var0, int var1, int var2) {
-		int var3 = -1;
-
-		for (int var4 = var1; var4 < var2; ++var4) {
-			var3 = var3 >>> 8 ^ Buffer.crc32Table[(var3 ^ var0[var4]) & 255];
-		}
-
-		var3 = ~var3;
-		return var3;
 	}
 }

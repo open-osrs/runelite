@@ -6,76 +6,79 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ch")
+@ObfuscatedName("cz")
 @Implements("Messages")
 public class Messages {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@Export("Messages_channels")
 	static final Map Messages_channels;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lnz;"
+		descriptor = "Lnf;"
 	)
 	@Export("Messages_hashTable")
 	static final IterableNodeHashTable Messages_hashTable;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Llh;"
+		descriptor = "Llm;"
 	)
 	@Export("Messages_queue")
 	static final IterableDualNodeQueue Messages_queue;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1654217227
+		intValue = -1495629097
 	)
 	@Export("Messages_count")
 	static int Messages_count;
-	@ObfuscatedName("o")
-	@Export("operatingSystemName")
-	static String operatingSystemName;
-	@ObfuscatedName("ba")
-	static String field1273;
+	@ObfuscatedName("ek")
+	@ObfuscatedSignature(
+		descriptor = "Lkd;"
+	)
+	@Export("archive6")
+	static Archive archive6;
+	@ObfuscatedName("eb")
+	@ObfuscatedSignature(
+		descriptor = "Lkd;"
+	)
+	@Export("archive18")
+	static Archive archive18;
 
 	static {
-		Messages_channels = new HashMap();
-		Messages_hashTable = new IterableNodeHashTable(1024);
-		Messages_queue = new IterableDualNodeQueue();
-		Messages_count = 0;
+		Messages_channels = new HashMap(); // L: 9
+		Messages_hashTable = new IterableNodeHashTable(1024); // L: 10
+		Messages_queue = new IterableDualNodeQueue(); // L: 11
+		Messages_count = 0; // L: 12
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1980575358"
+		descriptor = "(IIIIB)I",
+		garbageValue = "24"
 	)
-	public static boolean method2350(int var0) {
-		return var0 >= 0 && var0 < 112 ? KeyHandler.field129[var0] : false;
+	static final int method2376(int var0, int var1, int var2, int var3) {
+		int var4 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var2 * 1024 / var3] >> 1; // L: 552
+		return ((65536 - var4) * var0 >> 16) + (var4 * var1 >> 16); // L: 553
 	}
 
-	@ObfuscatedName("im")
+	@ObfuscatedName("je")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIII)V",
-		garbageValue = "-1326528361"
+		descriptor = "(ZI)V",
+		garbageValue = "-56186501"
 	)
-	@Export("drawScrollBar")
-	static final void drawScrollBar(int var0, int var1, int var2, int var3, int var4) {
-		WorldMapDecoration.scrollBarSprites[0].drawAt(var0, var1);
-		WorldMapDecoration.scrollBarSprites[1].drawAt(var0, var3 + var1 - 16);
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1 + 16, 16, var3 - 32, Client.field553);
-		int var5 = var3 * (var3 - 32) / var4;
-		if (var5 < 8) {
-			var5 = 8;
+	@Export("setTapToDrop")
+	static void setTapToDrop(boolean var0) {
+		Client.tapToDrop = var0; // L: 10610
+	} // L: 10611
+
+	@ObfuscatedName("js")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIIIB)V",
+		garbageValue = "-63"
+	)
+	@Export("updateRootInterface")
+	static final void updateRootInterface(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		if (class174.loadInterface(var0)) { // L: 10622
+			ClanChannel.updateInterface(WorldMapSection1.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6); // L: 10623
 		}
-
-		int var6 = (var3 - 32 - var5) * var2 / (var4 - var3);
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var6 + var1 + 16, 16, var5, Client.field514);
-		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0, var6 + var1 + 16, var5, Client.field697);
-		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 1, var6 + var1 + 16, var5, Client.field697);
-		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 16, 16, Client.field697);
-		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 17, 16, Client.field697);
-		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 15, var6 + var1 + 16, var5, Client.field555);
-		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 14, var6 + var1 + 17, var5 - 1, Client.field555);
-		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var5 + var1 + 15, 16, Client.field555);
-		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0 + 1, var6 + var5 + var1 + 14, 15, Client.field555);
-	}
+	} // L: 10624
 }

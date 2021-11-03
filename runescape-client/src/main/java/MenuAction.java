@@ -1,56 +1,71 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bb")
+@ObfuscatedName("bu")
 @Implements("MenuAction")
 public class MenuAction {
-	@ObfuscatedName("te")
+	@ObfuscatedName("gm")
 	@ObfuscatedSignature(
-		descriptor = "Lnr;"
+		descriptor = "Lnu;"
 	)
-	@Export("platformInfo")
-	static PlatformInfo platformInfo;
-	@ObfuscatedName("l")
+	@Export("WorldMapElement_fonts")
+	static Fonts WorldMapElement_fonts;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 441486123
+		intValue = -1877540813
 	)
 	@Export("param0")
 	int param0;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1041645519
+		intValue = -319901543
 	)
 	@Export("param1")
 	int param1;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1414459793
+		intValue = -2124872737
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1513793095
+		intValue = -1182228171
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@Export("action")
 	String action;
 
 	MenuAction() {
-	}
+	} // L: 12091
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
-		descriptor = "(III)I",
-		garbageValue = "-68078688"
+		descriptor = "(ZI)V",
+		garbageValue = "-780302169"
 	)
-	public static int method1885(int var0, int var1) {
-		int var2 = var0 >>> 31;
-		return (var0 + var2) / var1 - var2;
-	}
+	static final void method1912(boolean var0) {
+		class14.playPcmPlayers(); // L: 5878
+		++Client.packetWriter.pendingWrites; // L: 5879
+		if (Client.packetWriter.pendingWrites >= 50 || var0) { // L: 5880
+			Client.packetWriter.pendingWrites = 0; // L: 5881
+			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) { // L: 5882
+				PacketBufferNode var1 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2726, Client.packetWriter.isaacCipher); // L: 5884
+				Client.packetWriter.addNode(var1); // L: 5885
+
+				try {
+					Client.packetWriter.flush(); // L: 5887
+				} catch (IOException var3) { // L: 5889
+					Client.hadNetworkError = true; // L: 5890
+				}
+			}
+
+		}
+	} // L: 5893
 }

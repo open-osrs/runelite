@@ -49,16 +49,16 @@ public class ItemClient
 	public ItemPrice[] getPrices() throws IOException
 	{
 		HttpUrl.Builder urlBuilder = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("item")
-			.addPathSegment("prices.js");
+				.addPathSegment("item")
+				.addPathSegment("prices.js");
 
 		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
@@ -80,17 +80,17 @@ public class ItemClient
 	public Map<Integer, ItemStats> getStats() throws IOException
 	{
 		HttpUrl.Builder urlBuilder = RuneLiteAPI.getStaticBase().newBuilder()
-			.addPathSegment("item")
-			// TODO: Change this to stats.min.json later after release is undeployed
-			.addPathSegment("stats.ids.min.json");
+				.addPathSegment("item")
+				// TODO: Change this to stats.min.json later after release is undeployed
+				.addPathSegment("stats.ids.min.json");
 
 		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
 		try (Response response = client.newCall(request).execute())
 		{

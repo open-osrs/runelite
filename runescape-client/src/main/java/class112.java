@@ -1,104 +1,113 @@
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dl")
+@ObfuscatedName("db")
 public enum class112 implements MouseWheel {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Ldl;"
+		descriptor = "Ldb;"
 	)
-	field1363(0, 0),
-	@ObfuscatedName("q")
+	field1350(1, 0),
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Ldl;"
+		descriptor = "Ldb;"
 	)
-	field1358(2, 1),
-	@ObfuscatedName("f")
+	field1345(0, 1),
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ldl;"
+		descriptor = "Ldb;"
 	)
-	field1359(3, 2),
-	@ObfuscatedName("j")
+	field1346(2, 2),
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Ldl;"
+		descriptor = "Ldb;"
 	)
-	field1362(1, 3);
+	field1347(3, 3);
 
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = 1343295737
+	@ObfuscatedName("tc")
+	@ObfuscatedSignature(
+		descriptor = "Lbm;"
 	)
-	public final int field1361;
-	@ObfuscatedName("k")
+	@Export("friendSystem")
+	public static FriendSystem friendSystem;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -7588353
+		intValue = 125998715
+	)
+	public final int field1344;
+	@ObfuscatedName("g")
+	@ObfuscatedGetter(
+		intValue = -2047672005
 	)
 	@Export("id")
 	final int id;
 
 	class112(int var3, int var4) {
-		this.field1361 = var3;
-		this.id = var4;
-	}
+		this.field1344 = var3; // L: 16
+		this.id = var4; // L: 17
+	} // L: 18
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "661199397"
+		garbageValue = "238732485"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 21
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("i")
+	static double method2517(double var0) {
+		return Math.exp(-var0 * var0 / 2.0D) / Math.sqrt(6.283185307179586D); // L: 9
+	}
+
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lfg;",
-		garbageValue = "2143323219"
+		descriptor = "(Lew;III)Lak;",
+		garbageValue = "430440132"
 	)
-	@Export("getNpcDefinition")
-	public static NPCComposition getNpcDefinition(int var0) {
-		NPCComposition var1 = (NPCComposition)NPCComposition.NpcDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
+	public static final PcmPlayer method2522(TaskHandler var0, int var1, int var2) {
+		if (var1 >= 0 && var1 < 2) { // L: 46
+			if (var2 < 256) { // L: 47
+				var2 = 256;
+			}
+
+			try {
+				PcmPlayer var3 = ItemContainer.pcmPlayerProvider.player(); // L: 49
+				var3.samples = new int[256 * (PcmPlayer.PcmPlayer_stereo ? 2 : 1)]; // L: 50
+				var3.field264 = var2; // L: 51
+				var3.init(); // L: 52
+				var3.capacity = (var2 & -1024) + 1024; // L: 53
+				if (var3.capacity > 16384) { // L: 54
+					var3.capacity = 16384;
+				}
+
+				var3.open(var3.capacity); // L: 55
+				if (PcmPlayer.field272 > 0 && class122.soundSystem == null) { // L: 56
+					class122.soundSystem = new SoundSystem(); // L: 57
+					class381.soundSystemExecutor = Executors.newScheduledThreadPool(1); // L: 58
+					class381.soundSystemExecutor.scheduleAtFixedRate(class122.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS); // L: 59
+				}
+
+				if (class122.soundSystem != null) { // L: 61
+					if (class122.soundSystem.players[var1] != null) { // L: 62
+						throw new IllegalArgumentException();
+					}
+
+					class122.soundSystem.players[var1] = var3; // L: 63
+				}
+
+				return var3; // L: 65
+			} catch (Throwable var4) { // L: 67
+				return new PcmPlayer(); // L: 68
+			}
 		} else {
-			byte[] var2 = GrandExchangeOfferAgeComparator.NpcDefinition_archive.takeFile(9, var0);
-			var1 = new NPCComposition();
-			var1.id = var0;
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			NPCComposition.NpcDefinition_cached.put(var1, (long)var0);
-			return var1;
+			throw new IllegalArgumentException();
 		}
-	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "200795103"
-	)
-	static void method2474(int var0) {
-		if (var0 != Login.loginIndex) {
-			Login.loginIndex = var0;
-		}
-	}
-
-	@ObfuscatedName("hm")
-	@ObfuscatedSignature(
-		descriptor = "(IIIII)V",
-		garbageValue = "-1793606804"
-	)
-	static final void method2468(int var0, int var1, int var2, int var3) {
-		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) {
-			if (Client.rootWidgetXs[var4] + Client.rootWidgetWidths[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetYs[var4] + Client.rootWidgetHeights[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) {
-				Client.field701[var4] = true;
-			}
-		}
-
 	}
 }

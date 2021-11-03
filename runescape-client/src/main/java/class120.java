@@ -1,21 +1,30 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dv")
+@ObfuscatedName("di")
 public class class120 extends class116 {
-	@ObfuscatedName("so")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -346097947
+		intValue = -81138609
 	)
-	static int field1408;
-	@ObfuscatedName("l")
+	static int field1403;
+	@ObfuscatedName("k")
+	public static boolean field1401;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Ljf;"
+	)
+	@Export("scriptDotWidget")
+	static Widget scriptDotWidget;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -2132840675
+		intValue = -1094018377
 	)
-	int field1409;
-	@ObfuscatedName("q")
-	byte field1407;
+	int field1400;
+	@ObfuscatedName("w")
+	byte field1405;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
 		descriptor = "Ldg;"
@@ -27,72 +36,25 @@ public class class120 extends class116 {
 	)
 	class120(class119 var1) {
 		this.this$0 = var1;
-		this.field1409 = -1;
-	}
+		this.field1400 = -1; // L: 128
+	} // L: 131
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;I)V",
-		garbageValue = "-912681401"
+		descriptor = "(Lop;I)V",
+		garbageValue = "-2002779676"
 	)
-	void vmethod2767(Buffer var1) {
-		this.field1409 = var1.readUnsignedShort();
-		this.field1407 = var1.readByte();
-	}
+	void vmethod2847(Buffer var1) {
+		this.field1400 = var1.readUnsignedShort(); // L: 134
+		this.field1405 = var1.readByte(); // L: 135
+	} // L: 136
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Ldk;I)V",
-		garbageValue = "-1225074726"
+		descriptor = "(Ldm;I)V",
+		garbageValue = "-293908864"
 	)
-	void vmethod2766(ClanSettings var1) {
-		var1.method2619(this.field1409, this.field1407);
-	}
-
-	@ObfuscatedName("jl")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1261296688"
-	)
-	static void method2530() {
-		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) {
-			int var1 = var0.group;
-			if (GrandExchangeOfferTotalQuantityComparator.loadInterface(var1)) {
-				boolean var2 = true;
-				Widget[] var3 = Widget.Widget_interfaceComponents[var1];
-
-				int var4;
-				for (var4 = 0; var4 < var3.length; ++var4) {
-					if (var3[var4] != null) {
-						var2 = var3[var4].isIf3;
-						break;
-					}
-				}
-
-				if (!var2) {
-					var4 = (int)var0.key;
-					Widget var5 = HealthBarUpdate.getWidget(var4);
-					if (var5 != null) {
-						class16.invalidateWidget(var5);
-					}
-				}
-			}
-		}
-
-	}
-
-	@ObfuscatedName("ke")
-	@ObfuscatedSignature(
-		descriptor = "(Lot;II)V",
-		garbageValue = "-1468568304"
-	)
-	static void method2533(Buffer var0, int var1) {
-		byte[] var2 = var0.array;
-		if (Client.randomDatData == null) {
-			Client.randomDatData = new byte[24];
-		}
-
-		class321.writeRandomDat(var2, var1, Client.randomDatData, 0, 24);
-		class351.method6285(var0, var1);
-	}
+	void vmethod2848(ClanSettings var1) {
+		var1.method2673(this.field1400, this.field1405); // L: 139
+	} // L: 140
 }

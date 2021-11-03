@@ -4,31 +4,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("do")
+@ObfuscatedName("de")
 @Implements("ClanChannelMember")
 public class ClanChannelMember {
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "Loz;"
-	)
-	@Export("logoSprite")
-	static IndexedSprite logoSprite;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@Export("rank")
 	public byte rank;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -817842065
+		intValue = 717344231
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lpm;"
+		descriptor = "Lpb;"
 	)
 	@Export("username")
 	public Username username;
 
 	ClanChannelMember() {
+	} // L: 10
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(II)I",
+		garbageValue = "1349383488"
+	)
+	@Export("Messages_getLastChatID")
+	static int Messages_getLastChatID(int var0) {
+		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0); // L: 77
+		if (var1 == null) { // L: 78
+			return -1;
+		} else {
+			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.previousDual).count; // L: 79 80
+		}
 	}
 }

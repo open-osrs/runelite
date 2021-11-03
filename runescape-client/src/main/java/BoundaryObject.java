@@ -4,72 +4,74 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hn")
+@ObfuscatedName("hb")
 @Implements("BoundaryObject")
 public final class BoundaryObject {
-	@ObfuscatedName("bw")
+	@ObfuscatedName("bm")
+	static String field2618;
+	@ObfuscatedName("hi")
 	@ObfuscatedSignature(
-		descriptor = "[Lon;"
+		descriptor = "Low;"
 	)
-	@Export("worldSelectBackSprites")
-	static SpritePixels[] worldSelectBackSprites;
-	@ObfuscatedName("l")
+	@Export("redHintArrowSprite")
+	static SpritePixels redHintArrowSprite;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1376484179
+		intValue = -1005985993
 	)
 	@Export("tileHeight")
 	int tileHeight;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -604518039
+		intValue = -906574175
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -129447381
+		intValue = -405320811
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1366610135
+		intValue = -989748679
 	)
 	@Export("orientationA")
 	int orientationA;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -488074781
+		intValue = -278128521
 	)
 	@Export("orientationB")
 	int orientationB;
-	@ObfuscatedName("k")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lhj;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("t")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lhi;"
+		descriptor = "Lhj;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
-	@ObfuscatedName("a")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		longValue = -3701872394330512717L
+		longValue = 4551271496275992869L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1201244349
+		intValue = 709360475
 	)
 	@Export("flags")
 	int flags;
 
 	BoundaryObject() {
-		this.tag = 0L;
-		this.flags = 0;
-	}
+		this.tag = 0L; // L: 11
+		this.flags = 0; // L: 12
+	} // L: 14
 }

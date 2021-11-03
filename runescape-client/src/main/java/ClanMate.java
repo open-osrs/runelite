@@ -3,92 +3,97 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lj")
+@ObfuscatedName("lp")
 @Implements("ClanMate")
 public class ClanMate extends Buddy {
-	@ObfuscatedName("l")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lmc;"
+		descriptor = "Loe;"
+	)
+	static IndexedSprite field3950;
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lmv;"
 	)
 	@Export("friend")
 	TriBool friend;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lmc;"
+		descriptor = "Lmv;"
 	)
 	@Export("ignored")
 	TriBool ignored;
 
 	ClanMate() {
-		this.friend = TriBool.TriBool_unknown;
-		this.ignored = TriBool.TriBool_unknown;
-	}
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "-31734"
-	)
-	@Export("clearIsFriend")
-	void clearIsFriend() {
-		this.friend = TriBool.TriBool_unknown;
-	}
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "393373028"
-	)
-	@Export("isFriend")
-	public final boolean isFriend() {
-		if (this.friend == TriBool.TriBool_unknown) {
-			this.fillIsFriend();
-		}
-
-		return this.friend == TriBool.TriBool_true;
-	}
-
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-13"
-	)
-	@Export("fillIsFriend")
-	void fillIsFriend() {
-		this.friend = Message.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1505172516"
-	)
-	@Export("clearIsIgnored")
-	void clearIsIgnored() {
-		this.ignored = TriBool.TriBool_unknown;
-	}
+		this.friend = TriBool.TriBool_unknown; // L: 6
+		this.ignored = TriBool.TriBool_unknown; // L: 7
+	} // L: 9
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-528525433"
+		descriptor = "(I)V",
+		garbageValue = "-519741566"
 	)
-	@Export("isIgnored")
-	public final boolean isIgnored() {
-		if (this.ignored == TriBool.TriBool_unknown) {
-			this.fillIsIgnored();
+	@Export("clearIsFriend")
+	void clearIsFriend() {
+		this.friend = TriBool.TriBool_unknown; // L: 12
+	} // L: 13
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "1866693709"
+	)
+	@Export("isFriend")
+	public final boolean isFriend() {
+		if (this.friend == TriBool.TriBool_unknown) { // L: 16
+			this.fillIsFriend(); // L: 17
 		}
 
-		return this.ignored == TriBool.TriBool_true;
+		return this.friend == TriBool.TriBool_true; // L: 19
 	}
+
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-587982231"
+	)
+	@Export("fillIsFriend")
+	void fillIsFriend() {
+		this.friend = class112.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 23
+	} // L: 24
+
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-45"
+	)
+	@Export("clearIsIgnored")
+	void clearIsIgnored() {
+		this.ignored = TriBool.TriBool_unknown; // L: 27
+	} // L: 28
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2082229769"
+		descriptor = "(B)Z",
+		garbageValue = "-2"
+	)
+	@Export("isIgnored")
+	public final boolean isIgnored() {
+		if (this.ignored == TriBool.TriBool_unknown) { // L: 31
+			this.fillIsIgnored(); // L: 32
+		}
+
+		return this.ignored == TriBool.TriBool_true; // L: 34
+	}
+
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "28"
 	)
 	@Export("fillIsIgnored")
 	void fillIsIgnored() {
-		this.ignored = Message.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
-	}
+		this.ignored = class112.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 38
+	} // L: 39
 }

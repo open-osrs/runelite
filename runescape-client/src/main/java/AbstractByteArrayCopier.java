@@ -1,153 +1,122 @@
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.Reflection;
 
-@ObfuscatedName("jr")
+@ObfuscatedName("jt")
 @Implements("AbstractByteArrayCopier")
 public abstract class AbstractByteArrayCopier {
-	@ObfuscatedName("y")
-	@ObfuscatedGetter(
-		intValue = 1268577977
-	)
-	@Export("Interpreter_intStackSize")
-	static int Interpreter_intStackSize;
-
 	AbstractByteArrayCopier() {
-	}
+	} // L: 4
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(B)[B",
-		garbageValue = "-25"
+		garbageValue = "99"
 	)
 	@Export("get")
 	abstract byte[] get();
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "([BI)V",
-		garbageValue = "944891137"
+		descriptor = "([BB)V",
+		garbageValue = "-48"
 	)
 	@Export("set")
 	public abstract void set(byte[] var1);
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;II)V",
-		garbageValue = "-459994654"
+		descriptor = "(Lkd;IIIBZS)V",
+		garbageValue = "-20064"
 	)
-	@Export("readReflectionCheck")
-	public static void readReflectionCheck(Buffer var0, int var1) {
-		ReflectionCheck var2 = new ReflectionCheck();
-		var2.size = var0.readUnsignedByte();
-		var2.id = var0.readInt();
-		var2.operations = new int[var2.size];
-		var2.creationErrors = new int[var2.size];
-		var2.fields = new Field[var2.size];
-		var2.intReplaceValues = new int[var2.size];
-		var2.methods = new Method[var2.size];
-		var2.arguments = new byte[var2.size][][];
-
-		for (int var3 = 0; var3 < var2.size; ++var3) {
-			try {
-				int var4 = var0.readUnsignedByte();
-				String var5;
-				String var6;
-				int var7;
-				if (var4 != 0 && var4 != 1 && var4 != 2) {
-					if (var4 == 3 || var4 == 4) {
-						var5 = var0.readStringCp1252NullTerminated();
-						var6 = var0.readStringCp1252NullTerminated();
-						var7 = var0.readUnsignedByte();
-						String[] var8 = new String[var7];
-
-						for (int var9 = 0; var9 < var7; ++var9) {
-							var8[var9] = var0.readStringCp1252NullTerminated();
-						}
-
-						String var20 = var0.readStringCp1252NullTerminated();
-						byte[][] var10 = new byte[var7][];
-						int var12;
-						if (var4 == 3) {
-							for (int var11 = 0; var11 < var7; ++var11) {
-								var12 = var0.readInt();
-								var10[var11] = new byte[var12];
-								var0.readBytes(var10[var11], 0, var12);
-							}
-						}
-
-						var2.operations[var3] = var4;
-						Class[] var21 = new Class[var7];
-
-						for (var12 = 0; var12 < var7; ++var12) {
-							var21[var12] = UserComparator7.loadClassFromDescriptor(var8[var12]);
-						}
-
-						Class var22 = UserComparator7.loadClassFromDescriptor(var20);
-						if (UserComparator7.loadClassFromDescriptor(var5).getClassLoader() == null) {
-							throw new SecurityException();
-						}
-
-						Method[] var13 = UserComparator7.loadClassFromDescriptor(var5).getDeclaredMethods();
-						Method[] var14 = var13;
-
-						for (int var15 = 0; var15 < var14.length; ++var15) {
-							Method var16 = var14[var15];
-							if (Reflection.getMethodName(var16).equals(var6)) {
-								Class[] var17 = Reflection.getParameterTypes(var16);
-								if (var21.length == var17.length) {
-									boolean var18 = true;
-
-									for (int var19 = 0; var19 < var21.length; ++var19) {
-										if (var21[var19] != var17[var19]) {
-											var18 = false;
-											break;
-										}
-									}
-
-									if (var18 && var22 == var16.getReturnType()) {
-										var2.methods[var3] = var16;
-									}
-								}
-							}
-						}
-
-						var2.arguments[var3] = var10;
+	@Export("requestNetFile")
+	static void requestNetFile(Archive var0, int var1, int var2, int var3, byte var4, boolean var5) {
+		long var6 = (long)((var1 << 16) + var2); // L: 108
+		NetFileRequest var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityWrites.get(var6); // L: 109
+		if (var8 == null) { // L: 110
+			var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.get(var6); // L: 111
+			if (var8 == null) { // L: 112
+				var8 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var6); // L: 113
+				if (var8 != null) { // L: 114
+					if (var5) { // L: 115
+						var8.removeDual(); // L: 116
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 117
+						--NetCache.NetCache_pendingWritesCount; // L: 118
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 119
 					}
+
 				} else {
-					var5 = var0.readStringCp1252NullTerminated();
-					var6 = var0.readStringCp1252NullTerminated();
-					var7 = 0;
-					if (var4 == 1) {
-						var7 = var0.readInt();
+					if (!var5) { // L: 123
+						var8 = (NetFileRequest)NetCache.NetCache_pendingResponses.get(var6); // L: 124
+						if (var8 != null) { // L: 125
+							return;
+						}
 					}
 
-					var2.operations[var3] = var4;
-					var2.intReplaceValues[var3] = var7;
-					if (UserComparator7.loadClassFromDescriptor(var5).getClassLoader() == null) {
-						throw new SecurityException();
+					var8 = new NetFileRequest(); // L: 127
+					var8.archive = var0; // L: 128
+					var8.crc = var3; // L: 129
+					var8.padding = var4; // L: 130
+					if (var5) { // L: 131
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 132
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 133
+					} else {
+						NetCache.NetCache_pendingWritesQueue.addFirst(var8); // L: 136
+						NetCache.NetCache_pendingWrites.put(var8, var6); // L: 137
+						++NetCache.NetCache_pendingWritesCount; // L: 138
 					}
 
-					var2.fields[var3] = Reflection.findField(UserComparator7.loadClassFromDescriptor(var5), var6);
 				}
-			} catch (ClassNotFoundException var24) {
-				var2.creationErrors[var3] = -1;
-			} catch (SecurityException var25) {
-				var2.creationErrors[var3] = -2;
-			} catch (NullPointerException var26) {
-				var2.creationErrors[var3] = -3;
-			} catch (Exception var27) {
-				var2.creationErrors[var3] = -4;
-			} catch (Throwable var28) {
-				var2.creationErrors[var3] = -5;
+			}
+		}
+	} // L: 121 140
+
+	@ObfuscatedName("in")
+	@ObfuscatedSignature(
+		descriptor = "(ILjava/lang/String;B)V",
+		garbageValue = "1"
+	)
+	static void method5169(int var0, String var1) {
+		int var2 = Players.Players_count; // L: 9075
+		int[] var3 = Players.Players_indices; // L: 9076
+		boolean var4 = false; // L: 9077
+		Username var5 = new Username(var1, GrandExchangeOfferUnitPriceComparator.loginType); // L: 9078
+
+		for (int var6 = 0; var6 < var2; ++var6) { // L: 9079
+			Player var7 = Client.players[var3[var6]]; // L: 9080
+			if (var7 != null && var7 != HealthBarDefinition.localPlayer && var7.username != null && var7.username.equals(var5)) { // L: 9081
+				PacketBufferNode var8;
+				if (var0 == 1) { // L: 9082
+					var8 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2733, Client.packetWriter.isaacCipher); // L: 9084
+					var8.packetBuffer.writeShort(var3[var6]); // L: 9085
+					var8.packetBuffer.writeByte(0); // L: 9086
+					Client.packetWriter.addNode(var8); // L: 9087
+				} else if (var0 == 4) { // L: 9089
+					var8 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2769, Client.packetWriter.isaacCipher); // L: 9091
+					var8.packetBuffer.method6962(var3[var6]); // L: 9092
+					var8.packetBuffer.method7171(0); // L: 9093
+					Client.packetWriter.addNode(var8); // L: 9094
+				} else if (var0 == 6) { // L: 9096
+					var8 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2714, Client.packetWriter.isaacCipher); // L: 9098
+					var8.packetBuffer.method7001(var3[var6]); // L: 9099
+					var8.packetBuffer.method6993(0); // L: 9100
+					Client.packetWriter.addNode(var8); // L: 9101
+				} else if (var0 == 7) { // L: 9103
+					var8 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2673, Client.packetWriter.isaacCipher); // L: 9105
+					var8.packetBuffer.writeShort(var3[var6]); // L: 9106
+					var8.packetBuffer.method7171(0); // L: 9107
+					Client.packetWriter.addNode(var8); // L: 9108
+				}
+
+				var4 = true; // L: 9110
+				break;
 			}
 		}
 
-		class54.reflectionChecks.addFirst(var2);
-	}
+		if (!var4) { // L: 9114
+			class397.addGameMessage(4, "", "Unable to find " + var1);
+		}
+
+	} // L: 9115
 }

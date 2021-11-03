@@ -4,59 +4,57 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fw")
+@ObfuscatedName("fc")
 @Implements("RouteStrategy")
 public abstract class RouteStrategy {
-	@ObfuscatedName("st")
-	@ObfuscatedSignature(
-		descriptor = "Lai;"
-	)
-	@Export("decimator")
-	static Decimator decimator;
-	@ObfuscatedName("et")
-	@ObfuscatedSignature(
-		descriptor = "Lky;"
-	)
-	@Export("archive2")
-	static Archive archive2;
-	@ObfuscatedName("fp")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1344462217
+		intValue = 12457579
 	)
-	@Export("currentPort")
-	static int currentPort;
-	@ObfuscatedName("l")
+	public static int field1979;
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Low;"
+	)
+	@Export("leftTitleSprite")
+	static SpritePixels leftTitleSprite;
+	@ObfuscatedName("bt")
+	@ObfuscatedSignature(
+		descriptor = "Ljd;"
+	)
+	static StudioGame field1986;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1263236151
+		intValue = -116469837
 	)
 	@Export("approxDestinationX")
 	public int approxDestinationX;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 213463867
+		intValue = -1807509661
 	)
 	@Export("approxDestinationY")
 	public int approxDestinationY;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -384519969
+		intValue = -655785289
 	)
 	@Export("approxDestinationSizeX")
 	public int approxDestinationSizeX;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1744940785
+		intValue = 1106041025
 	)
 	@Export("approxDestinationSizeY")
 	public int approxDestinationSizeY;
 
 	protected RouteStrategy() {
-	}
+	} // L: 9
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IIILfy;I)Z",
-		garbageValue = "1728008342"
+		descriptor = "(IIILfq;I)Z",
+		garbageValue = "-526381699"
 	)
 	@Export("hasArrived")
 	public abstract boolean hasArrived(int var1, int var2, int var3, CollisionMap var4);

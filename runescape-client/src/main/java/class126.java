@@ -1,26 +1,16 @@
-import java.awt.Desktop;
-import java.awt.Desktop.Action;
-import java.net.URI;
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("da")
+@ObfuscatedName("dl")
 public class class126 extends class116 {
-	@ObfuscatedName("rq")
-	@ObfuscatedSignature(
-		descriptor = "Laq;"
-	)
-	@Export("pcmPlayer0")
-	static PcmPlayer pcmPlayer0;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -715291481
+		intValue = 1462518915
 	)
-	int field1440;
-	@ObfuscatedName("q")
-	String field1439;
+	int field1433;
+	@ObfuscatedName("w")
+	String field1432;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
 		descriptor = "Ldg;"
@@ -31,80 +21,37 @@ public class class126 extends class116 {
 		descriptor = "(Ldg;)V"
 	)
 	class126(class119 var1) {
-		this.this$0 = var1;
+		this.this$0 = var1; // L: 323
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lot;I)V",
-		garbageValue = "-912681401"
+		descriptor = "(Lop;I)V",
+		garbageValue = "-2002779676"
 	)
-	void vmethod2767(Buffer var1) {
-		this.field1440 = var1.readInt();
-		this.field1439 = var1.readStringCp1252NullTerminated();
-	}
+	void vmethod2847(Buffer var1) {
+		this.field1433 = var1.readInt(); // L: 326
+		this.field1432 = var1.readStringCp1252NullTerminated(); // L: 327
+	} // L: 328
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Ldk;I)V",
-		garbageValue = "-1225074726"
+		descriptor = "(Ldm;I)V",
+		garbageValue = "-293908864"
 	)
-	void vmethod2766(ClanSettings var1) {
-		var1.method2614(this.field1440, this.field1439);
-	}
+	void vmethod2848(ClanSettings var1) {
+		var1.method2667(this.field1433, this.field1432); // L: 331
+	} // L: 332
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("lh")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lff;",
-		garbageValue = "541263159"
+		descriptor = "(B)V",
+		garbageValue = "-19"
 	)
-	@Export("getParamDefinition")
-	public static ParamComposition getParamDefinition(int var0) {
-		ParamComposition var1 = (ParamComposition)ParamComposition.ParamDefinition_cached.get((long)var0);
-		if (var1 != null) {
-			return var1;
-		} else {
-			byte[] var2 = DevicePcmPlayerProvider.ParamDefinition_archive.takeFile(11, var0);
-			var1 = new ParamComposition();
-			if (var2 != null) {
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode();
-			ParamComposition.ParamDefinition_cached.put(var1, (long)var0);
-			return var1;
-		}
-	}
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;ZLjava/lang/String;ZB)V",
-		garbageValue = "-60"
-	)
-	static void method2580(String var0, boolean var1, String var2, boolean var3) {
-		if (var1) {
-			if (!var3 && Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Action.BROWSE)) {
-				try {
-					Desktop.getDesktop().browse(new URI(var0));
-					return;
-				} catch (Exception var5) {
-				}
-			}
-
-			if (class29.field165.startsWith("win") && !var3) {
-				class139.method2763(var0, 0, "openjs");
-				return;
-			}
-
-			if (class29.field165.startsWith("mac")) {
-				class139.method2763(var0, 1, var2);
-				return;
-			}
-
-			class139.method2763(var0, 2, "openjs");
-		} else {
-			class139.method2763(var0, 3, "openjs");
+	static void method2646() {
+		if (Client.oculusOrbState == 1) { // L: 12021
+			Client.field511 = true; // L: 12022
 		}
 
-	}
+	} // L: 12024
 }

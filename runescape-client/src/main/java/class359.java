@@ -1,36 +1,36 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mw")
+@ObfuscatedName("mu")
 public class class359 {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lmw;"
+		descriptor = "Lmu;"
 	)
-	static final class359 field4047;
-	@ObfuscatedName("q")
+	static final class359 field4043;
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lmw;"
+		descriptor = "Lmu;"
 	)
-	static final class359 field4048;
-	@ObfuscatedName("f")
-	String field4046;
+	static final class359 field4042;
+	@ObfuscatedName("s")
+	String field4044;
 
 	static {
-		field4047 = new class359("application/json");
-		field4048 = new class359("text/plain");
+		field4043 = new class359("application/json"); // L: 4
+		field4042 = new class359("text/plain"); // L: 5
 	}
 
 	class359(String var1) {
-		this.field4046 = var1;
-	}
+		this.field4044 = var1; // L: 9
+	} // L: 10
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1364457726"
+		descriptor = "(B)Ljava/lang/String;",
+		garbageValue = "33"
 	)
-	public String method6333() {
-		return this.field4046;
+	public String method6418() {
+		return this.field4044; // L: 13
 	}
 }

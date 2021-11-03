@@ -51,27 +51,27 @@ public class ItemStats
 		if (other.equipment != null)
 		{
 			final ItemEquipmentStats equipment = this.equipment != null
-				? this.equipment
-				: new ItemEquipmentStats.ItemEquipmentStatsBuilder().build();
+					? this.equipment
+					: new ItemEquipmentStats.ItemEquipmentStatsBuilder().build();
 
 			newEquipment = new ItemEquipmentStats.ItemEquipmentStatsBuilder()
-				.slot(equipment.getSlot())
-				.astab(equipment.getAstab() - other.equipment.getAstab())
-				.aslash(equipment.getAslash() - other.equipment.getAslash())
-				.acrush(equipment.getAcrush() - other.equipment.getAcrush())
-				.amagic(equipment.getAmagic() - other.equipment.getAmagic())
-				.arange(equipment.getArange() - other.equipment.getArange())
-				.dstab(equipment.getDstab() - other.equipment.getDstab())
-				.dslash(equipment.getDslash() - other.equipment.getDslash())
-				.dcrush(equipment.getDcrush() - other.equipment.getDcrush())
-				.dmagic(equipment.getDmagic() - other.equipment.getDmagic())
-				.drange(equipment.getDrange() - other.equipment.getDrange())
-				.str(equipment.getStr() - other.equipment.getStr())
-				.rstr(equipment.getRstr() - other.equipment.getRstr())
-				.mdmg(equipment.getMdmg() - other.equipment.getMdmg())
-				.prayer(equipment.getPrayer() - other.equipment.getPrayer())
-				.aspeed(equipment.getAspeed() - other.equipment.getAspeed())
-				.build();
+					.slot(equipment.getSlot())
+					.astab(equipment.getAstab() - other.equipment.getAstab())
+					.aslash(equipment.getAslash() - other.equipment.getAslash())
+					.acrush(equipment.getAcrush() - other.equipment.getAcrush())
+					.amagic(equipment.getAmagic() - other.equipment.getAmagic())
+					.arange(equipment.getArange() - other.equipment.getArange())
+					.dstab(equipment.getDstab() - other.equipment.getDstab())
+					.dslash(equipment.getDslash() - other.equipment.getDslash())
+					.dcrush(equipment.getDcrush() - other.equipment.getDcrush())
+					.dmagic(equipment.getDmagic() - other.equipment.getDmagic())
+					.drange(equipment.getDrange() - other.equipment.getDrange())
+					.str(equipment.getStr() - other.equipment.getStr())
+					.rstr(equipment.getRstr() - other.equipment.getRstr())
+					.mdmg(equipment.getMdmg() - other.equipment.getMdmg())
+					.prayer(equipment.getPrayer() - other.equipment.getPrayer())
+					.aspeed(equipment.getAspeed() - other.equipment.getAspeed())
+					.build();
 		}
 		else
 		{

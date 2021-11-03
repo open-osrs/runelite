@@ -3,75 +3,88 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cw")
+@ObfuscatedName("cp")
 @Implements("NPC")
 public final class NPC extends Actor {
-	@ObfuscatedName("l")
+	@ObfuscatedName("pr")
 	@ObfuscatedSignature(
-		descriptor = "Lfg;"
+		descriptor = "Lmd;"
+	)
+	static class353 field1210;
+	@ObfuscatedName("n")
+	@Export("cacheParentPaths")
+	static String[] cacheParentPaths;
+	@ObfuscatedName("ol")
+	@ObfuscatedSignature(
+		descriptor = "[Ljf;"
+	)
+	static Widget[] field1207;
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lfw;"
 	)
 	@Export("definition")
 	NPCComposition definition;
 
 	NPC() {
-	}
+	} // L: 12
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IBB)V",
-		garbageValue = "20"
+		descriptor = "(IBI)V",
+		garbageValue = "-1295452505"
 	)
-	final void method2223(int var1, byte var2) {
-		int var3 = super.pathX[0];
-		int var4 = super.pathY[0];
-		if (var1 == 0) {
-			--var3;
+	final void method2258(int var1, byte var2) {
+		int var3 = super.pathX[0]; // L: 15
+		int var4 = super.pathY[0]; // L: 16
+		if (var1 == 0) { // L: 17
+			--var3; // L: 18
+			++var4; // L: 19
+		}
+
+		if (var1 == 1) { // L: 21
 			++var4;
 		}
 
-		if (var1 == 1) {
-			++var4;
+		if (var1 == 2) { // L: 22
+			++var3; // L: 23
+			++var4; // L: 24
 		}
 
-		if (var1 == 2) {
-			++var3;
-			++var4;
-		}
-
-		if (var1 == 3) {
+		if (var1 == 3) { // L: 26
 			--var3;
 		}
 
-		if (var1 == 4) {
+		if (var1 == 4) { // L: 27
 			++var3;
 		}
 
-		if (var1 == 5) {
-			--var3;
+		if (var1 == 5) { // L: 28
+			--var3; // L: 29
+			--var4; // L: 30
+		}
+
+		if (var1 == 6) { // L: 32
 			--var4;
 		}
 
-		if (var1 == 6) {
-			--var4;
+		if (var1 == 7) { // L: 33
+			++var3; // L: 34
+			--var4; // L: 35
 		}
 
-		if (var1 == 7) {
-			++var3;
-			--var4;
-		}
-
-		if (super.sequence != -1 && KitDefinition.SequenceDefinition_get(super.sequence).field1960 == 1) {
+		if (super.sequence != -1 && MouseHandler.SequenceDefinition_get(super.sequence).field1956 == 1) { // L: 37
 			super.sequence = -1;
 		}
 
-		if (super.pathLength < 9) {
+		if (super.pathLength < 9) { // L: 38
 			++super.pathLength;
 		}
 
-		for (int var5 = super.pathLength; var5 > 0; --var5) {
-			super.pathX[var5] = super.pathX[var5 - 1];
-			super.pathY[var5] = super.pathY[var5 - 1];
-			super.pathTraversed[var5] = super.pathTraversed[var5 - 1];
+		for (int var5 = super.pathLength; var5 > 0; --var5) { // L: 39
+			super.pathX[var5] = super.pathX[var5 - 1]; // L: 40
+			super.pathY[var5] = super.pathY[var5 - 1]; // L: 41
+			super.pathTraversed[var5] = super.pathTraversed[var5 - 1]; // L: 42
 		}
 
 		super.pathX[0] = var3;
@@ -79,156 +92,151 @@ public final class NPC extends Actor {
 		super.pathTraversed[0] = var2;
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lhl;",
-		garbageValue = "126"
+		descriptor = "(I)Lhl;",
+		garbageValue = "461766541"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		if (this.definition == null) {
+		if (this.definition == null) { // L: 77
 			return null;
 		} else {
-			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? KitDefinition.SequenceDefinition_get(super.sequence) : null;
-			SequenceDefinition var2 = super.movementSequence == -1 || super.idleSequence == super.movementSequence && var1 != null ? null : KitDefinition.SequenceDefinition_get(super.movementSequence);
-			Model var3 = this.definition.getModel(var1, super.sequenceFrame, var2, super.movementFrame);
-			if (var3 == null) {
+			SequenceDefinition var1 = super.sequence != -1 && super.sequenceDelay == 0 ? MouseHandler.SequenceDefinition_get(super.sequence) : null; // L: 78
+			SequenceDefinition var2 = super.movementSequence == -1 || super.idleSequence == super.movementSequence && var1 != null ? null : MouseHandler.SequenceDefinition_get(super.movementSequence); // L: 79
+			Model var3 = this.definition.getModel(var1, super.sequenceFrame, var2, super.movementFrame); // L: 80
+			if (var3 == null) { // L: 81
 				return null;
 			} else {
-				var3.calculateBoundsCylinder();
-				super.defaultHeight = var3.height;
-				if (super.spotAnimation != -1 && super.spotAnimationFrame != -1) {
-					Model var4 = class21.SpotAnimationDefinition_get(super.spotAnimation).getModel(super.spotAnimationFrame);
-					if (var4 != null) {
-						var4.offsetBy(0, -super.field1147, 0);
-						Model[] var5 = new Model[]{var3, var4};
-						var3 = new Model(var5, 2);
+				var3.calculateBoundsCylinder(); // L: 82
+				super.defaultHeight = var3.height; // L: 83
+				if (super.spotAnimation != -1 && super.spotAnimationFrame != -1) { // L: 84
+					Model var4 = BZip2State.SpotAnimationDefinition_get(super.spotAnimation).getModel(super.spotAnimationFrame); // L: 85
+					if (var4 != null) { // L: 86
+						var4.offsetBy(0, -super.field1126, 0); // L: 87
+						Model[] var5 = new Model[]{var3, var4}; // L: 88
+						var3 = new Model(var5, 2); // L: 89
 					}
 				}
 
-				if (this.definition.size == 1) {
+				if (this.definition.size == 1) { // L: 92
 					var3.isSingleTile = true;
 				}
 
-				return var3;
+				return var3; // L: 93
 			}
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(IIZB)V",
-		garbageValue = "97"
+		garbageValue = "-124"
 	)
-	final void method2234(int var1, int var2, boolean var3) {
-		if (super.sequence != -1 && KitDefinition.SequenceDefinition_get(super.sequence).field1960 == 1) {
+	final void method2249(int var1, int var2, boolean var3) {
+		if (super.sequence != -1 && MouseHandler.SequenceDefinition_get(super.sequence).field1956 == 1) { // L: 50
 			super.sequence = -1;
 		}
 
-		if (!var3) {
-			int var4 = var1 - super.pathX[0];
-			int var5 = var2 - super.pathY[0];
-			if (var4 >= -8 && var4 <= 8 && var5 >= -8 && var5 <= 8) {
-				if (super.pathLength < 9) {
+		if (!var3) { // L: 51
+			int var4 = var1 - super.pathX[0]; // L: 52
+			int var5 = var2 - super.pathY[0]; // L: 53
+			if (var4 >= -8 && var4 <= 8 && var5 >= -8 && var5 <= 8) { // L: 54
+				if (super.pathLength < 9) { // L: 55
 					++super.pathLength;
 				}
 
-				for (int var6 = super.pathLength; var6 > 0; --var6) {
-					super.pathX[var6] = super.pathX[var6 - 1];
+				for (int var6 = super.pathLength; var6 > 0; --var6) { // L: 56
+					super.pathX[var6] = super.pathX[var6 - 1]; // L: 57
 					super.pathY[var6] = super.pathY[var6 - 1];
 					super.pathTraversed[var6] = super.pathTraversed[var6 - 1];
 				}
 
-				super.pathX[0] = var1;
+				super.pathX[0] = var1; // L: 61
 				super.pathY[0] = var2;
-				super.pathTraversed[0] = 1;
-				return;
+				super.pathTraversed[0] = 1; // L: 63
+				return; // L: 64
 			}
 		}
 
-		super.pathLength = 0;
-		super.field1129 = 0;
-		super.field1164 = 0;
-		super.pathX[0] = var1;
-		super.pathY[0] = var2;
-		super.x = super.pathX[0] * 128 + super.field1109 * 64;
-		super.y = super.field1109 * 64 + super.pathY[0] * 128;
-	}
+		super.pathLength = 0; // L: 67
+		super.field1144 = 0; // L: 68
+		super.field1085 = 0; // L: 69
+		super.pathX[0] = var1; // L: 70
+		super.pathY[0] = var2; // L: 71
+		super.x = super.pathX[0] * 128 + super.field1087 * 64; // L: 72
+		super.y = super.pathY[0] * 128 + super.field1087 * 64; // L: 73
+	} // L: 74
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1841514183"
+		garbageValue = "-532391824"
 	)
 	@Export("isVisible")
 	final boolean isVisible() {
-		return this.definition != null;
+		return this.definition != null; // L: 97
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(S)I",
-		garbageValue = "-3271"
+		descriptor = "(Lnf;III)I",
+		garbageValue = "2110206967"
 	)
-	static final int method2232() {
-		return ViewportMouse.ViewportMouse_x;
+	static int method2251(IterableNodeHashTable var0, int var1, int var2) {
+		if (var0 == null) {
+			return var2;
+		} else {
+			IntegerNode var3 = (IntegerNode)var0.get((long)var1);
+			return var3 == null ? var2 : var3.integer;
+		}
 	}
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-57"
+		descriptor = "(I)V",
+		garbageValue = "569144046"
 	)
-	static void method2233() {
-		class112.method2474(24);
-		class17.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", "");
+	public static void method2248() {
+		if (MouseHandler.MouseHandler_instance != null) { // L: 44
+			synchronized(MouseHandler.MouseHandler_instance) { // L: 45
+				MouseHandler.MouseHandler_instance = null; // L: 46
+			} // L: 47
+		}
+
+	} // L: 49
+
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "(III)Z",
+		garbageValue = "-1285705264"
+	)
+	static final boolean method2265(int var0, int var1) {
+		ObjectComposition var2 = KitDefinition.getObjectDefinition(var0); // L: 601
+		if (var1 == 11) { // L: 602
+			var1 = 10;
+		}
+
+		if (var1 >= 5 && var1 <= 8) {
+			var1 = 4; // L: 603
+		}
+
+		return var2.method3305(var1); // L: 604
 	}
 
-	@ObfuscatedName("ex")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "-7381"
+		descriptor = "([BIS)I",
+		garbageValue = "-944"
 	)
-	static void method2235() {
-		Client.packetWriter.clearBuffer();
-		Client.packetWriter.packetBuffer.offset = 0;
-		Client.packetWriter.serverPacket = null;
-		Client.packetWriter.field1281 = null;
-		Client.packetWriter.field1293 = null;
-		Client.packetWriter.field1288 = null;
-		Client.packetWriter.serverPacketLength = 0;
-		Client.packetWriter.field1290 = 0;
-		Client.rebootTimer = 0;
-		class7.method46();
-		Client.minimapState = 0;
-		Client.destinationX = 0;
+	public static int method2256(byte[] var0, int var1) {
+		int var3 = -1; // L: 58
 
-		int var0;
-		for (var0 = 0; var0 < 2048; ++var0) {
-			Client.players[var0] = null;
+		for (int var4 = 0; var4 < var1; ++var4) { // L: 59
+			var3 = var3 >>> 8 ^ Buffer.crc32Table[(var3 ^ var0[var4]) & 255]; // L: 60
 		}
 
-		class67.localPlayer = null;
-
-		for (var0 = 0; var0 < Client.npcs.length; ++var0) {
-			NPC var1 = Client.npcs[var0];
-			if (var1 != null) {
-				var1.targetIndex = -1;
-				var1.false0 = false;
-			}
-		}
-
-		ItemContainer.itemContainers = new NodeHashTable(32);
-		UserList.updateGameState(30);
-
-		for (var0 = 0; var0 < 100; ++var0) {
-			Client.field710[var0] = true;
-		}
-
-		PacketBufferNode var2 = LoginScreenAnimation.getPacketBufferNode(ClientPacket.field2718, Client.packetWriter.isaacCipher);
-		var2.packetBuffer.writeByte(class12.getWindowedMode());
-		var2.packetBuffer.writeShort(Huffman.canvasWidth);
-		var2.packetBuffer.writeShort(MouseRecorder.canvasHeight);
-		Client.packetWriter.addNode(var2);
+		var3 = ~var3; // L: 62
+		return var3; // L: 65
 	}
 }

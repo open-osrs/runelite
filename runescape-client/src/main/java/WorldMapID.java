@@ -4,35 +4,38 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gm")
+@ObfuscatedName("gz")
 @Implements("WorldMapID")
 public class WorldMapID {
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lgz;"
+	)
+	static final WorldMapID field2186;
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "Lgz;"
+	)
+	static final WorldMapID field2184;
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgm;"
+		descriptor = "[Lnw;"
 	)
-	static final WorldMapID field2195;
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Lgm;"
-	)
-	static final WorldMapID field2190;
-	@ObfuscatedName("t")
-	@Export("Interpreter_stringLocals")
-	static String[] Interpreter_stringLocals;
-	@ObfuscatedName("f")
+	@Export("JagexCache_idxFiles")
+	public static BufferedFile[] JagexCache_idxFiles;
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1713675959
+		intValue = 418528697
 	)
 	@Export("value")
 	final int value;
 
 	static {
-		field2195 = new WorldMapID(0);
-		field2190 = new WorldMapID(1);
+		field2186 = new WorldMapID(0); // L: 4
+		field2184 = new WorldMapID(1); // L: 5
 	}
 
 	WorldMapID(int var1) {
-		this.value = var1;
-	}
+		this.value = var1; // L: 9
+	} // L: 10
 }

@@ -1,5 +1,5 @@
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("he")
+@ObfuscatedName("hz")
 public interface class230 {
 }

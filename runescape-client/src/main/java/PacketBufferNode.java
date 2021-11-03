@@ -4,95 +4,63 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("is")
+@ObfuscatedName("ib")
 @Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
-	@ObfuscatedName("sf")
-	@ObfuscatedGetter(
-		intValue = 1714569287
-	)
-	static int field2786;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "[Lis;"
+		descriptor = "[Lib;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
 	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
-	@ObfuscatedName("k")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1923924179
+		intValue = -1045179261
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
 	static int PacketBufferNode_packetBufferNodeCount;
-	@ObfuscatedName("iz")
-	@ObfuscatedGetter(
-		intValue = -1453961237
-	)
-	@Export("selectedItemId")
-	static int selectedItemId;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Liz;"
+		descriptor = "Lik;"
 	)
 	@Export("clientPacket")
 	public ClientPacket clientPacket;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -215681187
+		intValue = -881664177
 	)
 	@Export("clientPacketLength")
 	public int clientPacketLength;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Loy;"
+		descriptor = "Loj;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1705067673
+		intValue = 1172776223
 	)
 	@Export("index")
 	public int index;
 
 	static {
-		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300];
-		PacketBufferNode_packetBufferNodeCount = 0;
+		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300]; // L: 13
+		PacketBufferNode_packetBufferNodeCount = 0; // L: 14
 	}
 
 	PacketBufferNode() {
-	}
+	} // L: 19
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1435986558"
+		garbageValue = "-1705967924"
 	)
 	@Export("release")
 	public void release() {
-		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) {
-			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this;
+		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 42
+			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 43
 		}
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1167818871"
-	)
-	public static boolean method4654(int var0) {
-		return var0 >= 0 && var0 < 112 ? KeyHandler.field128[var0] : false;
-	}
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-337771237"
-	)
-	static void method4653(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var1 != null) {
-			var1.remove();
-		}
-	}
+	} // L: 44
 }

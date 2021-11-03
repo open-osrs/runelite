@@ -4,77 +4,77 @@ import java.security.NoSuchAlgorithmException;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("k")
+@ObfuscatedName("g")
 public class class5 implements class2 {
-	@ObfuscatedName("l")
-	final MessageDigest field16;
+	@ObfuscatedName("i")
+	final MessageDigest field9;
 
 	@ObfuscatedSignature(
-		descriptor = "(Le;)V"
+		descriptor = "(Lj;)V"
 	)
 	class5(class8 var1) {
-		this.field16 = this.method30();
+		this.field9 = this.method26(); // L: 14
+	} // L: 15
+
+	@ObfuscatedName("i")
+	boolean method22(int var1, String var2, long var3) {
+		byte[] var5 = this.method23(var2, var3); // L: 18
+		return method25(var5) >= var1; // L: 19
 	}
 
-	@ObfuscatedName("l")
-	boolean method25(int var1, String var2, long var3) {
-		byte[] var5 = this.method28(var2, var3);
-		return method26(var5) >= var1;
-	}
-
-	@ObfuscatedName("j")
-	byte[] method28(String var1, long var2) {
-		StringBuilder var4 = new StringBuilder();
-		var4.append(var1).append(Long.toHexString(var2));
-		this.field16.reset();
+	@ObfuscatedName("a")
+	byte[] method23(String var1, long var2) {
+		StringBuilder var4 = new StringBuilder(); // L: 56
+		var4.append(var1).append(Long.toHexString(var2)); // L: 57
+		this.field9.reset(); // L: 58
 
 		try {
-			this.field16.update(var4.toString().getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException var6) {
-			var6.printStackTrace();
+			this.field9.update(var4.toString().getBytes("UTF-8")); // L: 60
+		} catch (UnsupportedEncodingException var6) { // L: 62
+			var6.printStackTrace(); // L: 63
 		}
 
-		return this.field16.digest();
+		return this.field9.digest(); // L: 65
 	}
 
-	@ObfuscatedName("m")
-	MessageDigest method30() {
+	@ObfuscatedName("o")
+	MessageDigest method26() {
 		try {
-			return MessageDigest.getInstance("SHA-256");
-		} catch (NoSuchAlgorithmException var2) {
-			var2.printStackTrace();
-			return null;
+			return MessageDigest.getInstance("SHA-256"); // L: 70
+		} catch (NoSuchAlgorithmException var2) { // L: 72
+			var2.printStackTrace(); // L: 73
+			return null; // L: 74
 		}
 	}
 
-	@ObfuscatedName("q")
-	static int method26(byte[] var0) {
-		int var1 = 0;
-		byte[] var2 = var0;
+	@ObfuscatedName("w")
+	static int method25(byte[] var0) {
+		int var1 = 0; // L: 23
+		byte[] var2 = var0; // L: 25
 
-		for (int var3 = 0; var3 < var2.length; ++var3) {
-			byte var4 = var2[var3];
-			int var5 = method32(var4);
-			var1 += var5;
-			if (var5 != 8) {
+		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 26
+			byte var4 = var2[var3]; // L: 27
+			int var5 = method24(var4); // L: 29
+			var1 += var5; // L: 30
+			if (var5 != 8) { // L: 31
 				break;
 			}
 		}
 
-		return var1;
+		return var1; // L: 37
 	}
 
-	@ObfuscatedName("f")
-	static int method32(byte var0) {
-		int var1 = 0;
-		if (var0 == 0) {
-			var1 = 8;
+	@ObfuscatedName("s")
+	static int method24(byte var0) {
+		int var1 = 0; // L: 41
+		if (var0 == 0) { // L: 42
+			var1 = 8; // L: 43
 		} else {
-			for (int var2 = var0 & 255; (var2 & 128) == 0; var2 <<= 1) {
-				++var1;
+			for (int var2 = var0 & 255; (var2 & 128) == 0; var2 <<= 1) { // L: 46 47 49
+				++var1; // L: 48
 			}
 		}
 
-		return var1;
+		return var1; // L: 52
 	}
 }

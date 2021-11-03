@@ -4,99 +4,81 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fz")
+@ObfuscatedName("fg")
 @Implements("VerticalAlignment")
 public enum VerticalAlignment implements MouseWheel {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lfz;"
+		descriptor = "Lfg;"
 	)
-	field1747(0, 0),
-	@ObfuscatedName("q")
+	field1743(2, 0),
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lfz;"
+		descriptor = "Lfg;"
 	)
 	@Export("VerticalAlignment_centered")
-	VerticalAlignment_centered(1, 1),
-	@ObfuscatedName("f")
+	VerticalAlignment_centered(0, 1),
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lfz;"
+		descriptor = "Lfg;"
 	)
-	field1748(2, 2);
+	field1744(1, 2);
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 781390269
+		intValue = 1028915727
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("m")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -632876021
+		intValue = 1836218951
 	)
 	@Export("id")
 	final int id;
 
 	VerticalAlignment(int var3, int var4) {
-		this.value = var3;
-		this.id = var4;
-	}
+		this.value = var3; // L: 18
+		this.id = var4; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "661199397"
+		garbageValue = "238732485"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 23
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("gv")
 	@ObfuscatedSignature(
-		descriptor = "(Lbc;Lbc;IZI)I",
-		garbageValue = "121439136"
+		descriptor = "(B)V",
+		garbageValue = "-29"
 	)
-	@Export("compareWorlds")
-	static int compareWorlds(World var0, World var1, int var2, boolean var3) {
-		if (var2 == 1) {
-			int var4 = var0.population;
-			int var5 = var1.population;
-			if (!var3) {
-				if (var4 == -1) {
-					var4 = 2001;
-				}
+	static final void method3159() {
+		int var0 = Players.Players_count; // L: 4244
+		int[] var1 = Players.Players_indices; // L: 4245
 
-				if (var5 == -1) {
-					var5 = 2001;
-				}
+		for (int var2 = 0; var2 < var0; ++var2) { // L: 4246
+			Player var3 = Client.players[var1[var2]]; // L: 4247
+			if (var3 != null) { // L: 4248
+				class135.updateActorSequence(var3, 1); // L: 4249
 			}
-
-			return var4 - var5;
-		} else if (var2 == 2) {
-			return var0.location - var1.location;
-		} else if (var2 == 3) {
-			if (var0.activity.equals("-")) {
-				if (var1.activity.equals("-")) {
-					return 0;
-				} else {
-					return var3 ? -1 : 1;
-				}
-			} else if (var1.activity.equals("-")) {
-				return var3 ? 1 : -1;
-			} else {
-				return var0.activity.compareTo(var1.activity);
-			}
-		} else if (var2 == 4) {
-			return var0.method1594() ? (var1.method1594() ? 0 : 1) : (var1.method1594() ? -1 : 0);
-		} else if (var2 == 5) {
-			return var0.method1592() ? (var1.method1592() ? 0 : 1) : (var1.method1592() ? -1 : 0);
-		} else if (var2 == 6) {
-			return var0.isPvp() ? (var1.isPvp() ? 0 : 1) : (var1.isPvp() ? -1 : 0);
-		} else if (var2 == 7) {
-			return var0.isMembersOnly() ? (var1.isMembersOnly() ? 0 : 1) : (var1.isMembersOnly() ? -1 : 0);
-		} else {
-			return var0.id - var1.id;
 		}
-	}
+
+	} // L: 4252
+
+	@ObfuscatedName("gr")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-375267443"
+	)
+	static void method3157() {
+		if (Client.renderSelf) { // L: 5039
+			class132.addPlayerToScene(HealthBarDefinition.localPlayer, false); // L: 5040
+		}
+
+	} // L: 5042
 }

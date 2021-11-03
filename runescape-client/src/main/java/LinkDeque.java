@@ -3,73 +3,73 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("km")
+@ObfuscatedName("ky")
 @Implements("LinkDeque")
 public class LinkDeque {
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lmq;"
+		descriptor = "Lmk;"
 	)
 	@Export("sentinel")
 	Link sentinel;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lmq;"
+		descriptor = "Lmk;"
 	)
 	@Export("current")
 	Link current;
 
 	public LinkDeque() {
-		this.sentinel = new Link();
-		this.sentinel.previous = this.sentinel;
-		this.sentinel.next = this.sentinel;
-	}
+		this.sentinel = new Link(); // L: 6
+		this.sentinel.previous = this.sentinel; // L: 10
+		this.sentinel.next = this.sentinel; // L: 11
+	} // L: 12
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lmq;)V"
+		descriptor = "(Lmk;)V"
 	)
 	@Export("addFirst")
 	public void addFirst(Link var1) {
-		if (var1.next != null) {
+		if (var1.next != null) { // L: 15
 			var1.remove();
 		}
 
-		var1.next = this.sentinel.next;
-		var1.previous = this.sentinel;
-		var1.next.previous = var1;
-		var1.previous.next = var1;
-	}
+		var1.next = this.sentinel.next; // L: 16
+		var1.previous = this.sentinel; // L: 17
+		var1.next.previous = var1; // L: 18
+		var1.previous.next = var1; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "()Lmq;"
+		descriptor = "()Lmk;"
 	)
 	@Export("last")
 	public Link last() {
-		Link var1 = this.sentinel.previous;
-		if (var1 == this.sentinel) {
-			this.current = null;
-			return null;
+		Link var1 = this.sentinel.previous; // L: 23
+		if (var1 == this.sentinel) { // L: 24
+			this.current = null; // L: 25
+			return null; // L: 26
 		} else {
-			this.current = var1.previous;
-			return var1;
+			this.current = var1.previous; // L: 28
+			return var1; // L: 29
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "()Lmq;"
+		descriptor = "()Lmk;"
 	)
 	@Export("previous")
 	public Link previous() {
-		Link var1 = this.current;
-		if (var1 == this.sentinel) {
-			this.current = null;
-			return null;
+		Link var1 = this.current; // L: 33
+		if (var1 == this.sentinel) { // L: 34
+			this.current = null; // L: 35
+			return null; // L: 36
 		} else {
-			this.current = var1.previous;
-			return var1;
+			this.current = var1.previous; // L: 38
+			return var1; // L: 39
 		}
 	}
 }

@@ -4,31 +4,24 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kq")
+@ObfuscatedName("km")
 @Implements("GrandExchangeOfferNameComparator")
 final class GrandExchangeOfferNameComparator implements Comparator {
-	@ObfuscatedName("re")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Leb;"
-	)
-	@Export("guestClanChannel")
-	static ClanChannel guestClanChannel;
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Lkd;Lkd;I)I",
-		garbageValue = "-1248352964"
+		descriptor = "(Lkt;Lkt;B)I",
+		garbageValue = "48"
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		return var1.getOfferName().compareTo(var2.getOfferName());
-	}
-
-	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
+		return var1.getOfferName().compareTo(var2.getOfferName()); // L: 56
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1);
+		return super.equals(var1); // L: 64
+	}
+
+	public int compare(Object var1, Object var2) {
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 60
 	}
 }

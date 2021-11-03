@@ -3,82 +3,42 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("kr")
+@ObfuscatedName("kj")
 @Implements("NetFileRequest")
 public class NetFileRequest extends DualNode {
-	@ObfuscatedName("bn")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "[Loz;"
-	)
-	@Export("worldSelectFlagSprites")
-	static IndexedSprite[] worldSelectFlagSprites;
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "Lky;"
+		descriptor = "Lkd;"
 	)
 	@Export("archive")
 	public Archive archive;
-	@ObfuscatedName("q")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 782629149
+		intValue = 1566075383
 	)
 	@Export("crc")
 	public int crc;
-	@ObfuscatedName("f")
+	@ObfuscatedName("s")
 	@Export("padding")
 	public byte padding;
 
 	NetFileRequest() {
-	}
+	} // L: 10
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(ILbe;ZB)I",
-		garbageValue = "32"
+		descriptor = "(II)Log;",
+		garbageValue = "-1401189412"
 	)
-	static int method5215(int var0, Script var1, boolean var2) {
-		Widget var3 = HealthBarUpdate.getWidget(Interpreter.Interpreter_intStack[--AbstractByteArrayCopier.Interpreter_intStackSize]);
-		if (var0 == ScriptOpcodes.IF_GETTARGETMASK) {
-			Interpreter.Interpreter_intStack[++AbstractByteArrayCopier.Interpreter_intStackSize - 1] = Interpreter.Widget_unpackTargetMask(WorldMapRegion.getWidgetFlags(var3));
-			return 1;
-		} else if (var0 != ScriptOpcodes.IF_GETOP) {
-			if (var0 == ScriptOpcodes.IF_GETOPBASE) {
-				if (var3.dataText == null) {
-					Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = "";
-				} else {
-					Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = var3.dataText;
-				}
-
-				return 1;
-			} else {
-				return 2;
-			}
+	public static class392 method5300(int var0) {
+		int var1 = class390.field4266[var0]; // L: 11
+		if (var1 == 1) { // L: 12
+			return class392.field4276; // L: 13
+		} else if (var1 == 2) { // L: 15
+			return class392.field4271; // L: 16
 		} else {
-			int var4 = Interpreter.Interpreter_intStack[--AbstractByteArrayCopier.Interpreter_intStackSize];
-			--var4;
-			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) {
-				Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = var3.actions[var4];
-			} else {
-				Interpreter.Interpreter_stringStack[++class54.Interpreter_stringStackSize - 1] = "";
-			}
-
-			return 1;
+			return var1 == 3 ? class392.field4270 : null; // L: 18 19 21
 		}
-	}
-
-	@ObfuscatedName("jc")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1769707986"
-	)
-	static void method5216(int var0) {
-		class137.tempMenuAction = new MenuAction();
-		class137.tempMenuAction.param0 = Client.menuArguments1[var0];
-		class137.tempMenuAction.param1 = Client.menuArguments2[var0];
-		class137.tempMenuAction.opcode = Client.menuOpcodes[var0];
-		class137.tempMenuAction.identifier = Client.menuIdentifiers[var0];
-		class137.tempMenuAction.action = Client.menuActions[var0];
 	}
 }

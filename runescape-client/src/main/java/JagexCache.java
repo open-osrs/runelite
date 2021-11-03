@@ -1,55 +1,55 @@
 import java.io.File;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eg")
+@ObfuscatedName("er")
 @Implements("JagexCache")
 public class JagexCache {
-	@ObfuscatedName("j")
-	@Export("JagexCache_locationFile")
-	static File JagexCache_locationFile;
-	@ObfuscatedName("m")
+	@ObfuscatedName("tm")
+	@ObfuscatedSignature(
+		descriptor = "Lkx;"
+	)
+	@Export("grandExchangeEvents")
+	static GrandExchangeEvents grandExchangeEvents;
+	@ObfuscatedName("o")
 	@Export("cacheDir")
 	static File cacheDir;
-	@ObfuscatedName("w")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lnq;"
+		descriptor = "Lnw;"
 	)
 	@Export("JagexCache_randomDat")
 	public static BufferedFile JagexCache_randomDat;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lnq;"
+		descriptor = "Lnw;"
 	)
 	@Export("JagexCache_dat2File")
 	public static BufferedFile JagexCache_dat2File;
-	@ObfuscatedName("v")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lnq;"
+		descriptor = "Lnw;"
 	)
 	@Export("JagexCache_idx255File")
 	public static BufferedFile JagexCache_idx255File;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "[Lnq;"
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = 1050074169
 	)
-	@Export("JagexCache_idxFiles")
-	public static BufferedFile[] JagexCache_idxFiles;
+	@Export("cacheGamebuild")
+	static int cacheGamebuild;
+	@ObfuscatedName("m")
+	@Export("operatingSystemName")
+	static String operatingSystemName;
+	@ObfuscatedName("fn")
+	static String field1560;
 
 	static {
-		JagexCache_randomDat = null;
-		JagexCache_dat2File = null;
-		JagexCache_idx255File = null;
-	}
-
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1155193506"
-	)
-	public static int method2815() {
-		return KeyHandler.KeyHandler_idleCycles;
+		JagexCache_randomDat = null; // L: 22
+		JagexCache_dat2File = null; // L: 23
+		JagexCache_idx255File = null; // L: 24
 	}
 }
