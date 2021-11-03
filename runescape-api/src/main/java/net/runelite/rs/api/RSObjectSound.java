@@ -10,7 +10,7 @@ public interface RSObjectSound
 	@Import("y")
 	int getY();
 
-	@Import("maxY")
+	@Import("maxX")
 	int getMaxX();
 
 	@Import("maxY")
