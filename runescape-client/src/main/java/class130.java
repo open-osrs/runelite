@@ -59,14 +59,14 @@ public class class130 extends class116 {
 		for (ObjectSound var4 = (ObjectSound)ObjectSound.objectSounds.last(); var4 != null; var4 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 85
 			if (var4.soundEffectId != -1 || var4.soundEffectIds != null) { // L: 86
 				int var5 = 0; // L: 87
-				if (var1 > var4.field771) { // L: 88
-					var5 += var1 - var4.field771;
+				if (var1 > var4.maxX) { // L: 88
+					var5 += var1 - var4.maxX;
 				} else if (var1 < var4.x) { // L: 89
 					var5 += var4.x - var1;
 				}
 
-				if (var2 > var4.field772) { // L: 90
-					var5 += var2 - var4.field772;
+				if (var2 > var4.maxY) { // L: 90
+					var5 += var2 - var4.maxY;
 				} else if (var2 < var4.y) { // L: 91
 					var5 += var4.y - var2;
 				}

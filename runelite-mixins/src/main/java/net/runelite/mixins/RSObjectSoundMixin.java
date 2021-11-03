@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,31 +22,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.rs.api;
+package net.runelite.mixins;
 
-import net.runelite.api.Deque;
-import net.runelite.mapping.Import;
+import net.runelite.api.coords.LocalPoint;
+import net.runelite.api.mixins.Inject;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.rs.api.RSObjectSound;
 
-public interface RSNodeDeque extends Deque
+@Mixin(RSObjectSound.class)
+public abstract class RSObjectSoundMixin implements RSObjectSound
 {
-	@Import("current")
-	RSNode getCurrent();
+	@Inject
+	public LocalPoint getMinPosition()
+	{
+		return new LocalPoint(getX(), getY());
+	}
 
-	@Import("sentinel")
-	RSNode getSentinel();
-
-	@Import("last")
-	RSNode last();
-
-	@Import("previous")
-	RSNode previous();
-
-	@Import("addFirst")
-	void addFirst(RSNode val);
-
-	@Import("removeLast")
-	RSNode removeLast();
-
-	@Import("clear")
-	void clear();
+	@Inject
+	public LocalPoint getMaxPosition()
+	{
+		return new LocalPoint(getMaxX(), getMaxY());
+	}
 }

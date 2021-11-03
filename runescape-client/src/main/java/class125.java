@@ -63,8 +63,8 @@ public class class125 extends class116 {
 			var7 = var3.sizeX; // L: 67
 		}
 
-		var5.field771 = (var6 + var1) * 128; // L: 69
-		var5.field772 = (var7 + var2) * 128; // L: 70
+		var5.maxX = (var6 + var1) * 128; // L: 69
+		var5.maxY = (var7 + var2) * 128; // L: 70
 		var5.soundEffectId = var3.ambientSoundId; // L: 71
 		var5.field773 = var3.int7 * 128; // L: 72
 		var5.field767 = var3.int5; // L: 73
