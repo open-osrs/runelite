@@ -110,7 +110,7 @@ subprojects {
 
         configure<CheckstyleExtension> {
             maxWarnings = 0
-            toolVersion = "8.25"
+            toolVersion = "9.1"
             isShowViolations = true
             isIgnoreFailures = false
         }
