@@ -1477,6 +1477,8 @@ public interface RSClient extends RSGameEngine, Client
 
 	boolean isUnlockedFps();
 
+	long getUnlockedFpsTarget();
+
 	void posToCameraAngle(int var0, int var1);
 
 	@Import("objectSounds")

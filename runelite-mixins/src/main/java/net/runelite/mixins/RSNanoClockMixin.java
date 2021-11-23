@@ -25,6 +25,7 @@
 package net.runelite.mixins;
 
 import net.runelite.api.mixins.Copy;
+import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
@@ -36,6 +37,9 @@ public abstract class RSNanoClockMixin implements RSNanoClock
 {
 	@Shadow("client")
 	private static RSClient client;
+
+	@Inject
+	private long tmpNanoTime;
 
 	@Copy("wait")
 	@Replace("wait")
@@ -49,16 +53,42 @@ public abstract class RSNanoClockMixin implements RSNanoClock
 		{
 			long nanoTime = System.nanoTime();
 
-			if (nanoTime < getLastTimeNano())
+			if (nanoTime >= getLastTimeNano() && nanoTime >= tmpNanoTime)
 			{
-				setLastTimeNano(nanoTime);
+				long cycleDuration;
+				long diff;
 
-				return 1;
-			}
-			else
-			{
-				long cycleDuration = (long) cycleDurationMillis * 1000000L;
-				long diff = nanoTime - getLastTimeNano();
+				if (client.getUnlockedFpsTarget() > 0L)
+				{
+					cycleDuration = nanoTime - tmpNanoTime;
+					diff = client.getUnlockedFpsTarget() - cycleDuration;
+					diff /= 1000000L;
+					if (diff > 0L)
+					{
+						try
+						{
+							if (diff % 10L == 0L)
+							{
+								Thread.sleep(diff - 1L);
+								Thread.sleep(1L);
+							}
+							else
+							{
+								Thread.sleep(diff);
+							}
+						}
+						catch (InterruptedException var22)
+						{
+						}
+
+						nanoTime = System.nanoTime();
+					}
+				}
+
+				tmpNanoTime = nanoTime;
+
+				cycleDuration = (long) cycleDurationMillis * 1000000L;
+				diff = nanoTime - getLastTimeNano();
 
 				int cycles = (int) (diff / cycleDuration);
 
@@ -70,6 +100,12 @@ public abstract class RSNanoClockMixin implements RSNanoClock
 				}
 
 				return cycles;
+			}
+			else
+			{
+				setLastTimeNano(tmpNanoTime = nanoTime);
+
+				return 1;
 			}
 		}
 	}

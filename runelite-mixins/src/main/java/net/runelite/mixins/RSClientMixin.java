@@ -283,6 +283,9 @@ public abstract class RSClientMixin implements RSClient
 	public long lastNanoTime;
 
 	@Inject
+	public long delayNanoTime;
+
+	@Inject
 	private List<String> outdatedScripts = new ArrayList<>();
 
 	@Inject
@@ -2445,6 +2448,30 @@ public abstract class RSClientMixin implements RSClient
 		{
 			posToCameraAngle(client.getMapAngle(), client.getCameraPitch());
 		}
+		else
+		{
+			delayNanoTime = 0L;
+		}
+	}
+
+	@Inject
+	public void setUnlockedFpsTarget(int var1)
+	{
+		if (var1 <= 0)
+		{
+			delayNanoTime = 0L;
+		}
+		else
+		{
+			delayNanoTime = 1000000000L / (long) var1;
+		}
+	}
+
+	@Inject
+	@Override
+	public long getUnlockedFpsTarget()
+	{
+		return delayNanoTime;
 	}
 
 	@Inject
