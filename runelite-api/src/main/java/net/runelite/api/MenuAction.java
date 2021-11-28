@@ -234,6 +234,11 @@ public enum MenuAction
 	SPELL_CAST_ON_WIDGET(58),
 
 	/**
+	 * Menu action for high priority runelite options
+	 */
+	RUNELITE_HIGH_PRIORITY(999),
+
+	/**
 	 * Sub 1000 so it doesn't get sorted down in the list
 	 */
 	PRIO_RUNELITE(666),

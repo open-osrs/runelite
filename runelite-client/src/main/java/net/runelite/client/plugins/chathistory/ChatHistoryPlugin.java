@@ -275,26 +275,24 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 
 		final MenuEntry clearEntry = new MenuEntry();
 		clearEntry.setTarget("");
-		clearEntry.setType(MenuAction.RUNELITE.getId());
+		clearEntry.setType(MenuAction.RUNELITE_HIGH_PRIORITY.getId());
 		clearEntry.setParam0(entry.getActionParam0());
-		clearEntry.setParam1(entry.getParam1());
+		clearEntry.setParam1(entry.getActionParam1());
 
-		if (tab == ChatboxTab.GAME)
-		{
-			// keep type as the original CC_OP to correctly group "Game: Clear history" with
-			// other tab "Game: *" options.
-			clearEntry.setType(entry.getType());
-		}
-
-		final StringBuilder messageBuilder = new StringBuilder();
-
+		final StringBuilder optionBuilder = new StringBuilder();
 		if (tab != ChatboxTab.ALL)
 		{
-			messageBuilder.append(ColorUtil.wrapWithColorTag(tab.getName() + ": ", Color.YELLOW));
+			// Pull tab name from menu since Trade/Group is variable
+			String option = entry.getOption();
+			int idx = option.indexOf(':');
+			if (idx != -1)
+			{
+				optionBuilder.append(option, 0, idx).append(":</col> ");
+			}
 		}
 
-		messageBuilder.append(CLEAR_HISTORY);
-		clearEntry.setOption(messageBuilder.toString());
+		optionBuilder.append(CLEAR_HISTORY);
+		clearEntry.setOption(optionBuilder.toString());
 
 		final MenuEntry[] menuEntries = client.getMenuEntries();
 		client.setMenuEntries(ArrayUtils.insert(menuEntries.length - 1, menuEntries, clearEntry));
@@ -330,7 +328,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 		boolean removed = false;
 		for (ChatMessageType msgType : tab.getMessageTypes())
 		{
-			final ChatLineBuffer lineBuffer = client.getChatLineMap().get(msgType.getType());
+			final ChatLineBuffer lineBuffer = client.getChatLineMap().get(toRealType(msgType).getType());
 			if (lineBuffer == null)
 			{
 				continue;
@@ -339,7 +337,8 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 			final MessageNode[] lines = lineBuffer.getLines().clone();
 			for (final MessageNode line : lines)
 			{
-				if (line != null)
+				// check the type because gim and clan chat are shared in the same line buffer
+				if (line != null && line.getType() == msgType)
 				{
 					lineBuffer.removeMessageNode(line);
 					removed = true;
@@ -351,6 +350,20 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 		{
 			// this rebuilds both the chatbox and the pmbox
 			clientThread.invoke(() -> client.runScript(ScriptID.SPLITPM_CHANGED));
+		}
+	}
+
+	private ChatMessageType toRealType(ChatMessageType type)
+	{
+		switch (type)
+		{
+			// gim chat/message are actually in the clan chat/message line buffers
+			case CLAN_GIM_CHAT:
+				return ChatMessageType.CLAN_CHAT;
+			case CLAN_GIM_MESSAGE:
+				return ChatMessageType.CLAN_MESSAGE;
+			default:
+				return type;
 		}
 	}
 
