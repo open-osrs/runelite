@@ -46,7 +46,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
@@ -71,17 +70,14 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.events.ConfigButtonClicked;
@@ -119,7 +115,6 @@ import net.runelite.client.ui.components.ToggleButton;
 import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.client.util.DeferredDocumentChangedListener;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.SwingUtil;
@@ -463,9 +458,21 @@ class ConfigPanel extends PluginPanel
 			PluginListItem.addLabelPopupMenu(configEntryName, createResetMenuItem(pluginConfig, cid));
 			item.add(configEntryName, BorderLayout.CENTER);
 
-			if (cid.getType() == boolean.class)
+			if (cid.getType() == Button.class)
 			{
-				item.add(createSlider(cd, cid), BorderLayout.EAST);
+				try
+				{
+					item.add(createButton(cd, cid));
+				}
+				catch (Exception ex)
+				{
+					log.error("Adding action listener failed: {}", ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+			else if (cid.getType() == boolean.class)
+			{
+				item.add(createCheckbox(cd, cid), BorderLayout.EAST);
 			}
 			else if (cid.getType() == Consumer.class)
 			{
@@ -544,22 +551,27 @@ class ConfigPanel extends PluginPanel
 		revalidate();
 	}
 
+	private JButton createButton(ConfigDescriptor cd, ConfigItemDescriptor cid)
+	{
+			ConfigItem cidItem = cid.getItem();
+			JButton button = new JButton(cidItem.name());
+			button.addActionListener((e) ->
+			{
+				ConfigButtonClicked event = new ConfigButtonClicked();
+				event.setGroup(cd.getGroup().value());
+				event.setKey(cid.getItem().keyName());
+				eventBus.post(event);
+			});
+		return button;
+	}
+
 	private JCheckBox createCheckbox(ConfigDescriptor cd, ConfigItemDescriptor cid)
 	{
-		JCheckBox checkbox = new JCheckBox();
-		checkbox.setBackground(ColorScheme.LIGHT_GRAY_COLOR);
+		JCheckBox checkbox = new ToggleButton();
+		checkbox.setPreferredSize(new Dimension(26, 25));
 		checkbox.setSelected(Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName())));
 		checkbox.addActionListener(ae -> changeConfiguration(checkbox, cd, cid));
 		return checkbox;
-	}
-
-	private JCheckBox createSlider(ConfigDescriptor cd, ConfigItemDescriptor cid)
-	{
-		JCheckBox slider = new ToggleButton();
-		slider.setPreferredSize(new Dimension(26, 25));
-		slider.setSelected(Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName())));
-		slider.addActionListener(ae -> changeConfiguration(slider, cd, cid));
-		return slider;
 	}
 
 	private JButton createConsumer(ConfigDescriptor cd, ConfigItemDescriptor cid)
