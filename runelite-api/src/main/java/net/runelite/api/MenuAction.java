@@ -239,6 +239,11 @@ public enum MenuAction
 	PRIO_RUNELITE(666),
 
 	/**
+	 * Menu action for high priority runelite options
+	 */
+	RUNELITE_HIGH_PRIORITY(999),
+
+	/**
 	 * Menu action triggered by examining an object.
 	 */
 	EXAMINE_OBJECT(1002),
