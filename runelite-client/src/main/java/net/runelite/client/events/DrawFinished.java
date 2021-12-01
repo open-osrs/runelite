@@ -28,5 +28,5 @@ import java.awt.Image;
 
 public class DrawFinished
 {
-    public Image image;
+	public Image image;
 }
