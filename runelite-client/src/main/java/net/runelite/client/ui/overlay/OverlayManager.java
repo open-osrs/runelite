@@ -318,6 +318,7 @@ public class OverlayManager
 				case ABOVE_SCENE:
 				case UNDER_WIDGETS:
 				case ALWAYS_ON_TOP:
+				case AFTER_MIRROR:
 					overlayMap.put(layer, overlay);
 					break;
 				case ABOVE_WIDGETS:
