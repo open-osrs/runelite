@@ -24,9 +24,11 @@
  */
 package net.runelite.client.plugins.config;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
+import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
@@ -44,12 +46,15 @@ import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 import javax.inject.Inject;
@@ -61,6 +66,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -70,6 +76,8 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.ListCellRenderer;
+import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -119,6 +127,7 @@ import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.SwingUtil;
 import net.runelite.client.util.Text;
+import org.apache.commons.lang3.ArrayUtils;
 
 @Slf4j
 class ConfigPanel extends PluginPanel
@@ -175,9 +184,19 @@ class ConfigPanel extends PluginPanel
 		SECTION_RETRACT_ICON_HOVER = new ImageIcon(ImageUtil.alphaOffset(sectionExpandIcon, -100));
 	}
 
-	public ConfigPanel()
+	private final ListCellRenderer<Enum<?>> listCellRenderer = new ComboBoxListRenderer<>();
+
+	@Inject
+	private ConfigPanel(PluginListPanel pluginList, ConfigManager configManager, PluginManager pluginManager,
+		ExternalPluginManager externalPluginManager, ColorPickerManager colorPickerManager)
 	{
 		super(false);
+
+		this.pluginList = pluginList;
+		this.configManager = configManager;
+		this.pluginManager = pluginManager;
+		this.externalPluginManager = externalPluginManager;
+		this.colorPickerManager = colorPickerManager;
 
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -443,7 +462,7 @@ class ConfigPanel extends PluginPanel
 
 		for (ConfigItemDescriptor cid : cd.getItems())
 		{
-			if (!hideUnhide(cid))
+			if (cid.getItem().hidden())
 			{
 				continue;
 			}
@@ -499,13 +518,21 @@ class ConfigPanel extends PluginPanel
 			{
 				item.add(createDimension(cd, cid), BorderLayout.EAST);
 			}
-			else if (cid.getType().isEnum())
+			else if (cid.getType() instanceof Class && ((Class<?>) cid.getType()).isEnum())
 			{
 				item.add(createComboBox(cd, cid), BorderLayout.EAST);
 			}
 			else if (cid.getType() == Keybind.class || cid.getType() == ModifierlessKeybind.class)
 			{
 				item.add(createKeybind(cd, cid), BorderLayout.EAST);
+			}
+			else if (cid.getType() instanceof ParameterizedType)
+			{
+				ParameterizedType parameterizedType = (ParameterizedType) cid.getType();
+				if (parameterizedType.getRawType() == Set.class)
+				{
+					item.add(createList(cd, cid), BorderLayout.EAST);
+				}
 			}
 
 			JPanel section = sectionWidgets.get(cid.getItem().section());
@@ -747,7 +774,7 @@ class ConfigPanel extends PluginPanel
 		// set renderer prior to calling box.getPreferredSize(), since it will invoke the renderer
 		// to build components for each combobox element in order to compute the display size of the
 		// combobox
-		box.setRenderer(new ComboBoxListRenderer<>());
+		box.setRenderer(listCellRenderer);
 		box.setPreferredSize(new Dimension(box.getPreferredSize().width, 25));
 		box.setForeground(Color.WHITE);
 		box.setFocusable(false);
@@ -760,7 +787,7 @@ class ConfigPanel extends PluginPanel
 		}
 		catch (IllegalArgumentException ex)
 		{
-			log.debug("invalid seleced item", ex);
+			log.debug("invalid selected item", ex);
 		}
 		box.addItemListener(e ->
 		{
@@ -859,6 +886,34 @@ class ConfigPanel extends PluginPanel
 		rebuild();
 	}
 
+	private JList<Enum<?>> createList(ConfigDescriptor cd, ConfigItemDescriptor cid)
+	{
+		ParameterizedType parameterizedType = (ParameterizedType) cid.getType();
+		Class<? extends Enum> type = (Class<? extends Enum>) parameterizedType.getActualTypeArguments()[0];
+		Set<? extends Enum> set = configManager.getConfiguration(cd.getGroup().value(), null,
+			cid.getItem().keyName(), parameterizedType);
+
+		JList<Enum<?>> list = new JList<Enum<?>>(type.getEnumConstants()); // NOPMD: UseDiamondOperator
+		list.setCellRenderer(listCellRenderer);
+		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		list.setLayoutOrientation(JList.VERTICAL);
+		list.setSelectedIndices(
+			MoreObjects.firstNonNull(set, Collections.emptySet())
+				.stream()
+				.mapToInt(e -> ArrayUtils.indexOf(type.getEnumConstants(), e))
+				.toArray());
+		list.addFocusListener(new FocusAdapter()
+		{
+			@Override
+			public void focusLost(FocusEvent e)
+			{
+				changeConfiguration(list, cd, cid);
+			}
+		});
+
+		return list;
+	}
+
 	private void changeConfiguration(Component component, ConfigDescriptor cd, ConfigItemDescriptor cid)
 	{
 		final ConfigItem configItem = cid.getItem();
@@ -910,6 +965,13 @@ class ConfigPanel extends PluginPanel
 		{
 			HotkeyButton hotkeyButton = (HotkeyButton) component;
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), hotkeyButton.getValue());
+		}
+		else if (component instanceof JList)
+		{
+			JList<?> list = (JList<?>) component;
+			List<?> selectedValues = list.getSelectedValuesList();
+
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), Sets.newHashSet(selectedValues));
 		}
 
 		enableDisable(component, cid);
