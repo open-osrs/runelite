@@ -741,16 +741,6 @@ public class ConfigManager
 					continue; // something else is already set
 				}
 			}
-				if (!override)
-				{
-					// This checks if it is set and is also unmarshallable to the correct type; so
-					// we will overwrite invalid config values with the default
-					Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
-					if (current != null)
-					{
-						continue; // something else is already set
-					}
-				}
 
 				Object defaultValue;
 				try
