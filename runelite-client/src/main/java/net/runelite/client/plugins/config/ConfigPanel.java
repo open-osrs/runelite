@@ -462,7 +462,7 @@ class ConfigPanel extends PluginPanel
 
 		for (ConfigItemDescriptor cid : cd.getItems())
 		{
-			if (cid.getItem().hidden())
+			if (!hideUnhide(cid))
 			{
 				continue;
 			}
@@ -1050,7 +1050,7 @@ class ConfigPanel extends PluginPanel
 					{
 						show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
 					}
-					else if (cid2.getType().isEnum())
+					else if (cid2.getType() instanceof Class && ((Class<?>) cid2.getType()).isEnum())
 					{
 						Class<? extends Enum> type = (Class<? extends Enum>) cid2.getType();
 						try

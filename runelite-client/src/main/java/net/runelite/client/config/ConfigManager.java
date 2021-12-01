@@ -660,7 +660,7 @@ public class ConfigManager
 			.filter(m -> m.getParameterCount() == 0 && m.isAnnotationPresent(ConfigItem.class))
 			.map(m -> new ConfigItemDescriptor(
 				m.getDeclaredAnnotation(ConfigItem.class),
-				m.getReturnType(),
+				m.getGenericReturnType(),
 				m.getDeclaredAnnotation(Range.class),
 				m.getDeclaredAnnotation(Alpha.class),
 				m.getDeclaredAnnotation(Units.class)
