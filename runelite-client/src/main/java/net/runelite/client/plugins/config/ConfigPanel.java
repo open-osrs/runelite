@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.config;
 
-import com.google.common.base.Splitter;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
@@ -34,7 +33,6 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -48,7 +46,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
@@ -57,7 +54,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.function.Consumer;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -77,23 +73,18 @@ import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.events.ConfigButtonClicked;
-import net.runelite.client.config.Button;
 import net.runelite.client.config.ConfigDescriptor;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -127,7 +118,6 @@ import net.runelite.client.ui.components.ToggleButton;
 import net.runelite.client.ui.components.colorpicker.ColorPickerManager;
 import net.runelite.client.ui.components.colorpicker.RuneliteColorPicker;
 import net.runelite.client.util.ColorUtil;
-import net.runelite.client.util.DeferredDocumentChangedListener;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.SwingUtil;
@@ -150,6 +140,7 @@ class ConfigPanel extends PluginPanel
 	private final FixedWidthPanel mainPanel;
 	private final JLabel title;
 	private final PluginToggleButton pluginToggle;
+	private final ListCellRenderer<Enum<?>> listCellRenderer = new ComboBoxListRenderer<>();
 
 	@Inject
 	private PluginListPanel pluginList;
@@ -457,7 +448,7 @@ class ConfigPanel extends PluginPanel
 
 		for (ConfigItemDescriptor cid : cd.getItems())
 		{
-			if (!hideUnhide(cid))
+			if (cid.getItem().hidden())
 			{
 				continue;
 			}
@@ -559,8 +550,8 @@ class ConfigPanel extends PluginPanel
 
 	private JCheckBox createCheckbox(ConfigDescriptor cd, ConfigItemDescriptor cid)
 	{
-		JCheckBox checkbox = new JCheckBox();
-		checkbox.setBackground(ColorScheme.LIGHT_GRAY_COLOR);
+		JCheckBox checkbox = new ToggleButton();
+		checkbox.setPreferredSize(new Dimension(26, 25));
 		checkbox.setSelected(Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid.getItem().keyName())));
 		checkbox.addActionListener(ae -> changeConfiguration(checkbox, cd, cid));
 		return checkbox;
@@ -927,8 +918,6 @@ class ConfigPanel extends PluginPanel
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), Sets.newHashSet(selectedValues));
 		}
 
-		enableDisable(component, cid);
-		rebuild();
 	}
 
 	@Override
@@ -978,144 +967,9 @@ class ConfigPanel extends PluginPanel
 		return menuItem;
 	}
 
-	private boolean hideUnhide(ConfigItemDescriptor cid)
-	{
-		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
-
-		boolean unhide = cid.getItem().hidden();
-		boolean hide = !cid.getItem().hide().isEmpty();
-
-		if (unhide || hide)
-		{
-			boolean show = false;
-
-			List<String> itemHide = Splitter
-				.onPattern("\\|\\|")
-				.trimResults()
-				.omitEmptyStrings()
-				.splitToList(String.format("%s || %s", cid.getItem().unhide(), cid.getItem().hide()));
-
-			for (ConfigItemDescriptor cid2 : cd.getItems())
-			{
-				if (itemHide.contains(cid2.getItem().keyName()))
-				{
-					if (cid2.getType() == boolean.class)
-					{
-						show = Boolean.parseBoolean(configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
-					}
-					else if (cid2.getType().isEnum())
-					{
-						Class<? extends Enum> type = (Class<? extends Enum>) cid2.getType();
-						try
-						{
-							Enum selectedItem = Enum.valueOf(type, configManager.getConfiguration(cd.getGroup().value(), cid2.getItem().keyName()));
-							if (!cid.getItem().unhideValue().equals(""))
-							{
-								List<String> unhideValue = Splitter
-									.onPattern("\\|\\|")
-									.trimResults()
-									.omitEmptyStrings()
-									.splitToList(cid.getItem().unhideValue());
-
-								show = unhideValue.contains(selectedItem.toString());
-							}
-							else if (!cid.getItem().hideValue().equals(""))
-							{
-								List<String> hideValue = Splitter
-									.onPattern("\\|\\|")
-									.trimResults()
-									.omitEmptyStrings()
-									.splitToList(cid.getItem().hideValue());
-
-								show = !hideValue.contains(selectedItem.toString());
-							}
-						}
-						catch (IllegalArgumentException ignored)
-						{
-						}
-					}
-				}
-			}
-
-			return (!unhide || show) && (!hide || !show);
-		}
-
-		return true;
-	}
-
-	private void enableDisable(Component component, ConfigItemDescriptor cid)
-	{
-		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
-
-		if (component instanceof JCheckBox)
-		{
-			JCheckBox checkbox = (JCheckBox) component;
-
-			for (ConfigItemDescriptor cid2 : cd.getItems())
-			{
-				if (checkbox.isSelected())
-				{
-					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()))
-					{
-						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
-					}
-					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()))
-					{
-						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
-					}
-				}
-			}
-		}
-		else if (component instanceof JComboBox)
-		{
-			JComboBox jComboBox = (JComboBox) component;
-
-			for (ConfigItemDescriptor cid2 : cd.getItems())
-			{
-				String changedVal = ((Enum) jComboBox.getSelectedItem()).name();
-
-				if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
-				{
-					configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
-				}
-				else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()) && cid2.getItem().disabledByValue().equals(changedVal))
-				{
-					configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
-				}
-			}
-		}
-	}
-
 	private static String htmlLabel(String key, String value)
 	{
 		return "<html><body style = 'color:#a5a5a5'>" + key + ": <span style = 'color:white'>" + value + "</span></body></html>";
 	}
 
-	public static Component findComponentByName(Component component, String componentName)
-	{
-		if (component == null)
-		{
-			return null;
-		}
-
-		if (component.getName() != null && component.getName().equalsIgnoreCase(componentName))
-		{
-			return component;
-		}
-
-		if (component instanceof Container)
-		{
-			Component[] children = ((Container) component).getComponents();
-			for (Component child : children)
-			{
-				Component found = findComponentByName(child, componentName);
-				if (found != null)
-				{
-					return found;
-				}
-			}
-		}
-
-		return null;
-	}
 }
