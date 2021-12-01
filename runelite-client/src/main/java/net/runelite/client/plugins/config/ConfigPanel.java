@@ -85,6 +85,8 @@ import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.events.ConfigButtonClicked;
+import net.runelite.client.config.Button;
 import net.runelite.client.config.ConfigDescriptor;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -464,7 +466,19 @@ class ConfigPanel extends PluginPanel
 			item.add(configEntryName, BorderLayout.CENTER);
 			item.setName(cid.getItem().keyName());
 
-			if (cid.getType() == boolean.class)
+			if (cid.getType() == Button.class)
+			{
+				try
+				{
+					item.add(createButton(cd, cid));
+				}
+				catch (Exception ex)
+				{
+					log.error("Adding action listener failed: {}", ex.getMessage());
+					ex.printStackTrace();
+				}
+			}
+			else if (cid.getType() == boolean.class)
 			{
 				item.add(createCheckbox(cd, cid), BorderLayout.EAST);
 			}
@@ -546,6 +560,20 @@ class ConfigPanel extends PluginPanel
 		mainPanel.add(backButton);
 
 		revalidate();
+	}
+
+	private JButton createButton(ConfigDescriptor cd, ConfigItemDescriptor cid)
+	{
+		ConfigItem cidItem = cid.getItem();
+		JButton button = new JButton(cidItem.name());
+		button.addActionListener((e) ->
+		{
+			ConfigButtonClicked event = new ConfigButtonClicked();
+			event.setGroup(cd.getGroup().value());
+			event.setKey(cid.getItem().keyName());
+			eventBus.post(event);
+		});
+		return button;
 	}
 
 	private JCheckBox createCheckbox(ConfigDescriptor cd, ConfigItemDescriptor cid)
