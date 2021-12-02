@@ -34,7 +34,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -69,7 +68,7 @@ class WorldSwitcherPanel extends PluginPanel
 	@Setter(AccessLevel.PACKAGE)
 	private SubscriptionFilterMode subscriptionFilterMode;
 	@Setter(AccessLevel.PACKAGE)
-	private Set<RegionFilterMode> regionFilterMode;
+	private RegionFilterMode regionFilterMode;
 
 	WorldSwitcherPanel(WorldHopperPlugin plugin)
 	{
@@ -250,7 +249,7 @@ class WorldSwitcherPanel extends PluginPanel
 					break;
 			}
 
-			if (!regionFilterMode.isEmpty() && !regionFilterMode.contains(RegionFilterMode.of(world.getRegion())))
+			if (regionFilterMode.getRegion() != null && !regionFilterMode.getRegion().equals(world.getRegion()))
 			{
 				continue;
 			}
@@ -378,20 +377,20 @@ class WorldSwitcherPanel extends PluginPanel
 	private WorldTableRow buildRow(World world, boolean stripe, boolean current, boolean favorite)
 	{
 		WorldTableRow row = new WorldTableRow(world, current, favorite, plugin.getStoredPing(world),
-			plugin::hopTo,
-			(world12, add) ->
-			{
-				if (add)
+				plugin::hopTo,
+				(world12, add) ->
 				{
-					plugin.addToFavorites(world12);
-				}
-				else
-				{
-					plugin.removeFromFavorites(world12);
-				}
+					if (add)
+					{
+						plugin.addToFavorites(world12);
+					}
+					else
+					{
+						plugin.removeFromFavorites(world12);
+					}
 
-				updateList();
-			}
+					updateList();
+				}
 		);
 		row.setBackground(stripe ? ODD_ROW : ColorScheme.DARK_GRAY_COLOR);
 		return row;
