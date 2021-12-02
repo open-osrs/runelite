@@ -423,6 +423,11 @@ public class ConfigManager
 		return getConfiguration(groupName, null, key, clazz);
 	}
 
+	public <T> T getConfiguration(String groupName, String key, Class<T> clazz)
+	{
+		return getConfiguration(groupName, null, key, clazz);
+	}
+
 	public <T> T getRSProfileConfiguration(String groupName, String key, Type clazz)
 	{
 		String rsProfileKey = this.rsProfileKey;
