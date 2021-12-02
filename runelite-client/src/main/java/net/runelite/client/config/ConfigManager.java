@@ -339,8 +339,8 @@ public class ConfigManager
 		File tempFile = File.createTempFile("runelite", null, parent);
 
 		try (FileOutputStream out = new FileOutputStream(tempFile);
-			 FileChannel channel = out.getChannel();
-			 OutputStreamWriter writer = new OutputStreamWriter(out, StandardCharsets.UTF_8))
+			FileChannel channel = out.getChannel();
+			OutputStreamWriter writer = new OutputStreamWriter(out, StandardCharsets.UTF_8))
 		{
 			channel.lock();
 			properties.store(writer, "RuneLite configuration");
