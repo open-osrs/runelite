@@ -787,7 +787,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 		{
 			overlayDimension = overlay.render(graphics);
 		}
-		catch (Exception ex)
+		catch (Error ex)
 		{
 			log.warn(DEDUPLICATE, "Error during overlay rendering", ex);
 			return;
