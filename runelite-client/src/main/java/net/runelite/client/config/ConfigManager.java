@@ -30,7 +30,6 @@ import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
-import com.google.gson.Gson;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
@@ -45,9 +44,7 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
-import java.lang.reflect.Type;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.AtomicMoveNotSupportedException;
@@ -131,7 +128,6 @@ public class ConfigManager
 	private final File settingsFileInput;
 	private final EventBus eventBus;
 	private final OkHttpClient okHttpClient;
-	private final Gson gson;
 
 	private AccountSession session;
 	private ConfigClient configClient;
@@ -152,19 +148,17 @@ public class ConfigManager
 
 	@Inject
 	public ConfigManager(
-		@Named("config") File config,
-		ScheduledExecutorService scheduledExecutorService,
-		EventBus eventBus,
-		OkHttpClient okHttpClient,
-		@Nullable Client client,
-		Gson gson)
+			@Named("config") File config,
+			ScheduledExecutorService scheduledExecutorService,
+			EventBus eventBus,
+			OkHttpClient okHttpClient,
+			@Nullable Client client)
 	{
 		this.settingsFileInput = config;
 		this.eventBus = eventBus;
 		this.okHttpClient = okHttpClient;
 		this.client = client;
 		this.propertiesFile = getPropertiesFile();
-		this.gson = gson;
 
 		scheduledExecutorService.scheduleWithFixedDelay(this::sendConfig, 30, 30, TimeUnit.SECONDS);
 	}
@@ -373,9 +367,9 @@ public class ConfigManager
 		}
 
 		T t = (T) Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]
-			{
-				clazz
-			}, handler);
+				{
+						clazz
+				}, handler);
 
 		return t;
 	}
@@ -418,17 +412,12 @@ public class ConfigManager
 		return properties.getProperty(getWholeKey(groupName, profile, key));
 	}
 
-	public <T> T getConfiguration(String groupName, String key, Type clazz)
-	{
-		return getConfiguration(groupName, null, key, clazz);
-	}
-
 	public <T> T getConfiguration(String groupName, String key, Class<T> clazz)
 	{
 		return getConfiguration(groupName, null, key, clazz);
 	}
 
-	public <T> T getRSProfileConfiguration(String groupName, String key, Type clazz)
+	public <T> T getRSProfileConfiguration(String groupName, String key, Class<T> clazz)
 	{
 		String rsProfileKey = this.rsProfileKey;
 		if (rsProfileKey == null)
@@ -439,14 +428,14 @@ public class ConfigManager
 		return getConfiguration(groupName, rsProfileKey, key, clazz);
 	}
 
-	public <T> T getConfiguration(String groupName, String profile, String key, Type type)
+	public <T> T getConfiguration(String groupName, String profile, String key, Class<T> clazz)
 	{
 		String value = getConfiguration(groupName, profile, key);
 		if (!Strings.isNullOrEmpty(value))
 		{
 			try
 			{
-				return (T) stringToObject(value, type);
+				return (T) stringToObject(value, clazz);
 			}
 			catch (Exception e)
 			{
@@ -499,12 +488,12 @@ public class ConfigManager
 		eventBus.post(configChanged);
 	}
 
-	public <T> void setConfiguration(String groupName, String profile, String key, T value)
+	public void setConfiguration(String groupName, String profile, String key, Object value)
 	{
 		setConfiguration(groupName, profile, key, objectToString(value));
 	}
 
-	public <T> void setConfiguration(String groupName, String key, T value)
+	public void setConfiguration(String groupName, String key, Object value)
 	{
 		// do not save consumers for buttons, they cannot be changed anyway
 		if (value instanceof Consumer)
@@ -515,7 +504,7 @@ public class ConfigManager
 		setConfiguration(groupName, null, key, value);
 	}
 
-	public <T> void setRSProfileConfiguration(String groupName, String key, T value)
+	public void setRSProfileConfiguration(String groupName, String key, Object value)
 	{
 		String rsProfileKey = this.rsProfileKey;
 		if (rsProfileKey == null)
@@ -610,67 +599,67 @@ public class ConfigManager
 		}
 
 		final List<ConfigSectionDescriptor> sections = getAllDeclaredInterfaceFields(inter).stream()
-			.filter(m -> m.isAnnotationPresent(ConfigSection.class) && m.getType() == String.class)
-			.map(m ->
-			{
-				try
+				.filter(m -> m.isAnnotationPresent(ConfigSection.class) && m.getType() == String.class)
+				.map(m ->
 				{
-					return new ConfigSectionDescriptor(
-						String.valueOf(m.get(inter)),
-						m.getDeclaredAnnotation(ConfigSection.class)
-					);
-				}
-				catch (IllegalAccessException e)
-				{
-					log.warn("Unable to load section {}::{}", inter.getSimpleName(), m.getName());
-					return null;
-				}
-			})
-			.filter(Objects::nonNull)
-			.sorted((a, b) -> ComparisonChain.start()
-				.compare(a.getSection().position(), b.getSection().position())
-				.compare(a.getSection().name(), b.getSection().name())
-				.result())
-			.collect(Collectors.toList());
+					try
+					{
+						return new ConfigSectionDescriptor(
+								String.valueOf(m.get(inter)),
+								m.getDeclaredAnnotation(ConfigSection.class)
+						);
+					}
+					catch (IllegalAccessException e)
+					{
+						log.warn("Unable to load section {}::{}", inter.getSimpleName(), m.getName());
+						return null;
+					}
+				})
+				.filter(Objects::nonNull)
+				.sorted((a, b) -> ComparisonChain.start()
+						.compare(a.getSection().position(), b.getSection().position())
+						.compare(a.getSection().name(), b.getSection().name())
+						.result())
+				.collect(Collectors.toList());
 
 		final List<ConfigTitleDescriptor> titles = getAllDeclaredInterfaceFields(inter).stream()
-			.filter(m -> m.isAnnotationPresent(ConfigTitle.class) && m.getType() == String.class)
-			.map(m ->
-			{
-				try
+				.filter(m -> m.isAnnotationPresent(ConfigTitle.class) && m.getType() == String.class)
+				.map(m ->
 				{
-					return new ConfigTitleDescriptor(
-						String.valueOf(m.get(inter)),
-						m.getDeclaredAnnotation(ConfigTitle.class)
-					);
-				}
-				catch (IllegalAccessException e)
-				{
-					log.warn("Unable to load title {}::{}", inter.getSimpleName(), m.getName());
-					return null;
-				}
-			})
-			.filter(Objects::nonNull)
-			.sorted((a, b) -> ComparisonChain.start()
-				.compare(a.getTitle().position(), b.getTitle().position())
-				.compare(a.getTitle().name(), b.getTitle().name())
-				.result())
-			.collect(Collectors.toList());
+					try
+					{
+						return new ConfigTitleDescriptor(
+								String.valueOf(m.get(inter)),
+								m.getDeclaredAnnotation(ConfigTitle.class)
+						);
+					}
+					catch (IllegalAccessException e)
+					{
+						log.warn("Unable to load title {}::{}", inter.getSimpleName(), m.getName());
+						return null;
+					}
+				})
+				.filter(Objects::nonNull)
+				.sorted((a, b) -> ComparisonChain.start()
+						.compare(a.getTitle().position(), b.getTitle().position())
+						.compare(a.getTitle().name(), b.getTitle().name())
+						.result())
+				.collect(Collectors.toList());
 
 		final List<ConfigItemDescriptor> items = Arrays.stream(inter.getMethods())
-			.filter(m -> m.getParameterCount() == 0 && m.isAnnotationPresent(ConfigItem.class))
-			.map(m -> new ConfigItemDescriptor(
-				m.getDeclaredAnnotation(ConfigItem.class),
-				m.getGenericReturnType(),
-				m.getDeclaredAnnotation(Range.class),
-				m.getDeclaredAnnotation(Alpha.class),
-				m.getDeclaredAnnotation(Units.class)
-			))
-			.sorted((a, b) -> ComparisonChain.start()
-				.compare(a.getItem().position(), b.getItem().position())
-				.compare(a.getItem().name(), b.getItem().name())
-				.result())
-			.collect(Collectors.toList());
+				.filter(m -> m.getParameterCount() == 0 && m.isAnnotationPresent(ConfigItem.class))
+				.map(m -> new ConfigItemDescriptor(
+						m.getDeclaredAnnotation(ConfigItem.class),
+						m.getReturnType(),
+						m.getDeclaredAnnotation(Range.class),
+						m.getDeclaredAnnotation(Alpha.class),
+						m.getDeclaredAnnotation(Units.class)
+				))
+				.sorted((a, b) -> ComparisonChain.start()
+						.compare(a.getItem().position(), b.getItem().position())
+						.compare(a.getItem().name(), b.getItem().name())
+						.result())
+				.collect(Collectors.toList());
 
 		return new ConfigDescriptor(group, sections, titles, items);
 	}
@@ -732,16 +721,16 @@ public class ConfigManager
 					continue;
 				}
 
-			if (!override)
-			{
-				// This checks if it is set and is also unmarshallable to the correct type; so
-				// we will overwrite invalid config values with the default
-				Object current = getConfiguration(group.value(), item.keyName(), method.getGenericReturnType());
-				if (current != null)
+				if (!override)
 				{
-					continue; // something else is already set
+					// This checks if it is set and is also unmarshallable to the correct type; so
+					// we will overwrite invalid config values with the default
+					Object current = getConfiguration(group.value(), item.keyName(), method.getReturnType());
+					if (current != null)
+					{
+						continue; // something else is already set
+					}
 				}
-			}
 
 				Object defaultValue;
 				try
@@ -771,7 +760,7 @@ public class ConfigManager
 		}
 	}
 
-	Object stringToObject(String str, Type type)
+	static Object stringToObject(String str, Class<?> type)
 	{
 		if (type == boolean.class || type == Boolean.class)
 		{
@@ -812,7 +801,7 @@ public class ConfigManager
 			int height = Integer.parseInt(splitStr[3]);
 			return new Rectangle(x, y, width, height);
 		}
-		if (type instanceof Class && ((Class<?>) type).isEnum())
+		if (type.isEnum())
 		{
 			return Enum.valueOf((Class<? extends Enum>) type, str);
 		}
@@ -846,14 +835,6 @@ public class ConfigManager
 		if (type == byte[].class)
 		{
 			return Base64.getUrlDecoder().decode(str);
-		}
-		if (type instanceof ParameterizedType)
-		{
-			ParameterizedType parameterizedType = (ParameterizedType) type;
-			if (parameterizedType.getRawType() == Set.class)
-			{
-				return gson.fromJson(str, parameterizedType);
-			}
 		}
 		if (type == EnumSet.class)
 		{
@@ -894,7 +875,7 @@ public class ConfigManager
 	}
 
 	@Nullable
-	String objectToString(Object object)
+	static String objectToString(Object object)
 	{
 		if (object instanceof Color)
 		{
@@ -940,10 +921,6 @@ public class ConfigManager
 		if (object instanceof byte[])
 		{
 			return Base64.getUrlEncoder().encodeToString((byte[]) object);
-		}
-		if (object instanceof Set)
-		{
-			return gson.toJson(object, Set.class);
 		}
 		if (object instanceof EnumSet)
 		{
@@ -1073,8 +1050,8 @@ public class ConfigManager
 			if (configClient != null)
 			{
 				Configuration patch = new Configuration(pendingChanges.entrySet().stream()
-					.map(e -> new ConfigEntry(e.getKey(), e.getValue()))
-					.collect(Collectors.toList()));
+						.map(e -> new ConfigEntry(e.getKey(), e.getValue()))
+						.collect(Collectors.toList()));
 
 				future = configClient.patch(patch);
 			}
@@ -1116,18 +1093,18 @@ public class ConfigManager
 		}
 
 		return profileKeys.stream()
-			.map(key ->
-			{
-				RuneScapeProfile prof = new RuneScapeProfile(
-					getConfiguration(RSPROFILE_GROUP, key, RSPROFILE_DISPLAY_NAME),
-					getConfiguration(RSPROFILE_GROUP, key, RSPROFILE_TYPE, RuneScapeProfileType.class),
-					getConfiguration(RSPROFILE_GROUP, key, RSPROFILE_LOGIN_HASH, byte[].class),
-					key
-				);
+				.map(key ->
+				{
+					RuneScapeProfile prof = new RuneScapeProfile(
+							getConfiguration(RSPROFILE_GROUP, key, RSPROFILE_DISPLAY_NAME),
+							getConfiguration(RSPROFILE_GROUP, key, RSPROFILE_TYPE, RuneScapeProfileType.class),
+							getConfiguration(RSPROFILE_GROUP, key, RSPROFILE_LOGIN_HASH, byte[].class),
+							key
+					);
 
-				return prof;
-			})
-			.collect(Collectors.toList());
+					return prof;
+				})
+				.collect(Collectors.toList());
 	}
 
 	private synchronized RuneScapeProfile findRSProfile(List<RuneScapeProfile> profiles, String username, RuneScapeProfileType type, String displayName, boolean create)
@@ -1137,7 +1114,7 @@ public class ConfigManager
 		{
 			salt = new byte[15];
 			new SecureRandom()
-				.nextBytes(salt);
+					.nextBytes(salt);
 			log.info("creating new salt as there is no existing one {}", Base64.getUrlEncoder().encodeToString(salt));
 			setConfiguration(RSPROFILE_GROUP, RSPROFILE_LOGIN_SALT, salt);
 		}
@@ -1148,8 +1125,8 @@ public class ConfigManager
 		byte[] loginHash = h.hash().asBytes();
 
 		Set<RuneScapeProfile> matches = profiles.stream()
-			.filter(p -> Arrays.equals(p.getLoginHash(), loginHash) && p.getType() == type)
-			.collect(Collectors.toSet());
+				.filter(p -> Arrays.equals(p.getLoginHash(), loginHash) && p.getType() == type)
+				.collect(Collectors.toSet());
 
 		if (matches.size() > 1)
 		{
@@ -1273,19 +1250,19 @@ public class ConfigManager
 		AtomicInteger changes = new AtomicInteger();
 		List<Predicate<String>> migrators = new ArrayList<>();
 		for (String[] tpl : new String[][]
-			{
-				{"(grandexchange)\\.buylimit_(%)\\.(#)", "$1.buylimit.$3"},
-				{"(timetracking)\\.(%)\\.(autoweed|contract)", "$1.$3"},
-				{"(timetracking)\\.(%)\\.(#\\.#)", "$1.$3"},
-				{"(timetracking)\\.(%)\\.(birdhouse)\\.(#)", "$1.$3.$4"},
-				{"(killcount|personalbest)\\.(%)\\.([^.]+)", "$1.$3"},
-				{"(geoffer)\\.(%)\\.(#)", "$1.$3"},
-			})
+				{
+						{"(grandexchange)\\.buylimit_(%)\\.(#)", "$1.buylimit.$3"},
+						{"(timetracking)\\.(%)\\.(autoweed|contract)", "$1.$3"},
+						{"(timetracking)\\.(%)\\.(#\\.#)", "$1.$3"},
+						{"(timetracking)\\.(%)\\.(birdhouse)\\.(#)", "$1.$3.$4"},
+						{"(killcount|personalbest)\\.(%)\\.([^.]+)", "$1.$3"},
+						{"(geoffer)\\.(%)\\.(#)", "$1.$3"},
+				})
 		{
 			String replace = tpl[1];
 			String pat = ("^" + tpl[0] + "$")
-				.replace("#", "-?[0-9]+")
-				.replace("(%)", "(?<login>.*)");
+					.replace("#", "-?[0-9]+")
+					.replace("(%)", "(?<login>.*)");
 			Pattern p = Pattern.compile(pat);
 
 			migrators.add(oldkey ->
@@ -1305,7 +1282,7 @@ public class ConfigManager
 				}
 
 				String profKey = profiles.computeIfAbsent(username, u ->
-					findRSProfile(getRSProfiles(), u, RuneScapeProfileType.STANDARD, u, true).getKey());
+						findRSProfile(getRSProfiles(), u, RuneScapeProfileType.STANDARD, u, true).getKey());
 
 				String[] oldKeySplit = splitKey(oldkey);
 				if (oldKeySplit == null)
