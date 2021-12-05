@@ -45,6 +45,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.AtomicMoveNotSupportedException;
@@ -417,6 +418,11 @@ public class ConfigManager
 		return getConfiguration(groupName, null, key, clazz);
 	}
 
+	public <T> Object getConfiguration(String groupName, String key, Type clazz)
+	{
+		return getConfiguration(groupName, null, key, clazz);
+	}
+
 	public <T> T getRSProfileConfiguration(String groupName, String key, Class<T> clazz)
 	{
 		String rsProfileKey = this.rsProfileKey;
@@ -426,6 +432,23 @@ public class ConfigManager
 		}
 
 		return getConfiguration(groupName, rsProfileKey, key, clazz);
+	}
+
+	public <T> T getConfiguration(String groupName, String profile, String key, Type clazz)
+	{
+		String value = getConfiguration(groupName, profile, key);
+		if (!Strings.isNullOrEmpty(value))
+		{
+			try
+			{
+				return (T) stringToObject(value, (Class<?>) clazz);
+			}
+			catch (Exception e)
+			{
+				log.warn("Unable to unmarshal {} ", getWholeKey(groupName, profile, key), e);
+			}
+		}
+		return null;
 	}
 
 	public <T> T getConfiguration(String groupName, String profile, String key, Class<T> clazz)
