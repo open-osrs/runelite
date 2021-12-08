@@ -36,6 +36,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -355,7 +356,7 @@ public class WorldHopperPlugin extends Plugin
 			return;
 		}
 
-		final int componentId = event.getParam1();
+		final int componentId = event.getActionParam1();
 		int groupId = WidgetInfo.TO_GROUP(componentId);
 		String option = event.getOption();
 
@@ -401,7 +402,7 @@ public class WorldHopperPlugin extends Plugin
 			hopTo.setTarget(event.getTarget());
 			hopTo.setType(MenuAction.RUNELITE.getId());
 			hopTo.setParam0(event.getActionParam0());
-			hopTo.setParam1(event.getParam1());
+			hopTo.setParam1(event.getActionParam1());
 
 			insertMenuEntry(hopTo, client.getMenuEntries(), after);
 		}
@@ -533,6 +534,8 @@ public class WorldHopperPlugin extends Plugin
 		int worldIdx = worlds.indexOf(currentWorld);
 		int totalLevel = client.getTotalLevel();
 
+		final Set<RegionFilterMode> regionFilter = config.quickHopRegionFilter();
+
 		World world;
 		do
 		{
@@ -564,7 +567,7 @@ public class WorldHopperPlugin extends Plugin
 			world = worlds.get(worldIdx);
 
 			// Check world region if filter is enabled
-			if (config.quickHopRegionFilter() != RegionFilterMode.NONE && world.getRegion() != config.quickHopRegionFilter().getRegion())
+			if (!regionFilter.isEmpty() && !regionFilter.contains(RegionFilterMode.of(world.getRegion())))
 			{
 				continue;
 			}
