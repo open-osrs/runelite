@@ -1,14 +1,11 @@
-import java.awt.Toolkit;
+import net.runelite.mapping.*;
+
+import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
-import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("gi")
 @Implements("Skeleton")
@@ -493,7 +490,7 @@ public class Skeleton extends Node {
 								if (WorldMapData_1.field2652 != null) { // L: 584
 									var41 = WorldMapData_1.field2652.highX / 2; // L: 585
 									if (var5 == 1 && var50 >= WorldMapData_1.field2652.lowX - var41 && var50 <= var41 + WorldMapData_1.field2652.lowX && var36 >= var38 - 15 && var36 < var38) { // L: 586
-										switch(Login.field872) { // L: 587
+										switch(Login.Login_accountInvalidCredentialsResponse) { // L: 587
 										case 1:
 											class19.setLoginResponseString("Please enter your username.", "If you created your account after November", "2010, this will be the creation email address."); // L: 590
 											PlayerType.method5521(5); // L: 591
@@ -940,7 +937,7 @@ public class Skeleton extends Node {
 										}
 									} else if (Login.loginIndex == 14) { // L: 1000
 										String var32 = ""; // L: 1001
-										switch(Login.field871) { // L: 1002
+										switch(Login.Login_accountBlockedResponse) { // L: 1002
 										case 0:
 											var32 = "https://support.runescape.com/hc/en-gb/articles/115002238729-Account-Bans"; // L: 1007
 											break; // L: 1008

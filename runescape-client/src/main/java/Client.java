@@ -1,21 +1,13 @@
+import net.runelite.mapping.*;
+import netscape.javascript.JSObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
-import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
-import netscape.javascript.JSObject;
+import java.util.*;
 
 @Implements("Client")
 @ObfuscatedName("client")
@@ -3404,7 +3396,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 				var5.packetBuffer.writeByte((isResizable ? 1 : 0) << 1 | (isLowDetail ? 1 : 0)); // L: 3025
 				var5.packetBuffer.writeShort(class186.canvasWidth); // L: 3026
 				var5.packetBuffer.writeShort(BoundaryObject.canvasHeight); // L: 3027
-				Decimator.method1082(var5.packetBuffer); // L: 3028
+				Decimator.writeRandomDatToBuffer(var5.packetBuffer); // L: 3028
 				var5.packetBuffer.writeStringCp1252NullTerminated(class1.field3); // L: 3029
 				var5.packetBuffer.writeInt(FriendLoginUpdate.field4096); // L: 3030
 				Buffer var32 = new Buffer(Interpreter.platformInfo.size()); // L: 3031
@@ -6285,7 +6277,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 				if (ServerPacket.field2995 == var1.serverPacket) { // L: 7574
 					var3.offset += 28; // L: 7575
 					if (var3.checkCrc()) { // L: 7576
-						ObjectComposition.method3541(var3, var3.offset - 28);
+						ObjectComposition.onRandomDatReceive(var3, var3.offset - 28);
 					}
 
 					var1.serverPacket = null; // L: 7577

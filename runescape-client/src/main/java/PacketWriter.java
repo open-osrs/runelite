@@ -1,9 +1,6 @@
+import net.runelite.mapping.*;
+
 import java.io.IOException;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
-import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("ch")
 @Implements("PacketWriter")
@@ -125,18 +122,19 @@ public class PacketWriter {
 			this.buffer.offset = 0; // L: 38
 
 			while (true) {
-				PacketBufferNode var1 = (PacketBufferNode)this.packetBufferNodes.last(); // L: 40
-				if (var1 == null || var1.index > this.buffer.array.length - this.buffer.offset) { // L: 41 42
+				PacketBufferNode buffer = (PacketBufferNode)this.packetBufferNodes.last(); // L: 40
+
+				if (buffer == null || buffer.index > this.buffer.array.length - this.buffer.offset) { // L: 41 42
 					this.socket.write(this.buffer.array, 0, this.buffer.offset); // L: 49
 					this.pendingWrites = 0; // L: 50
 					break;
 				}
 
-				this.buffer.writeBytes(var1.packetBuffer.array, 0, var1.index); // L: 43
-				this.bufferSize -= var1.index; // L: 44
-				var1.remove(); // L: 45
-				var1.packetBuffer.releaseArray(); // L: 46
-				var1.release(); // L: 47
+				this.buffer.writeBytes(buffer.packetBuffer.array, 0, buffer.index); // L: 43
+				this.bufferSize -= buffer.index; // L: 44
+				buffer.remove(); // L: 45
+				buffer.packetBuffer.releaseArray(); // L: 46
+				buffer.release(); // L: 47
 			}
 		}
 

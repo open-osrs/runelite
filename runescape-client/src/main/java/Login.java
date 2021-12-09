@@ -1,11 +1,8 @@
+import net.runelite.mapping.*;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.text.DecimalFormat;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
-import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("bx")
 @Implements("Login")
@@ -68,12 +65,14 @@ public class Login {
 	@ObfuscatedGetter(
 		intValue = -1613024797
 	)
-	static int field871;
+	@Export("Login_accountBlockedResponse")
+	static int Login_accountBlockedResponse;
 	@ObfuscatedName("ai")
 	@ObfuscatedGetter(
 		intValue = 1878883127
 	)
-	static int field872;
+	@Export("Login_accountInvalidCredentialsResponse")
+	static int Login_accountInvalidCredentialsResponse;
 	@ObfuscatedName("ae")
 	@ObfuscatedGetter(
 		intValue = 1993247493
@@ -151,8 +150,8 @@ public class Login {
 		loginBoxX = xPadding + 202; // L: 58
 		Login_loadingPercent = 10; // L: 60
 		Login_loadingText = ""; // L: 61
-		field871 = -1; // L: 79
-		field872 = 1; // L: 82
+		Login_accountBlockedResponse = -1; // L: 79
+		Login_accountInvalidCredentialsResponse = 1; // L: 82
 		loginIndex = 0; // L: 86
 		Login_response0 = ""; // L: 87
 		Login_response1 = ""; // L: 88

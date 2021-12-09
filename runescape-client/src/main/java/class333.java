@@ -4,8 +4,8 @@ import net.runelite.mapping.ObfuscatedName;
 @ObfuscatedName("le")
 public class class333 {
 	@ObfuscatedName("c")
-	@Export("writeRandomDat")
-	public static void writeRandomDat(byte[] var0, int var1, byte[] var2, int var3, int var4) {
+	@Export("generateRandomDat")
+	public static void generateRandomDat(byte[] var0, int var1, byte[] var2, int var3, int var4) {
 		if (var2 == var0) { // L: 12
 			if (var3 == var1) { // L: 13
 				return;

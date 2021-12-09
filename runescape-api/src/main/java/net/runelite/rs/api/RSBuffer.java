@@ -8,6 +8,9 @@ public interface RSBuffer extends Buffer, RSNode
 	@Import("array")
 	byte[] getPayload();
 
+	@Import("array")
+	void setPayload(byte[] payload);
+
 	@Import("offset")
 	int getOffset();
 
@@ -55,4 +58,10 @@ public interface RSBuffer extends Buffer, RSNode
 
 	@Import("readStringCp1252NullTerminated")
 	String readStringCp1252NullTerminated();
+
+	@Import("releaseArray")
+	void releaseArray();
+
+	@Import("writeBytes")
+	void writeBytes(byte[] data, int start, int end);
 }

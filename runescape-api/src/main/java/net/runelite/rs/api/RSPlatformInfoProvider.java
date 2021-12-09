@@ -1,3 +1,8 @@
 package net.runelite.rs.api;
 
-public interface RSPlatformInfoProvider {}
+import net.runelite.mapping.Import;
+
+public interface RSPlatformInfoProvider {
+    @Import("get")
+    RSPlatformInfo get();
+}

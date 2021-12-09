@@ -936,13 +936,14 @@ public class ObjectComposition extends DualNode {
 		descriptor = "(Lpi;II)V",
 		garbageValue = "1543317182"
 	)
-	static void method3541(Buffer var0, int var1) {
+	@Export("onRandomDatReceive")
+	static void onRandomDatReceive(Buffer var0, int var1) {
 		byte[] var2 = var0.array; // L: 12644
 		if (Client.randomDatData == null) { // L: 12646
 			Client.randomDatData = new byte[24];
 		}
 
-		class333.writeRandomDat(var2, var1, Client.randomDatData, 0, 24); // L: 12647
+		class333.generateRandomDat(var2, var1, Client.randomDatData, 0, 24); // L: 12647
 		if (JagexCache.JagexCache_randomDat != null) { // L: 12650
 			try {
 				JagexCache.JagexCache_randomDat.seek(0L); // L: 12652

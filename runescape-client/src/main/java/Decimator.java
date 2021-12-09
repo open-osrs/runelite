@@ -1021,11 +1021,12 @@ public class Decimator {
 		descriptor = "(Lpi;B)V",
 		garbageValue = "-66"
 	)
-	static void method1082(Buffer var0) {
+	@Export("writeRandomDatToBuffer")
+	static void writeRandomDatToBuffer(Buffer var0) {
 		if (Client.randomDatData != null) { // L: 12661
 			var0.writeBytes(Client.randomDatData, 0, Client.randomDatData.length); // L: 12662
 		} else {
-			byte[] var1 = class118.method2684(); // L: 12665
+			byte[] var1 = class118.readRandomDatFromFile(); // L: 12665
 			var0.writeBytes(var1, 0, var1.length); // L: 12666
 		}
 	} // L: 12663 12667

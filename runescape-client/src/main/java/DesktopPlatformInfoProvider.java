@@ -11,17 +11,20 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 	@ObfuscatedGetter(
 		intValue = -1848587341
 	)
-	int field4262;
+	@Export("javaVersionMajor")
+	int javaVersionMajor;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -865259943
 	)
-	int field4259;
+	@Export("javaVersionMinor")
+	int javaVersionMinor;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 494099171
 	)
-	int field4263;
+	@Export("javaVersionPatch")
+	int javaVersionPatch;
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -30,117 +33,117 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 	)
 	@Export("get")
 	public PlatformInfo get() {
-		byte var1;
+		byte osType;
 		if (JagexCache.formattedOperatingSystemName.startsWith("win")) { // L: 16
-			var1 = 1;
+			osType = 1;
 		} else if (JagexCache.formattedOperatingSystemName.startsWith("mac")) { // L: 17
-			var1 = 2;
+			osType = 2;
 		} else if (JagexCache.formattedOperatingSystemName.startsWith("linux")) { // L: 18
-			var1 = 3;
+			osType = 3;
 		} else {
-			var1 = 4; // L: 19
+			osType = 4; // L: 19
 		}
 
-		String var2;
+		String osArch;
 		try {
-			var2 = System.getProperty("os.arch").toLowerCase(); // L: 23
+			osArch = System.getProperty("os.arch").toLowerCase(); // L: 23
 		} catch (Exception var30) { // L: 25
-			var2 = ""; // L: 26
+			osArch = ""; // L: 26
 		}
 
-		String var3;
+		String osVersion;
 		try {
-			var3 = System.getProperty("os.version").toLowerCase(); // L: 29
+			osVersion = System.getProperty("os.version").toLowerCase(); // L: 29
 		} catch (Exception var29) { // L: 31
-			var3 = ""; // L: 32
+			osVersion = ""; // L: 32
 		}
 
-		String var4 = "Unknown"; // L: 34
-		String var5 = "1.1"; // L: 35
+		String javaVendor = "Unknown"; // L: 34
+		String javaVersion = "1.1"; // L: 35
 
 		try {
-			var4 = System.getProperty("java.vendor"); // L: 37
-			var5 = System.getProperty("java.version"); // L: 38
+			javaVendor = System.getProperty("java.vendor"); // L: 37
+			javaVersion = System.getProperty("java.version"); // L: 38
 		} catch (Exception var28) { // L: 40
 		}
 
-		boolean var27;
-		if (!var2.startsWith("amd64") && !var2.startsWith("x86_64")) { // L: 42
-			var27 = false; // L: 43
+		boolean is64bit;
+		if (!osArch.startsWith("amd64") && !osArch.startsWith("x86_64")) { // L: 42
+			is64bit = false; // L: 43
 		} else {
-			var27 = true;
+			is64bit = true;
 		}
 
-		byte var7 = 0; // L: 44
-		if (var1 == 1) { // L: 45
-			if (var3.indexOf("4.0") != -1) { // L: 46
-				var7 = 1;
-			} else if (var3.indexOf("4.1") != -1) { // L: 47
-				var7 = 2;
-			} else if (var3.indexOf("4.9") != -1) { // L: 48
-				var7 = 3;
-			} else if (var3.indexOf("5.0") != -1) { // L: 49
-				var7 = 4;
-			} else if (var3.indexOf("5.1") != -1) { // L: 50
-				var7 = 5;
-			} else if (var3.indexOf("5.2") != -1) { // L: 51
-				var7 = 8;
-			} else if (var3.indexOf("6.0") != -1) { // L: 52
-				var7 = 6;
-			} else if (var3.indexOf("6.1") != -1) { // L: 53
-				var7 = 7;
-			} else if (var3.indexOf("6.2") != -1) { // L: 54
-				var7 = 9;
-			} else if (var3.indexOf("6.3") != -1) { // L: 55
-				var7 = 10;
-			} else if (var3.indexOf("10.0") != -1) { // L: 56
-				var7 = 11;
+		byte osVersionType = 0; // L: 44
+		if (osType == 1) { // L: 45
+			if (osVersion.indexOf("4.0") != -1) { // L: 46
+				osVersionType = 1;
+			} else if (osVersion.indexOf("4.1") != -1) { // L: 47
+				osVersionType = 2;
+			} else if (osVersion.indexOf("4.9") != -1) { // L: 48
+				osVersionType = 3;
+			} else if (osVersion.indexOf("5.0") != -1) { // L: 49
+				osVersionType = 4;
+			} else if (osVersion.indexOf("5.1") != -1) { // L: 50
+				osVersionType = 5;
+			} else if (osVersion.indexOf("5.2") != -1) { // L: 51
+				osVersionType = 8;
+			} else if (osVersion.indexOf("6.0") != -1) { // L: 52
+				osVersionType = 6;
+			} else if (osVersion.indexOf("6.1") != -1) { // L: 53
+				osVersionType = 7;
+			} else if (osVersion.indexOf("6.2") != -1) { // L: 54
+				osVersionType = 9;
+			} else if (osVersion.indexOf("6.3") != -1) { // L: 55
+				osVersionType = 10;
+			} else if (osVersion.indexOf("10.0") != -1) { // L: 56
+				osVersionType = 11;
 			}
-		} else if (var1 == 2) { // L: 58
-			if (var3.indexOf("10.4") != -1) { // L: 59
-				var7 = 20;
-			} else if (var3.indexOf("10.5") != -1) { // L: 60
-				var7 = 21;
-			} else if (var3.indexOf("10.6") != -1) { // L: 61
-				var7 = 22;
-			} else if (var3.indexOf("10.7") != -1) { // L: 62
-				var7 = 23;
-			} else if (var3.indexOf("10.8") != -1) { // L: 63
-				var7 = 24;
-			} else if (var3.indexOf("10.9") != -1) { // L: 64
-				var7 = 25;
-			} else if (var3.indexOf("10.10") != -1) { // L: 65
-				var7 = 26;
-			} else if (var3.indexOf("10.11") != -1) { // L: 66
-				var7 = 27;
-			} else if (var3.indexOf("10.12") != -1) { // L: 67
-				var7 = 28;
-			} else if (var3.indexOf("10.13") != -1) { // L: 68
-				var7 = 29;
+		} else if (osType == 2) { // L: 58
+			if (osVersion.indexOf("10.4") != -1) { // L: 59
+				osVersionType = 20;
+			} else if (osVersion.indexOf("10.5") != -1) { // L: 60
+				osVersionType = 21;
+			} else if (osVersion.indexOf("10.6") != -1) { // L: 61
+				osVersionType = 22;
+			} else if (osVersion.indexOf("10.7") != -1) { // L: 62
+				osVersionType = 23;
+			} else if (osVersion.indexOf("10.8") != -1) { // L: 63
+				osVersionType = 24;
+			} else if (osVersion.indexOf("10.9") != -1) { // L: 64
+				osVersionType = 25;
+			} else if (osVersion.indexOf("10.10") != -1) { // L: 65
+				osVersionType = 26;
+			} else if (osVersion.indexOf("10.11") != -1) { // L: 66
+				osVersionType = 27;
+			} else if (osVersion.indexOf("10.12") != -1) { // L: 67
+				osVersionType = 28;
+			} else if (osVersion.indexOf("10.13") != -1) { // L: 68
+				osVersionType = 29;
 			}
 		}
 
-		byte var8;
-		if (var4.toLowerCase().indexOf("sun") != -1) { // L: 71
-			var8 = 1;
-		} else if (var4.toLowerCase().indexOf("microsoft") != -1) { // L: 72
-			var8 = 2;
-		} else if (var4.toLowerCase().indexOf("apple") != -1) { // L: 73
-			var8 = 3;
-		} else if (var4.toLowerCase().indexOf("oracle") != -1) { // L: 74
-			var8 = 5;
+		byte javaVendorType;
+		if (javaVendor.toLowerCase().indexOf("sun") != -1) { // L: 71
+			javaVendorType = 1;
+		} else if (javaVendor.toLowerCase().indexOf("microsoft") != -1) { // L: 72
+			javaVendorType = 2;
+		} else if (javaVendor.toLowerCase().indexOf("apple") != -1) { // L: 73
+			javaVendorType = 3;
+		} else if (javaVendor.toLowerCase().indexOf("oracle") != -1) { // L: 74
+			javaVendorType = 5;
 		} else {
-			var8 = 4; // L: 75
+			javaVendorType = 4; // L: 75
 		}
 
-		this.method6821(var5); // L: 76
+		this.parseJavaVersion(javaVersion); // L: 76
 		boolean var9 = false; // L: 77
-		int var10 = (int)(Runtime.getRuntime().maxMemory() / 1048576L) + 1; // L: 78
-		int var11;
-		if (this.field4262 > 3) { // L: 81
-			var11 = Runtime.getRuntime().availableProcessors();
+		int maxMemory = (int)(Runtime.getRuntime().maxMemory() / 1048576L) + 1; // L: 78
+		int availableProcessors;
+		if (this.javaVersionMajor > 3) { // L: 81
+			availableProcessors = Runtime.getRuntime().availableProcessors();
 		} else {
-			var11 = 0; // L: 82
+			availableProcessors = 0; // L: 82
 		}
 
 		byte var12 = 0; // L: 83
@@ -158,7 +161,7 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		boolean var24 = false; // L: 95
 		String var25 = ""; // L: 96
 		boolean var26 = false; // L: 97
-		return new PlatformInfo(var1, var27, var7, var8, this.field4262, this.field4259, this.field4263, false, var10, var11, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, ""); // L: 98
+		return new PlatformInfo(osType, is64bit, osVersionType, javaVendorType, this.javaVersionMajor, this.javaVersionMinor, this.javaVersionPatch, false, maxMemory, availableProcessors, var12, 0, var13, var14, var15, var16, 0, 0, 0, 0, var17, var18, var23, 0, ""); // L: 98
 	}
 
 	@ObfuscatedName("b")
@@ -166,11 +169,12 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "742897399"
 	)
-	void method6821(String var1) {
+	@Export("parseJavaVersion")
+	void parseJavaVersion(String var1) {
 		if (var1.startsWith("1.")) { // L: 102
-			this.method6822(var1); // L: 103
+			this.parseJava1Version(var1); // L: 103
 		} else {
-			this.method6823(var1); // L: 106
+			this.parseJavaGeneralVersion(var1); // L: 106
 		}
 
 	} // L: 108
@@ -180,14 +184,15 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		descriptor = "(Ljava/lang/String;I)V",
 		garbageValue = "-691110522"
 	)
-	void method6822(String var1) {
+	@Export("parseJava1Version")
+	void parseJava1Version(String var1) {
 		String[] var2 = var1.split("\\."); // L: 111
 
 		try {
-			this.field4262 = Integer.parseInt(var2[1]); // L: 113
+			this.javaVersionMajor = Integer.parseInt(var2[1]); // L: 113
 			var2 = var2[2].split("_"); // L: 114
-			this.field4259 = Integer.parseInt(var2[0]); // L: 115
-			this.field4263 = Integer.parseInt(var2[1]); // L: 116
+			this.javaVersionMinor = Integer.parseInt(var2[0]); // L: 115
+			this.javaVersionPatch = Integer.parseInt(var2[1]); // L: 116
 		} catch (Exception var4) { // L: 118
 		}
 
@@ -198,13 +203,14 @@ public class DesktopPlatformInfoProvider implements PlatformInfoProvider {
 		descriptor = "(Ljava/lang/String;B)V",
 		garbageValue = "69"
 	)
-	void method6823(String var1) {
+	@Export("parseJavaGeneralVersion")
+	void parseJavaGeneralVersion(String var1) {
 		String[] var2 = var1.split("\\."); // L: 122
 
 		try {
-			this.field4262 = Integer.parseInt(var2[0]); // L: 124
-			this.field4259 = Integer.parseInt(var2[1]); // L: 125
-			this.field4263 = Integer.parseInt(var2[2]); // L: 126
+			this.javaVersionMajor = Integer.parseInt(var2[0]); // L: 124
+			this.javaVersionMinor = Integer.parseInt(var2[1]); // L: 125
+			this.javaVersionPatch = Integer.parseInt(var2[2]); // L: 126
 		} catch (Exception var4) { // L: 128
 		}
 

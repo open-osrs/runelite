@@ -1,7 +1,8 @@
-import java.applet.Applet;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+
+import java.applet.Applet;
 
 @ObfuscatedName("an")
 public class class29 {
@@ -36,12 +37,12 @@ public class class29 {
 			class19.setLoginResponseString("No response from server.", "Please try using a different world.", "");
 		} else if (var0 == 3) { // L: 3457
 			PlayerType.method5521(3); // L: 3458
-			Login.field872 = 1; // L: 3459
+			Login.Login_accountInvalidCredentialsResponse = 1; // L: 3459
 		} else if (var0 == 4) { // L: 3461
 			PlayerType.method5521(14); // L: 3463
-			Login.field871 = 0; // L: 3464
+			Login.Login_accountBlockedResponse = 0; // L: 3464
 		} else if (var0 == 5) { // L: 3467
-			Login.field872 = 2; // L: 3468
+			Login.Login_accountInvalidCredentialsResponse = 2; // L: 3468
 			class19.setLoginResponseString("Your account has not logged out from its last", "session or the server is too busy right now.", "Please try again in a few minutes."); // L: 3469
 		} else if (var0 == 68 || !Client.onMobile && var0 == 6) { // L: 3471
 			class19.setLoginResponseString("RuneScape has been updated!", "Please reload this page.", ""); // L: 3472
@@ -67,7 +68,7 @@ public class class29 {
 			class19.setLoginResponseString("You are standing in a members-only area.", "To play on this world move to a free area first", "");
 		} else if (var0 == 18) { // L: 3484
 			PlayerType.method5521(14); // L: 3486
-			Login.field871 = 1; // L: 3487
+			Login.Login_accountBlockedResponse = 1; // L: 3487
 		} else if (var0 == 19) { // L: 3490
 			class19.setLoginResponseString("This world is running a closed Beta.", "Sorry invited players only.", "Please use a different world.");
 		} else if (var0 == 20) { // L: 3491

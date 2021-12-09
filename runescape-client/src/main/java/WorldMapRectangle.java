@@ -1,14 +1,11 @@
+import net.runelite.mapping.*;
+
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Random;
-import net.runelite.mapping.Export;
-import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
-import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("hs")
 @Implements("WorldMapRectangle")
@@ -153,7 +150,7 @@ public final class WorldMapRectangle {
 
 				var9.writeLong(var35.nextLong()); // L: 1133
 				var9.writeLongMedium(var35.nextLong()); // L: 1134
-				Decimator.method1082(var9); // L: 1135
+				Decimator.writeRandomDatToBuffer(var9); // L: 1135
 				var9.writeLong(var35.nextLong()); // L: 1136
 				var9.encryptRsa(class65.field841, class65.field842); // L: 1137
 				var11 = class116.stringCp1252NullTerminatedByteSize(var34); // L: 1138

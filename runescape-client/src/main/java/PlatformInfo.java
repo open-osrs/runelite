@@ -11,46 +11,55 @@ public class PlatformInfo extends Node {
 	@ObfuscatedGetter(
 		intValue = 1901271563
 	)
-	int field4276;
+	@Export("osType")
+	int osType;
 	@ObfuscatedName("au")
-	boolean field4272;
+	@Export("is64bit")
+	boolean is64bit;
 	@ObfuscatedName("av")
 	@ObfuscatedGetter(
 		intValue = -1729392719
 	)
-	int field4297;
+	@Export("osVersionType")
+	int osVersionType;
 	@ObfuscatedName("ap")
 	@ObfuscatedGetter(
 		intValue = -1778133759
 	)
-	int field4277;
+	@Export("javaVendorType")
+	int javaVendorType;
 	@ObfuscatedName("ac")
 	@ObfuscatedGetter(
 		intValue = -1484226765
 	)
-	int field4278;
+	@Export("javaVersionMajor")
+	int javaVersionMajor;
 	@ObfuscatedName("aj")
 	@ObfuscatedGetter(
 		intValue = -1891325743
 	)
-	int field4295;
+	@Export("javaVersionMinor")
+	int javaVersionMinor;
 	@ObfuscatedName("af")
 	@ObfuscatedGetter(
 		intValue = 859155677
 	)
-	int field4280;
+	@Export("javaVersionPatch")
+	int javaVersionPatch;
 	@ObfuscatedName("ar")
 	boolean field4281;
 	@ObfuscatedName("ag")
 	@ObfuscatedGetter(
 		intValue = 1239922409
 	)
-	int field4265;
+	@Export("maxMemory")
+	int maxMemory;
 	@ObfuscatedName("al")
 	@ObfuscatedGetter(
 		intValue = 657537983
 	)
-	int field4283;
+	@Export("availableProcessors")
+	int availableProcessors;
 	@ObfuscatedName("as")
 	@ObfuscatedGetter(
 		intValue = -1974722965
@@ -103,18 +112,18 @@ public class PlatformInfo extends Node {
 	@ObfuscatedName("br")
 	String field4298;
 
-	PlatformInfo(int var1, boolean var2, int var3, int var4, int var5, int var6, int var7, boolean var8, int var9, int var10, int var11, int var12, String var13, String var14, String var15, String var16, int var17, int var18, int var19, int var20, String var21, String var22, int[] var23, int var24, String var25) {
+	PlatformInfo(int osType, boolean is64bit, int osVersionType, int javaVendorType, int javaVersionMajor, int javaVersionMinor, int javaVersionPatch, boolean var8, int maxMemory, int availableProcessors, int var11, int var12, String var13, String var14, String var15, String var16, int var17, int var18, int var19, int var20, String var21, String var22, int[] var23, int var24, String var25) {
 		this.field4296 = new int[3]; // L: 62
-		this.field4276 = var1; // L: 67
-		this.field4272 = var2; // L: 68
-		this.field4297 = var3; // L: 69
-		this.field4277 = var4; // L: 70
-		this.field4278 = var5; // L: 71
-		this.field4295 = var6; // L: 72
-		this.field4280 = var7; // L: 73
+		this.osType = osType; // L: 67
+		this.is64bit = is64bit; // L: 68
+		this.osVersionType = osVersionType; // L: 69
+		this.javaVendorType = javaVendorType; // L: 70
+		this.javaVersionMajor = javaVersionMajor; // L: 71
+		this.javaVersionMinor = javaVersionMinor; // L: 72
+		this.javaVersionPatch = javaVersionPatch; // L: 73
 		this.field4281 = var8; // L: 74
-		this.field4265 = var9; // L: 75
-		this.field4283 = var10; // L: 76
+		this.maxMemory = maxMemory; // L: 75
+		this.availableProcessors = availableProcessors; // L: 76
 		this.field4284 = var11; // L: 77
 		this.field4268 = var12; // L: 78
 		this.field4286 = var13; // L: 79
@@ -140,16 +149,16 @@ public class PlatformInfo extends Node {
 	@Export("write")
 	public void write(Buffer var1) {
 		var1.writeByte(8); // L: 95
-		var1.writeByte(this.field4276); // L: 96
-		var1.writeByte(this.field4272 ? 1 : 0); // L: 97
-		var1.writeShort(this.field4297); // L: 98
-		var1.writeByte(this.field4277); // L: 99
-		var1.writeByte(this.field4278); // L: 100
-		var1.writeByte(this.field4295); // L: 101
-		var1.writeByte(this.field4280); // L: 102
+		var1.writeByte(this.osType); // L: 96
+		var1.writeByte(this.is64bit ? 1 : 0); // L: 97
+		var1.writeShort(this.osVersionType); // L: 98
+		var1.writeByte(this.javaVendorType); // L: 99
+		var1.writeByte(this.javaVersionMajor); // L: 100
+		var1.writeByte(this.javaVersionMinor); // L: 101
+		var1.writeByte(this.javaVersionPatch); // L: 102
 		var1.writeByte(this.field4281 ? 1 : 0); // L: 103
-		var1.writeShort(this.field4265); // L: 104
-		var1.writeByte(this.field4283); // L: 105
+		var1.writeShort(this.maxMemory); // L: 104
+		var1.writeByte(this.availableProcessors); // L: 105
 		var1.writeMedium(this.field4284); // L: 106
 		var1.writeShort(this.field4268); // L: 107
 		var1.writeStringCp1252NullCircumfixed(this.field4286); // L: 108

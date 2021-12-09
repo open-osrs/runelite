@@ -226,7 +226,7 @@ public class class253 {
 					class19.titlebuttonSprite.drawAt(var16 - 73, var17 - 20); // L: 1392
 					var0.drawCentered("Cancel", var16, var17 + 5, 16777215, 0); // L: 1393
 					var23 = 357; // L: 1394
-					switch(Login.field872) { // L: 1395
+					switch(Login.Login_accountInvalidCredentialsResponse) { // L: 1395
 					case 2:
 						class10.field58 = "Having trouble logging in?"; // L: 1397
 						break;
@@ -408,7 +408,7 @@ public class class253 {
 						String var19 = ""; // L: 1585
 						var5 = ""; // L: 1586
 						var6 = ""; // L: 1587
-						switch(Login.field871) { // L: 1588
+						switch(Login.Login_accountBlockedResponse) { // L: 1588
 						case 0:
 							var19 = "Your account has been disabled."; // L: 1591
 							var5 = Strings.field3523; // L: 1592

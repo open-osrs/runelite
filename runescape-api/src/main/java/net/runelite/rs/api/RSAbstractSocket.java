@@ -1,3 +1,10 @@
 package net.runelite.rs.api;
 
-public interface RSAbstractSocket {}
+import net.runelite.mapping.Import;
+
+import java.io.IOException;
+
+public interface RSAbstractSocket {
+    @Import("write")
+    void write(byte[] var1, int var2, int var3) throws IOException;
+}

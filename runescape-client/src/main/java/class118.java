@@ -1,7 +1,8 @@
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+
+import java.io.IOException;
 
 @ObfuscatedName("dc")
 public class class118 implements class110 {
@@ -72,7 +73,8 @@ public class class118 implements class110 {
 		descriptor = "(B)[B",
 		garbageValue = "28"
 	)
-	public static byte[] method2684() {
+	@Export("readRandomDatFromFile")
+	public static byte[] readRandomDatFromFile() {
 		byte[] var0 = new byte[24]; // L: 131
 
 		try {
