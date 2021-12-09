@@ -2,38 +2,35 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("oe")
+@ObfuscatedName("pa")
 @Implements("IndexedSprite")
 public final class IndexedSprite extends Rasterizer2D {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@Export("pixels")
 	public byte[] pixels;
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@Export("palette")
 	public int[] palette;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@Export("subWidth")
 	public int subWidth;
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@Export("subHeight")
 	public int subHeight;
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@Export("xOffset")
 	public int xOffset;
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@Export("yOffset")
 	public int yOffset;
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@Export("width")
 	public int width;
-	@ObfuscatedName("p")
+	@ObfuscatedName("w")
 	@Export("height")
 	public int height;
 
-	IndexedSprite() {
-	} // L: 15
-
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@Export("normalize")
 	public void normalize() {
 		if (this.subWidth != this.width || this.subHeight != this.height) { // L: 18
@@ -54,7 +51,7 @@ public final class IndexedSprite extends Rasterizer2D {
 		}
 	} // L: 31
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@Export("shiftColors")
 	public void shiftColors(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.palette.length; ++var4) { // L: 34
@@ -87,7 +84,7 @@ public final class IndexedSprite extends Rasterizer2D {
 
 	} // L: 49
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@Export("drawAt")
 	public void drawAt(int var1, int var2) {
 		var1 += this.xOffset; // L: 52
@@ -133,8 +130,8 @@ public final class IndexedSprite extends Rasterizer2D {
 		}
 	} // L: 85
 
-	@ObfuscatedName("o")
-	public void method7362(int var1, int var2, int var3, int var4) {
+	@ObfuscatedName("t")
+	public void method7732(int var1, int var2, int var3, int var4) {
 		int var5 = this.subWidth; // L: 116
 		int var6 = this.subHeight; // L: 117
 		int var7 = 0; // L: 118
@@ -195,7 +192,7 @@ public final class IndexedSprite extends Rasterizer2D {
 		IndexedSprite_something(Rasterizer2D.Rasterizer2D_pixels, this.pixels, this.palette, var7, var8, var13, var14, var3, var4, var11, var12, var5); // L: 157
 	} // L: 158
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@Export("IndexedSprite_two")
 	static void IndexedSprite_two(int[] var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8) {
 		int var9 = -(var5 >> 2); // L: 88
@@ -249,7 +246,7 @@ public final class IndexedSprite extends Rasterizer2D {
 
 	} // L: 113
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@Export("IndexedSprite_something")
 	static void IndexedSprite_something(int[] var0, byte[] var1, int[] var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11) {
 		int var12 = var3; // L: 161

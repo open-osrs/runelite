@@ -6,76 +6,102 @@ import java.util.LinkedList;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 import org.bouncycastle.crypto.tls.Certificate;
 import org.bouncycastle.crypto.tls.CertificateRequest;
 import org.bouncycastle.crypto.tls.TlsAuthentication;
 import org.bouncycastle.crypto.tls.TlsCredentials;
 
-@ObfuscatedName("y")
+@ObfuscatedName("v")
 class class11 implements TlsAuthentication {
-	@ObfuscatedName("ec")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lkd;"
+		descriptor = "Law;"
 	)
-	@Export("archive5")
-	static Archive archive5;
+	@Export("pcmPlayerProvider")
+	static class47 pcmPlayerProvider;
+	@ObfuscatedName("be")
+	@ObfuscatedSignature(
+		descriptor = "Lpa;"
+	)
+	@Export("worldSelectLeftSprite")
+	static IndexedSprite worldSelectLeftSprite;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lt;"
+		descriptor = "Lh;"
 	)
 	final class13 this$2;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lt;)V"
+		descriptor = "(Lh;)V"
 	)
 	class11(class13 var1) {
-		this.this$2 = var1; // L: 248
-	}
-
-	public TlsCredentials getClientCredentials(CertificateRequest var1) throws IOException {
-		return null; // L: 270
+		this.this$2 = var1; // L: 305
 	}
 
 	public void notifyServerCertificate(Certificate var1) throws IOException {
 		try {
-			CertificateFactory var2 = CertificateFactory.getInstance("X.509"); // L: 251
-			LinkedList var3 = new LinkedList(); // L: 252
-			org.bouncycastle.asn1.x509.Certificate[] var4 = var1.getCertificateList(); // L: 254
+			CertificateFactory var2 = CertificateFactory.getInstance("X.509"); // L: 309
+			LinkedList var3 = new LinkedList(); // L: 310
+			org.bouncycastle.asn1.x509.Certificate[] var4 = var1.getCertificateList(); // L: 312
 
-			for (int var5 = 0; var5 < var4.length; ++var5) { // L: 255
-				org.bouncycastle.asn1.x509.Certificate var6 = var4[var5]; // L: 256
-				var3.add(var2.generateCertificate(new ByteArrayInputStream(var6.getEncoded()))); // L: 258
+			for (int var5 = 0; var5 < var4.length; ++var5) { // L: 313
+				org.bouncycastle.asn1.x509.Certificate var6 = var4[var5]; // L: 314
+				var3.add(var2.generateCertificate(new ByteArrayInputStream(var6.getEncoded()))); // L: 316
 			}
 
-			this.this$2.this$1.field53 = (java.security.cert.Certificate[])((java.security.cert.Certificate[])var3.toArray(new java.security.cert.Certificate[0])); // L: 262
-		} catch (CertificateException var7) { // L: 264
-			throw new IOException(var7); // L: 265
+			this.this$2.this$1.field67 = (java.security.cert.Certificate[])((java.security.cert.Certificate[])var3.toArray(new java.security.cert.Certificate[0])); // L: 320
+		} catch (CertificateException var7) { // L: 322
+			throw new IOException(var7); // L: 323
 		}
-	} // L: 267
+	} // L: 325
 
-	@ObfuscatedName("a")
+	public TlsCredentials getClientCredentials(CertificateRequest var1) throws IOException {
+		return null; // L: 329
+	}
+
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IZIZI)V",
-		garbageValue = "-1739783749"
+		descriptor = "(ILbn;ZI)I",
+		garbageValue = "-1179058549"
 	)
-	@Export("sortWorldList")
-	static void sortWorldList(int var0, boolean var1, int var2, boolean var3) {
-		if (WorldMapEvent.World_worlds != null) { // L: 171
-			FriendSystem.doWorldSorting(0, WorldMapEvent.World_worlds.length - 1, var0, var1, var2, var3); // L: 172
+	static int method125(int var0, Script var1, boolean var2) {
+		Widget var3 = ChatChannel.getWidget(Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]); // L: 1388
+		if (var0 == ScriptOpcodes.IF_GETTARGETMASK) { // L: 1389
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = class404.Widget_unpackTargetMask(class363.getWidgetFlags(var3)); // L: 1390
+			return 1; // L: 1391
+		} else if (var0 != ScriptOpcodes.IF_GETOP) { // L: 1393
+			if (var0 == ScriptOpcodes.IF_GETOPBASE) { // L: 1400
+				if (var3.dataText == null) { // L: 1401
+					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = "";
+				} else {
+					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1402
+				}
+
+				return 1; // L: 1403
+			} else {
+				return 2; // L: 1405
+			}
+		} else {
+			int var4 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]; // L: 1394
+			--var4; // L: 1395
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1396
+				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1397
+			} else {
+				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = "";
+			}
+
+			return 1; // L: 1398
 		}
+	}
 
-	} // L: 174
-
-	@ObfuscatedName("z")
+	@ObfuscatedName("iu")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;II)V",
-		garbageValue = "-233699552"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIII)V",
+		garbageValue = "-380667098"
 	)
-	static final void method107(String var0, int var1) {
-		PacketBufferNode var2 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2746, Client.packetWriter.isaacCipher); // L: 242
-		var2.packetBuffer.writeByte(Client.stringCp1252NullTerminatedByteSize(var0) + 1); // L: 243
-		var2.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 244
-		var2.packetBuffer.writeByte(var1); // L: 245
-		Client.packetWriter.addNode(var2); // L: 246
-	} // L: 247
+	@Export("insertMenuItemNoShift")
+	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
+		class21.insertMenuItem(var0, var1, var2, var3, var4, var5, false); // L: 10041
+	} // L: 10042
 }

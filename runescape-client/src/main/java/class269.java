@@ -1,95 +1,57 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("je")
-public enum class269 implements MouseWheel {
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "Lje;"
-	)
-	field3216(0),
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "Lje;"
-	)
-	field3217(1),
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Lje;"
-	)
-	field3218(2),
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "Lje;"
-	)
-	field3220(3),
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Lje;"
-	)
-	field3219(4);
+@ObfuscatedName("jh")
+public class class269 {
+	@ObfuscatedName("hh")
+	@Export("regions")
+	static int[] regions;
 
-	@ObfuscatedName("sg")
-	@ObfuscatedGetter(
-		intValue = 681305729
-	)
-	static int field3221;
-	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = -833696691
-	)
-	final int field3215;
-
-	class269(int var3) {
-		this.field3215 = var3; // L: 14
-	} // L: 15
-
-	@ObfuscatedName("w")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "238732485"
+		descriptor = "(Lkz;IIIBZI)V",
+		garbageValue = "1369454050"
 	)
-	@Export("rsOrdinal")
-	public int rsOrdinal() {
-		return this.field3215; // L: 18
-	}
+	@Export("requestNetFile")
+	static void requestNetFile(Archive var0, int var1, int var2, int var3, byte var4, boolean var5) {
+		long var6 = (long)((var1 << 16) + var2); // L: 211
+		NetFileRequest var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityWrites.get(var6); // L: 212
+		if (var8 == null) { // L: 213
+			var8 = (NetFileRequest)NetCache.NetCache_pendingPriorityResponses.get(var6); // L: 214
+			if (var8 == null) { // L: 215
+				var8 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var6); // L: 216
+				if (var8 != null) { // L: 217
+					if (var5) { // L: 218
+						var8.removeDual(); // L: 219
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 220
+						--NetCache.NetCache_pendingWritesCount; // L: 221
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 222
+					}
 
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(IS)I",
-		garbageValue = "234"
-	)
-	public static int method5190(int var0) {
-		return class361.field4051[var0 & 16383];
-	}
+				} else {
+					if (!var5) { // L: 226
+						var8 = (NetFileRequest)NetCache.NetCache_pendingResponses.get(var6); // L: 227
+						if (var8 != null) { // L: 228
+							return;
+						}
+					}
 
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "-2127089164"
-	)
-	@Export("addChatMessage")
-	static void addChatMessage(int var0, String var1, String var2, String var3) {
-		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 27
-		if (var4 == null) { // L: 28
-			var4 = new ChatChannel(); // L: 29
-			Messages.Messages_channels.put(var0, var4); // L: 30
+					var8 = new NetFileRequest(); // L: 230
+					var8.archive = var0; // L: 231
+					var8.crc = var3; // L: 232
+					var8.padding = var4; // L: 233
+					if (var5) { // L: 234
+						NetCache.NetCache_pendingPriorityWrites.put(var8, var6); // L: 235
+						++NetCache.NetCache_pendingPriorityWritesCount; // L: 236
+					} else {
+						NetCache.NetCache_pendingWritesQueue.addFirst(var8); // L: 239
+						NetCache.NetCache_pendingWrites.put(var8, var6); // L: 240
+						++NetCache.NetCache_pendingWritesCount; // L: 241
+					}
+
+				}
+			}
 		}
-
-		Message var5 = var4.addMessage(var0, var1, var2, var3); // L: 32
-		Messages.Messages_hashTable.put(var5, (long)var5.count); // L: 33
-		Messages.Messages_queue.add(var5); // L: 34
-		Client.chatCycle = Client.cycleCntr; // L: 35
-	} // L: 36
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "6"
-	)
-	public static void method5189() {
-		WorldMapRegion.WorldMapRegion_cachedSprites.demote(5); // L: 54
-	} // L: 55
+	} // L: 224 243
 }

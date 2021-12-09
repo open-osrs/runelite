@@ -1,27 +1,26 @@
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ce")
+@ObfuscatedName("cs")
 @Implements("HealthBar")
 public class HealthBar extends Node {
-	@ObfuscatedName("rt")
-	@ObfuscatedSignature(
-		descriptor = "Lak;"
-	)
-	@Export("pcmPlayer0")
-	static PcmPlayer pcmPlayer0;
 	@ObfuscatedName("s")
+	@ObfuscatedGetter(
+		intValue = -1200843619
+	)
+	static int field1209;
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "Lfd;"
 	)
 	@Export("definition")
 	HealthBarDefinition definition;
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lkf;"
+		descriptor = "Llr;"
 	)
 	@Export("updates")
 	IterableNodeDeque updates;
@@ -34,10 +33,10 @@ public class HealthBar extends Node {
 		this.definition = var1; // L: 15
 	} // L: 16
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "0"
+		descriptor = "(IIIII)V",
+		garbageValue = "2125258753"
 	)
 	@Export("put")
 	void put(int var1, int var2, int var3, int var4) {
@@ -51,8 +50,8 @@ public class HealthBar extends Node {
 				return; // L: 25
 			}
 
-			if (var7.cycle <= var1) {
-				var5 = var7; // L: 27
+			if (var7.cycle <= var1) { // L: 27
+				var5 = var7;
 			}
 		}
 
@@ -70,10 +69,10 @@ public class HealthBar extends Node {
 		}
 	} // L: 31 35
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lcd;",
-		garbageValue = "655971331"
+		descriptor = "(II)Lcn;",
+		garbageValue = "849241629"
 	)
 	@Export("get")
 	HealthBarUpdate get(int var1) {
@@ -95,56 +94,61 @@ public class HealthBar extends Node {
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "1027939055"
+		descriptor = "(B)Z",
+		garbageValue = "80"
 	)
 	@Export("isEmpty")
 	boolean isEmpty() {
-		return this.updates.method5633(); // L: 55
+		return this.updates.method5915(); // L: 55
 	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "45"
+		descriptor = "(I)V",
+		garbageValue = "2114195084"
 	)
-	static void method2242() {
-		Iterator var0 = Messages.Messages_hashTable.iterator(); // L: 61
+	static void method2311() {
+		if (Login.Login_username == null || Login.Login_username.length() <= 0) { // L: 300
+			if (SecureRandomFuture.clientPreferences.rememberedUsername != null) { // L: 301
+				Login.Login_username = SecureRandomFuture.clientPreferences.rememberedUsername; // L: 302
+				Client.Login_isUsernameRemembered = true; // L: 303
+			} else {
+				Client.Login_isUsernameRemembered = false; // L: 305
+			}
 
-		while (var0.hasNext()) {
-			Message var1 = (Message)var0.next(); // L: 62
-			var1.clearIsFromIgnored(); // L: 64
 		}
+	} // L: 306
 
-	} // L: 67
-
-	@ObfuscatedName("lq")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;ZS)Ljava/lang/String;",
-		garbageValue = "-17378"
+		descriptor = "(CI)C",
+		garbageValue = "2115145690"
 	)
-	static String method2246(String var0, boolean var1) {
-		String var2 = var1 ? "https://" : "http://"; // L: 11925
-		if (Client.gameBuild == 1) { // L: 11926
-			var0 = var0 + "-wtrc";
-		} else if (Client.gameBuild == 2) { // L: 11927
-			var0 = var0 + "-wtqa";
-		} else if (Client.gameBuild == 3) { // L: 11928
-			var0 = var0 + "-wtwip";
-		} else if (Client.gameBuild == 5) { // L: 11929
-			var0 = var0 + "-wti";
-		} else if (Client.gameBuild == 4) { // L: 11930
-			var0 = "local";
-		}
-
-		String var3 = ""; // L: 11931
-		if (UserComparator3.field1316 != null) { // L: 11932
-			var3 = "/p=" + UserComparator3.field1316;
-		}
-
-		String var4 = "runescape.com"; // L: 11933
-		return var2 + var0 + "." + var4 + "/l=" + MouseHandler.clientLanguage + "/a=" + TextureProvider.field2483 + var3 + "/"; // L: 11934
+	static char method2313(char var0) {
+		return var0 != 181 && var0 != 402 ? Character.toTitleCase(var0) : var0; // L: 61 62
 	}
+
+	@ObfuscatedName("iq")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "517043711"
+	)
+	@Export("Widget_runOnTargetLeave")
+	static void Widget_runOnTargetLeave() {
+		if (Client.isSpellSelected) { // L: 9881
+			Widget var0 = class126.getWidgetChild(class20.selectedSpellWidget, Client.selectedSpellChildIndex); // L: 9882
+			if (var0 != null && var0.onTargetLeave != null) { // L: 9883
+				ScriptEvent var1 = new ScriptEvent(); // L: 9884
+				var1.widget = var0; // L: 9885
+				var1.args = var0.onTargetLeave; // L: 9886
+				class285.runScriptEvent(var1); // L: 9887
+			}
+
+			Client.field633 = -1; // L: 9889
+			Client.isSpellSelected = false; // L: 9890
+			SecureRandomCallable.invalidateWidget(var0); // L: 9891
+		}
+	} // L: 9892
 }

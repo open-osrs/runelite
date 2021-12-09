@@ -6,177 +6,155 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lb")
+@ObfuscatedName("lj")
 @Implements("ByteArrayPool")
 public class ByteArrayPool {
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -476985145
+		intValue = 1756482419
 	)
 	@Export("ByteArrayPool_smallCount")
 	static int ByteArrayPool_smallCount;
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -1576005085
+		intValue = 379141881
 	)
 	@Export("ByteArrayPool_mediumCount")
 	static int ByteArrayPool_mediumCount;
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -381672383
+		intValue = 173834125
 	)
 	@Export("ByteArrayPool_largeCount")
 	static int ByteArrayPool_largeCount;
-	@ObfuscatedName("p")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -2068379159
+		intValue = -521742755
 	)
-	static int field3891;
-	@ObfuscatedName("j")
+	static int field4026;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 450416009
+		intValue = -1862899705
 	)
-	static int field3881;
-	@ObfuscatedName("b")
+	static int field4023;
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -358256925
+		intValue = 1634057369
 	)
-	static int field3882;
-	@ObfuscatedName("x")
+	static int field4028;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -477323591
+		intValue = 1124968779
 	)
-	static int field3883;
-	@ObfuscatedName("y")
+	static int field4021;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 231839197
+		intValue = -1777784581
 	)
-	static int field3884;
-	@ObfuscatedName("k")
+	static int field4030;
+	@ObfuscatedName("d")
 	@Export("ByteArrayPool_small")
 	static byte[][] ByteArrayPool_small;
-	@ObfuscatedName("t")
+	@ObfuscatedName("h")
 	@Export("ByteArrayPool_medium")
 	static byte[][] ByteArrayPool_medium;
-	@ObfuscatedName("l")
+	@ObfuscatedName("g")
 	@Export("ByteArrayPool_large")
 	static byte[][] ByteArrayPool_large;
-	@ObfuscatedName("u")
-	static byte[][] field3888;
-	@ObfuscatedName("z")
-	@Export("ByteArrayPool_altSizeArrayCounts")
-	static int[] ByteArrayPool_altSizeArrayCounts;
-	@ObfuscatedName("d")
-	static ArrayList field3890;
+	@ObfuscatedName("e")
+	static byte[][] field4034;
+	@ObfuscatedName("f")
+	public static ArrayList field4035;
 
 	static {
 		ByteArrayPool_smallCount = 0; // L: 13
 		ByteArrayPool_mediumCount = 0; // L: 14
 		ByteArrayPool_largeCount = 0; // L: 15
-		field3891 = 0; // L: 16
-		field3881 = 1000; // L: 17
-		field3882 = 250; // L: 18
-		field3883 = 100; // L: 19
-		field3884 = 50; // L: 20
+		field4026 = 0; // L: 16
+		field4023 = 1000; // L: 17
+		field4028 = 250; // L: 18
+		field4021 = 100; // L: 19
+		field4030 = 50; // L: 20
 		ByteArrayPool_small = new byte[1000][]; // L: 21
 		ByteArrayPool_medium = new byte[250][]; // L: 22
 		ByteArrayPool_large = new byte[100][]; // L: 23
-		field3888 = new byte[50][]; // L: 24
-		field3890 = new ArrayList(); // L: 28
-		class301.method5508(); // L: 31
+		field4034 = new byte[50][]; // L: 24
+		field4035 = new ArrayList(); // L: 28
+		field4035.clear(); // L: 32
+		field4035.add(100); // L: 33
+		field4035.add(5000); // L: 34
+		field4035.add(10000); // L: 35
+		field4035.add(30000); // L: 36
 		new HashMap();
-	} // L: 36
+	} // L: 42
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IZB)[B",
-		garbageValue = "66"
+		descriptor = "(IZS)[B",
+		garbageValue = "-3055"
 	)
 	@Export("ByteArrayPool_getArrayBool")
 	static synchronized byte[] ByteArrayPool_getArrayBool(int var0, boolean var1) {
 		byte[] var4;
-		if (var0 != 100) { // L: 70
+		if (var0 != 100) { // L: 50
 			if (var0 < 100) {
 			}
 		} else if (ByteArrayPool_smallCount > 0) {
-			var4 = ByteArrayPool_small[--ByteArrayPool_smallCount]; // L: 71
-			ByteArrayPool_small[ByteArrayPool_smallCount] = null; // L: 72
-			return var4; // L: 73
+			var4 = ByteArrayPool_small[--ByteArrayPool_smallCount]; // L: 51
+			ByteArrayPool_small[ByteArrayPool_smallCount] = null; // L: 52
+			return var4; // L: 53
 		}
 
-		if (var0 != 5000) { // L: 75
+		if (var0 != 5000) { // L: 55
 			if (var0 < 5000) {
 			}
 		} else if (ByteArrayPool_mediumCount > 0) {
-			var4 = ByteArrayPool_medium[--ByteArrayPool_mediumCount]; // L: 76
-			ByteArrayPool_medium[ByteArrayPool_mediumCount] = null; // L: 77
-			return var4; // L: 78
+			var4 = ByteArrayPool_medium[--ByteArrayPool_mediumCount]; // L: 56
+			ByteArrayPool_medium[ByteArrayPool_mediumCount] = null; // L: 57
+			return var4; // L: 58
 		}
 
-		if (var0 != 10000) { // L: 80
+		if (var0 != 10000) { // L: 60
 			if (var0 < 10000) {
 			}
 		} else if (ByteArrayPool_largeCount > 0) {
-			var4 = ByteArrayPool_large[--ByteArrayPool_largeCount]; // L: 81
-			ByteArrayPool_large[ByteArrayPool_largeCount] = null; // L: 82
-			return var4; // L: 83
+			var4 = ByteArrayPool_large[--ByteArrayPool_largeCount]; // L: 61
+			ByteArrayPool_large[ByteArrayPool_largeCount] = null; // L: 62
+			return var4; // L: 63
 		}
 
-		if (var0 != 30000) { // L: 85
+		if (var0 != 30000) { // L: 65
 			if (var0 < 30000) {
 			}
-		} else if (field3891 > 0) {
-			var4 = field3888[--field3891]; // L: 86
-			field3888[field3891] = null; // L: 87
-			return var4; // L: 88
+		} else if (field4026 > 0) {
+			var4 = field4034[--field4026]; // L: 66
+			field4034[field4026] = null; // L: 67
+			return var4; // L: 68
 		}
 
-		if (class260.ByteArrayPool_arrays != null) { // L: 90
-			for (int var2 = 0; var2 < class176.ByteArrayPool_alternativeSizes.length; ++var2) { // L: 91
-				if (class176.ByteArrayPool_alternativeSizes[var2] != var0) { // L: 92
-					if (var0 < class176.ByteArrayPool_alternativeSizes[var2]) {
+		if (World.ByteArrayPool_arrays != null) { // L: 70
+			for (int var2 = 0; var2 < SoundCache.ByteArrayPool_alternativeSizes.length; ++var2) { // L: 71
+				if (SoundCache.ByteArrayPool_alternativeSizes[var2] != var0) { // L: 72
+					if (var0 < SoundCache.ByteArrayPool_alternativeSizes[var2]) {
 					}
-				} else if (ByteArrayPool_altSizeArrayCounts[var2] > 0) {
-					byte[] var3 = class260.ByteArrayPool_arrays[var2][--ByteArrayPool_altSizeArrayCounts[var2]]; // L: 93
-					class260.ByteArrayPool_arrays[var2][ByteArrayPool_altSizeArrayCounts[var2]] = null; // L: 94
-					return var3; // L: 95
+				} else if (ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2] > 0) {
+					byte[] var3 = World.ByteArrayPool_arrays[var2][--ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2]]; // L: 73
+					World.ByteArrayPool_arrays[var2][ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2]] = null; // L: 74
+					return var3; // L: 75
 				}
 			}
 		}
 
-		return new byte[var0]; // L: 108
+		return new byte[var0]; // L: 88
 	}
 
-	@ObfuscatedName("bc")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "([BB)[B",
-		garbageValue = "-21"
+		descriptor = "(IZB)Ljava/lang/String;",
+		garbageValue = "43"
 	)
-	@Export("decompressBytes")
-	static final byte[] decompressBytes(byte[] var0) {
-		Buffer var1 = new Buffer(var0); // L: 406
-		int var2 = var1.readUnsignedByte(); // L: 407
-		int var3 = var1.readInt(); // L: 408
-		if (var3 < 0 || AbstractArchive.field3702 != 0 && var3 > AbstractArchive.field3702) { // L: 409
-			throw new RuntimeException(); // L: 410
-		} else if (var2 == 0) { // L: 412
-			byte[] var6 = new byte[var3]; // L: 413
-			var1.readBytes(var6, 0, var3); // L: 414
-			return var6; // L: 415
-		} else {
-			int var4 = var1.readInt(); // L: 418
-			if (var4 >= 0 && (AbstractArchive.field3702 == 0 || var4 <= AbstractArchive.field3702)) { // L: 419
-				byte[] var5 = new byte[var4]; // L: 422
-				if (var2 == 1) { // L: 423
-					BZip2Decompressor.BZip2Decompressor_decompress(var5, var4, var0, var3, 9);
-				} else {
-					AbstractArchive.gzipDecompressor.decompress(var1, var5); // L: 424
-				}
-
-				return var5; // L: 425
-			} else {
-				throw new RuntimeException(); // L: 420
-			}
-		}
+	@Export("intToString")
+	public static String intToString(int var0, boolean var1) {
+		return var1 && var0 >= 0 ? Skeleton.method3944(var0, 10, var1) : Integer.toString(var0); // L: 111 112
 	}
 }

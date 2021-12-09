@@ -4,64 +4,52 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bf")
+@ObfuscatedName("br")
 @Implements("Message")
 public class Message extends DualNode {
-	@ObfuscatedName("ev")
-	@ObfuscatedSignature(
-		descriptor = "Lkd;"
-	)
-	@Export("archive17")
-	static Archive archive17;
-	@ObfuscatedName("pg")
-	@ObfuscatedSignature(
-		descriptor = "Lch;"
-	)
-	@Export("varcs")
-	static Varcs varcs;
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1439385015
+		intValue = 20750645
 	)
 	@Export("count")
 	int count;
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1007637791
+		intValue = -1521210849
 	)
 	@Export("cycle")
 	int cycle;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1516763961
+		intValue = 2033042895
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@Export("sender")
 	String sender;
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Lpb;"
+		descriptor = "Lpo;"
 	)
 	@Export("senderUsername")
 	Username senderUsername;
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lmv;"
+		descriptor = "Lmu;"
 	)
 	@Export("isFromFriend0")
 	TriBool isFromFriend0;
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lmv;"
+		descriptor = "Lmu;"
 	)
 	@Export("isFromIgnored0")
 	TriBool isFromIgnored0;
-	@ObfuscatedName("p")
+	@ObfuscatedName("w")
 	@Export("prefix")
 	String prefix;
-	@ObfuscatedName("j")
+	@ObfuscatedName("n")
 	@Export("text")
 	String text;
 
@@ -71,168 +59,158 @@ public class Message extends DualNode {
 		this.set(var1, var2, var3, var4); // L: 19
 	} // L: 20
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "-2078367400"
+		garbageValue = "-707456994"
 	)
 	@Export("set")
 	void set(int var1, String var2, String var3, String var4) {
-		this.count = WorldMapDecorationType.method5193(); // L: 23
-		this.cycle = Client.cycle; // L: 24
-		this.type = var1; // L: 25
-		this.sender = var2; // L: 26
-		this.fillSenderUsername(); // L: 27
-		this.prefix = var3; // L: 28
-		this.text = var4; // L: 29
-		this.clearIsFromFriend(); // L: 30
-		this.clearIsFromIgnored(); // L: 31
-	} // L: 32
+		int var5 = ++Messages.Messages_count - 1; // L: 25
+		this.count = var5; // L: 27
+		this.cycle = Client.cycle; // L: 28
+		this.type = var1; // L: 29
+		this.sender = var2; // L: 30
+		this.fillSenderUsername(); // L: 31
+		this.prefix = var3; // L: 32
+		this.text = var4; // L: 33
+		this.clearIsFromFriend(); // L: 34
+		this.clearIsFromIgnored(); // L: 35
+	} // L: 36
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1704976906"
+	)
+	@Export("clearIsFromFriend")
+	void clearIsFromFriend() {
+		this.isFromFriend0 = TriBool.TriBool_unknown; // L: 39
+	} // L: 40
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(B)Z",
+		garbageValue = "69"
+	)
+	@Export("isFromFriend")
+	final boolean isFromFriend() {
+		if (this.isFromFriend0 == TriBool.TriBool_unknown) { // L: 43
+			this.fillIsFromFriend(); // L: 44
+		}
+
+		return this.isFromFriend0 == TriBool.TriBool_true; // L: 46
+	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "108"
+	)
+	@Export("fillIsFromFriend")
+	void fillIsFromFriend() {
+		this.isFromFriend0 = GameEngine.friendSystem.friendsList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 50
+	} // L: 51
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "15"
+	)
+	@Export("clearIsFromIgnored")
+	void clearIsFromIgnored() {
+		this.isFromIgnored0 = TriBool.TriBool_unknown; // L: 54
+	} // L: 55
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "1173025660"
+	)
+	@Export("isFromIgnored")
+	final boolean isFromIgnored() {
+		if (this.isFromIgnored0 == TriBool.TriBool_unknown) { // L: 58
+			this.fillIsFromIgnored(); // L: 59
+		}
+
+		return this.isFromIgnored0 == TriBool.TriBool_true; // L: 61
+	}
+
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-35"
+	)
+	@Export("fillIsFromIgnored")
+	void fillIsFromIgnored() {
+		this.isFromIgnored0 = GameEngine.friendSystem.ignoreList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 65
+	} // L: 66
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1556257738"
-	)
-	@Export("clearIsFromFriend")
-	void clearIsFromFriend() {
-		this.isFromFriend0 = TriBool.TriBool_unknown; // L: 35
-	} // L: 36
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-16"
-	)
-	@Export("isFromFriend")
-	final boolean isFromFriend() {
-		if (this.isFromFriend0 == TriBool.TriBool_unknown) { // L: 39
-			this.fillIsFromFriend(); // L: 40
-		}
-
-		return this.isFromFriend0 == TriBool.TriBool_true; // L: 42
-	}
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-788455751"
-	)
-	@Export("fillIsFromFriend")
-	void fillIsFromFriend() {
-		this.isFromFriend0 = class112.friendSystem.friendsList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 46
-	} // L: 47
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1428904972"
-	)
-	@Export("clearIsFromIgnored")
-	void clearIsFromIgnored() {
-		this.isFromIgnored0 = TriBool.TriBool_unknown; // L: 50
-	} // L: 51
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "16"
-	)
-	@Export("isFromIgnored")
-	final boolean isFromIgnored() {
-		if (this.isFromIgnored0 == TriBool.TriBool_unknown) { // L: 54
-			this.fillIsFromIgnored();
-		}
-
-		return this.isFromIgnored0 == TriBool.TriBool_true; // L: 57
-	}
-
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1115298616"
-	)
-	@Export("fillIsFromIgnored")
-	void fillIsFromIgnored() {
-		this.isFromIgnored0 = class112.friendSystem.ignoreList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 61
-	} // L: 62
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1849939202"
+		garbageValue = "719777600"
 	)
 	@Export("fillSenderUsername")
 	final void fillSenderUsername() {
-		if (this.sender != null) { // L: 65
-			this.senderUsername = new Username(WallDecoration.method4643(this.sender), GrandExchangeOfferUnitPriceComparator.loginType);
+		if (this.sender != null) { // L: 69
+			this.senderUsername = new Username(AbstractWorldMapData.method4791(this.sender), class194.loginType);
 		} else {
-			this.senderUsername = null; // L: 66
+			this.senderUsername = null; // L: 70
 		}
 
-	} // L: 67
+	} // L: 71
 
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;IB)Z",
-		garbageValue = "45"
-	)
-	static boolean method1143(String var0, int var1) {
-		return Occluder.method4485(var0, var1, "openjs"); // L: 55
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(CII)Ljava/lang/String;",
-		garbageValue = "51397423"
-	)
-	static String method1149(char var0, int var1) {
-		char[] var2 = new char[var1]; // L: 195
-
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 196
-			var2[var3] = var0;
-		}
-
-		return new String(var2); // L: 197
-	}
-
-	@ObfuscatedName("gw")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "1843523550"
-	)
-	static boolean method1147() {
-		return (Client.drawPlayerNames & 2) != 0; // L: 5128
-	}
-
-	@ObfuscatedName("hn")
+	@ObfuscatedName("in")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-404550822"
+		garbageValue = "1989735073"
 	)
-	static final void method1146() {
-		int var0 = SecureRandomCallable.menuX; // L: 8084
-		int var1 = Frames.menuY; // L: 8085
-		int var2 = ObjectComposition.menuWidth; // L: 8086
-		int var3 = StudioGame.menuHeight; // L: 8087
-		int var4 = 6116423; // L: 8088
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var3, var4); // L: 8089
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0 + 1, var1 + 1, var2 - 2, 16, 0); // L: 8090
-		Rasterizer2D.Rasterizer2D_drawRectangle(var0 + 1, var1 + 18, var2 - 2, var3 - 19, 0); // L: 8091
-		Login.fontBold12.draw("Choose Option", var0 + 3, var1 + 14, var4, -1); // L: 8092
-		int var5 = MouseHandler.MouseHandler_x; // L: 8093
-		int var6 = MouseHandler.MouseHandler_y; // L: 8094
+	static final void method1115() {
+		boolean var0 = false; // L: 10008
 
-		for (int var7 = 0; var7 < Client.menuOptionsCount; ++var7) { // L: 8095
-			int var8 = var1 + (Client.menuOptionsCount - 1 - var7) * 15 + 31; // L: 8096
-			int var9 = 16777215; // L: 8097
-			if (var5 > var0 && var5 < var2 + var0 && var6 > var8 - 13 && var6 < var8 + 3) { // L: 8098
-				var9 = 16776960;
+		while (!var0) { // L: 10009
+			var0 = true; // L: 10010
+
+			for (int var1 = 0; var1 < Client.menuOptionsCount - 1; ++var1) { // L: 10011
+				if (Client.menuOpcodes[var1] < 1000 && Client.menuOpcodes[var1 + 1] > 1000) { // L: 10012
+					String var2 = Client.menuTargets[var1]; // L: 10013
+					Client.menuTargets[var1] = Client.menuTargets[var1 + 1]; // L: 10014
+					Client.menuTargets[var1 + 1] = var2; // L: 10015
+					String var3 = Client.menuActions[var1]; // L: 10016
+					Client.menuActions[var1] = Client.menuActions[var1 + 1]; // L: 10017
+					Client.menuActions[var1 + 1] = var3; // L: 10018
+					int var4 = Client.menuOpcodes[var1]; // L: 10019
+					Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1]; // L: 10020
+					Client.menuOpcodes[var1 + 1] = var4; // L: 10021
+					var4 = Client.menuArguments1[var1]; // L: 10022
+					Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1]; // L: 10023
+					Client.menuArguments1[var1 + 1] = var4; // L: 10024
+					var4 = Client.menuArguments2[var1]; // L: 10025
+					Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1]; // L: 10026
+					Client.menuArguments2[var1 + 1] = var4; // L: 10027
+					var4 = Client.menuIdentifiers[var1]; // L: 10028
+					Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1]; // L: 10029
+					Client.menuIdentifiers[var1 + 1] = var4; // L: 10030
+					boolean var5 = Client.menuShiftClick[var1]; // L: 10031
+					Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1]; // L: 10032
+					Client.menuShiftClick[var1 + 1] = var5; // L: 10033
+					var0 = false; // L: 10034
+				}
 			}
-
-			Login.fontBold12.draw(class392.method6873(var7), var0 + 3, var8, var9, 0); // L: 8099
 		}
 
-		Language.method5516(SecureRandomCallable.menuX, Frames.menuY, ObjectComposition.menuWidth, StudioGame.menuHeight); // L: 8101
-	} // L: 8102
+	} // L: 10038
+
+	@ObfuscatedName("kf")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "1320031067"
+	)
+	@Export("runIntfCloseListeners")
+	static final void runIntfCloseListeners(int var0, int var1) {
+		if (class242.loadInterface(var0)) { // L: 11879
+			Canvas.runComponentCloseListeners(MouseRecorder.Widget_interfaceComponents[var0], var1); // L: 11880
+		}
+	} // L: 11881
 }

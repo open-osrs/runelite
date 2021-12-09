@@ -1,12 +1,11 @@
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("oa")
-public interface class407 {
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/Object;",
-		garbageValue = "-738928947"
-	)
-	Object vmethod7243(int var1);
+@ObfuscatedName("og")
+public class class407 {
+	@ObfuscatedName("c")
+	public static final int[] field4439;
+
+	static {
+		field4439 = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, -1, 1, -1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 3, 3}; // L: 4
+	}
 }

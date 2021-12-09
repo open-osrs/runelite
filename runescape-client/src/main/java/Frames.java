@@ -1,33 +1,20 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ho")
+@ObfuscatedName("gg")
 @Implements("Frames")
 public class Frames extends DualNode {
-	@ObfuscatedName("u")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Ljf;"
-	)
-	@Export("scriptActiveWidget")
-	static Widget scriptActiveWidget;
-	@ObfuscatedName("mx")
-	@ObfuscatedGetter(
-		intValue = -1716567897
-	)
-	@Export("menuY")
-	static int menuY;
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "[Lhe;"
+		descriptor = "[Lgu;"
 	)
 	@Export("frames")
 	Animation[] frames;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lko;Lko;IZ)V",
+		descriptor = "(Lku;Lku;IZ)V",
 		garbageValue = "0"
 	)
 	public Frames(AbstractArchive var1, AbstractArchive var2, int var3, boolean var4) {
@@ -42,7 +29,7 @@ public class Frames extends DualNode {
 			int var11 = (var9[0] & 255) << 8 | var9[1] & 255; // L: 18
 
 			for (Skeleton var12 = (Skeleton)var5.last(); var12 != null; var12 = (Skeleton)var5.previous()) { // L: 19 20 25
-				if (var11 == var12.id) { // L: 21
+				if (var11 == var12.id) {
 					var10 = var12; // L: 22
 					break;
 				}
@@ -59,26 +46,22 @@ public class Frames extends DualNode {
 
 	} // L: 36
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "1499014717"
+		descriptor = "(IB)Z",
+		garbageValue = "-102"
 	)
 	@Export("hasAlphaTransform")
 	public boolean hasAlphaTransform(int var1) {
 		return this.frames[var1].hasAlphaTransform; // L: 39
 	}
 
-	@ObfuscatedName("gb")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "1"
+		descriptor = "(IB)I",
+		garbageValue = "-24"
 	)
-	static void method4481() {
-		PacketBufferNode var0 = AbstractWorldMapData.getPacketBufferNode(ClientPacket.field2745, Client.packetWriter.isaacCipher); // L: 4570
-		var0.packetBuffer.writeByte(class134.getWindowedMode()); // L: 4571
-		var0.packetBuffer.writeShort(GameEngine.canvasWidth); // L: 4572
-		var0.packetBuffer.writeShort(KeyHandler.canvasHeight); // L: 4573
-		Client.packetWriter.addNode(var0); // L: 4574
-	} // L: 4575
+	public static int method4149(int var0) {
+		return var0 >> 17 & 7; // L: 21
+	}
 }

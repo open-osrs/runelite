@@ -4,18 +4,18 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lm")
+@ObfuscatedName("ls")
 @Implements("IterableDualNodeQueue")
 public class IterableDualNodeQueue implements Iterable {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lnt;"
+		descriptor = "Lnc;"
 	)
 	@Export("sentinel")
 	public DualNode sentinel;
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lnt;"
+		descriptor = "Lnc;"
 	)
 	@Export("head")
 	DualNode head;
@@ -26,7 +26,7 @@ public class IterableDualNodeQueue implements Iterable {
 		this.sentinel.nextDual = this.sentinel; // L: 12
 	} // L: 13
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@Export("clear")
 	public void clear() {
 		while (this.sentinel.previousDual != this.sentinel) { // L: 16
@@ -35,9 +35,9 @@ public class IterableDualNodeQueue implements Iterable {
 
 	} // L: 19
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lnt;)V"
+		descriptor = "(Lnc;)V"
 	)
 	@Export("add")
 	public void add(DualNode var1) {
@@ -51,75 +51,75 @@ public class IterableDualNodeQueue implements Iterable {
 		var1.previousDual.nextDual = var1; // L: 26
 	} // L: 27
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "()Lnt;"
+		descriptor = "()Lnc;"
 	)
 	@Export("removeLast")
 	public DualNode removeLast() {
-		DualNode var1 = this.sentinel.previousDual; // L: 38
+		DualNode var1 = this.sentinel.previousDual; // L: 39
 		if (var1 == this.sentinel) {
-			return null; // L: 39
+			return null; // L: 40
 		} else {
-			var1.removeDual(); // L: 40
-			return var1; // L: 41
+			var1.removeDual(); // L: 41
+			return var1; // L: 42
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "()Lnt;"
+		descriptor = "()Lnc;"
 	)
 	@Export("last")
 	public DualNode last() {
-		return this.previousOrLast((DualNode)null); // L: 45
-	}
-
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(Lnt;)Lnt;"
-	)
-	@Export("previousOrLast")
-	DualNode previousOrLast(DualNode var1) {
-		DualNode var2;
-		if (var1 == null) { // L: 50
-			var2 = this.sentinel.previousDual;
-		} else {
-			var2 = var1; // L: 51
-		}
-
-		if (var2 == this.sentinel) { // L: 52
-			this.head = null; // L: 53
-			return null; // L: 54
-		} else {
-			this.head = var2.previousDual; // L: 56
-			return var2; // L: 57
-		}
-	}
-
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "()Lnt;"
-	)
-	@Export("previous")
-	public DualNode previous() {
-		DualNode var1 = this.head; // L: 61
-		if (var1 == this.sentinel) { // L: 62
-			this.head = null; // L: 63
-			return null; // L: 64
-		} else {
-			this.head = var1.previousDual; // L: 66
-			return var1; // L: 67
-		}
-	}
-
-	public Iterator iterator() {
-		return new IterableDualNodeQueueIterator(this); // L: 71
+		return this.previousOrLast((DualNode)null); // L: 46
 	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lnt;Lnt;)V"
+		descriptor = "(Lnc;)Lnc;"
+	)
+	@Export("previousOrLast")
+	DualNode previousOrLast(DualNode var1) {
+		DualNode var2;
+		if (var1 == null) { // L: 52
+			var2 = this.sentinel.previousDual;
+		} else {
+			var2 = var1; // L: 53
+		}
+
+		if (var2 == this.sentinel) { // L: 54
+			this.head = null; // L: 55
+			return null; // L: 56
+		} else {
+			this.head = var2.previousDual; // L: 58
+			return var2; // L: 59
+		}
+	}
+
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "()Lnc;"
+	)
+	@Export("previous")
+	public DualNode previous() {
+		DualNode var1 = this.head; // L: 64
+		if (var1 == this.sentinel) { // L: 65
+			this.head = null; // L: 66
+			return null; // L: 67
+		} else {
+			this.head = var1.previousDual; // L: 69
+			return var1; // L: 70
+		}
+	}
+
+	public Iterator iterator() {
+		return new IterableDualNodeQueueIterator(this); // L: 74
+	}
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(Lnc;Lnc;)V"
 	)
 	@Export("DualNodeDeque_addBefore")
 	public static void DualNodeDeque_addBefore(DualNode var0, DualNode var1) {

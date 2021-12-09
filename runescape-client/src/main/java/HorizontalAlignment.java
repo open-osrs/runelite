@@ -1,136 +1,132 @@
-import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fj")
+@ObfuscatedName("fc")
 @Implements("HorizontalAlignment")
 public enum HorizontalAlignment implements MouseWheel {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lfj;"
+		descriptor = "Lfc;"
 	)
-	field1699(0, 0),
-	@ObfuscatedName("w")
+	field1829(0, 0),
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lfj;"
+		descriptor = "Lfc;"
 	)
 	@Export("HorizontalAlignment_centered")
-	HorizontalAlignment_centered(1, 1),
-	@ObfuscatedName("s")
+	HorizontalAlignment_centered(2, 1),
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lfj;"
+		descriptor = "Lfc;"
 	)
-	field1694(2, 2);
+	field1826(1, 2);
 
-	@ObfuscatedName("ea")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Lkd;"
+		descriptor = "Lcf;"
 	)
-	@Export("archive7")
-	static Archive archive7;
-	@ObfuscatedName("a")
+	@Export("World_request")
+	static UrlRequest World_request;
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1219094331
+		intValue = -947111311
 	)
 	@Export("value")
 	public final int value;
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 423871977
+		intValue = -968745241
 	)
 	@Export("id")
 	final int id;
 
 	HorizontalAlignment(int var3, int var4) {
-		this.value = var3; // L: 14
-		this.id = var4; // L: 15
-	} // L: 16
+		this.value = var3; // L: 18
+		this.id = var4; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "238732485"
+		descriptor = "(B)I",
+		garbageValue = "48"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 19
+		return this.id; // L: 24
 	}
 
-	@ObfuscatedName("i")
-	public static String method3113(long var0) {
-		Calendar.Calendar_calendar.setTime(new Date(var0)); // L: 31
-		int var2 = Calendar.Calendar_calendar.get(7); // L: 32
-		int var3 = Calendar.Calendar_calendar.get(5); // L: 33
-		int var4 = Calendar.Calendar_calendar.get(2); // L: 34
-		int var5 = Calendar.Calendar_calendar.get(1); // L: 35
-		int var6 = Calendar.Calendar_calendar.get(11); // L: 36
-		int var7 = Calendar.Calendar_calendar.get(12); // L: 37
-		int var8 = Calendar.Calendar_calendar.get(13); // L: 38
-		return Calendar.DAYS_OF_THE_WEEK[var2 - 1] + ", " + var3 / 10 + var3 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var4] + "-" + var5 + " " + var6 / 10 + var6 % 10 + ":" + var7 / 10 + var7 % 10 + ":" + var8 / 10 + var8 % 10 + " GMT"; // L: 39
-	}
-
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1221922061"
+		descriptor = "(Lpj;B)V",
+		garbageValue = "13"
 	)
-	public static boolean method3114(int var0) {
-		return (var0 >> 28 & 1) != 0; // L: 25
-	}
-
-	@ObfuscatedName("gl")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1099417797"
-	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field687 = 0L; // L: 4556
-		if (var0 >= 2) { // L: 4557
-			Client.isResizable = true;
-		} else {
-			Client.isResizable = false; // L: 4558
+	@Export("updatePlayer")
+	static final void updatePlayer(PacketBuffer var0) {
+		var0.importIndex(); // L: 37
+		int var1 = Client.localPlayerIndex; // L: 38
+		Player var2 = class340.localPlayer = Client.players[var1] = new Player(); // L: 39
+		var2.index = var1; // L: 40
+		int var3 = var0.readBits(30); // L: 41
+		byte var4 = (byte)(var3 >> 28); // L: 42
+		int var5 = var3 >> 14 & 16383; // L: 43
+		int var6 = var3 & 16383; // L: 44
+		var2.pathX[0] = var5 - class131.baseX; // L: 45
+		var2.x = (var2.pathX[0] << 7) + (var2.transformedSize() << 6); // L: 46
+		var2.pathY[0] = var6 - TileItem.baseY; // L: 47
+		var2.y = (var2.pathY[0] << 7) + (var2.transformedSize() << 6); // L: 48
+		class20.Client_plane = var2.plane = var4; // L: 49
+		if (Players.field1248[var1] != null) { // L: 50
+			var2.read(Players.field1248[var1]);
 		}
 
-		if (class134.getWindowedMode() == 1) { // L: 4559
-			ArchiveLoader.client.setMaxCanvasSize(765, 503); // L: 4560
-		} else {
-			ArchiveLoader.client.setMaxCanvasSize(7680, 2160); // L: 4563
-		}
+		Players.Players_count = 0; // L: 51
+		Players.Players_indices[++Players.Players_count - 1] = var1; // L: 52
+		Players.field1243[var1] = 0; // L: 53
+		Players.Players_emptyIdxCount = 0; // L: 54
 
-		if (Client.gameState >= 25) { // L: 4565
-			Frames.method4481();
-		}
-
-	} // L: 4566
-
-	@ObfuscatedName("iy")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIII)V",
-		garbageValue = "1045618476"
-	)
-	@Export("drawWidgets")
-	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		if (class174.loadInterface(var0)) { // L: 9676
-			NPC.field1207 = null; // L: 9683
-			class28.drawInterface(WorldMapSection1.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7); // L: 9684
-			if (NPC.field1207 != null) { // L: 9685
-				class28.drawInterface(NPC.field1207, -1412584499, var1, var2, var3, var4, Varcs.field1263, class150.field1604, var7); // L: 9686
-				NPC.field1207 = null; // L: 9687
+		for (int var7 = 1; var7 < 2048; ++var7) { // L: 55
+			if (var1 != var7) { // L: 56
+				int var8 = var0.readBits(18); // L: 57
+				int var9 = var8 >> 16; // L: 58
+				int var10 = var8 >> 8 & 597; // L: 59
+				int var11 = var8 & 597; // L: 60
+				Players.Players_regions[var7] = (var10 << 14) + var11 + (var9 << 28); // L: 61
+				Players.Players_orientations[var7] = 0; // L: 62
+				Players.Players_targetIndices[var7] = -1; // L: 63
+				Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var7; // L: 64
+				Players.field1243[var7] = 0; // L: 65
 			}
+		}
 
-		} else {
-			if (var7 != -1) { // L: 9677
-				Client.field594[var7] = true;
+		var0.exportIndex(); // L: 67
+	} // L: 68
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Float;Ljava/lang/Float;I)V",
+		garbageValue = "-2046579641"
+	)
+	static void method3294(Float var0, Float var1) {
+		if (var0 + class112.field1361 < 1.3333334F) { // L: 314
+			float var2 = var0 - 2.0F; // L: 315
+			float var3 = var0 - 1.0F; // L: 316
+			float var4 = (float)Math.sqrt((double)(var2 * var2 - 4.0F * var3 * var3)); // L: 317
+			float var5 = (var4 + -var2) * 0.5F; // L: 318
+			if (var1 + class112.field1361 > var5) { // L: 319
+				var1 = var5 - class112.field1361; // L: 320
 			} else {
-				for (int var8 = 0; var8 < 100; ++var8) { // L: 9679
-					Client.field594[var8] = true;
+				var5 = 0.5F * (-var2 - var4); // L: 323
+				if (var1 < class112.field1361 + var5) { // L: 324
+					var1 = class112.field1361 + var5; // L: 325
 				}
 			}
-
+		} else {
+			var0 = 1.3333334F - class112.field1361; // L: 330
+			var1 = 0.33333334F - class112.field1361; // L: 331
 		}
-	} // L: 9681 9689
+
+	} // L: 333
 }

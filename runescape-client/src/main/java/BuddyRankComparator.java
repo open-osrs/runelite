@@ -1,27 +1,17 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dn")
+@ObfuscatedName("do")
 @Implements("BuddyRankComparator")
 public class BuddyRankComparator extends AbstractUserComparator {
-	@ObfuscatedName("rd")
+	@ObfuscatedName("pw")
 	@ObfuscatedSignature(
-		descriptor = "Las;"
+		descriptor = "Lnq;"
 	)
-	@Export("pcmStreamMixer")
-	static PcmStreamMixer pcmStreamMixer;
-	@ObfuscatedName("sn")
-	@ObfuscatedGetter(
-		intValue = 31962043
-	)
-	static int field1333;
-	@ObfuscatedName("p")
-	@Export("ItemDefinition_inMembersWorld")
-	public static boolean ItemDefinition_inMembersWorld;
-	@ObfuscatedName("i")
+	static class370 field1342;
+	@ObfuscatedName("c")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -29,10 +19,10 @@ public class BuddyRankComparator extends AbstractUserComparator {
 		this.reversed = var1; // L: 10
 	} // L: 11
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lmt;Lmt;B)I",
-		garbageValue = "1"
+		descriptor = "(Lmp;Lmp;I)I",
+		garbageValue = "-1364999182"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -47,58 +37,17 @@ public class BuddyRankComparator extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
 	}
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("ld")
 	@ObfuscatedSignature(
-		descriptor = "(Lko;III)Z",
-		garbageValue = "2134321189"
+		descriptor = "(IIIZI)V",
+		garbageValue = "1683360444"
 	)
-	public static boolean method2502(AbstractArchive var0, int var1, int var2) {
-		byte[] var3 = var0.takeFile(var1, var2); // L: 208
-		if (var3 == null) { // L: 209
-			return false;
-		} else {
-			Script.SpriteBuffer_decode(var3); // L: 210
-			return true; // L: 211
-		}
-	}
-
-	@ObfuscatedName("gm")
-	@ObfuscatedSignature(
-		descriptor = "(S)V",
-		garbageValue = "459"
-	)
-	static void method2500() {
-		int var0 = Players.Players_count; // L: 5051
-		int[] var1 = Players.Players_indices; // L: 5052
-
-		for (int var2 = 0; var2 < var0; ++var2) { // L: 5053
-			if (var1[var2] != Client.combatTargetPlayerIndex && var1[var2] != Client.localPlayerIndex) { // L: 5054
-				class132.addPlayerToScene(Client.players[var1[var2]], true); // L: 5055
-			}
-		}
-
-	} // L: 5057
-
-	@ObfuscatedName("le")
-	@ObfuscatedSignature(
-		descriptor = "(Ljf;I)Ljf;",
-		garbageValue = "1540120138"
-	)
-	static Widget method2501(Widget var0) {
-		int var2 = PendingSpawn.getWidgetFlags(var0); // L: 11886
-		int var1 = var2 >> 17 & 7; // L: 11888
-		int var3 = var1; // L: 11890
-		if (var1 == 0) { // L: 11891
-			return null;
-		} else {
-			for (int var4 = 0; var4 < var3; ++var4) { // L: 11892
-				var0 = UserComparator9.getWidget(var0.parentId); // L: 11893
-				if (var0 == null) { // L: 11894
-					return null;
-				}
-			}
-
-			return var0; // L: 11896
-		}
-	}
+	public static void method2547(int var0, int var1, int var2, boolean var3) {
+		PacketBufferNode var4 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2819, Client.packetWriter.isaacCipher); // L: 12675
+		var4.packetBuffer.method7527(var3 ? Client.field607 * 1420477321 * -1761828167 : 0); // L: 12676
+		var4.packetBuffer.method7349(var0); // L: 12677
+		var4.packetBuffer.method7343(var2); // L: 12678
+		var4.packetBuffer.writeShort(var1); // L: 12679
+		Client.packetWriter.addNode(var4); // L: 12680
+	} // L: 12681
 }
