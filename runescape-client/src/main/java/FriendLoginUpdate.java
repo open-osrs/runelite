@@ -4,55 +4,35 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lw")
+@ObfuscatedName("ml")
 @Implements("FriendLoginUpdate")
 public class FriendLoginUpdate extends Link {
-	@ObfuscatedName("x")
+	@ObfuscatedName("bu")
 	@ObfuscatedGetter(
-		intValue = 1837653609
+		intValue = -1607694617
 	)
-	static int field3943;
-	@ObfuscatedName("gu")
-	@ObfuscatedSignature(
-		descriptor = "Lle;"
-	)
-	@Export("fontPlain11")
-	static Font fontPlain11;
-	@ObfuscatedName("i")
+	static int field4096;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1663283777
+		intValue = -1414251107
 	)
-	public int field3945;
-	@ObfuscatedName("w")
+	public int field4097;
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lpb;"
+		descriptor = "Lpo;"
 	)
 	@Export("username")
 	public Username username;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@Export("world")
 	public short world;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpb;I)V"
+		descriptor = "(Lpo;I)V"
 	)
 	FriendLoginUpdate(Username var1, int var2) {
-		this.field3945 = (int)(class111.method2516() / 1000L); // L: 107
-		this.username = var1; // L: 108
-		this.world = (short)var2; // L: 109
-	} // L: 110
-
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-106"
-	)
-	static void method6058() {
-		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 30
-			if (var0.obj != null) { // L: 31
-				var0.set();
-			}
-		}
-
-	} // L: 33
+		this.field4097 = (int)(Ignored.method6459() / 1000L); // L: 109
+		this.username = var1; // L: 110
+		this.world = (short)var2; // L: 111
+	} // L: 112
 }

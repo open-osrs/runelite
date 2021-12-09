@@ -3,10 +3,10 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("pp")
+@ObfuscatedName("pu")
 @Implements("IntHashTable")
 public class IntHashTable {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@Export("array")
 	int[] array;
 
@@ -32,10 +32,10 @@ public class IntHashTable {
 
 	} // L: 17
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IB)I",
-		garbageValue = "4"
+		descriptor = "(IS)I",
+		garbageValue = "-5758"
 	)
 	@Export("get")
 	public int get(int var1) {

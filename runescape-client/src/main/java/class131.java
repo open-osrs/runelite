@@ -3,109 +3,84 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ej")
-public class class131 extends class116 {
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = -1300731739
-	)
-	static int field1485;
-	@ObfuscatedName("t")
+@ObfuscatedName("et")
+public class class131 extends class126 {
+	@ObfuscatedName("an")
+	@Export("fontHelvetica13")
+	static java.awt.Font fontHelvetica13;
+	@ObfuscatedName("et")
 	@ObfuscatedSignature(
-		descriptor = "Lkj;"
+		descriptor = "Lkz;"
 	)
-	@Export("NetCache_currentResponse")
-	public static NetFileRequest NetCache_currentResponse;
-	@ObfuscatedName("i")
+	@Export("archive2")
+	static Archive archive2;
+	@ObfuscatedName("ga")
 	@ObfuscatedGetter(
-		longValue = -7049203579552523343L
+		intValue = -366800695
 	)
-	long field1487;
-	@ObfuscatedName("w")
-	String field1486;
-	@ObfuscatedName("s")
+	@Export("baseX")
+	static int baseX;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -121846283
+		intValue = -564677501
 	)
-	int field1489;
+	int field1526;
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = 165982009
+	)
+	int field1525;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		intValue = 1640415355
+	)
+	int field1528;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = 1105926385
+	)
+	int field1533;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldg;"
+		descriptor = "Lda;"
 	)
-	final class119 this$0;
+	final class129 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldg;)V"
+		descriptor = "(Lda;)V"
 	)
-	class131(class119 var1) {
-		this.this$0 = var1;
-		this.field1487 = -1L; // L: 93
-		this.field1486 = null; // L: 94
-		this.field1489 = 0; // L: 95
-	} // L: 97
+	class131(class129 var1) {
+		this.this$0 = var1; // L: 289
+	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lop;I)V",
-		garbageValue = "-2002779676"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "1416770155"
 	)
-	void vmethod2847(Buffer var1) {
-		if (var1.readUnsignedByte() != 255) { // L: 100
-			--var1.offset; // L: 101
-			this.field1487 = var1.readLong(); // L: 102
-		}
+	void vmethod3029(Buffer var1) {
+		this.field1526 = var1.readInt(); // L: 292
+		this.field1533 = var1.readInt(); // L: 293
+		this.field1525 = var1.readUnsignedByte(); // L: 294
+		this.field1528 = var1.readUnsignedByte(); // L: 295
+	} // L: 296
 
-		this.field1486 = var1.readStringCp1252NullTerminatedOrNull(); // L: 104
-		this.field1489 = var1.readUnsignedShort(); // L: 105
-	} // L: 106
-
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Ldm;I)V",
-		garbageValue = "-293908864"
+		descriptor = "(Lej;I)V",
+		garbageValue = "-1531735008"
 	)
-	void vmethod2848(ClanSettings var1) {
-		var1.method2655(this.field1487, this.field1486, this.field1489); // L: 109
-	} // L: 110
+	void vmethod3028(ClanSettings var1) {
+		var1.method2860(this.field1526, this.field1533, this.field1525, this.field1528); // L: 299
+	} // L: 300
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-474591339"
+		descriptor = "(IIIIB)I",
+		garbageValue = "-37"
 	)
-	public static void method2753() {
-		try {
-			if (class247.musicPlayerStatus == 1) { // L: 38
-				int var0 = class247.midiPcmStream.method4754(); // L: 39
-				if (var0 > 0 && class247.midiPcmStream.isReady()) { // L: 40
-					var0 -= class247.pcmSampleLength; // L: 41
-					if (var0 < 0) { // L: 42
-						var0 = 0;
-					}
-
-					class247.midiPcmStream.setPcmStreamVolume(var0); // L: 43
-					return; // L: 44
-				}
-
-				class247.midiPcmStream.clear(); // L: 46
-				class247.midiPcmStream.removeAll(); // L: 47
-				if (class128.musicTrackArchive != null) { // L: 48
-					class247.musicPlayerStatus = 2;
-				} else {
-					class247.musicPlayerStatus = 0; // L: 49
-				}
-
-				class14.musicTrack = null; // L: 50
-				class247.soundCache = null; // L: 51
-			}
-		} catch (Exception var2) { // L: 54
-			var2.printStackTrace(); // L: 55
-			class247.midiPcmStream.clear(); // L: 56
-			class247.musicPlayerStatus = 0; // L: 57
-			class14.musicTrack = null; // L: 58
-			class247.soundCache = null; // L: 59
-			class128.musicTrackArchive = null; // L: 60
-		}
-
-	} // L: 62
+	static final int method2802(int var0, int var1, int var2, int var3) {
+		int var4 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var2 * 1024 / var3] >> 1; // L: 476
+		return ((65536 - var4) * var0 >> 16) + (var4 * var1 >> 16); // L: 477
+	}
 }

@@ -4,15 +4,20 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("da")
+@ObfuscatedName("ds")
 @Implements("UserComparator9")
 public class UserComparator9 extends AbstractUserComparator {
-	@ObfuscatedName("bm")
+	@ObfuscatedName("sq")
 	@ObfuscatedGetter(
-		intValue = -1416799975
+		intValue = -1619133469
 	)
-	static int field1326;
-	@ObfuscatedName("i")
+	static int field1335;
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Lpa;"
+	)
+	static IndexedSprite field1336;
+	@ObfuscatedName("c")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -20,10 +25,10 @@ public class UserComparator9 extends AbstractUserComparator {
 		this.reversed = var1; // L: 11
 	} // L: 12
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lmt;Lmt;I)I",
-		garbageValue = "-1547709141"
+		descriptor = "(Lmp;Lmp;I)I",
+		garbageValue = "-346257464"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -36,24 +41,5 @@ public class UserComparator9 extends AbstractUserComparator {
 
 	public int compare(Object var1, Object var2) {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 22
-	}
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(IS)Ljf;",
-		garbageValue = "-28609"
-	)
-	@Export("getWidget")
-	public static Widget getWidget(int var0) {
-		int var1 = var0 >> 16; // L: 199
-		int var2 = var0 & 65535; // L: 200
-		if (WorldMapSection1.Widget_interfaceComponents[var1] == null || WorldMapSection1.Widget_interfaceComponents[var1][var2] == null) { // L: 201
-			boolean var3 = class174.loadInterface(var1); // L: 202
-			if (!var3) { // L: 203
-				return null;
-			}
-		}
-
-		return WorldMapSection1.Widget_interfaceComponents[var1][var2]; // L: 205
 	}
 }

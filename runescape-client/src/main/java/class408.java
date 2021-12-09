@@ -3,53 +3,39 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ov")
-public class class408 {
-	@ObfuscatedName("tb")
-	@ObfuscatedSignature(
-		descriptor = "Lcs;"
-	)
-	@Export("clientPreferences")
-	static ClientPreferences clientPreferences;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Lko;"
-	)
-	@Export("soundEffectsArchive")
-	public static AbstractArchive soundEffectsArchive;
-	@ObfuscatedName("i")
+@ObfuscatedName("os")
+final class class408 implements class405 {
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -196401313
+		intValue = -271022059
 	)
-	public final int field4363;
-	@ObfuscatedName("w")
-	public Object field4361;
+	@Export("WorldMapElement_count")
+	public static int WorldMapElement_count;
 
-	public class408(int var1) {
-		this.field4363 = var1; // L: 8
-	} // L: 9
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Object;Lpi;I)V",
+		garbageValue = "246575309"
+	)
+	public void vmethod7273(Object var1, Buffer var2) {
+		this.method7238((Long)var1, var2); // L: 35
+	} // L: 36
 
-	public class408(int var1, Object var2) {
-		this.field4363 = var1; // L: 12
-		this.field4361 = var2; // L: 13
-	} // L: 14
-
-	public int hashCode() {
-		return super.hashCode(); // L: 17
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(Lpi;B)Ljava/lang/Object;",
+		garbageValue = "3"
+	)
+	public Object vmethod7271(Buffer var1) {
+		return var1.readLong(); // L: 31
 	}
 
-	public boolean equals(Object var1) {
-		if (!(var1 instanceof class408)) { // L: 21
-			return false;
-		} else {
-			class408 var2 = (class408)var1; // L: 22
-			if (var2.field4361 == null && this.field4361 != null) { // L: 23
-				return false;
-			} else if (this.field4361 == null && var2.field4361 != null) { // L: 24
-				return false;
-			} else {
-				return var2.field4363 == this.field4363 && var2.field4361.equals(this.field4361); // L: 25
-			}
-		}
-	}
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Long;Lpi;I)V",
+		garbageValue = "-1540315910"
+	)
+	void method7238(Long var1, Buffer var2) {
+		var2.writeLong(var1); // L: 26
+	} // L: 27
 }

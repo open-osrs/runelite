@@ -1,49 +1,104 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dx")
-public class class124 extends class132 {
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = -443066263
+@ObfuscatedName("dl")
+public class class124 extends class126 {
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Lku;"
 	)
-	int field1426;
+	@Export("musicTrackArchive")
+	public static AbstractArchive musicTrackArchive;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		longValue = 3062767969711137225L
+	)
+	long field1485;
+	@ObfuscatedName("b")
+	String field1484;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Leh;"
+		descriptor = "Lda;"
 	)
-	final class133 this$0;
+	final class129 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Leh;)V"
+		descriptor = "(Lda;)V"
 	)
-	class124(class133 var1) {
+	class124(class129 var1) {
 		this.this$0 = var1;
-		this.field1426 = -1; // L: 82
-	} // L: 84
+		this.field1485 = -1L;
+		this.field1484 = null;
+	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lop;I)V",
-		garbageValue = "-1393452113"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "1416770155"
 	)
-	void vmethod2839(Buffer var1) {
-		this.field1426 = var1.readUnsignedShort(); // L: 87
-		var1.readUnsignedByte(); // L: 88
-		if (var1.readUnsignedByte() != 255) { // L: 89
-			--var1.offset; // L: 90
-			var1.readLong(); // L: 91
+	void vmethod3029(Buffer var1) {
+		if (var1.readUnsignedByte() != 255) {
+			--var1.offset;
+			this.field1485 = var1.readLong();
 		}
 
-	} // L: 93
+		this.field1484 = var1.readStringCp1252NullTerminatedOrNull();
+	} // L: 85
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lea;I)V",
-		garbageValue = "-1714930149"
+		descriptor = "(Lej;I)V",
+		garbageValue = "-1531735008"
 	)
-	void vmethod2838(ClanChannel var1) {
-		var1.removeMember(this.field1426); // L: 96
-	} // L: 97
+	void vmethod3028(ClanSettings var1) {
+		var1.method2850(this.field1485, this.field1484, 0); // L: 88
+	} // L: 89
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(Lpj;B)I",
+		garbageValue = "3"
+	)
+	static int method2747(PacketBuffer var0) {
+		int var1 = var0.readBits(2); // L: 187
+		int var2;
+		if (var1 == 0) { // L: 189
+			var2 = 0;
+		} else if (var1 == 1) { // L: 190
+			var2 = var0.readBits(5);
+		} else if (var1 == 2) { // L: 191
+			var2 = var0.readBits(8);
+		} else {
+			var2 = var0.readBits(11); // L: 192
+		}
+
+		return var2; // L: 193
+	}
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(I)Lpl;",
+		garbageValue = "970200706"
+	)
+	static SpritePixels method2754() {
+		SpritePixels var0 = new SpritePixels(); // L: 72
+		var0.width = class432.SpriteBuffer_spriteWidth; // L: 73
+		var0.height = class432.SpriteBuffer_spriteHeight; // L: 74
+		var0.xOffset = class141.SpriteBuffer_xOffsets[0]; // L: 75
+		var0.yOffset = RouteStrategy.SpriteBuffer_yOffsets[0]; // L: 76
+		var0.subWidth = class432.SpriteBuffer_spriteWidths[0]; // L: 77
+		var0.subHeight = class330.SpriteBuffer_spriteHeights[0]; // L: 78
+		int var1 = var0.subWidth * var0.subHeight; // L: 79
+		byte[] var2 = class369.SpriteBuffer_pixels[0]; // L: 80
+		var0.pixels = new int[var1]; // L: 81
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 82
+			var0.pixels[var3] = class432.SpriteBuffer_spritePalette[var2[var3] & 255];
+		}
+
+		UserComparator3.method2529(); // L: 83
+		return var0; // L: 84
+	}
 }

@@ -1,31 +1,19 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("oi")
-public final class class397 {
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		longValue = -4044727011412295925L
-	)
-	static long field4289;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		longValue = 99400153304744329L
-	)
-	static long field4288;
-	@ObfuscatedName("x")
-	@Export("Tiles_saturation")
-	static int[] Tiles_saturation;
-
-	@ObfuscatedName("w")
+@ObfuscatedName("oc")
+public interface class397 extends Iterable {
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "1663146092"
+		descriptor = "(II)I",
+		garbageValue = "233631954"
 	)
-	@Export("addGameMessage")
-	static void addGameMessage(int var0, String var1, String var2) {
-		class269.addChatMessage(var0, var1, var2, (String)null); // L: 23
-	} // L: 24
+	int vmethod7128(int var1);
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(ILjava/lang/Object;I)V",
+		garbageValue = "3016419"
+	)
+	void vmethod7129(int var1, Object var2);
 }

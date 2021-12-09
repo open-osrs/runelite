@@ -1,24 +1,112 @@
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jx")
+@ObfuscatedName("jd")
 public class class260 {
-	@ObfuscatedName("i")
-	public static final short[] field3035;
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "Lku;"
+	)
+	@Export("musicPatchesArchive")
+	public static AbstractArchive musicPatchesArchive;
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "Lku;"
+	)
+	@Export("soundEffectsArchive")
+	public static AbstractArchive soundEffectsArchive;
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "Ljp;"
+	)
+	@Export("midiPcmStream")
+	public static MidiPcmStream midiPcmStream;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = -1837592887
+	)
+	@Export("musicPlayerStatus")
+	public static int musicPlayerStatus;
 	@ObfuscatedName("w")
-	public static final short[][] field3039;
-	@ObfuscatedName("s")
-	public static final short[] field3036;
-	@ObfuscatedName("a")
-	public static final short[][] field3037;
-	@ObfuscatedName("q")
-	@Export("ByteArrayPool_arrays")
-	static byte[][][] ByteArrayPool_arrays;
+	@ObfuscatedGetter(
+		intValue = 1576356909
+	)
+	@Export("musicTrackFileId")
+	public static int musicTrackFileId;
+	@ObfuscatedName("r")
+	@ObfuscatedGetter(
+		intValue = 1257628969
+	)
+	@Export("pcmSampleLength")
+	public static int pcmSampleLength;
+	@ObfuscatedName("hk")
+	@ObfuscatedSignature(
+		descriptor = "[Lpl;"
+	)
+	@Export("headIconHintSprites")
+	static SpritePixels[] headIconHintSprites;
 
 	static {
-		field3035 = new short[]{6798, 8741, 25238, 4626, 4550}; // L: 4
-		field3039 = new short[][]{{6798, 107, 10283, 16, 4797, 7744, 5799, 4634, -31839, 22433, 2983, -11343, 8, 5281, 10438, 3650, -27322, -21845, 200, 571, 908, 21830, 28946, -15701, -14010}, {8741, 12, -1506, -22374, 7735, 8404, 1701, -27106, 24094, 10153, -8915, 4783, 1341, 16578, -30533, 25239, 8, 5281, 10438, 3650, -27322, -21845, 200, 571, 908, 21830, 28946, -15701, -14010}, {25238, 8742, 12, -1506, -22374, 7735, 8404, 1701, -27106, 24094, 10153, -8915, 4783, 1341, 16578, -30533, 8, 5281, 10438, 3650, -27322, -21845, 200, 571, 908, 21830, 28946, -15701, -14010}, {4626, 11146, 6439, 12, 4758, 10270}, {4550, 4537, 5681, 5673, 5790, 6806, 8076, 4574, 17050, 0, 127, -31821, -17991}}; // L: 5
-		field3036 = new short[]{-10304, 9104, -1, -1, -1}; // L: 12
-		field3037 = new short[][]{{6554, 115, 10304, 28, 5702, 7756, 5681, 4510, -31835, 22437, 2859, -11339, 16, 5157, 10446, 3658, -27314, -21965, 472, 580, 784, 21966, 28950, -15697, -14002}, {9104, 10275, 7595, 3610, 7975, 8526, 918, -26734, 24466, 10145, -6882, 5027, 1457, 16565, -30545, 25486, 24, 5392, 10429, 3673, -27335, -21957, 192, 687, 412, 21821, 28835, -15460, -14019}, new short[0], new short[0], new short[0]}; // L: 13
+		musicPlayerStatus = 0;
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;B)Ljava/lang/String;",
+		garbageValue = "0"
+	)
+	public static String method5070(CharSequence var0) {
+		int var1 = var0.length(); // L: 11
+		StringBuilder var2 = new StringBuilder(var1); // L: 12
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 13
+			char var4 = var0.charAt(var3); // L: 14
+			if ((var4 < 'a' || var4 > 'z') && (var4 < 'A' || var4 > 'Z') && (var4 < '0' || var4 > '9') && var4 != '.' && var4 != '-' && var4 != '*' && var4 != '_') { // L: 15
+				if (var4 == ' ') { // L: 16
+					var2.append('+');
+				} else {
+					byte var5 = class372.charToByteCp1252(var4); // L: 18
+					var2.append('%'); // L: 19
+					int var6 = var5 >> 4 & 15; // L: 20
+					if (var6 >= 10) { // L: 21
+						var2.append((char)(var6 + 55));
+					} else {
+						var2.append((char)(var6 + 48)); // L: 22
+					}
+
+					var6 = var5 & 15; // L: 23
+					if (var6 >= 10) { // L: 24
+						var2.append((char)(var6 + 55));
+					} else {
+						var2.append((char)(var6 + 48));
+					}
+				}
+			} else {
+				var2.append(var4); // L: 25
+			}
+		}
+
+		return var2.toString(); // L: 28
+	}
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(IIII)I",
+		garbageValue = "-68634034"
+	)
+	static final int method5069(int var0, int var1, int var2) {
+		int var3 = var0 / var2; // L: 462
+		int var4 = var0 & var2 - 1; // L: 463
+		int var5 = var1 / var2; // L: 464
+		int var6 = var1 & var2 - 1; // L: 465
+		int var7 = class139.method2932(var3, var5); // L: 466
+		int var8 = class139.method2932(var3 + 1, var5); // L: 467
+		int var9 = class139.method2932(var3, var5 + 1); // L: 468
+		int var10 = class139.method2932(var3 + 1, var5 + 1); // L: 469
+		int var11 = class131.method2802(var7, var8, var4, var2); // L: 470
+		int var12 = class131.method2802(var9, var10, var4, var2); // L: 471
+		return class131.method2802(var11, var12, var6, var2); // L: 472
 	}
 }

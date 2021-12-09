@@ -3,42 +3,68 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("kj")
+@ObfuscatedName("kx")
 @Implements("NetFileRequest")
 public class NetFileRequest extends DualNode {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lkd;"
+		descriptor = "Lkz;"
 	)
 	@Export("archive")
-	public Archive archive;
-	@ObfuscatedName("w")
+	Archive archive;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 1566075383
+		intValue = -341474055
 	)
 	@Export("crc")
-	public int crc;
-	@ObfuscatedName("s")
+	int crc;
+	@ObfuscatedName("p")
 	@Export("padding")
-	public byte padding;
+	byte padding;
 
 	NetFileRequest() {
 	} // L: 10
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(II)Log;",
-		garbageValue = "-1401189412"
+		descriptor = "(ILbn;ZB)I",
+		garbageValue = "-77"
 	)
-	public static class392 method5300(int var0) {
-		int var1 = class390.field4266[var0]; // L: 11
-		if (var1 == 1) { // L: 12
-			return class392.field4276; // L: 13
-		} else if (var1 == 2) { // L: 15
-			return class392.field4271; // L: 16
+	static int method5588(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? WorldMapArea.scriptDotWidget : Messages.scriptActiveWidget; // L: 1084
+		if (var0 == ScriptOpcodes.CC_GETX) { // L: 1085
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.x; // L: 1086
+			return 1; // L: 1087
+		} else if (var0 == ScriptOpcodes.CC_GETY) { // L: 1089
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.y; // L: 1090
+			return 1; // L: 1091
+		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) { // L: 1093
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.width; // L: 1094
+			return 1; // L: 1095
+		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) { // L: 1097
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.height; // L: 1098
+			return 1; // L: 1099
+		} else if (var0 == ScriptOpcodes.CC_GETHIDE) { // L: 1101
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1102
+			return 1; // L: 1103
+		} else if (var0 == ScriptOpcodes.CC_GETLAYER) { // L: 1105
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.parentId; // L: 1106
+			return 1; // L: 1107
 		} else {
-			return var1 == 3 ? class392.field4270 : null; // L: 18 19 21
+			return 2; // L: 1109
 		}
 	}
+
+	@ObfuscatedName("fv")
+	@ObfuscatedSignature(
+		descriptor = "(Lkz;Ljava/lang/String;I)V",
+		garbageValue = "-1653414496"
+	)
+	static void method5587(Archive var0, String var1) {
+		ArchiveLoader var2 = new ArchiveLoader(var0, var1); // L: 2153
+		Client.archiveLoaders.add(var2); // L: 2154
+		Client.field753 += var2.groupCount; // L: 2155
+	} // L: 2156
 }
