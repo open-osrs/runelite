@@ -1,84 +1,78 @@
+import java.io.File;
+import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dd")
-public class class125 extends class116 {
-	@ObfuscatedName("i")
-	String field1429;
+@ObfuscatedName("dw")
+public class class125 extends class126 {
+	@ObfuscatedName("b")
+	@Export("FileSystem_cacheDir")
+	static File FileSystem_cacheDir;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = -542500645
+	)
+	int field1493;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldg;"
+		descriptor = "Lda;"
 	)
-	final class119 this$0;
+	final class129 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldg;)V"
+		descriptor = "(Lda;)V"
 	)
-	class125(class119 var1) {
-		this.this$0 = var1; // L: 229
-	}
+	class125(class129 var1) {
+		this.this$0 = var1;
+		this.field1493 = -1; // L: 114
+	} // L: 116
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lop;I)V",
-		garbageValue = "-2002779676"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "1416770155"
 	)
-	void vmethod2847(Buffer var1) {
-		this.field1429 = var1.readStringCp1252NullTerminated(); // L: 232
-		var1.readInt(); // L: 233
-	} // L: 234
+	void vmethod3029(Buffer var1) {
+		this.field1493 = var1.readUnsignedShort(); // L: 119
+	} // L: 120
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Ldm;I)V",
-		garbageValue = "-293908864"
+		descriptor = "(Lej;I)V",
+		garbageValue = "-1531735008"
 	)
-	void vmethod2848(ClanSettings var1) {
-		var1.name = this.field1429; // L: 237
-	} // L: 238
+	void vmethod3028(ClanSettings var1) {
+		var1.method2862(this.field1493); // L: 123
+	} // L: 124
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("gi")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-924468253"
+		descriptor = "(Lck;IIB)V",
+		garbageValue = "-63"
 	)
-	public static void method2637() {
-		class54.reflectionChecks = new IterableNodeDeque(); // L: 24
-	} // L: 25
+	@Export("performPlayerAnimation")
+	static void performPlayerAnimation(Player var0, int var1, int var2) {
+		if (var0.sequence == var1 && var1 != -1) { // L: 4946
+			int var3 = UserComparator5.SequenceDefinition_get(var1).field2078; // L: 4947
+			if (var3 == 1) { // L: 4948
+				var0.sequenceFrame = 0; // L: 4949
+				var0.sequenceFrameCycle = 0; // L: 4950
+				var0.sequenceDelay = var2; // L: 4951
+				var0.field1126 = 0; // L: 4952
+			}
 
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(IIILfe;II)V",
-		garbageValue = "2132581539"
-	)
-	static void method2635(int var0, int var1, int var2, ObjectComposition var3, int var4) {
-		ObjectSound var5 = new ObjectSound(); // L: 59
-		var5.plane = var0; // L: 60
-		var5.x = var1 * 128; // L: 61
-		var5.y = var2 * 128; // L: 62
-		int var6 = var3.sizeX; // L: 63
-		int var7 = var3.sizeY; // L: 64
-		if (var4 == 1 || var4 == 3) { // L: 65
-			var6 = var3.sizeY; // L: 66
-			var7 = var3.sizeX; // L: 67
+			if (var3 == 2) { // L: 4954
+				var0.field1126 = 0; // L: 4955
+			}
+		} else if (var1 == -1 || var0.sequence == -1 || UserComparator5.SequenceDefinition_get(var1).field2092 >= UserComparator5.SequenceDefinition_get(var0.sequence).field2092) { // L: 4958
+			var0.sequence = var1; // L: 4959
+			var0.sequenceFrame = 0; // L: 4960
+			var0.sequenceFrameCycle = 0; // L: 4961
+			var0.sequenceDelay = var2; // L: 4962
+			var0.field1126 = 0; // L: 4963
+			var0.field1098 = var0.pathLength; // L: 4964
 		}
 
-		var5.maxX = (var6 + var1) * 128; // L: 69
-		var5.maxY = (var7 + var2) * 128; // L: 70
-		var5.soundEffectId = var3.ambientSoundId; // L: 71
-		var5.field773 = var3.int7 * 128; // L: 72
-		var5.field767 = var3.int5; // L: 73
-		var5.field776 = var3.int6; // L: 74
-		var5.soundEffectIds = var3.soundEffectIds; // L: 75
-		if (var3.transforms != null) { // L: 76
-			var5.obj = var3; // L: 77
-			var5.set(); // L: 78
-		}
-
-		ObjectSound.objectSounds.addFirst(var5); // L: 80
-		if (var5.soundEffectIds != null) { // L: 81
-			var5.field779 = var5.field767 + (int)(Math.random() * (double)(var5.field776 - var5.field767));
-		}
-
-	} // L: 82
+	} // L: 4966
 }

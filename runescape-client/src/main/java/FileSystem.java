@@ -1,49 +1,55 @@
-import java.io.File;
 import java.util.Hashtable;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ez")
+@ObfuscatedName("ew")
 @Implements("FileSystem")
 public class FileSystem {
-	@ObfuscatedName("po")
-	@ObfuscatedSignature(
-		descriptor = "Lno;"
-	)
-	static class387 field1564;
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@Export("FileSystem_hasPermissions")
 	static boolean FileSystem_hasPermissions;
-	@ObfuscatedName("w")
-	@Export("FileSystem_cacheDir")
-	static File FileSystem_cacheDir;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@Export("FileSystem_cacheFiles")
 	static Hashtable FileSystem_cacheFiles;
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "Lim;"
+	)
+	@Export("worldMapEvent")
+	static WorldMapEvent worldMapEvent;
 
 	static {
 		FileSystem_hasPermissions = false; // L: 7
 		FileSystem_cacheFiles = new Hashtable(16);
 	} // L: 9
 
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)Low;",
-		garbageValue = "-2058198182"
-	)
-	static SpritePixels method2909(int var0, int var1, int var2) {
-		return (SpritePixels)WorldMapRegion.WorldMapRegion_cachedSprites.get(NetSocket.method2923(var0, var1, var2)); // L: 42
-	}
-
-	@ObfuscatedName("g")
+	@ObfuscatedName("ix")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-322420667"
+		garbageValue = "497428397"
 	)
-	public static void method2908() {
-		HealthBarDefinition.HealthBarDefinition_cached.clear(); // L: 89
-		HealthBarDefinition.HealthBarDefinition_cachedSprites.clear(); // L: 90
-	} // L: 91
+	static void method3084() {
+		for (int var0 = 0; var0 < Client.menuOptionsCount; ++var0) { // L: 10063
+			if (InvDefinition.method3157(Client.menuOpcodes[var0])) { // L: 10064
+				if (var0 < Client.menuOptionsCount - 1) { // L: 10065
+					for (int var1 = var0; var1 < Client.menuOptionsCount - 1; ++var1) { // L: 10066
+						Client.menuActions[var1] = Client.menuActions[var1 + 1]; // L: 10067
+						Client.menuTargets[var1] = Client.menuTargets[var1 + 1]; // L: 10068
+						Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1]; // L: 10069
+						Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1]; // L: 10070
+						Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1]; // L: 10071
+						Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1]; // L: 10072
+						Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1]; // L: 10073
+					}
+				}
+
+				--var0; // L: 10076
+				--Client.menuOptionsCount; // L: 10077
+			}
+		}
+
+		Clock.method3144(); // L: 10080
+	} // L: 10081
 }

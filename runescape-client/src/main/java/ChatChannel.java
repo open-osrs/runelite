@@ -4,116 +4,170 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("be")
+@ObfuscatedName("by")
 @Implements("ChatChannel")
 public class ChatChannel {
-	@ObfuscatedName("el")
-	@ObfuscatedSignature(
-		descriptor = "Lkd;"
+	@ObfuscatedName("sm")
+	@ObfuscatedGetter(
+		intValue = 1987554027
 	)
-	@Export("archive10")
-	static Archive archive10;
-	@ObfuscatedName("w")
+	static int field956;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -764291983
+	)
+	@Export("musicTrackVolume")
+	public static int musicTrackVolume;
+	@ObfuscatedName("en")
 	@ObfuscatedSignature(
-		descriptor = "[Lbf;"
+		descriptor = "Lkz;"
+	)
+	@Export("archive14")
+	static Archive archive14;
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "[Lbr;"
 	)
 	@Export("messages")
 	Message[] messages;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1060618387
+		intValue = 587145695
 	)
 	@Export("count")
 	int count;
 
 	ChatChannel() {
-		this.messages = new Message[100]; // L: 85
-	} // L: 88
+		this.messages = new Message[100]; // L: 92
+	} // L: 95
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lbf;",
-		garbageValue = "-1998830550"
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)Lbr;",
+		garbageValue = "358093741"
 	)
 	@Export("addMessage")
 	Message addMessage(int var1, String var2, String var3, String var4) {
-		Message var5 = this.messages[99]; // L: 91
+		Message var5 = this.messages[99]; // L: 98
 
-		for (int var6 = this.count; var6 > 0; --var6) { // L: 92
-			if (var6 != 100) { // L: 93
-				this.messages[var6] = this.messages[var6 - 1]; // L: 94
+		for (int var6 = this.count; var6 > 0; --var6) { // L: 99
+			if (var6 != 100) { // L: 100
+				this.messages[var6] = this.messages[var6 - 1]; // L: 101
 			}
 		}
 
-		if (var5 == null) { // L: 96
+		if (var5 == null) { // L: 103
 			var5 = new Message(var1, var2, var4, var3);
 		} else {
-			var5.remove(); // L: 98
-			var5.removeDual(); // L: 99
-			var5.set(var1, var2, var4, var3); // L: 100
+			var5.remove(); // L: 105
+			var5.removeDual(); // L: 106
+			var5.set(var1, var2, var4, var3); // L: 107
 		}
 
-		this.messages[0] = var5; // L: 102
-		if (this.count < 100) { // L: 103
+		this.messages[0] = var5; // L: 109
+		if (this.count < 100) { // L: 110
 			++this.count;
 		}
 
-		return var5; // L: 104
+		return var5; // L: 111
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lbf;",
-		garbageValue = "5"
+		descriptor = "(IB)Lbr;",
+		garbageValue = "-91"
 	)
 	@Export("getMessage")
 	Message getMessage(int var1) {
-		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null; // L: 108 109
+		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null; // L: 115 116
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1220983055"
+		garbageValue = "1262269232"
 	)
 	@Export("size")
 	int size() {
-		return this.count; // L: 113
+		return this.count; // L: 120
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Object;ZI)[B",
-		garbageValue = "558752868"
+		descriptor = "(Ljava/lang/CharSequence;B)J",
+		garbageValue = "-84"
 	)
-	public static byte[] method2013(Object var0, boolean var1) {
-		if (var0 == null) { // L: 8
-			return null;
-		} else if (var0 instanceof byte[]) { // L: 9
-			byte[] var3 = (byte[])((byte[])var0); // L: 10
-			return var1 ? EnumComposition.method3106(var3) : var3; // L: 11
-		} else if (var0 instanceof AbstractByteArrayCopier) { // L: 14
-			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0; // L: 15
-			return var2.get(); // L: 16
-		} else {
-			throw new IllegalArgumentException(); // L: 18
+	static long method2054(CharSequence var0) {
+		long var1 = 0L; // L: 16
+		int var3 = var0.length(); // L: 17
+
+		for (int var4 = 0; var4 < var3; ++var4) { // L: 18
+			var1 *= 37L; // L: 19
+			char var5 = var0.charAt(var4); // L: 20
+			if (var5 >= 'A' && var5 <= 'Z') { // L: 21
+				var1 += (long)(var5 + 1 - 65);
+			} else if (var5 >= 'a' && var5 <= 'z') { // L: 22
+				var1 += (long)(var5 + 1 - 97);
+			} else if (var5 >= '0' && var5 <= '9') { // L: 23
+				var1 += (long)(var5 + 27 - 48);
+			}
+
+			if (var1 >= 177917621779460413L) { // L: 24
+				break;
+			}
 		}
+
+		while (var1 % 37L == 0L && 0L != var1) { // L: 26
+			var1 /= 37L;
+		}
+
+		return var1; // L: 27
 	}
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(ILbp;ZI)I",
-		garbageValue = "1766338115"
+		descriptor = "(II)Ljm;",
+		garbageValue = "1761147769"
 	)
-	static int method2012(int var0, Script var1, boolean var2) {
-		if (var0 == 6900) { // L: 4328
-			Interpreter.Interpreter_stringStack[++class295.Interpreter_stringStackSize - 1] = ""; // L: 4329
-			return 1; // L: 4330
-		} else if (var0 == 6950) { // L: 4332
-			Interpreter.Interpreter_intStack[++class14.Interpreter_intStackSize - 1] = -1; // L: 4333
-			return 1; // L: 4334
-		} else {
-			return 2; // L: 4336
+	@Export("getWidget")
+	public static Widget getWidget(int var0) {
+		int var1 = var0 >> 16; // L: 199
+		int var2 = var0 & 65535; // L: 200
+		if (MouseRecorder.Widget_interfaceComponents[var1] == null || MouseRecorder.Widget_interfaceComponents[var1][var2] == null) { // L: 201
+			boolean var3 = class242.loadInterface(var1); // L: 202
+			if (!var3) { // L: 203
+				return null;
+			}
 		}
+
+		return MouseRecorder.Widget_interfaceComponents[var1][var2]; // L: 205
+	}
+
+	@ObfuscatedName("ka")
+	@ObfuscatedSignature(
+		descriptor = "(IIIB)Lcl;",
+		garbageValue = "3"
+	)
+	static final InterfaceParent method2058(int var0, int var1, int var2) {
+		InterfaceParent var3 = new InterfaceParent(); // L: 12265
+		var3.group = var1; // L: 12266
+		var3.type = var2; // L: 12267
+		Client.interfaceParents.put(var3, (long)var0); // L: 12268
+		class140.Widget_resetModelFrames(var1); // L: 12269
+		Widget var4 = getWidget(var0); // L: 12270
+		SecureRandomCallable.invalidateWidget(var4); // L: 12271
+		if (Client.meslayerContinueWidget != null) { // L: 12272
+			SecureRandomCallable.invalidateWidget(Client.meslayerContinueWidget); // L: 12273
+			Client.meslayerContinueWidget = null; // L: 12274
+		}
+
+		FileSystem.method3084(); // L: 12276
+		class115.revalidateWidgetScroll(MouseRecorder.Widget_interfaceComponents[var0 >> 16], var4, false); // L: 12277
+		class33.runWidgetOnLoadListener(var1); // L: 12278
+		if (Client.rootInterface != -1) { // L: 12279
+			Message.runIntfCloseListeners(Client.rootInterface, 1);
+		}
+
+		return var3; // L: 12280
 	}
 }

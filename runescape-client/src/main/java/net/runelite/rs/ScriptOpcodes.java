@@ -538,5 +538,4 @@ public class ScriptOpcodes {
 	public static final int MEC_SPRITE = 6696;
 	public static final int WORLDMAP_ELEMENT = 6697;
 	public static final int WORLDMAP_ELEMENTCOORD = 6699;
-
 }

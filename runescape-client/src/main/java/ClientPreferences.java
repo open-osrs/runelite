@@ -1,4 +1,4 @@
-import java.lang.management.GarbageCollectorMXBean;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
@@ -8,63 +8,60 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cs")
+@ObfuscatedName("cc")
 @Implements("ClientPreferences")
 public class ClientPreferences {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1485573005
+		intValue = -1737169407
 	)
 	@Export("ClientPreferences_optionCount")
 	static int ClientPreferences_optionCount;
-	@ObfuscatedName("aj")
-	@Export("garbageCollector")
-	static GarbageCollectorMXBean garbageCollector;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@Export("roofsHidden")
 	boolean roofsHidden;
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@Export("titleMusicDisabled")
 	boolean titleMusicDisabled;
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -884769931
+		intValue = -194276067
 	)
 	@Export("windowMode")
 	int windowMode;
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@Export("rememberedUsername")
 	String rememberedUsername;
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@Export("hideUsername")
 	boolean hideUsername;
-	@ObfuscatedName("p")
+	@ObfuscatedName("w")
 	@Export("brightness")
 	double brightness;
-	@ObfuscatedName("j")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -162381111
+		intValue = -1211221709
 	)
 	@Export("musicVolume")
 	int musicVolume;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 452159187
+		intValue = 442935595
 	)
 	@Export("soundEffectsVolume")
 	int soundEffectsVolume;
-	@ObfuscatedName("x")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1910295805
+		intValue = -383218273
 	)
 	@Export("areaSoundEffectsVolume")
 	int areaSoundEffectsVolume;
-	@ObfuscatedName("y")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1017713591
+		intValue = 1553838981
 	)
-	int field1182;
-	@ObfuscatedName("k")
+	int field1197;
+	@ObfuscatedName("d")
 	@Export("parameters")
 	LinkedHashMap parameters;
 
@@ -80,13 +77,13 @@ public class ClientPreferences {
 		this.musicVolume = 127;
 		this.soundEffectsVolume = 127;
 		this.areaSoundEffectsVolume = 127;
-		this.field1182 = -1;
+		this.field1197 = -1;
 		this.parameters = new LinkedHashMap();
-		this.method2231(true); // L: 26
+		this.method2282(true); // L: 26
 	} // L: 27
 
 	@ObfuscatedSignature(
-		descriptor = "(Lop;)V"
+		descriptor = "(Lpi;)V"
 	)
 	ClientPreferences(Buffer var1) {
 		this.windowMode = 1; // L: 15
@@ -96,7 +93,7 @@ public class ClientPreferences {
 		this.musicVolume = 127; // L: 19
 		this.soundEffectsVolume = 127; // L: 20
 		this.areaSoundEffectsVolume = 127; // L: 21
-		this.field1182 = -1; // L: 22
+		this.field1197 = -1; // L: 22
 		this.parameters = new LinkedHashMap(); // L: 23
 		if (var1 != null && var1.array != null) { // L: 30
 			int var2 = var1.readUnsignedByte(); // L: 34
@@ -114,10 +111,10 @@ public class ClientPreferences {
 				}
 
 				if (var2 > 2) { // L: 46
-					int var3 = var1.readUnsignedByte(); // L: 47
+					int var3 = var1.readUnsignedByte();
 
-					for (int var4 = 0; var4 < var3; ++var4) { // L: 48
-						int var5 = var1.readInt(); // L: 49
+					for (int var4 = 0; var4 < var3; ++var4) {
+						int var5 = var1.readInt();
 						int var6 = var1.readInt(); // L: 50
 						this.parameters.put(var5, var6); // L: 51
 					}
@@ -139,29 +136,29 @@ public class ClientPreferences {
 				}
 
 				if (var2 > 7) { // L: 66
-					this.field1182 = var1.readUnsignedByte(); // L: 67
+					this.field1197 = var1.readUnsignedByte(); // L: 67
 				}
 			} else {
-				this.method2231(true); // L: 36
+				this.method2282(true); // L: 36
 			}
 		} else {
-			this.method2231(true); // L: 31
+			this.method2282(true); // L: 31
 		}
 
 	} // L: 71
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(ZI)V",
-		garbageValue = "-1940266105"
+		garbageValue = "-1565386300"
 	)
-	void method2231(boolean var1) {
+	void method2282(boolean var1) {
 	} // L: 73
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lop;",
-		garbageValue = "2037390205"
+		descriptor = "(I)Lpi;",
+		garbageValue = "-102724797"
 	)
 	@Export("toBuffer")
 	Buffer toBuffer() {
@@ -185,7 +182,89 @@ public class ClientPreferences {
 		var1.writeByte(this.musicVolume); // L: 92
 		var1.writeByte(this.soundEffectsVolume); // L: 93
 		var1.writeByte(this.areaSoundEffectsVolume); // L: 94
-		var1.writeByte(this.field1182); // L: 95
+		var1.writeByte(this.field1197); // L: 95
 		return var1; // L: 96
 	}
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(ZI)V",
+		garbageValue = "-1263017108"
+	)
+	public static void method2297(boolean var0) {
+		if (NetCache.NetCache_socket != null) { // L: 193
+			try {
+				Buffer var1 = new Buffer(4); // L: 195
+				var1.writeByte(var0 ? 2 : 3); // L: 196
+				var1.writeMedium(0); // L: 197
+				NetCache.NetCache_socket.write(var1.array, 0, 4); // L: 198
+			} catch (IOException var4) {
+				try {
+					NetCache.NetCache_socket.close(); // L: 202
+				} catch (Exception var3) { // L: 204
+				}
+
+				++NetCache.NetCache_ioExceptions; // L: 205
+				NetCache.NetCache_socket = null; // L: 206
+			}
+
+		}
+	} // L: 208
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(Lku;Ljava/lang/String;Ljava/lang/String;B)Lpa;",
+		garbageValue = "53"
+	)
+	@Export("SpriteBuffer_getIndexedSpriteByName")
+	public static IndexedSprite SpriteBuffer_getIndexedSpriteByName(AbstractArchive var0, String var1, String var2) {
+		int var3 = var0.getGroupId(var1); // L: 47
+		int var4 = var0.getFileId(var3, var2); // L: 48
+		return class4.method22(var0, var3, var4); // L: 49
+	}
+
+	@ObfuscatedName("jj")
+	@ObfuscatedSignature(
+		descriptor = "(Ljm;IIIIIII)V",
+		garbageValue = "523505155"
+	)
+	static final void method2293(Widget var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		if (Client.field543) { // L: 10990
+			Client.alternativeScrollbarWidth = 32;
+		} else {
+			Client.alternativeScrollbarWidth = 0; // L: 10991
+		}
+
+		Client.field543 = false; // L: 10992
+		int var7;
+		if (MouseHandler.MouseHandler_currentButton == 1 || !class150.mouseCam && MouseHandler.MouseHandler_currentButton == 4) { // L: 10993
+			if (var5 >= var1 && var5 < var1 + 16 && var6 >= var2 && var6 < var2 + 16) { // L: 10994
+				var0.scrollY -= 4; // L: 10995
+				SecureRandomCallable.invalidateWidget(var0); // L: 10996
+			} else if (var5 >= var1 && var5 < var1 + 16 && var6 >= var3 + var2 - 16 && var6 < var3 + var2) { // L: 10998
+				var0.scrollY += 4; // L: 10999
+				SecureRandomCallable.invalidateWidget(var0); // L: 11000
+			} else if (var5 >= var1 - Client.alternativeScrollbarWidth && var5 < Client.alternativeScrollbarWidth + var1 + 16 && var6 >= var2 + 16 && var6 < var3 + var2 - 16) { // L: 11002
+				var7 = var3 * (var3 - 32) / var4; // L: 11003
+				if (var7 < 8) { // L: 11004
+					var7 = 8;
+				}
+
+				int var8 = var6 - var2 - 16 - var7 / 2; // L: 11005
+				int var9 = var3 - 32 - var7; // L: 11006
+				var0.scrollY = var8 * (var4 - var3) / var9; // L: 11007
+				SecureRandomCallable.invalidateWidget(var0); // L: 11008
+				Client.field543 = true; // L: 11009
+			}
+		}
+
+		if (Client.mouseWheelRotation != 0) { // L: 11012
+			var7 = var0.width; // L: 11013
+			if (var5 >= var1 - var7 && var6 >= var2 && var5 < var1 + 16 && var6 <= var3 + var2) { // L: 11014
+				var0.scrollY += Client.mouseWheelRotation * 45; // L: 11015
+				SecureRandomCallable.invalidateWidget(var0); // L: 11016
+			}
+		}
+
+	} // L: 11019
 }

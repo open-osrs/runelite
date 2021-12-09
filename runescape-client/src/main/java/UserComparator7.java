@@ -1,23 +1,36 @@
-import java.io.File;
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cb")
+@ObfuscatedName("cm")
 @Implements("UserComparator7")
 public class UserComparator7 extends AbstractUserComparator {
-	@ObfuscatedName("e")
-	@Export("Interpreter_stringLocals")
-	static String[] Interpreter_stringLocals;
-	@ObfuscatedName("be")
-	@ObfuscatedSignature(
-		descriptor = "[Loe;"
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		longValue = 1289611995135137433L
 	)
-	@Export("worldSelectFlagSprites")
-	static IndexedSprite[] worldSelectFlagSprites;
-	@ObfuscatedName("i")
+	public static long field1319;
+	@ObfuscatedName("hx")
+	@ObfuscatedSignature(
+		descriptor = "[Lpl;"
+	)
+	@Export("mapMarkerSprites")
+	static SpritePixels[] mapMarkerSprites;
+	@ObfuscatedName("iq")
+	@ObfuscatedGetter(
+		intValue = -427505933
+	)
+	@Export("cameraX")
+	static int cameraX;
+	@ObfuscatedName("in")
+	@ObfuscatedGetter(
+		intValue = 1941000053
+	)
+	@Export("cameraPitch")
+	static int cameraPitch;
+	@ObfuscatedName("c")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -25,10 +38,10 @@ public class UserComparator7 extends AbstractUserComparator {
 		this.reversed = var1; // L: 10
 	} // L: 11
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lmt;Lmt;I)I",
-		garbageValue = "52692374"
+		descriptor = "(Lmp;Lmp;I)I",
+		garbageValue = "742897399"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -43,45 +56,17 @@ public class UserComparator7 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("hj")
 	@ObfuscatedSignature(
-		descriptor = "(Lko;B)V",
-		garbageValue = "110"
+		descriptor = "(I)I",
+		garbageValue = "-1366394197"
 	)
-	public static void method2463(AbstractArchive var0) {
-		EnumComposition.EnumDefinition_archive = var0; // L: 25
-	} // L: 26
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/io/File;Ljava/io/File;B)V",
-		garbageValue = "9"
-	)
-	static void method2470(File var0, File var1) {
-		try {
-			AccessFile var2 = new AccessFile(class351.JagexCache_locationFile, "rw", 10000L); // L: 188
-			Buffer var3 = new Buffer(500); // L: 189
-			var3.writeByte(3); // L: 190
-			var3.writeByte(var1 != null ? 1 : 0); // L: 191
-			var3.writeCESU8(var0.getPath()); // L: 192
-			if (var1 != null) {
-				var3.writeCESU8(""); // L: 193
-			}
-
-			var2.write(var3.array, 0, var3.offset); // L: 194
-			var2.close(); // L: 195
-		} catch (IOException var4) { // L: 197
-			var4.printStackTrace(); // L: 198
+	static final int method2518() {
+		if (SecureRandomFuture.clientPreferences.roofsHidden) { // L: 5571
+			return class20.Client_plane;
+		} else {
+			int var0 = FaceNormal.getTileHeight(cameraX, UserComparator10.cameraZ, class20.Client_plane); // L: 5572
+			return var0 - AbstractByteArrayCopier.cameraY < 800 && (Tiles.Tiles_renderFlags[class20.Client_plane][cameraX >> 7][UserComparator10.cameraZ >> 7] & 4) != 0 ? class20.Client_plane : 3; // L: 5573 5574
 		}
-
-	} // L: 200
-
-	@ObfuscatedName("ji")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-1682455199"
-	)
-	static boolean method2466() {
-		return Client.tapToDrop || KeyHandler.KeyHandler_pressedKeys[81]; // L: 10618
 	}
 }

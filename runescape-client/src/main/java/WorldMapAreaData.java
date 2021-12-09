@@ -6,30 +6,32 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gj")
+@ObfuscatedName("ip")
 @Implements("WorldMapAreaData")
 public class WorldMapAreaData extends WorldMapArea {
-	@ObfuscatedName("k")
+	@ObfuscatedName("fh")
+	static String field2772;
+	@ObfuscatedName("d")
 	@Export("worldMapData0Set")
 	HashSet worldMapData0Set;
-	@ObfuscatedName("t")
+	@ObfuscatedName("h")
 	@Export("worldMapData1Set")
 	HashSet worldMapData1Set;
-	@ObfuscatedName("l")
+	@ObfuscatedName("g")
 	@Export("iconList")
 	List iconList;
 
 	WorldMapAreaData() {
 	} // L: 14
 
-	@ObfuscatedName("bp")
+	@ObfuscatedName("bo")
 	@ObfuscatedSignature(
-		descriptor = "(Lop;Lop;IZB)V",
-		garbageValue = "0"
+		descriptor = "(Lpi;Lpi;IZI)V",
+		garbageValue = "-1001525208"
 	)
 	@Export("init")
 	void init(Buffer var1, Buffer var2, int var3, boolean var4) {
-		this.read(var1, var3); // L: 17
+		this.read(var1, var3);
 		int var5 = var2.readUnsignedShort(); // L: 18
 		this.worldMapData0Set = new HashSet(var5); // L: 19
 
@@ -64,10 +66,10 @@ public class WorldMapAreaData extends WorldMapArea {
 		this.initIconsList(var2, var4); // L: 42
 	} // L: 43
 
-	@ObfuscatedName("bn")
+	@ObfuscatedName("bf")
 	@ObfuscatedSignature(
-		descriptor = "(Lop;ZI)V",
-		garbageValue = "1978597282"
+		descriptor = "(Lpi;ZB)V",
+		garbageValue = "16"
 	)
 	@Export("initIconsList")
 	void initIconsList(Buffer var1, boolean var2) {
@@ -75,7 +77,7 @@ public class WorldMapAreaData extends WorldMapArea {
 		int var3 = var1.readUnsignedShort(); // L: 47
 
 		for (int var4 = 0; var4 < var3; ++var4) { // L: 48
-			int var5 = var1.method6946(); // L: 49
+			int var5 = var1.method7400(); // L: 49
 			Coord var6 = new Coord(var1.readInt()); // L: 50
 			boolean var7 = var1.readUnsignedByte() == 1; // L: 51
 			if (var2 || !var7) { // L: 52
@@ -84,4 +86,13 @@ public class WorldMapAreaData extends WorldMapArea {
 		}
 
 	} // L: 56
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lko;",
+		garbageValue = "1226375978"
+	)
+	public static StudioGame[] method4894() {
+		return new StudioGame[]{StudioGame.oldscape, StudioGame.stellardawn, StudioGame.game4, StudioGame.game5, StudioGame.runescape, StudioGame.game3}; // L: 17
+	}
 }

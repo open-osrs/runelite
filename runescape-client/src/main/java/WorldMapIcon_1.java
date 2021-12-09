@@ -4,48 +4,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fr")
+@ObfuscatedName("ho")
 @Implements("WorldMapIcon_1")
 public class WorldMapIcon_1 extends AbstractWorldMapIcon {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -887698533
+		intValue = 1692545293
 	)
 	@Export("objectDefId")
 	final int objectDefId;
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lfk;"
+		descriptor = "Lhw;"
 	)
 	@Export("region")
 	final WorldMapRegion region;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1970765317
+		intValue = 1380082375
 	)
 	@Export("element")
 	int element;
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lga;"
+		descriptor = "Lhm;"
 	)
 	@Export("label")
 	WorldMapLabel label;
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -609134761
+		intValue = -1584169743
 	)
 	@Export("subWidth")
 	int subWidth;
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -1799535623
+		intValue = -853528965
 	)
 	@Export("subHeight")
 	int subHeight;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lie;Lie;ILfk;)V"
+		descriptor = "(Lju;Lju;ILhw;)V"
 	)
 	WorldMapIcon_1(Coord var1, Coord var2, int var3, WorldMapRegion var4) {
 		super(var1, var2); // L: 17
@@ -54,16 +54,16 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		this.init(); // L: 20
 	} // L: 21
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1060359040"
+		garbageValue = "1162816642"
 	)
 	@Export("init")
 	void init() {
-		this.element = KitDefinition.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
-		this.label = this.region.createMapLabel(ItemComposition.WorldMapElement_get(this.element)); // L: 25
-		WorldMapElement var1 = ItemComposition.WorldMapElement_get(this.getElement()); // L: 26
+		this.element = class148.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
+		this.label = this.region.createMapLabel(class78.WorldMapElement_get(this.element)); // L: 25
+		WorldMapElement var1 = class78.WorldMapElement_get(this.getElement()); // L: 26
 		SpritePixels var2 = var1.getSpriteBool(false); // L: 27
 		if (var2 != null) { // L: 28
 			this.subWidth = var2.subWidth; // L: 29
@@ -75,43 +75,64 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	} // L: 36
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1660589105"
+		garbageValue = "-1255702565"
 	)
 	@Export("getElement")
 	public int getElement() {
-		return this.element; // L: 39
+		return this.element; // L: 40
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lga;",
-		garbageValue = "0"
+		descriptor = "(I)Lhm;",
+		garbageValue = "-577826789"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
-		return this.label; // L: 43
+		return this.label; // L: 45
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "374350712"
+		descriptor = "(S)I",
+		garbageValue = "-21504"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
-		return this.subWidth; // L: 47
+		return this.subWidth; // L: 50
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1569056170"
+		garbageValue = "1225820190"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
-		return this.subHeight; // L: 51
+		return this.subHeight; // L: 55
 	}
+
+	@ObfuscatedName("iy")
+	@ObfuscatedSignature(
+		descriptor = "(Lbb;III)V",
+		garbageValue = "-77644822"
+	)
+	static final void method4385(MenuAction var0, int var1, int var2) {
+		Decimator.menuAction(var0.param0, var0.param1, var0.opcode, var0.identifier, var0.action, var0.action, var1, var2); // L: 9015
+	} // L: 9016
+
+	@ObfuscatedName("lq")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1016164207"
+	)
+	@Export("Clan_leaveChat")
+	static final void Clan_leaveChat() {
+		PacketBufferNode var0 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2857, Client.packetWriter.isaacCipher); // L: 12504
+		var0.packetBuffer.writeByte(0); // L: 12505
+		Client.packetWriter.addNode(var0); // L: 12506
+	} // L: 12507
 }

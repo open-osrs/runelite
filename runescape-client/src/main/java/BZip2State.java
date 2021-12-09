@@ -3,265 +3,195 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("of")
+@ObfuscatedName("pk")
 @Implements("BZip2State")
 public final class BZip2State {
-	@ObfuscatedName("i")
-	final int field4325;
-	@ObfuscatedName("w")
-	final int field4304;
+	@ObfuscatedName("c")
+	final int field4513;
+	@ObfuscatedName("b")
+	final int field4481;
+	@ObfuscatedName("p")
+	final int field4479;
+	@ObfuscatedName("m")
+	final int field4480;
+	@ObfuscatedName("t")
+	final int field4502;
 	@ObfuscatedName("s")
-	final int field4305;
-	@ObfuscatedName("a")
-	final int field4306;
-	@ObfuscatedName("o")
-	final int field4334;
-	@ObfuscatedName("g")
-	final int field4315;
-	@ObfuscatedName("e")
+	final int field4482;
+	@ObfuscatedName("j")
 	@Export("inputArray")
 	byte[] inputArray;
-	@ObfuscatedName("p")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -384998697
+		intValue = -629862431
 	)
 	@Export("nextByte")
 	int nextByte;
-	@ObfuscatedName("j")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1728715717
+		intValue = 1582268749
 	)
 	@Export("nextBit_unused")
 	int nextBit_unused;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("outputArray")
 	byte[] outputArray;
-	@ObfuscatedName("x")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1596993239
+		intValue = -1671473769
 	)
 	@Export("next_out")
 	int next_out;
-	@ObfuscatedName("y")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 292759791
+		intValue = -428614875
 	)
 	@Export("outputLength")
 	int outputLength;
-	@ObfuscatedName("k")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -669806993
+		intValue = -982561829
 	)
-	int field4303;
-	@ObfuscatedName("t")
+	int field4489;
+	@ObfuscatedName("h")
 	@Export("out_char")
 	byte out_char;
-	@ObfuscatedName("l")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 234713663
+		intValue = -1975911845
 	)
 	@Export("su_rNToGo")
 	int su_rNToGo;
-	@ObfuscatedName("u")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 895907887
+		intValue = -1278928369
 	)
 	@Export("bsBuff")
 	int bsBuff;
-	@ObfuscatedName("n")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -2081618431
+		intValue = -1731678281
 	)
 	@Export("bsLive")
 	int bsLive;
-	@ObfuscatedName("z")
+	@ObfuscatedName("u")
 	@Export("blockSize100k")
 	int blockSize100k;
-	@ObfuscatedName("q")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 2138397069
+		intValue = -540078153
 	)
 	@Export("originalPointer")
 	int originalPointer;
-	@ObfuscatedName("d")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1184456773
+		intValue = -235028951
 	)
-	int field4322;
-	@ObfuscatedName("r")
+	int field4484;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 159330307
+		intValue = 85714323
 	)
 	@Export("su_ch2")
 	int su_ch2;
-	@ObfuscatedName("m")
+	@ObfuscatedName("q")
 	@Export("unzftab")
 	int[] unzftab;
-	@ObfuscatedName("c")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1103656879
+		intValue = -1684289539
 	)
 	@Export("nblocks_used")
 	int nblocks_used;
-	@ObfuscatedName("f")
+	@ObfuscatedName("z")
 	@Export("cftab")
 	int[] cftab;
-	@ObfuscatedName("v")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1576280253
+		intValue = -620890433
 	)
 	@Export("nInUse")
 	int nInUse;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ah")
 	@Export("inUse")
 	boolean[] inUse;
-	@ObfuscatedName("ae")
+	@ObfuscatedName("ao")
 	@Export("inUse16")
 	boolean[] inUse16;
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ab")
 	@Export("seqToUnseq")
 	byte[] seqToUnseq;
-	@ObfuscatedName("al")
+	@ObfuscatedName("an")
 	@Export("ll8")
 	byte[] ll8;
-	@ObfuscatedName("am")
+	@ObfuscatedName("ax")
 	@Export("getAndMoveToFrontDecode_yy")
 	int[] getAndMoveToFrontDecode_yy;
-	@ObfuscatedName("ai")
+	@ObfuscatedName("am")
 	@Export("selector")
 	byte[] selector;
-	@ObfuscatedName("ah")
+	@ObfuscatedName("az")
 	@Export("selectorMtf")
 	byte[] selectorMtf;
-	@ObfuscatedName("as")
+	@ObfuscatedName("au")
 	@Export("temp_charArray2d")
 	byte[][] temp_charArray2d;
-	@ObfuscatedName("at")
+	@ObfuscatedName("av")
 	@Export("limit")
 	int[][] limit;
-	@ObfuscatedName("az")
+	@ObfuscatedName("ap")
 	@Export("base")
 	int[][] base;
 	@ObfuscatedName("ac")
 	@Export("perm")
 	int[][] perm;
-	@ObfuscatedName("ak")
+	@ObfuscatedName("aj")
 	@Export("minLens")
 	int[] minLens;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("af")
 	@ObfuscatedGetter(
-		intValue = -138275331
+		intValue = 1618540435
 	)
-	int field4326;
+	int field4478;
 
 	BZip2State() {
-		this.field4325 = 4096; // L: 4
-		this.field4304 = 16; // L: 5
-		this.field4305 = 258; // L: 6
-		this.field4306 = 6; // L: 7
-		this.field4334 = 50; // L: 8
-		this.field4315 = 18002; // L: 9
+		this.field4513 = 4096; // L: 4
+		this.field4481 = 16; // L: 5
+		this.field4479 = 258; // L: 6
+		this.field4480 = 6; // L: 7
+		this.field4502 = 50; // L: 8
+		this.field4482 = 18002; // L: 9
 		this.nextByte = 0; // L: 11
 		this.next_out = 0; // L: 14
 		this.unzftab = new int[256]; // L: 25
 		this.cftab = new int[257]; // L: 27
 		this.inUse = new boolean[256]; // L: 30
 		this.inUse16 = new boolean[16]; // L: 31
-		this.seqToUnseq = new byte[256];
-		this.ll8 = new byte[4096];
-		this.getAndMoveToFrontDecode_yy = new int[16];
-		this.selector = new byte[18002];
-		this.selectorMtf = new byte[18002];
-		this.temp_charArray2d = new byte[6][258];
-		this.limit = new int[6][258];
-		this.base = new int[6][258];
+		this.seqToUnseq = new byte[256]; // L: 32
+		this.ll8 = new byte[4096]; // L: 33
+		this.getAndMoveToFrontDecode_yy = new int[16]; // L: 34
+		this.selector = new byte[18002]; // L: 35
+		this.selectorMtf = new byte[18002]; // L: 36
+		this.temp_charArray2d = new byte[6][258]; // L: 37
+		this.limit = new int[6][258]; // L: 38
+		this.base = new int[6][258]; // L: 39
 		this.perm = new int[6][258]; // L: 40
 		this.minLens = new int[6]; // L: 41
 	} // L: 44
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("js")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lfh;",
-		garbageValue = "-360258293"
+		descriptor = "(II)Z",
+		garbageValue = "-1894772144"
 	)
-	@Export("SpotAnimationDefinition_get")
-	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
-		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0); // L: 32
-		if (var1 != null) { // L: 33
-			return var1;
-		} else {
-			byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0); // L: 34
-			var1 = new SpotAnimationDefinition(); // L: 35
-			var1.id = var0; // L: 36
-			if (var2 != null) { // L: 37
-				var1.decode(new Buffer(var2));
+	static boolean method7571(int var0) {
+		for (int var1 = 0; var1 < Client.field701; ++var1) { // L: 11872
+			if (Client.field522[var1] == var0) { // L: 11873
+				return true;
 			}
-
-			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0); // L: 38
-			return var1; // L: 39
-		}
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(ILbp;ZB)I",
-		garbageValue = "0"
-	)
-	static int method7179(int var0, Script var1, boolean var2) {
-		int var3 = -1; // L: 566
-		Widget var4;
-		if (var0 >= 2000) { // L: 568
-			var0 -= 1000; // L: 569
-			var3 = Interpreter.Interpreter_intStack[--class14.Interpreter_intStackSize]; // L: 570
-			var4 = UserComparator9.getWidget(var3); // L: 571
-		} else {
-			var4 = var2 ? class120.scriptDotWidget : Frames.scriptActiveWidget; // L: 573
 		}
 
-		if (var0 == ScriptOpcodes.CC_SETPOSITION) { // L: 574
-			class14.Interpreter_intStackSize -= 4; // L: 575
-			var4.rawX = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize]; // L: 576
-			var4.rawY = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 1]; // L: 577
-			var4.xAlignment = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 2]; // L: 578
-			var4.yAlignment = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 3]; // L: 579
-			class184.invalidateWidget(var4); // L: 580
-			ArchiveLoader.client.alignWidget(var4); // L: 581
-			if (var3 != -1 && var4.type == 0) { // L: 582
-				MouseRecorder.revalidateWidgetScroll(WorldMapSection1.Widget_interfaceComponents[var3 >> 16], var4, false);
-			}
-
-			return 1; // L: 583
-		} else if (var0 == ScriptOpcodes.CC_SETSIZE) { // L: 585
-			class14.Interpreter_intStackSize -= 4; // L: 586
-			var4.rawWidth = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize]; // L: 587
-			var4.rawHeight = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 1]; // L: 588
-			var4.widthAlignment = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 2]; // L: 589
-			var4.heightAlignment = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 3]; // L: 590
-			class184.invalidateWidget(var4); // L: 591
-			ArchiveLoader.client.alignWidget(var4); // L: 592
-			if (var3 != -1 && var4.type == 0) { // L: 593
-				MouseRecorder.revalidateWidgetScroll(WorldMapSection1.Widget_interfaceComponents[var3 >> 16], var4, false);
-			}
-
-			return 1; // L: 594
-		} else if (var0 == ScriptOpcodes.CC_SETHIDE) { // L: 596
-			boolean var5 = Interpreter.Interpreter_intStack[--class14.Interpreter_intStackSize] == 1; // L: 597
-			if (var5 != var4.isHidden) { // L: 598
-				var4.isHidden = var5; // L: 599
-				class184.invalidateWidget(var4); // L: 600
-			}
-
-			return 1; // L: 602
-		} else if (var0 == ScriptOpcodes.CC_SETNOCLICKTHROUGH) { // L: 604
-			var4.noClickThrough = Interpreter.Interpreter_intStack[--class14.Interpreter_intStackSize] == 1; // L: 605
-			return 1; // L: 606
-		} else if (var0 == ScriptOpcodes.CC_SETNOSCROLLTHROUGH) { // L: 608
-			var4.noScrollThrough = Interpreter.Interpreter_intStack[--class14.Interpreter_intStackSize] == 1; // L: 609
-			return 1; // L: 610
-		} else {
-			return 2; // L: 612
-		}
+		return false; // L: 11875
 	}
 }

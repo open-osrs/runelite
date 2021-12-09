@@ -3,24 +3,18 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ft")
+@ObfuscatedName("fp")
 @Implements("StructComposition")
 public class StructComposition extends DualNode {
-	@ObfuscatedName("i")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
-	)
-	@Export("StructDefinition_archive")
-	static AbstractArchive StructDefinition_archive;
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "Lig;"
+		descriptor = "Liq;"
 	)
 	@Export("StructDefinition_cached")
-	public static EvictingDualNodeHashTable StructDefinition_cached;
-	@ObfuscatedName("s")
+	static EvictingDualNodeHashTable StructDefinition_cached;
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lnf;"
+		descriptor = "Loz;"
 	)
 	@Export("params")
 	IterableNodeHashTable params;
@@ -32,19 +26,19 @@ public class StructComposition extends DualNode {
 	StructComposition() {
 	} // L: 16
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "-61"
+		descriptor = "(I)V",
+		garbageValue = "-1697114474"
 	)
 	@Export("postDecode")
 	void postDecode() {
 	} // L: 33
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lop;B)V",
-		garbageValue = "0"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "260928351"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -58,36 +52,102 @@ public class StructComposition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "(Lop;IB)V",
-		garbageValue = "15"
+		descriptor = "(Lpi;IB)V",
+		garbageValue = "76"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
 		if (var2 == 249) {
-			this.params = class13.readStringIntParameters(var1, this.params); // L: 44
+			this.params = Canvas.readStringIntParameters(var1, this.params);
 		}
 
 	} // L: 46
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "-1033236073"
+		garbageValue = "-1808649424"
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
-		return NPC.method2251(this.params, var1, var2); // L: 49
+		return class12.method158(this.params, var1, var2); // L: 49
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "0"
+		descriptor = "(ILjava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "-1725182955"
 	)
 	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
-		return VarbitComposition.method3205(this.params, var1, var2); // L: 53
+		return Skeleton.method3948(this.params, var1, var2); // L: 53
 	}
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-64"
+	)
+	public static void method3444() {
+		class260.midiPcmStream.clear(); // L: 42
+		class260.musicPlayerStatus = 1; // L: 43
+		class124.musicTrackArchive = null; // L: 44
+	} // L: 45
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(IB)Z",
+		garbageValue = "2"
+	)
+	public static boolean method3424(int var0) {
+		return var0 >= 0 && var0 < 112 ? KeyHandler.field132[var0] : false; // L: 236 237
+	}
+
+	@ObfuscatedName("lv")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;ZI)V",
+		garbageValue = "488868822"
+	)
+	@Export("findItemDefinitions")
+	static void findItemDefinitions(String var0, boolean var1) {
+		var0 = var0.toLowerCase(); // L: 12615
+		short[] var2 = new short[16]; // L: 12616
+		int var3 = 0; // L: 12617
+
+		for (int var4 = 0; var4 < WorldMapLabelSize.ItemDefinition_fileCount; ++var4) { // L: 12618
+			ItemComposition var9 = UserComparator6.ItemDefinition_get(var4); // L: 12619
+			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) { // L: 12620 12621 12622
+				if (var3 >= 250) { // L: 12623
+					GraphicsDefaults.foundItemIdCount = -1; // L: 12624
+					class113.foundItemIds = null; // L: 12625
+					return; // L: 12626
+				}
+
+				if (var3 >= var2.length) { // L: 12628
+					short[] var6 = new short[var2.length * 2]; // L: 12629
+
+					for (int var7 = 0; var7 < var3; ++var7) { // L: 12630
+						var6[var7] = var2[var7];
+					}
+
+					var2 = var6; // L: 12631
+				}
+
+				var2[var3++] = (short)var4; // L: 12633
+			}
+		}
+
+		class113.foundItemIds = var2; // L: 12635
+		class336.foundItemIndex = 0; // L: 12636
+		GraphicsDefaults.foundItemIdCount = var3; // L: 12637
+		String[] var8 = new String[GraphicsDefaults.foundItemIdCount]; // L: 12638
+
+		for (int var5 = 0; var5 < GraphicsDefaults.foundItemIdCount; ++var5) { // L: 12639
+			var8[var5] = UserComparator6.ItemDefinition_get(var2[var5]).name;
+		}
+
+		KeyHandler.method390(var8, class113.foundItemIds); // L: 12640
+	} // L: 12641
 }

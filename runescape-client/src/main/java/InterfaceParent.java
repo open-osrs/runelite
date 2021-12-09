@@ -3,98 +3,104 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("cq")
+@ObfuscatedName("cl")
 @Implements("InterfaceParent")
 public class InterfaceParent extends Node {
-	@ObfuscatedName("i")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -323406049
+		intValue = -1940404497
 	)
 	@Export("group")
 	int group;
-	@ObfuscatedName("w")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -951908341
+		intValue = -1832869839
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("s")
-	boolean field1011;
+	@ObfuscatedName("p")
+	boolean field1014;
 
 	InterfaceParent() {
-		this.field1011 = false; // L: 8
+		this.field1014 = false; // L: 8
 	} // L: 10
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(ILbp;ZS)I",
-		garbageValue = "16109"
+		descriptor = "(Lku;I)V",
+		garbageValue = "-1043204065"
 	)
-	static int method2079(int var0, Script var1, boolean var2) {
-		Widget var7;
-		if (var0 != ScriptOpcodes.CC_CALLONRESIZE && var0 != ScriptOpcodes.IF_CALLONRESIZE) { // L: 1224
-			int var4;
-			if (var0 == ScriptOpcodes.CC_TRIGGEROP) { // L: 1241
-				var7 = var2 ? class120.scriptDotWidget : Frames.scriptActiveWidget; // L: 1242
-				var4 = Interpreter.Interpreter_intStack[--class14.Interpreter_intStackSize]; // L: 1243
-				if (var4 >= 1 && var4 <= 10) { // L: 1244
-					class92 var8 = new class92(var4, var7.id, var7.childIndex, var7.itemId); // L: 1247
-					Interpreter.field797.add(var8); // L: 1248
-					return 1; // L: 1249
-				} else {
-					throw new RuntimeException(); // L: 1245
-				}
-			} else if (var0 == ScriptOpcodes.IF_TRIGGEROP) { // L: 1251
-				class14.Interpreter_intStackSize -= 3; // L: 1252
-				int var3 = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize]; // L: 1253
-				var4 = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 1]; // L: 1254
-				int var5 = Interpreter.Interpreter_intStack[class14.Interpreter_intStackSize + 2]; // L: 1255
-				if (var5 >= 1 && var5 <= 10) { // L: 1256
-					class92 var6 = new class92(var5, var3, var4, UserComparator9.getWidget(var3).itemId); // L: 1259
-					Interpreter.field797.add(var6); // L: 1260
-					return 1; // L: 1261
-				} else {
-					throw new RuntimeException(); // L: 1257
-				}
-			} else {
-				return 2; // L: 1263
-			}
-		} else if (Interpreter.field798 >= 10) { // L: 1225
-			throw new RuntimeException(); // L: 1226
+	public static void method2145(AbstractArchive var0) {
+		ParamComposition.ParamDefinition_archive = var0; // L: 21
+	} // L: 22
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(IB)Lfl;",
+		garbageValue = "-64"
+	)
+	public static FloorUnderlayDefinition method2144(int var0) {
+		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition)FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long)var0); // L: 25
+		if (var1 != null) { // L: 26
+			return var1;
 		} else {
-			if (var0 >= 2000) { // L: 1229
-				var7 = UserComparator9.getWidget(Interpreter.Interpreter_intStack[--class14.Interpreter_intStackSize]); // L: 1230
-			} else {
-				var7 = var2 ? class120.scriptDotWidget : Frames.scriptActiveWidget; // L: 1232
+			byte[] var2 = FloorUnderlayDefinition.FloorUnderlayDefinition_archive.takeFile(1, var0); // L: 27
+			var1 = new FloorUnderlayDefinition(); // L: 28
+			if (var2 != null) { // L: 29
+				var1.decode(new Buffer(var2), var0);
 			}
 
-			if (var7.onResize == null) { // L: 1233
-				return 0;
-			} else {
-				ScriptEvent var9 = new ScriptEvent(); // L: 1234
-				var9.widget = var7; // L: 1235
-				var9.args = var7.onResize; // L: 1236
-				var9.field1024 = Interpreter.field798 + 1; // L: 1237
-				Client.scriptEvents.addFirst(var9); // L: 1238
-				return 1; // L: 1239
-			}
+			var1.postDecode(); // L: 30
+			FloorUnderlayDefinition.FloorUnderlayDefinition_cached.put(var1, (long)var0); // L: 31
+			return var1; // L: 32
 		}
 	}
 
-	@ObfuscatedName("jg")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1428422935"
+		descriptor = "(I)V",
+		garbageValue = "1442239396"
 	)
-	static boolean method2080(int var0) {
-		for (int var1 = 0; var1 < Client.field695; ++var1) { // L: 11114
-			if (Client.field697[var1] == var0) { // L: 11115
-				return true;
-			}
+	public static void method2143() {
+		SpotAnimationDefinition.SpotAnimationDefinition_cached.clear(); // L: 122
+		SpotAnimationDefinition.SpotAnimationDefinition_cachedModels.clear(); // L: 123
+	} // L: 124
+
+	@ObfuscatedName("kw")
+	static final void method2142(double var0) {
+		Rasterizer3D.Rasterizer3D_setBrightness(var0); // L: 12121
+		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).setBrightness(var0); // L: 12122
+		VerticalAlignment.method3338(); // L: 12123
+		SecureRandomFuture.clientPreferences.brightness = var0; // L: 12124
+		class127.savePreferences(); // L: 12125
+	} // L: 12126
+
+	@ObfuscatedName("lx")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;ZI)Ljava/lang/String;",
+		garbageValue = "-2059094026"
+	)
+	static String method2146(String var0, boolean var1) {
+		String var2 = var1 ? "https://" : "http://"; // L: 12589
+		if (Client.gameBuild == 1) { // L: 12590
+			var0 = var0 + "-wtrc";
+		} else if (Client.gameBuild == 2) { // L: 12591
+			var0 = var0 + "-wtqa";
+		} else if (Client.gameBuild == 3) { // L: 12592
+			var0 = var0 + "-wtwip";
+		} else if (Client.gameBuild == 5) { // L: 12593
+			var0 = var0 + "-wti";
+		} else if (Client.gameBuild == 4) { // L: 12594
+			var0 = "local";
 		}
 
-		return false; // L: 11117
+		String var3 = ""; // L: 12595
+		if (class1.field3 != null) { // L: 12596
+			var3 = "/p=" + class1.field3;
+		}
+
+		String var4 = "runescape.com"; // L: 12597
+		return var2 + var0 + "." + var4 + "/l=" + ScriptFrame.clientLanguage + "/a=" + FriendLoginUpdate.field4096 + var3 + "/"; // L: 12598
 	}
 }
