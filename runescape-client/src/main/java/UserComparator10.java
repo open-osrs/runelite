@@ -72,7 +72,7 @@ public class UserComparator10 extends AbstractUserComparator {
 			class9.archive3 = VarcInt.newArchive(1, false, true, true); // L: 2189
 			class131.archive2 = VarcInt.newArchive(2, true, false, true); // L: 2190
 			class19.archive4 = VarcInt.newArchive(3, false, true, true); // L: 2191
-			KeyHandler.field151 = VarcInt.newArchive(4, false, true, true); // L: 2192
+			KeyHandler.archive4 = VarcInt.newArchive(4, false, true, true); // L: 2192
 			class140.archive5 = VarcInt.newArchive(5, true, true, true); // L: 2193
 			WorldMapScaleHandler.archive6 = VarcInt.newArchive(6, true, true, true); // L: 2194
 			class115.archive7 = VarcInt.newArchive(7, false, true, true); // L: 2195
@@ -97,7 +97,7 @@ public class UserComparator10 extends AbstractUserComparator {
 			var18 += class9.archive3.percentage() * 4 / 100; // L: 2216
 			var18 += class131.archive2.percentage() * 2 / 100; // L: 2217
 			var18 += class19.archive4.percentage() * 2 / 100; // L: 2218
-			var18 += KeyHandler.field151.percentage() * 6 / 100; // L: 2219
+			var18 += KeyHandler.archive4.percentage() * 6 / 100; // L: 2219
 			var18 += class140.archive5.percentage() * 4 / 100; // L: 2220
 			var18 += WorldMapScaleHandler.archive6.percentage() * 2 / 100; // L: 2221
 			var18 += class115.archive7.percentage() * 56 / 100; // L: 2222
@@ -122,7 +122,7 @@ public class UserComparator10 extends AbstractUserComparator {
 			} else {
 				NetFileRequest.method5587(class115.archive1, "Animations"); // L: 2240
 				NetFileRequest.method5587(class9.archive3, "Skeletons"); // L: 2241
-				NetFileRequest.method5587(KeyHandler.field151, "Sound FX"); // L: 2242
+				NetFileRequest.method5587(KeyHandler.archive4, "Sound FX"); // L: 2242
 				NetFileRequest.method5587(class140.archive5, "Maps"); // L: 2243
 				NetFileRequest.method5587(WorldMapScaleHandler.archive6, "Music Tracks"); // L: 2244
 				NetFileRequest.method5587(class115.archive7, "Models"); // L: 2245
@@ -152,7 +152,7 @@ public class UserComparator10 extends AbstractUserComparator {
 				JagexCache.pcmPlayer0.setStream(var37); // L: 2271
 				var2 = class133.archive15; // L: 2272
 				Archive var39 = ChatChannel.archive14; // L: 2273
-				Archive var29 = KeyHandler.field151; // L: 2274
+				Archive var29 = KeyHandler.archive4; // L: 2274
 				class260.musicPatchesArchive = var2; // L: 2276
 				class331.musicSamplesArchive = var39; // L: 2277
 				class260.soundEffectsArchive = var29; // L: 2278
