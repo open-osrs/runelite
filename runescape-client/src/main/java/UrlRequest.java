@@ -83,7 +83,7 @@ public class UrlRequest {
 		class115.archive1.clearFiles(); // L: 3632
 		class9.archive3.clearFiles(); // L: 3633
 		class19.archive4.clearFiles(); // L: 3634
-		KeyHandler.field151.clearFiles(); // L: 3635
+		KeyHandler.archive4.clearFiles(); // L: 3635
 		class140.archive5.clearFiles(); // L: 3636
 		WorldMapScaleHandler.archive6.clearFiles(); // L: 3637
 		class115.archive7.clearFiles(); // L: 3638

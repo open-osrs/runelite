@@ -3428,7 +3428,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 				var5.packetBuffer.method7407(VertexNormal.archive18.hash); // L: 3049
 				var5.packetBuffer.writeInt(class140.archive5.hash); // L: 3050
 				var5.packetBuffer.writeIntME(class131.archive2.hash); // L: 3051
-				var5.packetBuffer.method7407(KeyHandler.field151.hash); // L: 3052
+				var5.packetBuffer.method7407(KeyHandler.archive4.hash); // L: 3052
 				var5.packetBuffer.writeIntME(NetSocket.archive9.hash); // L: 3053
 				var5.packetBuffer.writeInt(class257.archive10.hash); // L: 3054
 				var5.packetBuffer.method7407(HealthBarUpdate.archive20.hash); // L: 3055
@@ -4082,7 +4082,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 								SoundEffect var32 = soundEffects[var1]; // L: 3885
 								if (var32 == null) { // L: 3886
 									var10000 = null; // L: 3887
-									var32 = SoundEffect.readSoundEffect(KeyHandler.field151, soundEffectIds[var1], 0);
+									var32 = SoundEffect.readSoundEffect(KeyHandler.archive4, soundEffectIds[var1], 0);
 									if (var32 == null) { // L: 3888
 										continue;
 									}
@@ -4752,7 +4752,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 					if (var5.stream1 == null) { // L: 5081
 						if (var5.soundEffectId >= 0) { // L: 5082
 							var10000 = null; // L: 5083
-							SoundEffect var8 = SoundEffect.readSoundEffect(KeyHandler.field151, var5.soundEffectId, 0);
+							SoundEffect var8 = SoundEffect.readSoundEffect(KeyHandler.archive4, var5.soundEffectId, 0);
 							if (var8 != null) { // L: 5084
 								RawSound var9 = var8.toRawSound().resample(BoundaryObject.decimator); // L: 5085
 								RawPcmStream var10 = RawPcmStream.createRawPcmStream(var9, 100, var7); // L: 5086
@@ -4769,7 +4769,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 						if (var5.soundEffectIds != null && (var5.field789 -= var4) <= 0) { // L: 5095
 							int var12 = (int)(Math.random() * (double)var5.soundEffectIds.length); // L: 5096
 							var10000 = null; // L: 5097
-							SoundEffect var13 = SoundEffect.readSoundEffect(KeyHandler.field151, var5.soundEffectIds[var12], 0);
+							SoundEffect var13 = SoundEffect.readSoundEffect(KeyHandler.archive4, var5.soundEffectIds[var12], 0);
 							if (var13 != null) { // L: 5098
 								RawSound var14 = var13.toRawSound().resample(BoundaryObject.decimator); // L: 5099
 								RawPcmStream var11 = RawPcmStream.createRawPcmStream(var14, 100, var7); // L: 5100
