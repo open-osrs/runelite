@@ -10,19 +10,19 @@ public class DirectWrapper extends Wrapper {
 	Object obj;
 
 	DirectWrapper(Object var1, int var2) {
-		super(var2); // L: 7
-		this.obj = var1; // L: 8
-	} // L: 9
+		super(var2);
+		this.obj = var1;
+	}
 
 	@ObfuscatedName("c")
 	@Export("get")
 	Object get() {
-		return this.obj; // L: 12
+		return this.obj;
 	}
 
 	@ObfuscatedName("b")
 	@Export("isSoft")
 	boolean isSoft() {
-		return false; // L: 16
+		return false;
 	}
 }

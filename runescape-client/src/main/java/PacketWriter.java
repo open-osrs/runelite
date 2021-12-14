@@ -92,16 +92,16 @@ public class PacketWriter {
 	ServerPacket field1291;
 
 	PacketWriter() {
-		this.packetBufferNodes = new IterableNodeDeque(); // L: 15
-		this.bufferSize = 0; // L: 16
-		this.buffer = new Buffer(5000); // L: 17
-		this.packetBuffer = new PacketBuffer(40000); // L: 19
-		this.serverPacket = null; // L: 20
-		this.serverPacketLength = 0; // L: 21
-		this.field1278 = true; // L: 22
-		this.field1287 = 0; // L: 23
-		this.pendingWrites = 0; // L: 24
-	} // L: 29
+		this.packetBufferNodes = new IterableNodeDeque();
+		this.bufferSize = 0;
+		this.buffer = new Buffer(5000);
+		this.packetBuffer = new PacketBuffer(40000);
+		this.serverPacket = null;
+		this.serverPacketLength = 0;
+		this.field1278 = true;
+		this.field1287 = 0;
+		this.pendingWrites = 0;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -110,9 +110,9 @@ public class PacketWriter {
 	)
 	@Export("clearBuffer")
 	final void clearBuffer() {
-		this.packetBufferNodes.rsClear(); // L: 32
-		this.bufferSize = 0; // L: 33
-	} // L: 34
+		this.packetBufferNodes.rsClear();
+		this.bufferSize = 0;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -121,26 +121,26 @@ public class PacketWriter {
 	)
 	@Export("flush")
 	final void flush() throws IOException {
-		if (this.socket != null && this.bufferSize > 0) { // L: 37
-			this.buffer.offset = 0; // L: 38
+		if (this.socket != null && this.bufferSize > 0) {
+			this.buffer.offset = 0;
 
 			while (true) {
-				PacketBufferNode var1 = (PacketBufferNode)this.packetBufferNodes.last(); // L: 40
-				if (var1 == null || var1.index > this.buffer.array.length - this.buffer.offset) { // L: 41 42
-					this.socket.write(this.buffer.array, 0, this.buffer.offset); // L: 49
-					this.pendingWrites = 0; // L: 50
+				PacketBufferNode var1 = (PacketBufferNode)this.packetBufferNodes.last();
+				if (var1 == null || var1.index > this.buffer.array.length - this.buffer.offset) {
+					this.socket.write(this.buffer.array, 0, this.buffer.offset);
+					this.pendingWrites = 0;
 					break;
 				}
 
-				this.buffer.writeBytes(var1.packetBuffer.array, 0, var1.index); // L: 43
-				this.bufferSize -= var1.index; // L: 44
-				var1.remove(); // L: 45
-				var1.packetBuffer.releaseArray(); // L: 46
-				var1.release(); // L: 47
+				this.buffer.writeBytes(var1.packetBuffer.array, 0, var1.index);
+				this.bufferSize -= var1.index;
+				var1.remove();
+				var1.packetBuffer.releaseArray();
+				var1.release();
 			}
 		}
 
-	} // L: 52
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -149,11 +149,11 @@ public class PacketWriter {
 	)
 	@Export("addNode")
 	public final void addNode(PacketBufferNode var1) {
-		this.packetBufferNodes.addFirst(var1); // L: 55
-		var1.index = var1.packetBuffer.offset; // L: 56
-		var1.packetBuffer.offset = 0; // L: 57
-		this.bufferSize += var1.index; // L: 58
-	} // L: 59
+		this.packetBufferNodes.addFirst(var1);
+		var1.index = var1.packetBuffer.offset;
+		var1.packetBuffer.offset = 0;
+		this.bufferSize += var1.index;
+	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
@@ -162,8 +162,8 @@ public class PacketWriter {
 	)
 	@Export("setSocket")
 	void setSocket(AbstractSocket var1) {
-		this.socket = var1; // L: 62
-	} // L: 63
+		this.socket = var1;
+	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -172,12 +172,12 @@ public class PacketWriter {
 	)
 	@Export("close")
 	void close() {
-		if (this.socket != null) { // L: 66
-			this.socket.close(); // L: 67
-			this.socket = null; // L: 68
+		if (this.socket != null) {
+			this.socket.close();
+			this.socket = null;
 		}
 
-	} // L: 70
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -186,8 +186,8 @@ public class PacketWriter {
 	)
 	@Export("removeSocket")
 	void removeSocket() {
-		this.socket = null; // L: 73
-	} // L: 74
+		this.socket = null;
+	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -196,12 +196,12 @@ public class PacketWriter {
 	)
 	@Export("getSocket")
 	AbstractSocket getSocket() {
-		return this.socket; // L: 77
+		return this.socket;
 	}
 
 	@ObfuscatedName("n")
 	@Export("Entity_unpackID")
 	public static int Entity_unpackID(long var0) {
-		return (int)(var0 >>> 17 & 4294967295L); // L: 85
+		return (int)(var0 >>> 17 & 4294967295L);
 	}
 }

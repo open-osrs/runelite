@@ -39,9 +39,9 @@ public class WorldMapLabel {
 		descriptor = "(Ljava/lang/String;IILhh;)V"
 	)
 	WorldMapLabel(String var1, int var2, int var3, WorldMapLabelSize var4) {
-		this.text = var1; // L: 10
-		this.width = var2; // L: 11
-		this.height = var3; // L: 12
-		this.size = var4; // L: 13
-	} // L: 14
+		this.text = var1;
+		this.width = var2;
+		this.height = var3;
+		this.size = var4;
+	}
 }

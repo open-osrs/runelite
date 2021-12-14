@@ -42,20 +42,20 @@ public class GrandExchangeOffer {
 	public int currentPrice;
 
 	public GrandExchangeOffer() {
-	} // L: 13
+	}
 
 	@ObfuscatedSignature(
 		descriptor = "(Lpi;Z)V",
 		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
-		this.state = var1.readByte(); // L: 16
-		this.id = var1.readUnsignedShort(); // L: 17
-		this.unitPrice = var1.readInt(); // L: 18
-		this.totalQuantity = var1.readInt(); // L: 19
-		this.currentQuantity = var1.readInt(); // L: 20
-		this.currentPrice = var1.readInt(); // L: 21
-	} // L: 22
+		this.state = var1.readByte();
+		this.id = var1.readUnsignedShort();
+		this.unitPrice = var1.readInt();
+		this.totalQuantity = var1.readInt();
+		this.currentQuantity = var1.readInt();
+		this.currentPrice = var1.readInt();
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -64,7 +64,7 @@ public class GrandExchangeOffer {
 	)
 	@Export("status")
 	public int status() {
-		return this.state & 7; // L: 50
+		return this.state & 7;
 	}
 
 	@ObfuscatedName("m")
@@ -74,7 +74,7 @@ public class GrandExchangeOffer {
 	)
 	@Export("type")
 	public int type() {
-		return (this.state & 8) == 8 ? 1 : 0; // L: 54
+		return (this.state & 8) == 8 ? 1 : 0;
 	}
 
 	@ObfuscatedName("t")
@@ -83,9 +83,9 @@ public class GrandExchangeOffer {
 		garbageValue = "2147483647"
 	)
 	void method5765(int var1) {
-		this.state &= -8; // L: 58
-		this.state = (byte)(this.state | var1 & 7); // L: 59
-	} // L: 60
+		this.state &= -8;
+		this.state = (byte)(this.state | var1 & 7);
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -93,10 +93,10 @@ public class GrandExchangeOffer {
 		garbageValue = "-435429796"
 	)
 	void method5766(int var1) {
-		this.state &= -9; // L: 63
+		this.state &= -9;
 		if (var1 == 1) {
-			this.state = (byte)(this.state | 8); // L: 64
+			this.state = (byte)(this.state | 8);
 		}
 
-	} // L: 65
+	}
 }

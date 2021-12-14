@@ -32,30 +32,30 @@ public class class21 {
 	final String field114;
 
 	class21(String var1) {
-		this.field115 = 400; // L: 32
-		this.field114 = ""; // L: 33
-	} // L: 34
+		this.field115 = 400;
+		this.field114 = "";
+	}
 
 	class21(HttpURLConnection var1) throws IOException {
-		this.field115 = var1.getResponseCode(); // L: 14
-		var1.getResponseMessage(); // L: 15
-		var1.getHeaderFields(); // L: 16
-		StringBuilder var2 = new StringBuilder(); // L: 17
-		InputStream var3 = this.field115 >= 300 ? var1.getErrorStream() : var1.getInputStream(); // L: 18
-		if (var3 != null) { // L: 19
-			InputStreamReader var4 = new InputStreamReader(var3); // L: 20
-			BufferedReader var5 = new BufferedReader(var4); // L: 21
+		this.field115 = var1.getResponseCode();
+		var1.getResponseMessage();
+		var1.getHeaderFields();
+		StringBuilder var2 = new StringBuilder();
+		InputStream var3 = this.field115 >= 300 ? var1.getErrorStream() : var1.getInputStream();
+		if (var3 != null) {
+			InputStreamReader var4 = new InputStreamReader(var3);
+			BufferedReader var5 = new BufferedReader(var4);
 
 			String var6;
-			while ((var6 = var5.readLine()) != null) { // L: 23
-				var2.append(var6); // L: 24
+			while ((var6 = var5.readLine()) != null) {
+				var2.append(var6);
 			}
 
-			var3.close(); // L: 26
+			var3.close();
 		}
 
-		this.field114 = var2.toString(); // L: 28
-	} // L: 29
+		this.field114 = var2.toString();
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -63,7 +63,7 @@ public class class21 {
 		garbageValue = "1543760704"
 	)
 	public int method338() {
-		return this.field115; // L: 37
+		return this.field115;
 	}
 
 	@ObfuscatedName("b")
@@ -72,7 +72,7 @@ public class class21 {
 		garbageValue = "128"
 	)
 	public String method339() {
-		return this.field114; // L: 41
+		return this.field114;
 	}
 
 	@ObfuscatedName("if")
@@ -82,18 +82,18 @@ public class class21 {
 	)
 	@Export("insertMenuItem")
 	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
-		if (!Client.isMenuOpen) { // L: 10045
-			if (Client.menuOptionsCount < 500) { // L: 10046
-				Client.menuActions[Client.menuOptionsCount] = var0; // L: 10047
-				Client.menuTargets[Client.menuOptionsCount] = var1; // L: 10048
-				Client.menuOpcodes[Client.menuOptionsCount] = var2; // L: 10049
-				Client.menuIdentifiers[Client.menuOptionsCount] = var3; // L: 10050
-				Client.menuArguments1[Client.menuOptionsCount] = var4; // L: 10051
-				Client.menuArguments2[Client.menuOptionsCount] = var5; // L: 10052
-				Client.menuShiftClick[Client.menuOptionsCount] = var6; // L: 10053
-				++Client.menuOptionsCount; // L: 10054
+		if (!Client.isMenuOpen) {
+			if (Client.menuOptionsCount < 500) {
+				Client.menuActions[Client.menuOptionsCount] = var0;
+				Client.menuTargets[Client.menuOptionsCount] = var1;
+				Client.menuOpcodes[Client.menuOptionsCount] = var2;
+				Client.menuIdentifiers[Client.menuOptionsCount] = var3;
+				Client.menuArguments1[Client.menuOptionsCount] = var4;
+				Client.menuArguments2[Client.menuOptionsCount] = var5;
+				Client.menuShiftClick[Client.menuOptionsCount] = var6;
+				++Client.menuOptionsCount;
 			}
 
 		}
-	} // L: 10056
+	}
 }

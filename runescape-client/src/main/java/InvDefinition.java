@@ -27,12 +27,12 @@ public class InvDefinition extends DualNode {
 	public int size;
 
 	static {
-		InvDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
+		InvDefinition_cached = new EvictingDualNodeHashTable(64);
 	}
 
 	InvDefinition() {
-		this.size = 0; // L: 12
-	} // L: 14
+		this.size = 0;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -42,12 +42,12 @@ public class InvDefinition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 28
-			if (var2 == 0) { // L: 29
-				return; // L: 32
+			int var2 = var1.readUnsignedByte();
+			if (var2 == 0) {
+				return;
 			}
 
-			this.decodeNext(var1, var2); // L: 30
+			this.decodeNext(var1, var2);
 		}
 	}
 
@@ -58,11 +58,11 @@ public class InvDefinition extends DualNode {
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 2) { // L: 35
+		if (var2 == 2) {
 			this.size = var1.readUnsignedShort();
 		}
 
-	} // L: 37
+	}
 
 	@ObfuscatedName("ir")
 	@ObfuscatedSignature(
@@ -70,6 +70,6 @@ public class InvDefinition extends DualNode {
 		garbageValue = "2"
 	)
 	static boolean method3157(int var0) {
-		return var0 == 57 || var0 == 58 || var0 == 1007 || var0 == 25 || var0 == 30; // L: 10084
+		return var0 == 57 || var0 == 58 || var0 == 1007 || var0 == 25 || var0 == 30;
 	}
 }

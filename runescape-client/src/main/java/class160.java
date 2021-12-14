@@ -8,16 +8,16 @@ public class class160 {
 	public short[] field1738;
 
 	class160(int var1) {
-		ItemComposition var2 = UserComparator6.ItemDefinition_get(var1); // L: 12
-		if (var2.method3560()) { // L: 13
-			this.field1732 = new short[var2.recolorTo.length]; // L: 14
-			System.arraycopy(var2.recolorTo, 0, this.field1732, 0, this.field1732.length); // L: 15
+		ItemComposition var2 = UserComparator6.ItemDefinition_get(var1);
+		if (var2.method3560()) {
+			this.field1732 = new short[var2.recolorTo.length];
+			System.arraycopy(var2.recolorTo, 0, this.field1732, 0, this.field1732.length);
 		}
 
-		if (var2.method3572()) { // L: 17
-			this.field1738 = new short[var2.retextureTo.length]; // L: 18
-			System.arraycopy(var2.retextureTo, 0, this.field1738, 0, this.field1738.length); // L: 19
+		if (var2.method3572()) {
+			this.field1738 = new short[var2.retextureTo.length];
+			System.arraycopy(var2.retextureTo, 0, this.field1738, 0, this.field1738.length);
 		}
 
-	} // L: 21
+	}
 }

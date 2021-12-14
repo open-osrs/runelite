@@ -55,8 +55,8 @@ public class FloorUnderlayDefinition extends DualNode {
 	}
 
 	FloorUnderlayDefinition() {
-		this.rgb = 0; // L: 12
-	} // L: 18
+		this.rgb = 0;
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -65,8 +65,8 @@ public class FloorUnderlayDefinition extends DualNode {
 	)
 	@Export("postDecode")
 	void postDecode() {
-		this.setHsl(this.rgb); // L: 36
-	} // L: 37
+		this.setHsl(this.rgb);
+	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
@@ -76,12 +76,12 @@ public class FloorUnderlayDefinition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1, int var2) {
 		while (true) {
-			int var3 = var1.readUnsignedByte(); // L: 41
-			if (var3 == 0) { // L: 42
-				return; // L: 45
+			int var3 = var1.readUnsignedByte();
+			if (var3 == 0) {
+				return;
 			}
 
-			this.decodeNext(var1, var3, var2); // L: 43
+			this.decodeNext(var1, var3, var2);
 		}
 	}
 
@@ -92,11 +92,11 @@ public class FloorUnderlayDefinition extends DualNode {
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2, int var3) {
-		if (var2 == 1) { // L: 48
+		if (var2 == 1) {
 			this.rgb = var1.readMedium();
 		}
 
-	} // L: 50
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -105,75 +105,75 @@ public class FloorUnderlayDefinition extends DualNode {
 	)
 	@Export("setHsl")
 	void setHsl(int var1) {
-		double var2 = (double)(var1 >> 16 & 255) / 256.0D; // L: 53
-		double var4 = (double)(var1 >> 8 & 255) / 256.0D; // L: 54
-		double var6 = (double)(var1 & 255) / 256.0D; // L: 55
-		double var8 = var2; // L: 56
-		if (var4 < var2) { // L: 57
+		double var2 = (double)(var1 >> 16 & 255) / 256.0D;
+		double var4 = (double)(var1 >> 8 & 255) / 256.0D;
+		double var6 = (double)(var1 & 255) / 256.0D;
+		double var8 = var2;
+		if (var4 < var2) {
 			var8 = var4;
 		}
 
-		if (var6 < var8) { // L: 58
+		if (var6 < var8) {
 			var8 = var6;
 		}
 
-		double var10 = var2; // L: 59
-		if (var4 > var2) { // L: 60
+		double var10 = var2;
+		if (var4 > var2) {
 			var10 = var4;
 		}
 
-		if (var6 > var10) { // L: 61
+		if (var6 > var10) {
 			var10 = var6;
 		}
 
-		double var12 = 0.0D; // L: 62
-		double var14 = 0.0D; // L: 63
-		double var16 = (var8 + var10) / 2.0D; // L: 64
-		if (var10 != var8) { // L: 65
-			if (var16 < 0.5D) { // L: 66
+		double var12 = 0.0D;
+		double var14 = 0.0D;
+		double var16 = (var8 + var10) / 2.0D;
+		if (var10 != var8) {
+			if (var16 < 0.5D) {
 				var14 = (var10 - var8) / (var8 + var10);
 			}
 
-			if (var16 >= 0.5D) { // L: 67
+			if (var16 >= 0.5D) {
 				var14 = (var10 - var8) / (2.0D - var10 - var8);
 			}
 
-			if (var10 == var2) { // L: 68
+			if (var10 == var2) {
 				var12 = (var4 - var6) / (var10 - var8);
-			} else if (var4 == var10) { // L: 69
+			} else if (var4 == var10) {
 				var12 = 2.0D + (var6 - var2) / (var10 - var8);
 			} else if (var6 == var10) {
-				var12 = (var2 - var4) / (var10 - var8) + 4.0D; // L: 70
+				var12 = (var2 - var4) / (var10 - var8) + 4.0D;
 			}
 		}
 
-		var12 /= 6.0D; // L: 72
-		this.saturation = (int)(var14 * 256.0D); // L: 73
-		this.lightness = (int)(var16 * 256.0D); // L: 74
-		if (this.saturation < 0) { // L: 75
+		var12 /= 6.0D;
+		this.saturation = (int)(var14 * 256.0D);
+		this.lightness = (int)(var16 * 256.0D);
+		if (this.saturation < 0) {
 			this.saturation = 0;
-		} else if (this.saturation > 255) { // L: 76
+		} else if (this.saturation > 255) {
 			this.saturation = 255;
 		}
 
-		if (this.lightness < 0) { // L: 77
+		if (this.lightness < 0) {
 			this.lightness = 0;
-		} else if (this.lightness > 255) { // L: 78
+		} else if (this.lightness > 255) {
 			this.lightness = 255;
 		}
 
-		if (var16 > 0.5D) { // L: 79
+		if (var16 > 0.5D) {
 			this.hueMultiplier = (int)((1.0D - var16) * var14 * 512.0D);
 		} else {
-			this.hueMultiplier = (int)(512.0D * var14 * var16); // L: 80
+			this.hueMultiplier = (int)(512.0D * var14 * var16);
 		}
 
-		if (this.hueMultiplier < 1) { // L: 81
+		if (this.hueMultiplier < 1) {
 			this.hueMultiplier = 1;
 		}
 
-		this.hue = (int)((double)this.hueMultiplier * var12); // L: 82
-	} // L: 83
+		this.hue = (int)((double)this.hueMultiplier * var12);
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -181,7 +181,7 @@ public class FloorUnderlayDefinition extends DualNode {
 		garbageValue = "1097818392"
 	)
 	static PrivateChatMode[] method3381() {
-		return new PrivateChatMode[]{PrivateChatMode.field4594, PrivateChatMode.field4595, PrivateChatMode.field4596}; // L: 11
+		return new PrivateChatMode[]{PrivateChatMode.field4594, PrivateChatMode.field4595, PrivateChatMode.field4596};
 	}
 
 	@ObfuscatedName("c")
@@ -190,6 +190,6 @@ public class FloorUnderlayDefinition extends DualNode {
 		garbageValue = "440486773"
 	)
 	static AttackOption[] method3376() {
-		return new AttackOption[]{AttackOption.field1232, AttackOption.AttackOption_hidden, AttackOption.AttackOption_dependsOnCombatLevels, AttackOption.field1234, AttackOption.AttackOption_alwaysRightClick}; // L: 12748
+		return new AttackOption[]{AttackOption.field1232, AttackOption.AttackOption_hidden, AttackOption.AttackOption_dependsOnCombatLevels, AttackOption.field1234, AttackOption.AttackOption_alwaysRightClick};
 	}
 }

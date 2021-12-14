@@ -27,11 +27,11 @@ public class class92 {
 	int field1225;
 
 	class92(int var1, int var2, int var3, int var4) {
-		this.field1228 = var1; // L: 10
-		this.field1226 = var2; // L: 11
-		this.field1227 = var3; // L: 12
-		this.field1225 = var4; // L: 13
-	} // L: 14
+		this.field1228 = var1;
+		this.field1226 = var2;
+		this.field1227 = var3;
+		this.field1225 = var4;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -39,7 +39,7 @@ public class class92 {
 		garbageValue = "-1997278841"
 	)
 	int method2340() {
-		return this.field1228; // L: 17
+		return this.field1228;
 	}
 
 	@ObfuscatedName("b")
@@ -48,7 +48,7 @@ public class class92 {
 		garbageValue = "953113161"
 	)
 	int method2339() {
-		return this.field1226; // L: 21
+		return this.field1226;
 	}
 
 	@ObfuscatedName("p")
@@ -57,7 +57,7 @@ public class class92 {
 		garbageValue = "100"
 	)
 	int method2341() {
-		return this.field1227; // L: 25
+		return this.field1227;
 	}
 
 	@ObfuscatedName("m")
@@ -66,7 +66,7 @@ public class class92 {
 		garbageValue = "-97"
 	)
 	int method2348() {
-		return this.field1225; // L: 29
+		return this.field1225;
 	}
 
 	@ObfuscatedName("m")
@@ -75,12 +75,12 @@ public class class92 {
 		garbageValue = "-1922947006"
 	)
 	public static String method2353(CharSequence var0) {
-		String var1 = GraphicsDefaults.base37DecodeLong(ChatChannel.method2054(var0)); // L: 75
-		if (var1 == null) { // L: 76
+		String var1 = GraphicsDefaults.base37DecodeLong(ChatChannel.method2054(var0));
+		if (var1 == null) {
 			var1 = "";
 		}
 
-		return var1; // L: 77
+		return var1;
 	}
 
 	@ObfuscatedName("jx")
@@ -90,32 +90,32 @@ public class class92 {
 	)
 	@Export("resizeInterface")
 	static void resizeInterface(Widget[] var0, int var1, int var2, int var3, boolean var4) {
-		for (int var5 = 0; var5 < var0.length; ++var5) { // L: 10940
-			Widget var6 = var0[var5]; // L: 10941
-			if (var6 != null && var6.parentId == var1) { // L: 10942 10943
-				class29.alignWidgetSize(var6, var2, var3, var4); // L: 10944
-				MouseHandler.alignWidgetPosition(var6, var2, var3); // L: 10945
-				if (var6.scrollX > var6.scrollWidth - var6.width) { // L: 10946
+		for (int var5 = 0; var5 < var0.length; ++var5) {
+			Widget var6 = var0[var5];
+			if (var6 != null && var6.parentId == var1) {
+				class29.alignWidgetSize(var6, var2, var3, var4);
+				MouseHandler.alignWidgetPosition(var6, var2, var3);
+				if (var6.scrollX > var6.scrollWidth - var6.width) {
 					var6.scrollX = var6.scrollWidth - var6.width;
 				}
 
-				if (var6.scrollX < 0) { // L: 10947
+				if (var6.scrollX < 0) {
 					var6.scrollX = 0;
 				}
 
-				if (var6.scrollY > var6.scrollHeight - var6.height) { // L: 10948
+				if (var6.scrollY > var6.scrollHeight - var6.height) {
 					var6.scrollY = var6.scrollHeight - var6.height;
 				}
 
-				if (var6.scrollY < 0) { // L: 10949
+				if (var6.scrollY < 0) {
 					var6.scrollY = 0;
 				}
 
-				if (var6.type == 0) { // L: 10950
+				if (var6.type == 0) {
 					class115.revalidateWidgetScroll(var0, var6, var4);
 				}
 			}
 		}
 
-	} // L: 10952
+	}
 }

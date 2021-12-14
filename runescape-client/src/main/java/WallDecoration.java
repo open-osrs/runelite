@@ -76,9 +76,9 @@ public final class WallDecoration {
 	int flags;
 
 	WallDecoration() {
-		this.tag = 0L; // L: 13
-		this.flags = 0; // L: 14
-	} // L: 16
+		this.tag = 0L;
+		this.flags = 0;
+	}
 
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
@@ -86,8 +86,8 @@ public final class WallDecoration {
 		garbageValue = "-121"
 	)
 	static SecureRandom method4340() {
-		SecureRandom var0 = new SecureRandom(); // L: 39
-		var0.nextInt(); // L: 40
-		return var0; // L: 41
+		SecureRandom var0 = new SecureRandom();
+		var0.nextInt();
+		return var0;
 	}
 }

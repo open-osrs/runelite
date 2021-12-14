@@ -102,20 +102,20 @@ public enum ModeWhere implements MouseWheel {
 	)
 	ModeWhere(String var3, int var4, class313[] var5) {
 		this.field3950 = new HashSet();
-		this.id = var4; // L: 39
-		class313[] var6 = var5; // L: 41
+		this.id = var4;
+		class313[] var6 = var5;
 
-		for (int var7 = 0; var7 < var6.length; ++var7) { // L: 42
-			class313 var8 = var6[var7]; // L: 43
-			this.field3950.add(var8); // L: 44
+		for (int var7 = 0; var7 < var6.length; ++var7) {
+			class313 var8 = var6[var7];
+			this.field3950.add(var8);
 		}
 
-	} // L: 47
+	}
 
 	ModeWhere(String var3, int var4) {
-		this.field3950 = new HashSet(); // L: 32
-		this.id = var4; // L: 35
-	} // L: 36
+		this.field3950 = new HashSet();
+		this.id = var4;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -124,7 +124,7 @@ public enum ModeWhere implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 51
+		return this.id;
 	}
 
 	@ObfuscatedName("ht")
@@ -134,31 +134,31 @@ public enum ModeWhere implements MouseWheel {
 	)
 	@Export("worldToScreen")
 	static final void worldToScreen(int var0, int var1, int var2) {
-		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) { // L: 6049
-			int var3 = FaceNormal.getTileHeight(var0, var1, class20.Client_plane) - var2; // L: 6054
-			var0 -= UserComparator7.cameraX; // L: 6055
-			var3 -= AbstractByteArrayCopier.cameraY; // L: 6056
-			var1 -= UserComparator10.cameraZ; // L: 6057
-			int var4 = Rasterizer3D.Rasterizer3D_sine[UserComparator7.cameraPitch]; // L: 6058
-			int var5 = Rasterizer3D.Rasterizer3D_cosine[UserComparator7.cameraPitch]; // L: 6059
-			int var6 = Rasterizer3D.Rasterizer3D_sine[class379.cameraYaw]; // L: 6060
-			int var7 = Rasterizer3D.Rasterizer3D_cosine[class379.cameraYaw]; // L: 6061
-			int var8 = var6 * var1 + var0 * var7 >> 16; // L: 6062
-			var1 = var7 * var1 - var0 * var6 >> 16; // L: 6063
-			var0 = var8; // L: 6064
-			var8 = var5 * var3 - var4 * var1 >> 16; // L: 6065
-			var1 = var5 * var1 + var4 * var3 >> 16; // L: 6066
-			if (var1 >= 50) { // L: 6068
-				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2; // L: 6069
-				Client.viewportTempY = var8 * Client.viewportZoom / var1 + Client.viewportHeight / 2; // L: 6070
+		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) {
+			int var3 = FaceNormal.getTileHeight(var0, var1, class20.Client_plane) - var2;
+			var0 -= UserComparator7.cameraX;
+			var3 -= AbstractByteArrayCopier.cameraY;
+			var1 -= UserComparator10.cameraZ;
+			int var4 = Rasterizer3D.Rasterizer3D_sine[UserComparator7.cameraPitch];
+			int var5 = Rasterizer3D.Rasterizer3D_cosine[UserComparator7.cameraPitch];
+			int var6 = Rasterizer3D.Rasterizer3D_sine[class379.cameraYaw];
+			int var7 = Rasterizer3D.Rasterizer3D_cosine[class379.cameraYaw];
+			int var8 = var6 * var1 + var0 * var7 >> 16;
+			var1 = var7 * var1 - var0 * var6 >> 16;
+			var0 = var8;
+			var8 = var5 * var3 - var4 * var1 >> 16;
+			var1 = var5 * var1 + var4 * var3 >> 16;
+			if (var1 >= 50) {
+				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2;
+				Client.viewportTempY = var8 * Client.viewportZoom / var1 + Client.viewportHeight / 2;
 			} else {
-				Client.viewportTempX = -1; // L: 6073
-				Client.viewportTempY = -1; // L: 6074
+				Client.viewportTempX = -1;
+				Client.viewportTempY = -1;
 			}
 
 		} else {
-			Client.viewportTempX = -1; // L: 6050
-			Client.viewportTempY = -1; // L: 6051
+			Client.viewportTempX = -1;
+			Client.viewportTempY = -1;
 		}
-	} // L: 6052 6076
+	}
 }

@@ -7,7 +7,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("Clock")
 public abstract class Clock {
 	Clock() {
-	} // L: 4
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -31,105 +31,105 @@ public abstract class Clock {
 		garbageValue = "-1365814358"
 	)
 	public static final boolean method3132(int var0, int var1, RouteStrategy var2, CollisionMap var3) {
-		int var4 = var0; // L: 19
-		int var5 = var1; // L: 20
-		byte var6 = 64; // L: 21
-		byte var7 = 64; // L: 22
-		int var8 = var0 - var6; // L: 23
-		int var9 = var1 - var7; // L: 24
-		class186.directions[var6][var7] = 99; // L: 25
-		class186.distances[var6][var7] = 0; // L: 26
-		byte var10 = 0; // L: 27
-		int var11 = 0; // L: 28
-		class186.bufferX[var10] = var0; // L: 29
+		int var4 = var0;
+		int var5 = var1;
+		byte var6 = 64;
+		byte var7 = 64;
+		int var8 = var0 - var6;
+		int var9 = var1 - var7;
+		class186.directions[var6][var7] = 99;
+		class186.distances[var6][var7] = 0;
+		byte var10 = 0;
+		int var11 = 0;
+		class186.bufferX[var10] = var0;
 		byte var10001 = var10;
 		int var18 = var10 + 1;
-		class186.bufferY[var10001] = var1; // L: 30
-		int[][] var12 = var3.flags; // L: 31
+		class186.bufferY[var10001] = var1;
+		int[][] var12 = var3.flags;
 
-		while (var18 != var11) { // L: 32
-			var4 = class186.bufferX[var11]; // L: 33
-			var5 = class186.bufferY[var11]; // L: 34
-			var11 = var11 + 1 & 4095; // L: 35
-			int var16 = var4 - var8; // L: 36
-			int var17 = var5 - var9; // L: 37
-			int var13 = var4 - var3.xInset; // L: 38
-			int var14 = var5 - var3.yInset; // L: 39
-			if (var2.hasArrived(2, var4, var5, var3)) { // L: 40
-				class186.field2129 = var4; // L: 41
-				class186.field2130 = var5; // L: 42
-				return true; // L: 43
+		while (var18 != var11) {
+			var4 = class186.bufferX[var11];
+			var5 = class186.bufferY[var11];
+			var11 = var11 + 1 & 4095;
+			int var16 = var4 - var8;
+			int var17 = var5 - var9;
+			int var13 = var4 - var3.xInset;
+			int var14 = var5 - var3.yInset;
+			if (var2.hasArrived(2, var4, var5, var3)) {
+				class186.field2129 = var4;
+				class186.field2130 = var5;
+				return true;
 			}
 
-			int var15 = class186.distances[var16][var17] + 1; // L: 45
-			if (var16 > 0 && class186.directions[var16 - 1][var17] == 0 && (var12[var13 - 1][var14] & 19136782) == 0 && (var12[var13 - 1][var14 + 1] & 19136824) == 0) { // L: 46 47 48 49
-				class186.bufferX[var18] = var4 - 1; // L: 50
-				class186.bufferY[var18] = var5; // L: 51
-				var18 = var18 + 1 & 4095; // L: 52
-				class186.directions[var16 - 1][var17] = 2; // L: 53
-				class186.distances[var16 - 1][var17] = var15; // L: 54
+			int var15 = class186.distances[var16][var17] + 1;
+			if (var16 > 0 && class186.directions[var16 - 1][var17] == 0 && (var12[var13 - 1][var14] & 19136782) == 0 && (var12[var13 - 1][var14 + 1] & 19136824) == 0) {
+				class186.bufferX[var18] = var4 - 1;
+				class186.bufferY[var18] = var5;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16 - 1][var17] = 2;
+				class186.distances[var16 - 1][var17] = var15;
 			}
 
-			if (var16 < 126 && class186.directions[var16 + 1][var17] == 0 && (var12[var13 + 2][var14] & 19136899) == 0 && (var12[var13 + 2][var14 + 1] & 19136992) == 0) { // L: 56 57 58 59
-				class186.bufferX[var18] = var4 + 1; // L: 60
-				class186.bufferY[var18] = var5; // L: 61
-				var18 = var18 + 1 & 4095; // L: 62
-				class186.directions[var16 + 1][var17] = 8; // L: 63
-				class186.distances[var16 + 1][var17] = var15; // L: 64
+			if (var16 < 126 && class186.directions[var16 + 1][var17] == 0 && (var12[var13 + 2][var14] & 19136899) == 0 && (var12[var13 + 2][var14 + 1] & 19136992) == 0) {
+				class186.bufferX[var18] = var4 + 1;
+				class186.bufferY[var18] = var5;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16 + 1][var17] = 8;
+				class186.distances[var16 + 1][var17] = var15;
 			}
 
-			if (var17 > 0 && class186.directions[var16][var17 - 1] == 0 && (var12[var13][var14 - 1] & 19136782) == 0 && (var12[var13 + 1][var14 - 1] & 19136899) == 0) { // L: 66 67 68 69
-				class186.bufferX[var18] = var4; // L: 70
-				class186.bufferY[var18] = var5 - 1; // L: 71
-				var18 = var18 + 1 & 4095; // L: 72
-				class186.directions[var16][var17 - 1] = 1; // L: 73
-				class186.distances[var16][var17 - 1] = var15; // L: 74
+			if (var17 > 0 && class186.directions[var16][var17 - 1] == 0 && (var12[var13][var14 - 1] & 19136782) == 0 && (var12[var13 + 1][var14 - 1] & 19136899) == 0) {
+				class186.bufferX[var18] = var4;
+				class186.bufferY[var18] = var5 - 1;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16][var17 - 1] = 1;
+				class186.distances[var16][var17 - 1] = var15;
 			}
 
-			if (var17 < 126 && class186.directions[var16][var17 + 1] == 0 && (var12[var13][var14 + 2] & 19136824) == 0 && (var12[var13 + 1][var14 + 2] & 19136992) == 0) { // L: 76 77 78 79
-				class186.bufferX[var18] = var4; // L: 80
-				class186.bufferY[var18] = var5 + 1; // L: 81
-				var18 = var18 + 1 & 4095; // L: 82
-				class186.directions[var16][var17 + 1] = 4; // L: 83
-				class186.distances[var16][var17 + 1] = var15; // L: 84
+			if (var17 < 126 && class186.directions[var16][var17 + 1] == 0 && (var12[var13][var14 + 2] & 19136824) == 0 && (var12[var13 + 1][var14 + 2] & 19136992) == 0) {
+				class186.bufferX[var18] = var4;
+				class186.bufferY[var18] = var5 + 1;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16][var17 + 1] = 4;
+				class186.distances[var16][var17 + 1] = var15;
 			}
 
-			if (var16 > 0 && var17 > 0 && class186.directions[var16 - 1][var17 - 1] == 0 && (var12[var13 - 1][var14] & 19136830) == 0 && (var12[var13 - 1][var14 - 1] & 19136782) == 0 && (var12[var13][var14 - 1] & 19136911) == 0) { // L: 86 87 88 89 90
-				class186.bufferX[var18] = var4 - 1; // L: 91
-				class186.bufferY[var18] = var5 - 1; // L: 92
-				var18 = var18 + 1 & 4095; // L: 93
-				class186.directions[var16 - 1][var17 - 1] = 3; // L: 94
-				class186.distances[var16 - 1][var17 - 1] = var15; // L: 95
+			if (var16 > 0 && var17 > 0 && class186.directions[var16 - 1][var17 - 1] == 0 && (var12[var13 - 1][var14] & 19136830) == 0 && (var12[var13 - 1][var14 - 1] & 19136782) == 0 && (var12[var13][var14 - 1] & 19136911) == 0) {
+				class186.bufferX[var18] = var4 - 1;
+				class186.bufferY[var18] = var5 - 1;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16 - 1][var17 - 1] = 3;
+				class186.distances[var16 - 1][var17 - 1] = var15;
 			}
 
-			if (var16 < 126 && var17 > 0 && class186.directions[var16 + 1][var17 - 1] == 0 && (var12[var13 + 1][var14 - 1] & 19136911) == 0 && (var12[var13 + 2][var14 - 1] & 19136899) == 0 && (var12[var13 + 2][var14] & 19136995) == 0) { // L: 97 98 99 100 101
-				class186.bufferX[var18] = var4 + 1; // L: 102
-				class186.bufferY[var18] = var5 - 1; // L: 103
-				var18 = var18 + 1 & 4095; // L: 104
-				class186.directions[var16 + 1][var17 - 1] = 9; // L: 105
-				class186.distances[var16 + 1][var17 - 1] = var15; // L: 106
+			if (var16 < 126 && var17 > 0 && class186.directions[var16 + 1][var17 - 1] == 0 && (var12[var13 + 1][var14 - 1] & 19136911) == 0 && (var12[var13 + 2][var14 - 1] & 19136899) == 0 && (var12[var13 + 2][var14] & 19136995) == 0) {
+				class186.bufferX[var18] = var4 + 1;
+				class186.bufferY[var18] = var5 - 1;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16 + 1][var17 - 1] = 9;
+				class186.distances[var16 + 1][var17 - 1] = var15;
 			}
 
-			if (var16 > 0 && var17 < 126 && class186.directions[var16 - 1][var17 + 1] == 0 && (var12[var13 - 1][var14 + 1] & 19136830) == 0 && (var12[var13 - 1][var14 + 2] & 19136824) == 0 && (var12[var13][var14 + 2] & 19137016) == 0) { // L: 108 109 110 111 112
-				class186.bufferX[var18] = var4 - 1; // L: 113
-				class186.bufferY[var18] = var5 + 1; // L: 114
-				var18 = var18 + 1 & 4095; // L: 115
-				class186.directions[var16 - 1][var17 + 1] = 6; // L: 116
-				class186.distances[var16 - 1][var17 + 1] = var15; // L: 117
+			if (var16 > 0 && var17 < 126 && class186.directions[var16 - 1][var17 + 1] == 0 && (var12[var13 - 1][var14 + 1] & 19136830) == 0 && (var12[var13 - 1][var14 + 2] & 19136824) == 0 && (var12[var13][var14 + 2] & 19137016) == 0) {
+				class186.bufferX[var18] = var4 - 1;
+				class186.bufferY[var18] = var5 + 1;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16 - 1][var17 + 1] = 6;
+				class186.distances[var16 - 1][var17 + 1] = var15;
 			}
 
-			if (var16 < 126 && var17 < 126 && class186.directions[var16 + 1][var17 + 1] == 0 && (var12[var13 + 1][var14 + 2] & 19137016) == 0 && (var12[var13 + 2][var14 + 2] & 19136992) == 0 && (var12[var13 + 2][var14 + 1] & 19136995) == 0) { // L: 119 120 121 122 123
-				class186.bufferX[var18] = var4 + 1; // L: 124
-				class186.bufferY[var18] = var5 + 1; // L: 125
-				var18 = var18 + 1 & 4095; // L: 126
-				class186.directions[var16 + 1][var17 + 1] = 12; // L: 127
-				class186.distances[var16 + 1][var17 + 1] = var15; // L: 128
+			if (var16 < 126 && var17 < 126 && class186.directions[var16 + 1][var17 + 1] == 0 && (var12[var13 + 1][var14 + 2] & 19137016) == 0 && (var12[var13 + 2][var14 + 2] & 19136992) == 0 && (var12[var13 + 2][var14 + 1] & 19136995) == 0) {
+				class186.bufferX[var18] = var4 + 1;
+				class186.bufferY[var18] = var5 + 1;
+				var18 = var18 + 1 & 4095;
+				class186.directions[var16 + 1][var17 + 1] = 12;
+				class186.distances[var16 + 1][var17 + 1] = var15;
 			}
 		}
 
-		class186.field2129 = var4; // L: 131
-		class186.field2130 = var5; // L: 132
-		return false; // L: 133
+		class186.field2129 = var4;
+		class186.field2130 = var5;
+		return false;
 	}
 
 	@ObfuscatedName("ib")
@@ -138,6 +138,6 @@ public abstract class Clock {
 		garbageValue = "-1758808964"
 	)
 	static void method3144() {
-		MouseHandler.method646(GameObject.menuWidth / 2 + ModeWhere.menuX, BufferedSink.menuY); // L: 8970
-	} // L: 8971
+		MouseHandler.method646(GameObject.menuWidth / 2 + ModeWhere.menuX, BufferedSink.menuY);
+	}
 }

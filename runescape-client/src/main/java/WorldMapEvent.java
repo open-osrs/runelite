@@ -30,10 +30,10 @@ public class WorldMapEvent {
 		descriptor = "(ILju;Lju;)V"
 	)
 	public WorldMapEvent(int var1, Coord var2, Coord var3) {
-		this.mapElement = var1; // L: 11
-		this.coord1 = var2; // L: 12
-		this.coord2 = var3; // L: 13
-	} // L: 14
+		this.mapElement = var1;
+		this.coord1 = var2;
+		this.coord2 = var3;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -41,6 +41,6 @@ public class WorldMapEvent {
 		garbageValue = "438167000"
 	)
 	public static int method4942(int var0) {
-		return class258.field3049[var0]; // L: 38
+		return class258.field3049[var0];
 	}
 }

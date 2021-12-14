@@ -39,11 +39,11 @@ public class HealthBarUpdate extends Node {
 	int cycleOffset;
 
 	HealthBarUpdate(int var1, int var2, int var3, int var4) {
-		this.cycle = var1; // L: 12
-		this.health = var2; // L: 13
-		this.health2 = var3; // L: 14
-		this.cycleOffset = var4; // L: 15
-	} // L: 16
+		this.cycle = var1;
+		this.health = var2;
+		this.health2 = var3;
+		this.cycleOffset = var4;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -52,9 +52,9 @@ public class HealthBarUpdate extends Node {
 	)
 	@Export("set")
 	void set(int var1, int var2, int var3, int var4) {
-		this.cycle = var1; // L: 19
-		this.health = var2; // L: 20
-		this.health2 = var3; // L: 21
-		this.cycleOffset = var4; // L: 22
-	} // L: 23
+		this.cycle = var1;
+		this.health = var2;
+		this.health2 = var3;
+		this.cycleOffset = var4;
+	}
 }

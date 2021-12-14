@@ -331,7 +331,8 @@ public abstract class Actor extends Renderable {
 	@ObfuscatedSignature(
 		descriptor = "[Lgj;"
 	)
-	class185[] field1153;
+	@Export("pathTraversed")
+	class185[] pathTraversed;
 	@ObfuscatedName("ci")
 	@ObfuscatedGetter(
 		intValue = -154765815
@@ -349,56 +350,56 @@ public abstract class Actor extends Renderable {
 	int field1119;
 
 	Actor() {
-		this.isWalking = false; // L: 13
-		this.field1120 = 1; // L: 14
+		this.isWalking = false;
+		this.field1120 = 1;
 		this.idleSequence = -1;
 		this.turnLeftSequence = -1;
-		this.turnRightSequence = -1; // L: 18
+		this.turnRightSequence = -1;
 		this.walkSequence = -1;
 		this.walkBackSequence = -1;
-		this.walkLeftSequence = -1; // L: 21
+		this.walkLeftSequence = -1;
 		this.walkRightSequence = -1;
-		this.runSequence = -1; // L: 23
+		this.runSequence = -1;
 		this.overheadText = null;
-		this.field1114 = false; // L: 26
+		this.field1114 = false;
 		this.overheadTextCyclesRemaining = 100;
 		this.overheadTextColor = 0;
-		this.overheadTextEffect = 0; // L: 29
+		this.overheadTextEffect = 0;
 		this.hitSplatCount = 0;
 		this.hitSplatTypes = new int[4];
 		this.hitSplatValues = new int[4];
-		this.hitSplatCycles = new int[4]; // L: 34
+		this.hitSplatCycles = new int[4];
 		this.hitSplatTypes2 = new int[4];
 		this.hitSplatValues2 = new int[4];
-		this.healthBars = new IterableNodeDeque(); // L: 37
+		this.healthBars = new IterableNodeDeque();
 		this.targetIndex = -1;
 		this.false0 = false;
-		this.field1122 = -1; // L: 40
+		this.field1122 = -1;
 		this.movementSequence = -1;
 		this.movementFrame = 0;
 		this.movementFrameCycle = 0;
 		this.sequence = -1;
-		this.sequenceFrame = 0; // L: 46
-		this.sequenceFrameCycle = 0; // L: 47
+		this.sequenceFrame = 0;
+		this.sequenceFrameCycle = 0;
 		this.sequenceDelay = 0;
-		this.field1126 = 0; // L: 49
+		this.field1126 = 0;
 		this.spotAnimation = -1;
 		this.spotAnimationFrame = 0;
-		this.spotAnimationFrameCycle = 0; // L: 52
+		this.spotAnimationFrameCycle = 0;
 		this.npcCycle = 0;
 		this.defaultHeight = 200;
 		this.field1141 = -1;
-		this.field1140 = -1; // L: 65
-		this.field1148 = 0; // L: 71
-		this.field1149 = 32; // L: 72
+		this.field1140 = -1;
+		this.field1148 = 0;
+		this.field1149 = 32;
 		this.pathLength = 0;
 		this.pathX = new int[10];
 		this.pathY = new int[10];
-		this.field1153 = new class185[10];
-		this.field1117 = 0; // L: 77
-		this.field1098 = 0; // L: 78
+		this.pathTraversed = new class185[10];
+		this.field1117 = 0;
+		this.field1098 = 0;
 		this.field1119 = -1;
-	} // L: 81
+	}
 
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
@@ -407,7 +408,7 @@ public abstract class Actor extends Renderable {
 	)
 	@Export("isVisible")
 	boolean isVisible() {
-		return false; // L: 89
+		return false;
 	}
 
 	@ObfuscatedName("bv")
@@ -416,9 +417,9 @@ public abstract class Actor extends Renderable {
 		garbageValue = "1722592983"
 	)
 	final void method2228() {
-		this.pathLength = 0; // L: 84
-		this.field1098 = 0; // L: 85
-	} // L: 86
+		this.pathLength = 0;
+		this.field1098 = 0;
+	}
 
 	@ObfuscatedName("bb")
 	@ObfuscatedSignature(
@@ -427,79 +428,79 @@ public abstract class Actor extends Renderable {
 	)
 	@Export("addHitSplat")
 	final void addHitSplat(int var1, int var2, int var3, int var4, int var5, int var6) {
-		boolean var7 = true; // L: 93
-		boolean var8 = true; // L: 94
+		boolean var7 = true;
+		boolean var8 = true;
 
 		int var9;
-		for (var9 = 0; var9 < 4; ++var9) { // L: 95
-			if (this.hitSplatCycles[var9] > var5) { // L: 96
+		for (var9 = 0; var9 < 4; ++var9) {
+			if (this.hitSplatCycles[var9] > var5) {
 				var7 = false;
 			} else {
-				var8 = false; // L: 97
+				var8 = false;
 			}
 		}
 
-		var9 = -1; // L: 99
-		int var10 = -1; // L: 100
-		int var11 = 0; // L: 101
-		if (var1 >= 0) { // L: 102
-			HitSplatDefinition var12 = UserComparator6.method2554(var1); // L: 103
-			var10 = var12.field1946; // L: 104
-			var11 = var12.field1934; // L: 105
+		var9 = -1;
+		int var10 = -1;
+		int var11 = 0;
+		if (var1 >= 0) {
+			HitSplatDefinition var12 = UserComparator6.method2554(var1);
+			var10 = var12.field1946;
+			var11 = var12.field1934;
 		}
 
 		int var14;
-		if (var8) { // L: 107
-			if (var10 == -1) { // L: 108
+		if (var8) {
+			if (var10 == -1) {
 				return;
 			}
 
-			var9 = 0; // L: 109
-			var14 = 0; // L: 110
-			if (var10 == 0) { // L: 111
+			var9 = 0;
+			var14 = 0;
+			if (var10 == 0) {
 				var14 = this.hitSplatCycles[0];
-			} else if (var10 == 1) { // L: 112
+			} else if (var10 == 1) {
 				var14 = this.hitSplatValues[0];
 			}
 
-			for (int var13 = 1; var13 < 4; ++var13) { // L: 113
-				if (var10 == 0) { // L: 114
-					if (this.hitSplatCycles[var13] < var14) { // L: 115
-						var9 = var13; // L: 116
-						var14 = this.hitSplatCycles[var13]; // L: 117
+			for (int var13 = 1; var13 < 4; ++var13) {
+				if (var10 == 0) {
+					if (this.hitSplatCycles[var13] < var14) {
+						var9 = var13;
+						var14 = this.hitSplatCycles[var13];
 					}
-				} else if (var10 == 1 && this.hitSplatValues[var13] < var14) { // L: 120 121
-					var9 = var13; // L: 122
-					var14 = this.hitSplatValues[var13]; // L: 123
+				} else if (var10 == 1 && this.hitSplatValues[var13] < var14) {
+					var9 = var13;
+					var14 = this.hitSplatValues[var13];
 				}
 			}
 
-			if (var10 == 1 && var14 >= var2) { // L: 127
+			if (var10 == 1 && var14 >= var2) {
 				return;
 			}
 		} else {
-			if (var7) { // L: 130
+			if (var7) {
 				this.hitSplatCount = 0;
 			}
 
-			for (var14 = 0; var14 < 4; ++var14) { // L: 131
-				byte var15 = this.hitSplatCount; // L: 132
-				this.hitSplatCount = (byte)((this.hitSplatCount + 1) % 4); // L: 133
-				if (this.hitSplatCycles[var15] <= var5) { // L: 134
-					var9 = var15; // L: 135
-					break; // L: 136
+			for (var14 = 0; var14 < 4; ++var14) {
+				byte var15 = this.hitSplatCount;
+				this.hitSplatCount = (byte)((this.hitSplatCount + 1) % 4);
+				if (this.hitSplatCycles[var15] <= var5) {
+					var9 = var15;
+					break;
 				}
 			}
 		}
 
-		if (var9 >= 0) { // L: 140
-			this.hitSplatTypes[var9] = var1; // L: 141
-			this.hitSplatValues[var9] = var2; // L: 142
-			this.hitSplatTypes2[var9] = var3; // L: 143
-			this.hitSplatValues2[var9] = var4; // L: 144
-			this.hitSplatCycles[var9] = var5 + var11 + var6; // L: 145
+		if (var9 >= 0) {
+			this.hitSplatTypes[var9] = var1;
+			this.hitSplatValues[var9] = var2;
+			this.hitSplatTypes2[var9] = var3;
+			this.hitSplatValues2[var9] = var4;
+			this.hitSplatCycles[var9] = var5 + var11 + var6;
 		}
-	} // L: 146
+	}
 
 	@ObfuscatedName("bc")
 	@ObfuscatedSignature(
@@ -508,45 +509,45 @@ public abstract class Actor extends Renderable {
 	)
 	@Export("addHealthBar")
 	final void addHealthBar(int var1, int var2, int var3, int var4, int var5, int var6) {
-		HealthBarDefinition var7 = class118.method2683(var1); // L: 149
-		HealthBar var8 = null; // L: 150
-		HealthBar var9 = null; // L: 151
-		int var10 = var7.int2; // L: 152
-		int var11 = 0; // L: 153
+		HealthBarDefinition var7 = class118.method2683(var1);
+		HealthBar var8 = null;
+		HealthBar var9 = null;
+		int var10 = var7.int2;
+		int var11 = 0;
 
 		HealthBar var12;
-		for (var12 = (HealthBar)this.healthBars.last(); var12 != null; var12 = (HealthBar)this.healthBars.previous()) { // L: 154
-			++var11; // L: 155
-			if (var12.definition.field1796 == var7.field1796) { // L: 156
-				var12.put(var2 + var4, var5, var6, var3); // L: 157
-				return; // L: 158
+		for (var12 = (HealthBar)this.healthBars.last(); var12 != null; var12 = (HealthBar)this.healthBars.previous()) {
+			++var11;
+			if (var12.definition.field1796 == var7.field1796) {
+				var12.put(var2 + var4, var5, var6, var3);
+				return;
 			}
 
-			if (var12.definition.int1 <= var7.int1) { // L: 160
+			if (var12.definition.int1 <= var7.int1) {
 				var8 = var12;
 			}
 
-			if (var12.definition.int2 > var10) { // L: 161
-				var9 = var12; // L: 162
-				var10 = var12.definition.int2; // L: 163
+			if (var12.definition.int2 > var10) {
+				var9 = var12;
+				var10 = var12.definition.int2;
 			}
 		}
 
-		if (var9 != null || var11 < 4) { // L: 166
-			var12 = new HealthBar(var7); // L: 167
-			if (var8 == null) { // L: 168
+		if (var9 != null || var11 < 4) {
+			var12 = new HealthBar(var7);
+			if (var8 == null) {
 				this.healthBars.addLast(var12);
 			} else {
-				IterableNodeDeque.IterableNodeDeque_addBefore(var12, var8); // L: 169
+				IterableNodeDeque.IterableNodeDeque_addBefore(var12, var8);
 			}
 
-			var12.put(var2 + var4, var5, var6, var3); // L: 170
-			if (var11 >= 4) { // L: 171
+			var12.put(var2 + var4, var5, var6, var3);
+			if (var11 >= 4) {
 				var9.remove();
 			}
 
 		}
-	} // L: 172
+	}
 
 	@ObfuscatedName("bx")
 	@ObfuscatedSignature(
@@ -555,16 +556,16 @@ public abstract class Actor extends Renderable {
 	)
 	@Export("removeHealthBar")
 	final void removeHealthBar(int var1) {
-		HealthBarDefinition var2 = class118.method2683(var1); // L: 175
+		HealthBarDefinition var2 = class118.method2683(var1);
 
-		for (HealthBar var3 = (HealthBar)this.healthBars.last(); var3 != null; var3 = (HealthBar)this.healthBars.previous()) { // L: 176
-			if (var2 == var3.definition) { // L: 177
-				var3.remove(); // L: 178
-				return; // L: 179
+		for (HealthBar var3 = (HealthBar)this.healthBars.last(); var3 != null; var3 = (HealthBar)this.healthBars.previous()) {
+			if (var2 == var3.definition) {
+				var3.remove();
+				return;
 			}
 		}
 
-	} // L: 182
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -572,70 +573,70 @@ public abstract class Actor extends Renderable {
 		garbageValue = "1718558788"
 	)
 	static int method2235(int var0, int var1) {
-		FloorOverlayDefinition var2 = class18.method302(var0); // L: 15
-		if (var2 == null) { // L: 16
-			return var1; // L: 17
-		} else if (var2.secondaryRgb >= 0) { // L: 19
-			return var2.secondaryRgb | -16777216; // L: 20
+		FloorOverlayDefinition var2 = class18.method302(var0);
+		if (var2 == null) {
+			return var1;
+		} else if (var2.secondaryRgb >= 0) {
+			return var2.secondaryRgb | -16777216;
 		} else {
 			int var3;
 			int var4;
 			byte var5;
 			int var7;
-			if (var2.texture >= 0) { // L: 22
-				var4 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var2.texture); // L: 24
-				var5 = 96; // L: 25
-				if (var4 == -2) { // L: 27
-					var3 = 12345678; // L: 28
-				} else if (var4 == -1) { // L: 31
-					if (var5 < 0) { // L: 32
-						var5 = 0; // L: 33
-					} else if (var5 > 127) { // L: 35
-						var5 = 127; // L: 36
-					}
-
-					var7 = 127 - var5; // L: 38
-					var3 = var7; // L: 39
-				} else {
-					var7 = var5 * (var4 & 127) / 128; // L: 42
-					if (var7 < 2) { // L: 43
-						var7 = 2;
-					} else if (var7 > 126) { // L: 44
-						var7 = 126;
-					}
-
-					var3 = var7 + (var4 & 65408); // L: 45
-				}
-
-				return Rasterizer3D.Rasterizer3D_colorPalette[var3] | -16777216; // L: 48
-			} else if (var2.primaryRgb == 16711935) { // L: 50
-				return var1; // L: 51
-			} else {
-				var3 = WorldMapRectangle.method4794(var2.hue, var2.saturation, var2.lightness); // L: 54
-				var5 = 96; // L: 56
-				if (var3 == -2) { // L: 58
-					var4 = 12345678; // L: 59
-				} else if (var3 == -1) { // L: 62
-					if (var5 < 0) { // L: 63
-						var5 = 0; // L: 64
+			if (var2.texture >= 0) {
+				var4 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var2.texture);
+				var5 = 96;
+				if (var4 == -2) {
+					var3 = 12345678;
+				} else if (var4 == -1) {
+					if (var5 < 0) {
+						var5 = 0;
 					} else if (var5 > 127) {
 						var5 = 127;
 					}
 
 					var7 = 127 - var5;
-					var4 = var7; // L: 70
+					var3 = var7;
 				} else {
-					var7 = var5 * (var3 & 127) / 128; // L: 73
-					if (var7 < 2) { // L: 74
+					var7 = var5 * (var4 & 127) / 128;
+					if (var7 < 2) {
 						var7 = 2;
-					} else if (var7 > 126) { // L: 75
+					} else if (var7 > 126) {
 						var7 = 126;
 					}
 
-					var4 = var7 + (var3 & 65408); // L: 76
+					var3 = var7 + (var4 & 65408);
 				}
 
-				return Rasterizer3D.Rasterizer3D_colorPalette[var4] | -16777216; // L: 79
+				return Rasterizer3D.Rasterizer3D_colorPalette[var3] | -16777216;
+			} else if (var2.primaryRgb == 16711935) {
+				return var1;
+			} else {
+				var3 = WorldMapRectangle.method4794(var2.hue, var2.saturation, var2.lightness);
+				var5 = 96;
+				if (var3 == -2) {
+					var4 = 12345678;
+				} else if (var3 == -1) {
+					if (var5 < 0) {
+						var5 = 0;
+					} else if (var5 > 127) {
+						var5 = 127;
+					}
+
+					var7 = 127 - var5;
+					var4 = var7;
+				} else {
+					var7 = var5 * (var3 & 127) / 128;
+					if (var7 < 2) {
+						var7 = 2;
+					} else if (var7 > 126) {
+						var7 = 126;
+					}
+
+					var4 = var7 + (var3 & 65408);
+				}
+
+				return Rasterizer3D.Rasterizer3D_colorPalette[var4] | -16777216;
 			}
 		}
 	}
@@ -646,11 +647,11 @@ public abstract class Actor extends Renderable {
 		garbageValue = "28"
 	)
 	static int method2233(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0); // L: 66
-		if (var1 == null) { // L: 67
+		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0);
+		if (var1 == null) {
 			return -1;
 		} else {
-			return var1.nextDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.nextDual).count; // L: 68 69
+			return var1.nextDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.nextDual).count;
 		}
 	}
 }

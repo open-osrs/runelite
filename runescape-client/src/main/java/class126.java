@@ -24,7 +24,7 @@ public abstract class class126 extends Node {
 	static Fonts WorldMapElement_fonts;
 
 	class126() {
-	} // L: 68
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -47,11 +47,11 @@ public abstract class class126 extends Node {
 	)
 	@Export("getWidgetChild")
 	public static Widget getWidgetChild(int var0, int var1) {
-		Widget var2 = ChatChannel.getWidget(var0); // L: 209
-		if (var1 == -1) { // L: 210
+		Widget var2 = ChatChannel.getWidget(var0);
+		if (var1 == -1) {
 			return var2;
 		} else {
-			return var2 != null && var2.children != null && var1 < var2.children.length ? var2.children[var1] : null; // L: 211 212
+			return var2 != null && var2.children != null && var1 < var2.children.length ? var2.children[var1] : null;
 		}
 	}
 }

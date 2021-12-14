@@ -49,12 +49,12 @@ public class PacketBufferNode extends Node {
 	public PacketBuffer packetBuffer;
 
 	static {
-		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300]; // L: 13
-		PacketBufferNode_packetBufferNodeCount = 0; // L: 14
+		PacketBufferNode_packetBufferNodes = new PacketBufferNode[300];
+		PacketBufferNode_packetBufferNodeCount = 0;
 	}
 
 	PacketBufferNode() {
-	} // L: 19
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -63,10 +63,10 @@ public class PacketBufferNode extends Node {
 	)
 	@Export("release")
 	public void release() {
-		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 61
-			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 62
+		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) {
+			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this;
 		}
-	} // L: 63
+	}
 
 	@ObfuscatedName("mk")
 	@ObfuscatedSignature(
@@ -74,8 +74,8 @@ public class PacketBufferNode extends Node {
 		garbageValue = "-1828413921"
 	)
 	static void method5016(int var0) {
-		if (var0 != Client.loginState) { // L: 12733
-			Client.loginState = var0; // L: 12734
+		if (var0 != Client.loginState) {
+			Client.loginState = var0;
 		}
-	} // L: 12735
+	}
 }

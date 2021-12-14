@@ -14,15 +14,15 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		return var1.getOfferName().compareTo(var2.getOfferName()); // L: 56
+		return var1.getOfferName().compareTo(var2.getOfferName());
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 64
+		return super.equals(var1);
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 60
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
 	@ObfuscatedName("m")
@@ -31,6 +31,6 @@ final class GrandExchangeOfferNameComparator implements Comparator {
 		garbageValue = "640641737"
 	)
 	public static int method5727(int var0) {
-		return class378.field4237[var0 & 16383]; // L: 37
+		return class378.field4237[var0 & 16383];
 	}
 }

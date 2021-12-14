@@ -35,8 +35,8 @@ public class UserComparator7 extends AbstractUserComparator {
 	final boolean reversed;
 
 	public UserComparator7(boolean var1) {
-		this.reversed = var1; // L: 10
-	} // L: 11
+		this.reversed = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -45,15 +45,15 @@ public class UserComparator7 extends AbstractUserComparator {
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
-		if (var1.world != 0 && var2.world != 0) { // L: 14
-			return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2; // L: 15
+		if (var1.world != 0 && var2.world != 0) {
+			return this.reversed ? var1.int2 - var2.int2 : var2.int2 - var1.int2;
 		} else {
-			return this.compareUser(var1, var2); // L: 17
+			return this.compareUser(var1, var2);
 		}
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
+		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
 	@ObfuscatedName("hj")
@@ -62,11 +62,11 @@ public class UserComparator7 extends AbstractUserComparator {
 		garbageValue = "-1366394197"
 	)
 	static final int method2518() {
-		if (SecureRandomFuture.clientPreferences.roofsHidden) { // L: 5571
+		if (SecureRandomFuture.clientPreferences.roofsHidden) {
 			return class20.Client_plane;
 		} else {
-			int var0 = FaceNormal.getTileHeight(cameraX, UserComparator10.cameraZ, class20.Client_plane); // L: 5572
-			return var0 - AbstractByteArrayCopier.cameraY < 800 && (Tiles.Tiles_renderFlags[class20.Client_plane][cameraX >> 7][UserComparator10.cameraZ >> 7] & 4) != 0 ? class20.Client_plane : 3; // L: 5573 5574
+			int var0 = FaceNormal.getTileHeight(cameraX, UserComparator10.cameraZ, class20.Client_plane);
+			return var0 - AbstractByteArrayCopier.cameraY < 800 && (Tiles.Tiles_renderFlags[class20.Client_plane][cameraX >> 7][UserComparator10.cameraZ >> 7] & 4) != 0 ? class20.Client_plane : 3;
 		}
 	}
 }

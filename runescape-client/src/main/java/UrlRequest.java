@@ -24,8 +24,8 @@ public class UrlRequest {
 	volatile byte[] response0;
 
 	UrlRequest(URL var1) {
-		this.url = var1; // L: 97
-	} // L: 98
+		this.url = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -34,7 +34,7 @@ public class UrlRequest {
 	)
 	@Export("isDone")
 	public boolean isDone() {
-		return this.isDone0; // L: 101
+		return this.isDone0;
 	}
 
 	@ObfuscatedName("b")
@@ -44,7 +44,7 @@ public class UrlRequest {
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {
-		return this.response0; // L: 105
+		return this.response0;
 	}
 
 	@ObfuscatedName("fc")
@@ -53,46 +53,46 @@ public class UrlRequest {
 		garbageValue = "1703812589"
 	)
 	static final void method2496() {
-		class364.method6623(); // L: 3587
-		FloorUnderlayDefinition.FloorUnderlayDefinition_cached.clear(); // L: 3589
-		ScriptFrame.method1110(); // L: 3591
-		UserComparator5.method2524(); // L: 3592
-		NPCComposition.NpcDefinition_cached.clear(); // L: 3594
-		NPCComposition.NpcDefinition_cachedModels.clear(); // L: 3595
-		ItemComposition.ItemDefinition_cached.clear(); // L: 3598
-		ItemComposition.ItemDefinition_cachedModels.clear(); // L: 3599
-		ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 3600
-		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 3603
-		SequenceDefinition.SequenceDefinition_cachedFrames.clear(); // L: 3604
-		SequenceDefinition.field2086.clear(); // L: 3605
-		InterfaceParent.method2143(); // L: 3607
-		class1.method8(); // L: 3608
-		VarpDefinition.VarpDefinition_cached.clear(); // L: 3610
-		AbstractSocket.HitSplatDefinition_cachedSprites.method7216(); // L: 3612
-		Ignored.HitSplatDefinition_cached.method7216(); // L: 3613
-		ObjectSound.method1796(); // L: 3614
-		HealthBarDefinition.HealthBarDefinition_cachedSprites.clear(); // L: 3616
-		HealthBarDefinition.field1795.clear(); // L: 3617
-		ObjectComposition.method3542(); // L: 3619
-		ParamComposition.ParamDefinition_cached.clear(); // L: 3621
-		WorldMapElement.PlayerAppearance_cachedModels.clear(); // L: 3624
-		PlayerComposition.Widget_cachedSprites.clear(); // L: 3627
-		WorldMapSection2.method4417(); // L: 3629
-		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear(); // L: 3630
-		Script.Script_cached.clear(); // L: 3631
-		class115.archive1.clearFiles(); // L: 3632
-		class9.archive3.clearFiles(); // L: 3633
-		class19.archive4.clearFiles(); // L: 3634
-		KeyHandler.archive4.clearFiles(); // L: 3635
-		class140.archive5.clearFiles(); // L: 3636
-		WorldMapScaleHandler.archive6.clearFiles(); // L: 3637
-		class115.archive7.clearFiles(); // L: 3638
-		UserComparator6.archive8.clearFiles(); // L: 3639
-		NetSocket.archive9.clearFiles(); // L: 3640
-		class257.archive10.clearFiles(); // L: 3641
-		Players.archive11.clearFiles(); // L: 3642
-		TaskHandler.archive12.clearFiles(); // L: 3643
-	} // L: 3644
+		class364.method6623();
+		FloorUnderlayDefinition.FloorUnderlayDefinition_cached.clear();
+		ScriptFrame.method1110();
+		UserComparator5.method2524();
+		NPCComposition.NpcDefinition_cached.clear();
+		NPCComposition.NpcDefinition_cachedModels.clear();
+		ItemComposition.ItemDefinition_cached.clear();
+		ItemComposition.ItemDefinition_cachedModels.clear();
+		ItemComposition.ItemDefinition_cachedSprites.clear();
+		SequenceDefinition.SequenceDefinition_cached.clear();
+		SequenceDefinition.SequenceDefinition_cachedFrames.clear();
+		SequenceDefinition.SequenceDefinition_cachedModel.clear();
+		InterfaceParent.method2143();
+		class1.method8();
+		VarpDefinition.VarpDefinition_cached.clear();
+		AbstractSocket.HitSplatDefinition_cachedSprites.method7216();
+		Ignored.HitSplatDefinition_cached.method7216();
+		ObjectSound.method1796();
+		HealthBarDefinition.HealthBarDefinition_cached.clear();
+		HealthBarDefinition.HealthBarDefinition_cachedSprites.clear();
+		ObjectComposition.method3542();
+		ParamComposition.ParamDefinition_cached.clear();
+		WorldMapElement.WorldMapElement_cachedSprites.clear();
+		PlayerComposition.PlayerAppearance_cachedModels.clear();
+		WorldMapSection2.method4417();
+		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear();
+		Script.Script_cached.clear();
+		class115.archive0.clearFiles();
+		class9.archive1.clearFiles();
+		class19.archive3.clearFiles();
+		KeyHandler.archive4.clearFiles();
+		class140.archive5.clearFiles();
+		WorldMapScaleHandler.archive6.clearFiles();
+		class115.archive7.clearFiles();
+		UserComparator6.archive8.clearFiles();
+		NetSocket.archive9.clearFiles();
+		class257.archive10.clearFiles();
+		Players.archive11.clearFiles();
+		TaskHandler.archive12.clearFiles();
+	}
 
 	@ObfuscatedName("hk")
 	@ObfuscatedSignature(
@@ -100,9 +100,9 @@ public class UrlRequest {
 		garbageValue = "-1546953811"
 	)
 	static void method2489() {
-		Client.menuOptionsCount = 0; // L: 8781
-		Client.isMenuOpen = false; // L: 8782
-	} // L: 8783
+		Client.menuOptionsCount = 0;
+		Client.isMenuOpen = false;
+	}
 
 	@ObfuscatedName("iz")
 	@ObfuscatedSignature(
@@ -111,19 +111,19 @@ public class UrlRequest {
 	)
 	@Export("selectSpell")
 	static void selectSpell(int var0, int var1, int var2, int var3) {
-		Widget var4 = class126.getWidgetChild(var0, var1); // L: 9865
-		if (var4 != null && var4.onTargetEnter != null) { // L: 9866
-			ScriptEvent var5 = new ScriptEvent(); // L: 9867
-			var5.widget = var4; // L: 9868
-			var5.args = var4.onTargetEnter; // L: 9869
-			class285.runScriptEvent(var5); // L: 9870
+		Widget var4 = class126.getWidgetChild(var0, var1);
+		if (var4 != null && var4.onTargetEnter != null) {
+			ScriptEvent var5 = new ScriptEvent();
+			var5.widget = var4;
+			var5.args = var4.onTargetEnter;
+			class285.runScriptEvent(var5);
 		}
 
-		Client.field633 = var3; // L: 9872
-		Client.isSpellSelected = true; // L: 9873
-		class20.selectedSpellWidget = var0; // L: 9874
-		Client.selectedSpellChildIndex = var1; // L: 9875
-		class91.selectedSpellFlags = var2; // L: 9876
-		SecureRandomCallable.invalidateWidget(var4); // L: 9877
-	} // L: 9878
+		Client.field633 = var3;
+		Client.isSpellSelected = true;
+		class20.selectedSpellWidget = var0;
+		Client.selectedSpellChildIndex = var1;
+		class91.selectedSpellFlags = var2;
+		SecureRandomCallable.invalidateWidget(var4);
+	}
 }

@@ -90,12 +90,12 @@ public abstract class AbstractWorldMapData {
 	boolean field2709;
 
 	AbstractWorldMapData() {
-		this.groupId = -1; // L: 14
-		this.fileId = -1; // L: 15
+		this.groupId = -1;
+		this.fileId = -1;
 		new LinkedList();
-		this.field2696 = false; // L: 26
-		this.field2709 = false; // L: 27
-	} // L: 29
+		this.field2696 = false;
+		this.field2709 = false;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -112,7 +112,7 @@ public abstract class AbstractWorldMapData {
 	)
 	@Export("isFullyLoaded")
 	boolean isFullyLoaded() {
-		return this.field2696 && this.field2709; // L: 32
+		return this.field2696 && this.field2709;
 	}
 
 	@ObfuscatedName("z")
@@ -122,16 +122,16 @@ public abstract class AbstractWorldMapData {
 	)
 	@Export("loadGeography")
 	void loadGeography(AbstractArchive var1) {
-		if (!this.isFullyLoaded()) { // L: 36
-			byte[] var2 = var1.takeFile(this.groupId, this.fileId); // L: 37
-			if (var2 != null) { // L: 38
-				this.readGeography(new Buffer(var2)); // L: 39
-				this.field2696 = true; // L: 40
-				this.field2709 = true; // L: 41
+		if (!this.isFullyLoaded()) {
+			byte[] var2 = var1.takeFile(this.groupId, this.fileId);
+			if (var2 != null) {
+				this.readGeography(new Buffer(var2));
+				this.field2696 = true;
+				this.field2709 = true;
 			}
 
 		}
-	} // L: 43
+	}
 
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
@@ -140,14 +140,14 @@ public abstract class AbstractWorldMapData {
 	)
 	@Export("reset")
 	void reset() {
-		this.floorUnderlayIds = null; // L: 46
-		this.floorOverlayIds = null; // L: 47
-		this.field2699 = null; // L: 48
-		this.field2706 = null; // L: 49
-		this.decorations = null; // L: 50
-		this.field2696 = false; // L: 51
-		this.field2709 = false; // L: 52
-	} // L: 53
+		this.floorUnderlayIds = null;
+		this.floorOverlayIds = null;
+		this.field2699 = null;
+		this.field2706 = null;
+		this.decorations = null;
+		this.field2696 = false;
+		this.field2709 = false;
+	}
 
 	@ObfuscatedName("y")
 	@ObfuscatedSignature(
@@ -156,16 +156,16 @@ public abstract class AbstractWorldMapData {
 	)
 	@Export("readTile")
 	void readTile(int var1, int var2, Buffer var3) {
-		int var4 = var3.readUnsignedByte(); // L: 56
-		if (var4 != 0) { // L: 57
-			if ((var4 & 1) != 0) { // L: 60
-				this.method4762(var1, var2, var3, var4); // L: 61
+		int var4 = var3.readUnsignedByte();
+		if (var4 != 0) {
+			if ((var4 & 1) != 0) {
+				this.method4762(var1, var2, var3, var4);
 			} else {
-				this.method4763(var1, var2, var3, var4); // L: 64
+				this.method4763(var1, var2, var3, var4);
 			}
 
 		}
-	} // L: 58 66
+	}
 
 	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
@@ -173,13 +173,13 @@ public abstract class AbstractWorldMapData {
 		garbageValue = "-1058192672"
 	)
 	void method4762(int var1, int var2, Buffer var3, int var4) {
-		boolean var5 = (var4 & 2) != 0; // L: 69
-		if (var5) { // L: 70
-			this.floorOverlayIds[0][var1][var2] = (short)var3.readUnsignedByte(); // L: 71
+		boolean var5 = (var4 & 2) != 0;
+		if (var5) {
+			this.floorOverlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
 		}
 
-		this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte(); // L: 73
-	} // L: 74
+		this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
+	}
 
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
@@ -187,43 +187,43 @@ public abstract class AbstractWorldMapData {
 		garbageValue = "-82"
 	)
 	void method4763(int var1, int var2, Buffer var3, int var4) {
-		int var5 = ((var4 & 24) >> 3) + 1; // L: 77
-		boolean var6 = (var4 & 2) != 0; // L: 78
-		boolean var7 = (var4 & 4) != 0; // L: 79
-		this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte(); // L: 80
+		int var5 = ((var4 & 24) >> 3) + 1;
+		boolean var6 = (var4 & 2) != 0;
+		boolean var7 = (var4 & 4) != 0;
+		this.floorUnderlayIds[0][var1][var2] = (short)var3.readUnsignedByte();
 		int var8;
 		int var9;
 		int var11;
-		if (var6) { // L: 81
-			var8 = var3.readUnsignedByte(); // L: 82
+		if (var6) {
+			var8 = var3.readUnsignedByte();
 
-			for (var9 = 0; var9 < var8; ++var9) { // L: 83
-				int var14 = var3.readUnsignedByte(); // L: 84
-				if (var14 != 0) { // L: 85
-					this.floorOverlayIds[var9][var1][var2] = (short)var14; // L: 86
-					var11 = var3.readUnsignedByte(); // L: 87
-					this.field2699[var9][var1][var2] = (byte)(var11 >> 2); // L: 88
-					this.field2706[var9][var1][var2] = (byte)(var11 & 3); // L: 89
+			for (var9 = 0; var9 < var8; ++var9) {
+				int var14 = var3.readUnsignedByte();
+				if (var14 != 0) {
+					this.floorOverlayIds[var9][var1][var2] = (short)var14;
+					var11 = var3.readUnsignedByte();
+					this.field2699[var9][var1][var2] = (byte)(var11 >> 2);
+					this.field2706[var9][var1][var2] = (byte)(var11 & 3);
 				}
 			}
 		}
 
-		if (var7) { // L: 93
-			for (var8 = 0; var8 < var5; ++var8) { // L: 94
-				var9 = var3.readUnsignedByte(); // L: 95
-				if (var9 != 0) { // L: 96
-					WorldMapDecoration[] var10 = this.decorations[var8][var1][var2] = new WorldMapDecoration[var9]; // L: 99
+		if (var7) {
+			for (var8 = 0; var8 < var5; ++var8) {
+				var9 = var3.readUnsignedByte();
+				if (var9 != 0) {
+					WorldMapDecoration[] var10 = this.decorations[var8][var1][var2] = new WorldMapDecoration[var9];
 
-					for (var11 = 0; var11 < var9; ++var11) { // L: 100
-						int var12 = var3.method7400(); // L: 101
-						int var13 = var3.readUnsignedByte(); // L: 102
-						var10[var11] = new WorldMapDecoration(var12, var13 >> 2, var13 & 3); // L: 103
+					for (var11 = 0; var11 < var9; ++var11) {
+						int var12 = var3.method7400();
+						int var13 = var3.readUnsignedByte();
+						var10[var11] = new WorldMapDecoration(var12, var13 >> 2, var13 & 3);
 					}
 				}
 			}
 		}
 
-	} // L: 107
+	}
 
 	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
@@ -232,7 +232,7 @@ public abstract class AbstractWorldMapData {
 	)
 	@Export("getRegionX")
 	int getRegionX() {
-		return this.regionX; // L: 112
+		return this.regionX;
 	}
 
 	@ObfuscatedName("an")
@@ -242,7 +242,7 @@ public abstract class AbstractWorldMapData {
 	)
 	@Export("getRegionY")
 	int getRegionY() {
-		return this.regionY; // L: 116
+		return this.regionY;
 	}
 
 	@ObfuscatedName("d")
@@ -252,12 +252,12 @@ public abstract class AbstractWorldMapData {
 	)
 	@Export("isCharPrintable")
 	public static boolean isCharPrintable(char var0) {
-		if (var0 >= ' ' && var0 <= '~') { // L: 186
+		if (var0 >= ' ' && var0 <= '~') {
 			return true;
-		} else if (var0 >= 160 && var0 <= 255) { // L: 187
+		} else if (var0 >= 160 && var0 <= 255) {
 			return true;
 		} else {
-			return var0 == 8364 || var0 == 338 || var0 == 8212 || var0 == 339 || var0 == 376; // L: 188
+			return var0 == 8364 || var0 == 338 || var0 == 8212 || var0 == 339 || var0 == 376;
 		}
 	}
 
@@ -267,43 +267,43 @@ public abstract class AbstractWorldMapData {
 		garbageValue = "-2046983611"
 	)
 	static final void method4787(Widget var0) {
-		int var1 = var0.contentType; // L: 12214
-		if (var1 == 324) { // L: 12215
-			if (Client.field744 == -1) { // L: 12216
-				Client.field744 = var0.spriteId2; // L: 12217
-				Client.field571 = var0.spriteId; // L: 12218
+		int var1 = var0.contentType;
+		if (var1 == 324) {
+			if (Client.field744 == -1) {
+				Client.field744 = var0.spriteId2;
+				Client.field571 = var0.spriteId;
 			}
 
-			if (Client.playerAppearance.isFemale) { // L: 12220
+			if (Client.playerAppearance.isFemale) {
 				var0.spriteId2 = Client.field744;
 			} else {
-				var0.spriteId2 = Client.field571; // L: 12221
+				var0.spriteId2 = Client.field571;
 			}
 
-		} else if (var1 == 325) { // L: 12224
-			if (Client.field744 == -1) { // L: 12225
-				Client.field744 = var0.spriteId2; // L: 12226
-				Client.field571 = var0.spriteId; // L: 12227
+		} else if (var1 == 325) {
+			if (Client.field744 == -1) {
+				Client.field744 = var0.spriteId2;
+				Client.field571 = var0.spriteId;
 			}
 
-			if (Client.playerAppearance.isFemale) { // L: 12229
+			if (Client.playerAppearance.isFemale) {
 				var0.spriteId2 = Client.field571;
 			} else {
-				var0.spriteId2 = Client.field744; // L: 12230
+				var0.spriteId2 = Client.field744;
 			}
 
-		} else if (var1 == 327) { // L: 12233
-			var0.modelAngleX = 150; // L: 12234
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047; // L: 12235
-			var0.modelType = 5; // L: 12236
-			var0.modelId = 0; // L: 12237
-		} else if (var1 == 328) { // L: 12240
-			var0.modelAngleX = 150; // L: 12241
-			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047; // L: 12242
-			var0.modelType = 5; // L: 12243
-			var0.modelId = 1; // L: 12244
+		} else if (var1 == 327) {
+			var0.modelAngleX = 150;
+			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
+			var0.modelType = 5;
+			var0.modelId = 0;
+		} else if (var1 == 328) {
+			var0.modelAngleX = 150;
+			var0.modelAngleY = (int)(Math.sin((double)Client.cycle / 40.0D) * 256.0D) & 2047;
+			var0.modelType = 5;
+			var0.modelId = 1;
 		}
-	} // L: 12222 12231 12238 12245 12247
+	}
 
 	@ObfuscatedName("lj")
 	@ObfuscatedSignature(
@@ -311,16 +311,16 @@ public abstract class AbstractWorldMapData {
 		garbageValue = "-1607165722"
 	)
 	static String method4791(String var0) {
-		PlayerType[] var1 = SpotAnimationDefinition.PlayerType_values(); // L: 12695
+		PlayerType[] var1 = SpotAnimationDefinition.PlayerType_values();
 
-		for (int var2 = 0; var2 < var1.length; ++var2) { // L: 12696
-			PlayerType var3 = var1[var2]; // L: 12697
-			if (var3.modIcon != -1 && var0.startsWith(class221.method4705(var3.modIcon))) { // L: 12699 12700
-				var0 = var0.substring(6 + Integer.toString(var3.modIcon).length()); // L: 12701
+		for (int var2 = 0; var2 < var1.length; ++var2) {
+			PlayerType var3 = var1[var2];
+			if (var3.modIcon != -1 && var0.startsWith(class221.method4705(var3.modIcon))) {
+				var0 = var0.substring(6 + Integer.toString(var3.modIcon).length());
 				break;
 			}
 		}
 
-		return var0; // L: 12708
+		return var0;
 	}
 }

@@ -20,8 +20,8 @@ public class class370 implements class375 {
 		descriptor = "(Lnl;)V"
 	)
 	public class370(class371 var1) {
-		this(new class398(var1)); // L: 10
-	} // L: 11
+		this(new class398(var1));
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -38,10 +38,10 @@ public class class370 implements class375 {
 		garbageValue = "267"
 	)
 	public static int method6755(Buffer var0, String var1) {
-		int var2 = var0.offset; // L: 14
-		byte[] var3 = class194.method3933(var1); // L: 15
-		var0.writeSmartByteShort(var3.length); // L: 16
-		var0.offset += class410.huffman.compress(var3, 0, var3.length, var0.array, var0.offset); // L: 17
-		return var0.offset - var2; // L: 18
+		int var2 = var0.offset;
+		byte[] var3 = class194.method3933(var1);
+		var0.writeSmartByteShort(var3.length);
+		var0.offset += class410.huffman.compress(var3, 0, var3.length, var0.array, var0.offset);
+		return var0.offset - var2;
 	}
 }

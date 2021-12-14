@@ -20,9 +20,9 @@ public class ClanMate extends Buddy {
 	TriBool ignored;
 
 	ClanMate() {
-		this.friend = TriBool.TriBool_unknown; // L: 6
-		this.ignored = TriBool.TriBool_unknown; // L: 7
-	} // L: 9
+		this.friend = TriBool.TriBool_unknown;
+		this.ignored = TriBool.TriBool_unknown;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -31,8 +31,8 @@ public class ClanMate extends Buddy {
 	)
 	@Export("clearIsFriend")
 	void clearIsFriend() {
-		this.friend = TriBool.TriBool_unknown; // L: 12
-	} // L: 13
+		this.friend = TriBool.TriBool_unknown;
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -41,8 +41,8 @@ public class ClanMate extends Buddy {
 	)
 	@Export("isFriend")
 	public final boolean isFriend() {
-		if (this.friend == TriBool.TriBool_unknown) { // L: 16
-			this.fillIsFriend(); // L: 17
+		if (this.friend == TriBool.TriBool_unknown) {
+			this.fillIsFriend();
 		}
 
 		return this.friend == TriBool.TriBool_true;
@@ -55,8 +55,8 @@ public class ClanMate extends Buddy {
 	)
 	@Export("fillIsFriend")
 	void fillIsFriend() {
-		this.friend = GameEngine.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 23
-	} // L: 24
+		this.friend = GameEngine.friendSystem.friendsList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
+	}
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
@@ -65,8 +65,8 @@ public class ClanMate extends Buddy {
 	)
 	@Export("clearIsIgnored")
 	void clearIsIgnored() {
-		this.ignored = TriBool.TriBool_unknown; // L: 27
-	} // L: 28
+		this.ignored = TriBool.TriBool_unknown;
+	}
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
@@ -75,11 +75,11 @@ public class ClanMate extends Buddy {
 	)
 	@Export("isIgnored")
 	public final boolean isIgnored() {
-		if (this.ignored == TriBool.TriBool_unknown) { // L: 31
-			this.fillIsIgnored(); // L: 32
+		if (this.ignored == TriBool.TriBool_unknown) {
+			this.fillIsIgnored();
 		}
 
-		return this.ignored == TriBool.TriBool_true; // L: 34
+		return this.ignored == TriBool.TriBool_true;
 	}
 
 	@ObfuscatedName("o")
@@ -89,8 +89,8 @@ public class ClanMate extends Buddy {
 	)
 	@Export("fillIsIgnored")
 	void fillIsIgnored() {
-		this.ignored = GameEngine.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 38
-	} // L: 39
+		this.ignored = GameEngine.friendSystem.ignoreList.contains(super.username) ? TriBool.TriBool_true : TriBool.TriBool_false;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -99,6 +99,6 @@ public class ClanMate extends Buddy {
 	)
 	@Export("isWorldMapEvent")
 	public static boolean isWorldMapEvent(int var0) {
-		return var0 == 10 || var0 == 11 || var0 == 12 || var0 == 13 || var0 == 14 || var0 == 15 || var0 == 16 || var0 == 17; // L: 19
+		return var0 == 10 || var0 == 11 || var0 == 12 || var0 == 13 || var0 == 14 || var0 == 15 || var0 == 16 || var0 == 17;
 	}
 }

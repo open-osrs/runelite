@@ -552,118 +552,118 @@ public class ClientPacket implements class251 {
 	final int length;
 
 	static {
-		field2855 = new ClientPacket(0, 3); // L: 5
-		field2803 = new ClientPacket(1, 8); // L: 6
-		field2804 = new ClientPacket(2, 16); // L: 7
-		field2805 = new ClientPacket(3, -1); // L: 8
-		field2806 = new ClientPacket(4, -1); // L: 9
-		field2847 = new ClientPacket(5, 8); // L: 10
-		field2808 = new ClientPacket(6, 2); // L: 11
-		field2861 = new ClientPacket(7, 1); // L: 12
-		field2853 = new ClientPacket(8, 8); // L: 13
-		field2837 = new ClientPacket(9, 0); // L: 14
-		field2830 = new ClientPacket(10, 8); // L: 15
-		field2880 = new ClientPacket(11, 8); // L: 16
-		field2814 = new ClientPacket(12, 0); // L: 17
-		field2815 = new ClientPacket(13, 2); // L: 18
-		field2816 = new ClientPacket(14, 16); // L: 19
-		field2809 = new ClientPacket(15, 16); // L: 20
-		field2891 = new ClientPacket(16, 8); // L: 21
-		field2819 = new ClientPacket(17, 9); // L: 22
-		field2820 = new ClientPacket(18, 11); // L: 23
-		field2821 = new ClientPacket(19, 8); // L: 24
-		field2822 = new ClientPacket(20, 8); // L: 25
-		field2823 = new ClientPacket(21, 7); // L: 26
-		field2829 = new ClientPacket(22, 2); // L: 27
-		field2825 = new ClientPacket(23, 4); // L: 28
-		field2836 = new ClientPacket(24, 7); // L: 29
-		field2862 = new ClientPacket(25, 4); // L: 30
-		field2828 = new ClientPacket(26, -1); // L: 31
-		field2838 = new ClientPacket(27, 7); // L: 32
-		field2831 = new ClientPacket(28, 15); // L: 33
-		field2834 = new ClientPacket(29, 8); // L: 34
-		field2832 = new ClientPacket(30, -1); // L: 35
-		field2833 = new ClientPacket(31, 8); // L: 36
-		field2811 = new ClientPacket(32, 9); // L: 37
-		field2868 = new ClientPacket(33, 7); // L: 38
-		field2835 = new ClientPacket(34, 15); // L: 39
-		field2894 = new ClientPacket(35, 6); // L: 40
-		field2857 = new ClientPacket(36, -1); // L: 41
-		field2839 = new ClientPacket(37, 3); // L: 42
-		field2840 = new ClientPacket(38, 11); // L: 43
-		field2882 = new ClientPacket(39, 15); // L: 44
-		field2842 = new ClientPacket(40, 4); // L: 45
-		field2843 = new ClientPacket(41, 8); // L: 46
-		field2844 = new ClientPacket(42, 8); // L: 47
-		field2802 = new ClientPacket(43, 8); // L: 48
-		field2846 = new ClientPacket(44, -1); // L: 49
-		field2841 = new ClientPacket(45, -2); // L: 50
-		field2827 = new ClientPacket(46, 3); // L: 51
-		field2807 = new ClientPacket(47, 3); // L: 52
-		field2824 = new ClientPacket(48, 5); // L: 53
-		field2851 = new ClientPacket(49, -1); // L: 54
-		field2852 = new ClientPacket(50, -1); // L: 55
-		field2845 = new ClientPacket(51, -1); // L: 56
-		field2854 = new ClientPacket(52, -1); // L: 57
-		field2826 = new ClientPacket(53, 7); // L: 58
-		field2856 = new ClientPacket(54, 7); // L: 59
-		field2848 = new ClientPacket(55, 0); // L: 60
-		field2858 = new ClientPacket(56, 7); // L: 61
-		field2859 = new ClientPacket(57, -1); // L: 62
-		field2860 = new ClientPacket(58, -1); // L: 63
-		field2812 = new ClientPacket(59, 3); // L: 64
-		field2849 = new ClientPacket(60, -2); // L: 65
-		field2863 = new ClientPacket(61, 3); // L: 66
-		field2810 = new ClientPacket(62, 8); // L: 67
-		field2865 = new ClientPacket(63, 3); // L: 68
-		field2866 = new ClientPacket(64, 8); // L: 69
-		field2867 = new ClientPacket(65, 0); // L: 70
-		field2817 = new ClientPacket(66, 8); // L: 71
-		field2869 = new ClientPacket(67, 4); // L: 72
-		field2870 = new ClientPacket(68, 7); // L: 73
-		field2901 = new ClientPacket(69, 11); // L: 74
-		field2872 = new ClientPacket(70, 3); // L: 75
-		field2873 = new ClientPacket(71, 6); // L: 76
-		field2874 = new ClientPacket(72, 8); // L: 77
-		field2864 = new ClientPacket(73, 11); // L: 78
-		field2876 = new ClientPacket(74, 3); // L: 79
-		field2877 = new ClientPacket(75, 8); // L: 80
-		field2818 = new ClientPacket(76, 7); // L: 81
-		field2879 = new ClientPacket(77, 4); // L: 82
-		field2893 = new ClientPacket(78, -1); // L: 83
-		field2881 = new ClientPacket(79, 2); // L: 84
-		field2850 = new ClientPacket(80, 15); // L: 85
-		field2883 = new ClientPacket(81, 7); // L: 86
-		field2884 = new ClientPacket(82, 8); // L: 87
-		field2885 = new ClientPacket(83, 3); // L: 88
-		field2886 = new ClientPacket(84, 14); // L: 89
-		field2887 = new ClientPacket(85, 3); // L: 90
-		field2888 = new ClientPacket(86, -1); // L: 91
-		field2890 = new ClientPacket(87, 10); // L: 92
-		field2871 = new ClientPacket(88, 8); // L: 93
-		field2904 = new ClientPacket(89, 13); // L: 94
-		field2892 = new ClientPacket(90, 3); // L: 95
-		field2889 = new ClientPacket(91, -1); // L: 96
-		field2813 = new ClientPacket(92, 3); // L: 97
-		field2895 = new ClientPacket(93, -1); // L: 98
-		field2896 = new ClientPacket(94, 7); // L: 99
-		field2897 = new ClientPacket(95, -1); // L: 100
-		field2898 = new ClientPacket(96, 0); // L: 101
-		field2899 = new ClientPacket(97, -2); // L: 102
-		field2900 = new ClientPacket(98, -1); // L: 103
-		field2878 = new ClientPacket(99, -1); // L: 104
-		field2902 = new ClientPacket(100, 2); // L: 105
-		field2903 = new ClientPacket(101, -1); // L: 106
-		field2875 = new ClientPacket(102, -1); // L: 107
-		field2905 = new ClientPacket(103, -1); // L: 108
-		field2906 = new ClientPacket(104, 3); // L: 109
-		field2907 = new ClientPacket(105, -1); // L: 110
+		field2855 = new ClientPacket(0, 3);
+		field2803 = new ClientPacket(1, 8);
+		field2804 = new ClientPacket(2, 16);
+		field2805 = new ClientPacket(3, -1);
+		field2806 = new ClientPacket(4, -1);
+		field2847 = new ClientPacket(5, 8);
+		field2808 = new ClientPacket(6, 2);
+		field2861 = new ClientPacket(7, 1);
+		field2853 = new ClientPacket(8, 8);
+		field2837 = new ClientPacket(9, 0);
+		field2830 = new ClientPacket(10, 8);
+		field2880 = new ClientPacket(11, 8);
+		field2814 = new ClientPacket(12, 0);
+		field2815 = new ClientPacket(13, 2);
+		field2816 = new ClientPacket(14, 16);
+		field2809 = new ClientPacket(15, 16);
+		field2891 = new ClientPacket(16, 8);
+		field2819 = new ClientPacket(17, 9);
+		field2820 = new ClientPacket(18, 11);
+		field2821 = new ClientPacket(19, 8);
+		field2822 = new ClientPacket(20, 8);
+		field2823 = new ClientPacket(21, 7);
+		field2829 = new ClientPacket(22, 2);
+		field2825 = new ClientPacket(23, 4);
+		field2836 = new ClientPacket(24, 7);
+		field2862 = new ClientPacket(25, 4);
+		field2828 = new ClientPacket(26, -1);
+		field2838 = new ClientPacket(27, 7);
+		field2831 = new ClientPacket(28, 15);
+		field2834 = new ClientPacket(29, 8);
+		field2832 = new ClientPacket(30, -1);
+		field2833 = new ClientPacket(31, 8);
+		field2811 = new ClientPacket(32, 9);
+		field2868 = new ClientPacket(33, 7);
+		field2835 = new ClientPacket(34, 15);
+		field2894 = new ClientPacket(35, 6);
+		field2857 = new ClientPacket(36, -1);
+		field2839 = new ClientPacket(37, 3);
+		field2840 = new ClientPacket(38, 11);
+		field2882 = new ClientPacket(39, 15);
+		field2842 = new ClientPacket(40, 4);
+		field2843 = new ClientPacket(41, 8);
+		field2844 = new ClientPacket(42, 8);
+		field2802 = new ClientPacket(43, 8);
+		field2846 = new ClientPacket(44, -1);
+		field2841 = new ClientPacket(45, -2);
+		field2827 = new ClientPacket(46, 3);
+		field2807 = new ClientPacket(47, 3);
+		field2824 = new ClientPacket(48, 5);
+		field2851 = new ClientPacket(49, -1);
+		field2852 = new ClientPacket(50, -1);
+		field2845 = new ClientPacket(51, -1);
+		field2854 = new ClientPacket(52, -1);
+		field2826 = new ClientPacket(53, 7);
+		field2856 = new ClientPacket(54, 7);
+		field2848 = new ClientPacket(55, 0);
+		field2858 = new ClientPacket(56, 7);
+		field2859 = new ClientPacket(57, -1);
+		field2860 = new ClientPacket(58, -1);
+		field2812 = new ClientPacket(59, 3);
+		field2849 = new ClientPacket(60, -2);
+		field2863 = new ClientPacket(61, 3);
+		field2810 = new ClientPacket(62, 8);
+		field2865 = new ClientPacket(63, 3);
+		field2866 = new ClientPacket(64, 8);
+		field2867 = new ClientPacket(65, 0);
+		field2817 = new ClientPacket(66, 8);
+		field2869 = new ClientPacket(67, 4);
+		field2870 = new ClientPacket(68, 7);
+		field2901 = new ClientPacket(69, 11);
+		field2872 = new ClientPacket(70, 3);
+		field2873 = new ClientPacket(71, 6);
+		field2874 = new ClientPacket(72, 8);
+		field2864 = new ClientPacket(73, 11);
+		field2876 = new ClientPacket(74, 3);
+		field2877 = new ClientPacket(75, 8);
+		field2818 = new ClientPacket(76, 7);
+		field2879 = new ClientPacket(77, 4);
+		field2893 = new ClientPacket(78, -1);
+		field2881 = new ClientPacket(79, 2);
+		field2850 = new ClientPacket(80, 15);
+		field2883 = new ClientPacket(81, 7);
+		field2884 = new ClientPacket(82, 8);
+		field2885 = new ClientPacket(83, 3);
+		field2886 = new ClientPacket(84, 14);
+		field2887 = new ClientPacket(85, 3);
+		field2888 = new ClientPacket(86, -1);
+		field2890 = new ClientPacket(87, 10);
+		field2871 = new ClientPacket(88, 8);
+		field2904 = new ClientPacket(89, 13);
+		field2892 = new ClientPacket(90, 3);
+		field2889 = new ClientPacket(91, -1);
+		field2813 = new ClientPacket(92, 3);
+		field2895 = new ClientPacket(93, -1);
+		field2896 = new ClientPacket(94, 7);
+		field2897 = new ClientPacket(95, -1);
+		field2898 = new ClientPacket(96, 0);
+		field2899 = new ClientPacket(97, -2);
+		field2900 = new ClientPacket(98, -1);
+		field2878 = new ClientPacket(99, -1);
+		field2902 = new ClientPacket(100, 2);
+		field2903 = new ClientPacket(101, -1);
+		field2875 = new ClientPacket(102, -1);
+		field2905 = new ClientPacket(103, -1);
+		field2906 = new ClientPacket(104, 3);
+		field2907 = new ClientPacket(105, -1);
 	}
 
 	ClientPacket(int var1, int var2) {
-		this.id = var1; // L: 115
-		this.length = var2; // L: 116
-	} // L: 117
+		this.id = var1;
+		this.length = var2;
+	}
 
 	@ObfuscatedName("hy")
 	@ObfuscatedSignature(
@@ -671,21 +671,21 @@ public class ClientPacket implements class251 {
 		garbageValue = "1131418917"
 	)
 	static final void method5001(boolean var0) {
-		class148.playPcmPlayers(); // L: 6323
-		++Client.packetWriter.pendingWrites; // L: 6324
-		if (Client.packetWriter.pendingWrites >= 50 || var0) { // L: 6325
-			Client.packetWriter.pendingWrites = 0; // L: 6326
-			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) { // L: 6327
-				PacketBufferNode var1 = HitSplatDefinition.getPacketBufferNode(field2814, Client.packetWriter.isaacCipher); // L: 6329
-				Client.packetWriter.addNode(var1); // L: 6330
+		class148.playPcmPlayers();
+		++Client.packetWriter.pendingWrites;
+		if (Client.packetWriter.pendingWrites >= 50 || var0) {
+			Client.packetWriter.pendingWrites = 0;
+			if (!Client.hadNetworkError && Client.packetWriter.getSocket() != null) {
+				PacketBufferNode var1 = HitSplatDefinition.getPacketBufferNode(field2814, Client.packetWriter.isaacCipher);
+				Client.packetWriter.addNode(var1);
 
 				try {
-					Client.packetWriter.flush(); // L: 6332
-				} catch (IOException var3) { // L: 6334
-					Client.hadNetworkError = true; // L: 6335
+					Client.packetWriter.flush();
+				} catch (IOException var3) {
+					Client.hadNetworkError = true;
 				}
 			}
 
 		}
-	} // L: 6338
+	}
 }

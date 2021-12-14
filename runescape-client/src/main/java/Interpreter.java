@@ -64,19 +64,19 @@ public class Interpreter {
 	static final double field814;
 
 	static {
-		Interpreter_arrayLengths = new int[5]; // L: 77
-		Interpreter_arrays = new int[5][5000]; // L: 78
-		Interpreter_intStack = new int[1000]; // L: 79
-		Interpreter_stringStack = new String[1000]; // L: 81
-		Interpreter_frameDepth = 0; // L: 83
-		Interpreter_frames = new ScriptFrame[50]; // L: 84
-		Interpreter_calendar = java.util.Calendar.getInstance(); // L: 90
-		Interpreter_MONTHS = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}; // L: 93
-		field818 = false; // L: 96
-		field816 = false; // L: 97
-		field817 = new ArrayList(); // L: 98
-		field815 = 0; // L: 99
-		field814 = Math.log(2.0D); // L: 103
+		Interpreter_arrayLengths = new int[5];
+		Interpreter_arrays = new int[5][5000];
+		Interpreter_intStack = new int[1000];
+		Interpreter_stringStack = new String[1000];
+		Interpreter_frameDepth = 0;
+		Interpreter_frames = new ScriptFrame[50];
+		Interpreter_calendar = java.util.Calendar.getInstance();
+		Interpreter_MONTHS = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+		field818 = false;
+		field816 = false;
+		field817 = new ArrayList();
+		field815 = 0;
+		field814 = Math.log(2.0D);
 	}
 
 	@ObfuscatedName("p")
@@ -86,16 +86,16 @@ public class Interpreter {
 	)
 	@Export("lowercaseChar")
 	static int lowercaseChar(char var0, Language var1) {
-		int var2 = var0 << 4; // L: 143
-		if (Character.isUpperCase(var0) || Character.isTitleCase(var0)) { // L: 144
-			var0 = Character.toLowerCase(var0); // L: 145
-			var2 = (var0 << 4) + 1; // L: 146
+		int var2 = var0 << 4;
+		if (Character.isUpperCase(var0) || Character.isTitleCase(var0)) {
+			var0 = Character.toLowerCase(var0);
+			var2 = (var0 << 4) + 1;
 		}
 
-		if (var0 == 241 && var1 == Language.Language_ES) { // L: 148
+		if (var0 == 241 && var1 == Language.Language_ES) {
 			var2 = 1762;
 		}
 
-		return var2; // L: 149
+		return var2;
 	}
 }

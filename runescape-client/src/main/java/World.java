@@ -75,14 +75,14 @@ public class World {
 	int index;
 
 	static {
-		World_count = 0; // L: 14
-		World_listCount = 0; // L: 15
-		World_sortOption2 = new int[]{1, 1, 1, 1}; // L: 16
-		World_sortOption1 = new int[]{0, 1, 2, 3}; // L: 17
+		World_count = 0;
+		World_listCount = 0;
+		World_sortOption2 = new int[]{1, 1, 1, 1};
+		World_sortOption1 = new int[]{0, 1, 2, 3};
 	}
 
 	World() {
-	} // L: 27
+	}
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
@@ -91,7 +91,7 @@ public class World {
 	)
 	@Export("isMembersOnly")
 	boolean isMembersOnly() {
-		return (1 & this.properties) != 0; // L: 247
+		return (1 & this.properties) != 0;
 	}
 
 	@ObfuscatedName("o")
@@ -100,7 +100,7 @@ public class World {
 		garbageValue = "-624791914"
 	)
 	boolean method1696() {
-		return (2 & this.properties) != 0; // L: 251
+		return (2 & this.properties) != 0;
 	}
 
 	@ObfuscatedName("v")
@@ -110,7 +110,7 @@ public class World {
 	)
 	@Export("isPvp")
 	boolean isPvp() {
-		return (4 & this.properties) != 0; // L: 255
+		return (4 & this.properties) != 0;
 	}
 
 	@ObfuscatedName("d")
@@ -119,7 +119,7 @@ public class World {
 		garbageValue = "-1754892594"
 	)
 	boolean method1676() {
-		return (8 & this.properties) != 0; // L: 259
+		return (8 & this.properties) != 0;
 	}
 
 	@ObfuscatedName("h")
@@ -129,7 +129,7 @@ public class World {
 	)
 	@Export("isDeadman")
 	boolean isDeadman() {
-		return (536870912 & this.properties) != 0; // L: 263
+		return (536870912 & this.properties) != 0;
 	}
 
 	@ObfuscatedName("g")
@@ -139,7 +139,7 @@ public class World {
 	)
 	@Export("isBeta")
 	boolean isBeta() {
-		return (33554432 & this.properties) != 0; // L: 267
+		return (33554432 & this.properties) != 0;
 	}
 
 	@ObfuscatedName("e")
@@ -148,7 +148,7 @@ public class World {
 		garbageValue = "-98"
 	)
 	boolean method1679() {
-		return (1073741824 & this.properties) != 0; // L: 271
+		return (1073741824 & this.properties) != 0;
 	}
 
 	@ObfuscatedName("n")
@@ -158,31 +158,31 @@ public class World {
 	)
 	@Export("Widget_setKey")
 	static final void Widget_setKey(Widget var0, int var1, byte[] var2, byte[] var3) {
-		if (var0.field3300 == null) { // L: 972
-			if (var2 == null) { // L: 973
-				return; // L: 979
+		if (var0.field3300 == null) {
+			if (var2 == null) {
+				return;
 			}
 
-			var0.field3300 = new byte[11][]; // L: 974
-			var0.field3301 = new byte[11][]; // L: 975
-			var0.field3302 = new int[11]; // L: 976
-			var0.field3303 = new int[11]; // L: 977
+			var0.field3300 = new byte[11][];
+			var0.field3301 = new byte[11][];
+			var0.field3302 = new int[11];
+			var0.field3303 = new int[11];
 		}
 
-		var0.field3300[var1] = var2; // L: 981
+		var0.field3300[var1] = var2;
 		if (var2 != null) {
-			var0.field3299 = true; // L: 982
+			var0.field3299 = true;
 		} else {
-			var0.field3299 = false; // L: 984
+			var0.field3299 = false;
 
-			for (int var4 = 0; var4 < var0.field3300.length; ++var4) { // L: 985
-				if (var0.field3300[var4] != null) { // L: 986
-					var0.field3299 = true; // L: 987
+			for (int var4 = 0; var4 < var0.field3300.length; ++var4) {
+				if (var0.field3300[var4] != null) {
+					var0.field3299 = true;
 					break;
 				}
 			}
 		}
 
-		var0.field3301[var1] = var3; // L: 992
-	} // L: 993
+		var0.field3301[var1] = var3;
+	}
 }

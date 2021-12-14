@@ -78,9 +78,9 @@ public final class PendingSpawn extends Node {
 	int hitpoints;
 
 	PendingSpawn() {
-		this.delay = 0; // L: 16
-		this.hitpoints = -1; // L: 17
-	} // L: 19
+		this.delay = 0;
+		this.hitpoints = -1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -88,26 +88,26 @@ public final class PendingSpawn extends Node {
 		garbageValue = "-94"
 	)
 	public static String method2224(byte[] var0, int var1, int var2) {
-		StringBuilder var3 = new StringBuilder(); // L: 58
+		StringBuilder var3 = new StringBuilder();
 
-		for (int var4 = var1; var4 < var2 + var1; var4 += 3) { // L: 59
-			int var5 = var0[var4] & 255; // L: 60
-			var3.append(class329.field4005[var5 >>> 2]); // L: 61
-			if (var4 < var2 - 1) { // L: 62
-				int var6 = var0[var4 + 1] & 255; // L: 63
-				var3.append(class329.field4005[(var5 & 3) << 4 | var6 >>> 4]); // L: 64
-				if (var4 < var2 - 2) { // L: 65
-					int var7 = var0[var4 + 2] & 255; // L: 66
-					var3.append(class329.field4005[(var6 & 15) << 2 | var7 >>> 6]).append(class329.field4005[var7 & 63]); // L: 67
+		for (int var4 = var1; var4 < var2 + var1; var4 += 3) {
+			int var5 = var0[var4] & 255;
+			var3.append(class329.field4005[var5 >>> 2]);
+			if (var4 < var2 - 1) {
+				int var6 = var0[var4 + 1] & 255;
+				var3.append(class329.field4005[(var5 & 3) << 4 | var6 >>> 4]);
+				if (var4 < var2 - 2) {
+					int var7 = var0[var4 + 2] & 255;
+					var3.append(class329.field4005[(var6 & 15) << 2 | var7 >>> 6]).append(class329.field4005[var7 & 63]);
 				} else {
-					var3.append(class329.field4005[(var6 & 15) << 2]).append("="); // L: 69
+					var3.append(class329.field4005[(var6 & 15) << 2]).append("=");
 				}
 			} else {
-				var3.append(class329.field4005[(var5 & 3) << 4]).append("=="); // L: 71
+				var3.append(class329.field4005[(var5 & 3) << 4]).append("==");
 			}
 		}
 
-		return var3.toString(); // L: 73
+		return var3.toString();
 	}
 
 	@ObfuscatedName("m")
@@ -116,12 +116,12 @@ public final class PendingSpawn extends Node {
 		garbageValue = "-2136768167"
 	)
 	static void method2225(int var0, int var1) {
-		long var2 = (long)((var0 << 16) + var1); // L: 246
-		NetFileRequest var4 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var2); // L: 247
-		if (var4 != null) { // L: 248
-			NetCache.NetCache_pendingWritesQueue.addLast(var4); // L: 249
+		long var2 = (long)((var0 << 16) + var1);
+		NetFileRequest var4 = (NetFileRequest)NetCache.NetCache_pendingWrites.get(var2);
+		if (var4 != null) {
+			NetCache.NetCache_pendingWritesQueue.addLast(var4);
 		}
-	} // L: 250
+	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -130,26 +130,26 @@ public final class PendingSpawn extends Node {
 	)
 	@Export("decodeStringCp1252")
 	public static String decodeStringCp1252(byte[] var0, int var1, int var2) {
-		char[] var3 = new char[var2]; // L: 152
-		int var4 = 0; // L: 153
+		char[] var3 = new char[var2];
+		int var4 = 0;
 
-		for (int var5 = 0; var5 < var2; ++var5) { // L: 154
-			int var6 = var0[var5 + var1] & 255; // L: 155
-			if (var6 != 0) { // L: 156
-				if (var6 >= 128 && var6 < 160) { // L: 157
-					char var7 = class328.cp1252AsciiExtension[var6 - 128]; // L: 158
-					if (var7 == 0) { // L: 159
+		for (int var5 = 0; var5 < var2; ++var5) {
+			int var6 = var0[var5 + var1] & 255;
+			if (var6 != 0) {
+				if (var6 >= 128 && var6 < 160) {
+					char var7 = class328.cp1252AsciiExtension[var6 - 128];
+					if (var7 == 0) {
 						var7 = '?';
 					}
 
-					var6 = var7; // L: 160
+					var6 = var7;
 				}
 
-				var3[var4++] = (char)var6; // L: 162
+				var3[var4++] = (char)var6;
 			}
 		}
 
-		return new String(var3, 0, var4); // L: 164
+		return new String(var3, 0, var4);
 	}
 
 	@ObfuscatedName("h")
@@ -158,25 +158,25 @@ public final class PendingSpawn extends Node {
 		garbageValue = "2133440883"
 	)
 	static final int method2223(int var0, int var1) {
-		if (var0 == -2) { // L: 503
+		if (var0 == -2) {
 			return 12345678;
-		} else if (var0 == -1) { // L: 504
-			if (var1 < 2) { // L: 505
+		} else if (var0 == -1) {
+			if (var1 < 2) {
 				var1 = 2;
-			} else if (var1 > 126) { // L: 506
+			} else if (var1 > 126) {
 				var1 = 126;
 			}
 
-			return var1; // L: 507
+			return var1;
 		} else {
-			var1 = (var0 & 127) * var1 / 128; // L: 509
-			if (var1 < 2) { // L: 510
+			var1 = (var0 & 127) * var1 / 128;
+			if (var1 < 2) {
 				var1 = 2;
-			} else if (var1 > 126) { // L: 511
+			} else if (var1 > 126) {
 				var1 = 126;
 			}
 
-			return (var0 & 65408) + var1; // L: 512
+			return (var0 & 65408) + var1;
 		}
 	}
 }

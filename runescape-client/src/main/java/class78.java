@@ -18,7 +18,7 @@ public class class78 {
 	)
 	@Export("WorldMapElement_get")
 	public static WorldMapElement WorldMapElement_get(int var0) {
-		return var0 >= 0 && var0 < WorldMapElement.WorldMapElement_cached.length && WorldMapElement.WorldMapElement_cached[var0] != null ? WorldMapElement.WorldMapElement_cached[var0] : new WorldMapElement(var0); // L: 44 45
+		return var0 >= 0 && var0 < WorldMapElement.WorldMapElement_cached.length && WorldMapElement.WorldMapElement_cached[var0] != null ? WorldMapElement.WorldMapElement_cached[var0] : new WorldMapElement(var0);
 	}
 
 	@ObfuscatedName("c")
@@ -28,18 +28,18 @@ public class class78 {
 	)
 	@Export("getInvDefinition")
 	public static InvDefinition getInvDefinition(int var0) {
-		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0); // L: 17
-		if (var1 != null) { // L: 18
+		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0); // L: 19
-			var1 = new InvDefinition(); // L: 20
-			if (var2 != null) { // L: 21
+			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0);
+			var1 = new InvDefinition();
+			if (var2 != null) {
 				var1.decode(new Buffer(var2));
 			}
 
-			InvDefinition.InvDefinition_cached.put(var1, (long)var0); // L: 22
-			return var1; // L: 23
+			InvDefinition.InvDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
 	}
 
@@ -49,12 +49,12 @@ public class class78 {
 		garbageValue = "21"
 	)
 	public static int[] method2140() {
-		int[] var0 = new int[KeyHandler.field140]; // L: 251
+		int[] var0 = new int[KeyHandler.field140];
 
-		for (int var1 = 0; var1 < KeyHandler.field140; ++var1) { // L: 252
-			var0[var1] = KeyHandler.field139[var1]; // L: 253
+		for (int var1 = 0; var1 < KeyHandler.field140; ++var1) {
+			var0[var1] = KeyHandler.field139[var1];
 		}
 
-		return var0; // L: 255
+		return var0;
 	}
 }

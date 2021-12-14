@@ -44,13 +44,13 @@ public class FriendsChat extends UserList {
 		descriptor = "(Low;Lmz;)V"
 	)
 	public FriendsChat(LoginType var1, Usernamed var2) {
-		super(100); // L: 19
-		this.name = null; // L: 12
-		this.owner = null; // L: 13
-		this.field4090 = 1; // L: 16
-		this.loginType = var1; // L: 20
-		this.localUser = var2; // L: 21
-	} // L: 22
+		super(100);
+		this.name = null;
+		this.owner = null;
+		this.field4090 = 1;
+		this.loginType = var1;
+		this.localUser = var2;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -59,7 +59,7 @@ public class FriendsChat extends UserList {
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new ClanMate(); // L: 26
+		return new ClanMate();
 	}
 
 	@ObfuscatedName("b")
@@ -69,7 +69,7 @@ public class FriendsChat extends UserList {
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new ClanMate[var1]; // L: 31
+		return new ClanMate[var1];
 	}
 
 	@ObfuscatedName("p")
@@ -79,8 +79,8 @@ public class FriendsChat extends UserList {
 	)
 	@Export("readName")
 	final void readName(String var1) {
-		this.name = class92.method2353(var1); // L: 35
-	} // L: 36
+		this.name = class92.method2353(var1);
+	}
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -89,8 +89,8 @@ public class FriendsChat extends UserList {
 	)
 	@Export("setOwner")
 	final void setOwner(String var1) {
-		this.owner = class92.method2353(var1); // L: 39
-	} // L: 40
+		this.owner = class92.method2353(var1);
+	}
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
@@ -99,25 +99,25 @@ public class FriendsChat extends UserList {
 	)
 	@Export("readUpdate")
 	public final void readUpdate(Buffer var1) {
-		this.setOwner(var1.readStringCp1252NullTerminated()); // L: 43
-		long var2 = var1.readLong(); // L: 44
-		this.readName(BufferedNetSocket.method6496(var2)); // L: 45
-		this.minKick = var1.readByte(); // L: 46
-		int var4 = var1.readUnsignedByte(); // L: 47
-		if (var4 != 255) { // L: 48
-			this.clear(); // L: 49
+		this.setOwner(var1.readStringCp1252NullTerminated());
+		long var2 = var1.readLong();
+		this.readName(BufferedNetSocket.method6496(var2));
+		this.minKick = var1.readByte();
+		int var4 = var1.readUnsignedByte();
+		if (var4 != 255) {
+			this.clear();
 
-			for (int var5 = 0; var5 < var4; ++var5) { // L: 50
-				ClanMate var6 = (ClanMate)this.addLastNoPreviousUsername(new Username(var1.readStringCp1252NullTerminated(), this.loginType)); // L: 51
-				int var7 = var1.readUnsignedShort(); // L: 52
-				var6.set(var7, ++this.field4090 - 1); // L: 53
-				var6.rank = var1.readByte(); // L: 54
-				var1.readStringCp1252NullTerminated(); // L: 55
-				this.isLocalPlayer(var6); // L: 56
+			for (int var5 = 0; var5 < var4; ++var5) {
+				ClanMate var6 = (ClanMate)this.addLastNoPreviousUsername(new Username(var1.readStringCp1252NullTerminated(), this.loginType));
+				int var7 = var1.readUnsignedShort();
+				var6.set(var7, ++this.field4090 - 1);
+				var6.rank = var1.readByte();
+				var1.readStringCp1252NullTerminated();
+				this.isLocalPlayer(var6);
 			}
 
 		}
-	} // L: 58
+	}
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
@@ -125,41 +125,41 @@ public class FriendsChat extends UserList {
 		garbageValue = "191521599"
 	)
 	public final void method6305(Buffer var1) {
-		Username var2 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 61
-		int var3 = var1.readUnsignedShort(); // L: 62
-		byte var4 = var1.readByte(); // L: 63
-		boolean var5 = false; // L: 64
-		if (var4 == -128) { // L: 65
+		Username var2 = new Username(var1.readStringCp1252NullTerminated(), this.loginType);
+		int var3 = var1.readUnsignedShort();
+		byte var4 = var1.readByte();
+		boolean var5 = false;
+		if (var4 == -128) {
 			var5 = true;
 		}
 
 		ClanMate var6;
-		if (var5) { // L: 66
-			if (this.getSize() == 0) { // L: 67
+		if (var5) {
+			if (this.getSize() == 0) {
 				return;
 			}
 
-			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 68
-			if (var6 != null && var6.getWorld() == var3) { // L: 69
-				this.remove(var6); // L: 70
+			var6 = (ClanMate)this.getByCurrentUsername(var2);
+			if (var6 != null && var6.getWorld() == var3) {
+				this.remove(var6);
 			}
 		} else {
-			var1.readStringCp1252NullTerminated(); // L: 74
-			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 75
-			if (var6 == null) { // L: 76
-				if (this.getSize() > super.capacity) { // L: 77
+			var1.readStringCp1252NullTerminated();
+			var6 = (ClanMate)this.getByCurrentUsername(var2);
+			if (var6 == null) {
+				if (this.getSize() > super.capacity) {
 					return;
 				}
 
-				var6 = (ClanMate)this.addLastNoPreviousUsername(var2); // L: 78
+				var6 = (ClanMate)this.addLastNoPreviousUsername(var2);
 			}
 
-			var6.set(var3, ++this.field4090 - 1); // L: 80
-			var6.rank = var4; // L: 81
-			this.isLocalPlayer(var6); // L: 82
+			var6.set(var3, ++this.field4090 - 1);
+			var6.rank = var4;
+			this.isLocalPlayer(var6);
 		}
 
-	} // L: 84
+	}
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
@@ -168,11 +168,11 @@ public class FriendsChat extends UserList {
 	)
 	@Export("clearFriends")
 	public final void clearFriends() {
-		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 87
-			((ClanMate)this.get(var1)).clearIsFriend(); // L: 88
+		for (int var1 = 0; var1 < this.getSize(); ++var1) {
+			((ClanMate)this.get(var1)).clearIsFriend();
 		}
 
-	} // L: 90
+	}
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
@@ -181,11 +181,11 @@ public class FriendsChat extends UserList {
 	)
 	@Export("invalidateIgnoreds")
 	public final void invalidateIgnoreds() {
-		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 93
-			((ClanMate)this.get(var1)).clearIsIgnored(); // L: 94
+		for (int var1 = 0; var1 < this.getSize(); ++var1) {
+			((ClanMate)this.get(var1)).clearIsIgnored();
 		}
 
-	} // L: 96
+	}
 
 	@ObfuscatedName("d")
 	@ObfuscatedSignature(
@@ -194,9 +194,9 @@ public class FriendsChat extends UserList {
 	)
 	@Export("isLocalPlayer")
 	final void isLocalPlayer(ClanMate var1) {
-		if (var1.getUsername().equals(this.localUser.username())) { // L: 99
+		if (var1.getUsername().equals(this.localUser.username())) {
 			this.rank = var1.rank;
 		}
 
-	} // L: 100
+	}
 }

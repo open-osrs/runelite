@@ -20,11 +20,11 @@ public class class313 {
 	static final class313 field3915;
 
 	static {
-		field3916 = new class313(); // L: 4
-		field3917 = new class313(); // L: 5
-		field3915 = new class313(); // L: 6
+		field3916 = new class313();
+		field3917 = new class313();
+		field3915 = new class313();
 	}
 
 	class313() {
-	} // L: 8
+	}
 }

@@ -36,9 +36,9 @@ public enum FillMode implements MouseWheel {
 	final int field4551;
 
 	FillMode(int var3, int var4) {
-		this.field4554 = var3; // L: 19
-		this.field4551 = var4; // L: 20
-	} // L: 21
+		this.field4554 = var3;
+		this.field4551 = var4;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -47,6 +47,6 @@ public enum FillMode implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field4551; // L: 25
+		return this.field4551;
 	}
 }

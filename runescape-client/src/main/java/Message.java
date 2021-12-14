@@ -54,10 +54,10 @@ public class Message extends DualNode {
 	String text;
 
 	Message(int var1, String var2, String var3, String var4) {
-		this.isFromFriend0 = TriBool.TriBool_unknown; // L: 13
-		this.isFromIgnored0 = TriBool.TriBool_unknown; // L: 14
-		this.set(var1, var2, var3, var4); // L: 19
-	} // L: 20
+		this.isFromFriend0 = TriBool.TriBool_unknown;
+		this.isFromIgnored0 = TriBool.TriBool_unknown;
+		this.set(var1, var2, var3, var4);
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -66,17 +66,17 @@ public class Message extends DualNode {
 	)
 	@Export("set")
 	void set(int var1, String var2, String var3, String var4) {
-		int var5 = ++Messages.Messages_count - 1; // L: 25
-		this.count = var5; // L: 27
-		this.cycle = Client.cycle; // L: 28
-		this.type = var1; // L: 29
-		this.sender = var2; // L: 30
-		this.fillSenderUsername(); // L: 31
-		this.prefix = var3; // L: 32
-		this.text = var4; // L: 33
-		this.clearIsFromFriend(); // L: 34
-		this.clearIsFromIgnored(); // L: 35
-	} // L: 36
+		int var5 = ++Messages.Messages_count - 1;
+		this.count = var5;
+		this.cycle = Client.cycle;
+		this.type = var1;
+		this.sender = var2;
+		this.fillSenderUsername();
+		this.prefix = var3;
+		this.text = var4;
+		this.clearIsFromFriend();
+		this.clearIsFromIgnored();
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -85,8 +85,8 @@ public class Message extends DualNode {
 	)
 	@Export("clearIsFromFriend")
 	void clearIsFromFriend() {
-		this.isFromFriend0 = TriBool.TriBool_unknown; // L: 39
-	} // L: 40
+		this.isFromFriend0 = TriBool.TriBool_unknown;
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -95,11 +95,11 @@ public class Message extends DualNode {
 	)
 	@Export("isFromFriend")
 	final boolean isFromFriend() {
-		if (this.isFromFriend0 == TriBool.TriBool_unknown) { // L: 43
-			this.fillIsFromFriend(); // L: 44
+		if (this.isFromFriend0 == TriBool.TriBool_unknown) {
+			this.fillIsFromFriend();
 		}
 
-		return this.isFromFriend0 == TriBool.TriBool_true; // L: 46
+		return this.isFromFriend0 == TriBool.TriBool_true;
 	}
 
 	@ObfuscatedName("m")
@@ -109,8 +109,8 @@ public class Message extends DualNode {
 	)
 	@Export("fillIsFromFriend")
 	void fillIsFromFriend() {
-		this.isFromFriend0 = GameEngine.friendSystem.friendsList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 50
-	} // L: 51
+		this.isFromFriend0 = GameEngine.friendSystem.friendsList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false;
+	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -119,8 +119,8 @@ public class Message extends DualNode {
 	)
 	@Export("clearIsFromIgnored")
 	void clearIsFromIgnored() {
-		this.isFromIgnored0 = TriBool.TriBool_unknown; // L: 54
-	} // L: 55
+		this.isFromIgnored0 = TriBool.TriBool_unknown;
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -129,11 +129,11 @@ public class Message extends DualNode {
 	)
 	@Export("isFromIgnored")
 	final boolean isFromIgnored() {
-		if (this.isFromIgnored0 == TriBool.TriBool_unknown) { // L: 58
-			this.fillIsFromIgnored(); // L: 59
+		if (this.isFromIgnored0 == TriBool.TriBool_unknown) {
+			this.fillIsFromIgnored();
 		}
 
-		return this.isFromIgnored0 == TriBool.TriBool_true; // L: 61
+		return this.isFromIgnored0 == TriBool.TriBool_true;
 	}
 
 	@ObfuscatedName("j")
@@ -143,8 +143,8 @@ public class Message extends DualNode {
 	)
 	@Export("fillIsFromIgnored")
 	void fillIsFromIgnored() {
-		this.isFromIgnored0 = GameEngine.friendSystem.ignoreList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false; // L: 65
-	} // L: 66
+		this.isFromIgnored0 = GameEngine.friendSystem.ignoreList.contains(this.senderUsername) ? TriBool.TriBool_true : TriBool.TriBool_false;
+	}
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -153,13 +153,13 @@ public class Message extends DualNode {
 	)
 	@Export("fillSenderUsername")
 	final void fillSenderUsername() {
-		if (this.sender != null) { // L: 69
+		if (this.sender != null) {
 			this.senderUsername = new Username(AbstractWorldMapData.method4791(this.sender), class194.loginType);
 		} else {
-			this.senderUsername = null; // L: 70
+			this.senderUsername = null;
 		}
 
-	} // L: 71
+	}
 
 	@ObfuscatedName("in")
 	@ObfuscatedSignature(
@@ -167,40 +167,40 @@ public class Message extends DualNode {
 		garbageValue = "1989735073"
 	)
 	static final void method1115() {
-		boolean var0 = false; // L: 10008
+		boolean var0 = false;
 
-		while (!var0) { // L: 10009
-			var0 = true; // L: 10010
+		while (!var0) {
+			var0 = true;
 
-			for (int var1 = 0; var1 < Client.menuOptionsCount - 1; ++var1) { // L: 10011
-				if (Client.menuOpcodes[var1] < 1000 && Client.menuOpcodes[var1 + 1] > 1000) { // L: 10012
-					String var2 = Client.menuTargets[var1]; // L: 10013
-					Client.menuTargets[var1] = Client.menuTargets[var1 + 1]; // L: 10014
-					Client.menuTargets[var1 + 1] = var2; // L: 10015
-					String var3 = Client.menuActions[var1]; // L: 10016
-					Client.menuActions[var1] = Client.menuActions[var1 + 1]; // L: 10017
-					Client.menuActions[var1 + 1] = var3; // L: 10018
-					int var4 = Client.menuOpcodes[var1]; // L: 10019
-					Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1]; // L: 10020
-					Client.menuOpcodes[var1 + 1] = var4; // L: 10021
-					var4 = Client.menuArguments1[var1]; // L: 10022
-					Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1]; // L: 10023
-					Client.menuArguments1[var1 + 1] = var4; // L: 10024
-					var4 = Client.menuArguments2[var1]; // L: 10025
-					Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1]; // L: 10026
-					Client.menuArguments2[var1 + 1] = var4; // L: 10027
-					var4 = Client.menuIdentifiers[var1]; // L: 10028
-					Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1]; // L: 10029
-					Client.menuIdentifiers[var1 + 1] = var4; // L: 10030
-					boolean var5 = Client.menuShiftClick[var1]; // L: 10031
-					Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1]; // L: 10032
-					Client.menuShiftClick[var1 + 1] = var5; // L: 10033
-					var0 = false; // L: 10034
+			for (int var1 = 0; var1 < Client.menuOptionsCount - 1; ++var1) {
+				if (Client.menuOpcodes[var1] < 1000 && Client.menuOpcodes[var1 + 1] > 1000) {
+					String var2 = Client.menuTargets[var1];
+					Client.menuTargets[var1] = Client.menuTargets[var1 + 1];
+					Client.menuTargets[var1 + 1] = var2;
+					String var3 = Client.menuActions[var1];
+					Client.menuActions[var1] = Client.menuActions[var1 + 1];
+					Client.menuActions[var1 + 1] = var3;
+					int var4 = Client.menuOpcodes[var1];
+					Client.menuOpcodes[var1] = Client.menuOpcodes[var1 + 1];
+					Client.menuOpcodes[var1 + 1] = var4;
+					var4 = Client.menuArguments1[var1];
+					Client.menuArguments1[var1] = Client.menuArguments1[var1 + 1];
+					Client.menuArguments1[var1 + 1] = var4;
+					var4 = Client.menuArguments2[var1];
+					Client.menuArguments2[var1] = Client.menuArguments2[var1 + 1];
+					Client.menuArguments2[var1 + 1] = var4;
+					var4 = Client.menuIdentifiers[var1];
+					Client.menuIdentifiers[var1] = Client.menuIdentifiers[var1 + 1];
+					Client.menuIdentifiers[var1 + 1] = var4;
+					boolean var5 = Client.menuShiftClick[var1];
+					Client.menuShiftClick[var1] = Client.menuShiftClick[var1 + 1];
+					Client.menuShiftClick[var1 + 1] = var5;
+					var0 = false;
 				}
 			}
 		}
 
-	} // L: 10038
+	}
 
 	@ObfuscatedName("kf")
 	@ObfuscatedSignature(
@@ -209,8 +209,8 @@ public class Message extends DualNode {
 	)
 	@Export("runIntfCloseListeners")
 	static final void runIntfCloseListeners(int var0, int var1) {
-		if (class242.loadInterface(var0)) { // L: 11879
-			Canvas.runComponentCloseListeners(MouseRecorder.Widget_interfaceComponents[var0], var1); // L: 11880
+		if (class242.loadInterface(var0)) {
+			Canvas.runComponentCloseListeners(MouseRecorder.Widget_interfaceComponents[var0], var1);
 		}
-	} // L: 11881
+	}
 }

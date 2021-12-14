@@ -17,14 +17,14 @@ public class Username implements Comparable {
 		descriptor = "(Ljava/lang/String;Low;)V"
 	)
 	public Username(String var1, LoginType var2) {
-		this.name = var1; // L: 16
-		this.cleanName = VarbitComposition.method3395(var1, var2); // L: 17
-	} // L: 18
+		this.name = var1;
+		this.cleanName = VarbitComposition.method3395(var1, var2);
+	}
 
 	public Username(String var1) {
-		this.name = var1; // L: 11
-		this.cleanName = VarbitComposition.method3395(var1, LoginType.oldscape); // L: 12
-	} // L: 13
+		this.name = var1;
+		this.cleanName = VarbitComposition.method3395(var1, LoginType.oldscape);
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -33,7 +33,7 @@ public class Username implements Comparable {
 	)
 	@Export("getName")
 	public String getName() {
-		return this.name; // L: 21
+		return this.name;
 	}
 
 	@ObfuscatedName("b")
@@ -42,7 +42,7 @@ public class Username implements Comparable {
 		garbageValue = "0"
 	)
 	public String method7914() {
-		return this.cleanName; // L: 25
+		return this.cleanName;
 	}
 
 	@ObfuscatedName("p")
@@ -52,7 +52,7 @@ public class Username implements Comparable {
 	)
 	@Export("hasCleanName")
 	public boolean hasCleanName() {
-		return this.cleanName != null; // L: 29
+		return this.cleanName != null;
 	}
 
 	@ObfuscatedName("m")
@@ -62,37 +62,37 @@ public class Username implements Comparable {
 	)
 	@Export("compareToTyped")
 	public int compareToTyped(Username var1) {
-		if (this.cleanName == null) { // L: 56
-			return var1.cleanName == null ? 0 : 1; // L: 57 58
+		if (this.cleanName == null) {
+			return var1.cleanName == null ? 0 : 1;
 		} else {
-			return var1.cleanName == null ? -1 : this.cleanName.compareTo(var1.cleanName); // L: 60 61
+			return var1.cleanName == null ? -1 : this.cleanName.compareTo(var1.cleanName);
 		}
 	}
 
 	public boolean equals(Object var1) {
-		if (var1 instanceof Username) { // L: 34
-			Username var2 = (Username)var1; // L: 35
+		if (var1 instanceof Username) {
+			Username var2 = (Username)var1;
 			if (this.cleanName == null) {
-				return var2.cleanName == null; // L: 36
-			} else if (var2.cleanName == null) { // L: 37
+				return var2.cleanName == null;
+			} else if (var2.cleanName == null) {
 				return false;
 			} else {
-				return this.hashCode() != var2.hashCode() ? false : this.cleanName.equals(var2.cleanName); // L: 38 39
+				return this.hashCode() != var2.hashCode() ? false : this.cleanName.equals(var2.cleanName);
 			}
 		} else {
-			return false; // L: 41
+			return false;
 		}
 	}
 
 	public int hashCode() {
-		return this.cleanName == null ? 0 : this.cleanName.hashCode(); // L: 46 47
+		return this.cleanName == null ? 0 : this.cleanName.hashCode();
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareToTyped((Username)var1); // L: 65
+		return this.compareToTyped((Username)var1);
 	}
 
 	public String toString() {
-		return this.getName(); // L: 52
+		return this.getName();
 	}
 }

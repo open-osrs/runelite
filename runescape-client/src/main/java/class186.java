@@ -40,10 +40,10 @@ public class class186 {
 	public static int canvasWidth;
 
 	static {
-		directions = new int[128][128]; // L: 6
-		distances = new int[128][128]; // L: 7
-		bufferX = new int[4096]; // L: 11
-		bufferY = new int[4096]; // L: 12
+		directions = new int[128][128];
+		distances = new int[128][128];
+		bufferX = new int[4096];
+		bufferY = new int[4096];
 	}
 
 	@ObfuscatedName("c")
@@ -52,7 +52,7 @@ public class class186 {
 		garbageValue = "45"
 	)
 	static HorizontalAlignment[] method3739() {
-		return new HorizontalAlignment[]{HorizontalAlignment.field1829, HorizontalAlignment.field1826, HorizontalAlignment.HorizontalAlignment_centered}; // L: 14
+		return new HorizontalAlignment[]{HorizontalAlignment.field1829, HorizontalAlignment.field1826, HorizontalAlignment.HorizontalAlignment_centered};
 	}
 
 	@ObfuscatedName("c")
@@ -61,8 +61,8 @@ public class class186 {
 		garbageValue = "19498859"
 	)
 	public static void method3740(AbstractArchive var0, AbstractArchive var1, boolean var2) {
-		ObjectComposition.ObjectDefinition_archive = var0; // L: 73
-		ObjectComposition.ObjectDefinition_modelsArchive = var1; // L: 74
-		ObjectComposition.ObjectDefinition_isLowDetail = var2; // L: 75
-	} // L: 76
+		ObjectComposition.ObjectDefinition_archive = var0;
+		ObjectComposition.ObjectDefinition_modelsArchive = var1;
+		ObjectComposition.ObjectDefinition_isLowDetail = var2;
+	}
 }

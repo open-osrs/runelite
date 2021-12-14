@@ -67,26 +67,26 @@ public class ByteArrayPool {
 	public static ArrayList field4035;
 
 	static {
-		ByteArrayPool_smallCount = 0; // L: 13
-		ByteArrayPool_mediumCount = 0; // L: 14
-		ByteArrayPool_largeCount = 0; // L: 15
-		field4026 = 0; // L: 16
-		field4023 = 1000; // L: 17
-		field4028 = 250; // L: 18
-		field4021 = 100; // L: 19
-		field4030 = 50; // L: 20
-		ByteArrayPool_small = new byte[1000][]; // L: 21
-		ByteArrayPool_medium = new byte[250][]; // L: 22
-		ByteArrayPool_large = new byte[100][]; // L: 23
-		field4034 = new byte[50][]; // L: 24
-		field4035 = new ArrayList(); // L: 28
-		field4035.clear(); // L: 32
-		field4035.add(100); // L: 33
-		field4035.add(5000); // L: 34
-		field4035.add(10000); // L: 35
-		field4035.add(30000); // L: 36
+		ByteArrayPool_smallCount = 0;
+		ByteArrayPool_mediumCount = 0;
+		ByteArrayPool_largeCount = 0;
+		field4026 = 0;
+		field4023 = 1000;
+		field4028 = 250;
+		field4021 = 100;
+		field4030 = 50;
+		ByteArrayPool_small = new byte[1000][];
+		ByteArrayPool_medium = new byte[250][];
+		ByteArrayPool_large = new byte[100][];
+		field4034 = new byte[50][];
+		field4035 = new ArrayList();
+		field4035.clear();
+		field4035.add(100);
+		field4035.add(5000);
+		field4035.add(10000);
+		field4035.add(30000);
 		new HashMap();
-	} // L: 42
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -96,56 +96,56 @@ public class ByteArrayPool {
 	@Export("ByteArrayPool_getArrayBool")
 	static synchronized byte[] ByteArrayPool_getArrayBool(int var0, boolean var1) {
 		byte[] var4;
-		if (var0 != 100) { // L: 50
+		if (var0 != 100) {
 			if (var0 < 100) {
 			}
 		} else if (ByteArrayPool_smallCount > 0) {
-			var4 = ByteArrayPool_small[--ByteArrayPool_smallCount]; // L: 51
-			ByteArrayPool_small[ByteArrayPool_smallCount] = null; // L: 52
-			return var4; // L: 53
+			var4 = ByteArrayPool_small[--ByteArrayPool_smallCount];
+			ByteArrayPool_small[ByteArrayPool_smallCount] = null;
+			return var4;
 		}
 
-		if (var0 != 5000) { // L: 55
+		if (var0 != 5000) {
 			if (var0 < 5000) {
 			}
 		} else if (ByteArrayPool_mediumCount > 0) {
-			var4 = ByteArrayPool_medium[--ByteArrayPool_mediumCount]; // L: 56
-			ByteArrayPool_medium[ByteArrayPool_mediumCount] = null; // L: 57
-			return var4; // L: 58
+			var4 = ByteArrayPool_medium[--ByteArrayPool_mediumCount];
+			ByteArrayPool_medium[ByteArrayPool_mediumCount] = null;
+			return var4;
 		}
 
-		if (var0 != 10000) { // L: 60
+		if (var0 != 10000) {
 			if (var0 < 10000) {
 			}
 		} else if (ByteArrayPool_largeCount > 0) {
-			var4 = ByteArrayPool_large[--ByteArrayPool_largeCount]; // L: 61
-			ByteArrayPool_large[ByteArrayPool_largeCount] = null; // L: 62
-			return var4; // L: 63
+			var4 = ByteArrayPool_large[--ByteArrayPool_largeCount];
+			ByteArrayPool_large[ByteArrayPool_largeCount] = null;
+			return var4;
 		}
 
-		if (var0 != 30000) { // L: 65
+		if (var0 != 30000) {
 			if (var0 < 30000) {
 			}
 		} else if (field4026 > 0) {
-			var4 = field4034[--field4026]; // L: 66
-			field4034[field4026] = null; // L: 67
-			return var4; // L: 68
+			var4 = field4034[--field4026];
+			field4034[field4026] = null;
+			return var4;
 		}
 
-		if (World.ByteArrayPool_arrays != null) { // L: 70
-			for (int var2 = 0; var2 < SoundCache.ByteArrayPool_alternativeSizes.length; ++var2) { // L: 71
-				if (SoundCache.ByteArrayPool_alternativeSizes[var2] != var0) { // L: 72
+		if (World.ByteArrayPool_arrays != null) {
+			for (int var2 = 0; var2 < SoundCache.ByteArrayPool_alternativeSizes.length; ++var2) {
+				if (SoundCache.ByteArrayPool_alternativeSizes[var2] != var0) {
 					if (var0 < SoundCache.ByteArrayPool_alternativeSizes[var2]) {
 					}
 				} else if (ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2] > 0) {
-					byte[] var3 = World.ByteArrayPool_arrays[var2][--ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2]]; // L: 73
-					World.ByteArrayPool_arrays[var2][ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2]] = null; // L: 74
-					return var3; // L: 75
+					byte[] var3 = World.ByteArrayPool_arrays[var2][--ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2]];
+					World.ByteArrayPool_arrays[var2][ApproximateRouteStrategy.ByteArrayPool_altSizeArrayCounts[var2]] = null;
+					return var3;
 				}
 			}
 		}
 
-		return new byte[var0]; // L: 88
+		return new byte[var0];
 	}
 
 	@ObfuscatedName("t")
@@ -155,6 +155,6 @@ public class ByteArrayPool {
 	)
 	@Export("intToString")
 	public static String intToString(int var0, boolean var1) {
-		return var1 && var0 >= 0 ? Skeleton.method3944(var0, 10, var1) : Integer.toString(var0); // L: 111 112
+		return var1 && var0 >= 0 ? Skeleton.method3944(var0, 10, var1) : Integer.toString(var0);
 	}
 }

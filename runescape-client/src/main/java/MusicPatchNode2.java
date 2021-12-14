@@ -49,7 +49,7 @@ public class MusicPatchNode2 {
 	int field3060;
 
 	MusicPatchNode2() {
-	} // L: 14
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -57,13 +57,13 @@ public class MusicPatchNode2 {
 		garbageValue = "-1"
 	)
 	public static void method5048(File var0) {
-		class125.FileSystem_cacheDir = var0; // L: 16
-		if (!class125.FileSystem_cacheDir.exists()) { // L: 17
+		class125.FileSystem_cacheDir = var0;
+		if (!class125.FileSystem_cacheDir.exists()) {
 			throw new RuntimeException("");
 		} else {
-			FileSystem.FileSystem_hasPermissions = true; // L: 18
+			FileSystem.FileSystem_hasPermissions = true;
 		}
-	} // L: 19
+	}
 
 	@ObfuscatedName("g")
 	@ObfuscatedSignature(
@@ -72,23 +72,23 @@ public class MusicPatchNode2 {
 	)
 	@Export("hslToRgb")
 	static final int hslToRgb(int var0, int var1, int var2) {
-		if (var2 > 179) { // L: 516
+		if (var2 > 179) {
 			var1 /= 2;
 		}
 
-		if (var2 > 192) { // L: 517
+		if (var2 > 192) {
 			var1 /= 2;
 		}
 
-		if (var2 > 217) { // L: 518
+		if (var2 > 217) {
 			var1 /= 2;
 		}
 
-		if (var2 > 243) { // L: 519
+		if (var2 > 243) {
 			var1 /= 2;
 		}
 
-		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2; // L: 520
-		return var3; // L: 521
+		int var3 = (var1 / 32 << 7) + (var0 / 4 << 10) + var2 / 2;
+		return var3;
 	}
 }

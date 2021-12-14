@@ -104,9 +104,9 @@ public final class GameObject {
 	int flags;
 
 	GameObject() {
-		this.tag = 0L; // L: 16
-		this.flags = 0; // L: 17
-	} // L: 19
+		this.tag = 0L;
+		this.flags = 0;
+	}
 
 	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
@@ -114,32 +114,32 @@ public final class GameObject {
 		garbageValue = "210014678"
 	)
 	static int method4341(int var0, Script var1, boolean var2) {
-		if (var0 != 6700 && var0 != 6702 && var0 != 6704 && var0 != 6706 && var0 != 6708) { // L: 4274
-			if (var0 != 6701 && var0 != 6703 && var0 != 6705 && var0 != 6707 && var0 != 6709) { // L: 4279
-				if (var0 == 6750) { // L: 4283
-					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = ""; // L: 4284
-					return 1; // L: 4285
-				} else if (var0 != 6751 && var0 != 6752 && var0 != 6753) { // L: 4287
-					if (var0 == 6754) { // L: 4291
-						int var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]; // L: 4292
-						NPCComposition var4 = WorldMapLabelSize.getNpcDefinition(var3); // L: 4293
-						Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var4 != null ? var4.name : ""; // L: 4294
-						return 1; // L: 4295
+		if (var0 != 6700 && var0 != 6702 && var0 != 6704 && var0 != 6706 && var0 != 6708) {
+			if (var0 != 6701 && var0 != 6703 && var0 != 6705 && var0 != 6707 && var0 != 6709) {
+				if (var0 == 6750) {
+					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = "";
+					return 1;
+				} else if (var0 != 6751 && var0 != 6752 && var0 != 6753) {
+					if (var0 == 6754) {
+						int var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
+						NPCComposition var4 = WorldMapLabelSize.getNpcDefinition(var3);
+						Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var4 != null ? var4.name : "";
+						return 1;
 					} else {
-						return 2; // L: 4297
+						return 2;
 					}
 				} else {
-					Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = -1; // L: 4288
-					return 1; // L: 4289
+					Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = -1;
+					return 1;
 				}
 			} else {
-				--IsaacCipher.Interpreter_intStackSize; // L: 4280
-				return 1; // L: 4281
+				--IsaacCipher.Interpreter_intStackSize;
+				return 1;
 			}
 		} else {
-			IsaacCipher.Interpreter_intStackSize -= 2; // L: 4275
-			--class13.Interpreter_stringStackSize; // L: 4276
-			return 1; // L: 4277
+			IsaacCipher.Interpreter_intStackSize -= 2;
+			--class13.Interpreter_stringStackSize;
+			return 1;
 		}
 	}
 }

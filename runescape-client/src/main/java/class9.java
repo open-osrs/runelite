@@ -34,8 +34,8 @@ public class class9 implements MouseWheel {
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("archive3")
-	static Archive archive3;
+	@Export("archive1")
+	static Archive archive1;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -171712909
@@ -49,19 +49,19 @@ public class class9 implements MouseWheel {
 	boolean field43;
 
 	static {
-		field37 = new class9(0, "POST", true, true); // L: 6
-		field36 = new class9(1, "GET", true, false); // L: 7
-		field44 = new class9(2, "PUT", false, true); // L: 8
-		field38 = new class9(3, "PATCH", false, true); // L: 9
-		field39 = new class9(4, "DELETE", false, true); // L: 10
+		field37 = new class9(0, "POST", true, true);
+		field36 = new class9(1, "GET", true, false);
+		field44 = new class9(2, "PUT", false, true);
+		field38 = new class9(3, "PATCH", false, true);
+		field39 = new class9(4, "DELETE", false, true);
 	}
 
 	class9(int var1, String var2, boolean var3, boolean var4) {
-		this.field45 = var1; // L: 17
-		this.field35 = var2; // L: 18
-		this.field42 = var3; // L: 19
-		this.field43 = var4; // L: 20
-	} // L: 21
+		this.field45 = var1;
+		this.field35 = var2;
+		this.field42 = var3;
+		this.field43 = var4;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -69,7 +69,7 @@ public class class9 implements MouseWheel {
 		garbageValue = "17"
 	)
 	boolean method85() {
-		return this.field42; // L: 24
+		return this.field42;
 	}
 
 	@ObfuscatedName("b")
@@ -79,7 +79,7 @@ public class class9 implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field45; // L: 37
+		return this.field45;
 	}
 
 	@ObfuscatedName("p")
@@ -88,7 +88,7 @@ public class class9 implements MouseWheel {
 		garbageValue = "1278274271"
 	)
 	String method100() {
-		return this.field35; // L: 28
+		return this.field35;
 	}
 
 	@ObfuscatedName("w")
@@ -97,7 +97,7 @@ public class class9 implements MouseWheel {
 		garbageValue = "-1849660708"
 	)
 	boolean method86() {
-		return this.field43; // L: 32
+		return this.field43;
 	}
 
 	@ObfuscatedName("gz")
@@ -106,9 +106,9 @@ public class class9 implements MouseWheel {
 		garbageValue = "29"
 	)
 	static void method88() {
-		if (Client.renderSelf) { // L: 5441
-			Buddy.addPlayerToScene(class340.localPlayer, false); // L: 5442
+		if (Client.renderSelf) {
+			Buddy.addPlayerToScene(class340.localPlayer, false);
 		}
 
-	} // L: 5444
+	}
 }

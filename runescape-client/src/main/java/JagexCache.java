@@ -41,9 +41,9 @@ public class JagexCache {
 	public static String formattedOperatingSystemName;
 
 	static {
-		JagexCache_randomDat = null; // L: 22
-		JagexCache_dat2File = null; // L: 23
-		JagexCache_idx255File = null; // L: 24
+		JagexCache_randomDat = null;
+		JagexCache_dat2File = null;
+		JagexCache_idx255File = null;
 	}
 
 	@ObfuscatedName("g")
@@ -52,16 +52,16 @@ public class JagexCache {
 		garbageValue = "2123818799"
 	)
 	static class120 method3064(int var0) {
-		class120 var1 = (class120)SequenceDefinition.field2086.get((long)var0); // L: 362
-		if (var1 != null) { // L: 363
+		class120 var1 = (class120)SequenceDefinition.SequenceDefinition_cachedModel.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			var1 = class112.method2571(SequenceDefinition.SequenceDefinition_animationsArchive, class118.SequenceDefinition_skeletonsArchive, var0, false); // L: 364
-			if (var1 != null) { // L: 365
-				SequenceDefinition.field2086.put(var1, (long)var0);
+			var1 = class112.method2571(SequenceDefinition.SequenceDefinition_animationsArchive, class118.SequenceDefinition_skeletonsArchive, var0, false);
+			if (var1 != null) {
+				SequenceDefinition.SequenceDefinition_cachedModel.put(var1, (long)var0);
 			}
 
-			return var1; // L: 366
+			return var1;
 		}
 	}
 }

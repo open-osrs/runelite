@@ -32,10 +32,10 @@ public class class141 extends class126 {
 	)
 	class141(class129 var1) {
 		this.this$0 = var1;
-		this.field1610 = -1L; // L: 93
-		this.field1607 = null; // L: 94
-		this.field1608 = 0; // L: 95
-	} // L: 97
+		this.field1610 = -1L;
+		this.field1607 = null;
+		this.field1608 = 0;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -43,14 +43,14 @@ public class class141 extends class126 {
 		garbageValue = "1416770155"
 	)
 	void vmethod3029(Buffer var1) {
-		if (var1.readUnsignedByte() != 255) { // L: 100
-			--var1.offset; // L: 101
-			this.field1610 = var1.readLong(); // L: 102
+		if (var1.readUnsignedByte() != 255) {
+			--var1.offset;
+			this.field1610 = var1.readLong();
 		}
 
-		this.field1607 = var1.readStringCp1252NullTerminatedOrNull(); // L: 104
-		this.field1608 = var1.readUnsignedShort(); // L: 105
-	} // L: 106
+		this.field1607 = var1.readStringCp1252NullTerminatedOrNull();
+		this.field1608 = var1.readUnsignedShort();
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -58,8 +58,8 @@ public class class141 extends class126 {
 		garbageValue = "-1531735008"
 	)
 	void vmethod3028(ClanSettings var1) {
-		var1.method2850(this.field1610, this.field1607, this.field1608); // L: 109
-	} // L: 110
+		var1.method2850(this.field1610, this.field1607, this.field1608);
+	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -68,15 +68,15 @@ public class class141 extends class126 {
 	)
 	@Export("clearItemContainer")
 	static void clearItemContainer(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 63
-		if (var1 != null) { // L: 64
-			for (int var2 = 0; var2 < var1.ids.length; ++var2) { // L: 65
-				var1.ids[var2] = -1; // L: 66
-				var1.quantities[var2] = 0; // L: 67
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var1 != null) {
+			for (int var2 = 0; var2 < var1.ids.length; ++var2) {
+				var1.ids[var2] = -1;
+				var1.quantities[var2] = 0;
 			}
 
 		}
-	} // L: 69
+	}
 
 	@ObfuscatedName("ap")
 	@ObfuscatedSignature(
@@ -85,35 +85,35 @@ public class class141 extends class126 {
 	)
 	static int method2950(int var0, Script var1, boolean var2) {
 		int var3;
-		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) { // L: 3579
-			IsaacCipher.Interpreter_intStackSize -= 2; // L: 3580
-			var3 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize]; // L: 3581
-			int var4 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1]; // L: 3582
-			if (!Client.isCameraLocked) { // L: 3583
-				Client.camAngleX = var3; // L: 3584
-				Client.camAngleY = var4; // L: 3585
+		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) {
+			IsaacCipher.Interpreter_intStackSize -= 2;
+			var3 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize];
+			int var4 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1];
+			if (!Client.isCameraLocked) {
+				Client.camAngleX = var3;
+				Client.camAngleY = var4;
 			}
 
-			return 1; // L: 3587
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) { // L: 3589
-			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.camAngleX; // L: 3590
-			return 1; // L: 3591
-		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) { // L: 3593
-			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.camAngleY; // L: 3594
-			return 1; // L: 3595
-		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) { // L: 3597
-			var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]; // L: 3598
-			if (var3 < 0) { // L: 3599
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) {
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.camAngleX;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) {
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.camAngleY;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) {
+			var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
+			if (var3 < 0) {
 				var3 = 0;
 			}
 
-			Client.camFollowHeight = var3; // L: 3600
-			return 1; // L: 3601
-		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) { // L: 3603
-			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.camFollowHeight; // L: 3604
-			return 1; // L: 3605
+			Client.camFollowHeight = var3;
+			return 1;
+		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) {
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.camFollowHeight;
+			return 1;
 		} else {
-			return 2; // L: 3607
+			return 2;
 		}
 	}
 
@@ -124,11 +124,11 @@ public class class141 extends class126 {
 	)
 	@Export("Clan_joinChat")
 	static final void Clan_joinChat(String var0) {
-		if (!var0.equals("")) { // L: 12494
-			PacketBufferNode var1 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2857, Client.packetWriter.isaacCipher); // L: 12496
-			var1.packetBuffer.writeByte(class116.stringCp1252NullTerminatedByteSize(var0)); // L: 12497
-			var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 12498
-			Client.packetWriter.addNode(var1); // L: 12499
+		if (!var0.equals("")) {
+			PacketBufferNode var1 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2857, Client.packetWriter.isaacCipher);
+			var1.packetBuffer.writeByte(class116.stringCp1252NullTerminatedByteSize(var0));
+			var1.packetBuffer.writeStringCp1252NullTerminated(var0);
+			Client.packetWriter.addNode(var1);
 		}
-	} // L: 12500
+	}
 }

@@ -21,7 +21,7 @@ public abstract class AbstractByteArrayCopier {
 	static int cameraY;
 
 	AbstractByteArrayCopier() {
-	} // L: 4
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(

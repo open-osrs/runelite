@@ -141,8 +141,8 @@ public enum WorldMapDecorationType implements MouseWheel {
 		garbageValue = "0"
 	)
 	WorldMapDecorationType(int var3, int var4) {
-		this.id = var3; // L: 34
-	} // L: 35
+		this.id = var3;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -151,6 +151,6 @@ public enum WorldMapDecorationType implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 39
+		return this.id;
 	}
 }

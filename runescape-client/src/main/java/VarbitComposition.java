@@ -41,16 +41,16 @@ public class VarbitComposition extends DualNode {
 	public int endBit;
 
 	static {
-		VarbitDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
-		field1905 = new int[32]; // L: 15
-		int var0 = 2; // L: 18
+		VarbitDefinition_cached = new EvictingDualNodeHashTable(64);
+		field1905 = new int[32];
+		int var0 = 2;
 
-		for (int var1 = 0; var1 < 32; ++var1) { // L: 19
-			field1905[var1] = var0 - 1; // L: 20
-			var0 += var0; // L: 21
+		for (int var1 = 0; var1 < 32; ++var1) {
+			field1905[var1] = var0 - 1;
+			var0 += var0;
 		}
 
-	} // L: 23
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -60,12 +60,12 @@ public class VarbitComposition extends DualNode {
 	@Export("decode")
 	public void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 27
-			if (var2 == 0) { // L: 28
-				return; // L: 31
+			int var2 = var1.readUnsignedByte();
+			if (var2 == 0) {
+				return;
 			}
 
-			this.decodeNext(var1, var2); // L: 29
+			this.decodeNext(var1, var2);
 		}
 	}
 
@@ -90,30 +90,30 @@ public class VarbitComposition extends DualNode {
 		garbageValue = "402019438"
 	)
 	public static String method3395(CharSequence var0, LoginType var1) {
-		if (var0 == null) { // L: 32
+		if (var0 == null) {
 			return null;
 		} else {
-			int var2 = 0; // L: 33
+			int var2 = 0;
 
 			int var3;
-			for (var3 = var0.length(); var2 < var3 && NetSocket.method3119(var0.charAt(var2)); ++var2) { // L: 34 35
+			for (var3 = var0.length(); var2 < var3 && NetSocket.method3119(var0.charAt(var2)); ++var2) {
 			}
 
-			while (var3 > var2 && NetSocket.method3119(var0.charAt(var3 - 1))) { // L: 36
+			while (var3 > var2 && NetSocket.method3119(var0.charAt(var3 - 1))) {
 				--var3;
 			}
 
-			int var4 = var3 - var2; // L: 37
-			if (var4 >= 1 && var4 <= UserComparator4.method2508(var1)) { // L: 38
-				StringBuilder var5 = new StringBuilder(var4); // L: 39
+			int var4 = var3 - var2;
+			if (var4 >= 1 && var4 <= UserComparator4.method2508(var1)) {
+				StringBuilder var5 = new StringBuilder(var4);
 
-				for (int var6 = var2; var6 < var3; ++var6) { // L: 40
-					char var7 = var0.charAt(var6); // L: 41
+				for (int var6 = var2; var6 < var3; ++var6) {
+					char var7 = var0.charAt(var6);
 					boolean var8;
-					if (Character.isISOControl(var7)) { // L: 44
-						var8 = false; // L: 45
-					} else if (WorldMapIcon_0.isAlphaNumeric(var7)) { // L: 48
-						var8 = true; // L: 49
+					if (Character.isISOControl(var7)) {
+						var8 = false;
+					} else if (WorldMapIcon_0.isAlphaNumeric(var7)) {
+						var8 = true;
 					} else {
 						char[] var9 = class400.field4411;
 						int var10 = 0;
@@ -126,40 +126,40 @@ public class VarbitComposition extends DualNode {
 
 								for (var10 = 0; var10 < var9.length; ++var10) {
 									var11 = var9[var10];
-									if (var7 == var11) { // L: 66
-										var8 = true; // L: 67
+									if (var7 == var11) {
+										var8 = true;
 										break label91;
 									}
 								}
 
-								var8 = false; // L: 72
+								var8 = false;
 								break;
 							}
 
-							var11 = var9[var10]; // L: 55
+							var11 = var9[var10];
 							if (var11 == var7) {
 								var8 = true;
 								break;
 							}
 
-							++var10; // L: 54
+							++var10;
 						}
 					}
 
-					if (var8) { // L: 74
+					if (var8) {
 						char var12;
-						switch(var7) { // L: 77
+						switch(var7) {
 						case ' ':
 						case '-':
 						case '_':
 						case ' ':
-							var12 = '_'; // L: 157
+							var12 = '_';
 							break;
 						case '#':
 						case '[':
 						case ']':
-							var12 = var7; // L: 85
-							break; // L: 86
+							var12 = var7;
+							break;
 						case 'À':
 						case 'Á':
 						case 'Â':
@@ -170,12 +170,12 @@ public class VarbitComposition extends DualNode {
 						case 'â':
 						case 'ã':
 						case 'ä':
-							var12 = 'a'; // L: 101
-							break; // L: 102
+							var12 = 'a';
+							break;
 						case 'Ç':
 						case 'ç':
-							var12 = 'c'; // L: 89
-							break; // L: 90
+							var12 = 'c';
+							break;
 						case 'È':
 						case 'É':
 						case 'Ê':
@@ -184,19 +184,19 @@ public class VarbitComposition extends DualNode {
 						case 'é':
 						case 'ê':
 						case 'ë':
-							var12 = 'e'; // L: 140
-							break; // L: 141
+							var12 = 'e';
+							break;
 						case 'Í':
 						case 'Î':
 						case 'Ï':
 						case 'í':
 						case 'î':
 						case 'ï':
-							var12 = 'i'; // L: 151
+							var12 = 'i';
 							break;
 						case 'Ñ':
 						case 'ñ':
-							var12 = 'n'; // L: 80
+							var12 = 'n';
 							break;
 						case 'Ò':
 						case 'Ó':
@@ -208,8 +208,8 @@ public class VarbitComposition extends DualNode {
 						case 'ô':
 						case 'õ':
 						case 'ö':
-							var12 = 'o'; // L: 120
-							break; // L: 121
+							var12 = 'o';
+							break;
 						case 'Ù':
 						case 'Ú':
 						case 'Û':
@@ -218,29 +218,29 @@ public class VarbitComposition extends DualNode {
 						case 'ú':
 						case 'û':
 						case 'ü':
-							var12 = 'u'; // L: 130
-							break; // L: 131
+							var12 = 'u';
+							break;
 						case 'ß':
-							var12 = 'b'; // L: 108
-							break; // L: 109
+							var12 = 'b';
+							break;
 						case 'ÿ':
 						case 'Ÿ':
-							var12 = 'y'; // L: 105
-							break; // L: 106
+							var12 = 'y';
+							break;
 						default:
-							var12 = Character.toLowerCase(var7); // L: 143
+							var12 = Character.toLowerCase(var7);
 						}
 
-						if (var12 != 0) { // L: 162
-							var5.append(var12); // L: 163
+						if (var12 != 0) {
+							var5.append(var12);
 						}
 					}
 				}
 
-				if (var5.length() == 0) { // L: 165
+				if (var5.length() == 0) {
 					return null;
 				} else {
-					return var5.toString(); // L: 166
+					return var5.toString();
 				}
 			} else {
 				return null;
@@ -254,20 +254,20 @@ public class VarbitComposition extends DualNode {
 		garbageValue = "120991325"
 	)
 	public static IndexedSprite method3396(AbstractArchive var0, int var1) {
-		if (!class174.method3382(var0, var1)) { // L: 53
+		if (!class174.method3382(var0, var1)) {
 			return null;
 		} else {
-			IndexedSprite var3 = new IndexedSprite(); // L: 56
-			var3.width = class432.SpriteBuffer_spriteWidth; // L: 57
-			var3.height = class432.SpriteBuffer_spriteHeight; // L: 58
-			var3.xOffset = class141.SpriteBuffer_xOffsets[0]; // L: 59
-			var3.yOffset = RouteStrategy.SpriteBuffer_yOffsets[0]; // L: 60
-			var3.subWidth = class432.SpriteBuffer_spriteWidths[0]; // L: 61
-			var3.subHeight = class330.SpriteBuffer_spriteHeights[0]; // L: 62
-			var3.palette = class432.SpriteBuffer_spritePalette; // L: 63
-			var3.pixels = class369.SpriteBuffer_pixels[0]; // L: 64
-			UserComparator3.method2529(); // L: 65
-			return var3; // L: 68
+			IndexedSprite var3 = new IndexedSprite();
+			var3.width = class432.SpriteBuffer_spriteWidth;
+			var3.height = class432.SpriteBuffer_spriteHeight;
+			var3.xOffset = class141.SpriteBuffer_xOffsets[0];
+			var3.yOffset = RouteStrategy.SpriteBuffer_yOffsets[0];
+			var3.subWidth = class432.SpriteBuffer_spriteWidths[0];
+			var3.subHeight = class330.SpriteBuffer_spriteHeights[0];
+			var3.palette = class432.SpriteBuffer_spritePalette;
+			var3.pixels = class369.SpriteBuffer_pixels[0];
+			UserComparator3.method2529();
+			return var3;
 		}
 	}
 
@@ -278,31 +278,31 @@ public class VarbitComposition extends DualNode {
 	)
 	@Export("addWidgetItemMenuItem")
 	static final void addWidgetItemMenuItem(Widget var0, ItemComposition var1, int var2, int var3, boolean var4) {
-		String[] var5 = var1.inventoryActions; // L: 11144
-		byte var6 = -1; // L: 11145
-		String var7 = null; // L: 11146
-		if (var5 != null && var5[var3] != null) { // L: 11147
-			if (var3 == 0) { // L: 11148
+		String[] var5 = var1.inventoryActions;
+		byte var6 = -1;
+		String var7 = null;
+		if (var5 != null && var5[var3] != null) {
+			if (var3 == 0) {
 				var6 = 33;
-			} else if (var3 == 1) { // L: 11149
+			} else if (var3 == 1) {
 				var6 = 34;
 			} else if (var3 == 2) {
-				var6 = 35; // L: 11150
-			} else if (var3 == 3) { // L: 11151
+				var6 = 35;
+			} else if (var3 == 3) {
 				var6 = 36;
 			} else {
-				var6 = 37; // L: 11152
+				var6 = 37;
 			}
 
-			var7 = var5[var3]; // L: 11153
-		} else if (var3 == 4) { // L: 11156
-			var6 = 37; // L: 11157
-			var7 = "Drop"; // L: 11158
+			var7 = var5[var3];
+		} else if (var3 == 4) {
+			var6 = 37;
+			var7 = "Drop";
 		}
 
-		if (var6 != -1 && var7 != null) { // L: 11161
-			class21.insertMenuItem(var7, UserComparator5.colorStartTag(16748608) + var1.name, var6, var1.id, var2, var0.id, var4); // L: 11162
+		if (var6 != -1 && var7 != null) {
+			class21.insertMenuItem(var7, UserComparator5.colorStartTag(16748608) + var1.name, var6, var1.id, var2, var0.id, var4);
 		}
 
-	} // L: 11164
+	}
 }

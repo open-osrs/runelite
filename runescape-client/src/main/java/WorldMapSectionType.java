@@ -44,9 +44,9 @@ public enum WorldMapSectionType implements MouseWheel {
 	final byte id;
 
 	WorldMapSectionType(int var3, byte var4) {
-		this.type = var3; // L: 21
-		this.id = var4; // L: 22
-	} // L: 23
+		this.type = var3;
+		this.id = var4;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -55,7 +55,7 @@ public enum WorldMapSectionType implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 27
+		return this.id;
 	}
 
 	@ObfuscatedName("c")
@@ -64,7 +64,7 @@ public enum WorldMapSectionType implements MouseWheel {
 		garbageValue = "-719396809"
 	)
 	static WorldMapSectionType[] method4754() {
-		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE0}; // L: 17
+		return new WorldMapSectionType[]{WORLDMAPSECTIONTYPE3, WORLDMAPSECTIONTYPE2, WORLDMAPSECTIONTYPE1, WORLDMAPSECTIONTYPE0};
 	}
 
 	@ObfuscatedName("ac")
@@ -73,19 +73,19 @@ public enum WorldMapSectionType implements MouseWheel {
 		garbageValue = "4095"
 	)
 	static int method4756(int var0, Script var1, boolean var2) {
-		if (var0 == ScriptOpcodes.LOGOUT) { // L: 3611
-			Client.logoutTimer = 250; // L: 3612
-			return 1; // L: 3613
-		} else if (var0 != 5631 && var0 != 5633) { // L: 3615
-			if (var0 == 5632) { // L: 3619
-				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 26; // L: 3620
-				return 1; // L: 3621
+		if (var0 == ScriptOpcodes.LOGOUT) {
+			Client.logoutTimer = 250;
+			return 1;
+		} else if (var0 != 5631 && var0 != 5633) {
+			if (var0 == 5632) {
+				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 26;
+				return 1;
 			} else {
-				return 2; // L: 3623
+				return 2;
 			}
 		} else {
-			class13.Interpreter_stringStackSize -= 2; // L: 3616
-			return 1; // L: 3617
+			class13.Interpreter_stringStackSize -= 2;
+			return 1;
 		}
 	}
 }

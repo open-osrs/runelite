@@ -65,9 +65,9 @@ public enum class121 implements MouseWheel {
 	final int field1468;
 
 	class121(int var3, int var4) {
-		this.field1460 = var3; // L: 105
-		this.field1468 = var4; // L: 106
-	} // L: 107
+		this.field1460 = var3;
+		this.field1468 = var4;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -76,6 +76,6 @@ public enum class121 implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1468; // L: 110
+		return this.field1468;
 	}
 }

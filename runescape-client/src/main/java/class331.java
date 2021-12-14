@@ -17,8 +17,8 @@ public class class331 {
 		garbageValue = "0"
 	)
 	public static void method6174(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2) {
-		HitSplatDefinition.HitSplatDefinition_archive = var0; // L: 46
-		HitSplatDefinition.field1939 = var1; // L: 47
-		HitSplatDefinition.HitSplatDefinition_fontsArchive = var2; // L: 48
-	} // L: 49
+		HitSplatDefinition.HitSplatDefinition_archive = var0;
+		HitSplatDefinition.field1939 = var1;
+		HitSplatDefinition.HitSplatDefinition_fontsArchive = var2;
+	}
 }

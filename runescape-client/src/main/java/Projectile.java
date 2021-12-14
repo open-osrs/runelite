@@ -135,32 +135,33 @@ public final class Projectile extends Renderable {
 	@ObfuscatedGetter(
 		intValue = -43602097
 	)
-	int field904;
+	@Export("frameCycle")
+	int frameCycle;
 
 	Projectile(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11) {
 		this.isMoving = false;
-		this.frame = 0; // L: 32
-		this.field904 = 0;
+		this.frame = 0;
+		this.frameCycle = 0;
 		this.id = var1;
 		this.plane = var2;
 		this.sourceX = var3;
-		this.sourceY = var4; // L: 39
+		this.sourceY = var4;
 		this.sourceZ = var5;
-		this.cycleStart = var6; // L: 41
-		this.cycleEnd = var7; // L: 42
-		this.slope = var8; // L: 43
-		this.startHeight = var9; // L: 44
-		this.targetIndex = var10; // L: 45
-		this.endHeight = var11; // L: 46
-		this.isMoving = false; // L: 47
-		int var12 = AccessFile.SpotAnimationDefinition_get(this.id).sequence; // L: 48
-		if (var12 != -1) { // L: 49
+		this.cycleStart = var6;
+		this.cycleEnd = var7;
+		this.slope = var8;
+		this.startHeight = var9;
+		this.targetIndex = var10;
+		this.endHeight = var11;
+		this.isMoving = false;
+		int var12 = AccessFile.SpotAnimationDefinition_get(this.id).sequence;
+		if (var12 != -1) {
 			this.sequenceDefinition = UserComparator5.SequenceDefinition_get(var12);
 		} else {
-			this.sequenceDefinition = null; // L: 50
+			this.sequenceDefinition = null;
 		}
 
-	} // L: 51
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -170,25 +171,25 @@ public final class Projectile extends Renderable {
 	@Export("setDestination")
 	final void setDestination(int var1, int var2, int var3, int var4) {
 		double var5;
-		if (!this.isMoving) { // L: 54
-			var5 = (double)(var1 - this.sourceX); // L: 55
-			double var7 = (double)(var2 - this.sourceY); // L: 56
-			double var9 = Math.sqrt(var5 * var5 + var7 * var7); // L: 57
-			this.x = (double)this.sourceX + (double)this.startHeight * var5 / var9; // L: 58
-			this.y = (double)this.sourceY + var7 * (double)this.startHeight / var9; // L: 59
-			this.z = (double)this.sourceZ; // L: 60
+		if (!this.isMoving) {
+			var5 = (double)(var1 - this.sourceX);
+			double var7 = (double)(var2 - this.sourceY);
+			double var9 = Math.sqrt(var5 * var5 + var7 * var7);
+			this.x = (double)this.sourceX + (double)this.startHeight * var5 / var9;
+			this.y = (double)this.sourceY + var7 * (double)this.startHeight / var9;
+			this.z = (double)this.sourceZ;
 		}
 
 		var5 = (double)(this.cycleEnd + 1 - var4);
 		this.speedX = ((double)var1 - this.x) / var5;
-		this.speedY = ((double)var2 - this.y) / var5; // L: 64
-		this.speed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY); // L: 65
-		if (!this.isMoving) { // L: 66
+		this.speedY = ((double)var2 - this.y) / var5;
+		this.speed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY);
+		if (!this.isMoving) {
 			this.speedZ = -this.speed * Math.tan(0.02454369D * (double)this.slope);
 		}
 
-		this.accelerationZ = ((double)var3 - this.z - this.speedZ * var5) * 2.0D / (var5 * var5); // L: 67
-	} // L: 68
+		this.accelerationZ = ((double)var3 - this.z - this.speedZ * var5) * 2.0D / (var5 * var5);
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -197,13 +198,13 @@ public final class Projectile extends Renderable {
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		SpotAnimationDefinition var1 = AccessFile.SpotAnimationDefinition_get(this.id); // L: 101
-		Model var2 = var1.getModel(this.frame); // L: 102
-		if (var2 == null) { // L: 103
+		SpotAnimationDefinition var1 = AccessFile.SpotAnimationDefinition_get(this.id);
+		Model var2 = var1.getModel(this.frame);
+		if (var2 == null) {
 			return null;
 		} else {
-			var2.rotateZ(this.pitch); // L: 104
-			return var2; // L: 105
+			var2.rotateZ(this.pitch);
+			return var2;
 		}
 	}
 
@@ -214,38 +215,38 @@ public final class Projectile extends Renderable {
 	)
 	@Export("advance")
 	final void advance(int var1) {
-		this.isMoving = true; // L: 71
-		this.x += this.speedX * (double)var1; // L: 72
-		this.y += this.speedY * (double)var1; // L: 73
-		this.z += (double)var1 * this.speedZ + (double)var1 * 0.5D * this.accelerationZ * (double)var1; // L: 74
-		this.speedZ += (double)var1 * this.accelerationZ; // L: 75
-		this.yaw = (int)(Math.atan2(this.speedX, this.speedY) * 325.949D) + 1024 & 2047; // L: 76
-		this.pitch = (int)(Math.atan2(this.speedZ, this.speed) * 325.949D) & 2047; // L: 77
-		if (this.sequenceDefinition != null) { // L: 78
-			if (!this.sequenceDefinition.method3690()) { // L: 79
-				this.field904 += var1; // L: 80
+		this.isMoving = true;
+		this.x += this.speedX * (double)var1;
+		this.y += this.speedY * (double)var1;
+		this.z += (double)var1 * this.speedZ + (double)var1 * 0.5D * this.accelerationZ * (double)var1;
+		this.speedZ += (double)var1 * this.accelerationZ;
+		this.yaw = (int)(Math.atan2(this.speedX, this.speedY) * 325.949D) + 1024 & 2047;
+		this.pitch = (int)(Math.atan2(this.speedZ, this.speed) * 325.949D) & 2047;
+		if (this.sequenceDefinition != null) {
+			if (!this.sequenceDefinition.method3690()) {
+				this.frameCycle += var1;
 
 				while (true) {
 					do {
 						do {
-							if (this.field904 <= this.sequenceDefinition.frameLengths[this.frame]) { // L: 81
-								return; // L: 98
+							if (this.frameCycle <= this.sequenceDefinition.frameLengths[this.frame]) {
+								return;
 							}
 
-							this.field904 -= this.sequenceDefinition.frameLengths[this.frame]; // L: 82
-							++this.frame; // L: 83
-						} while(this.frame < this.sequenceDefinition.frameIds.length); // L: 84
+							this.frameCycle -= this.sequenceDefinition.frameLengths[this.frame];
+							++this.frame;
+						} while(this.frame < this.sequenceDefinition.frameIds.length);
 
-						this.frame -= this.sequenceDefinition.frameCount; // L: 85
-					} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length); // L: 86
+						this.frame -= this.sequenceDefinition.frameCount;
+					} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length);
 
 					this.frame = 0;
 				}
 			} else {
-				this.frame += var1; // L: 91
-				int var2 = this.sequenceDefinition.method3647(); // L: 92
-				if (this.frame >= var2) { // L: 93
-					this.frame = var2 - this.sequenceDefinition.frameCount; // L: 94
+				this.frame += var1;
+				int var2 = this.sequenceDefinition.method3647();
+				if (this.frame >= var2) {
+					this.frame = var2 - this.sequenceDefinition.frameCount;
 				}
 			}
 		}
@@ -259,36 +260,36 @@ public final class Projectile extends Renderable {
 	)
 	@Export("sortItemsByName")
 	static void sortItemsByName(String[] var0, short[] var1, int var2, int var3) {
-		if (var2 < var3) { // L: 13
-			int var4 = (var3 + var2) / 2; // L: 14
-			int var5 = var2; // L: 15
-			String var6 = var0[var4]; // L: 16
-			var0[var4] = var0[var3]; // L: 17
-			var0[var3] = var6; // L: 18
-			short var7 = var1[var4]; // L: 19
-			var1[var4] = var1[var3]; // L: 20
-			var1[var3] = var7; // L: 21
+		if (var2 < var3) {
+			int var4 = (var3 + var2) / 2;
+			int var5 = var2;
+			String var6 = var0[var4];
+			var0[var4] = var0[var3];
+			var0[var3] = var6;
+			short var7 = var1[var4];
+			var1[var4] = var1[var3];
+			var1[var3] = var7;
 
-			for (int var8 = var2; var8 < var3; ++var8) { // L: 22
-				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) { // L: 23
-					String var9 = var0[var8]; // L: 24
-					var0[var8] = var0[var5]; // L: 25
-					var0[var5] = var9; // L: 26
-					short var10 = var1[var8]; // L: 27
-					var1[var8] = var1[var5]; // L: 28
-					var1[var5++] = var10; // L: 29
+			for (int var8 = var2; var8 < var3; ++var8) {
+				if (var6 == null || var0[var8] != null && var0[var8].compareTo(var6) < (var8 & 1)) {
+					String var9 = var0[var8];
+					var0[var8] = var0[var5];
+					var0[var5] = var9;
+					short var10 = var1[var8];
+					var1[var8] = var1[var5];
+					var1[var5++] = var10;
 				}
 			}
 
-			var0[var3] = var0[var5]; // L: 33
-			var0[var5] = var6; // L: 34
-			var1[var3] = var1[var5]; // L: 35
-			var1[var5] = var7; // L: 36
-			sortItemsByName(var0, var1, var2, var5 - 1); // L: 37
-			sortItemsByName(var0, var1, var5 + 1, var3); // L: 38
+			var0[var3] = var0[var5];
+			var0[var5] = var6;
+			var1[var3] = var1[var5];
+			var1[var5] = var7;
+			sortItemsByName(var0, var1, var2, var5 - 1);
+			sortItemsByName(var0, var1, var5 + 1, var3);
 		}
 
-	} // L: 40
+	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -296,7 +297,7 @@ public final class Projectile extends Renderable {
 		garbageValue = "1237382938"
 	)
 	public static boolean method2008() {
-		return class260.musicPlayerStatus != 0 ? true : class260.midiPcmStream.isReady(); // L: 62 63
+		return class260.musicPlayerStatus != 0 ? true : class260.midiPcmStream.isReady();
 	}
 
 	@ObfuscatedName("f")
@@ -306,34 +307,34 @@ public final class Projectile extends Renderable {
 	)
 	static int method2010(int var0, Script var1, boolean var2) {
 		Widget var5;
-		if (var0 == ScriptOpcodes.IF_GETINVOBJECT) { // L: 1362
-			var5 = ChatChannel.getWidget(Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]); // L: 1363
-			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var5.itemId; // L: 1364
-			return 1; // L: 1365
-		} else if (var0 == ScriptOpcodes.IF_GETINVCOUNT) { // L: 1367
-			var5 = ChatChannel.getWidget(Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]); // L: 1368
-			if (var5.itemId != -1) { // L: 1369
+		if (var0 == ScriptOpcodes.IF_GETINVOBJECT) {
+			var5 = ChatChannel.getWidget(Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]);
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var5.itemId;
+			return 1;
+		} else if (var0 == ScriptOpcodes.IF_GETINVCOUNT) {
+			var5 = ChatChannel.getWidget(Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]);
+			if (var5.itemId != -1) {
 				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var5.itemQuantity;
 			} else {
-				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 0; // L: 1370
+				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 0;
 			}
 
-			return 1; // L: 1371
-		} else if (var0 == ScriptOpcodes.IF_HASSUB) { // L: 1373
-			int var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]; // L: 1374
-			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3); // L: 1375
-			if (var4 != null) { // L: 1376
+			return 1;
+		} else if (var0 == ScriptOpcodes.IF_HASSUB) {
+			int var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
+			InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3);
+			if (var4 != null) {
 				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 1;
 			} else {
-				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 0; // L: 1377
+				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 0;
 			}
 
-			return 1; // L: 1378
-		} else if (var0 == ScriptOpcodes.IF_GETTOP) { // L: 1380
-			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.rootInterface; // L: 1381
-			return 1; // L: 1382
+			return 1;
+		} else if (var0 == ScriptOpcodes.IF_GETTOP) {
+			Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = Client.rootInterface;
+			return 1;
 		} else {
-			return 2; // L: 1384
+			return 2;
 		}
 	}
 }

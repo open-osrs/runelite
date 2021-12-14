@@ -11,7 +11,7 @@ public abstract class class142 extends Node {
 	static int field1615;
 
 	class142() {
-	} // L: 49
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -33,6 +33,6 @@ public abstract class class142 extends Node {
 		garbageValue = "-1686144009"
 	)
 	static int method2958(int var0) {
-		return var0 * 3 + 600; // L: 2168
+		return var0 * 3 + 600;
 	}
 }

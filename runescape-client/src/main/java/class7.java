@@ -39,11 +39,11 @@ public class class7 {
 		descriptor = "(Lpi;Lm;)V"
 	)
 	public class7(Buffer var1, class3 var2) {
-		this.field30 = Executors.newSingleThreadExecutor(); // L: 10
-		this.field25 = var1; // L: 16
-		this.field26 = var2; // L: 17
-		this.method62(); // L: 18
-	} // L: 19
+		this.field30 = Executors.newSingleThreadExecutor();
+		this.field25 = var1;
+		this.field26 = var2;
+		this.method62();
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -51,7 +51,7 @@ public class class7 {
 		garbageValue = "-1426679915"
 	)
 	public boolean method61() {
-		return this.field31.isDone(); // L: 22
+		return this.field31.isDone();
 	}
 
 	@ObfuscatedName("b")
@@ -60,9 +60,9 @@ public class class7 {
 		garbageValue = "-1411495708"
 	)
 	public void method65() {
-		this.field30.shutdown(); // L: 26
-		this.field30 = null; // L: 27
-	} // L: 28
+		this.field30.shutdown();
+		this.field30 = null;
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -71,9 +71,9 @@ public class class7 {
 	)
 	public Buffer method75() {
 		try {
-			return (Buffer)this.field31.get(); // L: 32
-		} catch (Exception var2) { // L: 34
-			return null; // L: 35
+			return (Buffer)this.field31.get();
+		} catch (Exception var2) {
+			return null;
 		}
 	}
 
@@ -83,8 +83,8 @@ public class class7 {
 		garbageValue = "1868135636"
 	)
 	void method62() {
-		this.field31 = this.field30.submit(new class1(this, this.field25, this.field26)); // L: 40
-	} // L: 41
+		this.field31 = this.field30.submit(new class1(this, this.field25, this.field26));
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -92,7 +92,7 @@ public class class7 {
 		garbageValue = "1979711764"
 	)
 	static class117[] method74() {
-		return new class117[]{class117.field1425, class117.field1444, class117.field1430, class117.field1427, class117.field1428, class117.field1429, class117.field1442, class117.field1431, class117.field1432, class117.field1424, class117.field1434, class117.field1435, class117.field1436, class117.field1437, class117.field1438, class117.field1439, class117.field1440}; // L: 68
+		return new class117[]{class117.field1425, class117.field1444, class117.field1430, class117.field1427, class117.field1428, class117.field1429, class117.field1442, class117.field1431, class117.field1432, class117.field1424, class117.field1434, class117.field1435, class117.field1436, class117.field1437, class117.field1438, class117.field1439, class117.field1440};
 	}
 
 	@ObfuscatedName("jw")
@@ -101,19 +101,19 @@ public class class7 {
 		garbageValue = "1826034348"
 	)
 	static String method60(String var0, Widget var1) {
-		if (var0.indexOf("%") != -1) { // L: 10882
-			for (int var2 = 1; var2 <= 5; ++var2) { // L: 10883
+		if (var0.indexOf("%") != -1) {
+			for (int var2 = 1; var2 <= 5; ++var2) {
 				while (true) {
-					int var3 = var0.indexOf("%" + var2); // L: 10885
-					if (var3 == -1) { // L: 10886
+					int var3 = var0.indexOf("%" + var2);
+					if (var3 == -1) {
 						break;
 					}
 
-					var0 = var0.substring(0, var3) + class1.method11(class28.method442(var1, var2 - 1)) + var0.substring(var3 + 2); // L: 10887
+					var0 = var0.substring(0, var3) + class1.method11(class28.method442(var1, var2 - 1)) + var0.substring(var3 + 2);
 				}
 			}
 		}
 
-		return var0; // L: 10891
+		return var0;
 	}
 }

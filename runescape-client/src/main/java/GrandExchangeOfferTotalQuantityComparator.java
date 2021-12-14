@@ -14,15 +14,15 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 	)
 	@Export("compare_bridged")
 	int compare_bridged(GrandExchangeEvent var1, GrandExchangeEvent var2) {
-		return var1.grandExchangeOffer.totalQuantity < var2.grandExchangeOffer.totalQuantity ? -1 : (var2.grandExchangeOffer.totalQuantity == var1.grandExchangeOffer.totalQuantity ? 0 : 1); // L: 69
+		return var1.grandExchangeOffer.totalQuantity < var2.grandExchangeOffer.totalQuantity ? -1 : (var2.grandExchangeOffer.totalQuantity == var1.grandExchangeOffer.totalQuantity ? 0 : 1);
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2); // L: 73
+		return this.compare_bridged((GrandExchangeEvent)var1, (GrandExchangeEvent)var2);
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 77
+		return super.equals(var1);
 	}
 
 	@ObfuscatedName("c")
@@ -31,8 +31,8 @@ final class GrandExchangeOfferTotalQuantityComparator implements Comparator {
 		garbageValue = "-1737768501"
 	)
 	public static void method5725(AbstractArchive var0, AbstractArchive var1) {
-		KitDefinition.KitDefinition_archive = var0; // L: 27
-		KitDefinition.KitDefinition_modelsArchive = var1; // L: 28
-		KitDefinition.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3); // L: 29
-	} // L: 30
+		KitDefinition.KitDefinition_archive = var0;
+		KitDefinition.KitDefinition_modelsArchive = var1;
+		KitDefinition.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3);
+	}
 }

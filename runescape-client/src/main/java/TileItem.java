@@ -30,7 +30,7 @@ public final class TileItem extends Renderable {
 	int quantity;
 
 	TileItem() {
-	} // L: 11
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -39,7 +39,7 @@ public final class TileItem extends Renderable {
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		return UserComparator6.ItemDefinition_get(this.id).getModel(this.quantity); // L: 14
+		return UserComparator6.ItemDefinition_get(this.id).getModel(this.quantity);
 	}
 
 	@ObfuscatedName("c")
@@ -48,7 +48,7 @@ public final class TileItem extends Renderable {
 		garbageValue = "37"
 	)
 	public static void method2368(AbstractArchive var0, AbstractArchive var1) {
-		SpotAnimationDefinition.SpotAnimationDefinition_archive = var0; // L: 32
-		SpotAnimationDefinition.SpotAnimationDefinition_modelArchive = var1; // L: 33
-	} // L: 34
+		SpotAnimationDefinition.SpotAnimationDefinition_archive = var0;
+		SpotAnimationDefinition.SpotAnimationDefinition_modelArchive = var1;
+	}
 }

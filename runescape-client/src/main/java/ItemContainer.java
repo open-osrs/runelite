@@ -26,11 +26,11 @@ public class ItemContainer extends Node {
 	int[] quantities;
 
 	static {
-		itemContainers = new NodeHashTable(32); // L: 7
+		itemContainers = new NodeHashTable(32);
 	}
 
 	ItemContainer() {
-		this.ids = new int[]{-1}; // L: 8
-		this.quantities = new int[]{0}; // L: 9
-	} // L: 11
+		this.ids = new int[]{-1};
+		this.quantities = new int[]{0};
+	}
 }

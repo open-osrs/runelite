@@ -70,7 +70,7 @@ public class WorldMapSection2 implements WorldMapSection {
 	int field2599;
 
 	WorldMapSection2() {
-	} // L: 18
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -79,23 +79,23 @@ public class WorldMapSection2 implements WorldMapSection {
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
-		if (var1.regionLowX > this.field2595) { // L: 22
+		if (var1.regionLowX > this.field2595) {
 			var1.regionLowX = this.field2595;
 		}
 
 		if (var1.regionHighX < this.field2600) {
-			var1.regionHighX = this.field2600; // L: 23
+			var1.regionHighX = this.field2600;
 		}
 
-		if (var1.regionLowY > this.field2597) { // L: 24
+		if (var1.regionLowY > this.field2597) {
 			var1.regionLowY = this.field2597;
 		}
 
-		if (var1.regionHighY < this.field2599) { // L: 25
+		if (var1.regionHighY < this.field2599) {
 			var1.regionHighY = this.field2599;
 		}
 
-	} // L: 26
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -104,10 +104,10 @@ public class WorldMapSection2 implements WorldMapSection {
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
-		if (var1 >= this.minPlane && var1 < this.minPlane + this.planes) { // L: 30
-			return var2 >> 6 >= this.regionStartX && var2 >> 6 <= this.regionEndX && var3 >> 6 >= this.regionStartY && var3 >> 6 <= this.regionEndY; // L: 33
+		if (var1 >= this.minPlane && var1 < this.minPlane + this.planes) {
+			return var2 >> 6 >= this.regionStartX && var2 >> 6 <= this.regionEndX && var3 >> 6 >= this.regionStartY && var3 >> 6 <= this.regionEndY;
 		} else {
-			return false; // L: 31
+			return false;
 		}
 	}
 
@@ -118,7 +118,7 @@ public class WorldMapSection2 implements WorldMapSection {
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
-		return var1 >> 6 >= this.field2595 && var1 >> 6 <= this.field2600 && var2 >> 6 >= this.field2597 && var2 >> 6 <= this.field2599; // L: 38
+		return var1 >> 6 >= this.field2595 && var1 >> 6 <= this.field2600 && var2 >> 6 >= this.field2597 && var2 >> 6 <= this.field2599;
 	}
 
 	@ObfuscatedName("m")
@@ -128,11 +128,11 @@ public class WorldMapSection2 implements WorldMapSection {
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
-		if (!this.containsCoord(var1, var2, var3)) { // L: 43
-			return null; // L: 44
+		if (!this.containsCoord(var1, var2, var3)) {
+			return null;
 		} else {
-			int[] var4 = new int[]{var2 + (this.field2595 * 64 - this.regionStartX * 64), var3 + (this.field2597 * 64 - this.regionStartY * 64)}; // L: 46 47 48
-			return var4; // L: 49
+			int[] var4 = new int[]{var2 + (this.field2595 * 64 - this.regionStartX * 64), var3 + (this.field2597 * 64 - this.regionStartY * 64)};
+			return var4;
 		}
 	}
 
@@ -143,12 +143,12 @@ public class WorldMapSection2 implements WorldMapSection {
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
-		if (!this.containsPosition(var1, var2)) { // L: 54
-			return null; // L: 55
+		if (!this.containsPosition(var1, var2)) {
+			return null;
 		} else {
-			int var3 = this.regionStartX * 64 - this.field2595 * 64 + var1; // L: 57
-			int var4 = var2 + (this.regionStartY * 64 - this.field2597 * 64); // L: 58
-			return new Coord(this.minPlane, var3, var4); // L: 59
+			int var3 = this.regionStartX * 64 - this.field2595 * 64 + var1;
+			int var4 = var2 + (this.regionStartY * 64 - this.field2597 * 64);
+			return new Coord(this.minPlane, var3, var4);
 		}
 	}
 
@@ -159,18 +159,18 @@ public class WorldMapSection2 implements WorldMapSection {
 	)
 	@Export("read")
 	public void read(Buffer var1) {
-		this.minPlane = var1.readUnsignedByte(); // L: 64
-		this.planes = var1.readUnsignedByte(); // L: 65
-		this.regionStartX = var1.readUnsignedShort(); // L: 66
-		this.regionStartY = var1.readUnsignedShort(); // L: 67
-		this.regionEndX = var1.readUnsignedShort(); // L: 68
-		this.regionEndY = var1.readUnsignedShort(); // L: 69
-		this.field2595 = var1.readUnsignedShort(); // L: 70
-		this.field2597 = var1.readUnsignedShort(); // L: 71
-		this.field2600 = var1.readUnsignedShort(); // L: 72
-		this.field2599 = var1.readUnsignedShort(); // L: 73
-		this.postRead(); // L: 74
-	} // L: 75
+		this.minPlane = var1.readUnsignedByte();
+		this.planes = var1.readUnsignedByte();
+		this.regionStartX = var1.readUnsignedShort();
+		this.regionStartY = var1.readUnsignedShort();
+		this.regionEndX = var1.readUnsignedShort();
+		this.regionEndY = var1.readUnsignedShort();
+		this.field2595 = var1.readUnsignedShort();
+		this.field2597 = var1.readUnsignedShort();
+		this.field2600 = var1.readUnsignedShort();
+		this.field2599 = var1.readUnsignedShort();
+		this.postRead();
+	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -179,7 +179,7 @@ public class WorldMapSection2 implements WorldMapSection {
 	)
 	@Export("postRead")
 	void postRead() {
-	} // L: 77
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -187,7 +187,7 @@ public class WorldMapSection2 implements WorldMapSection {
 		garbageValue = "-494413761"
 	)
 	public static int method4414(int var0, int var1) {
-		return (var0 << 8) + var1; // L: 13
+		return (var0 << 8) + var1;
 	}
 
 	@ObfuscatedName("e")
@@ -196,9 +196,9 @@ public class WorldMapSection2 implements WorldMapSection {
 		garbageValue = "12387"
 	)
 	public static void method4417() {
-		Widget.Widget_cachedModels.clear(); // L: 723
-		Widget.Widget_cachedFonts.clear(); // L: 724
-		Widget.Widget_cachedSpriteMasks.clear(); // L: 725
-		Widget.field3222.clear(); // L: 726
-	} // L: 727
+		Widget.Widget_cachedSprites.clear();
+		Widget.Widget_cachedModels.clear();
+		Widget.Widget_cachedFonts.clear();
+		Widget.Widget_cachedSpriteMasks.clear();
+	}
 }

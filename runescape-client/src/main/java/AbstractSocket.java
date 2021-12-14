@@ -15,7 +15,7 @@ public abstract class AbstractSocket {
 	static class404 HitSplatDefinition_cachedSprites;
 
 	protected AbstractSocket() {
-	} // L: 7
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(

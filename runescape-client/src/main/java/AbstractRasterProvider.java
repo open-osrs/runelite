@@ -24,7 +24,7 @@ public abstract class AbstractRasterProvider {
 	public int height;
 
 	protected AbstractRasterProvider() {
-	} // L: 8
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -49,8 +49,8 @@ public abstract class AbstractRasterProvider {
 	)
 	@Export("apply")
 	public final void apply() {
-		Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height); // L: 11
-	} // L: 12
+		Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height);
+	}
 
 	@ObfuscatedName("fe")
 	@ObfuscatedSignature(
@@ -58,14 +58,14 @@ public abstract class AbstractRasterProvider {
 		garbageValue = "-685860336"
 	)
 	static int method7714() {
-		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) { // L: 2159
-			int var0 = 0; // L: 2160
+		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
+			int var0 = 0;
 
-			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) { // L: 2161
-				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount; // L: 2162
+			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) {
+				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount;
 			}
 
-			return var0 * 10000 / Client.field753; // L: 2164
+			return var0 * 10000 / Client.field753;
 		} else {
 			return 10000;
 		}

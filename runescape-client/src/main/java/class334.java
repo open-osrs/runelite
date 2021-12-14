@@ -39,14 +39,14 @@ public class class334 {
 	int field4017;
 
 	public String toString() {
-		boolean var1 = true; // L: 15
-		int var2 = 10 - Integer.toString(this.field4015).length(); // L: 16
-		int var3 = 10 - Integer.toString(this.field4016).length(); // L: 17
-		int var4 = 10 - Integer.toString(this.field4014).length(); // L: 18
-		String var5 = "          ".substring(10 - var2); // L: 19
-		String var6 = "          ".substring(10 - var3); // L: 20
-		String var7 = "          ".substring(10 - var4); // L: 21
-		return "    Size: " + this.field4015 + var5 + "Created: " + this.field4014 + var7 + "Total used: " + this.field4016 + var6 + "Max-In-Use: " + this.field4017; // L: 22
+		boolean var1 = true;
+		int var2 = 10 - Integer.toString(this.field4015).length();
+		int var3 = 10 - Integer.toString(this.field4016).length();
+		int var4 = 10 - Integer.toString(this.field4014).length();
+		String var5 = "          ".substring(10 - var2);
+		String var6 = "          ".substring(10 - var3);
+		String var7 = "          ".substring(10 - var4);
+		return "    Size: " + this.field4015 + var5 + "Created: " + this.field4014 + var7 + "Total used: " + this.field4016 + var6 + "Max-In-Use: " + this.field4017;
 	}
 
 	@ObfuscatedName("lp")
@@ -55,7 +55,7 @@ public class class334 {
 		garbageValue = "0"
 	)
 	static final void method6216() {
-		Client.field672 = Client.cycleCntr; // L: 12476
-		SoundSystem.ClanChat_inClanChat = true; // L: 12477
-	} // L: 12478
+		Client.field672 = Client.cycleCntr;
+		SoundSystem.ClanChat_inClanChat = true;
+	}
 }

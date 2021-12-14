@@ -31,6 +31,6 @@ public class class257 {
 		garbageValue = "-1757234345"
 	)
 	public static boolean method5020(int var0) {
-		return (var0 >> 28 & 1) != 0; // L: 29
+		return (var0 >> 28 & 1) != 0;
 	}
 }

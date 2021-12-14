@@ -44,8 +44,8 @@ public enum AttackOption implements MouseWheel {
 	final int id;
 
 	AttackOption(int var3) {
-		this.id = var3; // L: 12752
-	} // L: 12753
+		this.id = var3;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -54,7 +54,7 @@ public enum AttackOption implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 12757
+		return this.id;
 	}
 
 	@ObfuscatedName("lg")
@@ -63,6 +63,6 @@ public enum AttackOption implements MouseWheel {
 		garbageValue = "-379261507"
 	)
 	static boolean method2356() {
-		return SecureRandomFuture.clientPreferences.field1197 >= Client.field473; // L: 12724
+		return SecureRandomFuture.clientPreferences.field1197 >= Client.field473;
 	}
 }

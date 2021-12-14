@@ -24,6 +24,6 @@ public class class87 {
 		garbageValue = "-2105253553"
 	)
 	static class121[] method2281() {
-		return new class121[]{class121.field1465, class121.field1461, class121.field1459, class121.field1462, class121.field1463, class121.field1464, class121.field1469, class121.field1466, class121.field1467}; // L: 101
+		return new class121[]{class121.field1465, class121.field1461, class121.field1459, class121.field1462, class121.field1463, class121.field1464, class121.field1469, class121.field1466, class121.field1467};
 	}
 }

@@ -147,34 +147,34 @@ public class Login {
 	static String[] field893;
 
 	static {
-		xPadding = 0; // L: 39
-		loginBoxX = xPadding + 202; // L: 58
-		Login_loadingPercent = 10; // L: 60
-		Login_loadingText = ""; // L: 61
-		field871 = -1; // L: 79
-		field872 = 1; // L: 82
-		loginIndex = 0; // L: 86
-		Login_response0 = ""; // L: 87
-		Login_response1 = ""; // L: 88
-		Login_response2 = ""; // L: 89
-		Login_response3 = ""; // L: 90
-		Login_username = ""; // L: 91
-		Login_password = ""; // L: 92
-		field880 = false; // L: 99
-		field881 = false; // L: 100
-		field882 = true; // L: 103
-		currentLoginField = 0; // L: 104
-		worldSelectOpen = false; // L: 108
-		hoveredWorldIndex = -1; // L: 116
-		worldSelectPage = 0; // L: 117
-		worldSelectPagesCount = 0; // L: 118
-		new DecimalFormat("##0.00"); // L: 121
+		xPadding = 0;
+		loginBoxX = xPadding + 202;
+		Login_loadingPercent = 10;
+		Login_loadingText = "";
+		field871 = -1;
+		field872 = 1;
+		loginIndex = 0;
+		Login_response0 = "";
+		Login_response1 = "";
+		Login_response2 = "";
+		Login_response3 = "";
+		Login_username = "";
+		Login_password = "";
+		field880 = false;
+		field881 = false;
+		field882 = true;
+		currentLoginField = 0;
+		worldSelectOpen = false;
+		hoveredWorldIndex = -1;
+		worldSelectPage = 0;
+		worldSelectPagesCount = 0;
+		new DecimalFormat("##0.00");
 		new class118();
-		field890 = -1L; // L: 129
-		field869 = -1L; // L: 130
-		field892 = new String[]{"title.jpg"}; // L: 133
+		field890 = -1L;
+		field869 = -1L;
+		field892 = new String[]{"title.jpg"};
 		field893 = new String[]{"logo", "logo_deadman_mode", "logo_seasonal_mode", "titlebox", "titlebutton", "titlebutton_large", "play_now_text", "titlebutton_wide42,1", "runes", "title_mute", "options_radio_buttons,0", "options_radio_buttons,2", "options_radio_buttons,4", "options_radio_buttons,6", "sl_back", "sl_flags", "sl_arrows", "sl_stars", "sl_button"};
-	} // L: 136
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -182,7 +182,7 @@ public class Login {
 		garbageValue = "160"
 	)
 	static class116[] method1994() {
-		return new class116[]{class116.field1421, class116.field1415, class116.field1416, class116.field1423, class116.field1418, class116.field1419}; // L: 25
+		return new class116[]{class116.field1421, class116.field1415, class116.field1416, class116.field1423, class116.field1418, class116.field1419};
 	}
 
 	@ObfuscatedName("w")
@@ -191,10 +191,10 @@ public class Login {
 		garbageValue = "-721408272"
 	)
 	static int method1993(int var0, int var1, int var2) {
-		if ((Tiles.Tiles_renderFlags[var0][var1][var2] & 8) != 0) { // L: 456
+		if ((Tiles.Tiles_renderFlags[var0][var1][var2] & 8) != 0) {
 			return 0;
 		} else {
-			return var0 > 0 && (Tiles.Tiles_renderFlags[1][var1][var2] & 2) != 0 ? var0 - 1 : var0; // L: 457
+			return var0 > 0 && (Tiles.Tiles_renderFlags[1][var1][var2] & 2) != 0 ? var0 - 1 : var0;
 		}
 	}
 
@@ -204,17 +204,17 @@ public class Login {
 		garbageValue = "675537632"
 	)
 	static final int method1995(int var0, int var1) {
-		if (var0 == -1) { // L: 495
+		if (var0 == -1) {
 			return 12345678;
 		} else {
-			var1 = (var0 & 127) * var1 / 128; // L: 496
-			if (var1 < 2) { // L: 497
+			var1 = (var0 & 127) * var1 / 128;
+			if (var1 < 2) {
 				var1 = 2;
-			} else if (var1 > 126) { // L: 498
+			} else if (var1 > 126) {
 				var1 = 126;
 			}
 
-			return (var0 & 65408) + var1; // L: 499
+			return (var0 & 65408) + var1;
 		}
 	}
 
@@ -224,6 +224,6 @@ public class Login {
 		garbageValue = "-5"
 	)
 	public static AbstractSocket method1965(Socket var0, int var1, int var2) throws IOException {
-		return new BufferedNetSocket(var0, var1, var2); // L: 10
+		return new BufferedNetSocket(var0, var1, var2);
 	}
 }

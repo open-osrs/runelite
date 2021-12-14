@@ -12,8 +12,8 @@ public class UserComparator2 implements Comparator {
 	final boolean reversed;
 
 	public UserComparator2(boolean var1) {
-		this.reversed = var1; // L: 10
-	} // L: 11
+		this.reversed = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -22,15 +22,15 @@ public class UserComparator2 implements Comparator {
 	)
 	@Export("compare_bridged")
 	int compare_bridged(User var1, User var2) {
-		return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername()); // L: 14
+		return this.reversed ? var1.getUsername().compareToTyped(var2.getUsername()) : var2.getUsername().compareToTyped(var1.getUsername());
 	}
 
 	public boolean equals(Object var1) {
-		return super.equals(var1); // L: 22
+		return super.equals(var1);
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compare_bridged((User)var1, (User)var2); // L: 18
+		return this.compare_bridged((User)var1, (User)var2);
 	}
 
 	@ObfuscatedName("b")
@@ -39,20 +39,20 @@ public class UserComparator2 implements Comparator {
 		garbageValue = "-1521057603"
 	)
 	public static final boolean method7617(int var0, int var1, int var2, RouteStrategy var3, CollisionMap var4) {
-		int var5 = var0; // L: 137
-		int var6 = var1; // L: 138
-		byte var7 = 64; // L: 139
-		byte var8 = 64; // L: 140
-		int var9 = var0 - var7; // L: 141
-		int var10 = var1 - var8; // L: 142
-		class186.directions[var7][var8] = 99; // L: 143
-		class186.distances[var7][var8] = 0; // L: 144
-		byte var11 = 0; // L: 145
-		int var12 = 0; // L: 146
-		class186.bufferX[var11] = var0; // L: 147
+		int var5 = var0;
+		int var6 = var1;
+		byte var7 = 64;
+		byte var8 = 64;
+		int var9 = var0 - var7;
+		int var10 = var1 - var8;
+		class186.directions[var7][var8] = 99;
+		class186.distances[var7][var8] = 0;
+		byte var11 = 0;
+		int var12 = 0;
+		class186.bufferX[var11] = var0;
 		int var20 = var11 + 1;
-		class186.bufferY[var11] = var1; // L: 148
-		int[][] var13 = var4.flags; // L: 149
+		class186.bufferY[var11] = var1;
+		int[][] var13 = var4.flags;
 
 		while (true) {
 			label305:
@@ -68,181 +68,181 @@ public class UserComparator2 implements Comparator {
 						do {
 							label282:
 							do {
-								if (var12 == var20) { // L: 150
-									class186.field2129 = var5; // L: 269
-									class186.field2130 = var6; // L: 270
-									return false; // L: 271
+								if (var12 == var20) {
+									class186.field2129 = var5;
+									class186.field2130 = var6;
+									return false;
 								}
 
-								var5 = class186.bufferX[var12]; // L: 151
-								var6 = class186.bufferY[var12]; // L: 152
-								var12 = var12 + 1 & 4095; // L: 153
-								var18 = var5 - var9; // L: 154
-								var19 = var6 - var10; // L: 155
-								var14 = var5 - var4.xInset; // L: 156
-								var15 = var6 - var4.yInset; // L: 157
-								if (var3.hasArrived(var2, var5, var6, var4)) { // L: 158
-									class186.field2129 = var5; // L: 159
-									class186.field2130 = var6; // L: 160
-									return true; // L: 161
+								var5 = class186.bufferX[var12];
+								var6 = class186.bufferY[var12];
+								var12 = var12 + 1 & 4095;
+								var18 = var5 - var9;
+								var19 = var6 - var10;
+								var14 = var5 - var4.xInset;
+								var15 = var6 - var4.yInset;
+								if (var3.hasArrived(var2, var5, var6, var4)) {
+									class186.field2129 = var5;
+									class186.field2130 = var6;
+									return true;
 								}
 
-								var16 = class186.distances[var18][var19] + 1; // L: 163
-								if (var18 > 0 && class186.directions[var18 - 1][var19] == 0 && (var13[var14 - 1][var15] & 19136782) == 0 && (var13[var14 - 1][var15 + var2 - 1] & 19136824) == 0) { // L: 164 165 166 167
+								var16 = class186.distances[var18][var19] + 1;
+								if (var18 > 0 && class186.directions[var18 - 1][var19] == 0 && (var13[var14 - 1][var15] & 19136782) == 0 && (var13[var14 - 1][var15 + var2 - 1] & 19136824) == 0) {
 									var17 = 1;
 
 									while (true) {
 										if (var17 >= var2 - 1) {
-											class186.bufferX[var20] = var5 - 1; // L: 171
-											class186.bufferY[var20] = var6; // L: 172
-											var20 = var20 + 1 & 4095; // L: 173
-											class186.directions[var18 - 1][var19] = 2; // L: 174
-											class186.distances[var18 - 1][var19] = var16; // L: 175
+											class186.bufferX[var20] = var5 - 1;
+											class186.bufferY[var20] = var6;
+											var20 = var20 + 1 & 4095;
+											class186.directions[var18 - 1][var19] = 2;
+											class186.distances[var18 - 1][var19] = var16;
 											break;
 										}
 
-										if ((var13[var14 - 1][var15 + var17] & 19136830) != 0) { // L: 169
+										if ((var13[var14 - 1][var15 + var17] & 19136830) != 0) {
 											break;
 										}
 
-										++var17; // L: 168
+										++var17;
 									}
 								}
 
-								if (var18 < 128 - var2 && class186.directions[var18 + 1][var19] == 0 && (var13[var14 + var2][var15] & 19136899) == 0 && (var13[var14 + var2][var15 + var2 - 1] & 19136992) == 0) { // L: 177 178 179 180
+								if (var18 < 128 - var2 && class186.directions[var18 + 1][var19] == 0 && (var13[var14 + var2][var15] & 19136899) == 0 && (var13[var14 + var2][var15 + var2 - 1] & 19136992) == 0) {
 									var17 = 1;
 
 									while (true) {
 										if (var17 >= var2 - 1) {
-											class186.bufferX[var20] = var5 + 1; // L: 184
-											class186.bufferY[var20] = var6; // L: 185
-											var20 = var20 + 1 & 4095; // L: 186
-											class186.directions[var18 + 1][var19] = 8; // L: 187
-											class186.distances[var18 + 1][var19] = var16; // L: 188
+											class186.bufferX[var20] = var5 + 1;
+											class186.bufferY[var20] = var6;
+											var20 = var20 + 1 & 4095;
+											class186.directions[var18 + 1][var19] = 8;
+											class186.distances[var18 + 1][var19] = var16;
 											break;
 										}
 
-										if ((var13[var14 + var2][var17 + var15] & 19136995) != 0) { // L: 182
+										if ((var13[var14 + var2][var17 + var15] & 19136995) != 0) {
 											break;
 										}
 
-										++var17; // L: 181
+										++var17;
 									}
 								}
 
-								if (var19 > 0 && class186.directions[var18][var19 - 1] == 0 && (var13[var14][var15 - 1] & 19136782) == 0 && (var13[var14 + var2 - 1][var15 - 1] & 19136899) == 0) { // L: 190 191 192 193
+								if (var19 > 0 && class186.directions[var18][var19 - 1] == 0 && (var13[var14][var15 - 1] & 19136782) == 0 && (var13[var14 + var2 - 1][var15 - 1] & 19136899) == 0) {
 									var17 = 1;
 
 									while (true) {
 										if (var17 >= var2 - 1) {
-											class186.bufferX[var20] = var5; // L: 197
-											class186.bufferY[var20] = var6 - 1; // L: 198
-											var20 = var20 + 1 & 4095; // L: 199
-											class186.directions[var18][var19 - 1] = 1; // L: 200
-											class186.distances[var18][var19 - 1] = var16; // L: 201
+											class186.bufferX[var20] = var5;
+											class186.bufferY[var20] = var6 - 1;
+											var20 = var20 + 1 & 4095;
+											class186.directions[var18][var19 - 1] = 1;
+											class186.distances[var18][var19 - 1] = var16;
 											break;
 										}
 
-										if ((var13[var14 + var17][var15 - 1] & 19136911) != 0) { // L: 195
+										if ((var13[var14 + var17][var15 - 1] & 19136911) != 0) {
 											break;
 										}
 
-										++var17; // L: 194
+										++var17;
 									}
 								}
 
-								if (var19 < 128 - var2 && class186.directions[var18][var19 + 1] == 0 && (var13[var14][var15 + var2] & 19136824) == 0 && (var13[var14 + var2 - 1][var15 + var2] & 19136992) == 0) { // L: 203 204 205 206
+								if (var19 < 128 - var2 && class186.directions[var18][var19 + 1] == 0 && (var13[var14][var15 + var2] & 19136824) == 0 && (var13[var14 + var2 - 1][var15 + var2] & 19136992) == 0) {
 									var17 = 1;
 
 									while (true) {
 										if (var17 >= var2 - 1) {
-											class186.bufferX[var20] = var5; // L: 210
-											class186.bufferY[var20] = var6 + 1; // L: 211
-											var20 = var20 + 1 & 4095; // L: 212
-											class186.directions[var18][var19 + 1] = 4; // L: 213
-											class186.distances[var18][var19 + 1] = var16; // L: 214
+											class186.bufferX[var20] = var5;
+											class186.bufferY[var20] = var6 + 1;
+											var20 = var20 + 1 & 4095;
+											class186.directions[var18][var19 + 1] = 4;
+											class186.distances[var18][var19 + 1] = var16;
 											break;
 										}
 
-										if ((var13[var14 + var17][var15 + var2] & 19137016) != 0) { // L: 208
+										if ((var13[var14 + var17][var15 + var2] & 19137016) != 0) {
 											break;
 										}
 
-										++var17; // L: 207
+										++var17;
 									}
 								}
 
-								if (var18 > 0 && var19 > 0 && class186.directions[var18 - 1][var19 - 1] == 0 && (var13[var14 - 1][var15 - 1] & 19136782) == 0) { // L: 216 217 218
+								if (var18 > 0 && var19 > 0 && class186.directions[var18 - 1][var19 - 1] == 0 && (var13[var14 - 1][var15 - 1] & 19136782) == 0) {
 									var17 = 1;
 
 									while (true) {
 										if (var17 >= var2) {
-											class186.bufferX[var20] = var5 - 1; // L: 223
-											class186.bufferY[var20] = var6 - 1; // L: 224
-											var20 = var20 + 1 & 4095; // L: 225
-											class186.directions[var18 - 1][var19 - 1] = 3; // L: 226
-											class186.distances[var18 - 1][var19 - 1] = var16; // L: 227
+											class186.bufferX[var20] = var5 - 1;
+											class186.bufferY[var20] = var6 - 1;
+											var20 = var20 + 1 & 4095;
+											class186.directions[var18 - 1][var19 - 1] = 3;
+											class186.distances[var18 - 1][var19 - 1] = var16;
 											break;
 										}
 
-										if ((var13[var14 - 1][var17 + (var15 - 1)] & 19136830) != 0 || (var13[var17 + (var14 - 1)][var15 - 1] & 19136911) != 0) { // L: 220 221
+										if ((var13[var14 - 1][var17 + (var15 - 1)] & 19136830) != 0 || (var13[var17 + (var14 - 1)][var15 - 1] & 19136911) != 0) {
 											break;
 										}
 
-										++var17; // L: 219
+										++var17;
 									}
 								}
 
-								if (var18 < 128 - var2 && var19 > 0 && class186.directions[var18 + 1][var19 - 1] == 0 && (var13[var14 + var2][var15 - 1] & 19136899) == 0) { // L: 229 230 231
+								if (var18 < 128 - var2 && var19 > 0 && class186.directions[var18 + 1][var19 - 1] == 0 && (var13[var14 + var2][var15 - 1] & 19136899) == 0) {
 									var17 = 1;
 
 									while (true) {
 										if (var17 >= var2) {
-											class186.bufferX[var20] = var5 + 1; // L: 236
-											class186.bufferY[var20] = var6 - 1; // L: 237
-											var20 = var20 + 1 & 4095; // L: 238
-											class186.directions[var18 + 1][var19 - 1] = 9; // L: 239
-											class186.distances[var18 + 1][var19 - 1] = var16; // L: 240
+											class186.bufferX[var20] = var5 + 1;
+											class186.bufferY[var20] = var6 - 1;
+											var20 = var20 + 1 & 4095;
+											class186.directions[var18 + 1][var19 - 1] = 9;
+											class186.distances[var18 + 1][var19 - 1] = var16;
 											break;
 										}
 
-										if ((var13[var14 + var2][var17 + (var15 - 1)] & 19136995) != 0 || (var13[var17 + var14][var15 - 1] & 19136911) != 0) { // L: 233 234
+										if ((var13[var14 + var2][var17 + (var15 - 1)] & 19136995) != 0 || (var13[var17 + var14][var15 - 1] & 19136911) != 0) {
 											break;
 										}
 
-										++var17; // L: 232
+										++var17;
 									}
 								}
 
-								if (var18 > 0 && var19 < 128 - var2 && class186.directions[var18 - 1][var19 + 1] == 0 && (var13[var14 - 1][var15 + var2] & 19136824) == 0) { // L: 242 243 244
-									for (var17 = 1; var17 < var2; ++var17) { // L: 245
-										if ((var13[var14 - 1][var15 + var17] & 19136830) != 0 || (var13[var17 + (var14 - 1)][var15 + var2] & 19137016) != 0) { // L: 246 247
+								if (var18 > 0 && var19 < 128 - var2 && class186.directions[var18 - 1][var19 + 1] == 0 && (var13[var14 - 1][var15 + var2] & 19136824) == 0) {
+									for (var17 = 1; var17 < var2; ++var17) {
+										if ((var13[var14 - 1][var15 + var17] & 19136830) != 0 || (var13[var17 + (var14 - 1)][var15 + var2] & 19137016) != 0) {
 											continue label282;
 										}
 									}
 
-									class186.bufferX[var20] = var5 - 1; // L: 249
-									class186.bufferY[var20] = var6 + 1; // L: 250
-									var20 = var20 + 1 & 4095; // L: 251
-									class186.directions[var18 - 1][var19 + 1] = 6; // L: 252
-									class186.distances[var18 - 1][var19 + 1] = var16; // L: 253
+									class186.bufferX[var20] = var5 - 1;
+									class186.bufferY[var20] = var6 + 1;
+									var20 = var20 + 1 & 4095;
+									class186.directions[var18 - 1][var19 + 1] = 6;
+									class186.distances[var18 - 1][var19 + 1] = var16;
 								}
-							} while(var18 >= 128 - var2); // L: 255
+							} while(var18 >= 128 - var2);
 						} while(var19 >= 128 - var2);
-					} while(class186.directions[var18 + 1][var19 + 1] != 0); // L: 256
-				} while((var13[var14 + var2][var15 + var2] & 19136992) != 0); // L: 257
+					} while(class186.directions[var18 + 1][var19 + 1] != 0);
+				} while((var13[var14 + var2][var15 + var2] & 19136992) != 0);
 
-				for (var17 = 1; var17 < var2; ++var17) { // L: 258
-					if ((var13[var17 + var14][var15 + var2] & 19137016) != 0 || (var13[var14 + var2][var17 + var15] & 19136995) != 0) { // L: 259 260
+				for (var17 = 1; var17 < var2; ++var17) {
+					if ((var13[var17 + var14][var15 + var2] & 19137016) != 0 || (var13[var14 + var2][var17 + var15] & 19136995) != 0) {
 						continue label305;
 					}
 				}
 
-				class186.bufferX[var20] = var5 + 1; // L: 262
-				class186.bufferY[var20] = var6 + 1; // L: 263
-				var20 = var20 + 1 & 4095; // L: 264
-				class186.directions[var18 + 1][var19 + 1] = 12; // L: 265
-				class186.distances[var18 + 1][var19 + 1] = var16; // L: 266
+				class186.bufferX[var20] = var5 + 1;
+				class186.bufferY[var20] = var6 + 1;
+				var20 = var20 + 1 & 4095;
+				class186.directions[var18 + 1][var19 + 1] = 12;
+				class186.distances[var18 + 1][var19 + 1] = var16;
 			}
 		}
 	}

@@ -23,133 +23,133 @@ public class class281 {
 	)
 	@Export("changeGameOptions")
 	static final void changeGameOptions(int var0) {
-		UserComparator6.method2551(); // L: 12161
-		ObjectComposition.method3540(); // L: 12162
-		int var1 = SecureRandomCallable.VarpDefinition_get(var0).type; // L: 12163
-		if (var1 != 0) { // L: 12164
-			int var2 = Varps.Varps_main[var0]; // L: 12165
-			if (var1 == 1) { // L: 12166
-				if (var2 == 1) { // L: 12167
+		UserComparator6.method2551();
+		ObjectComposition.method3540();
+		int var1 = SecureRandomCallable.VarpDefinition_get(var0).type;
+		if (var1 != 0) {
+			int var2 = Varps.Varps_main[var0];
+			if (var1 == 1) {
+				if (var2 == 1) {
 					InterfaceParent.method2142(0.9D);
 				}
 
-				if (var2 == 2) { // L: 12168
+				if (var2 == 2) {
 					InterfaceParent.method2142(0.8D);
 				}
 
-				if (var2 == 3) { // L: 12169
+				if (var2 == 3) {
 					InterfaceParent.method2142(0.7D);
 				}
 
-				if (var2 == 4) { // L: 12170
+				if (var2 == 4) {
 					InterfaceParent.method2142(0.6D);
 				}
 			}
 
-			if (var1 == 3) { // L: 12172
-				if (var2 == 0) { // L: 12173
+			if (var1 == 3) {
+				if (var2 == 0) {
 					Varcs.method2426(255);
 				}
 
-				if (var2 == 1) { // L: 12174
+				if (var2 == 1) {
 					Varcs.method2426(192);
 				}
 
-				if (var2 == 2) { // L: 12175
+				if (var2 == 2) {
 					Varcs.method2426(128);
 				}
 
-				if (var2 == 3) { // L: 12176
+				if (var2 == 3) {
 					Varcs.method2426(64);
 				}
 
-				if (var2 == 4) { // L: 12177
+				if (var2 == 4) {
 					Varcs.method2426(0);
 				}
 			}
 
-			if (var1 == 4) { // L: 12179
-				if (var2 == 0) { // L: 12180
+			if (var1 == 4) {
+				if (var2 == 0) {
 					class20.updateSoundEffectVolume(127);
 				}
 
-				if (var2 == 1) { // L: 12181
+				if (var2 == 1) {
 					class20.updateSoundEffectVolume(96);
 				}
 
-				if (var2 == 2) { // L: 12182
+				if (var2 == 2) {
 					class20.updateSoundEffectVolume(64);
 				}
 
-				if (var2 == 3) { // L: 12183
+				if (var2 == 3) {
 					class20.updateSoundEffectVolume(32);
 				}
 
-				if (var2 == 4) { // L: 12184
+				if (var2 == 4) {
 					class20.updateSoundEffectVolume(0);
 				}
 			}
 
-			if (var1 == 5) { // L: 12186
+			if (var1 == 5) {
 				Client.leftClickOpensMenu = var2;
 			}
 
-			if (var1 == 6) { // L: 12187
+			if (var1 == 6) {
 				Client.chatEffects = var2;
 			}
 
-			if (var1 == 9) { // L: 12188
+			if (var1 == 9) {
 				Client.field641 = var2;
 			}
 
-			if (var1 == 10) { // L: 12189
-				if (var2 == 0) { // L: 12190
+			if (var1 == 10) {
+				if (var2 == 0) {
 					Players.method2383(127);
 				}
 
-				if (var2 == 1) { // L: 12191
+				if (var2 == 1) {
 					Players.method2383(96);
 				}
 
-				if (var2 == 2) { // L: 12192
+				if (var2 == 2) {
 					Players.method2383(64);
 				}
 
-				if (var2 == 3) { // L: 12193
+				if (var2 == 3) {
 					Players.method2383(32);
 				}
 
-				if (var2 == 4) { // L: 12194
+				if (var2 == 4) {
 					Players.method2383(0);
 				}
 			}
 
-			if (var1 == 17) { // L: 12196
-				Client.followerIndex = var2 & 65535; // L: 12197
+			if (var1 == 17) {
+				Client.followerIndex = var2 & 65535;
 			}
 
-			if (var1 == 18) { // L: 12199
-				Client.playerAttackOption = (AttackOption)class130.findEnumerated(FloorUnderlayDefinition.method3376(), var2); // L: 12200
-				if (Client.playerAttackOption == null) { // L: 12201
+			if (var1 == 18) {
+				Client.playerAttackOption = (AttackOption)class130.findEnumerated(FloorUnderlayDefinition.method3376(), var2);
+				if (Client.playerAttackOption == null) {
 					Client.playerAttackOption = AttackOption.AttackOption_dependsOnCombatLevels;
 				}
 			}
 
-			if (var1 == 19) { // L: 12203
-				if (var2 == -1) { // L: 12204
+			if (var1 == 19) {
+				if (var2 == -1) {
 					Client.combatTargetPlayerIndex = -1;
 				} else {
-					Client.combatTargetPlayerIndex = var2 & 2047; // L: 12205
+					Client.combatTargetPlayerIndex = var2 & 2047;
 				}
 			}
 
-			if (var1 == 22) { // L: 12207
-				Client.npcAttackOption = (AttackOption)class130.findEnumerated(FloorUnderlayDefinition.method3376(), var2); // L: 12208
-				if (Client.npcAttackOption == null) { // L: 12209
+			if (var1 == 22) {
+				Client.npcAttackOption = (AttackOption)class130.findEnumerated(FloorUnderlayDefinition.method3376(), var2);
+				if (Client.npcAttackOption == null) {
 					Client.npcAttackOption = AttackOption.AttackOption_dependsOnCombatLevels;
 				}
 			}
 
 		}
-	} // L: 12211
+	}
 }

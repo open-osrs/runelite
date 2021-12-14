@@ -42,7 +42,7 @@ public class ReflectionCheck extends Node {
 	Method[] methods;
 
 	ReflectionCheck() {
-	} // L: 17
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -51,11 +51,11 @@ public class ReflectionCheck extends Node {
 	)
 	@Export("ItemContainer_getCount")
 	static int ItemContainer_getCount(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 21
-		if (var2 == null) { // L: 22
+		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
+		if (var2 == null) {
 			return 0;
 		} else {
-			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0; // L: 23 24
+			return var1 >= 0 && var1 < var2.quantities.length ? var2.quantities[var1] : 0;
 		}
 	}
 
@@ -65,11 +65,11 @@ public class ReflectionCheck extends Node {
 		garbageValue = "-1748869629"
 	)
 	static void method662(int var0) {
-		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 72
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
 		if (var1 != null) {
-			var1.remove(); // L: 74
+			var1.remove();
 		}
-	} // L: 73 75
+	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -78,44 +78,44 @@ public class ReflectionCheck extends Node {
 	)
 	@Export("compareWorlds")
 	static int compareWorlds(World var0, World var1, int var2, boolean var3) {
-		if (var2 == 1) { // L: 211
-			int var4 = var0.population; // L: 212
-			int var5 = var1.population; // L: 213
-			if (!var3) { // L: 214
-				if (var4 == -1) { // L: 215
+		if (var2 == 1) {
+			int var4 = var0.population;
+			int var5 = var1.population;
+			if (!var3) {
+				if (var4 == -1) {
 					var4 = 2001;
 				}
 
-				if (var5 == -1) { // L: 216
+				if (var5 == -1) {
 					var5 = 2001;
 				}
 			}
 
-			return var4 - var5; // L: 218
-		} else if (var2 == 2) { // L: 220
+			return var4 - var5;
+		} else if (var2 == 2) {
 			return var0.location - var1.location;
-		} else if (var2 == 3) { // L: 221
-			if (var0.activity.equals("-")) { // L: 222
-				if (var1.activity.equals("-")) { // L: 223
+		} else if (var2 == 3) {
+			if (var0.activity.equals("-")) {
+				if (var1.activity.equals("-")) {
 					return 0;
 				} else {
-					return var3 ? -1 : 1; // L: 224
+					return var3 ? -1 : 1;
 				}
-			} else if (var1.activity.equals("-")) { // L: 226
+			} else if (var1.activity.equals("-")) {
 				return var3 ? 1 : -1;
 			} else {
-				return var0.activity.compareTo(var1.activity); // L: 227
+				return var0.activity.compareTo(var1.activity);
 			}
-		} else if (var2 == 4) { // L: 229
+		} else if (var2 == 4) {
 			return var0.method1676() ? (var1.method1676() ? 0 : 1) : (var1.method1676() ? -1 : 0);
-		} else if (var2 == 5) { // L: 230
+		} else if (var2 == 5) {
 			return var0.method1696() ? (var1.method1696() ? 0 : 1) : (var1.method1696() ? -1 : 0);
-		} else if (var2 == 6) { // L: 231
+		} else if (var2 == 6) {
 			return var0.isPvp() ? (var1.isPvp() ? 0 : 1) : (var1.isPvp() ? -1 : 0);
-		} else if (var2 == 7) { // L: 232
+		} else if (var2 == 7) {
 			return var0.isMembersOnly() ? (var1.isMembersOnly() ? 0 : 1) : (var1.isMembersOnly() ? -1 : 0);
 		} else {
-			return var0.id - var1.id; // L: 233
+			return var0.id - var1.id;
 		}
 	}
 
@@ -128,74 +128,74 @@ public class ReflectionCheck extends Node {
 		int var3;
 		int var6;
 		int var9;
-		if (var0 == ScriptOpcodes.ENUM_STRING) { // L: 2059
-			IsaacCipher.Interpreter_intStackSize -= 2; // L: 2060
-			var3 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize]; // L: 2061
-			var9 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1]; // L: 2062
-			EnumComposition var10 = class119.getEnum(var3); // L: 2063
-			if (var10.outputType != 's') { // L: 2064
+		if (var0 == ScriptOpcodes.ENUM_STRING) {
+			IsaacCipher.Interpreter_intStackSize -= 2;
+			var3 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize];
+			var9 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1];
+			EnumComposition var10 = class119.getEnum(var3);
+			if (var10.outputType != 's') {
 			}
 
-			for (var6 = 0; var6 < var10.outputCount; ++var6) { // L: 2065
-				if (var9 == var10.keys[var6]) { // L: 2066
-					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var10.strVals[var6]; // L: 2067
-					var10 = null; // L: 2068
+			for (var6 = 0; var6 < var10.outputCount; ++var6) {
+				if (var9 == var10.keys[var6]) {
+					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var10.strVals[var6];
+					var10 = null;
 					break;
 				}
 			}
 
-			if (var10 != null) { // L: 2072
+			if (var10 != null) {
 				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var10.defaultStr;
 			}
 
-			return 1; // L: 2073
-		} else if (var0 != ScriptOpcodes.ENUM) { // L: 2075
-			if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) { // L: 2101
-				var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize]; // L: 2102
-				EnumComposition var4 = class119.getEnum(var3); // L: 2103
-				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var4.size(); // L: 2104
-				return 1; // L: 2105
+			return 1;
+		} else if (var0 != ScriptOpcodes.ENUM) {
+			if (var0 == ScriptOpcodes.ENUM_GETOUTPUTCOUNT) {
+				var3 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
+				EnumComposition var4 = class119.getEnum(var3);
+				Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var4.size();
+				return 1;
 			} else {
-				return 2; // L: 2107
+				return 2;
 			}
 		} else {
-			IsaacCipher.Interpreter_intStackSize -= 4; // L: 2076
-			var3 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize]; // L: 2077
-			var9 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1]; // L: 2078
-			int var5 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 2]; // L: 2079
-			var6 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 3]; // L: 2080
-			EnumComposition var7 = class119.getEnum(var5); // L: 2081
-			if (var3 == var7.inputType && var9 == var7.outputType) { // L: 2082
-				for (int var8 = 0; var8 < var7.outputCount; ++var8) { // L: 2087
-					if (var6 == var7.keys[var8]) { // L: 2088
-						if (var9 == 115) { // L: 2089
+			IsaacCipher.Interpreter_intStackSize -= 4;
+			var3 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize];
+			var9 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1];
+			int var5 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 2];
+			var6 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 3];
+			EnumComposition var7 = class119.getEnum(var5);
+			if (var3 == var7.inputType && var9 == var7.outputType) {
+				for (int var8 = 0; var8 < var7.outputCount; ++var8) {
+					if (var6 == var7.keys[var8]) {
+						if (var9 == 115) {
 							Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var7.strVals[var8];
 						} else {
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var7.intVals[var8]; // L: 2090
+							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var7.intVals[var8];
 						}
 
-						var7 = null; // L: 2091
+						var7 = null;
 						break;
 					}
 				}
 
-				if (var7 != null) { // L: 2095
+				if (var7 != null) {
 					if (var9 == 115) {
-						Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var7.defaultStr; // L: 2096
+						Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var7.defaultStr;
 					} else {
-						Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var7.defaultInt; // L: 2097
+						Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var7.defaultInt;
 					}
 				}
 
-				return 1; // L: 2099
+				return 1;
 			} else {
-				if (var9 == 115) { // L: 2083
+				if (var9 == 115) {
 					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = "null";
 				} else {
-					Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 0; // L: 2084
+					Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 0;
 				}
 
-				return 1; // L: 2085
+				return 1;
 			}
 		}
 	}
@@ -206,9 +206,9 @@ public class ReflectionCheck extends Node {
 		garbageValue = "682246596"
 	)
 	static void method664() {
-		if (class340.localPlayer.x >> 7 == Client.destinationX && class340.localPlayer.y >> 7 == Client.destinationY) { // L: 5435
-			Client.destinationX = 0; // L: 5436
+		if (class340.localPlayer.x >> 7 == Client.destinationX && class340.localPlayer.y >> 7 == Client.destinationY) {
+			Client.destinationX = 0;
 		}
 
-	} // L: 5438
+	}
 }

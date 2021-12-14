@@ -48,11 +48,11 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(Lju;Lju;ILhw;)V"
 	)
 	WorldMapIcon_1(Coord var1, Coord var2, int var3, WorldMapRegion var4) {
-		super(var1, var2); // L: 17
-		this.objectDefId = var3; // L: 18
-		this.region = var4; // L: 19
-		this.init(); // L: 20
-	} // L: 21
+		super(var1, var2);
+		this.objectDefId = var3;
+		this.region = var4;
+		this.init();
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -61,19 +61,19 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	)
 	@Export("init")
 	void init() {
-		this.element = class148.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
-		this.label = this.region.createMapLabel(class78.WorldMapElement_get(this.element)); // L: 25
-		WorldMapElement var1 = class78.WorldMapElement_get(this.getElement()); // L: 26
-		SpritePixels var2 = var1.getSpriteBool(false); // L: 27
-		if (var2 != null) { // L: 28
-			this.subWidth = var2.subWidth; // L: 29
-			this.subHeight = var2.subHeight; // L: 30
+		this.element = class148.getObjectDefinition(this.objectDefId).transform().mapIconId;
+		this.label = this.region.createMapLabel(class78.WorldMapElement_get(this.element));
+		WorldMapElement var1 = class78.WorldMapElement_get(this.getElement());
+		SpritePixels var2 = var1.getSpriteBool(false);
+		if (var2 != null) {
+			this.subWidth = var2.subWidth;
+			this.subHeight = var2.subHeight;
 		} else {
-			this.subWidth = 0; // L: 33
-			this.subHeight = 0; // L: 34
+			this.subWidth = 0;
+			this.subHeight = 0;
 		}
 
-	} // L: 36
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -82,7 +82,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	)
 	@Export("getElement")
 	public int getElement() {
-		return this.element; // L: 40
+		return this.element;
 	}
 
 	@ObfuscatedName("p")
@@ -92,7 +92,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
-		return this.label; // L: 45
+		return this.label;
 	}
 
 	@ObfuscatedName("m")
@@ -102,7 +102,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
-		return this.subWidth; // L: 50
+		return this.subWidth;
 	}
 
 	@ObfuscatedName("t")
@@ -112,7 +112,7 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
-		return this.subHeight; // L: 55
+		return this.subHeight;
 	}
 
 	@ObfuscatedName("iy")
@@ -121,8 +121,8 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		garbageValue = "-77644822"
 	)
 	static final void method4385(MenuAction var0, int var1, int var2) {
-		Decimator.menuAction(var0.param0, var0.param1, var0.opcode, var0.identifier, var0.action, var0.action, var1, var2); // L: 9015
-	} // L: 9016
+		Decimator.menuAction(var0.param0, var0.param1, var0.opcode, var0.identifier, var0.action, var0.action, var1, var2);
+	}
 
 	@ObfuscatedName("lq")
 	@ObfuscatedSignature(
@@ -131,8 +131,8 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 	)
 	@Export("Clan_leaveChat")
 	static final void Clan_leaveChat() {
-		PacketBufferNode var0 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2857, Client.packetWriter.isaacCipher); // L: 12504
-		var0.packetBuffer.writeByte(0); // L: 12505
-		Client.packetWriter.addNode(var0); // L: 12506
-	} // L: 12507
+		PacketBufferNode var0 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2857, Client.packetWriter.isaacCipher);
+		var0.packetBuffer.writeByte(0);
+		Client.packetWriter.addNode(var0);
+	}
 }
