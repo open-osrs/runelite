@@ -17,13 +17,13 @@ public class class376 {
 	String field4229;
 
 	static {
-		field4231 = new class376("application/json"); // L: 4
-		field4227 = new class376("text/plain"); // L: 5
+		field4231 = new class376("application/json");
+		field4227 = new class376("text/plain");
 	}
 
 	class376(String var1) {
-		this.field4229 = var1; // L: 9
-	} // L: 10
+		this.field4229 = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -31,6 +31,6 @@ public class class376 {
 		garbageValue = "511276144"
 	)
 	public String method6793() {
-		return this.field4229; // L: 13
+		return this.field4229;
 	}
 }

@@ -25,8 +25,8 @@ public abstract class PcmStream extends Node {
 	AbstractSound sound;
 
 	protected PcmStream() {
-		this.active = true; // L: 11
-	} // L: 13
+		this.active = true;
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -55,17 +55,17 @@ public abstract class PcmStream extends Node {
 
 	@ObfuscatedName("ac")
 	int vmethod991() {
-		return 255; // L: 16
+		return 255;
 	}
 
 	@ObfuscatedName("fv")
 	@Export("update")
 	final void update(int[] var1, int var2, int var3) {
-		if (this.active) { // L: 24
+		if (this.active) {
 			this.fill(var1, var2, var3);
 		} else {
-			this.skip(var3); // L: 25
+			this.skip(var3);
 		}
 
-	} // L: 26
+	}
 }

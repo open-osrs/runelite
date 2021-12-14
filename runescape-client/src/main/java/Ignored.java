@@ -21,7 +21,7 @@ public class Ignored extends User {
 	int id;
 
 	Ignored() {
-	} // L: 6
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -30,7 +30,7 @@ public class Ignored extends User {
 	)
 	@Export("compareTo_ignored")
 	int compareTo_ignored(Ignored var1) {
-		return this.id - var1.id; // L: 9
+		return this.id - var1.id;
 	}
 
 	@ObfuscatedName("b")
@@ -40,11 +40,11 @@ public class Ignored extends User {
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.compareTo_ignored((Ignored)var1); // L: 13
+		return this.compareTo_ignored((Ignored)var1);
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_ignored((Ignored)var1); // L: 17
+		return this.compareTo_ignored((Ignored)var1);
 	}
 
 	@ObfuscatedName("c")
@@ -53,12 +53,12 @@ public class Ignored extends User {
 		garbageValue = "-376840192"
 	)
 	public static final synchronized long method6459() {
-		long var0 = System.currentTimeMillis(); // L: 14
-		if (var0 < class415.field4466) { // L: 15
-			class415.field4467 += class415.field4466 - var0; // L: 16
+		long var0 = System.currentTimeMillis();
+		if (var0 < class415.field4466) {
+			class415.field4467 += class415.field4466 - var0;
 		}
 
-		class415.field4466 = var0; // L: 18
-		return var0 + class415.field4467; // L: 19
+		class415.field4466 = var0;
+		return var0 + class415.field4467;
 	}
 }

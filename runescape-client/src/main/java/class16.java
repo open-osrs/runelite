@@ -20,17 +20,17 @@ public class class16 implements ThreadFactory {
 		descriptor = "(Lg;)V"
 	)
 	class16(class14 var1) {
-		this.this$0 = var1; // L: 68
-		this.field86 = new AtomicInteger(1); // L: 66
-		SecurityManager var2 = System.getSecurityManager(); // L: 69
-		this.field87 = var2 != null ? var2.getThreadGroup() : Thread.currentThread().getThreadGroup(); // L: 70
-	} // L: 71
+		this.this$0 = var1;
+		this.field86 = new AtomicInteger(1);
+		SecurityManager var2 = System.getSecurityManager();
+		this.field87 = var2 != null ? var2.getThreadGroup() : Thread.currentThread().getThreadGroup();
+	}
 
 	public Thread newThread(Runnable var1) {
-		Thread var2 = new Thread(this.field87, var1, this.this$0.field79 + "-rest-request-" + this.field86.getAndIncrement(), 0L); // L: 75
-		var2.setDaemon(true); // L: 76
-		var2.setPriority(5); // L: 77
-		return var2; // L: 78
+		Thread var2 = new Thread(this.field87, var1, this.this$0.field79 + "-rest-request-" + this.field86.getAndIncrement(), 0L);
+		var2.setDaemon(true);
+		var2.setPriority(5);
+		return var2;
 	}
 
 	@ObfuscatedName("o")
@@ -40,16 +40,16 @@ public class class16 implements ThreadFactory {
 	)
 	@Export("Widget_setKeyIgnoreHeld")
 	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
-		if (var0.field3300 == null) { // L: 1004
-			throw new RuntimeException(); // L: 1005
+		if (var0.field3300 == null) {
+			throw new RuntimeException();
 		} else {
-			if (var0.field3368 == null) { // L: 1007
-				var0.field3368 = new int[var0.field3300.length]; // L: 1008
+			if (var0.field3368 == null) {
+				var0.field3368 = new int[var0.field3300.length];
 			}
 
-			var0.field3368[var1] = Integer.MAX_VALUE; // L: 1010
+			var0.field3368[var1] = Integer.MAX_VALUE;
 		}
-	} // L: 1011
+	}
 
 	@ObfuscatedName("ko")
 	@ObfuscatedSignature(
@@ -57,11 +57,11 @@ public class class16 implements ThreadFactory {
 		garbageValue = "74"
 	)
 	static void method239(int var0) {
-		class87.tempMenuAction = new MenuAction(); // L: 12023
-		class87.tempMenuAction.param0 = Client.menuArguments1[var0]; // L: 12024
-		class87.tempMenuAction.param1 = Client.menuArguments2[var0]; // L: 12025
-		class87.tempMenuAction.opcode = Client.menuOpcodes[var0]; // L: 12026
-		class87.tempMenuAction.identifier = Client.menuIdentifiers[var0]; // L: 12027
-		class87.tempMenuAction.action = Client.menuActions[var0]; // L: 12028
-	} // L: 12029
+		class87.tempMenuAction = new MenuAction();
+		class87.tempMenuAction.param0 = Client.menuArguments1[var0];
+		class87.tempMenuAction.param1 = Client.menuArguments2[var0];
+		class87.tempMenuAction.opcode = Client.menuOpcodes[var0];
+		class87.tempMenuAction.identifier = Client.menuIdentifiers[var0];
+		class87.tempMenuAction.action = Client.menuActions[var0];
+	}
 }

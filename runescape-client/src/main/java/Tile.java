@@ -132,13 +132,13 @@ public final class Tile extends Node {
 	Tile linkedBelowTile;
 
 	Tile(int var1, int var2, int var3) {
-		this.gameObjects = new GameObject[5]; // L: 17
-		this.gameObjectEdgeMasks = new int[5]; // L: 18
-		this.gameObjectsEdgeMask = 0; // L: 19
-		this.originalPlane = this.plane = var1; // L: 31
-		this.x = var2; // L: 32
-		this.y = var3; // L: 33
-	} // L: 34
+		this.gameObjects = new GameObject[5];
+		this.gameObjectEdgeMasks = new int[5];
+		this.gameObjectsEdgeMask = 0;
+		this.originalPlane = this.plane = var1;
+		this.x = var2;
+		this.y = var3;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -146,32 +146,32 @@ public final class Tile extends Node {
 		garbageValue = "-68"
 	)
 	public static void method3843(int var0, int var1) {
-		VarbitComposition var3 = (VarbitComposition)VarbitComposition.VarbitDefinition_cached.get((long)var0); // L: 48
+		VarbitComposition var3 = (VarbitComposition)VarbitComposition.VarbitDefinition_cached.get((long)var0);
 		VarbitComposition var2;
-		if (var3 != null) { // L: 49
-			var2 = var3; // L: 50
+		if (var3 != null) {
+			var2 = var3;
 		} else {
-			byte[] var4 = VarbitComposition.VarbitDefinition_archive.takeFile(14, var0); // L: 53
-			var3 = new VarbitComposition(); // L: 54
-			if (var4 != null) { // L: 55
+			byte[] var4 = VarbitComposition.VarbitDefinition_archive.takeFile(14, var0);
+			var3 = new VarbitComposition();
+			if (var4 != null) {
 				var3.decode(new Buffer(var4));
 			}
 
-			VarbitComposition.VarbitDefinition_cached.put(var3, (long)var0); // L: 56
-			var2 = var3; // L: 57
+			VarbitComposition.VarbitDefinition_cached.put(var3, (long)var0);
+			var2 = var3;
 		}
 
-		int var8 = var2.baseVar; // L: 60
-		int var5 = var2.startBit; // L: 61
-		int var6 = var2.endBit; // L: 62
-		int var7 = Varps.Varps_masks[var6 - var5]; // L: 63
-		if (var1 < 0 || var1 > var7) { // L: 64
+		int var8 = var2.baseVar;
+		int var5 = var2.startBit;
+		int var6 = var2.endBit;
+		int var7 = Varps.Varps_masks[var6 - var5];
+		if (var1 < 0 || var1 > var7) {
 			var1 = 0;
 		}
 
-		var7 <<= var5; // L: 65
-		Varps.Varps_main[var8] = Varps.Varps_main[var8] & ~var7 | var1 << var5 & var7; // L: 66
-	} // L: 67
+		var7 <<= var5;
+		Varps.Varps_main[var8] = Varps.Varps_main[var8] & ~var7 | var1 << var5 & var7;
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -179,22 +179,22 @@ public final class Tile extends Node {
 		garbageValue = "-1"
 	)
 	static void method3844(Float var0, Float var1) {
-		var1 = 1.0F - var1; // L: 336
-		if (var0 < 0.0F) { // L: 337
+		var1 = 1.0F - var1;
+		if (var0 < 0.0F) {
 			var0 = 0.0F;
 		}
 
-		if (var1 < 0.0F) { // L: 338
+		if (var1 < 0.0F) {
 			var1 = 0.0F;
 		}
 
-		if (var0 > 1.0F || var1 > 1.0F) { // L: 339
-			float var2 = (float)((double)(var0 * (var0 - 2.0F + var1)) + (double)var1 * ((double)var1 - 2.0D) + 1.0D); // L: 340
-			if (class112.field1361 + var2 > 0.0F) { // L: 341
-				HorizontalAlignment.method3294(var0, var1); // L: 342
+		if (var0 > 1.0F || var1 > 1.0F) {
+			float var2 = (float)((double)(var0 * (var0 - 2.0F + var1)) + (double)var1 * ((double)var1 - 2.0D) + 1.0D);
+			if (class112.field1361 + var2 > 0.0F) {
+				HorizontalAlignment.method3294(var0, var1);
 			}
 		}
 
-		var1 = 1.0F - var1; // L: 345
-	} // L: 346
+		var1 = 1.0F - var1;
+	}
 }

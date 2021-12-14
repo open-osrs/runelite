@@ -27,14 +27,14 @@ public class class288 {
 	final int field3437;
 
 	static {
-		field3436 = new class288(51, 27, 800, 0, 16, 16); // L: 29
-		field3438 = new class288(25, 28, 800, 656, 40, 40); // L: 30
+		field3436 = new class288(51, 27, 800, 0, 16, 16);
+		field3438 = new class288(25, 28, 800, 656, 40, 40);
 	}
 
 	class288(int var1, int var2, int var3, int var4, int var5, int var6) {
-		this.field3435 = var5; // L: 39
-		this.field3437 = var6; // L: 40
-	} // L: 41
+		this.field3435 = var5;
+		this.field3437 = var6;
+	}
 
 	@ObfuscatedName("is")
 	@ObfuscatedSignature(
@@ -43,9 +43,9 @@ public class class288 {
 	)
 	@Export("resumePauseWidget")
 	static void resumePauseWidget(int var0, int var1) {
-		PacketBufferNode var2 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2873, Client.packetWriter.isaacCipher); // L: 9896
-		var2.packetBuffer.method7349(var1); // L: 9897
-		var2.packetBuffer.method7407(var0); // L: 9898
-		Client.packetWriter.addNode(var2); // L: 9899
-	} // L: 9900
+		PacketBufferNode var2 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2873, Client.packetWriter.isaacCipher);
+		var2.packetBuffer.method7349(var1);
+		var2.packetBuffer.method7407(var0);
+		Client.packetWriter.addNode(var2);
+	}
 }

@@ -17,8 +17,8 @@ final class class410 implements class405 {
 		garbageValue = "246575309"
 	)
 	public void vmethod7273(Object var1, Buffer var2) {
-		this.method7275((String)var1, var2); // L: 49
-	} // L: 50
+		this.method7275((String)var1, var2);
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -26,7 +26,7 @@ final class class410 implements class405 {
 		garbageValue = "3"
 	)
 	public Object vmethod7271(Buffer var1) {
-		return var1.readStringCp1252NullTerminated(); // L: 45
+		return var1.readStringCp1252NullTerminated();
 	}
 
 	@ObfuscatedName("j")
@@ -35,8 +35,8 @@ final class class410 implements class405 {
 		garbageValue = "1797008189"
 	)
 	void method7275(String var1, Buffer var2) {
-		var2.writeStringCp1252NullTerminated(var1); // L: 40
-	} // L: 41
+		var2.writeStringCp1252NullTerminated(var1);
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -45,17 +45,17 @@ final class class410 implements class405 {
 	)
 	@Export("getScript")
 	static Script getScript(int var0) {
-		Script var1 = (Script)Script.Script_cached.get((long)var0); // L: 26
-		if (var1 != null) { // L: 27
+		Script var1 = (Script)Script.Script_cached.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			byte[] var2 = TaskHandler.archive12.takeFile(var0, 0); // L: 28
-			if (var2 == null) { // L: 29
-				return null; // L: 30
+			byte[] var2 = TaskHandler.archive12.takeFile(var0, 0);
+			if (var2 == null) {
+				return null;
 			} else {
-				var1 = class145.newScript(var2); // L: 32
-				Script.Script_cached.put(var1, (long)var0); // L: 33
-				return var1; // L: 34
+				var1 = class145.newScript(var2);
+				Script.Script_cached.put(var1, (long)var0);
+				return var1;
 			}
 		}
 	}

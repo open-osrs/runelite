@@ -50,7 +50,7 @@ public class class131 extends class126 {
 		descriptor = "(Lda;)V"
 	)
 	class131(class129 var1) {
-		this.this$0 = var1; // L: 289
+		this.this$0 = var1;
 	}
 
 	@ObfuscatedName("c")
@@ -59,11 +59,11 @@ public class class131 extends class126 {
 		garbageValue = "1416770155"
 	)
 	void vmethod3029(Buffer var1) {
-		this.field1526 = var1.readInt(); // L: 292
-		this.field1533 = var1.readInt(); // L: 293
-		this.field1525 = var1.readUnsignedByte(); // L: 294
-		this.field1528 = var1.readUnsignedByte(); // L: 295
-	} // L: 296
+		this.field1526 = var1.readInt();
+		this.field1533 = var1.readInt();
+		this.field1525 = var1.readUnsignedByte();
+		this.field1528 = var1.readUnsignedByte();
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -71,8 +71,8 @@ public class class131 extends class126 {
 		garbageValue = "-1531735008"
 	)
 	void vmethod3028(ClanSettings var1) {
-		var1.method2860(this.field1526, this.field1533, this.field1525, this.field1528); // L: 299
-	} // L: 300
+		var1.method2860(this.field1526, this.field1533, this.field1525, this.field1528);
+	}
 
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
@@ -80,7 +80,7 @@ public class class131 extends class126 {
 		garbageValue = "-37"
 	)
 	static final int method2802(int var0, int var1, int var2, int var3) {
-		int var4 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var2 * 1024 / var3] >> 1; // L: 476
-		return ((65536 - var4) * var0 >> 16) + (var4 * var1 >> 16); // L: 477
+		int var4 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var2 * 1024 / var3] >> 1;
+		return ((65536 - var4) * var0 >> 16) + (var4 * var1 >> 16);
 	}
 }

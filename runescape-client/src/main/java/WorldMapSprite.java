@@ -20,12 +20,12 @@ public final class WorldMapSprite {
 	final int[] tileColors;
 
 	WorldMapSprite() {
-		this.tileColors = new int[4096]; // L: 11
-	} // L: 12
+		this.tileColors = new int[4096];
+	}
 
 	WorldMapSprite(int[] var1) {
-		this.tileColors = var1; // L: 15
-	} // L: 16
+		this.tileColors = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -34,7 +34,7 @@ public final class WorldMapSprite {
 	)
 	@Export("getTileColor")
 	final int getTileColor(int var1, int var2) {
-		return this.tileColors[var1 + var2 * 64]; // L: 19
+		return this.tileColors[var1 + var2 * 64];
 	}
 
 	@ObfuscatedName("c")
@@ -44,24 +44,24 @@ public final class WorldMapSprite {
 	)
 	@Export("openURL")
 	public static void openURL(String var0, boolean var1, boolean var2) {
-		if (var1) { // L: 23
-			if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Action.BROWSE)) { // L: 24
+		if (var1) {
+			if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Action.BROWSE)) {
 				try {
-					Desktop.getDesktop().browse(new URI(var0)); // L: 26
-					return; // L: 53
-				} catch (Exception var4) { // L: 29
+					Desktop.getDesktop().browse(new URI(var0));
+					return;
+				} catch (Exception var4) {
 				}
 			}
 
-			if (class29.field177.startsWith("win")) { // L: 31
-				NPC.method2314(var0, 0, "openjs"); // L: 34
-			} else if (class29.field177.startsWith("mac")) { // L: 39
-				NPC.method2314(var0, 1, "openjs"); // L: 40
+			if (class29.field177.startsWith("win")) {
+				NPC.method2314(var0, 0, "openjs");
+			} else if (class29.field177.startsWith("mac")) {
+				NPC.method2314(var0, 1, "openjs");
 			} else {
-				NPC.method2314(var0, 2, "openjs"); // L: 44
+				NPC.method2314(var0, 2, "openjs");
 			}
 		} else {
-			NPC.method2314(var0, 3, "openjs"); // L: 49
+			NPC.method2314(var0, 3, "openjs");
 		}
 
 	}

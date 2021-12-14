@@ -58,37 +58,37 @@ public class class260 {
 		garbageValue = "0"
 	)
 	public static String method5070(CharSequence var0) {
-		int var1 = var0.length(); // L: 11
-		StringBuilder var2 = new StringBuilder(var1); // L: 12
+		int var1 = var0.length();
+		StringBuilder var2 = new StringBuilder(var1);
 
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 13
-			char var4 = var0.charAt(var3); // L: 14
-			if ((var4 < 'a' || var4 > 'z') && (var4 < 'A' || var4 > 'Z') && (var4 < '0' || var4 > '9') && var4 != '.' && var4 != '-' && var4 != '*' && var4 != '_') { // L: 15
-				if (var4 == ' ') { // L: 16
+		for (int var3 = 0; var3 < var1; ++var3) {
+			char var4 = var0.charAt(var3);
+			if ((var4 < 'a' || var4 > 'z') && (var4 < 'A' || var4 > 'Z') && (var4 < '0' || var4 > '9') && var4 != '.' && var4 != '-' && var4 != '*' && var4 != '_') {
+				if (var4 == ' ') {
 					var2.append('+');
 				} else {
-					byte var5 = class372.charToByteCp1252(var4); // L: 18
-					var2.append('%'); // L: 19
-					int var6 = var5 >> 4 & 15; // L: 20
-					if (var6 >= 10) { // L: 21
+					byte var5 = class372.charToByteCp1252(var4);
+					var2.append('%');
+					int var6 = var5 >> 4 & 15;
+					if (var6 >= 10) {
 						var2.append((char)(var6 + 55));
 					} else {
-						var2.append((char)(var6 + 48)); // L: 22
+						var2.append((char)(var6 + 48));
 					}
 
-					var6 = var5 & 15; // L: 23
-					if (var6 >= 10) { // L: 24
+					var6 = var5 & 15;
+					if (var6 >= 10) {
 						var2.append((char)(var6 + 55));
 					} else {
 						var2.append((char)(var6 + 48));
 					}
 				}
 			} else {
-				var2.append(var4); // L: 25
+				var2.append(var4);
 			}
 		}
 
-		return var2.toString(); // L: 28
+		return var2.toString();
 	}
 
 	@ObfuscatedName("n")
@@ -97,16 +97,16 @@ public class class260 {
 		garbageValue = "-68634034"
 	)
 	static final int method5069(int var0, int var1, int var2) {
-		int var3 = var0 / var2; // L: 462
-		int var4 = var0 & var2 - 1; // L: 463
-		int var5 = var1 / var2; // L: 464
-		int var6 = var1 & var2 - 1; // L: 465
-		int var7 = class139.method2932(var3, var5); // L: 466
-		int var8 = class139.method2932(var3 + 1, var5); // L: 467
-		int var9 = class139.method2932(var3, var5 + 1); // L: 468
-		int var10 = class139.method2932(var3 + 1, var5 + 1); // L: 469
-		int var11 = class131.method2802(var7, var8, var4, var2); // L: 470
-		int var12 = class131.method2802(var9, var10, var4, var2); // L: 471
-		return class131.method2802(var11, var12, var6, var2); // L: 472
+		int var3 = var0 / var2;
+		int var4 = var0 & var2 - 1;
+		int var5 = var1 / var2;
+		int var6 = var1 & var2 - 1;
+		int var7 = class139.method2932(var3, var5);
+		int var8 = class139.method2932(var3 + 1, var5);
+		int var9 = class139.method2932(var3, var5 + 1);
+		int var10 = class139.method2932(var3 + 1, var5 + 1);
+		int var11 = class131.method2802(var7, var8, var4, var2);
+		int var12 = class131.method2802(var9, var10, var4, var2);
+		return class131.method2802(var11, var12, var6, var2);
 	}
 }

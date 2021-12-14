@@ -30,10 +30,10 @@ public class WorldMapArchiveLoader {
 		descriptor = "(Lku;)V"
 	)
 	WorldMapArchiveLoader(AbstractArchive var1) {
-		this.percentLoaded = 0; // L: 13
-		this.loaded = false; // L: 14
-		this.archive = var1; // L: 17
-	} // L: 18
+		this.percentLoaded = 0;
+		this.loaded = false;
+		this.archive = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -42,15 +42,15 @@ public class WorldMapArchiveLoader {
 	)
 	@Export("reset")
 	void reset(String var1) {
-		if (var1 != null && !var1.isEmpty()) { // L: 21
-			if (var1 != this.cacheName) { // L: 24
-				this.cacheName = var1; // L: 27
-				this.percentLoaded = 0; // L: 28
-				this.loaded = false; // L: 29
-				this.load(); // L: 30
+		if (var1 != null && !var1.isEmpty()) {
+			if (var1 != this.cacheName) {
+				this.cacheName = var1;
+				this.percentLoaded = 0;
+				this.loaded = false;
+				this.load();
 			}
 		}
-	} // L: 22 25 31
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -59,32 +59,32 @@ public class WorldMapArchiveLoader {
 	)
 	@Export("load")
 	int load() {
-		if (this.percentLoaded < 33) { // L: 34
-			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field2763.name, this.cacheName)) { // L: 35
-				return this.percentLoaded; // L: 36
+		if (this.percentLoaded < 33) {
+			if (!this.archive.tryLoadFileByNames(WorldMapCacheName.field2763.name, this.cacheName)) {
+				return this.percentLoaded;
 			}
 
-			this.percentLoaded = 33; // L: 38
+			this.percentLoaded = 33;
 		}
 
-		if (this.percentLoaded == 33) { // L: 40
-			if (this.archive.isValidFileName(WorldMapCacheName.field2764.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.field2764.name, this.cacheName)) { // L: 41 42
-				return this.percentLoaded; // L: 43
+		if (this.percentLoaded == 33) {
+			if (this.archive.isValidFileName(WorldMapCacheName.field2764.name, this.cacheName) && !this.archive.tryLoadFileByNames(WorldMapCacheName.field2764.name, this.cacheName)) {
+				return this.percentLoaded;
 			}
 
-			this.percentLoaded = 66; // L: 46
+			this.percentLoaded = 66;
 		}
 
-		if (this.percentLoaded == 66) { // L: 48
-			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.field2766.name)) { // L: 49
-				return this.percentLoaded; // L: 50
+		if (this.percentLoaded == 66) {
+			if (!this.archive.tryLoadFileByNames(this.cacheName, WorldMapCacheName.field2766.name)) {
+				return this.percentLoaded;
 			}
 
-			this.percentLoaded = 100; // L: 52
-			this.loaded = true; // L: 53
+			this.percentLoaded = 100;
+			this.loaded = true;
 		}
 
-		return this.percentLoaded; // L: 55
+		return this.percentLoaded;
 	}
 
 	@ObfuscatedName("p")
@@ -94,7 +94,7 @@ public class WorldMapArchiveLoader {
 	)
 	@Export("isLoaded")
 	boolean isLoaded() {
-		return this.loaded; // L: 59
+		return this.loaded;
 	}
 
 	@ObfuscatedName("m")
@@ -104,6 +104,6 @@ public class WorldMapArchiveLoader {
 	)
 	@Export("getPercentLoaded")
 	int getPercentLoaded() {
-		return this.percentLoaded; // L: 63
+		return this.percentLoaded;
 	}
 }

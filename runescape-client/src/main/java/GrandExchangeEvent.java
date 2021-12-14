@@ -36,21 +36,21 @@ public class GrandExchangeEvent {
 		descriptor = "(Lpi;BI)V"
 	)
 	GrandExchangeEvent(Buffer var1, byte var2, int var3) {
-		this.offerName = var1.readStringCp1252NullTerminated(); // L: 111
-		this.previousOfferName = var1.readStringCp1252NullTerminated(); // L: 112
-		this.world = var1.readUnsignedShort(); // L: 113
-		this.age = var1.readLong(); // L: 114
-		int var4 = var1.readInt(); // L: 115
-		int var5 = var1.readInt(); // L: 116
-		this.grandExchangeOffer = new GrandExchangeOffer(); // L: 117
-		this.grandExchangeOffer.method5765(2); // L: 118
-		this.grandExchangeOffer.method5766(var2); // L: 119
-		this.grandExchangeOffer.unitPrice = var4; // L: 120
-		this.grandExchangeOffer.totalQuantity = var5; // L: 121
-		this.grandExchangeOffer.currentQuantity = 0; // L: 122
-		this.grandExchangeOffer.currentPrice = 0; // L: 123
-		this.grandExchangeOffer.id = var3; // L: 124
-	} // L: 125
+		this.offerName = var1.readStringCp1252NullTerminated();
+		this.previousOfferName = var1.readStringCp1252NullTerminated();
+		this.world = var1.readUnsignedShort();
+		this.age = var1.readLong();
+		int var4 = var1.readInt();
+		int var5 = var1.readInt();
+		this.grandExchangeOffer = new GrandExchangeOffer();
+		this.grandExchangeOffer.method5765(2);
+		this.grandExchangeOffer.method5766(var2);
+		this.grandExchangeOffer.unitPrice = var4;
+		this.grandExchangeOffer.totalQuantity = var5;
+		this.grandExchangeOffer.currentQuantity = 0;
+		this.grandExchangeOffer.currentPrice = 0;
+		this.grandExchangeOffer.id = var3;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -59,7 +59,7 @@ public class GrandExchangeEvent {
 	)
 	@Export("getOfferName")
 	public String getOfferName() {
-		return this.offerName; // L: 128
+		return this.offerName;
 	}
 
 	@ObfuscatedName("b")
@@ -69,7 +69,7 @@ public class GrandExchangeEvent {
 	)
 	@Export("getPreviousOfferName")
 	public String getPreviousOfferName() {
-		return this.previousOfferName; // L: 132
+		return this.previousOfferName;
 	}
 
 	@ObfuscatedName("c")
@@ -78,18 +78,18 @@ public class GrandExchangeEvent {
 		garbageValue = "3161"
 	)
 	static void method5760() {
-		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 30
-			if (var0.stream1 != null) { // L: 31
-				class281.pcmStreamMixer.removeSubStream(var0.stream1); // L: 32
-				var0.stream1 = null; // L: 33
+		for (ObjectSound var0 = (ObjectSound)ObjectSound.objectSounds.last(); var0 != null; var0 = (ObjectSound)ObjectSound.objectSounds.previous()) {
+			if (var0.stream1 != null) {
+				class281.pcmStreamMixer.removeSubStream(var0.stream1);
+				var0.stream1 = null;
 			}
 
-			if (var0.stream2 != null) { // L: 35
-				class281.pcmStreamMixer.removeSubStream(var0.stream2); // L: 36
-				var0.stream2 = null; // L: 37
+			if (var0.stream2 != null) {
+				class281.pcmStreamMixer.removeSubStream(var0.stream2);
+				var0.stream2 = null;
 			}
 		}
 
-		ObjectSound.objectSounds.clear(); // L: 40
-	} // L: 41
+		ObjectSound.objectSounds.clear();
+	}
 }

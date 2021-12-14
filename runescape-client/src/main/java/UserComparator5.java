@@ -26,8 +26,8 @@ public class UserComparator5 extends AbstractUserComparator {
 	final boolean reversed;
 
 	public UserComparator5(boolean var1) {
-		this.reversed = var1; // L: 10
-	} // L: 11
+		this.reversed = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -36,19 +36,19 @@ public class UserComparator5 extends AbstractUserComparator {
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
-		if (var1.world != 0) { // L: 14
-			if (var2.world == 0) { // L: 15
+		if (var1.world != 0) {
+			if (var2.world == 0) {
 				return this.reversed ? -1 : 1;
 			}
-		} else if (var2.world != 0) { // L: 18
+		} else if (var2.world != 0) {
 			return this.reversed ? 1 : -1;
 		}
 
-		return this.compareUser(var1, var2); // L: 20
+		return this.compareUser(var1, var2);
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 24
+		return this.compareBuddy((Buddy)var1, (Buddy)var2);
 	}
 
 	@ObfuscatedName("c")
@@ -58,19 +58,19 @@ public class UserComparator5 extends AbstractUserComparator {
 	)
 	@Export("SequenceDefinition_get")
 	public static SequenceDefinition SequenceDefinition_get(int var0) {
-		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0); // L: 46
-		if (var1 != null) { // L: 47
+		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			byte[] var2 = Canvas.SequenceDefinition_archive.takeFile(12, var0); // L: 48
-			var1 = new SequenceDefinition(); // L: 49
-			if (var2 != null) { // L: 50
+			byte[] var2 = Canvas.SequenceDefinition_archive.takeFile(12, var0);
+			var1 = new SequenceDefinition();
+			if (var2 != null) {
 				var1.decode(new Buffer(var2));
 			}
 
-			var1.postDecode(); // L: 51
-			SequenceDefinition.SequenceDefinition_cached.put(var1, (long)var0); // L: 52
-			return var1; // L: 53
+			var1.postDecode();
+			SequenceDefinition.SequenceDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
 	}
 
@@ -81,7 +81,7 @@ public class UserComparator5 extends AbstractUserComparator {
 	)
 	@Export("colorStartTag")
 	static String colorStartTag(int var0) {
-		return "<col=" + Integer.toHexString(var0) + ">"; // L: 22
+		return "<col=" + Integer.toHexString(var0) + ">";
 	}
 
 	@ObfuscatedName("g")
@@ -90,9 +90,9 @@ public class UserComparator5 extends AbstractUserComparator {
 		garbageValue = "-1519607580"
 	)
 	public static void method2524() {
-		ObjectComposition.ObjectDefinition_cached.clear(); // L: 415
-		ObjectComposition.ObjectDefinition_cachedModelData.clear(); // L: 416
-		ObjectComposition.ObjectDefinition_cachedEntities.clear(); // L: 417
-		ObjectComposition.ObjectDefinition_cachedModels.clear(); // L: 418
-	} // L: 419
+		ObjectComposition.ObjectDefinition_cached.clear();
+		ObjectComposition.ObjectDefinition_cachedModelData.clear();
+		ObjectComposition.ObjectDefinition_cachedEntities.clear();
+		ObjectComposition.ObjectDefinition_cachedModels.clear();
+	}
 }

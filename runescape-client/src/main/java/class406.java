@@ -9,8 +9,8 @@ final class class406 implements class405 {
 		garbageValue = "246575309"
 	)
 	public void vmethod7273(Object var1, Buffer var2) {
-		this.method7229((Integer)var1, var2); // L: 21
-	} // L: 22
+		this.method7229((Integer)var1, var2);
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -18,7 +18,7 @@ final class class406 implements class405 {
 		garbageValue = "3"
 	)
 	public Object vmethod7271(Buffer var1) {
-		return var1.readInt(); // L: 17
+		return var1.readInt();
 	}
 
 	@ObfuscatedName("j")
@@ -27,6 +27,6 @@ final class class406 implements class405 {
 		garbageValue = "2131045712"
 	)
 	void method7229(Integer var1, Buffer var2) {
-		var2.writeInt(var1); // L: 12
-	} // L: 13
+		var2.writeInt(var1);
+	}
 }

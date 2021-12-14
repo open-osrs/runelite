@@ -37,7 +37,7 @@ public class class149 extends class142 {
 		descriptor = "(Len;)V"
 	)
 	class149(class143 var1) {
-		this.this$0 = var1; // L: 155
+		this.this$0 = var1;
 	}
 
 	@ObfuscatedName("c")
@@ -46,14 +46,14 @@ public class class149 extends class142 {
 		garbageValue = "4"
 	)
 	void vmethod3022(Buffer var1) {
-		this.field1662 = var1.readStringCp1252NullTerminatedOrNull(); // L: 158
-		if (this.field1662 != null) { // L: 159
-			var1.readUnsignedByte(); // L: 160
-			this.field1660 = var1.readByte(); // L: 161
-			this.field1659 = var1.readByte(); // L: 162
+		this.field1662 = var1.readStringCp1252NullTerminatedOrNull();
+		if (this.field1662 != null) {
+			var1.readUnsignedByte();
+			this.field1660 = var1.readByte();
+			this.field1659 = var1.readByte();
 		}
 
-	} // L: 164
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -61,11 +61,11 @@ public class class149 extends class142 {
 		garbageValue = "40"
 	)
 	void vmethod3021(ClanChannel var1) {
-		var1.name = this.field1662; // L: 167
-		if (this.field1662 != null) { // L: 168
-			var1.field1636 = this.field1660; // L: 169
-			var1.field1643 = this.field1659; // L: 170
+		var1.name = this.field1662;
+		if (this.field1662 != null) {
+			var1.field1636 = this.field1660;
+			var1.field1643 = this.field1659;
 		}
 
-	} // L: 172
+	}
 }

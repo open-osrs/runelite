@@ -11,18 +11,18 @@ public class class119 {
 	)
 	@Export("getEnum")
 	public static EnumComposition getEnum(int var0) {
-		EnumComposition var1 = (EnumComposition)EnumComposition.EnumDefinition_cached.get((long)var0); // L: 25
-		if (var1 != null) { // L: 26
+		EnumComposition var1 = (EnumComposition)EnumComposition.EnumDefinition_cached.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			byte[] var2 = EnumComposition.EnumDefinition_archive.takeFile(8, var0); // L: 27
-			var1 = new EnumComposition(); // L: 28
-			if (var2 != null) { // L: 29
+			byte[] var2 = EnumComposition.EnumDefinition_archive.takeFile(8, var0);
+			var1 = new EnumComposition();
+			if (var2 != null) {
 				var1.decode(new Buffer(var2));
 			}
 
-			EnumComposition.EnumDefinition_cached.put(var1, (long)var0); // L: 30
-			return var1; // L: 31
+			EnumComposition.EnumDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
 	}
 
@@ -32,17 +32,17 @@ public class class119 {
 		garbageValue = "935400693"
 	)
 	static void method2689() {
-		Tiles.Tiles_underlays = null; // L: 64
-		Tiles.Tiles_overlays = null; // L: 65
-		Tiles.Tiles_shapes = null; // L: 66
-		WorldMapLabelSize.field2580 = null; // L: 67
-		ClanChannelMember.field1504 = null; // L: 68
-		SoundCache.field321 = null; // L: 69
-		class194.field2280 = null; // L: 70
-		Tiles.Tiles_hue = null; // L: 71
-		User.Tiles_saturation = null; // L: 72
-		Tiles.Tiles_lightness = null; // L: 73
-		UserComparator5.Tiles_hueMultiplier = null; // L: 74
-		VerticalAlignment.field1874 = null; // L: 75
-	} // L: 76
+		Tiles.Tiles_underlays = null;
+		Tiles.Tiles_overlays = null;
+		Tiles.Tiles_shapes = null;
+		WorldMapLabelSize.field2580 = null;
+		ClanChannelMember.field1504 = null;
+		SoundCache.field321 = null;
+		class194.field2280 = null;
+		Tiles.Tiles_hue = null;
+		User.Tiles_saturation = null;
+		Tiles.Tiles_lightness = null;
+		UserComparator5.Tiles_hueMultiplier = null;
+		VerticalAlignment.field1874 = null;
+	}
 }

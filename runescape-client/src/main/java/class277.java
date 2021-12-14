@@ -11,6 +11,6 @@ public class class277 {
 	)
 	@Export("isDigit")
 	public static boolean isDigit(char var0) {
-		return var0 >= '0' && var0 <= '9'; // L: 148
+		return var0 >= '0' && var0 <= '9';
 	}
 }

@@ -63,17 +63,17 @@ public final class Tiles {
 	static int[] regionMapArchiveIds;
 
 	static {
-		Tiles_heights = new int[4][105][105]; // L: 16
-		Tiles_renderFlags = new byte[4][104][104]; // L: 17
-		Tiles_minPlane = 99; // L: 18
-		field969 = new int[]{1, 2, 4, 8}; // L: 34
-		field970 = new int[]{16, 32, 64, 128}; // L: 35
-		field976 = new int[]{1, 0, -1, 0}; // L: 36
-		field966 = new int[]{0, -1, 0, 1}; // L: 37
-		field973 = new int[]{1, -1, -1, 1}; // L: 38
-		field974 = new int[]{-1, -1, 1, 1}; // L: 39
-		rndHue = (int)(Math.random() * 17.0D) - 8; // L: 40
-		rndLightness = (int)(Math.random() * 33.0D) - 16; // L: 41
+		Tiles_heights = new int[4][105][105];
+		Tiles_renderFlags = new byte[4][104][104];
+		Tiles_minPlane = 99;
+		field969 = new int[]{1, 2, 4, 8};
+		field970 = new int[]{16, 32, 64, 128};
+		field976 = new int[]{1, 0, -1, 0};
+		field966 = new int[]{0, -1, 0, 1};
+		field973 = new int[]{1, -1, -1, 1};
+		field974 = new int[]{-1, -1, 1, 1};
+		rndHue = (int)(Math.random() * 17.0D) - 8;
+		rndLightness = (int)(Math.random() * 33.0D) - 16;
 	}
 
 	@ObfuscatedName("jd")
@@ -82,23 +82,23 @@ public final class Tiles {
 		garbageValue = "1455768075"
 	)
 	static final String method2108(int var0, int var1) {
-		int var2 = var1 - var0; // L: 10359
-		if (var2 < -9) { // L: 10360
+		int var2 = var1 - var0;
+		if (var2 < -9) {
 			return UserComparator5.colorStartTag(16711680);
-		} else if (var2 < -6) { // L: 10361
+		} else if (var2 < -6) {
 			return UserComparator5.colorStartTag(16723968);
-		} else if (var2 < -3) { // L: 10362
+		} else if (var2 < -3) {
 			return UserComparator5.colorStartTag(16740352);
-		} else if (var2 < 0) { // L: 10363
+		} else if (var2 < 0) {
 			return UserComparator5.colorStartTag(16756736);
-		} else if (var2 > 9) { // L: 10364
+		} else if (var2 > 9) {
 			return UserComparator5.colorStartTag(65280);
-		} else if (var2 > 6) { // L: 10365
+		} else if (var2 > 6) {
 			return UserComparator5.colorStartTag(4259584);
-		} else if (var2 > 3) { // L: 10366
+		} else if (var2 > 3) {
 			return UserComparator5.colorStartTag(8453888);
 		} else {
-			return var2 > 0 ? UserComparator5.colorStartTag(12648192) : UserComparator5.colorStartTag(16776960); // L: 10367 10368
+			return var2 > 0 ? UserComparator5.colorStartTag(12648192) : UserComparator5.colorStartTag(16776960);
 		}
 	}
 
@@ -109,6 +109,6 @@ public final class Tiles {
 	)
 	@Export("getTapToDrop")
 	static boolean getTapToDrop() {
-		return Client.tapToDrop; // L: 11372
+		return Client.tapToDrop;
 	}
 }

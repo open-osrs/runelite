@@ -43,16 +43,16 @@ public class GameBuild {
 	public final int buildId;
 
 	static {
-		LIVE = new GameBuild("LIVE", 0); // L: 5
-		BUILDLIVE = new GameBuild("BUILDLIVE", 3); // L: 6
-		RC = new GameBuild("RC", 1); // L: 7
-		WIP = new GameBuild("WIP", 2); // L: 8
+		LIVE = new GameBuild("LIVE", 0);
+		BUILDLIVE = new GameBuild("BUILDLIVE", 3);
+		RC = new GameBuild("RC", 1);
+		WIP = new GameBuild("WIP", 2);
 	}
 
 	GameBuild(String var1, int var2) {
-		this.name = var1; // L: 13
-		this.buildId = var2; // L: 14
-	} // L: 15
+		this.name = var1;
+		this.buildId = var2;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -60,9 +60,9 @@ public class GameBuild {
 		garbageValue = "727628854"
 	)
 	static void method5494(Component var0) {
-		var0.removeMouseListener(MouseHandler.MouseHandler_instance); // L: 43
-		var0.removeMouseMotionListener(MouseHandler.MouseHandler_instance); // L: 44
-		var0.removeFocusListener(MouseHandler.MouseHandler_instance); // L: 45
-		MouseHandler.MouseHandler_currentButtonVolatile = 0; // L: 46
-	} // L: 47
+		var0.removeMouseListener(MouseHandler.MouseHandler_instance);
+		var0.removeMouseMotionListener(MouseHandler.MouseHandler_instance);
+		var0.removeFocusListener(MouseHandler.MouseHandler_instance);
+		MouseHandler.MouseHandler_currentButtonVolatile = 0;
+	}
 }

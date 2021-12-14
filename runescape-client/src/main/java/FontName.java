@@ -53,17 +53,17 @@ public class FontName {
 	String name;
 
 	static {
-		FontName_plain11 = new FontName("p11_full"); // L: 7
-		FontName_plain12 = new FontName("p12_full"); // L: 8
-		FontName_bold12 = new FontName("b12_full"); // L: 9
-		FontName_verdana11 = new FontName("verdana_11pt_regular"); // L: 10
-		FontName_verdana13 = new FontName("verdana_13pt_regular"); // L: 11
+		FontName_plain11 = new FontName("p11_full");
+		FontName_plain12 = new FontName("p12_full");
+		FontName_bold12 = new FontName("b12_full");
+		FontName_verdana11 = new FontName("verdana_11pt_regular");
+		FontName_verdana13 = new FontName("verdana_13pt_regular");
 		FontName_verdana15 = new FontName("verdana_15pt_regular");
 	}
 
 	FontName(String var1) {
-		this.name = var1; // L: 16
-	} // L: 17
+		this.name = var1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -71,7 +71,7 @@ public class FontName {
 		garbageValue = "-2104552307"
 	)
 	public static class6[] method7075() {
-		return new class6[]{class6.field15}; // L: 12
+		return new class6[]{class6.field15};
 	}
 
 	@ObfuscatedName("w")
@@ -81,11 +81,11 @@ public class FontName {
 	)
 	public static int method7074(int var0, int var1) {
 		int var2;
-		for (var2 = 0; var1 > 0; --var1) { // L: 99 100 103
-			var2 = var2 << 1 | var0 & 1; // L: 101
-			var0 >>>= 1; // L: 102
+		for (var2 = 0; var1 > 0; --var1) {
+			var2 = var2 << 1 | var0 & 1;
+			var0 >>>= 1;
 		}
 
-		return var2; // L: 105
+		return var2;
 	}
 }

@@ -17,20 +17,20 @@ public class SoundSystem implements Runnable {
 	volatile PcmPlayer[] players;
 
 	SoundSystem() {
-		this.players = new PcmPlayer[2]; // L: 6
-	} // L: 8
+		this.players = new PcmPlayer[2];
+	}
 
 	public void run() {
 		try {
-			for (int var1 = 0; var1 < 2; ++var1) { // L: 12
-				PcmPlayer var2 = this.players[var1]; // L: 13
-				if (var2 != null) { // L: 14
+			for (int var1 = 0; var1 < 2; ++var1) {
+				PcmPlayer var2 = this.players[var1];
+				if (var2 != null) {
 					var2.run();
 				}
 			}
-		} catch (Exception var4) { // L: 17
-			AccessFile.RunException_sendStackTrace((String)null, var4); // L: 18
+		} catch (Exception var4) {
+			AccessFile.RunException_sendStackTrace((String)null, var4);
 		}
 
-	} // L: 20
+	}
 }

@@ -7,8 +7,8 @@ public abstract class class371 extends class242 implements class425 {
 		descriptor = "(Lko;Llf;I)V"
 	)
 	protected class371(StudioGame var1, Language var2, int var3) {
-		super(var1, var2, var3); // L: 15
-	} // L: 16
+		super(var1, var2, var3);
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -23,7 +23,7 @@ public abstract class class371 extends class242 implements class425 {
 		garbageValue = "-70"
 	)
 	public int method6759() {
-		return super.field2787; // L: 19
+		return super.field2787;
 	}
 
 	@ObfuscatedName("p")
@@ -32,8 +32,8 @@ public abstract class class371 extends class242 implements class425 {
 		garbageValue = "-78"
 	)
 	public Object vmethod7625(int var1) {
-		class373 var2 = this.vmethod7209(var1); // L: 24
-		return var2 != null && var2.method6780() ? var2.method6781() : null; // L: 25 26
+		class373 var2 = this.vmethod7209(var1);
+		return var2 != null && var2.method6780() ? var2.method6781() : null;
 	}
 
 	@ObfuscatedName("m")
@@ -42,30 +42,30 @@ public abstract class class371 extends class242 implements class425 {
 		garbageValue = "-2120093804"
 	)
 	public class426 method6761(Buffer var1) {
-		int var2 = var1.readUnsignedShort(); // L: 30
-		class373 var3 = this.vmethod7209(var2); // L: 31
-		class426 var4 = new class426(var2); // L: 32
-		Class var5 = var3.field4226.field4446; // L: 33
-		if (var5 == Integer.class) { // L: 34
+		int var2 = var1.readUnsignedShort();
+		class373 var3 = this.vmethod7209(var2);
+		class426 var4 = new class426(var2);
+		Class var5 = var3.field4226.field4446;
+		if (var5 == Integer.class) {
 			var4.field4537 = var1.readInt();
 		} else if (var5 == Long.class) {
-			var4.field4537 = var1.readLong(); // L: 35
-		} else if (var5 == String.class) { // L: 36
+			var4.field4537 = var1.readLong();
+		} else if (var5 == String.class) {
 			var4.field4537 = var1.readStringCp1252NullCircumfixed();
 		} else {
-			if (!class421.class.isAssignableFrom(var5)) { // L: 37
-				throw new IllegalStateException(); // L: 46
+			if (!class421.class.isAssignableFrom(var5)) {
+				throw new IllegalStateException();
 			}
 
 			try {
-				class421 var6 = (class421)var5.newInstance(); // L: 39
-				var6.method7596(var1); // L: 40
-				var4.field4537 = var6; // L: 41
-			} catch (InstantiationException var7) { // L: 43
-			} catch (IllegalAccessException var8) { // L: 44
+				class421 var6 = (class421)var5.newInstance();
+				var6.method7596(var1);
+				var4.field4537 = var6;
+			} catch (InstantiationException var7) {
+			} catch (IllegalAccessException var8) {
 			}
 		}
 
-		return var4; // L: 47
+		return var4;
 	}
 }

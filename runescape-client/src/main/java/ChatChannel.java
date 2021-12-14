@@ -38,8 +38,8 @@ public class ChatChannel {
 	int count;
 
 	ChatChannel() {
-		this.messages = new Message[100]; // L: 92
-	} // L: 95
+		this.messages = new Message[100];
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -48,28 +48,28 @@ public class ChatChannel {
 	)
 	@Export("addMessage")
 	Message addMessage(int var1, String var2, String var3, String var4) {
-		Message var5 = this.messages[99]; // L: 98
+		Message var5 = this.messages[99];
 
-		for (int var6 = this.count; var6 > 0; --var6) { // L: 99
-			if (var6 != 100) { // L: 100
-				this.messages[var6] = this.messages[var6 - 1]; // L: 101
+		for (int var6 = this.count; var6 > 0; --var6) {
+			if (var6 != 100) {
+				this.messages[var6] = this.messages[var6 - 1];
 			}
 		}
 
-		if (var5 == null) { // L: 103
+		if (var5 == null) {
 			var5 = new Message(var1, var2, var4, var3);
 		} else {
-			var5.remove(); // L: 105
-			var5.removeDual(); // L: 106
-			var5.set(var1, var2, var4, var3); // L: 107
+			var5.remove();
+			var5.removeDual();
+			var5.set(var1, var2, var4, var3);
 		}
 
-		this.messages[0] = var5; // L: 109
-		if (this.count < 100) { // L: 110
+		this.messages[0] = var5;
+		if (this.count < 100) {
 			++this.count;
 		}
 
-		return var5; // L: 111
+		return var5;
 	}
 
 	@ObfuscatedName("b")
@@ -79,7 +79,7 @@ public class ChatChannel {
 	)
 	@Export("getMessage")
 	Message getMessage(int var1) {
-		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null; // L: 115 116
+		return var1 >= 0 && var1 < this.count ? this.messages[var1] : null;
 	}
 
 	@ObfuscatedName("p")
@@ -89,7 +89,7 @@ public class ChatChannel {
 	)
 	@Export("size")
 	int size() {
-		return this.count; // L: 120
+		return this.count;
 	}
 
 	@ObfuscatedName("c")
@@ -98,30 +98,30 @@ public class ChatChannel {
 		garbageValue = "-84"
 	)
 	static long method2054(CharSequence var0) {
-		long var1 = 0L; // L: 16
-		int var3 = var0.length(); // L: 17
+		long var1 = 0L;
+		int var3 = var0.length();
 
-		for (int var4 = 0; var4 < var3; ++var4) { // L: 18
-			var1 *= 37L; // L: 19
-			char var5 = var0.charAt(var4); // L: 20
-			if (var5 >= 'A' && var5 <= 'Z') { // L: 21
+		for (int var4 = 0; var4 < var3; ++var4) {
+			var1 *= 37L;
+			char var5 = var0.charAt(var4);
+			if (var5 >= 'A' && var5 <= 'Z') {
 				var1 += (long)(var5 + 1 - 65);
-			} else if (var5 >= 'a' && var5 <= 'z') { // L: 22
+			} else if (var5 >= 'a' && var5 <= 'z') {
 				var1 += (long)(var5 + 1 - 97);
-			} else if (var5 >= '0' && var5 <= '9') { // L: 23
+			} else if (var5 >= '0' && var5 <= '9') {
 				var1 += (long)(var5 + 27 - 48);
 			}
 
-			if (var1 >= 177917621779460413L) { // L: 24
+			if (var1 >= 177917621779460413L) {
 				break;
 			}
 		}
 
-		while (var1 % 37L == 0L && 0L != var1) { // L: 26
+		while (var1 % 37L == 0L && 0L != var1) {
 			var1 /= 37L;
 		}
 
-		return var1; // L: 27
+		return var1;
 	}
 
 	@ObfuscatedName("b")
@@ -131,16 +131,16 @@ public class ChatChannel {
 	)
 	@Export("getWidget")
 	public static Widget getWidget(int var0) {
-		int var1 = var0 >> 16; // L: 199
-		int var2 = var0 & 65535; // L: 200
-		if (MouseRecorder.Widget_interfaceComponents[var1] == null || MouseRecorder.Widget_interfaceComponents[var1][var2] == null) { // L: 201
-			boolean var3 = class242.loadInterface(var1); // L: 202
-			if (!var3) { // L: 203
+		int var1 = var0 >> 16;
+		int var2 = var0 & 65535;
+		if (MouseRecorder.Widget_interfaceComponents[var1] == null || MouseRecorder.Widget_interfaceComponents[var1][var2] == null) {
+			boolean var3 = class242.loadInterface(var1);
+			if (!var3) {
 				return null;
 			}
 		}
 
-		return MouseRecorder.Widget_interfaceComponents[var1][var2]; // L: 205
+		return MouseRecorder.Widget_interfaceComponents[var1][var2];
 	}
 
 	@ObfuscatedName("ka")
@@ -149,25 +149,25 @@ public class ChatChannel {
 		garbageValue = "3"
 	)
 	static final InterfaceParent method2058(int var0, int var1, int var2) {
-		InterfaceParent var3 = new InterfaceParent(); // L: 12265
-		var3.group = var1; // L: 12266
-		var3.type = var2; // L: 12267
-		Client.interfaceParents.put(var3, (long)var0); // L: 12268
-		class140.Widget_resetModelFrames(var1); // L: 12269
-		Widget var4 = getWidget(var0); // L: 12270
-		SecureRandomCallable.invalidateWidget(var4); // L: 12271
-		if (Client.meslayerContinueWidget != null) { // L: 12272
-			SecureRandomCallable.invalidateWidget(Client.meslayerContinueWidget); // L: 12273
-			Client.meslayerContinueWidget = null; // L: 12274
+		InterfaceParent var3 = new InterfaceParent();
+		var3.group = var1;
+		var3.type = var2;
+		Client.interfaceParents.put(var3, (long)var0);
+		class140.Widget_resetModelFrames(var1);
+		Widget var4 = getWidget(var0);
+		SecureRandomCallable.invalidateWidget(var4);
+		if (Client.meslayerContinueWidget != null) {
+			SecureRandomCallable.invalidateWidget(Client.meslayerContinueWidget);
+			Client.meslayerContinueWidget = null;
 		}
 
-		FileSystem.method3084(); // L: 12276
-		class115.revalidateWidgetScroll(MouseRecorder.Widget_interfaceComponents[var0 >> 16], var4, false); // L: 12277
-		class33.runWidgetOnLoadListener(var1); // L: 12278
-		if (Client.rootInterface != -1) { // L: 12279
+		FileSystem.method3084();
+		class115.revalidateWidgetScroll(MouseRecorder.Widget_interfaceComponents[var0 >> 16], var4, false);
+		class33.runWidgetOnLoadListener(var1);
+		if (Client.rootInterface != -1) {
 			Message.runIntfCloseListeners(Client.rootInterface, 1);
 		}
 
-		return var3; // L: 12280
+		return var3;
 	}
 }

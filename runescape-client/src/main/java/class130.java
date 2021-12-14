@@ -23,8 +23,8 @@ public class class130 extends class126 {
 	)
 	class130(class129 var1) {
 		this.this$0 = var1;
-		this.field1524 = -1; // L: 128
-	} // L: 131
+		this.field1524 = -1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -32,9 +32,9 @@ public class class130 extends class126 {
 		garbageValue = "1416770155"
 	)
 	void vmethod3029(Buffer var1) {
-		this.field1524 = var1.readUnsignedShort(); // L: 134
-		this.field1522 = var1.readByte(); // L: 135
-	} // L: 136
+		this.field1524 = var1.readUnsignedShort();
+		this.field1522 = var1.readByte();
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -42,8 +42,8 @@ public class class130 extends class126 {
 		garbageValue = "-1531735008"
 	)
 	void vmethod3028(ClanSettings var1) {
-		var1.method2887(this.field1524, this.field1522); // L: 139
-	} // L: 140
+		var1.method2887(this.field1524, this.field1522);
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -52,16 +52,16 @@ public class class130 extends class126 {
 	)
 	@Export("findEnumerated")
 	public static MouseWheel findEnumerated(MouseWheel[] var0, int var1) {
-		MouseWheel[] var2 = var0; // L: 17
+		MouseWheel[] var2 = var0;
 
-		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 18
-			MouseWheel var4 = var2[var3]; // L: 19
+		for (int var3 = 0; var3 < var2.length; ++var3) {
+			MouseWheel var4 = var2[var3];
 			if (var1 == var4.rsOrdinal()) {
-				return var4; // L: 21
+				return var4;
 			}
 		}
 
-		return null; // L: 25
+		return null;
 	}
 
 	@ObfuscatedName("x")
@@ -70,6 +70,6 @@ public class class130 extends class126 {
 		garbageValue = "1459785075"
 	)
 	public static final void method2795(class47 var0) {
-		class11.pcmPlayerProvider = var0; // L: 45
-	} // L: 46
+		class11.pcmPlayerProvider = var0;
+	}
 }

@@ -11,8 +11,8 @@ public class class285 {
 	)
 	@Export("runScriptEvent")
 	public static void runScriptEvent(ScriptEvent var0) {
-		ScriptFrame.runScript(var0, 500000, 475000); // L: 110
-	} // L: 111
+		ScriptFrame.runScript(var0, 500000, 475000);
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -21,6 +21,6 @@ public class class285 {
 	)
 	@Export("ByteArrayPool_getArray")
 	public static synchronized byte[] ByteArrayPool_getArray(int var0) {
-		return ByteArrayPool.ByteArrayPool_getArrayBool(var0, false); // L: 92
+		return ByteArrayPool.ByteArrayPool_getArrayBool(var0, false);
 	}
 }

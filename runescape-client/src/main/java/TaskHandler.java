@@ -39,24 +39,24 @@ public class TaskHandler implements Runnable {
 	boolean isClosed;
 
 	public TaskHandler() {
-		this.current = null; // L: 11
-		this.task = null; // L: 12
-		this.isClosed = false; // L: 14
-		javaVendor = "Unknown"; // L: 20
-		NPC.javaVersion = "1.6"; // L: 21
+		this.current = null;
+		this.task = null;
+		this.isClosed = false;
+		javaVendor = "Unknown";
+		NPC.javaVersion = "1.6";
 
 		try {
 			javaVendor = System.getProperty("java.vendor");
 			NPC.javaVersion = System.getProperty("java.version");
-		} catch (Exception var2) { // L: 26
+		} catch (Exception var2) {
 		}
 
-		this.isClosed = false; // L: 27
-		this.thread = new Thread(this); // L: 28
-		this.thread.setPriority(10); // L: 29
-		this.thread.setDaemon(true); // L: 30
-		this.thread.start(); // L: 31
-	} // L: 32
+		this.isClosed = false;
+		this.thread = new Thread(this);
+		this.thread.setPriority(10);
+		this.thread.setDaemon(true);
+		this.thread.start();
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -65,17 +65,17 @@ public class TaskHandler implements Runnable {
 	)
 	@Export("close")
 	public final void close() {
-		synchronized(this) { // L: 35
-			this.isClosed = true; // L: 36
-			this.notifyAll(); // L: 37
-		} // L: 38
-
-		try {
-			this.thread.join(); // L: 40
-		} catch (InterruptedException var3) { // L: 42
+		synchronized(this) {
+			this.isClosed = true;
+			this.notifyAll();
 		}
 
-	} // L: 43
+		try {
+			this.thread.join();
+		} catch (InterruptedException var3) {
+		}
+
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -84,20 +84,20 @@ public class TaskHandler implements Runnable {
 	)
 	@Export("newTask")
 	final Task newTask(int var1, int var2, int var3, Object var4) {
-		Task var5 = new Task(); // L: 90
-		var5.type = var1; // L: 91
-		var5.intArgument = var2; // L: 92
-		var5.objectArgument = var4; // L: 93
-		synchronized(this) { // L: 94
-			if (this.task != null) { // L: 95
-				this.task.next = var5; // L: 96
-				this.task = var5; // L: 97
+		Task var5 = new Task();
+		var5.type = var1;
+		var5.intArgument = var2;
+		var5.objectArgument = var4;
+		synchronized(this) {
+			if (this.task != null) {
+				this.task.next = var5;
+				this.task = var5;
 			} else {
-				this.task = this.current = var5; // L: 100
+				this.task = this.current = var5;
 			}
 
-			this.notify(); // L: 102
-			return var5; // L: 104
+			this.notify();
+			return var5;
 		}
 	}
 
@@ -108,7 +108,7 @@ public class TaskHandler implements Runnable {
 	)
 	@Export("newSocketTask")
 	public final Task newSocketTask(String var1, int var2) {
-		return this.newTask(1, var2, 0, var1); // L: 108
+		return this.newTask(1, var2, 0, var1);
 	}
 
 	@ObfuscatedName("m")
@@ -118,53 +118,53 @@ public class TaskHandler implements Runnable {
 	)
 	@Export("newThreadTask")
 	public final Task newThreadTask(Runnable var1, int var2) {
-		return this.newTask(2, var2, 0, var1); // L: 112
+		return this.newTask(2, var2, 0, var1);
 	}
 
 	public final void run() {
 		while (true) {
 			Task var1;
-			synchronized(this) { // L: 48
+			synchronized(this) {
 				while (true) {
-					if (this.isClosed) { // L: 50
+					if (this.isClosed) {
 						return;
 					}
 
-					if (this.current != null) { // L: 51
-						var1 = this.current; // L: 52
-						this.current = this.current.next; // L: 53
-						if (this.current == null) { // L: 54
+					if (this.current != null) {
+						var1 = this.current;
+						this.current = this.current.next;
+						if (this.current == null) {
 							this.task = null;
 						}
 						break;
 					}
 
 					try {
-						this.wait(); // L: 58
-					} catch (InterruptedException var8) { // L: 60
+						this.wait();
+					} catch (InterruptedException var8) {
 					}
 				}
 			}
 
 			try {
-				int var5 = var1.type; // L: 64
-				if (var5 == 1) { // L: 65
-					var1.result = new Socket(InetAddress.getByName((String)var1.objectArgument), var1.intArgument); // L: 66
-				} else if (var5 == 2) { // L: 68
-					Thread var3 = new Thread((Runnable)var1.objectArgument); // L: 69
-					var3.setDaemon(true); // L: 70
-					var3.start(); // L: 71
-					var3.setPriority(var1.intArgument); // L: 72
-					var1.result = var3; // L: 73
-				} else if (var5 == 4) { // L: 75
-					var1.result = new DataInputStream(((URL)var1.objectArgument).openStream()); // L: 76
+				int var5 = var1.type;
+				if (var5 == 1) {
+					var1.result = new Socket(InetAddress.getByName((String)var1.objectArgument), var1.intArgument);
+				} else if (var5 == 2) {
+					Thread var3 = new Thread((Runnable)var1.objectArgument);
+					var3.setDaemon(true);
+					var3.start();
+					var3.setPriority(var1.intArgument);
+					var1.result = var3;
+				} else if (var5 == 4) {
+					var1.result = new DataInputStream(((URL)var1.objectArgument).openStream());
 				}
 
-				var1.status = 1; // L: 78
-			} catch (ThreadDeath var6) { // L: 80
-				throw var6; // L: 81
-			} catch (Throwable var7) { // L: 83
-				var1.status = 2; // L: 84
+				var1.status = 1;
+			} catch (ThreadDeath var6) {
+				throw var6;
+			} catch (Throwable var7) {
+				var1.status = 2;
 			}
 		}
 	}
@@ -175,9 +175,9 @@ public class TaskHandler implements Runnable {
 		garbageValue = "-1643511224"
 	)
 	public static byte[] method3047(byte[] var0) {
-		int var1 = var0.length; // L: 22
-		byte[] var2 = new byte[var1]; // L: 23
-		System.arraycopy(var0, 0, var2, 0, var1); // L: 24
-		return var2; // L: 25
+		int var1 = var0.length;
+		byte[] var2 = new byte[var1];
+		System.arraycopy(var0, 0, var2, 0, var1);
+		return var2;
 	}
 }

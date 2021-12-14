@@ -110,7 +110,7 @@ public final class Occluder {
 	int field2367;
 
 	Occluder() {
-	} // L: 23
+	}
 
 	@ObfuscatedName("gt")
 	@ObfuscatedSignature(
@@ -119,26 +119,26 @@ public final class Occluder {
 	)
 	@Export("setWindowedMode")
 	static void setWindowedMode(int var0) {
-		Client.field514 = 0L; // L: 4973
-		if (var0 >= 2) { // L: 4974
+		Client.field514 = 0L;
+		if (var0 >= 2) {
 			Client.isResizable = true;
 		} else {
-			Client.isResizable = false; // L: 4975
+			Client.isResizable = false;
 		}
 
-		if (class143.getWindowedMode() == 1) { // L: 4976
-			class295.client.setMaxCanvasSize(765, 503); // L: 4977
+		if (class143.getWindowedMode() == 1) {
+			class295.client.setMaxCanvasSize(765, 503);
 		} else {
-			class295.client.setMaxCanvasSize(7680, 2160); // L: 4980
+			class295.client.setMaxCanvasSize(7680, 2160);
 		}
 
-		if (Client.gameState >= 25) { // L: 4982
-			PacketBufferNode var1 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2824, Client.packetWriter.isaacCipher); // L: 4984
-			var1.packetBuffer.writeByte(class143.getWindowedMode()); // L: 4985
-			var1.packetBuffer.writeShort(class186.canvasWidth); // L: 4986
-			var1.packetBuffer.writeShort(BoundaryObject.canvasHeight); // L: 4987
-			Client.packetWriter.addNode(var1); // L: 4988
+		if (Client.gameState >= 25) {
+			PacketBufferNode var1 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2824, Client.packetWriter.isaacCipher);
+			var1.packetBuffer.writeByte(class143.getWindowedMode());
+			var1.packetBuffer.writeShort(class186.canvasWidth);
+			var1.packetBuffer.writeShort(BoundaryObject.canvasHeight);
+			Client.packetWriter.addNode(var1);
 		}
 
-	} // L: 4990
+	}
 }

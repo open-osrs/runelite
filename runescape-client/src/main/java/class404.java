@@ -26,11 +26,11 @@ public class class404 extends class371 implements class244 {
 		descriptor = "(Lko;ILlf;Lku;)V"
 	)
 	public class404(StudioGame var1, int var2, Language var3, AbstractArchive var4) {
-		super(var1, var3, var4 != null ? var4.getGroupFileCount(var2) : 0); // L: 19
-		this.field4436 = new DemotingHashTable(64); // L: 15
-		this.field4435 = var4; // L: 20
-		this.field4437 = var2; // L: 21
-	} // L: 22
+		super(var1, var3, var4 != null ? var4.getGroupFileCount(var2) : 0);
+		this.field4436 = new DemotingHashTable(64);
+		this.field4435 = var4;
+		this.field4437 = var2;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -38,14 +38,14 @@ public class class404 extends class371 implements class244 {
 		garbageValue = "1453466959"
 	)
 	protected class373 vmethod7209(int var1) {
-		synchronized(this.field4436) { // L: 26
-			class372 var2 = (class372)this.field4436.get((long)var1); // L: 27
-			if (var2 == null) { // L: 28
-				var2 = this.method7215(var1); // L: 29
-				this.field4436.method4958(var2, (long)var1); // L: 30
+		synchronized(this.field4436) {
+			class372 var2 = (class372)this.field4436.get((long)var1);
+			if (var2 == null) {
+				var2 = this.method7215(var1);
+				this.field4436.method4958(var2, (long)var1);
 			}
 
-			return var2; // L: 33
+			return var2;
 		}
 	}
 
@@ -55,13 +55,13 @@ public class class404 extends class371 implements class244 {
 		garbageValue = "277242473"
 	)
 	class372 method7215(int var1) {
-		byte[] var2 = this.field4435.takeFile(this.field4437, var1); // L: 37
-		class372 var3 = new class372(var1); // L: 38
-		if (var2 != null) { // L: 39
+		byte[] var2 = this.field4435.takeFile(this.field4437, var1);
+		class372 var3 = new class372(var1);
+		if (var2 != null) {
 			var3.method6778(new Buffer(var2));
 		}
 
-		return var3; // L: 40
+		return var3;
 	}
 
 	@ObfuscatedName("a")
@@ -70,13 +70,13 @@ public class class404 extends class371 implements class244 {
 		garbageValue = "-1968440370"
 	)
 	public void method7216() {
-		synchronized(this.field4436) { // L: 44
-			this.field4436.clear(); // L: 45
+		synchronized(this.field4436) {
+			this.field4436.clear();
 		}
-	} // L: 47
+	}
 
 	public Iterator iterator() {
-		return new class403(this); // L: 51
+		return new class403(this);
 	}
 
 	@ObfuscatedName("p")
@@ -86,6 +86,6 @@ public class class404 extends class371 implements class244 {
 	)
 	@Export("Widget_unpackTargetMask")
 	public static int Widget_unpackTargetMask(int var0) {
-		return var0 >> 11 & 63; // L: 17
+		return var0 >> 11 & 63;
 	}
 }

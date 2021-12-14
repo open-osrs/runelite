@@ -45,7 +45,7 @@ public class class124 extends class126 {
 		}
 
 		this.field1484 = var1.readStringCp1252NullTerminatedOrNull();
-	} // L: 85
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -53,8 +53,8 @@ public class class124 extends class126 {
 		garbageValue = "-1531735008"
 	)
 	void vmethod3028(ClanSettings var1) {
-		var1.method2850(this.field1485, this.field1484, 0); // L: 88
-	} // L: 89
+		var1.method2850(this.field1485, this.field1484, 0);
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -62,19 +62,19 @@ public class class124 extends class126 {
 		garbageValue = "3"
 	)
 	static int method2747(PacketBuffer var0) {
-		int var1 = var0.readBits(2); // L: 187
+		int var1 = var0.readBits(2);
 		int var2;
-		if (var1 == 0) { // L: 189
+		if (var1 == 0) {
 			var2 = 0;
-		} else if (var1 == 1) { // L: 190
+		} else if (var1 == 1) {
 			var2 = var0.readBits(5);
-		} else if (var1 == 2) { // L: 191
+		} else if (var1 == 2) {
 			var2 = var0.readBits(8);
 		} else {
-			var2 = var0.readBits(11); // L: 192
+			var2 = var0.readBits(11);
 		}
 
-		return var2; // L: 193
+		return var2;
 	}
 
 	@ObfuscatedName("t")
@@ -83,22 +83,22 @@ public class class124 extends class126 {
 		garbageValue = "970200706"
 	)
 	static SpritePixels method2754() {
-		SpritePixels var0 = new SpritePixels(); // L: 72
-		var0.width = class432.SpriteBuffer_spriteWidth; // L: 73
-		var0.height = class432.SpriteBuffer_spriteHeight; // L: 74
-		var0.xOffset = class141.SpriteBuffer_xOffsets[0]; // L: 75
-		var0.yOffset = RouteStrategy.SpriteBuffer_yOffsets[0]; // L: 76
-		var0.subWidth = class432.SpriteBuffer_spriteWidths[0]; // L: 77
-		var0.subHeight = class330.SpriteBuffer_spriteHeights[0]; // L: 78
-		int var1 = var0.subWidth * var0.subHeight; // L: 79
-		byte[] var2 = class369.SpriteBuffer_pixels[0]; // L: 80
-		var0.pixels = new int[var1]; // L: 81
+		SpritePixels var0 = new SpritePixels();
+		var0.width = class432.SpriteBuffer_spriteWidth;
+		var0.height = class432.SpriteBuffer_spriteHeight;
+		var0.xOffset = class141.SpriteBuffer_xOffsets[0];
+		var0.yOffset = RouteStrategy.SpriteBuffer_yOffsets[0];
+		var0.subWidth = class432.SpriteBuffer_spriteWidths[0];
+		var0.subHeight = class330.SpriteBuffer_spriteHeights[0];
+		int var1 = var0.subWidth * var0.subHeight;
+		byte[] var2 = class369.SpriteBuffer_pixels[0];
+		var0.pixels = new int[var1];
 
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 82
+		for (int var3 = 0; var3 < var1; ++var3) {
 			var0.pixels[var3] = class432.SpriteBuffer_spritePalette[var2[var3] & 255];
 		}
 
-		UserComparator3.method2529(); // L: 83
-		return var0; // L: 84
+		UserComparator3.method2529();
+		return var0;
 	}
 }

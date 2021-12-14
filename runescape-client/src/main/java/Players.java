@@ -79,19 +79,19 @@ public class Players {
 	static Archive archive11;
 
 	static {
-		field1243 = new byte[2048]; // L: 18
-		field1246 = new class185[2048]; // L: 19
-		field1248 = new Buffer[2048]; // L: 20
-		Players_count = 0; // L: 21
-		Players_indices = new int[2048]; // L: 22
-		Players_emptyIdxCount = 0; // L: 23
-		Players_emptyIndices = new int[2048]; // L: 24
-		Players_regions = new int[2048]; // L: 25
+		field1243 = new byte[2048];
+		field1246 = new class185[2048];
+		field1248 = new Buffer[2048];
+		Players_count = 0;
+		Players_indices = new int[2048];
+		Players_emptyIdxCount = 0;
+		Players_emptyIndices = new int[2048];
+		Players_regions = new int[2048];
 		Players_orientations = new int[2048];
 		Players_targetIndices = new int[2048];
 		Players_pendingUpdateCount = 0;
 		Players_pendingUpdateIndices = new int[2048];
-		field1257 = new Buffer(new byte[5000]); // L: 30
+		field1257 = new Buffer(new byte[5000]);
 	}
 
 	@ObfuscatedName("c")
@@ -100,10 +100,10 @@ public class Players {
 		garbageValue = "2062230724"
 	)
 	public static void method2382(AbstractArchive var0, String var1, String var2, int var3, boolean var4) {
-		int var5 = var0.getGroupId(var1); // L: 26
-		int var6 = var0.getFileId(var5, var2); // L: 27
-		NetSocket.method3118(var0, var5, var6, var3, var4); // L: 28
-	} // L: 29
+		int var5 = var0.getGroupId(var1);
+		int var6 = var0.getFileId(var5, var2);
+		NetSocket.method3118(var0, var5, var6, var3, var4);
+	}
 
 	@ObfuscatedName("kz")
 	@ObfuscatedSignature(
@@ -111,8 +111,8 @@ public class Players {
 		garbageValue = "-733179789"
 	)
 	static final void method2383(int var0) {
-		var0 = Math.min(Math.max(var0, 0), 127); // L: 12155
-		SecureRandomFuture.clientPreferences.areaSoundEffectsVolume = var0; // L: 12156
-		class127.savePreferences(); // L: 12157
-	} // L: 12158
+		var0 = Math.min(Math.max(var0, 0), 127);
+		SecureRandomFuture.clientPreferences.areaSoundEffectsVolume = var0;
+		class127.savePreferences();
+	}
 }

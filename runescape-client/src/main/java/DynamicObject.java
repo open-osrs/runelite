@@ -69,36 +69,36 @@ public class DynamicObject extends Renderable {
 		descriptor = "(IIIIIIIZLgt;)V"
 	)
 	DynamicObject(int var1, int var2, int var3, int var4, int var5, int var6, int var7, boolean var8, Renderable var9) {
-		this.id = var1; // L: 20
-		this.type = var2; // L: 21
-		this.orientation = var3; // L: 22
-		this.plane = var4; // L: 23
-		this.x = var5; // L: 24
-		this.y = var6; // L: 25
-		if (var7 != -1) { // L: 26
-			this.sequenceDefinition = UserComparator5.SequenceDefinition_get(var7); // L: 27
-			this.frame = 0; // L: 28
-			this.cycleStart = Client.cycle - 1; // L: 29
-			if (this.sequenceDefinition.field2078 == 0 && var9 != null && var9 instanceof DynamicObject) { // L: 30
-				DynamicObject var10 = (DynamicObject)var9; // L: 31
-				if (this.sequenceDefinition == var10.sequenceDefinition) { // L: 32
-					this.frame = var10.frame; // L: 33
-					this.cycleStart = var10.cycleStart; // L: 34
-					return; // L: 35
+		this.id = var1;
+		this.type = var2;
+		this.orientation = var3;
+		this.plane = var4;
+		this.x = var5;
+		this.y = var6;
+		if (var7 != -1) {
+			this.sequenceDefinition = UserComparator5.SequenceDefinition_get(var7);
+			this.frame = 0;
+			this.cycleStart = Client.cycle - 1;
+			if (this.sequenceDefinition.field2078 == 0 && var9 != null && var9 instanceof DynamicObject) {
+				DynamicObject var10 = (DynamicObject)var9;
+				if (this.sequenceDefinition == var10.sequenceDefinition) {
+					this.frame = var10.frame;
+					this.cycleStart = var10.cycleStart;
+					return;
 				}
 			}
 
-			if (var8 && this.sequenceDefinition.frameCount != -1) { // L: 38
-				if (!this.sequenceDefinition.method3690()) { // L: 39
-					this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length); // L: 40
-					this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]); // L: 41
+			if (var8 && this.sequenceDefinition.frameCount != -1) {
+				if (!this.sequenceDefinition.method3690()) {
+					this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length);
+					this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]);
 				} else {
-					this.frame = (int)(Math.random() * (double)this.sequenceDefinition.method3647()); // L: 44
+					this.frame = (int)(Math.random() * (double)this.sequenceDefinition.method3647());
 				}
 			}
 		}
 
-	} // L: 48
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -108,19 +108,19 @@ public class DynamicObject extends Renderable {
 	@Export("getModel")
 	protected final Model getModel() {
 		int var2;
-		if (this.sequenceDefinition != null) { // L: 51
-			int var1 = Client.cycle - this.cycleStart; // L: 52
-			if (var1 > 100 && this.sequenceDefinition.frameCount > 0) { // L: 53
+		if (this.sequenceDefinition != null) {
+			int var1 = Client.cycle - this.cycleStart;
+			if (var1 > 100 && this.sequenceDefinition.frameCount > 0) {
 				var1 = 100;
 			}
 
-			if (this.sequenceDefinition.method3690()) { // L: 54
-				var2 = this.sequenceDefinition.method3647(); // L: 68
-				this.frame += var1; // L: 69
-				var1 = 0; // L: 70
-				if (this.frame >= var2) { // L: 71
-					this.frame = var2 - this.sequenceDefinition.frameCount; // L: 72
-					if (this.frame < 0 || this.frame > var2) { // L: 73
+			if (this.sequenceDefinition.method3690()) {
+				var2 = this.sequenceDefinition.method3647();
+				this.frame += var1;
+				var1 = 0;
+				if (this.frame >= var2) {
+					this.frame = var2 - this.sequenceDefinition.frameCount;
+					if (this.frame < 0 || this.frame > var2) {
 						this.sequenceDefinition = null;
 					}
 				}
@@ -128,22 +128,22 @@ public class DynamicObject extends Renderable {
 				label79: {
 					do {
 						do {
-							if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) { // L: 55
+							if (var1 <= this.sequenceDefinition.frameLengths[this.frame]) {
 								break label79;
 							}
 
-							var1 -= this.sequenceDefinition.frameLengths[this.frame]; // L: 56
-							++this.frame; // L: 57
-						} while(this.frame < this.sequenceDefinition.frameIds.length); // L: 58
+							var1 -= this.sequenceDefinition.frameLengths[this.frame];
+							++this.frame;
+						} while(this.frame < this.sequenceDefinition.frameIds.length);
 
-						this.frame -= this.sequenceDefinition.frameCount; // L: 59
-					} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length); // L: 60
+						this.frame -= this.sequenceDefinition.frameCount;
+					} while(this.frame >= 0 && this.frame < this.sequenceDefinition.frameIds.length);
 
-					this.sequenceDefinition = null; // L: 61
+					this.sequenceDefinition = null;
 				}
 			}
 
-			this.cycleStart = Client.cycle - var1; // L: 78
+			this.cycleStart = Client.cycle - var1;
 		}
 
 		ObjectComposition var12 = class148.getObjectDefinition(this.id);
@@ -151,27 +151,27 @@ public class DynamicObject extends Renderable {
 			var12 = var12.transform();
 		}
 
-		if (var12 == null) { // L: 82
+		if (var12 == null) {
 			return null;
 		} else {
 			int var3;
 			if (this.orientation != 1 && this.orientation != 3) {
-				var2 = var12.sizeX; // L: 90
+				var2 = var12.sizeX;
 				var3 = var12.sizeY;
 			} else {
-				var2 = var12.sizeY; // L: 86
+				var2 = var12.sizeY;
 				var3 = var12.sizeX;
 			}
 
 			int var4 = (var2 >> 1) + this.x;
-			int var5 = (var2 + 1 >> 1) + this.x; // L: 94
+			int var5 = (var2 + 1 >> 1) + this.x;
 			int var6 = (var3 >> 1) + this.y;
-			int var7 = (var3 + 1 >> 1) + this.y; // L: 96
-			int[][] var8 = Tiles.Tiles_heights[this.plane]; // L: 97
-			int var9 = var8[var4][var7] + var8[var4][var6] + var8[var5][var6] + var8[var5][var7] >> 2; // L: 98
-			int var10 = (this.x << 7) + (var2 << 6); // L: 99
-			int var11 = (this.y << 7) + (var3 << 6); // L: 100
-			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame); // L: 101
+			int var7 = (var3 + 1 >> 1) + this.y;
+			int[][] var8 = Tiles.Tiles_heights[this.plane];
+			int var9 = var8[var4][var7] + var8[var4][var6] + var8[var5][var6] + var8[var5][var7] >> 2;
+			int var10 = (this.x << 7) + (var2 << 6);
+			int var11 = (this.y << 7) + (var3 << 6);
+			return var12.getModelDynamic(this.type, this.orientation, var8, var10, var9, var11, this.sequenceDefinition, this.frame);
 		}
 	}
 
@@ -182,32 +182,32 @@ public class DynamicObject extends Renderable {
 	)
 	@Export("iLog")
 	public static int iLog(int var0) {
-		int var1 = 0; // L: 74
-		if (var0 < 0 || var0 >= 65536) { // L: 75
-			var0 >>>= 16; // L: 76
-			var1 += 16; // L: 77
+		int var1 = 0;
+		if (var0 < 0 || var0 >= 65536) {
+			var0 >>>= 16;
+			var1 += 16;
 		}
 
-		if (var0 >= 256) { // L: 79
-			var0 >>>= 8; // L: 80
-			var1 += 8; // L: 81
+		if (var0 >= 256) {
+			var0 >>>= 8;
+			var1 += 8;
 		}
 
-		if (var0 >= 16) { // L: 83
-			var0 >>>= 4; // L: 84
-			var1 += 4; // L: 85
+		if (var0 >= 16) {
+			var0 >>>= 4;
+			var1 += 4;
 		}
 
-		if (var0 >= 4) { // L: 87
-			var0 >>>= 2; // L: 88
-			var1 += 2; // L: 89
+		if (var0 >= 4) {
+			var0 >>>= 2;
+			var1 += 2;
 		}
 
-		if (var0 >= 1) { // L: 91
-			var0 >>>= 1; // L: 92
-			++var1; // L: 93
+		if (var0 >= 1) {
+			var0 >>>= 1;
+			++var1;
 		}
 
-		return var0 + var1; // L: 95
+		return var0 + var1;
 	}
 }

@@ -27,7 +27,7 @@ public class RunException extends RuntimeException {
 	Throwable throwable;
 
 	RunException(Throwable var1, String var2) {
-		this.message = var2; // L: 27
-		this.throwable = var1; // L: 28
-	} // L: 29
+		this.message = var2;
+		this.throwable = var1;
+	}
 }

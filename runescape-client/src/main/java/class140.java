@@ -27,8 +27,8 @@ public class class140 extends class126 {
 	)
 	class140(class129 var1) {
 		this.this$0 = var1;
-		this.field1603 = -1; // L: 213
-	} // L: 215
+		this.field1603 = -1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -36,8 +36,8 @@ public class class140 extends class126 {
 		garbageValue = "1416770155"
 	)
 	void vmethod3029(Buffer var1) {
-		this.field1603 = var1.readUnsignedShort(); // L: 218
-	} // L: 219
+		this.field1603 = var1.readUnsignedShort();
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -45,8 +45,8 @@ public class class140 extends class126 {
 		garbageValue = "-1531735008"
 	)
 	void vmethod3028(ClanSettings var1) {
-		var1.method2854(this.field1603); // L: 222
-	} // L: 223
+		var1.method2854(this.field1603);
+	}
 
 	@ObfuscatedName("kn")
 	@ObfuscatedSignature(
@@ -55,17 +55,17 @@ public class class140 extends class126 {
 	)
 	@Export("Widget_resetModelFrames")
 	static final void Widget_resetModelFrames(int var0) {
-		if (class242.loadInterface(var0)) { // L: 12059
-			Widget[] var1 = MouseRecorder.Widget_interfaceComponents[var0]; // L: 12060
+		if (class242.loadInterface(var0)) {
+			Widget[] var1 = MouseRecorder.Widget_interfaceComponents[var0];
 
-			for (int var2 = 0; var2 < var1.length; ++var2) { // L: 12061
-				Widget var3 = var1[var2]; // L: 12062
-				if (var3 != null) { // L: 12063
-					var3.modelFrame = 0; // L: 12064
-					var3.modelFrameCycle = 0; // L: 12065
+			for (int var2 = 0; var2 < var1.length; ++var2) {
+				Widget var3 = var1[var2];
+				if (var3 != null) {
+					var3.modelFrame = 0;
+					var3.modelFrameCycle = 0;
 				}
 			}
 
 		}
-	} // L: 12067
+	}
 }

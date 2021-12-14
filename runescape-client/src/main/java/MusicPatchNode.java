@@ -132,7 +132,7 @@ public class MusicPatchNode extends Node {
 	void method5292() {
 		this.patch = null;
 		this.rawSound = null;
-		this.field3131 = null; // L: 36
+		this.field3131 = null;
 		this.stream = null;
 	}
 
@@ -142,56 +142,56 @@ public class MusicPatchNode extends Node {
 		garbageValue = "-1684371840"
 	)
 	public static String method5294(byte[] var0, int var1, int var2) {
-		char[] var3 = new char[var2]; // L: 30
-		int var4 = 0; // L: 31
-		int var5 = var1; // L: 32
+		char[] var3 = new char[var2];
+		int var4 = 0;
+		int var5 = var1;
 
 		int var8;
-		for (int var6 = var2 + var1; var5 < var6; var3[var4++] = (char)var8) { // L: 33 34 65
-			int var7 = var0[var5++] & 255; // L: 35
-			if (var7 < 128) { // L: 37
-				if (var7 == 0) { // L: 38
+		for (int var6 = var2 + var1; var5 < var6; var3[var4++] = (char)var8) {
+			int var7 = var0[var5++] & 255;
+			if (var7 < 128) {
+				if (var7 == 0) {
 					var8 = 65533;
 				} else {
-					var8 = var7; // L: 39
+					var8 = var7;
 				}
-			} else if (var7 < 192) { // L: 41
+			} else if (var7 < 192) {
 				var8 = 65533;
-			} else if (var7 < 224) { // L: 42
-				if (var5 < var6 && (var0[var5] & 192) == 128) { // L: 43
-					var8 = (var7 & 31) << 6 | var0[var5++] & 63; // L: 44
-					if (var8 < 128) { // L: 45
+			} else if (var7 < 224) {
+				if (var5 < var6 && (var0[var5] & 192) == 128) {
+					var8 = (var7 & 31) << 6 | var0[var5++] & 63;
+					if (var8 < 128) {
 						var8 = 65533;
 					}
 				} else {
-					var8 = 65533; // L: 47
+					var8 = 65533;
 				}
-			} else if (var7 < 240) { // L: 49
-				if (var5 + 1 < var6 && (var0[var5] & 192) == 128 && (var0[var5 + 1] & 192) == 128) { // L: 50
-					var8 = (var7 & 15) << 12 | (var0[var5++] & 63) << 6 | var0[var5++] & 63; // L: 51
-					if (var8 < 2048) { // L: 52
+			} else if (var7 < 240) {
+				if (var5 + 1 < var6 && (var0[var5] & 192) == 128 && (var0[var5 + 1] & 192) == 128) {
+					var8 = (var7 & 15) << 12 | (var0[var5++] & 63) << 6 | var0[var5++] & 63;
+					if (var8 < 2048) {
 						var8 = 65533;
 					}
 				} else {
-					var8 = 65533; // L: 54
+					var8 = 65533;
 				}
-			} else if (var7 < 248) { // L: 56
-				if (var5 + 2 < var6 && (var0[var5] & 192) == 128 && (var0[var5 + 1] & 192) == 128 && (var0[var5 + 2] & 192) == 128) { // L: 57
-					var8 = (var7 & 7) << 18 | (var0[var5++] & 63) << 12 | (var0[var5++] & 63) << 6 | var0[var5++] & 63; // L: 58
-					if (var8 >= 65536 && var8 <= 1114111) { // L: 59
-						var8 = 65533; // L: 60
+			} else if (var7 < 248) {
+				if (var5 + 2 < var6 && (var0[var5] & 192) == 128 && (var0[var5 + 1] & 192) == 128 && (var0[var5 + 2] & 192) == 128) {
+					var8 = (var7 & 7) << 18 | (var0[var5++] & 63) << 12 | (var0[var5++] & 63) << 6 | var0[var5++] & 63;
+					if (var8 >= 65536 && var8 <= 1114111) {
+						var8 = 65533;
 					} else {
 						var8 = 65533;
 					}
 				} else {
-					var8 = 65533; // L: 62
+					var8 = 65533;
 				}
 			} else {
-				var8 = 65533; // L: 64
+				var8 = 65533;
 			}
 		}
 
-		return new String(var3, 0, var4); // L: 67
+		return new String(var3, 0, var4);
 	}
 
 	@ObfuscatedName("m")
@@ -200,59 +200,59 @@ public class MusicPatchNode extends Node {
 		garbageValue = "-8"
 	)
 	public static int method5293(CharSequence var0, int var1, boolean var2) {
-		if (var1 >= 2 && var1 <= 36) { // L: 81
-			boolean var3 = false; // L: 82
-			boolean var4 = false; // L: 83
-			int var5 = 0; // L: 84
-			int var6 = var0.length(); // L: 85
+		if (var1 >= 2 && var1 <= 36) {
+			boolean var3 = false;
+			boolean var4 = false;
+			int var5 = 0;
+			int var6 = var0.length();
 
-			for (int var7 = 0; var7 < var6; ++var7) { // L: 86
-				char var8 = var0.charAt(var7); // L: 87
-				if (var7 == 0) { // L: 88
-					if (var8 == '-') { // L: 89
-						var3 = true; // L: 90
+			for (int var7 = 0; var7 < var6; ++var7) {
+				char var8 = var0.charAt(var7);
+				if (var7 == 0) {
+					if (var8 == '-') {
+						var3 = true;
 						continue;
 					}
 
-					if (var8 == '+') { // L: 93
+					if (var8 == '+') {
 						continue;
 					}
 				}
 
 				int var10;
-				if (var8 >= '0' && var8 <= '9') { // L: 95
+				if (var8 >= '0' && var8 <= '9') {
 					var10 = var8 - '0';
-				} else if (var8 >= 'A' && var8 <= 'Z') { // L: 96
+				} else if (var8 >= 'A' && var8 <= 'Z') {
 					var10 = var8 - '7';
 				} else {
-					if (var8 < 'a' || var8 > 'z') { // L: 97
-						throw new NumberFormatException(); // L: 98
+					if (var8 < 'a' || var8 > 'z') {
+						throw new NumberFormatException();
 					}
 
 					var10 = var8 - 'W';
 				}
 
-				if (var10 >= var1) { // L: 99
+				if (var10 >= var1) {
 					throw new NumberFormatException();
 				}
 
-				if (var3) { // L: 100
+				if (var3) {
 					var10 = -var10;
 				}
 
-				int var9 = var5 * var1 + var10; // L: 101
-				if (var9 / var1 != var5) { // L: 102
+				int var9 = var5 * var1 + var10;
+				if (var9 / var1 != var5) {
 					throw new NumberFormatException();
 				}
 
-				var5 = var9; // L: 103
-				var4 = true; // L: 104
+				var5 = var9;
+				var4 = true;
 			}
 
-			if (!var4) { // L: 106
+			if (!var4) {
 				throw new NumberFormatException();
 			} else {
-				return var5; // L: 107
+				return var5;
 			}
 		} else {
 			throw new IllegalArgumentException("" + var1);

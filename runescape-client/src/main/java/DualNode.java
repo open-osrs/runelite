@@ -25,11 +25,11 @@ public class DualNode extends Node {
 	@ObfuscatedName("do")
 	@Export("removeDual")
 	public void removeDual() {
-		if (this.nextDual != null) { // L: 9
-			this.nextDual.previousDual = this.previousDual; // L: 10
-			this.previousDual.nextDual = this.nextDual; // L: 11
-			this.previousDual = null; // L: 12
-			this.nextDual = null; // L: 13
+		if (this.nextDual != null) {
+			this.nextDual.previousDual = this.previousDual;
+			this.previousDual.nextDual = this.nextDual;
+			this.previousDual = null;
+			this.nextDual = null;
 		}
-	} // L: 14
+	}
 }

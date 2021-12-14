@@ -53,9 +53,9 @@ public class Messages {
 	static int field1277;
 
 	static {
-		Messages_channels = new HashMap(); // L: 9
-		Messages_hashTable = new IterableNodeHashTable(1024); // L: 10
-		Messages_queue = new IterableDualNodeQueue(); // L: 11
-		Messages_count = 0; // L: 12
+		Messages_channels = new HashMap();
+		Messages_hashTable = new IterableNodeHashTable(1024);
+		Messages_queue = new IterableDualNodeQueue();
+		Messages_count = 0;
 	}
 }

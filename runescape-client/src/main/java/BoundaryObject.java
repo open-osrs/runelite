@@ -77,9 +77,9 @@ public final class BoundaryObject {
 	int flags;
 
 	BoundaryObject() {
-		this.tag = 0L; // L: 11
-		this.flags = 0; // L: 12
-	} // L: 14
+		this.tag = 0L;
+		this.flags = 0;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -88,19 +88,19 @@ public final class BoundaryObject {
 	)
 	public static boolean method4321(File var0, boolean var1) {
 		try {
-			RandomAccessFile var2 = new RandomAccessFile(var0, "rw"); // L: 58
-			int var3 = var2.read(); // L: 59
-			var2.seek(0L); // L: 60
-			var2.write(var3); // L: 61
-			var2.seek(0L); // L: 62
-			var2.close(); // L: 63
-			if (var1) { // L: 64
+			RandomAccessFile var2 = new RandomAccessFile(var0, "rw");
+			int var3 = var2.read();
+			var2.seek(0L);
+			var2.write(var3);
+			var2.seek(0L);
+			var2.close();
+			if (var1) {
 				var0.delete();
 			}
 
-			return true; // L: 65
-		} catch (Exception var4) { // L: 67
-			return false; // L: 68
+			return true;
+		} catch (Exception var4) {
+			return false;
 		}
 	}
 
@@ -111,28 +111,28 @@ public final class BoundaryObject {
 	)
 	@Export("changeWorld")
 	static void changeWorld(World var0) {
-		if (var0.isMembersOnly() != Client.isMembersWorld) { // L: 1958
-			Client.isMembersWorld = var0.isMembersOnly(); // L: 1959
-			UserComparator6.method2552(var0.isMembersOnly()); // L: 1960
+		if (var0.isMembersOnly() != Client.isMembersWorld) {
+			Client.isMembersWorld = var0.isMembersOnly();
+			UserComparator6.method2552(var0.isMembersOnly());
 		}
 
-		if (var0.properties != Client.worldProperties) { // L: 1962
-			Archive var1 = UserComparator6.archive8; // L: 1963
-			int var2 = var0.properties; // L: 1964
-			if ((var2 & 536870912) != 0) { // L: 1966
-				Login.logoSprite = ClientPreferences.SpriteBuffer_getIndexedSpriteByName(var1, "logo_deadman_mode", ""); // L: 1967
-			} else if ((var2 & 1073741824) != 0) { // L: 1969
-				Login.logoSprite = ClientPreferences.SpriteBuffer_getIndexedSpriteByName(var1, "logo_seasonal_mode", ""); // L: 1970
+		if (var0.properties != Client.worldProperties) {
+			Archive var1 = UserComparator6.archive8;
+			int var2 = var0.properties;
+			if ((var2 & 536870912) != 0) {
+				Login.logoSprite = ClientPreferences.SpriteBuffer_getIndexedSpriteByName(var1, "logo_deadman_mode", "");
+			} else if ((var2 & 1073741824) != 0) {
+				Login.logoSprite = ClientPreferences.SpriteBuffer_getIndexedSpriteByName(var1, "logo_seasonal_mode", "");
 			} else {
-				Login.logoSprite = ClientPreferences.SpriteBuffer_getIndexedSpriteByName(var1, "logo", ""); // L: 1973
+				Login.logoSprite = ClientPreferences.SpriteBuffer_getIndexedSpriteByName(var1, "logo", "");
 			}
 		}
 
-		class185.worldHost = var0.host; // L: 1977
-		Client.worldId = var0.id; // L: 1978
-		Client.worldProperties = var0.properties; // L: 1979
-		GameObject.worldPort = Client.gameBuild == 0 ? 43594 : var0.id + 40000; // L: 1980
-		class133.js5Port = Client.gameBuild == 0 ? 443 : var0.id + 50000; // L: 1981
-		class129.currentPort = GameObject.worldPort; // L: 1982
-	} // L: 1983
+		class185.worldHost = var0.host;
+		Client.worldId = var0.id;
+		Client.worldProperties = var0.properties;
+		GameObject.worldPort = Client.gameBuild == 0 ? 43594 : var0.id + 40000;
+		class133.js5Port = Client.gameBuild == 0 ? 443 : var0.id + 50000;
+		class129.currentPort = GameObject.worldPort;
+	}
 }

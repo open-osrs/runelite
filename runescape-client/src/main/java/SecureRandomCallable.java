@@ -8,10 +8,10 @@ import net.runelite.mapping.ObfuscatedSignature;
 @Implements("SecureRandomCallable")
 public class SecureRandomCallable implements Callable {
 	SecureRandomCallable() {
-	} // L: 36
+	}
 
 	public Object call() {
-		return WallDecoration.method4340(); // L: 46
+		return WallDecoration.method4340();
 	}
 
 	@ObfuscatedName("c")
@@ -21,18 +21,18 @@ public class SecureRandomCallable implements Callable {
 	)
 	@Export("VarpDefinition_get")
 	public static VarpDefinition VarpDefinition_get(int var0) {
-		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0); // L: 18
-		if (var1 != null) { // L: 19
+		VarpDefinition var1 = (VarpDefinition)VarpDefinition.VarpDefinition_cached.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0); // L: 20
-			var1 = new VarpDefinition(); // L: 21
-			if (var2 != null) { // L: 22
+			byte[] var2 = VarpDefinition.VarpDefinition_archive.takeFile(16, var0);
+			var1 = new VarpDefinition();
+			if (var2 != null) {
 				var1.decode(new Buffer(var2));
 			}
 
-			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0); // L: 23
-			return var1; // L: 24
+			VarpDefinition.VarpDefinition_cached.put(var1, (long)var0);
+			return var1;
 		}
 	}
 
@@ -43,9 +43,9 @@ public class SecureRandomCallable implements Callable {
 	)
 	@Export("invalidateWidget")
 	static void invalidateWidget(Widget var0) {
-		if (var0.cycle == Client.field684) { // L: 12032
-			Client.field504[var0.rootIndex] = true; // L: 12033
+		if (var0.cycle == Client.field684) {
+			Client.field504[var0.rootIndex] = true;
 		}
 
-	} // L: 12035
+	}
 }

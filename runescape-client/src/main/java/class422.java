@@ -47,18 +47,18 @@ public class class422 implements MouseWheel {
 	final int field4530;
 
 	static {
-		field4523 = new class422(5, 0); // L: 8
-		field4524 = new class422(4, 2); // L: 9
-		field4528 = new class422(0, 5); // L: 10
-		field4526 = new class422(1, 6); // L: 11
-		field4525 = new class422(2, 7); // L: 12
-		field4527 = new class422(3, 8); // L: 13
+		field4523 = new class422(5, 0);
+		field4524 = new class422(4, 2);
+		field4528 = new class422(0, 5);
+		field4526 = new class422(1, 6);
+		field4525 = new class422(2, 7);
+		field4527 = new class422(3, 8);
 	}
 
 	class422(int var1, int var2) {
-		this.field4529 = var1; // L: 18
-		this.field4530 = var2; // L: 19
-	} // L: 20
+		this.field4529 = var1;
+		this.field4530 = var2;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -66,7 +66,7 @@ public class class422 implements MouseWheel {
 		garbageValue = "3"
 	)
 	public boolean method7605() {
-		return this == field4524; // L: 28
+		return this == field4524;
 	}
 
 	@ObfuscatedName("b")
@@ -76,6 +76,6 @@ public class class422 implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field4530; // L: 24
+		return this.field4530;
 	}
 }

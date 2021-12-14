@@ -66,23 +66,23 @@ public class class221 implements WorldMapSection {
 	)
 	@Export("expandBounds")
 	public void expandBounds(WorldMapArea var1) {
-		if (var1.regionLowX > this.field2659) { // L: 22
+		if (var1.regionLowX > this.field2659) {
 			var1.regionLowX = this.field2659;
 		}
 
 		if (var1.regionHighX < this.field2659) {
-			var1.regionHighX = this.field2659; // L: 23
+			var1.regionHighX = this.field2659;
 		}
 
-		if (var1.regionLowY > this.field2660) { // L: 24
+		if (var1.regionLowY > this.field2660) {
 			var1.regionLowY = this.field2660;
 		}
 
-		if (var1.regionHighY < this.field2660) { // L: 25
+		if (var1.regionHighY < this.field2660) {
 			var1.regionHighY = this.field2660;
 		}
 
-	} // L: 26
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -91,10 +91,10 @@ public class class221 implements WorldMapSection {
 	)
 	@Export("containsCoord")
 	public boolean containsCoord(int var1, int var2, int var3) {
-		if (var1 >= this.field2658 && var1 < this.field2664 + this.field2658) { // L: 30
-			return var2 >= (this.field2657 << 6) + (this.field2661 << 3) && var2 <= (this.field2657 << 6) + (this.field2661 << 3) + 7 && var3 >= (this.field2662 << 6) + (this.field2656 << 3) && var3 <= (this.field2662 << 6) + (this.field2656 << 3) + 7; // L: 33
+		if (var1 >= this.field2658 && var1 < this.field2664 + this.field2658) {
+			return var2 >= (this.field2657 << 6) + (this.field2661 << 3) && var2 <= (this.field2657 << 6) + (this.field2661 << 3) + 7 && var3 >= (this.field2662 << 6) + (this.field2656 << 3) && var3 <= (this.field2662 << 6) + (this.field2656 << 3) + 7;
 		} else {
-			return false; // L: 31
+			return false;
 		}
 	}
 
@@ -105,7 +105,7 @@ public class class221 implements WorldMapSection {
 	)
 	@Export("containsPosition")
 	public boolean containsPosition(int var1, int var2) {
-		return var1 >= (this.field2659 << 6) + (this.field2663 << 3) && var1 <= (this.field2659 << 6) + (this.field2663 << 3) + 7 && var2 >= (this.field2660 << 6) + (this.field2655 << 3) && var2 <= (this.field2660 << 6) + (this.field2655 << 3) + 7; // L: 38
+		return var1 >= (this.field2659 << 6) + (this.field2663 << 3) && var1 <= (this.field2659 << 6) + (this.field2663 << 3) + 7 && var2 >= (this.field2660 << 6) + (this.field2655 << 3) && var2 <= (this.field2660 << 6) + (this.field2655 << 3) + 7;
 	}
 
 	@ObfuscatedName("m")
@@ -115,11 +115,11 @@ public class class221 implements WorldMapSection {
 	)
 	@Export("getBorderTileLengths")
 	public int[] getBorderTileLengths(int var1, int var2, int var3) {
-		if (!this.containsCoord(var1, var2, var3)) { // L: 43
-			return null; // L: 44
+		if (!this.containsCoord(var1, var2, var3)) {
+			return null;
 		} else {
-			int[] var4 = new int[]{var2 + (this.field2659 * 64 - this.field2657 * 64) + (this.field2663 * 8 - this.field2661 * 8), var3 + (this.field2660 * 64 - this.field2662 * 64) + (this.field2655 * 8 - this.field2656 * 8)}; // L: 46 47 48
-			return var4; // L: 49
+			int[] var4 = new int[]{var2 + (this.field2659 * 64 - this.field2657 * 64) + (this.field2663 * 8 - this.field2661 * 8), var3 + (this.field2660 * 64 - this.field2662 * 64) + (this.field2655 * 8 - this.field2656 * 8)};
+			return var4;
 		}
 	}
 
@@ -130,12 +130,12 @@ public class class221 implements WorldMapSection {
 	)
 	@Export("coord")
 	public Coord coord(int var1, int var2) {
-		if (!this.containsPosition(var1, var2)) { // L: 54
-			return null; // L: 55
+		if (!this.containsPosition(var1, var2)) {
+			return null;
 		} else {
-			int var3 = this.field2657 * 64 - this.field2659 * 64 + (this.field2661 * 8 - this.field2663 * 8) + var1; // L: 57
-			int var4 = var2 + (this.field2662 * 64 - this.field2660 * 64) + (this.field2656 * 8 - this.field2655 * 8); // L: 58
-			return new Coord(this.field2658, var3, var4); // L: 59
+			int var3 = this.field2657 * 64 - this.field2659 * 64 + (this.field2661 * 8 - this.field2663 * 8) + var1;
+			int var4 = var2 + (this.field2662 * 64 - this.field2660 * 64) + (this.field2656 * 8 - this.field2655 * 8);
+			return new Coord(this.field2658, var3, var4);
 		}
 	}
 
@@ -146,18 +146,18 @@ public class class221 implements WorldMapSection {
 	)
 	@Export("read")
 	public void read(Buffer var1) {
-		this.field2658 = var1.readUnsignedByte(); // L: 64
-		this.field2664 = var1.readUnsignedByte(); // L: 65
-		this.field2657 = var1.readUnsignedShort(); // L: 66
-		this.field2661 = var1.readUnsignedByte(); // L: 67
-		this.field2662 = var1.readUnsignedShort(); // L: 68
-		this.field2656 = var1.readUnsignedByte(); // L: 69
-		this.field2659 = var1.readUnsignedShort(); // L: 70
-		this.field2663 = var1.readUnsignedByte(); // L: 71
-		this.field2660 = var1.readUnsignedShort(); // L: 72
-		this.field2655 = var1.readUnsignedByte(); // L: 73
-		this.method4678(); // L: 74
-	} // L: 75
+		this.field2658 = var1.readUnsignedByte();
+		this.field2664 = var1.readUnsignedByte();
+		this.field2657 = var1.readUnsignedShort();
+		this.field2661 = var1.readUnsignedByte();
+		this.field2662 = var1.readUnsignedShort();
+		this.field2656 = var1.readUnsignedByte();
+		this.field2659 = var1.readUnsignedShort();
+		this.field2663 = var1.readUnsignedByte();
+		this.field2660 = var1.readUnsignedShort();
+		this.field2655 = var1.readUnsignedByte();
+		this.method4678();
+	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -165,7 +165,7 @@ public class class221 implements WorldMapSection {
 		garbageValue = "1997336841"
 	)
 	void method4678() {
-	} // L: 77
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -173,7 +173,7 @@ public class class221 implements WorldMapSection {
 		garbageValue = "34"
 	)
 	static String method4705(int var0) {
-		return "<img=" + var0 + ">"; // L: 18
+		return "<img=" + var0 + ">";
 	}
 
 	@ObfuscatedName("c")
@@ -182,6 +182,6 @@ public class class221 implements WorldMapSection {
 		garbageValue = "-91"
 	)
 	public static void method4700(AbstractArchive var0) {
-		class17.StructDefinition_archive = var0; // L: 19
-	} // L: 20
+		class17.StructDefinition_archive = var0;
+	}
 }

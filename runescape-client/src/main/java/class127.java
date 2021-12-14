@@ -28,8 +28,8 @@ public class class127 extends class126 {
 	)
 	class127(class129 var1) {
 		this.this$0 = var1;
-		this.field1503 = -1; // L: 178
-	} // L: 181
+		this.field1503 = -1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -37,9 +37,9 @@ public class class127 extends class126 {
 		garbageValue = "1416770155"
 	)
 	void vmethod3029(Buffer var1) {
-		this.field1503 = var1.readUnsignedShort(); // L: 184
-		this.field1499 = var1.readUnsignedByte() == 1; // L: 185
-	} // L: 186
+		this.field1503 = var1.readUnsignedShort();
+		this.field1499 = var1.readUnsignedByte() == 1;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -47,8 +47,8 @@ public class class127 extends class126 {
 		garbageValue = "-1531735008"
 	)
 	void vmethod3028(ClanSettings var1) {
-		var1.method2857(this.field1503, this.field1499); // L: 189
-	} // L: 190
+		var1.method2857(this.field1503, this.field1499);
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -56,8 +56,8 @@ public class class127 extends class126 {
 		garbageValue = "-39935659"
 	)
 	static void method2770() {
-		WorldMapRegion.WorldMapRegion_cachedSprites.clear(); // L: 48
-	} // L: 49
+		WorldMapRegion.WorldMapRegion_cachedSprites.clear();
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -66,21 +66,21 @@ public class class127 extends class126 {
 	)
 	@Export("savePreferences")
 	static void savePreferences() {
-		AccessFile var0 = null; // L: 100
+		AccessFile var0 = null;
 
 		try {
-			var0 = class231.getPreferencesFile("", class338.field4054.name, true); // L: 102
-			Buffer var1 = SecureRandomFuture.clientPreferences.toBuffer(); // L: 103
-			var0.write(var1.array, 0, var1.offset); // L: 104
-		} catch (Exception var3) { // L: 106
+			var0 = class231.getPreferencesFile("", class338.field4054.name, true);
+			Buffer var1 = SecureRandomFuture.clientPreferences.toBuffer();
+			var0.write(var1.array, 0, var1.offset);
+		} catch (Exception var3) {
 		}
 
 		try {
-			if (var0 != null) { // L: 108
-				var0.closeSync(true); // L: 109
+			if (var0 != null) {
+				var0.closeSync(true);
 			}
-		} catch (Exception var2) { // L: 112
+		} catch (Exception var2) {
 		}
 
-	} // L: 113
+	}
 }

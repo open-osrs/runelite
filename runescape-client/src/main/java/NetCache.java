@@ -110,22 +110,22 @@ public class NetCache {
 	public static int NetCache_ioExceptions;
 
 	static {
-		NetCache_loadTime = 0; // L: 13
-		NetCache_pendingPriorityWrites = new NodeHashTable(4096); // L: 15
-		NetCache_pendingPriorityWritesCount = 0; // L: 16
-		NetCache_pendingPriorityResponses = new NodeHashTable(32); // L: 17
-		NetCache_pendingPriorityResponsesCount = 0; // L: 18
-		NetCache_pendingWritesQueue = new DualNodeDeque(); // L: 19
-		NetCache_pendingWrites = new NodeHashTable(4096); // L: 20
-		NetCache_pendingWritesCount = 0; // L: 21
-		NetCache_pendingResponses = new NodeHashTable(4096); // L: 22
-		NetCache_pendingResponsesCount = 0; // L: 23
-		NetCache_responseHeaderBuffer = new Buffer(8); // L: 26
-		field3863 = 0; // L: 28
-		NetCache_crc = new CRC32(); // L: 30
-		NetCache_archives = new Archive[256]; // L: 32
-		field3866 = 0; // L: 33
-		NetCache_crcMismatches = 0; // L: 34
-		NetCache_ioExceptions = 0; // L: 35
+		NetCache_loadTime = 0;
+		NetCache_pendingPriorityWrites = new NodeHashTable(4096);
+		NetCache_pendingPriorityWritesCount = 0;
+		NetCache_pendingPriorityResponses = new NodeHashTable(32);
+		NetCache_pendingPriorityResponsesCount = 0;
+		NetCache_pendingWritesQueue = new DualNodeDeque();
+		NetCache_pendingWrites = new NodeHashTable(4096);
+		NetCache_pendingWritesCount = 0;
+		NetCache_pendingResponses = new NodeHashTable(4096);
+		NetCache_pendingResponsesCount = 0;
+		NetCache_responseHeaderBuffer = new Buffer(8);
+		field3863 = 0;
+		NetCache_crc = new CRC32();
+		NetCache_archives = new Archive[256];
+		field3866 = 0;
+		NetCache_crcMismatches = 0;
+		NetCache_ioExceptions = 0;
 	}
 }

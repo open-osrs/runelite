@@ -37,91 +37,91 @@ class class17 implements SSLSession {
 		descriptor = "(Ld;)V"
 	)
 	class17(class12 var1) {
-		this.this$1 = var1; // L: 133
+		this.this$1 = var1;
 	}
 
 	public int getApplicationBufferSize() {
-		return 0; // L: 136
+		return 0;
 	}
 
 	public void invalidate() {
-		throw new UnsupportedOperationException(); // L: 221
+		throw new UnsupportedOperationException();
 	}
 
 	public long getCreationTime() {
-		throw new UnsupportedOperationException(); // L: 146
+		throw new UnsupportedOperationException();
 	}
 
 	public byte[] getId() {
-		throw new UnsupportedOperationException(); // L: 151
+		throw new UnsupportedOperationException();
 	}
 
 	public long getLastAccessedTime() {
-		throw new UnsupportedOperationException(); // L: 156
+		throw new UnsupportedOperationException();
 	}
 
 	public Certificate[] getLocalCertificates() {
-		throw new UnsupportedOperationException(); // L: 161
+		throw new UnsupportedOperationException();
 	}
 
 	public void putValue(String var1, Object var2) {
-		throw new UnsupportedOperationException(); // L: 231
+		throw new UnsupportedOperationException();
 	}
 
 	public int getPacketBufferSize() {
-		throw new UnsupportedOperationException(); // L: 171
+		throw new UnsupportedOperationException();
 	}
 
 	public Certificate[] getPeerCertificates() throws SSLPeerUnverifiedException {
-		return this.this$1.field67; // L: 181
+		return this.this$1.field67;
 	}
 
 	public int getPeerPort() {
-		return 0; // L: 191
+		return 0;
 	}
 
 	public String getProtocol() {
-		throw new UnsupportedOperationException(); // L: 201
+		throw new UnsupportedOperationException();
 	}
 
 	public SSLSessionContext getSessionContext() {
-		throw new UnsupportedOperationException(); // L: 206
+		throw new UnsupportedOperationException();
 	}
 
 	public Object getValue(String var1) {
-		throw new UnsupportedOperationException(); // L: 211
+		throw new UnsupportedOperationException();
 	}
 
 	public String[] getValueNames() {
-		throw new UnsupportedOperationException(); // L: 216
+		throw new UnsupportedOperationException();
 	}
 
 	public Principal getLocalPrincipal() {
-		throw new UnsupportedOperationException(); // L: 166
+		throw new UnsupportedOperationException();
 	}
 
 	public boolean isValid() {
-		throw new UnsupportedOperationException(); // L: 226
+		throw new UnsupportedOperationException();
 	}
 
 	public String getPeerHost() {
-		throw new UnsupportedOperationException(); // L: 186
+		throw new UnsupportedOperationException();
 	}
 
 	public X509Certificate[] getPeerCertificateChain() throws SSLPeerUnverifiedException {
-		return null; // L: 176
+		return null;
 	}
 
 	public void removeValue(String var1) {
-		throw new UnsupportedOperationException(); // L: 236
+		throw new UnsupportedOperationException();
 	}
 
 	public Principal getPeerPrincipal() throws SSLPeerUnverifiedException {
-		return null; // L: 196
+		return null;
 	}
 
 	public String getCipherSuite() {
-		throw new UnsupportedOperationException(); // L: 141
+		throw new UnsupportedOperationException();
 	}
 
 	@ObfuscatedName("x")
@@ -130,19 +130,19 @@ class class17 implements SSLSession {
 		garbageValue = "-1239241420"
 	)
 	protected static final void method292() {
-		class91.clock.mark(); // L: 405
+		class91.clock.mark();
 
 		int var0;
-		for (var0 = 0; var0 < 32; ++var0) { // L: 406
+		for (var0 = 0; var0 < 32; ++var0) {
 			GameEngine.graphicsTickTimes[var0] = 0L;
 		}
 
-		for (var0 = 0; var0 < 32; ++var0) { // L: 407
+		for (var0 = 0; var0 < 32; ++var0) {
 			GameEngine.clientTickTimes[var0] = 0L;
 		}
 
-		GameEngine.gameCyclesToDo = 0; // L: 408
-	} // L: 409
+		GameEngine.gameCyclesToDo = 0;
+	}
 
 	@ObfuscatedName("ik")
 	@ObfuscatedSignature(
@@ -150,14 +150,14 @@ class class17 implements SSLSession {
 		garbageValue = "40"
 	)
 	static final void method291(int var0) {
-		if (var0 >= 0) { // L: 9004
-			int var1 = Client.menuArguments1[var0]; // L: 9005
-			int var2 = Client.menuArguments2[var0]; // L: 9006
-			int var3 = Client.menuOpcodes[var0]; // L: 9007
-			int var4 = Client.menuIdentifiers[var0]; // L: 9008
-			String var5 = Client.menuActions[var0]; // L: 9009
-			String var6 = Client.menuTargets[var0]; // L: 9010
-			Decimator.menuAction(var1, var2, var3, var4, var5, var6, MouseHandler.MouseHandler_lastPressedX, MouseHandler.MouseHandler_lastPressedY); // L: 9011
+		if (var0 >= 0) {
+			int var1 = Client.menuArguments1[var0];
+			int var2 = Client.menuArguments2[var0];
+			int var3 = Client.menuOpcodes[var0];
+			int var4 = Client.menuIdentifiers[var0];
+			String var5 = Client.menuActions[var0];
+			String var6 = Client.menuTargets[var0];
+			Decimator.menuAction(var1, var2, var3, var4, var5, var6, MouseHandler.MouseHandler_lastPressedX, MouseHandler.MouseHandler_lastPressedY);
 		}
-	} // L: 9012
+	}
 }

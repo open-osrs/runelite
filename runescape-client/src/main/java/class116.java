@@ -52,19 +52,19 @@ public class class116 implements MouseWheel {
 	final int field1422;
 
 	static {
-		field1421 = new class116(0, 0, (String)null, 0); // L: 14
-		field1415 = new class116(1, 1, (String)null, 9); // L: 15
-		field1416 = new class116(2, 2, (String)null, 3); // L: 16
-		field1423 = new class116(3, 3, (String)null, 6); // L: 17
-		field1418 = new class116(4, 4, (String)null, 1); // L: 18
-		field1419 = new class116(5, 5, (String)null, 3); // L: 19
+		field1421 = new class116(0, 0, (String)null, 0);
+		field1415 = new class116(1, 1, (String)null, 9);
+		field1416 = new class116(2, 2, (String)null, 3);
+		field1423 = new class116(3, 3, (String)null, 6);
+		field1418 = new class116(4, 4, (String)null, 1);
+		field1419 = new class116(5, 5, (String)null, 3);
 	}
 
 	class116(int var1, int var2, String var3, int var4) {
-		this.field1420 = var1; // L: 29
-		this.field1417 = var2; // L: 30
-		this.field1422 = var4; // L: 31
-	} // L: 32
+		this.field1420 = var1;
+		this.field1417 = var2;
+		this.field1422 = var4;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -73,7 +73,7 @@ public class class116 implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1417; // L: 40
+		return this.field1417;
 	}
 
 	@ObfuscatedName("p")
@@ -82,12 +82,12 @@ public class class116 implements MouseWheel {
 		garbageValue = "94"
 	)
 	int method2669() {
-		return this.field1422; // L: 35
+		return this.field1422;
 	}
 
 	@ObfuscatedName("p")
 	public static boolean method2671(long var0) {
-		return 0L != var0 && !class12.method188(var0); // L: 56
+		return 0L != var0 && !class12.method188(var0);
 	}
 
 	@ObfuscatedName("ai")
@@ -97,7 +97,7 @@ public class class116 implements MouseWheel {
 	)
 	@Export("stringCp1252NullTerminatedByteSize")
 	public static int stringCp1252NullTerminatedByteSize(String var0) {
-		return var0.length() + 1; // L: 117
+		return var0.length() + 1;
 	}
 
 	@ObfuscatedName("fh")
@@ -106,45 +106,45 @@ public class class116 implements MouseWheel {
 		garbageValue = "55"
 	)
 	static void method2662() {
-		Client.packetWriter.clearBuffer(); // L: 3417
-		Client.packetWriter.packetBuffer.offset = 0; // L: 3418
-		Client.packetWriter.serverPacket = null; // L: 3419
-		Client.packetWriter.field1289 = null; // L: 3420
-		Client.packetWriter.field1290 = null; // L: 3421
-		Client.packetWriter.field1291 = null; // L: 3422
-		Client.packetWriter.serverPacketLength = 0; // L: 3423
-		Client.packetWriter.field1287 = 0; // L: 3424
-		Client.rebootTimer = 0; // L: 3425
-		UrlRequest.method2489(); // L: 3426
-		Client.minimapState = 0; // L: 3427
-		Client.destinationX = 0; // L: 3428
+		Client.packetWriter.clearBuffer();
+		Client.packetWriter.packetBuffer.offset = 0;
+		Client.packetWriter.serverPacket = null;
+		Client.packetWriter.field1289 = null;
+		Client.packetWriter.field1290 = null;
+		Client.packetWriter.field1291 = null;
+		Client.packetWriter.serverPacketLength = 0;
+		Client.packetWriter.field1287 = 0;
+		Client.rebootTimer = 0;
+		UrlRequest.method2489();
+		Client.minimapState = 0;
+		Client.destinationX = 0;
 
 		int var0;
-		for (var0 = 0; var0 < 2048; ++var0) { // L: 3429
+		for (var0 = 0; var0 < 2048; ++var0) {
 			Client.players[var0] = null;
 		}
 
-		class340.localPlayer = null; // L: 3430
+		class340.localPlayer = null;
 
-		for (var0 = 0; var0 < Client.npcs.length; ++var0) { // L: 3431
-			NPC var1 = Client.npcs[var0]; // L: 3432
-			if (var1 != null) { // L: 3433
-				var1.targetIndex = -1; // L: 3434
-				var1.false0 = false; // L: 3435
+		for (var0 = 0; var0 < Client.npcs.length; ++var0) {
+			NPC var1 = Client.npcs[var0];
+			if (var1 != null) {
+				var1.targetIndex = -1;
+				var1.false0 = false;
 			}
 		}
 
-		ItemContainer.itemContainers = new NodeHashTable(32); // L: 3439
-		VertexNormal.updateGameState(30); // L: 3441
+		ItemContainer.itemContainers = new NodeHashTable(32);
+		VertexNormal.updateGameState(30);
 
-		for (var0 = 0; var0 < 100; ++var0) { // L: 3442
+		for (var0 = 0; var0 < 100; ++var0) {
 			Client.field504[var0] = true;
 		}
 
-		PacketBufferNode var2 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2824, Client.packetWriter.isaacCipher); // L: 3445
-		var2.packetBuffer.writeByte(class143.getWindowedMode()); // L: 3446
-		var2.packetBuffer.writeShort(class186.canvasWidth); // L: 3447
-		var2.packetBuffer.writeShort(BoundaryObject.canvasHeight); // L: 3448
-		Client.packetWriter.addNode(var2); // L: 3449
-	} // L: 3451
+		PacketBufferNode var2 = HitSplatDefinition.getPacketBufferNode(ClientPacket.field2824, Client.packetWriter.isaacCipher);
+		var2.packetBuffer.writeByte(class143.getWindowedMode());
+		var2.packetBuffer.writeShort(class186.canvasWidth);
+		var2.packetBuffer.writeShort(BoundaryObject.canvasHeight);
+		Client.packetWriter.addNode(var2);
+	}
 }

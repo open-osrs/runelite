@@ -35,12 +35,12 @@ public class VarpDefinition extends DualNode {
 	public int type;
 
 	static {
-		VarpDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
+		VarpDefinition_cached = new EvictingDualNodeHashTable(64);
 	}
 
 	VarpDefinition() {
-		this.type = 0; // L: 13
-	} // L: 15
+		this.type = 0;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -50,12 +50,12 @@ public class VarpDefinition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 29
-			if (var2 == 0) { // L: 30
-				return; // L: 33
+			int var2 = var1.readUnsignedByte();
+			if (var2 == 0) {
+				return;
 			}
 
-			this.decodeNext(var1, var2); // L: 31
+			this.decodeNext(var1, var2);
 		}
 	}
 
@@ -66,11 +66,11 @@ public class VarpDefinition extends DualNode {
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 5) { // L: 36
+		if (var2 == 5) {
 			this.type = var1.readUnsignedShort();
 		}
 
-	} // L: 38
+	}
 
 	@ObfuscatedName("ho")
 	@ObfuscatedSignature(
@@ -78,8 +78,8 @@ public class VarpDefinition extends DualNode {
 		garbageValue = "827099258"
 	)
 	static final void method3167(Actor var0, int var1) {
-		ModeWhere.worldToScreen(var0.x, var0.y, var1); // L: 6045
-	} // L: 6046
+		ModeWhere.worldToScreen(var0.x, var0.y, var1);
+	}
 
 	@ObfuscatedName("le")
 	@ObfuscatedSignature(
@@ -87,6 +87,6 @@ public class VarpDefinition extends DualNode {
 		garbageValue = "13655"
 	)
 	static void method3168(int var0) {
-		Client.oculusOrbState = var0; // L: 12684
-	} // L: 12685
+		Client.oculusOrbState = var0;
+	}
 }

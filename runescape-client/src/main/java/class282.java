@@ -38,8 +38,8 @@ public enum class282 implements MouseWheel {
 	final int field3381;
 
 	class282(int var3) {
-		this.field3381 = var3; // L: 14
-	} // L: 15
+		this.field3381 = var3;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -48,7 +48,7 @@ public enum class282 implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field3381; // L: 19
+		return this.field3381;
 	}
 
 	@ObfuscatedName("w")
@@ -58,7 +58,7 @@ public enum class282 implements MouseWheel {
 	)
 	@Export("worldListStart")
 	static World worldListStart() {
-		World.World_listCount = 0; // L: 237
-		return Canvas.getNextWorldListWorld(); // L: 238
+		World.World_listCount = 0;
+		return Canvas.getNextWorldListWorld();
 	}
 }

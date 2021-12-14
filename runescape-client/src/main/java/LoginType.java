@@ -68,31 +68,31 @@ public class LoginType {
 	final String field4400;
 
 	static {
-		oldscape = new LoginType(6, 0, "", ""); // L: 5
-		field4397 = new LoginType(1, 1, "", ""); // L: 6
-		field4402 = new LoginType(8, 2, "", ""); // L: 7
-		field4399 = new LoginType(7, 3, "", ""); // L: 8
-		field4401 = new LoginType(4, 4, "", ""); // L: 9
-		field4407 = new LoginType(5, 5, "", ""); // L: 10
-		field4403 = new LoginType(2, 6, "", ""); // L: 11
-		field4404 = new LoginType(0, 7, "", ""); // L: 12
-		field4405 = new LoginType(3, -1, "", "", true, new LoginType[]{oldscape, field4397, field4402, field4401, field4399}); // L: 13
+		oldscape = new LoginType(6, 0, "", "");
+		field4397 = new LoginType(1, 1, "", "");
+		field4402 = new LoginType(8, 2, "", "");
+		field4399 = new LoginType(7, 3, "", "");
+		field4401 = new LoginType(4, 4, "", "");
+		field4407 = new LoginType(5, 5, "", "");
+		field4403 = new LoginType(2, 6, "", "");
+		field4404 = new LoginType(0, 7, "", "");
+		field4405 = new LoginType(3, -1, "", "", true, new LoginType[]{oldscape, field4397, field4402, field4401, field4399});
 	}
 
 	LoginType(int var1, int var2, String var3, String var4) {
-		this.field4406 = var1; // L: 18
-		this.field4400 = var4; // L: 19
-	} // L: 20
+		this.field4406 = var1;
+		this.field4400 = var4;
+	}
 
 	@ObfuscatedSignature(
 		descriptor = "(IILjava/lang/String;Ljava/lang/String;Z[Low;)V"
 	)
 	LoginType(int var1, int var2, String var3, String var4, boolean var5, LoginType[] var6) {
-		this.field4406 = var1; // L: 23
-		this.field4400 = var4; // L: 24
-	} // L: 25
+		this.field4406 = var1;
+		this.field4400 = var4;
+	}
 
 	public String toString() {
-		return this.field4400; // L: 29
+		return this.field4400;
 	}
 }

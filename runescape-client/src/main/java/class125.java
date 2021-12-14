@@ -25,8 +25,8 @@ public class class125 extends class126 {
 	)
 	class125(class129 var1) {
 		this.this$0 = var1;
-		this.field1493 = -1; // L: 114
-	} // L: 116
+		this.field1493 = -1;
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
@@ -34,8 +34,8 @@ public class class125 extends class126 {
 		garbageValue = "1416770155"
 	)
 	void vmethod3029(Buffer var1) {
-		this.field1493 = var1.readUnsignedShort(); // L: 119
-	} // L: 120
+		this.field1493 = var1.readUnsignedShort();
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -43,8 +43,8 @@ public class class125 extends class126 {
 		garbageValue = "-1531735008"
 	)
 	void vmethod3028(ClanSettings var1) {
-		var1.method2862(this.field1493); // L: 123
-	} // L: 124
+		var1.method2862(this.field1493);
+	}
 
 	@ObfuscatedName("gi")
 	@ObfuscatedSignature(
@@ -53,26 +53,26 @@ public class class125 extends class126 {
 	)
 	@Export("performPlayerAnimation")
 	static void performPlayerAnimation(Player var0, int var1, int var2) {
-		if (var0.sequence == var1 && var1 != -1) { // L: 4946
-			int var3 = UserComparator5.SequenceDefinition_get(var1).field2078; // L: 4947
-			if (var3 == 1) { // L: 4948
-				var0.sequenceFrame = 0; // L: 4949
-				var0.sequenceFrameCycle = 0; // L: 4950
-				var0.sequenceDelay = var2; // L: 4951
-				var0.field1126 = 0; // L: 4952
+		if (var0.sequence == var1 && var1 != -1) {
+			int var3 = UserComparator5.SequenceDefinition_get(var1).field2078;
+			if (var3 == 1) {
+				var0.sequenceFrame = 0;
+				var0.sequenceFrameCycle = 0;
+				var0.sequenceDelay = var2;
+				var0.field1126 = 0;
 			}
 
-			if (var3 == 2) { // L: 4954
-				var0.field1126 = 0; // L: 4955
+			if (var3 == 2) {
+				var0.field1126 = 0;
 			}
-		} else if (var1 == -1 || var0.sequence == -1 || UserComparator5.SequenceDefinition_get(var1).field2092 >= UserComparator5.SequenceDefinition_get(var0.sequence).field2092) { // L: 4958
-			var0.sequence = var1; // L: 4959
-			var0.sequenceFrame = 0; // L: 4960
-			var0.sequenceFrameCycle = 0; // L: 4961
-			var0.sequenceDelay = var2; // L: 4962
-			var0.field1126 = 0; // L: 4963
-			var0.field1098 = var0.pathLength; // L: 4964
+		} else if (var1 == -1 || var0.sequence == -1 || UserComparator5.SequenceDefinition_get(var1).field2092 >= UserComparator5.SequenceDefinition_get(var0.sequence).field2092) {
+			var0.sequence = var1;
+			var0.sequenceFrame = 0;
+			var0.sequenceFrameCycle = 0;
+			var0.sequenceDelay = var2;
+			var0.field1126 = 0;
+			var0.field1098 = var0.pathLength;
 		}
 
-	} // L: 4966
+	}
 }

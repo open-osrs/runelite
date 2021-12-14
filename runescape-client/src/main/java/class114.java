@@ -55,9 +55,9 @@ public enum class114 implements MouseWheel {
 	final int field1388;
 
 	class114(int var3, int var4) {
-		this.field1387 = var3; // L: 129
-		this.field1388 = var4; // L: 130
-	} // L: 131
+		this.field1387 = var3;
+		this.field1388 = var4;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -66,7 +66,7 @@ public enum class114 implements MouseWheel {
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1388; // L: 134
+		return this.field1388;
 	}
 
 	@ObfuscatedName("j")
@@ -75,8 +75,8 @@ public enum class114 implements MouseWheel {
 		garbageValue = "1912506868"
 	)
 	public static int method2629(int var0) {
-		long var2 = ViewportMouse.ViewportMouse_entityTags[var0]; // L: 73
-		int var1 = (int)(var2 >>> 14 & 3L); // L: 75
-		return var1; // L: 77
+		long var2 = ViewportMouse.ViewportMouse_entityTags[var0];
+		int var1 = (int)(var2 >>> 14 & 3L);
+		return var1;
 	}
 }

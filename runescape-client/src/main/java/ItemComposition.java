@@ -302,51 +302,51 @@ public class ItemComposition extends DualNode {
 	public int placeholderTemplate;
 
 	static {
-		ItemDefinition_cached = new EvictingDualNodeHashTable(64); // L: 28
-		ItemDefinition_cachedModels = new EvictingDualNodeHashTable(50); // L: 29
-		ItemDefinition_cachedSprites = new EvictingDualNodeHashTable(200); // L: 30
+		ItemDefinition_cached = new EvictingDualNodeHashTable(64);
+		ItemDefinition_cachedModels = new EvictingDualNodeHashTable(50);
+		ItemDefinition_cachedSprites = new EvictingDualNodeHashTable(200);
 	}
 
 	ItemComposition() {
-		this.name = "null"; // L: 34
-		this.zoom2d = 2000; // L: 39
-		this.xan2d = 0; // L: 40
-		this.yan2d = 0; // L: 41
-		this.zan2d = 0; // L: 42
-		this.offsetX2d = 0; // L: 43
-		this.offsetY2d = 0; // L: 44
-		this.isStackable = 0; // L: 45
-		this.price = 1; // L: 46
-		this.isMembersOnly = false; // L: 47
-		this.groundActions = new String[]{null, null, "Take", null, null}; // L: 48
-		this.inventoryActions = new String[]{null, null, null, null, "Drop"}; // L: 49
-		this.shiftClickIndex = -2; // L: 51
-		this.maleModel = -1; // L: 52
-		this.maleModel1 = -1; // L: 53
-		this.maleOffset = 0; // L: 54
-		this.femaleModel = -1; // L: 55
-		this.femaleModel1 = -1; // L: 56
-		this.femaleOffset = 0; // L: 57
-		this.maleModel2 = -1; // L: 58
-		this.femaleModel2 = -1; // L: 59
-		this.maleHeadModel = -1; // L: 60
-		this.maleHeadModel2 = -1; // L: 61
-		this.femaleHeadModel = -1; // L: 62
-		this.femaleHeadModel2 = -1; // L: 63
-		this.note = -1; // L: 66
-		this.noteTemplate = -1; // L: 67
-		this.resizeX = 128; // L: 68
-		this.resizeY = 128; // L: 69
-		this.resizeZ = 128; // L: 70
-		this.ambient = 0; // L: 71
-		this.contrast = 0; // L: 72
-		this.team = 0; // L: 73
-		this.isTradable = false; // L: 75
-		this.unnotedId = -1; // L: 76
-		this.notedId = -1; // L: 77
-		this.placeholder = -1; // L: 78
-		this.placeholderTemplate = -1; // L: 79
-	} // L: 81
+		this.name = "null";
+		this.zoom2d = 2000;
+		this.xan2d = 0;
+		this.yan2d = 0;
+		this.zan2d = 0;
+		this.offsetX2d = 0;
+		this.offsetY2d = 0;
+		this.isStackable = 0;
+		this.price = 1;
+		this.isMembersOnly = false;
+		this.groundActions = new String[]{null, null, "Take", null, null};
+		this.inventoryActions = new String[]{null, null, null, null, "Drop"};
+		this.shiftClickIndex = -2;
+		this.maleModel = -1;
+		this.maleModel1 = -1;
+		this.maleOffset = 0;
+		this.femaleModel = -1;
+		this.femaleModel1 = -1;
+		this.femaleOffset = 0;
+		this.maleModel2 = -1;
+		this.femaleModel2 = -1;
+		this.maleHeadModel = -1;
+		this.maleHeadModel2 = -1;
+		this.femaleHeadModel = -1;
+		this.femaleHeadModel2 = -1;
+		this.note = -1;
+		this.noteTemplate = -1;
+		this.resizeX = 128;
+		this.resizeY = 128;
+		this.resizeZ = 128;
+		this.ambient = 0;
+		this.contrast = 0;
+		this.team = 0;
+		this.isTradable = false;
+		this.unnotedId = -1;
+		this.notedId = -1;
+		this.placeholder = -1;
+		this.placeholderTemplate = -1;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -355,7 +355,7 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("post")
 	void post() {
-	} // L: 121
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -365,12 +365,12 @@ public class ItemComposition extends DualNode {
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 125
-			if (var2 == 0) { // L: 126
-				return; // L: 129
+			int var2 = var1.readUnsignedByte();
+			if (var2 == 0) {
+				return;
 			}
 
-			this.decodeNext(var1, var2); // L: 127
+			this.decodeNext(var1, var2);
 		}
 	}
 
@@ -381,130 +381,130 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) { // L: 132
+		if (var2 == 1) {
 			this.model = var1.readUnsignedShort();
-		} else if (var2 == 2) { // L: 133
+		} else if (var2 == 2) {
 			this.name = var1.readStringCp1252NullTerminated();
-		} else if (var2 == 4) { // L: 134
+		} else if (var2 == 4) {
 			this.zoom2d = var1.readUnsignedShort();
-		} else if (var2 == 5) { // L: 135
+		} else if (var2 == 5) {
 			this.xan2d = var1.readUnsignedShort();
-		} else if (var2 == 6) { // L: 136
+		} else if (var2 == 6) {
 			this.yan2d = var1.readUnsignedShort();
-		} else if (var2 == 7) { // L: 137
-			this.offsetX2d = var1.readUnsignedShort(); // L: 138
-			if (this.offsetX2d > 32767) { // L: 139
+		} else if (var2 == 7) {
+			this.offsetX2d = var1.readUnsignedShort();
+			if (this.offsetX2d > 32767) {
 				this.offsetX2d -= 65536;
 			}
-		} else if (var2 == 8) { // L: 141
-			this.offsetY2d = var1.readUnsignedShort(); // L: 142
-			if (this.offsetY2d > 32767) { // L: 143
+		} else if (var2 == 8) {
+			this.offsetY2d = var1.readUnsignedShort();
+			if (this.offsetY2d > 32767) {
 				this.offsetY2d -= 65536;
 			}
-		} else if (var2 == 9) { // L: 145
-			var1.readStringCp1252NullTerminated(); // L: 146
-		} else if (var2 == 11) { // L: 148
+		} else if (var2 == 9) {
+			var1.readStringCp1252NullTerminated();
+		} else if (var2 == 11) {
 			this.isStackable = 1;
-		} else if (var2 == 12) { // L: 149
+		} else if (var2 == 12) {
 			this.price = var1.readInt();
-		} else if (var2 == 16) { // L: 150
+		} else if (var2 == 16) {
 			this.isMembersOnly = true;
-		} else if (var2 == 23) { // L: 151
-			this.maleModel = var1.readUnsignedShort(); // L: 152
-			this.maleOffset = var1.readUnsignedByte(); // L: 153
-		} else if (var2 == 24) { // L: 155
+		} else if (var2 == 23) {
+			this.maleModel = var1.readUnsignedShort();
+			this.maleOffset = var1.readUnsignedByte();
+		} else if (var2 == 24) {
 			this.maleModel1 = var1.readUnsignedShort();
-		} else if (var2 == 25) { // L: 156
-			this.femaleModel = var1.readUnsignedShort(); // L: 157
-			this.femaleOffset = var1.readUnsignedByte(); // L: 158
-		} else if (var2 == 26) { // L: 160
+		} else if (var2 == 25) {
+			this.femaleModel = var1.readUnsignedShort();
+			this.femaleOffset = var1.readUnsignedByte();
+		} else if (var2 == 26) {
 			this.femaleModel1 = var1.readUnsignedShort();
-		} else if (var2 >= 30 && var2 < 35) { // L: 161
-			this.groundActions[var2 - 30] = var1.readStringCp1252NullTerminated(); // L: 162
-			if (this.groundActions[var2 - 30].equalsIgnoreCase("Hidden")) { // L: 163
+		} else if (var2 >= 30 && var2 < 35) {
+			this.groundActions[var2 - 30] = var1.readStringCp1252NullTerminated();
+			if (this.groundActions[var2 - 30].equalsIgnoreCase("Hidden")) {
 				this.groundActions[var2 - 30] = null;
 			}
-		} else if (var2 >= 35 && var2 < 40) { // L: 165
+		} else if (var2 >= 35 && var2 < 40) {
 			this.inventoryActions[var2 - 35] = var1.readStringCp1252NullTerminated();
 		} else {
 			int var3;
 			int var4;
-			if (var2 == 40) { // L: 166
-				var3 = var1.readUnsignedByte(); // L: 167
-				this.recolorFrom = new short[var3]; // L: 168
-				this.recolorTo = new short[var3]; // L: 169
+			if (var2 == 40) {
+				var3 = var1.readUnsignedByte();
+				this.recolorFrom = new short[var3];
+				this.recolorTo = new short[var3];
 
-				for (var4 = 0; var4 < var3; ++var4) { // L: 170
-					this.recolorFrom[var4] = (short)var1.readUnsignedShort(); // L: 171
-					this.recolorTo[var4] = (short)var1.readUnsignedShort(); // L: 172
+				for (var4 = 0; var4 < var3; ++var4) {
+					this.recolorFrom[var4] = (short)var1.readUnsignedShort();
+					this.recolorTo[var4] = (short)var1.readUnsignedShort();
 				}
-			} else if (var2 == 41) { // L: 175
-				var3 = var1.readUnsignedByte(); // L: 176
-				this.retextureFrom = new short[var3]; // L: 177
-				this.retextureTo = new short[var3]; // L: 178
+			} else if (var2 == 41) {
+				var3 = var1.readUnsignedByte();
+				this.retextureFrom = new short[var3];
+				this.retextureTo = new short[var3];
 
-				for (var4 = 0; var4 < var3; ++var4) { // L: 179
-					this.retextureFrom[var4] = (short)var1.readUnsignedShort(); // L: 180
-					this.retextureTo[var4] = (short)var1.readUnsignedShort(); // L: 181
+				for (var4 = 0; var4 < var3; ++var4) {
+					this.retextureFrom[var4] = (short)var1.readUnsignedShort();
+					this.retextureTo[var4] = (short)var1.readUnsignedShort();
 				}
-			} else if (var2 == 42) { // L: 184
-				this.shiftClickIndex = var1.readByte(); // L: 185
-			} else if (var2 == 65) { // L: 187
+			} else if (var2 == 42) {
+				this.shiftClickIndex = var1.readByte();
+			} else if (var2 == 65) {
 				this.isTradable = true;
-			} else if (var2 == 78) { // L: 188
+			} else if (var2 == 78) {
 				this.maleModel2 = var1.readUnsignedShort();
-			} else if (var2 == 79) { // L: 189
+			} else if (var2 == 79) {
 				this.femaleModel2 = var1.readUnsignedShort();
-			} else if (var2 == 90) { // L: 190
+			} else if (var2 == 90) {
 				this.maleHeadModel = var1.readUnsignedShort();
-			} else if (var2 == 91) { // L: 191
+			} else if (var2 == 91) {
 				this.femaleHeadModel = var1.readUnsignedShort();
-			} else if (var2 == 92) { // L: 192
+			} else if (var2 == 92) {
 				this.maleHeadModel2 = var1.readUnsignedShort();
-			} else if (var2 == 93) { // L: 193
+			} else if (var2 == 93) {
 				this.femaleHeadModel2 = var1.readUnsignedShort();
-			} else if (var2 == 94) { // L: 194
-				var1.readUnsignedShort(); // L: 195
+			} else if (var2 == 94) {
+				var1.readUnsignedShort();
 			} else if (var2 == 95) {
-				this.zan2d = var1.readUnsignedShort(); // L: 197
-			} else if (var2 == 97) { // L: 198
+				this.zan2d = var1.readUnsignedShort();
+			} else if (var2 == 97) {
 				this.note = var1.readUnsignedShort();
-			} else if (var2 == 98) { // L: 199
+			} else if (var2 == 98) {
 				this.noteTemplate = var1.readUnsignedShort();
-			} else if (var2 >= 100 && var2 < 110) { // L: 200
-				if (this.countobj == null) { // L: 201
-					this.countobj = new int[10]; // L: 202
-					this.countco = new int[10]; // L: 203
+			} else if (var2 >= 100 && var2 < 110) {
+				if (this.countobj == null) {
+					this.countobj = new int[10];
+					this.countco = new int[10];
 				}
 
-				this.countobj[var2 - 100] = var1.readUnsignedShort(); // L: 205
-				this.countco[var2 - 100] = var1.readUnsignedShort(); // L: 206
-			} else if (var2 == 110) { // L: 208
+				this.countobj[var2 - 100] = var1.readUnsignedShort();
+				this.countco[var2 - 100] = var1.readUnsignedShort();
+			} else if (var2 == 110) {
 				this.resizeX = var1.readUnsignedShort();
-			} else if (var2 == 111) { // L: 209
+			} else if (var2 == 111) {
 				this.resizeY = var1.readUnsignedShort();
-			} else if (var2 == 112) { // L: 210
+			} else if (var2 == 112) {
 				this.resizeZ = var1.readUnsignedShort();
-			} else if (var2 == 113) { // L: 211
+			} else if (var2 == 113) {
 				this.ambient = var1.readByte();
-			} else if (var2 == 114) { // L: 212
+			} else if (var2 == 114) {
 				this.contrast = var1.readByte() * 5;
-			} else if (var2 == 115) { // L: 213
+			} else if (var2 == 115) {
 				this.team = var1.readUnsignedByte();
-			} else if (var2 == 139) { // L: 214
+			} else if (var2 == 139) {
 				this.unnotedId = var1.readUnsignedShort();
-			} else if (var2 == 140) { // L: 215
+			} else if (var2 == 140) {
 				this.notedId = var1.readUnsignedShort();
-			} else if (var2 == 148) { // L: 216
+			} else if (var2 == 148) {
 				this.placeholder = var1.readUnsignedShort();
-			} else if (var2 == 149) { // L: 217
+			} else if (var2 == 149) {
 				this.placeholderTemplate = var1.readUnsignedShort();
-			} else if (var2 == 249) { // L: 218
+			} else if (var2 == 249) {
 				this.params = Canvas.readStringIntParameters(var1, this.params);
 			}
 		}
 
-	} // L: 220
+	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -513,22 +513,22 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("genCert")
 	void genCert(ItemComposition var1, ItemComposition var2) {
-		this.model = var1.model; // L: 223
-		this.zoom2d = var1.zoom2d; // L: 224
-		this.xan2d = var1.xan2d; // L: 225
-		this.yan2d = var1.yan2d; // L: 226
-		this.zan2d = var1.zan2d; // L: 227
-		this.offsetX2d = var1.offsetX2d; // L: 228
-		this.offsetY2d = var1.offsetY2d; // L: 229
-		this.recolorFrom = var1.recolorFrom; // L: 230
-		this.recolorTo = var1.recolorTo; // L: 231
-		this.retextureFrom = var1.retextureFrom; // L: 232
-		this.retextureTo = var1.retextureTo; // L: 233
-		this.name = var2.name; // L: 234
-		this.isMembersOnly = var2.isMembersOnly; // L: 235
-		this.price = var2.price; // L: 236
-		this.isStackable = 1; // L: 237
-	} // L: 238
+		this.model = var1.model;
+		this.zoom2d = var1.zoom2d;
+		this.xan2d = var1.xan2d;
+		this.yan2d = var1.yan2d;
+		this.zan2d = var1.zan2d;
+		this.offsetX2d = var1.offsetX2d;
+		this.offsetY2d = var1.offsetY2d;
+		this.recolorFrom = var1.recolorFrom;
+		this.recolorTo = var1.recolorTo;
+		this.retextureFrom = var1.retextureFrom;
+		this.retextureTo = var1.retextureTo;
+		this.name = var2.name;
+		this.isMembersOnly = var2.isMembersOnly;
+		this.price = var2.price;
+		this.isStackable = 1;
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -537,42 +537,42 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("genBought")
 	void genBought(ItemComposition var1, ItemComposition var2) {
-		this.model = var1.model; // L: 241
-		this.zoom2d = var1.zoom2d; // L: 242
-		this.xan2d = var1.xan2d; // L: 243
-		this.yan2d = var1.yan2d; // L: 244
-		this.zan2d = var1.zan2d; // L: 245
-		this.offsetX2d = var1.offsetX2d; // L: 246
-		this.offsetY2d = var1.offsetY2d; // L: 247
-		this.recolorFrom = var2.recolorFrom; // L: 248
-		this.recolorTo = var2.recolorTo; // L: 249
-		this.retextureFrom = var2.retextureFrom; // L: 250
-		this.retextureTo = var2.retextureTo; // L: 251
-		this.name = var2.name; // L: 252
-		this.isMembersOnly = var2.isMembersOnly; // L: 253
-		this.isStackable = var2.isStackable; // L: 254
-		this.maleModel = var2.maleModel; // L: 255
-		this.maleModel1 = var2.maleModel1; // L: 256
-		this.maleModel2 = var2.maleModel2; // L: 257
-		this.femaleModel = var2.femaleModel; // L: 258
-		this.femaleModel1 = var2.femaleModel1; // L: 259
-		this.femaleModel2 = var2.femaleModel2; // L: 260
-		this.maleHeadModel = var2.maleHeadModel; // L: 261
-		this.maleHeadModel2 = var2.maleHeadModel2; // L: 262
-		this.femaleHeadModel = var2.femaleHeadModel; // L: 263
-		this.femaleHeadModel2 = var2.femaleHeadModel2; // L: 264
-		this.team = var2.team; // L: 265
-		this.groundActions = var2.groundActions; // L: 266
-		this.inventoryActions = new String[5]; // L: 267
-		if (var2.inventoryActions != null) { // L: 268
+		this.model = var1.model;
+		this.zoom2d = var1.zoom2d;
+		this.xan2d = var1.xan2d;
+		this.yan2d = var1.yan2d;
+		this.zan2d = var1.zan2d;
+		this.offsetX2d = var1.offsetX2d;
+		this.offsetY2d = var1.offsetY2d;
+		this.recolorFrom = var2.recolorFrom;
+		this.recolorTo = var2.recolorTo;
+		this.retextureFrom = var2.retextureFrom;
+		this.retextureTo = var2.retextureTo;
+		this.name = var2.name;
+		this.isMembersOnly = var2.isMembersOnly;
+		this.isStackable = var2.isStackable;
+		this.maleModel = var2.maleModel;
+		this.maleModel1 = var2.maleModel1;
+		this.maleModel2 = var2.maleModel2;
+		this.femaleModel = var2.femaleModel;
+		this.femaleModel1 = var2.femaleModel1;
+		this.femaleModel2 = var2.femaleModel2;
+		this.maleHeadModel = var2.maleHeadModel;
+		this.maleHeadModel2 = var2.maleHeadModel2;
+		this.femaleHeadModel = var2.femaleHeadModel;
+		this.femaleHeadModel2 = var2.femaleHeadModel2;
+		this.team = var2.team;
+		this.groundActions = var2.groundActions;
+		this.inventoryActions = new String[5];
+		if (var2.inventoryActions != null) {
 			for (int var3 = 0; var3 < 4; ++var3) {
 				this.inventoryActions[var3] = var2.inventoryActions[var3];
 			}
 		}
 
-		this.inventoryActions[4] = "Discard"; // L: 269
-		this.price = 0; // L: 270
-	} // L: 271
+		this.inventoryActions[4] = "Discard";
+		this.price = 0;
+	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -581,23 +581,23 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("genPlaceholder")
 	void genPlaceholder(ItemComposition var1, ItemComposition var2) {
-		this.model = var1.model; // L: 274
-		this.zoom2d = var1.zoom2d; // L: 275
-		this.xan2d = var1.xan2d; // L: 276
-		this.yan2d = var1.yan2d; // L: 277
-		this.zan2d = var1.zan2d; // L: 278
-		this.offsetX2d = var1.offsetX2d; // L: 279
-		this.offsetY2d = var1.offsetY2d; // L: 280
-		this.recolorFrom = var1.recolorFrom; // L: 281
-		this.recolorTo = var1.recolorTo; // L: 282
-		this.retextureFrom = var1.retextureFrom; // L: 283
-		this.retextureTo = var1.retextureTo; // L: 284
-		this.isStackable = var1.isStackable; // L: 285
-		this.name = var2.name; // L: 286
-		this.price = 0; // L: 287
-		this.isMembersOnly = false; // L: 288
-		this.isTradable = false; // L: 289
-	} // L: 290
+		this.model = var1.model;
+		this.zoom2d = var1.zoom2d;
+		this.xan2d = var1.xan2d;
+		this.yan2d = var1.yan2d;
+		this.zan2d = var1.zan2d;
+		this.offsetX2d = var1.offsetX2d;
+		this.offsetY2d = var1.offsetY2d;
+		this.recolorFrom = var1.recolorFrom;
+		this.recolorTo = var1.recolorTo;
+		this.retextureFrom = var1.retextureFrom;
+		this.retextureTo = var1.retextureTo;
+		this.isStackable = var1.isStackable;
+		this.name = var2.name;
+		this.price = 0;
+		this.isMembersOnly = false;
+		this.isTradable = false;
+	}
 
 	@ObfuscatedName("w")
 	@ObfuscatedSignature(
@@ -607,41 +607,41 @@ public class ItemComposition extends DualNode {
 	@Export("getModelData")
 	public final ModelData getModelData(int var1) {
 		int var3;
-		if (this.countobj != null && var1 > 1) { // L: 293
-			int var2 = -1; // L: 294
+		if (this.countobj != null && var1 > 1) {
+			int var2 = -1;
 
-			for (var3 = 0; var3 < 10; ++var3) { // L: 295
-				if (var1 >= this.countco[var3] && this.countco[var3] != 0) { // L: 296
+			for (var3 = 0; var3 < 10; ++var3) {
+				if (var1 >= this.countco[var3] && this.countco[var3] != 0) {
 					var2 = this.countobj[var3];
 				}
 			}
 
-			if (var2 != -1) { // L: 298
+			if (var2 != -1) {
 				return UserComparator6.ItemDefinition_get(var2).getModelData(1);
 			}
 		}
 
-		ModelData var4 = ModelData.ModelData_get(ItemDefinition_modelArchive, this.model, 0); // L: 300
-		if (var4 == null) { // L: 301
+		ModelData var4 = ModelData.ModelData_get(ItemDefinition_modelArchive, this.model, 0);
+		if (var4 == null) {
 			return null;
 		} else {
-			if (this.resizeX != 128 || this.resizeY != 128 || this.resizeZ != 128) { // L: 302
+			if (this.resizeX != 128 || this.resizeY != 128 || this.resizeZ != 128) {
 				var4.resize(this.resizeX, this.resizeY, this.resizeZ);
 			}
 
-			if (this.recolorFrom != null) { // L: 303
-				for (var3 = 0; var3 < this.recolorFrom.length; ++var3) { // L: 304
-					var4.recolor(this.recolorFrom[var3], this.recolorTo[var3]); // L: 305
+			if (this.recolorFrom != null) {
+				for (var3 = 0; var3 < this.recolorFrom.length; ++var3) {
+					var4.recolor(this.recolorFrom[var3], this.recolorTo[var3]);
 				}
 			}
 
-			if (this.retextureFrom != null) { // L: 308
-				for (var3 = 0; var3 < this.retextureFrom.length; ++var3) { // L: 309
-					var4.retexture(this.retextureFrom[var3], this.retextureTo[var3]); // L: 310
+			if (this.retextureFrom != null) {
+				for (var3 = 0; var3 < this.retextureFrom.length; ++var3) {
+					var4.retexture(this.retextureFrom[var3], this.retextureTo[var3]);
 				}
 			}
 
-			return var4; // L: 313
+			return var4;
 		}
 	}
 
@@ -653,7 +653,7 @@ public class ItemComposition extends DualNode {
 	@Export("getModel")
 	public final Model getModel(int var1) {
 		if (this.countobj != null && var1 > 1) {
-			int var2 = -1; // L: 318
+			int var2 = -1;
 
 			for (int var3 = 0; var3 < 10; ++var3) {
 				if (var1 >= this.countco[var3] && this.countco[var3] != 0) {
@@ -674,27 +674,27 @@ public class ItemComposition extends DualNode {
 			if (var6 == null) {
 				return null;
 			} else {
-				if (this.resizeX != 128 || this.resizeY != 128 || this.resizeZ != 128) { // L: 328
+				if (this.resizeX != 128 || this.resizeY != 128 || this.resizeZ != 128) {
 					var6.resize(this.resizeX, this.resizeY, this.resizeZ);
 				}
 
 				int var4;
-				if (this.recolorFrom != null) { // L: 329
+				if (this.recolorFrom != null) {
 					for (var4 = 0; var4 < this.recolorFrom.length; ++var4) {
-						var6.recolor(this.recolorFrom[var4], this.recolorTo[var4]); // L: 331
+						var6.recolor(this.recolorFrom[var4], this.recolorTo[var4]);
 					}
 				}
 
 				if (this.retextureFrom != null) {
-					for (var4 = 0; var4 < this.retextureFrom.length; ++var4) { // L: 335
+					for (var4 = 0; var4 < this.retextureFrom.length; ++var4) {
 						var6.retexture(this.retextureFrom[var4], this.retextureTo[var4]);
 					}
 				}
 
-				var5 = var6.toModel(this.ambient + 64, this.contrast + 768, -50, -10, -50); // L: 339
-				var5.isSingleTile = true; // L: 340
+				var5 = var6.toModel(this.ambient + 64, this.contrast + 768, -50, -10, -50);
+				var5.isSingleTile = true;
 				ItemDefinition_cachedModels.put(var5, (long)this.id);
-				return var5; // L: 342
+				return var5;
 			}
 		}
 	}
@@ -706,8 +706,8 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("getCountObj")
 	public ItemComposition getCountObj(int var1) {
-		if (this.countobj != null && var1 > 1) { // L: 346
-			int var2 = -1; // L: 347
+		if (this.countobj != null && var1 > 1) {
+			int var2 = -1;
 
 			for (int var3 = 0; var3 < 10; ++var3) {
 				if (var1 >= this.countco[var3] && this.countco[var3] != 0) {
@@ -715,12 +715,12 @@ public class ItemComposition extends DualNode {
 				}
 			}
 
-			if (var2 != -1) { // L: 351
+			if (var2 != -1) {
 				return UserComparator6.ItemDefinition_get(var2);
 			}
 		}
 
-		return this; // L: 353
+		return this;
 	}
 
 	@ObfuscatedName("v")
@@ -730,32 +730,32 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("hasNoValidModel")
 	public final boolean hasNoValidModel(boolean var1) {
-		int var2 = this.maleModel; // L: 438
-		int var3 = this.maleModel1; // L: 439
-		int var4 = this.maleModel2; // L: 440
-		if (var1) { // L: 441
-			var2 = this.femaleModel; // L: 442
-			var3 = this.femaleModel1; // L: 443
-			var4 = this.femaleModel2; // L: 444
+		int var2 = this.maleModel;
+		int var3 = this.maleModel1;
+		int var4 = this.maleModel2;
+		if (var1) {
+			var2 = this.femaleModel;
+			var3 = this.femaleModel1;
+			var4 = this.femaleModel2;
 		}
 
-		if (var2 == -1) { // L: 446
+		if (var2 == -1) {
 			return true;
 		} else {
-			boolean var5 = true; // L: 447
-			if (!ItemDefinition_modelArchive.tryLoadFile(var2, 0)) { // L: 448
+			boolean var5 = true;
+			if (!ItemDefinition_modelArchive.tryLoadFile(var2, 0)) {
 				var5 = false;
 			}
 
-			if (var3 != -1 && !ItemDefinition_modelArchive.tryLoadFile(var3, 0)) { // L: 449
+			if (var3 != -1 && !ItemDefinition_modelArchive.tryLoadFile(var3, 0)) {
 				var5 = false;
 			}
 
-			if (var4 != -1 && !ItemDefinition_modelArchive.tryLoadFile(var4, 0)) { // L: 450
+			if (var4 != -1 && !ItemDefinition_modelArchive.tryLoadFile(var4, 0)) {
 				var5 = false;
 			}
 
-			return var5; // L: 451
+			return var5;
 		}
 	}
 
@@ -765,53 +765,53 @@ public class ItemComposition extends DualNode {
 		garbageValue = "2096791202"
 	)
 	public final ModelData method3554(boolean var1) {
-		int var2 = this.maleModel; // L: 455
-		int var3 = this.maleModel1; // L: 456
-		int var4 = this.maleModel2; // L: 457
-		if (var1) { // L: 458
-			var2 = this.femaleModel; // L: 459
-			var3 = this.femaleModel1; // L: 460
-			var4 = this.femaleModel2; // L: 461
+		int var2 = this.maleModel;
+		int var3 = this.maleModel1;
+		int var4 = this.maleModel2;
+		if (var1) {
+			var2 = this.femaleModel;
+			var3 = this.femaleModel1;
+			var4 = this.femaleModel2;
 		}
 
-		if (var2 == -1) { // L: 463
+		if (var2 == -1) {
 			return null;
 		} else {
-			ModelData var5 = ModelData.ModelData_get(ItemDefinition_modelArchive, var2, 0); // L: 464
-			if (var3 != -1) { // L: 465
-				ModelData var6 = ModelData.ModelData_get(ItemDefinition_modelArchive, var3, 0); // L: 466
-				if (var4 != -1) { // L: 467
-					ModelData var7 = ModelData.ModelData_get(ItemDefinition_modelArchive, var4, 0); // L: 468
-					ModelData[] var8 = new ModelData[]{var5, var6, var7}; // L: 469
-					var5 = new ModelData(var8, 3); // L: 470
+			ModelData var5 = ModelData.ModelData_get(ItemDefinition_modelArchive, var2, 0);
+			if (var3 != -1) {
+				ModelData var6 = ModelData.ModelData_get(ItemDefinition_modelArchive, var3, 0);
+				if (var4 != -1) {
+					ModelData var7 = ModelData.ModelData_get(ItemDefinition_modelArchive, var4, 0);
+					ModelData[] var8 = new ModelData[]{var5, var6, var7};
+					var5 = new ModelData(var8, 3);
 				} else {
-					ModelData[] var10 = new ModelData[]{var5, var6}; // L: 473
-					var5 = new ModelData(var10, 2); // L: 474
+					ModelData[] var10 = new ModelData[]{var5, var6};
+					var5 = new ModelData(var10, 2);
 				}
 			}
 
-			if (!var1 && this.maleOffset != 0) { // L: 477
+			if (!var1 && this.maleOffset != 0) {
 				var5.changeOffset(0, this.maleOffset, 0);
 			}
 
-			if (var1 && this.femaleOffset != 0) { // L: 478
+			if (var1 && this.femaleOffset != 0) {
 				var5.changeOffset(0, this.femaleOffset, 0);
 			}
 
 			int var9;
-			if (this.recolorFrom != null) { // L: 479
-				for (var9 = 0; var9 < this.recolorFrom.length; ++var9) { // L: 480
-					var5.recolor(this.recolorFrom[var9], this.recolorTo[var9]); // L: 481
+			if (this.recolorFrom != null) {
+				for (var9 = 0; var9 < this.recolorFrom.length; ++var9) {
+					var5.recolor(this.recolorFrom[var9], this.recolorTo[var9]);
 				}
 			}
 
-			if (this.retextureFrom != null) { // L: 484
-				for (var9 = 0; var9 < this.retextureFrom.length; ++var9) { // L: 485
-					var5.retexture(this.retextureFrom[var9], this.retextureTo[var9]); // L: 486
+			if (this.retextureFrom != null) {
+				for (var9 = 0; var9 < this.retextureFrom.length; ++var9) {
+					var5.retexture(this.retextureFrom[var9], this.retextureTo[var9]);
 				}
 			}
 
-			return var5; // L: 489
+			return var5;
 		}
 	}
 
@@ -821,26 +821,26 @@ public class ItemComposition extends DualNode {
 		garbageValue = "-2121620855"
 	)
 	public final boolean method3555(boolean var1) {
-		int var2 = this.maleHeadModel; // L: 493
-		int var3 = this.maleHeadModel2; // L: 494
-		if (var1) { // L: 495
-			var2 = this.femaleHeadModel; // L: 496
-			var3 = this.femaleHeadModel2; // L: 497
+		int var2 = this.maleHeadModel;
+		int var3 = this.maleHeadModel2;
+		if (var1) {
+			var2 = this.femaleHeadModel;
+			var3 = this.femaleHeadModel2;
 		}
 
-		if (var2 == -1) { // L: 499
+		if (var2 == -1) {
 			return true;
 		} else {
-			boolean var4 = true; // L: 500
-			if (!ItemDefinition_modelArchive.tryLoadFile(var2, 0)) { // L: 501
+			boolean var4 = true;
+			if (!ItemDefinition_modelArchive.tryLoadFile(var2, 0)) {
 				var4 = false;
 			}
 
-			if (var3 != -1 && !ItemDefinition_modelArchive.tryLoadFile(var3, 0)) { // L: 502
+			if (var3 != -1 && !ItemDefinition_modelArchive.tryLoadFile(var3, 0)) {
 				var4 = false;
 			}
 
-			return var4; // L: 503
+			return var4;
 		}
 	}
 
@@ -850,37 +850,37 @@ public class ItemComposition extends DualNode {
 		garbageValue = "1383399718"
 	)
 	public final ModelData method3601(boolean var1) {
-		int var2 = this.maleHeadModel; // L: 507
-		int var3 = this.maleHeadModel2; // L: 508
-		if (var1) { // L: 509
-			var2 = this.femaleHeadModel; // L: 510
-			var3 = this.femaleHeadModel2; // L: 511
+		int var2 = this.maleHeadModel;
+		int var3 = this.maleHeadModel2;
+		if (var1) {
+			var2 = this.femaleHeadModel;
+			var3 = this.femaleHeadModel2;
 		}
 
-		if (var2 == -1) { // L: 513
+		if (var2 == -1) {
 			return null;
 		} else {
-			ModelData var4 = ModelData.ModelData_get(ItemDefinition_modelArchive, var2, 0); // L: 514
-			if (var3 != -1) { // L: 515
-				ModelData var5 = ModelData.ModelData_get(ItemDefinition_modelArchive, var3, 0); // L: 516
-				ModelData[] var6 = new ModelData[]{var4, var5}; // L: 517
-				var4 = new ModelData(var6, 2); // L: 518
+			ModelData var4 = ModelData.ModelData_get(ItemDefinition_modelArchive, var2, 0);
+			if (var3 != -1) {
+				ModelData var5 = ModelData.ModelData_get(ItemDefinition_modelArchive, var3, 0);
+				ModelData[] var6 = new ModelData[]{var4, var5};
+				var4 = new ModelData(var6, 2);
 			}
 
 			int var7;
-			if (this.recolorFrom != null) { // L: 520
-				for (var7 = 0; var7 < this.recolorFrom.length; ++var7) { // L: 521
-					var4.recolor(this.recolorFrom[var7], this.recolorTo[var7]); // L: 522
+			if (this.recolorFrom != null) {
+				for (var7 = 0; var7 < this.recolorFrom.length; ++var7) {
+					var4.recolor(this.recolorFrom[var7], this.recolorTo[var7]);
 				}
 			}
 
-			if (this.retextureFrom != null) { // L: 525
-				for (var7 = 0; var7 < this.retextureFrom.length; ++var7) { // L: 526
-					var4.retexture(this.retextureFrom[var7], this.retextureTo[var7]); // L: 527
+			if (this.retextureFrom != null) {
+				for (var7 = 0; var7 < this.retextureFrom.length; ++var7) {
+					var4.retexture(this.retextureFrom[var7], this.retextureTo[var7]);
 				}
 			}
 
-			return var4; // L: 530
+			return var4;
 		}
 	}
 
@@ -891,7 +891,7 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("getIntParam")
 	public int getIntParam(int var1, int var2) {
-		return class12.method158(this.params, var1, var2); // L: 534
+		return class12.method158(this.params, var1, var2);
 	}
 
 	@ObfuscatedName("a")
@@ -901,7 +901,7 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("getStringParam")
 	public String getStringParam(int var1, String var2) {
-		return Skeleton.method3948(this.params, var1, var2); // L: 538
+		return Skeleton.method3948(this.params, var1, var2);
 	}
 
 	@ObfuscatedName("u")
@@ -911,11 +911,11 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("getShiftClickIndex")
 	public int getShiftClickIndex() {
-		if (this.shiftClickIndex != -1 && this.inventoryActions != null) { // L: 542
-			if (this.shiftClickIndex >= 0) { // L: 543
+		if (this.shiftClickIndex != -1 && this.inventoryActions != null) {
+			if (this.shiftClickIndex >= 0) {
 				return this.inventoryActions[this.shiftClickIndex] != null ? this.shiftClickIndex * 585263195 * 2111080403 : -1;
 			} else {
-				return "Drop".equalsIgnoreCase(this.inventoryActions[4]) ? 4 : -1; // L: 544
+				return "Drop".equalsIgnoreCase(this.inventoryActions[4]) ? 4 : -1;
 			}
 		} else {
 			return -1;
@@ -928,7 +928,7 @@ public class ItemComposition extends DualNode {
 		garbageValue = "-1174152873"
 	)
 	boolean method3560() {
-		return this.recolorTo != null; // L: 563
+		return this.recolorTo != null;
 	}
 
 	@ObfuscatedName("q")
@@ -937,7 +937,7 @@ public class ItemComposition extends DualNode {
 		garbageValue = "-16"
 	)
 	boolean method3572() {
-		return this.retextureTo != null; // L: 567
+		return this.retextureTo != null;
 	}
 
 	@ObfuscatedName("p")
@@ -947,8 +947,8 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("Messages_getByChannelAndID")
 	static Message Messages_getByChannelAndID(int var0, int var1) {
-		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 35
-		return var2.getMessage(var1); // L: 36
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0);
+		return var2.getMessage(var1);
 	}
 
 	@ObfuscatedName("d")
@@ -958,44 +958,44 @@ public class ItemComposition extends DualNode {
 	)
 	@Export("getFrames")
 	static Frames getFrames(int var0) {
-		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0); // L: 316
-		if (var1 != null) { // L: 317
+		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0);
+		if (var1 != null) {
 			return var1;
 		} else {
-			AbstractArchive var3 = SequenceDefinition.SequenceDefinition_animationsArchive; // L: 319
-			AbstractArchive var4 = class118.SequenceDefinition_skeletonsArchive; // L: 320
-			boolean var5 = true; // L: 322
-			int[] var6 = var3.getGroupFileIds(var0); // L: 323
+			AbstractArchive var3 = SequenceDefinition.SequenceDefinition_animationsArchive;
+			AbstractArchive var4 = class118.SequenceDefinition_skeletonsArchive;
+			boolean var5 = true;
+			int[] var6 = var3.getGroupFileIds(var0);
 
-			for (int var7 = 0; var7 < var6.length; ++var7) { // L: 324
-				byte[] var8 = var3.getFile(var0, var6[var7]); // L: 325
-				if (var8 == null) { // L: 326
-					var5 = false; // L: 327
+			for (int var7 = 0; var7 < var6.length; ++var7) {
+				byte[] var8 = var3.getFile(var0, var6[var7]);
+				if (var8 == null) {
+					var5 = false;
 				} else {
-					int var9 = (var8[0] & 255) << 8 | var8[1] & 255; // L: 330
-					byte[] var10 = var4.getFile(var9, 0); // L: 333
-					if (var10 == null) { // L: 334
+					int var9 = (var8[0] & 255) << 8 | var8[1] & 255;
+					byte[] var10 = var4.getFile(var9, 0);
+					if (var10 == null) {
 						var5 = false;
 					}
 				}
 			}
 
 			Frames var2;
-			if (!var5) { // L: 336
-				var2 = null; // L: 337
+			if (!var5) {
+				var2 = null;
 			} else {
 				try {
-					var2 = new Frames(var3, var4, var0, false); // L: 341
-				} catch (Exception var12) { // L: 343
-					var2 = null; // L: 344
+					var2 = new Frames(var3, var4, var0, false);
+				} catch (Exception var12) {
+					var2 = null;
 				}
 			}
 
-			if (var2 != null) { // L: 348
+			if (var2 != null) {
 				SequenceDefinition.SequenceDefinition_cachedFrames.put(var2, (long)var0);
 			}
 
-			return var2; // L: 349
+			return var2;
 		}
 	}
 }

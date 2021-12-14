@@ -17,8 +17,8 @@ public class class29 {
 	public static String field177;
 
 	static {
-		field172 = null; // L: 10
-		field177 = ""; // L: 11
+		field172 = null;
+		field177 = "";
 	}
 
 	@ObfuscatedName("fd")
@@ -28,119 +28,119 @@ public class class29 {
 	)
 	@Export("getLoginError")
 	static void getLoginError(int var0) {
-		if (var0 == -3) { // L: 3454
+		if (var0 == -3) {
 			class19.setLoginResponseString("Connection timed out.", "Please try using a different world.", "");
-		} else if (var0 == -2) { // L: 3455
+		} else if (var0 == -2) {
 			class19.setLoginResponseString("Error connecting to server.", "Please try using a different world.", "");
-		} else if (var0 == -1) { // L: 3456
+		} else if (var0 == -1) {
 			class19.setLoginResponseString("No response from server.", "Please try using a different world.", "");
-		} else if (var0 == 3) { // L: 3457
-			PlayerType.method5521(3); // L: 3458
-			Login.field872 = 1; // L: 3459
-		} else if (var0 == 4) { // L: 3461
-			PlayerType.method5521(14); // L: 3463
-			Login.field871 = 0; // L: 3464
-		} else if (var0 == 5) { // L: 3467
-			Login.field872 = 2; // L: 3468
-			class19.setLoginResponseString("Your account has not logged out from its last", "session or the server is too busy right now.", "Please try again in a few minutes."); // L: 3469
-		} else if (var0 == 68 || !Client.onMobile && var0 == 6) { // L: 3471
-			class19.setLoginResponseString("RuneScape has been updated!", "Please reload this page.", ""); // L: 3472
-		} else if (var0 == 7) { // L: 3474
+		} else if (var0 == 3) {
+			PlayerType.method5521(3);
+			Login.field872 = 1;
+		} else if (var0 == 4) {
+			PlayerType.method5521(14);
+			Login.field871 = 0;
+		} else if (var0 == 5) {
+			Login.field872 = 2;
+			class19.setLoginResponseString("Your account has not logged out from its last", "session or the server is too busy right now.", "Please try again in a few minutes.");
+		} else if (var0 == 68 || !Client.onMobile && var0 == 6) {
+			class19.setLoginResponseString("RuneScape has been updated!", "Please reload this page.", "");
+		} else if (var0 == 7) {
 			class19.setLoginResponseString("This world is full.", "Please use a different world.", "");
-		} else if (var0 == 8) { // L: 3475
+		} else if (var0 == 8) {
 			class19.setLoginResponseString("Unable to connect.", "Login server offline.", "");
-		} else if (var0 == 9) { // L: 3476
+		} else if (var0 == 9) {
 			class19.setLoginResponseString("Login limit exceeded.", "Too many connections from your address.", "");
-		} else if (var0 == 10) { // L: 3477
+		} else if (var0 == 10) {
 			class19.setLoginResponseString("Unable to connect.", "Bad session id.", "");
-		} else if (var0 == 11) { // L: 3478
+		} else if (var0 == 11) {
 			class19.setLoginResponseString("We suspect someone knows your password.", "Press 'change your password' on front page.", "");
-		} else if (var0 == 12) { // L: 3479
+		} else if (var0 == 12) {
 			class19.setLoginResponseString("You need a members account to login to this world.", "Please subscribe, or use a different world.", "");
-		} else if (var0 == 13) { // L: 3480
+		} else if (var0 == 13) {
 			class19.setLoginResponseString("Could not complete login.", "Please try using a different world.", "");
-		} else if (var0 == 14) { // L: 3481
+		} else if (var0 == 14) {
 			class19.setLoginResponseString("The server is being updated.", "Please wait 1 minute and try again.", "");
-		} else if (var0 == 16) { // L: 3482
+		} else if (var0 == 16) {
 			class19.setLoginResponseString("Too many login attempts.", "Please wait a few minutes before trying again.", "");
-		} else if (var0 == 17) { // L: 3483
+		} else if (var0 == 17) {
 			class19.setLoginResponseString("You are standing in a members-only area.", "To play on this world move to a free area first", "");
-		} else if (var0 == 18) { // L: 3484
-			PlayerType.method5521(14); // L: 3486
-			Login.field871 = 1; // L: 3487
-		} else if (var0 == 19) { // L: 3490
+		} else if (var0 == 18) {
+			PlayerType.method5521(14);
+			Login.field871 = 1;
+		} else if (var0 == 19) {
 			class19.setLoginResponseString("This world is running a closed Beta.", "Sorry invited players only.", "Please use a different world.");
-		} else if (var0 == 20) { // L: 3491
+		} else if (var0 == 20) {
 			class19.setLoginResponseString("Invalid loginserver requested.", "Please try using a different world.", "");
-		} else if (var0 == 22) { // L: 3492
+		} else if (var0 == 22) {
 			class19.setLoginResponseString("Malformed login packet.", "Please try again.", "");
-		} else if (var0 == 23) { // L: 3493
+		} else if (var0 == 23) {
 			class19.setLoginResponseString("No reply from loginserver.", "Please wait 1 minute and try again.", "");
-		} else if (var0 == 24) { // L: 3494
+		} else if (var0 == 24) {
 			class19.setLoginResponseString("Error loading your profile.", "Please contact customer support.", "");
-		} else if (var0 == 25) { // L: 3495
+		} else if (var0 == 25) {
 			class19.setLoginResponseString("Unexpected loginserver response.", "Please try using a different world.", "");
-		} else if (var0 == 26) { // L: 3496
+		} else if (var0 == 26) {
 			class19.setLoginResponseString("This computers address has been blocked", "as it was used to break our rules.", "");
-		} else if (var0 == 27) { // L: 3497
+		} else if (var0 == 27) {
 			class19.setLoginResponseString("", "Service unavailable.", "");
-		} else if (var0 == 31) { // L: 3498
+		} else if (var0 == 31) {
 			class19.setLoginResponseString("Your account must have a displayname set", "in order to play the game.  Please set it", "via the website, or the main game.");
 		} else if (var0 == 32) {
-			class19.setLoginResponseString("Your attempt to log into your account was", "unsuccessful.  Don't worry, you can sort", "this out by visiting the billing system."); // L: 3499
-		} else if (var0 == 37) { // L: 3500
+			class19.setLoginResponseString("Your attempt to log into your account was", "unsuccessful.  Don't worry, you can sort", "this out by visiting the billing system.");
+		} else if (var0 == 37) {
 			class19.setLoginResponseString("Your account is currently inaccessible.", "Please try again in a few minutes.", "");
-		} else if (var0 == 38) { // L: 3501
+		} else if (var0 == 38) {
 			class19.setLoginResponseString("You need to vote to play!", "Visit runescape.com and vote,", "and then come back here!");
-		} else if (var0 == 55) { // L: 3502
-			PlayerType.method5521(8); // L: 3503
+		} else if (var0 == 55) {
+			PlayerType.method5521(8);
 		} else {
-			if (var0 == 56) { // L: 3505
-				class19.setLoginResponseString("Enter the 6-digit code generated by your", "authenticator app.", ""); // L: 3506
-				VertexNormal.updateGameState(11); // L: 3507
-				return; // L: 3508
+			if (var0 == 56) {
+				class19.setLoginResponseString("Enter the 6-digit code generated by your", "authenticator app.", "");
+				VertexNormal.updateGameState(11);
+				return;
 			}
 
-			if (var0 == 57) { // L: 3510
-				class19.setLoginResponseString("The code you entered was incorrect.", "Please try again.", ""); // L: 3511
-				VertexNormal.updateGameState(11); // L: 3512
-				return; // L: 3513
+			if (var0 == 57) {
+				class19.setLoginResponseString("The code you entered was incorrect.", "Please try again.", "");
+				VertexNormal.updateGameState(11);
+				return;
 			}
 
-			if (var0 == 61) { // L: 3515
-				PlayerType.method5521(7); // L: 3516
+			if (var0 == 61) {
+				PlayerType.method5521(7);
 			} else {
-				if (var0 == 62) { // L: 3518
-					VertexNormal.updateGameState(10); // L: 3519
-					PlayerType.method5521(9); // L: 3520
-					class19.setLoginResponseString("Login attempt timed out.", "Please try again.", ""); // L: 3521
-					return; // L: 3522
+				if (var0 == 62) {
+					VertexNormal.updateGameState(10);
+					PlayerType.method5521(9);
+					class19.setLoginResponseString("Login attempt timed out.", "Please try again.", "");
+					return;
 				}
 
-				if (var0 == 63) { // L: 3524
-					VertexNormal.updateGameState(10); // L: 3525
-					PlayerType.method5521(9); // L: 3526
-					class19.setLoginResponseString("You were signed out.", "Please sign in again.", ""); // L: 3527
-					return; // L: 3528
+				if (var0 == 63) {
+					VertexNormal.updateGameState(10);
+					PlayerType.method5521(9);
+					class19.setLoginResponseString("You were signed out.", "Please sign in again.", "");
+					return;
 				}
 
-				if (var0 == 65 || var0 == 67) { // L: 3530
-					VertexNormal.updateGameState(10); // L: 3531
-					PlayerType.method5521(9); // L: 3532
-					class19.setLoginResponseString("Failed to login.", "Please try again.", ""); // L: 3533
-					return; // L: 3534
+				if (var0 == 65 || var0 == 67) {
+					VertexNormal.updateGameState(10);
+					PlayerType.method5521(9);
+					class19.setLoginResponseString("Failed to login.", "Please try again.", "");
+					return;
 				}
 
-				class19.setLoginResponseString("Unexpected server response", "Please try using a different world.", ""); // L: 3536
+				class19.setLoginResponseString("Unexpected server response", "Please try using a different world.", "");
 			}
 		}
 
-		VertexNormal.updateGameState(10); // L: 3537
-		if (Client.field508.method7605()) { // L: 3538
-			PlayerType.method5521(9); // L: 3539
+		VertexNormal.updateGameState(10);
+		if (Client.field508.method7605()) {
+			PlayerType.method5521(9);
 		}
 
-	} // L: 3541
+	}
 
 	@ObfuscatedName("jf")
 	@ObfuscatedSignature(
@@ -149,44 +149,44 @@ public class class29 {
 	)
 	@Export("alignWidgetSize")
 	static void alignWidgetSize(Widget var0, int var1, int var2, boolean var3) {
-		int var4 = var0.width; // L: 10955
-		int var5 = var0.height; // L: 10956
-		if (var0.widthAlignment == 0) { // L: 10957
+		int var4 = var0.width;
+		int var5 = var0.height;
+		if (var0.widthAlignment == 0) {
 			var0.width = var0.rawWidth;
-		} else if (var0.widthAlignment == 1) { // L: 10958
+		} else if (var0.widthAlignment == 1) {
 			var0.width = var1 - var0.rawWidth;
-		} else if (var0.widthAlignment == 2) { // L: 10959
+		} else if (var0.widthAlignment == 2) {
 			var0.width = var0.rawWidth * var1 >> 14;
 		}
 
-		if (var0.heightAlignment == 0) { // L: 10960
+		if (var0.heightAlignment == 0) {
 			var0.height = var0.rawHeight;
-		} else if (var0.heightAlignment == 1) { // L: 10961
+		} else if (var0.heightAlignment == 1) {
 			var0.height = var2 - var0.rawHeight;
-		} else if (var0.heightAlignment == 2) { // L: 10962
+		} else if (var0.heightAlignment == 2) {
 			var0.height = var2 * var0.rawHeight >> 14;
 		}
 
-		if (var0.widthAlignment == 4) { // L: 10963
+		if (var0.widthAlignment == 4) {
 			var0.width = var0.height * var0.field3242 / var0.field3243;
 		}
 
-		if (var0.heightAlignment == 4) { // L: 10964
+		if (var0.heightAlignment == 4) {
 			var0.height = var0.field3243 * var0.width / var0.field3242;
 		}
 
-		if (var0.contentType == 1337) { // L: 10965
+		if (var0.contentType == 1337) {
 			Client.viewportWidget = var0;
 		}
 
-		if (var3 && var0.onResize != null && (var4 != var0.width || var5 != var0.height)) { // L: 10966
-			ScriptEvent var6 = new ScriptEvent(); // L: 10967
-			var6.widget = var0; // L: 10968
-			var6.args = var0.onResize; // L: 10969
-			Client.scriptEvents.addFirst(var6); // L: 10970
+		if (var3 && var0.onResize != null && (var4 != var0.width || var5 != var0.height)) {
+			ScriptEvent var6 = new ScriptEvent();
+			var6.widget = var0;
+			var6.args = var0.onResize;
+			Client.scriptEvents.addFirst(var6);
 		}
 
-	} // L: 10972
+	}
 
 	@ObfuscatedName("kt")
 	@ObfuscatedSignature(
@@ -195,34 +195,34 @@ public class class29 {
 	)
 	@Export("clickWidget")
 	static final void clickWidget(Widget var0, int var1, int var2) {
-		if (Client.clickedWidget == null && !Client.isMenuOpen) { // L: 11914
-			if (var0 != null) { // L: 11916
-				Widget var4 = SpotAnimationDefinition.method3340(var0); // L: 11919
-				if (var4 == null) { // L: 11920
+		if (Client.clickedWidget == null && !Client.isMenuOpen) {
+			if (var0 != null) {
+				Widget var4 = SpotAnimationDefinition.method3340(var0);
+				if (var4 == null) {
 					var4 = var0.parent;
 				}
 
-				if (var4 != null) { // L: 11923
-					Client.clickedWidget = var0; // L: 11927
-					var4 = SpotAnimationDefinition.method3340(var0); // L: 11930
-					if (var4 == null) { // L: 11931
+				if (var4 != null) {
+					Client.clickedWidget = var0;
+					var4 = SpotAnimationDefinition.method3340(var0);
+					if (var4 == null) {
 						var4 = var0.parent;
 					}
 
-					Client.clickedWidgetParent = var4; // L: 11934
-					Client.widgetClickX = var1; // L: 11935
-					Client.widgetClickY = var2; // L: 11936
-					class87.widgetDragDuration = 0; // L: 11937
-					Client.isDraggingWidget = false; // L: 11938
-					int var6 = Client.menuOptionsCount - 1; // L: 11941
-					if (var6 != -1) { // L: 11944
+					Client.clickedWidgetParent = var4;
+					Client.widgetClickX = var1;
+					Client.widgetClickY = var2;
+					class87.widgetDragDuration = 0;
+					Client.isDraggingWidget = false;
+					int var6 = Client.menuOptionsCount - 1;
+					if (var6 != -1) {
 						class16.method239(var6);
 					}
 
-					return; // L: 11945
+					return;
 				}
 			}
 
 		}
-	} // L: 11925
+	}
 }

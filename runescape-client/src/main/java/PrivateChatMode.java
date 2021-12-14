@@ -28,12 +28,12 @@ public class PrivateChatMode {
 	public final int field4597;
 
 	static {
-		field4595 = new PrivateChatMode(0); // L: 5
-		field4596 = new PrivateChatMode(1); // L: 6
+		field4595 = new PrivateChatMode(0);
+		field4596 = new PrivateChatMode(1);
 		field4594 = new PrivateChatMode(2);
-	} // L: 7
+	}
 
 	PrivateChatMode(int var1) {
-		this.field4597 = var1; // L: 15
-	} // L: 16
+		this.field4597 = var1;
+	}
 }

@@ -35,7 +35,7 @@ public class Bounds {
 	public Bounds(int var1, int var2, int var3, int var4) {
 		this.setLow(var1, var2);
 		this.setHigh(var3, var4);
-	} // L: 16
+	}
 
 	public Bounds(int var1, int var2) {
 		this(0, 0, var1, var2);
@@ -48,9 +48,9 @@ public class Bounds {
 	)
 	@Export("setLow")
 	public void setLow(int var1, int var2) {
-		this.lowX = var1; // L: 19
-		this.lowY = var2; // L: 20
-	} // L: 21
+		this.lowX = var1;
+		this.lowY = var2;
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -59,9 +59,9 @@ public class Bounds {
 	)
 	@Export("setHigh")
 	public void setHigh(int var1, int var2) {
-		this.highX = var1; // L: 24
-		this.highY = var2; // L: 25
-	} // L: 26
+		this.highX = var1;
+		this.highY = var2;
+	}
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
@@ -69,7 +69,7 @@ public class Bounds {
 		garbageValue = "922229094"
 	)
 	public boolean method6577(int var1, int var2) {
-		return var1 >= this.lowX && var1 < this.lowX + this.highX && var2 >= this.lowY && var2 < this.highY + this.lowY; // L: 29
+		return var1 >= this.lowX && var1 < this.lowX + this.highX && var2 >= this.lowY && var2 < this.highY + this.lowY;
 	}
 
 	@ObfuscatedName("m")
@@ -78,9 +78,9 @@ public class Bounds {
 		garbageValue = "3129"
 	)
 	public void method6578(Bounds var1, Bounds var2) {
-		this.method6579(var1, var2); // L: 37
-		this.method6574(var1, var2); // L: 38
-	} // L: 39
+		this.method6579(var1, var2);
+		this.method6574(var1, var2);
+	}
 
 	@ObfuscatedName("t")
 	@ObfuscatedSignature(
@@ -88,22 +88,22 @@ public class Bounds {
 		garbageValue = "381"
 	)
 	void method6579(Bounds var1, Bounds var2) {
-		var2.lowX = this.lowX; // L: 42
-		var2.highX = this.highX; // L: 43
-		if (this.lowX < var1.lowX) { // L: 44
-			var2.highX = (var2.highX * 288726831 - (var1.lowX * 288726831 - this.lowX * 288726831)) * 64358351; // L: 45
-			var2.lowX = var1.lowX; // L: 46
+		var2.lowX = this.lowX;
+		var2.highX = this.highX;
+		if (this.lowX < var1.lowX) {
+			var2.highX = (var2.highX * 288726831 - (var1.lowX * 288726831 - this.lowX * 288726831)) * 64358351;
+			var2.lowX = var1.lowX;
 		}
 
-		if (var2.method6581() > var1.method6581()) { // L: 48
-			var2.highX -= var2.method6581() - var1.method6581(); // L: 49
+		if (var2.method6581() > var1.method6581()) {
+			var2.highX -= var2.method6581() - var1.method6581();
 		}
 
-		if (var2.highX < 0) { // L: 51
+		if (var2.highX < 0) {
 			var2.highX = 0;
 		}
 
-	} // L: 52
+	}
 
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
@@ -111,22 +111,22 @@ public class Bounds {
 		garbageValue = "-1164608832"
 	)
 	void method6574(Bounds var1, Bounds var2) {
-		var2.lowY = this.lowY; // L: 55
-		var2.highY = this.highY; // L: 56
-		if (this.lowY < var1.lowY) { // L: 57
-			var2.highY = (var2.highY * -327903587 - (var1.lowY * -327903587 - this.lowY * -327903587)) * 1178509237; // L: 58
-			var2.lowY = var1.lowY; // L: 59
+		var2.lowY = this.lowY;
+		var2.highY = this.highY;
+		if (this.lowY < var1.lowY) {
+			var2.highY = (var2.highY * -327903587 - (var1.lowY * -327903587 - this.lowY * -327903587)) * 1178509237;
+			var2.lowY = var1.lowY;
 		}
 
-		if (var2.method6582() > var1.method6582()) { // L: 61
-			var2.highY -= var2.method6582() - var1.method6582(); // L: 62
+		if (var2.method6582() > var1.method6582()) {
+			var2.highY -= var2.method6582() - var1.method6582();
 		}
 
-		if (var2.highY < 0) { // L: 64
+		if (var2.highY < 0) {
 			var2.highY = 0;
 		}
 
-	} // L: 65
+	}
 
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
@@ -134,7 +134,7 @@ public class Bounds {
 		garbageValue = "-1484273265"
 	)
 	int method6581() {
-		return this.lowX + this.highX; // L: 68
+		return this.lowX + this.highX;
 	}
 
 	@ObfuscatedName("w")
@@ -143,23 +143,23 @@ public class Bounds {
 		garbageValue = "-8"
 	)
 	int method6582() {
-		return this.lowY + this.highY; // L: 72
+		return this.lowY + this.highY;
 	}
 
 	public String toString() {
-		return null; // L: 33
+		return null;
 	}
 
 	@ObfuscatedName("c")
 	public static final void method6608(long var0) {
-		if (var0 > 0L) { // L: 9
-			if (var0 % 10L == 0L) { // L: 10
-				class411.method7280(var0 - 1L); // L: 11
-				class411.method7280(1L); // L: 12
+		if (var0 > 0L) {
+			if (var0 % 10L == 0L) {
+				class411.method7280(var0 - 1L);
+				class411.method7280(1L);
 			} else {
-				class411.method7280(var0); // L: 14
+				class411.method7280(var0);
 			}
 
 		}
-	} // L: 15
+	}
 }

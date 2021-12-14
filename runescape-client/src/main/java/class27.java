@@ -11,8 +11,8 @@ public class class27 {
 		garbageValue = "1638077488"
 	)
 	public static void method432(Applet var0, String var1) throws Throwable {
-		JSObject.getWindow(var0).eval(var1); // L: 13
-	} // L: 14
+		JSObject.getWindow(var0).eval(var1);
+	}
 
 	@ObfuscatedName("b")
 	@ObfuscatedSignature(
@@ -20,6 +20,6 @@ public class class27 {
 		garbageValue = "-1601030388"
 	)
 	static Object method433(Applet var0, String var1, Object[] var2) throws Throwable {
-		return JSObject.getWindow(var0).call(var1, var2); // L: 17
+		return JSObject.getWindow(var0).call(var1, var2);
 	}
 }
