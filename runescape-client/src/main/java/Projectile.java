@@ -135,12 +135,13 @@ public final class Projectile extends Renderable {
 	@ObfuscatedGetter(
 		intValue = -43602097
 	)
-	int field904;
+	@Export("frameCycle")
+	int frameCycle;
 
 	Projectile(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10, int var11) {
 		this.isMoving = false;
 		this.frame = 0;
-		this.field904 = 0;
+		this.frameCycle = 0;
 		this.id = var1;
 		this.plane = var2;
 		this.sourceX = var3;
@@ -223,16 +224,16 @@ public final class Projectile extends Renderable {
 		this.pitch = (int)(Math.atan2(this.speedZ, this.speed) * 325.949D) & 2047;
 		if (this.sequenceDefinition != null) {
 			if (!this.sequenceDefinition.method3690()) {
-				this.field904 += var1;
+				this.frameCycle += var1;
 
 				while (true) {
 					do {
 						do {
-							if (this.field904 <= this.sequenceDefinition.frameLengths[this.frame]) {
+							if (this.frameCycle <= this.sequenceDefinition.frameLengths[this.frame]) {
 								return;
 							}
 
-							this.field904 -= this.sequenceDefinition.frameLengths[this.frame];
+							this.frameCycle -= this.sequenceDefinition.frameLengths[this.frame];
 							++this.frame;
 						} while(this.frame < this.sequenceDefinition.frameIds.length);
 

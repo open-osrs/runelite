@@ -262,8 +262,8 @@ public final class ObjectSound extends Node {
 		garbageValue = "30466"
 	)
 	public static void method1796() {
+		HitSplatDefinition.HitSplatDefinition_cached.clear();
 		HitSplatDefinition.HitSplatDefinition_cachedSprites.clear();
 		HitSplatDefinition.HitSplatDefinition_cachedFonts.clear();
-		HitSplatDefinition.HealthBarDefinition_cached.clear();
 	}
 }

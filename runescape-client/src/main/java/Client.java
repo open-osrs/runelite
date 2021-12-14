@@ -3414,13 +3414,13 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 				var5.packetBuffer.writeInt(0);
 				var5.packetBuffer.writeInt(0);
 				var5.packetBuffer.method7407(WorldMapScaleHandler.archive6.hash);
-				var5.packetBuffer.writeIntME(class9.archive3.hash);
+				var5.packetBuffer.writeIntME(class9.archive1.hash);
 				var5.packetBuffer.method7407(ChatChannel.archive14.hash);
 				var5.packetBuffer.method7527(class1.archive13.hash);
 				var5.packetBuffer.writeInt(TaskHandler.archive12.hash);
 				var5.packetBuffer.writeInt(class148.archive19.hash);
 				var5.packetBuffer.method7407(class133.archive15.hash);
-				var5.packetBuffer.writeIntME(class19.archive4.hash);
+				var5.packetBuffer.writeIntME(class19.archive3.hash);
 				var5.packetBuffer.writeIntME(UserComparator6.archive8.hash);
 				var5.packetBuffer.method7527(class126.archive17.hash);
 				var5.packetBuffer.writeIntME(class115.archive7.hash);
@@ -3428,11 +3428,11 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 				var5.packetBuffer.method7407(VertexNormal.archive18.hash);
 				var5.packetBuffer.writeInt(class140.archive5.hash);
 				var5.packetBuffer.writeIntME(class131.archive2.hash);
-				var5.packetBuffer.method7407(KeyHandler.field151.hash);
+				var5.packetBuffer.method7407(KeyHandler.archive4.hash);
 				var5.packetBuffer.writeIntME(NetSocket.archive9.hash);
 				var5.packetBuffer.writeInt(class257.archive10.hash);
 				var5.packetBuffer.method7407(HealthBarUpdate.archive20.hash);
-				var5.packetBuffer.method7407(class115.archive1.hash);
+				var5.packetBuffer.method7407(class115.archive0.hash);
 				var5.packetBuffer.xteaEncrypt(var13, var7, var5.packetBuffer.offset);
 				var5.packetBuffer.writeLengthShort(var5.packetBuffer.offset - var14);
 				packetWriter.addNode(var5);
@@ -4082,7 +4082,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 								SoundEffect var32 = soundEffects[var1];
 								if (var32 == null) {
 									var10000 = null;
-									var32 = SoundEffect.readSoundEffect(KeyHandler.field151, soundEffectIds[var1], 0);
+									var32 = SoundEffect.readSoundEffect(KeyHandler.archive4, soundEffectIds[var1], 0);
 									if (var32 == null) {
 										continue;
 									}
@@ -4752,7 +4752,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 					if (var5.stream1 == null) {
 						if (var5.soundEffectId >= 0) {
 							var10000 = null;
-							SoundEffect var8 = SoundEffect.readSoundEffect(KeyHandler.field151, var5.soundEffectId, 0);
+							SoundEffect var8 = SoundEffect.readSoundEffect(KeyHandler.archive4, var5.soundEffectId, 0);
 							if (var8 != null) {
 								RawSound var9 = var8.toRawSound().resample(BoundaryObject.decimator);
 								RawPcmStream var10 = RawPcmStream.createRawPcmStream(var9, 100, var7);
@@ -4769,7 +4769,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 						if (var5.soundEffectIds != null && (var5.field789 -= var4) <= 0) {
 							int var12 = (int)(Math.random() * (double)var5.soundEffectIds.length);
 							var10000 = null;
-							SoundEffect var13 = SoundEffect.readSoundEffect(KeyHandler.field151, var5.soundEffectIds[var12], 0);
+							SoundEffect var13 = SoundEffect.readSoundEffect(KeyHandler.archive4, var5.soundEffectIds[var12], 0);
 							if (var13 != null) {
 								RawSound var14 = var13.toRawSound().resample(BoundaryObject.decimator);
 								RawPcmStream var11 = RawPcmStream.createRawPcmStream(var14, 100, var7);

@@ -196,9 +196,9 @@ public class WorldMapSection2 implements WorldMapSection {
 		garbageValue = "12387"
 	)
 	public static void method4417() {
+		Widget.Widget_cachedSprites.clear();
 		Widget.Widget_cachedModels.clear();
 		Widget.Widget_cachedFonts.clear();
 		Widget.Widget_cachedSpriteMasks.clear();
-		Widget.field3222.clear();
 	}
 }

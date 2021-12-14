@@ -115,7 +115,7 @@ public class UserComparator6 extends AbstractUserComparator {
 		garbageValue = "81"
 	)
 	public static HitSplatDefinition method2554(int var0) {
-		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cachedSprites.get((long)var0);
+		HitSplatDefinition var1 = (HitSplatDefinition)HitSplatDefinition.HitSplatDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -125,7 +125,7 @@ public class UserComparator6 extends AbstractUserComparator {
 				var1.decode(new Buffer(var2));
 			}
 
-			HitSplatDefinition.HitSplatDefinition_cachedSprites.put(var1, (long)var0);
+			HitSplatDefinition.HitSplatDefinition_cached.put(var1, (long)var0);
 			return var1;
 		}
 	}

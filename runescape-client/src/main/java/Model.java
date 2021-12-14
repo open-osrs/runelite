@@ -89,11 +89,14 @@ public class Model extends Renderable {
 	@ObfuscatedName("bb")
 	static boolean field2492;
 	@ObfuscatedName("bt")
-	static int[] field2465;
+	@Export("Model_sine")
+	static int[] Model_sine;
 	@ObfuscatedName("bh")
-	static int[] field2489;
+	@Export("Model_cosine")
+	static int[] Model_cosine;
 	@ObfuscatedName("bn")
-	static int[] field2490;
+	@Export("Model_colorPalette")
+	static int[] Model_colorPalette;
 	@ObfuscatedName("bj")
 	static int[] field2491;
 	@ObfuscatedName("w")
@@ -232,9 +235,9 @@ public class Model extends Renderable {
 		field2480 = new int[10];
 		field2453 = new int[10];
 		field2492 = true;
-		field2465 = Rasterizer3D.Rasterizer3D_sine;
-		field2489 = Rasterizer3D.Rasterizer3D_cosine;
-		field2490 = Rasterizer3D.Rasterizer3D_colorPalette;
+		Model_sine = Rasterizer3D.Rasterizer3D_sine;
+		Model_cosine = Rasterizer3D.Rasterizer3D_cosine;
+		Model_colorPalette = Rasterizer3D.Rasterizer3D_colorPalette;
 		field2491 = Rasterizer3D.field2271;
 	}
 
@@ -585,8 +588,8 @@ public class Model extends Renderable {
 			int var5 = 0;
 			int var6 = 0;
 			int var7 = 0;
-			int var8 = field2489[var1];
-			int var9 = field2465[var1];
+			int var8 = Model_cosine[var1];
+			int var9 = Model_sine[var1];
 
 			for (int var10 = 0; var10 < this.verticesCount; ++var10) {
 				int var11 = Rasterizer3D.method3847(this.verticesX[var10], this.verticesZ[var10], var8, var9);
@@ -983,24 +986,24 @@ public class Model extends Renderable {
 							int var16;
 							int var17;
 							if (var14 != 0) {
-								var15 = field2465[var14];
-								var16 = field2489[var14];
+								var15 = Model_sine[var14];
+								var16 = Model_cosine[var14];
 								var17 = var15 * this.verticesY[var11] + var16 * this.verticesX[var11] >> 16;
 								this.verticesY[var11] = var16 * this.verticesY[var11] - var15 * this.verticesX[var11] >> 16;
 								this.verticesX[var11] = var17;
 							}
 
 							if (var12 != 0) {
-								var15 = field2465[var12];
-								var16 = field2489[var12];
+								var15 = Model_sine[var12];
+								var16 = Model_cosine[var12];
 								var17 = var16 * this.verticesY[var11] - var15 * this.verticesZ[var11] >> 16;
 								this.verticesZ[var11] = var15 * this.verticesY[var11] + var16 * this.verticesZ[var11] >> 16;
 								this.verticesY[var11] = var17;
 							}
 
 							if (var13 != 0) {
-								var15 = field2465[var13];
-								var16 = field2489[var13];
+								var15 = Model_sine[var13];
+								var16 = Model_cosine[var13];
 								var17 = var15 * this.verticesZ[var11] + var16 * this.verticesX[var11] >> 16;
 								this.verticesZ[var11] = var16 * this.verticesZ[var11] - var15 * this.verticesX[var11] >> 16;
 								this.verticesX[var11] = var17;
@@ -1082,7 +1085,8 @@ public class Model extends Renderable {
 	}
 
 	@ObfuscatedName("z")
-	public void method4206() {
+	@Export("rotateY180")
+	public void rotateY180() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) {
 			this.verticesX[var1] = -this.verticesX[var1];
 			this.verticesZ[var1] = -this.verticesZ[var1];
@@ -1092,7 +1096,8 @@ public class Model extends Renderable {
 	}
 
 	@ObfuscatedName("i")
-	public void method4190() {
+	@Export("rotateY270Ccw")
+	public void rotateY270Ccw() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) {
 			int var2 = this.verticesZ[var1];
 			this.verticesZ[var1] = this.verticesX[var1];
@@ -1105,8 +1110,8 @@ public class Model extends Renderable {
 	@ObfuscatedName("y")
 	@Export("rotateZ")
 	public void rotateZ(int var1) {
-		int var2 = field2465[var1];
-		int var3 = field2489[var1];
+		int var2 = Model_sine[var1];
+		int var3 = Model_cosine[var1];
 
 		for (int var4 = 0; var4 < this.verticesCount; ++var4) {
 			int var5 = var3 * this.verticesY[var4] - var2 * this.verticesZ[var4] >> 16;
@@ -1153,14 +1158,14 @@ public class Model extends Renderable {
 
 		int var8 = Rasterizer3D.Rasterizer3D_clipMidX;
 		int var9 = Rasterizer3D.Rasterizer3D_clipMidY;
-		int var10 = field2465[var1];
-		int var11 = field2489[var1];
-		int var12 = field2465[var2];
-		int var13 = field2489[var2];
-		int var14 = field2465[var3];
-		int var15 = field2489[var3];
-		int var16 = field2465[var4];
-		int var17 = field2489[var4];
+		int var10 = Model_sine[var1];
+		int var11 = Model_cosine[var1];
+		int var12 = Model_sine[var2];
+		int var13 = Model_cosine[var2];
+		int var14 = Model_sine[var3];
+		int var15 = Model_cosine[var3];
+		int var16 = Model_sine[var4];
+		int var17 = Model_cosine[var4];
 		int var18 = var16 * var6 + var17 * var7 >> 16;
 
 		for (int var19 = 0; var19 < this.verticesCount; ++var19) {
@@ -1217,14 +1222,14 @@ public class Model extends Renderable {
 
 		int var9 = Rasterizer3D.Rasterizer3D_clipMidX;
 		int var10 = Rasterizer3D.Rasterizer3D_clipMidY;
-		int var11 = field2465[var1];
-		int var12 = field2489[var1];
-		int var13 = field2465[var2];
-		int var14 = field2489[var2];
-		int var15 = field2465[var3];
-		int var16 = field2489[var3];
-		int var17 = field2465[var4];
-		int var18 = field2489[var4];
+		int var11 = Model_sine[var1];
+		int var12 = Model_cosine[var1];
+		int var13 = Model_sine[var2];
+		int var14 = Model_cosine[var2];
+		int var15 = Model_sine[var3];
+		int var16 = Model_cosine[var3];
+		int var17 = Model_sine[var4];
+		int var18 = Model_cosine[var4];
 		int var19 = var17 * var6 + var18 * var7 >> 16;
 
 		for (int var20 = 0; var20 < this.verticesCount; ++var20) {
@@ -1563,7 +1568,7 @@ public class Model extends Renderable {
 					Rasterizer3D.method3876(modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], this.faceColors1[var1], this.faceColors2[var1], this.faceColors3[var1], field2468[var5], field2468[var6], field2468[var7], field2469[var5], field2469[var6], field2469[var7], field2470[var5], field2470[var6], field2470[var7], this.faceTextures[var1]);
 				}
 			} else if (this.faceColors3[var1] == -1) {
-				Rasterizer3D.method3856(modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], field2490[this.faceColors1[var1]]);
+				Rasterizer3D.method3856(modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], Model_colorPalette[this.faceColors1[var1]]);
 			} else if (this.field2474 > 0) {
 				var5 = this.method4216(this.faceColors1[var1], this.field2494, this.field2495, this.field2479, this.field2474);
 				var6 = this.method4216(this.faceColors2[var1], this.field2494, this.field2495, this.field2479, this.field2474);
@@ -1700,7 +1705,7 @@ public class Model extends Renderable {
 					Rasterizer3D.method3876(var14, var15, var16, var11, var12, var13, field2453[0], field2453[1], field2453[2], field2468[var17], field2468[var18], field2468[var19], field2469[var17], field2469[var18], field2469[var19], field2470[var17], field2470[var18], field2470[var19], this.faceTextures[var1]);
 				}
 			} else if (this.faceColors3[var1] == -1) {
-				Rasterizer3D.method3856(var14, var15, var16, var11, var12, var13, field2490[this.faceColors1[var1]]);
+				Rasterizer3D.method3856(var14, var15, var16, var11, var12, var13, Model_colorPalette[this.faceColors1[var1]]);
 			} else {
 				Rasterizer3D.method3854(var14, var15, var16, var11, var12, var13, field2453[0], field2453[1], field2453[2]);
 			}
@@ -1732,7 +1737,7 @@ public class Model extends Renderable {
 					Rasterizer3D.method3876(var14, var16, field2480[3], var11, var13, field2467[3], field2453[0], field2453[2], field2453[3], field2468[var17], field2468[var18], field2468[var19], field2469[var17], field2469[var18], field2469[var19], field2470[var17], field2470[var18], field2470[var19], var21);
 				}
 			} else if (this.faceColors3[var1] == -1) {
-				var17 = field2490[this.faceColors1[var1]];
+				var17 = Model_colorPalette[this.faceColors1[var1]];
 				Rasterizer3D.method3856(var14, var15, var16, var11, var12, var13, var17);
 				Rasterizer3D.method3856(var14, var16, field2480[3], var11, var13, field2467[3], var17);
 			} else {
@@ -1969,8 +1974,8 @@ public class Model extends Renderable {
 							var48 = 0;
 							var37 = 0;
 							if (var1 != 0) {
-								var48 = field2465[var1];
-								var37 = field2489[var1];
+								var48 = Model_sine[var1];
+								var37 = Model_cosine[var1];
 							}
 
 							for (var38 = 0; var38 < this.verticesCount; ++var38) {

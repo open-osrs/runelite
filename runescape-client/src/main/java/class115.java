@@ -9,8 +9,8 @@ public class class115 {
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("archive1")
-	static Archive archive1;
+	@Export("archive0")
+	static Archive archive0;
 	@ObfuscatedName("ep")
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"

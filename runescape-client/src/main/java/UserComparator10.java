@@ -68,11 +68,11 @@ public class UserComparator10 extends AbstractUserComparator {
 			Login.Login_loadingPercent = 10;
 			Client.titleLoadingStage = 30;
 		} else if (Client.titleLoadingStage == 30) {
-			class115.archive1 = VarcInt.newArchive(0, false, true, true);
-			class9.archive3 = VarcInt.newArchive(1, false, true, true);
+			class115.archive0 = VarcInt.newArchive(0, false, true, true);
+			class9.archive1 = VarcInt.newArchive(1, false, true, true);
 			class131.archive2 = VarcInt.newArchive(2, true, false, true);
-			class19.archive4 = VarcInt.newArchive(3, false, true, true);
-			KeyHandler.field151 = VarcInt.newArchive(4, false, true, true);
+			class19.archive3 = VarcInt.newArchive(3, false, true, true);
+			KeyHandler.archive4 = VarcInt.newArchive(4, false, true, true);
 			class140.archive5 = VarcInt.newArchive(5, true, true, true);
 			WorldMapScaleHandler.archive6 = VarcInt.newArchive(6, true, true, true);
 			class115.archive7 = VarcInt.newArchive(7, false, true, true);
@@ -93,11 +93,11 @@ public class UserComparator10 extends AbstractUserComparator {
 			Client.titleLoadingStage = 40;
 		} else if (Client.titleLoadingStage == 40) {
 			byte var41 = 0;
-			var18 = var41 + class115.archive1.percentage() * 4 / 100;
-			var18 += class9.archive3.percentage() * 4 / 100;
+			var18 = var41 + class115.archive0.percentage() * 4 / 100;
+			var18 += class9.archive1.percentage() * 4 / 100;
 			var18 += class131.archive2.percentage() * 2 / 100;
-			var18 += class19.archive4.percentage() * 2 / 100;
-			var18 += KeyHandler.field151.percentage() * 6 / 100;
+			var18 += class19.archive3.percentage() * 2 / 100;
+			var18 += KeyHandler.archive4.percentage() * 6 / 100;
 			var18 += class140.archive5.percentage() * 4 / 100;
 			var18 += WorldMapScaleHandler.archive6.percentage() * 2 / 100;
 			var18 += class115.archive7.percentage() * 56 / 100;
@@ -120,9 +120,9 @@ public class UserComparator10 extends AbstractUserComparator {
 
 				Login.Login_loadingPercent = 30;
 			} else {
-				NetFileRequest.method5587(class115.archive1, "Animations");
-				NetFileRequest.method5587(class9.archive3, "Skeletons");
-				NetFileRequest.method5587(KeyHandler.field151, "Sound FX");
+				NetFileRequest.method5587(class115.archive0, "Animations");
+				NetFileRequest.method5587(class9.archive1, "Skeletons");
+				NetFileRequest.method5587(KeyHandler.archive4, "Sound FX");
 				NetFileRequest.method5587(class140.archive5, "Maps");
 				NetFileRequest.method5587(WorldMapScaleHandler.archive6, "Music Tracks");
 				NetFileRequest.method5587(class115.archive7, "Models");
@@ -152,7 +152,7 @@ public class UserComparator10 extends AbstractUserComparator {
 				JagexCache.pcmPlayer0.setStream(var37);
 				var2 = class133.archive15;
 				Archive var39 = ChatChannel.archive14;
-				Archive var29 = KeyHandler.field151;
+				Archive var29 = KeyHandler.archive4;
 				class260.musicPatchesArchive = var2;
 				class331.musicSamplesArchive = var39;
 				class260.soundEffectsArchive = var29;
@@ -219,8 +219,8 @@ public class UserComparator10 extends AbstractUserComparator {
 						WorldMapLabelSize.ItemDefinition_fileCount = ItemComposition.ItemDefinition_archive.getGroupFileCount(10);
 						ItemComposition.ItemDefinition_fontPlain11 = var4;
 						Archive var34 = class131.archive2;
-						Archive var22 = class115.archive1;
-						Archive var36 = class9.archive3;
+						Archive var22 = class115.archive0;
+						Archive var36 = class9.archive1;
 						Canvas.SequenceDefinition_archive = var34;
 						SequenceDefinition.SequenceDefinition_animationsArchive = var22;
 						class118.SequenceDefinition_skeletonsArchive = var36;
@@ -230,7 +230,7 @@ public class UserComparator10 extends AbstractUserComparator {
 						Archive var38 = class131.archive2;
 						VarpDefinition.VarpDefinition_archive = var38;
 						class433.VarpDefinition_fileCount = VarpDefinition.VarpDefinition_archive.getGroupFileCount(16);
-						class194.method3937(class19.archive4, class115.archive7, UserComparator6.archive8, class1.archive13);
+						class194.method3937(class19.archive3, class115.archive7, UserComparator6.archive8, class1.archive13);
 						Archive var24 = class131.archive2;
 						InvDefinition.InvDefinition_archive = var24;
 						Archive var11 = class131.archive2;
@@ -670,8 +670,8 @@ public class UserComparator10 extends AbstractUserComparator {
 						Client.titleLoadingStage = 130;
 					}
 				} else if (Client.titleLoadingStage == 130) {
-					if (!class19.archive4.isFullyLoaded()) {
-						Login.Login_loadingText = "Loading interfaces - " + class19.archive4.loadPercent() * 4 / 5 + "%";
+					if (!class19.archive3.isFullyLoaded()) {
+						Login.Login_loadingText = "Loading interfaces - " + class19.archive3.loadPercent() * 4 / 5 + "%";
 						Login.Login_loadingPercent = 96;
 					} else if (!TaskHandler.archive12.isFullyLoaded()) {
 						Login.Login_loadingText = "Loading interfaces - " + (80 + TaskHandler.archive12.loadPercent() / 6) + "%";

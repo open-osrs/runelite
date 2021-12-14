@@ -89,12 +89,12 @@ public final class NPC extends Actor {
 		for (int var5 = super.pathLength; var5 > 0; --var5) {
 			super.pathX[var5] = super.pathX[var5 - 1];
 			super.pathY[var5] = super.pathY[var5 - 1];
-			super.field1153[var5] = super.field1153[var5 - 1];
+			super.pathTraversed[var5] = super.pathTraversed[var5 - 1];
 		}
 
 		super.pathX[0] = var3;
 		super.pathY[0] = var4;
-		super.field1153[0] = var2;
+		super.pathTraversed[0] = var2;
 	}
 
 	@ObfuscatedName("b")
@@ -163,12 +163,12 @@ public final class NPC extends Actor {
 				for (int var6 = super.pathLength; var6 > 0; --var6) {
 					super.pathX[var6] = super.pathX[var6 - 1];
 					super.pathY[var6] = super.pathY[var6 - 1];
-					super.field1153[var6] = super.field1153[var6 - 1];
+					super.pathTraversed[var6] = super.pathTraversed[var6 - 1];
 				}
 
 				super.pathX[0] = var1;
 				super.pathY[0] = var2;
-				super.field1153[0] = class185.field2123;
+				super.pathTraversed[0] = class185.field2123;
 				return;
 			}
 		}

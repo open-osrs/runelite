@@ -261,7 +261,7 @@ public class class143 {
 				return 1;
 			} else if (var0 == 1125) {
 				var8 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-				class429 var6 = (class429)class130.findEnumerated(class253.FillMode_values(), var8);
+				FillMode var6 = (FillMode)class130.findEnumerated(class253.FillMode_values(), var8);
 				if (var6 != null) {
 					var3.fillMode = var6;
 					SecureRandomCallable.invalidateWidget(var3);

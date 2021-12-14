@@ -81,8 +81,8 @@ public class class253 {
 		garbageValue = "-850723008"
 	)
 	@Export("FillMode_values")
-	public static class429[] FillMode_values() {
-		return new class429[]{class429.SOLID, class429.field4552, class429.field4553};
+	public static FillMode[] FillMode_values() {
+		return new FillMode[]{FillMode.SOLID, FillMode.field4552, FillMode.field4553};
 	}
 
 	@ObfuscatedName("r")

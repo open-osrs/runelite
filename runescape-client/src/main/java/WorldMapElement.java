@@ -23,8 +23,8 @@ public class WorldMapElement extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Liq;"
 	)
-	@Export("PlayerAppearance_cachedModels")
-	public static EvictingDualNodeHashTable PlayerAppearance_cachedModels;
+	@Export("WorldMapElement_cachedSprites")
+	public static EvictingDualNodeHashTable WorldMapElement_cachedSprites;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = -2128430095
@@ -113,7 +113,7 @@ public class WorldMapElement extends DualNode {
 	public int category;
 
 	static {
-		PlayerAppearance_cachedModels = new EvictingDualNodeHashTable(256);
+		WorldMapElement_cachedSprites = new EvictingDualNodeHashTable(256);
 	}
 
 	public WorldMapElement(int var1) {
@@ -284,13 +284,13 @@ public class WorldMapElement extends DualNode {
 		if (var1 < 0) {
 			return null;
 		} else {
-			SpritePixels var2 = (SpritePixels)PlayerAppearance_cachedModels.get((long)var1);
+			SpritePixels var2 = (SpritePixels) WorldMapElement_cachedSprites.get((long)var1);
 			if (var2 != null) {
 				return var2;
 			} else {
 				var2 = class6.SpriteBuffer_getSprite(WorldMapElement_archive, var1, 0);
 				if (var2 != null) {
-					PlayerAppearance_cachedModels.put(var2, (long)var1);
+					WorldMapElement_cachedSprites.put(var2, (long)var1);
 				}
 
 				return var2;

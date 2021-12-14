@@ -22,8 +22,8 @@ public class class19 {
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("archive4")
-	static Archive archive4;
+	@Export("archive3")
+	static Archive archive3;
 	@ObfuscatedName("fa")
 	@Export("secureRandom")
 	static SecureRandom secureRandom;

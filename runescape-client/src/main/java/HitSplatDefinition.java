@@ -28,20 +28,20 @@ public class HitSplatDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Liq;"
 	)
+	@Export("HitSplatDefinition_cached")
+	static EvictingDualNodeHashTable HitSplatDefinition_cached;
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "Liq;"
+	)
 	@Export("HitSplatDefinition_cachedSprites")
 	static EvictingDualNodeHashTable HitSplatDefinition_cachedSprites;
-	@ObfuscatedName("t")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "Liq;"
 	)
 	@Export("HitSplatDefinition_cachedFonts")
 	static EvictingDualNodeHashTable HitSplatDefinition_cachedFonts;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Liq;"
-	)
-	@Export("HealthBarDefinition_cached")
-	static EvictingDualNodeHashTable HealthBarDefinition_cached;
 	@ObfuscatedName("oe")
 	@ObfuscatedGetter(
 		intValue = 1196014399
@@ -128,9 +128,9 @@ public class HitSplatDefinition extends DualNode {
 	int transformVarp;
 
 	static {
+		HitSplatDefinition_cached = new EvictingDualNodeHashTable(64);
 		HitSplatDefinition_cachedSprites = new EvictingDualNodeHashTable(64);
-		HitSplatDefinition_cachedFonts = new EvictingDualNodeHashTable(64);
-		HealthBarDefinition_cached = new EvictingDualNodeHashTable(20);
+		HitSplatDefinition_cachedFonts = new EvictingDualNodeHashTable(20);
 	}
 
 	HitSplatDefinition() {
@@ -289,13 +289,13 @@ public class HitSplatDefinition extends DualNode {
 		if (this.field1935 < 0) {
 			return null;
 		} else {
-			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedFonts.get((long)this.field1935);
+			SpritePixels var1 = (SpritePixels) HitSplatDefinition_cachedSprites.get((long)this.field1935);
 			if (var1 != null) {
 				return var1;
 			} else {
 				var1 = class6.SpriteBuffer_getSprite(field1939, this.field1935, 0);
 				if (var1 != null) {
-					HitSplatDefinition_cachedFonts.put(var1, (long)this.field1935);
+					HitSplatDefinition_cachedSprites.put(var1, (long)this.field1935);
 				}
 
 				return var1;
@@ -312,13 +312,13 @@ public class HitSplatDefinition extends DualNode {
 		if (this.field1936 < 0) {
 			return null;
 		} else {
-			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedFonts.get((long)this.field1936);
+			SpritePixels var1 = (SpritePixels) HitSplatDefinition_cachedSprites.get((long)this.field1936);
 			if (var1 != null) {
 				return var1;
 			} else {
 				var1 = class6.SpriteBuffer_getSprite(field1939, this.field1936, 0);
 				if (var1 != null) {
-					HitSplatDefinition_cachedFonts.put(var1, (long)this.field1936);
+					HitSplatDefinition_cachedSprites.put(var1, (long)this.field1936);
 				}
 
 				return var1;
@@ -335,13 +335,13 @@ public class HitSplatDefinition extends DualNode {
 		if (this.field1937 < 0) {
 			return null;
 		} else {
-			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedFonts.get((long)this.field1937);
+			SpritePixels var1 = (SpritePixels) HitSplatDefinition_cachedSprites.get((long)this.field1937);
 			if (var1 != null) {
 				return var1;
 			} else {
 				var1 = class6.SpriteBuffer_getSprite(field1939, this.field1937, 0);
 				if (var1 != null) {
-					HitSplatDefinition_cachedFonts.put(var1, (long)this.field1937);
+					HitSplatDefinition_cachedSprites.put(var1, (long)this.field1937);
 				}
 
 				return var1;
@@ -358,13 +358,13 @@ public class HitSplatDefinition extends DualNode {
 		if (this.field1938 < 0) {
 			return null;
 		} else {
-			SpritePixels var1 = (SpritePixels)HitSplatDefinition_cachedFonts.get((long)this.field1938);
+			SpritePixels var1 = (SpritePixels) HitSplatDefinition_cachedSprites.get((long)this.field1938);
 			if (var1 != null) {
 				return var1;
 			} else {
 				var1 = class6.SpriteBuffer_getSprite(field1939, this.field1938, 0);
 				if (var1 != null) {
-					HitSplatDefinition_cachedFonts.put(var1, (long)this.field1938);
+					HitSplatDefinition_cachedSprites.put(var1, (long)this.field1938);
 				}
 
 				return var1;
@@ -382,7 +382,7 @@ public class HitSplatDefinition extends DualNode {
 		if (this.fontId == -1) {
 			return null;
 		} else {
-			Font var1 = (Font)HealthBarDefinition_cached.get((long)this.fontId);
+			Font var1 = (Font) HitSplatDefinition_cachedFonts.get((long)this.fontId);
 			if (var1 != null) {
 				return var1;
 			} else {
@@ -407,7 +407,7 @@ public class HitSplatDefinition extends DualNode {
 				}
 
 				if (var2 != null) {
-					HealthBarDefinition_cached.put(var2, (long)this.fontId);
+					HitSplatDefinition_cachedFonts.put(var2, (long)this.fontId);
 				}
 
 				return var2;

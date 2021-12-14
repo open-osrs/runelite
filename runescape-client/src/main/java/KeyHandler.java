@@ -91,7 +91,8 @@ public final class KeyHandler implements KeyListener, FocusListener {
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	static Archive field151;
+	@Export("archive4")
+	static Archive archive4;
 
 	static {
 		KeyHandler_instance = new KeyHandler();

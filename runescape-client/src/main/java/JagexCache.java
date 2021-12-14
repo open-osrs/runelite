@@ -52,13 +52,13 @@ public class JagexCache {
 		garbageValue = "2123818799"
 	)
 	static class120 method3064(int var0) {
-		class120 var1 = (class120)SequenceDefinition.field2086.get((long)var0);
+		class120 var1 = (class120)SequenceDefinition.SequenceDefinition_cachedModel.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
 			var1 = class112.method2571(SequenceDefinition.SequenceDefinition_animationsArchive, class118.SequenceDefinition_skeletonsArchive, var0, false);
 			if (var1 != null) {
-				SequenceDefinition.field2086.put(var1, (long)var0);
+				SequenceDefinition.SequenceDefinition_cachedModel.put(var1, (long)var0);
 			}
 
 			return var1;

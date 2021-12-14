@@ -183,7 +183,7 @@ public class Decimator {
 				var8 = var7 >> 28;
 				var9 = var7 >> 14 & 255;
 				var10 = var7 & 255;
-				var11.field1153[0] = Players.field1246[var1];
+				var11.pathTraversed[0] = Players.field1246[var1];
 				var11.plane = (byte)var8;
 				var11.resetPath((var9 << 13) + var3 - class131.baseX, (var10 << 13) + var4 - TileItem.baseY);
 				var11.field1055 = false;

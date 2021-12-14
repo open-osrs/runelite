@@ -406,8 +406,8 @@ public class Archive extends AbstractArchive {
 				int var8 = var0.transformedSize();
 				Client.field754.approxDestinationX = var1;
 				Client.field754.approxDestinationY = var2;
-				Client.field754.field2117 = 1;
-				Client.field754.field2114 = 1;
+				Client.field754.approxDestinationSizeX = 1;
+				Client.field754.approxDestinationSizeY = 1;
 				ApproximateRouteStrategy var9 = Client.field754;
 				ApproximateRouteStrategy var10 = var9;
 				CollisionMap var11 = Client.collisionMaps[var0.plane];
@@ -560,8 +560,8 @@ public class Archive extends AbstractArchive {
 						byte var38 = 10;
 						var39 = var10.approxDestinationX;
 						var23 = var10.approxDestinationY;
-						int var33 = var10.field2117;
-						var25 = var10.field2114;
+						int var33 = var10.approxDestinationSizeX;
+						var25 = var10.approxDestinationSizeY;
 
 						for (var26 = var39 - var38; var26 <= var38 + var39; ++var26) {
 							for (var27 = var23 - var38; var27 <= var23 + var38; ++var27) {

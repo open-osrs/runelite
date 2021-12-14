@@ -175,7 +175,8 @@ public abstract class Actor extends Renderable {
 	@ObfuscatedGetter(
 		intValue = 892078037
 	)
-	int field1121;
+	@Export("movementFrameCycle")
+	int movementFrameCycle;
 	@ObfuscatedName("bv")
 	@ObfuscatedGetter(
 		intValue = -1419164143
@@ -330,7 +331,8 @@ public abstract class Actor extends Renderable {
 	@ObfuscatedSignature(
 		descriptor = "[Lgj;"
 	)
-	class185[] field1153;
+	@Export("pathTraversed")
+	class185[] pathTraversed;
 	@ObfuscatedName("ci")
 	@ObfuscatedGetter(
 		intValue = -154765815
@@ -375,7 +377,7 @@ public abstract class Actor extends Renderable {
 		this.field1122 = -1;
 		this.movementSequence = -1;
 		this.movementFrame = 0;
-		this.field1121 = 0;
+		this.movementFrameCycle = 0;
 		this.sequence = -1;
 		this.sequenceFrame = 0;
 		this.sequenceFrameCycle = 0;
@@ -393,7 +395,7 @@ public abstract class Actor extends Renderable {
 		this.pathLength = 0;
 		this.pathX = new int[10];
 		this.pathY = new int[10];
-		this.field1153 = new class185[10];
+		this.pathTraversed = new class185[10];
 		this.field1117 = 0;
 		this.field1098 = 0;
 		this.field1119 = -1;

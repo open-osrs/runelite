@@ -223,8 +223,8 @@ public class class148 extends class126 {
 						}
 					} else {
 						HealthBarDefinition var96 = var88.definition;
-						SpritePixels var79 = var96.getFrontSprite();
-						SpritePixels var81 = var96.method3239();
+						SpritePixels var79 = var96.getBackSprite();
+						SpritePixels var81 = var96.getFrontSprite();
 						int var82 = 0;
 						if (var79 != null && var81 != null) {
 							if (var96.widthPadding * 2 < var81.subWidth) {

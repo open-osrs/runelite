@@ -39,7 +39,7 @@ public class class118 implements class110 {
 		garbageValue = "21"
 	)
 	public static HealthBarDefinition method2683(int var0) {
-		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cachedSprites.get((long)var0);
+		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cached.get((long)var0);
 		if (var1 != null) {
 			return var1;
 		} else {
@@ -49,7 +49,7 @@ public class class118 implements class110 {
 				var1.decode(new Buffer(var2));
 			}
 
-			HealthBarDefinition.HealthBarDefinition_cachedSprites.put(var1, (long)var0);
+			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long)var0);
 			return var1;
 		}
 	}

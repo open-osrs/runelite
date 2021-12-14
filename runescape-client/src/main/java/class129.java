@@ -133,13 +133,13 @@ public class class129 {
 
 		int var6 = (var3 - 32 - var5) * var2 / (var4 - var3);
 		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var6 + var1 + 16, 16, var5, Client.field716);
-		Rasterizer2D.method7709(var0, var6 + var1 + 16, var5, Client.field544);
-		Rasterizer2D.method7709(var0 + 1, var6 + var1 + 16, var5, Client.field544);
-		Rasterizer2D.method7649(var0, var6 + var1 + 16, 16, Client.field544);
-		Rasterizer2D.method7649(var0, var6 + var1 + 17, 16, Client.field544);
-		Rasterizer2D.method7709(var0 + 15, var6 + var1 + 16, var5, Client.field509);
-		Rasterizer2D.method7709(var0 + 14, var6 + var1 + 17, var5 - 1, Client.field509);
-		Rasterizer2D.method7649(var0, var6 + var5 + var1 + 15, 16, Client.field509);
-		Rasterizer2D.method7649(var0 + 1, var6 + var5 + var1 + 14, 15, Client.field509);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0, var6 + var1 + 16, var5, Client.field544);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 1, var6 + var1 + 16, var5, Client.field544);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 16, 16, Client.field544);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var1 + 17, 16, Client.field544);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 15, var6 + var1 + 16, var5, Client.field509);
+		Rasterizer2D.Rasterizer2D_drawVerticalLine(var0 + 14, var6 + var1 + 17, var5 - 1, Client.field509);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0, var6 + var5 + var1 + 15, 16, Client.field509);
+		Rasterizer2D.Rasterizer2D_drawHorizontalLine(var0 + 1, var6 + var5 + var1 + 14, 15, Client.field509);
 	}
 }

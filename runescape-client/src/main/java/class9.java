@@ -34,8 +34,8 @@ public class class9 implements MouseWheel {
 	@ObfuscatedSignature(
 		descriptor = "Lkz;"
 	)
-	@Export("archive3")
-	static Archive archive3;
+	@Export("archive1")
+	static Archive archive1;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = -171712909

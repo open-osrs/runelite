@@ -569,12 +569,12 @@ public final class Player extends Actor {
 		for (int var4 = super.pathLength; var4 > 0; --var4) {
 			super.pathX[var4] = super.pathX[var4 - 1];
 			super.pathY[var4] = super.pathY[var4 - 1];
-			super.field1153[var4] = super.field1153[var4 - 1];
+			super.pathTraversed[var4] = super.pathTraversed[var4 - 1];
 		}
 
 		super.pathX[0] = var1;
 		super.pathY[0] = var2;
-		super.field1153[0] = var3;
+		super.pathTraversed[0] = var3;
 	}
 
 	@ObfuscatedName("f")

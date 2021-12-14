@@ -17,15 +17,15 @@ public class class363 {
 			var1 = UserComparator5.SequenceDefinition_get(var0.movementSequence);
 			if (var1 != null) {
 				if (!var1.method3690() && var1.frameIds != null) {
-					++var0.field1121;
-					if (var0.movementFrame < var1.frameIds.length && var0.field1121 > var1.frameLengths[var0.movementFrame]) {
-						var0.field1121 = 1;
+					++var0.movementFrameCycle;
+					if (var0.movementFrame < var1.frameIds.length && var0.movementFrameCycle > var1.frameLengths[var0.movementFrame]) {
+						var0.movementFrameCycle = 1;
 						++var0.movementFrame;
 						class409.method7269(var1, var0.movementFrame, var0.x, var0.y);
 					}
 
 					if (var0.movementFrame >= var1.frameIds.length) {
-						var0.field1121 = 0;
+						var0.movementFrameCycle = 0;
 						var0.movementFrame = 0;
 						class409.method7269(var1, var0.movementFrame, var0.x, var0.y);
 					}
@@ -35,7 +35,7 @@ public class class363 {
 					if (var0.movementFrame < var2) {
 						Varcs.method2427(var1, var0.movementFrame, var0.x, var0.y);
 					} else {
-						var0.field1121 = 0;
+						var0.movementFrameCycle = 0;
 						var0.movementFrame = 0;
 						Varcs.method2427(var1, var0.movementFrame, var0.x, var0.y);
 					}

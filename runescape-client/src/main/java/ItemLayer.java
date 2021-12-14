@@ -124,7 +124,7 @@ public final class ItemLayer {
 						var0.orientation = 0;
 					}
 
-					class185 var6 = var0.field1153[var0.pathLength - 1];
+					class185 var6 = var0.pathTraversed[var0.pathLength - 1];
 					if (var4 - var11 <= 256 && var4 - var11 >= -256 && var5 - var3 <= 256 && var5 - var3 >= -256) {
 						int var7 = var0.orientation - var0.rotation & 2047;
 						if (var7 > 1024) {

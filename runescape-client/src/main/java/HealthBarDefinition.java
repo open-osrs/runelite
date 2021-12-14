@@ -16,13 +16,14 @@ public class HealthBarDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Liq;"
 	)
-	@Export("HealthBarDefinition_cachedSprites")
-	public static EvictingDualNodeHashTable HealthBarDefinition_cachedSprites;
+	@Export("HealthBarDefinition_cached")
+	public static EvictingDualNodeHashTable HealthBarDefinition_cached;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "Liq;"
 	)
-	public static EvictingDualNodeHashTable field1795;
+	@Export("HealthBarDefinition_cachedSprites")
+	public static EvictingDualNodeHashTable HealthBarDefinition_cachedSprites;
 	@ObfuscatedName("t")
 	@ObfuscatedGetter(
 		intValue = 80054529
@@ -83,8 +84,8 @@ public class HealthBarDefinition extends DualNode {
 	public int widthPadding;
 
 	static {
+		HealthBarDefinition_cached = new EvictingDualNodeHashTable(64);
 		HealthBarDefinition_cachedSprites = new EvictingDualNodeHashTable(64);
-		field1795 = new EvictingDualNodeHashTable(64);
 	}
 
 	HealthBarDefinition() {
@@ -154,17 +155,18 @@ public class HealthBarDefinition extends DualNode {
 		descriptor = "(I)Lpl;",
 		garbageValue = "-1857525750"
 	)
-	public SpritePixels method3239() {
+	@Export("getFrontSprite")
+	public SpritePixels getFrontSprite() {
 		if (this.frontSpriteID < 0) {
 			return null;
 		} else {
-			SpritePixels var1 = (SpritePixels)field1795.get((long)this.frontSpriteID);
+			SpritePixels var1 = (SpritePixels) HealthBarDefinition_cachedSprites.get((long)this.frontSpriteID);
 			if (var1 != null) {
 				return var1;
 			} else {
 				var1 = class6.SpriteBuffer_getSprite(field1802, this.frontSpriteID, 0);
 				if (var1 != null) {
-					field1795.put(var1, (long)this.frontSpriteID);
+					HealthBarDefinition_cachedSprites.put(var1, (long)this.frontSpriteID);
 				}
 
 				return var1;
@@ -177,18 +179,18 @@ public class HealthBarDefinition extends DualNode {
 		descriptor = "(I)Lpl;",
 		garbageValue = "-1451649947"
 	)
-	@Export("getFrontSprite")
-	public SpritePixels getFrontSprite() {
+	@Export("getBackSprite")
+	public SpritePixels getBackSprite() {
 		if (this.backSpriteID < 0) {
 			return null;
 		} else {
-			SpritePixels var1 = (SpritePixels)field1795.get((long)this.backSpriteID);
+			SpritePixels var1 = (SpritePixels) HealthBarDefinition_cachedSprites.get((long)this.backSpriteID);
 			if (var1 != null) {
 				return var1;
 			} else {
 				var1 = class6.SpriteBuffer_getSprite(field1802, this.backSpriteID, 0);
 				if (var1 != null) {
-					field1795.put(var1, (long)this.backSpriteID);
+					HealthBarDefinition_cachedSprites.put(var1, (long)this.backSpriteID);
 				}
 
 				return var1;

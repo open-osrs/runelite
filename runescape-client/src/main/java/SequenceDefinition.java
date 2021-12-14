@@ -34,7 +34,8 @@ public class SequenceDefinition extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Liq;"
 	)
-	public static EvictingDualNodeHashTable field2086;
+	@Export("SequenceDefinition_cachedModel")
+	public static EvictingDualNodeHashTable SequenceDefinition_cachedModel;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
 		intValue = -2061102361
@@ -118,7 +119,7 @@ public class SequenceDefinition extends DualNode {
 		field2084 = false;
 		SequenceDefinition_cached = new EvictingDualNodeHashTable(64);
 		SequenceDefinition_cachedFrames = new EvictingDualNodeHashTable(100);
-		field2086 = new EvictingDualNodeHashTable(100);
+		SequenceDefinition_cachedModel = new EvictingDualNodeHashTable(100);
 	}
 
 	SequenceDefinition() {
@@ -328,9 +329,9 @@ public class SequenceDefinition extends DualNode {
 				var5 = var1.toSharedSequenceModel(!var6.hasAlphaTransform(var2));
 				var3 &= 3;
 				if (var3 == 1) {
-					var5.method4190();
+					var5.rotateY270Ccw();
 				} else if (var3 == 2) {
-					var5.method4206();
+					var5.rotateY180();
 				} else if (var3 == 3) {
 					var5.rotateY90Ccw();
 				}
@@ -339,9 +340,9 @@ public class SequenceDefinition extends DualNode {
 				if (var3 == 1) {
 					var5.rotateY90Ccw();
 				} else if (var3 == 2) {
-					var5.method4206();
+					var5.rotateY180();
 				} else if (var3 == 3) {
-					var5.method4190();
+					var5.rotateY270Ccw();
 				}
 
 				return var5;
@@ -354,9 +355,9 @@ public class SequenceDefinition extends DualNode {
 				var5 = var1.toSharedSequenceModel(!var4.method2695());
 				var3 &= 3;
 				if (var3 == 1) {
-					var5.method4190();
+					var5.rotateY270Ccw();
 				} else if (var3 == 2) {
-					var5.method4206();
+					var5.rotateY180();
 				} else if (var3 == 3) {
 					var5.rotateY90Ccw();
 				}
@@ -365,9 +366,9 @@ public class SequenceDefinition extends DualNode {
 				if (var3 == 1) {
 					var5.rotateY90Ccw();
 				} else if (var3 == 2) {
-					var5.method4206();
+					var5.rotateY180();
 				} else if (var3 == 3) {
-					var5.method4190();
+					var5.rotateY270Ccw();
 				}
 
 				return var5;
