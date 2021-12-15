@@ -29,7 +29,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.runelite.api.Player;
-import net.runelite.http.api.hiscore.HiscoreResult;
+import net.runelite.client.hiscore.HiscoreResult;
 
 @Getter
 @Setter

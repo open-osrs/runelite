@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2019, Bram91 <https://github.com/bram91>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,34 +22,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.hiscore;
+package net.runelite.client.hiscore;
 
-import static net.runelite.client.plugins.hiscore.HiscorePanel.formatLevel;
-import net.runelite.client.hiscore.HiscoreEndpoint;
-import okhttp3.OkHttpClient;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-public class HiscorePanelTest
+public enum HiscoreSkillType
 {
-	@Test
-	public void testConstructor()
-	{
-		HiscorePlugin plugin = mock(HiscorePlugin.class);
-		when(plugin.getWorldEndpoint()).thenReturn(HiscoreEndpoint.NORMAL);
-		new HiscorePanel(null, plugin, mock(HiscoreConfig.class),
-			mock(NameAutocompleter.class), mock(OkHttpClient.class));
-	}
-
-	@Test
-	public void testFormatLevel()
-	{
-		assertEquals("398", formatLevel(398));
-		assertEquals("5000", formatLevel(5000));
-		assertEquals("7682", formatLevel(7682));
-		assertEquals("12k", formatLevel(12398));
-		assertEquals("219k", formatLevel(219824));
-	}
+	OVERALL,
+	SKILL,
+	ACTIVITY,
+	BOSS
 }
