@@ -629,7 +629,7 @@ public class ConfigManager
 				.collect(Collectors.toList());
 
 		final List<ConfigTitleDescriptor> titles = getAllDeclaredInterfaceFields(inter).stream()
-				.filter(m -> m.isAnnotationPresent(ConfigTitle.class) && m.getClass().equals(String.class))
+				.filter(m -> m.isAnnotationPresent(ConfigTitle.class) && m.getType() == String.class)
 				.map(m ->
 				{
 					try
@@ -936,10 +936,6 @@ public class ConfigManager
 		{
 			return Base64.getUrlEncoder().encodeToString((byte[]) object);
 		}
-		if (object instanceof Set)
-		{
-			return gson.toJson(object, Set.class);
-		}
 		if (object instanceof EnumSet)
 		{
 			if (((EnumSet) object).size() == 0)
@@ -948,6 +944,10 @@ public class ConfigManager
 			}
 
 			return ((EnumSet) object).toArray()[0].getClass().getCanonicalName() + "{" + object.toString() + "}";
+		}
+		if (object instanceof Set)
+		{
+			return gson.toJson(object, Set.class);
 		}
 		return object == null ? null : object.toString();
 	}
