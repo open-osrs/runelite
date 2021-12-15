@@ -1,13 +1,13 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class RuneLiteIterableHashTable implements Iterator
+public class RuneLiteIterableNodeHashTable implements Iterator
 {
 	public Node node;
 	public final NodeHashTable nodeHashTable;
 	public int it;
 
-	public RuneLiteIterableHashTable(NodeHashTable nodeHashTable)
+	public RuneLiteIterableNodeHashTable(NodeHashTable nodeHashTable)
 	{
 		this.nodeHashTable = nodeHashTable;
 	}

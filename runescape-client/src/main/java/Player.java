@@ -381,12 +381,12 @@ public final class Player extends Actor {
 
 				var3.isSingleTile = true;
 				if (super.field1146 != 0 && Client.cycle >= super.field1141 && Client.cycle < super.field1140) {
-					var3.field2494 = super.field1143;
-					var3.field2495 = super.field1144;
-					var3.field2479 = super.field1095;
-					var3.field2474 = super.field1146;
+					var3.overrideHue = super.field1143;
+					var3.overrideSaturation = super.field1144;
+					var3.overrideLuminance = super.field1095;
+					var3.overrideAmount = super.field1146;
 				} else {
-					var3.field2474 = 0;
+					var3.overrideAmount = 0;
 				}
 
 				return var3;

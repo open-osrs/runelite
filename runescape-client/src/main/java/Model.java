@@ -200,13 +200,17 @@ public class Model extends Renderable {
 	@Export("zMidOffset")
 	int zMidOffset;
 	@ObfuscatedName("bo")
-	public byte field2494;
+	@Export("overrideHue")
+	public byte overrideHue;
 	@ObfuscatedName("bf")
-	public byte field2495;
+	@Export("overrideSaturation")
+	public byte overrideSaturation;
 	@ObfuscatedName("be")
-	public byte field2479;
+	@Export("overrideLuminance")
+	public byte overrideLuminance;
 	@ObfuscatedName("ce")
-	public byte field2474;
+	@Export("overrideAmount")
+	public byte overrideAmount;
 
 	static {
 		Model_sharedSequenceModel = new Model();
@@ -574,7 +578,7 @@ public class Model extends Renderable {
 		var2.field2449 = this.field2449;
 		var2.isSingleTile = this.isSingleTile;
 		var2.resetBounds();
-		var2.field2474 = 0;
+		var2.overrideAmount = 0;
 		return var2;
 	}
 
@@ -1569,10 +1573,10 @@ public class Model extends Renderable {
 				}
 			} else if (this.faceColors3[var1] == -1) {
 				Rasterizer3D.method3856(modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], Model_colorPalette[this.faceColors1[var1]]);
-			} else if (this.field2474 > 0) {
-				var5 = this.method4216(this.faceColors1[var1], this.field2494, this.field2495, this.field2479, this.field2474);
-				var6 = this.method4216(this.faceColors2[var1], this.field2494, this.field2495, this.field2479, this.field2474);
-				var7 = this.method4216(this.faceColors3[var1], this.field2494, this.field2495, this.field2479, this.field2474);
+			} else if (this.overrideAmount > 0) {
+				var5 = this.method4216(this.faceColors1[var1], this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount);
+				var6 = this.method4216(this.faceColors2[var1], this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount);
+				var7 = this.method4216(this.faceColors3[var1], this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount);
 				Rasterizer3D.method3854(modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], var5, var6, var7);
 			} else {
 				Rasterizer3D.method3854(modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], this.faceColors1[var1], this.faceColors2[var1], this.faceColors3[var1]);

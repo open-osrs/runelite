@@ -39,9 +39,10 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.runelite.api.Animation;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.EnumComposition;
-import net.runelite.api.Friend;
+import net.runelite.api.FriendContainer;
 import net.runelite.api.GameState;
 import net.runelite.api.GrandExchangeOffer;
 import net.runelite.api.GraphicsObject;
@@ -79,7 +80,6 @@ import net.runelite.api.Point;
 import net.runelite.api.Prayer;
 import net.runelite.api.Projectile;
 import net.runelite.api.ScriptEvent;
-import net.runelite.api.Sequence;
 import net.runelite.api.Skill;
 import net.runelite.api.SpritePixels;
 import net.runelite.api.StructComposition;
@@ -791,6 +791,15 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public MenuEntry createMenuEntry(int idx)
+	{
+		// TODO: Implement this
+
+		return new MenuEntry();
+	}
+
+	@Inject
+	@Override
 	public MenuEntry[] getMenuEntries()
 	{
 		int count = getMenuOptionCount();
@@ -887,9 +896,9 @@ public abstract class RSClientMixin implements RSClient
 				options[oldCount] = event.getOption();
 				targets[oldCount] = event.getTarget();
 				identifiers[oldCount] = event.getIdentifier();
-				opcodes[oldCount] = event.getOpcode();
-				arguments1[oldCount] = event.getParam0();
-				arguments2[oldCount] = event.getParam1();
+				opcodes[oldCount] = event.getType();
+				arguments1[oldCount] = event.getActionParam0();
+				arguments2[oldCount] = event.getActionParam1();
 				forceLeftClick[oldCount] = event.isForceLeftClick();
 			}
 		}
@@ -999,7 +1008,7 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public NameableContainer<Friend> getFriendContainer()
+	public FriendContainer getFriendContainer()
 	{
 		return getFriendManager().getFriendContainer();
 	}
@@ -2427,7 +2436,7 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
-	public Sequence loadAnimation(int id)
+	public Animation loadAnimation(int id)
 	{
 		return client.getSequenceDefinition(id);
 	}

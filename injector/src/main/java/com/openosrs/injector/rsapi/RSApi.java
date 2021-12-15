@@ -15,8 +15,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.runelite.asm.Type;
@@ -111,23 +113,19 @@ public class RSApi implements Iterable<RSApiClass>
 		return findClass(name) != null;
 	}
 
-	public RSApiClass withInterface(Class interf)
+	public Set<RSApiClass> withInterface(Class interf)
 	{
-		RSApiClass clazz = findClass(interf.getName());
-		if (clazz != null)
-		{
-			return clazz;
-		}
+		Set<RSApiClass> classes = new HashSet<>();
 
 		for (RSApiClass apiC : this)
 		{
 			if (apiC.getInterfaces().contains(interf))
 			{
-				return apiC;
+				classes.add(apiC);
 			}
 		}
 
-		return null;
+		return classes;
 	}
 
 	@NotNull

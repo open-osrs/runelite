@@ -24,9 +24,9 @@
  */
 package net.runelite.mixins;
 
+import net.runelite.api.Animation;
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
-import net.runelite.api.Sequence;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
@@ -55,7 +55,7 @@ public abstract class RuneLiteObjectMixin implements RSRuneLiteObject
 	}
 
 	@Inject
-	public void setAnimation(Sequence var1)
+	public void setAnimation(Animation var1)
 	{
 		setFrame(0);
 		setFrameCycle(0);
