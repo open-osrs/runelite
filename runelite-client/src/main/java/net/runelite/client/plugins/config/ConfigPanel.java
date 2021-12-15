@@ -24,7 +24,6 @@
  */
 package net.runelite.client.plugins.config;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.ComparisonChain;
@@ -53,11 +52,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -80,7 +82,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
-import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -130,7 +131,6 @@ import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import net.runelite.client.util.SwingUtil;
 import net.runelite.client.util.Text;
-import org.apache.commons.lang3.ArrayUtils;
 
 @Slf4j
 class ConfigPanel extends PluginPanel
@@ -935,32 +935,31 @@ class ConfigPanel extends PluginPanel
 		return button;
 	}
 
-	private JList<Enum<?>> createList(ConfigDescriptor cd, ConfigItemDescriptor cid)
+	private JPanel createList(ConfigDescriptor cd, ConfigItemDescriptor cid)
 	{
 		ParameterizedType parameterizedType = (ParameterizedType) cid.getType();
 		Class<? extends Enum> type = (Class<? extends Enum>) parameterizedType.getActualTypeArguments()[0];
 		Set<? extends Enum> set = configManager.getConfiguration(cd.getGroup().value(), null,
-				cid.getItem().keyName(), parameterizedType);
+			cid.getItem().keyName(), parameterizedType);
 
-		JList<Enum<?>> list = new JList<Enum<?>>(type.getEnumConstants()); // NOPMD: UseDiamondOperator
-		list.setCellRenderer(listCellRenderer);
-		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		list.setLayoutOrientation(JList.VERTICAL);
-		list.setSelectedIndices(
-				MoreObjects.firstNonNull(set, Collections.emptySet())
-						.stream()
-						.mapToInt(e -> ArrayUtils.indexOf(type.getEnumConstants(), e))
-						.toArray());
-		list.addFocusListener(new FocusAdapter()
+		JPanel enumsetLayout = new JPanel(new GridLayout(0, 2));
+		List<ToggleButton> jcheckboxes = new ArrayList<>();
+
+		Set<?> selectedItems = new HashSet(Objects.requireNonNullElse(set, Collections.emptySet()));
+
+		for (Object obj : type.getEnumConstants())
 		{
-			@Override
-			public void focusLost(FocusEvent e)
-			{
-				changeConfiguration(list, cd, cid);
-			}
-		});
+			ToggleButton checkbox = new ToggleButton(obj);
+			checkbox.setBackground(ColorScheme.DARK_GRAY_COLOR);
+			checkbox.setSelected(selectedItems.contains(obj));
+			jcheckboxes.add(checkbox);
 
-		return list;
+			enumsetLayout.add(checkbox);
+		}
+
+		jcheckboxes.forEach(checkbox -> checkbox.addActionListener(ae -> changeConfiguration(jcheckboxes, cd, cid)));
+
+		return enumsetLayout;
 	}
 
 	private JPanel createEnumSetLayout(ConfigDescriptor cd, ConfigItemDescriptor cid)
@@ -975,13 +974,13 @@ class ConfigPanel extends PluginPanel
 		}
 
 		JPanel enumsetLayout = new JPanel(new GridLayout(0, 2));
-		List<JCheckBox> jcheckboxes = new ArrayList<>();
+		List<ToggleButton> jcheckboxes = new ArrayList<>();
 
 		for (Object obj : enumType.getEnumConstants())
 		{
 			String option = Text.titleCase((Enum<?>) obj);
 
-			JCheckBox checkbox = new ToggleButton(option);
+			ToggleButton checkbox = new ToggleButton(option);
 			checkbox.setBackground(ColorScheme.DARK_GRAY_COLOR);
 			checkbox.setSelected(enumSet.toString().contains(String.valueOf(obj)));
 			jcheckboxes.add(checkbox);
@@ -1031,22 +1030,32 @@ class ConfigPanel extends PluginPanel
 		}
 	}
 
-	private void changeConfiguration(List<JCheckBox> components, ConfigDescriptor cd, ConfigItemDescriptor cid)
+	private void changeConfiguration(List<ToggleButton> components, ConfigDescriptor cd, ConfigItemDescriptor cid)
 	{
-		EnumSet enumSet = EnumSet.noneOf(cid.getItem().enumClass());
-
-		//noinspection unchecked
-		components.forEach(value ->
+		if (cid.getItem().enumClass() != Enum.class)
 		{
-			if (value.isSelected())
+			EnumSet enumSet = EnumSet.noneOf(cid.getItem().enumClass());
+
+			//noinspection unchecked
+			components.forEach(value ->
 			{
-				enumSet.add(Enum.valueOf(cid.getItem().enumClass(), String.valueOf(value.getText()).toUpperCase().replace(" ", "_")));
-			}
-		});
+				if (value.isSelected())
+				{
+					enumSet.add(Enum.valueOf(cid.getItem().enumClass(), String.valueOf(value.getText()).toUpperCase().replace(" ", "_")));
+				}
+			});
 
-		configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), enumSet);
-
-		rebuild();
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), enumSet);
+		}
+		else
+		{
+			Set<Object> values = components
+				.stream()
+				.filter(ToggleButton::isSelected)
+				.map(ToggleButton::getObject)
+				.collect(Collectors.toSet());
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), values);
+		}
 	}
 
 	private void changeConfiguration(Component component, ConfigDescriptor cd, ConfigItemDescriptor cid)
