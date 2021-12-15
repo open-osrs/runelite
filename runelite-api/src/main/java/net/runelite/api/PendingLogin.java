@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2021, Trevor <https://github.com/Trevor159>
- * Copyright (c) 2021 Abex
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,47 +24,22 @@
  */
 package net.runelite.api;
 
-import net.runelite.api.coords.LocalPoint;
-
 /**
- * Represents a modified {@link GraphicsObject}
+ * A pending friend login/out. This is used to suppress world hop notifications
+ * by buffering the pending logins to try to match a pending logout with a pending
+ * login and cancel both.
  */
-public interface RuneLiteObject extends GraphicsObject
+public interface PendingLogin
 {
 	/**
-	 * Sets the model of the RuneLiteObject
+	 * The name of the player
+	 * @return
 	 */
-	void setModel(Model model);
+	String getName();
 
 	/**
-	 * Sets the animation of the RuneLiteObject
-	 * If animation is null model will be static
+	 * The world the player logged into, or 0 if a logout.
+	 * @return
 	 */
-	void setAnimation(Animation animation);
-
-	/**
-	 * Sets whether the animation of the RuneLiteObject should loop when the animation ends.
-	 * If this is false the object will despawn when the animation ends.
-	 * Does nothing if the animation is null.
-	 */
-	void setShouldLoop(boolean shouldLoop);
-
-	/**
-	 * Sets the location in the scene for the RuneLiteObject
-	 */
-	void setLocation(LocalPoint point, int plane);
-
-	/**
-	 * Sets the state of the RuneLiteObject
-	 * Set to true to spawn the object
-	 * Set to false to despawn the object
-	 */
-	void setActive(boolean active);
-
-	/**
-	 * Gets the state of the RuneLiteObject
-	 *
-	 * @return true if the RuneLiteObject is added to the scene
-	 */
-	boolean isActive();
+	short getWorld();
 }

@@ -31,7 +31,7 @@ public class ClientTick
 {
 	public static final ClientTick INSTANCE = new ClientTick();
 
-	private ClientTick()
+	public ClientTick()
 	{
 		// noop
 	}

@@ -32,6 +32,7 @@ import net.runelite.api.widgets.WidgetInfo;
  * A MenuManager widget menu was clicked. This event is fired only for MenuManager managed custom menus.
  */
 @Data
+@Deprecated
 public class WidgetMenuOptionClicked
 {
 	/**

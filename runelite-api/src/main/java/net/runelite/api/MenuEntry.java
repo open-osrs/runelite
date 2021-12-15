@@ -24,6 +24,8 @@
  */
 package net.runelite.api;
 
+import java.util.Arrays;
+import java.util.function.Consumer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -94,6 +96,113 @@ public class MenuEntry implements Cloneable
 		}
 	}
 
+	public String getOption()
+	{
+		return option;
+	}
+
+	public MenuEntry setOption(String option)
+	{
+		this.option = option;
+		return this;
+	}
+
+	public String getTarget()
+	{
+		return target;
+	}
+
+	public MenuEntry setTarget(String target)
+	{
+		this.target = target;
+		return this;
+	}
+
+	public int getIdentifier()
+	{
+		return this.identifier;
+	}
+
+	public MenuEntry setIdentifier(int identifier)
+	{
+		this.identifier = identifier;
+		return this;
+	}
+
+	public MenuAction getType()
+	{
+		return MenuAction.of(this.opcode);
+	}
+
+	public MenuEntry setType(MenuAction type)
+	{
+		this.opcode = type.getId();
+		return this;
+	}
+
+	public int getParam0()
+	{
+		return this.param0;
+	}
+
+	public MenuEntry setParam0(int param0)
+	{
+		this.param0 = param0;
+		return this;
+	}
+
+	public int getParam1()
+	{
+		return this.param1;
+	}
+
+	public MenuEntry setParam1(int param1)
+	{
+		this.param1 = param1;
+		return this;
+	}
+
+	public boolean isForceLeftClick()
+	{
+		return this.forceLeftClick;
+	}
+
+	public MenuEntry setForceLeftClick(boolean forceLeftClick)
+	{
+		this.forceLeftClick = forceLeftClick;
+		return this;
+	}
+
+	public boolean isDeprioritized()
+	{
+		return opcode >= MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
+	}
+
+	public MenuEntry setDeprioritized(boolean deprioritized)
+	{
+		if (deprioritized)
+		{
+			if (opcode < MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET)
+			{
+				opcode += MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
+			}
+		}
+		else
+		{
+			if (opcode >= MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET)
+			{
+				opcode -= MenuAction.MENU_ACTION_DEPRIORITIZE_OFFSET;
+			}
+		}
+
+		return this;
+	}
+
+	public MenuEntry onClick(Consumer<MenuEntry> callback)
+	{
+		return this;
+	}
+
 	public void setActionParam0(int i)
 	{
 		this.param0 = i;
@@ -102,26 +211,6 @@ public class MenuEntry implements Cloneable
 	public int getActionParam0()
 	{
 		return this.param0;
-	}
-
-	public int getParam0()
-	{
-		return this.param0;
-	}
-
-	public void setParam0(int i)
-	{
-		this.param0 = i;
-	}
-
-	public void setParam1(int i)
-	{
-		this.param1 = i;
-	}
-
-	public int getParam1()
-	{
-		return this.param1;
 	}
 
 	public void setActionParam1(int i)
@@ -137,11 +226,6 @@ public class MenuEntry implements Cloneable
 	public void setType(int i)
 	{
 		this.opcode = i;
-	}
-
-	public int getType()
-	{
-		return this.opcode;
 	}
 
 	public void setId(int i)
@@ -160,5 +244,20 @@ public class MenuEntry implements Cloneable
 	public MenuAction getMenuAction()
 	{
 		return MenuAction.of(getOpcode());
+	}
+
+	// TODO: Remove this after properly implementing the menu
+	public void add(Client client)
+	{
+		MenuEntry[] menuEntries = client.getMenuEntries();
+		menuEntries = Arrays.copyOf(menuEntries, menuEntries.length + 1);
+		MenuEntry menuEntry = menuEntries[menuEntries.length - 1] = new MenuEntry();
+		menuEntry.setOption(option);
+		menuEntry.setTarget(target);
+		menuEntry.setParam0(param0);
+		menuEntry.setParam1(param1);
+		menuEntry.setIdentifier(identifier);
+		menuEntry.setType(MenuAction.of(getOpcode()));
+		client.setMenuEntries(menuEntries);
 	}
 }

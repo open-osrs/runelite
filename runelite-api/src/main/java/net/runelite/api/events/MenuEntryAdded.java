@@ -25,23 +25,49 @@
 package net.runelite.api.events;
 
 import lombok.Getter;
-import net.runelite.api.MenuEntry;
 
 /**
  * An event when a new entry is added to a right-click menu.
  */
-public class MenuEntryAdded extends MenuEntry
+public class MenuEntryAdded
 {
 	// Here for RuneLite compatibility (different parameter order)
 	public MenuEntryAdded(String option, String target, int type, int identifier, int actionParam0, int actionParam1)
 	{
-		super(option, target, identifier, type, actionParam0, actionParam1, false);
+		this(option, target, identifier, type, actionParam0, actionParam1, false);
 	}
 
-	public MenuEntryAdded(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
+	public MenuEntryAdded(String option, String target, int identifier, int type, int param0, int param1, boolean forceLeftClick)
 	{
-		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
+		this.option = option;
+		this.target = target;
+		this.identifier = identifier;
+		this.type = type;
+		this.actionParam0 = param0;
+		this.actionParam1 = param1;
+		this.forceLeftClick = forceLeftClick;
 	}
+
+	@Getter
+	private final String option;
+
+	@Getter
+	private final String target;
+
+	@Getter
+	private final int type;
+
+	@Getter
+	private final int identifier;
+
+	@Getter
+	private final int actionParam0;
+
+	@Getter
+	private final int actionParam1;
+
+	@Getter
+	private final boolean forceLeftClick;
 
 	/**
 	 * If this is set to true client mixin will update
