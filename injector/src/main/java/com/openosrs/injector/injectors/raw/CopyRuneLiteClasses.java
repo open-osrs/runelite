@@ -19,6 +19,7 @@ import net.runelite.asm.Type;
 import net.runelite.asm.attributes.Code;
 import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
+import net.runelite.asm.attributes.code.instructions.CheckCast;
 import net.runelite.asm.attributes.code.instructions.GetField;
 import net.runelite.asm.attributes.code.instructions.GetStatic;
 import net.runelite.asm.attributes.code.instructions.InvokeSpecial;
@@ -227,6 +228,11 @@ public class CopyRuneLiteClasses extends AbstractInjector
 					{
 						iterator.set(new New(ins, inject.toVanilla(deobClass)));
 					}
+				}
+				else if (i instanceof CheckCast)
+				{
+					CheckCast clazz = ((CheckCast) i);
+					iterator.set(new CheckCast(ins, getObfuscatedSignature(clazz.getType_())));
 				}
 			}
 		}

@@ -19,7 +19,7 @@ public class RuneLiteIterableLinkDeque implements Iterator<Link>
 	}
 
 	@Override
-	public Link next()
+	public FriendLoginUpdate next()
 	{
 		if (this.link == this.linkDeque.sentinel)
 		{
@@ -27,7 +27,7 @@ public class RuneLiteIterableLinkDeque implements Iterator<Link>
 		}
 		else
 		{
-			Link friendLoginUpdate = this.link;
+			FriendLoginUpdate friendLoginUpdate = (FriendLoginUpdate) this.link;
 			this.link = this.link.previous;
 
 			return friendLoginUpdate;
