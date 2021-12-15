@@ -25,6 +25,7 @@
 package net.runelite.api.events;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * An event when a new entry is added to a right-click menu.
@@ -49,25 +50,32 @@ public class MenuEntryAdded
 	}
 
 	@Getter
-	private final String option;
+	@Setter
+	private String option;
 
 	@Getter
-	private final String target;
+	@Setter
+	private String target;
 
 	@Getter
-	private final int type;
+	@Setter
+	private int type;
 
 	@Getter
-	private final int identifier;
+	@Setter
+	private int identifier;
 
 	@Getter
-	private final int actionParam0;
+	@Setter
+	private int actionParam0;
 
 	@Getter
-	private final int actionParam1;
+	@Setter
+	private int actionParam1;
 
 	@Getter
-	private final boolean forceLeftClick;
+	@Setter
+	private boolean forceLeftClick;
 
 	/**
 	 * If this is set to true client mixin will update
@@ -77,6 +85,7 @@ public class MenuEntryAdded
 	 * been multiple changes
 	 */
 	@Getter
+	@Setter
 	private boolean modified;
 
 	public void setModified()
