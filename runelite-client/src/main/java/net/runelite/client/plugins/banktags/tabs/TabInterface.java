@@ -1196,8 +1196,6 @@ public class TabInterface
 			.setTarget(target)
 			.setOption(option)
 			.setType(MenuAction.RUNELITE)
-			.setIdentifier(event.getIdentifier())
-			// TODO: remove
-			.add(client);
+			.setIdentifier(event.getIdentifier());
 	}
 }

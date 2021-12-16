@@ -251,9 +251,7 @@ public class GroundMarkerPlugin extends Plugin
 					{
 						markTile(target.getLocalLocation());
 					}
-				})
-				// TODO: remove
-				.add(client);
+				});
 
 			if (exists)
 			{
@@ -268,9 +266,7 @@ public class GroundMarkerPlugin extends Plugin
 						{
 							labelTile(target);
 						}
-					})
-					// TODO: remove
-					.add(client);
+					});
 			}
 		}
 	}

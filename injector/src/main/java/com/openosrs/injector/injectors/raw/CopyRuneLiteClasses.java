@@ -38,7 +38,8 @@ public class CopyRuneLiteClasses extends AbstractInjector
 		"RuneLiteObject",
 		"RuneLiteIterableLinkDeque",
 		"RuneLiteIterableNodeDeque",
-		"RuneLiteIterableNodeHashTable"
+		"RuneLiteIterableNodeHashTable",
+		"RuneLiteMenuEntry"
 	);
 
 	public CopyRuneLiteClasses(InjectData inject)

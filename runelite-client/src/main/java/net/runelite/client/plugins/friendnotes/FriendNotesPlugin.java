@@ -266,9 +266,7 @@ public class FriendNotesPlugin extends Plugin
 							log.debug("Set note for '{}': '{}'", sanitizedTarget, content);
 							setFriendNote(sanitizedTarget, content);
 						}).build();
-				})
-				// TODO: remove
-				.add(client);
+				});
 		}
 		else if (hoveredFriend != null)
 		{

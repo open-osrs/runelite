@@ -178,9 +178,7 @@ public class HiscorePlugin extends Plugin
 					HiscoreEndpoint endpoint = findHiscoreEndpointFromPlayerName(e.getTarget());
 					String target = Text.removeTags(e.getTarget());
 					lookupPlayer(target, endpoint);
-				})
-				// TODO: remove
-				.add(client);
+				});
 		}
 	}
 

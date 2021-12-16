@@ -6401,7 +6401,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthTokens {
 	)
 	@Export("menu")
 	final void menu() {
-		Message.method1115();
+		Message.incrementMenuEntries();
 		if (class143.dragInventoryWidget == null) {
 			if (clickedWidget == null) {
 				int var1 = MouseHandler.MouseHandler_lastButton;

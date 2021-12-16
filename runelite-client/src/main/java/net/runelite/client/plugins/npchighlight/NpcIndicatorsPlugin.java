@@ -296,19 +296,15 @@ public class NpcIndicatorsPlugin extends Plugin
 					.setTarget(event.getTarget())
 					.setIdentifier(event.getIdentifier())
 					.setType(MenuAction.RUNELITE)
-					.onClick(this::tag)
-					// TODO: remove
-					.add(client);
+					.onClick(this::tag);
 			}
 
-			client.createMenuEntry(-1)
+			MenuEntry i = client.createMenuEntry(-1)
 				.setOption(npcTags.contains(npc.getIndex()) ? UNTAG : TAG)
 				.setTarget(event.getTarget())
 				.setIdentifier(event.getIdentifier())
 				.setType(MenuAction.RUNELITE)
-				.onClick(this::tag)
-				// TODO: remove
-				.add(client);
+				.onClick(this::tag);
 		}
 	}
 

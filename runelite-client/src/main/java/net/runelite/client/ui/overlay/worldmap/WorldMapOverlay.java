@@ -114,9 +114,7 @@ public class WorldMapOverlay extends Overlay
 				.setOption(FOCUS_ON)
 				.setType(MenuAction.RUNELITE)
 				.onClick(m -> client.getRenderOverview().setWorldMapPositionTarget(
-					MoreObjects.firstNonNull(worldPoint.getTarget(), worldPoint.getWorldPoint())))
-				// TODO: remove
-				.add(client);
+					MoreObjects.firstNonNull(worldPoint.getTarget(), worldPoint.getWorldPoint())));
 		});
 		bottomBar.setHasListener(true);
 

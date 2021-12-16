@@ -598,9 +598,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			.setOption(RESET)
 			.setTarget(configuringShiftClick ? SHIFT_CLICK_MENU_TARGET : LEFT_CLICK_MENU_TARGET)
 			.setType(MenuAction.RUNELITE)
-			.onClick(e -> unsetSwapConfig(configuringShiftClick, itemId))
-			// TODO: remove
-			.add(client);
+			.onClick(e -> unsetSwapConfig(configuringShiftClick, itemId));
 	}
 
 	@Subscribe

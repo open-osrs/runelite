@@ -161,7 +161,7 @@ public class ChatChannel {
 			Client.meslayerContinueWidget = null;
 		}
 
-		FileSystem.method3084();
+		FileSystem.decrementMenuEntries();
 		class115.revalidateWidgetScroll(MouseRecorder.Widget_interfaceComponents[var0 >> 16], var4, false);
 		class33.runWidgetOnLoadListener(var1);
 		if (Client.rootInterface != -1) {

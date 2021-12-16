@@ -362,9 +362,7 @@ public class BankTagsPlugin extends Plugin implements MouseWheelListener
 				.setOption(text)
 				.setType(MenuAction.RUNELITE)
 				.setIdentifier(event.getIdentifier())
-				.onClick(this::editTags)
-				// TODO: remove
-				.add(client);
+				.onClick(this::editTags);
 		}
 
 		tabInterface.handleAdd(event);

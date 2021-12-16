@@ -185,9 +185,7 @@ public class OverlayRenderer extends MouseAdapter implements KeyListener
 				.setOption(overlayMenuEntry.getOption())
 				.setTarget(ColorUtil.wrapWithColorTag(overlayMenuEntry.getTarget(), JagexColors.MENU_TARGET))
 				.setType(overlayMenuEntry.getMenuAction())
-				.onClick(e -> eventBus.post(new OverlayMenuClicked(overlayMenuEntry, overlay)))
-				// TODO: remove
-				.add(client);
+				.onClick(e -> eventBus.post(new OverlayMenuClicked(overlayMenuEntry, overlay)));
 		}
 	}
 

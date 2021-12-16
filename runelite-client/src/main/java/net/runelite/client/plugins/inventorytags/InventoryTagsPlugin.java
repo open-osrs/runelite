@@ -198,9 +198,7 @@ public class InventoryTagsPlugin extends Plugin
 						{
 							unsetTag(itemId);
 						}
-					})
-					// TODO: remove
-					.add(client);
+					});
 			}
 		}
 	}

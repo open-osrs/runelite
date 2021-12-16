@@ -185,9 +185,7 @@ public class FriendListPlugin extends Plugin
 						.type(ChatMessageType.CONSOLE)
 						.value("Login notifications for " + friend + " are now " + (hidden ? "shown." : "hidden."))
 						.build());
-				})
-				// TODO: remove
-				.add(client);
+				});
 		}
 	}
 

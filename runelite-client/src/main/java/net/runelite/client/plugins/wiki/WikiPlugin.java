@@ -418,9 +418,7 @@ public class WikiPlugin extends Plugin
 					.addPathSegment("w")
 					.addPathSegment(Text.removeTags(ev.getTarget()))
 					.addQueryParameter(UTM_SORUCE_KEY, UTM_SORUCE_VALUE)
-					.build().toString()))
-				// TODO: remove
-				.add(client);
+					.build().toString()));
 		}
 	}
 }

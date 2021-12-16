@@ -30,7 +30,7 @@ import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 
 @EqualsAndHashCode(callSuper = false)
-public class TestMenuEntry extends MenuEntry
+public class TestMenuEntry implements MenuEntry
 {
 	private String option;
 	private String target;

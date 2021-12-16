@@ -142,9 +142,7 @@ public class MenuManager
 				.setTarget(currentMenu.getMenuTarget())
 				.setType(MenuAction.RUNELITE)
 				.setParam1(widgetId)
-				.onClick(currentMenu.callback)
-				// TODO: remove
-				.add(client);
+				.onClick(currentMenu.callback);
 		}
 	}
 

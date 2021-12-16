@@ -532,9 +532,7 @@ public class XpTrackerPlugin extends Plugin
 				{
 					addOverlay(skill);
 				}
-			})
-			// TODO: remove
-			.add(client);
+			});
 	}
 
 	XpStateSingle getSkillState(Skill skill)

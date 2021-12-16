@@ -242,9 +242,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 			{
 				final StringSelection stringSelection = new StringSelection(Text.removeTags(currentMessage));
 				Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-			})
-			// TODO: remove
-			.add(client);
+			});
 	}
 
 	@Subscribe
@@ -290,9 +288,7 @@ public class ChatHistoryPlugin extends Plugin implements KeyListener
 		}
 
 		optionBuilder.append(CLEAR_HISTORY);
-		clearEntry.setOption(optionBuilder.toString())
-			// TODO: remove
-			.add(client);
+		clearEntry.setOption(optionBuilder.toString());
 	}
 
 	private void clearMessageQueue(ChatboxTab tab)

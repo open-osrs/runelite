@@ -27,6 +27,8 @@ group = "com.openosrs.rs"
 description = "RuneScape Client"
 
 dependencies {
+    api(project(":runelite-api"))
+
     implementation(project(":injection-annotations"))
     implementation(group = "org.bouncycastle", name = "bcprov-jdk15on", version = "1.52")
 

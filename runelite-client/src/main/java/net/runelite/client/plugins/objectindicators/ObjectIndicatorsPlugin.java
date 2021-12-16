@@ -235,9 +235,7 @@ public class ObjectIndicatorsPlugin extends Plugin
 			.setParam1(event.getActionParam1())
 			.setIdentifier(event.getIdentifier())
 			.setType(MenuAction.RUNELITE)
-			.onClick(this::markObject)
-			// TODO: remove
-			.add(client);
+			.onClick(this::markObject);
 	}
 
 	private void markObject(MenuEntry entry)

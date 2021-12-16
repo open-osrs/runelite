@@ -405,9 +405,7 @@ public class WorldHopperPlugin extends Plugin
 					{
 						hop(p.getWorld());
 					}
-				})
-				// TODO: remove
-				.add(client);
+				});
 		}
 	}
 
