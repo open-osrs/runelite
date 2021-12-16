@@ -94,6 +94,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicSpinnerUI;
 import javax.swing.text.JTextComponent;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.events.ConfigButtonClicked;
+import net.runelite.client.config.Button;
 import net.runelite.client.config.ConfigDescriptor;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
@@ -108,6 +110,7 @@ import net.runelite.client.config.Keybind;
 import net.runelite.client.config.ModifierlessKeybind;
 import net.runelite.client.config.Range;
 import net.runelite.client.config.Units;
+import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.events.PluginChanged;
@@ -165,6 +168,8 @@ class ConfigPanel extends PluginPanel
 	private final PluginManager pluginManager;
 	private final ExternalPluginManager externalPluginManager;
 	private final ColorPickerManager colorPickerManager;
+	private final OPRSExternalPluginManager oprsExternalPluginManager;
+	private final EventBus eventBus;
 
 	private final ListCellRenderer<Enum<?>> listCellRenderer = new ComboBoxListRenderer<>();
 
@@ -174,12 +179,11 @@ class ConfigPanel extends PluginPanel
 
 	private PluginConfigurationDescriptor pluginConfig = null;
 
-	@Inject
-	private OPRSExternalPluginManager oprsExternalPluginManager;
 
 	@Inject
 	private ConfigPanel(PluginListPanel pluginList, ConfigManager configManager, PluginManager pluginManager,
-						ExternalPluginManager externalPluginManager, ColorPickerManager colorPickerManager, OPRSExternalPluginManager oprsExternalPluginManager)
+						ExternalPluginManager externalPluginManager, ColorPickerManager colorPickerManager,
+						OPRSExternalPluginManager oprsExternalPluginManager, EventBus eventBus)
 	{
 		super(false);
 
@@ -189,6 +193,7 @@ class ConfigPanel extends PluginPanel
 		this.externalPluginManager = externalPluginManager;
 		this.colorPickerManager = colorPickerManager;
 		this.oprsExternalPluginManager = oprsExternalPluginManager;
+		this.eventBus = eventBus;
 
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARK_GRAY_COLOR);
@@ -469,7 +474,12 @@ class ConfigPanel extends PluginPanel
 			PluginListItem.addLabelPopupMenu(configEntryName, createResetMenuItem(pluginConfig, cid));
 			item.add(configEntryName, BorderLayout.CENTER);
 
-			if (cid.getType() == boolean.class)
+			if (cid.getType() == Button.class)
+			{
+				item.remove(configEntryName);
+				item.add(createButton(cd, cid), BorderLayout.CENTER);
+			}
+			else if (cid.getType() == boolean.class)
 			{
 				item.add(createCheckbox(cd, cid), BorderLayout.EAST);
 			}
@@ -590,6 +600,20 @@ class ConfigPanel extends PluginPanel
 		{
 			log.debug("Running consumer: {}.{}", cd.getGroup().value(), cid.getItem().keyName());
 			configManager.getConsumer(cd.getGroup().value(), cid.getItem().keyName()).accept(pluginConfig.getPlugin());
+		});
+
+		return button;
+	}
+
+	private JButton createButton(ConfigDescriptor cd, ConfigItemDescriptor cid)
+	{
+		JButton button = new JButton(cid.name());
+		button.addActionListener((e) ->
+		{
+			ConfigButtonClicked event = new ConfigButtonClicked();
+			event.setGroup(cd.getGroup().value());
+			event.setKey(cid.getItem().keyName());
+			eventBus.post(event);
 		});
 
 		return button;
