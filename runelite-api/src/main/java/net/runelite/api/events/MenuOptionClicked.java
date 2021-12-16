@@ -91,8 +91,8 @@ public class MenuOptionClicked
 	{
 		this.setMenuOption(entry.getOption());
 		this.setMenuTarget(entry.getTarget());
-		this.setId(entry.getId());
-		this.setMenuAction(MenuAction.of(entry.getOpcode()));
+		this.setId(entry.getIdentifier());
+		this.setMenuAction(entry.getType());
 		this.setParam0(entry.getParam0());
 		this.setParam1(entry.getParam1());
 	}

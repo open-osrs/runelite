@@ -1,3 +1,15 @@
 package net.runelite.rs.api;
 
-public interface RSLink {}
+import net.runelite.mapping.Import;
+
+public interface RSLink
+{
+	@Import("previous")
+	RSLink getPrevious();
+
+	@Import("next")
+	RSLink next();
+
+	@Import("remove")
+	void remove();
+}

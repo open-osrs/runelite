@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,80 +22,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.hiscore;
+package net.runelite.api;
 
-public class Skill
+/**
+ * A nameable container of friends
+ */
+public interface FriendContainer extends NameableContainer<Friend>
 {
-	private final int rank;
-	private final int level;
-	private final long experience;
-
-	public Skill(int rank, int level, long experience)
-	{
-		this.rank = rank;
-		this.level = level;
-		this.experience = experience;
-	}
-
-	public int getRank()
-	{
-		return rank;
-	}
-
-	public int getLevel()
-	{
-		return level;
-	}
-
-	public long getExperience()
-	{
-		return experience;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		int hash = 3;
-		hash = 59 * hash + this.rank;
-		hash = 59 * hash + this.level;
-		hash = 59 * hash + (int) (this.experience ^ (this.experience >>> 32));
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (this == obj)
-		{
-			return true;
-		}
-		if (obj == null)
-		{
-			return false;
-		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		final Skill other = (Skill) obj;
-		if (this.rank != other.rank)
-		{
-			return false;
-		}
-		if (this.level != other.level)
-		{
-			return false;
-		}
-		if (this.experience != other.experience)
-		{
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString()
-	{
-		return "Skill{" + "rank=" + rank + ", level=" + level + ", experience=" + experience + '}';
-	}
+	/**
+	 * Get the recent logins/logouts of friends from the last few seconds
+	 * @return
+	 */
+	Deque<PendingLogin> getPendingLogins();
 }

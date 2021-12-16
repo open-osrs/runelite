@@ -78,7 +78,7 @@ import okhttp3.Response;
 public class ClientLoader implements Supplier<Applet>
 {
 	private static final String INJECTED_CLIENT_NAME = "/injected-client.oprs";
-	private static final int NUM_ATTEMPTS = 6;
+	private static final int NUM_ATTEMPTS = 0;
 	private static File LOCK_FILE = new File(RuneLite.CACHE_DIR, "cache.lock");
 	private static File VANILLA_CACHE = new File(RuneLite.CACHE_DIR, "vanilla.cache");
 	private static File PATCHED_CACHE = new File(RuneLite.CACHE_DIR, "patched.cache");

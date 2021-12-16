@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, Trevor <https://github.com/Trevor159>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,11 +22,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.api;
+package net.runelite.mixins;
 
-/**
- * Represents an animation of a renderable
- */
-public interface Sequence
+import net.runelite.api.mixins.Inject;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.rs.api.RSFriendLoginUpdate;
+import net.runelite.rs.api.RSUsername;
+
+@Mixin(RSFriendLoginUpdate.class)
+public abstract class RSFriendLoginUpdatesMixin implements RSFriendLoginUpdate
 {
+	@Inject
+	@Override
+	public String getName()
+	{
+		final RSUsername rsName = getRsName();
+
+		if (rsName == null)
+		{
+			return null;
+		}
+
+		String name = rsName.getName();
+
+		if (name == null)
+		{
+			return null;
+		}
+
+		return name.replace('\u00A0', ' ');
+	}
 }

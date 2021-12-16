@@ -30,7 +30,8 @@ public class FileSystem {
 		descriptor = "(I)V",
 		garbageValue = "497428397"
 	)
-	static void method3084() {
+	@Export("decrementMenuEntries")
+	static void decrementMenuEntries() {
 		for (int var0 = 0; var0 < Client.menuOptionsCount; ++var0) {
 			if (InvDefinition.method3157(Client.menuOpcodes[var0])) {
 				if (var0 < Client.menuOptionsCount - 1) {

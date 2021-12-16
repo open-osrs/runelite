@@ -78,7 +78,7 @@ public abstract class RSModelMixin implements RSModel
 	{
 		if (getFaceTextures() != null)
 		{
-			int count = getTrianglesCount();
+			int count = getFaceCount();
 			float[] uv = new float[count * 6];
 			int idx = 0;
 
@@ -91,10 +91,10 @@ public abstract class RSModelMixin implements RSModel
 
 					if (modelUV != null)
 					{
-						System.arraycopy(modelUV, 0, uv, idx, model.getTrianglesCount() * 6);
+						System.arraycopy(modelUV, 0, uv, idx, model.getFaceCount() * 6);
 					}
 
-					idx += model.getTrianglesCount() * 6;
+					idx += model.getFaceCount() * 6;
 				}
 			}
 
@@ -131,14 +131,14 @@ public abstract class RSModelMixin implements RSModel
 	@Inject
 	public List<Triangle> getTriangles()
 	{
-		int[] trianglesX = getTrianglesX();
-		int[] trianglesY = getTrianglesY();
-		int[] trianglesZ = getTrianglesZ();
+		int[] trianglesX = getFaceIndices1();
+		int[] trianglesY = getFaceIndices2();
+		int[] trianglesZ = getFaceIndices3();
 
 		List<Vertex> vertices = getVertices();
-		List<Triangle> triangles = new ArrayList<>(getTrianglesCount());
+		List<Triangle> triangles = new ArrayList<>(getFaceCount());
 
-		for (int i = 0; i < getTrianglesCount(); ++i)
+		for (int i = 0; i < getFaceCount(); ++i)
 		{
 			int triangleX = trianglesX[i];
 			int triangleY = trianglesY[i];
@@ -408,14 +408,14 @@ public abstract class RSModelMixin implements RSModel
 			rl$vertexNormalsY = new int[verticesCount];
 			rl$vertexNormalsZ = new int[verticesCount];
 
-			int[] trianglesX = getTrianglesX();
-			int[] trianglesY = getTrianglesY();
-			int[] trianglesZ = getTrianglesZ();
+			int[] trianglesX = getFaceIndices1();
+			int[] trianglesY = getFaceIndices2();
+			int[] trianglesZ = getFaceIndices3();
 			int[] verticesX = getVerticesX();
 			int[] verticesY = getVerticesY();
 			int[] verticesZ = getVerticesZ();
 
-			for (int i = 0; i < getTrianglesCount(); ++i)
+			for (int i = 0; i < getFaceCount(); ++i)
 			{
 				int var9 = trianglesX[i];
 				int var10 = trianglesY[i];

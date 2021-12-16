@@ -320,7 +320,7 @@ public class class10 {
 			SecureRandomCallable.invalidateWidget(var4);
 		}
 
-		FileSystem.method3084();
+		FileSystem.decrementMenuEntries();
 		if (Client.rootInterface != -1) {
 			Message.runIntfCloseListeners(Client.rootInterface, 1);
 		}

@@ -166,7 +166,8 @@ public class Message extends DualNode {
 		descriptor = "(I)V",
 		garbageValue = "1989735073"
 	)
-	static final void method1115() {
+	@Export("incrementMenuEntries")
+	static final void incrementMenuEntries() {
 		boolean var0 = false;
 
 		while (!var0) {

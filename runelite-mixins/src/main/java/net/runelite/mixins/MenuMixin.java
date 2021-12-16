@@ -164,36 +164,6 @@ public abstract class MenuMixin implements RSClient
 	}
 
 	@Inject
-	@Override
-	public MenuEntry getLeftClickMenuEntry()
-	{
-		final int i = getMenuOptionCount() - 1;
-		return new MenuEntry(
-			getMenuOptions()[i],
-			getMenuTargets()[i],
-			getMenuIdentifiers()[i],
-			getMenuOpcodes()[i],
-			getMenuArguments1()[i],
-			getMenuArguments2()[i],
-			getMenuForceLeftClick()[i]
-		);
-	}
-
-	@Inject
-	@Override
-	public void setLeftClickMenuEntry(final MenuEntry entry)
-	{
-		final int i = getMenuOptionCount() - 1;
-		getMenuOptions()[i] = entry.getOption();
-		getMenuTargets()[i] = entry.getTarget();
-		getMenuIdentifiers()[i] = entry.getIdentifier();
-		getMenuOpcodes()[i] = entry.getOpcode();
-		getMenuArguments1()[i] = entry.getParam0();
-		getMenuArguments2()[i] = entry.getParam1();
-		getMenuForceLeftClick()[i] = entry.isForceLeftClick();
-	}
-
-	@Inject
 	@FieldHook("tempMenuAction")
 	public static void onTempMenuActionChanged(int idx)
 	{
@@ -213,7 +183,7 @@ public abstract class MenuMixin implements RSClient
 		}
 
 		tempMenuAction.setOption(entry.getOption());
-		tempMenuAction.setOpcode(entry.getOpcode());
+		tempMenuAction.setOpcode(entry.getType().getId());
 		tempMenuAction.setIdentifier(entry.getIdentifier());
 		tempMenuAction.setParam0(entry.getParam0());
 		tempMenuAction.setParam1(entry.getParam1());

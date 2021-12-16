@@ -31,12 +31,15 @@ import javax.swing.JCheckBox;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.SwingUtil;
+import net.runelite.client.util.Text;
 
 public class ToggleButton extends JCheckBox
 {
 	private static final ImageIcon ON_SWITCHER;
 	private static final ImageIcon OFF_SWITCHER;
 	private static final ImageIcon DISABLED_SWITCHER;
+
+	private final Object object;
 
 	static
 	{
@@ -63,6 +66,8 @@ public class ToggleButton extends JCheckBox
 	public ToggleButton()
 	{
 		super(OFF_SWITCHER);
+		this.object = null;
+
 		setSelectedIcon(ON_SWITCHER);
 		setDisabledIcon(DISABLED_SWITCHER);
 		SwingUtil.removeButtonDecorations(this);
@@ -71,8 +76,25 @@ public class ToggleButton extends JCheckBox
 	public ToggleButton(String text)
 	{
 		super(text, OFF_SWITCHER, false);
+		this.object = null;
+
 		setSelectedIcon(ON_SWITCHER);
 		setDisabledIcon(DISABLED_SWITCHER);
 		SwingUtil.removeButtonDecorations(this);
+	}
+
+	public ToggleButton(Object object)
+	{
+		super(Text.titleCase((Enum<?>) object), OFF_SWITCHER, false);
+		this.object = object;
+
+		setSelectedIcon(ON_SWITCHER);
+		setDisabledIcon(DISABLED_SWITCHER);
+		SwingUtil.removeButtonDecorations(this);
+	}
+
+	public Object getObject()
+	{
+		return this.object;
 	}
 }

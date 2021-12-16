@@ -1,8 +1,9 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.AmbientSoundEffect;
 import net.runelite.mapping.Import;
 
-public interface RSObjectSound
+public interface RSObjectSound extends AmbientSoundEffect
 {
 	@Import("x")
 	int getX();

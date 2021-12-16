@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, AeonLucid <https://github.com/AeonLucid>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,17 +22,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.osbuddy;
+package net.runelite.mixins;
 
-import java.time.Instant;
-import lombok.Data;
+import net.runelite.api.mixins.Inject;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.rs.api.RSLink;
+import net.runelite.rs.api.RSLinkDeque;
 
-@Data
-public class OSBGrandExchangeResult
+@Mixin(RSLinkDeque.class)
+public abstract class RSLinkDequeMixin implements RSLinkDeque
 {
-	private int item_id;
-	private int buy_average;
-	private int sell_average;
-	private int overall_average;
-	private Instant last_update;
+	@Inject
+	@Override
+	public void clear()
+	{
+		while (true)
+		{
+			RSLink rsLink = getSentinel().getPrevious();
+			if (rsLink == getSentinel())
+			{
+				setCurrent(null);
+				return;
+			}
+
+			rsLink.remove();
+		}
+	}
 }

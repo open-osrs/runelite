@@ -47,6 +47,13 @@ public class CheckCast extends Instruction implements TypeInstruction
 		super(instructions, InstructionType.CHECKCAST);
 	}
 
+	public CheckCast(Instructions instructions, Type type)
+	{
+		super(instructions, InstructionType.CHECKCAST);
+
+		this.type = type;
+	}
+
 	public CheckCast(Instructions instructions, InstructionType type)
 	{
 		super(instructions, type);

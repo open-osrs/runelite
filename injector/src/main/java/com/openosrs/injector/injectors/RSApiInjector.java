@@ -131,7 +131,7 @@ public class RSApiInjector extends AbstractInjector
 				}
 				else if (sig.size() == 0)
 				{
-					Type type = InjectUtil.apiToDeob(inject, sig.getReturnValue());
+					Type type = InjectUtil.apiToDeob(inject, sig.getReturnValue(), deobType);
 					if (deobType.equals(type))
 					{
 						continue;

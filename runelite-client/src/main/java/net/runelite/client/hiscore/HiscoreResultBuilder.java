@@ -22,20 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.hiscore;
+package net.runelite.client.hiscore;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 class HiscoreResultBuilder
 {
-	private String player;
+	private final String player;
 	private final List<Skill> skills = new ArrayList<>();
-
-	public void setPlayer(String player)
-	{
-		this.player = player;
-	}
 
 	void setNextSkill(Skill skill)
 	{
@@ -118,6 +115,10 @@ class HiscoreResultBuilder
 			hiscoreResult.setKreearra(skills.get(index++));
 			hiscoreResult.setKrilTsutsaroth(skills.get(index++));
 			hiscoreResult.setMimic(skills.get(index++));
+			if (skills.size() > 83)
+			{
+				hiscoreResult.setNex(skills.get(index++));
+			}
 			hiscoreResult.setNightmare(skills.get(index++));
 			hiscoreResult.setPhosanisNightmare(skills.get(index++));
 			hiscoreResult.setObor(skills.get(index++));

@@ -637,6 +637,13 @@ public interface Client extends GameEngine
 	World[] getWorldList();
 
 	/**
+	 * Create a new menu entry
+	 * @param idx the index to create the menu entry at. Accepts negative indexes eg. -1 inserts at the end.
+	 * @return the newly created menu entry
+	 */
+	MenuEntry createMenuEntry(int idx);
+
+	/**
 	 * Gets an array of currently open right-click menu entries that can be
 	 * clicked and activated.
 	 *
@@ -1133,7 +1140,7 @@ public interface Client extends GameEngine
 	 * @param id the ID of the animation. Any int is allowed, but implementations in the client
 	 * should be defined in {@link AnimationID}
 	 */
-	Sequence loadAnimation(int id);
+	Animation loadAnimation(int id);
 
 	/**
 	 * Gets the music volume
@@ -1341,7 +1348,7 @@ public interface Client extends GameEngine
 	/**
 	 * Retrieve the nameable container containing friends
 	 */
-	NameableContainer<Friend> getFriendContainer();
+	FriendContainer getFriendContainer();
 
 	/**
 	 * Retrieve the nameable container containing ignores
@@ -2116,24 +2123,6 @@ public interface Client extends GameEngine
 	 * @see net.runelite.client.util.ImageUtil#resizeSprite(Client, SpritePixels, int, int)
 	 */
 	void scaleSprite(int[] canvas, int[] pixels, int color, int pixelX, int pixelY, int canvasIdx, int canvasOffset, int newWidth, int newHeight, int pixelWidth, int pixelHeight, int oldWidth);
-
-	/**
-	 * Get the MenuEntry at client.getMenuOptionCount() - 1
-	 * <p>
-	 * This is useful so you don't have to use getMenuEntries,
-	 * which will create a big array, when you only want to change
-	 * the left click one.
-	 */
-	MenuEntry getLeftClickMenuEntry();
-
-	/**
-	 * Set the MenuEntry at client.getMenuOptionCount() - 1
-	 * <p>
-	 * This is useful so you don't have to use setMenuEntries,
-	 * which will arraycopy a big array to several smaller arrays lol,
-	 * when you only want to change the left click one.
-	 */
-	void setLeftClickMenuEntry(MenuEntry entry);
 
 	/**
 	 * If this field is set to true, getting 5 minute logged won't show

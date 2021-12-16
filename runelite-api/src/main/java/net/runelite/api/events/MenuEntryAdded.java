@@ -25,23 +25,58 @@
 package net.runelite.api.events;
 
 import lombok.Getter;
-import net.runelite.api.MenuEntry;
+import lombok.Setter;
+import net.runelite.api.MenuAction;
 
 /**
  * An event when a new entry is added to a right-click menu.
  */
-public class MenuEntryAdded extends MenuEntry
+public class MenuEntryAdded
 {
 	// Here for RuneLite compatibility (different parameter order)
 	public MenuEntryAdded(String option, String target, int type, int identifier, int actionParam0, int actionParam1)
 	{
-		super(option, target, identifier, type, actionParam0, actionParam1, false);
+		this(option, target, identifier, type, actionParam0, actionParam1, false);
 	}
 
-	public MenuEntryAdded(String option, String target, int identifier, int opcode, int param0, int param1, boolean forceLeftClick)
+	public MenuEntryAdded(String option, String target, int identifier, int type, int param0, int param1, boolean forceLeftClick)
 	{
-		super(option, target, identifier, opcode, param0, param1, forceLeftClick);
+		this.option = option;
+		this.target = target;
+		this.identifier = identifier;
+		this.type = type;
+		this.actionParam0 = param0;
+		this.actionParam1 = param1;
+		this.forceLeftClick = forceLeftClick;
 	}
+
+	@Getter
+	@Setter
+	private String option;
+
+	@Getter
+	@Setter
+	private String target;
+
+	@Getter
+	@Setter
+	private int type;
+
+	@Getter
+	@Setter
+	private int identifier;
+
+	@Getter
+	@Setter
+	private int actionParam0;
+
+	@Getter
+	@Setter
+	private int actionParam1;
+
+	@Getter
+	@Setter
+	private boolean forceLeftClick;
 
 	/**
 	 * If this is set to true client mixin will update
@@ -51,10 +86,52 @@ public class MenuEntryAdded extends MenuEntry
 	 * been multiple changes
 	 */
 	@Getter
+	@Setter
 	private boolean modified;
 
 	public void setModified()
 	{
 		this.modified = true;
+	}
+
+	@Deprecated
+	public int getParam0()
+	{
+		return actionParam0;
+	}
+
+	@Deprecated
+	public void setParam0(int param)
+	{
+		actionParam0 = param;
+	}
+
+	@Deprecated
+	public int getParam1()
+	{
+		return actionParam1;
+	}
+
+	@Deprecated
+	public void setParam1(int param)
+	{
+		actionParam1 = param;
+	}
+	@Deprecated
+	public int getOpcode()
+	{
+		return type;
+	}
+
+	@Deprecated
+	public void setOpcode(int opcode)
+	{
+		type = opcode;
+	}
+
+	@Deprecated
+	public MenuAction getMenuAction()
+	{
+		return MenuAction.of(type);
 	}
 }
