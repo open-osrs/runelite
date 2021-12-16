@@ -26,6 +26,7 @@ package net.runelite.api.events;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.api.MenuAction;
 
 /**
  * An event when a new entry is added to a right-click menu.
@@ -91,5 +92,46 @@ public class MenuEntryAdded
 	public void setModified()
 	{
 		this.modified = true;
+	}
+
+	@Deprecated
+	public int getParam0()
+	{
+		return actionParam0;
+	}
+
+	@Deprecated
+	public void setParam0(int param)
+	{
+		actionParam0 = param;
+	}
+
+	@Deprecated
+	public int getParam1()
+	{
+		return actionParam1;
+	}
+
+	@Deprecated
+	public void setParam1(int param)
+	{
+		actionParam1 = param;
+	}
+	@Deprecated
+	public int getOpcode()
+	{
+		return type;
+	}
+
+	@Deprecated
+	public void setOpcode(int opcode)
+	{
+		type = opcode;
+	}
+
+	@Deprecated
+	public MenuAction getMenuAction()
+	{
+		return MenuAction.of(type);
 	}
 }

@@ -71,6 +71,12 @@ public class RuneLiteMenuEntry implements MenuEntry
 	}
 
 	@Override
+	public MenuAction getMenuAction()
+	{
+		return this.getType();
+	}
+
+	@Override
 	public MenuEntry setType(MenuAction menuAction)
 	{
 		int opcode = Client.menuOpcodes[this.idx];
@@ -82,6 +88,31 @@ public class RuneLiteMenuEntry implements MenuEntry
 
 		Client.menuOpcodes[this.idx] = menuAction.getId() + mod;
 		return this;
+	}
+
+	@Override
+	public int getOpcode()
+	{
+		int opcode = Client.menuOpcodes[this.idx];
+		if (opcode >= 2000)
+		{
+			opcode -= 2000;
+		}
+
+		return opcode;
+	}
+
+	@Override
+	public void setOpcode(int code)
+	{
+		int opcode = Client.menuOpcodes[this.idx];
+		short mod = 0;
+		if (opcode >= 2000)
+		{
+			mod = 2000;
+		}
+
+		Client.menuOpcodes[this.idx] = code + mod;
 	}
 
 	@Override
@@ -111,6 +142,18 @@ public class RuneLiteMenuEntry implements MenuEntry
 	}
 
 	@Override
+	public int getActionParam0()
+	{
+		return this.getParam0();
+	}
+
+	@Override
+	public void setActionParam0(int param0)
+	{
+		this.setParam0(param0);
+	}
+
+	@Override
 	public int getParam1()
 	{
 		return Client.menuArguments2[this.idx];
@@ -121,6 +164,18 @@ public class RuneLiteMenuEntry implements MenuEntry
 	{
 		Client.menuArguments2[this.idx] = param1;
 		return this;
+	}
+
+	@Override
+	public int getActionParam1()
+	{
+		return this.getParam1();
+	}
+
+	@Override
+	public void setActionParam1(int param1)
+	{
+		this.setParam1(param1);
 	}
 
 	@Override

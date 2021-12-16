@@ -96,4 +96,28 @@ public class MenuOptionClicked
 		this.setParam0(entry.getParam0());
 		this.setParam1(entry.getParam1());
 	}
+
+	@Deprecated
+	public int getActionParam()
+	{
+		return param0;
+	}
+
+	@Deprecated
+	public void setActionParam(int i)
+	{
+		param0 = i;
+	}
+
+	@Deprecated
+	public int getWidgetId()
+	{
+		return param1;
+	}
+
+	@Deprecated
+	public void setWidgetId(int i)
+	{
+		param1 = i;
+	}
 }
