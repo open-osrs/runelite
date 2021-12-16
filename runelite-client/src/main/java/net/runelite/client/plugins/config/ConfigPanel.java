@@ -1109,6 +1109,11 @@ class ConfigPanel extends PluginPanel
 			JSpinner spinner = (JSpinner) component;
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), "" + spinner.getValue());
 		}
+		else if (component instanceof JSlider)
+		{
+			JSlider slider = (JSlider) component;
+			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), slider.getValue());
+		}
 		else if (component instanceof JTextComponent)
 		{
 			JTextComponent textField = (JTextComponent) component;
