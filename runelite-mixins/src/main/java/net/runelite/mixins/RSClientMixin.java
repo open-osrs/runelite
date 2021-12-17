@@ -797,9 +797,32 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
+	public static RSRuneLiteMenuEntry newBareRuneliteMenuEntry()
+	{
+		return null;
+	}
+
+	@Inject
 	public static RSRuneLiteMenuEntry newRuneliteMenuEntry(int idx)
 	{
 		return null;
+	}
+
+	@Inject
+	@Override
+	public MenuEntry createMenuEntry(String option, String target, int identifier, int opcode, int param1, int param2)
+	{
+		RSRuneLiteMenuEntry menuEntry = newBareRuneliteMenuEntry();
+
+		menuEntry.setOption(option);
+		menuEntry.setTarget(target);
+		menuEntry.setIdentifier(identifier);
+		menuEntry.setType(MenuAction.of(opcode));
+		menuEntry.setParam0(param1);
+		menuEntry.setParam1(param2);
+		menuEntry.setConsumer(null);
+
+		return menuEntry;
 	}
 
 	@Inject
