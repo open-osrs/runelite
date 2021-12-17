@@ -16,16 +16,6 @@ public class RuneLiteMenuEntry implements MenuEntry
 		this.idx = idx;
 	}
 
-	public void test(int idx)
-	{
-		new RuneLiteMenuEntry(idx);
-	}
-
-	public void test2()
-	{
-		new RuneLiteMenuEntry();
-	}
-
 	public Consumer getConsumer()
 	{
 		return consumer;
