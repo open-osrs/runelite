@@ -644,6 +644,12 @@ public interface Client extends GameEngine
 	MenuEntry createMenuEntry(int idx);
 
 	/**
+	 * Create a new menu entry
+	 * @return the newly created menu entry
+	 */
+	MenuEntry createMenuEntry(String option, String target, int identifier, int opcode, int param1, int param2, boolean forceLeftClick);
+
+	/**
 	 * Gets an array of currently open right-click menu entries that can be
 	 * clicked and activated.
 	 *

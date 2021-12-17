@@ -38,12 +38,13 @@ public class RuneliteMenuEntry extends AbstractInjector
 
 	public void inject()
 	{
-		addInvoke();
+		addInvoke("newRuneliteMenuEntry", true);
+		addInvoke("newBareRuneliteMenuEntry", false);
 		addSwap(InjectUtil.findMethod(inject, "incrementMenuEntries"));
 		addSwap(InjectUtil.findMethod(inject, "decrementMenuEntries"));
 	}
 
-	private void addInvoke()
+	private void addInvoke(String methodName, boolean iload)
 	{
 		ClassFile runeliteMenuEntryVanilla = inject.vanilla.findClass(RUNELITE_MENU_ENTRY);
 
@@ -52,8 +53,7 @@ public class RuneliteMenuEntry extends AbstractInjector
 				.findClass("Client")
 		);
 
-		Method copy = clientVanilla.findMethod("newRuneliteMenuEntry");
-		copy.setPublic();
+		Method copy = clientVanilla.findMethod(methodName);
 
 		final Code code = new Code(copy);
 		code.setMaxStack(3);
@@ -64,8 +64,15 @@ public class RuneliteMenuEntry extends AbstractInjector
 
 		ins.add(new New(instructions, runeliteMenuEntryVanilla.getPoolClass()));
 		ins.add(new Dup(instructions));
-		ins.add(new ILoad(instructions, 0));
-		ins.add(new InvokeSpecial(instructions, new net.runelite.asm.pool.Method(runeliteMenuEntryVanilla.getPoolClass(), "<init>", new Signature("(I)V"))));
+		if (iload)
+		{
+			ins.add(new ILoad(instructions, 0));
+			ins.add(new InvokeSpecial(instructions, new net.runelite.asm.pool.Method(runeliteMenuEntryVanilla.getPoolClass(), "<init>", new Signature("(I)V"))));
+		}
+		else
+		{
+			ins.add(new InvokeSpecial(instructions, new net.runelite.asm.pool.Method(runeliteMenuEntryVanilla.getPoolClass(), "<init>", new Signature("()V"))));
+		}
 		ins.add(new Return(instructions, InstructionType.ARETURN));
 	}
 
