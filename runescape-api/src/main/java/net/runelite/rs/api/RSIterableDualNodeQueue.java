@@ -1,3 +1,9 @@
 package net.runelite.rs.api;
 
-public interface RSIterableDualNodeQueue {}
+import net.runelite.mapping.Import;
+
+public interface RSIterableDualNodeQueue
+{
+	@Import("add")
+	void add(RSDualNode var1);
+}

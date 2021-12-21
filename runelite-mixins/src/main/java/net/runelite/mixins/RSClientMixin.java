@@ -145,6 +145,7 @@ import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClanChannel;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEnumComposition;
+import net.runelite.rs.api.RSEvictingDualNodeHashTable;
 import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSInterfaceParent;
@@ -1767,6 +1768,13 @@ public abstract class RSClientMixin implements RSClient
 		updateCamera();
 	}
 
+	@Inject
+	@MethodHook(value = "draw", end = true)
+	public void drawEnd(boolean var1)
+	{
+		checkResize();
+	}
+
 	@MethodHook("drawInterface")
 	@Inject
 	public static void preRenderWidgetLayer(Widget[] widgets, int parentId, int minX, int minY, int maxX, int maxY, int x, int y, int var8)
@@ -2694,6 +2702,69 @@ public abstract class RSClientMixin implements RSClient
 	protected final void doCycle()
 	{
 		client.getCallbacks().tick();
+	}
+
+	@Inject
+	public static void check(String name, RSEvictingDualNodeHashTable dualNodeHashTable)
+	{
+		boolean var3 = dualNodeHashTable.isTrashing();
+		dualNodeHashTable.setThreshold(dualNodeHashTable.getThreshold() * 0.92F + (var3 ? 0.07999998F : 0.0F));
+		if (var3)
+		{
+			if (dualNodeHashTable.getThreshold() > 0.2F)
+			{
+				client.getLogger().trace("cache {} is thrashing", name);
+			}
+
+			if (dualNodeHashTable.getThreshold() > 0.9F && dualNodeHashTable.getCapacity() < dualNodeHashTable.getTmpCapacity() * 8)
+			{
+				dualNodeHashTable.increaseCapacity(dualNodeHashTable.getCapacity() * 2);
+				client.getLogger().info("cache {} thrashing, enlarging to {} entries", name, dualNodeHashTable.getCapacity());
+			}
+		}
+
+		dualNodeHashTable.getDeque().add(dualNodeHashTable.getDualNode());
+	}
+
+	@Inject
+	public static void checkResize()
+	{
+		check("Script_cached", client.getScriptCache());
+		check("StructDefinition_cached", client.getRSStructCompositionCache());
+		check("HealthBarDefinition_cached", client.getHealthBarCache());
+		check("HealthBarDefinition_cachedSprites", client.getHealthBarSpriteCache());
+		check("ObjectDefinition_cachedModels", client.getObjectDefinitionModelsCache());
+		check("Widget_cachedSprites", client.getWidgetSpriteCache());
+		check("ItemDefinition_cached", client.getItemCompositionCache());
+		check("VarbitDefinition_cached", client.getVarbitCache());
+		check("EnumDefinition_cached", client.getEnumDefinitionCache());
+		check("FloorUnderlayDefinition_cached", client.getFloorUnderlayDefinitionCache());
+		check("FloorOverlayDefinition_cached", client.getFloorOverlayDefinitionCache());
+		check("HitSplatDefinition_cached", client.getHitSplatDefinitionCache());
+		check("HitSplatDefinition_cachedSprites", client.getHitSplatDefinitionSpritesCache());
+		check("HitSplatDefinition_cachedFonts", client.getHitSplatDefinitionDontsCache());
+		check("InvDefinition_cached", client.getInvDefinitionCache());
+		check("ItemDefinition_cachedModels", client.getItemDefinitionModelsCache());
+		check("ItemDefinition_cachedSprites", client.getItemDefinitionSpritesCache());
+		check("KitDefinition_cached", client.getKitDefinitionCache());
+		check("NpcDefinition_cached", client.getNpcDefinitionCache());
+		check("NpcDefinition_cachedModels", client.getNpcDefinitionModelsCache());
+		check("ObjectDefinition_cached", client.getObjectDefinitionCache());
+		check("ObjectDefinition_cachedModelData", client.getObjectDefinitionModelDataCache());
+		check("ObjectDefinition_cachedEntities", client.getObjectDefinitionEntitiesCache());
+		check("ParamDefinition_cached", client.getParamDefinitionCache());
+		check("PlayerAppearance_cachedModels", client.getPlayerAppearanceModelsCache());
+		check("SequenceDefinition_cached", client.getSequenceDefinitionCache());
+		check("SequenceDefinition_cachedFrames", client.getSequenceDefinitionFramesCache());
+		check("SequenceDefinition_cachedModel", client.getSequenceDefinitionModelsCache());
+		check("SpotAnimationDefinition_cached", client.getSpotAnimationDefinitionCache());
+		check("SpotAnimationDefinition_cachedModels", client.getSpotAnimationDefinitionModlesCache());
+		check("VarcInt_cached", client.getVarcIntCache());
+		check("VarpDefinition_cached", client.getVarpDefinitionCache());
+		check("Widget_cachedModels", client.getModelsCache());
+		check("Widget_cachedFonts", client.getFontsCache());
+		check("Widget_cachedSpriteMasks", client.getSpriteMasksCache());
+		check("WorldMapElement_cachedSprites", client.getSpritesCache());
 	}
 }
 
