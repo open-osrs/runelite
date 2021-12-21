@@ -29,6 +29,9 @@ import net.runelite.mapping.Import;
 
 public interface RSDualNode extends RSNode, DualNode
 {
+	@Import("previousDual")
+	RSDualNode previousDual();
+
 	@Import("removeDual")
 	void unlinkDual();
 }

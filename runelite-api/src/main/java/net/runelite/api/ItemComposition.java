@@ -134,13 +134,6 @@ public interface ItemComposition extends ParamHolder
 	void resetShiftClickActionIndex();
 
 	/**
-	 * With this you can make certain (ground) items look like different ones.
-	 *
-	 * @param id The itemID of the item with desired model
-	 */
-	void setModelOverride(int id);
-
-	/**
 	 * Gets the model ID of the inventory item.
 	 *
 	 * @return the model ID
