@@ -538,14 +538,6 @@ public interface RSClient extends RSGameEngine, Client
 	@Override
 	int[][] getXteaKeys();
 
-	@Import("gameDrawingMode")
-	@Override
-	int getGameDrawingMode();
-
-	@Import("gameDrawingMode")
-	@Override
-	void setGameDrawingMode(int gameDrawingMode);
-
 	@Import("cycleCntr")
 	int getCycleCntr();
 
