@@ -149,6 +149,7 @@ import net.runelite.rs.api.RSEvictingDualNodeHashTable;
 import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSInterfaceParent;
+import net.runelite.rs.api.RSItemComposition;
 import net.runelite.rs.api.RSItemContainer;
 import net.runelite.rs.api.RSModelData;
 import net.runelite.rs.api.RSNPC;
@@ -1760,18 +1761,15 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().post(chatMessage);
 	}
 
-	@Inject
-	@MethodHook("draw")
-	public void draw(boolean var1)
+	@Copy("draw")
+	@Replace("draw")
+	public void copy$draw(boolean var1)
 	{
 		callbacks.frame();
 		updateCamera();
-	}
 
-	@Inject
-	@MethodHook(value = "draw", end = true)
-	public void drawEnd(boolean var1)
-	{
+		copy$draw(var1);
+
 		checkResize();
 	}
 
