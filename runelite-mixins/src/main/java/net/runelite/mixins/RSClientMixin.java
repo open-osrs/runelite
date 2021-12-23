@@ -1730,6 +1730,18 @@ public abstract class RSClientMixin implements RSClient
 		client.getScene().menuOpen(client.getPlane(), x - client.getViewportXOffset(), y - client.getViewportYOffset(), false);
 	}
 
+	@Copy("addWidgetItemMenuItem")
+	@Replace("addWidgetItemMenuItem")
+	static void copy$addWidgetItemMenuItem(RSWidget var0, RSItemComposition var1, int var2, int var3, boolean var4)
+	{
+		String[] var5 = var1.getInventoryActions();
+
+		if (var5.length > var3)
+		{
+			copy$addWidgetItemMenuItem(var0, var1, var2, var3, var4);
+		}
+	}
+
 	@Inject
 	@MethodHook("updateNpcs")
 	public static void updateNpcs(boolean var0, RSPacketBuffer var1)
