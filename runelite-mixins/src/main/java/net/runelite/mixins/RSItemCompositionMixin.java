@@ -31,6 +31,12 @@ public abstract class RSItemCompositionMixin implements RSItemComposition
 	}
 
 	@Inject
+	RSItemCompositionMixin()
+	{
+
+	}
+
+	@Inject
 	@Override
 	public boolean isStackable()
 	{

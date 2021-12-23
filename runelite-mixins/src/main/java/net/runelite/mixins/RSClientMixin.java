@@ -149,6 +149,7 @@ import net.runelite.rs.api.RSEvictingDualNodeHashTable;
 import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSInterfaceParent;
+import net.runelite.rs.api.RSItemComposition;
 import net.runelite.rs.api.RSItemContainer;
 import net.runelite.rs.api.RSModelData;
 import net.runelite.rs.api.RSNPC;
@@ -1729,6 +1730,18 @@ public abstract class RSClientMixin implements RSClient
 		client.getScene().menuOpen(client.getPlane(), x - client.getViewportXOffset(), y - client.getViewportYOffset(), false);
 	}
 
+	@Copy("addWidgetItemMenuItem")
+	@Replace("addWidgetItemMenuItem")
+	static void copy$addWidgetItemMenuItem(RSWidget var0, RSItemComposition var1, int var2, int var3, boolean var4)
+	{
+		String[] var5 = var1.getInventoryActions();
+
+		if (var5.length > var3)
+		{
+			copy$addWidgetItemMenuItem(var0, var1, var2, var3, var4);
+		}
+	}
+
 	@Inject
 	@MethodHook("updateNpcs")
 	public static void updateNpcs(boolean var0, RSPacketBuffer var1)
@@ -1760,18 +1773,15 @@ public abstract class RSClientMixin implements RSClient
 		client.getCallbacks().post(chatMessage);
 	}
 
-	@Inject
-	@MethodHook("draw")
-	public void draw(boolean var1)
+	@Copy("draw")
+	@Replace("draw")
+	public void copy$draw(boolean var1)
 	{
 		callbacks.frame();
 		updateCamera();
-	}
 
-	@Inject
-	@MethodHook(value = "draw", end = true)
-	public void drawEnd(boolean var1)
-	{
+		copy$draw(var1);
+
 		checkResize();
 	}
 
@@ -2063,7 +2073,7 @@ public abstract class RSClientMixin implements RSClient
 		if (len > 0)
 		{
 			int type = getMenuOpcodes()[len - 1];
-			return type == MenuAction.RUNELITE_OVERLAY.getId();
+			return type == MenuAction.RUNELITE_OVERLAY.getId() || type == MenuAction.RUNELITE_OVERLAY_CONFIG.getId() || type == MenuAction.RUNELITE_INFOBOX.getId();
 		}
 
 		return false;

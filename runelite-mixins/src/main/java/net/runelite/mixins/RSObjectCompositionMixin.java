@@ -26,6 +26,12 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 	}
 
 	@Inject
+	RSObjectCompositionMixin()
+	{
+
+	}
+
+	@Inject
 	@Override
 	public int getAccessBitMask()
 	{
