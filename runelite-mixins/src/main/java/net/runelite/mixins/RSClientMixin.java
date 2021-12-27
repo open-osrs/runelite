@@ -491,6 +491,8 @@ public abstract class RSClientMixin implements RSClient
 				return AccountType.ULTIMATE_IRONMAN;
 			case 3:
 				return AccountType.HARDCORE_IRONMAN;
+			case 4:
+				return AccountType.GROUP_IRONMAN;
 		}
 
 		return AccountType.NORMAL;
