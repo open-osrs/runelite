@@ -340,10 +340,10 @@ public interface RSWidget extends Widget
 	void setOriginalWidth(int originalWidth);
 
 	@Import("paddingX")
-	int getXPitch();
+	int getPaddingX();
 
 	@Import("paddingY")
-	int getYPitch();
+	int getPaddingY();
 
 	@Import("paddingX")
 	@Override
