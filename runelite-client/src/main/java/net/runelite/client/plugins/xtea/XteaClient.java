@@ -47,7 +47,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 @Slf4j
-@AllArgsConstructor
 public class XteaClient
 {
 	private final OkHttpClient client;
@@ -63,15 +62,15 @@ public class XteaClient
 	public void submit(XteaRequest xteaRequest)
 	{
 		HttpUrl url = apiBase.newBuilder()
-			.addPathSegment("xtea")
-			.build();
+				.addPathSegment("xtea")
+				.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(JSON, RuneLiteAPI.GSON.toJson(xteaRequest)))
-			.url(url)
-			.build();
+				.post(RequestBody.create(JSON, RuneLiteAPI.GSON.toJson(xteaRequest)))
+				.url(url)
+				.build();
 
 		client.newCall(request).enqueue(new Callback()
 		{
@@ -102,12 +101,12 @@ public class XteaClient
 	public List<XteaKey> get() throws IOException
 	{
 		HttpUrl url = apiBase.newBuilder()
-			.addPathSegment("xtea")
-			.build();
+				.addPathSegment("xtea")
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
@@ -125,13 +124,13 @@ public class XteaClient
 	public XteaKey get(int region) throws IOException
 	{
 		HttpUrl url = apiBase.newBuilder()
-			.addPathSegment("xtea")
-			.addPathSegment(Integer.toString(region))
-			.build();
+				.addPathSegment("xtea")
+				.addPathSegment(Integer.toString(region))
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
