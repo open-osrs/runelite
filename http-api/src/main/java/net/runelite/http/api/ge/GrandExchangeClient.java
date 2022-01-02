@@ -22,81 +22,72 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.service.util.redis;
+package net.runelite.http.api.ge;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.UUID;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import redis.clients.jedis.Jedis;
+import net.runelite.http.api.RuneLiteAPI;
+import static net.runelite.http.api.RuneLiteAPI.JSON;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
-@Component
 @Slf4j
-public class RedisPool
+@RequiredArgsConstructor
+public class GrandExchangeClient
 {
-	private final String redisHost;
-	private final BlockingQueue<Jedis> queue;
+	private static final Gson GSON = RuneLiteAPI.GSON;
 
-	RedisPool(@Value("${redis.pool.size:10}") int queueSize, @Value("${redis.host:localhost}") String redisHost)
+	private final OkHttpClient client;
+
+	@Setter
+	private UUID uuid;
+	@Setter
+	private String machineId;
+
+	public void submit(GrandExchangeTrade grandExchangeTrade)
 	{
-		this.redisHost = redisHost;
+		final HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
+			.addPathSegment("ge")
+			.build();
 
-		queue = new ArrayBlockingQueue<>(queueSize);
-		for (int i = 0; i < queueSize; ++i)
+		Request.Builder builder = new Request.Builder();
+		if (uuid != null)
 		{
-			Jedis jedis = new PooledJedis(redisHost);
-			queue.offer(jedis);
+			builder.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString());
 		}
-	}
-
-	public Jedis getResource()
-	{
-		Jedis jedis;
-		try
+		if (machineId != null)
 		{
-			jedis = queue.poll(1, TimeUnit.SECONDS);
-		}
-		catch (InterruptedException e)
-		{
-			throw new RuntimeException(e);
-		}
-		if (jedis == null)
-		{
-			throw new RuntimeException("Unable to acquire connection from pool, timeout");
-		}
-		return jedis;
-	}
-
-	class PooledJedis extends Jedis
-	{
-		PooledJedis(String host)
-		{
-			super(host);
+			builder.header(RuneLiteAPI.RUNELITE_MACHINEID, machineId);
 		}
 
-		@Override
-		public void close()
+		Request request = builder
+			.post(RequestBody.create(JSON, GSON.toJson(grandExchangeTrade)))
+			.url(url)
+			.build();
+
+		client.newCall(request).enqueue(new Callback()
 		{
-			if (!getClient().isBroken())
+			@Override
+			public void onFailure(Call call, IOException e)
 			{
-				queue.offer(this);
-				return;
+				log.debug("unable to submit trade", e);
 			}
 
-			log.warn("jedis client is broken, creating new client");
-
-			try
+			@Override
+			public void onResponse(Call call, Response response)
 			{
-				super.close();
+				log.debug("Submitted trade");
+				response.close();
 			}
-			catch (Exception e)
-			{
-				log.warn("unable to close broken jedis", e);
-			}
-
-			queue.offer(new PooledJedis(redisHost));
-		}
+		});
 	}
 }

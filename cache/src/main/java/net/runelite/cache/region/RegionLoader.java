@@ -60,7 +60,6 @@ public class RegionLoader
 		this.store = store;
 		index = store.getIndex(IndexType.MAPS);
 		keyManager = new XteaKeyManager();
-		keyManager.loadKeys();
 	}
 
 	public void loadRegions() throws IOException
@@ -98,10 +97,9 @@ public class RegionLoader
 		Region region = new Region(i);
 		region.loadTerrain(mapDef);
 
-		Integer[] keysTmp = keyManager.getKeys(i);
-		if (keysTmp != null)
+		int[] keys = keyManager.getKeys(i);
+		if (keys != null)
 		{
-			int[] keys = {keysTmp[0], keysTmp[1], keysTmp[2], keysTmp[3]};
 			try
 			{
 				data = land.decompress(storage.loadArchive(land), keys);

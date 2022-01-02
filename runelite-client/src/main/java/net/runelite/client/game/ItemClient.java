@@ -44,7 +44,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Slf4j
-@AllArgsConstructor
 public class ItemClient
 {
 	private final OkHttpClient client;

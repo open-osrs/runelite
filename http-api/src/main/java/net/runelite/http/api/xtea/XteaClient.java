@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.xtea;
+package net.runelite.http.api.xtea;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
@@ -36,8 +36,6 @@ import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import static net.runelite.http.api.RuneLiteAPI.JSON;
-import net.runelite.http.api.xtea.XteaKey;
-import net.runelite.http.api.xtea.XteaRequest;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -53,7 +51,7 @@ public class XteaClient
 	private final HttpUrl apiBase;
 
 	@Inject
-	private XteaClient(OkHttpClient client, @Named("runelite.api.base") HttpUrl apiBase)
+	public XteaClient(OkHttpClient client, @Named("runelite.api.base") HttpUrl apiBase)
 	{
 		this.client = client;
 		this.apiBase = apiBase;

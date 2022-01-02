@@ -29,7 +29,7 @@ package com.openosrs.http.api.discord;
 import com.google.gson.Gson;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
-//import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -60,7 +60,7 @@ public class DiscordClient
 
 		log.debug("Attempting to message with {}", discordMessage);
 
-	/*	RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
+		RuneLiteAPI.CLIENT.newCall(request).enqueue(new Callback()
 		{
 
 			@Override
@@ -95,6 +95,6 @@ public class DiscordClient
 					log.debug("Submitted discord log record");
 				}
 			}
-		});*/
+		});
 	}
 }
