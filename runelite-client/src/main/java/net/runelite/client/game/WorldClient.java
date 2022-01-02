@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2019 Abex
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Lotto <https://github.com/devLotto>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,70 +23,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.rs;
+package net.runelite.client.game;
 
+import com.google.gson.JsonParseException;
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Queue;
-import java.util.Random;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.client.RuneLiteProperties;
-import net.runelite.http.api.worlds.World;
-import net.runelite.client.game.WorldClient;
-import net.runelite.http.api.worlds.WorldType;
+import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.worlds.WorldResult;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 @Slf4j
 @RequiredArgsConstructor
-class WorldSupplier implements Supplier<World>
+public class WorldClient
 {
-	private final OkHttpClient okHttpClient;
-	private final Random random = new Random(System.nanoTime());
-	private final Queue<World> worlds = new ArrayDeque<>();
+	private final OkHttpClient client;
+	private final HttpUrl apiBase;
 
-	@Override
-	public World get()
+	public WorldResult lookupWorlds() throws IOException
 	{
-		if (!worlds.isEmpty())
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("worlds.js")
+			.build();
+
+		log.debug("Built URI: {}", url);
+
+		Request request = new Request.Builder()
+			.url(url)
+			.build();
+
+		try (Response response = client.newCall(request).execute())
 		{
-			return worlds.poll();
-		}
+			if (!response.isSuccessful())
+			{
+				log.debug("Error looking up worlds: {}", response);
+				throw new IOException("unsuccessful response looking up worlds");
+			}
 
-		try
+			InputStream in = response.body().byteStream();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), WorldResult.class);
+		}
+		catch (JsonParseException ex)
 		{
-			List<World> newWorlds = new WorldClient(okHttpClient, HttpUrl.get(RuneLiteProperties.getApiBase()))
-				.lookupWorlds()
-				.getWorlds()
-				.stream()
-				.filter(w -> w.getTypes().isEmpty() || EnumSet.of(WorldType.MEMBERS).equals(w.getTypes()))
-				.collect(Collectors.toList());
-
-			Collections.shuffle(newWorlds, random);
-
-			worlds.addAll(newWorlds.subList(0, 16));
+			throw new IOException(ex);
 		}
-		catch (IOException e)
-		{
-			log.warn("Unable to retrieve world list", e);
-		}
-
-		while (worlds.size() < 2)
-		{
-			int id = random.nextInt(50) + 1;
-			World world = World.builder()
-				.id(300 + id) // worlds start at 300
-				.address("oldschool" + id + ".runescape.COM")
-				.build();
-			worlds.add(world);
-		}
-
-		return worlds.poll();
 	}
 }

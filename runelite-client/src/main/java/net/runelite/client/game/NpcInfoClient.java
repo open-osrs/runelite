@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,71 +22,49 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client;
+package net.runelite.client.game;
 
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-import lombok.AllArgsConstructor;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
-@AllArgsConstructor
-class SessionClient
+@Slf4j
+public class NpcInfoClient
 {
 	private final OkHttpClient client;
-	private final HttpUrl sessionUrl;
+	private final HttpUrl staticBase;
 
 	@Inject
-	private SessionClient(OkHttpClient client, @Named("runelite.session") HttpUrl sessionUrl)
+	private NpcInfoClient(OkHttpClient client, @Named("runelite.static.base") HttpUrl staticBase)
 	{
 		this.client = client;
-		this.sessionUrl = sessionUrl;
+		this.staticBase = staticBase;
 	}
 
-	UUID open() throws IOException
+	public Map<Integer, NpcInfo> getNpcs() throws IOException
 	{
-		HttpUrl url = sessionUrl.newBuilder()
-			.build();
+		HttpUrl.Builder urlBuilder = staticBase.newBuilder()
+			.addPathSegment("npcs")
+			.addPathSegment("npcs.min.json");
+
+		HttpUrl url = urlBuilder.build();
+
+		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
-			.url(url)
-			.build();
-
-		try (Response response = client.newCall(request).execute())
-		{
-			ResponseBody body = response.body();
-
-			InputStream in = body.byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), UUID.class);
-		}
-		catch (JsonParseException | IllegalArgumentException ex) // UUID.fromString can throw IllegalArgumentException
-		{
-			throw new IOException(ex);
-		}
-	}
-
-	void ping(UUID uuid, boolean loggedIn) throws IOException
-	{
-		HttpUrl url = sessionUrl.newBuilder()
-			.addPathSegment("ping")
-			.addQueryParameter("session", uuid.toString())
-			.addQueryParameter("logged-in", String.valueOf(loggedIn))
-			.build();
-
-		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
 			.url(url)
 			.build();
 
@@ -94,22 +72,19 @@ class SessionClient
 		{
 			if (!response.isSuccessful())
 			{
-				throw new IOException("Unsuccessful ping");
+				log.warn("Error looking up npcs: {}", response);
+				return null;
 			}
+
+			InputStream in = response.body().byteStream();
+			final Type typeToken = new TypeToken<Map<Integer, NpcInfo>>()
+			{
+			}.getType();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), typeToken);
 		}
-	}
-
-	void delete(UUID uuid) throws IOException
-	{
-		HttpUrl url = sessionUrl.newBuilder()
-			.addQueryParameter("session", uuid.toString())
-			.build();
-
-		Request request = new Request.Builder()
-			.delete()
-			.url(url)
-			.build();
-
-		client.newCall(request).execute().close();
+		catch (JsonParseException ex)
+		{
+			throw new IOException(ex);
+		}
 	}
 }

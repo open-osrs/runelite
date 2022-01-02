@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2022, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,53 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.game;
+package net.runelite.client.ui;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import lombok.extern.slf4j.Slf4j;
+import com.apple.eawt.Application;
+import com.apple.eawt.QuitStrategy;
 
-@Singleton
-@Slf4j
-public class NPCManager
+class MacOSQuitStrategy
 {
-	private final NpcInfoClient npcInfoClient;
-	private Map<Integer, NpcInfo> npcMap = Collections.emptyMap();
-
-	@Inject
-	private NPCManager(NpcInfoClient npcInfoClient, ScheduledExecutorService scheduledExecutorService)
-	{
-		this.npcInfoClient = npcInfoClient;
-		scheduledExecutorService.execute(this::loadNpcs);
-	}
-
-	@Nullable
-	public NpcInfo getNpcInfo(int npcId)
-	{
-		return npcMap.get(npcId);
-	}
-
-	@Nullable
-	public Integer getHealth(int npcId)
-	{
-		NpcInfo npcInfo = npcMap.get(npcId);
-		return npcInfo == null ? null : npcInfo.getHitpoints();
-	}
-
-	private void loadNpcs()
+	public static void setup()
 	{
 		try
 		{
-			npcMap = npcInfoClient.getNpcs();
+			// com.apple.eawt.QuitStrategy was moved to java.desktop in Java 9,
+			// but our OrangeExtensions API targets 1.6, so this code is only valid
+			// on 8 below.
+			Application.getApplication()
+				.setQuitStrategy(QuitStrategy.CLOSE_ALL_WINDOWS);
 		}
-		catch (IOException e)
+		catch (NoClassDefFoundError ex)
 		{
-			log.warn("error loading npc stats", e);
+			// IntelliJ doesn't handle our multi-release Maven setup well, and will run
+			// this class on 11+. Ignore the error so the client can launch.
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2022, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,53 +22,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.game;
+package net.runelite.client.ui;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import lombok.extern.slf4j.Slf4j;
+import java.awt.Desktop;
+import java.awt.desktop.QuitStrategy;
 
-@Singleton
-@Slf4j
-public class NPCManager
+class MacOSQuitStrategy
 {
-	private final NpcInfoClient npcInfoClient;
-	private Map<Integer, NpcInfo> npcMap = Collections.emptyMap();
-
-	@Inject
-	private NPCManager(NpcInfoClient npcInfoClient, ScheduledExecutorService scheduledExecutorService)
+	public static void setup()
 	{
-		this.npcInfoClient = npcInfoClient;
-		scheduledExecutorService.execute(this::loadNpcs);
-	}
-
-	@Nullable
-	public NpcInfo getNpcInfo(int npcId)
-	{
-		return npcMap.get(npcId);
-	}
-
-	@Nullable
-	public Integer getHealth(int npcId)
-	{
-		NpcInfo npcInfo = npcMap.get(npcId);
-		return npcInfo == null ? null : npcInfo.getHitpoints();
-	}
-
-	private void loadNpcs()
-	{
-		try
-		{
-			npcMap = npcInfoClient.getNpcs();
-		}
-		catch (IOException e)
-		{
-			log.warn("error loading npc stats", e);
-		}
+		Desktop.getDesktop()
+			.setQuitStrategy(QuitStrategy.CLOSE_ALL_WINDOWS);
 	}
 }

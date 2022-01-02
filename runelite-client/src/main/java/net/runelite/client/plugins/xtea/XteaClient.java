@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,94 +22,125 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client;
+package net.runelite.client.plugins.xtea;
 
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-import lombok.AllArgsConstructor;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
+import static net.runelite.http.api.RuneLiteAPI.JSON;
+import net.runelite.http.api.xtea.XteaKey;
+import net.runelite.http.api.xtea.XteaRequest;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
+@Slf4j
 @AllArgsConstructor
-class SessionClient
+public class XteaClient
 {
 	private final OkHttpClient client;
-	private final HttpUrl sessionUrl;
+	private final HttpUrl apiBase;
 
 	@Inject
-	private SessionClient(OkHttpClient client, @Named("runelite.session") HttpUrl sessionUrl)
+	private XteaClient(OkHttpClient client, @Named("runelite.api.base") HttpUrl apiBase)
 	{
 		this.client = client;
-		this.sessionUrl = sessionUrl;
+		this.apiBase = apiBase;
 	}
 
-	UUID open() throws IOException
+	public void submit(XteaRequest xteaRequest)
 	{
-		HttpUrl url = sessionUrl.newBuilder()
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("xtea")
+			.build();
+
+		log.debug("Built URI: {}", url);
+
+		Request request = new Request.Builder()
+			.post(RequestBody.create(JSON, RuneLiteAPI.GSON.toJson(xteaRequest)))
+			.url(url)
+			.build();
+
+		client.newCall(request).enqueue(new Callback()
+		{
+			@Override
+			public void onFailure(Call call, IOException e)
+			{
+				log.warn("unable to submit xtea keys", e);
+			}
+
+			@Override
+			public void onResponse(Call call, Response response)
+			{
+				try // NOPMD: UseTryWithResources
+				{
+					if (!response.isSuccessful())
+					{
+						log.debug("unsuccessful xtea response");
+					}
+				}
+				finally
+				{
+					response.close();
+				}
+			}
+		});
+	}
+
+	public List<XteaKey> get() throws IOException
+	{
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("xtea")
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
 			.url(url)
 			.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
-			ResponseBody body = response.body();
-
-			InputStream in = body.byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), UUID.class);
+			InputStream in = response.body().byteStream();
+			// CHECKSTYLE:OFF
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), new TypeToken<List<XteaKey>>() { }.getType());
+			// CHECKSTYLE:ON
 		}
-		catch (JsonParseException | IllegalArgumentException ex) // UUID.fromString can throw IllegalArgumentException
+		catch (JsonParseException ex)
 		{
 			throw new IOException(ex);
 		}
 	}
 
-	void ping(UUID uuid, boolean loggedIn) throws IOException
+	public XteaKey get(int region) throws IOException
 	{
-		HttpUrl url = sessionUrl.newBuilder()
-			.addPathSegment("ping")
-			.addQueryParameter("session", uuid.toString())
-			.addQueryParameter("logged-in", String.valueOf(loggedIn))
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("xtea")
+			.addPathSegment(Integer.toString(region))
 			.build();
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(null, new byte[0]))
 			.url(url)
 			.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
-			if (!response.isSuccessful())
-			{
-				throw new IOException("Unsuccessful ping");
-			}
+			InputStream in = response.body().byteStream();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), XteaKey.class);
 		}
-	}
-
-	void delete(UUID uuid) throws IOException
-	{
-		HttpUrl url = sessionUrl.newBuilder()
-			.addQueryParameter("session", uuid.toString())
-			.build();
-
-		Request request = new Request.Builder()
-			.delete()
-			.url(url)
-			.build();
-
-		client.newCall(request).execute().close();
+		catch (JsonParseException ex)
+		{
+			throw new IOException(ex);
+		}
 	}
 }

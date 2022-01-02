@@ -22,53 +22,58 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.game;
+package net.runelite.client.plugins.xptracker;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
-import javax.inject.Singleton;
+import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-@Singleton
 @Slf4j
-public class NPCManager
+public class XpClient
 {
-	private final NpcInfoClient npcInfoClient;
-	private Map<Integer, NpcInfo> npcMap = Collections.emptyMap();
+	private final OkHttpClient client;
+	private final HttpUrl apiBase;
 
 	@Inject
-	private NPCManager(NpcInfoClient npcInfoClient, ScheduledExecutorService scheduledExecutorService)
+	private XpClient(OkHttpClient client, @Named("runelite.api.base") HttpUrl apiBase)
 	{
-		this.npcInfoClient = npcInfoClient;
-		scheduledExecutorService.execute(this::loadNpcs);
+		this.client = client;
+		this.apiBase = apiBase;
 	}
 
-	@Nullable
-	public NpcInfo getNpcInfo(int npcId)
+	public void update(String username)
 	{
-		return npcMap.get(npcId);
-	}
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("xp")
+			.addPathSegment("update")
+			.addQueryParameter("username", username)
+			.build();
 
-	@Nullable
-	public Integer getHealth(int npcId)
-	{
-		NpcInfo npcInfo = npcMap.get(npcId);
-		return npcInfo == null ? null : npcInfo.getHitpoints();
-	}
+		Request request = new Request.Builder()
+			.url(url)
+			.build();
 
-	private void loadNpcs()
-	{
-		try
+		client.newCall(request).enqueue(new Callback()
 		{
-			npcMap = npcInfoClient.getNpcs();
-		}
-		catch (IOException e)
-		{
-			log.warn("error loading npc stats", e);
-		}
+			@Override
+			public void onFailure(Call call, IOException e)
+			{
+				log.warn("Error submitting xp track", e);
+			}
+
+			@Override
+			public void onResponse(Call call, Response response)
+			{
+				response.close();
+				log.debug("Submitted xp track for {}", username);
+			}
+		});
 	}
 }

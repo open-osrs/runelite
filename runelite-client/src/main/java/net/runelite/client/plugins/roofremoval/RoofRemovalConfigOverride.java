@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021 Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,53 +22,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.game;
+package net.runelite.client.plugins.roofremoval;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.concurrent.ScheduledExecutorService;
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Getter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
-@Singleton
-@Slf4j
-public class NPCManager
+@Getter
+enum RoofRemovalConfigOverride
 {
-	private final NpcInfoClient npcInfoClient;
-	private Map<Integer, NpcInfo> npcMap = Collections.emptyMap();
+	POH(RoofRemovalConfig::overridePOH, 7257, 7513, 7514, 7769, 7770, 8025, 8026);
 
-	@Inject
-	private NPCManager(NpcInfoClient npcInfoClient, ScheduledExecutorService scheduledExecutorService)
-	{
-		this.npcInfoClient = npcInfoClient;
-		scheduledExecutorService.execute(this::loadNpcs);
-	}
+	private final Predicate<RoofRemovalConfig> enabled;
+	private final List<Integer> regions;
 
-	@Nullable
-	public NpcInfo getNpcInfo(int npcId)
+	RoofRemovalConfigOverride(Predicate<RoofRemovalConfig> enabled, Integer... regions)
 	{
-		return npcMap.get(npcId);
-	}
-
-	@Nullable
-	public Integer getHealth(int npcId)
-	{
-		NpcInfo npcInfo = npcMap.get(npcId);
-		return npcInfo == null ? null : npcInfo.getHitpoints();
-	}
-
-	private void loadNpcs()
-	{
-		try
-		{
-			npcMap = npcInfoClient.getNpcs();
-		}
-		catch (IOException e)
-		{
-			log.warn("error loading npc stats", e);
-		}
+		this.enabled = enabled;
+		this.regions = Arrays.asList(regions);
 	}
 }
