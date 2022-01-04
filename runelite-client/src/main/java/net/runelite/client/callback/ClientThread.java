@@ -127,6 +127,10 @@ public class ClientThread implements Executor
 			{
 				ir.remove();
 			}
+			else
+			{
+				log.trace("Deferring task {}", r);
+			}
 		}
 	}
 }

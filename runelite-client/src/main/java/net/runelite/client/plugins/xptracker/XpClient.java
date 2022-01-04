@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,58 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.xptracker;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.8.8"
+import java.io.IOException;
+import javax.inject.Inject;
+import javax.inject.Named;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
-    const val openosrsVersion = "4.17.2"
+@Slf4j
+public class XpClient
+{
+	private final OkHttpClient client;
+	private final HttpUrl apiBase;
 
-    const val rsversion = 202
-    const val cacheversion = 165
+	@Inject
+	private XpClient(OkHttpClient client, @Named("runelite.api.base") HttpUrl apiBase)
+	{
+		this.client = client;
+		this.apiBase = apiBase;
+	}
 
-    const val lombokVersion = "1.18.20"
+	public void update(String username)
+	{
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("xp")
+			.addPathSegment("update")
+			.addQueryParameter("username", username)
+			.build();
+
+		Request request = new Request.Builder()
+			.url(url)
+			.build();
+
+		client.newCall(request).enqueue(new Callback()
+		{
+			@Override
+			public void onFailure(Call call, IOException e)
+			{
+				log.warn("Error submitting xp track", e);
+			}
+
+			@Override
+			public void onResponse(Call call, Response response)
+			{
+				response.close();
+				log.debug("Submitted xp track for {}", username);
+			}
+		});
+	}
 }

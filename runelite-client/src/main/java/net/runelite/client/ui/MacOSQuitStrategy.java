@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2022, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,53 +22,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.worlds;
+package net.runelite.client.ui;
 
-import com.google.gson.JsonParseException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.http.api.RuneLiteAPI;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.apple.eawt.Application;
+import com.apple.eawt.QuitStrategy;
 
-@Slf4j
-@RequiredArgsConstructor
-public class WorldClient
+class MacOSQuitStrategy
 {
-	private final OkHttpClient client;
-
-	public WorldResult lookupWorlds() throws IOException
+	public static void setup()
 	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("worlds.js")
-			.build();
-
-		log.debug("Built URI: {}", url);
-
-		Request request = new Request.Builder()
-			.url(url)
-			.build();
-
-		try (Response response = client.newCall(request).execute())
+		try
 		{
-			if (!response.isSuccessful())
-			{
-				log.debug("Error looking up worlds: {}", response);
-				throw new IOException("unsuccessful response looking up worlds");
-			}
-
-			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), WorldResult.class);
+			// com.apple.eawt.QuitStrategy was moved to java.desktop in Java 9,
+			// but our OrangeExtensions API targets 1.6, so this code is only valid
+			// on 8 below.
+			Application.getApplication()
+				.setQuitStrategy(QuitStrategy.CLOSE_ALL_WINDOWS);
 		}
-		catch (JsonParseException ex)
+		catch (NoClassDefFoundError ex)
 		{
-			throw new IOException(ex);
+			// IntelliJ doesn't handle our multi-release Maven setup well, and will run
+			// this class on 11+. Ignore the error so the client can launch.
 		}
 	}
 }

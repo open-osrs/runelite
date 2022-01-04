@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.account;
+package net.runelite.client.game;
 
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-import lombok.RequiredArgsConstructor;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
@@ -39,24 +42,25 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Slf4j
-@RequiredArgsConstructor
-public class AccountClient
+public class NpcInfoClient
 {
 	private final OkHttpClient client;
-	private UUID uuid;
+	private final HttpUrl staticBase;
 
-	public void setUuid(UUID uuid)
+	@Inject
+	private NpcInfoClient(OkHttpClient client, @Named("runelite.static.base") HttpUrl staticBase)
 	{
-		this.uuid = uuid;
+		this.client = client;
+		this.staticBase = staticBase;
 	}
 
-	public OAuthResponse login() throws IOException
+	public Map<Integer, NpcInfo> getNpcs() throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("account")
-			.addPathSegment("login")
-			.addQueryParameter("uuid", uuid.toString())
-			.build();
+		HttpUrl.Builder urlBuilder = staticBase.newBuilder()
+			.addPathSegment("npcs")
+			.addPathSegment("npcs.min.json");
+
+		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
@@ -66,57 +70,21 @@ public class AccountClient
 
 		try (Response response = client.newCall(request).execute())
 		{
+			if (!response.isSuccessful())
+			{
+				log.warn("Error looking up npcs: {}", response);
+				return null;
+			}
+
 			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), OAuthResponse.class);
+			final Type typeToken = new TypeToken<Map<Integer, NpcInfo>>()
+			{
+			}.getType();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), typeToken);
 		}
 		catch (JsonParseException ex)
 		{
 			throw new IOException(ex);
-		}
-	}
-
-	public void logout() throws IOException
-	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("account")
-			.addPathSegment("logout")
-			.build();
-
-		log.debug("Built URI: {}", url);
-
-		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.url(url)
-			.build();
-
-		try (Response response = client.newCall(request).execute())
-		{
-			log.debug("Sent logout request");
-		}
-	}
-
-	public boolean sessionCheck()
-	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("account")
-			.addPathSegment("session-check")
-			.build();
-
-		log.debug("Built URI: {}", url);
-
-		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.url(url)
-			.build();
-
-		try (Response response = client.newCall(request).execute())
-		{
-			return response.isSuccessful();
-		}
-		catch (IOException ex)
-		{
-			log.debug("Unable to verify session", ex);
-			return true; // assume it is still valid if the server is unreachable
 		}
 	}
 }
