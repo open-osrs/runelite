@@ -58,9 +58,6 @@ public class RuneLiteAPI
 
 	private static final String BASE = "https://api.runelite.net";
 
-	private static final String OPENOSRS_SESSION = "https://session.openosrs.dev";
-	private static final String OPENOSRS_XTEA = "https://xtea.openosrs.dev";
-
 	private static final Properties properties = new Properties();
 	private static String version;
 
@@ -121,11 +118,6 @@ public class RuneLiteAPI
 		GSON = gsonBuilder.create();
 	}
 
-	public static HttpUrl getSessionBase()
-	{
-		return HttpUrl.parse(OPENOSRS_SESSION);
-	}
-
 	public static HttpUrl getApiBase()
 	{
 		final String prop = System.getProperty("runelite.http-service.url");
@@ -138,19 +130,9 @@ public class RuneLiteAPI
 		return HttpUrl.parse(BASE + "/runelite-" + getVersion());
 	}
 
-	public static HttpUrl getXteaBase()
-	{
-		return HttpUrl.parse(OPENOSRS_XTEA);
-	}
-
 	public static String getVersion()
 	{
 		return version;
-	}
-
-	public static void setVersion(String version)
-	{
-		RuneLiteAPI.version = version;
 	}
 
 }
