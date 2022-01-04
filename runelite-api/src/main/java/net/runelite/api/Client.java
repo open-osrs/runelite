@@ -1114,7 +1114,9 @@ public interface Client extends GameEngine
 	 * Loads a model from the cache
 	 *
 	 * @param id the ID of the model
+	 * @return the model or null if it is loading or nonexistent
 	 */
+	@Nullable
 	Model loadModel(int id);
 
 	/**
@@ -1123,7 +1125,9 @@ public interface Client extends GameEngine
 	 * @param id the ID of the model
 	 * @param colorToFind array of hsl color values to find in the model to replace
 	 * @param colorToReplace array of hsl color values to replace in the model
+	 * @return the model or null if it is loading or nonexistent
 	 */
+	@Nullable
 	Model loadModel(int id, short[] colorToFind, short[] colorToReplace);
 
 	/**

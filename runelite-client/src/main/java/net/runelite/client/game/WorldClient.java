@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 2020, Adam <Adam@sigterm.info>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Lotto <https://github.com/devLotto>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,37 +23,34 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.npc;
+package net.runelite.client.game;
 
 import com.google.gson.JsonParseException;
-import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
-import lombok.Value;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.worlds.WorldResult;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 @Slf4j
-@Value
-public class NpcInfoClient
+@RequiredArgsConstructor
+public class WorldClient
 {
 	private final OkHttpClient client;
+	private final HttpUrl apiBase;
 
-	public Map<Integer, NpcInfo> getNpcs() throws IOException
+	public WorldResult lookupWorlds() throws IOException
 	{
-		HttpUrl.Builder urlBuilder = RuneLiteAPI.getStaticBase().newBuilder()
-			.addPathSegment("npcs")
-			.addPathSegment("npcs.min.json");
-
-		HttpUrl url = urlBuilder.build();
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("worlds.js")
+			.build();
 
 		log.debug("Built URI: {}", url);
 
@@ -64,15 +62,12 @@ public class NpcInfoClient
 		{
 			if (!response.isSuccessful())
 			{
-				log.warn("Error looking up npcs: {}", response);
-				return null;
+				log.debug("Error looking up worlds: {}", response);
+				throw new IOException("unsuccessful response looking up worlds");
 			}
 
 			InputStream in = response.body().byteStream();
-			final Type typeToken = new TypeToken<Map<Integer, NpcInfo>>()
-			{
-			}.getType();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), typeToken);
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), WorldResult.class);
 		}
 		catch (JsonParseException ex)
 		{

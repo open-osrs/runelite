@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2021 Abex
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.http.api.gson;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.8.8"
+import java.time.Instant;
+import net.runelite.http.api.RuneLiteAPI;
+import org.junit.Assert;
+import org.junit.Test;
 
-    const val openosrsVersion = "4.17.2"
+public class InstantTypeAdapterTest
+{
+	@Test
+	public void test()
+	{
+		test("null", null, true);
+		test("{\"seconds\":1609538310,\"nanos\":291000000}", Instant.ofEpochSecond(1609538310, 291_000_000), false);
+		test("1609538310291", Instant.ofEpochSecond(1609538310, 291_000_000), true);
+	}
 
-    const val rsversion = 202
-    const val cacheversion = 165
-
-    const val lombokVersion = "1.18.20"
+	private void test(String json, Instant object, boolean exactEncoding)
+	{
+		Instant parsed = RuneLiteAPI.GSON.fromJson(json, Instant.class);
+		Assert.assertEquals(object, parsed);
+		String serialized = RuneLiteAPI.GSON.toJson(object);
+		if (exactEncoding)
+		{
+			Assert.assertEquals(json, serialized);
+		}
+		Instant roundTripped = RuneLiteAPI.GSON.fromJson(serialized, Instant.class);
+		Assert.assertEquals(object, roundTripped);
+	}
 }
