@@ -24,25 +24,14 @@
  */
 package net.runelite.client.ui;
 
-import com.apple.eawt.Application;
-import com.apple.eawt.QuitStrategy;
+import java.awt.Desktop;
+import java.awt.desktop.QuitStrategy;
 
 class MacOSQuitStrategy
 {
 	public static void setup()
 	{
-		try
-		{
-			// com.apple.eawt.QuitStrategy was moved to java.desktop in Java 9,
-			// but our OrangeExtensions API targets 1.6, so this code is only valid
-			// on 8 below.
-			Application.getApplication()
+		Desktop.getDesktop()
 				.setQuitStrategy(QuitStrategy.CLOSE_ALL_WINDOWS);
-		}
-		catch (NoClassDefFoundError ex)
-		{
-			// IntelliJ doesn't handle our multi-release Maven setup well, and will run
-			// this class on 11+. Ignore the error so the client can launch.
-		}
 	}
 }
