@@ -121,7 +121,7 @@ public abstract class RSGameObjectMixin implements RSGameObject
 	public Angle getOrientation()
 	{
 		int orientation = getModelOrientation();
-		int rotation = (getFlags() >> 6) & 3;
+		int rotation = (getConfig() >> 6) & 3;
 		return new Angle(rotation * 512 + orientation);
 	}
 
