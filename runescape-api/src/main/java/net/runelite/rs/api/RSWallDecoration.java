@@ -33,4 +33,8 @@ public interface RSWallDecoration extends DecorativeObject
 	RSRenderable getRenderable2();
 
 	void setPlane(int plane);
+
+	@Import("flags")
+	@Override
+	int getConfig();
 }
