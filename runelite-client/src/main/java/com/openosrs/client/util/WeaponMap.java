@@ -43,6 +43,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.ADAMANT_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ADAMANT_WARHAMMER, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ALE_OF_THE_GODS, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.ANCIENT_GODSWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ANCIENT_MACE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ANGER_BATTLEAXE, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ANGER_MACE, WeaponStyle.MELEE);
@@ -412,6 +413,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.RUNE_SCIMITAR_23330, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_SCIMITAR_23332, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_SCIMITAR_23334, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.RUNE_SCIMITAR_26262, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_SPEAR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_SPEARP, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.RUNE_SPEARP_5714, WeaponStyle.MELEE);
@@ -640,6 +642,8 @@ public class WeaponMap
 		StyleMap.put(ItemID.DRAGON_DARTP_11233, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRAGON_DARTP_11234, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRAGON_HUNTER_CROSSBOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.DRAGON_HUNTER_CROSSBOW_T, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.DRAGON_HUNTER_CROSSBOW_B, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRAGON_KNIFE, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRAGON_KNIFEP, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.DRAGON_KNIFEP_22808, WeaponStyle.RANGE);
@@ -736,6 +740,9 @@ public class WeaponMap
 		StyleMap.put(ItemID.YEW_COMP_BOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.YEW_LONGBOW, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.YEW_SHORTBOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.ZARYTE_BOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.ZARYTE_BOW_26239, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.ZARYTE_CROSSBOW, WeaponStyle.RANGE);
 
 		//Magic
 		StyleMap.put(ItemID._3RD_AGE_WAND, WeaponStyle.MAGIC);
