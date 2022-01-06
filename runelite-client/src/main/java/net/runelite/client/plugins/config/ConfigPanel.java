@@ -1177,12 +1177,13 @@ class ConfigPanel extends PluginPanel
 	}
 
 	@Subscribe
-	private void onConfigChanged(ConfigChanged event){
-		if(pluginConfig.getConfigDescriptor() == null)
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (pluginConfig.getConfigDescriptor() == null)
 		{
 			return;
 		}
-		if(pluginConfig.getConfigDescriptor().getGroup().value().equals(event.getGroup()))
+		if (pluginConfig.getConfigDescriptor().getGroup().value().equals(event.getGroup()))
 		{
 			SwingUtilities.invokeLater(this::rebuild);
 		}
