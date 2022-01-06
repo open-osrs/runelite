@@ -19,41 +19,14 @@ public abstract class RSNPCCompositionMixin implements RSNPCComposition
 	@Override
 	public HeadIcon getOverheadIcon()
 	{
-		switch (getRsOverheadIcon())
+		int overheadIcon = getRsOverheadIcon();
+
+		if (overheadIcon == -1)
 		{
-			case 0:
-				return HeadIcon.MELEE;
-			case 1:
-				return HeadIcon.RANGED;
-			case 2:
-				return HeadIcon.MAGIC;
-			case 3:
-				return HeadIcon.RETRIBUTION;
-			case 4:
-				return HeadIcon.SMITE;
-			case 5:
-				return HeadIcon.REDEMPTION;
-			case 6:
-				return HeadIcon.RANGE_MAGE;
-			case 7:
-				return HeadIcon.RANGE_MELEE;
-			case 8:
-				return HeadIcon.MAGE_MELEE;
-			case 9:
-				return HeadIcon.RANGE_MAGE_MELEE;
-			case 10:
-				return HeadIcon.WRATH;
-			case 11:
-				return HeadIcon.SOUL_SPLIT;
-			case 12:
-				return HeadIcon.DEFLECT_MELEE;
-			case 13:
-				return HeadIcon.DEFLECT_RANGE;
-			case 14:
-				return HeadIcon.DEFLECT_MAGE;
-			default:
-				return null;
+			return null;
 		}
+
+		return HeadIcon.values()[overheadIcon];
 	}
 
 	@FieldHook("actions")
