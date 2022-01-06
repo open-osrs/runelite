@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2018, Lotto <https://github.com/devLotto>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,40 +22,40 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.account;
+package net.runelite.client.plugins.feed;
 
 import com.google.gson.JsonParseException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.UUID;
-import lombok.RequiredArgsConstructor;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.feed.FeedResult;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 @Slf4j
-@RequiredArgsConstructor
-public class AccountClient
+public class FeedClient
 {
 	private final OkHttpClient client;
-	private UUID uuid;
+	private final HttpUrl apiBase;
 
-	public void setUuid(UUID uuid)
+	@Inject
+	private FeedClient(OkHttpClient client, @Named("runelite.api.base") HttpUrl apiBase)
 	{
-		this.uuid = uuid;
+		this.client = client;
+		this.apiBase = apiBase;
 	}
 
-	public OAuthResponse login() throws IOException
+	public FeedResult lookupFeed() throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("account")
-			.addPathSegment("login")
-			.addQueryParameter("uuid", uuid.toString())
+		HttpUrl url = apiBase.newBuilder()
+			.addPathSegment("feed.js")
 			.build();
 
 		log.debug("Built URI: {}", url);
@@ -66,57 +66,18 @@ public class AccountClient
 
 		try (Response response = client.newCall(request).execute())
 		{
+			if (!response.isSuccessful())
+			{
+				log.debug("Error looking up feed: {}", response);
+				return null;
+			}
+
 			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), OAuthResponse.class);
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), FeedResult.class);
 		}
 		catch (JsonParseException ex)
 		{
 			throw new IOException(ex);
-		}
-	}
-
-	public void logout() throws IOException
-	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("account")
-			.addPathSegment("logout")
-			.build();
-
-		log.debug("Built URI: {}", url);
-
-		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.url(url)
-			.build();
-
-		try (Response response = client.newCall(request).execute())
-		{
-			log.debug("Sent logout request");
-		}
-	}
-
-	public boolean sessionCheck()
-	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("account")
-			.addPathSegment("session-check")
-			.build();
-
-		log.debug("Built URI: {}", url);
-
-		Request request = new Request.Builder()
-			.header(RuneLiteAPI.RUNELITE_AUTH, uuid.toString())
-			.url(url)
-			.build();
-
-		try (Response response = client.newCall(request).execute())
-		{
-			return response.isSuccessful();
-		}
-		catch (IOException ex)
-		{
-			log.debug("Unable to verify session", ex);
-			return true; // assume it is still valid if the server is unreachable
 		}
 	}
 }

@@ -31,7 +31,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import static net.runelite.http.api.RuneLiteAPI.JSON;
@@ -44,25 +45,30 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 @Slf4j
-@AllArgsConstructor
 public class XteaClient
 {
 	private final OkHttpClient client;
+	private final HttpUrl apiBase;
+
+	@Inject
+	public XteaClient(OkHttpClient client, @Named("runelite.api.base") HttpUrl apiBase)
+	{
+		this.client = client;
+		this.apiBase = apiBase;
+	}
 
 	public void submit(XteaRequest xteaRequest)
 	{
-		String json = RuneLiteAPI.GSON.toJson(xteaRequest);
-
-		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
-			.addPathSegment("xtea")
-			.build();
+		HttpUrl url = apiBase.newBuilder()
+				.addPathSegment("xtea")
+				.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-			.post(RequestBody.create(JSON, json))
-			.url(url)
-			.build();
+				.post(RequestBody.create(JSON, RuneLiteAPI.GSON.toJson(xteaRequest)))
+				.url(url)
+				.build();
 
 		client.newCall(request).enqueue(new Callback()
 		{
@@ -75,7 +81,7 @@ public class XteaClient
 			@Override
 			public void onResponse(Call call, Response response)
 			{
-				try
+				try // NOPMD: UseTryWithResources
 				{
 					if (!response.isSuccessful())
 					{
@@ -92,13 +98,13 @@ public class XteaClient
 
 	public List<XteaKey> get() throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
-			.addPathSegment("xtea")
-			.build();
+		HttpUrl url = apiBase.newBuilder()
+				.addPathSegment("xtea")
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
@@ -115,14 +121,14 @@ public class XteaClient
 
 	public XteaKey get(int region) throws IOException
 	{
-		HttpUrl url = RuneLiteAPI.getXteaBase().newBuilder()
-			.addPathSegment("xtea")
-			.addPathSegment(Integer.toString(region))
-			.build();
+		HttpUrl url = apiBase.newBuilder()
+				.addPathSegment("xtea")
+				.addPathSegment(Integer.toString(region))
+				.build();
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
 		try (Response response = client.newCall(request).execute())
 		{

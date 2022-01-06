@@ -31,7 +31,13 @@ import net.runelite.api.HeadIcon;
 import net.runelite.api.Model;
 import net.runelite.api.Perspective;
 import net.runelite.api.SkullIcon;
-import static net.runelite.api.SkullIcon.*;
+import static net.runelite.api.SkullIcon.DEAD_MAN_FIVE;
+import static net.runelite.api.SkullIcon.DEAD_MAN_FOUR;
+import static net.runelite.api.SkullIcon.DEAD_MAN_ONE;
+import static net.runelite.api.SkullIcon.DEAD_MAN_THREE;
+import static net.runelite.api.SkullIcon.DEAD_MAN_TWO;
+import static net.runelite.api.SkullIcon.SKULL;
+import static net.runelite.api.SkullIcon.SKULL_FIGHT_PIT;
 import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.events.OverheadPrayerChanged;
 import net.runelite.api.events.PlayerChanged;
@@ -269,7 +275,7 @@ public abstract class RSPlayerMixin implements RSPlayer
 	{
 		client.getCallbacks().post(new PlayerChanged(this));
 	}
-	
+
 	@Copy("read")
 	@Replace("read")
 	@SuppressWarnings("InfiniteRecursion")

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2020, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.item;
+package net.runelite.client.game;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
@@ -32,7 +32,8 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
-import lombok.AllArgsConstructor;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
 import okhttp3.HttpUrl;
@@ -41,67 +42,42 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Slf4j
-@AllArgsConstructor
-public class ItemClient
+public class NpcInfoClient
 {
 	private final OkHttpClient client;
+	private final HttpUrl staticBase;
 
-	public ItemPrice[] getPrices() throws IOException
+	@Inject
+	private NpcInfoClient(OkHttpClient client, @Named("runelite.static.base") HttpUrl staticBase)
 	{
-		HttpUrl.Builder urlBuilder = RuneLiteAPI.getApiBase().newBuilder()
-				.addPathSegment("item")
-				.addPathSegment("prices.js");
-
-		HttpUrl url = urlBuilder.build();
-
-		log.debug("Built URI: {}", url);
-
-		Request request = new Request.Builder()
-				.url(url)
-				.build();
-
-		try (Response response = client.newCall(request).execute())
-		{
-			if (!response.isSuccessful())
-			{
-				log.warn("Error looking up prices: {}", response);
-				return null;
-			}
-
-			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), ItemPrice[].class);
-		}
-		catch (JsonParseException ex)
-		{
-			throw new IOException(ex);
-		}
+		this.client = client;
+		this.staticBase = staticBase;
 	}
 
-	public Map<Integer, ItemStats> getStats() throws IOException
+	public Map<Integer, NpcInfo> getNpcs() throws IOException
 	{
-		HttpUrl.Builder urlBuilder = RuneLiteAPI.getStaticBase().newBuilder()
-				.addPathSegment("item")
-				// TODO: Change this to stats.min.json later after release is undeployed
-				.addPathSegment("stats.ids.min.json");
+		HttpUrl.Builder urlBuilder = staticBase.newBuilder()
+			.addPathSegment("npcs")
+			.addPathSegment("npcs.min.json");
 
 		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-				.url(url)
-				.build();
+			.url(url)
+			.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
 			if (!response.isSuccessful())
 			{
-				log.warn("Error looking up item stats: {}", response);
+				log.warn("Error looking up npcs: {}", response);
 				return null;
 			}
 
 			InputStream in = response.body().byteStream();
-			final Type typeToken = new TypeToken<Map<Integer, ItemStats>>()
+			final Type typeToken = new TypeToken<Map<Integer, NpcInfo>>()
 			{
 			}.getType();
 			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), typeToken);

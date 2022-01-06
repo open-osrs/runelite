@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Adam <Adam@sigterm.info>
+ * Copyright (c) 2021 Hydrox6 <ikada@protonmail.ch>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,54 +22,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.xp;
+package net.runelite.client.plugins.roofremoval;
 
-import java.io.IOException;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.http.api.RuneLiteAPI;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import lombok.Getter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
-@Slf4j
-public class XpClient
+@Getter
+enum RoofRemovalConfigOverride
 {
-	private final OkHttpClient client;
+	POH(RoofRemovalConfig::overridePOH, 7257, 7513, 7514, 7769, 7770, 8025, 8026);
 
-	public XpClient(OkHttpClient client)
+	private final Predicate<RoofRemovalConfig> enabled;
+	private final List<Integer> regions;
+
+	RoofRemovalConfigOverride(Predicate<RoofRemovalConfig> enabled, Integer... regions)
 	{
-		this.client = client;
-	}
-
-	public void update(String username)
-	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("xp")
-			.addPathSegment("update")
-			.addQueryParameter("username", username)
-			.build();
-
-		Request request = new Request.Builder()
-			.url(url)
-			.build();
-
-		client.newCall(request).enqueue(new Callback()
-		{
-			@Override
-			public void onFailure(Call call, IOException e)
-			{
-				log.warn("Error submitting xp track", e);
-			}
-
-			@Override
-			public void onResponse(Call call, Response response)
-			{
-				response.close();
-				log.debug("Submitted xp track for {}", username);
-			}
-		});
+		this.enabled = enabled;
+		this.regions = Arrays.asList(regions);
 	}
 }

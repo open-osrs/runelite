@@ -114,8 +114,6 @@ import net.runelite.http.api.loottracker.GameItem;
 import net.runelite.http.api.loottracker.LootAggregate;
 import net.runelite.http.api.loottracker.LootRecord;
 import net.runelite.http.api.loottracker.LootRecordType;
-import net.runelite.http.api.loottracker.LootTrackerClient;
-import okhttp3.OkHttpClient;
 import org.apache.commons.text.WordUtils;
 
 @PluginDescriptor(
@@ -341,12 +339,6 @@ public class LootTrackerPlugin extends Plugin
 	}
 
 	@Provides
-	LootTrackerClient provideLootTrackerClient(OkHttpClient okHttpClient)
-	{
-		return new LootTrackerClient(okHttpClient);
-	}
-
-	@Provides
 	LootTrackerConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(LootTrackerConfig.class);
@@ -495,7 +487,7 @@ public class LootTrackerPlugin extends Plugin
 
 	private Integer getLootWorldId()
 	{
-		// For the wiki to determine drop rates based on dmm brackets
+		// For the wiki to determine drop rates based on dmm brackets / identify leagues drops
 		return client.getWorldType().contains(WorldType.SEASONAL) ? client.getWorld() : null;
 	}
 

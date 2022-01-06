@@ -1,10 +1,6 @@
 package net.runelite.mixins;
 
 import net.runelite.api.HeadIcon;
-import static net.runelite.api.HeadIcon.MAGIC;
-import static net.runelite.api.HeadIcon.MELEE;
-import static net.runelite.api.HeadIcon.RANGED;
-import static net.runelite.api.HeadIcon.RANGE_MAGE;
 import net.runelite.api.events.NpcActionChanged;
 import net.runelite.api.mixins.FieldHook;
 import net.runelite.api.mixins.Inject;
@@ -23,19 +19,14 @@ public abstract class RSNPCCompositionMixin implements RSNPCComposition
 	@Override
 	public HeadIcon getOverheadIcon()
 	{
-		switch (getRsOverheadIcon())
+		int overheadIcon = getRsOverheadIcon();
+
+		if (overheadIcon == -1)
 		{
-			case 0:
-				return MELEE;
-			case 1:
-				return RANGED;
-			case 2:
-				return MAGIC;
-			case 6:
-				return RANGE_MAGE;
-			default:
-				return null;
+			return null;
 		}
+
+		return HeadIcon.values()[overheadIcon];
 	}
 
 	@FieldHook("actions")

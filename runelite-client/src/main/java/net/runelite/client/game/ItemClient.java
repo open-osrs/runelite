@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Lotto <https://github.com/devLotto>
+ * Copyright (c) 2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,49 +22,103 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.http.api.feed;
+package net.runelite.client.game;
 
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
-import lombok.RequiredArgsConstructor;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.http.api.RuneLiteAPI;
+import net.runelite.http.api.item.ItemPrice;
+import net.runelite.http.api.item.ItemStats;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 @Slf4j
-@RequiredArgsConstructor
-public class FeedClient
+public class ItemClient
 {
 	private final OkHttpClient client;
+	private final HttpUrl apiBase, staticBase;
 
-	public FeedResult lookupFeed() throws IOException
+	@Inject
+	private ItemClient(OkHttpClient client,
+		@Named("runelite.api.base") HttpUrl apiBase,
+		@Named("runelite.static.base") HttpUrl staticBase
+	)
 	{
-		HttpUrl url = RuneLiteAPI.getApiBase().newBuilder()
-			.addPathSegment("feed.js")
-			.build();
+		this.client = client;
+		this.apiBase = apiBase;
+		this.staticBase = staticBase;
+	}
+
+	public ItemPrice[] getPrices() throws IOException
+	{
+		HttpUrl.Builder urlBuilder = apiBase.newBuilder()
+			.addPathSegment("item")
+			.addPathSegment("prices.js");
+
+		HttpUrl url = urlBuilder.build();
 
 		log.debug("Built URI: {}", url);
 
 		Request request = new Request.Builder()
-			.url(url)
-			.build();
+				.url(url)
+				.build();
 
 		try (Response response = client.newCall(request).execute())
 		{
 			if (!response.isSuccessful())
 			{
-				log.debug("Error looking up feed: {}", response);
+				log.warn("Error looking up prices: {}", response);
 				return null;
 			}
 
 			InputStream in = response.body().byteStream();
-			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), FeedResult.class);
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), ItemPrice[].class);
+		}
+		catch (JsonParseException ex)
+		{
+			throw new IOException(ex);
+		}
+	}
+
+	public Map<Integer, ItemStats> getStats() throws IOException
+	{
+		HttpUrl.Builder urlBuilder = staticBase.newBuilder()
+				.addPathSegment("item")
+				// TODO: Change this to stats.min.json later after release is undeployed
+				.addPathSegment("stats.ids.min.json");
+
+		HttpUrl url = urlBuilder.build();
+
+		log.debug("Built URI: {}", url);
+
+		Request request = new Request.Builder()
+				.url(url)
+				.build();
+
+		try (Response response = client.newCall(request).execute())
+		{
+			if (!response.isSuccessful())
+			{
+				log.warn("Error looking up item stats: {}", response);
+				return null;
+			}
+
+			InputStream in = response.body().byteStream();
+			final Type typeToken = new TypeToken<Map<Integer, ItemStats>>()
+			{
+			}.getType();
+			return RuneLiteAPI.GSON.fromJson(new InputStreamReader(in, StandardCharsets.UTF_8), typeToken);
 		}
 		catch (JsonParseException ex)
 		{

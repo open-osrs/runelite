@@ -51,17 +51,12 @@ public class RuneLiteAPI
 	public static final String RUNELITE_AUTH = "RUNELITE-AUTH";
 	public static final String RUNELITE_MACHINEID = "RUNELITE-MACHINEID";
 
-	public static final OkHttpClient CLIENT;
+	public static OkHttpClient CLIENT;
 	public static final Gson GSON;
 	public static final MediaType JSON = MediaType.parse("application/json");
 	public static String userAgent;
 
 	private static final String BASE = "https://api.runelite.net";
-	private static final String WSBASE = "https://api.runelite.net/ws";
-	private static final String STATICBASE = "https://static.runelite.net";
-
-	private static final String OPENOSRS_SESSION = "https://session.openosrs.dev";
-	private static final String OPENOSRS_XTEA = "https://xtea.openosrs.dev";
 
 	private static final Properties properties = new Properties();
 	private static String version;
@@ -123,11 +118,6 @@ public class RuneLiteAPI
 		GSON = gsonBuilder.create();
 	}
 
-	public static HttpUrl getSessionBase()
-	{
-		return HttpUrl.parse(OPENOSRS_SESSION);
-	}
-
 	public static HttpUrl getApiBase()
 	{
 		final String prop = System.getProperty("runelite.http-service.url");
@@ -140,43 +130,9 @@ public class RuneLiteAPI
 		return HttpUrl.parse(BASE + "/runelite-" + getVersion());
 	}
 
-	public static HttpUrl getStaticBase()
-	{
-		final String prop = System.getProperty("runelite.static.url");
-
-		if (prop != null && !prop.isEmpty())
-		{
-			return HttpUrl.parse(prop);
-		}
-
-		return HttpUrl.parse(STATICBASE);
-	}
-
-	public static HttpUrl getWsEndpoint()
-	{
-		final String prop = System.getProperty("runelite.ws.url");
-
-		if (prop != null && !prop.isEmpty())
-		{
-			return HttpUrl.parse(prop);
-		}
-
-		return HttpUrl.parse(WSBASE);
-	}
-
-	public static HttpUrl getXteaBase()
-	{
-		return HttpUrl.parse(OPENOSRS_XTEA);
-	}
-
 	public static String getVersion()
 	{
 		return version;
-	}
-
-	public static void setVersion(String version)
-	{
-		RuneLiteAPI.version = version;
 	}
 
 }
