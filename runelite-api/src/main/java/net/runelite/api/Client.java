@@ -1683,6 +1683,13 @@ public interface Client extends GameEngine
 	void setFriendsChatMembersHidden(boolean state);
 
 	/**
+	 * Sets whether or not clan members are hidden.
+	 *
+	 * @param state the new clan chat member hidden state
+	 */
+	void setClanChatMembersHidden(boolean state);
+
+	/**
 	 * Sets whether or not ignored players are hidden.
 	 *
 	 * @param state the new ignored player hidden state
