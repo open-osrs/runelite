@@ -53,7 +53,7 @@ public abstract class RSClanSettingsMixin implements RSClanSettings
 
 		for (int i = 0; i < memberCount; i++)
 		{
-			memberList.add(new ClanMember(memberNames[i], client.getClanRankFromRs(memberRanks[i])));
+			// memberList.add(new ClanMember(memberNames[i], client.getClanRankFromRs(memberRanks[i])));
 		}
 
 		return memberList;
@@ -82,7 +82,7 @@ public abstract class RSClanSettingsMixin implements RSClanSettings
 			}
 			else if (compare == 0)
 			{
-				return new ClanMember(memberName, client.getClanRankFromRs(memberRanks[tag]));
+				// return new ClanMember(memberName, client.getClanRankFromRs(memberRanks[tag]));
 			}
 			else
 			{
