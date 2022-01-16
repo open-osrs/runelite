@@ -39,8 +39,10 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.runelite.api.Actor;
 import net.runelite.api.Animation;
 import net.runelite.api.ChatMessageType;
+import net.runelite.api.Deque;
 import net.runelite.api.EnumComposition;
 import net.runelite.api.FriendContainer;
 import net.runelite.api.GameState;
@@ -70,7 +72,6 @@ import net.runelite.api.Model;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.NameableContainer;
-import net.runelite.api.Node;
 import net.runelite.api.NodeCache;
 import net.runelite.api.ObjectComposition;
 import net.runelite.api.Perspective;
@@ -158,6 +159,8 @@ import net.runelite.rs.api.RSNodeDeque;
 import net.runelite.rs.api.RSNodeHashTable;
 import net.runelite.rs.api.RSPacketBuffer;
 import net.runelite.rs.api.RSPlayer;
+import net.runelite.rs.api.RSProjectile;
+import net.runelite.rs.api.RSRuneLiteClanMember;
 import net.runelite.rs.api.RSRuneLiteMenuEntry;
 import net.runelite.rs.api.RSScene;
 import net.runelite.rs.api.RSScriptEvent;
@@ -1046,34 +1049,36 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public List<Projectile> getProjectiles()
+	public Projectile createProjectile(int id, int plane, int startX, int startY, int startZ, int startCycle, int endCycle, int slope, int startHeight, int endHeight, Actor target, int targetX, int targetY)
 	{
-		List<Projectile> projectiles = new ArrayList<Projectile>();
-		RSNodeDeque projectileDeque = this.getProjectilesDeque();
-		Node head = projectileDeque.getSentinel();
-
-		for (Node node = head.getNext(); node != head; node = node.getNext())
+		int targetIndex = 0;
+		if (target instanceof NPC)
 		{
-			projectiles.add((Projectile) node);
+			targetIndex = ((NPC)target).getIndex() + 1;
+		}
+		else if (target instanceof Player)
+		{
+			targetIndex = -(((Player)target).getPlayerId() + 1);
 		}
 
-		return projectiles;
+		RSProjectile projectile = client.newProjectile(id, plane, startX, startY, startZ, startCycle, endCycle, slope, startHeight, targetIndex, endHeight);
+		projectile.setDestination(targetX, targetY, Perspective.getTileHeight(client, new LocalPoint(targetX, targetY), client.getPlane()), startCycle + client.getGameCycle());
+
+		return projectile;
 	}
 
 	@Inject
 	@Override
-	public List<GraphicsObject> getGraphicsObjects()
+	public Deque<Projectile> getProjectiles()
 	{
-		List<GraphicsObject> graphicsObjects = new ArrayList<GraphicsObject>();
-		RSNodeDeque graphicsObjectDeque = this.getGraphicsObjectDeque();
-		Node head = graphicsObjectDeque.getSentinel();
+		return this.getProjectilesDeque();
+	}
 
-		for (Node node = head.getNext(); node != head; node = node.getNext())
-		{
-			graphicsObjects.add((GraphicsObject) node);
-		}
-
-		return graphicsObjects;
+	@Inject
+	@Override
+	public Deque<GraphicsObject> getGraphicsObjects()
+	{
+		return this.getGraphicsObjectDeque();
 	}
 
 	@Inject
@@ -1446,6 +1451,12 @@ public abstract class RSClientMixin implements RSClient
 
 			oldIsResized = isResized;
 		}
+	}
+
+	@Inject
+	public static RSRuneLiteClanMember runeLiteClanMember()
+	{
+		throw new NotImplementedException();
 	}
 
 	@FieldHook("friendsChat")

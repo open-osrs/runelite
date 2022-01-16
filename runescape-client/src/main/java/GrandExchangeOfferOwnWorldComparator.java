@@ -358,7 +358,7 @@ public class GrandExchangeOfferOwnWorldComparator implements Comparator {
 				if ((var5 & 2) != 0) {
 					var15.spotAnimation = var1.method7403();
 					var6 = var1.method7412();
-					var15.field1131 = var6 >> 16;
+					var15.spotAnimationHeight = var6 >> 16;
 					var15.field1130 = (var6 & 65535) + Client.cycle;
 					var15.spotAnimationFrame = 0;
 					var15.spotAnimationFrameCycle = 0;

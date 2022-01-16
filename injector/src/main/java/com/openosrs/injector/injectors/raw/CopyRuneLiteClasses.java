@@ -35,11 +35,12 @@ import org.objectweb.asm.Opcodes;
 public class CopyRuneLiteClasses extends AbstractInjector
 {
 	private static final List<String> RUNELITE_OBJECTS = List.of(
-		"RuneLiteObject",
+		"RuneLiteClanMember",
 		"RuneLiteIterableLinkDeque",
 		"RuneLiteIterableNodeDeque",
 		"RuneLiteIterableNodeHashTable",
-		"RuneLiteMenuEntry"
+		"RuneLiteMenuEntry",
+		"RuneLiteObject"
 	);
 
 	public CopyRuneLiteClasses(InjectData inject)
