@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, ThatGamerBlue <thatgamerblue@gmail.com>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,34 +22,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.rs.api;
+package net.runelite.mixins;
 
-import net.runelite.api.Deque;
-import net.runelite.mapping.Import;
+import net.runelite.api.mixins.Inject;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.rs.api.RSNode;
+import net.runelite.rs.api.RSNodeDeque;
 
-public interface RSNodeDeque extends Deque
+@Mixin(RSNodeDeque.class)
+public abstract class RSNodeDequeMixin implements RSNodeDeque
 {
-	@Import("current")
-	RSNode getCurrent();
+	@Inject
+	@Override
+	public void addLast(Object o)
+	{
+		RSNode var1 = (RSNode) o;
 
-	@Import("sentinel")
-	RSNode getSentinel();
+		if (var1.getNext() != null)
+		{
+			var1.unlink();
+		}
 
-	@Import("last")
-	RSNode last();
-
-	@Import("previous")
-	RSNode previous();
-
-	@Import("addFirst")
-	void addFirst(RSNode val);
-
-	@Import("addLast")
-	void addLast(RSNode val);
-
-	@Import("removeLast")
-	RSNode removeLast();
-
-	@Import("clear")
-	void clear();
+		var1.setNext(this.getSentinel());
+		var1.setPrevious(this.getSentinel().getPrevious());
+		var1.getNext().setPrevious(var1);
+		var1.getPrevious().setNext(var1);
+	}
 }

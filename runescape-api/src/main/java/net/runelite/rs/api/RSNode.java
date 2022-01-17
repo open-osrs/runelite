@@ -33,13 +33,19 @@ public interface RSNode extends Node
 	@Override
 	RSNode getNext();
 
-	@Import("key")
-	@Override
-	long getHash();
+	@Import("previous")
+	void setNext(RSNode var1);
 
 	@Import("next")
 	@Override
 	RSNode getPrevious();
+
+	@Import("next")
+	void setPrevious(RSNode var1);
+
+	@Import("key")
+	@Override
+	long getHash();
 
 	@Import("remove")
 	void unlink();
