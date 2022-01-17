@@ -257,6 +257,14 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("graphicsObjects")
 	RSNodeDeque getGraphicsObjectDeque();
 
+	@Import("worldSelectOpen")
+	@Override
+	boolean isWorldSelectOpen();
+
+	@Import("worldSelectOpen")
+	@Override
+	void setWorldSelectOpen(boolean open);
+
 	@Import("Login_username")
 	@Override
 	String getUsername();
