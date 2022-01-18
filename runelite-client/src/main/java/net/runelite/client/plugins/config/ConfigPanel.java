@@ -292,7 +292,6 @@ class ConfigPanel extends PluginPanel
 
 	private void rebuild(boolean refresh)
 	{
-		log.info("Rebuilding plugin config panel, restoring scroll state: {}", refresh);
 		int scrollBarPosition = scrollPane.getVerticalScrollBar().getValue();
 
 		mainPanel.removeAll();
