@@ -33,7 +33,6 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -174,11 +173,13 @@ class ConfigPanel extends PluginPanel
 
 	private final ListCellRenderer<Enum<?>> listCellRenderer = new ComboBoxListRenderer<>();
 
+	private final JScrollPane scrollPane;
 	private final FixedWidthPanel mainPanel;
 	private final JLabel title;
 	private final PluginToggleButton pluginToggle;
 
 	private PluginConfigurationDescriptor pluginConfig = null;
+	private boolean skipRebuild;
 
 
 	@Inject
@@ -213,7 +214,7 @@ class ConfigPanel extends PluginPanel
 		northPanel.setLayout(new BorderLayout());
 		northPanel.add(mainPanel, BorderLayout.NORTH);
 
-		JScrollPane scrollPane = new JScrollPane(northPanel);
+		scrollPane = new JScrollPane(northPanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scrollPane, BorderLayout.CENTER);
 
@@ -275,7 +276,7 @@ class ConfigPanel extends PluginPanel
 			pluginToggle.setVisible(false);
 		}
 
-		rebuild();
+		rebuild(false);
 	}
 
 	private void toggleSection(ConfigSectionDescriptor csd, JButton button, JPanel contents)
@@ -289,8 +290,11 @@ class ConfigPanel extends PluginPanel
 		SwingUtilities.invokeLater(contents::revalidate);
 	}
 
-	private void rebuild()
+	private void rebuild(boolean refresh)
 	{
+		log.info("Rebuilding plugin config panel, restoring scroll state: {}", refresh);
+		int scrollBarPosition = scrollPane.getVerticalScrollBar().getValue();
+
 		mainPanel.removeAll();
 
 		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
@@ -460,7 +464,7 @@ class ConfigPanel extends PluginPanel
 
 		for (ConfigItemDescriptor cid : cd.getItems())
 		{
-			if (!hideUnhide(cid))
+			if (!shouldBeHidden(cid))
 			{
 				continue;
 			}
@@ -582,7 +586,7 @@ class ConfigPanel extends PluginPanel
 					plugin.resetConfiguration();
 				}
 
-				rebuild();
+				rebuild(false);
 			}
 		});
 		mainPanel.add(resetButton);
@@ -590,6 +594,15 @@ class ConfigPanel extends PluginPanel
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(e -> pluginList.getMuxer().popState());
 		mainPanel.add(backButton);
+
+		if (refresh)
+		{
+			scrollPane.getVerticalScrollBar().setValue(scrollBarPosition);
+		}
+		else
+		{
+			scrollPane.getVerticalScrollBar().setValue(0);
+		}
 
 		revalidate();
 	}
@@ -1095,10 +1108,12 @@ class ConfigPanel extends PluginPanel
 
 			if (result != JOptionPane.YES_OPTION)
 			{
-				rebuild();
+				rebuild(false);
 				return;
 			}
 		}
+
+		skipRebuild = true;
 
 		if (component instanceof JCheckBox)
 		{
@@ -1143,8 +1158,10 @@ class ConfigPanel extends PluginPanel
 			configManager.setConfiguration(cd.getGroup().value(), cid.getItem().keyName(), Sets.newHashSet(selectedValues));
 		}
 
-		enableDisable(component, cid);
-		rebuild();
+		if (enableDisable(component, cid)  || hideUnhide(component, cd, cid))
+		{
+			rebuild(true);
+		}
 	}
 
 	@Override
@@ -1173,7 +1190,7 @@ class ConfigPanel extends PluginPanel
 		{
 			pluginList.getMuxer().popState();
 		}
-		SwingUtilities.invokeLater(this::rebuild);
+		SwingUtilities.invokeLater(() -> rebuild(false));
 	}
 
 	@Subscribe
@@ -1183,10 +1200,13 @@ class ConfigPanel extends PluginPanel
 		{
 			return;
 		}
-		if (pluginConfig.getConfigDescriptor().getGroup().value().equals(event.getGroup()))
+
+		if (!skipRebuild && pluginConfig.getConfigDescriptor().getGroup().value().equals(event.getGroup()))
 		{
-			SwingUtilities.invokeLater(this::rebuild);
+			SwingUtilities.invokeLater(() -> rebuild(true));
 		}
+
+		skipRebuild = false;
 	}
 
 	private JMenuItem createResetMenuItem(PluginConfigurationDescriptor pluginConfig, ConfigItemDescriptor configItemDescriptor)
@@ -1202,12 +1222,127 @@ class ConfigPanel extends PluginPanel
 			configManager.unsetConfiguration(configGroup.value(), configItem.keyName());
 			configManager.setDefaultConfiguration(pluginConfig.getConfig(), false);
 
-			rebuild();
+			rebuild(false);
 		});
 		return menuItem;
 	}
 
-	private boolean hideUnhide(ConfigItemDescriptor cid)
+	private boolean hideUnhide(Component component, ConfigDescriptor cd, ConfigItemDescriptor cid)
+	{
+		boolean rebuild = false;
+
+		if (component instanceof JCheckBox)
+		{
+			JCheckBox checkbox = (JCheckBox) component;
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				if (cid2.getItem().hidden() || !cid2.getItem().hide().isEmpty())
+				{
+					List<String> itemHide = Splitter
+						.onPattern("\\|\\|")
+						.trimResults()
+						.omitEmptyStrings()
+						.splitToList(String.format("%s || %s", cid2.getItem().unhide(), cid2.getItem().hide()));
+
+					if (itemHide.contains(cid.getItem().keyName()))
+					{
+						rebuild = true;
+					}
+				}
+
+				if (checkbox.isSelected())
+				{
+					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()))
+					{
+						skipRebuild = true;
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+						rebuild = true;
+					}
+					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()))
+					{
+						skipRebuild = true;
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+						rebuild = true;
+					}
+				}
+			}
+		}
+		else if (component instanceof JComboBox)
+		{
+			JComboBox jComboBox = (JComboBox) component;
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				if (cid2.getItem().hidden() || !cid2.getItem().hide().isEmpty())
+				{
+					List<String> itemHide = Splitter
+						.onPattern("\\|\\|")
+						.trimResults()
+						.omitEmptyStrings()
+						.splitToList(String.format("%s || %s", cid2.getItem().unhide(), cid2.getItem().hide()));
+
+					String changedVal = ((Enum) jComboBox.getSelectedItem()).name();
+
+					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
+					{
+						skipRebuild = true;
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+						rebuild = true;
+					}
+					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()) && cid2.getItem().disabledByValue().equals(changedVal))
+					{
+						skipRebuild = true;
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+						rebuild = true;
+					}
+					else if (itemHide.contains(cid.getItem().keyName()))
+					{
+						rebuild = true;
+					}
+				}
+			}
+		}
+		else if (component instanceof JList)
+		{
+			JList jList = (JList) component;
+
+			for (ConfigItemDescriptor cid2 : cd.getItems())
+			{
+				if (cid2.getItem().hidden() || !cid2.getItem().hide().isEmpty())
+				{
+					List<String> itemHide = Splitter
+						.onPattern("\\|\\|")
+						.trimResults()
+						.omitEmptyStrings()
+						.splitToList(String.format("%s || %s", cid2.getItem().unhide(), cid2.getItem().hide()));
+
+					String changedVal = String.valueOf((jList.getSelectedValues()));
+
+					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
+					{
+						skipRebuild = true;
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+						rebuild = true;
+					}
+					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()) && cid2.getItem().disabledByValue().equals(changedVal))
+					{
+						skipRebuild = true;
+						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+						rebuild = true;
+					}
+					else if (itemHide.contains(cid.getItem().keyName()))
+					{
+						rebuild = true;
+					}
+				}
+			}
+		}
+
+		return rebuild;
+	}
+
+	private boolean shouldBeHidden(ConfigItemDescriptor cid)
 	{
 		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
 
@@ -1272,8 +1407,10 @@ class ConfigPanel extends PluginPanel
 		return true;
 	}
 
-	private void enableDisable(Component component, ConfigItemDescriptor cid)
+	private boolean enableDisable(Component component, ConfigItemDescriptor cid)
 	{
+		boolean rebuild = false;
+
 		ConfigDescriptor cd = pluginConfig.getConfigDescriptor();
 
 		if (component instanceof JCheckBox)
@@ -1286,11 +1423,15 @@ class ConfigPanel extends PluginPanel
 				{
 					if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()))
 					{
+						skipRebuild = true;
 						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+						rebuild = true;
 					}
 					else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()))
 					{
+						skipRebuild = true;
 						configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+						rebuild = true;
 					}
 				}
 			}
@@ -1305,46 +1446,24 @@ class ConfigPanel extends PluginPanel
 
 				if (cid2.getItem().enabledBy().contains(cid.getItem().keyName()) && cid2.getItem().enabledByValue().equals(changedVal))
 				{
+					skipRebuild = true;
 					configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "true");
+					rebuild = true;
 				}
 				else if (cid2.getItem().disabledBy().contains(cid.getItem().keyName()) && cid2.getItem().disabledByValue().equals(changedVal))
 				{
+					skipRebuild = true;
 					configManager.setConfiguration(cd.getGroup().value(), cid2.getItem().keyName(), "false");
+					rebuild = true;
 				}
 			}
 		}
+
+		return rebuild;
 	}
 
 	private static String htmlLabel(String key, String value)
 	{
 		return "<html><body style = 'color:#a5a5a5'>" + key + ": <span style = 'color:white'>" + value + "</span></body></html>";
-	}
-
-	public static Component findComponentByName(Component component, String componentName)
-	{
-		if (component == null)
-		{
-			return null;
-		}
-
-		if (component.getName() != null && component.getName().equalsIgnoreCase(componentName))
-		{
-			return component;
-		}
-
-		if (component instanceof Container)
-		{
-			Component[] children = ((Container) component).getComponents();
-			for (Component child : children)
-			{
-				Component found = findComponentByName(child, componentName);
-				if (found != null)
-				{
-					return found;
-				}
-			}
-		}
-
-		return null;
 	}
 }
