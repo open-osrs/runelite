@@ -112,6 +112,7 @@ import net.runelite.client.config.Range;
 import net.runelite.client.config.Units;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.events.ExternalPluginsChanged;
 import net.runelite.client.events.PluginChanged;
 import net.runelite.client.externalplugins.ExternalPluginManager;
@@ -1173,6 +1174,19 @@ class ConfigPanel extends PluginPanel
 			pluginList.getMuxer().popState();
 		}
 		SwingUtilities.invokeLater(this::rebuild);
+	}
+
+	@Subscribe
+	private void onConfigChanged(ConfigChanged event)
+	{
+		if (pluginConfig.getConfigDescriptor() == null)
+		{
+			return;
+		}
+		if (pluginConfig.getConfigDescriptor().getGroup().value().equals(event.getGroup()))
+		{
+			SwingUtilities.invokeLater(this::rebuild);
+		}
 	}
 
 	private JMenuItem createResetMenuItem(PluginConfigurationDescriptor pluginConfig, ConfigItemDescriptor configItemDescriptor)
