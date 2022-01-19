@@ -69,6 +69,7 @@ import static net.runelite.api.MenuAction.UNKNOWN;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MessageNode;
 import net.runelite.api.Model;
+import net.runelite.api.ModelData;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.NameableContainer;
@@ -145,6 +146,7 @@ import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClanChannel;
 import net.runelite.rs.api.RSClient;
+import net.runelite.rs.api.RSDualNode;
 import net.runelite.rs.api.RSEnumComposition;
 import net.runelite.rs.api.RSEvictingDualNodeHashTable;
 import net.runelite.rs.api.RSFriendSystem;
@@ -291,6 +293,9 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	public long delayNanoTime;
+
+	@Inject
+	public RSEvictingDualNodeHashTable tmpModelDataCache = newEvictingDualNodeHashTable(16);
 
 	@Inject
 	private List<String> outdatedScripts = new ArrayList<>();
@@ -1054,11 +1059,11 @@ public abstract class RSClientMixin implements RSClient
 		int targetIndex = 0;
 		if (target instanceof NPC)
 		{
-			targetIndex = ((NPC)target).getIndex() + 1;
+			targetIndex = ((NPC) target).getIndex() + 1;
 		}
 		else if (target instanceof Player)
 		{
-			targetIndex = -(((Player)target).getPlayerId() + 1);
+			targetIndex = -(((Player) target).getPlayerId() + 1);
 		}
 
 		RSProjectile projectile = client.newProjectile(id, plane, startX, startY, startZ, startCycle, endCycle, slope, startHeight, targetIndex, endHeight);
@@ -2611,7 +2616,7 @@ public abstract class RSClientMixin implements RSClient
 		{
 			for (int i = 0; i < colorToFind.length; ++i)
 			{
-				modeldata.recolor(colorToFind[i], colorToReplace[i]);
+				modeldata.rs$recolor(colorToFind[i], colorToReplace[i]);
 			}
 		}
 
@@ -2790,6 +2795,46 @@ public abstract class RSClientMixin implements RSClient
 		check("Widget_cachedFonts", client.getFontsCache());
 		check("Widget_cachedSpriteMasks", client.getSpriteMasksCache());
 		check("WorldMapElement_cachedSprites", client.getSpritesCache());
+	}
+
+	@Inject
+	@Override
+	public RSModelData mergeModels(ModelData[] var0, int var1)
+	{
+		return newModelData(var0, var1);
+	}
+
+	@Inject
+	@Override
+	public RSModelData mergeModels(ModelData... var0)
+	{
+		return newModelData(var0, var0.length);
+	}
+
+	@Inject
+	public IndexDataBase getIndex(int id)
+	{
+		return RSClientMixin.archives[id];
+	}
+
+	@Inject
+	@Override
+	public RSModelData loadModelData(int var0)
+	{
+		RSModelData modelData = (RSModelData) this.tmpModelDataCache.get(var0);
+
+		if (modelData == null)
+		{
+			modelData = getModelData(RSClientMixin.archives[7], var0, 0);
+			if (modelData == null)
+			{
+				return null;
+			}
+
+			this.tmpModelDataCache.put((RSDualNode) modelData, (long) var0);
+		}
+
+		return modelData.newModelData(modelData, true, true, true, true);
 	}
 }
 

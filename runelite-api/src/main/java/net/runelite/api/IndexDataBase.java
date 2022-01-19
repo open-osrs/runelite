@@ -49,8 +49,6 @@ public interface IndexDataBase
 
 	int[][] getFileIds();
 
-	byte[] getFile(int groupId, int fileId);
-
 	int getGroupFileCount(int groupId);
 
 	int[] getFileCounts();

@@ -197,6 +197,51 @@ public abstract class RSModelMixin implements RSModel
 	}
 
 	@Inject
+	@Override
+	public RSModel rotateY90Ccw()
+	{
+		this.rs$rotateY90Ccw();
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModel rotateY180Ccw()
+	{
+		this.rs$rotateY180Ccw();
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModel rotateY270Ccw()
+	{
+		this.rs$rotateY270Ccw();
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModel scale(int var1, int var2, int var3)
+	{
+		this.rs$scale(var1, var2, var3);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModel translate(int var1, int var2, int var3)
+	{
+		this.rs$translate(var1, var2, var3);
+
+		return this;
+	}
+
+	@Inject
 	public void interpolateFrames(RSFrames frames, int frameId, RSFrames nextFrames, int nextFrameId, int interval, int intervalCount)
 	{
 		if (getVertexGroups() != null)

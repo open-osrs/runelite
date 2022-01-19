@@ -1,29 +1,40 @@
 package net.runelite.rs.api;
 
+import net.runelite.api.ModelData;
+import net.runelite.mapping.Construct;
 import net.runelite.mapping.Import;
 
-public interface RSModelData extends RSRenderable
+public interface RSModelData extends RSRenderable, ModelData
 {
 	@Import("faceCount")
-	int getTriangleFaceCount();
+	int getFaceCount();
 
 	@Import("indices1")
-	int[] getTrianglePointsX();
+	int[] getFaceIndices1();
 
 	@Import("indices2")
-	int[] getTrianglePointsY();
+	int[] getFaceIndices2();
 
 	@Import("indices3")
-	int[] getTrianglePointsZ();
+	int[] getFaceIndices3();
 
 	@Import("verticesX")
-	int[] getVertexX();
+	int[] getVerticesX();
+
+	@Import("verticesX")
+	void setVerticesX(int[] var1);
 
 	@Import("verticesY")
-	int[] getVertexY();
+	int[] getVerticesY();
+
+	@Import("verticesY")
+	void setVerticesY(int[] var1);
 
 	@Import("verticesZ")
-	int[] getVertexZ();
+	int[] getVerticesZ();
+
+	@Import("verticesZ")
+	void setVerticesZ(int[] var1);
 
 	@Import("texTriangleX")
 	short[] getTexTriangleX();
@@ -36,6 +47,21 @@ public interface RSModelData extends RSRenderable
 
 	@Import("faceTextures")
 	short[] getFaceTextures();
+
+	@Import("faceTextures")
+	void setFaceTextures(short[] var1);
+
+	@Import("faceAlphas")
+	byte[] getFaceTransparencies();
+
+	@Import("faceAlphas")
+	void setFaceTransparencies(byte[] var1);
+
+	@Import("faceColors")
+	short[] getFaceColors();
+
+	@Import("faceColors")
+	void setFaceColors(short[] var1);
 
 	@Import("textureCoords")
 	byte[] getTextureCoords();
@@ -53,7 +79,10 @@ public interface RSModelData extends RSRenderable
 	RSVertexNormal[] getVertexVertices();
 
 	@Import("recolor")
-	void recolor(short var1, short var2);
+	void rs$recolor(short var1, short var2);
+
+	@Import("retexture")
+	void rs$retexture(short var1, short var2);
 
 	@Import("toModel")
 	RSModel toModel(int var1, int var2, int var3, int var4, int var5);
@@ -63,4 +92,13 @@ public interface RSModelData extends RSRenderable
 
 	@Import("contrast")
 	short getContrast();
+
+	@Import("invalidate")
+	void invalidate();
+
+	@Import("copyModelData")
+	RSModelData shallowCopy();
+
+	@Construct
+	RSModelData newModelData(ModelData var1, boolean var2, boolean var3, boolean var4, boolean var5);
 }

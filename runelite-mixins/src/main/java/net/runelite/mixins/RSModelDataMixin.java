@@ -24,12 +24,18 @@
  */
 package net.runelite.mixins;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import net.runelite.api.Model;
+import net.runelite.api.ModelData;
 import net.runelite.api.mixins.Copy;
 import net.runelite.api.mixins.Inject;
 import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
+import net.runelite.api.model.Triangle;
+import net.runelite.api.model.Vertex;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSModel;
 import net.runelite.rs.api.RSModelData;
@@ -124,13 +130,13 @@ public abstract class RSModelDataMixin implements RSModelData
 			return;
 		}
 
-		final int[] vertexPositionsX = getVertexX();
-		final int[] vertexPositionsY = getVertexY();
-		final int[] vertexPositionsZ = getVertexZ();
+		final int[] vertexPositionsX = getVerticesX();
+		final int[] vertexPositionsY = getVerticesY();
+		final int[] vertexPositionsZ = getVerticesZ();
 
-		final int[] trianglePointsX = getTrianglePointsX();
-		final int[] trianglePointsY = getTrianglePointsY();
-		final int[] trianglePointsZ = getTrianglePointsZ();
+		final int[] trianglePointsX = getFaceIndices1();
+		final int[] trianglePointsY = getFaceIndices2();
+		final int[] trianglePointsZ = getFaceIndices3();
 
 		final short[] texTriangleX = getTexTriangleX();
 		final short[] texTriangleY = getTexTriangleY();
@@ -138,7 +144,7 @@ public abstract class RSModelDataMixin implements RSModelData
 
 		final byte[] textureCoords = getTextureCoords();
 
-		int faceCount = getTriangleFaceCount();
+		int faceCount = getFaceCount();
 		float[] faceTextureUCoordinates = new float[faceCount * 6];
 
 		for (int i = 0; i < faceCount; i++)
@@ -221,5 +227,216 @@ public abstract class RSModelDataMixin implements RSModelData
 		}
 
 		faceTextureUVCoordinates = faceTextureUCoordinates;
+	}
+
+	@Override
+	@Inject
+	public List<Vertex> getVertices()
+	{
+		int[] verticesX = getVerticesX();
+		int[] verticesY = getVerticesY();
+		int[] verticesZ = getVerticesZ();
+
+		List<Vertex> vertices = new ArrayList<Vertex>(getVerticesCount());
+
+		for (int i = 0; i < getVerticesCount(); ++i)
+		{
+			Vertex v = new Vertex(
+				verticesX[i],
+				verticesY[i],
+				verticesZ[i]
+			);
+			vertices.add(v);
+		}
+
+		return vertices;
+	}
+
+	@Override
+	@Inject
+	public List<Triangle> getTriangles()
+	{
+		int[] trianglesX = getFaceIndices1();
+		int[] trianglesY = getFaceIndices2();
+		int[] trianglesZ = getFaceIndices3();
+
+		List<Vertex> vertices = getVertices();
+		List<Triangle> triangles = new ArrayList<>(getFaceCount());
+
+		for (int i = 0; i < getFaceCount(); ++i)
+		{
+			int triangleX = trianglesX[i];
+			int triangleY = trianglesY[i];
+			int triangleZ = trianglesZ[i];
+
+			Triangle triangle = new Triangle(
+				vertices.get(triangleX),
+				vertices.get(triangleY),
+				vertices.get(triangleZ)
+			);
+			triangles.add(triangle);
+		}
+
+		return triangles;
+	}
+
+	@Inject
+	@Override
+	public RSModel light()
+	{
+		return this.toModel(ModelData.DEFAULT_AMBIENT, ModelData.DEFAULT_CONTRAST, ModelData.DEFAULT_X, ModelData.DEFAULT_Y, ModelData.DEFAULT_Z);
+	}
+
+	@Inject
+	@Override
+	public RSModel light(int var1, int var2, int var3, int var4, int var5)
+	{
+		return this.toModel(var1, var2, var3, var4, var5);
+	}
+
+	@Inject
+	@Override
+	public RSModelData recolor(short colorToReplace, short colorToReplaceWith)
+	{
+		this.rs$recolor(colorToReplace, colorToReplaceWith);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData retexture(short find, short replace)
+	{
+		this.rs$retexture(find, replace);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData cloneVertices()
+	{
+		int[] newVericesX = Arrays.copyOf(this.getVerticesX(), this.getVerticesX().length);
+		int[] newVericesY = Arrays.copyOf(this.getVerticesY(), this.getVerticesX().length);
+		int[] newVericesZ = Arrays.copyOf(this.getVerticesZ(), this.getVerticesX().length);
+
+		this.setVerticesX(newVericesX);
+		this.setVerticesY(newVericesY);
+		this.setVerticesZ(newVericesZ);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData cloneColors()
+	{
+		short[] newFaceColor = Arrays.copyOf(this.getFaceColors(), this.getFaceColors().length);
+		this.setFaceColors(newFaceColor);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData cloneTextures()
+	{
+		short[] newFaceColor = Arrays.copyOf(this.getFaceTextures(), this.getFaceTextures().length);
+		this.setFaceTextures(newFaceColor);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData cloneTransparencies()
+	{
+		byte[] newFaceColor = Arrays.copyOf(this.getFaceTransparencies(), this.getFaceTransparencies().length);
+		this.setFaceTransparencies(newFaceColor);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData rotateY90Ccw()
+	{
+		for (int var1 = 0; var1 < this.getVerticesCount(); ++var1)
+		{
+			int var2 = this.getVerticesX()[var1];
+			this.getVerticesX()[var1] = this.getVerticesZ()[var1];
+			this.getVerticesZ()[var1] = -var2;
+		}
+
+		this.invalidate();
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData rotateY180Ccw()
+	{
+		for (int var1 = 0; var1 < this.getVerticesCount(); ++var1)
+		{
+			this.getVerticesX()[var1] = -this.getVerticesX()[var1];
+			this.getVerticesZ()[var1] = -this.getVerticesZ()[var1];
+		}
+
+		this.invalidate();
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData rotateY270Ccw()
+	{
+		for (int var1 = 0; var1 < this.getVerticesCount(); ++var1)
+		{
+			int var2 = this.getVerticesZ()[var1];
+			this.getVerticesZ()[var1] = this.getVerticesX()[var1];
+			this.getVerticesX()[var1] = -var2;
+		}
+
+		this.invalidate();
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData scale(int var1, int var2, int var3)
+	{
+		for (int i = 0; i < this.getVerticesCount(); ++i)
+		{
+			this.getVerticesX()[i] = this.getVerticesX()[i] * var1 / 128;
+			this.getVerticesY()[i] = this.getVerticesY()[i] * var2 / 128;
+			this.getVerticesZ()[i] = this.getVerticesZ()[i] * var3 / 128;
+		}
+
+		this.invalidate();
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public RSModelData translate(int var1, int var2, int var3)
+	{
+		for (int i = 0; i < this.getVerticesCount(); ++i)
+		{
+			int[] vertexX = this.getVerticesX();
+			int[] vertexY = this.getVerticesY();
+			int[] vertexZ = this.getVerticesZ();
+
+			vertexX[i] += var1;
+			vertexY[i] += var2;
+			vertexZ[i] += var3;
+		}
+
+		this.invalidate();
+
+		return this;
 	}
 }

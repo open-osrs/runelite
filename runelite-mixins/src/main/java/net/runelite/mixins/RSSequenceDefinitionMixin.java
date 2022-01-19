@@ -125,30 +125,30 @@ public abstract class RSSequenceDefinitionMixin implements RSSequenceDefinition
 		rotation &= 3;
 		if (rotation == 1)
 		{
-			animatedModel.rotateY270Ccw();
+			animatedModel.rs$rotateY270Ccw();
 		}
 		else if (rotation == 2)
 		{
-			animatedModel.rotateY180Ccw();
+			animatedModel.rs$rotateY180Ccw();
 		}
 		else if (rotation == 3)
 		{
-			animatedModel.rotateY90Ccw();
+			animatedModel.rs$rotateY90Ccw();
 		}
 		animatedModel.interpolateFrames(frames, frameIdx, nextFrames, nextFrameIdx, interval,
 			getFrameLengths()[frame]);
 		// reapply rotation after animating
 		if (rotation == 1)
 		{
-			animatedModel.rotateY90Ccw();
+			animatedModel.rs$rotateY90Ccw();
 		}
 		else if (rotation == 2)
 		{
-			animatedModel.rotateY180Ccw();
+			animatedModel.rs$rotateY180Ccw();
 		}
 		else if (rotation == 3)
 		{
-			animatedModel.rotateY270Ccw();
+			animatedModel.rs$rotateY270Ccw();
 		}
 		return animatedModel;
 	}
