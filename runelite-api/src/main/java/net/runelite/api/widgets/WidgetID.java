@@ -1247,7 +1247,7 @@ public final class WidgetID
 		static final int ADEPT_REANIMATION = 148;
 		static final int EXPERT_REANIMATION = 149;
 		static final int MASTER_REANIMATION = 150;
-		static final int DRAYNOR_MANOR_TELEPORT = 152;
+		static final int DRAYNOR_MANOR_TELEPORT = 151;
 		static final int MIND_ALTAR_TELEPORT = 153;
 		static final int RESPAWN_TELEPORT = 154;
 		static final int SALVE_GRAVEYARD_TELEPORT = 155;
