@@ -457,6 +457,11 @@ public interface Client extends GameEngine
 	IndexDataBase getIndexConfig();
 
 	/**
+	 * Gets an index by id
+	 */
+	IndexDataBase getIndex(int id);
+
+	/**
 	 * Returns the x-axis base coordinate.
 	 * <p>
 	 * This value is the x-axis world coordinate of tile (0, 0) in
@@ -1131,7 +1136,26 @@ public interface Client extends GameEngine
 	RuneLiteObject createRuneLiteObject();
 
 	/**
-	 * Loads a model from the cache
+	 * Loads an unlit model from the cache. The returned model shares
+	 * data such as faces, face colors, face transparencies, and vertex points with
+	 * other models. If you want to mutate these you MUST call the relevant {@code cloneX}
+	 * method.
+	 *
+	 * @see ModelData#cloneColors()
+	 *
+	 * @param id the ID of the model
+	 * @return the model or null if it is loading or nonexistent
+	 */
+	@Nullable
+	ModelData loadModelData(int id);
+
+	ModelData mergeModels(ModelData[] models, int length);
+	ModelData mergeModels(ModelData ...models);
+
+	/**
+	 * Loads and lights a model from the cache
+	 *
+	 * This is equivalent to {@code loadModelData(id).light()}
 	 *
 	 * @param id the ID of the model
 	 * @return the model or null if it is loading or nonexistent

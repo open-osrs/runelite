@@ -54,4 +54,6 @@ public interface IndexDataBase
 	int getGroupFileCount(int groupId);
 
 	int[] getFileCounts();
+
+	byte[] loadData(int archiveID, int fileID);
 }

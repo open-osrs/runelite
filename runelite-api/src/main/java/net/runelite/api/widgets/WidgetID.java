@@ -185,6 +185,7 @@ public final class WidgetID
 	public static final int GRAVESTONE_GROUP_ID = 672;
 	public static final int POH_TREASURE_CHEST_INVENTORY_GROUP_ID = 674;
 	public static final int GROUP_IRON_GROUP_ID = 726;
+	public static final int GROUP_STORAGE_INVENTORY_GROUP_ID = 725;
 	public static final int GROUP_STORAGE_GROUP_ID = 724;
 
 	static class WorldMap
@@ -841,23 +842,23 @@ public final class WidgetID
 
 	public static class StandardSpellBook
 	{
-		static final int LUMBRIDGE_HOME_TELEPORT = 5;
-		public static final int KOUREND_HOME_TELEPORT = 4;
+		static final int LUMBRIDGE_HOME_TELEPORT = 6;
+		static final int KOUREND_HOME_TELEPORT = 4;
 	}
 
 	static class AncientSpellBook
 	{
-		static final int EDGEVILLE_HOME_TELEPORT = 99;
+		static final int EDGEVILLE_HOME_TELEPORT = 100;
 	}
 
 	static class LunarSpellBook
 	{
-		static final int LUNAR_HOME_TELEPORT = 100;
+		static final int LUNAR_HOME_TELEPORT = 101;
 	}
 
 	static class ArceuusSpellBook
 	{
-		static final int ARCEUUS_HOME_TELEPORT = 144;
+		static final int ARCEUUS_HOME_TELEPORT = 145;
 	}
 
 	static class Pvp

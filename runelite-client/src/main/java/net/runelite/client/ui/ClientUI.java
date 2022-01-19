@@ -168,7 +168,7 @@ public class ClientUI
 		this.clientThreadProvider = clientThreadProvider;
 		this.eventBus = eventBus;
 		this.safeMode = safeMode;
-		this.title = RuneLiteProperties.getTitle();
+		this.title = RuneLiteProperties.getTitle() + (safeMode ? " (safe mode)" : "");
 	}
 
 	@Subscribe
