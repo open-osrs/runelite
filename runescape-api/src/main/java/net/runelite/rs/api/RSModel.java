@@ -110,13 +110,19 @@ public interface RSModel extends RSRenderable, Model
 	RSModel toSharedSpotAnimModel(boolean b);
 
 	@Import("rotateY90Ccw")
-	void rotateY90Ccw();
+	void rs$rotateY90Ccw();
 
 	@Import("rotateY180")
-	void rotateY180Ccw();
+	void rs$rotateY180Ccw();
 
 	@Import("rotateY270Ccw")
-	void rotateY270Ccw();
+	void rs$rotateY270Ccw();
+
+	@Import("scale")
+	void rs$scale(int var1, int var2, int var3);
+
+	@Import("offsetBy")
+	void rs$translate(int var1, int var2, int var3);
 
 	@Import("radius")
 	@Override

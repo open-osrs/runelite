@@ -612,7 +612,7 @@ public class ObjectComposition extends DualNode {
 		}
 
 		if (this.nonFlatShading) {
-			var9 = ((ModelData)var9).method3751();
+			var9 = ((ModelData)var9).copyModelData();
 		}
 
 		if (this.clipType >= 0) {

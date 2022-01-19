@@ -21,10 +21,6 @@ public interface RSAbstractArchive extends IndexDataBase
 	@Override
 	int[][] getFileIds();
 
-	@Import("getFile")
-	@Override
-	byte[] getFile(int groupId, int fileId);
-
 	@Import("getGroupFileCount")
 	@Override
 	int getGroupFileCount(int groupId);
@@ -32,4 +28,8 @@ public interface RSAbstractArchive extends IndexDataBase
 	@Import("fileCounts")
 	@Override
 	int[] getFileCounts();
+
+	@Import("getFile")
+	@Override
+	byte[] loadData(int groupId, int fileId);
 }

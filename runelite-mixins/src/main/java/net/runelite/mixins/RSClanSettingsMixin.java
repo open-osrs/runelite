@@ -47,13 +47,11 @@ public abstract class RSClanSettingsMixin implements RSClanSettings
 	public List<ClanMember> getMembers()
 	{
 		int memberCount = getMemberCount();
-		String[] memberNames = getMemberNames();
-		byte[] memberRanks = getMemberRanks();
 		List<ClanMember> memberList = new ArrayList<>(memberCount);
 
 		for (int i = 0; i < memberCount; i++)
 		{
-			memberList.add(new ClanMember(memberNames[i], client.getClanRankFromRs(memberRanks[i])));
+			memberList.add((ClanMember) client.runeliteClanMember(this, i));
 		}
 
 		return memberList;
@@ -65,7 +63,6 @@ public abstract class RSClanSettingsMixin implements RSClanSettings
 	{
 		name = name.replace(" ", "\u00A0").toLowerCase();
 		String[] memberNames = getMemberNames();
-		byte[] memberRanks = getMemberRanks();
 		int[] sorted = getSortedMembers();
 
 		int i = 0;
@@ -82,7 +79,7 @@ public abstract class RSClanSettingsMixin implements RSClanSettings
 			}
 			else if (compare == 0)
 			{
-				return new ClanMember(memberName, client.getClanRankFromRs(memberRanks[tag]));
+				return (ClanMember) client.runeliteClanMember(this, memberIndex);
 			}
 			else
 			{

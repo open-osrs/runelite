@@ -8,7 +8,7 @@
    if_icmpeq              LABEL4
    jump                   LABEL9
 LABEL4:
-   get_varc_int           207
+   get_varc_int           953
    iconst                 -1
    if_icmpeq              LABEL8
    jump                   LABEL9
@@ -30,15 +30,15 @@ LABEL9:
    iload                  0
    iconst                 1
    if_icmpeq              LABEL25
-   jump                   LABEL81
+   jump                   LABEL93
 LABEL25:
-   get_varc_int           207
+   get_varc_int           953
    iconst                 -1
    if_icmpne              LABEL29
-   jump                   LABEL80
+   jump                   LABEL92
 LABEL29:
-   get_varc_int           207
-   iconst                 269500481
+   get_varc_int           960
+   iconst                 -10
    if_icmpeq              LABEL33
    jump                   LABEL39
 LABEL33:
@@ -47,196 +47,208 @@ LABEL33:
    iload                  8
    iload                  9
    invoke                 997
-   jump                   LABEL65
+   jump                   LABEL63
 LABEL39:
    iload                  35
    iconst                 105
    iconst                 83
    iconst                 681
-   get_varc_int           207
-   coordx
-   enum
-   set_array_int
+   get_varc_int           953
+   enum                  
+   set_array_int         
    iload                  35
-   get_varc_int           207
-   coordy
+   get_varc_int           960
    set_array_int          1
    iload                  35
-   get_array_int
+   get_array_int         
    iconst                 -1
-   if_icmpne              LABEL56
-   jump                   LABEL65
-LABEL56:
+   if_icmpne              LABEL54
+   jump                   LABEL63
+LABEL54:
    iload                  35
    get_array_int          1
    iconst                 0
-   if_icmpgt              LABEL61
-   jump                   LABEL65
-LABEL61:
+   if_icmpgt              LABEL59
+   jump                   LABEL63
+LABEL59:
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL65:
-   get_varc_int           208
-   get_varc_int           209
-   get_varc_int           210
-   get_varc_int           211
-   get_varc_int           212
-   get_varc_int           213
+LABEL63:
+   get_varc_int           954
+   get_varc_int           955
+   get_varc_int           956
+   get_varc_int           957
+   get_varc_int           958
+   get_varc_int           959
    iconst                 -1
-   set_varc_int           213
-   set_varc_int           212
-   set_varc_int           211
-   set_varc_int           210
-   set_varc_int           209
-   set_varc_int           208
-   set_varc_int           207
+   set_varc_int           959
+   set_varc_int           958
+   set_varc_int           957
+   set_varc_int           956
+   set_varc_int           955
+   set_varc_int           954
+   set_varc_int           953
+   get_varc_int           961
+   get_varc_int           962
+   get_varc_int           963
+   get_varc_int           964
+   get_varc_int           965
+   get_varc_int           966
+   iconst                 -1
+   set_varc_int           966
+   set_varc_int           965
+   set_varc_int           964
+   set_varc_int           963
+   set_varc_int           962
+   set_varc_int           961
+   set_varc_int           960
    jump                   LABEL25
-LABEL80:
-   jump                   LABEL518
-LABEL81:
+LABEL92:
+   jump                   LABEL530
+LABEL93:
    sconst                 "newXpDrop"
    runelite_callback
    iconst                 10
-   stat_xp
+   stat_xp               
    iload                  25
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL90
-   jump                   LABEL100
-LABEL90:
+   if_icmpgt              LABEL102
+   jump                   LABEL112
+LABEL102:
    iload                  35
    iconst                 10
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL100:
+LABEL112:
    iconst                 0
-   stat_xp
+   stat_xp               
    iload                  11
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL109
-   jump                   LABEL119
-LABEL109:
+   if_icmpgt              LABEL121
+   jump                   LABEL131
+LABEL121:
    iload                  35
    iconst                 0
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL119:
+LABEL131:
    iconst                 2
-   stat_xp
+   stat_xp               
    iload                  12
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL128
-   jump                   LABEL138
-LABEL128:
+   if_icmpgt              LABEL140
+   jump                   LABEL150
+LABEL140:
    iload                  35
    iconst                 2
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL138:
+LABEL150:
    iconst                 4
-   stat_xp
+   stat_xp               
    iload                  13
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL147
-   jump                   LABEL157
-LABEL147:
+   if_icmpgt              LABEL159
+   jump                   LABEL169
+LABEL159:
    iload                  35
    iconst                 4
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL157:
+LABEL169:
    iconst                 6
-   stat_xp
+   stat_xp               
    iload                  14
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL166
-   jump                   LABEL176
-LABEL166:
+   if_icmpgt              LABEL178
+   jump                   LABEL188
+LABEL178:
    iload                  35
    iconst                 6
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL176:
+LABEL188:
    iconst                 1
-   stat_xp
+   stat_xp               
    iload                  15
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL185
-   jump                   LABEL195
-LABEL185:
+   if_icmpgt              LABEL197
+   jump                   LABEL207
+LABEL197:
    iload                  35
    iconst                 1
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL195:
+LABEL207:
    iconst                 3
-   stat_xp
+   stat_xp               
    iload                  16
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
    if_icmpgt              HP_XP_GAINED
-   jump                   LABEL214
+   jump                   LABEL226
 HP_XP_GAINED:
    iload                  35
    iconst                 3
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    sconst                 "hpXpGained"
@@ -244,345 +256,345 @@ HP_XP_GAINED:
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL214:
+LABEL226:
    iconst                 5
-   stat_xp
+   stat_xp               
    iload                  17
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL223
-   jump                   LABEL233
-LABEL223:
+   if_icmpgt              LABEL235
+   jump                   LABEL245
+LABEL235:
    iload                  35
    iconst                 5
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL233:
+LABEL245:
    iconst                 16
-   stat_xp
+   stat_xp               
    iload                  18
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL242
-   jump                   LABEL252
-LABEL242:
+   if_icmpgt              LABEL254
+   jump                   LABEL264
+LABEL254:
    iload                  35
    iconst                 16
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL252:
+LABEL264:
    iconst                 15
-   stat_xp
+   stat_xp               
    iload                  19
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL261
-   jump                   LABEL271
-LABEL261:
+   if_icmpgt              LABEL273
+   jump                   LABEL283
+LABEL273:
    iload                  35
    iconst                 15
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL271:
+LABEL283:
    iconst                 17
-   stat_xp
+   stat_xp               
    iload                  20
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL280
-   jump                   LABEL290
-LABEL280:
+   if_icmpgt              LABEL292
+   jump                   LABEL302
+LABEL292:
    iload                  35
    iconst                 17
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL290:
+LABEL302:
    iconst                 12
-   stat_xp
+   stat_xp               
    iload                  21
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL299
-   jump                   LABEL309
-LABEL299:
+   if_icmpgt              LABEL311
+   jump                   LABEL321
+LABEL311:
    iload                  35
    iconst                 12
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL309:
+LABEL321:
    iconst                 20
-   stat_xp
+   stat_xp               
    iload                  22
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL318
-   jump                   LABEL328
-LABEL318:
+   if_icmpgt              LABEL330
+   jump                   LABEL340
+LABEL330:
    iload                  35
    iconst                 20
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL328:
+LABEL340:
    iconst                 14
-   stat_xp
+   stat_xp               
    iload                  23
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL337
-   jump                   LABEL347
-LABEL337:
+   if_icmpgt              LABEL349
+   jump                   LABEL359
+LABEL349:
    iload                  35
    iconst                 14
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL347:
+LABEL359:
    iconst                 13
-   stat_xp
+   stat_xp               
    iload                  24
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL356
-   jump                   LABEL366
-LABEL356:
+   if_icmpgt              LABEL368
+   jump                   LABEL378
+LABEL368:
    iload                  35
    iconst                 13
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL366:
+LABEL378:
    iconst                 7
-   stat_xp
+   stat_xp               
    iload                  26
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL375
-   jump                   LABEL385
-LABEL375:
+   if_icmpgt              LABEL387
+   jump                   LABEL397
+LABEL387:
    iload                  35
    iconst                 7
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL385:
+LABEL397:
    iconst                 11
-   stat_xp
+   stat_xp               
    iload                  27
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL394
-   jump                   LABEL404
-LABEL394:
+   if_icmpgt              LABEL406
+   jump                   LABEL416
+LABEL406:
    iload                  35
    iconst                 11
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL404:
+LABEL416:
    iconst                 8
-   stat_xp
+   stat_xp               
    iload                  28
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL413
-   jump                   LABEL423
-LABEL413:
+   if_icmpgt              LABEL425
+   jump                   LABEL435
+LABEL425:
    iload                  35
    iconst                 8
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL423:
+LABEL435:
    iconst                 9
-   stat_xp
+   stat_xp               
    iload                  29
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL432
-   jump                   LABEL442
-LABEL432:
+   if_icmpgt              LABEL444
+   jump                   LABEL454
+LABEL444:
    iload                  35
    iconst                 9
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL442:
+LABEL454:
    iconst                 18
-   stat_xp
+   stat_xp               
    iload                  30
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL451
-   jump                   LABEL461
-LABEL451:
+   if_icmpgt              LABEL463
+   jump                   LABEL473
+LABEL463:
    iload                  35
    iconst                 18
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL461:
+LABEL473:
    iconst                 19
-   stat_xp
+   stat_xp               
    iload                  31
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL470
-   jump                   LABEL480
-LABEL470:
+   if_icmpgt              LABEL482
+   jump                   LABEL492
+LABEL482:
    iload                  35
    iconst                 19
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL480:
+LABEL492:
    iconst                 22
-   stat_xp
+   stat_xp               
    iload                  32
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL489
-   jump                   LABEL499
-LABEL489:
+   if_icmpgt              LABEL501
+   jump                   LABEL511
+LABEL501:
    iload                  35
    iconst                 22
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL499:
+LABEL511:
    iconst                 21
-   stat_xp
+   stat_xp               
    iload                  33
-   sub
+   sub                   
    istore                 36
    iload                  36
    iconst                 0
-   if_icmpgt              LABEL508
-   jump                   LABEL518
-LABEL508:
+   if_icmpgt              LABEL520
+   jump                   LABEL530
+LABEL520:
    iload                  35
    iconst                 21
-   set_array_int
+   set_array_int         
    iload                  35
    iload                  36
    set_array_int          1
    iload                  35
    iconst                 1
-   add
+   add                   
    istore                 35
-LABEL518:
+LABEL530:
    iconst                 0
    istore                 37
    iconst                 0
@@ -609,221 +621,221 @@ LABEL518:
    sstore                 0
    iload                  35
    iconst                 0
-   if_icmpgt              LABEL546
-   jump                   LABEL789
-LABEL546:
+   if_icmpgt              LABEL558
+   jump                   LABEL801
+LABEL558:
    iload                  16
    iconst                 0
-   if_icmpgt              LABEL550
-   jump                   LABEL789
-LABEL550:
-   clientclock
+   if_icmpgt              LABEL562
+   jump                   LABEL801
+LABEL562:
+   clientclock           
    get_varc_int           76
-   sub
+   sub                   
    iconst                 10
-   if_icmpgt              LABEL556
-   jump                   LABEL789
-LABEL556:
+   if_icmpgt              LABEL568
+   jump                   LABEL801
+LABEL568:
    get_varbit             4693
    iconst                 1
-   if_icmpeq              LABEL560
-   jump                   LABEL571
-LABEL560:
+   if_icmpeq              LABEL572
+   jump                   LABEL583
+LABEL572:
    invoke                 1972
    iconst                 0
-   if_icmpeq              LABEL564
-   jump                   LABEL571
-LABEL564:
+   if_icmpeq              LABEL576
+   jump                   LABEL583
+LABEL576:
    iconst                 495
    iconst                 495
    iconst                 25
    istore                 41
    istore                 40
    istore                 39
-   jump                   LABEL585
-LABEL571:
+   jump                   LABEL597
+LABEL583:
    get_varbit             4693
    iconst                 2
-   if_icmpeq              LABEL575
-   jump                   LABEL585
-LABEL575:
+   if_icmpeq              LABEL587
+   jump                   LABEL597
+LABEL587:
    invoke                 1972
    iconst                 0
-   if_icmpeq              LABEL579
-   jump                   LABEL585
-LABEL579:
+   if_icmpeq              LABEL591
+   jump                   LABEL597
+LABEL591:
    iconst                 496
    iconst                 496
    iconst                 25
    istore                 41
    istore                 40
    istore                 39
-LABEL585:
+LABEL597:
    iload                  8
-   if_getheight
+   if_getheight          
    istore                 42
    iload                  42
    iconst                 100
-   if_icmplt              LABEL592
-   jump                   LABEL594
-LABEL592:
+   if_icmplt              LABEL604
+   jump                   LABEL606
+LABEL604:
    iconst                 100
    istore                 42
-LABEL594:
+LABEL606:
    iload                  41
    iconst                 105
    iconst                 105
    iconst                 1171
    get_varbit             4722
-   enum
-   multiply
+   enum                  
+   multiply              
    iload                  42
-   div
+   div                   
    iconst                 1
-   add
+   add                   
    istore                 43
-LABEL606:
-   iload                  37
-   iload                  35
-   if_icmplt              LABEL610
-   jump                   LABEL784
-LABEL610:
-   iload                  38
-   iconst                 0
-   if_icmpeq              LABEL614
-   jump                   LABEL623
-LABEL614:
-   iload                  0
-   iconst                 0
-   if_icmpeq              LABEL618
-   jump                   LABEL623
 LABEL618:
    iload                  37
-   get_array_int
+   iload                  35
+   if_icmplt              LABEL622
+   jump                   LABEL796
+LABEL622:
+   iload                  38
+   iconst                 0
+   if_icmpeq              LABEL626
+   jump                   LABEL635
+LABEL626:
+   iload                  0
+   iconst                 0
+   if_icmpeq              LABEL630
+   jump                   LABEL635
+LABEL630:
+   iload                  37
+   get_array_int         
    set_varc_int           72
    iconst                 1
    istore                 38
-LABEL623:
+LABEL635:
    get_varc_int           71
    iconst                 0
-   if_icmpgt              LABEL627
-   jump                   LABEL638
-LABEL627:
+   if_icmpgt              LABEL639
+   jump                   LABEL650
+LABEL639:
    get_varc_int           71
-   clientclock
+   clientclock           
    iload                  43
-   sub
-   if_icmpgt              LABEL633
-   jump                   LABEL638
-LABEL633:
+   sub                   
+   if_icmpgt              LABEL645
+   jump                   LABEL650
+LABEL645:
    get_varc_int           71
    iload                  43
-   add
+   add                   
    istore                 44
-   jump                   LABEL640
-LABEL638:
-   clientclock
+   jump                   LABEL652
+LABEL650:
+   clientclock           
    istore                 44
-LABEL640:
+LABEL652:
    iload                  44
-   clientclock
+   clientclock           
    iload                  43
    iload                  10
-   multiply
-   add
-   if_icmplt              LABEL648
-   jump                   LABEL781
-LABEL648:
+   multiply              
+   add                   
+   if_icmplt              LABEL660
+   jump                   LABEL793
+LABEL660:
    iconst                 105
    iconst                 73
    iconst                 1163
    get_varc_int           70
-   enum
+   enum                  
    istore                 47
    iconst                 0
    iload                  47
-   if_sethide
+   if_sethide            
    iload                  37
    get_array_int          1
    istore                 46
    iload                  47
    iconst                 5
    iconst                 1
-   cc_create
+   cc_create             
    iconst                 83
    iconst                 100
    iconst                 255
    iload                  37
-   get_array_int
-   enum
-   cc_setgraphic
+   get_array_int         
+   enum                  
+   cc_setgraphic         
    iconst                 0
    iconst                 0
    iconst                 0
    iconst                 5
-   cc_setposition
+   cc_setposition        
    iconst                 1
-   cc_sethide
+   cc_sethide            
    iconst                 1
    istore                 45
    iload                  37
    iconst                 1
-   add
+   add                   
    istore                 37
-LABEL684:
+LABEL696:
    get_varbit             4696
    iconst                 1
-   if_icmpeq              LABEL688
-   jump                   LABEL732
-LABEL688:
+   if_icmpeq              LABEL700
+   jump                   LABEL744
+LABEL700:
    iload                  37
    iload                  35
-   if_icmplt              LABEL692
-   jump                   LABEL732
-LABEL692:
+   if_icmplt              LABEL704
+   jump                   LABEL744
+LABEL704:
    iload                  45
    iconst                 5
-   if_icmplt              LABEL696
-   jump                   LABEL732
-LABEL696:
+   if_icmplt              LABEL708
+   jump                   LABEL744
+LABEL708:
    iload                  46
    iconst                 1000000
-   if_icmplt              LABEL700
-   jump                   LABEL732
-LABEL700:
+   if_icmplt              LABEL712
+   jump                   LABEL744
+LABEL712:
    iload                  46
    iload                  37
    get_array_int          1
-   add
+   add                   
    istore                 46
    iload                  45
    iconst                 1
-   add
+   add                   
    istore                 45
    iload                  47
    iconst                 5
    iload                  45
-   cc_create
+   cc_create             
    iconst                 83
    iconst                 100
    iconst                 255
    iload                  37
-   get_array_int
-   enum
-   cc_setgraphic
+   get_array_int         
+   enum                  
+   cc_setgraphic         
    iconst                 0
    iconst                 0
    iconst                 0
    iconst                 5
-   cc_setposition
+   cc_setposition        
    iconst                 1
-   cc_sethide
+   cc_sethide            
    iload                  37
    iconst                 1
-   add
+   add                   
    istore                 37
-   jump                   LABEL684
-LABEL732:
+   jump                   LABEL696
+LABEL744:
    iload                  46
    sconst                 ","
    invoke                 46
@@ -832,70 +844,70 @@ LABEL732:
    sstore                 0
    iload                  0
    iconst                 1
-   if_icmpeq              LABEL740
-   jump                   LABEL745
-LABEL740:
+   if_icmpeq              LABEL752
+   jump                   LABEL757
+LABEL752:
    sconst                 "<img=11>"
    sconst                 " "
    sload                  0
    join_string            3
    sstore                 0
-LABEL745:
+LABEL757:
    iload                  47
    iconst                 0
-   cc_find
+   cc_find               
    iconst                 1
-   if_icmpeq              LABEL751
-   jump                   LABEL766
-LABEL751:
+   if_icmpeq              LABEL763
+   jump                   LABEL778
+LABEL763:
    sload                  0
-   cc_settext
+   cc_settext            
    iconst                 0
    iconst                 0
    iconst                 0
    iconst                 5
-   cc_setposition
+   cc_setposition        
    iconst                 1
-   cc_sethide
+   cc_sethide            
    iload                  47
    iload                  41
    iload                  39
    iload                  40
    sload                  0
    invoke                 996
-LABEL766:
+LABEL778:
    iconst                 1005
    iload                  47
    iload                  44
    sconst                 "Ii"
    iload                  47
-   if_setontimer
+   if_setontimer         
    iload                  44
    set_varc_int           71
    get_varc_int           70
    iconst                 1
-   add
+   add                   
    iload                  10
-   mod
+   mod                   
    set_varc_int           70
-   jump                   LABEL783
-LABEL781:
+   jump                   LABEL795
+LABEL793:
    iload                  35
    istore                 37
-LABEL783:
-   jump                   LABEL606
-LABEL784:
+LABEL795:
+   jump                   LABEL618
+LABEL796:
    iload                  1
    iload                  3
    iload                  8
    iload                  9
    invoke                 997
-LABEL789:
+LABEL801:
    iload                  0
    iconst                 0
-   if_icmpeq              LABEL793
-   jump                   LABEL812
-LABEL793:
+   if_icmpeq              LABEL805
+   jump                   LABEL824
+LABEL805:
    iload                  3
    iload                  4
    iload                  5
@@ -915,5 +927,5 @@ LABEL793:
    iload                  9
    iload                  10
    invoke                 1003
-LABEL812:
+LABEL824:
    return                

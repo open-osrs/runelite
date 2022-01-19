@@ -44,6 +44,12 @@ public abstract class RSProjectileMixin implements RSProjectile
 	private static RSClient client;
 
 	@Inject
+	private int targetX;
+
+	@Inject
+	private int targetY;
+
+	@Inject
 	RSProjectileMixin()
 	{
 		final ProjectileSpawned projectileSpawned = new ProjectileSpawned();
@@ -90,6 +96,13 @@ public abstract class RSProjectileMixin implements RSProjectile
 		}
 	}
 
+	@Inject
+	@Override
+	public LocalPoint getTarget()
+	{
+		return new LocalPoint(this.targetX, this.targetY);
+	}
+
 	/**
 	 * Called when a projectile is set to move towards a point. For
 	 * projectiles that target the ground, like AoE projectiles from
@@ -104,6 +117,8 @@ public abstract class RSProjectileMixin implements RSProjectile
 	@MethodHook("setDestination")
 	public void projectileMoved(int targetX, int targetY, int targetZ, int cycle)
 	{
+		this.targetX = targetX;
+		this.targetY = targetY;
 		final LocalPoint position = new LocalPoint(targetX, targetY);
 		final ProjectileMoved projectileMoved = new ProjectileMoved();
 		projectileMoved.setProjectile(this);

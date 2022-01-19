@@ -99,7 +99,7 @@ import net.runelite.client.util.Text;
 @PluginDescriptor(
 	name = "Ground Items",
 	description = "Highlight ground items and/or show price information",
-	tags = {"grand", "exchange", "high", "alchemy", "prices", "highlight", "overlay"}
+	tags = {"grand", "exchange", "high", "alchemy", "prices", "highlight", "overlay", "lootbeam"}
 )
 public class GroundItemsPlugin extends Plugin
 {
@@ -115,8 +115,6 @@ public class GroundItemsPlugin extends Plugin
 	static final int MAX_QUANTITY = 65535;
 	// ItemID for coins
 	private static final int COINS = ItemID.COINS_995;
-
-	private static final String TELEGRAB_TEXT = ColorUtil.wrapWithColorTag("Telekinetic Grab", Color.GREEN) + ColorUtil.prependColorTag(" -> ", Color.WHITE);
 
 	@Getter(AccessLevel.PACKAGE)
 	@Setter(AccessLevel.PACKAGE)
@@ -481,14 +479,11 @@ public class GroundItemsPlugin extends Plugin
 	@Subscribe
 	public void onMenuEntryAdded(MenuEntryAdded event)
 	{
-		if (config.itemHighlightMode() == ItemHighlightMode.MENU || config.itemHighlightMode() == ItemHighlightMode.BOTH)
+		MenuAction type = MenuAction.of(event.getType());
+		if (type == MenuAction.GROUND_ITEM_FIRST_OPTION || type == MenuAction.GROUND_ITEM_SECOND_OPTION ||
+			type == MenuAction.GROUND_ITEM_THIRD_OPTION || type == MenuAction.GROUND_ITEM_FOURTH_OPTION ||
+			type == MenuAction.GROUND_ITEM_FIFTH_OPTION || type == MenuAction.SPELL_CAST_ON_GROUND_ITEM)
 		{
-			final boolean telegrabEntry = event.getOption().equals("Cast") && event.getTarget().startsWith(TELEGRAB_TEXT) && event.getType() == MenuAction.SPELL_CAST_ON_GROUND_ITEM.getId();
-			if (!(event.getOption().equals("Take") && event.getType() == MenuAction.GROUND_ITEM_THIRD_OPTION.getId()) && !telegrabEntry)
-			{
-				return;
-			}
-
 			final int itemId = event.getIdentifier();
 			final int sceneX = event.getActionParam0();
 			final int sceneY = event.getActionParam1();
@@ -507,39 +502,35 @@ public class GroundItemsPlugin extends Plugin
 			final Color color = getItemColor(highlighted, hidden);
 			final boolean canBeRecolored = highlighted != null || (hidden != null && config.recolorMenuHiddenItems());
 
-			if (color != null && canBeRecolored && !color.equals(config.defaultColor()))
+			if ((config.itemHighlightMode() == ItemHighlightMode.MENU || config.itemHighlightMode() == ItemHighlightMode.BOTH) &&
+				(color != null && canBeRecolored && !color.equals(config.defaultColor())))
 			{
 				final MenuHighlightMode mode = config.menuHighlightMode();
 
 				if (mode == BOTH || mode == OPTION)
 				{
-					final String optionText = telegrabEntry ? "Cast" : "Take";
-					lastEntry.setOption(ColorUtil.prependColorTag(optionText, color));
+					lastEntry.setOption(ColorUtil.prependColorTag(lastEntry.getOption(), color));
 				}
 
 				if (mode == BOTH || mode == NAME)
 				{
+					// <col=ff9040>Logs
+					// <col=00ff00>Telekinetic Grab</col><col=ffffff> -> <col=ff9040>Logs
 					String target = lastEntry.getTarget();
 
-					if (telegrabEntry)
-					{
-						target = target.substring(TELEGRAB_TEXT.length());
-					}
-
-					target = ColorUtil.prependColorTag(target.substring(target.indexOf('>') + 1), color);
-
-					if (telegrabEntry)
-					{
-						target = TELEGRAB_TEXT + target;
-					}
-
-					lastEntry.setTarget(target);
+					int i = target.lastIndexOf('>');
+					lastEntry.setTarget(target.substring(0, i - 11) + ColorUtil.colorTag(color) + target.substring(i + 1));
 				}
 			}
 
 			if (config.showMenuItemQuantities() && groundItem.isStackable() && quantity > 1)
 			{
 				lastEntry.setTarget(lastEntry.getTarget() + " (" + quantity + ")");
+			}
+
+			if (hidden != null && highlighted == null && config.deprioritizeHiddenItems())
+			{
+				lastEntry.setDeprioritized(true);
 			}
 		}
 	}
@@ -800,12 +791,13 @@ public class GroundItemsPlugin extends Plugin
 		Lootbeam lootbeam = lootbeams.get(worldPoint);
 		if (lootbeam == null)
 		{
-			lootbeam = new Lootbeam(client, clientThread, worldPoint, color);
+			lootbeam = new Lootbeam(client, clientThread, worldPoint, color, config.lootbeamStyle());
 			lootbeams.put(worldPoint, lootbeam);
 		}
 		else
 		{
 			lootbeam.setColor(color);
+			lootbeam.setStyle(config.lootbeamStyle());
 		}
 	}
 

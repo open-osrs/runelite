@@ -39,8 +39,10 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.runelite.api.Actor;
 import net.runelite.api.Animation;
 import net.runelite.api.ChatMessageType;
+import net.runelite.api.Deque;
 import net.runelite.api.EnumComposition;
 import net.runelite.api.FriendContainer;
 import net.runelite.api.GameState;
@@ -67,10 +69,10 @@ import static net.runelite.api.MenuAction.UNKNOWN;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.MessageNode;
 import net.runelite.api.Model;
+import net.runelite.api.ModelData;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
 import net.runelite.api.NameableContainer;
-import net.runelite.api.Node;
 import net.runelite.api.NodeCache;
 import net.runelite.api.ObjectComposition;
 import net.runelite.api.Perspective;
@@ -144,6 +146,7 @@ import net.runelite.rs.api.RSArchive;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClanChannel;
 import net.runelite.rs.api.RSClient;
+import net.runelite.rs.api.RSDualNode;
 import net.runelite.rs.api.RSEnumComposition;
 import net.runelite.rs.api.RSEvictingDualNodeHashTable;
 import net.runelite.rs.api.RSFriendSystem;
@@ -158,6 +161,8 @@ import net.runelite.rs.api.RSNodeDeque;
 import net.runelite.rs.api.RSNodeHashTable;
 import net.runelite.rs.api.RSPacketBuffer;
 import net.runelite.rs.api.RSPlayer;
+import net.runelite.rs.api.RSProjectile;
+import net.runelite.rs.api.RSRuneLiteClanMember;
 import net.runelite.rs.api.RSRuneLiteMenuEntry;
 import net.runelite.rs.api.RSScene;
 import net.runelite.rs.api.RSScriptEvent;
@@ -288,6 +293,9 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	public long delayNanoTime;
+
+	@Inject
+	public RSEvictingDualNodeHashTable tmpModelDataCache = newEvictingDualNodeHashTable(16);
 
 	@Inject
 	private List<String> outdatedScripts = new ArrayList<>();
@@ -1046,34 +1054,36 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
-	public List<Projectile> getProjectiles()
+	public Projectile createProjectile(int id, int plane, int startX, int startY, int startZ, int startCycle, int endCycle, int slope, int startHeight, int endHeight, Actor target, int targetX, int targetY)
 	{
-		List<Projectile> projectiles = new ArrayList<Projectile>();
-		RSNodeDeque projectileDeque = this.getProjectilesDeque();
-		Node head = projectileDeque.getSentinel();
-
-		for (Node node = head.getNext(); node != head; node = node.getNext())
+		int targetIndex = 0;
+		if (target instanceof NPC)
 		{
-			projectiles.add((Projectile) node);
+			targetIndex = ((NPC) target).getIndex() + 1;
+		}
+		else if (target instanceof Player)
+		{
+			targetIndex = -(((Player) target).getPlayerId() + 1);
 		}
 
-		return projectiles;
+		RSProjectile projectile = client.newProjectile(id, plane, startX, startY, startZ, startCycle, endCycle, slope, startHeight, targetIndex, endHeight);
+		projectile.setDestination(targetX, targetY, Perspective.getTileHeight(client, new LocalPoint(targetX, targetY), client.getPlane()), startCycle + client.getGameCycle());
+
+		return projectile;
 	}
 
 	@Inject
 	@Override
-	public List<GraphicsObject> getGraphicsObjects()
+	public Deque<Projectile> getProjectiles()
 	{
-		List<GraphicsObject> graphicsObjects = new ArrayList<GraphicsObject>();
-		RSNodeDeque graphicsObjectDeque = this.getGraphicsObjectDeque();
-		Node head = graphicsObjectDeque.getSentinel();
+		return this.getProjectilesDeque();
+	}
 
-		for (Node node = head.getNext(); node != head; node = node.getNext())
-		{
-			graphicsObjects.add((GraphicsObject) node);
-		}
-
-		return graphicsObjects;
+	@Inject
+	@Override
+	public Deque<GraphicsObject> getGraphicsObjects()
+	{
+		return this.getGraphicsObjectDeque();
 	}
 
 	@Inject
@@ -1446,6 +1456,12 @@ public abstract class RSClientMixin implements RSClient
 
 			oldIsResized = isResized;
 		}
+	}
+
+	@Inject
+	public static RSRuneLiteClanMember runeLiteClanMember()
+	{
+		throw new NotImplementedException();
 	}
 
 	@FieldHook("friendsChat")
@@ -2600,7 +2616,7 @@ public abstract class RSClientMixin implements RSClient
 		{
 			for (int i = 0; i < colorToFind.length; ++i)
 			{
-				modeldata.recolor(colorToFind[i], colorToReplace[i]);
+				modeldata.rs$recolor(colorToFind[i], colorToReplace[i]);
 			}
 		}
 
@@ -2779,6 +2795,46 @@ public abstract class RSClientMixin implements RSClient
 		check("Widget_cachedFonts", client.getFontsCache());
 		check("Widget_cachedSpriteMasks", client.getSpriteMasksCache());
 		check("WorldMapElement_cachedSprites", client.getSpritesCache());
+	}
+
+	@Inject
+	@Override
+	public RSModelData mergeModels(ModelData[] var0, int var1)
+	{
+		return newModelData(var0, var1);
+	}
+
+	@Inject
+	@Override
+	public RSModelData mergeModels(ModelData... var0)
+	{
+		return newModelData(var0, var0.length);
+	}
+
+	@Inject
+	public IndexDataBase getIndex(int id)
+	{
+		return RSClientMixin.archives[id];
+	}
+
+	@Inject
+	@Override
+	public RSModelData loadModelData(int var0)
+	{
+		RSModelData modelData = (RSModelData) this.tmpModelDataCache.get(var0);
+
+		if (modelData == null)
+		{
+			modelData = getModelData(RSClientMixin.archives[7], var0, 0);
+			if (modelData == null)
+			{
+				return null;
+			}
+
+			this.tmpModelDataCache.put((RSDualNode) modelData, (long) var0);
+		}
+
+		return modelData.newModelData(modelData, true, true, true, true);
 	}
 }
 

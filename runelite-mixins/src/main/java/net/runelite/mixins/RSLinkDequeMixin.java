@@ -34,6 +34,23 @@ public abstract class RSLinkDequeMixin implements RSLinkDeque
 {
 	@Inject
 	@Override
+	public void addLast(Object o)
+	{
+		RSLink var1 = (RSLink) o;
+
+		if (var1.getNext() != null)
+		{
+			var1.remove();
+		}
+
+		var1.setNext(this.getSentinel());
+		var1.setPrevious(this.getSentinel().getPrevious());
+		var1.getNext().setPrevious(var1);
+		var1.getPrevious().setNext(var1);
+	}
+
+	@Inject
+	@Override
 	public void clear()
 	{
 		while (true)

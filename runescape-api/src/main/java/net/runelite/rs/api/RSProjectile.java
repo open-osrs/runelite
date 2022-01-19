@@ -62,11 +62,15 @@ public interface RSProjectile extends RSRenderable, Projectile
 
 	@Import("cycleStart")
 	@Override
-	int getStartMovementCycle();
+	int getStartCycle();
 
 	@Import("cycleEnd")
 	@Override
 	int getEndCycle();
+
+	@Import("cycleEnd")
+	@Override
+	void setEndCycle(int cycle);
 
 	@Import("slope")
 	@Override
@@ -103,4 +107,7 @@ public interface RSProjectile extends RSRenderable, Projectile
 	@Import("speedZ")
 	@Override
 	double getVelocityZ();
+
+	@Import("setDestination")
+	void setDestination(int targetX, int targetY, int targetZ, int cycle);
 }

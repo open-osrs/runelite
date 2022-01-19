@@ -29,6 +29,7 @@ package net.runelite.api;
  * <p>
  * Note: This class is not complete and may be missing mapped IDs.
  */
+@Deprecated
 public final class ProjectileID
 {
 	public static final int CANNONBALL = 53;
