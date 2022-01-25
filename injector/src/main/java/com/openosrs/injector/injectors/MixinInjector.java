@@ -217,11 +217,19 @@ public class MixinInjector extends AbstractInjector
 						}
 					}
 
-					targetClass.addField(copy);
-
-					if (injectedFields.containsKey(field.getName()) && !ASSERTION_FIELD.equals(field.getName()))
+					if (targetClass.findField(field.getName(), field.getType()) != null && !ASSERTION_FIELD.equals(field.getName()))
 					{
 						throw new InjectException("Duplicate field: " + field.getName());
+					}
+
+					targetClass.addField(copy);
+
+					// We only need to save static fields in injected fields, cause only static fields can be shadowed
+					if (!field.isStatic())
+						continue;
+					if (injectedFields.containsKey(field.getName()) && !ASSERTION_FIELD.equals(field.getName()))
+					{
+						throw new InjectException("Duplicate static field: " + field.getName());
 					}
 
 					injectedFields.put(field.getName(), copy);
