@@ -25,23 +25,17 @@
 package com.openosrs.injector.injectors.raw;
 
 import com.google.common.io.ByteStreams;
-import com.openosrs.injector.InjectUtil;
 import com.openosrs.injector.TestInjection;
 import com.openosrs.injector.injection.InjectData;
 import com.openosrs.injector.rsapi.RSApi;
-import javax.swing.plaf.TabbedPaneUI;
-import net.runelite.asm.Annotation;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
-import net.runelite.asm.Named;
 import net.runelite.asm.Type;
-import net.runelite.asm.attributes.Annotated;
-import net.runelite.deob.DeobAnnotations;
-import net.runelite.deob.util.JarUtil;
-import org.junit.Test;
 import static net.runelite.deob.DeobAnnotations.OBFUSCATED_NAME;
 import static net.runelite.deob.DeobAnnotations.OBFUSCATED_SIGNATURE;
+import net.runelite.deob.util.JarUtil;
+import org.junit.Test;
 
 public class DrawAfterWidgetsTest
 {
