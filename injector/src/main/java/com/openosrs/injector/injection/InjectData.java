@@ -13,7 +13,9 @@ import com.openosrs.injector.rsapi.RSApi;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
 import net.runelite.asm.Field;
@@ -24,6 +26,8 @@ import net.runelite.asm.signature.Signature;
 /**
  * Abstract class meant as the interface of {@link com.openosrs.injector.Injector injection} for injectors
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class InjectData
 {
 	public static final String HOOKS = "net/runelite/client/callback/Hooks";
