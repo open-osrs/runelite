@@ -116,7 +116,6 @@ public class MixinInjector extends AbstractInjector
 
 		for (Map.Entry<Provider<ClassFile>, List<ClassFile>> entry : mixinTargets.entrySet())
 		{
-			System.out.println(entry.getKey().get().getName());
 			injectFields(entry.getKey(), entry.getValue());
 		}
 
@@ -149,7 +148,6 @@ public class MixinInjector extends AbstractInjector
 		{
 			for (ClassFile mixinClass : inject.getMixins())
 			{
-				System.out.println(mixinClass.getName());
 				final List<ClassFile> ret = getMixins(mixinClass);
 				builder.put(
 					(ret.size() > 1 ? mixinProvider(mixinClass) : () -> mixinClass),
