@@ -24,7 +24,6 @@
  */
 package com.openosrs.injector.injectors;
 
-import com.google.common.io.ByteStreams;
 import com.openosrs.injector.TestInjection;
 import com.openosrs.injector.rsapi.RSApi;
 import java.io.IOException;
@@ -50,14 +49,12 @@ import net.runelite.asm.attributes.code.instructions.InvokeVirtual;
 import net.runelite.asm.attributes.code.instructions.LDC;
 import net.runelite.asm.signature.Signature;
 import net.runelite.asm.visitors.ClassFileVisitor;
-import net.runelite.deob.util.JarUtil;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
+import static org.junit.Assert.*;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_STATIC;
 
@@ -80,6 +77,25 @@ class DeobTarget
 	}
 }
 
+@ObfuscatedName("com/openosrs/injector/injectors/VanillaTarget2")
+class DeobTarget2
+{
+	@ObfuscatedName("ob_foo5")
+	@ObfuscatedGetter(intValue = 1157381415)
+	static int foo5;
+
+	@ObfuscatedName("ob_foo6")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "123"
+	)
+	private void foo6()
+	{
+		// De-obfuscated foo6
+		System.out.println("foo6");
+	}
+}
+
 class VanillaTarget
 {
 	static int ob_foo4;
@@ -92,6 +108,21 @@ class VanillaTarget
 			return;
 		}
 		System.out.println("foo3");
+	}
+}
+
+class VanillaTarget2
+{
+	static int ob_foo5;
+
+	private void ob_foo6(int garbageValue)
+	{
+		// Obfuscated foo6
+		if (garbageValue != 123)
+		{
+			return;
+		}
+		System.out.println("foo6");
 	}
 }
 
@@ -130,26 +161,36 @@ abstract class Source2
 	}
 }
 
+// Test injecting a field into multiple vanilla classes (@Mixins)
+abstract class Source3
+{
+	@net.runelite.api.mixins.Inject
+	private boolean injectMe;
+}
+
 public class MixinInjectorTest
 {
 	@Test
 	public void testInject() throws Exception
 	{
-		InputStream deobIn = getClass().getResourceAsStream("DeobTarget.class");
-		ClassFile deobTarget = JarUtil.loadClass(ByteStreams.toByteArray(deobIn));
+		ClassFile deobTarget = loadClass(DeobTarget.class);
+		ClassFile deobTarget2 = loadClass(DeobTarget2.class);
 
 		ClassGroup deob = new ClassGroup();
 		deob.addClass(deobTarget);
+		deob.addClass(deobTarget2);
 
-		InputStream vanillaIn = getClass().getResourceAsStream("VanillaTarget.class");
-		ClassFile vanillaTarget = JarUtil.loadClass(ByteStreams.toByteArray(vanillaIn));
+		ClassFile vanillaTarget = loadClass(VanillaTarget.class);
+		ClassFile vanillaTarget2 = loadClass(VanillaTarget2.class);
 
 		ClassGroup vanilla = new ClassGroup();
 		vanilla.addClass(vanillaTarget);
+		vanilla.addClass(vanillaTarget2);
 
 		Map<Provider<ClassFile>, List<ClassFile>> mixinClasses = new HashMap<>();
 		mixinClasses.put(() -> loadClass(Source.class), Collections.singletonList(vanillaTarget));
 		mixinClasses.put(() -> loadClass(Source2.class), Collections.singletonList(vanillaTarget));
+		mixinClasses.put(() -> loadClass(Source3.class), List.of(vanillaTarget, vanillaTarget2));
 
 		TestInjection inject = new TestInjection(vanilla, deob, new ClassGroup(), new RSApi());
 		inject.initToVanilla();
@@ -276,6 +317,8 @@ public class MixinInjectorTest
 				return true;
 			})
 			.count(), 1);
+
+		assertTrue(fieldExists(List.of(vanillaTarget, vanillaTarget2), "injectMe"));
 	}
 
 	private boolean getStaticHasGetter(Method ob_foo3, String gottenField)
@@ -290,6 +333,15 @@ public class MixinInjectorTest
 			(i = it.next()) instanceof LDC &&
 			((LDC) i).getConstantAsInt() == 1157381415 &&
 			it.next() instanceof IMul;
+	}
+
+	private boolean fieldExists(List<ClassFile> classes, String name)
+	{
+		for (ClassFile c : classes)
+			if (c.findField(name) == null)
+				return false;
+
+		return true;
 	}
 
 	private static ClassFile loadClass(Class<?> clazz)
