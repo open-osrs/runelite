@@ -1,5 +1,8 @@
 package net.runelite.api;
 
+import net.runelite.api.widgets.WidgetModalMode;
+import org.intellij.lang.annotations.MagicConstant;
+
 /**
  * Represents a widget as an iterable node.
  */
@@ -16,5 +19,6 @@ public interface WidgetNode extends Node
 	/**
 	 * @see net.runelite.api.widgets.WidgetModalMode
 	 */
+	@MagicConstant(valuesFromClass = WidgetModalMode.class)
 	int getModalMode();
 }

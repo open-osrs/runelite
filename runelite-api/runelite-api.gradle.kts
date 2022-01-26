@@ -36,6 +36,7 @@ dependencies {
     implementation(group = "com.google.guava", name = "guava", version = "30.1.1-jre")
     implementation(group = "org.apache.commons", name = "commons-text", version = "1.9")
     implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.32")
+    implementation(group = "org.jetbrains", name = "annotations", version = "22.0.0")
 
     testImplementation(group = "junit", name = "junit", version = "4.12")
 }
