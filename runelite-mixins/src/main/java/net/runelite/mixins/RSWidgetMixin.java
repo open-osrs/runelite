@@ -24,6 +24,10 @@
  */
 package net.runelite.mixins;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import net.runelite.api.HashTable;
 import net.runelite.api.Node;
 import net.runelite.api.Point;
@@ -37,6 +41,8 @@ import net.runelite.api.mixins.Mixin;
 import net.runelite.api.mixins.Replace;
 import net.runelite.api.mixins.Shadow;
 import net.runelite.api.widgets.Widget;
+import static net.runelite.api.widgets.WidgetInfo.TO_CHILD;
+import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSModel;
@@ -45,12 +51,6 @@ import net.runelite.rs.api.RSNodeHashTable;
 import net.runelite.rs.api.RSPlayerComposition;
 import net.runelite.rs.api.RSSequenceDefinition;
 import net.runelite.rs.api.RSWidget;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import static net.runelite.api.widgets.WidgetInfo.TO_CHILD;
-import static net.runelite.api.widgets.WidgetInfo.TO_GROUP;
 
 @Mixin(RSWidget.class)
 public abstract class RSWidgetMixin implements RSWidget
@@ -240,9 +240,11 @@ public abstract class RSWidgetMixin implements RSWidget
 
 	@Inject
 	@Override
-	public void setName(String name)
+	public Widget setName(String name)
 	{
 		setRSName(name.replace(' ', '\u00A0'));
+
+		return this;
 	}
 
 	@Inject
@@ -595,5 +597,347 @@ public abstract class RSWidgetMixin implements RSWidget
 		}
 
 		return new Point(dragOffsetX, dragOffsetY);
+	}
+
+	@Inject
+	@Override
+	public Widget setClickMask(int mask)
+	{
+		this.rs$setClickMask(mask);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setModelId(int modelId)
+	{
+		this.rs$setModelId(modelId);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setModelType(int modelType)
+	{
+		this.rs$setModelType(modelType);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setAnimationId(int animationId)
+	{
+		this.rs$setAnimationId(animationId);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setText(String text)
+	{
+		this.rs$setText(text);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setTextColor(int textColor)
+	{
+		this.rs$setTextColor(textColor);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setOpacity(int opacity)
+	{
+		this.rs$setOpacity(opacity);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setHidden(boolean hidden)
+	{
+		this.rs$setHidden(hidden);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setRotationX(int rotationX)
+	{
+		this.rs$setRotationX(rotationX);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setRotationY(int rotationY)
+	{
+		this.rs$setRotationY(rotationY);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setRotationZ(int rotationZ)
+	{
+		this.rs$setRotationZ(rotationZ);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setModelZoom(int modelZoom)
+	{
+		this.rs$setModelZoom(modelZoom);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setContentType(int contentType)
+	{
+		this.rs$setContentType(contentType);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setScrollX(int scrollX)
+	{
+		this.rs$setScrollX(scrollX);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setScrollY(int scrollY)
+	{
+		this.rs$setScrollY(scrollY);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setScrollWidth(int width)
+	{
+		this.rs$setScrollWidth(width);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setScrollHeight(int height)
+	{
+		this.rs$setScrollHeight(height);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setSpriteId(int spriteId)
+	{
+		this.rs$setSpriteId(spriteId);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setSpriteTiling(boolean tiling)
+	{
+		this.rs$setSpriteTiling(tiling);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setItemId(int itemId)
+	{
+		this.rs$setItemId(itemId);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setItemQuantity(int quantity)
+	{
+		this.rs$setItemQuantity(quantity);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setOriginalX(int originalX)
+	{
+		this.rs$setOriginalX(originalX);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setOriginalY(int originalY)
+	{
+		this.rs$setOriginalY(originalY);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setOriginalHeight(int originalHeight)
+	{
+		this.rs$setOriginalHeight(originalHeight);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setOriginalWidth(int originalWidth)
+	{
+		this.rs$setOriginalWidth(originalWidth);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setHasListener(boolean hasListener)
+	{
+		this.rs$setHasListener(hasListener);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setFontId(int id)
+	{
+		this.rs$setFontId(id);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setTextShadowed(boolean shadowed)
+	{
+		this.rs$setTextShadowed(shadowed);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setItemQuantityMode(int itemQuantityMode)
+	{
+		this.rs$setItemQuantityMode(itemQuantityMode);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setXPositionMode(int xpm)
+	{
+		this.rs$setXPositionMode(xpm);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setYPositionMode(int ypm)
+	{
+		this.rs$setYPositionMode(ypm);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setXTextAlignment(int xta)
+	{
+		this.rs$setXTextAlignment(xta);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setYTextAlignment(int yta)
+	{
+		this.rs$setYTextAlignment(yta);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setWidthMode(int widthMode)
+	{
+		this.rs$setWidthMode(widthMode);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setHeightMode(int heightMode)
+	{
+		this.rs$setHeightMode(heightMode);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setFilled(boolean filled)
+	{
+		this.rs$setFilled(filled);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setDragParent(Widget dragParent)
+	{
+		this.rs$setDragParent(dragParent);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setLineHeight(int height)
+	{
+		this.rs$setLineHeight(height);
+
+		return this;
 	}
 }
