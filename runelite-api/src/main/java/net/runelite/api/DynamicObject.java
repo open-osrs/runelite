@@ -2,6 +2,12 @@ package net.runelite.api;
 
 public interface DynamicObject extends Renderable
 {
+	/**
+	 * Get the animation applied to the object
+	 * @return
+	 */
+	Animation getAnimation();
+	
 	int getAnimationID();
 
 	/**

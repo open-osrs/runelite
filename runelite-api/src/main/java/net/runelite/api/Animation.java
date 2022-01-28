@@ -56,4 +56,11 @@ public interface Animation
 	 * whether this Animation frame has any alpha/transparency animation.
 	 */
 	boolean isShowing();
+
+	/**
+	 * Get the id for this animation
+	 * @see AnimationID
+	 * @return
+	 */
+	int getId();
 }
